@@ -4,6 +4,7 @@ import org.collectionspace.xxu.js.api.JavascriptContext;
 import org.collectionspace.xxu.js.api.JavascriptException;
 import org.collectionspace.xxu.js.api.JavascriptExecution;
 import org.collectionspace.xxu.js.api.JavascriptLibrary;
+import org.collectionspace.xxu.js.api.JavascriptMessages;
 import org.collectionspace.xxu.js.api.JavascriptScript;
 import org.mozilla.javascript.Context;
 import org.mozilla.javascript.Scriptable;
@@ -13,7 +14,8 @@ public class RhinoContext implements JavascriptContext {
 	private RhinoSystem system;
 	private Scriptable scope;
 	private RhinoRegistry registry;
-	
+	private JavascriptMessages messages;
+		
 	RhinoContext(RhinoSystem system) {
 		this.system=system;
 		registry=new RhinoRegistry(this);
@@ -22,6 +24,23 @@ public class RhinoContext implements JavascriptContext {
 		scope.setPrototype(top);
 		scope.setParentScope(null);
 		scope.put("sys",scope,registry);
+	}
+	
+	public void setMessages(JavascriptMessages msg) { messages=msg; pushMessagesIntoThread(); }
+	public JavascriptMessages getMessages() { return messages; }
+	
+	void pushMessagesIntoThread() {
+		if(messages!=null)
+			system.getContext().putThreadLocal("messages",messages);
+		else
+			system.getContext().removeThreadLocal("messages");
+	}
+	
+	public static void static_log(Context cx,String message) {
+		Object obj=cx.getThreadLocal("messages");
+		if(obj==null || !(obj instanceof JavascriptMessages))
+			return;
+		((JavascriptMessages)obj).message(message);
 	}
 	
 	public void addLibrary(JavascriptLibrary library) throws JavascriptException {
@@ -47,7 +66,6 @@ public class RhinoContext implements JavascriptContext {
 		return staticWrapIfNeeded(getSystem().getContext(),getScope(),in);
 	}
 
-	// XXX support hints
 	public static Object staticWrapIfNeeded(Context ctx,Scriptable scope,Object in) {
 		if((in instanceof Scriptable) || (in instanceof String) ||
 		   (in instanceof Number)     || (in instanceof Boolean))
@@ -59,6 +77,10 @@ public class RhinoContext implements JavascriptContext {
 	public static Object UnwrapIfNeeded(Context ctx,Object in) {
 		if(in instanceof RhinoWrapper)
 			in=((RhinoWrapper)in).getThing();
+		else if(in instanceof RhinoSequenceWrapper)
+			in=((RhinoSequenceWrapper)in).getThing();
+		else if(in instanceof RhinoMapWrapper)
+			in=((RhinoMapWrapper)in).getThing();
 		return in;	
 	}
 }

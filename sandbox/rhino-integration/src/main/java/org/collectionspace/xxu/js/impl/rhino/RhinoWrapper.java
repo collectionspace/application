@@ -46,9 +46,9 @@ public class RhinoWrapper implements Scriptable {
 		try {
 			f.set(thing,RhinoContext.UnwrapIfNeeded(ctx,value));
 		} catch (IllegalArgumentException e) {
-			// TODO Log it
+			RhinoContext.static_log(ctx,"Cannot set field value"+e.getLocalizedMessage());
 		} catch (IllegalAccessException e) {
-			// TODO Log it
+			RhinoContext.static_log(ctx,"Cannot set field value"+e.getLocalizedMessage());
 		}
 	}
 		
@@ -56,7 +56,6 @@ public class RhinoWrapper implements Scriptable {
 		return new RhinoFunction(this,thing,m);
 	}
 		
-	// XXX support lists, maps, arrays
 	public Object get(String name, Scriptable start) {
 		Field f=rce.getField(name);
 		if(f!=null)
@@ -67,22 +66,19 @@ public class RhinoWrapper implements Scriptable {
 		return Scriptable.NOT_FOUND;
 	}
 
-	public Object get(int arg0, Scriptable arg1) { return Scriptable.NOT_FOUND; } // TODO
+	public Object get(int arg0, Scriptable arg1) { return Scriptable.NOT_FOUND; }
 
-	public String getClassName() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getClassName() { return "XXUJavaObject"; }
+
+	public Object getDefaultValue(Class hint) {
+		if(hint==Boolean.class)
+			return true;
+		if(hint==Number.class)
+			return null;
+		return thing.toString();
 	}
 
-	public Object getDefaultValue(Class arg0) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public Object[] getIds() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Object[] getIds() { return rce.getFields(); }
 
 	public Scriptable getParentScope() { return scope; }
 
@@ -91,20 +87,13 @@ public class RhinoWrapper implements Scriptable {
 		return out;
 	}
 
-	public boolean has(String arg0, Scriptable arg1) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean has(String key,Scriptable start) {
+		return rce.getField(key)!=null || rce.getMethod(key)!=null;
 	}
 
-	public boolean has(int arg0, Scriptable arg1) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean has(int idx,Scriptable start) { return false; }
 
-	public boolean hasInstance(Scriptable arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	public boolean hasInstance(Scriptable lhs) { return lhs instanceof RhinoWrapper; }
 
 	public void put(String name,Scriptable start,Object value) {
 		Field f=rce.getField(name);
@@ -114,15 +103,8 @@ public class RhinoWrapper implements Scriptable {
 		// No!
 	}
 
-	public void put(int arg0, Scriptable arg1, Object arg2) { } // TODO
+	public void put(int idx, Scriptable start, Object value) {} // No!
 
-	public void setParentScope(Scriptable arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void setPrototype(Scriptable arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	public void setParentScope(Scriptable s) { scope=s; }
+	public void setPrototype(Scriptable arg0) {} // No!
 }

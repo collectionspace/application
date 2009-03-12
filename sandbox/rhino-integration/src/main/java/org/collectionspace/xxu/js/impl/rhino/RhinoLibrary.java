@@ -8,7 +8,6 @@ import org.collectionspace.xxu.js.api.JavascriptExecution;
 import org.collectionspace.xxu.js.api.JavascriptLibrary;
 import org.collectionspace.xxu.js.api.JavascriptSystem;
 
-// XXX support annotations
 
 public class RhinoLibrary implements JavascriptLibrary {
 	private Map<String,Object> props=new HashMap<String,Object>();

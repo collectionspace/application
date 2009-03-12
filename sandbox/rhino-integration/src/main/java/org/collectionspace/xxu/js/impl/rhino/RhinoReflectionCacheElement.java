@@ -3,13 +3,16 @@ package org.collectionspace.xxu.js.impl.rhino;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.collectionspace.xxu.js.api.JavascriptVisible;
 
 public class RhinoReflectionCacheElement {
 	private Map<String,Method> methods=new HashMap<String,Method>();
 	private Map<String,Field> fields=new HashMap<String,Field>();	
+	private Set<String> ids=new HashSet<String>();
 	private boolean annotated=false;
 	
 	@SuppressWarnings("unchecked")
@@ -25,9 +28,12 @@ public class RhinoReflectionCacheElement {
 				continue;
 			fields.put(f.getName(),f);			
 		}
+		ids.addAll(methods.keySet());
+		ids.addAll(fields.keySet());
 	}
 	
 	boolean is_annotated() { return annotated; }	
 	Field getField(String name) { return fields.get(name); }
 	Method getMethod(String name) { return methods.get(name); }
+	String[] getFields() { return ids.toArray(new String[0]); }
 }

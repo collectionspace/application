@@ -3,6 +3,8 @@ package org.collectionspace.xxu.rhinotest;
 import static org.junit.Assert.*;
 
 import java.io.InputStream;
+import java.util.List;
+import java.util.Map;
 
 import org.collectionspace.xxu.js.api.JavascriptContext;
 import org.collectionspace.xxu.js.api.JavascriptExecution;
@@ -189,5 +191,139 @@ public class GeneralTest {
 		Object out=annotationTesting(a,"function test() { return sys.key.extract(sys.key.another()); }");
 		assertEquals(84,out);
 	}
+	
+	@Test public void testGetArray() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.array; }");
+		assertTrue(out instanceof int[]);
+		assertEquals(2,((int[])out)[0]);
+	}
 
+	@Test public void testGetArrayLength() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.array.length; }");
+		assertTrue(out instanceof Integer);
+		assertEquals(4,((Integer)out));
+	}
+
+	@Test public void testSetArray() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { sys.key.array[0]=7; return sys.key.array[0]; }");
+		assertTrue(out instanceof Integer);
+		assertEquals(7,((Integer)out));
+	}
+		
+	@Test public void testGetList() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.list; }");
+		assertTrue(out instanceof List);
+		assertEquals(3,((List)out).size());	
+	}
+	
+	@Test public void testGetListLength() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.list.length; }");
+		assertTrue(out instanceof Integer);
+		assertEquals(3,((Integer)out));
+	}
+	
+	@Test public void testSetList() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { sys.key.list[2]=7; return sys.key.list[2]; }");
+		assertTrue(out instanceof Integer);
+		assertEquals(7,((Integer)out));
+	}
+
+
+	@Test public void testTruncateList() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { sys.key.list.length=2; return sys.key.list; }");
+		assertTrue(out instanceof List);
+		List v=(List)out;
+		assertEquals(2,v.size());
+		assertEquals(11,v.get(0));
+		assertEquals(13,v.get(1));
+	}
+	
+	@Test public void testMapGet() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.map.apple; }");
+		assertEquals("banana",out);
+	}
+	
+	@Test public void testMapGetAll() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.map; }");
+		assertTrue(out instanceof Map);
+		assertEquals(2,((Map)out).size());
+	}
+	
+	@Test public void testMapSet() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { sys.key.map.carrot='dundee'; return sys.key.map; }");
+		assertTrue(out instanceof Map);
+		assertEquals(3,((Map)out).size());
+		assertEquals("dundee",((Map)out).get("carrot"));
+	}
+	
+	@Test public void testMapDelete() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { delete sys.key.map.apple; return sys.key.map; }");
+		assertTrue(out instanceof Map);
+		assertEquals(1,((Map)out).size());
+	}
+	
+	@Test public void testMapGetNoEvil() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.evil_map.bad; }");
+		assertEquals(null,out);
+	}
+
+	@Test public void testMapGetHoly() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.evil_map.good; }");
+		assertTrue(out instanceof Annotated);
+	}
+
+	@Test public void testListGetNoEvil() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.evil_list[0]; }");
+		assertEquals(null,out);
+	}
+
+	@Test public void testListGetHoly() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.evil_list[1]; }");
+		assertTrue(out instanceof Annotated);
+	}	
+	
+	@Test public void testMultidimensionalArray1() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.twod[0][0]; }");
+		assertEquals(1,out);
+	}
+	
+	@Test public void testMultidimensionalArray2() throws Exception {
+		Annotated a=new Annotated();
+		Object out=annotationTesting(a,"function test() { return sys.key.twod[1]; }");
+		assertTrue(out instanceof int[]);
+		assertEquals(2,((int[])out).length);
+	}
+
+	@Test public void testLoggingContext() throws Exception {
+		JavascriptSystem js=new RhinoSystem();
+		JavascriptContext ctx=js.createContext();
+		JavascriptLibrary lib=js.createLibrary();
+		lib.addJavaClass("key",new Unannotated());
+		Logger logger=new Logger();
+		ctx.setMessages(logger);
+		ctx.addLibrary(lib);
+		JavascriptScript script=js.createScript();
+		script.setScript("function test() { return sys.key; }");
+		ctx.addScript(script);
+		JavascriptExecution exec=ctx.createExecution("test");
+		exec.execute(new Object[]{});
+		String[] msgs=logger.getAll();
+		assertEquals(1,msgs.length);
+	}
 }

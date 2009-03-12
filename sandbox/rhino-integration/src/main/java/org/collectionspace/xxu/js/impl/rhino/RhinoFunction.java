@@ -15,7 +15,6 @@ public class RhinoFunction extends RhinoBaseFunction implements Function {
 	
 	RhinoFunction(Scriptable scope,Object thing,Method m) { super(scope); this.thing=thing; method=m; }
 	
-	// XXX unwrapping of parameters
 	public Object call(Context context,Scriptable scope, Scriptable that,Object[] args) {
 		try {
 			Object[] params=new Object[args.length];
@@ -24,13 +23,13 @@ public class RhinoFunction extends RhinoBaseFunction implements Function {
 			Object out=method.invoke(thing,params);
 			return RhinoContext.staticWrapIfNeeded(context,scope,out);
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
+			RhinoContext.static_log(context,"Cannot invoke function"+e.getLocalizedMessage());
 			return null;
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
+			RhinoContext.static_log(context,"Cannot invoke function"+e.getLocalizedMessage());
 			return null;
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
+			RhinoContext.static_log(context,"Cannot invoke function"+e.getLocalizedMessage());
 			return null;
 		}
 	}
