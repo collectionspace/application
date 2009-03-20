@@ -1,0 +1,4 @@
+<provides>
+  <transform file="one.xslt"/>
+  <transform file="two.xslt"/>
+</provides>

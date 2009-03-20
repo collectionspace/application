@@ -1,0 +1,8 @@
+<config>
+  <field id="first">
+    <validation-1/>
+  </field>
+  <field id="second">
+    <validation-2/>
+  </field>
+</config>

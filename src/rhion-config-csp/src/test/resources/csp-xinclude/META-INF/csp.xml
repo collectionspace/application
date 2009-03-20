@@ -1,0 +1,21 @@
+<csp version="0.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+  <identity>test-one</identity>
+  <version>12.13</version>
+  <short-name>Test One</short-name>
+  <title>Test One CSP for Unit Tests</title>
+  <author>Dan Sheppard</author>
+  <url>http://www.collectionspace.org/</url>
+  <author-url>http://www.caret.cam.ac.uk/</author-url>
+  <description>This is a Test CSP which is used in the unit tests.</description>
+  
+  <dependencies>
+    <dependency identity="test-two" version="2.3"/>
+    <dependency identity="test-three" version="3.4"/>
+    <alternatives>
+      <dependency identity="test-four" version="0.0"/>
+      <dependency identity="test-four" version="1.0"/>    
+    </alternatives>
+  </dependencies>
+  
+  <xi:include href="included.xml"/>
+</csp>

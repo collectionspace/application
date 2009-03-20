@@ -1,0 +1,6 @@
+<config  xmlns:xi="http://www.w3.org/2001/XInclude">
+  <field id="first">
+    <validation-1/>
+  </field>
+  <xi:include href="config-included.xml"/>
+</config>

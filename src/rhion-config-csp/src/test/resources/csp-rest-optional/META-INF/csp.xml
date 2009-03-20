@@ -1,0 +1,6 @@
+<csp version="0.0">
+  <identity>test-one</identity>
+  <version>12.13</version>
+  <short-name>Test One</short-name>
+  <title>Test One CSP for Unit Tests</title>
+</csp>
