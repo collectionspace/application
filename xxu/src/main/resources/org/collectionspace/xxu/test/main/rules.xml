@@ -1,0 +1,20 @@
+<!DOCTYPE digester-rules PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" "digester-rules.dtd">
+<digester-rules>
+  <object-create-rule pattern="collection-space" classname="org.collectionspace.xxu.test.main.CSpaceImpl"/>
+  
+  <pattern value="collection-space/field">
+    <object-create-rule classname="org.collectionspace.xxu.test.main.FieldImpl"/>
+    <set-properties-rule>
+      <alias attr-name="id" prop-name="ID" />
+    </set-properties-rule>
+    <set-next-rule methodname="addField"/>
+   </pattern>
+  
+  <pattern value="collection-space/script">
+    <object-create-rule classname="org.collectionspace.xxu.test.main.ScriptStore"/>
+    <bean-property-setter-rule pattern=""/>
+    <set-next-rule methodname="setScript"/>
+  </pattern>
+  
+</digester-rules>
+

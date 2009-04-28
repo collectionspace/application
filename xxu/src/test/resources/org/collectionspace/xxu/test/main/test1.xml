@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<collection-space>
+
+  <field id='test1'>
+    <validate>
+      <match pattern='^P-[0-9]*$'/>
+    </validate>
+  </field>
+  
+  <field id='test2'>
+    <validate>
+      <run function='validation'/>
+    </validate>
+    <suggest>
+      <run function='suggest'/>
+    </suggest>
+  </field>
+    
+  <script>
+    //<![CDATA[
+    
+    // Must be in wikipedia.
+    function wikipedia(check) {
+      var url='http://en.wikipedia.org/w/api.php?action=opensearch&search='+check+'&format=json';
+      var get=Packages.org.collectionspace.xxu.test.lib.httpclient.GetRequest(url);
+      var response=get.go();
+      eval("var resp="+response.getResponse());
+      return resp;
+    }
+    
+    function validation(check) {
+      var resp=wikipedia(check);
+      return resp[1].length>0;
+    }
+    
+    function suggest(check) {
+      var resp=wikipedia(check);
+      return resp[1];    
+    }
+    
+    //]]>   
+  </script>
+</collection-space>

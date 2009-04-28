@@ -1,0 +1,59 @@
+<?xml version="1.0"?> <!-- XXX should not be deployed -->
+<collection-space>
+
+  <field id='test1'>
+    <validate>
+      <match pattern='^P-[0-9]*$'/>
+    </validate>
+    <suggest>
+      <run function='google'/>
+    </suggest>
+  </field>
+  
+  <field id='test2'>
+    <validate>
+      <run function='validation'/>
+    </validate>
+    <suggest>
+      <run function='suggest'/>
+    </suggest>
+  </field>
+    
+  <script>
+    //<![CDATA[
+    
+    // Check against google
+    function google(check) {
+      var url='http://www.google.com/complete/search?hl=en&csv=true&qu='+check;
+      var get=Packages.org.collectionspace.xxu.test.lib.httpclient.GetRequest(url);
+      var response=get.go();
+      var out=Array();
+      var parts=response.getResponse().split('","');
+      parts[0]=parts[0].split(',"')[1];
+      for(var i=0;i<parts.length;i++) { if(!(i%2)) out.push(parts[i]); }
+      return out;
+    }
+    
+    // Must be in wikipedia.
+    function wikipedia(check) {
+      var url='http://en.wikipedia.org/w/api.php?action=opensearch&search='+check+'&format=json';
+      var get=Packages.org.collectionspace.xxu.test.lib.httpclient.GetRequest(url);
+      var response=get.go();
+      eval("var resp="+response.getResponse());
+      return resp;
+    }
+    
+    function validation(check) {
+      var resp=wikipedia(check);
+      return resp[1].length>0;
+    }
+    
+    function suggest(check) {
+      var resp=wikipedia(check);
+      return resp[1];    
+    }
+    
+    
+    //]]>   
+  </script>
+</collection-space>

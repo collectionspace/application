@@ -1,0 +1,34 @@
+<!DOCTYPE digester-rules PUBLIC "-//Jakarta Apache //DTD digester-rules XML V1.0//EN" "digester-rules.dtd">
+<digester-rules>
+  <pattern value="validate">
+    <object-create-rule classname="org.collectionspace.xxu.test.main.ValidationAnd"/>
+    <set-next-rule methodname="addValidation"/>
+      
+    <pattern value="match">
+      <object-create-rule classname="org.collectionspace.xxu.test.main.ValidationRegexp"/>
+      <set-next-rule methodname="addValidation"/>
+      <set-properties-rule>
+        <alias attr-name="pattern" prop-name="pattern" />
+      </set-properties-rule>
+    </pattern> 
+
+    <pattern value="run">
+      <object-create-rule classname="org.collectionspace.xxu.test.main.ValidationScript"/>
+      <set-next-rule methodname="addValidation"/>
+      <set-properties-rule>
+        <alias attr-name="function" prop-name="method" />
+      </set-properties-rule>
+    </pattern> 
+
+  </pattern>
+  
+  <pattern value="suggest/run">
+    <object-create-rule classname="org.collectionspace.xxu.test.main.SuggestScript"/>
+    <set-next-rule methodname="addSuggest"/>
+    <set-properties-rule>
+      <alias attr-name="function" prop-name="method" />
+    </set-properties-rule>    
+  </pattern>
+    
+</digester-rules>
+
