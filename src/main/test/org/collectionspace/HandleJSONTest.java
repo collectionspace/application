@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 public class HandleJSONTest {
 	
-	final static String testStr = "{\"items\":[{\"value\":\"This is an experimental widget being tested. It will not do what you expect.\"," +
+	private final static String testStr = "{\"items\":[{\"value\":\"This is an experimental widget being tested. It will not do what you expect.\"," +
 	                        "\"title\":\"\",\"type\":\"caption\"},{\"title\":\"Your file\",\"type\":\"resource\",\"param\":\"file\"}," +
 	                        "{\"title\":\"Author\",\"type\":\"text\",\"param\":\"author\"},{\"title\":\"Title\",\"type\":\"text\"," +
 	                        "\"param\":\"title\"},{\"title\":\"Type\",\"type\":\"dropdown\",\"values\":[{\"value\":\"1\",\"text\":" +
@@ -16,14 +16,14 @@ public class HandleJSONTest {
 	
 	public static void main(String[] args)
 	{
-		HandleJSON handleJSON = new HandleJSON();
+		JSONStore store=new StubJSONStore();
 		boolean success = true;
 		
 		// Test 1: write a json object to a file
 		try
 		{
 			JSONObject jsonObject = new JSONObject(testStr);
-			handleJSON.storeJson("/schema/json1.test", jsonObject);
+			store.storeJson("/schema/json1.test", jsonObject);
 			System.out.println("test 1 succeeded.");
 		}
 		catch (JSONException je)
@@ -36,7 +36,7 @@ public class HandleJSONTest {
 		// test 2: retrieve json object from file
 		try
 		{
-			String result = handleJSON.retrieveJson(HandleJSON.ABSOLUTE_PATH + "json1.test");
+			String result = store.retrieveJson(HandleJSON.ABSOLUTE_PATH + "json1.test");
 			JSONObject resultObj = new JSONObject(result);
 			JSONObject testObj = new JSONObject(testStr);
 			if (resultObj.toString().equals(testObj.toString()))
@@ -65,8 +65,8 @@ public class HandleJSONTest {
 		// test 3: fail to retrieve non-existing json object
 		try
 		{
-			String result = handleJSON.retrieveJson(HandleJSON.ABSOLUTE_PATH + "nonesuch.json");
-			JSONObject resultObj = new JSONObject(result);
+			String result = store.retrieveJson(HandleJSON.ABSOLUTE_PATH + "nonesuch.json");
+			new JSONObject(result);
 			System.out.println("test 3 failed.");
 			success = false;
 		}
