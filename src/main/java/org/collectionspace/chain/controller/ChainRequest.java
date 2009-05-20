@@ -1,6 +1,5 @@
 package org.collectionspace.chain.controller;
 
-import java.awt.datatransfer.StringSelection;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -16,6 +15,7 @@ public class ChainRequest {
 		"GET /store/object/%path-to-file-with-name% \n" +
 		"POST /store/object/%path-to-file-with-name% - note that data in body must be JSON \n";
 
+	@SuppressWarnings("unused") // I'm guessing we will use it pretty soon
 	private HttpServletRequest req;
 	private HttpServletResponse res;
 	private RequestType type;
