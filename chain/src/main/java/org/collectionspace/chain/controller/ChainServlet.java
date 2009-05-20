@@ -15,16 +15,22 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @SuppressWarnings("serial")
-public class HandleJSON extends HttpServlet 
+public class ChainServlet extends HttpServlet 
 {
-
-	private final static String SCHEMA_REF = "/schema/";
 	private final static String STORE_REF = "/store/object/";
 
 	public final static String ABSOLUTE_PATH = "/";
 
 	JSONStore store=new StubJSONStore();
 
+	private String getJSON(String path) throws BadRequestException {
+		String out = store.retrieveJson(ABSOLUTE_PATH + path);
+		if (out == null || "".equals(out)) {
+			throw new BadRequestException("No JSON Found");
+		}
+		return out;
+	}
+	
 	/**
 	 * Responding to a request. The request is assumed to consist of a path to a requested JSON object.
 	 * The response returns the object in string form (or an empty string if not found).
@@ -32,54 +38,22 @@ public class HandleJSON extends HttpServlet
 	@Override
 	public void doGet(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException
 	{
-
-		// The input should just be a string identifying the path to the file
-		String path = servlet_request.getPathInfo();
-		if (path == null || path.length() == 0 )
-		{
-			notifyUsage(servlet_response);
-			return;
-		}
-
-		// Set response type to JSON
-		servlet_response.setCharacterEncoding("UTF-8");
-		servlet_response.setContentType("application/json");
-
-		String outputJSON;
-
-
-		// Get the local path, either from the SCHEMA_REF or from the STORE_REF, depending on which one
-		// is present
 		try {
+			// Setup our request object
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
-			path=request.getPathTail();
-			outputJSON = store.retrieveJson(ABSOLUTE_PATH + path);
-
-			// If there is no output something must have gone wrong
-			if (outputJSON == null || outputJSON.length() == 0)
-			{
-				servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No JSON found");
-				return;			
-			}
+			
+			// Get the data
+			String outputJSON = getJSON(request.getPathTail());
 
 			// Write the requested JSON out
-			PrintWriter out = servlet_response.getWriter();
-			try
-			{
-				out.write(outputJSON);
-				out.close();
-				servlet_response.setStatus(HttpServletResponse.SC_OK);
-			}
-			catch (Exception onfe)
-			{
-				servlet_response.sendError(HttpServletResponse.SC_NOT_FOUND, "Data " + path + " not found");
-			}
+			PrintWriter out = request.getJSONWriter();
+			out.write(outputJSON);
+			out.close();
+			servlet_response.setStatus(HttpServletResponse.SC_OK);
 
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());
 		}
-
-
 	}
 
 	@Override

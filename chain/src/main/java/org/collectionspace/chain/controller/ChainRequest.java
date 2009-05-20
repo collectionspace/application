@@ -1,5 +1,9 @@
 package org.collectionspace.chain.controller;
 
+import java.awt.datatransfer.StringSelection;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,6 +11,11 @@ public class ChainRequest {
 	private final static String SCHEMA_REF = "/schema";
 	private final static String STORE_REF = "/store/object";
 	
+	private static final String usage="You must structure the requests like so: \n" +
+		"GET /schema/%path-to-file-with-name% \n" +
+		"GET /store/object/%path-to-file-with-name% \n" +
+		"POST /store/object/%path-to-file-with-name% - note that data in body must be JSON \n";
+
 	private HttpServletRequest req;
 	private HttpServletResponse res;
 	private RequestType type;
@@ -33,11 +42,13 @@ public class ChainRequest {
 		this.req=req;
 		this.res=res;
 		String path = req.getPathInfo();
+		if(path==null || "".equals(path) || "/".equals(path))
+			throw new BadRequestException(usage);
 		if(perhapsStartsWith(SCHEMA_REF,RequestType.SCHEMA,path))
 			return;
 		if(perhapsStartsWith(STORE_REF,RequestType.STORE,path))
 			return;
-		throw new BadRequestException("Invalid path");
+		throw new BadRequestException("Invalid path "+path);
 	}
 	
 	/** What overall type is the request? ie controller selection.
@@ -51,4 +62,18 @@ public class ChainRequest {
 	 * @return the trailing path, ie after controller selection.
 	 */
 	public String getPathTail() { return rest; }
+	
+	/** Returns a printwirter for some JSON, having set up mime-type, etc, correctly.
+	 * 
+	 * @return
+	 * @throws IOException 
+	 */
+	public PrintWriter getJSONWriter() throws IOException {
+		// Set response type to JSON
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("application/json");
+		// Return JSON
+		
+		return res.getWriter();
+	}
 }
