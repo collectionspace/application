@@ -8,8 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.collectionspace.chain.controller.HandleJSON;
-import org.collectionspace.chain.controller.HandleJSON.NotFoundException;
+import org.collectionspace.chain.controller.ChainServlet;
+import org.collectionspace.chain.controller.ChainServlet.NotFoundException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

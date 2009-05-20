@@ -7,12 +7,12 @@
   <display-name>collectionspace chain</display-name>
 
   <servlet>
-    <servlet-name>HandleJSON</servlet-name>
-    <servlet-class>org.collectionspace.HandleJSON</servlet-class>
+    <servlet-name>ChainServlet</servlet-name>
+    <servlet-class>org.collectionspace.chain.controller.ChainServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>HandleJSON</servlet-name>
+    <servlet-name>ChainServlet</servlet-name>
     <url-pattern>/*</url-pattern>
   </servlet-mapping>
 
