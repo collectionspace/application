@@ -22,19 +22,13 @@ import org.json.JSONObject;
 public class HandleJSON extends HttpServlet 
 {
 
-	final static String SCHEMA_REF = "/schema/";
-	final static String STORE_REF = "/store/object/";
+	private final static String SCHEMA_REF = "/schema/";
+	private final static String STORE_REF = "/store/object/";
+
 	final static String ABSOLUTE_PATH = "/";
-
-	final static String JSON_KEY_VALUE_SEPARATOR = ":";
-
-	final static String JSON_TYPE_STRING = "string";
-	final static String JSON_TYPE_BOOLEAN = "boolean";
-	final static String JSON_TYPE_NUMBER = "number";
-	final static String JSON_TYPE_JSONObject = "object";
-	final static String JSON_TYPE_JSONArray = "array";
-	final static String JSON_TYPE_NULL = "null";
-
+	
+	JSONStore store=new StubJSONStore();
+	
 	/**
 	 * Responding to a request. The request is assumed to consist of a path to a requested JSON object.
 	 * The response returns the object in string form (or an empty string if not found).
@@ -42,6 +36,7 @@ public class HandleJSON extends HttpServlet
 	@Override
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
 	{
+		
 		// The input should just be a string identifying the path to the file
 		String path = req.getPathInfo();
 		if (path == null || path.length() == 0 || 	path.indexOf(SCHEMA_REF) < 0)
@@ -92,7 +87,7 @@ public class HandleJSON extends HttpServlet
 
 		try
 		{
-			outputJSON = retrieveJson(ABSOLUTE_PATH + path);
+			outputJSON = store.retrieveJson(ABSOLUTE_PATH + path);
 		}
 		catch (NotFoundException nfe)
 		{
@@ -185,7 +180,7 @@ public class HandleJSON extends HttpServlet
 			// Get the actual JSON string and store it
 			try
 			{
-				storeJson(ABSOLUTE_PATH + path, new JSONObject(jsonString));
+				store.storeJson(ABSOLUTE_PATH + path, new JSONObject(jsonString));
 				resp.addHeader("Location", STORE_REF + path);
 				resp.setStatus(201);
 				return; // END
@@ -205,189 +200,6 @@ public class HandleJSON extends HttpServlet
 				"POST /store/object/%path-to-file-with-name% - note that data in body must be JSON \n");
 	}
 	
-	/**
-	 * Gets a handle on a local file, provided its path contains the key term "/schema/". The variable
-	 * part of the path to the actual file in the local store is the bit following "/schema/", and it is
-	 * is appended to an absolute path to the top level of the store.
-	 *  
-	 * @param filePath - path to parse
-	 * @return  a File object containing the referenced file, or null if not found
-	 */
-	private File getFileHandle(String filePath)
-	{
-		File result = null;
-		if (filePath.indexOf(SCHEMA_REF) >= 0)
-		{
-			int from = filePath.indexOf(SCHEMA_REF) + SCHEMA_REF.length();
-			if (filePath.length() > from)
-			{
-				String relativePath = filePath.substring(from);
-				result = new File(ABSOLUTE_PATH + relativePath);
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * Generates JSON string from a file storing the information
-	 * 
-	 * @param filePath - path to the file
-	 * @return  String of valid JSON format, or an empty string if an error was encountered.
-	 */
-	protected String retrieveJson(String filePath)
-	{
-		JSONObject jsonObject = new JSONObject();
-		File jsonFile = new File(filePath);
-		if (!jsonFile.exists())
-		{
-			throw new NotFoundException("No such file: " + filePath);
-		}
-
-		// Put together a JSON object form the file. The file is assumed to contain one entry per line, where
-		// an entry consists of the triplet type-key-value, separated by spaces.
-		try {
-			BufferedReader reader = new BufferedReader(new FileReader(jsonFile));
-			String line = reader.readLine();
-			while (line != null)
-			{
-				String type = "";
-				String key = "";
-				String value = "";
-
-				// Ignore lines that do not follow the precise "type key value" format
-				// First parameter is type
-				int pos = line.indexOf(" ");
-				if (pos > 0)
-				{
-					type = line.substring(0,pos).trim();
-					line = line.substring(pos).trim();
-					// Second parameter is key
-					pos = line.indexOf(" ");
-					if (pos > 0)
-					{
-						key = line.substring(0,pos).trim();
-						// Third parameter is value, made up of the rest of the line
-						value = line.substring(pos).trim();
-					}
-					else
-					{
-						return "";
-					}
-				}
-				else
-				{
-					return "";
-				}
-
-				if (type.equals(JSON_TYPE_BOOLEAN))
-				{
-					jsonObject.put(key, new Boolean(value));
-				}
-				// Numbers are put in as Doubles
-				else if (type.equals(JSON_TYPE_NUMBER))
-				{
-					jsonObject.put(key, new Double(value));
-				}
-				else if (type.equals(JSON_TYPE_STRING))
-				{
-					jsonObject.put(key, value);
-				}
-				else if (type.equals(JSON_TYPE_JSONArray))
-				{
-					jsonObject.put(key, new JSONArray(value));
-				}
-				else if (type.equals(JSON_TYPE_JSONObject))
-				{
-					jsonObject.put(key, new JSONObject(value));	
-				}
-				else if (type.equals(JSON_TYPE_NULL))
-				{
-					jsonObject.put(key, JSONObject.NULL);
-				}
-
-				// Get the next line from the file
-				line = reader.readLine();
-			}
-			return jsonObject.toString();
-		}
-		catch (IOException ioe)
-		{
-			return "";
-		}
-		catch (JSONException je)
-		{
-			return "";			
-		}
-	}
-
-	/**
-	 * Parses and stores the given JSONObject in a file in the given path.
-	 * 
-	 * @param filePath - path to file for storage
-	 * @param jsonObject - the JSONObject to be parsed and stored
-	 */
-	@SuppressWarnings("unchecked")
-	protected void storeJson(String filePath, JSONObject jsonObject)
-	{
-		System.out.println("file path:" + filePath);
-		File jsonFile = new File(filePath);
-
-		System.out.println("storing json");
-		try
-		{
-			BufferedWriter writer = new BufferedWriter(new FileWriter(jsonFile));
-
-			// Parse the JSON string into a file where each line is of the form "type key value".
-			for (Iterator iter = jsonObject.keys(); iter.hasNext(); )
-			{
-				String key = (String)iter.next();
-				Object value = jsonObject.get(key);
-				String type = "";
-				if (value == null)
-				{
-					type = JSON_TYPE_NULL;
-				}
-				else if (value instanceof Boolean)
-				{
-					type = JSON_TYPE_BOOLEAN;
-				}
-				else if (value instanceof Integer ||
-						value instanceof Float ||
-						value instanceof Double)
-				{
-					type = JSON_TYPE_NUMBER;
-				}
-				else if (value instanceof String)
-				{
-					type = JSON_TYPE_STRING;
-				}
-				else if (value instanceof JSONArray)
-				{
-					type = JSON_TYPE_JSONArray;
-				}
-				else if (value instanceof JSONObject)
-				{
-					type = JSON_TYPE_JSONObject;
-				}
-				// Only write out if there is a type
-				if (type != "")
-				{
-					writer.write(type + " " + key + " " + value + "\n");
-				}
-			}
-			writer.flush();
-			writer.close();
-		}
-		catch (JSONException je)
-		{
-			return;
-		}
-		catch (IOException ioe)
-		{
-			return;
-		}
-	}
-
 	public static class NotFoundException extends RuntimeException {
 		public NotFoundException(String message, Throwable cause) {
 			super(message, cause);
