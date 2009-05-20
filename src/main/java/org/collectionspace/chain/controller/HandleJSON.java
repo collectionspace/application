@@ -1,4 +1,4 @@
-package org.collectionspace;
+package org.collectionspace.chain.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.collectionspace.chain.jsonstore.JSONStore;
+import org.collectionspace.chain.jsonstore.StubJSONStore;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,7 +21,7 @@ public class HandleJSON extends HttpServlet
 	private final static String SCHEMA_REF = "/schema/";
 	private final static String STORE_REF = "/store/object/";
 
-	final static String ABSOLUTE_PATH = "/";
+	public final static String ABSOLUTE_PATH = "/";
 
 	JSONStore store=new StubJSONStore();
 

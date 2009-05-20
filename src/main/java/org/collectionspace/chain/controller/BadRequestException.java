@@ -1,4 +1,4 @@
-package org.collectionspace;
+package org.collectionspace.chain.controller;
 
 public class BadRequestException extends Exception {
 	private static final long serialVersionUID = -129549065899185645L;

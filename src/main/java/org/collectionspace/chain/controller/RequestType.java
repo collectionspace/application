@@ -1,4 +1,4 @@
-package org.collectionspace;
+package org.collectionspace.chain.controller;
 
 /** Separate request into two types depending on path suffix:
  * 

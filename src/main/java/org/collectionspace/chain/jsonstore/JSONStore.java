@@ -1,4 +1,4 @@
-package org.collectionspace;
+package org.collectionspace.chain.jsonstore;
 
 import org.json.JSONObject;
 
