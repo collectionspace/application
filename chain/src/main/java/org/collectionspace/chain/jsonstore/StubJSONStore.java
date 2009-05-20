@@ -1,4 +1,4 @@
-package org.collectionspace;
+package org.collectionspace.chain.jsonstore;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.collectionspace.HandleJSON.NotFoundException;
+import org.collectionspace.chain.controller.HandleJSON;
+import org.collectionspace.chain.controller.HandleJSON.NotFoundException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

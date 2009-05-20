@@ -1,6 +1,9 @@
 package org.collectionspace;
 
 
+import org.collectionspace.chain.controller.HandleJSON;
+import org.collectionspace.chain.jsonstore.JSONStore;
+import org.collectionspace.chain.jsonstore.StubJSONStore;
 import org.json.JSONException;
 import org.json.JSONObject;
 
