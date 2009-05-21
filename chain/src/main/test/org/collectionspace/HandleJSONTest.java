@@ -2,6 +2,7 @@ package org.collectionspace;
 
 
 import org.collectionspace.chain.controller.ChainServlet;
+import org.collectionspace.chain.jsonstore.JSONNotFoundException;
 import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
 import org.json.JSONException;
@@ -73,7 +74,7 @@ public class HandleJSONTest {
 			System.out.println("test 3 failed.");
 			success = false;
 		}
-		catch (ChainServlet.NotFoundException onfe)
+		catch (JSONNotFoundException onfe)
 		{
 			System.out.println("test 3 succeeded.");
 		}

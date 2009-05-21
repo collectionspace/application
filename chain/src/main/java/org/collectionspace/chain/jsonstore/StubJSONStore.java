@@ -8,7 +8,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.collectionspace.chain.controller.ChainServlet.NotFoundException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,13 +23,12 @@ public class StubJSONStore implements JSONStore {
 	/* (non-Javadoc)
 	 * @see org.collectionspace.JSONStore#retrieveJson(java.lang.String)
 	 */
-	public String retrieveJson(String filePath)
-	{
+	public String retrieveJson(String filePath) throws JSONNotFoundException {
 		JSONObject jsonObject = new JSONObject();
 		File jsonFile = new File(filePath);
 		if (!jsonFile.exists())
 		{
-			throw new NotFoundException("No such file: " + filePath);
+			throw new JSONNotFoundException("No such file: " + filePath);
 		}
 
 		// Put together a JSON object form the file. The file is assumed to contain one entry per line, where
