@@ -28,6 +28,12 @@
       <artifactId>json</artifactId>
       <version>20080701</version> <!-- keep version 49.0 ie Java 5 -->
     </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>1.4</version>
+      <type>jar</type>
+    </dependency>
   </dependencies>
   <build>
     <finalName>chain</finalName>
