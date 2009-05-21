@@ -1,6 +1,5 @@
 package org.collectionspace.chain.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -11,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.jsonstore.JSONNotFoundException;
 import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
 import org.json.JSONException;
@@ -26,7 +27,12 @@ public class ChainServlet extends HttpServlet
 	JSONStore store=new StubJSONStore();
 
 	private String getJSON(String path) throws BadRequestException {
-		String out = store.retrieveJson(ABSOLUTE_PATH + path);
+		String out;
+		try {
+			out = store.retrieveJson(ABSOLUTE_PATH + path);
+		} catch (JSONNotFoundException e) {
+			throw new BadRequestException("JSON Not found "+e,e);
+		}
 		if (out == null || "".equals(out)) {
 			throw new BadRequestException("No JSON Found");
 		}
@@ -86,46 +92,25 @@ public class ChainServlet extends HttpServlet
 		String jsonString=null;
 		// Setup our request object
 		try {
+			// Get various bits out of the request
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response,false);
 			path = request.getPathTail();
 			jsonString = request.getBody();
+			if (StringUtils.isBlank(jsonString)) {
+				throw new BadRequestException("No JSON content to store");
+			}
+			// Store it
+			try {
+				store.storeJson(ABSOLUTE_PATH + path, new JSONObject(jsonString));
+			} catch (JSONException x) {
+				throw new BadRequestException("Failed to parse json: "+x,x);
+			}
+			// Created!
+			servlet_response.setContentType("text/html");
+			servlet_response.addHeader("Location", STORE_REF + path);
+			servlet_response.setStatus(201);
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());			
-			return;
-		}
-		
-		// Set response type to text/html
-		servlet_response.setContentType("text/html");
-
-		if (jsonString == null || jsonString.length() == 0)
-		{
-			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No JSON content to store");
-			return; // END
-		}
-		else
-		{
-			// Get the actual JSON string and store it
-			try
-			{
-				store.storeJson(ABSOLUTE_PATH + path, new JSONObject(jsonString));
-				servlet_response.addHeader("Location", STORE_REF + path);
-				servlet_response.setStatus(201);
-				return; // END
-			}
-			catch (JSONException je)
-			{
-				servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Failed to parse json: " + je);
-			}
 		}
 	}
-
-	public static class NotFoundException extends RuntimeException {
-		public NotFoundException(String message, Throwable cause) {
-			super(message, cause);
-		}
-		public NotFoundException(String message) {
-			super(message);
-		}
-	}
-
 }

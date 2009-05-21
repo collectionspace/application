@@ -17,7 +17,6 @@ public class ChainRequest {
 		"GET /store/object/%path-to-file-with-name% \n" +
 		"POST /store/object/%path-to-file-with-name% - note that data in body must be JSON \n";
 
-	@SuppressWarnings("unused") // I'm guessing we will use it pretty soon
 	private HttpServletRequest req;
 	private HttpServletResponse res;
 	private boolean is_get;

@@ -10,7 +10,7 @@ public interface JSONStore {
 	 * @param filePath - path to the file
 	 * @return  String of valid JSON format, or an empty string if an error was encountered.
 	 */
-	public abstract String retrieveJson(String filePath);
+	public abstract String retrieveJson(String filePath) throws JSONNotFoundException;
 
 	/**
 	 * Parses and stores the given JSONObject in a file in the given path.
