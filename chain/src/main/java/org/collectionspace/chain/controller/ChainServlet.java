@@ -23,9 +23,26 @@ public class ChainServlet extends HttpServlet
 	private final static String STORE_REF = "/store/object/";
 
 	public final static String ABSOLUTE_PATH = "/";
-
-	JSONStore store=new StubJSONStore();
-
+	
+	private Config config=null;
+	private JSONStore store=null;
+	private boolean inited=false;
+	
+	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
+	 * Better present it on first request.
+	 */
+	public synchronized void setup() throws BadRequestException {
+		if(inited)
+			return;
+		try {
+			config=new Config();
+		} catch (IOException e) {
+			throw new BadRequestException("Cannot load config"+e,e);
+		}
+		store=new StubJSONStore(config.getPathToStore());
+		inited=true;
+	}
+	
 	private String getJSON(String path) throws BadRequestException {
 		String out;
 		try {
@@ -55,9 +72,11 @@ public class ChainServlet extends HttpServlet
 	@Override
 	public void doGet(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException
 	{
-		if(perhapsServeFixedContent(servlet_request,servlet_response))
-			return;
 		try {
+			if(!inited)
+				setup();
+			if(perhapsServeFixedContent(servlet_request,servlet_response))
+				return;
 			// Setup our request object
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response,true);
 			
@@ -88,14 +107,13 @@ public class ChainServlet extends HttpServlet
 	@Override
 	public void doPut(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException
 	{
-		String path=null;
-		String jsonString=null;
-		// Setup our request object
 		try {
+			if(!inited)
+				setup();
 			// Get various bits out of the request
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response,false);
-			path = request.getPathTail();
-			jsonString = request.getBody();
+			String path = request.getPathTail();
+			String jsonString = request.getBody();
 			if (StringUtils.isBlank(jsonString)) {
 				throw new BadRequestException("No JSON content to store");
 			}
