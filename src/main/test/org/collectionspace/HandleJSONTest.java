@@ -20,7 +20,7 @@ public class HandleJSONTest {
 	
 	public static void main(String[] args)
 	{
-		JSONStore store=new StubJSONStore();
+		JSONStore store=new StubJSONStore("/");
 		boolean success = true;
 		
 		// Test 1: write a json object to a file
