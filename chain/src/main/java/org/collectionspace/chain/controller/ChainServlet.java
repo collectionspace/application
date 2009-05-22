@@ -19,11 +19,7 @@ import org.json.JSONObject;
 
 @SuppressWarnings("serial")
 public class ChainServlet extends HttpServlet 
-{
-	private final static String STORE_REF = "/store/object/";
-
-	public final static String ABSOLUTE_PATH = "/";
-	
+{	
 	private Config config=null;
 	private JSONStore store=null;
 	private boolean inited=false;
@@ -46,7 +42,7 @@ public class ChainServlet extends HttpServlet
 	private String getJSON(String path) throws BadRequestException {
 		String out;
 		try {
-			out = store.retrieveJson(ABSOLUTE_PATH + path);
+			out = store.retrieveJson(path);
 		} catch (JSONNotFoundException e) {
 			throw new BadRequestException("JSON Not found "+e,e);
 		}
@@ -119,13 +115,13 @@ public class ChainServlet extends HttpServlet
 			}
 			// Store it
 			try {
-				store.storeJson(ABSOLUTE_PATH + path, new JSONObject(jsonString));
+				store.storeJson(path, new JSONObject(jsonString));
 			} catch (JSONException x) {
 				throw new BadRequestException("Failed to parse json: "+x,x);
 			}
 			// Created!
 			servlet_response.setContentType("text/html");
-			servlet_response.addHeader("Location", STORE_REF + path);
+			servlet_response.addHeader("Location",request.getStoreURL(path));
 			servlet_response.setStatus(201);
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());			
