@@ -1,5 +1,6 @@
 package org.collectionspace;
 
+import org.collectionspace.chain.jsonstore.ExistException;
 import org.collectionspace.chain.jsonstore.JSONNotFoundException;
 import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
@@ -25,13 +26,17 @@ public class HandleJSONTest {
 		try
 		{
 			JSONObject jsonObject = new JSONObject(testStr);
-			store.storeJson("/schema/json1.test", jsonObject);
+			store.updateJSON("/schema/json1.test", jsonObject);
 			System.out.println("test 1 succeeded.");
 		}
 		catch (JSONException je)
 		{
 			System.out.println("test 1 failed.");
 			System.out.println("JSON Exception creating the JSON object from string: " + je);
+			success = false;
+		} catch (ExistException e) {
+			System.out.println("test 1 failed.");
+			System.out.println("ExistException: " + e);
 			success = false;
 		}
 		

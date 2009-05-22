@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.jsonstore.ExistException;
 import org.collectionspace.chain.jsonstore.JSONNotFoundException;
 import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
@@ -74,7 +75,7 @@ public class ChainServlet extends HttpServlet
 			if(perhapsServeFixedContent(servlet_request,servlet_response))
 				return;
 			// Setup our request object
-			ChainRequest request=new ChainRequest(servlet_request,servlet_response,true);
+			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
 			
 			// Get the data
 			String outputJSON = getJSON(request.getPathTail());
@@ -91,9 +92,9 @@ public class ChainServlet extends HttpServlet
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-	throws ServletException, IOException {
-		doPut(req, resp);
+	protected void doPost(HttpServletRequest servlet_request,HttpServletResponse servlet_response)
+		throws ServletException, IOException {
+		send(servlet_request,servlet_response);
 	}
 
 	/**
@@ -101,13 +102,16 @@ public class ChainServlet extends HttpServlet
 	 * URL as the part following "/store/object/".
 	 */
 	@Override
-	public void doPut(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException
-	{
+	public void doPut(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
+		send(servlet_request,servlet_response);
+	}
+
+	private void send(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		try {
 			if(!inited)
 				setup();
 			// Get various bits out of the request
-			ChainRequest request=new ChainRequest(servlet_request,servlet_response,false);
+			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
 			String path = request.getPathTail();
 			String jsonString = request.getBody();
 			if (StringUtils.isBlank(jsonString)) {
@@ -115,9 +119,14 @@ public class ChainServlet extends HttpServlet
 			}
 			// Store it
 			try {
-				store.storeJson(path, new JSONObject(jsonString));
+				if(request.isCreateNotOverwrite())
+					store.createJSON(path,new JSONObject(jsonString));
+				else
+					store.updateJSON(path, new JSONObject(jsonString));
 			} catch (JSONException x) {
 				throw new BadRequestException("Failed to parse json: "+x,x);
+			} catch (ExistException x) {
+				throw new BadRequestException("Existence exception: "+x,x);
 			}
 			// Created!
 			servlet_response.setContentType("text/html");

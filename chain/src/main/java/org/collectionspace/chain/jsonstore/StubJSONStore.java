@@ -64,11 +64,21 @@ public class StubJSONStore implements JSONStore {
 	/* (non-Javadoc)
 	 * @see org.collectionspace.JSONStore#storeJson(java.lang.String, org.json.JSONObject)
 	 */
-	public void storeJson(String filePath, JSONObject jsonObject)
-	{
+	public void createJSON(String filePath, JSONObject jsonObject) throws ExistException {
+		set(filePath,jsonObject,true);
+	}
+	
+	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException {
+		set(filePath,jsonObject,false);
+	}
+		
+	private synchronized void set(String filePath, JSONObject jsonObject,boolean create) throws ExistException {
 		System.out.println("file path:" + filePath);
 		File jsonFile = fileFromPath(filePath);
-		
+		if(create && jsonFile.exists())
+			throw new ExistException("Cannot create: already exists");
+		if(!create && !jsonFile.exists())
+			throw new ExistException("Cannot update: does not exist");
 		System.out.println("storing json");
 		try
 		{
