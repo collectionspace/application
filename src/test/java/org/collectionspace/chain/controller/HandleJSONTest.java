@@ -22,6 +22,9 @@ public class HandleJSONTest {
 	                        "\"thesis\"},{\"value\":\"2\",\"text\":\"paper\"},{\"value\":\"3\",\"text\":\"excel-controlled\"}]," +
 	                        "\"param\":\"type\"}]}";
 	
+	private final static String testStr2 = "{\"a\":\"b\"}";
+	
+	
 	private JSONStore store;
 	
 	@Before public void setup() {
@@ -59,5 +62,32 @@ public class HandleJSONTest {
 			assertTrue(false);
 		}
 		catch (JSONNotFoundException onfe) {}
-	}		
+	}
+	
+	@Test public void testJSONUpdate() throws ExistException, JSONNotFoundException, JSONException {
+		JSONObject jsonObject = new JSONObject(testStr2);
+		store.createJSON("/objects/json1.test", jsonObject);
+		jsonObject = new JSONObject(testStr);
+		store.updateJSON("/objects/json1.test", jsonObject);		
+		String result = store.retrieveJson("/objects/json1.test");
+		JSONObject resultObj = new JSONObject(result);
+		JSONObject testObj = new JSONObject(testStr);
+		assertTrue(resultObj.toString().equals(testObj.toString()));
+	}
+
+	@Test public void testJSONNoUpdateNonExisting() throws ExistException, JSONNotFoundException, JSONException {
+		JSONObject jsonObject = new JSONObject(testStr);
+		try {
+			store.updateJSON("/objects/json1.test", jsonObject);
+			assertTrue(false);
+		} catch(ExistException e) {}
+	}
+
+	@Test public void testJSONNoCreateExisting() throws ExistException, JSONNotFoundException, JSONException {
+		JSONObject jsonObject = new JSONObject(testStr);
+		store.createJSON("/objects/json1.test", jsonObject);
+		try {
+			store.createJSON("/objects/json1.test", jsonObject);
+		} catch(ExistException e) {}			
+	}
 }
