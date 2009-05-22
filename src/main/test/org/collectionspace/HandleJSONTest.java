@@ -1,7 +1,5 @@
 package org.collectionspace;
 
-
-import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.jsonstore.JSONNotFoundException;
 import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
@@ -40,7 +38,7 @@ public class HandleJSONTest {
 		// test 2: retrieve json object from file
 		try
 		{
-			String result = store.retrieveJson(ChainServlet.ABSOLUTE_PATH + "json1.test");
+			String result = store.retrieveJson("json1.test");
 			JSONObject resultObj = new JSONObject(result);
 			JSONObject testObj = new JSONObject(testStr);
 			if (resultObj.toString().equals(testObj.toString()))
@@ -69,7 +67,7 @@ public class HandleJSONTest {
 		// test 3: fail to retrieve non-existing json object
 		try
 		{
-			String result = store.retrieveJson(ChainServlet.ABSOLUTE_PATH + "nonesuch.json");
+			String result = store.retrieveJson("nonesuch.json");
 			new JSONObject(result);
 			System.out.println("test 3 failed.");
 			success = false;

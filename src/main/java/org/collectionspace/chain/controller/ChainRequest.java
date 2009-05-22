@@ -10,12 +10,12 @@ import org.apache.commons.io.IOUtils;
 
 public class ChainRequest {
 	private final static String SCHEMA_REF = "/schema";
-	private final static String STORE_REF = "/store/object";
+	private final static String STORE_REF = "/objects";
 	
 	private static final String usage="You must structure the requests like so: \n" +
-		"GET /schema/%path-to-file-with-name% \n" +
-		"GET /store/object/%path-to-file-with-name% \n" +
-		"POST /store/object/%path-to-file-with-name% - note that data in body must be JSON \n";
+		"GET "+SCHEMA_REF+"/%path-to-file-with-name% \n" +
+		"GET "+STORE_REF+"/%path-to-file-with-name% \n" +
+		"POST "+STORE_REF+"/%path-to-file-with-name% - note that data in body must be JSON \n";
 
 	private HttpServletRequest req;
 	private HttpServletResponse res;
@@ -40,6 +40,10 @@ public class ChainRequest {
 			}
 		}
 		return true;
+	}
+	
+	public String getStoreURL(String which) {
+		return STORE_REF+"/"+which;
 	}
 	
 	/** Wrapper for requests for chain
