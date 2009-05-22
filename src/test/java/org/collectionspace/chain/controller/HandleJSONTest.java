@@ -1,4 +1,4 @@
-package org.collectionspace;
+package org.collectionspace.chain.controller;
 
 import static org.junit.Assert.*;
 
