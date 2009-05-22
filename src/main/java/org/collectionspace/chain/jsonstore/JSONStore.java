@@ -13,11 +13,18 @@ public interface JSONStore {
 	public abstract String retrieveJson(String filePath) throws JSONNotFoundException;
 
 	/**
-	 * Parses and stores the given JSONObject in a file in the given path.
+	 * Parses and stores the given JSONObject in a file in the given path, if it already exists.
 	 * 
 	 * @param filePath - path to file for storage
 	 * @param jsonObject - the JSONObject to be parsed and stored
 	 */
-	public abstract void storeJson(String filePath, JSONObject jsonObject);
+	public abstract void updateJSON(String filePath, JSONObject jsonObject) throws ExistException;
 
+	/**
+	 * Parses and stores the given JSONObject in a file in the given path, if it does not exist.
+	 * 
+	 * @param filePath - path to file for storage
+	 * @param jsonObject - the JSONObject to be parsed and stored
+	 */
+	public abstract void createJSON(String filePath, JSONObject jsonObject) throws ExistException;
 }

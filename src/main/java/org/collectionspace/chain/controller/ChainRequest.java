@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 
 public class ChainRequest {
 	private final static String SCHEMA_REF = "/schema";
@@ -22,10 +23,11 @@ public class ChainRequest {
 	private boolean is_get;
 	private RequestType type;
 	private String rest,body=null;
+	private boolean create_not_overwrite=false,found=false;
 	
-	private boolean perhapsStartsWith(String what,RequestType rq,String path) throws BadRequestException {
+	private void perhapsStartsWith(String what,RequestType rq,String path) throws BadRequestException {
 		if(!path.startsWith(what))
-			return false; // Nope, it doesn't
+			return; // Nope, it doesn't
 		// Yes it does
 		type=rq;
 		rest=path.substring(what.length());
@@ -39,7 +41,8 @@ public class ChainRequest {
 				throw new BadRequestException("Cannot capture request body");
 			}
 		}
-		return true;
+		found=true;
+		return;
 	}
 	
 	public String getStoreURL(String which) {
@@ -52,18 +55,27 @@ public class ChainRequest {
 	 * @param res the servlet response
 	 * @throws BadRequestException cannot build valid chain request from servlet request
 	 */
-	public ChainRequest(HttpServletRequest req,HttpServletResponse res,boolean is_get) throws BadRequestException {
+	public ChainRequest(HttpServletRequest req,HttpServletResponse res) throws BadRequestException {
 		this.req=req;
 		this.res=res;
-		this.is_get=is_get;
 		String path = req.getPathInfo();
 		// Regular URLs
-		if(perhapsStartsWith(SCHEMA_REF,RequestType.SCHEMA,path))
-			return;
-		if(perhapsStartsWith(STORE_REF,RequestType.STORE,path))
-			return;
+		if(!found)
+			perhapsStartsWith(SCHEMA_REF,RequestType.SCHEMA,path);
+		if(!found)
+			perhapsStartsWith(STORE_REF,RequestType.STORE,path);
+		String method=req.getMethod();
+		// Allow method to be overridden by params for testing
+		String p_method=req.getParameter("method");
+		if(!StringUtils.isBlank(p_method)) {
+			method=p_method;
+		}
+		is_get="GET".equals(method);
+		if("POST".equals(method)) {
+			create_not_overwrite=true;
+		}
 		// Mmm. Perhaps it's a non-get request with stuff in parameters.
-		if(!is_get) {
+		if(!"GET".equals(method)) {
 			String qp_path=req.getParameter("storage");
 			if(qp_path.startsWith(STORE_REF)) {
 				rest=qp_path.substring(STORE_REF.length());
@@ -72,9 +84,10 @@ public class ChainRequest {
 				return;
 			}
 		}
+		if(!found)
+			throw new BadRequestException("Invalid path "+path);
 		if(path==null || "".equals(path))
 			throw new BadRequestException(usage);
-		throw new BadRequestException("Invalid path "+path);
 	}
 	
 	/** What overall type is the request? ie controller selection.
@@ -95,7 +108,7 @@ public class ChainRequest {
 	 */
 	public String getBody() { return body; }
 	
-	/** Returns a printwirter for some JSON, having set up mime-type, etc, correctly.
+	/** Returns a printwriter for some JSON, having set up mime-type, etc, correctly.
 	 * 
 	 * @return
 	 * @throws IOException 
@@ -107,5 +120,13 @@ public class ChainRequest {
 		// Return JSON
 		
 		return res.getWriter();
+	}
+	
+	/** Method/params indicate data should be created at path, not updated
+	 * 
+	 * @return
+	 */
+	public boolean isCreateNotOverwrite() {
+		return create_not_overwrite;
 	}
 }
