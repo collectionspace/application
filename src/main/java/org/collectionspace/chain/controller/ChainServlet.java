@@ -58,7 +58,11 @@ public class ChainServlet extends HttpServlet
 	}
 	
 	private boolean perhapsServeFixedContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
-		InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(servlet_request.getPathInfo());
+		String pathinfo=servlet_request.getPathInfo();
+		if(pathinfo.startsWith("/"))
+			pathinfo=pathinfo.substring(1);
+		InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(pathinfo);
+		System.err.println("pi="+servlet_request.getPathInfo());
 		if(is==null)
 			return false; // Not for us
 		// Serve fixed content
@@ -138,10 +142,12 @@ public class ChainServlet extends HttpServlet
 				throw new BadRequestException("No JSON content to store");
 			}
 			// Store it
+			int status=200;
 			try {
-				if(request.isCreateNotOverwrite())
+				if(request.isCreateNotOverwrite()) {
 					store.createJSON(path,new JSONObject(jsonString));
-				else
+					status=201;
+				} else
 					store.updateJSON(path, new JSONObject(jsonString));
 			} catch (JSONException x) {
 				throw new BadRequestException("Failed to parse json: "+x,x);
@@ -151,7 +157,7 @@ public class ChainServlet extends HttpServlet
 			// Created!
 			servlet_response.setContentType("text/html");
 			servlet_response.addHeader("Location",request.getStoreURL(path));
-			servlet_response.setStatus(201);
+			servlet_response.setStatus(status);
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());			
 		}

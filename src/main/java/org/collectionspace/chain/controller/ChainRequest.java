@@ -76,7 +76,7 @@ public class ChainRequest {
 		// Mmm. Perhaps it's a non-get request with stuff in parameters.
 		if(!"GET".equals(method)) {
 			String qp_path=req.getParameter("storage");
-			if(qp_path.startsWith(STORE_REF)) {
+			if(qp_path!=null && qp_path.startsWith(STORE_REF)) {
 				rest=qp_path.substring(STORE_REF.length());
 				type=RequestType.STORE;
 				body=req.getParameter("json_str");
