@@ -3,11 +3,17 @@ package org.collectionspace.chain.controller;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.jsonstore.ExistException;
 import org.collectionspace.chain.jsonstore.JSONNotFoundException;
 import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
+import org.collectionspace.chain.schema.SchemaStore;
+import org.collectionspace.chain.schema.StubSchemaStore;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -89,5 +95,17 @@ public class HandleJSONTest {
 		try {
 			store.createJSON("/objects/json1.test", jsonObject);
 		} catch(ExistException e) {}			
+	}
+	
+	@Test public void testSchemaStore() throws IOException, JSONException {
+		String tmpdir=System.getProperty("java.io.tmpdir");
+		SchemaStore schema=new StubSchemaStore(tmpdir);
+		File file=new File(tmpdir,"test-json-handle.tmp");
+		FileOutputStream out=new FileOutputStream(file);
+		IOUtils.write(testStr2,out);
+		out.close();
+		JSONObject j=schema.getSchema("test-json-handle.tmp");
+		assertEquals(testStr2,j.toString());
+		file.delete();
 	}
 }
