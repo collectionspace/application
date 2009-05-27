@@ -15,6 +15,8 @@ import org.collectionspace.chain.jsonstore.ExistException;
 import org.collectionspace.chain.jsonstore.JSONNotFoundException;
 import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
+import org.collectionspace.chain.schema.SchemaStore;
+import org.collectionspace.chain.schema.StubSchemaStore;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,6 +25,7 @@ public class ChainServlet extends HttpServlet
 {	
 	private Config config=null;
 	private JSONStore store=null;
+	private SchemaStore schema=null;
 	private boolean inited=false;
 	
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
@@ -37,6 +40,7 @@ public class ChainServlet extends HttpServlet
 			throw new BadRequestException("Cannot load config"+e,e);
 		}
 		store=new StubJSONStore(config.getPathToStore());
+		schema=new StubSchemaStore(config.getPathToSchemaDocs());
 		inited=true;
 	}
 	
@@ -76,16 +80,32 @@ public class ChainServlet extends HttpServlet
 				return;
 			// Setup our request object
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
-			
-			// Get the data
-			String outputJSON = getJSON(request.getPathTail());
+			PrintWriter out;
+			switch(request.getType()) {
+			case STORE:
+				// Get the data
+				String outputJSON = getJSON(request.getPathTail());
 
-			// Write the requested JSON out
-			PrintWriter out = request.getJSONWriter();
-			out.write(outputJSON);
-			out.close();
-			servlet_response.setStatus(HttpServletResponse.SC_OK);
-
+				// Write the requested JSON out
+				out = request.getJSONWriter();
+				out.write(outputJSON);
+				out.close();
+				servlet_response.setStatus(HttpServletResponse.SC_OK);
+				break;
+			case SCHEMA:
+					try {
+						String data = schema.getSchema(request.getPathTail()).toString();
+						out = request.getJSONWriter();
+						out.write(data);
+						out.close();
+						servlet_response.setStatus(HttpServletResponse.SC_OK);
+					} catch (JSONException e) {
+						throw new BadRequestException("Invalid JSON");
+					} catch(IOException e) {
+						throw new BadRequestException("Not found"); // XXX should be 404
+					}
+				break;
+			}
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());
 		}

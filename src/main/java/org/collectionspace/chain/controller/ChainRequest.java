@@ -10,7 +10,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 public class ChainRequest {
-	private final static String SCHEMA_REF = "/schema";
+	private final static String SCHEMA_REF = "/objects/schema";
 	private final static String STORE_REF = "/objects";
 	
 	private static final String usage="You must structure the requests like so: \n" +
@@ -42,7 +42,6 @@ public class ChainRequest {
 			}
 		}
 		found=true;
-		return;
 	}
 	
 	public String getStoreURL(String which) {
