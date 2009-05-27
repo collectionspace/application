@@ -7,6 +7,7 @@ import java.util.Properties;
 public class Config {
 	private static final String CHAIN_PROPERTIES="chain.properties";
 	private static final String STORE_PROPERTY="cspace.chain.store.dir";
+	private static final String SCHEMA_PROPERTY="cspace.chain.schema.dir";
 	
 	private Properties props;
 	
@@ -41,6 +42,22 @@ public class Config {
 		out=System.getProperty("java.io.tmpdir");
 		System.err.println("Warning: Defaulting to tmpdir for storage"); // XXX do logging properly
 		System.err.println("Debug: Using store path "+out); // XXX do logging properly
+		return out;
+	}
+
+	public String getPathToSchemaDocs() {
+		// Check in properties file
+		String out=props.getProperty(SCHEMA_PROPERTY);
+		if(out!=null)
+			return out;
+		// Check for system property
+		out=System.getProperty(SCHEMA_PROPERTY);
+		if(out!=null)
+			return out;
+		// Use temporary directory
+		out=System.getProperty("java.io.tmpdir");
+		System.err.println("Warning: Defaulting to tmpdir for schema"); // XXX do logging properly
+		System.err.println("Debug: Using schema path "+out); // XXX do logging properly
 		return out;
 	}
 }
