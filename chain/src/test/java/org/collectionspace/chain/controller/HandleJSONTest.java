@@ -18,6 +18,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.mortbay.jetty.testing.HttpTester;
+import org.mortbay.jetty.testing.ServletTester;
 
 public class HandleJSONTest {
 	
@@ -97,15 +99,85 @@ public class HandleJSONTest {
 		} catch(ExistException e) {}			
 	}
 	
-	@Test public void testSchemaStore() throws IOException, JSONException {
+	private File tmpSchemaFile() {
 		String tmpdir=System.getProperty("java.io.tmpdir");
-		SchemaStore schema=new StubSchemaStore(tmpdir);
-		File file=new File(tmpdir,"test-json-handle.tmp");
+		return new File(tmpdir,"test-json-handle.tmp");
+	}
+	
+	private void createSchemaFile() throws IOException {
+		File file=tmpSchemaFile();
 		FileOutputStream out=new FileOutputStream(file);
 		IOUtils.write(testStr2,out);
 		out.close();
+	}
+	
+	private void deleteSchemaFile() {
+		File file=tmpSchemaFile();
+		file.delete();
+	}
+	
+	@Test public void testSchemaStore() throws IOException, JSONException {
+		String tmpdir=System.getProperty("java.io.tmpdir");
+		SchemaStore schema=new StubSchemaStore(tmpdir);
+		createSchemaFile();
 		JSONObject j=schema.getSchema("test-json-handle.tmp");
 		assertEquals(testStr2,j.toString());
-		file.delete();
+		deleteSchemaFile();
+	}
+	
+	private ServletTester setupJetty() throws Exception {
+		ServletTester tester=new ServletTester();
+		tester.setContextPath("/chain");
+		tester.addServlet(ChainServlet.class, "/*");
+		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
+		tester.start();
+		return tester;
+	}
+	
+	private HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
+		HttpTester request = new HttpTester();
+		HttpTester response = new HttpTester();
+		request.setMethod(method);
+		request.setHeader("Host","tester");
+		request.setURI(path);
+		request.setVersion("HTTP/1.0");		
+		if(data!=null)
+			request.setContent(data);
+		response.parse(tester.getResponses(request.generate()));
+		return response;
+	}
+	
+	@Test public void testJettyStartupWorks() throws Exception {
+		setupJetty();
+	}
+	
+	@Test public void testSchemaGet() throws Exception {
+		createSchemaFile();
+		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema/test-json-handle.tmp",null);
+		assertEquals(out.getMethod(),null);
+		assertEquals(200,out.getStatus());
+		deleteSchemaFile();
+		assertEquals(testStr2,out.getContent());
+	}
+	
+	@Test public void testSchemaPost() throws Exception {
+		deleteSchemaFile();
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
+		assertEquals(out.getMethod(),null);
+		System.err.println(out.getContent());
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		assertEquals(testStr2,out.getContent());
+		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",testStr);
+		assertEquals(200,out.getStatus());		
+		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		assertEquals(testStr,out.getContent());		
+	}
+	
+	@Test public void testServeStatic() throws Exception {
+		HttpTester out=jettyDo(setupJetty(),"GET","/chain/TestForm.html",null);
+		assertEquals(200,out.getStatus());
+		assertTrue(out.getContent().contains("<html>"));
 	}
 }
