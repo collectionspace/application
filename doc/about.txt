@@ -33,14 +33,18 @@ If both are missing, the current tmpdir is used.
 Functionality
 -------------
 
-URL             Method 	 Description 	                                File System Examples (currently used in testing)
+URL             Method 	 Description 	                                 File System Examples
 /objects        GET    Fetches a list of objects in the system, 
                        scoped to the supplied context 	 
-/objects/[id]   GET    Fetches a specific object, specified by the id   ./objects/1984.068.0335b.json
-                POST   Creates a new object, specified by the id 	 
-                PUT    Updates the object specified by id               ./objects/1984.068.0335b.json
+                       
+/objects/[id]   GET    Fetches a specific object, specified by the id    ./objects/1984.068.0335b.json
+
+                POST   Creates a new object, specified by the id 
+                	 
+                PUT    Updates the object specified by id                ./objects/1984.068.0335b.json
+                
 /objects/schema GET    Provides a declarative Schema object describing 
-                       the data model and how it should be rendered     ./objects/schema/schema.json
+                       the data model and how it should be rendered      ./objects/schema/schema.json
 
 Documentation
 -------------
