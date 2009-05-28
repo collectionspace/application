@@ -10,7 +10,7 @@ public interface JSONStore {
 	 * @param filePath - path to the file
 	 * @return  String of valid JSON format, or an empty string if an error was encountered.
 	 */
-	public abstract String retrieveJson(String filePath) throws JSONNotFoundException;
+	public abstract String retrieveJSON(String filePath) throws JSONNotFoundException;
 
 	/**
 	 * Parses and stores the given JSONObject in a file in the given path, if it already exists.
@@ -27,4 +27,6 @@ public interface JSONStore {
 	 * @param jsonObject - the JSONObject to be parsed and stored
 	 */
 	public abstract void createJSON(String filePath, JSONObject jsonObject) throws ExistException;
+	
+	public String[] getPaths();
 }

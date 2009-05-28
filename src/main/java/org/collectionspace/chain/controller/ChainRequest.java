@@ -31,8 +31,6 @@ public class ChainRequest {
 		// Yes it does
 		type=rq;
 		rest=path.substring(what.length());
-		if("".equals(rest))
-			throw new BadRequestException("No file path supplied after " + what);
 		// Capture body
 		if(!is_get) {
 			try {
@@ -63,6 +61,10 @@ public class ChainRequest {
 			perhapsStartsWith(SCHEMA_REF,RequestType.SCHEMA,path);
 		if(!found)
 			perhapsStartsWith(STORE_REF,RequestType.STORE,path);
+		if(type==RequestType.STORE && "".equals(rest)) {
+			// Blank means list
+			type=RequestType.LIST;
+		}
 		String method=req.getMethod();
 		// Allow method to be overridden by params for testing
 		String p_method=req.getParameter("method");

@@ -17,6 +17,7 @@ import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
 import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,7 +48,7 @@ public class ChainServlet extends HttpServlet
 	private String getJSON(String path) throws BadRequestException {
 		String out;
 		try {
-			out = store.retrieveJson(path);
+			out = store.retrieveJSON(path);
 		} catch (JSONNotFoundException e) {
 			throw new BadRequestException("JSON Not found "+e,e);
 		}
@@ -70,13 +71,21 @@ public class ChainServlet extends HttpServlet
 		return true;
 	}
 	
+	private JSONObject pathsToJSON(String[] paths) throws JSONException {
+		JSONObject out=new JSONObject();
+		JSONArray members=new JSONArray();
+		for(String p : paths)
+			members.put(p);
+		out.put("items",members);
+		return out;
+	}
+	
 	/**
 	 * Responding to a request. The request is assumed to consist of a path to a requested JSON object.
 	 * The response returns the object in string form (or an empty string if not found).
 	 */
 	@Override
-	public void doGet(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException
-	{
+	public void doGet(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		try {
 			if(!inited)
 				setup();
@@ -108,6 +117,17 @@ public class ChainServlet extends HttpServlet
 					} catch(IOException e) {
 						throw new BadRequestException("Not found"); // XXX should be 404
 					}
+				break;
+			case LIST:
+				try {
+					String[] paths=store.getPaths();
+					out = request.getJSONWriter();
+					out.write(pathsToJSON(paths).toString());
+				} catch (JSONException e) {
+					throw new BadRequestException("Invalid JSON");
+				}
+				out.close();
+				servlet_response.setStatus(HttpServletResponse.SC_OK);				
 				break;
 			}
 		} catch (BadRequestException x) {
