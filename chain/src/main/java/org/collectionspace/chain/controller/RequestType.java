@@ -9,5 +9,5 @@ package org.collectionspace.chain.controller;
  *
  */
 public enum RequestType {
-	STORE,SCHEMA;
+	STORE,SCHEMA,LIST;
 }

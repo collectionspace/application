@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.jsonstore.ExistException;
@@ -14,6 +16,7 @@ import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
 import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -56,7 +59,7 @@ public class HandleJSONTest {
 	@Test public void readJSONFromFile() throws JSONNotFoundException, JSONException, ExistException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
-		String result = store.retrieveJson("/objects/json1.test");
+		String result = store.retrieveJSON("/objects/json1.test");
 		JSONObject resultObj = new JSONObject(result);
 		JSONObject testObj = new JSONObject(testStr);
 		assertTrue(resultObj.toString().equals(testObj.toString()));
@@ -65,7 +68,7 @@ public class HandleJSONTest {
 	@Test public void testJSONNotExist() throws JSONException {
 		try
 		{
-			String result = store.retrieveJson("nonesuch.json");
+			String result = store.retrieveJSON("nonesuch.json");
 			new JSONObject(result);
 			assertTrue(false);
 		}
@@ -77,7 +80,7 @@ public class HandleJSONTest {
 		store.createJSON("/objects/json1.test", jsonObject);
 		jsonObject = new JSONObject(testStr);
 		store.updateJSON("/objects/json1.test", jsonObject);		
-		String result = store.retrieveJson("/objects/json1.test");
+		String result = store.retrieveJSON("/objects/json1.test");
 		JSONObject resultObj = new JSONObject(result);
 		JSONObject testObj = new JSONObject(testStr);
 		assertTrue(resultObj.toString().equals(testObj.toString()));
@@ -179,5 +182,23 @@ public class HandleJSONTest {
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/TestForm.html",null);
 		assertEquals(200,out.getStatus());
 		assertTrue(out.getContent().contains("<html>"));
+	}
+	
+	@Test public void testObjectList() throws Exception {
+		ServletTester jetty=setupJetty();
+		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
+		jettyDo(jetty,"POST","/chain/objects/b",testStr2);	
+		jettyDo(jetty,"POST","/chain/objects/c",testStr2);	
+		HttpTester out=jettyDo(jetty,"GET","/chain/objects",null);
+		assertEquals(200,out.getStatus());
+		JSONObject result=new JSONObject(out.getContent());
+		JSONArray items=result.getJSONArray("items");
+		Set<String> files=new HashSet<String>();
+		for(int i=0;i<items.length();i++)
+			files.add(items.getString(i));
+		assertTrue(files.contains("a"));
+		assertTrue(files.contains("b"));
+		assertTrue(files.contains("c"));
+		assertEquals(3,files.size());
 	}
 }

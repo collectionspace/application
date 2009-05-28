@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
@@ -37,7 +39,7 @@ public class StubJSONStore implements JSONStore {
 	/* (non-Javadoc)
 	 * @see org.collectionspace.JSONStore#retrieveJson(java.lang.String)
 	 */
-	public String retrieveJson(String filePath) throws JSONNotFoundException {
+	public String retrieveJSON(String filePath) throws JSONNotFoundException {
 		File jsonFile = fileFromPath(filePath);
 		if (!jsonFile.exists())
 		{
@@ -90,5 +92,16 @@ public class StubJSONStore implements JSONStore {
 		{
 			return;
 		}
+	}
+	
+	public String[] getPaths() {
+		File dir=new File(store_root);
+		if(!dir.isDirectory())
+			return new String[]{};
+		List<String> out=new ArrayList<String>();
+		for(String f : dir.list()) {
+			out.add(f);
+		}
+		return out.toArray(new String[0]);
 	}
 }
