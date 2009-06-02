@@ -1,4 +1,4 @@
-package org.collectionspace.chain.controller;
+package org.collectionspace.chain.test;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +12,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
+import org.collectionspace.chain.controller.ChainServlet;
+import org.collectionspace.chain.harness.HarnessServlet;
 import org.collectionspace.chain.jsonstore.ExistException;
 import org.collectionspace.chain.jsonstore.JSONNotFoundException;
 import org.collectionspace.chain.jsonstore.JSONStore;
@@ -20,7 +22,6 @@ import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
 import org.collectionspace.chain.services.ReturnedDocument;
 import org.collectionspace.chain.services.ServicesConnection;
-import org.collectionspace.chain.test.TestServlet;
 import org.collectionspace.chain.util.RequestMethod;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -33,7 +34,7 @@ import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 
-public class HandleJSONTest {
+public class TestGeneral {
 	
 	private final static String testStr = "{\"items\":[{\"value\":\"This is an experimental widget being tested. It will not do what you expect.\"," +
 	                        "\"title\":\"\",\"type\":\"caption\"},{\"title\":\"Your file\",\"type\":\"resource\",\"param\":\"file\"}," +
@@ -149,7 +150,7 @@ public class HandleJSONTest {
 	private String setupTestServer() throws Exception {
 		ServletTester tester=new ServletTester();
 		tester.setContextPath("/test");
-		tester.addServlet(TestServlet.class,"/*");
+		tester.addServlet(HarnessServlet.class,"/*");
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
 		String connector=tester.createSocketConnector(true);
 		System.err.println("connector="+connector);

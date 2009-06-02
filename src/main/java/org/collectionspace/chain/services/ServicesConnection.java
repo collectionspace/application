@@ -88,7 +88,7 @@ public class ServicesConnection {
 			try {
 				body_data=serializetoXML(body);
 			} catch (IOException e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url);
+				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
 			}
 		}
 		try {
@@ -102,11 +102,11 @@ public class ServicesConnection {
 				stream.close();
 				return new ReturnedDocument(response,out);
 			} catch (HttpException e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url);
+				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
 			} catch (IOException e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url);
+				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
 			} catch (DocumentException e) {
-				throw new BadRequestException("Bad XML from "+uri+" at "+base_url);
+				throw new BadRequestException("Bad XML from "+uri+" at "+base_url,e);
 			} finally {
 				method.releaseConnection();
 			}

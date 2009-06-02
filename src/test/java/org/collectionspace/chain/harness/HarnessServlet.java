@@ -1,4 +1,4 @@
-package org.collectionspace.chain.test;
+package org.collectionspace.chain.harness;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 
-public class TestServlet extends HttpServlet {
+public class HarnessServlet extends HttpServlet {
 	private static final long serialVersionUID = -2656639341409647602L;
 
 	@Override
