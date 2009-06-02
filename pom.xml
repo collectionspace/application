@@ -10,6 +10,15 @@
   <properties>
     <maven.tomcat.home>/tmp</maven.tomcat.home>
   </properties>
+  
+  <repositories>
+    <repository>
+        <id>Version99</id>
+        <name>Version 99 Does Not Exist Maven repository</name>
+        <layout>default</layout>
+        <url>http://no-commons-logging.zapto.org/mvn2</url>
+    </repository>
+</repositories>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -41,6 +50,13 @@
       <type>jar</type>
     </dependency>
     <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+      <type>jar</type>
+    </dependency>    
+
+    <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty</artifactId>
       <scope>test</scope>
@@ -56,6 +72,30 @@
       <version>4.5</version>
       <scope>test</scope>
     </dependency>
+    		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
+    
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>1.5.6</version>
+    </dependency>
+        <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.5.6</version>
+    </dependency>
+    
+    <!-- XXX use a proper logger -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.5.6</version>
+    </dependency>
+    
            <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty</artifactId>
@@ -68,6 +108,13 @@
             <version>6.1.11</version>
             <scope>test</scope>
         </dependency>
+        
+        <!-- get empty jar instead of commons-logging -->
+    <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>99.0-does-not-exist</version>
+    </dependency>
     
   </dependencies>
   <build>

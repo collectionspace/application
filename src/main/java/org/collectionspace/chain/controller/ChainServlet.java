@@ -3,6 +3,8 @@ package org.collectionspace.chain.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,6 +19,7 @@ import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
 import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
+import org.collectionspace.chain.util.BadRequestException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,7 +66,6 @@ public class ChainServlet extends HttpServlet
 		if(pathinfo.startsWith("/"))
 			pathinfo=pathinfo.substring(1);
 		InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(pathinfo);
-		System.err.println("pi="+servlet_request.getPathInfo());
 		if(is==null)
 			return false; // Not for us
 		// Serve fixed content

@@ -2,10 +2,12 @@ package org.collectionspace.chain.controller;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,6 +18,13 @@ import org.collectionspace.chain.jsonstore.JSONStore;
 import org.collectionspace.chain.jsonstore.StubJSONStore;
 import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
+import org.collectionspace.chain.services.ReturnedDocument;
+import org.collectionspace.chain.services.ServicesConnection;
+import org.collectionspace.chain.test.TestServlet;
+import org.collectionspace.chain.util.RequestMethod;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -137,6 +146,17 @@ public class HandleJSONTest {
 		return tester;
 	}
 	
+	private String setupTestServer() throws Exception {
+		ServletTester tester=new ServletTester();
+		tester.setContextPath("/test");
+		tester.addServlet(TestServlet.class,"/*");
+		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
+		String connector=tester.createSocketConnector(true);
+		System.err.println("connector="+connector);
+		tester.start();
+		return connector;
+	}
+	
 	private HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
 		HttpTester response = new HttpTester();
@@ -200,5 +220,28 @@ public class HandleJSONTest {
 		assertTrue(files.contains("b"));
 		assertTrue(files.contains("c"));
 		assertEquals(3,files.size());
+	}
+	
+	@Test public void testXMLDocumentRetrieve() throws Exception {
+		String base=setupTestServer();
+		ServicesConnection conn=new ServicesConnection(base+"/test");
+		ReturnedDocument retdoc=conn.getXMLDocument(RequestMethod.GET,"test.xml");
+		assertEquals(200,retdoc.getStatus());
+		Document doc=retdoc.getDocument();
+		assertEquals(1,doc.selectNodes("test").size());
+	}
+	
+	private Document makeXML(String in) throws DocumentException, UnsupportedEncodingException {
+		SAXReader reader=new SAXReader();
+		return reader.read(new ByteArrayInputStream(in.getBytes("UTF-8")));
+	}
+	
+	@Test public void testReflectTest() throws Exception {
+		String base=setupTestServer();
+		ServicesConnection conn=new ServicesConnection(base+"/test/");
+		ReturnedDocument retdoc=conn.getXMLDocument(RequestMethod.POST,"/reflect",makeXML("<hello/>"));
+		assertEquals(200,retdoc.getStatus());
+		Document doc=retdoc.getDocument();
+		assertEquals(1,doc.selectNodes("hello").size());		
 	}
 }

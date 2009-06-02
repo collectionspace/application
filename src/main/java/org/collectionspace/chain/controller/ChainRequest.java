@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.util.BadRequestException;
 
 public class ChainRequest {
 	private final static String SCHEMA_REF = "/objects/schema";
