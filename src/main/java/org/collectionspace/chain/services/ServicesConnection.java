@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
@@ -15,6 +16,7 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.io.input.TeeInputStream;
 import org.collectionspace.chain.controller.RequestType;
 import org.collectionspace.chain.util.BadRequestException;
 import org.collectionspace.chain.util.RequestMethod;
@@ -45,6 +47,7 @@ public class ServicesConnection {
 	
 	private HttpMethod createMethod(RequestMethod method,String uri,InputStream data) throws BadRequestException {
 		uri=prepend_base(uri);
+		System.err.println(uri);
 		if(uri==null)
 			throw new BadRequestException("URI must not be null");		
 		switch(method) {
@@ -93,12 +96,17 @@ public class ServicesConnection {
 		}
 		try {
 			HttpMethod method=createMethod(method_type,uri,body_data);
+			if(body_data!=null) {
+				method.setRequestHeader("Content-Type","application/xml");
+			}
 			try {
 				int response=client.executeMethod(method);
+				System.err.println("response="+response);
 				InputStream stream=method.getResponseBodyAsStream();
 				SAXReader reader=new SAXReader();
 				// TODO errorhandling
-				Document out=reader.read(stream);
+				Document out=reader.read(new TeeInputStream(stream,System.err));
+				System.err.println("ok");
 				stream.close();
 				return new ReturnedDocument(response,out);
 			} catch (HttpException e) {
@@ -107,6 +115,49 @@ public class ServicesConnection {
 				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
 			} catch (DocumentException e) {
 				throw new BadRequestException("Bad XML from "+uri+" at "+base_url,e);
+			} finally {
+				method.releaseConnection();
+			}
+		} finally {
+			if(body_data!=null)
+				try {
+					body_data.close();
+				} catch (IOException e) {
+					// Close failed: nothing we can do. Is a ByteArrayInputStream, anyway, should be impossible.
+					throw new BadRequestException("Impossible exception raised during close of BAIS!?");
+				}
+		}
+	}
+
+	// XXX refactor!!!!
+	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body) throws BadRequestException {
+		InputStream body_data=null;
+		if(body!=null) {
+			try {
+				body_data=serializetoXML(body);
+			} catch (IOException e) {
+				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
+			}
+		}
+		try {
+			HttpMethod method=createMethod(method_type,uri,body_data);
+			if(body_data!=null) {
+				method.setRequestHeader("Content-Type","application/xml");
+			}
+			try {
+				int response=client.executeMethod(method);
+				System.err.println("response="+response);
+				Header location=method.getResponseHeader("Location");
+				if(location==null)
+					throw new BadRequestException("Missing location header");
+				String url=location.getValue();
+				if(url.startsWith(base_url))
+					url=url.substring(base_url.length());
+				return new ReturnedURL(response,url);
+			} catch (HttpException e) {
+				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
+			} catch (IOException e) {
+				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
 			} finally {
 				method.releaseConnection();
 			}
