@@ -1,4 +1,4 @@
-package org.collectionspace.chain.services;
+package org.collectionspace.chain.storage.services;
 
 import org.dom4j.Document;
 

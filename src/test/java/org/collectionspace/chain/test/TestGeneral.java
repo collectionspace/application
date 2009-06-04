@@ -14,14 +14,14 @@ import java.util.Set;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.harness.HarnessServlet;
-import org.collectionspace.chain.jsonstore.ExistException;
-import org.collectionspace.chain.jsonstore.JSONNotFoundException;
-import org.collectionspace.chain.jsonstore.JSONStore;
-import org.collectionspace.chain.jsonstore.StubJSONStore;
 import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
-import org.collectionspace.chain.services.ReturnedDocument;
-import org.collectionspace.chain.services.ServicesConnection;
+import org.collectionspace.chain.storage.ExistException;
+import org.collectionspace.chain.storage.Storage;
+import org.collectionspace.chain.storage.NotExistException;
+import org.collectionspace.chain.storage.file.StubJSONStore;
+import org.collectionspace.chain.storage.services.ReturnedDocument;
+import org.collectionspace.chain.storage.services.ServicesConnection;
 import org.collectionspace.chain.util.RequestMethod;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -46,7 +46,7 @@ public class TestGeneral {
 	private final static String testStr2 = "{\"a\":\"b\"}";
 	
 	
-	private JSONStore store;
+	private Storage store;
 	
 	@Before public void setup() {
 		File tmp=new File(System.getProperty("java.io.tmpdir"));
@@ -66,7 +66,7 @@ public class TestGeneral {
 		store.createJSON("/objects/json1.test", jsonObject);
 	}
 	
-	@Test public void readJSONFromFile() throws JSONNotFoundException, JSONException, ExistException {
+	@Test public void readJSONFromFile() throws NotExistException, JSONException, ExistException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
 		String result = store.retrieveJSON("/objects/json1.test");
@@ -82,10 +82,10 @@ public class TestGeneral {
 			new JSONObject(result);
 			assertTrue(false);
 		}
-		catch (JSONNotFoundException onfe) {}
+		catch (NotExistException onfe) {}
 	}
 	
-	@Test public void testJSONUpdate() throws ExistException, JSONNotFoundException, JSONException {
+	@Test public void testJSONUpdate() throws ExistException, NotExistException, JSONException {
 		JSONObject jsonObject = new JSONObject(testStr2);
 		store.createJSON("/objects/json1.test", jsonObject);
 		jsonObject = new JSONObject(testStr);
@@ -96,7 +96,7 @@ public class TestGeneral {
 		assertTrue(resultObj.toString().equals(testObj.toString()));
 	}
 
-	@Test public void testJSONNoUpdateNonExisting() throws ExistException, JSONNotFoundException, JSONException {
+	@Test public void testJSONNoUpdateNonExisting() throws ExistException, NotExistException, JSONException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		try {
 			store.updateJSON("/objects/json1.test", jsonObject);
@@ -104,7 +104,7 @@ public class TestGeneral {
 		} catch(ExistException e) {}
 	}
 
-	@Test public void testJSONNoCreateExisting() throws ExistException, JSONNotFoundException, JSONException {
+	@Test public void testJSONNoCreateExisting() throws ExistException, NotExistException, JSONException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
 		try {

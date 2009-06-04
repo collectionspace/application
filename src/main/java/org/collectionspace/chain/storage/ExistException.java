@@ -1,4 +1,4 @@
-package org.collectionspace.chain.jsonstore;
+package org.collectionspace.chain.storage;
 
 /** JSON Not Found in store at this path */
 public class ExistException extends Exception {

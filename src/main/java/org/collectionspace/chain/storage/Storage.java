@@ -1,8 +1,8 @@
-package org.collectionspace.chain.jsonstore;
+package org.collectionspace.chain.storage;
 
 import org.json.JSONObject;
 
-public interface JSONStore {
+public interface Storage {
 
 	/**
 	 * Generates JSON string from a file storing the information
@@ -10,7 +10,7 @@ public interface JSONStore {
 	 * @param filePath - path to the file
 	 * @return  String of valid JSON format, or an empty string if an error was encountered.
 	 */
-	public abstract String retrieveJSON(String filePath) throws JSONNotFoundException;
+	public abstract String retrieveJSON(String filePath) throws NotExistException;
 
 	/**
 	 * Parses and stores the given JSONObject in a file in the given path, if it already exists.

@@ -1,4 +1,4 @@
-package org.collectionspace.chain.jsonstore;
+package org.collectionspace.chain.storage.file;
 
 import java.io.File;
 import java.io.FileReader;
@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.collectionspace.chain.storage.ExistException;
+import org.collectionspace.chain.storage.Storage;
+import org.collectionspace.chain.storage.NotExistException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,7 +18,7 @@ import org.json.JSONObject;
  *  Sorry, that was my mistake, Avi, :(. -- dan
  */
 
-public class StubJSONStore implements JSONStore {
+public class StubJSONStore implements Storage {
 	private String store_root;
 	
 	/** Generate a file from a path.
@@ -39,11 +42,11 @@ public class StubJSONStore implements JSONStore {
 	/* (non-Javadoc)
 	 * @see org.collectionspace.JSONStore#retrieveJson(java.lang.String)
 	 */
-	public String retrieveJSON(String filePath) throws JSONNotFoundException {
+	public String retrieveJSON(String filePath) throws NotExistException {
 		File jsonFile = fileFromPath(filePath);
 		if (!jsonFile.exists())
 		{
-			throw new JSONNotFoundException("No such file: " + filePath);
+			throw new NotExistException("No such file: " + filePath);
 		}
 
 		try {

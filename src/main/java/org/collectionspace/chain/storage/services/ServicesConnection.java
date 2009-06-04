@@ -1,4 +1,4 @@
-package org.collectionspace.chain.services;
+package org.collectionspace.chain.storage.services;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,6 +11,7 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -65,6 +66,8 @@ public class ServicesConnection {
 		}
 		case GET:
 			return new GetMethod(uri);
+		case DELETE:
+			return new DeleteMethod(uri);
 		}
 		throw new BadRequestException("Unsupported method "+method);
 	}
@@ -154,6 +157,41 @@ public class ServicesConnection {
 				if(url.startsWith(base_url))
 					url=url.substring(base_url.length());
 				return new ReturnedURL(response,url);
+			} catch (HttpException e) {
+				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
+			} catch (IOException e) {
+				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
+			} finally {
+				method.releaseConnection();
+			}
+		} finally {
+			if(body_data!=null)
+				try {
+					body_data.close();
+				} catch (IOException e) {
+					// Close failed: nothing we can do. Is a ByteArrayInputStream, anyway, should be impossible.
+					throw new BadRequestException("Impossible exception raised during close of BAIS!?");
+				}
+		}
+	}
+
+	public int getNone(RequestMethod method_type,String uri,Document body) throws BadRequestException {
+		InputStream body_data=null;
+		if(body!=null) {
+			try {
+				body_data=serializetoXML(body);
+			} catch (IOException e) {
+				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
+			}
+		}
+		try {
+			HttpMethod method=createMethod(method_type,uri,body_data);
+			if(body_data!=null) {
+				method.setRequestHeader("Content-Type","application/xml");
+			}
+			try {
+				int response=client.executeMethod(method);
+				return response;
 			} catch (HttpException e) {
 				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
 			} catch (IOException e) {
