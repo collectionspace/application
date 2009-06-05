@@ -14,6 +14,7 @@ import org.dom4j.Node;
 // more intelligently before there are things other than CollectionObject
 class ServicesIdentifierMap {
 	private ServicesConnection conn;
+	private int cache_hits=0,cache_misses=0,cache_loadsteps=0;
 	
 	private Map<String,String> cache=new HashMap<String,String>();
 	
@@ -33,6 +34,7 @@ class ServicesIdentifierMap {
 	@SuppressWarnings("unchecked")
 	private synchronized void updateCache() throws BadRequestException {
 		try {
+			cache_misses++;
 			ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");
 			if(all.getStatus()!=200)
 				throw new BadRequestException("Bad request during identifier cache map update: status not 200");
@@ -41,8 +43,10 @@ class ServicesIdentifierMap {
 			for(Node object : objects) {
 				String csid=object.selectSingleNode("csid").getText();
 				present.add(csid);
-				if(cache.get(csid)==null)
+				if(cache.get(csid)==null) {
+					cache_loadsteps++;
 					cache.put(toObjNum(csid),csid);
+				}
 			}
 			
 		} catch (BadRequestException e) {
@@ -52,8 +56,15 @@ class ServicesIdentifierMap {
 	
 	String getCSID(String object_number) throws BadRequestException {
 		String csid=cache.get(object_number);
-		if(csid==null)
+		if(csid==null) {
 			updateCache();
+		} else {
+			cache_hits++;
+		}
 		return cache.get(object_number);
 	}
+	
+	int getNumberHits() { return cache_hits; }
+	int getNumberMisses() { return cache_misses; }
+	int getLoadSteps() { return cache_loadsteps; }
 }

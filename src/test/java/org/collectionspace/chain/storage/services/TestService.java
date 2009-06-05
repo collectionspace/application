@@ -64,6 +64,17 @@ public class TestService {
 		String num=doc.getDocument().selectSingleNode("collection-object/objectNumber").getText();
 		assertEquals("2",num);
 	}
+
+	@Test public void testObjectsPut() throws Exception {
+		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",getDocument("obj1.xml"));
+		assertEquals(201,url.getStatus());
+		ReturnedDocument doc=conn.getXMLDocument(RequestMethod.PUT,url.getURL(),buildObject("32"));
+		assertEquals(201,url.getStatus()); // 201?
+		doc=conn.getXMLDocument(RequestMethod.GET,url.getURL());
+		assertEquals(200,doc.getStatus());
+		String num=doc.getDocument().selectSingleNode("collection-object/objectNumber").getText();
+		assertEquals("32",num);
+	}
 	
 	// TODO pre-emptive cache population
 	
@@ -80,21 +91,29 @@ public class TestService {
 		}
 	}
 	
-	@Test public void testSetvicesIdentifierMapBasic() throws Exception {
-		deleteAll(); // for speed
-		ServicesIdentifierMap sim=new ServicesIdentifierMap(conn);
+	private Document buildObject(String objid) throws DocumentException, IOException {
 		InputStream data_stream=getResource("obj2.xml");
 		String data=IOUtils.toString(data_stream);
 		data_stream.close();
-		String objid="test-sim-"+rnd.nextInt(Integer.MAX_VALUE);
 		data=data.replaceAll("<<objnum>>",objid);
 		SAXReader reader=new SAXReader();
-		Document doc=reader.read(new StringReader(data));
-		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",doc);
+		return reader.read(new StringReader(data));
+	}
+	
+	@Test public void testSetvicesIdentifierMapBasic() throws Exception {
+		deleteAll(); // for speed
+		ServicesIdentifierMap sim=new ServicesIdentifierMap(conn);
+		String objid="test-sim-"+rnd.nextInt(Integer.MAX_VALUE);
+		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",buildObject(objid));
 		assertEquals(201,url.getStatus());
 		String csid=url.getURL().substring(url.getURL().lastIndexOf("/")+1);
 		String csid2=sim.getCSID(objid);
 		assertEquals(csid,csid2);
+		String csid3=sim.getCSID(objid);
+		assertEquals(csid,csid3);
+		assertEquals(1,sim.getNumberHits());
+		assertEquals(1,sim.getNumberMisses());
+		assertEquals(1,sim.getLoadSteps());
 	}
 	
 	@Test public void testDelete() throws Exception {

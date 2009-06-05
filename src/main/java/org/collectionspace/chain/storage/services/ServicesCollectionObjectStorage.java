@@ -5,10 +5,11 @@ import org.collectionspace.chain.storage.NotExistException;
 import org.collectionspace.chain.storage.Storage;
 import org.json.JSONObject;
 
-public class ServicesStorage implements Storage {
+// XXX we assume it's an object for now: we need an abstraction for other kinds of things, in due course.
+public class ServicesCollectionObjectStorage implements Storage {
 	private ServicesConnection conn;
 	
-	public ServicesStorage(ServicesConnection conn) {
+	public ServicesCollectionObjectStorage(ServicesConnection conn) {
 		this.conn=conn;
 	}
 	
