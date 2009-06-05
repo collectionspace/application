@@ -3,13 +3,10 @@ package org.collectionspace.chain.util.jpath;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JPathPathParser {
-	private enum State { FIRST };
-		
+public class JPathPathParser {		
 	private List<Object> out=new ArrayList<Object>();
 	private char[] in;
 	private int index=0;
-	private State state=State.FIRST;
 	
 	public JPathPathParser(String path) throws InvalidJPathException {
 		in=path.toCharArray();
