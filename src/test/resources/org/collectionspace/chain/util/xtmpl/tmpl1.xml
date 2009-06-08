@@ -1,0 +1,6 @@
+<a xmlns:xtmpl="http://www.collectionspace.org/xtmpl">
+  <b>
+    <c xtmpl:point="c"/>
+    <d xtmpl:point="d"/>
+  </b>
+</a>
