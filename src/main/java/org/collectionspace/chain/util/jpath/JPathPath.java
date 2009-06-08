@@ -64,28 +64,35 @@ public class JPathPath {
 	
 	public String getString(Object src) throws InvalidJPathException, JSONException {
 		Object out=get(src);
-		if(!(out instanceof String))
+		if(!(out instanceof String) && out!=null)
 			throw new InvalidJPathException("Not a string");
 		return (String)out;
 	}
 
 	public boolean getBoolean(Object src) throws InvalidJPathException, JSONException {
 		Object out=get(src);
+		if(out==null)
+			return false;
 		if(!(out instanceof Boolean))
 			throw new InvalidJPathException("Not a boolean");
 		return ((Boolean)out).booleanValue();
 	}
+
+	public boolean isNull(Object src) throws InvalidJPathException, JSONException {
+		Object out=get(src);
+		return out!=null;
+	}
 	
 	public JSONObject getJSONObject(Object src) throws InvalidJPathException, JSONException {
 		Object out=get(src);
-		if(!(out instanceof JSONObject))
+		if(!(out instanceof JSONObject) && out!=null)
 			throw new InvalidJPathException("Not a JSONObject");
 		return (JSONObject)out;
 	}
 
 	public JSONArray getJSONArray(Object src) throws InvalidJPathException, JSONException {
 		Object out=get(src);
-		if(!(out instanceof JSONArray))
+		if(!(out instanceof JSONArray) && out!=null)
 			throw new InvalidJPathException("Not a JSONArray");
 		return (JSONArray)out;
 	}

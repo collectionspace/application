@@ -13,6 +13,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,14 +48,27 @@ public class JXJTransformer {
 		}
 	}
 
+	private void setDocumentKey(XTmplDocument doc,String key,Object value) throws JSONException, InvalidXTmplException {
+		if(value instanceof String)
+			doc.setText(key,(String)value);	
+		else if(value instanceof JSONArray) {
+			int len=((JSONArray)value).length();
+			String[] out=new String[len];
+			for(int i=0;i<len;i++) {
+				Object v=((JSONArray)value).get(i);
+				if(!(v instanceof String))
+					throw new InvalidXTmplException("Array value is not a string");
+				out[i]=(String)v;
+			}
+			doc.setTexts(key,out);
+		}
+	}
+	
 	public Document json2xml(JSONObject json) throws InvalidXTmplException {
 		XTmplDocument doc=jxtmpl.makeDocument();
 		for(Map.Entry<String,JPathPath> entry : jxattach.entrySet()) {
 			try {
-				String value=entry.getValue().getString(json);
-				doc.setText(entry.getKey(),value);
-			} catch (InvalidJPathException e) {
-				throw new InvalidXTmplException("Invalid JPath key="+entry.getKey(),e);
+				setDocumentKey(doc,entry.getKey(),entry.getValue().get(json));
 			} catch (JSONException e) {
 				throw new InvalidXTmplException("Invalid JSON key="+entry.getKey(),e);
 			}

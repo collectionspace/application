@@ -1,6 +1,8 @@
 package org.collectionspace.chain.util.xtmpl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.dom4j.Document;
@@ -23,6 +25,25 @@ public class XTmplDocument {
 	public void setContents(String key,Element value) {
 		Element e=(Element)document.selectSingleNode(attach.get(key));
 		e.add(value);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void setTexts(String key,String[] texts) {
+		Node basis=document.selectSingleNode(attach.get(key));
+		Element parent=basis.getParent();
+		int pos=parent.indexOf(basis);
+		List<Node> nodes=(List<Node>)parent.content();
+		List<Node> after=new ArrayList(nodes.subList(pos+1,nodes.size()));	
+		basis.detach();
+		for(Node n : after)
+			n.detach();
+		for(String text : texts) {
+			Node renewed=(Node)basis.clone();
+			renewed.setText(text);	
+			parent.add(renewed);
+		}
+		for(Node n : after)
+			parent.add(n);
 	}
 	
 	public Document getDocument() {
