@@ -1,6 +1,6 @@
 package org.collectionspace.chain.util.jxj;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +8,7 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,6 +42,10 @@ public class TestJXJ {
 		JXJTransformer t1=translate.getTransformer("collection-object");
 		assertNotNull(t1);
 		Document d1=t1.json2xml(input);
+		assertEquals("TITLE",d1.getDocument().selectSingleNode("collection-object/title").getText());
+		assertEquals("OBJNUM",d1.getDocument().selectSingleNode("collection-object/objectNumber").getText());
+		assertEquals(3,d1.getDocument().selectNodes("collection-object/otherNumber").size());
+		assertEquals("2",((Node)(d1.getDocument().selectNodes("collection-object/otherNumber").get(1))).getText());
 		System.err.println(d1.asXML());
 	}
 }

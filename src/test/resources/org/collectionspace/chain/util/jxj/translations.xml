@@ -5,17 +5,23 @@
 			<map>
 				<mapping json=".objectnumber" key="object-number" />
 				<mapping json=".othernumber" key="other-number" />
+				<mapping json=".description" key="description" />
+				<mapping json=".comments" key="comments" />
+				<mapping json=".distfeatures" key="dist-features" />
+				<mapping json=".objectname" key="object-name" />
+				<mapping json=".responsibledept" key="responsible-dept" />
+				<mapping json=".title" key="title" />
 			</map>
 			<template>
 				<ns2:collection-object xmlns:ns2="http://collectionspace.org/hello">
 					<objectNumber xtmpl:point="object-number">2</objectNumber>
 					<otherNumber xtmpl:point="other-number">3</otherNumber>
-					<briefDescription>description</briefDescription>
-					<comments></comments>
-					<distFeatures></distFeatures>
-					<objectName>Left-handed screwdriver</objectName>
-					<responsibleDept></responsibleDept>
-					<title></title>
+					<briefDescription xtmpl:point="description">description</briefDescription>
+					<comments xtmpl:point="comments"></comments>
+					<distFeatures xtmpl:point="dist-features"></distFeatures>
+					<objectName xtmpl:point="object-name">Left-handed screwdriver</objectName>
+					<responsibleDept xtmpl:point="responsible-dept"></responsibleDept>
+					<title xtmpl:point="title"></title>
 				</ns2:collection-object>
 			</template>
 		</json2xml>

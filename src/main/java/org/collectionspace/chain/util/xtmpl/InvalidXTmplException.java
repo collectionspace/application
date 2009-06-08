@@ -1,6 +1,7 @@
 package org.collectionspace.chain.util.xtmpl;
 
 public class InvalidXTmplException extends Exception {
+	private static final long serialVersionUID = -9033938559839598685L;
 
 	public InvalidXTmplException() { super(); }
 

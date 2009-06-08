@@ -3,7 +3,7 @@ package org.collectionspace.chain.util.jpath;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JPathPathParser {		
+public class JPathPathParser {
 	private List<Object> out=new ArrayList<Object>();
 	private char[] in;
 	private int index=0;
@@ -96,7 +96,6 @@ public class JPathPathParser {
 	}
 
 	private void addBracketComponent() throws InvalidJPathException {
-		boolean first=true;
 		char type=nextChar(0);
 		if(type=='"') {
 			out.add(getString());
