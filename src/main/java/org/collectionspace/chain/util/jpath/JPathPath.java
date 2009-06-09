@@ -3,6 +3,7 @@ package org.collectionspace.chain.util.jpath;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,12 +55,37 @@ public class JPathPath {
 		}
 		return null;
 	}
+
+	// src and ret are one of json types, part is an element in our path 
+	void set_step(Object src,Object part,Object value) throws JSONException {
+		if(src instanceof JSONObject) {
+			if(part instanceof String)
+				((JSONObject) src).put((String)part,value);
+			return;
+		}
+		if(src instanceof JSONArray) {
+			if(part instanceof Integer)
+				((JSONArray)src).put(((Integer) part).intValue(),value);
+			return;
+		}
+	}
 	
 	public Object get(Object src) throws JSONException {
 		Object cur=src;
 		for(Object step : path)
 			cur=step(cur,step);
 		return cur;
+	}
+	
+	public void set(Object src,Object value) throws JSONException {
+		Object cur=src;
+		for(int i=0;i<path.size();i++) {
+			if(i<path.size()-1) {
+				cur=step(cur,path.get(i));
+			} else {
+				set_step(cur,path.get(i),value);
+			}
+		}
 	}
 	
 	public String getString(Object src) throws InvalidJPathException, JSONException {
@@ -95,5 +121,13 @@ public class JPathPath {
 		if(!(out instanceof JSONArray) && out!=null)
 			throw new InvalidJPathException("Not a JSONArray");
 		return (JSONArray)out;
+	}
+	
+	public static String escape(String in) {
+		return StringEscapeUtils.escapeJavaScript(in);
+	}
+	
+	public static String component(String in) {
+		return "[\""+escape(in)+"\"]";
 	}
 }

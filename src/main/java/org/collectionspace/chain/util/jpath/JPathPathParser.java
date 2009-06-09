@@ -3,6 +3,8 @@ package org.collectionspace.chain.util.jpath;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 public class JPathPathParser {
 	private List<Object> out=new ArrayList<Object>();
 	private char[] in;

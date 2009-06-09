@@ -1,7 +1,6 @@
 package org.collectionspace.chain.util.xtmpl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +9,7 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 
 public class XTmplDocument {
-	private Map<String,String> attach=new HashMap<String,String>();
+	private Map<String,String> attach;
 	private Document document;
 
 	XTmplDocument(Document document,Map<String,String> attach) {
