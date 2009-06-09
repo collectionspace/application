@@ -36,7 +36,7 @@ public class TestJXJ {
 		return new JSONObject(data);
 	}
 	
-	@Test public void testJXJBasic() throws Exception {
+	@Test public void testJSONToXML() throws Exception {
 		JXJFile translate=JXJFile.compile(getDocument("translations.xml"));
 		JSONObject input=getJSON("src1.json");
 		JXJTransformer t1=translate.getTransformer("collection-object");
@@ -47,5 +47,15 @@ public class TestJXJ {
 		assertEquals(3,d1.getDocument().selectNodes("collection-object/otherNumber").size());
 		assertEquals("2",((Node)(d1.getDocument().selectNodes("collection-object/otherNumber").get(1))).getText());
 		System.err.println(d1.asXML());
+		// XXX
+	}
+	
+	@Test public void testXMLToJSON() throws Exception {
+		JXJFile translate=JXJFile.compile(getDocument("translations.xml"));
+		Document input=getDocument("src2.xml");
+		JXJTransformer t1=translate.getTransformer("collection-object");
+		assertNotNull(t1);
+		JSONObject d1=t1.xml2json(input);
+		System.err.println(d1.toString());
 	}
 }

@@ -25,6 +25,17 @@
 				</ns2:collection-object>
 			</template>
 		</json2xml>
-
+		<xml2json>
+			<map>
+				<mapping xpath="collection-object/objectNumber" key="object-number"/>
+				<mapping xpath="collection-object/otherNumber" key="other-number" multiple="yes"/>
+			</map>
+			<template>
+			  {
+			      "objectnumber": "\u0000object-number",
+			      "othernumber": "\u0000other-number"
+			  }
+			</template>
+		</xml2json>
 	</translation>
 </translations>
