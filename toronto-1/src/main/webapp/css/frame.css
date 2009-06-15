@@ -1,0 +1,118 @@
+body{
+margin:0;
+padding:0;
+line-height: 1.5em;
+}
+
+b{font-size: 110%;}
+em{color: red;}
+
+#maincontainer{
+width: 840px; /*Width of main container*/
+margin: 0 auto; /*Center container on page*/
+}
+
+#topsection{
+background: #EAEAEA;
+height: 90px; /*Height of top section*/
+}
+
+#topsection h1{
+margin: 0;
+padding-top: 15px;
+}
+
+#contentwrapper{
+float: left;
+width: 100%;
+}
+
+#contentcolumn{
+margin-left: 200px; /*Set left margin to LeftColumnWidth*/
+}
+
+#leftcolumn{
+float: left;
+width: 200px; /*Width of left column*/
+margin-left: -840px; /*Set left margin to -(MainContainerWidth)*/
+background: #93C3CD;
+}
+
+#footer{
+clear: left;
+width: 100%;
+background: black;
+color: #FFF;
+text-align: center;
+padding: 4px 0;
+}
+
+#footer a{
+color: #FFFF80;
+}
+
+.innertube{
+margin: 10px; /*Margins for inner DIV inside each column (to provide padding)*/
+margin-top: 0;
+}
+
+#sidebar {
+  margin: 1em 0;
+}
+
+#sidebar .ui-accordion-content {
+  padding: 1em;
+}
+
+.sidebar-accordion-link {
+  float: right;
+  font-size: 9pt;
+}
+
+.sidebar-accordion-nav .back {
+  float: left;
+  display: block;
+}
+
+.sidebar-accordion-nav .fwd {
+  float: right;
+  display: block;
+}
+
+#sidebar .ui-accordion-header a {
+  font-size: 8px;
+  padding-left: 4px;
+}
+
+#sidebar .ui-icon {
+  background-image: none;
+}
+
+#main {
+  font-size: 10px;
+  margin: 1em;
+}
+
+#good {
+  text-align: center;
+  background-color: #ccffdd;
+  display: none;
+  width: 200px;
+  margin: 1em auto;
+  padding: 1em;
+  font-size: 120%;
+  border: 1px dashed green;
+  float: right;
+}
+
+#error {
+  text-align: center;
+  background-color: #ffccdd;
+  display: none;
+  width: 200px;
+  margin: 1em auto;
+  padding: 1em;
+  font-size: 120%;
+  border: 1px dashed red;
+  float: right;
+}

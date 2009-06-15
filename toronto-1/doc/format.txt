@@ -1,0 +1,83 @@
+This document describes the format of the page specification xml. As it is a work in progress, 
+this document will change. It is not a spec. 
+
+The page specification xml specifies the layout of a page for all kinds of reasons, most
+obviously so that it can be drawn, but also (for example) for working out where to send data
+from form submission.
+
+At the moment the top level tag is <page>. There can be only one.
+
+The "leaf" tags are
+
+	    <free title="content1"/>   -- A free text entry field labelled content1
+
+    	<date title="content2"/>   -- A free text entry field labelled content2
+
+      	<dropdown title="content4"> -- A dropdown with lavel content4 and values Apple,Banana,Cheese
+      	  <value>Apple</value>
+      	  <value>Banana</value>
+      	  <value>Cheese</value>
+      	</dropdown>
+
+The structuring tags are
+
+  <block title="..."> -- put into coloured block
+  </block>
+  
+  <tabs>              -- put into tabs
+    <tab>
+      ... (1st tab)
+    </tab>
+    <tab>
+      ... (2nd tab)
+    </tab>
+    ...
+  </tabs>
+  
+  <columns>            -- into two columns
+    <column>
+      ... 1st column
+    </column>
+    <column>
+      ... 2nd column
+    </column>
+  </columns>
+  
+eg
+
+<page>
+	<tabs>
+
+		<tab title="Tab 1">
+			<columns>
+				<column>
+					<block title="Object Identification Information">
+						<free title="content1" />
+						<date title="content2" />
+					</block>
+				</column>
+				<column>
+					<block title="Media Snapshot">
+						<free title="content3" />
+						<dropdown title="content4">
+							<value>Apple</value>
+							<value>Banana</value>
+							<value>Cheese</value>
+						</dropdown>
+					</block>
+				</column>
+			</columns>
+		</tab>
+
+		<tab title="Tab 2">
+			<block title="Block1">
+				<free title="xxx" />
+			</block>
+			<block title="Block2">
+				<free title="xxx" />
+			</block>
+		</tab>
+
+		<tab title="Tab 3" />
+	</tabs>
+</page>

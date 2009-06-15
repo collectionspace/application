@@ -1,0 +1,178 @@
+<pages>
+	<page id='object-entry'>
+		<block title="Object Entry Information">
+			<columns>
+				<column>
+					<free title="Entry Number" name="entry-number" summary="title,brief"/>
+					<date title="Entry Date" name="entry-date" />
+					<free title="Number of Objects" name="objects-num" />
+					<dropdown title="Entry Method" name="entry-method">
+						<value>in person</value>
+						<value>post</value>
+						<value>found on doorstep</value>
+					</dropdown>
+					<dropdown title="Entry Reason" name="entry-reason">
+						<value>enquiry</value>
+						<value>commission</value>
+						<value>loan</value>
+					</dropdown>
+					<free title="Brief Description" name="description-brief" summary="title,brief"/>			<!-- need to accommodate multiple lines (text box height) -->
+				</column>
+				<column>
+					<date title="Return Date" name="return-date"/>
+					<dropdown title="Donor">
+						<value>people</value>
+						<value>person</value>
+						<value>organisation</value>
+					</dropdown>
+					<dropdown title="Depositor" name="depositor">
+						<value>people</value>
+						<value>person</value>
+						<value>organisation</value>
+					</dropdown>
+					<dropdown title="Responsible Entity" name="responsible">
+						<value>person1</value>
+						<value>person2</value>
+						<value>person3</value>
+						<value>person4</value>
+					</dropdown>
+					<free title="Entry Note" name="entry-note" />			<!-- need to accommodate multiple lines (text box height) -->
+				</column>
+			</columns>
+		</block>
+		<block title="Valuation">
+			<columns>
+				<column>
+					<dropdown title="Valuer" name="valuer">
+						<value>person</value>
+						<value>organisation</value>
+					</dropdown>
+					<free title="Reference Number" />
+				</column>
+				<column>
+					<dropdown title="Valuation Amount" name="amount">
+						<value>UK Pound</value>
+						<value>Euro</value>
+						<value>US Dollar</value>
+						<value>Canadian Dollar</value>
+						<value>NZ Dollar</value>
+					</dropdown>
+					<!--
+						needs sorting - freet text field with no title next to a dropdown
+						menu
+					-->
+				</column>
+			</columns>
+		</block>
+		<block title="Insurance">
+			<columns>
+				<column>
+					<dropdown title="Insurer" name="insurer">		<!-- probably source data from a tabke or external dataset -->
+						<value>Leagal &amp; General</value>
+						<value>Lloyds</value>
+						<value>Cooperative</value>
+					</dropdown>
+					<free title="Poilcy Number" name="policy"/>
+					<date title="Renewal Date" name="policy-renewal"/>
+				</column>
+				<column>
+					<free title="Insuarance Amount" name="insured-amount"/>
+					<free title="Reference Number" name="insurance-ref"/>
+					<free title="Insurance Note" name="insurance-note"/>		<!-- need to accommodate multiple lines (text box height) -->
+				</column>
+			</columns>
+		</block>
+		<block title="Condition">
+			<free title="Condition Note" name="conditoin-note"/>		<!-- need to accommodate multiple lines (text box height) -->
+		</block>
+		<block title="Location">
+			<free title="Location Note" name="location-note"/>
+		</block>
+		<buttons mode="search">
+			<button title="Cancel" />
+			<button title="Search" type="main">
+				<search />
+			</button>
+		</buttons>
+		<buttons>
+			<button title="cancel" />
+			<button title="save" type="main">
+				<save />
+			</button>
+		</buttons>
+	</page>
+	<page id='object'>
+		<tabs>
+			<tab title="Basic">
+						<block title="Object Identification Information">
+							<free title="Object Title" name="title" summary="title,brief"/>		<!-- needs sorting - preset data -->
+							<free title="Brief Description" name="description" summary="brief" />
+							<free title="Distinguishing Features" name="distinguishing" />
+							<dropdown title="Responsibe Department" name="responsible"> <!--  XXX predictive -->
+								<value>Archaeology</value>
+								<value>Anthropology</value>
+							</dropdown>
+							<free title="Accession Number" name="accnum" summary="title,brief" />	<!-- needs sorting - system generated data and multiple entries -->
+							<free title="Object Name" name="objname" />
+							<free title="Number of Objects" name="objs-num" />
+							<free title="Comments" name="comments" />
+						</block>
+				<block title="Date Information">
+					<columns>
+						<column>
+							<date title="Date - earliest/single" name="date-earliest" />
+							<date title="Date - association" name="date-assoc" />
+						</column>
+						<column>
+							<date title="Date - latest" name="date-latest" />
+							<date title="Date - period" name="date-period" />
+						</column>
+					</columns>
+					<free title="Date text" name="date-text" />
+				</block>
+			</tab>
+			<tab title="Attributes">
+			    <block>
+				<date title="Creation Title" name="creation-title" />
+				<free title="Format" name="format" />
+				<dropdown title="Material" name="material"> <!--  XXX predictive -->
+					<value>Basalt</value>
+					<value>Bronze</value>
+					<value>Flint</value>
+					<value>Iron</value>
+					<value>Paper</value>
+					<value>Wood</value>
+				</dropdown>
+				<free title="Dimensions" name="dimensions"/>
+				<free title="Other Physical Details" name="other-details" />
+				<free title="Components" name="components" />	<!-- needs sorting - multiple entries -->
+				<date title="Copyright Date" name="date-copyright" />
+				<free title="Copyright Statement" name="copyright-statement" />
+				</block>
+			</tab>
+			<!--  XXX proper freetext search -->
+			<tab title="Custodial">
+			<block>
+				<date title="Condition" name="condition" />
+				<free title="Curatorial Notes"  name="curatorial-notes"/>		<!-- need to accommodate multiple lines (text box height) -->
+				<free title="Artefact Needs" name="artefact-needs" />			<!-- need to accommodate multiple lines (text box height) -->
+				<free title="Special Handling" name="special-handling" />		<!-- need to accommodate multiple lines (text box height) -->
+				<free title="Valuation" name="valuation" />
+				<free title="Valuation Notes" name="valuation-notes" />		<!-- need to accommodate multiple lines (text box height) -->
+				</block>
+			</tab>
+		</tabs>
+		<buttons mode="search">
+			<button title="Cancel" />
+			<button title="Search" type="main">
+				<search />
+			</button>
+		</buttons>
+		<buttons>
+			<button title="cancel" />
+			<button title="save" type="main">
+				<save />
+			</button>
+		</buttons>
+	</page>
+</pages>

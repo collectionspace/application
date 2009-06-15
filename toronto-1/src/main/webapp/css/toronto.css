@@ -1,0 +1,73 @@
+.block {
+	background-color: #93C3CD;
+	padding: 1em;
+	border: 1px dotted #2C4359;
+}
+
+.colmask {
+	width:100%;			/* width of whole page */
+	overflow:hidden;		/* This chops off any overhanging divs */
+}
+
+.colleft {
+	right:50%;			/* right column width */
+	background:#fff;		/* left column background colour */
+}
+
+.col1 {
+	float: left;
+	width:50%;
+}
+.col1inner {
+	padding-right: 1em;
+}
+
+
+.col2 {
+	float: left;
+	width:50%;
+}
+.col2inner {
+	padding-left: 1em;
+}
+
+body {
+  font-size: 10px;
+}
+
+.label {
+  display: -mox-inline-box;
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+  margin-right: 1em;
+}
+
+.entry {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;  
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+  width: 45%;
+}
+
+.buttons {
+  text-align: right;
+  margin: 1em;
+}
+
+.buttons input {
+  margin: 0.5em;
+}
+
+#full-size-body {
+  font-size: 16px;
+}
+
+.home-div {
+  font-size:16pt;
+  margin: auto;
+  text-align:center;
+  width:100%;
+}
