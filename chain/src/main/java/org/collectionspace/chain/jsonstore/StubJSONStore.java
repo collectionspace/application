@@ -25,8 +25,10 @@ public class StubJSONStore implements JSONStore {
 	 */
 	private File fileFromPath(String path) {
 		path=path.replaceAll("[^A-Za-z0-9_,.-]","");
-		return new File(store_root,path);
+		return new File(store_root,path+".json");
 	}
+	
+	public String getStoreRoot() { return store_root; }
 	
 	/** Create stub store based on filesystem
 	 * 
@@ -100,6 +102,8 @@ public class StubJSONStore implements JSONStore {
 			return new String[]{};
 		List<String> out=new ArrayList<String>();
 		for(String f : dir.list()) {
+			if(f.endsWith(".json"))
+				f=f.substring(0,f.length()-5);
 			out.add(f);
 		}
 		return out.toArray(new String[0]);

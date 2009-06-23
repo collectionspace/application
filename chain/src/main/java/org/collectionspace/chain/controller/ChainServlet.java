@@ -36,7 +36,7 @@ public class ChainServlet extends HttpServlet
 		if(inited)
 			return;
 		try {
-			config=new Config();
+			config=new Config(getServletContext());
 		} catch (IOException e) {
 			throw new BadRequestException("Cannot load config"+e,e);
 		}

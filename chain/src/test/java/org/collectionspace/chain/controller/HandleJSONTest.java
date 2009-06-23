@@ -36,17 +36,33 @@ public class HandleJSONTest {
 	private final static String testStr2 = "{\"a\":\"b\"}";
 	
 	
-	private JSONStore store;
+	private StubJSONStore store;
+	private static String tmp=null;
 	
-	@Before public void setup() {
-		File tmp=new File(System.getProperty("java.io.tmpdir"));
-		File dir=new File(tmp,"ju-cspace");
-		if(!dir.exists())
-			dir.mkdir();
-		// XXX do it properly when we have delete
-		for(File f : dir.listFiles()) {
+
+	private static synchronized String tmpdir() {
+		if(tmp==null) {
+			tmp=System.getProperty("java.io.tmpdir");
+		}
+		return tmp;
+	}
+	
+	private void rm_r(File in) {
+		for(File f : in.listFiles()) {
+			if(f.isDirectory())
+				rm_r(f);
 			f.delete();
 		}
+	}
+	
+	@Before public void setup() {
+		File tmp=new File(tmpdir());
+		File dir=new File(tmp,"ju-cspace");
+		// XXX do it properly when we have delete
+		if(dir.exists())
+			rm_r(dir);
+		if(!dir.exists())
+			dir.mkdir();
 		store=new StubJSONStore(dir.toString());
 	}
 
@@ -103,8 +119,10 @@ public class HandleJSONTest {
 	}
 	
 	private File tmpSchemaFile() {
-		String tmpdir=System.getProperty("java.io.tmpdir");
-		return new File(tmpdir,"test-json-handle.tmp");
+		File schema=new File(store.getStoreRoot()+"/schema");
+		if(!schema.exists())
+			schema.mkdir();
+		return new File(schema,"test-json-handle.tmp");
 	}
 	
 	private void createSchemaFile() throws IOException {
@@ -120,8 +138,7 @@ public class HandleJSONTest {
 	}
 	
 	@Test public void testSchemaStore() throws IOException, JSONException {
-		String tmpdir=System.getProperty("java.io.tmpdir");
-		SchemaStore schema=new StubSchemaStore(tmpdir);
+		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
 		createSchemaFile();
 		JSONObject j=schema.getSchema("test-json-handle.tmp");
 		assertEquals(testStr2,j.toString());
@@ -133,6 +150,7 @@ public class HandleJSONTest {
 		tester.setContextPath("/chain");
 		tester.addServlet(ChainServlet.class, "/*");
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
+		tester.setAttribute("test-store",store.getStoreRoot());
 		tester.start();
 		return tester;
 	}
