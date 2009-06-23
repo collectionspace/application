@@ -9,6 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
@@ -46,17 +47,33 @@ public class TestGeneral {
 	private final static String testStr2 = "{\"a\":\"b\"}";
 	
 	
-	private Storage store;
+	private StubJSONStore store;
+	private static String tmp=null;
+	private static Random rnd=new Random();
 	
-	@Before public void setup() {
-		File tmp=new File(System.getProperty("java.io.tmpdir"));
-		File dir=new File(tmp,"ju-cspace");
-		if(!dir.exists())
-			dir.mkdir();
-		// XXX do it properly when we have delete
-		for(File f : dir.listFiles()) {
+	private static synchronized String tmpdir() {
+		if(tmp==null) {
+			tmp=System.getProperty("java.io.tmpdir");
+		}
+		return tmp;
+	}
+	
+	private void rm_r(File in) {
+		for(File f : in.listFiles()) {
+			if(f.isDirectory())
+				rm_r(f);
 			f.delete();
 		}
+	}
+	
+	@Before public void setup() {
+		File tmp=new File(tmpdir());
+		File dir=new File(tmp,"ju-cspace");
+		// XXX do it properly when we have delete
+		if(dir.exists())
+			rm_r(dir);
+		if(!dir.exists())
+			dir.mkdir();
 		store=new StubJSONStore(dir.toString());
 	}
 
@@ -113,8 +130,10 @@ public class TestGeneral {
 	}
 	
 	private File tmpSchemaFile() {
-		String tmpdir=System.getProperty("java.io.tmpdir");
-		return new File(tmpdir,"test-json-handle.tmp");
+		File schema=new File(store.getStoreRoot()+"/schema");
+		if(!schema.exists())
+			schema.mkdir();
+		return new File(schema,"test-json-handle.tmp");
 	}
 	
 	private void createSchemaFile() throws IOException {
@@ -130,8 +149,7 @@ public class TestGeneral {
 	}
 	
 	@Test public void testSchemaStore() throws IOException, JSONException {
-		String tmpdir=System.getProperty("java.io.tmpdir");
-		SchemaStore schema=new StubSchemaStore(tmpdir);
+		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
 		createSchemaFile();
 		JSONObject j=schema.getSchema("test-json-handle.tmp");
 		assertEquals(testStr2,j.toString());
@@ -143,6 +161,7 @@ public class TestGeneral {
 		tester.setContextPath("/chain");
 		tester.addServlet(ChainServlet.class, "/*");
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
+		tester.setAttribute("test-store",store.getStoreRoot());
 		tester.start();
 		return tester;
 	}
@@ -152,6 +171,7 @@ public class TestGeneral {
 		tester.setContextPath("/test");
 		tester.addServlet(HarnessServlet.class,"/*");
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
+		tester.setAttribute("test-store",store.getStoreRoot());
 		String connector=tester.createSocketConnector(true);
 		System.err.println("connector="+connector);
 		tester.start();

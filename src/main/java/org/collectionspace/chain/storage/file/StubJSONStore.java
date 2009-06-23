@@ -31,6 +31,8 @@ public class StubJSONStore implements Storage {
 		return new File(store_root,path);
 	}
 	
+	public String getStoreRoot() { return store_root; }
+	
 	/** Create stub store based on filesystem
 	 * 
 	 * @param store_root path to store
