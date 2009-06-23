@@ -5,9 +5,9 @@
   <otherNumber>4</otherNumber>
   <otherNumber>5</otherNumber>
   <briefDescription>description</briefDescription>
-  <comments></comments>
-  <distFeatures></distFeatures>
-  <objectName>Left-handed screwdriver</objectName>
-  <responsibleDept></responsibleDept>
-  <title></title>
+  <comments>COMMENTS</comments>
+  <distFeatures>DISTFEATURES</distFeatures>
+  <objectName>OBJNAME</objectName>
+  <responsibleDept>DEPT</responsibleDept>
+  <title>TITLE</title>
 </ns2:collection-object>

@@ -30,6 +30,7 @@ public class JXJTransformer {
 	private JTmplTmpl xjtmpl;
 	private Map<String,Dom4jXPath> xjattach=new HashMap<String,Dom4jXPath>();
 	private Set<String> xjmultiple=new HashSet<String>();
+	private Set<String> jxmultiple=new HashSet<String>();
 	
 	@SuppressWarnings("unchecked")
 	JXJTransformer(String key,Node document) throws InvalidJXJException {
@@ -50,6 +51,8 @@ public class JXJTransformer {
 				if(n_json==null)
 					throw new InvalidJXJException("mapping tag requires json attribute");
 				jxattach.put(n_key,JPathPath.compile(n_json));
+				if("yes".equals(((Element)n).attributeValue("multiple")))
+					jxmultiple.add(n_key);
 			}
 			// xml2json
 			JSONObject template=new JSONObject(document.selectSingleNode("xml2json/template").getText());
@@ -79,9 +82,9 @@ public class JXJTransformer {
 	}
 
 	private void setDocumentKey(XTmplDocument doc,String key,Object value) throws JSONException, InvalidXTmplException {
-		if(value instanceof String)
-			doc.setText(key,(String)value);	
-		else if(value instanceof JSONArray) {
+		if(jxmultiple.contains(key)) {
+			if(value==null)
+				value=new JSONArray();
 			int len=((JSONArray)value).length();
 			String[] out=new String[len];
 			for(int i=0;i<len;i++) {
@@ -91,6 +94,11 @@ public class JXJTransformer {
 				out[i]=(String)v;
 			}
 			doc.setTexts(key,out);
+		}
+		else {
+			if(value==null)
+				value="";
+			doc.setText(key,(String)value);	
 		}
 	}
 	
@@ -121,7 +129,11 @@ public class JXJTransformer {
 					}
 					doc.set(entry.getKey(),a);
 				} else {
-					String text=((Node)entry.getValue().selectSingleNode(xml.getDocument())).getText();
+					Node n=((Node)entry.getValue().selectSingleNode(xml.getDocument()));
+					String text="";
+					if(n!=null) {
+						text=n.getText();
+					}
 					doc.set(entry.getKey(),text);
 				}
 			} catch (JaxenException e) {
