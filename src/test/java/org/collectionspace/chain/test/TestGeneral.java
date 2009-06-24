@@ -4,12 +4,10 @@ import static org.junit.Assert.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
@@ -18,8 +16,6 @@ import org.collectionspace.chain.harness.HarnessServlet;
 import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
 import org.collectionspace.chain.storage.ExistException;
-import org.collectionspace.chain.storage.Storage;
-import org.collectionspace.chain.storage.NotExistException;
 import org.collectionspace.chain.storage.file.StubJSONStore;
 import org.collectionspace.chain.storage.services.ReturnedDocument;
 import org.collectionspace.chain.storage.services.ServicesConnection;
@@ -49,7 +45,6 @@ public class TestGeneral {
 	
 	private StubJSONStore store;
 	private static String tmp=null;
-	private static Random rnd=new Random();
 	
 	private static synchronized String tmpdir() {
 		if(tmp==null) {
@@ -83,7 +78,7 @@ public class TestGeneral {
 		store.createJSON("/objects/json1.test", jsonObject);
 	}
 	
-	@Test public void readJSONFromFile() throws NotExistException, JSONException, ExistException {
+	@Test public void readJSONFromFile() throws JSONException, ExistException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
 		String result = store.retrieveJSON("/objects/json1.test");
@@ -99,10 +94,10 @@ public class TestGeneral {
 			new JSONObject(result);
 			assertTrue(false);
 		}
-		catch (NotExistException onfe) {}
+		catch (ExistException onfe) {}
 	}
 	
-	@Test public void testJSONUpdate() throws ExistException, NotExistException, JSONException {
+	@Test public void testJSONUpdate() throws ExistException, JSONException {
 		JSONObject jsonObject = new JSONObject(testStr2);
 		store.createJSON("/objects/json1.test", jsonObject);
 		jsonObject = new JSONObject(testStr);
@@ -113,7 +108,7 @@ public class TestGeneral {
 		assertTrue(resultObj.toString().equals(testObj.toString()));
 	}
 
-	@Test public void testJSONNoUpdateNonExisting() throws ExistException, NotExistException, JSONException {
+	@Test public void testJSONNoUpdateNonExisting() throws ExistException, JSONException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		try {
 			store.updateJSON("/objects/json1.test", jsonObject);
@@ -121,7 +116,7 @@ public class TestGeneral {
 		} catch(ExistException e) {}
 	}
 
-	@Test public void testJSONNoCreateExisting() throws ExistException, NotExistException, JSONException {
+	@Test public void testJSONNoCreateExisting() throws ExistException, JSONException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
 		try {
@@ -220,9 +215,9 @@ public class TestGeneral {
 	}
 	
 	@Test public void testServeStatic() throws Exception {
-		HttpTester out=jettyDo(setupJetty(),"GET","/chain/TestForm.html",null);
+		HttpTester out=jettyDo(setupJetty(),"GET","/chain/chain.properties",null);
 		assertEquals(200,out.getStatus());
-		assertTrue(out.getContent().contains("<html>"));
+		assertTrue(out.getContent().contains("cspace.chain.store.dir"));
 	}
 	
 	@Test public void testObjectList() throws Exception {

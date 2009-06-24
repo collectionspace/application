@@ -10,7 +10,6 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.storage.ExistException;
 import org.collectionspace.chain.storage.Storage;
-import org.collectionspace.chain.storage.NotExistException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,11 +43,11 @@ public class StubJSONStore implements Storage {
 	/* (non-Javadoc)
 	 * @see org.collectionspace.JSONStore#retrieveJson(java.lang.String)
 	 */
-	public String retrieveJSON(String filePath) throws NotExistException {
+	public String retrieveJSON(String filePath) throws ExistException {
 		File jsonFile = fileFromPath(filePath);
 		if (!jsonFile.exists())
 		{
-			throw new NotExistException("No such file: " + filePath);
+			throw new ExistException("No such file: " + filePath);
 		}
 
 		try {

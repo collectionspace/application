@@ -5,10 +5,8 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.storage.services.ReturnedDocument;
