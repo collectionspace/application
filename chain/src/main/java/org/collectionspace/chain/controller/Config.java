@@ -40,6 +40,8 @@ public class Config {
 			return base.getCanonicalPath();
 		} catch (IOException e) {
 			return null;
+		} catch (NullPointerException npe) {
+			return null;
 		}
 	}
 
