@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.jsonstore.ExistException;
+import org.collectionspace.chain.jsonstore.JSONNotFoundException;
+import org.collectionspace.chain.jsonstore.JSONStore;
+import org.collectionspace.chain.jsonstore.StubJSONStore;
 import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
-import org.collectionspace.chain.storage.ExistException;
-import org.collectionspace.chain.storage.Storage;
-import org.collectionspace.chain.storage.file.StubJSONStore;
-import org.collectionspace.chain.util.BadRequestException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +25,7 @@ import org.json.JSONObject;
 public class ChainServlet extends HttpServlet 
 {	
 	private Config config=null;
-	private Storage store=null;
+	private JSONStore store=null;
 	private SchemaStore schema=null;
 	private boolean inited=false;
 	
@@ -49,7 +49,7 @@ public class ChainServlet extends HttpServlet
 		String out;
 		try {
 			out = store.retrieveJSON(path);
-		} catch (ExistException e) {
+		} catch (JSONNotFoundException e) {
 			throw new BadRequestException("JSON Not found "+e,e);
 		}
 		if (out == null || "".equals(out)) {
@@ -63,6 +63,7 @@ public class ChainServlet extends HttpServlet
 		if(pathinfo.startsWith("/"))
 			pathinfo=pathinfo.substring(1);
 		InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(pathinfo);
+		System.err.println("pi="+servlet_request.getPathInfo());
 		if(is==null)
 			return false; // Not for us
 		// Serve fixed content
