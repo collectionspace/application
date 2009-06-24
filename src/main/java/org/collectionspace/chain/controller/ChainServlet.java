@@ -52,7 +52,7 @@ public class ChainServlet extends HttpServlet
 		String out;
 		try {
 			out = store.retrieveJSON(path);
-		} catch (NotExistException e) {
+		} catch (ExistException e) {
 			throw new BadRequestException("JSON Not found "+e,e);
 		}
 		if (out == null || "".equals(out)) {
