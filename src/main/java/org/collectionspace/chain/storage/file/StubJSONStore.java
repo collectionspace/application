@@ -6,19 +6,19 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.storage.ExistException;
 import org.collectionspace.chain.storage.Storage;
+import org.collectionspace.chain.storage.UnimplementedException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* We should probably store JSON as JSON. We'll still parse and serialise it, though.
- *  Sorry, that was my mistake, Avi, :(. -- dan
- */
 
 public class StubJSONStore implements Storage {
 	private String store_root;
+	private static final Random rnd=new Random();
 	
 	/** Generate a file from a path.
 	 * 
@@ -45,11 +45,9 @@ public class StubJSONStore implements Storage {
 	 */
 	public String retrieveJSON(String filePath) throws ExistException {
 		File jsonFile = fileFromPath(filePath);
-		if (!jsonFile.exists())
-		{
+		if (!jsonFile.exists()) {
 			throw new ExistException("No such file: " + filePath);
 		}
-
 		try {
 			FileReader r=new FileReader(jsonFile);
 			String data=IOUtils.toString(r);
@@ -107,5 +105,18 @@ public class StubJSONStore implements Storage {
 			out.add(f);
 		}
 		return out.toArray(new String[0]);
+	}
+
+	public String autocreateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException {
+		while(true) {
+			int tail=rnd.nextInt(Integer.MAX_VALUE);
+			String filename=filePath+"/"+tail;
+			try {
+				set(filename,jsonObject,true);
+				return Integer.toString(tail);
+			} catch(ExistException e) {
+				// Try again
+			}
+		}
 	}
 }

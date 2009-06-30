@@ -10,6 +10,7 @@ import org.collectionspace.chain.util.BadRequestException;
 import org.collectionspace.chain.util.RequestMethod;
 import org.dom4j.Node;
 
+// XXX This will go
 // XXX this is a hack to deal with the ID late/early generation dilemma. It will certainly need to be addressed
 // more intelligently before there are things other than CollectionObject
 class ServicesIdentifierMap {

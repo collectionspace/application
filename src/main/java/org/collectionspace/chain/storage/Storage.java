@@ -10,7 +10,8 @@ public interface Storage {
 	 * @param filePath - path to the file
 	 * @return  String of valid JSON format, or an empty string if an error was encountered.
 	 */
-	public abstract String retrieveJSON(String filePath) throws ExistException;
+	public abstract String retrieveJSON(String filePath)
+		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
 	/**
 	 * Parses and stores the given JSONObject in a file in the given path, if it already exists.
@@ -18,7 +19,8 @@ public interface Storage {
 	 * @param filePath - path to file for storage
 	 * @param jsonObject - the JSONObject to be parsed and stored
 	 */
-	public abstract void updateJSON(String filePath, JSONObject jsonObject) throws ExistException;
+	public abstract void updateJSON(String filePath, JSONObject jsonObject)
+		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
 	/**
 	 * Parses and stores the given JSONObject in a file in the given path, if it does not exist.
@@ -26,7 +28,12 @@ public interface Storage {
 	 * @param filePath - path to file for storage
 	 * @param jsonObject - the JSONObject to be parsed and stored
 	 */
-	public abstract void createJSON(String filePath, JSONObject jsonObject) throws ExistException;
+	public abstract void createJSON(String filePath, JSONObject jsonObject)
+		throws ExistException, UnimplementedException, UnderlyingStorageException;
+
+	public abstract String autocreateJSON(String filePath, JSONObject jsonObject)
+		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
-	public String[] getPaths();
+	public String[] getPaths()
+		throws ExistException, UnimplementedException, UnderlyingStorageException;
 }

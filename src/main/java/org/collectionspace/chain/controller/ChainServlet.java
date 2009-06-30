@@ -17,9 +17,15 @@ import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
 import org.collectionspace.chain.storage.ExistException;
 import org.collectionspace.chain.storage.Storage;
-import org.collectionspace.chain.storage.NotExistException;
+import org.collectionspace.chain.storage.StorageRegistry;
+import org.collectionspace.chain.storage.UnderlyingStorageException;
+import org.collectionspace.chain.storage.UnimplementedException;
+import org.collectionspace.chain.storage.file.FileStorage;
 import org.collectionspace.chain.storage.file.StubJSONStore;
+import org.collectionspace.chain.storage.services.ServicesStorage;
 import org.collectionspace.chain.util.BadRequestException;
+import org.collectionspace.chain.util.jxj.InvalidJXJException;
+import org.dom4j.DocumentException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,15 +41,28 @@ public class ChainServlet extends HttpServlet
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
 	 * Better present it on first request.
 	 */
-	public synchronized void setup() throws BadRequestException {
+	
+	private Storage getStorage() throws InvalidJXJException, DocumentException, IOException {
+		// Complexity here is to allow for refactoring when storages can come from plugins
+		StorageRegistry storage_registry=new StorageRegistry();
+		storage_registry.addStorage("file",new FileStorage(config.getPathToSchemaDocs()));
+		storage_registry.addStorage("service",new ServicesStorage(config.getServicesBaseURL()));
+		return storage_registry.getStorage(config.getStorageType());
+	}
+	
+	private synchronized void setup() throws BadRequestException {
 		if(inited)
 			return;
 		try {
 			config=new Config(getServletContext());
+			store=getStorage();
 		} catch (IOException e) {
 			throw new BadRequestException("Cannot load config"+e,e);
+		} catch (InvalidJXJException e) { // XXX better exception handling in ServicesStorage constructor
+			throw new BadRequestException("Cannot load backend"+e,e);
+		} catch (DocumentException e) {
+			throw new BadRequestException("Cannot load backend"+e,e);
 		}
-		store=new StubJSONStore(config.getPathToStore());
 		schema=new StubSchemaStore(config.getPathToSchemaDocs());
 		inited=true;
 	}
@@ -54,6 +73,10 @@ public class ChainServlet extends HttpServlet
 			out = store.retrieveJSON(path);
 		} catch (ExistException e) {
 			throw new BadRequestException("JSON Not found "+e,e);
+		} catch (UnimplementedException e) {
+			throw new BadRequestException("Unimplemented",e);
+		} catch (UnderlyingStorageException e) {
+			throw new BadRequestException("Problem storing",e);
 		}
 		if (out == null || "".equals(out)) {
 			throw new BadRequestException("No JSON Found");
@@ -99,7 +122,7 @@ public class ChainServlet extends HttpServlet
 			switch(request.getType()) {
 			case STORE:
 				// Get the data
-				String outputJSON = getJSON(request.getPathTail());
+				String outputJSON = getJSON("collection-object/"+request.getPathTail());
 
 				// Write the requested JSON out
 				out = request.getJSONWriter();
@@ -123,10 +146,20 @@ public class ChainServlet extends HttpServlet
 			case LIST:
 				try {
 					String[] paths=store.getPaths();
+					for(int i=0;i<paths.length;i++) {
+						if(paths[i].startsWith("collection-object/"))
+							paths[i]=paths[i].substring("collection-object/".length());
+					}
 					out = request.getJSONWriter();
 					out.write(pathsToJSON(paths).toString());
 				} catch (JSONException e) {
-					throw new BadRequestException("Invalid JSON");
+					throw new BadRequestException("Invalid JSON",e);
+				} catch (ExistException e) {
+					throw new BadRequestException("Existence problem",e);
+				} catch (UnimplementedException e) {
+					throw new BadRequestException("Unimplemented",e);
+				} catch (UnderlyingStorageException e) {
+					throw new BadRequestException("Problem storing",e);
 				}
 				out.close();
 				servlet_response.setStatus(HttpServletResponse.SC_OK);				
@@ -167,14 +200,18 @@ public class ChainServlet extends HttpServlet
 			int status=200;
 			try {
 				if(request.isCreateNotOverwrite()) {
-					store.createJSON(path,new JSONObject(jsonString));
+					store.createJSON("collection-object/"+path,new JSONObject(jsonString));
 					status=201;
 				} else
-					store.updateJSON(path, new JSONObject(jsonString));
+					store.updateJSON("collection-object/"+path, new JSONObject(jsonString));
 			} catch (JSONException x) {
 				throw new BadRequestException("Failed to parse json: "+x,x);
 			} catch (ExistException x) {
 				throw new BadRequestException("Existence exception: "+x,x);
+			} catch (UnimplementedException x) {
+				throw new BadRequestException("Unimplemented exception: "+x,x);
+			} catch (UnderlyingStorageException x) {
+				throw new BadRequestException("Problem storing: "+x,x);
 			}
 			// Created!
 			servlet_response.setContentType("text/html");

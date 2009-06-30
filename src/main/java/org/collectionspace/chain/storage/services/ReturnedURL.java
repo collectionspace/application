@@ -13,4 +13,11 @@ public class ReturnedURL {
 	
 	public String getURL() { return url; }
 	public int getStatus() { return status; }
+	
+	public String getURLTail() {
+		int last=url.lastIndexOf("/");
+		if(last==-1)
+			return url;
+		return url.substring(last+1);
+	}
 }

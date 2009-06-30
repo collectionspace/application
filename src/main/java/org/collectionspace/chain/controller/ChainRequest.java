@@ -32,6 +32,8 @@ public class ChainRequest {
 		// Yes it does
 		type=rq;
 		rest=path.substring(what.length());
+		if(rest.startsWith("/"))
+			rest=rest.substring(1);
 		// Capture body
 		if(!is_get) {
 			try {
