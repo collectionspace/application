@@ -102,9 +102,10 @@ public class StubJSONStore implements JSONStore {
 			return new String[]{};
 		List<String> out=new ArrayList<String>();
 		for(String f : dir.list()) {
-			if(f.endsWith(".json"))
+			if(f.endsWith(".json")) {
 				f=f.substring(0,f.length()-5);
-			out.add(f);
+				out.add(f);
+			}
 		}
 		return out.toArray(new String[0]);
 	}

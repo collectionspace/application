@@ -3,6 +3,7 @@ package org.collectionspace.chain.controller;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -204,9 +205,12 @@ public class HandleJSONTest {
 	
 	@Test public void testObjectList() throws Exception {
 		ServletTester jetty=setupJetty();
+		System.err.println(store.getStoreRoot());
 		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
 		jettyDo(jetty,"POST","/chain/objects/b",testStr2);	
 		jettyDo(jetty,"POST","/chain/objects/c",testStr2);	
+		File junk=new File(store.getStoreRoot()+"/store","junk");
+		IOUtils.write("junk",new FileOutputStream(junk));
 		HttpTester out=jettyDo(jetty,"GET","/chain/objects",null);
 		assertEquals(200,out.getStatus());
 		JSONObject result=new JSONObject(out.getContent());
