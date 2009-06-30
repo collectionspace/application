@@ -1,0 +1,56 @@
+Chain
+=====
+
+Purpose
+-------
+
+Chain is designed to stub out JSON storage for the fluid layer. It will shortly also have the option of connecting 
+through to the Berkeley services layer. At the moment both objects and schemas are stored on the filesystem.
+
+Quality
+-------
+
+The code has not been used wideliy in production.
+It does have pretty good unit test coverage.
+It is reasonably well documented, but with no coherent javadocs.
+  It was much better documented before dan got his hands on it, for which he will spend more time in pergatory.
+Error handling is okay, but not perfect.
+
+Some tests will fail on boxes without /tmp (Windows) because some missing features mean that it must be hardwired.
+
+Configuration
+-------------
+
+You can configure where the schemas and objects are stored. Each is a string which is a path to the store for schemas
+or the store for objects.
+
+	private static final String STORE_PROPERTY="cspace.chain.store.dir";
+	private static final String SCHEMA_PROPERTY="cspace.chain.schema.dir";
+
+These can be supplied as system properties or, preferably, in a file called chain.properties somewhere on the classpath.
+If both are missing, the current tmpdir is used.
+
+Functionality
+-------------
+
+URL             Method 	 Description 	                                 File System Examples
+/objects        GET    Fetches a list of objects in the system, 
+                       scoped to the supplied context 	 
+                       
+/objects/[id]   GET    Fetches a specific object, specified by the id    ./objects/1984.068.0335b.json
+
+                POST   Creates a new object, specified by the id 
+                	 
+                PUT    Updates the object specified by id                ./objects/1984.068.0335b.json
+                
+/objects/schema GET    Provides a declarative Schema object describing 
+                       the data model and how it should be rendered      ./objects/schema/schema.json
+
+Documentation
+-------------
+
+Here
+Unit tests
+Method Documentation
+Collectionspace Wiki
+dan@caret.cam.ac.uk
