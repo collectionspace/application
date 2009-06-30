@@ -219,4 +219,18 @@ public class HandleJSONTest {
 		assertTrue(files.contains("c"));
 		assertEquals(3,files.size());
 	}
+	
+	@Test public void testPutReturnsContent() throws Exception {
+		deleteSchemaFile();
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
+		assertEquals(out.getMethod(),null);
+		System.err.println(out.getContent());
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		assertEquals(testStr2,out.getContent());
+		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",testStr);
+		assertEquals(200,out.getStatus());	
+		assertEquals(testStr,out.getContent());	
+	}
 }
