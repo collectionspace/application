@@ -2,7 +2,7 @@ package org.collectionspace.chain.util.jtmpl;
 
 import java.util.Map;
 
-import org.collectionspace.chain.util.JSONClone;
+import org.collectionspace.chain.util.JSON;
 import org.collectionspace.chain.util.jpath.JPathPath;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +12,7 @@ public class JTmplDocument {
 	private Map<String,JPathPath> attach;
 
 	JTmplDocument(JSONObject template,Map<String,JPathPath> attach) throws JSONException {
-		this.document=(JSONObject)JSONClone.clone(template);
+		this.document=(JSONObject)JSON.clone(template);
 		this.attach=attach;
 	}
 	

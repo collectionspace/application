@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
@@ -77,21 +78,19 @@ public class TestGeneral {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
 	}
-	
+		
 	@Test public void readJSONFromFile() throws JSONException, ExistException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
-		String result = store.retrieveJSON("/objects/json1.test");
-		JSONObject resultObj = new JSONObject(result);
+		JSONObject resultObj = store.retrieveJSON("/objects/json1.test");
 		JSONObject testObj = new JSONObject(testStr);
-		assertTrue(resultObj.toString().equals(testObj.toString()));
+		JSONTestUtil.assertJSONEquiv(resultObj,testObj);
 	}
 
 	@Test public void testJSONNotExist() throws JSONException {
 		try
 		{
-			String result = store.retrieveJSON("nonesuch.json");
-			new JSONObject(result);
+			store.retrieveJSON("nonesuch.json");
 			assertTrue(false);
 		}
 		catch (ExistException onfe) {}
@@ -102,10 +101,9 @@ public class TestGeneral {
 		store.createJSON("/objects/json1.test", jsonObject);
 		jsonObject = new JSONObject(testStr);
 		store.updateJSON("/objects/json1.test", jsonObject);		
-		String result = store.retrieveJSON("/objects/json1.test");
-		JSONObject resultObj = new JSONObject(result);
+		JSONObject resultObj = store.retrieveJSON("/objects/json1.test");
 		JSONObject testObj = new JSONObject(testStr);
-		assertTrue(resultObj.toString().equals(testObj.toString()));
+		JSONTestUtil.assertJSONEquiv(resultObj,testObj);
 	}
 
 	@Test public void testJSONNoUpdateNonExisting() throws ExistException, JSONException {

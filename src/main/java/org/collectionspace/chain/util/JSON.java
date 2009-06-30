@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JSONClone {
+public class JSON {
 	@SuppressWarnings("unchecked")
 	public static Object clone(Object in) throws JSONException {
 		if(in instanceof JSONObject) {

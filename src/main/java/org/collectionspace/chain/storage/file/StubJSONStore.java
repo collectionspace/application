@@ -43,7 +43,7 @@ public class StubJSONStore implements Storage {
 	/* (non-Javadoc)
 	 * @see org.collectionspace.JSONStore#retrieveJson(java.lang.String)
 	 */
-	public String retrieveJSON(String filePath) throws ExistException {
+	public JSONObject retrieveJSON(String filePath) throws ExistException {
 		File jsonFile = fileFromPath(filePath);
 		if (!jsonFile.exists()) {
 			throw new ExistException("No such file: " + filePath);
@@ -53,15 +53,15 @@ public class StubJSONStore implements Storage {
 			String data=IOUtils.toString(r);
 			r.close();
 			JSONObject jsonObject = new JSONObject(data);
-			return jsonObject.toString();
+			return jsonObject;
 		}
 		catch (IOException ioe)
 		{
-			return "";
+			return new JSONObject(); // XXX
 		}
 		catch (JSONException je)
 		{
-			return "";			
+			return new JSONObject(); // XXX
 		}
 	}
 

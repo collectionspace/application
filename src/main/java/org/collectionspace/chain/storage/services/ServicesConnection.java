@@ -98,6 +98,7 @@ public class ServicesConnection {
 			}
 		}
 		try {
+			System.err.println("Getting from "+uri);
 			HttpMethod method=createMethod(method_type,uri,body_data);
 			if(body_data!=null) {
 				method.setRequestHeader("Content-Type","application/xml");
@@ -109,6 +110,7 @@ public class ServicesConnection {
 				SAXReader reader=new SAXReader();
 				// TODO errorhandling
 				Document out=reader.read(new TeeInputStream(stream,System.err));
+				System.err.println("RECEIVING "+out.asXML());
 				System.err.println("ok");
 				stream.close();
 				return new ReturnedDocument(response,out);
@@ -134,6 +136,9 @@ public class ServicesConnection {
 
 	// XXX refactor!!!!
 	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body) throws BadRequestException {
+		if(body!=null) {
+			System.err.println("Debug: SENDING "+body.asXML());
+		}
 		InputStream body_data=null;
 		if(body!=null) {
 			try {

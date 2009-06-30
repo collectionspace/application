@@ -7,6 +7,8 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
+import org.collectionspace.chain.test.JSONTestUtil;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -50,12 +52,12 @@ public class TestServiceThroughWebapp {
 		return tester;
 	}
 	
-	@Test public void testServicesSwitching() throws Exception {
+	@Test public void testCollectionObjectBasic() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",getResourceString("obj3.json"));	
 		assertEquals(out.getMethod(),null);
 		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);		
-		System.err.println(out.getContent());
+		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		JSONTestUtil.assertJSONEquiv(new JSONObject(getResourceString("obj3.json")),new JSONObject(out.getContent()));
 	}
 }

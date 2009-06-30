@@ -51,7 +51,7 @@ public class SplittingStorage implements Storage {
 		return out.toArray(new String[0]);
 	}
 
-	public String retrieveJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public JSONObject retrieveJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,false);
 		return get(parts[0]).retrieveJSON(parts[1]);
 	}

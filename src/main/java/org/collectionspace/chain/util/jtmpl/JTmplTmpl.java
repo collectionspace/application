@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.collectionspace.chain.util.JSONClone;
+import org.collectionspace.chain.util.JSON;
 import org.collectionspace.chain.util.jpath.InvalidJPathException;
 import org.collectionspace.chain.util.jpath.JPathPath;
 import org.json.JSONArray;
@@ -49,7 +49,7 @@ public class JTmplTmpl {
 	private JTmplTmpl(JSONObject template) throws InvalidJTmplException {
 		try {
 			build_template("",template,template);
-			this.template=(JSONObject)JSONClone.clone(template);
+			this.template=(JSONObject)JSON.clone(template);
 			System.err.println(template);
 		} catch (JSONException e) {
 			throw new InvalidJTmplException("Bad JSON template",e);

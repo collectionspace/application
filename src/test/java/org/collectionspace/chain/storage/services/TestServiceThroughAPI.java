@@ -12,6 +12,7 @@ import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.storage.services.ReturnedDocument;
 import org.collectionspace.chain.storage.services.ReturnedURL;
 import org.collectionspace.chain.storage.services.ServicesConnection;
+import org.collectionspace.chain.test.JSONTestUtil;
 import org.collectionspace.chain.util.BadRequestException;
 import org.collectionspace.chain.util.RequestMethod;
 import org.dom4j.Document;
@@ -51,6 +52,19 @@ public class TestServiceThroughAPI {
 		stream.close();		
 		return new JSONObject(data);
 	}
+
+	// XXX refactor
+	@SuppressWarnings("unchecked")
+	private void deleteAll() throws Exception {
+		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");
+		if(all.getStatus()!=200)
+			throw new BadRequestException("Bad request during identifier cache map update: status not 200");
+		List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
+		for(Node object : objects) {
+			String csid=object.selectSingleNode("csid").getText();
+			conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null);
+		}
+	}
 	
 	@Before public void checkServicesRunning() throws BadRequestException {
 		try {
@@ -62,9 +76,19 @@ public class TestServiceThroughAPI {
 		}
 	}
 	
-	@Test public void testObjectsPost() throws Exception {
+	@Test public void testObjectsPut() throws Exception {
+		deleteAll();
 		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
 		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
-		System.err.println("name="+name);
+		JSONObject js=ss.retrieveJSON("collection-object/"+name);
+		JSONTestUtil.assertJSONEquiv(js,getJSON("obj3.json"));
+	}
+
+	@Test public void testHackCSPACE264() throws Exception {
+		deleteAll();
+		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
+		ss.createJSON("collection-object/def",getJSON("obj3.json"));
+		JSONObject js=ss.retrieveJSON("collection-object/def");
+		JSONTestUtil.assertJSONEquiv(js,getJSON("obj3.json"));
 	}
 }

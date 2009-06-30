@@ -67,8 +67,8 @@ public class ChainServlet extends HttpServlet
 		inited=true;
 	}
 	
-	private String getJSON(String path) throws BadRequestException {
-		String out;
+	private JSONObject getJSON(String path) throws BadRequestException {
+		JSONObject out;
 		try {
 			out = store.retrieveJSON(path);
 		} catch (ExistException e) {
@@ -78,7 +78,7 @@ public class ChainServlet extends HttpServlet
 		} catch (UnderlyingStorageException e) {
 			throw new BadRequestException("Problem storing",e);
 		}
-		if (out == null || "".equals(out)) {
+		if (out == null) {
 			throw new BadRequestException("No JSON Found");
 		}
 		return out;
@@ -122,11 +122,10 @@ public class ChainServlet extends HttpServlet
 			switch(request.getType()) {
 			case STORE:
 				// Get the data
-				String outputJSON = getJSON("collection-object/"+request.getPathTail());
-
+				JSONObject outputJSON = getJSON("collection-object/"+request.getPathTail());
 				// Write the requested JSON out
 				out = request.getJSONWriter();
-				out.write(outputJSON);
+				out.write(outputJSON.toString());
 				out.close();
 				servlet_response.setStatus(HttpServletResponse.SC_OK);
 				break;
