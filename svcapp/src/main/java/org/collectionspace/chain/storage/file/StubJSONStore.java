@@ -11,6 +11,7 @@ import java.util.Random;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.storage.ExistException;
 import org.collectionspace.chain.storage.Storage;
+import org.collectionspace.chain.storage.UnderlyingStorageException;
 import org.collectionspace.chain.storage.UnimplementedException;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,5 +119,13 @@ public class StubJSONStore implements Storage {
 				// Try again
 			}
 		}
+	}
+
+	public void deleteJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		File jsonFile = fileFromPath(filePath);
+		if (!jsonFile.exists()) {
+			throw new ExistException("No such file: " + filePath);
+		}
+		jsonFile.delete();
 	}
 }

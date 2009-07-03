@@ -197,7 +197,7 @@ public class TestGeneral {
 		assertEquals(testStr2,out.getContent());
 	}
 	
-	@Test public void testSchemaPost() throws Exception {
+	@Test public void testSchemaPostAndDelete() throws Exception {
 		deleteSchemaFile();
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
@@ -210,6 +210,10 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());		
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
 		assertEquals(testStr,out.getContent());		
+		out=jettyDo(jetty,"DELETE","/chain/objects/test-json-handle.tmp",null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 	}
 	
 	@Test public void testServeStatic() throws Exception {
