@@ -36,4 +36,7 @@ public interface Storage {
 	
 	public String[] getPaths()
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
+	
+	public void deleteJSON(String filePath)
+		throws ExistException, UnimplementedException, UnderlyingStorageException;
 }

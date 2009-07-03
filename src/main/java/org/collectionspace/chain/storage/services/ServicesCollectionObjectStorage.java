@@ -230,4 +230,8 @@ class ServicesCollectionObjectStorage implements Storage {
 			throw new UnimplementedException("Error in template",e);
 		}
 	}
+
+	public void deleteJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		// TODO Auto-generated method stub
+	}
 }

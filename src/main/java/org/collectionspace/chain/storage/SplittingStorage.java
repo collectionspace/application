@@ -65,4 +65,10 @@ public class SplittingStorage implements Storage {
 		String parts[]=split(filePath,true);
 		return get(parts[0]).autocreateJSON(parts[1],jsonObject);
 	}
+
+	public void deleteJSON(String filePath) throws ExistException,
+			UnimplementedException, UnderlyingStorageException {
+		String parts[]=split(filePath,false);
+		get(parts[0]).deleteJSON(parts[1]);		
+	}
 }
