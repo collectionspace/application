@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.collectionspace.chain.storage.ExistException;
@@ -152,9 +153,22 @@ class ServicesCollectionObjectStorage implements Storage {
 		// throw new UnimplementedException("Cannot create collectionobject at known path, use autocreateJSON");
 	}
 
-	public String[] getPaths() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public String[] getPaths() throws UnderlyingStorageException {
+		try {
+			List<String> out=new ArrayList<String>();
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");			
+			if(all.getStatus()!=200)
+				throw new BadRequestException("Bad request during identifier cache map update: status not 200");
+			List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
+			for(Node object : objects) {
+				String csid=object.selectSingleNode("csid").getText();
+				
+			}
+			return out.toArray(new String[0]);
+		} catch (BadRequestException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		}
 	}
 
 	private boolean cspace267Hack_empty(Document doc) {

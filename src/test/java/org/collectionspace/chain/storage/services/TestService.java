@@ -112,6 +112,9 @@ public class TestService {
 		assertEquals(1,sim.getNumberHits());
 		assertEquals(1,sim.getNumberMisses());
 		assertEquals(1,sim.getLoadSteps());
+		String objid2=sim.fromCSID(csid);
+		assertEquals(objid,objid2);
+		assertEquals(2,sim.getNumberHits());
 	}
 	
 	@Test public void testDelete() throws Exception {

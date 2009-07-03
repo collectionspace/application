@@ -18,6 +18,7 @@ class ServicesIdentifierMap {
 	private int cache_hits=0,cache_misses=0,cache_loadsteps=0;
 	
 	private Map<String,String> cache=new HashMap<String,String>();
+	private Map<String,String> back_cache=new HashMap<String,String>();
 	
 	ServicesIdentifierMap(ServicesConnection conn) {
 		this.conn=conn;
@@ -46,7 +47,9 @@ class ServicesIdentifierMap {
 				present.add(csid);
 				if(cache.get(csid)==null) {
 					cache_loadsteps++;
-					cache.put(toObjNum(csid),csid);
+					String objnum=toObjNum(csid);
+					cache.put(objnum,csid);
+					back_cache.put(csid,objnum);
 				}
 			}
 			
@@ -63,6 +66,16 @@ class ServicesIdentifierMap {
 			cache_hits++;
 		}
 		return cache.get(object_number);
+	}
+
+	String fromCSID(String csid) throws BadRequestException {
+		String object_number=back_cache.get(csid);
+		if(object_number==null) {
+			updateCache();
+		} else {
+			cache_hits++;
+		}
+		return back_cache.get(csid);
 	}
 	
 	int getNumberHits() { return cache_hits; }
