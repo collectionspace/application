@@ -1,5 +1,6 @@
 package org.collectionspace.chain.storage.services;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
@@ -63,5 +64,8 @@ public class TestServiceThroughWebapp {
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
 		JSONTestUtil.assertJSONEquiv(new JSONObject(getResourceString("obj4.json")),new JSONObject(out.getContent()));		
+		out=jettyDo(jetty,"DELETE","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		assertTrue(out.getStatus()!=200); // XXX should be 404
 	}
 }
