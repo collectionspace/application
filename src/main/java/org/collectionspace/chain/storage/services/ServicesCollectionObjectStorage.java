@@ -177,6 +177,9 @@ class ServicesCollectionObjectStorage implements Storage {
 			// XXX End of here's what we do because of CSPACE-264		
 			// vv This is what we should do
 			// ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
+			if(doc.getStatus()==404 || cspace267Hack_empty(doc.getDocument())) {
+				throw new ExistException("Does not exist "+filePath);
+			}
 			if(doc.getStatus()>299 || doc.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
 			// XXX Here's what we do because of CSPACE-264
@@ -196,7 +199,7 @@ class ServicesCollectionObjectStorage implements Storage {
 	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException {
 		try {
 			Document data=cspace266Hack_munge(jxj.json2xml(jsonObject));
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath,data);
+			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
 			String csid=null;
 			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace267Hack_empty(doc.getDocument())) {
 				csid=filePath;
@@ -232,6 +235,19 @@ class ServicesCollectionObjectStorage implements Storage {
 	}
 
 	public void deleteJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
-		// TODO Auto-generated method stub
+		try {
+			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
+			String csid=null;
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace267Hack_empty(doc.getDocument())) {
+				csid=filePath;
+			} else {
+				csid=cspace_264_hack.getCSID(filePath);
+			}
+			int status=conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null);
+			if(status>299 || status<200) // XXX CSPACE-73, should be 404
+				throw new UnderlyingStorageException("Service layer exception status="+status);
+		} catch (BadRequestException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		}		
 	}
 }

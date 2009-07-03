@@ -120,9 +120,9 @@ public class TestService {
 		ReturnedDocument doc1=conn.getXMLDocument(RequestMethod.GET,url.getURL());
 		assertEquals(200,doc1.getStatus());		
 		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null);
-		assertEquals(204,status); // CSPACE-73, should be 404
+		assertEquals(204,status); // XXX CSPACE-73, should be 404
 		ReturnedDocument doc2=conn.getXMLDocument(RequestMethod.GET,url.getURL());
-		assertEquals(200,doc2.getStatus());	 // CSPACE-209, should be 404
+		assertEquals(200,doc2.getStatus());	 // XXX CSPACE-209, should be 404
 		assertEquals(0,doc2.getDocument().selectNodes("collection-object/*").size());
 	}
 }

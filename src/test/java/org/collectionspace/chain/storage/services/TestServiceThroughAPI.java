@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
+import org.collectionspace.chain.storage.ExistException;
 import org.collectionspace.chain.storage.services.ReturnedDocument;
 import org.collectionspace.chain.storage.services.ReturnedURL;
 import org.collectionspace.chain.storage.services.ServicesConnection;
@@ -91,6 +92,19 @@ public class TestServiceThroughAPI {
 		ss.updateJSON("collection-object/"+name,getJSON("obj4.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+name);
 		JSONTestUtil.assertJSONEquiv(js,getJSON("obj4.json"));
+	}
+
+	@Test public void testObjectsDelete() throws Exception {
+		deleteAll();
+		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
+		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
+		JSONObject js=ss.retrieveJSON("collection-object/"+name);
+		JSONTestUtil.assertJSONEquiv(js,getJSON("obj3.json"));
+		ss.deleteJSON("collection-object/"+name);
+		try {
+			ss.retrieveJSON("collection-object/"+name);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {}
 	}
 	
 	@Test public void testHackCSPACE264() throws Exception {
