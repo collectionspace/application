@@ -59,5 +59,9 @@ public class TestServiceThroughWebapp {
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
 		JSONTestUtil.assertJSONEquiv(new JSONObject(getResourceString("obj3.json")),new JSONObject(out.getContent()));
+		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",getResourceString("obj4.json"));
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		JSONTestUtil.assertJSONEquiv(new JSONObject(getResourceString("obj4.json")),new JSONObject(out.getContent()));		
 	}
 }
