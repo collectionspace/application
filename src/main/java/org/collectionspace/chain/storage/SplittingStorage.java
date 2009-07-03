@@ -45,7 +45,7 @@ public class SplittingStorage implements Storage {
 		List<String> out=new ArrayList<String>();
 		for(Map.Entry<String,Storage> e : children.entrySet()) {
 			for(String s : e.getValue().getPaths()) {
-				out.add(e.getKey()+"/"+s);
+				out.add(s);
 			}
 		}
 		return out.toArray(new String[0]);

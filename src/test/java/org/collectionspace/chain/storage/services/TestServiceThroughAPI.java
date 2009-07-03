@@ -107,6 +107,27 @@ public class TestServiceThroughAPI {
 		} catch(ExistException e) {}
 	}
 	
+	// XXX factor out
+	private static void assertArrayContainsString(String[] a,String b) {
+		for(String x: a) {
+			if(x.equals(b))
+				return;
+		}
+		assertFalse(true);
+	}
+	
+	@Test public void testObjectsList() throws Exception {
+		deleteAll();
+		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
+		String name1=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
+		String name2=ss.autocreateJSON("collection-object",getJSON("obj4.json"));
+		ss.createJSON("collection-object/123",getJSON("obj4.json"));
+		String[] names=ss.getPaths();
+		assertArrayContainsString(names,name1);
+		assertArrayContainsString(names,name2);
+		assertArrayContainsString(names,"123");
+	}
+	
 	@Test public void testHackCSPACE264() throws Exception {
 		deleteAll();
 		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
