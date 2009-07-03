@@ -84,6 +84,15 @@ public class TestServiceThroughAPI {
 		JSONTestUtil.assertJSONEquiv(js,getJSON("obj3.json"));
 	}
 
+	@Test public void testObjectsPost() throws Exception {
+		deleteAll();
+		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
+		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
+		ss.updateJSON("collection-object/"+name,getJSON("obj4.json"));
+		JSONObject js=ss.retrieveJSON("collection-object/"+name);
+		JSONTestUtil.assertJSONEquiv(js,getJSON("obj4.json"));
+	}
+	
 	@Test public void testHackCSPACE264() throws Exception {
 		deleteAll();
 		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");

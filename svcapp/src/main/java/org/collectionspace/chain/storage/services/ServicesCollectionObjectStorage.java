@@ -26,6 +26,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/*
+ * This class is a bag of hacks and tricks re Services/API integration. As they get fixed, this class should shrink.
+ * 
+ * And spite of Pride, in erring Reason's spite,
+ * One truth is clear, Whatever is, is right. 
+ *                             - Alexander Pope
+ */
+
 class ServicesCollectionObjectStorage implements Storage {
 	private ServicesConnection conn;
 	private JXJTransformer jxj;
@@ -152,7 +160,7 @@ class ServicesCollectionObjectStorage implements Storage {
 	private boolean cspace267Hack_empty(Document doc) {
 		return doc.selectNodes("collection-object/*").size()==0;
 	}
-	
+
 	public JSONObject retrieveJSON(String filePath) throws ExistException, UnderlyingStorageException {
 		try {
 			// XXX Here's what we do because of CSPACE-264
@@ -185,8 +193,26 @@ class ServicesCollectionObjectStorage implements Storage {
 		}
 	}
 
-	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException {
-		// TODO Auto-generated method stub
+	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException {
+		try {
+			Document data=cspace266Hack_munge(jxj.json2xml(jsonObject));
+			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath,data);
+			String csid=null;
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace267Hack_empty(doc.getDocument())) {
+				csid=filePath;
+			} else {
+				csid=cspace_264_hack.getCSID(filePath);
+			}
+			doc = conn.getXMLDocument(RequestMethod.PUT,"collectionobjects/"+csid,data);
+			if(doc.getStatus()==404 || cspace267Hack_empty(doc.getDocument()))
+				throw new ExistException("Not found: collecitonobjects/"+csid);
+			if(doc.getStatus()>299 || doc.getStatus()<200)
+				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
+		} catch (BadRequestException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		} catch (InvalidXTmplException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		}
 	}
 
 	// XXX cannot test until CSPACE-264 is fixed.
