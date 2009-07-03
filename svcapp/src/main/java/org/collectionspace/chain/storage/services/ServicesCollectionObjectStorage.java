@@ -106,7 +106,7 @@ class ServicesCollectionObjectStorage implements Storage {
 		// 2. Copy path into accession number
 		in.remove("objectnumber");
 		try {
-			in.put("objectnumber",path);
+			in.put("objectnumber","_path:"+path);
 		} catch (JSONException e) {
 			 // XXX should never happen: log it
 		}
@@ -163,7 +163,15 @@ class ServicesCollectionObjectStorage implements Storage {
 			List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
 			for(Node object : objects) {
 				String csid=object.selectSingleNode("csid").getText();
-				
+				int idx=csid.lastIndexOf("/");
+				if(idx!=-1)
+					csid=csid.substring(idx+1);
+				String mid=cspace_264_hack.fromCSID(csid);
+				if(mid.startsWith("_path:")) {
+					out.add(mid.substring("_path:".length()));
+				} else {
+					out.add(csid);
+				}
 			}
 			return out.toArray(new String[0]);
 		} catch (BadRequestException e) {
@@ -184,7 +192,7 @@ class ServicesCollectionObjectStorage implements Storage {
 				return jxj.xml2json(cspace266Hack_unmunge(doc.getDocument()));
 			}
 			// 2. Assume museum ID
-			String csid=cspace_264_hack.getCSID(filePath);
+			String csid=cspace_264_hack.getCSID("_path:"+filePath);
 			doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+csid);
 			System.err.println("124 got "+doc.getDocument().asXML());
 			
@@ -218,7 +226,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace267Hack_empty(doc.getDocument())) {
 				csid=filePath;
 			} else {
-				csid=cspace_264_hack.getCSID(filePath);
+				csid=cspace_264_hack.getCSID("_path:"+filePath);
 			}
 			doc = conn.getXMLDocument(RequestMethod.PUT,"collectionobjects/"+csid,data);
 			if(doc.getStatus()==404 || cspace267Hack_empty(doc.getDocument()))
@@ -255,7 +263,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace267Hack_empty(doc.getDocument())) {
 				csid=filePath;
 			} else {
-				csid=cspace_264_hack.getCSID(filePath);
+				csid=cspace_264_hack.getCSID("_path:"+filePath);
 			}
 			int status=conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null);
 			if(status>299 || status<200) // XXX CSPACE-73, should be 404
