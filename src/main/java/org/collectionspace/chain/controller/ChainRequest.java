@@ -70,24 +70,11 @@ public class ChainRequest {
 		}
 		String method=req.getMethod();
 		// Allow method to be overridden by params for testing
-		String p_method=req.getParameter("method");
-		if(!StringUtils.isBlank(p_method)) {
-			method=p_method;
-		}
 		is_get="GET".equals(method);
 		if("POST".equals(method)) {
 			create_not_overwrite=true;
 		}
 		// Mmm. Perhaps it's a non-get request with stuff in parameters.
-		if(!"GET".equals(method)) {
-			String qp_path=req.getParameter("storage");
-			if(qp_path!=null && qp_path.startsWith(STORE_REF)) {
-				rest=qp_path.substring(STORE_REF.length());
-				type=RequestType.STORE;
-				body=req.getParameter("json_str");
-				return;
-			}
-		}
 		if(!found)
 			throw new BadRequestException("Invalid path "+path);
 		if(path==null || "".equals(path))
