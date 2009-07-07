@@ -143,7 +143,6 @@ class ServicesCollectionObjectStorage implements Storage {
 	
 	public void createJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		// XXX Here's what we do because of CSPACE-264
-		System.err.println(jsonObject);
 		jsonObject=cspace264Hack_munge(jsonObject,filePath);
 		autocreateJSON("",jsonObject);
 		// XXX End of here's what we do because of CSPACE-264		
@@ -192,8 +191,6 @@ class ServicesCollectionObjectStorage implements Storage {
 			// 2. Assume museum ID
 			String csid=cspace_264_hack.getCSID("_path:"+filePath);
 			doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+csid);
-			System.err.println("124 got "+doc.getDocument().asXML());
-			
 			// XXX End of here's what we do because of CSPACE-264		
 			// vv This is what we should do
 			// ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
@@ -242,7 +239,6 @@ class ServicesCollectionObjectStorage implements Storage {
 	public String autocreateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException, UnimplementedException {
 		try {
 			Document doc=cspace266Hack_munge(jxj.json2xml(jsonObject));
-			System.err.println("153 got "+doc.asXML());
 			ReturnedURL url = conn.getURL(RequestMethod.POST,"collectionobjects/",doc);
 			if(url.getStatus()>299 || url.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+url.getStatus());
