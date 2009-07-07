@@ -4,15 +4,14 @@ Chain
 Purpose
 -------
 
-Chain is designed to stub out JSON storage for the fluid layer. It will shortly also have the option of connecting 
-through to the Berkeley services layer. At the moment both objects and schemas are stored on the filesystem.
+SVCAPP is designed to integrate all three layers.
 
 Quality
 -------
 
 The code has not been used wideliy in production.
 It does have pretty good unit test coverage.
-It is reasonably well documented, but with no coherent javadocs.
+It is not very well documented, and has no coherent javadocs.
   It was much better documented before dan got his hands on it, for which he will spend more time in pergatory.
 Error handling is okay, but not perfect.
 
@@ -33,7 +32,7 @@ If both are missing, the current tmpdir is used.
 Functionality
 -------------
 
-URL             Method 	 Description 	                                 File System Examples
+URL             Method 	 Description 	                                 URL Examples
 /objects        GET    Fetches a list of objects in the system, 
                        scoped to the supplied context 	 
                        
@@ -43,8 +42,11 @@ URL             Method 	 Description 	                                 File Syst
                 	 
                 PUT    Updates the object specified by id                ./objects/1984.068.0335b.json
                 
+                DELETE Removes object specified by id                    ./objects/1984.068.0335b.json
+                
 /objects/schema GET    Provides a declarative Schema object describing 
                        the data model and how it should be rendered      ./objects/schema/schema.json
+                                                                         ./objects/schema/
 
 Documentation
 -------------
