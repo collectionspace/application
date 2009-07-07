@@ -1,6 +1,8 @@
 Chain
 =====
 
+THIS DOCUMENT IS OUT OF DATE FOR HELLO MOON
+
 Purpose
 -------
 
