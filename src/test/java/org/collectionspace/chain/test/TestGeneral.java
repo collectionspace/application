@@ -154,7 +154,15 @@ public class TestGeneral {
 		JSONObject j=schema.getSchema("");
 		assertEquals(testStr2,j.toString());
 		deleteSchemaFile(true);
-	}	
+	}
+	
+	@Test public void testTrailingSlashOkayOnSchema() throws Exception {
+		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
+		createSchemaFile(true);
+		JSONObject j=schema.getSchema("");
+		assertEquals(testStr2,j.toString());
+		deleteSchemaFile(true);	
+	}
 	
 	private ServletTester setupJetty() throws Exception {
 		ServletTester tester=new ServletTester();
@@ -201,6 +209,24 @@ public class TestGeneral {
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
 		deleteSchemaFile(false);
+		assertEquals(testStr2,out.getContent());
+	}
+	
+	@Test public void testDefaultingSchemaGet() throws Exception {	
+		createSchemaFile(true);
+		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema",null);
+		assertEquals(out.getMethod(),null);
+		assertEquals(200,out.getStatus());
+		deleteSchemaFile(true);
+		assertEquals(testStr2,out.getContent());
+	}
+
+	@Test public void testDefaultingSchemaGetWithTrailingSlash() throws Exception {	
+		createSchemaFile(true);
+		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema/",null);
+		assertEquals(out.getMethod(),null);
+		assertEquals(200,out.getStatus());
+		deleteSchemaFile(true);
 		assertEquals(testStr2,out.getContent());
 	}
 	
@@ -287,5 +313,23 @@ public class TestGeneral {
 		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",testStr);
 		assertEquals(200,out.getStatus());	
 		assertEquals(testStr,out.getContent());	
+	}
+	
+	@Test public void testTrailingSlashOkayOnList() throws Exception {
+		ServletTester jetty=setupJetty();
+		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
+		jettyDo(jetty,"POST","/chain/objects/b",testStr2);	
+		jettyDo(jetty,"POST","/chain/objects/c",testStr2);
+		HttpTester out=jettyDo(jetty,"GET","/chain/objects/",null);
+		assertEquals(200,out.getStatus());
+		JSONObject result=new JSONObject(out.getContent());
+		JSONArray items=result.getJSONArray("items");
+		Set<String> files=new HashSet<String>();
+		for(int i=0;i<items.length();i++)
+			files.add(items.getString(i));
+		assertTrue(files.contains("a"));
+		assertTrue(files.contains("b"));
+		assertTrue(files.contains("c"));
+		assertEquals(3,files.size());		
 	}
 }
