@@ -203,6 +203,7 @@ public class ChainServlet extends HttpServlet
 					status=201;
 				} else
 					store.updateJSON("collection-object/"+path, new JSONObject(jsonString));
+				servlet_response.getWriter().print(jsonString);
 			} catch (JSONException x) {
 				throw new BadRequestException("Failed to parse json: "+x,x);
 			} catch (ExistException x) {

@@ -20,6 +20,9 @@ public class StubSchemaStore implements SchemaStore {
 	 */
 	public JSONObject getSchema(String path) throws IOException, JSONException {
 		File schema=new File(schema_root,path);
+		if(schema.exists() && schema.isDirectory()) {
+			schema=new File(schema,"schema.json");
+		}
 		FileInputStream stream=new FileInputStream(schema);
 		String data=IOUtils.toString(stream);
 		JSONObject out=new JSONObject(data);
