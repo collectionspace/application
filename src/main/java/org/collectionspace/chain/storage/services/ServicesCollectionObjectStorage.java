@@ -24,6 +24,8 @@ import org.dom4j.io.SAXReader;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*
  * This class is a bag of hacks and tricks re Services/API integration. As they get fixed, this class should shrink.
@@ -37,6 +39,7 @@ class ServicesCollectionObjectStorage implements Storage {
 	private ServicesConnection conn;
 	private JXJTransformer jxj;
 	private ServicesIdentifierMap cspace_264_hack;
+	private static Logger log=LoggerFactory.getLogger(ServicesCollectionObjectStorage.class);
 	
 	// XXX refactor into util
 	private Document getDocument(String in) throws DocumentException, IOException {
@@ -88,7 +91,7 @@ class ServicesCollectionObjectStorage implements Storage {
 		try {
 			accnum = in.getString("objectnumber");
 		} catch (JSONException e1) {
-			 // XXX should never happen: log it
+			log.error("CSPACE-264 hack workaround failed: no objectnumber in object");
 			return in;
 		}		
 		try {
@@ -99,14 +102,14 @@ class ServicesCollectionObjectStorage implements Storage {
 		try {
 			in.put("othernumber",ons);
 		} catch (JSONException e) {
-			 // XXX should never happen: log it
+			log.error("CSPACE-264 hack workaround failed: json exception writing othernumber",e);			
 		}
 		// 2. Copy path into accession number
 		in.remove("objectnumber");
 		try {
 			in.put("objectnumber","_path:"+path);
 		} catch (JSONException e) {
-			 // XXX should never happen: log it
+			log.error("CSPACE-264 hack workaround failed: json exception writing objectnumber",e);
 		}
 		return in;
 	}
