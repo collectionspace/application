@@ -7,6 +7,9 @@ import java.util.Properties;
 
 import javax.servlet.ServletContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class Config {
 	// XXX refactor to give saner names
 	private static final String CHAIN_PROPERTIES="chain.properties";
@@ -17,14 +20,16 @@ public class Config {
 	
 	private ServletContext ctx;
 	private Properties props;
+	private static final Logger log=LoggerFactory.getLogger(Config.class);
 
 	public Config(ServletContext ctx) throws IOException {
 		// Load properties file, if present
+		log.info("Config loading");
 		InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(CHAIN_PROPERTIES);
 		this.ctx=ctx;
 		props=new Properties();
 		if(is==null) {
-			System.err.println("Warning: no configuration found"); // XXX do logging properly
+			log.warn("Warning: no configuration found");
 			return;  // Missing is as blank
 		}
 		props.load(is);
@@ -39,7 +44,7 @@ public class Config {
 			File base=new File(dir,suffix);
 			if(!base.exists())
 				base.mkdir();
-			System.err.println("testing path "+base);
+			log.info("Using testing path "+base);
 			return base.getCanonicalPath();
 		} catch (IOException e) {
 			return null;
@@ -61,8 +66,7 @@ public class Config {
 			return out;
 		// Use temporary directory
 		out=System.getProperty("java.io.tmpdir");
-		System.err.println("Warning: Defaulting to tmpdir for "+name); // XXX do logging properly
-		System.err.println("Debug: Using path "+out+" for "+name); // XXX do logging properly
+		log.warn("Warning: Defaulting to tmpdir for "+name);
 		return out;
 	}
 	

@@ -64,7 +64,6 @@ public class TestGeneral {
 	@Before public void setup() {
 		File tmp=new File(tmpdir());
 		File dir=new File(tmp,"ju-cspace");
-		// XXX do it properly when we have delete
 		if(dir.exists())
 			rm_r(dir);
 		if(!dir.exists())
