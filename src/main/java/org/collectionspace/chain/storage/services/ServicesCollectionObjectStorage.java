@@ -179,7 +179,7 @@ class ServicesCollectionObjectStorage implements Storage {
 		}
 	}
 
-	private boolean cspace267Hack_empty(Document doc) {
+	private boolean cspace268Hack_empty(Document doc) {
 		return doc.selectNodes("collection-object/*").size()==0;
 	}
 
@@ -188,7 +188,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			// XXX Here's what we do because of CSPACE-264
 			// 1. Check this isn't a genuine CSID (via autocreate): rely on guids not clashing with museum IDs
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
-			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace267Hack_empty(doc.getDocument())) {
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
 				return jxj.xml2json(cspace266Hack_unmunge(doc.getDocument()));
 			}
 			// 2. Assume museum ID
@@ -199,7 +199,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			// XXX End of here's what we do because of CSPACE-264		
 			// vv This is what we should do
 			// ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
-			if(doc.getStatus()==404 || cspace267Hack_empty(doc.getDocument())) {
+			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument())) {
 				throw new ExistException("Does not exist "+filePath);
 			}
 			if(doc.getStatus()>299 || doc.getStatus()<200)
@@ -223,13 +223,13 @@ class ServicesCollectionObjectStorage implements Storage {
 			Document data=cspace266Hack_munge(jxj.json2xml(jsonObject));
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
 			String csid=null;
-			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace267Hack_empty(doc.getDocument())) {
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
 				csid=filePath;
 			} else {
 				csid=cspace_264_hack.getCSID("_path:"+filePath);
 			}
 			doc = conn.getXMLDocument(RequestMethod.PUT,"collectionobjects/"+csid,data);
-			if(doc.getStatus()==404 || cspace267Hack_empty(doc.getDocument()))
+			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument()))
 				throw new ExistException("Not found: collecitonobjects/"+csid);
 			if(doc.getStatus()>299 || doc.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
@@ -260,7 +260,7 @@ class ServicesCollectionObjectStorage implements Storage {
 		try {
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
 			String csid=null;
-			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace267Hack_empty(doc.getDocument())) {
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
 				csid=filePath;
 			} else {
 				csid=cspace_264_hack.getCSID("_path:"+filePath);
