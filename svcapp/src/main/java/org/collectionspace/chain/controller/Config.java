@@ -21,6 +21,7 @@ public class Config {
 	public Config(ServletContext ctx) throws IOException {
 		// Load properties file, if present
 		InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(CHAIN_PROPERTIES);
+		this.ctx=ctx;
 		props=new Properties();
 		if(is==null) {
 			System.err.println("Warning: no configuration found"); // XXX do logging properly
@@ -28,7 +29,6 @@ public class Config {
 		}
 		props.load(is);
 		is.close();
-		this.ctx=ctx;
 	}
 
 	private synchronized String testStore(String suffix) {

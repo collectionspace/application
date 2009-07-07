@@ -28,7 +28,7 @@ public class StubJSONStore implements Storage {
 	 */
 	private File fileFromPath(String path) {
 		path=path.replaceAll("[^A-Za-z0-9_,.-]","");
-		return new File(store_root,path);
+		return new File(store_root,path+".json");
 	}
 	
 	public String getStoreRoot() { return store_root; }
@@ -103,7 +103,10 @@ public class StubJSONStore implements Storage {
 			return new String[]{};
 		List<String> out=new ArrayList<String>();
 		for(String f : dir.list()) {
-			out.add(f);
+			if(f.endsWith(".json")) {
+				f=f.substring(0,f.length()-5);
+				out.add(f);
+			}
 		}
 		return out.toArray(new String[0]);
 	}

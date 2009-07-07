@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-// XXX test me
 public class SplittingStorage implements Storage {
 	private Map<String,Storage> children=new HashMap<String,Storage>();
 	
