@@ -24,6 +24,7 @@ public class TestXTmpl {
 		return doc;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Test public void testBasic() throws Exception {
 		Document doc=getDocument("tmpl1.xml");
 		XTmplTmpl template=XTmplTmpl.compile(doc);

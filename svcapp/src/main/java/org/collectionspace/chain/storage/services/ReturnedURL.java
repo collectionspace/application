@@ -1,7 +1,5 @@
 package org.collectionspace.chain.storage.services;
 
-import org.dom4j.Document;
-
 public class ReturnedURL {
 	private int status;
 	private String url;

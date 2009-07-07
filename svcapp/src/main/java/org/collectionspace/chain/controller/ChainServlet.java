@@ -3,8 +3,6 @@ package org.collectionspace.chain.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +19,6 @@ import org.collectionspace.chain.storage.StorageRegistry;
 import org.collectionspace.chain.storage.UnderlyingStorageException;
 import org.collectionspace.chain.storage.UnimplementedException;
 import org.collectionspace.chain.storage.file.FileStorage;
-import org.collectionspace.chain.storage.file.StubJSONStore;
 import org.collectionspace.chain.storage.services.ServicesStorage;
 import org.collectionspace.chain.util.BadRequestException;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
