@@ -1,7 +1,6 @@
 package org.collectionspace.chain.util.jtmpl;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.io.InputStream;
