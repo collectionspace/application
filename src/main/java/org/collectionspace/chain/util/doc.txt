@@ -1,0 +1,10 @@
+In this package go all kinds of classes and methods which haven't yet been found a proper home.
+
+It should be kept small and only ever be a hotel for classes which are going away, or moving shortly.
+
+BadRequestException -- An exception used internally in the controller. Exceptions are a mess at the moment, they will
+be refactored during Hello Mars.
+
+JSON -- Some tools to help with org.json. (at the moment just a clone method).
+
+RequestMethod -- An enumeration of HTTP Request methods. Surely this must be available somewhere in the servlet spec?

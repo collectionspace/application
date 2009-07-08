@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.controller;
 
 import java.io.File;
@@ -10,6 +16,9 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/** Hides the answers to configuration questions from the source of those answers. The interface to this will
+ * change soon, as we can't go on supporting an additional method for each question.
+ */
 public class Config {
 	// XXX refactor to give saner names
 	private static final String CHAIN_PROPERTIES="chain.properties";

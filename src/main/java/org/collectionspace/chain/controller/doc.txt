@@ -1,0 +1,15 @@
+This package is currently the controller for the webapp. This will evolve, over time, into an implementation of the
+APPUI API between the generic app layer and the UI layer. Even the API is, as yet, unwritten. So for now you've got
+a bog-standard controller.
+
+ChainServlet -- This is the servlet proper.
+ChainRequest -- This is an abstraction of the request and response which translates things expressed in web-language -
+                  servlets, request parameters, pathinfo, etc - into ours - request type, operation, etc.
+Config       -- Encapsulates configuration discovery and reporting.
+RequestType  -- An enumeration of operations.
+
+At the moment ChainServlet contains way too much hardwired junk. Obviously this will naturally disassemble as the
+APPUI API develops, and we're required to parameterise more things. The same is true of Config which contains a method
+for each option at the moment, which is unsustainable.
+
+ChainServlet is the main way out of this package via calls to .schema (for schemas) and .storage (for data store).

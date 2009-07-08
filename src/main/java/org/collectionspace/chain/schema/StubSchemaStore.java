@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.schema;
 
 import java.io.File;
@@ -8,6 +14,8 @@ import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/** Schema (aka UI Spec) storage hack. Temporarily UI Specs are sotred on the filesystem.
+ */
 public class StubSchemaStore implements SchemaStore {
 	private String schema_root;
 	
