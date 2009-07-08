@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.storage.services;
 
 import java.util.HashMap;
@@ -13,6 +19,10 @@ import org.dom4j.Node;
 // XXX This will go
 // XXX this is a hack to deal with the ID late/early generation dilemma. It will certainly need to be addressed
 // more intelligently before there are things other than CollectionObject
+/** ServicesIdentifierMap is a class designed to deal with the "when are csid's generated" issue and will go when 
+ * that's resolved.
+ * 
+ */
 class ServicesIdentifierMap {
 	private ServicesConnection conn;
 	private int cache_hits=0,cache_misses=0,cache_loadsteps=0;

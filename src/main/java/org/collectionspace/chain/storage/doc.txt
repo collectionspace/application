@@ -1,0 +1,13 @@
+Storage is the SVCAPP API and a few hanger-on files. It will probably be renamed shortly. The key file is Storage which
+represents the interface which an SVCAPP implementation must implement. This includes create, read, update, and delete,
+but also list (all members), autocreate (create then give me the name), and will in future include search. Paths are
+slash-separated. An implementation may alter the contents at other paths when it receives an update (eg updating 
+indexes), but implementers are encouraged to keep to the spirit of the abstraction.
+
+There are three exceptions which are a part of the mess of exceptions which I need to clear up shortly. StorageRegistry
+contains top level storage implementations, to be selected among by configuration. SplittingStorage is an implementation
+of storage which can be wrapped or used as a base class, which delegates the execution of methods to another
+implementation of storage on the basis of the first path component. This allows different code to execute in different
+path subtrees.
+
+There may well be listeners, etc, in this package in time: who knows what we'll need?

@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.storage;
 
 import java.util.ArrayList;
@@ -7,6 +13,11 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+/** SplittingStorage is an implementation of storage which can be wrapped or used as a base class, which delegates 
+ * the execution of methods to another implementation of storage on the basis of the first path component. This 
+ * allows different code to execute in different path subtrees.
+ * 
+ */
 public class SplittingStorage implements Storage {
 	private Map<String,Storage> children=new HashMap<String,Storage>();
 	

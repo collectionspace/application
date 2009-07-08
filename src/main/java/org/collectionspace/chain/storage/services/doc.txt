@@ -1,0 +1,15 @@
+This packages implements Storage (SVCAPP API) for the Services layer. See the storage package for details. At the moment
+it is made grottier by the presence of some hacks to fix what's actually often an issue with the application/ui
+interconnect.
+
+The direct implementation is ServicesStorage which is an instance of SplittingStorage which at the moment only splits
+into ServicesCollectionObjectStorage. ServicesCollectionObjectStorage implements storage for collection object, and will
+probably be supplemented by similar classes for other services. However, as we add these, common factors will emerge
+which will allow them to be refactored into a common base class (or similar), meaning that 
+ServicesCollectionObjectStorage and similar just end up with special code for a particular interface.
+
+The actual REST calls are handled by ServicesConnection, which uses utility types ReturnedDocument and ReturnedURL
+to return things along with status codes, etc. Less than ideal: answers on a postcard, please.
+
+ServicesIdentifierMap is a class designed to deal with the "when are csid's generated" issue and will go when that's
+resolved.
