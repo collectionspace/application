@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.controller;
 
 import java.io.IOException;
@@ -7,9 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.util.BadRequestException;
 
+/** This is an abstraction of the request and response which translates things expressed in web-language -
+ *  servlets, request parameters, pathinfo, etc - into ours - request type, operation, etc.
+ *  
+ *  At the moment our language is quite close, so the implementation is quite transparent, but as APPUI develops,
+ *  the distance will increase.
+ * 
+ */
 public class ChainRequest {
 	private final static String SCHEMA_REF = "/objects/schema";
 	private final static String STORE_REF = "/objects";

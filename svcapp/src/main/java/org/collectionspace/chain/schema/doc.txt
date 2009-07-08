@@ -1,0 +1,8 @@
+To return the UI Spec (once called a schema).
+
+This package is essentially entirely a stub. At the moment we get stuff just off the file-system in JSON. It will
+be derived from the config instead. Though there is an API and Impl in here, that doesn't signify much as this whole
+package will change imeasurably shortly.
+
+SchemaStore -- retrieve a schema (API)
+StubSchemaStore -- retrieve a schema (Impl)

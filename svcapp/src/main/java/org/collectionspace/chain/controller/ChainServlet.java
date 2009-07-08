@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.controller;
 
 import java.io.IOException;
@@ -27,9 +33,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@SuppressWarnings("serial")
+/** This is the servlet proper for the current interface between the App and UI layers. It is a repository of
+ * random junk which needs to be swept away as it becomes parameterised. We use ChainRequest to encapsulate the
+ * servlet request and response and present it in a more project-focused way.
+ */
 public class ChainServlet extends HttpServlet 
 {	
+	private static final long serialVersionUID = -4343156244448081917L;
 	private Config config=null;
 	private Storage store=null;
 	private SchemaStore schema=null;
