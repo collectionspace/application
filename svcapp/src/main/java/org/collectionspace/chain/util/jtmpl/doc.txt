@@ -1,0 +1,11 @@
+Used in JXJ.
+
+Goofy template language for JSON. There don't seem to be any good ones out there. We wanted to make the language
+valid JSON itself, hence the weird syntax. A string beginning \u0000 followed by a key symbolises a slot in the
+template. This syntax was chosen as \u0000 is an invalid unicode character so shouldn't occur in real life, but is
+valid JSON. Of course that doesn't hold water if you want to use this JSON template in a template itself, or similar
+circumstances. As I say, goofy. Patches welcome.
+
+JTmplTmpl -- the template itself.
+JTmplDocument -- an instance thereof ready for the filling out with values.
+InvalidJTmplException -- Something went wrong.

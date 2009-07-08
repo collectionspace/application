@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.util.jxj;
 
 import java.util.HashMap;
@@ -8,6 +14,9 @@ import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
 
+/** A JXJ control file from which transformers can be extracted.
+ * 
+ */
 public class JXJFile {
 	private Map<String,JXJTransformer> transformers=new HashMap<String,JXJTransformer>();
 	

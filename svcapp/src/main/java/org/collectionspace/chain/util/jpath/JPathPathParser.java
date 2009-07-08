@@ -1,9 +1,19 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
+
 package org.collectionspace.chain.util.jpath;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class JPathPathParser {
+/** Internal class for Jpath. Hides all the grotty lexing of JPath paths. Name is stupid, should probably be changed.
+ * 
+ */
+class JPathPathParser {
 	private List<Object> out=new ArrayList<Object>();
 	private char[] in;
 	private int index=0;
