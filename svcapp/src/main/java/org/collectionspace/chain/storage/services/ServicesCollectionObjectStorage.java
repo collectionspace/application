@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.storage.services;
 
 import java.io.IOException;
@@ -35,6 +41,12 @@ import org.slf4j.LoggerFactory;
  *                             - Alexander Pope
  */
 
+/**
+ * ServicesCollectionObjectStorage implements storage for collection object, and will 
+ * probably be supplemented by similar classes for other services. However, as we add these, common factors will emerge
+ * which will allow them to be refactored into a common base class (or similar), meaning that 
+ * ServicesCollectionObjectStorage and similar just end up with special code for a particular interface.
+ */
 class ServicesCollectionObjectStorage implements Storage {
 	private ServicesConnection conn;
 	private JXJTransformer jxj;

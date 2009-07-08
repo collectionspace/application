@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.storage.services;
 
 import java.io.ByteArrayInputStream;
@@ -23,6 +29,10 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+/** The actual REST calls are handled by ServicesConnection, which uses utility types ReturnedDocument and ReturnedURL
+ * to return things along with status codes, etc. Less than ideal: answers on a postcard, please.
+ * 
+ */
 public class ServicesConnection {
 	private String base_url;
 	private HttpClient client;

@@ -1,0 +1,5 @@
+This trivial, inefficient, feature-poor implementation of Storage allows experimentation and testing though its use 
+of a simple file-based object store.
+
+FileStorage -- A SplittingStorage which delegates collection-objects to StubJSONStore
+StubJSONStore -- An implementation of Storage which uses the filesystem

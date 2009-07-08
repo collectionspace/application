@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.storage.file;
 
 import java.io.File;
@@ -16,7 +22,9 @@ import org.collectionspace.chain.storage.UnimplementedException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+/** An implementation of Storage which uses the filesystem.
+ * 
+ */
 public class StubJSONStore implements Storage {
 	private String store_root;
 	private static final Random rnd=new Random();
