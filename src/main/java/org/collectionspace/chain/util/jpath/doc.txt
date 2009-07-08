@@ -1,0 +1,6 @@
+This package implements JPath. It is used in JXJ to specify a path through some JSON to some data. The names are stupid
+and should probably be changed.
+
+JPathPath -- Corresponds to a single path
+JPathPathParser -- [package scope] Parses a path. Used internally
+InvalidJpathException -- Raised at compile or run time when a JPath is invalid for some reason

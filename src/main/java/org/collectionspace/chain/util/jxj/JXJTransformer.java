@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.util.jxj;
 
 import java.util.HashMap;
@@ -24,6 +30,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/** Transforms JSON into XML and vice versa. Derived from JXJFile.
+ * 
+ */
 public class JXJTransformer {
 	private XTmplTmpl jxtmpl;
 	private Map<String,JPathPath> jxattach=new HashMap<String,JPathPath>();
