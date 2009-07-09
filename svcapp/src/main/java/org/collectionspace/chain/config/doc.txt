@@ -17,3 +17,4 @@ DefaultConfigLoadMethod -- use string provided (a fallback)
 TmpdirConfigLoadMethod -- use tmpdir (a fallback)
 AttributeConfigLoadMethod -- use servlet attribute (useful during testing)
 PropertyConfigLoadMethod -- load from properties file
+ServicesRespondingConfigLoadMethod -- Expects a URL, but will only return it if the service layer is working at this URL

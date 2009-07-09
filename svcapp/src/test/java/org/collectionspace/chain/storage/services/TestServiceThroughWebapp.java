@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.collectionspace.chain.config.ConfigLoadController;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.test.JSONTestUtil;
 import org.json.JSONObject;
@@ -14,8 +15,6 @@ import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 
 public class TestServiceThroughWebapp {
-	private static String BASE_URL="http://chalk-233:8080"; // XXX configure
-
 	private InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
@@ -42,12 +41,16 @@ public class TestServiceThroughWebapp {
 	
 	// XXX refactor into other copy of this method
 	private ServletTester setupJetty() throws Exception {
+		ConfigLoadController config_controller=new ConfigLoadController(null);
+		config_controller.addSearchSuffix("test-config-loader.xml");
+		config_controller.go();
+		String base=config_controller.getOption("services-url");		
 		ServletTester tester=new ServletTester();
 		tester.setContextPath("/chain");
 		tester.addServlet(ChainServlet.class, "/*");
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
 		tester.setAttribute("storage","service");
-		tester.setAttribute("store-url",BASE_URL+"/helloworld/cspace-nuxeo/");		
+		tester.setAttribute("store-url",base+"/helloworld/cspace-nuxeo/");		
 		tester.start();
 		return tester;
 	}
