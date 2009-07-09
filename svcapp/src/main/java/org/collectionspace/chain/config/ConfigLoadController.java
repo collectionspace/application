@@ -1,3 +1,9 @@
+/* Copyright 2009 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.config;
 
 import java.io.IOException;
@@ -17,6 +23,9 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
+/** the main controller/entry-point to the bootstrap config
+ * 
+ */
 public class ConfigLoadController {		
 	private ServletContext ctx;
 	private List<String> suffixes=new ArrayList<String>();
