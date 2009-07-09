@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.config.ConfigLoadFailedException;
 import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
 import org.collectionspace.chain.storage.ExistException;
@@ -52,7 +53,7 @@ public class ChainServlet extends HttpServlet
 	private Storage getStorage() throws InvalidJXJException, DocumentException, IOException {
 		// Complexity here is to allow for refactoring when storages can come from plugins
 		StorageRegistry storage_registry=new StorageRegistry();
-		storage_registry.addStorage("file",new FileStorage(config.getPathToSchemaDocs()));
+		storage_registry.addStorage("file",new FileStorage(config.getPathToStore()));
 		storage_registry.addStorage("service",new ServicesStorage(config.getServicesBaseURL()));
 		return storage_registry.getStorage(config.getStorageType());
 	}
@@ -64,6 +65,8 @@ public class ChainServlet extends HttpServlet
 			config=new Config(getServletContext());
 			store=getStorage();
 		} catch (IOException e) {
+			throw new BadRequestException("Cannot load config"+e,e);
+		} catch (ConfigLoadFailedException e) {
 			throw new BadRequestException("Cannot load config"+e,e);
 		} catch (InvalidJXJException e) { // XXX better exception handling in ServicesStorage constructor
 			throw new BadRequestException("Cannot load backend"+e,e);
