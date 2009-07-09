@@ -32,4 +32,11 @@ public class TestConfig {
 		config_controller.go();
 		assertEquals("successful",config_controller.getOption("test-fs-properties"));
 	}
+	
+	@Test public void testTmpdir() throws Exception {
+		ConfigLoadController config_controller=new ConfigLoadController(null);
+		config_controller.addSearchSuffix("test-config-loader.xml");
+		config_controller.go();
+		assertEquals(System.getProperty("java.io.tmpdir"),config_controller.getOption("tmpdir"));
+	}
 }

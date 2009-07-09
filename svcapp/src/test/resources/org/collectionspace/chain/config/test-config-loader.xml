@@ -10,6 +10,8 @@
     <services suffix="/helloworld/cspace-nuxeo/collectionobjects/">http://demo.collectionspace.org:8080</services>
   </option>
   
+  nonsense is okay here
+  
   <option name="test-properties">
     <property>test.properties</property>
     <default>failure</default>
@@ -26,6 +28,13 @@
   </option>
   
   <option name="test">
+  
+    nonsense is okay here
+  
     <default>success</default>
+  </option>
+  
+  <option name="tmpdir">
+    <tmpdir/>
   </option>
 </config>

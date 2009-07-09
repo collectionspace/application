@@ -93,16 +93,30 @@ public class ServicesConnection {
 		return new ByteArrayInputStream(out.toByteArray());
 	}
 
-	// XXX eugh! error case control-flow nightmare
-	public ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body) throws BadRequestException {
-		InputStream body_data=null;
-		if(body!=null) {
+	private InputStream documentToStream(Document in,String uri) throws BadRequestException {
+		if(in!=null) {
 			try {
-				body_data=serializetoXML(body);
+				return serializetoXML(in);
 			} catch (IOException e) {
 				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
 			}
 		}
+		return null;
+	}
+	
+	private void closeStream(InputStream stream) throws BadRequestException {
+		if(stream!=null)
+			try {
+				stream.close();
+			} catch (IOException e) {
+				// Close failed: nothing we can do. Is a ByteArrayInputStream, anyway, should be impossible.
+				throw new BadRequestException("Impossible exception raised during close of BAIS!?");
+			}		
+	}
+	
+	// XXX eugh! error case control-flow nightmare
+	public ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body) throws BadRequestException {
+		InputStream body_data=documentToStream(body,uri);
 		try {
 			System.err.println("Getting from "+uri);
 			HttpMethod method=createMethod(method_type,uri,body_data);
@@ -120,39 +134,19 @@ public class ServicesConnection {
 				System.err.println("ok");
 				stream.close();
 				return new ReturnedDocument(response,out);
-			} catch (HttpException e) {
+			} catch(Exception e) {
 				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
-			} catch (IOException e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
-			} catch (DocumentException e) {
-				throw new BadRequestException("Bad XML from "+uri+" at "+base_url,e);
 			} finally {
 				method.releaseConnection();
 			}
 		} finally {
-			if(body_data!=null)
-				try {
-					body_data.close();
-				} catch (IOException e) {
-					// Close failed: nothing we can do. Is a ByteArrayInputStream, anyway, should be impossible.
-					throw new BadRequestException("Impossible exception raised during close of BAIS!?");
-				}
+			closeStream(body_data);
 		}
 	}
 
 	// XXX refactor!!!!
 	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body) throws BadRequestException {
-		if(body!=null) {
-			System.err.println("Debug: SENDING "+body.asXML());
-		}
-		InputStream body_data=null;
-		if(body!=null) {
-			try {
-				body_data=serializetoXML(body);
-			} catch (IOException e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
-			}
-		}
+		InputStream body_data=documentToStream(body,uri);
 		try {
 			HttpMethod method=createMethod(method_type,uri,body_data);
 			if(body_data!=null) {
@@ -168,33 +162,18 @@ public class ServicesConnection {
 				if(url.startsWith(base_url))
 					url=url.substring(base_url.length());
 				return new ReturnedURL(response,url);
-			} catch (HttpException e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
 			} finally {
 				method.releaseConnection();
 			}
 		} finally {
-			if(body_data!=null)
-				try {
-					body_data.close();
-				} catch (IOException e) {
-					// Close failed: nothing we can do. Is a ByteArrayInputStream, anyway, should be impossible.
-					throw new BadRequestException("Impossible exception raised during close of BAIS!?");
-				}
+			closeStream(body_data);
 		}
 	}
 
 	public int getNone(RequestMethod method_type,String uri,Document body) throws BadRequestException {
-		InputStream body_data=null;
-		if(body!=null) {
-			try {
-				body_data=serializetoXML(body);
-			} catch (IOException e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
-			}
-		}
+		InputStream body_data=documentToStream(body,uri);
 		try {
 			HttpMethod method=createMethod(method_type,uri,body_data);
 			if(body_data!=null) {
@@ -203,21 +182,13 @@ public class ServicesConnection {
 			try {
 				int response=client.executeMethod(method);
 				return response;
-			} catch (HttpException e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
 			} finally {
 				method.releaseConnection();
 			}
 		} finally {
-			if(body_data!=null)
-				try {
-					body_data.close();
-				} catch (IOException e) {
-					// Close failed: nothing we can do. Is a ByteArrayInputStream, anyway, should be impossible.
-					throw new BadRequestException("Impossible exception raised during close of BAIS!?");
-				}
+			closeStream(body_data);
 		}
 	}
 }
