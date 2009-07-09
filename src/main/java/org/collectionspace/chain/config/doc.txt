@@ -1,0 +1,19 @@
+This package implements a system of finding configuration parameters from disparate sources. Its main tasks are to
+partition into different classes these different methods and to introduce an XML control file format to describe them,
+to allow us to easily change the order and the names of any required keys/paths.
+
+Note that this class is just for the bootstrap configuration, so the actual control file will probably end up being
+rather small, listing only very few options (perhaps only two or three in the end), but a large number of places to 
+look for them, which is why the XML file allows you to specify them is the way around that it is.
+
+ConfigLoadMethod -- the interface implemented by methods
+StringReadingConfigLoadMethod -- abstract base type for many methods, probably a bit useless now
+ConfigLoadController -- the main controller
+ConfigLoadFailedException -- an error occurred during loading
+ConfigOptionSource -- [package scope] internal use, a part of the control file
+
+Methods:
+DefaultConfigLoadMethod -- use string provided (a fallback)
+TmpdirConfigLoadMethod -- use tmpdir (a fallback)
+AttributeConfigLoadMethod -- use servlet attribute (useful during testing)
+PropertyConfigLoadMethod -- load from properties file
