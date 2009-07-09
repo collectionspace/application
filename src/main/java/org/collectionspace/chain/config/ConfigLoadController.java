@@ -80,7 +80,7 @@ public class ConfigLoadController {
 		List<ConfigOptionSource> out=new ArrayList<ConfigOptionSource>();
 		for(Object tag : el.selectNodes("*")) {
 			if(!(tag instanceof Element))
-				continue;
+				continue; // Should be impossible
 			String name=((Element)tag).getName();
 			ConfigLoadMethod method=methods.get(name);
 			if(method==null)
@@ -96,7 +96,7 @@ public class ConfigLoadController {
 			loadMethods(config_loader);
 			for(Object el : config_loader.selectNodes("config/option")) {
 				if(!(el instanceof Element))
-					continue;
+					continue; // Should be impossible
 				String name=((Element)el).attributeValue("name");
 				if(StringUtils.isBlank(name))
 					throw new ConfigLoadFailedException("option tag needs name attribute");
