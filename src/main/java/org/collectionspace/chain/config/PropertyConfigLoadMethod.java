@@ -6,37 +6,80 @@
  */
 package org.collectionspace.chain.config;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.dom4j.Node;
 
 /** method to load from properties file to get parameter */
-public class PropertyConfigLoadMethod extends StringReadingConfigLoadMethod {
-	private Properties props=new Properties();
+public class PropertyConfigLoadMethod implements ConfigLoadMethod {
+	private static Pattern p = Pattern.compile("\\$\\{(.*?)\\}");
+	
+	private Map<String,Properties> prop_files=new HashMap<String,Properties>();
 
-	private void loadProperties(String name) throws ConfigLoadFailedException {
+	private String substitute_system_props(String in) {
+		Matcher m = p.matcher(in);
+		StringBuffer sb = new StringBuffer();
+		while (m.find()) {
+			String value=System.getProperty(m.group(1));
+			if(value==null)
+				value="";
+			System.err.println(m.group(1));
+			m.appendReplacement(sb,value);
+		}
+		m.appendTail(sb);
+		System.err.println(sb);
+		return sb.toString();
+	}
+	
+	private Properties loadProperties(String name) throws ConfigLoadFailedException {
 		try {
-			InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+			Properties out=new Properties();
+			String path=substitute_system_props(name);
+			InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);			
+			if(is==null) {
+				// Try filesystem
+				is=new FileInputStream(new File(path));
+			}
 			if(is!=null) {
-				props.load(is);
+				out.load(is);
 				is.close();
 			}
+			return out;
 		} catch(Exception e) {
-			throw new ConfigLoadFailedException("Error loading properties file",e);
+			// Fall through. Okay, we just won't use this one.
+			return null;
 		}
 	}
 
 	public void init(ConfigLoadController controller,Document root) throws ConfigLoadFailedException {
-		Node location=root.selectSingleNode("config/properties");
-		if(location!=null && (location instanceof Element))
-			loadProperties(((Element)location).getTextTrim());
+		for(Object location : root.selectNodes("config/properties")) {
+			if(!(location instanceof Element))
+				continue;
+			String name=((Element)location).attributeValue("name");
+			if(StringUtils.isBlank(name))
+				name="";
+			Properties p=loadProperties(((Element)location).getTextTrim());
+			if(p!=null)
+				prop_files.put(name,p);
+		}
 	}
 
-	@Override 
-	public String string_get(String value) {
-		return props.getProperty(value);
+	public String getString(Element e) {
+		String src=e.attributeValue("src");
+		if(StringUtils.isBlank(src))
+			src="";
+		Properties props=prop_files.get(src);
+		if(props==null)
+			return null;
+		return props.getProperty(e.getTextTrim());
 	}
 }

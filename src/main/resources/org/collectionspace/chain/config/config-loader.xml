@@ -1,27 +1,32 @@
 <!-- this file tells the config loader what to do with various system properties, where to find them, etc -->
 <config>
   <properties>chain.properties</properties>
+  <properties name="jboss">${jboss.server.home.dir}/server/cspace/config/application/chain.properties</properties>
   
   <option name="storage-type">
     <attribute>storage</attribute>
+    <property src="jboss">cspace.chain.store</property>
     <property>cspace.chain.store</property>
     <default>file</default>
   </option>
   
   <option name="store-url">
     <attribute>store-url</attribute>
+    <property src="jboss">cspace.chain.store.url</property>
     <property>cspace.chain.store.url</property>
     <default>http://localhost:8080/</default>
   </option>
   
   <option name="store">
     <attribute mkdir="store">test-store</attribute>
+    <property src="jboss">cspace.chain.store.dir</property>
     <property>cspace.chain.store.dir</property>
     <tmpdir/>
   </option>
   
   <option name="schema">
     <attribute mkdir="schema">test-store</attribute>
+    <property src="jboss">cspace.chain.schema.dir</property>
     <property>cspace.chain.schema.dir</property>
     <tmpdir/>
   </option>

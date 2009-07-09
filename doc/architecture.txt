@@ -62,6 +62,7 @@ have not been integrated yet. At the moment we're focussing on marshalling and s
 Packages
 ........
 
+org.collectionspace.chain.config           <- Bootstrap config. Looks in many places for info to start up
 org.collectionspace.chain.controller       <- Webapp. Much will become APPUI
 org.collectionspace.chain.schema           <- Stub for UISchema store. Moved into XML config for Mars
 org.collectionspace.chain.storage          <- SVCAPP API (prototype)

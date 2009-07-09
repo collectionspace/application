@@ -1,12 +1,24 @@
 <!-- this file tells the config loader what to do with various system properties, where to find them, etc -->
 <config>
   <properties>org/collectionspace/chain/config/test-chain.properties</properties>
+  <properties name="alt">${test_property}/test-alt-chain.properties</properties>
+  <properties name="fs">${test_fs_path}</properties>
   
-  <!-- only for testing -->
   <option name="test-properties">
     <property>test.properties</property>
     <default>failure</default>
   </option>
+
+  <option name="test-alt-properties">
+    <property src="alt">test.properties</property>
+    <default>failure</default>
+  </option>
+
+  <option name="test-fs-properties">
+    <property src="fs">test.fs</property>
+    <default>failure</default>
+  </option>
+  
   <option name="test">
     <default>success</default>
   </option>
