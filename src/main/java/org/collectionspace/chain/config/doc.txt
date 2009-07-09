@@ -7,7 +7,6 @@ rather small, listing only very few options (perhaps only two or three in the en
 look for them, which is why the XML file allows you to specify them is the way around that it is.
 
 ConfigLoadMethod -- the interface implemented by methods
-StringReadingConfigLoadMethod -- abstract base type for many methods, probably a bit useless now
 ConfigLoadController -- the main controller
 ConfigLoadFailedException -- an error occurred during loading
 ConfigOptionSource -- [package scope] internal use, a part of the control file
