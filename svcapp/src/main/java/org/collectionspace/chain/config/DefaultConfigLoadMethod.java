@@ -6,8 +6,14 @@
  */
 package org.collectionspace.chain.config;
 
+import org.dom4j.Document;
+import org.dom4j.Element;
+
 /** method to just return the string provided (a fallback) */
-public class DefaultConfigLoadMethod extends StringReadingConfigLoadMethod implements ConfigLoadMethod {
-	@Override
-	protected String string_get(String value) { return value; }
+public class DefaultConfigLoadMethod implements ConfigLoadMethod {
+
+	public String getString(Element e) { return e.getTextTrim(); }
+
+	public void init(ConfigLoadController controller, Document root)
+			throws ConfigLoadFailedException {}
 }
