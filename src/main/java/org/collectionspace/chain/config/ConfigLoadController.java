@@ -54,7 +54,7 @@ public class ConfigLoadController {
 	}
 	
 	/* Used for testing */
-	void addSearchSuffix(String extra) {
+	public void addSearchSuffix(String extra) {
 		suffixes.add(0,extra);
 	}
 
@@ -73,6 +73,7 @@ public class ConfigLoadController {
 		loadMethod(root,"attribute",new AttributeConfigLoadMethod());
 		loadMethod(root,"property",new PropertyConfigLoadMethod());		
 		loadMethod(root,"tmpdir",new TmpdirConfigLoadMethod());
+		loadMethod(root,"services",new ServicesRespondingConfigLoadMethod());		
 	}
 	
 	private List<ConfigOptionSource> loadSources(Element el) throws ConfigLoadFailedException {

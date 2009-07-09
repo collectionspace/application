@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.collectionspace.chain.config.ConfigLoadFailedException;
 import org.collectionspace.chain.storage.ExistException;
 import org.collectionspace.chain.storage.services.ReturnedDocument;
 import org.collectionspace.chain.storage.services.ServicesConnection;
@@ -20,10 +21,7 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestServiceThroughAPI {
-	private static String BASE_URL="http://chalk-233:8080"; // XXX configure
-	private ServicesConnection conn;
-
+public class TestServiceThroughAPI extends ServicesBaseClass {
 	// XXX refactor
 	private JSONObject getJSON(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
@@ -48,19 +46,13 @@ public class TestServiceThroughAPI {
 		}
 	}
 	
-	@Before public void checkServicesRunning() throws BadRequestException {
-		try {
-			conn=new ServicesConnection(BASE_URL+"/helloworld/cspace-nuxeo/");
-			ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects");
-			Assume.assumeTrue(out.getStatus()==200);
-		} catch(BadRequestException e) {
-			Assume.assumeTrue(false);
-		}
+	@Before public void checkServicesRunning() throws BadRequestException, ConfigLoadFailedException {
+		setup();
 	}
 	
 	@Test public void testObjectsPut() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
+		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
 		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+name);
 		JSONTestUtil.assertJSONEquiv(js,getJSON("obj3.json"));
@@ -68,7 +60,7 @@ public class TestServiceThroughAPI {
 
 	@Test public void testObjectsPost() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
+		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
 		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		ss.updateJSON("collection-object/"+name,getJSON("obj4.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+name);
@@ -77,7 +69,7 @@ public class TestServiceThroughAPI {
 
 	@Test public void testObjectsDelete() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
+		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
 		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+name);
 		JSONTestUtil.assertJSONEquiv(js,getJSON("obj3.json"));
@@ -99,7 +91,7 @@ public class TestServiceThroughAPI {
 	
 	@Test public void testObjectsList() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
+		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
 		String name1=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		String name2=ss.autocreateJSON("collection-object",getJSON("obj4.json"));
 		ss.createJSON("collection-object/123",getJSON("obj4.json"));
@@ -111,7 +103,7 @@ public class TestServiceThroughAPI {
 	
 	@Test public void testHackCSPACE264() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(BASE_URL+"/helloworld/cspace-nuxeo/");
+		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
 		ss.createJSON("collection-object/def",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/def");
 		JSONTestUtil.assertJSONEquiv(js,getJSON("obj3.json"));
