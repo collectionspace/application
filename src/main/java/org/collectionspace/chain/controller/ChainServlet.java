@@ -86,7 +86,7 @@ public class ChainServlet extends HttpServlet
 		} catch (UnimplementedException e) {
 			throw new BadRequestException("Unimplemented",e);
 		} catch (UnderlyingStorageException e) {
-			throw new BadRequestException("Problem storing",e);
+			throw new BadRequestException("Problem getting",e);
 		}
 		if (out == null) {
 			throw new BadRequestException("No JSON Found");

@@ -52,7 +52,7 @@ PropertyConfigLoadMethod -- <property src="xxx">[property key]</property> : this
                             optional. Method looks at <properties> tags, directly inside <config> for path. If no src 
                             is given, then <properties> tag with no name attribute is used. Otherwise, properties tag 
                             with given name is used. Value of properties tag can include system properties via ${x.y}
-                            type syntax.
+                            type syntax. Looks first in the classpath and then relative to fs root.
 
 ServicesRespondingConfigLoadMethod -- <services suffix="xxx">[url]</services> : looks for a 200 (for now, may get more
                                       sophisticated) at URL given. suffix, if present, is appended for this test, but
