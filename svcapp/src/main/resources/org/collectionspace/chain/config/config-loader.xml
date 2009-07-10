@@ -14,7 +14,7 @@
     <attribute>store-url</attribute>
     <property src="jboss">cspace.chain.store.url</property>
     <property>cspace.chain.store.url</property>
-    <default>http://localhost:8080/</default>
+    <default>http://localhost:8080</default>
   </option>
   
   <option name="store">

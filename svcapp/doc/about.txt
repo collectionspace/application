@@ -1,8 +1,6 @@
 Chain
 =====
 
-THIS DOCUMENT IS OUT OF DATE FOR HELLO MOON
-
 Purpose
 -------
 
@@ -11,25 +9,48 @@ SVCAPP is designed to integrate all three layers.
 Quality
 -------
 
-The code has not been used wideliy in production.
+The code has not been used widely in production.
 It does have pretty good unit test coverage.
 It is not very well documented, and has no coherent javadocs.
   It was much better documented before dan got his hands on it, for which he will spend more time in pergatory.
 Error handling is okay, but not perfect.
 
-Some tests will fail on boxes without /tmp (Windows) because some missing features mean that it must be hardwired.
+Unit tests have not been run outside CARET, you may need to skip them, but let me know which fail.
 
 Configuration
 -------------
 
-You can configure where the schemas and objects are stored. Each is a string which is a path to the store for schemas
-or the store for objects.
+You can configure where the schemas and objects are stored, which backend to use, and where the services URL goes. 
 
-	private static final String STORE_PROPERTY="cspace.chain.store.dir";
-	private static final String SCHEMA_PROPERTY="cspace.chain.schema.dir";
+These should be supplied in a file called chain.properties somewhere on the classpath, or else in
 
-These can be supplied as system properties or, preferably, in a file called chain.properties somewhere on the classpath.
-If both are missing, the current tmpdir is used.
+  ${jboss.server.home.dir}/server/cspace/config/application/chain.properties
+
+this is necessary for jboss which doesn't seem to have an easily accessible classpath, but for tomact or jetty it
+makes more sense to put it into the classpath, I think.
+
+Properties are:
+
+cspace.chain.store -- backend to use. "file" is the backend for hello World, "service" uses services.
+                      Note that the default is currently "file".
+                      
+                      We MUST SET THIS TO service OR WE WILL NOT BE USING THE SERVICES.
+                      
+                      However, setting it to file might help during testing what's up.
+                      
+cspace.chain.store.url -- base URL for services, used when services is selected as backend.
+                          Must not end in slash. This is rubbish and should be fixed. (CSPACE-318)
+
+cspace.chain.store.dir -- used with file backend, where files are stored. A path.
+
+cspace.chain.schema.dir -- Directory for UISpec, must be a directory on the filesystem with UI Spec in it.
+                           Required for both backends.
+
+In case this is too vague, here's something too specific, my own chain.properties:
+
+  cspace.chain.store=service
+  cspace.chain.store.url=http://chalk-233:8080/helloworld/cspace-nuxeo
+  cspace.chain.schema.dir=/tmp
 
 Functionality
 -------------
