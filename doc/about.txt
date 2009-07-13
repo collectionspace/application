@@ -29,6 +29,13 @@ These should be supplied in a file called chain.properties somewhere on the clas
 this is necessary for jboss which doesn't seem to have an easily accessible classpath, but for tomact or jetty it
 makes more sense to put it into the classpath, I think.
 
+In more detail on the above, if you're not very familiar with the nuances of the above (few are):
+
+  JBoss: use ${jboss.server.home.dir}/server/cspace/config/application/chain.properties
+  Tomcat 5.5: shared/classes/chain.properties
+  Tomcat 6: lib/chain.properties
+  Jetty: not sure. can someone help?
+
 Properties are:
 
 cspace.chain.store -- backend to use. "file" is the backend for hello World, "service" uses services.
