@@ -25,6 +25,7 @@ import org.collectionspace.chain.util.BadRequestException;
 public class ChainRequest {
 	private final static String SCHEMA_REF = "/objects/schema";
 	private final static String STORE_REF = "/objects";
+	private static final String RESET_REF= "/reset";
 	
 	private static final String usage="You must structure the requests like so: \n" +
 		"GET "+SCHEMA_REF+"/%path-to-file-with-name% \n" +
@@ -76,6 +77,8 @@ public class ChainRequest {
 			perhapsStartsWith(SCHEMA_REF,RequestType.SCHEMA,path);
 		if(!found)
 			perhapsStartsWith(STORE_REF,RequestType.STORE,path);
+		if(!found)
+			perhapsStartsWith(RESET_REF,RequestType.RESET,path);
 		if(type==RequestType.STORE && "".equals(rest)) {
 			// Blank means list
 			type=RequestType.LIST;

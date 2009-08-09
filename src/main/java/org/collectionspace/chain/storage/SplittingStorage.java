@@ -51,10 +51,12 @@ public class SplittingStorage implements Storage {
 		get(parts[0]).createJSON(parts[1],jsonObject);
 	}
 
-	public String[] getPaths() throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String[] getPaths(String rootPath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		String parts[]=split(rootPath,true);
 		List<String> out=new ArrayList<String>();
 		for(Map.Entry<String,Storage> e : children.entrySet()) {
-			for(String s : e.getValue().getPaths()) {
+			if(e.getKey().equals(parts[0]))
+			for(String s : e.getValue().getPaths(parts[1])) {
 				out.add(s);
 			}
 		}

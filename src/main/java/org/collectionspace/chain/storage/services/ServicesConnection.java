@@ -15,6 +15,7 @@ import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -35,13 +36,24 @@ import org.dom4j.io.XMLWriter;
  */
 public class ServicesConnection {
 	private String base_url;
-	private HttpClient client;
+	private static HttpClient client;
+	
+	private void initClient() {
+		if(client!=null)
+			return;
+		synchronized(getClass()) {
+			if(client!=null)
+				return;
+			MultiThreadedHttpConnectionManager manager=new MultiThreadedHttpConnectionManager();
+			client=new HttpClient(manager);
+		}
+	}
 	
 	public ServicesConnection(String base_url) {
 		if(base_url.endsWith("/"))
 			base_url=base_url.substring(0,base_url.length()-1);
 		this.base_url=base_url;
-		client=new HttpClient();
+		initClient();
 	}
 	
 	private String prepend_base(String uri) throws BadRequestException {

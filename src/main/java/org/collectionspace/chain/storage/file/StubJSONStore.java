@@ -105,7 +105,7 @@ public class StubJSONStore implements Storage {
 		}
 	}
 	
-	public String[] getPaths() {
+	public String[] getPaths(String subdir) {
 		File dir=new File(store_root);
 		if(!dir.isDirectory())
 			return new String[]{};
