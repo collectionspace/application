@@ -94,6 +94,16 @@ public class ChainServlet extends HttpServlet
 		return out;
 	}
 
+	// XXX refactor
+	private JSONObject getJSONResource(String in) throws IOException, JSONException {
+		String path=getClass().getPackage().getName().replaceAll("\\.","/");
+		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
+		System.err.println(path);
+		String data=IOUtils.toString(stream);
+		stream.close();		
+		return new JSONObject(data);
+	}
+	
 	private boolean perhapsServeFixedContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		String pathinfo=servlet_request.getPathInfo();
 		if(pathinfo.startsWith("/"))
@@ -154,7 +164,7 @@ public class ChainServlet extends HttpServlet
 				break;
 			case LIST:
 				try {
-					String[] paths=store.getPaths();
+					String[] paths=store.getPaths("collection-object");
 					for(int i=0;i<paths.length;i++) {
 						if(paths[i].startsWith("collection-object/"))
 							paths[i]=paths[i].substring("collection-object/".length());
@@ -172,6 +182,27 @@ public class ChainServlet extends HttpServlet
 				}
 				out.close();
 				servlet_response.setStatus(HttpServletResponse.SC_OK);				
+				break;
+			case RESET:
+				/* Temporary hack for moon */
+				// Delete all members
+				String[] paths;
+				try {
+					paths = store.getPaths("collection-object/");
+					for(int i=0;i<paths.length;i++) {
+						store.deleteJSON("collection-object/"+paths[i]);
+					}
+					store.createJSON("collection-object/1984.068.0335b",getJSONResource("test1.json"));
+					store.createJSON("collection-object/1984.068.0338",getJSONResource("test2.json"));					
+				} catch (ExistException e) {
+					throw new BadRequestException("Existence problem",e);
+				} catch (UnimplementedException e) {
+					throw new BadRequestException("Unimplemented",e);
+				} catch (UnderlyingStorageException e) {
+					throw new BadRequestException("Problem storing",e);
+				} catch (JSONException e) {
+					throw new BadRequestException("Invalid JSON",e);
+				}
 				break;
 			}
 		} catch (BadRequestException x) {

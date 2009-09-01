@@ -14,5 +14,5 @@ package org.collectionspace.chain.controller;
  * LIST: list all members
  */
 public enum RequestType {
-	STORE,SCHEMA,LIST;
+	STORE,SCHEMA,LIST,RESET;
 }

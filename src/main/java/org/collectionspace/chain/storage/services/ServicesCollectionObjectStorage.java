@@ -75,7 +75,7 @@ class ServicesCollectionObjectStorage implements Storage {
 	private JSONObject cspace264Hack_unmunge(JSONObject in) {
 		// 1. Extract accession number from other numbers
 		try {
-			JSONArray ons=in.getJSONArray("othernumber");
+			JSONArray ons=in.getJSONArray("objectNumber");
 			String accnum=null;
 			JSONArray new_ons=new JSONArray();
 			for(int i=0;i<ons.length();i++) {
@@ -86,11 +86,11 @@ class ServicesCollectionObjectStorage implements Storage {
 					new_ons.put(v);
 				}
 			}
-			in.remove("othernumber");
-			in.put("othernumber",new_ons);
+			in.remove("objectNumber");
+			in.put("objectNumber",new_ons);
 			if(accnum!=null) {
-				in.remove("objectnumber");
-				in.put("objectnumber",accnum);
+				in.remove("accessionNumber");
+				in.put("accessionNumber",accnum);
 			}
 		} catch (JSONException e) {}
 		return in;
@@ -101,27 +101,27 @@ class ServicesCollectionObjectStorage implements Storage {
 		JSONArray ons=new JSONArray();
 		String accnum;
 		try {
-			accnum = in.getString("objectnumber");
+			accnum = in.getString("accessionNumber");
 		} catch (JSONException e1) {
-			log.error("CSPACE-264 hack workaround failed: no objectnumber in object");
+			log.error("CSPACE-264 hack workaround failed: no accessionNumber in object");
 			return in;
 		}		
 		try {
-			ons=in.getJSONArray("othernumber");
+			ons=in.getJSONArray("objectNumber");
 		} catch (JSONException e) {}
 		ons.put("_accnum:"+accnum);
-		in.remove("othernumber");
+		in.remove("objectNumber");
 		try {
-			in.put("othernumber",ons);
+			in.put("objectNumber",ons);
 		} catch (JSONException e) {
-			log.error("CSPACE-264 hack workaround failed: json exception writing othernumber",e);			
+			log.error("CSPACE-264 hack workaround failed: json exception writing objectNumber",e);			
 		}
 		// 2. Copy path into accession number
-		in.remove("objectnumber");
+		in.remove("accessionNumber");
 		try {
-			in.put("objectnumber","_path:"+path);
+			in.put("accessionNumber","_path:"+path);
 		} catch (JSONException e) {
-			log.error("CSPACE-264 hack workaround failed: json exception writing objectnumber",e);
+			log.error("CSPACE-264 hack workaround failed: json exception writing accessionNumber",e);
 		}
 		return in;
 	}
@@ -166,7 +166,7 @@ class ServicesCollectionObjectStorage implements Storage {
 	}
 
 	@SuppressWarnings("unchecked")
-	public String[] getPaths() throws UnderlyingStorageException {
+	public String[] getPaths(String subdir) throws UnderlyingStorageException {
 		try {
 			List<String> out=new ArrayList<String>();
 			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");			
