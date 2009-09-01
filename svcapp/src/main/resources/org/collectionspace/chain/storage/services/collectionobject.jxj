@@ -3,14 +3,14 @@
 	<translation type="collection-object">
 		<json2xml>
 			<map>
-				<mapping json=".objectnumber" key="object-number" />
-				<mapping json=".othernumber" key="other-number" multiple="yes"/>
+				<mapping json=".accessionNumber" key="object-number" />
+				<mapping json=".objectNumber" key="other-number" multiple="yes"/>
 				<mapping json=".description" key="description" />
 				<mapping json=".comments" key="comments" />
-				<mapping json=".distfeatures" key="dist-features" />
-				<mapping json=".objectname" key="object-name" />
+				<mapping json=".distinguishingFeatures" key="dist-features" />
+				<mapping json=".objectName" key="object-name" />
 				<mapping json=".responsibledept" key="responsible-dept" />
-				<mapping json=".title" key="title" />
+				<mapping json=".objectTitle" key="title" />
 			</map>
 			<template>
 				<ns2:collection-object xmlns:ns2="http://collectionspace.org/hello">
@@ -38,14 +38,14 @@
 			</map>
 			<template>
 			  {
-			      "objectnumber": "\u0000object-number",
-			      "othernumber": "\u0000other-number",
+			      "accessionNumber": "\u0000object-number",
+			      "objectNumber": "\u0000other-number",
 			      "description": "\u0000description",
 			      "comments": "\u0000comments",
-			      "distfeatures": "\u0000dist-features",
-			      "objectname": "\u0000object-name",
+			      "distinguishingFeatures": "\u0000dist-features",
+			      "objectName": "\u0000object-name",
 			      "responsibledept": "\u0000responsible-dept",
-			      "title": "\u0000title"
+			      "objectTitle": "\u0000title"
 			  }
 			</template>
 		</xml2json>

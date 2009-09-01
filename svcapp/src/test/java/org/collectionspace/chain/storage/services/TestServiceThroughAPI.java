@@ -95,7 +95,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		String name1=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		String name2=ss.autocreateJSON("collection-object",getJSON("obj4.json"));
 		ss.createJSON("collection-object/123",getJSON("obj4.json"));
-		String[] names=ss.getPaths();
+		String[] names=ss.getPaths("collection-object");
 		assertArrayContainsString(names,name1);
 		assertArrayContainsString(names,name2);
 		assertArrayContainsString(names,"123");

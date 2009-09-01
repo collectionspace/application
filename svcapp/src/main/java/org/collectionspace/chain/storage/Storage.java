@@ -43,7 +43,7 @@ public interface Storage {
 	public abstract String autocreateJSON(String filePath, JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
-	public String[] getPaths()
+	public String[] getPaths(String rootPath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
 	public void deleteJSON(String filePath)
