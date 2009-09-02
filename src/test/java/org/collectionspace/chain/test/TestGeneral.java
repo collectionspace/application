@@ -72,7 +72,6 @@ public class TestGeneral {
 		if(!dir.exists())
 			dir.mkdir();
 		store=new FileStorage(dir.toString());
-		System.err.println("dir="+store.getStoreRoot());
 	}
 
 	
@@ -334,5 +333,21 @@ public class TestGeneral {
 		assertTrue(files.contains("b"));
 		assertTrue(files.contains("c"));
 		assertEquals(3,files.size());		
+	}
+	
+	@Test public void testDirectories() throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		JSONObject jsonObject = new JSONObject(testStr);
+		store.createJSON("/a/json1.test", jsonObject);
+		store.createJSON("/b/json2.test", jsonObject);
+		File d1=new File(store.getStoreRoot());
+		assertTrue(d1.exists());
+		File d2=new File(d1,"data");
+		assertTrue(d2.exists());
+		File a=new File(d2,"a");
+		assertTrue(a.exists());
+		File b=new File(d2,"b");
+		assertTrue(b.exists());
+		assertTrue(new File(a,"json1.test.json").exists());
+		assertTrue(new File(b,"json2.test.json").exists());
 	}
 }
