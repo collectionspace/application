@@ -16,8 +16,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-// XXX reset
-
 public class RecordController {
 	private String base;
 	private ControllerGlobal global;
@@ -55,13 +53,18 @@ public class RecordController {
 	}
 
 	// XXX refactor
-	private JSONObject getJSONResource(String in) throws IOException, JSONException {
+	private JSONObject getJSONResource(String in) throws IOException, JSONException {	
+		return new JSONObject(getResource(in));
+	}
+
+	// XXX refactor
+	private String getResource(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
 		System.err.println(path);
 		String data=IOUtils.toString(stream);
 		stream.close();		
-		return new JSONObject(data);
+		return data;
 	}
 	
 	void doGet(ChainRequest request,String path) throws BadRequestException, IOException {
@@ -106,27 +109,6 @@ public class RecordController {
 				throw new BadRequestException("Problem storing",e);
 			}
 			out.close();
-			break;
-		case RESET:
-			/* Temporary hack for moon */
-			// Delete all members
-			String[] paths;
-			try {
-				paths = global.getStore().getPaths(base+"/");
-				for(int i=0;i<paths.length;i++) {
-					global.getStore().deleteJSON(base+"/"+paths[i]);
-				}
-				global.getStore().createJSON(base+"/1984.068.0335b",getJSONResource("test1.json"));
-				global.getStore().createJSON(base+"/1984.068.0338",getJSONResource("test2.json"));					
-			} catch (ExistException e) {
-				throw new BadRequestException("Existence problem",e);
-			} catch (UnimplementedException e) {
-				throw new BadRequestException("Unimplemented",e);
-			} catch (UnderlyingStorageException e) {
-				throw new BadRequestException("Problem storing",e);
-			} catch (JSONException e) {
-				throw new BadRequestException("Invalid JSON",e);
-			}
 			break;
 		}
 		request.setStatus(HttpServletResponse.SC_OK);
