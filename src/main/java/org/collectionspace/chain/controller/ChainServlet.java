@@ -9,6 +9,10 @@ package org.collectionspace.chain.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -44,10 +48,26 @@ public class ChainServlet extends HttpServlet
 	private Config config=null;
 	private boolean inited=false;
 	private ControllerGlobal global;
-	
+	private Map<String,RecordController> controllers=new HashMap<String,RecordController>();
+	private static final Set<String> controller_types=new HashSet<String>();
+
+	static {
+		controller_types.add("collection-object");
+	}
+
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
 	 * Better present it on first request.
 	 */
+
+	private RecordController getController(ChainRequest request) throws BadRequestException {
+		String record=request.getRecordType();
+		if(record==null)
+			throw new BadRequestException("No such record type");
+		RecordController controller=controllers.get(record);
+		if(controller==null)
+			throw new BadRequestException("Could not find controller");
+		return controller;
+	}
 
 	// XXX refactor
 	private JSONObject getJSONResource(String in) throws IOException, JSONException {	
@@ -63,7 +83,7 @@ public class ChainServlet extends HttpServlet
 		stream.close();		
 		return data;
 	}
-	
+
 	private Storage getStorage() throws InvalidJXJException, DocumentException, IOException {
 		// Complexity here is to allow for refactoring when storages can come from plugins
 		StorageRegistry storage_registry=new StorageRegistry();
@@ -80,6 +100,10 @@ public class ChainServlet extends HttpServlet
 			Storage store=getStorage();
 			SchemaStore schema=new StubSchemaStore(config.getPathToSchemaDocs());
 			global=new ControllerGlobal(store,schema);
+			// Register controllers
+			for(String type : controller_types) {
+				controllers.put(type,new RecordController(global,type));
+			}
 		} catch (IOException e) {
 			throw new BadRequestException("Cannot load config"+e,e);
 		} catch (ConfigLoadFailedException e) {
@@ -129,7 +153,7 @@ public class ChainServlet extends HttpServlet
 			throw new BadRequestException("Invalid JSON",e);
 		}
 	}
-	
+
 	/**
 	 * Responding to a request. The request is assumed to consist of a path to a requested JSON object.
 	 * The response returns the object in string form (or an empty string if not found).
@@ -148,10 +172,7 @@ public class ChainServlet extends HttpServlet
 				xxx_reset();
 				return;
 			}
-			String record=request.getRecordType();
-			if(record==null)
-				throw new BadRequestException("No such record type");
-			new RecordController(global,record).doGet(request,request.getPathTail());
+			getController(request).doGet(request,request.getPathTail());
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());
 		}
@@ -178,10 +199,7 @@ public class ChainServlet extends HttpServlet
 				setup();
 			// Get various bits out of the request
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
-			String record=request.getRecordType();
-			if(record==null)
-				throw new BadRequestException("No such record type");
-			new RecordController(global,record).send(request,request.getPathTail());
+			getController(request).send(request,request.getPathTail());
 			// Created!
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());			
@@ -194,10 +212,7 @@ public class ChainServlet extends HttpServlet
 				setup();
 			// Get various bits out of the request
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
-			String record=request.getRecordType();
-			if(record==null)
-				throw new BadRequestException("No such record type");
-			new RecordController(global,record).doDelete(request,request.getPathTail());
+			getController(request).doDelete(request,request.getPathTail());
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());			
 		}
