@@ -111,7 +111,7 @@ public class StubJSONStore implements Storage {
 	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException {
 		set(filePath,jsonObject,false);
 	}
-		
+	
 	private synchronized void set(String filePath, JSONObject jsonObject,boolean create) throws ExistException, UnderlyingStorageException {
 		System.out.println("file path:" + filePath);
 		File jsonFile = fileFromPath(filePath);

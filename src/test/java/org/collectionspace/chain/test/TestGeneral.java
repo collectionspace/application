@@ -17,6 +17,8 @@ import org.collectionspace.chain.schema.SchemaStore;
 import org.collectionspace.chain.schema.StubSchemaStore;
 import org.collectionspace.chain.storage.ExistException;
 import org.collectionspace.chain.storage.UnderlyingStorageException;
+import org.collectionspace.chain.storage.UnimplementedException;
+import org.collectionspace.chain.storage.file.FileStorage;
 import org.collectionspace.chain.storage.file.StubJSONStore;
 import org.collectionspace.chain.storage.services.ReturnedDocument;
 import org.collectionspace.chain.storage.services.ServicesConnection;
@@ -44,7 +46,7 @@ public class TestGeneral {
 	private final static String testStr2 = "{\"a\":\"b\"}";
 	
 	
-	private StubJSONStore store;
+	private FileStorage store;
 	private static String tmp=null;
 	
 	private static synchronized String tmpdir() {
@@ -62,23 +64,24 @@ public class TestGeneral {
 		}
 	}
 	
-	@Before public void setup() {
+	@Before public void setup() throws IOException {
 		File tmp=new File(tmpdir());
 		File dir=new File(tmp,"ju-cspace");
 		if(dir.exists())
 			rm_r(dir);
 		if(!dir.exists())
 			dir.mkdir();
-		store=new StubJSONStore(dir.toString());
+		store=new FileStorage(dir.toString());
+		System.err.println("dir="+store.getStoreRoot());
 	}
 
 	
-	@Test public void writeJSONToFile() throws JSONException, ExistException, UnderlyingStorageException {
+	@Test public void writeJSONToFile() throws JSONException, ExistException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
 	}
-		
-	@Test public void readJSONFromFile() throws JSONException, ExistException, UnderlyingStorageException {
+	
+	@Test public void readJSONFromFile() throws JSONException, ExistException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
 		JSONObject resultObj = store.retrieveJSON("/objects/json1.test");
@@ -86,7 +89,7 @@ public class TestGeneral {
 		JSONTestUtil.assertJSONEquiv(resultObj,testObj);
 	}
 
-	@Test public void testJSONNotExist() throws JSONException, UnderlyingStorageException {
+	@Test public void testJSONNotExist() throws JSONException, UnderlyingStorageException, UnimplementedException {
 		try
 		{
 			store.retrieveJSON("nonesuch.json");
@@ -95,7 +98,7 @@ public class TestGeneral {
 		catch (ExistException onfe) {}
 	}
 	
-	@Test public void testJSONUpdate() throws ExistException, JSONException, UnderlyingStorageException {
+	@Test public void testJSONUpdate() throws ExistException, JSONException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr2);
 		store.createJSON("/objects/json1.test", jsonObject);
 		jsonObject = new JSONObject(testStr);
@@ -105,7 +108,7 @@ public class TestGeneral {
 		JSONTestUtil.assertJSONEquiv(resultObj,testObj);
 	}
 
-	@Test public void testJSONNoUpdateNonExisting() throws ExistException, JSONException, UnderlyingStorageException {
+	@Test public void testJSONNoUpdateNonExisting() throws ExistException, JSONException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		try {
 			store.updateJSON("/objects/json1.test", jsonObject);
@@ -113,7 +116,7 @@ public class TestGeneral {
 		} catch(ExistException e) {}
 	}
 
-	@Test public void testJSONNoCreateExisting() throws ExistException, JSONException, UnderlyingStorageException {
+	@Test public void testJSONNoCreateExisting() throws ExistException, JSONException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
 		try {
