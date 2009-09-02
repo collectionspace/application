@@ -6,15 +6,16 @@
  */
 package org.collectionspace.chain.storage.file;
 
+import org.collectionspace.chain.storage.ProxyStorage;
 import org.collectionspace.chain.storage.SplittingStorage;
 import org.collectionspace.chain.storage.Storage;
 
 /**  SplittingStorage which delegates collection-objects to StubJSONStore
  * 
  */
-public class FileStorage extends SplittingStorage implements Storage {
+public class FileStorage extends ProxyStorage implements Storage {
 
 	public FileStorage(String root) {
-		addChild("collection-object",new StubJSONStore(root));
+		super(new StubJSONStore(root));
 	}
 }
