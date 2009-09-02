@@ -135,4 +135,16 @@ public class ChainRequest {
 	public boolean isCreateNotOverwrite() {
 		return create_not_overwrite;
 	}
+	
+	public void setStatus(int status) {
+		res.setStatus(status);
+	}
+	
+	public void setContentType(String mime) {
+		res.setContentType(mime);
+	}
+
+	public void redirect(String path) {
+		res.addHeader("Location",path);
+	}
 }
