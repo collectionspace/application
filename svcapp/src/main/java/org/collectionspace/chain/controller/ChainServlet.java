@@ -42,10 +42,9 @@ public class ChainServlet extends HttpServlet
 {	
 	private static final long serialVersionUID = -4343156244448081917L;
 	private Config config=null;
-	private Storage store=null;
-	private SchemaStore schema=null;
 	private boolean inited=false;
-
+	private ControllerGlobal global;
+	
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
 	 * Better present it on first request.
 	 */
@@ -63,7 +62,9 @@ public class ChainServlet extends HttpServlet
 			return;
 		try {
 			config=new Config(getServletContext());
-			store=getStorage();
+			Storage store=getStorage();
+			SchemaStore schema=new StubSchemaStore(config.getPathToSchemaDocs());
+			global=new ControllerGlobal(store,schema);
 		} catch (IOException e) {
 			throw new BadRequestException("Cannot load config"+e,e);
 		} catch (ConfigLoadFailedException e) {
@@ -73,37 +74,9 @@ public class ChainServlet extends HttpServlet
 		} catch (DocumentException e) {
 			throw new BadRequestException("Cannot load backend"+e,e);
 		}
-		schema=new StubSchemaStore(config.getPathToSchemaDocs());
 		inited=true;
 	}
 
-	private JSONObject getJSON(String path) throws BadRequestException {
-		JSONObject out;
-		try {
-			out = store.retrieveJSON(path);
-		} catch (ExistException e) {
-			throw new BadRequestException("JSON Not found "+e,e);
-		} catch (UnimplementedException e) {
-			throw new BadRequestException("Unimplemented",e);
-		} catch (UnderlyingStorageException e) {
-			throw new BadRequestException("Problem getting",e);
-		}
-		if (out == null) {
-			throw new BadRequestException("No JSON Found");
-		}
-		return out;
-	}
-
-	// XXX refactor
-	private JSONObject getJSONResource(String in) throws IOException, JSONException {
-		String path=getClass().getPackage().getName().replaceAll("\\.","/");
-		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		System.err.println(path);
-		String data=IOUtils.toString(stream);
-		stream.close();		
-		return new JSONObject(data);
-	}
-	
 	private boolean perhapsServeFixedContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		String pathinfo=servlet_request.getPathInfo();
 		if(pathinfo.startsWith("/"))
@@ -114,15 +87,6 @@ public class ChainServlet extends HttpServlet
 		// Serve fixed content
 		IOUtils.copy(is,servlet_response.getOutputStream());
 		return true;
-	}
-
-	private JSONObject pathsToJSON(String[] paths) throws JSONException {
-		JSONObject out=new JSONObject();
-		JSONArray members=new JSONArray();
-		for(String p : paths)
-			members.put(p);
-		out.put("items",members);
-		return out;
 	}
 
 	/**
@@ -137,74 +101,9 @@ public class ChainServlet extends HttpServlet
 			if(perhapsServeFixedContent(servlet_request,servlet_response))
 				return;
 			// Setup our request object
-			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
-			PrintWriter out;
-			switch(request.getType()) {
-			case STORE:
-				// Get the data
-				JSONObject outputJSON = getJSON("collection-object/"+request.getPathTail());
-				// Write the requested JSON out
-				out = request.getJSONWriter();
-				out.write(outputJSON.toString());
-				out.close();
-				servlet_response.setStatus(HttpServletResponse.SC_OK);
-				break;
-			case SCHEMA:
-				try {
-					String data = schema.getSchema(request.getPathTail()).toString();
-					out = request.getJSONWriter();
-					out.write(data);
-					out.close();
-					servlet_response.setStatus(HttpServletResponse.SC_OK);
-				} catch (JSONException e) {
-					throw new BadRequestException("Invalid JSON");
-				} catch(IOException e) {
-					throw new BadRequestException("Not found"); // XXX should be 404
-				}
-				break;
-			case LIST:
-				try {
-					String[] paths=store.getPaths("collection-object");
-					for(int i=0;i<paths.length;i++) {
-						if(paths[i].startsWith("collection-object/"))
-							paths[i]=paths[i].substring("collection-object/".length());
-					}
-					out = request.getJSONWriter();
-					out.write(pathsToJSON(paths).toString());
-				} catch (JSONException e) {
-					throw new BadRequestException("Invalid JSON",e);
-				} catch (ExistException e) {
-					throw new BadRequestException("Existence problem",e);
-				} catch (UnimplementedException e) {
-					throw new BadRequestException("Unimplemented",e);
-				} catch (UnderlyingStorageException e) {
-					throw new BadRequestException("Problem storing",e);
-				}
-				out.close();
-				servlet_response.setStatus(HttpServletResponse.SC_OK);				
-				break;
-			case RESET:
-				/* Temporary hack for moon */
-				// Delete all members
-				String[] paths;
-				try {
-					paths = store.getPaths("collection-object/");
-					for(int i=0;i<paths.length;i++) {
-						store.deleteJSON("collection-object/"+paths[i]);
-					}
-					store.createJSON("collection-object/1984.068.0335b",getJSONResource("test1.json"));
-					store.createJSON("collection-object/1984.068.0338",getJSONResource("test2.json"));					
-				} catch (ExistException e) {
-					throw new BadRequestException("Existence problem",e);
-				} catch (UnimplementedException e) {
-					throw new BadRequestException("Unimplemented",e);
-				} catch (UnderlyingStorageException e) {
-					throw new BadRequestException("Problem storing",e);
-				} catch (JSONException e) {
-					throw new BadRequestException("Invalid JSON",e);
-				}
-				break;
-			}
+			ChainRequest request;
+			request = new ChainRequest(servlet_request,servlet_response);
+			new RecordController(global,"collection-object").doGet(request);
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());
 		}
@@ -231,33 +130,8 @@ public class ChainServlet extends HttpServlet
 				setup();
 			// Get various bits out of the request
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
-			String path = request.getPathTail();
-			String jsonString = request.getBody();
-			if (StringUtils.isBlank(jsonString)) {
-				throw new BadRequestException("No JSON content to store");
-			}
-			// Store it
-			int status=200;
-			try {
-				if(request.isCreateNotOverwrite()) {
-					store.createJSON("collection-object/"+path,new JSONObject(jsonString));
-					status=201;
-				} else
-					store.updateJSON("collection-object/"+path, new JSONObject(jsonString));
-				servlet_response.getWriter().print(jsonString);
-			} catch (JSONException x) {
-				throw new BadRequestException("Failed to parse json: "+x,x);
-			} catch (ExistException x) {
-				throw new BadRequestException("Existence exception: "+x,x);
-			} catch (UnimplementedException x) {
-				throw new BadRequestException("Unimplemented exception: "+x,x);
-			} catch (UnderlyingStorageException x) {
-				throw new BadRequestException("Problem storing: "+x,x);
-			}
+			new RecordController(global,"collection-object").send(request);
 			// Created!
-			servlet_response.setContentType("text/html");
-			servlet_response.addHeader("Location",request.getStoreURL(path));
-			servlet_response.setStatus(status);
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());			
 		}
@@ -269,18 +143,7 @@ public class ChainServlet extends HttpServlet
 				setup();
 			// Get various bits out of the request
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
-			String path = request.getPathTail();
-			try {
-				store.deleteJSON("collection-object/"+path);
-			} catch (ExistException x) {
-				throw new BadRequestException("Existence exception: "+x,x); // XXX 404, not existence exception
-			} catch (UnimplementedException x) {
-				throw new BadRequestException("Unimplemented exception: "+x,x);
-			} catch (UnderlyingStorageException x) {
-				throw new BadRequestException("Problem storing: "+x,x);
-			}
-			servlet_response.setContentType("text/plain");
-			servlet_response.setStatus(200); // XXX is this right?
+			new RecordController(global,"collection-object").doDelete(request);
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());			
 		}
