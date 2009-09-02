@@ -80,7 +80,7 @@ public class RecordController {
 			break;
 		case SCHEMA:
 			try {
-				String data = global.getSchema().getSchema(path).toString();
+				String data = global.getSchema().getSchema(base+"/"+path).toString();
 				out = request.getJSONWriter();
 				out.write(data);
 				out.close();
