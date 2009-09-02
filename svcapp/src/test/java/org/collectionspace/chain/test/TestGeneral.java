@@ -237,6 +237,7 @@ public class TestGeneral {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
 		assertEquals(out.getMethod(),null);
+		assertEquals("/objects/test-json-handle.tmp",out.getHeader("Location"));
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);

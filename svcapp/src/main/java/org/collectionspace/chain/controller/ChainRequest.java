@@ -32,15 +32,15 @@ public class ChainRequest {
 	private static final String RESET_REF= "/reset";
 	
 	private static final String usage="You must structure the requests like so: \n" +
-		"GET "+SCHEMA_REF+"/%path-to-file-with-name% \n" +
-		"GET "+STORE_REF+"/%path-to-file-with-name% \n" +
-		"POST "+STORE_REF+"/%path-to-file-with-name% - note that data in body must be JSON \n";
+		"GET {record-type}/%path-to-file-with-name% \n" +
+		"GET {record-type}/%path-to-file-with-name% \n" +
+		"POST {record-type}/%path-to-file-with-name% - note that data in body must be JSON \n";
 
 	private HttpServletRequest req;
 	private HttpServletResponse res;
 	private boolean is_get;
 	private RequestType type;
-	private String rest,record_type,body=null;
+	private String rest,record_type,record_type_url,body=null;
 	private boolean create_not_overwrite=false,found=false;
 	
 	private static final Map<String,String> url_to_type=new HashMap<String,String>();
@@ -49,14 +49,16 @@ public class ChainRequest {
 		url_to_type.put("objects","collection-object");
 	}
 	
-	private void perhapsStartsWith(String what,RequestType rq,String path,String record) throws BadRequestException {
+	private void perhapsStartsWith(String what,RequestType rq,String path,String record,String record_url) throws BadRequestException {
 		if(!path.startsWith(what))
 			return; // Nope, it doesn't
 		// Yes it does
 		type=rq;
 		rest=path.substring(what.length());
-		if(record!=null)
+		if(record!=null) {
 			this.record_type=record;
+			this.record_type_url=record_url;
+		}
 		if(rest.startsWith("/"))
 			rest=rest.substring(1);
 		// Capture body
@@ -68,10 +70,6 @@ public class ChainRequest {
 			}
 		}
 		found=true;
-	}
-	
-	public String getStoreURL(String which) {
-		return STORE_REF+"/"+which;
 	}
 	
 	/** Wrapper for requests for chain
@@ -86,15 +84,15 @@ public class ChainRequest {
 		String path = req.getPathInfo();
 		// Individual record types
 		if(!found)
-			perhapsStartsWith(SCHEMA_REF,RequestType.SCHEMA,path,"collection-object"); // XXX temporary hack for CSPACE-406
+			perhapsStartsWith(SCHEMA_REF,RequestType.SCHEMA,path,"collection-object","objects"); // XXX temporary hack for CSPACE-406
 		for(Map.Entry<String,String> e : url_to_type.entrySet()) {
 			if(found)
 				break;
-			perhapsStartsWith("/"+e.getKey(),RequestType.STORE,path,e.getValue());
+			perhapsStartsWith("/"+e.getKey(),RequestType.STORE,path,e.getValue(),e.getKey());
 		}	
 		// Regular URLs
 		if(!found)
-			perhapsStartsWith(RESET_REF,RequestType.RESET,path,"collection-object");
+			perhapsStartsWith(RESET_REF,RequestType.RESET,path,"collection-object","objects");
 		if(type==RequestType.STORE && "".equals(rest)) {
 			// Blank means list
 			type=RequestType.LIST;
@@ -165,4 +163,6 @@ public class ChainRequest {
 	}
 	
 	public String getRecordType() { return record_type; }
+	public String getRecordTypeURL() { return record_type_url; }
+
 }
