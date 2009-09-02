@@ -30,7 +30,7 @@ import org.json.JSONObject;
 public class StubJSONStore implements Storage {
 	private String store_root;
 	private static final Random rnd=new Random();
-	
+
 	/** Generate a file from a path.
 	 * 
 	 * @param path the path
@@ -54,7 +54,7 @@ public class StubJSONStore implements Storage {
 		}
 		return new File(root,parts[1]+".json");
 	}
-	
+
 	private File dirFromPath(String path) {
 		if(path.startsWith("/"))
 			path=path.substring(1);
@@ -67,9 +67,9 @@ public class StubJSONStore implements Storage {
 		}
 		return new File(store_root,path);
 	}
-	
+
 	public String getStoreRoot() { return store_root; }
-	
+
 	/** Create stub store based on filesystem
 	 * 
 	 * @param store_root path to store
@@ -77,7 +77,7 @@ public class StubJSONStore implements Storage {
 	public StubJSONStore(String store_root) {
 		this.store_root=store_root;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.collectionspace.JSONStore#retrieveJson(java.lang.String)
 	 */
@@ -107,11 +107,11 @@ public class StubJSONStore implements Storage {
 	public void createJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException {
 		set(filePath,jsonObject,true);
 	}
-	
+
 	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException {
 		set(filePath,jsonObject,false);
 	}
-	
+
 	private synchronized void set(String filePath, JSONObject jsonObject,boolean create) throws ExistException, UnderlyingStorageException {
 		System.out.println("file path:" + filePath);
 		File jsonFile = fileFromPath(filePath);
@@ -127,16 +127,23 @@ public class StubJSONStore implements Storage {
 			return;
 		}
 	}
-	
+
 	public String[] getPaths(String subdir) {
 		File dir=dirFromPath(subdir);
 		if(!dir.isDirectory())
 			return new String[]{};
 		List<String> out=new ArrayList<String>();
-		for(String f : dir.list()) {
-			if(f.endsWith(".json")) {
-				f=f.substring(0,f.length()-5);
-				out.add(f);
+		if("".equals(subdir) || "/".equals(subdir)) {
+			// Directory request
+			for(File f : dir.listFiles())
+				out.add(f.getName());
+		} else {
+			// File request
+			for(String f : dir.list()) {
+				if(f.endsWith(".json")) {
+					f=f.substring(0,f.length()-5);
+					out.add(f);
+				}
 			}
 		}
 		return out.toArray(new String[0]);

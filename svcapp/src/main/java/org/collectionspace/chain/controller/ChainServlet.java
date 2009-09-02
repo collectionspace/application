@@ -49,6 +49,21 @@ public class ChainServlet extends HttpServlet
 	 * Better present it on first request.
 	 */
 
+	// XXX refactor
+	private JSONObject getJSONResource(String in) throws IOException, JSONException {	
+		return new JSONObject(getResource(in));
+	}
+
+	// XXX refactor
+	private String getResource(String in) throws IOException, JSONException {
+		String path=getClass().getPackage().getName().replaceAll("\\.","/");
+		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
+		System.err.println(path);
+		String data=IOUtils.toString(stream);
+		stream.close();		
+		return data;
+	}
+	
 	private Storage getStorage() throws InvalidJXJException, DocumentException, IOException {
 		// Complexity here is to allow for refactoring when storages can come from plugins
 		StorageRegistry storage_registry=new StorageRegistry();
@@ -89,6 +104,32 @@ public class ChainServlet extends HttpServlet
 		return true;
 	}
 
+	private void xxx_reset() throws IOException, BadRequestException { // Temporary hack to reset db
+		/* Temporary hack for moon */
+		// Delete all members
+		try {
+			for(String dir : global.getStore().getPaths("/")) {
+				String[] paths=global.getStore().getPaths("/"+dir);
+				for(int i=0;i<paths.length;i++) {
+					global.getStore().deleteJSON(dir+"/"+paths[i]);
+				}					
+			}
+			String schedule=getResource("reset.txt");
+			for(String line : schedule.split("\n")) {
+				String[] parts=line.split(" +",2);
+				global.getStore().createJSON(parts[0],getJSONResource(parts[1]));
+			}
+		} catch (ExistException e) {
+			throw new BadRequestException("Existence problem",e);
+		} catch (UnimplementedException e) {
+			throw new BadRequestException("Unimplemented",e);
+		} catch (UnderlyingStorageException e) {
+			throw new BadRequestException("Problem storing",e);
+		} catch (JSONException e) {
+			throw new BadRequestException("Invalid JSON",e);
+		}
+	}
+	
 	/**
 	 * Responding to a request. The request is assumed to consist of a path to a requested JSON object.
 	 * The response returns the object in string form (or an empty string if not found).
@@ -103,6 +144,10 @@ public class ChainServlet extends HttpServlet
 			// Setup our request object
 			ChainRequest request;
 			request = new ChainRequest(servlet_request,servlet_response);
+			if(request.getType()==RequestType.RESET) {
+				xxx_reset();
+				return;
+			}
 			String record=request.getRecordType();
 			if(record==null)
 				throw new BadRequestException("No such record type");

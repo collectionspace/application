@@ -351,4 +351,27 @@ public class TestGeneral {
 		assertTrue(new File(a,"json1.test.json").exists());
 		assertTrue(new File(b,"json2.test.json").exists());
 	}
+	
+	@Test public void testReset() throws Exception {
+		ServletTester jetty=setupJetty();
+		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
+		jettyDo(jetty,"POST","/chain/objects/b",testStr2);	
+		jettyDo(jetty,"POST","/chain/objects/c",testStr2);
+		jettyDo(jetty,"GET","/chain/reset",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/objects/",null);
+		assertEquals(200,out.getStatus());
+		JSONObject result=new JSONObject(out.getContent());
+		JSONArray items=result.getJSONArray("items");
+		Set<String> files=new HashSet<String>();
+		for(int i=0;i<items.length();i++)
+			files.add(items.getString(i));
+		assertTrue(files.contains("1984.068.0335b"));
+		assertTrue(files.contains("1984.068.0338"));
+		out=jettyDo(setupJetty(),"GET","/chain/objects/1984.068.0335b",null);
+		assertEquals(out.getMethod(),null);
+		assertEquals(200,out.getStatus());
+		String cmp=IOUtils.toString(Thread.currentThread().getContextClassLoader().getResourceAsStream("org/collectionspace/chain/controller/test1.json"));
+		assertEquals(cmp,out.getContent());
+		assertEquals(2,files.size());		
+	}
 }
