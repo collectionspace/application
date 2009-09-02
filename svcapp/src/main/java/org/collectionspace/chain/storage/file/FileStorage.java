@@ -6,6 +6,9 @@
  */
 package org.collectionspace.chain.storage.file;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.collectionspace.chain.storage.ProxyStorage;
 import org.collectionspace.chain.storage.SplittingStorage;
 import org.collectionspace.chain.storage.Storage;
@@ -14,8 +17,15 @@ import org.collectionspace.chain.storage.Storage;
  * 
  */
 public class FileStorage extends ProxyStorage implements Storage {
-
-	public FileStorage(String root) {
-		super(new StubJSONStore(root));
+	private String root;
+	
+	public FileStorage(String root) throws IOException {
+		this.root=root;
+		File data=new File(root,"data");
+		if(!data.exists())
+			data.mkdir();
+		super.setTarget(new StubJSONStore(data.getCanonicalPath()));
 	}
+	
+	public String getStoreRoot() { return root; }
 }

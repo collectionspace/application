@@ -10,8 +10,10 @@ import org.json.JSONObject;
 public abstract class ProxyStorage implements Storage {
 	private Storage proxed;
 	
-	protected ProxyStorage(Storage p) { proxed=p; }
-
+	protected ProxyStorage() {}
+	protected ProxyStorage(Storage p) { setTarget(p); }
+	protected void setTarget(Storage p) { proxed=p; }
+	
 	public String autocreateJSON(String filePath, JSONObject jsonObject)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		return proxed.autocreateJSON(filePath,jsonObject);
