@@ -148,7 +148,7 @@ public class RecordController {
 			request.getJSONWriter().print(jsonString);
 			request.setContentType("text/html");
 			request.setStatus(status);
-			request.redirect(request.getStoreURL(path));
+			request.redirect("/"+request.getRecordTypeURL()+"/"+path);
 		} catch (JSONException x) {
 			throw new BadRequestException("Failed to parse json: "+x,x);
 		} catch (ExistException x) {
