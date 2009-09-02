@@ -64,12 +64,12 @@ public class RecordController {
 		return new JSONObject(data);
 	}
 	
-	void doGet(ChainRequest request) throws BadRequestException, IOException {
+	void doGet(ChainRequest request,String path) throws BadRequestException, IOException {
 		PrintWriter out;
 		switch(request.getType()) {
 		case STORE:
 			// Get the data
-			JSONObject outputJSON = getJSON(base+"/"+request.getPathTail());
+			JSONObject outputJSON = getJSON(base+"/"+path);
 			// Write the requested JSON out
 			out = request.getJSONWriter();
 			out.write(outputJSON.toString());
@@ -77,7 +77,7 @@ public class RecordController {
 			break;
 		case SCHEMA:
 			try {
-				String data = global.getSchema().getSchema(request.getPathTail()).toString();
+				String data = global.getSchema().getSchema(path).toString();
 				out = request.getJSONWriter();
 				out.write(data);
 				out.close();
@@ -132,12 +132,11 @@ public class RecordController {
 		request.setStatus(HttpServletResponse.SC_OK);
 	}
 	
-	public void send(ChainRequest request) throws BadRequestException, IOException {
+	public void send(ChainRequest request,String path) throws BadRequestException, IOException {
 		String jsonString = request.getBody();
 		if (StringUtils.isBlank(jsonString)) {
 			throw new BadRequestException("No JSON content to store");
 		}
-		String path = request.getPathTail();
 		// Store it
 		int status=200;
 		try {
@@ -161,9 +160,8 @@ public class RecordController {
 		}
 	}
 	
-	public void doDelete(ChainRequest request) throws BadRequestException {
+	public void doDelete(ChainRequest request,String path) throws BadRequestException {
 		try {
-			String path = request.getPathTail();
 			global.getStore().deleteJSON(base+"/"+path);
 		} catch (ExistException x) {
 			throw new BadRequestException("Existence exception: "+x,x); // XXX 404, not existence exception

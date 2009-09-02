@@ -103,7 +103,10 @@ public class ChainServlet extends HttpServlet
 			// Setup our request object
 			ChainRequest request;
 			request = new ChainRequest(servlet_request,servlet_response);
-			new RecordController(global,"collection-object").doGet(request);
+			String record=request.getRecordType();
+			if(record==null)
+				throw new BadRequestException("No such record type");
+			new RecordController(global,record).doGet(request,request.getPathTail());
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());
 		}
@@ -130,7 +133,10 @@ public class ChainServlet extends HttpServlet
 				setup();
 			// Get various bits out of the request
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
-			new RecordController(global,"collection-object").send(request);
+			String record=request.getRecordType();
+			if(record==null)
+				throw new BadRequestException("No such record type");
+			new RecordController(global,record).send(request,request.getPathTail());
 			// Created!
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());			
@@ -143,7 +149,10 @@ public class ChainServlet extends HttpServlet
 				setup();
 			// Get various bits out of the request
 			ChainRequest request=new ChainRequest(servlet_request,servlet_response);
-			new RecordController(global,"collection-object").doDelete(request);
+			String record=request.getRecordType();
+			if(record==null)
+				throw new BadRequestException("No such record type");
+			new RecordController(global,record).doDelete(request,request.getPathTail());
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());			
 		}

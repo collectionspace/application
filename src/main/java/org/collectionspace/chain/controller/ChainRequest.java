@@ -8,12 +8,16 @@ package org.collectionspace.chain.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.util.BadRequestException;
+
+// XXX test reset
 
 /** This is an abstraction of the request and response which translates things expressed in web-language -
  *  servlets, request parameters, pathinfo, etc - into ours - request type, operation, etc.
@@ -36,15 +40,23 @@ public class ChainRequest {
 	private HttpServletResponse res;
 	private boolean is_get;
 	private RequestType type;
-	private String rest,body=null;
+	private String rest,record_type,body=null;
 	private boolean create_not_overwrite=false,found=false;
 	
-	private void perhapsStartsWith(String what,RequestType rq,String path) throws BadRequestException {
+	private static final Map<String,String> url_to_type=new HashMap<String,String>();
+	
+	static {
+		url_to_type.put("objects","collection-object");
+	}
+	
+	private void perhapsStartsWith(String what,RequestType rq,String path,String record) throws BadRequestException {
 		if(!path.startsWith(what))
 			return; // Nope, it doesn't
 		// Yes it does
 		type=rq;
 		rest=path.substring(what.length());
+		if(record!=null)
+			this.record_type=record;
 		if(rest.startsWith("/"))
 			rest=rest.substring(1);
 		// Capture body
@@ -72,13 +84,17 @@ public class ChainRequest {
 		this.req=req;
 		this.res=res;
 		String path = req.getPathInfo();
+		// Individual record types
+		if(!found)
+			perhapsStartsWith(SCHEMA_REF,RequestType.SCHEMA,path,"collection-object"); // XXX temporary hack for CSPACE-406
+		for(Map.Entry<String,String> e : url_to_type.entrySet()) {
+			if(found)
+				break;
+			perhapsStartsWith("/"+e.getKey(),RequestType.STORE,path,e.getValue());
+		}	
 		// Regular URLs
 		if(!found)
-			perhapsStartsWith(SCHEMA_REF,RequestType.SCHEMA,path);
-		if(!found)
-			perhapsStartsWith(STORE_REF,RequestType.STORE,path);
-		if(!found)
-			perhapsStartsWith(RESET_REF,RequestType.RESET,path);
+			perhapsStartsWith(RESET_REF,RequestType.RESET,path,"collection-object");
 		if(type==RequestType.STORE && "".equals(rest)) {
 			// Blank means list
 			type=RequestType.LIST;
@@ -147,4 +163,6 @@ public class ChainRequest {
 	public void redirect(String path) {
 		res.addHeader("Location",path);
 	}
+	
+	public String getRecordType() { return record_type; }
 }
