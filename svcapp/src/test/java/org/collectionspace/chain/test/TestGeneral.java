@@ -123,47 +123,50 @@ public class TestGeneral {
 		} catch(ExistException e) {}			
 	}
 	
-	private File tmpSchemaFile(boolean sj) {
-		File schema=new File(store.getStoreRoot()+"/schema");
+	private File tmpSchemaFile(String type,boolean sj) {
+		File sroot=new File(store.getStoreRoot()+"/schema");
+		if(!sroot.exists())
+			sroot.mkdir();
+		File schema=new File(store.getStoreRoot()+"/schema/"+type);
 		if(!schema.exists())
 			schema.mkdir();
 		return new File(schema,sj?"schema.json":"test-json-handle.tmp");
 	}
 	
-	private void createSchemaFile(boolean sj) throws IOException {
-		File file=tmpSchemaFile(sj);
+	private void createSchemaFile(String type,boolean sj) throws IOException {
+		File file=tmpSchemaFile(type,sj);
 		FileOutputStream out=new FileOutputStream(file);
 		IOUtils.write(testStr2,out);
 		out.close();
 	}
 	
-	private void deleteSchemaFile(boolean sj) {
-		File file=tmpSchemaFile(sj);
+	private void deleteSchemaFile(String type,boolean sj) {
+		File file=tmpSchemaFile(type,sj);
 		file.delete();
 	}
 	
 	@Test public void testSchemaStore() throws IOException, JSONException {
 		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
-		createSchemaFile(false);
-		JSONObject j=schema.getSchema("test-json-handle.tmp");
+		createSchemaFile("collection-object",false);
+		JSONObject j=schema.getSchema("collection-object/test-json-handle.tmp");
 		assertEquals(testStr2,j.toString());
-		deleteSchemaFile(false);
+		deleteSchemaFile("collection-object",false);
 	}
 	
 	@Test public void testDefaultingSchemaStore() throws IOException, JSONException {
 		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
-		createSchemaFile(true);
-		JSONObject j=schema.getSchema("");
+		createSchemaFile("collection-object",true);
+		JSONObject j=schema.getSchema("collection-object");
 		assertEquals(testStr2,j.toString());
-		deleteSchemaFile(true);
+		deleteSchemaFile("collection-object",true);
 	}
 	
 	@Test public void testTrailingSlashOkayOnSchema() throws Exception {
 		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
-		createSchemaFile(true);
-		JSONObject j=schema.getSchema("");
+		createSchemaFile("collection-object",true);
+		JSONObject j=schema.getSchema("collection-object/");
 		assertEquals(testStr2,j.toString());
-		deleteSchemaFile(true);	
+		deleteSchemaFile("collection-object",true);	
 	}
 	
 	private ServletTester setupJetty() throws Exception {
@@ -206,34 +209,34 @@ public class TestGeneral {
 	}
 	
 	@Test public void testSchemaGet() throws Exception {
-		createSchemaFile(false);
+		createSchemaFile("collection-object",false);
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema/test-json-handle.tmp",null);
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
-		deleteSchemaFile(false);
+		deleteSchemaFile("collection-object",false);
 		assertEquals(testStr2,out.getContent());
 	}
 	
 	@Test public void testDefaultingSchemaGet() throws Exception {	
-		createSchemaFile(true);
+		createSchemaFile("collection-object",true);
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema",null);
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
-		deleteSchemaFile(true);
+		deleteSchemaFile("collection-object",true);
 		assertEquals(testStr2,out.getContent());
 	}
 
 	@Test public void testDefaultingSchemaGetWithTrailingSlash() throws Exception {	
-		createSchemaFile(true);
+		createSchemaFile("collection-object",true);
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema/",null);
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
-		deleteSchemaFile(true);
+		deleteSchemaFile("collection-object",true);
 		assertEquals(testStr2,out.getContent());
 	}
 	
 	@Test public void testSchemaPostAndDelete() throws Exception {
-		deleteSchemaFile(false);
+		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
 		assertEquals(out.getMethod(),null);
@@ -305,7 +308,7 @@ public class TestGeneral {
 	}
 	
 	@Test public void testPutReturnsContent() throws Exception {
-		deleteSchemaFile(false);
+		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
 		assertEquals(out.getMethod(),null);
