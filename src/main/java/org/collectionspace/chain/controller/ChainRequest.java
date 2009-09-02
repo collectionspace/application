@@ -27,8 +27,6 @@ import org.collectionspace.chain.util.BadRequestException;
  * 
  */
 public class ChainRequest {
-	private final static String SCHEMA_REF = "/objects/schema";
-	private final static String STORE_REF = "/objects";
 	private static final String RESET_REF= "/reset";
 	
 	private static final String usage="You must structure the requests like so: \n" +
@@ -83,8 +81,11 @@ public class ChainRequest {
 		this.res=res;
 		String path = req.getPathInfo();
 		// Individual record types
-		if(!found)
-			perhapsStartsWith(SCHEMA_REF,RequestType.SCHEMA,path,"collection-object","objects"); // XXX temporary hack for CSPACE-406
+		for(Map.Entry<String,String> e : url_to_type.entrySet()) {
+			if(found)
+				break;
+			perhapsStartsWith("/"+e.getKey()+"/schema",RequestType.SCHEMA,path,e.getValue(),e.getKey());
+		}
 		for(Map.Entry<String,String> e : url_to_type.entrySet()) {
 			if(found)
 				break;
