@@ -53,6 +53,8 @@ public class ChainServlet extends HttpServlet
 
 	static {
 		controller_types.add("collection-object");
+		controller_types.add("intake");
+		controller_types.add("acquisition");
 	}
 
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.

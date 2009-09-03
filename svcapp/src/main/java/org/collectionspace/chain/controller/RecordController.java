@@ -1,12 +1,10 @@
 package org.collectionspace.chain.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.storage.ExistException;
 import org.collectionspace.chain.storage.UnderlyingStorageException;
@@ -52,21 +50,6 @@ public class RecordController {
 		return out;
 	}
 
-	// XXX refactor
-	private JSONObject getJSONResource(String in) throws IOException, JSONException {	
-		return new JSONObject(getResource(in));
-	}
-
-	// XXX refactor
-	private String getResource(String in) throws IOException, JSONException {
-		String path=getClass().getPackage().getName().replaceAll("\\.","/");
-		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		System.err.println(path);
-		String data=IOUtils.toString(stream);
-		stream.close();		
-		return data;
-	}
-	
 	void doGet(ChainRequest request,String path) throws BadRequestException, IOException {
 		PrintWriter out;
 		switch(request.getType()) {
