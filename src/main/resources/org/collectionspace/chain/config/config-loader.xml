@@ -18,14 +18,14 @@
   </option>
   
   <option name="store">
-    <attribute mkdir="store">test-store</attribute>
+    <attribute>test-store</attribute>
     <property src="jboss">cspace.chain.store.dir</property>
     <property>cspace.chain.store.dir</property>
     <tmpdir/>
   </option>
   
   <option name="schema">
-    <attribute mkdir="schema">test-store</attribute>
+    <attribute>test-store</attribute>
     <property src="jboss">cspace.chain.schema.dir</property>
     <property>cspace.chain.schema.dir</property>
     <tmpdir/>

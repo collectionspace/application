@@ -17,10 +17,12 @@ import org.json.JSONObject;
 /** Schema (aka UI Spec) storage hack. Temporarily UI Specs are sotred on the filesystem.
  */
 public class StubSchemaStore implements SchemaStore {
-	private String schema_root;
+	private File schema_root;
 	
 	public StubSchemaStore(String root) {
-		schema_root=root;
+		schema_root=new File(root,"schemas");
+		if(!schema_root.exists())
+			schema_root.mkdir();
 	}
 	
 	/* (non-Javadoc)
