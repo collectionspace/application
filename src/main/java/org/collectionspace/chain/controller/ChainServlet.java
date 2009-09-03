@@ -50,11 +50,16 @@ public class ChainServlet extends HttpServlet
 	private ControllerGlobal global;
 	private Map<String,RecordController> controllers=new HashMap<String,RecordController>();
 	private static final Set<String> controller_types=new HashSet<String>();
-
+	private static final Set<String> users=new HashSet<String>();
+	
 	static {
 		controller_types.add("collection-object");
 		controller_types.add("intake");
 		controller_types.add("acquisition");
+		
+		users.add("guest");
+		users.add("curator");
+		users.add("admin");
 	}
 
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
@@ -156,6 +161,19 @@ public class ChainServlet extends HttpServlet
 		}
 	}
 
+	private void xxx_login(ChainRequest request) { // Temporary hack for Mars
+		String username=request.xxxGetUsername();
+		String password=request.xxxGetPassword();
+		if(username!=null && username.equals(password) && users.contains(username)) {
+			// XXX temporary success
+			request.redirect(config.getLoginDestination());
+			request.setStatus(303);
+		} else {
+			// XXX temporary failure
+			request.setStatus(403);
+		}
+	}
+	
 	/**
 	 * Responding to a request. The request is assumed to consist of a path to a requested JSON object.
 	 * The response returns the object in string form (or an empty string if not found).
@@ -170,11 +188,19 @@ public class ChainServlet extends HttpServlet
 			// Setup our request object
 			ChainRequest request;
 			request = new ChainRequest(servlet_request,servlet_response);
-			if(request.getType()==RequestType.RESET) {
+			switch(request.getType()) {
+			case RESET:
 				xxx_reset();
-				return;
+				break;
+			case LOGIN:
+				xxx_login(request);
+				break;
+			case SCHEMA:
+			case STORE:
+			case LIST:
+				getController(request).doGet(request,request.getPathTail());
+				break;
 			}
-			getController(request).doGet(request,request.getPathTail());
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());
 		}

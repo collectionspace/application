@@ -39,4 +39,8 @@ public class Config {
 	public String getServicesBaseURL() {
 		return controller.getOption("store-url");
 	}
+	
+	public String getLoginDestination() {
+		return controller.getOption("login-dest");
+	}
 }
