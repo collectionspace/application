@@ -124,10 +124,10 @@ public class TestGeneral {
 	}
 
 	private File tmpSchemaFile(String type,boolean sj) {
-		File sroot=new File(store.getStoreRoot()+"/schema");
+		File sroot=new File(store.getStoreRoot()+"/schemas");
 		if(!sroot.exists())
 			sroot.mkdir();
-		File schema=new File(store.getStoreRoot()+"/schema/"+type);
+		File schema=new File(store.getStoreRoot()+"/schemas/"+type);
 		if(!schema.exists())
 			schema.mkdir();
 		return new File(schema,sj?"schema.json":"test-json-handle.tmp");
@@ -146,7 +146,7 @@ public class TestGeneral {
 	}
 
 	@Test public void testSchemaStore() throws IOException, JSONException {
-		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
+		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
 		createSchemaFile("collection-object",false,true);
 		JSONObject j=schema.getSchema("collection-object/test-json-handle.tmp");
 		assertEquals(testStr2,j.toString());
@@ -154,7 +154,7 @@ public class TestGeneral {
 	}
 
 	@Test public void testDefaultingSchemaStore() throws IOException, JSONException {
-		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
+		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
 		createSchemaFile("collection-object",true,true);
 		JSONObject j=schema.getSchema("collection-object");
 		assertEquals(testStr2,j.toString());
@@ -162,7 +162,7 @@ public class TestGeneral {
 	}
 
 	@Test public void testTrailingSlashOkayOnSchema() throws Exception {
-		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
+		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
 		createSchemaFile("collection-object",true,true);
 		JSONObject j=schema.getSchema("collection-object/");
 		assertEquals(testStr2,j.toString());
