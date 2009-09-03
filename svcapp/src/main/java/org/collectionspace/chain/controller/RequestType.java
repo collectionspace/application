@@ -12,7 +12,8 @@ package org.collectionspace.chain.controller;
  * STORE: store/retrieve of object data
  * SCHEMA: retrieve schema
  * LIST: list all members
+ * LOGIN: login page
  */
 public enum RequestType {
-	STORE,SCHEMA,LIST,RESET;
+	STORE,SCHEMA,LIST,RESET,LOGIN;
 }

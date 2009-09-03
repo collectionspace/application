@@ -31,6 +31,12 @@
     <tmpdir/>
   </option>
 
+  <option name="login-dest">
+    <attribute>test-login-dest</attribute>
+    <property src="jboss">cspace.chain.login.dest</property>
+    <property>cspace.chain.login.dest</property>
+    <default>/cspace-ui/html/createnew.html</default>
+  </option>
   
   <!-- only for testing -->
   <option name="test">

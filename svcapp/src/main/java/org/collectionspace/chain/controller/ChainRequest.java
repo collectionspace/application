@@ -27,7 +27,8 @@ import org.collectionspace.chain.util.BadRequestException;
  * 
  */
 public class ChainRequest {
-	private static final String RESET_REF= "/reset";
+	private static final String RESET_REF = "/reset";
+	private static final String LOGIN_REF = "/login";
 	
 	private static final String usage="You must structure the requests like so: \n" +
 		"GET {record-type}/%path-to-file-with-name% \n" +
@@ -95,7 +96,9 @@ public class ChainRequest {
 		}	
 		// Regular URLs
 		if(!found)
-			perhapsStartsWith(RESET_REF,RequestType.RESET,path,"collection-object","objects");
+			perhapsStartsWith(RESET_REF,RequestType.RESET,path,null,null);
+		if(!found)
+			perhapsStartsWith(LOGIN_REF,RequestType.LOGIN,path,null,null);
 		if(type==RequestType.STORE && "".equals(rest)) {
 			// Blank means list
 			type=RequestType.LIST;
@@ -168,4 +171,6 @@ public class ChainRequest {
 	public String getRecordType() { return record_type; }
 	public String getRecordTypeURL() { return record_type_url; }
 
+	public String xxxGetUsername() { return req.getParameter("userid"); }
+	public String xxxGetPassword() { return req.getParameter("password"); }
 }
