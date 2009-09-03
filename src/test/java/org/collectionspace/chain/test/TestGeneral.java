@@ -35,27 +35,27 @@ import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 
 public class TestGeneral {
-	
+
 	private final static String testStr = "{\"items\":[{\"value\":\"This is an experimental widget being tested. It will not do what you expect.\"," +
-	                        "\"title\":\"\",\"type\":\"caption\"},{\"title\":\"Your file\",\"type\":\"resource\",\"param\":\"file\"}," +
-	                        "{\"title\":\"Author\",\"type\":\"text\",\"param\":\"author\"},{\"title\":\"Title\",\"type\":\"text\"," +
-	                        "\"param\":\"title\"},{\"title\":\"Type\",\"type\":\"dropdown\",\"values\":[{\"value\":\"1\",\"text\":" +
-	                        "\"thesis\"},{\"value\":\"2\",\"text\":\"paper\"},{\"value\":\"3\",\"text\":\"excel-controlled\"}]," +
-	                        "\"param\":\"type\"}]}";
-	
+	"\"title\":\"\",\"type\":\"caption\"},{\"title\":\"Your file\",\"type\":\"resource\",\"param\":\"file\"}," +
+	"{\"title\":\"Author\",\"type\":\"text\",\"param\":\"author\"},{\"title\":\"Title\",\"type\":\"text\"," +
+	"\"param\":\"title\"},{\"title\":\"Type\",\"type\":\"dropdown\",\"values\":[{\"value\":\"1\",\"text\":" +
+	"\"thesis\"},{\"value\":\"2\",\"text\":\"paper\"},{\"value\":\"3\",\"text\":\"excel-controlled\"}]," +
+	"\"param\":\"type\"}]}";
+
 	private final static String testStr2 = "{\"a\":\"b\"}";
-	
-	
+
+
 	private FileStorage store;
 	private static String tmp=null;
-	
+
 	private static synchronized String tmpdir() {
 		if(tmp==null) {
 			tmp=System.getProperty("java.io.tmpdir");
 		}
 		return tmp;
 	}
-	
+
 	private void rm_r(File in) {
 		for(File f : in.listFiles()) {
 			if(f.isDirectory())
@@ -63,7 +63,7 @@ public class TestGeneral {
 			f.delete();
 		}
 	}
-	
+
 	@Before public void setup() throws IOException {
 		File tmp=new File(tmpdir());
 		File dir=new File(tmp,"ju-cspace");
@@ -74,12 +74,12 @@ public class TestGeneral {
 		store=new FileStorage(dir.toString());
 	}
 
-	
+
 	@Test public void writeJSONToFile() throws JSONException, ExistException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
 	}
-	
+
 	@Test public void readJSONFromFile() throws JSONException, ExistException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/objects/json1.test", jsonObject);
@@ -96,7 +96,7 @@ public class TestGeneral {
 		}
 		catch (ExistException onfe) {}
 	}
-	
+
 	@Test public void testJSONUpdate() throws ExistException, JSONException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr2);
 		store.createJSON("/objects/json1.test", jsonObject);
@@ -122,7 +122,7 @@ public class TestGeneral {
 			store.createJSON("/objects/json1.test", jsonObject);
 		} catch(ExistException e) {}			
 	}
-	
+
 	private File tmpSchemaFile(String type,boolean sj) {
 		File sroot=new File(store.getStoreRoot()+"/schema");
 		if(!sroot.exists())
@@ -132,43 +132,43 @@ public class TestGeneral {
 			schema.mkdir();
 		return new File(schema,sj?"schema.json":"test-json-handle.tmp");
 	}
-	
-	private void createSchemaFile(String type,boolean sj) throws IOException {
+
+	private void createSchemaFile(String type,boolean sj,boolean alt) throws IOException {
 		File file=tmpSchemaFile(type,sj);
 		FileOutputStream out=new FileOutputStream(file);
-		IOUtils.write(testStr2,out);
+		IOUtils.write(alt?testStr2:testStr,out);
 		out.close();
 	}
-	
+
 	private void deleteSchemaFile(String type,boolean sj) {
 		File file=tmpSchemaFile(type,sj);
 		file.delete();
 	}
-	
+
 	@Test public void testSchemaStore() throws IOException, JSONException {
 		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
-		createSchemaFile("collection-object",false);
+		createSchemaFile("collection-object",false,true);
 		JSONObject j=schema.getSchema("collection-object/test-json-handle.tmp");
 		assertEquals(testStr2,j.toString());
 		deleteSchemaFile("collection-object",false);
 	}
-	
+
 	@Test public void testDefaultingSchemaStore() throws IOException, JSONException {
 		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
-		createSchemaFile("collection-object",true);
+		createSchemaFile("collection-object",true,true);
 		JSONObject j=schema.getSchema("collection-object");
 		assertEquals(testStr2,j.toString());
 		deleteSchemaFile("collection-object",true);
 	}
-	
+
 	@Test public void testTrailingSlashOkayOnSchema() throws Exception {
 		SchemaStore schema=new StubSchemaStore(store.getStoreRoot()+"/schema");
-		createSchemaFile("collection-object",true);
+		createSchemaFile("collection-object",true,true);
 		JSONObject j=schema.getSchema("collection-object/");
 		assertEquals(testStr2,j.toString());
 		deleteSchemaFile("collection-object",true);	
 	}
-	
+
 	private ServletTester setupJetty() throws Exception {
 		ServletTester tester=new ServletTester();
 		tester.setContextPath("/chain");
@@ -178,7 +178,7 @@ public class TestGeneral {
 		tester.start();
 		return tester;
 	}
-	
+
 	private String setupTestServer() throws Exception {
 		ServletTester tester=new ServletTester();
 		tester.setContextPath("/test");
@@ -190,7 +190,7 @@ public class TestGeneral {
 		tester.start();
 		return connector;
 	}
-	
+
 	private HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
 		HttpTester response = new HttpTester();
@@ -203,22 +203,22 @@ public class TestGeneral {
 		response.parse(tester.getResponses(request.generate()));
 		return response;
 	}
-	
+
 	@Test public void testJettyStartupWorks() throws Exception {
 		setupJetty();
 	}
-	
+
 	@Test public void testSchemaGet() throws Exception {
-		createSchemaFile("collection-object",false);
+		createSchemaFile("collection-object",false,true);
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema/test-json-handle.tmp",null);
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
 		deleteSchemaFile("collection-object",false);
 		assertEquals(testStr2,out.getContent());
 	}
-	
+
 	@Test public void testDefaultingSchemaGet() throws Exception {	
-		createSchemaFile("collection-object",true);
+		createSchemaFile("collection-object",true,true);
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema",null);
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
@@ -227,15 +227,15 @@ public class TestGeneral {
 	}
 
 	@Test public void testDefaultingSchemaGetWithTrailingSlash() throws Exception {	
-		createSchemaFile("collection-object",true);
+		createSchemaFile("collection-object",true,true);
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema/",null);
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
 		deleteSchemaFile("collection-object",true);
 		assertEquals(testStr2,out.getContent());
 	}
-	
-	@Test public void testSchemaPostAndDelete() throws Exception {
+
+	@Test public void testPostAndDelete() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
@@ -254,13 +254,50 @@ public class TestGeneral {
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 	}
-	
+
+	@Test public void testMultipleStoreTypes() throws Exception {
+		deleteSchemaFile("collection-object",false);
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
+		assertEquals(out.getMethod(),null);
+		System.err.println(out.getContent());
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"POST","/chain/intake/test-json-handle.tmp",testStr);	
+		assertEquals(out.getMethod(),null);
+		System.err.println(out.getContent());
+		assertEquals(201,out.getStatus());		
+		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		assertEquals(testStr2,out.getContent());
+		out=jettyDo(jetty,"GET","/chain/intake/test-json-handle.tmp",null);
+		assertEquals(testStr,out.getContent());
+		out=jettyDo(jetty,"DELETE","/chain/objects/test-json-handle.tmp",null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		assertTrue(out.getStatus()>=400); // XXX should probably be 404
+		out=jettyDo(jetty,"GET","/chain/intake/test-json-handle.tmp",null);
+		assertEquals(testStr,out.getContent());
+	}
+
+	@Test public void testMultipleSchemas() throws Exception {
+		ServletTester jetty=setupJetty();
+		createSchemaFile("collection-object",false,true);
+		createSchemaFile("intake",false,false);
+		HttpTester out=jettyDo(jetty,"GET","/chain/objects/schema/test-json-handle.tmp",null);
+		assertEquals(out.getMethod(),null);
+		assertEquals(200,out.getStatus());
+		JSONTestUtil.assertJSONEquiv(new JSONObject(testStr2),new JSONObject(out.getContent()));
+		out=jettyDo(jetty,"GET","/chain/intake/schema/test-json-handle.tmp",null);
+		assertEquals(out.getMethod(),null);
+		assertEquals(200,out.getStatus());
+		JSONTestUtil.assertJSONEquiv(new JSONObject(testStr),new JSONObject(out.getContent()));
+	}
+
 	@Test public void testServeStatic() throws Exception {
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/chain.properties",null);
 		assertEquals(200,out.getStatus());
 		assertTrue(out.getContent().contains("cspace.chain.store.dir"));
 	}
-	
+
 	@Test public void testObjectList() throws Exception {
 		ServletTester jetty=setupJetty();
 		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
@@ -283,7 +320,7 @@ public class TestGeneral {
 		assertTrue(files.contains("c"));
 		assertEquals(3,files.size());
 	}
-	
+
 	@Test public void testXMLDocumentRetrieve() throws Exception {
 		String base=setupTestServer();
 		ServicesConnection conn=new ServicesConnection(base+"/test");
@@ -292,12 +329,12 @@ public class TestGeneral {
 		Document doc=retdoc.getDocument();
 		assertEquals(1,doc.selectNodes("test").size());
 	}
-	
+
 	private Document makeXML(String in) throws DocumentException, UnsupportedEncodingException {
 		SAXReader reader=new SAXReader();
 		return reader.read(new ByteArrayInputStream(in.getBytes("UTF-8")));
 	}
-	
+
 	@Test public void testReflectTest() throws Exception {
 		String base=setupTestServer();
 		ServicesConnection conn=new ServicesConnection(base+"/test/");
@@ -306,7 +343,7 @@ public class TestGeneral {
 		Document doc=retdoc.getDocument();
 		assertEquals(1,doc.selectNodes("hello").size());		
 	}
-	
+
 	@Test public void testPutReturnsContent() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
@@ -320,7 +357,7 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());	
 		assertEquals(testStr,out.getContent());	
 	}
-	
+
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
 		ServletTester jetty=setupJetty();
 		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
@@ -338,7 +375,7 @@ public class TestGeneral {
 		assertTrue(files.contains("c"));
 		assertEquals(3,files.size());		
 	}
-	
+
 	@Test public void testDirectories() throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.createJSON("/a/json1.test", jsonObject);
@@ -354,7 +391,7 @@ public class TestGeneral {
 		assertTrue(new File(a,"json1.test.json").exists());
 		assertTrue(new File(b,"json2.test.json").exists());
 	}
-	
+
 	@Test public void testReset() throws Exception {
 		ServletTester jetty=setupJetty();
 		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
