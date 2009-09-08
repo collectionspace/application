@@ -10,8 +10,8 @@ import java.io.IOException;
 
 import javax.servlet.ServletContext;
 
-import org.collectionspace.chain.config.ConfigLoadController;
-import org.collectionspace.chain.config.ConfigLoadFailedException;
+import org.collectionspace.chain.config.api.ConfigLoadFailedException;
+import org.collectionspace.chain.config.bootstrap.ConfigLoadController;
 
 /** Hides the answers to configuration questions from the source of those answers. The interface to this will
  * change soon, as we can't go on supporting an additional method for each question.

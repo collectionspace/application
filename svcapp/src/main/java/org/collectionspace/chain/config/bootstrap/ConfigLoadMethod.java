@@ -4,16 +4,15 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.config;
+package org.collectionspace.chain.config.bootstrap;
 
+import org.collectionspace.chain.config.api.ConfigLoadFailedException;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
-/** method to just return the string provided (a fallback) */
-public class DefaultConfigLoadMethod implements ConfigLoadMethod {
-
-	public String getString(Element e) { return e.getTextTrim(); }
-
-	public void init(ConfigLoadController controller, Document root)
-			throws ConfigLoadFailedException {}
+/** the interface implemented by methods */
+public interface ConfigLoadMethod {	
+	public void init(ConfigLoadController controller,Document root) throws ConfigLoadFailedException;
+		
+	public String getString(Element e);
 }

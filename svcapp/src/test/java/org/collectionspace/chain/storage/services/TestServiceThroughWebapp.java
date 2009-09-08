@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.config.ConfigLoadController;
+import org.collectionspace.chain.config.bootstrap.ConfigLoadController;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.test.JSONTestUtil;
 import org.json.JSONObject;

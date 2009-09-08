@@ -1,4 +1,4 @@
-package org.collectionspace.chain.config;
+package org.collectionspace.chain.config.bootstrap;
 
 import static org.junit.Assert.*;
 
@@ -7,11 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.collectionspace.chain.config.api.ConfigLoadFailedException;
+import org.collectionspace.chain.config.bootstrap.ConfigLoadController;
 import org.junit.Test;
 
 public class TestConfig {
 	@Test public void testBasic() throws ConfigLoadFailedException {
-		System.setProperty("test_property","org/collectionspace/chain/config");
+		System.setProperty("test_property","org/collectionspace/chain/config/bootstrap");
 		ConfigLoadController config_controller=new ConfigLoadController(null);
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();

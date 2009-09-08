@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.config.ConfigLoadController;
-import org.collectionspace.chain.config.ConfigLoadFailedException;
+import org.collectionspace.chain.config.api.ConfigLoadFailedException;
+import org.collectionspace.chain.config.bootstrap.ConfigLoadController;
 import org.collectionspace.chain.storage.services.ReturnedDocument;
 import org.collectionspace.chain.storage.services.ReturnedURL;
 import org.collectionspace.chain.storage.services.ServicesConnection;
