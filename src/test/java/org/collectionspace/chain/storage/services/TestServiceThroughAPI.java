@@ -7,7 +7,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.config.ConfigLoadFailedException;
+import org.collectionspace.chain.config.api.ConfigLoadFailedException;
 import org.collectionspace.chain.storage.ExistException;
 import org.collectionspace.chain.storage.services.ReturnedDocument;
 import org.collectionspace.chain.storage.services.ServicesConnection;

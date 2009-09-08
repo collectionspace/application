@@ -1,6 +1,6 @@
 <!-- this file tells the config loader what to do with various system properties, where to find them, etc -->
 <config>
-  <properties>org/collectionspace/chain/config/test-chain.properties</properties>
+  <properties>org/collectionspace/chain/config/bootstrap/test-chain.properties</properties>
   <properties name="alt">${test_property}/test-alt-chain.properties</properties>
   <properties name="fs">${test_fs_path}</properties>
   

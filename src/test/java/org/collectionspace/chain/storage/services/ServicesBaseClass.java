@@ -1,7 +1,7 @@
 package org.collectionspace.chain.storage.services;
 
-import org.collectionspace.chain.config.ConfigLoadController;
-import org.collectionspace.chain.config.ConfigLoadFailedException;
+import org.collectionspace.chain.config.api.ConfigLoadFailedException;
+import org.collectionspace.chain.config.bootstrap.ConfigLoadController;
 import org.collectionspace.chain.util.BadRequestException;
 import org.collectionspace.chain.util.RequestMethod;
 import org.junit.Assume;

@@ -4,7 +4,7 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.config;
+package org.collectionspace.chain.config.bootstrap;
 
 import org.dom4j.Element;
 
