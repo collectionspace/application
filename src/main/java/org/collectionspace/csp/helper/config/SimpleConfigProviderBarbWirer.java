@@ -1,24 +1,25 @@
-package org.collectionspace.chain.config.main.impl;
+package org.collectionspace.csp.helper.config;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.config.main.XMLEventConsumer;
-import org.collectionspace.chain.config.main.csp.CSPConfigEvaluator;
-import org.collectionspace.chain.config.main.csp.CSPConfigProvider;
-import org.collectionspace.chain.config.main.csp.CSPRConfigResponse;
-import org.collectionspace.chain.config.main.csp.CSPXMLSpaceManager;
+import org.collectionspace.csp.api.config.BarbWirer;
+import org.collectionspace.csp.api.config.ConfigListener;
+import org.collectionspace.csp.api.config.ConfigProvider;
+import org.collectionspace.csp.api.config.Evaluator;
+import org.collectionspace.csp.api.config.EventContext;
+import org.collectionspace.csp.api.config.EventConsumer;
 
-public class LiteralConfigAccumulatorCSPXMLSpaceManager extends LeafCSPXMLSpaceManager 
-	implements CSPXMLSpaceManager, CSPConfigProvider {
+public class SimpleConfigProviderBarbWirer extends LeafBarbWirer 
+	implements BarbWirer, ConfigProvider {
 
 	private static class ConfigValue {
 		private String[] key;
 		private String value;
 	}
 
-	private static class StringCSPConfigEvaluator implements CSPConfigEvaluator {
+	private static class StringCSPConfigEvaluator implements Evaluator {
 		private String value;
 		
 		StringCSPConfigEvaluator(String in) { value=in; }
@@ -28,12 +29,12 @@ public class LiteralConfigAccumulatorCSPXMLSpaceManager extends LeafCSPXMLSpaceM
 	private List<ConfigValue> values=new ArrayList<ConfigValue>();
 	private Object[] prefix;
 	
-	public class LiteralConfigAccumulator implements XMLEventConsumer {
+	public class LiteralConfigAccumulator implements EventConsumer {
 
-		public void start(int ev, XMLEventContext context) {}
-		public void end(int ev, XMLEventContext context) {}
+		public void start(int ev, EventContext context) {}
+		public void end(int ev, EventContext context) {}
 
-		public void text(int ev, XMLEventContext context, String text) {
+		public void text(int ev, EventContext context, String text) {
 			if(StringUtils.isWhitespace(text))
 				return;
 			text=StringUtils.strip(text);
@@ -53,12 +54,12 @@ public class LiteralConfigAccumulatorCSPXMLSpaceManager extends LeafCSPXMLSpaceM
 		}
 	}
 	
-	public LiteralConfigAccumulatorCSPXMLSpaceManager(Object[] prefix) { 
+	public SimpleConfigProviderBarbWirer(Object[] prefix) { 
 		super.setConsumer(new LiteralConfigAccumulator());
 		this.prefix=prefix;
 	}
 
-	public void provide(CSPRConfigResponse response) {
+	public void provide(ConfigListener response) {
 		for(ConfigValue v : values) {
 			response.addConfig(v.key,new StringCSPConfigEvaluator(v.value),true);
 		}

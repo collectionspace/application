@@ -20,32 +20,32 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.config.api.ConfigLoadFailedException;
 import org.collectionspace.chain.config.main.ConfigErrorHandler;
-import org.collectionspace.chain.config.main.MainConfig;
-import org.collectionspace.chain.config.main.MainConfigFactory;
-import org.collectionspace.chain.config.main.XMLEventConsumer;
-import org.collectionspace.chain.config.main.csp.CSPConfigEvaluator;
-import org.collectionspace.chain.config.main.csp.CSPConfigProvider;
-import org.collectionspace.chain.config.main.csp.CSPRConfigResponse;
-import org.collectionspace.chain.config.main.csp.CSPXMLSpaceManager;
+import org.collectionspace.chain.config.main.ConfigLoadingMessages;
+import org.collectionspace.chain.config.main.ConfigRoot;
+import org.collectionspace.chain.config.main.ConfigFactory;
+import org.collectionspace.csp.api.config.BarbWirer;
+import org.collectionspace.csp.api.config.ConfigProvider;
+import org.collectionspace.csp.api.config.EventContext;
+import org.collectionspace.csp.api.config.EventConsumer;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsumer {
+public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer {
 	private SAXParserFactory factory;
 	private SAXTransformerFactory transfactory;
 	private ConfigLoadingMessages messages;
 	private List<byte[]> xslts=new ArrayList<byte[]>();
-	private XMLEventConsumer consumer=this;
-	private RootCSPXMLSpaceManager manager=new RootCSPXMLSpaceManager();
-	private Set<CSPConfigProvider> providers=new HashSet<CSPConfigProvider>();
+	private EventConsumer consumer=this;
+	private RootBarbWirer manager=new RootBarbWirer();
+	private Set<ConfigProvider> providers=new HashSet<ConfigProvider>();
 	
 	/* Only set during testing */
-	void setConsumer(XMLEventConsumer in) { consumer=in; }
+	void setConsumer(EventConsumer in) { consumer=in; }
 	
-	public void addProvider(CSPConfigProvider provider) { providers.add(provider); }
+	public void addProvider(ConfigProvider provider) { providers.add(provider); }
 	
-	public CSPXMLSpaceManager getCSPXMLSpaceManager() { return manager; }
+	public BarbWirer getRootBarbWirer() { return manager; }
 	
 	public MainConfigFactoryImpl(ConfigLoadingMessages messages) throws ConfigLoadFailedException {
 		factory = SAXParserFactory.newInstance();
@@ -67,7 +67,7 @@ public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsume
 		}
 	}
 	
-	public MainConfig parseConfig(InputSource src,String url) throws ConfigLoadFailedException {
+	public ConfigRoot parseConfig(InputSource src,String url) throws ConfigLoadFailedException {
 		ConfigImpl out=new ConfigImpl();
 		ConfigErrorHandler errors=new ConfigErrorHandler(messages);
 		try {
@@ -91,7 +91,7 @@ public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsume
 				src.setSystemId(url);
 			// Probably some CSP stuff here
 			reader.parse(src); // <-- The important line which kicks off the whole parse process
-			for(CSPConfigProvider provider : providers)
+			for(ConfigProvider provider : providers)
 				provider.provide(out); // <-- Providers will callback into addConfig
 		} catch(Throwable t) {
 			errors.any_error(t);
@@ -101,15 +101,15 @@ public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsume
 		return out;
 	}
 
-	public void start(int ev,XMLEventContext context) {
+	public void start(int ev,EventContext context) {
 		manager.getConsumer().start(ev,context);
 	}
 	
-	public void end(int ev,XMLEventContext context) {
+	public void end(int ev,EventContext context) {
 		manager.getConsumer().end(ev,context);
 	}
 
-	public void text(int ev,XMLEventContext context,String text) {
+	public void text(int ev,EventContext context,String text) {
 		manager.getConsumer().text(ev,context,text);
 	}
 

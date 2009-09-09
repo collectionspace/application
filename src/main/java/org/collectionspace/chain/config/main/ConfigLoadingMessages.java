@@ -1,4 +1,4 @@
-package org.collectionspace.chain.config.main.impl;
+package org.collectionspace.chain.config.main;
 
 public interface ConfigLoadingMessages {
 	public void warn(String message);

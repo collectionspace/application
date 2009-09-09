@@ -1,17 +1,19 @@
-package org.collectionspace.chain.config.main.impl;
+package org.collectionspace.csp.helper.config.impl;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.collectionspace.chain.config.main.XMLEventConsumer;
+import org.collectionspace.chain.config.main.impl.EventContextImpl;
+import org.collectionspace.csp.api.config.EventContext;
+import org.collectionspace.csp.api.config.EventConsumer;
 
 // TODO at the moment only full paths are recognised, we should support regexps
-public class XMLEventDispatch implements XMLEventConsumer {
+public class SimpleBarbWirerDispatch implements EventConsumer {
 	private static class ChopResult {
-		private XMLEventContextImpl context;
-		private XMLEventConsumer consumer;
+		private EventContextImpl context;
+		private EventConsumer consumer;
 		
-		private ChopResult(XMLEventContextImpl context,XMLEventConsumer consumer) {
+		private ChopResult(EventContextImpl context,EventConsumer consumer) {
 			this.context=context;
 			this.consumer=consumer;
 		}
@@ -19,16 +21,16 @@ public class XMLEventDispatch implements XMLEventConsumer {
 	
 	private static class Node {
 		private Map<String,Node> subnodes=new HashMap<String,Node>();
-		private Map<String,XMLEventConsumer> consumers=new HashMap<String,XMLEventConsumer>();		
+		private Map<String,EventConsumer> consumers=new HashMap<String,EventConsumer>();		
 	};
 	
 	private Node root=new Node();
 	private String name;
 	
-	public XMLEventDispatch() {}
-	public XMLEventDispatch(String name) { this.name=name; }
+	public SimpleBarbWirerDispatch() {}
+	public SimpleBarbWirerDispatch(String name) { this.name=name; }
 	
-	public void addHandler(String[] path,XMLEventConsumer consumer) {
+	public void addHandler(String[] path,EventConsumer consumer) {
 		Node cur=root;
 		// iterate through subnodes
 		for(int i=0;i<path.length-1;i++) {
@@ -43,7 +45,7 @@ public class XMLEventDispatch implements XMLEventConsumer {
 		cur.consumers.put(path[path.length-1],consumer);
 	}
 
-	private ChopResult getChop(XMLEventContext context) {
+	private ChopResult getChop(EventContext context) {
 		String[] path=context.getStack();
 		Node cur=root;
 		// iterate through subnodes
@@ -52,7 +54,7 @@ public class XMLEventDispatch implements XMLEventConsumer {
 			if(i<path.length-1)
 				next=cur.subnodes.get(path[i]);
 			if(next==null) {
-				XMLEventConsumer consumer=cur.consumers.get(path[i]);
+				EventConsumer consumer=cur.consumers.get(path[i]);
 				if(consumer==null) {
 					System.err.println("Failed dispatch in "+name);
 					return null;
@@ -63,10 +65,10 @@ public class XMLEventDispatch implements XMLEventConsumer {
 				String[] child_nodes=new String[path.length-i-1];
 				if(child_nodes.length>0)
 					System.arraycopy(context.getStack(),i+1,child_nodes,0,child_nodes.length);
-				XMLEventContextImpl parent=new XMLEventContextImpl(context.getParentContext(),parent_nodes);
+				EventContextImpl parent=new EventContextImpl(context.getParentContext(),parent_nodes);
 				if(name!=null)
 					System.err.println("Dispatching for "+name+" to "+consumer.getName());
-				return new ChopResult(new XMLEventContextImpl(parent,child_nodes),consumer);
+				return new ChopResult(new EventContextImpl(parent,child_nodes),consumer);
 			} else
 				cur=next;
 		}
@@ -74,19 +76,19 @@ public class XMLEventDispatch implements XMLEventConsumer {
 		return null;
 	}
 	
-	public void end(int ev, XMLEventContext context) {
+	public void end(int ev, EventContext context) {
 		ChopResult c=getChop(context);
 		if(c!=null)
 			c.consumer.end(ev,c.context);
 	}
 	
-	public void start(int ev, XMLEventContext context) {
+	public void start(int ev, EventContext context) {
 		ChopResult c=getChop(context);
 		if(c!=null)
 			c.consumer.start(ev,c.context);
 	}
 
-	public void text(int ev, XMLEventContext context, String text) {
+	public void text(int ev, EventContext context, String text) {
 		ChopResult c=getChop(context);
 		if(c!=null)
 			c.consumer.text(ev,c.context,text);

@@ -3,23 +3,23 @@ package org.collectionspace.chain.config.main.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.collectionspace.chain.config.main.MainConfigNode;
-import org.collectionspace.chain.config.main.csp.CSPConfigEvaluator;
+import org.collectionspace.chain.config.main.ConfigNode;
+import org.collectionspace.csp.api.config.Evaluator;
 
-public class ConfigNodeImpl implements MainConfigNode {
+public class ConfigNodeImpl implements ConfigNode {
 	private Map<Object,ConfigNodeImpl> subnodes=new HashMap<Object,ConfigNodeImpl>();
-	private Map<Object,CSPConfigEvaluator> values=new HashMap<Object,CSPConfigEvaluator>();
-	private CSPConfigEvaluator default_value;
+	private Map<Object,Evaluator> values=new HashMap<Object,Evaluator>();
+	private Evaluator default_value;
 	
-	void setDefaultValue(CSPConfigEvaluator in) { default_value=in; }
-	void addValue(Object k,CSPConfigEvaluator v) { values.put(k,v); }
+	void setDefaultValue(Evaluator in) { default_value=in; }
+	void addValue(Object k,Evaluator v) { values.put(k,v); }
 	void addConfigNode(Object k,ConfigNodeImpl v) { subnodes.put(k,v); }
 	
-	public MainConfigNode getMainConfigNode(Object[] path) {
+	public ConfigNode getMainConfigNode(Object[] path) {
 		return getMainConfigNode(path,0);
 	}
 
-	private MainConfigNode getMainConfigNode(Object[] path,int start) {
+	private ConfigNode getMainConfigNode(Object[] path,int start) {
 		if(path.length<=start)
 			return this;
 		ConfigNodeImpl next=subnodes.get(path[start]);
@@ -43,7 +43,7 @@ public class ConfigNodeImpl implements MainConfigNode {
 		return getValue(path,0);
 	}
 
-	public void setValue(Object[] path,CSPConfigEvaluator value,int start) {
+	public void setValue(Object[] path,Evaluator value,int start) {
 		if(path.length==0)
 			return; // Cannot set value for root of config
 		if(path.length==start+1)
@@ -58,12 +58,12 @@ public class ConfigNodeImpl implements MainConfigNode {
 		}
 	}
 	
-	public void setValue(Object[] path,CSPConfigEvaluator value) {
+	public void setValue(Object[] path,Evaluator value) {
 		setValue(path,value,0);
 	}
 
 	private void dump(StringBuffer out,String prefix) {
-		for(Map.Entry<Object,CSPConfigEvaluator> e : values.entrySet()) {
+		for(Map.Entry<Object,Evaluator> e : values.entrySet()) {
 			out.append(prefix+"/"+e.getKey()+" = "+e.getValue().getValue()+"\n");
 		}
 		for(Map.Entry<Object,ConfigNodeImpl> e : subnodes.entrySet()) {
