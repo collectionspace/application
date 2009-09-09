@@ -8,7 +8,6 @@ import org.collectionspace.chain.config.main.csp.CSPXMLSpaceAttachmentPoint;
 import org.collectionspace.chain.config.main.csp.CSPXMLSpaceManager;
 
 public class SimpleCSPXMLSpaceManager implements CSPXMLSpaceManager {
-	private String name;
 	private XMLEventDispatch dispatcher;
 	private Map<String,SimpleCSPXMLSpaceAttachmentPoint> aps=new HashMap<String,SimpleCSPXMLSpaceAttachmentPoint>();
 	
@@ -32,7 +31,6 @@ public class SimpleCSPXMLSpaceManager implements CSPXMLSpaceManager {
 	}
 	
 	public SimpleCSPXMLSpaceManager(String name) { 
-		this.name=name;
 		dispatcher=new XMLEventDispatch(name);
 	}
 	

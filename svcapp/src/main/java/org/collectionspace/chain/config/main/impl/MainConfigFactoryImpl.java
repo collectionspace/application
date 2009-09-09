@@ -4,7 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -21,6 +23,9 @@ import org.collectionspace.chain.config.main.ConfigErrorHandler;
 import org.collectionspace.chain.config.main.MainConfig;
 import org.collectionspace.chain.config.main.MainConfigFactory;
 import org.collectionspace.chain.config.main.XMLEventConsumer;
+import org.collectionspace.chain.config.main.csp.CSPConfigEvaluator;
+import org.collectionspace.chain.config.main.csp.CSPConfigProvider;
+import org.collectionspace.chain.config.main.csp.CSPRConfigResponse;
 import org.collectionspace.chain.config.main.csp.CSPXMLSpaceManager;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -32,10 +37,13 @@ public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsume
 	private ConfigLoadingMessages messages;
 	private List<byte[]> xslts=new ArrayList<byte[]>();
 	private XMLEventConsumer consumer=this;
-	private RootCSPXMLSpaceManager manager=new RootCSPXMLSpaceManager("root");
-
+	private RootCSPXMLSpaceManager manager=new RootCSPXMLSpaceManager();
+	private Set<CSPConfigProvider> providers=new HashSet<CSPConfigProvider>();
+	
 	/* Only set during testing */
 	void setConsumer(XMLEventConsumer in) { consumer=in; }
+	
+	public void addProvider(CSPConfigProvider provider) { providers.add(provider); }
 	
 	public CSPXMLSpaceManager getCSPXMLSpaceManager() { return manager; }
 	
@@ -60,6 +68,7 @@ public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsume
 	}
 	
 	public MainConfig parseConfig(InputSource src,String url) throws ConfigLoadFailedException {
+		ConfigImpl out=new ConfigImpl();
 		ConfigErrorHandler errors=new ConfigErrorHandler(messages);
 		try {
 			TransformerHandler[] xform=new TransformerHandler[xslts.size()];
@@ -68,8 +77,8 @@ public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsume
 			}
 			SAXParser parser = factory.newSAXParser();
 			XMLReader reader = parser.getXMLReader();
-			ContentHandler out=new MainConfigHandler(consumer);
-			ContentHandler first=out;
+			ContentHandler content_handler=new MainConfigHandler(consumer);
+			ContentHandler first=content_handler;
 			if(xform.length>0)
 				first=xform[0];
 			reader.setContentHandler(first);
@@ -77,17 +86,19 @@ public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsume
 			for(int i=1;i<xform.length;i++)
 				xform[i-1].setResult(new SAXResult(xform[i]));
 			if(xform.length>0)
-				xform[xform.length-1].setResult(new SAXResult(out));
+				xform[xform.length-1].setResult(new SAXResult(content_handler));
 			if(url!=null)
 				src.setSystemId(url);
-			// Some CSP stuff
-			reader.parse(src);
+			// Probably some CSP stuff here
+			reader.parse(src); // <-- The important line which kicks off the whole parse process
+			for(CSPConfigProvider provider : providers)
+				provider.provide(out); // <-- Providers will callback into addConfig
 		} catch(Throwable t) {
 			errors.any_error(t);
 			errors.fail_if_necessary();
 		}
 		errors.fail_if_necessary();
-		return null; // XXX
+		return out;
 	}
 
 	public void start(int ev,XMLEventContext context) {
