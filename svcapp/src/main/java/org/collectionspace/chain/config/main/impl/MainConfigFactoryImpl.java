@@ -1,7 +1,6 @@
 package org.collectionspace.chain.config.main.impl;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -25,11 +24,15 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-public class MainConfigFactoryImpl implements MainConfigFactory {
+public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsumer {
 	private SAXParserFactory factory;
 	private SAXTransformerFactory transfactory;
 	private ConfigLoadingMessages messages;
 	private List<byte[]> xslts=new ArrayList<byte[]>();
+	private XMLEventConsumer consumer=this;
+
+	/* Only set during testing */
+	void setConsumer(XMLEventConsumer in) { consumer=in; }
 	
 	public MainConfigFactoryImpl(ConfigLoadingMessages messages) throws ConfigLoadFailedException {
 		factory = SAXParserFactory.newInstance();
@@ -60,7 +63,7 @@ public class MainConfigFactoryImpl implements MainConfigFactory {
 			}
 			SAXParser parser = factory.newSAXParser();
 			XMLReader reader = parser.getXMLReader();
-			ContentHandler out=new MainConfigHandler(); // add consumer=this, except during testing
+			ContentHandler out=new MainConfigHandler(consumer);
 			ContentHandler first=out;
 			if(xform.length>0)
 				first=xform[0];
@@ -80,5 +83,17 @@ public class MainConfigFactoryImpl implements MainConfigFactory {
 		}
 		errors.fail_if_necessary();
 		return null; // XXX
+	}
+
+	public void end(int ev,XMLEventContext context) {
+		System.err.println(ev+" end "+context.dumpStack());
+	}
+
+	public void start(int ev,XMLEventContext context) {
+		System.err.println(ev+" start "+context.dumpStack());
+	}
+
+	public void text(int ev,XMLEventContext context,String text) {
+		System.err.println(ev+" text {"+text+"} "+context.dumpStack());
 	}
 }
