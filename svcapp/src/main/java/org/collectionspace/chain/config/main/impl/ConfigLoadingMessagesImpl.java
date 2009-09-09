@@ -1,6 +1,5 @@
 package org.collectionspace.chain.config.main.impl;
 
-import org.collectionspace.chain.config.main.ConfigLoadingMessages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -19,8 +19,6 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.config.api.ConfigLoadFailedException;
-import org.collectionspace.chain.config.main.ConfigErrorHandler;
-import org.collectionspace.chain.config.main.ConfigLoadingMessages;
 import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.config.main.ConfigFactory;
 import org.collectionspace.csp.api.config.BarbWirer;
