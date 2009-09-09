@@ -47,7 +47,7 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer {
 	
 	public BarbWirer getRootBarbWirer() { return manager; }
 	
-	public MainConfigFactoryImpl(ConfigLoadingMessages messages) throws ConfigLoadFailedException {
+	public MainConfigFactoryImpl() throws ConfigLoadFailedException {
 		factory = SAXParserFactory.newInstance();
 		factory.setNamespaceAware(true);
 		factory.setXIncludeAware(true);
@@ -55,7 +55,7 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer {
 		if (!tf.getFeature(SAXSource.FEATURE) || !tf.getFeature(SAXResult.FEATURE))
 			throw new ConfigLoadFailedException("XSLT transformer doesn't support SAX!");
 		transfactory=(SAXTransformerFactory)tf;
-		this.messages=messages;
+		messages=new ConfigLoadingMessagesImpl(); // In the end we probably want to pass this in
 		// CSP stuff will go here
 	}
 	
