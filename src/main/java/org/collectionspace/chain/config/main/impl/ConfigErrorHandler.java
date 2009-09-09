@@ -1,4 +1,4 @@
-package org.collectionspace.chain.config.main;
+package org.collectionspace.chain.config.main.impl;
 
 import java.util.List;
 import java.util.ArrayList;
