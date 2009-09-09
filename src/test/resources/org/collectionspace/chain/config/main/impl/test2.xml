@@ -1,0 +1,8 @@
+<collection-space>
+  <persistence>
+    <services>
+      <ddd xxx="yyy">eee</ddd>
+    </services>
+  </persistence>
+</collection-space>
+
