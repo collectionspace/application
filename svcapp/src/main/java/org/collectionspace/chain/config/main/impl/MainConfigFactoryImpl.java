@@ -20,6 +20,8 @@ import org.collectionspace.chain.config.api.ConfigLoadFailedException;
 import org.collectionspace.chain.config.main.ConfigErrorHandler;
 import org.collectionspace.chain.config.main.MainConfig;
 import org.collectionspace.chain.config.main.MainConfigFactory;
+import org.collectionspace.chain.config.main.XMLEventConsumer;
+import org.collectionspace.chain.config.main.csp.CSPXMLSpaceManager;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
@@ -30,9 +32,12 @@ public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsume
 	private ConfigLoadingMessages messages;
 	private List<byte[]> xslts=new ArrayList<byte[]>();
 	private XMLEventConsumer consumer=this;
+	private RootCSPXMLSpaceManager manager=new RootCSPXMLSpaceManager("root");
 
 	/* Only set during testing */
 	void setConsumer(XMLEventConsumer in) { consumer=in; }
+	
+	public CSPXMLSpaceManager getCSPXMLSpaceManager() { return manager; }
 	
 	public MainConfigFactoryImpl(ConfigLoadingMessages messages) throws ConfigLoadFailedException {
 		factory = SAXParserFactory.newInstance();
@@ -85,15 +90,19 @@ public class MainConfigFactoryImpl implements MainConfigFactory, XMLEventConsume
 		return null; // XXX
 	}
 
-	public void end(int ev,XMLEventContext context) {
-		System.err.println(ev+" end "+context.dumpStack());
-	}
-
 	public void start(int ev,XMLEventContext context) {
-		System.err.println(ev+" start "+context.dumpStack());
+		manager.getConsumer().start(ev,context);
+	}
+	
+	public void end(int ev,XMLEventContext context) {
+		manager.getConsumer().end(ev,context);
 	}
 
 	public void text(int ev,XMLEventContext context,String text) {
-		System.err.println(ev+" text {"+text+"} "+context.dumpStack());
+		manager.getConsumer().text(ev,context,text);
+	}
+
+	public String getName() {
+		return manager.getConsumer().getName();
 	}
 }

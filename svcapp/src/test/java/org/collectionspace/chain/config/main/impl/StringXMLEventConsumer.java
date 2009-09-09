@@ -1,6 +1,6 @@
 package org.collectionspace.chain.config.main.impl;
 
-import org.collectionspace.chain.config.main.impl.XMLEventConsumer;
+import org.collectionspace.chain.config.main.XMLEventConsumer;
 import org.collectionspace.chain.config.main.impl.XMLEventContext;
 
 public class StringXMLEventConsumer implements XMLEventConsumer {
@@ -19,4 +19,6 @@ public class StringXMLEventConsumer implements XMLEventConsumer {
 	}
 
 	public String toString() { return out.toString(); }
+
+	public String getName() { return "string-consumer"; }
 }

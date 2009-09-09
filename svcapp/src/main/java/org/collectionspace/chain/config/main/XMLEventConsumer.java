@@ -1,4 +1,6 @@
-package org.collectionspace.chain.config.main.impl;
+package org.collectionspace.chain.config.main;
+
+import org.collectionspace.chain.config.main.impl.XMLEventContext;
 
 
 /* Like SAX, but simpler. You get reported when you enter and leave a tag, and any text in a tag (or attribute).
@@ -12,4 +14,5 @@ public interface XMLEventConsumer {
 	public void start(int ev,XMLEventContext context);
 	public void end(int ev,XMLEventContext context);
 	public void text(int ev,XMLEventContext context,String text);
+	public String getName(); // Used in debugging: simple string corresponding to consumer's name
 }

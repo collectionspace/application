@@ -3,6 +3,7 @@ package org.collectionspace.chain.config.main.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.collectionspace.chain.config.main.XMLEventConsumer;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -23,7 +24,7 @@ public class MainConfigHandler extends DefaultHandler {
 		if(uri!=null && !"".equals(uri))
 			name=uri+":"+name;
 		stack.add(name);
-		XMLEventContext ctx=new XMLEventContextImpl(stack.toArray(new String[0]));
+		XMLEventContext ctx=new XMLEventContextImpl(null,stack.toArray(new String[0]));
 		
 		events.start(ev++,ctx);
 		// Attributes:
@@ -36,7 +37,7 @@ public class MainConfigHandler extends DefaultHandler {
 			if(auri!=null && !"".equals(auri))
 				k=auri+":"+k;
 			stack.add("@"+k);
-			XMLEventContext ctx2=new XMLEventContextImpl(stack.toArray(new String[0]));			
+			XMLEventContext ctx2=new XMLEventContextImpl(null,stack.toArray(new String[0]));			
 			events.start(ev++,ctx2);
 			events.text(ev++,ctx2,attributes.getValue(i));
 			events.end(ev++,ctx2);
@@ -45,7 +46,7 @@ public class MainConfigHandler extends DefaultHandler {
 	}
 	
 	public void endElement(String uri, String localName, String qName) {
-		XMLEventContext ctx=new XMLEventContextImpl(stack.toArray(new String[0]));
+		XMLEventContext ctx=new XMLEventContextImpl(null,stack.toArray(new String[0]));
 		events.end(ev++,ctx);
 		stack.remove(stack.size()-1);
 	}
@@ -59,7 +60,7 @@ public class MainConfigHandler extends DefaultHandler {
 	
 	public void characters(char[] ch, int start, int length) {
 		String text=new String(ch,start,length);
-		XMLEventContext ctx=new XMLEventContextImpl(stack.toArray(new String[0]));
+		XMLEventContext ctx=new XMLEventContextImpl(null,stack.toArray(new String[0]));
 		if(!entirelySpace(text))
 			events.text(ev++,ctx,text);
 	}
