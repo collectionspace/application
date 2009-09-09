@@ -2,8 +2,11 @@ package org.collectionspace.chain.config.main.impl;
 
 import static org.junit.Assert.*;
 
-import org.collectionspace.chain.config.main.MainConfig;
+import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.config.main.impl.MainConfigFactoryImpl;
+import org.collectionspace.csp.helper.config.LeafBarbWirer;
+import org.collectionspace.csp.helper.config.SimpleBarbWirer;
+import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 
@@ -57,7 +60,7 @@ public class TestMain {
 		InputSource src=getSource("test.xml");
 		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(null); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
-		mcf.getCSPXMLSpaceManager().getAttachmentPoint("root").attach(new LeafCSPXMLSpaceManager(consumer),"aaa");
+		mcf.getRootBarbWirer().getAttachmentPoint("root").attach(new LeafBarbWirer(consumer),"aaa");
 		mcf.parseConfig(src,null); // XXX test not null
 		assertEquals(eventlist_attached,consumer.toString());	
 	}
@@ -66,10 +69,10 @@ public class TestMain {
 		InputSource src=getSource("test.xml");
 		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(null); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
-		SimpleCSPXMLSpaceManager att1=new SimpleCSPXMLSpaceManager("att1");
+		SimpleBarbWirer att1=new SimpleBarbWirer("att1");
 		att1.addAttachmentPoint("second",new String[]{"bbb"});
-		att1.getAttachmentPoint("second").attach(new LeafCSPXMLSpaceManager(consumer),"ddd");		
-		mcf.getCSPXMLSpaceManager().getAttachmentPoint("root").attach(att1,"aaa");
+		att1.getAttachmentPoint("second").attach(new LeafBarbWirer(consumer),"ddd");		
+		mcf.getRootBarbWirer().getAttachmentPoint("root").attach(att1,"aaa");
 		mcf.parseConfig(src,null); // XXX test not null
 		assertEquals(doubleeventlist,consumer.toString());	
 	}
@@ -77,12 +80,12 @@ public class TestMain {
 	@Test public void testLiteralConfig() throws Exception {
 		InputSource src=getSource("test.xml");
 		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(null); // XXX test messages arg
-		SimpleCSPXMLSpaceManager att1=new SimpleCSPXMLSpaceManager("att1");
+		SimpleBarbWirer att1=new SimpleBarbWirer("att1");
 		att1.addAttachmentPoint("second",new String[]{"bbb"});
-		LiteralConfigAccumulatorCSPXMLSpaceManager ca=new LiteralConfigAccumulatorCSPXMLSpaceManager(new Object[]{"root"});
+		SimpleConfigProviderBarbWirer ca=new SimpleConfigProviderBarbWirer(new Object[]{"root"});
 		mcf.addProvider(ca);
-		mcf.getCSPXMLSpaceManager().getAttachmentPoint("root").attach(ca,"aaa");
-		MainConfig cfg=mcf.parseConfig(src,null);
+		mcf.getRootBarbWirer().getAttachmentPoint("root").attach(ca,"aaa");
+		ConfigRoot cfg=mcf.parseConfig(src,null);
 		assertEquals("eee",cfg.getValue(new Object[]{"root","bbb","ddd"}));
 		assertEquals("yyy",cfg.getValue(new Object[]{"root","bbb","ddd","@xxx"}));		
 	}

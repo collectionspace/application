@@ -1,6 +1,5 @@
-package org.collectionspace.chain.config.main;
+package org.collectionspace.csp.api.config;
 
-import org.collectionspace.chain.config.main.impl.XMLEventContext;
 
 
 /* Like SAX, but simpler. You get reported when you enter and leave a tag, and any text in a tag (or attribute).
@@ -10,9 +9,9 @@ import org.collectionspace.chain.config.main.impl.XMLEventContext;
  * You get the complete tag stack each time.
  */
 
-public interface XMLEventConsumer {
-	public void start(int ev,XMLEventContext context);
-	public void end(int ev,XMLEventContext context);
-	public void text(int ev,XMLEventContext context,String text);
+public interface EventConsumer {
+	public void start(int ev,EventContext context);
+	public void end(int ev,EventContext context);
+	public void text(int ev,EventContext context,String text);
 	public String getName(); // Used in debugging: simple string corresponding to consumer's name
 }

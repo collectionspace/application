@@ -1,20 +1,20 @@
 package org.collectionspace.chain.config.main.impl;
 
-import org.collectionspace.chain.config.main.XMLEventConsumer;
-import org.collectionspace.chain.config.main.impl.XMLEventContext;
+import org.collectionspace.csp.api.config.EventContext;
+import org.collectionspace.csp.api.config.EventConsumer;
 
-public class StringXMLEventConsumer implements XMLEventConsumer {
+public class StringXMLEventConsumer implements EventConsumer {
 	private StringBuffer out=new StringBuffer();
 	
-	public void end(int ev, XMLEventContext context) {
+	public void end(int ev, EventContext context) {
 		out.append(ev+" end "+context.dumpStack()+"\n");
 	}
 
-	public void start(int ev, XMLEventContext context) {
+	public void start(int ev, EventContext context) {
 		out.append(ev+" start "+context.dumpStack()+"\n");
 	}
 
-	public void text(int ev, XMLEventContext context, String text) {
+	public void text(int ev, EventContext context, String text) {
 		out.append(ev+" text {"+text+"} "+context.dumpStack()+"\n");
 	}
 

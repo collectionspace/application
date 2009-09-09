@@ -1,10 +1,12 @@
 package org.collectionspace.chain.config.main.impl;
 
-public class XMLEventContextImpl implements XMLEventContext {
-	private String[] stack;
-	private XMLEventContext parent;
+import org.collectionspace.csp.api.config.EventContext;
 
-	public XMLEventContextImpl(XMLEventContext parent,String[] in) {
+public class EventContextImpl implements EventContext {
+	private String[] stack;
+	private EventContext parent;
+
+	public EventContextImpl(EventContext parent,String[] in) {
 		this.parent=parent;
 		this.stack=in;
 	}
@@ -33,5 +35,5 @@ public class XMLEventContextImpl implements XMLEventContext {
 		return out.toString();
 	}
 
-	public XMLEventContext getParentContext() { return parent; }
+	public EventContext getParentContext() { return parent; }
 }

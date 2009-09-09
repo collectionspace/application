@@ -6,7 +6,6 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.collectionspace.chain.config.api.ConfigLoadFailedException;
-import org.collectionspace.chain.config.main.impl.ConfigLoadingMessages;
 
 public class ConfigErrorHandler implements ErrorHandler {
 	private List<Throwable> errors=new ArrayList<Throwable>();
