@@ -9,6 +9,8 @@ public class LeafCSPXMLSpaceManager implements CSPXMLSpaceManager {
 	private XMLEventConsumer consumer;
 	
 	public LeafCSPXMLSpaceManager(XMLEventConsumer consumer) { this.consumer=consumer; }
+	protected LeafCSPXMLSpaceManager() {}
+	protected void setConsumer(XMLEventConsumer consumer) { this.consumer=consumer; }
 	
 	public CSPXMLSpaceAttachmentPoint getAttachmentPoint(String name) { return null; }
 

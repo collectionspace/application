@@ -2,6 +2,7 @@ package org.collectionspace.chain.config.main.impl;
 
 import static org.junit.Assert.*;
 
+import org.collectionspace.chain.config.main.MainConfig;
 import org.collectionspace.chain.config.main.impl.MainConfigFactoryImpl;
 import org.junit.Test;
 import org.xml.sax.InputSource;
@@ -71,5 +72,18 @@ public class TestMain {
 		mcf.getCSPXMLSpaceManager().getAttachmentPoint("root").attach(att1,"aaa");
 		mcf.parseConfig(src,null); // XXX test not null
 		assertEquals(doubleeventlist,consumer.toString());	
+	}
+	
+	@Test public void testLiteralConfig() throws Exception {
+		InputSource src=getSource("test.xml");
+		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(null); // XXX test messages arg
+		SimpleCSPXMLSpaceManager att1=new SimpleCSPXMLSpaceManager("att1");
+		att1.addAttachmentPoint("second",new String[]{"bbb"});
+		LiteralConfigAccumulatorCSPXMLSpaceManager ca=new LiteralConfigAccumulatorCSPXMLSpaceManager(new Object[]{"root"});
+		mcf.addProvider(ca);
+		mcf.getCSPXMLSpaceManager().getAttachmentPoint("root").attach(ca,"aaa");
+		MainConfig cfg=mcf.parseConfig(src,null);
+		assertEquals("eee",cfg.getValue(new Object[]{"root","bbb","ddd"}));
+		assertEquals("yyy",cfg.getValue(new Object[]{"root","bbb","ddd","@xxx"}));		
 	}
 }
