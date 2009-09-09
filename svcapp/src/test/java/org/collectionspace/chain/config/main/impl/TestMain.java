@@ -49,7 +49,7 @@ public class TestMain {
 
 	@Test public void testMain() throws Exception {
 		InputSource src=getSource("test.xml");
-		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(null); // XXX test messages arg
+		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
 		mcf.setConsumer(consumer);
 		mcf.parseConfig(src,null); // XXX test not null
@@ -58,7 +58,7 @@ public class TestMain {
 	
 	@Test public void testRootAttachment() throws Exception {
 		InputSource src=getSource("test.xml");
-		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(null); // XXX test messages arg
+		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
 		mcf.getRootBarbWirer().getAttachmentPoint("root").attach(new LeafBarbWirer(consumer),"aaa");
 		mcf.parseConfig(src,null); // XXX test not null
@@ -67,7 +67,7 @@ public class TestMain {
 
 	@Test public void testDoubleAttachment() throws Exception {
 		InputSource src=getSource("test.xml");
-		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(null); // XXX test messages arg
+		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
 		SimpleBarbWirer att1=new SimpleBarbWirer("att1");
 		att1.addAttachmentPoint("second",new String[]{"bbb"});
@@ -79,7 +79,7 @@ public class TestMain {
 	
 	@Test public void testLiteralConfig() throws Exception {
 		InputSource src=getSource("test.xml");
-		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(null); // XXX test messages arg
+		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(); // XXX test messages arg
 		SimpleBarbWirer att1=new SimpleBarbWirer("att1");
 		att1.addAttachmentPoint("second",new String[]{"bbb"});
 		SimpleConfigProviderBarbWirer ca=new SimpleConfigProviderBarbWirer(new Object[]{"root"});
