@@ -3,10 +3,12 @@ package org.collectionspace.chain.config.main.impl;
 import static org.junit.Assert.*;
 
 import org.collectionspace.chain.config.main.ConfigRoot;
+import org.collectionspace.chain.config.main.csp.CoreConfig;
 import org.collectionspace.chain.config.main.impl.MainConfigFactoryImpl;
 import org.collectionspace.csp.helper.config.LeafBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
+import org.collectionspace.csp.impl.core.CSPContextImpl;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 
@@ -49,7 +51,8 @@ public class TestMain {
 
 	@Test public void testMain() throws Exception {
 		InputSource src=getSource("test.xml");
-		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(); // XXX test messages arg
+		CSPContextImpl csp=new CSPContextImpl();
+		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
 		mcf.setConsumer(consumer);
 		mcf.parseConfig(src,null); // XXX test not null
@@ -58,7 +61,8 @@ public class TestMain {
 	
 	@Test public void testRootAttachment() throws Exception {
 		InputSource src=getSource("test.xml");
-		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(); // XXX test messages arg
+		CSPContextImpl csp=new CSPContextImpl();
+		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
 		mcf.getRootBarbWirer().getAttachmentPoint("root").attach(new LeafBarbWirer(consumer),"aaa");
 		mcf.parseConfig(src,null); // XXX test not null
@@ -67,7 +71,8 @@ public class TestMain {
 
 	@Test public void testDoubleAttachment() throws Exception {
 		InputSource src=getSource("test.xml");
-		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(); // XXX test messages arg
+		CSPContextImpl csp=new CSPContextImpl();
+		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
 		SimpleBarbWirer att1=new SimpleBarbWirer("att1");
 		att1.addAttachmentPoint("second",new String[]{"bbb"});
@@ -79,14 +84,25 @@ public class TestMain {
 	
 	@Test public void testLiteralConfig() throws Exception {
 		InputSource src=getSource("test.xml");
-		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(); // XXX test messages arg
+		CSPContextImpl csp=new CSPContextImpl();
+		SimpleConfigProviderBarbWirer ca=new SimpleConfigProviderBarbWirer(new Object[]{"root"});
+		csp.addConfigProvider(ca);
+		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg
 		SimpleBarbWirer att1=new SimpleBarbWirer("att1");
 		att1.addAttachmentPoint("second",new String[]{"bbb"});
-		SimpleConfigProviderBarbWirer ca=new SimpleConfigProviderBarbWirer(new Object[]{"root"});
-		mcf.addProvider(ca);
 		mcf.getRootBarbWirer().getAttachmentPoint("root").attach(ca,"aaa");
 		ConfigRoot cfg=mcf.parseConfig(src,null);
 		assertEquals("eee",cfg.getValue(new Object[]{"root","bbb","ddd"}));
 		assertEquals("yyy",cfg.getValue(new Object[]{"root","bbb","ddd","@xxx"}));		
+	}
+	
+	@Test public void testCoreConfig() throws Exception {
+		CSPContextImpl csp=new CSPContextImpl();
+		CoreConfig core=new CoreConfig();
+		core.go(csp);
+		InputSource src=getSource("test2.xml");
+		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg
+		ConfigRoot cfg=mcf.parseConfig(src,null); // XXX test not null
+		System.err.println(cfg.dump());
 	}
 }

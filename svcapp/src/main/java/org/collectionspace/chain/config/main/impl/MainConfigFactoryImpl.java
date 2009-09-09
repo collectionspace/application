@@ -22,14 +22,17 @@ import org.collectionspace.chain.config.api.ConfigLoadFailedException;
 import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.config.main.ConfigFactory;
 import org.collectionspace.csp.api.config.BarbWirer;
+import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigProvider;
+import org.collectionspace.csp.api.config.ConfigContext;
 import org.collectionspace.csp.api.config.EventContext;
 import org.collectionspace.csp.api.config.EventConsumer;
+import org.collectionspace.csp.impl.core.CSPContextImpl;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer {
+public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer, ConfigContext {
 	private SAXParserFactory factory;
 	private SAXTransformerFactory transfactory;
 	private ConfigLoadingMessages messages;
@@ -41,11 +44,11 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer {
 	/* Only set during testing */
 	void setConsumer(EventConsumer in) { consumer=in; }
 	
-	public void addProvider(ConfigProvider provider) { providers.add(provider); }
-	
 	public BarbWirer getRootBarbWirer() { return manager; }
 	
-	public MainConfigFactoryImpl() throws ConfigLoadFailedException {
+	public void addConfigProvider(ConfigProvider provider) { providers.add(provider); }
+	
+	public MainConfigFactoryImpl(CSPContextImpl context) throws ConfigLoadFailedException {
 		factory = SAXParserFactory.newInstance();
 		factory.setNamespaceAware(true);
 		factory.setXIncludeAware(true);
@@ -54,7 +57,10 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer {
 			throw new ConfigLoadFailedException("XSLT transformer doesn't support SAX!");
 		transfactory=(SAXTransformerFactory)tf;
 		messages=new ConfigLoadingMessagesImpl(); // In the end we probably want to pass this in
-		// CSP stuff will go here
+		providers=new HashSet<ConfigProvider>(context.getConfigProviders());
+		for(ConfigConsumer consumer : context.getConfigConsumers()) {
+			consumer.prepareForConfiguration(this);
+		}
 	}
 	
 	public void addXSLT(InputStream in) throws ConfigLoadFailedException {
