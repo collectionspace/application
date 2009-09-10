@@ -12,6 +12,7 @@ import org.collectionspace.chain.util.jxj.InvalidJXJException;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
 import org.dom4j.DocumentException;
 
@@ -19,7 +20,7 @@ import org.dom4j.DocumentException;
  * into ServicesCollectionObjectStorage.
  * 
  */
-public class ServicesStorage extends SplittingStorage implements CSP {
+public class ServicesStorage extends SplittingStorage implements CSP, Storage {
 
 	public ServicesStorage(String base_url) throws InvalidJXJException, DocumentException, IOException {
 		ServicesConnection conn=new ServicesConnection(base_url);

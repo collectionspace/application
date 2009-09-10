@@ -38,6 +38,13 @@
     <default>/cspace-ui/html/createnew.html</default>
   </option>
   
+  <option name="main-config">
+    <attribute>test-main-config</attribute>
+    <property src="jboss">cspace.chain.config.main</property>
+    <property>cspace.chain.config.main</property>
+    <classpath>org/collectionspace/chain/controller/default.xml</classpath>
+  </option>
+  
   <!-- only for testing -->
   <option name="test">
     <default>success</default>

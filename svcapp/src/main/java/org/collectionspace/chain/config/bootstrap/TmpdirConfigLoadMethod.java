@@ -22,6 +22,6 @@ public class TmpdirConfigLoadMethod implements ConfigLoadMethod {
 		return out;
 	}
 
-	public void init(ConfigLoadController controller, Document root)
+	public void init(BootstrapConfigController controller, Document root)
 			throws ConfigLoadFailedException {}
 }

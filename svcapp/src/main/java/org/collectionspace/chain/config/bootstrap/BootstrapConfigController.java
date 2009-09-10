@@ -27,7 +27,7 @@ import org.dom4j.io.SAXReader;
 /** the main controller/entry-point to the bootstrap config
  * 
  */
-public class ConfigLoadController {		
+public class BootstrapConfigController {		
 	private ServletContext ctx;
 	private List<String> suffixes=new ArrayList<String>();
 	private Map<String,ConfigLoadMethod> methods=new HashMap<String,ConfigLoadMethod>();
@@ -59,7 +59,7 @@ public class ConfigLoadController {
 		suffixes.add(0,extra);
 	}
 
-	public ConfigLoadController(ServletContext ctx) {
+	public BootstrapConfigController(ServletContext ctx) {
 		this.ctx=ctx;
 		suffixes.add("config-loader.xml");
 	}
@@ -74,7 +74,8 @@ public class ConfigLoadController {
 		loadMethod(root,"attribute",new AttributeConfigLoadMethod());
 		loadMethod(root,"property",new PropertyConfigLoadMethod());		
 		loadMethod(root,"tmpdir",new TmpdirConfigLoadMethod());
-		loadMethod(root,"services",new ServicesRespondingConfigLoadMethod());		
+		loadMethod(root,"services",new ServicesRespondingConfigLoadMethod());
+		loadMethod(root,"classpath",new ClasspathConfigLoadMethod());
 	}
 	
 	private List<ConfigOptionSource> loadSources(Element el) throws ConfigLoadFailedException {
