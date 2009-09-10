@@ -100,7 +100,7 @@ public class ChainServlet extends HttpServlet
 		CSPManager cspm=global.getCSPManager();
 		cspm.register(new CoreConfig());
 		cspm.register(new FileStorage());
-		cspm.register(new ServicesStorage(config.getServicesBaseURL()));
+		cspm.register(new ServicesStorage());
 	}
 
 	private void load_config() throws ConfigLoadFailedException, CSPDependencyException {

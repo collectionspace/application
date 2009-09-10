@@ -8,11 +8,18 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import java.io.IOException;
 
+import org.collectionspace.chain.config.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
+import org.collectionspace.csp.api.config.BarbWirer;
+import org.collectionspace.csp.api.config.ConfigConsumer;
+import org.collectionspace.csp.api.config.ConfigContext;
+import org.collectionspace.csp.api.config.Configurable;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
 import org.dom4j.DocumentException;
 
@@ -20,16 +27,49 @@ import org.dom4j.DocumentException;
  * into ServicesCollectionObjectStorage.
  * 
  */
-public class ServicesStorage extends SplittingStorage implements CSP, Storage {
+public class ServicesStorage extends SplittingStorage implements CSP, Storage, ConfigConsumer, Configurable {
 
-	public ServicesStorage(String base_url) throws InvalidJXJException, DocumentException, IOException {
-		ServicesConnection conn=new ServicesConnection(base_url);
-		addChild("collection-object",new ServicesCollectionObjectStorage(conn));
+	public ServicesStorage() {}
+	ServicesStorage(String base_url) throws CSPDependencyException { // For testing
+		real_init(base_url);
 	}
 
 	public String getName() { return "persistence.services"; }
 
 	public void go(CSPContext ctx) throws CSPDependencyException {
 		ctx.addStorageType("service",this);
+		ctx.addConfigConsumer(this);
+		ctx.addConfigurable(this);
+	}
+
+	public void prepareForConfiguration(ConfigContext ctx) throws CSPDependencyException {
+		BarbWirer main=ctx.getRootBarbWirer().getBarb("root").getAttachment("collection-space");
+		if(main==null) {
+			throw new CSPDependencyException("No collection-space tag attached to root");
+		}
+		SimpleConfigProviderBarbWirer persistence=new SimpleConfigProviderBarbWirer(new Object[]{"persistence","service"});
+		ctx.addConfigProvider(persistence);
+		main.getBarb("persistence").attach(persistence,"service");
+	}
+
+	private void real_init(String base_url) throws CSPDependencyException {
+		try {
+			ServicesConnection conn=new ServicesConnection(base_url);
+			addChild("collection-object",new ServicesCollectionObjectStorage(conn));
+		} catch (Exception e) {
+			throw new CSPDependencyException("Could not set target"); // XXX wrong type
+		}
+	}
+	
+	public void configure(BootstrapConfigController bootstrap, ConfigRoot config) throws CSPDependencyException {
+		String bs=bootstrap.getOption("store-url");
+		if(bs!=null) {
+			real_init((String)bs);
+		} else {
+			Object store=config.getValue(new Object[]{"persistence","services","url"});
+			if(store==null || !(store instanceof String))
+				return;
+			real_init((String)store);
+		}
 	}
 }
