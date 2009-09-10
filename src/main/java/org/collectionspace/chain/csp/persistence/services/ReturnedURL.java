@@ -4,20 +4,25 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.storage.services;
+package org.collectionspace.chain.csp.persistence.services;
 
-import org.dom4j.Document;
-
-/** Utility class returns documents and statuses */
-public class ReturnedDocument {
+/** Utility class returns URLs and statuses */
+public class ReturnedURL {
 	private int status;
-	private Document doc;
+	private String url;
 	
-	ReturnedDocument(int status,Document doc) {
+	ReturnedURL(int status,String url) {
 		this.status=status;
-		this.doc=doc;
+		this.url=url;
 	}
 	
-	public Document getDocument() { return doc; }
+	public String getURL() { return url; }
 	public int getStatus() { return status; }
+	
+	public String getURLTail() {
+		int last=url.lastIndexOf("/");
+		if(last==-1)
+			return url;
+		return url.substring(last+1);
+	}
 }

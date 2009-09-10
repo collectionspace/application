@@ -4,7 +4,7 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.storage.services;
+package org.collectionspace.chain.csp.persistence.services;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,7 +13,6 @@ import java.io.InputStream;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.methods.DeleteMethod;
@@ -25,7 +24,6 @@ import org.apache.commons.io.input.TeeInputStream;
 import org.collectionspace.chain.util.BadRequestException;
 import org.collectionspace.chain.util.RequestMethod;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;

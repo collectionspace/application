@@ -1,4 +1,4 @@
-package org.collectionspace.chain.storage.services;
+package org.collectionspace.chain.csp.persistence.services;
 
 import static org.junit.Assert.*;
 
@@ -10,17 +10,15 @@ import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.config.api.ConfigLoadFailedException;
-import org.collectionspace.chain.config.bootstrap.ConfigLoadController;
-import org.collectionspace.chain.storage.services.ReturnedDocument;
-import org.collectionspace.chain.storage.services.ReturnedURL;
-import org.collectionspace.chain.storage.services.ServicesConnection;
+import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
+import org.collectionspace.chain.csp.persistence.services.ReturnedURL;
+import org.collectionspace.chain.csp.persistence.services.ServicesIdentifierMap;
 import org.collectionspace.chain.util.BadRequestException;
 import org.collectionspace.chain.util.RequestMethod;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 

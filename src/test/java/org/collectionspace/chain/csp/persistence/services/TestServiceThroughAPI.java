@@ -1,4 +1,4 @@
-package org.collectionspace.chain.storage.services;
+package org.collectionspace.chain.csp.persistence.services;
 
 import static org.junit.Assert.*;
 
@@ -8,8 +8,9 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.config.api.ConfigLoadFailedException;
-import org.collectionspace.chain.storage.services.ReturnedDocument;
-import org.collectionspace.chain.storage.services.ServicesConnection;
+import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
+import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
+import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
 import org.collectionspace.chain.test.JSONTestUtil;
 import org.collectionspace.chain.util.BadRequestException;
 import org.collectionspace.chain.util.RequestMethod;
