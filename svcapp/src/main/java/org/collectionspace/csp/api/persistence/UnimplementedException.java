@@ -4,7 +4,7 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.storage;
+package org.collectionspace.csp.api.persistence;
 
 /** JSON Not Found in store at this path. Exceptions are a mess, and need to be tidied. */
 public class UnimplementedException extends Exception {

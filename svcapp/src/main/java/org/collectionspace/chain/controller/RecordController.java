@@ -6,10 +6,10 @@ import java.io.PrintWriter;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.storage.ExistException;
-import org.collectionspace.chain.storage.UnderlyingStorageException;
-import org.collectionspace.chain.storage.UnimplementedException;
 import org.collectionspace.chain.util.BadRequestException;
+import org.collectionspace.csp.api.persistence.ExistException;
+import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
+import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

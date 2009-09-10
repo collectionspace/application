@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.storage.ExistException;
-import org.collectionspace.chain.storage.UnderlyingStorageException;
-import org.collectionspace.chain.storage.UnimplementedException;
+import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
+import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.json.JSONException;
 import org.json.JSONObject;
 

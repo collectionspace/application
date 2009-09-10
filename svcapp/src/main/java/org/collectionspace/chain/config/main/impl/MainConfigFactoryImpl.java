@@ -28,7 +28,7 @@ import org.collectionspace.csp.api.config.ConfigContext;
 import org.collectionspace.csp.api.config.EventContext;
 import org.collectionspace.csp.api.config.EventConsumer;
 import org.collectionspace.csp.api.core.CSPDependencyException;
-import org.collectionspace.csp.impl.core.CSPContextImpl;
+import org.collectionspace.csp.impl.core.CSPManagerImpl;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
@@ -50,7 +50,7 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer, Conf
 	public void addConfigProvider(ConfigProvider provider) { providers.add(provider); }
 	
 	// XXX shouldn't throw CSPDependencyException
-	public MainConfigFactoryImpl(CSPContextImpl context) throws ConfigLoadFailedException, CSPDependencyException {
+	public MainConfigFactoryImpl(CSPManagerImpl context) throws ConfigLoadFailedException, CSPDependencyException {
 		factory = SAXParserFactory.newInstance();
 		factory.setNamespaceAware(true);
 		factory.setXIncludeAware(true);
