@@ -13,9 +13,8 @@ import javax.servlet.ServletContext;
 import org.collectionspace.chain.config.api.ConfigLoadFailedException;
 import org.collectionspace.chain.config.bootstrap.BootstrapConfigController;
 
-/** Hides the answers to configuration questions from the source of those answers. The interface to this will
- * change soon, as we can't go on supporting an additional method for each question.
- */
+// XXX This class will soon die, as things get moved into CSPs.
+
 public class Config {
 	private BootstrapConfigController controller;
 	
@@ -32,10 +31,6 @@ public class Config {
 	
 	public String getStorageType() {
 		return controller.getOption("storage-type");
-	}
-	
-	public String getServicesBaseURL() {
-		return controller.getOption("store-url");
 	}
 	
 	public String getLoginDestination() {
