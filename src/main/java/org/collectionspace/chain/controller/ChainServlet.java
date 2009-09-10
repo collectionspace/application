@@ -24,7 +24,6 @@ import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.config.api.ConfigLoadFailedException;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
-import org.collectionspace.chain.storage.StorageRegistry;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
 import org.collectionspace.chain.util.BadRequestException;
@@ -93,19 +92,10 @@ public class ChainServlet extends HttpServlet
 		return data;
 	}
 
-	private Storage getStorage(CSPManager cspm) throws InvalidJXJException, DocumentException, IOException {
-		// Complexity here is to allow for refactoring when storages can come from plugins
-		StorageRegistry storage_registry=new StorageRegistry();
-		storage_registry.addStorage("service",new ServicesStorage(config.getServicesBaseURL()));
-		Storage s=cspm.getStorage(config.getStorageType());
-		if(s!=null)
-			return s;		
-		return storage_registry.getStorage(config.getStorageType());
-	}
-
-	private void register_csps() throws IOException {
+	private void register_csps() throws IOException, InvalidJXJException, DocumentException {
 		CSPManager cspm=global.getCSPManager();
 		cspm.register(new FileStorage(config.getPathToStore()));
+		cspm.register(new ServicesStorage(config.getServicesBaseURL()));
 	}
 	
 	private synchronized void setup() throws BadRequestException {
@@ -118,7 +108,7 @@ public class ChainServlet extends HttpServlet
 			// Register csps
 			register_csps();
 			global.getCSPManager().go(); // Start up CSPs
-			Storage store=getStorage(global.getCSPManager());
+			Storage store=global.getCSPManager().getStorage(config.getStorageType());
 			global.setStore(store);
 			// Register controllers
 			for(String type : controller_types) {
