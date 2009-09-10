@@ -26,10 +26,6 @@ public class Config {
 	
 	public BootstrapConfigController getController() { return controller; }
 	
-	public String getPathToStore() {
-		return controller.getOption("store");
-	}
-
 	public String getPathToSchemaDocs() {
 		return controller.getOption("schema");
 	}
