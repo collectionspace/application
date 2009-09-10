@@ -27,6 +27,7 @@ import org.collectionspace.csp.api.config.ConfigProvider;
 import org.collectionspace.csp.api.config.ConfigContext;
 import org.collectionspace.csp.api.config.EventContext;
 import org.collectionspace.csp.api.config.EventConsumer;
+import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.impl.core.CSPContextImpl;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -48,7 +49,8 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer, Conf
 	
 	public void addConfigProvider(ConfigProvider provider) { providers.add(provider); }
 	
-	public MainConfigFactoryImpl(CSPContextImpl context) throws ConfigLoadFailedException {
+	// XXX shouldn't throw CSPDependencyException
+	public MainConfigFactoryImpl(CSPContextImpl context) throws ConfigLoadFailedException, CSPDependencyException {
 		factory = SAXParserFactory.newInstance();
 		factory.setNamespaceAware(true);
 		factory.setXIncludeAware(true);
@@ -58,9 +60,7 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer, Conf
 		transfactory=(SAXTransformerFactory)tf;
 		messages=new ConfigLoadingMessagesImpl(); // In the end we probably want to pass this in
 		providers=new HashSet<ConfigProvider>(context.getConfigProviders());
-		for(ConfigConsumer consumer : context.getConfigConsumers()) {
-			consumer.prepareForConfiguration(this);
-		}
+		context.runConfigConsumers(this);
 	}
 	
 	public void addXSLT(InputStream in) throws ConfigLoadFailedException {

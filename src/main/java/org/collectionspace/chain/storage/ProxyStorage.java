@@ -5,6 +5,7 @@ package org.collectionspace.chain.storage;
  * 
  */
 
+import org.collectionspace.csp.api.persistence.Storage;
 import org.json.JSONObject;
 
 public abstract class ProxyStorage implements Storage {

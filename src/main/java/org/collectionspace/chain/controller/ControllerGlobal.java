@@ -1,7 +1,7 @@
 package org.collectionspace.chain.controller;
 
-import org.collectionspace.chain.storage.Storage;
 import org.collectionspace.chain.uispec.SchemaStore;
+import org.collectionspace.csp.api.persistence.Storage;
 
 /* Ideally wouldn't exist */
 
