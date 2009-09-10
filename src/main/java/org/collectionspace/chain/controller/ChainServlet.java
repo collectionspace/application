@@ -6,9 +6,11 @@
  */
 package org.collectionspace.chain.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -22,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.config.api.ConfigLoadFailedException;
+import org.collectionspace.chain.csp.config.CoreConfig;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
 import org.collectionspace.chain.uispec.SchemaStore;
@@ -38,6 +41,7 @@ import org.dom4j.DocumentException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.InputSource;
 
 /** This is the servlet proper for the current interface between the App and UI layers. It is a repository of
  * random junk which needs to be swept away as it becomes parameterised. We use ChainRequest to encapsulate the
@@ -94,8 +98,19 @@ public class ChainServlet extends HttpServlet
 
 	private void register_csps() throws IOException, InvalidJXJException, DocumentException {
 		CSPManager cspm=global.getCSPManager();
-		cspm.register(new FileStorage(config.getPathToStore()));
+		cspm.register(new CoreConfig());
+		cspm.register(new FileStorage());
 		cspm.register(new ServicesStorage(config.getServicesBaseURL()));
+	}
+
+	private void load_config() throws ConfigLoadFailedException, CSPDependencyException {
+		try {
+			CSPManager cspm=global.getCSPManager();
+			InputStream stream=new ByteArrayInputStream(config.getMainConfigFileLocation().getBytes("UTF-8"));
+			cspm.configure(config.getController(),new InputSource(stream),null); // XXX not null
+		} catch (UnsupportedEncodingException e) {
+			throw new ConfigLoadFailedException("Config has bad character encoding",e);
+		}
 	}
 	
 	private synchronized void setup() throws BadRequestException {
@@ -108,6 +123,7 @@ public class ChainServlet extends HttpServlet
 			// Register csps
 			register_csps();
 			global.getCSPManager().go(); // Start up CSPs
+			load_config();
 			Storage store=global.getCSPManager().getStorage(config.getStorageType());
 			global.setStore(store);
 			// Register controllers

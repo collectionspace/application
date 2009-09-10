@@ -1,4 +1,4 @@
-package org.collectionspace.chain.test;
+package org.collectionspace.chain.csp.persistence.file;
 
 import static org.junit.Assert.*;
 
@@ -17,9 +17,11 @@ import org.collectionspace.chain.csp.persistence.file.StubJSONStore;
 import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
 import org.collectionspace.chain.harness.HarnessServlet;
+import org.collectionspace.chain.test.JSONTestUtil;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
 import org.collectionspace.chain.util.RequestMethod;
+import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
@@ -64,7 +66,7 @@ public class TestGeneral {
 		}
 	}
 
-	@Before public void setup() throws IOException {
+	@Before public void setup() throws IOException, CSPDependencyException {
 		File tmp=new File(tmpdir());
 		File dir=new File(tmp,"ju-cspace");
 		if(dir.exists())

@@ -1,7 +1,7 @@
 package org.collectionspace.chain.csp.persistence.services;
 
 import org.collectionspace.chain.config.api.ConfigLoadFailedException;
-import org.collectionspace.chain.config.bootstrap.ConfigLoadController;
+import org.collectionspace.chain.config.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
 import org.collectionspace.chain.util.BadRequestException;
@@ -14,7 +14,7 @@ public class ServicesBaseClass {
 	
 	protected void setup() throws ConfigLoadFailedException {
 		try {
-			ConfigLoadController config_controller=new ConfigLoadController(null);
+			BootstrapConfigController config_controller=new BootstrapConfigController(null);
 			config_controller.addSearchSuffix("test-config-loader.xml");
 			config_controller.go();
 			base=config_controller.getOption("services-url");

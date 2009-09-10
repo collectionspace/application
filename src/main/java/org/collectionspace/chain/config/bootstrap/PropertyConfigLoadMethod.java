@@ -61,7 +61,7 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 		}
 	}
 
-	public void init(ConfigLoadController controller,Document root) throws ConfigLoadFailedException {
+	public void init(BootstrapConfigController controller,Document root) throws ConfigLoadFailedException {
 		for(Object location : root.selectNodes("config/properties")) {
 			if(!(location instanceof Element))
 				continue;

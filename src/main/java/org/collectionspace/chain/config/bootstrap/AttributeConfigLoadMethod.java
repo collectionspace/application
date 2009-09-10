@@ -23,7 +23,7 @@ public class AttributeConfigLoadMethod implements ConfigLoadMethod {
 	private ServletContext ctx;
 	private static final Logger log=LoggerFactory.getLogger(AttributeConfigLoadMethod.class);
 	
-	public void init(ConfigLoadController controller,Document root) {
+	public void init(BootstrapConfigController controller,Document root) {
 		ctx=controller.getServletContext();
 	}
 	

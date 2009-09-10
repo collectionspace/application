@@ -41,5 +41,5 @@ public class ServicesRespondingConfigLoadMethod implements ConfigLoadMethod {
 		return null;
 	}
 
-	public void init(ConfigLoadController controller, Document root) throws ConfigLoadFailedException {}
+	public void init(BootstrapConfigController controller, Document root) throws ConfigLoadFailedException {}
 }

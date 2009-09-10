@@ -12,7 +12,7 @@ import org.dom4j.Element;
 
 /** the interface implemented by methods */
 public interface ConfigLoadMethod {	
-	public void init(ConfigLoadController controller,Document root) throws ConfigLoadFailedException;
+	public void init(BootstrapConfigController controller,Document root) throws ConfigLoadFailedException;
 		
 	public String getString(Element e);
 }

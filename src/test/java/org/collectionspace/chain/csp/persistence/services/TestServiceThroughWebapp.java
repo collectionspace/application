@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.config.bootstrap.ConfigLoadController;
+import org.collectionspace.chain.config.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.test.JSONTestUtil;
 import org.json.JSONObject;
@@ -41,7 +41,7 @@ public class TestServiceThroughWebapp {
 	
 	// XXX refactor into other copy of this method
 	private ServletTester setupJetty() throws Exception {
-		ConfigLoadController config_controller=new ConfigLoadController(null);
+		BootstrapConfigController config_controller=new BootstrapConfigController(null);
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
 		String base=config_controller.getOption("services-url");		

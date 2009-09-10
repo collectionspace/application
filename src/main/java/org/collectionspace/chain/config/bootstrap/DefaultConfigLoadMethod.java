@@ -15,6 +15,6 @@ public class DefaultConfigLoadMethod implements ConfigLoadMethod {
 
 	public String getString(Element e) { return e.getTextTrim(); }
 
-	public void init(ConfigLoadController controller, Document root)
+	public void init(BootstrapConfigController controller, Document root)
 			throws ConfigLoadFailedException {}
 }

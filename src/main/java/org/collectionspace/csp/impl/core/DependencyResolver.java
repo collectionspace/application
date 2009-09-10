@@ -20,7 +20,7 @@ public class DependencyResolver {
 	
 	public void go() throws CSPDependencyException {
 		Set<Dependable> success=new HashSet<Dependable>();
-		Set<CSPDependencyException> errors=null;
+		Set<CSPDependencyException> errors=new HashSet<CSPDependencyException>();
 		boolean anything=true;
 		int count=0;
 		int max=jobs.size();
@@ -47,7 +47,7 @@ public class DependencyResolver {
 				log.error("Unresolved CSP Exception in dependency task '"+task_name+"' "+x.getMessage());
 			}
 			throw new CSPDependencyException("Multiple dependency Resolution exceptions",
-					(String[])(errors.toArray(new String[0])));
+					(CSPDependencyException[])(errors.toArray(new CSPDependencyException[0])));
 		}
 	}
 }
