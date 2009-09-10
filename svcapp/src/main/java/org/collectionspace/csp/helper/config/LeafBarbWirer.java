@@ -12,7 +12,7 @@ public class LeafBarbWirer implements BarbWirer {
 	protected LeafBarbWirer() {}
 	protected void setConsumer(EventConsumer consumer) { this.consumer=consumer; }
 	
-	public Barb getAttachmentPoint(String name) { return null; }
+	public Barb getBarb(String name) { return null; }
 
 	public EventConsumer getConsumer() { return consumer; }
 }

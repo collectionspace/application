@@ -4,7 +4,7 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.storage.file;
+package org.collectionspace.chain.csp.persistence.file;
 
 import java.io.File;
 import java.io.FileReader;
@@ -16,9 +16,9 @@ import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.storage.ExistException;
-import org.collectionspace.chain.storage.Storage;
 import org.collectionspace.chain.storage.UnderlyingStorageException;
 import org.collectionspace.chain.storage.UnimplementedException;
+import org.collectionspace.csp.api.persistence.Storage;
 import org.json.JSONException;
 import org.json.JSONObject;
 

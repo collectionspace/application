@@ -9,6 +9,8 @@ package org.collectionspace.chain.storage;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.collectionspace.csp.api.persistence.Storage;
+
 /** StorageRegistry contains top level storage implementations, to be selected among by configuration.
  * 
  */

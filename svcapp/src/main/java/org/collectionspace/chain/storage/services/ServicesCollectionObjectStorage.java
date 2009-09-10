@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.collectionspace.chain.storage.ExistException;
-import org.collectionspace.chain.storage.Storage;
 import org.collectionspace.chain.storage.UnderlyingStorageException;
 import org.collectionspace.chain.storage.UnimplementedException;
 import org.collectionspace.chain.util.BadRequestException;
@@ -22,6 +21,7 @@ import org.collectionspace.chain.util.jxj.InvalidJXJException;
 import org.collectionspace.chain.util.jxj.JXJFile;
 import org.collectionspace.chain.util.jxj.JXJTransformer;
 import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
+import org.collectionspace.csp.api.persistence.Storage;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;

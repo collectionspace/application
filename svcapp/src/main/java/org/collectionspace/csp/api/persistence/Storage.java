@@ -4,8 +4,11 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.storage;
+package org.collectionspace.csp.api.persistence;
 
+import org.collectionspace.chain.storage.ExistException;
+import org.collectionspace.chain.storage.UnderlyingStorageException;
+import org.collectionspace.chain.storage.UnimplementedException;
 import org.json.JSONObject;
 
 /** The core SVCAPP interface.

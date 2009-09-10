@@ -4,14 +4,14 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.storage.file;
+package org.collectionspace.chain.csp.persistence.file;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.collectionspace.chain.storage.ProxyStorage;
 import org.collectionspace.chain.storage.SplittingStorage;
-import org.collectionspace.chain.storage.Storage;
+import org.collectionspace.csp.api.persistence.Storage;
 
 /**  SplittingStorage which delegates collection-objects to StubJSONStore
  * 

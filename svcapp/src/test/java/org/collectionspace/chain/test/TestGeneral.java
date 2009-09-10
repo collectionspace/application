@@ -12,12 +12,12 @@ import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
+import org.collectionspace.chain.csp.persistence.file.FileStorage;
+import org.collectionspace.chain.csp.persistence.file.StubJSONStore;
 import org.collectionspace.chain.harness.HarnessServlet;
 import org.collectionspace.chain.storage.ExistException;
 import org.collectionspace.chain.storage.UnderlyingStorageException;
 import org.collectionspace.chain.storage.UnimplementedException;
-import org.collectionspace.chain.storage.file.FileStorage;
-import org.collectionspace.chain.storage.file.StubJSONStore;
 import org.collectionspace.chain.storage.services.ReturnedDocument;
 import org.collectionspace.chain.storage.services.ServicesConnection;
 import org.collectionspace.chain.uispec.SchemaStore;
