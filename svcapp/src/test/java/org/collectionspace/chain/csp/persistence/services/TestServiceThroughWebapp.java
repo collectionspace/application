@@ -1,4 +1,4 @@
-package org.collectionspace.chain.storage.services;
+package org.collectionspace.chain.csp.persistence.services;
 
 import static org.junit.Assert.*;
 
