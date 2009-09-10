@@ -6,9 +6,6 @@
  */
 package org.collectionspace.csp.api.persistence;
 
-import org.collectionspace.chain.storage.ExistException;
-import org.collectionspace.chain.storage.UnderlyingStorageException;
-import org.collectionspace.chain.storage.UnimplementedException;
 import org.json.JSONObject;
 
 /** The core SVCAPP interface.

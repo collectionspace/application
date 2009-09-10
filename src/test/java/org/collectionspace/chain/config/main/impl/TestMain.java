@@ -9,7 +9,7 @@ import org.collectionspace.chain.csp.config.ServicesConfig;
 import org.collectionspace.csp.helper.config.LeafBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
-import org.collectionspace.csp.impl.core.CSPContextImpl;
+import org.collectionspace.csp.impl.core.CSPManagerImpl;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 
@@ -52,7 +52,7 @@ public class TestMain {
 
 	@Test public void testMain() throws Exception {
 		InputSource src=getSource("test.xml");
-		CSPContextImpl csp=new CSPContextImpl();
+		CSPManagerImpl csp=new CSPManagerImpl();
 		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
 		mcf.setConsumer(consumer);
@@ -62,7 +62,7 @@ public class TestMain {
 	
 	@Test public void testRootAttachment() throws Exception {
 		InputSource src=getSource("test.xml");
-		CSPContextImpl csp=new CSPContextImpl();
+		CSPManagerImpl csp=new CSPManagerImpl();
 		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
 		mcf.getRootBarbWirer().getBarb("root").attach(new LeafBarbWirer(consumer),"aaa");
@@ -72,7 +72,7 @@ public class TestMain {
 
 	@Test public void testDoubleAttachment() throws Exception {
 		InputSource src=getSource("test.xml");
-		CSPContextImpl csp=new CSPContextImpl();
+		CSPManagerImpl csp=new CSPManagerImpl();
 		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg
 		StringXMLEventConsumer consumer=new StringXMLEventConsumer();
 		SimpleBarbWirer att1=new SimpleBarbWirer("att1");
@@ -85,7 +85,7 @@ public class TestMain {
 	
 	@Test public void testLiteralConfig() throws Exception {
 		InputSource src=getSource("test.xml");
-		CSPContextImpl csp=new CSPContextImpl();
+		CSPManagerImpl csp=new CSPManagerImpl();
 		SimpleConfigProviderBarbWirer ca=new SimpleConfigProviderBarbWirer(new Object[]{"root"});
 		csp.addConfigProvider(ca);
 		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg
@@ -98,7 +98,7 @@ public class TestMain {
 	}
 	
 	@Test public void testCoreConfig() throws Exception {
-		CSPContextImpl csp=new CSPContextImpl();
+		CSPManagerImpl csp=new CSPManagerImpl();
 		csp.register(new CoreConfig());
 		csp.register(new ServicesConfig());
 		csp.go();

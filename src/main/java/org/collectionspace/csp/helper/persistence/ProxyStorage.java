@@ -1,11 +1,14 @@
-package org.collectionspace.chain.storage;
+package org.collectionspace.csp.helper.persistence;
 
 /* Completely transparent proxy for storage. Useful as a temporary fix, to work round corner cases, and to pre-reserve
  * an abstraction.
  * 
  */
 
+import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
+import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.json.JSONObject;
 
 public abstract class ProxyStorage implements Storage {

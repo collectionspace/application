@@ -9,14 +9,16 @@ package org.collectionspace.chain.csp.persistence.file;
 import java.io.File;
 import java.io.IOException;
 
-import org.collectionspace.chain.storage.ProxyStorage;
-import org.collectionspace.chain.storage.SplittingStorage;
+import org.collectionspace.csp.api.core.CSP;
+import org.collectionspace.csp.api.core.CSPContext;
+import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.helper.persistence.ProxyStorage;
 
 /**  SplittingStorage which delegates collection-objects to StubJSONStore
  * 
  */
-public class FileStorage extends ProxyStorage implements Storage {
+public class FileStorage extends ProxyStorage implements Storage, CSP {
 	private String root;
 	
 	public FileStorage(String root) throws IOException {
@@ -28,4 +30,10 @@ public class FileStorage extends ProxyStorage implements Storage {
 	}
 	
 	public String getStoreRoot() { return root; }
+
+	public String getName() { return "persistence.file"; }
+
+	public void go(CSPContext ctx) throws CSPDependencyException {
+		ctx.addStorageType("file",this);
+	}
 }
