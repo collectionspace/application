@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.collectionspace.chain.config.api.ConfigLoadFailedException;
-import org.collectionspace.chain.config.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.config.main.ConfigFactory;
 import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.config.main.impl.MainConfigFactoryImpl;
@@ -19,6 +17,8 @@ import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.kludge.BCCKludge;
+import org.collectionspace.kludge.ConfigLoadFailedException;
+import org.collectionspace.kludge.bootstrap.BootstrapConfigController;
 import org.xml.sax.InputSource;
 
 public class CSPManagerImpl implements CSPManager {

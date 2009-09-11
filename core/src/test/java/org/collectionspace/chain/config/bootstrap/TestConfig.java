@@ -7,13 +7,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.config.api.ConfigLoadFailedException;
-import org.collectionspace.chain.config.bootstrap.BootstrapConfigController;
+import org.collectionspace.kludge.ConfigLoadFailedException;
+import org.collectionspace.kludge.bootstrap.BootstrapConfigController;
 import org.junit.Test;
 
 public class TestConfig {
 	@Test public void testBasic() throws ConfigLoadFailedException {
-		System.setProperty("test_property","org/collectionspace/chain/config/bootstrap");
+		System.setProperty("test_property","org/collectionspace/kludge/bootstrap");
 		BootstrapConfigController config_controller=new BootstrapConfigController(null);
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();

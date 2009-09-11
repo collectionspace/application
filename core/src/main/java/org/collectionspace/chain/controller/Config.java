@@ -10,8 +10,8 @@ import java.io.IOException;
 
 import javax.servlet.ServletContext;
 
-import org.collectionspace.chain.config.api.ConfigLoadFailedException;
-import org.collectionspace.chain.config.bootstrap.BootstrapConfigController;
+import org.collectionspace.kludge.ConfigLoadFailedException;
+import org.collectionspace.kludge.bootstrap.BootstrapConfigController;
 
 // XXX This class will soon die, as things get moved into CSPs.
 

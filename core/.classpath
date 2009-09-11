@@ -8,7 +8,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/json/json/20080701/json-20080701.jar"/>
 	<classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.5/junit-4.5.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/collectionspace/csp-api/1.0-SNAPSHOT/csp-api-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/collectionspace/csp-api/1.0-SNAPSHOT/csp-api-1.0-SNAPSHOT.jar" sourcepath="/CSPACE_WORKSPACE/csp-api"/>
 	<classpathentry kind="var" path="M2_REPO/jaxen/jaxen/1.1.1/jaxen-1.1.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-httpclient/commons-httpclient/3.1/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-io/commons-io/1.4/commons-io-1.4.jar"/>
@@ -24,5 +24,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/collectionspace/csp-helper/1.0-SNAPSHOT/csp-helper-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/collectionspace/jxutils/1.0-SNAPSHOT/jxutils-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/collectionspace/cspi-file/1.0-SNAPSHOT/cspi-file-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/collectionspace/cspi-services/1.0-SNAPSHOT/cspi-services-1.0-SNAPSHOT.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/csp-api"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
