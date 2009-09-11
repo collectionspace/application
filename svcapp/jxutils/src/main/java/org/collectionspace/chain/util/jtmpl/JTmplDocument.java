@@ -8,8 +8,8 @@ package org.collectionspace.chain.util.jtmpl;
 
 import java.util.Map;
 
-import org.collectionspace.chain.util.JSON;
 import org.collectionspace.chain.util.jpath.JPathPath;
+import org.collectionspace.chain.util.misc.JSON;
 import org.json.JSONException;
 import org.json.JSONObject;
 

@@ -10,9 +10,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.collectionspace.chain.util.JSON;
 import org.collectionspace.chain.util.jpath.InvalidJPathException;
 import org.collectionspace.chain.util.jpath.JPathPath;
+import org.collectionspace.chain.util.misc.JSON;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
