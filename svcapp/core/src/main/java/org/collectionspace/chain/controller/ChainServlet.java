@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.config.api.ConfigLoadFailedException;
 import org.collectionspace.chain.csp.config.CoreConfig;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
@@ -37,6 +36,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.dom4j.DocumentException;
 import org.json.JSONArray;
 import org.json.JSONException;

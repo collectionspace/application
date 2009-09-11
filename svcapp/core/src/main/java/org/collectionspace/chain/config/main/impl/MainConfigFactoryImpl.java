@@ -18,7 +18,6 @@ import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.config.api.ConfigLoadFailedException;
 import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.config.main.ConfigFactory;
 import org.collectionspace.csp.api.config.BarbWirer;
@@ -29,6 +28,7 @@ import org.collectionspace.csp.api.config.EventContext;
 import org.collectionspace.csp.api.config.EventConsumer;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.impl.core.CSPManagerImpl;
+import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;

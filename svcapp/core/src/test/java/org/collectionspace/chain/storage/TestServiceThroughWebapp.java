@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.persistence.services;
+package org.collectionspace.chain.storage;
 
 import static org.junit.Assert.*;
 
@@ -6,9 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.config.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.controller.ChainServlet;
-import org.collectionspace.chain.test.JSONTestUtil;
+import org.collectionspace.kludge.JSONTestUtil;
+import org.collectionspace.kludge.bootstrap.BootstrapConfigController;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
