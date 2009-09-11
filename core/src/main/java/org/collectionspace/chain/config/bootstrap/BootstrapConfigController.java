@@ -18,6 +18,7 @@ import javax.servlet.ServletContext;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.config.api.ConfigLoadFailedException;
+import org.collectionspace.kludge.BCCKludge;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -27,7 +28,7 @@ import org.dom4j.io.SAXReader;
 /** the main controller/entry-point to the bootstrap config
  * 
  */
-public class BootstrapConfigController {		
+public class BootstrapConfigController implements BCCKludge {		
 	private ServletContext ctx;
 	private List<String> suffixes=new ArrayList<String>();
 	private Map<String,ConfigLoadMethod> methods=new HashMap<String,ConfigLoadMethod>();

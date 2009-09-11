@@ -21,6 +21,8 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
+import org.collectionspace.kludge.BCCKludge;
+import org.collectionspace.kludge.CRKludge;
 import org.dom4j.DocumentException;
 
 /** The direct implementation of storage; only an instance of SplittingStorage which at the moment only splits
@@ -61,7 +63,7 @@ public class ServicesStorage extends SplittingStorage implements CSP, Storage, C
 		}
 	}
 	
-	public void configure(Object bootstrap,Object config) throws CSPDependencyException { // XXX
+	public void configure(BCCKludge bootstrap,CRKludge config) throws CSPDependencyException { // XXX
 		String bs=((BootstrapConfigController)bootstrap).getOption("store-url");
 		if(bs!=null) {
 			real_init((String)bs);

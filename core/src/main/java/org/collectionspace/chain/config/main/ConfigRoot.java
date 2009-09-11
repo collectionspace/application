@@ -1,4 +1,6 @@
 package org.collectionspace.chain.config.main;
 
-public interface ConfigRoot extends ConfigNode {
+import org.collectionspace.kludge.CRKludge;
+
+public interface ConfigRoot extends ConfigNode, CRKludge {
 }

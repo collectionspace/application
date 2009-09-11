@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.config.main.impl.MainConfigFactoryImpl;
 import org.collectionspace.chain.csp.config.CoreConfig;
-import org.collectionspace.chain.csp.config.ServicesConfig;
 import org.collectionspace.csp.helper.config.LeafBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
@@ -97,10 +96,10 @@ public class TestMain {
 		assertEquals("yyy",cfg.getValue(new Object[]{"root","bbb","ddd","@xxx"}));		
 	}
 	
-	@Test public void testCoreConfig() throws Exception {
+	@Test public void testCoreConfig() throws Exception { // XXX this is not a test!
 		CSPManagerImpl csp=new CSPManagerImpl();
 		csp.register(new CoreConfig());
-		csp.register(new ServicesConfig());
+		//csp.register(new ServicesConfig());
 		csp.go();
 		InputSource src=getSource("test2.xml");
 		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg

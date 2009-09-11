@@ -40,6 +40,16 @@
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency> 
+
+	<!-- XXX remove -->
+    <dependency>
+      <groupId>org.collectionspace</groupId>
+      <artifactId>cspi-file</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>  
+
+
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>jxutils</artifactId>
