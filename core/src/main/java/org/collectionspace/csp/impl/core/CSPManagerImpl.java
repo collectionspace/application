@@ -16,9 +16,7 @@ import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.Storage;
-import org.collectionspace.kludge.BCCKludge;
 import org.collectionspace.kludge.ConfigLoadFailedException;
-import org.collectionspace.kludge.bootstrap.BootstrapConfigController;
 import org.xml.sax.InputSource;
 
 public class CSPManagerImpl implements CSPManager {
@@ -58,7 +56,7 @@ public class CSPManagerImpl implements CSPManager {
 		consumers.go();
 	}
 	
-	public void configure(final BCCKludge bootstrap,InputSource in,String url) throws CSPDependencyException {
+	public void configure(InputSource in,String url) throws CSPDependencyException {
 		try {
 		ConfigFactory cfg_factory=new MainConfigFactoryImpl(this);
 		final ConfigRoot configuration=cfg_factory.parseConfig(in,url);
@@ -66,7 +64,7 @@ public class CSPManagerImpl implements CSPManager {
 		for(final Configurable config : configurable_csps) {
 			configurable.addRunnable(new Dependable(){
 				public void run() throws CSPDependencyException {
-					config.configure(bootstrap,configuration);
+					config.configure(configuration);
 				}
 				public String getName() { return config.getName(); }
 			});			

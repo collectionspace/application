@@ -8,7 +8,7 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.kludge.JSONTestUtil;
-import org.collectionspace.kludge.bootstrap.BootstrapConfigController;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;

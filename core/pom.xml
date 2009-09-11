@@ -5,7 +5,7 @@
   <artifactId>collectionspace</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>collectionspace Maven Webapp</name>
+  <name>Core</name>
   <url>http://maven.apache.org</url>
 
   <parent>
@@ -37,6 +37,12 @@
     <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-helper</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency> 
+    <dependency>
+      <groupId>org.collectionspace</groupId>
+      <artifactId>bconfig-utils</artifactId>
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency> 

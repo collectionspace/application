@@ -11,7 +11,7 @@ import java.io.IOException;
 import javax.servlet.ServletContext;
 
 import org.collectionspace.kludge.ConfigLoadFailedException;
-import org.collectionspace.kludge.bootstrap.BootstrapConfigController;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 
 // XXX This class will soon die, as things get moved into CSPs.
 

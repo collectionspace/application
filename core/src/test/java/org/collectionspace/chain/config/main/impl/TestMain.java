@@ -9,6 +9,7 @@ import org.collectionspace.csp.helper.config.LeafBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.impl.core.CSPManagerImpl;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 
@@ -97,9 +98,12 @@ public class TestMain {
 	}
 	
 	@Test public void testCoreConfig() throws Exception { // XXX this is not a test!
+		BootstrapConfigController bootstrap=new BootstrapConfigController(null);
+		bootstrap.addSearchSuffix("test-config-loader.xml");
+		bootstrap.go();
 		CSPManagerImpl csp=new CSPManagerImpl();
 		csp.register(new CoreConfig());
-		//csp.register(new ServicesConfig());
+		csp.register(new BootstrapCSP(bootstrap));
 		csp.go();
 		InputSource src=getSource("test2.xml");
 		MainConfigFactoryImpl mcf=new MainConfigFactoryImpl(csp); // XXX test messages arg
