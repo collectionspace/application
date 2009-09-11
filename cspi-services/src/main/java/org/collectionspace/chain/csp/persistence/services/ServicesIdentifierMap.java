@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.collectionspace.chain.util.BadRequestException;
-import org.collectionspace.chain.util.RequestMethod;
 import org.dom4j.Node;
 
 // XXX This will go
@@ -35,21 +33,21 @@ class ServicesIdentifierMap {
 	}
 	
 	// XXX objectNumber in lists is incorrect?
-	private String toObjNum(String csid) throws BadRequestException {
+	private String toObjNum(String csid) throws ConnectionException {
 		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+csid);
 		if(all.getStatus()!=200)
-			throw new BadRequestException("Bad request during identifier cache map update: status not 200");
+			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 		return all.getDocument().selectSingleNode("collection-object/objectNumber").getText();
 	}
 	
 	// XXX horribly inefficient, but no search.
 	@SuppressWarnings("unchecked")
-	private synchronized void updateCache() throws BadRequestException {
+	private synchronized void updateCache() throws ConnectionException {
 		try {
 			cache_misses++;
 			ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");
 			if(all.getStatus()!=200)
-				throw new BadRequestException("Bad request during identifier cache map update: status not 200");
+				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 			List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
 			Set<String> present=new HashSet<String>();
 			for(Node object : objects) {
@@ -63,12 +61,12 @@ class ServicesIdentifierMap {
 				}
 			}
 			
-		} catch (BadRequestException e) {
-			throw new BadRequestException("Bad request during identifier cache map update",e);
+		} catch (ConnectionException e) {
+			throw new ConnectionException("Bad request during identifier cache map update",e);
 		}
 	}
 	
-	String getCSID(String object_number) throws BadRequestException {
+	String getCSID(String object_number) throws ConnectionException {
 		String csid=cache.get(object_number);
 		if(csid==null) {
 			updateCache();
@@ -78,7 +76,7 @@ class ServicesIdentifierMap {
 		return cache.get(object_number);
 	}
 
-	String fromCSID(String csid) throws BadRequestException {
+	String fromCSID(String csid) throws ConnectionException {
 		String object_number=back_cache.get(csid);
 		if(object_number==null) {
 			updateCache();

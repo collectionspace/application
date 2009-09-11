@@ -8,8 +8,6 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import java.io.IOException;
 
-import org.collectionspace.chain.config.bootstrap.BootstrapConfigController;
-import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
 import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigConsumer;
@@ -64,11 +62,11 @@ public class ServicesStorage extends SplittingStorage implements CSP, Storage, C
 	}
 	
 	public void configure(BCCKludge bootstrap,CRKludge config) throws CSPDependencyException { // XXX
-		String bs=((BootstrapConfigController)bootstrap).getOption("store-url");
+		String bs=bootstrap.getOption("store-url");
 		if(bs!=null) {
 			real_init((String)bs);
 		} else {
-			Object store=((ConfigRoot)config).getValue(new Object[]{"persistence","services","url"});
+			Object store=config.getValue(new Object[]{"persistence","services","url"});
 			if(store==null || !(store instanceof String))
 				return;
 			real_init((String)store);
