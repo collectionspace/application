@@ -27,7 +27,7 @@ public class SimpleBarbWirer implements BarbWirer {
 			managers.put(root,manager);
 		}
 		public BarbWirer getManager() { return SimpleBarbWirer.this; }
-		public BarbWirer getAttachment(String root) { return managers.get(root); }
+		public BarbWirer getBarbWirer(String root) { return managers.get(root); }
 	}
 
 	public SimpleBarbWirer() {

@@ -13,7 +13,7 @@ public class ServicesConfig implements CSP, ConfigConsumer {
 	public void go(CSPContext ctx) { ctx.addConfigConsumer(this); }
 
 	public void prepareForConfiguration(ConfigContext ctx) throws CSPDependencyException {
-		BarbWirer main=ctx.getRootBarbWirer().getBarb("root").getAttachment("collection-space");
+		BarbWirer main=ctx.getRootBarbWirer().getBarb("root").getBarbWirer("collection-space");
 		if(main==null) {
 			throw new CSPDependencyException("No collection-space tag attached to root");
 		}
