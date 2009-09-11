@@ -9,6 +9,11 @@
   <packaging>pom</packaging>
   <modules>
     <module>csp-api</module>
+    <module>jxutils</module>
+    <module>csp-helper</module>
+
+    <module>cspi-file</module>
+
     <module>core</module>
   </modules>
 </project>
