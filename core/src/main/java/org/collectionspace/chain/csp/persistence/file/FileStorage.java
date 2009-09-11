@@ -63,12 +63,13 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, ConfigCon
 		}
 	}
 
-	public void configure(BootstrapConfigController bootstrap,ConfigRoot config) throws CSPDependencyException {
-		String bs=bootstrap.getOption("store");
+	public void configure(Object bootstrap,Object config) throws CSPDependencyException {
+		String bs=((BootstrapConfigController)bootstrap).getOption("store"); // XXX undo
 		if(bs!=null) {
 			real_init((String)bs);
 		} else {
-			Object store=config.getValue(new Object[]{"persistence","file","store"});
+			// XXX
+			Object store=((ConfigRoot)config).getValue(new Object[]{"persistence","file","store"});
 			if(store==null || !(store instanceof String))
 				return;
 			real_init((String)store);

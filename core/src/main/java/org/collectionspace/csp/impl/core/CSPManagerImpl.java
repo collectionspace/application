@@ -57,7 +57,8 @@ public class CSPManagerImpl implements CSPManager {
 		consumers.go();
 	}
 	
-	public void configure(final BootstrapConfigController bootstrap,InputSource in,String url) throws ConfigLoadFailedException, CSPDependencyException {
+	public void configure(final Object bootstrap,InputSource in,String url) throws CSPDependencyException {
+		try {
 		ConfigFactory cfg_factory=new MainConfigFactoryImpl(this);
 		final ConfigRoot configuration=cfg_factory.parseConfig(in,url);
 		DependencyResolver configurable=new DependencyResolver("configuration");		
@@ -70,6 +71,9 @@ public class CSPManagerImpl implements CSPManager {
 			});			
 		}
 		configurable.go();
+		} catch(ConfigLoadFailedException x) { // XXX
+			throw new CSPDependencyException(x);
+		}
 	}
 
 	public Storage getStorage(String name) { return storage.get(name); }

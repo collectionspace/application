@@ -61,12 +61,12 @@ public class ServicesStorage extends SplittingStorage implements CSP, Storage, C
 		}
 	}
 	
-	public void configure(BootstrapConfigController bootstrap, ConfigRoot config) throws CSPDependencyException {
-		String bs=bootstrap.getOption("store-url");
+	public void configure(Object bootstrap,Object config) throws CSPDependencyException { // XXX
+		String bs=((BootstrapConfigController)bootstrap).getOption("store-url");
 		if(bs!=null) {
 			real_init((String)bs);
 		} else {
-			Object store=config.getValue(new Object[]{"persistence","services","url"});
+			Object store=((ConfigRoot)config).getValue(new Object[]{"persistence","services","url"});
 			if(store==null || !(store instanceof String))
 				return;
 			real_init((String)store);
