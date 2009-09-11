@@ -13,6 +13,7 @@
     <module>csp-helper</module>
 
     <module>cspi-file</module>
+    <module>cspi-services</module>
 
     <module>core</module>
   </modules>
