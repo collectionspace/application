@@ -3,17 +3,16 @@ package org.collectionspace.csp.helper.config.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.collectionspace.chain.config.main.impl.EventContextImpl;
 import org.collectionspace.csp.api.config.EventContext;
 import org.collectionspace.csp.api.config.EventConsumer;
 
 // TODO at the moment only full paths are recognised, we should support regexps
 public class SimpleBarbWirerDispatch implements EventConsumer {
 	private static class ChopResult {
-		private EventContextImpl context;
+		private Object context;
 		private EventConsumer consumer;
 		
-		private ChopResult(EventContextImpl context,EventConsumer consumer) {
+		private ChopResult(Object context,EventConsumer consumer) {
 			this.context=context;
 			this.consumer=consumer;
 		}
@@ -79,19 +78,19 @@ public class SimpleBarbWirerDispatch implements EventConsumer {
 	public void end(int ev, EventContext context) {
 		ChopResult c=getChop(context);
 		if(c!=null)
-			c.consumer.end(ev,c.context);
+			c.consumer.end(ev,(EventContext) c.context);
 	}
 	
 	public void start(int ev, EventContext context) {
 		ChopResult c=getChop(context);
 		if(c!=null)
-			c.consumer.start(ev,c.context);
+			c.consumer.start(ev,(EventContext) c.context);
 	}
 
 	public void text(int ev, EventContext context, String text) {
 		ChopResult c=getChop(context);
 		if(c!=null)
-			c.consumer.text(ev,c.context,text);
+			c.consumer.text(ev,(EventContext) c.context,text);
 	}
 	
 	public String getName() { return name; }
