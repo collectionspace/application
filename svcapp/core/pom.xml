@@ -34,6 +34,12 @@
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
+    <dependency>
+      <groupId>org.collectionspace</groupId>
+      <artifactId>csp-helper</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>  
 
     <dependency>
       <groupId>xml-apis</groupId>
