@@ -11,8 +11,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.collectionspace.chain.util.BadRequestException;
-import org.collectionspace.chain.util.RequestMethod;
 import org.collectionspace.chain.util.jtmpl.InvalidJTmplException;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
 import org.collectionspace.chain.util.jxj.JXJFile;
@@ -171,7 +169,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			List<String> out=new ArrayList<String>();
 			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");			
 			if(all.getStatus()!=200)
-				throw new BadRequestException("Bad request during identifier cache map update: status not 200");
+				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 			List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
 			for(Node object : objects) {
 				String csid=object.selectSingleNode("csid").getText();
@@ -186,7 +184,7 @@ class ServicesCollectionObjectStorage implements Storage {
 				}
 			}
 			return out.toArray(new String[0]);
-		} catch (BadRequestException e) {
+		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		}
 	}
@@ -219,7 +217,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			// XXX End of here's what we do because of CSPACE-264		
 			// vv This is what we should do
 			// return jxj.xml2json(doc.getDocument());
-		} catch (BadRequestException e) {
+		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (InvalidJTmplException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
@@ -243,7 +241,7 @@ class ServicesCollectionObjectStorage implements Storage {
 				throw new ExistException("Not found: collecitonobjects/"+csid);
 			if(doc.getStatus()>299 || doc.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
-		} catch (BadRequestException e) {
+		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (InvalidXTmplException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
@@ -258,7 +256,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			if(url.getStatus()>299 || url.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+url.getStatus());
 			return url.getURLTail();
-		} catch (BadRequestException e) {
+		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (InvalidXTmplException e) {
 			throw new UnimplementedException("Error in template",e);
@@ -277,7 +275,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			int status=conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null);
 			if(status>299 || status<200) // XXX CSPACE-73, should be 404
 				throw new UnderlyingStorageException("Service layer exception status="+status);
-		} catch (BadRequestException e) {
+		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		}		
 	}

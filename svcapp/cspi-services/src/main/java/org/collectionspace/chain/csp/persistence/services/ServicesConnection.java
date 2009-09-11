@@ -21,8 +21,7 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.io.input.TeeInputStream;
-import org.collectionspace.chain.util.BadRequestException;
-import org.collectionspace.chain.util.RequestMethod;
+import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.dom4j.Document;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
@@ -54,19 +53,19 @@ public class ServicesConnection {
 		initClient();
 	}
 	
-	private String prepend_base(String uri) throws BadRequestException {
+	private String prepend_base(String uri) throws ConnectionException {
 		if(uri==null)
-			throw new BadRequestException("URI cannot be null");
+			throw new ConnectionException("URI cannot be null");
 		if(!uri.startsWith("/"))
 			uri="/"+uri;
 		return base_url+uri;
 	}
 	
-	private HttpMethod createMethod(RequestMethod method,String uri,InputStream data) throws BadRequestException {
+	private HttpMethod createMethod(RequestMethod method,String uri,InputStream data) throws ConnectionException {
 		uri=prepend_base(uri);
 		System.err.println(uri);
 		if(uri==null)
-			throw new BadRequestException("URI must not be null");		
+			throw new ConnectionException("URI must not be null");		
 		switch(method) {
 		case POST: {
 			PostMethod out=new PostMethod(uri);
@@ -85,10 +84,10 @@ public class ServicesConnection {
 		case DELETE:
 			return new DeleteMethod(uri);
 		}
-		throw new BadRequestException("Unsupported method "+method);
+		throw new ConnectionException("Unsupported method "+method);
 	}
 		
-	public ReturnedDocument getXMLDocument(RequestMethod method,String uri) throws BadRequestException {
+	public ReturnedDocument getXMLDocument(RequestMethod method,String uri) throws ConnectionException {
 		return getXMLDocument(method,uri,null);
 	}
 	
@@ -103,29 +102,29 @@ public class ServicesConnection {
 		return new ByteArrayInputStream(out.toByteArray());
 	}
 
-	private InputStream documentToStream(Document in,String uri) throws BadRequestException {
+	private InputStream documentToStream(Document in,String uri) throws ConnectionException {
 		if(in!=null) {
 			try {
 				return serializetoXML(in);
 			} catch (IOException e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
+				throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
 			}
 		}
 		return null;
 	}
 	
-	private void closeStream(InputStream stream) throws BadRequestException {
+	private void closeStream(InputStream stream) throws ConnectionException {
 		if(stream!=null)
 			try {
 				stream.close();
 			} catch (IOException e) {
 				// Close failed: nothing we can do. Is a ByteArrayInputStream, anyway, should be impossible.
-				throw new BadRequestException("Impossible exception raised during close of BAIS!?");
+				throw new ConnectionException("Impossible exception raised during close of BAIS!?");
 			}		
 	}
 	
 	// XXX eugh! error case control-flow nightmare
-	public ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body) throws BadRequestException {
+	public ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {
 		InputStream body_data=documentToStream(body,uri);
 		try {
 			System.err.println("Getting from "+uri);
@@ -145,7 +144,7 @@ public class ServicesConnection {
 				stream.close();
 				return new ReturnedDocument(response,out);
 			} catch(Exception e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
+				throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
 			} finally {
 				method.releaseConnection();
 			}
@@ -155,7 +154,7 @@ public class ServicesConnection {
 	}
 
 	// XXX refactor!!!!
-	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body) throws BadRequestException {
+	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body) throws ConnectionException {
 		InputStream body_data=documentToStream(body,uri);
 		try {
 			HttpMethod method=createMethod(method_type,uri,body_data);
@@ -167,13 +166,13 @@ public class ServicesConnection {
 				System.err.println("response="+response);
 				Header location=method.getResponseHeader("Location");
 				if(location==null)
-					throw new BadRequestException("Missing location header");
+					throw new ConnectionException("Missing location header");
 				String url=location.getValue();
 				if(url.startsWith(base_url))
 					url=url.substring(base_url.length());
 				return new ReturnedURL(response,url);
 			} catch (Exception e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
+				throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
 			} finally {
 				method.releaseConnection();
 			}
@@ -182,7 +181,7 @@ public class ServicesConnection {
 		}
 	}
 
-	public int getNone(RequestMethod method_type,String uri,Document body) throws BadRequestException {
+	public int getNone(RequestMethod method_type,String uri,Document body) throws ConnectionException {
 		InputStream body_data=documentToStream(body,uri);
 		try {
 			HttpMethod method=createMethod(method_type,uri,body_data);
@@ -193,7 +192,7 @@ public class ServicesConnection {
 				int response=client.executeMethod(method);
 				return response;
 			} catch (Exception e) {
-				throw new BadRequestException("Could not connect to "+uri+" at "+base_url,e);
+				throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
 			} finally {
 				method.releaseConnection();
 			}
