@@ -52,8 +52,8 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer, Conf
 	// XXX shouldn't throw CSPDependencyException
 	public MainConfigFactoryImpl(CSPManagerImpl context) throws ConfigLoadFailedException, CSPDependencyException {
 		factory = SAXParserFactory.newInstance();
+		System.err.println(factory.getClass());
 		factory.setNamespaceAware(true);
-		factory.setXIncludeAware(true);
 		TransformerFactory tf=TransformerFactory.newInstance();
 		if (!tf.getFeature(SAXSource.FEATURE) || !tf.getFeature(SAXResult.FEATURE))
 			throw new ConfigLoadFailedException("XSLT transformer doesn't support SAX!");
