@@ -1,0 +1,59 @@
+This package implements a system of finding configuration parameters from disparate sources. Its main tasks are to
+partition into different classes these different methods and to introduce an XML control file format to describe them,
+to allow us to easily change the order and the names of any required keys/paths.
+
+Note that this class is just for the bootstrap configuration, so the actual control file will probably end up being
+rather small, listing only very few options (perhaps only two or three in the end), but a large number of places to 
+look for them, which is why the XML file allows you to specify them is the way around that it is.
+
+ConfigLoadMethod -- the interface implemented by methods
+ConfigLoadController -- the main controller
+ConfigLoadFailedException -- an error occurred during loading
+ConfigOptionSource -- [package scope] internal use, a part of the control file
+
+Methods:
+DefaultConfigLoadMethod -- use string provided (a fallback)
+TmpdirConfigLoadMethod -- use tmpdir (a fallback)
+AttributeConfigLoadMethod -- use servlet attribute (useful during testing)
+PropertyConfigLoadMethod -- load from properties file
+ServicesRespondingConfigLoadMethod -- Expects a URL, but will only return it if the service layer is working at this URL
+
+Format
+------
+
+The XML has a simple format, in two parts, the outside by the bootstrap config itself, and the inside by each method.
+
+Outer Format
+............
+
+The top level tag is <config>. Inside are a number of <option> tags, which have a mandatory attribute "name", which
+is the name by which an option can be retrieved by the code. Inside are a list of tags. The tag name defines which
+method is called. The order of the tags determines the sequence in which the methods are called. If one method succeeds
+(returns non-null), others are not tried.
+
+A method has control on whether its tag has attributes, and what's inside the tag.
+
+A method may also add other tags not called <option> to the top level. Only <config><option> is used by the bootstrap
+controller.
+
+Inner Format
+............
+
+DefaultConfigLoadMethod: <default>[the default]</default>
+
+TmpdirConfigLoadMethod -- <tmpdir/> : return the java system tmpdir as a string
+
+AttributeConfigLoadMethod -- <attribute mkdir="xxx">[attribute key]</attribute> : use the servlet attribute provided.
+                             (mkdir is optional, you probably don't want it. It allows you to treat the key as a 
+                             directory and to create a subdir off of it and then append that to the path. Useful in
+                             some whacky unit tests, but ignore it otherwise.)
+
+PropertyConfigLoadMethod -- <property src="xxx">[property key]</property> : this key in a properties file. src is
+                            optional. Method looks at <properties> tags, directly inside <config> for path. If no src 
+                            is given, then <properties> tag with no name attribute is used. Otherwise, properties tag 
+                            with given name is used. Value of properties tag can include system properties via ${x.y}
+                            type syntax. Looks first in the classpath and then relative to fs root.
+
+ServicesRespondingConfigLoadMethod -- <services suffix="xxx">[url]</services> : looks for a 200 (for now, may get more
+                                      sophisticated) at URL given. suffix, if present, is appended for this test, but
+                                      is not a part of the value returned.
