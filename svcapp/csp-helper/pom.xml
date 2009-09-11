@@ -6,7 +6,7 @@
   <artifactId>csp-helper</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Collection-Space CSP API</name>
+  <name>Collection-Space CSP Helper</name>
   
     <parent>
     <groupId>org.collectionspace</groupId>
@@ -49,7 +49,7 @@
   </dependencies>
   
   <build>
-    <finalName>csp-api</finalName>
+    <finalName>csp-helper</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -58,13 +58,6 @@
           <source>1.5</source>
           <target>1.5</target>
           <optimize>true</optimize>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <outputDirectory>${maven.tomcat.home}</outputDirectory>
         </configuration>
       </plugin>
       <plugin>
