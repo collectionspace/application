@@ -8,6 +8,12 @@
   <name>collectionspace Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
+  <parent>
+    <groupId>org.collectionspace</groupId>
+    <artifactId>svcapp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
   <properties>
     <maven.tomcat.home>/tmp</maven.tomcat.home>
   </properties>
