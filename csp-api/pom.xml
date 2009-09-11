@@ -29,6 +29,12 @@
       <artifactId>json</artifactId>
       <version>20080701</version> <!-- keep version 49.0 ie Java 5 -->
     </dependency>  
+       <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.5</version>
+      <!-- <scope>test</scope> kludge -->
+    </dependency>
   </dependencies>
   
   <build>
