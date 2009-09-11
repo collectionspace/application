@@ -23,5 +23,6 @@
 	<classpathentry kind="var" path="M2_REPO/org/mortbay/jetty/jetty-util/6.1.11/jetty-util-6.1.11.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/collectionspace/csp-helper/1.0-SNAPSHOT/csp-helper-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/collectionspace/jxutils/1.0-SNAPSHOT/jxutils-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/collectionspace/cspi-file/1.0-SNAPSHOT/cspi-file-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
