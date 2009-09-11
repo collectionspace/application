@@ -21,7 +21,6 @@ import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.config.main.ConfigFactory;
 import org.collectionspace.csp.api.config.BarbWirer;
-import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigProvider;
 import org.collectionspace.csp.api.config.ConfigContext;
 import org.collectionspace.csp.api.config.EventContext;
@@ -29,6 +28,7 @@ import org.collectionspace.csp.api.config.EventConsumer;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.impl.core.CSPManagerImpl;
 import org.collectionspace.kludge.ConfigLoadFailedException;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
@@ -41,6 +41,7 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer, Conf
 	private EventConsumer consumer=this;
 	private RootBarbWirer manager=new RootBarbWirer();
 	private Set<ConfigProvider> providers=new HashSet<ConfigProvider>();
+	private BootstrapConfigController bootstrap;
 	
 	/* Only set during testing */
 	void setConsumer(EventConsumer in) { consumer=in; }
@@ -51,6 +52,7 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer, Conf
 	
 	// XXX shouldn't throw CSPDependencyException
 	public MainConfigFactoryImpl(CSPManagerImpl context) throws ConfigLoadFailedException, CSPDependencyException {
+		this.bootstrap=bootstrap;
 		factory = SAXParserFactory.newInstance();
 		System.err.println(factory.getClass());
 		factory.setNamespaceAware(true);
@@ -93,8 +95,11 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer, Conf
 				xform[xform.length-1].setResult(new SAXResult(content_handler));
 			if(url!=null)
 				src.setSystemId(url);
-			// Probably some CSP stuff here
+			// <root>
+			
 			reader.parse(src); // <-- The important line which kicks off the whole parse process
+			// </root>
+			
 			for(ConfigProvider provider : providers)
 				provider.provide(out); // <-- Providers will callback into addConfig
 		} catch(Throwable t) {
