@@ -9,8 +9,6 @@ package org.collectionspace.chain.csp.persistence.file;
 import java.io.File;
 import java.io.IOException;
 
-import org.collectionspace.chain.config.bootstrap.BootstrapConfigController;
-import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigContext;
@@ -21,6 +19,7 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.persistence.ProxyStorage;
+import org.collectionspace.kludge.*;
 
 /**  SplittingStorage which delegates collection-objects to StubJSONStore
  * 
@@ -63,8 +62,8 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, ConfigCon
 		}
 	}
 
-	public void configure(Object bootstrap,Object config) throws CSPDependencyException {
-		String bs=((BootstrapConfigController)bootstrap).getOption("store"); // XXX undo
+	public void configure(BCCKludge bootstrap,Object config) throws CSPDependencyException {
+		String bs=bootstrap.getOption("store"); // XXX undo
 		if(bs!=null) {
 			real_init((String)bs);
 		} else {
