@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<translations xmlns:xtmpl="http://www.collectionspace.org/xtmpl">
+	<translation type="collection-object">
+		<json2xml>
+			<map>
+				<mapping json=".accessionNumber" key="object-number" />
+				<mapping json=".objectNumber" key="other-number" multiple="yes"/>
+				<mapping json=".description" key="description" />
+				<mapping json=".comments" key="comments" />
+				<mapping json=".distinguishingFeatures" key="dist-features" />
+				<mapping json=".objectName" key="object-name" />
+				<mapping json=".responsibledept" key="responsible-dept" />
+				<mapping json=".objectTitle" key="title" />
+			</map>
+			<template>
+				<ns2:collection-object xmlns:ns2="http://collectionspace.org/hello">
+					<objectNumber xtmpl:point="object-number">2</objectNumber>
+					<otherNumber xtmpl:point="other-number">3</otherNumber>
+					<briefDescription xtmpl:point="description">description</briefDescription>
+					<comments xtmpl:point="comments"></comments>
+					<distFeatures xtmpl:point="dist-features"></distFeatures>
+					<objectName xtmpl:point="object-name">Left-handed screwdriver</objectName>
+					<responsibleDept xtmpl:point="responsible-dept"></responsibleDept>
+					<title xtmpl:point="title"></title>
+				</ns2:collection-object>
+			</template>
+		</json2xml>
+		<xml2json>
+			<map>
+				<mapping xpath="collection-object/objectNumber" key="object-number"/>
+				<mapping xpath="collection-object/otherNumber" key="other-number" multiple="yes"/>
+				<mapping xpath="collection-object/briefDescription" key="description"/>
+				<mapping xpath="collection-object/comments" key="comments"/>
+				<mapping xpath="collection-object/distFeatures" key="dist-features"/>
+				<mapping xpath="collection-object/objectName" key="object-name"/>
+				<mapping xpath="collection-object/responsibleDept" key="responsible-dept"/>
+				<mapping xpath="collection-object/title" key="title"/>				
+			</map>
+			<template>
+			  {
+			      "accessionNumber": "\u0000object-number",
+			      "objectNumber": "\u0000other-number",
+			      "description": "\u0000description",
+			      "comments": "\u0000comments",
+			      "distinguishingFeatures": "\u0000dist-features",
+			      "objectName": "\u0000object-name",
+			      "responsibledept": "\u0000responsible-dept",
+			      "objectTitle": "\u0000title"
+			  }
+			</template>
+		</xml2json>
+	</translation>
+</translations>
