@@ -62,13 +62,12 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, ConfigCon
 		}
 	}
 
-	public void configure(BCCKludge bootstrap,CRKludge config) throws CSPDependencyException {
-		String bs=bootstrap.getOption("store"); // XXX undo
-		if(bs!=null) {
-			real_init((String)bs);
+	public void configure(CRKludge config) throws CSPDependencyException {
+		Object store=config.getValue(new Object[]{"bootstrap","store"});
+		if(store!=null && (store instanceof String)) {
+			real_init((String)store);
 		} else {
-			// XXX
-			Object store=config.getValue(new Object[]{"persistence","file","store"});
+			store=config.getValue(new Object[]{"persistence","file","store"});
 			if(store==null || !(store instanceof String))
 				return;
 			real_init((String)store);
