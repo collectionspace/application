@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.collectionspace.csp.api.config.EventContext;
 import org.collectionspace.csp.api.config.EventConsumer;
+import org.collectionspace.csp.helper.config.impl.EventContextImpl;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
