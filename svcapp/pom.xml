@@ -7,8 +7,10 @@
   <version>1.0-SNAPSHOT</version>
   <artifactId>svcapp</artifactId>
   <packaging>pom</packaging>
+  <name>Root</name>
   <modules>
     <module>csp-api</module>
+    <module>bconfig-utils</module>
     <module>jxutils</module>
     <module>csp-helper</module>
 
