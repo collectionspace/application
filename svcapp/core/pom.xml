@@ -7,7 +7,6 @@
   <version>1.0-SNAPSHOT</version>
   <name>collectionspace Maven Webapp</name>
   <url>http://maven.apache.org</url>
-  <outputDirectory>/tmp</outputDirectory>
 
   <properties>
     <maven.tomcat.home>/tmp</maven.tomcat.home>
