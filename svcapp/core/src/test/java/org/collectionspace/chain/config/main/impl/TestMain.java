@@ -2,9 +2,9 @@ package org.collectionspace.chain.config.main.impl;
 
 import static org.junit.Assert.*;
 
-import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.config.main.impl.MainConfigFactoryImpl;
 import org.collectionspace.chain.csp.config.CoreConfig;
+import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.helper.config.LeafBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;

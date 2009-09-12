@@ -18,11 +18,11 @@ import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.config.main.ConfigFactory;
 import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigProvider;
 import org.collectionspace.csp.api.config.ConfigContext;
+import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.config.EventContext;
 import org.collectionspace.csp.api.config.EventConsumer;
 import org.collectionspace.csp.api.core.CSPDependencyException;
