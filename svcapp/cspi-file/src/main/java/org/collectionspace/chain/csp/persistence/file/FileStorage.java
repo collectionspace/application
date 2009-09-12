@@ -20,7 +20,6 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.persistence.ProxyStorage;
-import org.collectionspace.kludge.*;
 
 /**  SplittingStorage which delegates collection-objects to StubJSONStore
  * 
