@@ -16,7 +16,6 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -37,7 +36,7 @@ public class BootstrapConfigController {
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(config_file);
 	}
 	
-	private Document loadConfigLoader() throws ConfigLoadFailedException, DocumentException, IOException {
+	private Document loadConfigLoader() throws BootstrapConfigLoadFailedException, DocumentException, IOException {
 		InputStream config=null;
 		for(String suffix : suffixes) {
 			config=tryPath(suffix);
@@ -45,7 +44,7 @@ public class BootstrapConfigController {
 				break;
 		}
 		if(config==null)
-			throw new ConfigLoadFailedException("Cannot find config-loader.xml");
+			throw new BootstrapConfigLoadFailedException("Cannot find config-loader.xml");
 		SAXReader reader=new SAXReader();
 		Document out=reader.read(config);
 		config.close();
@@ -62,12 +61,12 @@ public class BootstrapConfigController {
 		suffixes.add("config-loader.xml");
 	}
 		
-	private void loadMethod(Document root,String name,ConfigLoadMethod method) throws ConfigLoadFailedException {
+	private void loadMethod(Document root,String name,ConfigLoadMethod method) throws BootstrapConfigLoadFailedException {
 		methods.put(name,method);
 		method.init(this,root);
 	}
 	
-	private void loadMethods(Document root) throws ConfigLoadFailedException {
+	private void loadMethods(Document root) throws BootstrapConfigLoadFailedException {
 		loadMethod(root,"default",new DefaultConfigLoadMethod());
 		loadMethod(root,"attribute",new AttributeConfigLoadMethod());
 		loadMethod(root,"property",new PropertyConfigLoadMethod());		
@@ -76,7 +75,7 @@ public class BootstrapConfigController {
 		loadMethod(root,"classpath",new ClasspathConfigLoadMethod());
 	}
 	
-	private List<ConfigOptionSource> loadSources(Element el) throws ConfigLoadFailedException {
+	private List<ConfigOptionSource> loadSources(Element el) throws BootstrapConfigLoadFailedException {
 		List<ConfigOptionSource> out=new ArrayList<ConfigOptionSource>();
 		for(Object tag : el.selectNodes("*")) {
 			if(!(tag instanceof Element))
@@ -84,13 +83,13 @@ public class BootstrapConfigController {
 			String name=((Element)tag).getName();
 			ConfigLoadMethod method=methods.get(name);
 			if(method==null)
-				throw new ConfigLoadFailedException("No such method "+name);
+				throw new BootstrapConfigLoadFailedException("No such method "+name);
 			out.add(new ConfigOptionSource(method,(Element)tag));
 		}
 		return out;
 	}
 	
-	public void go() throws ConfigLoadFailedException {
+	public void go() throws BootstrapConfigLoadFailedException {
 		try {
 			Document config_loader=loadConfigLoader();
 			loadMethods(config_loader);
@@ -99,13 +98,13 @@ public class BootstrapConfigController {
 					continue; // Should be impossible
 				String name=((Element)el).attributeValue("name");
 				if(StringUtils.isBlank(name))
-					throw new ConfigLoadFailedException("option tag needs name attribute");
+					throw new BootstrapConfigLoadFailedException("option tag needs name attribute");
 				sources.put(name.trim(),loadSources((Element)el));
 			}			
-		} catch(ConfigLoadFailedException e) {
+		} catch(BootstrapConfigLoadFailedException e) {
 			throw e; // Don't wrap
 		} catch(Exception e) {
-			throw new ConfigLoadFailedException("Nested exception loading config",e);
+			throw new BootstrapConfigLoadFailedException("Nested exception loading config",e);
 		}
 	}
 	

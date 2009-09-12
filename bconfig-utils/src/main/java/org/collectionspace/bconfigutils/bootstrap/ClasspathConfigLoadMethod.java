@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
@@ -25,6 +24,6 @@ public class ClasspathConfigLoadMethod implements ConfigLoadMethod {
 		}
 	}
 
-	public void init(BootstrapConfigController controller, Document root) throws ConfigLoadFailedException {}
+	public void init(BootstrapConfigController controller, Document root) throws BootstrapConfigLoadFailedException {}
 
 }
