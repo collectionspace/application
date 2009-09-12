@@ -4,15 +4,14 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.junit.Test;
 
 public class TestConfig {
-	@Test public void testBasic() throws ConfigLoadFailedException {
+	@Test public void testBasic() throws BootstrapConfigLoadFailedException {
 		System.setProperty("test_property","org/collectionspace/bconfigutils/bootstrap");
 		BootstrapConfigController config_controller=new BootstrapConfigController(null);
 		config_controller.addSearchSuffix("test-config-loader.xml");

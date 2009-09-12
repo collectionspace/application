@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.config.main.impl.BootstrapCSP;
 import org.collectionspace.chain.csp.config.CoreConfig;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
@@ -37,7 +38,6 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.dom4j.DocumentException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -105,13 +105,13 @@ public class ChainServlet extends HttpServlet
 		cspm.register(new BootstrapCSP(config.getController()));
 	}
 
-	private void load_config() throws ConfigLoadFailedException, CSPDependencyException {
+	private void load_config() throws BootstrapConfigLoadFailedException, CSPDependencyException {
 		try {
 			CSPManager cspm=global.getCSPManager();
 			InputStream stream=new ByteArrayInputStream(config.getMainConfigFileLocation().getBytes("UTF-8"));
 			cspm.configure(new InputSource(stream),null); // XXX not null
 		} catch (UnsupportedEncodingException e) {
-			throw new ConfigLoadFailedException("Config has bad character encoding",e);
+			throw new BootstrapConfigLoadFailedException("Config has bad character encoding",e);
 		}
 	}
 	
@@ -134,7 +134,7 @@ public class ChainServlet extends HttpServlet
 			}
 		} catch (IOException e) {
 			throw new BadRequestException("Cannot load config"+e,e);
-		} catch (ConfigLoadFailedException e) {
+		} catch (BootstrapConfigLoadFailedException e) {
 			throw new BadRequestException("Cannot load config"+e,e);
 		} catch (InvalidJXJException e) { // XXX better exception handling in ServicesStorage constructor
 			throw new BadRequestException("Cannot load backend"+e,e);

@@ -10,15 +10,15 @@ import java.io.IOException;
 
 import javax.servlet.ServletContext;
 
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 
 // XXX This class will soon die, as things get moved into CSPs.
 
 public class Config {
 	private BootstrapConfigController controller;
 	
-	public Config(ServletContext ctx) throws IOException, ConfigLoadFailedException {
+	public Config(ServletContext ctx) throws IOException, BootstrapConfigLoadFailedException {
 		controller=new BootstrapConfigController(ctx);
 		controller.go();
 	}
