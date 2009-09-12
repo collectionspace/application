@@ -6,11 +6,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.collectionspace.chain.config.main.ConfigFactory;
-import org.collectionspace.chain.config.main.ConfigRoot;
 import org.collectionspace.chain.config.main.impl.MainConfigFactoryImpl;
 import org.collectionspace.csp.api.config.ConfigContext;
 import org.collectionspace.csp.api.config.ConfigProvider;
 import org.collectionspace.csp.api.config.ConfigConsumer;
+import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.config.Configurable;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSP;

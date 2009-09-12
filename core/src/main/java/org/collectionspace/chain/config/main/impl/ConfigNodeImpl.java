@@ -3,7 +3,7 @@ package org.collectionspace.chain.config.main.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.collectionspace.chain.config.main.ConfigNode;
+import org.collectionspace.csp.api.config.ConfigNode;
 import org.collectionspace.csp.api.config.Evaluator;
 
 public class ConfigNodeImpl implements ConfigNode {
