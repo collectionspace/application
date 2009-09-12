@@ -56,6 +56,11 @@ public class BootstrapConfigController {
 		suffixes.add(0,extra);
 	}
 
+	public BootstrapConfigController() {
+		this.ctx=null;
+		suffixes.add("config-loader.xml");		
+	}
+	
 	public BootstrapConfigController(ServletContext ctx) {
 		this.ctx=ctx;
 		suffixes.add("config-loader.xml");
