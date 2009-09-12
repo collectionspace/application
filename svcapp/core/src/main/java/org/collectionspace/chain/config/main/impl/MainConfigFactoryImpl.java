@@ -27,8 +27,8 @@ import org.collectionspace.csp.api.config.EventContext;
 import org.collectionspace.csp.api.config.EventConsumer;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.impl.core.CSPManagerImpl;
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
@@ -51,29 +51,29 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer, Conf
 	public void addConfigProvider(ConfigProvider provider) { providers.add(provider); }
 	
 	// XXX shouldn't throw CSPDependencyException
-	public MainConfigFactoryImpl(CSPManagerImpl context) throws ConfigLoadFailedException, CSPDependencyException {
+	public MainConfigFactoryImpl(CSPManagerImpl context) throws BootstrapConfigLoadFailedException, CSPDependencyException {
 		this.bootstrap=bootstrap;
 		factory = SAXParserFactory.newInstance();
 		System.err.println(factory.getClass());
 		factory.setNamespaceAware(true);
 		TransformerFactory tf=TransformerFactory.newInstance();
 		if (!tf.getFeature(SAXSource.FEATURE) || !tf.getFeature(SAXResult.FEATURE))
-			throw new ConfigLoadFailedException("XSLT transformer doesn't support SAX!");
+			throw new BootstrapConfigLoadFailedException("XSLT transformer doesn't support SAX!");
 		transfactory=(SAXTransformerFactory)tf;
 		messages=new ConfigLoadingMessagesImpl(); // In the end we probably want to pass this in
 		providers=new HashSet<ConfigProvider>(context.getConfigProviders());
 		context.runConfigConsumers(this);
 	}
 	
-	public void addXSLT(InputStream in) throws ConfigLoadFailedException {
+	public void addXSLT(InputStream in) throws BootstrapConfigLoadFailedException {
 		try {
 			xslts.add(IOUtils.toByteArray(in));
 		} catch (IOException e) {
-			throw new ConfigLoadFailedException("Cannot add XSLT",e);
+			throw new BootstrapConfigLoadFailedException("Cannot add XSLT",e);
 		}
 	}
 	
-	public ConfigRoot parseConfig(InputSource src,String url) throws ConfigLoadFailedException {
+	public ConfigRoot parseConfig(InputSource src,String url) throws BootstrapConfigLoadFailedException {
 		ConfigImpl out=new ConfigImpl();
 		ConfigErrorHandler errors=new ConfigErrorHandler(messages);
 		try {

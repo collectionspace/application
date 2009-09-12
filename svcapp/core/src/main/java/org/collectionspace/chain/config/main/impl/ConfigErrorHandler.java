@@ -2,10 +2,11 @@ package org.collectionspace.chain.config.main.impl;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import org.collectionspace.kludge.ConfigLoadFailedException;
 
 public class ConfigErrorHandler implements ErrorHandler {
 	private List<Throwable> errors=new ArrayList<Throwable>();
@@ -55,7 +56,7 @@ public class ConfigErrorHandler implements ErrorHandler {
 	public void fatalError(SAXParseException e) throws SAXException { any_error(e); }
 	public void warning(SAXParseException e) throws SAXException { any_warning(e); }
 
-	public void fail_if_necessary() throws ConfigLoadFailedException { 
+	public void fail_if_necessary() throws BootstrapConfigLoadFailedException { 
 		if(errors.size()==0)
 			return;
 		StringBuffer out=new StringBuffer();
@@ -68,6 +69,6 @@ public class ConfigErrorHandler implements ErrorHandler {
 			}
 			out.append(' ');
 		}
-		throw new ConfigLoadFailedException(out.toString());
+		throw new BootstrapConfigLoadFailedException(out.toString());
 	}
 }
