@@ -24,5 +24,6 @@
 	<classpathentry kind="var" path="M2_REPO/commons-codec/commons-codec/1.3/commons-codec-1.3.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/collectionspace/bconfig-utils/1.0-SNAPSHOT/bconfig-utils-1.0-SNAPSHOT.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jxutils"/>
+	<classpathentry kind="src" path="/bconfig-utils"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

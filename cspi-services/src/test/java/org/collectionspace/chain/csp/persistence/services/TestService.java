@@ -13,10 +13,9 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
-import org.collectionspace.kludge.*;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 
 public class TestService extends ServicesBaseClass {
 	private Random rnd=new Random();
@@ -32,7 +31,7 @@ public class TestService extends ServicesBaseClass {
 		return reader.read(getResource(name));
 	}
 	
-	@Before public void checkServicesRunning() throws ConfigLoadFailedException, ConnectionException {
+	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
 		setup();
 	}
 	

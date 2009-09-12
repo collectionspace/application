@@ -7,12 +7,12 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.chain.util.json.JSONUtils;
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.dom4j.Node;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,7 +45,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		}
 	}
 	
-	@Before public void checkServicesRunning() throws ConnectionException, ConfigLoadFailedException {
+	@Before public void checkServicesRunning() throws ConnectionException, BootstrapConfigLoadFailedException {
 		setup();
 	}
 	
