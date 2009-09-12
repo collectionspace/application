@@ -7,7 +7,7 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
-import org.collectionspace.kludge.JSONTestUtil;
+import org.collectionspace.chain.util.json.JSONTestUtil;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -61,11 +61,11 @@ public class TestServiceThroughWebapp {
 		assertEquals(out.getMethod(),null);
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
-		JSONTestUtil.assertJSONEquiv(new JSONObject(getResourceString("obj3.json")),new JSONObject(out.getContent()));
+		assertTrue(JSONTestUtil.checkJSONEquiv(new JSONObject(getResourceString("obj3.json")),new JSONObject(out.getContent())));
 		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",getResourceString("obj4.json"));
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
-		JSONTestUtil.assertJSONEquiv(new JSONObject(getResourceString("obj4.json")),new JSONObject(out.getContent()));		
+		assertTrue(JSONTestUtil.checkJSONEquiv(new JSONObject(getResourceString("obj4.json")),new JSONObject(out.getContent())));		
 		out=jettyDo(jetty,"DELETE","/chain/objects/test-json-handle.tmp",null);
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
 		assertTrue(out.getStatus()!=200); // XXX should be 404

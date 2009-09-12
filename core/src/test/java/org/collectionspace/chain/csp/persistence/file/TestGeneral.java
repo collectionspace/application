@@ -20,11 +20,11 @@ import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
 import org.collectionspace.chain.harness.HarnessServlet;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
+import org.collectionspace.chain.util.json.JSONTestUtil;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
-import org.collectionspace.kludge.JSONTestUtil;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
@@ -87,7 +87,7 @@ public class TestGeneral {
 		store.createJSON("/objects/json1.test", jsonObject);
 		JSONObject resultObj = store.retrieveJSON("/objects/json1.test");
 		JSONObject testObj = new JSONObject(testStr);
-		JSONTestUtil.assertJSONEquiv(resultObj,testObj);
+		assertTrue(JSONTestUtil.checkJSONEquiv(resultObj,testObj));
 	}
 
 	@Test public void testJSONNotExist() throws JSONException, UnderlyingStorageException, UnimplementedException {
@@ -106,7 +106,7 @@ public class TestGeneral {
 		store.updateJSON("/objects/json1.test", jsonObject);		
 		JSONObject resultObj = store.retrieveJSON("/objects/json1.test");
 		JSONObject testObj = new JSONObject(testStr);
-		JSONTestUtil.assertJSONEquiv(resultObj,testObj);
+		assertTrue(JSONTestUtil.checkJSONEquiv(resultObj,testObj));
 	}
 
 	@Test public void testJSONNoUpdateNonExisting() throws ExistException, JSONException, UnderlyingStorageException, UnimplementedException {
@@ -287,11 +287,11 @@ public class TestGeneral {
 		HttpTester out=jettyDo(jetty,"GET","/chain/objects/schema/test-json-handle.tmp",null);
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
-		JSONTestUtil.assertJSONEquiv(new JSONObject(testStr2),new JSONObject(out.getContent()));
+		assertTrue(JSONTestUtil.checkJSONEquiv(new JSONObject(testStr2),new JSONObject(out.getContent())));
 		out=jettyDo(jetty,"GET","/chain/intake/schema/test-json-handle.tmp",null);
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
-		JSONTestUtil.assertJSONEquiv(new JSONObject(testStr),new JSONObject(out.getContent()));
+		assertTrue(JSONTestUtil.checkJSONEquiv(new JSONObject(testStr),new JSONObject(out.getContent())));
 	}
 
 	@Test public void testServeStatic() throws Exception {
