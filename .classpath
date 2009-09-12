@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="bconfig-utils/src/main/java"/>
-	<classpathentry kind="src" path="cspi-services/src/main/resources"/>
-	<classpathentry kind="src" path="jxutils/src/main/java"/>
-	<classpathentry kind="src" path="csp-api/src/main/java"/>
 	<classpathentry kind="src" path="bconfig-utils/src/main/resources"/>
-	<classpathentry kind="src" path="cspi-services/src/main/java"/>
-	<classpathentry kind="src" path="core/src/test/resources"/>
-	<classpathentry kind="src" path="jxutils/src/test/resources"/>
-	<classpathentry kind="src" path="cspi-services/src/test/resources"/>
-	<classpathentry kind="src" path="core/src/test/java"/>
-	<classpathentry kind="src" path="cspi-file/src/main/java"/>
-	<classpathentry kind="src" path="core/src/main/resources"/>
-	<classpathentry kind="src" path="cspi-services/src/test/java"/>
-	<classpathentry kind="src" path="jxutils/src/test/java"/>
-	<classpathentry kind="src" path="csp-helper/src/main/java"/>
 	<classpathentry kind="src" path="core/src/main/java"/>
+	<classpathentry kind="src" path="core/src/main/resources"/>
+	<classpathentry kind="src" path="core/src/test/java"/>
+	<classpathentry kind="src" path="core/src/test/resources"/>
+	<classpathentry kind="src" path="csp-api/src/main/java"/>
+	<classpathentry kind="src" path="csp-helper/src/main/java"/>
+	<classpathentry kind="src" path="cspi-file/src/main/java"/>
+	<classpathentry kind="src" path="cspi-services/src/main/java"/>
+	<classpathentry kind="src" path="cspi-services/src/main/resources"/>
+	<classpathentry kind="src" path="cspi-services/src/test/java"/>
+	<classpathentry kind="src" path="cspi-services/src/test/resources"/>
+	<classpathentry kind="src" path="jxutils/src/main/java"/>
+	<classpathentry kind="src" path="jxutils/src/test/resources"/>
+	<classpathentry kind="src" path="jxutils/src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-io/commons-io/1.4/commons-io-1.4.jar"/>
