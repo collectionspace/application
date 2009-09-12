@@ -9,6 +9,7 @@ package org.collectionspace.chain.csp.persistence.services;
 import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigContext;
+import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.config.Configurable;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
@@ -16,7 +17,6 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
-import org.collectionspace.kludge.CRKludge;
 
 /** The direct implementation of storage; only an instance of SplittingStorage which at the moment only splits
  * into ServicesCollectionObjectStorage.
@@ -56,7 +56,7 @@ public class ServicesStorage extends SplittingStorage implements CSP, Storage, C
 		}
 	}
 	
-	public void configure(CRKludge config) throws CSPDependencyException { // XXX
+	public void configure(ConfigRoot config) throws CSPDependencyException { // XXX
 		Object store=config.getValue(new Object[]{"bootstrap","store-url"});
 		if(store!=null && (store instanceof String)) {
 			real_init((String)store);
