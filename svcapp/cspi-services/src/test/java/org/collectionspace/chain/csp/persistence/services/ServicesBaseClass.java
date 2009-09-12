@@ -9,7 +9,7 @@ public class ServicesBaseClass {
 	protected String base;
 
 	protected void setup() throws BootstrapConfigLoadFailedException, ConnectionException {
-		BootstrapConfigController config_controller=new BootstrapConfigController(null);
+		BootstrapConfigController config_controller=new BootstrapConfigController();
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
 		base=config_controller.getOption("services-url");

@@ -136,7 +136,7 @@
       <type>jar</type>
     </dependency>
     
-    <!-- kludge -->
+    <!-- required to get tests to compile because of use of serlvet in bconfig-utils. Not actually needed. -->
             <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
