@@ -11,7 +11,7 @@ import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
 import org.collectionspace.csp.api.persistence.ExistException;
-import org.collectionspace.kludge.JSONTestUtil;
+import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.dom4j.Node;
 import org.json.JSONException;
@@ -54,7 +54,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
 		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+name);
-		JSONTestUtil.assertJSONEquiv(js,getJSON("obj3.json"));
+		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj3.json")));
 	}
 
 	@Test public void testObjectsPost() throws Exception {
@@ -63,7 +63,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		ss.updateJSON("collection-object/"+name,getJSON("obj4.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+name);
-		JSONTestUtil.assertJSONEquiv(js,getJSON("obj4.json"));
+		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj4.json")));
 	}
 
 	@Test public void testObjectsDelete() throws Exception {
@@ -71,7 +71,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
 		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+name);
-		JSONTestUtil.assertJSONEquiv(js,getJSON("obj3.json"));
+		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj3.json")));
 		ss.deleteJSON("collection-object/"+name);
 		try {
 			ss.retrieveJSON("collection-object/"+name);
@@ -105,6 +105,6 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
 		ss.createJSON("collection-object/def",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/def");
-		JSONTestUtil.assertJSONEquiv(js,getJSON("obj3.json"));
+		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj3.json")));
 	}
 }
