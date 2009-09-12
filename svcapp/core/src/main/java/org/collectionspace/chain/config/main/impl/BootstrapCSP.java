@@ -15,9 +15,6 @@ import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 
-/**  SplittingStorage which delegates collection-objects to StubJSONStore
- * 
- */
 public class BootstrapCSP implements CSP, ConfigConsumer, ConfigProvider {
 	private BootstrapConfigController bootstrap;
 	
