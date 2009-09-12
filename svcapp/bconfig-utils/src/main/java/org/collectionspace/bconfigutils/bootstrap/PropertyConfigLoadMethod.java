@@ -16,7 +16,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
@@ -41,7 +40,7 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 		return sb.toString();
 	}
 	
-	private Properties loadProperties(String name) throws ConfigLoadFailedException {
+	private Properties loadProperties(String name) throws BootstrapConfigLoadFailedException {
 		try {
 			Properties out=new Properties();
 			String path=substitute_system_props(name);
@@ -61,7 +60,7 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 		}
 	}
 
-	public void init(BootstrapConfigController controller,Document root) throws ConfigLoadFailedException {
+	public void init(BootstrapConfigController controller,Document root) throws BootstrapConfigLoadFailedException {
 		for(Object location : root.selectNodes("config/properties")) {
 			if(!(location instanceof Element))
 				continue;

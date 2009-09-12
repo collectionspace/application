@@ -6,12 +6,9 @@
  */
 package org.collectionspace.bconfigutils.bootstrap;
 
-
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
@@ -41,5 +38,5 @@ public class ServicesRespondingConfigLoadMethod implements ConfigLoadMethod {
 		return null;
 	}
 
-	public void init(BootstrapConfigController controller, Document root) throws ConfigLoadFailedException {}
+	public void init(BootstrapConfigController controller, Document root) throws BootstrapConfigLoadFailedException {}
 }

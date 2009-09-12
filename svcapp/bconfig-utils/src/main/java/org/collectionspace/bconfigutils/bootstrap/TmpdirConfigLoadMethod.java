@@ -6,7 +6,6 @@
  */
 package org.collectionspace.bconfigutils.bootstrap;
 
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.slf4j.Logger;
@@ -23,5 +22,5 @@ public class TmpdirConfigLoadMethod implements ConfigLoadMethod {
 	}
 
 	public void init(BootstrapConfigController controller, Document root)
-			throws ConfigLoadFailedException {}
+			throws BootstrapConfigLoadFailedException {}
 }

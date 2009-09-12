@@ -6,7 +6,6 @@
  */
 package org.collectionspace.bconfigutils.bootstrap;
 
-import org.collectionspace.kludge.ConfigLoadFailedException;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
@@ -16,5 +15,5 @@ public class DefaultConfigLoadMethod implements ConfigLoadMethod {
 	public String getString(Element e) { return e.getTextTrim(); }
 
 	public void init(BootstrapConfigController controller, Document root)
-			throws ConfigLoadFailedException {}
+			throws BootstrapConfigLoadFailedException {}
 }
