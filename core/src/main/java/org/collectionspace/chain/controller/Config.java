@@ -36,6 +36,10 @@ public class Config {
 	public String getLoginDestination() {
 		return controller.getOption("login-dest");
 	}
+
+	public String getFailedLoginDestination() {
+		return controller.getOption("failed-login-dest");
+	}
 	
 	public String getMainConfigFileLocation() {
 		return controller.getOption("main-config");
