@@ -37,6 +37,13 @@
     <property>cspace.chain.login.dest</property>
     <default>/cspace-ui/html/createnew.html</default>
   </option>
+
+  <option name="failed-login-dest">
+    <attribute>test-failed-login-dest</attribute>
+    <property src="jboss">cspace.chain.login.failed.dest</property>
+    <property>cspace.chain.login.failed.dest</property>
+    <default>/cspace-ui/html/index.html</default>
+  </option>
   
   <option name="main-config">
     <attribute>test-main-config</attribute>

@@ -193,6 +193,7 @@ public class ChainServlet extends HttpServlet
 			request.setStatus(303);
 		} else {
 			// XXX temporary failure
+			request.redirect(config.getFailedLoginDestination());
 			request.setStatus(403);
 		}
 	}
