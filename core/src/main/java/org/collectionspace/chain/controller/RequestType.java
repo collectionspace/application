@@ -10,10 +10,11 @@ package org.collectionspace.chain.controller;
  * including path, parameters, etc.
  * 
  * STORE: store/retrieve of object data
+ * AUTO: retrieve of template for page
  * SCHEMA: retrieve schema
  * LIST: list all members
  * LOGIN: login page
  */
 public enum RequestType {
-	STORE,SCHEMA,LIST,RESET,LOGIN;
+	STORE,SCHEMA,LIST,RESET,LOGIN,AUTO;
 }
