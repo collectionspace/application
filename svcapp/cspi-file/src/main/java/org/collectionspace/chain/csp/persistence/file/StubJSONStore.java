@@ -22,13 +22,14 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
+// XXX ids should be a separate service, not mixed in here: currently lacking the delegation and priority system
 /** An implementation of Storage which uses the filesystem.
  * 
  * We require exactly one slash: the storage type. If the prefix doesn't exist, we create it.
  */
 public class StubJSONStore implements Storage {
 	private String store_root;
+	private IdGenerator id;
 	private static final Random rnd=new Random();
 
 	/** Generate a file from a path.
@@ -76,12 +77,24 @@ public class StubJSONStore implements Storage {
 	 */
 	public StubJSONStore(String store_root) {
 		this.store_root=store_root;
+		id=new IdGenerator(store_root);
 	}
 
+	private boolean idRequest(String path) {
+		if(path.startsWith("/"))
+			path=path.substring(1);
+		String[] parts=path.split("/");
+		if(parts.length!=2)
+			return false; // Error will be thrown in due course
+		return "id".equals(parts[0]);
+	}
+	
 	/* (non-Javadoc)
 	 * @see org.collectionspace.JSONStore#retrieveJson(java.lang.String)
 	 */
-	public JSONObject retrieveJSON(String filePath) throws ExistException, UnderlyingStorageException {
+	public JSONObject retrieveJSON(String filePath) throws ExistException, UnderlyingStorageException, UnimplementedException {
+		if(idRequest(filePath))
+			return id.retrieveJSON(filePath);
 		File jsonFile = fileFromPath(filePath);
 		if (!jsonFile.exists()) {
 			throw new ExistException("No such file: " + filePath);
@@ -104,11 +117,15 @@ public class StubJSONStore implements Storage {
 	/* (non-Javadoc)
 	 * @see org.collectionspace.JSONStore#storeJson(java.lang.String, org.json.JSONObject)
 	 */
-	public void createJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException {
+	public void createJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException, UnimplementedException {
+		if(idRequest(filePath))
+			id.createJSON(filePath,jsonObject);
 		set(filePath,jsonObject,true);
 	}
 
-	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException {
+	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException, UnimplementedException {
+		if(idRequest(filePath))
+			id.updateJSON(filePath,jsonObject);
 		set(filePath,jsonObject,false);
 	}
 
@@ -128,7 +145,9 @@ public class StubJSONStore implements Storage {
 		}
 	}
 
-	public String[] getPaths(String subdir) {
+	public String[] getPaths(String subdir) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		if("id".equals(subdir))
+			return id.getPaths("");
 		File dir=dirFromPath(subdir);
 		if(!dir.isDirectory())
 			return new String[]{};
@@ -150,6 +169,8 @@ public class StubJSONStore implements Storage {
 	}
 
 	public String autocreateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		if("id".equals(filePath))
+			id.autocreateJSON("",jsonObject);
 		while(true) {
 			int tail=rnd.nextInt(Integer.MAX_VALUE);
 			String filename=filePath+"/"+tail;
@@ -163,6 +184,8 @@ public class StubJSONStore implements Storage {
 	}
 
 	public void deleteJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		if(idRequest(filePath))
+			id.deleteJSON(filePath);
 		File jsonFile = fileFromPath(filePath);
 		if (!jsonFile.exists()) {
 			throw new ExistException("No such file: " + filePath);

@@ -62,6 +62,7 @@ public class ChainServlet extends HttpServlet
 		controller_types.add("collection-object");
 		controller_types.add("intake");
 		controller_types.add("acquisition");
+		controller_types.add("id");
 		
 		users.add("guest");
 		users.add("curator");

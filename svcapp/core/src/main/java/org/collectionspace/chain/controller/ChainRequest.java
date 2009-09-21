@@ -48,6 +48,7 @@ public class ChainRequest {
 		url_to_type.put("objects","collection-object");
 		url_to_type.put("intake","intake");
 		url_to_type.put("acquisition","acquisition");
+		url_to_type.put("id","id");
 	}
 	
 	private void perhapsStartsWith(String what,RequestType rq,String path,String record,String record_url) throws BadRequestException {
