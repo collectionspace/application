@@ -47,7 +47,9 @@ public class TestGeneral {
 
 	private final static String testStr2 = "{\"a\":\"b\"}";
 
+	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***abc%%%%.@***\"}";
 
+	
 	private FileStorage store;
 	private static String tmp=null;
 
@@ -280,6 +282,25 @@ public class TestGeneral {
 		assertEquals(testStr,out.getContent());
 	}
 
+	@Test public void testAutoGet() throws Exception {
+		deleteSchemaFile("collection-object",false);
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/__auto",testStr3);
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
+		// XXX algorithm will change.
+		JSONObject data=new JSONObject(out.getContent());
+		assertEquals("b",data.get("a"));
+		String v=data.getString("id");
+		assertNotNull(v);
+		assertEquals(9,v.length());
+		assertTrue(v.startsWith("abc"));
+		assertEquals(".",v.substring(7,8));
+		assertTrue(Character.isLowerCase(v.charAt(8)));
+		for(int i=3;i<7;i++)
+			assertTrue(Character.isDigit(v.charAt(i)));
+	}
+	
 	@Test public void testMultipleSchemas() throws Exception {
 		ServletTester jetty=setupJetty();
 		createSchemaFile("collection-object",false,true);

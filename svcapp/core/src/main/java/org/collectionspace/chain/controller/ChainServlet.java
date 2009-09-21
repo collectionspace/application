@@ -222,6 +222,7 @@ public class ChainServlet extends HttpServlet
 			case SCHEMA:
 			case STORE:
 			case LIST:
+			case AUTO:
 				getController(request).doGet(request,request.getPathTail());
 				break;
 			}

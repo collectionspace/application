@@ -2,6 +2,10 @@ package org.collectionspace.chain.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,6 +21,12 @@ import org.json.JSONObject;
 public class RecordController {
 	private String base;
 	private ControllerGlobal global;
+	private static final Pattern id_pattern=Pattern.compile("\\*\\*\\*(.*)\\*\\*\\*");
+	private static final Random rnd=new Random();
+	private static final char[] letters=new char[]{'a','b','c','d','e','f','g','h','i','j',
+												   'k','l','m','n','o','p','q','r','s','t',
+												   'u','v','w','x','y','z'};
+	private static final char[] digits=new char[]{'0','1','2','3','4','5','6','7','8','9'};
 	
 	RecordController(ControllerGlobal global,String base) {
 		this.base=base;
@@ -50,6 +60,39 @@ public class RecordController {
 		return out;
 	}
 
+	private String xxx_replace_number(String in) {
+		Matcher m=id_pattern.matcher(in);
+		if(!m.matches())
+			return in;
+		StringBuffer out=new StringBuffer();
+		for(int i=0;i<m.group(1).length();i++) {
+			char c=m.group(1).charAt(i);
+			switch(c) {
+			case '@':
+				c=letters[rnd.nextInt(letters.length)];
+				break;
+			case '%':
+				c=digits[rnd.nextInt(digits.length)];
+				break;
+			default:
+				break;
+			}
+			out.append(c);
+		}
+		return out.toString();
+	}
+	
+	private JSONObject replaceNumbers(JSONObject in) throws JSONException {
+		JSONObject out=new JSONObject();
+		Iterator<?> keys=in.keys();
+		while(keys.hasNext()) {
+			String k=(String)keys.next();
+			String v=in.getString(k);
+			out.put(k,xxx_replace_number(v));
+		}
+		return out;
+	}
+	
 	void doGet(ChainRequest request,String path) throws BadRequestException, IOException {
 		PrintWriter out;
 		switch(request.getType()) {
@@ -60,6 +103,20 @@ public class RecordController {
 			out = request.getJSONWriter();
 			out.write(outputJSON.toString());
 			out.close();
+			break;
+		case AUTO:
+			try {
+				// Get the data
+				outputJSON = getJSON(base+"/__auto");
+				// Update numbers
+						outputJSON = replaceNumbers(outputJSON);
+				// Write the requested JSON out
+				out = request.getJSONWriter();
+				out.write(outputJSON.toString());
+				out.close();
+			} catch (JSONException e) {
+				throw new BadRequestException("Invalid JSON",e);
+			}
 			break;
 		case SCHEMA:
 			try {
@@ -98,6 +155,8 @@ public class RecordController {
 	}
 	
 	public void send(ChainRequest request,String path) throws BadRequestException, IOException {
+		if(request.getType()==RequestType.AUTO)
+			path="__auto"; // XXX Posting to __auto should be disabled. Currently used in some tests.
 		String jsonString = request.getBody();
 		if (StringUtils.isBlank(jsonString)) {
 			throw new BadRequestException("No JSON content to store");
