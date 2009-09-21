@@ -445,11 +445,15 @@ public class TestGeneral {
 		assertEquals("/cspace-ui/html/createnew.html",out.getHeader("Location"));
 		out=jettyDo(jetty,"GET","/chain/login?userid=curator&password=curator",null);
 		assertEquals(303,out.getStatus());
+		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
 		out=jettyDo(jetty,"GET","/chain/login?userid=admin&password=admin",null);
 		assertEquals(303,out.getStatus());
+		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
 		out=jettyDo(jetty,"GET","/chain/login?userid=guest&password=toast",null);	
-		assertEquals(403,out.getStatus());
+		assertEquals(303,out.getStatus());
+		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
 		out=jettyDo(jetty,"GET","/chain/login?userid=bob&password=bob",null);	
-		assertEquals(403,out.getStatus());
+		assertEquals(303,out.getStatus());
+		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
 	}
 }
