@@ -60,29 +60,15 @@ public class RecordController {
 		return out;
 	}
 
-	private String xxx_replace_number(String in) {
+	private String xxx_replace_number(String in) throws BadRequestException, JSONException {
 		Matcher m=id_pattern.matcher(in);
 		if(!m.matches())
 			return in;
-		StringBuffer out=new StringBuffer();
-		for(int i=0;i<m.group(1).length();i++) {
-			char c=m.group(1).charAt(i);
-			switch(c) {
-			case '@':
-				c=letters[rnd.nextInt(letters.length)];
-				break;
-			case '%':
-				c=digits[rnd.nextInt(digits.length)];
-				break;
-			default:
-				break;
-			}
-			out.append(c);
-		}
-		return out.toString();
+		JSONObject seq=getJSON("id/"+m.group(1));
+		return (String)seq.getString("next");
 	}
 	
-	private JSONObject replaceNumbers(JSONObject in) throws JSONException {
+	private JSONObject replaceNumbers(JSONObject in) throws JSONException, BadRequestException {
 		JSONObject out=new JSONObject();
 		Iterator<?> keys=in.keys();
 		while(keys.hasNext()) {
@@ -109,7 +95,7 @@ public class RecordController {
 				// Get the data
 				outputJSON = getJSON(base+"/__auto");
 				// Update numbers
-						outputJSON = replaceNumbers(outputJSON);
+				outputJSON = replaceNumbers(outputJSON);
 				// Write the requested JSON out
 				out = request.getJSONWriter();
 				out.write(outputJSON.toString());

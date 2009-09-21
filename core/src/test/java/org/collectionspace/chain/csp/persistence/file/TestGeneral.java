@@ -47,8 +47,10 @@ public class TestGeneral {
 
 	private final static String testStr2 = "{\"a\":\"b\"}";
 
-	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***abc%%%%.@***\"}";
-
+	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
+	
+	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
+	private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
 	
 	private FileStorage store;
 	private static String tmp=null;
@@ -289,16 +291,12 @@ public class TestGeneral {
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
 		// XXX algorithm will change.
+		System.err.println(out.getContent());
 		JSONObject data=new JSONObject(out.getContent());
-		assertEquals("b",data.get("a"));
-		String v=data.getString("id");
-		assertNotNull(v);
-		assertEquals(9,v.length());
-		assertTrue(v.startsWith("abc"));
-		assertEquals(".",v.substring(7,8));
-		assertTrue(Character.isLowerCase(v.charAt(8)));
-		for(int i=3;i<7;i++)
-			assertTrue(Character.isDigit(v.charAt(i)));
+		JSONUtils.checkJSONEquiv(data,testStr4);
+		out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
+		data=new JSONObject(out.getContent());
+		JSONUtils.checkJSONEquiv(data,testStr5);		
 	}
 	
 	@Test public void testMultipleSchemas() throws Exception {
@@ -415,6 +413,14 @@ public class TestGeneral {
 		assertTrue(new File(b,"json2.test.json").exists());
 	}
 
+	@Test public void testIDGenerate() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=null;
+		for(int i=0;i<1025;i++)
+			out=jettyDo(jetty,"GET","/chain/id/test",null);
+		assertEquals("aAaBk25",new JSONObject(out.getContent()).get("next"));
+	}
+	
 	@Test public void testReset() throws Exception {
 		ServletTester jetty=setupJetty();
 		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
