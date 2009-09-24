@@ -45,7 +45,7 @@ public class TestGeneral {
 	"\"thesis\"},{\"value\":\"2\",\"text\":\"paper\"},{\"value\":\"3\",\"text\":\"excel-controlled\"}]," +
 	"\"param\":\"type\"}]}";
 
-	private final static String testStr2 = "{\"a\":\"b\"}";
+	private final static String testStr2 = "{\"a\":\"b\\\"\"}";
 
 	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
 	
@@ -241,6 +241,13 @@ public class TestGeneral {
 		assertEquals(testStr2,out.getContent());
 	}
 
+	@Test public void testAutoPost() throws Exception {
+		deleteSchemaFile("collection-object",false);
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
+		System.err.println(out.getHeader("Location"));
+	}
+	
 	@Test public void testPostAndDelete() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
