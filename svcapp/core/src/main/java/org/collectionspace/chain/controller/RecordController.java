@@ -151,7 +151,14 @@ public class RecordController {
 		int status=200;
 		try {
 			if(request.isCreateNotOverwrite()) {
-				global.getStore().createJSON(base+"/"+path,new JSONObject(jsonString));
+				if("".equals(path)) {
+					// True path
+					path=global.getStore().autocreateJSON(base,new JSONObject(jsonString));
+					
+				} else {
+					// XXX temporary legacy path
+					global.getStore().createJSON(base+"/"+path,new JSONObject(jsonString));
+				}
 				status=201;
 			} else
 				global.getStore().updateJSON(base+"/"+path, new JSONObject(jsonString));
