@@ -248,7 +248,6 @@ class ServicesCollectionObjectStorage implements Storage {
 		}
 	}
 
-	// XXX cannot test until CSPACE-264 is fixed.
 	public String autocreateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException, UnimplementedException {
 		try {
 			Document doc=cspace266Hack_munge(jxj.json2xml(jsonObject));

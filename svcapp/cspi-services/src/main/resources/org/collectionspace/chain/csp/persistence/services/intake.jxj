@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<translations xmlns:xtmpl="http://www.collectionspace.org/xtmpl">
+	<translation type="intake">
+		<json2xml>
+			<map>
+				<mapping json=".entryNumber" key="entry-number" />
+				<mapping json=".entryDate" key="entry-date"/>
+				<mapping json=".entryMethod" key="entry-method" />
+				<mapping json=".entryReasons" key="entry-reasons" />
+				<mapping json=".depositor" key="depositor" />
+				<mapping json=".entryNote" key="entry-note" />
+				<mapping json=".packingNote" key="packing-note" />
+				<assembly key="misc">
+					<mapping json=".returnDate" assembly-key="return-date" />
+					<mapping json=".donor" assembly-key="donor" />
+					<mapping json=".numObjects" assembly-key="num-objects" />
+					<mapping json=".responsibleEntity" assembly-key="responsible-entity" />
+					<mapping json=".description" assembly-key="description" />
+				</assembly>
+			</map>
+			<template>
+				<ns2:intake xmlns:ns2="http://services.collectionspace.org/intake">
+					<entryNumber xtmpl:point="entry-number">2</entryNumber>
+					<entryDate xtmpl:point="entry-date">3</entryDate>
+					<entryMethod xtmpl:point="entry-method"></entryMethod>
+					<entryReason xtmpl:point="entry-reasons"></entryReason>
+					<returnDate xtmpl:point="misc">Left-handed screwdriver</returnDate>
+					<depositor xtmpl:point="depositor"></depositor>
+					<entryNote xtmpl:point="entry-note"></entryNote>
+					<packingNote xtmpl:point="packing-note"></packingNote>
+				</ns2:intake>
+			</template>
+		</json2xml>
+		<xml2json>
+			<map>
+				<mapping xpath="intake/entryNumber" key="entry-number"/>
+				<mapping xpath="intake/entryDate" key="entry-date"/>
+				<mapping xpath="intake/entryMethod" key="entry-method"/>
+				<mapping xpath="intake/entryReason" key="entry-reasons"/>
+				<mapping xpath="intake/depositor" key="depositor"/>
+				<mapping xpath="intake/entryNote" key="entry-note"/>
+				<mapping xpath="intake/packingNote" key="packing-note"/>				
+				<assembly xpath="intake/returnDate">
+					<mapping assembly-key="return-date" key="return-date"/>
+					<mapping assembly-key="donor" key="donor"/>
+					<mapping assembly-key="num-objects" key="num-objects"/>
+					<mapping assembly-key="responsible-entity" key="responsible-entity"/>
+					<mapping assembly-key="description" key="description"/>
+				</assembly>
+			</map>
+			<template>
+			  {
+			      "entryNumber": "\u0000entry-number",
+			      "entryDate": "\u0000entry-date",
+			      "numObjects": "\u0000num-objects",
+			      "entryMethod": "\u0000entry-method",
+			      "entryReasons": "\u0000entry-reasons",
+			      "returnDate": "\u0000return-date",
+			      "donor": "\u0000donor",
+			      "depositor": "\u0000depositor",			      
+			      "responsibleEntity": "\u0000responsible-entity",
+			      "description": "\u0000description",
+			      "entryNote": "\u0000entry-note",
+			      "packingNote": "\u0000packing-note"
+			  }
+			</template>
+		</xml2json>
+	</translation>
+</translations>

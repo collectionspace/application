@@ -34,13 +34,32 @@ import org.json.JSONObject;
  * 
  */
 public class JXJTransformer {
+	private static class PathAndMap { 
+		private Dom4jXPath path; 
+		private Map<String,String> map=new HashMap<String,String>();
+	}
+
 	private XTmplTmpl jxtmpl;
 	private Map<String,JPathPath> jxattach=new HashMap<String,JPathPath>();
+	private HashMap<String, Map<String, JPathPath>> jxmapattach=new HashMap<String,Map<String,JPathPath>>();
 	private JTmplTmpl xjtmpl;
 	private Map<String,Dom4jXPath> xjattach=new HashMap<String,Dom4jXPath>();
+	private Set<PathAndMap> xjmapattach=new HashSet<PathAndMap>();	
+
 	private Set<String> xjmultiple=new HashSet<String>();
 	private Set<String> jxmultiple=new HashSet<String>();
-	
+
+	private String addMappingTag(Map<String,JPathPath> map,Node n,String key,String value) throws InvalidJXJException, InvalidJPathException {
+		String n_key=((Element)n).attributeValue(key);
+		String n_json=((Element)n).attributeValue(value);
+		if(n_key==null)
+			throw new InvalidJXJException("mapping tag requires key attribute");
+		if(n_json==null)
+			throw new InvalidJXJException("mapping tag requires json attribute");
+		map.put(n_key,JPathPath.compile(n_json));
+		return n_key;
+	}
+
 	@SuppressWarnings("unchecked")
 	JXJTransformer(String key,Node document) throws InvalidJXJException {
 		try {
@@ -53,15 +72,19 @@ public class JXJTransformer {
 			jxtmpl_doc.setRootElement((Element)jxtmpl_node.clone());
 			jxtmpl=XTmplTmpl.compile(jxtmpl_doc);
 			for(Node n : (List<Node>)document.selectNodes("json2xml/map/mapping")) {
-				String n_key=((Element)n).attributeValue("key");
-				String n_json=((Element)n).attributeValue("json");
-				if(n_key==null)
-					throw new InvalidJXJException("mapping tag requires key attribute");
-				if(n_json==null)
-					throw new InvalidJXJException("mapping tag requires json attribute");
-				jxattach.put(n_key,JPathPath.compile(n_json));
+				String n_key=addMappingTag(jxattach,n,"key","json");
 				if("yes".equals(((Element)n).attributeValue("multiple")))
 					jxmultiple.add(n_key);
+			}
+			for(Node n : (List<Node>)document.selectNodes("json2xml/map/assembly")) {
+				String n_key=((Element)n).attributeValue("key");
+				Map<String,JPathPath> inner_paths=new HashMap<String,JPathPath>();
+				if(n_key==null)
+					throw new InvalidJXJException("assembly tag requires key attribute");
+				for(Node m : (List<Node>)n.selectNodes("mapping")) {
+					addMappingTag(inner_paths,m,"assembly-key","json");
+				}
+				jxmapattach.put(n_key,inner_paths);
 			}
 			// xml2json
 			JSONObject template=new JSONObject(document.selectSingleNode("xml2json/template").getText());
@@ -76,6 +99,22 @@ public class JXJTransformer {
 				xjattach.put(n_key,new Dom4jXPath(n_xpath));
 				if("yes".equals(((Element)n).attributeValue("multiple")))
 					xjmultiple.add(n_key);
+			}
+			for(Node n : (List<Node>)document.selectNodes("xml2json/map/assembly")) {
+				PathAndMap pam=new PathAndMap();
+				pam.path=new Dom4jXPath(((Element)n).attributeValue("xpath"));
+				if(pam.path==null)
+					throw new InvalidJXJException("mapping tag requires xpath attribute");				
+				for(Node m : (List<Node>)n.selectNodes("mapping")) {
+					String m_key=((Element)m).attributeValue("key");
+					String m_akey=((Element)m).attributeValue("assembly-key");
+					if(m_key==null)
+						throw new InvalidJXJException("mapping tag requires key attribute");
+					if(m_akey==null)
+						throw new InvalidJXJException("mapping tag requires attribute-key attribute");
+					pam.map.put(m_akey,m_key);
+				}
+				xjmapattach.add(pam);
 			}
 		} catch (InvalidXTmplException e) {
 			throw new InvalidJXJException("Invalid XML template in JXJ key="+key,e);
@@ -110,26 +149,35 @@ public class JXJTransformer {
 			doc.setText(key,(String)value);	
 		}
 	}
-	
+
 	// Just JXJ
 	public Document json2xml(JSONObject json) throws InvalidXTmplException {
 		XTmplDocument doc=jxtmpl.makeDocument();
-		for(Map.Entry<String,JPathPath> entry : jxattach.entrySet()) {
-			try {
+		// Regular mapping
+		try {
+			for(Map.Entry<String,JPathPath> entry : jxattach.entrySet()) {
 				setDocumentKey(doc,entry.getKey(),entry.getValue().get(json));
-			} catch (JSONException e) {
-				throw new InvalidXTmplException("Invalid JSON key="+entry.getKey(),e);
 			}
+			// Map mappings
+			for(Map.Entry<String,Map<String,JPathPath>> e : jxmapattach.entrySet()) {
+				JSONObject map=new JSONObject();
+				for(Map.Entry<String,JPathPath> f : e.getValue().entrySet())
+					map.put(f.getKey(),f.getValue().get(json));
+				doc.setText(e.getKey(),map.toString());
+			}
+			return doc.getDocument();
+		} catch (JSONException e) {
+			throw new InvalidXTmplException("Invalid JSON key",e);
 		}
-		return doc.getDocument();
 	}
-	
+
 	// XXX just JXJ
 	@SuppressWarnings("unchecked")
 	public JSONObject xml2json(Document xml) throws InvalidJTmplException, InvalidJXJException {
 		JTmplDocument doc=xjtmpl.makeDocument();
-		for(Map.Entry<String,Dom4jXPath> entry : xjattach.entrySet()) {
-			try {
+		try {
+			// Regular mapping
+			for(Map.Entry<String,Dom4jXPath> entry : xjattach.entrySet()) {
 				if(xjmultiple.contains(entry.getKey())) {
 					List<Node> nodes=entry.getValue().selectNodes(xml.getDocument());
 					JSONArray a=new JSONArray();
@@ -145,9 +193,24 @@ public class JXJTransformer {
 					}
 					doc.set(entry.getKey(),text);
 				}
-			} catch (JaxenException e) {
-				throw new InvalidJXJException("Invalid XPath",e);
 			}
+			// Map mappings
+			for(PathAndMap pam : xjmapattach) {
+				Node n=((Node)pam.path.selectSingleNode(xml.getDocument()));
+				JSONObject map=new JSONObject();
+				if(n!=null && !"".equals(n)) {
+					try {
+						map=new JSONObject(n.getText());
+					} catch (JSONException e1) {} // Leave empty
+				}
+				for(Map.Entry<String,String> e : pam.map.entrySet()) {
+					try {
+						doc.set(e.getValue(),map.getString(e.getKey()));
+					} catch (JSONException e1) {} // Leave unset
+				}
+			}
+		} catch (JaxenException e) {
+			throw new InvalidJXJException("Invalid XPath",e);
 		}
 		return doc.getJSON();
 	}

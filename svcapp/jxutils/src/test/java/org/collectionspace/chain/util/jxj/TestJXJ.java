@@ -8,6 +8,7 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.util.jpath.InvalidJPathException;
 import org.collectionspace.chain.util.jpath.JPathPath;
+import org.collectionspace.chain.util.json.JSONUtils;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
@@ -53,6 +54,9 @@ public class TestJXJ {
 		assertEquals("DISTFEATURES",d1.getDocument().selectSingleNode("collection-object/distFeatures").getText());
 		assertEquals("OBJNAME",d1.getDocument().selectSingleNode("collection-object/objectName").getText());
 		assertEquals("DEPT",d1.getDocument().selectSingleNode("collection-object/responsibleDept").getText());
+		assertTrue(JSONUtils.checkJSONEquiv(
+				new JSONObject(d1.getDocument().selectSingleNode("collection-object/misc").getText()),
+				new JSONObject("{\"misc1\":\"MISC1\",\"misc2\":\"MISC2\"}")));							
 	}
 	
 	private void checkJSONValue(Object in,String jpath,Object value) throws InvalidJPathException, JSONException {
@@ -67,6 +71,7 @@ public class TestJXJ {
 		JXJTransformer t1=translate.getTransformer("collection-object");
 		assertNotNull(t1);
 		JSONObject d1=t1.xml2json(input);
+		System.err.println(d1);
 		checkJSONValue(d1,".title","TITLE");
 		checkJSONValue(d1,".objectnumber","2");	
 		JPathPath other_path=JPathPath.compile(".othernumber");
@@ -80,7 +85,9 @@ public class TestJXJ {
 		checkJSONValue(d1,".comments","COMMENTS");
 		checkJSONValue(d1,".distfeatures","DISTFEATURES");
 		checkJSONValue(d1,".objectname","OBJNAME");
-		checkJSONValue(d1,".responsibledept","DEPT");		
+		checkJSONValue(d1,".responsibledept","DEPT");
+		checkJSONValue(d1,".misc2","MISC2");
+		checkJSONValue(d1,".misc3","MISC3");
 	}
 
 	@Test public void testXMLMissingOkay() throws Exception {

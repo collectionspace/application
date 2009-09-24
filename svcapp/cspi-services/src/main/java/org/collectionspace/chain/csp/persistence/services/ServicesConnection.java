@@ -132,6 +132,8 @@ public class ServicesConnection {
 			HttpMethod method=createMethod(method_type,uri,body_data);
 			if(body_data!=null) {
 				method.setRequestHeader("Content-Type","application/xml");
+				System.err.println("SENDING\n");
+				body_data=new TeeInputStream(body_data,System.err);
 			}
 			try {
 				int response=client.executeMethod(method);
@@ -164,6 +166,8 @@ public class ServicesConnection {
 		try {
 			HttpMethod method=createMethod(method_type,uri,body_data);
 			if(body_data!=null) {
+				System.err.println("SENDING\n");
+				body_data=new TeeInputStream(body_data,System.err);
 				method.setRequestHeader("Content-Type","application/xml");
 			}
 			try {
@@ -192,6 +196,8 @@ public class ServicesConnection {
 		try {
 			HttpMethod method=createMethod(method_type,uri,body_data);
 			if(body_data!=null) {
+				System.err.println("SENDING\n");
+				body_data=new TeeInputStream(body_data,System.err);
 				method.setRequestHeader("Content-Type","application/xml");
 			}
 			try {
