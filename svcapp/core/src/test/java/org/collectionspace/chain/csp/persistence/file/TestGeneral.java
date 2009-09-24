@@ -244,8 +244,10 @@ public class TestGeneral {
 	@Test public void testAutoPost() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
-		System.err.println(out.getHeader("Location"));
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);
+		assertNotNull(out.getHeader("Location"));
+		assertTrue(out.getHeader("Location").startsWith("/objects/"));
+		Integer.parseInt(out.getHeader("Location").substring("/objects/".length()));
 	}
 	
 	@Test public void testPostAndDelete() throws Exception {
