@@ -50,7 +50,7 @@ public class TestServiceThroughWebapp {
 		tester.addServlet(ChainServlet.class, "/*");
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
 		tester.setAttribute("storage","service");
-		tester.setAttribute("store-url",base+"/helloworld/cspace-nuxeo/");		
+		tester.setAttribute("store-url",base+"/cspace-services/");		
 		tester.start();
 		return tester;
 	}
