@@ -51,7 +51,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	
 	@Test public void testObjectsPut() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
+		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
 		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+name);
 		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj3.json")));
@@ -59,7 +59,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 
 	@Test public void testObjectsPost() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
+		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
 		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		ss.updateJSON("collection-object/"+name,getJSON("obj4.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+name);
@@ -68,7 +68,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 
 	@Test public void testObjectsDelete() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
+		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
 		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+name);
 		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj3.json")));
@@ -90,7 +90,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	
 	@Test public void testObjectsList() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
+		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
 		String name1=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
 		String name2=ss.autocreateJSON("collection-object",getJSON("obj4.json"));
 		ss.createJSON("collection-object/123",getJSON("obj4.json"));
@@ -102,7 +102,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	
 	@Test public void testHackCSPACE264() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(base+"/helloworld/cspace-nuxeo/");
+		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
 		ss.createJSON("collection-object/def",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/def");
 		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj3.json")));

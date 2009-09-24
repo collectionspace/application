@@ -20,6 +20,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.TeeInputStream;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.dom4j.Document;
@@ -138,8 +139,12 @@ public class ServicesConnection {
 				InputStream stream=method.getResponseBodyAsStream();
 				SAXReader reader=new SAXReader();
 				// TODO errorhandling
-				Document out=reader.read(new TeeInputStream(stream,System.err));
-				System.err.println("RECEIVING "+out.asXML());
+				Document out=null;
+				Header content_type=method.getResponseHeader("Content-Type");
+				if(content_type!=null && "application/xml".equals(content_type.getValue())) {
+					out=reader.read(new TeeInputStream(stream,System.err));
+					System.err.println("RECEIVING "+out.asXML());
+				}
 				System.err.println("ok");
 				stream.close();
 				return new ReturnedDocument(response,out);
@@ -164,6 +169,7 @@ public class ServicesConnection {
 			try {
 				int response=client.executeMethod(method);
 				System.err.println("response="+response);
+				System.err.println("response="+(method.getResponseBodyAsString()));
 				Header location=method.getResponseHeader("Location");
 				if(location==null)
 					throw new ConnectionException("Missing location header");

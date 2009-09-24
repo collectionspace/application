@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ns2:collection-object xmlns:ns2="http://collectionspace.org/hello">
+<ns2:collection-object xmlns:ns2="http://services.collectionspace.org/collectionobject">
   <objectNumber>2</objectNumber>
   <otherNumber>3</otherNumber>
   <briefDescription>description</briefDescription>

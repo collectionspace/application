@@ -13,7 +13,7 @@ public class ServicesBaseClass {
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
 		base=config_controller.getOption("services-url");
-		conn=new ServicesConnection(base+"/helloworld/cspace-nuxeo/");
+		conn=new ServicesConnection(base+"/cspace-services");
 		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects");
 		Assume.assumeTrue(out.getStatus()==200);
 	}

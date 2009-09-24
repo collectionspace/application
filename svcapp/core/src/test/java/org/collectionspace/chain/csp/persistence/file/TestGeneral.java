@@ -348,7 +348,7 @@ public class TestGeneral {
 		ReturnedDocument retdoc=conn.getXMLDocument(RequestMethod.GET,"test.xml");
 		assertEquals(200,retdoc.getStatus());
 		Document doc=retdoc.getDocument();
-		assertEquals(1,doc.selectNodes("test").size());
+		assertNull(doc);
 	}
 
 	private Document makeXML(String in) throws DocumentException, UnsupportedEncodingException {
@@ -362,7 +362,7 @@ public class TestGeneral {
 		ReturnedDocument retdoc=conn.getXMLDocument(RequestMethod.POST,"/reflect",makeXML("<hello/>"));
 		assertEquals(200,retdoc.getStatus());
 		Document doc=retdoc.getDocument();
-		assertEquals(1,doc.selectNodes("hello").size());		
+		assertNull(doc);
 	}
 
 	@Test public void testPutReturnsContent() throws Exception {
