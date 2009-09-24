@@ -10,4 +10,5 @@
   <objectName>OBJNAME</objectName>
   <responsibleDept>DEPT</responsibleDept>
   <title>TITLE</title>
+  <misc>{"misc3":"MISC3","misc2":"MISC2"}</misc>
 </ns2:collection-object>

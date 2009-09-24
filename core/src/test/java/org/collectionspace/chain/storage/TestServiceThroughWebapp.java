@@ -80,4 +80,23 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(getResourceString("obj3.json")),new JSONObject(out.getContent())));
 	}
+
+	@Test public void testIntake() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/intake/",getResourceString("int3.json"));	
+		assertEquals(out.getMethod(),null);
+		assertEquals(201,out.getStatus());
+		String path=out.getHeader("Location");
+		out=jettyDo(jetty,"GET","/chain"+path,null);
+		System.err.println(out.getContent());
+		
+		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(getResourceString("int3.json")),new JSONObject(out.getContent())));
+		out=jettyDo(jetty,"PUT","/chain"+path,getResourceString("int4.json"));
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain"+path,null);
+		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(getResourceString("int4.json")),new JSONObject(out.getContent())));		
+		out=jettyDo(jetty,"DELETE","/chain"+path,null);
+		out=jettyDo(jetty,"GET","/chain"+path,null);
+		assertTrue(out.getStatus()!=200); // XXX should be 404		
+	}
 }
