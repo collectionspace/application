@@ -70,4 +70,14 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
 		assertTrue(out.getStatus()!=200); // XXX should be 404
 	}
+
+	@Test public void testCollectionObjectAnonymous() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",getResourceString("obj3.json"));	
+		assertEquals(out.getMethod(),null);
+		assertEquals(201,out.getStatus());
+		String path=out.getHeader("Location");
+		out=jettyDo(jetty,"GET","/chain"+path,null);
+		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(getResourceString("obj3.json")),new JSONObject(out.getContent())));
+	}
 }
