@@ -30,12 +30,18 @@ public class JTmplDocument {
 	}
 	
 	public void set(String key,Object value) throws InvalidJTmplException {
+		set(key,value,false);
+	}
+		
+	public void set(String key,Object value,boolean patchup) throws InvalidJTmplException {
+
 		try {
 			JPathPath path=attach.get(key);
 			if(path==null)
 				return;
 			path.set(document,value);
-			unused.remove(key);
+			if(!patchup)
+				unused.remove(key);
 		} catch (JSONException e) {
 			throw new InvalidJTmplException("Bad JSON",e);
 		}
@@ -44,7 +50,7 @@ public class JTmplDocument {
 	public JSONObject getJSON() {
 		for(String key : unused) {
 			try {
-				set(key,"");
+				set(key,"",true);
 			} catch (InvalidJTmplException e) {} // Should never happen
 		}
 		return document;
