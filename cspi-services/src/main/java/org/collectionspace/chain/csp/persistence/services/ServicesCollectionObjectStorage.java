@@ -101,8 +101,7 @@ class ServicesCollectionObjectStorage implements Storage {
 		try {
 			accnum = in.getString("accessionNumber");
 		} catch (JSONException e1) {
-			log.error("CSPACE-264 hack workaround failed: no accessionNumber in object");
-			return in;
+			accnum = "";
 		}		
 		try {
 			ons=in.getJSONArray("objectNumber");

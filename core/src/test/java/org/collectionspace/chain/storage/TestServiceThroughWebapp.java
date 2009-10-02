@@ -15,6 +15,8 @@ import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 
 public class TestServiceThroughWebapp {
+	private final static String testStr3 = "{\"description\":\"***misc***\"}";
+	
 	private InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
@@ -98,5 +100,23 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"DELETE","/chain"+path,null);
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		assertTrue(out.getStatus()!=200); // XXX should be 404		
+	}
+	
+	// XXX not a test
+	@Test public void testIDGenerate() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=null;
+		for(int i=0;i<1025;i++)
+			out=jettyDo(jetty,"GET","/chain/id/test",null);
+		//assertEquals("aAaBk25",new JSONObject(out.getContent()).get("next"));
+	}
+
+	// XXX not a test
+	@Test public void testAutoGet() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/__auto",testStr3);
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
+		System.out.println(out.getContent());
 	}
 }
