@@ -32,10 +32,13 @@ import org.dom4j.io.XMLWriter;
  * to return things along with status codes, etc. Less than ideal: answers on a postcard, please.
  * 
  */
+
+// XXX synchronized to handle Nuxeo race
 public class ServicesConnection {
 	private String base_url;
 	private static HttpClient client;
-	
+	private static Object lock=new Object();	
+
 	private void initClient() {
 		if(client!=null)
 			return;
@@ -43,17 +46,18 @@ public class ServicesConnection {
 			if(client!=null)
 				return;
 			MultiThreadedHttpConnectionManager manager=new MultiThreadedHttpConnectionManager();
+			manager.setMaxTotalConnections(1);
 			client=new HttpClient(manager);
 		}
 	}
-	
+
 	public ServicesConnection(String base_url) {
 		if(base_url.endsWith("/"))
 			base_url=base_url.substring(0,base_url.length()-1);
 		this.base_url=base_url;
 		initClient();
 	}
-	
+
 	private String prepend_base(String uri) throws ConnectionException {
 		if(uri==null)
 			throw new ConnectionException("URI cannot be null");
@@ -61,7 +65,7 @@ public class ServicesConnection {
 			uri="/"+uri;
 		return base_url+uri;
 	}
-	
+
 	private HttpMethod createMethod(RequestMethod method,String uri,InputStream data) throws ConnectionException {
 		uri=prepend_base(uri);
 		System.err.println(uri);
@@ -87,11 +91,11 @@ public class ServicesConnection {
 		}
 		throw new ConnectionException("Unsupported method "+method);
 	}
-		
+
 	public ReturnedDocument getXMLDocument(RequestMethod method,String uri) throws ConnectionException {
 		return getXMLDocument(method,uri,null);
 	}
-	
+
 	public InputStream serializetoXML(Document doc) throws IOException {
 		ByteArrayOutputStream out=new ByteArrayOutputStream();
 		OutputFormat outformat = OutputFormat.createPrettyPrint();
@@ -113,7 +117,7 @@ public class ServicesConnection {
 		}
 		return null;
 	}
-	
+
 	private void closeStream(InputStream stream) throws ConnectionException {
 		if(stream!=null)
 			try {
@@ -123,93 +127,99 @@ public class ServicesConnection {
 				throw new ConnectionException("Impossible exception raised during close of BAIS!?");
 			}		
 	}
-	
+
 	// XXX eugh! error case control-flow nightmare
 	public ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {
-		InputStream body_data=documentToStream(body,uri);
-		try {
-			System.err.println("Getting from "+uri);
-			HttpMethod method=createMethod(method_type,uri,body_data);
-			if(body_data!=null) {
-				method.setRequestHeader("Content-Type","application/xml");
-				System.err.println("SENDING\n");
-				body_data=new TeeInputStream(body_data,System.err);
-			}
+		synchronized(lock) {
+			InputStream body_data=documentToStream(body,uri);
 			try {
-				int response=client.executeMethod(method);
-				System.err.println("response="+response);
-				InputStream stream=method.getResponseBodyAsStream();
-				SAXReader reader=new SAXReader();
-				// TODO errorhandling
-				Document out=null;
-				Header content_type=method.getResponseHeader("Content-Type");
-				if(content_type!=null && "application/xml".equals(content_type.getValue())) {
-					out=reader.read(new TeeInputStream(stream,System.err));
-					System.err.println("RECEIVING "+out.asXML());
+				System.err.println("Getting from "+uri);
+				HttpMethod method=createMethod(method_type,uri,body_data);
+				if(body_data!=null) {
+					method.setRequestHeader("Content-Type","application/xml");
+					System.err.println("SENDING\n");
+					body_data=new TeeInputStream(body_data,System.err);
 				}
-				System.err.println("ok");
-				stream.close();
-				return new ReturnedDocument(response,out);
-			} catch(Exception e) {
-				throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
+				try {
+					int response=client.executeMethod(method);
+					System.err.println("response="+response);
+					InputStream stream=method.getResponseBodyAsStream();
+					SAXReader reader=new SAXReader();
+					// TODO errorhandling
+					Document out=null;
+					Header content_type=method.getResponseHeader("Content-Type");
+					if(content_type!=null && "application/xml".equals(content_type.getValue())) {
+						out=reader.read(new TeeInputStream(stream,System.err));
+						System.err.println("RECEIVING "+out.asXML());
+					}
+					System.err.println("ok");
+					stream.close();
+					return new ReturnedDocument(response,out);
+				} catch(Exception e) {
+					throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
+				} finally {
+					method.releaseConnection();
+				}
 			} finally {
-				method.releaseConnection();
+				closeStream(body_data);
 			}
-		} finally {
-			closeStream(body_data);
 		}
 	}
 
 	// XXX refactor!!!!
 	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body) throws ConnectionException {
-		InputStream body_data=documentToStream(body,uri);
-		try {
-			HttpMethod method=createMethod(method_type,uri,body_data);
-			if(body_data!=null) {
-				System.err.println("SENDING\n");
-				body_data=new TeeInputStream(body_data,System.err);
-				method.setRequestHeader("Content-Type","application/xml");
-			}
+		synchronized(lock) {
+			InputStream body_data=documentToStream(body,uri);
 			try {
-				int response=client.executeMethod(method);
-				System.err.println("response="+response);
-				System.err.println("response="+(method.getResponseBodyAsString()));
-				Header location=method.getResponseHeader("Location");
-				if(location==null)
-					throw new ConnectionException("Missing location header");
-				String url=location.getValue();
-				if(url.startsWith(base_url))
-					url=url.substring(base_url.length());
-				return new ReturnedURL(response,url);
-			} catch (Exception e) {
-				throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
+				HttpMethod method=createMethod(method_type,uri,body_data);
+				if(body_data!=null) {
+					System.err.println("SENDING\n");
+					body_data=new TeeInputStream(body_data,System.err);
+					method.setRequestHeader("Content-Type","application/xml");
+				}
+				try {
+					int response=client.executeMethod(method);
+					System.err.println("response="+response);
+					System.err.println("response="+(method.getResponseBodyAsString()));
+					Header location=method.getResponseHeader("Location");
+					if(location==null)
+						throw new ConnectionException("Missing location header");
+					String url=location.getValue();
+					if(url.startsWith(base_url))
+						url=url.substring(base_url.length());
+					return new ReturnedURL(response,url);
+				} catch (Exception e) {
+					throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
+				} finally {
+					method.releaseConnection();
+				}
 			} finally {
-				method.releaseConnection();
+				closeStream(body_data);
 			}
-		} finally {
-			closeStream(body_data);
 		}
 	}
 
-	public int getNone(RequestMethod method_type,String uri,Document body) throws ConnectionException {
-		InputStream body_data=documentToStream(body,uri);
-		try {
-			HttpMethod method=createMethod(method_type,uri,body_data);
-			if(body_data!=null) {
-				System.err.println("SENDING\n");
-				body_data=new TeeInputStream(body_data,System.err);
-				method.setRequestHeader("Content-Type","application/xml");
-			}
+	public synchronized int getNone(RequestMethod method_type,String uri,Document body) throws ConnectionException {
+		synchronized(lock) {
+			InputStream body_data=documentToStream(body,uri);
 			try {
-				int response=client.executeMethod(method);
-				return response;
-			} catch (Exception e) {
-				throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
+				HttpMethod method=createMethod(method_type,uri,body_data);
+				if(body_data!=null) {
+					System.err.println("SENDING\n");
+					body_data=new TeeInputStream(body_data,System.err);
+					method.setRequestHeader("Content-Type","application/xml");
+				}
+				try {
+					int response=client.executeMethod(method);
+					return response;
+				} catch (Exception e) {
+					throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
+				} finally {
+					method.releaseConnection();
+				}
 			} finally {
-				method.releaseConnection();
+				closeStream(body_data);
 			}
-		} finally {
-			closeStream(body_data);
 		}
 	}
 }

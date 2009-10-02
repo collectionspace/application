@@ -39,7 +39,7 @@ class ServicesIdentifierMap {
 	private String toObjNum(String csid) throws ConnectionException {
 		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,prefix+"/"+csid);
 		if(all.getStatus()!=200)
-			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+			throw new ConnectionException("Bad request during identifier cache map update: status not 200 for "+prefix+"/"+csid);
 		return all.getDocument().selectSingleNode("collection-object/objectNumber").getText();
 	}
 	
@@ -50,7 +50,7 @@ class ServicesIdentifierMap {
 			cache_misses++;
 			ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,prefix+"/");
 			if(all.getStatus()!=200)
-				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+				throw new ConnectionException("Bad request during identifier cache map update: status not 200 for "+prefix+"/");
 			List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
 			Set<String> present=new HashSet<String>();
 			for(Node object : objects) {
