@@ -53,6 +53,7 @@ public class SplittingStorage implements Storage {
 		String parts[]=split(filePath,true);
 		if("".equals(parts[1])) { // autocreate?
 			get(parts[0]).autocreateJSON("",jsonObject);
+			return;
 		}
 		get(parts[0]).createJSON(parts[1],jsonObject);
 	}

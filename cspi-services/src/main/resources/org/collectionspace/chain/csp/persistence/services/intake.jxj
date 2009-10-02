@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- XXX idTunnel is a temporary hack, used internally -->
 <translations xmlns:xtmpl="http://www.collectionspace.org/xtmpl">
 	<translation type="intake">
 		<json2xml>
@@ -9,13 +10,14 @@
 				<mapping json=".entryReasons" key="entry-reasons" />
 				<mapping json=".depositor" key="depositor" />
 				<mapping json=".entryNote" key="entry-note" />
-				<mapping json=".packingNote" key="packing-note" />
+				<mapping json=".idTunnel" key="id-tunnel" /> <!-- XXX id tunnel -->
 				<assembly key="misc">
 					<mapping json=".returnDate" assembly-key="return-date" />
 					<mapping json=".donor" assembly-key="donor" />
 					<mapping json=".numObjects" assembly-key="num-objects" />
 					<mapping json=".responsibleEntity" assembly-key="responsible-entity" />
 					<mapping json=".description" assembly-key="description" />
+					<mapping json=".packingNote" assembly-key="packing-note" />
 				</assembly>
 			</map>
 			<template>
@@ -27,7 +29,7 @@
 					<returnDate xtmpl:point="misc">Left-handed screwdriver</returnDate>
 					<depositor xtmpl:point="depositor"></depositor>
 					<entryNote xtmpl:point="entry-note"></entryNote>
-					<packingNote xtmpl:point="packing-note"></packingNote>
+					<packingNote xtmpl:point="id-tunnel"></packingNote>
 				</ns2:intake>
 			</template>
 		</json2xml>
@@ -39,13 +41,14 @@
 				<mapping xpath="intake/entryReason" key="entry-reasons"/>
 				<mapping xpath="intake/depositor" key="depositor"/>
 				<mapping xpath="intake/entryNote" key="entry-note"/>
-				<mapping xpath="intake/packingNote" key="packing-note"/>				
+				<mapping xpath="intake/packingNote" key="id-tunnel"/>				
 				<assembly xpath="intake/returnDate">
 					<mapping assembly-key="return-date" key="return-date"/>
 					<mapping assembly-key="donor" key="donor"/>
 					<mapping assembly-key="num-objects" key="num-objects"/>
 					<mapping assembly-key="responsible-entity" key="responsible-entity"/>
 					<mapping assembly-key="description" key="description"/>
+					<mapping assembly-key="packing-note" key="packing-note"/>
 				</assembly>
 			</map>
 			<template>
@@ -61,7 +64,8 @@
 			      "responsibleEntity": "\u0000responsible-entity",
 			      "description": "\u0000description",
 			      "entryNote": "\u0000entry-note",
-			      "packingNote": "\u0000packing-note"
+			      "packingNote": "\u0000packing-note",
+			      "idTunnel": "\u0000id-tunnel"
 			  }
 			</template>
 		</xml2json>

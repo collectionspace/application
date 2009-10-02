@@ -19,22 +19,22 @@ import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedExcep
 
 public class TestService extends ServicesBaseClass {
 	private Random rnd=new Random();
-	
+
 	private InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 	}
-	
+
 	private Document getDocument(String name) throws DocumentException {
 		SAXReader reader=new SAXReader();
 		// TODO errorhandling
 		return reader.read(getResource(name));
 	}
-	
+
 	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
 		setup();
 	}
-	
+
 	@Test public void testAssumptionMechanism() {
 		System.err.println("Services Running!");
 	}
@@ -42,7 +42,7 @@ public class TestService extends ServicesBaseClass {
 	private String cspace305_hack(String in) {
 		return in.replaceAll("/persons/","/collectionobjects/");
 	}
-	
+
 	@Test public void testObjectsPost() throws Exception {
 		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",getDocument("obj1.xml"));
 		assertEquals(201,url.getStatus());
@@ -57,16 +57,16 @@ public class TestService extends ServicesBaseClass {
 	@Test public void testObjectsPut() throws Exception {
 		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",getDocument("obj1.xml"));
 		assertEquals(201,url.getStatus());
-		ReturnedDocument doc=conn.getXMLDocument(RequestMethod.PUT,cspace305_hack(url.getURL()),buildObject("32"));
+		ReturnedDocument doc=conn.getXMLDocument(RequestMethod.PUT,cspace305_hack(url.getURL()),buildObject("32","obj2.xml"));
 		assertEquals(201,url.getStatus()); // 201?
 		doc=conn.getXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()));
 		assertEquals(200,doc.getStatus());
 		String num=doc.getDocument().selectSingleNode("collection-object/objectNumber").getText();
 		assertEquals("32",num);
 	}
-	
+
 	// TODO pre-emptive cache population
-	
+
 	// Speeds up many tests, ensures others work at all
 	@SuppressWarnings("unchecked")
 	private void deleteAll() throws Exception {
@@ -79,21 +79,48 @@ public class TestService extends ServicesBaseClass {
 			conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null);
 		}
 	}
-	
-	private Document buildObject(String objid) throws DocumentException, IOException {
-		InputStream data_stream=getResource("obj2.xml");
+
+	private Document buildObject(String objid,String src) throws DocumentException, IOException {
+		InputStream data_stream=getResource(src);
 		String data=IOUtils.toString(data_stream);
 		data_stream.close();
 		data=data.replaceAll("<<objnum>>",objid);
 		SAXReader reader=new SAXReader();
 		return reader.read(new StringReader(data));
 	}
-	
+
 	@Test public void testSetvicesIdentifierMapBasic() throws Exception {
 		deleteAll(); // for speed
-		ServicesIdentifierMap sim=new ServicesIdentifierMap(conn,"collectionobjects","collection-object-list/collection-object-list-item");
+		ServicesIdentifierMap sim=
+			new ServicesIdentifierMap(conn,
+					"collectionobjects",
+					"collection-object-list/collection-object-list-item",
+					"collection-object/objectNumber");
 		String objid="test-sim-"+rnd.nextInt(Integer.MAX_VALUE);
-		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",buildObject(objid));
+		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",buildObject(objid,"obj2.xml"));
+		assertEquals(201,url.getStatus());
+		String csid=url.getURL().substring(url.getURL().lastIndexOf("/")+1);
+		String csid2=sim.getCSID(objid);
+		assertEquals(csid,csid2);
+		String csid3=sim.getCSID(objid);
+		assertEquals(csid,csid3);
+		assertEquals(1,sim.getNumberHits());
+		assertEquals(1,sim.getNumberMisses());
+		assertEquals(1,sim.getLoadSteps());
+		String objid2=sim.fromCSID(csid);
+		assertEquals(objid,objid2);
+		assertEquals(2,sim.getNumberHits());
+	}
+
+	@Test public void testSetvicesIdentifierMapBasic2() throws Exception {
+		deleteAll(); // for speed
+		ServicesIdentifierMap sim=
+			new ServicesIdentifierMap(conn,
+					"intakes",
+					"intake-list/intake-list-item",
+					"intake/entryNumber");
+		String objid="test-sim-"+rnd.nextInt(Integer.MAX_VALUE);
+		ReturnedURL url=conn.getURL(RequestMethod.POST,"intakes/",buildObject(objid,"obj-intake.xml"));
 		assertEquals(201,url.getStatus());
 		String csid=url.getURL().substring(url.getURL().lastIndexOf("/")+1);
 		String csid2=sim.getCSID(objid);

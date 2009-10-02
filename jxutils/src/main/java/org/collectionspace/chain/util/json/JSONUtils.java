@@ -38,11 +38,29 @@ public class JSONUtils {
 		Iterator t=((JSONObject)a).keys();
 		while(t.hasNext()) {
 			String key=(String)t.next();
-			if(!((JSONObject)b).has(key))
+			if(!((JSONObject)b).has(key)) {
 				return false;
+			}
 			if(!checkJSONEquiv(((JSONObject)a).get(key),((JSONObject)b).get(key)))
 				return false;
 		}
 		return true;
+	}
+
+	private static JSONObject stripEmptyStringKey(JSONObject in) throws JSONException {
+		JSONObject out=new JSONObject();
+		Iterator<?> t=in.keys();
+		while(t.hasNext()) {
+			String key=(String)t.next();
+			Object value=in.get(key);
+			if((value instanceof String) && "".equals(value))
+				continue;
+			out.put(key,value);
+		}
+		return out;
+	}
+	
+	public static boolean checkJSONEquivOrEmptyStringKey(JSONObject a,JSONObject b) throws JSONException {
+		return checkJSONEquiv(stripEmptyStringKey(a),stripEmptyStringKey(b));
 	}
 }

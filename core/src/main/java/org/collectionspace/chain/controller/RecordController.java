@@ -85,6 +85,11 @@ public class RecordController {
 		case STORE:
 			// Get the data
 			JSONObject outputJSON = getJSON(base+"/"+path);
+			try {
+					outputJSON.put("csid",path);
+				} catch (JSONException e1) {
+					throw new BadRequestException("Cannot add csid",e1);
+				}
 			// Write the requested JSON out
 			out = request.getJSONWriter();
 			out.write(outputJSON.toString());

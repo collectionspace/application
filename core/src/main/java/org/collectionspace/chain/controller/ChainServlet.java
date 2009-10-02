@@ -188,6 +188,7 @@ public class ChainServlet extends HttpServlet
 				String[] parts=line.split(" +",2);
 				pw.println("Creating "+parts[0]);
 				global.getStore().createJSON(parts[0],getJSONResource(parts[1]));
+				pw.flush();
 			}
 			pw.println("done");
 		} catch (ExistException e) {

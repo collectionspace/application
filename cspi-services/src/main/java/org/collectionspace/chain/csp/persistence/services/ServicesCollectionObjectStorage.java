@@ -63,7 +63,10 @@ class ServicesCollectionObjectStorage implements Storage {
 
 	public ServicesCollectionObjectStorage(ServicesConnection conn) throws InvalidJXJException, DocumentException, IOException {
 		this.conn=conn;
-		cspace_264_hack=new ServicesIdentifierMap(conn,"collectionobjects","collection-object-list/collection-object-list-item");
+		cspace_264_hack=new ServicesIdentifierMap(conn,
+				"collectionobjects",
+				"collection-object-list/collection-object-list-item",
+				"collection-object/objectNumber");
 		JXJFile jxj_file=JXJFile.compile(getDocument("collectionobject.jxj"));
 		jxj=jxj_file.getTransformer("collection-object");
 		if(jxj==null)
@@ -205,6 +208,10 @@ class ServicesCollectionObjectStorage implements Storage {
 			while(!exhausted) {
 				// 2. Assume museum ID
 				String csid=cspace_264_hack.getCSID("_path:"+filePath);
+				if(csid==null) {
+					exhausted=true;
+					break;
+				}
 				doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+csid);
 				// XXX End of here's what we do because of CSPACE-264		
 				// vv This is what we should do
@@ -280,6 +287,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
 				csid=filePath;
 			} else {
+				cspace_264_hack.blastCache();
 				csid=cspace_264_hack.getCSID("_path:"+filePath);
 			}
 			int status=conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null);

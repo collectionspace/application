@@ -5,18 +5,94 @@
 			<map>
 				<mapping json=".accessionNumber" key="object-number" />
 				<mapping json=".objectNumber" key="other-number" multiple="yes"/>
-				<mapping json=".description" key="description" />
 				<mapping json=".comments" key="comments" />
 				<mapping json=".distinguishingFeatures" key="dist-features" />
 				<mapping json=".objectName" key="object-name" />
 				<mapping json=".responsibledept" key="responsible-dept" />
 				<mapping json=".objectTitle" key="title" />
+				<assembly key="misc">
+				  <mapping json=".description" assembly-key="description" />
+				  <mapping json=".objectTitleLanguage" assembly-key="objectTitleLanguage"/>
+                  <mapping json=".objectTitleTranslation" assembly-key="objectTitleTranslation"/>
+                  <mapping json=".objectTitleType" assembly-key="objectTitleType"/>
+                  <mapping json=".objectCurrency" assembly-key="objectCurrency"/>
+                  <mapping json=".objectLevel" assembly-key="objectLevel"/>
+                  <mapping json=".objectSystem" assembly-key="objectSystem"/>
+                  <mapping json=".objectType" assembly-key="objectType"/>
+                  <mapping json=".objectLanguage" assembly-key="objectLanguage"/>
+                  <mapping json=".objectNote" assembly-key="objectNote"/>
+                  <mapping json=".numberOfObjects" assembly-key="numberOfObjects"/>
+                  <mapping json=".descCopyNumber" assembly-key="descCopyNumber"/>
+                  <mapping json=".descStatus" assembly-key="descStatus"/>
+                  <mapping json=".descSex" assembly-key="descSex"/>
+                  <mapping json=".descPhase" assembly-key="descPhase"/>
+                  <mapping json=".descForm" assembly-key="descForm"/>
+                  <mapping json=".descEditionNumber" assembly-key="descEditionNumber"/>
+                  <mapping json=".descAge" assembly-key="descAge"/>
+                  <mapping json=".descAgeQualifier" assembly-key="descAgeQualifier"/>
+                  <mapping json=".descAgeUnit" assembly-key="descAgeUnit"/>
+                  <mapping json=".descStyle" assembly-key="descStyle"/>
+                  <mapping json=".descColor" assembly-key="descColor"/>
+                  <mapping json=".descMaterial" assembly-key="descMaterial"/>
+                  <mapping json=".descMaterialComponent" assembly-key="descMaterialComponent"/>
+                  <mapping json=".descMaterialNote" assembly-key="descMaterialNote"/>
+                  <mapping json=".descMaterialName" assembly-key="descMaterialName"/>
+                  <mapping json=".descMaterialSource" assembly-key="descMaterialSource"/>
+                  <mapping json=".descPhysicalDescription" assembly-key="descPhysicalDescription"/>
+                  <mapping json=".descComponentName" assembly-key="descComponentName"/>
+                  <mapping json=".descComponentInfo" assembly-key="descComponentInfo"/>
+                  <mapping json=".descTechAttribute" assembly-key="descTechAttribute"/>
+                  <mapping json=".descTechAttributeMeasure" assembly-key="descTechAttributeMeasure"/>
+                  <mapping json=".descTechAttributeUnit" assembly-key="descTechAttributeUnit"/>
+                  <mapping json=".descDimension" assembly-key="descDimension"/>
+                  <mapping json=".descDimensionPart" assembly-key="descDimensionPart"/>
+                  <mapping json=".descDimensionUnit" assembly-key="descDimensionUnit"/>
+                  <mapping json=".descDimensionValue" assembly-key="descDimensionValue"/>
+                  <mapping json=".descDimensionValueQualifier" assembly-key="descDimensionValueQualifier"/>
+                  <mapping json=".descContentDescription" assembly-key="descContentDescription"/>
+                  <mapping json=".descContentLanguage" assembly-key="descContentLanguage"/>
+                  <mapping json=".descContentActivity" assembly-key="descContentActivity"/>
+                  <mapping json=".descContentConcept" assembly-key="descContentConcept"/>
+                  <mapping json=".descContentPosition" assembly-key="descContentPosition"/>
+                  <mapping json=".descContentObject" assembly-key="descContentObject"/>
+                  <mapping json=".descContentObjectType" assembly-key="descContentObjectType"/>
+                  <mapping json=".descContentPeople" assembly-key="descContentPeople"/>
+                  <mapping json=".descContentPerson" assembly-key="descContentPerson"/>
+                  <mapping json=".descContentPlace" assembly-key="descContentPlace"/>
+                  <mapping json=".descContentScript" assembly-key="descContentScript"/>
+                  <mapping json=".descContentOrganization" assembly-key="descContentOrganization"/>
+                  <mapping json=".descContentMethod" assembly-key="descContentMethod"/>
+                  <mapping json=".descContentEventName" assembly-key="descContentEventName"/>
+                  <mapping json=".descContentEventNameType" assembly-key="descContentEventNameType"/>
+                  <mapping json=".descContentOther" assembly-key="descContentOther"/>
+                  <mapping json=".descContentOtherType" assembly-key="descContentOtherType"/>
+                  <mapping json=".descContentNote" assembly-key="descContentNote"/>
+                  <mapping json=".descInscriptionContent" assembly-key="descInscriptionContent"/>
+                  <mapping json=".descInscriptionDescription" assembly-key="descInscriptionDescription"/>
+                  <mapping json=".descInscriptionInscriber" assembly-key="descInscriptionInscriber"/>
+                  <mapping json=".descInscriptionLanguage" assembly-key="descInscriptionLanguage"/>
+                  <mapping json=".descInscriptionPosition" assembly-key="descInscriptionPosition"/>
+                  <mapping json=".descInscriptionScript" assembly-key="descInscriptionScript"/>
+                  <mapping json=".descInscriptionType" assembly-key="descInscriptionType"/>
+                  <mapping json=".descInscriptionMethod" assembly-key="descInscriptionMethod"/>
+                  <mapping json=".descInscriptionInterpretation" assembly-key="descInscriptionInterpretation"/>
+                  <mapping json=".descInscriptionTranslation" assembly-key="descInscriptionTranslation"/>
+                  <mapping json=".descInscriptionTransliteration" assembly-key="descInscriptionTransliteration"/>
+                  <mapping json=".descDateAssociation" assembly-key="descDateAssociation"/>
+                  <mapping json=".descDatePeriod" assembly-key="descDatePeriod"/>
+                  <mapping json=".descDateEarliestSingleCertainty" assembly-key="descDateEarliestSingleCertainty"/>
+                  <mapping json=".descDateEarliestSingleQualifier" assembly-key="descDateEarliestSingleQualifier"/>
+                  <mapping json=".descDateLatestSingleCertainty" assembly-key="descDateLatestSingleCertainty"/>
+                  <mapping json=".descDateLatestSingleQualifier" assembly-key="descDateLatestSingleQualifier"/>
+                  <mapping json=".descDateText" assembly-key="descDateText"/>
+				</assembly>
+				
 			</map>
 			<template>
 				<ns2:collection-object xmlns:ns2="http://services.collectionspace.org/collectionobject">
 					<objectNumber xtmpl:point="object-number">2</objectNumber>
 					<otherNumber xtmpl:point="other-number">3</otherNumber>
-					<briefDescription xtmpl:point="description">description</briefDescription>
+					<briefDescription xtmpl:point="misc">description</briefDescription>
 					<comments xtmpl:point="comments"></comments>
 					<distFeatures xtmpl:point="dist-features"></distFeatures>
 					<objectName xtmpl:point="object-name">Left-handed screwdriver</objectName>
@@ -34,7 +110,83 @@
 				<mapping xpath="collection-object/distFeatures" key="dist-features"/>
 				<mapping xpath="collection-object/objectName" key="object-name"/>
 				<mapping xpath="collection-object/responsibleDept" key="responsible-dept"/>
-				<mapping xpath="collection-object/title" key="title"/>				
+				<mapping xpath="collection-object/title" key="title"/>	
+				<assembly xpath="collection-object/briefDescription">
+				  <mapping assembly-key="description" key="description"/>
+                  <mapping key="objectTitleLanguage" assembly-key="objectTitleLanguage"/>
+                  <mapping key="objectTitleTranslation" assembly-key="objectTitleTranslation"/>
+                  <mapping key="objectTitleType" assembly-key="objectTitleType"/>
+                  <mapping key="objectCurrency" assembly-key="objectCurrency"/>
+                  <mapping key="objectLevel" assembly-key="objectLevel"/>
+                  <mapping key="objectSystem" assembly-key="objectSystem"/>
+                  <mapping key="objectType" assembly-key="objectType"/>
+                  <mapping key="objectLanguage" assembly-key="objectLanguage"/>
+                  <mapping key="objectNote" assembly-key="objectNote"/>
+                  <mapping key="numberOfObjects" assembly-key="numberOfObjects"/>
+                  <mapping key="descCopyNumber" assembly-key="descCopyNumber"/>
+                  <mapping key="descStatus" assembly-key="descStatus"/>
+                  <mapping key="descSex" assembly-key="descSex"/>
+                  <mapping key="descPhase" assembly-key="descPhase"/>
+                  <mapping key="descForm" assembly-key="descForm"/>
+                  <mapping key="descEditionNumber" assembly-key="descEditionNumber"/>
+                  <mapping key="descAge" assembly-key="descAge"/>
+                  <mapping key="descAgeQualifier" assembly-key="descAgeQualifier"/>
+                  <mapping key="descAgeUnit" assembly-key="descAgeUnit"/>
+                  <mapping key="descStyle" assembly-key="descStyle"/>
+                  <mapping key="descColor" assembly-key="descColor"/>
+                  <mapping key="descMaterial" assembly-key="descMaterial"/>
+                  <mapping key="descMaterialComponent" assembly-key="descMaterialComponent"/>
+                  <mapping key="descMaterialNote" assembly-key="descMaterialNote"/>
+                  <mapping key="descMaterialName" assembly-key="descMaterialName"/>
+                  <mapping key="descMaterialSource" assembly-key="descMaterialSource"/>
+                  <mapping key="descPhysicalDescription" assembly-key="descPhysicalDescription"/>
+                  <mapping key="descComponentName" assembly-key="descComponentName"/>
+                  <mapping key="descComponentInfo" assembly-key="descComponentInfo"/>
+                  <mapping key="descTechAttribute" assembly-key="descTechAttribute"/>
+                  <mapping key="descTechAttributeMeasure" assembly-key="descTechAttributeMeasure"/>
+                  <mapping key="descTechAttributeUnit" assembly-key="descTechAttributeUnit"/>
+                  <mapping key="descDimension" assembly-key="descDimension"/>
+                  <mapping key="descDimensionPart" assembly-key="descDimensionPart"/>
+                  <mapping key="descDimensionUnit" assembly-key="descDimensionUnit"/>
+                  <mapping key="descDimensionValue" assembly-key="descDimensionValue"/>
+                  <mapping key="descDimensionValueQualifier" assembly-key="descDimensionValueQualifier"/>
+                  <mapping key="descContentDescription" assembly-key="descContentDescription"/>
+                  <mapping key="descContentLanguage" assembly-key="descContentLanguage"/>
+                  <mapping key="descContentActivity" assembly-key="descContentActivity"/>
+                  <mapping key="descContentConcept" assembly-key="descContentConcept"/>
+                  <mapping key="descContentPosition" assembly-key="descContentPosition"/>
+                  <mapping key="descContentObject" assembly-key="descContentObject"/>
+                  <mapping key="descContentObjectType" assembly-key="descContentObjectType"/>
+                  <mapping key="descContentPeople" assembly-key="descContentPeople"/>
+                  <mapping key="descContentPerson" assembly-key="descContentPerson"/>
+                  <mapping key="descContentPlace" assembly-key="descContentPlace"/>
+                  <mapping key="descContentScript" assembly-key="descContentScript"/>
+                  <mapping key="descContentOrganization" assembly-key="descContentOrganization"/>
+                  <mapping key="descContentMethod" assembly-key="descContentMethod"/>
+                  <mapping key="descContentEventName" assembly-key="descContentEventName"/>
+                  <mapping key="descContentEventNameType" assembly-key="descContentEventNameType"/>
+                  <mapping key="descContentOther" assembly-key="descContentOther"/>
+                  <mapping key="descContentOtherType" assembly-key="descContentOtherType"/>
+                  <mapping key="descContentNote" assembly-key="descContentNote"/>
+                  <mapping key="descInscriptionContent" assembly-key="descInscriptionContent"/>
+                  <mapping key="descInscriptionDescription" assembly-key="descInscriptionDescription"/>
+                  <mapping key="descInscriptionInscriber" assembly-key="descInscriptionInscriber"/>
+                  <mapping key="descInscriptionLanguage" assembly-key="descInscriptionLanguage"/>
+                  <mapping key="descInscriptionPosition" assembly-key="descInscriptionPosition"/>
+                  <mapping key="descInscriptionScript" assembly-key="descInscriptionScript"/>
+                  <mapping key="descInscriptionType" assembly-key="descInscriptionType"/>
+                  <mapping key="descInscriptionMethod" assembly-key="descInscriptionMethod"/>
+                  <mapping key="descInscriptionInterpretation" assembly-key="descInscriptionInterpretation"/>
+                  <mapping key="descInscriptionTranslation" assembly-key="descInscriptionTranslation"/>
+                  <mapping key="descInscriptionTransliteration" assembly-key="descInscriptionTransliteration"/>
+                  <mapping key="descDateAssociation" assembly-key="descDateAssociation"/>
+                  <mapping key="descDatePeriod" assembly-key="descDatePeriod"/>
+                  <mapping key="descDateEarliestSingleCertainty" assembly-key="descDateEarliestSingleCertainty"/>
+                  <mapping key="descDateEarliestSingleQualifier" assembly-key="descDateEarliestSingleQualifier"/>
+                  <mapping key="descDateLatestSingleCertainty" assembly-key="descDateLatestSingleCertainty"/>
+                  <mapping key="descDateLatestSingleQualifier" assembly-key="descDateLatestSingleQualifier"/>
+                  <mapping key="descDateText" assembly-key="descDateText"/>
+				</assembly>
 			</map>
 			<template>
 			  {
@@ -45,7 +197,80 @@
 			      "distinguishingFeatures": "\u0000dist-features",
 			      "objectName": "\u0000object-name",
 			      "responsibledept": "\u0000responsible-dept",
-			      "objectTitle": "\u0000title"
+			      "objectTitle": "\u0000title",
+			      "objectTitleLanguage": "\u0000objectTitleLanguage",
+                  "objectTitleTranslation": "\u0000objectTitleTranslation",
+                  "objectTitleType": "\u0000objectTitleType",
+                  "objectCurrency": "\u0000objectCurrency",
+                  "objectLevel": "\u0000objectLevel",
+                  "objectSystem": "\u0000objectSystem",
+                  "objectType": "\u0000objectType",
+                  "objectLanguage": "\u0000objectLanguage",
+                  "objectNote": "\u0000objectNote",
+                  "numberOfObjects": "\u0000numberOfObjects",
+                  "descCopyNumber": "\u0000descCopyNumber",
+                  "descStatus": "\u0000descStatus",
+                  "descSex": "\u0000descSex",
+                  "descPhase": "\u0000descPhase",
+                  "descForm": "\u0000descForm",
+                  "descEditionNumber": "\u0000descEditionNumber",
+                  "descAge": "\u0000descAge",
+                  "descAgeQualifier": "\u0000descAgeQualifier",
+                  "descAgeUnit": "\u0000descAgeUnit",
+                  "descStyle": "\u0000descStyle",
+                  "descColor": "\u0000descColor",
+                  "descMaterial": "\u0000descMaterial",
+                  "descMaterialComponent": "\u0000descMaterialComponent",
+                  "descMaterialNote": "\u0000descMaterialNote",
+                  "descMaterialName": "\u0000descMaterialName",
+                  "descMaterialSource": "\u0000descMaterialSource",
+                  "descPhysicalDescription": "\u0000descPhysicalDescription",
+                  "descComponentName": "\u0000descComponentName",
+                  "descComponentInfo": "\u0000descComponentInfo",
+                  "descTechAttribute": "\u0000descTechAttribute",
+                  "descTechAttributeMeasure": "\u0000descTechAttributeMeasure",
+                  "descTechAttributeUnit": "\u0000descTechAttributeUnit",
+                  "descDimension": "\u0000descDimension",
+                  "descDimensionPart": "\u0000descDimensionPart",
+                  "descDimensionUnit": "\u0000descDimensionUnit",
+                  "descDimensionValue": "\u0000descDimensionValue",
+                  "descDimensionValueQualifier": "\u0000descDimensionValueQualifier",
+                  "descContentDescription": "\u0000descContentDescription",
+                  "descContentLanguage": "\u0000descContentLanguage",
+                  "descContentActivity": "\u0000descContentActivity",
+                  "descContentConcept": "\u0000descContentConcept",
+                  "descContentPosition": "\u0000descContentPosition",
+                  "descContentObject": "\u0000descContentObject",
+                  "descContentObjectType": "\u0000descContentObjectType",
+                  "descContentPeople": "\u0000descContentPeople",
+                  "descContentPerson": "\u0000descContentPerson",
+                  "descContentPlace": "\u0000descContentPlace",
+                  "descContentScript": "\u0000descContentScript",
+                  "descContentOrganization": "\u0000descContentOrganization",
+                  "descContentMethod": "\u0000descContentMethod",
+                  "descContentEventName": "\u0000descContentEventName",
+                  "descContentEventNameType": "\u0000descContentEventNameType",
+                  "descContentOther": "\u0000descContentOther",
+                  "descContentOtherType": "\u0000descContentOtherType",
+                  "descContentNote": "\u0000descContentNote",
+                  "descInscriptionContent": "\u0000descInscriptionContent",
+                  "descInscriptionDescription": "\u0000descInscriptionDescription",
+                  "descInscriptionInscriber": "\u0000descInscriptionInscriber",
+                  "descInscriptionLanguage": "\u0000descInscriptionLanguage",
+                  "descInscriptionPosition": "\u0000descInscriptionPosition",
+                  "descInscriptionScript": "\u0000descInscriptionScript",
+                  "descInscriptionType": "\u0000descInscriptionType",
+                  "descInscriptionMethod": "\u0000descInscriptionMethod",
+                  "descInscriptionInterpretation": "\u0000descInscriptionInterpretation",
+                  "descInscriptionTranslation": "\u0000descInscriptionTranslation",
+                  "descInscriptionTransliteration": "\u0000descInscriptionTransliteration",
+                  "descDateAssociation": "\u0000descDateAssociation",
+                  "descDatePeriod": "\u0000descDatePeriod",
+                  "descDateEarliestSingleCertainty": "\u0000descDateEarliestSingleCertainty",
+                  "descDateEarliestSingleQualifier": "\u0000descDateEarliestSingleQualifier",
+                  "descDateLatestSingleCertainty": "\u0000descDateLatestSingleCertainty",
+                  "descDateLatestSingleQualifier": "\u0000descDateLatestSingleQualifier",
+                  "descDateText": "\u0000descDateText"
 			  }
 			</template>
 		</xml2json>

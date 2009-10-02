@@ -23,16 +23,17 @@ import org.dom4j.Node;
  */
 class ServicesIdentifierMap {
 	private ServicesConnection conn;
-	private String prefix,entry_xpath;
+	private String prefix,entry_xpath,ourid_xpath;
 	private int cache_hits=0,cache_misses=0,cache_loadsteps=0;
 	
 	private Map<String,String> cache=new HashMap<String,String>();
 	private Map<String,String> back_cache=new HashMap<String,String>();
 	
-	ServicesIdentifierMap(ServicesConnection conn,String prefix,String entry_xpath) {
+	ServicesIdentifierMap(ServicesConnection conn,String prefix,String entry_xpath,String ourid_xpath) {
 		this.conn=conn;
 		this.prefix=prefix;
 		this.entry_xpath=entry_xpath;
+		this.ourid_xpath=ourid_xpath;
 	}
 	
 	// XXX objectNumber in lists is incorrect?
@@ -40,7 +41,7 @@ class ServicesIdentifierMap {
 		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,prefix+"/"+csid);
 		if(all.getStatus()!=200)
 			throw new ConnectionException("Bad request during identifier cache map update: status not 200 for "+prefix+"/"+csid);
-		return all.getDocument().selectSingleNode("collection-object/objectNumber").getText();
+		return all.getDocument().selectSingleNode(ourid_xpath).getText();
 	}
 	
 	// XXX horribly inefficient, but no search.
@@ -51,7 +52,7 @@ class ServicesIdentifierMap {
 			ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,prefix+"/");
 			if(all.getStatus()!=200)
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200 for "+prefix+"/");
-			List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
+			List<Node> objects=all.getDocument().selectNodes(entry_xpath);
 			Set<String> present=new HashSet<String>();
 			for(Node object : objects) {
 				String csid=object.selectSingleNode("csid").getText();

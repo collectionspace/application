@@ -63,11 +63,11 @@ public class TestServiceThroughWebapp {
 		assertEquals(out.getMethod(),null);
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
-		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(getResourceString("obj3.json")),new JSONObject(out.getContent())));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj3.json")),new JSONObject(out.getContent())));
 		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",getResourceString("obj4.json"));
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
-		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(getResourceString("obj4.json")),new JSONObject(out.getContent())));		
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj4.json")),new JSONObject(out.getContent())));		
 		out=jettyDo(jetty,"DELETE","/chain/objects/test-json-handle.tmp",null);
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
 		assertTrue(out.getStatus()!=200); // XXX should be 404
@@ -80,7 +80,7 @@ public class TestServiceThroughWebapp {
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
 		out=jettyDo(jetty,"GET","/chain"+path,null);
-		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(getResourceString("obj3.json")),new JSONObject(out.getContent())));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj3.json")),new JSONObject(out.getContent())));
 	}
 
 	@Test public void testIntake() throws Exception {
@@ -92,11 +92,11 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		System.err.println(out.getContent());
 		
-		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(getResourceString("int3.json")),new JSONObject(out.getContent())));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int3.json")),new JSONObject(out.getContent())));
 		out=jettyDo(jetty,"PUT","/chain"+path,getResourceString("int4.json"));
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+path,null);
-		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(getResourceString("int4.json")),new JSONObject(out.getContent())));		
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int4.json")),new JSONObject(out.getContent())));		
 		out=jettyDo(jetty,"DELETE","/chain"+path,null);
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		assertTrue(out.getStatus()!=200); // XXX should be 404		
