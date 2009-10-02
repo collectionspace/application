@@ -10,7 +10,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -57,13 +59,13 @@ public class ChainServlet extends HttpServlet
 	private Map<String,RecordController> controllers=new HashMap<String,RecordController>();
 	private static final Set<String> controller_types=new HashSet<String>();
 	private static final Set<String> users=new HashSet<String>();
-	
+
 	static {
 		controller_types.add("collection-object");
 		controller_types.add("intake");
 		controller_types.add("acquisition");
 		controller_types.add("id");
-		
+
 		users.add("guest");
 		users.add("curator");
 		users.add("admin");
@@ -115,7 +117,7 @@ public class ChainServlet extends HttpServlet
 			throw new BootstrapConfigLoadFailedException("Config has bad character encoding",e);
 		}
 	}
-	
+
 	private synchronized void setup() throws BadRequestException {
 		if(inited)
 			return;
@@ -159,14 +161,26 @@ public class ChainServlet extends HttpServlet
 		return true;
 	}
 
-	private void xxx_reset() throws IOException, BadRequestException { // Temporary hack to reset db
+	private void xxx_reset(ChainRequest request) throws IOException, BadRequestException { // Temporary hack to reset db
 		/* Temporary hack for moon */
 		// Delete all members
 		try {
+			PrintWriter pw=request.getPlainTextWriter();
 			for(String dir : global.getStore().getPaths("/")) {
-				String[] paths=global.getStore().getPaths("/"+dir);
+				pw.println("dir : "+dir);
+				String[] paths=global.getStore().getPaths(dir);
 				for(int i=0;i<paths.length;i++) {
-					global.getStore().deleteJSON(dir+"/"+paths[i]);
+					pw.println("path : "+dir+"/"+paths[i]);
+					try {
+						global.getStore().deleteJSON(dir+"/"+paths[i]);
+					} catch (UnimplementedException e) {
+						// Never mind
+						pw.println("ux");
+					} catch (UnderlyingStorageException e) {
+						pw.println("use "+getStackTrace(e));
+					}
+					pw.println("ok");
+					pw.flush();
 				}					
 			}
 			String schedule=getResource("reset.txt");
@@ -174,10 +188,11 @@ public class ChainServlet extends HttpServlet
 				String[] parts=line.split(" +",2);
 				global.getStore().createJSON(parts[0],getJSONResource(parts[1]));
 			}
+			pw.println("done");
 		} catch (ExistException e) {
 			throw new BadRequestException("Existence problem",e);
 		} catch (UnimplementedException e) {
-			throw new BadRequestException("Unimplemented",e);
+			throw new BadRequestException("Unimplemented ",e);
 		} catch (UnderlyingStorageException e) {
 			throw new BadRequestException("Problem storing",e);
 		} catch (JSONException e) {
@@ -200,7 +215,14 @@ public class ChainServlet extends HttpServlet
 			request.setStatus(303);
 		}
 	}
-	
+
+	public static String getStackTrace(Throwable aThrowable) {
+		final Writer result = new StringWriter();
+		final PrintWriter printWriter = new PrintWriter(result);
+		aThrowable.printStackTrace(printWriter);
+		return result.toString();
+	}
+
 	/**
 	 * Responding to a request. The request is assumed to consist of a path to a requested JSON object.
 	 * The response returns the object in string form (or an empty string if not found).
@@ -217,7 +239,7 @@ public class ChainServlet extends HttpServlet
 			request = new ChainRequest(servlet_request,servlet_response);
 			switch(request.getType()) {
 			case RESET:
-				xxx_reset();
+				xxx_reset(request);
 				break;
 			case LOGIN:
 				xxx_login(request);
@@ -230,7 +252,7 @@ public class ChainServlet extends HttpServlet
 				break;
 			}
 		} catch (BadRequestException x) {
-			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, x.getMessage());
+			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, getStackTrace(x));
 		}
 	}
 

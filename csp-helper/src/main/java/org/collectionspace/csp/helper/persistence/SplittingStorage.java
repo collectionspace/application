@@ -24,19 +24,21 @@ import org.json.JSONObject;
  */
 public class SplittingStorage implements Storage {
 	private Map<String,Storage> children=new HashMap<String,Storage>();
-	
+
 	public void addChild(String prefix,Storage store) {
 		children.put(prefix,store);
 	}
-	
+
 	private Storage get(String path) throws ExistException {
 		Storage out=children.get(path);
 		if(out==null)
 			throw new ExistException("No child storage bound to "+path);
 		return out;
 	}
-	
+
 	private String[] split(String path,boolean missing_is_blank) throws ExistException {
+		if(path.startsWith("/"))
+			path=path.substring(1);
 		String[] out=path.split("/",2);
 		if(out.length<2) {
 			if(missing_is_blank)
@@ -46,7 +48,7 @@ public class SplittingStorage implements Storage {
 		}
 		return out;
 	}
-	
+
 	public void createJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,true);
 		if("".equals(parts[1])) { // autocreate?
@@ -57,14 +59,23 @@ public class SplittingStorage implements Storage {
 
 	public String[] getPaths(String rootPath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(rootPath,true);
-		List<String> out=new ArrayList<String>();
-		for(Map.Entry<String,Storage> e : children.entrySet()) {
-			if(e.getKey().equals(parts[0]))
-			for(String s : e.getValue().getPaths(parts[1])) {
-				out.add(s);
+		if("".equals(parts[0])) {
+			return children.keySet().toArray(new String[0]);
+		} else {
+			List<String> out=new ArrayList<String>();
+			for(Map.Entry<String,Storage> e : children.entrySet()) {
+				if(e.getKey().equals(parts[0])) {
+					Storage storage=e.getValue();
+					String[] paths=storage.getPaths(parts[1]);
+					if(paths==null)
+						continue;
+					for(String s : paths) {
+						out.add(s);
+					}
+				}
 			}
+			return out.toArray(new String[0]);
 		}
-		return out.toArray(new String[0]);
 	}
 
 	public JSONObject retrieveJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
@@ -83,7 +94,7 @@ public class SplittingStorage implements Storage {
 	}
 
 	public void deleteJSON(String filePath) throws ExistException,
-			UnimplementedException, UnderlyingStorageException {
+	UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,false);
 		get(parts[0]).deleteJSON(parts[1]);		
 	}

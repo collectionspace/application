@@ -153,6 +153,15 @@ public class ChainRequest {
 		
 		return res.getWriter();
 	}
+
+	public PrintWriter getPlainTextWriter() throws IOException {
+		// Set response type to JSON
+		res.setCharacterEncoding("UTF-8");
+		res.setContentType("text/plain");
+		// Return JSON
+		
+		return res.getWriter();
+	}
 	
 	/** Method/params indicate data should be created at path, not updated
 	 * 
