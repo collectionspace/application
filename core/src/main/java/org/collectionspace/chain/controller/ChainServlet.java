@@ -186,6 +186,7 @@ public class ChainServlet extends HttpServlet
 			String schedule=getResource("reset.txt");
 			for(String line : schedule.split("\n")) {
 				String[] parts=line.split(" +",2);
+				pw.println("Creating "+parts[0]);
 				global.getStore().createJSON(parts[0],getJSONResource(parts[1]));
 			}
 			pw.println("done");

@@ -91,7 +91,7 @@ public class TestService extends ServicesBaseClass {
 	
 	@Test public void testSetvicesIdentifierMapBasic() throws Exception {
 		deleteAll(); // for speed
-		ServicesIdentifierMap sim=new ServicesIdentifierMap(conn);
+		ServicesIdentifierMap sim=new ServicesIdentifierMap(conn,"collectionobjects","collection-object-list/collection-object-list-item");
 		String objid="test-sim-"+rnd.nextInt(Integer.MAX_VALUE);
 		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",buildObject(objid));
 		assertEquals(201,url.getStatus());

@@ -23,18 +23,21 @@ import org.dom4j.Node;
  */
 class ServicesIdentifierMap {
 	private ServicesConnection conn;
+	private String prefix,entry_xpath;
 	private int cache_hits=0,cache_misses=0,cache_loadsteps=0;
 	
 	private Map<String,String> cache=new HashMap<String,String>();
 	private Map<String,String> back_cache=new HashMap<String,String>();
 	
-	ServicesIdentifierMap(ServicesConnection conn) {
+	ServicesIdentifierMap(ServicesConnection conn,String prefix,String entry_xpath) {
 		this.conn=conn;
+		this.prefix=prefix;
+		this.entry_xpath=entry_xpath;
 	}
 	
 	// XXX objectNumber in lists is incorrect?
 	private String toObjNum(String csid) throws ConnectionException {
-		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+csid);
+		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,prefix+"/"+csid);
 		if(all.getStatus()!=200)
 			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 		return all.getDocument().selectSingleNode("collection-object/objectNumber").getText();
@@ -45,7 +48,7 @@ class ServicesIdentifierMap {
 	private synchronized void updateCache() throws ConnectionException {
 		try {
 			cache_misses++;
-			ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");
+			ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,prefix+"/");
 			if(all.getStatus()!=200)
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 			List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
@@ -76,6 +79,11 @@ class ServicesIdentifierMap {
 		return cache.get(object_number);
 	}
 
+	void blastCache() {
+		cache.clear();
+		back_cache.clear();
+	}
+	
 	String fromCSID(String csid) throws ConnectionException {
 		String object_number=back_cache.get(csid);
 		if(object_number==null) {

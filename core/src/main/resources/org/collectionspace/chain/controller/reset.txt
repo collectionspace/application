@@ -1,3 +1,10 @@
-collection-object/1984.068.0335b test1.json
-collection-object/1984.068.0338 test2.json
-collection-object/__auto objects__auto.json
+collection-object/1984.068.0335b reset-objects/1984.068.0335b.json
+collection-object/1984.068.0338 reset-objects/1984.068.0338.json
+collection-object/2005.018.1383 reset-objects/2005.018.1383.json
+collection-object/__auto reset-objects/__auto.json
+intake/2007.4-a reset-intake/2007.4-a.json
+intake/IN2004.002 reset-intake/IN2004.002.json
+intake/IN2009.001 reset-intake/IN2009.001.json
+intake/IN2009.002 reset-intake/IN2009.002.json
+intake/IN2009.003 reset-intake/IN2009.003.json
+intake/__auto reset-intake/__auto.json

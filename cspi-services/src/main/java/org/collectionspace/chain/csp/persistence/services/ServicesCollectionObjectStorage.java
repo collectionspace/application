@@ -50,7 +50,7 @@ class ServicesCollectionObjectStorage implements Storage {
 	private JXJTransformer jxj;
 	private ServicesIdentifierMap cspace_264_hack;
 	private static Logger log=LoggerFactory.getLogger(ServicesCollectionObjectStorage.class);
-	
+
 	// XXX refactor into util
 	private Document getDocument(String in) throws DocumentException, IOException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
@@ -60,10 +60,10 @@ class ServicesCollectionObjectStorage implements Storage {
 		stream.close();
 		return doc;
 	}
-	
+
 	public ServicesCollectionObjectStorage(ServicesConnection conn) throws InvalidJXJException, DocumentException, IOException {
 		this.conn=conn;
-		cspace_264_hack=new ServicesIdentifierMap(conn);
+		cspace_264_hack=new ServicesIdentifierMap(conn,"collectionobjects","collection-object-list/collection-object-list-item");
 		JXJFile jxj_file=JXJFile.compile(getDocument("collectionobject.jxj"));
 		jxj=jxj_file.getTransformer("collection-object");
 		if(jxj==null)
@@ -93,7 +93,7 @@ class ServicesCollectionObjectStorage implements Storage {
 		} catch (JSONException e) {}
 		return in;
 	}
-	
+
 	private JSONObject cspace264Hack_munge(JSONObject in,String path) {
 		// 1. Copy accession number into other number
 		JSONArray ons=new JSONArray();
@@ -122,7 +122,7 @@ class ServicesCollectionObjectStorage implements Storage {
 		}
 		return in;
 	}
-		
+
 	// XXX
 	@SuppressWarnings("unchecked")
 	private Document cspace266Hack_munge(Document in) {
@@ -152,7 +152,7 @@ class ServicesCollectionObjectStorage implements Storage {
 		}
 		return in;
 	}
-	
+
 	public void createJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		// XXX Here's what we do because of CSPACE-264
 		jsonObject=cspace264Hack_munge(jsonObject,filePath);
@@ -200,15 +200,27 @@ class ServicesCollectionObjectStorage implements Storage {
 			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
 				return jxj.xml2json(cspace266Hack_unmunge(doc.getDocument()));
 			}
-			// 2. Assume museum ID
-			String csid=cspace_264_hack.getCSID("_path:"+filePath);
-			doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+csid);
-			// XXX End of here's what we do because of CSPACE-264		
-			// vv This is what we should do
-			// ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
-			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument())) {
-				throw new ExistException("Does not exist "+filePath);
+			boolean blasted=false;
+			boolean exhausted=false;
+			while(!exhausted) {
+				// 2. Assume museum ID
+				String csid=cspace_264_hack.getCSID("_path:"+filePath);
+				doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+csid);
+				// XXX End of here's what we do because of CSPACE-264		
+				// vv This is what we should do
+				// ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
+				if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument())) {
+					if(!blasted) {
+						cspace_264_hack.blastCache();
+						exhausted=false;
+						blasted=true;
+					} else
+						exhausted=true;
+				} else
+					break;
 			}
+			if(exhausted)
+				throw new ExistException("Does not exist "+filePath);
 			if(doc.getStatus()>299 || doc.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
 			// XXX Here's what we do because of CSPACE-264

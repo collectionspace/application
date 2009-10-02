@@ -448,9 +448,9 @@ public class TestGeneral {
 		out=jettyDo(setupJetty(),"GET","/chain/objects/1984.068.0335b",null);
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
-		String cmp=IOUtils.toString(Thread.currentThread().getContextClassLoader().getResourceAsStream("org/collectionspace/chain/controller/test1.json"));
-		assertEquals(cmp,out.getContent());
-		assertEquals(2,files.size());		
+		String cmp=IOUtils.toString(Thread.currentThread().getContextClassLoader().getResourceAsStream("org/collectionspace/chain/controller/reset-objects/1984.068.0335b.json"));
+		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(cmp),new JSONObject(out.getContent())));
+		assertEquals(4,files.size());		
 	}
 	
 	@Test public void testLogin() throws Exception {
