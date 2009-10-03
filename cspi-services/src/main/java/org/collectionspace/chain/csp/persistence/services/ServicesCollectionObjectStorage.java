@@ -158,8 +158,7 @@ class ServicesCollectionObjectStorage implements Storage {
 
 	public void createJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		// XXX Here's what we do because of CSPACE-264
-		jsonObject=cspace264Hack_munge(jsonObject,filePath);
-		autocreateJSON("",jsonObject);
+		autocreateJSON(filePath,jsonObject);
 		// XXX End of here's what we do because of CSPACE-264		
 		// Here's what we should do ->
 		// throw new UnimplementedException("Cannot create collectionobject at known path, use autocreateJSON");
@@ -246,6 +245,7 @@ class ServicesCollectionObjectStorage implements Storage {
 
 	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException {
 		try {
+			jsonObject=cspace264Hack_munge(jsonObject,filePath);
 			Document data=cspace266Hack_munge(jxj.json2xml(jsonObject));
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
 			String csid=null;
@@ -268,15 +268,28 @@ class ServicesCollectionObjectStorage implements Storage {
 
 	public String autocreateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException, UnimplementedException {
 		try {
-			Document doc=cspace266Hack_munge(jxj.json2xml(jsonObject));
-			ReturnedURL url = conn.getURL(RequestMethod.POST,"collectionobjects/",doc);
+			String accnum=jsonObject.getString("accessionNumber");
+			if("__auto".equals(filePath))
+				accnum="__auto";
+			Document data=cspace266Hack_munge(jxj.json2xml(jsonObject));
+			ReturnedURL url = conn.getURL(RequestMethod.POST,"collectionobjects/",data);
 			if(url.getStatus()>299 || url.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+url.getStatus());
-			return url.getURLTail();
+			String csid=url.getURLTail();
+			data=cspace266Hack_munge(jxj.json2xml(cspace264Hack_munge(jsonObject,accnum)));
+			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.PUT,"collectionobjects/"+csid,data);
+			// XXX Set path
+			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument()))
+				throw new ExistException("Not found: collecitonobjects/"+csid);
+			if(doc.getStatus()>299 || doc.getStatus()<200)
+				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
+			return csid;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (InvalidXTmplException e) {
 			throw new UnimplementedException("Error in template",e);
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Cannot munge data",e);
 		}
 	}
 
