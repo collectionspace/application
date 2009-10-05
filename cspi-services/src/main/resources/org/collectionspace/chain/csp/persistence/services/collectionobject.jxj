@@ -8,7 +8,7 @@
 				<mapping json=".comments" key="comments" />
 				<mapping json=".distinguishingFeatures" key="dist-features" />
 				<mapping json=".objectName" key="object-name" />
-				<mapping json=".responsibledept" key="responsible-dept" />
+				<mapping json=".responsibleDepartment" key="responsible-dept" />
 				<mapping json=".objectTitle" key="title" />
 				<assembly key="misc">
 				  <mapping json=".description" assembly-key="description" />
@@ -196,7 +196,7 @@
 			      "comments": "\u0000comments",
 			      "distinguishingFeatures": "\u0000dist-features",
 			      "objectName": "\u0000object-name",
-			      "responsibledept": "\u0000responsible-dept",
+			      "responsibleDepartment": "\u0000responsible-dept",
 			      "objectTitle": "\u0000title",
 			      "objectTitleLanguage": "\u0000objectTitleLanguage",
                   "objectTitleTranslation": "\u0000objectTitleTranslation",
