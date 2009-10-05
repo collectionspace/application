@@ -7,17 +7,28 @@
 				<mapping json=".entryNumber" key="entry-number" />
 				<mapping json=".entryDate" key="entry-date"/>
 				<mapping json=".entryMethod" key="entry-method" />
-				<mapping json=".entryReasons" key="entry-reasons" />
+				<mapping json=".entryReason" key="entry-reasons" />
 				<mapping json=".depositor" key="depositor" />
 				<mapping json=".entryNote" key="entry-note" />
 				<mapping json=".idTunnel" key="id-tunnel" /> <!-- XXX id tunnel -->
 				<assembly key="misc">
+					<mapping json=".currentOwner" assembly-key="current-owner" />
+					<mapping json=".depositorRequirements" assembly-key="depositor-requirements" />
 					<mapping json=".returnDate" assembly-key="return-date" />
 					<mapping json=".donor" assembly-key="donor" />
 					<mapping json=".numObjects" assembly-key="num-objects" />
 					<mapping json=".responsibleEntity" assembly-key="responsible-entity" />
 					<mapping json=".description" assembly-key="description" />
 					<mapping json=".packingNote" assembly-key="packing-note" />
+					<mapping json=".associationDate" assembly-key="association-date" />
+					<mapping json=".earliestDate" assembly-key="earliest-date" />
+					<mapping json=".earliestDateCertainty" assembly-key="earliest-date-certainty" />
+					<mapping json=".earliestDateQualifier" assembly-key="earliest-date-qualifier" />
+					<mapping json=".latestDate" assembly-key="latest-date" />
+					<mapping json=".latestDateCertainty" assembly-key="latest-date-certainty" />
+					<mapping json=".latestDateQualifier" assembly-key="latest-date-qualifier" />
+					<mapping json=".datePeriod" assembly-key="date-period" />
+					<mapping json=".dateText" assembly-key="date-text" />
 				</assembly>
 			</map>
 			<template>
@@ -26,10 +37,25 @@
 					<entryDate xtmpl:point="entry-date">3</entryDate>
 					<entryMethod xtmpl:point="entry-method"></entryMethod>
 					<entryReason xtmpl:point="entry-reasons"></entryReason>
-					<returnDate xtmpl:point="misc">Left-handed screwdriver</returnDate>
 					<depositor xtmpl:point="depositor"></depositor>
 					<entryNote xtmpl:point="entry-note"></entryNote>
+					<returnDate xtmpl:point="misc">Left-handed screwdriver</returnDate>
+					<currentOwner xtmpl:point="current-owner"></currentOwner>
+					<donor xtmpl:point="donor"></donor>
+					<description xtmpl:point="description"></description>
+					<numObjects xtmpl:point="num-objects"></numObjects>
+					<responsibleEntity xtmpl:point="responsible-entity"></responsibleEntity>
+					<depositorRequirements xtmpl:point="depositor-requirements"></depositorRequirements>
 					<packingNote xtmpl:point="id-tunnel"></packingNote>
+					<associationDate xtmpl:point="association-date"></associationDate>
+					<earliestDate xtmpl:point="earliest-date"></earliestDate>
+					<earliestDateCertainty xtmpl:point="earliest-date-certainty"></earliestDateCertainty>
+					<earliestDateQualifier xtmpl:point="earliest-date-qualifier"></earliestDateQualifier>
+					<latestDate xtmpl:point="latest-date"></latestDate>
+					<latestDateCertainty xtmpl:point="latest-date-certainty"></latestDateCertainty>
+					<latestDateQualifier xtmpl:point="latest-date-qualifier"></latestDateQualifier>
+					<datePeriod xtmpl:point="date-period"></datePeriod>
+					<dateText xtmpl:point="date-text"></dateText>
 				</ns2:intake>
 			</template>
 		</json2xml>
@@ -45,10 +71,21 @@
 				<assembly xpath="intake/returnDate">
 					<mapping assembly-key="return-date" key="return-date"/>
 					<mapping assembly-key="donor" key="donor"/>
+					<mapping assembly-key="current-owner" key="current-owner"/>
+					<mapping assembly-key="depositor-requirements" key="depositor-requirements"/>
 					<mapping assembly-key="num-objects" key="num-objects"/>
 					<mapping assembly-key="responsible-entity" key="responsible-entity"/>
 					<mapping assembly-key="description" key="description"/>
 					<mapping assembly-key="packing-note" key="packing-note"/>
+					<mapping assembly-key="association-date" key="association-date"/>
+					<mapping assembly-key="earliest-date" key="earliest-date"/>
+					<mapping assembly-key="earliest-date-certainty" key="earliest-date-certainty"/>
+					<mapping assembly-key="earliest-date-qualifier" key="earliest-date-qualifier"/>
+					<mapping assembly-key="latest-date" key="latest-date"/>
+					<mapping assembly-key="latest-date-certainty" key="latest-date-certainty"/>
+					<mapping assembly-key="latest-date-qualifier" key="latest-date-qualifier"/>
+					<mapping assembly-key="date-period" key="date-period"/>
+					<mapping assembly-key="date-text" key="date-text"/>
 				</assembly>
 			</map>
 			<template>
@@ -57,7 +94,9 @@
 			      "entryDate": "\u0000entry-date",
 			      "numObjects": "\u0000num-objects",
 			      "entryMethod": "\u0000entry-method",
-			      "entryReasons": "\u0000entry-reasons",
+			      "entryReason": "\u0000entry-reasons",
+			      "currentOwner": "\u0000current-owner",
+			      "depositorRequirements": "\u0000depositor-requirements",
 			      "returnDate": "\u0000return-date",
 			      "donor": "\u0000donor",
 			      "depositor": "\u0000depositor",			      
@@ -65,7 +104,16 @@
 			      "description": "\u0000description",
 			      "entryNote": "\u0000entry-note",
 			      "packingNote": "\u0000packing-note",
-			      "idTunnel": "\u0000id-tunnel"
+			      "idTunnel": "\u0000id-tunnel",
+			      "associationDate": "\u0000association-date",
+			      "earliestDate": "\u0000earliest-date",
+			      "earliestDateCertainty": "\u0000earliest-date-certainty",
+			      "earliestDateQualifier": "\u0000earliest-date-qualifier",
+			      "latestDate": "\u0000latest-date",
+			      "latestDateCertainty": "\u0000latest-date-certainty",
+			      "latestDateQualifier": "\u0000latest-date-qualifier",
+			      "datePeriod": "\u0000date-period",
+			      "dateText": "\u0000date-text"
 			  }
 			</template>
 		</xml2json>
