@@ -29,6 +29,22 @@
 					<mapping json=".latestDateQualifier" assembly-key="latest-date-qualifier" />
 					<mapping json=".datePeriod" assembly-key="date-period" />
 					<mapping json=".dateText" assembly-key="date-text" />
+
+                    <mapping json=".fieldCollectionDate" assembly-key="field-collection-date" />
+                    <mapping json=".fieldCollectionEventName" assembly-key="field-collection-event-name" />
+                    <mapping json=".fieldCollectionEventRefNumber" assembly-key="field-collection-event-ref-number" />
+                    <mapping json=".fieldCollectionMethod" assembly-key="field-collection-method" />
+                    <mapping json=".fieldCollectionNote" assembly-key="field-collection-note" />
+                    <mapping json=".fieldCollectionNumber" assembly-key="field-collection-number" />
+                    <mapping json=".fieldCollectionPlace" assembly-key="field-collection-place" />
+                    <mapping json=".fieldCollectionSource" assembly-key="field-collection-source" />
+                    <mapping json=".fieldCollector" assembly-key="field-collector" />
+                    <mapping json=".geologicalComplexName" assembly-key="geological-complex-name" />
+                    <mapping json=".habitat" assembly-key="habitat" />
+                    <mapping json=".habitatNote" assembly-key="habitat-note" />
+                    <mapping json=".stratigraphicUnitName" assembly-key="stratigraphic-unit-name" />
+                    <mapping json=".stratigraphicUnitType" assembly-key="stratigraphic-unit-type" />
+                    <mapping json=".stratigraphicUnitNote" assembly-key="stratigraphic-unit-note" />
 				</assembly>
 			</map>
 			<template>
@@ -56,6 +72,22 @@
 					<latestDateQualifier xtmpl:point="latest-date-qualifier"></latestDateQualifier>
 					<datePeriod xtmpl:point="date-period"></datePeriod>
 					<dateText xtmpl:point="date-text"></dateText>
+
+					<fieldCollectionDate xtmpl:point="field-collection-date"></fieldCollectionDate>
+					<fieldCollectionDate xtmpl:point="field-collection-event-name"></fieldCollectionDate>
+					<fieldCollectionEventRefNumber xtmpl:point="field-collection-event-ref-number"></fieldCollectionEventRefNumber>
+					<fieldCollectionMethod xtmpl:point="field-collection-method"></fieldCollectionMethod>
+					<fieldCollectionNote xtmpl:point="field-collection-note"></fieldCollectionNote>
+					<fieldCollectionNumber xtmpl:point="field-collection-number"></fieldCollectionNumber>
+					<fieldCollectionPlace xtmpl:point="field-collection-place"></fieldCollectionPlace>
+					<fieldCollectionSource xtmpl:point="field-collection-source"></fieldCollectionSource>
+					<fieldCollector xtmpl:point="field-collector"></fieldCollector>
+					<geologicalComplexName xtmpl:point="geological-complex-name"></geologicalComplexName>
+					<habitat xtmpl:point="habitat"></habitat>
+					<habitatNote xtmpl:point="habitat-note"></habitatNote>
+					<stratigraphicUnitName xtmpl:point="stratigraphic-unit-name"></stratigraphicUnitName>
+					<stratigraphicUnitType xtmpl:point="stratigraphic-unit-type"></stratigraphicUnitType>
+					<stratigraphicUnitType xtmpl:point="stratigraphic-unit-note"></stratigraphicUnitType>
 				</ns2:intake>
 			</template>
 		</json2xml>
@@ -86,6 +118,22 @@
 					<mapping assembly-key="latest-date-qualifier" key="latest-date-qualifier"/>
 					<mapping assembly-key="date-period" key="date-period"/>
 					<mapping assembly-key="date-text" key="date-text"/>
+
+					<mapping assembly-key="field-collection-date" key="field-collection-date"/>
+					<mapping assembly-key="field-collection-event-name" key="field-collection-event-name"/>
+					<mapping assembly-key="field-collection-event-ref-number" key="field-collection-event-ref-number"/>
+					<mapping assembly-key="field-collection-method" key="field-collection-method"/>
+					<mapping assembly-key="field-collection-note" key="field-collection-note"/>
+					<mapping assembly-key="field-collection-number" key="field-collection-number"/>
+					<mapping assembly-key="field-collection-place" key="field-collection-place"/>
+					<mapping assembly-key="field-collection-source" key="field-collection-source"/>
+					<mapping assembly-key="field-collector" key="field-collector"/>
+					<mapping assembly-key="geological-complex-name" key="geological-complex-name"/>
+					<mapping assembly-key="habitat" key="habitat"/>
+					<mapping assembly-key="habitat-note" key="habitat-note"/>
+					<mapping assembly-key="stratigraphic-unit-name" key="stratigraphic-unit-name"/>
+					<mapping assembly-key="stratigraphic-unit-type" key="stratigraphic-unit-type"/>
+					<mapping assembly-key="stratigraphic-unit-note" key="stratigraphic-unit-note"/>
 				</assembly>
 			</map>
 			<template>
@@ -113,7 +161,23 @@
 			      "latestDateCertainty": "\u0000latest-date-certainty",
 			      "latestDateQualifier": "\u0000latest-date-qualifier",
 			      "datePeriod": "\u0000date-period",
-			      "dateText": "\u0000date-text"
+			      "dateText": "\u0000date-text",
+
+			      "fieldCollectionDate": "\u0000field-collection-date",
+			      "fieldCollectionEventName": "\u0000field-collection-event-name",
+			      "fieldCollectionEventRefNumber": "\u0000field-collection-event-ref-number",
+			      "fieldCollectionMethod": "\u0000field-collection-method",
+			      "fieldCollectionNote": "\u0000field-collection-note",
+			      "fieldCollectionNumber": "\u0000field-collection-number",
+			      "fieldCollectionPlace": "\u0000field-collection-place",
+			      "fieldCollectionSource": "\u0000field-collection-source",
+			      "fieldCollector": "\u0000field-collector",
+			      "geologicalComplexName": "\u0000geological-complex-name",
+			      "habitat": "\u0000habitat",
+			      "habitatNote": "\u0000habitat-note",
+			      "stratigraphicUnitName": "\u0000stratigraphic-unit-name",
+			      "stratigraphicUnitType": "\u0000stratigraphic-unit-type",
+			      "stratigraphicUnitNote": "\u0000stratigraphic-unit-note"
 			  }
 			</template>
 		</xml2json>
