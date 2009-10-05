@@ -45,6 +45,28 @@
                     <mapping json=".stratigraphicUnitName" assembly-key="stratigraphic-unit-name" />
                     <mapping json=".stratigraphicUnitType" assembly-key="stratigraphic-unit-type" />
                     <mapping json=".stratigraphicUnitNote" assembly-key="stratigraphic-unit-note" />
+
+                    <mapping json=".ValuationReferenceNumber" assembly-key="valuation-reference-number" />
+                    <mapping json=".Valuer" assembly-key="valuer" />
+
+                    <mapping json=".insuranceNote" assembly-key="insurance-note" />
+                    <mapping json=".insurancePolicyNumber" assembly-key="insurance-policy-number" />
+                    <mapping json=".InsuranceReferenceNumber" assembly-key="insurance-reference-number" />
+                    <mapping json=".insuranceRenewalDate" assembly-key="insurance-renewal-date" />
+                    <mapping json=".insurer" assembly-key="insurer" />
+
+                    <mapping json=".currentLocation" assembly-key="current-location" />
+                    <mapping json=".currentLocationFitness" assembly-key="current-location-fitness" />
+                    <mapping json=".currentLocationNote" assembly-key="current-location-note" />
+                    <mapping json=".locationDate" assembly-key="location-date" />
+                    <mapping json=".normalLocation" assembly-key="normal-location" />
+                    
+                    <mapping json=".conditionCheckDate" assembly-key="condition-check-date" />
+                    <mapping json=".conditionCheckMethod" assembly-key="condition-check-method" />
+                    <mapping json=".conditionCheckNote" assembly-key="condition-check-note" />
+                    <mapping json=".conditionCheckReason" assembly-key="condition-check-reason" />
+                    <mapping json=".conditionCheckReferenceNumber" assembly-key="condition-check-reference-number" />
+                    <mapping json=".conditionCheckAssesor" assembly-key="condition-check-assesor" />
 				</assembly>
 			</map>
 			<template>
@@ -88,6 +110,28 @@
 					<stratigraphicUnitName xtmpl:point="stratigraphic-unit-name"></stratigraphicUnitName>
 					<stratigraphicUnitType xtmpl:point="stratigraphic-unit-type"></stratigraphicUnitType>
 					<stratigraphicUnitType xtmpl:point="stratigraphic-unit-note"></stratigraphicUnitType>
+
+					<ValuationReferenceNumber xtmpl:point="valuation-reference-number"></ValuationReferenceNumber>
+					<Valuer xtmpl:point="valuer"></Valuer>
+
+					<insuranceNote xtmpl:point="insurance-note"></insuranceNote>
+					<insurancePolicyNumber xtmpl:point="insurance-policy-number"></insurancePolicyNumber>
+					<InsuranceReferenceNumber xtmpl:point="insurance-reference-number"></InsuranceReferenceNumber>
+					<insuranceRenewalDate xtmpl:point="insurance-renewal-date"></insuranceRenewalDate>
+					<insurer xtmpl:point="insurer"></insurer>
+
+					<currentLocation xtmpl:point="current-location"></currentLocation>
+					<currentLocationFitness xtmpl:point="current-location-fitness"></currentLocationFitness>
+					<currentLocationNote xtmpl:point="current-location-note"></currentLocationNote>
+					<locationDate xtmpl:point="location-date"></locationDate>
+					<normalLocation xtmpl:point="normal-location"></normalLocation>
+`
+					<conditionCheckDate xtmpl:point="condition-check-date"></conditionCheckDate>
+					<conditionCheckMethod xtmpl:point="condition-check-method"></conditionCheckMethod>
+					<conditionCheckNote xtmpl:point="condition-check-note"></conditionCheckNote>
+					<conditionCheckReason xtmpl:point="condition-check-reason"></conditionCheckReason>
+					<conditionCheckReferenceNumber xtmpl:point="condition-check-reference-number"></conditionCheckReferenceNumber>
+					<conditionCheckAssesor xtmpl:point="condition-check-assesor"></conditionCheckAssesor>
 				</ns2:intake>
 			</template>
 		</json2xml>
@@ -134,6 +178,28 @@
 					<mapping assembly-key="stratigraphic-unit-name" key="stratigraphic-unit-name"/>
 					<mapping assembly-key="stratigraphic-unit-type" key="stratigraphic-unit-type"/>
 					<mapping assembly-key="stratigraphic-unit-note" key="stratigraphic-unit-note"/>
+
+					<mapping assembly-key="valuation-reference-number" key="valuation-reference-number"/>
+					<mapping assembly-key="valuer" key="valuer"/>
+
+					<mapping assembly-key="insurance-note" key="insurance-note"/>
+					<mapping assembly-key="insurance-policy-number" key="insurance-policy-number"/>
+					<mapping assembly-key="insurance-reference-number" key="insurance-reference-number"/>
+					<mapping assembly-key="insurance-renewal-date" key="insurance-renewal-date"/>
+					<mapping assembly-key="insurer" key="insurer"/>
+
+					<mapping assembly-key="current-location" key="current-location"/>
+					<mapping assembly-key="current-location-fitness" key="current-location-fitness"/>
+					<mapping assembly-key="current-location-note" key="current-location-note"/>
+					<mapping assembly-key="location-date" key="location-date"/>
+					<mapping assembly-key="normal-location" key="normal-location"/>
+
+					<mapping assembly-key="condition-check-date" key="condition-check-date"/>
+					<mapping assembly-key="condition-check-method" key="condition-check-method"/>
+					<mapping assembly-key="condition-check-note" key="condition-check-note"/>
+					<mapping assembly-key="condition-check-reason" key="condition-check-reason"/>
+					<mapping assembly-key="condition-check-reference-number" key="condition-check-reference-number"/>
+					<mapping assembly-key="condition-check-assesor" key="condition-check-assesor"/>
 				</assembly>
 			</map>
 			<template>
@@ -177,7 +243,29 @@
 			      "habitatNote": "\u0000habitat-note",
 			      "stratigraphicUnitName": "\u0000stratigraphic-unit-name",
 			      "stratigraphicUnitType": "\u0000stratigraphic-unit-type",
-			      "stratigraphicUnitNote": "\u0000stratigraphic-unit-note"
+			      "stratigraphicUnitNote": "\u0000stratigraphic-unit-note",
+
+			      "ValuationReferenceNumber": "\u0000valuation-reference-number",
+			      "Valuer": "\u0000valuer",
+
+			      "insuranceNote": "\u0000insurance-note",
+			      "insurancePolicyNumber": "\u0000insurance-policy-number",
+			      "InsuranceReferenceNumber": "\u0000insurance-reference-number",
+			      "insuranceRenewalDate": "\u0000insurance-renewal-date",
+			      "insurer": "\u0000insurer",
+                    
+			      "currentLocation": "\u0000current-location",
+			      "currentLocationFitness": "\u0000current-location-fitness",
+			      "currentLocationNote": "\u0000current-location-note",
+			      "locationDate": "\u0000location-date",
+			      "normalLocation": "\u0000normal-location",
+
+			      "conditionCheckDate": "\u0000condition-check-date",
+			      "conditionCheckMethod": "\u0000condition-check-method",
+			      "conditionCheckNote": "\u0000condition-check-note",
+			      "conditionCheckReason": "\u0000condition-check-reason",
+			      "conditionCheckReferenceNumber": "\u0000condition-check-reference-number",
+			      "conditionCheckAssesor": "\u0000condition-check-assesor"
 			  }
 			</template>
 		</xml2json>
