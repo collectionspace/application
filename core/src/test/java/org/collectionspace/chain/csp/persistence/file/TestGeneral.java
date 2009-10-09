@@ -250,6 +250,12 @@ public class TestGeneral {
 		Integer.parseInt(out.getHeader("Location").substring("/objects/".length()));
 	}
 	
+	private String removeCSID(String in) throws JSONException {
+		JSONObject out=new JSONObject(in);
+		out.remove("csid");
+		return out.toString();
+	}
+	
 	@Test public void testPostAndDelete() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
@@ -259,11 +265,11 @@ public class TestGeneral {
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
-		assertEquals(testStr2,out.getContent());
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr2)));
 		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",testStr);
 		assertEquals(200,out.getStatus());		
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
-		assertEquals(testStr,out.getContent());		
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr)));
 		out=jettyDo(jetty,"DELETE","/chain/objects/test-json-handle.tmp",null);
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
@@ -282,15 +288,15 @@ public class TestGeneral {
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());		
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
-		assertEquals(testStr2,out.getContent());
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr2)));
 		out=jettyDo(jetty,"GET","/chain/intake/test-json-handle.tmp",null);
-		assertEquals(testStr,out.getContent());
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr)));
 		out=jettyDo(jetty,"DELETE","/chain/objects/test-json-handle.tmp",null);
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 		out=jettyDo(jetty,"GET","/chain/intake/test-json-handle.tmp",null);
-		assertEquals(testStr,out.getContent());
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr)));
 	}
 
 	@Test public void testAutoGet() throws Exception {
@@ -382,7 +388,7 @@ public class TestGeneral {
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
-		assertEquals(testStr2,out.getContent());
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr2)));
 		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",testStr);
 		assertEquals(200,out.getStatus());	
 		assertEquals(testStr,out.getContent());	

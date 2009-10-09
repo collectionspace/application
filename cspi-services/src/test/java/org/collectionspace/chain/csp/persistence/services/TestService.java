@@ -69,17 +69,22 @@ public class TestService extends ServicesBaseClass {
 
 	// Speeds up many tests, ensures others work at all
 	@SuppressWarnings("unchecked")
-	private void deleteAll() throws Exception {
-		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");
+	private void deleteAll(String type,String item) throws Exception {
+		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,type+"/");
 		if(all.getStatus()!=200)
 			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-		List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
+		List<Node> objects=all.getDocument().selectNodes(item);
 		for(Node object : objects) {
 			String csid=object.selectSingleNode("csid").getText();
-			conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null);
+			conn.getNone(RequestMethod.DELETE,type+"/"+csid,null);
 		}
 	}
 
+	private void deleteAll() throws Exception {
+		deleteAll("collectionobjects","collection-object-list/collection-object-list-item");
+		deleteAll("intakes","intake-list/intake-list-item");
+	}
+	
 	private Document buildObject(String objid,String src) throws DocumentException, IOException {
 		InputStream data_stream=getResource(src);
 		String data=IOUtils.toString(data_stream);

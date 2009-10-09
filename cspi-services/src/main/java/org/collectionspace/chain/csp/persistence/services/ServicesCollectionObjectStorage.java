@@ -191,7 +191,7 @@ class ServicesCollectionObjectStorage implements Storage {
 	}
 
 	private boolean cspace268Hack_empty(Document doc) {
-		return doc.selectNodes("collection-object/*").size()==0;
+		return doc==null || doc.selectNodes("collection-object/*").size()==0;
 	}
 
 	public JSONObject retrieveJSON(String filePath) throws ExistException, UnderlyingStorageException {
@@ -268,15 +268,18 @@ class ServicesCollectionObjectStorage implements Storage {
 
 	public String autocreateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException, UnimplementedException {
 		try {
-			String accnum=jsonObject.getString("accessionNumber");
-			if("__auto".equals(filePath))
-				accnum="__auto";
+			String accnum="";
+			if(jsonObject.has("accessionNumber"))
+				accnum=jsonObject.getString("accessionNumber");
+			if(!"".equals(filePath))
+				accnum=filePath;
 			Document data=cspace266Hack_munge(jxj.json2xml(jsonObject));
 			ReturnedURL url = conn.getURL(RequestMethod.POST,"collectionobjects/",data);
 			if(url.getStatus()>299 || url.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+url.getStatus());
 			String csid=url.getURLTail();
 			data=cspace266Hack_munge(jxj.json2xml(cspace264Hack_munge(jsonObject,accnum)));
+			System.err.println(data.asXML());
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.PUT,"collectionobjects/"+csid,data);
 			// XXX Set path
 			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument()))

@@ -49,32 +49,35 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		setup();
 	}
 	
+	// XXX use autocreate not create when create dies
 	@Test public void testObjectsPut() throws Exception {
 		deleteAll();
 		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
-		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
-		JSONObject js=ss.retrieveJSON("collection-object/"+name);
-		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj3.json")));
+		ss.createJSON("collection-object/testObjectsPut",getJSON("obj3.json"));
+		JSONObject js=ss.retrieveJSON("collection-object/testObjectsPut");
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
 	}
 
+	// XXX use autocreate not create when create dies
 	@Test public void testObjectsPost() throws Exception {
 		deleteAll();
 		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
-		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
-		ss.updateJSON("collection-object/"+name,getJSON("obj4.json"));
-		JSONObject js=ss.retrieveJSON("collection-object/"+name);
-		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj4.json")));
+		ss.createJSON("collection-object/testObjectsPost",getJSON("obj3.json"));
+		ss.updateJSON("collection-object/testObjectsPost",getJSON("obj4.json"));
+		JSONObject js=ss.retrieveJSON("collection-object/testObjectsPost");
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj4.json")));
 	}
 
+	// XXX use autocreate not create when create dies
 	@Test public void testObjectsDelete() throws Exception {
 		deleteAll();
 		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
-		String name=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
-		JSONObject js=ss.retrieveJSON("collection-object/"+name);
-		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj3.json")));
-		ss.deleteJSON("collection-object/"+name);
+		ss.createJSON("collection-object/testObjectsDelete",getJSON("obj3.json"));
+		JSONObject js=ss.retrieveJSON("collection-object/testObjectsDelete");
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
+		ss.deleteJSON("collection-object/testObjectsDelete");
 		try {
-			ss.retrieveJSON("collection-object/"+name);
+			ss.retrieveJSON("collection-object/testObjectsDelete");
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(ExistException e) {}
 	}
@@ -88,15 +91,22 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertFalse(true);
 	}
 	
+	@Test public void testGetId() throws Exception {
+		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
+		JSONObject jo=ss.retrieveJSON("id/intake");
+		System.err.println(jo);
+	}
+	
+	// XXX use autocreate not create when create dies
 	@Test public void testObjectsList() throws Exception {
 		deleteAll();
 		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
-		String name1=ss.autocreateJSON("collection-object",getJSON("obj3.json"));
-		String name2=ss.autocreateJSON("collection-object",getJSON("obj4.json"));
+		ss.createJSON("collection-object/name1",getJSON("obj3.json"));
+		ss.createJSON("collection-object/name2",getJSON("obj4.json"));
 		ss.createJSON("collection-object/123",getJSON("obj4.json"));
 		String[] names=ss.getPaths("collection-object");
-		assertArrayContainsString(names,name1);
-		assertArrayContainsString(names,name2);
+		assertArrayContainsString(names,"name1");
+		assertArrayContainsString(names,"name2");
 		assertArrayContainsString(names,"123");
 	}
 	
@@ -105,6 +115,6 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
 		ss.createJSON("collection-object/def",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/def");
-		assertTrue(JSONUtils.checkJSONEquiv(js,getJSON("obj3.json")));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
 	}
 }
