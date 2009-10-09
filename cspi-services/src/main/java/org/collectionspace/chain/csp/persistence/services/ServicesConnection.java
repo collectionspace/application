@@ -166,6 +166,37 @@ public class ServicesConnection {
 		}
 	}
 
+	// XXX eugh! error case control-flow nightmare
+	// XXX refactor
+	public String getTextDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {
+		synchronized(lock) {
+			InputStream body_data=documentToStream(body,uri);
+			try {
+				System.err.println("Getting from "+uri);
+				HttpMethod method=createMethod(method_type,uri,body_data);
+				if(body_data!=null) {
+					method.setRequestHeader("Content-Type","application/xml");
+					System.err.println("SENDING\n");
+					body_data=new TeeInputStream(body_data,System.err);
+				}
+				try {
+					int response=client.executeMethod(method);
+					System.err.println("response="+response);
+					String out=method.getResponseBodyAsString();
+					if(response>299)
+						throw new ConnectionException("Could not get plain document");
+					return out;
+				} catch(Exception e) {
+					throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
+				} finally {
+					method.releaseConnection();
+				}
+			} finally {
+				closeStream(body_data);
+			}
+		}
+	}
+	
 	// XXX refactor!!!!
 	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body) throws ConnectionException {
 		synchronized(lock) {
