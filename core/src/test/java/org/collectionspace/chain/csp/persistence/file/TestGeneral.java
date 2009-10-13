@@ -427,14 +427,6 @@ public class TestGeneral {
 		assertTrue(new File(a,"json1.test.json").exists());
 		assertTrue(new File(b,"json2.test.json").exists());
 	}
-
-	@Test public void testIDGenerate() throws Exception {
-		ServletTester jetty=setupJetty();
-		HttpTester out=null;
-		for(int i=0;i<1025;i++)
-			out=jettyDo(jetty,"GET","/chain/id/test",null);
-		assertEquals("aAaBk25",new JSONObject(out.getContent()).get("next"));
-	}
 	
 	@Test public void testReset() throws Exception {
 		ServletTester jetty=setupJetty();

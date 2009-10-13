@@ -12,6 +12,7 @@ import org.collectionspace.chain.csp.persistence.services.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
+import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.dom4j.Node;
@@ -123,10 +124,12 @@ public class TestServiceThroughWebapp {
 	// XXX not a test
 	@Test public void testIDGenerate() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=null;
-		for(int i=0;i<1025;i++)
-			out=jettyDo(jetty,"GET","/chain/id/test",null);
-		//assertEquals("aAaBk25",new JSONObject(out.getContent()).get("next"));
+		HttpTester out=jettyDo(jetty,"GET","/chain/id/intake",null);
+		JSONObject jo=new JSONObject(out.getContent());
+		assertTrue(jo.getString("next").startsWith("IN2009."));
+		out=jettyDo(jetty,"GET","/chain/id/objects",null);
+		jo=new JSONObject(out.getContent());
+		assertTrue(jo.getString("next").startsWith("2009.1."));
 	}
 
 	// XXX not a test
