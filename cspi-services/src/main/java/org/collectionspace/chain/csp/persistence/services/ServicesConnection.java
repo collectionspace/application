@@ -11,6 +11,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import javax.activation.DataSource;
+import javax.mail.BodyPart;
+import javax.mail.internet.MimeMultipart;
+
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
@@ -32,6 +36,8 @@ import org.dom4j.io.XMLWriter;
  * to return things along with status codes, etc. Less than ideal: answers on a postcard, please.
  * 
  */
+
+// XXX REFACTOR! THIS CLASS IS LANDFILL!
 
 // XXX synchronized to handle Nuxeo race
 public class ServicesConnection {
@@ -166,6 +172,55 @@ public class ServicesConnection {
 		}
 	}
 
+	// XXX eugh! error case control-flow nightmare
+	public ReturnedMultipartDocument getMultipartXMLDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {
+		synchronized(lock) {
+			InputStream body_data=documentToStream(body,uri);
+			try {
+				System.err.println("Getting from "+uri);
+				HttpMethod method=createMethod(method_type,uri,body_data);
+				if(body_data!=null) {
+					method.setRequestHeader("Content-Type","application/xml");
+					System.err.println("SENDING\n");
+					body_data=new TeeInputStream(body_data,System.err);
+				}
+				try {
+					int response=client.executeMethod(method);
+					System.err.println("response="+response);
+					InputStream stream=method.getResponseBodyAsStream();
+					// XXX Could be a Stream if we'd written the data source
+					DataSource ds=new UTF8StringDataSource(method.getResponseBodyAsString(),"multipart/mixed");
+					MimeMultipart mmp=new MimeMultipart(ds);
+					ReturnedMultipartDocument out=new ReturnedMultipartDocument(response);
+					for(int i=0;i<mmp.getCount();i++) {
+						BodyPart part=mmp.getBodyPart(i);
+						String label=part.getHeader("label")[0];
+						InputStream main=part.getInputStream();						
+						SAXReader reader=new SAXReader();
+						// TODO errorhandling
+						Document doc=null;
+						String[] content_type=part.getHeader("Content-Type");
+						if(content_type!=null && content_type.length>0 && "application/xml".equals(content_type[0])) {
+							doc=reader.read(new TeeInputStream(main,System.err));
+							System.err.println("RECEIVING "+label+" "+doc.asXML());
+						}
+						System.err.println("ok");
+						out.addDocument(label,doc);
+						main.close();
+					}
+					stream.close();
+					return out;
+				} catch(Exception e) {
+					throw new ConnectionException("Could not connect to "+uri+" at "+base_url,e);
+				} finally {
+					method.releaseConnection();
+				}
+			} finally {
+				closeStream(body_data);
+			}
+		}
+	}
+	
 	// XXX eugh! error case control-flow nightmare
 	// XXX refactor
 	public String getTextDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {

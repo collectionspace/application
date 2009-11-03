@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.activation.DataSource;
+import javax.mail.BodyPart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
@@ -13,6 +18,7 @@ import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.chain.util.json.JSONUtils;
+import org.dom4j.Document;
 import org.dom4j.Node;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -119,5 +125,19 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		ss.createJSON("collection-object/def",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/def");
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
+	}
+	
+	// XXX Temporary test for venus transition
+	// XXX hardwired venus URL
+	// XXX Not a test
+	@Test public void testMultipartDocs() throws Exception{
+		ServicesConnection sc=new ServicesConnection("http://venus.collectionspace.org:8180/cspace-services/");
+		ReturnedMultipartDocument docs=sc.getMultipartXMLDocument(RequestMethod.GET,"collectionobjects/43186d76-4427-470b-88f6-700febc0ed76",null);
+		String[] keys=docs.listDocuments();
+		for(String key : keys) {
+			System.err.println("\n\nKEY "+key+"\n");
+			Document doc=docs.getDocument(key);
+			System.err.println("\n\nVALUE "+doc.asXML()+"\n");
+		}
 	}
 }
