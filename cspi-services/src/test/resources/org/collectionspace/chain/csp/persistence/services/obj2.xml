@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ns2:collection-object xmlns:ns2="http://services.collectionspace.org/collectionobject">
+<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/collectionobject http://services.collectionspace.org/collectionobject/collectionobjects_common.xsd">
   <objectNumber><<objnum>></objectNumber>
   <otherNumber>3</otherNumber>
   <briefDescription>description</briefDescription>
+  <!-- XXX
   <comments></comments>
   <distFeatures></distFeatures>
+  -->
   <objectName>Left-handed screwdriver</objectName>
-  <responsibleDept></responsibleDept>
+  <!-- <responsibleDept></responsibleDept> -->
   <title><<objnum>></title>
-</ns2:collection-object>
+</ns2:collectionobjects_common>
+  

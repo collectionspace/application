@@ -93,6 +93,11 @@ public class ChainRequest {
 		for(Map.Entry<String,String> e : url_to_type.entrySet()) {
 			if(found)
 				break;
+			perhapsStartsWith("/"+e.getKey()+"/uispec",RequestType.SCHEMA,path,e.getValue(),e.getKey());
+		}
+		for(Map.Entry<String,String> e : url_to_type.entrySet()) {
+			if(found)
+				break;
 			perhapsStartsWith("/"+e.getKey()+"/__auto",RequestType.AUTO,path,e.getValue(),e.getKey());
 		}
 		for(Map.Entry<String,String> e : url_to_type.entrySet()) {

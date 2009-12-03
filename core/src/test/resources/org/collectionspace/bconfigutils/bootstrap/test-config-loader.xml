@@ -6,7 +6,7 @@
   
   <option name="services-url">
     <services suffix="/helloworld/cspace-nuxeo/collectionobjects/">http://localhost:8080</services>
-    <services suffix="/cspace-services/collectionobjects/">http://173.45.233.185:8180</services>
+    <services suffix="/cspace-services/collectionobjects/">http://venus.collectionspace.org:8180</services>
     <services suffix="/helloworld/cspace-nuxeo/collectionobjects/">http://chalk-233:8080</services>
   </option>
   

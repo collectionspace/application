@@ -23,25 +23,29 @@ import org.dom4j.Node;
  */
 class ServicesIdentifierMap {
 	private ServicesConnection conn;
-	private String prefix,entry_xpath,ourid_xpath;
+	private String prefix,entry_xpath,ourid_xpath,part;
 	private int cache_hits=0,cache_misses=0,cache_loadsteps=0;
 	
 	private Map<String,String> cache=new HashMap<String,String>();
 	private Map<String,String> back_cache=new HashMap<String,String>();
 	
-	ServicesIdentifierMap(ServicesConnection conn,String prefix,String entry_xpath,String ourid_xpath) {
+	ServicesIdentifierMap(ServicesConnection conn,String prefix,String entry_xpath,String ourid_xpath,String part) {
 		this.conn=conn;
 		this.prefix=prefix;
 		this.entry_xpath=entry_xpath;
 		this.ourid_xpath=ourid_xpath;
+		this.part=part;
 	}
 	
 	// XXX objectNumber in lists is incorrect?
 	private String toObjNum(String csid) throws ConnectionException {
-		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,prefix+"/"+csid);
+		ReturnedMultipartDocument all=conn.getMultipartXMLDocument(RequestMethod.GET,prefix+"/"+csid,null);
 		if(all.getStatus()!=200)
 			throw new ConnectionException("Bad request during identifier cache map update: status not 200 for "+prefix+"/"+csid);
-		return all.getDocument().selectSingleNode(ourid_xpath).getText();
+		Node n=all.getDocument(part).selectSingleNode(ourid_xpath);
+		if(n==null)
+			return null;
+		return n.getText();
 	}
 	
 	// XXX horribly inefficient, but no search.
@@ -60,8 +64,10 @@ class ServicesIdentifierMap {
 				if(cache.get(csid)==null) {
 					cache_loadsteps++;
 					String objnum=toObjNum(csid);
-					cache.put(objnum,csid);
-					back_cache.put(csid,objnum);
+					if(objnum!=null) {
+						cache.put(objnum,csid);
+						back_cache.put(csid,objnum);
+					}
 				}
 			}
 			

@@ -45,7 +45,7 @@ public class ServicesIntakeStorage implements Storage {
 		cspace_264_hack=new ServicesIdentifierMap(conn,
 				"intakes",
 				"intake-list/intake-list-item",
-				"intake/packingNote");
+				"intake/packingNote","intakes_common");
 	}
 
 	public String autocreateJSON(String filePath, JSONObject jsonObject)

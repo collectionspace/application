@@ -9,7 +9,9 @@ package org.collectionspace.chain.csp.persistence.services;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.collectionspace.chain.util.jtmpl.InvalidJTmplException;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
@@ -65,8 +67,8 @@ class ServicesCollectionObjectStorage implements Storage {
 		this.conn=conn;
 		cspace_264_hack=new ServicesIdentifierMap(conn,
 				"collectionobjects",
-				"collection-object-list/collection-object-list-item",
-				"collection-object/objectNumber");
+				"collectionobjects-common-list/collection-object-list-item",
+				"collectionobjects_common/objectNumber","collectionobjects_common");
 		JXJFile jxj_file=JXJFile.compile(getDocument("collectionobject.jxj"));
 		jxj=jxj_file.getTransformer("collection-object");
 		if(jxj==null)
@@ -130,19 +132,19 @@ class ServicesCollectionObjectStorage implements Storage {
 	@SuppressWarnings("unchecked")
 	private Document cspace266Hack_munge(Document in) {
 		StringBuffer out=new StringBuffer();
-		for(Node n : (List<Node>)(in.selectNodes("collection-object/otherNumber"))) {
+		for(Node n : (List<Node>)(in.selectNodes("collectionobjects_common/otherNumber"))) {
 			out.append(n.getText());
 			out.append(' ');
 			n.detach();
 		}
-		Node n=((Element)in.selectSingleNode("collection-object")).addElement("otherNumber");
+		Node n=((Element)in.selectSingleNode("collectionobjects_common")).addElement("otherNumber");
 		n.setText(out.toString());
-		in.selectNodes("collection-object").add(n);
+		in.selectNodes("collectionobjects_common").add(n);
 		return in;
 	}
 
 	private Document cspace266Hack_unmunge(Document in) {
-		Node n=in.selectSingleNode("collection-object/otherNumber");
+		Node n=in.selectSingleNode("collectionobjects_common/otherNumber");
 		if(n==null)
 			return in;
 		String value=n.getText();
@@ -150,7 +152,7 @@ class ServicesCollectionObjectStorage implements Storage {
 		if(value==null || "".equals(value))
 			return in;
 		for(String v : value.split(" ")) {
-			Node nw=((Element)in.selectSingleNode("collection-object")).addElement("otherNumber");
+			Node nw=((Element)in.selectSingleNode("collectionobjects_common")).addElement("otherNumber");
 			nw.setText(v);
 		}
 		return in;
@@ -171,7 +173,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");			
 			if(all.getStatus()!=200)
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-			List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
+			List<Node> objects=all.getDocument().selectNodes("collectionobjects-common-list/collection-object-list-item");
 			for(Node object : objects) {
 				String csid=object.selectSingleNode("csid").getText();
 				int idx=csid.lastIndexOf("/");
@@ -191,16 +193,16 @@ class ServicesCollectionObjectStorage implements Storage {
 	}
 
 	private boolean cspace268Hack_empty(Document doc) {
-		return doc==null || doc.selectNodes("collection-object/*").size()==0;
+		return doc==null || doc.selectNodes("collectionobjects_common/*").size()==0;
 	}
 
 	public JSONObject retrieveJSON(String filePath) throws ExistException, UnderlyingStorageException {
 		try {
 			// XXX Here's what we do because of CSPACE-264
 			// 1. Check this isn't a genuine CSID (via autocreate): rely on guids not clashing with museum IDs
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
-			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
-				return jxj.xml2json(cspace266Hack_unmunge(doc.getDocument()));
+			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath,null);
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument("collectionobjects_common"))) {
+				return jxj.xml2json(cspace266Hack_unmunge(doc.getDocument("collectionobjects_common")));
 			}
 			boolean blasted=false;
 			boolean exhausted=false;
@@ -211,11 +213,11 @@ class ServicesCollectionObjectStorage implements Storage {
 					exhausted=true;
 					break;
 				}
-				doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+csid);
+				doc = conn.getMultipartXMLDocument(RequestMethod.GET,"collectionobjects/"+csid,null);
 				// XXX End of here's what we do because of CSPACE-264		
 				// vv This is what we should do
 				// ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
-				if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument())) {
+				if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument("collectionobjects_common"))) {
 					if(!blasted) {
 						cspace_264_hack.blastCache();
 						exhausted=false;
@@ -230,7 +232,7 @@ class ServicesCollectionObjectStorage implements Storage {
 			if(doc.getStatus()>299 || doc.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
 			// XXX Here's what we do because of CSPACE-264
-			return cspace264Hack_unmunge(jxj.xml2json(cspace266Hack_unmunge(doc.getDocument())));
+			return cspace264Hack_unmunge(jxj.xml2json(cspace266Hack_unmunge(doc.getDocument("collectionobjects_common"))));
 			// XXX End of here's what we do because of CSPACE-264		
 			// vv This is what we should do
 			// return jxj.xml2json(doc.getDocument());
@@ -247,16 +249,18 @@ class ServicesCollectionObjectStorage implements Storage {
 		try {
 			jsonObject=cspace264Hack_munge(jsonObject,filePath);
 			Document data=cspace266Hack_munge(jxj.json2xml(jsonObject));
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
+			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath,null);
 			String csid=null;
-			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument("collectionobjects_common"))) {
 				csid=filePath;
 			} else {
 				csid=cspace_264_hack.getCSID("_path:"+filePath);
 			}
-			doc = conn.getXMLDocument(RequestMethod.PUT,"collectionobjects/"+csid,data);
-			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument()))
-				throw new ExistException("Not found: collecitonobjects/"+csid);
+			Map<String,Document> parts2=new HashMap<String,Document>();
+			parts2.put("collectionobjects_common",data);			
+			doc = conn.getMultipartXMLDocument(RequestMethod.PUT,"collectionobjects/"+csid,parts2);
+			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument("collectionobjects_common")))
+				throw new ExistException("Not found: collectionobjects/"+csid);
 			if(doc.getStatus()>299 || doc.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
 		} catch (ConnectionException e) {
@@ -274,16 +278,20 @@ class ServicesCollectionObjectStorage implements Storage {
 			if(!"".equals(filePath))
 				accnum=filePath;
 			Document data=cspace266Hack_munge(jxj.json2xml(jsonObject));
-			ReturnedURL url = conn.getURL(RequestMethod.POST,"collectionobjects/",data);
+			Map<String,Document> parts1=new HashMap<String,Document>();
+			parts1.put("collectionobjects_common",data);
+			ReturnedURL url = conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts1);
 			if(url.getStatus()>299 || url.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+url.getStatus());
 			String csid=url.getURLTail();
 			data=cspace266Hack_munge(jxj.json2xml(cspace264Hack_munge(jsonObject,accnum)));
 			System.err.println(data.asXML());
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.PUT,"collectionobjects/"+csid,data);
+			Map<String,Document> parts2=new HashMap<String,Document>();
+			parts2.put("collectionobjects_common",data);
+			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.PUT,"collectionobjects/"+csid,parts2);
 			// XXX Set path
-			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument()))
-				throw new ExistException("Not found: collecitonobjects/"+csid);
+			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument("collectionobjects_common")))
+				throw new ExistException("Not found: collectionobjects/"+csid);
 			if(doc.getStatus()>299 || doc.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
 			return csid;

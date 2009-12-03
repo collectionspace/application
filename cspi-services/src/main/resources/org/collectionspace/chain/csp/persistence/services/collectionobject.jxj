@@ -89,7 +89,7 @@
 				
 			</map>
 			<template>
-				<ns2:collection-object xmlns:ns2="http://services.collectionspace.org/collectionobject">
+				<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject">
 					<objectNumber xtmpl:point="object-number">2</objectNumber>
 					<otherNumber xtmpl:point="other-number">3</otherNumber>
 					<briefDescription xtmpl:point="misc">description</briefDescription>
@@ -98,20 +98,20 @@
 					<objectName xtmpl:point="object-name">Left-handed screwdriver</objectName>
 					<responsibleDept xtmpl:point="responsible-dept"></responsibleDept>
 					<title xtmpl:point="title"></title>
-				</ns2:collection-object>
+				</ns2:collectionobjects_common>
 			</template>
 		</json2xml>
 		<xml2json>
 			<map>
-				<mapping xpath="collection-object/objectNumber" key="object-number"/>
-				<mapping xpath="collection-object/otherNumber" key="other-number" multiple="yes"/>
-				<mapping xpath="collection-object/briefDescription" key="description"/>
-				<mapping xpath="collection-object/comments" key="comments"/>
-				<mapping xpath="collection-object/distFeatures" key="dist-features"/>
-				<mapping xpath="collection-object/objectName" key="object-name"/>
-				<mapping xpath="collection-object/responsibleDept" key="responsible-dept"/>
-				<mapping xpath="collection-object/title" key="title"/>	
-				<assembly xpath="collection-object/briefDescription">
+				<mapping xpath="collectionobjects_common/objectNumber" key="object-number"/>
+				<mapping xpath="collectionobjects_common/otherNumber" key="other-number" multiple="yes"/>
+				<mapping xpath="collectionobjects_common/briefDescription" key="description"/>
+				<mapping xpath="collectionobjects_common/comments" key="comments"/>
+				<mapping xpath="collectionobjects_common/distFeatures" key="dist-features"/>
+				<mapping xpath="collectionobjects_common/objectName" key="object-name"/>
+				<mapping xpath="collectionobjects_common/responsibleDept" key="responsible-dept"/>
+				<mapping xpath="collectionobjects_common/title" key="title"/>	
+				<assembly xpath="collectionobjects_common/briefDescription">
 				  <mapping assembly-key="description" key="description"/>
                   <mapping key="objectTitleLanguage" assembly-key="objectTitleLanguage"/>
                   <mapping key="objectTitleTranslation" assembly-key="objectTitleTranslation"/>

@@ -5,7 +5,11 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.apache.commons.io.IOUtils;
@@ -44,24 +48,28 @@ public class TestService extends ServicesBaseClass {
 	}
 
 	@Test public void testObjectsPost() throws Exception {
-		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",getDocument("obj1.xml"));
+		Map<String,Document> parts=new HashMap<String,Document>();
+		parts.put("collectionobjects_common",getDocument("obj1.xml"));
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
 		assertEquals(201,url.getStatus());
 		System.err.println("got "+url.getURL());
 		//assertTrue(url.getURL().startsWith("/collectionobjects/"));	// XXX should be, but CSPACE-305
-		ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()));
+		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()),null);
 		assertEquals(200,doc.getStatus());
-		String num=doc.getDocument().selectSingleNode("collection-object/objectNumber").getText();
+		String num=doc.getDocument("collectionobjects_common").selectSingleNode("collectionobjects_common/objectNumber").getText();
 		assertEquals("2",num);
 	}
 
 	@Test public void testObjectsPut() throws Exception {
-		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",getDocument("obj1.xml"));
+		Map<String,Document> parts=new HashMap<String,Document>();
+		parts.put("collectionobjects_common",getDocument("obj1.xml"));		
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
 		assertEquals(201,url.getStatus());
-		ReturnedDocument doc=conn.getXMLDocument(RequestMethod.PUT,cspace305_hack(url.getURL()),buildObject("32","obj2.xml"));
+		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.PUT,cspace305_hack(url.getURL()),buildObject("32","obj2.xml","collectionobjects_common"));
 		assertEquals(201,url.getStatus()); // 201?
-		doc=conn.getXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()));
+		doc=conn.getMultipartXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()),null);
 		assertEquals(200,doc.getStatus());
-		String num=doc.getDocument().selectSingleNode("collection-object/objectNumber").getText();
+		String num=doc.getDocument("collectionobjects_common").selectSingleNode("collectionobjects_common/objectNumber").getText();
 		assertEquals("32",num);
 	}
 
@@ -81,17 +89,20 @@ public class TestService extends ServicesBaseClass {
 	}
 
 	private void deleteAll() throws Exception {
-		deleteAll("collectionobjects","collection-object-list/collection-object-list-item");
-		deleteAll("intakes","intake-list/intake-list-item");
+		deleteAll("collectionobjects","collectionobjects-common-list/collection-object-list-item");
+		deleteAll("intakes","intakes-common-list/intake-list-item");
 	}
 	
-	private Document buildObject(String objid,String src) throws DocumentException, IOException {
+	private Map<String,Document> buildObject(String objid,String src,String part) throws DocumentException, IOException {
 		InputStream data_stream=getResource(src);
 		String data=IOUtils.toString(data_stream);
 		data_stream.close();
 		data=data.replaceAll("<<objnum>>",objid);
 		SAXReader reader=new SAXReader();
-		return reader.read(new StringReader(data));
+		Document doc=reader.read(new StringReader(data));
+		Map<String,Document> parts=new HashMap<String,Document>();
+		parts.put(part,doc);
+		return parts;
 	}
 
 	@Test public void testSetvicesIdentifierMapBasic() throws Exception {
@@ -99,10 +110,10 @@ public class TestService extends ServicesBaseClass {
 		ServicesIdentifierMap sim=
 			new ServicesIdentifierMap(conn,
 					"collectionobjects",
-					"collection-object-list/collection-object-list-item",
-					"collection-object/objectNumber");
+					"collectionobjects-common-list/collection-object-list-item",
+					"collectionobjects_common/objectNumber","collectionobjects_common");
 		String objid="test-sim-"+rnd.nextInt(Integer.MAX_VALUE);
-		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",buildObject(objid,"obj2.xml"));
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",buildObject(objid,"obj2.xml","collectionobjects_common"));
 		assertEquals(201,url.getStatus());
 		String csid=url.getURL().substring(url.getURL().lastIndexOf("/")+1);
 		String csid2=sim.getCSID(objid);
@@ -122,10 +133,10 @@ public class TestService extends ServicesBaseClass {
 		ServicesIdentifierMap sim=
 			new ServicesIdentifierMap(conn,
 					"intakes",
-					"intake-list/intake-list-item",
-					"intake/entryNumber");
+					"intakes-common-list/intake-list-item",
+					"intakes_common/entryNumber","intakes_common");
 		String objid="test-sim-"+rnd.nextInt(Integer.MAX_VALUE);
-		ReturnedURL url=conn.getURL(RequestMethod.POST,"intakes/",buildObject(objid,"obj-intake.xml"));
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"intakes/",buildObject(objid,"obj-intake.xml","intakes_common"));
 		assertEquals(201,url.getStatus());
 		String csid=url.getURL().substring(url.getURL().lastIndexOf("/")+1);
 		String csid2=sim.getCSID(objid);
@@ -141,14 +152,28 @@ public class TestService extends ServicesBaseClass {
 	}
 	
 	@Test public void testDelete() throws Exception {
-		ReturnedURL url=conn.getURL(RequestMethod.POST,"collectionobjects/",getDocument("obj1.xml"));
+		Map<String,Document> parts=new HashMap<String,Document>();
+		parts.put("collectionobjects_common",getDocument("obj1.xml"));		
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
 		assertEquals(201,url.getStatus());
-		ReturnedDocument doc1=conn.getXMLDocument(RequestMethod.GET,url.getURL());
+		ReturnedMultipartDocument doc1=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null);
 		assertEquals(200,doc1.getStatus());		
 		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null);
 		assertEquals(200,status); // XXX CSPACE-73, should be 404
-		ReturnedDocument doc2=conn.getXMLDocument(RequestMethod.GET,url.getURL());
+		ReturnedMultipartDocument doc2=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null);
 		assertEquals(404,doc2.getStatus());	 // XXX CSPACE-209, should be 404
-		assertNull(doc2.getDocument());
+		assertNull(doc2.getDocument("collectionobjects_common"));
+	}
+	
+	// XXX temporary venus test: migrate to proper test of multipart
+	@Test public void testPostMultipartDocs() throws Exception {
+		ServicesConnection sc=new ServicesConnection("http://venus.collectionspace.org:8180/cspace-services/");
+		Map<String,Document> documents=new HashMap<String,Document>();
+		documents.put("collectionobjects_common",getDocument("obj1.xml"));
+		documents.put("collectionobjects_naturalhistory",getDocument("obj-nh.xml"));
+		
+		ReturnedURL docs=sc.getMultipartURL(RequestMethod.POST,"collectionobjects/",documents);
+		assertEquals(201,docs.getStatus());
+		System.err.println(docs.getURL());
 	}
 }

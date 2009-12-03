@@ -4,7 +4,11 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import javax.activation.DataSource;
 import javax.mail.BodyPart;
@@ -44,7 +48,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");
 		if(all.getStatus()!=200)
 			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-		List<Node> objects=all.getDocument().selectNodes("collection-object-list/collection-object-list-item");
+		List<Node> objects=all.getDocument().selectNodes("collectionobjects-common-list/collection-object-list-item");
 		for(Node object : objects) {
 			String csid=object.selectSingleNode("csid").getText();
 			conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null);
@@ -125,19 +129,5 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		ss.createJSON("collection-object/def",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/def");
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
-	}
-	
-	// XXX Temporary test for venus transition
-	// XXX hardwired venus URL
-	// XXX Not a test
-	@Test public void testMultipartDocs() throws Exception{
-		ServicesConnection sc=new ServicesConnection("http://venus.collectionspace.org:8180/cspace-services/");
-		ReturnedMultipartDocument docs=sc.getMultipartXMLDocument(RequestMethod.GET,"collectionobjects/43186d76-4427-470b-88f6-700febc0ed76",null);
-		String[] keys=docs.listDocuments();
-		for(String key : keys) {
-			System.err.println("\n\nKEY "+key+"\n");
-			Document doc=docs.getDocument(key);
-			System.err.println("\n\nVALUE "+doc.asXML()+"\n");
-		}
 	}
 }

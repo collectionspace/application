@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ns2:intake xmlns:ns2="http://services.collectionspace.org/intake">
+<ns2:intakes_common xmlns:ns2="http://collectionspace.org/services/intake">
   <entryNumber><<objnum>></entryNumber>
   <entryDate>3</entryDate>
+  <!-- XXX
   <entryMethod></entryMethod>
   <entryReason></entryReason>
+  -->
   <returnDate>Left-handed screwdriver</returnDate>
+  <!-- XXX
   <depositor></depositor>
   <entryNote></entryNote>
   <packingNote></packingNote>
-</ns2:intake>
+  -->
+</ns2:intakes_common>
