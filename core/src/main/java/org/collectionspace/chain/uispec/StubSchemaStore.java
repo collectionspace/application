@@ -33,6 +33,11 @@ public class StubSchemaStore implements SchemaStore {
 		if(schema.exists() && schema.isDirectory()) {
 			schema=new File(schema,"schema.json");
 		}
+		if(!schema.exists()) {
+			schema=new File(schema_root,path+".json");
+		}
+		if(!schema.exists())
+			throw new IOException(path+" does not exist");
 		FileInputStream stream=new FileInputStream(schema);
 		String data=IOUtils.toString(stream);
 		JSONObject out=new JSONObject(data);
