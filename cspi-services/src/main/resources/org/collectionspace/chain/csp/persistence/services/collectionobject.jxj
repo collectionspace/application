@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <translations xmlns:xtmpl="http://www.collectionspace.org/xtmpl">
 	<translation type="collection-object">
-		<json2xml>
+		<json2xml squash-empty="yes">
 			<map>
 				<mapping json=".accessionNumber" key="object-number" />
 				<mapping json=".objectNumber" key="other-number" multiple="yes"/>
@@ -90,8 +90,8 @@
 			</map>
 			<template>
 				<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject">
-					<objectNumber xtmpl:point="object-number">2</objectNumber>
-					<otherNumber xtmpl:point="other-number">3</otherNumber>
+					<objectNumber xtmpl:point="object-number"></objectNumber>
+					<otherNumber xtmpl:point="other-number"></otherNumber>
 					<briefDescription xtmpl:point="misc">description</briefDescription>
 					<comments xtmpl:point="comments"></comments>
 					<distFeatures xtmpl:point="dist-features"></distFeatures>

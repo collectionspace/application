@@ -137,9 +137,11 @@ class ServicesCollectionObjectStorage implements Storage {
 			out.append(' ');
 			n.detach();
 		}
-		Node n=((Element)in.selectSingleNode("collectionobjects_common")).addElement("otherNumber");
-		n.setText(out.toString());
-		in.selectNodes("collectionobjects_common").add(n);
+		if(!"".equals(out.toString())) {
+			Node n=((Element)in.selectSingleNode("collectionobjects_common")).addElement("otherNumber");
+			n.setText(out.toString());
+			in.selectNodes("collectionobjects_common").add(n);
+		}
 		return in;
 	}
 
@@ -306,9 +308,9 @@ class ServicesCollectionObjectStorage implements Storage {
 
 	public void deleteJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath);
+			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,"collectionobjects/"+filePath,null);
 			String csid=null;
-			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument("collectionobjects_common"))) {
 				csid=filePath;
 			} else {
 				cspace_264_hack.blastCache();
