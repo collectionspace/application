@@ -52,6 +52,7 @@ public class ServicesStorage extends SplittingStorage implements CSP, Storage, C
 			ServicesConnection conn=new ServicesConnection(base_url);
 			addChild("collection-object",new ServicesCollectionObjectStorage(conn));
 			addChild("intake",new ServicesIntakeStorage(conn));
+			addChild("acquisition",new ServicesAcquisitionStorage(conn));
 			addChild("id",new ServicesIDGenerator(conn));
 		} catch (Exception e) {
 			throw new CSPDependencyException("Could not set target",e); // XXX wrong type

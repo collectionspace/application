@@ -71,8 +71,8 @@
 			</map>
 			<template>
 				<ns2:intakes_common xmlns:ns2="http://collectionspace.org/services/intake">
-					<entryNumber xtmpl:point="entry-number">2</entryNumber>
-					<entryDate xtmpl:point="entry-date">3</entryDate>
+					<entryNumber xtmpl:point="entry-number"></entryNumber>
+					<entryDate xtmpl:point="entry-date"></entryDate>
 					<entryMethod xtmpl:point="entry-method"></entryMethod>
 					<entryReason xtmpl:point="entry-reasons"></entryReason>
 					<depositor xtmpl:point="depositor"></depositor>

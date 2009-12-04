@@ -1,0 +1,19 @@
+{
+				"acquReferenceNum": "ref-num2",
+			    "acquDate": "date2",
+			    "acquAccessionDate": "acc-date2",
+			    "acquFundingSource": "funding-source2",
+			    "acquFundingProviso": "funding-proviso2",
+			    "acquFundingValue": "funding-value2",
+			    "acquProviso": "proviso2",
+			    "acquAuthorize": "authorize2",
+			    "acquTitleNum": "title-num2",
+			    "acquReason": "reason2",
+			    "acquSource": "source2",
+			    "acquNote": "note2",
+			    "acquMethod": "method2",
+			    "acquPrice": "price2",
+			    "acquPriceDesc": "price-desc2",
+			    "acquPriceDenom": "price-denom2",
+			    "acquFundingDenom": "funding-denom2"
+}

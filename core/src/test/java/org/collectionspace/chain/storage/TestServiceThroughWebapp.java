@@ -120,6 +120,28 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		assertTrue(out.getStatus()!=200); // XXX should be 404		
 	}
+
+	@Test public void testAcquisition() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/acquisition/",getResourceString("int5.json"));	
+		assertEquals(out.getMethod(),null);
+		assertEquals(201,out.getStatus());
+		String path=out.getHeader("Location");
+		out=jettyDo(jetty,"GET","/chain"+path,null);
+		System.err.println(out.getContent());
+		JSONObject content=new JSONObject(out.getContent());
+		content.remove("csid");
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int5.json")),content));
+		out=jettyDo(jetty,"PUT","/chain"+path,getResourceString("int6.json"));
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain"+path,null);
+		content=new JSONObject(out.getContent());
+		content.remove("csid");
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int6.json")),content));		
+		out=jettyDo(jetty,"DELETE","/chain"+path,null);
+		out=jettyDo(jetty,"GET","/chain"+path,null);
+		assertTrue(out.getStatus()!=200); // XXX should be 404		
+	}
 	
 	// XXX not a test
 	@Test public void testIDGenerate() throws Exception {
