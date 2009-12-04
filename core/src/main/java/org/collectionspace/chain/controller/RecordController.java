@@ -33,11 +33,17 @@ public class RecordController {
 		this.global=global;
 	}
 
+	private JSONObject generateEntry(String member) throws JSONException {
+		JSONObject out=new JSONObject();
+		out.put("accessionNumber",member);
+		return out;
+	}
+	
 	private JSONObject pathsToJSON(String[] paths) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
 		for(String p : paths)
-			members.put(p);
+			members.put(generateEntry(p));
 		out.put("items",members);
 		return out;
 	}
@@ -155,19 +161,20 @@ public class RecordController {
 		// Store it
 		int status=200;
 		try {
+			JSONObject data=new JSONObject(jsonString);
 			if(request.isCreateNotOverwrite()) {
 				if("".equals(path)) {
 					// True path
-					path=global.getStore().autocreateJSON(base,new JSONObject(jsonString));
-					
+					path=global.getStore().autocreateJSON(base,data);
+					data.put("csid",path);
 				} else {
 					// XXX temporary legacy path
-					global.getStore().createJSON(base+"/"+path,new JSONObject(jsonString));
+					global.getStore().createJSON(base+"/"+path,data);
 				}
 				status=201;
 			} else
-				global.getStore().updateJSON(base+"/"+path, new JSONObject(jsonString));
-			request.getJSONWriter().print(jsonString);
+				global.getStore().updateJSON(base+"/"+path,data);
+			request.getJSONWriter().print(data.toString());
 			request.setContentType("text/html");
 			request.setStatus(status);
 			request.redirect("/"+request.getRecordTypeURL()+"/"+path);
