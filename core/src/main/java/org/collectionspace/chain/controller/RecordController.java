@@ -35,7 +35,9 @@ public class RecordController {
 
 	private JSONObject generateEntry(String member) throws JSONException {
 		JSONObject out=new JSONObject();
-		out.put("accessionNumber",member);
+		out.put("accessionNumber","test");
+		out.put("entryNum","test");
+		out.put("csid",member);
 		return out;
 	}
 	
@@ -43,7 +45,7 @@ public class RecordController {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
 		for(String p : paths)
-			members.put(p);
+			members.put(generateEntry(p));
 		out.put("items",members);
 		return out;
 	}
