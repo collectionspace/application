@@ -33,15 +33,13 @@ public class RecordController {
 		this.global=global;
 	}
 
-	private JSONObject generateEntry(String member) throws JSONException {
-		JSONObject out=new JSONObject();
-		out.put("accessionNumber","test");
-		out.put("entryNum","test");
+	private JSONObject generateEntry(String member) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+		JSONObject out=global.getStore().retrieveJSON(base+"/"+member);
 		out.put("csid",member);
 		return out;
 	}
 	
-	private JSONObject pathsToJSON(String[] paths) throws JSONException {
+	private JSONObject pathsToJSON(String[] paths) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
 		for(String p : paths)
