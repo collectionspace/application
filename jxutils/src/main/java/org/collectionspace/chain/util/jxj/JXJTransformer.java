@@ -44,7 +44,8 @@ public class JXJTransformer {
 	private HashMap<String, Map<String, JPathPath>> jxmapattach=new HashMap<String,Map<String,JPathPath>>();
 	private JTmplTmpl xjtmpl;
 	private Map<String,Dom4jXPath> xjattach=new HashMap<String,Dom4jXPath>();
-	private Set<PathAndMap> xjmapattach=new HashSet<PathAndMap>();	
+	private Set<PathAndMap> xjmapattach=new HashSet<PathAndMap>();
+	private boolean squash_empty=false; // XXX CSPACE-647
 
 	private Set<String> xjmultiple=new HashSet<String>();
 	private Set<String> jxmultiple=new HashSet<String>();
@@ -64,6 +65,7 @@ public class JXJTransformer {
 	JXJTransformer(String key,Node document) throws InvalidJXJException {
 		try {
 			// json2xml
+			squash_empty="yes".equals(((Element)document.selectSingleNode("json2xml")).attributeValue("squash-empty"));
 			Node jxtmpl_node=document.selectSingleNode("json2xml/template/*");
 			if(jxtmpl_node==null)
 				throw new InvalidJXJException("Missing json2xml/template tag");
@@ -71,6 +73,8 @@ public class JXJTransformer {
 			Document jxtmpl_doc=df.createDocument();
 			jxtmpl_doc.setRootElement((Element)jxtmpl_node.clone());
 			jxtmpl=XTmplTmpl.compile(jxtmpl_doc);
+			if(squash_empty)
+				jxtmpl.setSquashEmpty(true);
 			for(Node n : (List<Node>)document.selectNodes("json2xml/map/mapping")) {
 				String n_key=addMappingTag(jxattach,n,"key","json");
 				if("yes".equals(((Element)n).attributeValue("multiple")))

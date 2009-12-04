@@ -28,6 +28,7 @@ public class XTmplTmpl {
 	
 	private Map<String,String> attach=new HashMap<String,String>();
 	private Document document;
+	private boolean squash_empty=false;
 	
 	public static XTmplTmpl compile(Document template) throws InvalidXTmplException {
 		return new XTmplTmpl(template);
@@ -37,6 +38,8 @@ public class XTmplTmpl {
 		compileTemplate(template);
 	}
 
+	public void setSquashEmpty(boolean sq) { squash_empty=sq; }
+	
 	@SuppressWarnings("unchecked")
 	private void removeNamespaces(Element e) {
 		for(Namespace  ns : (List<Namespace>)e.declaredNamespaces()) {
@@ -76,6 +79,6 @@ public class XTmplTmpl {
 	}
 	
 	public XTmplDocument makeDocument() {
-		return new XTmplDocument(document,attach);
+		return new XTmplDocument(document,attach,squash_empty);
 	}
 }

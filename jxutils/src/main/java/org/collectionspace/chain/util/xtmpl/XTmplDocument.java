@@ -20,14 +20,21 @@ import org.dom4j.Node;
 public class XTmplDocument {
 	private Map<String,String> attach;
 	private Document document;
+	private boolean squash_empty;
+	private boolean stripped=false;
 
-	XTmplDocument(Document document,Map<String,String> attach) {
+	XTmplDocument(Document document,Map<String,String> attach,boolean squash_empty) {
 		this.document=(Document)document.clone();
 		this.attach=attach;
+		this.squash_empty=squash_empty;
 	}
 	
 	public void setText(String key,String text) {
-		document.selectSingleNode(attach.get(key)).setText(text);
+		if(squash_empty && "".equals(text)) {
+			document.selectSingleNode(attach.get(key)).detach();
+		} else {
+			document.selectSingleNode(attach.get(key)).setText(text);
+		}
 	}
 	
 	public void setContents(String key,Element value) {
@@ -43,18 +50,32 @@ public class XTmplDocument {
 		List<Node> nodes=(List<Node>)parent.content();
 		List<Node> after=new ArrayList(nodes.subList(pos+1,nodes.size()));	
 		basis.detach();
-		for(Node n : after)
-			n.detach();
-		for(String text : texts) {
-			Node renewed=(Node)basis.clone();
-			renewed.setText(text);	
-			parent.add(renewed);
+		if(texts.length>0) {
+			for(Node n : after)
+				n.detach();
+			for(String text : texts) {
+				Node renewed=(Node)basis.clone();
+				renewed.setText(text);	
+				parent.add(renewed);
+			}
+			for(Node n : after)
+				parent.add(n);
 		}
-		for(Node n : after)
-			parent.add(n);
 	}
 	
 	public Document getDocument() {
+		if(squash_empty && !stripped) {
+			for(String path : attach.values()) {
+				Node n=document.selectSingleNode(path);
+				if(n==null || !(n instanceof Element))
+					continue;
+				if(!("".equals(((Element)n).getText())))
+					continue;
+				// Empty!
+				n.detach();
+			}
+			stripped=true;
+		}
 		return document;
 	}
 }

@@ -3,8 +3,10 @@ package org.collectionspace.chain.csp.persistence.services;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.collectionspace.chain.util.jtmpl.InvalidJTmplException;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
@@ -53,7 +55,9 @@ public class ServicesIntakeStorage implements Storage {
 		try {
 			Document doc=jxj.json2xml(jsonObject);
 			System.err.println(doc.asXML());
-			ReturnedURL url = conn.getURL(RequestMethod.POST,"intakes/",doc);
+			Map<String,Document> parts=new HashMap<String,Document>();
+			parts.put("intakes_common",doc);
+			ReturnedURL url = conn.getMultipartURL(RequestMethod.POST,"intakes/",parts);
 			if(url.getStatus()>299 || url.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+url.getStatus());
 			return url.getURLTail();
@@ -86,15 +90,15 @@ public class ServicesIntakeStorage implements Storage {
 	}
 	
 	private boolean cspace268Hack_empty(Document doc) {
-		return doc.selectNodes("intake/*").size()==0;
+		return doc.selectNodes("intakes_common/*").size()==0;
 	}
 	
 	public void deleteJSON(String filePath) throws ExistException,
 			UnimplementedException, UnderlyingStorageException {
 		try {
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"intakes/"+filePath);
+			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,"intakes/"+filePath,null);
 			String csid=null;
-			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument("intakes_common"))) {
 				csid=filePath;
 			} else {
 				cspace_264_hack.blastCache();
@@ -115,7 +119,7 @@ public class ServicesIntakeStorage implements Storage {
 			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,"intakes/");
 			if(all.getStatus()!=200)
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-			List<Node> objects=all.getDocument().selectNodes("intake-list/intake-list-item");
+			List<Node> objects=all.getDocument().selectNodes("intakes-common-list/intake-list-item");
 			for(Node object : objects) {
 				String csid=object.selectSingleNode("csid").getText();
 				int idx=csid.lastIndexOf("/");
@@ -135,9 +139,9 @@ public class ServicesIntakeStorage implements Storage {
 		try {
 			// XXX Here's what we do because of CSPACE-264
 			// 1. Check this isn't a genuine CSID (via autocreate): rely on guids not clashing with museum IDs
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"intakes/"+filePath);
-			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
-				return jxj.xml2json(doc.getDocument());
+			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,"intakes/"+filePath,null);
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument("intakes_common"))) {
+				return jxj.xml2json(doc.getDocument("intakes_common"));
 			}
 			boolean blasted=false;
 			boolean exhausted=false;
@@ -148,8 +152,8 @@ public class ServicesIntakeStorage implements Storage {
 					exhausted=true;
 					break;
 				}
-				doc = conn.getXMLDocument(RequestMethod.GET,"intakes/"+csid);
-				if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument())) {
+				doc = conn.getMultipartXMLDocument(RequestMethod.GET,"intakes/"+csid,null);
+				if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument("intakes_common"))) {
 					if(!blasted) {
 						cspace_264_hack.blastCache();
 						exhausted=false;
@@ -163,7 +167,7 @@ public class ServicesIntakeStorage implements Storage {
 				throw new ExistException("Does not exist "+filePath);
 			if(doc.getStatus()>299 || doc.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
-			return jxj.xml2json(doc.getDocument());
+			return jxj.xml2json(doc.getDocument("intakes_common"));
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (InvalidJTmplException e) {
@@ -177,15 +181,17 @@ public class ServicesIntakeStorage implements Storage {
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Document data=jxj.json2xml(jsonObject);
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,"intakes/"+filePath);
+			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,"intakes/"+filePath,null);
 			String csid=null;
-			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument())) {
+			if((doc.getStatus()>199 && doc.getStatus()<300) && !cspace268Hack_empty(doc.getDocument("intakes_common"))) {
 				csid=filePath;
 			} else {
 				csid=cspace_264_hack.getCSID(filePath);
 			}
-			doc = conn.getXMLDocument(RequestMethod.PUT,"intakes/"+csid,data);
-			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument()))
+			Map<String,Document> parts=new HashMap<String,Document>();
+			parts.put("intakes_common",data);
+			doc = conn.getMultipartXMLDocument(RequestMethod.PUT,"intakes/"+csid,parts);
+			if(doc.getStatus()==404 || cspace268Hack_empty(doc.getDocument("intakes_common")))
 				throw new ExistException("Not found: intakes/"+csid);
 			if(doc.getStatus()>299 || doc.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
