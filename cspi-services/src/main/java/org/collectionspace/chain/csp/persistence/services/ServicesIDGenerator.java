@@ -23,6 +23,7 @@ public class ServicesIDGenerator implements Storage {
 		generators.put("objects","9dd92952-c384-44dc-a736-95e435c1759c"); // XXX temporary hack for venus
 		generators.put("accession","9dd92952-c384-44dc-a736-95e435c1759c");
 		generators.put("archive","70586d30-9dca-4a07-a3a2-1976fe898028");
+		generators.put("archives","70586d30-9dca-4a07-a3a2-1976fe898028");// XXX temporary hack for venus
 		generators.put("evaluation","d2d80822-25c7-4c7c-a105-fc40cdb0c50f");
 		generators.put("evaluations","d2d80822-25c7-4c7c-a105-fc40cdb0c50f");// XXX temporary hack for venus
 		generators.put("intake","8088cfa5-c743-4824-bb4d-fb11b12847f7");
