@@ -43,7 +43,7 @@ public class RecordController {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
 		for(String p : paths)
-			members.put(generateEntry(p));
+			members.put(p);
 		out.put("items",members);
 		return out;
 	}
