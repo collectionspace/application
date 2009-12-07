@@ -6,3 +6,4 @@ intake/ reset-intake/IN2004.002.json
 intake/ reset-intake/IN2009.001.json
 intake/ reset-intake/IN2009.002.json
 intake/ reset-intake/IN2009.003.json
+acquisition/ reset-acquisition/2009.1.64.json
