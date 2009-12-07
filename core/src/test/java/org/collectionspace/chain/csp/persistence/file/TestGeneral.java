@@ -83,13 +83,13 @@ public class TestGeneral {
 
 	@Test public void writeJSONToFile() throws JSONException, ExistException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
-		store.createJSON("/objects/json1.test", jsonObject);
+		store.autocreateJSON("/objects/", jsonObject);
 	}
 
 	@Test public void readJSONFromFile() throws JSONException, ExistException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
-		store.createJSON("/objects/json1.test", jsonObject);
-		JSONObject resultObj = store.retrieveJSON("/objects/json1.test");
+		String path=store.autocreateJSON("/objects/", jsonObject);
+		JSONObject resultObj = store.retrieveJSON("/objects/"+path);
 		JSONObject testObj = new JSONObject(testStr);
 		assertTrue(JSONUtils.checkJSONEquiv(resultObj,testObj));
 	}
@@ -105,10 +105,10 @@ public class TestGeneral {
 
 	@Test public void testJSONUpdate() throws ExistException, JSONException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr2);
-		store.createJSON("/objects/json1.test", jsonObject);
+		String id1=store.autocreateJSON("/objects/", jsonObject);
 		jsonObject = new JSONObject(testStr);
-		store.updateJSON("/objects/json1.test", jsonObject);		
-		JSONObject resultObj = store.retrieveJSON("/objects/json1.test");
+		store.updateJSON("/objects/"+id1, jsonObject);		
+		JSONObject resultObj = store.retrieveJSON("/objects/"+id1);
 		JSONObject testObj = new JSONObject(testStr);
 		assertTrue(JSONUtils.checkJSONEquiv(resultObj,testObj));
 	}
@@ -119,14 +119,6 @@ public class TestGeneral {
 			store.updateJSON("/objects/json1.test", jsonObject);
 			assertTrue(false);
 		} catch(ExistException e) {}
-	}
-
-	@Test public void testJSONNoCreateExisting() throws ExistException, JSONException, UnderlyingStorageException, UnimplementedException {
-		JSONObject jsonObject = new JSONObject(testStr);
-		store.createJSON("/objects/json1.test", jsonObject);
-		try {
-			store.createJSON("/objects/json1.test", jsonObject);
-		} catch(ExistException e) {}			
 	}
 
 	private File tmpSchemaFile(String type,boolean sj) {
@@ -259,43 +251,45 @@ public class TestGeneral {
 	@Test public void testPostAndDelete() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
 		assertEquals(out.getMethod(),null);
-		assertEquals("/objects/test-json-handle.tmp",out.getHeader("Location"));
+		String id=out.getHeader("Location");
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr2)));
-		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",testStr);
+		out=jettyDo(jetty,"PUT","/chain"+id,testStr);
 		assertEquals(200,out.getStatus());		
-		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr)));
-		out=jettyDo(jetty,"DELETE","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"DELETE","/chain"+id,null);
 		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 	}
 
 	@Test public void testMultipleStoreTypes() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
 		assertEquals(out.getMethod(),null);
+		String id1=out.getHeader("Location");
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"POST","/chain/intake/test-json-handle.tmp",testStr);	
+		out=jettyDo(jetty,"POST","/chain/intake/",testStr);	
 		assertEquals(out.getMethod(),null);
+		String id2=out.getHeader("Location");		
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());		
-		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr2)));
-		out=jettyDo(jetty,"GET","/chain/intake/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain"+id2,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr)));
-		out=jettyDo(jetty,"DELETE","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"DELETE","/chain"+id1,null);
 		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
-		out=jettyDo(jetty,"GET","/chain/intake/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain"+id2,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr)));
 	}
 
@@ -416,8 +410,8 @@ public class TestGeneral {
 
 	@Test public void testDirectories() throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject jsonObject = new JSONObject(testStr);
-		store.createJSON("/a/json1.test", jsonObject);
-		store.createJSON("/b/json2.test", jsonObject);
+		String id1=store.autocreateJSON("/a", jsonObject);
+		String id2=store.autocreateJSON("/b", jsonObject);
 		File d1=new File(store.getStoreRoot());
 		assertTrue(d1.exists());
 		File d2=new File(d1,"data");
@@ -426,8 +420,8 @@ public class TestGeneral {
 		assertTrue(a.exists());
 		File b=new File(d2,"b");
 		assertTrue(b.exists());
-		assertTrue(new File(a,"json1.test.json").exists());
-		assertTrue(new File(b,"json2.test.json").exists());
+		assertTrue(new File(a,id1+".json").exists());
+		assertTrue(new File(b,id2+".json").exists());
 	}
 	
 	@Test public void testReset() throws Exception {
@@ -435,8 +429,9 @@ public class TestGeneral {
 		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
 		jettyDo(jetty,"POST","/chain/objects/b",testStr2);	
 		jettyDo(jetty,"POST","/chain/objects/c",testStr2);
-		jettyDo(jetty,"GET","/chain/reset",null);
-		HttpTester out=jettyDo(jetty,"GET","/chain/objects/",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/reset",null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/objects/",null);
 		assertEquals(200,out.getStatus());
 		JSONObject result=new JSONObject(out.getContent());
 		JSONArray items=result.getJSONArray("items");

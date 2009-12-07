@@ -45,13 +45,25 @@ public class StubJSONStore implements Storage {
 		String[] parts=path.split("/");
 		if(parts.length==1)
 			throw new ExistException("Cannot store in root directory");
-		for(int i=0;i<2;i++)
-			parts[i]=parts[i].replaceAll("[^A-Za-z0-9_,.-]","");
-		File root=new File(store_root,parts[0]);
+		String dir=null;
+		String file=null;
+		for(int i=0;i<parts.length;i++) {
+			if("".equals(parts[i])) // Repeated slash, ignore
+				continue;
+			if(dir==null)
+				dir=parts[i];
+			else if(file==null)
+				file=parts[i];
+		}
+		if(file==null)
+			throw new UnderlyingStorageException("Path has too few components");
+		dir=dir.replaceAll("[^A-Za-z0-9_,.-]","");
+		file=file.replaceAll("[^A-Za-z0-9_,.-]","");
+		File root=new File(store_root,dir);
 		if(!root.exists()) {
 			root.mkdir();
 		}
-		return new File(root,parts[1]+".json");
+		return new File(root,file+".json");
 	}
 
 	private File dirFromPath(String path) {
@@ -118,7 +130,7 @@ public class StubJSONStore implements Storage {
 	public void createJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException, UnimplementedException {
 		if(idRequest(filePath))
 			id.createJSON(filePath,jsonObject);
-		set(filePath,jsonObject,true);
+		throw new UnderlyingStorageException("Cannot post to path");
 	}
 
 	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnderlyingStorageException, UnimplementedException {
