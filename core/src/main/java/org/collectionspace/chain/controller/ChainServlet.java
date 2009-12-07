@@ -192,7 +192,7 @@ public class ChainServlet extends HttpServlet  {
 			for(String line : schedule.split("\n")) {
 				String[] parts=line.split(" +",2);
 				pw.println("Creating "+parts[0]);
-				storage.createJSON(parts[0],getJSONResource(parts[1]));
+				storage.autocreateJSON(parts[0],getJSONResource(parts[1]));
 				pw.flush();
 			}
 			pw.println("done");

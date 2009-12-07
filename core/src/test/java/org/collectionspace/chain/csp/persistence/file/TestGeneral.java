@@ -426,25 +426,39 @@ public class TestGeneral {
 	
 	@Test public void testReset() throws Exception {
 		ServletTester jetty=setupJetty();
-		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
-		jettyDo(jetty,"POST","/chain/objects/b",testStr2);	
-		jettyDo(jetty,"POST","/chain/objects/c",testStr2);
-		HttpTester out=jettyDo(jetty,"GET","/chain/reset",null);
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"POST","/chain/objects/",testStr2);
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/reset",null);
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/",null);
 		assertEquals(200,out.getStatus());
 		JSONObject result=new JSONObject(out.getContent());
 		JSONArray items=result.getJSONArray("items");
 		Set<String> files=new HashSet<String>();
-		for(int i=0;i<items.length();i++)
-			files.add(items.getJSONObject(i).getString("csid"));
+		String csid0=null;
+		String accnum0=null;
+		for(int i=0;i<items.length();i++) {
+			files.add(items.getJSONObject(i).getString("accessionNumber"));
+			if(i==0) {
+				csid0=items.getJSONObject(i).getString("csid");
+				accnum0=items.getJSONObject(i).getString("accessionNumber");
+			}
+		}
 		assertTrue(files.contains("1984.068.0335b"));
 		assertTrue(files.contains("1984.068.0338"));
-		out=jettyDo(setupJetty(),"GET","/chain/objects/1984.068.0335b",null);
+		out=jettyDo(setupJetty(),"GET","/chain/objects/"+csid0,null);
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
-		String cmp=IOUtils.toString(Thread.currentThread().getContextClassLoader().getResourceAsStream("org/collectionspace/chain/controller/reset-objects/1984.068.0335b.json"));
-		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(cmp),new JSONObject(out.getContent())));
+		String cmp=IOUtils.toString(Thread.currentThread().getContextClassLoader().getResourceAsStream("org/collectionspace/chain/controller/reset-objects/"+accnum0+".json"));
+		JSONObject cmp1=new JSONObject(cmp);
+		JSONObject cmp2=new JSONObject(out.getContent());
+		cmp1.remove("csid");
+		cmp2.remove("csid");		
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(cmp1,cmp2));
 		assertEquals(3,files.size());		
 	}
 	
