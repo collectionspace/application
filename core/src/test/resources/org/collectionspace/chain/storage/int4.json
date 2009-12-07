@@ -2,7 +2,7 @@
   "entryNumber": "entry-numberX",
   "entryDate": "entry-dateX",
   "numObjects": "num-objectsX",
-  "entryMethod": "entry-methodX",
+  "entryMethods":[{"entryMethod":"entry-methodX"}],
   "entryReason": "entry-reasonsX",
   "returnDate": "return-dateX",
   "donor": "donorX",

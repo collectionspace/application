@@ -6,7 +6,7 @@
 			<map>
 				<mapping json=".entryNumber" key="entry-number" />
 				<mapping json=".entryDate" key="entry-date"/>
-				<mapping json=".entryMethod" key="entry-method" />
+				<mapping json=".entryMethods[0].entryMethod" key="entry-method" /> <!-- XXX proper support for multiples -->
 				<mapping json=".entryReason" key="entry-reasons" />
 				<mapping json=".depositor" key="depositor" />
 				<mapping json=".entryNote" key="entry-note" />
@@ -207,7 +207,7 @@
 			      "entryNumber": "\u0000entry-number",
 			      "entryDate": "\u0000entry-date",
 			      "numObjects": "\u0000num-objects",
-			      "entryMethod": "\u0000entry-method",
+			      "entryMethods": [{entryMethod: "\u0000entry-method"}],
 			      "entryReason": "\u0000entry-reasons",
 			      "currentOwner": "\u0000current-owner",
 			      "depositorRequirements": "\u0000depositor-requirements",
