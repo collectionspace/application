@@ -45,8 +45,6 @@ public class StubJSONStore implements Storage {
 		String[] parts=path.split("/");
 		if(parts.length==1)
 			throw new ExistException("Cannot store in root directory");
-		if(parts.length!=2)
-			throw new UnderlyingStorageException("Path must have two components.");
 		for(int i=0;i<2;i++)
 			parts[i]=parts[i].replaceAll("[^A-Za-z0-9_,.-]","");
 		File root=new File(store_root,parts[0]);

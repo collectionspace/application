@@ -4,7 +4,7 @@
 		<json2xml squash-empty="yes">
 			<map>
 				<mapping json=".accessionNumber" key="object-number" />
-				<mapping json=".objectNumber" key="other-number" multiple="yes"/>
+				<mapping json=".objectNumber" key="other-number"/>
 				<mapping json=".comments" key="comments" />
 				<mapping json=".distinguishingFeatures" key="dist-features" />
 				<mapping json=".objectName" key="object-name" />
@@ -104,7 +104,7 @@
 		<xml2json>
 			<map>
 				<mapping xpath="collectionobjects_common/objectNumber" key="object-number"/>
-				<mapping xpath="collectionobjects_common/otherNumber" key="other-number" multiple="yes"/>
+				<mapping xpath="collectionobjects_common/otherNumber" key="other-number"/>
 				<mapping xpath="collectionobjects_common/briefDescription" key="description"/>
 				<mapping xpath="collectionobjects_common/comments" key="comments"/>
 				<mapping xpath="collectionobjects_common/distFeatures" key="dist-features"/>

@@ -22,8 +22,6 @@ import org.junit.Test;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 
 public class TestService extends ServicesBaseClass {
-	private Random rnd=new Random();
-
 	private InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
@@ -87,11 +85,6 @@ public class TestService extends ServicesBaseClass {
 			conn.getNone(RequestMethod.DELETE,type+"/"+csid,null);
 		}
 	}
-
-	private void deleteAll() throws Exception {
-		deleteAll("collectionobjects","collectionobjects-common-list/collection-object-list-item");
-		deleteAll("intakes","intakes-common-list/intake-list-item");
-	}
 	
 	private Map<String,Document> buildObject(String objid,String src,String part) throws DocumentException, IOException {
 		InputStream data_stream=getResource(src);
@@ -103,52 +96,6 @@ public class TestService extends ServicesBaseClass {
 		Map<String,Document> parts=new HashMap<String,Document>();
 		parts.put(part,doc);
 		return parts;
-	}
-
-	@Test public void testSetvicesIdentifierMapBasic() throws Exception {
-		deleteAll(); // for speed
-		ServicesIdentifierMap sim=
-			new ServicesIdentifierMap(conn,
-					"collectionobjects",
-					"collectionobjects-common-list/collection-object-list-item",
-					"collectionobjects_common/objectNumber","collectionobjects_common");
-		String objid="test-sim-"+rnd.nextInt(Integer.MAX_VALUE);
-		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",buildObject(objid,"obj2.xml","collectionobjects_common"));
-		assertEquals(201,url.getStatus());
-		String csid=url.getURL().substring(url.getURL().lastIndexOf("/")+1);
-		String csid2=sim.getCSID(objid);
-		assertEquals(csid,csid2);
-		String csid3=sim.getCSID(objid);
-		assertEquals(csid,csid3);
-		assertEquals(1,sim.getNumberHits());
-		assertEquals(1,sim.getNumberMisses());
-		assertEquals(1,sim.getLoadSteps());
-		String objid2=sim.fromCSID(csid);
-		assertEquals(objid,objid2);
-		assertEquals(2,sim.getNumberHits());
-	}
-
-	@Test public void testSetvicesIdentifierMapBasic2() throws Exception {
-		deleteAll(); // for speed
-		ServicesIdentifierMap sim=
-			new ServicesIdentifierMap(conn,
-					"intakes",
-					"intakes-common-list/intake-list-item",
-					"intakes_common/entryNumber","intakes_common");
-		String objid="test-sim-"+rnd.nextInt(Integer.MAX_VALUE);
-		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"intakes/",buildObject(objid,"obj-intake.xml","intakes_common"));
-		assertEquals(201,url.getStatus());
-		String csid=url.getURL().substring(url.getURL().lastIndexOf("/")+1);
-		String csid2=sim.getCSID(objid);
-		assertEquals(csid,csid2);
-		String csid3=sim.getCSID(objid);
-		assertEquals(csid,csid3);
-		assertEquals(1,sim.getNumberHits());
-		assertEquals(1,sim.getNumberMisses());
-		assertEquals(1,sim.getLoadSteps());
-		String objid2=sim.fromCSID(csid);
-		assertEquals(objid,objid2);
-		assertEquals(2,sim.getNumberHits());
 	}
 	
 	@Test public void testDelete() throws Exception {
@@ -163,17 +110,5 @@ public class TestService extends ServicesBaseClass {
 		ReturnedMultipartDocument doc2=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null);
 		assertEquals(404,doc2.getStatus());	 // XXX CSPACE-209, should be 404
 		assertNull(doc2.getDocument("collectionobjects_common"));
-	}
-	
-	// XXX temporary venus test: migrate to proper test of multipart
-	@Test public void testPostMultipartDocs() throws Exception {
-		ServicesConnection sc=new ServicesConnection("http://venus.collectionspace.org:8180/cspace-services/");
-		Map<String,Document> documents=new HashMap<String,Document>();
-		documents.put("collectionobjects_common",getDocument("obj1.xml"));
-		documents.put("collectionobjects_naturalhistory",getDocument("obj-nh.xml"));
-		
-		ReturnedURL docs=sc.getMultipartURL(RequestMethod.POST,"collectionobjects/",documents);
-		assertEquals(201,docs.getStatus());
-		System.err.println(docs.getURL());
 	}
 }

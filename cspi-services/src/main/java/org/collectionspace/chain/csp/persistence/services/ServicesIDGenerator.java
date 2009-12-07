@@ -5,14 +5,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class ServicesIDGenerator implements Storage {
+public class ServicesIDGenerator implements ContextualisedStorage {
 	private Random rnd=new Random();
 	private ServicesConnection conn;
 	
@@ -36,29 +38,29 @@ public class ServicesIDGenerator implements Storage {
 
 	public ServicesIDGenerator(ServicesConnection conn) { this.conn=conn; }
 	
-	public String autocreateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String autocreateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
-	public void createJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public void createJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
-	public void deleteJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public void deleteJSON(CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
-	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public void updateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
-	public String[] getPaths(String rootPath) throws ExistException,
+	public String[] getPaths(CSPRequestCache cache,String rootPath) throws ExistException,
 			UnimplementedException, UnderlyingStorageException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public JSONObject retrieveJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public JSONObject retrieveJSON(CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String val=conn.getTextDocument(RequestMethod.POST,"idgenerators/"+generators.get(filePath)+"/ids",null);
 			JSONObject out=new JSONObject();

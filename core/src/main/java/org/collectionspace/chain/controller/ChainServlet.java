@@ -30,16 +30,20 @@ import org.collectionspace.chain.config.main.impl.BootstrapCSP;
 import org.collectionspace.chain.csp.config.CoreConfig;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
+import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
 import org.collectionspace.chain.util.BadRequestException;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.csp.helper.core.RequestCache;
 import org.dom4j.DocumentException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,8 +54,7 @@ import org.xml.sax.InputSource;
  * random junk which needs to be swept away as it becomes parameterised. We use ChainRequest to encapsulate the
  * servlet request and response and present it in a more project-focused way.
  */
-public class ChainServlet extends HttpServlet 
-{	
+public class ChainServlet extends HttpServlet  {	
 	private static final long serialVersionUID = -4343156244448081917L;
 	private Config config=null;
 	private boolean inited=false;
@@ -59,7 +62,7 @@ public class ChainServlet extends HttpServlet
 	private Map<String,RecordController> controllers=new HashMap<String,RecordController>();
 	private static final Set<String> controller_types=new HashSet<String>();
 	private static final Set<String> users=new HashSet<String>();
-
+	
 	static {
 		controller_types.add("collection-object");
 		controller_types.add("intake");
@@ -104,7 +107,7 @@ public class ChainServlet extends HttpServlet
 		CSPManager cspm=global.getCSPManager();
 		cspm.register(new CoreConfig());
 		cspm.register(new FileStorage());
-		cspm.register(new ServicesStorage());
+		cspm.register(new ServicesStorageGenerator());
 		cspm.register(new BootstrapCSP(config.getController()));
 	}
 
@@ -129,7 +132,7 @@ public class ChainServlet extends HttpServlet
 			register_csps();
 			global.getCSPManager().go(); // Start up CSPs
 			load_config();
-			Storage store=global.getCSPManager().getStorage(config.getStorageType());
+			StorageGenerator store=global.getCSPManager().getStorage(config.getStorageType());
 			global.setStore(store);
 			// Register controllers
 			for(String type : controller_types) {
@@ -164,15 +167,17 @@ public class ChainServlet extends HttpServlet
 	private void xxx_reset(ChainRequest request) throws IOException, BadRequestException { // Temporary hack to reset db
 		/* Temporary hack for moon */
 		// Delete all members
+		CSPRequestCache cache=new RequestCache();
+		Storage storage=global.getStore().getStorage(cache);
 		try {
 			PrintWriter pw=request.getPlainTextWriter();
-			for(String dir : global.getStore().getPaths("/")) {
+			for(String dir : storage.getPaths("/")) {
 				pw.println("dir : "+dir);
-				String[] paths=global.getStore().getPaths(dir);
+				String[] paths=storage.getPaths(dir);
 				for(int i=0;i<paths.length;i++) {
 					pw.println("path : "+dir+"/"+paths[i]);
 					try {
-						global.getStore().deleteJSON(dir+"/"+paths[i]);
+						storage.deleteJSON(dir+"/"+paths[i]);
 					} catch (UnimplementedException e) {
 						// Never mind
 						pw.println("ux");
@@ -187,7 +192,7 @@ public class ChainServlet extends HttpServlet
 			for(String line : schedule.split("\n")) {
 				String[] parts=line.split(" +",2);
 				pw.println("Creating "+parts[0]);
-				global.getStore().createJSON(parts[0],getJSONResource(parts[1]));
+				storage.createJSON(parts[0],getJSONResource(parts[1]));
 				pw.flush();
 			}
 			pw.println("done");

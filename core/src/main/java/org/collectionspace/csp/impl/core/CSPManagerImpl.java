@@ -17,6 +17,7 @@ import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.xml.sax.InputSource;
 
 public class CSPManagerImpl implements CSPManager {
@@ -24,13 +25,13 @@ public class CSPManagerImpl implements CSPManager {
 	private Set<ConfigConsumer> config_consumers=new HashSet<ConfigConsumer>();	
 	private Set<Configurable> configurable_csps=new HashSet<Configurable>();	
 	private DependencyResolver csps=new DependencyResolver("go");
-	private Map<String,Storage> storage=new HashMap<String,Storage>();
+	private Map<String,StorageGenerator> storage=new HashMap<String,StorageGenerator>();
 	
 	public void addConfigProvider(ConfigProvider provider) { config_providers.add(provider); }
 	public Set<ConfigProvider> getConfigProviders() { return config_providers; }
 	public void addConfigConsumer(ConfigConsumer cfg) { config_consumers.add(cfg); }
 	public void addConfigurable(Configurable cfg) { configurable_csps.add(cfg); }
-	public void addStorageType(String name, Storage store) { storage.put(name,store); }
+	public void addStorageType(String name, StorageGenerator store) { storage.put(name,store); }
 	
 	public void register(final CSP in) { 
 		csps.addRunnable(new Dependable(){
@@ -75,6 +76,6 @@ public class CSPManagerImpl implements CSPManager {
 		}
 	}
 
-	public Storage getStorage(String name) { return storage.get(name); }
+	public StorageGenerator getStorage(String name) { return storage.get(name); }
 	
 }

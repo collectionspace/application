@@ -66,21 +66,22 @@ public class TestServiceThroughWebapp {
 	
 	@Test public void testCollectionObjectBasic() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",getResourceString("obj3.json"));	
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",getResourceString("obj3.json"));	
+		String id=out.getHeader("Location");
 		assertEquals(out.getMethod(),null);
 		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain"+id,null);
 		JSONObject content=new JSONObject(out.getContent());
 		content.remove("csid");
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj3.json")),content));
-		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",getResourceString("obj4.json"));
+		out=jettyDo(jetty,"PUT","/chain"+id,getResourceString("obj4.json"));
 		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain"+id,null);
 		content=new JSONObject(out.getContent());
 		content.remove("csid");
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj4.json")),content));		
-		out=jettyDo(jetty,"DELETE","/chain/objects/test-json-handle.tmp",null);
-		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"DELETE","/chain"+id,null);
+		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(out.getStatus()!=200); // XXX should be 404
 	}
 
@@ -143,7 +144,6 @@ public class TestServiceThroughWebapp {
 		assertTrue(out.getStatus()!=200); // XXX should be 404		
 	}
 	
-	// XXX not a test
 	@Test public void testIDGenerate() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/id/intake",null);
@@ -154,12 +154,11 @@ public class TestServiceThroughWebapp {
 		assertTrue(jo.getString("next").startsWith("2009.1."));
 	}
 
-	// XXX not a test
 	@Test public void testAutoGet() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/__auto",testStr3);
-		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
-		System.out.println(out.getContent());
+		HttpTester out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
+		assertEquals(200,out.getStatus());
+		// XXX this is correct currently, whilst __auto is stubbed.
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(),new JSONObject(out.getContent())));
 	}
 }

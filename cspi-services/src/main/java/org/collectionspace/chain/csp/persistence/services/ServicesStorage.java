@@ -14,60 +14,58 @@ import org.collectionspace.csp.api.config.Configurable;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
+import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
+import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
+import org.json.JSONObject;
 
 /** The direct implementation of storage; only an instance of SplittingStorage which at the moment only splits
  * into ServicesCollectionObjectStorage.
  * 
  */
-public class ServicesStorage extends SplittingStorage implements CSP, Storage, ConfigConsumer, Configurable {
-
-	public ServicesStorage() {}
-	ServicesStorage(String base_url) throws CSPDependencyException { // For testing
-		real_init(base_url);
-	}
-
-	public String getName() { return "persistence.services"; }
-
-	public void go(CSPContext ctx) throws CSPDependencyException {
-		ctx.addStorageType("service",this);
-		ctx.addConfigConsumer(this);
-		ctx.addConfigurable(this);
-	}
-
-	public void prepareForConfiguration(ConfigContext ctx) throws CSPDependencyException {
-		BarbWirer main=ctx.getRootBarbWirer().getBarb("root").getBarbWirer("collection-space");
-		if(main==null) {
-			throw new CSPDependencyException("No collection-space tag attached to root");
-		}
-		SimpleConfigProviderBarbWirer persistence=new SimpleConfigProviderBarbWirer(new Object[]{"persistence","service"});
-		ctx.addConfigProvider(persistence);
-		main.getBarb("persistence").attach(persistence,"service");
-	}
-
-	private void real_init(String base_url) throws CSPDependencyException {
-		try {
-			ServicesConnection conn=new ServicesConnection(base_url);
-			addChild("collection-object",new ServicesCollectionObjectStorage(conn));
-			addChild("intake",new ServicesIntakeStorage(conn));
-			addChild("acquisition",new ServicesAcquisitionStorage(conn));
-			addChild("id",new ServicesIDGenerator(conn));
-		} catch (Exception e) {
-			throw new CSPDependencyException("Could not set target",e); // XXX wrong type
-		}
+public class ServicesStorage extends SplittingStorage implements Storage {
+	private CSPRequestCache cache;
+	private ContextualisedStorage storage;
+	
+	public ServicesStorage(ContextualisedStorage storage,CSPRequestCache cache) {
+		this.cache=cache;
+		this.storage=storage;
 	}
 	
-	public void configure(ConfigRoot config) throws CSPDependencyException { // XXX
-		Object store=config.getValue(new Object[]{"bootstrap","store-url"});
-		if(store!=null && (store instanceof String)) {
-			real_init((String)store);
-		} else {
-			store=config.getValue(new Object[]{"persistence","services","url"});
-			if(store==null || !(store instanceof String))
-				return;
-			real_init((String)store);
-		}
+	public String getName() { return "persistence.services"; }
+
+	public String autocreateJSON(String filePath, JSONObject jsonObject)
+			throws ExistException, UnimplementedException, UnderlyingStorageException {
+		return storage.autocreateJSON(cache, filePath, jsonObject);
+	}
+
+	public void createJSON(String filePath, JSONObject jsonObject)
+			throws ExistException, UnimplementedException, UnderlyingStorageException {
+		storage.createJSON(cache, filePath, jsonObject);
+	}
+
+	public void deleteJSON(String filePath)
+		throws ExistException, UnimplementedException, UnderlyingStorageException {
+		storage.deleteJSON(cache,filePath);
+	}
+
+	public String[] getPaths(String rootPath) 
+		throws ExistException, UnimplementedException, UnderlyingStorageException {
+		return storage.getPaths(cache,rootPath);
+	}
+
+	public JSONObject retrieveJSON(String filePath)
+		throws ExistException, UnimplementedException, UnderlyingStorageException {
+		return storage.retrieveJSON(cache,filePath);
+	}
+
+	public void updateJSON(String filePath, JSONObject jsonObject)
+			throws ExistException, UnimplementedException, UnderlyingStorageException {
+		storage.updateJSON(cache, filePath, jsonObject);
 	}
 }

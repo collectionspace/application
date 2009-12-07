@@ -333,12 +333,12 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());
 		assertTrue(out.getContent().contains("cspace.chain.store.dir"));
 	}
-
+	
 	@Test public void testObjectList() throws Exception {
 		ServletTester jetty=setupJetty();
-		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
-		jettyDo(jetty,"POST","/chain/objects/b",testStr2);	
-		jettyDo(jetty,"POST","/chain/objects/c",testStr2);
+		HttpTester out1=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
+		HttpTester out2=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
+		HttpTester out3=jettyDo(jetty,"POST","/chain/objects/",testStr2);
 		File storedir=new File(store.getStoreRoot(),"store");
 		if(!storedir.exists())
 			storedir.mkdir();
@@ -350,10 +350,11 @@ public class TestGeneral {
 		JSONArray items=result.getJSONArray("items");
 		Set<String> files=new HashSet<String>();
 		for(int i=0;i<items.length();i++)
-			files.add(items.getString(i));
-		assertTrue(files.contains("a"));
-		assertTrue(files.contains("b"));
-		assertTrue(files.contains("c"));
+			files.add("/objects/"+items.getJSONObject(i).getString("csid"));
+		System.err.println(out1.getHeader("Location"));
+		assertTrue(files.contains(out1.getHeader("Location")));
+		assertTrue(files.contains(out2.getHeader("Location")));
+		assertTrue(files.contains(out3.getHeader("Location")));
 		assertEquals(3,files.size());
 	}
 
@@ -383,32 +384,33 @@ public class TestGeneral {
 	@Test public void testPutReturnsContent() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/test-json-handle.tmp",testStr2);	
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);
+		String id=out.getHeader("Location");
 		assertEquals(out.getMethod(),null);
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/objects/test-json-handle.tmp",null);
+		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr2)));
-		out=jettyDo(jetty,"PUT","/chain/objects/test-json-handle.tmp",testStr);
+		out=jettyDo(jetty,"PUT","/chain"+id,testStr);
 		assertEquals(200,out.getStatus());	
-		assertEquals(testStr,out.getContent());	
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(testStr),new JSONObject(out.getContent())));
 	}
 
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
 		ServletTester jetty=setupJetty();
-		jettyDo(jetty,"POST","/chain/objects/a",testStr2);	
-		jettyDo(jetty,"POST","/chain/objects/b",testStr2);	
-		jettyDo(jetty,"POST","/chain/objects/c",testStr2);
+		HttpTester out1=jettyDo(jetty,"POST","/chain/objects",testStr2);	
+		HttpTester out2=jettyDo(jetty,"POST","/chain/objects",testStr2);	
+		HttpTester out3=jettyDo(jetty,"POST","/chain/objects",testStr2);
 		HttpTester out=jettyDo(jetty,"GET","/chain/objects/",null);
 		assertEquals(200,out.getStatus());
 		JSONObject result=new JSONObject(out.getContent());
 		JSONArray items=result.getJSONArray("items");
 		Set<String> files=new HashSet<String>();
 		for(int i=0;i<items.length();i++)
-			files.add(items.getString(i));
-		assertTrue(files.contains("a"));
-		assertTrue(files.contains("b"));
-		assertTrue(files.contains("c"));
+			files.add("/objects/"+items.getJSONObject(i).getString("csid"));
+		assertTrue(files.contains(out1.getHeader("Location")));
+		assertTrue(files.contains(out2.getHeader("Location")));
+		assertTrue(files.contains(out3.getHeader("Location")));
 		assertEquals(3,files.size());		
 	}
 
@@ -440,7 +442,7 @@ public class TestGeneral {
 		JSONArray items=result.getJSONArray("items");
 		Set<String> files=new HashSet<String>();
 		for(int i=0;i<items.length();i++)
-			files.add(items.getString(i));
+			files.add(items.getJSONObject(i).getString("csid"));
 		assertTrue(files.contains("1984.068.0335b"));
 		assertTrue(files.contains("1984.068.0338"));
 		out=jettyDo(setupJetty(),"GET","/chain/objects/1984.068.0335b",null);
@@ -448,7 +450,7 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());
 		String cmp=IOUtils.toString(Thread.currentThread().getContextClassLoader().getResourceAsStream("org/collectionspace/chain/controller/reset-objects/1984.068.0335b.json"));
 		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(cmp),new JSONObject(out.getContent())));
-		assertEquals(4,files.size());		
+		assertEquals(3,files.size());		
 	}
 	
 	@Test public void testLogin() throws Exception {

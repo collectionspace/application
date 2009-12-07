@@ -17,14 +17,16 @@ import org.collectionspace.csp.api.config.Configurable;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.persistence.ProxyStorage;
 
 /**  SplittingStorage which delegates collection-objects to StubJSONStore
  * 
  */
-public class FileStorage extends ProxyStorage implements Storage, CSP, ConfigConsumer, Configurable {
+public class FileStorage extends ProxyStorage implements Storage, CSP, ConfigConsumer, Configurable, StorageGenerator {
 	private String root;
 
 	public FileStorage() {}
@@ -73,4 +75,5 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, ConfigCon
 			real_init((String)store);
 		}
 	}
+	public Storage getStorage(CSPRequestCache cache) { return this; }
 }

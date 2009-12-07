@@ -20,7 +20,10 @@ import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedExcep
 import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
+import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.ExistException;
+import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.helper.core.RequestCache;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.dom4j.Document;
 import org.dom4j.Node;
@@ -59,35 +62,40 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		setup();
 	}
 	
+	private static Storage makeServicesStorage(String path) throws CSPDependencyException {
+		return new ServicesStorageGenerator(path).getStorage(new RequestCache());
+	}
+	
 	// XXX use autocreate not create when create dies
 	@Test public void testObjectsPut() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
-		ss.createJSON("collection-object/testObjectsPut",getJSON("obj3.json"));
-		JSONObject js=ss.retrieveJSON("collection-object/testObjectsPut");
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		String path=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
+		System.err.println("path="+path);
+		JSONObject js=ss.retrieveJSON("collection-object/"+path);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
 	}
 
 	// XXX use autocreate not create when create dies
 	@Test public void testObjectsPost() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
-		ss.createJSON("collection-object/testObjectsPost",getJSON("obj3.json"));
-		ss.updateJSON("collection-object/testObjectsPost",getJSON("obj4.json"));
-		JSONObject js=ss.retrieveJSON("collection-object/testObjectsPost");
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		String path=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
+		ss.updateJSON("collection-object/"+path,getJSON("obj4.json"));
+		JSONObject js=ss.retrieveJSON("collection-object/"+path);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj4.json")));
 	}
 
 	// XXX use autocreate not create when create dies
 	@Test public void testObjectsDelete() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
-		ss.createJSON("collection-object/testObjectsDelete",getJSON("obj3.json"));
-		JSONObject js=ss.retrieveJSON("collection-object/testObjectsDelete");
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		String path=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
+		JSONObject js=ss.retrieveJSON("collection-object/"+path);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
-		ss.deleteJSON("collection-object/testObjectsDelete");
+		ss.deleteJSON("collection-object/"+path);
 		try {
-			ss.retrieveJSON("collection-object/testObjectsDelete");
+			ss.retrieveJSON("collection-object/"+path);
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(ExistException e) {}
 	}
@@ -102,7 +110,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	}
 	
 	@Test public void testGetId() throws Exception {
-		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		JSONObject jo=ss.retrieveJSON("id/intake");
 		assertTrue(jo.getString("next").startsWith("IN2009."));
 		jo=ss.retrieveJSON("id/objects");
@@ -113,21 +121,13 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	// XXX use autocreate not create when create dies
 	@Test public void testObjectsList() throws Exception {
 		deleteAll();
-		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
-		ss.createJSON("collection-object/name1",getJSON("obj3.json"));
-		ss.createJSON("collection-object/name2",getJSON("obj4.json"));
-		ss.createJSON("collection-object/123",getJSON("obj4.json"));
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
+		String p2=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
+		String p3=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
 		String[] names=ss.getPaths("collection-object");
-		assertArrayContainsString(names,"name1");
-		assertArrayContainsString(names,"name2");
-		assertArrayContainsString(names,"123");
-	}
-	
-	@Test public void testHackCSPACE264() throws Exception {
-		deleteAll();
-		ServicesStorage ss=new ServicesStorage(base+"/cspace-services/");
-		ss.createJSON("collection-object/def",getJSON("obj3.json"));
-		JSONObject js=ss.retrieveJSON("collection-object/def");
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
+		assertArrayContainsString(names,p1);
+		assertArrayContainsString(names,p2);
+		assertArrayContainsString(names,p3);
 	}
 }
