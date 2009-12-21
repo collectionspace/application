@@ -2,7 +2,12 @@
 
 <ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/collectionobject http://services.collectionspace.org/collectionobject/collectionobjects_common.xsd">
   <objectNumber>2</objectNumber>
-  <otherNumber>3</otherNumber>
+  <!-- XXX CSPACE-694
+  <otherNumbers>
+  	<otherNumber>3</otherNumber>
+  	<otherNumber>4</otherNumber>
+  </otherNumbers>
+  -->
   <briefDescription>description</briefDescription>
 	<!--
   <comments></comments>

@@ -4,13 +4,13 @@
 		<json2xml squash-empty="yes">
 			<map>
 				<mapping json=".accessionNumber" key="object-number" />
-				<mapping json=".objectNumber" key="other-number"/>
 				<mapping json=".comments" key="comments" />
 				<mapping json=".distinguishingFeatures" key="dist-features" />
 				<mapping json=".objectName" key="object-name" />
 				<mapping json=".responsibleDepartment" key="responsible-dept" />
 				<mapping json=".objectTitle" key="title" />
 				<assembly key="misc">
+				  <mapping json=".objectNumber" assembly-key="otherNumber"/> <!-- XXX CSPACE-694 -->
 				  <mapping json=".description" assembly-key="description" />
 				  <mapping json=".objectTitleLanguage" assembly-key="objectTitleLanguage"/>
                   <mapping json=".objectTitleTranslation" assembly-key="objectTitleTranslation"/>
@@ -91,7 +91,6 @@
 			<template>
 				<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject">
 					<objectNumber xtmpl:point="object-number"></objectNumber>
-					<otherNumber xtmpl:point="other-number"></otherNumber>
 					<briefDescription xtmpl:point="misc">description</briefDescription>
 					<comments xtmpl:point="comments"></comments>
 					<distFeatures xtmpl:point="dist-features"></distFeatures>
@@ -104,7 +103,6 @@
 		<xml2json>
 			<map>
 				<mapping xpath="collectionobjects_common/objectNumber" key="object-number"/>
-				<mapping xpath="collectionobjects_common/otherNumber" key="other-number"/>
 				<mapping xpath="collectionobjects_common/briefDescription" key="description"/>
 				<mapping xpath="collectionobjects_common/comments" key="comments"/>
 				<mapping xpath="collectionobjects_common/distFeatures" key="dist-features"/>
@@ -112,6 +110,7 @@
 				<mapping xpath="collectionobjects_common/responsibleDept" key="responsible-dept"/>
 				<mapping xpath="collectionobjects_common/title" key="title"/>	
 				<assembly xpath="collectionobjects_common/briefDescription">
+				  <mapping key="other-number" assembly-key="otherNumber"/> <!-- XXX CSPACE-694 -->
 				  <mapping assembly-key="description" key="description"/>
                   <mapping key="objectTitleLanguage" assembly-key="objectTitleLanguage"/>
                   <mapping key="objectTitleTranslation" assembly-key="objectTitleTranslation"/>

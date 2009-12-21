@@ -51,7 +51,7 @@ public class TestServiceThroughWebapp {
 	// XXX refactor into other copy of this method
 	private ServletTester setupJetty() throws Exception {
 		BootstrapConfigController config_controller=new BootstrapConfigController(null);
-		config_controller.addSearchSuffix("test-config-loader.xml");
+		config_controller.addSearchSuffix("test-config-loader2.xml");
 		config_controller.go();
 		String base=config_controller.getOption("services-url");		
 		ServletTester tester=new ServletTester();

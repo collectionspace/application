@@ -31,6 +31,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			addChild("acquisition",new ServicesAcquisitionStorage(conn));
 			addChild("id",new ServicesIDGenerator(conn));
 		} catch (Exception e) {
+			System.err.println(e.getMessage());
 			throw new CSPDependencyException("Could not set target",e); // XXX wrong type
 		}
 	}

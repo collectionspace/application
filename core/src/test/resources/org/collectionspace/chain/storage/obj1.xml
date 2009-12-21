@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:collection-object xmlns:ns2="http://collectionspace.org/hello">
   <objectNumber>2</objectNumber>
-  <otherNumber>3</otherNumber>
+  <otherNumbers>
+  	<otherNumber>otherNumber|3</otherNumber>
+  </otherNumbers>
   <briefDescription>description</briefDescription>
   <comments></comments>
   <distFeatures></distFeatures>

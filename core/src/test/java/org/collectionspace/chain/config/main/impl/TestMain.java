@@ -99,7 +99,7 @@ public class TestMain {
 	
 	@Test public void testCoreConfig() throws Exception { // XXX this is not a test!
 		BootstrapConfigController bootstrap=new BootstrapConfigController(null);
-		bootstrap.addSearchSuffix("test-config-loader.xml");
+		bootstrap.addSearchSuffix("test-config-loader2.xml");
 		bootstrap.go();
 		CSPManagerImpl csp=new CSPManagerImpl();
 		csp.register(new CoreConfig());
