@@ -48,7 +48,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	// XXX refactor
 	@SuppressWarnings("unchecked")
 	private void deleteAll() throws Exception {
-		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/");
+		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/",null);
 		if(all.getStatus()!=200)
 			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 		List<Node> objects=all.getDocument().selectNodes("collectionobjects-common-list/collection-object-list-item");

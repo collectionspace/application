@@ -86,10 +86,6 @@ public class ServicesConnection {
 		throw new ConnectionException("Unsupported method "+method);
 	}
 
-	public ReturnedDocument getXMLDocument(RequestMethod method,String uri) throws ConnectionException {
-		return getXMLDocument(method,uri,null);
-	}
-
 	private void closeStream(InputStream stream) throws ConnectionException {
 		if(stream!=null)
 			try {
@@ -143,7 +139,7 @@ public class ServicesConnection {
 		return src;
 	}	
 	
-	private ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {
+	public ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {
 		ReturnedDocument out=new ReturnedDocument();
 		doRequest(out,method_type,uri,makeDocumentSource(body));
 		return out;

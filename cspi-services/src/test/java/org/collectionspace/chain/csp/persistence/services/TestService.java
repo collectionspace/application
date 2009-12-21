@@ -76,7 +76,7 @@ public class TestService extends ServicesBaseClass {
 	// Speeds up many tests, ensures others work at all
 	@SuppressWarnings("unchecked")
 	private void deleteAll(String type,String item) throws Exception {
-		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,type+"/");
+		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,type+"/",null);
 		if(all.getStatus()!=200)
 			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 		List<Node> objects=all.getDocument().selectNodes(item);

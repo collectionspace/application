@@ -106,7 +106,7 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 	public String[] getPaths(CSPRequestCache cache,String rootPath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			List<String> out=new ArrayList<String>();
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,prefix+"/");
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,prefix+"/",null);
 			if(all.getStatus()!=200)
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 			List<Node> objects=all.getDocument().selectNodes(items);

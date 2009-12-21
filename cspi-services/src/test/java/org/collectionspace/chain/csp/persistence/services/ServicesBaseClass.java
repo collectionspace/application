@@ -15,7 +15,7 @@ public class ServicesBaseClass {
 		base=config_controller.getOption("services-url");
 		System.err.println("base="+base);
 		conn=new ServicesConnection(base+"/cspace-services");
-		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects");
+		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null);
 		Assume.assumeTrue(out.getStatus()==200);
 	}
 }
