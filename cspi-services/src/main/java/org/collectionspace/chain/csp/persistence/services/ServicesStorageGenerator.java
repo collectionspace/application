@@ -1,6 +1,7 @@
 package org.collectionspace.chain.csp.persistence.services;
 
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
 import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigContext;
@@ -31,6 +32,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			addChild("intake",new ServicesIntakeStorage(conn));
 			addChild("acquisition",new ServicesAcquisitionStorage(conn));
 			addChild("id",new ServicesIDGenerator(conn));
+			addChild("relations",new ServicesRelationStorage(conn));
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			throw new CSPDependencyException("Could not set target",e); // XXX wrong type

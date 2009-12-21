@@ -27,17 +27,6 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMul
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 
 public class TestService extends ServicesBaseClass {
-	private InputStream getResource(String name) {
-		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-	}
-
-	private Document getDocument(String name) throws DocumentException {
-		SAXReader reader=new SAXReader();
-		// TODO errorhandling
-		return reader.read(getResource(name));
-	}
-
 	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
 		setup();
 	}
@@ -77,19 +66,6 @@ public class TestService extends ServicesBaseClass {
 	}
 
 	// TODO pre-emptive cache population
-
-	// Speeds up many tests, ensures others work at all
-	@SuppressWarnings("unchecked")
-	private void deleteAll(String type,String item) throws Exception {
-		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,type+"/",null);
-		if(all.getStatus()!=200)
-			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-		List<Node> objects=all.getDocument().selectNodes(item);
-		for(Node object : objects) {
-			String csid=object.selectSingleNode("csid").getText();
-			conn.getNone(RequestMethod.DELETE,type+"/"+csid,null);
-		}
-	}
 	
 	private Map<String,Document> buildObject(String objid,String src,String part) throws DocumentException, IOException {
 		InputStream data_stream=getResource(src);
