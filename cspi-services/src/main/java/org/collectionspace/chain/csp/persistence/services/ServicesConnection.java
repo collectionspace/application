@@ -46,7 +46,6 @@ import org.dom4j.io.XMLWriter;
 public class ServicesConnection {
 	private String base_url;
 	private static HttpClient client;
-	private static Object lock=new Object();	
 
 	private void initClient() {
 		if(client!=null)
@@ -55,7 +54,6 @@ public class ServicesConnection {
 			if(client!=null)
 				return;
 			MultiThreadedHttpConnectionManager manager=new MultiThreadedHttpConnectionManager();
-			manager.setMaxTotalConnections(1);
 			client=new HttpClient(manager);
 		}
 	}
@@ -156,7 +154,6 @@ public class ServicesConnection {
 
 	// XXX eugh! error case control-flow nightmare
 	public ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {
-		synchronized(lock) {
 			InputStream body_data=documentToStream(body,uri);
 			try {
 				System.err.println("Getting from "+uri);
@@ -189,12 +186,10 @@ public class ServicesConnection {
 			} finally {
 				closeStream(body_data);
 			}
-		}
 	}
 
 	// XXX eugh! error case control-flow nightmare
 	public ReturnedMultipartDocument getMultipartXMLDocument(RequestMethod method_type,String uri,Map<String,Document> body) throws ConnectionException {
-		synchronized(lock) {
 			InputStream body_data=null;
 			String ctype=null;
 			try {
@@ -260,13 +255,11 @@ public class ServicesConnection {
 			} finally {
 				closeStream(body_data);
 			}
-		}
 	}
 
 	// XXX eugh! error case control-flow nightmare
 	// XXX refactor
 	public String getTextDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {
-		synchronized(lock) {
 			InputStream body_data=documentToStream(body,uri);
 			try {
 				System.err.println("Getting from "+uri);
@@ -291,12 +284,10 @@ public class ServicesConnection {
 			} finally {
 				closeStream(body_data);
 			}
-		}
 	}
 
 	// XXX refactor!!!!
 	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body) throws ConnectionException {
-		synchronized(lock) {
 			InputStream body_data=documentToStream(body,uri);
 			try {
 				HttpMethod method=createMethod(method_type,uri,body_data);
@@ -324,12 +315,10 @@ public class ServicesConnection {
 			} finally {
 				closeStream(body_data);
 			}
-		}
 	}
 
 	// XXX refactor!!!!
 	public ReturnedURL getMultipartURL(RequestMethod method_type,String uri,Map<String,Document> body) throws ConnectionException {
-		synchronized(lock) {
 			InputStream body_data=null;
 			String ctype=null;
 			try {
@@ -377,11 +366,9 @@ public class ServicesConnection {
 			} finally {
 				closeStream(body_data);
 			}
-		}
 	}
 	
 	public synchronized int getNone(RequestMethod method_type,String uri,Document body) throws ConnectionException {
-		synchronized(lock) {
 			InputStream body_data=documentToStream(body,uri);
 			try {
 				HttpMethod method=createMethod(method_type,uri,body_data);
@@ -401,6 +388,5 @@ public class ServicesConnection {
 			} finally {
 				closeStream(body_data);
 			}
-		}
 	}
 }
