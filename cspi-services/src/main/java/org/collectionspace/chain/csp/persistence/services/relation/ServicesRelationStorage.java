@@ -1,11 +1,16 @@
 package org.collectionspace.chain.csp.persistence.services.relation;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
@@ -17,21 +22,28 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.Node;
 import org.jaxen.JaxenException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/* /relate/main/  POST ::: {'src': src, 'type': type, 'dst': dst} ::: id
- * /relate/main/<id>  PUT ::: {'src': src, 'type': type, 'dst': dst}
- * /relate/main/<id>  DELETE
+/* /relate/main/      POST ::: {'src': src-type/src, 'type': type, 'dst': dst-type/dst} ::: id
+ * /relate/main/<id>  PUT ::: {'src': src-type/src, 'type': type, 'dst': dst-type/dst} :::
+ * /relate/main/<id>  DELETE ::: :::
+ * /relate/main/<id>  GET ::: ::: {'src': src-type/src, 'type': type, 'dst': dst-type/dst}
  * 
- * other requests will use something other than main
  */
 
 public class ServicesRelationStorage implements ContextualisedStorage {
 	private ServicesConnection conn;
 	private RelationFactory factory;
 
+	private static Set<String> types=new HashSet<String>();
+	
+	static {
+		types.add("affects");
+	}
+	
 	public ServicesRelationStorage(ServicesConnection conn) throws JaxenException, InvalidXTmplException, DocumentException, IOException {
 		this.conn=conn;
 		factory=new RelationFactory();
@@ -48,6 +60,8 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		String[] src=splitTypeFromId(data.getString("src"));
 		String[] dst=splitTypeFromId(data.getString("dst"));
 		String type=data.getString("type");
+		if(!types.contains(type))
+			throw new UnderlyingStorageException("type "+type+" is undefined");
 		return factory.create(src[0],src[1],type,dst[0],dst[1]);
 	}
 
@@ -122,10 +136,47 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		}
 	}
 
-	public String[] getPaths(CSPRequestCache cache, String rootPath)
+	private String searchPath(JSONObject in) throws UnderlyingStorageException, JSONException {
+		if(in==null)
+			return "";
+		StringBuffer out=new StringBuffer();
+		if(in.has("src")) {
+			String[] src=splitTypeFromId(in.getString("src"));
+			out.append("/subject/"+src[1]);
+		}
+		if(in.has("dst")) {
+			String[] dst=splitTypeFromId(in.getString("dst"));
+			out.append("/object/"+dst[1]);
+		}
+		if(in.has("type")) {
+			out.append("/type/"+in.getString("type"));
+		}
+		String ret=out.toString();
+		if(ret.startsWith("/"))
+			ret=ret.substring(1);
+		return ret;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String[] getPaths(CSPRequestCache cache, String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
-		// TODO Auto-generated method stub
-		return null;
+		extractPaths(rootPath,new String[]{"main"},0);
+		try {
+			List<String> out=new ArrayList<String>();
+			ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/relations/"+searchPath(restrictions),null);
+			Document doc=data.getDocument();
+			if(doc==null)
+				throw new UnderlyingStorageException("Could not retrieve relation, missing relations_common");
+			List<Node> objects=doc.getDocument().selectNodes("relations-common-list/relation-list-item");
+			for(Node object : objects) {
+				out.add(object.selectSingleNode("csid").getText());
+			}
+			return out.toArray(new String[0]);
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Could not retrieve relation",e);
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Could not retrieve relation",e);
+		}
 	}
 
 	public JSONObject retrieveJSON(CSPRequestCache cache, String filePath)

@@ -57,7 +57,7 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
-	public String[] getPaths(CSPRequestCache cache,String rootPath) throws ExistException,
+	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException,
 			UnimplementedException, UnderlyingStorageException {
 		// TODO Auto-generated method stub
 		return null;

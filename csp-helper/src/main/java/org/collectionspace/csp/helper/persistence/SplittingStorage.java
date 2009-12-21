@@ -59,7 +59,7 @@ public class SplittingStorage implements ContextualisedStorage {
 		get(parts[0]).createJSON(cache,parts[1],jsonObject);
 	}
 
-	public String[] getPaths(CSPRequestCache cache,String rootPath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restriction) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(rootPath,true);
 		if("".equals(parts[0])) {
 			return children.keySet().toArray(new String[0]);
@@ -68,7 +68,7 @@ public class SplittingStorage implements ContextualisedStorage {
 			for(Map.Entry<String,ContextualisedStorage> e : children.entrySet()) {
 				if(e.getKey().equals(parts[0])) {
 					ContextualisedStorage storage=e.getValue();
-					String[] paths=storage.getPaths(cache,parts[1]);
+					String[] paths=storage.getPaths(cache,parts[1],restriction);
 					if(paths==null)
 						continue;
 					for(String s : paths) {

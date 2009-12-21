@@ -109,7 +109,7 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 	}
 
 	@SuppressWarnings("unchecked")
-	public String[] getPaths(CSPRequestCache cache,String rootPath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			List<String> out=new ArrayList<String>();
 			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,prefix+"/",null);

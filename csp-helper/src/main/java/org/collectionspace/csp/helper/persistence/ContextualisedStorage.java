@@ -47,7 +47,7 @@ public interface ContextualisedStorage {
 	public abstract String autocreateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
-	public String[] getPaths(CSPRequestCache cache,String rootPath)
+	public String[] getPaths(CSPRequestCache cache,String rootPath, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
 	public void deleteJSON(CSPRequestCache cache,String filePath)

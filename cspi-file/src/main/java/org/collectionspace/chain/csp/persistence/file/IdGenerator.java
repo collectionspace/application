@@ -97,7 +97,7 @@ public class IdGenerator implements Storage {
 		return out.toString();
 	}
 	
-	public String[] getPaths(String rootPath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String[] getPaths(String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		// TODO
 		return null;
 	}

@@ -20,6 +20,8 @@ import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
+import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -106,7 +108,7 @@ public class TestRelations extends ServicesBaseClass {
 		JSONObject data=new JSONObject();
 		data.put("src","collection-object/"+obj1);
 		data.put("dst","collection-object/"+obj2);
-		data.put("type","test");
+		data.put("type","affects");
 		// create
 		String path=ss.autocreateJSON("relations/main/",data);
 		System.err.println("path="+path);
@@ -126,5 +128,44 @@ public class TestRelations extends ServicesBaseClass {
 			ss.retrieveJSON("relations/main/"+path);
 			assertTrue(false);
 		} catch(ExistException x) {}
+	}
+	
+	private String relate(Storage ss,String obj1,String obj2) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+		JSONObject data=new JSONObject();
+		data.put("src","collection-object/"+obj1);
+		data.put("dst","collection-object/"+obj2);
+		data.put("type","affects");
+		// create
+		return ss.autocreateJSON("relations/main/",data);
+	}
+	
+	@Test public void testRelationsSearchThroughAPI() throws Exception {
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		// clear down, for sanity
+		String[] paths=ss.getPaths("relations/main",null);
+		for(String path : paths) {
+			ss.deleteJSON("relations/main/"+path);
+		}		
+		// create some test records
+		String obj1=makeRecord(ss,"A");
+		String obj2=makeRecord(ss,"B");
+		String obj3=makeRecord(ss,"C");
+		String p1=relate(ss,obj1,obj2);
+		String p2=relate(ss,obj1,obj3);
+		// simple list
+		paths=ss.getPaths("relations/main",null);
+		assertEquals(2,paths.length);
+		assertTrue(paths[0].equals(p1) || paths[1].equals(p1));
+		assertTrue(paths[0].equals(p2) || paths[1].equals(p2));
+		// get details of obj2
+		JSONObject r1=ss.retrieveJSON("relations/main/"+p1);
+		String id2=r1.getString("dst").split("/")[1];
+		// search for it
+		JSONObject restriction=new JSONObject();
+		restriction.put("dst","collection-object/"+id2);
+		paths=ss.getPaths("relations/main",restriction);
+		assertEquals(1,paths.length);
+		assertEquals(paths[0],p1);
+		// XXX should also test type and subject
 	}
 }

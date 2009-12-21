@@ -171,9 +171,9 @@ public class ChainServlet extends HttpServlet  {
 		Storage storage=global.getStore().getStorage(cache);
 		try {
 			PrintWriter pw=request.getPlainTextWriter();
-			for(String dir : storage.getPaths("/")) {
+			for(String dir : storage.getPaths("/",null)) {
 				pw.println("dir : "+dir);
-				String[] paths=storage.getPaths(dir);
+				String[] paths=storage.getPaths(dir,null);
 				for(int i=0;i<paths.length;i++) {
 					pw.println("path : "+dir+"/"+paths[i]);
 					try {
