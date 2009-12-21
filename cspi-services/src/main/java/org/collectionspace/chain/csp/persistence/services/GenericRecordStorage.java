@@ -11,6 +11,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
+import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
+import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.util.jtmpl.InvalidJTmplException;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
 import org.collectionspace.chain.util.jxj.JXJFile;

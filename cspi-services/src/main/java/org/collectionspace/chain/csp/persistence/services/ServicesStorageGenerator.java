@@ -1,5 +1,6 @@
 package org.collectionspace.chain.csp.persistence.services;
 
+import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigContext;

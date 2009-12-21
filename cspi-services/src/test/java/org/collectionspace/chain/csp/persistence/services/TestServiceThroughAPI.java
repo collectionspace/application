@@ -17,9 +17,11 @@ import javax.mail.internet.MimeMultipart;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
-import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
-import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
+import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
+import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
+import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;

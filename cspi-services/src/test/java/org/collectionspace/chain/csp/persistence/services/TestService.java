@@ -20,6 +20,11 @@ import org.dom4j.io.SAXReader;
 import org.junit.Before;
 import org.junit.Test;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
+import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
+import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 
 public class TestService extends ServicesBaseClass {
 	private InputStream getResource(String name) {

@@ -8,6 +8,7 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import java.io.IOException;
 
+import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.dom4j.DocumentException;

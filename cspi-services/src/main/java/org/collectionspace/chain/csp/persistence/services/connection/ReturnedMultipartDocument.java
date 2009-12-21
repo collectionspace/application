@@ -4,7 +4,7 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.csp.persistence.services;
+package org.collectionspace.chain.csp.persistence.services.connection;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +18,7 @@ import javax.mail.internet.MimeMultipart;
 
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.io.input.TeeInputStream;
+import org.collectionspace.chain.csp.persistence.services.UTF8StringDataSource;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;

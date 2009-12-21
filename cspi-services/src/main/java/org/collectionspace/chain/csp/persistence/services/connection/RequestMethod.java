@@ -4,7 +4,7 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.csp.persistence.services;
+package org.collectionspace.chain.csp.persistence.services.connection;
 
 /** An enumeration of HTTP Methods. Surely we can get this from somewhere else?
  * 

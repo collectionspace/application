@@ -2,6 +2,10 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
+import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
+import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
+import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.junit.Assume;
 
 public class ServicesBaseClass {

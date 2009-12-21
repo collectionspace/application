@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.persistence.services;
+package org.collectionspace.chain.csp.persistence.services.connection;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

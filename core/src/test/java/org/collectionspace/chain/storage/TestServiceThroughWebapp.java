@@ -8,11 +8,11 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
-import org.collectionspace.chain.csp.persistence.services.ConnectionException;
-import org.collectionspace.chain.csp.persistence.services.RequestMethod;
-import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
-import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
+import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
+import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
+import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.dom4j.Node;
