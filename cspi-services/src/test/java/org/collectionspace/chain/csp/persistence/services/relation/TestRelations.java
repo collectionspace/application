@@ -104,21 +104,21 @@ public class TestRelations extends ServicesBaseClass {
 		String obj2=makeRecord(ss,"B");
 		String obj3=makeRecord(ss,"C");
 		JSONObject data=new JSONObject();
-		data.put("src",obj1);
-		data.put("dst",obj2);
+		data.put("src","collection-object/"+obj1);
+		data.put("dst","collection-object/"+obj2);
 		data.put("type","test");
 		// create
 		String path=ss.autocreateJSON("relations/main/",data);
 		System.err.println("path="+path);
 		// get
 		JSONObject data2=ss.retrieveJSON("relations/main/"+path);
-		JSONUtils.checkJSONEquiv(data,data2);
+		assertTrue(JSONUtils.checkJSONEquiv(data,data2));
 		// update
-		data.put("dst",obj3);
+		data.put("dst","collection-object/"+obj3);
 		ss.updateJSON("/relations/main/"+path,data);
 		// get
 		JSONObject data3=ss.retrieveJSON("relations/main/"+path);
-		JSONUtils.checkJSONEquiv(data,data3);		
+		assertTrue(JSONUtils.checkJSONEquiv(data,data3));		
 		// delete
 		ss.deleteJSON("/relations/main/"+path);
 		// get

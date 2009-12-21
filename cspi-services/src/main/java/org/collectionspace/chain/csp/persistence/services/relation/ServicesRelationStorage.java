@@ -21,8 +21,6 @@ import org.jaxen.JaxenException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.sun.tools.javac.code.Attribute.Array;
-
 /* /relate/main/  POST ::: {'src': src, 'type': type, 'dst': dst} ::: id
  * /relate/main/<id>  PUT ::: {'src': src, 'type': type, 'dst': dst}
  * /relate/main/<id>  DELETE
@@ -39,21 +37,24 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		factory=new RelationFactory();
 	}
 
-	private String getType(CSPRequestCache cache,String id) {
-		return "XXX-fix";
+	private String[] splitTypeFromId(String path) throws UnderlyingStorageException {
+		String[] out=path.split("/");
+		if(out.length!=2)
+			throw new UnderlyingStorageException("Path must be two components, not "+path);
+		return out;
 	}
-
-	private Relation dataToRelation(CSPRequestCache cache,JSONObject data) throws JSONException {
-		String src=data.getString("src");
-		String dst=data.getString("dst");
+	
+	private Relation dataToRelation(CSPRequestCache cache,JSONObject data) throws JSONException, UnderlyingStorageException {
+		String[] src=splitTypeFromId(data.getString("src"));
+		String[] dst=splitTypeFromId(data.getString("dst"));
 		String type=data.getString("type");
-		return factory.create(getType(cache,src),src,type,getType(cache,dst),dst);
+		return factory.create(src[0],src[1],type,dst[0],dst[1]);
 	}
 
 	private JSONObject relationToData(CSPRequestCache cache,Relation r) throws JSONException {
 		JSONObject out=new JSONObject();
-		out.put("src",r.getSourceId());
-		out.put("dst",r.getDestinationId());
+		out.put("src",r.getSourceType()+"/"+r.getSourceId());
+		out.put("dst",r.getDestinationType()+"/"+r.getDestinationId());
 		out.put("type",r.getRelationshipType());
 		return out;
 	}
