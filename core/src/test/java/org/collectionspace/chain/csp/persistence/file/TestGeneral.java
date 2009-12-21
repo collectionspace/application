@@ -17,7 +17,6 @@ import org.collectionspace.chain.csp.persistence.file.StubJSONStore;
 import org.collectionspace.chain.csp.persistence.services.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.ServicesConnection;
-import org.collectionspace.chain.harness.HarnessServlet;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
 import org.collectionspace.chain.util.json.JSONUtils;
@@ -175,18 +174,6 @@ public class TestGeneral {
 		tester.setAttribute("test-store",store.getStoreRoot());
 		tester.start();
 		return tester;
-	}
-
-	private String setupTestServer() throws Exception {
-		ServletTester tester=new ServletTester();
-		tester.setContextPath("/test");
-		tester.addServlet(HarnessServlet.class,"/*");
-		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
-		tester.setAttribute("test-store",store.getStoreRoot());
-		String connector=tester.createSocketConnector(true);
-		System.err.println("connector="+connector);
-		tester.start();
-		return connector;
 	}
 
 	private HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
@@ -350,29 +337,6 @@ public class TestGeneral {
 		assertTrue(files.contains(out2.getHeader("Location")));
 		assertTrue(files.contains(out3.getHeader("Location")));
 		assertEquals(3,files.size());
-	}
-
-	@Test public void testXMLDocumentRetrieve() throws Exception {
-		String base=setupTestServer();
-		ServicesConnection conn=new ServicesConnection(base+"/test");
-		ReturnedDocument retdoc=conn.getXMLDocument(RequestMethod.GET,"test.xml");
-		assertEquals(200,retdoc.getStatus());
-		Document doc=retdoc.getDocument();
-		assertNull(doc);
-	}
-
-	private Document makeXML(String in) throws DocumentException, UnsupportedEncodingException {
-		SAXReader reader=new SAXReader();
-		return reader.read(new ByteArrayInputStream(in.getBytes("UTF-8")));
-	}
-
-	@Test public void testReflectTest() throws Exception {
-		String base=setupTestServer();
-		ServicesConnection conn=new ServicesConnection(base+"/test/");
-		ReturnedDocument retdoc=conn.getXMLDocument(RequestMethod.POST,"/reflect",makeXML("<hello/>"));
-		assertEquals(200,retdoc.getStatus());
-		Document doc=retdoc.getDocument();
-		assertNull(doc);
 	}
 
 	@Test public void testPutReturnsContent() throws Exception {
