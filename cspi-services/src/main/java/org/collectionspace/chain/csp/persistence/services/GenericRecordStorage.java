@@ -40,8 +40,10 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 	private JXJTransformer jxj;
 	private String prefix,part,items;
 	private Map<String,String> view_good=new HashMap<String,String>();
-
-	protected GenericRecordStorage(ServicesConnection conn,String jxj_filename,String jxj_entry,String prefix,String part,String items,String[] mini_key,String[] mini_value) throws InvalidJXJException, DocumentException, IOException {
+	private Map<String,String> view_map=new HashMap<String,String>();
+	
+	protected GenericRecordStorage(ServicesConnection conn,String jxj_filename,String jxj_entry,String prefix,String part,String items,
+			String[] mini_key,String[] mini_xml,String[] mini_value) throws InvalidJXJException, DocumentException, IOException {
 		this.prefix=prefix;
 		this.part=part;
 		this.items=items;
@@ -50,10 +52,12 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 		jxj=jxj_file.getTransformer(jxj_entry);
 		if(mini_value==null)
 			mini_value=mini_key;
-		if(mini_key.length!=mini_value.length)
-			throw new IOException("key and value arrays must be same length"); // XXX should be another
+		if(mini_key.length!=mini_value.length || mini_key.length!=mini_xml.length)
+			throw new IOException("key, map value arrays must be same length"); // XXX should be another
 		for(int i=0;i<mini_key.length;i++)
 			view_good.put(mini_key[i],mini_value[i]);
+		for(int i=0;i<mini_key.length;i++)
+			view_map.put(mini_xml[i],mini_key[i]);
 	}
 	
 	private void setGleanedValue(CSPRequestCache cache,String path,String key,String value) {
@@ -128,7 +132,9 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 					} else if("uri".equals(field.getName())) {
 						// Skip!
 					} else {
-						setGleanedValue(cache,prefix+"/"+csid,field.getName(),field.getText());
+						String json_name=view_map.get(field.getName());
+						if(json_name!=null)
+							setGleanedValue(cache,prefix+"/"+csid,json_name,field.getText());
 					}
 				}
 
@@ -168,7 +174,7 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 			JSONObject data=simpleRetrieveJSON(filePath);
 			for(String good : to_get) {
 				if(data.has(good))
-					out.put(good,data.get(good));
+					out.put(view_good.get(good),data.get(good));
 			}
 		}
 		return out;

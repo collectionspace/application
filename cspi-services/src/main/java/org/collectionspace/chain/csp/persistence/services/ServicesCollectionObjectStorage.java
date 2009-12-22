@@ -17,7 +17,9 @@ class ServicesCollectionObjectStorage extends GenericRecordStorage implements Co
 	public ServicesCollectionObjectStorage(ServicesConnection conn) throws InvalidJXJException, DocumentException, IOException {
 		super(conn,"collectionobject.jxj","collection-object","collectionobjects",
 				  "collectionobjects_common","collectionobjects-common-list/collection-object-list-item",
-				  new String[]{"objectNumber"},new String[]{"accessionNumber"});
+				  new String[]{"accessionNumber","objectTitle"},
+				  new String[]{"objectNumber","title"},
+				  new String[]{"number","summary"});
 
 	}
 }

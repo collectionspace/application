@@ -13,6 +13,8 @@ public class ServicesAcquisitionStorage extends GenericRecordStorage implements 
 	public ServicesAcquisitionStorage(ServicesConnection conn) throws InvalidJXJException, DocumentException, IOException {
 		super(conn,"acquisition.jxj","acquisition","acquisitions",
 			  "acquisitions_common","acquisitions-common-list/acquisition-list-item",
-			  new String[]{"AcquisitionReferenceNumber"},new String[]{"acquReferenceNum"});
+			  new String[]{"acquReferenceNum","acquSource"},
+			  new String[]{"AcquisitionReferenceNumber","AcquisitionSource"},
+			  new String[]{"number","summary"});
 	}
 }

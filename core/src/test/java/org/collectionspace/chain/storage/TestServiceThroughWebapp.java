@@ -16,6 +16,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ServicesCon
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.dom4j.Node;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -166,5 +167,54 @@ public class TestServiceThroughWebapp {
 		assertEquals(200,out.getStatus());
 		// XXX this is correct currently, whilst __auto is stubbed.
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(),new JSONObject(out.getContent())));
+	}
+	
+	@Test public void testList() throws Exception {
+		ServletTester jetty=setupJetty();
+		// delete all
+		HttpTester out=jettyDo(jetty,"GET","/chain/objects",null);
+		assertEquals(200,out.getStatus());
+		JSONObject in=new JSONObject(out.getContent());
+		JSONArray items=in.getJSONArray("items");
+		for(int i=0;i<items.length();i++) {
+			JSONObject data=items.getJSONObject(i);
+			out=jettyDo(jetty,"DELETE","/chain/objects/"+data.getString("csid"),null);
+			assertEquals(200,out.getStatus());
+		}
+		// empty
+		out=jettyDo(jetty,"GET","/chain/objects",null);
+		assertEquals(200,out.getStatus());
+		in=new JSONObject(out.getContent());
+		items=in.getJSONArray("items");
+		assertEquals(0,items.length());
+		// put a couple in
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
+		String id1=out.getHeader("Location");
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
+		String id2=out.getHeader("Location");
+		assertEquals(201,out.getStatus());
+		// size 2, right ones, put them in the right place
+		out=jettyDo(jetty,"GET","/chain/objects",null);
+		assertEquals(200,out.getStatus());
+		in=new JSONObject(out.getContent());
+		items=in.getJSONArray("items");
+		assertEquals(2,items.length());
+		JSONObject obj1=items.getJSONObject(0);
+		JSONObject obj2=items.getJSONObject(1);
+		if(id2.split("/")[2].equals(obj1.getString("csid"))) {
+			JSONObject t=obj1;
+			obj1=obj2;
+			obj2=t;
+		}
+		// check
+		assertEquals(id1.split("/")[2],obj1.getString("csid"));
+		assertEquals(id2.split("/")[2],obj2.getString("csid"));
+		assertEquals("objects",obj1.getString("recordtype"));
+		assertEquals("objects",obj2.getString("recordtype"));
+		assertEquals("TITLE",obj1.getString("summary"));
+		assertEquals("TITLE",obj2.getString("summary"));
+		assertEquals("OBJNUM",obj1.getString("number"));
+		assertEquals("OBJNUM",obj2.getString("number"));
 	}
 }

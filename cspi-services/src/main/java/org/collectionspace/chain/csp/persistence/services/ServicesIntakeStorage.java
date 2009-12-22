@@ -12,6 +12,8 @@ public class ServicesIntakeStorage extends GenericRecordStorage implements Conte
 	
 	public ServicesIntakeStorage(ServicesConnection conn) throws InvalidJXJException, DocumentException, IOException {
 		super(conn,"intake.jxj","intake","intakes","intakes_common","intakes-common-list/intake-list-item",
-			  new String[]{"entryNumber"},null);
+			  new String[]{"entryNumber","depositor"},
+			  new String[]{"entryNumber","depositor"},
+			  new String[]{"number","summary"});
 	}
 }
