@@ -20,6 +20,7 @@ public class ServicesBaseClass {
 	protected void setup() throws BootstrapConfigLoadFailedException, ConnectionException {
 		BootstrapConfigController config_controller=new BootstrapConfigController();
 		config_controller.addSearchSuffix("test-config-loader2.xml");
+		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
 		base=config_controller.getOption("services-url");
 		System.err.println("base="+base);

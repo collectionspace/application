@@ -36,7 +36,6 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 			m.appendReplacement(sb,value);
 		}
 		m.appendTail(sb);
-		System.err.println(sb);
 		return sb.toString();
 	}
 	
@@ -44,18 +43,27 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 		try {
 			Properties out=new Properties();
 			String path=substitute_system_props(name);
-			InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);			
+			InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+			if(is!=null) {
+				System.err.println("Using bootstrap source in classpath at "+path);
+			}
 			if(is==null) {
 				// Try filesystem
 				is=new FileInputStream(new File(path));
+				if(is!=null) {
+					System.err.println("Using bootstrap source in filesystem at "+path);					
+				}
 			}
 			if(is!=null) {
 				out.load(is);
 				is.close();
+			} else {
+				System.err.println("Cannot find bootstrap source for "+name);
 			}
 			return out;
 		} catch(Exception e) {
 			// Fall through. Okay, we just won't use this one.
+			System.err.println("Cannot find bootstrap source for "+name);
 			return null;
 		}
 	}

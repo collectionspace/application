@@ -33,6 +33,7 @@ public class BootstrapConfigController {
 	private InputStream tryPath(String filename) {
 		System.err.println(filename);
 		String config_file=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+filename;
+		System.err.println("Looking for config loader in "+config_file);
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(config_file);
 	}
 	
@@ -40,8 +41,10 @@ public class BootstrapConfigController {
 		InputStream config=null;
 		for(String suffix : suffixes) {
 			config=tryPath(suffix);
-			if(config!=null)
+			if(config!=null) {
+				System.err.println("success");
 				break;
+			}
 		}
 		if(config==null)
 			throw new BootstrapConfigLoadFailedException("Cannot find config-loader.xml");
