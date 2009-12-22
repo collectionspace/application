@@ -23,13 +23,13 @@ import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 
 public class TestServiceThroughWebapp {
-	private final static String testStr3 = "{\"description\":\"***misc***\"}";
-	
+	// XXX refactor
 	private InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 	}
 
+	// XXX refactor
 	private String getResourceString(String name) throws IOException {
 		InputStream in=getResource(name);
 		return IOUtils.toString(in);
@@ -75,9 +75,19 @@ public class TestServiceThroughWebapp {
 		return in;
 	}
 	
+	private JSONObject makeRequest(JSONObject fields) throws JSONException {
+		JSONObject out=new JSONObject();
+		out.put("fields",fields);
+		return out;
+	}
+	
+	private String makeSimpleRequest(String in) throws JSONException {
+		return makeRequest(new JSONObject(in)).toString();
+	}
+	
 	@Test public void testCollectionObjectBasic() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",getResourceString("obj3.json"));	
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
 		String id=out.getHeader("Location");
 		assertEquals(out.getMethod(),null);
 		assertEquals(201,out.getStatus());
@@ -85,7 +95,7 @@ public class TestServiceThroughWebapp {
 		JSONObject content=new JSONObject(out.getContent());
 		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj3.json")),content));
-		out=jettyDo(jetty,"PUT","/chain"+id,getResourceString("obj4.json"));
+		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(getResourceString("obj4.json")));
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		content=new JSONObject(out.getContent());
@@ -96,24 +106,9 @@ public class TestServiceThroughWebapp {
 		assertTrue(out.getStatus()!=200); // XXX should be 404
 	}
 
-	// XXX posting to POST urls doesn't work, ATM.
-	/*
-	@Test public void testCollectionObjectAnonymous() throws Exception {
-		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",getResourceString("obj3.json"));	
-		assertEquals(out.getMethod(),null);
-		assertEquals(201,out.getStatus());
-		String path=out.getHeader("Location");
-		out=jettyDo(jetty,"GET","/chain"+path,null);
-		JSONObject content=new JSONObject(out.getContent());
-		content.remove("csid");		
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj3.json")),content));
-	}
-	*/
-
 	@Test public void testIntake() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/intake/",getResourceString("int3.json"));	
+		HttpTester out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(getResourceString("int3.json")));	
 		assertEquals(out.getMethod(),null);
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
@@ -122,7 +117,7 @@ public class TestServiceThroughWebapp {
 		JSONObject content=new JSONObject(out.getContent());
 		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int3.json")),content));
-		out=jettyDo(jetty,"PUT","/chain"+path,getResourceString("int4.json"));
+		out=jettyDo(jetty,"PUT","/chain"+path,makeSimpleRequest(getResourceString("int4.json")));
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		content=new JSONObject(out.getContent());
@@ -135,7 +130,7 @@ public class TestServiceThroughWebapp {
 
 	@Test public void testAcquisition() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/acquisition/",getResourceString("int5.json"));	
+		HttpTester out=jettyDo(jetty,"POST","/chain/acquisition/",makeSimpleRequest(getResourceString("int5.json")));	
 		assertEquals(out.getMethod(),null);
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
@@ -144,7 +139,7 @@ public class TestServiceThroughWebapp {
 		JSONObject content=new JSONObject(out.getContent());
 		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int5.json")),content));
-		out=jettyDo(jetty,"PUT","/chain"+path,getResourceString("int6.json"));
+		out=jettyDo(jetty,"PUT","/chain"+path,makeSimpleRequest(getResourceString("int6.json")));
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		content=new JSONObject(out.getContent());

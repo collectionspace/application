@@ -220,10 +220,20 @@ public class TestGeneral {
 		assertEquals(testStr2,out.getContent());
 	}
 
+	private JSONObject makeRequest(JSONObject fields) throws JSONException {
+		JSONObject out=new JSONObject();
+		out.put("fields",fields);
+		return out;
+	}
+	
+	private String makeSimpleRequest(String in) throws JSONException {
+		return makeRequest(new JSONObject(in)).toString();
+	}
+	
 	@Test public void testAutoPost() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));
 		assertNotNull(out.getHeader("Location"));
 		assertTrue(out.getHeader("Location").startsWith("/objects/"));
 		Integer.parseInt(out.getHeader("Location").substring("/objects/".length()));
@@ -242,14 +252,14 @@ public class TestGeneral {
 	@Test public void testPostAndDelete() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr2)));
-		out=jettyDo(jetty,"PUT","/chain"+id,testStr);
+		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(testStr));
 		assertEquals(200,out.getStatus());		
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr)));
@@ -262,12 +272,12 @@ public class TestGeneral {
 	@Test public void testMultipleStoreTypes() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
 		assertEquals(out.getMethod(),null);
 		String id1=out.getHeader("Location");
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"POST","/chain/intake/",testStr);	
+		out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(testStr));	
 		assertEquals(out.getMethod(),null);
 		String id2=out.getHeader("Location");		
 		System.err.println(out.getContent());
@@ -287,7 +297,7 @@ public class TestGeneral {
 	@Test public void testAutoGet() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/__auto",testStr3);
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/__auto",makeSimpleRequest(testStr3));
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
 		// XXX algorithm will change.
@@ -321,9 +331,9 @@ public class TestGeneral {
 	
 	@Test public void testObjectList() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out1=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
-		HttpTester out2=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
-		HttpTester out3=jettyDo(jetty,"POST","/chain/objects/",testStr2);
+		HttpTester out1=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
+		HttpTester out2=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
+		HttpTester out3=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));
 		File storedir=new File(store.getStoreRoot(),"store");
 		if(!storedir.exists())
 			storedir.mkdir();
@@ -346,23 +356,23 @@ public class TestGeneral {
 	@Test public void testPutReturnsContent() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));
 		String id=out.getHeader("Location");
 		assertEquals(out.getMethod(),null);
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr2)));
-		out=jettyDo(jetty,"PUT","/chain"+id,testStr);
+		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(testStr));
 		assertEquals(200,out.getStatus());	
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(testStr),new JSONObject(out.getContent())));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(testStr),new JSONObject(getFields(out.getContent()))));
 	}
 
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out1=jettyDo(jetty,"POST","/chain/objects",testStr2);	
-		HttpTester out2=jettyDo(jetty,"POST","/chain/objects",testStr2);	
-		HttpTester out3=jettyDo(jetty,"POST","/chain/objects",testStr2);
+		HttpTester out1=jettyDo(jetty,"POST","/chain/objects",makeSimpleRequest(testStr2));	
+		HttpTester out2=jettyDo(jetty,"POST","/chain/objects",makeSimpleRequest(testStr2));	
+		HttpTester out3=jettyDo(jetty,"POST","/chain/objects",makeSimpleRequest(testStr2));
 		HttpTester out=jettyDo(jetty,"GET","/chain/objects/",null);
 		assertEquals(200,out.getStatus());
 		JSONObject result=new JSONObject(out.getContent());
@@ -394,11 +404,11 @@ public class TestGeneral {
 	
 	@Test public void testReset() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));
 		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"POST","/chain/objects/",testStr2);	
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
 		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"POST","/chain/objects/",testStr2);
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/reset",null);
 		assertEquals(200,out.getStatus());

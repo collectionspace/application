@@ -47,16 +47,28 @@ public class RecordController {
 		return out;
 	}
 
+	private JSONArray createRelations(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		JSONArray out=new JSONArray();
+		JSONObject restrictions=new JSONObject();
+		restrictions.put("src",base+"/"+csid);
+		String[] relations=storage.getPaths("relations/main",restrictions);
+		for(String r : relations)
+			out.put(r);
+		return out;
+	}
+	
 	/* Wrapper exists to decomplexify exceptions */
-	private JSONObject getJSON(Storage storage,String path,String csid) throws BadRequestException {
+	private JSONObject getJSON(Storage storage,String csid) throws BadRequestException {
 		JSONObject out=new JSONObject();
 		try {
 			if(record) {
-				JSONObject fields=storage.retrieveJSON(path);
+				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
+				JSONArray relations=createRelations(storage,csid);
 				out.put("fields",fields);
+				out.put("relations",relations);
 			} else {
-				out=storage.retrieveJSON(path);
+				out=storage.retrieveJSON(base+"/"+csid);
 			}
 		} catch (ExistException e) {
 			throw new BadRequestException("JSON Not found "+e,e);
@@ -80,7 +92,7 @@ public class RecordController {
 		switch(request.getType()) {
 		case STORE:
 			// Get the data
-			JSONObject outputJSON = getJSON(storage,base+"/"+path,path);
+			JSONObject outputJSON = getJSON(storage,path);
 			try {
 				outputJSON.put("csid",path);
 			} catch (JSONException e1) {
@@ -135,6 +147,20 @@ public class RecordController {
 		request.setStatus(HttpServletResponse.SC_OK);
 	}
 
+	private String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		JSONObject fields=data.optJSONObject("fields");
+		if(path!=null) {
+			// Update
+			if(fields!=null)
+				storage.updateJSON(base+"/"+path,fields);
+		} else {
+			// Create
+			if(fields!=null)
+				path=storage.autocreateJSON(base,fields);
+		}
+		return path;
+	}
+	
 	public void send(ChainRequest request,String path) throws BadRequestException, IOException {
 		CSPRequestCache cache=new RequestCache();
 		Storage storage=global.getStore().getStorage(cache);
@@ -143,24 +169,18 @@ public class RecordController {
 			throw new BadRequestException("No JSON content to store");
 		}
 		// Store it
-		int status=200;
 		try {
 			JSONObject data=new JSONObject(jsonString);
-			if(request.isCreateNotOverwrite()) {
-				if("".equals(path)) {
-					// True path
-					path=storage.autocreateJSON(base,data);
-					data.put("csid",path);
-				} else {
-					// XXX temporary legacy path
-					storage.createJSON(base+"/"+path,data);
-				}
-				status=201;
-			} else
-				storage.updateJSON(base+"/"+path,data);
+			if(request.isCreateNotOverwrite())
+				path=sendJSON(storage,null,data);
+			else
+				path=sendJSON(storage,path,data);
+			if(path==null)
+				throw new BadRequestException("Insufficient data for create (no fields?)");
+			data.put("csid",path);
 			request.getJSONWriter().print(data.toString());
 			request.setContentType("text/html");
-			request.setStatus(status);
+			request.setStatus(request.isCreateNotOverwrite()?201:200);
 			request.redirect("/"+request.getRecordTypeURL()+"/"+path);
 		} catch (JSONException x) {
 			throw new BadRequestException("Failed to parse json: "+x,x);
