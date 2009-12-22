@@ -16,6 +16,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ServicesCon
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.dom4j.Node;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
@@ -64,6 +65,16 @@ public class TestServiceThroughWebapp {
 		return tester;
 	}
 	
+	private String getFields(String in) throws JSONException {
+		return getFields(new JSONObject(in)).toString();
+	}
+
+	private JSONObject getFields(JSONObject in) throws JSONException {
+		in=in.getJSONObject("fields");
+		in.remove("csid");
+		return in;
+	}
+	
 	@Test public void testCollectionObjectBasic() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",getResourceString("obj3.json"));	
@@ -72,13 +83,13 @@ public class TestServiceThroughWebapp {
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		JSONObject content=new JSONObject(out.getContent());
-		content.remove("csid");
+		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj3.json")),content));
 		out=jettyDo(jetty,"PUT","/chain"+id,getResourceString("obj4.json"));
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		content=new JSONObject(out.getContent());
-		content.remove("csid");
+		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj4.json")),content));		
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
 		out=jettyDo(jetty,"GET","/chain"+id,null);
@@ -109,13 +120,13 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		System.err.println(out.getContent());
 		JSONObject content=new JSONObject(out.getContent());
-		content.remove("csid");
+		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int3.json")),content));
 		out=jettyDo(jetty,"PUT","/chain"+path,getResourceString("int4.json"));
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		content=new JSONObject(out.getContent());
-		content.remove("csid");
+		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int4.json")),content));		
 		out=jettyDo(jetty,"DELETE","/chain"+path,null);
 		out=jettyDo(jetty,"GET","/chain"+path,null);
@@ -131,13 +142,13 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		System.err.println(out.getContent());
 		JSONObject content=new JSONObject(out.getContent());
-		content.remove("csid");
+		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int5.json")),content));
 		out=jettyDo(jetty,"PUT","/chain"+path,getResourceString("int6.json"));
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		content=new JSONObject(out.getContent());
-		content.remove("csid");
+		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int6.json")),content));		
 		out=jettyDo(jetty,"DELETE","/chain"+path,null);
 		out=jettyDo(jetty,"GET","/chain"+path,null);

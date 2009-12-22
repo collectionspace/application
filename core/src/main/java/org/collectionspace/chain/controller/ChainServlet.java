@@ -60,14 +60,15 @@ public class ChainServlet extends HttpServlet  {
 	private boolean inited=false;
 	private ControllerGlobal global;
 	private Map<String,RecordController> controllers=new HashMap<String,RecordController>();
-	private static final Set<String> controller_types=new HashSet<String>();
+	private static final Set<String> record_controller_types=new HashSet<String>();
+	private static final Set<String> other_controller_types=new HashSet<String>();
 	private static final Set<String> users=new HashSet<String>();
 	
 	static {
-		controller_types.add("collection-object");
-		controller_types.add("intake");
-		controller_types.add("acquisition");
-		controller_types.add("id");
+		record_controller_types.add("collection-object");
+		record_controller_types.add("intake");
+		record_controller_types.add("acquisition");
+		other_controller_types.add("id");
 
 		users.add("guest");
 		users.add("curator");
@@ -135,8 +136,11 @@ public class ChainServlet extends HttpServlet  {
 			StorageGenerator store=global.getCSPManager().getStorage(config.getStorageType());
 			global.setStore(store);
 			// Register controllers
-			for(String type : controller_types) {
-				controllers.put(type,new RecordController(global,type));
+			for(String type : record_controller_types) {
+				controllers.put(type,new RecordController(global,type,true));
+			}
+			for(String type : other_controller_types) {
+					controllers.put(type,new RecordController(global,type,false));
 			}
 		} catch (IOException e) {
 			throw new BadRequestException("Cannot load config"+e,e);

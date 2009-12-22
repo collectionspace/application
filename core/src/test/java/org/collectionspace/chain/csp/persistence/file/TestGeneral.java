@@ -229,10 +229,14 @@ public class TestGeneral {
 		Integer.parseInt(out.getHeader("Location").substring("/objects/".length()));
 	}
 	
-	private String removeCSID(String in) throws JSONException {
-		JSONObject out=new JSONObject(in);
-		out.remove("csid");
-		return out.toString();
+	private String getFields(String in) throws JSONException {
+		return getFields(new JSONObject(in)).toString();
+	}
+
+	private JSONObject getFields(JSONObject in) throws JSONException {
+		in=in.getJSONObject("fields");
+		in.remove("csid");
+		return in;
 	}
 	
 	@Test public void testPostAndDelete() throws Exception {
@@ -244,11 +248,11 @@ public class TestGeneral {
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr2)));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr2)));
 		out=jettyDo(jetty,"PUT","/chain"+id,testStr);
 		assertEquals(200,out.getStatus());		
 		out=jettyDo(jetty,"GET","/chain"+id,null);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr)));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr)));
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
@@ -269,15 +273,15 @@ public class TestGeneral {
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());		
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr2)));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr2)));
 		out=jettyDo(jetty,"GET","/chain"+id2,null);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr)));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr)));
 		out=jettyDo(jetty,"DELETE","/chain"+id1,null);
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 		out=jettyDo(jetty,"GET","/chain"+id2,null);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr)));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr)));
 	}
 
 	@Test public void testAutoGet() throws Exception {
@@ -348,7 +352,7 @@ public class TestGeneral {
 		System.err.println(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(removeCSID(out.getContent())),new JSONObject(testStr2)));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr2)));
 		out=jettyDo(jetty,"PUT","/chain"+id,testStr);
 		assertEquals(200,out.getStatus());	
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(testStr),new JSONObject(out.getContent())));
@@ -421,7 +425,7 @@ public class TestGeneral {
 		JSONObject cmp1=new JSONObject(cmp);
 		JSONObject cmp2=new JSONObject(out.getContent());
 		cmp1.remove("csid");
-		cmp2.remove("csid");		
+		cmp2=getFields(cmp2);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(cmp1,cmp2));
 		assertEquals(3,files.size());		
 	}

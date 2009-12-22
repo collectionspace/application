@@ -24,16 +24,12 @@ import org.json.JSONObject;
 public class RecordController {
 	private String base;
 	private ControllerGlobal global;
-	private static final Pattern id_pattern=Pattern.compile("\\*\\*\\*(.*)\\*\\*\\*");
-	private static final Random rnd=new Random();
-	private static final char[] letters=new char[]{'a','b','c','d','e','f','g','h','i','j',
-		'k','l','m','n','o','p','q','r','s','t',
-		'u','v','w','x','y','z'};
-	private static final char[] digits=new char[]{'0','1','2','3','4','5','6','7','8','9'};
-
-	RecordController(ControllerGlobal global,String base) {
+	private boolean record;
+	
+	RecordController(ControllerGlobal global,String base,boolean record) {
 		this.base=base;
 		this.global=global;
+		this.record=record;
 	}
 
 	private JSONObject generateEntry(Storage storage,String member) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
@@ -52,38 +48,27 @@ public class RecordController {
 	}
 
 	/* Wrapper exists to decomplexify exceptions */
-	private JSONObject getJSON(Storage storage,String path) throws BadRequestException {
-		JSONObject out;
+	private JSONObject getJSON(Storage storage,String path,String csid) throws BadRequestException {
+		JSONObject out=new JSONObject();
 		try {
-			out = storage.retrieveJSON(path);
+			if(record) {
+				JSONObject fields=storage.retrieveJSON(path);
+				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
+				out.put("fields",fields);
+			} else {
+				out=storage.retrieveJSON(path);
+			}
 		} catch (ExistException e) {
 			throw new BadRequestException("JSON Not found "+e,e);
 		} catch (UnimplementedException e) {
 			throw new BadRequestException("Unimplemented",e);
 		} catch (UnderlyingStorageException e) {
 			throw new BadRequestException("Problem getting",e);
+		} catch (JSONException e) {
+			throw new BadRequestException("Could not create JSON"+e,e);
 		}
 		if (out == null) {
 			throw new BadRequestException("No JSON Found");
-		}
-		return out;
-	}
-
-	private String xxx_replace_number(Storage storage,String in) throws BadRequestException, JSONException {
-		Matcher m=id_pattern.matcher(in);
-		if(!m.matches())
-			return in;
-		JSONObject seq=getJSON(storage,"id/"+m.group(1));
-		return (String)seq.getString("next");
-	}
-
-	private JSONObject replaceNumbers(Storage storage,JSONObject in) throws JSONException, BadRequestException {
-		JSONObject out=new JSONObject();
-		Iterator<?> keys=in.keys();
-		while(keys.hasNext()) {
-			String k=(String)keys.next();
-			String v=in.getString(k);
-			out.put(k,xxx_replace_number(storage,v));
 		}
 		return out;
 	}
@@ -95,7 +80,7 @@ public class RecordController {
 		switch(request.getType()) {
 		case STORE:
 			// Get the data
-			JSONObject outputJSON = getJSON(storage,base+"/"+path);
+			JSONObject outputJSON = getJSON(storage,base+"/"+path,path);
 			try {
 				outputJSON.put("csid",path);
 			} catch (JSONException e1) {
