@@ -43,12 +43,16 @@ public class ChainRequest {
 	private boolean create_not_overwrite=false,found=false;
 	
 	private static final Map<String,String> url_to_type=new HashMap<String,String>();
+	private static final Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	static {
 		url_to_type.put("objects","collection-object");
 		url_to_type.put("intake","intake");
 		url_to_type.put("acquisition","acquisition");
 		url_to_type.put("id","id");
+		
+		for(Map.Entry<String,String> e : url_to_type.entrySet())
+			type_to_url.put(e.getValue(),e.getKey());
 	}
 	
 	private void perhapsStartsWith(String what,RequestType rq,String path,String record,String record_url) throws BadRequestException {
@@ -191,6 +195,9 @@ public class ChainRequest {
 	public String getRecordType() { return record_type; }
 	public String getRecordTypeURL() { return record_type_url; }
 
+	public static String convertTypeURLToType(String in) { return url_to_type.get(in); }
+	public static String convertTypeToTypeURL(String in) { return type_to_url.get(in); }
+	
 	public String xxxGetUsername() { return req.getParameter("userid"); }
 	public String xxxGetPassword() { return req.getParameter("password"); }
 }

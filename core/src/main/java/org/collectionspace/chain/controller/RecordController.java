@@ -32,10 +32,15 @@ public class RecordController {
 		this.record=record;
 	}
 
+	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view");
+		out.put("csid",csid);
+		out.put("recordtype",ChainRequest.convertTypeToTypeURL(type));
+		return out;		
+	}
+	
 	private JSONObject generateEntry(Storage storage,String member) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
-		JSONObject out=storage.retrieveJSON(base+"/"+member+"/view");
-		out.put("csid",member);
-		return out;
+		return generateMiniRecord(storage,base,member);
 	}
 
 	private JSONObject pathsToJSON(Storage storage,String[] paths) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
@@ -46,14 +51,24 @@ public class RecordController {
 		out.put("items",members);
 		return out;
 	}
-
+	
+	private JSONObject generateRelationEntry(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		/* Retrieve entry */
+		JSONObject in=storage.retrieveJSON("relations/main/"+csid);
+		String[] dstid=in.getString("dst").split("/");
+		String type=in.getString("type");
+		JSONObject mini=generateMiniRecord(storage,dstid[0],dstid[1]);
+		mini.put("relationshiptype",type);
+		return mini;
+	}
+	
 	private JSONArray createRelations(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONArray out=new JSONArray();
 		JSONObject restrictions=new JSONObject();
 		restrictions.put("src",base+"/"+csid);
 		String[] relations=storage.getPaths("relations/main",restrictions);
 		for(String r : relations)
-			out.put(r);
+			out.put(generateRelationEntry(storage,r));
 		return out;
 	}
 	
@@ -147,8 +162,34 @@ public class RecordController {
 		request.setStatus(HttpServletResponse.SC_OK);
 	}
 
+	private void deleteAllRelations(Storage storage,String csid) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+		JSONObject r=new JSONObject();
+		r.put("src",base+"/"+csid);		
+		for(String relation : storage.getPaths("relations/main", r)) {
+			storage.deleteJSON("relations/main/"+relation);
+		}
+	}
+	
+	private void setRelations(Storage storage,String csid,JSONArray relations) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+		deleteAllRelations(storage,csid);
+		for(int i=0;i<relations.length();i++) {
+			// Extract data from miniobject
+			JSONObject in=relations.getJSONObject(i);
+			String dst_type=ChainRequest.convertTypeURLToType(in.getString("recordtype"));
+			String dst_id=in.getString("csid");
+			String type=in.getString("relationshiptype");
+			// Create relation
+			JSONObject r=new JSONObject();
+			r.put("src",base+"/"+csid);
+			r.put("dst",dst_type+"/"+dst_id);
+			r.put("type",type);
+			storage.autocreateJSON("relations/main",r);
+		}
+	}
+	
 	private String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject fields=data.optJSONObject("fields");
+		JSONArray relations=data.optJSONArray("relations");
 		if(path!=null) {
 			// Update
 			if(fields!=null)
@@ -158,6 +199,8 @@ public class RecordController {
 			if(fields!=null)
 				path=storage.autocreateJSON(base,fields);
 		}
+		if(relations!=null)
+			setRelations(storage,path,relations);
 		return path;
 	}
 	
