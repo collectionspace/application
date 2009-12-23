@@ -2,6 +2,8 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -115,11 +117,23 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
+			Document list=null;
 			List<String> out=new ArrayList<String>();
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,prefix+"/",null);
-			if(all.getStatus()!=200)
-				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-			List<Node> objects=all.getDocument().selectNodes(items);
+			if(restrictions!=null && restrictions.has("keywords")) {
+				/* Keyword search */
+				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
+				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,prefix+"/search?keywords="+data,null);
+				if(all.getStatus()!=200)
+					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+				list=all.getDocument();
+			} else {
+				/* Full list */
+				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,prefix+"/",null);
+				if(all.getStatus()!=200)
+					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+				list=all.getDocument();
+			}
+			List<Node> objects=list.selectNodes(items);
 			for(Node object : objects) {
 				List<Node> fields=object.selectNodes("*");
 				String csid=object.selectSingleNode("csid").getText();
@@ -141,6 +155,10 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 			}
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		} catch (UnsupportedEncodingException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		} catch (JSONException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		}
 	}

@@ -65,25 +65,39 @@ public class ServicesConnection {
 		System.err.println(uri);
 		if(uri==null)
 			throw new ConnectionException("URI must not be null");		
+		// Extract QP's
+		int qp_start=uri.indexOf('?');
+		String qps=null;
+		if(qp_start!=-1) {
+			qps=uri.substring(qp_start+1);
+			uri=uri.substring(0,qp_start);
+		}
+		HttpMethod out=null;
 		switch(method) {
 		case POST: {
-			PostMethod out=new PostMethod(uri);
+			out=new PostMethod(uri);
 			if(data!=null)
-				out.setRequestEntity(new InputStreamRequestEntity(data));
-			return out;
+				((PostMethod)out).setRequestEntity(new InputStreamRequestEntity(data));
+			break;
 		}
 		case PUT: {
-			PutMethod out=new PutMethod(uri);
+			out=new PutMethod(uri);
 			if(data!=null)
-				out.setRequestEntity(new InputStreamRequestEntity(data));
-			return out;
+				((PutMethod)out).setRequestEntity(new InputStreamRequestEntity(data));
+			break;
 		}
 		case GET:
-			return new GetMethod(uri);
+			out=new GetMethod(uri);
+			break;
 		case DELETE:
-			return new DeleteMethod(uri);
+			out=new DeleteMethod(uri);
+			break;
+		default:
+			throw new ConnectionException("Unsupported method "+method);
 		}
-		throw new ConnectionException("Unsupported method "+method);
+		if(qps!=null)
+			out.setQueryString(qps);
+		return out;
 	}
 
 	private void closeStream(InputStream stream) throws ConnectionException {

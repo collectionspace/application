@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.dom4j.Document;
@@ -91,5 +92,32 @@ public class TestService extends ServicesBaseClass {
 		ReturnedMultipartDocument doc2=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null);
 		assertEquals(404,doc2.getStatus());	 // XXX CSPACE-209, should be 404
 		assertNull(doc2.getDocument("collectionobjects_common"));
+	}
+	
+	@Test public void testSearch() throws Exception{
+		// Insert one non-aardvark
+		Map<String,Document> parts=new HashMap<String,Document>();
+		Document doc1=getDocument("obj1.xml");
+		parts.put("collectionobjects_common",doc1);		
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
+		assertEquals(201,url.getStatus());
+		String non=url.getURLTail();
+		// Insert one aardvark
+		parts=new HashMap<String,Document>();
+		Document doc2=getDocument("obj-search.xml");
+		parts.put("collectionobjects_common",doc2);		
+		url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
+		assertEquals(201,url.getStatus());
+		String good=url.getURLTail();		
+		// search for aardvark
+		ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/search?keywords=aardvark",null);
+		assertEquals(200,doc.getStatus());
+		Set<String> csids=new HashSet<String>();
+		for(Node n : (List<Node>)doc.getDocument().selectNodes("collectionobjects-common-list/collection-object-list-item/csid")) {
+			csids.add(n.getText());
+		}
+		assertFalse(csids.size()==0);
+		assertTrue(csids.contains(good));
+		assertFalse(csids.contains(non));
 	}
 }
