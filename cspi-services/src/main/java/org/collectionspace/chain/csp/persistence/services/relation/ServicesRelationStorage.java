@@ -56,13 +56,13 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		return out;
 	}
 	
-	private Relation dataToRelation(CSPRequestCache cache,JSONObject data) throws JSONException, UnderlyingStorageException {
+	private Relation dataToRelation(CSPRequestCache cache,String id,JSONObject data) throws JSONException, UnderlyingStorageException {
 		String[] src=splitTypeFromId(data.getString("src"));
 		String[] dst=splitTypeFromId(data.getString("dst"));
 		String type=data.getString("type");
 		if(!types.contains(type))
 			throw new UnderlyingStorageException("type "+type+" is undefined");
-		return factory.create(src[0],src[1],type,dst[0],dst[1]);
+		return factory.create(id,src[0],src[1],type,dst[0],dst[1]);
 	}
 
 	private JSONObject relationToData(CSPRequestCache cache,Relation r) throws JSONException {
@@ -70,6 +70,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		out.put("src",r.getSourceType()+"/"+r.getSourceId());
 		out.put("dst",r.getDestinationType()+"/"+r.getDestinationId());
 		out.put("type",r.getRelationshipType());
+		out.put("csid",r.getID());
 		return out;
 	}
 
@@ -107,7 +108,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		try {
 			extractPaths(filePath,new String[]{"main"},0);
 			Map<String,Document> in=new HashMap<String,Document>();
-			in.put("relations_common",dataToRelation(cache,data).toDocument());
+			in.put("relations_common",dataToRelation(cache,null,data).toDocument());
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/relations/",in);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not add relation status="+out.getStatus());
@@ -189,7 +190,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			Document doc=out.getDocument("relations_common");
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve relation, missing relations_common");
-			return relationToData(cache,factory.load(doc));
+			return relationToData(cache,factory.load(parts[0],doc));
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Could not retrieve relation",e);
 		} catch (JaxenException e) {
@@ -204,7 +205,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);
 			Map<String,Document> in=new HashMap<String,Document>();
-			in.put("relations_common",dataToRelation(cache,data).toDocument());
+			in.put("relations_common",dataToRelation(cache,parts[0],data).toDocument());
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,"/relations/"+parts[0],in);
 			if(out.getStatus()==404)
 				throw new ExistException("Not found");

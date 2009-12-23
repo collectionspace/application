@@ -50,12 +50,12 @@ public class RelationFactory {
 		}
 	}
 	
-	public Relation create(String src_type,String src,String type,String dst_type,String dst) {
-		return new Relation(this,src_type,src,type,dst_type,dst);
+	public Relation create(String id,String src_type,String src,String type,String dst_type,String dst) {
+		return new Relation(this,id,src_type,src,type,dst_type,dst);
 	}
 	
-	public Relation load(Document doc) throws JaxenException {
-		return new Relation(this,doc);
+	public Relation load(String id,Document doc) throws JaxenException {
+		return new Relation(this,id,doc);
 	}
 	
 	XTmplTmpl getTemplate() { return template; }

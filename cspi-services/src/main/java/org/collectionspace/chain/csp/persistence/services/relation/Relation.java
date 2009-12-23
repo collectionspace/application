@@ -8,20 +8,21 @@ import org.jaxen.JaxenException;
 import org.jaxen.dom4j.Dom4jXPath;
 
 class Relation {
-	private String src,dst,src_type,dst_type,type;
+	private String src,dst,src_type,dst_type,type,id;
 	private RelationFactory factory;
 	
-	Relation(RelationFactory factory,Document in) throws JaxenException {
+	Relation(RelationFactory factory,String id,Document in) throws JaxenException {
 		this.factory=factory;
-		fromDocument(in);
+		fromDocument(id,in);
 	}
-	Relation(RelationFactory factory,String src_type,String src,String type,String dst_type,String dst) {
+	Relation(RelationFactory factory,String id,String src_type,String src,String type,String dst_type,String dst) {
 		this.src_type=src_type;
 		this.src=src;
 		this.type=type;
 		this.dst_type=dst_type;
 		this.dst=dst;
 		this.factory=factory;
+		this.id=id;
 	}
 	
 	public Document toDocument() {
@@ -34,15 +35,17 @@ class Relation {
 		return doc.getDocument();
 	}
 	
-	public void fromDocument(Document in) throws JaxenException {
+	public void fromDocument(String id,Document in) throws JaxenException {
 		Map<String,Dom4jXPath> deplate=factory.getDeplate();
 		src_type=deplate.get("src-type").stringValueOf(in);
 		dst_type=deplate.get("dst-type").stringValueOf(in);
 		src=deplate.get("src").stringValueOf(in);
 		dst=deplate.get("dst").stringValueOf(in);
 		type=deplate.get("type").stringValueOf(in);
+		this.id=id;
 	}
 	
+	public String getID() { return id; }
 	public String getSourceType() { return src_type; }
 	public String getDestinationType() { return dst_type; }
 	public String getSourceId() { return src; }

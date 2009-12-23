@@ -59,6 +59,7 @@ public class RecordController {
 		String type=in.getString("type");
 		JSONObject mini=generateMiniRecord(storage,dstid[0],dstid[1]);
 		mini.put("relationshiptype",type);
+		mini.put("relid",in.getString("csid"));
 		return mini;
 	}
 	
