@@ -110,6 +110,14 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		}
 		assertFalse(true);
 	}
+
+	// XXX factor out
+	private static void assertArrayDoesNotContainString(String[] a,String b) {
+		for(String x: a) {
+			if(x.equals(b))
+				assertFalse(true);
+		}
+	}
 	
 	@Test public void testGetId() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
@@ -131,5 +139,17 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertArrayContainsString(names,p1);
 		assertArrayContainsString(names,p2);
 		assertArrayContainsString(names,p3);
+	}
+	
+	@Test public void testSearch() throws Exception {
+		deleteAll();
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
+		String p2=ss.autocreateJSON("collection-object/",getJSON("obj-search.json"));
+		JSONObject restriction=new JSONObject();
+		restriction.put("keywords","aardvark");
+		String[] names=ss.getPaths("collection-object",restriction);
+		assertArrayContainsString(names,p2);
+		assertArrayDoesNotContainString(names,p1);		
 	}
 }
