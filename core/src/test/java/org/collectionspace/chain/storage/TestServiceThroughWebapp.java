@@ -217,4 +217,30 @@ public class TestServiceThroughWebapp {
 		assertEquals("OBJNUM",obj1.getString("number"));
 		assertEquals("OBJNUM",obj2.getString("number"));
 	}
+	
+	@Test public void testSearch() throws Exception {
+		ServletTester jetty=setupJetty();
+		// one aardvark, one non-aardvark
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3-search.json")));	
+		String good=out.getHeader("Location").split("/")[2];
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
+		String bad=out.getHeader("Location").split("/")[2];
+		assertEquals(201,out.getStatus());
+		// search
+		out=jettyDo(jetty,"GET","/chain/objects/search?query=aardvark",null);
+		assertEquals(200,out.getStatus());
+		System.err.println(out.getContent());
+		// check
+		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
+		boolean found=false;
+		for(int i=0;i<results.length();i++) {
+			String csid=results.getJSONObject(i).getString("csid");
+			if(good.equals(csid))
+				found=true;
+			if(bad.equals(csid))
+				assertTrue(false);
+		}
+		assertTrue(found);
+	}
 }

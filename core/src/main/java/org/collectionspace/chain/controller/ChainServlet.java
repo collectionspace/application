@@ -259,6 +259,7 @@ public class ChainServlet extends HttpServlet  {
 			case STORE:
 			case LIST:
 			case AUTO:
+			case SEARCH:
 				getController(request).doGet(request,request.getPathTail());
 				break;
 			}

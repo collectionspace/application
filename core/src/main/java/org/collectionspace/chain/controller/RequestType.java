@@ -16,5 +16,5 @@ package org.collectionspace.chain.controller;
  * LOGIN: login page
  */
 public enum RequestType {
-	STORE,SCHEMA,LIST,RESET,LOGIN,AUTO;
+	STORE,SCHEMA,LIST,RESET,LOGIN,AUTO,SEARCH;
 }

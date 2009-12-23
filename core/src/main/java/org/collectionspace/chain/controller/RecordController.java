@@ -43,12 +43,12 @@ public class RecordController {
 		return generateMiniRecord(storage,base,member);
 	}
 
-	private JSONObject pathsToJSON(Storage storage,String[] paths) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+	private JSONObject pathsToJSON(Storage storage,String[] paths,String key) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
 		for(String p : paths)
 			members.put(generateEntry(storage,p));
-		out.put("items",members);
+		out.put(key,members);
 		return out;
 	}
 	
@@ -139,15 +139,22 @@ public class RecordController {
 				throw new BadRequestException("Not found"); // XXX should be 404
 			}
 			break;
+		case SEARCH:
 		case LIST:
 			try {
-				String[] paths=storage.getPaths(base,null);
+				JSONObject restriction=new JSONObject();
+				String key="items";
+				if(request.getType()==RequestType.SEARCH) {
+					restriction.put("keywords",request.getQueryParameter("query"));
+					key="results";
+				}
+				String[] paths=storage.getPaths(base,restriction);
 				for(int i=0;i<paths.length;i++) {
 					if(paths[i].startsWith(base+"/"))
 						paths[i]=paths[i].substring((base+"/").length());
 				}
 				out = request.getJSONWriter();
-				out.write(pathsToJSON(storage,paths).toString());
+				out.write(pathsToJSON(storage,paths,key).toString());
 			} catch (JSONException e) {
 				throw new BadRequestException("Invalid JSON",e);
 			} catch (ExistException e) {

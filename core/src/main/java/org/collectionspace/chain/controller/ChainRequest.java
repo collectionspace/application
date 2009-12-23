@@ -9,7 +9,9 @@ package org.collectionspace.chain.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +46,7 @@ public class ChainRequest {
 	
 	private static final Map<String,String> url_to_type=new HashMap<String,String>();
 	private static final Map<String,String> type_to_url=new HashMap<String,String>();
+	private static final Map<String,RequestType> special_suffixes=new HashMap<String,RequestType>();
 	
 	static {
 		url_to_type.put("objects","collection-object");
@@ -53,6 +56,8 @@ public class ChainRequest {
 		
 		for(Map.Entry<String,String> e : url_to_type.entrySet())
 			type_to_url.put(e.getValue(),e.getKey());
+		
+		special_suffixes.put("search",RequestType.SEARCH);
 	}
 	
 	private void perhapsStartsWith(String what,RequestType rq,String path,String record,String record_url) throws BadRequestException {
@@ -67,6 +72,12 @@ public class ChainRequest {
 		}
 		if(rest.startsWith("/"))
 			rest=rest.substring(1);
+		// Is it a special suffix?
+		RequestType special=special_suffixes.get(rest);
+		if(special!=null) {
+			type=special;
+			rest="";
+		}
 		// Capture body
 		if(!is_get) {
 			try {
@@ -200,4 +211,6 @@ public class ChainRequest {
 	
 	public String xxxGetUsername() { return req.getParameter("userid"); }
 	public String xxxGetPassword() { return req.getParameter("password"); }
+	
+	public String getQueryParameter(String in) { return req.getParameter(in); }
 }
