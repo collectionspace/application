@@ -85,6 +85,20 @@ public class TestRelationsThroughWebapp {
 		return makeRequest(new JSONObject(in),null).toString();
 	}
 	
+	/* [19:35] danatcaret: Oh, I've found the tests now, anastasiac, for future reference, if you want to create 
+	 *           some relations for testing in future. They're in [this file, ed], though it's a bit highly 
+	 *           factored, so I'd recommend either single stepping what it's doing, or a strong drink, before 
+	 *           looking at it, :).
+     * [19:35] anastasiac: ah, yes, I was looking at that file already. I agree with the strong drink recommendation 
+     * [19:40] danatcaret: :). The method makeMini creates JSON for those standardised "mini" records we were 
+     * 			 talking about in the STIM, the ones which go in arrays in lists, search results, etc, for testing. 
+     * 			 Lines 90-96 just create two records, with csids id1, id2. r1 and r2 are corresponding "mini" 
+     * 			 records to id1 and id2. Then on line 114, r1 and r2 are both sent along with some random (ignored) 
+     * 			 field data (from obj3.json) via makeRecord to create a new record. The name of that is put into 
+     * 			 id3. Because r1 and r2 were sent when id3 was created, there are relations to id1 and id2 in id3. 
+     * 			 At the moment the code just retrieves id3, and prints it out. What it will do in the end is check 
+     * 			 that the relations to id1 and id2 are present. (adding to code as comment).
+	 */
 	@Test public void testRelationsThroughWebapp() throws Exception {
 		ServletTester jetty=setupJetty();
 		// First create a couple of objects
