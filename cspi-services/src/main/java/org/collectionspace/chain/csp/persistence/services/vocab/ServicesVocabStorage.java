@@ -170,7 +170,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 	// XXX harness
 	public void createJSON(CSPRequestCache cache, String filePath,JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		// TODO Auto-generated method stub
+		throw new UnderlyingStorageException("Cannot create at named path");
 	}
 
 	public void deleteJSON(CSPRequestCache cache, String filePath)
@@ -185,14 +185,23 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 		return null;
 	}
 
+	private String URNtoURL(CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
+		String[] parts=deconstructURN(cache,path);
+		String vocab=getVocabularyId(cache,parts[0]);
+		if(!vocab.equals(parts[1]))
+			throw new ExistException("Not in this vocabulary");
+		return "/vocabularies/"+parts[1]+"/items/"+parts[2];
+	}
+
+	private String URNtoVocab(CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
+		String[] parts=deconstructURN(cache,path);
+		return getVocabularyId(cache,parts[0]);
+	}
+	
 	public JSONObject retrieveJSON(CSPRequestCache cache, String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
-			String[] parts=deconstructURN(cache,filePath);
-			String vocab=getVocabularyId(cache,parts[0]);
-			if(!vocab.equals(parts[1]))
-				throw new ExistException("Not in this vocabulary");
-			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,"/vocabularies/"+parts[1]+"/items/"+parts[2],null);
+			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,URNtoURL(cache,filePath),null);
 			if(doc.getStatus()>299)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
 			JSONObject out=new JSONObject();
@@ -207,7 +216,22 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 
 	public void updateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		// TODO Auto-generated method stub
+		try {
+			if(!jsonObject.has("name"))
+				throw new UnderlyingStorageException("Missing name argument to data");
+			String name=jsonObject.getString("name");
+			XTmplDocument doc=create_entry.makeDocument();
+			doc.setText("name",name);
+			doc.setText("vocab",URNtoVocab(cache,filePath));
+			Map<String,Document> body=new HashMap<String,Document>();
+			body.put("vocabularyitems_common",doc.getDocument());
+			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,URNtoURL(cache,filePath),body);
+			if(out.getStatus()>299)
+				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception",e);
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Cannot parse surrounding JSON",e);
+		}
 	}
-
 }

@@ -39,6 +39,13 @@ public class TestVocab extends ServicesBaseClass {
 		assertEquals("TEST",m.group(3));
 		// Read
 		JSONObject out=ss.retrieveJSON("/vocab/name/"+id);
-		assertEquals("TEST",data.getString("name"));
+		assertEquals("TEST",out.getString("name"));
+		// Update
+		data.remove("name");
+		data.put("name","TEST2");
+		ss.updateJSON("/vocab/name/"+id,data);
+		// Read
+		out=ss.retrieveJSON("/vocab/name/"+id);
+		assertEquals("TEST2",out.getString("name"));
 	}
 }
