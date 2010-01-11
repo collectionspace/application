@@ -95,14 +95,6 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		return ret;
 	}
 
-	private String[] extractPathsOrNull(String in,String[] prefixes,int var) {
-		try {
-			return extractPaths(in,prefixes,var);
-		} catch (UnderlyingStorageException e) {
-			return null;
-		}
-	}
-
 	public String autocreateJSON(CSPRequestCache cache, String filePath, JSONObject data)
 	throws ExistException,UnimplementedException, UnderlyingStorageException {
 		try {

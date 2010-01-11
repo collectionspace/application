@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns2:vocabularyitems_common xmlns:ns2="http://collectionspace.org/services/vocabulary" xmlns:xtmpl="http://www.collectionspace.org/xtmpl">
+    <displayName xtmpl:point="name"/>
+    <inVocabulary xtmpl:point="vocab"/>
+</ns2:vocabularyitems_common>
