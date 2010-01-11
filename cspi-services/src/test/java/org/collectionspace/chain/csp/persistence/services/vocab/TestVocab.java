@@ -28,7 +28,7 @@ public class TestVocab extends ServicesBaseClass {
 		setup();
 	}
 	
-	@Test public void testVocab() throws Exception {
+	@Test(expected=org.collectionspace.csp.api.persistence.ExistException.class) public void testVocab() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		// Create
 		JSONObject data=new JSONObject();
@@ -44,8 +44,10 @@ public class TestVocab extends ServicesBaseClass {
 		data.remove("name");
 		data.put("name","TEST2");
 		ss.updateJSON("/vocab/name/"+id,data);
-		// Read
 		out=ss.retrieveJSON("/vocab/name/"+id);
 		assertEquals("TEST2",out.getString("name"));
+		// Delete
+		ss.deleteJSON("/vocab/name/"+id);
+		out=ss.retrieveJSON("/vocab/name/"+id);		
 	}
 }

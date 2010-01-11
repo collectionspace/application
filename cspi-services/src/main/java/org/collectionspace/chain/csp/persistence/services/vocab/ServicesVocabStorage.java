@@ -175,8 +175,13 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 
 	public void deleteJSON(CSPRequestCache cache, String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		// TODO Auto-generated method stub
-
+		try {			
+			int status=conn.getNone(RequestMethod.DELETE,URNtoURL(cache,filePath),null);
+			if(status>299)
+				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+status);
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception",e);
+		}	
 	}
 
 	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restrictions)
@@ -202,6 +207,8 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
 			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,URNtoURL(cache,filePath),null);
+			if(doc.getStatus()==404)
+				throw new ExistException("Does not exist");
 			if(doc.getStatus()>299)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
 			JSONObject out=new JSONObject();
