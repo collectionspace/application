@@ -104,19 +104,19 @@ public class RecordController {
 	}
 
 	// XXX we just assume name for now
-	private JSONObject[] doAutocomplete(CSPRequestCache cache,String start) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+	private String[] doAutocomplete(CSPRequestCache cache,String start) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		Storage storage=global.getStore().getStorage(cache);
 		JSONObject restriction=new JSONObject();
 		restriction.put("name",start);
-		List<JSONObject> out=new ArrayList<JSONObject>();
+		List<String> out=new ArrayList<String>();
 		for(String urn : storage.getPaths("vocab/name",restriction)) {
 			JSONObject data=storage.retrieveJSON("vocab/name/"+urn);
 			JSONObject entry=new JSONObject();
 			entry.put("urn",urn);
 			entry.put("label",data.getString("name"));
-			out.add(entry);
+			out.add(entry.toString());
 		}
-		return out.toArray(new JSONObject[0]);
+		return out.toArray(new String[0]);
 	}
 	
 	void doGet(ChainRequest request,String path) throws BadRequestException, IOException {
@@ -186,14 +186,12 @@ public class RecordController {
 			break;
 		case AUTOCOMPLETE:			
 			try {
-				out = request.getJSONWriter();
-				JSONObject results=new JSONObject();
-				JSONArray completions=new JSONArray();
-				for(JSONObject v : doAutocomplete(cache,request.getQueryParameter("q"))) {
-					completions.put(v);
+				out = request.getPlainTextWriter();
+				StringBuffer completions=new StringBuffer();
+				for(String v : doAutocomplete(cache,request.getQueryParameter("q"))) {
+					completions.append(v+"\n");
 				}
-				results.put("results",completions);
-				out.write(results.toString());
+				out.write(completions.toString());
 			} catch (JSONException e) {
 				throw new BadRequestException("Invalid JSON",e);
 			} catch (ExistException e) {

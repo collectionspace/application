@@ -67,10 +67,9 @@ public class TestVocabThroughWebapp {
 		// Check it's there
 		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=TEST3&limit=150",null);
 		assertTrue(out.getStatus()<299);
-		JSONObject data=new JSONObject(out.getContent());
-		JSONArray results=data.getJSONArray("results");
-		for(int i=0;i<results.length();i++) {
-			JSONObject entry=results.getJSONObject(i);
+		String[] data=out.getContent().split("\n");
+		for(int i=0;i<data.length;i++) {
+			JSONObject entry=new JSONObject(data[i]);
 			assertEquals("TEST3",entry.getString("label"));
 			assertTrue(entry.has("urn"));
 		}
