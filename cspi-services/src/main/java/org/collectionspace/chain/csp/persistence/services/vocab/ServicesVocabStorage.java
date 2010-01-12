@@ -147,8 +147,6 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 	public String autocreateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			for(int i=0;i<1000;i++) { // XXX CSPACE-724
-
 				if(!jsonObject.has("name"))
 					throw new UnderlyingStorageException("Missing name argument to data");
 				String name=jsonObject.getString("name");
@@ -162,13 +160,8 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 				if(out.getStatus()>299)
 					throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 				String urn=constructURN(cache,vocab,out.getURLTail(),name);
-				if(xxx_cspace724(cache,filePath+"/"+urn)) {
-					cache.setCached(getClass(),new String[]{"namefor",out.getURLTail()},name);
-					return urn;
-				}
-				System.err.println("CSPACE-724 hack!");
-			}
-			throw new UnderlyingStorageException("CSPACE-724 hack failed");
+				cache.setCached(getClass(),new String[]{"namefor",out.getURLTail()},name);
+				return urn;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
 		} catch (JSONException e) {
@@ -265,27 +258,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 			throw new ExistException("Not in this vocabulary");
 		return "/vocabularies/"+parts[1]+"/items/";
 	}
-	
-	@SuppressWarnings("unchecked")
-	private boolean xxx_cspace724(CSPRequestCache cache,String urn) throws ExistException, UnderlyingStorageException {
-		try {
-			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,URNtoListURL(cache,urn),null);
-			String tail=deconstructURN(cache,urn)[2];
-			Document doc=data.getDocument();
-			if(doc==null)
-				throw new UnderlyingStorageException("Could not retrieve vocabularies");
-			List<Node> objects=doc.getDocument().selectNodes("vocabularyitems-common-list/vocabularyitem_list_item");
-			for(Node object : objects) {
-				String csid=object.selectSingleNode("csid").getText();
-				if(csid.equals(tail))
-					return true;
-			}
-			return false;
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception",e);
-		}
-	}	
-	
+		
 	public JSONObject retrieveJSON(CSPRequestCache cache, String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
