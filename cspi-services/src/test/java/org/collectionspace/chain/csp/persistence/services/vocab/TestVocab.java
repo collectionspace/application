@@ -17,7 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TestVocab extends ServicesBaseClass {
-	private Pattern urn=Pattern.compile("urn:cspace:org.collectionspace.demo:vocabulary\\((.*?)\\):item\\((.*?)\\)'(.*?)'");
+	private static Pattern urn=Pattern.compile("urn:cspace:org.collectionspace.demo:vocabulary\\((.*?)\\):item\\((.*?)\\)'(.*?)'");
 	
 	// XXX refactor
 	private static Storage makeServicesStorage(String path) throws CSPDependencyException {
@@ -46,6 +46,25 @@ public class TestVocab extends ServicesBaseClass {
 		ss.updateJSON("/vocab/name/"+id,data);
 		out=ss.retrieveJSON("/vocab/name/"+id);
 		assertEquals("TEST2",out.getString("name"));
+		String id3=out.getString("csid");
+		// List
+		data.remove("name");
+		data.put("name","TEST3");
+		String id2=ss.autocreateJSON("/vocab/name",data);
+		out=ss.retrieveJSON("/vocab/name/"+id2);
+		assertEquals("TEST3",out.getString("name"));		
+		boolean found1=false,found2=false;
+		for(String u : ss.getPaths("/vocab/name",null)) {
+			System.err.println(u);
+			if(id3.equals(u))
+				found1=true;
+			if(id2.equals(u))
+				found2=true;
+		}
+		System.err.println("id2="+id2+" f="+found2);
+		System.err.println("id3="+id3+" f="+found1);
+		assertTrue(found1);
+		assertTrue(found2);
 		// Delete
 		ss.deleteJSON("/vocab/name/"+id);
 		out=ss.retrieveJSON("/vocab/name/"+id);		

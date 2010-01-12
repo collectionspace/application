@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -147,19 +148,25 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 	public String autocreateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			if(!jsonObject.has("name"))
-				throw new UnderlyingStorageException("Missing name argument to data");
-			String name=jsonObject.getString("name");
-			String vocab=getVocabularyId(cache,filePath);
-			XTmplDocument doc=create_entry.makeDocument();
-			doc.setText("name",name);
-			doc.setText("vocab",vocab);
-			Map<String,Document> body=new HashMap<String,Document>();
-			body.put("vocabularyitems_common",doc.getDocument());
-			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/vocabularies/"+vocab+"/items",body);
-			if(out.getStatus()>299)
-				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
-			return constructURN(cache,vocab,out.getURLTail(),name);
+			while(true) { // XXX CSPACE-724
+
+				if(!jsonObject.has("name"))
+					throw new UnderlyingStorageException("Missing name argument to data");
+				String name=jsonObject.getString("name");
+				String vocab=getVocabularyId(cache,filePath);
+				XTmplDocument doc=create_entry.makeDocument();
+				doc.setText("name",name);
+				doc.setText("vocab",vocab);
+				Map<String,Document> body=new HashMap<String,Document>();
+				body.put("vocabularyitems_common",doc.getDocument());
+				ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/vocabularies/"+vocab+"/items",body);
+				if(out.getStatus()>299)
+					throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
+				String urn=constructURN(cache,vocab,out.getURLTail(),name);
+				if(xxx_cspace724(cache,urn))
+					return urn;
+				System.err.println("CSPACE-724 hack!");
+			}
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
 		} catch (JSONException e) {
@@ -167,7 +174,6 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 		}
 	}
 
-	// XXX harness
 	public void createJSON(CSPRequestCache cache, String filePath,JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnderlyingStorageException("Cannot create at named path");
@@ -184,10 +190,26 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 		}	
 	}
 
+	@SuppressWarnings("unchecked")
 	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			List<String> out=new ArrayList<String>();
+			String vocab=getVocabularyId(cache,rootPath);
+			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,"/vocabularies/"+vocab+"/items",null);
+			Document doc=data.getDocument();
+			if(doc==null)
+				throw new UnderlyingStorageException("Could not retrieve vocabularies");
+			List<Node> objects=doc.getDocument().selectNodes("vocabularyitems-common-list/vocabularyitem_list_item");
+			for(Node object : objects) {
+				String name=object.selectSingleNode("displayName").getText();
+				String csid=object.selectSingleNode("csid").getText();
+				out.add(constructURN(cache,vocab,csid,name));
+			}
+			return out.toArray(new String[0]);
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception",e);
+		}
 	}
 
 	private String URNtoURL(CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
@@ -198,10 +220,54 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 		return "/vocabularies/"+parts[1]+"/items/"+parts[2];
 	}
 
+	private String URNNewName(CSPRequestCache cache,String path,String name) throws ExistException, ConnectionException, UnderlyingStorageException {
+		String[] parts=deconstructURN(cache,path);
+		String vocab=getVocabularyId(cache,parts[0]);
+		if(!vocab.equals(parts[1]))
+			throw new ExistException("Not in this vocabulary");
+		return constructURN(cache,vocab,parts[2],name);
+	}
+	
 	private String URNtoVocab(CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
 		String[] parts=deconstructURN(cache,path);
 		return getVocabularyId(cache,parts[0]);
 	}
+
+	private String URNtoListURL(CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
+		String[] parts=deconstructURN(cache,path);
+		String vocab=getVocabularyId(cache,parts[0]);
+		if(!vocab.equals(parts[1]))
+			throw new ExistException("Not in this vocabulary");
+		return "/vocabularies/"+parts[1]+"/items/";
+	}
+
+	private String URNTail(CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
+		String[] parts=deconstructURN(cache,path);
+		String vocab=getVocabularyId(cache,parts[0]);
+		if(!vocab.equals(parts[1]))
+			throw new ExistException("Not in this vocabulary");
+		return "/vocabularies/"+parts[1]+"/items/";
+	}
+	
+	@SuppressWarnings("unchecked")
+	private boolean xxx_cspace724(CSPRequestCache cache,String urn) throws ExistException, UnderlyingStorageException {
+		try {
+			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,URNtoListURL(cache,urn),null);
+			String tail=URNTail(cache,urn);
+			Document doc=data.getDocument();
+			if(doc==null)
+				throw new UnderlyingStorageException("Could not retrieve vocabularies");
+			List<Node> objects=doc.getDocument().selectNodes("vocabularyitems-common-list/vocabularyitem_list_item");
+			for(Node object : objects) {
+				String csid=object.selectSingleNode("csid").getText();
+				if(csid.equals(tail))
+					return true;
+			}
+			return false;
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception",e);
+		}
+	}	
 	
 	public JSONObject retrieveJSON(CSPRequestCache cache, String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
@@ -212,7 +278,9 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 			if(doc.getStatus()>299)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
 			JSONObject out=new JSONObject();
-			out.put("name",doc.getDocument("vocabularyitems_common").selectSingleNode("vocabularyitems_common/displayName").getText());
+			String name=doc.getDocument("vocabularyitems_common").selectSingleNode("vocabularyitems_common/displayName").getText();
+			out.put("name",name);
+			out.put("csid",URNNewName(cache,filePath,name));
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
