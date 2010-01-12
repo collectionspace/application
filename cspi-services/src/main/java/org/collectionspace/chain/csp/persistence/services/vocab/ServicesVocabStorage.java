@@ -208,7 +208,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 			for(Node object : objects) {
 				String name=object.selectSingleNode("displayName").getText();
 				String csid=object.selectSingleNode("csid").getText();
-				if(prefix==null || name.startsWith(prefix))
+				if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase()))
 					out.add(constructURN(cache,vocab,csid,name));
 				cache.setCached(getClass(),new String[]{"namefor",csid},name);
 			}
