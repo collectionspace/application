@@ -141,14 +141,13 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 		Matcher m=urn_syntax.matcher(urn);
 		if(!m.matches())
 			throw new ExistException("Bad URN, does not exist");
-		String[] out=new String[3];
 		return new String[]{m.group(1),m.group(2),m.group(3),m.group(4)};
 	}
 	
 	public String autocreateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			while(true) { // XXX CSPACE-724
+			for(int i=0;i<1000;i++) { // XXX CSPACE-724
 
 				if(!jsonObject.has("name"))
 					throw new UnderlyingStorageException("Missing name argument to data");
@@ -167,6 +166,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 					return urn;
 				System.err.println("CSPACE-724 hack!");
 			}
+			throw new UnderlyingStorageException("CSPACE-724 hack failed");
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
 		} catch (JSONException e) {
@@ -196,7 +196,13 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 		try {
 			List<String> out=new ArrayList<String>();
 			String vocab=getVocabularyId(cache,rootPath);
-			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,"/vocabularies/"+vocab+"/items",null);
+			String url="/vocabularies/"+vocab+"/items";
+			String prefix=null;
+			if(restrictions!=null && restrictions.has("name"))
+				prefix=URLEncoder.encode(restrictions.getString("name"),"UTF8");
+			if(prefix!=null)
+				url+="?pt="+prefix;
+			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null);
 			Document doc=data.getDocument();
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies");
@@ -204,11 +210,16 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 			for(Node object : objects) {
 				String name=object.selectSingleNode("displayName").getText();
 				String csid=object.selectSingleNode("csid").getText();
-				out.add(constructURN(cache,vocab,csid,name));
+				if(prefix==null || name.startsWith(prefix))
+					out.add(constructURN(cache,vocab,csid,name));
 			}
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
+		} catch (UnsupportedEncodingException e) {
+			throw new UnderlyingStorageException("UTF-8 not supported!?");
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Error parsing JSON");
 		}
 	}
 

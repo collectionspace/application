@@ -2,7 +2,9 @@ package org.collectionspace.chain.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -101,6 +103,22 @@ public class RecordController {
 		return out;
 	}
 
+	// XXX we just assume name for now
+	private JSONObject[] doAutocomplete(CSPRequestCache cache,String start) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+		Storage storage=global.getStore().getStorage(cache);
+		JSONObject restriction=new JSONObject();
+		restriction.put("name",start);
+		List<JSONObject> out=new ArrayList<JSONObject>();
+		for(String urn : storage.getPaths("vocab/name",restriction)) {
+			JSONObject data=storage.retrieveJSON("vocab/name/"+urn);
+			JSONObject entry=new JSONObject();
+			entry.put("urn",urn);
+			entry.put("label",data.getString("name"));
+			out.add(entry);
+		}
+		return out.toArray(new JSONObject[0]);
+	}
+	
 	void doGet(ChainRequest request,String path) throws BadRequestException, IOException {
 		CSPRequestCache cache=new RequestCache();
 		Storage storage=global.getStore().getStorage(cache);
@@ -165,6 +183,26 @@ public class RecordController {
 				throw new BadRequestException("Problem storing",e);
 			}
 			out.close();
+			break;
+		case AUTOCOMPLETE:			
+			try {
+				out = request.getJSONWriter();
+				JSONObject results=new JSONObject();
+				JSONArray completions=new JSONArray();
+				for(JSONObject v : doAutocomplete(cache,request.getQueryParameter("q"))) {
+					completions.put(v);
+				}
+				results.put("results",completions);
+				out.write(results.toString());
+			} catch (JSONException e) {
+				throw new BadRequestException("Invalid JSON",e);
+			} catch (ExistException e) {
+				throw new BadRequestException("Existence problem",e);
+			} catch (UnimplementedException e) {
+				throw new BadRequestException("Unimplemented",e);
+			} catch (UnderlyingStorageException e) {
+				throw new BadRequestException("Problem storing",e);
+			}
 			break;
 		}
 		request.setStatus(HttpServletResponse.SC_OK);

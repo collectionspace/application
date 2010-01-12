@@ -260,6 +260,7 @@ public class ChainServlet extends HttpServlet  {
 			case LIST:
 			case AUTO:
 			case SEARCH:
+			case AUTOCOMPLETE:
 				getController(request).doGet(request,request.getPathTail());
 				break;
 			}

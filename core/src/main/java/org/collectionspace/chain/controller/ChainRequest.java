@@ -103,6 +103,11 @@ public class ChainRequest {
 		for(Map.Entry<String,String> e : url_to_type.entrySet()) {
 			if(found)
 				break;
+			perhapsStartsWith("/"+e.getKey()+"/autocomplete",RequestType.AUTOCOMPLETE,path,e.getValue(),e.getKey());
+		}
+		for(Map.Entry<String,String> e : url_to_type.entrySet()) {
+			if(found)
+				break;
 			perhapsStartsWith("/"+e.getKey()+"/schema",RequestType.SCHEMA,path,e.getValue(),e.getKey());
 		}
 		for(Map.Entry<String,String> e : url_to_type.entrySet()) {

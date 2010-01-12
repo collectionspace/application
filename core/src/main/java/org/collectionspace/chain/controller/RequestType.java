@@ -14,7 +14,8 @@ package org.collectionspace.chain.controller;
  * SCHEMA: retrieve schema
  * LIST: list all members
  * LOGIN: login page
+ * AUTOCOMPLETE: autocomplete request
  */
 public enum RequestType {
-	STORE,SCHEMA,LIST,RESET,LOGIN,AUTO,SEARCH;
+	STORE,SCHEMA,LIST,RESET,LOGIN,AUTO,SEARCH,AUTOCOMPLETE;
 }
