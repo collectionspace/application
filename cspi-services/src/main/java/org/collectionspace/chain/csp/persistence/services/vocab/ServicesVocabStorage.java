@@ -162,7 +162,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 				if(out.getStatus()>299)
 					throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 				String urn=constructURN(cache,vocab,out.getURLTail(),name);
-				if(xxx_cspace724(cache,urn)) {
+				if(xxx_cspace724(cache,filePath+"/"+urn)) {
 					cache.setCached(getClass(),new String[]{"namefor",out.getURLTail()},name);
 					return urn;
 				}
@@ -203,8 +203,10 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 			String prefix=null;
 			if(restrictions!=null && restrictions.has("name"))
 				prefix=URLEncoder.encode(restrictions.getString("name"),"UTF8");
+			// XXX pagination support
+			url+="?pgSz=10000";
 			if(prefix!=null)
-				url+="?pt="+prefix;
+				url+="&pt="+prefix;
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null);
 			Document doc=data.getDocument();
 			if(doc==null)
@@ -268,7 +270,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 	private boolean xxx_cspace724(CSPRequestCache cache,String urn) throws ExistException, UnderlyingStorageException {
 		try {
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,URNtoListURL(cache,urn),null);
-			String tail=URNTail(cache,urn);
+			String tail=deconstructURN(cache,urn)[2];
 			Document doc=data.getDocument();
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies");
@@ -289,6 +291,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 		try {			
 			String name=(String)cache.getCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]});
 			if(name==null) {			
+				// XXX pagination support
 				ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,URNtoURL(cache,filePath),null);
 				if(doc.getStatus()==404)
 					throw new ExistException("Does not exist");

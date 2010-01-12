@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -45,24 +46,22 @@ public class StubJSONStore implements Storage {
 		String[] parts=path.split("/");
 		if(parts.length==1)
 			throw new ExistException("Cannot store in root directory");
-		String dir=null;
-		String file=null;
+		List<String> fullpath=new ArrayList<String>();
 		for(int i=0;i<parts.length;i++) {
 			if("".equals(parts[i])) // Repeated slash, ignore
 				continue;
-			if(dir==null)
-				dir=parts[i];
-			else if(file==null)
-				file=parts[i];
+			fullpath.add(parts[i]);
 		}
-		if(file==null)
-			throw new UnderlyingStorageException("Path has too few components");
-		dir=dir.replaceAll("[^A-Za-z0-9_,.-]","");
+		String file=fullpath.remove(fullpath.size()-1);
+		File root=new File(store_root);
+		for(String dir : fullpath) {
+			dir=dir.replaceAll("[^A-Za-z0-9_,.-]","");
+			root=new File(root,dir);
+			if(!root.exists()) {
+				root.mkdir();
+			}
+		}
 		file=file.replaceAll("[^A-Za-z0-9_,.-]","");
-		File root=new File(store_root,dir);
-		if(!root.exists()) {
-			root.mkdir();
-		}
 		return new File(root,file+".json");
 	}
 
@@ -103,6 +102,11 @@ public class StubJSONStore implements Storage {
 	 * @see org.collectionspace.JSONStore#retrieveJson(java.lang.String)
 	 */
 	public JSONObject retrieveJSON(String filePath) throws ExistException, UnderlyingStorageException, UnimplementedException {
+		// XXX hack: support views properly
+		String XXXCHOP="/view";
+		
+		if(filePath.endsWith(XXXCHOP))
+			filePath=filePath.substring(0,filePath.length()-XXXCHOP.length());
 		if(idRequest(filePath))
 			return id.retrieveJSON(filePath);
 		File jsonFile = fileFromPath(filePath);

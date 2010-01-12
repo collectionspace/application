@@ -61,8 +61,11 @@ public class TestVocabThroughWebapp {
 	
 	@Test public void testVocabThroughWebapp() throws Exception {
 		ServletTester jetty=setupJetty();
-		// First create a couple of objects
-		HttpTester out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=TEST3&limit=150",null);
+		// First create an entry
+		HttpTester out;
+		
+		// Check it's there
+		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=TEST3&limit=150",null);
 		assertTrue(out.getStatus()<299);
 		JSONObject data=new JSONObject(out.getContent());
 		JSONArray results=data.getJSONArray("results");

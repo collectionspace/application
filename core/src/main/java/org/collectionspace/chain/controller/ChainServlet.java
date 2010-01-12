@@ -169,13 +169,14 @@ public class ChainServlet extends HttpServlet  {
 	}
 
 	private void xxx_reset(ChainRequest request) throws IOException, BadRequestException { // Temporary hack to reset db
-		/* Temporary hack for moon */
-		// Delete all members
 		CSPRequestCache cache=new RequestCache();
 		Storage storage=global.getStore().getStorage(cache);
 		try {
 			PrintWriter pw=request.getPlainTextWriter();
+			// Delete existing records
 			for(String dir : storage.getPaths("/",null)) {
+				if("relations".equals(dir) || "vocab".equals(dir))
+					continue;
 				pw.println("dir : "+dir);
 				String[] paths=storage.getPaths(dir,null);
 				for(int i=0;i<paths.length;i++) {
@@ -192,11 +193,31 @@ public class ChainServlet extends HttpServlet  {
 					pw.flush();
 				}					
 			}
+			// Create records anew
 			String schedule=getResource("reset.txt");
 			for(String line : schedule.split("\n")) {
 				String[] parts=line.split(" +",2);
 				pw.println("Creating "+parts[0]);
 				storage.autocreateJSON(parts[0],getJSONResource(parts[1]));
+				pw.flush();
+			}
+			// Delete existing vocab entries
+			for(String urn : storage.getPaths("/vocab/name",null)) {
+				pw.println("Deleting "+urn);
+				storage.deleteJSON("/vocab/name/"+urn);
+				pw.flush();
+			}
+			pw.println("Creating");
+			pw.flush();
+			// Create vocab entries
+			String names=getResource("names.txt");
+			int i=0;
+			for(String line : names.split("\n")) {
+				i++;
+				JSONObject name=new JSONObject();
+				name.put("name",line);
+				storage.autocreateJSON("/vocab/name",name);
+				pw.println("Created "+name);
 				pw.flush();
 			}
 			pw.println("done");
