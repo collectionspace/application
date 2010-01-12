@@ -162,8 +162,10 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 				if(out.getStatus()>299)
 					throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 				String urn=constructURN(cache,vocab,out.getURLTail(),name);
-				if(xxx_cspace724(cache,urn))
+				if(xxx_cspace724(cache,urn)) {
+					cache.setCached(getClass(),new String[]{"namefor",out.getURLTail()},name);
 					return urn;
+				}
 				System.err.println("CSPACE-724 hack!");
 			}
 			throw new UnderlyingStorageException("CSPACE-724 hack failed");
@@ -176,7 +178,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 
 	public void createJSON(CSPRequestCache cache, String filePath,JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		throw new UnderlyingStorageException("Cannot create at named path");
+		throw new UnimplementedException("Cannot create at named path");
 	}
 
 	public void deleteJSON(CSPRequestCache cache, String filePath)
@@ -185,6 +187,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 			int status=conn.getNone(RequestMethod.DELETE,URNtoURL(cache,filePath),null);
 			if(status>299)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+status);
+			cache.removeCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]});
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
 		}	
@@ -212,6 +215,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 				String csid=object.selectSingleNode("csid").getText();
 				if(prefix==null || name.startsWith(prefix))
 					out.add(constructURN(cache,vocab,csid,name));
+				cache.setCached(getClass(),new String[]{"namefor",csid},name);
 			}
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
@@ -283,13 +287,16 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 	public JSONObject retrieveJSON(CSPRequestCache cache, String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
-			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,URNtoURL(cache,filePath),null);
-			if(doc.getStatus()==404)
-				throw new ExistException("Does not exist");
-			if(doc.getStatus()>299)
-				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
+			String name=(String)cache.getCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]});
+			if(name==null) {			
+				ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,URNtoURL(cache,filePath),null);
+				if(doc.getStatus()==404)
+					throw new ExistException("Does not exist");
+				if(doc.getStatus()>299)
+					throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
+				name=doc.getDocument("vocabularyitems_common").selectSingleNode("vocabularyitems_common/displayName").getText();
+			}
 			JSONObject out=new JSONObject();
-			String name=doc.getDocument("vocabularyitems_common").selectSingleNode("vocabularyitems_common/displayName").getText();
 			out.put("name",name);
 			out.put("csid",URNNewName(cache,filePath,name));
 			return out;
@@ -314,6 +321,7 @@ public class ServicesVocabStorage implements ContextualisedStorage {
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,URNtoURL(cache,filePath),body);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
+			cache.setCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]},name);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
 		} catch (JSONException e) {
