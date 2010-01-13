@@ -1,6 +1,7 @@
 package org.collectionspace.chain.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,6 +12,7 @@ import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.util.BadRequestException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -248,6 +250,56 @@ public class RecordController {
 		return path;
 	}
 	
+	// XXX refactor
+	private String getResource(String in) throws IOException, JSONException {
+		String path=getClass().getPackage().getName().replaceAll("\\.","/");
+		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
+		System.err.println(path);
+		String data=IOUtils.toString(stream);
+		stream.close();		
+		return data;
+	}
+	
+	private String xxx_mercury_search(String type,String value) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		CSPRequestCache cache=new RequestCache();
+		Storage storage=global.getStore().getStorage(cache);
+		String target_base=ChainRequest.convertTypeURLToType(type);
+		for(String path : storage.getPaths(target_base,null)) {
+			JSONObject mini=storage.retrieveJSON(target_base+"/"+path+"/view");
+			if(mini==null)
+				return null;
+			System.err.println("record is "+mini);
+			if(mini.has("number") && mini.getString("number").equals(value))
+				return path;
+			
+		}
+		return null;
+	}
+	
+	private void xxx_mercury_associate(Storage storage,String source_id,String type,String value) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		String target_id=xxx_mercury_search(type,value);
+		if(target_id==null)
+			return;		
+		System.err.println("target id is "+target_id);
+		JSONObject data=new JSONObject();
+		data.put("src",base+"/"+source_id);
+		data.put("dst",ChainRequest.convertTypeURLToType(type)+"/"+target_id);
+		data.put("type","affects");
+		storage.autocreateJSON("relations/main",data);
+	}
+	
+	private void xxx_mercury_related_records(Storage storage,String id) throws IOException, JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+		System.err.println("Applying related record hack to "+id);		
+		String assocs=getResource("mercury-relations.txt");
+		for(String line : assocs.split("\n")) {
+			String[] data=line.split(" ");
+			if(data.length<3)
+				continue;
+			if(data[0].equals(base))
+				xxx_mercury_associate(storage,id,data[1],data[2]);
+		}
+	}
+	
 	public void send(ChainRequest request,String path) throws BadRequestException, IOException {
 		CSPRequestCache cache=new RequestCache();
 		Storage storage=global.getStore().getStorage(cache);
@@ -258,9 +310,10 @@ public class RecordController {
 		// Store it
 		try {
 			JSONObject data=new JSONObject(jsonString);
-			if(request.isCreateNotOverwrite())
+			if(request.isCreateNotOverwrite()) {
 				path=sendJSON(storage,null,data);
-			else
+				xxx_mercury_related_records(storage,path);
+			} else
 				path=sendJSON(storage,path,data);
 			if(path==null)
 				throw new BadRequestException("Insufficient data for create (no fields?)");

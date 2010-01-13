@@ -65,12 +65,12 @@ public class TestVocabThroughWebapp {
 		HttpTester out;
 		
 		// Check it's there
-		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=TEST3&limit=150",null);
+		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Williams&limit=150",null);
 		assertTrue(out.getStatus()<299);
 		String[] data=out.getContent().split("\n");
 		for(int i=0;i<data.length;i++) {
 			JSONObject entry=new JSONObject(data[i]);
-			assertEquals("TEST3",entry.getString("label"));
+			assertTrue(entry.getString("label").toLowerCase().contains("williams"));
 			assertTrue(entry.has("urn"));
 		}
 	}

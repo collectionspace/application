@@ -437,7 +437,7 @@ public class TestGeneral {
 		cmp1.remove("csid");
 		cmp2=getFields(cmp2);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(cmp1,cmp2));
-		assertEquals(3,files.size());		
+		assertEquals(4,files.size());		
 	}
 	
 	@Test public void testLogin() throws Exception {
