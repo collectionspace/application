@@ -3,6 +3,7 @@ package org.collectionspace.chain.csp.persistence.services;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,9 +44,10 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 	private String prefix,part,items;
 	private Map<String,String> view_good=new HashMap<String,String>();
 	private Map<String,String> view_map=new HashMap<String,String>();
+	private Set<String> xxx_view_deurn=new HashSet<String>();
 	
 	protected GenericRecordStorage(ServicesConnection conn,String jxj_filename,String jxj_entry,String prefix,String part,String items,
-			String[] mini_key,String[] mini_xml,String[] mini_value) throws InvalidJXJException, DocumentException, IOException {
+			String[] mini_key,String[] mini_xml,String[] mini_value,boolean[] xxx_mini_deurn) throws InvalidJXJException, DocumentException, IOException {
 		this.prefix=prefix;
 		this.part=part;
 		this.items=items;
@@ -60,6 +62,9 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 			view_good.put(mini_key[i],mini_value[i]);
 		for(int i=0;i<mini_key.length;i++)
 			view_map.put(mini_xml[i],mini_key[i]);
+		for(int i=0;i<xxx_mini_deurn.length;i++)
+			if(xxx_mini_deurn[i])
+				xxx_view_deurn.add(mini_key[i]);
 	}
 	
 	private void setGleanedValue(CSPRequestCache cache,String path,String key,String value) {
@@ -114,6 +119,22 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 		}		
 	}
 
+	private String xxx_deurn(String in) throws UnderlyingStorageException {
+		if(!in.startsWith("urn:"))
+			return in;
+		if(!in.endsWith("'"))
+			return in;
+		in=in.substring(0,in.length()-1);
+		int pos=in.lastIndexOf("'");
+		if(pos==-1)
+			return in+"'";
+		try {
+			return URLDecoder.decode(in.substring(pos+1),"UTF8");
+		} catch (UnsupportedEncodingException e) {
+			throw new UnderlyingStorageException("No UTF8!");
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -147,8 +168,12 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 						// Skip!
 					} else {
 						String json_name=view_map.get(field.getName());
-						if(json_name!=null)
-							setGleanedValue(cache,prefix+"/"+csid,json_name,field.getText());
+						if(json_name!=null) {
+							String value=field.getText();
+							if(xxx_view_deurn.contains(json_name))
+								value=xxx_deurn(value);
+							setGleanedValue(cache,prefix+"/"+csid,json_name,value);
+						}
 					}
 				}
 

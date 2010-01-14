@@ -2,6 +2,7 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
+import org.collectionspace.chain.csp.persistence.services.vocab.GenericVocabStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesVocabStorage;
 import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigConsumer;

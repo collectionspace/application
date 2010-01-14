@@ -14,6 +14,7 @@ public class ServicesIntakeStorage extends GenericRecordStorage implements Conte
 		super(conn,"intake.jxj","intake","intakes","intakes_common","intakes-common-list/intake-list-item",
 			  new String[]{"entryNumber","depositor"},
 			  new String[]{"entryNumber","depositor"},
-			  new String[]{"number","summary"});
+			  new String[]{"number","summary"},
+			  new boolean[]{false,true});
 	}
 }

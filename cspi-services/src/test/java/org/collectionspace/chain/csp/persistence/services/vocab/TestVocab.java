@@ -10,6 +10,7 @@ import org.collectionspace.chain.csp.persistence.services.ServicesBaseClass;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.json.JSONObject;
@@ -28,7 +29,7 @@ public class TestVocab extends ServicesBaseClass {
 		setup();
 	}
 	
-	@Test(expected=org.collectionspace.csp.api.persistence.ExistException.class) public void testVocab() throws Exception {
+	@Test public void testVocab() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		// Create
 		JSONObject data=new JSONObject();
@@ -67,6 +68,9 @@ public class TestVocab extends ServicesBaseClass {
 		assertTrue(found2);
 		// Delete
 		ss.deleteJSON("/vocab/name/"+id);
-		out=ss.retrieveJSON("/vocab/name/"+id);		
+		try {
+			out=ss.retrieveJSON("/vocab/name/"+id);		
+			assertTrue(false);
+		} catch(ExistException x) {}
 	}
 }

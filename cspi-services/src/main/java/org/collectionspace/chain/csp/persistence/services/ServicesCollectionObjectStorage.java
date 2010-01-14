@@ -19,7 +19,8 @@ class ServicesCollectionObjectStorage extends GenericRecordStorage implements Co
 				  "collectionobjects_common","collectionobjects-common-list/collection-object-list-item",
 				  new String[]{"accessionNumber","objectTitle"},
 				  new String[]{"objectNumber","title"},
-				  new String[]{"number","summary"});
+				  new String[]{"number","summary"},
+				  new boolean[]{false,false});
 
 	}
 }
