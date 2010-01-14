@@ -205,11 +205,11 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			String url="/"+prefix+"/"+vocab+"/items";
 			String prefix=null;
 			if(restrictions!=null && restrictions.has("name"))
-				prefix=URLEncoder.encode(restrictions.getString("name"),"UTF8");
+				prefix=restrictions.getString("name");
 			// XXX pagination support
 			url+="?pgSz=10000";
 			if(prefix!=null)
-				url+="&pt="+prefix;
+				url+="&pt="+URLEncoder.encode(prefix,"UTF8");
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null);
 			Document doc=data.getDocument();
 			if(doc==null)
