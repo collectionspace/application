@@ -170,8 +170,6 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 						String json_name=view_map.get(field.getName());
 						if(json_name!=null) {
 							String value=field.getText();
-							if(xxx_view_deurn.contains(json_name))
-								value=xxx_deurn(value);
 							setGleanedValue(cache,prefix+"/"+csid,json_name,value);
 						}
 					}
@@ -209,6 +207,8 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 			String gleaned=getGleanedValue(cache,prefix+"/"+filePath,good);
 			if(gleaned==null)
 				continue;
+			if(xxx_view_deurn.contains(good))
+				gleaned=xxx_deurn(gleaned);
 			out.put(view_good.get(good),gleaned);
 			to_get.remove(good);
 		}
@@ -216,8 +216,13 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 		if(to_get.size()>0) {
 			JSONObject data=simpleRetrieveJSON(filePath);
 			for(String good : to_get) {
-				if(data.has(good))
-					out.put(view_good.get(good),data.get(good));
+				if(data.has(good)) {
+					String vkey=view_good.get(good);
+					String value=data.getString(good);
+					if(xxx_view_deurn.contains(good))
+						value=xxx_deurn(value);
+					out.put(vkey,value);
+				}
 			}
 		}
 		return out;
