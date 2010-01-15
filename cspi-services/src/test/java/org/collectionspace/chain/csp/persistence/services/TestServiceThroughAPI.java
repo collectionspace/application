@@ -122,10 +122,10 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	@Test public void testGetId() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		JSONObject jo=ss.retrieveJSON("id/intake");
-		assertTrue(jo.getString("next").startsWith("IN2009."));
+		assertTrue(jo.getString("next").startsWith("IN2010."));
 		jo=ss.retrieveJSON("id/objects");
 		System.err.println(jo);
-		assertTrue(jo.getString("next").startsWith("2009.1."));
+		assertTrue(jo.getString("next").startsWith("2010.1."));
 	}
 	
 	// XXX use autocreate not create when create dies

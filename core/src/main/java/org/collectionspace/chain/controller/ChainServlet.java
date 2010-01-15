@@ -175,7 +175,7 @@ public class ChainServlet extends HttpServlet  {
 			PrintWriter pw=request.getPlainTextWriter();
 			// Delete existing records
 			for(String dir : storage.getPaths("/",null)) {
-				if("relations".equals(dir) || "vocab".equals(dir))
+				if("relations".equals(dir) || "vocab".equals(dir) || "person".equals(dir))
 					continue;
 				pw.println("dir : "+dir);
 				String[] paths=storage.getPaths(dir,null);
@@ -202,9 +202,9 @@ public class ChainServlet extends HttpServlet  {
 				pw.flush();
 			}
 			// Delete existing vocab entries
-			for(String urn : storage.getPaths("/vocab/name",null)) {
+			for(String urn : storage.getPaths("/person/person",null)) {
 				pw.println("Deleting "+urn);
-				storage.deleteJSON("/vocab/name/"+urn);
+				storage.deleteJSON("/person/person/"+urn);
 				pw.flush();
 			}
 			pw.println("Creating");
@@ -216,7 +216,7 @@ public class ChainServlet extends HttpServlet  {
 				i++;
 				JSONObject name=new JSONObject();
 				name.put("name",line);
-				storage.autocreateJSON("/vocab/name",name);
+				storage.autocreateJSON("/person/person",name);
 				pw.println("Created "+name);
 				pw.flush();
 			}

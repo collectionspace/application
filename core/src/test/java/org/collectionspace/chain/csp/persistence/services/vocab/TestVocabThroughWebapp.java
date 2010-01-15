@@ -59,6 +59,7 @@ public class TestVocabThroughWebapp {
 		return tester;
 	}
 	
+	// XXX test autocomplete
 	// XXX relies on pouplated DB
 	@Test public void testVocabThroughWebapp() throws Exception {
 		ServletTester jetty=setupJetty();

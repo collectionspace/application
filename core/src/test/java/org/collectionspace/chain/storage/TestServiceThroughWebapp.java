@@ -155,10 +155,10 @@ public class TestServiceThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/id/intake",null);
 		JSONObject jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("IN2009."));
+		assertTrue(jo.getString("next").startsWith("IN2010."));
 		out=jettyDo(jetty,"GET","/chain/id/objects",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("2009.1."));
+		assertTrue(jo.getString("next").startsWith("2010.1."));
 	}
 
 	@Test public void testAutoGet() throws Exception {

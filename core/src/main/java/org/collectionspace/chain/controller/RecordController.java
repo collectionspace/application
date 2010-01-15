@@ -111,8 +111,8 @@ public class RecordController {
 		JSONObject restriction=new JSONObject();
 		restriction.put("name",start);
 		List<String> out=new ArrayList<String>();
-		for(String urn : storage.getPaths("vocab/name",restriction)) {
-			JSONObject data=storage.retrieveJSON("vocab/name/"+urn);
+		for(String urn : storage.getPaths("person/person",restriction)) {
+			JSONObject data=storage.retrieveJSON("person/person/"+urn);
 			JSONObject entry=new JSONObject();
 			entry.put("urn",urn);
 			entry.put("label",data.getString("name"));

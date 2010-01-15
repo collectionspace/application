@@ -27,9 +27,13 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
+import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentFactory;
+import org.dom4j.Element;
 import org.dom4j.Node;
+import org.dom4j.QName;
 import org.dom4j.io.SAXReader;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -41,11 +45,11 @@ public class GenericVocabStorage implements ContextualisedStorage {
 
 	private Map<String,String> vocabs;
 	private Pattern urn_syntax;
-	private String prefix,section,list_item_path,items_section,item_path,name_path,urn_builder;
+	private String prefix,section,list_item_path,items_section,item_path,name_path,urn_builder,namespace,tag,in_tag;
 	
 	public GenericVocabStorage(ServicesConnection conn,String urn_builder,Pattern urn_regexp,Map<String,String> vocabs,
-			String prefix,String section,String items_section,String list_item_path,String item_path,
-			String name_path) throws InvalidXTmplException, DocumentException {
+			String namespace,String prefix,String section,String items_section,String list_item_path,String item_path,
+			String name_path,String tag,String in_tag) throws InvalidXTmplException, DocumentException {
 		this.conn=conn;
 		create_vocab=XTmplTmpl.compile(getDocument("create_list.xtmpl"));
 		create_entry=XTmplTmpl.compile(getDocument("create_entry.xtmpl"));
@@ -58,8 +62,11 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		this.list_item_path=list_item_path;
 		this.item_path=item_path;
 		this.name_path=name_path;
+		this.namespace=namespace;
+		this.tag=tag;
+		this.in_tag=in_tag;
 	}
-	
+
 	// XXX refactor
 	private InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
@@ -90,13 +97,11 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		String rest=name.substring(pos+1);
 		return rest.substring(0,rest.length()-1);
 	}
-	
+		
 	// Only called if doesn't exist
 	private synchronized void createVocabulary(CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
-		XTmplDocument doc=create_vocab.makeDocument();
-		doc.setText("name",confound(id));
 		Map<String,Document> body=new HashMap<String,Document>();
-		body.put(section,doc.getDocument());
+		body.put(section,createList(id));
 		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/",body);
 		if(out.getStatus()>299)
 			throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
@@ -154,6 +159,26 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		return new String[]{m.group(1),m.group(2),m.group(3),m.group(4)};
 	}
 	
+	private Document createEntry(String name,String vocab) {
+		Document out=DocumentFactory.getInstance().createDocument();
+		Element root=out.addElement("ns2:"+items_section,namespace);
+		Element nametag=root.addElement("displayName");
+		nametag.addText(name);
+		Element vocabtag=root.addElement(in_tag);
+		vocabtag.addText(vocab);
+		return out;
+	}
+	
+	private Document createList(String id) throws ExistException {
+		Document out=DocumentFactory.getInstance().createDocument();
+		Element root=out.addElement("ns2:"+tag,namespace);
+		Element nametag=root.addElement("displayName");
+		nametag.addText(confound(id));
+		Element vocabtag=root.addElement("vocabType");
+		vocabtag.addText("enum");
+		return out;
+	}
+	
 	public String autocreateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -161,11 +186,8 @@ public class GenericVocabStorage implements ContextualisedStorage {
 					throw new UnderlyingStorageException("Missing name argument to data");
 				String name=jsonObject.getString("name");
 				String vocab=getVocabularyId(cache,filePath);
-				XTmplDocument doc=create_entry.makeDocument();
-				doc.setText("name",name);
-				doc.setText("vocab",vocab);
 				Map<String,Document> body=new HashMap<String,Document>();
-				body.put(items_section,doc.getDocument());
+				body.put(items_section,createEntry(name,vocab));
 				ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/"+vocab+"/items",body);
 				if(out.getStatus()>299)
 					throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
@@ -283,11 +305,8 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			if(!jsonObject.has("name"))
 				throw new UnderlyingStorageException("Missing name argument to data");
 			String name=jsonObject.getString("name");
-			XTmplDocument doc=create_entry.makeDocument();
-			doc.setText("name",name);
-			doc.setText("vocab",URNtoVocab(cache,filePath));
 			Map<String,Document> body=new HashMap<String,Document>();
-			body.put(items_section,doc.getDocument());
+			body.put(items_section,createEntry(name,URNtoVocab(cache,filePath)));
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,URNtoURL(cache,filePath),body);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
