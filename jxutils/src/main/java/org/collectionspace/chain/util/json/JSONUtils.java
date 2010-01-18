@@ -1,12 +1,40 @@
 package org.collectionspace.chain.util.json;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JSONUtils {
+	
+
+	@SuppressWarnings("unchecked")
+	private static Set<String> objectKeys(JSONObject a) {
+		Set<String> out=new HashSet<String>();
+		Iterator<String> t=(Iterator<String>)a.keys();
+		while(t.hasNext())
+			out.add(t.next());
+		return out;
+	}
+
+	private static void printMissing(String prefix,Set<String> a,Set<String> b) {
+		Set<String> c=new HashSet<String>(a);
+		c.removeAll(b);
+		for(String s : c) {
+			System.err.println(prefix +": "+s);
+		}
+	}
+	
+	private static void checkKeys(JSONObject a,JSONObject b) throws JSONException {
+		Set<String> ak=objectKeys(a);
+		Set<String> bk=objectKeys(b);
+		printMissing("Missing from b",ak,bk);
+		printMissing("Missing from a",bk,ak);
+	}
+	
 	// XXX refactor
 	@SuppressWarnings("unchecked")
 	public static boolean checkJSONEquiv(Object a,Object b) throws JSONException {
@@ -33,6 +61,7 @@ public class JSONUtils {
 		}
 		if(!(a instanceof JSONObject) || !(b instanceof JSONObject))
 			return false;
+		checkKeys((JSONObject)a,(JSONObject)b);
 		if(((JSONObject)a).length()!=((JSONObject)b).length())
 			return false;
 		Iterator t=((JSONObject)a).keys();

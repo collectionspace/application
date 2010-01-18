@@ -68,7 +68,6 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		return new ServicesStorageGenerator(path).getStorage(new RequestCache());
 	}
 	
-	// XXX use autocreate not create when create dies
 	@Test public void testObjectsPut() throws Exception {
 		deleteAll();
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
@@ -78,7 +77,6 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
 	}
 
-	// XXX use autocreate not create when create dies
 	@Test public void testObjectsPost() throws Exception {
 		deleteAll();
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
@@ -88,7 +86,6 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj4.json")));
 	}
 
-	// XXX use autocreate not create when create dies
 	@Test public void testObjectsDelete() throws Exception {
 		deleteAll();
 		Storage ss=makeServicesStorage(base+"/cspace-services/");

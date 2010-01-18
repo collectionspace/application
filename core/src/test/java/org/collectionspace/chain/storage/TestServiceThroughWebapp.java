@@ -212,10 +212,10 @@ public class TestServiceThroughWebapp {
 		assertEquals(id2.split("/")[2],obj2.getString("csid"));
 		assertEquals("objects",obj1.getString("recordtype"));
 		assertEquals("objects",obj2.getString("recordtype"));
-		assertEquals("TITLE",obj1.getString("summary"));
-		assertEquals("TITLE",obj2.getString("summary"));
-		assertEquals("OBJNUM",obj1.getString("number"));
-		assertEquals("OBJNUM",obj2.getString("number"));
+		assertEquals("title",obj1.getString("summary"));
+		assertEquals("title",obj2.getString("summary"));
+		assertEquals("objectNumber",obj1.getString("number"));
+		assertEquals("objectNumber",obj2.getString("number"));
 	}
 	
 	@Test public void testSearch() throws Exception {
