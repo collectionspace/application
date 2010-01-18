@@ -20,6 +20,8 @@
 			    <mapping json=".acquPriceDesc" key="price-desc" />
 			    <mapping json=".acquPriceDenom" key="price-denom" />
 			    <mapping json=".acquFundingDenom" key="funding-denom" />
+			    <mapping json=".acquAuthorizeDate" key="authorizer-date"/>
+			    <mapping json=".acquPriceType" key="price-type"/>
 			</map>
 			<template>
 			  <ns2:acquisitions_common xmlns:ns2="http://collectionspace.org/services/acquisition">
@@ -40,6 +42,8 @@
 			    <GroupPurchasePrice xtmpl:point="price-desc"/> <!-- XXX misuse -->
 			    <OriginalObjectPurchasePriceDenomination xtmpl:point="price-denom"/> <!-- XXX misuse? -->
 			    <ObjectOfferPrice xtmpl:point="funding-denom"/> <!-- XXX misuse -->
+			    <AcquisitionAuthorizerDate xtmpl:point="authorizer-date"/>
+			    <ObjectPurchaseOfferPrice xtmpl:point="price-type"/> <!-- XXX misuse -->
 			  </ns2:acquisitions_common>
 			</template>
 		</json2xml>
@@ -62,6 +66,8 @@
 			    <mapping xpath="acquisitions_common/GroupPurchasePrice" key="price-desc"/> 
 			    <mapping xpath="acquisitions_common/OriginalObjectPurchasePriceDenomination" key="price-denom"/> 
 			    <mapping xpath="acquisitions_common/ObjectOfferPrice" key="funding-denom"/> 
+				<mapping xpath="acquisitions_common/AcquisitionAuthorizerDate" key="authorizer-date"/>
+				<mapping xpath="acquisitions_common/ObjectPurchaseOfferPrice" key="price-type"/>
 			</map>
 			<template>
 			{
@@ -81,7 +87,9 @@
 			    "acquPrice": "\u0000price",
 			    "acquPriceDesc": "\u0000price-desc",
 			    "acquPriceDenom": "\u0000price-denom",
-			    "acquFundingDenom": "\u0000funding-denom"
+			    "acquFundingDenom": "\u0000funding-denom",
+			    "acquAuthorizeDate": "\u0000authorizer-date",
+			    "acquPriceType": "\u0000price-type"
 			}
 			</template>
 		</xml2json>

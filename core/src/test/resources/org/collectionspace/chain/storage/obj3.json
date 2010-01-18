@@ -82,5 +82,8 @@
                     "descDateLatestSingleCertainty": "dateLatestCertainty",
                     "descDateLatestSingleQualifier": "dateLatestQualifier",
                     "descDatePeriod": "datePeriod",
-                    "descDateText": "dateText"
+                    "descDateText": "dateText",
+                    "objectLevel": "objectLevel",
+                    "descContentScript": "descContentScript",
+                    "descContentMethod": "descContentMethod"
 			  }

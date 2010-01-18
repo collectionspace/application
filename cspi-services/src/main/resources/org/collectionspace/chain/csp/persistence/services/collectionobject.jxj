@@ -88,6 +88,11 @@
                 <mapping json=".descDateLatestSingleQualifier" key="dateLatestQualifier"/>
                 <mapping json=".descDatePeriod" key="datePeriod"/>
                 <mapping json=".descDateText" key="dateText"/>
+                <assembly key="misc">
+				  <mapping json=".objectLevel" assembly-key="level"/>
+				  <mapping json=".descContentScript" assembly-key="content-script" />
+				  <mapping json=".descContentMethod" assembly-key="content-method"/>
+				</assembly>
             </map>
             <template>
 				<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject">
@@ -175,6 +180,7 @@
                     <dateLatestQualifier xtmpl:point="dateLatestQualifier"></dateLatestQualifier>
                     <datePeriod xtmpl:point="datePeriod"></datePeriod>
                     <dateText xtmpl:point="dateText"></dateText>
+                    <dateEarliestSingle xtmpl:point="misc"></dateEarliestSingle>
 				</ns2:collectionobjects_common>
 			</template>
 		</json2xml>
@@ -263,7 +269,12 @@
                 <mapping xpath="collectionobjects_common/dateLatestCertainty" key="dateLatestCertainty"/>
                 <mapping xpath="collectionobjects_common/dateLatestQualifier" key="dateLatestQualifier"/>
                 <mapping xpath="collectionobjects_common/datePeriod" key="datePeriod"/>
-                <mapping xpath="collectionobjects_common/dateText" key="dateText"/>			
+                <mapping xpath="collectionobjects_common/dateText" key="dateText"/>	
+                <assembly xpath="collectionobjects_common/dateEarliestSingle">
+                	<mapping key="object-level" assembly-key="level"/>
+                	<mapping key="content-script" assembly-key="content-script" />
+				    <mapping key="content-method" assembly-key="content-method"/>
+                </assembly>		
 			</map>
 			<template>
 			  {
@@ -350,7 +361,10 @@
                     "descDateLatestSingleCertainty": "\u0000dateLatestCertainty",
                     "descDateLatestSingleQualifier": "\u0000dateLatestQualifier",
                     "descDatePeriod": "\u0000datePeriod",
-                    "descDateText": "\u0000dateText"
+                    "descDateText": "\u0000dateText",
+					"objectLevel": "\u0000object-level",
+					"descContentScript": "\u0000content-script",
+					"descContentMethod": "\u0000content-method"
 			  }
 			</template>
 		</xml2json>
