@@ -41,7 +41,6 @@ import org.json.JSONObject;
 public class GenericVocabStorage implements ContextualisedStorage {
 	private ServicesConnection conn;
 	private Map<String,String> csids=new HashMap<String,String>();
-	private XTmplTmpl create_vocab,create_entry;
 
 	private Map<String,String> vocabs;
 	private Pattern urn_syntax;
@@ -51,8 +50,6 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			String namespace,String prefix,String section,String items_section,String list_item_path,String item_path,
 			String name_path,String tag,String in_tag) throws InvalidXTmplException, DocumentException {
 		this.conn=conn;
-		create_vocab=XTmplTmpl.compile(getDocument("create_list.xtmpl"));
-		create_entry=XTmplTmpl.compile(getDocument("create_entry.xtmpl"));
 		urn_syntax=urn_regexp;
 		this.urn_builder=urn_builder;
 		this.vocabs=new ConcurrentHashMap<String,String>(vocabs);

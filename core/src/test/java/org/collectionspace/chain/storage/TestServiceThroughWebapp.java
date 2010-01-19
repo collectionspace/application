@@ -66,10 +66,6 @@ public class TestServiceThroughWebapp {
 		return tester;
 	}
 	
-	private String getFields(String in) throws JSONException {
-		return getFields(new JSONObject(in)).toString();
-	}
-
 	private JSONObject getFields(JSONObject in) throws JSONException {
 		in=in.getJSONObject("fields");
 		in.remove("csid");
