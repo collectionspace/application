@@ -76,7 +76,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		JSONObject js=ss.retrieveJSON("collection-object/"+path);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
 	}
-
+	
 	@Test public void testObjectsPost() throws Exception {
 		deleteAll();
 		Storage ss=makeServicesStorage(base+"/cspace-services/");

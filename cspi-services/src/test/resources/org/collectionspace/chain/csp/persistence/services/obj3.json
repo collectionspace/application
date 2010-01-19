@@ -85,5 +85,7 @@
                     "descDateText": "dateText",
                     "objectLevel": "objectLevel",
                     "descContentScript": "descContentScript",
-                    "descContentMethod": "descContentMethod"
+                    "descContentMethod": "descContentMethod",
+                    "otherNumber": "otherNumber",
+                    "otherNumberType": "otherNumberType"
 			  }
