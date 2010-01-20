@@ -3,6 +3,7 @@ package org.collectionspace.chain.csp.persistence.services;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.GenericVocabStorage;
+import org.collectionspace.chain.csp.persistence.services.vocab.ServicesOrgStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesPersonStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesVocabStorage;
 import org.collectionspace.csp.api.config.BarbWirer;
@@ -37,7 +38,8 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			addChild("id",new ServicesIDGenerator(conn));
 			addChild("relations",new ServicesRelationStorage(conn));
 			addChild("person",new ServicesPersonStorage(conn));
-			addChild("vocab",new ServicesVocabStorage(conn)); // XXX reintegrate with person
+			//addChild("orgs",new ServicesOrgStorage(conn));
+			addChild("vocab",new ServicesVocabStorage(conn));
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			throw new CSPDependencyException("Could not set target",e); // XXX wrong type

@@ -119,4 +119,52 @@ public class TestVocab extends ServicesBaseClass {
 			assertTrue(false);
 		} catch(ExistException x) {}
 	}
+	
+	/* Commented until wednesday
+	// XXX factor tests
+	@Test public void testOrgs() throws Exception {
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		// Create
+		JSONObject data=new JSONObject();
+		data.put("name","TEST");
+		String id=ss.autocreateJSON("/orgs/orgs",data);
+		Matcher m=person_urn.matcher(id);
+		assertTrue(m.matches());
+		assertEquals("TEST",m.group(3));
+		// Read
+		JSONObject out=ss.retrieveJSON("/orgs/orgs/"+id);
+		assertEquals("TEST",out.getString("name"));
+		// Update
+		data.remove("name");
+		data.put("name","TEST2");
+		ss.updateJSON("/orgs/orgs/"+id,data);
+		out=ss.retrieveJSON("/orgs/orgs/"+id);
+		assertEquals("TEST2",out.getString("name"));
+		String id3=out.getString("csid");
+		// List
+		data.remove("name");
+		data.put("name","TEST3");
+		String id2=ss.autocreateJSON("/orgs/orgs",data);
+		out=ss.retrieveJSON("/orgs/orgs/"+id2);
+		assertEquals("TEST3",out.getString("name"));		
+		boolean found1=false,found2=false;
+		for(String u : ss.getPaths("/orgs/orgs",null)) {
+			System.err.println(u);
+			if(id3.equals(u))
+				found1=true;
+			if(id2.equals(u))
+				found2=true;
+		}
+		System.err.println("id2="+id2+" f="+found2);
+		System.err.println("id3="+id3+" f="+found1);
+		assertTrue(found1);
+		assertTrue(found2);
+		// Delete
+		ss.deleteJSON("/orgs/orgs/"+id);
+		try {
+			out=ss.retrieveJSON("/orgs/orgs/"+id);		
+			assertTrue(false);
+		} catch(ExistException x) {}
+	}
+	*/
 }
