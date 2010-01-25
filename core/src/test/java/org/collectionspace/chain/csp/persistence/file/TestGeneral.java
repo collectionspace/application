@@ -121,13 +121,13 @@ public class TestGeneral {
 	}
 
 	private File tmpSchemaFile(String type,boolean sj) {
-		File sroot=new File(store.getStoreRoot()+"/schemas");
+		File sroot=new File(store.getStoreRoot()+"/uispecs");
 		if(!sroot.exists())
 			sroot.mkdir();
-		File schema=new File(store.getStoreRoot()+"/schemas/"+type);
+		File schema=new File(store.getStoreRoot()+"/uispecs/"+type);
 		if(!schema.exists())
 			schema.mkdir();
-		return new File(schema,sj?"schema.json":"test-json-handle.tmp");
+		return new File(schema,sj?"uispec.json":"test-json-handle.tmp");
 	}
 
 	private void createSchemaFile(String type,boolean sj,boolean alt) throws IOException {

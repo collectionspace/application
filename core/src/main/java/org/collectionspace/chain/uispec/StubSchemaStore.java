@@ -20,7 +20,7 @@ public class StubSchemaStore implements SchemaStore {
 	private File schema_root;
 	
 	public StubSchemaStore(String root) {
-		schema_root=new File(root,"schemas");
+		schema_root=new File(root,"uispecs");
 		if(!schema_root.exists())
 			schema_root.mkdir();
 	}
@@ -31,7 +31,7 @@ public class StubSchemaStore implements SchemaStore {
 	public JSONObject getSchema(String path) throws IOException, JSONException {
 		File schema=new File(schema_root,path);
 		if(schema.exists() && schema.isDirectory()) {
-			schema=new File(schema,"schema.json");
+			schema=new File(schema,"uispec.json");
 		}
 		if(!schema.exists()) {
 			schema=new File(schema_root,path+".json");
