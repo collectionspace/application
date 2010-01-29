@@ -6,21 +6,18 @@
  */
 package org.collectionspace.chain.csp.persistence.services.connection;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.activation.DataSource;
 import javax.mail.BodyPart;
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMultipart;
 
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.io.input.TeeInputStream;
-import org.collectionspace.chain.csp.persistence.services.UTF8StringDataSource;
+import org.collectionspace.chain.csp.persistence.services.StreamDataSource;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
 /** Utility class returns documents and statuses */
@@ -40,8 +37,7 @@ public class ReturnedMultipartDocument implements Returned {
 		this.status=status;
 		if(status<300) {
 			InputStream stream=method.getResponseBodyAsStream();
-			// XXX Could be a Stream if we'd written the data source
-			DataSource ds=new UTF8StringDataSource(method.getResponseBodyAsString(),"multipart/mixed");
+			DataSource ds=new StreamDataSource(stream,"multipart/mixed");
 			MimeMultipart mmp=new MimeMultipart(ds);
 			for(int i=0;i<mmp.getCount();i++) {
 				BodyPart part=mmp.getBodyPart(i);
@@ -52,7 +48,7 @@ public class ReturnedMultipartDocument implements Returned {
 				Document doc=null;
 				String[] content_type=part.getHeader("Content-Type");
 				if(content_type!=null && content_type.length>0 && "application/xml".equals(content_type[0])) {
-					doc=reader.read(new TeeInputStream(main,System.err));
+					doc=reader.read(new TeeInputStream(main,System.err),"UTF-8");
 					System.err.println("RECEIVING "+label+" "+doc.asXML());
 				}
 				System.err.println("ok");

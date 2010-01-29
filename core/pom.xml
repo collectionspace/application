@@ -173,13 +173,13 @@
            <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty</artifactId>
-            <version>6.1.11</version>
+            <version>6.1.22</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
             <artifactId>jetty-servlet-tester</artifactId>
-            <version>6.1.11</version>
+            <version>6.1.22</version>
             <scope>test</scope>
         </dependency>
         

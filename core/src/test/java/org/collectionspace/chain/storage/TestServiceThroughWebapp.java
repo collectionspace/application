@@ -4,23 +4,15 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
-import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
-import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
-import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
-import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
-import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
-import org.dom4j.Node;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
-import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 
 public class TestServiceThroughWebapp {
@@ -33,21 +25,14 @@ public class TestServiceThroughWebapp {
 	// XXX refactor
 	private String getResourceString(String name) throws IOException {
 		InputStream in=getResource(name);
-		return IOUtils.toString(in);
+		return IOUtils.toString(in,"UTF-8");
 	}
 	
 	// XXX refactor
-	private HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
-		HttpTester request = new HttpTester();
-		HttpTester response = new HttpTester();
-		request.setMethod(method);
-		request.setHeader("Host","tester");
-		request.setURI(path);
-		request.setVersion("HTTP/1.0");		
-		if(data!=null)
-			request.setContent(data);
-		response.parse(tester.getResponses(request.generate()));
-		return response;
+	private UTF8SafeHttpTester jettyDo(ServletTester tester,String method,String path,String data_str) throws IOException, Exception {
+		UTF8SafeHttpTester out=new UTF8SafeHttpTester();
+		out.request(tester,method,path,data_str);
+		return out;
 	}
 	
 	// XXX refactor into other copy of this method
@@ -84,9 +69,8 @@ public class TestServiceThroughWebapp {
 	
 	@Test public void testCollectionObjectBasic() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
+		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
 		String id=out.getHeader("Location");
-		assertEquals(out.getMethod(),null);
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		JSONObject content=new JSONObject(out.getContent());
@@ -105,8 +89,7 @@ public class TestServiceThroughWebapp {
 
 	@Test public void testIntake() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(getResourceString("int3.json")));	
-		assertEquals(out.getMethod(),null);
+		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(getResourceString("int3.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
 		out=jettyDo(jetty,"GET","/chain"+path,null);
@@ -127,8 +110,7 @@ public class TestServiceThroughWebapp {
 
 	@Test public void testAcquisition() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/acquisition/",makeSimpleRequest(getResourceString("int5.json")));	
-		assertEquals(out.getMethod(),null);
+		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/acquisition/",makeSimpleRequest(getResourceString("int5.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
 		out=jettyDo(jetty,"GET","/chain"+path,null);
@@ -149,7 +131,7 @@ public class TestServiceThroughWebapp {
 	
 	@Test public void testIDGenerate() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/id/intake",null);
+		UTF8SafeHttpTester out=jettyDo(jetty,"GET","/chain/id/intake",null);
 		JSONObject jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("IN2010."));
 		out=jettyDo(jetty,"GET","/chain/id/objects",null);
@@ -159,7 +141,7 @@ public class TestServiceThroughWebapp {
 
 	@Test public void testAutoGet() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
+		UTF8SafeHttpTester out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
 		assertEquals(200,out.getStatus());
 		// XXX this is correct currently, whilst __auto is stubbed.
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(),new JSONObject(out.getContent())));
@@ -168,7 +150,7 @@ public class TestServiceThroughWebapp {
 	@Test public void testList() throws Exception {
 		ServletTester jetty=setupJetty();
 		// delete all
-		HttpTester out=jettyDo(jetty,"GET","/chain/objects",null);
+		UTF8SafeHttpTester out=jettyDo(jetty,"GET","/chain/objects",null);
 		assertEquals(200,out.getStatus());
 		JSONObject in=new JSONObject(out.getContent());
 		JSONArray items=in.getJSONArray("items");
@@ -217,7 +199,7 @@ public class TestServiceThroughWebapp {
 	@Test public void testSearch() throws Exception {
 		ServletTester jetty=setupJetty();
 		// one aardvark, one non-aardvark
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3-search.json")));	
+		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3-search.json")));	
 		String good=out.getHeader("Location").split("/")[2];
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
