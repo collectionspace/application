@@ -37,8 +37,6 @@ import org.mortbay.jetty.HttpVersions;
 import org.mortbay.jetty.testing.ServletTester;
 import org.mortbay.util.ByteArrayOutputStream2;
 
-import com.sun.tools.javac.code.Attribute.Array;
-
 
 public class UTF8SafeHttpTester {
     private String version,reason;
