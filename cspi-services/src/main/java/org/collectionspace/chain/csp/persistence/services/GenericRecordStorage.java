@@ -170,6 +170,13 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 						String json_name=view_map.get(field.getName());
 						if(json_name!=null) {
 							String value=field.getText();
+							// XXX hack to cope with multi values		
+							if(value==null || "".equals(value)) {
+								List<Node> inners=field.selectNodes("*");
+								for(Node n : inners) {
+									value+=n.getText();
+								}
+							}
 							setGleanedValue(cache,prefix+"/"+csid,json_name,value);
 						}
 					}

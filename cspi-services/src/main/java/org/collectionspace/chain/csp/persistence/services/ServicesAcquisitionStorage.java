@@ -14,7 +14,7 @@ public class ServicesAcquisitionStorage extends GenericRecordStorage implements 
 		super(conn,"acquisition.jxj","acquisition","acquisitions",
 			  "acquisitions_common","acquisitions-common-list/acquisition-list-item",
 			  new String[]{"acquReferenceNum","acquSource"},
-			  new String[]{"AcquisitionReferenceNumber","AcquisitionSource"},
+			  new String[]{"acquisitionReferenceNumber","acquisitionSources"},
 			  new String[]{"number","summary"},
 			  new boolean[]{false,true});
 	}

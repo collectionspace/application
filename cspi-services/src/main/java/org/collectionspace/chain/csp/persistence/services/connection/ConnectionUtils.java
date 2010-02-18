@@ -18,7 +18,9 @@ public class ConnectionUtils {
 		ByteArrayOutputStream out=new ByteArrayOutputStream();
 		OutputFormat outformat = OutputFormat.createPrettyPrint();
 		outformat.setEncoding("UTF-8");
-		outformat.setExpandEmptyElements(true); 
+		outformat.setExpandEmptyElements(true);
+		outformat.setNewlines(false);
+		outformat.setIndent(false);
 		XMLWriter writer = new XMLWriter(out, outformat);
 		writer.write(doc);
 		writer.flush();

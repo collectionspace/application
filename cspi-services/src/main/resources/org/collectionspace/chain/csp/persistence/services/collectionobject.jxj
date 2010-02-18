@@ -16,7 +16,7 @@
                 <mapping json=".objectSystem" key="objectNameSystem"/>
                 <mapping json=".objectType" key="objectNameType"/>
                 <mapping json=".objectLanguage" key="objectNameLanguage"/>
-                <mapping json=".responsibleDepartment" key="responsibleDept"/>
+       			<mapping json=".responsibleDepartment" key="responsibleDept"/>
                 <mapping json=".objectTitle" key="title"/>
                 <mapping json=".objectTitleLanguage" key="objectTitleLanguage"/>
                 <mapping json=".objectTitleTranslation" key="titleTranslation"/>
@@ -99,18 +99,20 @@
             <template>
 				<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject">
 				    <objectNumber xtmpl:point="objectNumber"></objectNumber>
+				    <otherNumber>XXX</otherNumber>
 				    <otherNumberType xtmpl:point="otherNumberType"/>
                     <briefDescription xtmpl:point="briefDescription"></briefDescription>
                     <comments xtmpl:point="comments"></comments>
-                    <distFeatures xtmpl:point="distFeatures"></distFeatures>
+                    <distinguishingFeatures xtmpl:point="distFeatures"></distinguishingFeatures>
                     <numberOfObjects xtmpl:point="numberOfObjects"></numberOfObjects>
                     <objectName xtmpl:point="objectName"></objectName>
                     <objectNameCurrency xtmpl:point="objectNameCurrency"></objectNameCurrency>
+                    <objectNameLevel>XXX</objectNameLevel>
                     <objectNameNote xtmpl:point="objectNameNote"></objectNameNote>
                     <objectNameSystem xtmpl:point="objectNameSystem"></objectNameSystem>
                     <objectNameType xtmpl:point="objectNameType"></objectNameType>
                     <objectNameLanguage xtmpl:point="objectNameLanguage"></objectNameLanguage>
-                    <responsibleDept xtmpl:point="responsibleDept"></responsibleDept>
+                    <responsibleDepartments><responsibleDepartment xtmpl:point="responsibleDept"/></responsibleDepartments>
                     <title xtmpl:point="title"></title>
                     <objectTitleLanguage xtmpl:point="objectTitleLanguage"></objectTitleLanguage>
                     <titleTranslation xtmpl:point="titleTranslation"></titleTranslation>
@@ -121,6 +123,7 @@
                     <color xtmpl:point="color"></color>
                     <contentActivity xtmpl:point="contentActivity"></contentActivity>
                     <contentConcept xtmpl:point="contentConcept"></contentConcept>
+                    <contentDate>XXX</contentDate>
                     <contentDescription xtmpl:point="contentDescription"></contentDescription>
                     <contentEventName xtmpl:point="contentEventName"></contentEventName>
                     <contentEventNameType xtmpl:point="contentEventNameType"></contentEventNameType>
@@ -135,11 +138,13 @@
                     <contentPerson xtmpl:point="contentPerson"></contentPerson>
                     <contentPlace xtmpl:point="contentPlace"></contentPlace>
                     <contentPosition xtmpl:point="contentPosition"></contentPosition>
+                    <contentScript>XXX</contentScript>
                     <copyNumber xtmpl:point="copyNumber"></copyNumber>
                     <dimension xtmpl:point="dimension"></dimension>
                     <dimensionMeasuredPart xtmpl:point="dimensionMeasuredPart"></dimensionMeasuredPart>
                     <dimensionMeasurementUnit xtmpl:point="dimensionMeasurementUnit"></dimensionMeasurementUnit>
                     <dimensionValue xtmpl:point="dimensionValue"></dimensionValue>
+					<dimensionValueDate>XXX</dimensionValueDate>
                     <dimensionValueQualifier xtmpl:point="dimensionValueQualifier"></dimensionValueQualifier>
                     <editionNumber xtmpl:point="editionNumber"></editionNumber>
                     <form xtmpl:point="form"></form>
@@ -177,13 +182,14 @@
                     <objectComponentName xtmpl:point="objectComponentName"></objectComponentName>
                     <objectComponentInformation xtmpl:point="objectComponentInformation"></objectComponentInformation>
                     <dateAssociation xtmpl:point="dateAssociation"></dateAssociation>
+                    <dateEarliestSingle xtmpl:point="misc"></dateEarliestSingle> <!-- XXX -->
                     <dateEarliestSingleCertainty xtmpl:point="dateEarliestSingleCertainty"></dateEarliestSingleCertainty>
-                    <dateEarlierstSingleQualifier xtmpl:point="dateEarlierstSingleQualifier"></dateEarlierstSingleQualifier>
+                    <dateEarliestSingleQualifier xtmpl:point="dateEarlierstSingleQualifier"></dateEarliestSingleQualifier>
+                    <dateLatest>XXX</dateLatest>
                     <dateLatestCertainty xtmpl:point="dateLatestCertainty"></dateLatestCertainty>
                     <dateLatestQualifier xtmpl:point="dateLatestQualifier"></dateLatestQualifier>
                     <datePeriod xtmpl:point="datePeriod"></datePeriod>
                     <dateText xtmpl:point="dateText"></dateText>
-                    <dateEarliestSingle xtmpl:point="misc"></dateEarliestSingle>
 				</ns2:collectionobjects_common>
 			</template>
 		</json2xml>
@@ -193,7 +199,7 @@
                 <mapping xpath="collectionobjects_common/otherNumberType" key="otherNumberType"/>
                 <mapping xpath="collectionobjects_common/briefDescription" key="briefDescription"/>
                 <mapping xpath="collectionobjects_common/comments" key="comments"/>
-                <mapping xpath="collectionobjects_common/distFeatures" key="distFeatures"/>
+                <mapping xpath="collectionobjects_common/distinguishingFeatures" key="distFeatures"/>
                 <mapping xpath="collectionobjects_common/numberOfObjects" key="numberOfObjects"/>
                 <mapping xpath="collectionobjects_common/objectName" key="objectName"/>
                 <mapping xpath="collectionobjects_common/objectNameCurrency" key="objectNameCurrency"/>
@@ -201,7 +207,7 @@
                 <mapping xpath="collectionobjects_common/objectNameSystem" key="objectNameSystem"/>
                 <mapping xpath="collectionobjects_common/objectNameType" key="objectNameType"/>
                 <mapping xpath="collectionobjects_common/objectNameLanguage" key="objectNameLanguage"/>
-                <mapping xpath="collectionobjects_common/responsibleDept" key="responsibleDept"/>
+                <mapping xpath="collectionobjects_common/responsibleDepartments/responsibleDepartment" key="responsibleDept"/>
                 <mapping xpath="collectionobjects_common/title" key="title"/>
                 <mapping xpath="collectionobjects_common/objectTitleLanguage" key="objectTitleLanguage"/>
                 <mapping xpath="collectionobjects_common/titleTranslation" key="titleTranslation"/>
@@ -269,7 +275,7 @@
                 <mapping xpath="collectionobjects_common/objectComponentInformation" key="objectComponentInformation"/>
                 <mapping xpath="collectionobjects_common/dateAssociation" key="dateAssociation"/>
                 <mapping xpath="collectionobjects_common/dateEarliestSingleCertainty" key="dateEarliestSingleCertainty"/>
-                <mapping xpath="collectionobjects_common/dateEarlierstSingleQualifier" key="dateEarlierstSingleQualifier"/>
+                <mapping xpath="collectionobjects_common/dateEarliestSingleQualifier" key="dateEarlierstSingleQualifier"/>
                 <mapping xpath="collectionobjects_common/dateLatestCertainty" key="dateLatestCertainty"/>
                 <mapping xpath="collectionobjects_common/dateLatestQualifier" key="dateLatestQualifier"/>
                 <mapping xpath="collectionobjects_common/datePeriod" key="datePeriod"/>
