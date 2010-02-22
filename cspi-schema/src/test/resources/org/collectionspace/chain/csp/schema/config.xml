@@ -13,6 +13,9 @@
   </ui>
   <records>
     <record id="collection-object">
+	  <field>
+	  </field>
+	  <type>x</type>
     </record>
     <record id="intake">
     </record>

@@ -20,6 +20,7 @@ public class CoreConfig implements CSP, ConfigConsumer {
 		ctx.getRootBarbWirer().getBarb("root").attach(main,"collection-space");
 		main.addAttachmentPoint("persistence",new String[]{"persistence"});	
 		main.addAttachmentPoint("ui",new String[]{"ui"});
+		main.addAttachmentPoint("misc",new String[0]);
 	}
 	
 	public String getName() { return "config.core"; }

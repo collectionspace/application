@@ -1,0 +1,49 @@
+CSP Configuration System
+========================
+
+The CSP Configuration reading system is designed to allow various plugins to "hook into" the XML at the appropriate points, without necessarily having knowledge of each other's existence. It is based around three trees.
+
+1. The original XML parse tree.
+2. The section tree.
+3. The target tree.
+
+1. The original XML parse tree.
+
+The original XML tree is a simplified DOM tree. Attributes are replaced by tags beginning @ (which is illegal literally), and CDATA sections, etc, are collapsed. Therefore, there's only start and end tag and text. For exmaple,
+
+<a href="#">hi</a>
+
+would be represented as if
+
+<a><@href>#</@href>hi</a>
+
+2. The section tree.
+
+The most important tree to understand is the section tree. The second tree divides the XML up into sections. We draw up the simplifying assumption that data may be divided into data "within" some section and other child sections, and therefore group data together into composite scetion objects. For example
+
+<record>
+  <@id>intake</@id>
+  <name>Intake Record</name>
+  <field>
+    <@id>first-field</@id>
+    ...
+  ...
+...
+
+Here, we have one section which is the record object with @id and name members, and then separate sections for fields with @id members, etc. The field section is a subsection of the record section.
+
+IMPORTANTLY, sections are how extensibility is defined. Any plugin can define itself as a subsection of a section at some tag path and then whenever that section occurs in the tree, the plugin subsection may also occur.
+
+For example, say we have a plugin which extends fields to include a new tag, "language". It declares the tag to be a subsection of the section fields. Whenever fields occur, that tag may be its child, however that section is moved around. The parent section (in this case field) NEVER SEES the language tag itself, so doesn't pollute its section space, it just eventually sees that it has a new subsection. The parent section is parsed fully prior to creating the subsection, so that all data of the parent section is available to the child, no matter the order it was declared in.
+
+Sections are attached by means of rules. A rule specifies a parent section, tags which occur relative to the parent's root, and the name of the new section (so that it may, in turn, be extended). It also provides an opportunity for the new section to have some control over how its data is recorded in its section, including the chance to use data from parent sections to influence that choice. (eg a tag in one kind of parent section may act differently to one in another).
+
+3. The target tree
+
+The target tree is the ultimate data structure being created by the configuration. It will approximately map to the section tree, but its objects will be more widely typed. For each section, a rule allows it to be bound to a factory object (called target) containing a method called upon a final traversal of the section tree, which will include the current section and the parent target object. This method may create a new object, and probably wire itself into the parent object.
+
+4. Simplifying assumptions
+
+Often what is required of the section tree is simple: for each xml path in the section, the key is that path and value the text contents of that path. If this is the case, the SectionGenerator step can be skipped.
+
+Sometimes a section exists for internal reasons only. In this case, no target class need be defined.

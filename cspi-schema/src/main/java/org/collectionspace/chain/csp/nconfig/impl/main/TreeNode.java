@@ -1,0 +1,118 @@
+package org.collectionspace.chain.csp.nconfig.impl.main;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.nconfig.Section;
+import org.collectionspace.chain.csp.nconfig.Rules;
+import org.collectionspace.chain.csp.nconfig.SectionGenerator;
+import org.collectionspace.chain.csp.nconfig.Target;
+
+public class TreeNode {
+	private TreeNode parent;
+	private List<TreeNode> children=new ArrayList<TreeNode>();
+	private String text=null;
+	private boolean is_text=false,is_claimed;
+	private SectionGenerator claim_step;
+	private String claim_name;
+	private Target claim_target;
+	
+	private TreeNode() {}
+	
+	public static TreeNode create_tag(String name) {
+		TreeNode out=new TreeNode();
+		out.is_text=false;
+		out.text=name;
+		return out;
+	}
+	
+	public static TreeNode create_text(String text) {
+		TreeNode out=new TreeNode();
+		out.is_text=true;
+		out.text=text;
+		return out;
+	}
+	
+	public void addChild(TreeNode child) {
+		child.parent=this;
+		children.add(child);
+	}
+	
+	public String getName() { return text; }
+	public TreeNode getParent() { return parent; }
+
+	private void match_all_children(Rules rules,String name,List<String> path) {
+		for(TreeNode child : children) {
+			path.add(child.getName());
+			child.match(rules,name,path);
+			path.remove(path.size()-1);
+		}
+	}
+	
+	public void claim(Rules rules,String name,SectionGenerator step,Target target) {
+		System.err.println("Node "+text+" claimed by "+name);
+		this.claim_step=step;
+		this.claim_name=name;
+		this.claim_target=target;
+		is_claimed=true;
+		match_all_children(rules,name,new ArrayList<String>());
+	}
+	
+	public void match(Rules rules,String name,List<String> part) {
+		Rule r=rules.matchRules(name,part);
+		if(r==null) {
+			System.err.println("Node "+text+" is subsidiary claim of "+name+" with suffix "+StringUtils.join(part,"/"));
+			is_claimed=false;
+			match_all_children(rules,name,part);
+		} else {
+			claim(rules,r.destName(),r.getStep(),r.getTarget());
+		}	
+	}
+	
+	public void run_unclaimed(Map<String,String> data,String path) {
+		if(is_text)
+			data.put(path,text);
+		else {
+			path+="/"+text;
+			for(TreeNode child : children) {
+				if(!child.is_claimed)
+					child.run_unclaimed(data,path);
+			}
+		}
+	}
+	
+	public void run_all(Section m) {
+		/* First we run our unclaimeds, to get a good Milestone */
+		if(!is_text) {
+			System.err.println("Running claimed on milestone "+m.getName());
+			for(TreeNode child : children) {
+				if(child.is_claimed) {
+					System.err.println("Running unclaimed on milestone "+m.getName());		
+					Map<String,String> data=new HashMap<String,String>();
+					child.run_unclaimed(data,"");
+					Section nxt=new Section(m,child.claim_name,child.claim_target);
+					if(child.claim_step!=null)
+						child.claim_step.step(nxt,data);
+					child.run_all(nxt);
+					m.addChild(nxt);
+				} else {
+					child.run_all(m);
+				}
+			}			
+		}
+	}
+		
+	public void dump() {
+		if(is_text)
+			System.err.println("\""+text+"\"");
+		else {
+			System.err.println("<"+text+">");
+			for(TreeNode child : children)
+				child.dump();
+			System.err.println("</"+text+">");
+		}
+	}
+}

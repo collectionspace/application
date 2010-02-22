@@ -52,7 +52,6 @@ public class MainConfigFactoryImpl implements ConfigFactory, EventConsumer, Conf
 	
 	// XXX shouldn't throw CSPDependencyException
 	public MainConfigFactoryImpl(CSPManagerImpl context) throws BootstrapConfigLoadFailedException, CSPDependencyException {
-		this.bootstrap=bootstrap;
 		factory = SAXParserFactory.newInstance();
 		System.err.println(factory.getClass());
 		factory.setNamespaceAware(true);
