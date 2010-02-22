@@ -1,0 +1,7 @@
+<collection-space>
+  <persistence>
+    <file>
+      <store>/tmp</store>
+    </file>
+  </persistence>
+</collection-space>

@@ -40,6 +40,8 @@ public class AttributeConfigLoadMethod implements ConfigLoadMethod {
 	}
 	
 	public String getString(Element e) {
+		if(ctx==null)
+			return null;
 		String out=(String)ctx.getAttribute(e.getTextTrim());
 		String mkdir=e.attributeValue("mkdir");
 		if(out!=null && !StringUtils.isBlank(mkdir))

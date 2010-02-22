@@ -6,8 +6,10 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,7 +47,13 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	private Map<String,String> vocabs;
 	private Pattern urn_syntax;
 	private String prefix,section,list_item_path,items_section,item_path,name_path,urn_builder,namespace,tag,in_tag;
-	
+
+	private static Set<String> dnc_required=new HashSet<String>(); // XXX via config
+
+	static {
+		dnc_required.add("persons_common");
+	}
+
 	public GenericVocabStorage(ServicesConnection conn,String urn_builder,Pattern urn_regexp,Map<String,String> vocabs,
 			String namespace,String prefix,String section,String items_section,String list_item_path,String item_path,
 			String name_path,String tag,String in_tag) throws InvalidXTmplException, DocumentException {
@@ -76,13 +84,13 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		// TODO errorhandling
 		return reader.read(getResource(name));
 	}
-	
+
 	private String confound(String name) throws ExistException {
 		if(!vocabs.containsKey(name))
 			throw new ExistException("No such vocab "+name);
 		return vocabs.get(name)+" ("+name+")";
 	}
-	
+
 	private String unconfound(String name) {
 		if(name==null)
 			return null;
@@ -94,7 +102,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		String rest=name.substring(pos+1);
 		return rest.substring(0,rest.length()-1);
 	}
-		
+
 	// Only called if doesn't exist
 	private synchronized void createVocabulary(CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
 		Map<String,Document> body=new HashMap<String,Document>();
@@ -122,7 +130,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			csids.put(base,object.selectSingleNode("csid").getText());
 		}
 	}
-	
+
 	private String getVocabularyId(CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
 		if(csids.containsKey(id))
 			return csids.get(id);
@@ -136,7 +144,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Bad vocabulary "+id);
 		}
 	}
-	
+
 	private String constructURN(CSPRequestCache cache,String vocab_id,String entry_id,String display) throws UnderlyingStorageException, ConnectionException, ExistException {
 		try {
 			String out=urn_builder;
@@ -148,14 +156,14 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			throw new UnderlyingStorageException("UTF-8 not supported!?");
 		}
 	}
-	
+
 	private String[] deconstructURN(CSPRequestCache cache,String urn) throws ExistException {
 		Matcher m=urn_syntax.matcher(urn);
 		if(!m.matches())
 			throw new ExistException("Bad URN, does not exist");
 		return new String[]{m.group(1),m.group(2),m.group(3),m.group(4)};
 	}
-	
+
 	private Document createEntry(String name,String vocab) {
 		Document out=DocumentFactory.getInstance().createDocument();
 		Element root=out.addElement("ns2:"+items_section,namespace);
@@ -163,9 +171,14 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		nametag.addText(name);
 		Element vocabtag=root.addElement(in_tag);
 		vocabtag.addText(vocab);
+		if(dnc_required.contains(items_section)) {
+			Element dnc=root.addElement("displayNameComputed");
+			dnc.addText("false");
+		}
+		System.err.println("createEntry() ::: "+out.asXML());
 		return out;
 	}
-	
+
 	private Document createList(String id) throws ExistException {
 		Document out=DocumentFactory.getInstance().createDocument();
 		Element root=out.addElement("ns2:"+tag,namespace);
@@ -175,22 +188,22 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		vocabtag.addText("enum");
 		return out;
 	}
-	
+
 	public String autocreateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
-		throws ExistException, UnimplementedException, UnderlyingStorageException {
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-				if(!jsonObject.has("name"))
-					throw new UnderlyingStorageException("Missing name argument to data");
-				String name=jsonObject.getString("name");
-				String vocab=getVocabularyId(cache,filePath);
-				Map<String,Document> body=new HashMap<String,Document>();
-				body.put(items_section,createEntry(name,vocab));
-				ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/"+vocab+"/items",body);
-				if(out.getStatus()>299)
-					throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
-				String urn=constructURN(cache,vocab,out.getURLTail(),name);
-				cache.setCached(getClass(),new String[]{"namefor",out.getURLTail()},name);
-				return urn;
+			if(!jsonObject.has("name"))
+				throw new UnderlyingStorageException("Missing name argument to data");
+			String name=jsonObject.getString("name");
+			String vocab=getVocabularyId(cache,filePath);
+			Map<String,Document> body=new HashMap<String,Document>();
+			body.put(items_section,createEntry(name,vocab));
+			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/"+vocab+"/items",body);
+			if(out.getStatus()>299)
+				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
+			String urn=constructURN(cache,vocab,out.getURLTail(),name);
+			cache.setCached(getClass(),new String[]{"namefor",out.getURLTail()},name);
+			return urn;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
 		} catch (JSONException e) {
@@ -199,12 +212,12 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	}
 
 	public void createJSON(CSPRequestCache cache, String filePath,JSONObject jsonObject)
-		throws ExistException, UnimplementedException, UnderlyingStorageException {
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Cannot create at named path");
 	}
 
 	public void deleteJSON(CSPRequestCache cache, String filePath)
-		throws ExistException, UnimplementedException, UnderlyingStorageException {
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
 			int status=conn.getNone(RequestMethod.DELETE,URNtoURL(cache,filePath),null);
 			if(status>299)
@@ -217,7 +230,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restrictions)
-		throws ExistException, UnimplementedException, UnderlyingStorageException {
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			List<String> out=new ArrayList<String>();
 			String vocab=getVocabularyId(cache,rootPath);
@@ -266,14 +279,14 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			throw new ExistException("Not in this vocabulary");
 		return constructURN(cache,vocab,parts[2],name);
 	}
-	
+
 	private String URNtoVocab(CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
 		String[] parts=deconstructURN(cache,path);
 		return getVocabularyId(cache,parts[0]);
 	}
-		
+
 	public JSONObject retrieveJSON(CSPRequestCache cache, String filePath)
-		throws ExistException, UnimplementedException, UnderlyingStorageException {
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
 			String name=(String)cache.getCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]});
 			if(name==null) {			
@@ -297,7 +310,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	}
 
 	public void updateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
-		throws ExistException, UnimplementedException, UnderlyingStorageException {
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			if(!jsonObject.has("name"))
 				throw new UnderlyingStorageException("Missing name argument to data");

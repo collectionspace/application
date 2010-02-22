@@ -72,7 +72,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		if(store!=null && (store instanceof String)) {
 			real_init((String)store);
 		} else {
-			store=config.getValue(new Object[]{"persistence","services","url"});
+			store=config.getValue(new Object[]{"persistence","service","url"});
 			if(store==null || !(store instanceof String))
 				return;
 			real_init((String)store);

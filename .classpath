@@ -16,6 +16,11 @@
 	<classpathentry kind="src" path="jxutils/src/main/java"/>
 	<classpathentry kind="src" path="jxutils/src/test/resources"/>
 	<classpathentry kind="src" path="jxutils/src/test/java"/>
+	<classpathentry kind="src" path="cspi-webui/src/test/java"/>
+	<classpathentry kind="src" path="cspi-webui/src/main/java"/>
+	<classpathentry kind="src" path="cspi-webui/src/test/resources"/>
+	<classpathentry kind="src" path="cspi-webui/src/main/resources"/>
+	<classpathentry kind="src" path="general-utils/src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="M2_REPO/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-io/commons-io/1.4/commons-io-1.4.jar"/>

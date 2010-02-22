@@ -66,8 +66,18 @@
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
-
-
+    <dependency>
+      <groupId>org.collectionspace</groupId>
+      <artifactId>cspi-webui</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>  
+    <dependency>
+      <groupId>org.collectionspace</groupId>
+      <artifactId>general-utils</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>  
 
     <dependency>
       <groupId>org.collectionspace</groupId>

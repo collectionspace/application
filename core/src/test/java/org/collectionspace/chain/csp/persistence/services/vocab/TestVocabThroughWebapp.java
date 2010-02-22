@@ -60,19 +60,19 @@ public class TestVocabThroughWebapp {
 	}
 	
 	// XXX test autocomplete
-	// XXX relies on pouplated DB
 	@Test public void testVocabThroughWebapp() throws Exception {
 		ServletTester jetty=setupJetty();
 		// First create an entry
 		HttpTester out;
 		
 		// Check it's there
-		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Reginald+Gardiner&limit=150",null);
+		jettyDo(jetty,"GET","/chain/quick-reset",null);
+		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Achmed+Abdullah&limit=150",null);
 		assertTrue(out.getStatus()<299);
 		String[] data=out.getContent().split("\n");
 		for(int i=0;i<data.length;i++) {
 			JSONObject entry=new JSONObject(data[i]);
-			assertTrue(entry.getString("label").toLowerCase().contains("reginald gardiner"));
+			assertTrue(entry.getString("label").toLowerCase().contains("achmed abdullah"));
 			assertTrue(entry.has("urn"));
 		}
 	}

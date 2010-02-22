@@ -3,8 +3,11 @@ package org.collectionspace.chain.config.main.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
+import org.collectionspace.csp.api.config.ConfigException;
 import org.collectionspace.csp.api.config.ConfigNode;
 import org.collectionspace.csp.api.config.Evaluator;
+import org.collectionspace.csp.api.core.CSPDependencyException;
 
 public class ConfigNodeImpl implements ConfigNode {
 	private Map<Object,ConfigNodeImpl> subnodes=new HashMap<Object,ConfigNodeImpl>();
@@ -31,8 +34,12 @@ public class ConfigNodeImpl implements ConfigNode {
 	private Object getValue(Object[] path,int start) {
 		if(path.length<=start)
 			return default_value.getValue();
-		if(path.length==start+1)
-			return values.get(path[start]).getValue();
+		if(path.length==start+1) {
+			Evaluator out=values.get(path[start]);
+			if(out==null)
+				return null;
+			return out.getValue();
+		}
 		ConfigNodeImpl next=subnodes.get(path[start]);
 		if(next==null)
 			return null;
@@ -42,7 +49,18 @@ public class ConfigNodeImpl implements ConfigNode {
 	public Object getValue(Object[] path) {
 		return getValue(path,0);
 	}
-
+	
+	public String getString(Object[] path) throws ConfigException {
+		Object value=getValue(path);
+		if(value==null || !(value instanceof String))
+			throw new ConfigException("Missing config value: "+StringUtils.join(path,"/"));
+		return (String)value;
+	}
+	
+	public boolean hasValue(Object[] path) {
+		return getValue(path,0)!=null;
+	}
+	
 	public void setValue(Object[] path,Evaluator value,int start) {
 		if(path.length==0)
 			return; // Cannot set value for root of config

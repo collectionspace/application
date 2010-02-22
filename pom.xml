@@ -9,11 +9,13 @@
   <packaging>pom</packaging>
   <name>Root</name>
   <modules>
+	<module>general-utils</module>
     <module>csp-api</module>
     <module>bconfig-utils</module>
     <module>jxutils</module>
     <module>csp-helper</module>
 
+	<module>cspi-webui</module>
     <module>cspi-file</module>
     <module>cspi-services</module>
 

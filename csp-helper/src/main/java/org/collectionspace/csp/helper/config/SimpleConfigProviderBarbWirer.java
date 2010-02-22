@@ -30,13 +30,15 @@ public class SimpleConfigProviderBarbWirer extends LeafBarbWirer
 	private Object[] prefix;
 	
 	public class LiteralConfigAccumulator implements EventConsumer {
-
-		public void start(int ev, EventContext context) {}
-		public void end(int ev, EventContext context) {}
+		private boolean empty;
+		
+		public void start(int ev, EventContext context) { empty=true; }
+		public void end(int ev, EventContext context) {
+			if(empty)
+				text(ev,context,"");
+		}
 
 		public void text(int ev, EventContext context, String text) {
-			if(StringUtils.isWhitespace(text))
-				return;
 			text=StringUtils.strip(text);
 			ConfigValue cv=new ConfigValue();
 			String[] stack=context.getStack();
@@ -47,6 +49,7 @@ public class SimpleConfigProviderBarbWirer extends LeafBarbWirer
 				System.arraycopy(stack,0,cv.key,prefix.length,stack.length);
 			cv.value=text;
 			values.add(cv);
+			empty=false;
 		}
 
 		public String getName() {

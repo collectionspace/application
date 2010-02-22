@@ -44,7 +44,7 @@ public class TestGeneral {
 	"\"thesis\"},{\"value\":\"2\",\"text\":\"paper\"},{\"value\":\"3\",\"text\":\"excel-controlled\"}]," +
 	"\"param\":\"type\"}]}";
 
-	private final static String testStr2 = "{\"a\":\"b\\\"\"}";
+	private final static String testStr2 = "{\"accessionNumber\":\"123\",\"a\":\"b\\\"\"}";
 
 	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
 	
@@ -146,7 +146,7 @@ public class TestGeneral {
 		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
 		createSchemaFile("collection-object",false,true);
 		JSONObject j=schema.getSchema("collection-object/test-json-handle.tmp");
-		assertEquals(testStr2,j.toString());
+		JSONUtils.checkJSONEquiv(testStr2,j.toString());
 		deleteSchemaFile("collection-object",false);
 	}
 
@@ -154,7 +154,7 @@ public class TestGeneral {
 		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
 		createSchemaFile("collection-object",true,true);
 		JSONObject j=schema.getSchema("collection-object");
-		assertEquals(testStr2,j.toString());
+		JSONUtils.checkJSONEquiv(testStr2,j.toString());
 		deleteSchemaFile("collection-object",true);
 	}
 
@@ -162,7 +162,7 @@ public class TestGeneral {
 		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
 		createSchemaFile("collection-object",true,true);
 		JSONObject j=schema.getSchema("collection-object/");
-		assertEquals(testStr2,j.toString());
+		JSONUtils.checkJSONEquiv(testStr2,j.toString());
 		deleteSchemaFile("collection-object",true);	
 	}
 
@@ -199,7 +199,7 @@ public class TestGeneral {
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
 		deleteSchemaFile("collection-object",false);
-		assertEquals(testStr2,out.getContent());
+		JSONUtils.checkJSONEquiv(testStr2,out.getContent());
 	}
 
 	@Test public void testDefaultingSchemaGet() throws Exception {	
@@ -208,7 +208,7 @@ public class TestGeneral {
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
 		deleteSchemaFile("collection-object",true);
-		assertEquals(testStr2,out.getContent());
+		JSONUtils.checkJSONEquiv(testStr2,out.getContent());
 	}
 
 	@Test public void testDefaultingSchemaGetWithTrailingSlash() throws Exception {	
@@ -217,7 +217,7 @@ public class TestGeneral {
 		assertEquals(out.getMethod(),null);
 		assertEquals(200,out.getStatus());
 		deleteSchemaFile("collection-object",true);
-		assertEquals(testStr2,out.getContent());
+		JSONUtils.checkJSONEquiv(testStr2,out.getContent());
 	}
 
 	private JSONObject makeRequest(JSONObject fields) throws JSONException {
@@ -292,21 +292,6 @@ public class TestGeneral {
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 		out=jettyDo(jetty,"GET","/chain"+id2,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr)));
-	}
-
-	@Test public void testAutoGet() throws Exception {
-		deleteSchemaFile("collection-object",false);
-		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/__auto",makeSimpleRequest(testStr3));
-		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
-		// XXX algorithm will change.
-		System.err.println(out.getContent());
-		JSONObject data=new JSONObject(out.getContent());
-		JSONUtils.checkJSONEquiv(data,testStr4);
-		out=jettyDo(jetty,"GET","/chain/objects/__auto",null);
-		data=new JSONObject(out.getContent());
-		JSONUtils.checkJSONEquiv(data,testStr5);		
 	}
 	
 	@Test public void testMultipleSchemas() throws Exception {
@@ -400,44 +385,6 @@ public class TestGeneral {
 		assertTrue(b.exists());
 		assertTrue(new File(a,id1+".json").exists());
 		assertTrue(new File(b,id2+".json").exists());
-	}
-	
-	@Test public void testReset() throws Exception {
-		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));
-		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
-		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));
-		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/reset",null);
-		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/objects/",null);
-		assertEquals(200,out.getStatus());
-		JSONObject result=new JSONObject(out.getContent());
-		JSONArray items=result.getJSONArray("items");
-		Set<String> files=new HashSet<String>();
-		String csid0=null;
-		String accnum0=null;
-		for(int i=0;i<items.length();i++) {
-			files.add(items.getJSONObject(i).getString("accessionNumber"));
-			if(i==0) {
-				csid0=items.getJSONObject(i).getString("csid");
-				accnum0=items.getJSONObject(i).getString("accessionNumber");
-			}
-		}
-		assertTrue(files.contains("1984.068.0335b"));
-		assertTrue(files.contains("1984.068.0338"));
-		out=jettyDo(setupJetty(),"GET","/chain/objects/"+csid0,null);
-		assertEquals(out.getMethod(),null);
-		assertEquals(200,out.getStatus());
-		String cmp=IOUtils.toString(Thread.currentThread().getContextClassLoader().getResourceAsStream("org/collectionspace/chain/controller/reset-objects/"+accnum0+".json"));
-		JSONObject cmp1=new JSONObject(cmp);
-		JSONObject cmp2=new JSONObject(out.getContent());
-		cmp1.remove("csid");
-		cmp2=getFields(cmp2);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(cmp1,cmp2));
-		assertEquals(4,files.size());		
 	}
 	
 	@Test public void testLogin() throws Exception {

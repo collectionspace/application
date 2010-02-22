@@ -18,14 +18,16 @@ import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
+import org.collectionspace.csp.api.ui.UI;
 import org.xml.sax.InputSource;
 
 public class CSPManagerImpl implements CSPManager {
 	private Set<ConfigProvider> config_providers=new HashSet<ConfigProvider>();
 	private Set<ConfigConsumer> config_consumers=new HashSet<ConfigConsumer>();	
-	private Set<Configurable> configurable_csps=new HashSet<Configurable>();	
+	private Set<Configurable> configurable_csps=new HashSet<Configurable>();
 	private DependencyResolver csps=new DependencyResolver("go");
 	private Map<String,StorageGenerator> storage=new HashMap<String,StorageGenerator>();
+	private Map<String,UI> ui=new HashMap<String,UI>();
 	
 	public void addConfigProvider(ConfigProvider provider) { config_providers.add(provider); }
 	public Set<ConfigProvider> getConfigProviders() { return config_providers; }
@@ -78,4 +80,11 @@ public class CSPManagerImpl implements CSPManager {
 
 	public StorageGenerator getStorage(String name) { return storage.get(name); }
 	
+	public void addUI(String name,UI impl) {
+		ui.put(name,impl);
+	}
+	
+	public UI getUI(String name) {
+		return ui.get(name);
+	}
 }
