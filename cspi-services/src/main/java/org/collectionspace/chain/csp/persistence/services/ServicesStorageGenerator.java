@@ -1,5 +1,13 @@
 package org.collectionspace.chain.csp.persistence.services;
 
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.config.main.impl.BootstrapCSP;
+import org.collectionspace.chain.csp.config.CoreConfig;
+import org.collectionspace.chain.csp.nconfig.NConfigurable;
+import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
+import org.collectionspace.chain.csp.nconfig.Rules;
+import org.collectionspace.chain.csp.nconfig.Target;
+import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.GenericVocabStorage;
@@ -10,7 +18,6 @@ import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigContext;
 import org.collectionspace.csp.api.config.ConfigRoot;
-import org.collectionspace.csp.api.config.Configurable;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -21,15 +28,19 @@ import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
 
-public class ServicesStorageGenerator extends SplittingStorage implements ContextualisedStorage, StorageGenerator, CSP, ConfigConsumer, Configurable {
-
+public class ServicesStorageGenerator extends SplittingStorage implements ContextualisedStorage, StorageGenerator, CSP, NConfigurable {
+	public static String SECTION_PREFIX="org.collectionspace.app.config.persistence.service.";
+	public static String SERVICE_ROOT=SECTION_PREFIX+"service";
+	private String base_url;
+	private CSPContext ctx;
+	
 	public Storage getStorage(CSPRequestCache cache) {
 		return new ServicesStorage(this,cache);
 	}
 
 	public String getName() { return "persistence.services"; }
 
-	private void real_init(String base_url) throws CSPDependencyException {
+	private void real_init() throws CSPDependencyException {
 		try {
 			ServicesConnection conn=new ServicesConnection(base_url);
 			addChild("collection-object",new ServicesCollectionObjectStorage(conn));
@@ -48,8 +59,8 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	
 	public void go(CSPContext ctx) throws CSPDependencyException {
 		ctx.addStorageType("service",this);
-		ctx.addConfigConsumer(this);
-		ctx.addConfigurable(this);
+		ctx.addConfigRules(this);
+		this.ctx=ctx;
 	}
 
 	public void prepareForConfiguration(ConfigContext ctx) throws CSPDependencyException {
@@ -64,18 +75,26 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 
 	public ServicesStorageGenerator() {}
 	public ServicesStorageGenerator(String store) throws CSPDependencyException {
-		real_init(store);
+		this.base_url=store;
+		real_init();
 	}
 	
-	public void configure(ConfigRoot config) throws CSPDependencyException { // XXX
-		Object store=config.getValue(new Object[]{"bootstrap","store-url"});
-		if(store!=null && (store instanceof String)) {
-			real_init((String)store);
-		} else {
-			store=config.getValue(new Object[]{"persistence","service","url"});
-			if(store==null || !(store instanceof String))
-				return;
-			real_init((String)store);
-		}
+	public void nconfigure(Rules rules) throws CSPDependencyException {
+		/* MAIN/persistence/file -> SERVICE */
+		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"persistence","service"},SECTION_PREFIX+"service",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection milestone) {
+				((CoreConfig)parent).setRoot(SERVICE_ROOT,ServicesStorageGenerator.this);
+				base_url=(String)milestone.getValue("/url");
+				return ServicesStorageGenerator.this;
+			}
+		});
+	}
+	
+	public void config_finish() throws CSPDependencyException {
+		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getNConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
+		String boot_root=bootstrap.getOption("store-url");
+		if(boot_root!=null)
+			base_url=boot_root;
+		real_init();
 	}
 }
