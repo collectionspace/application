@@ -1,8 +1,8 @@
 package org.collectionspace.chain.csp.persistence.services;
 
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
-import org.collectionspace.chain.config.main.impl.BootstrapCSP;
-import org.collectionspace.chain.csp.config.CoreConfig;
+import org.collectionspace.chain.csp.inner.BootstrapCSP;
+import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.nconfig.NConfigurable;
 import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
 import org.collectionspace.chain.csp.nconfig.Rules;
@@ -14,17 +14,12 @@ import org.collectionspace.chain.csp.persistence.services.vocab.GenericVocabStor
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesOrgStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesPersonStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesVocabStorage;
-import org.collectionspace.csp.api.config.BarbWirer;
-import org.collectionspace.csp.api.config.ConfigConsumer;
-import org.collectionspace.csp.api.config.ConfigContext;
-import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
-import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
 
@@ -61,16 +56,6 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		ctx.addStorageType("service",this);
 		ctx.addConfigRules(this);
 		this.ctx=ctx;
-	}
-
-	public void prepareForConfiguration(ConfigContext ctx) throws CSPDependencyException {
-		BarbWirer main=ctx.getRootBarbWirer().getBarb("root").getBarbWirer("collection-space");
-		if(main==null) {
-			throw new CSPDependencyException("No collection-space tag attached to root");
-		}
-		SimpleConfigProviderBarbWirer persistence=new SimpleConfigProviderBarbWirer(new Object[]{"persistence","service"});
-		ctx.addConfigProvider(persistence);
-		main.getBarb("persistence").attach(persistence,"service");
 	}
 
 	public ServicesStorageGenerator() {}

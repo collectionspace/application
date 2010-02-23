@@ -3,15 +3,14 @@ package org.collectionspace.chain.csp.webui.main;
 import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.config.CoreConfig;
+import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
 import org.collectionspace.chain.csp.nconfig.Rules;
 import org.collectionspace.chain.csp.nconfig.Target;
+import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
-import org.collectionspace.csp.api.config.ConfigException;
-import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONException;
@@ -34,7 +33,7 @@ public class WebUISpec implements WebMethod {
 		}
 	}
 	
-	public void configure(ReadOnlySection section) throws ConfigException {
+	public void configure(ReadOnlySection section) throws NConfigException {
 		if(section.getValue("/tmp-schema-path")!=null) {
 			path=System.getProperty("java.io.tmpdir")+"/ju-cspace"; // XXX fix
 		} else {

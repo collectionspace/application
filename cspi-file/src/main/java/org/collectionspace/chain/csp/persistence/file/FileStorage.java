@@ -10,26 +10,20 @@ import java.io.File;
 import java.io.IOException;
 
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
-import org.collectionspace.chain.config.main.impl.BootstrapCSP;
-import org.collectionspace.chain.csp.config.CoreConfig;
+import org.collectionspace.chain.csp.inner.BootstrapCSP;
+import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.nconfig.NConfigurable;
 import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
 import org.collectionspace.chain.csp.nconfig.Rules;
 import org.collectionspace.chain.csp.nconfig.Target;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
-import org.collectionspace.csp.api.config.BarbWirer;
-import org.collectionspace.csp.api.config.ConfigConsumer;
-import org.collectionspace.csp.api.config.ConfigContext;
-import org.collectionspace.csp.api.config.ConfigException;
-import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
-import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.persistence.ProxyStorage;
 
 /**  SplittingStorage which delegates collection-objects to StubJSONStore

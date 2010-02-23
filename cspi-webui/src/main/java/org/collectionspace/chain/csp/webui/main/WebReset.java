@@ -6,9 +6,8 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
 import org.collectionspace.chain.csp.nconfig.Rules;
+import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
 import org.collectionspace.chain.pathtrie.TrieMethod;
-import org.collectionspace.csp.api.config.ConfigException;
-import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -110,6 +109,6 @@ public class WebReset implements WebMethod {
 		reset(q.getStorage(),q.getUIRequest());
 	}
 
-	public void configure(ReadOnlySection config) throws ConfigException {}
+	public void configure(ReadOnlySection config) throws NConfigException {}
 	public void configure_finish() {}
 }

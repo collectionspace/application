@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
-import org.collectionspace.chain.config.main.impl.BootstrapCSP;
-import org.collectionspace.chain.csp.config.CoreConfig;
+import org.collectionspace.chain.csp.inner.BootstrapCSP;
+import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.nconfig.NConfigRoot;
 import org.collectionspace.csp.api.container.CSPManager;
-import org.collectionspace.csp.impl.core.CSPManagerImpl;
+import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 

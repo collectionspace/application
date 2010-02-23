@@ -6,8 +6,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
 import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.csp.api.config.ConfigException;
-import org.collectionspace.csp.api.config.ConfigRoot;
+import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -103,6 +102,6 @@ public class WebRead implements WebMethod {
 		store_get(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 
-	public void configure(ReadOnlySection config) throws ConfigException {}
+	public void configure(ReadOnlySection config) throws NConfigException {}
 	public void configure_finish() {}
 }

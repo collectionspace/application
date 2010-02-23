@@ -9,18 +9,14 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
-import org.collectionspace.chain.config.main.impl.BootstrapCSP;
-import org.collectionspace.chain.csp.config.CoreConfig;
+import org.collectionspace.chain.csp.inner.BootstrapCSP;
+import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.nconfig.NConfigurable;
 import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
 import org.collectionspace.chain.csp.nconfig.Rules;
 import org.collectionspace.chain.csp.nconfig.Target;
+import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
 import org.collectionspace.chain.pathtrie.Trie;
-import org.collectionspace.csp.api.config.BarbWirer;
-import org.collectionspace.csp.api.config.ConfigConsumer;
-import org.collectionspace.csp.api.config.ConfigContext;
-import org.collectionspace.csp.api.config.ConfigException;
-import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -31,7 +27,6 @@ import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
-import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.core.RequestCache;
 
 public class WebUI implements CSP, UI, NConfigurable {
@@ -98,7 +93,7 @@ public class WebUI implements CSP, UI, NConfigurable {
 				for(WebMethod m : all_methods)
 					try {
 						m.configure(milestone);
-					} catch (ConfigException e) {
+					} catch (NConfigException e) {
 						// XXX throwable
 					}
 					return WebUI.this;

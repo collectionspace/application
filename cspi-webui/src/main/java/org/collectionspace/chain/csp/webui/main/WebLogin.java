@@ -4,9 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
+import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
 import org.collectionspace.chain.pathtrie.TrieMethod;
-import org.collectionspace.csp.api.config.ConfigException;
-import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 
@@ -35,7 +34,7 @@ public class WebLogin implements WebMethod {
 		login(((Request)in).getUIRequest());
 	}
 
-	public void configure(ReadOnlySection section) throws ConfigException {
+	public void configure(ReadOnlySection section) throws NConfigException {
 		login_dest=(String)section.getValue("/login-dest");
 		login_failed_dest=(String)section.getValue("/login-failed-dest");
 	}
