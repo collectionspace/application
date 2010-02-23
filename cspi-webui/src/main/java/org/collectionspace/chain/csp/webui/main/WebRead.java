@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
+import org.collectionspace.chain.csp.nconfig.Rules;
 import org.collectionspace.csp.api.config.ConfigException;
 import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -96,11 +98,11 @@ public class WebRead implements WebMethod {
 		request.sendJSONResponse(outputJSON);
 	}
 	
-	public void configure(ConfigRoot config) throws ConfigException {}
-
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
 		store_get(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 
+	public void configure(ReadOnlySection config) throws ConfigException {}
+	public void configure_finish() {}
 }

@@ -75,7 +75,11 @@ public class TreeNode {
 		if(is_text)
 			data.put(path,text);
 		else {
-			path+="/"+text;
+			if(!is_claimed)
+				path+="/"+text;
+			if(children.size()==0) {
+				data.put(path,"");
+			}
 			for(TreeNode child : children) {
 				if(!child.is_claimed)
 					child.run_unclaimed(data,path);

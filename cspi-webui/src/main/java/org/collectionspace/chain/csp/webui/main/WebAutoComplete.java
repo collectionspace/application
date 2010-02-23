@@ -3,6 +3,8 @@ package org.collectionspace.chain.csp.webui.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
+import org.collectionspace.chain.csp.nconfig.Rules;
 import org.collectionspace.csp.api.config.ConfigException;
 import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -51,11 +53,12 @@ public class WebAutoComplete implements WebMethod {
 		}
 	}
 	
-	public void configure(ConfigRoot config) throws ConfigException {}
-
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
 		autocomplete(q.getCache(),q.getStorage(),q.getUIRequest());
 	}
 
+	public void configure(ReadOnlySection config) throws ConfigException {}
+	
+	public void configure_finish() {}
 }

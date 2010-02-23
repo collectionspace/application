@@ -3,6 +3,7 @@ package org.collectionspace.chain.csp.webui.main;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
 import org.collectionspace.chain.pathtrie.TrieMethod;
 import org.collectionspace.csp.api.config.ConfigException;
 import org.collectionspace.csp.api.config.ConfigRoot;
@@ -29,13 +30,15 @@ public class WebLogin implements WebMethod {
 			request.setRedirectArgument("result","fail");
 		}
 	}
-	
-	public void configure(ConfigRoot config) throws ConfigException {
-		login_dest=config.getString(new String[]{"ui","web","login-dest"});
-		login_failed_dest=config.getString(new String[]{"ui","web","login-failed-dest"});
-	}
-	
+		
 	public void run(Object in,String[] tail) throws UIException {
 		login(((Request)in).getUIRequest());
 	}
+
+	public void configure(ReadOnlySection section) throws ConfigException {
+		login_dest=(String)section.getValue("/login-dest");
+		login_failed_dest=(String)section.getValue("/login-failed-dest");
+	}
+
+	public void configure_finish() {}
 }

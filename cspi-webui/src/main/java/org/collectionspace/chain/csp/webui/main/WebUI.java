@@ -8,6 +8,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.config.main.impl.BootstrapCSP;
+import org.collectionspace.chain.csp.config.CoreConfig;
+import org.collectionspace.chain.csp.nconfig.NConfigurable;
+import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
+import org.collectionspace.chain.csp.nconfig.Rules;
+import org.collectionspace.chain.csp.nconfig.Target;
 import org.collectionspace.chain.pathtrie.Trie;
 import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigConsumer;
@@ -28,14 +35,18 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 import org.collectionspace.csp.helper.core.RequestCache;
 
-public class WebUI implements CSP, ConfigConsumer, Configurable, UI {
+public class WebUI implements CSP, UI, NConfigurable {
+	public static String SECTION_PREFIX="org.collectionspace.app.config.ui.web.";
+	public static String WEBUI_ROOT=SECTION_PREFIX+"web";
+
+
 	private static final Map<String,String> url_to_type=new HashMap<String,String>();
 	private static final Map<String,String> type_to_url=new HashMap<String,String>();
 	private Map<Operation,Trie> tries=new HashMap<Operation,Trie>();
 	private List<WebMethod> all_methods=new ArrayList<WebMethod>();
 	private CSPContext ctx;
 	private StorageGenerator xxx_storage;
-	
+
 	// XXX move mapping out
 	static {
 		url_to_type.put("objects","collection-object");
@@ -58,8 +69,7 @@ public class WebUI implements CSP, ConfigConsumer, Configurable, UI {
 	}
 
 	public void go(CSPContext ctx) throws CSPDependencyException {
-		ctx.addConfigConsumer(this);
-		ctx.addConfigurable(this);
+		ctx.addConfigRules(this);
 		ctx.addUI("web",this);
 		this.ctx=ctx;
 		for(Operation op : Operation.values())
@@ -81,24 +91,27 @@ public class WebUI implements CSP, ConfigConsumer, Configurable, UI {
 		}
 	}
 
-	public void prepareForConfiguration(ConfigContext ctx) throws CSPDependencyException {
-		BarbWirer main=ctx.getRootBarbWirer().getBarb("root").getBarbWirer("collection-space");
-		if(main==null) {
-			throw new CSPDependencyException("No collection-space tag attached to root");
-		}
-		SimpleConfigProviderBarbWirer persistence=new SimpleConfigProviderBarbWirer(new Object[]{"ui","web"});
-		ctx.addConfigProvider(persistence);
-		main.getBarb("ui").attach(persistence,"web");
+	public void nconfigure(Rules rules) throws CSPDependencyException {
+		/* MAIN/ui/web -> UI */
+		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"ui","web"},SECTION_PREFIX+"web",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection milestone) {
+				((CoreConfig)parent).setRoot(WEBUI_ROOT,WebUI.this);
+				for(WebMethod m : all_methods)
+					try {
+						m.configure(milestone);
+					} catch (ConfigException e) {
+						// XXX throwable
+					}
+					return WebUI.this;
+			}
+		});	
 	}
 
-	public void configure(ConfigRoot config) throws CSPDependencyException {
-		try {
-			for(WebMethod m : all_methods)
-				m.configure(config);
-			xxx_storage=ctx.getStorage(config.getString(new String[]{"bootstrap","storage-type"}));
-		} catch (ConfigException e) {
-			throw new CSPDependencyException("Cannot configure due to config exception",e); // XXX
-		}
+	public void config_finish() {
+		for(WebMethod m : all_methods)
+			m.configure_finish();		
+		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getNConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
+		xxx_storage=ctx.getStorage(bootstrap.getOption("storage-type"));
 	}
 
 	public void serviceRequest(UIRequest ui) throws UIException {		

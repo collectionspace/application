@@ -54,4 +54,6 @@ public class BootstrapCSP implements CSP, ConfigConsumer, ConfigProvider, NConfi
 			}
 		});
 	}
+
+	public void config_finish() {}
 }

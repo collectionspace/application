@@ -5,6 +5,8 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
+import org.collectionspace.chain.csp.nconfig.Rules;
 import org.collectionspace.csp.api.config.ConfigException;
 import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -141,10 +143,12 @@ public class WebCreateUpdate implements WebMethod {
 		}
 	}
 	
-	public void configure(ConfigRoot config) throws ConfigException {}
-
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
 		store_set(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
+
+	public void configure(ReadOnlySection config) throws ConfigException {}
+	
+	public void configure_finish() {}
 }

@@ -63,6 +63,8 @@ public class ChainServlet extends HttpServlet  {
 		try {
 			InputStream stream=new ByteArrayInputStream(bootstrap.getOption("main-config").getBytes("UTF-8"));
 			cspm.configure(new InputSource(stream),null); // XXX not null
+			stream=new ByteArrayInputStream(bootstrap.getOption("main-config").getBytes("UTF-8"));
+			cspm.nconfigure(new InputSource(stream),null); // XXX not null
 		} catch (UnsupportedEncodingException e) {
 			throw new BootstrapConfigLoadFailedException("Config has bad character encoding",e);
 		}

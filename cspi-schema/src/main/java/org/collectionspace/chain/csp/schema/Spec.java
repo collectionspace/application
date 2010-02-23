@@ -65,4 +65,6 @@ public class Spec implements CSP, Configurable, ConfigConsumer, NConfigurable {
 			}
 		});
 	}
+
+	public void config_finish() {}
 }

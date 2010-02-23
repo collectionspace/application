@@ -83,7 +83,6 @@ public class CSPManagerImpl implements CSPManager {
 		} catch(BootstrapConfigLoadFailedException x) { // XXX
 			throw new CSPDependencyException(x);
 		}
-		// // // // //
 	}
 	
 	public void nconfigure(InputSource in,String url) throws CSPDependencyException {
@@ -94,6 +93,9 @@ public class CSPManagerImpl implements CSPManager {
 		try {
 			ConfigParser parser = new ConfigParser(rules);
 			parser.parse(in,url);
+			for(NConfigurable config : nconfig) {
+				config.config_finish();
+			}
 		} catch (NConfigException e) {
 			throw new CSPDependencyException(e); // XXX			
 		}

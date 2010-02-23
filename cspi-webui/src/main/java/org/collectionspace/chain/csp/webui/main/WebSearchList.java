@@ -3,6 +3,8 @@ package org.collectionspace.chain.csp.webui.main;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
+import org.collectionspace.chain.csp.nconfig.Rules;
 import org.collectionspace.csp.api.config.ConfigException;
 import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -69,7 +71,6 @@ public class WebSearchList implements WebMethod {
 		}			
 	}
 	
-	public void configure(ConfigRoot config) throws ConfigException {}
 
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
@@ -79,4 +80,6 @@ public class WebSearchList implements WebMethod {
 			search_or_list(q.getStorage(),q.getUIRequest(),null);
 	}
 
+	public void configure(ReadOnlySection config) throws ConfigException {}
+	public void configure_finish() {}
 }
