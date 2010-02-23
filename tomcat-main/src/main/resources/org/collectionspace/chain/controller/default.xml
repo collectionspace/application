@@ -17,6 +17,7 @@
 			<record id="collection-object">
 				<web-url>objects</web-url>
 					<field id="objectTitle" in-title="yes">
+					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
 						<selector>.csc-object-identification-object-title</selector>
 					</field>
 					<field id="objectTitleLanguage">
@@ -30,6 +31,7 @@
 					</field>
 					<field id="accessionNumber" chooser="yes" in-title="yes">
 						<selector>.csc-object-identification-object-number</selector>
+						<title-selector>.csc-titleBar-object-identification-object-number</title-selector>
 						<options>
 							<option id="intake" sample="IN2009.1.1">Intake</option>
 							<option id="objects" sample="2009.1.1">Accession</option>
@@ -89,6 +91,9 @@
 					</field>
 					<field id="descForm">
 						<selector>.csc-object-description-form</selector>
+					</field>
+					<field id="descEditionNumber">
+						<selector>.csc-object-description-edition-number</selector>
 					</field>
 					<field id="descAge">
 						<selector>.csc-object-description-age</selector>
@@ -277,7 +282,7 @@
 						<selector>.csc-date-information-date-latest-qualifier</selector>
 					</field>
 					<field id="descDateText">
-						<selector>.csc-date-information-text</selector>
+						<selector>.csc-date-information-date-text</selector>
 					</field>
 					<field id="descDimensionUnit">
 					    <selector>.csc-object-description-dimension-unit</selector>
@@ -287,14 +292,14 @@
 						  <option id="meters">meters</option>
 						  <option id="liters">liters</option>
 						  <option id="kilograms">kilograms</option>
-						  <option id="cubic-centimeters">cubic-centimeters</option>
+						  <option id="cubic-centimeters">cubic centimeters</option>
 						  <option id="minutes">minutes</option>
 						  <option id="carats">carats</option>
 						  <option id="pixels">pixels</option>
 						  <option id="count">count</option>
 						  <option id="stories">stories</option>
 						  <option id="inches">inches</option>
-						  <option id="square-feet">square-feet</option>
+						  <option id="square-feet">square feet</option>
 						  <option id="feet">feet</option>
 						</options>
 					</field>

@@ -1,5 +1,7 @@
 package org.collectionspace.chain.csp.webui.main;
 
+import static org.junit.Assert.*;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -59,6 +61,6 @@ public class TestUISpecs {
 		HttpTester response=jettyDo(jetty,"GET","/chain/objects/auispec",null);
 		JSONObject generated=new JSONObject(response.getContent());
 		JSONObject comparison=new JSONObject(getResourceString("collection-object.uispec"));
-		JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison);
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 	}
 }

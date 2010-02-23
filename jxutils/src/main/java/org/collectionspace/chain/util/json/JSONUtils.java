@@ -20,19 +20,23 @@ public class JSONUtils {
 		return out;
 	}
 
-	private static void printMissing(String prefix,Set<String> a,Set<String> b) {
+	private static boolean printMissing(String prefix,Set<String> a,Set<String> b) {
+		boolean good=true;
 		Set<String> c=new HashSet<String>(a);
 		c.removeAll(b);
 		for(String s : c) {
 			System.err.println(prefix +": "+s);
+			good=false;
 		}
+		return good;
 	}
 	
-	private static void checkKeys(JSONObject a,JSONObject b) throws JSONException {
+	private static boolean checkKeys(JSONObject a,JSONObject b) throws JSONException {
 		Set<String> ak=objectKeys(a);
 		Set<String> bk=objectKeys(b);
-		printMissing("Missing from b",ak,bk);
-		printMissing("Missing from a",bk,ak);
+		boolean good=printMissing("Missing from b",ak,bk);
+		good = printMissing("Missing from a",bk,ak) && good;
+		return good;
 	}
 	
 	// XXX refactor
@@ -61,7 +65,8 @@ public class JSONUtils {
 		}
 		if(!(a instanceof JSONObject) || !(b instanceof JSONObject))
 			return false;
-		checkKeys((JSONObject)a,(JSONObject)b);
+		if(!checkKeys((JSONObject)a,(JSONObject)b))
+			return false;
 		if(((JSONObject)a).length()!=((JSONObject)b).length())
 			return false;
 		Iterator t=((JSONObject)a).keys();

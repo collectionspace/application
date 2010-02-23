@@ -36,6 +36,14 @@ public class TreeNode {
 	
 	public void addChild(TreeNode child) {
 		child.parent=this;
+		// Merge text nodes
+		if(children.size()>0 && child.is_text) {
+			TreeNode youngest=children.get(children.size()-1);
+			if(youngest.is_text) {
+				youngest.text+=child.text;
+				return;
+			}
+		}
 		children.add(child);
 	}
 	
