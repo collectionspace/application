@@ -6,6 +6,12 @@
  */
 package org.collectionspace.chain.config.main.impl;
 
+import org.collectionspace.chain.csp.config.CoreConfig;
+import org.collectionspace.chain.csp.nconfig.NConfigurable;
+import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
+import org.collectionspace.chain.csp.nconfig.Rules;
+import org.collectionspace.chain.csp.nconfig.Target;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigContext;
 import org.collectionspace.csp.api.config.ConfigListener;
@@ -15,7 +21,9 @@ import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 
-public class BootstrapCSP implements CSP, ConfigConsumer, ConfigProvider {
+public class BootstrapCSP implements CSP, ConfigConsumer, ConfigProvider, NConfigurable {
+	public static final String SECTION_PREFIX="org.collectionspace.app.config.bootstrap.";	
+	public static String BOOTSTRAP_ROOT=SECTION_PREFIX+"bootstrap";
 	private BootstrapConfigController bootstrap;
 	
 	public BootstrapCSP(BootstrapConfigController bootstrap) { this.bootstrap=bootstrap; }
@@ -24,6 +32,7 @@ public class BootstrapCSP implements CSP, ConfigConsumer, ConfigProvider {
 
 	public void go(CSPContext ctx) throws CSPDependencyException {
 		ctx.addConfigConsumer(this);
+		ctx.addConfigRules(this);
 	}
 
 	public void prepareForConfiguration(ConfigContext ctx) throws CSPDependencyException {
@@ -34,5 +43,15 @@ public class BootstrapCSP implements CSP, ConfigConsumer, ConfigProvider {
 		for(String key : bootstrap.getKeys()) {
 			response.addConfig(new Object[]{"bootstrap",key},bootstrap.getOption(key));
 		}
+	}
+
+	public void nconfigure(Rules rules) {
+		/* MAIN/bootstrap -> BOOTSTRAP */
+		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"bootstrap"},SECTION_PREFIX+"bootstrap",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection milestone) {
+				((CoreConfig)parent).setRoot(BOOTSTRAP_ROOT,bootstrap);
+				return bootstrap;
+			}
+		});
 	}
 }

@@ -1,4 +1,5 @@
 <collection-space>
+  <bootstrap/>
   <persistence>
     <service>
       <url>http://test.collectionspace.org:8180/cspace-services</url>

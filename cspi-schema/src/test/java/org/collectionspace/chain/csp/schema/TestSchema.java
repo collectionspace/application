@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.config.main.impl.BootstrapCSP;
 import org.collectionspace.chain.csp.config.CoreConfig;
 import org.collectionspace.chain.csp.nconfig.NConfigRoot;
 import org.collectionspace.csp.api.container.CSPManager;
@@ -21,13 +23,18 @@ public class TestSchema {
 	
 	@Test public void testSchema() throws Exception {
 		CSPManager cspm=new CSPManagerImpl();
+		BootstrapConfigController bootstrap=new BootstrapConfigController(null);
+		bootstrap.go();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
+		cspm.register(new BootstrapCSP(bootstrap));
 		cspm.go();
 		cspm.nconfigure(new InputSource(getSource("config.xml")),null);
 		NConfigRoot root=cspm.getNConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
+		BootstrapConfigController b2=(BootstrapConfigController)root.getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
+		assertNotNull(b2);
 		
 		/*
 		RulesImpl rules=new RulesImpl();
