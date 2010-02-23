@@ -2,10 +2,8 @@ package org.collectionspace.chain.csp.webui.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
@@ -16,6 +14,8 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
 import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.CoreConfig;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.pathtrie.Trie;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
@@ -33,30 +33,18 @@ public class WebUI implements CSP, UI, Configurable {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.ui.web.";
 	public static String WEBUI_ROOT=SECTION_PREFIX+"web";
 
-
-	private static final Map<String,String> url_to_type=new HashMap<String,String>();
-	private static final Map<String,String> type_to_url=new HashMap<String,String>();
 	private Map<Operation,Trie> tries=new HashMap<Operation,Trie>();
 	private List<WebMethod> all_methods=new ArrayList<WebMethod>();
 	private CSPContext ctx;
 	private StorageGenerator xxx_storage;
-
-	// XXX move mapping out
-	static {
-		url_to_type.put("objects","collection-object");
-		url_to_type.put("intake","intake");
-		url_to_type.put("acquisition","acquisition");
-		url_to_type.put("id","id");
-
-		for(Map.Entry<String,String> e : url_to_type.entrySet())
-			type_to_url.put(e.getValue(),e.getKey());		
-	}
-
-	public static String convertTypeURLToType(String in) { return url_to_type.get(in); }
-	public static String convertTypeToTypeURL(String in) { return type_to_url.get(in); }
+	private String uispec_path;
+	private String login_dest,login_failed_dest;
 
 	public String getName() { return "ui.webui"; }
-
+	String getUISpecPath() { return uispec_path; }
+	String getLoginDest() { return login_dest; }
+	String getLoginFailedDest() { return login_failed_dest; }
+	
 	private void addMethod(Operation op,String[] path,int extra,WebMethod method) {
 		tries.get(op).addMethod(path,extra,method);
 		all_methods.add(method);
@@ -66,44 +54,52 @@ public class WebUI implements CSP, UI, Configurable {
 		ctx.addConfigRules(this);
 		ctx.addUI("web",this);
 		this.ctx=ctx;
-		for(Operation op : Operation.values())
-			tries.put(op,new Trie());		
-		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin());
-		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
-		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
-		for(Map.Entry<String,String> e : url_to_type.entrySet()) {
-			addMethod(Operation.READ,new String[]{e.getKey(),"__auto"},0,new WebAuto());
-			addMethod(Operation.READ,new String[]{e.getKey(),"autocomplete"},0,new WebAutoComplete());
-			addMethod(Operation.READ,new String[]{e.getKey(),"search"},0,new WebSearchList(e.getValue(),true));
-			addMethod(Operation.READ,new String[]{e.getKey()},0,new WebSearchList(e.getValue(),false));
-			addMethod(Operation.READ,new String[]{e.getKey(),"uispec"},0,new WebUISpec(e.getValue()));
-			addMethod(Operation.READ,new String[]{e.getKey(),"schema"},0,new WebUISpec(e.getValue()));
-			addMethod(Operation.READ,new String[]{e.getKey()},1,new WebRead(e.getValue()));
-			addMethod(Operation.DELETE,new String[]{e.getKey()},1,new WebDelete(e.getValue()));
-			addMethod(Operation.CREATE,new String[]{e.getKey()},0,new WebCreateUpdate(e.getKey(),e.getValue(),true));
-			addMethod(Operation.UPDATE,new String[]{e.getKey()},1,new WebCreateUpdate(e.getKey(),e.getValue(),false));
-		}
 	}
 
 	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/ui/web -> UI */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"ui","web"},SECTION_PREFIX+"web",null,new Target(){
-			public Object populate(Object parent, ReadOnlySection milestone) {
+			public Object populate(Object parent, ReadOnlySection section) {
 				((CoreConfig)parent).setRoot(WEBUI_ROOT,WebUI.this);
-				for(WebMethod m : all_methods)
-					try {
-						m.configure(milestone);
-					} catch (ConfigException e) {
-						// XXX throwable
-					}
-					return WebUI.this;
+				if(section.getValue("/tmp-schema-path")!=null) {
+					uispec_path=System.getProperty("java.io.tmpdir")+"/ju-cspace"; // XXX fix
+				} else {
+					uispec_path=(String)section.getValue("/schema-path");
+				}
+				login_dest=(String)section.getValue("/login-dest");
+				login_failed_dest=(String)section.getValue("/login-failed-dest");
+				return WebUI.this;
 			}
 		});	
 	}
 
-	public void config_finish() {
+	private void configure_finish(Spec spec) {
+		for(Operation op : Operation.values())
+			tries.put(op,new Trie());		
+		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin());
+		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
+		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
+		for(Record r : spec.getAllRecords()) {
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete());
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new WebSearchList(r,true));
+			addMethod(Operation.READ,new String[]{r.getWebURL()},0,new WebSearchList(r,false));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new WebUISpec(r.getID()));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"schema"},0,new WebUISpec(r.getID()));
+			addMethod(Operation.READ,new String[]{r.getWebURL()},1,new WebRead(r));
+			addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new WebDelete(r.getID()));
+			addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new WebCreateUpdate(r,true));
+			addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new WebCreateUpdate(r,false));
+		}
+	}
+	
+	public void config_finish() throws CSPDependencyException {
+		Spec spec=(Spec)ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
+		if(spec==null)
+			throw new CSPDependencyException("Could not load spec");
+		configure_finish(spec);
 		for(WebMethod m : all_methods)
-			m.configure_finish();		
+			m.configure(this,spec);		
 		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
 		xxx_storage=ctx.getStorage(bootstrap.getOption("storage-type"));
 	}

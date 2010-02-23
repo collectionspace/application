@@ -2,12 +2,16 @@ package org.collectionspace.chain.csp.webui.main;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -22,8 +26,14 @@ import org.json.JSONObject;
 public class WebCreateUpdate implements WebMethod {
 	private String url_base,base;
 	private boolean create;
+	private Spec spec;
 	
-	public WebCreateUpdate(String url_base,String base,boolean create) { this.url_base=url_base; this.base=base; this.create=create; }
+	public WebCreateUpdate(Record r,boolean create) { 
+		spec=r.getSpec();
+		this.url_base=r.getWebURL();
+		this.base=r.getID();
+		this.create=create;
+	}
 	
 	// XXX refactor
 	private String getResource(String in) throws IOException, JSONException {
@@ -48,7 +58,7 @@ public class WebCreateUpdate implements WebMethod {
 		for(int i=0;i<relations.length();i++) {
 			// Extract data from miniobject
 			JSONObject in=relations.getJSONObject(i);
-			String dst_type=WebUI.convertTypeURLToType(in.getString("recordtype"));
+			String dst_type=spec.getRecordByWebUrl(in.getString("recordtype")).getID();
 			String dst_id=in.getString("csid");
 			String type=in.getString("relationshiptype");
 			// Create relation
@@ -61,7 +71,7 @@ public class WebCreateUpdate implements WebMethod {
 	}
 	
 	private String xxx_mercury_search(Storage storage,String type,String value) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		String target_base=WebUI.convertTypeURLToType(type);
+		String target_base=spec.getRecordByWebUrl(type).getID();
 		for(String path : storage.getPaths(target_base,null)) {
 			JSONObject mini=storage.retrieveJSON(target_base+"/"+path+"/view");
 			if(mini==null)
@@ -98,7 +108,7 @@ public class WebCreateUpdate implements WebMethod {
 		System.err.println("target id is "+target_id);
 		JSONObject data=new JSONObject();
 		data.put("src",base+"/"+source_id);
-		data.put("dst",WebUI.convertTypeURLToType(type)+"/"+target_id);
+		data.put("dst",spec.getRecordByWebUrl(type).getID()+"/"+target_id);
 		data.put("type","affects");
 		storage.autocreateJSON("relations/main",data);
 	}
@@ -147,7 +157,7 @@ public class WebCreateUpdate implements WebMethod {
 		store_set(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 
-	public void configure(ReadOnlySection config) throws ConfigException {}
+	public void configure() throws ConfigException {}
 	
-	public void configure_finish() {}
+	public void configure(WebUI ui,Spec spec) {}
 }

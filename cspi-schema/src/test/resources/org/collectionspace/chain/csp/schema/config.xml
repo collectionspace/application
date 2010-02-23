@@ -15,13 +15,13 @@
   <spec>
     <records>
       <record id="collection-object">
-	    <field>
-	    </field>
-  	    <type>x</type>
+        <web-url>objects</web-url>
       </record>
       <record id="intake">
       </record>
       <record id="acquisition">
+      </record>
+      <record id="id">
       </record>
     </records>
   </spec>

@@ -26,6 +26,7 @@ import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedExcep
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
 import org.collectionspace.csp.api.container.CSPManager;
@@ -56,11 +57,13 @@ public class ChainServlet extends HttpServlet  {
 		cspm.register(new ServicesStorageGenerator());
 		cspm.register(new BootstrapCSP(bootstrap));
 		cspm.register(new WebUI());
+		cspm.register(new Spec());
 	}
 
 	private void load_config() throws BootstrapConfigLoadFailedException, CSPDependencyException {
 		try {
 			InputStream stream=new ByteArrayInputStream(bootstrap.getOption("main-config").getBytes("UTF-8"));
+			System.err.println(bootstrap.getOption("main-config"));
 			cspm.configure(new InputSource(stream),null); // XXX not null
 		} catch (UnsupportedEncodingException e) {
 			throw new BootstrapConfigLoadFailedException("Config has bad character encoding",e);
@@ -131,6 +134,7 @@ public class ChainServlet extends HttpServlet  {
 				throw new BadRequestException("UIException",e);
 			}
 		} catch (BadRequestException x) {
+			System.err.println(getStackTrace(x));
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, getStackTrace(x));
 		}
 	}

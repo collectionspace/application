@@ -7,6 +7,8 @@ import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.pathtrie.TrieMethod;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
@@ -109,6 +111,6 @@ public class WebReset implements WebMethod {
 		reset(q.getStorage(),q.getUIRequest());
 	}
 
-	public void configure(ReadOnlySection config) throws ConfigException {}
-	public void configure_finish() {}
+	public void configure() throws ConfigException {}
+	public void configure(WebUI ui,Spec spec) {}
 }

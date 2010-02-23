@@ -17,6 +17,7 @@ public class Spec implements CSP, Configurable {
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 	
 	private Map<String,Record> records=new HashMap<String,Record>();
+	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	
 	public String getName() { return "schema"; }
 
@@ -28,7 +29,7 @@ public class Spec implements CSP, Configurable {
 		/* MAIN/spec -> SPEC */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"spec"},SECTION_PREFIX+"spec",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
-				((CoreConfig)parent).setRoot(SECTION_PREFIX+"spec",Spec.this);
+				((CoreConfig)parent).setRoot(SPEC_ROOT,Spec.this);
 				return Spec.this;
 			}
 		});
@@ -37,12 +38,24 @@ public class Spec implements CSP, Configurable {
 		/* RECORDS/record -> RECORD(@id) */
 		rules.addRule(SECTION_PREFIX+"records",new String[]{"record"},SECTION_PREFIX+"record",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
-				Record r=new Record(section);
+				Record r=new Record(Spec.this,section);
 				records.put(r.getID(),r);
+				records_by_web_url.put(r.getWebURL(),r);
 				return r;
 			}
 		});
 	}
 
+	public Record getRecord(String id) { return records.get(id); }
+	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
+	public Record[] getAllRecords() { return records.values().toArray(new Record[0]); }
+	
 	public void config_finish() {}
+	
+	public String dump() {
+		StringBuffer out=new StringBuffer();
+		for(Record r : records.values())
+			r.dump(out);
+		return out.toString();
+	}
 }

@@ -1,12 +1,16 @@
 package org.collectionspace.chain.csp.webui.main;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -19,20 +23,19 @@ import org.json.JSONObject;
 
 public class WebRead implements WebMethod {
 	private String base;
-	private static final Set<String> record_type=new HashSet<String>();
+	private String url;
+	private boolean record_type;	
 	
-	static {
-		record_type.add("collection-object");
-		record_type.add("intake");
-		record_type.add("acquisition");		// XXX hack
+	public WebRead(Record r) { 
+		this.base=r.getID();
+		record_type=("record".equals(r.getType()));
+		url=r.getWebURL();
 	}
-	
-	public WebRead(String base) { this.base=base; }
 		
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view");
 		out.put("csid",csid);
-		out.put("recordtype",WebUI.convertTypeToTypeURL(type));
+		out.put("recordtype",url);
 		return out;		
 	}
 
@@ -61,7 +64,7 @@ public class WebRead implements WebMethod {
 	private JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		try {
-			if(record_type.contains(base)) {
+			if(record_type) {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				JSONArray relations=createRelations(storage,csid);
@@ -102,6 +105,6 @@ public class WebRead implements WebMethod {
 		store_get(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 
-	public void configure(ReadOnlySection config) throws ConfigException {}
-	public void configure_finish() {}
+	public void configure() throws ConfigException {}
+	public void configure(WebUI ui,Spec spec) {}
 }

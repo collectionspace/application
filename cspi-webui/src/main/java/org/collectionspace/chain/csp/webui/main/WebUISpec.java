@@ -4,10 +4,8 @@ import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
-import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.Rules;
-import org.collectionspace.chain.csp.config.Target;
-import org.collectionspace.chain.csp.inner.CoreConfig;
+
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
 import org.collectionspace.csp.api.ui.UIException;
@@ -15,7 +13,7 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONException;
 
 public class WebUISpec implements WebMethod {
-	private String base,path;
+	private String base;
 	private SchemaStore schema;
 	
 	public WebUISpec(String base) {
@@ -32,12 +30,7 @@ public class WebUISpec implements WebMethod {
 		}
 	}
 	
-	public void configure(ReadOnlySection section) throws ConfigException {
-		if(section.getValue("/tmp-schema-path")!=null) {
-			path=System.getProperty("java.io.tmpdir")+"/ju-cspace"; // XXX fix
-		} else {
-			path=(String)section.getValue("/schema-path");
-		}
+	public void configure() throws ConfigException {
 	}
 
 	public void run(Object in, String[] tail) throws UIException {
@@ -45,7 +38,7 @@ public class WebUISpec implements WebMethod {
 		uispec(q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 
-	public void configure_finish() {
-		schema=new StubSchemaStore(path);
+	public void configure(WebUI ui,Spec spec) {
+		schema=new StubSchemaStore(ui.getUISpecPath());
 	}
 }

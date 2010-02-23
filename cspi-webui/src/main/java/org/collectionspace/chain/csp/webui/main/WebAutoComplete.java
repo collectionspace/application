@@ -6,6 +6,7 @@ import java.util.List;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
@@ -57,7 +58,7 @@ public class WebAutoComplete implements WebMethod {
 		autocomplete(q.getCache(),q.getStorage(),q.getUIRequest());
 	}
 
-	public void configure(ReadOnlySection config) throws ConfigException {}
+	public void configure() throws ConfigException {}
 	
-	public void configure_finish() {}
+	public void configure(WebUI ui,Spec spec) {}
 }

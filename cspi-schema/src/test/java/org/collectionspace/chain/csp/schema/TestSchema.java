@@ -28,6 +28,11 @@ public class TestSchema {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
+		System.err.println(spec.dump());
+		Record r_obj=spec.getRecord("collection-object");
+		assertNotNull(r_obj);
+		assertEquals("collection-object",r_obj.getID());
+		assertEquals("objects",r_obj.getWebURL());
 		
 		/* RECORD/field -> FIELD(type) */
 		/*

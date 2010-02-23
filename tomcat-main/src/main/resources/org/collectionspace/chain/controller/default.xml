@@ -12,12 +12,17 @@
       <tmp-schema-path/>
     </web>
   </ui>
-  <records>
-    <record id="collection-object">
-    </record>
-    <record id="intake">
-    </record>
-    <record id="acquisition">
-    </record>
-  </records>
+  <spec>
+    <records>
+      <record id="collection-object">
+        <web-url>objects</web-url>
+      </record>
+      <record id="intake">
+      </record>
+      <record id="acquisition">
+      </record>
+      <record id="id" type="id"> <!-- XXX what is this type? How does this work? -->
+      </record>
+    </records>
+  </spec>
 </collection-space>

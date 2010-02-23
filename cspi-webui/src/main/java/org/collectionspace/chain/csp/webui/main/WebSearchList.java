@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.collectionspace.chain.csp.config.ConfigException;
-import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -19,16 +19,17 @@ import org.json.JSONObject;
 public class WebSearchList implements WebMethod {
 	private boolean search;
 	private String base;
+	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
-	public WebSearchList(String base,boolean search) {
-		this.base=base;
+	public WebSearchList(Record r,boolean search) {
+		this.base=r.getID();
 		this.search=search;
 	}
 		
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view");
 		out.put("csid",csid);
-		out.put("recordtype",WebUI.convertTypeToTypeURL(type));
+		out.put("recordtype",type_to_url.get(type));
 		return out;		
 	}
 	
@@ -79,6 +80,10 @@ public class WebSearchList implements WebMethod {
 			search_or_list(q.getStorage(),q.getUIRequest(),null);
 	}
 
-	public void configure(ReadOnlySection config) throws ConfigException {}
-	public void configure_finish() {}
+	public void configure() throws ConfigException {}
+	public void configure(WebUI ui,Spec spec) {
+		for(Record r : spec.getAllRecords()) {
+			type_to_url.put(r.getID(),r.getWebURL());
+		}
+	}
 }

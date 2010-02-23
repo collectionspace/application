@@ -4,6 +4,7 @@ import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -34,6 +35,6 @@ public class WebDelete implements WebMethod {
 		store_delete(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 
-	public void configure(ReadOnlySection config) throws ConfigException {}
-	public void configure_finish() {}
+	public void configure() throws ConfigException {}
+	public void configure(WebUI ui,Spec spec) {}
 }
