@@ -11,15 +11,17 @@
       <tmp-schema-path/>
     </web>
   </ui>
-  <records>
-    <record id="collection-object">
-	  <field>
-	  </field>
-	  <type>x</type>
-    </record>
-    <record id="intake">
-    </record>
-    <record id="acquisition">
-    </record>
-  </records>
+  <spec>
+    <records>
+      <record id="collection-object">
+	    <field>
+	    </field>
+  	    <type>x</type>
+      </record>
+      <record id="intake">
+      </record>
+      <record id="acquisition">
+      </record>
+    </records>
+  </spec>
 </collection-space>

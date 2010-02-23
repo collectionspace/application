@@ -15,9 +15,11 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
-import org.collectionspace.chain.csp.nconfig.Section;
 import org.collectionspace.chain.csp.nconfig.Rules;
+import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
 import org.collectionspace.chain.csp.nconfig.impl.main.ParseRun;
+import org.collectionspace.chain.csp.nconfig.impl.main.RulesImpl;
+import org.collectionspace.chain.csp.nconfig.impl.main.SectionImpl;
 import org.collectionspace.chain.csp.nconfig.impl.main.TreeNode;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
@@ -28,21 +30,21 @@ public class ConfigParser {
 	private List<byte[]> xslts=new ArrayList<byte[]>();
 	private SAXTransformerFactory transfactory;
 	private SAXParserFactory factory;
-	private Rules rules;
+	private RulesImpl rules;
 	
-	public ConfigParser(Rules rules) throws BootstrapConfigLoadFailedException {
+	public ConfigParser(RulesImpl rules) throws NConfigException {
 		factory = SAXParserFactory.newInstance();
 		System.err.println(factory.getClass());
 		factory.setNamespaceAware(true);
 		TransformerFactory tf=TransformerFactory.newInstance();
 		if (!tf.getFeature(SAXSource.FEATURE) || !tf.getFeature(SAXResult.FEATURE))
-			throw new BootstrapConfigLoadFailedException("XSLT transformer doesn't support SAX!");
+			throw new NConfigException("XSLT transformer doesn't support SAX!");
 		transfactory=(SAXTransformerFactory)tf;
 		messages=new ConfigLoadingMessagesImpl(); // In the end we probably want to pass this in
 		this.rules=rules;
 	}
 	
-	public void parse(InputSource src,String url) throws BootstrapConfigLoadFailedException {
+	public void parse(InputSource src,String url) throws NConfigException {
 		ConfigErrorHandler errors=new ConfigErrorHandler(messages);
 		try {
 			TransformerHandler[] xform=new TransformerHandler[xslts.size()];
@@ -69,7 +71,7 @@ public class ConfigParser {
 			TreeNode tree_root=TreeNode.create_tag("ROOT");
 			tree_root.addChild(tree);
 			tree_root.claim(rules,"ROOT",null,null);
-			Section ms_root=new Section(null,"ROOT",null);
+			SectionImpl ms_root=new SectionImpl(null,"ROOT",null);
 			tree_root.run_all(ms_root);
 			ms_root.buildTargets(null);
 			ms_root.dump();

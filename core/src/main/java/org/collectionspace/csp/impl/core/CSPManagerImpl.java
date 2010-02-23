@@ -8,6 +8,11 @@ import java.util.Set;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.config.main.ConfigFactory;
 import org.collectionspace.chain.config.main.impl.MainConfigFactoryImpl;
+import org.collectionspace.chain.csp.nconfig.NConfigRoot;
+import org.collectionspace.chain.csp.nconfig.NConfigurable;
+import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
+import org.collectionspace.chain.csp.nconfig.impl.main.RulesImpl;
+import org.collectionspace.chain.csp.nconfig.impl.parser.ConfigParser;
 import org.collectionspace.csp.api.config.ConfigContext;
 import org.collectionspace.csp.api.config.ConfigProvider;
 import org.collectionspace.csp.api.config.ConfigConsumer;
@@ -25,9 +30,11 @@ public class CSPManagerImpl implements CSPManager {
 	private Set<ConfigProvider> config_providers=new HashSet<ConfigProvider>();
 	private Set<ConfigConsumer> config_consumers=new HashSet<ConfigConsumer>();	
 	private Set<Configurable> configurable_csps=new HashSet<Configurable>();
+	private Set<NConfigurable> nconfig=new HashSet<NConfigurable>();
 	private DependencyResolver csps=new DependencyResolver("go");
 	private Map<String,StorageGenerator> storage=new HashMap<String,StorageGenerator>();
 	private Map<String,UI> ui=new HashMap<String,UI>();
+	private NConfigRoot nconfig_root;
 	
 	public void addConfigProvider(ConfigProvider provider) { config_providers.add(provider); }
 	public Set<ConfigProvider> getConfigProviders() { return config_providers; }
@@ -76,8 +83,22 @@ public class CSPManagerImpl implements CSPManager {
 		} catch(BootstrapConfigLoadFailedException x) { // XXX
 			throw new CSPDependencyException(x);
 		}
+		// // // // //
 	}
-
+	
+	public void nconfigure(InputSource in,String url) throws CSPDependencyException {
+		RulesImpl rules=new RulesImpl();
+		for(NConfigurable config : nconfig) {
+			config.nconfigure(rules);
+		}
+		try {
+			ConfigParser parser = new ConfigParser(rules);
+			parser.parse(in,url);
+		} catch (NConfigException e) {
+			throw new CSPDependencyException(e); // XXX			
+		}
+	}
+	
 	public StorageGenerator getStorage(String name) { return storage.get(name); }
 	
 	public void addUI(String name,UI impl) {
@@ -87,4 +108,9 @@ public class CSPManagerImpl implements CSPManager {
 	public UI getUI(String name) {
 		return ui.get(name);
 	}
+	public void addConfigRules(NConfigurable cfg) {
+		nconfig.add(cfg);
+	}
+	public void setNConfigRoot(NConfigRoot cfg) { nconfig_root=cfg; }
+	public NConfigRoot getNConfigRoot() { return nconfig_root; }
 }

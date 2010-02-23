@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.nconfig.Section;
 import org.collectionspace.chain.csp.nconfig.Rules;
 import org.collectionspace.chain.csp.nconfig.SectionGenerator;
 import org.collectionspace.chain.csp.nconfig.Target;
@@ -41,10 +40,10 @@ public class TreeNode {
 		children.add(child);
 	}
 	
-	public String getName() { return text; }
-	public TreeNode getParent() { return parent; }
+	String getName() { return text; }
+	TreeNode getParent() { return parent; }
 
-	private void match_all_children(Rules rules,String name,List<String> path) {
+	private void match_all_children(RulesImpl rules,String name,List<String> path) {
 		for(TreeNode child : children) {
 			path.add(child.getName());
 			child.match(rules,name,path);
@@ -52,7 +51,7 @@ public class TreeNode {
 		}
 	}
 	
-	public void claim(Rules rules,String name,SectionGenerator step,Target target) {
+	public void claim(RulesImpl rules,String name,SectionGenerator step,Target target) {
 		System.err.println("Node "+text+" claimed by "+name);
 		this.claim_step=step;
 		this.claim_name=name;
@@ -61,7 +60,7 @@ public class TreeNode {
 		match_all_children(rules,name,new ArrayList<String>());
 	}
 	
-	public void match(Rules rules,String name,List<String> part) {
+	private void match(RulesImpl rules,String name,List<String> part) {
 		Rule r=rules.matchRules(name,part);
 		if(r==null) {
 			System.err.println("Node "+text+" is subsidiary claim of "+name+" with suffix "+StringUtils.join(part,"/"));
@@ -84,7 +83,7 @@ public class TreeNode {
 		}
 	}
 	
-	public void run_all(Section m) {
+	public void run_all(SectionImpl m) {
 		/* First we run our unclaimeds, to get a good Milestone */
 		if(!is_text) {
 			System.err.println("Running claimed on milestone "+m.getName());
@@ -93,7 +92,7 @@ public class TreeNode {
 					System.err.println("Running unclaimed on milestone "+m.getName());		
 					Map<String,String> data=new HashMap<String,String>();
 					child.run_unclaimed(data,"");
-					Section nxt=new Section(m,child.claim_name,child.claim_target);
+					SectionImpl nxt=new SectionImpl(m,child.claim_name,child.claim_target);
 					if(child.claim_step!=null)
 						child.claim_step.step(nxt,data);
 					child.run_all(nxt);
