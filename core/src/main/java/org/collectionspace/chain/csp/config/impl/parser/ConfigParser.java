@@ -13,7 +13,7 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamSource;
 
-import org.collectionspace.chain.csp.config.impl.main.ConfigException;
+import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.impl.main.ParseRun;
 import org.collectionspace.chain.csp.config.impl.main.RulesImpl;
 import org.collectionspace.chain.csp.config.impl.main.SectionImpl;

@@ -8,13 +8,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
 import org.collectionspace.chain.csp.config.Target;
-import org.collectionspace.chain.csp.config.impl.main.ConfigException;
-import org.collectionspace.chain.csp.inner.BootstrapCSP;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.pathtrie.Trie;
 import org.collectionspace.csp.api.core.CSP;

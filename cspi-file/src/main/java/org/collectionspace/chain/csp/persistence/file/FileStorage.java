@@ -9,12 +9,12 @@ package org.collectionspace.chain.csp.persistence.file;
 import java.io.File;
 import java.io.IOException;
 
+import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
 import org.collectionspace.chain.csp.config.Target;
-import org.collectionspace.chain.csp.inner.BootstrapCSP;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;

@@ -3,8 +3,8 @@ package org.collectionspace.chain.csp.webui.main;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.impl.main.ConfigException;
 import org.collectionspace.chain.pathtrie.TrieMethod;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;

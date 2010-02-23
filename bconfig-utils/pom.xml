@@ -48,6 +48,18 @@
       <version>1.4</version>
       <type>jar</type>
     </dependency>
+        <dependency>
+      <groupId>org.collectionspace</groupId>
+      <artifactId>csp-api</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>
+        <dependency>
+      <groupId>org.collectionspace</groupId>
+      <artifactId>cspi-inner</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>
     <dependency>
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>

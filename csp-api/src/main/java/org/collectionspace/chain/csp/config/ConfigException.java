@@ -4,7 +4,7 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.csp.config.impl.main;
+package org.collectionspace.chain.csp.config;
 
 /** Storage method through an exception. Exceptions are a mess and need to be tidied. */
 public class ConfigException extends Exception {

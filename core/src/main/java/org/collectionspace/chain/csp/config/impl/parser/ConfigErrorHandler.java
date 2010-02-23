@@ -3,7 +3,7 @@ package org.collectionspace.chain.csp.config.impl.parser;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.collectionspace.chain.csp.config.impl.main.ConfigException;
+import org.collectionspace.chain.csp.config.ConfigException;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;

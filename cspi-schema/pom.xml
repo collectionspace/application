@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <!--  -->
   <groupId>org.collectionspace</groupId>
-  <artifactId>cspi-webui</artifactId>
+  <artifactId>cspi-schema</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
   <name>CSP: Web UI</name>
@@ -37,34 +37,20 @@
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
-
     <dependency>
       <groupId>org.collectionspace</groupId>
-      <artifactId>general-utils</artifactId>
+      <artifactId>cspi-inner</artifactId>
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
-  
-    <dependency>
-      <groupId>org.collectionspace</groupId>
-      <artifactId>csp-helper</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>jar</type>
-    </dependency>  
-
-    <dependency>
-      <groupId>org.collectionspace</groupId>
-      <artifactId>bconfig-utils</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>jar</type>
-    </dependency>  
-  
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>1.4</version>
-      <type>jar</type>
+    
+            <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.5</version>
+      <scope>test</scope>
     </dependency>
+    
     
   </dependencies>
   

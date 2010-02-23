@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.config.Configurable;
-import org.collectionspace.chain.csp.config.impl.main.ConfigException;
 import org.collectionspace.chain.csp.config.impl.main.RulesImpl;
 import org.collectionspace.chain.csp.config.impl.parser.ConfigParser;
 import org.collectionspace.csp.api.container.CSPManager;

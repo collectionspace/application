@@ -11,6 +11,8 @@
   <modules>
 	<module>general-utils</module>
     <module>csp-api</module>
+    <module>cspi-inner</module>
+    <module>cspi-schema</module>
     <module>bconfig-utils</module>
     <module>jxutils</module>
     <module>csp-helper</module>

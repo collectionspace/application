@@ -6,12 +6,9 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.csp.config.ConfigRoot;
-import org.collectionspace.chain.csp.inner.BootstrapCSP;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.csp.api.container.CSPManager;
-import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 
@@ -22,21 +19,16 @@ public class TestSchema {
 	}
 	
 	@Test public void testSchema() throws Exception {
+		/*
 		CSPManager cspm=new CSPManagerImpl();
-		BootstrapConfigController bootstrap=new BootstrapConfigController(null);
-		bootstrap.go();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
-		cspm.register(new BootstrapCSP(bootstrap));
 		cspm.go();
 		cspm.configure(new InputSource(getSource("config.xml")),null);
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
-		BootstrapConfigController b2=(BootstrapConfigController)root.getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
-		assertNotNull(b2);
 		
-		/*
 		RulesImpl rules=new RulesImpl();
 		rules.addRule("ROOT",new String[]{"collection-space"},"org.collectionspace.app.cfg.main",null,null);
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"records"},"records",null,null);

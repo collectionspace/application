@@ -4,16 +4,16 @@
  *
  * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
  */
-package org.collectionspace.chain.csp.inner;
+package org.collectionspace.bconfigutils.bootstrap;
 
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
 import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 
 public class BootstrapCSP implements CSP, Configurable {
 	public static final String SECTION_PREFIX="org.collectionspace.app.config.bootstrap.";	

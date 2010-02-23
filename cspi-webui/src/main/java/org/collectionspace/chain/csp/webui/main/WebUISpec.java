@@ -3,12 +3,11 @@ package org.collectionspace.chain.csp.webui.main;
 import java.io.IOException;
 
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
 import org.collectionspace.chain.csp.config.Target;
-import org.collectionspace.chain.csp.config.impl.main.ConfigException;
 import org.collectionspace.chain.csp.inner.CoreConfig;
-import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
 import org.collectionspace.csp.api.ui.UIException;
