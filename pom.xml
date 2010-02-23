@@ -11,7 +11,7 @@
   <modules>
 	<module>general-utils</module>
     <module>csp-api</module>
-    <module>cspi-inner</module>
+    <module>csp-impl</module>
     <module>cspi-schema</module>
     <module>bconfig-utils</module>
     <module>jxutils</module>
@@ -21,6 +21,6 @@
     <module>cspi-file</module>
     <module>cspi-services</module>
 
-    <module>core</module>
+    <module>tomcat-main</module>
   </modules>
 </project>

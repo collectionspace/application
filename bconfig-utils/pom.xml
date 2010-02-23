@@ -56,7 +56,7 @@
     </dependency>
         <dependency>
       <groupId>org.collectionspace</groupId>
-      <artifactId>cspi-inner</artifactId>
+      <artifactId>csp-impl</artifactId>
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>
