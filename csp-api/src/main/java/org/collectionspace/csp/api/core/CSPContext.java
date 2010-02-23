@@ -10,8 +10,6 @@ import org.collectionspace.csp.api.ui.UI;
 
 public interface CSPContext {
 	// Config
-	public void addConfigConsumer(ConfigConsumer cfg);
-	public void addConfigurable(Configurable cfg);
 	public void addConfigRules(NConfigurable cfg);
 	public void setNConfigRoot(NConfigRoot cfg);
 	public NConfigRoot getNConfigRoot();

@@ -21,7 +21,7 @@ import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 
-public class BootstrapCSP implements CSP, ConfigConsumer, ConfigProvider, NConfigurable {
+public class BootstrapCSP implements CSP, ConfigProvider, NConfigurable {
 	public static final String SECTION_PREFIX="org.collectionspace.app.config.bootstrap.";	
 	public static String BOOTSTRAP_ROOT=SECTION_PREFIX+"bootstrap";
 	private BootstrapConfigController bootstrap;
@@ -31,12 +31,7 @@ public class BootstrapCSP implements CSP, ConfigConsumer, ConfigProvider, NConfi
 	public String getName() { return "bootstrap"; }
 
 	public void go(CSPContext ctx) throws CSPDependencyException {
-		ctx.addConfigConsumer(this);
 		ctx.addConfigRules(this);
-	}
-
-	public void prepareForConfiguration(ConfigContext ctx) throws CSPDependencyException {
-		ctx.addConfigProvider(this);
 	}
 
 	public void provide(ConfigListener response) {

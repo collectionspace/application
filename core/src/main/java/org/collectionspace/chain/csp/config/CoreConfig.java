@@ -18,23 +18,13 @@ import org.collectionspace.csp.helper.config.SimpleBarbWirer;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 
 // XXX call order DependencyNotSatisfiedException
-public class CoreConfig implements CSP, ConfigConsumer, NConfigurable, NConfigRoot {
+public class CoreConfig implements CSP, NConfigurable, NConfigRoot {
 	private Map<String,Object> roots=new HashMap<String,Object>();
 	
 	public void go(CSPContext ctx) { 
-		ctx.addConfigConsumer(this);
 		ctx.addConfigRules(this);
 		ctx.setNConfigRoot(this);
 		ctx.addConfigRules(this);
-	}
-
-	public void prepareForConfiguration(ConfigContext ctx) {
-		// Set up "main" content provider/consumer
-		SimpleBarbWirer main=new SimpleBarbWirer("main");
-		ctx.getRootBarbWirer().getBarb("root").attach(main,"collection-space");
-		main.addAttachmentPoint("persistence",new String[]{"persistence"});	
-		main.addAttachmentPoint("ui",new String[]{"ui"});
-		main.addAttachmentPoint("misc",new String[0]);
 	}
 	
 	public String getName() { return "config.core"; }
