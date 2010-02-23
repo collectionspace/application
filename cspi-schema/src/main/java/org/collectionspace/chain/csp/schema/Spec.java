@@ -44,6 +44,25 @@ public class Spec implements CSP, Configurable {
 				return r;
 			}
 		});
+		/* RECORD/field -> FIELD */
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Field f=new Field((Record)parent,section);
+				((Record)parent).addField(f);
+				String is_chooser=(String)section.getValue("/@chooser");
+				if(is_chooser!=null && ("1".equals(is_chooser) || "yes".equals(is_chooser.toLowerCase())))
+					f.setType("chooser");
+				return f;
+			}
+		});		
+		/* FIELD/options/option -> OPTION */
+		rules.addRule(SECTION_PREFIX+"field",new String[]{"options","option"},SECTION_PREFIX+"option",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Field f=(Field)parent;
+				f.addOption((String)section.getValue("/@id"),(String)section.getValue(""),(String)section.getValue("/@sample"));
+				return f;
+			}
+		});		
 	}
 
 	public Record getRecord(String id) { return records.get(id); }

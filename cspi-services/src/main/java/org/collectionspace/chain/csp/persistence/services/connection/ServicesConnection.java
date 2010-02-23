@@ -10,10 +10,14 @@ package org.collectionspace.chain.csp.persistence.services.connection;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
+import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.DeleteMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -42,6 +46,11 @@ public class ServicesConnection {
 				return;
 			MultiThreadedHttpConnectionManager manager=new MultiThreadedHttpConnectionManager();
 			client=new HttpClient(manager);
+			// XXX do it properly
+			client.getState().setCredentials(
+					new AuthScope("test.collectionspace.org",8180,AuthScope.ANY_REALM),
+					new UsernamePasswordCredentials("test","test"));
+			client.getParams().setAuthenticationPreemptive(true);
 		}
 	}
 
@@ -97,6 +106,7 @@ public class ServicesConnection {
 		}
 		if(qps!=null)
 			out.setQueryString(qps);
+		out.setDoAuthentication(true);
 		return out;
 	}
 

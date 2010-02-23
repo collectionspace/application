@@ -176,6 +176,7 @@ public class TestGeneral {
 		return tester;
 	}
 
+	// XXX refactor
 	private HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
 		HttpTester response = new HttpTester();

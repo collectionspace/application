@@ -85,6 +85,7 @@ public class WebUI implements CSP, UI, Configurable {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new WebSearchList(r,true));
 			addMethod(Operation.READ,new String[]{r.getWebURL()},0,new WebSearchList(r,false));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new WebUISpec(r.getID()));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"auispec"},0,new WebAUISpec(r));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"schema"},0,new WebUISpec(r.getID()));
 			addMethod(Operation.READ,new String[]{r.getWebURL()},1,new WebRead(r));
 			addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new WebDelete(r.getID()));

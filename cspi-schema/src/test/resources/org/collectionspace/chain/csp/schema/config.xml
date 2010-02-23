@@ -16,6 +16,264 @@
     <records>
       <record id="collection-object">
         <web-url>objects</web-url>
+					<field id="objectTitle">
+						<selector>.csc-object-identification-object-title</selector>
+					</field>
+					<field id="objectTitleLanguage">
+						<selector>.csc-object-identification-object-title-language</selector>
+					</field>
+					<field id="objectTitleTranslation">
+						<selector>.csc-object-identification-object-title-translation</selector>
+					</field>
+					<field id="objectTitleType">
+						<selector>.csc-object-identification-object-title-type</selector>
+					</field>
+					<field id="accessionNumber">
+						<selector>.csc-object-identification-object-number</selector>
+					</field>
+					<field id="otherNumber">
+						<selector>.csc-object-identification-other-number</selector>
+					</field>
+					<field id="otherNumberType">
+						<selector>.csc-object-identification-other-number-type</selector>
+					</field>
+					<field id="description">
+						<selector>.csc-object-identification-brief-description</selector>
+					</field>
+					<field id="objectName">
+						<selector>.csc-object-identification-object-name</selector>
+					</field>
+					<field id="objectCurrency">
+						<selector>.csc-object-identification-object-currency</selector>
+					</field>
+					<field id="objectLevel">
+						<selector>.csc-object-identification-object-level</selector>
+					</field>
+					<field id="objectSystem">
+						<selector>.csc-object-identification-object-system</selector>
+					</field>
+					<field id="objectType">
+						<selector>.csc-object-identification-object-type</selector>
+					</field>
+					<field id="objectLanguage">
+						<selector>.csc-object-identification-object-language</selector>
+					</field>
+					<field id="objectNote">
+						<selector>.csc-object-identification-object-note</selector>
+					</field>
+					<field id="distinguishingFeatures">
+						<selector>.csc-object-identification-distinguishing-features</selector>
+					</field>
+					<field id="numberOfObjects">
+						<selector>.csc-object-identification-number-objects</selector>
+					</field>
+					<field id="comments">
+						<selector>.csc-object-identification-comments</selector>
+					</field>
+					<field id="descCopyNumber">
+						<selector>.csc-object-description-copy-number</selector>
+					</field>
+					<field id="descStatus">
+						<selector>.csc-object-description-status</selector>
+					</field>
+					<field id="descSex">
+						<selector>.csc-object-description-sex</selector>
+					</field>
+					<field id="descPhase">
+						<selector>.csc-object-description-phase</selector>
+					</field>
+					<field id="descForm">
+						<selector>.csc-object-description-form</selector>
+					</field>
+					<field id="descAge">
+						<selector>.csc-object-description-age</selector>
+					</field>
+					<field id="descAgeQualifier">
+						<selector>.csc-object-description-age-qualifier</selector>
+					</field>
+					<field id="descAgeUnit">
+						<selector>.csc-object-description-age-unit</selector>
+					</field>
+					<field id="descStyle">
+						<selector>.csc-object-description-style</selector>
+					</field>
+					<field id="descColor">
+						<selector>.csc-object-description-color</selector>
+					</field>
+					<field id="descMaterial">
+						<selector>.csc-object-description-material</selector>
+					</field>
+					<field id="descMaterialComponent">
+						<selector>.csc-object-description-material-component</selector>
+					</field>
+					<field id="descMaterialNote">
+						<selector>.csc-object-description-material-component-note</selector>
+					</field>
+					<field id="descMaterialName">
+						<selector>.csc-object-description-material-name</selector>
+					</field>
+					<field id="descMaterialSource">
+						<selector>.csc-object-description-material-source</selector>
+					</field>
+					<field id="descPhysicalDescription">
+						<selector>.csc-object-description-physical-description</selector>
+					</field>
+					<field id="descComponentName">
+						<selector>.csc-object-description-object-component-name</selector>
+					</field>
+					<field id="descComponentInfo">
+						<selector>.csc-object-description-object-component-information</selector>
+					</field>
+					<field id="descTechAttribute">
+						<selector>.csc-object-description-technical-attribute</selector>
+					</field>
+					<field id="descTechAttributeMeasure">
+						<selector>.csc-object-description-technical-attribute-measurement</selector>
+					</field>
+					<field id="descTechAttributeUnit">
+						<selector>.csc-object-description-technical-attribute-unit</selector>
+					</field>
+					<field id="descDimension">
+						<selector>.csc-object-description-dimension</selector>
+					</field>
+					<field id="descDimensionPart">
+						<selector>.csc-object-description-dimension-part</selector>
+					</field>
+					<field id="descDimensionValue">
+						<selector>.csc-object-description-dimension-value</selector>
+					</field>
+					<field id="descDimensionValueQualifier">
+						<selector>.csc-object-description-dimension-value-qualifier</selector>
+					</field>
+					<field id="descContentDescription">
+						<selector>.csc-object-description-content-description</selector>
+					</field>
+					<field id="descContentLanguage">
+						<selector>.csc-object-description-content-language</selector>
+					</field>
+					<field id="descContentActivity">
+						<selector>.csc-object-description-content-activity</selector>
+					</field>
+					<field id="descContentConcept">
+						<selector>.csc-object-description-content-concept</selector>
+					</field>
+					<field id="descContentPosition">
+						<selector>.csc-object-description-content-position</selector>
+					</field>
+					<field id="descContentObject">
+						<selector>.csc-object-description-content-object</selector>
+					</field>
+					<field id="descContentObjectType">
+						<selector>.csc-object-description-content-object-type</selector>
+					</field>
+					<field id="descContentPeople">
+						<selector>.csc-object-description-content-people</selector>
+					</field>
+					<field id="descContentPerson">
+						<selector>.csc-object-description-content-person</selector>
+					</field>
+					<field id="descContentPlace">
+						<selector>.csc-object-description-content-place</selector>
+					</field>
+					<field id="descContentScript">
+						<selector>.csc-object-description-content-script</selector>
+					</field>
+					<field id="descContentOrganization">
+						<selector>.csc-object-description-content-organization</selector>
+					</field>
+					<field id="descContentMethod">
+						<selector>.csc-object-description-content-method</selector>
+					</field>
+					<field id="descContentEventName">
+						<selector>.csc-object-description-content-event-name</selector>
+					</field>
+					<field id="descContentEventNameType">
+						<selector>.csc-object-description-content-event-name-type</selector>
+					</field>
+					<field id="descContentOther">
+						<selector>.csc-object-description-content-other</selector>
+					</field>
+					<field id="descContentOtherType">
+						<selector>.csc-object-description-content-other-type</selector>
+					</field>
+					<field id="descContentNote">
+						<selector>.csc-object-description-content-note</selector>
+					</field>
+					<field id="descInscriptionContent">
+						<selector>.csc-object-description-inscription-content</selector>
+					</field>
+					<field id="descInscriptionContentInscriber">
+						<selector>.csc-object-description-inscription-content-inscriber</selector>
+					</field>
+					<field id="descInscriptionContentLanguage">
+						<selector>.csc-object-description-inscription-content-language</selector>
+					</field>
+					<field id="descInscriptionContentDate">
+						<selector>.csc-object-description-inscription-content-date</selector>
+					</field>
+					<field id="descInscriptionContentPosition">
+						<selector>.csc-object-description-inscription-content-position</selector>
+					</field>
+					<field id="descInscriptionContentScript">
+						<selector>.csc-object-description-inscription-content-script</selector>
+					</field>
+					<field id="descInscriptionContentType">
+						<selector>.csc-object-description-inscription-content-type</selector>
+					</field>
+					<field id="descInscriptionContentMethod">
+						<selector>.csc-object-description-inscription-content-method</selector>
+					</field>
+					<field id="descInscriptionContentInterpretation">
+						<selector>.csc-object-description-inscription-content-interpretation</selector>
+					</field>
+					<field id="descInscriptionContentTranslation">
+						<selector>.csc-object-description-inscription-content-translation</selector>
+					</field>
+					<field id="descInscriptionContentTransliteration">
+						<selector>.csc-object-description-inscription-content-transliteration</selector>
+					</field>
+					<field id="descInscriptionDescription">
+						<selector>.csc-object-description-inscription-description</selector>
+					</field>
+					<field id="descInscriptionDescriptionInscriber">
+						<selector>.csc-object-description-inscription-description-inscriber</selector>
+					</field>
+					<field id="descInscriptionDescriptionDate">
+						<selector>.csc-object-description-inscription-description-date</selector>
+					</field>
+					<field id="descInscriptionDescriptionPosition">
+						<selector>.csc-object-description-inscription-description-position</selector>
+					</field>
+					<field id="descInscriptionDescriptionType">
+						<selector>.csc-object-description-inscription-description-type</selector>
+					</field>
+					<field id="descInscriptionDescriptionMethod">
+						<selector>.csc-object-description-inscription-description-method</selector>
+					</field>
+					<field id="descInscriptionDescriptionInterpretation">
+						<selector>.csc-object-description-inscription-description-interpretation</selector>
+					</field>
+					<field id="descDateAssociation">
+						<selector>.csc-date-information-date-association</selector>
+					</field>
+					<field id="descDatePeriod">
+						<selector>.csc-date-information-date-period</selector>
+					</field>
+					<field id="descDateEarliestSingleCertainty">
+						<selector>.csc-date-information-date-earliest-single-certainty</selector>
+					</field>
+					<field id="descDateEarliestSingleQualifier">
+						<selector>.csc-date-information-date-earliest-single-qualifier</selector>
+					</field>
+					<field id="descDateLatestSingleCertainty">
+						<selector>.csc-date-information-date-latest-certainty</selector>
+					</field>
+					<field id="descDateLatestSingleQualifier">
+						<selector>.csc-date-information-date-latest-qualifier</selector>
+					</field>
+					<field id="descDateText">
+						<selector>.csc-date-information-text</selector>
+					</field>        
       </record>
       <record id="intake">
       </record>
