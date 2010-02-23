@@ -21,7 +21,6 @@ import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigContext;
 import org.collectionspace.csp.api.config.ConfigException;
 import org.collectionspace.csp.api.config.ConfigRoot;
-import org.collectionspace.csp.api.config.Configurable;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;

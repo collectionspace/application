@@ -12,13 +12,12 @@ import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigContext;
 import org.collectionspace.csp.api.config.ConfigRoot;
-import org.collectionspace.csp.api.config.Configurable;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.helper.config.SimpleConfigProviderBarbWirer;
 
-public class Spec implements CSP, Configurable, ConfigConsumer, NConfigurable {
+public class Spec implements CSP, NConfigurable {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.spec.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 	
@@ -27,8 +26,6 @@ public class Spec implements CSP, Configurable, ConfigConsumer, NConfigurable {
 	public String getName() { return "schema"; }
 
 	public void go(CSPContext ctx) throws CSPDependencyException {
-		ctx.addConfigConsumer(this);
-		ctx.addConfigurable(this);
 		ctx.addConfigRules(this);
 	}
 

@@ -9,9 +9,19 @@ package org.collectionspace.chain.csp.persistence.file;
 import java.io.File;
 import java.io.IOException;
 
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.config.main.impl.BootstrapCSP;
+import org.collectionspace.chain.csp.config.CoreConfig;
+import org.collectionspace.chain.csp.nconfig.NConfigurable;
+import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
+import org.collectionspace.chain.csp.nconfig.Rules;
+import org.collectionspace.chain.csp.nconfig.Target;
+import org.collectionspace.chain.csp.webui.main.WebMethod;
+import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.config.BarbWirer;
 import org.collectionspace.csp.api.config.ConfigConsumer;
 import org.collectionspace.csp.api.config.ConfigContext;
+import org.collectionspace.csp.api.config.ConfigException;
 import org.collectionspace.csp.api.config.ConfigRoot;
 import org.collectionspace.csp.api.config.Configurable;
 import org.collectionspace.csp.api.core.CSP;
@@ -26,11 +36,18 @@ import org.collectionspace.csp.helper.persistence.ProxyStorage;
 /**  SplittingStorage which delegates collection-objects to StubJSONStore
  * 
  */
-public class FileStorage extends ProxyStorage implements Storage, CSP, ConfigConsumer, Configurable, StorageGenerator {
+public class FileStorage extends ProxyStorage implements Storage, CSP, NConfigurable, StorageGenerator {
+	public static String SECTION_PREFIX="org.collectionspace.app.config.persistence.file.";
+	public static String FILE_ROOT=SECTION_PREFIX+"spec";
+	
 	private String root;
+	private CSPContext ctx;
 
 	public FileStorage() {}
-	FileStorage(String root) throws IOException, CSPDependencyException { real_init(root); } // For testing
+	FileStorage(String root) throws IOException, CSPDependencyException { 
+		this.root=root;
+		real_init();
+	} // For testing
 
 	public String getStoreRoot() { return root; }
 
@@ -38,22 +55,11 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, ConfigCon
 
 	public void go(CSPContext ctx) throws CSPDependencyException {
 		ctx.addStorageType("file",this);
-		ctx.addConfigConsumer(this);
-		ctx.addConfigurable(this);
+		ctx.addConfigRules(this);
+		this.ctx=ctx;
 	}
 
-	public void prepareForConfiguration(ConfigContext ctx) throws CSPDependencyException {
-		BarbWirer main=ctx.getRootBarbWirer().getBarb("root").getBarbWirer("collection-space");
-		if(main==null) {
-			throw new CSPDependencyException("No collection-space tag attached to root");
-		}
-		SimpleConfigProviderBarbWirer persistence=new SimpleConfigProviderBarbWirer(new Object[]{"persistence","file"});		
-		ctx.addConfigProvider(persistence);
-		main.getBarb("persistence").attach(persistence,"file");
-	}
-
-	private void real_init(String root) throws CSPDependencyException {
-		this.root=root;
+	private void real_init() throws CSPDependencyException {
 		File data=new File(root,"data");
 		if(!data.exists())
 			data.mkdir();
@@ -64,16 +70,23 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, ConfigCon
 		}
 	}
 
-	public void configure(ConfigRoot config) throws CSPDependencyException {
-		Object store=config.getValue(new Object[]{"bootstrap","store"});
-		if(store!=null && (store instanceof String)) {
-			real_init((String)store);
-		} else {
-			store=config.getValue(new Object[]{"persistence","file","store"});
-			if(store==null || !(store instanceof String))
-				return;
-			real_init((String)store);
-		}
-	}
 	public Storage getStorage(CSPRequestCache cache) { return this; }
+
+	public void nconfigure(Rules rules) throws CSPDependencyException {
+		/* MAIN/persistence/file -> FILE */
+		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"persistence","file"},SECTION_PREFIX+"file",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection milestone) {
+				((CoreConfig)parent).setRoot(FILE_ROOT,FileStorage.this);
+				root=(String)milestone.getValue("store");
+				return FileStorage.this;
+			}
+		});	
+	}
+	public void config_finish() throws CSPDependencyException {
+		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getNConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
+		String boot_root=bootstrap.getOption("store");
+		if(boot_root!=null)
+			root=boot_root;
+		real_init();
+	}
 }
