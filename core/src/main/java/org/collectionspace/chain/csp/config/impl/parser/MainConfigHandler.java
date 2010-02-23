@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.nconfig.impl.parser;
+package org.collectionspace.chain.csp.config.impl.parser;
 
 import java.util.ArrayList;
 import java.util.List;

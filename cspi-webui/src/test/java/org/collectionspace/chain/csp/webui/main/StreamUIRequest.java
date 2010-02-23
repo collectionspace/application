@@ -3,13 +3,11 @@ package org.collectionspace.chain.csp.webui.main;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
-import org.apache.commons.lang.StringUtils;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;

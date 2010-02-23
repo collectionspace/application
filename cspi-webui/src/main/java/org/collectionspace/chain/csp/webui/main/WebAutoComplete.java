@@ -3,9 +3,9 @@ package org.collectionspace.chain.csp.webui.main;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
-import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
+import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.config.impl.main.ConfigException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
@@ -57,7 +57,7 @@ public class WebAutoComplete implements WebMethod {
 		autocomplete(q.getCache(),q.getStorage(),q.getUIRequest());
 	}
 
-	public void configure(ReadOnlySection config) throws NConfigException {}
+	public void configure(ReadOnlySection config) throws ConfigException {}
 	
 	public void configure_finish() {}
 }

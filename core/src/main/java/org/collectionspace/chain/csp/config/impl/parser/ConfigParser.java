@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.nconfig.impl.parser;
+package org.collectionspace.chain.csp.config.impl.parser;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -13,14 +13,11 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.commons.lang.StringUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
-import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
-import org.collectionspace.chain.csp.nconfig.impl.main.ParseRun;
-import org.collectionspace.chain.csp.nconfig.impl.main.RulesImpl;
-import org.collectionspace.chain.csp.nconfig.impl.main.SectionImpl;
-import org.collectionspace.chain.csp.nconfig.impl.main.TreeNode;
+import org.collectionspace.chain.csp.config.impl.main.ConfigException;
+import org.collectionspace.chain.csp.config.impl.main.ParseRun;
+import org.collectionspace.chain.csp.config.impl.main.RulesImpl;
+import org.collectionspace.chain.csp.config.impl.main.SectionImpl;
+import org.collectionspace.chain.csp.config.impl.main.TreeNode;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
@@ -32,19 +29,19 @@ public class ConfigParser {
 	private SAXParserFactory factory;
 	private RulesImpl rules;
 	
-	public ConfigParser(RulesImpl rules) throws NConfigException {
+	public ConfigParser(RulesImpl rules) throws ConfigException {
 		factory = SAXParserFactory.newInstance();
 		System.err.println(factory.getClass());
 		factory.setNamespaceAware(true);
 		TransformerFactory tf=TransformerFactory.newInstance();
 		if (!tf.getFeature(SAXSource.FEATURE) || !tf.getFeature(SAXResult.FEATURE))
-			throw new NConfigException("XSLT transformer doesn't support SAX!");
+			throw new ConfigException("XSLT transformer doesn't support SAX!");
 		transfactory=(SAXTransformerFactory)tf;
 		messages=new ConfigLoadingMessagesImpl(); // In the end we probably want to pass this in
 		this.rules=rules;
 	}
 	
-	public void parse(InputSource src,String url) throws NConfigException {
+	public void parse(InputSource src,String url) throws ConfigException {
 		ConfigErrorHandler errors=new ConfigErrorHandler(messages);
 		try {
 			TransformerHandler[] xform=new TransformerHandler[xslts.size()];

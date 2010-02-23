@@ -3,16 +3,16 @@ package org.collectionspace.chain.csp.schema;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.collectionspace.chain.csp.config.Configurable;
+import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.CoreConfig;
-import org.collectionspace.chain.csp.nconfig.NConfigurable;
-import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
-import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.chain.csp.nconfig.Target;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 
-public class Spec implements CSP, NConfigurable {
+public class Spec implements CSP, Configurable {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.spec.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 	
@@ -24,7 +24,7 @@ public class Spec implements CSP, NConfigurable {
 		ctx.addConfigRules(this);
 	}
 
-	public void nconfigure(Rules rules) {
+	public void configure(Rules rules) {
 		/* MAIN/spec -> SPEC */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"spec"},SECTION_PREFIX+"spec",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {

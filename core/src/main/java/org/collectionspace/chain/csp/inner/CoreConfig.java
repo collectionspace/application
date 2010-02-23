@@ -3,29 +3,27 @@ package org.collectionspace.chain.csp.inner;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.collectionspace.chain.csp.nconfig.NConfigRoot;
-import org.collectionspace.chain.csp.nconfig.NConfigurable;
-import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
-import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.chain.csp.nconfig.Target;
-import org.collectionspace.csp.api.container.CSPManager;
+import org.collectionspace.chain.csp.config.ConfigRoot;
+import org.collectionspace.chain.csp.config.Configurable;
+import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
-import org.collectionspace.csp.api.core.CSPDependencyException;
 
 // XXX call order DependencyNotSatisfiedException
-public class CoreConfig implements CSP, NConfigurable, NConfigRoot {
+public class CoreConfig implements CSP, Configurable, ConfigRoot {
 	private Map<String,Object> roots=new HashMap<String,Object>();
 	
 	public void go(CSPContext ctx) { 
 		ctx.addConfigRules(this);
-		ctx.setNConfigRoot(this);
+		ctx.setConfigRoot(this);
 		ctx.addConfigRules(this);
 	}
 	
 	public String getName() { return "config.core"; }
 
-	public void nconfigure(Rules rules) {
+	public void configure(Rules rules) {
 		/* ROOT/collection-space -> MAIN */
 		rules.addRule("ROOT",new String[]{"collection-space"},"org.collectionspace.app.cfg.main",null,new Target() {
 			public Object populate(Object parent, ReadOnlySection milestone) {

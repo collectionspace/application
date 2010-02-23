@@ -1,6 +1,6 @@
-package org.collectionspace.chain.csp.nconfig.impl.main;
+package org.collectionspace.chain.csp.config.impl.main;
 
-import org.collectionspace.chain.csp.nconfig.impl.parser.EventConsumer;
+import org.collectionspace.chain.csp.config.impl.parser.EventConsumer;
 
 public class ParseRun implements EventConsumer {
 	private TreeNode root=null,here=null;

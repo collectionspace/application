@@ -1,12 +1,12 @@
 package org.collectionspace.chain.csp.persistence.services;
 
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.csp.config.Configurable;
+import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.BootstrapCSP;
 import org.collectionspace.chain.csp.inner.CoreConfig;
-import org.collectionspace.chain.csp.nconfig.NConfigurable;
-import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
-import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.chain.csp.nconfig.Target;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
@@ -23,7 +23,7 @@ import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
 
-public class ServicesStorageGenerator extends SplittingStorage implements ContextualisedStorage, StorageGenerator, CSP, NConfigurable {
+public class ServicesStorageGenerator extends SplittingStorage implements ContextualisedStorage, StorageGenerator, CSP, Configurable {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.persistence.service.";
 	public static String SERVICE_ROOT=SECTION_PREFIX+"service";
 	private String base_url;
@@ -64,7 +64,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		real_init();
 	}
 	
-	public void nconfigure(Rules rules) throws CSPDependencyException {
+	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/persistence/file -> SERVICE */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"persistence","service"},SECTION_PREFIX+"service",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
@@ -76,7 +76,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	}
 	
 	public void config_finish() throws CSPDependencyException {
-		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getNConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
+		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
 		String boot_root=bootstrap.getOption("store-url");
 		if(boot_root!=null)
 			base_url=boot_root;

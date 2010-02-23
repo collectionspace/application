@@ -1,13 +1,13 @@
-package org.collectionspace.chain.csp.nconfig.impl.main;
+package org.collectionspace.chain.csp.config.impl.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
-import org.collectionspace.chain.csp.nconfig.Section;
-import org.collectionspace.chain.csp.nconfig.Target;
+import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.config.Section;
+import org.collectionspace.chain.csp.config.Target;
 
 public class SectionImpl implements Section {
 	private ReadOnlySection parent;

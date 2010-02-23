@@ -1,16 +1,16 @@
 package org.collectionspace.csp.api.core;
 
-import org.collectionspace.chain.csp.nconfig.NConfigRoot;
-import org.collectionspace.chain.csp.nconfig.NConfigurable;
+import org.collectionspace.chain.csp.config.ConfigRoot;
+import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.api.ui.UI;
 
 public interface CSPContext {
 	// Config
-	public void addConfigRules(NConfigurable cfg);
-	public void setNConfigRoot(NConfigRoot cfg);
-	public NConfigRoot getNConfigRoot();
+	public void addConfigRules(Configurable cfg);
+	public void setConfigRoot(ConfigRoot cfg);
+	public ConfigRoot getConfigRoot();
 	
 	// Storage
 	public void addStorageType(String name,StorageGenerator store);

@@ -1,8 +1,4 @@
-package org.collectionspace.chain.csp.nconfig.impl.parser;
-
-import java.util.List;
-
-
+package org.collectionspace.chain.csp.config.impl.parser;
 
 /* Like SAX, but simpler. You get reported when you enter and leave a tag, and any text in a tag (or attribute).
  * Attributes are treated as tags which begin with @, immediately within the tag where they appear. 

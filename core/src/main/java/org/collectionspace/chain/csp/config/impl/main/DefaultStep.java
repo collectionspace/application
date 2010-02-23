@@ -1,9 +1,9 @@
-package org.collectionspace.chain.csp.nconfig.impl.main;
+package org.collectionspace.chain.csp.config.impl.main;
 
 import java.util.Map;
 
-import org.collectionspace.chain.csp.nconfig.Section;
-import org.collectionspace.chain.csp.nconfig.SectionGenerator;
+import org.collectionspace.chain.csp.config.Section;
+import org.collectionspace.chain.csp.config.SectionGenerator;
 
 public class DefaultStep implements SectionGenerator {
 

@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.nconfig.impl.parser;
+package org.collectionspace.chain.csp.config.impl.parser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

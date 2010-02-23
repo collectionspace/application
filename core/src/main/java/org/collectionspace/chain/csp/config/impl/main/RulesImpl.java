@@ -1,13 +1,13 @@
-package org.collectionspace.chain.csp.nconfig.impl.main;
+package org.collectionspace.chain.csp.config.impl.main;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.chain.csp.nconfig.SectionGenerator;
-import org.collectionspace.chain.csp.nconfig.Target;
-import org.collectionspace.chain.csp.nconfig.impl.main.Rule;
+import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.config.SectionGenerator;
+import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.config.impl.main.Rule;
 
 public class RulesImpl implements Rules {
 	private List<Rule> rules=new ArrayList<Rule>();

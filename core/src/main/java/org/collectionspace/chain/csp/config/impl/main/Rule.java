@@ -1,10 +1,9 @@
-package org.collectionspace.chain.csp.nconfig.impl.main;
+package org.collectionspace.chain.csp.config.impl.main;
 
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.nconfig.SectionGenerator;
-import org.collectionspace.chain.csp.nconfig.Target;
+import org.collectionspace.chain.csp.config.SectionGenerator;
+import org.collectionspace.chain.csp.config.Target;
 
 class Rule {
 	private String start,end;

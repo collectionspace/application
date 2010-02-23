@@ -6,16 +6,16 @@
  */
 package org.collectionspace.chain.csp.inner;
 
-import org.collectionspace.chain.csp.nconfig.NConfigurable;
-import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
-import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.chain.csp.nconfig.Target;
+import org.collectionspace.chain.csp.config.Configurable;
+import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 
-public class BootstrapCSP implements CSP, NConfigurable {
+public class BootstrapCSP implements CSP, Configurable {
 	public static final String SECTION_PREFIX="org.collectionspace.app.config.bootstrap.";	
 	public static String BOOTSTRAP_ROOT=SECTION_PREFIX+"bootstrap";
 	private BootstrapConfigController bootstrap;
@@ -28,7 +28,7 @@ public class BootstrapCSP implements CSP, NConfigurable {
 		ctx.addConfigRules(this);
 	}
 
-	public void nconfigure(Rules rules) {
+	public void configure(Rules rules) {
 		/* MAIN/bootstrap -> BOOTSTRAP */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"bootstrap"},SECTION_PREFIX+"bootstrap",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {

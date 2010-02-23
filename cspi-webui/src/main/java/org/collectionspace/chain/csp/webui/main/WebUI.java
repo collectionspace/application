@@ -9,13 +9,13 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.csp.config.Configurable;
+import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.config.Target;
+import org.collectionspace.chain.csp.config.impl.main.ConfigException;
 import org.collectionspace.chain.csp.inner.BootstrapCSP;
 import org.collectionspace.chain.csp.inner.CoreConfig;
-import org.collectionspace.chain.csp.nconfig.NConfigurable;
-import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
-import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.chain.csp.nconfig.Target;
-import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
 import org.collectionspace.chain.pathtrie.Trie;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
@@ -29,7 +29,7 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.helper.core.RequestCache;
 
-public class WebUI implements CSP, UI, NConfigurable {
+public class WebUI implements CSP, UI, Configurable {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.ui.web.";
 	public static String WEBUI_ROOT=SECTION_PREFIX+"web";
 
@@ -85,7 +85,7 @@ public class WebUI implements CSP, UI, NConfigurable {
 		}
 	}
 
-	public void nconfigure(Rules rules) throws CSPDependencyException {
+	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/ui/web -> UI */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"ui","web"},SECTION_PREFIX+"web",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
@@ -93,7 +93,7 @@ public class WebUI implements CSP, UI, NConfigurable {
 				for(WebMethod m : all_methods)
 					try {
 						m.configure(milestone);
-					} catch (NConfigException e) {
+					} catch (ConfigException e) {
 						// XXX throwable
 					}
 					return WebUI.this;
@@ -104,7 +104,7 @@ public class WebUI implements CSP, UI, NConfigurable {
 	public void config_finish() {
 		for(WebMethod m : all_methods)
 			m.configure_finish();		
-		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getNConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
+		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
 		xxx_storage=ctx.getStorage(bootstrap.getOption("storage-type"));
 	}
 

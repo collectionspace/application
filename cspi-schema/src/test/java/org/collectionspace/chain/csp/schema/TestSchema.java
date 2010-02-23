@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.BootstrapCSP;
 import org.collectionspace.chain.csp.inner.CoreConfig;
-import org.collectionspace.chain.csp.nconfig.NConfigRoot;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.junit.Test;
@@ -29,8 +29,8 @@ public class TestSchema {
 		cspm.register(new Spec());
 		cspm.register(new BootstrapCSP(bootstrap));
 		cspm.go();
-		cspm.nconfigure(new InputSource(getSource("config.xml")),null);
-		NConfigRoot root=cspm.getNConfigRoot();
+		cspm.configure(new InputSource(getSource("config.xml")),null);
+		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
 		BootstrapConfigController b2=(BootstrapConfigController)root.getRoot(BootstrapCSP.BOOTSTRAP_ROOT);

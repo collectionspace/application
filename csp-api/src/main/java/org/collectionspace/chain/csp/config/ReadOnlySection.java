@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.nconfig;
+package org.collectionspace.chain.csp.config;
 
 public interface ReadOnlySection {
 	public String getName();

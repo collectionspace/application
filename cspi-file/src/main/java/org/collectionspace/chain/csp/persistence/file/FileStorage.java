@@ -10,14 +10,12 @@ import java.io.File;
 import java.io.IOException;
 
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.csp.config.Configurable;
+import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.BootstrapCSP;
 import org.collectionspace.chain.csp.inner.CoreConfig;
-import org.collectionspace.chain.csp.nconfig.NConfigurable;
-import org.collectionspace.chain.csp.nconfig.ReadOnlySection;
-import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.chain.csp.nconfig.Target;
-import org.collectionspace.chain.csp.webui.main.WebMethod;
-import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -29,7 +27,7 @@ import org.collectionspace.csp.helper.persistence.ProxyStorage;
 /**  SplittingStorage which delegates collection-objects to StubJSONStore
  * 
  */
-public class FileStorage extends ProxyStorage implements Storage, CSP, NConfigurable, StorageGenerator {
+public class FileStorage extends ProxyStorage implements Storage, CSP, Configurable, StorageGenerator {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.persistence.file.";
 	public static String FILE_ROOT=SECTION_PREFIX+"spec";
 	
@@ -65,7 +63,7 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, NConfigur
 
 	public Storage getStorage(CSPRequestCache cache) { return this; }
 
-	public void nconfigure(Rules rules) throws CSPDependencyException {
+	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/persistence/file -> FILE */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"persistence","file"},SECTION_PREFIX+"file",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
@@ -76,7 +74,7 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, NConfigur
 		});	
 	}
 	public void config_finish() throws CSPDependencyException {
-		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getNConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
+		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
 		String boot_root=bootstrap.getOption("store");
 		if(boot_root!=null)
 			root=boot_root;

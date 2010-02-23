@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.nconfig.impl.main;
+package org.collectionspace.chain.csp.config.impl.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,9 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.nconfig.Rules;
-import org.collectionspace.chain.csp.nconfig.SectionGenerator;
-import org.collectionspace.chain.csp.nconfig.Target;
+import org.collectionspace.chain.csp.config.SectionGenerator;
+import org.collectionspace.chain.csp.config.Target;
 
 public class TreeNode {
 	private TreeNode parent;

@@ -1,10 +1,9 @@
-package org.collectionspace.chain.csp.nconfig.impl.parser;
+package org.collectionspace.chain.csp.config.impl.parser;
 
 import java.util.List;
 import java.util.ArrayList;
 
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
-import org.collectionspace.chain.csp.nconfig.impl.main.NConfigException;
+import org.collectionspace.chain.csp.config.impl.main.ConfigException;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -57,7 +56,7 @@ public class ConfigErrorHandler implements ErrorHandler {
 	public void fatalError(SAXParseException e) throws SAXException { any_error(e); }
 	public void warning(SAXParseException e) throws SAXException { any_warning(e); }
 
-	public void fail_if_necessary() throws NConfigException { 
+	public void fail_if_necessary() throws ConfigException { 
 		if(errors.size()==0)
 			return;
 		StringBuffer out=new StringBuffer();
@@ -70,6 +69,6 @@ public class ConfigErrorHandler implements ErrorHandler {
 			}
 			out.append(' ');
 		}
-		throw new NConfigException(out.toString());
+		throw new ConfigException(out.toString());
 	}
 }
