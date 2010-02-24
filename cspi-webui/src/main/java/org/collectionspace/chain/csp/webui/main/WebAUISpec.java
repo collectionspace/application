@@ -1,13 +1,17 @@
 package org.collectionspace.chain.csp.webui.main;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
@@ -23,11 +27,19 @@ public class WebAUISpec implements WebMethod {
 	public WebAUISpec(Record record) {
 		this.record=record;
 	}
-	
+
 	private String plain(Field f) {
-		return "${fields."+f.getID()+"}";		
+		List<String> path=new ArrayList<String>();
+		String pad="fields";
+		for(String part : f.getIDPath()) {
+			path.add(pad);
+			pad="0";
+			path.add(part);
+		}
+		return "${"+StringUtils.join(path,'.')+"}";		
 	}
-		
+
+	// XXX factor
 	private Object generateDataEntryField(Field f) throws JSONException {
 		if("plain".equals(f.getUIType())) {
 			// Plain entry
@@ -38,17 +50,23 @@ public class WebAUISpec implements WebMethod {
 			out.put("selection",plain(f));
 			JSONArray ids=new JSONArray();
 			JSONArray names=new JSONArray();
+			int idx=0,dfault=-1;
 			for(Option opt : f.getAllOptions()) {
 				ids.put(opt.getID());
 				names.put(opt.getName());
+				if(opt.isDefault())
+					dfault=idx;
+				idx++;
 			}
+			if(dfault!=-1)
+				out.put("default",dfault+"");
 			out.put("optionlist",ids);
 			out.put("optionnames",names);			
 			return out;
 		}
 		return plain(f);	
 	}
-	
+
 	private JSONObject generateAutocomplete(Field f) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
@@ -93,10 +111,32 @@ public class WebAUISpec implements WebMethod {
 		out.put("decorators",decorators);
 		return out;
 	}
-	
+
+	private JSONObject generateDate(Field f) throws JSONException {
+		JSONObject out=new JSONObject();
+		JSONArray decorators=new JSONArray();
+		JSONObject decorator=new JSONObject();
+		decorator.put("type","fluid");
+		decorator.put("func","cspace.datePicker");
+		decorator.put("container",f.getContainerSelector());
+		decorators.put(decorator);
+		out.put("decorators",decorators);
+		return out;
+	}
+
 	private JSONObject generateDataEntrySection() throws JSONException {
 		JSONObject out=new JSONObject();
-		for(Field f : record.getAllFields()) {
+		for(FieldSet fs : record.getAllFields()) {
+			generateDataEntry(out,fs);
+		}
+		return out;
+	}
+
+	private void generateDataEntry(JSONObject out,FieldSet fs) throws JSONException {
+		if(fs instanceof Field) {
+			// Single field
+			Field f=(Field)fs;
+			// Single field
 			out.put(f.getSelector(),generateDataEntryField(f));
 			if(f.isAutocomplete()) {
 				out.put(f.getAutocompleteSelector(),generateAutocomplete(f));
@@ -104,20 +144,45 @@ public class WebAUISpec implements WebMethod {
 			if("chooser".equals(f.getUIType())) {
 				out.put(f.getContainerSelector(),generateChooser(f));
 			}
+			if("date".equals(f.getUIType())) {
+				out.put(f.getContainerSelector(),generateDate(f));
+			}			
+		} else if(fs instanceof Repeat) {
+			// Container
+			Repeat r=(Repeat)fs;
+			JSONObject row=new JSONObject();
+			JSONArray children=new JSONArray();
+			for(FieldSet child : r.getChildren()) {
+				JSONObject contents=new JSONObject();
+				generateDataEntry(contents,child);
+				children.put(contents);
+			}
+			row.put("children",children);
+			out.put(r.getSelector(),row);
 		}
-		return out;
+
 	}
-	
+
+	private void generateTitleSectionEntry(JSONObject out,FieldSet fs) throws JSONException {
+		if(fs instanceof Field) {
+			Field f=(Field)fs;
+			if(!f.isInTitle())
+				return;
+			out.put(f.getTitleSelector(),plain(f));
+		} else if(fs instanceof Repeat) {
+			for(FieldSet child : ((Repeat)fs).getChildren())
+				generateTitleSectionEntry(out,child);
+		}
+	}
+
 	private JSONObject generateTitleSection() throws JSONException {
 		JSONObject out=new JSONObject();
-		for(Field f : record.getAllFields()) {
-			if(!f.isInTitle())
-				continue;
-			out.put(f.getTitleSelector(),plain(f));
+		for(FieldSet f : record.getAllFields()) {
+			generateTitleSectionEntry(out,f);
 		}
 		return out;
 	}
-	
+
 	private JSONObject generateSidebarPart(String url_frag,boolean include_type,boolean include_summary) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONObject row=new JSONObject();
@@ -136,7 +201,7 @@ public class WebAUISpec implements WebMethod {
 		out.put(".csc-related-row:",row);
 		return out;
 	}
-	
+
 	// XXX sidebar is fixed for now
 	private JSONObject generateSidebarSection() throws JSONException {
 		JSONObject out=new JSONObject();
@@ -145,7 +210,7 @@ public class WebAUISpec implements WebMethod {
 		out.put("relatedObjects",generateSidebarPart("object.html",false,true));
 		return out;
 	}
-	
+
 	private JSONObject uispec(UIRequest request,String suffix) throws UIException {
 		try {
 			JSONObject out=new JSONObject();
@@ -157,7 +222,7 @@ public class WebAUISpec implements WebMethod {
 			throw new UIException("Cannot generate UISpec due to JSONException",e);
 		}
 	}
-	
+
 	public void configure() throws ConfigException {
 	}
 

@@ -58,9 +58,15 @@ public class TestUISpecs {
 	
 	@Test public void testUISpec() throws Exception {
 		ServletTester jetty=setupJetty();
+		// Collection-Object
 		HttpTester response=jettyDo(jetty,"GET","/chain/objects/auispec",null);
 		JSONObject generated=new JSONObject(response.getContent());
 		JSONObject comparison=new JSONObject(getResourceString("collection-object.uispec"));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
+		// Intake
+		response=jettyDo(jetty,"GET","/chain/intake/auispec",null);
+		generated=new JSONObject(response.getContent());
+		comparison=new JSONObject(getResourceString("intake.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 	}
 }

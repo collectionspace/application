@@ -34,6 +34,8 @@ public class TestSchema {
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("objects",r_obj.getWebURL());
 		
+		
+		
 		/* RECORD/field -> FIELD(type) */
 		/*
 		rules.addRule("record",new String[]{"field"},"field",new SectionGenerator() {

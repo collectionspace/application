@@ -5,11 +5,11 @@ import java.util.Map;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
-public class Record {
+public class Record implements FieldParent {
 	private String id,web_url;
 	private String type;
 	private Spec spec;
-	private Map<String,Field> fields=new HashMap<String,Field>();
+	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
 	
 	Record(Spec parent,ReadOnlySection section) {
 		id=(String)section.getValue("/@id");
@@ -26,9 +26,9 @@ public class Record {
 	public String getWebURL() { return web_url; }
 	public String getType() { return type; }
 	public Spec getSpec() { return spec; }
-	public Field[] getAllFields() { return fields.values().toArray(new Field[0]); }
+	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
 	
-	public void addField(Field f) {
+	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);
 	}
 	
@@ -37,4 +37,6 @@ public class Record {
 		out.append("    web_url="+web_url+"\n");
 		out.append("    type="+type+"\n");
 	}
+
+	public Record getRecord() { return this; }
 }
