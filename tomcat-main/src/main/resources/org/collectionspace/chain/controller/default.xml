@@ -465,6 +465,75 @@
 			  </repeat>
 			</record>
 			<record id="acquisition">
+			  <field id="acquAccessionDate" ui-type="date">
+			    <selector>.csc-acquisition-accession-date</selector>
+			  </field>
+			  <field id="acquAuthorize" autocomplete="1">
+			    <selector>.csc-acquisition-authorizer</selector>
+			  </field>
+			  <field id="acquAuthorizeDate" ui-type="date">
+			    <selector>.csc-acquisition-authorizer-date</selector>
+			  </field>
+			  <field id="acquDate" ui-type="date">
+			    <selector>.csc-acquisition-date</selector>
+			    <container-selector>.csc-acquisition-acquisition-date-container</container-selector>
+			  </field>
+			  <field id="acquFundingDenom">
+			    <selector>.csc-acquisition-acquisition-funding-denomination</selector>
+			  </field>
+			  <field id="acquFundingValue">
+			    <selector>.csc-acquisition-acquisition-funding-value</selector>
+			  </field>
+			  <field id="acquFundingSource" autocomplete="1">
+			    <selector>.csc-acquisition-acquisition-funding-source</selector>
+			  </field>
+			  <field id="acquFundingProviso">
+			    <selector>.csc-acquisition-acquisition-funding-provisos</selector>
+			  </field>
+			  <field id="acquMethod">
+			    <selector>.csc-acquisition-acquisition-method</selector>
+			    <options>
+			      <option id="gift">Gift</option>
+			      <option id="purchase">Purchase</option>
+			      <option id="exchange">Exchange</option>
+			      <option id="transfer">Transfer</option>
+			      <option id="treasure">Treasure</option>
+			    </options>
+			  </field>
+			  <field id="acquNote">
+			    <selector>.csc-acquisition-acquisition-note</selector>
+			  </field>
+			  <field id="acquProviso">
+			    <selector>.csc-acquisition-acquisition-provisos</selector>
+			  </field>
+			  <field id="acquReason">
+			    <selector>.csc-acquisition-acquisition-reason</selector>
+			  </field>
+			  <field id="acquReferenceNum" in-title="yes" chooser="yes">
+			    <selector>.csc-acquisition-numberPatternChooser-reference-number</selector>
+			    <title-selector>.csc-titleBar-acquisition-reference-number</title-selector>
+			    <container-selector>.csc-acquisition-reference-number-patternChooserContainer</container-selector>
+				  <options>
+				    <option id="objects" sample="2009.1">Accession</option>
+				    <option id="archives" sample="AR2009.42">Archives</option>
+				    <option id="library" sample="LIB2009.1">Library</option>
+				  </options>
+			  </field>
+			  <field id="acquSource" autocomplete="1">
+			    <selector>.csc-acquisition-acquisition-source</selector>
+			  </field>
+			  <field id="acquPriceDenom">
+			    <selector>.csc-acquisition-purchaser-price-denomination</selector>
+			  </field>
+			  <field id="acquPriceType">
+			    <selector>.csc-acquisition-purchase-price-type</selector>
+			  </field>
+			  <field id="acquPrice">
+			    <selector>.csc-acquisition-purchaser-price</selector>
+			  </field>
+			  <field id="acquTitleNum">
+			    <selector>.csc-acquisition-transfer-of-title-number</selector>
+			  </field>
 			</record>
 			<record id="id" type="id"> <!-- XXX what is this type? How does this work? -->
 			</record>
