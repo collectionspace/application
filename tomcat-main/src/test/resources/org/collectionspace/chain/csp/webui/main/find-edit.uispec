@@ -1,0 +1,42 @@
+{
+    "objects": {
+            ".csc-object-record-list-row:": {
+                "children": [
+                    {
+                        ".csc-accession-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "object.html?csid=${items.0.csid}"
+                         },
+                        ".csc-summary": "${items.0.summary}"
+                    }
+                ]
+            }
+    },
+    "proceduresIntake": {
+            ".csc-procedural-record-list-row:": {
+                "children": [
+                    {
+                        ".csc-entry-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "intake.html?csid=${items.0.csid}"
+                         },
+                        ".csc-summary": "${items.0.summary}"
+                    }
+                ]
+            }
+    },
+    "proceduresAcquisition": {
+            ".csc-acquisition-record-list-row:": {
+                "children": [
+                    {
+                        ".csc-entry-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "acquisition.html?csid=${items.0.csid}"
+                         },
+                        ".csc-summary": "${items.0.summary}"
+                    }
+                ]
+            }
+    },
+    "authorityTerms": {}
+}

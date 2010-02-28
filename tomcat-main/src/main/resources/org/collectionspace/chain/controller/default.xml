@@ -14,8 +14,12 @@
 	</ui>
 	<spec>
 		<records>
-			<record id="collection-object">
+			<record id="collection-object" in-findedit="yes">
 				<web-url>objects</web-url>
+				<ui-url>object.html</ui-url>
+				<number-selector>.csc-accession-number</number-selector>
+				<row-selector>.csc-object-record-list-row:</row-selector>
+				<list-key>objects</list-key>
 					<field id="objectTitle" in-title="yes">
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
 						<selector>.csc-object-identification-object-title</selector>
@@ -321,7 +325,8 @@
 			</record>
 
 
-			<record id="intake">
+			<record id="intake" in-findedit="yes">
+			  <row-selector>.csc-procedural-record-list-row:</row-selector>
 			  <field id="currentOwner" autocomplete="1">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
@@ -468,7 +473,7 @@
 			</record>
 
 
-			<record id="acquisition">
+			<record id="acquisition"  in-findedit="yes">
 			  <field id="acquAccessionDate" ui-type="date">
 			    <selector>.csc-acquisition-accession-date</selector>
 			  </field>
