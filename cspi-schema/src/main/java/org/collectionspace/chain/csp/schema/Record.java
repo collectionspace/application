@@ -6,7 +6,7 @@ import java.util.Map;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 public class Record implements FieldParent {
-	private String id,web_url;
+	private String id,web_url,terms_used_url;
 	private String type;
 	private Spec spec;
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
@@ -19,6 +19,9 @@ public class Record implements FieldParent {
 		type=(String)section.getValue("/@type");
 		if(type==null)
 			type="record";
+		terms_used_url=(String)section.getValue("/terms-used-url");
+		if(terms_used_url==null)
+			terms_used_url="nameAuthority";
 		spec=parent;
 	}
 	
@@ -27,6 +30,7 @@ public class Record implements FieldParent {
 	public String getType() { return type; }
 	public Spec getSpec() { return spec; }
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
+	public String getTermsUsedURL() { return terms_used_url; }
 	
 	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);

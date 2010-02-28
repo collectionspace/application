@@ -205,7 +205,7 @@ public class WebAUISpec implements WebMethod {
 	// XXX sidebar is fixed for now
 	private JSONObject generateSidebarSection() throws JSONException {
 		JSONObject out=new JSONObject();
-		out.put("termsUsed",generateSidebarPart("nameAuthority",true,false));
+		out.put("termsUsed",generateSidebarPart(record.getTermsUsedURL(),true,false));
 		out.put("relatedProcedures",generateSidebarPart("${items.0.recordtype}.html",true,true));
 		out.put("relatedObjects",generateSidebarPart("object.html",false,true));
 		return out;

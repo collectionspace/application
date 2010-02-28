@@ -1,0 +1,137 @@
+{
+    "titleBar": {
+        ".csc-titleBar-displayName": "${fields.displayName}",
+        ".csc-titleBar-foundationDate": "${fields.foundingDate}",
+        ".csc-titleBar-dissolutionDate": "${fields.dissolutionDate}",
+    },
+    "dataEntry": {
+        ".csc-organizationAuthority-displayName": "${fields.displayName}",
+        ".csc-organizationAuthority-referenceNumber": "${fields.referenceNumber}",
+        ".csc-organizationAuthority-status": {
+            "selection": "${fields.status}",
+            "optionlist": ["provisional", "under review", "accepted","rejected"],
+            "optionnames": ["Provisional", "Under Review", "Accepted","Rejected"]
+        },
+		".csc-organizationAuthority-longName": "${fields.longName}",
+        ".csc-organizationAuthority-subBodyName": "${fields.subBodyName}",
+        ".csc-organizationAuthority-nameAdditions": "${fields.nameAdditions}",
+        ".csc-organizationAuthority-contactName": "${fields.contactName}",
+        ".csc-organizationAuthority-contactName-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-organizationAuthority-contactName",
+                "options": {
+                    "url": "../../chain/organization-authority/autocomplete/contactName"
+                }
+            }]
+        },
+        ".csc-organizationAuthority-foundingDate": "${fields.foundingDate}",
+        ".csc-organizationAuthority-foundingDate-container": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.datePicker",
+                "container": ".csc-organizationAuthority-foundingDate-container"
+            }]
+        },
+		".csc-organizationAuthority-foundingPlace": "${fields.foundingPlace}",
+        ".csc-organizationAuthority-foundingPlace-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-organizationAuthority-foundingPlace",
+                "options": {
+                    "url": "../../chain/organization-authority/autocomplete/foundingPlace"
+                }
+            }]
+        },
+		".csc-organizationAuthority-dissolutionDate": "${fields.dissolutionDate}",
+        ".csc-organizationAuthority-dissolutionDate-container": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.datePicker",
+                "container": ".csc-organizationAuthority-dissolutionDate-container"
+            }]
+        },
+		".csc-organizationAuthority-group": "${fields.group}",
+        ".csc-organizationAuthority-group-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-organizationAuthority-group",
+                "options": {
+                    "url": "../../chain/organization-authority/autocomplete/group"
+                }
+            }]
+        },
+		".csc-organizationAuthority-function": {
+            "selection": "${fields.function}",
+            "optionlist": ["option 1", "option 2", "option 3"],
+            "optionnames": ["option 1", "option 2", "option 3"]
+        },
+		".csc-organizationAuthority-history": "${fields.history}",
+		".csc-contact-addressType1": {
+            "selection": "${fields.addressType1}",
+            "optionlist": ["Home", "Work"],
+            "optionnames": ["home", "work"]
+        },
+        ".csc-contact-addressText1": "${fields.addressText1}",
+        ".csc-contact-faxNumber1": "${fields.faxNumber1}",
+        ".csc-contact-place": "${fields.place}",
+        ".csc-contact-place-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-contact-place",
+                "options": {
+                    "url": "../../chain/organization-authority/autocomplete/place"
+                }
+            }]
+        },
+        ".csc-contact-telephoneNumber1": "${fields.telephoneNumber1}",
+        ".csc-contact-postcode1": "${fields.postcode1}",
+        ".csc-contact-email1": "${fields.email1}"
+    },
+    "sidebar": {
+        "termsUsed": {
+            ".csc-related-row:": {
+                "children": [
+                    {
+                        ".csc-related-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "organizationAuthority?csid=${items.0.csid}"
+                         },
+                        ".csc-related-recordtype": "${items.0.recordtype}"
+                    }
+                ]
+                }
+        },
+        "relatedProcedures": {
+            ".csc-related-row:": {
+                "children": [
+                    {
+                        ".csc-related-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                         },
+                        ".csc-related-recordtype": "${items.0.recordtype}",
+                        ".csc-related-summary": "${items.0.summary}"
+                    }
+                ]
+            }
+        },
+        "relatedObjects": {
+            ".csc-related-row:": {
+                "children": [
+                    {
+                        ".csc-related-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "object.html?csid=${items.0.csid}"
+                         },
+                        ".csc-related-summary": "${items.0.summary}"
+                    }
+                ]
+            }
+        }
+    }
+}

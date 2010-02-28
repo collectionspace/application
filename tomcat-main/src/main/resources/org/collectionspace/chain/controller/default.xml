@@ -319,6 +319,8 @@
 						</options>
 					</field>								
 			</record>
+
+
 			<record id="intake">
 			  <field id="currentOwner" autocomplete="1">
 			    <selector>.csc-intake-current-owner</selector>
@@ -464,6 +466,8 @@
 			    </field>
 			  </repeat>
 			</record>
+
+
 			<record id="acquisition">
 			  <field id="acquAccessionDate" ui-type="date">
 			    <selector>.csc-acquisition-accession-date</selector>
@@ -661,6 +665,91 @@
 			    <selector>.csc-contact-email1</selector>
 			  </field>
 			</record>
+
+
+			<record id="organizaiton">
+			  <web-url>organization-authority</web-url>
+			  <terms-used-url>organizationAuthority</terms-used-url>
+			  <field id="displayName" in-title="yes">
+			    <selector>.csc-organizationAuthority-displayName</selector>
+			    <title-selector>.csc-titleBar-displayName</title-selector>
+			  </field>
+			  <field id="referenceNumber">
+			    <selector>.csc-organizationAuthority-referenceNumber</selector>
+			  </field>
+			  <field id="status">
+			    <selector>.csc-organizationAuthority-status</selector>
+			    <options>
+			      <option id="provisional">Provisional</option>
+			      <option id="under review">Under Review</option>
+			      <option id="accepted">Accepted</option>
+			      <option id="rejected">Rejected</option>
+			    </options>
+			  </field>
+			  <field id="longName">
+			    <selector>.csc-organizationAuthority-longName</selector>
+			  </field>
+			  <field id="subBodyName">
+			    <selector>.csc-organizationAuthority-subBodyName</selector>
+			  </field>
+			  <field id="nameAdditions">
+			    <selector>.csc-organizationAuthority-nameAdditions</selector>
+			  </field>
+			  <field id="contactName" autocomplete="1">
+			    <selector>.csc-organizationAuthority-contactName</selector>
+			  </field>
+			  <field id="foundingDate" ui-type="date" in-title="yes">
+			    <selector>.csc-organizationAuthority-foundingDate</selector>
+			    <title-selector>.csc-titleBar-foundationDate</title-selector>
+			  </field>
+			  <field id="foundingPlace" autocomplete="1">
+			    <selector>.csc-organizationAuthority-foundingPlace</selector>
+			  </field>
+			  <field id="dissolutionDate" ui-type="date" in-title="yes">
+			    <selector>.csc-organizationAuthority-dissolutionDate</selector>
+			    <title-selector>.csc-titleBar-dissolutionDate</title-selector>
+			  </field>
+			  <field id="group" autocomplete="1">
+			    <selector>.csc-organizationAuthority-group</selector>
+			  </field>
+			  <field id="function">
+			    <selector>.csc-organizationAuthority-function</selector>
+			    <options>
+			      <option id="option 1">option 1</option>
+			      <option id="option 2">option 2</option>
+			      <option id="option 3">option 3</option>
+			    </options>
+			  </field>
+			  <field id="history">
+			    <selector>.csc-organizationAuthority-history</selector>
+			  </field>
+			  <field id="addressType1">
+			    <selector>.csc-contact-addressType1</selector>
+			    <options>
+			      <option id="Home">home</option>
+			      <option id="Work">work</option>
+			    </options>
+			  </field>
+			  <field id="addressText1">
+			    <selector>.csc-contact-addressText1</selector>
+			  </field>
+			  <field id="faxNumber1">
+			    <selector>.csc-contact-faxNumber1</selector>
+			  </field>
+			  <field id="place" autocomplete="1">
+			    <selector>.csc-contact-place</selector>
+			  </field>
+			  <field id="telephoneNumber1">
+			    <selector>.csc-contact-telephoneNumber1</selector>
+			  </field>
+			  <field id="postcode1">
+			    <selector>.csc-contact-postcode1</selector>
+			  </field>
+			  <field id="email1">
+			    <selector>.csc-contact-email1</selector>
+			  </field>
+			</record>
+
  			<record id="id" type="id"> <!-- XXX what is this type? How does this work? -->
 			</record>
 		</records>
