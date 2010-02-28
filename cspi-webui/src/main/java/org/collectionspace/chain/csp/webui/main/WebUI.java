@@ -8,7 +8,6 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
-import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;

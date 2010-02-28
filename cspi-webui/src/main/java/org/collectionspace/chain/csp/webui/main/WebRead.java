@@ -1,14 +1,7 @@
 package org.collectionspace.chain.csp.webui.main;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
-import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.Rules;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.persistence.ExistException;

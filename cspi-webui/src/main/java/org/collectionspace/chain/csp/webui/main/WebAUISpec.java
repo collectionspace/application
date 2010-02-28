@@ -1,6 +1,5 @@
 package org.collectionspace.chain.csp.webui.main;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +12,6 @@ import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
-import org.collectionspace.chain.uispec.SchemaStore;
-import org.collectionspace.chain.uispec.StubSchemaStore;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;

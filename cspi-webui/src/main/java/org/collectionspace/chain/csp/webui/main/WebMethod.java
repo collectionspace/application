@@ -1,8 +1,5 @@
 package org.collectionspace.chain.csp.webui.main;
 
-import org.collectionspace.chain.csp.config.ConfigException;
-import org.collectionspace.chain.csp.config.ReadOnlySection;
-import org.collectionspace.chain.csp.config.Rules;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.pathtrie.TrieMethod;
 import org.collectionspace.csp.api.ui.UIException;
