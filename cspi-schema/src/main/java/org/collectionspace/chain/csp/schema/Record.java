@@ -6,7 +6,7 @@ import java.util.Map;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 public class Record implements FieldParent {
-	private String id,web_url,terms_used_url,number_selector,row_selector,list_key,ui_url;
+	private String id,web_url,terms_used_url,number_selector,row_selector,list_key,ui_url,tab_url;
 	private boolean in_findedit=false;
 	private String type;
 	private Spec spec;
@@ -39,12 +39,16 @@ public class Record implements FieldParent {
 		String findedit=(String)section.getValue("/@in-findedit");
 		if(findedit!=null && ("yes".equals(findedit.toLowerCase()) || "1".equals(findedit.toLowerCase())))
 			in_findedit=true;
+		tab_url=(String)section.getValue("/tab-url");
+		if(tab_url==null)
+			tab_url=web_url+"-tab";
 		spec=parent;
 	}
 	
 	public String getID() { return id; }
 	public String getWebURL() { return web_url; }
 	public String getUIURL() { return ui_url; }
+	public String getTabURL() { return tab_url; }
 	public String getType() { return type; }
 	public Spec getSpec() { return spec; }
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }

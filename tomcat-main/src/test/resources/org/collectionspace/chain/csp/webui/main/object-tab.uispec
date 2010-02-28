@@ -1,0 +1,22 @@
+{
+    "relatedRecords": {
+        ".csc-related-row:": {
+            "children": [
+                {
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "object.html?csid=${items.0.csid}"
+                     },
+                    ".csc-related-summary": "${items.0.summary}"
+                }
+            ]
+        }
+    },
+    "newRecord": {
+        ".csc-object-identification-object-number": "${fields.accessionNumber}",
+        ".csc-object-identification-other-number": "${fields.otherNumber}",
+        ".csc-object-identification-other-number-type": "${fields.otherNumberType}",
+        ".csc-object-identification-brief-description": "${fields.description}",
+        ".csc-object-identification-comments": "${fields.comments}"
+   }
+}

@@ -25,7 +25,8 @@ public class WebAUISpec implements WebMethod {
 		this.record=record;
 	}
 
-	private String plain(Field f) {
+	// XXX make common
+	static String plain(Field f) {
 		List<String> path=new ArrayList<String>();
 		String pad="fields";
 		for(String part : f.getIDPath()) {
@@ -180,7 +181,8 @@ public class WebAUISpec implements WebMethod {
 		return out;
 	}
 
-	private JSONObject generateSidebarPart(String url_frag,boolean include_type,boolean include_summary) throws JSONException {
+	// XXX refactor
+	static JSONObject generateSidebarPart(String url_frag,boolean include_type,boolean include_summary) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONObject row=new JSONObject();
 		JSONArray children=new JSONArray();
@@ -220,8 +222,7 @@ public class WebAUISpec implements WebMethod {
 		}
 	}
 
-	public void configure() throws ConfigException {
-	}
+	public void configure() throws ConfigException {}
 
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;

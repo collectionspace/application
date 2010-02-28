@@ -17,6 +17,7 @@
 			<record id="collection-object" in-findedit="yes">
 				<web-url>objects</web-url>
 				<ui-url>object.html</ui-url>
+				<tab-url>object-tab</tab-url>
 				<number-selector>.csc-accession-number</number-selector>
 				<row-selector>.csc-object-record-list-row:</row-selector>
 				<list-key>objects</list-key>
@@ -33,7 +34,7 @@
 					<field id="objectTitleType">
 						<selector>.csc-object-identification-object-title-type</selector>
 					</field>
-					<field id="accessionNumber" chooser="yes" in-title="yes">
+					<field id="accessionNumber" chooser="yes" in-title="yes" in-tab="yes">
 						<selector>.csc-object-identification-object-number</selector>
 						<title-selector>.csc-titleBar-object-identification-object-number</title-selector>
 						<options>
@@ -42,13 +43,13 @@
 							<option id="loans-in" sample="LI2009.1.1">Loans In</option>
 						</options>
 					</field>
-					<field id="otherNumber">
+					<field id="otherNumber" in-tab="yes">
 						<selector>.csc-object-identification-other-number</selector>
 					</field>
-					<field id="otherNumberType">
+					<field id="otherNumberType" in-tab="yes">
 						<selector>.csc-object-identification-other-number-type</selector>
 					</field>
-					<field id="description">
+					<field id="description" in-tab="yes">
 						<selector>.csc-object-identification-brief-description</selector>
 					</field>
 					<field id="objectName">
@@ -78,7 +79,7 @@
 					<field id="numberOfObjects">
 						<selector>.csc-object-identification-number-objects</selector>
 					</field>
-					<field id="comments">
+					<field id="comments" in-tab="yes">
 						<selector>.csc-object-identification-comments</selector>
 					</field>
 					<field id="descCopyNumber">

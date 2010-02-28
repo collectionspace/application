@@ -11,7 +11,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 public class Field implements FieldSet {
 	private FieldParent parent;
 	private String id,selector,type,autocomplete_selector,container_selector,title_selector;
-	private boolean is_autocomplete=false,in_title=false;
+	private boolean is_autocomplete=false,in_title=false,in_tab=false;
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
 	
@@ -37,6 +37,9 @@ public class Field implements FieldSet {
 		String in_title=(String)section.getValue("/@in-title");
 		if(in_title!=null && ("1".equals(in_title) || "yes".equals(in_title.toLowerCase())))
 			this.in_title=true;
+		String in_tab=(String)section.getValue("/@in-tab");
+		if(in_tab!=null && ("1".equals(in_tab) || "yes".equals(in_tab.toLowerCase())))
+			this.in_tab=true;
 		this.parent=record;
 	}
 	
@@ -47,6 +50,7 @@ public class Field implements FieldSet {
 	public String getUIType() { return type; }
 	public boolean isAutocomplete() { return is_autocomplete; }
 	public boolean isInTitle() { return in_title; }
+	public boolean isInTab() { return in_tab; }
 	public String getTitleSelector() { return title_selector; }
 	
 	void setType(String in) { type=in; }

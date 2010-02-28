@@ -87,6 +87,11 @@ public class TestUISpecs {
 		response=jettyDo(jetty,"GET","/chain/find-edit/auispec",null);
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("find-edit.uispec"));
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));				
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
+		// Object tab
+		response=jettyDo(jetty,"GET","/chain/object-tab/auispec",null);
+		generated=new JSONObject(response.getContent());
+		comparison=new JSONObject(getResourceString("object-tab.uispec"));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
 	}
 }
