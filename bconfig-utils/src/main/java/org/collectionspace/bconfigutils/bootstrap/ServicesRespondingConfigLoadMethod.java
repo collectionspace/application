@@ -20,7 +20,7 @@ public class ServicesRespondingConfigLoadMethod implements ConfigLoadMethod {
 		HttpMethod method=new GetMethod(url);
 		try {
 			int response=client.executeMethod(method);
-			return response>199 && response<300;
+			return (response>199 && response<300) || response==401;
 		} catch(Exception e) {
 			return false;
 		} finally {
