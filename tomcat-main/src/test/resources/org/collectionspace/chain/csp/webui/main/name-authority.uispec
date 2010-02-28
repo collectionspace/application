@@ -1,0 +1,183 @@
+{
+    "titleBar": {
+        ".csc-titleBar-displayName": "${fields.displayName}",
+        ".csc-titleBar-birthDate": "${fields.birthDate}",
+        ".csc-titleBar-deathDate": "${fields.deathDate}",
+    },
+    "dataEntry": {
+        ".csc-nameAuthority-displayName": "${fields.displayName}",
+        ".csc-nameAuthority-referenceNumber": "${fields.referenceNumber}",
+        ".csc-nameAuthority-status": {
+            "selection": "${fields.status}",
+            "optionlist": ["provisional", "under review", "accepted","rejected"],
+            "optionnames": ["Provisional", "Under Review", "Accepted","Rejected"]
+        },
+        ".csc-nameAuthority-salutation": {
+		    "selection": "${fields.salutation}",
+			"optionlist": ["Dear", "My Darling","Your Majaesty","Your Royal Highness"],
+            "optionnames": ["Dear", "My Darling", "Your Majaesty","Your Royal Highness"]
+        },
+        ".csc-nameAuthority-title": {
+		    "selection": "${fields.title}",
+			"optionlist": ["Mr", "Mrs", "Ms", "Miss", "Dr", "Professor", "Sir", "Dame", "Baron", "Baroness", "Lord", "Lady"],
+            "optionnames": ["Mr", "Mrs", "Ms", "Miss", "Dr", "Professor", "Sir", "Dame", "Baron", "Baroness", "Lord", "Lady"]
+        },
+        ".csc-nameAuthority-foreName": "${fields.foreName}",
+        ".csc-nameAuthority-middleName": "${fields.middleName}",
+        ".csc-nameAuthority-surName": "${fields.surName}",
+        ".csc-nameAuthority-nameAdditions": "${fields.nameAdditions}",
+        ".csc-nameAuthority-initials": "${fields.initials}",
+        ".csc-nameAuthority-gender": {
+            "selection": "${fields.gender}",
+            "optionlist": ["male", "female"],
+            "optionnames": ["Male", "Female"]
+        },
+        ".csc-nameAuthority-occupation": "${fields.occupation}",
+        ".csc-nameAuthority-occupation-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-nameAuthority-occupation",
+                "options": {
+                    "url": "../../chain/name-authority/autocomplete/occupation"
+                }
+            }]
+        },
+        ".csc-nameAuthority-schoolOrStyle": "${fields.schoolOrStyle}",
+        ".csc-nameAuthority-schoolOrStyle-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-nameAuthority-schoolOrStyle",
+                "options": {
+                    "url": "../../chain/name-authority/autocomplete/schoolOrStyle"
+                }
+            }]
+        },
+        ".csc-nameAuthority-group": "${fields.group}",
+        ".csc-nameAuthority-group-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-nameAuthority-group",
+                "options": {
+                    "url": "../../chain/name-authority/autocomplete/group"
+                }
+            }]
+        },
+        ".csc-nameAuthority-nationality": "${fields.nationality}",
+        ".csc-nameAuthority-nationality-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-nameAuthority-nationality",
+                "options": {
+                    "url": "../../chain/name-authority/autocomplete/nationality"
+                }
+            }]
+        },
+        ".csc-nameAuthority-nameNote": "${fields.nameNote}",
+        ".csc-nameAuthority-bioNote": "${fields.bioNote}",
+        ".csc-nameAuthority-birthDate": "${fields.birthDate}",
+        ".csc-nameAuthority-birthDate-container": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.datePicker",
+                "container": ".csc-nameAuthority-birthDate-container"
+            }]
+        },
+        ".csc-nameAuthority-birthPlace": "${fields.birthPlace}",
+        ".csc-nameAuthority-birthPlace-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-nameAuthority-birthPlace",
+                "options": {
+                    "url": "../../chain/name-authority/autocomplete/birthPlace"
+                }
+            }]
+        },
+        ".csc-nameAuthority-deathDate": "${fields.deathDate}",
+        ".csc-nameAuthority-deathDate-container": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.datePicker",
+                "container": ".csc-nameAuthority-deathDate-container"
+            }]
+        },
+        ".csc-nameAuthority-deathPlace": "${fields.deathPlace}",
+        ".csc-nameAuthority-deathPlace-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-nameAuthority-deathPlace",
+                "options": {
+                    "url": "../../chain/name-authority/autocomplete/deathPlace"
+                }
+            }]
+        },
+        ".csc-contact-addressType1": {
+            "selection": "${fields.addressType1}",
+            "optionlist": ["Home", "Work"],
+            "optionnames": ["home", "work"]
+        },
+        ".csc-contact-addressText1": "${fields.addressText1}",
+        ".csc-contact-faxNumber1": "${fields.faxNumber1}",
+        ".csc-contact-place": "${fields.place}",
+        ".csc-contact-place-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-contact-place",
+                "options": {
+                    "url": "../../chain/name-authority/autocomplete/place"
+                }
+            }]
+        },
+        ".csc-contact-telephoneNumber1": "${fields.telephoneNumber1}",
+        ".csc-contact-postcode1": "${fields.postcode1}",
+        ".csc-contact-email1": "${fields.email1}"
+    },
+    "sidebar": {
+        "termsUsed": {
+            ".csc-related-row:": {
+                "children": [
+                    {
+                        ".csc-related-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "nameAuthority?csid=${items.0.csid}"
+                         },
+                        ".csc-related-recordtype": "${items.0.recordtype}"
+                    }
+                ]
+                }
+        },
+        "relatedProcedures": {
+            ".csc-related-row:": {
+                "children": [
+                    {
+                        ".csc-related-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                         },
+                        ".csc-related-recordtype": "${items.0.recordtype}",
+                        ".csc-related-summary": "${items.0.summary}"
+                    }
+                ]
+            }
+        },
+        "relatedObjects": {
+            ".csc-related-row:": {
+                "children": [
+                    {
+                        ".csc-related-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "object.html?csid=${items.0.csid}"
+                         },
+                        ".csc-related-summary": "${items.0.summary}"
+                    }
+                ]
+            }
+        }
+    }
+}
