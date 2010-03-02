@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.relate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.misc.Request;
+import org.collectionspace.chain.csp.webui.misc.WebMethod;
+import org.collectionspace.chain.csp.webui.misc.WebUI;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -15,7 +18,7 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WebRelateRead implements WebMethod {
+public class RelateRead implements WebMethod {
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	private JSONObject createMiniRecord(Storage storage,String type,String csid) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {

@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.relate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.misc.Request;
+import org.collectionspace.chain.csp.webui.misc.WebMethod;
+import org.collectionspace.chain.csp.webui.misc.WebUI;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -16,11 +19,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WebRelateSearchList implements WebMethod {
+public class RelateSearchList implements WebMethod {
 	private Map<String,String> url_to_type=new HashMap<String,String>();
 	private boolean search;
 
-	public WebRelateSearchList(boolean in) { search=in; }
+	public RelateSearchList(boolean in) { search=in; }
 
 	private void addRestriction(JSONObject restrictions,String key,String value,boolean map) throws JSONException {
 		if(StringUtils.isBlank(value))

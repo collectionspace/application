@@ -1,7 +1,10 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.relate;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.misc.Request;
+import org.collectionspace.chain.csp.webui.misc.WebMethod;
+import org.collectionspace.chain.csp.webui.misc.WebUI;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -14,10 +17,10 @@ import org.json.JSONObject;
 
 /* Only complexity is that we delete opposite directions */
 
-public class WebRelateDelete implements WebMethod {
+public class RelateDelete implements WebMethod {
 	private boolean one_way;
 	
-	public WebRelateDelete(boolean one_way) {
+	public RelateDelete(boolean one_way) {
 		this.one_way=one_way;
 	}
 	

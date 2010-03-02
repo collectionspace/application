@@ -1,8 +1,11 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.record;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.misc.Request;
+import org.collectionspace.chain.csp.webui.misc.WebMethod;
+import org.collectionspace.chain.csp.webui.misc.WebUI;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -11,10 +14,10 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 
 
-public class WebDelete implements WebMethod {
+public class RecordDelete implements WebMethod {
 	private String base;
 	
-	public WebDelete(String base) { this.base=base; }
+	public RecordDelete(String base) { this.base=base; }
 
 	private void store_delete(Storage storage,UIRequest request,String path) throws UIException {
 		try {

@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.relate;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.misc.Request;
+import org.collectionspace.chain.csp.webui.misc.WebMethod;
+import org.collectionspace.chain.csp.webui.misc.WebUI;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -19,13 +22,14 @@ import org.json.JSONObject;
 
 // XXX non-self-inverse relations
 
-public class WebRelateCreateUpdate implements WebMethod {
+public class RelateCreateUpdate implements WebMethod {
 	private boolean create;
 	private Map<String,String> url_to_type=new HashMap<String,String>();
 
-	public WebRelateCreateUpdate(boolean create) {
+	public RelateCreateUpdate(boolean create) {
 		this.create=create;
 	}
+
 
 	private JSONObject createServicesObject(String src_type,String src,String type,String dst_type,String dst) throws JSONException {
 		JSONObject out=new JSONObject();

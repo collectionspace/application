@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.nuispec;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,16 +12,19 @@ import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.misc.Request;
+import org.collectionspace.chain.csp.webui.misc.WebMethod;
+import org.collectionspace.chain.csp.webui.misc.WebUI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WebAUISpec implements WebMethod {
+public class UISpec implements WebMethod {
 	private Record record;
 
-	public WebAUISpec(Record record) {
+	public UISpec(Record record) {
 		this.record=record;
 	}
 

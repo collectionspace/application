@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.misc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +15,17 @@ import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.nuispec.UISpec;
+import org.collectionspace.chain.csp.webui.nuispec.FindEditUISpec;
+import org.collectionspace.chain.csp.webui.nuispec.TabUISpec;
+import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
+import org.collectionspace.chain.csp.webui.record.RecordDelete;
+import org.collectionspace.chain.csp.webui.record.RecordRead;
+import org.collectionspace.chain.csp.webui.record.RecordSearchList;
+import org.collectionspace.chain.csp.webui.relate.RelateCreateUpdate;
+import org.collectionspace.chain.csp.webui.relate.RelateDelete;
+import org.collectionspace.chain.csp.webui.relate.RelateRead;
+import org.collectionspace.chain.csp.webui.relate.RelateSearchList;
 import org.collectionspace.chain.pathtrie.Trie;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
@@ -78,28 +89,28 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin());
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
-		addMethod(Operation.READ,new String[]{"find-edit","auispec"},0,new WebFindEditUISpec(spec.getAllRecords()));
+		addMethod(Operation.READ,new String[]{"find-edit","auispec"},0,new FindEditUISpec(spec.getAllRecords()));
 		for(Record r : spec.getAllRecords()) {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete());
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new WebSearchList(r,true));
-			addMethod(Operation.READ,new String[]{r.getWebURL()},0,new WebSearchList(r,false));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
+			addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new WebUISpec(r.getID()));
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"auispec"},0,new WebAUISpec(r));
-			addMethod(Operation.READ,new String[]{r.getTabURL(),"auispec"},0,new WebTabUISpec(r));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"auispec"},0,new UISpec(r));
+			addMethod(Operation.READ,new String[]{r.getTabURL(),"auispec"},0,new TabUISpec(r));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"schema"},0,new WebUISpec(r.getID()));
-			addMethod(Operation.READ,new String[]{r.getWebURL()},1,new WebRead(r));
-			addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new WebDelete(r.getID()));
-			addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new WebCreateUpdate(r,true));
-			addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new WebCreateUpdate(r,false));
+			addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
+			addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
+			addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new RecordCreateUpdate(r,true));
+			addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
 		}
-		addMethod(Operation.CREATE,new String[]{"relationships"},0,new WebRelateCreateUpdate(true));
-		addMethod(Operation.UPDATE,new String[]{"relationships"},1,new WebRelateCreateUpdate(false));
-		addMethod(Operation.READ,new String[]{"relationships"},1,new WebRelateRead());
-		addMethod(Operation.DELETE,new String[]{"relationships"},1,new WebRelateDelete(false));
-		addMethod(Operation.DELETE,new String[]{"relationships","one-way"},1,new WebRelateDelete(true));
-		addMethod(Operation.READ,new String[]{"relationships","search"},0,new WebRelateSearchList(true));
-		addMethod(Operation.READ,new String[]{"relationships"},0,new WebRelateSearchList(false));
+		addMethod(Operation.CREATE,new String[]{"relationships"},0,new RelateCreateUpdate(true));
+		addMethod(Operation.UPDATE,new String[]{"relationships"},1,new RelateCreateUpdate(false));
+		addMethod(Operation.READ,new String[]{"relationships"},1,new RelateRead());
+		addMethod(Operation.DELETE,new String[]{"relationships"},1,new RelateDelete(false));
+		addMethod(Operation.DELETE,new String[]{"relationships","one-way"},1,new RelateDelete(true));
+		addMethod(Operation.READ,new String[]{"relationships","search"},0,new RelateSearchList(true));
+		addMethod(Operation.READ,new String[]{"relationships"},0,new RelateSearchList(false));
 	}
 	
 	public void config_finish() throws CSPDependencyException {

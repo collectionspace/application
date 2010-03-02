@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.misc;
 
 import java.util.ArrayList;
 import java.util.List;

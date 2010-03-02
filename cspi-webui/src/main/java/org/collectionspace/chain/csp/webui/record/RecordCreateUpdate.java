@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.record;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +8,9 @@ import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.misc.Request;
+import org.collectionspace.chain.csp.webui.misc.WebMethod;
+import org.collectionspace.chain.csp.webui.misc.WebUI;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -19,12 +22,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WebCreateUpdate implements WebMethod {
+public class RecordCreateUpdate implements WebMethod {
 	private String url_base,base;
 	private boolean create;
 	private Spec spec;
 	
-	public WebCreateUpdate(Record r,boolean create) { 
+	public RecordCreateUpdate(Record r,boolean create) { 
 		spec=r.getSpec();
 		this.url_base=r.getWebURL();
 		this.base=r.getID();

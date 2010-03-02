@@ -1,26 +1,29 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.nuispec;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.misc.Request;
+import org.collectionspace.chain.csp.webui.misc.WebMethod;
+import org.collectionspace.chain.csp.webui.misc.WebUI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WebTabUISpec implements WebMethod {
+public class TabUISpec implements WebMethod {
 	private Record record;
 	
-	public WebTabUISpec(Record record) {
+	public TabUISpec(Record record) {
 		this.record=record;
 	}
 	
 	public void configure(WebUI ui, Spec spec) {}
 
 	private JSONObject relatedRecordSpec() throws JSONException {
-		return WebAUISpec.generateSidebarPart(record.getUIURL(),false,true);
+		return UISpec.generateSidebarPart(record.getUIURL(),false,true);
 	}
 	
 	private JSONObject newRecordSpec() throws JSONException {
@@ -32,7 +35,7 @@ public class WebTabUISpec implements WebMethod {
 			Field field=(Field)fs;
 			if(!field.isInTab())
 				continue;
-			out.put(field.getSelector(),WebAUISpec.plain(field));
+			out.put(field.getSelector(),UISpec.plain(field));
 		}
 		return out;
 	}

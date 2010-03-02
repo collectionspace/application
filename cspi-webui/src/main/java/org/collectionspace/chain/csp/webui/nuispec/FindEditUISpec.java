@@ -1,18 +1,21 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.nuispec;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.misc.Request;
+import org.collectionspace.chain.csp.webui.misc.WebMethod;
+import org.collectionspace.chain.csp.webui.misc.WebUI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WebFindEditUISpec implements WebMethod {
+public class FindEditUISpec implements WebMethod {
 	private Record[] records;
 	
-	public WebFindEditUISpec(Record[] records) {
+	public FindEditUISpec(Record[] records) {
 		this.records=records;
 	}
 	

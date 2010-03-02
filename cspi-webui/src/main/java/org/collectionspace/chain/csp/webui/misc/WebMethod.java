@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.webui.main;
+package org.collectionspace.chain.csp.webui.misc;
 
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.pathtrie.TrieMethod;
