@@ -44,6 +44,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	
 	static {
 		types.add("affects");
+		types.add("new"); // XXX Only one type is bad for testing. remove when there's a second real one
 	}
 	
 	public ServicesRelationStorage(ServicesConnection conn) throws JaxenException, InvalidXTmplException, DocumentException, IOException {

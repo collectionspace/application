@@ -17,6 +17,8 @@ import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 
+// XXX refactor like mad
+
 public class TestRelationsThroughWebapp {
 	
 	// XXX refactor
@@ -307,14 +309,15 @@ public class TestRelationsThroughWebapp {
 		assertEquals(0,rel3.length());
 	}
 		
+	private void delete_all(ServletTester jetty) throws Exception {
+		HttpTester out=jettyDo(jetty,"DELETE","/chain/relationships/x",null);
+		assertEquals(200,out.getStatus());
+
+	}
+	
 	@Test public void testOneWayWorksInUpdate() throws Exception {
 		ServletTester jetty=setupJetty();
-		// Create test objects
-		{
-			HttpTester out=jettyDo(jetty,"DELETE","/chain/relationships/x",null);
-			assertEquals(200,out.getStatus());
-		}
-		
+		delete_all(jetty);
 		HttpTester out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(getResourceString("2007.4-a.json")));
 		assertEquals(201,out.getStatus());
 		String id1=out.getHeader("Location");
@@ -445,5 +448,99 @@ public class TestRelationsThroughWebapp {
 		assertEquals(1,rels2.length());		
 		JSONObject rel2=rels2.getJSONObject(0);
 		assertEquals(rel2.getString("recordtype"),"objects");
+	}
+	
+	@Test public void testSearchList() throws Exception {
+		ServletTester jetty=setupJetty();
+		delete_all(jetty);
+		// Check list is empty
+		HttpTester out=jettyDo(jetty,"GET","/chain/relationships/",null);
+		assertEquals(200,out.getStatus());
+		JSONArray items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(0,items.length());
+		// Create some objects
+		out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(getResourceString("2007.4-a.json")));
+		assertEquals(201,out.getStatus());
+		String id1=out.getHeader("Location");
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		assertEquals(201,out.getStatus());
+		String id2=out.getHeader("Location");
+		out=jettyDo(jetty,"POST","/chain/acquisition/",makeSimpleRequest(getResourceString("2005.017.json")));
+		assertEquals(201,out.getStatus());
+		String id3=out.getHeader("Location");
+		String[] path1=id1.split("/");
+		String[] path2=id2.split("/");		
+		String[] path3=id3.split("/");
+		// Add a relation rel1: 2 -> 1
+		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path2[1],path2[2],"affects",path1[1],path1[2],true).toString());
+		assertEquals(201,out.getStatus());	
+		// Check length is 1 and it points to a valid and correct relation
+		out=jettyDo(jetty,"GET","/chain/relationships/",null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(1,items.length());
+		String rel1_csid=items.getString(0);
+		assertNotNull(rel1_csid);
+		out=jettyDo(jetty,"GET","/chain/relationships/"+rel1_csid,null);
+		assertEquals(200,out.getStatus());
+		JSONObject rel1=new JSONObject(out.getContent());
+		assertEquals(path2[2],rel1.getJSONObject("source").getString("csid"));
+		assertEquals(path1[2],rel1.getJSONObject("target").getString("csid"));
+		// Add some more relations: rel2: 2 -> 3 ; rel 3: 3 -> 1 (new type)
+		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path2[1],path2[2],"affects",path3[1],path3[2],true).toString());
+		assertEquals(201,out.getStatus());	
+		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path3[1],path3[2],"new",path1[1],path1[2],true).toString());
+		assertEquals(201,out.getStatus());	
+		// Total length should be 3
+		out=jettyDo(jetty,"GET","/chain/relationships/",null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(3,items.length());
+		// Should be two starting at 2
+		out=jettyDo(jetty,"GET","/chain/relationships/search?source="+path2[1]+"/"+path2[2],null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(2,items.length());		
+		// Should be one staring at 3, none at 1
+		out=jettyDo(jetty,"GET","/chain/relationships/search?source="+path3[1]+"/"+path3[2],null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(1,items.length());		
+		out=jettyDo(jetty,"GET","/chain/relationships/search?source="+path1[1]+"/"+path1[2],null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(0,items.length());		
+		// Targets: two at 1, none at 2, one at 3
+		out=jettyDo(jetty,"GET","/chain/relationships/search?target="+path1[1]+"/"+path1[2],null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(2,items.length());
+		out=jettyDo(jetty,"GET","/chain/relationships/search?target="+path2[1]+"/"+path2[2],null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(0,items.length());		
+		out=jettyDo(jetty,"GET","/chain/relationships/search?target="+path3[1]+"/"+path3[2],null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(1,items.length());		
+		// Type, two "affects", one "new"
+		out=jettyDo(jetty,"GET","/chain/relationships/search?type=affects",null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(2,items.length());
+		out=jettyDo(jetty,"GET","/chain/relationships/search?type=new",null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(1,items.length());	
+		// Combination: target = 1, type = affects; just one
+		out=jettyDo(jetty,"GET","/chain/relationships/search?type=affects&target="+path1[1]+"/"+path1[2],null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(1,items.length());
+		// Combination: source = 2, target = 3; just one
+		out=jettyDo(jetty,"GET","/chain/relationships/search?source="+path2[1]+"/"+path2[2]+"&target="+path3[1]+"/"+path3[2],null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(1,items.length());
 	}
 }
