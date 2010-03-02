@@ -91,7 +91,7 @@ public class TestRelationsThroughWebapp {
 		return makeRequest(new JSONObject(in),null).toString();
 	}
 		
-	@Test public void testRelationsThroughWebapp() throws Exception {
+	@Test public void testRelationsCreate() throws Exception {
 		ServletTester jetty=setupJetty();
 		// First create a couple of objects
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
@@ -150,12 +150,14 @@ public class TestRelationsThroughWebapp {
 		JSONArray rel3=data3.getJSONArray("relations");
 		assertNotNull(rel3);
 		assertEquals(2,rel3.length());
-		int i1=0,i0=1;
-		String rel_a=rel3.getJSONObject(i1).getString("csid");
-		String rel_b=rel3.getJSONObject(i0).getString("csid");
-		if(rel_a.equals(id2) && rel_b.equals(id1)) {
-			i0=0;
-			i1=1;
+		int i0=0,i1=1;
+		String rel_a=rel3.getJSONObject(i0).getString("csid");
+		String rel_b=rel3.getJSONObject(i1).getString("csid");
+		System.err.println("rel_a="+rel_a.toString());
+		System.err.println("rel_b="+rel_b.toString());
+		if(rel_a.equals(path2[2]) && rel_b.equals(path1[2])) {
+			i0=1;
+			i1=0;
 		}
 		JSONObject rel31=rel3.getJSONObject(i0);
 		JSONObject rel32=rel3.getJSONObject(i1);		
@@ -209,7 +211,7 @@ public class TestRelationsThroughWebapp {
 	}
 	
 	// XXX factor out creation
-	@Test public void testRelationsMissingOneWayThroughWebapp() throws Exception {
+	@Test public void testRelationsMissingOneWay() throws Exception {
 		ServletTester jetty=setupJetty();
 		// First create a couple of objects
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
@@ -241,7 +243,7 @@ public class TestRelationsThroughWebapp {
 		assertEquals(1,rel1.length());
 	}
 	
-	@Test public void testMultipleCreateThroughWebapp() throws Exception {
+	@Test public void testMultipleCreate() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Create test objects
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
@@ -271,6 +273,83 @@ public class TestRelationsThroughWebapp {
 		JSONArray rel3=data3.getJSONArray("relations");
 		assertNotNull(rel3);
 		assertEquals(2,rel3.length());
-
+	}
+	
+	// XXX update of two-way relations
+	// XXX update of one-wayness
+	// XXX multiple update
+	@Test public void testUpdate() throws Exception {
+		ServletTester jetty=setupJetty();
+		// Create test objects
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		assertEquals(201,out.getStatus());
+		String id1=out.getHeader("Location");
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		assertEquals(201,out.getStatus());
+		String id2=out.getHeader("Location");
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		assertEquals(201,out.getStatus());
+		String id3=out.getHeader("Location");
+		String[] path1=id1.split("/");
+		String[] path2=id2.split("/");		
+		String[] path3=id3.split("/");
+		// Create a relation 3 -> 1
+		out=jettyDo(jetty,"POST","/chain/relationships",createRelation(path3[1],path3[2],"affects",path1[1],path1[2],true).toString());
+		assertEquals(201,out.getStatus());		
+		// Get cslid
+		JSONObject data=new JSONObject(out.getContent());
+		String csid1=data.getString("csid");
+		assertNotNull(csid1);
+		System.err.println("csid="+csid1);
+		// Update it to 2 -> 1
+		out=jettyDo(jetty,"PUT","/chain/relationships/"+csid1,createRelation(path2[1],path2[2],"affects",path1[1],path1[2],true).toString());
+		assertEquals(200,out.getStatus());
+		// Check it
+		out=jettyDo(jetty,"GET","/chain"+id1,null);
+		JSONObject data1=new JSONObject(out.getContent());
+		JSONArray rel1=data1.getJSONArray("relations");
+		assertNotNull(rel1);
+		assertEquals(0,rel1.length());		
+		out=jettyDo(jetty,"GET","/chain"+id2,null);
+		JSONObject data2=new JSONObject(out.getContent());
+		JSONArray rel2=data2.getJSONArray("relations");
+		assertNotNull(rel2);
+		assertEquals(1,rel2.length());		
+		out=jettyDo(jetty,"GET","/chain"+id3,null);
+		JSONObject data3=new JSONObject(out.getContent());
+		JSONArray rel3=data3.getJSONArray("relations");
+		assertNotNull(rel3);
+		assertEquals(0,rel3.length());
+	}
+	
+	@Test public void testRelationshipType() throws Exception {
+		// Create test objects
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		assertEquals(201,out.getStatus());
+		String id1=out.getHeader("Location");
+		out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(getResourceString("2007.4-a.json")));
+		assertEquals(201,out.getStatus());
+		String id2=out.getHeader("Location");
+		String[] path1=id1.split("/");
+		String[] path2=id2.split("/");
+		// Relate them
+		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path2[1],path2[2],"affects",path1[1],path1[2],false).toString());
+		assertEquals(201,out.getStatus());	
+		// Check types
+		out=jettyDo(jetty,"GET","/chain"+id1,null);
+		JSONObject data1=new JSONObject(out.getContent());
+		JSONArray rels1=data1.getJSONArray("relations");
+		assertNotNull(rels1);
+		assertEquals(1,rels1.length());		
+		JSONObject rel1=rels1.getJSONObject(0);
+		assertEquals(rel1.getString("recordtype"),"intake");
+		out=jettyDo(jetty,"GET","/chain"+id2,null);
+		JSONObject data2=new JSONObject(out.getContent());
+		JSONArray rels2=data2.getJSONArray("relations");
+		assertNotNull(rels2);
+		assertEquals(1,rels2.length());		
+		JSONObject rel2=rels2.getJSONObject(0);
+		assertEquals(rel2.getString("recordtype"),"objects");
 	}
 }

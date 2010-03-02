@@ -1,5 +1,8 @@
 package org.collectionspace.chain.csp.webui.main;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Record;
@@ -17,7 +20,8 @@ import org.json.JSONObject;
 public class WebRead implements WebMethod {
 	private String base;
 	private String url;
-	private boolean record_type;	
+	private boolean record_type;
+	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public WebRead(Record r) { 
 		this.base=r.getID();
@@ -28,8 +32,8 @@ public class WebRead implements WebMethod {
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view");
 		out.put("csid",csid);
-		out.put("recordtype",url);
-		return out;		
+		out.put("recordtype",type_to_url.get(type));
+		return out;
 	}
 
 	private JSONObject generateRelationEntry(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
@@ -98,6 +102,9 @@ public class WebRead implements WebMethod {
 		store_get(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 
-	public void configure() throws ConfigException {}
-	public void configure(WebUI ui,Spec spec) {}
+	public void configure(WebUI ui,Spec spec) {
+		for(Record r : spec.getAllRecords()) {
+			type_to_url.put(r.getID(),r.getWebURL());
+		}
+	}
 }

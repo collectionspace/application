@@ -85,7 +85,8 @@ public class WebCreateUpdate implements WebMethod {
 			data.put("csid",path);
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
-			request.setSecondaryRedirectPath(new String[]{url_base,path});
+			if(create)
+				request.setSecondaryRedirectPath(new String[]{url_base,path});
 		} catch (JSONException x) {
 			throw new UIException("Failed to parse json: "+x,x);
 		} catch (ExistException x) {

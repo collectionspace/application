@@ -69,8 +69,6 @@ public class WebRelateCreateUpdate implements WebMethod {
 		return out;
 	}
 
-
-
 	private void relate(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject data=request.getJSONBody();
@@ -88,7 +86,8 @@ public class WebRelateCreateUpdate implements WebMethod {
 
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
-			request.setSecondaryRedirectPath(new String[]{"relationships",path}); // XXX should be derivable
+			if(create)
+				request.setSecondaryRedirectPath(new String[]{"relationships",path}); // XXX should be derivable
 		} catch (JSONException x) {
 			throw new UIException("Failed to parse json: "+x,x);
 		} catch (ExistException x) {
