@@ -90,7 +90,7 @@ public class TestRelationsThroughWebapp {
 	private String makeSimpleRequest(String in) throws JSONException {
 		return makeRequest(new JSONObject(in),null).toString();
 	}
-	
+		
 	@Test public void testRelationsThroughWebapp() throws Exception {
 		ServletTester jetty=setupJetty();
 		// First create a couple of objects
@@ -239,5 +239,38 @@ public class TestRelationsThroughWebapp {
 		JSONArray rel1=data1.getJSONArray("relations");
 		assertNotNull(rel1);
 		assertEquals(1,rel1.length());
+	}
+	
+	@Test public void testMultipleCreateThroughWebapp() throws Exception {
+		ServletTester jetty=setupJetty();
+		// Create test objects
+		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		assertEquals(201,out.getStatus());
+		String id1=out.getHeader("Location");
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		assertEquals(201,out.getStatus());
+		String id2=out.getHeader("Location");
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		assertEquals(201,out.getStatus());
+		String id3=out.getHeader("Location");
+		String[] path1=id1.split("/");
+		String[] path2=id2.split("/");		
+		String[] path3=id3.split("/");
+		// Do the rleation
+		JSONObject data1=createRelation(path3[1],path3[2],"affects",path1[1],path1[2],false);
+		JSONObject data2=createRelation(path3[1],path3[2],"affects",path2[1],path2[2],false);
+		JSONArray datas=new JSONArray();
+		datas.put(data1);
+		datas.put(data2);
+		JSONObject data=new JSONObject();
+		data.put("items",datas);
+		out=jettyDo(jetty,"POST","/chain/relationships",data.toString());
+		// Check it
+		out=jettyDo(jetty,"GET","/chain"+id3,null);
+		JSONObject data3=new JSONObject(out.getContent());
+		JSONArray rel3=data3.getJSONArray("relations");
+		assertNotNull(rel3);
+		assertEquals(2,rel3.length());
+
 	}
 }

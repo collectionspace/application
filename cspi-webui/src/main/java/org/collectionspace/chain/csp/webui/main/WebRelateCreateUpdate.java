@@ -44,7 +44,7 @@ public class WebRelateCreateUpdate implements WebMethod {
 		String type=in.getString("type");		
 		return createServicesObject(source.getString("recordtype"),source.getString("csid"),type,target.getString("recordtype"),target.getString("csid"));
 	}
-	
+
 	private String sendJSONOne(Storage storage,String path,JSONObject data,boolean reverse) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject fields=convertPayload(data,reverse);
 		if(path!=null) {
@@ -68,19 +68,24 @@ public class WebRelateCreateUpdate implements WebMethod {
 			sendJSONOne(storage,path,data,true);			
 		return out;
 	}
-	
-	
-	
+
+
+
 	private void relate(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject data=request.getJSONBody();
-			if(create) {
-				path=sendJSON(storage,null,data);
+			if(data.has("type")) {
+				// Single
+				relate_one(storage,data,path);			
+			} else if(data.has("items")) {
+				// Multiple
+				JSONArray relations=data.getJSONArray("items");
+				for(int i=0;i<relations.length();i++) {
+					relate_one(storage,relations.getJSONObject(0),path);
+				}
 			} else
-				path=sendJSON(storage,path,data);
-			if(path==null)
-				throw new UIException("Insufficient data for create (no fields?)");
-			data.put("csid",path);
+				throw new UIException("Bad JSON data");
+
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 			request.setSecondaryRedirectPath(new String[]{"relationships",path}); // XXX should be derivable
@@ -93,7 +98,16 @@ public class WebRelateCreateUpdate implements WebMethod {
 		} catch (UnderlyingStorageException x) {
 			throw new UIException("Problem storing: "+x,x);
 		}
+	}
 
+	private void relate_one(Storage storage,JSONObject data,String path) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		if(create) {
+			path=sendJSON(storage,null,data);
+		} else
+			path=sendJSON(storage,path,data);
+		if(path==null)
+			throw new UIException("Insufficient data for create (no fields?)");
+		data.put("csid",path);
 	}
 
 	public void configure(WebUI ui, Spec spec) {
