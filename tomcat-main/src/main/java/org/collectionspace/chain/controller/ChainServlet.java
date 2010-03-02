@@ -27,7 +27,7 @@ import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.chain.csp.schema.Spec;
-import org.collectionspace.chain.csp.webui.misc.WebUI;
+import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.util.jxj.InvalidJXJException;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;

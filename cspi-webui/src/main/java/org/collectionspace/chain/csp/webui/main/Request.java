@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.webui.misc;
+package org.collectionspace.chain.csp.webui.main;
 
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.Storage;

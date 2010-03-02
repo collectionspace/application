@@ -6,6 +6,9 @@ import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.main.Request;
+import org.collectionspace.chain.csp.webui.main.WebMethod;
+import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
 import org.collectionspace.csp.api.ui.UIException;

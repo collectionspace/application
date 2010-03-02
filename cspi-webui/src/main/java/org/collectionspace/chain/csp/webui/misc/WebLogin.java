@@ -5,6 +5,9 @@ import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.main.Request;
+import org.collectionspace.chain.csp.webui.main.WebMethod;
+import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 

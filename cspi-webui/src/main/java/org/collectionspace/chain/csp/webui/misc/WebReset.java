@@ -6,6 +6,9 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.main.Request;
+import org.collectionspace.chain.csp.webui.main.WebMethod;
+import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -19,7 +22,7 @@ import org.json.JSONObject;
 public class WebReset implements WebMethod {
 	private boolean quick;
 	
-	WebReset(boolean in) { quick=in; }	
+	public WebReset(boolean in) { quick=in; }	
 	
 	// XXX refactor
 	private JSONObject getJSONResource(String in) throws IOException, JSONException {	

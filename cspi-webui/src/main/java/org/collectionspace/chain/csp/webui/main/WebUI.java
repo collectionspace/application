@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.webui.misc;
+package org.collectionspace.chain.csp.webui.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +15,11 @@ import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.misc.WebAuto;
+import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
+import org.collectionspace.chain.csp.webui.misc.WebLogin;
+import org.collectionspace.chain.csp.webui.misc.WebReset;
+import org.collectionspace.chain.csp.webui.misc.WebUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.UISpec;
 import org.collectionspace.chain.csp.webui.nuispec.FindEditUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.TabUISpec;
@@ -51,9 +56,9 @@ public class WebUI implements CSP, UI, Configurable {
 	private String login_dest,login_failed_dest;
 
 	public String getName() { return "ui.webui"; }
-	String getUISpecPath() { return uispec_path; }
-	String getLoginDest() { return login_dest; }
-	String getLoginFailedDest() { return login_failed_dest; }
+	public String getUISpecPath() { return uispec_path; }
+	public String getLoginDest() { return login_dest; }
+	public String getLoginFailedDest() { return login_failed_dest; }
 	
 	private void addMethod(Operation op,String[] path,int extra,WebMethod method) {
 		tries.get(op).addMethod(path,extra,method);
