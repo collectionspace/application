@@ -1,6 +1,5 @@
 package org.collectionspace.chain.csp.webui.main;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +16,8 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+// XXX non-self-inverse relations
 
 public class WebRelateCreateUpdate implements WebMethod {
 	private boolean create;
@@ -59,27 +60,66 @@ public class WebRelateCreateUpdate implements WebMethod {
 		return path;
 	}
 
-	private String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		boolean one_way=false;
-		if(data.optBoolean("one-way"))
-			one_way=true;
-		String out=sendJSONOne(storage,path,data,false);
-		if(!one_way)
-			sendJSONOne(storage,path,data,true);			
-		return out;
+	private String find_reverse(Storage storage,String csid_fwd) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		// What's our destination
+		JSONObject obj_fwd=storage.retrieveJSON("/relations/main/"+csid_fwd);
+		// Find a backward record
+		JSONObject restrictions=new JSONObject();
+		restrictions.put("dst",obj_fwd.getString("src"));
+		restrictions.put("src",obj_fwd.getString("dst"));
+		restrictions.put("type",obj_fwd.getString("type")); // XXX what about non-self-inverses?
+		String[] relations=storage.getPaths("relations/main",restrictions);
+		if(relations.length==0)
+			return null;
+		return relations[0];
 	}
-
+	
+	private void relate_one(Storage storage,JSONObject data,String path,boolean reverse) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		if(path==null) {
+			path=sendJSONOne(storage,null,data,reverse);
+		} else
+			path=sendJSONOne(storage,path,data,reverse);
+		if(path==null)
+			throw new UIException("Insufficient data for create (no fields?)");
+		data.put("csid",path);
+	}
+	
 	private void relate(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject data=request.getJSONBody();
+			boolean and_reverse=false;
+			if(!data.optBoolean("one-way"))
+				and_reverse=true;
 			if(data.has("type")) {
 				// Single
-				relate_one(storage,data,path);			
+				if(!create) {
+					// Update may mean tinkering with other relations because of two-way-ness
+					/* NOTE at the moment there's no support in the service to indicate partner, so we assume that
+					 * an opposite relation is evidence of a two way relationship. This creates a potential bug if
+					 * the user has set up two independent one way relationships and wants to maintain them
+					 * independently. It's arguable that this is the behaviour they expect, arguable that it is not.
+					 */
+					// Delete the reverse record for an update
+					System.err.println("forward is "+path);
+					String csid_rev=find_reverse(storage,path);
+					System.err.println("reverse is "+csid_rev);
+					if(csid_rev!=null)
+						storage.deleteJSON("/relations/main/"+csid_rev);
+				}
+				relate_one(storage,data,path,false);
+				if(and_reverse) {
+					/* If we're not one way and we're updating, create reverse (we just deleted the old one) */
+					relate_one(storage,data,null,true);
+				}
 			} else if(data.has("items")) {
 				// Multiple
 				JSONArray relations=data.getJSONArray("items");
 				for(int i=0;i<relations.length();i++) {
-					relate_one(storage,relations.getJSONObject(0),path);
+					if(!create)
+						throw new UIException("Cannot use multiple syntax for update");
+					relate_one(storage,relations.getJSONObject(0),path,false);					
+					if(and_reverse)
+						relate_one(storage,relations.getJSONObject(0),path,true);
 				}
 			} else
 				throw new UIException("Bad JSON data");
@@ -99,16 +139,6 @@ public class WebRelateCreateUpdate implements WebMethod {
 		}
 	}
 
-	private void relate_one(Storage storage,JSONObject data,String path) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		if(create) {
-			path=sendJSON(storage,null,data);
-		} else
-			path=sendJSON(storage,path,data);
-		if(path==null)
-			throw new UIException("Insufficient data for create (no fields?)");
-		data.put("csid",path);
-	}
-
 	public void configure(WebUI ui, Spec spec) {
 		for(Record r : spec.getAllRecords()) {
 			url_to_type.put(r.getWebURL(),r.getID());
@@ -117,7 +147,9 @@ public class WebRelateCreateUpdate implements WebMethod {
 
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
-		relate(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		String path=StringUtils.join(tail,"/");
+		if(create)
+			path=null;
+		relate(q.getStorage(),q.getUIRequest(),path);
 	}
-
 }

@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -19,14 +18,12 @@ import org.json.JSONObject;
 
 public class WebRead implements WebMethod {
 	private String base;
-	private String url;
 	private boolean record_type;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public WebRead(Record r) { 
 		this.base=r.getID();
 		record_type=("record".equals(r.getType()));
-		url=r.getWebURL();
 	}
 		
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {

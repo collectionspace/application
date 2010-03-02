@@ -34,6 +34,8 @@ import org.json.JSONObject;
  * 
  */
 
+// XXX some hacks here because services don't seem to support multiple search crieteria on relationships. 
+
 public class ServicesRelationStorage implements ContextualisedStorage {
 	private ServicesConnection conn;
 	private RelationFactory factory;
@@ -133,21 +135,55 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		if(in==null)
 			return "";
 		StringBuffer out=new StringBuffer();
-		if(in.has("src")) {
+		boolean xxx_cspace_1080=false;
+		if(!xxx_cspace_1080 && in.has("src")) {
 			String[] src=splitTypeFromId(in.getString("src"));
 			out.append("/subject/"+src[1]);
+			xxx_cspace_1080=true;
 		}
-		if(in.has("dst")) {
+		if(!xxx_cspace_1080 && in.has("dst")) {
 			String[] dst=splitTypeFromId(in.getString("dst"));
 			out.append("/object/"+dst[1]);
+			xxx_cspace_1080=true;
 		}
-		if(in.has("type")) {
+		if(!xxx_cspace_1080 && in.has("type")) {
 			out.append("/type/"+in.getString("type"));
+			xxx_cspace_1080=true;
 		}
 		String ret=out.toString();
 		if(ret.startsWith("/"))
 			ret=ret.substring(1);
 		return ret;
+	}
+	
+	// Needed because of CSPACE-1080
+	private boolean post_filter(JSONObject restrictions,Node candidate) throws ExistException, UnderlyingStorageException, ConnectionException, JSONException {
+		if(restrictions==null)
+			return true;
+		// Subject
+		String src_csid=candidate.selectSingleNode("subjectCsid").getText();
+		String rest_src=restrictions.optString("src");
+		if(rest_src!=null && !"".equals(rest_src)) {
+			if(!src_csid.equals(rest_src.split("/")[1]))
+				return false;
+		}
+		String dst_csid=candidate.selectSingleNode("objectCsid").getText();		
+		String rest_dst=restrictions.optString("dst");
+		if(rest_dst!=null && !"".equals(rest_dst)) {
+			if(!dst_csid.equals(rest_dst.split("/")[1]))
+				return false;
+		}
+		// Retrieve the relation (CSPACE-1081)
+		ReturnedMultipartDocument rel=conn.getMultipartXMLDocument(RequestMethod.GET,candidate.selectSingleNode("uri").getText(),null);
+		if(rel.getStatus()==404)
+			throw new ExistException("Not found");
+		Document rel_doc=rel.getDocument("relations_common");
+		if(rel_doc==null)
+			throw new UnderlyingStorageException("Could not retrieve relation, missing relations_common");
+		String type=rel_doc.selectSingleNode("relations_common/relationshipType").getText();
+		if(restrictions.has("type") && !type.equals(restrictions.optString("type")))
+			return false;
+		return true;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -162,7 +198,8 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 				throw new UnderlyingStorageException("Could not retrieve relation, missing relations_common");
 			List<Node> objects=doc.getDocument().selectNodes("relations-common-list/relation-list-item");
 			for(Node object : objects) {
-				out.add(object.selectSingleNode("csid").getText());
+				if(post_filter(restrictions,object))
+					out.add(object.selectSingleNode("csid").getText());
 			}
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
