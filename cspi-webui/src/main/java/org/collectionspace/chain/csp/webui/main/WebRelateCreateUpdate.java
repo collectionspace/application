@@ -61,13 +61,15 @@ public class WebRelateCreateUpdate implements WebMethod {
 
 	private String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		boolean one_way=false;
-		if(data.getBoolean("one-way"))
+		if(data.optBoolean("one-way"))
 			one_way=true;
 		String out=sendJSONOne(storage,path,data,false);
 		if(!one_way)
 			sendJSONOne(storage,path,data,true);			
 		return out;
 	}
+	
+	
 	
 	private void relate(Storage storage,UIRequest request,String path) throws UIException {
 		try {
