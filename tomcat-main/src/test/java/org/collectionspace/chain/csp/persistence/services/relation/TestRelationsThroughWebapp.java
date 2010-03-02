@@ -310,9 +310,12 @@ public class TestRelationsThroughWebapp {
 	}
 		
 	private void delete_all(ServletTester jetty) throws Exception {
-		HttpTester out=jettyDo(jetty,"DELETE","/chain/relationships/x",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/relationships/",null);
 		assertEquals(200,out.getStatus());
-
+		JSONArray items=new JSONObject(out.getContent()).getJSONArray("items");
+		for(int i=0;i<items.length();i++) {
+			out=jettyDo(jetty,"DELETE","/chain/relationships/one-way/"+items.getString(i),null);
+		}
 	}
 	
 	@Test public void testOneWayWorksInUpdate() throws Exception {
@@ -543,4 +546,46 @@ public class TestRelationsThroughWebapp {
 		items=new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(1,items.length());
 	}
+	
+	@Test public void testDelete() throws Exception {
+		ServletTester jetty=setupJetty();
+		delete_all(jetty);
+		// Create some objects
+		HttpTester out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(getResourceString("2007.4-a.json")));
+		assertEquals(201,out.getStatus());
+		String id1=out.getHeader("Location");
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		assertEquals(201,out.getStatus());
+		String id2=out.getHeader("Location");
+		out=jettyDo(jetty,"POST","/chain/acquisition/",makeSimpleRequest(getResourceString("2005.017.json")));
+		assertEquals(201,out.getStatus());
+		String id3=out.getHeader("Location");
+		String[] path1=id1.split("/");
+		String[] path2=id2.split("/");		
+		String[] path3=id3.split("/");
+		// Create two relationships, one two way
+		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path2[1],path2[2],"affects",path1[1],path1[2],true).toString());
+		assertEquals(201,out.getStatus());	
+		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path3[1],path3[2],"affects",path1[1],path1[2],false).toString());
+		assertEquals(201,out.getStatus());	
+		String csid=new JSONObject(out.getContent()).getString("csid");
+		// Check length is 3
+		out=jettyDo(jetty,"GET","/chain/relationships/",null);
+		assertEquals(200,out.getStatus());
+		JSONArray items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(3,items.length());
+		// Delete the two way relationship
+		out=jettyDo(jetty,"DELETE","/chain/relationships/"+csid,null);
+		assertEquals(200,out.getStatus());
+		// Check length is 1, and it's the right one
+		out=jettyDo(jetty,"GET","/chain/relationships/",null);
+		assertEquals(200,out.getStatus());
+		items=new JSONObject(out.getContent()).getJSONArray("items");
+		assertEquals(1,items.length());
+		out=jettyDo(jetty,"GET","/chain/relationships/"+items.getString(0),null);
+		JSONObject rel1=new JSONObject(out.getContent());
+		assertEquals(path2[2],rel1.getJSONObject("source").getString("csid"));
+		assertEquals(path1[2],rel1.getJSONObject("target").getString("csid"));		
+	}
+	// XXX DELETE RELATIONS WHEN RECORD IS DELETED: NOT FOR 0.5
 }

@@ -9,18 +9,43 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-public class WebRelateDelete implements WebMethod {
+/* Only complexity is that we delete opposite directions */
 
+public class WebRelateDelete implements WebMethod {
+	private boolean one_way;
+	
+	public WebRelateDelete(boolean one_way) {
+		this.one_way=one_way;
+	}
+	
 	public void configure(WebUI ui, Spec spec) {}
 
-	// XXX two way
+	// XXX factor
+	private String findReverse(Storage storage,String csid_fwd) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+		// What's our destination
+		JSONObject obj_fwd=storage.retrieveJSON("/relations/main/"+csid_fwd);
+		// Find a backward record
+		JSONObject restrictions=new JSONObject();
+		restrictions.put("dst",obj_fwd.getString("src"));
+		restrictions.put("src",obj_fwd.getString("dst"));
+		restrictions.put("type",obj_fwd.getString("type")); // XXX what about non-self-inverses?
+		String[] relations=storage.getPaths("relations/main",restrictions);
+		if(relations.length==0)
+			return null;
+		return relations[0];
+	}
+	
 	private void relate_delete(Storage storage,UIRequest request,String path) throws UIException {
 		try {
-			String[] ids=storage.getPaths("/relations/main",new JSONObject());
-			for(String id : ids)
-				storage.deleteJSON("/relations/main/"+id);
+			if(!one_way) {
+				String rev=findReverse(storage,path);
+				if(rev!=null)
+					storage.deleteJSON("/relations/main/"+rev);
+			}
+			storage.deleteJSON("/relations/main/"+path);
 			request.setOperationPerformed(Operation.DELETE);
 		} catch (ExistException e) {
 			throw new UIException("Exist exception deleting "+e,e);
@@ -28,6 +53,8 @@ public class WebRelateDelete implements WebMethod {
 			throw new UIException("Unimplemented exception deleting "+e,e);
 		} catch (UnderlyingStorageException e) {
 			throw new UIException("Underlying storage exception deleting "+e,e);
+		} catch (JSONException e) {
+			throw new UIException("Exception building JSON "+e,e);
 		}
 	}
 	
