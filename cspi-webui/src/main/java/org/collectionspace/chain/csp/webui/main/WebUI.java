@@ -93,6 +93,9 @@ public class WebUI implements CSP, UI, Configurable {
 			addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new WebCreateUpdate(r,true));
 			addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new WebCreateUpdate(r,false));
 		}
+		addMethod(Operation.CREATE,new String[]{"relationships"},0,new WebRelateCreateUpdate(true));
+		addMethod(Operation.UPDATE,new String[]{"relationships"},1,new WebRelateCreateUpdate(false));
+		addMethod(Operation.READ,new String[]{"relationships"},1,new WebRelateRead());
 	}
 	
 	public void config_finish() throws CSPDependencyException {

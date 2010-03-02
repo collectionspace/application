@@ -80,7 +80,6 @@ public class WebSearchList implements WebMethod {
 			search_or_list(q.getStorage(),q.getUIRequest(),null);
 	}
 
-	public void configure() throws ConfigException {}
 	public void configure(WebUI ui,Spec spec) {
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());

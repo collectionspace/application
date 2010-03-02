@@ -50,7 +50,7 @@ public class ServicesConnection {
 			client.getState().setCredentials(
 					new AuthScope("test.collectionspace.org",8180,AuthScope.ANY_REALM),
 					new UsernamePasswordCredentials("test","test"));
-			client.getParams().setAuthenticationPreemptive(true);
+//			client.getParams().setAuthenticationPreemptive(true);
 		}
 	}
 

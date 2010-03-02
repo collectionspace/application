@@ -30,17 +30,7 @@ public class WebCreateUpdate implements WebMethod {
 		this.base=r.getID();
 		this.create=create;
 	}
-	
-	// XXX refactor
-	private String getResource(String in) throws IOException, JSONException {
-		String path=getClass().getPackage().getName().replaceAll("\\.","/");
-		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		System.err.println(path);
-		String data=IOUtils.toString(stream);
-		stream.close();		
-		return data;
-	}
-	
+		
 	private void deleteAllRelations(Storage storage,String csid) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject r=new JSONObject();
 		r.put("src",base+"/"+csid);		
@@ -66,20 +56,6 @@ public class WebCreateUpdate implements WebMethod {
 		}
 	}
 	
-	private String xxx_mercury_search(Storage storage,String type,String value) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		String target_base=spec.getRecordByWebUrl(type).getID();
-		for(String path : storage.getPaths(target_base,null)) {
-			JSONObject mini=storage.retrieveJSON(target_base+"/"+path+"/view");
-			if(mini==null)
-				return null;
-			System.err.println("record is "+mini);
-			if(mini.has("number") && mini.getString("number").equals(value))
-				return path;
-			
-		}
-		return null;
-	}
-	
 	private String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject fields=data.optJSONObject("fields");
 		JSONArray relations=data.optJSONArray("relations");
@@ -96,37 +72,12 @@ public class WebCreateUpdate implements WebMethod {
 			setRelations(storage,path,relations);
 		return path;
 	}
-	
-	private void xxx_mercury_associate(Storage storage,String source_id,String type,String value) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		String target_id=xxx_mercury_search(storage,type,value);
-		if(target_id==null)
-			return;		
-		System.err.println("target id is "+target_id);
-		JSONObject data=new JSONObject();
-		data.put("src",base+"/"+source_id);
-		data.put("dst",spec.getRecordByWebUrl(type).getID()+"/"+target_id);
-		data.put("type","affects");
-		storage.autocreateJSON("relations/main",data);
-	}
-	
-	private void xxx_mercury_related_records(Storage storage,String id) throws IOException, JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
-		System.err.println("Applying related record hack to "+id);		
-		String assocs=getResource("mercury-relations.txt");
-		for(String line : assocs.split("\n")) {
-			String[] data=line.split(" ");
-			if(data.length<3)
-				continue;
-			if(data[0].equals(base))
-				xxx_mercury_associate(storage,id,data[1],data[2]);
-		}
-	}
-	
+			
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject data=request.getJSONBody();
 			if(create) {
 				path=sendJSON(storage,null,data);
-				xxx_mercury_related_records(storage,path);
 			} else
 				path=sendJSON(storage,path,data);
 			if(path==null)
@@ -142,8 +93,6 @@ public class WebCreateUpdate implements WebMethod {
 		} catch (UnimplementedException x) {
 			throw new UIException("Unimplemented exception: "+x,x);
 		} catch (UnderlyingStorageException x) {
-			throw new UIException("Problem storing: "+x,x);
-		} catch (IOException x) {
 			throw new UIException("Problem storing: "+x,x);
 		}
 	}

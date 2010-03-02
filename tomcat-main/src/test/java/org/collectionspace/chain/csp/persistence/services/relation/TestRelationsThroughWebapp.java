@@ -1,5 +1,6 @@
 package org.collectionspace.chain.csp.persistence.services.relation;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
@@ -70,14 +71,19 @@ public class TestRelationsThroughWebapp {
 		return out;
 	}
 	
-	private JSONObject makeMini(String type,String dst) throws JSONException {
+	private JSONObject createMini(String type,String id) throws JSONException {
 		JSONObject out=new JSONObject();
-		out.put("relationshiptype",type);
-		if(dst.startsWith("/"))
-			dst=dst.substring(1);
-		String[] dsts=dst.split("/");
-		out.put("recordtype",dsts[0]);
-		out.put("csid",dsts[1]);
+		out.put("csid",id);
+		out.put("recordtype",type);
+		return out;
+	}
+	
+	private JSONObject createRelation(String src_type,String src,String type,String dst_type,String dst,boolean one_way) throws JSONException {
+		JSONObject out=new JSONObject();
+		out.put("source",createMini(src_type,src));
+		out.put("target",createMini(dst_type,dst));
+		out.put("type",type);
+		out.put("one-way",one_way);
 		return out;
 	}
 	
@@ -85,20 +91,6 @@ public class TestRelationsThroughWebapp {
 		return makeRequest(new JSONObject(in),null).toString();
 	}
 	
-	/* [19:35] danatcaret: Oh, I've found the tests now, anastasiac, for future reference, if you want to create 
-	 *           some relations for testing in future. They're in [this file, ed], though it's a bit highly 
-	 *           factored, so I'd recommend either single stepping what it's doing, or a strong drink, before 
-	 *           looking at it, :).
-     * [19:35] anastasiac: ah, yes, I was looking at that file already. I agree with the strong drink recommendation 
-     * [19:40] danatcaret: :). The method makeMini creates JSON for those standardised "mini" records we were 
-     * 			 talking about in the STIM, the ones which go in arrays in lists, search results, etc, for testing. 
-     * 			 Lines 90-96 just create two records, with csids id1, id2. r1 and r2 are corresponding "mini" 
-     * 			 records to id1 and id2. Then on line 114, r1 and r2 are both sent along with some random (ignored) 
-     * 			 field data (from obj3.json) via makeRecord to create a new record. The name of that is put into 
-     * 			 id3. Because r1 and r2 were sent when id3 was created, there are relations to id1 and id2 in id3. 
-     * 			 At the moment the code just retrieves id3, and prints it out. What it will do in the end is check 
-     * 			 that the relations to id1 and id2 are present. (adding to code as comment).
-	 */
 	@Test public void testRelationsThroughWebapp() throws Exception {
 		ServletTester jetty=setupJetty();
 		// First create a couple of objects
@@ -108,9 +100,53 @@ public class TestRelationsThroughWebapp {
 		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
 		assertEquals(201,out.getStatus());
 		String id2=out.getHeader("Location");
-		// Now create one with a pair of relations in: 3->1, 3->2
-		JSONObject r1=makeMini("affects",id1);
-		JSONObject r2=makeMini("affects",id2);
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		assertEquals(201,out.getStatus());
+		String id3=out.getHeader("Location");
+		String[] path1=id1.split("/");
+		String[] path2=id2.split("/");		
+		String[] path3=id3.split("/");
+		// Now create a pair of relations in: 3<->1, 3->2: a. 1->3, b. 3->1, c. 3->2
+		out=jettyDo(jetty,"POST","/chain/relationships",createRelation(path3[1],path3[2],"affects",path1[1],path1[2],false).toString());
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"POST","/chain/relationships",createRelation(path3[1],path3[2],"affects",path2[1],path2[2],true).toString());
+		assertEquals(201,out.getStatus());	
+		System.err.println("id1="+id1);
+		System.err.println("id2="+id2);
+		System.err.println("id3="+id3);
+		// Check 1 has relation to 3
+		out=jettyDo(jetty,"GET","/chain"+id1,null);
+		JSONObject data1=new JSONObject(out.getContent());
+		//     that the destination is 3
+		JSONArray rel1=data1.getJSONArray("relations");
+		assertNotNull(rel1);
+		assertEquals(1,rel1.length());
+		JSONObject mini1=rel1.getJSONObject(0);
+		assertEquals("objects",mini1.getString("recordtype"));
+		assertEquals(mini1.getString("csid"),path3[2]);
+		String rida=mini1.getString("relid");
+		//     pull the relation itself, and check it
+		out=jettyDo(jetty,"GET","/chain/relationships/"+rida,null);
+		JSONObject rd1=new JSONObject(out.getContent());
+		assertEquals("affects",rd1.getString("type"));
+		assertEquals(rida,rd1.getString("csid"));
+		JSONObject src1=rd1.getJSONObject("source");
+		assertEquals("objects",src1.getString("recordtype"));
+		assertEquals(path1[2],src1.get("csid"));
+		JSONObject dst1=rd1.getJSONObject("target");
+		assertEquals("objects",dst1.getString("recordtype"));
+		assertEquals(path3[2],dst1.get("csid"));
+		
+		
+		
+		
+		System.err.println(out.getContent());
+		
+		
+		
+		/*
+		 * OLD UDATE METHOD 
+		 
 		out=jettyDo(jetty,"POST","/chain/objects/",makeRequest(new JSONObject(getResourceString("obj3.json")),
 															   new JSONObject[]{r1,r2}).toString());
 		assertEquals(201,out.getStatus());
@@ -120,5 +156,6 @@ public class TestRelationsThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain"+id3,null);
 		assertEquals(200,out.getStatus());
 		System.err.println(out.getContent());
+		*/
 	}
 }
