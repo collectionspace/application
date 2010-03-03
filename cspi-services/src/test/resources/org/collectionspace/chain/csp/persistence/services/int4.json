@@ -1,0 +1,14 @@
+{
+  "entryNumber": "entry-numberX",
+  "entryDate": "entry-dateX",
+  "numObjects": "num-objectsX",
+  "entryMethods":[{"entryMethod":"entry-methodX"}],
+  "entryReason": "entry-reasonsX",
+  "returnDate": "return-dateX",
+  "donor": "donorX",
+  "depositor": "depositorX",			      
+  "responsibleEntity": "responsible-entityX",
+  "description": "descriptionX",
+  "entryNote": "entry-noteX",
+  "packingNote": "packing-noteX"
+}

@@ -11,10 +11,14 @@ public class Repeat implements FieldSet, FieldParent {
 	private FieldParent parent;
 	private List<FieldSet> children=new ArrayList<FieldSet>();
 
+	/* Services */
+	private String services_tag;
+	
 	public Repeat(Record record,ReadOnlySection section) {
 		this.parent=record;
 		id=(String)section.getValue("/@id");
 		selector=(String)section.getValue("/selector");
+		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
 	}
 
 	public String getID() { return id; }
@@ -24,7 +28,8 @@ public class Repeat implements FieldSet, FieldParent {
 
 	public Record getRecord() { return parent.getRecord(); }
 	public String getSelector() { return selector; }
-
+	public String getServicesTag() { return services_tag; }
+	
 	public String[] getIDPath() { 
 		if(parent instanceof Repeat) {
 			String[] pre=((Repeat)parent).getIDPath();

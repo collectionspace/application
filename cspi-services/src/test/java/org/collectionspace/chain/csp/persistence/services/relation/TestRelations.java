@@ -9,6 +9,8 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
+import org.collectionspace.chain.csp.config.ConfigRoot;
+import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.ServicesBaseClass;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
@@ -16,12 +18,16 @@ import org.collectionspace.chain.csp.persistence.services.connection.RequestMeth
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
+import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -32,6 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
+import org.xml.sax.InputSource;
 
 public class TestRelations extends ServicesBaseClass {
 	// XXX refactor
@@ -65,8 +72,26 @@ public class TestRelations extends ServicesBaseClass {
 		return out;
 	}
 	
-	private static Storage makeServicesStorage(String path) throws CSPDependencyException {
-		return new ServicesStorageGenerator(path).getStorage(new RequestCache());
+	private InputStream getRootSource(String file) {
+		return Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
+	}
+	
+	private Storage makeServicesStorage(String path) throws CSPDependencyException {
+		CSPManager cspm=new CSPManagerImpl();
+		cspm.register(new CoreConfig());
+		cspm.register(new Spec());
+		cspm.register(new ServicesStorageGenerator());
+		cspm.go();
+		cspm.configure(new InputSource(getRootSource("config.xml")),null);
+		ConfigRoot root=cspm.getConfigRoot();
+		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+		assertNotNull(spec);
+		System.err.println(spec.dump());
+		Record r_obj=spec.getRecord("collection-object");
+		assertNotNull(r_obj);
+		assertEquals("collection-object",r_obj.getID());
+		assertEquals("objects",r_obj.getWebURL());
+		return cspm.getStorage("service").getStorage(new RequestCache());
 	}
 	
 	@Test public void testRelations() throws Exception {

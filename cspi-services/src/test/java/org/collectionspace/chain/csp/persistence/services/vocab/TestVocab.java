@@ -2,28 +2,56 @@ package org.collectionspace.chain.csp.persistence.services.vocab;
 
 import static org.junit.Assert.*;
 
+import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
+import org.collectionspace.chain.csp.config.ConfigRoot;
+import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.ServicesBaseClass;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.xml.sax.InputSource;
 
 public class TestVocab extends ServicesBaseClass {
 	private static Pattern person_urn=Pattern.compile("urn:cspace.org.collectionspace.demo.personauthority:name\\((.*?)\\):person:name\\((.*?)\\)'(.*?)'");
-	private static Pattern vocab_urn=Pattern.compile("urn:cspace:org.collectionspace.demo:vocabulary\\((.*?)\\):item\\((.*?)\\)'(.*?)'");
+	private 
+	
+	static Pattern vocab_urn=Pattern.compile("urn:cspace:org.collectionspace.demo:vocabulary\\((.*?)\\):item\\((.*?)\\)'(.*?)'");
+		
+	private InputStream getRootSource(String file) {
+		return Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
+	}
 	
 	// XXX refactor
-	private static Storage makeServicesStorage(String path) throws CSPDependencyException {
-		return new ServicesStorageGenerator(path).getStorage(new RequestCache());
+	private Storage makeServicesStorage(String path) throws CSPDependencyException {
+		CSPManager cspm=new CSPManagerImpl();
+		cspm.register(new CoreConfig());
+		cspm.register(new Spec());
+		cspm.register(new ServicesStorageGenerator());
+		cspm.go();
+		cspm.configure(new InputSource(getRootSource("config.xml")),null);
+		ConfigRoot root=cspm.getConfigRoot();
+		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+		assertNotNull(spec);
+		System.err.println(spec.dump());
+		Record r_obj=spec.getRecord("collection-object");
+		assertNotNull(r_obj);
+		assertEquals("collection-object",r_obj.getID());
+		assertEquals("objects",r_obj.getWebURL());
+		return cspm.getStorage("service").getStorage(new RequestCache());
 	}
 
 	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {

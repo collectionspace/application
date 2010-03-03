@@ -38,7 +38,7 @@ import org.dom4j.io.SAXReader;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public abstract class GenericRecordStorage implements ContextualisedStorage {
+public abstract class JXJFreeGenericRecordStorage implements ContextualisedStorage {
 	private ServicesConnection conn;
 	private JXJTransformer jxj;
 	private String prefix,part,items;
@@ -46,12 +46,12 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 	private Map<String,String> view_map=new HashMap<String,String>();
 	private Set<String> xxx_view_deurn=new HashSet<String>();
 	
-	protected GenericRecordStorage(ServicesConnection conn,String jxj_filename,String jxj_entry,String prefix,String part,String items,
+	protected JXJFreeGenericRecordStorage(ServicesConnection conn,String jxj_filename,String jxj_entry,String prefix,String part,String items,
 			String[] mini_key,String[] mini_xml,String[] mini_value,boolean[] xxx_mini_deurn) throws InvalidJXJException, DocumentException, IOException {
 		init(conn,jxj_filename,jxj_entry,prefix,part,items,mini_key,mini_xml,mini_value,xxx_mini_deurn);
 	}
 	
-	protected GenericRecordStorage() {}
+	protected JXJFreeGenericRecordStorage() {}
 	
 	protected void init(ServicesConnection conn,String jxj_filename,String jxj_entry,String prefix,String part,String items,
 			String[] mini_key,String[] mini_xml,String[] mini_value,boolean[] xxx_mini_deurn) throws InvalidJXJException, DocumentException, IOException {	
@@ -92,10 +92,17 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 		return doc;
 	}
 
-	public String autocreateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject)
-	throws ExistException, UnimplementedException, UnderlyingStorageException {
+	private Document convertToXml(JSONObject in) throws InvalidXTmplException {
+		return jxj.json2xml(in);
+	}
+	
+	private JSONObject convertToJson(Document in) throws InvalidJTmplException, InvalidJXJException {
+		return jxj.xml2json(in);
+	}
+	
+	public String autocreateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			Document doc=jxj.json2xml(jsonObject);
+			Document doc=convertToXml(jsonObject);
 			System.err.println(doc.asXML());
 			Map<String,Document> parts=new HashMap<String,Document>();
 			parts.put(part,doc);
@@ -247,7 +254,7 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 		try {
 			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,prefix+"/"+filePath,null);
 			if((doc.getStatus()>199 && doc.getStatus()<300)) {
-				return jxj.xml2json(doc.getDocument(part));
+				return convertToJson(doc.getDocument(part));
 			}
 			throw new ExistException("Does not exist "+filePath);
 		} catch (ConnectionException e) {
@@ -262,7 +269,7 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 	public void updateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			Document data=jxj.json2xml(jsonObject);
+			Document data=convertToXml(jsonObject);
 			Map<String,Document> parts=new HashMap<String,Document>();
 			parts.put(part,data);
 			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.PUT,prefix+"/"+filePath,parts);

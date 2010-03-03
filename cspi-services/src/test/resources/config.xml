@@ -331,8 +331,8 @@
 			  <xxx-jxj-filename>intake.jxj</xxx-jxj-filename>
 			  <xxx-jxj-entry>intake</xxx-jxj-entry>
 			  <services-url>intakes</services-url>
-			  <services-list-path>intakes_common:intakes-common-list/intake-list-item</services-list-path>
-			  <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
+			  <services-common>intakes_common:intakes-common-list/intake-list-item</services-common>			  
+			
 			  
 			
 			
@@ -393,16 +393,16 @@
 			  <field id="fieldCollectionEventName">
 			    <selector>.csc-intake-field-collection-event-name</selector>
 			  </field>
-			  <field id="fieldCollectionNumber">
+			  <field id="fieldCollectionNote">
 			    <selector>.csc-intake-field-collection-number</selector>
 			  </field>
 			  <field id="fieldCollector" autocomplete="1">
 			    <selector>.csc-intake-field-collector</selector>
 			  </field>
-			  <field id="valuationReferenceNumber">
+			  <field id="ValuationReferenceNumber">
 			    <selector>.csc-intake-valuation-reference-number</selector>
 			  </field>
-			  <field id="valuer" autocomplete="1">
+			  <field id="Valuer" autocomplete="1">
 			    <selector>.csc-intake-valuer</selector>
 			  </field>			  
 			  <field id="insuranceNote">
@@ -411,7 +411,7 @@
 			  <field id="insurancePolicyNumber">
 			    <selector>.csc-intake-insurance-policy-number</selector>
 			  </field>
-			  <field id="insuranceReferenceNumber">
+			  <field id="InsuranceReferenceNumber">
 			    <selector>.csc-intake-insurance-reference-number</selector>
 			  </field>
 			  <field id="insurer" autocomplete="1">

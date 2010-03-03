@@ -13,6 +13,7 @@ import org.collectionspace.chain.csp.persistence.services.vocab.GenericVocabStor
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesOrgStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesPersonStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesVocabStorage;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -34,11 +35,11 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 
 	public String getName() { return "persistence.services"; }
 
-	private void real_init() throws CSPDependencyException {
+	private void real_init(Spec spec) throws CSPDependencyException {
 		try {
 			ServicesConnection conn=new ServicesConnection(base_url);
 			addChild("collection-object",new ServicesCollectionObjectStorage(conn));
-			addChild("intake",new ServicesIntakeStorage(conn));
+			addChild("intake",new ConfiguredRecordStorage(spec.getRecord("intake"),conn));
 			addChild("acquisition",new ServicesAcquisitionStorage(conn));
 			addChild("id",new ServicesIDGenerator(conn));
 			addChild("relations",new ServicesRelationStorage(conn));
@@ -57,12 +58,6 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		this.ctx=ctx;
 	}
 
-	public ServicesStorageGenerator() {}
-	public ServicesStorageGenerator(String store) throws CSPDependencyException {
-		this.base_url=store;
-		real_init();
-	}
-	
 	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/persistence/file -> SERVICE */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"persistence","service"},SECTION_PREFIX+"service",null,new Target(){
@@ -73,12 +68,17 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			}
 		});
 	}
-	
+		
 	public void config_finish() throws CSPDependencyException {
 		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
-		String boot_root=bootstrap.getOption("store-url");
-		if(boot_root!=null)
-			base_url=boot_root;
-		real_init();
+		if(bootstrap!=null) {
+			String boot_root=bootstrap.getOption("store-url");
+			if(boot_root!=null)
+				base_url=boot_root;
+		}
+		Spec spec=(Spec)ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
+		if(spec==null)
+			throw new CSPDependencyException("Could not load spec");
+		real_init(spec);
 	}
 }

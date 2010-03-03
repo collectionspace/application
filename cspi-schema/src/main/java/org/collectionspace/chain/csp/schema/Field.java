@@ -10,11 +10,17 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 // XXX unentangle UI and SVC parts
 public class Field implements FieldSet {
 	private FieldParent parent;
-	private String id,selector,type,autocomplete_selector,container_selector,title_selector;
+	private String id;
+	
+	/* UI */
+	private String selector,type,autocomplete_selector,container_selector,title_selector;
 	private boolean is_autocomplete=false,in_title=false,in_tab=false;
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
-	
+
+	/* Services */
+	private String services_tag;
+		
 	public Field(FieldParent record,ReadOnlySection section) {
 		id=(String)section.getValue("/@id");
 		if(section.getValue("/@autocomplete")!=null)
@@ -40,6 +46,12 @@ public class Field implements FieldSet {
 		String in_tab=(String)section.getValue("/@in-tab");
 		if(in_tab!=null && ("1".equals(in_tab) || "yes".equals(in_tab.toLowerCase())))
 			this.in_tab=true;
+		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
+		String mini=(String)section.getValue("/@mini");
+		if("number".equals(mini))
+			record.getRecord().setMiniNumber(this);
+		if("summary".equals(mini))
+			record.getRecord().setMiniSummary(this);
 		this.parent=record;
 	}
 	
@@ -52,6 +64,8 @@ public class Field implements FieldSet {
 	public boolean isInTitle() { return in_title; }
 	public boolean isInTab() { return in_tab; }
 	public String getTitleSelector() { return title_selector; }
+	
+	public String getServicesTag() { return services_tag; }
 	
 	void setType(String in) { type=in; }
 	void addOption(String id,String name,String sample,boolean dfault) {
