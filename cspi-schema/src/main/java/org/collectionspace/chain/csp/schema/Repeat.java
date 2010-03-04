@@ -10,7 +10,8 @@ public class Repeat implements FieldSet, FieldParent {
 	private String id,selector;
 	private FieldParent parent;
 	private List<FieldSet> children=new ArrayList<FieldSet>();
-
+	private boolean xxx_services_no_repeat=false;
+	
 	/* Services */
 	private String services_tag;
 	
@@ -19,6 +20,7 @@ public class Repeat implements FieldSet, FieldParent {
 		id=(String)section.getValue("/@id");
 		selector=(String)section.getValue("/selector");
 		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
+		xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
 	}
 
 	public String getID() { return id; }
@@ -29,6 +31,7 @@ public class Repeat implements FieldSet, FieldParent {
 	public Record getRecord() { return parent.getRecord(); }
 	public String getSelector() { return selector; }
 	public String getServicesTag() { return services_tag; }
+	public boolean getXxxServicesNoRepeat() { return xxx_services_no_repeat; }
 	
 	public String[] getIDPath() { 
 		if(parent instanceof Repeat) {

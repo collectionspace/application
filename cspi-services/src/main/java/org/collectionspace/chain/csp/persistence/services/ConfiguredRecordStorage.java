@@ -17,6 +17,6 @@ public class ConfiguredRecordStorage extends JXJFreeGenericRecordStorage {
 		String[] mini_xml=new String[]{r.getMiniNumber().getServicesTag(),r.getMiniSummary().getServicesTag()};
 		String[] mini_value=new String[]{"number","summary"};
 		boolean[] xxx_mini_deurn=new boolean[]{r.getMiniNumber().isAutocomplete(),r.getMiniSummary().isAutocomplete()};
-		init(conn,r.getXxxJxjFilename(),r.getXxxJxjEntry(),r.getServicesURL(),parts[0],parts[1],mini_key,mini_xml,mini_value,xxx_mini_deurn);
+		init(conn,r,r.getServicesURL(),parts[0],parts[1],mini_key,mini_xml,mini_value,xxx_mini_deurn);
 	}
 }

@@ -17,8 +17,7 @@ public class Record implements FieldParent {
 	private String type;
 	
 	/* Service stuff */
-	private String xxx_jxj_filename,xxx_jxj_entry;
-	private String services_url,services_list_path;
+	private String services_url,services_list_path,services_record_path;
 		
 	// XXX utility methods
 	Record(Spec parent,ReadOnlySection section) {
@@ -50,10 +49,10 @@ public class Record implements FieldParent {
 		tab_url=(String)section.getValue("/tab-url");
 		if(tab_url==null)
 			tab_url=web_url+"-tab";
-		xxx_jxj_filename=(String)section.getValue("/xxx-jxj-filename");
-		xxx_jxj_entry=(String)section.getValue("/xxx-jxj-entry");
 		services_url=Util.getStringOrDefault(section,"/services-url",id);
 		services_list_path=Util.getStringOrDefault(section,"/services-list-path",services_url+"_common:"+services_url+"-common-list/"+services_url+"-list-item");
+		services_record_path=Util.getStringOrDefault(section,"/services-record-path",
+				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"_common");
 		spec=parent;
 	}
 	
@@ -70,10 +69,9 @@ public class Record implements FieldParent {
 	public String getListKey() { return list_key; }
 	public boolean isInFindEdit() { return in_findedit; }
 	
-	public String getXxxJxjFilename() { return xxx_jxj_filename; }
-	public String getXxxJxjEntry() { return xxx_jxj_entry; }
 	public String getServicesURL() { return services_url; }
 	public String getServicesListPath() { return services_list_path; }
+	public String getServicesRecordPath() { return services_record_path; }
 	
 	void setMiniNumber(Field f) { mini_number=f; }
 	void setMiniSummary(Field f) { mini_summary=f; }

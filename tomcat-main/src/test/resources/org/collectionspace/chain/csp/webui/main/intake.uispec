@@ -25,7 +25,7 @@
                 }
             }]
         },
-        ".csc-intake-depositor-requirements": "${fields.depositorRequirements}",
+        ".csc-intake-depositor-requirements": "${fields.depositorsRequirements}",
         ".csc-intake-entry-date": "${fields.entryDate}",
         ".csc-intake-entry-date-container": {
             "decorators": [{
@@ -111,7 +111,7 @@
             }]
         },
         ".csc-intake-field-collection-event-name": "${fields.fieldCollectionEventName}",
-        ".csc-intake-field-collection-number": "${fields.fieldCollectionNote}",
+        ".csc-intake-field-collection-number": "${fields.fieldCollectionNumber}",
         ".csc-intake-field-collector": "${fields.fieldCollector}",
         ".csc-intake-field-collector-autocomplete": {
             "decorators": [{
@@ -124,22 +124,22 @@
             }]
         },
 
-        ".csc-intake-valuation-reference-number": "${fields.ValuationReferenceNumber}",
-        ".csc-intake-valuer": "${fields.Valuer}",
+        ".csc-intake-valuation-reference-number": "${fields.valuationReferenceNumber}",
+        ".csc-intake-valuer": "${fields.valuer}",
         ".csc-intake-valuer-autocomplete": {
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
                 "container": ".csc-intake-valuer",
                 "options": {
-                    "url": "../../chain/intake/autocomplete/Valuer"
+                    "url": "../../chain/intake/autocomplete/valuer"
                 }
             }]
         },
 
         ".csc-intake-insurance-note": "${fields.insuranceNote}",
         ".csc-intake-insurance-policy-number": "${fields.insurancePolicyNumber}",
-        ".csc-intake-insurance-reference-number": "${fields.InsuranceReferenceNumber}",
+        ".csc-intake-insurance-reference-number": "${fields.insuranceReferenceNumber}",
         ".csc-intake-insurance-renewal-date": "${fields.insuranceRenewalDate}",
         ".csc-intake-insurance-renewal-date-container": {
             "decorators": [{

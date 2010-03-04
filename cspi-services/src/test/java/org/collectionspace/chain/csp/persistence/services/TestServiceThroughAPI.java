@@ -180,6 +180,6 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		String p1=ss.autocreateJSON("intake/",getJSON("int4.json"));
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/view");
 		assertEquals("depositorX",mini.getString("summary"));
-		assertEquals("entry-numberX",mini.getString("number"));		
+		assertEquals("entryNumberX",mini.getString("number"));		
 	}
 }

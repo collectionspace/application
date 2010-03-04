@@ -328,8 +328,6 @@
 
 
 			<record id="intake" in-findedit="yes">
-			  <xxx-jxj-filename>intake.jxj</xxx-jxj-filename>
-			  <xxx-jxj-entry>intake</xxx-jxj-entry>
 			  <services-url>intakes</services-url>
 			  <services-list-path>intakes_common:intakes-common-list/intake-list-item</services-list-path>
 			  <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
@@ -343,7 +341,7 @@
 			  <field id="depositor" autocomplete="1" mini="summary">
 			    <selector>.csc-intake-depositor</selector>
 			  </field>
-			  <field id="depositorRequirements">
+			  <field id="depositorsRequirements">
 			    <selector>.csc-intake-depositor-requirements</selector>
 			  </field>
 			  <field id="entryNote">
@@ -469,7 +467,7 @@
 			  <field id="returnDate" ui-type="date">
 			    <selector>.csc-intake-return-date</selector>
 			  </field>
-			  <repeat id="entryMethods">
+			  <repeat id="entryMethods" xxx-services-no-repeat="yes">
 			    <selector>.csc-intake-entry-method-row:</selector>
 			    <field id="entryMethod">
 			      <selector>.csc-intake-entry-method</selector>
