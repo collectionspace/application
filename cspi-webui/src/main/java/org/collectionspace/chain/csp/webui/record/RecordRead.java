@@ -26,7 +26,7 @@ public class RecordRead implements WebMethod {
 	
 	public RecordRead(Record r) { 
 		this.base=r.getID();
-		record_type=("record".equals(r.getType()));
+		record_type=r.isType("record");
 	}
 		
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {

@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
 import org.dom4j.DocumentException;
 

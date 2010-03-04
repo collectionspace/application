@@ -2,22 +2,24 @@ package org.collectionspace.chain.csp.schema;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 public class Record implements FieldParent {
 	private String id;
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
+	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	private Spec spec;
 	private Field mini_summary,mini_number;
+	private Set<String> type;
 	
 	/* UI Stuff */
 	private String web_url,terms_used_url,number_selector,row_selector,list_key,ui_url,tab_url;
 	private boolean in_findedit=false;
-	private String type;
 	
 	/* Service stuff */
-	private String services_url,services_list_path,services_record_path;
+	private String services_url,services_list_path,services_record_path,in_tag,urn_syntax;
 		
 	// XXX utility methods
 	Record(Spec parent,ReadOnlySection section) {
@@ -25,9 +27,7 @@ public class Record implements FieldParent {
 		web_url=(String)section.getValue("/web-url");
 		if(web_url==null)
 			web_url=id;
-		type=(String)section.getValue("/@type");
-		if(type==null)
-			type="record";
+		type=Util.getSetOrDefault(section,"/@type",new String[]{"record"});
 		terms_used_url=(String)section.getValue("/terms-used-url");
 		if(terms_used_url==null)
 			terms_used_url="nameAuthority";
@@ -53,6 +53,8 @@ public class Record implements FieldParent {
 		services_list_path=Util.getStringOrDefault(section,"/services-list-path",services_url+"_common:"+services_url+"-common-list/"+services_url+"-list-item");
 		services_record_path=Util.getStringOrDefault(section,"/services-record-path",
 				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"_common");
+		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
+		urn_syntax=Util.getStringOrDefault(section,"/urn-syntax","urn:cspace.org.collectionspace.demo."+id+":name({vocab}):"+id+":name({entry})'{display}'");
 		spec=parent;
 	}
 	
@@ -60,7 +62,7 @@ public class Record implements FieldParent {
 	public String getWebURL() { return web_url; }
 	public String getUIURL() { return ui_url; }
 	public String getTabURL() { return tab_url; }
-	public String getType() { return type; }
+	public boolean isType(String k) { return type.contains(k); }
 	public Spec getSpec() { return spec; }
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
 	public String getTermsUsedURL() { return terms_used_url; }
@@ -68,6 +70,11 @@ public class Record implements FieldParent {
 	public String getRowSelector() { return row_selector; }
 	public String getListKey() { return list_key; }
 	public boolean isInFindEdit() { return in_findedit; }
+	public String getInTag() { return in_tag; }
+	public String getURNSyntax() { return urn_syntax; }
+	
+	public Instance[] getAllInstances() { return instances.values().toArray(new Instance[0]); }
+	public Instance getInstance(String key) { return instances.get(key); }
 	
 	public String getServicesURL() { return services_url; }
 	public String getServicesListPath() { return services_list_path; }
@@ -80,6 +87,10 @@ public class Record implements FieldParent {
 	
 	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);
+	}
+	
+	public void addInstance(Instance n) {
+		instances.put(n.getID(),n);
 	}
 	
 	void dump(StringBuffer out) {

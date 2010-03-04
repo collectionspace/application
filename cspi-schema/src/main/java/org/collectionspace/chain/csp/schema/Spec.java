@@ -44,6 +44,16 @@ public class Spec implements CSP, Configurable {
 				return r;
 			}
 		});
+		
+		/* RECORD/instances/instance -> INSTANCE */
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"instances","insatnce"},SECTION_PREFIX+"instance",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Instance n=new Instance((Record)parent,section);
+				((Record)parent).addInstance(n);
+				return n;
+			}
+		});			
+		
 		/* RECORD/field -> FIELD */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
@@ -54,7 +64,8 @@ public class Spec implements CSP, Configurable {
 					f.setType("chooser");
 				return f;
 			}
-		});		
+		});	
+		
 		/* RECORD/repeat -> REPEAT */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
