@@ -74,9 +74,9 @@ public class TestUISpecs {
 		comparison=new JSONObject(getResourceString("acquisition.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 		// Person
-		response=jettyDo(jetty,"GET","/chain/name-authority/auispec",null);
+		response=jettyDo(jetty,"GET","/chain/person/auispec",null);
 		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("name-authority.uispec"));
+		comparison=new JSONObject(getResourceString("person.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
 		// Organization
 		response=jettyDo(jetty,"GET","/chain/organization-authority/auispec",null);

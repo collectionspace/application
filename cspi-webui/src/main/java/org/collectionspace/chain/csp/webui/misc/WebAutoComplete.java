@@ -26,10 +26,10 @@ public class WebAutoComplete implements WebMethod {
 		JSONObject restriction=new JSONObject();
 		restriction.put("name",start);
 		List<String> out=new ArrayList<String>();
-		for(String urn : storage.getPaths("person/person",restriction)) {
-			JSONObject data=storage.retrieveJSON("person/person/"+urn);
+		for(String csid : storage.getPaths("person/person",restriction)) {
+			JSONObject data=storage.retrieveJSON("person/person/"+csid+"/view");
 			JSONObject entry=new JSONObject();
-			entry.put("urn",urn);
+			entry.put("urn",data.get("refid"));
 			entry.put("label",data.getString("name"));
 			out.add(entry.toString());
 		}

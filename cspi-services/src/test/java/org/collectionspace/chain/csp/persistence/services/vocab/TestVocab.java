@@ -109,9 +109,6 @@ public class TestVocab extends ServicesBaseClass {
 		JSONObject data=new JSONObject();
 		data.put("name","TEST");
 		String id=ss.autocreateJSON("/person/person",data);
-		Matcher m=person_urn.matcher(id);
-		assertTrue(m.matches());
-		assertEquals("TEST",m.group(3));
 		// Read
 		JSONObject out=ss.retrieveJSON("/person/person/"+id);
 		assertEquals("TEST",out.getString("name"));

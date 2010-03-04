@@ -15,6 +15,7 @@ import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesSearchList;
 import org.collectionspace.chain.csp.webui.misc.WebAuto;
 import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
 import org.collectionspace.chain.csp.webui.misc.WebLogin;
@@ -96,18 +97,28 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
 		addMethod(Operation.READ,new String[]{"find-edit","auispec"},0,new FindEditUISpec(spec.getAllRecords()));
 		for(Record r : spec.getAllRecords()) {
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete());
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
-			addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new WebUISpec(r.getID()));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"auispec"},0,new UISpec(r));
 			addMethod(Operation.READ,new String[]{r.getTabURL(),"auispec"},0,new TabUISpec(r));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"schema"},0,new WebUISpec(r.getID()));
+		}
+		for(Record r : spec.getAllRecords()) {
+			if(r.isType("authority"))
+				continue;
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete());
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
+			addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
 			addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
 			addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
 			addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new RecordCreateUpdate(r,true));
 			addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
+		}
+		for(Record r : spec.getAllRecords()) {
+			if(!r.isType("authority"))
+				continue;
+			addMethod(Operation.READ,new String[]{"authorities",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(r,false));
+			addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(r,true));
 		}
 		addMethod(Operation.CREATE,new String[]{"relationships"},0,new RelateCreateUpdate(true));
 		addMethod(Operation.UPDATE,new String[]{"relationships"},1,new RelateCreateUpdate(false));

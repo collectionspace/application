@@ -59,15 +59,10 @@ public class TestVocabThroughWebapp {
 		return tester;
 	}
 	
-	// XXX test autocomplete
-	@Test public void testVocabThroughWebapp() throws Exception {
+	@Test public void testAutocomplete() throws Exception {
 		ServletTester jetty=setupJetty();
-		// First create an entry
-		HttpTester out;
-		
-		// Check it's there
 		jettyDo(jetty,"GET","/chain/quick-reset",null);
-		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Achmed+Abdullah&limit=150",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Achmed+Abdullah&limit=150",null);
 		assertTrue(out.getStatus()<299);
 		String[] data=out.getContent().split("\n");
 		for(int i=0;i<data.length;i++) {
@@ -75,5 +70,35 @@ public class TestVocabThroughWebapp {
 			assertTrue(entry.getString("label").toLowerCase().contains("achmed abdullah"));
 			assertTrue(entry.has("urn"));
 		}
+	}
+	
+	@Test public void testAuthoritiesSearch() throws Exception {
+		ServletTester jetty=setupJetty();
+		jettyDo(jetty,"GET","/chain/quick-reset",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person/search?query=Achmed+Abdullah",null);
+		assertTrue(out.getStatus()<299);
+		System.err.println(out.getContent());
+		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
+		for(int i=0;i<results.length();i++) {
+			JSONObject entry=results.getJSONObject(i);
+			assertTrue(entry.getString("name").toLowerCase().contains("achmed abdullah"));
+			assertTrue(entry.has("refid"));
+		}
+	}
+
+	@Test public void testAuthoritiesList() throws Exception {
+		ServletTester jetty=setupJetty();
+		jettyDo(jetty,"GET","/chain/quick-reset",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person",null);
+		assertTrue(out.getStatus()<299);
+		System.err.println(out.getContent());
+		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
+		boolean found=false;
+		for(int i=0;i<results.length();i++) {
+			JSONObject entry=results.getJSONObject(i);
+			if(entry.getString("name").toLowerCase().contains("achmed abdullah"))
+				found=true;
+		}
+		assertTrue(found);
 	}
 }

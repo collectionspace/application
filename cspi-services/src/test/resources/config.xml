@@ -555,7 +555,7 @@
 
 
 			<record id="person" type="authority,compute-displayname">
-		      <web-url>name-authority</web-url>
+		      <web-url>person</web-url>
 			  <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common-list/personauthority-list-item</services-instances-path>
 			  <services-list-path>persons_common:http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
 			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
@@ -564,6 +564,7 @@
 
 			  <instances>
 			    <instance id="person-person">
+			      <web-url>person</web-url>
 			      <title-ref>person</title-ref>
 			      <title>Default Person Authority</title>
 			    </instance>
