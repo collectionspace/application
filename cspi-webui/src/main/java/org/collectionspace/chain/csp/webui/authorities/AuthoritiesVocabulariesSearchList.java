@@ -32,6 +32,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 
 	public AuthoritiesVocabulariesSearchList(Instance n,boolean search) {
 		this.n=n;
+		this.r=n.getRecord();
 		this.search=search;
 	}
 	
@@ -39,6 +40,8 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view");
 		out.put("csid",csid);
 		out.put("recordtype",inst_type);
+		out.put("number",out.get("name"));
+		out.put("summary",out.get("name")); // XXX proper summary!?
 		return out;		
 	}
 	

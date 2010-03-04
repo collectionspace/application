@@ -82,6 +82,7 @@ public class TestVocabThroughWebapp {
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
 			assertTrue(entry.getString("name").toLowerCase().contains("achmed abdullah"));
+			assertEquals(entry.getString("number"),entry.getString("name"));
 			assertTrue(entry.has("refid"));
 		}
 	}
@@ -90,6 +91,37 @@ public class TestVocabThroughWebapp {
 		ServletTester jetty=setupJetty();
 		jettyDo(jetty,"GET","/chain/quick-reset",null);
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person",null);
+		assertTrue(out.getStatus()<299);
+		System.err.println(out.getContent());
+		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
+		boolean found=false;
+		for(int i=0;i<results.length();i++) {
+			JSONObject entry=results.getJSONObject(i);
+			if(entry.getString("name").toLowerCase().contains("achmed abdullah"))
+				found=true;
+		}
+		assertTrue(found);
+	}
+
+	@Test public void testVocabulariesSearch() throws Exception {
+		ServletTester jetty=setupJetty();
+		jettyDo(jetty,"GET","/chain/quick-reset",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=Achmed+Abdullah",null);
+		assertTrue(out.getStatus()<299);
+		System.err.println(out.getContent());
+		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
+		for(int i=0;i<results.length();i++) {
+			JSONObject entry=results.getJSONObject(i);
+			assertTrue(entry.getString("name").toLowerCase().contains("achmed abdullah"));
+			assertEquals(entry.getString("number"),entry.getString("name"));
+			assertTrue(entry.has("refid"));
+		}
+	}
+
+	@Test public void testVocabulariesList() throws Exception {
+		ServletTester jetty=setupJetty();
+		jettyDo(jetty,"GET","/chain/quick-reset",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person",null);
 		assertTrue(out.getStatus()<299);
 		System.err.println(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
