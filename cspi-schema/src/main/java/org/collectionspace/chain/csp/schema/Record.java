@@ -19,7 +19,7 @@ public class Record implements FieldParent {
 	private boolean in_findedit=false;
 	
 	/* Service stuff */
-	private String services_url,services_list_path,services_record_path,in_tag,urn_syntax;
+	private String services_url,services_list_path,services_record_path,in_tag,urn_syntax,services_instances_path;
 		
 	// XXX utility methods
 	Record(Spec parent,ReadOnlySection section) {
@@ -55,6 +55,8 @@ public class Record implements FieldParent {
 				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"_common");
 		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
 		urn_syntax=Util.getStringOrDefault(section,"/urn-syntax","urn:cspace.org.collectionspace.demo."+id+":name({vocab}):"+id+":name({entry})'{display}'");
+		services_instances_path=Util.getStringOrDefault(section,"/services-instances-path",
+				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"-common-list/"+services_url+"-list-item");
 		spec=parent;
 	}
 	
@@ -79,6 +81,7 @@ public class Record implements FieldParent {
 	public String getServicesURL() { return services_url; }
 	public String getServicesListPath() { return services_list_path; }
 	public String getServicesRecordPath() { return services_record_path; }
+	public String getServicesInstancesPath() { return services_instances_path; }
 	
 	void setMiniNumber(Field f) { mini_number=f; }
 	void setMiniSummary(Field f) { mini_summary=f; }

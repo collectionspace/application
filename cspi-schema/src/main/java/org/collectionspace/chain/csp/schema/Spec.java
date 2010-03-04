@@ -46,7 +46,7 @@ public class Spec implements CSP, Configurable {
 		});
 		
 		/* RECORD/instances/instance -> INSTANCE */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"instances","insatnce"},SECTION_PREFIX+"instance",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"instances","instance"},SECTION_PREFIX+"instance",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Instance n=new Instance((Record)parent,section);
 				((Record)parent).addInstance(n);

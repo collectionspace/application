@@ -9,6 +9,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.RequestMeth
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -20,19 +21,16 @@ import org.dom4j.Node;
 public class VocabInstanceCache {
 	private Map<String,String> csids=new HashMap<String,String>();
 	private ServicesConnection conn;
-	private String prefix,section,list_item_path,tag,namespace;
 	private Map<String,String> vocabs;
+	private Record r;
 	
-	VocabInstanceCache(ServicesConnection conn,String section,String prefix,String list_item_path,Map<String,String> vocabs,String namespace,String tag) {
+	VocabInstanceCache(Record r,ServicesConnection conn,Map<String,String> vocabs) {
 		this.conn=conn;
-		this.section=section;
-		this.prefix=prefix;
-		this.list_item_path=list_item_path;
 		this.vocabs=vocabs;
-		this.namespace=namespace;
-		this.tag=tag;
+		this.r=r;
 	}
 	
+	/* confound and unconfound extract and add the trailing identifier in the displayName which is used to sync with the config */
 	private String unconfound(String name) {
 		if(name==null)
 			return null;
@@ -51,9 +49,9 @@ public class VocabInstanceCache {
 		return vocabs.get(name)+" ("+name+")";
 	}
 	
-	private Document createList(String id) throws ExistException {
+	private Document createList(String namespace,String tag,String id) throws ExistException {
 		Document out=DocumentFactory.getInstance().createDocument();
-		Element root=out.addElement("ns2:"+tag,namespace);
+		Element root=out.addElement("ns2:"+tag,namespace); // XXX proper QNAMEs
 		Element nametag=root.addElement("displayName");
 		nametag.addText(confound(id));
 		Element vocabtag=root.addElement("vocabType");
@@ -64,8 +62,10 @@ public class VocabInstanceCache {
 	// Only called if doesn't exist
 	private synchronized void createVocabulary(CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
 		Map<String,Document> body=new HashMap<String,Document>();
-		body.put(section,createList(id));
-		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/",body);
+		String[] path_parts=r.getServicesInstancesPath().split(":",2);
+		String[] tag_parts=path_parts[1].split(",",2);
+		body.put(path_parts[0],createList(tag_parts[0],tag_parts[1],id));
+		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/",body);
 		if(out.getStatus()>299)
 			throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 		csids.put(id,out.getURLTail());
@@ -73,11 +73,13 @@ public class VocabInstanceCache {
 	
 	@SuppressWarnings("unchecked")
 	private void buildVocabularies(CSPRequestCache cache) throws ConnectionException, UnderlyingStorageException {
-		ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/"+prefix+"/",null);
+		ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/"+r.getServicesURL()+"/",null);
 		Document doc=data.getDocument();
 		if(doc==null)
-			throw new UnderlyingStorageException("Could not retrieve vocabularies");
-		List<Node> objects=doc.getDocument().selectNodes(list_item_path);
+			throw new UnderlyingStorageException("Could not retrieve vocabularies");		
+		String[] path_parts=r.getServicesInstancesPath().split(":",2);
+		String[] tag_parts=path_parts[1].split(",",2);
+		List<Node> objects=doc.getDocument().selectNodes(tag_parts[1]);
 		for(Node object : objects) {
 			String name=object.selectSingleNode("displayName").getText();
 			String base=unconfound(name);

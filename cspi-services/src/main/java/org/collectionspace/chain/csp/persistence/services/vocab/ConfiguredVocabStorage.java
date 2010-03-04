@@ -14,6 +14,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDoc
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -35,12 +36,14 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	private URNProcessor urn_processor;
 	private Record r;
 
-	public ConfiguredVocabStorage(Record r,ServicesConnection conn,Map<String,String> vocabs,
-			String namespace,String section,String list_item_path,
-			String tag) throws InvalidXTmplException, DocumentException {
+	public ConfiguredVocabStorage(Record r,ServicesConnection conn) throws InvalidXTmplException, DocumentException {
 		this.conn=conn;
-		vocab_cache=new VocabInstanceCache(conn,section,r.getServicesURL(),list_item_path,new ConcurrentHashMap<String,String>(vocabs),namespace,tag);
 		urn_processor=new URNProcessor(r.getURNSyntax());
+		Map<String,String> vocabs=new ConcurrentHashMap<String,String>();
+		for(Instance n : r.getAllInstances()) {
+			vocabs.put(n.getTitleRef(),n.getTitle());
+		}
+		vocab_cache=new VocabInstanceCache(r,conn,vocabs);		
 		this.r=r;
 	}
 

@@ -556,8 +556,9 @@
 
 			<record id="person" type="authority,compute-displayname">
 		      <web-url>name-authority</web-url>
-			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
+			  <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common-list/personauthority-list-item</services-instances-path>
 			  <services-list-path>persons_common:http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
+			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
 			  <services-url>personauthorities</services-url>
 			  <urn-syntax>urn:cspace.org.collectionspace.demo.personauthority:name({vocab}):person:name({entry})'{display}'</urn-syntax>
 

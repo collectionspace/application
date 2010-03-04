@@ -9,9 +9,7 @@ import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
-import org.collectionspace.chain.csp.persistence.services.vocab.GenericVocabStorage;
-import org.collectionspace.chain.csp.persistence.services.vocab.ServicesOrgStorage;
-import org.collectionspace.chain.csp.persistence.services.vocab.ServicesPersonStorage;
+import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesVocabStorage;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSP;
@@ -43,7 +41,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			addChild("acquisition",new ServicesAcquisitionStorage(conn));
 			addChild("id",new ServicesIDGenerator(conn));
 			addChild("relations",new ServicesRelationStorage(conn));
-			addChild("person",new ServicesPersonStorage(spec.getRecord("person"),conn));
+			addChild("person",new ConfiguredVocabStorage(spec.getRecord("person"),conn));
 			//addChild("orgs",new ServicesOrgStorage(conn));
 			addChild("vocab",new ServicesVocabStorage(conn));
 		} catch (Exception e) {
