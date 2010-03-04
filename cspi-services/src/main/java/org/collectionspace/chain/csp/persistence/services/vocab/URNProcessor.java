@@ -48,7 +48,7 @@ public class URNProcessor {
 		return in;
 	}
 	
-	String constructURN(CSPRequestCache cache,String vocab_id,String entry_id,String display) throws UnderlyingStorageException, ConnectionException, ExistException {
+	String constructURN(String vocab_id,String entry_id,String display) throws UnderlyingStorageException, ConnectionException, ExistException {
 		try {
 			String out=syntax;
 			out=out.replaceAll("\\{vocab\\}",URLEncoder.encode(vocab_id,"UTF-8"));
