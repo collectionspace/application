@@ -12,6 +12,7 @@ import org.collectionspace.chain.controller.ChainServlet;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -30,7 +31,7 @@ public class TestVocabThroughWebapp {
 	}
 	
 	// XXX refactor
-	private HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
+	private static HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
 		HttpTester response = new HttpTester();
 		request.setMethod(method);
@@ -44,7 +45,7 @@ public class TestVocabThroughWebapp {
 	}
 	
 	// XXX refactor into other copy of this method
-	private ServletTester setupJetty() throws Exception {
+	private static ServletTester setupJetty() throws Exception {
 		BootstrapConfigController config_controller=new BootstrapConfigController(null);
 		config_controller.addSearchSuffix("test-config-loader2.xml");
 		config_controller.go();
@@ -59,9 +60,13 @@ public class TestVocabThroughWebapp {
 		return tester;
 	}
 	
+	@BeforeClass public static void reset() throws Exception {
+		ServletTester jetty=setupJetty();
+		jettyDo(jetty,"GET","/chain/quick-reset",null);		
+	}
+	
 	@Test public void testAutocomplete() throws Exception {
 		ServletTester jetty=setupJetty();
-		jettyDo(jetty,"GET","/chain/quick-reset",null);
 		HttpTester out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Achmed+Abdullah&limit=150",null);
 		assertTrue(out.getStatus()<299);
 		String[] data=out.getContent().split("\n");
@@ -74,7 +79,6 @@ public class TestVocabThroughWebapp {
 	
 	@Test public void testAuthoritiesSearch() throws Exception {
 		ServletTester jetty=setupJetty();
-		jettyDo(jetty,"GET","/chain/quick-reset",null);
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person/search?query=Achmed+Abdullah",null);
 		assertTrue(out.getStatus()<299);
 		System.err.println(out.getContent());
@@ -89,7 +93,6 @@ public class TestVocabThroughWebapp {
 
 	@Test public void testAuthoritiesList() throws Exception {
 		ServletTester jetty=setupJetty();
-		jettyDo(jetty,"GET","/chain/quick-reset",null);
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person",null);
 		assertTrue(out.getStatus()<299);
 		System.err.println(out.getContent());
@@ -120,7 +123,6 @@ public class TestVocabThroughWebapp {
 
 	@Test public void testVocabulariesList() throws Exception {
 		ServletTester jetty=setupJetty();
-		jettyDo(jetty,"GET","/chain/quick-reset",null);
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person",null);
 		assertTrue(out.getStatus()<299);
 		System.err.println(out.getContent());
@@ -132,5 +134,22 @@ public class TestVocabThroughWebapp {
 				found=true;
 		}
 		assertTrue(found);
+	}
+
+	@Test public void testVocabulariesGet() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=Achmed+Abdullah",null);
+		assertTrue(out.getStatus()<299);
+		System.err.println(out.getContent());
+		// Find candidate
+		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
+		assertEquals(1,results.length());
+		JSONObject entry=results.getJSONObject(0);
+		String csid=entry.getString("csid");
+		out=jettyDo(jetty,"GET","/chain/vocabularies/person/"+csid,null);
+		JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
+		System.err.println(fields);
+		assertEquals(csid,fields.getString("csid"));
+		assertEquals("Achmed Abdullah",fields.getString("name"));
 	}
 }

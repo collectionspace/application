@@ -83,8 +83,9 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			// This time with refid
 			String refname=urn_processor.constructURN(vocab,out.getURLTail(),name);
 			body.put(record_path[0],createEntry(tag_path[0],tag_path[1],name,vocab,refname));
-			out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/"+vocab+"/items",body);
-			if(out.getStatus()>299)
+			String csid=out.getURLTail();
+			ReturnedMultipartDocument out2=conn.getMultipartXMLDocument(RequestMethod.PUT,"/"+r.getServicesURL()+"/"+vocab+"/items/"+csid,body);
+			if(out2.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());			
 			cache.setCached(getClass(),new String[]{"namefor",vocab,out.getURLTail()},name);
 			cache.setCached(getClass(),new String[]{"reffor",vocab,out.getURLTail()},refname);

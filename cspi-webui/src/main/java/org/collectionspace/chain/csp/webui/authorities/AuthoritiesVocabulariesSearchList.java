@@ -49,10 +49,10 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		JSONObject restriction=new JSONObject();
 		if(param!=null)
 			restriction.put("name",param);
-		String[] results=storage.getPaths(r.getWebURL()+"/"+n.getWebURL(),restriction);
+		String[] results=storage.getPaths(r.getID()+"/"+n.getTitleRef(),restriction);
 		/* Get a view of each */
 		for(String result : results) {
-			out.put(generateMiniRecord(storage,r.getWebURL(),n.getWebURL(),result));
+			out.put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));
 		}
 	}
 	

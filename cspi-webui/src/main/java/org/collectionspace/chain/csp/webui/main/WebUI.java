@@ -17,6 +17,7 @@ import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesSearchList;
+import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
 import org.collectionspace.chain.csp.webui.misc.WebAuto;
 import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
 import org.collectionspace.chain.csp.webui.misc.WebLogin;
@@ -123,7 +124,8 @@ public class WebUI implements CSP, UI, Configurable {
 			for(Instance n : r.getAllInstances()) {
 				addMethod(Operation.READ,new String[]{"vocabularies",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(n,false));
 				addMethod(Operation.READ,new String[]{"vocabularies",r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(n,true));				
-			}	
+				addMethod(Operation.READ,new String[]{"vocabularies",r.getWebURL()},1,new VocabulariesRead(n));
+			}
 		}
 		addMethod(Operation.CREATE,new String[]{"relationships"},0,new RelateCreateUpdate(true));
 		addMethod(Operation.UPDATE,new String[]{"relationships"},1,new RelateCreateUpdate(false));
