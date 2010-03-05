@@ -152,4 +152,29 @@ public class TestVocabThroughWebapp {
 		assertEquals(csid,fields.getString("csid"));
 		assertEquals("Achmed Abdullah",fields.getString("name"));
 	}
+
+	@Test public void testVocabulariesCreateUpdate() throws Exception {
+		ServletTester jetty=setupJetty();
+		// Create
+		JSONObject data=new JSONObject("{'fields':{'name':'Fred Bloggs'}}");
+		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
+		assertTrue(out.getStatus()<300);
+		String url=out.getHeader("Location");
+		// Read
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
+		assertTrue(out.getStatus()<299);
+		data=new JSONObject(out.getContent()).getJSONObject("fields");
+		assertEquals(data.getString("csid"),url.split("/")[2]);
+		assertEquals("Fred Bloggs",data.getString("name"));
+		// Update
+		data=new JSONObject("{'fields':{'name':'Owain Glyndwr'}}");
+		out=jettyDo(jetty,"PUT","/chain/vocabularies"+url,data.toString());		
+		assertTrue(out.getStatus()<300);
+		// Read
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
+		assertTrue(out.getStatus()<299);
+		data=new JSONObject(out.getContent()).getJSONObject("fields");
+		assertEquals(data.getString("csid"),url.split("/")[2]);
+		assertEquals("Owain Glyndwr",data.getString("name"));
+	}
 }
