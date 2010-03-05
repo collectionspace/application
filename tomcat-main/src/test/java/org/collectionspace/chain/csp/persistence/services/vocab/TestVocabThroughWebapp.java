@@ -153,7 +153,7 @@ public class TestVocabThroughWebapp {
 		assertEquals("Achmed Abdullah",fields.getString("name"));
 	}
 
-	@Test public void testVocabulariesCreateUpdate() throws Exception {
+	@Test public void testVocabulariesCreateUpdateDelete() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Create
 		JSONObject data=new JSONObject("{'fields':{'name':'Fred Bloggs'}}");
@@ -176,5 +176,10 @@ public class TestVocabThroughWebapp {
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
 		assertEquals("Owain Glyndwr",data.getString("name"));
+		// Delete
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
+		assertEquals(400,out.getStatus());		
 	}
 }
