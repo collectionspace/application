@@ -571,14 +571,14 @@
 			  </instances>
 
 			  <field id="displayName" in-title="yes" display-name="yes">
-			    <selector>.csc-nameAuthority-displayName</selector>
+			    <selector>.csc-personAuthority-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
 			  </field>
 			  <field id="referenceNumber">
-			    <selector>.csc-nameAuthority-referenceNumber</selector>
+			    <selector>.csc-personAuthority-referenceNumber</selector>
 			  </field>
 			  <field id="status">
-			    <selector>.csc-nameAuthority-status</selector>
+			    <selector>.csc-personAuthority-status</selector>
 			    <options>
 			      <option id="provisional">Provisional</option>
 			      <option id="under review">Under Review</option>
@@ -587,7 +587,7 @@
 			    </options>
 			  </field>
 			  <field id="salutation">
-			    <selector>.csc-nameAuthority-salutation</selector>
+			    <selector>.csc-personAuthority-salutation</selector>
 			    <options>
 			      <option id="Dear">Dear</option>
 			      <option id="My Darling">My Darling</option>
@@ -596,7 +596,7 @@
 			    </options>
 			  </field>
 			  <field id="title">
-			    <selector>.csc-nameAuthority-title</selector>
+			    <selector>.csc-personAuthority-title</selector>
 			    <options>
 			      <option id="Mr">Mr</option>
 			      <option id="Mrs">Mrs</option>
@@ -613,58 +613,58 @@
 			    </options>
 			  </field>
 			  <field id="foreName">
-			    <selector>.csc-nameAuthority-foreName</selector>
+			    <selector>.csc-personAuthority-foreName</selector>
 			  </field>
 			  <field id="middleName">
-			    <selector>.csc-nameAuthority-middleName</selector>
+			    <selector>.csc-personAuthority-middleName</selector>
 			  </field>
 			  <field id="surName">
-			    <selector>.csc-nameAuthority-surName</selector>
+			    <selector>.csc-personAuthority-surName</selector>
 			  </field>
 			  <field id="nameAdditions">
-			    <selector>.csc-nameAuthority-nameAdditions</selector>
+			    <selector>.csc-personAuthority-nameAdditions</selector>
 			  </field>
 			  <field id="initials">
-			    <selector>.csc-nameAuthority-initials</selector>
+			    <selector>.csc-personAuthority-initials</selector>
 			  </field>
 			  <field id="gender">
-			    <selector>.csc-nameAuthority-gender</selector>
+			    <selector>.csc-personAuthority-gender</selector>
 			    <options>
 			      <option id="male">Male</option>
 			      <option id="female">Female</option>
 			    </options>
 			  </field>
 			  <field id="occupation" autocomplete="1">
-			    <selector>.csc-nameAuthority-occupation</selector>
+			    <selector>.csc-personAuthority-occupation</selector>
 			  </field>
 			  <field id="schoolOrStyle" autocomplete="1">
-			    <selector>.csc-nameAuthority-schoolOrStyle</selector>
+			    <selector>.csc-personAuthority-schoolOrStyle</selector>
 			  </field>
 			  <field id="group" autocomplete="1">
-			    <selector>.csc-nameAuthority-group</selector>
+			    <selector>.csc-personAuthority-group</selector>
 			  </field>
 			  <field id="nationality" autocomplete="1">
-			    <selector>.csc-nameAuthority-nationality</selector>
+			    <selector>.csc-personAuthority-nationality</selector>
 			  </field>
 			  <field id="nameNote">
-			    <selector>.csc-nameAuthority-nameNote</selector>
+			    <selector>.csc-personAuthority-nameNote</selector>
 			  </field>
 			  <field id="bioNote">
-			    <selector>.csc-nameAuthority-bioNote</selector>
+			    <selector>.csc-personAuthority-bioNote</selector>
 			  </field>
 			  <field id="birthDate" ui-type="date" in-title="yes">
-			    <selector>.csc-nameAuthority-birthDate</selector>
+			    <selector>.csc-personAuthority-birthDate</selector>
 			    <title-selector>.csc-titleBar-birthDate</title-selector>
 			  </field>
 			  <field id="birthPlace" autocomplete="1">
-			    <selector>.csc-nameAuthority-birthPlace</selector>
+			    <selector>.csc-personAuthority-birthPlace</selector>
 			  </field>
 			  <field id="deathDate" ui-type="date" in-title="yes">
-			    <selector>.csc-nameAuthority-deathDate</selector>
+			    <selector>.csc-personAuthority-deathDate</selector>
 			    <title-selector>.csc-titleBar-deathDate</title-selector>
 			  </field>
 			  <field id="deathPlace" autocomplete="1">
-			    <selector>.csc-nameAuthority-deathPlace</selector>
+			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
 			  <field id="addressType1">
 			    <selector>.csc-contact-addressType1</selector>
