@@ -39,12 +39,16 @@ public class ConfigFinder {
 	}
 	
 	private static InputStream getDataFromName(ServletContext ctx) {
-		String filename=(String)ctx.getAttribute("config-filename");		
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
+		String filename=(String)ctx.getAttribute("config-filename");	
+		try {
+			return Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
+		} catch(Exception x) { return null; }
 	}
 
 	private static InputStream getDataFromClasspath() {
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream("cspace-config.xml");
+		try {
+			return Thread.currentThread().getContextClassLoader().getResourceAsStream("cspace-config.xml");
+		} catch(Exception x) { return null; }
 	}
 	
 	public static InputStream getConfig(ServletContext ctx) throws IOException {
