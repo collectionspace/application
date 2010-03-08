@@ -11,7 +11,7 @@ public class Record implements FieldParent {
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	private Spec spec;
-	private Field mini_summary,mini_number;
+	private Field mini_summary,mini_number,display_name;
 	private Set<String> type;
 	
 	/* UI Stuff */
@@ -85,8 +85,10 @@ public class Record implements FieldParent {
 	
 	void setMiniNumber(Field f) { mini_number=f; }
 	void setMiniSummary(Field f) { mini_summary=f; }
+	void setDisplayName(Field f) { display_name=f; }
 	public Field getMiniNumber() { return mini_number; }
 	public Field getMiniSummary() { return mini_summary; }
+	public Field getDisplayNameField() { return display_name; }
 	
 	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);

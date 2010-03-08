@@ -40,15 +40,15 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view");
 		out.put("csid",csid);
 		out.put("recordtype",inst_type);
-		out.put("number",out.get("name"));
-		out.put("summary",out.get("name")); // XXX proper summary!?
+		out.put("number",out.get(r.getDisplayNameField().getID()));
+		out.put("summary",out.get(r.getDisplayNameField().getID())); // XXX proper summary!?
 		return out;		
 	}
 	
 	private void search_or_list_vocab(JSONArray out,Instance n,Storage storage,UIRequest ui,String param) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject restriction=new JSONObject();
 		if(param!=null)
-			restriction.put("name",param);
+			restriction.put(r.getDisplayNameField().getID(),param);
 		String[] results=storage.getPaths(r.getID()+"/"+n.getTitleRef(),restriction);
 		/* Get a view of each */
 		for(String result : results) {

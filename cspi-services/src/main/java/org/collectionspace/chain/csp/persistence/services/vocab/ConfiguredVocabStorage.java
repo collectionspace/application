@@ -14,6 +14,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDoc
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
@@ -64,13 +65,18 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 		System.err.println("createEntry() ::: "+out.asXML());
 		return out;
 	}
+	
+	private String getDisplayNameKey() throws UnderlyingStorageException {
+		Field dnf=r.getDisplayNameField();
+		if(dnf==null)
+			throw new UnderlyingStorageException("no display-name='yes' field");
+		return dnf.getID();
+	}
 
 	public String autocreateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			if(!jsonObject.has("name"))
-				throw new UnderlyingStorageException("Missing name argument to data");
-			String name=jsonObject.getString("name");
+			String name=jsonObject.getString(getDisplayNameKey());
 			String vocab=vocab_cache.getVocabularyId(cache,filePath);
 			Map<String,Document> body=new HashMap<String,Document>();
 			String[] record_path=r.getServicesRecordPath().split(":",2);
@@ -124,8 +130,8 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			String vocab=vocab_cache.getVocabularyId(cache,rootPath);
 			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
 			String prefix=null;
-			if(restrictions!=null && restrictions.has("name"))
-				prefix=restrictions.getString("name");
+			if(restrictions!=null && restrictions.has(getDisplayNameKey()))
+				prefix=restrictions.getString(getDisplayNameKey());
 			// XXX pagination support
 			url+="?pgSz=10000";
 			if(prefix!=null)
@@ -183,7 +189,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				cache.setCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]},refid);
 			}
 			JSONObject out=new JSONObject();
-			out.put("name",name);
+			out.put(getDisplayNameKey(),name);
 			out.put("csid",filePath.split("/")[1]);
 			out.put("refid",refid);
 			return out;
@@ -197,14 +203,12 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	public void updateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			if(!jsonObject.has("name"))
-				throw new UnderlyingStorageException("Missing name argument to data");
-			String name=jsonObject.getString("name");
+			String name=jsonObject.getString(getDisplayNameKey());
 			Map<String,Document> body=new HashMap<String,Document>();
 			String[] record_path=r.getServicesRecordPath().split(":",2);
 			String[] tag_path=record_path[1].split(",",2);
 			String vocab=vocab_cache.getVocabularyId(cache,filePath.split("/")[0]);
-			String refname=urn_processor.constructURN(vocab,filePath.split("/")[1],name);			
+			String refname=urn_processor.constructURN(vocab,filePath.split("/")[1],name);
 			body.put(record_path[0],createEntry(tag_path[0],tag_path[1],name,vocab,refname));
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,CSIDtoURL(filePath),body);
 			if(out.getStatus()>299)

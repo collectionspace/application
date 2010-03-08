@@ -86,8 +86,8 @@ public class TestVocabThroughWebapp {
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			assertTrue(entry.getString("name").toLowerCase().contains("achmed abdullah"));
-			assertEquals(entry.getString("number"),entry.getString("name"));
+			assertTrue(entry.getString("displayName").toLowerCase().contains("achmed abdullah"));
+			assertEquals(entry.getString("number"),entry.getString("displayName"));
 			assertTrue(entry.has("refid"));
 		}
 	}
@@ -101,7 +101,7 @@ public class TestVocabThroughWebapp {
 		boolean found=false;
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			if(entry.getString("name").toLowerCase().contains("achmed abdullah"))
+			if(entry.getString("displayName").toLowerCase().contains("achmed abdullah"))
 				found=true;
 		}
 		assertTrue(found);
@@ -116,8 +116,8 @@ public class TestVocabThroughWebapp {
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			assertTrue(entry.getString("name").toLowerCase().contains("achmed abdullah"));
-			assertEquals(entry.getString("number"),entry.getString("name"));
+			assertTrue(entry.getString("displayName").toLowerCase().contains("achmed abdullah"));
+			assertEquals(entry.getString("number"),entry.getString("displayName"));
 			assertTrue(entry.has("refid"));
 		}
 	}
@@ -131,7 +131,7 @@ public class TestVocabThroughWebapp {
 		boolean found=false;
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			if(entry.getString("name").toLowerCase().contains("achmed abdullah"))
+			if(entry.getString("displayName").toLowerCase().contains("achmed abdullah"))
 				found=true;
 		}
 		assertTrue(found);
@@ -151,13 +151,13 @@ public class TestVocabThroughWebapp {
 		JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
 		System.err.println(fields);
 		assertEquals(csid,fields.getString("csid"));
-		assertEquals("Achmed Abdullah",fields.getString("name"));
+		assertEquals("Achmed Abdullah",fields.getString("displayName"));
 	}
 
 	@Test public void testVocabulariesCreateUpdateDelete() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Create
-		JSONObject data=new JSONObject("{'fields':{'name':'Fred Bloggs'}}");
+		JSONObject data=new JSONObject("{'fields':{'displayName':'Fred Bloggs'}}");
 		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
 		assertTrue(out.getStatus()<300);
 		String url=out.getHeader("Location");
@@ -166,9 +166,9 @@ public class TestVocabThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
-		assertEquals("Fred Bloggs",data.getString("name"));
+		assertEquals("Fred Bloggs",data.getString("displayName"));
 		// Update
-		data=new JSONObject("{'fields':{'name':'Owain Glyndwr'}}");
+		data=new JSONObject("{'fields':{'displayName':'Owain Glyndwr'}}");
 		out=jettyDo(jetty,"PUT","/chain/vocabularies"+url,data.toString());		
 		assertTrue(out.getStatus()<300);
 		// Read
@@ -176,7 +176,7 @@ public class TestVocabThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
-		assertEquals("Owain Glyndwr",data.getString("name"));
+		assertEquals("Owain Glyndwr",data.getString("displayName"));
 		// Delete
 		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
 		assertTrue(out.getStatus()<299);

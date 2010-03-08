@@ -14,7 +14,7 @@ public class Field implements FieldSet {
 	
 	/* UI */
 	private String selector,type,autocomplete_selector,container_selector,title_selector;
-	private boolean is_autocomplete=false,in_title=false,in_tab=false;
+	private boolean is_autocomplete=false,in_title=false,in_tab=false,display_name=false;
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
 
@@ -52,6 +52,9 @@ public class Field implements FieldSet {
 			record.getRecord().setMiniNumber(this);
 		if("summary".equals(mini))
 			record.getRecord().setMiniSummary(this);
+		display_name=Util.getBooleanOrDefault(section,"/@display-name",false);
+		if(display_name)
+			record.getRecord().setDisplayName(this);
 		this.parent=record;
 	}
 	

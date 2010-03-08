@@ -110,7 +110,7 @@ public class WebUI implements CSP, UI, Configurable {
 			if(r.isType("authority"))
 				continue;
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete());
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord("person"))); // XXX
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
 			addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
 			addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));

@@ -84,7 +84,7 @@ public class WebReset implements WebMethod {
 			for(String line : names.split("\n")) {
 				i++;
 				JSONObject name=new JSONObject();
-				name.put("name",line);
+				name.put("displayName",line);
 				storage.autocreateJSON("/person/person",name);
 				tty.line("Created "+name);
 				tty.flush();

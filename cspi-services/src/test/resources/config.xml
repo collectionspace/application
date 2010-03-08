@@ -570,7 +570,7 @@
 			    </instance>
 			  </instances>
 
-			  <field id="displayName" in-title="yes">
+			  <field id="displayName" in-title="yes" display-name="yes">
 			    <selector>.csc-nameAuthority-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
 			  </field>

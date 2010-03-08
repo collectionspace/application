@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletContext;
 
@@ -13,6 +17,7 @@ import org.apache.commons.io.IOUtils;
  * 
  * First we look for a servlet data containing the actual config.
  * Next we look for a servlet attribute specifying a path.
+ * Next we look in ${jboss.home.dir}/server/cspace/conf/cspace-config.xml
  * Next we look in the classpath for a name supplied in a servlet attribute.
  * Next we look in the classpath for something called cspace-config.xml
  * Finally we fail.
@@ -45,6 +50,20 @@ public class ConfigFinder {
 		} catch(Exception x) { return null; }
 	}
 
+	private static InputStream getDataFromJBossPath() {
+		try {
+			File file=new File(System.getProperty("jboss.home.dir")+"/server/cspace/conf/cspace-config.xml");
+			Properties p=System.getProperties();
+			for(Entry k : p.entrySet()) {
+				System.err.println(" property "+k.getKey()+" = "+k.getValue());
+			}
+			System.err.println("A Looking in "+System.getProperty("jboss.home.dir")+"/server/cspace/conf/cspace-config.xml");
+			if(!file.exists())
+				return null;
+			return new FileInputStream(file);			
+		} catch(Exception x) { return null; }
+	}
+
 	private static InputStream getDataFromClasspath() {
 		try {
 			return Thread.currentThread().getContextClassLoader().getResourceAsStream("cspace-config.xml");
@@ -59,6 +78,9 @@ public class ConfigFinder {
 		if(out!=null)
 			return out;
 		out=getDataFromName(ctx);
+		if(out!=null)
+			return out;
+		out=getDataFromJBossPath();
 		if(out!=null)
 			return out;
 		return getDataFromClasspath();

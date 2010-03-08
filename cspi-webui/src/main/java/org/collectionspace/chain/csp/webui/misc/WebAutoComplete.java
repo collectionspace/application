@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
@@ -20,17 +21,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WebAutoComplete implements WebMethod {
-
-	// XXX we just assume name for now
+	private Record r;
+	
+	public WebAutoComplete(Record r) { this.r=r; }
+	
+	// XXX we just assume person for now
 	private String[] doAutocomplete(CSPRequestCache cache,Storage storage,String start) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject restriction=new JSONObject();
-		restriction.put("name",start);
+		restriction.put(r.getDisplayNameField().getID(),start); // May be something other than display name
 		List<String> out=new ArrayList<String>();
 		for(String csid : storage.getPaths("person/person",restriction)) {
 			JSONObject data=storage.retrieveJSON("person/person/"+csid+"/view");
 			JSONObject entry=new JSONObject();
 			entry.put("urn",data.get("refid"));
-			entry.put("label",data.getString("name"));
+			entry.put("label",data.getString(r.getDisplayNameField().getID()));
 			out.add(entry.toString());
 		}
 		return out.toArray(new String[0]);

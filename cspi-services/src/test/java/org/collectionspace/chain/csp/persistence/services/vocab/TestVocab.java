@@ -107,24 +107,24 @@ public class TestVocab extends ServicesBaseClass {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		// Create
 		JSONObject data=new JSONObject();
-		data.put("name","TEST");
+		data.put("displayName","TEST");
 		String id=ss.autocreateJSON("/person/person",data);
 		// Read
 		JSONObject out=ss.retrieveJSON("/person/person/"+id);
-		assertEquals("TEST",out.getString("name"));
+		assertEquals("TEST",out.getString("displayName"));
 		// Update
-		data.remove("name");
-		data.put("name","TEST2");
+		data.remove("displayName");
+		data.put("displayName","TEST2");
 		ss.updateJSON("/person/person/"+id,data);
 		out=ss.retrieveJSON("/person/person/"+id);
-		assertEquals("TEST2",out.getString("name"));
+		assertEquals("TEST2",out.getString("displayName"));
 		String id3=out.getString("csid");
 		// List
-		data.remove("name");
-		data.put("name","TEST3");
+		data.remove("displayName");
+		data.put("displayName","TEST3");
 		String id2=ss.autocreateJSON("/person/person",data);
 		out=ss.retrieveJSON("/person/person/"+id2);
-		assertEquals("TEST3",out.getString("name"));		
+		assertEquals("TEST3",out.getString("displayName"));		
 		boolean found1=false,found2=false;
 		for(String u : ss.getPaths("/person/person",null)) {
 			System.err.println(u);
