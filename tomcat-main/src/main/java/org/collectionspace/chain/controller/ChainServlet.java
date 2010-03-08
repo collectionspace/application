@@ -14,6 +14,7 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +47,7 @@ public class ChainServlet extends HttpServlet  {
 	private boolean inited=false;
 	private CSPManager cspm=new CSPManagerImpl();
 	private BootstrapConfigController bootstrap;
+	private String locked_down=null;
 	
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
 	 * Better present it on first request.
@@ -60,13 +62,19 @@ public class ChainServlet extends HttpServlet  {
 		cspm.register(new Spec());
 	}
 
-	private void load_config() throws BootstrapConfigLoadFailedException, CSPDependencyException {
+	private void load_config(ServletContext ctx) throws BootstrapConfigLoadFailedException, CSPDependencyException {
 		try {
-			InputStream stream=new ByteArrayInputStream(bootstrap.getOption("main-config").getBytes("UTF-8"));
 			System.err.println(bootstrap.getOption("main-config"));
-			cspm.configure(new InputSource(stream),null); // XXX not null
+			InputStream cfg_stream=ConfigFinder.getConfig(ctx);
+			if(cfg_stream==null) {
+				locked_down="Cannot find cspace config xml file";
+			} else {
+				cspm.configure(new InputSource(cfg_stream),null); // XXX not null
+			}
 		} catch (UnsupportedEncodingException e) {
 			throw new BootstrapConfigLoadFailedException("Config has bad character encoding",e);
+		} catch (IOException e) {
+			throw new BootstrapConfigLoadFailedException("Cannot load config",e);			
 		}
 	}
 
@@ -79,7 +87,7 @@ public class ChainServlet extends HttpServlet  {
 			// Register csps
 			register_csps();
 			cspm.go(); // Start up CSPs
-			load_config();
+			load_config(getServletContext());
 		} catch (IOException e) {
 			throw new BadRequestException("Cannot load config"+e,e);
 		} catch (BootstrapConfigLoadFailedException e) {
@@ -120,8 +128,16 @@ public class ChainServlet extends HttpServlet  {
 	@Override
 	public void service(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		try {
+			if(locked_down!=null) {
+				servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
+				return;
+			}
 			if(!inited)
 				setup();
+			if(locked_down!=null) {
+				servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
+				return;
+			}
 			if(perhapsServeFixedContent(servlet_request,servlet_response))
 				return;
 			// Setup our request object

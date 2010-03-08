@@ -58,7 +58,8 @@ public class TestRelationsThroughWebapp {
 		tester.addServlet(ChainServlet.class, "/*");
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
 		tester.setAttribute("storage","service");
-		tester.setAttribute("store-url",base+"/cspace-services/");		
+		tester.setAttribute("store-url",base+"/cspace-services/");
+		tester.setAttribute("config-filename","default.xml");
 		tester.start();
 		return tester;
 	}

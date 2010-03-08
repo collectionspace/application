@@ -22,7 +22,7 @@ public class ServicesBaseClass {
 		config_controller.addSearchSuffix("test-config-loader2.xml");
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
-		base=config_controller.getOption("services-url");
+		base="http://test.collectionspace.org:8180"; // XXX hardwired
 		System.err.println("base="+base);
 		conn=new ServicesConnection(base+"/cspace-services");
 		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null);

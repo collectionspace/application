@@ -172,6 +172,7 @@ public class TestGeneral {
 		tester.addServlet(ChainServlet.class, "/*");
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
 		tester.setAttribute("test-store",store.getStoreRoot());
+		tester.setAttribute("config-filename","default.xml");
 		tester.start();
 		return tester;
 	}
