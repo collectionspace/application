@@ -4,7 +4,7 @@
         ".csc-titleBar-birthDate": "${fields.birthDate}",
         ".csc-titleBar-deathDate": "${fields.deathDate}",
     },
-    "dataEntry": {
+    "recordEditor": {
         ".csc-nameAuthority-displayName": "${fields.displayName}",
         ".csc-nameAuthority-referenceNumber": "${fields.referenceNumber}",
         ".csc-nameAuthority-status": {

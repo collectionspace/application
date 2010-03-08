@@ -3,7 +3,7 @@
         ".csc-titleBar-object-identification-object-title": "${fields.objectTitle}",
         ".csc-titleBar-object-identification-object-number": "${fields.accessionNumber}"
     },
-    "dataEntry": {
+    "recordEditor": {
         ".csc-object-identification-object-title": "${fields.objectTitle}",
         ".csc-object-identification-object-title-language": "${fields.objectTitleLanguage}",
         ".csc-object-identification-object-title-translation": "${fields.objectTitleTranslation}",

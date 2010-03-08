@@ -4,7 +4,7 @@
         ".csc-titleBar-foundationDate": "${fields.foundingDate}",
         ".csc-titleBar-dissolutionDate": "${fields.dissolutionDate}",
     },
-    "dataEntry": {
+    "recordEditor": {
         ".csc-organizationAuthority-displayName": "${fields.displayName}",
         ".csc-organizationAuthority-referenceNumber": "${fields.referenceNumber}",
         ".csc-organizationAuthority-status": {

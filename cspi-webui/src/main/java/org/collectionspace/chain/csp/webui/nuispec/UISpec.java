@@ -216,7 +216,7 @@ public class UISpec implements WebMethod {
 	private JSONObject uispec(UIRequest request,String suffix) throws UIException {
 		try {
 			JSONObject out=new JSONObject();
-			out.put("dataEntry",generateDataEntrySection());
+			out.put("recordEditor",generateDataEntrySection());
 			out.put("titleBar",generateTitleSection());
 			out.put("sidebar",generateSidebarSection());
 			return out;

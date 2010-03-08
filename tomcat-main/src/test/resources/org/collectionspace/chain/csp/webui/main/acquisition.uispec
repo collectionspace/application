@@ -2,7 +2,7 @@
 "titleBar": {
         ".csc-titleBar-acquisition-reference-number": "${fields.acquReferenceNum}"
 },
-"dataEntry": {
+"recordEditor": {
         ".csc-acquisition-accession-date": "${fields.acquAccessionDate}",
         ".csc-acquisition-accession-date-container": {
             "decorators": [{

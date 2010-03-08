@@ -2,7 +2,7 @@
     "titleBar": {
         ".csc-titleBar-intake-entry-number": "${fields.entryNumber}"
     },
-    "dataEntry": {
+    "recordEditor": {
         ".csc-intake-current-owner": "${fields.currentOwner}",
         ".csc-intake-current-owner-autocomplete": {
             "decorators": [{
