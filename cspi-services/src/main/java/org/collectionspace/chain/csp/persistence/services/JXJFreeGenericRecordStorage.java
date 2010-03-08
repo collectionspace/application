@@ -86,16 +86,6 @@ public abstract class JXJFreeGenericRecordStorage implements ContextualisedStora
 		return (String)cache.getCached(getClass(),new String[]{"glean",path,key});
 	}
 	
-	// XXX refactor into util
-	private Document getDocument(String in) throws DocumentException, IOException {
-		String path=getClass().getPackage().getName().replaceAll("\\.","/");
-		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		SAXReader reader=new SAXReader();
-		Document doc=reader.read(stream);
-		stream.close();
-		return doc;
-	}
-		
 	private JSONObject convertToJson(Document in) throws InvalidJTmplException, InvalidJXJException, JSONException {
 		return XmlJsonConversion.convertToJson(r,in);
 		//return jxj.xml2json(in);
