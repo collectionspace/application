@@ -195,33 +195,6 @@ public class TestGeneral {
 		setupJetty();
 	}
 
-	@Test public void testSchemaGet() throws Exception {
-		createSchemaFile("collection-object",false,true);
-		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema/test-json-handle.tmp",null);
-		assertEquals(out.getMethod(),null);
-		assertEquals(200,out.getStatus());
-		deleteSchemaFile("collection-object",false);
-		JSONUtils.checkJSONEquiv(testStr2,out.getContent());
-	}
-
-	@Test public void testDefaultingSchemaGet() throws Exception {	
-		createSchemaFile("collection-object",true,true);
-		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema",null);
-		assertEquals(out.getMethod(),null);
-		assertEquals(200,out.getStatus());
-		deleteSchemaFile("collection-object",true);
-		JSONUtils.checkJSONEquiv(testStr2,out.getContent());
-	}
-
-	@Test public void testDefaultingSchemaGetWithTrailingSlash() throws Exception {	
-		createSchemaFile("collection-object",true,true);
-		HttpTester out=jettyDo(setupJetty(),"GET","/chain/objects/schema/",null);
-		assertEquals(out.getMethod(),null);
-		assertEquals(200,out.getStatus());
-		deleteSchemaFile("collection-object",true);
-		JSONUtils.checkJSONEquiv(testStr2,out.getContent());
-	}
-
 	private JSONObject makeRequest(JSONObject fields) throws JSONException {
 		JSONObject out=new JSONObject();
 		out.put("fields",fields);
@@ -294,20 +267,6 @@ public class TestGeneral {
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 		out=jettyDo(jetty,"GET","/chain"+id2,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr)));
-	}
-	
-	@Test public void testMultipleSchemas() throws Exception {
-		ServletTester jetty=setupJetty();
-		createSchemaFile("collection-object",false,true);
-		createSchemaFile("intake",false,false);
-		HttpTester out=jettyDo(jetty,"GET","/chain/objects/schema/test-json-handle.tmp",null);
-		assertEquals(out.getMethod(),null);
-		assertEquals(200,out.getStatus());
-		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(testStr2),new JSONObject(out.getContent())));
-		out=jettyDo(jetty,"GET","/chain/intake/schema/test-json-handle.tmp",null);
-		assertEquals(out.getMethod(),null);
-		assertEquals(200,out.getStatus());
-		assertTrue(JSONUtils.checkJSONEquiv(new JSONObject(testStr),new JSONObject(out.getContent())));
 	}
 
 	@Test public void testServeStatic() throws Exception {

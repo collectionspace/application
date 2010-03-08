@@ -99,7 +99,7 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin());
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
-		addMethod(Operation.READ,new String[]{"find-edit","auispec"},0,new FindEditUISpec(spec.getAllRecords()));
+		addMethod(Operation.READ,new String[]{"find-edit","uispec"},0,new FindEditUISpec(spec.getAllRecords()));
 		for(Record r : spec.getAllRecords()) {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"ouispec"},0,new WebUISpec(r.getID()));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UISpec(r));
