@@ -60,37 +60,37 @@ public class TestUISpecs {
 	@Test public void testUISpec() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Collection-Object
-		HttpTester response=jettyDo(jetty,"GET","/chain/objects/auispec",null);
+		HttpTester response=jettyDo(jetty,"GET","/chain/objects/uispec",null);
 		JSONObject generated=new JSONObject(response.getContent());
 		JSONObject comparison=new JSONObject(getResourceString("collection-object.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 		// Intake
-		response=jettyDo(jetty,"GET","/chain/intake/auispec",null);
+		response=jettyDo(jetty,"GET","/chain/intake/uispec",null);
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("intake.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 		// Acquisition
-		response=jettyDo(jetty,"GET","/chain/acquisition/auispec",null);
+		response=jettyDo(jetty,"GET","/chain/acquisition/uispec",null);
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("acquisition.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 		// Person
-		response=jettyDo(jetty,"GET","/chain/person/auispec",null);
+		response=jettyDo(jetty,"GET","/chain/person/uispec",null);
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("person.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
 		// Organization
-		response=jettyDo(jetty,"GET","/chain/organization-authority/auispec",null);
+		response=jettyDo(jetty,"GET","/chain/organization-authority/uispec",null);
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("organization-authority.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
 		// Find-Edit
-		response=jettyDo(jetty,"GET","/chain/find-edit/auispec",null);
+		response=jettyDo(jetty,"GET","/chain/find-edit/uispec",null);
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("find-edit.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 		// Object tab
-		response=jettyDo(jetty,"GET","/chain/object-tab/auispec",null);
+		response=jettyDo(jetty,"GET","/chain/object-tab/uispec",null);
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("object-tab.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		

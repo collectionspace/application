@@ -101,10 +101,10 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
 		addMethod(Operation.READ,new String[]{"find-edit","auispec"},0,new FindEditUISpec(spec.getAllRecords()));
 		for(Record r : spec.getAllRecords()) {
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new WebUISpec(r.getID()));
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"auispec"},0,new UISpec(r));
-			addMethod(Operation.READ,new String[]{r.getTabURL(),"auispec"},0,new TabUISpec(r));
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"schema"},0,new WebUISpec(r.getID()));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"ouispec"},0,new WebUISpec(r.getID()));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UISpec(r));
+			addMethod(Operation.READ,new String[]{r.getTabURL(),"uispec"},0,new TabUISpec(r));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"oschema"},0,new WebUISpec(r.getID()));
 		}
 		for(Record r : spec.getAllRecords()) {
 			if(r.isType("authority"))
