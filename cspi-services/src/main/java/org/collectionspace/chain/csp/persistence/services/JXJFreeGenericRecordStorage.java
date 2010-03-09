@@ -103,8 +103,6 @@ public abstract class JXJFreeGenericRecordStorage implements ContextualisedStora
 			return url.getURLTail();
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
-		} catch (InvalidXTmplException e) {
-			throw new UnimplementedException("Error in template",e);
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);
 		}
@@ -273,8 +271,6 @@ public abstract class JXJFreeGenericRecordStorage implements ContextualisedStora
 			if(doc.getStatus()>299 || doc.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
-		} catch (InvalidXTmplException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);

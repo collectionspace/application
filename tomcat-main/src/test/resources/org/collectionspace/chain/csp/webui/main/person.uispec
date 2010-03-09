@@ -5,112 +5,112 @@
         ".csc-titleBar-deathDate": "${fields.deathDate}",
     },
     "recordEditor": {
-        ".csc-nameAuthority-displayName": "${fields.displayName}",
-        ".csc-nameAuthority-referenceNumber": "${fields.referenceNumber}",
-        ".csc-nameAuthority-status": {
+        ".csc-personAuthority-displayName": "${fields.displayName}",
+        ".csc-personAuthority-referenceNumber": "${fields.referenceNumber}",
+        ".csc-personAuthority-status": {
             "selection": "${fields.status}",
             "optionlist": ["provisional", "under review", "accepted","rejected"],
             "optionnames": ["Provisional", "Under Review", "Accepted","Rejected"]
         },
-        ".csc-nameAuthority-salutation": {
+        ".csc-personAuthority-salutation": {
 		    "selection": "${fields.salutation}",
 			"optionlist": ["Dear", "My Darling","Your Majaesty","Your Royal Highness"],
             "optionnames": ["Dear", "My Darling", "Your Majaesty","Your Royal Highness"]
         },
-        ".csc-nameAuthority-title": {
+        ".csc-personAuthority-title": {
 		    "selection": "${fields.title}",
 			"optionlist": ["Mr", "Mrs", "Ms", "Miss", "Dr", "Professor", "Sir", "Dame", "Baron", "Baroness", "Lord", "Lady"],
             "optionnames": ["Mr", "Mrs", "Ms", "Miss", "Dr", "Professor", "Sir", "Dame", "Baron", "Baroness", "Lord", "Lady"]
         },
-        ".csc-nameAuthority-foreName": "${fields.foreName}",
-        ".csc-nameAuthority-middleName": "${fields.middleName}",
-        ".csc-nameAuthority-surName": "${fields.surName}",
-        ".csc-nameAuthority-nameAdditions": "${fields.nameAdditions}",
-        ".csc-nameAuthority-initials": "${fields.initials}",
-        ".csc-nameAuthority-gender": {
+        ".csc-personAuthority-foreName": "${fields.foreName}",
+        ".csc-personAuthority-middleName": "${fields.middleName}",
+        ".csc-personAuthority-surName": "${fields.surName}",
+        ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
+        ".csc-personAuthority-initials": "${fields.initials}",
+        ".csc-personAuthority-gender": {
             "selection": "${fields.gender}",
             "optionlist": ["male", "female"],
             "optionnames": ["Male", "Female"]
         },
-        ".csc-nameAuthority-occupation": "${fields.occupation}",
-        ".csc-nameAuthority-occupation-autocomplete": {
+        ".csc-personAuthority-occupation": "${fields.occupation}",
+        ".csc-personAuthority-occupation-autocomplete": {
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-nameAuthority-occupation",
+                "container": ".csc-personAuthority-occupation",
                 "options": {
                     "url": "../../chain/person/autocomplete/occupation"
                 }
             }]
         },
-        ".csc-nameAuthority-schoolOrStyle": "${fields.schoolOrStyle}",
-        ".csc-nameAuthority-schoolOrStyle-autocomplete": {
+        ".csc-personAuthority-schoolOrStyle": "${fields.schoolOrStyle}",
+        ".csc-personAuthority-schoolOrStyle-autocomplete": {
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-nameAuthority-schoolOrStyle",
+                "container": ".csc-personAuthority-schoolOrStyle",
                 "options": {
                     "url": "../../chain/person/autocomplete/schoolOrStyle"
                 }
             }]
         },
-        ".csc-nameAuthority-group": "${fields.group}",
-        ".csc-nameAuthority-group-autocomplete": {
+        ".csc-personAuthority-group": "${fields.group}",
+        ".csc-personAuthority-group-autocomplete": {
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-nameAuthority-group",
+                "container": ".csc-personAuthority-group",
                 "options": {
                     "url": "../../chain/person/autocomplete/group"
                 }
             }]
         },
-        ".csc-nameAuthority-nationality": "${fields.nationality}",
-        ".csc-nameAuthority-nationality-autocomplete": {
+        ".csc-personAuthority-nationality": "${fields.nationality}",
+        ".csc-personAuthority-nationality-autocomplete": {
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-nameAuthority-nationality",
+                "container": ".csc-personAuthority-nationality",
                 "options": {
                     "url": "../../chain/person/autocomplete/nationality"
                 }
             }]
         },
-        ".csc-nameAuthority-nameNote": "${fields.nameNote}",
-        ".csc-nameAuthority-bioNote": "${fields.bioNote}",
-        ".csc-nameAuthority-birthDate": "${fields.birthDate}",
-        ".csc-nameAuthority-birthDate-container": {
+        ".csc-personAuthority-nameNote": "${fields.nameNote}",
+        ".csc-personAuthority-bioNote": "${fields.bioNote}",
+        ".csc-personAuthority-birthDate": "${fields.birthDate}",
+        ".csc-personAuthority-birthDate-container": {
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.datePicker",
-                "container": ".csc-nameAuthority-birthDate-container"
+                "container": ".csc-personAuthority-birthDate-container"
             }]
         },
-        ".csc-nameAuthority-birthPlace": "${fields.birthPlace}",
-        ".csc-nameAuthority-birthPlace-autocomplete": {
+        ".csc-personAuthority-birthPlace": "${fields.birthPlace}",
+        ".csc-personAuthority-birthPlace-autocomplete": {
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-nameAuthority-birthPlace",
+                "container": ".csc-personAuthority-birthPlace",
                 "options": {
                     "url": "../../chain/person/autocomplete/birthPlace"
                 }
             }]
         },
-        ".csc-nameAuthority-deathDate": "${fields.deathDate}",
-        ".csc-nameAuthority-deathDate-container": {
+        ".csc-personAuthority-deathDate": "${fields.deathDate}",
+        ".csc-personAuthority-deathDate-container": {
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.datePicker",
-                "container": ".csc-nameAuthority-deathDate-container"
+                "container": ".csc-personAuthority-deathDate-container"
             }]
         },
-        ".csc-nameAuthority-deathPlace": "${fields.deathPlace}",
-        ".csc-nameAuthority-deathPlace-autocomplete": {
+        ".csc-personAuthority-deathPlace": "${fields.deathPlace}",
+        ".csc-personAuthority-deathPlace-autocomplete": {
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-nameAuthority-deathPlace",
+                "container": ".csc-personAuthority-deathPlace",
                 "options": {
                     "url": "../../chain/person/autocomplete/deathPlace"
                 }

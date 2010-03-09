@@ -73,7 +73,7 @@ public class XmlJsonConversion {
 			addRepeatToXml(root,(Repeat)fs,in);
 	}
 	
-	public static Document convertToXml(Record r,JSONObject in) throws InvalidXTmplException, JSONException, UnderlyingStorageException {
+	public static Document convertToXml(Record r,JSONObject in) throws JSONException, UnderlyingStorageException {
 		Document doc=DocumentFactory.getInstance().createDocument();
 		String[] parts=r.getServicesRecordPath().split(":",2);
 		String[] rootel=parts[1].split(",");
