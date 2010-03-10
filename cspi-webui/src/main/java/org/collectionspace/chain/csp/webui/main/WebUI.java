@@ -124,12 +124,12 @@ public class WebUI implements CSP, UI, Configurable {
 			addMethod(Operation.READ,new String[]{"authorities",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(r,false));
 			addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(r,true));
 			for(Instance n : r.getAllInstances()) {
-				addMethod(Operation.READ,new String[]{"vocabularies",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(n,false));
-				addMethod(Operation.READ,new String[]{"vocabularies",r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(n,true));				
-				addMethod(Operation.READ,new String[]{"vocabularies",r.getWebURL()},1,new VocabulariesRead(n));
-				addMethod(Operation.CREATE,new String[]{"vocabularies",r.getWebURL()},0,new VocabulariesCreateUpdate(n,true));
-				addMethod(Operation.UPDATE,new String[]{"vocabularies",r.getWebURL()},1,new VocabulariesCreateUpdate(n,false));
-				addMethod(Operation.DELETE,new String[]{"vocabularies",r.getWebURL()},0,new VocabulariesDelete(n));
+				addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},0,new AuthoritiesVocabulariesSearchList(n,false));
+				addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(n,true));				
+				addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesRead(n));
+				addMethod(Operation.CREATE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesCreateUpdate(n,true));
+				addMethod(Operation.UPDATE,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesCreateUpdate(n,false));
+				addMethod(Operation.DELETE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesDelete(n));
 			}
 		}
 		addMethod(Operation.CREATE,new String[]{"relationships"},0,new RelateCreateUpdate(true));
@@ -159,11 +159,13 @@ public class WebUI implements CSP, UI, Configurable {
 		Request r=new Request(cache,storage,ui);
 		System.err.println(StringUtils.join(path,"/"));
 		try {
-			tries.get(ui.getRequestedOperation()).call(path,r);
+			if(tries.get(ui.getRequestedOperation()).call(path,r))
+				return;
 		} catch(UIException e) {
 			throw e;
 		} catch (Exception e) {
 			throw new UIException("Error in read",e);
 		}
+		throw new UIException("path not used");
 	}
 }

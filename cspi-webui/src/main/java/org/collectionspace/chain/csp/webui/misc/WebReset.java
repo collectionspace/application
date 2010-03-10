@@ -44,7 +44,8 @@ public class WebReset implements WebMethod {
 			TTYOutputter tty=request.getTTYOutputter();
 			// Delete existing records
 			for(String dir : storage.getPaths("/",null)) {
-				if("relations".equals(dir) || "vocab".equals(dir) || "person".equals(dir))
+				// XXX yuck!
+				if("relations".equals(dir) || "vocab".equals(dir) || "person".equals(dir) || "organization".equals(dir))
 					continue;
 				tty.line("dir : "+dir);
 				String[] paths=storage.getPaths(dir,null);
@@ -76,6 +77,11 @@ public class WebReset implements WebMethod {
 				storage.deleteJSON("/person/person/"+urn);
 				tty.flush();
 			}
+			for(String urn : storage.getPaths("/organization/organization",null)) {
+				tty.line("Deleting "+urn);
+				storage.deleteJSON("/organization/organization/"+urn);
+				tty.flush();
+			}
 			tty.line("Creating");
 			tty.flush();
 			// Create vocab entries
@@ -87,6 +93,19 @@ public class WebReset implements WebMethod {
 				name.put("displayName",line);
 				storage.autocreateJSON("/person/person",name);
 				tty.line("Created "+name);
+				tty.flush();
+				if(quick && i>20)
+					break;
+			}
+			// Create vocab entries
+			String orgs=getResource("orgs.txt");
+			i=0;
+			for(String line : orgs.split("\n")) {
+				i++;
+				JSONObject name=new JSONObject();
+				name.put("displayName",line);
+				storage.autocreateJSON("/organization/organization",name);
+				tty.line("Created "+orgs);
 				tty.flush();
 				if(quick && i>20)
 					break;

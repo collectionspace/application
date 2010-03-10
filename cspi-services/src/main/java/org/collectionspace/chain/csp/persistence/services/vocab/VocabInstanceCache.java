@@ -51,18 +51,22 @@ public class VocabInstanceCache {
 	
 	private Document createList(String namespace,String tag,String id) throws ExistException {
 		Document out=DocumentFactory.getInstance().createDocument();
-		Element root=out.addElement("ns2:"+tag,namespace); // XXX proper QNAMEs
+		String[] path=tag.split("/");
+		Element root=out.addElement("ns2:"+path[0],namespace);
+		for(int i=1;i<path.length;i++) {
+			root=root.addElement(path[i]);
+		}
 		Element nametag=root.addElement("displayName");
 		nametag.addText(confound(id));
 		Element vocabtag=root.addElement("vocabType");
-		vocabtag.addText("enum");
+		vocabtag.addText("OrgAuthority"); // XXX
 		return out;
 	}
 	
 	// Only called if doesn't exist
 	private synchronized void createVocabulary(CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
 		Map<String,Document> body=new HashMap<String,Document>();
-		String[] path_parts=r.getServicesInstancesPath().split(":",2);
+		String[] path_parts=r.getServicesSingleInstancePath().split(":",2);
 		String[] tag_parts=path_parts[1].split(",",2);
 		body.put(path_parts[0],createList(tag_parts[0],tag_parts[1],id));
 		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/",body);

@@ -19,7 +19,7 @@ public class Record implements FieldParent {
 	private boolean in_findedit=false;
 	
 	/* Service stuff */
-	private String services_url,services_list_path,services_record_path,in_tag,urn_syntax,services_instances_path;
+	private String services_url,services_list_path,services_record_path,in_tag,urn_syntax,services_instances_path,services_single_instance_path;
 		
 	// XXX utility methods
 	Record(Spec parent,ReadOnlySection section) {
@@ -57,6 +57,8 @@ public class Record implements FieldParent {
 		urn_syntax=Util.getStringOrDefault(section,"/urn-syntax","urn:cspace.org.collectionspace.demo."+id+":name({vocab}):"+id+":name({entry})'{display}'");
 		services_instances_path=Util.getStringOrDefault(section,"/services-instances-path",
 				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"-common-list/"+services_url+"-list-item");
+		services_single_instance_path=Util.getStringOrDefault(section,"/services-single-instance-path",
+				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"-common");
 		spec=parent;
 	}
 	
@@ -82,6 +84,7 @@ public class Record implements FieldParent {
 	public String getServicesListPath() { return services_list_path; }
 	public String getServicesRecordPath() { return services_record_path; }
 	public String getServicesInstancesPath() { return services_instances_path; }
+	public String getServicesSingleInstancePath() { return services_single_instance_path; }
 	
 	void setMiniNumber(Field f) { mini_number=f; }
 	void setMiniSummary(Field f) { mini_summary=f; }

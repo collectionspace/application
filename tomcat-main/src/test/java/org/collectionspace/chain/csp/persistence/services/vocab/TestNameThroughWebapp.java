@@ -17,18 +17,13 @@ import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 
-public class TestVocabThroughWebapp {
+public class TestNameThroughWebapp {
 	// XXX refactor
 	protected InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 	}
 	
-	// XXX refactor
-	private String getResourceString(String name) throws IOException {
-		InputStream in=getResource(name);
-		return IOUtils.toString(in);
-	}
 	
 	// XXX refactor
 	private static HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
@@ -107,7 +102,7 @@ public class TestVocabThroughWebapp {
 		assertTrue(found);
 	}
 
-	@Test public void testVocabulariesSearch() throws Exception {
+	@Test public void testNamesSearch() throws Exception {
 		ServletTester jetty=setupJetty();
 		jettyDo(jetty,"GET","/chain/quick-reset",null);
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=Achmed+Abdullah",null);
@@ -122,7 +117,7 @@ public class TestVocabThroughWebapp {
 		}
 	}
 
-	@Test public void testVocabulariesList() throws Exception {
+	@Test public void testNamesList() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person",null);
 		assertTrue(out.getStatus()<299);
@@ -137,7 +132,7 @@ public class TestVocabThroughWebapp {
 		assertTrue(found);
 	}
 
-	@Test public void testVocabulariesGet() throws Exception {
+	@Test public void testNamesGet() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=Achmed+Abdullah",null);
 		assertTrue(out.getStatus()<299);
@@ -154,7 +149,7 @@ public class TestVocabThroughWebapp {
 		assertEquals("Achmed Abdullah",fields.getString("displayName"));
 	}
 
-	@Test public void testVocabulariesCreateUpdateDelete() throws Exception {
+	@Test public void testNamesCreateUpdateDelete() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Create
 		JSONObject data=new JSONObject("{'fields':{'displayName':'Fred Bloggs'}}");
