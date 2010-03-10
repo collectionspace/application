@@ -76,7 +76,10 @@ public class UISpec implements WebMethod {
 		decorator.put("func","cspace.autocomplete");
 		decorator.put("container",f.getSelector());
 		JSONObject options=new JSONObject();
-		options.put("url","../../chain/"+f.getRecord().getWebURL()+"/autocomplete/"+f.getID());
+		String extra="";
+		if(f.getRecord().isType("authority"))
+			extra="vocabularies/";
+		options.put("url","../../chain/"+extra+f.getRecord().getWebURL()+"/autocomplete/"+f.getID());
 		decorator.put("options",options);
 		decorators.put(decorator);
 		out.put("decorators",decorators);

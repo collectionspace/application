@@ -39,7 +39,7 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-occupation",
                 "options": {
-                    "url": "../../chain/person/autocomplete/occupation"
+                    "url": "../../chain/vocabularies/person/autocomplete/occupation"
                 }
             }]
         },
@@ -50,7 +50,7 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-schoolOrStyle",
                 "options": {
-                    "url": "../../chain/person/autocomplete/schoolOrStyle"
+                    "url": "../../chain/vocabularies/person/autocomplete/schoolOrStyle"
                 }
             }]
         },
@@ -61,7 +61,7 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-group",
                 "options": {
-                    "url": "../../chain/person/autocomplete/group"
+                    "url": "../../chain/vocabularies/person/autocomplete/group"
                 }
             }]
         },
@@ -72,7 +72,7 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-nationality",
                 "options": {
-                    "url": "../../chain/person/autocomplete/nationality"
+                    "url": "../../chain/vocabularies/person/autocomplete/nationality"
                 }
             }]
         },
@@ -93,7 +93,7 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-birthPlace",
                 "options": {
-                    "url": "../../chain/person/autocomplete/birthPlace"
+                    "url": "../../chain/vocabularies/person/autocomplete/birthPlace"
                 }
             }]
         },
@@ -112,7 +112,7 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-deathPlace",
                 "options": {
-                    "url": "../../chain/person/autocomplete/deathPlace"
+                    "url": "../../chain/vocabularies/person/autocomplete/deathPlace"
                 }
             }]
         },
@@ -130,7 +130,7 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-contact-place",
                 "options": {
-                    "url": "../../chain/person/autocomplete/place"
+                    "url": "../../chain/vocabularies/person/autocomplete/place"
                 }
             }]
         },

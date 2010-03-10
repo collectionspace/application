@@ -167,4 +167,16 @@ public class TestOrgThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());		
 	}
+	
+	@Test public void testAutocompleteInOrganization() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization/autocomplete/contactName?q=Achmed+Abdullah&limit=150",null);
+		assertTrue(out.getStatus()<299);
+		String[] data=out.getContent().split("\n");
+		for(int i=0;i<data.length;i++) {
+			JSONObject entry=new JSONObject(data[i]);
+			assertTrue(entry.getString("label").toLowerCase().contains("achmed abdullah"));
+			assertTrue(entry.has("urn"));
+		}
+	}
 }

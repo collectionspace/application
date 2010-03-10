@@ -755,9 +755,14 @@
 			  <field id="function">
 			    <selector>.csc-organizationAuthority-function</selector>
 			    <options>
-			      <option id="option 1">option 1</option>
-			      <option id="option 2">option 2</option>
-			      <option id="option 3">option 3</option>
+			      <option id="academic institution">academic institution</option>
+			      <option id="archives">archives</option>
+			      <option id="distributor">distributor</option>
+			      <option id="gallery">gallery</option>
+			      <option id="library">library</option>
+			      <option id="museum">museum</option>
+			      <option id="publisher">publisher</option>
+			      <option id="religious order">religious order</option>
 			    </options>
 			  </field>
 			  <field id="history">
