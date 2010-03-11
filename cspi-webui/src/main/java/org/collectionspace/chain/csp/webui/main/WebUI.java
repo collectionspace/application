@@ -20,6 +20,7 @@ import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesSe
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesCreateUpdate;
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesDelete;
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
+import org.collectionspace.chain.csp.webui.misc.VocabRedirector;
 import org.collectionspace.chain.csp.webui.misc.WebAuto;
 import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
 import org.collectionspace.chain.csp.webui.misc.WebLogin;
@@ -117,6 +118,7 @@ public class WebUI implements CSP, UI, Configurable {
 			addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
 			addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new RecordCreateUpdate(r,true));
 			addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 		}
 		for(Record r : spec.getAllRecords()) {
 			if(!r.isType("authority"))
@@ -131,6 +133,7 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.CREATE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesCreateUpdate(n,true));
 				addMethod(Operation.UPDATE,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesCreateUpdate(n,false));
 				addMethod(Operation.DELETE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesDelete(n));
+				addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 			}
 		}
 		addMethod(Operation.CREATE,new String[]{"relationships"},0,new RelateCreateUpdate(true));

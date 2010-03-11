@@ -73,6 +73,24 @@ public class TestNameThroughWebapp {
 		}
 	}
 	
+	@Test public void testAutocompleteRedirect() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"GET","/chain/intake/source-vocab/depositor",null);
+		assertTrue(out.getStatus()<299);
+		JSONObject data=new JSONObject(out.getContent());
+		String url=data.getString("url");
+		assertEquals("/vocabularies/person",url);
+	}
+
+	@Test public void testAutocompleteVocabRedirect() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/source-vocab/depositor",null);
+		assertTrue(out.getStatus()<299);
+		JSONObject data=new JSONObject(out.getContent());
+		String url=data.getString("url");
+		assertEquals("/vocabularies/person",url);
+	}
+	
 	@Test public void testAuthoritiesSearch() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person/search?query=Achmed+Abdullah",null);
