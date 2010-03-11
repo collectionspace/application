@@ -79,7 +79,8 @@ public class UISpec implements WebMethod {
 		String extra="";
 		if(f.getRecord().isType("authority"))
 			extra="vocabularies/";
-		options.put("url","../../chain/"+extra+f.getRecord().getWebURL()+"/autocomplete/"+f.getID());
+		options.put("queryUrl","../../chain/"+extra+f.getRecord().getWebURL()+"/autocomplete/"+f.getID());
+		options.put("vocabUrl","../../chain/"+extra+f.getRecord().getWebURL()+"/source-vocab/"+f.getID());
 		decorator.put("options",options);
 		decorators.put(decorator);
 		out.put("decorators",decorators);

@@ -89,7 +89,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-object-description-content-people",
                 "options": {
-                    "url": "../../chain/objects/autocomplete/descContentPeople"
+                    "queryUrl": "../../chain/objects/autocomplete/descContentPeople",
+                    "vocabUrl": "../../chain/objects/source-vocab/descContentPeople"
                 }
             }]
         },
@@ -100,7 +101,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-object-description-content-person",
                 "options": {
-                    "url": "../../chain/objects/autocomplete/descContentPerson"
+                    "queryUrl": "../../chain/objects/autocomplete/descContentPerson",
+                    "vocabUrl": "../../chain/objects/source-vocab/descContentPerson"
                 }
             }]
         },
@@ -113,7 +115,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-object-description-content-organization",
                 "options": {
-                    "url": "../../chain/objects/autocomplete/descContentOrganization"
+                    "queryUrl": "../../chain/objects/autocomplete/descContentOrganization",
+                    "vocabUrl": "../../chain/objects/source-vocab/descContentOrganization"
                 }
             }]
         },

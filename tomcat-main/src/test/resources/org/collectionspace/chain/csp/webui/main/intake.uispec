@@ -10,7 +10,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-intake-current-owner",
                 "options": {
-                    "url": "../../chain/intake/autocomplete/currentOwner"
+                    "queryUrl": "../../chain/intake/autocomplete/currentOwner",
+                    "vocabUrl": "../../chain/intake/source-vocab/currentOwner",
                 }
             }]
         },
@@ -21,7 +22,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-intake-depositor",
                 "options": {
-                    "url": "../../chain/intake/autocomplete/depositor"
+                    "queryUrl": "../../chain/intake/autocomplete/depositor",
+                    "vocabUrl": "../../chain/intake/source-vocab/depositor",
                 }
             }]
         },
@@ -119,7 +121,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-intake-field-collector",
                 "options": {
-                    "url": "../../chain/intake/autocomplete/fieldCollector"
+                    "queryUrl": "../../chain/intake/autocomplete/fieldCollector",
+                    "vocabUrl": "../../chain/intake/source-vocab/fieldCollector"
                 }
             }]
         },
@@ -132,7 +135,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-intake-valuer",
                 "options": {
-                    "url": "../../chain/intake/autocomplete/valuer"
+                    "queryUrl": "../../chain/intake/autocomplete/valuer",
+                    "vocabUrl": "../../chain/intake/source-vocab/valuer"                    
                 }
             }]
         },
@@ -155,7 +159,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-intake-insurer",
                 "options": {
-                    "url": "../../chain/intake/autocomplete/insurer"
+                    "queryUrl": "../../chain/intake/autocomplete/insurer",
+                    "vocabUrl": "../../chain/intake/source-vocab/insurer"
                 }
             }]
         },
@@ -192,7 +197,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-intake-condition-check-assessor",
                 "options": {
-                    "url": "../../chain/intake/autocomplete/conditionCheckAssesor"
+                    "queryUrl": "../../chain/intake/autocomplete/conditionCheckAssesor",
+                    "vocabUrl": "../../chain/intake/source-vocab/conditionCheckAssesor"
                 }
             }]
         }

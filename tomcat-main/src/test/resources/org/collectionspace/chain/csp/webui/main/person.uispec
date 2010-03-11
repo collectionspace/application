@@ -39,7 +39,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-occupation",
                 "options": {
-                    "url": "../../chain/vocabularies/person/autocomplete/occupation"
+                    "queryUrl": "../../chain/vocabularies/person/autocomplete/occupation",
+                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/occupation"
                 }
             }]
         },
@@ -50,7 +51,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-schoolOrStyle",
                 "options": {
-                    "url": "../../chain/vocabularies/person/autocomplete/schoolOrStyle"
+                    "queryUrl": "../../chain/vocabularies/person/autocomplete/schoolOrStyle",
+                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/schoolOrStyle",
                 }
             }]
         },
@@ -61,7 +63,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-group",
                 "options": {
-                    "url": "../../chain/vocabularies/person/autocomplete/group"
+                    "queryUrl": "../../chain/vocabularies/person/autocomplete/group",
+                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/group"
                 }
             }]
         },
@@ -72,7 +75,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-nationality",
                 "options": {
-                    "url": "../../chain/vocabularies/person/autocomplete/nationality"
+                    "queryUrl": "../../chain/vocabularies/person/autocomplete/nationality",
+                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/nationality"
                 }
             }]
         },
@@ -93,7 +97,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-birthPlace",
                 "options": {
-                    "url": "../../chain/vocabularies/person/autocomplete/birthPlace"
+                    "queryUrl": "../../chain/vocabularies/person/autocomplete/birthPlace",
+                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/birthPlace"
                 }
             }]
         },
@@ -112,7 +117,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-personAuthority-deathPlace",
                 "options": {
-                    "url": "../../chain/vocabularies/person/autocomplete/deathPlace"
+                    "queryUrl": "../../chain/vocabularies/person/autocomplete/deathPlace",
+                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/deathPlace"
                 }
             }]
         },
@@ -130,7 +136,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-contact-place",
                 "options": {
-                    "url": "../../chain/vocabularies/person/autocomplete/place"
+                    "queryUrl": "../../chain/vocabularies/person/autocomplete/place",
+                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/place"
                 }
             }]
         },

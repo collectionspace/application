@@ -18,7 +18,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-acquisition-authorizer",
                 "options": {
-                    "url": "../../chain/acquisition/autocomplete/acquAuthorize"
+                    "queryUrl": "../../chain/acquisition/autocomplete/acquAuthorize",
+                    "vocabUrl": "../../chain/acquisition/source-vocab/acquAuthorize"
                 }
             }]
         },
@@ -47,7 +48,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-acquisition-acquisition-funding-source",
                 "options": {
-                    "url": "../../chain/acquisition/autocomplete/acquFundingSource"
+                    "queryUrl": "../../chain/acquisition/autocomplete/acquFundingSource",
+                    "vocabUrl": "../../chain/acquisition/source-vocab/acquFundingSource"
                 }
             }]
         },
@@ -85,7 +87,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-acquisition-acquisition-source",
                 "options": {
-                    "url": "../../chain/acquisition/autocomplete/acquSource"
+                    "queryUrl": "../../chain/acquisition/autocomplete/acquSource",
+                    "vocabUrl": "../../chain/acquisition/source-vocab/acquSource"
                 }
             }]
         },
