@@ -591,9 +591,8 @@
 			    <selector>.csc-personAuthority-salutation</selector>
 			    <options>
 			      <option id="Dear">Dear</option>
-			      <option id="My Darling">My Darling</option>
-			      <option id="Your Majaesty">Your Majaesty</option>
-			      <option id="Your Royal Highness">Your Royal Highness</option>
+			      <option id="Hello">Hello</option>
+			      <option id="To">To</option>
 			    </options>
 			  </field>
 			  <field id="title">

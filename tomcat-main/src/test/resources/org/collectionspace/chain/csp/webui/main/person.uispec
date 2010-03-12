@@ -14,8 +14,8 @@
         },
         ".csc-personAuthority-salutation": {
 		    "selection": "${fields.salutation}",
-			"optionlist": ["Dear", "My Darling","Your Majaesty","Your Royal Highness"],
-            "optionnames": ["Dear", "My Darling", "Your Majaesty","Your Royal Highness"]
+			"optionlist": ["Dear", "From","To"],
+            "optionnames": ["Dear", "From", "To"]
         },
         ".csc-personAuthority-title": {
 		    "selection": "${fields.title}",
