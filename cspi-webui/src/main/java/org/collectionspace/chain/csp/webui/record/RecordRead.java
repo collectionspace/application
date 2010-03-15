@@ -52,8 +52,13 @@ public class RecordRead implements WebMethod {
 		JSONObject restrictions=new JSONObject();
 		restrictions.put("src",base+"/"+csid);
 		String[] relations=storage.getPaths("relations/main",restrictions);
-		for(String r : relations)
-			out.put(generateRelationEntry(storage,r));
+		for(String r : relations) {
+			try {
+				out.put(generateRelationEntry(storage,r));
+			} catch(Exception e) {
+				// Never mind.
+			}
+		}
 		return out;
 	}
 	

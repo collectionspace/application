@@ -1,4 +1,3 @@
-Organization's main body
 Stratemeyer Literary Syndicate
 Emerson Radio Phonograph Corporation
 Kenner Products
@@ -176,7 +175,7 @@ RSO Records
 Toymax Inc.
 Paramount Records
 Bell Records
-Méliès Films
+MÔøΩliÔøΩs Films
 Fresh Caps
 Lakeside Toys
 Poli Toys
@@ -446,7 +445,7 @@ R. J. Reynolds Tobacco Company
 Film Booking Office of America
 Mechanics Hall
 British and Colonial Kinematograph Company
-First National Exhibitors’ Circuit, Inc.
+First National ExhibitorsÔøΩ Circuit, Inc.
 The Pathescope Company of America
 Burden & Salisbury Co., Inc.
 Knickerbocker Theatre
@@ -625,7 +624,7 @@ Walt Disney Company
 Columbia Pictures Industries
 Random House Greetings
 Western Publishing Company
-Select Pictures Corp.
+* Pictures Corp.
 Greenberg Publishing Company
 Lorimar Productions
 Capitol Records, Inc.
@@ -699,7 +698,7 @@ Auditorium Theater
 Filmways Pictures
 Chronicle Books
 Toy Factory
-Revillon Frères
+Revillon FrÔøΩres
 Fictioneer Books
 Bibb Company
 Rotograph Co.

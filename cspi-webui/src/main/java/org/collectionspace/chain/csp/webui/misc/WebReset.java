@@ -105,7 +105,7 @@ public class WebReset implements WebMethod {
 				JSONObject name=new JSONObject();
 				name.put("displayName",line);
 				storage.autocreateJSON("/organization/organization",name);
-				tty.line("Created "+orgs);
+				tty.line("Created "+line);
 				tty.flush();
 				if(quick && i>20)
 					break;
