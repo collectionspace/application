@@ -36,10 +36,19 @@ public class XmlJsonConversion {
 		if(!repeat.getXxxServicesNoRepeat()) {	// Sometimes the UI is ahead of the services layer
 			element=root.addElement(repeat.getServicesTag());
 		}
-		Object value=in.opt(repeat.getID());
+		Object value=null;
+		if(repeat.getXxxUiNoRepeat()) { // and sometimes the app ahead of the services
+			FieldSet[] children=repeat.getChildren();
+			if(children.length==0)
+				return;
+			addFieldSetToXml(element,children[0],in);
+			return;
+		} else {
+			value=in.opt(repeat.getID());			
+		}		
 		if(value==null || ((value instanceof String) && StringUtils.isBlank((String)value)))
 			return;
-		if(value instanceof String) {
+		if(value instanceof String) { // And sometimes the services ahead of the UI
 			JSONArray next=new JSONArray();
 			next.put(value);
 			value=next;
@@ -113,7 +122,7 @@ public class XmlJsonConversion {
 		for(int i=0;i<fields.size();i++)
 			field_index.put(fields.get(i),i);
 		// Iterate through
-		Map<String,Element> member=new HashMap<String,Element>();
+		Map<String,Element> member=null;
 		int prev=Integer.MAX_VALUE;
 		for(Object node : container.selectNodes("*")) {
 			if(!(node instanceof Element))
@@ -123,13 +132,15 @@ public class XmlJsonConversion {
 				continue;
 			if(next<prev) {
 				// Must be a new instance
-				out.add(member);
+				if(member!=null)
+					out.add(member);
 				member=new HashMap<String,Element>();
 			}
 			prev=next;
 			member.put(((Element)node).getName(),(Element)node);
 		}
-		out.add(member);
+		if(member!=null)
+			out.add(member);
 		return out;
 	}
 		
@@ -167,9 +178,14 @@ public class XmlJsonConversion {
 					addRepeatToJson(rp,child,(Repeat)fs);					
 					member.put(f.getID(),rp);
 				}
+				if(f.getXxxUiNoRepeat()) {
+					out.put(fs.getID(),member.get(f.getID()));
+					return;
+				}
 			}
 			array.put(member);
 		}
+		out.put(f.getID(),array);
 	}
 	
 	private static void addFieldSetToJson(JSONObject out,Element root,FieldSet fs) throws JSONException {

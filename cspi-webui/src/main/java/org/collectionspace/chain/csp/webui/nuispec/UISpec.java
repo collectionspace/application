@@ -155,15 +155,22 @@ public class UISpec implements WebMethod {
 		} else if(fs instanceof Repeat) {
 			// Container
 			Repeat r=(Repeat)fs;
-			JSONObject row=new JSONObject();
-			JSONArray children=new JSONArray();
-			for(FieldSet child : r.getChildren()) {
-				JSONObject contents=new JSONObject();
-				generateDataEntry(contents,child);
-				children.put(contents);
+			if(r.getXxxUiNoRepeat()) {
+				FieldSet[] children=r.getChildren();
+				if(children.length==0)
+					return;
+				generateDataEntry(out,children[0]);
+			} else {
+				JSONObject row=new JSONObject();
+				JSONArray children=new JSONArray();
+				for(FieldSet child : r.getChildren()) {
+					JSONObject contents=new JSONObject();
+					generateDataEntry(contents,child);
+					children.put(contents);
+				}
+				row.put("children",children);
+				out.put(r.getSelector(),row);
 			}
-			row.put("children",children);
-			out.put(r.getSelector(),row);
 		}
 
 	}

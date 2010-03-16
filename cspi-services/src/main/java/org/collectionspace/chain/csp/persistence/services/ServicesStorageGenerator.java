@@ -36,9 +36,9 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	private void real_init(Spec spec) throws CSPDependencyException {
 		try {
 			ServicesConnection conn=new ServicesConnection(base_url);
-			addChild("collection-object",new ServicesCollectionObjectStorage(conn));
+			addChild("collection-object",new ConfiguredRecordStorage(spec.getRecord("collection-object"),conn));
 			addChild("intake",new ConfiguredRecordStorage(spec.getRecord("intake"),conn));
-			addChild("acquisition",new ServicesAcquisitionStorage(conn));
+			addChild("acquisition",new ConfiguredRecordStorage(spec.getRecord("acquisition"),conn));
 			addChild("id",new ServicesIDGenerator(conn));
 			addChild("relations",new ServicesRelationStorage(conn));
 			addChild("person",new ConfiguredVocabStorage(spec.getRecord("person"),conn));
