@@ -564,6 +564,15 @@
 			  <field id="transferOfTitleNumber">
 			    <selector>.csc-acquisition-transfer-of-title-number</selector>
 			  </field>
+			  <field id="fieldCollectionEventName">
+			    <selector>.csc-object-collection-field-collection-event-name</selector>
+			  </field>
+			  <field id="fieldCollectionNumber">
+			    <selector>.csc-object-collection-field-collection-number</selector>
+			  </field>
+			  <field id="fieldCollector">
+			    <selector>.csc-object-collection-field-collection-collector</selector>
+			  </field>
 			</record>
 
 
