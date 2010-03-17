@@ -574,7 +574,7 @@
 			  <services-list-path>persons_common:http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
 			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
 			  <services-url>personauthorities</services-url>
-			  <urn-syntax>urn:cspace.org.collectionspace.demo.personauthority:id({vocab}):person:id({entry})'{display}'</urn-syntax>
+			  <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:id({vocab}):person:id({entry})'{display}'</urn-syntax>
 
 			  <instances>
 			    <instance id="person-person">
@@ -715,7 +715,7 @@
 			  <services-list-path>organizations_common:http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
 			  <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
 			  <services-url>orgauthorities</services-url>
-			  <urn-syntax>urn:cspace.org.collectionspace.demo.orgauthority:id({vocab}):organization:id({entry})'{display}'</urn-syntax>
+			  <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:id({vocab}):organization:id({entry})'{display}'</urn-syntax>
 
 			  <instances>
 			    <instance id="organization-organization">
