@@ -21,9 +21,9 @@ import org.json.JSONObject;
 
 public class WebReset implements WebMethod {
 	private boolean quick;
-	
+
 	public WebReset(boolean in) { quick=in; }	
-	
+
 	// XXX refactor
 	private JSONObject getJSONResource(String in) throws IOException, JSONException {	
 		return new JSONObject(getResource(in));
@@ -38,7 +38,7 @@ public class WebReset implements WebMethod {
 		stream.close();		
 		return data;
 	}
-	
+
 	private void reset(Storage storage,UIRequest request) throws UIException { // Temporary hack to reset db
 		try {
 			TTYOutputter tty=request.getTTYOutputter();
@@ -73,13 +73,17 @@ public class WebReset implements WebMethod {
 			}
 			// Delete existing vocab entries
 			for(String urn : storage.getPaths("/person/person",null)) {
-				tty.line("Deleting "+urn);
-				storage.deleteJSON("/person/person/"+urn);
+				try {
+					storage.deleteJSON("/person/person/"+urn);
+					tty.line("Deleting "+urn);
+				} catch(Exception e) { /* Sometimes records are wdged */ }
 				tty.flush();
 			}
 			for(String urn : storage.getPaths("/organization/organization",null)) {
-				tty.line("Deleting "+urn);
-				storage.deleteJSON("/organization/organization/"+urn);
+				try {
+					storage.deleteJSON("/organization/organization/"+urn);
+					tty.line("Deleting "+urn);
+				} catch(Exception e) { /* Sometimes records are wdged */ }
 				tty.flush();
 			}
 			tty.line("Creating");
@@ -123,7 +127,7 @@ public class WebReset implements WebMethod {
 			throw new UIException("IOException",e);
 		}
 	}
-	
+
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
 		reset(q.getStorage(),q.getUIRequest());
