@@ -25,7 +25,7 @@ import org.json.JSONObject;
 public class XmlJsonConversion {
 	private static void addFieldToXml(Element root,Field field,JSONObject in) throws JSONException {
 		String value=in.optString(field.getID());
-		if(!StringUtils.isBlank(value)) {
+		if(!StringUtils.isBlank(value)) { // XXX this is a bug: we should pass empty strings along to blank out fields, but see CSPACE-
 			Element element=root.addElement(field.getServicesTag());
 			element.addText(value);
 		}

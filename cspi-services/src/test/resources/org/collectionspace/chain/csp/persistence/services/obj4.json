@@ -87,6 +87,7 @@
 					"dateLatestQualifier": "dateLatestQualifier2",
 					"dateText": "dateText2",
 					"dimensionMeasurementUnit": "dimensionMeasurementUnit2",
-			        "responsibleDepartment": "responsibleDepartment2"
+			        "responsibleDepartment": "responsibleDepartment2",
+			        			        "nhString": "nhString2"
 }
 

@@ -18,7 +18,8 @@
 			<record id="collection-object" in-findedit="yes">
 			  <services-url>collectionobjects</services-url>
 			  <services-list-path>collectionobjects-common-list/collection-object-list-item</services-list-path>
-			  <services-record-path>collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
+			  <services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
+			  <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
 				<web-url>objects</web-url>
 				<ui-url>object.html</ui-url>
 				<tab-url>object-tab</tab-url>
@@ -331,6 +332,12 @@
 						</options>
 			         </field>
 			        </repeat>
+
+					<!--  natural history -->
+					<!--  ID's probably can't use -'s , :( XXX -->
+					<field id="nhString" section="naturalhistory">
+					  <services-tag>nh-string</services-tag>
+					</field>
 
 			</record>
 
