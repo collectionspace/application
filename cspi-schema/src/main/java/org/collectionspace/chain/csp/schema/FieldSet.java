@@ -5,4 +5,5 @@ public interface FieldSet {
 	public String[] getIDPath();
 	public Record getRecord();
 	public String getServicesTag();
+	public String getSection();
 }

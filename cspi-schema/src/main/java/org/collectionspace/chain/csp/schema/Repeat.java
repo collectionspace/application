@@ -13,7 +13,7 @@ public class Repeat implements FieldSet, FieldParent {
 	private boolean xxx_services_no_repeat=false,xxx_ui_no_repeat=false;
 
 	/* Services */
-	private String services_tag;
+	private String services_tag,services_section;
 
 	public Repeat(Record record,ReadOnlySection section) {
 		this.parent=record;
@@ -22,6 +22,7 @@ public class Repeat implements FieldSet, FieldParent {
 		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
 		xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
 		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
+		services_section=Util.getStringOrDefault(section,"/@section","common");
 	}
 
 	public String getID() { return id; }
@@ -34,6 +35,7 @@ public class Repeat implements FieldSet, FieldParent {
 	public String getServicesTag() { return services_tag; }
 	public boolean getXxxServicesNoRepeat() { return xxx_services_no_repeat; }
 	public boolean getXxxUiNoRepeat() { return xxx_ui_no_repeat; }
+	public String getSection() { return services_section; }
 
 	public String[] getIDPath() {
 		if(xxx_ui_no_repeat) {

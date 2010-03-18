@@ -19,7 +19,7 @@ public class Field implements FieldSet {
 	private List<Option> options_list=new ArrayList<Option>();
 
 	/* Services */
-	private String services_tag;
+	private String services_tag,services_section;
 		
 	public Field(FieldParent record,ReadOnlySection section) {
 		id=(String)section.getValue("/@id");
@@ -56,6 +56,7 @@ public class Field implements FieldSet {
 		if(display_name)
 			record.getRecord().setDisplayName(this);
 		this.parent=record;
+		services_section=Util.getStringOrDefault(section,"/@section","common");
 	}
 	
 	public String getID() { return id; }
@@ -97,4 +98,6 @@ public class Field implements FieldSet {
 			return new String[]{id};
 		}
 	}
+	
+	public String getSection() { return services_section; }
 }

@@ -9,14 +9,10 @@ import org.dom4j.DocumentException;
 
 public class ConfiguredRecordStorage extends JXJFreeGenericRecordStorage {
 	protected ConfiguredRecordStorage(Record r,ServicesConnection conn) throws InvalidJXJException, DocumentException, IOException {
-		String record=r.getServicesRecordPath();
-		String[] rparts=record.split(":",2);
-		if(rparts.length<2)
-			throw new InvalidJXJException("Bad <services-record-path/>");		
 		String[] mini_key=new String[]{r.getMiniNumber().getID(),r.getMiniSummary().getID()};
 		String[] mini_xml=new String[]{r.getMiniNumber().getServicesTag(),r.getMiniSummary().getServicesTag()};
 		String[] mini_value=new String[]{"number","summary"};
 		boolean[] xxx_mini_deurn=new boolean[]{r.getMiniNumber().isAutocomplete(),r.getMiniSummary().isAutocomplete()};
-		init(conn,r,r.getServicesURL(),rparts[0],r.getServicesListPath(),mini_key,mini_xml,mini_value,xxx_mini_deurn);
+		init(conn,r,r.getServicesURL(),r.getServicesListPath(),mini_key,mini_xml,mini_value,xxx_mini_deurn);
 	}
 }

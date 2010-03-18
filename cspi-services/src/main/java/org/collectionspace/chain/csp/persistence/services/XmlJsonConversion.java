@@ -31,7 +31,7 @@ public class XmlJsonConversion {
 		}
 	}
 	
-	private static void addRepeatToXml(Element root,Repeat repeat,JSONObject in) throws JSONException, UnderlyingStorageException {
+	private static void addRepeatToXml(Element root,Repeat repeat,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
 		Element element=root;
 		if(!repeat.getXxxServicesNoRepeat()) {	// Sometimes the UI is ahead of the services layer
 			element=root.addElement(repeat.getServicesTag());
@@ -41,7 +41,7 @@ public class XmlJsonConversion {
 			FieldSet[] children=repeat.getChildren();
 			if(children.length==0)
 				return;
-			addFieldSetToXml(element,children[0],in);
+			addFieldSetToXml(element,children[0],in,section);
 			return;
 		} else {
 			value=in.opt(repeat.getID());			
@@ -67,28 +67,30 @@ public class XmlJsonConversion {
 					continue;
 				JSONObject d1=new JSONObject();
 				d1.put(fs[0].getID(),one_value);
-				addFieldSetToXml(element,fs[0],d1);
+				addFieldSetToXml(element,fs[0],d1,section);
 			} else if(one_value instanceof JSONObject) {
 				for(FieldSet fs : repeat.getChildren())
-					addFieldSetToXml(element,fs,(JSONObject)one_value);
+					addFieldSetToXml(element,fs,(JSONObject)one_value,section);
 			}
 		}
 	}
 	
-	private static void addFieldSetToXml(Element root,FieldSet fs,JSONObject in) throws JSONException, UnderlyingStorageException {
+	private static void addFieldSetToXml(Element root,FieldSet fs,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
+		if(!section.equals(fs.getSection()))
+			return;
 		if(fs instanceof Field)
 			addFieldToXml(root,(Field)fs,in);
 		else if(fs instanceof Repeat)
-			addRepeatToXml(root,(Repeat)fs,in);
+			addRepeatToXml(root,(Repeat)fs,in,section);
 	}
 	
-	public static Document convertToXml(Record r,JSONObject in) throws JSONException, UnderlyingStorageException {
+	public static Document convertToXml(Record r,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
 		Document doc=DocumentFactory.getInstance().createDocument();
-		String[] parts=r.getServicesRecordPath().split(":",2);
+		String[] parts=r.getServicesRecordPath(section).split(":",2);
 		String[] rootel=parts[1].split(",");
 		Element root=doc.addElement(new QName(rootel[1],new Namespace("ns2",rootel[0])));
 		for(FieldSet f : r.getAllFields()) {
-			addFieldSetToXml(root,f,in);
+			addFieldSetToXml(root,f,in,section);
 		}
 		System.err.println(doc.asXML());
 		return doc;
@@ -195,12 +197,16 @@ public class XmlJsonConversion {
 			addRepeatToJson(out,root,(Repeat)fs);
 	}
 	
-	public static JSONObject convertToJson(Record r,Document doc) throws JSONException {
+	public static void convertToJson(JSONObject out,Record r,Document doc) throws JSONException {
 		Element root=doc.getRootElement();
-		JSONObject out=new JSONObject();
 		for(FieldSet f : r.getAllFields()) {
 			addFieldSetToJson(out,root,f);
 		}
+	}
+
+	public static JSONObject convertToJson(Record r,Document doc) throws JSONException {
+		JSONObject out=new JSONObject();
+		convertToJson(out,r,doc);
 		return out;
 	}
 }

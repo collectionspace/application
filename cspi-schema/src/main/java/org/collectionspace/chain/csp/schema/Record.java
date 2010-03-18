@@ -19,7 +19,8 @@ public class Record implements FieldParent {
 	private boolean in_findedit=false;
 	
 	/* Service stuff */
-	private String services_url,services_list_path,services_record_path,in_tag,urn_syntax,services_instances_path,services_single_instance_path;
+	private String services_url,services_list_path,in_tag,urn_syntax,services_instances_path,services_single_instance_path;
+	private Map<String,String> services_record_paths=new HashMap<String,String>();
 		
 	// XXX utility methods
 	Record(Spec parent,ReadOnlySection section) {
@@ -51,8 +52,6 @@ public class Record implements FieldParent {
 			tab_url=web_url+"-tab";
 		services_url=Util.getStringOrDefault(section,"/services-url",id);
 		services_list_path=Util.getStringOrDefault(section,"/services-list-path",services_url+"_common:"+services_url+"-common-list/"+services_url+"-list-item");
-		services_record_path=Util.getStringOrDefault(section,"/services-record-path",
-				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"_common");
 		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
 		urn_syntax=Util.getStringOrDefault(section,"/urn-syntax","urn:cspace.org.collectionspace.demo."+id+":name({vocab}):"+id+":name({entry})'{display}'");
 		services_instances_path=Util.getStringOrDefault(section,"/services-instances-path",
@@ -82,13 +81,15 @@ public class Record implements FieldParent {
 	
 	public String getServicesURL() { return services_url; }
 	public String getServicesListPath() { return services_list_path; }
-	public String getServicesRecordPath() { return services_record_path; }
 	public String getServicesInstancesPath() { return services_instances_path; }
 	public String getServicesSingleInstancePath() { return services_single_instance_path; }
+	public String[] getServicesRecordPaths() { return services_record_paths.keySet().toArray(new String[0]); }
+	public String getServicesRecordPath(String name) { return services_record_paths.get(name); }
 	
 	void setMiniNumber(Field f) { mini_number=f; }
 	void setMiniSummary(Field f) { mini_summary=f; }
 	void setDisplayName(Field f) { display_name=f; }
+	void setServicesRecordPath(String section,String path) { services_record_paths.put(section,path); }
 	public Field getMiniNumber() { return mini_number; }
 	public Field getMiniSummary() { return mini_summary; }
 	public Field getDisplayNameField() { return display_name; }

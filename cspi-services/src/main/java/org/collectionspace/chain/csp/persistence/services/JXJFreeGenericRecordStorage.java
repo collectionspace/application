@@ -35,7 +35,7 @@ import org.json.JSONObject;
 
 public abstract class JXJFreeGenericRecordStorage implements ContextualisedStorage {
 	private ServicesConnection conn;
-	private String prefix,part,items;
+	private String prefix,items;
 	private Record r;
 	private Map<String,String> view_good=new HashMap<String,String>();
 	private Map<String,String> view_map=new HashMap<String,String>();
@@ -43,10 +43,9 @@ public abstract class JXJFreeGenericRecordStorage implements ContextualisedStora
 	
 	protected JXJFreeGenericRecordStorage() {}
 	
-	protected void init(ServicesConnection conn,Record r,String prefix,String part,String items,
+	protected void init(ServicesConnection conn,Record r,String prefix,String items,
 			String[] mini_key,String[] mini_xml,String[] mini_value,boolean[] xxx_mini_deurn) throws InvalidJXJException, DocumentException, IOException {	
 		this.prefix=prefix;
-		this.part=part;
 		this.items=items;
 		this.conn=conn;
 		if(mini_value==null)
@@ -71,17 +70,20 @@ public abstract class JXJFreeGenericRecordStorage implements ContextualisedStora
 		return (String)cache.getCached(getClass(),new String[]{"glean",path,key});
 	}
 	
-	private JSONObject convertToJson(Document in) throws InvalidJTmplException, InvalidJXJException, JSONException {
-		return XmlJsonConversion.convertToJson(r,in);
-		//return jxj.xml2json(in);
+	private void convertToJson(JSONObject out,Document in) throws InvalidJTmplException, InvalidJXJException, JSONException {
+		XmlJsonConversion.convertToJson(out,r,in);
 	}
 	
 	public String autocreateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			Document doc=XmlJsonConversion.convertToXml(r,jsonObject);
-			System.err.println(doc.asXML());
 			Map<String,Document> parts=new HashMap<String,Document>();
-			parts.put(part,doc);
+			for(String section : r.getServicesRecordPaths()) {
+				String path=r.getServicesRecordPath(section);
+				String[] record_path=path.split(":",2);
+				Document doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+				parts.put(record_path[0],doc);
+				System.err.println(doc.asXML());
+			}
 			ReturnedURL url = conn.getMultipartURL(RequestMethod.POST,prefix+"/",parts);
 			if(url.getStatus()>299 || url.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+url.getStatus());
@@ -229,10 +231,15 @@ public abstract class JXJFreeGenericRecordStorage implements ContextualisedStora
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,prefix+"/"+filePath,null);
-			if((doc.getStatus()>199 && doc.getStatus()<300)) {
-				return convertToJson(doc.getDocument(part));
+			JSONObject out=new JSONObject();
+			if((doc.getStatus()<200 || doc.getStatus()>=300))
+				throw new ExistException("Does not exist "+filePath);
+			for(String section : r.getServicesRecordPaths()) {
+				String path=r.getServicesRecordPath(section);
+				String[] parts=path.split(":",2);
+				convertToJson(out,doc.getDocument(parts[0]));
 			}
-			throw new ExistException("Does not exist "+filePath);
+			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (InvalidJTmplException e) {
@@ -247,9 +254,14 @@ public abstract class JXJFreeGenericRecordStorage implements ContextualisedStora
 	public void updateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			Document data=XmlJsonConversion.convertToXml(r,jsonObject);
 			Map<String,Document> parts=new HashMap<String,Document>();
-			parts.put(part,data);
+			for(String section : r.getServicesRecordPaths()) {
+				String path=r.getServicesRecordPath(section);
+				String[] record_path=path.split(":",2);
+				Document doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+				parts.put(record_path[0],doc);
+				System.err.println(doc.asXML());
+			}
 			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.PUT,prefix+"/"+filePath,parts);
 			if(doc.getStatus()==404)
 				throw new ExistException("Not found: "+prefix+"/"+filePath);
