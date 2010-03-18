@@ -17,7 +17,7 @@
 		<records>
 			<record id="collection-object" in-findedit="yes">
 			  <services-url>collectionobjects</services-url>
-			  <services-list-path>collectionobjects_common:collectionobjects-common-list/collection-object-list-item"</services-list-path>
+			  <services-list-path>collectionobjects-common-list/collection-object-list-item</services-list-path>
 			  <services-record-path>collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
 				<web-url>objects</web-url>
 				<ui-url>object.html</ui-url>
@@ -337,7 +337,7 @@
 
 			<record id="intake" in-findedit="yes">
 			  <services-url>intakes</services-url>
-			  <services-list-path>intakes_common:intakes-common-list/intake-list-item</services-list-path>
+			  <services-list-path>intakes-common-list/intake-list-item</services-list-path>
 			  <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>			
 			  <row-selector>.csc-procedural-record-list-row:</row-selector>
 			  <field id="currentOwner" autocomplete="1">
@@ -488,7 +488,7 @@
 
 			<record id="acquisition"  in-findedit="yes">
 		      <services-url>acquisitions</services-url>
-			  <services-list-path>acquisitions_common:acquisitions-common-list/acquisition-list-item</services-list-path>
+			  <services-list-path>acquisitions-common-list/acquisition-list-item</services-list-path>
 			  <services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
 			
 			
@@ -580,7 +580,7 @@
 		      <web-url>person</web-url>
 			  <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common-list/personauthority-list-item</services-instances-path>
 			  <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common</services-single-instance-path>
-			  <services-list-path>persons_common:http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
+			  <services-list-path>http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
 			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
 			  <services-url>personauthorities</services-url>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:id({vocab}):person:id({entry})'{display}'</urn-syntax>
@@ -720,7 +720,7 @@
 			  <web-url>organization</web-url>
 			  <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities-common-list/orgauthority-list-item</services-instances-path>
 			  <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
-			  <services-list-path>organizations_common:http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
+			  <services-list-path>http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
 			  <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
 			  <services-url>orgauthorities</services-url>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:id({vocab}):organization:id({entry})'{display}'</urn-syntax>
