@@ -37,12 +37,15 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.dom4j.DocumentException;
 import org.xml.sax.InputSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** This is the servlet proper for the current interface between the App and UI layers. It is a repository of
  * random junk which needs to be swept away as it becomes parameterised. We use ChainRequest to encapsulate the
  * servlet request and response and present it in a more project-focused way.
  */
 public class ChainServlet extends HttpServlet  {	
+	private static final Logger log=LoggerFactory.getLogger(ChainServlet.class);
 	private static final long serialVersionUID = -4343156244448081917L;
 	private boolean inited=false;
 	private CSPManager cspm=new CSPManagerImpl();
@@ -64,7 +67,7 @@ public class ChainServlet extends HttpServlet  {
 
 	private void load_config(ServletContext ctx) throws BootstrapConfigLoadFailedException, CSPDependencyException {
 		try {
-			System.err.println(bootstrap.getOption("main-config"));
+			log.info(bootstrap.getOption("main-config"));
 			InputStream cfg_stream=ConfigFinder.getConfig(ctx);
 			if(cfg_stream==null) {
 				locked_down="Cannot find cspace config xml file";
@@ -150,7 +153,7 @@ public class ChainServlet extends HttpServlet  {
 				throw new BadRequestException("UIException",e);
 			}
 		} catch (BadRequestException x) {
-			System.err.println(getStackTrace(x));
+			log.info(getStackTrace(x));
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, getStackTrace(x));
 		}
 	}

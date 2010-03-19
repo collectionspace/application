@@ -7,9 +7,11 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JSONUtils {
-	
+	private static final Logger log=LoggerFactory.getLogger(JSONUtils.class);
 
 	@SuppressWarnings("unchecked")
 	private static Set<String> objectKeys(JSONObject a) {
@@ -25,7 +27,7 @@ public class JSONUtils {
 		Set<String> c=new HashSet<String>(a);
 		c.removeAll(b);
 		for(String s : c) {
-			System.err.println(prefix +": "+s);
+			log.info(prefix +": "+s);
 			good=false;
 		}
 		return good;

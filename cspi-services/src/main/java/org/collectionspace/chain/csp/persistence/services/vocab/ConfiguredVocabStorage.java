@@ -34,8 +34,11 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConfiguredVocabStorage implements ContextualisedStorage {
+	private static final Logger log=LoggerFactory.getLogger(ConfiguredVocabStorage.class);
 	private ServicesConnection conn;
 	private VocabInstanceCache vocab_cache;
 	private URNProcessor urn_processor;
@@ -64,7 +67,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			Element dnc=root.addElement("displayNameComputed");
 			dnc.addText("false");
 		}
-		System.err.println("createEntry() ::: "+out.asXML());
+		log.info("createEntry() ::: "+out.asXML());
 		return out;
 	}
 

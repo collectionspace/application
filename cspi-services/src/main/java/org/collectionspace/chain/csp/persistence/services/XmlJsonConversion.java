@@ -21,8 +21,11 @@ import org.dom4j.QName;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XmlJsonConversion {
+	private static final Logger log=LoggerFactory.getLogger(XmlJsonConversion.class);
 	private static void addFieldToXml(Element root,Field field,JSONObject in) throws JSONException {
 		String value=in.optString(field.getID());
 		if(!StringUtils.isBlank(value)) { // XXX this is a bug: we should pass empty strings along to blank out fields, but see CSPACE-
@@ -92,7 +95,7 @@ public class XmlJsonConversion {
 		for(FieldSet f : r.getAllFields()) {
 			addFieldSetToXml(root,f,in,section);
 		}
-		System.err.println(doc.asXML());
+		log.info(doc.asXML());
 		return doc;
 	}
 	

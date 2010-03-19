@@ -18,8 +18,11 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebReset implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(WebReset.class);
 	private boolean quick;
 
 	public WebReset(boolean in) { quick=in; }	
@@ -33,7 +36,7 @@ public class WebReset implements WebMethod {
 	private String getResource(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		System.err.println(path);
+		log.info(path);
 		String data=IOUtils.toString(stream);
 		stream.close();		
 		return data;

@@ -10,12 +10,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestJTmpl {
+	private static final Logger log=LoggerFactory.getLogger(TestJTmpl.class);
 	private JSONObject getJSON(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		System.err.println(path);
+		log.info(path);
 		assertNotNull(stream);
 		String data=IOUtils.toString(stream);
 		stream.close();		
@@ -50,6 +53,6 @@ public class TestJTmpl {
 		assertEquals("zzz",obj3.getString("yyy"));
 		assertEquals("h",arr1.get(2));
 		
-		System.err.println(doc.getJSON().toString());
+		log.info(doc.getJSON().toString());
 	}
 }

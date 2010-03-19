@@ -1,6 +1,8 @@
 package org.collectionspace.chain.util.xtmpl;
 
 import java.io.IOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.InputStream;
 import java.util.List;
 
@@ -9,14 +11,16 @@ import org.dom4j.DocumentException;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class TestXTmpl {
+	private static final Logger log=LoggerFactory.getLogger(TestXTmpl.class);
 	
 	private Document getDocument(String in) throws DocumentException, IOException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		System.err.println(path);
+		log.info(path);
 		assertNotNull(stream);
 		SAXReader reader=new SAXReader();
 		Document doc=reader.read(stream);
@@ -32,7 +36,7 @@ public class TestXTmpl {
 		document.setText("c","hello-c");
 		document.setContents("d",getDocument("tmpl2.xml").getRootElement());
 		document.setTexts("x",new String[]{"y","z"});
-		System.err.println(document.getDocument().asXML());
+		log.info(document.getDocument().asXML());
 		assertEquals("hi",document.getDocument().selectSingleNode("/a/b/d/e/f").getText());
 		assertEquals("hello-c",document.getDocument().selectSingleNode("/a/b/c").getText());
 		List<Node> x=document.getDocument().selectNodes("/a/b/w/x");

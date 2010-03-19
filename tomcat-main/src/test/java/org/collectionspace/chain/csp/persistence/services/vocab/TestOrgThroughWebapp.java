@@ -16,8 +16,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestOrgThroughWebapp {
+	private static final Logger log=LoggerFactory.getLogger(TestOrgThroughWebapp.class);
 	// XXX refactor
 	protected InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
@@ -65,7 +68,7 @@ public class TestOrgThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization/search?query=National+Mask+%26+Puppet+Corp.",null);
 		assertTrue(out.getStatus()<299);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results.length());
 		for(int i=0;i<results.length();i++) {
@@ -80,7 +83,7 @@ public class TestOrgThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization",null);
 		assertTrue(out.getStatus()<299);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 		boolean found=false;
 		for(int i=0;i<results.length();i++) {
@@ -96,7 +99,7 @@ public class TestOrgThroughWebapp {
 		jettyDo(jetty,"GET","/chain/quick-reset",null);
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=National+Mask+%26+Puppet+Corp.",null);
 		assertTrue(out.getStatus()<299);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
@@ -110,7 +113,7 @@ public class TestOrgThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization",null);
 		assertTrue(out.getStatus()<299);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 		boolean found=false;
 		for(int i=0;i<results.length();i++) {
@@ -125,7 +128,7 @@ public class TestOrgThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=National+Mask+%26+Puppet+Corp.",null);
 		assertTrue(out.getStatus()<299);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		// Find candidate
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results.length());
@@ -133,7 +136,7 @@ public class TestOrgThroughWebapp {
 		String csid=entry.getString("csid");
 		out=jettyDo(jetty,"GET","/chain/vocabularies/organization/"+csid,null);
 		JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
-		System.err.println(fields);
+		log.info("JSON Object",fields);
 		assertEquals(csid,fields.getString("csid"));
 		assertEquals("National Mask & Puppet Corp.",fields.getString("displayName"));
 	}

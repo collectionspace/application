@@ -32,8 +32,11 @@ import org.dom4j.Node;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class JXJFreeGenericRecordStorage implements ContextualisedStorage {
+	private static final Logger log=LoggerFactory.getLogger(JXJFreeGenericRecordStorage.class);
 	private ServicesConnection conn;
 	private String prefix,items;
 	private Record r;

@@ -16,11 +16,14 @@ import org.collectionspace.chain.util.misc.JSON;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** A JSON template which can generate JTmplDocument's to fill in.
  * 
  */
 public class JTmplTmpl {
+	private static final Logger log=LoggerFactory.getLogger(JTmplTmpl.class);
 	private JSONObject template;
 	private Map<String,JPathPath> attach=new HashMap<String,JPathPath>();
 	
@@ -59,7 +62,7 @@ public class JTmplTmpl {
 		try {
 			build_template("",template,template);
 			this.template=(JSONObject)JSON.clone(template);
-			System.err.println(template);
+			log.info("template",template);
 		} catch (JSONException e) {
 			throw new InvalidJTmplException("Bad JSON template",e);
 		} catch (InvalidJPathException e) {

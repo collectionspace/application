@@ -17,12 +17,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class TestJXJ {
+	private static final Logger log=LoggerFactory.getLogger(TestJXJ.class);
+	
 	private Document getDocument(String in) throws DocumentException, IOException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		System.err.println(path);
+		log.info(path);
 		assertNotNull(stream);
 		SAXReader reader=new SAXReader();
 		Document doc=reader.read(stream);
@@ -33,7 +38,7 @@ public class TestJXJ {
 	private JSONObject getJSON(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		System.err.println(path);
+		log.info(path);
 		assertNotNull(stream);
 		String data=IOUtils.toString(stream);
 		stream.close();		
@@ -71,7 +76,7 @@ public class TestJXJ {
 		JXJTransformer t1=translate.getTransformer("collection-object");
 		assertNotNull(t1);
 		JSONObject d1=t1.xml2json(input);
-		System.err.println(d1);
+		log.info("JSON",d1);
 		checkJSONValue(d1,".title","TITLE");
 		checkJSONValue(d1,".objectnumber","2");	
 		JPathPath other_path=JPathPath.compile(".othernumber");
@@ -107,7 +112,7 @@ public class TestJXJ {
 		checkJSONValue(d1,".distfeatures","");
 		checkJSONValue(d1,".objectname","");
 		checkJSONValue(d1,".responsibledept","");		
-		System.err.println(d1.toString());
+		log.info(d1.toString());
 	}
 
 	@Test public void testJSONMissingOkay() throws Exception {
@@ -123,6 +128,6 @@ public class TestJXJ {
 		assertEquals("",d1.getDocument().selectSingleNode("collection-object/distFeatures").getText());
 		assertEquals("",d1.getDocument().selectSingleNode("collection-object/objectName").getText());
 		assertEquals("",d1.getDocument().selectSingleNode("collection-object/responsibleDept").getText());
-		System.err.println(d1.asXML());		
+		log.info(d1.asXML());		
 	}
 }

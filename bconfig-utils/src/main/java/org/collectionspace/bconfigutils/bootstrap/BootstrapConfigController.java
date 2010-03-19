@@ -20,20 +20,23 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** the main controller/entry-point to the bootstrap config
  * 
  */
-public class BootstrapConfigController {		
+public class BootstrapConfigController {	
+	private static final Logger log=LoggerFactory.getLogger(BootstrapConfigController.class);
 	private ServletContext ctx;
 	private List<String> suffixes=new ArrayList<String>();
 	private Map<String,ConfigLoadMethod> methods=new HashMap<String,ConfigLoadMethod>();
 	private Map<String,List<ConfigOptionSource>> sources=new HashMap<String,List<ConfigOptionSource>>();
 	
 	private InputStream tryPath(String filename) {
-		System.err.println(filename);
+		log.info(filename);
 		String config_file=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+filename;
-		System.err.println("Looking for config loader in "+config_file);
+		log.info("Looking for config loader in "+config_file);
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(config_file);
 	}
 	
@@ -42,7 +45,7 @@ public class BootstrapConfigController {
 		for(String suffix : suffixes) {
 			config=tryPath(suffix);
 			if(config!=null) {
-				System.err.println("success");
+				log.info("success");
 				break;
 			}
 		}

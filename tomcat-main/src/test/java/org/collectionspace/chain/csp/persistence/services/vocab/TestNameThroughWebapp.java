@@ -16,8 +16,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestNameThroughWebapp {
+	private static final Logger log=LoggerFactory.getLogger(TestNameThroughWebapp.class);
 	// XXX refactor
 	protected InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
@@ -95,7 +98,7 @@ public class TestNameThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person/search?query=Achmed+Abdullah",null);
 		assertTrue(out.getStatus()<299);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
@@ -109,7 +112,7 @@ public class TestNameThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person",null);
 		assertTrue(out.getStatus()<299);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 		boolean found=false;
 		for(int i=0;i<results.length();i++) {
@@ -125,7 +128,7 @@ public class TestNameThroughWebapp {
 		jettyDo(jetty,"GET","/chain/quick-reset",null);
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=Achmed+Abdullah",null);
 		assertTrue(out.getStatus()<299);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
@@ -139,7 +142,7 @@ public class TestNameThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person",null);
 		assertTrue(out.getStatus()<299);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 		boolean found=false;
 		for(int i=0;i<results.length();i++) {
@@ -154,7 +157,7 @@ public class TestNameThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=Achmed+Abdullah",null);
 		assertTrue(out.getStatus()<299);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		// Find candidate
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results.length());
@@ -162,7 +165,7 @@ public class TestNameThroughWebapp {
 		String csid=entry.getString("csid");
 		out=jettyDo(jetty,"GET","/chain/vocabularies/person/"+csid,null);
 		JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
-		System.err.println(fields);
+		log.info("JSON",fields);
 		assertEquals(csid,fields.getString("csid"));
 		assertEquals("Achmed Abdullah",fields.getString("displayName"));
 	}

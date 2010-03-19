@@ -9,32 +9,48 @@ import java.util.List;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.csp.api.container.CSPManager;
+import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.junit.Test;
 import org.xml.sax.InputSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestSchema {
+
+	private static final Logger log=LoggerFactory.getLogger(TestSchema.class);
+	
 	private InputStream getSource(String file) {
 		String name=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+file;
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
 	}
 	
-	@Test public void testSchema() throws Exception {
+	@Test public void testSchema()  {
+		log.info("running testSchema" );
 		CSPManager cspm=new CSPManagerImpl();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
-		cspm.go();
-		cspm.configure(new InputSource(getSource("config.xml")),null);
+		try {
+			cspm.go();
+			cspm.configure(new InputSource(getSource("config.xml")),null);
+		} catch (CSPDependencyException e) {
+			log.error("CSPManagerImpl failed");
+			log.error(e.getLocalizedMessage() );
+		}
+		
+
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+		log.info("testing Spec" );
 		assertNotNull(spec);
-		System.err.println(spec.dump());
+		log.info(spec.dump());
 		Record r_obj=spec.getRecord("collection-object");
+
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("objects",r_obj.getWebURL());
-		
-		
+		log.info("finsihed running testSchema" );
+	
 		
 		/* RECORD/field -> FIELD(type) */
 		/*

@@ -16,10 +16,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // XXX refactor like mad
 
 public class TestRelationsThroughWebapp {
+	private static final Logger log=LoggerFactory.getLogger(TestRelationsThroughWebapp.class);
 	
 	// XXX refactor
 	protected InputStream getResource(String name) {
@@ -116,9 +119,9 @@ public class TestRelationsThroughWebapp {
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"POST","/chain/relationships",createRelation(path3[1],path3[2],"affects",path2[1],path2[2],true).toString());
 		assertEquals(201,out.getStatus());	
-		System.err.println("id1="+id1);
-		System.err.println("id2="+id2);
-		System.err.println("id3="+id3);
+		log.info("id1="+id1);
+		log.info("id2="+id2);
+		log.info("id3="+id3);
 		// Check 1 has relation to 3
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		JSONObject data1=new JSONObject(out.getContent());
@@ -158,8 +161,8 @@ public class TestRelationsThroughWebapp {
 		int i0=0,i1=1;
 		String rel_a=rel3.getJSONObject(i0).getString("csid");
 		String rel_b=rel3.getJSONObject(i1).getString("csid");
-		System.err.println("rel_a="+rel_a.toString());
-		System.err.println("rel_b="+rel_b.toString());
+		log.info("rel_a="+rel_a.toString());
+		log.info("rel_b="+rel_b.toString());
 		if(rel_a.equals(path2[2]) && rel_b.equals(path1[2])) {
 			i0=1;
 			i1=0;
@@ -196,7 +199,7 @@ public class TestRelationsThroughWebapp {
 		JSONObject dst32=rd32.getJSONObject("target");
 		assertEquals("objects",dst32.getString("recordtype"));
 		assertEquals(path2[2],dst32.get("csid"));		
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 	}
 	
 	// XXX factor out creation
@@ -288,7 +291,7 @@ public class TestRelationsThroughWebapp {
 		JSONObject data=new JSONObject(out.getContent());
 		String csid1=data.getString("csid");
 		assertNotNull(csid1);
-		System.err.println("csid="+csid1);
+		log.info("csid="+csid1);
 		// Update it to 2 -> 1
 		out=jettyDo(jetty,"PUT","/chain/relationships/"+csid1,createRelation(path2[1],path2[2],"affects",path1[1],path1[2],true).toString());
 		assertEquals(200,out.getStatus());
@@ -341,7 +344,7 @@ public class TestRelationsThroughWebapp {
 		JSONObject data=new JSONObject(out.getContent());
 		String csid1=data.getString("csid");
 		assertNotNull(csid1);
-		System.err.println("csid="+csid1);
+		log.info("csid="+csid1);
 		// Update to 2 <-> 1 keeping one-way false
 		out=jettyDo(jetty,"PUT","/chain/relationships/"+csid1,createRelation(path2[1],path2[2],"affects",path1[1],path1[2],false).toString());
 		assertEquals(200,out.getStatus());		

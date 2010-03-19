@@ -23,9 +23,12 @@ import org.collectionspace.csp.helper.core.RequestCache;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
 public class TestVocab extends ServicesBaseClass {
+	private static final Logger log=LoggerFactory.getLogger(TestVocab.class);
 	private static Pattern person_urn=Pattern.compile("urn:cspace.org.collectionspace.demo.personauthority:name\\((.*?)\\):person:name\\((.*?)\\)'(.*?)'");
 	private 
 	
@@ -46,7 +49,7 @@ public class TestVocab extends ServicesBaseClass {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
-		System.err.println(spec.dump());
+		log.info(spec.dump());
 		Record r_obj=spec.getRecord("collection-object");
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
@@ -85,14 +88,14 @@ public class TestVocab extends ServicesBaseClass {
 		assertEquals("TEST3",out.getString("name"));		
 		boolean found1=false,found2=false;
 		for(String u : ss.getPaths("/vocab/xxx",null)) {
-			System.err.println(u);
+			log.info(u);
 			if(id3.equals(u))
 				found1=true;
 			if(id2.equals(u))
 				found2=true;
 		}
-		System.err.println("id2="+id2+" f="+found2);
-		System.err.println("id3="+id3+" f="+found1);
+		log.info("id2="+id2+" f="+found2);
+		log.info("id3="+id3+" f="+found1);
 		assertTrue(found1);
 		assertTrue(found2);
 		// Delete
@@ -131,14 +134,14 @@ public class TestVocab extends ServicesBaseClass {
 		assertEquals("TEST3",out.getString("displayName"));		
 		boolean found1=false,found2=false;
 		for(String u : ss.getPaths("/person/person",null)) {
-			System.err.println(u);
+			log.info(u);
 			if(id3.equals(u))
 				found1=true;
 			if(id2.equals(u))
 				found2=true;
 		}
-		System.err.println("id2="+id2+" f="+found2);
-		System.err.println("id3="+id3+" f="+found1);
+		log.info("id2="+id2+" f="+found2);
+		log.info("id3="+id3+" f="+found1);
 		assertTrue(found1);
 		assertTrue(found2);
 		// Delete
@@ -178,14 +181,14 @@ public class TestVocab extends ServicesBaseClass {
 		assertEquals("TEST3",out.getString("name"));		
 		boolean found1=false,found2=false;
 		for(String u : ss.getPaths("/orgs/orgs",null)) {
-			System.err.println(u);
+			log.info(u);
 			if(id3.equals(u))
 				found1=true;
 			if(id2.equals(u))
 				found2=true;
 		}
-		System.err.println("id2="+id2+" f="+found2);
-		System.err.println("id3="+id3+" f="+found1);
+		log.info("id2="+id2+" f="+found2);
+		log.info("id3="+id3+" f="+found1);
 		assertTrue(found1);
 		assertTrue(found2);
 		// Delete

@@ -25,6 +25,8 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.io.input.TeeInputStream;
 import org.dom4j.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** The actual REST calls are handled by ServicesConnection, which uses utility types ReturnedDocument and ReturnedURL
  * to return things along with status codes, etc. Less than ideal: answers on a postcard, please.
@@ -35,6 +37,7 @@ import org.dom4j.Document;
 
 // XXX synchronized to handle Nuxeo race
 public class ServicesConnection {
+	private static final Logger log=LoggerFactory.getLogger(ServicesConnection.class);
 	private String base_url;
 	private static HttpClient client;
 
@@ -71,7 +74,7 @@ public class ServicesConnection {
 
 	private HttpMethod createMethod(RequestMethod method,String uri,InputStream data) throws ConnectionException {
 		uri=prepend_base(uri);
-		System.err.println(uri);
+		log.info(uri);
 		if(uri==null)
 			throw new ConnectionException("URI must not be null");		
 		// Extract QP's
@@ -127,11 +130,11 @@ public class ServicesConnection {
 			body_data=src.getStream();
 		}
 		try {
-			System.err.println("Getting from "+uri);
+			log.info("Getting from "+uri);
 			HttpMethod method=createMethod(method_type,uri,body_data);
 			if(body_data!=null) {
 				method.setRequestHeader("Content-Type",src.getMIMEType());
-				System.err.println("SENDING\n");
+				log.info("SENDING\n");
 				body_data=new TeeInputStream(body_data,System.err);
 			}
 			try {

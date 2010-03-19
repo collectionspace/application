@@ -39,8 +39,11 @@ import org.dom4j.QName;
 import org.dom4j.io.SAXReader;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GenericVocabStorage implements ContextualisedStorage {
+	private static final Logger log=LoggerFactory.getLogger(GenericVocabStorage.class);
 	private ServicesConnection conn;
 	private Map<String,String> csids=new HashMap<String,String>();
 
@@ -175,7 +178,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			Element dnc=root.addElement("displayNameComputed");
 			dnc.addText("false");
 		}
-		System.err.println("createEntry() ::: "+out.asXML());
+		log.info("createEntry() ::: "+out.asXML());
 		return out;
 	}
 

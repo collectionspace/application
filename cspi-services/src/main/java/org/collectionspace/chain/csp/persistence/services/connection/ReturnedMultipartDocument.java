@@ -19,9 +19,12 @@ import org.apache.commons.io.input.TeeInputStream;
 import org.collectionspace.chain.csp.persistence.services.StreamDataSource;
 import org.dom4j.Document;
 import org.dom4j.io.SAXReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Utility class returns documents and statuses */
 public class ReturnedMultipartDocument implements Returned {
+	private static final Logger log=LoggerFactory.getLogger(ReturnedMultipartDocument.class);
 	private int status;
 	private Map<String,Document> docs=new HashMap<String,Document>();
 	
@@ -49,9 +52,9 @@ public class ReturnedMultipartDocument implements Returned {
 				String[] content_type=part.getHeader("Content-Type");
 				if(content_type!=null && content_type.length>0 && "application/xml".equals(content_type[0])) {
 					doc=reader.read(new TeeInputStream(main,System.err),"UTF-8");
-					System.err.println("RECEIVING "+label+" "+doc.asXML());
+					log.info("RECEIVING "+label+" "+doc.asXML());
 				}
-				System.err.println("ok");
+				log.info("ok");
 				addDocument(label,doc);
 				main.close();
 			}

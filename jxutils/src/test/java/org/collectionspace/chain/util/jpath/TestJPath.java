@@ -5,8 +5,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestJPath {
+
+	private static final Logger log=LoggerFactory.getLogger(TestJPath.class);
 	
 	private void goodPath(String p) throws InvalidJPathException {
 		JPathPath.compile(p);
@@ -17,7 +21,7 @@ public class TestJPath {
 			JPathPath.compile(p);
 			assertTrue(false);
 		} catch (InvalidJPathException e) {
-			System.err.println(e.getMessage());
+			log.info(e.getMessage());
 		}
 	}
 	

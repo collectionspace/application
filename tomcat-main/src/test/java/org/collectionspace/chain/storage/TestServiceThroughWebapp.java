@@ -14,8 +14,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.mortbay.jetty.testing.ServletTester;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestServiceThroughWebapp {
+	
+	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughWebapp.class);
+	
 	// XXX refactor
 	private InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
@@ -94,7 +99,7 @@ public class TestServiceThroughWebapp {
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
 		out=jettyDo(jetty,"GET","/chain"+path,null);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		JSONObject content=new JSONObject(out.getContent());
 		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int3.json")),content));
@@ -115,7 +120,7 @@ public class TestServiceThroughWebapp {
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
 		out=jettyDo(jetty,"GET","/chain"+path,null);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		JSONObject content=new JSONObject(out.getContent());
 		content=getFields(content);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int5.json")),content));
@@ -209,7 +214,7 @@ public class TestServiceThroughWebapp {
 		// search
 		out=jettyDo(jetty,"GET","/chain/objects/search?query=aardvark",null);
 		assertEquals(200,out.getStatus());
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		// check
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		boolean found=false;

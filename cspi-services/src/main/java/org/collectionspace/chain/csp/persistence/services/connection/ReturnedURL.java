@@ -8,9 +8,12 @@ package org.collectionspace.chain.csp.persistence.services.connection;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** Utility class returns URLs and statuses */
 public class ReturnedURL implements Returned {
+	private static final Logger log=LoggerFactory.getLogger(ReturnedURL.class);
 	private int status;
 	private String url;
 	
@@ -27,7 +30,7 @@ public class ReturnedURL implements Returned {
 	}
 
 	public void setResponse(HttpMethod method, int status) throws Exception {
-		System.err.println("response="+(method.getResponseBodyAsString()));
+		log.info("response="+(method.getResponseBodyAsString()));
 		Header location=method.getResponseHeader("Location");
 		if(location==null)
 			throw new ConnectionException("Missing location header");

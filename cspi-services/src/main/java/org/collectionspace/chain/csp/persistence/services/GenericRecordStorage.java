@@ -37,8 +37,11 @@ import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class GenericRecordStorage implements ContextualisedStorage {
+	private static final Logger log=LoggerFactory.getLogger(GenericRecordStorage.class);
 	private ServicesConnection conn;
 	private JXJTransformer jxj;
 	private String prefix,part,items;
@@ -96,7 +99,7 @@ public abstract class GenericRecordStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Document doc=jxj.json2xml(jsonObject);
-			System.err.println(doc.asXML());
+			log.info(doc.asXML());
 			Map<String,Document> parts=new HashMap<String,Document>();
 			parts.put(part,doc);
 			ReturnedURL url = conn.getMultipartURL(RequestMethod.POST,prefix+"/",parts);

@@ -20,8 +20,11 @@ import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.collectionspace.csp.helper.persistence.SplittingStorage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ServicesStorageGenerator extends SplittingStorage implements ContextualisedStorage, StorageGenerator, CSP, Configurable {
+	private static final Logger log=LoggerFactory.getLogger(ServicesStorageGenerator.class);
 	public static String SECTION_PREFIX="org.collectionspace.app.config.persistence.service.";
 	public static String SERVICE_ROOT=SECTION_PREFIX+"service";
 	private String base_url;
@@ -45,7 +48,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			addChild("organization",new ConfiguredVocabStorage(spec.getRecord("organization"),conn));
 			addChild("vocab",new ServicesVocabStorage(conn));
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			log.info(e.getMessage());
 			throw new CSPDependencyException("Could not set target",e); // XXX wrong type
 		}
 	}

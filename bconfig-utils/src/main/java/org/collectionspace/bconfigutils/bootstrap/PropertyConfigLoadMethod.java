@@ -18,9 +18,12 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 import org.dom4j.Document;
 import org.dom4j.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** method to load from properties file to get parameter */
 public class PropertyConfigLoadMethod implements ConfigLoadMethod {
+	private static final Logger log=LoggerFactory.getLogger(PropertyConfigLoadMethod.class);
 	private static Pattern p = Pattern.compile("\\$\\{(.*?)\\}");
 	
 	private Map<String,Properties> prop_files=new HashMap<String,Properties>();
@@ -32,7 +35,7 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 			String value=System.getProperty(m.group(1));
 			if(value==null)
 				value="";
-			System.err.println(m.group(1));
+			log.info(m.group(1));
 			m.appendReplacement(sb,value);
 		}
 		m.appendTail(sb);
@@ -45,25 +48,25 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 			String path=substitute_system_props(name);
 			InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 			if(is!=null) {
-				System.err.println("Using bootstrap source in classpath at "+path);
+				log.info("Using bootstrap source in classpath at "+path);
 			}
 			if(is==null) {
 				// Try filesystem
 				is=new FileInputStream(new File(path));
 				if(is!=null) {
-					System.err.println("Using bootstrap source in filesystem at "+path);					
+					log.info("Using bootstrap source in filesystem at "+path);					
 				}
 			}
 			if(is!=null) {
 				out.load(is);
 				is.close();
 			} else {
-				System.err.println("Cannot find bootstrap source for "+name);
+				log.info("Cannot find bootstrap source for "+name);
 			}
 			return out;
 		} catch(Exception e) {
 			// Fall through. Okay, we just won't use this one.
-			System.err.println("Cannot find bootstrap source for "+name);
+			log.info("Cannot find bootstrap source for "+name);
 			return null;
 		}
 	}

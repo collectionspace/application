@@ -13,11 +13,14 @@ import java.util.Map;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** A JXJ control file from which transformers can be extracted.
  * 
  */
 public class JXJFile {
+	private static final Logger log=LoggerFactory.getLogger(JXJFile.class);
 	private Map<String,JXJTransformer> transformers=new HashMap<String,JXJTransformer>();
 	
 	public static JXJFile compile(Document in) throws InvalidJXJException {
@@ -30,7 +33,7 @@ public class JXJFile {
 			String key=((Element)n).attributeValue("type");
 			if(key==null)
 				throw new InvalidJXJException("Missing type attribute in JXJ file");
-			System.err.println("== "+key+" ==");
+			log.info("== "+key+" ==");
 			transformers.put(key,new JXJTransformer(key,n));
 		}
 	}

@@ -8,8 +8,11 @@ import java.util.Map;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Section;
 import org.collectionspace.chain.csp.config.Target;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class SectionImpl implements Section {
+	private static final Logger log=LoggerFactory.getLogger(SectionImpl.class);
 	private ReadOnlySection parent;
 	private String name;
 	private Map<String,Object> map=new HashMap<String,Object>();
@@ -36,9 +39,9 @@ public class SectionImpl implements Section {
 	}
 	
 	public void dump() {
-		System.err.println("Dumping milestone type "+name);
+		log.info("Dumping milestone type "+name);
 		for(Map.Entry<String,Object> e : map.entrySet()) {
-			System.err.println(" "+e.getKey()+"="+e.getValue());
+			log.info(" "+e.getKey()+"="+e.getValue());
 		}
 		for(SectionImpl m : children)
 			m.dump();

@@ -19,10 +19,13 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // XXX non-self-inverse relations
 
 public class RelateCreateUpdate implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(RelateCreateUpdate.class);
 	private boolean create;
 	private Map<String,String> url_to_type=new HashMap<String,String>();
 
@@ -104,9 +107,9 @@ public class RelateCreateUpdate implements WebMethod {
 					 * independently. It's arguable that this is the behaviour they expect, arguable that it is not.
 					 */
 					// Delete the reverse record for an update
-					System.err.println("forward is "+path);
+					log.info("forward is "+path);
 					String csid_rev=find_reverse(storage,path);
-					System.err.println("reverse is "+csid_rev);
+					log.info("reverse is "+csid_rev);
 					if(csid_rev!=null)
 						storage.deleteJSON("/relations/main/"+csid_rev);
 				}

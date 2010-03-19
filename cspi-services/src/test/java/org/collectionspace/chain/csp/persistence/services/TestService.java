@@ -20,6 +20,8 @@ import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
@@ -28,12 +30,13 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMul
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 
 public class TestService extends ServicesBaseClass {
+	private static final Logger log=LoggerFactory.getLogger(TestService.class);
 	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
 		setup();
 	}
 
 	@Test public void testAssumptionMechanism() {
-		System.err.println("Services Running!");
+		log.info("Services Running!");
 	}
 
 	private String cspace305_hack(String in) {
@@ -45,7 +48,7 @@ public class TestService extends ServicesBaseClass {
 		parts.put("collectionobjects_common",getDocument("obj1.xml"));
 		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
 		assertEquals(201,url.getStatus());
-		System.err.println("got "+url.getURL());
+		log.info("got "+url.getURL());
 		//assertTrue(url.getURL().startsWith("/collectionobjects/"));	// XXX should be, but CSPACE-305
 		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()),null);
 		assertEquals(200,doc.getStatus());

@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.Map.Entry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 
@@ -26,6 +28,7 @@ import org.apache.commons.io.IOUtils;
  *
  */
 public class ConfigFinder {
+	private static final Logger log=LoggerFactory.getLogger(ConfigFinder.class);
 	private static InputStream getDataFromAttribute(ServletContext ctx) {
 		String out=(String)ctx.getAttribute("config-data");
 		if(out==null)
@@ -55,9 +58,9 @@ public class ConfigFinder {
 			File file=new File(System.getProperty("jboss.home.dir")+"/server/cspace/conf/cspace-config.xml");
 			Properties p=System.getProperties();
 			for(Entry k : p.entrySet()) {
-				System.err.println(" property "+k.getKey()+" = "+k.getValue());
+				log.info(" property "+k.getKey()+" = "+k.getValue());
 			}
-			System.err.println("A Looking in "+System.getProperty("jboss.home.dir")+"/server/cspace/conf/cspace-config.xml");
+			log.info("A Looking in "+System.getProperty("jboss.home.dir")+"/server/cspace/conf/cspace-config.xml");
 			if(!file.exists())
 				return null;
 			return new FileInputStream(file);			

@@ -18,11 +18,14 @@ import org.collectionspace.chain.csp.config.impl.main.ParseRun;
 import org.collectionspace.chain.csp.config.impl.main.RulesImpl;
 import org.collectionspace.chain.csp.config.impl.main.SectionImpl;
 import org.collectionspace.chain.csp.config.impl.main.TreeNode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
 public class ConfigParser {
+	private static final Logger log=LoggerFactory.getLogger(ConfigParser.class);
 	private ConfigLoadingMessages messages=new ConfigLoadingMessagesImpl();
 	private List<byte[]> xslts=new ArrayList<byte[]>();
 	private SAXTransformerFactory transfactory;
@@ -31,7 +34,7 @@ public class ConfigParser {
 	
 	public ConfigParser(RulesImpl rules) throws ConfigException {
 		factory = SAXParserFactory.newInstance();
-		System.err.println(factory.getClass());
+		log.info("Factoryclass",factory.getClass());
 		factory.setNamespaceAware(true);
 		TransformerFactory tf=TransformerFactory.newInstance();
 		if (!tf.getFeature(SAXSource.FEATURE) || !tf.getFeature(SAXResult.FEATURE))

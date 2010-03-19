@@ -11,8 +11,11 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 
 import org.dom4j.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MultipartRequestDataSource implements RequestDataSource {
+	private static final Logger log=LoggerFactory.getLogger(MultipartRequestDataSource.class);
 	private InputStream data;
 	private String ctype;
 	
@@ -29,7 +32,7 @@ public class MultipartRequestDataSource implements RequestDataSource {
 				}
 				ByteArrayOutputStream indata=new ByteArrayOutputStream();
 				body_mime.writeTo(indata);
-				System.err.println(new String(indata.toByteArray()));
+				log.info(new String(indata.toByteArray()));
 				data=new ByteArrayInputStream(indata.toByteArray());
 				ctype=body_mime.getContentType();
 			}

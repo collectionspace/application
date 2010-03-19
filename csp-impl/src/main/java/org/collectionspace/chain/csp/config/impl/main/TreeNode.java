@@ -8,8 +8,11 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.SectionGenerator;
 import org.collectionspace.chain.csp.config.Target;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TreeNode {
+	private static final Logger log=LoggerFactory.getLogger(TreeNode.class);
 	private TreeNode parent;
 	private List<TreeNode> children=new ArrayList<TreeNode>();
 	private String text=null;
@@ -59,7 +62,7 @@ public class TreeNode {
 	}
 	
 	public void claim(RulesImpl rules,String name,SectionGenerator step,Target target) {
-		System.err.println("Node "+text+" claimed by "+name);
+		log.info("Node "+text+" claimed by "+name);
 		this.claim_step=step;
 		this.claim_name=name;
 		this.claim_target=target;
@@ -70,7 +73,7 @@ public class TreeNode {
 	private void match(RulesImpl rules,String name,List<String> part) {
 		Rule r=rules.matchRules(name,part);
 		if(r==null) {
-			System.err.println("Node "+text+" is subsidiary claim of "+name+" with suffix "+StringUtils.join(part,"/"));
+			log.info("Node "+text+" is subsidiary claim of "+name+" with suffix "+StringUtils.join(part,"/"));
 			is_claimed=false;
 			match_all_children(rules,name,part);
 		} else {
@@ -97,10 +100,10 @@ public class TreeNode {
 	public void run_all(SectionImpl m) {
 		/* First we run our unclaimeds, to get a good Milestone */
 		if(!is_text) {
-			System.err.println("Running claimed on milestone "+m.getName());
+			log.info("Running claimed on milestone "+m.getName());
 			for(TreeNode child : children) {
 				if(child.is_claimed) {
-					System.err.println("Running unclaimed on milestone "+m.getName());		
+					log.info("Running unclaimed on milestone "+m.getName());		
 					Map<String,String> data=new HashMap<String,String>();
 					child.run_unclaimed(data,"");
 					SectionImpl nxt=new SectionImpl(m,child.claim_name,child.claim_target);
@@ -117,12 +120,12 @@ public class TreeNode {
 		
 	public void dump() {
 		if(is_text)
-			System.err.println("\""+text+"\"");
+			log.info("\""+text+"\"");
 		else {
-			System.err.println("<"+text+">");
+			log.info("<"+text+">");
 			for(TreeNode child : children)
 				child.dump();
-			System.err.println("</"+text+">");
+			log.info("</"+text+">");
 		}
 	}
 }

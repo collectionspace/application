@@ -40,14 +40,17 @@ import org.json.JSONObject;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 
 public class TestServiceThroughAPI extends ServicesBaseClass {
+	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughAPI.class);
 	// XXX refactor
 	private JSONObject getJSON(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		System.err.println(path);
+		log.info(path);
 		assertNotNull(stream);
 		String data=IOUtils.toString(stream);
 		stream.close();		
@@ -85,7 +88,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
-		System.err.println(spec.dump());
+		log.info(spec.dump());
 		Record r_obj=spec.getRecord("collection-object");
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
@@ -97,7 +100,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		deleteAll();
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		String path=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
-		System.err.println("path="+path);
+		log.info("path="+path);
 		JSONObject js=ss.retrieveJSON("collection-object/"+path);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
 	}
@@ -146,7 +149,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		JSONObject jo=ss.retrieveJSON("id/intake");
 		assertTrue(jo.getString("next").startsWith("IN2010."));
 		jo=ss.retrieveJSON("id/objects");
-		System.err.println(jo);
+		log.info("JSON",jo);
 		assertTrue(jo.getString("next").startsWith("2010.1."));
 	}
 	

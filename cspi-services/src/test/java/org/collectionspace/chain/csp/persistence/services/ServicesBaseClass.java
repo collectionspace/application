@@ -12,8 +12,11 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 import org.junit.Assume;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ServicesBaseClass {
+	private static final Logger log=LoggerFactory.getLogger(ServicesBaseClass.class);
 	protected ServicesConnection conn;
 	protected String base;
 
@@ -23,7 +26,7 @@ public class ServicesBaseClass {
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
 		base="http://test.collectionspace.org:8180"; // XXX hardwired
-		System.err.println("base="+base);
+		log.info("base="+base);
 		conn=new ServicesConnection(base+"/cspace-services");
 		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null);
 		Assume.assumeTrue(out.getStatus()==200);

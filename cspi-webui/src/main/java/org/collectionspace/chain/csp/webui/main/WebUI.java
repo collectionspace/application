@@ -49,8 +49,11 @@ import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.helper.core.RequestCache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebUI implements CSP, UI, Configurable {
+	private static final Logger log=LoggerFactory.getLogger(WebUI.class);
 	public static String SECTION_PREFIX="org.collectionspace.app.config.ui.web.";
 	public static String WEBUI_ROOT=SECTION_PREFIX+"web";
 
@@ -161,7 +164,7 @@ public class WebUI implements CSP, UI, Configurable {
 		Storage storage=xxx_storage.getStorage(cache); // XXX
 		String[] path=ui.getPrincipalPath();
 		Request r=new Request(cache,storage,ui);
-		System.err.println(StringUtils.join(path,"/"));
+		log.info(StringUtils.join(path,"/"));
 		try {
 			if(tries.get(ui.getRequestedOperation()).call(path,r))
 				return;

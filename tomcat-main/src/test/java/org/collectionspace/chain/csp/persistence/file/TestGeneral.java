@@ -34,9 +34,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestGeneral {
 
+	private static final Logger log=LoggerFactory.getLogger(TestGeneral.class);
+	
 	private final static String testStr = "{\"items\":[{\"value\":\"This is an experimental widget being tested. It will not do what you expect.\"," +
 	"\"title\":\"\",\"type\":\"caption\"},{\"title\":\"Your file\",\"type\":\"resource\",\"param\":\"file\"}," +
 	"{\"title\":\"Author\",\"type\":\"text\",\"param\":\"author\"},{\"title\":\"Title\",\"type\":\"text\"," +
@@ -230,7 +234,7 @@ public class TestGeneral {
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr2)));
@@ -250,12 +254,12 @@ public class TestGeneral {
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
 		assertEquals(out.getMethod(),null);
 		String id1=out.getHeader("Location");
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(testStr));	
 		assertEquals(out.getMethod(),null);
 		String id2=out.getHeader("Location");		
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		assertEquals(201,out.getStatus());		
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr2)));
@@ -292,7 +296,7 @@ public class TestGeneral {
 		Set<String> files=new HashSet<String>();
 		for(int i=0;i<items.length();i++)
 			files.add("/objects/"+items.getJSONObject(i).getString("csid"));
-		System.err.println(out1.getHeader("Location"));
+		log.info(out1.getHeader("Location"));
 		assertTrue(files.contains(out1.getHeader("Location")));
 		assertTrue(files.contains(out2.getHeader("Location")));
 		assertTrue(files.contains(out3.getHeader("Location")));
@@ -305,7 +309,7 @@ public class TestGeneral {
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));
 		String id=out.getHeader("Location");
 		assertEquals(out.getMethod(),null);
-		System.err.println(out.getContent());
+		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr2)));
