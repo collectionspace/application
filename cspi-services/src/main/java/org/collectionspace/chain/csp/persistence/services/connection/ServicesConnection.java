@@ -48,7 +48,7 @@ public class ServicesConnection {
 			client=new HttpClient(manager);
 			// XXX do it properly
 			client.getState().setCredentials(
-					new AuthScope("test.collectionspace.org",8180,AuthScope.ANY_REALM),
+					new AuthScope(AuthScope.ANY_HOST,AuthScope.ANY_PORT,AuthScope.ANY_REALM),
 					new UsernamePasswordCredentials("test","test"));
 //			client.getParams().setAuthenticationPreemptive(true);
 		}
