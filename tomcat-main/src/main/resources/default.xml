@@ -479,7 +479,7 @@
 			  <field id="returnDate" ui-type="date">
 			    <selector>.csc-intake-return-date</selector>
 			  </field>
-			  <repeat id="entryMethods" xxx-services-no-repeat="yes">
+			  <repeat id="entryMethods" xxx-services-no-="yes">
 			    <selector>.csc-intake-entry-method-row:</selector>
 			    <field id="entryMethod">
 			      <selector>.csc-intake-entry-method</selector>

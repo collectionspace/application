@@ -51,7 +51,7 @@ public class Record implements FieldParent {
 		if(tab_url==null)
 			tab_url=web_url+"-tab";
 		services_url=Util.getStringOrDefault(section,"/services-url",id);
-		services_list_path=Util.getStringOrDefault(section,"/services-list-path",services_url+"_common:"+services_url+"-common-list/"+services_url+"-list-item");
+		services_list_path=Util.getStringOrDefault(section,"/services-list-path",services_url+"-common-list/"+services_url+"-list-item");
 		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
 		urn_syntax=Util.getStringOrDefault(section,"/urn-syntax","urn:cspace.org.collectionspace.demo."+id+":name({vocab}):"+id+":name({entry})'{display}'");
 		services_instances_path=Util.getStringOrDefault(section,"/services-instances-path",
