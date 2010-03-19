@@ -71,12 +71,6 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	}
 		
 	public void config_finish() throws CSPDependencyException {
-		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
-		if(bootstrap!=null) {
-			String boot_root=bootstrap.getOption("store-url");
-			if(boot_root!=null)
-				base_url=boot_root;
-		}
 		Spec spec=(Spec)ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
 		if(spec==null)
 			throw new CSPDependencyException("Could not load spec");

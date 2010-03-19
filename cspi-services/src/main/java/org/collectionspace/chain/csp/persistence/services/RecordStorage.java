@@ -25,6 +25,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.Element;
 
 import org.dom4j.Node;
 
@@ -40,11 +41,11 @@ public class RecordStorage implements ContextualisedStorage {
 	private Map<String,String> view_good=new HashMap<String,String>();
 	private Map<String,String> view_map=new HashMap<String,String>();
 	private Set<String> xxx_view_deurn=new HashSet<String>();
-		
+
 	public RecordStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
 		this.conn=conn;
 		this.r=r;
-		
+
 		// Number
 		view_good.put(r.getMiniNumber().getID(),"number");
 		view_map.put(r.getMiniNumber().getServicesTag(),r.getMiniNumber().getID());
@@ -56,7 +57,7 @@ public class RecordStorage implements ContextualisedStorage {
 		if(r.getMiniSummary().isAutocomplete())
 			xxx_view_deurn.add(r.getMiniSummary().getID());
 	}
-	
+
 	private void setGleanedValue(CSPRequestCache cache,String path,String key,String value) {
 		cache.setCached(getClass(),new String[]{"glean",path,key},value);
 	}
@@ -64,11 +65,11 @@ public class RecordStorage implements ContextualisedStorage {
 	private String getGleanedValue(CSPRequestCache cache,String path,String key) {
 		return (String)cache.getCached(getClass(),new String[]{"glean",path,key});
 	}
-	
+
 	private void convertToJson(JSONObject out,Document in) throws JSONException {
 		XmlJsonConversion.convertToJson(out,r,in);
 	}
-	
+
 	public String autocreateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Map<String,Document> parts=new HashMap<String,Document>();
@@ -121,7 +122,7 @@ public class RecordStorage implements ContextualisedStorage {
 			throw new UnderlyingStorageException("No UTF8!");
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -184,9 +185,9 @@ public class RecordStorage implements ContextualisedStorage {
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=filePath.split("/",2);
-			if(parts.length==2)
+			if(parts.length==2) {
 				return viewRetrieveJSON(cache,parts[0],parts[1]);
-			else
+			} else
 				return simpleRetrieveJSON(filePath);
 		} catch(JSONException x) {
 			throw new UnderlyingStorageException("Error building JSON",x);
@@ -194,6 +195,35 @@ public class RecordStorage implements ContextualisedStorage {
 	}
 
 	public JSONObject viewRetrieveJSON(CSPRequestCache cache,String filePath,String view) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+		if("view".equals(view))
+			return miniViewRetrieveJSON(cache,filePath);
+		else if("refs".equals(view))
+			return refViewRetrieveJSON(cache,filePath);
+		else
+			return new JSONObject();
+	}
+
+	public JSONObject refViewRetrieveJSON(CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+		try {
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath+"/authorityrefs",null);
+			if(all.getStatus()!=200)
+				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+			Document list=all.getDocument();
+			JSONObject out=new JSONObject();
+			for(Object node : list.selectNodes("authority-ref-list/authority-ref-item")) {
+				if(!(node instanceof Element))
+					continue;
+				String key=((Element)node).selectSingleNode("sourceField").getText();
+				String value=((Element)node).selectSingleNode("refName").getText();
+				out.put(key,value);
+			}
+			return out;
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection problem",e);
+		}
+	}
+
+	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject out=new JSONObject();
 		Set<String> to_get=new HashSet<String>(view_good.keySet());
 		// Try to fullfil from gleaned info
@@ -262,7 +292,7 @@ public class RecordStorage implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);
-			
+
 		}
 	}
 }

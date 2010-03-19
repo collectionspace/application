@@ -192,5 +192,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		String p1=ss.autocreateJSON("intake/",getJSON("int4.json"));
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs");
 		log.info("mini="+mini);
+		// XXX retrieve by authority
+		// XXX also authorities
 	}
 }
