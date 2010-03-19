@@ -29,7 +29,6 @@ import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.WebUI;
-import org.collectionspace.chain.util.jxj.InvalidJXJException;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.ui.UI;
@@ -56,7 +55,7 @@ public class ChainServlet extends HttpServlet  {
 	 * Better present it on first request.
 	 */
 
-	private void register_csps() throws IOException, InvalidJXJException, DocumentException {
+	private void register_csps() throws IOException, DocumentException {
 		cspm.register(new CoreConfig());
 		cspm.register(new FileStorage());
 		cspm.register(new ServicesStorageGenerator());
@@ -95,8 +94,6 @@ public class ChainServlet extends HttpServlet  {
 			throw new BadRequestException("Cannot load config"+e,e);
 		} catch (BootstrapConfigLoadFailedException e) {
 			throw new BadRequestException("Cannot load config"+e,e);
-		} catch (InvalidJXJException e) { // XXX better exception handling in ServicesStorage constructor
-			throw new BadRequestException("Cannot load backend"+e,e);
 		} catch (DocumentException e) {
 			throw new BadRequestException("Cannot load backend"+e,e);
 		} catch (CSPDependencyException e) {

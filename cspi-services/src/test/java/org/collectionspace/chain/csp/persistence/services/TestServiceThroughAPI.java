@@ -187,6 +187,10 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	}
 	
 	@Test public void testAuthorityRefs() throws Exception {
-		
+		// Create a record with references
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		String p1=ss.autocreateJSON("intake/",getJSON("int4.json"));
+		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs");
+		log.info("mini="+mini);
 	}
 }

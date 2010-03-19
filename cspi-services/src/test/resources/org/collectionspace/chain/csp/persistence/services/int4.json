@@ -23,7 +23,7 @@
   "fieldCollectionNumber": "fieldCollectionNumberX",
   "fieldCollector": "fieldCollectorX",
   "valuationReferenceNumber": "valuationReferenceNumberX",
-  "valuer": "valuerX",
+  "valuer": "urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(Annie Authorizer)'Annie Authorizer'",
   "insuranceNote": "insuranceNoteX",
   "insurancePolicyNumber": "insurancePolicyNumberX",
   "insuranceReferenceNumber": "insuranceReferenceNumberX",

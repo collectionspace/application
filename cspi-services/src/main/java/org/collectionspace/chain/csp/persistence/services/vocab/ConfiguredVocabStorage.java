@@ -18,10 +18,8 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMul
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Field;
-import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
-import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -29,7 +27,6 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.json.JSONException;
@@ -44,7 +41,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	private URNProcessor urn_processor;
 	private Record r;
 
-	public ConfiguredVocabStorage(Record r,ServicesConnection conn) throws InvalidXTmplException, DocumentException {
+	public ConfiguredVocabStorage(Record r,ServicesConnection conn) throws  DocumentException {
 		this.conn=conn;
 		urn_processor=new URNProcessor(r.getURNSyntax());
 		Map<String,String> vocabs=new ConcurrentHashMap<String,String>();

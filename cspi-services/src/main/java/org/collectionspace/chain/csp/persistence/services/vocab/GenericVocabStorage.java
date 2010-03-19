@@ -14,16 +14,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.collectionspace.chain.csp.persistence.services.GenericRecordStorage;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
-import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
-import org.collectionspace.chain.util.xtmpl.XTmplDocument;
-import org.collectionspace.chain.util.xtmpl.XTmplTmpl;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -59,7 +55,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 
 	public GenericVocabStorage(ServicesConnection conn,String urn_builder,Pattern urn_regexp,Map<String,String> vocabs,
 			String namespace,String prefix,String section,String items_section,String list_item_path,String item_path,
-			String name_path,String tag,String in_tag) throws InvalidXTmplException, DocumentException {
+			String name_path,String tag,String in_tag) throws DocumentException {
 		this.conn=conn;
 		urn_syntax=urn_regexp;
 		this.urn_builder=urn_builder;

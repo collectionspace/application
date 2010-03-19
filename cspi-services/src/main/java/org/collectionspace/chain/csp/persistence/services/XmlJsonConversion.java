@@ -10,7 +10,6 @@ import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
-import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
