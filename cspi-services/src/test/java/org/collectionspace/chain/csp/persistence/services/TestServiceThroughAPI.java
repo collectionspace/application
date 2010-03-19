@@ -185,4 +185,8 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertEquals("depositorX",mini.getString("summary"));
 		assertEquals("entryNumberX",mini.getString("number"));		
 	}
+	
+	@Test public void testAuthorityRefs() throws Exception {
+		
+	}
 }
