@@ -192,6 +192,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		return out;
 	}
 	
+	/*
 	@Test public void testAuthorityRefs() throws Exception {
 		// Create a record with references
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
@@ -216,4 +217,5 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		// XXX retrieve by authority
 		// XXX also authorities
 	}
+	*/
 }
