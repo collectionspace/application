@@ -98,7 +98,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		return ret;
 	}
 
-	public String autocreateJSON(CSPRequestCache cache, String filePath, JSONObject data)
+	public String autocreateJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath, JSONObject data)
 	throws ExistException,UnimplementedException, UnderlyingStorageException {
 		try {
 			extractPaths(filePath,new String[]{"main"},0);
@@ -115,12 +115,12 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		}
 	}
 
-	public void createJSON(CSPRequestCache cache, String filePath, JSONObject jsonObject)
+	public void createJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Cannot create relations to path");
 	}
 
-	public void deleteJSON(CSPRequestCache cache, String filePath)
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);
@@ -188,7 +188,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public String[] getPaths(CSPRequestCache cache, String rootPath,JSONObject restrictions)
+	public String[] getPaths(ContextualisedStorage root,CSPRequestCache cache, String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		extractPaths(rootPath,new String[]{"main"},0);
 		try {
@@ -210,7 +210,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		}
 	}
 
-	public JSONObject retrieveJSON(CSPRequestCache cache, String filePath)
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);
@@ -230,7 +230,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		}
 	}
 
-	public void updateJSON(CSPRequestCache cache, String filePath,JSONObject data) 
+	public void updateJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath,JSONObject data) 
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);

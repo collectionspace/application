@@ -188,7 +188,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		return out;
 	}
 
-	public String autocreateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
+	public String autocreateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			if(!jsonObject.has("name"))
@@ -210,12 +210,12 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		}
 	}
 
-	public void createJSON(CSPRequestCache cache, String filePath,JSONObject jsonObject)
+	public void createJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Cannot create at named path");
 	}
 
-	public void deleteJSON(CSPRequestCache cache, String filePath)
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
 			int status=conn.getNone(RequestMethod.DELETE,URNtoURL(cache,filePath),null);
@@ -228,7 +228,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	}
 
 	@SuppressWarnings("unchecked")
-	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restrictions)
+	public String[] getPaths(ContextualisedStorage root,CSPRequestCache cache,String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			List<String> out=new ArrayList<String>();
@@ -284,7 +284,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		return getVocabularyId(cache,parts[0]);
 	}
 
-	public JSONObject retrieveJSON(CSPRequestCache cache, String filePath)
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
 			String name=(String)cache.getCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]});
@@ -308,7 +308,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		}
 	}
 
-	public void updateJSON(CSPRequestCache cache,String filePath,JSONObject jsonObject)
+	public void updateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			if(!jsonObject.has("name"))

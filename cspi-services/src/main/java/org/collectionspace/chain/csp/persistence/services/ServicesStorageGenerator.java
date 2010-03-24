@@ -11,6 +11,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ServicesCon
 import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesVocabStorage;
+import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
@@ -39,13 +40,19 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	private void real_init(Spec spec) throws CSPDependencyException {
 		try {
 			ServicesConnection conn=new ServicesConnection(base_url);
-			addChild("collection-object",new RecordStorage(spec.getRecord("collection-object"),conn));
-			addChild("intake",new RecordStorage(spec.getRecord("intake"),conn));
-			addChild("acquisition",new RecordStorage(spec.getRecord("acquisition"),conn));
+			for(Record r : spec.getAllRecords()) {
+				if(!r.isType("record"))
+					continue;
+				addChild(r.getID(),new RecordStorage(spec.getRecord(r.getID()),conn));
+			}
+			for(Record r : spec.getAllRecords()) {
+				if(!r.isType("authority"))
+					continue;
+				addChild(r.getID(),new ConfiguredVocabStorage(spec.getRecord(r.getID()),conn));
+			}
+			addChild("direct",new DirectRedirector(spec));
 			addChild("id",new ServicesIDGenerator(conn));
 			addChild("relations",new ServicesRelationStorage(conn));
-			addChild("person",new ConfiguredVocabStorage(spec.getRecord("person"),conn));
-			addChild("organization",new ConfiguredVocabStorage(spec.getRecord("organization"),conn));
 			addChild("vocab",new ServicesVocabStorage(conn));
 		} catch (Exception e) {
 			log.info(e.getMessage());

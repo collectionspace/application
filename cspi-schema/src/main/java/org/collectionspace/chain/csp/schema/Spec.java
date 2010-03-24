@@ -18,6 +18,7 @@ public class Spec implements CSP, Configurable {
 	
 	private Map<String,Record> records=new HashMap<String,Record>();
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
+	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
 	
 	public String getName() { return "schema"; }
 
@@ -41,6 +42,7 @@ public class Spec implements CSP, Configurable {
 				Record r=new Record(Spec.this,section);
 				records.put(r.getID(),r);
 				records_by_web_url.put(r.getWebURL(),r);
+				records_by_services_url.put(r.getServicesURL(),r);
 				return r;
 			}
 		});
@@ -110,6 +112,7 @@ public class Spec implements CSP, Configurable {
 
 	public Record getRecord(String id) { return records.get(id); }
 	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
+	public Record getRecordByServicesUrl(String url) { return records_by_services_url.get(url); }
 	public Record[] getAllRecords() { return records.values().toArray(new Record[0]); }
 	
 	public void config_finish() {}

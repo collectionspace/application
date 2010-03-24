@@ -35,31 +35,31 @@ public class ServicesStorage extends SplittingStorage implements Storage {
 
 	public String autocreateJSON(String filePath, JSONObject jsonObject)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		return storage.autocreateJSON(cache, filePath, jsonObject);
+		return storage.autocreateJSON(storage,cache, filePath, jsonObject);
 	}
 
 	public void createJSON(String filePath, JSONObject jsonObject)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		storage.createJSON(cache, filePath, jsonObject);
+		storage.createJSON(storage,cache, filePath, jsonObject);
 	}
 
 	public void deleteJSON(String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		storage.deleteJSON(cache,filePath);
+		storage.deleteJSON(storage,cache,filePath);
 	}
 
 	public String[] getPaths(String rootPath,JSONObject restrictions) 
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		return storage.getPaths(cache,rootPath,restrictions);
+		return storage.getPaths(storage,cache,rootPath,restrictions);
 	}
 
 	public JSONObject retrieveJSON(String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		return storage.retrieveJSON(cache,filePath);
+		return storage.retrieveJSON(storage,cache,filePath);
 	}
 
 	public void updateJSON(String filePath, JSONObject jsonObject)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		storage.updateJSON(cache, filePath, jsonObject);
+		storage.updateJSON(storage,cache, filePath, jsonObject);
 	}
 }

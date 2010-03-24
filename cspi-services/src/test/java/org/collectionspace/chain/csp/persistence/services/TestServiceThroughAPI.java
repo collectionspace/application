@@ -185,13 +185,34 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertEquals("depositorX",mini.getString("summary"));
 		assertEquals("entryNumberX",mini.getString("number"));		
 	}
+
+	private JSONObject makePerson() throws Exception {
+		JSONObject out=new JSONObject();
+		out.put("displayName","Dic Penderyn");
+		return out;
+	}
 	
 	@Test public void testAuthorityRefs() throws Exception {
 		// Create a record with references
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		String p1=ss.autocreateJSON("intake/",getJSON("int4.json"));
+		JSONObject person=makePerson();
+		String p=ss.autocreateJSON("person/person",person);
+		log.info("p="+p);
+		JSONObject po=ss.retrieveJSON("person/person/"+p);
+		log.info("po="+po);
+		String pname=po.getString("refid");
+		JSONObject data=getJSON("int4.json");
+		data.remove("valuer");
+		data.put("valuer",pname);
+		String p1=ss.autocreateJSON("intake/",data);
+		log.info("p1="+p1);
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs");
 		log.info("mini="+mini);
+		JSONObject member=mini.getJSONObject("valuer");		
+		assertNotNull(member);
+		assertEquals("urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(Annie Authorizer)'Annie Authorizer'",member.getString("urn"));
+		assertEquals("/personauthorities/urn:cspace:name(TestPersonAuth)/items/urn:cspace:name(Annie Authorizer)",member.getString("uri"));
+		
 		// XXX retrieve by authority
 		// XXX also authorities
 	}

@@ -50,16 +50,16 @@ public class SplittingStorage implements ContextualisedStorage {
 		return out;
 	}
 
-	public void createJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public void createJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,true);
 		if("".equals(parts[1])) { // autocreate?
-			get(parts[0]).autocreateJSON(cache,"",jsonObject);
+			get(parts[0]).autocreateJSON(root,cache,"",jsonObject);
 			return;
 		}
-		get(parts[0]).createJSON(cache,parts[1],jsonObject);
+		get(parts[0]).createJSON(root,cache,parts[1],jsonObject);
 	}
 
-	public String[] getPaths(CSPRequestCache cache,String rootPath,JSONObject restriction) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String[] getPaths(ContextualisedStorage root,CSPRequestCache cache,String rootPath,JSONObject restriction) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(rootPath,true);
 		if("".equals(parts[0])) {
 			return children.keySet().toArray(new String[0]);
@@ -68,7 +68,7 @@ public class SplittingStorage implements ContextualisedStorage {
 			for(Map.Entry<String,ContextualisedStorage> e : children.entrySet()) {
 				if(e.getKey().equals(parts[0])) {
 					ContextualisedStorage storage=e.getValue();
-					String[] paths=storage.getPaths(cache,parts[1],restriction);
+					String[] paths=storage.getPaths(root,cache,parts[1],restriction);
 					if(paths==null)
 						continue;
 					for(String s : paths) {
@@ -80,24 +80,24 @@ public class SplittingStorage implements ContextualisedStorage {
 		}
 	}
 
-	public JSONObject retrieveJSON(CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,false);
-		return get(parts[0]).retrieveJSON(cache,parts[1]);
+		return get(parts[0]).retrieveJSON(root,cache,parts[1]);
 	}
 
-	public void updateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public void updateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,false);
-		get(parts[0]).updateJSON(cache,parts[1],jsonObject);
+		get(parts[0]).updateJSON(root,cache,parts[1],jsonObject);
 	}
 
-	public String autocreateJSON(CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String autocreateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,true);
-		return get(parts[0]).autocreateJSON(cache,parts[1],jsonObject);
+		return get(parts[0]).autocreateJSON(root,cache,parts[1],jsonObject);
 	}
 
-	public void deleteJSON(CSPRequestCache cache,String filePath) throws ExistException,
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,false);
-		get(parts[0]).deleteJSON(cache,parts[1]);		
+		get(parts[0]).deleteJSON(root,cache,parts[1]);		
 	}
 }
