@@ -22,6 +22,7 @@ public class TestSchema {
 	
 	private InputStream getSource(String file) {
 		String name=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+file;
+		log.info(name);
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
 	}
 	
@@ -49,7 +50,7 @@ public class TestSchema {
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("objects",r_obj.getWebURL());
-		log.info("finsihed running testSchema" );
+		log.info("finished running testSchema" );
 	
 		
 		/* RECORD/field -> FIELD(type) */

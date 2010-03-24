@@ -54,8 +54,11 @@ public class TestGeneral {
 	
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
 	private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
-	
+
+	private final static String testStr6 = "{\"userID\": \"anastasia\",\"userName\": \"Anastasia Cheethem\",\"password\": \"testpassword\",\"email\": \"anastasia.cheetham@collectionspace.org\",\"status\": \"inactive\",}";
+	private final static String testStr7 = "{\"userID\": \"megan\",\"userName\": \"Megan Forbes\",\"password\": \"testpassword\",\"email\": \"megan.forbes@collectionspace.org\",\"status\": \"active\",}";
 	private FileStorage store;
+
 	private static String tmp=null;
 
 	private static synchronized String tmpdir() {
@@ -228,13 +231,41 @@ public class TestGeneral {
 		return in;
 	}
 	
+	@Test public void testUserProfiles() throws Exception {
+		deleteSchemaFile("collection-object",false);
+
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6));	
+		assertEquals(out.getMethod(),null);
+		//log.info("GET CREATE "+out.getContent());
+		//String id=out.getHeader("Location");
+		//log.info(out.getContent());
+		//assertEquals(201,out.getStatus());
+		/*
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+		log.info("GET READ "+id+":"+out.getContent());
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr6)));
+		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(testStr7));
+		log.info("PUT "+id+":"+out.getContent());
+		assertEquals(200,out.getStatus());		
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+		log.info("GET READ "+id+":"+out.getContent());
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr7)));
+		out=jettyDo(jetty,"DELETE","/chain"+id,null);
+		assertEquals(200,out.getStatus());
+		log.info("DELETE "+id+":"+out.getContent());
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+		assertTrue(out.getStatus()>=400); // XXX should probably be 404
+		*/
+		
+	}
+	
 	@Test public void testPostAndDelete() throws Exception {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
-		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr2)));

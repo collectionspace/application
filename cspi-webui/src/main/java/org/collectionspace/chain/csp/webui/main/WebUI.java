@@ -29,6 +29,10 @@ import org.collectionspace.chain.csp.webui.misc.WebUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.UISpec;
 import org.collectionspace.chain.csp.webui.nuispec.FindEditUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.TabUISpec;
+import org.collectionspace.chain.csp.webui.userdetails.UserDetailsCreateUpdate;
+import org.collectionspace.chain.csp.webui.userdetails.UserDetailsDelete;
+import org.collectionspace.chain.csp.webui.userdetails.UserDetailsRead;
+import org.collectionspace.chain.csp.webui.userdetails.UserDetailsReset;
 import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
 import org.collectionspace.chain.csp.webui.record.RecordDelete;
 import org.collectionspace.chain.csp.webui.record.RecordRead;
@@ -104,41 +108,59 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
 		addMethod(Operation.READ,new String[]{"find-edit","uispec"},0,new FindEditUISpec(spec.getAllRecords()));
+		addMethod(Operation.READ,new String[]{"passwordreset"},0,new UserDetailsReset());
 		for(Record r : spec.getAllRecords()) {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"ouispec"},0,new WebUISpec(r.getID()));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UISpec(r));
 			addMethod(Operation.READ,new String[]{r.getTabURL(),"uispec"},0,new TabUISpec(r));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"oschema"},0,new WebUISpec(r.getID()));
-		}
-		for(Record r : spec.getAllRecords()) {
-			if(r.isType("authority"))
-				continue;
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord("person"))); // XXX
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
-			addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
-			addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
-			addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
-			addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new RecordCreateUpdate(r,true));
-			addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
-		}
-		for(Record r : spec.getAllRecords()) {
-			if(!r.isType("authority"))
-				continue;
-			addMethod(Operation.READ,new String[]{"authorities",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(r,false));
-			addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(r,true));
-			for(Instance n : r.getAllInstances()) {
-				addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},0,new AuthoritiesVocabulariesSearchList(n,false));
-				addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(n,true));				
-				addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesRead(n));
-				addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord("person"))); // XXX
-				addMethod(Operation.CREATE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesCreateUpdate(n,true));
-				addMethod(Operation.UPDATE,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesCreateUpdate(n,false));
-				addMethod(Operation.DELETE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesDelete(n));
-				addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
+
+			if(r.isType("authority")){
+				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(r,false));
+				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(r,true));
+				for(Instance n : r.getAllInstances()) {
+					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},0,new AuthoritiesVocabulariesSearchList(n,false));
+					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(n,true));				
+					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesRead(n));
+					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord("person"))); // XXX
+					addMethod(Operation.CREATE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesCreateUpdate(n,true));
+					addMethod(Operation.UPDATE,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesCreateUpdate(n,false));
+					addMethod(Operation.DELETE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesDelete(n));
+					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
+				}
 			}
+			else if(r.isType("record")){
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord("person"))); // XXX
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
+				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
+				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
+				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
+				addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new RecordCreateUpdate(r,true));
+				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
+			}
+			else if(r.isType("userdata")){
+				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new UserDetailsRead(r));
+				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new UserDetailsDelete(r.getID()));
+				addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new UserDetailsCreateUpdate(r,true));
+				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new UserDetailsCreateUpdate(r,false));
+			}
+			else if(r.isType("id")){
+				// XXX this isn't right but it does work. NEEDS to have it's own methods rather than piggy backing on RECORD
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord("person"))); // XXX
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
+				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
+				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
+				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
+				addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new RecordCreateUpdate(r,true));
+				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
+			}
+			
 		}
+
 		addMethod(Operation.CREATE,new String[]{"relationships"},0,new RelateCreateUpdate(true));
 		addMethod(Operation.UPDATE,new String[]{"relationships"},1,new RelateCreateUpdate(false));
 		addMethod(Operation.READ,new String[]{"relationships"},1,new RelateRead());
@@ -146,6 +168,7 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.DELETE,new String[]{"relationships","one-way"},1,new RelateDelete(true));
 		addMethod(Operation.READ,new String[]{"relationships","search"},0,new RelateSearchList(true));
 		addMethod(Operation.READ,new String[]{"relationships"},0,new RelateSearchList(false));
+
 	}
 	
 	public void config_finish() throws CSPDependencyException {
@@ -164,7 +187,7 @@ public class WebUI implements CSP, UI, Configurable {
 		Storage storage=xxx_storage.getStorage(cache); // XXX
 		String[] path=ui.getPrincipalPath();
 		Request r=new Request(cache,storage,ui);
-		log.info(StringUtils.join(path,"/"));
+		log.info("ServiceRequest path: "+StringUtils.join(path,"/"));
 		try {
 			if(tries.get(ui.getRequestedOperation()).call(path,r))
 				return;
