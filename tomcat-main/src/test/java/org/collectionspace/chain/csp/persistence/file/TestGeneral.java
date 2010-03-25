@@ -55,8 +55,10 @@ public class TestGeneral {
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
 	private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
 
-	private final static String testStr6 = "{\"userID\": \"anastasia\",\"userName\": \"Anastasia Cheethem\",\"password\": \"testpassword\",\"email\": \"anastasia.cheetham@collectionspace.org\",\"status\": \"inactive\",}";
-	private final static String testStr7 = "{\"userID\": \"megan\",\"userName\": \"Megan Forbes\",\"password\": \"testpassword\",\"email\": \"megan.forbes@collectionspace.org\",\"status\": \"active\",}";
+	private final static String testStr6 = "{\"userID\": \"anastasia\",\"userName\": \"Anastasia Cheethem\",\"password\": \"testpassword\",\"email\": \"anastasia.cheetham@collectionspace.org\",\"status\": \"inactive\"}";
+	private final static String testStr7 = "{\"userID\": \"megan\",\"userName\": \"Megan Forbes\",\"password\": \"testpassword\",\"email\": \"megan.forbes@collectionspace.org\",\"status\": \"active\"}";
+	private final static String testStr8 = "{\"email\": \"megan.forbes@collectionspace.org\", \"debug\" : true }";
+	
 	private FileStorage store;
 
 	private static String tmp=null;
@@ -231,17 +233,54 @@ public class TestGeneral {
 		return in;
 	}
 	
+	@Test public void testPasswordReset() throws Exception {
+		deleteSchemaFile("collection-object",false);
+		ServletTester jetty=setupJetty();
+		/* make password reset request to user that doesn't exist - should fail */
+		HttpTester out=jettyDo(jetty,"GET","/chain/passwordreset",testStr8);
+		assertEquals(400,out.getStatus());
+		/* create user to test against */
+		out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr7));
+		log.info("USER DETAILS : "+out.getContent());
+		JSONObject data1 = new JSONObject(out.getContent());
+		log.info("CSID CREATED "+data1.getString("csid"));
+		/*make password reset request */
+		out=jettyDo(jetty,"GET","/chain/passwordreset",testStr8);
+		assertEquals(200,out.getStatus());
+		JSONObject data = new JSONObject(out.getContent());
+		/* only available if debug: true*/
+		log.info("TOKEN CREATED "+data.getString("token"));
+		log.info("RESET JSON SENT BACK "+out.getContent());
+		/* good token */
+		out=jettyDo(jetty,"GET","/chain/resetpassword?email=megan.forbes@collectionspace.org&password=newpassword&token="+data.getString("token"), null);
+		log.info("GOODTOKEN: "+out.getContent());
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/users/"+data1.getString("csid"),null);
+		JSONObject data2 = new JSONObject(out.getContent());
+		assertEquals("newpassword",data2.getJSONObject("fields").getString("password"));
+		
+		/* bad token */
+		out=jettyDo(jetty,"GET","/chain/resetpassword?email=megan.forbes@collectionspace.org&password=renewpassword&token=BOB", null);
+		//log.info("BADTOKEN: "+out.getContent());
+		assertEquals(400,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/users/"+data1.getString("csid"),null);
+		JSONObject data3 = new JSONObject(out.getContent());
+		/* password should not have changed */
+		assertEquals("newpassword",data3.getJSONObject("fields").getString("password"));
+		
+	}
+	
 	@Test public void testUserProfiles() throws Exception {
 		deleteSchemaFile("collection-object",false);
 
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6));	
 		assertEquals(out.getMethod(),null);
-		//log.info("GET CREATE "+out.getContent());
-		//String id=out.getHeader("Location");
-		//log.info(out.getContent());
-		//assertEquals(201,out.getStatus());
-		/*
+		log.info("GET CREATE "+out.getContent());
+		String id=out.getHeader("Location");
+		log.info(out.getContent());
+		assertEquals(201,out.getStatus());
+		
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		log.info("GET READ "+id+":"+out.getContent());
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr6)));
@@ -256,7 +295,7 @@ public class TestGeneral {
 		log.info("DELETE "+id+":"+out.getContent());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
-		*/
+		
 		
 	}
 	
