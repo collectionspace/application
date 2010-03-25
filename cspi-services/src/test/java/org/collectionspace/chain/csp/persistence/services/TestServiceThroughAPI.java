@@ -52,7 +52,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
 		log.info(path);
 		assertNotNull(stream);
-		String data=IOUtils.toString(stream);
+		String data=IOUtils.toString(stream,"UTF-8");
 		stream.close();		
 		return new JSONObject(data);
 	}
@@ -186,21 +186,28 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertEquals("entryNumberX",mini.getString("number"));		
 	}
 
-	private JSONObject makePerson() throws Exception {
+	private JSONObject makePerson(String pname) throws Exception {
 		JSONObject out=new JSONObject();
 		out.put("displayName","Dic Penderyn");
+		if(pname!=null)
+			out.put("group",pname);
 		return out;
 	}
 	
 	@Test public void testAuthorityRefs() throws Exception {
 		// Create a record with references
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		JSONObject person=makePerson();
+		JSONObject person=makePerson(null);
 		String p=ss.autocreateJSON("person/person",person);
 		log.info("p="+p);
 		JSONObject po=ss.retrieveJSON("person/person/"+p);
 		log.info("po="+po);
 		String pname=po.getString("refid");
+		//
+		JSONObject person2=makePerson(pname);
+		String p2=ss.autocreateJSON("person/person",person2);
+		log.info("p2="+p2);
+		//
 		JSONObject data=getJSON("int4.json");
 		data.remove("valuer");
 		data.put("valuer",pname);
@@ -211,6 +218,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		JSONObject member=mini.getJSONObject("valuer");		
 		assertNotNull(member);
 		assertEquals("Dic Penderyn",member.getString("displayName"));
+		
 		
 		// XXX retrieve by authority
 		// XXX also authorities
