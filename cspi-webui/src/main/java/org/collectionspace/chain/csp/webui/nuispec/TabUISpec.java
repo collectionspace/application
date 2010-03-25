@@ -23,7 +23,7 @@ public class TabUISpec implements WebMethod {
 	public void configure(WebUI ui, Spec spec) {}
 
 	private JSONObject relatedRecordSpec() throws JSONException {
-		return UISpec.generateSidebarPart(record.getUIURL(),false,true);
+		return UISpec.generateSidebarPart(record.getUIURL(),false,true, false);
 	}
 	
 	private JSONObject newRecordSpec() throws JSONException {

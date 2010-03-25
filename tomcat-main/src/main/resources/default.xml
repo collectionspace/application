@@ -21,7 +21,6 @@
 			  <services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
 			  <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
 				<web-url>objects</web-url>
-				<ui-url>object.html</ui-url>
 				<tab-url>object-tab</tab-url>
 				<number-selector>.csc-accession-number</number-selector>
 				<row-selector>.csc-object-record-list-row:</row-selector>

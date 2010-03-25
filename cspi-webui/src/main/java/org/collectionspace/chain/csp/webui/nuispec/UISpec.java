@@ -196,7 +196,7 @@ public class UISpec implements WebMethod {
 	}
 
 	// XXX refactor
-	static JSONObject generateSidebarPart(String url_frag,boolean include_type,boolean include_summary) throws JSONException {
+	static JSONObject generateSidebarPart(String url_frag,boolean include_type,boolean include_summary,boolean include_sourcefield) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONObject row=new JSONObject();
 		JSONArray children=new JSONArray();
@@ -209,6 +209,8 @@ public class UISpec implements WebMethod {
 			child.put(".csc-related-recordtype","${items.0.recordtype}");
 		if(include_summary)
 			child.put(".csc-related-summary","${items.0.summary}");
+		if(include_sourcefield)
+			child.put(".csc-related-field","${items.0.sourceFieldName}");
 		children.put(child);
 		row.put("children",children);
 		out.put(".csc-related-row:",row);
@@ -218,9 +220,9 @@ public class UISpec implements WebMethod {
 	// XXX sidebar is fixed for now
 	private JSONObject generateSidebarSection() throws JSONException {
 		JSONObject out=new JSONObject();
-		out.put("termsUsed",generateSidebarPart(record.getTermsUsedURL(),true,false));
-		out.put("relatedProcedures",generateSidebarPart("${items.0.recordtype}.html",true,true));
-		out.put("relatedObjects",generateSidebarPart("object.html",false,true));
+		out.put("termsUsed",generateSidebarPart("${items.0.recordtype}.html",true,false,true));
+		out.put("relatedProcedures",generateSidebarPart("${items.0.recordtype}.html",true,true,false));
+		out.put("relatedObjects",generateSidebarPart("${items.0.recordtype}.html",false,true,false));
 		return out;
 	}
 

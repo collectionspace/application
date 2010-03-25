@@ -5,7 +5,7 @@
                     {
                         ".csc-accession-number": {
                             "linktext": "${items.0.number}",
-                            "target": "object.html?csid=${items.0.csid}"
+                            "target": "objects.html?csid=${items.0.csid}"
                          },
                         ".csc-summary": "${items.0.summary}"
                     }

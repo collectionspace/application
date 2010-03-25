@@ -11,7 +11,7 @@
                 "container": ".csc-intake-current-owner",
                 "options": {
                     "queryUrl": "../../chain/intake/autocomplete/currentOwner",
-                    "vocabUrl": "../../chain/intake/source-vocab/currentOwner",
+                    "vocabUrl": "../../chain/intake/source-vocab/currentOwner"
                 }
             }]
         },
@@ -23,7 +23,7 @@
                 "container": ".csc-intake-depositor",
                 "options": {
                     "queryUrl": "../../chain/intake/autocomplete/depositor",
-                    "vocabUrl": "../../chain/intake/source-vocab/depositor",
+                    "vocabUrl": "../../chain/intake/source-vocab/depositor"
                 }
             }]
         },
@@ -211,9 +211,10 @@
                     {
                         ".csc-related-number": {
                             "linktext": "${items.0.number}",
-                            "target": "nameAuthority?csid=${items.0.csid}"
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                          },
-                        ".csc-related-recordtype": "${items.0.recordtype}"
+                        ".csc-related-recordtype": "${items.0.recordtype}",
+                        ".csc-related-field": "${items.0.sourceFieldName}"
                     }
                 ]
                 }
@@ -238,7 +239,7 @@
                     {
                         ".csc-related-number": {
                             "linktext": "${items.0.number}",
-                            "target": "object.html?csid=${items.0.csid}"
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                          },
                         ".csc-related-summary": "${items.0.summary}"
                     }
