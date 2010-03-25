@@ -29,10 +29,12 @@ import org.collectionspace.chain.csp.webui.misc.WebUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.UISpec;
 import org.collectionspace.chain.csp.webui.nuispec.FindEditUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.TabUISpec;
+import org.collectionspace.chain.csp.webui.nuispec.UsersUISpec;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsCreateUpdate;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsDelete;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsRead;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsReset;
+import org.collectionspace.chain.csp.webui.userdetails.UserDetailsSearchList;
 import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
 import org.collectionspace.chain.csp.webui.record.RecordDelete;
 import org.collectionspace.chain.csp.webui.record.RecordRead;
@@ -143,6 +145,7 @@ public class WebUI implements CSP, UI, Configurable {
 			}
 			else if(r.isType("userdata")){
 				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new UserDetailsRead(r));
+				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new UserDetailsSearchList(r,false));
 				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new UserDetailsDelete(r.getID()));
 				addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new UserDetailsCreateUpdate(r,true));
 				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new UserDetailsCreateUpdate(r,false));
