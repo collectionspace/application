@@ -29,7 +29,6 @@ import org.collectionspace.chain.csp.webui.misc.WebUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.UISpec;
 import org.collectionspace.chain.csp.webui.nuispec.FindEditUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.TabUISpec;
-import org.collectionspace.chain.csp.webui.nuispec.UsersUISpec;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsCreateUpdate;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsDelete;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsRead;
