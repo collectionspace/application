@@ -62,7 +62,7 @@ public class TreeNode {
 	}
 	
 	public void claim(RulesImpl rules,String name,SectionGenerator step,Target target) {
-		log.info("Node "+text+" claimed by "+name);
+		log.debug("Node "+text+" claimed by "+name);
 		this.claim_step=step;
 		this.claim_name=name;
 		this.claim_target=target;
@@ -73,7 +73,7 @@ public class TreeNode {
 	private void match(RulesImpl rules,String name,List<String> part) {
 		Rule r=rules.matchRules(name,part);
 		if(r==null) {
-			log.info("Node "+text+" is subsidiary claim of "+name+" with suffix "+StringUtils.join(part,"/"));
+			log.debug("Node "+text+" is subsidiary claim of "+name+" with suffix "+StringUtils.join(part,"/"));
 			is_claimed=false;
 			match_all_children(rules,name,part);
 		} else {
@@ -100,10 +100,10 @@ public class TreeNode {
 	public void run_all(SectionImpl m) {
 		/* First we run our unclaimeds, to get a good Milestone */
 		if(!is_text) {
-			log.info("Running claimed on milestone "+m.getName());
+			log.debug("Running claimed on milestone "+m.getName());
 			for(TreeNode child : children) {
 				if(child.is_claimed) {
-					log.info("Running unclaimed on milestone "+m.getName());		
+					log.debug("Running unclaimed on milestone "+m.getName());		
 					Map<String,String> data=new HashMap<String,String>();
 					child.run_unclaimed(data,"");
 					SectionImpl nxt=new SectionImpl(m,child.claim_name,child.claim_target);
@@ -120,12 +120,12 @@ public class TreeNode {
 		
 	public void dump() {
 		if(is_text)
-			log.info("\""+text+"\"");
+			log.debug("\""+text+"\"");
 		else {
-			log.info("<"+text+">");
+			log.debug("<"+text+">");
 			for(TreeNode child : children)
 				child.dump();
-			log.info("</"+text+">");
+			log.debug("</"+text+">");
 		}
 	}
 }

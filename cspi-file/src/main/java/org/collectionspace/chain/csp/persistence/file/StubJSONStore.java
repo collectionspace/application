@@ -103,9 +103,13 @@ public class StubJSONStore implements Storage {
 	public JSONObject retrieveJSON(String filePath) throws ExistException, UnderlyingStorageException, UnimplementedException {
 		// XXX hack: support views properly
 		String XXXCHOP="/view";
+		String XXXCHOP2="/refs";
+
 		
 		if(filePath.endsWith(XXXCHOP))
 			filePath=filePath.substring(0,filePath.length()-XXXCHOP.length());
+		if(filePath.endsWith(XXXCHOP2))
+			return new JSONObject();
 		if(idRequest(filePath))
 			return id.retrieveJSON(filePath);
 		File jsonFile = fileFromPath(filePath);
