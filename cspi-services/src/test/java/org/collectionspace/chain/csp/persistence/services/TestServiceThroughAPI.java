@@ -192,7 +192,6 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		return out;
 	}
 	
-	/*
 	@Test public void testAuthorityRefs() throws Exception {
 		// Create a record with references
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
@@ -211,11 +210,9 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		log.info("mini="+mini);
 		JSONObject member=mini.getJSONObject("valuer");		
 		assertNotNull(member);
-		assertEquals("urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(Annie Authorizer)'Annie Authorizer'",member.getString("urn"));
-		assertEquals("/personauthorities/urn:cspace:name(TestPersonAuth)/items/urn:cspace:name(Annie Authorizer)",member.getString("uri"));
+		assertEquals("Dic Penderyn",member.getString("displayName"));
 		
 		// XXX retrieve by authority
 		// XXX also authorities
 	}
-	*/
 }

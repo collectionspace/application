@@ -145,6 +145,46 @@ public class TestServiceThroughWebapp {
 		assertTrue(jo.getString("next").startsWith("2010.1."));
 	}
 
+	@Test public void testTermsUsed() throws Exception {
+		ServletTester jetty=setupJetty();
+		
+		JSONObject data=new JSONObject("{'fields':{'displayName':'David Bowie'}}");
+		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person",data.toString());
+		assertEquals(201,out.getStatus());		
+		JSONObject jo=new JSONObject(out.getContent());
+		String p_csid=jo.getString("csid");
+		out=jettyDo(jetty,"GET","/chain/vocabularies/person/"+p_csid,data.toString());
+		System.err.println(out.getContent());
+		String p_refid=new JSONObject(out.getContent()).getJSONObject("fields").getString("refid");
+		data=new JSONObject(getResourceString("int4.json"));
+		data.remove("valuer");
+		data.put("valuer",p_refid);
+		out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(data.toString()));
+		assertEquals(201,out.getStatus());
+		jo=new JSONObject(out.getContent());
+		out=jettyDo(jetty,"GET","/chain/intake/"+jo.getString("csid"),null);
+		jo=new JSONObject(out.getContent());		
+		log.info(jo.toString());
+		
+		/*
+		=ss.autocreateJSON("person/person",person);
+		log.info("p="+p);
+		JSONObject po=ss.retrieveJSON("person/person/"+p);
+		log.info("po="+po);
+		String pname=po.getString("refid");
+		JSONObject data=getJSON("int4.json");
+		data.remove("valuer");
+		data.put("valuer",pname);
+		String p1=ss.autocreateJSON("intake/",data);
+		log.info("p1="+p1);
+		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs");
+		log.info("mini="+mini);
+		JSONObject member=mini.getJSONObject("valuer");		
+		assertNotNull(member);
+		assertEquals("Dic Penderyn",member.getString("displayName"));
+		*/
+	}
+		
 	@Test public void testAutoGet() throws Exception {
 		ServletTester jetty=setupJetty();
 		UTF8SafeHttpTester out=jettyDo(jetty,"GET","/chain/objects/__auto",null);

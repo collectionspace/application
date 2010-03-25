@@ -1,6 +1,7 @@
 package org.collectionspace.chain.csp.webui.record;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -18,6 +19,7 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mortbay.log.Log;
 
 public class RecordRead implements WebMethod {
 	private String base;
@@ -62,6 +64,25 @@ public class RecordRead implements WebMethod {
 		return out;
 	}
 	
+	@SuppressWarnings("unchecked")
+	private JSONArray getTermsUsed(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		JSONObject mini=storage.retrieveJSON(path+"/refs");
+		Log.info("mini="+mini);
+		JSONArray out=new JSONArray();
+		Iterator t=mini.keys();
+		while(t.hasNext()) {
+			String field=(String)t.next();
+			JSONObject in=mini.getJSONObject(field);
+			JSONObject entry=new JSONObject();
+			entry.put("csid",in.getString("csid"));
+			entry.put("recordtype",in.getString("recordtype"));
+			entry.put("sourceFieldName",field);
+			entry.put("number",in.getString("displayName"));
+			out.put(entry);
+		}
+		return out;
+	}
+	
 	/* Wrapper exists to decomplexify exceptions */
 	private JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
@@ -72,6 +93,7 @@ public class RecordRead implements WebMethod {
 				JSONArray relations=createRelations(storage,csid);
 				out.put("fields",fields);
 				out.put("relations",relations);
+				out.put("termsUsed",getTermsUsed(storage,base+"/"+csid));
 			} else {
 				out=storage.retrieveJSON(base+"/"+csid);
 			}

@@ -227,6 +227,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 		out.put(getDisplayNameKey(),name);
 		out.put("csid",csid);
 		out.put("refid",refid);
+		out.put("recordtype",r.getWebURL());
 		return out;
 	}
 
