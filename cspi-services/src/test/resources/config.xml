@@ -797,6 +797,33 @@
 			    <selector>.csc-organizationAuthority-history</selector>
 			  </field>
 			</record>
+			
+			
+			<record id="users" type="userdata">
+		      <web-url>users</web-url>
+			  <services-instances-path>usersprofile_common:http://collectionspace.org/services/users,usersprofile-common-list/usersprofile-list-item</services-instances-path>
+			  <services-single-instance-path>usersprofile_common:http://collectionspace.org/services/users,usersprofile-common</services-single-instance-path>
+			  <services-list-path>http://collectionspace.org/services/users,users-common-list/users_list_item</services-list-path>
+			  <services-record-path>users_common:http://collectionspace.org/services/user,users_common</services-record-path>
+			  <services-url>usersprofile</services-url>
+			  <urn-syntax>urn:cspace:org.collectionspace.demo:usersprofile:id({vocab}):users:id({entry})'{display}'</urn-syntax>
+
+			  <field id="userid">
+			    <selector>.csc-user-userID</selector>
+			  </field>
+			  <field id="realName">
+			    <selector>.csc-user-userName</selector>
+			  </field>
+			  <field id="password">
+			    <selector>.csc-user-password</selector>
+			  </field>
+			  <field id="email">
+			    <selector>.csc-user-email</selector>
+			  </field>
+			  <field id="status">
+			    <selector>.csc-user-status</selector>
+			  </field>
+			</record>
 
  			<record id="id" type="id"> <!-- XXX what is this type? How does this work? -->
 			</record>
