@@ -39,7 +39,7 @@ public class SectionImpl implements Section {
 	}
 	
 	public void dump() {
-		log.info("Dumping milestone type "+name);
+		log.debug("Dumping milestone type "+name);
 		for(Map.Entry<String,Object> e : map.entrySet()) {
 			log.debug(" "+e.getKey()+"="+e.getValue());
 		}
