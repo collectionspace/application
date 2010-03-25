@@ -799,7 +799,7 @@
 			</record>
 
 
-			<record id="users" type="profile">
+			<record id="users" type="userdata">
 		      <web-url>users</web-url>
 			  <services-instances-path>usersprofile_common:http://collectionspace.org/services/users,usersprofile-common-list/usersprofile-list-item</services-instances-path>
 			  <services-single-instance-path>usersprofile_common:http://collectionspace.org/services/users,usersprofile-common</services-single-instance-path>
