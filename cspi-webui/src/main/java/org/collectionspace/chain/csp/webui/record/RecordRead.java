@@ -19,9 +19,11 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mortbay.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RecordRead implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(RecordRead.class);
 	private String base;
 	private boolean record_type;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
@@ -67,7 +69,7 @@ public class RecordRead implements WebMethod {
 	@SuppressWarnings("unchecked")
 	private JSONArray getTermsUsed(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject mini=storage.retrieveJSON(path+"/refs");
-		Log.info("mini="+mini);
+		log.info("mini="+mini);
 		JSONArray out=new JSONArray();
 		Iterator t=mini.keys();
 		while(t.hasNext()) {
