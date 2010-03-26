@@ -1,7 +1,7 @@
 <!-- this file tells the config loader what to do with various system properties, where to find them, etc -->
 <config>
   <properties>chain.properties</properties>
-  <properties name="jboss">${jboss.server.home.dir}/server/cspace/config/application/chain.properties</properties>
+  <properties name="jboss">${jboss.server.home.dir}/conf/chain.properties</properties>
   
   <option name="storage-type">
     <attribute>storage</attribute>

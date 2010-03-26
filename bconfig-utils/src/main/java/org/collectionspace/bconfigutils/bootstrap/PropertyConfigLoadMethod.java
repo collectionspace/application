@@ -43,9 +43,9 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 	}
 	
 	private Properties loadProperties(String name) throws BootstrapConfigLoadFailedException {
+		String path=substitute_system_props(name);
 		try {
 			Properties out=new Properties();
-			String path=substitute_system_props(name);
 			InputStream is=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 			if(is!=null) {
 				log.info("Using bootstrap source in classpath at "+path);
@@ -61,12 +61,12 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 				out.load(is);
 				is.close();
 			} else {
-				log.info("Cannot find bootstrap source for "+name);
+				log.info("Cannot find bootstrap source for "+name+" ("+path+")");
 			}
 			return out;
 		} catch(Exception e) {
 			// Fall through. Okay, we just won't use this one.
-			log.info("Cannot find bootstrap source for "+name);
+			log.info("Cannot find bootstrap source for "+name+ "("+path+")");
 			return null;
 		}
 	}
