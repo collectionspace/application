@@ -11,6 +11,7 @@ import java.io.InputStream;
 
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.TeeInputStream;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -34,6 +35,9 @@ public class ReturnedDocument implements Returned {
 		log.info("response="+status);
 		InputStream stream=method.getResponseBodyAsStream();
 		SAXReader reader=new SAXReader();
+		if(status>=400) {
+			log.info("Got error : "+IOUtils.toString(stream));
+		}
 		// TODO errorhandling
 		Document out=null;
 		Header content_type=method.getResponseHeader("Content-Type");
