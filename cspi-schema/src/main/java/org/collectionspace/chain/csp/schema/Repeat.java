@@ -56,4 +56,9 @@ public class Repeat implements FieldSet, FieldParent {
 			}
 		}
 	}
+	
+	public void config_finish(Spec spec) {
+		for(FieldSet child : children)
+			child.config_finish(spec);
+	}
 }

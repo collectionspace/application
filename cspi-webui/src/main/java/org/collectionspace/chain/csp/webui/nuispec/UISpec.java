@@ -143,7 +143,7 @@ public class UISpec implements WebMethod {
 			Field f=(Field)fs;
 			// Single field
 			out.put(f.getSelector(),generateDataEntryField(f));
-			if(f.isAutocomplete()) {
+			if(f.getAutocompleteInstance()!=null) {
 				out.put(f.getAutocompleteSelector(),generateAutocomplete(f));
 			}
 			if("chooser".equals(f.getUIType())) {

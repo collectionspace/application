@@ -19,4 +19,6 @@ public class Instance {
 	public String getTitle() { return title; }
 	public String getTitleRef() { return title_ref; }
 	public String getWebURL() { return web_url; }
+	
+	public void config_finish(Spec spec) {}
 }

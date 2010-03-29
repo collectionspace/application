@@ -61,7 +61,7 @@ public class TestNameThroughWebapp {
 	
 	@BeforeClass public static void reset() throws Exception {
 		ServletTester jetty=setupJetty();
-		jettyDo(jetty,"GET","/chain/quick-reset",null);		
+		//jettyDo(jetty,"GET","/chain/quick-reset",null);		
 	}
 	
 	@Test public void testAutocomplete() throws Exception {
@@ -198,5 +198,17 @@ public class TestNameThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());		
+	}
+	
+	@Test public void testAutocompleteOfOrganization() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/autocomplete/group?q=Bing&limit=150",null);
+		assertTrue(out.getStatus()<299);
+		String[] data=out.getContent().split("\n");
+		for(int i=0;i<data.length;i++) {
+			JSONObject entry=new JSONObject(data[i]);
+			assertTrue(entry.getString("label").toLowerCase().contains("bing crosby ice cream"));
+			assertTrue(entry.has("urn"));
+		}
 	}
 }

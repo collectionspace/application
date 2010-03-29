@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -26,15 +29,22 @@ public class WebAutoComplete implements WebMethod {
 	public WebAutoComplete(Record r) { this.r=r; }
 	
 	// XXX we just assume person for now
-	private String[] doAutocomplete(CSPRequestCache cache,Storage storage,String start) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+	private String[] doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,String start) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+		FieldSet fs=r.getField(fieldname);
+		if(!(fs instanceof Field))
+			return new String[0]; // Cannot autocomplete on groups
+		Instance n=((Field)fs).getAutocompleteInstance();
+		if(n==null)
+			return new String[0]; // Field has no autocomplete
+		String path=n.getRecord().getID()+"/"+n.getTitleRef();
 		JSONObject restriction=new JSONObject();
-		restriction.put(r.getDisplayNameField().getID(),start); // May be something other than display name
+		restriction.put(n.getRecord().getDisplayNameField().getID(),start); // May be something other than display name
 		List<String> out=new ArrayList<String>();
-		for(String csid : storage.getPaths("person/person",restriction)) {
-			JSONObject data=storage.retrieveJSON("person/person/"+csid+"/view");
+		for(String csid : storage.getPaths(path,restriction)) {
+			JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view");
 			JSONObject entry=new JSONObject();
 			entry.put("urn",data.get("refid"));
-			entry.put("label",data.getString(r.getDisplayNameField().getID()));
+			entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));
 			out.add(entry.toString());
 		}
 		return out.toArray(new String[0]);
@@ -43,7 +53,8 @@ public class WebAutoComplete implements WebMethod {
 	private void autocomplete(CSPRequestCache cache,Storage storage,UIRequest request) throws UIException {
 		try {
 			TTYOutputter tty=request.getTTYOutputter();
-			for(String v : doAutocomplete(cache,storage,request.getRequestArgument("q"))) {
+			String[] path=request.getPrincipalPath();
+			for(String v : doAutocomplete(cache,storage,path[path.length-1],request.getRequestArgument("q"))) {
 				tty.line(v);
 			}
 			tty.flush();

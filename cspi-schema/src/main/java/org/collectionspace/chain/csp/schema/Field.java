@@ -11,10 +11,14 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 public class Field implements FieldSet {
 	private FieldParent parent;
 	private String id;
+	private Instance autocomplete_instance;
+	
+	/* Used only between construction and config_finish() */
+	private String autocomplete_instance_id;
 	
 	/* UI */
 	private String selector,type,autocomplete_selector,container_selector,title_selector;
-	private boolean is_autocomplete=false,in_title=false,in_tab=false,display_name=false;
+	private boolean in_title=false,in_tab=false,display_name=false;
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
 
@@ -23,8 +27,7 @@ public class Field implements FieldSet {
 		
 	public Field(FieldParent record,ReadOnlySection section) {
 		id=(String)section.getValue("/@id");
-		if(section.getValue("/@autocomplete")!=null)
-			is_autocomplete=true;
+		autocomplete_instance_id=Util.getStringOrDefault(section,"/@autocomplete",null);
 		selector=(String)section.getValue("/selector");		
 		if(selector==null)
 			selector=".csc-"+id;
@@ -64,7 +67,6 @@ public class Field implements FieldSet {
 	public String getContainerSelector() { return container_selector; }
 	public String getSelector() { return selector; }
 	public String getUIType() { return type; }
-	public boolean isAutocomplete() { return is_autocomplete; }
 	public boolean isInTitle() { return in_title; }
 	public boolean isInTab() { return in_tab; }
 	public String getTitleSelector() { return title_selector; }
@@ -100,4 +102,11 @@ public class Field implements FieldSet {
 	}
 	
 	public String getSection() { return services_section; }
+	
+	public Instance getAutocompleteInstance() { return autocomplete_instance; }
+	
+	public void config_finish(Spec spec) {
+		if(autocomplete_instance_id!=null)
+			autocomplete_instance=spec.getInstance(autocomplete_instance_id);
+	}
 }

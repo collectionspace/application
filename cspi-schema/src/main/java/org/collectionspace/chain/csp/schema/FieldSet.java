@@ -6,4 +6,5 @@ public interface FieldSet {
 	public Record getRecord();
 	public String getServicesTag();
 	public String getSection();
+	public void config_finish(Spec spec);
 }

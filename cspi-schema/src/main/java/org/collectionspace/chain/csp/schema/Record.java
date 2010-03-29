@@ -68,6 +68,7 @@ public class Record implements FieldParent {
 	public boolean isType(String k) { return type.contains(k); }
 	public Spec getSpec() { return spec; }
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
+	public FieldSet getField(String id) { return fields.get(id); }
 	public String getTermsUsedURL() { return terms_used_url; }
 	public String getNumberSelector() { return number_selector; }
 	public String getRowSelector() { return row_selector; }
@@ -100,6 +101,7 @@ public class Record implements FieldParent {
 	
 	public void addInstance(Instance n) {
 		instances.put(n.getID(),n);
+		spec.addInstance(n);
 	}
 	
 	void dump(StringBuffer out) {
@@ -109,4 +111,11 @@ public class Record implements FieldParent {
 	}
 
 	public Record getRecord() { return this; }
+	
+	public void config_finish(Spec spec) {
+		for(Instance n : instances.values())
+			n.config_finish(spec);
+		for(FieldSet fs : fields.values())
+			fs.config_finish(spec);
+	}
 }

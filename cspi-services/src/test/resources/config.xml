@@ -21,7 +21,6 @@
 			  <services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
 			  <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
 				<web-url>objects</web-url>
-				<ui-url>object.html</ui-url>
 				<tab-url>object-tab</tab-url>
 				<number-selector>.csc-accession-number</number-selector>
 				<row-selector>.csc-object-record-list-row:</row-selector>
@@ -186,10 +185,10 @@
 					<field id="contentObjectType">
 						<selector>.csc-object-description-content-object-type</selector>
 					</field>
-					<field id="contentPeople" autocomplete="1">
+					<field id="contentPeople" autocomplete="person-person">
 						<selector>.csc-object-description-content-people</selector>
 					</field>
-					<field id="contentPerson" autocomplete="1">
+					<field id="contentPerson" autocomplete="person-person">
 						<selector>.csc-object-description-content-person</selector>
 					</field>
 					<field id="contentPlace">
@@ -198,7 +197,7 @@
 					<field id="contentScript">
 						<selector>.csc-object-description-content-script</selector>
 					</field>
-					<field id="contentOrganization" autocomplete="1">
+					<field id="contentOrganization" autocomplete="person-person">
 						<selector>.csc-object-description-content-organization</selector>
 					</field>
 					<field id="contentMethod">
@@ -347,10 +346,10 @@
 			  <services-list-path>intakes-common-list/intake-list-item</services-list-path>
 			  <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>			
 			  <row-selector>.csc-procedural-record-list-row:</row-selector>
-			  <field id="currentOwner" autocomplete="1">
+			  <field id="currentOwner" autocomplete="person-person">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
-			  <field id="depositor" autocomplete="1" mini="summary">
+			  <field id="depositor" autocomplete="person-person" mini="summary">
 			    <selector>.csc-intake-depositor</selector>
 			  </field>
 			  <field id="depositorsRequirements">
@@ -406,13 +405,13 @@
 			  <field id="fieldCollectionNumber">
 			    <selector>.csc-intake-field-collection-number</selector>
 			  </field>
-			  <field id="fieldCollector" autocomplete="1">
+			  <field id="fieldCollector" autocomplete="person-person">
 			    <selector>.csc-intake-field-collector</selector>
 			  </field>
 			  <field id="valuationReferenceNumber">
 			    <selector>.csc-intake-valuation-reference-number</selector>
 			  </field>
-			  <field id="valuer" autocomplete="1">
+			  <field id="valuer" autocomplete="person-person">
 			    <selector>.csc-intake-valuer</selector>
 			  </field>			  
 			  <field id="insuranceNote">
@@ -424,7 +423,7 @@
 			  <field id="insuranceReferenceNumber">
 			    <selector>.csc-intake-insurance-reference-number</selector>
 			  </field>
-			  <field id="insurer" autocomplete="1">
+			  <field id="insurer" autocomplete="person-person">
 			    <selector>.csc-intake-insurer</selector>
 			  </field>  
 			  <field id="currentLocation">
@@ -451,7 +450,7 @@
 			  <field id="conditionCheckReferenceNumber">
 			    <selector>.csc-intake-condition-check-reference-number</selector>
 			  </field>
-			  <field id="conditionCheckAssesor" autocomplete="1">
+			  <field id="conditionCheckAssesor" autocomplete="person-person">
 			    <selector>.csc-intake-condition-check-assessor</selector>
 			  </field>			  
 			  <field id="conditionCheckDate" ui-type="date">
@@ -502,7 +501,7 @@
 			  <field id="accessionDate" ui-type="date">
 			    <selector>.csc-acquisition-accession-date</selector>
 			  </field>
-			  <field id="acquisitionAuthorizer" autocomplete="1">
+			  <field id="acquisitionAuthorizer" autocomplete="person-person">
 			    <selector>.csc-acquisition-authorizer</selector>
 			  </field>
 			  <field id="acquisitionAuthorizerDate" ui-type="date">
@@ -518,7 +517,7 @@
 			  <field id="acquisitionFundingValue">
 			    <selector>.csc-acquisition-acquisition-funding-value</selector>
 			  </field>
-			  <field id="acquisitionFundingSource" autocomplete="1">
+			  <field id="acquisitionFundingSource" autocomplete="person-person">
 			    <selector>.csc-acquisition-acquisition-funding-source</selector>
 			  </field>
 			  <field id="acquisitionFundingSourceProvisos">
@@ -554,7 +553,7 @@
 				  </options>
 			  </field>
 			  <repeat id="acquisitionSources" xxx-ui-no-repeat="yes">
-			    <field id="acquisitionSource" autocomplete="1" mini="summary">
+			    <field id="acquisitionSource" autocomplete="person-person" mini="summary">
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
 			  </repeat>
@@ -663,16 +662,16 @@
 			      <option id="female">Female</option>
 			    </options>
 			  </field>
-			  <field id="occupation" autocomplete="1">
+			  <field id="occupation" autocomplete="person-person">
 			    <selector>.csc-personAuthority-occupation</selector>
 			  </field>
-			  <field id="schoolOrStyle" autocomplete="1">
+			  <field id="schoolOrStyle" autocomplete="person-person">
 			    <selector>.csc-personAuthority-schoolOrStyle</selector>
 			  </field>
-			  <field id="group" autocomplete="1">
+			  <field id="group" autocomplete="organization-organization">
 			    <selector>.csc-personAuthority-group</selector>
 			  </field>
-			  <field id="nationality" autocomplete="1">
+			  <field id="nationality" autocomplete="person-person">
 			    <selector>.csc-personAuthority-nationality</selector>
 			  </field>
 			  <field id="nameNote">
@@ -685,14 +684,14 @@
 			    <selector>.csc-personAuthority-birthDate</selector>
 			    <title-selector>.csc-titleBar-birthDate</title-selector>
 			  </field>
-			  <field id="birthPlace" autocomplete="1">
+			  <field id="birthPlace" autocomplete="person-person">
 			    <selector>.csc-personAuthority-birthPlace</selector>
 			  </field>
 			  <field id="deathDate" ui-type="date" in-title="yes">
 			    <selector>.csc-personAuthority-deathDate</selector>
 			    <title-selector>.csc-titleBar-deathDate</title-selector>
 			  </field>
-			  <field id="deathPlace" autocomplete="1">
+			  <field id="deathPlace" autocomplete="person-person">
 			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
 			  <field id="addressType1">
@@ -708,7 +707,7 @@
 			  <field id="faxNumber1">
 			    <selector>.csc-contact-faxNumber1</selector>
 			  </field>
-			  <field id="place" autocomplete="1">
+			  <field id="place" autocomplete="person-person">
 			    <selector>.csc-contact-place</selector>
 			  </field>
 			  <field id="telephoneNumber1">
@@ -763,21 +762,21 @@
 			  <field id="nameAdditions">
 			    <selector>.csc-organizationAuthority-nameAdditions</selector>
 			  </field>
-			  <field id="contactName" autocomplete="1">
+			  <field id="contactName" autocomplete="person-person">
 			    <selector>.csc-organizationAuthority-contactName</selector>
 			  </field>
 			  <field id="foundingDate" ui-type="date" in-title="yes">
 			    <selector>.csc-organizationAuthority-foundingDate</selector>
 			    <title-selector>.csc-titleBar-foundationDate</title-selector>
 			  </field>
-			  <field id="foundingPlace" autocomplete="1">
+			  <field id="foundingPlace" autocomplete="person-person">
 			    <selector>.csc-organizationAuthority-foundingPlace</selector>
 			  </field>
 			  <field id="dissolutionDate" ui-type="date" in-title="yes">
 			    <selector>.csc-organizationAuthority-dissolutionDate</selector>
 			    <title-selector>.csc-titleBar-dissolutionDate</title-selector>
 			  </field>
-			  <field id="group" autocomplete="1">
+			  <field id="group" autocomplete="person-person">
 			    <selector>.csc-organizationAuthority-group</selector>
 			  </field>
 			  <field id="function">
@@ -797,8 +796,8 @@
 			    <selector>.csc-organizationAuthority-history</selector>
 			  </field>
 			</record>
-			
-			
+
+
 			<record id="users" type="userdata">
 		      <web-url>users</web-url>
 			  <services-instances-path>usersprofile_common:http://collectionspace.org/services/users,usersprofile-common-list/usersprofile-list-item</services-instances-path>
@@ -824,7 +823,6 @@
 			    <selector>.csc-user-status</selector>
 			  </field>
 			</record>
-
  			<record id="id" type="id"> <!-- XXX what is this type? How does this work? -->
 			</record>
 		</records>

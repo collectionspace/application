@@ -50,12 +50,12 @@ public class RecordStorage implements ContextualisedStorage {
 		// Number
 		view_good.put(r.getMiniNumber().getID(),"number");
 		view_map.put(r.getMiniNumber().getServicesTag(),r.getMiniNumber().getID());
-		if(r.getMiniNumber().isAutocomplete())
+		if(r.getMiniNumber().getAutocompleteInstance()!=null)
 			xxx_view_deurn.add(r.getMiniNumber().getID());
 		// Summary
 		view_good.put(r.getMiniSummary().getID(),"summary");
 		view_map.put(r.getMiniSummary().getServicesTag(),r.getMiniSummary().getID());
-		if(r.getMiniSummary().isAutocomplete())
+		if(r.getMiniSummary().getAutocompleteInstance()!=null)
 			xxx_view_deurn.add(r.getMiniSummary().getID());
 	}
 
