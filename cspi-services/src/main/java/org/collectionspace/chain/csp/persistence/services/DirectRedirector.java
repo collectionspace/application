@@ -43,9 +43,9 @@ public class DirectRedirector implements ContextualisedStorage {
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		/* Find relevant controller, and call */
 		String[] url=path.split("/");
-		Record r=spec.getRecordByServicesUrl(url[0]);
+		Record r=spec.getRecordByServicesUrl(url[1]);
 		if(!r.isType("authority"))
 			throw new UnimplementedException("Only authorities supported at direct at the moment");
-		return root.retrieveJSON(root,cache,r.getID()+"/_direct/"+url[1]+"/"+url[3]);
+		return root.retrieveJSON(root,cache,r.getID()+"/_direct/"+url[0]+"/"+url[2]+"/"+url[4]+"/"+url[5]);
 	}
 }

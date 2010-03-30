@@ -17,6 +17,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDoc
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -46,7 +47,6 @@ public class RecordStorage implements ContextualisedStorage {
 	public RecordStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
 		this.conn=conn;
 		this.r=r;
-
 		// Number
 		view_good.put(r.getMiniNumber().getID(),"number");
 		view_map.put(r.getMiniNumber().getServicesTag(),r.getMiniNumber().getID());
@@ -205,8 +205,8 @@ public class RecordStorage implements ContextualisedStorage {
 	}
 
 	// XXX support URNs for reference
-	private JSONObject miniForURI(ContextualisedStorage storage,CSPRequestCache cache,String uri) throws ExistException, UnimplementedException, UnderlyingStorageException {
-		return storage.retrieveJSON(storage,cache,"direct/"+uri);
+	private JSONObject miniForURI(ContextualisedStorage storage,CSPRequestCache cache,String refname,String uri) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		return storage.retrieveJSON(storage,cache,"direct/urn/"+uri+"/"+refname);
 	}
 	
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
@@ -221,9 +221,10 @@ public class RecordStorage implements ContextualisedStorage {
 					continue;
 				String key=((Element)node).selectSingleNode("sourceField").getText();
 				String uri=((Element)node).selectSingleNode("uri").getText();
+				String refname=((Element)node).selectSingleNode("refName").getText();
 				if(uri!=null && uri.startsWith("/"))
 					uri=uri.substring(1);
-				JSONObject data=miniForURI(storage,cache,uri);
+				JSONObject data=miniForURI(storage,cache,refname,uri);
 				out.put(key,data);
 			}
 			return out;

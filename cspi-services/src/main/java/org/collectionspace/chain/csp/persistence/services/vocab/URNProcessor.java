@@ -1,6 +1,7 @@
 package org.collectionspace.chain.csp.persistence.services.vocab;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,50 +21,68 @@ public class URNProcessor {
 	private String syntax;
 	private Pattern pattern;
 	private int[] order;
-	
+
 	URNProcessor(String syntax) {
 		this.syntax=syntax;
 		final Map<Integer,Integer> original=new HashMap<Integer,Integer>();
 		original.put(0,-2);
-		original.put(1,syntax.indexOf("\\{vocab\\}"));
-		original.put(2,syntax.indexOf("\\{entry\\}"));
-		original.put(3,syntax.indexOf("\\{display\\}"));
-		Integer[] rev=new Integer[]{0,1,2,3};
+		original.put(1,syntax.indexOf("{vocab}"));
+		original.put(2,syntax.indexOf("{vocab}")+1);
+		original.put(3,syntax.indexOf("{entry}"));
+		original.put(4,syntax.indexOf("{entry}")+1);
+		original.put(5,syntax.indexOf("{display}"));
+		Integer[] rev=new Integer[]{0,1,2,3,4,5};
 		Arrays.sort(rev,new Comparator<Integer>() {
 			public int compare(Integer i1,Integer i2) {
 				return original.get(i1).compareTo(original.get(i2));
 			}		
 		});
 		pattern=Pattern.compile("(.*?)/"+syntaxToPattern(syntax));
-		order=new int[4];
-		for(int i=0;i<4;i++)
+		order=new int[6];
+		for(int i=0;i<order.length;i++)
 			order[rev[i]]=i+1;
-		
+
 	}
-	
+
 	/* regexp-escapes non-literals and replace {foo} with (.*?) */
 	private static String syntaxToPattern(String in) {
 		in=in.replaceAll("([^A-Za-z0-9])","\\\\$1");
-		in=in.replaceAll("\\\\\\{.*?\\\\\\}","(.*?)");
+		in=in.replaceAll("\\\\\\{display\\\\\\}","(.*?)");
+		in=in.replaceAll("\\\\\\{.*?\\\\\\}","(.*?)\\\\((.*?)\\\\)");
 		return in;
 	}
-	
-	String constructURN(String vocab_id,String entry_id,String display) throws UnderlyingStorageException, ConnectionException, ExistException {
+
+	String constructURN(String vocab_type,String vocab_id,String entry_type,String entry_id,String display) throws UnderlyingStorageException, ConnectionException, ExistException {
 		try {
 			String out=syntax;
-			out=out.replaceAll("\\{vocab\\}",URLEncoder.encode(vocab_id,"UTF-8"));
-			out=out.replaceAll("\\{entry\\}",URLEncoder.encode(entry_id,"UTF-8"));
+			out=out.replaceAll("\\{vocab\\}",vocab_type+"("+URLEncoder.encode(vocab_id,"UTF-8")+")");
+			out=out.replaceAll("\\{entry\\}",entry_type+"("+URLEncoder.encode(entry_id,"UTF-8")+")");
 			out=out.replaceAll("\\{display\\}",URLEncoder.encode(display,"UTF-8"));
 			return out;
 		} catch (UnsupportedEncodingException e) {
 			throw new UnderlyingStorageException("UTF-8 not supported!?");
 		}
 	}
-	
-	String[] deconstructURN(String urn) throws ExistException {	
-		Matcher m=pattern.matcher(urn);
-		if(!m.matches())
-			throw new ExistException("Bad URN, does not exist");
-		return new String[]{m.group(order[0]),m.group(order[1]),m.group(order[2]),m.group(order[3])};
+
+	String[] deconstructURN(String urn,boolean prefix) throws ExistException, UnderlyingStorageException {	
+		try {
+			if(!prefix)
+				urn="/"+urn;
+			Matcher m=pattern.matcher(urn);
+			if(!m.matches())
+				throw new ExistException("Bad URN, does not exist");
+			String[] out=new String[6];
+			// 2,4,5 were URI encoded.
+			for(int i=0;i<out.length;i++) {
+				out[i]=m.group(order[i]);
+				if(i==2 || i==4 || i==5)
+					out[i]=URLDecoder.decode(out[i],"UTF-8");
+			}
+			if(!prefix)
+				out[0]=null;
+			return out;
+		} catch (UnsupportedEncodingException e) {
+			throw new UnderlyingStorageException("UTF-8 not supported!?");
+		}
 	}
 }

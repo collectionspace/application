@@ -589,7 +589,7 @@
 			  <services-list-path>http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
 			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
 			  <services-url>personauthorities</services-url>
-			  <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:id({vocab}):person:id({entry})'{display}'</urn-syntax>
+			  <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
 
 			  <instances>
 			    <instance id="person-person">
@@ -729,7 +729,7 @@
 			  <services-list-path>http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
 			  <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
 			  <services-url>orgauthorities</services-url>
-			  <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:id({vocab}):organization:id({entry})'{display}'</urn-syntax>
+			  <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
 
 			  <instances>
 			    <instance id="organization-organization">
@@ -805,7 +805,7 @@
 			  <services-list-path>http://collectionspace.org/services/users,users-common-list/users_list_item</services-list-path>
 			  <services-record-path>users_common:http://collectionspace.org/services/user,users_common</services-record-path>
 			  <services-url>usersprofile</services-url>
-			  <urn-syntax>urn:cspace:org.collectionspace.demo:usersprofile:id({vocab}):users:id({entry})'{display}'</urn-syntax>
+			  <urn-syntax>urn:cspace:org.collectionspace.demo:usersprofile:{vocab}:users:{entry}'{display}'</urn-syntax>
 
 			  <field id="userid">
 			    <selector>.csc-user-userID</selector>

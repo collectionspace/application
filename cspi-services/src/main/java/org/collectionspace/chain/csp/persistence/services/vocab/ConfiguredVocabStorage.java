@@ -93,7 +93,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			// This time with refid
 			String csid=out.getURLTail();
-			String refname=urn_processor.constructURN(vocab,out.getURLTail(),name);
+			String refname=urn_processor.constructURN("id",vocab,"id",out.getURLTail(),name);
 			body=new HashMap<String,Document>();
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
@@ -159,7 +159,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase()))
 					out.add(csid);
 				cache.setCached(getClass(),new String[]{"namefor",vocab,csid},name);
-				String refname=urn_processor.constructURN(vocab,csid,name);
+				String refname=urn_processor.constructURN("id",vocab,"id",csid,name);
 				cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refname);
 			}
 			return out.toArray(new String[0]);
@@ -176,16 +176,28 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 		return r.getServicesURL()+"/"+vocab+"/items/"+path;
 	}
 
+	private JSONObject urnGet(String vocab,String entry,String refname) throws JSONException, ExistException, UnderlyingStorageException {
+		JSONObject out=new JSONObject();
+		out.put("recordtype",r.getWebURL());
+		out.put("refid",refname);
+		out.put("csid",entry);
+		out.put("displayName",urn_processor.deconstructURN(refname,false)[5]);
+		return out;
+	}
+	
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String[] direct_probe=filePath.split("/",2);
+			String[] path=filePath.split("/");
 			String vocab,csid;
-			if("_direct".equals(direct_probe[0])) {
-				vocab=filePath.split("/")[1];
-				csid=filePath.split("/")[2];
+			if("_direct".equals(path[0])) {
+				if("urn".equals(path[1])) {
+					return urnGet(path[2],path[3],path[4]);
+				}
+				vocab=path[2];
+				csid=path[3];
 			} else {
-				vocab=vocab_cache.getVocabularyId(cache,filePath.split("/")[0]);
-				csid=filePath.split("/")[1];	
+				vocab=vocab_cache.getVocabularyId(cache,path[0]);
+				csid=path[1];	
 			}			
 			/*
 			String name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
@@ -236,7 +248,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 		try {
 			String name=jsonObject.getString(getDisplayNameKey());
 			String vocab=vocab_cache.getVocabularyId(cache,filePath.split("/")[0]);
-			String refname=urn_processor.constructURN(vocab,filePath.split("/")[1],name);
+			String refname=urn_processor.constructURN("id",vocab,"id",filePath.split("/")[1],name);
 			Map<String,Document> body=new HashMap<String,Document>();
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
