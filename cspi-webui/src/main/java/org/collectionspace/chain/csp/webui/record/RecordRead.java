@@ -85,8 +85,8 @@ public class RecordRead implements WebMethod {
 		return out;
 	}
 	
-	/* Wrapper exists to decomplexify exceptions */
-	private JSONObject getJSON(Storage storage,String csid) throws UIException {
+	/* Wrapper exists to decomplexify exceptions: also used inCreateUpdate, hence not private */
+	JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		try {
 			if(record_type) {

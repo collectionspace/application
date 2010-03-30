@@ -26,12 +26,14 @@ public class RecordCreateUpdate implements WebMethod {
 	private String url_base,base;
 	private boolean create;
 	private Spec spec;
+	private RecordRead reader;
 	
 	public RecordCreateUpdate(Record r,boolean create) { 
 		spec=r.getSpec();
 		this.url_base=r.getWebURL();
 		this.base=r.getID();
 		this.create=create;
+		reader=new RecordRead(r);
 	}
 		
 	private void deleteAllRelations(Storage storage,String csid) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
@@ -85,7 +87,7 @@ public class RecordCreateUpdate implements WebMethod {
 				path=sendJSON(storage,path,data);
 			if(path==null)
 				throw new UIException("Insufficient data for create (no fields?)");
-			data.put("csid",path);
+			data=reader.getJSON(storage,path);
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 			if(create)

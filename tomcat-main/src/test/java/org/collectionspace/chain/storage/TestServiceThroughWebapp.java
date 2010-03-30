@@ -162,10 +162,13 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(data.toString()));
 		assertEquals(201,out.getStatus());
 		jo=new JSONObject(out.getContent());
-		out=jettyDo(jetty,"GET","/chain/intake/"+jo.getString("csid"),null);
-		jo=new JSONObject(out.getContent());		
 		log.info(jo.toString());
-		
+		JSONArray terms_used=jo.getJSONArray("termsUsed");
+		assertEquals(1,terms_used.length());
+		JSONObject term_used=terms_used.getJSONObject(0);
+		assertEquals("valuer",term_used.getString("sourceFieldName"));
+		assertEquals("person",term_used.getString("recordtype"));		
+		assertEquals("David Bowie",term_used.getString("number"));
 		/*
 		=ss.autocreateJSON("person/person",person);
 		log.info("p="+p);
