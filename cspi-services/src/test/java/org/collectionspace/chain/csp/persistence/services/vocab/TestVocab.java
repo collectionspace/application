@@ -16,8 +16,10 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.json.JSONObject;
@@ -54,7 +56,11 @@ public class TestVocab extends ServicesBaseClass {
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("objects",r_obj.getWebURL());
-		return cspm.getStorage("service").getStorage(new RequestCache());
+		StorageGenerator gen=cspm.getStorage("service");
+		CSPRequestCredentials creds=gen.createCredentials();
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
+		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"test");		
+		return gen.getStorage(creds,new RequestCache());
 	}
 
 	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {

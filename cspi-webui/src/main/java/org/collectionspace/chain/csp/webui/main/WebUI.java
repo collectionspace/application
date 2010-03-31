@@ -47,12 +47,14 @@ import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
 import org.collectionspace.csp.api.ui.UIUmbrella;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.slf4j.Logger;
@@ -106,7 +108,7 @@ public class WebUI implements CSP, UI, Configurable {
 	private void configure_finish(Spec spec) {
 		for(Operation op : Operation.values())
 			tries.put(op,new Trie());		
-		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin());
+		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin(this,spec));
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
 		addMethod(Operation.READ,new String[]{"find-edit","uispec"},0,new FindEditUISpec(spec.getAllRecords()));
@@ -186,11 +188,25 @@ public class WebUI implements CSP, UI, Configurable {
 		xxx_storage=ctx.getStorage(bootstrap.getOption("storage-type"));
 	}
 
+	Storage generateStorage(UISession session,CSPRequestCache cache) {
+		CSPRequestCredentials creds=xxx_storage.createCredentials(); // XXX
+		if(session!=null && creds!=null) {
+			creds.setCredential(StorageGenerator.CRED_USERID,session.getValue(UISession.USERID));
+			creds.setCredential(StorageGenerator.CRED_PASSWORD,session.getValue(UISession.PASSWORD));
+		}
+		return xxx_storage.getStorage(creds,cache); // XXX
+	}
+	
+	public Storage regenerateStorage(UISession session) {
+		return generateStorage(session,new RequestCache());
+	}
+	
 	public void serviceRequest(UIRequest ui) throws UIException {		
-		CSPRequestCache cache=new RequestCache(); // XXX
-		Storage storage=xxx_storage.getStorage(cache); // XXX
+		UISession session=ui.getSession();
+		CSPRequestCache cache=new RequestCache();
+		Storage storage=generateStorage(session,cache);
 		String[] path=ui.getPrincipalPath();
-		Request r=new Request(cache,storage,ui);
+		Request r=new Request(this,cache,storage,ui);
 		log.info("ServiceRequest path: "+StringUtils.join(path,"/"));
 		try {
 			if(tries.get(ui.getRequestedOperation()).call(path,r))

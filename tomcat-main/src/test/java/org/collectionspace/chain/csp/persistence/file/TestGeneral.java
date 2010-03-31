@@ -421,23 +421,4 @@ public class TestGeneral {
 		assertTrue(new File(a,id1+".json").exists());
 		assertTrue(new File(b,id2+".json").exists());
 	}
-	
-	@Test public void testLogin() throws Exception {
-		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/login?userid=guest&password=guest",null);	
-		assertEquals(303,out.getStatus());
-		assertEquals("/cspace-ui/html/createnew.html",out.getHeader("Location"));
-		out=jettyDo(jetty,"GET","/chain/login?userid=curator&password=curator",null);
-		assertEquals(303,out.getStatus());
-		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
-		out=jettyDo(jetty,"GET","/chain/login?userid=admin&password=admin",null);
-		assertEquals(303,out.getStatus());
-		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
-		out=jettyDo(jetty,"GET","/chain/login?userid=guest&password=toast",null);	
-		assertEquals(303,out.getStatus());
-		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
-		out=jettyDo(jetty,"GET","/chain/login?userid=bob&password=bob",null);	
-		assertEquals(303,out.getStatus());
-		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
-	}
 }

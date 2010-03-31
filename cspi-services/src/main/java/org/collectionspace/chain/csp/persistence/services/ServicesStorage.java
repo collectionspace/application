@@ -10,6 +10,7 @@ import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -25,41 +26,43 @@ import org.json.JSONObject;
 public class ServicesStorage extends SplittingStorage implements Storage {
 	private CSPRequestCache cache;
 	private ContextualisedStorage storage;
+	private CSPRequestCredentials creds;
 	
-	public ServicesStorage(ContextualisedStorage storage,CSPRequestCache cache) {
+	public ServicesStorage(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache) {
 		this.cache=cache;
 		this.storage=storage;
+		this.creds=creds;
 	}
 	
 	public String getName() { return "persistence.services"; }
 
 	public String autocreateJSON(String filePath, JSONObject jsonObject)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		return storage.autocreateJSON(storage,cache, filePath, jsonObject);
+		return storage.autocreateJSON(storage,creds,cache, filePath, jsonObject);
 	}
 
 	public void createJSON(String filePath, JSONObject jsonObject)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		storage.createJSON(storage,cache, filePath, jsonObject);
+		storage.createJSON(storage,creds,cache, filePath, jsonObject);
 	}
 
 	public void deleteJSON(String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		storage.deleteJSON(storage,cache,filePath);
+		storage.deleteJSON(storage,creds,cache,filePath);
 	}
 
 	public String[] getPaths(String rootPath,JSONObject restrictions) 
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		return storage.getPaths(storage,cache,rootPath,restrictions);
+		return storage.getPaths(storage,creds,cache,rootPath,restrictions);
 	}
 
 	public JSONObject retrieveJSON(String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		return storage.retrieveJSON(storage,cache,filePath);
+		return storage.retrieveJSON(storage,creds,cache,filePath);
 	}
 
 	public void updateJSON(String filePath, JSONObject jsonObject)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		storage.updateJSON(storage,cache, filePath, jsonObject);
+		storage.updateJSON(storage,creds,cache, filePath, jsonObject);
 	}
 }

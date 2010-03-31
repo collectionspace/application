@@ -46,11 +46,11 @@ public class TestService extends ServicesBaseClass {
 	@Test public void testObjectsPost() throws Exception {
 		Map<String,Document> parts=new HashMap<String,Document>();
 		parts.put("collectionobjects_common",getDocument("obj1.xml"));
-		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts,creds);
 		assertEquals(201,url.getStatus());
 		log.info("got "+url.getURL());
 		//assertTrue(url.getURL().startsWith("/collectionobjects/"));	// XXX should be, but CSPACE-305
-		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()),null);
+		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()),null,creds);
 		assertEquals(200,doc.getStatus());
 		String num=doc.getDocument("collectionobjects_common").selectSingleNode("collectionobjects_common/objectNumber").getText();
 		assertEquals("2",num);
@@ -59,11 +59,11 @@ public class TestService extends ServicesBaseClass {
 	@Test public void testObjectsPut() throws Exception {
 		Map<String,Document> parts=new HashMap<String,Document>();
 		parts.put("collectionobjects_common",getDocument("obj1.xml"));		
-		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts,creds);
 		assertEquals(201,url.getStatus());
-		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.PUT,cspace305_hack(url.getURL()),buildObject("32","obj2.xml","collectionobjects_common"));
+		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.PUT,cspace305_hack(url.getURL()),buildObject("32","obj2.xml","collectionobjects_common"),creds);
 		assertEquals(201,url.getStatus()); // 201?
-		doc=conn.getMultipartXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()),null);
+		doc=conn.getMultipartXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()),null,creds);
 		assertEquals(200,doc.getStatus());
 		String num=doc.getDocument("collectionobjects_common").selectSingleNode("collectionobjects_common/objectNumber").getText();
 		assertEquals("32",num);
@@ -86,13 +86,13 @@ public class TestService extends ServicesBaseClass {
 	@Test public void testDelete() throws Exception {
 		Map<String,Document> parts=new HashMap<String,Document>();
 		parts.put("collectionobjects_common",getDocument("obj1.xml"));		
-		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts,creds);
 		assertEquals(201,url.getStatus());
-		ReturnedMultipartDocument doc1=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null);
+		ReturnedMultipartDocument doc1=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds);
 		assertEquals(200,doc1.getStatus());		
-		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null);
+		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds);
 		assertEquals(200,status); // XXX CSPACE-73, should be 404
-		ReturnedMultipartDocument doc2=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null);
+		ReturnedMultipartDocument doc2=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds);
 		assertEquals(404,doc2.getStatus());	 // XXX CSPACE-209, should be 404
 		assertNull(doc2.getDocument("collectionobjects_common"));
 	}
@@ -102,18 +102,18 @@ public class TestService extends ServicesBaseClass {
 		Map<String,Document> parts=new HashMap<String,Document>();
 		Document doc1=getDocument("obj1.xml");
 		parts.put("collectionobjects_common",doc1);		
-		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts,creds);
 		assertEquals(201,url.getStatus());
 		String non=url.getURLTail();
 		// Insert one aardvark
 		parts=new HashMap<String,Document>();
 		Document doc2=getDocument("obj-search.xml");
 		parts.put("collectionobjects_common",doc2);		
-		url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts);
+		url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts,creds);
 		assertEquals(201,url.getStatus());
 		String good=url.getURLTail();		
 		// search for aardvark
-		ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/search?keywords=aardvark",null);
+		ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/search?keywords=aardvark",null,creds);
 		assertEquals(200,doc.getStatus());
 		Set<String> csids=new HashSet<String>();
 		for(Node n : (List<Node>)doc.getDocument().selectNodes("collectionobjects-common-list/collection-object-list-item/csid")) {

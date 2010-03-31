@@ -23,8 +23,10 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
@@ -94,17 +96,21 @@ public class TestRelations extends ServicesBaseClass {
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("objects",r_obj.getWebURL());
-		return cspm.getStorage("service").getStorage(new RequestCache());
+		StorageGenerator gen=cspm.getStorage("service");
+		CSPRequestCredentials creds=gen.createCredentials();
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
+		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"test");
+		return gen.getStorage(creds,new RequestCache());
 	}
 	
 	@Test public void testRelations() throws Exception {
 		// Quick rocket through direct PUT/POST/GET/DELETE to check everything is in order before we use the API
 		RelationFactory factory=new RelationFactory();
 		Relation r1=factory.create(null,"SubjectType-1261070872573-type","Subject-1261070872573","collectionobject-intake","ObjectType-1261070872573-type","Object-1261070872573");		
-		ReturnedURL doc2=conn.getMultipartURL(RequestMethod.POST,"/relations/",makeMultipartCommon("relations_common",r1.toDocument()));
+		ReturnedURL doc2=conn.getMultipartURL(RequestMethod.POST,"/relations/",makeMultipartCommon("relations_common",r1.toDocument()),creds);
 		assertTrue(doc2.getStatus()<300);
 		log.info("url="+doc2.getURL());
-		ReturnedMultipartDocument doc3=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null);
+		ReturnedMultipartDocument doc3=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null,creds);
 		assertTrue(doc3.getStatus()<300);		
 		log.info(doc3.getDocument("relations_common").asXML());
 		Relation r2=factory.load(null,doc3.getDocument("relations_common"));
@@ -114,9 +120,9 @@ public class TestRelations extends ServicesBaseClass {
 		assertEquals(r1.getDestinationId(),r2.getDestinationId());
 		assertEquals(r1.getRelationshipType(),r2.getRelationshipType());
 		Relation r3=factory.create(null,"ZSubjectType-1261070872573-type","ZSubject-1261070872573","Zcollectionobject-intake","ZObjectType-1261070872573-type","ZObject-1261070872573");		
-		ReturnedMultipartDocument doc4=conn.getMultipartXMLDocument(RequestMethod.PUT,doc2.getURL(),makeMultipartCommon("relations_common",r3.toDocument()));
+		ReturnedMultipartDocument doc4=conn.getMultipartXMLDocument(RequestMethod.PUT,doc2.getURL(),makeMultipartCommon("relations_common",r3.toDocument()),creds);
 		assertTrue(doc4.getStatus()<300);
-		ReturnedMultipartDocument doc5=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null);
+		ReturnedMultipartDocument doc5=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null,creds);
 		assertTrue(doc5.getStatus()<300);		
 		Relation r4=factory.load(null,doc5.getDocument("relations_common"));
 		assertEquals(r3.getSourceType(),r4.getSourceType());
@@ -124,9 +130,9 @@ public class TestRelations extends ServicesBaseClass {
 		assertEquals(r3.getSourceId(),r4.getSourceId());
 		assertEquals(r3.getDestinationId(),r4.getDestinationId());
 		assertEquals(r3.getRelationshipType(),r4.getRelationshipType());
-		int status=conn.getNone(RequestMethod.DELETE,doc2.getURL(),null);
+		int status=conn.getNone(RequestMethod.DELETE,doc2.getURL(),null,creds);
 		assertTrue(status<300);
-		ReturnedMultipartDocument doc6=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null);
+		ReturnedMultipartDocument doc6=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null,creds);
 		assertTrue(doc6.getStatus()>299);
 	}
 	

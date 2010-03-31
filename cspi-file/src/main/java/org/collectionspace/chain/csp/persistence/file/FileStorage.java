@@ -20,6 +20,7 @@ import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.helper.persistence.ProxyStorage;
@@ -61,7 +62,7 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 		}
 	}
 
-	public Storage getStorage(CSPRequestCache cache) { return this; }
+	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache) { return this; }
 
 	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/persistence/file -> FILE */
@@ -80,4 +81,5 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 			root=boot_root;
 		real_init();
 	}
+	public CSPRequestCredentials createCredentials() { return null; }
 }

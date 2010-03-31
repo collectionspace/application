@@ -13,12 +13,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TestServiceThroughWebapp {
-	
+	private String cookie;
 	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughWebapp.class);
 	
 	// XXX refactor
@@ -36,8 +37,15 @@ public class TestServiceThroughWebapp {
 	// XXX refactor
 	private UTF8SafeHttpTester jettyDo(ServletTester tester,String method,String path,String data_str) throws IOException, Exception {
 		UTF8SafeHttpTester out=new UTF8SafeHttpTester();
-		out.request(tester,method,path,data_str,null);
+		out.request(tester,method,path,data_str,cookie);
 		return out;
+	}
+	
+	private void login(ServletTester tester) throws IOException, Exception {
+		UTF8SafeHttpTester out=jettyDo(tester,"GET","/chain/login?userid=test&password=test",null);
+		assertEquals(303,out.getStatus());
+		cookie=out.getHeader("Set-Cookie");
+		log.info("Got cookie "+cookie);
 	}
 	
 	// XXX refactor into other copy of this method
@@ -54,6 +62,8 @@ public class TestServiceThroughWebapp {
 		tester.setAttribute("store-url",base+"/cspace-services/");	
 		tester.setAttribute("config-filename","default.xml");
 		tester.start();
+		// Login
+		login(tester);
 		return tester;
 	}
 	
@@ -269,5 +279,21 @@ public class TestServiceThroughWebapp {
 				assertTrue(false);
 		}
 		assertTrue(found);
+	}
+	
+	@Test public void testLogin() throws Exception {
+		ServletTester jetty=setupJetty();
+		UTF8SafeHttpTester out=jettyDo(jetty,"GET","/chain/login?userid=test&password=test",null);	
+		assertEquals(303,out.getStatus());
+		assertEquals("/cspace-ui/html/createnew.html",out.getHeader("Location"));
+		out=jettyDo(jetty,"GET","/chain/login?userid=test&password=test",null);
+		assertEquals(303,out.getStatus());
+		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
+		out=jettyDo(jetty,"GET","/chain/login?userid=guest&password=toast",null);	
+		assertEquals(303,out.getStatus());
+		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
+		out=jettyDo(jetty,"GET","/chain/login?userid=bob&password=bob",null);	
+		assertEquals(303,out.getStatus());
+		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
 	}
 }

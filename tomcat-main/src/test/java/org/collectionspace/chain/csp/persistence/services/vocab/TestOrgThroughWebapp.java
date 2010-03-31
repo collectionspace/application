@@ -14,6 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
@@ -21,12 +22,20 @@ import org.slf4j.LoggerFactory;
 
 public class TestOrgThroughWebapp {
 	private static final Logger log=LoggerFactory.getLogger(TestOrgThroughWebapp.class);
+	private static String cookie;
+	
 	// XXX refactor
 	protected InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 	}
 	
+	private static void login(ServletTester tester) throws IOException, Exception {
+		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test&password=test",null);
+		assertEquals(303,out.getStatus());
+		cookie=out.getHeader("Set-Cookie");
+		log.info("Got cookie "+cookie);
+	}
 	
 	// XXX refactor
 	private static HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
@@ -36,6 +45,8 @@ public class TestOrgThroughWebapp {
 		request.setHeader("Host","tester");
 		request.setURI(path);
 		request.setVersion("HTTP/1.0");		
+		if(cookie!=null)
+			request.addHeader(HttpHeaders.COOKIE,cookie);
 		if(data!=null)
 			request.setContent(data);
 		response.parse(tester.getResponses(request.generate()));
@@ -56,6 +67,7 @@ public class TestOrgThroughWebapp {
 		tester.setAttribute("store-url",base+"/cspace-services/");	
 		tester.setAttribute("config-filename","default.xml");
 		tester.start();
+		login(tester);
 		return tester;
 	}
 	

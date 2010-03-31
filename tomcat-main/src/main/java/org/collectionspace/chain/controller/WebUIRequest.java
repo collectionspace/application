@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
+import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
@@ -225,5 +227,6 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 
-	public UISession getSession() throws UIException { return new WebUISession(umbrella); }
+	public UISession getSession() throws UIException { return session; }
+	public Storage resetStorage() { return umbrella.getWebUI().regenerateStorage(session); }
 }

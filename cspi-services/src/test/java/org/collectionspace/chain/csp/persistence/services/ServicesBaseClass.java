@@ -8,6 +8,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ConnectionE
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
@@ -19,6 +20,7 @@ public class ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(ServicesBaseClass.class);
 	protected ServicesConnection conn;
 	protected String base;
+	protected CSPRequestCredentials creds;
 
 	protected void setup() throws BootstrapConfigLoadFailedException, ConnectionException {
 		BootstrapConfigController config_controller=new BootstrapConfigController();
@@ -28,7 +30,10 @@ public class ServicesBaseClass {
 		base="http://test.collectionspace.org:8180"; // XXX hardwired
 		log.info("base="+base);
 		conn=new ServicesConnection(base+"/cspace-services");
-		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null);
+		creds=new ServicesRequestCredentials();
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
+		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"test");		
+		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds);
 		Assume.assumeTrue(out.getStatus()==200);
 	}
 	

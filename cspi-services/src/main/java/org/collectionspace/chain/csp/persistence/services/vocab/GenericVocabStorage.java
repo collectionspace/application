@@ -21,6 +21,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMul
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
@@ -103,18 +104,18 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	}
 
 	// Only called if doesn't exist
-	private synchronized void createVocabulary(CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
+	private synchronized void createVocabulary(CSPRequestCredentials creds,CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
 		Map<String,Document> body=new HashMap<String,Document>();
 		body.put(section,createList(id));
-		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/",body);
+		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/",body,creds);
 		if(out.getStatus()>299)
 			throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 		csids.put(id,out.getURLTail());
 	}
 
 	@SuppressWarnings("unchecked")
-	private void buildVocabularies(CSPRequestCache cache) throws ConnectionException, UnderlyingStorageException {
-		ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/"+prefix+"/",null);
+	private void buildVocabularies(CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException, UnderlyingStorageException {
+		ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/"+prefix+"/",null,creds);
 		Document doc=data.getDocument();
 		if(doc==null)
 			throw new UnderlyingStorageException("Could not retrieve vocabularies");
@@ -130,14 +131,14 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		}
 	}
 
-	private String getVocabularyId(CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
+	private String getVocabularyId(CSPRequestCredentials creds,CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
 		if(csids.containsKey(id))
 			return csids.get(id);
 		synchronized(getClass()) {
-			buildVocabularies(cache);
+			buildVocabularies(creds,cache);
 			if(csids.containsKey(id))
 				return csids.get(id);
-			createVocabulary(cache,id);
+			createVocabulary(creds,cache,id);
 			if(csids.containsKey(id))
 				return csids.get(id);
 			throw new UnderlyingStorageException("Bad vocabulary "+id);
@@ -188,16 +189,16 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		return out;
 	}
 
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath,JSONObject jsonObject)
+	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			if(!jsonObject.has("name"))
 				throw new UnderlyingStorageException("Missing name argument to data");
 			String name=jsonObject.getString("name");
-			String vocab=getVocabularyId(cache,filePath);
+			String vocab=getVocabularyId(creds,cache,filePath);
 			Map<String,Document> body=new HashMap<String,Document>();
 			body.put(items_section,createEntry(name,vocab));
-			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/"+vocab+"/items",body);
+			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/"+vocab+"/items",body,creds);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			String urn=constructURN(cache,vocab,out.getURLTail(),name);
@@ -210,15 +211,15 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		}
 	}
 
-	public void createJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath,JSONObject jsonObject)
+	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Cannot create at named path");
 	}
 
-	public void deleteJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath)
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
-			int status=conn.getNone(RequestMethod.DELETE,URNtoURL(cache,filePath),null);
+			int status=conn.getNone(RequestMethod.DELETE,URNtoURL(creds,cache,filePath),null,creds);
 			if(status>299)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+status);
 			cache.removeCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]});
@@ -228,11 +229,11 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	}
 
 	@SuppressWarnings("unchecked")
-	public String[] getPaths(ContextualisedStorage root,CSPRequestCache cache,String rootPath,JSONObject restrictions)
+	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			List<String> out=new ArrayList<String>();
-			String vocab=getVocabularyId(cache,rootPath);
+			String vocab=getVocabularyId(creds,cache,rootPath);
 			String url="/"+prefix+"/"+vocab+"/items";
 			String prefix=null;
 			if(restrictions!=null && restrictions.has("name"))
@@ -241,7 +242,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			url+="?pgSz=10000";
 			if(prefix!=null)
 				url+="&pt="+URLEncoder.encode(prefix,"UTF8");
-			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null);
+			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds);
 			Document doc=data.getDocument();
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies");
@@ -263,34 +264,34 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		}
 	}
 
-	private String URNtoURL(CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
+	private String URNtoURL(CSPRequestCredentials creds,CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
 		String[] parts=deconstructURN(cache,path);
-		String vocab=getVocabularyId(cache,parts[0]);
+		String vocab=getVocabularyId(creds,cache,parts[0]);
 		if(!vocab.equals(parts[1]))
 			throw new ExistException("Not in this vocabulary");
 		return "/"+prefix+"/"+parts[1]+"/items/"+parts[2];
 	}
 
-	private String URNNewName(CSPRequestCache cache,String path,String name) throws ExistException, ConnectionException, UnderlyingStorageException {
+	private String URNNewName(CSPRequestCredentials creds,CSPRequestCache cache,String path,String name) throws ExistException, ConnectionException, UnderlyingStorageException {
 		String[] parts=deconstructURN(cache,path);
-		String vocab=getVocabularyId(cache,parts[0]);
+		String vocab=getVocabularyId(creds,cache,parts[0]);
 		if(!vocab.equals(parts[1]))
 			throw new ExistException("Not in this vocabulary");
 		return constructURN(cache,vocab,parts[2],name);
 	}
 
-	private String URNtoVocab(CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
+	private String URNtoVocab(CSPRequestCredentials creds,CSPRequestCache cache,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
 		String[] parts=deconstructURN(cache,path);
-		return getVocabularyId(cache,parts[0]);
+		return getVocabularyId(creds,cache,parts[0]);
 	}
 
-	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCache cache, String filePath)
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
 			String name=(String)cache.getCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]});
 			if(name==null) {			
 				// XXX pagination support
-				ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,URNtoURL(cache,filePath),null);
+				ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,URNtoURL(creds,cache,filePath),null,creds);
 				if(doc.getStatus()==404)
 					throw new ExistException("Does not exist");
 				if(doc.getStatus()>299)
@@ -299,7 +300,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			}
 			JSONObject out=new JSONObject();
 			out.put("name",name);
-			out.put("csid",URNNewName(cache,filePath,name));
+			out.put("csid",URNNewName(creds,cache,filePath,name));
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
@@ -308,15 +309,15 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		}
 	}
 
-	public void updateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath,JSONObject jsonObject)
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			if(!jsonObject.has("name"))
 				throw new UnderlyingStorageException("Missing name argument to data");
 			String name=jsonObject.getString("name");
 			Map<String,Document> body=new HashMap<String,Document>();
-			body.put(items_section,createEntry(name,URNtoVocab(cache,filePath)));
-			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,URNtoURL(cache,filePath),body);
+			body.put(items_section,createEntry(name,URNtoVocab(creds,cache,filePath)));
+			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,URNtoURL(creds,cache,filePath),body,creds);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			cache.setCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]},name);

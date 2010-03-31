@@ -7,6 +7,7 @@
 package org.collectionspace.csp.helper.persistence;
 
 import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -24,7 +25,7 @@ public interface ContextualisedStorage {
 	 * @param filePath - path to the file
 	 * @return  String of valid JSON format, or an empty string if an error was encountered.
 	 */
-	public abstract JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath)
+	public abstract JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
 	/**
@@ -33,7 +34,7 @@ public interface ContextualisedStorage {
 	 * @param filePath - path to file for storage
 	 * @param jsonObject - the JSONObject to be parsed and stored
 	 */
-	public abstract void updateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject)
+	public abstract void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
 	/**
@@ -42,15 +43,15 @@ public interface ContextualisedStorage {
 	 * @param filePath - path to file for storage
 	 * @param jsonObject - the JSONObject to be parsed and stored
 	 */
-	public abstract void createJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject)
+	public abstract void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
-	public abstract String autocreateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject)
+	public abstract String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
-	public String[] getPaths(ContextualisedStorage root,CSPRequestCache cache,String rootPath, JSONObject restrictions)
+	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
-	public void deleteJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath)
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 }

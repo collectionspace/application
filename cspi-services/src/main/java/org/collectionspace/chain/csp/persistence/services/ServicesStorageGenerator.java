@@ -17,6 +17,7 @@ import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
@@ -31,8 +32,8 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	private String base_url;
 	private CSPContext ctx;
 	
-	public Storage getStorage(CSPRequestCache cache) {
-		return new ServicesStorage(this,cache);
+	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache) {
+		return new ServicesStorage(this,credentials,cache);
 	}
 
 	public String getName() { return "persistence.services"; }
@@ -82,5 +83,9 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		if(spec==null)
 			throw new CSPDependencyException("Could not load spec");
 		real_init(spec);
+	}
+
+	public CSPRequestCredentials createCredentials() {
+		return new ServicesRequestCredentials();
 	}
 }

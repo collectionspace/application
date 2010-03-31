@@ -20,6 +20,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ServicesCon
 import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -71,7 +72,7 @@ public class RecordStorage implements ContextualisedStorage {
 		XmlJsonConversion.convertToJson(out,r,in);
 	}
 
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Map<String,Document> parts=new HashMap<String,Document>();
 			for(String section : r.getServicesRecordPaths()) {
@@ -81,7 +82,7 @@ public class RecordStorage implements ContextualisedStorage {
 				parts.put(record_path[0],doc);
 				System.err.println(doc.asXML());
 			}
-			ReturnedURL url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts);
+			ReturnedURL url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds);
 			if(url.getStatus()>299 || url.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+url.getStatus());
 			return url.getURLTail();
@@ -92,15 +93,15 @@ public class RecordStorage implements ContextualisedStorage {
 		}
 	}
 
-	public void createJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject)
+	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Cannot post to full path");
 	}
 
-	public void deleteJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath) throws ExistException,
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
-			int status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null);
+			int status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds);
 			if(status>299 || status<200) // XXX CSPACE-73, should be 404
 				throw new UnderlyingStorageException("Service layer exception status="+status);
 		} catch (ConnectionException e) {
@@ -125,20 +126,20 @@ public class RecordStorage implements ContextualisedStorage {
 	}
 
 	@SuppressWarnings("unchecked")
-	public String[] getPaths(ContextualisedStorage root,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Document list=null;
 			List<String> out=new ArrayList<String>();
 			if(restrictions!=null && restrictions.has("keywords")) {
 				/* Keyword search */
 				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/search?keywords="+data,null);
+				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/search?keywords="+data,null,creds);
 				if(all.getStatus()!=200)
 					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 				list=all.getDocument();
 			} else {
 				/* Full list */
-				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/",null);
+				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/",null,creds);
 				if(all.getStatus()!=200)
 					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 				list=all.getDocument();
@@ -182,36 +183,36 @@ public class RecordStorage implements ContextualisedStorage {
 		}
 	}
 
-	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath) throws ExistException,
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=filePath.split("/",2);
 			if(parts.length==2) {
-				return viewRetrieveJSON(root,cache,parts[0],parts[1]);
+				return viewRetrieveJSON(root,creds,cache,parts[0],parts[1]);
 			} else
-				return simpleRetrieveJSON(filePath);
+				return simpleRetrieveJSON(creds,filePath);
 		} catch(JSONException x) {
 			throw new UnderlyingStorageException("Error building JSON",x);
 		}
 	}
 
-	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCache cache,String filePath,String view) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		if("view".equals(view))
-			return miniViewRetrieveJSON(cache,filePath);
+			return miniViewRetrieveJSON(cache,creds,filePath);
 		else if("refs".equals(view))
-			return refViewRetrieveJSON(storage,cache,filePath);
+			return refViewRetrieveJSON(storage,creds,cache,filePath);
 		else
 			return new JSONObject();
 	}
 
 	// XXX support URNs for reference
-	private JSONObject miniForURI(ContextualisedStorage storage,CSPRequestCache cache,String refname,String uri) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		return storage.retrieveJSON(storage,cache,"direct/urn/"+uri+"/"+refname);
+	private JSONObject miniForURI(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String refname,String uri) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		return storage.retrieveJSON(storage,creds,cache,"direct/urn/"+uri+"/"+refname);
 	}
 	
-	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath+"/authorityrefs",null);
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath+"/authorityrefs",null,creds);
 			if(all.getStatus()!=200)
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 			Document list=all.getDocument();
@@ -224,7 +225,7 @@ public class RecordStorage implements ContextualisedStorage {
 				String refname=((Element)node).selectSingleNode("refName").getText();
 				if(uri!=null && uri.startsWith("/"))
 					uri=uri.substring(1);
-				JSONObject data=miniForURI(storage,cache,refname,uri);
+				JSONObject data=miniForURI(storage,creds,cache,refname,uri);
 				out.put(key,data);
 			}
 			return out;
@@ -233,7 +234,7 @@ public class RecordStorage implements ContextualisedStorage {
 		}
 	}
 
-	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,CSPRequestCredentials creds,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject out=new JSONObject();
 		Set<String> to_get=new HashSet<String>(view_good.keySet());
 		// Try to fullfil from gleaned info
@@ -248,7 +249,7 @@ public class RecordStorage implements ContextualisedStorage {
 		}
 		// Do a full request
 		if(to_get.size()>0) {
-			JSONObject data=simpleRetrieveJSON(filePath);
+			JSONObject data=simpleRetrieveJSON(creds,filePath);
 			for(String good : to_get) {
 				if(data.has(good)) {
 					String vkey=view_good.get(good);
@@ -262,10 +263,10 @@ public class RecordStorage implements ContextualisedStorage {
 		return out;
 	}
 
-	public JSONObject simpleRetrieveJSON(String filePath) throws ExistException,
+	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
-			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null);
+			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null,creds);
 			JSONObject out=new JSONObject();
 			if((doc.getStatus()<200 || doc.getStatus()>=300))
 				throw new ExistException("Does not exist "+filePath);
@@ -282,7 +283,7 @@ public class RecordStorage implements ContextualisedStorage {
 		}
 	}
 
-	public void updateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject)
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Map<String,Document> parts=new HashMap<String,Document>();
@@ -293,7 +294,7 @@ public class RecordStorage implements ContextualisedStorage {
 				parts.put(record_path[0],doc);
 				System.err.println(doc.asXML());
 			}
-			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.PUT,r.getServicesURL()+"/"+filePath,parts);
+			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.PUT,r.getServicesURL()+"/"+filePath,parts,creds);
 			if(doc.getStatus()==404)
 				throw new ExistException("Not found: "+r.getServicesURL()+"/"+filePath);
 			if(doc.getStatus()>299 || doc.getStatus()<200)

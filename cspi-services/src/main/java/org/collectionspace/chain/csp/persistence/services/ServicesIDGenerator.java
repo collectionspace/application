@@ -9,6 +9,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ConnectionE
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -41,31 +42,31 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 
 	public ServicesIDGenerator(ServicesConnection conn) { this.conn=conn; }
 	
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
-	public void createJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
-	public void deleteJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
-	public void updateJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
-	public String[] getPaths(ContextualisedStorage root,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException,
+	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException,
 			UnimplementedException, UnderlyingStorageException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String val=conn.getTextDocument(RequestMethod.POST,"idgenerators/"+generators.get(filePath)+"/ids",null);
+			String val=conn.getTextDocument(RequestMethod.POST,"idgenerators/"+generators.get(filePath)+"/ids",null,creds);
 			JSONObject out=new JSONObject();
 			out.put("next",val);
 			return out;

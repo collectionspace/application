@@ -11,6 +11,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.dom4j.Document;
@@ -64,20 +65,20 @@ public class VocabInstanceCache {
 	}
 	
 	// Only called if doesn't exist
-	private synchronized void createVocabulary(CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
+	private synchronized void createVocabulary(CSPRequestCredentials creds,CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
 		Map<String,Document> body=new HashMap<String,Document>();
 		String[] path_parts=r.getServicesSingleInstancePath().split(":",2);
 		String[] tag_parts=path_parts[1].split(",",2);
 		body.put(path_parts[0],createList(tag_parts[0],tag_parts[1],id));
-		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/",body);
+		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/",body,creds);
 		if(out.getStatus()>299)
 			throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 		csids.put(id,out.getURLTail());
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void buildVocabularies(CSPRequestCache cache) throws ConnectionException, UnderlyingStorageException {
-		ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/"+r.getServicesURL()+"/",null);
+	private void buildVocabularies(CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException, UnderlyingStorageException {
+		ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/"+r.getServicesURL()+"/",null,creds);
 		Document doc=data.getDocument();
 		if(doc==null)
 			throw new UnderlyingStorageException("Could not retrieve vocabularies");		
@@ -95,14 +96,14 @@ public class VocabInstanceCache {
 		}
 	}
 	
-	String getVocabularyId(CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
+	String getVocabularyId(CSPRequestCredentials creds,CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
 		if(csids.containsKey(id))
 			return csids.get(id);
 		synchronized(getClass()) {
-			buildVocabularies(cache);
+			buildVocabularies(creds,cache);
 			if(csids.containsKey(id))
 				return csids.get(id);
-			createVocabulary(cache,id);
+			createVocabulary(creds,cache,id);
 			if(csids.containsKey(id))
 				return csids.get(id);
 			throw new UnderlyingStorageException("Bad vocabulary "+id);

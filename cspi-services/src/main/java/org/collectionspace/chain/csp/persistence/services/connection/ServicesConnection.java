@@ -24,6 +24,9 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.io.input.TeeInputStream;
+import org.collectionspace.chain.csp.persistence.services.ServicesRequestCredentials;
+import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.dom4j.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,28 +38,30 @@ import org.slf4j.LoggerFactory;
 
 // XXX Add useful info to ConnectionException on way out
 
-// XXX synchronized to handle Nuxeo race
 public class ServicesConnection {
 	private static final Logger log=LoggerFactory.getLogger(ServicesConnection.class);
 	private String base_url;
-	private static HttpClient client;
-
+	private MultiThreadedHttpConnectionManager manager;
+	
 	private void initClient() {
-		if(client!=null)
+		if(manager!=null)
 			return;
 		synchronized(getClass()) {
-			if(client!=null)
+			if(manager!=null)
 				return;
-			MultiThreadedHttpConnectionManager manager=new MultiThreadedHttpConnectionManager();
-			client=new HttpClient(manager);
-			// XXX do it properly
-			client.getState().setCredentials(
-					new AuthScope(AuthScope.ANY_HOST,AuthScope.ANY_PORT,AuthScope.ANY_REALM),
-					new UsernamePasswordCredentials("test","test"));
-//			client.getParams().setAuthenticationPreemptive(true);
+			manager=new MultiThreadedHttpConnectionManager();
 		}
 	}
 
+	public HttpClient makeClient(CSPRequestCredentials creds) {
+		HttpClient client=new HttpClient(manager);
+		client.getState().setCredentials(
+				new AuthScope(AuthScope.ANY_HOST,AuthScope.ANY_PORT,AuthScope.ANY_REALM),
+				new UsernamePasswordCredentials((String)creds.getCredential(ServicesStorageGenerator.CRED_USERID),
+												(String)creds.getCredential(ServicesStorageGenerator.CRED_PASSWORD)));
+		return client;
+	}
+	
 	public ServicesConnection(String base_url) {
 		if(base_url.endsWith("/"))
 			base_url=base_url.substring(0,base_url.length()-1);
@@ -124,7 +129,7 @@ public class ServicesConnection {
 	}
 
 	// XXX eugh! error case control-flow nightmare
-	private void doRequest(Returned out,RequestMethod method_type,String uri,RequestDataSource src) throws ConnectionException {
+	private void doRequest(Returned out,RequestMethod method_type,String uri,RequestDataSource src,CSPRequestCredentials creds) throws ConnectionException {
 		InputStream body_data=null;
 		if(src!=null) {
 			body_data=src.getStream();
@@ -138,6 +143,7 @@ public class ServicesConnection {
 				body_data=new TeeInputStream(body_data,System.err);
 			}
 			try {
+				HttpClient client=makeClient(creds);
 				int response=client.executeMethod(method);
 				out.setResponse(method,response);
 			} catch(Exception e) {
@@ -166,41 +172,41 @@ public class ServicesConnection {
 		return src;
 	}	
 	
-	public ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {
+	public ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds) throws ConnectionException {
 		ReturnedDocument out=new ReturnedDocument();
-		doRequest(out,method_type,uri,makeDocumentSource(body));
+		doRequest(out,method_type,uri,makeDocumentSource(body),creds);
 		return out;
 	}
 
-	public ReturnedMultipartDocument getMultipartXMLDocument(RequestMethod method_type,String uri,Map<String,Document> body) throws ConnectionException {
+	public ReturnedMultipartDocument getMultipartXMLDocument(RequestMethod method_type,String uri,Map<String,Document> body,CSPRequestCredentials creds) throws ConnectionException {
 		ReturnedMultipartDocument out=new ReturnedMultipartDocument();
-		doRequest(out,method_type,uri,makeMultipartSource(body));
+		doRequest(out,method_type,uri,makeMultipartSource(body),creds);
 		return out;
 	}
 
-	public String getTextDocument(RequestMethod method_type,String uri,Document body) throws ConnectionException {
+	public String getTextDocument(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds) throws ConnectionException {
 		ReturnedText out=new ReturnedText();
-		doRequest(out,method_type,uri,makeDocumentSource(body));
+		doRequest(out,method_type,uri,makeDocumentSource(body),creds);
 		return out.getText();
 	}
 
-	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body) throws ConnectionException {
+	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds) throws ConnectionException {
 		ReturnedURL out=new ReturnedURL();
-		doRequest(out,method_type,uri,makeDocumentSource(body));
+		doRequest(out,method_type,uri,makeDocumentSource(body),creds);
 		out.relativize(base_url); // Annoying, but we don't want to have factories etc. or too many args
 		return out;
 	}
 
-	public ReturnedURL getMultipartURL(RequestMethod method_type,String uri,Map<String,Document> body) throws ConnectionException {
+	public ReturnedURL getMultipartURL(RequestMethod method_type,String uri,Map<String,Document> body,CSPRequestCredentials creds) throws ConnectionException {
 		ReturnedURL out=new ReturnedURL();
-		doRequest(out,method_type,uri,makeMultipartSource(body));
+		doRequest(out,method_type,uri,makeMultipartSource(body),creds);
 		out.relativize(base_url); // Annoying, but we don't want to have factories etc. or too many args
 		return out;
 	}
 
-	public int getNone(RequestMethod method_type,String uri,Document body) throws ConnectionException {
+	public int getNone(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds) throws ConnectionException {
 		ReturnedNone out=new ReturnedNone();
-		doRequest(out,method_type,uri,makeDocumentSource(body));
+		doRequest(out,method_type,uri,makeDocumentSource(body),creds);
 		return out.getStatus();
 	}
 }

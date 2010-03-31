@@ -28,8 +28,10 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.collectionspace.chain.util.json.JSONUtils;
@@ -60,13 +62,13 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	// XXX refactor
 	@SuppressWarnings("unchecked")
 	private void deleteAll() throws Exception {
-		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/",null);
+		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/",null,creds);
 		if(all.getStatus()!=200)
 			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 		List<Node> objects=all.getDocument().selectNodes("collectionobjects-common-list/collection-object-list-item");
 		for(Node object : objects) {
 			String csid=object.selectSingleNode("csid").getText();
-			conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null);
+			conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null,creds);
 		}
 	}
 	
@@ -93,7 +95,11 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("objects",r_obj.getWebURL());
-		return cspm.getStorage("service").getStorage(new RequestCache());
+		StorageGenerator gen=cspm.getStorage("service");
+		CSPRequestCredentials creds=gen.createCredentials();
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
+		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"test");
+		return gen.getStorage(creds,new RequestCache());
 	}
 	
 	@Test public void testObjectsPut() throws Exception {

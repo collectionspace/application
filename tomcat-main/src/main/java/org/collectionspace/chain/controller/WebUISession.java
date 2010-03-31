@@ -2,6 +2,8 @@ package org.collectionspace.chain.controller;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.collectionspace.csp.api.ui.UIException;
@@ -11,6 +13,7 @@ public class WebUISession implements UISession {
 	private boolean old=false;
 	private String id;
 	private Random rnd=new Random();
+	private Map<String,Object> data=new HashMap<String,Object>();
 	
 	private String randomSession() throws UIException {
 		String sessionid=rnd.nextLong()+":"+rnd.nextLong()+":"+System.currentTimeMillis();
@@ -42,4 +45,16 @@ public class WebUISession implements UISession {
 	void setOld() { old=true; }
 	boolean isOld() { return old; }
 	String getID() { return id; }
+
+	public void deleteValue(String key) {
+		data.remove(key);
+	}
+
+	public Object getValue(String key) {
+		return data.get(key);
+	}
+
+	public void setValue(String key, Object value) {
+		data.put(key,value);
+	}
 }

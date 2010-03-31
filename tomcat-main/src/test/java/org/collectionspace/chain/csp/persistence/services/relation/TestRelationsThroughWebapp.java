@@ -9,11 +9,13 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.controller.ChainServlet;
+import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
@@ -23,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 public class TestRelationsThroughWebapp {
 	private static final Logger log=LoggerFactory.getLogger(TestRelationsThroughWebapp.class);
+	private String cookie;
 	
 	// XXX refactor
 	protected InputStream getResource(String name) {
@@ -43,11 +46,20 @@ public class TestRelationsThroughWebapp {
 		request.setMethod(method);
 		request.setHeader("Host","tester");
 		request.setURI(path);
-		request.setVersion("HTTP/1.0");		
+		request.setVersion("HTTP/1.0");
+		if(cookie!=null)
+			request.addHeader(HttpHeaders.COOKIE,cookie);
 		if(data!=null)
 			request.setContent(data);
 		response.parse(tester.getResponses(request.generate()));
 		return response;
+	}
+	
+	private void login(ServletTester tester) throws IOException, Exception {
+		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test&password=test",null);
+		assertEquals(303,out.getStatus());
+		cookie=out.getHeader("Set-Cookie");
+		log.info("Got cookie "+cookie);
 	}
 	
 	// XXX refactor into other copy of this method
@@ -64,6 +76,7 @@ public class TestRelationsThroughWebapp {
 		tester.setAttribute("store-url",base+"/cspace-services/");
 		tester.setAttribute("config-filename","default.xml");
 		tester.start();
+		login(tester);
 		return tester;
 	}
 	
