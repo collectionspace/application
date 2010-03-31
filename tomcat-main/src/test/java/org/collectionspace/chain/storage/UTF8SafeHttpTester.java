@@ -78,7 +78,7 @@ public class UTF8SafeHttpTester {
         }
     }
 	
-	public void request(ServletTester tester,String method,String path,String data_str) throws Exception {
+	public void request(ServletTester tester,String method,String path,String data_str,String cookie) throws Exception {
 		byte[] data=null;
 		if(data_str!=null)
 			data=data_str.getBytes("UTF-8");
@@ -92,6 +92,7 @@ public class UTF8SafeHttpTester {
 		HttpFields fields=new HttpFields();
 		fields.put("Host","tester");
 		fields.put(HttpHeaders.CONTENT_TYPE,"text/plain; charset=utf-8");
+		fields.put(HttpHeaders.COOKIE,cookie);
 		if(data!=null)
 			fields.putLongField(HttpHeaders.CONTENT_LENGTH,data.length);
 		generator.completeHeader(fields,false);

@@ -33,6 +33,7 @@ import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
+import org.collectionspace.csp.api.ui.UIUmbrella;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.dom4j.DocumentException;
 import org.xml.sax.InputSource;
@@ -50,7 +51,8 @@ public class ChainServlet extends HttpServlet  {
 	private CSPManager cspm=new CSPManagerImpl();
 	private BootstrapConfigController bootstrap;
 	private String locked_down=null;
-		
+	private UIUmbrella umbrella;
+	
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
 	 * Better present it on first request.
 	 */
@@ -142,8 +144,15 @@ public class ChainServlet extends HttpServlet  {
 				return;
 			// Setup our request object
 			UI web=cspm.getUI("web");
+			if(umbrella==null) {
+				synchronized(getClass()) {
+					if(umbrella==null) {
+						umbrella=web.createUmbrella();
+					}
+				}
+			}
 			try {
-				WebUIRequest req=new WebUIRequest(servlet_request,servlet_response);
+				WebUIRequest req=new WebUIRequest(umbrella,servlet_request,servlet_response);
 				web.serviceRequest(req);
 				req.solidify();
 			} catch (UIException e) {

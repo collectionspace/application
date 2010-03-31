@@ -36,7 +36,7 @@ public class TestServiceThroughWebapp {
 	// XXX refactor
 	private UTF8SafeHttpTester jettyDo(ServletTester tester,String method,String path,String data_str) throws IOException, Exception {
 		UTF8SafeHttpTester out=new UTF8SafeHttpTester();
-		out.request(tester,method,path,data_str);
+		out.request(tester,method,path,data_str,null);
 		return out;
 	}
 	

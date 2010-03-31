@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
+import org.collectionspace.chain.controller.WebUIUmbrella;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
@@ -53,6 +54,7 @@ import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UIUmbrella;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -200,5 +202,9 @@ public class WebUI implements CSP, UI, Configurable {
 			throw new UIException("Error in read",e);
 		}
 		throw new UIException("path not used");
+	}
+	
+	public UIUmbrella createUmbrella() {
+		return new WebUIUmbrella();
 	}
 }

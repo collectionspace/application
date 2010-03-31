@@ -24,4 +24,6 @@ public interface UIRequest {
 	
 	public String getRequestArgument(String key) throws UIException;
 	public Operation getRequestedOperation() throws UIException;
+	
+	public UISession getSession() throws UIException;
 }

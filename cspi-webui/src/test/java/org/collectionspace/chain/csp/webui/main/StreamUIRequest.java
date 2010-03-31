@@ -12,6 +12,7 @@ import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -145,4 +146,6 @@ public class StreamUIRequest implements UIRequest {
 		rpath=in;
 		secondary_redirect=true;
 	}
+
+	public UISession getSession() { return null; } // XXX support this?
 }

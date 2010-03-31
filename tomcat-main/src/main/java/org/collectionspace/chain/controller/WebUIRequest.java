@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,10 +19,14 @@ import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
+import org.collectionspace.csp.api.ui.UIUmbrella;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class WebUIRequest implements UIRequest {
+	private static final String COOKIENAME="CSPACESESSID";
+	
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private String[] ppath,rpath=null;
@@ -31,8 +36,10 @@ public class WebUIRequest implements UIRequest {
 	private Map<String,String> rargs=new HashMap<String,String>();
 	private PrintWriter out=null;
 	private String body;
+	private WebUIUmbrella umbrella;
+	private WebUISession session;
 
-	public WebUIRequest(HttpServletRequest request,HttpServletResponse response) throws IOException {
+	public WebUIRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response) throws IOException, UIException {
 		this.request=request;
 		this.response=response;
 		List<String> p=new ArrayList<String>();
@@ -43,8 +50,35 @@ public class WebUIRequest implements UIRequest {
 		}		
 		this.ppath=p.toArray(new String[0]);
 		body=IOUtils.toString(request.getInputStream(),"UTF-8");
+		if(!(umbrella instanceof WebUIUmbrella))
+			throw new UIException("Bad umbrella");
+		this.umbrella=(WebUIUmbrella)umbrella;
+		session=calculateSessionId();
 	}
 
+	private WebUISession calculateSessionId() throws UIException {
+		Cookie[] cookies=request.getCookies();
+		if(cookies==null)
+			cookies=new Cookie[0];
+		for(Cookie cookie : cookies) {
+			if(!COOKIENAME.equals(cookie.getName()))
+				continue;
+			WebUISession session=umbrella.getSession(cookie.getValue());
+			if(session!=null)
+				return session;
+		}
+		// No valid session: make our own
+		return umbrella.createSession();
+	}
+	
+	// XXX expire sessions
+	private void setSession() {
+		if(session.isOld())
+			return; // No need to reset session
+		Cookie cookie=new Cookie(COOKIENAME,session.getID());
+		response.addCookie(cookie);
+	}
+	
 	public TTYOutputter getTTYOutputter() throws UIException { 
 		try {
 			WebTTYOutputter tty=new WebTTYOutputter(response);
@@ -134,6 +168,7 @@ public class WebUIRequest implements UIRequest {
 					response.sendError(400,"No underlying exception");
 			} else {
 				// Success
+				setSession();
 				if(rpath!=null) {
 					// Redirect
 					StringBuffer path=new StringBuffer();
@@ -189,4 +224,6 @@ public class WebUIRequest implements UIRequest {
 			throw new UIException("Cannot get request body, JSONException",e);
 		}
 	}
+
+	public UISession getSession() throws UIException { return new WebUISession(umbrella); }
 }
