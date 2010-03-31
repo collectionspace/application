@@ -15,11 +15,14 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 public class Spec implements CSP, Configurable {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.spec.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
+
+	private static final String required_version="2";
 	
 	private Map<String,Record> records=new HashMap<String,Record>();
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
+	private String version;
 	
 	public String getName() { return "schema"; }
 
@@ -29,8 +32,15 @@ public class Spec implements CSP, Configurable {
 
 	public void configure(Rules rules) {
 		/* MAIN/spec -> SPEC */
+		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"version"},SECTION_PREFIX+"version",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				version=(String)section.getValue("");
+				return this;
+			}
+		});
+		/* MAIN/spec -> SPEC */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"spec"},SECTION_PREFIX+"spec",null,new Target(){
-			public Object populate(Object parent, ReadOnlySection milestone) {
+			public Object populate(Object parent, ReadOnlySection section) {
 				((CoreConfig)parent).setRoot(SPEC_ROOT,Spec.this);
 				return Spec.this;
 			}
@@ -122,7 +132,9 @@ public class Spec implements CSP, Configurable {
 	
 	public Instance getInstance(String id) { return instances.get(id); }
 	
-	public void config_finish() {
+	public void config_finish() throws CSPDependencyException {
+		if(!required_version.equals(version))
+			throw new CSPDependencyException("Config is out of date: require="+required_version+" got="+version);
 		for(Record r : records.values()) {
 			r.config_finish(this);
 		}

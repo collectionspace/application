@@ -50,7 +50,7 @@ public class ChainServlet extends HttpServlet  {
 	private CSPManager cspm=new CSPManagerImpl();
 	private BootstrapConfigController bootstrap;
 	private String locked_down=null;
-	
+		
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
 	 * Better present it on first request.
 	 */

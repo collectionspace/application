@@ -48,7 +48,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 		for(Instance n : r.getAllInstances()) {
 			vocabs.put(n.getTitleRef(),n.getTitle());
 		}
-		vocab_cache=new VocabInstanceCache(r,conn,vocabs);		
+		vocab_cache=new VocabInstanceCache(r,conn,vocabs);
 		this.r=r;
 	}
 

@@ -1,6 +1,7 @@
 <!--  XXX autocomplete needs renaming to something like authority -->
 <collection-space>
 	<bootstrap />
+	<version>2</version>
 	<persistence>
 		<service>
 			<url>http://test.collectionspace.org:8180/cspace-services</url>
