@@ -8,7 +8,6 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
-import org.collectionspace.chain.controller.WebUIUmbrella;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
@@ -202,9 +201,5 @@ public class WebUI implements CSP, UI, Configurable {
 			throw new UIException("Error in read",e);
 		}
 		throw new UIException("path not used");
-	}
-	
-	public UIUmbrella createUmbrella() {
-		return new WebUIUmbrella();
 	}
 }

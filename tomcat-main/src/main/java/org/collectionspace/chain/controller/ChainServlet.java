@@ -147,7 +147,7 @@ public class ChainServlet extends HttpServlet  {
 			if(umbrella==null) {
 				synchronized(getClass()) {
 					if(umbrella==null) {
-						umbrella=web.createUmbrella();
+						umbrella=new WebUIUmbrella();
 					}
 				}
 			}
