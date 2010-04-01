@@ -89,7 +89,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null));
 			}	
 			// First send without refid (don't know csid)	
-			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/"+vocab+"/items",body,creds);
+			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/"+vocab+"/items",body,creds,cache);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			// This time with refid
@@ -102,7 +102,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				String[] tag_path=record_path[1].split(",",2);
 				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname));
 			}
-			ReturnedMultipartDocument out2=conn.getMultipartXMLDocument(RequestMethod.PUT,"/"+r.getServicesURL()+"/"+vocab+"/items/"+csid,body,creds);
+			ReturnedMultipartDocument out2=conn.getMultipartXMLDocument(RequestMethod.PUT,"/"+r.getServicesURL()+"/"+vocab+"/items/"+csid,body,creds,cache);
 			if(out2.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());			
 			cache.setCached(getClass(),new String[]{"namefor",vocab,out.getURLTail()},name);
@@ -124,7 +124,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
 			String vocab=vocab_cache.getVocabularyId(creds,cache,filePath.split("/")[0]);
-			int status=conn.getNone(RequestMethod.DELETE,generateURL(vocab,filePath.split("/")[1]),null,creds);
+			int status=conn.getNone(RequestMethod.DELETE,generateURL(vocab,filePath.split("/")[1]),null,creds,cache);
 			if(status>299)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+status);
 			cache.removeCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]});
@@ -148,7 +148,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			url+="?pgSz=10000";
 			if(prefix!=null)
 				url+="&pt="+URLEncoder.encode(prefix,"UTF8");
-			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds);
+			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
 			Document doc=data.getDocument();
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies");
@@ -218,7 +218,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 
 	private JSONObject get(CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
 		// XXX pagination support
-		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,generateURL(vocab,csid),null,creds);
+		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,generateURL(vocab,csid),null,creds,cache);
 		if(doc.getStatus()==404)
 			throw new ExistException("Does not exist");
 		if(doc.getStatus()>299)
@@ -257,7 +257,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				String[] tag_path=record_path[1].split(",",2);
 				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname));
 			}
-			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,generateURL(vocab,filePath.split("/")[1]),body,creds);
+			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,generateURL(vocab,filePath.split("/")[1]),body,creds,cache);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);

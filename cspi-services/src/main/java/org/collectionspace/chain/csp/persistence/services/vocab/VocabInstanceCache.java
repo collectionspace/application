@@ -70,7 +70,7 @@ public class VocabInstanceCache {
 		String[] path_parts=r.getServicesSingleInstancePath().split(":",2);
 		String[] tag_parts=path_parts[1].split(",",2);
 		body.put(path_parts[0],createList(tag_parts[0],tag_parts[1],id));
-		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/",body,creds);
+		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/",body,creds,cache);
 		if(out.getStatus()>299)
 			throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 		csids.put(id,out.getURLTail());
@@ -78,7 +78,7 @@ public class VocabInstanceCache {
 	
 	@SuppressWarnings("unchecked")
 	private void buildVocabularies(CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException, UnderlyingStorageException {
-		ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/"+r.getServicesURL()+"/",null,creds);
+		ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/"+r.getServicesURL()+"/",null,creds,cache);
 		Document doc=data.getDocument();
 		if(doc==null)
 			throw new UnderlyingStorageException("Could not retrieve vocabularies");		

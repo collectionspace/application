@@ -105,7 +105,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			extractPaths(filePath,new String[]{"main"},0);
 			Map<String,Document> in=new HashMap<String,Document>();
 			in.put("relations_common",dataToRelation(cache,null,data).toDocument());
-			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/relations/",in,creds);
+			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/relations/",in,creds,cache);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not add relation status="+out.getStatus());
 			return out.getURLTail();
@@ -125,7 +125,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);
-			int status=conn.getNone(RequestMethod.DELETE,"/relations/"+parts[0],null,creds);
+			int status=conn.getNone(RequestMethod.DELETE,"/relations/"+parts[0],null,creds,cache);
 			if(status>299)
 				throw new UnderlyingStorageException("Could not delete relation, status="+status);
 		} catch (ConnectionException e) {
@@ -159,7 +159,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	}
 	
 	// Needed because of CSPACE-1080
-	private boolean post_filter(CSPRequestCredentials creds,JSONObject restrictions,Node candidate) throws ExistException, UnderlyingStorageException, ConnectionException, JSONException {
+	private boolean post_filter(CSPRequestCredentials creds,CSPRequestCache cache,JSONObject restrictions,Node candidate) throws ExistException, UnderlyingStorageException, ConnectionException, JSONException {
 		if(restrictions==null)
 			return true;
 		// Subject
@@ -176,7 +176,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 				return false;
 		}
 		// Retrieve the relation (CSPACE-1081)
-		ReturnedMultipartDocument rel=conn.getMultipartXMLDocument(RequestMethod.GET,candidate.selectSingleNode("uri").getText(),null,creds);
+		ReturnedMultipartDocument rel=conn.getMultipartXMLDocument(RequestMethod.GET,candidate.selectSingleNode("uri").getText(),null,creds,cache);
 		if(rel.getStatus()==404)
 			throw new ExistException("Not found");
 		Document rel_doc=rel.getDocument("relations_common");
@@ -194,13 +194,13 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		extractPaths(rootPath,new String[]{"main"},0);
 		try {
 			List<String> out=new ArrayList<String>();
-			ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/relations/"+searchPath(restrictions),null,creds);
+			ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/relations/"+searchPath(restrictions),null,creds,cache);
 			Document doc=data.getDocument();
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve relation, missing relations_common");
 			List<Node> objects=doc.getDocument().selectNodes("relations-common-list/relation-list-item");
 			for(Node object : objects) {
-				if(post_filter(creds,restrictions,object))
+				if(post_filter(creds,cache,restrictions,object))
 					out.add(object.selectSingleNode("csid").getText());
 			}
 			return out.toArray(new String[0]);
@@ -215,7 +215,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);
-			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.GET,"/relations/"+parts[0],null,creds);
+			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.GET,"/relations/"+parts[0],null,creds,cache);
 			if(out.getStatus()==404)
 				throw new ExistException("Not found");
 			Document doc=out.getDocument("relations_common");
@@ -237,7 +237,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);
 			Map<String,Document> in=new HashMap<String,Document>();
 			in.put("relations_common",dataToRelation(cache,parts[0],data).toDocument());
-			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,"/relations/"+parts[0],in,creds);
+			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,"/relations/"+parts[0],in,creds,cache);
 			if(out.getStatus()==404)
 				throw new ExistException("Not found");
 			if(out.getStatus()>299)

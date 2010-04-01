@@ -62,13 +62,13 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	// XXX refactor
 	@SuppressWarnings("unchecked")
 	private void deleteAll() throws Exception {
-		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/",null,creds);
+		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/",null,creds,cache);
 		if(all.getStatus()!=200)
 			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 		List<Node> objects=all.getDocument().selectNodes("collectionobjects-common-list/collection-object-list-item");
 		for(Node object : objects) {
 			String csid=object.selectSingleNode("csid").getText();
-			conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null,creds);
+			conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null,creds,cache);
 		}
 	}
 	

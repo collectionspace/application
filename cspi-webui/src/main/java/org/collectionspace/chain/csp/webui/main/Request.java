@@ -29,5 +29,6 @@ public class Request {
 	
 	public void reset() {
 		storage=null;
+		cache.reset();
 	}
 }

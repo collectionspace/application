@@ -8,7 +8,9 @@ import org.collectionspace.chain.csp.persistence.services.connection.ConnectionE
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
+import org.collectionspace.csp.helper.core.RequestCache;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
@@ -21,6 +23,7 @@ public class ServicesBaseClass {
 	protected ServicesConnection conn;
 	protected String base;
 	protected CSPRequestCredentials creds;
+	protected CSPRequestCache cache=new RequestCache();
 
 	protected void setup() throws BootstrapConfigLoadFailedException, ConnectionException {
 		BootstrapConfigController config_controller=new BootstrapConfigController();
@@ -33,7 +36,7 @@ public class ServicesBaseClass {
 		creds=new ServicesRequestCredentials();
 		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
 		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"test");		
-		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds);
+		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds,cache);
 		Assume.assumeTrue(out.getStatus()==200);
 	}
 	

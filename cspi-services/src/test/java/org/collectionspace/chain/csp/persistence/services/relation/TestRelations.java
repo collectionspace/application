@@ -107,10 +107,10 @@ public class TestRelations extends ServicesBaseClass {
 		// Quick rocket through direct PUT/POST/GET/DELETE to check everything is in order before we use the API
 		RelationFactory factory=new RelationFactory();
 		Relation r1=factory.create(null,"SubjectType-1261070872573-type","Subject-1261070872573","collectionobject-intake","ObjectType-1261070872573-type","Object-1261070872573");		
-		ReturnedURL doc2=conn.getMultipartURL(RequestMethod.POST,"/relations/",makeMultipartCommon("relations_common",r1.toDocument()),creds);
+		ReturnedURL doc2=conn.getMultipartURL(RequestMethod.POST,"/relations/",makeMultipartCommon("relations_common",r1.toDocument()),creds,cache);
 		assertTrue(doc2.getStatus()<300);
 		log.info("url="+doc2.getURL());
-		ReturnedMultipartDocument doc3=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null,creds);
+		ReturnedMultipartDocument doc3=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null,creds,cache);
 		assertTrue(doc3.getStatus()<300);		
 		log.info(doc3.getDocument("relations_common").asXML());
 		Relation r2=factory.load(null,doc3.getDocument("relations_common"));
@@ -120,9 +120,9 @@ public class TestRelations extends ServicesBaseClass {
 		assertEquals(r1.getDestinationId(),r2.getDestinationId());
 		assertEquals(r1.getRelationshipType(),r2.getRelationshipType());
 		Relation r3=factory.create(null,"ZSubjectType-1261070872573-type","ZSubject-1261070872573","Zcollectionobject-intake","ZObjectType-1261070872573-type","ZObject-1261070872573");		
-		ReturnedMultipartDocument doc4=conn.getMultipartXMLDocument(RequestMethod.PUT,doc2.getURL(),makeMultipartCommon("relations_common",r3.toDocument()),creds);
+		ReturnedMultipartDocument doc4=conn.getMultipartXMLDocument(RequestMethod.PUT,doc2.getURL(),makeMultipartCommon("relations_common",r3.toDocument()),creds,cache);
 		assertTrue(doc4.getStatus()<300);
-		ReturnedMultipartDocument doc5=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null,creds);
+		ReturnedMultipartDocument doc5=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null,creds,cache);
 		assertTrue(doc5.getStatus()<300);		
 		Relation r4=factory.load(null,doc5.getDocument("relations_common"));
 		assertEquals(r3.getSourceType(),r4.getSourceType());
@@ -130,9 +130,9 @@ public class TestRelations extends ServicesBaseClass {
 		assertEquals(r3.getSourceId(),r4.getSourceId());
 		assertEquals(r3.getDestinationId(),r4.getDestinationId());
 		assertEquals(r3.getRelationshipType(),r4.getRelationshipType());
-		int status=conn.getNone(RequestMethod.DELETE,doc2.getURL(),null,creds);
+		int status=conn.getNone(RequestMethod.DELETE,doc2.getURL(),null,creds,cache);
 		assertTrue(status<300);
-		ReturnedMultipartDocument doc6=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null,creds);
+		ReturnedMultipartDocument doc6=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null,creds,cache);
 		assertTrue(doc6.getStatus()>299);
 	}
 	

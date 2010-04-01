@@ -179,23 +179,6 @@ public class TestServiceThroughWebapp {
 		assertEquals("valuer",term_used.getString("sourceFieldName"));
 		assertEquals("person",term_used.getString("recordtype"));		
 		assertEquals("David Bowie",term_used.getString("number"));
-		/*
-		=ss.autocreateJSON("person/person",person);
-		log.info("p="+p);
-		JSONObject po=ss.retrieveJSON("person/person/"+p);
-		log.info("po="+po);
-		String pname=po.getString("refid");
-		JSONObject data=getJSON("int4.json");
-		data.remove("valuer");
-		data.put("valuer",pname);
-		String p1=ss.autocreateJSON("intake/",data);
-		log.info("p1="+p1);
-		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs");
-		log.info("mini="+mini);
-		JSONObject member=mini.getJSONObject("valuer");		
-		assertNotNull(member);
-		assertEquals("Dic Penderyn",member.getString("displayName"));
-		*/
 	}
 		
 	@Test public void testAutoGet() throws Exception {

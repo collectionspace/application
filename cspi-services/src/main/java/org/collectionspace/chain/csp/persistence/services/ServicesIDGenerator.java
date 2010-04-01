@@ -66,7 +66,7 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String val=conn.getTextDocument(RequestMethod.POST,"idgenerators/"+generators.get(filePath)+"/ids",null,creds);
+			String val=conn.getTextDocument(RequestMethod.POST,"idgenerators/"+generators.get(filePath)+"/ids",null,creds,cache);
 			JSONObject out=new JSONObject();
 			out.put("next",val);
 			return out;

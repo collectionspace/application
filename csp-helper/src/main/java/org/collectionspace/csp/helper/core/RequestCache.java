@@ -33,4 +33,8 @@ public class RequestCache implements CSPRequestCache {
 	public void setCached(Class<?> klass, String[] name, Object value) {
 		cache.put(generateKey(klass,name),value);
 	}
+
+	public void reset() {
+		cache.clear();
+	}
 }
