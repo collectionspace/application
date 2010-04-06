@@ -822,6 +822,10 @@
 			  </field>
 			  <field id="status">
 			    <selector>.csc-user-status</selector>
+                <options>
+                  <option id="active" default="yes">Active</option>
+                  <option id="inactive">Inactive</option>
+                </options>
 			  </field>
 			</record>
  			<record id="id" type="id"> <!-- XXX what is this type? How does this work? -->
