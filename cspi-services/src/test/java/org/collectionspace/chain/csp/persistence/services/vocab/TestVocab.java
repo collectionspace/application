@@ -40,29 +40,6 @@ public class TestVocab extends ServicesBaseClass {
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
 	}
 	
-	// XXX refactor
-	private Storage makeServicesStorage(String path) throws CSPDependencyException {
-		CSPManager cspm=new CSPManagerImpl();
-		cspm.register(new CoreConfig());
-		cspm.register(new Spec());
-		cspm.register(new ServicesStorageGenerator());
-		cspm.go();
-		cspm.configure(new InputSource(getRootSource("config.xml")),null);
-		ConfigRoot root=cspm.getConfigRoot();
-		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
-		assertNotNull(spec);
-		log.info(spec.dump());
-		Record r_obj=spec.getRecord("collection-object");
-		assertNotNull(r_obj);
-		assertEquals("collection-object",r_obj.getID());
-		assertEquals("objects",r_obj.getWebURL());
-		StorageGenerator gen=cspm.getStorage("service");
-		CSPRequestCredentials creds=gen.createCredentials();
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
-		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"test");		
-		return gen.getStorage(creds,new RequestCache());
-	}
-
 	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
 		setup();
 	}

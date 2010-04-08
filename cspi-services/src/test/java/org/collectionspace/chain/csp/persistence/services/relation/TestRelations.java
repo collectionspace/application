@@ -55,17 +55,6 @@ public class TestRelations extends ServicesBaseClass {
 	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
 		setup();
 	}
-
-	// XXX refactor
-	private JSONObject getJSON(String in) throws IOException, JSONException {
-		String path=getClass().getPackage().getName().replaceAll("\\.","/");
-		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		log.info(path);
-		assertNotNull(stream);
-		String data=IOUtils.toString(stream);
-		stream.close();		
-		return new JSONObject(data);
-	}
 	
 	private Map<String,Document> getMultipartCommon(String part,String file) throws DocumentException {
 		return makeMultipartCommon(part,getDocument(file));
@@ -76,33 +65,7 @@ public class TestRelations extends ServicesBaseClass {
 		out.put(part,doc);
 		return out;
 	}
-	
-	private InputStream getRootSource(String file) {
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
-	}
-	
-	private Storage makeServicesStorage(String path) throws CSPDependencyException {
-		CSPManager cspm=new CSPManagerImpl();
-		cspm.register(new CoreConfig());
-		cspm.register(new Spec());
-		cspm.register(new ServicesStorageGenerator());
-		cspm.go();
-		cspm.configure(new InputSource(getRootSource("config.xml")),null);
-		ConfigRoot root=cspm.getConfigRoot();
-		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
-		assertNotNull(spec);
-		log.info(spec.dump());
-		Record r_obj=spec.getRecord("collection-object");
-		assertNotNull(r_obj);
-		assertEquals("collection-object",r_obj.getID());
-		assertEquals("objects",r_obj.getWebURL());
-		StorageGenerator gen=cspm.getStorage("service");
-		CSPRequestCredentials creds=gen.createCredentials();
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
-		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"test");
-		return gen.getStorage(creds,new RequestCache());
-	}
-	
+			
 	@Test public void testRelations() throws Exception {
 		// Quick rocket through direct PUT/POST/GET/DELETE to check everything is in order before we use the API
 		RelationFactory factory=new RelationFactory();

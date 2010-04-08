@@ -21,7 +21,8 @@ public class Record implements FieldParent {
 	/* Service stuff */
 	private String services_url,services_list_path,in_tag,urn_syntax,services_instances_path,services_single_instance_path;
 	private Map<String,String> services_record_paths=new HashMap<String,String>();
-		
+	private Map<String,Field> services_filter_param=new HashMap<String,Field>();	
+	
 	// XXX utility methods
 	Record(Spec parent,ReadOnlySection section) {
 		id=(String)section.getValue("/@id");
@@ -91,9 +92,12 @@ public class Record implements FieldParent {
 	void setMiniSummary(Field f) { mini_summary=f; }
 	void setDisplayName(Field f) { display_name=f; }
 	void setServicesRecordPath(String section,String path) { services_record_paths.put(section,path); }
+	void setServicesFilterParam(String param,Field field) { services_filter_param.put(param,field); }
+	
 	public Field getMiniNumber() { return mini_number; }
 	public Field getMiniSummary() { return mini_summary; }
 	public Field getDisplayNameField() { return display_name; }
+	public Field getFieldByServicesFilterParam(String param) { return services_filter_param.get(param); }
 	
 	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);

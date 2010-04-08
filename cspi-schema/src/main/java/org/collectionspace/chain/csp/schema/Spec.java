@@ -16,7 +16,7 @@ public class Spec implements CSP, Configurable {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.spec.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 
-	private static final String required_version="2";
+	private static final String required_version="3";
 	
 	private Map<String,Record> records=new HashMap<String,Record>();
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();

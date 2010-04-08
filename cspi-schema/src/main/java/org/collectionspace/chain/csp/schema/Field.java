@@ -23,7 +23,7 @@ public class Field implements FieldSet {
 	private List<Option> options_list=new ArrayList<Option>();
 
 	/* Services */
-	private String services_tag,services_section;
+	private String services_tag,services_section,services_filter_param;
 		
 	public Field(FieldParent record,ReadOnlySection section) {
 		id=(String)section.getValue("/@id");
@@ -60,6 +60,9 @@ public class Field implements FieldSet {
 			record.getRecord().setDisplayName(this);
 		this.parent=record;
 		services_section=Util.getStringOrDefault(section,"/@section","common");
+		services_filter_param=Util.getStringOrDefault(section,"/services-filter-param",null);
+		if(services_filter_param!=null)
+			record.getRecord().setServicesFilterParam(services_filter_param,this);
 	}
 	
 	public String getID() { return id; }
@@ -70,7 +73,7 @@ public class Field implements FieldSet {
 	public boolean isInTitle() { return in_title; }
 	public boolean isInTab() { return in_tab; }
 	public String getTitleSelector() { return title_selector; }
-	
+	public String getServicesFilterParam() { return services_filter_param; }
 	public String getServicesTag() { return services_tag; }
 	
 	void setType(String in) { type=in; }

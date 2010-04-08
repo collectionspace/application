@@ -1,7 +1,5 @@
 package org.collectionspace.chain.csp.persistence.services;
 
-import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
@@ -9,6 +7,7 @@ import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
+import org.collectionspace.chain.csp.persistence.services.user.UserStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesVocabStorage;
 import org.collectionspace.chain.csp.schema.Record;
@@ -50,6 +49,11 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 				if(!r.isType("authority"))
 					continue;
 				addChild(r.getID(),new ConfiguredVocabStorage(spec.getRecord(r.getID()),conn));
+			}
+			for(Record r : spec.getAllRecords()) {
+				if(!r.isType("userdata"))
+					continue;
+				addChild(r.getID(),new UserStorage(spec.getRecord(r.getID()),conn));
 			}
 			addChild("direct",new DirectRedirector(spec));
 			addChild("id",new ServicesIDGenerator(conn));

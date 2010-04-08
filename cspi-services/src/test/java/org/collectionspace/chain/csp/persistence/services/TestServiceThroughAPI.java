@@ -48,16 +48,6 @@ import org.xml.sax.InputSource;
 
 public class TestServiceThroughAPI extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughAPI.class);
-	// XXX refactor
-	private JSONObject getJSON(String in) throws IOException, JSONException {
-		String path=getClass().getPackage().getName().replaceAll("\\.","/");
-		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		log.info(path);
-		assertNotNull(stream);
-		String data=IOUtils.toString(stream,"UTF-8");
-		stream.close();		
-		return new JSONObject(data);
-	}
 
 	// XXX refactor
 	@SuppressWarnings("unchecked")
@@ -75,33 +65,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	@Before public void checkServicesRunning() throws ConnectionException, BootstrapConfigLoadFailedException {
 		setup();
 	}
-	
-	private InputStream getRootSource(String file) {
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
-	}
-	
-	private Storage makeServicesStorage(String path) throws CSPDependencyException {
-		CSPManager cspm=new CSPManagerImpl();
-		cspm.register(new CoreConfig());
-		cspm.register(new Spec());
-		cspm.register(new ServicesStorageGenerator());
-		cspm.go();
-		cspm.configure(new InputSource(getRootSource("config.xml")),null);
-		ConfigRoot root=cspm.getConfigRoot();
-		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
-		assertNotNull(spec);
-		log.info(spec.dump());
-		Record r_obj=spec.getRecord("collection-object");
-		assertNotNull(r_obj);
-		assertEquals("collection-object",r_obj.getID());
-		assertEquals("objects",r_obj.getWebURL());
-		StorageGenerator gen=cspm.getStorage("service");
-		CSPRequestCredentials creds=gen.createCredentials();
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
-		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"test");
-		return gen.getStorage(creds,new RequestCache());
-	}
-	
+			
 	@Test public void testObjectsPut() throws Exception {
 		deleteAll();
 		Storage ss=makeServicesStorage(base+"/cspace-services/");

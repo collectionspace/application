@@ -278,5 +278,7 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/login?userid=bob&password=bob",null);	
 		assertEquals(303,out.getStatus());
 		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
+		
+		
 	}
 }

@@ -24,6 +24,7 @@ import org.collectionspace.chain.csp.webui.misc.VocabRedirector;
 import org.collectionspace.chain.csp.webui.misc.WebAuto;
 import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
 import org.collectionspace.chain.csp.webui.misc.WebLogin;
+import org.collectionspace.chain.csp.webui.misc.WebLogout;
 import org.collectionspace.chain.csp.webui.misc.WebReset;
 import org.collectionspace.chain.csp.webui.misc.WebUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.UISpec;
@@ -70,12 +71,13 @@ public class WebUI implements CSP, UI, Configurable {
 	private CSPContext ctx;
 	private StorageGenerator xxx_storage;
 	private String uispec_path;
-	private String login_dest,login_failed_dest;
+	private String login_dest,login_failed_dest,front_page;
 
 	public String getName() { return "ui.webui"; }
 	public String getUISpecPath() { return uispec_path; }
 	public String getLoginDest() { return login_dest; }
 	public String getLoginFailedDest() { return login_failed_dest; }
+	public String getFrontPage() { return front_page; }
 	
 	private void addMethod(Operation op,String[] path,int extra,WebMethod method) {
 		tries.get(op).addMethod(path,extra,method);
@@ -100,6 +102,7 @@ public class WebUI implements CSP, UI, Configurable {
 				}
 				login_dest=(String)section.getValue("/login-dest");
 				login_failed_dest=(String)section.getValue("/login-failed-dest");
+				front_page=(String)section.getValue("/front-page");
 				return WebUI.this;
 			}
 		});	
@@ -109,6 +112,7 @@ public class WebUI implements CSP, UI, Configurable {
 		for(Operation op : Operation.values())
 			tries.put(op,new Trie());		
 		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin(this,spec));
+		addMethod(Operation.READ,new String[]{"logout"},0,new WebLogout());
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
 		addMethod(Operation.READ,new String[]{"find-edit","uispec"},0,new FindEditUISpec(spec.getAllRecords()));
