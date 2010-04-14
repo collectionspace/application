@@ -48,7 +48,7 @@ public class WebReset implements WebMethod {
 			// Delete existing records
 			for(String dir : storage.getPaths("/",null)) {
 				// XXX yuck!
-				if("relations".equals(dir) || "vocab".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "direct".equals(dir))
+				if("relations".equals(dir) || "vocab".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "direct".equals(dir) || "users".equals(dir))
 					continue;
 				tty.line("dir : "+dir);
 				String[] paths=storage.getPaths(dir,null);

@@ -235,7 +235,7 @@ public class UserStorage implements ContextualisedStorage {
 		in.put("createdAt",created_at);
 		if(!in.has("status"))
 			in.put("status",status);
-		in.remove("password");
+		//in.remove("password");
 		return in;
 	}
 	
@@ -243,7 +243,9 @@ public class UserStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			// XXX when CSPACE-1458 is fixed, remove the call to xxx_cspace1458_fix, and just pass jsonObject as this arg. (fao Chris or somoeone else at CARET).
+			jsonObject=correctPassword(jsonObject);
 			Document in=XmlJsonConversion.convertToXml(r,xxx_cspace1458_fix(filePath,jsonObject,creds,cache),"common");
+			System.err.println("Sending: "+in.asXML());
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.PUT,r.getServicesURL()+"/"+filePath,in,creds,cache);
 			if(doc.getStatus()==404)
 				throw new ExistException("Not found: "+r.getServicesURL()+"/"+filePath);

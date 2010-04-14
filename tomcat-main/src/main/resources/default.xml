@@ -1,7 +1,7 @@
 <!--  XXX autocomplete needs renaming to something like authority -->
 <collection-space>
 	<bootstrap />
-	<version>3</version>
+	<version>4</version>
 	<persistence>
 		<service>
 			<url>http://test.collectionspace.org:8180/cspace-services</url>
@@ -587,7 +587,7 @@
 			<record id="person" type="authority,compute-displayname">
 		      <web-url>person</web-url>
 			  <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common-list/personauthority-list-item</services-instances-path>
-			  <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common</services-single-instance-path>
+			  <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities_common</services-single-instance-path>
 			  <services-list-path>http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
 			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
 			  <services-url>personauthorities</services-url>
