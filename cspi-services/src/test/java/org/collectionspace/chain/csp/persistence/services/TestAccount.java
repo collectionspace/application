@@ -23,7 +23,11 @@ public class TestAccount extends ServicesBaseClass {
 		JSONObject u1=getJSON("user1.json");
 		String path=ss.autocreateJSON("users/",u1);
 		System.err.println("path="+path);
-		
-		
+		assertNotNull(path);
+		JSONObject u2=getJSON("user1.json");
+		ss.updateJSON("users/"+path,u2);
+		JSONObject u3=ss.retrieveJSON("users/"+path);
+		assertNotNull(u3);
+		System.err.println(u3);
 	}
 }

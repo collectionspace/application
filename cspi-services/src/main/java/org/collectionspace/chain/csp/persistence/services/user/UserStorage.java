@@ -211,15 +211,11 @@ public class UserStorage implements ContextualisedStorage {
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
-			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null,creds,cache);
+			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null,creds,cache);
 			JSONObject out=new JSONObject();
 			if((doc.getStatus()<200 || doc.getStatus()>=300))
 				throw new ExistException("Does not exist "+filePath);
-			for(String section : r.getServicesRecordPaths()) {
-				String path=r.getServicesRecordPath(section);
-				String[] parts=path.split(":",2);
-				XmlJsonConversion.convertToJson(out,r,doc.getDocument(parts[0]));
-			}
+			out=XmlJsonConversion.convertToJson(r,doc.getDocument());
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
@@ -228,10 +224,26 @@ public class UserStorage implements ContextualisedStorage {
 		}
 	}
 
+	private JSONObject xxx_cspace1458_fix(String filePath,JSONObject in,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException, UnderlyingStorageException, JSONException {
+		// We need to also specify status and createdAt (revealed by GET) because of CSPACE-1458.
+		ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null,creds,cache);
+		if(doc.getStatus()>299 || doc.getStatus()<200)
+			throw new UnderlyingStorageException("Bad response "+doc.getStatus());
+		System.err.println(doc.getDocument().asXML());
+		String created_at=doc.getDocument().selectSingleNode("accounts_common/createdAt").getText();
+		String status=doc.getDocument().selectSingleNode("accounts_common/status").getText();		
+		in.put("createdAt",created_at);
+		if(!in.has("status"))
+			in.put("status",status);
+		in.remove("password");
+		return in;
+	}
+	
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			Document in=XmlJsonConversion.convertToXml(r,jsonObject,"common");
+			// XXX when CSPACE-1458 is fixed, remove the call to xxx_cspace1458_fix, and just pass jsonObject as this arg. (fao Chris or somoeone else at CARET).
+			Document in=XmlJsonConversion.convertToXml(r,xxx_cspace1458_fix(filePath,jsonObject,creds,cache),"common");
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.PUT,r.getServicesURL()+"/"+filePath,in,creds,cache);
 			if(doc.getStatus()==404)
 				throw new ExistException("Not found: "+r.getServicesURL()+"/"+filePath);

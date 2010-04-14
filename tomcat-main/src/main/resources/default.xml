@@ -821,6 +821,7 @@
 			    <services-filter-param>email</services-filter-param>
 			    <selector>.csc-user-email</selector>
 			  </field>
+			  <field id="createdAt"/>
 			  <field id="status">
 			    <selector>.csc-user-status</selector>
                 <options>
