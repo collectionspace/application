@@ -110,14 +110,17 @@ public class WebUI implements CSP, UI, Configurable {
 
 	private void configure_finish(Spec spec) {
 		for(Operation op : Operation.values())
-			tries.put(op,new Trie());		
+			tries.put(op,new Trie());	
+		
+		//Operation.CREATE = method= POST
+		//Operation.READ = method= GET
 		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin(this,spec));
 		addMethod(Operation.READ,new String[]{"logout"},0,new WebLogout());
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
 		addMethod(Operation.READ,new String[]{"find-edit","uispec"},0,new FindEditUISpec(spec.getAllRecords()));
-		addMethod(Operation.READ,new String[]{"passwordreset"},0,new UserDetailsReset(false));
-		addMethod(Operation.READ,new String[]{"resetpassword"},0,new UserDetailsReset(true));
+		addMethod(Operation.CREATE,new String[]{"passwordreset"},0,new UserDetailsReset(false));
+		addMethod(Operation.CREATE,new String[]{"resetpassword"},0,new UserDetailsReset(true));
 		for(Record r : spec.getAllRecords()) {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"ouispec"},0,new WebUISpec(r.getID()));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UISpec(r));
@@ -150,6 +153,7 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 			}
 			else if(r.isType("userdata")){
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new UserDetailsSearchList(r,true));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new UserDetailsRead(r));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new UserDetailsSearchList(r,false));
 				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new UserDetailsDelete(r.getID()));
