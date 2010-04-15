@@ -48,6 +48,7 @@ public class UserDetailsCreateUpdate implements WebMethod {
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		JSONObject data = null;
 		data=request.getJSONBody();
+		
 		boolean notfailed = true;
 		String msg="";
 		try{

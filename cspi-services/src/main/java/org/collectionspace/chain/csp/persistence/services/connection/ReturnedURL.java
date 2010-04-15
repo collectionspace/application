@@ -31,9 +31,14 @@ public class ReturnedURL implements Returned {
 
 	public void setResponse(HttpMethod method, int status) throws Exception {
 		log.info("response="+(method.getResponseBodyAsString()));
+		String possiblemessg = method.getResponseBodyAsString();
 		Header location=method.getResponseHeader("Location");
-		if(location==null)
-			throw new ConnectionException("Missing location header");
+		if(location==null){
+			if(possiblemessg!=""){
+				throw new Exception(possiblemessg);
+			}
+			throw new ConnectionException("Missing location header "+method.getResponseBodyAsString());
+		}
 		url=location.getValue();
 		this.status=status;
 	}

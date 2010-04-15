@@ -29,16 +29,18 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 	private Map<String,Properties> prop_files=new HashMap<String,Properties>();
 
 	private String substitute_system_props(String in) {
+		log.info("substitute_system_props: data in: "+in);
 		Matcher m = p.matcher(in);
 		StringBuffer sb = new StringBuffer();
 		while (m.find()) {
 			String value=System.getProperty(m.group(1));
 			if(value==null)
 				value="";
-			log.info(m.group(1));
+			log.info("substitute_system_props: "+m.group(1)+":"+value);
 			m.appendReplacement(sb,value);
 		}
 		m.appendTail(sb);
+		log.info("substitute_system_props: data out: "+sb.toString());
 		return sb.toString();
 	}
 	
@@ -61,12 +63,13 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 				out.load(is);
 				is.close();
 			} else {
-				log.info("Cannot find bootstrap source for "+name+" ("+path+")");
+				log.info("A) Cannot find bootstrap source for "+name+" ("+path+")");
 			}
+			log.info("Success:"+out+":"+path);
 			return out;
 		} catch(Exception e) {
 			// Fall through. Okay, we just won't use this one.
-			log.info("Cannot find bootstrap source for "+name+ "("+path+")");
+			log.info("Failure: Cannot find bootstrap source for "+name+ "("+path+") : " + e.getMessage());
 			return null;
 		}
 	}

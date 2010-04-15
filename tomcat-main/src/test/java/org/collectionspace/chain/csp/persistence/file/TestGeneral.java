@@ -8,7 +8,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
+
+import java.security.Security;
+ 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
@@ -197,6 +209,7 @@ public class TestGeneral {
 		if(data!=null)
 			request.setContent(data);
 		response.parse(tester.getResponses(request.generate()));
+				
 		return response;
 	}
 
@@ -237,15 +250,15 @@ public class TestGeneral {
 		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
 		/* make password reset request to user that doesn't exist - should fail */
-		HttpTester out=jettyDo(jetty,"GET","/chain/passwordreset",testStr8);
+		HttpTester out=jettyDo(jetty,"POST","/chain/passwordreset",testStr8);
 		assertEquals(400,out.getStatus());
 		/* create user to test against */
 		out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr7));
 		log.info("USER DETAILS : "+out.getContent());
 		JSONObject data1 = new JSONObject(out.getContent());
 		log.info("CSID CREATED "+data1.getString("csid"));
-		/*make password reset request */
-		out=jettyDo(jetty,"GET","/chain/passwordreset",testStr8);
+		/* make password reset request */
+		out=jettyDo(jetty,"POST","/chain/passwordreset",testStr8);
 		assertEquals(200,out.getStatus());
 		JSONObject data = new JSONObject(out.getContent());
 		/* only available if debug: true*/
@@ -271,10 +284,14 @@ public class TestGeneral {
 	}
 	
 	@Test public void testUserProfiles() throws Exception {
+		log.info("1");
 		deleteSchemaFile("collection-object",false);
+		log.info("2");
 
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6));	
+		log.info("3");
+		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6));
+		log.info("4");
 		assertEquals(out.getMethod(),null);
 		log.info("GET CREATE "+out.getContent());
 		String id=out.getHeader("Location");
@@ -420,5 +437,102 @@ public class TestGeneral {
 		assertTrue(b.exists());
 		assertTrue(new File(a,id1+".json").exists());
 		assertTrue(new File(b,id2+".json").exists());
+	}
+	
+	@Test public void testEmail(){
+		
+
+	    String SMTP_HOST_NAME = "localhost";
+	    String SMTP_PORT = "25";
+	    String message = "Hi Chris, Test Message Contents";
+	    String subject = "A test from gmail";
+	    String from = "hendecasyllabic@googlemail.com";
+	    String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
+	    String[] recipients = { "csm22@caret.cam.ac.uk"};
+        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+        boolean debug = true;
+        
+        Properties props = new Properties();
+        props.put("mail.smtp.host", SMTP_HOST_NAME);
+        //props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.auth", "false");
+        props.put("mail.debug", "true");
+        props.put("mail.smtp.port", SMTP_PORT);
+        props.put("mail.smtp.socketFactory.port", SMTP_PORT);
+        props.put("mail.smtp.socketFactory.class", SSL_FACTORY);
+        props.put("mail.smtp.socketFactory.fallback", "false");
+ 
+        Session session = Session.getDefaultInstance(props);
+ 
+        session.setDebug(debug);
+ 
+        Message msg = new MimeMessage(session);
+        InternetAddress addressFrom;
+		try {
+			addressFrom = new InternetAddress(from);
+        msg.setFrom(addressFrom);
+ 
+        InternetAddress[] addressTo = new InternetAddress[recipients.length];
+        for (int i = 0; i < recipients.length; i++) {
+            addressTo[i] = new InternetAddress(recipients[i]);
+        }
+        msg.setRecipients(Message.RecipientType.TO, addressTo);
+ 
+        // Setting the Subject and Content Type
+        msg.setSubject(subject);
+        msg.setContent(message, "text/plain");
+        Transport.send(msg);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/*
+		String host = "smtp.gmail.com";
+	    String from = "hendecasyllabic";
+	    String pass = "Emmajdwa699";
+	    Properties props = System.getProperties();
+	    props.put("mail.smtp.starttls.enable", "true"); // added this line
+	    props.put("mail.smtp.host", host);
+	    props.put("mail.smtp.user", from);
+	    props.put("mail.smtp.password", pass);
+	    props.put("mail.smtp.port", "465");
+	    props.put("mail.smtp.auth", "true");
+
+	    String[] to = {"csm22@caret.cam.ac.uk"}; // added this line
+
+	    Session session = Session.getDefaultInstance(props, null);
+	    MimeMessage message = new MimeMessage(session);
+	    try {
+			message.setFrom(new InternetAddress(from));
+
+	    InternetAddress[] toAddress = new InternetAddress[to.length];
+
+	    // To get the array of addresses
+	    for( int i=0; i < to.length; i++ ) { // changed from a while loop
+	        toAddress[i] = new InternetAddress(to[i]);
+	    }
+	    System.out.println(Message.RecipientType.TO);
+
+	    for( int i=0; i < toAddress.length; i++) { // changed from a while loop
+	        message.addRecipient(Message.RecipientType.TO, toAddress[i]);
+	    }
+	    message.setSubject("sending in a group");
+	    message.setText("hi chris, Welcome to JavaMail");
+	    Transport transport = session.getTransport("smtp");
+	    transport.connect(host, from, pass);
+	    transport.sendMessage(message, message.getAllRecipients());
+	    transport.close();
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		assertTrue(true);
 	}
 }

@@ -1,7 +1,7 @@
 {
-  "userId": "test@example.org",
-  "screenName": "Test McTest",
+  "userId": "test@collectionspace.org",
+  "screenName": "Test Mccollectionspace.org",
   "password": "testtestt",
-  "email": "test@example.org",
+  "email": "test@collectionspace.org",
   "status": "active"
 }

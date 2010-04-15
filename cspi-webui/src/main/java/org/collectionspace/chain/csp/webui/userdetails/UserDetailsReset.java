@@ -2,6 +2,17 @@ package org.collectionspace.chain.csp.webui.userdetails;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.Security;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -14,6 +25,7 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -46,7 +58,53 @@ public class UserDetailsReset implements WebMethod {
 	private Boolean doEmail(String csid, String emailparam) throws UIException {
 		String token = createToken(csid);
 		
-		/* DO EMAIL STUFF : WHERE do we get the content of emails from? */
+		/* ABSTRACT EMAIL STUFF : WHERE do we get the content of emails from? */
+String message = "A password reset has been requested from this email. " +
+		"If you wish to reset your password please click on this link " +
+		"/cspace-ui/html/?token="+token+"&email="+ emailparam;
+
+	     String SMTP_HOST_NAME = "localhost";
+	     String SMTP_PORT = "25";
+	     String subject = "CollectionSpace Password reset request";
+	     String from = "hendecasyllabic@googlemail.com";
+	     String[] recipients = {"csm22@caret.cam.ac.uk"};
+       Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+       boolean debug = true;
+       
+       Properties props = new Properties();
+       props.put("mail.smtp.host", SMTP_HOST_NAME);
+       props.put("mail.smtp.auth", "false");
+       props.put("mail.debug", "true");
+       props.put("mail.smtp.port", SMTP_PORT);
+
+       Session session = Session.getDefaultInstance(props);
+
+       session.setDebug(debug);
+
+       Message msg = new MimeMessage(session);
+       InternetAddress addressFrom;
+		try {
+			addressFrom = new InternetAddress(from);
+       msg.setFrom(addressFrom);
+
+       InternetAddress[] addressTo = new InternetAddress[recipients.length];
+       for (int i = 0; i < recipients.length; i++) {
+           addressTo[i] = new InternetAddress(recipients[i]);
+       }
+       msg.setRecipients(Message.RecipientType.TO, addressTo);
+
+       // Setting the Subject and Content Type
+       msg.setSubject(subject);
+       msg.setContent(message, "text/plain");
+       Transport.send(msg);
+		} catch (AddressException e) {
+			// TODO Auto-generated catch block
+			log.info("AddressException: "+e.getMessage());
+			return false;
+		} catch (MessagingException e) {
+			log.info("MessagingException: "+e.getMessage());
+			return false;
+		}
 		
 		return true;
 	}
@@ -107,19 +165,24 @@ public class UserDetailsReset implements WebMethod {
 	
 	private String getcsID(Storage storage,String emailparam) throws UIException {
 		JSONObject restriction=new JSONObject();
+		String tester = "";
 		try {
 			if(emailparam!=null && emailparam!="") {
-				restriction.put("keywords",emailparam);
+				//restriction.put("keywords",emailparam);
+				//Storage ss=makeServicesStorage(base+"/cspace-services/");
+				//String[] paths=ss.getPaths("users/",new JSONObject("{\"email\": emailparam }"));
 				String[] paths=storage.getPaths(base,restriction);
 				for(int i=0;i<paths.length;i++) {
 					if(paths[i].startsWith(base+"/"))
 						paths[i]=paths[i].substring((base+"/").length());
+					tester += paths[i];
+					tester +="\n";
 				}
 				if (paths.length == 0){
 					throw new UIException("Did not return any results");
 				}
 				else if (paths.length > 1){
-					throw new UIException("Returned multiple result");
+				//	throw new UIException("Returned multiple result: "+ tester + ":: "+ paths.length);
 				}
 				/* one csid returned = valid user */
 				return paths[0];
@@ -127,21 +190,30 @@ public class UserDetailsReset implements WebMethod {
 			else{
 				throw new UIException("No email specified");
 			}
-		} catch (JSONException e) {
-			throw new UIException("JSONException during search on email address",e);
+		//} catch (JSONException e) {
+		//	throw new UIException("JSONException during search on email address",e);
 		} catch (ExistException e) {
 			throw new UIException("ExistException during search on email address",e);
 		} catch (UnimplementedException e) {
 			throw new UIException("UnimplementedException during search on email address",e);
 		} catch (UnderlyingStorageException e) {
-			throw new UIException("UnderlyingStorageException during search on email address",e);
+			throw new UIException("UnderlyingStorageException during search on email address " + emailparam +":"+base,e);
 		}
 	}
 	
 	/* find csid for email, create token, email token to the user */
-	private void send_reset_email(Storage storage,UIRequest request) throws UIException {
+	private void send_reset_email(Storage storage,UIRequest request, Request in) throws UIException {
+
+		//mock login else service layer gets upset
+		//GET WORKING ARGH
+		request.getSession().setValue(UISession.USERID,"test");
+		request.getSession().setValue(UISession.PASSWORD,"test");
+		((Request)in).reset();
+		
 		JSONObject data = null;
+		
 		JSONObject outputJSON = new JSONObject();
+		
 		data=request.getJSONBody();
 		log.info("JSON OBJECT",data);
 		String emailparam = "";
@@ -158,19 +230,22 @@ public class UserDetailsReset implements WebMethod {
 			outputJSON.put("ok",true);
 			outputJSON.put("message","Password reset sent to " + emailparam);
 			/* for debug purposes */
-			if(data.getBoolean("debug")){
-				outputJSON.put("token",createToken(csid));
-			}
+			//if(data.getBoolean("debug")){
+			//	outputJSON.put("token",createToken(csid));
+			//}
 		} catch (JSONException e) {
 			throw new UIException("JSONException during search on email address",e);
 		}		
 
+		request.getSession().setValue(UISession.USERID,"");
+		request.getSession().setValue(UISession.PASSWORD,"");
+		((Request)in).reset();
 		request.sendJSONResponse(outputJSON);
 	}
 	
 	/* check token and if matches csid then reset password 
 	 * */
-	private void reset_password(Storage storage,UIRequest request) throws UIException {
+	private void reset_password(Storage storage,UIRequest request, Request in) throws UIException {
 		JSONObject outputJSON = new JSONObject();
 		String token=request.getRequestArgument("token");
 		String password=request.getRequestArgument("password");
@@ -217,10 +292,10 @@ public class UserDetailsReset implements WebMethod {
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
 		if(setnewpassword){
-			reset_password(q.getStorage(),q.getUIRequest());
+			reset_password(q.getStorage(),q.getUIRequest(),q);
 		}
 		else{
-			send_reset_email(q.getStorage(),q.getUIRequest());
+			send_reset_email(q.getStorage(),q.getUIRequest(),q);
 		}
 	}
  

@@ -30,7 +30,7 @@ public class UserDetailsSearchList implements WebMethod {
 	}
 		
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view");
+		JSONObject out=storage.retrieveJSON(type+"/"+csid+"");
 		out.put("csid",csid);
 		out.put("recordtype",type_to_url.get(type));
 		return out;		
@@ -62,7 +62,9 @@ public class UserDetailsSearchList implements WebMethod {
 				if(paths[i].startsWith(base+"/"))
 					paths[i]=paths[i].substring((base+"/").length());
 			}
-			ui.sendJSONResponse(pathsToJSON(storage,base,paths,key));
+			JSONObject bob=new JSONObject();
+			bob = pathsToJSON(storage,base,paths,key);
+			ui.sendJSONResponse(bob);
 		} catch (JSONException e) {
 			throw new UIException("JSONException during autocompletion",e);
 		} catch (ExistException e) {

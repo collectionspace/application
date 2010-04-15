@@ -587,7 +587,7 @@
 			<record id="person" type="authority,compute-displayname">
 		      <web-url>person</web-url>
 			  <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common-list/personauthority-list-item</services-instances-path>
-			  <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities_common</services-single-instance-path>
+			  <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common</services-single-instance-path>
 			  <services-list-path>http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
 			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
 			  <services-url>personauthorities</services-url>
@@ -821,15 +821,12 @@
 			    <services-filter-param>email</services-filter-param>
 			    <selector>.csc-user-email</selector>
 			  </field>
-			  <field id="createdAt"/>
 			  <field id="status">
 			    <selector>.csc-user-status</selector>
-                <options>
-                  <option id="active" default="yes">Active</option>
-                  <option id="inactive">Inactive</option>
-                </options>
 			  </field>
 			</record>
+			
+			
  			<record id="id" type="id"> <!-- XXX what is this type? How does this work? -->
 			</record>
 		</records>

@@ -84,9 +84,31 @@ public class UserStorage implements ContextualisedStorage {
 		}
 	}
 	
+	/* XXX FIXME  in here until we fix the UI layer to pass the data correctly */
+	private JSONObject correctScreenName(JSONObject in) throws JSONException, UnderlyingStorageException {
+		if(in.has("userName")){
+			String username=in.getString("userName");
+			in.remove("userName");
+			in.put("screenName",username);
+		}
+		return in;
+	}
+	
+	/* XXX FIXME in here until we fix the UI layer to pass the data correctly */
+	private JSONObject correctUserId(JSONObject in) throws JSONException, UnderlyingStorageException {
+		if(!in.has("userId")){
+			String userId=in.getString("email");
+			in.remove("userId");
+			in.put("userId",userId);
+		}
+		return in;
+	}
+	
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			jsonObject=correctPassword(jsonObject);
+			jsonObject= correctScreenName(jsonObject);
+			jsonObject= correctUserId(jsonObject);
 			Document doc=XmlJsonConversion.convertToXml(r,jsonObject,"common");
 			ReturnedURL url = conn.getURL(RequestMethod.POST,r.getServicesURL()+"/",doc,creds,cache);
 			if(url.getStatus()>299 || url.getStatus()<200)
