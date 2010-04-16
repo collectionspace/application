@@ -54,7 +54,7 @@ public class UserDetailsSearchList implements WebMethod {
 			JSONObject restriction=new JSONObject();
 			String key="items";
 			if(param!=null) {
-				restriction.put("keywords",param);
+				restriction.put("screenName",param);
 				key="results";
 			}
 			String[] paths=storage.getPaths(base,restriction);
@@ -62,9 +62,9 @@ public class UserDetailsSearchList implements WebMethod {
 				if(paths[i].startsWith(base+"/"))
 					paths[i]=paths[i].substring((base+"/").length());
 			}
-			JSONObject bob=new JSONObject();
-			bob = pathsToJSON(storage,base,paths,key);
-			ui.sendJSONResponse(bob);
+			JSONObject resultsObject=new JSONObject();
+			resultsObject = pathsToJSON(storage,base,paths,key);
+			ui.sendJSONResponse(resultsObject);
 		} catch (JSONException e) {
 			throw new UIException("JSONException during autocompletion",e);
 		} catch (ExistException e) {

@@ -67,9 +67,9 @@ String message = "A password reset has been requested from this email. " +
 	     String SMTP_PORT = "25";
 	     String subject = "CollectionSpace Password reset request";
 	     String from = "hendecasyllabic@googlemail.com";
-	     String[] recipients = {"csm22@caret.cam.ac.uk"};
+	     String[] recipients = {emailparam};
        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-       boolean debug = true;
+       boolean debug = false;
        
        Properties props = new Properties();
        props.put("mail.smtp.host", SMTP_HOST_NAME);
@@ -165,21 +165,14 @@ String message = "A password reset has been requested from this email. " +
 	
 	private String getcsID(Storage storage,String emailparam) throws UIException {
 		JSONObject restriction=new JSONObject();
-		String tester = "";
 		try {
 			if(emailparam!=null && emailparam!="") {
-				//restriction.put("keywords",emailparam);
-				//Storage ss=makeServicesStorage(base+"/cspace-services/");
-				//String[] paths=ss.getPaths("users/",new JSONObject("{\"email\": emailparam }"));
+				restriction.put("email",emailparam);				
+				/* XXX need to force it to only do an exact match */
 				String[] paths=storage.getPaths(base,restriction);
-				for(int i=0;i<paths.length;i++) {
-					if(paths[i].startsWith(base+"/"))
-						paths[i]=paths[i].substring((base+"/").length());
-					tester += paths[i];
-					tester +="\n";
-				}
+				
 				if (paths.length == 0){
-					throw new UIException("Did not return any results");
+					throw new UIException("Did not return any results, are you sure you have the right email address?");
 				}
 				else if (paths.length > 1){
 				//	throw new UIException("Returned multiple result: "+ tester + ":: "+ paths.length);
@@ -190,8 +183,8 @@ String message = "A password reset has been requested from this email. " +
 			else{
 				throw new UIException("No email specified");
 			}
-		//} catch (JSONException e) {
-		//	throw new UIException("JSONException during search on email address",e);
+		} catch (JSONException e) {
+			throw new UIException("JSONException during search on email address",e);
 		} catch (ExistException e) {
 			throw new UIException("ExistException during search on email address",e);
 		} catch (UnimplementedException e) {
@@ -205,10 +198,10 @@ String message = "A password reset has been requested from this email. " +
 	private void send_reset_email(Storage storage,UIRequest request, Request in) throws UIException {
 
 		//mock login else service layer gets upset
-		//GET WORKING ARGH
+		// XXX ARGH
 		request.getSession().setValue(UISession.USERID,"test");
-		request.getSession().setValue(UISession.PASSWORD,"test");
-		((Request)in).reset();
+		request.getSession().setValue(UISession.PASSWORD,"testtest");
+		in.reset();
 		
 		JSONObject data = null;
 		
@@ -219,73 +212,96 @@ String message = "A password reset has been requested from this email. " +
 		String emailparam = "";
 		
 		/* get csid of email address - need a better way of searching as this might create false positives
-		 * Do we have a more precise way of searching rather than keywords.... */
+		 * XXX Do we have a more precise way of searching rather than this non exact match.... */
 		try {
 			emailparam = data.getString("email");
 			String csid = getcsID(storage,emailparam);
 
-			if(!doEmail(csid,emailparam)){
-				throw new UIException("Failed to send email");
+			/* for debug purposes */
+			if(data.has("debug") && data.getBoolean("debug")){ //only send email if debug is false/null see unit test TestGeneral testPasswordReset
+				outputJSON.put("token",createToken(csid));
 			}
+			else{
+				if(!doEmail(csid,emailparam)){
+					throw new UIException("Failed to send email");
+				}
+			}
+			
 			outputJSON.put("ok",true);
 			outputJSON.put("message","Password reset sent to " + emailparam);
-			/* for debug purposes */
-			//if(data.getBoolean("debug")){
-			//	outputJSON.put("token",createToken(csid));
-			//}
+			
+			request.getSession().setValue(UISession.USERID,"");
+			request.getSession().setValue(UISession.PASSWORD,"");
+			in.reset();
 		} catch (JSONException e) {
 			throw new UIException("JSONException during search on email address",e);
 		}		
 
-		request.getSession().setValue(UISession.USERID,"");
-		request.getSession().setValue(UISession.PASSWORD,"");
-		((Request)in).reset();
 		request.sendJSONResponse(outputJSON);
 	}
 	
 	/* check token and if matches csid then reset password 
 	 * */
 	private void reset_password(Storage storage,UIRequest request, Request in) throws UIException {
-		JSONObject outputJSON = new JSONObject();
-		String token=request.getRequestArgument("token");
-		String password=request.getRequestArgument("password");
-		String email=request.getRequestArgument("email");
+
+		//mock login else service layer gets upset
+		// XXX ARGH
+		request.getSession().setValue(UISession.USERID,"test");
+		request.getSession().setValue(UISession.PASSWORD,"testtest");
+		in.reset();
+		in.getStorage();
 		
-		String csid = getcsID(storage,email);
-		if(testToken(csid,token)){
+		JSONObject data = null;
+		data=request.getJSONBody();
+		
+		JSONObject outputJSON = new JSONObject();
+		String token;
+		try {
+			token = data.getString("token");
+			String password=data.getString("password");
+			String email=data.getString("email");
+		
+			String csid = getcsID(storage,email);
+			if(testToken(csid,token)){
 			/* update userdetails */
-			String path = csid;
-			try {
-				/* if I send less data will the service layer leave the missing items alone or null them?*/
-				JSONObject changedata = new JSONObject();
-				JSONObject updatefields = new JSONObject();
-				updatefields.put("email",email);
-				updatefields.put("password",password);
-				changedata.put("fields",updatefields);
-				changedata.put("csid",csid);
+				String path = csid;
+				try {
+					/* if I send less data will the service layer leave the missing items alone or null them?*/
+					JSONObject changedata = new JSONObject();
+					JSONObject updatefields = new JSONObject();
+					updatefields.put("userId",email);
+					updatefields.put("email",email);
+					updatefields.put("screenName",email);
+					updatefields.put("password",password);
+					updatefields.put("status","active");
+					changedata.put("fields",updatefields);
+					changedata.put("csid",csid);
 				
-				path=sendJSON(storage,path,changedata);
+					sendJSON(storage,path,changedata);
 				
-				outputJSON.put("ok",true);
-				outputJSON.put("message","Your Password has been succesfully changed, Please login");
-			}	catch (JSONException x) {
-				throw new UIException("Failed to parse json: "+x,x);
-			} catch (ExistException x) {
-				throw new UIException("Existence exception: "+x,x);
-			} catch (UnimplementedException x) {
-				throw new UIException("Unimplemented exception: "+x,x);
-			} catch (UnderlyingStorageException x) {
-				throw new UIException("Problem storing: "+x,x);
-			} 
+					outputJSON.put("ok",true);
+					outputJSON.put("message","Your Password has been succesfully changed, Please login");
+				}	catch (JSONException x) {
+					throw new UIException("Failed to parse json: "+x,x);
+				} catch (ExistException x) {
+					throw new UIException("Existence exception: "+x,x);
+				} catch (UnimplementedException x) {
+					throw new UIException("Unimplemented exception: "+x,x);
+				} catch (UnderlyingStorageException x) {
+					throw new UIException("Problem storing: "+x,x);
+				} 
 			
+			}
+			else{
+				throw new UIException("Token did not match the csid");
+			}
+			/* should we automagically log them in or let them do that?, 
+			 * I think we should let them login, it has the advantage 
+		 	* that they find out straight away if they can't remember the new password  */
+			request.sendJSONResponse(outputJSON);
+		} catch (JSONException x) {
+			throw new UIException("Failed to parse json: "+x,x);
 		}
-		else{
-			throw new UIException("Token did not match the csid");
-		}
-		/* should we automagically log them in or let them do that?, 
-		 * I think we should let them login, it has the advantage 
-		 * that they find out straight away if they can't remember the new password  */
-		request.sendJSONResponse(outputJSON);
 	}
 	
 
