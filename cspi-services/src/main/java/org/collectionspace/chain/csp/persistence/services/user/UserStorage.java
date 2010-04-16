@@ -86,7 +86,7 @@ public class UserStorage implements ContextualisedStorage {
 	
 	/* XXX FIXME  in here until we fix the UI layer to pass the data correctly */
 	private JSONObject correctScreenName(JSONObject in) throws JSONException, UnderlyingStorageException {
-		if(in.has("userName")){
+		if(in.has("userName") && !in.has("screenName")){
 			String username=in.getString("userName");
 			in.remove("userName");
 			in.put("screenName",username);
