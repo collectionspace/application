@@ -72,12 +72,14 @@ public class UserStorage implements ContextualisedStorage {
 
 	private JSONObject correctPassword(JSONObject in) throws JSONException, UnderlyingStorageException {
 		try {
-			String password=in.getString("password");
-			in.remove("password");
-			password=Base64.encode(password.getBytes("UTF-8"));
-			while(password.endsWith("\n") || password.endsWith("\r"))
-				password=password.substring(0,password.length()-1);
-			in.put("password",password);
+			if(in.has("password")){
+				String password=in.getString("password");
+				in.remove("password");
+				password=Base64.encode(password.getBytes("UTF-8"));
+				while(password.endsWith("\n") || password.endsWith("\r"))
+					password=password.substring(0,password.length()-1);
+				in.put("password",password);
+			}
 			return in;
 		} catch (UnsupportedEncodingException e) {
 			throw new UnderlyingStorageException("Error generating Base 64",e);
