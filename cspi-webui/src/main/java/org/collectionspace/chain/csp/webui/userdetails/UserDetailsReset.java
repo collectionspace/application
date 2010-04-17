@@ -66,7 +66,7 @@ String message = "A password reset has been requested from this email. " +
 	     String SMTP_HOST_NAME = "localhost";
 	     String SMTP_PORT = "25";
 	     String subject = "CollectionSpace Password reset request";
-	     String from = "hendecasyllabic@googlemail.com";
+	     String from = "collectionspace@movingimages.us";
 	     String[] recipients = {emailparam};
        Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
        boolean debug = false;
@@ -197,7 +197,7 @@ String message = "A password reset has been requested from this email. " +
 	/* find csid for email, create token, email token to the user */
 	private void send_reset_email(Storage storage,UIRequest request, Request in) throws UIException {
 
-		//mock login else service layer gets upset
+		//mock login else service layer gets upset = not working
 		// XXX ARGH
 		request.getSession().setValue(UISession.USERID,"test");
 		request.getSession().setValue(UISession.PASSWORD,"testtest");
@@ -230,9 +230,9 @@ String message = "A password reset has been requested from this email. " +
 			outputJSON.put("ok",true);
 			outputJSON.put("message","Password reset sent to " + emailparam);
 			
-			request.getSession().setValue(UISession.USERID,"");
-			request.getSession().setValue(UISession.PASSWORD,"");
-			in.reset();
+			//request.getSession().setValue(UISession.USERID,"");
+			//request.getSession().setValue(UISession.PASSWORD,"");
+			//in.reset();
 		} catch (JSONException e) {
 			throw new UIException("JSONException during search on email address",e);
 		}		
