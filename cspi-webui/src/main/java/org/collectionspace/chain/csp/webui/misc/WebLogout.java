@@ -11,12 +11,17 @@ import org.collectionspace.csp.api.ui.UISession;
 public class WebLogout implements WebMethod {
 	private String front_page;
 	
-	public void run(Object in, String[] tail) throws UIException {
-		UIRequest request=((Request)in).getUIRequest();
+	public void logout(Request in) throws UIException {
+		UIRequest request=in.getUIRequest();
 		request.getSession().setValue(UISession.USERID,"");
 		request.getSession().setValue(UISession.PASSWORD,"");
-		((Request)in).reset();
+		in.reset();
+
 		request.setRedirectPath(front_page.split("/"));
+	}
+	
+	public void run(Object in,String[] tail) throws UIException {
+		logout((Request)in);
 	}
 
 	public void configure(WebUI ui, Spec spec) {
