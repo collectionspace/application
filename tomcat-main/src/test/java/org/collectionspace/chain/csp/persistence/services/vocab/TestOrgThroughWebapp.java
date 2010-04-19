@@ -31,7 +31,7 @@ public class TestOrgThroughWebapp {
 	}
 	
 	private static void login(ServletTester tester) throws IOException, Exception {
-		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test&password=test",null);
+		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
 		log.info("Got cookie "+cookie);

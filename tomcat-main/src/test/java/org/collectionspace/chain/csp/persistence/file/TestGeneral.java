@@ -29,6 +29,7 @@ import org.collectionspace.chain.csp.persistence.file.StubJSONStore;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
 import org.collectionspace.chain.util.json.JSONUtils;
@@ -67,10 +68,10 @@ public class TestGeneral {
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
 	private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
 
-	private final static String testStr6 = "{\"userID\": \"anastasia\",\"userName\": \"Anastasia Cheethem\",\"password\": \"testpassword\",\"email\": \"anastasia.cheetham@collectionspace.org\",\"status\": \"inactive\"}";
-	private final static String testStr7 = "{\"userID\": \"megan\",\"userName\": \"Megan Forbes\",\"password\": \"testpassword\",\"email\": \"megan.forbes@collectionspace.org\",\"status\": \"active\"}";
-	private final static String testStr8 = "{\"email\": \"megan.forbes@collectionspace.org\", \"debug\" : true }";
-	
+	private final static String testStr6 = "{\"userId\": \"unittest2@collectionspace.org\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
+	private final static String testStr7 = "{\"userId\": \"unittest@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest@collectionspace.org\",\"status\": \"active\"}";
+	private final static String testStr8 = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
+
 	private FileStorage store;
 
 	private static String tmp=null;
@@ -246,42 +247,6 @@ public class TestGeneral {
 		return in;
 	}
 	
-	@Test public void testPasswordReset() throws Exception {
-		deleteSchemaFile("collection-object",false);
-		ServletTester jetty=setupJetty();
-		/* make password reset request to user that doesn't exist - should fail */
-		HttpTester out=jettyDo(jetty,"POST","/chain/passwordreset",testStr8);
-		assertEquals(400,out.getStatus());
-		/* create user to test against */
-		out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr7));
-		log.info("USER DETAILS : "+out.getContent());
-		JSONObject data1 = new JSONObject(out.getContent());
-		log.info("CSID CREATED "+data1.getString("csid"));
-		/* make password reset request */
-		out=jettyDo(jetty,"POST","/chain/passwordreset",testStr8);
-		assertEquals(200,out.getStatus());
-		JSONObject data = new JSONObject(out.getContent());
-		/* only available if debug: true*/
-		log.info("TOKEN CREATED "+data.getString("token"));
-		log.info("RESET JSON SENT BACK "+out.getContent());
-		/* good token */
-		out=jettyDo(jetty,"GET","/chain/resetpassword?email=megan.forbes@collectionspace.org&password=newpassword&token="+data.getString("token"), null);
-		log.info("GOODTOKEN: "+out.getContent());
-		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/users/"+data1.getString("csid"),null);
-		JSONObject data2 = new JSONObject(out.getContent());
-		assertEquals("newpassword",data2.getJSONObject("fields").getString("password"));
-		
-		/* bad token */
-		out=jettyDo(jetty,"GET","/chain/resetpassword?email=megan.forbes@collectionspace.org&password=renewpassword&token=BOB", null);
-		//log.info("BADTOKEN: "+out.getContent());
-		assertEquals(400,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/users/"+data1.getString("csid"),null);
-		JSONObject data3 = new JSONObject(out.getContent());
-		/* password should not have changed */
-		assertEquals("newpassword",data3.getJSONObject("fields").getString("password"));
-		
-	}
 	
 	@Test public void testUserProfiles() throws Exception {
 		log.info("1");
@@ -440,15 +405,16 @@ public class TestGeneral {
 	}
 	
 	@Test public void testEmail(){
-		
+		Boolean doIreallyWantToSpam = false; // set to true when you have configured the email addresses
+		/* please personalises these emails before sending - I don't want your spam. */
+	    String from = "";
+	    String[] recipients = { ""};
 
 	    String SMTP_HOST_NAME = "localhost";
 	    String SMTP_PORT = "25";
-	    String message = "Hi Chris, Test Message Contents";
-	    String subject = "A test from gmail";
-	    String from = "hendecasyllabic@googlemail.com";
+	    String message = "Hi, Test Message Contents";
+	    String subject = "A test from collectionspace test suite";
 	    String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
-	    String[] recipients = { "csm22@caret.cam.ac.uk"};
         Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
         boolean debug = true;
         
@@ -481,7 +447,9 @@ public class TestGeneral {
         // Setting the Subject and Content Type
         msg.setSubject(subject);
         msg.setContent(message, "text/plain");
-        Transport.send(msg);
+        if(doIreallyWantToSpam){
+        	Transport.send(msg);
+        }
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -489,50 +457,6 @@ public class TestGeneral {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*
-		String host = "smtp.gmail.com";
-	    String from = "hendecasyllabic";
-	    String pass = "Emmajdwa699";
-	    Properties props = System.getProperties();
-	    props.put("mail.smtp.starttls.enable", "true"); // added this line
-	    props.put("mail.smtp.host", host);
-	    props.put("mail.smtp.user", from);
-	    props.put("mail.smtp.password", pass);
-	    props.put("mail.smtp.port", "465");
-	    props.put("mail.smtp.auth", "true");
-
-	    String[] to = {"csm22@caret.cam.ac.uk"}; // added this line
-
-	    Session session = Session.getDefaultInstance(props, null);
-	    MimeMessage message = new MimeMessage(session);
-	    try {
-			message.setFrom(new InternetAddress(from));
-
-	    InternetAddress[] toAddress = new InternetAddress[to.length];
-
-	    // To get the array of addresses
-	    for( int i=0; i < to.length; i++ ) { // changed from a while loop
-	        toAddress[i] = new InternetAddress(to[i]);
-	    }
-	    System.out.println(Message.RecipientType.TO);
-
-	    for( int i=0; i < toAddress.length; i++) { // changed from a while loop
-	        message.addRecipient(Message.RecipientType.TO, toAddress[i]);
-	    }
-	    message.setSubject("sending in a group");
-	    message.setText("hi chris, Welcome to JavaMail");
-	    Transport transport = session.getTransport("smtp");
-	    transport.connect(host, from, pass);
-	    transport.sendMessage(message, message.getAllRecipients());
-	    transport.close();
-		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
-		assertTrue(true);
+		assertTrue(doIreallyWantToSpam);
 	}
 }
