@@ -27,10 +27,8 @@ public class XmlJsonConversion {
 	private static final Logger log=LoggerFactory.getLogger(XmlJsonConversion.class);
 	private static void addFieldToXml(Element root,Field field,JSONObject in) throws JSONException {
 		String value=in.optString(field.getID());
-		if(!StringUtils.isBlank(value)) { // XXX this is a bug: we should pass empty strings along to blank out fields, but see CSPACE-
-			Element element=root.addElement(field.getServicesTag());
-			element.addText(value);
-		}
+		Element element=root.addElement(field.getServicesTag());
+		element.addText(value);
 	}
 	
 	private static void addRepeatToXml(Element root,Repeat repeat,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
