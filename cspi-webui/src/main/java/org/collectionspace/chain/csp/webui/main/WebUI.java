@@ -28,6 +28,7 @@ import org.collectionspace.chain.csp.webui.misc.WebLogout;
 import org.collectionspace.chain.csp.webui.misc.WebReset;
 import org.collectionspace.chain.csp.webui.misc.WebUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.UISpec;
+import org.collectionspace.chain.csp.webui.nuispec.UserUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.FindEditUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.TabUISpec;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsCreateUpdate;
@@ -126,6 +127,8 @@ public class WebUI implements CSP, UI, Configurable {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UISpec(r));
 			addMethod(Operation.READ,new String[]{r.getTabURL(),"uispec"},0,new TabUISpec(r));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"oschema"},0,new WebUISpec(r.getID()));
+			// XXX need to implement
+			//addMethod(Operation.READ,new String[]{"users","uispec"},0,new UserUISpec(r));
 
 			if(r.isType("authority")){
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(r,false));
