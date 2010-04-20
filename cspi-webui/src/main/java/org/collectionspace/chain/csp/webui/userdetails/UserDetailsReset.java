@@ -360,6 +360,15 @@ public class UserDetailsReset implements WebMethod {
 				throw new UIException("Failed to parse json: "+x,x);
 			}
 		}
+		else{
+			try {
+				outputJSON.put("ok", false);
+				outputJSON.put("message", "The admin details in cspace-config.xml failed");
+			} catch (JSONException x) {
+				throw new UIException("Failed to parse json: "+x,x);
+			}
+			
+		}
 		/* should we automagically log them in or let them do that?, 
 		 * I think we should let them login, it has the advantage 
 		 * that they find out straight away if they can't remember the new password  */
