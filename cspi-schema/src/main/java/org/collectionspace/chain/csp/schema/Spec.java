@@ -45,14 +45,14 @@ public class Spec implements CSP, Configurable {
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"email"},SECTION_PREFIX+"email",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				ed = new EmailData(Spec.this,section);
-				return ed;
+				return this;
 			}
 		});
 		/* MAIN/admin -> AdminData */
-		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"email"},SECTION_PREFIX+"admin",null,new Target(){
+		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"admin"},SECTION_PREFIX+"admin",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				adminData = new AdminData(Spec.this,section);
-				return adminData;
+				return this;
 			}
 		});
 		
@@ -139,8 +139,8 @@ public class Spec implements CSP, Configurable {
 		});		
 	}
 
-	public EmailData getEmailData() { return ed; }
-	public AdminData getAdminData() { return adminData; }
+	public EmailData getEmailData() { return ed.getEmailData(); }
+	public AdminData getAdminData() { return adminData.getAdminData(); }
 	public Record getRecord(String id) { return records.get(id); }
 	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
 	public Record getRecordByServicesUrl(String url) { return records_by_services_url.get(url); }
