@@ -1,7 +1,11 @@
 <!--  XXX autocomplete needs renaming to something like authority -->
 <collection-space>
 	<bootstrap />
-	<version>5</version>
+	<version>6</version>
+	<admin>
+		<username>test</username>
+		<password>testtest</password>
+	</admin>
 	<email>
 		<baseurl>http://hendecasyllabic.local:8180</baseurl>
 		<from>csm22@caret.cam.ac.uk</from>
