@@ -16,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.AdminData;
 import org.collectionspace.chain.csp.schema.EmailData;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -246,8 +247,9 @@ public class UserDetailsReset implements WebMethod {
 
 		//mock login else service layer gets upset = not working
 		// XXX ARGH
-		request.getSession().setValue(UISession.USERID,"test");
-		request.getSession().setValue(UISession.PASSWORD,"testtest");
+		AdminData ad = spec.getAdminData();
+		request.getSession().setValue(UISession.USERID,ad.getAuthUser());
+		request.getSession().setValue(UISession.PASSWORD,ad.getAuthPass());
 		in.reset();
 		JSONObject outputJSON = new JSONObject();
 		if(testSuccess(in.getStorage())) {
@@ -300,8 +302,9 @@ public class UserDetailsReset implements WebMethod {
 		//mock login else service layer gets upset
 		// XXX ARGH
 
-		request.getSession().setValue(UISession.USERID,"test");
-		request.getSession().setValue(UISession.PASSWORD,"testtest");
+		AdminData ad = spec.getAdminData();
+		request.getSession().setValue(UISession.USERID,ad.getAuthUser());
+		request.getSession().setValue(UISession.PASSWORD,ad.getAuthPass());
 		in.reset();
 		JSONObject outputJSON = new JSONObject();
 		
