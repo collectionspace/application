@@ -253,44 +253,55 @@ public class UserDetailsReset implements WebMethod {
 		in.reset();
 		JSONObject outputJSON = new JSONObject();
 		if(testSuccess(in.getStorage())) {
-			
+			JSONObject data = null;	
+			data=request.getJSONBody();
+			log.info("JSON OBJECT",data);
+			String emailparam = "";
 		
-		JSONObject data = null;		
-		
-		data=request.getJSONBody();
-		log.info("JSON OBJECT",data);
-		String emailparam = "";
-		
-		/* get csid of email address */
-		try {
-			emailparam = data.getString("email");
-			JSONObject userdetails = getcsID(storage,emailparam);
-			if(userdetails.getBoolean("ok")){
-				String csid = userdetails.getString("csid");
+			/* get csid of email address */
+			try {
+				emailparam = data.getString("email");
+				JSONObject userdetails = getcsID(storage,emailparam);
+				if(userdetails.getBoolean("ok")){
+					String csid = userdetails.getString("csid");
 
-				/* for debug purposes */
-				if(data.has("debug") && data.getBoolean("debug")){ //only send email if debug is false/null see unit test TestGeneral testPasswordReset
-					outputJSON.put("token",createToken(csid));
-				}
-				else{
-					doEmail(csid,emailparam,in);
-				}
+					/* for debug purposes */
+					if(data.has("debug") && data.getBoolean("debug")){ //only send email if debug is false/null see unit test TestGeneral testPasswordReset
+						outputJSON.put("token",createToken(csid));
+					}
+					else{
+						doEmail(csid,emailparam,in);
+					}
 			
-				outputJSON.put("ok",true);
-				outputJSON.put("message","Password reset sent to " + emailparam);
+					outputJSON.put("ok",true);
+					outputJSON.put("message","Password reset sent to " + emailparam);
+				}
+				else {
+					outputJSON = userdetails;
+				}
+				request.getSession().setValue(UISession.USERID,"");
+				request.getSession().setValue(UISession.PASSWORD,"");
+				in.reset();
+			} catch (UIException e) {
+				//throw new UIException("Failed to send email",e);
+				try {
+					outputJSON.put("ok", false);
+					outputJSON.put("message", "Failed to send email: "+e.getMessage());
+				} catch (JSONException e1) {
+					throw new UIException("JSONException during error messaging",e);
+				}
+			} catch (JSONException e) {
+				throw new UIException("JSONException during search on email address",e);
+			}	
+		}
+		else{
+			try {
+				outputJSON.put("ok", false);
+				outputJSON.put("message", "The admin details in cspace-config.xml failed");
+			} catch (JSONException x) {
+				throw new UIException("Failed to parse json: "+x,x);
 			}
-			else {
-				outputJSON = userdetails;
-			}
-			request.getSession().setValue(UISession.USERID,"");
-			request.getSession().setValue(UISession.PASSWORD,"");
-			in.reset();
-		} catch (UIException e) {
-			throw new UIException("Failed to send email",e);
-		} catch (JSONException e) {
-			throw new UIException("JSONException during search on email address",e);
-		}		
-
+			
 		}
 		request.sendJSONResponse(outputJSON);
 	}
@@ -346,7 +357,8 @@ public class UserDetailsReset implements WebMethod {
 						} 
 					}
 					else{
-						throw new UIException("Token did not match the csid");
+						outputJSON.put("ok", false);
+						outputJSON.put("message", "Token did not match the csid");
 					}
 				}
 				else{
