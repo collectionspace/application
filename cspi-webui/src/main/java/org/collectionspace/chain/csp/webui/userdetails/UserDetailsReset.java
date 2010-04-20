@@ -68,9 +68,9 @@ public class UserDetailsReset implements WebMethod {
 		String[] recipients = new String[1];
 
 		/* ABSTRACT EMAIL STUFF : WHERE do we get the content of emails from? cspace-config.xml */
-		String message = ed.getPasswordResetMessage();
+		String messagebase = ed.getPasswordResetMessage();
 		String link = ed.getBaseURL() + "/cspace-ui/html/?token="+token+"&email="+ emailparam;
-		message.replace("{{link}}", link);
+		String message = messagebase.replaceAll("\\{\\{link\\}\\}", link);
 		
 		
 	    String SMTP_HOST_NAME = ed.getSMTPHost();
