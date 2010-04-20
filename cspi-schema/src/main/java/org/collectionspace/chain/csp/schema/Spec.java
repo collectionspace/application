@@ -16,13 +16,14 @@ public class Spec implements CSP, Configurable {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.spec.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 
-	private static final String required_version="4";
+	private static final String required_version="5";
 	
 	private Map<String,Record> records=new HashMap<String,Record>();
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	private String version;
+	private EmailData ed;
 	
 	public String getName() { return "schema"; }
 
@@ -31,13 +32,23 @@ public class Spec implements CSP, Configurable {
 	}
 
 	public void configure(Rules rules) {
-		/* MAIN/spec -> SPEC */
+		/* MAIN/version -> string */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"version"},SECTION_PREFIX+"version",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				version=(String)section.getValue("");
 				return this;
 			}
 		});
+		
+		/* MAIN/spec -> SPEC */
+		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"email"},SECTION_PREFIX+"email",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				ed = new EmailData(Spec.this,section);
+				//version=(String)section.getValue("");
+				return this;
+			}
+		});
+		
 		/* MAIN/spec -> SPEC */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"spec"},SECTION_PREFIX+"spec",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
@@ -121,6 +132,7 @@ public class Spec implements CSP, Configurable {
 		});		
 	}
 
+	public EmailData getEmailData() { return ed.getEmailData(); }
 	public Record getRecord(String id) { return records.get(id); }
 	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
 	public Record getRecordByServicesUrl(String url) { return records_by_services_url.get(url); }

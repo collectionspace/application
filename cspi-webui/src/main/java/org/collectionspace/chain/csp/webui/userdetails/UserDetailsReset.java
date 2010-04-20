@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.util.Properties;
 
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -15,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.EmailData;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -58,48 +60,58 @@ public class UserDetailsReset implements WebMethod {
 	
 
 	
-	private Boolean doEmail(String csid, String emailparam) throws UIException {
-		String token = createToken(csid);
+	private Boolean doEmail(String csid, String emailparam, Request in) throws UIException {
 		
-		/* ABSTRACT EMAIL STUFF : WHERE do we get the content of emails from? */
-String message = "A password reset has been requested from this email. " +
-		"If you wish to reset your password please click on this link " +
-		"/cspace-ui/html/?token="+token+"&email="+ emailparam;
+		String token = createToken(csid);
+		EmailData ed = spec.getEmailData();
+		String[] recipients = new String[1];
 
-	     String SMTP_HOST_NAME = "localhost";
-	     String SMTP_PORT = "25";
-	     String subject = "CollectionSpace Password reset request";
-	     String from = "csm22@caret.cam.ac.uk";
-	     String[] recipients = {emailparam};
-       Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
-       boolean debug = false;
+		/* ABSTRACT EMAIL STUFF : WHERE do we get the content of emails from? cspace-config.xml */
+		String message = ed.getPasswordResetMessage();
+		String link = ed.getBaseURL() + "/cspace-ui/html/?token="+token+"&email="+ emailparam;
+		message.replace("{{link}}", link);
+		
+		
+	    String SMTP_HOST_NAME = ed.getSMTPHost();
+	    String SMTP_PORT = ed.getSMTPPort();
+	    String subject = ed.getPasswordResetSubject();
+	    String from = ed.getFromAddress();
+	    if(ed.getToAddress().isEmpty()){
+	    	recipients[0] = emailparam;
+	    }
+	    else{
+	    	recipients[0] = ed.getToAddress();
+	    }
+	    Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+	    boolean debug = false;
        
-       Properties props = new Properties();
-       props.put("mail.smtp.host", SMTP_HOST_NAME);
-       props.put("mail.smtp.auth", "false");
-       props.put("mail.debug", "true");
-       props.put("mail.smtp.port", SMTP_PORT);
+	    Properties props = new Properties();
+	    props.put("mail.smtp.host", SMTP_HOST_NAME);
+	    props.put("mail.smtp.auth", ed.doSMTPAuth());
+       	props.put("mail.debug", ed.doSMTPDebug());
+       	props.put("mail.smtp.port", SMTP_PORT);
 
-       Session session = Session.getDefaultInstance(props);
+       	Session session = Session.getDefaultInstance(props);
+       	// XXX fix to allow authpassword /username
 
-       session.setDebug(debug);
+       	session.setDebug(debug);
 
-       Message msg = new MimeMessage(session);
-       InternetAddress addressFrom;
+       	Message msg = new MimeMessage(session);
+       	InternetAddress addressFrom;
 		try {
 			addressFrom = new InternetAddress(from);
-       msg.setFrom(addressFrom);
+			msg.setFrom(addressFrom);
 
-       InternetAddress[] addressTo = new InternetAddress[recipients.length];
-       for (int i = 0; i < recipients.length; i++) {
-           addressTo[i] = new InternetAddress(recipients[i]);
-       }
-       msg.setRecipients(Message.RecipientType.TO, addressTo);
+			InternetAddress[] addressTo = new InternetAddress[recipients.length];
+			for (int i = 0; i < recipients.length; i++) {
+				addressTo[i] = new InternetAddress(recipients[i]);
+			}
+			msg.setRecipients(Message.RecipientType.TO, addressTo);
 
-       // Setting the Subject and Content Type
-       msg.setSubject(subject);
-       msg.setContent(message, "text/plain");
-       Transport.send(msg);
+			// Setting the Subject and Content Type
+			msg.setSubject(subject);
+			msg.setContent(message, "text/plain");
+			Transport.send(msg);
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
 			log.info("AddressException: "+e.getMessage());
@@ -111,6 +123,7 @@ String message = "A password reset has been requested from this email. " +
 		
 		return true;
 	}
+
 	
 	private String createToken(String csid) throws UIException {
 		try {
@@ -258,7 +271,7 @@ String message = "A password reset has been requested from this email. " +
 					outputJSON.put("token",createToken(csid));
 				}
 				else{
-					doEmail(csid,emailparam);
+					doEmail(csid,emailparam,in);
 				}
 			
 				outputJSON.put("ok",true);

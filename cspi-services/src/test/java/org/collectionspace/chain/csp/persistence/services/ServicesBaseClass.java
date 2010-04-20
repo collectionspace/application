@@ -52,7 +52,7 @@ public class ServicesBaseClass {
 		conn=new ServicesConnection(base+"/cspace-services");
 		creds=new ServicesRequestCredentials();
 		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
-		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"test");		
+		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtest");		
 		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds,cache);
 		Assume.assumeTrue(out.getStatus()==200);
 	}
@@ -103,7 +103,7 @@ public class ServicesBaseClass {
 		StorageGenerator gen=cspm.getStorage("service");
 		CSPRequestCredentials creds=gen.createCredentials();
 		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
-		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"test");
+		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtest");
 		return gen.getStorage(creds,new RequestCache());
 	}
 }

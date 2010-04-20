@@ -1,7 +1,25 @@
 <!--  XXX autocomplete needs renaming to something like authority -->
 <collection-space>
 	<bootstrap />
-	<version>4</version>
+	<version>5</version>
+	<email>
+		<baseurl>hendecasyllabic.local:8180</baseurl>
+		<from>csm22@caret.cam.ac.uk</from>
+		<to></to><!-- if specified then all emails will send to this address - used for debugging -->
+		<smtp>
+			<host>localhost</host>
+			<port>25</port>
+			<debug>false</debug>
+			<auth enabled="false"> <!-- set to true if wish to use auth -->
+				<username></username>
+				<password></password>
+			</auth>
+		</smtp>
+		<passwordreset>
+			<subject>CollectionSpace Password reset request</subject>
+			<message>A password reset has been requested from this email. If you wish to reset your password please click on this link {{link}}.</message>
+		</passwordreset>
+	</email>
 	<persistence>
 		<service>
 			<url>http://test.collectionspace.org:8180/cspace-services</url>

@@ -6,18 +6,60 @@ import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedExcep
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
+import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
+import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
+import org.mortbay.jetty.testing.HttpTester;
+import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TestAccount extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestAccount.class);
+	
 	@Before public void checkServicesRunning() throws ConnectionException, BootstrapConfigLoadFailedException {
 		setup();
+	}
+	
+	@Test public void testAccountSearch() {
+		
+		Storage ss;
+		try {
+			ss = makeServicesStorage(base+"/cspace-services/");
+		/* 
+		 *  arggg how do I get it to do an exact match */
+		String[] paths=ss.getPaths("users/",new JSONObject("{\"email\":\"bob@indigo-e.co.uk\"}"));
+
+		
+		if(paths.length>=1){
+			for(int i=0;i<paths.length;i++) {
+				log.info(paths[i] +"  : "+ i +" of "+ paths.length);
+			}
+		}
+		} catch (CSPDependencyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ExistException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnimplementedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnderlyingStorageException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 	
 	@Test public void testAccountCreate() throws Exception {
@@ -60,4 +102,6 @@ public class TestAccount extends ServicesBaseClass {
 		ss.deleteJSON("users/"+path);
 		/* tidy up and delete user */
 	}
+	
+
 }
