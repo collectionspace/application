@@ -18,7 +18,7 @@ public class Util {
 		String out=(String)section.getValue(path);
 		if(out==null)
 			return dfault;
-		return "1".equals(out) || "yes".equals(out.toLowerCase());
+		return "1".equals(out) || "yes".equals(out.toLowerCase()) || "true".equals(out.toLowerCase());
 	}
 	
 	public static Set<String> getSetOrDefault(ReadOnlySection section,String path,String[] dfault) {

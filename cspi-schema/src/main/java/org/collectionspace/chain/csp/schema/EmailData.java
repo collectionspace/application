@@ -36,10 +36,10 @@ public class EmailData {
 		toaddress=(String)section.getValue("/to");
 		smtphost = (String)section.getValue("/smtp/host");
 		smtpport = (String)section.getValue("/smtp/port");
-		smtpdebug = (Boolean)section.getValue("/smtp/debug");
-		smtpauth = (Boolean)section.getValue("smtp/auth/@enabled");
-		smtppass = (String)section.getValue("smtp/auth/password");
-		smtpuser = (String)section.getValue("smtp/auth/username");
+		smtpdebug = Util.getBooleanOrDefault(section,"/smtp/debug",false);
+		smtpauth = Util.getBooleanOrDefault(section,"/smtp/auth/@enabled",false);
+		smtppass = (String)section.getValue("/smtp/auth/password");
+		smtpuser = (String)section.getValue("/smtp/auth/username");
 		pswdmsg = (String)section.getValue("/passwordreset/message");
 		pswdsubj = (String)section.getValue("/passwordreset/subject");
 	}
