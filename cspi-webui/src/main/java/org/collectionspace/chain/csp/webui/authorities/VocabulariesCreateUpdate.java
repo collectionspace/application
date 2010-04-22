@@ -53,7 +53,8 @@ public class VocabulariesCreateUpdate implements WebMethod {
 				// JIRA CSPACE-1173 - is there a better way to do this? Should be used cached data at least
 				String path1=n.getRecord().getID()+"/"+n.getTitleRef();
 				JSONObject minirecord = storage.retrieveJSON(path1 +"/"+path+"/view");
-				data.getJSONObject("fields").put("urn", minirecord.get("refid"));
+				data.put("urn", minirecord.get("refid")); //sibling of csid
+				//data.getJSONObject("fields").put("urn", minirecord.get("refid")); 
 			} else
 				path=sendJSON(storage,path,data);
 			if(path==null)
