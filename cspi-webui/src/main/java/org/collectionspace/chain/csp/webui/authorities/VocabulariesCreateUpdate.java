@@ -40,6 +40,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 			if(fields!=null)
 				path=storage.autocreateJSON(n.getRecord().getID()+"/"+n.getTitleRef(),fields);
 		}
+		
 		// XXX no vobaulary relations for now. Naming is too complex.
 		return path;
 	}
@@ -49,11 +50,16 @@ public class VocabulariesCreateUpdate implements WebMethod {
 			JSONObject data=request.getJSONBody();
 			if(create) {
 				path=sendJSON(storage,null,data);
+				// JIRA CSPACE-1173 - is there a better way to do this? Should be used cached data at least
+				String path1=n.getRecord().getID()+"/"+n.getTitleRef();
+				JSONObject minirecord = storage.retrieveJSON(path1 +"/"+path+"/view");
+				data.getJSONObject("fields").put("urn", minirecord.get("refid"));
 			} else
 				path=sendJSON(storage,path,data);
 			if(path==null)
 				throw new UIException("Insufficient data for create (no fields?)");
 			data.put("csid",path);
+			
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 			if(create)
