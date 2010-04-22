@@ -83,6 +83,8 @@ public class RecordCreateUpdate implements WebMethod {
 			JSONObject data=request.getJSONBody();
 			if(create) {
 				path=sendJSON(storage,null,data);
+				data.put("csid",path);
+				data.getJSONObject("fields").put("csid",path);
 			} else
 				path=sendJSON(storage,path,data);
 			if(path==null)
