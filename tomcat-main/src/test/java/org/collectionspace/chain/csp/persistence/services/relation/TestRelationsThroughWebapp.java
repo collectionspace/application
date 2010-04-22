@@ -218,18 +218,18 @@ public class TestRelationsThroughWebapp {
 	
 	@Test public void testLoginTest() throws Exception {
 		ServletTester jetty=setupJetty();
-
+		//initially set up with logged in user
 		HttpTester out=jettyDo(jetty,"GET","/chain/loginstatus",null);
 		JSONObject data3=new JSONObject(out.getContent());
 		Boolean rel3=data3.getBoolean("login");
-		log.info(rel3.toString());
-
-		 out=jettyDo(jetty,"GET","/chain/logout",null);
-
-		 out=jettyDo(jetty,"GET","/chain/loginstatus",null);
+		assertTrue(rel3);
+		//logout the user
+		out=jettyDo(jetty,"GET","/chain/logout",null);
+		//should get false
+		out=jettyDo(jetty,"GET","/chain/loginstatus",null);
 		JSONObject data2=new JSONObject(out.getContent());
 		Boolean rel2=data2.getBoolean("login");
-		log.info(rel2.toString());
+		assertFalse(rel2);
 	}
 	
 	
