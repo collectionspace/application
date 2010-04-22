@@ -122,11 +122,16 @@ public class RelateCreateUpdate implements WebMethod {
 				// Multiple
 				JSONArray relations=data.getJSONArray("items");
 				for(int i=0;i<relations.length();i++) {
+					JSONObject itemdata = relations.getJSONObject(i);
 					if(!create)
 						throw new UIException("Cannot use multiple syntax for update");
-					relate_one(storage,relations.getJSONObject(0),path,false);					
+
+					if(!itemdata.optBoolean("one-way")){
+						and_reverse=true;
+					}
+					relate_one(storage,relations.getJSONObject(i),path,false);					
 					if(and_reverse)
-						relate_one(storage,relations.getJSONObject(0),path,true);
+						relate_one(storage,relations.getJSONObject(i),path,true);
 				}
 			} else
 				throw new UIException("Bad JSON data");
