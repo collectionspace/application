@@ -93,6 +93,7 @@ public class RecordRead implements WebMethod {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				JSONArray relations=createRelations(storage,csid);
+				out.put("csid",csid);
 				out.put("fields",fields);
 				out.put("relations",relations);
 				out.put("termsUsed",getTermsUsed(storage,base+"/"+csid));
