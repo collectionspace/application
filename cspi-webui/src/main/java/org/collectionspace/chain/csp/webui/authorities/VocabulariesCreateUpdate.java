@@ -59,7 +59,9 @@ public class VocabulariesCreateUpdate implements WebMethod {
 				path=sendJSON(storage,path,data);
 			if(path==null)
 				throw new UIException("Insufficient data for create (no fields?)");
+			
 			data.put("csid",path);
+			data.getJSONObject("fields").put("csid",path);
 			
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
