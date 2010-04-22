@@ -215,12 +215,31 @@ public class TestRelationsThroughWebapp {
 		log.info(out.getContent());
 	}
 	
+	
+	@Test public void testLoginTest() throws Exception {
+		ServletTester jetty=setupJetty();
+
+		HttpTester out=jettyDo(jetty,"GET","/chain/loginstatus",null);
+		JSONObject data3=new JSONObject(out.getContent());
+		Boolean rel3=data3.getBoolean("login");
+		log.info(rel3.toString());
+
+		 out=jettyDo(jetty,"GET","/chain/logout",null);
+
+		 out=jettyDo(jetty,"GET","/chain/loginstatus",null);
+		JSONObject data2=new JSONObject(out.getContent());
+		Boolean rel2=data2.getBoolean("login");
+		log.info(rel2.toString());
+	}
+	
+	
 	// XXX factor out creation
 	@Test public void testRelationsMissingOneWay() throws Exception {
 		ServletTester jetty=setupJetty();
 		// First create a couple of objects
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
 		assertEquals(201,out.getStatus());
+	
 		String id1=out.getHeader("Location");
 		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
 		assertEquals(201,out.getStatus());
