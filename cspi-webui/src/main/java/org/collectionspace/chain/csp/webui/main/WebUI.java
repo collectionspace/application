@@ -24,6 +24,7 @@ import org.collectionspace.chain.csp.webui.misc.VocabRedirector;
 import org.collectionspace.chain.csp.webui.misc.WebAuto;
 import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
 import org.collectionspace.chain.csp.webui.misc.WebLogin;
+import org.collectionspace.chain.csp.webui.misc.WebLoginStatus;
 import org.collectionspace.chain.csp.webui.misc.WebLogout;
 import org.collectionspace.chain.csp.webui.misc.WebReset;
 import org.collectionspace.chain.csp.webui.misc.WebUISpec;
@@ -117,6 +118,7 @@ public class WebUI implements CSP, UI, Configurable {
 		//Operation.READ = method= GET
 		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin(this,spec));
 		addMethod(Operation.READ,new String[]{"logout"},0,new WebLogout());
+		addMethod(Operation.READ,new String[]{"loginstatus"},0, new WebLoginStatus());
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
 		addMethod(Operation.READ,new String[]{"find-edit","uispec"},0,new FindEditUISpec(spec.getAllRecords()));
@@ -127,9 +129,7 @@ public class WebUI implements CSP, UI, Configurable {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UISpec(r));
 			addMethod(Operation.READ,new String[]{r.getTabURL(),"uispec"},0,new TabUISpec(r));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"oschema"},0,new WebUISpec(r.getID()));
-			// XXX need to implement
-			//addMethod(Operation.READ,new String[]{"users","uispec"},0,new UserUISpec(r));
-
+			
 			if(r.isType("authority")){
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(r,false));
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(r,true));
@@ -155,7 +155,9 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 			}
-			else if(r.isType("userdata")){
+			else if(r.isType("userdata")){// XXX need to implement
+				//addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UserUISpec(r));
+
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new UserDetailsSearchList(r,true));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new UserDetailsRead(r));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new UserDetailsSearchList(r,false));
