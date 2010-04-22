@@ -22,6 +22,7 @@ public class Spec implements CSP, Configurable {
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
+	private Map<String, Structure> structure=new HashMap<String,Structure>();
 	private String version;
 	private EmailData ed;
 	private AdminData adminData;
@@ -95,7 +96,7 @@ public class Spec implements CSP, Configurable {
 				return n;
 			}
 		});			
-		
+
 		/* RECORD/field -> FIELD */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
@@ -105,6 +106,14 @@ public class Spec implements CSP, Configurable {
 				if(is_chooser!=null && ("1".equals(is_chooser) || "yes".equals(is_chooser.toLowerCase())))
 					f.setType("chooser");
 				return f;
+			}
+		});	
+		/* RECORD/structures/structure -> STRUCTURE */
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"structures","structure"},SECTION_PREFIX+"structure",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Structure s=new Structure((Record)parent,section);
+				((Record)parent).addStructure(s);
+				return s;
 			}
 		});	
 		
@@ -145,9 +154,12 @@ public class Spec implements CSP, Configurable {
 	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
 	public Record getRecordByServicesUrl(String url) { return records_by_services_url.get(url); }
 	public Record[] getAllRecords() { return records.values().toArray(new Record[0]); }
-	
+
 	public void addInstance(Instance n) {
 		instances.put(n.getID(),n);
+	}
+	public void addStructure(Structure s) {
+		structure.put(s.getID(),s);
 	}
 	
 	public Instance getInstance(String id) { return instances.get(id); }

@@ -98,9 +98,12 @@ public class Record implements FieldParent {
 	public Field getMiniSummary() { return mini_summary; }
 	public Field getDisplayNameField() { return display_name; }
 	public Field getFieldByServicesFilterParam(String param) { return services_filter_param.get(param); }
-	
+
 	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);
+	}
+	public void addStructure(Structure s) {
+		spec.addStructure(s);
 	}
 	
 	public void addInstance(Instance n) {
