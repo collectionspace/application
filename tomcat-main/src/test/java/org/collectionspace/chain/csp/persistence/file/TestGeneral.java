@@ -449,14 +449,15 @@ public class TestGeneral {
         msg.setContent(message, "text/plain");
         if(doIreallyWantToSpam){
         	Transport.send(msg);
+        	assertTrue(doIreallyWantToSpam);
         }
 		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.info(e.getMessage());
+			assertTrue(false);
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.info(e.getMessage());
+			assertTrue(false);
 		}
-		assertTrue(doIreallyWantToSpam);
+		//assertTrue(doIreallyWantToSpam);
 	}
 }
