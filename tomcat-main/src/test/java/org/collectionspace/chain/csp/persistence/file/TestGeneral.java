@@ -431,6 +431,7 @@ public class TestGeneral {
         Session session = Session.getDefaultInstance(props);
  
         session.setDebug(debug);
+        if(doIreallyWantToSpam){
  
         Message msg = new MimeMessage(session);
         InternetAddress addressFrom;
@@ -457,6 +458,7 @@ public class TestGeneral {
 		} catch (MessagingException e) {
 			log.info(e.getMessage());
 			assertTrue(false);
+		}
 		}
 		//assertTrue(doIreallyWantToSpam);
 	}
