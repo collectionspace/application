@@ -1,7 +1,7 @@
 <!--  XXX autocomplete needs renaming to something like authority -->
 <collection-space>
 	<bootstrap />
-	<version>6</version>
+	<version>7</version>
 	<admin>
 		<username>test</username>
 		<password>testtest</password>
@@ -21,7 +21,7 @@
 		</smtp>
 		<passwordreset>
 			<subject>CollectionSpace Password reset request</subject>
-			<message>A password reset has been requested from this email. If you wish to reset your password please click on this link {{link}}.</message>
+			<message>A password reset has been requested from this email. If you wish to reset your password please click on this link {{link}}</message>
 		</passwordreset>
 	</email>
 	<persistence>
@@ -576,7 +576,8 @@
 				    <option id="library" sample="LIB2009.1">Library</option>
 				  </options>
 			  </field>
-			  <repeat id="acquisitionSources" xxx-ui-no-repeat="yes">
+			  <repeat id="acquisitionSources">
+			  	<selector>.csc-acquisition-acquisition-source-row:</selector>
 			    <field id="acquisitionSource" autocomplete="person-person" mini="summary">
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
@@ -827,7 +828,15 @@
 			  <services-url>accounts</services-url>
 			  <services-record-path>:http://collectionspace.org/services/account,accounts_common</services-record-path>   
 			  <services-list-path>accounts-common-list/account-list-item</services-list-path>
-
+			  <structures>
+			  	<structure id="screen"> <!-- screen|print|blackberry etc -->
+			  		<titlebar show="false"></titlebar>
+			  		<sidebar show="false"></sidebar>
+			  		<edit-section>userDetails</edit-section>
+			  		<list-section>userList</list-section>
+			  	</structure>
+			  </structures>
+			  
 			  <field id="userId">
 			  	<services-filter-param>uid</services-filter-param>
 			    <selector>.csc-user-userID</selector>
