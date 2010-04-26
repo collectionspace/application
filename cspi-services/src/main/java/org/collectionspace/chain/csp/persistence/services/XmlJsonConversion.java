@@ -174,7 +174,13 @@ public class XmlJsonConversion {
 				if(child==null)
 					continue;
 				if(fs instanceof Field) {
-					member.put(f.getID(),child.getText());
+					if(f.getXxxUiNoRepeat()){
+						member.put(f.getID(),child.getText());}
+					else{
+						//changed this as fields within repeats were not doing as expected
+						// used fs.getID() rather than f.getID()
+						member.put(fs.getID(),child.getText());
+					}
 				} else if(fs instanceof Repeat) {
 					JSONObject rp=new JSONObject();
 					addRepeatToJson(rp,child,(Repeat)fs);					
