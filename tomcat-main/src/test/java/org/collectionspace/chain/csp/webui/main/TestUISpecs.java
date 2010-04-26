@@ -100,6 +100,12 @@ public class TestUISpecs {
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("object-tab.uispec"));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
+		// UserDetails tab
+		response=jettyDo(jetty,"GET","/chain/users/uispec",null);
+		assertEquals(200,response.getStatus());
+		generated=new JSONObject(response.getContent());
+		comparison=new JSONObject(getResourceString("users.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
 	}
 }
