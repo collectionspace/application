@@ -12,7 +12,7 @@
 			  "acquisitionProvisos": "acquisitionProvisos2",
 			  "acquisitionReason": "acquisitionReason2",
 			  "acquisitionReferenceNumber": "acquisitionReferenceNumber2",
-			  "acquisitionSource": "acquisitionSource2",
+              "acquisitionSources":[{"acquisitionSource": "acquisitionSource2"}],
 			  "objectPurchaseOfferPriceDenomination": "objectPurchaseOfferPriceDenomination2",
 			  "objectPurchaseOfferPriceType": "objectPurchaseOfferPriceType2",
 			  "objectPurchaseOfferPriceValue": "objectPurchaseOfferPriceValue2",
