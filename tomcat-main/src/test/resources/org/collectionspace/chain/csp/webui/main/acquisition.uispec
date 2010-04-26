@@ -43,7 +43,6 @@
         }
     },
     "recordEditor": {
-        ".csc-acquisition-acquisition-source": "${fields.acquisitionSource}",
         ".csc-acquisition-date": "${fields.acquisitionDate}",
         ".csc-acquisition-acquisition-reason": "${fields.acquisitionReason}",
         ".csc-acquisition-purchaser-price-denomination": "${fields.objectPurchaseOfferPriceDenomination}",
@@ -59,7 +58,7 @@
         ".csc-acquisition-authorizer-autocomplete": {
             "decorators": [
                 {
-                    "container": ".csc-acquisition-authorizer",
+                	"container":".csc-acquisition-authorizer",
                     "type": "fluid",
                     "func": "cspace.autocomplete",
                     "options": {
@@ -140,15 +139,22 @@
                 }
             ]
         },
-        ".csc-acquisition-acquisition-source-autocomplete": {
-            "decorators": [
+        ".csc-acquisition-acquisition-source-row:": {
+            "children": [
                 {
-                    "container": ".csc-acquisition-acquisition-source",
-                    "type": "fluid",
-                    "func": "cspace.autocomplete",
-                    "options": {
-                        "queryUrl": "../../chain/acquisition/autocomplete/acquisitionSource",
-                        "vocabUrl": "../../chain/acquisition/source-vocab/acquisitionSource"
+                    ".csc-acquisition-acquisition-source": "${fields.acquisitionSources.0.acquisitionSource}",
+                    ".csc-acquisition-acquisition-source-autocomplete": {
+                        "decorators": [
+                            {
+                    			"container":".csc-acquisition-acquisition-source",
+                                "type": "fluid",
+                                "func": "cspace.autocomplete",
+                                "options": {
+                                    "queryUrl": "../../chain/acquisition/autocomplete/acquisitionSource",
+                                    "vocabUrl": "../../chain/acquisition/source-vocab/acquisitionSource"
+                                }
+                            }
+                        ]
                     }
                 }
             ]
@@ -166,7 +172,7 @@
         ".csc-acquisition-acquisition-funding-source-autocomplete": {
             "decorators": [
                 {
-                    "container": ".csc-acquisition-acquisition-funding-source",
+					"container":".csc-acquisition-acquisition-funding-source",
                     "type": "fluid",
                     "func": "cspace.autocomplete",
                     "options": {
