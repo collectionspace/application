@@ -16,11 +16,16 @@ public class WebLoginStatus  implements WebMethod {
 		JSONObject output= new JSONObject();
 		UIRequest request=in.getUIRequest();
 		try {
-			if(request.getSession().getValue(UISession.USERID).equals("")){
-				output.put("login", false);
+			if(request.getSession() != null && request.getSession().getValue(UISession.USERID) != null ){
+				if(request.getSession().getValue(UISession.USERID).equals("")){
+					output.put("login", false);
+				}				
+				else{
+					output.put("login", true);
+				}
 			}
 			else{
-				output.put("login", true);
+				output.put("login", false);
 			}
 			request.sendJSONResponse(output);
 		} catch (JSONException x) {
