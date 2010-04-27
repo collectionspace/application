@@ -18,7 +18,7 @@ public class Field implements FieldSet {
 	
 	/* UI */
 	private String selector,type,autocomplete_selector,container_selector,title_selector;
-	private boolean in_title=false,in_tab=false,display_name=false;
+	private boolean in_title=false,in_tab=false,display_name=false, has_container=true;
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
 
@@ -28,6 +28,7 @@ public class Field implements FieldSet {
 	public Field(FieldParent record,ReadOnlySection section) {
 		id=(String)section.getValue("/@id");
 		autocomplete_instance_id=Util.getStringOrDefault(section,"/@autocomplete",null);
+		has_container = Util.getBooleanOrDefault(section, "/@container", true);
 		selector=(String)section.getValue("/selector");		
 		if(selector==null)
 			selector=".csc-"+id;
@@ -72,6 +73,7 @@ public class Field implements FieldSet {
 	public String getUIType() { return type; }
 	public boolean isInTitle() { return in_title; }
 	public boolean isInTab() { return in_tab; }
+	public boolean hasContainer() {return has_container;}
 	public String getTitleSelector() { return title_selector; }
 	public String getServicesFilterParam() { return services_filter_param; }
 	public String getServicesTag() { return services_tag; }
