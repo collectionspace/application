@@ -146,7 +146,6 @@
                     ".csc-acquisition-acquisition-source-autocomplete": {
                         "decorators": [
                             {
-                    			"container":".csc-acquisition-acquisition-source",
                                 "type": "fluid",
                                 "func": "cspace.autocomplete",
                                 "options": {
