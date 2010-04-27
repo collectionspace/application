@@ -578,7 +578,7 @@
 			  </field>
 			  <repeat id="acquisitionSources">
 			  	<selector>.csc-acquisition-acquisition-source-row:</selector>
-			    <field id="acquisitionSource" autocomplete="person-person" mini="summary">
+			    <field id="acquisitionSource" autocomplete="person-person" mini="summary" container="false">
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
 			  </repeat>
@@ -832,8 +832,19 @@
 			  	<structure id="screen"> <!-- screen|print|blackberry etc -->
 			  		<titlebar show="false"></titlebar>
 			  		<sidebar show="false"></sidebar>
-			  		<edit-section>userDetails</edit-section>
-			  		<list-section>userList</list-section>
+			  		<edit-section id="userDetails"></edit-section>
+			  		<list-section id="userList">
+			  			<selector>.csc-user-userList-row</selector>
+			  			<field id="name">
+			  				<selector>.csc-user-userList-name</selector>
+			  			</field>
+			  			<field id="status">
+			  				<selector>.csc-user-userList-status</selector>
+			  			</field>
+			  			<field id="csid">
+			  				<selector>.csc-user-userList-csid</selector>
+			  			</field>
+			  		</list-section>
 			  	</structure>
 			  </structures>
 
