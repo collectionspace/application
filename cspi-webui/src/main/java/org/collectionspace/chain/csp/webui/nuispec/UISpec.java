@@ -74,7 +74,9 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=new JSONObject();
 		decorator.put("type","fluid");
 		decorator.put("func","cspace.autocomplete");
-		decorator.put("container",f.getSelector());
+		if(f.hasContainer()){
+			decorator.put("container",f.getSelector());
+		}
 		JSONObject options=new JSONObject();
 		String extra="";
 		if(f.getRecord().isType("authority"))
