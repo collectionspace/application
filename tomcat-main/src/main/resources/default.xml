@@ -8,7 +8,7 @@
 	</admin>
 	<email>
 		<baseurl>http://test.collectionspace.org:8180</baseurl>
-		<from>csm22@caret.cam.ac.uk</from>
+		<from>admin@collectionspace.org</from>
 		<to></to><!-- if specified then all emails will send to this address - used for debugging -->
 		<smtp>
 			<host>localhost</host>
@@ -20,6 +20,9 @@
 			</auth>
 		</smtp>
 		<passwordreset>
+			<token>
+				<daysvalid>7</daysvalid>
+			</token>
 			<subject>CollectionSpace Password reset request</subject>
 			<message>A password reset has been requested from this email. If you wish to reset your password please click on this link {{link}}</message>
 		</passwordreset>
@@ -40,10 +43,14 @@
 	<spec>
 		<records>
 			<record id="collection-object" in-findedit="yes">
-			  <services-url>collectionobjects</services-url>
-			  <services-list-path>collectionobjects-common-list/collection-object-list-item</services-list-path>
-			  <services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
-			  <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
+				<services-url>collectionobjects</services-url>
+				<services-list-path>collectionobjects-common-list/collection-object-list-item</services-list-path>
+				<services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
+				<services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
+				<structures>
+					<structure id="screen"> 
+					</structure>
+				</structures>
 				<web-url>objects</web-url>
 				<tab-url>object-tab</tab-url>
 				<number-selector>.csc-accession-number</number-selector>
@@ -221,7 +228,8 @@
 					<field id="contentScript">
 						<selector>.csc-object-description-content-script</selector>
 					</field>
-					<field id="contentOrganization" autocomplete="person-person">
+					<field id="contentOrganization">
+					<!-- <field id="contentOrganization" autocomplete="person-person"> -->
 						<selector>.csc-object-description-content-organization</selector>
 					</field>
 					<field id="contentMethod">
@@ -369,6 +377,10 @@
 			  <services-url>intakes</services-url>
 			  <services-list-path>intakes-common-list/intake-list-item</services-list-path>
 			  <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>			
+			  <structures>
+				<structure id="screen"> 
+				</structure>
+			  </structures>
 			  <row-selector>.csc-procedural-record-list-row:</row-selector>
 			  <field id="currentOwner" autocomplete="person-person">
 			    <selector>.csc-intake-current-owner</selector>
@@ -520,7 +532,10 @@
 		      <services-url>acquisitions</services-url>
 			  <services-list-path>acquisitions-common-list/acquisition-list-item</services-list-path>
 			  <services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
-			
+			  <structures>
+				<structure id="screen"> 
+				</structure>
+			  </structures>		
 			
 			  <field id="accessionDate" ui-type="date">
 			    <selector>.csc-acquisition-accession-date</selector>
@@ -615,7 +630,10 @@
 			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
 			  <services-url>personauthorities</services-url>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
-
+			  <structures>
+				<structure id="screen"> 
+				</structure>
+			  </structures>
 			  <instances>
 			    <instance id="person-person">
 			      <web-url>person</web-url>
@@ -687,16 +705,19 @@
 			      <option id="female">Female</option>
 			    </options>
 			  </field>
-			  <field id="occupation" autocomplete="person-person">
+			  <field id="occupation">
+			  <!-- <field id="occupation" autocomplete="person-person"> -->
 			    <selector>.csc-personAuthority-occupation</selector>
 			  </field>
-			  <field id="schoolOrStyle" autocomplete="person-person">
+			  <field id="schoolOrStyle">
+<!--			  <field id="schoolOrStyle" autocomplete="person-person"> -->
 			    <selector>.csc-personAuthority-schoolOrStyle</selector>
 			  </field>
 			  <field id="group" autocomplete="organization-organization">
 			    <selector>.csc-personAuthority-group</selector>
 			  </field>
-			  <field id="nationality" autocomplete="person-person">
+			  <field id="nationality">
+			  <!-- <field id="nationality" autocomplete="person-person"> -->
 			    <selector>.csc-personAuthority-nationality</selector>
 			  </field>
 			  <field id="nameNote">
@@ -709,14 +730,16 @@
 			    <selector>.csc-personAuthority-birthDate</selector>
 			    <title-selector>.csc-titleBar-birthDate</title-selector>
 			  </field>
-			  <field id="birthPlace" autocomplete="person-person">
+			  <!-- <field id="birthPlace" autocomplete="person-person"> -->
+			  <field id="birthPlace">
 			    <selector>.csc-personAuthority-birthPlace</selector>
 			  </field>
 			  <field id="deathDate" ui-type="date" in-title="yes">
 			    <selector>.csc-personAuthority-deathDate</selector>
 			    <title-selector>.csc-titleBar-deathDate</title-selector>
 			  </field>
-			  <field id="deathPlace" autocomplete="person-person">
+			  <field id="deathPlace">
+			  <!-- <field id="deathPlace" autocomplete="person-person"> -->
 			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
 			  <field id="addressType1">
@@ -732,7 +755,8 @@
 			  <field id="faxNumber1">
 			    <selector>.csc-contact-faxNumber1</selector>
 			  </field>
-			  <field id="place" autocomplete="person-person">
+			  <field id="place">
+			  <!-- <field id="place" autocomplete="person-person"> -->
 			    <selector>.csc-contact-place</selector>
 			  </field>
 			  <field id="telephoneNumber1">
@@ -755,7 +779,10 @@
 			  <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
 			  <services-url>orgauthorities</services-url>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
-
+			  <structures>
+				<structure id="screen"> 
+				</structure>
+			  </structures>
 			  <instances>
 			    <instance id="organization-organization">
 			      <web-url>organization</web-url>
@@ -794,14 +821,15 @@
 			    <selector>.csc-organizationAuthority-foundingDate</selector>
 			    <title-selector>.csc-titleBar-foundationDate</title-selector>
 			  </field>
-			  <field id="foundingPlace" autocomplete="person-person">
+			  <field id="foundingPlace">
+			  <!-- <field id="foundingPlace" autocomplete="person-person"> -->
 			    <selector>.csc-organizationAuthority-foundingPlace</selector>
 			  </field>
 			  <field id="dissolutionDate" ui-type="date" in-title="yes">
 			    <selector>.csc-organizationAuthority-dissolutionDate</selector>
 			    <title-selector>.csc-titleBar-dissolutionDate</title-selector>
 			  </field>
-			  <field id="group" autocomplete="person-person">
+			  <field id="group" autocomplete="organization-organization">
 			    <selector>.csc-organizationAuthority-group</selector>
 			  </field>
 			  <field id="function">
@@ -830,24 +858,26 @@
 			  <services-list-path>accounts-common-list/account-list-item</services-list-path>
 			  <structures>
 			  	<structure id="screen"> <!-- screen|print|blackberry etc -->
-			  		<titlebar show="false"></titlebar>
-			  		<sidebar show="false"></sidebar>
-			  		<edit-section id="userDetails"></edit-section>
-			  		<list-section id="userList">
-			  			<selector>.csc-user-userList-row</selector>
-			  			<field id="name">
+					<view>
+			  			<titlebar show="false"></titlebar>
+			  			<sidebar show="false"></sidebar>
+			  			<edit-section id="userDetails" show="true"></edit-section>
+			  			<list-section id="userList" show="true"></list-section>
+					</view>
+			  		<repeat id="userList" asSibling="true">
+			  			<selector>.csc-user-userList-row:</selector>
+			  			<field id="name" ui-type="list">
 			  				<selector>.csc-user-userList-name</selector>
 			  			</field>
-			  			<field id="status">
+			  			<field id="status" ui-type="list">
 			  				<selector>.csc-user-userList-status</selector>
 			  			</field>
-			  			<field id="csid">
+			  			<field id="csid" ui-type="list">
 			  				<selector>.csc-user-userList-csid</selector>
 			  			</field>
-			  		</list-section>
+					</repeat>
 			  	</structure>
 			  </structures>
-
 
 			  <field id="userId">
 			  	<services-filter-param>uid</services-filter-param>
