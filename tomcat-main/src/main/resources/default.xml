@@ -228,8 +228,7 @@
 					<field id="contentScript">
 						<selector>.csc-object-description-content-script</selector>
 					</field>
-					<field id="contentOrganization">
-					<!-- <field id="contentOrganization" autocomplete="person-person"> -->
+					<field id="contentOrganization" autocomplete="organization-organization">
 						<selector>.csc-object-description-content-organization</selector>
 					</field>
 					<field id="contentMethod">
@@ -254,7 +253,7 @@
 					<field id="inscriptionContent">
 						<selector>.csc-object-description-inscription-content</selector>
 					</field>
-					<field id="inscriber">
+					<field id="inscriber" autocomplete="person-person">
 						<selector>.csc-object-description-inscription-content-inscriber</selector>
 					</field>
 					<field id="inscriptionLanguage">
@@ -287,7 +286,7 @@
 					<field id="inscriptionDescription">
 						<selector>.csc-object-description-inscription-description</selector>
 					</field>
-					<field id="inscriptionDescriptionInscriber">
+					<field id="inscriptionDescriptionInscriber" autocomplete="person-person">
 						<selector>.csc-object-description-inscription-description-inscriber</selector>
 					</field>
 					<field id="inscriptionDescriptionDate">
