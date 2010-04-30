@@ -12,6 +12,7 @@ import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.schema.Structure;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
@@ -20,8 +21,11 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UISpec implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(UISpec.class);
 	private Record record;
 
 	public UISpec(Record record) {
@@ -39,13 +43,28 @@ public class UISpec implements WebMethod {
 		}
 		return "${"+StringUtils.join(path,'.')+"}";		
 	}
-
+	// XXX make common
+	// ${items.0.name}
+	static String plainlist(Field f) {
+		List<String> path=new ArrayList<String>();
+		String name="items";
+		path.add(name);
+			String pad="0";
+			path.add(pad);
+			path.add(f.getID());
+		
+		return "${"+StringUtils.join(path,'.')+"}";		
+	}
 	// XXX factor
 	private Object generateDataEntryField(Field f) throws JSONException {
 		if("plain".equals(f.getUIType())) {
 			// Plain entry
 			return plain(f);
-		} else if("dropdown".equals(f.getUIType())) {
+		} 
+		else if("list".equals(f.getUIType())){
+			return plainlist(f);
+		}
+		else if("dropdown".equals(f.getUIType())) {
 			// Dropdown entry
 			JSONObject out=new JSONObject();
 			out.put("selection",plain(f));
@@ -95,7 +114,9 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=new JSONObject();
 		decorator.put("type","fluid");
 		decorator.put("func","cspace.numberPatternChooser");
-		decorator.put("container",f.getContainerSelector());
+		if(f.hasContainer()){
+			decorator.put("container",f.getContainerSelector());
+		}
 		JSONObject options=new JSONObject();
 		JSONObject selectors=new JSONObject();
 		selectors.put("numberField",f.getSelector());
@@ -125,7 +146,9 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=new JSONObject();
 		decorator.put("type","fluid");
 		decorator.put("func","cspace.datePicker");
-		decorator.put("container",f.getContainerSelector());
+		if(f.hasContainer()){
+			decorator.put("container",f.getContainerSelector());
+		}
 		decorators.put(decorator);
 		out.put("decorators",decorators);
 		return out;
@@ -139,6 +162,17 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
+	
+	private JSONObject generateListSection(Structure s) throws JSONException {
+		JSONObject out=new JSONObject();
+		s.getListSectionName();
+
+		for(FieldSet fs : s.getAllFields()) {
+			generateDataEntry(out,fs);
+		}
+		return out;
+	}
+	
 	private void generateDataEntry(JSONObject out,FieldSet fs) throws JSONException {
 		if(fs instanceof Field) {
 			// Single field
@@ -165,10 +199,19 @@ public class UISpec implements WebMethod {
 			} else {
 				JSONObject row=new JSONObject();
 				JSONArray children=new JSONArray();
-				for(FieldSet child : r.getChildren()) {
+				if(r.asSibling()){ // allow for row [{'','',''}]
 					JSONObject contents=new JSONObject();
-					generateDataEntry(contents,child);
+					for(FieldSet child : r.getChildren()) {
+						generateDataEntry(contents,child);
+					}
 					children.put(contents);
+				}
+				else{//default row [{},{},{}]
+					for(FieldSet child : r.getChildren()) {
+						JSONObject contents=new JSONObject();
+						generateDataEntry(contents,child);
+						children.put(contents);
+					}
 				}
 				row.put("children",children);
 				out.put(r.getSelector(),row);
@@ -231,9 +274,20 @@ public class UISpec implements WebMethod {
 	private JSONObject uispec(UIRequest request,String suffix) throws UIException {
 		try {
 			JSONObject out=new JSONObject();
-			out.put("recordEditor",generateDataEntrySection());
-			out.put("titleBar",generateTitleSection());
-			out.put("sidebar",generateSidebarSection());
+			Structure s = record.getStructure("screen");
+			if(s.showListSection()){
+				out.put(s.getListSectionName(),generateListSection(s));
+			}
+			if(s.showEditSection()){
+			out.put(s.getEditSectionName(),generateDataEntrySection());
+			}
+			if(s.showTitleBar()){
+				out.put("titleBar",generateTitleSection());
+			}
+			
+			if(s.showSideBar()){
+				out.put("sidebar",generateSidebarSection());
+			}
 			return out;
 		} catch (JSONException e) {
 			throw new UIException("Cannot generate UISpec due to JSONException",e);
