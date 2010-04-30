@@ -1,8 +1,15 @@
 package org.collectionspace.chain.csp.webui.userdetails;
 
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -125,8 +132,7 @@ public class UserDetailsReset implements WebMethod {
 		return true;
 	}
 
-	
-	private String createToken(String csid) throws UIException {
+	private String createHash(String csid) throws UIException {
 		try {
 			byte[] buffer = csid.getBytes();
 			byte[] result = null;
@@ -148,23 +154,60 @@ public class UserDetailsReset implements WebMethod {
 			}
 				//log.info(csid);
 				//log.info(buf.toString());
-			return buf.toString();
+			return buf.toString().substring(0,5);
 		} catch (NoSuchAlgorithmException e) {
 			throw new UIException("There were problems with the algorithum");
 		}
-
 	}
 	
-	private Boolean testToken(String csid, String token) throws UIException {
-		String match = createToken(csid);
-		if(token.equals(match)){
-
-			log.info("token matches");
-			return true;
-		}
-		log.info("token fails"+token+":"+match);
-		return false;
+	/* create a token that holds date information */
+	private String createToken(String csid) throws UIException {
+		String hash = createHash(csid); 
+		Long token = Long.parseLong(hash,16) * (System.currentTimeMillis() / 100000); 
+		return token.toString();
 	}
+	
+	private long daysBetween(Date startDate, Date endDate) throws UIException {
+
+		log.info("Start: "+startDate); 
+		log.info("End: "+endDate); 
+		long daysBetween = 0; 
+		while (startDate.before(endDate)) { 
+			startDate.setTime(startDate.getTime() + (24*60*60*1000)); 
+			daysBetween++; 
+		} 
+		return daysBetween;
+	}
+	
+	private boolean tokenExpired(String token, String match) throws UIException{ 
+		
+		EmailData ed = spec.getEmailData();
+		Integer lengthTokenIsValidFor = ed.getTokenValidForLength();
+		//token is what we got from the user, match is what we created 
+		//Get the date from when the token was created by dividing token by match 
+		Long dateFromToken = (Long.parseLong(token)*100000) / Long.parseLong(match, 16); 
+		Date oldDate = new Date(dateFromToken); 
+		
+		//Date oldDate = new Date(dateFromToken - (8*24*60*60*1000)); 
+		//String old = dateFormat.format(oldDate); 
+		//Get the current date 
+		Date date = new Date();  
+		//lengthTokenIsValidFor defaults to 7 days 
+		if(daysBetween(oldDate, date) > lengthTokenIsValidFor) 
+		return true; 
+		else 
+		return false;
+	} 
+	
+	private Boolean testToken(String csid, String token) throws UIException {
+		String match = createHash(csid);
+		if(!tokenExpired(token, match)){
+			log.info("token matches");
+            return true;
+		}
+		log.info("token expired");
+        return false;
+    }
 
 	private String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject fields=data.optJSONObject("fields");
@@ -245,6 +288,9 @@ public class UserDetailsReset implements WebMethod {
 	/* find csid for email, create token, email token to the user */
 	private void send_reset_email(Storage storage,UIRequest request, Request in) throws UIException {
 
+		JSONObject data = null;	
+		data=request.getJSONBody();
+
 		//mock login else service layer gets upset = not working
 		// XXX ARGH
 		AdminData ad = spec.getAdminData();
@@ -253,9 +299,6 @@ public class UserDetailsReset implements WebMethod {
 		in.reset();
 		JSONObject outputJSON = new JSONObject();
 		if(testSuccess(in.getStorage())) {
-			JSONObject data = null;	
-			data=request.getJSONBody();
-			log.info("JSON OBJECT",data);
 			String emailparam = "";
 		
 			/* get csid of email address */
@@ -268,6 +311,7 @@ public class UserDetailsReset implements WebMethod {
 					/* for debug purposes */
 					if(data.has("debug") && data.getBoolean("debug")){ //only send email if debug is false/null see unit test TestGeneral testPasswordReset
 						outputJSON.put("token",createToken(csid));
+						outputJSON.put("email", emailparam);
 					}
 					else{
 						doEmail(csid,emailparam,in);
@@ -358,7 +402,7 @@ public class UserDetailsReset implements WebMethod {
 					}
 					else{
 						outputJSON.put("ok", false);
-						outputJSON.put("message", "Token did not match the csid");
+						outputJSON.put("message", "Token was not valid");
 					}
 				}
 				else{
