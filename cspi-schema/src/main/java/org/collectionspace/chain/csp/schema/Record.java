@@ -5,9 +5,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Record implements FieldParent {
+	private static final Logger log=LoggerFactory.getLogger(Record.class);
 	private String id;
+	private Map<String,Structure> structure=new HashMap<String,Structure>();
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	private Spec spec;
@@ -70,6 +74,7 @@ public class Record implements FieldParent {
 	public Spec getSpec() { return spec; }
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
 	public FieldSet getField(String id) { return fields.get(id); }
+	public Structure getStructure(String id) { return structure.get(id); }
 	public String getTermsUsedURL() { return terms_used_url; }
 	public String getNumberSelector() { return number_selector; }
 	public String getRowSelector() { return row_selector; }
@@ -77,7 +82,7 @@ public class Record implements FieldParent {
 	public boolean isInFindEdit() { return in_findedit; }
 	public String getInTag() { return in_tag; }
 	public String getURNSyntax() { return urn_syntax; }
-	
+
 	public Instance[] getAllInstances() { return instances.values().toArray(new Instance[0]); }
 	public Instance getInstance(String key) { return instances.get(key); }
 	
@@ -103,7 +108,7 @@ public class Record implements FieldParent {
 		fields.put(f.getID(),f);
 	}
 	public void addStructure(Structure s) {
-		spec.addStructure(s);
+		structure.put(s.getID(),s);
 	}
 	
 	public void addInstance(Instance n) {

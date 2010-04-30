@@ -11,8 +11,11 @@ import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Spec implements CSP, Configurable {
+	private static final Logger log=LoggerFactory.getLogger(Spec.class);
 	public static String SECTION_PREFIX="org.collectionspace.app.config.spec.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 
@@ -116,7 +119,14 @@ public class Spec implements CSP, Configurable {
 				return s;
 			}
 		});	
-		
+		/* RECORD/repeat -> REPEAT */
+		rules.addRule(SECTION_PREFIX+"structure",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Repeat r=new Repeat((Structure)parent,section);
+				((Structure)parent).addField(r);
+				return r;
+			}
+		});
 		/* RECORD/repeat -> REPEAT */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
@@ -161,8 +171,9 @@ public class Spec implements CSP, Configurable {
 	public void addStructure(Structure s) {
 		structure.put(s.getID(),s);
 	}
-	
+
 	public Instance getInstance(String id) { return instances.get(id); }
+	public Structure getStructure(String id) { return structure.get(id); }
 	
 	public void config_finish() throws CSPDependencyException {
 		if(!required_version.equals(version))

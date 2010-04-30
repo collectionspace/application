@@ -7,7 +7,7 @@ public class EmailData {
 	String baseurl,fromaddress,toaddress ;
 	String smtphost,smtpport,smtppass,smtpuser;
 	Boolean smtpdebug,smtpauth;
-	String pswdmsg, pswdsubj;
+	String pswdmsg, pswdsubj, tokenvalid;
 	
 /* 	<email>
 		<baseurl>hendecasyllabic.local:8180</baseurl>
@@ -42,6 +42,7 @@ public class EmailData {
 		smtpuser = (String)section.getValue("/smtp/auth/username");
 		pswdmsg = (String)section.getValue("/passwordreset/message");
 		pswdsubj = (String)section.getValue("/passwordreset/subject");
+		tokenvalid = Util.getStringOrDefault(section, "/passwordreset/token/daysvalid", "7");
 	}
 	
 
@@ -55,6 +56,7 @@ public class EmailData {
 
 	public String getPasswordResetMessage() { return pswdmsg; }
 	public String getPasswordResetSubject() { return pswdsubj; }
+	public Integer getTokenValidForLength() { return Integer.parseInt(tokenvalid); }
 	
 	public Boolean doSMTPAuth() { return smtpauth; }
 	public String getSMTPAuthPassword() { if(smtpauth){ return smtppass;} else {return null;} }
