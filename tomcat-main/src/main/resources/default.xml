@@ -3,7 +3,7 @@
 	<bootstrap />
 	<version>7</version>
 	<admin>
-		<username>test</username>
+		<username>test@collectionspace.org</username>
 		<password>testtest</password>
 	</admin>
 	<email>
