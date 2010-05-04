@@ -11,10 +11,15 @@ import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestUISpecs {
+	private static final Logger log=LoggerFactory.getLogger(TestUISpecs.class);
+	private static String cookie;
 	// XXX refactor
 	protected InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
@@ -26,9 +31,16 @@ public class TestUISpecs {
 		InputStream in=getResource(name);
 		return IOUtils.toString(in);
 	}
+
+	private static void login(ServletTester tester) throws IOException, Exception {
+		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
+		assertEquals(303,out.getStatus());
+		cookie=out.getHeader("Set-Cookie");
+		log.info("Got cookie "+cookie);
+	}
 	
 	// XXX refactor into other copy of this method
-	private ServletTester setupJetty() throws Exception {
+	private static ServletTester setupJetty() throws Exception {
 		BootstrapConfigController config_controller=new BootstrapConfigController(null);
 		config_controller.addSearchSuffix("test-config-loader2.xml");
 		config_controller.go();
@@ -41,16 +53,19 @@ public class TestUISpecs {
 		tester.setAttribute("store-url",base+"/cspace-services/");	
 		tester.setAttribute("config-filename","default.xml");
 		tester.start();
+		login(tester);
 		return tester;
 	}
 	
-	private HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
+	private static HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
 		HttpTester response = new HttpTester();
 		request.setMethod(method);
 		request.setHeader("Host","tester");
 		request.setURI(path);
 		request.setVersion("HTTP/1.0");		
+		if(cookie!=null)
+			request.addHeader(HttpHeaders.COOKIE,cookie);
 		if(data!=null)
 			request.setContent(data);
 		response.parse(tester.getResponses(request.generate()));
@@ -65,6 +80,7 @@ public class TestUISpecs {
 		JSONObject generated=new JSONObject(response.getContent());
 		JSONObject comparison=new JSONObject(getResourceString("collection-object.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
+		
 		// Intake
 		response=jettyDo(jetty,"GET","/chain/intake/uispec",null);
 		assertEquals(200,response.getStatus());
@@ -106,6 +122,18 @@ public class TestUISpecs {
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("users.uispec"));
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
+		// Loanin tab
+		response=jettyDo(jetty,"GET","/chain/loanin/uispec",null);
+		assertEquals(200,response.getStatus());
+		generated=new JSONObject(response.getContent());
+		comparison=new JSONObject(getResourceString("loanin.uispec"));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
+		// Loanout tab
+	//	response=jettyDo(jetty,"GET","/chain/loanout/uispec",null);
+	//	assertEquals(200,response.getStatus());
+	//	generated=new JSONObject(response.getContent());
+	//	comparison=new JSONObject(getResourceString("loanout.uispec"));
+	//	assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
 	}
 }
