@@ -25,6 +25,19 @@
                 ]
             }
     },
+    "proceduresLoanin": {
+            ".csc-loanIn-record-list-row:": {
+                "children": [
+                    {
+                        ".csc-entry-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "loanin.html?csid=${items.0.csid}"
+                         },
+                        ".csc-summary": "${items.0.summary}"
+                    }
+                ]
+            }
+    },
     "proceduresAcquisition": {
             ".csc-acquisition-record-list-row:": {
                 "children": [

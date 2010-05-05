@@ -31,7 +31,8 @@
                             "func": "cspace.autocomplete",
                             "container": ".csc-loanIn-lender",
                             "options": {
-                                "url": "../../chain/loanin/autocomplete/lender"
+                                "queryUrl": "../../chain/loanin/autocomplete/lender",
+                                "vocabUrl": "../../chain/loanin/source-vocab/lender"
                             }
                         }]
                     }
@@ -45,7 +46,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-loanIn-lendersAuthorizer",
                 "options": {
-                    "url": "../../chain/loanin/autocomplete/lendersAuthorizer"
+                	"queryUrl": "../../chain/loanin/autocomplete/lendersAuthorizer",
+                	"vocabUrl": "../../chain/loanin/source-vocab/lendersAuthorizer"
                 }
             }]
         },
@@ -64,7 +66,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-loanIn-lendersContact",
                 "options": {
-                    "url": "../../chain/loanin/autocomplete/lendersContact"
+                    "queryUrl": "../../chain/loanin/autocomplete/lendersContact",
+                    "vocabUrl": "../../chain/loanin/source-vocab/lendersContact"
                 }
             }]
         },
@@ -75,7 +78,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-loanIn-loanInContact",
                 "options": {
-                    "url": "../../chain/loanin/autocomplete/loanInContact"
+                    "queryUrl": "../../chain/loanin/autocomplete/loanInContact",
+                    "vocabUrl": "../../chain/loanin/source-vocab/loanInContact"
                 }
             }]
         },
@@ -108,8 +112,7 @@
         ".csc-loanIn-loanPurpose": {
             "selection": "${fields.loanPurpose}",
             "optionlist": ["exhibition", "research", "scientificorexhibitpreparation", "analysis", "photography", "conservationotherrequestedservices", "longtermcollectionsmanagementandstorage"],
-            "optionnames": ["Exhibition", "Research", "Scientific or exhibit preparation", "Analysis", "Photography", "Conservation or other requested services", "Long-term collections management and storage"],
-            "default": "0"
+            "optionnames": ["Exhibition", "Research", "Scientific or exhibit preparation", "Analysis", "Photography", "Conservation or other requested services", "Long-term collections management and storage"]
         }
     },
     "sidebar": {
@@ -117,7 +120,7 @@
             ".csc-related-row:": {
                 "children": [
                     {
-                        ".csc-related-summary": {
+                        ".csc-related-number": {
                             "linktext": "${items.0.number}",
                             "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                          },
