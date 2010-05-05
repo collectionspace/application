@@ -80,7 +80,7 @@ public class RecordStorage implements ContextualisedStorage {
 				String[] record_path=path.split(":",2);
 				Document doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
 				parts.put(record_path[0],doc);
-				log.info(doc.asXML());
+				//log.info(doc.asXML());
 			}
 			ReturnedURL url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
 			if(url.getStatus()>299 || url.getStatus()<200)
@@ -292,7 +292,7 @@ public class RecordStorage implements ContextualisedStorage {
 				String[] record_path=path.split(":",2);
 				Document doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
 				parts.put(record_path[0],doc);
-				System.err.println(doc.asXML());
+				log.info(doc.asXML());
 			}
 			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.PUT,r.getServicesURL()+"/"+filePath,parts,creds,cache);
 			if(doc.getStatus()==404)
