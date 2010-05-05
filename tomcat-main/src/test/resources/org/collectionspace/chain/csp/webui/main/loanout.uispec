@@ -1,0 +1,158 @@
+{
+    "titleBar": {
+            ".csc-titleBar-loanOutNumber": "${fields.loanOutNumber}"
+    },
+    "recordEditor": {
+        ".csc-loanOut-loanOutNumber": "${fields.loanOutNumber}",
+        ".csc-loanOut-loanOutNumber-patternChooserContainer": {
+                "decorators": [{
+                    "type": "fluid",
+                    "func": "cspace.numberPatternChooser",
+                    "container": ".csc-loanOut-loanOutNumber-patternChooserContainer",
+                    "options": {
+                        "selectors": {
+                            "numberField": ".csc-loanOut-loanOutNumber"
+                        },
+                        "model": {
+                            "list": ["loanout"],
+                            "samples": ["LO2010.1"],
+                            "names": ["Loan Out"]
+                        }
+                    }
+                }]
+        },
+        ".csc-loanOut-borrower": "${fields.borrower}",
+        ".csc-loanOut-borrower-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-loanOut-borrower",
+                "options": {
+                    "url": "../../chain/loanout/autocomplete/borrower"
+                }
+            }]
+        },
+        ".csc-loanOut-borrowersContact": "${fields.borrowersContact}",
+        ".csc-loanOut-borrowersContact-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-loanOut-borrowersContact",
+                "options": {
+                    "url": "../../chain/loanout/autocomplete/borrowersContact"
+                }
+            }]
+        },
+        ".csc-loanOut-lendersAuthorizer": "${fields.lendersAuthorizer}",
+        ".csc-loanOut-lendersAuthorizer-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-loanOut-lendersAuthorizer",
+                "options": {
+                    "url": "../../chain/loanout/autocomplete/lendersAuthorizer"
+                }
+            }]
+        },
+        ".csc-loanOut-lendersContact": "${fields.lendersContact}",
+        ".csc-loanOut-lendersContact-autocomplete": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.autocomplete",
+                "container": ".csc-loanOut-lendersContact",
+                "options": {
+                    "url": "../../chain/loanout/autocomplete/lendersContact"
+                }
+            }]
+        },
+        ".csc-loanOut-loanOutNote": "${fields.loanOutNote}",
+        ".csc-loanOut-loanOutDate": "${fields.loanOutDate}",
+        ".csc-loanOut-loanOutDate-container": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.datePicker",
+                "container": ".csc-loanOut-loanOutDate-container"
+            }]
+        },
+        ".csc-loanOut-loanReturnDate": "${fields.loanReturnDate}",
+        ".csc-loanOut-loanReturnDate-container": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.datePicker",
+                "container": ".csc-loanOut-loanReturnDate-container"
+            }]
+        },
+        ".csc-loanOut-loanRenewalApplicationDate": "${fields.loanRenewalApplicationDate}",
+        ".csc-loanOut-loanRenewalApplicationDate-container": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.datePicker",
+                "container": ".csc-loanOut-loanRenewalApplicationDate-container"
+            }]
+        },
+        ".csc-loanOut-loanedObjectStatus": {
+            "selection": "${fields.loanedObjectStatus}",
+            "optionlist": ["requested", "authorized", "agreed", "conservation", "requested", "sent", "photographyrequested", "refused", "renewed", "returned"],
+            "optionnames": ["Requested", "Authorized", "Agreed", "Conservation", "Requested", "Sent", "Photography requested", "Refused", "Renewed", "Returned"],
+            "default": "0"
+        },
+        ".csc-loanOut-loanedObjectStatusDate": "${fields.loanedObjectStatusDate}",
+        ".csc-loanOut-loanedObjectStatusDate-container": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.datePicker",
+                "container": ".csc-loanOut-loanedObjectStatusDate-container"
+            }]
+        },
+        ".csc-loanOut-loanedObjectStatusNote": "${fields.loanedObjectStatusNote}",
+        ".csc-loanOut-loanOutConditions": "${fields.loanOutConditions}",
+        ".csc-loanOut-loanPurpose": {
+            "selection": "${fields.loanPurpose}",
+            "optionlist": ["exhibition", "research", "scientificorexhibitpreparation", "analysis", "photography", "conservationotherrequestedservices", "longtermcollectionsmanagementandstorage"],
+            "optionnames": ["Exhibition", "Research", "Scientific or exhibit preparation", "Analysis", "Photography", "Conservation or other requested services", "Long-term collections management and storage"],
+            "default": "0"
+        }
+    },
+    "sidebar": {
+        "termsUsed": {
+            ".csc-related-row:": {
+                "children": [
+                    {
+                        ".csc-related-summary": {
+                            "linktext": "${items.0.number}",
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                         },
+                        ".csc-related-recordtype": "${items.0.recordtype}",
+                        ".csc-related-field": "${items.0.sourceFieldName}"
+                    }
+                ]
+                }
+        },
+        "relatedProcedures": {
+            ".csc-related-row:": {
+                "children": [
+                    {
+                        ".csc-related-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                         },
+                        ".csc-related-recordtype": "${items.0.recordtype}",
+                        ".csc-related-summary": "${items.0.summary}"
+                    }
+                ]
+            }
+        },
+        "relatedObjects": {
+            ".csc-related-row:": {
+                "children": [
+                    {
+                        ".csc-related-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                         },
+                        ".csc-related-summary": "${items.0.summary}"
+                    }
+                ]
+            }
+        }
+    }}

@@ -145,8 +145,34 @@
         },
         ".csc-object-identification-object-title-translation": "${fields.titleTranslation}",
         ".csc-object-description-inscription-description-inscriber": "${fields.inscriptionDescriptionInscriber}",
+        ".csc-object-description-inscription-description-inscriber-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-description-inscription-description-inscriber",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/inscriptionDescriptionInscriber",
+                        "vocabUrl": "../../chain/objects/source-vocab/inscriptionDescriptionInscriber"
+                    }
+                }
+            ]
+        },
         ".csc-object-description-technical-attribute-measurement": "${fields.technicalAttributeMeasurement}",
         ".csc-object-description-inscription-content-inscriber": "${fields.inscriber}",
+        ".csc-object-description-inscription-content-inscriber-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-description-inscription-content-inscriber",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/inscriber",
+                        "vocabUrl": "../../chain/objects/source-vocab/inscriber"
+                    }
+                }
+            ]
+        },
         ".csc-object-description-inscription-content-position": "${fields.inscriptionPosition}",
         ".csc-object-description-sex": "${fields.sex}",
         ".csc-object-description-age-qualifier": "${fields.ageQualifier}",

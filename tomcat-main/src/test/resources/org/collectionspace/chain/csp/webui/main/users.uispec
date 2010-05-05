@@ -1,49 +1,16 @@
 {
-	"sidebar":{
-		"relatedObjects":{
-			".csc-related-row:":{
-				"children":[
-					{
-						".csc-related-summary":"${items.0.summary}",
-						".csc-related-number":{
-							"linktext":"${items.0.number}",
-							"target":"${items.0.recordtype}.html?csid=${items.0.csid}"
-						}
-					}
-				]
-			}
-		},
-		"relatedProcedures":{
-			".csc-related-row:":{
-				"children":[
-					{
-						".csc-related-summary":"${items.0.summary}",
-						".csc-related-number":{
-							"linktext":"${items.0.number}",
-							"target":"${items.0.recordtype}.html?csid=${items.0.csid}"
-						},
-						".csc-related-recordtype":"${items.0.recordtype}"
-					}
-				]
-			}
-		},
-		"termsUsed":{
-			".csc-related-row:":{
-				"children":[
-					{
-						".csc-related-number":{
-							"linktext":"${items.0.number}",
-							"target":"${items.0.recordtype}.html?csid=${items.0.csid}"
-						},
-						".csc-related-field":"${items.0.sourceFieldName}",
-						".csc-related-recordtype":"${items.0.recordtype}"
-					}
-				]
-			}
-		}
-	},
-	"titleBar":{},
-	"recordEditor":{
+	"userList": {
+        ".csc-user-userList-row:": {
+            "children": [
+                {
+                    ".csc-user-userList-name": "${items.0.name}",
+                    ".csc-user-userList-status": "${items.0.status}",
+                    ".csc-user-userList-csid": "${items.0.csid}"
+                }
+            ]
+        }
+    },
+	"userDetails":{
 		".csc-user-userName":"${fields.screenName}",
 		".csc-user-status":{
 			"default":"0",
