@@ -3,7 +3,7 @@
 	<bootstrap />
 	<version>7</version>
 	<admin>
-		<username>test</username>
+		<username>test@collectionspace.org</username>
 		<password>testtest</password>
 	</admin>
 	<email>
@@ -370,7 +370,75 @@
 					</field>
 
 			</record>
+			
 
+			<record id="loanin" in-findedit="yes">
+		      <services-url>loansin</services-url>
+			  <services-list-path>loansin-common-list/loanin-list-item</services-list-path>
+			  <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
+			  <structures>
+				<structure id="screen"> 
+				</structure>
+			  </structures>	
+			
+			  <row-selector>.csc-loanIn-record-list-row:</row-selector>
+			  
+                <field id="loanInNumber" in-title="yes" chooser="yes" mini="number">
+			    <title-selector>.csc-titleBar-loanInNumber</title-selector>
+			    <selector>.csc-loanIn-loanInNumber</selector>
+			    <container-selector>.csc-loanIn-loanInNumber-patternChooserContainer</container-selector>				
+				  <options>
+				    <option id="loanin" sample="LI2010.1">Loan In</option>
+				  </options>
+				</field>			
+				
+			  	<repeat id="lenders">
+			  		<selector>.csc-loanIn-lender-row:</selector>
+			    		<field id="lender" autocomplete="person-person" mini="summary" >
+			      	<selector>.csc-loanIn-lender</selector>
+			    	</field>
+			  	</repeat>
+			  
+                <field id="lendersAuthorizer" autocomplete="person-person">
+					<selector>.csc-loanIn-lendersAuthorizer</selector>
+				</field>
+                <field id="lendersAuthorizerDate" ui-type="date">
+					<selector>.csc-loanIn-lendersAuthorizerDate</selector>
+				</field>
+                <field id="lendersContact" autocomplete="person-person">
+					<selector>.csc-loanIn-lendersContact</selector>
+				</field>
+                <field id="loanInContact" autocomplete="person-person">
+					<selector>.csc-loanIn-loanInContact</selector>
+				</field>
+                <field id="loanInConditions">
+					<selector>.csc-loanIn-loanInConditions</selector>
+				</field>
+                <field id="loanInDate" ui-type="date">
+					<selector>.csc-loanIn-loanInDate</selector>
+				</field>
+                <field id="loanReturnDate" ui-type="date">
+					<selector>.csc-loanIn-loanReturnDate</selector>
+				</field>
+                <field id="loanRenewalApplicationDate" ui-type="date">
+					<selector>.csc-loanIn-loanRenewalApplicationDate</selector>
+				</field>
+                <field id="loanInNote">
+					<selector>.csc-loanIn-loanInNote</selector>
+				</field>
+                <field id="loanPurpose">
+					<selector>.csc-loanIn-loanPurpose</selector>
+			    		<options>
+			      		<option id="exhibition">Exhibition</option>
+			      		<option id="research">Research</option>
+			      		<option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
+			      		<option id="analysis">Analysis</option>
+			      		<option id="photography">Photography</option>
+			      		<option id="conservationotherrequestedservices">Conservation or other requested services</option>
+			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
+			    	</options>
+				</field>
+			</record>
 
 			<record id="intake" in-findedit="yes">
 			  <services-url>intakes</services-url>
@@ -704,19 +772,19 @@
 			      <option id="female">Female</option>
 			    </options>
 			  </field>
-			  <field id="occupation">
-			  <!-- <field id="occupation" autocomplete="person-person"> -->
+			  <!-- <field id="occupation"> -->
+			  <field id="occupation" autocomplete="person-person">
 			    <selector>.csc-personAuthority-occupation</selector>
 			  </field>
-			  <field id="schoolOrStyle">
-<!--			  <field id="schoolOrStyle" autocomplete="person-person"> -->
+			  <!--<field id="schoolOrStyle"> -->
+			  <field id="schoolOrStyle" autocomplete="person-person">
 			    <selector>.csc-personAuthority-schoolOrStyle</selector>
 			  </field>
 			  <field id="group" autocomplete="organization-organization">
 			    <selector>.csc-personAuthority-group</selector>
 			  </field>
-			  <field id="nationality">
-			  <!-- <field id="nationality" autocomplete="person-person"> -->
+			   <!-- <field id="nationality"> -->
+			  <field id="nationality" autocomplete="person-person">
 			    <selector>.csc-personAuthority-nationality</selector>
 			  </field>
 			  <field id="nameNote">
@@ -729,16 +797,16 @@
 			    <selector>.csc-personAuthority-birthDate</selector>
 			    <title-selector>.csc-titleBar-birthDate</title-selector>
 			  </field>
-			  <!-- <field id="birthPlace" autocomplete="person-person"> -->
-			  <field id="birthPlace">
+			  <field id="birthPlace" autocomplete="person-person">
+			  <!-- <field id="birthPlace"> -->
 			    <selector>.csc-personAuthority-birthPlace</selector>
 			  </field>
 			  <field id="deathDate" ui-type="date" in-title="yes">
 			    <selector>.csc-personAuthority-deathDate</selector>
 			    <title-selector>.csc-titleBar-deathDate</title-selector>
 			  </field>
-			  <field id="deathPlace">
-			  <!-- <field id="deathPlace" autocomplete="person-person"> -->
+			  <!-- <field id="deathPlace"> -->
+			  <field id="deathPlace" autocomplete="person-person">
 			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
 			  <field id="addressType1">
@@ -754,8 +822,8 @@
 			  <field id="faxNumber1">
 			    <selector>.csc-contact-faxNumber1</selector>
 			  </field>
-			  <field id="place">
-			  <!-- <field id="place" autocomplete="person-person"> -->
+			  <!-- <field id="place"> -->
+			  <field id="place" autocomplete="person-person">
 			    <selector>.csc-contact-place</selector>
 			  </field>
 			  <field id="telephoneNumber1">
@@ -820,8 +888,8 @@
 			    <selector>.csc-organizationAuthority-foundingDate</selector>
 			    <title-selector>.csc-titleBar-foundationDate</title-selector>
 			  </field>
-			  <field id="foundingPlace">
-			  <!-- <field id="foundingPlace" autocomplete="person-person"> -->
+			 <!--  <field id="foundingPlace"> -->
+			  <field id="foundingPlace" autocomplete="person-person">
 			    <selector>.csc-organizationAuthority-foundingPlace</selector>
 			  </field>
 			  <field id="dissolutionDate" ui-type="date" in-title="yes">
@@ -848,8 +916,7 @@
 			    <selector>.csc-organizationAuthority-history</selector>
 			  </field>
 			</record>
-
-
+			
 			<record id="users" type="userdata">
 		      <web-url>users</web-url>
 			  <services-url>accounts</services-url>
