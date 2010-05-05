@@ -29,7 +29,6 @@ import org.collectionspace.chain.csp.webui.misc.WebLogout;
 import org.collectionspace.chain.csp.webui.misc.WebReset;
 import org.collectionspace.chain.csp.webui.misc.WebUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.UISpec;
-import org.collectionspace.chain.csp.webui.nuispec.UserUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.FindEditUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.TabUISpec;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsCreateUpdate;
@@ -155,9 +154,7 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 			}
-			else if(r.isType("userdata")){// XXX need to implement
-				//addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UserUISpec(r));
-
+			else if(r.isType("userdata")){
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new UserDetailsSearchList(r,true));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new UserDetailsRead(r));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new UserDetailsSearchList(r,false));

@@ -42,7 +42,9 @@ public class WebReset implements WebMethod {
 		return data;
 	}
 
-	private void reset(Storage storage,UIRequest request) throws UIException { // Temporary hack to reset db
+	private void reset(Storage storage,UIRequest request) throws UIException { 
+		//remember to log into the fornt end before trying to run this
+		// Temporary hack to reset db
 		try {
 			TTYOutputter tty=request.getTTYOutputter();
 			// Delete existing records
@@ -117,6 +119,8 @@ public class WebReset implements WebMethod {
 				if(quick && i>20)
 					break;
 			}
+			
+			
 			tty.line("done");
 		} catch (ExistException e) {
 			throw new UIException("Existence problem",e);
