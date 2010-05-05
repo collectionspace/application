@@ -19,7 +19,6 @@ import org.slf4j.LoggerFactory;
 
 public class TestUISpecs {
 	private static final Logger log=LoggerFactory.getLogger(TestUISpecs.class);
-	private static String cookie;
 	// XXX refactor
 	protected InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
@@ -31,16 +30,9 @@ public class TestUISpecs {
 		InputStream in=getResource(name);
 		return IOUtils.toString(in);
 	}
-
-	private static void login(ServletTester tester) throws IOException, Exception {
-		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
-		assertEquals(303,out.getStatus());
-		cookie=out.getHeader("Set-Cookie");
-		log.info("Got cookie "+cookie);
-	}
 	
 	// XXX refactor into other copy of this method
-	private static ServletTester setupJetty() throws Exception {
+	private ServletTester setupJetty() throws Exception {
 		BootstrapConfigController config_controller=new BootstrapConfigController(null);
 		config_controller.addSearchSuffix("test-config-loader2.xml");
 		config_controller.go();
@@ -51,21 +43,19 @@ public class TestUISpecs {
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
 		tester.setAttribute("storage","service");
 		tester.setAttribute("store-url",base+"/cspace-services/");	
+		log.info(base);
 		tester.setAttribute("config-filename","default.xml");
 		tester.start();
-		login(tester);
 		return tester;
 	}
 	
-	private static HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
+	private HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
 		HttpTester response = new HttpTester();
 		request.setMethod(method);
 		request.setHeader("Host","tester");
 		request.setURI(path);
 		request.setVersion("HTTP/1.0");		
-		if(cookie!=null)
-			request.addHeader(HttpHeaders.COOKIE,cookie);
 		if(data!=null)
 			request.setContent(data);
 		response.parse(tester.getResponses(request.generate()));
@@ -104,13 +94,7 @@ public class TestUISpecs {
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("organization-authority.uispec"));
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
-		// Find-Edit
-		response=jettyDo(jetty,"GET","/chain/find-edit/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("find-edit.uispec"));
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 		// Object tab
 		response=jettyDo(jetty,"GET","/chain/object-tab/uispec",null);
 		assertEquals(200,response.getStatus());
@@ -130,10 +114,16 @@ public class TestUISpecs {
 		comparison=new JSONObject(getResourceString("loanin.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 		// Loanout tab
-	//	response=jettyDo(jetty,"GET","/chain/loanout/uispec",null);
-	//	assertEquals(200,response.getStatus());
-	//	generated=new JSONObject(response.getContent());
-	//	comparison=new JSONObject(getResourceString("loanout.uispec"));
-	//	assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
+		response=jettyDo(jetty,"GET","/chain/loanout/uispec",null);
+		assertEquals(200,response.getStatus());
+		generated=new JSONObject(response.getContent());
+		comparison=new JSONObject(getResourceString("loanout.uispec"));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
+		// Find-Edit
+		response=jettyDo(jetty,"GET","/chain/find-edit/uispec",null);
+		assertEquals(200,response.getStatus());
+		generated=new JSONObject(response.getContent());
+		comparison=new JSONObject(getResourceString("find-edit.uispec"));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 	}
 }
