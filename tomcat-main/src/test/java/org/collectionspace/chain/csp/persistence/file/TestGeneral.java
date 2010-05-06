@@ -45,6 +45,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
+import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
@@ -73,7 +74,8 @@ public class TestGeneral {
 	private final static String testStr8 = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
 
 	private FileStorage store;
-
+	private String cookie;
+	
 	private static String tmp=null;
 
 	private static synchronized String tmpdir() {
@@ -188,6 +190,12 @@ public class TestGeneral {
 		deleteSchemaFile("collection-object",true);	
 	}
 
+	private void login(ServletTester tester) throws IOException, Exception {
+		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
+		assertEquals(303,out.getStatus());
+		cookie=out.getHeader("Set-Cookie");
+		log.info("Got cookie "+cookie);
+	}
 	private ServletTester setupJetty() throws Exception {
 		ServletTester tester=new ServletTester();
 		tester.setContextPath("/chain");
@@ -196,6 +204,7 @@ public class TestGeneral {
 		tester.setAttribute("test-store",store.getStoreRoot());
 		tester.setAttribute("config-filename","default.xml");
 		tester.start();
+		login(tester);
 		return tester;
 	}
 
@@ -206,11 +215,12 @@ public class TestGeneral {
 		request.setMethod(method);
 		request.setHeader("Host","tester");
 		request.setURI(path);
-		request.setVersion("HTTP/1.0");		
+		request.setVersion("HTTP/1.0");
+		if(cookie!=null)
+			request.addHeader(HttpHeaders.COOKIE,cookie);
 		if(data!=null)
 			request.setContent(data);
 		response.parse(tester.getResponses(request.generate()));
-				
 		return response;
 	}
 
@@ -247,12 +257,71 @@ public class TestGeneral {
 		return in;
 	}
 	
+	@Test public void testUserProfilesWithResets() throws Exception{
+
+		ServletTester jetty=setupJetty();
+		String testStr6a = "{\"userId\": \"unittestpreset@collectionspace.org\",\"userName\": \"unittestpreset@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittestpreset@collectionspace.org\",\"status\": \"active\"}";
+		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6a));
+		log.info("4 "+makeSimpleRequest(testStr6a));
+		assertEquals(out.getMethod(),null);
+		log.info("GET CREATE "+out.getContent());
+		String id=out.getHeader("Location");
+		log.info(out.getContent());
+		assertEquals(201,out.getStatus());
+
+		 //ask to reset 
+		 String testStr9a = "{\"email\": \"unittestpreset@collectionspace.org\", \"debug\" : true }";
+
+		 out=jettyDo(jetty,"POST","/chain/passwordreset/",testStr9a); 
+		 log.info(out.getContent()); 
+
+		 JSONObject result=new JSONObject(out.getContent());
+		 Boolean ok = result.getBoolean("ok");
+		 assertTrue(ok);
+		 String token = result.getString("token");
+		 String emailparam = result.getString("email");
+		 
+		 //mock up the call to actually reset the password
+		 JSONObject newpassword = new JSONObject();
+		 newpassword.put("email", emailparam);
+		 newpassword.put("token", token);
+		 newpassword.put("password", "differentpasword");
+		 
+		 //change the password
+		 out=jettyDo(jetty,"POST","/chain/resetpassword/",newpassword.toString()); 
+		 ok = result.getBoolean("ok");
+		 assertTrue(ok);
+		 
+		 //change password - bad token
+		 newpassword.put("token", "345");
+		 out=jettyDo(jetty,"POST","/chain/resetpassword/",newpassword.toString());
+		 result=new JSONObject(out.getContent());
+		 ok = result.getBoolean("ok");
+		 assertFalse(ok);
+		 
+		 //change password - bad password / good token
+		 newpassword.put("token", token);
+		 newpassword.put("password", "diff");
+		 out=jettyDo(jetty,"POST","/chain/resetpassword/",newpassword.toString()); 
+		 assertTrue(out.getStatus()>=400); // XXX should probably be 404
+		 /* when sys layer start returning useful errors this should change to
+		  * result=new JSONObject(out.getContent());
+		 ok = result.getBoolean("ok");
+		 assertFalse(ok);
+		 */
+		
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+		log.info("GET READ "+id+":"+out.getContent());
+		
+		/* clean up after ourselves */
+		out=jettyDo(jetty,"DELETE","/chain"+id,null);
+		assertEquals(200,out.getStatus());
+		log.info("DELETE "+id+":"+out.getContent());
+		
+		
+	}
 	
 	@Test public void testUserProfiles() throws Exception {
-		log.info("1");
-		deleteSchemaFile("collection-object",false);
-		log.info("2");
-
 		ServletTester jetty=setupJetty();
 		log.info("3");
 		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6));
@@ -407,8 +476,8 @@ public class TestGeneral {
 	@Test public void testEmail(){
 		Boolean doIreallyWantToSpam = false; // set to true when you have configured the email addresses
 		/* please personalises these emails before sending - I don't want your spam. */
-	    String from = "";
-	    String[] recipients = { ""};
+	    String from = "admin@collectionspace.org";
+	    String[] recipients = {""};
 
 	    String SMTP_HOST_NAME = "localhost";
 	    String SMTP_PORT = "25";

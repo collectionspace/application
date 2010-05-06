@@ -31,7 +31,7 @@ public class TestOrgThroughWebapp {
 	}
 	
 	private static void login(ServletTester tester) throws IOException, Exception {
-		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test&password=testtest",null);
+		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
 		log.info("Got cookie "+cookie);
@@ -66,7 +66,9 @@ public class TestOrgThroughWebapp {
 		tester.setAttribute("storage","service");
 		tester.setAttribute("store-url",base+"/cspace-services/");	
 		tester.setAttribute("config-filename","default.xml");
+		log.info("ARGH");
 		tester.start();
+		log.info("BBBBBARGH");
 		login(tester);
 		return tester;
 	}

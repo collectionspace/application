@@ -42,7 +42,7 @@ public class TestServiceThroughWebapp {
 	}
 	
 	private void login(ServletTester tester) throws IOException, Exception {
-		UTF8SafeHttpTester out=jettyDo(tester,"GET","/chain/login?userid=test&password=testtest",null);
+		UTF8SafeHttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
 		log.info("Got cookie "+cookie);
@@ -266,10 +266,10 @@ public class TestServiceThroughWebapp {
 	
 	@Test public void testLogin() throws Exception {
 		ServletTester jetty=setupJetty();
-		UTF8SafeHttpTester out=jettyDo(jetty,"GET","/chain/login?userid=test&password=testtest",null);	
+		UTF8SafeHttpTester out=jettyDo(jetty,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);	
 		assertEquals(303,out.getStatus());
 		assertEquals("/cspace-ui/html/createnew.html",out.getHeader("Location"));
-		out=jettyDo(jetty,"GET","/chain/login?userid=test&password=testtest",null);
+		out=jettyDo(jetty,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
 		out=jettyDo(jetty,"GET","/chain/login?userid=guest&password=toast",null);	

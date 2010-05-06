@@ -31,7 +31,7 @@ public class TestNameThroughWebapp {
 	}
 	
 	private static void login(ServletTester tester) throws IOException, Exception {
-		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test&password=testtest",null);
+		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
 		log.info("Got cookie "+cookie);
@@ -137,7 +137,7 @@ public class TestNameThroughWebapp {
 
 	@Test public void testNamesSearch() throws Exception {
 		ServletTester jetty=setupJetty();
-		jettyDo(jetty,"GET","/chain/quick-reset",null);
+		//jettyDo(jetty,"GET","/chain/quick-reset",null);
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=Achmed+Abdullah",null);
 		assertTrue(out.getStatus()<299);
 		log.info(out.getContent());
@@ -223,4 +223,5 @@ public class TestNameThroughWebapp {
 			assertTrue(entry.has("urn"));
 		}
 	}
+	
 }
