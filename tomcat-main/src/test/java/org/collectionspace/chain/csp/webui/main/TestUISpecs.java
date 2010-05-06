@@ -114,11 +114,11 @@ public class TestUISpecs {
 		comparison=new JSONObject(getResourceString("loanin.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 		// Loanout tab
-		//response=jettyDo(jetty,"GET","/chain/loanout/uispec",null);
-		//assertEquals(200,response.getStatus());
-		//generated=new JSONObject(response.getContent());
-		//comparison=new JSONObject(getResourceString("loanout.uispec"));
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
+		response=jettyDo(jetty,"GET","/chain/loanout/uispec",null);
+		assertEquals(200,response.getStatus());
+		generated=new JSONObject(response.getContent());
+		comparison=new JSONObject(getResourceString("loanout.uispec"));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 		
 		// Roles tab
 		response=jettyDo(jetty,"GET","/chain/role/uispec",null);
@@ -126,6 +126,7 @@ public class TestUISpecs {
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("roles.uispec"));
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
+
 		// Find-Edit
 		response=jettyDo(jetty,"GET","/chain/find-edit/uispec",null);
 		assertEquals(200,response.getStatus());

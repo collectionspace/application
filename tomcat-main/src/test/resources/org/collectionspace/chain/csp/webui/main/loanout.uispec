@@ -28,7 +28,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-loanOut-borrower",
                 "options": {
-                    "url": "../../chain/loanout/autocomplete/borrower"
+                    "queryUrl": "../../chain/loanout/autocomplete/borrower",
+                    "vocabUrl": "../../chain/loanout/source-vocab/borrower"
                 }
             }]
         },
@@ -39,7 +40,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-loanOut-borrowersContact",
                 "options": {
-                    "url": "../../chain/loanout/autocomplete/borrowersContact"
+                    "queryUrl": "../../chain/loanout/autocomplete/borrowersContact",
+                    "vocabUrl": "../../chain/loanout/source-vocab/borrowersContact"
                 }
             }]
         },
@@ -50,7 +52,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-loanOut-lendersAuthorizer",
                 "options": {
-                    "url": "../../chain/loanout/autocomplete/lendersAuthorizer"
+                    "queryUrl": "../../chain/loanout/autocomplete/lendersAuthorizer",
+                    "vocabUrl": "../../chain/loanout/source-vocab/lendersAuthorizer"
                 }
             }]
         },
@@ -61,7 +64,8 @@
                 "func": "cspace.autocomplete",
                 "container": ".csc-loanOut-lendersContact",
                 "options": {
-                    "url": "../../chain/loanout/autocomplete/lendersContact"
+                    "queryUrl": "../../chain/loanout/autocomplete/lendersContact",
+                    "vocabUrl": "../../chain/loanout/source-vocab/lendersContact"
                 }
             }]
         },
@@ -118,7 +122,7 @@
             ".csc-related-row:": {
                 "children": [
                     {
-                        ".csc-related-summary": {
+                        ".csc-related-number": {
                             "linktext": "${items.0.number}",
                             "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                          },

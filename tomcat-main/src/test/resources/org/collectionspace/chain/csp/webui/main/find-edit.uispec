@@ -39,7 +39,7 @@
             }
     },
     "proceduresLoanout": {
-            ".csc-loanOut-record-list-row:": {
+            ".csc-loanout-record-list-row:": {
                 "children": [
                     {
                         ".csc-entry-number": {
