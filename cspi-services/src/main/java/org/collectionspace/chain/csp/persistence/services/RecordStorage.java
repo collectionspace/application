@@ -49,15 +49,19 @@ public class RecordStorage implements ContextualisedStorage {
 		this.conn=conn;
 		this.r=r;
 		// Number
-		view_good.put(r.getMiniNumber().getID(),"number");
-		view_map.put(r.getMiniNumber().getServicesTag(),r.getMiniNumber().getID());
-		if(r.getMiniNumber().getAutocompleteInstance()!=null)
-			xxx_view_deurn.add(r.getMiniNumber().getID());
+		if(r.getMiniNumber()!=null){
+			view_good.put(r.getMiniNumber().getID(),"number");
+			view_map.put(r.getMiniNumber().getServicesTag(),r.getMiniNumber().getID());
+			if(r.getMiniNumber().getAutocompleteInstance()!=null)
+				xxx_view_deurn.add(r.getMiniNumber().getID());
+		}
 		// Summary
-		view_good.put(r.getMiniSummary().getID(),"summary");
-		view_map.put(r.getMiniSummary().getServicesTag(),r.getMiniSummary().getID());
-		if(r.getMiniSummary().getAutocompleteInstance()!=null)
-			xxx_view_deurn.add(r.getMiniSummary().getID());
+		if(r.getMiniSummary() !=null){
+			view_good.put(r.getMiniSummary().getID(),"summary");
+			view_map.put(r.getMiniSummary().getServicesTag(),r.getMiniSummary().getID());
+			if(r.getMiniSummary().getAutocompleteInstance()!=null)
+				xxx_view_deurn.add(r.getMiniSummary().getID());
+		}
 	}
 
 	private void setGleanedValue(CSPRequestCache cache,String path,String key,String value) {
