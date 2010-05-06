@@ -45,23 +45,36 @@ public class JSONUtils {
 	@SuppressWarnings("unchecked")
 	public static boolean checkJSONEquiv(Object a,Object b) throws JSONException {
 		if(a==null) {
-			if(b!=null)
+			log.info("a is null");
+			if(b!=null){
+				log.info("b is not null");
 				return false;
+			}
 			return true;
 		}
 		if((a instanceof Number) || (a instanceof Boolean) || (a instanceof String)) {
-			if(!a.equals(b))
+			if(!a.equals(b)){
+				log.info("a != b");
+				log.info(a.toString());
+				log.info(b.toString());
+				log.info("end");
 				return false;
+			}
 			return true;
 		}
 		if(a instanceof JSONArray) {
 			if(!(b instanceof JSONArray))
 				return false;
-			if(((JSONArray)a).length()!=((JSONArray)b).length())
+			if(((JSONArray)a).length()!=((JSONArray)b).length()){
+				log.info("array length diff");
 				return false;
+			}
+			
 			for(int i=0;i<((JSONArray) a).length();i++) {
-				if(!checkJSONEquiv(((JSONArray) a).get(i),((JSONArray) b).get(i)))
+				if(!checkJSONEquiv(((JSONArray) a).get(i),((JSONArray) b).get(i))){
+					log.info("array length diff 2");
 					return false;
+				}
 			}
 			return true;
 		}
