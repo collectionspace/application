@@ -481,7 +481,7 @@
 				<field id="loanPurpose">
 					<selector>.csc-loanOut-loanPurpose</selector>
 			    		<options>
-			      		<option id="exhibition">Exhibition</option>
+			      		<option id="exhibition" default="yes">Exhibition</option>
 			      		<option id="research">Research</option>
 			      		<option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
 			      		<option id="analysis">Analysis</option>
@@ -499,7 +499,7 @@
 				<field id="loanedObjectStatus">
 					<selector>.csc-loanOut-loanedObjectStatus</selector>
 			    		<options>
-			      		<option id="requested">Requested</option>
+			      		<option id="requested" default="yes">Requested</option>
 			      		<option id="authorized">Authorized</option>
 			      		<option id="agreed">Agreed</option>
 			      		<option id="conservation">Conservation</option>
