@@ -1,0 +1,27 @@
+{
+    "roleList": {
+        ".csc-role-roleList-row:": {
+            "children": [
+                {
+                    ".csc-role-roleList-name": "${items.0.name}",
+                    ".csc-role-roleList-csid": "${items.0.csid}"
+                }
+            ]
+        }
+    },
+    "permissions": {
+        ".csc-permissions-record-row:": {
+            "children": [
+                {
+                    ".csc-permissions-record-permissions": {
+                        "selection": "${fields.permissions.0.permission}",
+                        "optionlist": ["none", "read","write", "delete"],
+                        "optionnames": ["none", "read","write", "delete"],
+                        "default": "2"
+                    },
+                    ".csc-permissions-record-type": "${fields.permissions.0.recordType}"
+                }
+            ]
+        }
+    }
+}
