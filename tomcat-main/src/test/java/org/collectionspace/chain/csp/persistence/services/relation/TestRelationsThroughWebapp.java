@@ -130,11 +130,15 @@ public class TestRelationsThroughWebapp {
 		// Now create a pair of relations in: 3<->1, 3->2: a. 1->3, b. 3->1, c. 3->2
 		out=jettyDo(jetty,"POST","/chain/relationships",createRelation(path3[1],path3[2],"affects",path1[1],path1[2],false).toString());
 		assertEquals(201,out.getStatus());
+		String relid1 = out.getHeader("Location");
 		out=jettyDo(jetty,"POST","/chain/relationships",createRelation(path3[1],path3[2],"affects",path2[1],path2[2],true).toString());
 		assertEquals(201,out.getStatus());	
+		String relid2 = out.getHeader("Location");
 		log.info("id1="+id1);
 		log.info("id2="+id2);
 		log.info("id3="+id3);
+		log.info("relid1="+relid1);
+		log.info("relid2="+relid2);
 		// Check 1 has relation to 3
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		JSONObject data1=new JSONObject(out.getContent());
@@ -213,6 +217,12 @@ public class TestRelationsThroughWebapp {
 		assertEquals("objects",dst32.getString("recordtype"));
 		assertEquals(path2[2],dst32.get("csid"));		
 		log.info(out.getContent());
+		
+		/* clean up */
+		
+		out=jettyDo(jetty,"DELETE","/chain"+id1,null);
+		out=jettyDo(jetty,"DELETE","/chain"+id2,null);
+		out=jettyDo(jetty,"DELETE","/chain"+id3,null);
 	}
 	
 	

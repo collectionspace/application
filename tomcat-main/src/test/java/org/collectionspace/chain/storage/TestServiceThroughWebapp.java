@@ -226,7 +226,10 @@ public class TestServiceThroughWebapp {
 			JSONObject t=obj1;
 			obj1=obj2;
 			obj2=t;
-		}
+		}		
+		/* clean up */
+		out=jettyDo(jetty,"DELETE","/chain"+id1,null);		
+		out=jettyDo(jetty,"DELETE","/chain"+id2,null);
 		// check
 		assertEquals(id1.split("/")[2],obj1.getString("csid"));
 		assertEquals(id2.split("/")[2],obj2.getString("csid"));
@@ -242,10 +245,12 @@ public class TestServiceThroughWebapp {
 		ServletTester jetty=setupJetty();
 		// one aardvark, one non-aardvark
 		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3-search.json")));	
-		String good=out.getHeader("Location").split("/")[2];
+		String id1=out.getHeader("Location");
+		String good=id1.split("/")[2];
 		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
-		String bad=out.getHeader("Location").split("/")[2];
+		out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		String id2=out.getHeader("Location");
+		String bad=id2.split("/")[2];
 		assertEquals(201,out.getStatus());
 		// search
 		out=jettyDo(jetty,"GET","/chain/objects/search?query=aardvark",null);
@@ -262,6 +267,9 @@ public class TestServiceThroughWebapp {
 				assertTrue(false);
 		}
 		assertTrue(found);
+		/* clean up */
+		out=jettyDo(jetty,"DELETE","/chain"+id1,null);		
+		out=jettyDo(jetty,"DELETE","/chain"+id2,null);
 	}
 	
 	@Test public void testLogin() throws Exception {
