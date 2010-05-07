@@ -51,7 +51,7 @@ public class ServicesBaseClass {
 		log.info("base="+base);
 		conn=new ServicesConnection(base+"/cspace-services");
 		creds=new ServicesRequestCredentials();
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test@collectionspace.org");
 		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtest");		
 		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds,cache);
 		Assume.assumeTrue(out.getStatus()==200);
@@ -102,7 +102,7 @@ public class ServicesBaseClass {
 		assertEquals("objects",r_obj.getWebURL());
 		StorageGenerator gen=cspm.getStorage("service");
 		CSPRequestCredentials creds=gen.createCredentials();
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test");
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test@collectionspace.org");
 		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtest");
 		return gen.getStorage(creds,new RequestCache());
 	}

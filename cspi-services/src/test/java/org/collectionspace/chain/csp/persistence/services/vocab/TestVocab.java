@@ -135,35 +135,35 @@ public class TestVocab extends ServicesBaseClass {
 		} catch(ExistException x) {}
 	}
 	
-	/* Commented until wednesday
+	/* Commented until wednesday 
 	// XXX factor tests
 	@Test public void testOrgs() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		// Create
 		JSONObject data=new JSONObject();
-		data.put("name","TEST");
-		String id=ss.autocreateJSON("/orgs/orgs",data);
+		data.put("displayName","TEST");
+		String id=ss.autocreateJSON("/organization/organization",data);
 		Matcher m=person_urn.matcher(id);
 		assertTrue(m.matches());
 		assertEquals("TEST",m.group(3));
 		// Read
-		JSONObject out=ss.retrieveJSON("/orgs/orgs/"+id);
-		assertEquals("TEST",out.getString("name"));
+		JSONObject out=ss.retrieveJSON("/organization/organization/"+id);
+		assertEquals("TEST",out.getString("displayName"));
 		// Update
 		data.remove("name");
-		data.put("name","TEST2");
-		ss.updateJSON("/orgs/orgs/"+id,data);
-		out=ss.retrieveJSON("/orgs/orgs/"+id);
-		assertEquals("TEST2",out.getString("name"));
+		data.put("displayName","TEST2");
+		ss.updateJSON("/organization/organization/"+id,data);
+		out=ss.retrieveJSON("/organization/organization/"+id);
+		assertEquals("TEST2",out.getString("displayName"));
 		String id3=out.getString("csid");
 		// List
 		data.remove("name");
-		data.put("name","TEST3");
-		String id2=ss.autocreateJSON("/orgs/orgs",data);
-		out=ss.retrieveJSON("/orgs/orgs/"+id2);
-		assertEquals("TEST3",out.getString("name"));		
+		data.put("displayName","TEST3");
+		String id2=ss.autocreateJSON("/organization/organization",data);
+		out=ss.retrieveJSON("/organization/organization/"+id2);
+		assertEquals("TEST3",out.getString("displayName"));		
 		boolean found1=false,found2=false;
-		for(String u : ss.getPaths("/orgs/orgs",null)) {
+		for(String u : ss.getPaths("/organization/organization",null)) {
 			log.info(u);
 			if(id3.equals(u))
 				found1=true;
@@ -175,11 +175,12 @@ public class TestVocab extends ServicesBaseClass {
 		assertTrue(found1);
 		assertTrue(found2);
 		// Delete
-		ss.deleteJSON("/orgs/orgs/"+id);
+		ss.deleteJSON("/organization/organization/"+id);
 		try {
-			out=ss.retrieveJSON("/orgs/orgs/"+id);		
+			out=ss.retrieveJSON("/organization/organization/"+id);		
 			assertTrue(false);
 		} catch(ExistException x) {}
 	}
 	*/
+	
 }

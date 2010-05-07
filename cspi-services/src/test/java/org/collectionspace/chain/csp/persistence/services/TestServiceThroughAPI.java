@@ -185,7 +185,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		log.info("p1="+p1);
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs");
 		log.info("mini="+mini);
-		JSONObject member=mini.getJSONObject("valuer");		
+		JSONObject member=mini.getJSONObject("intakes_common:valuer");		
 		assertNotNull(member);
 		assertEquals("Dic Penderyn",member.getString("displayName"));
 		
