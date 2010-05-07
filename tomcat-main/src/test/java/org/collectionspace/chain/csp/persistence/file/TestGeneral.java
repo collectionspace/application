@@ -430,12 +430,9 @@ public class TestGeneral {
 		JSONObject result=new JSONObject(out.getContent());
 		JSONArray items=result.getJSONArray("items");
 		Set<String> files=new HashSet<String>();
-		for(int i=0;i<items.length();i++)
+		for(int i=0;i<items.length();i++){
 			files.add("/objects/"+items.getJSONObject(i).getString("csid"));
-		log.info(out1.getHeader("Location"));
-		assertTrue(files.contains(out1.getHeader("Location")));
-		assertTrue(files.contains(out2.getHeader("Location")));
-		assertTrue(files.contains(out3.getHeader("Location")));
+		}
 
 		/* clean up */
 		out=jettyDo(jetty,"DELETE","/chain"+out1.getHeader("Location"),null);
@@ -446,7 +443,11 @@ public class TestGeneral {
 		
 		out=jettyDo(jetty,"DELETE","/chain"+out3.getHeader("Location"),null);
 		assertEquals(200,out.getStatus());
-		
+
+		log.info(out1.getHeader("Location"));
+		assertTrue(files.contains(out1.getHeader("Location")));
+		assertTrue(files.contains(out2.getHeader("Location")));
+		assertTrue(files.contains(out3.getHeader("Location")));
 	}
 
 	@Test public void testPutReturnsContent() throws Exception {
