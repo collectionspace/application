@@ -69,6 +69,7 @@ public class WebReset implements WebMethod {
 				}					
 			}
 			// Create records anew
+			tty.line("Create records anew");
 			String schedule=getResource("reset.txt");
 			for(String line : schedule.split("\n")) {
 				String[] parts=line.split(" +",2);
@@ -77,6 +78,7 @@ public class WebReset implements WebMethod {
 				tty.flush();
 			}
 			// Delete existing vocab entries
+			tty.line("Delete existing vocab entries");
 			for(String urn : storage.getPaths("/person/person",null)) {
 				try {
 					storage.deleteJSON("/person/person/"+urn);
