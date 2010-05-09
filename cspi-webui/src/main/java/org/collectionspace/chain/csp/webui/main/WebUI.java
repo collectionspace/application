@@ -80,6 +80,22 @@ public class WebUI implements CSP, UI, Configurable {
 	public String getLoginFailedDest() { return login_failed_dest; }
 	public String getFrontPage() { return front_page; }
 	
+	/**
+	 * Explicitly add in urls that the app layer will respond to
+	 * e.g. addMethod(Operation.READ,new String[]{"logout"},0,new WebLogout());
+	 * would open up the url /chain/logout for GET method with no parameters on the url and call WebLogout.java
+	 * 
+	 * addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
+	 * would open up the url /chain/<web-url>/{parameter} where web-url is the name in default.xml
+	 * expecting one parameter and calling RecordRead.java and passing the record info from default.xml
+	 * 
+	 * @param op - GET/POST that request came in as
+	 * Operation.CREATE = POST
+	 * Operation.READ = GET
+	 * @param path - url this json came in via e.g. /chain/login/ (remove the /chain/ part)
+	 * @param extra - does this url have extra info e.g. /chain/object/1234{id} 0=no, 1= one item 2= two etc
+	 * @param method - Java class to call to process this request
+	 */
 	private void addMethod(Operation op,String[] path,int extra,WebMethod method) {
 		tries.get(op).addMethod(path,extra,method);
 		all_methods.add(method);
@@ -113,9 +129,11 @@ public class WebUI implements CSP, UI, Configurable {
 		for(Operation op : Operation.values())
 			tries.put(op,new Trie());	
 		
-		//Operation.CREATE = method= POST
+		//Operation.CREATE/UPDATE = method= POST
 		//Operation.READ = method= GET
-		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin(this,spec));
+
+		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin(this,spec)); /* XXX need to remove this one when UI layer moves across to POST */
+		addMethod(Operation.CREATE,new String[]{"login"},0,new WebLogin(this,spec));
 		addMethod(Operation.READ,new String[]{"logout"},0,new WebLogout());
 		addMethod(Operation.READ,new String[]{"loginstatus"},0, new WebLoginStatus());
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
