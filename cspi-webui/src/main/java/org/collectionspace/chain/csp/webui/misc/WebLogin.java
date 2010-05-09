@@ -16,8 +16,13 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebLogin implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(WebLogin.class);
 	private String login_dest,login_failed_dest;
 	private Spec spec;
 	private WebUI ui;
@@ -45,6 +50,23 @@ public class WebLogin implements WebMethod {
 		UIRequest request=in.getUIRequest();
 		String username=request.getRequestArgument("userid");
 		String password=request.getRequestArgument("password");
+		JSONObject data=request.getJSONBody();
+		// XXX stop defaulting to GET request when UI layer stops doing login via GET
+		if(data.has("userid")){
+			try {
+				username=data.getString("userid");
+				password=data.getString("password");
+			} catch (JSONException e) {
+				username=request.getRequestArgument("userid");
+				password=request.getRequestArgument("password");
+			}
+		}
+		else{
+			username=request.getRequestArgument("userid");
+			password=request.getRequestArgument("password");
+		}
+		log.info(username);
+		log.info(password);
 		request.getSession().setValue(UISession.USERID,username);
 		request.getSession().setValue(UISession.PASSWORD,password);
 		in.reset();

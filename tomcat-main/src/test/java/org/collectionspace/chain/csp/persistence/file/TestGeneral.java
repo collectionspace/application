@@ -192,7 +192,9 @@ public class TestGeneral {
 	}
 
 	private void login(ServletTester tester) throws IOException, Exception {
-		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
+		//HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
+		String test = "{\"userid\":\"test@collectionspace.org\",\"password\":\"testtest\"}";
+		HttpTester out=jettyDo(tester,"POST","/chain/login/",test);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
 		log.info("Got cookie "+cookie);
