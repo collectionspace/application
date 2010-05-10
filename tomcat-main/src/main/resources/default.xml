@@ -1092,7 +1092,7 @@
                 </options>
 			  </field>
 			</record>
- 			<record id="id" type="id"> <!-- XXX what is this type? How does this work? -->
+ 			<record id="id" type="id"> <!-- XXX what is this type? something to do with next number generation, currently piggy backs on normal Record functionality -->
 			</record>
 		</records>
 	</spec>
