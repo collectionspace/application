@@ -144,15 +144,46 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		assertTrue(out.getStatus()!=200); // XXX should be 404		
 	}
-	
+
 	@Test public void testIDGenerate() throws Exception {
 		ServletTester jetty=setupJetty();
 		UTF8SafeHttpTester out=jettyDo(jetty,"GET","/chain/id/intake",null);
 		JSONObject jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("IN2010."));
+		//test the accessions generated id
 		out=jettyDo(jetty,"GET","/chain/id/objects",null);
 		jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("2010.1."));
+
+		//test the loans-in generated id
+		out=jettyDo(jetty,"GET","/chain/id/loans-in",null);
+		jo=new JSONObject(out.getContent());
+		assertTrue(jo.getString("next").startsWith("LI2010."));
+
+		//test the loans-out generated id
+		out=jettyDo(jetty,"GET","/chain/id/loans-out",null);
+		jo=new JSONObject(out.getContent());
+		assertTrue(jo.getString("next").startsWith("LO2010."));
+
+		//test the study generated id
+		out=jettyDo(jetty,"GET","/chain/id/study",null);
+		jo=new JSONObject(out.getContent());
+		assertTrue(jo.getString("next").startsWith("ST2010."));
+
+		//test the evaluation generated id
+		out=jettyDo(jetty,"GET","/chain/id/evaluation",null);
+		jo=new JSONObject(out.getContent());
+		assertTrue(jo.getString("next").startsWith("EV2010."));
+
+		//test the library generated id
+		out=jettyDo(jetty,"GET","/chain/id/library",null);
+		jo=new JSONObject(out.getContent());
+		assertTrue(jo.getString("next").startsWith("LIB2010."));
+
+		//test the archives generated id
+		out=jettyDo(jetty,"GET","/chain/id/archives",null);
+		jo=new JSONObject(out.getContent());
+		assertTrue(jo.getString("next").startsWith("AR2010."));
 	}
 
 	@Test public void testTermsUsed() throws Exception {

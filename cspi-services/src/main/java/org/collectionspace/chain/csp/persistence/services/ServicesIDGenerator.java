@@ -24,6 +24,8 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 	
 	private static final Map<String,String> generators=new HashMap<String,String>();
 	
+	/*these keys are the primary keys in the id_generators table in the service layer.
+	while using these keys we get more information about the type of the object (like the prefix for the generated id)*/
 	static {
 		generators.put("accession-activity","1a67470b-19b1-4ae3-88d4-2a0aa936270e");
 		generators.put("objects","9dd92952-c384-44dc-a736-95e435c1759c"); // XXX temporary hack for venus
@@ -36,6 +38,7 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		generators.put("intake-object","a91db555-5c53-4996-9918-6712351397a0");
 		generators.put("library","80fedaf6-1647-4f30-9f53-a75a3cac2ffd");
 		generators.put("loans-in","ed87e7c6-0678-4f42-9d33-f671835586ef");
+		generators.put("loans-out", "4b984865-f93d-4481-b874-3dba863ec589");
 		generators.put("study","0518132e-dd8c-4773-8fa9-07c9af4444ee");
 		generators.put("uuid","1fa40353-05b8-4ae6-82a6-44a18b4f3c12");
 	}
@@ -64,6 +67,10 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		return null;
 	}
 
+	/**
+	 * This function generates a new id for the next inputted object.
+	 * The id in the static list on top is the primary key in the generators_id table on the service layer.
+	 */
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String val=conn.getTextDocument(RequestMethod.POST,"idgenerators/"+generators.get(filePath)+"/ids",null,creds,cache);
