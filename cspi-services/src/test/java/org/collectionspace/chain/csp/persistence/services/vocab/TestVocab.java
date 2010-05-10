@@ -31,10 +31,7 @@ import org.xml.sax.InputSource;
 
 public class TestVocab extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestVocab.class);
-	private static Pattern person_urn=Pattern.compile("urn:cspace.org.collectionspace.demo.personauthority:name\\((.*?)\\):person:name\\((.*?)\\)'(.*?)'");
-	private 
-	
-	static Pattern vocab_urn=Pattern.compile("urn:cspace:org.collectionspace.demo:vocabulary\\((.*?)\\):item\\((.*?)\\)'(.*?)'");
+	private static Pattern vocab_urn=Pattern.compile("urn:cspace:org.collectionspace.demo:vocabulary\\((.*?)\\):item\\((.*?)\\)'(.*?)'");
 		
 	private InputStream getRootSource(String file) {
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
@@ -216,7 +213,7 @@ public class TestVocab extends ServicesBaseClass {
 	}
 	
 */
-	/* Commented until wednesday 
+
 	// XXX factor tests
 	@Test public void testOrgs() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
@@ -224,9 +221,6 @@ public class TestVocab extends ServicesBaseClass {
 		JSONObject data=new JSONObject();
 		data.put("displayName","TEST");
 		String id=ss.autocreateJSON("/organization/organization",data);
-		Matcher m=person_urn.matcher(id);
-		assertTrue(m.matches());
-		assertEquals("TEST",m.group(3));
 		// Read
 		JSONObject out=ss.retrieveJSON("/organization/organization/"+id);
 		assertEquals("TEST",out.getString("displayName"));
@@ -262,6 +256,6 @@ public class TestVocab extends ServicesBaseClass {
 			assertTrue(false);
 		} catch(ExistException x) {}
 	}
-	*/
+	
 	
 }
