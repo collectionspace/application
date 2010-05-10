@@ -371,7 +371,6 @@
 
 			</record>
 			
-
 			<record id="loanin" in-findedit="yes">
 		      <services-url>loansin</services-url>
 			  <services-list-path>loansin-common-list/loanin-list-item</services-list-path>
@@ -439,7 +438,91 @@
 			    	</options>
 				</field>
 			</record>
-
+			
+			<record id="loanout" in-findedit="yes">
+		      <services-url>loansout</services-url>
+			  <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
+			  <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
+			  <structures>
+				<structure id="screen"> 
+				</structure>
+			  </structures>	
+			
+			  <row-selector>.csc-loanout-record-list-row:</row-selector>
+			  
+                <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number" >
+			    <title-selector>.csc-titleBar-loanOutNumber</title-selector>
+			    <selector>.csc-loanOut-loanOutNumber</selector>
+			    <container-selector>.csc-loanOut-loanOutNumber-patternChooserContainer</container-selector>				
+				  <options>
+				    <option id="loanout" sample="LO2010.1">Loan Out</option>
+				  </options>
+				</field>			
+			  			  
+			    <field id="lendersAuthorizer" autocomplete="person-person" >
+					<selector>.csc-loanOut-lendersAuthorizer</selector>
+				</field>				
+				<field id="lendersContact" autocomplete="person-person" >
+					<selector>.csc-loanOut-lendersContact</selector>
+				</field>
+				<field id="borrowersContact" autocomplete="person-person">
+					<selector>.csc-loanOut-borrowersContact</selector>
+				</field>
+				<field id="loanedObjectStatusNote">
+					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
+				</field>
+				<field id="loanReturnDate" ui-type="date">
+					<selector>.csc-loanOut-loanReturnDate</selector>
+				</field>
+		
+				<field id="loanedObjectStatusDate" ui-type="date">
+					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
+				</field>
+				<field id="loanPurpose">
+					<selector>.csc-loanOut-loanPurpose</selector>
+			    		<options>
+			      		<option id="exhibition" default="yes">Exhibition</option>
+			      		<option id="research">Research</option>
+			      		<option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
+			      		<option id="analysis">Analysis</option>
+			      		<option id="photography">Photography</option>
+			      		<option id="conservationotherrequestedservices">Conservation or other requested services</option>
+			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
+			    	</options>
+				</field>
+				<field id="loanOutDate" ui-type="date">
+					<selector>.csc-loanOut-loanOutDate</selector>
+				</field>
+				<field id="loanRenewalApplicationDate" ui-type="date">
+					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
+				</field>
+				<field id="loanedObjectStatus">
+					<selector>.csc-loanOut-loanedObjectStatus</selector>
+			    		<options>
+			      		<option id="requested" default="yes">Requested</option>
+			      		<option id="authorized">Authorized</option>
+			      		<option id="agreed">Agreed</option>
+			      		<option id="conservation">Conservation</option>
+			      		<option id="requested">Requested</option>
+			      		<option id="sent">Sent</option>
+			      		<option id="photographyrequested">Photography requested</option>
+			      		<option id="refused">Refused</option>
+			      		<option id="renewed">Renewed</option>
+			      		<option id="returned">Returned</option>
+			    	</options>
+				</field>
+				<field id="loanOutConditions">
+					<selector>.csc-loanOut-loanOutConditions</selector>
+				</field>
+				<field id="borrower" autocomplete="person-person">
+					<selector>.csc-loanOut-borrower</selector>
+				</field>
+				<field id="loanOutNote">
+					<selector>.csc-loanOut-loanOutNote</selector>
+				</field>
+               
+			</record>
+			
 			<record id="intake" in-findedit="yes">
 			  <services-url>intakes</services-url>
 			  <services-list-path>intakes-common-list/intake-list-item</services-list-path>
@@ -593,8 +676,7 @@
 			    </field>
 			  </repeat>
 			</record>
-
-
+			
 			<record id="acquisition"  in-findedit="yes">
 		      <services-url>acquisitions</services-url>
 			  <services-list-path>acquisitions-common-list/acquisition-list-item</services-list-path>
@@ -688,6 +770,89 @@
 			  </field>
 			</record>
 
+<!-- XXX best guess for placeauthority - awaiting feedback from service layer and ui layer -->
+			<record id="place" type="authority,compute-displayname">
+				<web-url>place</web-url>
+			  <services-instances-path>placeauthorities_common:http://collectionspace.org/services/place,placeauthorities-common-list/placeauthority-list-item</services-instances-path>
+			  <services-single-instance-path>placeauthorities_common:http://collectionspace.org/services/place,personauthorities_common</services-single-instance-path>
+			  <services-list-path>http://collectionspace.org/services/place,places-common-list/place_list_item</services-list-path>
+			  <services-record-path>places_common:http://collectionspace.org/services/place,places_common</services-record-path>
+			  <services-url>placeauthorities</services-url>
+			  <urn-syntax>urn:cspace:org.collectionspace.demo:placeauthority:{vocab}:place:{entry}'{display}'</urn-syntax>
+			  <structures>
+				<structure id="screen"> 
+				</structure>
+			  </structures>
+			  <instances>
+			    <instance id="place-place">
+			      <web-url>place</web-url>
+			      <title-ref>place</title-ref>
+			      <title>Default Place Authority</title>
+			    </instance>
+			  </instances>
+				
+			  <field id="displayName" in-title="yes" display-name="yes">
+			    <selector>.csc-placeAuthority-displayName</selector>
+			    <title-selector>.csc-titleBar-displayName</title-selector>
+			  </field>
+			  
+			  <field id="name">
+			    <selector>.csc-placeAuthority-name</selector>
+			  </field>
+			  
+			  <field id="nameType">
+			    <selector>.csc-placeAuthority-nameType</selector>
+			  </field>
+			  <field id="nameStatus">
+			    <selector>.csc-placeAuthority-nameStatus</selector>
+			    <options>
+			      <option id="current">Current</option>
+			      <option id="dialect">Dialect</option>
+			      <option id="historical">Historical</option>
+				</options>
+			  </field>
+			  <field id="placeCoordinates">
+			    <selector>.csc-placeAuthority-placeCoordinates</selector>
+			  </field>
+			  <field id="placeCoordinatesQualifier">
+			    <selector>.csc-placeAuthority-placeCoordinatesQualifier</selector>
+			  </field>
+			  <field id="coordinatesType">
+			    <selector>.csc-placeAuthority-coordinatesType</selector>
+			    <options>
+			      <option id="altitudedepth">Altitude Depth</option>
+			      <option id="latitudeandlongitude">Latitude and longitude</option>
+			      <option id="nationalgridreference">National Grid reference</option>
+			      <option id="universaltransversemercator">Universal Transverse Mercator</option>
+				</options>
+			  </field>
+			  <field id="placeStatus">
+			    <selector>.csc-placeAuthority-placeStatus</selector>
+			    <options>
+				 <option id="nationalbattlefield">National battlefield site</option> 
+				 <option id="nationalmemorial">National memorial</option> 
+				 <option id="nationalmonument">National monument</option> 
+				 <option id="nationalpark">National park</option> 
+				 <option id="nationalregisterofhistoricalplaces">National register of historic places</option>
+			    </options>
+			  </field>
+			  <field id="note">
+			    <selector>.csc-placeAuthority-note</selector>
+			  </field>
+			  <field id="owner" autocompete="person-person">
+			    <selector>.csc-placeAuthority-owner</selector>
+			  </field>
+			  <field id="termStatus">
+			    <selector>.csc-placeAuthority-termStatus</selector>
+			    <options>
+			      <option id="provisional">Provisional</option>
+			      <option id="under review">Under Review</option>
+			      <option id="accepted">Accepted</option>
+			      <option id="rejected">Rejected</option>
+			    </options>
+			  </field>
+			  
+			</record>
 
 			<record id="person" type="authority,compute-displayname">
 		      <web-url>person</web-url>
@@ -837,7 +1002,6 @@
 			  </field>
 			</record>
 
-
 			<record id="organization" type="authority,compute-displayname">
 			  <web-url>organization</web-url>
 			  <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities-common-list/orgauthority-list-item</services-instances-path>
@@ -917,6 +1081,46 @@
 			  </field>
 			</record>
 			
+            <record id="role">
+              <services-url>roles</services-url>
+              <services-list-path>roles-common-list/role-list-item</services-list-path>
+              <services-record-path>roles_common:http://collectionspace.org/services/role, roles_common</services-record-path>
+              <structures>
+                <structure id="screen"> <!-- screen|print|blackberry etc -->
+                    <view>
+                          <titlebar show="false"></titlebar>
+                          <sidebar show="false"></sidebar>
+                          <edit-section id="permissions" show="true"></edit-section>
+                          <list-section id="roleList" show="true"></list-section>
+                    </view>
+                    <repeat id="roleList" asSibling="true">
+                          <selector>.csc-role-roleList-row:</selector>
+                          <field id="name" ui-type="list">
+                              <selector>.csc-role-roleList-name</selector>
+                          </field>
+                          <field id="csid" ui-type="list">
+                              <selector>.csc-role-roleList-csid</selector>
+                          </field>
+                    </repeat>
+                  </structure>
+              </structures>
+              <repeat id="permissions" asSibling="true">
+	              <selector>.csc-permissions-record-row:</selector>
+	                  <field id="permission" mini="summary">
+	                      <selector>.csc-permissions-record-permissions</selector>
+	                          <options>
+	                          <option id="none">none</option>
+	                          <option id="read">read</option>
+	                          <option id="write" default="yes">write</option>
+	                          <option id="delete">delete</option>
+	                      </options>
+	                  </field>
+	                  <field id="recordType" mini="number">
+	                      <selector>.csc-permissions-record-type</selector>
+	                  </field>
+	          </repeat>
+            </record>
+
 			<record id="users" type="userdata">
 		      <web-url>users</web-url>
 			  <services-url>accounts</services-url>
@@ -969,7 +1173,8 @@
                 </options>
 			  </field>
 			</record>
- 			<record id="id" type="id"> <!-- XXX what is this type? How does this work? -->
+ 
+ 			<record id="id" type="id"> <!-- XXX what is this type? something to do with next number generation, currently piggy backs on normal Record functionality -->
 			</record>
 		</records>
 	</spec>
