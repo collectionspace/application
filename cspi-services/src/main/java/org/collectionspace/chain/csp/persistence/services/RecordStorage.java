@@ -137,7 +137,7 @@ public class RecordStorage implements ContextualisedStorage {
 			if(restrictions!=null && restrictions.has("keywords")) {
 				/* Keyword search */
 				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/search?keywords="+data,null,creds,cache);
+				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"?kw="+data,null,creds,cache);
 				if(all.getStatus()!=200)
 					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 				list=all.getDocument();
