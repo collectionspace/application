@@ -1,5 +1,7 @@
 package org.collectionspace.chain.csp.webui.authorities;
 
+import java.util.Iterator;
+
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -15,11 +17,16 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VocabulariesRead implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(VocabulariesRead.class);
 	private Instance n;
+	private String base;
 	
 	public VocabulariesRead(Instance n) {
+		this.base=n.getID();
 		this.n=n;
 	}
 
@@ -28,14 +35,39 @@ public class VocabulariesRead implements WebMethod {
 
 	}
 
+	
+	@SuppressWarnings("unchecked")
+	private JSONArray getTermsUsed(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		//JSONObject mini=storage.retrieveJSON(path+"/refs");
+		JSONArray out=new JSONArray();
+		/*
+		log.debug("mini="+mini);
+		Iterator t=mini.keys();
+		while(t.hasNext()) {
+			String field=(String)t.next();
+			JSONObject in=mini.getJSONObject(field);
+			JSONObject entry=new JSONObject();
+			entry.put("csid",in.getString("csid"));
+			entry.put("recordtype",in.getString("recordtype"));
+			entry.put("sourceFieldName",field);
+			entry.put("number",in.getString("displayName"));
+			out.put(entry);
+		}
+		*/
+		return out;
+	}
+	
 	/* Wrapper exists to decomplexify exceptions */
 	private JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		try {
 			JSONObject fields=storage.retrieveJSON(n.getRecord().getID()+"/"+n.getTitleRef()+"/"+csid);
 			fields.put("csid",csid);
+			//JSONArray relations=createRelations(storage,csid);
 			out.put("fields",fields);
 			out.put("relations",new JSONArray());
+			//out.put("relations",relations);
+			out.put("termsUsed",getTermsUsed(storage,base+"/"+csid));
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found "+e,e);
 		} catch (UnimplementedException e) {
