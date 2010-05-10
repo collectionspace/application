@@ -156,12 +156,12 @@ public class TestServiceThroughWebapp {
 		assertTrue(jo.getString("next").startsWith("2010.1."));
 
 		//test the loans-in generated id
-		out=jettyDo(jetty,"GET","/chain/id/loans-in",null);
+		out=jettyDo(jetty,"GET","/chain/id/loanin",null);
 		jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("LI2010."));
 
 		//test the loans-out generated id
-		out=jettyDo(jetty,"GET","/chain/id/loans-out",null);
+		out=jettyDo(jetty,"GET","/chain/id/loanout",null);
 		jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("LO2010."));
 
