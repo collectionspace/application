@@ -216,7 +216,8 @@ public class RecordStorage implements ContextualisedStorage {
 	
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath+"/authorityrefs",null,creds,cache);
+			String path = r.getServicesURL()+"/"+filePath+"/authorityrefs";
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			if(all.getStatus()!=200)
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 			Document list=all.getDocument();
