@@ -90,7 +90,7 @@ public class TestVocab extends ServicesBaseClass {
 			assertTrue(false);
 		} catch(ExistException x) {}
 	}
-	
+
 	@Test public void testName() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		// Create
@@ -152,6 +152,70 @@ public class TestVocab extends ServicesBaseClass {
 		} catch(ExistException x) {}
 	}
 	
+	
+	/* XXX implement once placeauthority is sorted at the service layer 
+	@Test public void testPLace() throws Exception {
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		// Create
+		JSONObject data=new JSONObject();
+		data.put("displayName","TEST");
+		data.put("status","Provisional");
+		String id=ss.autocreateJSON("/place/place",data);
+		// Read
+		JSONObject out=ss.retrieveJSON("/place/place/"+id);
+		assertEquals("TEST",out.getString("displayName"));
+		assertEquals("Provisional",out.getString("status"));
+		// Update
+		data.remove("displayName");
+		data.put("displayName","TEST2");
+		data.put("status","Provisional2");
+		ss.updateJSON("/place/place/"+id,data);
+		out=ss.retrieveJSON("/place/place/"+id);
+		assertEquals("TEST2",out.getString("displayName"));
+		assertEquals("Provisional2",out.getString("status"));
+		String id3=out.getString("csid");
+		// List
+		data.remove("displayName");
+		data.put("displayName","TEST3");
+		String id2=ss.autocreateJSON("/place/place",data);
+		out=ss.retrieveJSON("/place/place/"+id2);
+		assertEquals("TEST3",out.getString("displayName"));		
+		boolean found1=false,found2=false;
+		for(String u : ss.getPaths("/place/place",null)) {
+			log.info(u);
+			if(id3.equals(u)){
+				found1=true;
+			}
+			if(id2.equals(u)){
+				found2=true;
+			}
+		}
+		if(!found1||!found2){
+			for(String u : ss.getPaths("/place/place",null)) {
+				log.info(u);
+				if(id3.equals(u)){
+					found1=true;
+				}
+				if(id2.equals(u)){
+					found2=true;
+				}
+			}
+			
+		}
+		log.info("id2="+id2+" f="+found2);
+		log.info("id3="+id3+" f="+found1);
+		// XXX pagination: failing because pagination support is not there yet 
+		//assertTrue(found1);
+		//assertTrue(found2);
+		// Delete
+		ss.deleteJSON("/place/place/"+id);
+		try {
+			out=ss.retrieveJSON("/place/place/"+id);		
+			assertTrue(false);
+		} catch(ExistException x) {}
+	}
+	
+*/
 	/* Commented until wednesday 
 	// XXX factor tests
 	@Test public void testOrgs() throws Exception {
