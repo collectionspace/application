@@ -51,7 +51,7 @@ public class WebLogin implements WebMethod {
 		String username=request.getRequestArgument("userid");
 		String password=request.getRequestArgument("password");
 		
-		if(request.getRequestArgument("userid").equals("")){
+		if(request.getRequestArgument("userid") ==  null){
 			JSONObject data=request.getJSONBody();
 		// XXX stop defaulting to GET request when UI layer stops doing login via GET
 			if(data.has("userid")){
