@@ -7,7 +7,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 /**
  * Structures are used in creation of the UISPEC.
  * It allows for easy addition/removal of sections to the UIspec
- * It also will in future allow different UIspecs for different output formats e.g. print vs screen.
+ * It also will in future allow different UIspecs for different output formats e.g. print vs screen. tab vs main
  * 
  * The default is screen
  * if no structure area is explicitly defined then assumes:

@@ -1,7 +1,12 @@
 package org.collectionspace.chain.csp.schema;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
-
+/**
+ * 
+ * @author caret
+ * used when creating authority records e.g. person,organization
+ * 
+ */
 public class Instance {
 	private Record record;
 	private String id,title,title_ref,web_url;

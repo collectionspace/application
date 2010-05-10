@@ -14,6 +14,12 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * @author caret
+ * Handles the rules for parsing the default.xml / cspace-config.xml file
+ * 
+ * 
+ */
 public class Spec implements CSP, Configurable {
 	private static final Logger log=LoggerFactory.getLogger(Spec.class);
 	public static String SECTION_PREFIX="org.collectionspace.app.config.spec.";

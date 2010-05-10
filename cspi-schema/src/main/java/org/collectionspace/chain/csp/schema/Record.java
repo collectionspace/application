@@ -8,6 +8,12 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 
+ * @author caret
+ * 
+ *
+ */
 public class Record implements FieldParent {
 	private static final Logger log=LoggerFactory.getLogger(Record.class);
 	private String id;
@@ -29,40 +35,80 @@ public class Record implements FieldParent {
 	
 	// XXX utility methods
 	Record(Spec parent,ReadOnlySection section) {
+		/* parameters */
+		// this is what the service layer id defaults to if not specified later
+		// standard = singular form of the concept
 		id=(String)section.getValue("/@id");
-		web_url=(String)section.getValue("/web-url");
-		if(web_url==null)
-			web_url=id;
+
+		// record,authority,compute-displayname can have multiple types using commas
 		type=Util.getSetOrDefault(section,"/@type",new String[]{"record"});
-		terms_used_url=(String)section.getValue("/terms-used-url");
-		if(terms_used_url==null)
-			terms_used_url="nameAuthority";
-		number_selector=(String)section.getValue("/number-selector");
-		if(number_selector==null)
-			number_selector=".csc-entry-number";
-		row_selector=(String)section.getValue("/row-selector");
-		if(row_selector==null)
-			row_selector=".csc-"+id+"-record-list-row:";
-		list_key=(String)section.getValue("/list-key");
-		if(list_key==null)
-			list_key="procedures"+id.substring(0,1).toUpperCase()+id.substring(1);
-		ui_url=(String)section.getValue("/ui-url");
-		if(ui_url==null)
-			ui_url=web_url+".html";
+		
+		//specified that it is included in the findedit uispec
 		String findedit=(String)section.getValue("/@in-findedit");
 		if(findedit!=null && ("yes".equals(findedit.toLowerCase()) || "1".equals(findedit.toLowerCase())))
 			in_findedit=true;
+		
+		
+		// XXX not currently used... not sure what it is for
+		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
+		
+		
+		/* UI Layer helpers */
+		//ui layer path
+		web_url=(String)section.getValue("/web-url");
+		if(web_url==null)
+			web_url=id;
+		
+		
+		// specify url if not nameAuthority
+		terms_used_url=(String)section.getValue("/terms-used-url");
+		if(terms_used_url==null)
+			terms_used_url="nameAuthority";
+		
+		//ui layer json row
+		number_selector=(String)section.getValue("/number-selector");
+		if(number_selector==null)
+			number_selector=".csc-entry-number";
+		
+		//ui layer json used in list views
+		row_selector=(String)section.getValue("/row-selector");
+		if(row_selector==null)
+			row_selector=".csc-"+id+"-record-list-row:";
+		
+		//
+		list_key=(String)section.getValue("/list-key");
+		if(list_key==null)
+			list_key="procedures"+id.substring(0,1).toUpperCase()+id.substring(1);
+		
+		//ui layer path: defaults to web_url if not specified
+		ui_url=(String)section.getValue("/ui-url");
+		if(ui_url==null)
+			ui_url=web_url+".html";
+		
+		//ui layer path
 		tab_url=(String)section.getValue("/tab-url");
 		if(tab_url==null)
 			tab_url=web_url+"-tab";
+		
+		/* Service layer helpers */
+		
+		//path that the service layer uses to access this record
 		services_url=Util.getStringOrDefault(section,"/services-url",id);
+		//service layer paths to list data for this record type
 		services_list_path=Util.getStringOrDefault(section,"/services-list-path",services_url+"-common-list/"+services_url+"-list-item");
-		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
+		
+		
+		//used by service layer to construct authority names
 		urn_syntax=Util.getStringOrDefault(section,"/urn-syntax","urn:cspace.org.collectionspace.demo."+id+":name({vocab}):"+id+":name({entry})'{display}'");
+		
+		//
 		services_instances_path=Util.getStringOrDefault(section,"/services-instances-path",
 				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"-common-list/"+services_url+"-list-item");
+		
+		//
 		services_single_instance_path=Util.getStringOrDefault(section,"/services-single-instance-path",
 				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"-common");
+		
 		spec=parent;
 	}
 	

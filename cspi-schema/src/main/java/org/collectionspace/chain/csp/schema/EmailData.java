@@ -2,6 +2,13 @@ package org.collectionspace.chain.csp.schema;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
+/**
+ * 
+ * @author caret
+ * all email specific data from the cspace-config.xml file that is parsed when the server starts up
+ * will hold static data e.g. content of emails, from addresses
+ * 
+ */
 public class EmailData {
 
 	String baseurl,fromaddress,toaddress ;
