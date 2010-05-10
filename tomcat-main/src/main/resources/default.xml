@@ -749,6 +749,10 @@
 			  <field id="objectPurchaseOfferPriceDenomination">
 			    <selector>.csc-acquisition-purchaser-price-denomination</selector>
 			  </field>
+			  
+			  <field id="owner" autocomplete="person-person">
+			    <selector>.csc-acquisition-owner</selector>
+			  </field>
 			  <field id="objectPurchaseOfferPriceType">
 			    <services-tag>objectPurchasePriceDenomination</services-tag>
 			    <selector>.csc-acquisition-purchase-price-type</selector>

@@ -139,6 +139,20 @@
                 }
             ]
         },
+        ".csc-acquisition-owner": "${fields.owner}",
+        ".csc-acquisition-owner-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-acquisition-owner",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/acquisition/autocomplete/owner",
+                        "vocabUrl": "../../chain/acquisition/source-vocab/owner"
+                    }
+                }
+            ]
+        },
         ".csc-acquisition-acquisition-source-row:": {
             "children": [
                 {
