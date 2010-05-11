@@ -64,8 +64,6 @@ public class WebLogin implements WebMethod {
 				}
 			}
 		}
-		log.info(username);
-		log.info(password);
 		request.getSession().setValue(UISession.USERID,username);
 		request.getSession().setValue(UISession.PASSWORD,password);
 		in.reset();
