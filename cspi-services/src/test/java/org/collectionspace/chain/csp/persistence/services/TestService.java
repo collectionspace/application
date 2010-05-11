@@ -113,7 +113,7 @@ public class TestService extends ServicesBaseClass {
 		assertEquals(201,url.getStatus());
 		String good=url.getURLTail();		
 		// search for aardvark
-		ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/search?keywords=aardvark",null,creds,cache);
+		ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,"collectionobjects?kw=aardvark",null,creds,cache);
 		assertEquals(200,doc.getStatus());
 		Set<String> csids=new HashSet<String>();
 		for(Node n : (List<Node>)doc.getDocument().selectNodes("collectionobjects-common-list/collection-object-list-item/csid")) {
