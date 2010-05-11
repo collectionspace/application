@@ -1,5 +1,6 @@
 package org.collectionspace.chain.csp.webui.misc;
 
+import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -20,7 +21,9 @@ public class VocabRedirector implements WebMethod {
 	public void configure(WebUI ui, Spec spec) {}
 
 	private String pathFor(String in) {
-		return "/vocabularies/person"; // XXX
+		Field fd = (Field) r.getField(in);
+		String weburl = fd.getAutocompleteInstance().getWebURL();
+		return "/vocabularies/"+weburl; 
 	}
 	
 	private void redirect(CSPRequestCache cache,Storage storage,UIRequest request,String[] tail) throws UIException {

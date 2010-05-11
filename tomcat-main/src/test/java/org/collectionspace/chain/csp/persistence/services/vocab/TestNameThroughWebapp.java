@@ -95,6 +95,13 @@ public class TestNameThroughWebapp {
 		JSONObject data=new JSONObject(out.getContent());
 		String url=data.getString("url");
 		assertEquals("/vocabularies/person",url);
+
+		out=jettyDo(jetty,"GET","/chain/objects/source-vocab/contentOrganization",null);
+		assertTrue(out.getStatus()<299);
+		data=new JSONObject(out.getContent());
+		url=data.getString("url");
+		assertEquals("/vocabularies/organization",url);
+		
 	}
 
 	@Test public void testAutocompleteVocabRedirect() throws Exception {
