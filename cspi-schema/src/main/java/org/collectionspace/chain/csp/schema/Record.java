@@ -48,47 +48,30 @@ public class Record implements FieldParent {
 		if(findedit!=null && ("yes".equals(findedit.toLowerCase()) || "1".equals(findedit.toLowerCase())))
 			in_findedit=true;
 		
-		
 		// XXX not currently used... not sure what it is for
 		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
 		
-		
 		/* UI Layer helpers */
 		//ui layer path
-		web_url=(String)section.getValue("/web-url");
-		if(web_url==null)
-			web_url=id;
-		
+		web_url=Util.getStringOrDefault(section,"/web-url",id);
 		
 		// specify url if not nameAuthority
-		terms_used_url=(String)section.getValue("/terms-used-url");
-		if(terms_used_url==null)
-			terms_used_url="nameAuthority";
+		terms_used_url=Util.getStringOrDefault(section,"/terms-used-url","nameAuthority");
 		
 		//ui layer json row
-		number_selector=(String)section.getValue("/number-selector");
-		if(number_selector==null)
-			number_selector=".csc-entry-number";
+		number_selector=Util.getStringOrDefault(section,"/number-selector",".csc-entry-number");
 		
 		//ui layer json used in list views
-		row_selector=(String)section.getValue("/row-selector");
-		if(row_selector==null)
-			row_selector=".csc-"+id+"-record-list-row:";
+		row_selector=Util.getStringOrDefault(section,"/row-selector",".csc-"+id+"-record-list-row:");
 		
 		//
-		list_key=(String)section.getValue("/list-key");
-		if(list_key==null)
-			list_key="procedures"+id.substring(0,1).toUpperCase()+id.substring(1);
+		list_key=Util.getStringOrDefault(section,"/list-key","procedures"+id.substring(0,1).toUpperCase()+id.substring(1));
 		
 		//ui layer path: defaults to web_url if not specified
-		ui_url=(String)section.getValue("/ui-url");
-		if(ui_url==null)
-			ui_url=web_url+".html";
+		ui_url=Util.getStringOrDefault(section,"/ui-url",web_url+".html");
 		
 		//ui layer path
-		tab_url=(String)section.getValue("/tab-url");
-		if(tab_url==null)
-			tab_url=web_url+"-tab";
+		tab_url=Util.getStringOrDefault(section,"/tab-url",web_url+"-tab");
 		
 		/* Service layer helpers */
 		
