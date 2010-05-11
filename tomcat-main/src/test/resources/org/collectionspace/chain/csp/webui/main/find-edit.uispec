@@ -1,6 +1,6 @@
 {
     "objects": {
-            ".csc-object-record-list-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-accession-number": {
@@ -13,7 +13,7 @@
             }
     },
     "proceduresIntake": {
-            ".csc-procedural-record-list-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-entry-number": {
@@ -26,7 +26,7 @@
             }
     },
     "proceduresLoanin": {
-            ".csc-loanIn-record-list-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-entry-number": {
@@ -39,7 +39,7 @@
             }
     },
     "proceduresLoanout": {
-            ".csc-loanout-record-list-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-entry-number": {
@@ -52,7 +52,7 @@
             }
     },
     "proceduresAcquisition": {
-            ".csc-acquisition-record-list-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-entry-number": {

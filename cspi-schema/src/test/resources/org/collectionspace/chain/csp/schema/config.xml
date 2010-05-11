@@ -54,7 +54,7 @@
 				<web-url>objects</web-url>
 				<tab-url>object-tab</tab-url>
 				<number-selector>.csc-accession-number</number-selector>
-				<row-selector>.csc-object-record-list-row:</row-selector>
+				<row-selector>.csc-recordList-row:</row-selector>
 				<list-key>objects</list-key>
 					<field id="title" in-title="yes" mini="summary">
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
@@ -381,7 +381,7 @@
 				</structure>
 			  </structures>	
 			
-			  <row-selector>.csc-loanIn-record-list-row:</row-selector>
+			  <row-selector>.csc-recordList-row:</row-selector>
 			  
                 <field id="loanInNumber" in-title="yes" chooser="yes" mini="number">
 			    <title-selector>.csc-titleBar-loanInNumber</title-selector>
@@ -448,7 +448,7 @@
 				<structure id="screen"> 
 				</structure>
 			  </structures>
-			  <row-selector>.csc-procedural-record-list-row:</row-selector>
+			  <row-selector>.csc-recordList-row:</row-selector>
 			  <field id="currentOwner" autocomplete="person-person">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
@@ -931,7 +931,7 @@
 			  			<list-section id="userList" show="true"></list-section>
 					</view>
 			  		<repeat id="userList" asSibling="true">
-			  			<selector>.csc-user-userList-row:</selector>
+			  			<selector>.csc-recordList-row:</selector>
 			  			<field id="name" ui-type="list">
 			  				<selector>.csc-user-userList-name</selector>
 			  			</field>

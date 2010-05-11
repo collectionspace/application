@@ -1,6 +1,6 @@
 {
 	"userList": {
-        ".csc-user-userList-row:": {
+        ".csc-recordList-row:": {
             "children": [
                 {
                     ".csc-user-userList-name": "${items.0.name}",

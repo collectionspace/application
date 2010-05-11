@@ -206,7 +206,7 @@
     
     "sidebar": {
         "termsUsed": {
-            ".csc-related-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-related-number": {
@@ -220,7 +220,7 @@
                 }
         },
         "relatedProcedures": {
-            ".csc-related-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-related-number": {
@@ -234,7 +234,7 @@
             }
         },
         "relatedObjects": {
-            ".csc-related-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-related-number": {

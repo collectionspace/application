@@ -1,7 +1,7 @@
 {
     "sidebar": {
         "termsUsed": {
-            ".csc-related-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-related-number": {
@@ -15,7 +15,7 @@
             }
         },
         "relatedProcedures": {
-            ".csc-related-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-related-summary": "${items.0.summary}",
@@ -29,7 +29,7 @@
             }
         },
         "relatedObjects": {
-            ".csc-related-row:": {
+            ".csc-recordList-row:": {
                 "children": [
                     {
                         ".csc-related-summary": "${items.0.summary}",

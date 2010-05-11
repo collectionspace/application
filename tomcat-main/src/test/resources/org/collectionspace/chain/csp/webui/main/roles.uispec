@@ -1,6 +1,6 @@
 {
     "roleList": {
-        ".csc-role-roleList-row:": {
+        ".csc-recordList-row:": {
             "children": [
                 {
                     ".csc-role-roleList-name": "${items.0.name}",

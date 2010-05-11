@@ -62,7 +62,7 @@ public class Record implements FieldParent {
 		number_selector=Util.getStringOrDefault(section,"/number-selector",".csc-entry-number");
 		
 		//ui layer json used in list views
-		row_selector=Util.getStringOrDefault(section,"/row-selector",".csc-"+id+"-record-list-row:");
+		row_selector=Util.getStringOrDefault(section,"/row-selector",".csc-recordList-row:");
 		
 		//
 		list_key=Util.getStringOrDefault(section,"/list-key","procedures"+id.substring(0,1).toUpperCase()+id.substring(1));

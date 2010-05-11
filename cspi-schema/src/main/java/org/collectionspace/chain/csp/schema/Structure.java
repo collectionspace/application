@@ -26,7 +26,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 			  			<list-section id="userList"></list-section>
 					</view>
 			  		<repeat id="userList">
-			  			<selector>.csc-user-userList-row</selector>
+			  			<selector>.csc-recordList-row</selector>
 			  			<field id="name" ui-type="list">
 			  				<selector>.csc-user-userList-name</selector>
 			  			</field>

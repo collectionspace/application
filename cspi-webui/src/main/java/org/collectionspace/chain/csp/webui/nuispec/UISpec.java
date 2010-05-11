@@ -258,7 +258,7 @@ public class UISpec implements WebMethod {
 			child.put(".csc-related-field","${items.0.sourceFieldName}");
 		children.put(child);
 		row.put("children",children);
-		out.put(".csc-related-row:",row);
+		out.put(".csc-recordList-row:",row);
 		return out;
 	}
 
