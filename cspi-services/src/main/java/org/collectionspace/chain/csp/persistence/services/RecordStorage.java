@@ -76,17 +76,26 @@ public class RecordStorage implements ContextualisedStorage {
 		XmlJsonConversion.convertToJson(out,r,in);
 	}
 
+	/**
+	 * Prepare the request for storage and send it through to the service layer
+	 */
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Map<String,Document> parts=new HashMap<String,Document>();
+			Document doc = null;
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
-				Document doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+				doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
 				parts.put(record_path[0],doc);
 				//log.info(doc.asXML());
 			}
-			ReturnedURL url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
+			ReturnedURL url;
+			//some records are accepted as multipart in the service layers, others arent, that's why we split up here
+			if(r.isMultipart())
+				url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
+			else
+				url = conn.getURL(RequestMethod.POST, r.getServicesURL()+"/", doc, creds, cache);
 			if(url.getStatus()>299 || url.getStatus()<200)
 				throw new UnderlyingStorageException("Bad response "+url.getStatus());
 			return url.getURLTail();

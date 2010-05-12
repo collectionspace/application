@@ -27,6 +27,7 @@ public class Record implements FieldParent {
 	/* UI Stuff */
 	private String web_url,terms_used_url,number_selector,row_selector,list_key,ui_url,tab_url;
 	private boolean in_findedit=false;
+	private boolean is_multipart=false;
 	
 	/* Service stuff */
 	private String services_url,services_list_path,in_tag,urn_syntax,authority_vocab_type,services_instances_path,services_single_instance_path;
@@ -45,6 +46,9 @@ public class Record implements FieldParent {
 		
 		//specified that it is included in the findedit uispec
 		in_findedit=Util.getBooleanOrDefault(section,"/@in-findedit",false);
+		
+		//specified that it is included in the findedit uispec
+		is_multipart=Util.getBooleanOrDefault(section,"/is-multipart",false);
 		
 		// XXX not currently used... not sure what it is for
 		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
@@ -107,6 +111,7 @@ public class Record implements FieldParent {
 	public String getRowSelector() { return row_selector; }
 	public String getListKey() { return list_key; }
 	public boolean isInFindEdit() { return in_findedit; }
+	public boolean isMultipart() { return is_multipart; }
 	public String getInTag() { return in_tag; }
 	public String getURNSyntax() { return urn_syntax; }
 	public String getVocabType() {return authority_vocab_type; }
