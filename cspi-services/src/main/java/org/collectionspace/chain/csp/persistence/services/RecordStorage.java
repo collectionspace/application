@@ -200,6 +200,7 @@ public class RecordStorage implements ContextualisedStorage {
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=filePath.split("/",2);
+			log.info("MYPATH" + filePath);
 			if(parts.length==2) {
 				return viewRetrieveJSON(root,creds,cache,parts[0],parts[1]);
 			} else
@@ -225,22 +226,24 @@ public class RecordStorage implements ContextualisedStorage {
 	
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
-			String path = r.getServicesURL()+"/"+filePath+"/authorityrefs";
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
-			if(all.getStatus()!=200)
-				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-			Document list=all.getDocument();
 			JSONObject out=new JSONObject();
-			for(Object node : list.selectNodes("authority-ref-list/authority-ref-item")) {
-				if(!(node instanceof Element))
-					continue;
-				String key=((Element)node).selectSingleNode("sourceField").getText();
-				String uri=((Element)node).selectSingleNode("uri").getText();
-				String refname=((Element)node).selectSingleNode("refName").getText();
-				if(uri!=null && uri.startsWith("/"))
-					uri=uri.substring(1);
-				JSONObject data=miniForURI(storage,creds,cache,refname,uri);
-				out.put(key,data);
+			if(r.hasTermsUsed()){
+				String path = r.getServicesURL()+"/"+filePath+"/authorityrefs";
+				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
+				if(all.getStatus()!=200)
+					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+				Document list=all.getDocument();
+				for(Object node : list.selectNodes("authority-ref-list/authority-ref-item")) {
+					if(!(node instanceof Element))
+						continue;
+					String key=((Element)node).selectSingleNode("sourceField").getText();
+					String uri=((Element)node).selectSingleNode("uri").getText();
+					String refname=((Element)node).selectSingleNode("refName").getText();
+					if(uri!=null && uri.startsWith("/"))
+						uri=uri.substring(1);
+					JSONObject data=miniForURI(storage,creds,cache,refname,uri);
+					out.put(key,data);
+				}
 			}
 			return out;
 		} catch (ConnectionException e) {
@@ -280,14 +283,25 @@ public class RecordStorage implements ContextualisedStorage {
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
-			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null,creds,cache);
 			JSONObject out=new JSONObject();
-			if((doc.getStatus()<200 || doc.getStatus()>=300))
-				throw new ExistException("Does not exist "+filePath);
-			for(String section : r.getServicesRecordPaths()) {
-				String path=r.getServicesRecordPath(section);
-				String[] parts=path.split(":",2);
-				convertToJson(out,doc.getDocument(parts[0]));
+			if(r.isMultipart()){
+				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null,creds,cache);
+				if((doc.getStatus()<200 || doc.getStatus()>=300))
+					throw new ExistException("Does not exist "+filePath);
+				for(String section : r.getServicesRecordPaths()) {
+					String path=r.getServicesRecordPath(section);
+					String[] parts=path.split(":",2);
+					convertToJson(out,doc.getDocument(parts[0]));
+				}
+			}else{
+				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, r.getServicesURL()+"/"+filePath,null, creds, cache);
+				if((doc.getStatus()<200 || doc.getStatus()>=300))
+					throw new ExistException("Does not exist "+filePath);
+				for(String section : r.getServicesRecordPaths()) {
+					String path=r.getServicesRecordPath(section);
+					String[] parts=path.split(":",2);
+					convertToJson(out,doc.getDocument());
+				}
 			}
 			return out;
 		} catch (ConnectionException e) {
@@ -301,18 +315,28 @@ public class RecordStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Map<String,Document> parts=new HashMap<String,Document>();
+			Document doc = null;
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
-				Document doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+				doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
 				parts.put(record_path[0],doc);
 				log.info(doc.asXML());
 			}
-			ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.PUT,r.getServicesURL()+"/"+filePath,parts,creds,cache);
-			if(doc.getStatus()==404)
+			int status = 0;
+			if(r.isMultipart()){
+				ReturnedMultipartDocument docm = conn.getMultipartXMLDocument(RequestMethod.PUT,r.getServicesURL()+"/"+filePath,parts,creds,cache);
+				status = docm.getStatus();
+			}
+			else{ 
+				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, r.getServicesURL()+"/"+filePath, doc, creds, cache);
+				status = docm.getStatus();
+			}
+			
+			if(status==404)
 				throw new ExistException("Not found: "+r.getServicesURL()+"/"+filePath);
-			if(doc.getStatus()>299 || doc.getStatus()<200)
-				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
+			if(status>299 || status<200)
+				throw new UnderlyingStorageException("Bad response "+status);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (JSONException e) {
