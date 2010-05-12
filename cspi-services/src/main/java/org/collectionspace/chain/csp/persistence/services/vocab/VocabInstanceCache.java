@@ -50,7 +50,7 @@ public class VocabInstanceCache {
 		return vocabs.get(name)+" ("+name+")";
 	}
 	
-	private Document createList(String namespace,String tag,String id) throws ExistException {
+	private Document createList(String namespace,String tag,String id, String vocab_type) throws ExistException {
 		Document out=DocumentFactory.getInstance().createDocument();
 		String[] path=tag.split("/");
 		Element root=out.addElement("ns2:"+path[0],namespace);
@@ -60,7 +60,7 @@ public class VocabInstanceCache {
 		Element nametag=root.addElement("displayName");
 		nametag.addText(confound(id));
 		Element vocabtag=root.addElement("vocabType");
-		vocabtag.addText("OrgAuthority"); // XXX
+		vocabtag.addText(vocab_type); 
 		return out;
 	}
 	
@@ -68,8 +68,9 @@ public class VocabInstanceCache {
 	private synchronized void createVocabulary(CSPRequestCredentials creds,CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
 		Map<String,Document> body=new HashMap<String,Document>();
 		String[] path_parts=r.getServicesSingleInstancePath().split(":",2);
+		String vocab_type = r.getVocabType();
 		String[] tag_parts=path_parts[1].split(",",2);
-		body.put(path_parts[0],createList(tag_parts[0],tag_parts[1],id));
+		body.put(path_parts[0],createList(tag_parts[0],tag_parts[1],id,vocab_type));
 		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/",body,creds,cache);
 		if(out.getStatus()>299)
 			throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
