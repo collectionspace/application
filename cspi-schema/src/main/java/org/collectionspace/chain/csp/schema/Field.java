@@ -4,14 +4,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 // XXX unentangle UI and SVC parts
 public class Field implements FieldSet {
+	private static final Logger log=LoggerFactory.getLogger(Field.class);
 	private FieldParent parent;
 	private String id;
 	private Instance autocomplete_instance;
+	private Set<String> autocomplete_instance_ids;
+
+	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	
 	/* Used only between construction and config_finish() */
 	private String autocomplete_instance_id;
@@ -27,7 +34,7 @@ public class Field implements FieldSet {
 		
 	public Field(FieldParent record,ReadOnlySection section) {
 		id=(String)section.getValue("/@id");
-		autocomplete_instance_id=Util.getStringOrDefault(section,"/@autocomplete",null);
+		autocomplete_instance_ids=Util.getSetOrDefault(section,"/@autocomplete",new String[]{""});
 		has_container = Util.getBooleanOrDefault(section, "/@container", true);
 		selector=(String)section.getValue("/selector");		
 		if(selector==null)
@@ -107,11 +114,24 @@ public class Field implements FieldSet {
 	}
 	
 	public String getSection() { return services_section; }
-	
-	public Instance getAutocompleteInstance() { return autocomplete_instance; }
+
+	public Instance[] getAllAutocompleteInstances() { return instances.values().toArray(new Instance[0]); }
+	//XXX hack so just returns the first autocomplete instance if multiple assigned
+	public Instance getAutocompleteInstance() { 
+		if(getAllAutocompleteInstances().length> 0) {
+			return getAllAutocompleteInstances()[0]; 
+		}
+		return null;
+	}
+	public boolean hasAutocompleteInstance(){ if(getAllAutocompleteInstances().length> 0){return true;}; return false; }
 	
 	public void config_finish(Spec spec) {
-		if(autocomplete_instance_id!=null)
-			autocomplete_instance=spec.getInstance(autocomplete_instance_id);
+		if(autocomplete_instance_ids.size()>0){
+			for (String autocomplete_instance_id : autocomplete_instance_ids){
+				if(!autocomplete_instance_id.equals("")){
+					instances.put(autocomplete_instance_id, spec.getInstance(autocomplete_instance_id));
+				}
+			}
+		}
 	}
 }

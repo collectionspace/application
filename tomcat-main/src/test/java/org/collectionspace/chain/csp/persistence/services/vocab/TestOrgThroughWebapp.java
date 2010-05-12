@@ -184,6 +184,59 @@ public class TestOrgThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());		
 	}
+
+	/* this test will only work if you have field set up in default xml with two authorities assigned. 
+	 * Therefore only until default needs that behaviour this test will have to manually run
+	 * don't forget to add in the instances necceassry as well.
+	 * @Test */
+	 public void testNamesMultiAssign() throws Exception {
+		ServletTester jetty=setupJetty();
+		// Create in single assign list: 
+		JSONObject data=new JSONObject("{'fields':{'displayName':'Custom Data'}}");
+		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/pcustom/",data.toString());		
+		assertTrue(out.getStatus()<300);
+		String url=out.getHeader("Location");
+		data=new JSONObject("{'fields':{'displayName':'Custom Data 3'}}");
+		out=jettyDo(jetty,"POST","/chain/vocabularies/pcustom/",data.toString());		
+		assertTrue(out.getStatus()<300);
+		String url3=out.getHeader("Location");
+		// Create in second single assign list: 
+		data=new JSONObject("{'fields':{'displayName':'Custom Data 2'}}");
+		out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
+		assertTrue(out.getStatus()<300);
+		String url2=out.getHeader("Location");
+		// Read
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
+		assertTrue(out.getStatus()<299);
+		data=new JSONObject(out.getContent()).getJSONObject("fields");
+		assertEquals(data.getString("csid"),url.split("/")[2]);
+		assertEquals("Custom Data",data.getString("displayName"));
+		
+		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/currentOwner?q=Custom&limit=150",null);
+		String one = out.getContent();
+		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Custom&limit=150",null);
+		String two = out.getContent();
+		
+		// Delete
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
+		assertEquals(400,out.getStatus());
+		// Delete
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url3,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url3,null);
+		assertEquals(400,out.getStatus());
+		// Delete
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url2,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url2,null);
+		assertEquals(400,out.getStatus());	
+
+		log.info(one);
+
+		log.info(two);
+	}
 	
 	@Test public void testAutocompleteInOrganization() throws Exception {
 		ServletTester jetty=setupJetty();

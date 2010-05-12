@@ -8,6 +8,7 @@ import org.collectionspace.chain.csp.config.ConfigException;
 
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
@@ -179,7 +180,8 @@ public class UISpec implements WebMethod {
 			Field f=(Field)fs;
 			// Single field
 			out.put(f.getSelector(),generateDataEntryField(f));
-			if(f.getAutocompleteInstance()!=null) {
+
+			if(f.hasAutocompleteInstance()) {
 				out.put(f.getAutocompleteSelector(),generateAutocomplete(f));
 			}
 			if("chooser".equals(f.getUIType())) {

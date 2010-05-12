@@ -28,24 +28,35 @@ public class WebAutoComplete implements WebMethod {
 	
 	public WebAutoComplete(Record r) { this.r=r; }
 	
-	// XXX we just assume person for now
 	private String[] doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,String start) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		FieldSet fs=r.getField(fieldname);
+		List<String> out=new ArrayList<String>();
+		
 		if(!(fs instanceof Field))
 			return new String[0]; // Cannot autocomplete on groups
-		Instance n=((Field)fs).getAutocompleteInstance();
-		if(n==null)
-			return new String[0]; // Field has no autocomplete
-		String path=n.getRecord().getID()+"/"+n.getTitleRef();
-		JSONObject restriction=new JSONObject();
-		restriction.put(n.getRecord().getDisplayNameField().getID(),start); // May be something other than display name
-		List<String> out=new ArrayList<String>();
-		for(String csid : storage.getPaths(path,restriction)) {
-			JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view");
-			JSONObject entry=new JSONObject();
-			entry.put("urn",data.get("refid"));
-			entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));
-			out.add(entry.toString());
+		
+		//support multiassign of autocomplete instances
+		for(Instance n : ((Field)fs).getAllAutocompleteInstances()) {
+			if(n==null){
+				// Field has no autocomplete
+			}
+			else{
+				String path=n.getRecord().getID()+"/"+n.getTitleRef();
+				JSONObject restriction=new JSONObject();
+				restriction.put(n.getRecord().getDisplayNameField().getID(),start); // May be something other than display name
+				for(String csid : storage.getPaths(path,restriction)) {
+					JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view");
+					JSONObject entry=new JSONObject();
+					entry.put("urn",data.get("refid"));
+					entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));
+					out.add(entry.toString());
+				}
+			}
+		}
+		
+		//Instance n=((Field)fs).getAutocompleteInstance();
+		if(out==null){
+			return new String[0]; 
 		}
 		return out.toArray(new String[0]);
 	}
