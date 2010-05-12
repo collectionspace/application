@@ -56,6 +56,14 @@ public class TestService extends ServicesBaseClass {
 		assertEquals("2",num);
 	}
 
+	@Test public void testRolesPost() throws Exception {
+		Map<String,Document> parts=new HashMap<String,Document>();
+		ReturnedURL url=conn.getURL(RequestMethod.POST,"authorization/roles/",getDocument("obj5.xml"),creds,cache);
+		assertEquals(201,url.getStatus());
+		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
+		assertEquals(200,status); // XXX CSPACE-73, should be 404
+	}
+
 	@Test public void testObjectsPut() throws Exception {
 		Map<String,Document> parts=new HashMap<String,Document>();
 		parts.put("collectionobjects_common",getDocument("obj1.xml"));		
