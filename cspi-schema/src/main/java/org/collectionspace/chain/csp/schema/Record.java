@@ -29,7 +29,7 @@ public class Record implements FieldParent {
 	private boolean in_findedit=false;
 	
 	/* Service stuff */
-	private String services_url,services_list_path,in_tag,urn_syntax,services_instances_path,services_single_instance_path;
+	private String services_url,services_list_path,in_tag,urn_syntax,authority_vocab_type,services_instances_path,services_single_instance_path;
 	private Map<String,String> services_record_paths=new HashMap<String,String>();
 	private Map<String,Field> services_filter_param=new HashMap<String,Field>();	
 	
@@ -44,9 +44,7 @@ public class Record implements FieldParent {
 		type=Util.getSetOrDefault(section,"/@type",new String[]{"record"});
 		
 		//specified that it is included in the findedit uispec
-		String findedit=(String)section.getValue("/@in-findedit");
-		if(findedit!=null && ("yes".equals(findedit.toLowerCase()) || "1".equals(findedit.toLowerCase())))
-			in_findedit=true;
+		in_findedit=Util.getBooleanOrDefault(section,"/@in-findedit",false);
 		
 		// XXX not currently used... not sure what it is for
 		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
@@ -83,7 +81,7 @@ public class Record implements FieldParent {
 		
 		//used by service layer to construct authority names
 		urn_syntax=Util.getStringOrDefault(section,"/urn-syntax","urn:cspace.org.collectionspace.demo."+id+":name({vocab}):"+id+":name({entry})'{display}'");
-		
+		authority_vocab_type = Util.getStringOrDefault(section, "/authority-vocab-type", "PersonAuthority");
 		//
 		services_instances_path=Util.getStringOrDefault(section,"/services-instances-path",
 				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"-common-list/"+services_url+"-list-item");
@@ -111,6 +109,7 @@ public class Record implements FieldParent {
 	public boolean isInFindEdit() { return in_findedit; }
 	public String getInTag() { return in_tag; }
 	public String getURNSyntax() { return urn_syntax; }
+	public String getVocabType() {return authority_vocab_type; }
 
 	public Instance[] getAllInstances() { return instances.values().toArray(new Instance[0]); }
 	public Instance getInstance(String key) { return instances.get(key); }
