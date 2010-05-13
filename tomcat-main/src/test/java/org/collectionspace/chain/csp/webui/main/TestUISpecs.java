@@ -62,7 +62,8 @@ public class TestUISpecs {
 		return response;
 	}
 	
-	@Test public void testUISpec() throws Exception {
+	// @Test remove UI tests until we know what we are doing  - can be run when required to test specific uispec //
+	public void testUISpec() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Collection-Object
 		HttpTester response=jettyDo(jetty,"GET","/chain/objects/uispec",null);
