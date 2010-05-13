@@ -94,7 +94,7 @@ public class XmlJsonConversion {
 		for(FieldSet f : r.getAllFields()) {
 			addFieldSetToXml(root,f,in,section);
 		}
-		log.info(doc.asXML());
+		log.debug(doc.asXML());
 		return doc;
 	}
 	
@@ -108,7 +108,9 @@ public class XmlJsonConversion {
 		//Fields that have an autocomplete tag, should also have a sibling with the de-urned version of the urn to display nicely
 		if(f.hasAutocompleteInstance()){
 			String deurned = getDeURNedValue(f, el.getText());
-			out.put("de-urned-"+f.getID(), deurned);
+			if(deurned !=""){
+				out.put("de-urned-"+f.getID(), deurned);
+			}
 		}
 		out.put(f.getID(),el.getText());
 	}
@@ -201,7 +203,10 @@ public class XmlJsonConversion {
 					continue;
 				if(fs instanceof Field) {
 					if(((Field)fs).hasAutocompleteInstance()){
-						member.put("de-urned-"+fs.getID(), getDeURNedValue((Field)fs,child.getText()));
+						String deurned = getDeURNedValue((Field)fs,child.getText());
+						if(deurned !=""){
+							member.put("de-urned-"+fs.getID(), deurned);
+						}
 					}
 					
 					if(f.getXxxUiNoRepeat()){
