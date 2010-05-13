@@ -67,6 +67,7 @@ public class JSONUtils {
 				return false;
 			if(((JSONArray)a).length()!=((JSONArray)b).length()){
 				log.info("array length diff");
+				log.info(((JSONArray)a).toString());
 				return false;
 			}
 			
