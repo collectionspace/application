@@ -65,15 +65,30 @@ public class TestVocab extends ServicesBaseClass {
 		data.put("name","TEST3");
 		String id2=ss.autocreateJSON("/vocab/xxx",data);
 		out=ss.retrieveJSON("/vocab/xxx/"+id2);
-		assertEquals("TEST3",out.getString("name"));		
+		assertEquals("TEST3",out.getString("name"));
+		
 		boolean found1=false,found2=false;
-		for(String u : ss.getPaths("/vocab/xxx",null)) {
-			log.debug(u);
-			if(id3.equals(u)){
-				found1=true;
+		JSONObject myjs = new JSONObject();
+		myjs.put("pageSize", "100");
+		myjs.put("pageNum", "1");
+		int resultsize=1;
+		int check = 0;
+		while(resultsize >0){
+			myjs.put("pageNum", check);
+			check++;
+			String[] res = ss.getPaths("/vocab/xxx",myjs);
+
+			resultsize=res.length;
+			for(String u : res) {
+				if(id3.equals(u)){
+					found1=true;
+				}
+				if(id2.equals(u)){
+					found2=true;
+				}
 			}
-			if(id2.equals(u)){
-				found2=true;
+			if(found1 && found2){
+				resultsize=0;
 			}
 		}
 		log.debug("id2="+id2+" f="+found2);
@@ -115,18 +130,18 @@ public class TestVocab extends ServicesBaseClass {
 		out=ss.retrieveJSON("/person/person/"+id2);
 		assertEquals("TEST3",out.getString("displayName"));		
 		boolean found1=false,found2=false;
-		for(String u : ss.getPaths("/person/person",null)) {
-			log.info(u);
-			if(id3.equals(u)){
-				found1=true;
-			}
-			if(id2.equals(u)){
-				found2=true;
-			}
-		}
-		if(!found1||!found2){
-			for(String u : ss.getPaths("/person/person",null)) {
-				log.info(u);
+		JSONObject myjs = new JSONObject();
+		myjs.put("pageSize", "100");
+		myjs.put("pageNum", "1");
+		int resultsize=1;
+		int check = 0;
+		while(resultsize >0){
+			myjs.put("pageNum", check);
+			check++;
+			String[] res = ss.getPaths("/person/person",myjs);
+
+			resultsize=res.length;
+			for(String u : res) {
 				if(id3.equals(u)){
 					found1=true;
 				}
@@ -134,13 +149,12 @@ public class TestVocab extends ServicesBaseClass {
 					found2=true;
 				}
 			}
-			
+			if(found1 && found2){
+				resultsize=0;
+			}
 		}
-		log.info("id2="+id2+" f="+found2);
-		log.info("id3="+id3+" f="+found1);
-		/* XXX pagination: failing because pagination support is not there yet */
-		//assertTrue(found1);
-		//assertTrue(found2);
+		assertTrue(found1);
+		assertTrue(found2);
 		// Delete
 		ss.deleteJSON("/person/person/"+id);
 		try {
@@ -151,7 +165,7 @@ public class TestVocab extends ServicesBaseClass {
 	
 	
 	/* XXX implement once placeauthority is sorted at the service layer 
-	@Test public void testPLace() throws Exception {
+	@Test public void testPlace() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		// Create
 		JSONObject data=new JSONObject();
@@ -176,20 +190,20 @@ public class TestVocab extends ServicesBaseClass {
 		data.put("displayName","TEST3");
 		String id2=ss.autocreateJSON("/place/place",data);
 		out=ss.retrieveJSON("/place/place/"+id2);
-		assertEquals("TEST3",out.getString("displayName"));		
+		assertEquals("TEST3",out.getString("displayName"));
 		boolean found1=false,found2=false;
-		for(String u : ss.getPaths("/place/place",null)) {
-			log.info(u);
-			if(id3.equals(u)){
-				found1=true;
-			}
-			if(id2.equals(u)){
-				found2=true;
-			}
-		}
-		if(!found1||!found2){
-			for(String u : ss.getPaths("/place/place",null)) {
-				log.info(u);
+		JSONObject myjs = new JSONObject();
+		myjs.put("pageSize", "100");
+		myjs.put("pageNum", "1");
+		int resultsize=1;
+		int check = 0;
+		while(resultsize >0){
+			myjs.put("pageNum", check);
+			check++;
+			String[] res = ss.getPaths("/place/place",myjs);
+
+			resultsize=res.length;
+			for(String u : res) {
 				if(id3.equals(u)){
 					found1=true;
 				}
@@ -197,7 +211,9 @@ public class TestVocab extends ServicesBaseClass {
 					found2=true;
 				}
 			}
-			
+			if(found1 && found2){
+				resultsize=0;
+			}
 		}
 		log.info("id2="+id2+" f="+found2);
 		log.info("id3="+id3+" f="+found1);
@@ -218,7 +234,7 @@ public class TestVocab extends ServicesBaseClass {
 	@Test public void testOrgs() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		// Create
-		JSONObject data=new JSONObject();
+	JSONObject data=new JSONObject();
 		data.put("displayName","TEST");
 		String id=ss.autocreateJSON("/organization/organization",data);
 		// Read
@@ -237,19 +253,37 @@ public class TestVocab extends ServicesBaseClass {
 		String id2=ss.autocreateJSON("/organization/organization",data);
 		out=ss.retrieveJSON("/organization/organization/"+id2);
 		assertEquals("TEST3",out.getString("displayName"));		
+
 		boolean found1=false,found2=false;
-		for(String u : ss.getPaths("/organization/organization",null)) {
-			log.info(u);
-			if(id3.equals(u))
-				found1=true;
-			if(id2.equals(u))
-				found2=true;
+		JSONObject myjs = new JSONObject();
+		myjs.put("pageSize", "100");
+		myjs.put("pageNum", "1");
+		int resultsize=1;
+		int check = 0;
+		while(resultsize >0){
+			myjs.put("pageNum", check);
+			check++;
+			String[] res = ss.getPaths("/organization/organization",myjs);
+
+			resultsize=res.length;
+			for(String u : res) {
+				if(id3.equals(u)){
+					found1=true;
+				}
+				if(id2.equals(u)){
+					found2=true;
+				}
+			}
+			if(found1 && found2){
+				resultsize=0;
+			}
 		}
+		
 		log.info("id2="+id2+" f="+found2);
 		log.info("id3="+id3+" f="+found1);
 		assertTrue(found1);
 		assertTrue(found2);
-		// Delete
+//		// Delete
 		ss.deleteJSON("/organization/organization/"+id);
 		try {
 			out=ss.retrieveJSON("/organization/organization/"+id);		
