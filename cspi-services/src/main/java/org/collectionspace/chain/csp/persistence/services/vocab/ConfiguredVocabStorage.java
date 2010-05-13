@@ -141,13 +141,25 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			List<String> out=new ArrayList<String>();
 			String vocab=vocab_cache.getVocabularyId(creds,cache,rootPath);
 			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
+			String postfix = "?";
 			String prefix=null;
-			if(restrictions!=null && restrictions.has(getDisplayNameKey()))
-				prefix=restrictions.getString(getDisplayNameKey());
-			// XXX pagination support
-			url+="?pgSz=10000";
-			if(prefix!=null)
-				url+="&pt="+URLEncoder.encode(prefix,"UTF8");
+			if(restrictions!=null){
+				if(restrictions.has(getDisplayNameKey())){
+					prefix=restrictions.getString(getDisplayNameKey());
+				}
+				if(restrictions.has("pageSize")){
+					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
+				}
+				if(restrictions.has("pageNum")){
+					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
+				}
+			}
+			if(prefix!=null){
+				postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
+			}
+			postfix = postfix.substring(0, postfix.length()-1);
+			
+			url+=postfix;
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
 			Document doc=data.getDocument();
 			if(doc==null)
