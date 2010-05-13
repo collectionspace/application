@@ -143,20 +143,29 @@ public class RecordStorage implements ContextualisedStorage {
 		try {
 			Document list=null;
 			List<String> out=new ArrayList<String>();
-			if(restrictions!=null && restrictions.has("keywords")) {
-				/* Keyword search */
-				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"?kw="+data,null,creds,cache);
-				if(all.getStatus()!=200)
-					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-				list=all.getDocument();
-			} else {
-				/* Full list */
-				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/",null,creds,cache);
-				if(all.getStatus()!=200)
-					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-				list=all.getDocument();
+			String postfix = "?";
+			if(restrictions!=null){
+				if(restrictions.has("keywords")) {
+					/* Keyword search */
+					String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
+					postfix += "kw="+data+"&";
+				} 
+				if(restrictions.has("pageSize")){
+					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
+				}
+				if(restrictions.has("pageNum")){
+					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
+				}
 			}
+			postfix = postfix.substring(0, postfix.length()-1);
+			if(postfix.length() == 0){postfix +="/";}
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+postfix,null,creds,cache);
+			if(all.getStatus()!=200){
+				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+			}
+			list=all.getDocument();
+			
+			
 			List<Node> objects=list.selectNodes(r.getServicesListPath());
 			for(Node object : objects) {
 				List<Node> fields=object.selectNodes("*");
@@ -200,7 +209,6 @@ public class RecordStorage implements ContextualisedStorage {
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=filePath.split("/",2);
-			log.info("MYPATH" + filePath);
 			if(parts.length==2) {
 				return viewRetrieveJSON(root,creds,cache,parts[0],parts[1]);
 			} else
