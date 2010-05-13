@@ -80,7 +80,7 @@ public class TestVocab extends ServicesBaseClass {
 			String[] res = ss.getPaths("/vocab/xxx",myjs);
 
 			resultsize=res.length;
-			if(checkpagination.equals(res[0])){
+			if(res.length==0 || checkpagination.equals(res[0])){
 				resultsize=0;
 				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
 			}
@@ -104,9 +104,11 @@ public class TestVocab extends ServicesBaseClass {
 		assertTrue(found1);
 		assertTrue(found2);
 		// Delete
-		ss.deleteJSON("/vocab/xxx/"+id);
+		ss.deleteJSON("/vocab/xxx/"+id2);
+		ss.deleteJSON("/vocab/xxx/"+id3);
 		try {
-			out=ss.retrieveJSON("/vocab/xxx/"+id);		
+			out=ss.retrieveJSON("/vocab/xxx/"+id2);
+			out=ss.retrieveJSON("/vocab/xxx/"+id3);		
 			assertTrue(false);
 		} catch(ExistException x) {}
 	}
@@ -140,7 +142,7 @@ public class TestVocab extends ServicesBaseClass {
 		boolean found1=false,found2=false;
 		JSONObject myjs = new JSONObject();
 		myjs.put("pageSize", "100");
-		myjs.put("pageNum", "1");
+		myjs.put("pageNum", "0");
 		int resultsize=1;
 		int check = 0;
 		String checkpagination = "";
@@ -149,7 +151,7 @@ public class TestVocab extends ServicesBaseClass {
 			check++;
 			String[] res = ss.getPaths("/person/person",myjs);
 
-			if(checkpagination.equals(res[0])){
+			if(res.length==0 || checkpagination.equals(res[0])){
 				resultsize=0;
 				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
 			}
@@ -172,9 +174,11 @@ public class TestVocab extends ServicesBaseClass {
 		assertTrue(found1);
 		assertTrue(found2);
 		// Delete
-		ss.deleteJSON("/person/person/"+id);
+		ss.deleteJSON("/person/person/"+id2);
+		ss.deleteJSON("/person/person/"+id3);
 		try {
-			out=ss.retrieveJSON("/person/person/"+id);		
+			out=ss.retrieveJSON("/person/person/"+id2);
+			out=ss.retrieveJSON("/person/person/"+id3);		
 			assertTrue(false);
 		} catch(ExistException x) {}
 	}
@@ -219,7 +223,7 @@ public class TestVocab extends ServicesBaseClass {
 			check++;
 			String[] res = ss.getPaths("/place/place",myjs);
 
-			if(checkpagination.equals(res[0])){
+			if(res.length==0 || checkpagination.equals(res[0])){
 				resultsize=0;
 				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
 			}
@@ -245,9 +249,11 @@ public class TestVocab extends ServicesBaseClass {
 		//assertTrue(found1);
 		//assertTrue(found2);
 		// Delete
-		ss.deleteJSON("/place/place/"+id);
+		ss.deleteJSON("/place/place/"+id2);
+		ss.deleteJSON("/place/place/"+id3);
 		try {
-			out=ss.retrieveJSON("/place/place/"+id);		
+			out=ss.retrieveJSON("/place/place/"+id2);
+			out=ss.retrieveJSON("/place/place/"+id3);		
 			assertTrue(false);
 		} catch(ExistException x) {}
 	}
@@ -281,7 +287,7 @@ public class TestVocab extends ServicesBaseClass {
 		boolean found1=false,found2=false;
 		JSONObject myjs = new JSONObject();
 		myjs.put("pageSize", "100");
-		myjs.put("pageNum", "1");
+		myjs.put("pageNum", "0");
 		int resultsize=1;
 		int check = 0;
 		String checkpagination = "";
@@ -290,7 +296,7 @@ public class TestVocab extends ServicesBaseClass {
 			check++;
 			String[] res = ss.getPaths("/organization/organization",myjs);
 
-			if(checkpagination.equals(res[0])){
+			if(res.length==0 || checkpagination.equals(res[0])){
 				resultsize=0;
 				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
 			}
@@ -316,12 +322,46 @@ public class TestVocab extends ServicesBaseClass {
 		assertTrue(found1);
 		assertTrue(found2);
 //		// Delete
-		ss.deleteJSON("/organization/organization/"+id);
+		ss.deleteJSON("/organization/organization/"+id2);
+		ss.deleteJSON("/organization/organization/"+id3);
 		try {
-			out=ss.retrieveJSON("/organization/organization/"+id);		
+			out=ss.retrieveJSON("/organization/organization/"+id2);
+			out=ss.retrieveJSON("/organization/organization/"+id3);		
 			assertTrue(false);
 		} catch(ExistException x) {}
 	}
 	
+// if you want to delete all orgs you can run this one @Test //
+	public void testDelAllOrgs() throws Exception {
+
+		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		JSONObject myjs = new JSONObject();
+		myjs.put("pageSize", "100");
+		myjs.put("pageNum", "0");
+		int resultsize=1;
+		int check = 0;
+		String checkpagination = "";
+
+		while(resultsize >0){
+			myjs.put("pageNum", check);
+			String[] res = ss.getPaths("/organization/organization",myjs);
+
+			if(res.length==0 || checkpagination.equals(res[0])){
+				resultsize=0;
+				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+			}
+			else{
+				checkpagination = res[0];
+			}
+			resultsize=res.length;
+			for(String urn : res) {
+				try {
+					ss.deleteJSON("/organization/organization/"+urn);
+					log.info(check + "  Deleting "+urn);
+				} catch(Exception e) { /* Sometimes records are wdged */ }
+				
+			}
+		}
+	}
 	
 }
