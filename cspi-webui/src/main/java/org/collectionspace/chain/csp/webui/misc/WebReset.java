@@ -50,6 +50,7 @@ public class WebReset implements WebMethod {
 			// Delete existing records
 			for(String dir : storage.getPaths("/",null)) {
 				// XXX yuck!
+				//need to delete auths
 				if("relations".equals(dir) || "vocab".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "direct".equals(dir) || "users".equals(dir))
 					continue;
 				tty.line("dir : "+dir);
@@ -78,21 +79,67 @@ public class WebReset implements WebMethod {
 				tty.flush();
 			}
 			// Delete existing vocab entries
+
+			JSONObject myjs = new JSONObject();
+			myjs.put("pageSize", "100");
+			myjs.put("pageNum", "0");
+			int resultsize=1;
+			int check = 0;
+			String checkpagination = "";
+			
 			tty.line("Delete existing vocab entries");
-			for(String urn : storage.getPaths("/person/person",null)) {
-				try {
-					storage.deleteJSON("/person/person/"+urn);
-					tty.line("Deleting "+urn);
-				} catch(Exception e) { /* Sometimes records are wdged */ }
-				tty.flush();
+			
+
+			while(resultsize >0){
+				myjs.put("pageNum", check);
+				//check++;
+				//don't increment page num as need to call page 0 as 
+				//once you delete a page worth the next page is now the current page
+				String[] res = storage.getPaths("/person/person",myjs);
+
+				if(checkpagination.equals(res[0])){
+					resultsize=0;
+					//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+				}
+				else{
+					checkpagination = res[0];
+				}
+				resultsize=res.length;
+				for(String urn : res) {
+					try {
+						storage.deleteJSON("/person/person/"+urn);
+						tty.line("Deleting Person "+urn);
+					} catch(Exception e) { /* Sometimes records are wdged */ }
+					tty.flush();
+					
+				}
 			}
-			for(String urn : storage.getPaths("/organization/organization",null)) {
-				try {
-					storage.deleteJSON("/organization/organization/"+urn);
-					tty.line("Deleting "+urn);
-				} catch(Exception e) { /* Sometimes records are wdged */ }
-				tty.flush();
+
+			while(resultsize >0){
+				myjs.put("pageNum", check);
+				//check++;
+				//don't increment page num as need to call page 0 as 
+				//once you delete a page worth the next page is now the current page
+				String[] res = storage.getPaths("/organization/organization",myjs);
+
+				if(checkpagination.equals(res[0])){
+					resultsize=0;
+					//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+				}
+				else{
+					checkpagination = res[0];
+				}
+				resultsize=res.length;
+				for(String urn : res) {
+					try {
+						storage.deleteJSON("/organization/organization/"+urn);
+						tty.line("Deleting Organization "+urn);
+					} catch(Exception e) { /* Sometimes records are wdged */ }
+					tty.flush();
+					
+				}
 			}
+			
 			tty.line("Creating");
 			tty.flush();
 			// Create vocab entries
@@ -103,7 +150,7 @@ public class WebReset implements WebMethod {
 				JSONObject name=new JSONObject();
 				name.put("displayName",line);
 				storage.autocreateJSON("/person/person",name);
-				tty.line("Created "+name);
+				tty.line("Created Person "+name);
 				tty.flush();
 				if(quick && i>20)
 					break;
@@ -116,7 +163,7 @@ public class WebReset implements WebMethod {
 				JSONObject name=new JSONObject();
 				name.put("displayName",line);
 				storage.autocreateJSON("/organization/organization",name);
-				tty.line("Created "+line);
+				tty.line("Created Organisation "+line);
 				tty.flush();
 				if(quick && i>20)
 					break;
