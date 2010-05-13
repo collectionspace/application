@@ -22,7 +22,7 @@ public class URNProcessor {
 	private Pattern pattern;
 	private int[] order;
 
-	URNProcessor(String syntax) {
+	public URNProcessor(String syntax) {
 		this.syntax=syntax;
 		final Map<Integer,Integer> original=new HashMap<Integer,Integer>();
 		original.put(0,-2);
@@ -52,7 +52,7 @@ public class URNProcessor {
 		return in;
 	}
 
-	String constructURN(String vocab_type,String vocab_id,String entry_type,String entry_id,String display) throws UnderlyingStorageException, ConnectionException, ExistException {
+	public String constructURN(String vocab_type,String vocab_id,String entry_type,String entry_id,String display) throws UnderlyingStorageException, ConnectionException, ExistException {
 		try {
 			String out=syntax;
 			out=out.replaceAll("\\{vocab\\}",vocab_type+"("+URLEncoder.encode(vocab_id,"UTF-8")+")");
@@ -64,7 +64,7 @@ public class URNProcessor {
 		}
 	}
 
-	String[] deconstructURN(String urn,boolean prefix) throws ExistException, UnderlyingStorageException {	
+	public String[] deconstructURN(String urn,boolean prefix) throws ExistException, UnderlyingStorageException {	
 		try {
 			if(!prefix)
 				urn="/"+urn;

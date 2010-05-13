@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
+import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
@@ -103,7 +105,26 @@ public class XmlJsonConversion {
 			return;
 		// XXX just add first
 		Element el=(Element)nodes.get(0);
+		//Fields that have an autocomplete tag, should also have a sibling with the de-urned version of the urn to display nicely
+		if(f.hasAutocompleteInstance()){
+			String deurned = getDeURNedValue(f, el.getText());
+			out.put("de-urned-"+f.getID(), deurned);
+		}
 		out.put(f.getID(),el.getText());
+	}
+
+	@SuppressWarnings("finally")
+	private static String getDeURNedValue(Field f, String urn) throws JSONException {
+		//add a field with the de-urned version of the urn
+		URNProcessor urnp = new URNProcessor(f.getAutocompleteInstance().getRecord().getURNSyntax());
+		try {
+			return urnp.deconstructURN(urn,false)[5];
+		} catch (ExistException e) {
+			e.printStackTrace();
+		} catch (UnderlyingStorageException e) {
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	private static void buildFieldList(List<String> list,FieldSet f) {
@@ -174,6 +195,10 @@ public class XmlJsonConversion {
 				if(child==null)
 					continue;
 				if(fs instanceof Field) {
+					if(((Field)fs).hasAutocompleteInstance()){
+						member.put("de-urned-"+fs.getID(), getDeURNedValue((Field)fs,child.getText()));
+					}
+					
 					if(f.getXxxUiNoRepeat()){
 						member.put(f.getID(),child.getText());}
 					else{
@@ -207,6 +232,7 @@ public class XmlJsonConversion {
 		Element root=doc.getRootElement();
 		for(FieldSet f : r.getAllFields()) {
 			addFieldSetToJson(out,root,f);
+			
 		}
 	}
 

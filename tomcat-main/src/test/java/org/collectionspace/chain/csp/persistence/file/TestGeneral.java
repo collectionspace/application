@@ -73,12 +73,13 @@ public class TestGeneral {
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
 	private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
 
-	private final static String testStr6 = "{\"userId\": \"unittest3@collectionspace.org\",\"userName\": \"unittest3@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest3@collectionspace.org\",\"status\": \"inactive\"}";
-	private final static String testStr7 = "{\"userId\": \"unittest3@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest3@collectionspace.org\",\"status\": \"active\"}";
-	private final static String testStr8 = "{\"email\": \"unittest3@collectionspace.org\", \"debug\" : true }";
+	private final static String testStr6 = "{\"userId\": \"unittest2@collectionspace.org\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
+	private final static String testStr7 = "{\"userId\": \"unittest@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest@collectionspace.org\",\"status\": \"active\"}";
+	private final static String testStr8 = "{\"email\": \"unittest2@collectionspace.org\", \"debug\" : true }";
 	private final static String testStr9 = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
 	private final static Date d = new Date();
 	private final static String testStr10 = "{\"roleName\": \"ROLE_USERS_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
+	private final static String testStr11 = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"BOB\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"contentPeople\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
 
 	private FileStorage store;
 	private UserDetailsReset udreset;
@@ -599,5 +600,40 @@ public class TestGeneral {
 		}
 		//assertTrue(doIreallyWantToSpam);
 	}
+	
+	@Test public void testDeURNedField() throws Exception {
+		ServletTester jetty=setupJetty();
+		//create person authority to use
+		String personStr = "{\"displayName\":\"my test person\"}";
+		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",makeSimpleRequest(personStr));
+		String person_id=out.getHeader("Location");
+		JSONObject persondata = new JSONObject(out.getContent());
+		String urn = persondata.getString("urn");
 
+		//assign person authority
+		JSONObject testdata = new JSONObject(testStr11);
+		testdata.getJSONObject("fields").put("contentPeople",urn);
+		
+		//create object
+		out=jettyDo(jetty,"POST","/chain/objects/",testdata.toString());
+		assertEquals(out.getMethod(),null);
+		String id=out.getHeader("Location");
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+		JSONObject one = new JSONObject(getFields(out.getContent()));
+		JSONObject two = testdata;
+		assertEquals(one.get("contentPeople"), urn);
+		assertEquals(one.get("de-urned-contentPeople"), "my test person");
+
+		//clean up
+		out=jettyDo(jetty,"DELETE","/chain"+id,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+		assertTrue(out.getStatus()>=400); // XXX should probably be 404
+		
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies/"+person_id,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain/vocabularies/"+person_id,null);
+		assertTrue(out.getStatus()>=400); // XXX should probably be 404
+	}
 }

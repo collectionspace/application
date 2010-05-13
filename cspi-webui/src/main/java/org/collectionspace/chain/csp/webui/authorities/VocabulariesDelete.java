@@ -12,8 +12,11 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VocabulariesDelete implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(VocabulariesDelete.class);
 	private Instance n;
 	
 	public VocabulariesDelete(Instance n) {
