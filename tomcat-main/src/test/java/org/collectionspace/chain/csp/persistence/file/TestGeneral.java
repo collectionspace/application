@@ -74,7 +74,7 @@ public class TestGeneral {
 	private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
 
 	private final static String testStr6 = "{\"userId\": \"unittest2@collectionspace.org\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
-	private final static String testStr7 = "{\"userId\": \"unittest@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest@collectionspace.org\",\"status\": \"active\"}";
+	private final static String testStr7 = "{\"userId\": \"unittest2@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"active\"}";
 	private final static String testStr8 = "{\"email\": \"unittest2@collectionspace.org\", \"debug\" : true }";
 	private final static String testStr9 = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
 	private final static Date d = new Date();
