@@ -81,6 +81,12 @@ public class RecordStorage implements ContextualisedStorage {
 	 */
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
+
+			//XXX CSPACE-1828 hack
+			if(r.getID().equals("role")){
+				String name = jsonObject.get("roleName").toString();
+				jsonObject.put("roleName","ROLE_"+name);
+			}
 			Map<String,Document> parts=new HashMap<String,Document>();
 			Document doc = null;
 			for(String section : r.getServicesRecordPaths()) {
