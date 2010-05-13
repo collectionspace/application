@@ -103,10 +103,11 @@ public class TestNameThroughWebapp {
 		assertEquals("/vocabularies/organization",url);
 		
 	}
-
+	
+	//this isn't the right test... what is the right test?
 	@Test public void testAutocompleteVocabRedirect() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/source-vocab/depositor",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/intake/source-vocab/depositor",null);
 		assertTrue(out.getStatus()<299);
 		JSONObject data=new JSONObject(out.getContent());
 		String url=data.getString("url");
