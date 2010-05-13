@@ -36,7 +36,7 @@ public class WebReset implements WebMethod {
 	private String getResource(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		log.info(path);
+		log.debug(path);
 		String data=IOUtils.toString(stream);
 		stream.close();		
 		return data;
@@ -51,7 +51,7 @@ public class WebReset implements WebMethod {
 			for(String dir : storage.getPaths("/",null)) {
 				// XXX yuck!
 				//need to delete auths
-				if("relations".equals(dir) || "vocab".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "direct".equals(dir) || "users".equals(dir))
+				if("relations".equals(dir) || "place".equals(dir) || "rolePermission".equals(dir) || "role".equals(dir) || "vocab".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "direct".equals(dir) || "users".equals(dir))
 					continue;
 				tty.line("dir : "+dir);
 				String[] paths=storage.getPaths(dir,null);
