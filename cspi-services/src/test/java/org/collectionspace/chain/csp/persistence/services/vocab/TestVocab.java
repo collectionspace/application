@@ -73,12 +73,20 @@ public class TestVocab extends ServicesBaseClass {
 		myjs.put("pageNum", "1");
 		int resultsize=1;
 		int check = 0;
+		String checkpagination = "";
 		while(resultsize >0){
 			myjs.put("pageNum", check);
 			check++;
 			String[] res = ss.getPaths("/vocab/xxx",myjs);
 
 			resultsize=res.length;
+			if(checkpagination.equals(res[0])){
+				resultsize=0;
+				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+			}
+			else{
+				checkpagination = res[0];
+			}
 			for(String u : res) {
 				if(id3.equals(u)){
 					found1=true;
@@ -135,11 +143,19 @@ public class TestVocab extends ServicesBaseClass {
 		myjs.put("pageNum", "1");
 		int resultsize=1;
 		int check = 0;
+		String checkpagination = "";
 		while(resultsize >0){
 			myjs.put("pageNum", check);
 			check++;
 			String[] res = ss.getPaths("/person/person",myjs);
 
+			if(checkpagination.equals(res[0])){
+				resultsize=0;
+				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+			}
+			else{
+				checkpagination = res[0];
+			}
 			resultsize=res.length;
 			for(String u : res) {
 				if(id3.equals(u)){
@@ -197,11 +213,19 @@ public class TestVocab extends ServicesBaseClass {
 		myjs.put("pageNum", "1");
 		int resultsize=1;
 		int check = 0;
+		String checkpagination = "";
 		while(resultsize >0){
 			myjs.put("pageNum", check);
 			check++;
 			String[] res = ss.getPaths("/place/place",myjs);
 
+			if(checkpagination.equals(res[0])){
+				resultsize=0;
+				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+			}
+			else{
+				checkpagination = res[0];
+			}
 			resultsize=res.length;
 			for(String u : res) {
 				if(id3.equals(u)){
@@ -260,11 +284,19 @@ public class TestVocab extends ServicesBaseClass {
 		myjs.put("pageNum", "1");
 		int resultsize=1;
 		int check = 0;
+		String checkpagination = "";
 		while(resultsize >0){
 			myjs.put("pageNum", check);
 			check++;
 			String[] res = ss.getPaths("/organization/organization",myjs);
 
+			if(checkpagination.equals(res[0])){
+				resultsize=0;
+				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+			}
+			else{
+				checkpagination = res[0];
+			}
 			resultsize=res.length;
 			for(String u : res) {
 				if(id3.equals(u)){
