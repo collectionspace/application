@@ -21,52 +21,55 @@
                     }
                 }]
         },
-        ".csc-loanOut-borrower": "${fields.borrower}",
-        ".csc-loanOut-borrower-autocomplete": {
+        ".csc-loanOut-borrower": {
+            "valuebinding": "${fields.borrower}",
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-loanOut-borrower",
                 "options": {
                     "queryUrl": "../../chain/loanout/autocomplete/borrower",
                     "vocabUrl": "../../chain/loanout/source-vocab/borrower"
                 }
             }]
         },
-        ".csc-loanOut-borrowersContact": "${fields.borrowersContact}",
-        ".csc-loanOut-borrowersContact-autocomplete": {
+        ".csc-loanOut-borrowersContact": {
+            "valuebinding": "${fields.borrowersContact}",
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-loanOut-borrowersContact",
                 "options": {
                     "queryUrl": "../../chain/loanout/autocomplete/borrowersContact",
                     "vocabUrl": "../../chain/loanout/source-vocab/borrowersContact"
                 }
             }]
         },
-        ".csc-loanOut-lendersAuthorizer": "${fields.lendersAuthorizer}",
-        ".csc-loanOut-lendersAuthorizer-autocomplete": {
+        ".csc-loanOut-lendersAuthorizer": {
+            "valuebinding": "${fields.lendersAuthorizer}",
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-loanOut-lendersAuthorizer",
                 "options": {
                     "queryUrl": "../../chain/loanout/autocomplete/lendersAuthorizer",
                     "vocabUrl": "../../chain/loanout/source-vocab/lendersAuthorizer"
                 }
             }]
         },
-        ".csc-loanOut-lendersContact": "${fields.lendersContact}",
-        ".csc-loanOut-lendersContact-autocomplete": {
+        ".csc-loanOut-lendersContact": {
+            "valuebinding": "${fields.lendersContact}",
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-loanOut-lendersContact",
                 "options": {
                     "queryUrl": "../../chain/loanout/autocomplete/lendersContact",
                     "vocabUrl": "../../chain/loanout/source-vocab/lendersContact"
                 }
+            }]
+        },
+        ".csc-loanOut-lendersAuthorizationDate": "${fields.lendersAuthorizationDate}",
+        ".csc-loanOut-lendersAuthorizationDate-container": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.datePicker"
             }]
         },
         ".csc-loanOut-loanOutNote": "${fields.loanOutNote}",
@@ -74,24 +77,21 @@
         ".csc-loanOut-loanOutDate-container": {
             "decorators": [{
                 "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-loanOut-loanOutDate-container"
+                "func": "cspace.datePicker"
             }]
         },
         ".csc-loanOut-loanReturnDate": "${fields.loanReturnDate}",
         ".csc-loanOut-loanReturnDate-container": {
             "decorators": [{
                 "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-loanOut-loanReturnDate-container"
+                "func": "cspace.datePicker"
             }]
         },
         ".csc-loanOut-loanRenewalApplicationDate": "${fields.loanRenewalApplicationDate}",
         ".csc-loanOut-loanRenewalApplicationDate-container": {
             "decorators": [{
                 "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-loanOut-loanRenewalApplicationDate-container"
+                "func": "cspace.datePicker"
             }]
         },
         ".csc-loanOut-loanedObjectStatus": {
@@ -104,8 +104,7 @@
         ".csc-loanOut-loanedObjectStatusDate-container": {
             "decorators": [{
                 "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-loanOut-loanedObjectStatusDate-container"
+                "func": "cspace.datePicker"
             }]
         },
         ".csc-loanOut-loanedObjectStatusNote": "${fields.loanedObjectStatusNote}",

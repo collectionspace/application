@@ -24,59 +24,54 @@
         ".csc-loanIn-lender-row:": {
             "children": [
                 {
-                    ".csc-loanIn-lender": "${fields.lenders.0.lender}",
-                    ".csc-loanIn-lender-autocomplete": {
+                    ".csc-loanIn-lender": {
+                        "valuebinding": "${fields.lenders.0.lender}",
                         "decorators": [{
                             "type": "fluid",
                             "func": "cspace.autocomplete",
-                            "container": ".csc-loanIn-lender",
                             "options": {
                                 "queryUrl": "../../chain/loanin/autocomplete/lender",
                                 "vocabUrl": "../../chain/loanin/source-vocab/lender"
+                            }
+                        }]
+                    },
+                    ".csc-loanIn-lendersAuthorizer": {
+                        "valuebinding": "${fields.lenders.0.lendersAuthorizer}",
+                        "decorators": [{
+                            "type": "fluid",
+                            "func": "cspace.autocomplete",
+                            "options": {
+                                "queryUrl": "../../chain/loanin/autocomplete/lendersAuthorizer",
+                                "vocabUrl": "../../chain/loanin/source-vocab/lendersAuthorizer"
+                            }
+                        }]
+                    },
+                    ".csc-loanIn-lendersAuthorizerDate": "${fields.lenders.0.lendersAuthorizerDate}",
+                    ".csc-loanIn-lendersAuthorizerDate-container": {
+                        "decorators": [{
+                            "type": "fluid",
+                            "func": "cspace.datePicker",
+                        }]
+                    },
+                    ".csc-loanIn-lendersContact": {
+                        "valuebinding": "${fields.lenders.0.lendersContact}",
+                        "decorators": [{
+                            "type": "fluid",
+                            "func": "cspace.autocomplete",
+                            "options": {
+                                "queryUrl": "../../chain/loanin/autocomplete/lendersContact",
+                                "vocabUrl": "../../chain/loanin/source-vocab/lendersContact"
                             }
                         }]
                     }
                 }
             ]
         },
-        ".csc-loanIn-lendersAuthorizer": "${fields.lendersAuthorizer}",
-        ".csc-loanIn-lendersAuthorizer-autocomplete": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.autocomplete",
-                "container": ".csc-loanIn-lendersAuthorizer",
-                "options": {
-                	"queryUrl": "../../chain/loanin/autocomplete/lendersAuthorizer",
-                	"vocabUrl": "../../chain/loanin/source-vocab/lendersAuthorizer"
-                }
-            }]
-        },
-        ".csc-loanIn-lendersAuthorizerDate": "${fields.lendersAuthorizerDate}",
-        ".csc-loanIn-lendersAuthorizerDate-container": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-loanIn-lendersAuthorizerDate-container"
-            }]
-        },
-        ".csc-loanIn-lendersContact": "${fields.lendersContact}",
-        ".csc-loanIn-lendersContact-autocomplete": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.autocomplete",
-                "container": ".csc-loanIn-lendersContact",
-                "options": {
-                    "queryUrl": "../../chain/loanin/autocomplete/lendersContact",
-                    "vocabUrl": "../../chain/loanin/source-vocab/lendersContact"
-                }
-            }]
-        },
         ".csc-loanIn-loanInContact": "${fields.loanInContact}",
-        ".csc-loanIn-loanInContact-autocomplete": {
+		".csc-loanIn-loanInContact-autocomplete": { 
             "decorators": [{
                 "type": "fluid",
                 "func": "cspace.autocomplete",
-                "container": ".csc-loanIn-loanInContact",
                 "options": {
                     "queryUrl": "../../chain/loanin/autocomplete/loanInContact",
                     "vocabUrl": "../../chain/loanin/source-vocab/loanInContact"
@@ -88,31 +83,29 @@
         ".csc-loanIn-loanInDate-container": {
             "decorators": [{
                 "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-loanIn-loanInDate-container"
+                "func": "cspace.datePicker"
             }]
         },
         ".csc-loanIn-loanReturnDate": "${fields.loanReturnDate}",
         ".csc-loanIn-loanReturnDate-container": {
             "decorators": [{
                 "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-loanIn-loanReturnDate-container"
+                "func": "cspace.datePicker"
             }]
         },
         ".csc-loanIn-loanRenewalApplicationDate": "${fields.loanRenewalApplicationDate}",
         ".csc-loanIn-loanRenewalApplicationDate-container": {
             "decorators": [{
                 "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-loanIn-loanRenewalApplicationDate-container"
+                "func": "cspace.datePicker"
             }]
         },
         ".csc-loanIn-loanInNote": "${fields.loanInNote}",
         ".csc-loanIn-loanPurpose": {
             "selection": "${fields.loanPurpose}",
             "optionlist": ["exhibition", "research", "scientificorexhibitpreparation", "analysis", "photography", "conservationotherrequestedservices", "longtermcollectionsmanagementandstorage"],
-            "optionnames": ["Exhibition", "Research", "Scientific or exhibit preparation", "Analysis", "Photography", "Conservation or other requested services", "Long-term collections management and storage"]
+            "optionnames": ["Exhibition", "Research", "Scientific or exhibit preparation", "Analysis", "Photography", "Conservation or other requested services", "Long-term collections management and storage"],
+            "default": "0"
         }
     },
     "sidebar": {
