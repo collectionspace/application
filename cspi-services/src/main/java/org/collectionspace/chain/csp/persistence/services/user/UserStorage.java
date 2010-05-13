@@ -158,10 +158,25 @@ public class UserStorage implements ContextualisedStorage {
 				args.append('=');
 				args.append(URLEncoder.encode(restrictions.getString(key),"UTF-8"));
 			}
+			//pagination
+			String url=r.getServicesURL()+"/";
+			String postfix = "?";
+
 			String tail=args.toString();
-			if(tail.length()>0)
-				tail="?"+tail.substring(1);
-			ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+tail,null,creds,cache);
+			if(tail.length()>0) {
+				postfix += tail.substring(1) +"&";
+			}
+			if(restrictions!=null){
+				if(restrictions.has("pageSize")){
+					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
+				}
+				if(restrictions.has("pageNum")){
+					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
+				}
+			}
+			postfix = postfix.substring(0, postfix.length()-1);
+			
+			ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+postfix,null,creds,cache);
 			if(doc.getStatus()<200 || doc.getStatus()>399)
 				throw new UnderlyingStorageException("Cannot retrieve account list");
 			Document list=doc.getDocument();
