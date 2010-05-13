@@ -113,16 +113,21 @@ public class XmlJsonConversion {
 		out.put(f.getID(),el.getText());
 	}
 
-	@SuppressWarnings("finally")
 	private static String getDeURNedValue(Field f, String urn) throws JSONException {
 		//add a field with the de-urned version of the urn
-		URNProcessor urnp = new URNProcessor(f.getAutocompleteInstance().getRecord().getURNSyntax());
-		try {
-			return urnp.deconstructURN(urn,false)[5];
-		} catch (ExistException e) {
-			e.printStackTrace();
-		} catch (UnderlyingStorageException e) {
-			e.printStackTrace();
+		if(urn.isEmpty() || urn == null){
+			return "";
+		}
+		if(f.getAutocompleteInstance()!=null){
+			String urnsyntax = f.getAutocompleteInstance().getRecord().getURNSyntax();
+			URNProcessor urnp = new URNProcessor(urnsyntax);
+			try {
+				return urnp.deconstructURN(urn,false)[5];
+			} catch (ExistException e) {
+				return "";
+			} catch (UnderlyingStorageException e) {
+				return "";
+			}
 		}
 		return "";
 	}
