@@ -393,20 +393,20 @@
 				
 			  	<repeat id="lenders">
 			  		<selector>.csc-loanIn-lender-row:</selector>
-			    		<field id="lender" autocomplete="person-person" mini="summary" >
-			      	<selector>.csc-loanIn-lender</selector>
+			    	<field id="lender" autocomplete="person-person" mini="summary" >
+			      		<selector>.csc-loanIn-lender</selector>
 			    	</field>
-			  	</repeat>
 			  
-                <field id="lendersAuthorizer" autocomplete="person-person">
-					<selector>.csc-loanIn-lendersAuthorizer</selector>
-				</field>
-                <field id="lendersAuthorizerDate" ui-type="date">
-					<selector>.csc-loanIn-lendersAuthorizerDate</selector>
-				</field>
-                <field id="lendersContact" autocomplete="person-person">
-					<selector>.csc-loanIn-lendersContact</selector>
-				</field>
+                	<field id="lendersAuthorizer" autocomplete="person-person">
+						<selector>.csc-loanIn-lendersAuthorizer</selector>
+					</field>
+    	            <field id="lendersAuthorizerDate" ui-type="date">
+						<selector>.csc-loanIn-lendersAuthorizerDate</selector>
+					</field>
+					<field id="lendersContact" autocomplete="person-person">
+						<selector>.csc-loanIn-lendersContact</selector>
+					</field>
+			  	</repeat>
                 <field id="loanInContact" autocomplete="person-person">
 					<selector>.csc-loanIn-loanInContact</selector>
 				</field>
@@ -428,7 +428,7 @@
                 <field id="loanPurpose">
 					<selector>.csc-loanIn-loanPurpose</selector>
 			    		<options>
-			      		<option id="exhibition">Exhibition</option>
+			      		<option id="exhibition" default="yes">Exhibition</option>
 			      		<option id="research">Research</option>
 			      		<option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
 			      		<option id="analysis">Analysis</option>
@@ -532,10 +532,10 @@
 				</structure>
 			  </structures>
 			  <row-selector>.csc-recordList-row:</row-selector>
-			  <field id="currentOwner" autocomplete="person-person">
+			  <field id="currentOwner" autocomplete="person-custom">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
-			  <field id="depositor" autocomplete="person-person" mini="summary">
+			  <field id="depositor" autocomplete="person-person,person-custom" mini="summary">
 			    <selector>.csc-intake-depositor</selector>
 			  </field>
 			  <field id="depositorsRequirements">
@@ -865,6 +865,7 @@
 			  <services-list-path>http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
 			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
 			  <services-url>personauthorities</services-url>
+			  <authority-vocab-type>PersonAuthority</authority-vocab-type>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
 			  <structures>
 				<structure id="screen"> 
@@ -1013,6 +1014,7 @@
 			  <services-list-path>http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
 			  <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
 			  <services-url>orgauthorities</services-url>
+			  <authority-vocab-type>OrgAuthority</authority-vocab-type>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
 			  <structures>
 				<structure id="screen"> 
@@ -1086,44 +1088,68 @@
 			</record>
 			
             <record id="role">
-              <services-url>roles</services-url>
-              <services-list-path>roles-common-list/role-list-item</services-list-path>
-              <services-record-path>roles_common:http://collectionspace.org/services/role, roles_common</services-record-path>
-              <structures>
-                <structure id="screen"> <!-- screen|print|blackberry etc -->
-                    <view>
+                 <web-url>role</web-url>
+                <services-url>authorization/roles</services-url>
+                       <services-list-path>roles-common-list/role-list-item</services-list-path>
+                       <services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
+                  <structures>
+                    <structure id="screen">
+                       <view>
                           <titlebar show="false"></titlebar>
-                          <sidebar show="false"></sidebar>
-                          <edit-section id="permissions" show="true"></edit-section>
-                          <list-section id="roleList" show="true"></list-section>
-                    </view>
-                    <repeat id="roleList" asSibling="true">
-                          <selector>.csc-recordList-row:</selector>
-                          <field id="name" ui-type="list">
-                              <selector>.csc-role-roleList-name</selector>
-                          </field>
-                          <field id="csid" ui-type="list">
-                              <selector>.csc-role-roleList-csid</selector>
-                          </field>
-                    </repeat>
-                  </structure>
-              </structures>
-              <repeat id="permissions" asSibling="true">
-	              <selector>.csc-permissions-record-row:</selector>
-	                  <field id="permission" mini="summary">
-	                      <selector>.csc-permissions-record-permissions</selector>
-	                          <options>
-	                          <option id="none">none</option>
-	                          <option id="read">read</option>
-	                          <option id="write" default="yes">write</option>
-	                          <option id="delete">delete</option>
-	                      </options>
-	                  </field>
-	                  <field id="recordType" mini="number">
-	                      <selector>.csc-permissions-record-type</selector>
-	                  </field>
-	          </repeat>
+                         <sidebar show="false"></sidebar>
+                      </view>
+                    </structure>
+                  </structures>
+                  <is-multipart>false</is-multipart>
+                  <terms-used>false</terms-used>
+                  <field id="roleName" ui-type="list" mini="number">
+                     <selector>.csc-role-name</selector>
+                 </field>
+                 <field id="description" ui-type="list" mini="summary">
+                     <selector>.csc-role-desc</selector>
+                 </field>
             </record>
+           
+           <record id="rolePermission">
+             <services-url>authorization/rolePermissions</services-url>
+              <services-list-path>roles-common-list/role-list-item</services-list-path>
+              <services-record-path>roles_common:http://collectionspace.org/services/rolepermission, roles_common</services-record-path>
+             <structures>
+               <structure id="screen"> <!-- screen|print|blackberry etc -->
+                   <view>
+                         <titlebar show="false"></titlebar>
+                         <sidebar show="false"></sidebar>
+                         <edit-section id="permissions" show="true"></edit-section>
+                         <list-section id="roleList" show="true"></list-section>
+                   </view>
+                   <repeat id="roleList" asSibling="true">
+                         <selector>.csc-role-roleList-row:</selector>
+                         <field id="name" ui-type="list">
+                             <selector>.csc-role-roleList-name</selector>
+                         </field>
+                         <field id="csid" ui-type="list">
+                             <selector>.csc-role-roleList-csid</selector>
+                         </field>
+                   </repeat>
+                 </structure>
+             </structures>
+             <is-multipart>false</is-multipart>
+             <repeat id="permissions" asSibling="true">
+                  <selector>.csc-permissions-record-row:</selector>
+                      <field id="permission" mini="summary">
+                               <selector>.csc-permissions-record-permissions</selector>
+                              <options>
+                              <option id="none">none</option>
+                              <option id="read">read</option>
+                              <option id="write" default="yes">write</option>
+                              <option id="delete">delete</option>
+                          </options>
+                      </field>
+                      <field id="recordType" mini="number">
+                          <selector>.csc-permissions-record-type</selector>
+                      </field>
+              </repeat>
+           </record> 
 
 			<record id="users" type="userdata">
 		      <web-url>users</web-url>
