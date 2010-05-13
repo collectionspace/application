@@ -535,7 +535,7 @@
 			  <field id="currentOwner" autocomplete="person-custom">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
-			  <field id="depositor" autocomplete="person-person,person-custom" mini="summary">
+			  <field id="depositor" autocomplete="person-person" mini="summary">
 			    <selector>.csc-intake-depositor</selector>
 			  </field>
 			  <field id="depositorsRequirements">
