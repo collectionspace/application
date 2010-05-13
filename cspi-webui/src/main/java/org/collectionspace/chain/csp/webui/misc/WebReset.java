@@ -97,7 +97,7 @@ public class WebReset implements WebMethod {
 				//once you delete a page worth the next page is now the current page
 				String[] res = storage.getPaths("/person/person",myjs);
 
-				if(checkpagination.equals(res[0])){
+				if(res.length==0 || checkpagination.equals(res[0])){
 					resultsize=0;
 					//testing whether we have actually returned the same page or the next page - all csid returned should be unique
 				}
@@ -122,7 +122,7 @@ public class WebReset implements WebMethod {
 				//once you delete a page worth the next page is now the current page
 				String[] res = storage.getPaths("/organization/organization",myjs);
 
-				if(checkpagination.equals(res[0])){
+				if(res.length==0 || checkpagination.equals(res[0])){
 					resultsize=0;
 					//testing whether we have actually returned the same page or the next page - all csid returned should be unique
 				}
