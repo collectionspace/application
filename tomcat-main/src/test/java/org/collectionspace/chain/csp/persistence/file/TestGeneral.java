@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
@@ -29,6 +30,7 @@ import org.collectionspace.chain.csp.persistence.file.StubJSONStore;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.webui.userdetails.UserDetailsReset;
 import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
@@ -37,6 +39,7 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.csp.api.ui.UIException;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
@@ -70,11 +73,16 @@ public class TestGeneral {
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
 	private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
 
-	private final static String testStr6 = "{\"userId\": \"unittest2@collectionspace.org\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
-	private final static String testStr7 = "{\"userId\": \"unittest@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest@collectionspace.org\",\"status\": \"active\"}";
-	private final static String testStr8 = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
+	private final static String testStr6 = "{\"userId\": \"unittest3@collectionspace.org\",\"userName\": \"unittest3@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest3@collectionspace.org\",\"status\": \"inactive\"}";
+	private final static String testStr7 = "{\"userId\": \"unittest3@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest3@collectionspace.org\",\"status\": \"active\"}";
+	private final static String testStr8 = "{\"email\": \"unittest3@collectionspace.org\", \"debug\" : true }";
+	private final static String testStr9 = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
+	private final static Date d = new Date();
+	private final static String testStr10 = "{\"roleName\": \"ROLE_USERS_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
 
 	private FileStorage store;
+	private UserDetailsReset udreset;
+
 	private String cookie;
 	
 	private static String tmp=null;
@@ -269,81 +277,62 @@ public class TestGeneral {
 		in.remove("csid");
 		return in;
 	}
+
 	
-	@Test public void testUserProfilesWithResets() throws Exception{
+	@Test public void testUserProfilesWithReset() throws Exception {
+		log.info("1");
+		deleteSchemaFile("collection-object",false);
+		log.info("2");
 
 		ServletTester jetty=setupJetty();
-		String testStr6a = "{\"userId\": \"unittestpreset@collectionspace.org\",\"screenName\": \"unittestpreset@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittestpreset@collectionspace.org\",\"status\": \"active\"}";
-		String testStr7a = "{\"userId\": \"unittestpreset@collectionspace.org\",\"screenName\": \"bob\",\"password\": \"testpassword\",\"email\": \"unittestpreset@collectionspace.org\",\"status\": \"active\"}";
-		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6a));
-		log.info("4 "+makeSimpleRequest(testStr6a));
+		log.info("3");
+		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6));
+		log.info("4");
 		assertEquals(out.getMethod(),null);
 		log.info("GET CREATE "+out.getContent());
 		String id=out.getHeader("Location");
 		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
-
-		 //ask to reset 
-		 String testStr9a = "{\"email\": \"unittestpreset@collectionspace.org\", \"debug\" : true }";
-
-		 out=jettyDo(jetty,"POST","/chain/passwordreset/",testStr9a); 
-		 log.info(out.getContent()); 
-
-		 JSONObject result=new JSONObject(out.getContent());
-		 Boolean ok = result.getBoolean("ok");
-		 assertTrue(ok);
-		 String token = result.getString("token");
-		 String emailparam = result.getString("email");
-		 
-		 //mock up the call to actually reset the password
-		 JSONObject newpassword = new JSONObject();
-		 newpassword.put("email", emailparam);
-		 newpassword.put("token", token);
-		 newpassword.put("password", "differentpasword");
-		 
-		 //change the password
-		 out=jettyDo(jetty,"POST","/chain/resetpassword/",newpassword.toString()); 
-		 ok = result.getBoolean("ok");
-		 assertTrue(ok);
-		 
-		 //change password - bad token
-		 newpassword.put("token", "345");
-		 out=jettyDo(jetty,"POST","/chain/resetpassword/",newpassword.toString());
-		 result=new JSONObject(out.getContent());
-		 ok = result.getBoolean("ok");
-		 assertFalse(ok);
-		 
-		 //change password - bad password / good token
-		 newpassword.put("token", token);
-		 newpassword.put("password", "diff");
-		 out=jettyDo(jetty,"POST","/chain/resetpassword/",newpassword.toString()); 
-		 assertTrue(out.getStatus()>=400); // XXX should probably be 404
-		 /* when sys layer start returning useful errors this should change to
-		  * result=new JSONObject(out.getContent());
-		 ok = result.getBoolean("ok");
-		 assertFalse(ok);
-		 */
 		
+		//ask to reset
+		log.info("4A");
+		out=jettyDo(jetty,"POST","/chain/passwordreset/",testStr8);
+		log.info(out.getContent());
+		
+		//reset
+		log.info("4B");
+		
+		//this should fail
+		/*JSONObject obj = new JSONObject(out.getContent());
+		Long token = Long.parseLong(obj.getString("token"));
+		token -= (8*24*60*60*10000);
+		obj.put("token", token);
+		log.info(obj.toString());*/
+		
+		out=jettyDo(jetty,"POST","/chain/resetpassword/",out.getContent());
+		log.info(out.getContent());
+		
+		log.info("5");
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		log.info("GET READ "+id+":"+out.getContent());
-		
-		/* test update */
-		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(testStr7a));
+		JSONObject test1a=new JSONObject(out.getContent());
+		JSONObject test1b=new JSONObject(testStr6);
+		assertEquals(test1a.getJSONObject("fields").get("userId").toString(),test1b.get("userId").toString());
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(getFields(out.getContent()).,new JSONObject(testStr6)));
+		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(testStr7));
 		log.info("PUT "+id+":"+out.getContent());
-		assertEquals(200,out.getStatus());
+		assertEquals(200,out.getStatus());		
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		log.info("GET READ "+id+":"+out.getContent());
-		// can't do a straight match as have createdAt in one and passowrd in the other
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr7a)));
-		JSONObject one = new JSONObject(getFields(out.getContent()));
-		JSONObject two = new JSONObject(testStr7a);
-		//test screen name has changed
-		assertEquals(one.get("screenName").toString(),two.get("screenName").toString());
-		
-		/* clean up after ourselves */
+		JSONObject test2a=new JSONObject(out.getContent());
+		JSONObject test2b=new JSONObject(testStr7);
+		assertEquals(test2a.getJSONObject("fields").get("userId").toString(),test2b.get("userId").toString());
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr7)));
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
 		assertEquals(200,out.getStatus());
 		log.info("DELETE "+id+":"+out.getContent());
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 		
 		
 	}
@@ -367,6 +356,32 @@ public class TestGeneral {
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr)));
 		*/
+		out=jettyDo(jetty,"DELETE","/chain"+id,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+		assertTrue(out.getStatus()>=400); // XXX should probably be 404
+	}
+	
+	@Test public void testPostAndUpdateWithRoles() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out=jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(testStr10));
+		log.info(out.getContent());
+		assertEquals(out.getMethod(),null);
+		String id=out.getHeader("Location");
+		assertEquals(201,out.getStatus());
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+		JSONObject one = new JSONObject(getFields(out.getContent()));
+		JSONObject two = new JSONObject(testStr10);
+		assertEquals(one.get("roleName"), two.get("roleName"));
+		
+		out = jettyDo(jetty, "PUT","/chain/"+id,makeSimpleRequest(testStr10));
+		log.info(out.getContent());
+		assertEquals(out.getMethod(), null);
+		assertEquals(200, out.getStatus());
+		one = new JSONObject(getFields(out.getContent()));
+		two = new JSONObject(testStr10);
+		assertEquals(one.get("roleName"), two.get("roleName"));
+		
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
@@ -584,4 +599,5 @@ public class TestGeneral {
 		}
 		//assertTrue(doIreallyWantToSpam);
 	}
+
 }
