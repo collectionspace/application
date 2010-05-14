@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<project name="Application Layer Nightly Build Script" default="write_chain_properties">
+	<property environment="env"/>
+    <property name="config_destination" value="${env.JBOSS_HOME}/server/cspace/conf" />
+	<property name="app_trunk" location=".." />
+
+	<target name="deploy_cspace_config" description="Copies the war and xml file to their locations">
+		<copy file="${app_trunk}/tomcat-main/src/main/resources/default.xml" tofile="${config_destination}/cspace-config.xml" />
+	</target>
+
+    <target name="write_chain_properties" depends="deploy_cspace_config" description="writes the chain.properties file">
+        <echo file="${config_destination}/chain.properties">
+cspace.chain.store=service
+cspace.chain.login.dest=../cspace-ui/html/findedit.html
+</echo>
+    </target>
+</project>
+

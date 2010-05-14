@@ -17,7 +17,31 @@
   <properties>
     <maven.tomcat.home>/tmp</maven.tomcat.home>
   </properties>
-  
+
+  <profiles>
+    <profile>
+      <id>jboss</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <!-- using the jboss 4.2.x container -->
+        <cargo.container>jboss42x</cargo.container>
+        <cspace.server.home>${env.JBOSS_HOME}/server/cspace</cspace.server.home>
+        <config.destination>${cspace.server.home}/conf</config.destination>
+      </properties>
+    </profile>
+    <profile>
+      <id>tomcat</id>
+      <properties>       
+        <!-- using the tomcat 6.x container -->
+        <cargo.container>tomcat6x</cargo.container>
+        <cspace.server.home>${env.CATALINA_HOME}</cspace.server.home>
+        <config.destination>${cspace.server.home}/lib</config.destination>
+      </properties>
+    </profile>
+  </profiles>  
+
   <repositories>
     <repository>
         <id>Version99</id>
@@ -227,6 +251,63 @@
         <artifactId>maven-jetty-plugin</artifactId>
         <configuration>
 	  <contextPath>chain</contextPath>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!-- cargo plugin -->
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven2-plugin</artifactId>
+        <version>1.0</version>
+        <configuration>
+          <wait>false</wait>
+          <!-- specifying the container -->
+          <container>
+            <containerId>${cargo.container}</containerId>
+            <!-- assuming container is already installed -->
+            <type>installed</type>
+            <!-- path to the server -->
+                <home>${cspace.server.home}</home>
+            <timeout>300000</timeout>
+          </container>
+          <configuration>
+            <type>existing</type>
+            <home>${cspace.server.home}</home>
+          </configuration>
+          <deployer>
+            <deployables>
+              <deployable>
+	              <!-- location of war file -->
+	              <location>
+	                ${maven.tomcat.home}/${project.build.finalName}.${project.packaging}
+	              </location>
+              </deployable>
+            </deployables>
+          </deployer>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>install</phase>
+            <goals>
+              <goal>deployer-deploy</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.1</version>
+        <executions>
+          <execution>
+            <phase>install</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>ant</executable>
+          <commandlineArgs>-Dconfig_destination="${config.destination}"</commandlineArgs>
         </configuration>
       </plugin>
     </plugins>
