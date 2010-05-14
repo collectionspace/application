@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+
 public class VocabulariesRead implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(VocabulariesRead.class);
 	private Instance n;
@@ -35,25 +36,35 @@ public class VocabulariesRead implements WebMethod {
 
 	}
 
-	
+	/**
+	 * Returns all the objects that are linked to a vocabulary item
+	 * @param storage
+	 * @param path
+	 * @return
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 * @throws JSONException
+	 */
 	@SuppressWarnings("unchecked")
 	private JSONArray getTermsUsed(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		//JSONObject mini=storage.retrieveJSON(path+"/refs");
 		JSONArray out=new JSONArray();
-		/*
-		log.debug("mini="+mini);
-		Iterator t=mini.keys();
-		while(t.hasNext()) {
-			String field=(String)t.next();
-			JSONObject in=mini.getJSONObject(field);
-			JSONObject entry=new JSONObject();
-			entry.put("csid",in.getString("csid"));
-			entry.put("recordtype",in.getString("recordtype"));
-			entry.put("sourceFieldName",field);
-			entry.put("number",in.getString("displayName"));
-			out.put(entry);
+		JSONObject mini = storage.retrieveJSON(path);
+		if(mini != null){
+			log.debug("mini="+mini);
+			Iterator t=mini.keys();
+			while(t.hasNext()) {
+				String field=(String)t.next();
+				JSONObject in=mini.getJSONObject(field);
+				JSONObject entry=new JSONObject();
+				entry.put("csid",in.getString("csid"));
+				entry.put("recordtype",in.getString("recordtype"));
+				entry.put("sourceFieldName",field);
+				entry.put("number",in.getString("displayName"));
+				out.put(entry);
+			}
 		}
-		*/
+		
 		return out;
 	}
 	
@@ -62,12 +73,15 @@ public class VocabulariesRead implements WebMethod {
 		JSONObject out=new JSONObject();
 		try {
 			JSONObject fields=storage.retrieveJSON(n.getRecord().getID()+"/"+n.getTitleRef()+"/"+csid);
+			
+			String refPath = n.getRecord().getID()+"/"+n.getTitleRef()+"/"+csid+"/refObjs";
+			
 			fields.put("csid",csid);
 			//JSONArray relations=createRelations(storage,csid);
 			out.put("fields",fields);
 			out.put("relations",new JSONArray());
 			//out.put("relations",relations);
-			out.put("termsUsed",getTermsUsed(storage,base+"/"+csid));
+			out.put("termsUsed",getTermsUsed(storage,refPath));
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found "+e,e);
 		} catch (UnimplementedException e) {

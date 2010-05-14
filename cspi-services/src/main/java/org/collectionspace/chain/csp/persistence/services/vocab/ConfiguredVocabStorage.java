@@ -124,7 +124,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
 			String vocab=vocab_cache.getVocabularyId(creds,cache,filePath.split("/")[0]);
-			int status=conn.getNone(RequestMethod.DELETE,generateURL(vocab,filePath.split("/")[1]),null,creds,cache);
+			int status=conn.getNone(RequestMethod.DELETE,generateURL(vocab,filePath.split("/")[1],false),null,creds,cache);
 			if(status>299)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+status);
 			cache.removeCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]});
@@ -134,6 +134,9 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 		}	
 	}
 
+	/**
+	 * Returns all the values
+	 */
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
@@ -185,8 +188,11 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 		}
 	}
 
-	private String generateURL(String vocab,String path) throws ExistException, ConnectionException, UnderlyingStorageException {
-		return r.getServicesURL()+"/"+vocab+"/items/"+path;
+	private String generateURL(String vocab,String path,Boolean refObjs) throws ExistException, ConnectionException, UnderlyingStorageException {
+		if(refObjs)
+			return r.getServicesURL()+"/"+vocab+"/items/"+path+"/refObjs";
+		else
+			return r.getServicesURL()+"/"+vocab+"/items/"+path;
 	}
 
 	private JSONObject urnGet(String vocab,String entry,String refname) throws JSONException, ExistException, UnderlyingStorageException {
@@ -201,25 +207,32 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] path=filePath.split("/");
-			String vocab,csid;
-			if("_direct".equals(path[0])) {
-				if("urn".equals(path[1])) {
-					return urnGet(path[2],path[3],path[4]);
+			JSONObject out = null;
+
+				String vocab,csid;
+				if("_direct".equals(path[0])) {
+					if("urn".equals(path[1])) {
+						return urnGet(path[2],path[3],path[4]);
+					}
+					vocab=path[2];
+					csid=path[3];
+				} else {
+					vocab=vocab_cache.getVocabularyId(creds,cache,path[0]);
+					csid=path[1];	
+				}			
+				/*
+				String name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
+				String refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
+				*/
+				
+				if(path[path.length-1].equals("refObjs")){
+					out=get(creds,cache,vocab,csid,true);
+				}else{
+					out=get(creds,cache,vocab,csid,false);
+					// XXX actually use cache			
+					cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
+					cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
 				}
-				vocab=path[2];
-				csid=path[3];
-			} else {
-				vocab=vocab_cache.getVocabularyId(creds,cache,path[0]);
-				csid=path[1];	
-			}			
-			/*
-			String name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
-			String refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
-			*/
-			// XXX actually use cache			
-			JSONObject out=get(creds,cache,vocab,csid);
-			cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
-			cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
@@ -227,33 +240,46 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Cannot generate JSON",e);
 		}
 	}
-
-	private JSONObject get(CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
-		// XXX pagination support
-		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,generateURL(vocab,csid),null,creds,cache);
-		if(doc.getStatus()==404)
-			throw new ExistException("Does not exist");
-		if(doc.getStatus()>299)
-			throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
-		JSONObject out=new JSONObject();
-		String name=null;
-		String refid=null;
-		for(String section : r.getServicesRecordPaths()) {
-			String path=r.getServicesRecordPath(section);
-			String[] record_path=path.split(":",2);
-			String[] tag_path=record_path[1].split(",",2);
-			Document result=doc.getDocument(record_path[0]);
-			if("common".equals(section)) { // XXX hardwired :(
-				name=result.selectSingleNode(tag_path[1]+"/displayName").getText();
-				refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
+	
+	private JSONObject get(CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid, Boolean refObjs) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
+		int status=0;
+		JSONObject out = new JSONObject();
+		if(!refObjs){
+			// XXX pagination support
+			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,generateURL(vocab,csid,refObjs),null,creds,cache);
+			if(doc.getStatus()==404)
+				throw new ExistException("Does not exist");
+			if(doc.getStatus()>299)
+				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
+			String name=null;
+			String refid=null;
+			for(String section : r.getServicesRecordPaths()) {
+				String path=r.getServicesRecordPath(section);
+				String[] record_path=path.split(":",2);
+				String[] tag_path=record_path[1].split(",",2);
+				Document result=doc.getDocument(record_path[0]);
+				if("common".equals(section)) { // XXX hardwired :(
+					name=result.selectSingleNode(tag_path[1]+"/displayName").getText();
+					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
+				}
+				XmlJsonConversion.convertToJson(out,r,result);				
 			}
-			XmlJsonConversion.convertToJson(out,r,result);				
+			out.put(getDisplayNameKey(),name);
+			out.put("csid",csid);
+			out.put("refid",refid);
+			out.put("authorityid", vocab);
+			out.put("recordtype",r.getWebURL());
+			return out;
+		}else{
+			ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,generateURL(vocab,csid,refObjs),null,creds,cache);
+			convertToJson(out, doc.getDocument());
+			return out;
 		}
-		out.put(getDisplayNameKey(),name);
-		out.put("csid",csid);
-		out.put("refid",refid);
-		out.put("recordtype",r.getWebURL());
-		return out;
+		
+	}
+	
+	private void convertToJson(JSONObject out,Document in) throws JSONException {
+		XmlJsonConversion.convertToJson(out,r,in);
 	}
 
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
@@ -269,7 +295,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				String[] tag_path=record_path[1].split(",",2);
 				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname));
 			}
-			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,generateURL(vocab,filePath.split("/")[1]),body,creds,cache);
+			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,generateURL(vocab,filePath.split("/")[1],false),body,creds,cache);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);
