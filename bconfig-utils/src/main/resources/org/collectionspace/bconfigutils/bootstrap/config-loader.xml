@@ -7,7 +7,7 @@
     <attribute>storage</attribute>
     <property src="jboss">cspace.chain.store</property>
     <property>cspace.chain.store</property>
-    <default>file</default>
+    <default>service</default>
   </option>
   
   <option name="store-url">
