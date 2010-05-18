@@ -1,7 +1,7 @@
 <!--  XXX autocomplete needs renaming to something like authority -->
 <collection-space>
 	<bootstrap />
-	<version>7</version>
+	<version>8</version>
 	<admin>
 		<username>test@collectionspace.org</username>
 		<password>testtest</password>
@@ -377,6 +377,30 @@
 			  <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
 			  <structures>
 				<structure id="screen"> 
+					<view>
+			  			<titlebar show="true"></titlebar>
+			  			<sidebar show="true">
+			  				<repeat id="termsUsed" show="true"></repeat>
+			  				<repeat id="relatedProcedures" show="true"></repeat>
+			  				<repeat id="relatedObjects" show="true"></repeat>
+			  			</sidebar>
+			  			<edit-section show="true"></edit-section>
+			  			<list-section show="false"></list-section>
+						
+					</view>
+					
+			  		<repeat id="termsUsed" asSibling="true">
+			  			<selector>.csc-recordList-row:</selector>
+						<field id="linktext" ui-type="linktext">
+							<selector>.csc-related-summary</selector>
+						</field>
+						<field id="recordtype" ui-type="list">
+							<selector>.csc-related-recordtype</selector>
+						</field>
+						<field id="sourceFieldName" ui-type="list">
+							<selector>.csc-related-field</selector>
+						</field>
+			  		</repeat>
 				</structure>
 			  </structures>	
 			
@@ -391,35 +415,35 @@
 				  </options>
 				</field>			
 				
-			  	<repeat id="lenders">
+			  	<repeat id="lenders" asSibling="true">
 			  		<selector>.csc-loanIn-lender-row:</selector>
-			    	<field id="lender" autocomplete="person-person" mini="summary" >
+			    	<field id="lender" autocomplete="person-person" mini="summary"  xxx_ui_refactored="true" >
 			      		<selector>.csc-loanIn-lender</selector>
 			    	</field>
 			  
-                	<field id="lendersAuthorizer" autocomplete="person-person">
+                	<field id="lendersAuthorizer" autocomplete="person-person" xxx_ui_refactored="true">
 						<selector>.csc-loanIn-lendersAuthorizer</selector>
 					</field>
-    	            <field id="lendersAuthorizerDate" ui-type="date">
+    	            <field id="lendersAuthorizerDate" ui-type="date" container="false">
 						<selector>.csc-loanIn-lendersAuthorizerDate</selector>
 					</field>
-					<field id="lendersContact" autocomplete="person-person">
+					<field id="lendersContact" autocomplete="person-person" xxx_ui_refactored="true">
 						<selector>.csc-loanIn-lendersContact</selector>
 					</field>
 			  	</repeat>
-                <field id="loanInContact" autocomplete="person-person">
+                <field id="loanInContact" autocomplete="person-person" container="false">
 					<selector>.csc-loanIn-loanInContact</selector>
 				</field>
                 <field id="loanInConditions">
 					<selector>.csc-loanIn-loanInConditions</selector>
 				</field>
-                <field id="loanInDate" ui-type="date">
+                <field id="loanInDate" ui-type="date" container="false">
 					<selector>.csc-loanIn-loanInDate</selector>
 				</field>
-                <field id="loanReturnDate" ui-type="date">
+                <field id="loanReturnDate" ui-type="date" container="false">
 					<selector>.csc-loanIn-loanReturnDate</selector>
 				</field>
-                <field id="loanRenewalApplicationDate" ui-type="date">
+                <field id="loanRenewalApplicationDate" ui-type="date" container="false">
 					<selector>.csc-loanIn-loanRenewalApplicationDate</selector>
 				</field>
                 <field id="loanInNote">
@@ -439,90 +463,6 @@
 				</field>
 			</record>
 			
-			<record id="loanout" in-findedit="yes">
-		      <services-url>loansout</services-url>
-			  <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
-			  <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
-			  <structures>
-				<structure id="screen"> 
-				</structure>
-			  </structures>	
-			
-			  <row-selector>.csc-recordList-row:</row-selector>
-			  
-                <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number" >
-			    <title-selector>.csc-titleBar-loanOutNumber</title-selector>
-			    <selector>.csc-loanOut-loanOutNumber</selector>
-			    <container-selector>.csc-loanOut-loanOutNumber-patternChooserContainer</container-selector>				
-				  <options>
-				    <option id="loanout" sample="LO2010.1">Loan Out</option>
-				  </options>
-				</field>			
-			  			  
-			    <field id="lendersAuthorizer" autocomplete="person-person" >
-					<selector>.csc-loanOut-lendersAuthorizer</selector>
-				</field>				
-				<field id="lendersContact" autocomplete="person-person" >
-					<selector>.csc-loanOut-lendersContact</selector>
-				</field>
-				<field id="borrowersContact" autocomplete="person-person">
-					<selector>.csc-loanOut-borrowersContact</selector>
-				</field>
-				<field id="loanedObjectStatusNote">
-					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
-				</field>
-				<field id="loanReturnDate" ui-type="date">
-					<selector>.csc-loanOut-loanReturnDate</selector>
-				</field>
-		
-				<field id="loanedObjectStatusDate" ui-type="date">
-					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
-				</field>
-				<field id="loanPurpose">
-					<selector>.csc-loanOut-loanPurpose</selector>
-			    		<options>
-			      		<option id="exhibition" default="yes">Exhibition</option>
-			      		<option id="research">Research</option>
-			      		<option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
-			      		<option id="analysis">Analysis</option>
-			      		<option id="photography">Photography</option>
-			      		<option id="conservationotherrequestedservices">Conservation or other requested services</option>
-			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
-			    	</options>
-				</field>
-				<field id="loanOutDate" ui-type="date">
-					<selector>.csc-loanOut-loanOutDate</selector>
-				</field>
-				<field id="loanRenewalApplicationDate" ui-type="date">
-					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
-				</field>
-				<field id="loanedObjectStatus">
-					<selector>.csc-loanOut-loanedObjectStatus</selector>
-			    		<options>
-			      		<option id="requested" default="yes">Requested</option>
-			      		<option id="authorized">Authorized</option>
-			      		<option id="agreed">Agreed</option>
-			      		<option id="conservation">Conservation</option>
-			      		<option id="requested">Requested</option>
-			      		<option id="sent">Sent</option>
-			      		<option id="photographyrequested">Photography requested</option>
-			      		<option id="refused">Refused</option>
-			      		<option id="renewed">Renewed</option>
-			      		<option id="returned">Returned</option>
-			    	</options>
-				</field>
-				<field id="loanOutConditions">
-					<selector>.csc-loanOut-loanOutConditions</selector>
-				</field>
-				<field id="borrower" autocomplete="person-person">
-					<selector>.csc-loanOut-borrower</selector>
-				</field>
-				<field id="loanOutNote">
-					<selector>.csc-loanOut-loanOutNote</selector>
-				</field>
-               
-			</record>
-			
 			<record id="intake" in-findedit="yes">
 			  <services-url>intakes</services-url>
 			  <services-list-path>intakes-common-list/intake-list-item</services-list-path>
@@ -532,7 +472,7 @@
 				</structure>
 			  </structures>
 			  <row-selector>.csc-recordList-row:</row-selector>
-			  <field id="currentOwner" autocomplete="person-custom">
+			  <field id="currentOwner" autocomplete="person-person">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
 			  <field id="depositor" autocomplete="person-person" mini="summary">
@@ -1088,7 +1028,7 @@
 			</record>
 			
             <record id="role">
-                 <web-url>role</web-url>
+                <web-url>role</web-url>
                 <services-url>authorization/roles</services-url>
                        <services-list-path>roles-common-list/role-list-item</services-list-path>
                        <services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
@@ -1204,6 +1144,119 @@
 			  </field>
 			</record>
  
+			
+			<record id="loanout" in-findedit="yes">
+		      <services-url>loansout</services-url>
+			  <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
+			  <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
+			  <structures>
+				<structure id="screen"> 
+					<view>
+			  			<titlebar show="true"></titlebar>
+			  			<sidebar show="true">
+			  				<repeat id="termsUsed" show="true"></repeat>
+			  				<repeat id="relatedProcedures" show="true"></repeat>
+			  				<repeat id="relatedObjects" show="true"></repeat>
+			  			</sidebar>
+			  			<edit-section show="true"></edit-section>
+			  			<list-section show="false"></list-section>
+						
+					</view>
+					
+			  		<repeat id="termsUsed" asSibling="true">
+			  			<selector>.csc-recordList-row:</selector>
+						<field id="linktext" ui-type="linktext">
+							<selector>.csc-related-summary</selector>
+						</field>
+						<field id="recordtype" ui-type="list">
+							<selector>.csc-related-recordtype</selector>
+						</field>
+						<field id="sourceFieldName" ui-type="list">
+							<selector>.csc-related-field</selector>
+						</field>
+			  		</repeat>
+				</structure>
+			  </structures>	
+			  
+			
+			  <row-selector>.csc-recordList-row:</row-selector>
+			  
+                <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number" >
+			    <title-selector>.csc-titleBar-loanOutNumber</title-selector>
+			    <selector>.csc-loanOut-loanOutNumber</selector>
+			    <container-selector>.csc-loanOut-loanOutNumber-patternChooserContainer</container-selector>				
+				  <options>
+				    <option id="loanout" sample="LO2010.1">Loan Out</option>
+				  </options>
+				</field>			
+			  			  
+			    <field id="lendersAuthorizer" autocomplete="person-person"   xxx_ui_refactored="true">
+					<selector>.csc-loanOut-lendersAuthorizer</selector>
+				</field>	
+			    <field id="lendersAuthorizationDate" ui-type="date"  container="false">
+					<selector>.csc-loanOut-lendersAuthorizationDate</selector>
+				</field>				
+				<field id="lendersContact" autocomplete="person-person"  xxx_ui_refactored="true">
+					<selector>.csc-loanOut-lendersContact</selector>
+				</field>
+				<field id="borrowersContact" autocomplete="person-person"  xxx_ui_refactored="true">
+					<selector>.csc-loanOut-borrowersContact</selector>
+				</field>
+				<field id="loanedObjectStatusNote">
+					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
+				</field>
+				<field id="loanReturnDate" ui-type="date" container="false">
+					<selector>.csc-loanOut-loanReturnDate</selector>
+				</field>
+		
+				<field id="loanedObjectStatusDate" ui-type="date" container="false">
+					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
+				</field>
+				<field id="loanPurpose">
+					<selector>.csc-loanOut-loanPurpose</selector>
+			    		<options>
+			      		<option id="exhibition" default="yes">Exhibition</option>
+			      		<option id="research">Research</option>
+			      		<option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
+			      		<option id="analysis">Analysis</option>
+			      		<option id="photography">Photography</option>
+			      		<option id="conservationotherrequestedservices">Conservation or other requested services</option>
+			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
+			    	</options>
+				</field>
+				<field id="loanOutDate" ui-type="date" container="false">
+					<selector>.csc-loanOut-loanOutDate</selector>
+				</field>
+				<field id="loanRenewalApplicationDate" ui-type="date" container="false">
+					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
+				</field>
+				<field id="loanedObjectStatus">
+					<selector>.csc-loanOut-loanedObjectStatus</selector>
+			    		<options>
+			      		<option id="requested" default="yes">Requested</option>
+			      		<option id="authorized">Authorized</option>
+			      		<option id="agreed">Agreed</option>
+			      		<option id="conservation">Conservation</option>
+			      		<option id="requested">Requested</option>
+			      		<option id="sent">Sent</option>
+			      		<option id="photographyrequested">Photography requested</option>
+			      		<option id="refused">Refused</option>
+			      		<option id="renewed">Renewed</option>
+			      		<option id="returned">Returned</option>
+			    	</options>
+				</field>
+				<field id="loanOutConditions">
+					<selector>.csc-loanOut-loanOutConditions</selector>
+				</field>
+				<field id="borrower" autocomplete="person-person" xxx_ui_refactored="true">
+					<selector>.csc-loanOut-borrower</selector>
+				</field>
+				<field id="loanOutNote">
+					<selector>.csc-loanOut-loanOutNote</selector>
+				</field>
+               
+			</record>
+			
  			<record id="id" type="id"> <!-- XXX what is this type? something to do with next number generation, currently piggy backs on normal Record functionality -->
 			</record>
 		</records>

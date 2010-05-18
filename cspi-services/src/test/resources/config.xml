@@ -1,13 +1,13 @@
 <!--  XXX autocomplete needs renaming to something like authority -->
 <collection-space>
 	<bootstrap />
-	<version>7</version>
+	<version>8</version>
 	<admin>
 		<username>test@collectionspace.org</username>
 		<password>testtest</password>
 	</admin>
 	<email>
-		<baseurl>http://test.collectionspace.org:8180</baseurl>
+		<baseurl>http://nightly.collectionspace.org:8180</baseurl>
 		<from>admin@collectionspace.org</from>
 		<to></to><!-- if specified then all emails will send to this address - used for debugging -->
 		<smtp>
@@ -29,7 +29,7 @@
 	</email>
 	<persistence>
 		<service>
-			<url>http://test.collectionspace.org:8180/cspace-services</url>
+			<url>http://nightly.collectionspace.org:8180/cspace-services</url>
 		</service>
 	</persistence>
 	<ui>
@@ -377,6 +377,30 @@
 			  <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
 			  <structures>
 				<structure id="screen"> 
+					<view>
+			  			<titlebar show="true"></titlebar>
+			  			<sidebar show="true">
+			  				<repeat id="termsUsed" show="true"></repeat>
+			  				<repeat id="relatedProcedures" show="true"></repeat>
+			  				<repeat id="relatedObjects" show="true"></repeat>
+			  			</sidebar>
+			  			<edit-section show="true"></edit-section>
+			  			<list-section show="false"></list-section>
+						
+					</view>
+					
+			  		<repeat id="termsUsed" asSibling="true">
+			  			<selector>.csc-recordList-row:</selector>
+						<field id="linktext" ui-type="linktext">
+							<selector>.csc-related-summary</selector>
+						</field>
+						<field id="recordtype" ui-type="list">
+							<selector>.csc-related-recordtype</selector>
+						</field>
+						<field id="sourceFieldName" ui-type="list">
+							<selector>.csc-related-field</selector>
+						</field>
+			  		</repeat>
 				</structure>
 			  </structures>	
 			
@@ -391,35 +415,35 @@
 				  </options>
 				</field>			
 				
-			  	<repeat id="lenders">
+			  	<repeat id="lenders" asSibling="true">
 			  		<selector>.csc-loanIn-lender-row:</selector>
-			    		<field id="lender" autocomplete="person-person" mini="summary" >
-			      	<selector>.csc-loanIn-lender</selector>
+			    	<field id="lender" autocomplete="person-person" mini="summary"  xxx_ui_refactored="true" >
+			      		<selector>.csc-loanIn-lender</selector>
 			    	</field>
-			  	</repeat>
 			  
-                <field id="lendersAuthorizer" autocomplete="person-person">
-					<selector>.csc-loanIn-lendersAuthorizer</selector>
-				</field>
-                <field id="lendersAuthorizerDate" ui-type="date">
-					<selector>.csc-loanIn-lendersAuthorizerDate</selector>
-				</field>
-                <field id="lendersContact" autocomplete="person-person">
-					<selector>.csc-loanIn-lendersContact</selector>
-				</field>
-                <field id="loanInContact" autocomplete="person-person">
+                	<field id="lendersAuthorizer" autocomplete="person-person" xxx_ui_refactored="true">
+						<selector>.csc-loanIn-lendersAuthorizer</selector>
+					</field>
+    	            <field id="lendersAuthorizerDate" ui-type="date" container="false">
+						<selector>.csc-loanIn-lendersAuthorizerDate</selector>
+					</field>
+					<field id="lendersContact" autocomplete="person-person" xxx_ui_refactored="true">
+						<selector>.csc-loanIn-lendersContact</selector>
+					</field>
+			  	</repeat>
+                <field id="loanInContact" autocomplete="person-person" container="false">
 					<selector>.csc-loanIn-loanInContact</selector>
 				</field>
                 <field id="loanInConditions">
 					<selector>.csc-loanIn-loanInConditions</selector>
 				</field>
-                <field id="loanInDate" ui-type="date">
+                <field id="loanInDate" ui-type="date" container="false">
 					<selector>.csc-loanIn-loanInDate</selector>
 				</field>
-                <field id="loanReturnDate" ui-type="date">
+                <field id="loanReturnDate" ui-type="date" container="false">
 					<selector>.csc-loanIn-loanReturnDate</selector>
 				</field>
-                <field id="loanRenewalApplicationDate" ui-type="date">
+                <field id="loanRenewalApplicationDate" ui-type="date" container="false">
 					<selector>.csc-loanIn-loanRenewalApplicationDate</selector>
 				</field>
                 <field id="loanInNote">
@@ -427,59 +451,6 @@
 				</field>
                 <field id="loanPurpose">
 					<selector>.csc-loanIn-loanPurpose</selector>
-			    		<options>
-			      		<option id="exhibition">Exhibition</option>
-			      		<option id="research">Research</option>
-			      		<option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
-			      		<option id="analysis">Analysis</option>
-			      		<option id="photography">Photography</option>
-			      		<option id="conservationotherrequestedservices">Conservation or other requested services</option>
-			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
-			    	</options>
-				</field>
-			</record>
-			
-			<record id="loanout" in-findedit="yes">
-		      <services-url>loansout</services-url>
-			  <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
-			  <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
-			  <structures>
-				<structure id="screen"> 
-				</structure>
-			  </structures>	
-			
-			  <row-selector>.csc-recordList-row:</row-selector>
-			  
-                <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number" >
-			    <title-selector>.csc-titleBar-loanOutNumber</title-selector>
-			    <selector>.csc-loanOut-loanOutNumber</selector>
-			    <container-selector>.csc-loanOut-loanOutNumber-patternChooserContainer</container-selector>				
-				  <options>
-				    <option id="loanout" sample="LO2010.1">Loan Out</option>
-				  </options>
-				</field>			
-			  			  
-			    <field id="lendersAuthorizer" autocomplete="person-person" >
-					<selector>.csc-loanOut-lendersAuthorizer</selector>
-				</field>				
-				<field id="lendersContact" autocomplete="person-person" >
-					<selector>.csc-loanOut-lendersContact</selector>
-				</field>
-				<field id="borrowersContact" autocomplete="person-person">
-					<selector>.csc-loanOut-borrowersContact</selector>
-				</field>
-				<field id="loanedObjectStatusNote">
-					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
-				</field>
-				<field id="loanReturnDate" ui-type="date">
-					<selector>.csc-loanOut-loanReturnDate</selector>
-				</field>
-		
-				<field id="loanedObjectStatusDate" ui-type="date">
-					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
-				</field>
-				<field id="loanPurpose">
-					<selector>.csc-loanOut-loanPurpose</selector>
 			    		<options>
 			      		<option id="exhibition" default="yes">Exhibition</option>
 			      		<option id="research">Research</option>
@@ -490,37 +461,6 @@
 			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
 			    	</options>
 				</field>
-				<field id="loanOutDate" ui-type="date">
-					<selector>.csc-loanOut-loanOutDate</selector>
-				</field>
-				<field id="loanRenewalApplicationDate" ui-type="date">
-					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
-				</field>
-				<field id="loanedObjectStatus">
-					<selector>.csc-loanOut-loanedObjectStatus</selector>
-			    		<options>
-			      		<option id="requested" default="yes">Requested</option>
-			      		<option id="authorized">Authorized</option>
-			      		<option id="agreed">Agreed</option>
-			      		<option id="conservation">Conservation</option>
-			      		<option id="requested">Requested</option>
-			      		<option id="sent">Sent</option>
-			      		<option id="photographyrequested">Photography requested</option>
-			      		<option id="refused">Refused</option>
-			      		<option id="renewed">Renewed</option>
-			      		<option id="returned">Returned</option>
-			    	</options>
-				</field>
-				<field id="loanOutConditions">
-					<selector>.csc-loanOut-loanOutConditions</selector>
-				</field>
-				<field id="borrower" autocomplete="person-person">
-					<selector>.csc-loanOut-borrower</selector>
-				</field>
-				<field id="loanOutNote">
-					<selector>.csc-loanOut-loanOutNote</selector>
-				</field>
-               
 			</record>
 			
 			<record id="intake" in-findedit="yes">
@@ -749,6 +689,10 @@
 			  <field id="objectPurchaseOfferPriceDenomination">
 			    <selector>.csc-acquisition-purchaser-price-denomination</selector>
 			  </field>
+			  
+			  <field id="owner" autocomplete="person-person">
+			    <selector>.csc-acquisition-owner</selector>
+			  </field>
 			  <field id="objectPurchaseOfferPriceType">
 			    <services-tag>objectPurchasePriceDenomination</services-tag>
 			    <selector>.csc-acquisition-purchase-price-type</selector>
@@ -861,6 +805,7 @@
 			  <services-list-path>http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
 			  <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
 			  <services-url>personauthorities</services-url>
+			  <authority-vocab-type>PersonAuthority</authority-vocab-type>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
 			  <structures>
 				<structure id="screen"> 
@@ -1009,6 +954,7 @@
 			  <services-list-path>http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
 			  <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
 			  <services-url>orgauthorities</services-url>
+			  <authority-vocab-type>OrgAuthority</authority-vocab-type>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
 			  <structures>
 				<structure id="screen"> 
@@ -1082,44 +1028,68 @@
 			</record>
 			
             <record id="role">
-              <services-url>roles</services-url>
-              <services-list-path>roles-common-list/role-list-item</services-list-path>
-              <services-record-path>roles_common:http://collectionspace.org/services/role, roles_common</services-record-path>
-              <structures>
-                <structure id="screen"> <!-- screen|print|blackberry etc -->
-                    <view>
+                <web-url>role</web-url>
+                <services-url>authorization/roles</services-url>
+                       <services-list-path>roles-common-list/role-list-item</services-list-path>
+                       <services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
+                  <structures>
+                    <structure id="screen">
+                       <view>
                           <titlebar show="false"></titlebar>
-                          <sidebar show="false"></sidebar>
-                          <edit-section id="permissions" show="true"></edit-section>
-                          <list-section id="roleList" show="true"></list-section>
-                    </view>
-                    <repeat id="roleList" asSibling="true">
-                          <selector>.csc-recordList-row:</selector>
-                          <field id="name" ui-type="list">
-                              <selector>.csc-role-roleList-name</selector>
-                          </field>
-                          <field id="csid" ui-type="list">
-                              <selector>.csc-role-roleList-csid</selector>
-                          </field>
-                    </repeat>
-                  </structure>
-              </structures>
-              <repeat id="permissions" asSibling="true">
-	              <selector>.csc-permissions-record-row:</selector>
-	                  <field id="permission" mini="summary">
-	                      <selector>.csc-permissions-record-permissions</selector>
-	                          <options>
-	                          <option id="none">none</option>
-	                          <option id="read">read</option>
-	                          <option id="write" default="yes">write</option>
-	                          <option id="delete">delete</option>
-	                      </options>
-	                  </field>
-	                  <field id="recordType" mini="number">
-	                      <selector>.csc-permissions-record-type</selector>
-	                  </field>
-	          </repeat>
+                         <sidebar show="false"></sidebar>
+                      </view>
+                    </structure>
+                  </structures>
+                  <is-multipart>false</is-multipart>
+                  <terms-used>false</terms-used>
+                  <field id="roleName" ui-type="list" mini="number">
+                     <selector>.csc-role-name</selector>
+                 </field>
+                 <field id="description" ui-type="list" mini="summary">
+                     <selector>.csc-role-desc</selector>
+                 </field>
             </record>
+           
+           <record id="rolePermission">
+             <services-url>authorization/rolePermissions</services-url>
+              <services-list-path>roles-common-list/role-list-item</services-list-path>
+              <services-record-path>roles_common:http://collectionspace.org/services/rolepermission, roles_common</services-record-path>
+             <structures>
+               <structure id="screen"> <!-- screen|print|blackberry etc -->
+                   <view>
+                         <titlebar show="false"></titlebar>
+                         <sidebar show="false"></sidebar>
+                         <edit-section id="permissions" show="true"></edit-section>
+                         <list-section id="roleList" show="true"></list-section>
+                   </view>
+                   <repeat id="roleList" asSibling="true">
+                         <selector>.csc-role-roleList-row:</selector>
+                         <field id="name" ui-type="list">
+                             <selector>.csc-role-roleList-name</selector>
+                         </field>
+                         <field id="csid" ui-type="list">
+                             <selector>.csc-role-roleList-csid</selector>
+                         </field>
+                   </repeat>
+                 </structure>
+             </structures>
+             <is-multipart>false</is-multipart>
+             <repeat id="permissions" asSibling="true">
+                  <selector>.csc-permissions-record-row:</selector>
+                      <field id="permission" mini="summary">
+                               <selector>.csc-permissions-record-permissions</selector>
+                              <options>
+                              <option id="none">none</option>
+                              <option id="read">read</option>
+                              <option id="write" default="yes">write</option>
+                              <option id="delete">delete</option>
+                          </options>
+                      </field>
+                      <field id="recordType" mini="number">
+                          <selector>.csc-permissions-record-type</selector>
+                      </field>
+              </repeat>
+           </record> 
 
 			<record id="users" type="userdata">
 		      <web-url>users</web-url>
@@ -1174,8 +1144,122 @@
 			  </field>
 			</record>
  
+			
+			<record id="loanout" in-findedit="yes">
+		      <services-url>loansout</services-url>
+			  <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
+			  <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
+			  <structures>
+				<structure id="screen"> 
+					<view>
+			  			<titlebar show="true"></titlebar>
+			  			<sidebar show="true">
+			  				<repeat id="termsUsed" show="true"></repeat>
+			  				<repeat id="relatedProcedures" show="true"></repeat>
+			  				<repeat id="relatedObjects" show="true"></repeat>
+			  			</sidebar>
+			  			<edit-section show="true"></edit-section>
+			  			<list-section show="false"></list-section>
+						
+					</view>
+					
+			  		<repeat id="termsUsed" asSibling="true">
+			  			<selector>.csc-recordList-row:</selector>
+						<field id="linktext" ui-type="linktext">
+							<selector>.csc-related-summary</selector>
+						</field>
+						<field id="recordtype" ui-type="list">
+							<selector>.csc-related-recordtype</selector>
+						</field>
+						<field id="sourceFieldName" ui-type="list">
+							<selector>.csc-related-field</selector>
+						</field>
+			  		</repeat>
+				</structure>
+			  </structures>	
+			  
+			
+			  <row-selector>.csc-recordList-row:</row-selector>
+			  
+                <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number" >
+			    <title-selector>.csc-titleBar-loanOutNumber</title-selector>
+			    <selector>.csc-loanOut-loanOutNumber</selector>
+			    <container-selector>.csc-loanOut-loanOutNumber-patternChooserContainer</container-selector>				
+				  <options>
+				    <option id="loanout" sample="LO2010.1">Loan Out</option>
+				  </options>
+				</field>			
+			  			  
+			    <field id="lendersAuthorizer" autocomplete="person-person"   xxx_ui_refactored="true">
+					<selector>.csc-loanOut-lendersAuthorizer</selector>
+				</field>	
+			    <field id="lendersAuthorizationDate" ui-type="date"  container="false">
+					<selector>.csc-loanOut-lendersAuthorizationDate</selector>
+				</field>				
+				<field id="lendersContact" autocomplete="person-person"  xxx_ui_refactored="true">
+					<selector>.csc-loanOut-lendersContact</selector>
+				</field>
+				<field id="borrowersContact" autocomplete="person-person"  xxx_ui_refactored="true">
+					<selector>.csc-loanOut-borrowersContact</selector>
+				</field>
+				<field id="loanedObjectStatusNote">
+					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
+				</field>
+				<field id="loanReturnDate" ui-type="date" container="false">
+					<selector>.csc-loanOut-loanReturnDate</selector>
+				</field>
+		
+				<field id="loanedObjectStatusDate" ui-type="date" container="false">
+					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
+				</field>
+				<field id="loanPurpose">
+					<selector>.csc-loanOut-loanPurpose</selector>
+			    		<options>
+			      		<option id="exhibition" default="yes">Exhibition</option>
+			      		<option id="research">Research</option>
+			      		<option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
+			      		<option id="analysis">Analysis</option>
+			      		<option id="photography">Photography</option>
+			      		<option id="conservationotherrequestedservices">Conservation or other requested services</option>
+			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
+			    	</options>
+				</field>
+				<field id="loanOutDate" ui-type="date" container="false">
+					<selector>.csc-loanOut-loanOutDate</selector>
+				</field>
+				<field id="loanRenewalApplicationDate" ui-type="date" container="false">
+					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
+				</field>
+				<field id="loanedObjectStatus">
+					<selector>.csc-loanOut-loanedObjectStatus</selector>
+			    		<options>
+			      		<option id="requested" default="yes">Requested</option>
+			      		<option id="authorized">Authorized</option>
+			      		<option id="agreed">Agreed</option>
+			      		<option id="conservation">Conservation</option>
+			      		<option id="requested">Requested</option>
+			      		<option id="sent">Sent</option>
+			      		<option id="photographyrequested">Photography requested</option>
+			      		<option id="refused">Refused</option>
+			      		<option id="renewed">Renewed</option>
+			      		<option id="returned">Returned</option>
+			    	</options>
+				</field>
+				<field id="loanOutConditions">
+					<selector>.csc-loanOut-loanOutConditions</selector>
+				</field>
+				<field id="borrower" autocomplete="person-person" xxx_ui_refactored="true">
+					<selector>.csc-loanOut-borrower</selector>
+				</field>
+				<field id="loanOutNote">
+					<selector>.csc-loanOut-loanOutNote</selector>
+				</field>
+               
+			</record>
+			
  			<record id="id" type="id"> <!-- XXX what is this type? something to do with next number generation, currently piggy backs on normal Record functionality -->
 			</record>
 		</records>
 	</spec>
 </collection-space>
+
