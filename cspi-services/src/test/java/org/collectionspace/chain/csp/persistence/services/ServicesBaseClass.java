@@ -47,7 +47,7 @@ public class ServicesBaseClass {
 		config_controller.addSearchSuffix("test-config-loader2.xml");
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
-		base="http://test.collectionspace.org:8180"; // XXX hardwired
+		base="http://nightly.collectionspace.org"; // XXX hardwired
 		log.info("base="+base);
 		conn=new ServicesConnection(base+"/cspace-services");
 		creds=new ServicesRequestCredentials();
