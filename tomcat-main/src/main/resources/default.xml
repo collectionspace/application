@@ -1028,68 +1028,69 @@
 			</record>
 			
             <record id="role">
-                <web-url>role</web-url>
+            	<web-url>roleedit</web-url>
                 <services-url>authorization/roles</services-url>
-                       <services-list-path>roles-common-list/role-list-item</services-list-path>
-                       <services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
-                  <structures>
-                    <structure id="screen">
-                       <view>
-                          <titlebar show="false"></titlebar>
-                         <sidebar show="false"></sidebar>
-                      </view>
-                    </structure>
-                  </structures>
-                  <is-multipart>false</is-multipart>
-                  <terms-used>false</terms-used>
-                  <field id="roleName" ui-type="list" mini="number">
-                     <selector>.csc-role-name</selector>
-                 </field>
-                 <field id="description" ui-type="list" mini="summary">
-                     <selector>.csc-role-desc</selector>
-                 </field>
-            </record>
+				<services-list-path>roles-common-list/role-list-item</services-list-path>
+				<services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
+				<structures>
+					<structure id="screen">
+						<view>
+							<titlebar show="false"></titlebar>
+							<sidebar show="false"></sidebar>
+						</view>
+					</structure>
+				</structures>
+				<is-multipart>false</is-multipart>
+				<terms-used>false</terms-used>
+				<field id="roleName" ui-type="list" mini="number">
+					<selector>.csc-role-name</selector>
+				</field>
+				<field id="description" ui-type="list" mini="summary">
+					<selector>.csc-role-desc</selector>
+				</field>
+			</record>
            
-           <record id="rolePermission">
-             <services-url>authorization/rolePermissions</services-url>
-              <services-list-path>roles-common-list/role-list-item</services-list-path>
-              <services-record-path>roles_common:http://collectionspace.org/services/rolepermission, roles_common</services-record-path>
-             <structures>
-               <structure id="screen"> <!-- screen|print|blackberry etc -->
-                   <view>
-                         <titlebar show="false"></titlebar>
-                         <sidebar show="false"></sidebar>
-                         <edit-section id="permissions" show="true"></edit-section>
-                         <list-section id="roleList" show="true"></list-section>
-                   </view>
-                   <repeat id="roleList" asSibling="true">
-                         <selector>.csc-role-roleList-row:</selector>
-                         <field id="name" ui-type="list">
-                             <selector>.csc-role-roleList-name</selector>
-                         </field>
-                         <field id="csid" ui-type="list">
-                             <selector>.csc-role-roleList-csid</selector>
-                         </field>
-                   </repeat>
-                 </structure>
-             </structures>
-             <is-multipart>false</is-multipart>
-             <repeat id="permissions" asSibling="true">
-                  <selector>.csc-permissions-record-row:</selector>
-                      <field id="permission" mini="summary">
-                               <selector>.csc-permissions-record-permissions</selector>
-                              <options>
-                              <option id="none">none</option>
-                              <option id="read">read</option>
-                              <option id="write" default="yes">write</option>
-                              <option id="delete">delete</option>
-                          </options>
-                      </field>
-                      <field id="recordType" mini="number">
-                          <selector>.csc-permissions-record-type</selector>
-                      </field>
-              </repeat>
-           </record> 
+ 			<record id="rolePermission">
+				<web-url>role</web-url>
+				<is-multipart>false</is-multipart>
+				<services-url>authorization/rolePermissions</services-url>
+				<services-list-path>roles-common-list/role-list-item</services-list-path>
+				<services-record-path>roles_common:http://collectionspace.org/services/rolepermission, roles_common</services-record-path>
+				<structures>
+					<structure id="screen"> <!-- screen|print|blackberry etc -->
+						<view>
+							<titlebar show="false"></titlebar>
+							<sidebar show="false"></sidebar>
+							<edit-section id="permissions" show="true"></edit-section>
+							<list-section id="roleList" show="true"></list-section>
+						</view>
+						<repeat id="roleList" asSibling="true">
+							<selector>.csc-recordList-row:</selector>
+							<field id="name" ui-type="list">
+								<selector>.csc-role-roleList-name</selector>
+							</field>
+							<field id="csid" ui-type="list">
+								<selector>.csc-role-roleList-csid</selector>
+							</field>
+						</repeat>
+					</structure>
+				</structures>
+				<repeat id="permissions" asSibling="true">
+					<selector>.csc-permissions-record-row:</selector>
+					<field id="permission" mini="summary">
+						<selector>.csc-permissions-record-permissions</selector>
+						<options>
+							<option id="none">none</option>
+							<option id="read">read</option>
+							<option id="write" default="yes">write</option>
+							<option id="delete">delete</option>
+						</options>
+					</field>
+					<field id="recordType" mini="number">
+						<selector>.csc-permissions-record-type</selector>
+					</field>
+				</repeat>
+			</record> 
 
 			<record id="users" type="userdata">
 		      <web-url>users</web-url>
@@ -1143,8 +1144,7 @@
                 </options>
 			  </field>
 			</record>
- 
-			
+		
 			<record id="loanout" in-findedit="yes">
 		      <services-url>loansout</services-url>
 			  <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
