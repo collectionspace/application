@@ -1028,7 +1028,7 @@
 			</record>
 			
             <record id="role">
-            	<web-url>roleedit</web-url>
+            	<web-url>role</web-url>
                 <services-url>authorization/roles</services-url>
 				<services-list-path>roles-common-list/role-list-item</services-list-path>
 				<services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
@@ -1051,9 +1051,8 @@
 			</record>
            
  			<record id="rolePermission">
-				<web-url>role</web-url>
 				<is-multipart>false</is-multipart>
-				<services-url>authorization/rolePermissions</services-url>
+				<services-url>authorization/roles</services-url>
 				<services-list-path>roles-common-list/role-list-item</services-list-path>
 				<services-record-path>roles_common:http://collectionspace.org/services/rolepermission, roles_common</services-record-path>
 				<structures>

@@ -34,7 +34,7 @@ public class TestOrgThroughWebapp {
 		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
-		log.info("Got cookie "+cookie);
+		//log.info("Got cookie "+cookie);
 	}
 	
 	// XXX refactor
@@ -87,7 +87,6 @@ public class TestOrgThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization/search?query=National+Mask+%26+Puppet+Corp.",null);
 		assertTrue(out.getStatus()<299);
-		log.debug(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		assertTrue(results.length()>0);
 		for(int i=0;i<results.length();i++) {
@@ -100,45 +99,74 @@ public class TestOrgThroughWebapp {
 
 	@Test public void testAuthoritiesList() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization",null);
-		assertTrue(out.getStatus()<299);
-		log.info(out.getContent());
-		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
+		int resultsize =1;
+		int pagenum = 0;
+		String checkpagination = "";
 		boolean found=false;
-		for(int i=0;i<results.length();i++) {
-			JSONObject entry=results.getJSONObject(i);
-			if(entry.getString("displayName").toLowerCase().contains("national mask & puppet corp."))
-				found=true;
+		while(resultsize >0){
+			HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization?pageSize=20&pageNum="+pagenum,null);
+			pagenum++;
+			assertTrue(out.getStatus()<299);
+			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
+
+			if(results.length()==0 || checkpagination.equals(results.getJSONObject(0).getString("csid"))){
+				resultsize=0;
+				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+			}
+			checkpagination = results.getJSONObject(0).getString("csid");
+
+			for(int i=0;i<results.length();i++) {
+				JSONObject entry=results.getJSONObject(i);
+				if(entry.getString("displayName").toLowerCase().contains("national mask & puppet corp.")){
+					found=true;
+					resultsize=0;
+				}
+			}
 		}
 		assertTrue(found);
 	}
 
 	@Test public void testNamesSearch() throws Exception {
 		ServletTester jetty=setupJetty();
-		//jettyDo(jetty,"GET","/chain/quick-reset",null);
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=National+Mask+%26+Puppet+Corp.",null);
 		assertTrue(out.getStatus()<299);
-		log.debug(out.getContent());
+			
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
+
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
 			assertTrue(entry.getString("displayName").toLowerCase().contains("national mask & puppet corp."));
 			assertEquals(entry.getString("number"),entry.getString("displayName"));
 			assertTrue(entry.has("refid"));
 		}
+		
 	}
 
 	@Test public void testNamesList() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization",null);
-		assertTrue(out.getStatus()<299);
-		log.info(out.getContent());
-		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
+
+		int resultsize =1;
+		int pagenum = 0;
+		String checkpagination = "";
 		boolean found=false;
-		for(int i=0;i<results.length();i++) {
-			JSONObject entry=results.getJSONObject(i);
-			if(entry.getString("displayName").toLowerCase().contains("national mask & puppet corp."))
-				found=true;
+		while(resultsize >0){
+			HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization?pageSize=20&pageNum="+pagenum,null);
+			pagenum++;
+			assertTrue(out.getStatus()<299);
+			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
+
+			if(results.length()==0 || checkpagination.equals(results.getJSONObject(0).getString("csid"))){
+				resultsize=0;
+				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+			}
+			checkpagination = results.getJSONObject(0).getString("csid");
+			for(int i=0;i<results.length();i++) {
+				JSONObject entry=results.getJSONObject(i);
+				if(entry.getString("displayName").toLowerCase().contains("national mask & puppet corp.")){
+					found=true;
+					resultsize=0;
+				}
+			}
 		}
 		assertTrue(found);
 	}
@@ -147,7 +175,6 @@ public class TestOrgThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=National+Mask+%26+Puppet+Corp.",null);
 		assertTrue(out.getStatus()<299);
-		log.info(out.getContent());
 		// Find candidate
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		assertTrue(results.length()>0);
@@ -155,7 +182,6 @@ public class TestOrgThroughWebapp {
 		String csid=entry.getString("csid");
 		out=jettyDo(jetty,"GET","/chain/vocabularies/organization/"+csid,null);
 		JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
-		log.info("JSON Object",fields);
 		assertEquals(csid,fields.getString("csid"));
 		assertEquals("National Mask & Puppet Corp.",fields.getString("displayName"));
 	}
@@ -238,9 +264,6 @@ public class TestOrgThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url2,null);
 		assertEquals(400,out.getStatus());	
 
-		log.info(one);
-
-		log.info(two);
 	}
 	
 	@Test public void testAutocompleteInOrganization() throws Exception {

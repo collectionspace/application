@@ -366,7 +366,7 @@ public class TestGeneral {
 	@Test public void testPostAndUpdateWithRoles() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(testStr10));
-		log.info(out.getContent());
+		//log.info(out.getContent());
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
@@ -377,7 +377,7 @@ public class TestGeneral {
 		assertEquals(one.get("roleName"), "ROLE_"+two.get("roleName"));
 		
 		out = jettyDo(jetty, "PUT","/chain/"+id,makeSimpleRequest(testStr10));
-		log.info(out.getContent());
+		//log.info(out.getContent());
 		assertEquals(out.getMethod(), null);
 		assertEquals(200, out.getStatus());
 		one = new JSONObject(getFields(out.getContent()));

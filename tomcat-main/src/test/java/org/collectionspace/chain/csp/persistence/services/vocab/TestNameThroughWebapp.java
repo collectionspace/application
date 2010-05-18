@@ -236,13 +236,34 @@ public class TestNameThroughWebapp {
 	
 	@Test public void testAutocompleteOfOrganization() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/autocomplete/group?q=Bing&limit=150",null);
-		assertTrue(out.getStatus()<299);
-		String[] data=out.getContent().split("\n");
-		for(int i=0;i<data.length;i++) {
-			JSONObject entry=new JSONObject(data[i]);
-			assertTrue(entry.getString("label").toLowerCase().contains("bing crosby ice cream"));
-			assertTrue(entry.has("urn"));
+
+		int resultsize =1;
+		int pagenum = 0;
+		String checkpagination = "";
+		boolean found=false;
+		while(resultsize >0){
+			HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/autocomplete/group?q=Bing&pageSize=150&pageNum="+pagenum,null);
+			assertTrue(out.getStatus()<299);
+			pagenum++;
+			String[] data=out.getContent().split("\n");
+			
+
+			JSONObject test=new JSONObject(data[0]);
+			if(data.length==0 || checkpagination.equals(test.getString("urn"))){
+				resultsize=0;
+				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+			}
+			checkpagination = test.getString("urn");
+			
+			for(int i=0;i<data.length;i++) {
+				JSONObject entry=new JSONObject(data[i]);
+				if(entry.getString("label").toLowerCase().contains("bing crosby ice cream")){
+					found = true;
+					assertTrue(entry.has("urn"));
+				}
+			}
+
+			assertTrue(found);
 		}
 	}
 	
