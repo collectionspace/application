@@ -56,6 +56,16 @@ public class UISpec implements WebMethod {
 		
 		return "${"+StringUtils.join(path,'.')+"}";		
 	}
+
+	// XXX no need to abstract out yet...
+	static JSONObject linktext(Field f) throws JSONException  {
+		JSONObject number=new JSONObject();
+		number.put("linktext","${items.0.number}");
+		number.put("target","${items.0.recordtype}.html?csid=${items.0.csid}");
+		return number;
+			
+	}
+	
 	// XXX factor
 	private Object generateDataEntryField(Field f) throws JSONException {
 		if("plain".equals(f.getUIType())) {
@@ -64,6 +74,9 @@ public class UISpec implements WebMethod {
 		} 
 		else if("list".equals(f.getUIType())){
 			return plainlist(f);
+		}
+		else if("linktext".equals(f.getUIType())){
+			return linktext(f);
 		}
 		else if("dropdown".equals(f.getUIType())) {
 			// Dropdown entry
@@ -94,8 +107,11 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=new JSONObject();
 		decorator.put("type","fluid");
 		decorator.put("func","cspace.autocomplete");
-		if(f.hasContainer()){
-			decorator.put("container",f.getSelector());
+
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",f.getSelector());
+			}
 		}
 		JSONObject options=new JSONObject();
 		String extra="";
@@ -106,6 +122,9 @@ public class UISpec implements WebMethod {
 		decorator.put("options",options);
 		decorators.put(decorator);
 		out.put("decorators",decorators);
+		if(f.isRefactored()){
+			out.put("valuebinding", generateDataEntryField(f));
+		}
 		return out;
 	}
 
@@ -115,8 +134,10 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=new JSONObject();
 		decorator.put("type","fluid");
 		decorator.put("func","cspace.numberPatternChooser");
-		if(f.hasContainer()){
-			decorator.put("container",f.getContainerSelector());
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",f.getContainerSelector());
+			}
 		}
 		JSONObject options=new JSONObject();
 		JSONObject selectors=new JSONObject();
@@ -138,6 +159,9 @@ public class UISpec implements WebMethod {
 		decorator.put("options",options);
 		decorators.put(decorator);
 		out.put("decorators",decorators);
+		if(f.isRefactored()){
+			out.put("valuebinding", generateDataEntryField(f));
+		}
 		return out;
 	}
 
@@ -147,11 +171,16 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=new JSONObject();
 		decorator.put("type","fluid");
 		decorator.put("func","cspace.datePicker");
-		if(f.hasContainer()){
-			decorator.put("container",f.getContainerSelector());
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",f.getContainerSelector());
+			}
 		}
 		decorators.put(decorator);
 		out.put("decorators",decorators);
+		if(f.isRefactored()){
+			out.put("valuebinding", generateDataEntryField(f));
+		}
 		return out;
 	}
 
@@ -166,11 +195,12 @@ public class UISpec implements WebMethod {
 	
 	private JSONObject generateListSection(Structure s) throws JSONException {
 		JSONObject out=new JSONObject();
-		s.getListSectionName();
-
-		for(FieldSet fs : s.getAllFields()) {
+		String id = s.getListSectionName();
+		if(s.getField(id) != null){
+			FieldSet fs = s.getField(id);
 			generateDataEntry(out,fs);
 		}
+		
 		return out;
 	}
 	
@@ -178,18 +208,37 @@ public class UISpec implements WebMethod {
 		if(fs instanceof Field) {
 			// Single field
 			Field f=(Field)fs;
-			// Single field
-			out.put(f.getSelector(),generateDataEntryField(f));
-
-			if(f.hasAutocompleteInstance()) {
-				out.put(f.getAutocompleteSelector(),generateAutocomplete(f));
+			
+			//XXX when all uispecs have moved across we can delete most of this
+			if(!f.isRefactored()){
+				// Single field
+				out.put(f.getSelector(),generateDataEntryField(f));	
+				
+				if(f.hasAutocompleteInstance()) {
+					out.put(f.getAutocompleteSelector(),generateAutocomplete(f));
+				}
+				if("chooser".equals(f.getUIType())) {
+					out.put(f.getContainerSelector(),generateChooser(f));
+				}
+				if("date".equals(f.getUIType())) {
+					out.put(f.getContainerSelector(),generateDate(f));
+				}
 			}
-			if("chooser".equals(f.getUIType())) {
-				out.put(f.getContainerSelector(),generateChooser(f));
+			else{
+				
+				if(f.hasAutocompleteInstance()) {
+					out.put(f.getSelector(),generateAutocomplete(f));
+				}
+				if("chooser".equals(f.getUIType())) {
+					out.put(f.getSelector(),generateChooser(f));
+				}
+				if("date".equals(f.getUIType())) {
+					out.put(f.getSelector(),generateDate(f));
+				}
+				if("sidebar".equals(f.getUIType())) {
+					//out.put(f.getSelector(),generateSideBar(f));
+				}
 			}
-			if("date".equals(f.getUIType())) {
-				out.put(f.getContainerSelector(),generateDate(f));
-			}			
 		} else if(fs instanceof Repeat) {
 			// Container
 			Repeat r=(Repeat)fs;
@@ -264,12 +313,42 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
-	// XXX sidebar is fixed for now
-	private JSONObject generateSidebarSection() throws JSONException {
+	// XXX refactor
+	private JSONObject generateSideDataEntry(JSONObject out, FieldSet fs) throws JSONException {
+		Repeat f=(Repeat)fs;
+		JSONObject listrow=new JSONObject();
+		generateDataEntry(listrow,fs);
+		out.put(f.getID(),listrow);
+		return out;
+	}
+	
+	private JSONObject generateSideDataEntry(Structure s, JSONObject out, String fieldName,String url_frag,boolean include_type,boolean include_summary,boolean include_sourcefield )throws JSONException {
+		FieldSet fs = s.getSideBarItems(fieldName);
+		if(fs == null){
+			//XXX default to show if not specified
+			out.put(fieldName,generateSidebarPart(url_frag,include_type,include_summary,include_sourcefield));
+		}
+		else if(fs instanceof Repeat){
+			if(((Repeat)fs).isVisible()){
+				if(s.getField(fs.getID()) != null){
+					generateSideDataEntry(out,s.getField(fs.getID()));
+				}
+				else{
+					out.put(fieldName,generateSidebarPart(url_frag,include_type,include_summary,include_sourcefield));
+				}
+			}
+		}
+		
+		return out;
+	}
+
+	// XXX sidebar is partially fixed for now
+	//need to clean up this code - reduce duplication
+	private JSONObject generateSidebarSection(Structure s) throws JSONException {
 		JSONObject out=new JSONObject();
-		out.put("termsUsed",generateSidebarPart("${items.0.recordtype}.html",true,false,true));
-		out.put("relatedProcedures",generateSidebarPart("${items.0.recordtype}.html",true,true,false));
-		out.put("relatedObjects",generateSidebarPart("${items.0.recordtype}.html",false,true,false));
+		generateSideDataEntry(s, out,"termsUsed","${items.0.recordtype}.html",true,false,true);
+		generateSideDataEntry(s, out,"relatedProcedures","${items.0.recordtype}.html",true,true,false);
+		generateSideDataEntry(s, out,"relatedObjects","${items.0.recordtype}.html",false,true,false);
 		return out;
 	}
 
@@ -288,7 +367,7 @@ public class UISpec implements WebMethod {
 			}
 			
 			if(s.showSideBar()){
-				out.put("sidebar",generateSidebarSection());
+				out.put("sidebar",generateSidebarSection(s));
 			}
 			return out;
 		} catch (JSONException e) {

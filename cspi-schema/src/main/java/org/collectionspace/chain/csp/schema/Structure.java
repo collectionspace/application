@@ -4,6 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.config.Rules;
+import org.collectionspace.chain.csp.config.Target;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * Structures are used in creation of the UISPEC.
  * It allows for easy addition/removal of sections to the UIspec
@@ -44,12 +48,18 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
  *
  */
 public class Structure  implements FieldParent  {
+	private static final Logger log=LoggerFactory.getLogger(Structure.class);
 
 	private Record record;
 	private String id,titlebar, sidebar, listsection, editsection, editselector;
 	private Boolean showtitlebar,showsidebar, showlistsection, showeditsection;
+	public static String SECTION_PREFIX="org.collectionspace.app.config.structure.";
+	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
+
 
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
+	private Map<String,FieldSet> sidebar_sections=new HashMap<String,FieldSet>();
+	
 	
 	public Structure(Record record,ReadOnlySection section) {
 		this.record=record;
@@ -72,9 +82,13 @@ public class Structure  implements FieldParent  {
 	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);
 	}
+	public void addSideBar(FieldSet f) {
+		sidebar_sections.put(f.getID(),f);
+	}
 
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
 	public FieldSet getField(String id) { return fields.get(id); }
+	public FieldSet getSideBarItems(String id) { return sidebar_sections.get(id); }
 	
 	public Boolean showTitleBar() { return showtitlebar; }
 	public Boolean showSideBar() { return showsidebar; }
@@ -85,6 +99,9 @@ public class Structure  implements FieldParent  {
 	public String getSideBar() { return sidebar; }
 	public String getListSectionName() { return listsection; }
 	public String getEditSectionName() { return editsection; }
-	
+
+
 	public void config_finish(Spec spec) {}
+	
+
 }

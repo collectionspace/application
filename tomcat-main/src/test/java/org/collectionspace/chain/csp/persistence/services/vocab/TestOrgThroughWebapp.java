@@ -66,16 +66,21 @@ public class TestOrgThroughWebapp {
 		tester.setAttribute("storage","service");
 		tester.setAttribute("store-url",base+"/cspace-services/");	
 		tester.setAttribute("config-filename","default.xml");
-		log.info("ARGH");
 		tester.start();
-		log.info("BBBBBARGH");
 		login(tester);
 		return tester;
 	}
 	
 	@BeforeClass public static void reset() throws Exception {
 		ServletTester jetty=setupJetty();
-		//jettyDo(jetty,"GET","/chain/quick-reset",null);		
+		//test if need to reset data
+		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization/",null);
+		if(out.getStatus()<299){
+			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
+			if(results.length()==0){
+				jettyDo(jetty,"GET","/chain/reset",null);
+			}
+		}		
 	}
 		
 	@Test public void testAuthoritiesSearch() throws Exception {

@@ -25,7 +25,7 @@ public class Spec implements CSP, Configurable {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.spec.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 
-	private static final String required_version="7";
+	private static final String required_version="8";
 	
 	private Map<String,Record> records=new HashMap<String,Record>();
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
@@ -125,7 +125,18 @@ public class Spec implements CSP, Configurable {
 				return s;
 			}
 		});	
-		/* RECORD/repeat -> REPEAT */
+
+
+		/* STRUCTURE/repeat -> REPEAT */
+		rules.addRule(SECTION_PREFIX+"structure",new String[]{"view","sidebar","repeat"},SECTION_PREFIX+"repeat",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Repeat r=new Repeat((Structure)parent,section);
+				((Structure)parent).addSideBar(r);
+				return r;
+			}
+		});
+
+		/* STRUCTURE/repeat -> REPEAT */
 		rules.addRule(SECTION_PREFIX+"structure",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Structure)parent,section);
@@ -133,6 +144,7 @@ public class Spec implements CSP, Configurable {
 				return r;
 			}
 		});
+
 		/* RECORD/repeat -> REPEAT */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {

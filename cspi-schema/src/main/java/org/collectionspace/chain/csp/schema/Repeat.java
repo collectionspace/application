@@ -8,6 +8,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 // XXX only one level of repetition at the moment. Should only be a matter of type furtling.
 public class Repeat implements FieldSet, FieldParent {
 	private String id,selector;
+	private Boolean is_visible;
 	private FieldParent parent;
 	private List<FieldSet> children=new ArrayList<FieldSet>();
 	private boolean xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
@@ -20,6 +21,7 @@ public class Repeat implements FieldSet, FieldParent {
 		id=(String)section.getValue("/@id");
 		selector=(String)section.getValue("/selector");
 		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
+		is_visible=Util.getBooleanOrDefault(section,"/@show",true);
 		xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
 		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
 		asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
@@ -29,6 +31,7 @@ public class Repeat implements FieldSet, FieldParent {
 		this.parent=structure;
 		id=(String)section.getValue("/@id");
 		selector=(String)section.getValue("/selector");
+		is_visible=Util.getBooleanOrDefault(section,"/@show",true);
 		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
 		xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
 		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
@@ -46,6 +49,7 @@ public class Repeat implements FieldSet, FieldParent {
 	public String getServicesTag() { return services_tag; }
 	public boolean getXxxServicesNoRepeat() { return xxx_services_no_repeat; }
 	public boolean getXxxUiNoRepeat() { return xxx_ui_no_repeat; }
+	public boolean isVisible() { return is_visible; }
 	public boolean asSibling() { return asSiblings;}
 	public String getSection() { return services_section; }
 
