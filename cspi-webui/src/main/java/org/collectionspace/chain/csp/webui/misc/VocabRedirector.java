@@ -12,8 +12,11 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VocabRedirector implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(VocabRedirector.class);
 	private Record r;
 	
 	public VocabRedirector(Record r) { this.r=r; }
