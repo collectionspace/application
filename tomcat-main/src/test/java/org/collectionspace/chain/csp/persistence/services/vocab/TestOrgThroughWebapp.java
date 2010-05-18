@@ -73,7 +73,7 @@ public class TestOrgThroughWebapp {
 	
 	@BeforeClass public static void reset() throws Exception {
 		ServletTester jetty=setupJetty();
-		//test if need to reset data
+		//test if need to reset data - only reset it org auth are null
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization/",null);
 		if(out.getStatus()<299){
 			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");

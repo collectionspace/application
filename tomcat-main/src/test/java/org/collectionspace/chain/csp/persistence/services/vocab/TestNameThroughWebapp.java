@@ -73,7 +73,14 @@ public class TestNameThroughWebapp {
 	
 	@BeforeClass public static void reset() throws Exception {
 		ServletTester jetty=setupJetty();
-		//jettyDo(jetty,"GET","/chain/quick-reset",null);		
+		//test if need to reset data - only reset it org auth are null
+		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person/",null);
+		if(out.getStatus()<299){
+			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
+			if(results.length()==0){
+				jettyDo(jetty,"GET","/chain/reset",null);
+			}
+		}			
 	}
 	
 	@Test public void testAutocomplete() throws Exception {
