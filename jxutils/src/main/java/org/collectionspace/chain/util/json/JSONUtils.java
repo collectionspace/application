@@ -66,14 +66,14 @@ public class JSONUtils {
 			if(!(b instanceof JSONArray))
 				return false;
 			if(((JSONArray)a).length()!=((JSONArray)b).length()){
-				log.info("array length diff");
+				log.info("array length diff a ="+ ((JSONArray)a).length()+": b= "+((JSONArray)b).length());
 				log.info(((JSONArray)a).toString());
 				return false;
 			}
 			
 			for(int i=0;i<((JSONArray) a).length();i++) {
 				if(!checkJSONEquiv(((JSONArray) a).get(i),((JSONArray) b).get(i))){
-					log.info("array length diff 2");
+					log.info("array length diff 2" +((JSONArray) a).get(i));
 					return false;
 				}
 			}
