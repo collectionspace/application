@@ -234,7 +234,7 @@ public class TestNameThroughWebapp {
 		assertEquals(400,out.getStatus());		
 	}
 	
-	@Test public void testAutocompleteOfOrganization() throws Exception {
+	public void testAutocompleteOfOrganization() throws Exception {
 		ServletTester jetty=setupJetty();
 
 		int resultsize =1;
@@ -262,9 +262,8 @@ public class TestNameThroughWebapp {
 					assertTrue(entry.has("urn"));
 				}
 			}
-
-			assertTrue(found);
 		}
+		assertTrue(found);
 	}
 	
 }

@@ -59,7 +59,13 @@
             ]
         },
         ".csc-object-identification-object-number": "${fields.objectNumber}",
-        ".csc-object-description-inscription-content-type": "${fields.inscriptionType}",
+        ".csc-object-description-inscription-content-type": 
+        {
+            "selection": "${fields.inscriptionType}",
+            "optionlist": [	"brand", "decoration", "estate-stamp", "graffiti", "label", "maker's-mark" ],
+            "optionnames": [ "brand", "decoration", "estate stamp", "graffiti", "label", "maker's mark" ]
+        },      
+        
         ".csc-object-description-content-person-autocomplete": {
             "decorators": [
                 {
@@ -73,12 +79,33 @@
                 }
             ]
         },
+        ".csc-object-description-content-place-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-description-content-place",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/contentPlace",
+                        "vocabUrl": "../../chain/objects/source-vocab/contentPlace"
+                    }
+                }
+            ]
+        },
         ".csc-object-identification-brief-description": "${fields.briefDescription}",
-        ".csc-object-identification-object-title-type": "${fields.titleType}",
-        ".csc-date-information-date-latest-certainty": "${fields.dateLatestCertainty}",
-        ".csc-date-information-date-earliest-single-certainty": "${fields.dateEarliestSingleCertainty}",
+        ".csc-object-identification-object-title-type": 
+        {
+            "selection": "${fields.titleType}",
+            "optionlist": [	"assigned-by-artist", "collection", "generic", "popular", "series", "trade" ],
+            "optionnames": [ "Assigned by Artist", "Collection", "Generic", "Popular", "Series", "Trade" ]
+        },      
         ".csc-object-description-physical-description": "${fields.physicalDescription}",
-        ".csc-object-description-age-unit": "${fields.ageUnit}",
+        ".csc-object-description-age-unit": 
+        {
+            "selection": "${fields.ageUnit}",
+            "optionlist": ["days","months","weeks","years" ],
+            "optionnames": ["Days","Months","Weeks","Years" ]
+        },
         ".csc-object-description-inscription-content-translation": "${fields.inscriptionTranslation}",
         ".csc-object-identification-responsible-department": {
             "optionlist": [
@@ -107,7 +134,20 @@
                 "Prints and Drawings"
             ]
         },
+        ".csc-object-identification-collection": {
+            "selection": "${fields.collection}",
+            "optionlist": [library-collection, permanent-collection, study-collection, teaching-collection ],
+            "optionnames": ["Library collection", "Permanent collection", "Study collection", "Teaching collection"]
+        },
         ".csc-object-description-dimension-value": "${fields.dimensionValue}",
+        ".csc-object-description-dimension-value-date": "${fields.dimensionValueDate}",
+        ".csc-object-description-dimension-value-date-container": {
+            "decorators": [{
+                "type": "fluid",
+                "func": "cspace.datePicker",
+                "container": ".csc-object-description-dimension-value-date-container"
+            }]
+        },
         ".csc-object-description-age": "${fields.age}",
         ".csc-object-description-dimension-value-qualifier": "${fields.dimensionValueQualifier}",
         ".csc-object-description-material-name": "${fields.materialName}",
@@ -158,7 +198,12 @@
                 }
             ]
         },
-        ".csc-object-description-technical-attribute-measurement": "${fields.technicalAttributeMeasurement}",
+        ".csc-object-description-technical-attribute-measurement": 
+        {
+            "selection": "${fields.technicalAttributeMeasurement}",
+            "optionlist": ["metal", "78" ],
+            "optionnames": ["metal", "78" ]
+        },
         ".csc-object-description-inscription-content-inscriber": "${fields.inscriber}",
         ".csc-object-description-inscription-content-inscriber-autocomplete": {
             "decorators": [
@@ -173,95 +218,167 @@
                 }
             ]
         },
-        ".csc-object-description-inscription-content-position": "${fields.inscriptionPosition}",
-        ".csc-object-description-sex": "${fields.sex}",
+        ".csc-object-description-inscription-content-position": 
+        {
+            "selection": "${fields.inscriptionPosition}",
+            "optionlist": ["back","base","bottom","front","inside","left","outside","recto","right","rim","top","verso"],
+            "optionnames": ["back","base","bottom","front","inside","left","outside","recto","right","rim","top","verso"]
+        },         
+        ".csc-object-description-sex": 
+         {
+            "selection": "${fields.sex}",
+            "optionlist": ["male","female"],
+            "optionnames": ["male","female"]
+        }, 
         ".csc-object-description-age-qualifier": "${fields.ageQualifier}",
-        ".csc-object-description-inscription-description-position": "${fields.inscriptionDescriptionPosition}",
-        ".csc-object-identification-object-title-language": "${fields.objectTitleLanguage}",
+        ".csc-object-description-inscription-description-position": 
+        {
+            "selection": "${fields.inscriptionDescriptionPosition}",
+            "optionlist": ["back","base","bottom","front","inside","left","outside","recto","right","rim","top","verso"],
+            "optionnames": ["back","base","bottom","front","inside","left","outside","recto","right","rim","top","verso"]
+        }, 
+        ".csc-object-identification-object-title-language": 
+        {
+            "selection": "${fields.objectTitleLanguage}",
+            "optionlist": ["option"],
+            "optionnames": ["Option"]
+        },                 
         ".csc-object-description-edition-number": "${fields.editionNumber}",
-        ".csc-object-description-inscription-description-date": "${fields.inscriptionDescriptionDate}",
-        ".csc-object-description-inscription-content-method": "${fields.inscriptionMethod}",
+        ".csc-object-description-inscription-content-method": 
+        {
+            "selection": "${fields.inscriptionMethod}",
+            "optionlist": ["option"],
+            "optionnames": ["Option"]
+        },        
         ".csc-nhString": "${fields.nhString}",
-        ".csc-object-description-content-other-type": "${fields.contentOtherType}",
+        
         ".csc-object-description-content-place": "${fields.contentPlace}",
-        ".csc-date-information-date-earliest-single-qualifier": "${fields.dateEarliestSingleQualifier}",
         ".csc-object-identification-comments": "${fields.comments}",
         ".csc-object-description-content-note": "${fields.contentNote}",
-        ".csc-object-description-content-method": "${fields.contentMethod}",
         ".csc-object-description-inscription-content-transliteration": "${fields.inscriptionTransliteration}",
-        ".csc-date-information-date-latest-qualifier": "${fields.dateLatestQualifier}",
-        ".csc-object-description-object-component-information": "${fields.objectComponentInformation}",
-        ".csc-object-description-content-organization": "${fields.contentOrganization}",
-        ".csc-object-identification-object-system": "${fields.objectNameSystem}",
-        ".csc-object-description-inscription-content-script": "${fields.inscriptionScript}",
-        ".csc-date-information-date-text": "${fields.dateText}",
-        ".csc-object-description-content-people": "${fields.contentPeople}",
-        ".csc-object-description-phase": "${fields.phase}",
-        ".csc-object-description-inscription-description": "${fields.inscriptionDescription}",
-        ".csc-object-identification-object-level": "${fields.objectNameLevel}",
-        ".csc-object-description-color": "${fields.color}",
-        ".csc-date-information-date-period": "${fields.datePeriod}",
-        ".csc-object-description-dimension": "${fields.dimension}",
-        ".csc-object-description-object-component-name": "${fields.objectComponentName}",
-        ".csc-object-description-technical-attribute-unit": "${fields.technicalAttributeMeasurementUnit}",
-        ".csc-object-description-content-activity": "${fields.contentActivity}",
-        ".csc-object-description-dimension-unit": {
-            "optionlist": [
-                "centimeters",
-                "millimeters",
-                "meters",
-                "liters",
-                "kilograms",
-                "cubic-centimeters",
-                "minutes",
-                "carats",
-                "pixels",
-                "count",
-                "stories",
-                "inches",
-                "square-feet",
-                "feet"
-            ],
-            "selection": "${fields.dimensionMeasurementUnit}",
-            "optionnames": [
-                "centimeters",
-                "millimeters",
-                "meters",
-                "liters",
-                "kilograms",
-                "cubic centimeters",
-                "minutes",
-                "carats",
-                "pixels",
-                "count",
-                "stories",
-                "inches",
-                "square feet",
-                "feet"
-            ]
+        ".csc-object-description-object-component-information": 
+        {
+            "selection": "${fields.objectComponentInformation}",
+            "optionlist": ["?" ],
+            "optionnames": ["?" ]
         },
-        ".csc-object-description-style": "${fields.style}",
+        ".csc-object-description-content-organization": "${fields.contentOrganization}",
+        ".csc-object-identification-object-system": {
+            "selection": "${fields.objectNameSystem}",
+            "optionlist": ["art-and-architecture-thesaurus", "nomenclature"],
+            "optionnames": ["Art & Architecture Thesaurus", "Nomenclature"]
+        },
+        ".csc-object-description-inscription-content-script": 
+            {
+            "selection": "${fields.inscriptionScript}",
+            "optionlist": ["carolingian-miniscule", "gothic-script", "palmer-method", "roman-cursive", "rustic-capitals", "spencerian-method", "square-capitals"],
+            "optionnames": ["Carolingian miniscule", "Gothic script", "Palmer method", "Roman cursive", "rustic capitals", "Spencerian method", "square capitals"]
+        }, 
+        ".csc-object-description-content-people": "${fields.contentPeople}",
+        ".csc-object-description-phase": 
+        {
+            "optionlist": ["adult", "imago", "larva", "nymph", "pupa"],
+            "selection": "${fields.phase}",
+            "optionnames": ["adult", "imago", "larva", "nymph", "pupa"]
+        },
+        ".csc-object-description-inscription-description": "${fields.inscriptionDescription}",
+        ".csc-object-identification-object-level":  {
+            "optionlist": ["group", "subgroup"],
+            "selection": "${fields.objectNameLevel}",
+            "optionnames": ["Group","Subgroup"]
+        },
+        ".csc-object-description-color": "${fields.color}",
+        ".csc-object-description-dimension": 
+        {
+            "selection": "${fields.dimension}",
+            "optionlist": ["area", "base", "circumference", "count", "depth", "diameter", "height", "length", "running-time", "target", "volume", "weight", "width"],
+            "optionnames": ["area", "base", "circumference", "count", "depth", "diameter", "height", "length", "running time", "target", "volume", "weight", "width"]
+        }, 
+        ".csc-object-description-object-component-name": 
+        {
+            "selection": "${fields.objectComponentName}",
+            "optionlist": ["blade", "buttonhole", "handle", "sleeve" ],
+            "optionnames": ["blade", "buttonhole", "handle", "sleeve" ]
+        },     
+        ".csc-object-description-technical-attribute-unit": 
+        {
+            "selection": "${fields.technicalAttributeMeasurementUnit}",
+            "optionlist": ["rpm" ],
+            "optionnames": ["rpm" ]
+        },      
+        ".csc-object-description-dimension-unit": 
+        {
+            "optionlist": ["carats", "centimeters", "cubic-centimeters", "feet", "inches", "kilograms", "liters", "millimeters", "meters", "minutes", "pixels", "square-feet", "stories"],
+            "selection": "${fields.dimensionMeasurementUnit}",
+            "optionnames": ["carats", "centimeters", "cubic centimeters", "feet", "inches", "kilograms", "liters", "millimeters", "meters", "minutes", "pixels", "square feet", "stories"]
+        },
         ".csc-object-identification-other-number": "${fields.otherNumber}",
-        ".csc-object-description-content-language": "${fields.contentLanguage}",
+        ".csc-object-description-content-language": 
+        {
+            "selection": "${fields.contentLanguage}",
+            "optionlist": ["option"],
+            "optionnames": ["Option"]
+        },  
         ".csc-object-identification-number-objects": "${fields.numberOfObjects}",
-        ".csc-object-description-inscription-content-date": "${fields.inscriptionDate}",
-        ".csc-object-description-material-component": "${fields.materialComponent}",
-        ".csc-object-description-technical-attribute": "${fields.technicalAttribute}",
+        ".csc-object-description-material-component": 
+          {
+            "selection": "${fields.materialComponent}",
+            "optionlist": ["option"],
+            "optionnames": ["Option"]
+        },       
+        ".csc-object-description-technical-attribute": 
+        {
+            "selection": "${fields.technicalAttribute}",
+            "optionlist": ["magnetic-tape-type", "record-speed" ],
+            "optionnames": ["magnetic tape type", "record speed" ]
+        },
         ".csc-object-description-inscription-content-interpretation": "${fields.inscriptionInterpretation}",
-        ".csc-object-description-inscription-content-language": "${fields.inscriptionLanguage}",
+        ".csc-object-description-inscription-content-language": 
+        {
+            "selection": "${fields.inscriptionLanguage}",
+            "optionlist": ["option"],
+            "optionnames": ["Option"]
+        },  
         ".csc-object-description-material-component-note": "${fields.materialComponentNote}",
-        ".csc-object-description-material": "${fields.material}",
         ".csc-object-description-inscription-content": "${fields.inscriptionContent}",
-        ".csc-date-information-date-association": "${fields.dateAssociation}",
-        ".csc-object-description-content-event-name": "${fields.contentEventName}",
         ".csc-object-description-material-source": "${fields.materialSource}",
-        ".csc-object-identification-other-number-type": "${fields.otherNumberType}",
-        ".csc-object-description-content-other": "${fields.contentOther}",
-        ".csc-object-description-dimension-part": "${fields.dimensionMeasuredPart}",
+        ".csc-object-description-material-source-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-description-material-source",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/materialSource",
+                        "vocabUrl": "../../chain/objects/source-vocab/materialSource"
+                    }
+                }
+            ]
+        },       
+        ".csc-object-identification-other-number-type": {
+            "optionlist": ["lender","obsolete","previous","serial","unknown"],
+            "selection": "${fields.otherNumberType}",
+            "optionnames": ["Lender","Obsolete","Previous","Serial","Unknown"]
+        },          
+        ".csc-object-description-dimension-part": 
+        {
+            "optionlist": [ "base", "frame", "framed", "image-size", "mount", "paper-size", "plate-size", "unframed"],
+            "selection": "${fields.dimensionMeasuredPart}",
+            "optionnames": [ "base", "frame", "framed", "image size", "mount", "paper size", "plate size", "unframed"]
+        },      
         ".csc-object-description-content-object": "${fields.contentObject}",
-        ".csc-object-identification-object-name": "${fields.objectName}",
-        ".csc-object-description-content-object-type": "${fields.contentObjectType}",
-        ".csc-object-description-content-script": "${fields.contentScript}",
+        ".csc-object-description-content-object-type": 
+        {
+            "selection": "${fields.contentObjectType}",
+            "optionlist": ["furniture","food"],
+            "optionnames": ["Furniture","Food"]
+        },  
+        ".csc-object-description-content-script": 
+          {
+            "selection": "${fields.contentScript}",
+            "optionlist": ["carolingian-miniscule", "gothic-script", "palmer-method", "roman-cursive", "rustic-capitals", "spencerian-method", "square-capitals"],
+            "optionnames": ["Carolingian miniscule", "Gothic script", "Palmer method", "Roman cursive", "rustic capitals", "Spencerian method", "square capitals"]
+        }, 
         ".csc-object-description-content-organization-autocomplete": {
             "decorators": [
                 {
@@ -276,22 +393,357 @@
             ]
         },
         ".csc-object-identification-object-title": "${fields.title}",
-        ".csc-object-description-form": "${fields.form}",
+        ".csc-object-description-form": 
+           {
+            "selection": "${fields.form}",
+            "optionlist": ["dry", "pinned", "thin-section", "wet"],
+            "optionnames": ["dry", "pinned", "thin section", "wet"]
+        },    
         ".csc-object-description-copy-number": "${fields.copyNumber}",
-        ".csc-object-description-content-concept": "${fields.contentConcept}",
-        ".csc-object-identification-object-language": "${fields.objectNameLanguage}",
-        ".csc-object-identification-object-currency": "${fields.objectNameCurrency}",
-        ".csc-object-description-inscription-description-type": "${fields.inscriptionDescriptionType}",
-        ".csc-object-description-inscription-description-method": "${fields.inscriptionDescriptionMethod}",
+        ".csc-object-identification-object-language": 
+        {
+            "selection": "${fields.objectNameLanguage}",
+            "optionlist": ["option"],
+            "optionnames": ["Option"]
+        },         
+        ".csc-object-identification-object-currency": 
+         {
+            "optionlist": ["current","archaic"],
+            "selection": "${fields.objectNameCurrency}",
+            "optionnames": ["Current","Archaic"]
+        },           
+        ".csc-object-description-inscription-description-type": 
+          {
+            "selection": "${fields.inscriptionDescriptionType}",
+            "optionlist": [	"brand", "decoration", "estate-stamp", "graffiti", "label", "maker's-mark" ],
+            "optionnames": [ "brand", "decoration", "estate stamp", "graffiti", "label", "maker's mark" ]
+        },    
+        ".csc-object-description-inscription-description-method": 
+         {
+            "selection": "${fields.inscriptionDescriptionMethod}",
+            "optionlist": ["option"],
+            "optionnames": ["Option"]
+        },  
         ".csc-object-identification-object-note": "${fields.objectNameNote}",
-        ".csc-object-description-content-position": "${fields.contentPosition}",
-        ".csc-object-identification-object-type": "${fields.objectNameType}",
-        ".csc-object-description-content-event-name-type": "${fields.contentEventNameType}",
+        ".csc-object-description-content-position": 
+        {
+            "selection": "${fields.contentPosition}",
+            "optionlist": ["back","base","bottom","front","inside","left","outside","recto","right","rim","top","verso"],
+            "optionnames": ["back","base","bottom","front","inside","left","outside","recto","right","rim","top","verso"]
+        },           
+        ".csc-object-identification-object-type": 
+        {
+            "selection": "${fields.objectNameType}",
+            "optionlist": ["?"],
+            "optionnames": ["?"]
+        },   
+        ".csc-object-identification-object-record-status": 
+        {
+            "selection": "${fields.recordStatus}",
+            "optionlist": ["approved", "in-process", "new", "temporary"],
+            "optionnames": ["Approved", "In process", "New", "Temporary"]
+        },   
         ".csc-object-identification-distinguishing-features": "${fields.distinguishingFeatures}",
-        ".csc-object-description-status": "${fields.objectStatus}"
+        ".csc-object-description-status": 
+        {
+            "selection": "${fields.objectStatus}",
+            "optionlist": ["copy", "forgery", "holotype", "paralectotype", "paratype", "type"],
+            "optionnames": ["copy", "forgery", "holotype", "paralectotype", "paratype", "type"]
+        },           
+        ".csc-object-production-note": "${fields.objectProductionNote}",        
+        ".csc-object-production-organization": "${fields.objectProductionOrganization}",
+        ".csc-object-production-organization-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-production-organization",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectProductionOrganization",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectProductionOrganization"
+                    }
+                }
+            ]
+        },
+        ".csc-object-production-people": "${fields.objectProductionPeople}",
+        ".csc-object-production-people-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-production-people",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectProductionPeople",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectProductionPeople"
+                    }
+                }
+            ]
+        },
+        ".csc-object-production-person": "${fields.objectProductionPerson}",
+        ".csc-object-production-person-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-production-person",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectProductionPerson",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectProductionPerson"
+                    }
+                }
+            ]
+        },
+        ".csc-object-production-place": "${fields.objectProductionPlace}",
+           ".csc-object-production-place-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-production-place",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectProductionPlace",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectProductionPlace"
+                    }
+                }
+            ]
+        },
+        ".csc-object-production-reason": "${fields.objectProductionReason}",
+        ".csc-object-production-technique-type": 
+        {
+            "selection": "${fields.objectTechniqueType}",
+            "optionlist": ["?" ],
+            "optionnames": ["?"]
+        },
+        ".csc-object-associated-activity-note": "${fields.objectAssociatedActivityNote}",
+        ".csc-object-associated-event-organization": "${fields.objectAssociatedEventOrganization}",
+        ".csc-object-associated-event-organization-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-associated-event-organization",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectAssociatedEventOrganization",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectAssociatedEventOrganization"
+                    }
+                }
+            ]
+        },
+        ".csc-object-associated-event-people": "${fields.objectAssociatedEventPeople}",
+        ".csc-object-associated-event-people-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-associated-event-people",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectAssociatedEventPeople",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectAssociatedEventPeople"
+                    }
+                }
+            ]
+        },
+        ".csc-object-associated-event-person": "${fields.objectAssociatedEventPerson}",
+        ".csc-object-associated-event-person-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-associated-event-person",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectAssociatedEventPerson",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectAssociatedEventPerson"
+                    }
+                }
+            ]
+        },
+        ".csc-object-associated-event-place": "${fields.objectAssociatedEventPlace}",
+           ".csc-object-associated-event-place-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-associated-event-place",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectAssociatedEventPlace",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectAssociatedEventPlace"
+                    }
+                }
+            ]
+        },
+        ".csc-object-associated-object": "${fields.objectAssociatedObject}",
+        ".csc-object-associated-organization": "${fields.objectAssociatedOrganization}",
+        ".csc-object-associated-organization-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-associated-organization",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectAssociatedOrganization",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectAssociatedOrganization"
+                    }
+                }
+            ]
+        },
+        ".csc-object-associated-people": "${fields.objectAssociatedPeople}",
+        ".csc-object-associated-people-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-associated-people",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectAssociatedPeople",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectAssociatedPeople"
+                    }
+                }
+            ]
+        },
+        ".csc-object-associated-person": "${fields.objectAssociatedPerson}",
+        ".csc-object-associated-person-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-associated-person",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectAssociatedPerson",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectAssociatedPerson"
+                    }
+                }
+            ]
+        },
+        ".csc-object-associated-place": "${fields.objectAssociatedPlace}",
+        ".csc-object-associated-place-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-associated-place",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectAssociatedPlace",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectAssociatedPlace"
+                    }
+                }
+            ]
+        },
+        ".csc-object-association-note": "${fields.objectAssociationNote}",
+        ".csc-object-association-type": 
+        {
+            "selection": "${fields.objectAssociationType}",
+            "optionlist": ["?" ],
+            "optionnames": ["?"]
+        },
+        ".csc-object-association-object-history-note": "${fields.objectHistoryNote}",
+        ".csc-object-association-owner": "${fields.objectOwner}",
+        ".csc-object-association-owner-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-association-owner",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectOwner",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectOwner"
+                    }
+                }
+            ]
+        },
+        ".csc-object-association-ownership-access": 
+        {
+            "selection": "${fields.objectOwnershipAccess}",
+            "optionlist": ["limited", "open", "restricted" ],
+            "optionnames": ["limited", "open", "restricted"]
+        },
+        ".csc-object-association-ownership-category": 
+        {
+            "selection": "${fields.objectOwnershipCategory}",
+            "optionlist": ["company", "public", "private" ],
+            "optionnames": ["company", "public", "private"]
+        },
+		".csc-object-association-ownership-exchange-method": 
+		{
+            "selection": "${fields.objectOwnershipExchangeMethod}",
+            "optionlist": ["bequest", "exchange", "gift", "purchase", "transfer", "treasure" ],
+            "optionnames": ["bequest", "exchange", "gift", "purchase", "transfer", "treasure"]
+        },
+		".csc-object-association-ownership-exchange-note": "${fields.objectOwnershipExchangeNote}",
+		".csc-object-association-ownership-exchange-price-denomination": 
+		   {
+            "selection": "${fields.objectOwnershipExchangePriceDenomination}",
+            "optionlist": ["?"],
+            "optionnames": ["?"]
+        }, 
+		".csc-object-association-ownership-exchange-price-value": "${fields.objectOwnershipExchangePriceValue}",
+		".csc-object-association-ownership-place": "${fields.objectOwnershipPlace}",
+		".csc-object-association-ownership-place-autocomplete": {
+            "decorators": [
+                {
+                    "container": ".csc-object-association-ownership-place",
+                    "type": "fluid",
+                    "func": "cspace.autocomplete",
+                    "options": {
+                        "queryUrl": "../../chain/objects/autocomplete/objectOwnershipPlace",
+                        "vocabUrl": "../../chain/objects/source-vocab/objectOwnershipPlace"
+                    }
+                }
+            ]
+        },
+        ".csc-object-association-related-object-number": "${fields.objectRelatedObjectNumber}",
+        ".csc-object-association-related-object-association": 
+        {
+            "selection": "${fields.objectRelatedObjectAssociation}",
+            "optionlist": ["?" ],
+            "optionnames": ["?",]
+        },
+        ".csc-object-association-related-object-note": "${fields.objectRelatedObjectNote}",
+        ".csc-object-association-usage": 
+           {
+            "selection": "${fields.objectUsage}",
+            "optionlist": ["?"],
+            "optionnames": ["?"]
+        }, 
+        ".csc-object-association-usage-note": "${fields.objectUsageNote}",
+        ".csc-object-owners-personal-experience": "${fields.objectOwnersPersonalExperience}",
+		".csc-object-owners-personal-response": "${fields.objectOwnersPersonalResponse}",
+		".csc-object-owners-reference": "${fields.objectOwnersReference}",
+		".csc-object-owners-contribution-note": "${fields.objectOwnersContributionNote}",
+		".csc-object-viewers-role": "${fields.objectViewersRole}",
+        ".csc-object-viewers-personal-experience": "${fields.objectViewersPersonalExperience}",
+		".csc-object-viewers-personal-response": "${fields.objectViewersPersonalResponse}",
+		".csc-object-viewers-reference": "${fields.objectViewersReference}",
+		".csc-object-viewers-contribution-note": "${fields.objectViewersContributionNote}",
+		".csc-object-reference-catalogue-number": "${fields.objectCatalogueNumber}",
+		".csc-object-description-content-event-name-type": "${fields.contentEventNameType}",
+		".csc-date-information-date-association": "${fields.dateAssociation}",
+		".csc-object-description-content-activity": "${fields.contentActivity}",
+		".csc-object-description-content-method": "${fields.contentMethod}",
+		".csc-date-information-date-earliest-single-qualifier": "${fields.dateEarliestSingleQualifier}",
+		".csc-object-description-inscription-content-date": "${fields.inscriptionDate}",
+		".csc-object-description-inscription-description-date": "${fields.inscriptionDescriptionDate}",
+		".csc-date-information-date-period": "${fields.datePeriod}",
+		".csc-object-description-content-concept": "${fields.contentConcept}",
+		".csc-object-description-material": "${fields.material}",
+		".csc-date-information-date-text": "${fields.dateText}",
+		".csc-object-description-content-event-name": "${fields.contentEventName}",
+		".csc-date-information-date-latest-certainty": "${fields.dateLatestCertainty}",
+		".csc-object-description-content-other-type": 
+        {
+            "selection": "${fields.contentOtherType}",
+            "optionlist": ["?"],
+            "optionnames": ["?"]
+        },  
+		".csc-object-description-style": "${fields.style}",
+		".csc-object-identification-object-name": "${fields.objectName}",
+		".csc-date-information-date-latest-qualifier": "${fields.dateLatestQualifier}",
+		".csc-date-information-date-earliest-single-certainty": "${fields.dateEarliestSingleCertainty}",
+		".csc-object-description-content-other": "${fields.contentOther}",
+      
     },
     "titleBar": {
         ".csc-titleBar-object-identification-object-number": "${fields.objectNumber}",
         ".csc-titleBar-object-identification-object-title": "${fields.title}"
+    
     }
 }

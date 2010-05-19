@@ -203,14 +203,16 @@
         ".csc-personAuthority-salutation": {
             "optionlist": [
                 "Dear",
-                "Hello",
-                "To"
+                "My Darling",
+                "Your Majaesty",
+                "Your Royal Highness"
             ],
             "selection": "${fields.salutation}",
             "optionnames": [
                 "Dear",
-                "Hello",
-                "To"
+                "My Darling",
+                "Your Majaesty",
+                "Your Royal Highness"
             ]
         },
         ".csc-personAuthority-surName": "${fields.surName}",

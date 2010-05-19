@@ -96,6 +96,7 @@ public class RecordStorage implements ContextualisedStorage {
 				parts.put(record_path[0],doc);
 			}
 			ReturnedURL url;
+			log.info(doc.asXML());
 			//some records are accepted as multipart in the service layers, others arent, that's why we split up here
 			if(r.isMultipart())
 				url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
