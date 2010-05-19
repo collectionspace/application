@@ -29,7 +29,7 @@
 	</email>
 	<persistence>
 		<service>
-			<url>http://192.168.101.22/cspace-services</url>
+			<url>http://nightly.collectionspace.org:8180/cspace-services</url>
 		</service>
 	</persistence>
 	<ui>
