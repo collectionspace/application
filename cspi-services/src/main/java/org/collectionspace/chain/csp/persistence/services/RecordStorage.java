@@ -94,7 +94,6 @@ public class RecordStorage implements ContextualisedStorage {
 				String[] record_path=path.split(":",2);
 				doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
 				parts.put(record_path[0],doc);
-				//log.info(doc.asXML());
 			}
 			ReturnedURL url;
 			//some records are accepted as multipart in the service layers, others arent, that's why we split up here
@@ -335,7 +334,6 @@ public class RecordStorage implements ContextualisedStorage {
 				String[] record_path=path.split(":",2);
 				doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
 				parts.put(record_path[0],doc);
-				log.info(doc.asXML());
 			}
 			int status = 0;
 			if(r.isMultipart()){

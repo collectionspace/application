@@ -52,9 +52,7 @@ public class ReturnedMultipartDocument implements Returned {
 				String[] content_type=part.getHeader("Content-Type");
 				if(content_type!=null && content_type.length>0 && "application/xml".equals(content_type[0])) {
 					doc=reader.read(new TeeInputStream(main,System.err),"UTF-8");
-					log.info("RECEIVING "+label+" "+doc.asXML());
 				}
-				log.info("ok");
 				addDocument(label,doc);
 				main.close();
 			}

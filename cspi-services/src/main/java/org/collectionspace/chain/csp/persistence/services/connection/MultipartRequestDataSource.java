@@ -32,7 +32,8 @@ public class MultipartRequestDataSource implements RequestDataSource {
 				}
 				ByteArrayOutputStream indata=new ByteArrayOutputStream();
 				body_mime.writeTo(indata);
-				log.info(new String(indata.toByteArray()));
+				log.debug("MultiPart request ");
+				//log.info(new String(indata.toByteArray()));
 				data=new ByteArrayInputStream(indata.toByteArray());
 				ctype=body_mime.getContentType();
 			}

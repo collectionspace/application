@@ -30,7 +30,7 @@ public class ReturnedURL implements Returned {
 	}
 
 	public void setResponse(HttpMethod method, int status) throws Exception {
-		log.info("response="+(method.getResponseBodyAsString()));
+		//log.info("response="+(method.getResponseBodyAsString()));
 		String possiblemessg = method.getResponseBodyAsString();
 		Header location=method.getResponseHeader("Location");
 		if(location==null){

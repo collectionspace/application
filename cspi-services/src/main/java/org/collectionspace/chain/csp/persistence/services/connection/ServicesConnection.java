@@ -85,7 +85,6 @@ public class ServicesConnection {
 
 	private HttpMethod createMethod(RequestMethod method,String uri,InputStream data) throws ConnectionException {
 		uri=prepend_base(uri);
-		log.info(uri);
 		if(uri==null)
 			throw new ConnectionException("URI must not be null");		
 		// Extract QP's
@@ -141,11 +140,9 @@ public class ServicesConnection {
 			body_data=src.getStream();
 		}
 		try {
-			log.info("Getting from "+uri);
 			HttpMethod method=createMethod(method_type,uri,body_data);
 			if(body_data!=null) {
 				method.setRequestHeader("Content-Type",src.getMIMEType());
-				log.info("SENDING\n");
 				body_data=new TeeInputStream(body_data,System.err);
 			}
 			try {

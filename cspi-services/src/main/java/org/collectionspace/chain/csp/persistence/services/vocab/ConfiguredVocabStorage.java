@@ -65,7 +65,8 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			Element dnc=root.addElement("displayNameComputed");
 			dnc.addText("false");
 		}
-		log.info("createEntry() ::: "+out.asXML());
+		log.debug("create Configured Vocab Entry");
+		//log.info("createEntry() ::: "+out.asXML());
 		return out;
 	}
 

@@ -175,7 +175,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			Element dnc=root.addElement("displayNameComputed");
 			dnc.addText("false");
 		}
-		log.info("createEntry() ::: "+out.asXML());
+		//log.info("createEntry() ::: "+out.asXML());
 		return out;
 	}
 

@@ -32,7 +32,7 @@ public class ReturnedDocument implements Returned {
 
 	public void setResponse(HttpMethod method, int status) throws IOException, DocumentException {
 		this.status=status;
-		log.info("response="+status);
+		//log.info("response="+status);
 		InputStream stream=method.getResponseBodyAsStream();
 		SAXReader reader=new SAXReader();
 		if(status>=400) {
@@ -43,9 +43,9 @@ public class ReturnedDocument implements Returned {
 		Header content_type=method.getResponseHeader("Content-Type");
 		if(content_type!=null && "application/xml".equals(content_type.getValue())) {
 			out=reader.read(new TeeInputStream(stream,System.err));
-			log.info("RECEIVING "+out.asXML());
+			//log.info("RECEIVING "+out.asXML());
 		}
-		log.info("ok");
+		//log.info("ok");
 		stream.close();
 		doc=out;
 	}
