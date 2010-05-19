@@ -472,7 +472,7 @@
 				</structure>
 			  </structures>
 			  <row-selector>.csc-recordList-row:</row-selector>
-			  <field id="currentOwner" autocomplete="person-person">
+			  <field id="currentOwner" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
 			  <field id="depositor" autocomplete="person-person" mini="summary">
