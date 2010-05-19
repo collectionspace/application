@@ -18,8 +18,12 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mortbay.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AuthoritiesVocabulariesSearchList implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(AuthoritiesVocabulariesSearchList.class);
 	private Record r;
 	private Instance n;
 	private boolean search;
@@ -45,27 +49,35 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		return out;		
 	}
 	
-	private void search_or_list_vocab(JSONArray out,Instance n,Storage storage,UIRequest ui,String param) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private void search_or_list_vocab(JSONArray out,Instance n,Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject restriction=new JSONObject();
-		if(param!=null)
+		if(param!=null){
 			restriction.put(r.getDisplayNameField().getID(),param);
+		}
+		if(pageNum!=null){
+			restriction.put("pageNum",pageNum);
+		}
+		if(pageSize!=null){
+			restriction.put("pageSize",pageSize);
+		}
 		String[] results=storage.getPaths(r.getID()+"/"+n.getTitleRef(),restriction);
 		/* Get a view of each */
 		for(String result : results) {
 			out.put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));
 		}
+		log.info(restriction.toString());
 	}
 	
-	private void search_or_list(Storage storage,UIRequest ui,String param) throws UIException {
+	private void search_or_list(Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws UIException {
 		try {
 			JSONArray results=new JSONArray();
 			if(n==null) {
 				// For now simply merge all the instances one after the other. XXX do something cleverer.
 				for(Instance n : r.getAllInstances()) {
-					search_or_list_vocab(results,n,storage,ui,param);
+					search_or_list_vocab(results,n,storage,ui,param,pageSize,pageNum);
 				}
 			} else {
-				search_or_list_vocab(results,n,storage,ui,param);				
+				search_or_list_vocab(results,n,storage,ui,param,pageSize,pageNum);				
 			}
 			JSONObject out=new JSONObject();
 			if(param==null)
@@ -87,9 +99,9 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
 		if(search)
-			search_or_list(q.getStorage(),q.getUIRequest(),q.getUIRequest().getRequestArgument("query"));
+			search_or_list(q.getStorage(),q.getUIRequest(),q.getUIRequest().getRequestArgument("query"),q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
 		else
-			search_or_list(q.getStorage(),q.getUIRequest(),null);
+			search_or_list(q.getStorage(),q.getUIRequest(),null,q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
 	}
 
 	public void configure(WebUI ui,Spec spec) {

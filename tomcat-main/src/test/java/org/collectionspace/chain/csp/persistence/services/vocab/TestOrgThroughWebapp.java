@@ -104,7 +104,7 @@ public class TestOrgThroughWebapp {
 		String checkpagination = "";
 		boolean found=false;
 		while(resultsize >0){
-			HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization?pageSize=20&pageNum="+pagenum,null);
+			HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization?pageSize=200&pageNum="+pagenum,null);
 			pagenum++;
 			assertTrue(out.getStatus()<299);
 			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
