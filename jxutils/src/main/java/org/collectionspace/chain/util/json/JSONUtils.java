@@ -79,8 +79,13 @@ public class JSONUtils {
 			}
 			return true;
 		}
-		if(!(a instanceof JSONObject) || !(b instanceof JSONObject))
+		
+		if(!(a instanceof JSONObject) || !(b instanceof JSONObject)){
+			log.info("One but not both are JSON objects - check for options");
+			log.info(((JSONObject)a).toString());
+			log.info(((JSONObject)b).toString());
 			return false;
+		}
 		if(!checkKeys((JSONObject)a,(JSONObject)b))
 			return false;
 		if(((JSONObject)a).length()!=((JSONObject)b).length())
