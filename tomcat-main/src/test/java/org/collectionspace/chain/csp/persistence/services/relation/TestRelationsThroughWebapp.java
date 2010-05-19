@@ -131,14 +131,16 @@ public class TestRelationsThroughWebapp {
 		out=jettyDo(jetty,"POST","/chain/relationships",createRelation(path3[1],path3[2],"affects",path1[1],path1[2],false).toString());
 		assertEquals(201,out.getStatus());
 		String relid1 = out.getHeader("Location");
+		String csid1=new JSONObject(out.getContent()).getString("csid");
 		out=jettyDo(jetty,"POST","/chain/relationships",createRelation(path3[1],path3[2],"affects",path2[1],path2[2],true).toString());
 		assertEquals(201,out.getStatus());	
 		String relid2 = out.getHeader("Location");
-		log.info("id1="+id1);
-		log.info("id2="+id2);
-		log.info("id3="+id3);
-		log.info("relid1="+relid1);
-		log.info("relid2="+relid2);
+		String csid2=new JSONObject(out.getContent()).getString("csid");
+		//log.info("id1="+id1);
+		//log.info("id2="+id2);
+		//log.info("id3="+id3);
+		//log.info("relid1="+relid1);
+		//log.info("relid2="+relid2);
 		// Check 1 has relation to 3
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		JSONObject data1=new JSONObject(out.getContent());
@@ -178,8 +180,8 @@ public class TestRelationsThroughWebapp {
 		int i0=0,i1=1;
 		String rel_a=rel3.getJSONObject(i0).getString("csid");
 		String rel_b=rel3.getJSONObject(i1).getString("csid");
-		log.info("rel_a="+rel_a.toString());
-		log.info("rel_b="+rel_b.toString());
+		//log.info("rel_a="+rel_a.toString());
+		//log.info("rel_b="+rel_b.toString());
 		if(rel_a.equals(path2[2]) && rel_b.equals(path1[2])) {
 			i0=1;
 			i1=0;
@@ -218,11 +220,17 @@ public class TestRelationsThroughWebapp {
 		assertEquals(path2[2],dst32.get("csid"));		
 		log.info(out.getContent());
 		
-		/* clean up */
-		
-		out=jettyDo(jetty,"DELETE","/chain"+id1,null);
-		out=jettyDo(jetty,"DELETE","/chain"+id2,null);
-		out=jettyDo(jetty,"DELETE","/chain"+id3,null);
+		/* clean up */ 
+		out=jettyDo(jetty,"DELETE","/chain/relationships/"+csid1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/relationships/"+csid2,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id2,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id3,null);
+		assertEquals(200,out.getStatus());
 	}
 	
 	
@@ -264,6 +272,9 @@ public class TestRelationsThroughWebapp {
 		data.remove("one-way");
 		out=jettyDo(jetty,"POST","/chain/relationships",data.toString());
 		assertEquals(201,out.getStatus());
+		// Get csid
+		JSONObject datacs=new JSONObject(out.getContent());
+		String csid1=datacs.getString("csid");
 		// Just heck they have length 1 (other stuff will be tested by main test)
 		out=jettyDo(jetty,"GET","/chain"+id3,null);
 		JSONObject data3=new JSONObject(out.getContent());
@@ -275,6 +286,16 @@ public class TestRelationsThroughWebapp {
 		JSONArray rel1=data1.getJSONArray("relations");
 		assertNotNull(rel1);
 		assertEquals(1,rel1.length());
+
+		//clean up after 
+		out=jettyDo(jetty,"DELETE","/chain/relationships/"+csid1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id2,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id3,null);
+		assertEquals(200,out.getStatus());
 	}
 	
 	@Test public void testMultipleCreate() throws Exception {
@@ -333,7 +354,7 @@ public class TestRelationsThroughWebapp {
 		JSONObject data=new JSONObject(out.getContent());
 		String csid1=data.getString("csid");
 		assertNotNull(csid1);
-		log.info("csid="+csid1);
+		//log.info("csid="+csid1);
 		// Update it to 2 -> 1
 		out=jettyDo(jetty,"PUT","/chain/relationships/"+csid1,createRelation(path2[1],path2[2],"affects",path1[1],path1[2],true).toString());
 		assertEquals(200,out.getStatus());
@@ -353,9 +374,19 @@ public class TestRelationsThroughWebapp {
 		JSONArray rel3=data3.getJSONArray("relations");
 		assertNotNull(rel3);
 		assertEquals(0,rel3.length());
+		//clean up after 
+		out=jettyDo(jetty,"DELETE","/chain/relationships/"+csid1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id2,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id3,null);
+		assertEquals(200,out.getStatus());
 	}
 		
 	private void delete_all(ServletTester jetty) throws Exception {
+		//XXX pagination?
 		HttpTester out=jettyDo(jetty,"GET","/chain/relationships/",null);
 		assertEquals(200,out.getStatus());
 		JSONArray items=new JSONObject(out.getContent()).getJSONArray("items");
@@ -385,11 +416,11 @@ public class TestRelationsThroughWebapp {
 		// Get csid
 		JSONObject data=new JSONObject(out.getContent());
 		String csid1=data.getString("csid");
+
 		assertNotNull(csid1);
-		log.info("csid="+csid1);
 		// Update to 2 <-> 1 keeping one-way false
 		out=jettyDo(jetty,"PUT","/chain/relationships/"+csid1,createRelation(path2[1],path2[2],"affects",path1[1],path1[2],false).toString());
-		assertEquals(200,out.getStatus());		
+		assertEquals(200,out.getStatus());	
 		// Check it
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		JSONObject data1=new JSONObject(out.getContent());
@@ -464,7 +495,14 @@ public class TestRelationsThroughWebapp {
 		rel3=data3.getJSONArray("relations");
 		assertNotNull(rel3);
 		assertEquals(0,rel3.length());		
-		
+
+		//clean up after 
+		out=jettyDo(jetty,"DELETE","/chain/"+id1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id2,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id3,null);
+		assertEquals(200,out.getStatus());
 		
 	}
 	
@@ -482,6 +520,7 @@ public class TestRelationsThroughWebapp {
 		// Relate them
 		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path2[1],path2[2],"affects",path1[1],path1[2],false).toString());
 		assertEquals(201,out.getStatus());	
+		String csid=new JSONObject(out.getContent()).getString("csid");
 		// Check types
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		JSONObject data1=new JSONObject(out.getContent());
@@ -497,6 +536,15 @@ public class TestRelationsThroughWebapp {
 		assertEquals(1,rels2.length());		
 		JSONObject rel2=rels2.getJSONObject(0);
 		assertEquals(rel2.getString("recordtype"),"objects");
+		
+		//clean up after 
+		out=jettyDo(jetty,"DELETE","/chain/relationships/"+csid,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id2,null);
+		assertEquals(200,out.getStatus());
+		
 	}
 	
 	@Test public void testSearchList() throws Exception {
@@ -523,6 +571,7 @@ public class TestRelationsThroughWebapp {
 		// Add a relation rel1: 2 -> 1
 		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path2[1],path2[2],"affects",path1[1],path1[2],true).toString());
 		assertEquals(201,out.getStatus());	
+		String csid1=new JSONObject(out.getContent()).getString("csid");
 		// Check length is 1 and it points to a valid and correct relation
 		out=jettyDo(jetty,"GET","/chain/relationships/",null);
 		assertEquals(200,out.getStatus());
@@ -538,8 +587,10 @@ public class TestRelationsThroughWebapp {
 		// Add some more relations: rel2: 2 -> 3 ; rel 3: 3 -> 1 (new type)
 		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path2[1],path2[2],"affects",path3[1],path3[2],true).toString());
 		assertEquals(201,out.getStatus());	
+		String csid2=new JSONObject(out.getContent()).getString("csid");
 		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path3[1],path3[2],"new",path1[1],path1[2],true).toString());
 		assertEquals(201,out.getStatus());	
+		String csid3=new JSONObject(out.getContent()).getString("csid");
 		// Total length should be 3
 		out=jettyDo(jetty,"GET","/chain/relationships/",null);
 		assertEquals(200,out.getStatus());
@@ -591,6 +642,19 @@ public class TestRelationsThroughWebapp {
 		assertEquals(200,out.getStatus());
 		items=new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(1,items.length());
+		//clean up after 
+		out=jettyDo(jetty,"DELETE","/chain/relationships/"+csid1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/relationships/"+csid2,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/relationships/"+csid3,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id2,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id3,null);
+		assertEquals(200,out.getStatus());
 	}
 	
 	@Test public void testDelete() throws Exception {
@@ -612,6 +676,7 @@ public class TestRelationsThroughWebapp {
 		// Create two relationships, one two way
 		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path2[1],path2[2],"affects",path1[1],path1[2],true).toString());
 		assertEquals(201,out.getStatus());	
+		String csid2=new JSONObject(out.getContent()).getString("csid");
 		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path3[1],path3[2],"affects",path1[1],path1[2],false).toString());
 		assertEquals(201,out.getStatus());	
 		String csid=new JSONObject(out.getContent()).getString("csid");
@@ -631,7 +696,18 @@ public class TestRelationsThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/relationships/"+items.getString(0),null);
 		JSONObject rel1=new JSONObject(out.getContent());
 		assertEquals(path2[2],rel1.getJSONObject("source").getString("csid"));
-		assertEquals(path1[2],rel1.getJSONObject("target").getString("csid"));		
+		assertEquals(path1[2],rel1.getJSONObject("target").getString("csid"));	
+		
+		//cleanup
+
+		out=jettyDo(jetty,"DELETE","/chain/relationships/"+csid2,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id2,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id3,null);
+		assertEquals(200,out.getStatus());
 	}
 	// XXX DELETE RELATIONS WHEN RECORD IS DELETED: NOT FOR 0.5
 }
