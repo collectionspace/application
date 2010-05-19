@@ -146,6 +146,7 @@ public class TestRelations extends ServicesBaseClass {
 		return ss.autocreateJSON("relations/main/",data);
 	}
 	
+	//XXX CSPACE-1080 - will need to update if this is improved
 	@Test public void testRelationsSearchThroughAPI() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		// clear down, for sanity

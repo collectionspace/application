@@ -131,6 +131,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		String p2=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
 		String p3=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
 		String[] names=ss.getPaths("collection-object",null);
+		//XXX add pagination support CSPACE-1836
 		assertArrayContainsString(names,p1);
 		assertArrayContainsString(names,p2);
 		assertArrayContainsString(names,p3);
@@ -144,6 +145,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		JSONObject restriction=new JSONObject();
 		restriction.put("keywords","aardvark");
 		String[] names=ss.getPaths("collection-object",restriction);
+		//XXX add pagination support CSPACE-1836
 		assertArrayContainsString(names,p2);
 		assertArrayDoesNotContainString(names,p1);		
 	}

@@ -28,6 +28,7 @@ public class TestAccount extends ServicesBaseClass {
 		setup();
 	}
 	
+	//XXX this test needs work
 	@Test public void testAccountSearch() {
 		
 		Storage ss;
