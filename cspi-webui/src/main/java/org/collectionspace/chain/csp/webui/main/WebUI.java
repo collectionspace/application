@@ -235,7 +235,7 @@ public class WebUI implements CSP, UI, Configurable {
 		Storage storage=generateStorage(session,cache);
 		String[] path=ui.getPrincipalPath();
 		Request r=new Request(this,cache,storage,ui);
-		log.info("ServiceRequest path: "+StringUtils.join(path,"/"));
+		log.debug("ServiceRequest path: "+StringUtils.join(path,"/"));
 		try {
 			if(tries.get(ui.getRequestedOperation()).call(path,r))
 				return;

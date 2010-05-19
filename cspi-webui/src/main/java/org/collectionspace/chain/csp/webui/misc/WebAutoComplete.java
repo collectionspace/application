@@ -44,6 +44,7 @@ public class WebAutoComplete implements WebMethod {
 				String path=n.getRecord().getID()+"/"+n.getTitleRef();
 				JSONObject restriction=new JSONObject();
 				restriction.put(n.getRecord().getDisplayNameField().getID(),start); // May be something other than display name
+				//XXX how do we do pagination for autocomplete?
 				for(String csid : storage.getPaths(path,restriction)) {
 					JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view");
 					JSONObject entry=new JSONObject();

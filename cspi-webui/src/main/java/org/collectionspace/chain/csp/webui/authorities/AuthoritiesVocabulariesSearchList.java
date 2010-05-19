@@ -64,7 +64,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		for(String result : results) {
 			out.put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));
 		}
-		log.info(restriction.toString());
+		log.debug(restriction.toString());
 	}
 	
 	private void search_or_list(Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws UIException {

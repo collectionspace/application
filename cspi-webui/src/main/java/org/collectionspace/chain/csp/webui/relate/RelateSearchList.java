@@ -41,6 +41,7 @@ public class RelateSearchList implements WebMethod {
 			addRestriction(restrictions,"src",source,true);
 			addRestriction(restrictions,"dst",target,true);
 			addRestriction(restrictions,"type",type,false);
+			// XXX CSPACE-1834 need to support pagination
 			String[] relations = storage.getPaths("relations/main",restrictions);
 			JSONObject out=new JSONObject();
 			JSONArray data=new JSONArray();

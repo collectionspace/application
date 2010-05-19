@@ -38,7 +38,8 @@ public class RecordCreateUpdate implements WebMethod {
 		
 	private void deleteAllRelations(Storage storage,String csid) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject r=new JSONObject();
-		r.put("src",base+"/"+csid);		
+		r.put("src",base+"/"+csid);	
+		// XXX needs pagination support CSPACE-1819
 		for(String relation : storage.getPaths("relations/main", r)) {
 			storage.deleteJSON("relations/main/"+relation);
 		}

@@ -75,6 +75,7 @@ public class RelateCreateUpdate implements WebMethod {
 		restrictions.put("dst",obj_fwd.getString("src"));
 		restrictions.put("src",obj_fwd.getString("dst"));
 		restrictions.put("type",obj_fwd.getString("type")); // XXX what about non-self-inverses?
+		// XXX CSPACE-1834 need to support pagination
 		String[] relations=storage.getPaths("relations/main",restrictions);
 		if(relations.length==0)
 			return null;
