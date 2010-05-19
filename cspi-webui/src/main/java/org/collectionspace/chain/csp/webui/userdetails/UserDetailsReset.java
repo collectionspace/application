@@ -229,15 +229,23 @@ public class UserDetailsReset implements WebMethod {
 		try {
 			failedJSON.put("ok",false);
 			if(emailparam!=null && emailparam!="") {
-				restriction.put("email",emailparam);				
-				/* XXX need to force it to only do an exact match */
-				String[] paths=storage.getPaths(base,restriction);
+				restriction.put("email",emailparam);	
+				restriction.put("pageSize","40");	
 
-				
-				if (paths.length == 0){
-					failedJSON.put("message","Could not find a user with email " + emailparam);
-				}
-				else {
+				int resultsize =1;
+				int pagenum = 0;
+				String checkpagination = "";
+				while(resultsize >0){
+					restriction.put("pageNum",pagenum);	
+					/* XXX need to force it to only do an exact match */
+					String[] paths=storage.getPaths(base,restriction);
+					pagenum++;
+					
+					if(paths.length==0 || checkpagination.equals(paths[0])){
+						resultsize=0;
+						//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+					}
+					checkpagination = paths[0];
 					/* make sure it is an exact match */
 					for(int i=0;i<paths.length;i++) {
 						//GET full details
@@ -252,8 +260,8 @@ public class UserDetailsReset implements WebMethod {
 							return outputJSON;
 						}
 					}
-					failedJSON.put("message","Could not find a matching user with email " + emailparam);
 				}
+				failedJSON.put("message","Could not find a user with email " + emailparam);
 			}
 			else{
 				failedJSON.put("message","No email specified ");

@@ -49,13 +49,19 @@ public class UserDetailsSearchList implements WebMethod {
 		return out;
 	}
 	
-	private void search_or_list(Storage storage,UIRequest ui,String param) throws UIException {
+	private void search_or_list(Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws UIException {
 		try {
 			JSONObject restriction=new JSONObject();
 			String key="items";
 			if(param!=null) {
 				restriction.put("screenName",param);
 				key="results";
+			}
+			if(pageSize!=null) {
+				restriction.put("pageSize",pageSize);
+			}
+			if(pageNum!=null) {
+				restriction.put("pageNum",pageNum);
 			}
 			String[] paths=storage.getPaths(base,restriction);
 			for(int i=0;i<paths.length;i++) {
@@ -80,9 +86,9 @@ public class UserDetailsSearchList implements WebMethod {
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
 		if(search)
-			search_or_list(q.getStorage(),q.getUIRequest(),q.getUIRequest().getRequestArgument("query"));
+			search_or_list(q.getStorage(),q.getUIRequest(),q.getUIRequest().getRequestArgument("query"),q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
 		else
-			search_or_list(q.getStorage(),q.getUIRequest(),null);
+			search_or_list(q.getStorage(),q.getUIRequest(),null,q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
 	}
 
 	public void configure(WebUI ui,Spec spec) {
