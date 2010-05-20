@@ -67,7 +67,8 @@ public class TestGeneral {
 
 	private final static String testStr2 = "{\"accessionNumber\":\"OBJNUM\",\"description\":\"DESCRIPTION\",\"descInscriptionInscriber\":\"INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"TITLE\",\"comments\":\"COMMENTS\",\"distinguishingFeatures\":\"DISTFEATURES\",\"responsibleDepartment\":\"DEPT\",\"objectName\":\"OBJNAME\"}";
 	private final static String testStr2a = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartment\":\"new DEPT\",\"objectName\":\"new OBJNAME\"}";
-	
+	private final static String loanoutCreate = "{\"loanPurpose\":\"research\",\"loanedObjectStatus\":\"agreed\",\"loanOutNumber\":\"LO2010.1.3\",\"loanOutNote\":\"loan out notes\",\"specialConditionsOfLoan\":\"loanout conditions\",\"lendersAuthorizationDate\":\"May 27, 2010\",\"loanedObjectStatusDate\":\"May 28, 2010\",\"loanReturnDate\":\"May 26, 2010\",\"loanOutDate\":\"May 25, 2010\",\"loanRenewalApplicationDate\":\"May 24, 2010\",\"loanedObjectStatusNote\":\"status note\"}";
+	private final static String loaninCreate = "{\"loanInNumber\":\"LI2010.1.2\",\"lendersAuthorizer\":\"lendersAuthorizer\",\"lendersAuthorizationDate\":\"lendersAuthorizationDate\",\"lendersContact\":\"lendersContact\",\"loanInContact\":\"loanInContact\",\"loanInConditions\":\"loanInConditions\",\"loanInDate\":\"loanInDate\",\"loanReturnDate\":\"loanReturnDate\",\"loanRenewalApplicationDate\":\"loanRenewalApplicationDate\",\"loanInNote\":\"loanInNote\",\"loanPurpose\":\"loanPurpose\"}";
 	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
 	
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
@@ -396,12 +397,14 @@ public class TestGeneral {
 		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
 		assertEquals(out.getMethod(),null);
 		String id1=out.getHeader("Location");
-		log.info(out.getContent());
+		//log.info(out.getContent());
 		assertEquals(201,out.getStatus());
+		
+		
 		out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(testStr));	
 		assertEquals(out.getMethod(),null);
 		String id2=out.getHeader("Location");		
-		log.info(out.getContent());
+		//log.info(out.getContent());
 		assertEquals(201,out.getStatus());		
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		JSONObject one = new JSONObject(getFields(out.getContent()));
@@ -415,6 +418,7 @@ public class TestGeneral {
 		log.info(oned.toString());
 		assertEquals(oned.get("csid").toString(),id2.substring("/intake/".length()));
 		
+		//cleanup
 		out=jettyDo(jetty,"DELETE","/chain"+id1,null);
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
@@ -423,6 +427,24 @@ public class TestGeneral {
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr)));
 		out=jettyDo(jetty,"DELETE","/chain"+id2,null);
 		assertEquals(200,out.getStatus());
+		
+
+
+		out=jettyDo(jetty,"POST","/chain/loanout/",makeSimpleRequest(loanoutCreate));	
+		assertEquals(out.getMethod(),null);
+		assertEquals(201,out.getStatus());	
+		String id3=out.getHeader("Location");
+		
+		//out=jettyDo(jetty,"DELETE","/chain"+id3,null);
+		//assertEquals(200,out.getStatus());
+		
+		out=jettyDo(jetty,"POST","/chain/loanin/",makeSimpleRequest(loaninCreate));	
+		assertEquals(out.getMethod(),null);
+		assertEquals(201,out.getStatus());	
+		String id4=out.getHeader("Location");
+		
+		//out=jettyDo(jetty,"DELETE","/chain"+id4,null);
+		//assertEquals(200,out.getStatus());
 		
 	}
 

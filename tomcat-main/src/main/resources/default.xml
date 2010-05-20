@@ -1606,15 +1606,8 @@
 				<field id="borrowersContact" autocomplete="person-person"  xxx_ui_refactored="true">
 					<selector>.csc-loanOut-borrowersContact</selector>
 				</field>
-				<field id="loanedObjectStatusNote">
-					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
-				</field>
 				<field id="loanReturnDate" ui-type="date" container="false">
 					<selector>.csc-loanOut-loanReturnDate</selector>
-				</field>
-		
-				<field id="loanedObjectStatusDate" ui-type="date" container="false">
-					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
 				</field>
 				<field id="loanPurpose">
 					<selector>.csc-loanOut-loanPurpose</selector>
@@ -1634,6 +1627,13 @@
 				<field id="loanRenewalApplicationDate" ui-type="date" container="false">
 					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
 				</field>
+				<!-- not supported in the Service layer
+				<field id="loanedObjectStatusNote">
+					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
+				</field>
+				<field id="loanedObjectStatusDate" ui-type="date" container="false">
+					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
+				</field>
 				<field id="loanedObjectStatus">
 					<selector>.csc-loanOut-loanedObjectStatus</selector>
 			    		<options>
@@ -1649,7 +1649,8 @@
 			      		<option id="returned">Returned</option>
 			    	</options>
 				</field>
-				<field id="loanOutConditions">
+				-->
+				<field id="specialConditionsOfLoan">
 					<selector>.csc-loanOut-loanOutConditions</selector>
 				</field>
 				<field id="borrower" autocomplete="person-person" xxx_ui_refactored="true">
