@@ -630,6 +630,7 @@ public class TestGeneral {
 		String personStr = "{\"displayName\":\"my test person\"}";
 		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",makeSimpleRequest(personStr));
 		String person_id=out.getHeader("Location");
+		assertEquals(201,out.getStatus());
 		JSONObject persondata = new JSONObject(out.getContent());
 		String urn = persondata.getString("urn");
 

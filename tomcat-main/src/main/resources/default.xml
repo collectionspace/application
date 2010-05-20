@@ -686,7 +686,6 @@
 	 				 <field id="objectOwnersContributionNote" >
 					    <selector>.csc-object-owners-contribution-note</selector>
 					 </field>
-					 
 					 <field id="objectViewersRole" >
 					    <selector>.csc-object-viewers-role</selector>
 					 </field>
@@ -702,70 +701,85 @@
 	 				 <field id="objectViewersContributionNote" >
 					    <selector>.csc-object-viewers-contribution-note</selector>
 					 </field>
-					 
-					 
 			         <field id="objectCatalogueNumber" >
 					    <selector>.csc-object-reference-catalogue-number</selector>
 					 </field> 
-					<!--  XXX END NOT IN UI layer YET -->
+					
 					<!--  Following not active --> 
-					<!--
+					<!--  CSC is included here for when they get put back (can't comment out in JSON)
 					 <field id="datePeriod" >
 					    <selector>.csc-date-information-date-period</selector>
 					 </field> 
+					 ".csc-date-information-date-period": "${fields.datePeriod}",
 					 <field id="dateAssociation" >
 					    <selector>.csc-date-information-date-association</selector>
 					 </field> 
+					 ".csc-date-information-date-association": "${fields.dateAssociation}",
 					  <field id="dateText" >
 					    <selector>.csc-date-information-date-text</selector>
 					 </field> 
+					 ".csc-date-information-date-text": "${fields.dateText}",
 					  <field id="dateLatestCertainty" >
 					    <selector>.csc-date-information-date-latest-certainty</selector>
 					 </field> 
+					 ".csc-date-information-date-latest-certainty": "${fields.dateLatestCertainty}",
 					  <field id="dateEarliestSingleCertainty" >
 					    <selector>.csc-date-information-date-earliest-single-certainty</selector>
 					 </field> 
+					 ".csc-date-information-date-earliest-single-certainty": "${fields.dateEarliestSingleCertainty}",
 					  <field id="dateLatestQualifier" >
 					    <selector>.csc-date-information-date-latest-qualifier</selector>
 					 </field> 
+					 ".csc-date-information-date-latest-qualifier": "${fields.dateLatestQualifier}",
 					 <field id="dateEarliestSingleQualifier" >
 					    <selector>.csc-date-information-date-earliest-single-qualifier</selector>
 					 </field> 
+					 ".csc-date-information-date-earliest-single-qualifier": "${fields.dateEarliestSingleQualifier}",
 					 <field id="inscriptionDate">
 						<selector>.csc-object-description-inscription-content-date</selector>
-						<title-selector>.csc-titleBar-deathDate</title-selector>
-					 </field>
+					</field>
+					 ".csc-object-description-inscription-content-date": "${fields.inscriptionDate}",
 					 <field id="inscriptionDescriptionDate">
 						<selector>.csc-object-description-inscription-description-date</selector>
-						<title-selector>.csc-titleBar-deathDate</title-selector>
 					 </field>
+					 ".csc-object-description-inscription-description-date": "${fields.inscriptionDescriptionDate}",
 					 <field id="objectName">
 						<selector>.csc-object-identification-object-name</selector>
 					</field>
+					".csc-object-identification-object-name": "${fields.objectName}",
 					 <field id="material">
 						<selector>.csc-object-description-material</selector>
 					</field>
+					".csc-object-description-material": "${fields.material}",
 					<field id="style">
 						<selector>.csc-object-description-style</selector>
 					</field>
+					".csc-object-description-style": "${fields.style}",
 					<field id="contentMethod">
 						<selector>.csc-object-description-content-method</selector>
 					</field>
+					".csc-object-description-content-method": "${fields.contentMethod}",
 					<field id="contentEventName">
 						<selector>.csc-object-description-content-event-name</selector>
 					</field>
+					".csc-object-description-content-event-name": "${fields.contentEventName}",
 					<field id="contentEventNameType">
 						<selector>.csc-object-description-content-event-name-type</selector>
 					</field>
+					".csc-object-description-content-event-name-type": "${fields.contentEventNameType}",
 					<field id="contentActivity">
 						<selector>.csc-object-description-content-activity</selector>
 					</field>
+					".csc-object-description-content-activity": "${fields.contentActivity}",
 					<field id="contentConcept">
 						<selector>.csc-object-description-content-concept</selector>
 					</field>
+					".csc-object-description-content-concept": "${fields.contentConcept}",
 					<field id="contentOther">
 						<selector>.csc-object-description-content-other</selector>
 					</field>
+					".csc-object-description-content-other": "${fields.contentOther}",
+					
 					-->
 					<!--  natural history -->
 					<!--  ID's probably can't use -'s , :( XXX -->
@@ -879,7 +893,7 @@
 			  <field id="currentOwner" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
-			  <field id="depositor" autocomplete="person-person" mini="summary">
+			  <field id="depositor" autocomplete="person-person, organization-organization" mini="summary">
 			    <selector>.csc-intake-depositor</selector>
 			  </field>
 			  <field id="depositorsRequirements">
@@ -932,16 +946,10 @@
 			  <field id="fieldCollectionEventName">
 			    <selector>.csc-intake-field-collection-event-name</selector>
 			  </field>
-			  <field id="fieldCollectionNumber">
-			    <selector>.csc-intake-field-collection-number</selector>
-			  </field>
-			  <field id="fieldCollector" autocomplete="person-person">
-			    <selector>.csc-intake-field-collector</selector>
-			  </field>
 			  <field id="valuationReferenceNumber">
 			    <selector>.csc-intake-valuation-reference-number</selector>
 			  </field>
-			  <field id="valuer" autocomplete="person-person">
+			  <field id="valuer" autocomplete="person-person, organization-organization">
 			    <selector>.csc-intake-valuer</selector>
 			  </field>			  
 			  <field id="insuranceNote">
@@ -953,10 +961,11 @@
 			  <field id="insuranceReferenceNumber">
 			    <selector>.csc-intake-insurance-reference-number</selector>
 			  </field>
-			  <field id="insurer" autocomplete="person-person">
+			  <field id="insurer" autocomplete="person-person, organization-organization">
 			    <selector>.csc-intake-insurer</selector>
 			  </field>  
-			  <field id="currentLocation">
+			  <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
+			  <field id="currentLocation" >
 			    <selector>.csc-intake-current-location</selector>
 			  </field>
 			  <field id="currentLocationFitness">
@@ -965,6 +974,7 @@
 			  <field id="currentLocationNote">
 			    <selector>.csc-intake-current-location-note</selector>
 			  </field>
+			  <!--  <field id="normalLocation" autocomplete="location-location, place-place"> -->
 			  <field id="normalLocation">
 			    <selector>.csc-intake-normal-location</selector>
 			  </field>
@@ -980,7 +990,7 @@
 			  <field id="conditionCheckReferenceNumber">
 			    <selector>.csc-intake-condition-check-reference-number</selector>
 			  </field>
-			  <field id="conditionCheckAssesor" autocomplete="person-person">
+			  <field id="conditionCheckAssesor" autocomplete="person-person, organization-organization">
 			    <selector>.csc-intake-condition-check-assessor</selector>
 			  </field>			  
 			  <field id="conditionCheckDate" ui-type="date">
@@ -992,10 +1002,7 @@
 			  <field id="insuranceRenewalDate" ui-type="date">
 			    <selector>.csc-intake-insurance-renewal-date</selector>
 			  </field>
-			  <field id="fieldCollectionDate" ui-type="date">
-			    <selector>.csc-intake-field-location-date</selector>
-			  </field>			  
-			  <field id="latestDate" ui-type="date">
+  			  <field id="latestDate" ui-type="date">
 			    <selector>.csc-intake-date-latest</selector>
 			    <container-selector>.csc-intake-date-latest-single-container</container-selector>
 			  </field>
@@ -1106,9 +1113,6 @@
 			  </field>
 			  <field id="transferOfTitleNumber">
 			    <selector>.csc-acquisition-transfer-of-title-number</selector>
-			  </field>
-			  <field id="fieldCollectionEventName">
-			    <selector>.csc-object-collection-field-collection-event-name</selector>
 			  </field>
 			  <field id="fieldCollectionNumber">
 			    <selector>.csc-object-collection-field-collection-number</selector>
@@ -1228,7 +1232,7 @@
 			    <selector>.csc-personAuthority-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
 			  </field>
-			   <field id="birthDate" in-title="yes" ui-type="date">
+			  <field id="birthDate" in-title="yes" ui-type="date">
 			    <selector>.csc-personAuthority-birthDate</selector>
 			    <title-selector>.csc-titleBar-birthDate</title-selector>
 			  </field>
@@ -1239,14 +1243,14 @@
 			  <field id="referenceNumber">
 			    <selector>.csc-personAuthority-referenceNumber</selector>
 			  </field>
-			  <field id="status">
-			    <selector>.csc-personAuthority-status</selector>
-			    <options>
-			      <option id="provisional">Provisional</option>
-			      <option id="under review">Under Review</option>
-			      <option id="accepted">Accepted</option>
-			      <option id="rejected">Rejected</option>
-			    </options>
+			  <field id="middleName">
+			    <selector>.csc-personAuthority-middleName</selector>
+			  </field>
+			  <field id="surName">
+			    <selector>.csc-personAuthority-surName</selector>
+			  </field>
+			  <field id="initials">
+			    <selector>.csc-personAuthority-initials</selector>
 			  </field>
 			  <field id="salutation">
 			    <selector>.csc-personAuthority-salutation</selector>
@@ -1274,20 +1278,17 @@
 			      <option id="Lady">Lady</option>
 			    </options>
 			  </field>
-			  <field id="foreName">
-			    <selector>.csc-personAuthority-foreName</selector>
-			  </field>
-			  <field id="middleName">
-			    <selector>.csc-personAuthority-middleName</selector>
-			  </field>
-			  <field id="surName">
-			    <selector>.csc-personAuthority-surName</selector>
-			  </field>
-			  <field id="nameAdditions">
+			   <field id="nameAdditions">
 			    <selector>.csc-personAuthority-nameAdditions</selector>
 			  </field>
-			  <field id="initials">
-			    <selector>.csc-personAuthority-initials</selector>
+			  <field id="birthPlace" autocomplete="place-place">
+			    <selector>.csc-personAuthority-birthPlace</selector>
+			  </field>
+			  <field id="deathPlace" autocomplete="place-place">
+			    <selector>.csc-personAuthority-deathPlace</selector>
+			  </field>
+			  <field id="group" >
+			    <selector>.csc-personAuthority-group</selector>
 			  </field>
 			  <!-- <field id="group"> -->
 			  <field id="group" autocomplete="person-person">
@@ -1298,19 +1299,17 @@
 			    <selector>.csc-personAuthority-nationality</selector>
 			  </field>
 			  <field id="gender">
-			    <selector>.csc-personAuthority-gender</selector>
+		    <selector>.csc-personAuthority-gender</selector>
 			    <options>
 			      <option id="male">Male</option>
 			      <option id="female">Female</option>
 			    </options>
-			  </field>
-			  <!-- <field id="occupation"> -->
-			  <field id="occupation" autocomplete="person-person">
+			  </field>  
+			   <field id="occupation" autocomplete="occupation-occupation">
 			    <selector>.csc-personAuthority-occupation</selector>
 			  </field>
-			  <!--<field id="schoolOrStyle"> -->
-			  <field id="schoolOrStyle" autocomplete="person-person">
-			    <selector>.csc-personAuthority-schoolOrStyle</selector>
+			  <field id="referenceNumber">
+			    <selector>.csc-personAuthority-referenceNumber</selector>
 			  </field>
 			  <field id="nameNote">
 			    <selector>.csc-personAuthority-nameNote</selector>
@@ -1331,25 +1330,23 @@
 			      <option id="Work">work</option>
 			    </options>
 			  </field>
+			    <field id="telephoneNumber1">
+			    <selector>.csc-contact-telephoneNumber1</selector>
+			  </field>
+			  <!-- No longer needed
 			  <field id="addressText1">
 			    <selector>.csc-contact-addressText1</selector>
 			  </field>
-			  <field id="faxNumber1">
-			    <selector>.csc-contact-faxNumber1</selector>
-			  </field>
-			  <!-- <field id="place"> -->
+			 			 
 			  <field id="place" autocomplete="person-person">
 			    <selector>.csc-contact-place</selector>
 			  </field>
-			  <field id="telephoneNumber1">
-			    <selector>.csc-contact-telephoneNumber1</selector>
-			  </field>
+			
 			  <field id="postcode1">
 			    <selector>.csc-contact-postcode1</selector>
 			  </field>
-			  <field id="email1">
-			    <selector>.csc-contact-email1</selector>
-			  </field>
+			-->
+	
 			</record>
 
 			<record id="organization" type="authority,compute-displayname">

@@ -250,11 +250,16 @@
             "optionlist": ["option"],
             "optionnames": ["Option"]
         },        
-        ".csc-nhString": "${fields.nhString}",
-        
+        ".csc-nhString": "${fields.nhString}",        
         ".csc-object-description-content-place": "${fields.contentPlace}",
         ".csc-object-identification-comments": "${fields.comments}",
         ".csc-object-description-content-note": "${fields.contentNote}",
+        ".csc-object-description-content-other-type": 
+        {
+            "selection": "${fields.contentOtherType}",
+            "optionlist": ["?" ],
+            "optionnames": ["?" ]
+        },        
         ".csc-object-description-inscription-content-transliteration": "${fields.inscriptionTransliteration}",
         ".csc-object-description-object-component-information": 
         {
@@ -715,30 +720,7 @@
 		".csc-object-viewers-reference": "${fields.objectViewersReference}",
 		".csc-object-viewers-contribution-note": "${fields.objectViewersContributionNote}",
 		".csc-object-reference-catalogue-number": "${fields.objectCatalogueNumber}",
-		".csc-object-description-content-event-name-type": "${fields.contentEventNameType}",
-		".csc-date-information-date-association": "${fields.dateAssociation}",
-		".csc-object-description-content-activity": "${fields.contentActivity}",
-		".csc-object-description-content-method": "${fields.contentMethod}",
-		".csc-date-information-date-earliest-single-qualifier": "${fields.dateEarliestSingleQualifier}",
-		".csc-object-description-inscription-content-date": "${fields.inscriptionDate}",
-		".csc-object-description-inscription-description-date": "${fields.inscriptionDescriptionDate}",
-		".csc-date-information-date-period": "${fields.datePeriod}",
-		".csc-object-description-content-concept": "${fields.contentConcept}",
-		".csc-object-description-material": "${fields.material}",
-		".csc-date-information-date-text": "${fields.dateText}",
-		".csc-object-description-content-event-name": "${fields.contentEventName}",
-		".csc-date-information-date-latest-certainty": "${fields.dateLatestCertainty}",
-		".csc-object-description-content-other-type": 
-        {
-            "selection": "${fields.contentOtherType}",
-            "optionlist": ["?"],
-            "optionnames": ["?"]
-        },  
-		".csc-object-description-style": "${fields.style}",
-		".csc-object-identification-object-name": "${fields.objectName}",
-		".csc-date-information-date-latest-qualifier": "${fields.dateLatestQualifier}",
-		".csc-date-information-date-earliest-single-certainty": "${fields.dateEarliestSingleCertainty}",
-		".csc-object-description-content-other": "${fields.contentOther}",
+
       
     },
     "titleBar": {
