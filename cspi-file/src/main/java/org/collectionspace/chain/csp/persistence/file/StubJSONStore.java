@@ -162,6 +162,32 @@ public class StubJSONStore implements Storage {
 		}
 	}
 
+	public JSONObject getPathsJSON(String subdir,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		if("id".equals(subdir))
+			//return id.getPaths("",restrictions);
+			return null;
+		File dir=dirFromPath(subdir);
+		if(!dir.isDirectory())
+			//return new String[]{};
+			return null;
+		List<String> out=new ArrayList<String>();
+		if("".equals(subdir) || "/".equals(subdir)) {
+			// Directory request
+			for(File f : dir.listFiles())
+				out.add(f.getName());
+		} else {
+			// File request
+			for(String f : dir.list()) {
+				if(f.endsWith(".json")) {
+					f=f.substring(0,f.length()-5);
+					out.add(f);
+				}
+			}
+		}
+		//return out.toArray(new String[0]);
+		return null;
+	}
+
 	public String[] getPaths(String subdir,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		if("id".equals(subdir))
 			return id.getPaths("",restrictions);

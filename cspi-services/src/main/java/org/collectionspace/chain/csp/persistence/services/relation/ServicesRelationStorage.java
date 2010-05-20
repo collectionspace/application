@@ -14,6 +14,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDoc
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
 import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
@@ -27,6 +28,9 @@ import org.dom4j.Node;
 import org.jaxen.JaxenException;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mortbay.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /* /relate/main/      POST ::: {'src': src-type/src, 'type': type, 'dst': dst-type/dst} ::: id
  * /relate/main/<id>  PUT ::: {'src': src-type/src, 'type': type, 'dst': dst-type/dst} :::
@@ -38,6 +42,7 @@ import org.json.JSONObject;
 // XXX some hacks here because services don't seem to support multiple search crieteria on relationships. 
 
 public class ServicesRelationStorage implements ContextualisedStorage {
+	private static final Logger log=LoggerFactory.getLogger(ServicesRelationStorage.class);
 	private ServicesConnection conn;
 	private RelationFactory factory;
 
@@ -187,7 +192,40 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			return false;
 		return true;
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String rootPath,JSONObject restrictions)
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
+		JSONObject out = new JSONObject();
+		extractPaths(rootPath,new String[]{"main"},0);
+		try {
+			List<String> list=new ArrayList<String>();
+			ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/relations/"+searchPath(restrictions),null,creds,cache);
+			Document doc=data.getDocument();
+			if(doc==null)
+				throw new UnderlyingStorageException("Could not retrieve relation, missing relations_common");
+			JSONObject pagination = new JSONObject();
+			String xmlroot = "relations-common-list";
+			List<Node> nodes=doc.getDocument().selectNodes("/"+xmlroot+"/*");
+			for(Node node : nodes){
+				if(node.matches("/"+xmlroot+"/relation-list-item")){
+					if(post_filter(creds,cache,restrictions,node))
+						list.add(node.selectSingleNode("csid").getText());
+				}else{
+					pagination.put(node.getName(), node.getText());
+				}
+			}
+			
+			out.put("pagination", pagination);
+			out.put("listItems",list.toArray(new String[0]));
+			return out;
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Could not retrieve relation",e);
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Could not retrieve relation",e);
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {

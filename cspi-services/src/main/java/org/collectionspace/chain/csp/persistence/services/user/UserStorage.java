@@ -138,7 +138,98 @@ public class UserStorage implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		}		
 	}
+	
+	@SuppressWarnings("unchecked")
+	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		try {
+			JSONObject out = new JSONObject();
+			List<String> listitems=new ArrayList<String>();
+			Iterator rit=restrictions.keys();
+			StringBuffer args=new StringBuffer();
+			while(rit.hasNext()) {
+				String key=(String)rit.next();
+				FieldSet fs=r.getField(key);
+				if(!(fs instanceof Field))
+					continue;
+				String filter=((Field)fs).getServicesFilterParam();
+				if(filter==null)
+					continue;
+				args.append('&');
+				args.append(filter);
+				args.append('=');
+				args.append(URLEncoder.encode(restrictions.getString(key),"UTF-8"));
+			}
+			//pagination
+			String url=r.getServicesURL()+"/";
+			String postfix = "?";
 
+			String tail=args.toString();
+			if(tail.length()>0) {
+				postfix += tail.substring(1) +"&";
+			}
+			if(restrictions!=null){
+				if(restrictions.has("pageSize")){
+					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
+				}
+				if(restrictions.has("pageNum")){
+					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
+				}
+			}
+			postfix = postfix.substring(0, postfix.length()-1);
+			
+			ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+postfix,null,creds,cache);
+			if(doc.getStatus()<200 || doc.getStatus()>399)
+				throw new UnderlyingStorageException("Cannot retrieve account list");
+			Document list=doc.getDocument();
+			
+			JSONObject pagination = new JSONObject();
+			String xmlroot = r.getServicesListPath().split("/")[0];
+			List<Node> nodes = list.selectNodes("/"+xmlroot+"/*");
+			for(Node node : nodes){
+				if(node.matches("/"+r.getServicesListPath())){
+					List<Node> fields=node.selectNodes("*");
+					String csid=node.selectSingleNode("csid").getText();
+					for(Node field : fields) {
+						if("csid".equals(field.getName())) {
+							int idx=csid.lastIndexOf("/");
+							if(idx!=-1)
+								csid=csid.substring(idx+1);
+							listitems.add(csid);
+						} else if("uri".equals(field.getName())) {
+							// Skip!
+						} else {
+							String json_name=view_map.get(field.getName());
+							if(json_name!=null) {
+								String value=field.getText();
+								// XXX hack to cope with multi values
+								if(value==null || "".equals(value)) {
+									List<Node> inners=field.selectNodes("*");
+									for(Node n : inners) {
+										value+=n.getText();
+									}
+								}
+								setGleanedValue(cache,r.getServicesURL()+"/"+csid,json_name,value);
+							}
+						}
+					}
+				}else{
+					pagination.put(node.getName(), node.getText());
+				}
+			}
+			
+			out.put("pagination", pagination);
+			out.put("listItems",listitems.toArray(new String[0]));
+			
+			return out;
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		} catch (UnsupportedEncodingException e) {
+			throw new UnderlyingStorageException("Exception building query",e);
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Exception building query",e);
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {

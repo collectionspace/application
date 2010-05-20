@@ -33,6 +33,11 @@ public abstract class ProxyStorage implements Storage {
 		proxed.deleteJSON(filePath);
 	}
 
+	public JSONObject getPathsJSON(String rootPath,JSONObject restriction)
+		throws ExistException, UnimplementedException, UnderlyingStorageException {
+		return proxed.getPathsJSON(rootPath,restriction);
+	}
+
 	public String[] getPaths(String rootPath,JSONObject restriction)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		return proxed.getPaths(rootPath,restriction);

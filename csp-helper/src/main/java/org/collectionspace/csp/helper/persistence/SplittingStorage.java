@@ -11,13 +11,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.mortbay.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** SplittingStorage is an implementation of storage which can be wrapped or used as a base class, which delegates 
  * the execution of methods to another implementation of storage on the basis of the first path component. This 
@@ -25,6 +30,7 @@ import org.json.JSONObject;
  * 
  */
 public class SplittingStorage implements ContextualisedStorage {
+	private static final Logger log=LoggerFactory.getLogger(SplittingStorage.class);
 	private Map<String,ContextualisedStorage> children=new HashMap<String,ContextualisedStorage>();
 
 	public void addChild(String prefix,ContextualisedStorage store) {
@@ -60,6 +66,67 @@ public class SplittingStorage implements ContextualisedStorage {
 		get(parts[0]).createJSON(root,creds,cache,parts[1],jsonObject);
 	}
 
+	/**
+	 * For each type of storage, this function will get the paths and pagination information, this will be brought together into one object
+	 */
+	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restriction) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		try{
+			
+			//XXX THIS SHOULD BE LOOKED AT AND CHANGED !!!
+			JSONObject out = new JSONObject();
+			JSONObject pagination = new JSONObject();
+			boolean passed = false;
+			List<String[]> separatelists = new ArrayList<String[]>();
+			String parts[]=split(rootPath,true);
+			if("".equals(parts[0])) {
+				return out.put("listItems",children.keySet().toArray(new String[0]));
+			} else {
+				List<String> list=new ArrayList<String>();
+				for(Map.Entry<String,ContextualisedStorage> e : children.entrySet()) {
+					if(e.getKey().equals(parts[0])) {
+						ContextualisedStorage storage=e.getValue();
+						JSONObject data=storage.getPathsJSON(root,creds,cache,parts[1],restriction);
+						log.info("MYSPLITJSON"+data);
+						
+						JSONObject paging = data.getJSONObject("pagination");
+						if(!passed){
+							pagination = paging;
+							passed = true;
+						}else{
+							pagination.put("totalItems",pagination.getInt("totalItems") + paging.getInt("totalItems"));
+							int pageSize = pagination.getInt("pageSize");
+							int totalinpage = pagination.getInt("itemsInPage") + paging.getInt("itemsInPage");
+							if(totalinpage > pageSize){
+								pagination.put("itemsInPage",pageSize);
+							}else{
+								pagination.put("itemsInPage", totalinpage);
+							}
+						}
+						
+						//create one merged list
+						String[] paths = (String[]) data.get("listItems");
+						if(paths==null)
+							continue;
+						for(String s : paths) {
+							list.add(s);
+						}
+						
+						//keep the separate lists in a field
+						separatelists.add(paths);
+					}
+				}
+				
+				pagination.put("separatelists", separatelists);
+				out.put("pagination", pagination);
+				out.put("listItems",list.toArray(new String[0]));
+				
+				return out;
+			}
+		}catch(JSONException e){
+			throw new UnderlyingStorageException("Error parsing JSON");
+		}
+	}
+	
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restriction) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(rootPath,true);
 		if("".equals(parts[0])) {

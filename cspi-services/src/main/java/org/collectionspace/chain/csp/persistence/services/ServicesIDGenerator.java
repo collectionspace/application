@@ -39,6 +39,7 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		generators.put("library","80fedaf6-1647-4f30-9f53-a75a3cac2ffd");
 		generators.put("loanin","ed87e7c6-0678-4f42-9d33-f671835586ef");
 		generators.put("loanout", "4b984865-f93d-4481-b874-3dba863ec589");
+		generators.put("loans-out", "4b984865-f93d-4481-b874-3dba863ec589");
 		generators.put("study","0518132e-dd8c-4773-8fa9-07c9af4444ee");
 		generators.put("uuid","1fa40353-05b8-4ae6-82a6-44a18b4f3c12");
 	}
@@ -61,6 +62,12 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		throw new UnimplementedException("Invalid method for ids");
 	}
 
+	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException,
+		UnimplementedException, UnderlyingStorageException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException,
 			UnimplementedException, UnderlyingStorageException {
 		// TODO Auto-generated method stub

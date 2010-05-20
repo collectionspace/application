@@ -46,6 +46,9 @@ public interface Storage {
 	public String[] getPaths(String rootPath,JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
+	public JSONObject getPathsJSON(String rootPath,JSONObject restrictions)
+		throws ExistException, UnimplementedException, UnderlyingStorageException;
+	
 	public void deleteJSON(String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	

@@ -51,6 +51,11 @@ public class ServicesStorage extends SplittingStorage implements Storage {
 		storage.deleteJSON(storage,creds,cache,filePath);
 	}
 
+	public JSONObject getPathsJSON(String rootPath,JSONObject restrictions) 
+		throws ExistException, UnimplementedException, UnderlyingStorageException {
+		return storage.getPathsJSON(storage,creds,cache,rootPath,restrictions);
+	}
+	
 	public String[] getPaths(String rootPath,JSONObject restrictions) 
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		return storage.getPaths(storage,creds,cache,rootPath,restrictions);

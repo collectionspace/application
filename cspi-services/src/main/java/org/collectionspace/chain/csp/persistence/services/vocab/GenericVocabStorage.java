@@ -229,6 +229,64 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	}
 
 	@SuppressWarnings("unchecked")
+	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
+		try {
+			JSONObject out = new JSONObject();
+			List<String> list=new ArrayList<String>();
+			String vocab=getVocabularyId(creds,cache,rootPath);
+			String url="/"+prefix+"/"+vocab+"/items";
+			String postfix = "?";
+			String prefix=null;
+			if(restrictions!=null){
+				if(restrictions.has("name")){
+					prefix=restrictions.getString("name");
+				}
+				if(restrictions.has("pageSize")){
+					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
+				}
+				if(restrictions.has("pageNum")){
+					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
+				}
+			}
+			if(prefix!=null){
+				postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
+			}
+			postfix = postfix.substring(0, postfix.length()-1);
+			
+			url+=postfix;
+			
+			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
+			Document doc=data.getDocument();
+			if(doc==null)
+				throw new UnderlyingStorageException("Could not retrieve vocabularies");
+			
+			JSONObject pagination = new JSONObject();
+			List<Node> nodes = doc.getDocument().selectNodes(item_path.split("/")[0]);
+			for(Node node : nodes){
+				if(node.matches("/"+item_path+"/*")){
+					String name=node.selectSingleNode("displayName").getText();
+					String csid=node.selectSingleNode("csid").getText();
+					if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase()))
+						list.add(constructURN(cache,vocab,csid,name));
+					cache.setCached(getClass(),new String[]{"namefor",csid},name);
+				}else{
+					pagination.put(node.getName(), node.getText());
+				}
+			}
+			out.put("pagination", pagination);
+			out.put("listItems",list.toArray(new String[0]));
+			return out;
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception",e);
+		} catch (UnsupportedEncodingException e) {
+			throw new UnderlyingStorageException("UTF-8 not supported!?");
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Error parsing JSON");
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -252,7 +310,6 @@ public class GenericVocabStorage implements ContextualisedStorage {
 				postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
 			}
 			postfix = postfix.substring(0, postfix.length()-1);
-			
 			url+=postfix;
 			
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);

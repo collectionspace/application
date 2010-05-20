@@ -145,6 +145,80 @@ public class RecordStorage implements ContextualisedStorage {
 	}
 
 	@SuppressWarnings("unchecked")
+	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		try {
+			Document list=null;
+			JSONObject out = new JSONObject();
+			JSONObject pagination = new JSONObject();
+			List<String> listitems=new ArrayList<String>();
+			String postfix = "?";
+			if(restrictions!=null){
+				if(restrictions.has("keywords")) {
+					/* Keyword search */
+					String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
+					postfix += "kw="+data+"&";
+				} 
+				if(restrictions.has("pageSize")){
+					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
+				}
+				if(restrictions.has("pageNum")){
+					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
+				}
+			}
+			postfix = postfix.substring(0, postfix.length()-1);
+			if(postfix.length() == 0){postfix +="/";}
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+postfix,null,creds,cache);
+			if(all.getStatus()!=200){
+				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+			}
+			list=all.getDocument();
+			
+			
+			List<Node> nodes=list.selectNodes("/"+r.getServicesListPath().split("/")[0]+"/*");
+			for(Node node : nodes) {
+				if(node.matches("/"+r.getServicesListPath())){
+					List<Node> fields=node.selectNodes("*");
+					String csid=node.selectSingleNode("csid").getText();
+					for(Node field : fields) {
+						if("csid".equals(field.getName())) {
+							int idx=csid.lastIndexOf("/");
+							if(idx!=-1)
+								csid=csid.substring(idx+1);
+							listitems.add(csid);
+						} else if("uri".equals(field.getName())) {
+							// Skip!
+						} else {
+							String json_name=view_map.get(field.getName());
+							if(json_name!=null) {
+								String value=field.getText();
+								// XXX hack to cope with multi values		
+								if(value==null || "".equals(value)) {
+									List<Node> inners=field.selectNodes("*");
+									for(Node n : inners) {
+										value+=n.getText();
+									}
+								}
+								setGleanedValue(cache,r.getServicesURL()+"/"+csid,json_name,value);
+							}
+						}
+					}
+				}else{
+					pagination.put(node.getName(), node.getText());
+				}
+			}
+			out.put("pagination", pagination);
+			out.put("listItems", listitems.toArray(new String[0]));
+			return out;
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		} catch (UnsupportedEncodingException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Document list=null;
@@ -170,7 +244,6 @@ public class RecordStorage implements ContextualisedStorage {
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 			}
 			list=all.getDocument();
-			
 			
 			List<Node> objects=list.selectNodes(r.getServicesListPath());
 			for(Node object : objects) {
@@ -199,7 +272,6 @@ public class RecordStorage implements ContextualisedStorage {
 						}
 					}
 				}
-
 			}
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
@@ -237,10 +309,11 @@ public class RecordStorage implements ContextualisedStorage {
 	private JSONObject miniForURI(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String refname,String uri) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		return storage.retrieveJSON(storage,creds,cache,"direct/urn/"+uri+"/"+refname);
 	}
-	
+
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
 			JSONObject out=new JSONObject();
+			//not all the records need a reference, look in default.xml for which that don't
 			if(r.hasTermsUsed()){
 				String path = r.getServicesURL()+"/"+filePath+"/authorityrefs";
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);

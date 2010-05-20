@@ -30,6 +30,11 @@ public class DirectRedirector implements ContextualisedStorage {
 		throw new UnimplementedException("direct uses get only");
 	}
 
+	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath, JSONObject restrictions)
+		throws ExistException, UnimplementedException, UnderlyingStorageException {
+		throw new UnimplementedException("direct uses get only");
+	}
+	
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("direct uses get only");

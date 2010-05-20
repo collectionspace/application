@@ -136,13 +136,14 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	}
 
 	/**
-	 * Returns all the values
+	 * Returns JSON containing pagenumber, pagesize, itemsinpage, totalitems and the list of items itself 
 	 */
 	@SuppressWarnings("unchecked")
-	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
+	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			List<String> out=new ArrayList<String>();
+			JSONObject out = new JSONObject();
+			List<String> list=new ArrayList<String>();
 			String vocab=vocab_cache.getVocabularyId(creds,cache,rootPath);
 			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
 			String postfix = "?";
@@ -169,7 +170,73 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies");
 			String[] tag_parts=r.getServicesListPath().split(",",2);
+			
+			JSONObject pagination = new JSONObject();
+			List<Node> nodes = doc.selectNodes("/"+tag_parts[1].split("/")[0]+"/*");
+			for(Node node : nodes){
+				if(node.matches("/"+tag_parts[1])){
+					String name=node.selectSingleNode("displayName").getText();
+					String csid=node.selectSingleNode("csid").getText();
+					if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase()))
+						list.add(csid);
+					cache.setCached(getClass(),new String[]{"namefor",vocab,csid},name);
+					String refname=urn_processor.constructURN("id",vocab,"id",csid,name);
+					cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refname);
+				}else{
+					pagination.put(node.getName(), node.getText());
+				}
+			}
+			
+			out.put("pagination", pagination);
+			out.put("listItems", list.toArray(new String[0]));
+			return out;
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception",e);
+		} catch (UnsupportedEncodingException e) {
+			throw new UnderlyingStorageException("UTF-8 not supported!?");
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Error parsing JSON");
+		}
+	}
+
+	
+	/**
+	 * Returns a list of items
+	 */
+	@SuppressWarnings("unchecked")
+	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
+		try {
+			List<String> out=new ArrayList<String>();
+			String vocab=vocab_cache.getVocabularyId(creds,cache,rootPath);
+			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
+
+			String postfix = "?";
+			String prefix=null;
+			if(restrictions!=null){
+				if(restrictions.has(getDisplayNameKey())){
+					prefix=restrictions.getString(getDisplayNameKey());
+				}
+				if(restrictions.has("pageSize")){
+					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
+				}
+				if(restrictions.has("pageNum")){
+					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
+				}
+			}
+			if(prefix!=null){
+				postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
+			}
+			postfix = postfix.substring(0, postfix.length()-1);
+			
+			url+=postfix;
+			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
+			Document doc=data.getDocument();
+			if(doc==null)
+				throw new UnderlyingStorageException("Could not retrieve vocabularies");
+			String[] tag_parts=r.getServicesListPath().split(",",2);
 			List<Node> objects=doc.getDocument().selectNodes(tag_parts[1]);
+			
 			for(Node object : objects) {
 				String name=object.selectSingleNode("displayName").getText();
 				String csid=object.selectSingleNode("csid").getText();
