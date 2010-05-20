@@ -14,7 +14,6 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDoc
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
-import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
 import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
@@ -28,9 +27,6 @@ import org.dom4j.Node;
 import org.jaxen.JaxenException;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mortbay.log.Log;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /* /relate/main/      POST ::: {'src': src-type/src, 'type': type, 'dst': dst-type/dst} ::: id
  * /relate/main/<id>  PUT ::: {'src': src-type/src, 'type': type, 'dst': dst-type/dst} :::
@@ -41,8 +37,7 @@ import org.slf4j.LoggerFactory;
 
 // XXX some hacks here because services don't seem to support multiple search crieteria on relationships. 
 
-public class ServicesRelationStorage implements ContextualisedStorage {
-	private static final Logger log=LoggerFactory.getLogger(ServicesRelationStorage.class);
+public class ServicesRelationStorage implements ContextualisedStorage { 
 	private ServicesConnection conn;
 	private RelationFactory factory;
 
