@@ -1444,12 +1444,42 @@
 				</structures>
 				<is-multipart>false</is-multipart>
 				<terms-used>false</terms-used>
-				<field id="roleName" ui-type="list" mini="number">
+				<field id="roleName" mini="number">
 					<selector>.csc-role-name</selector>
 				</field>
-				<field id="description" ui-type="list" mini="summary">
+				<field id="groupName" >
+					<selector>.csc-role-groupname</selector>
+				</field>
+				<field id="description" mini="summary">
 					<selector>.csc-role-desc</selector>
 				</field>
+			</record>
+			
+            <record id="permission">
+            	<web-url>permission</web-url>
+                <services-url>authorization/permissions</services-url>
+				<services-list-path>permissions_list/*</services-list-path>
+				<services-record-path>permission:http://collectionspace.org/services/authorization,permission</services-record-path>
+				<is-multipart>false</is-multipart>
+				<structures>
+					<structure id="screen">
+						<view>
+							<titlebar show="false"></titlebar>
+							<sidebar show="false"></sidebar>
+						</view>
+					</structure>
+				</structures>
+				<is-multipart>false</is-multipart>
+				<terms-used>false</terms-used>
+				<field id="resourceName" mini="number">
+					<selector>.csc-permission-name</selector>
+				</field>
+				<repeat id="action">
+					<selector>.csc-permission-action-row:</selector>
+					<field id="name" container="false">
+						<selector>.csc-permission-action-name</selector>
+					</field>
+				</repeat>
 			</record>
            
  			<record id="rolePermission">

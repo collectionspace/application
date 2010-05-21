@@ -354,13 +354,13 @@ public class TestGeneral {
 
 	@Test public void testMultipleStoreTypes() throws Exception {
 		ServletTester jetty=setupJetty();
-		//testPostGetDelete(jetty, "/objects/", objectCreate, "responsibleDepartment");
-		//testPostGetDelete(jetty, "/intake/", intakeCreate, "entryReason");
-		//testPostGetDelete(jetty, "/loanout/", loanoutCreate, "loanOutNote");
-		//testPostGetDelete(jetty, "/loanin/", loaninCreate, "loanInNote");
-		//testPostGetDelete(jetty, "/acquisition/", acquisitionCreate, "acquisitionReason");
-		//testPostGetDelete(jetty, "/role/", roleCreate, "description");
-		testPostGetDelete(jetty, "/permission/", permissionCreate, "resourceName");
+		testPostGetDelete(jetty, "/objects/", objectCreate, "responsibleDepartment");
+		testPostGetDelete(jetty, "/intake/", intakeCreate, "entryReason");
+		testPostGetDelete(jetty, "/loanout/", loanoutCreate, "loanOutNote");
+		testPostGetDelete(jetty, "/loanin/", loaninCreate, "loanInNote");
+		testPostGetDelete(jetty, "/acquisition/", acquisitionCreate, "acquisitionReason");
+		testPostGetDelete(jetty, "/role/", roleCreate, "description");
+		//testPostGetDelete(jetty, "/permission/", permissionCreate, "resourceName");
 		
 	}
 	
@@ -374,11 +374,11 @@ public class TestGeneral {
 	@Test public void testObjectList() throws Exception {
 		ServletTester jetty=setupJetty();
 
-		//testLists(jetty, "objects", objectCreate, "items");
-		//testLists(jetty, "intake", intakeCreate, "items");
-		//testLists(jetty, "loanin", loaninCreate, "items");
-		//testLists(jetty, "loanout", loanoutCreate, "items");
-		//testLists(jetty, "acquisition", acquisitionCreate, "items");
+		testLists(jetty, "objects", objectCreate, "items");
+		testLists(jetty, "intake", intakeCreate, "items");
+		testLists(jetty, "loanin", loaninCreate, "items");
+		testLists(jetty, "loanout", loanoutCreate, "items");
+		testLists(jetty, "acquisition", acquisitionCreate, "items");
 		testLists(jetty, "role", roleCreate, "items");
 	}
 
