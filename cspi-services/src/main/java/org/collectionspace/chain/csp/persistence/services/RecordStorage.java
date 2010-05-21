@@ -246,33 +246,45 @@ public class RecordStorage implements ContextualisedStorage {
 			list=all.getDocument();
 			
 			List<Node> objects=list.selectNodes(r.getServicesListPath());
-			for(Node object : objects) {
-				List<Node> fields=object.selectNodes("*");
-				String csid=object.selectSingleNode("csid").getText();
-				for(Node field : fields) {
-					if("csid".equals(field.getName())) {
-						int idx=csid.lastIndexOf("/");
-						if(idx!=-1)
-							csid=csid.substring(idx+1);
-						out.add(csid);						
-					} else if("uri".equals(field.getName())) {
-						// Skip!
-					} else {
-						String json_name=view_map.get(field.getName());
-						if(json_name!=null) {
-							String value=field.getText();
-							// XXX hack to cope with multi values		
-							if(value==null || "".equals(value)) {
-								List<Node> inners=field.selectNodes("*");
-								for(Node n : inners) {
-									value+=n.getText();
+			if(r.getServicesListPath().equals("roles_list/*")){
+				//XXX hack to deal with roles being inconsistent
+				// XXX CSPACE-1887 workaround
+				for(Node object : objects) {
+					String csid = object.valueOf( "@csid" );
+					out.add(csid);					
+				}
+				
+			}
+			else{
+				for(Node object : objects) {
+					List<Node> fields=object.selectNodes("*");
+					String csid=object.selectSingleNode("csid").getText();
+					for(Node field : fields) {
+						if("csid".equals(field.getName())) {
+							int idx=csid.lastIndexOf("/");
+							if(idx!=-1)
+								csid=csid.substring(idx+1);
+							out.add(csid);						
+						} else if("uri".equals(field.getName())) {
+							// Skip!
+						} else {
+							String json_name=view_map.get(field.getName());
+							if(json_name!=null) {
+								String value=field.getText();
+								// XXX hack to cope with multi values		
+								if(value==null || "".equals(value)) {
+									List<Node> inners=field.selectNodes("*");
+									for(Node n : inners) {
+										value+=n.getText();
+									}
 								}
+								setGleanedValue(cache,r.getServicesURL()+"/"+csid,json_name,value);
 							}
-							setGleanedValue(cache,r.getServicesURL()+"/"+csid,json_name,value);
 						}
 					}
 				}
 			}
+			log.info(out.toString());
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
