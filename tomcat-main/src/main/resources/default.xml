@@ -29,7 +29,7 @@
 	</email>
 	<persistence>
 		<service>
-			<url>http://nightly.collectionspace.org:8180/cspace-services</url>
+			<url>http://nightly.collectiospace.org:8180/cspace-services</url>
 		</service>
 	</persistence>
 	<ui>
@@ -1432,7 +1432,7 @@
             <record id="role">
             	<web-url>role</web-url>
                 <services-url>authorization/roles</services-url>
-				<services-list-path>roles-common-list/role-list-item</services-list-path>
+				<services-list-path>roles_list/*</services-list-path>
 				<services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
 				<structures>
 					<structure id="screen">
@@ -1656,9 +1656,62 @@
 				<field id="loanOutNote">
 					<selector>.csc-loanOut-loanOutNote</selector>
 				</field>
-               
 			</record>
 			
+			<record id="movement">
+				<services-url>movements</services-url>
+				<services-list-path>movements-common</services-list-path>
+				<services-record-path>movements_common:http://collectionspace.org/services/movement,movement_common</services-record-path>
+				
+				<structures>
+					<structure id="screen"></structure>
+				</structures>
+				
+				<row-selector>.csc-recordList-row:</row-selector>
+			  
+				<!--  Object Location Information Group -->
+				<field id="currentLocation" in-title="yes">
+					<selector>.csc-movement-currentLocation</selector>
+			    <title-selector>.csc-titleBar-currentLocation</title-selector>
+				</field>
+				<field id="currentLocationFitness">
+					<selector>.csc-movement-currentLocationFitness</selector>
+				</field>
+				<field id="currentLocationNote">
+					<selector>.csc-movement-currentLocationNote</selector>
+				</field>
+				<field id="locationDate">
+					<selector>.csc-movement-locationDate</selector>
+				</field>
+				<field id="normalLocation">
+					<selector>.csc-movement-normalLocation</selector>
+				</field>
+				<!--  Movement Information Group -->
+				<field id="movementContact">
+					<selector>.csc-movement-movementContact</selector>
+				</field>
+				<repeat id="movementMethods">
+					<selector>.csc-movement-movementMethod-row:</selector>
+					<field id="movementMethod">
+						<selector>.csc-movement-movementMethod</selector>
+					</field>
+				</repeat>
+				<field id="movementNote">
+					<selector>.csc-movement-movementNote</selector>
+				</field>
+				<field id="movementReferenceNumber">
+					<selector>.csc-movement-movementReferenceNumber</selector>
+				</field>
+				<field id="plannedRemovalDate">
+					<selector>.csc-movement-plannedRemovalDate</selector>
+				</field>
+				<field id="removalDate">
+					<selector>.csc-movement-removalDate</selector>
+				</field>
+				<field id="reasonForMove">
+					<selector>.csc-movement-reasonForMove</selector>
+				</field>
+			 </record>
  			<record id="id" type="id"> <!-- XXX what is this type? something to do with next number generation, currently piggy backs on normal Record functionality -->
 			</record>
 		</records>

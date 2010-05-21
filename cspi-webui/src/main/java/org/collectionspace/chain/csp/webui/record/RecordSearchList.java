@@ -18,8 +18,12 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mortbay.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RecordSearchList implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(RecordSearchList.class);
 	private boolean search;
 	private String base;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
@@ -63,11 +67,14 @@ public class RecordSearchList implements WebMethod {
 			if(pageNum!=null) {
 				restriction.put("pageNum",pageNum);
 			}
+			log.info("QQQQQQQQQQQQQQQQQQQ");
+			log.info(base);
 			String[] paths=storage.getPaths(base,restriction);
 			for(int i=0;i<paths.length;i++) {
 				if(paths[i].startsWith(base+"/"))
 					paths[i]=paths[i].substring((base+"/").length());
 			}
+			
 			ui.sendJSONResponse(pathsToJSON(storage,base,paths,key));
 		} catch (JSONException e) {
 			throw new UIException("JSONException during autocompletion",e);
