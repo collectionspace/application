@@ -3,7 +3,6 @@ package org.collectionspace.chain.csp.webui.record;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -18,7 +17,6 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mortbay.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,8 +65,6 @@ public class RecordSearchList implements WebMethod {
 			if(pageNum!=null) {
 				restriction.put("pageNum",pageNum);
 			}
-			log.info("QQQQQQQQQQQQQQQQQQQ");
-			log.info(base);
 			String[] paths=storage.getPaths(base,restriction);
 			for(int i=0;i<paths.length;i++) {
 				if(paths[i].startsWith(base+"/"))
