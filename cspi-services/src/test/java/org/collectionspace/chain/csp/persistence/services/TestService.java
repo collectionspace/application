@@ -63,6 +63,14 @@ public class TestService extends ServicesBaseClass {
 		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
 		assertEquals(200,status); // XXX CSPACE-73, should be 404
 	}
+
+	@Test public void testPermissionsPost() throws Exception {
+		Map<String,Document> parts=new HashMap<String,Document>();
+		ReturnedURL url=conn.getURL(RequestMethod.POST,"authorization/permissions/",getDocument("permissions.xml"),creds,cache);
+		assertEquals(201,url.getStatus());
+		//int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
+		//assertEquals(200,status); // XXX CSPACE-73, should be 404
+	}
 	
 	@Test public void testVocabPost() throws Exception {
 		Map<String,Document> parts=new HashMap<String,Document>();

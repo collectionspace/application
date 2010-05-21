@@ -67,8 +67,16 @@ public class TestGeneral {
 
 	private final static String testStr2 = "{\"accessionNumber\":\"OBJNUM\",\"description\":\"DESCRIPTION\",\"descInscriptionInscriber\":\"INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"TITLE\",\"comments\":\"COMMENTS\",\"distinguishingFeatures\":\"DISTFEATURES\",\"responsibleDepartment\":\"DEPT\",\"objectName\":\"OBJNAME\"}";
 	private final static String testStr2a = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartment\":\"new DEPT\",\"objectName\":\"new OBJNAME\"}";
+	private final static Date d = new Date();
+	
 	private final static String loanoutCreate = "{\"loanPurpose\":\"research\",\"loanedObjectStatus\":\"agreed\",\"loanOutNumber\":\"LO2010.1.3\",\"loanOutNote\":\"loan out notes\",\"specialConditionsOfLoan\":\"loanout conditions\",\"lendersAuthorizationDate\":\"May 27, 2010\",\"loanedObjectStatusDate\":\"May 28, 2010\",\"loanReturnDate\":\"May 26, 2010\",\"loanOutDate\":\"May 25, 2010\",\"loanRenewalApplicationDate\":\"May 24, 2010\",\"loanedObjectStatusNote\":\"status note\"}";
 	private final static String loaninCreate = "{\"loanInNumber\":\"LI2010.1.2\",\"lendersAuthorizer\":\"lendersAuthorizer\",\"lendersAuthorizationDate\":\"lendersAuthorizationDate\",\"lendersContact\":\"lendersContact\",\"loanInContact\":\"loanInContact\",\"loanInConditions\":\"loanInConditions\",\"loanInDate\":\"loanInDate\",\"loanReturnDate\":\"loanReturnDate\",\"loanRenewalApplicationDate\":\"loanRenewalApplicationDate\",\"loanInNote\":\"loanInNote\",\"loanPurpose\":\"loanPurpose\"}";
+	private final static String intakeCreate = "{\"normalLocation\": \"normalLocationX\",\"fieldCollectionEventName\": \"fieldCollectionEventNameX\",\"earliestDateCertainty\": \"earliestDateCertaintyX\",\"earliestDate\": \"earliestDateX\",\"latestDate\": \"latestDateX\",\"entryNumber\": \"entryNumberX\",\"insurancePolicyNumber\": \"insurancePolicyNumberX\",\"depositorsRequirements\": \"depositorsRequirementsX\",\"entryReason\": \"entryReasonX\",\"earliestDateQualifier\": \"earliestDateQualifierX\"}";
+	private final static String objectCreate = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartment\":\"new DEPT\",\"objectName\":\"new OBJNAME\"}";
+	private final static String acquisitionCreate = "{\"acquisitionReason\":\"acquisitionReason\",\"acquisitionReferenceNumber\":\"acquisitionReferenceNumber\",\"acquisitionMethod\":\"acquisitionMethod\"}";
+	private final static String roleCreate = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_1_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
+	private final static String permissionCreate = "{\"resourceName\":\"resourceName " + d.toString()+ "\", \"action\":[{\"name\":\"CREATE\"},{\"name\":\"READ\"},{\"name\":\"UPDATE\"},{\"name\":\"DELETE\"}]  }";
+
 	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
 	
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
@@ -78,7 +86,6 @@ public class TestGeneral {
 	private final static String testStr7 = "{\"userId\": \"unittest2@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"active\"}";
 	private final static String testStr8 = "{\"email\": \"unittest2@collectionspace.org\", \"debug\" : true }";
 	private final static String testStr9 = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
-	private final static Date d = new Date();
 	private final static String testStr10 = "{\"roleName\": \"ROLE_USERS_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
 	private final static String testStr11 = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"contentPeople\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
 
@@ -251,25 +258,6 @@ public class TestGeneral {
 		return makeRequest(new JSONObject(in)).toString();
 	}
 	
-	@Test public void testAutoPost() throws Exception {
-		deleteSchemaFile("collection-object",false);
-		ServletTester jetty=setupJetty();
-		String test = "{\"accessionNumber\":\"OBJNUM\",\"description\":\"DESCRIPTION\",\"descInscriptionInscriber\":\"INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"TITLE\",\"comments\":\"COMMENTS\",\"distinguishingFeatures\":\"DISTFEATURES\",\"responsibleDepartment\":\"DEPT\",\"objectName\":\"OBJNAME\"}";
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(test));
-		log.info(out.getContent());
-		assertNotNull(out.getHeader("Location"));
-		assertTrue(out.getHeader("Location").startsWith("/objects/"));
-
-		/* clean up after ourselves */
-		String id = out.getHeader("Location");
-		log.info("DELETE "+id+":"+out.getContent());
-		out=jettyDo(jetty,"DELETE","/chain/"+id,null);
-		assertEquals(200,out.getStatus());
-
-		//Integer.parseInt(out.getHeader("Location").substring("/objects/".length()));
-		//only an int if storage =file not services
-	}
-	
 	private String getFields(String in) throws JSONException {
 		return getFields(new JSONObject(in)).toString();
 	}
@@ -282,18 +270,11 @@ public class TestGeneral {
 
 	
 	@Test public void testUserProfilesWithReset() throws Exception {
-		log.info("1");
-		deleteSchemaFile("collection-object",false);
-		log.info("2");
-
 		ServletTester jetty=setupJetty();
-		log.info("3");
 		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6));
-		log.info("4");
 		assertEquals(out.getMethod(),null);
-		log.info("GET CREATE "+out.getContent());
+		//create
 		String id=out.getHeader("Location");
-		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
 		
 		//ask to reset
@@ -339,51 +320,31 @@ public class TestGeneral {
 		
 	}
 	
-	@Test public void testPostAndDelete() throws Exception {
-		deleteSchemaFile("collection-object",false);
-		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
-		assertEquals(out.getMethod(),null);
-		String id=out.getHeader("Location");
-		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain"+id,null);
-		JSONObject one = new JSONObject(getFields(out.getContent()));
-		JSONObject two = new JSONObject(testStr2);
-		//test distinguishingFeatures is the same
-		assertEquals(one.get("distinguishingFeatures").toString(),two.get("distinguishingFeatures").toString());
-		
-		/* not sure why this is failing or where it is needed  or what exactly it is
-		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(testStr));
-		assertEquals(200,out.getStatus());		
-		out=jettyDo(jetty,"GET","/chain"+id,null);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr)));
-		*/
-		out=jettyDo(jetty,"DELETE","/chain"+id,null);
-		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain"+id,null);
-		assertTrue(out.getStatus()>=400); // XXX should probably be 404
-	}
-	
 	@Test public void testPostAndUpdateWithRoles() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(testStr10));
+		HttpTester out=jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleCreate));
 		//log.info(out.getContent());
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		JSONObject one = new JSONObject(getFields(out.getContent()));
-		JSONObject two = new JSONObject(testStr10);
+		JSONObject two = new JSONObject(roleCreate);
 		// XXX CSPACE-1828 hack
 		assertEquals(one.get("roleName"), "ROLE_"+two.get("roleName"));
 		
-		out = jettyDo(jetty, "PUT","/chain/"+id,makeSimpleRequest(testStr10));
+		out = jettyDo(jetty, "PUT","/chain/"+id,makeSimpleRequest(roleCreate));
 		//log.info(out.getContent());
 		assertEquals(out.getMethod(), null);
 		assertEquals(200, out.getStatus());
 		one = new JSONObject(getFields(out.getContent()));
-		two = new JSONObject(testStr10);
+		two = new JSONObject(roleCreate);
 		assertEquals(one.get("roleName"), two.get("roleName"));
+
+		out=jettyDo(jetty,"GET","/chain/role",null);
+		assertEquals(200,out.getStatus());
+		log.info(out.getContent());
+		
 		
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
 		assertEquals(200,out.getStatus());
@@ -392,61 +353,17 @@ public class TestGeneral {
 	}
 
 	@Test public void testMultipleStoreTypes() throws Exception {
-		deleteSchemaFile("collection-object",false);
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
-		assertEquals(out.getMethod(),null);
-		String id1=out.getHeader("Location");
-		//log.info(out.getContent());
-		assertEquals(201,out.getStatus());
-		
-		
-		out=jettyDo(jetty,"POST","/chain/intake/",makeSimpleRequest(testStr));	
-		assertEquals(out.getMethod(),null);
-		String id2=out.getHeader("Location");		
-		//log.info(out.getContent());
-		assertEquals(201,out.getStatus());		
-		out=jettyDo(jetty,"GET","/chain"+id1,null);
-		JSONObject one = new JSONObject(getFields(out.getContent()));
-		JSONObject two = new JSONObject(testStr2);
-		//test distinguishingFeatures is the same
-		assertEquals(one.get("distinguishingFeatures").toString(),two.get("distinguishingFeatures").toString());
-		
-		out=jettyDo(jetty,"GET","/chain"+id2,null);
-		log.info(out.getContent());
-		JSONObject oned = new JSONObject(out.getContent());
-		log.info(oned.toString());
-		assertEquals(oned.get("csid").toString(),id2.substring("/intake/".length()));
-		
-		//cleanup
-		out=jettyDo(jetty,"DELETE","/chain"+id1,null);
-		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain"+id1,null);
-		assertTrue(out.getStatus()>=400); // XXX should probably be 404
-		//out=jettyDo(jetty,"GET","/chain"+id2,null);
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr)));
-		out=jettyDo(jetty,"DELETE","/chain"+id2,null);
-		assertEquals(200,out.getStatus());
-		
-
-
-		out=jettyDo(jetty,"POST","/chain/loanout/",makeSimpleRequest(loanoutCreate));	
-		assertEquals(out.getMethod(),null);
-		assertEquals(201,out.getStatus());	
-		String id3=out.getHeader("Location");
-		
-		//out=jettyDo(jetty,"DELETE","/chain"+id3,null);
-		//assertEquals(200,out.getStatus());
-		
-		out=jettyDo(jetty,"POST","/chain/loanin/",makeSimpleRequest(loaninCreate));	
-		assertEquals(out.getMethod(),null);
-		assertEquals(201,out.getStatus());	
-		String id4=out.getHeader("Location");
-		
-		//out=jettyDo(jetty,"DELETE","/chain"+id4,null);
-		//assertEquals(200,out.getStatus());
+		//testPostGetDelete(jetty, "/objects/", objectCreate, "responsibleDepartment");
+		//testPostGetDelete(jetty, "/intake/", intakeCreate, "entryReason");
+		//testPostGetDelete(jetty, "/loanout/", loanoutCreate, "loanOutNote");
+		//testPostGetDelete(jetty, "/loanin/", loaninCreate, "loanInNote");
+		//testPostGetDelete(jetty, "/acquisition/", acquisitionCreate, "acquisitionReason");
+		//testPostGetDelete(jetty, "/role/", roleCreate, "description");
+		testPostGetDelete(jetty, "/permission/", permissionCreate, "resourceName");
 		
 	}
+	
 
 	@Test public void testServeStatic() throws Exception {
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/chain.properties",null);
@@ -456,67 +373,15 @@ public class TestGeneral {
 	
 	@Test public void testObjectList() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out1=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
-		HttpTester out2=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));	
-		HttpTester out3=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));
-		File storedir=new File(store.getStoreRoot(),"store");
-		if(!storedir.exists())
-			storedir.mkdir();
-		File junk=new File(storedir,"junk");
-		IOUtils.write("junk",new FileOutputStream(junk));
-		/* get all objects */
-		HttpTester out=jettyDo(jetty,"GET","/chain/objects",null);
-		assertEquals(200,out.getStatus());
-		
-		JSONObject result=new JSONObject(out.getContent());
-		JSONArray items=result.getJSONArray("items");
-		Set<String> files=new HashSet<String>();
-		for(int i=0;i<items.length();i++){
-			files.add("/objects/"+items.getJSONObject(i).getString("csid"));
-		}
 
-		/* clean up */
-		out=jettyDo(jetty,"DELETE","/chain"+out1.getHeader("Location"),null);
-		assertEquals(200,out.getStatus());
-		
-		out=jettyDo(jetty,"DELETE","/chain"+out2.getHeader("Location"),null);
-		assertEquals(200,out.getStatus());
-		
-		out=jettyDo(jetty,"DELETE","/chain"+out3.getHeader("Location"),null);
-		assertEquals(200,out.getStatus());
-
-		log.info(out1.getHeader("Location"));
-		assertTrue(files.contains(out1.getHeader("Location")));
-		assertTrue(files.contains(out2.getHeader("Location")));
-		assertTrue(files.contains(out3.getHeader("Location")));
+		//testLists(jetty, "objects", objectCreate, "items");
+		//testLists(jetty, "intake", intakeCreate, "items");
+		//testLists(jetty, "loanin", loaninCreate, "items");
+		//testLists(jetty, "loanout", loanoutCreate, "items");
+		//testLists(jetty, "acquisition", acquisitionCreate, "items");
+		testLists(jetty, "role", roleCreate, "items");
 	}
 
-	@Test public void testPutReturnsContent() throws Exception {
-		deleteSchemaFile("collection-object",false);
-		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/objects/",makeSimpleRequest(testStr2));
-		String id=out.getHeader("Location");
-		assertEquals(out.getMethod(),null);
-		log.info(out.getContent());
-		assertEquals(201,out.getStatus());
-		HttpTester out1=jettyDo(jetty,"GET","/chain"+id,null);
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr2)));
-		HttpTester out2=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(testStr2a));
-
-		assertEquals(200,out2.getStatus());	
-
-		JSONObject one = new JSONObject(getFields(out2.getContent()));
-		JSONObject two = new JSONObject(testStr2a);
-		//test distinguishingFeatures is the same
-		assertEquals(one.get("distinguishingFeatures").toString(),two.get("distinguishingFeatures").toString());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(testStr),new JSONObject(getFields(out.getContent()))));
-
-		/* clean up */
-		out=jettyDo(jetty,"DELETE","/chain"+id,null);
-		assertEquals(200,out.getStatus());
-		
-	
-	}
 
 	/* XXX I don't think this is tetsing what it needs to */
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
@@ -698,6 +563,79 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain/vocabularies/"+person_id,null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
+	}
+
+	//generic search test
+	
+	
+	// generic test post/get/put delete
+	private void testPostGetDelete(ServletTester jetty,String uipath, String data, String testfield) throws Exception {
+		HttpTester out;
+		//Create
+		out = jettyDo(jetty,"POST","/chain"+uipath,makeSimpleRequest(data));
+		assertEquals(out.getMethod(),null);
+		assertEquals(201,out.getStatus());	
+		String id=out.getHeader("Location");	
+		//Retrieve
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+		JSONObject one = new JSONObject(getFields(out.getContent()));
+		JSONObject two = new JSONObject(data);
+		//log.info(out.getContent());
+		assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
+		//change 
+		two.put(testfield, "newvalue");
+		out=jettyDo(jetty,"PUT","/chain"+id,makeRequest(two).toString());
+		assertEquals(200,out.getStatus());	
+		JSONObject oneA = new JSONObject(getFields(out.getContent()));
+		assertEquals(oneA.get(testfield).toString(),"newvalue");
+
+		//Delete
+		//out=jettyDo(jetty,"DELETE","/chain"+id,null);
+		//assertEquals(200,out.getStatus());
+		
+	}
+
+	//generic list test
+	private void testLists(ServletTester jetty, String objtype, String data, String itemmarker)  throws Exception{
+
+		HttpTester out1=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));	
+		//HttpTester out2=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));	
+		//HttpTester out3=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));
+
+		File storedir=new File(store.getStoreRoot(),"store");
+		if(!storedir.exists())
+			storedir.mkdir();
+		File junk=new File(storedir,"junk");
+		IOUtils.write("junk",new FileOutputStream(junk));
+
+		/* get all objects */
+		//pagination?
+		HttpTester out=jettyDo(jetty,"GET","/chain/"+objtype,null);
+		assertEquals(200,out.getStatus());
+		
+		/* create list of files */
+
+		JSONObject result=new JSONObject(out.getContent());
+		JSONArray items=result.getJSONArray("items");
+		Set<String> files=new HashSet<String>();
+		for(int i=0;i<items.length();i++){
+			files.add("/"+objtype+"/"+items.getJSONObject(i).getString("csid"));
+		}
+
+		/* clean up */
+		out=jettyDo(jetty,"DELETE","/chain"+out1.getHeader("Location"),null);
+		assertEquals(200,out.getStatus());
+		
+		//out=jettyDo(jetty,"DELETE","/chain"+out2.getHeader("Location"),null);
+		//assertEquals(200,out.getStatus());
+		
+		//out=jettyDo(jetty,"DELETE","/chain"+out3.getHeader("Location"),null);
+		//assertEquals(200,out.getStatus());
+		
+
+		assertTrue(files.contains(out1.getHeader("Location")));
+		//assertTrue(files.contains(out2.getHeader("Location")));
+		//assertTrue(files.contains(out3.getHeader("Location")));
 	}
 	
 }
