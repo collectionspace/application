@@ -38,6 +38,7 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		generators.put("intake-object","a91db555-5c53-4996-9918-6712351397a0");
 		generators.put("library","80fedaf6-1647-4f30-9f53-a75a3cac2ffd");
 		generators.put("loanin","ed87e7c6-0678-4f42-9d33-f671835586ef");
+		generators.put("loans-in","ed87e7c6-0678-4f42-9d33-f671835586ef");
 		generators.put("loanout", "4b984865-f93d-4481-b874-3dba863ec589");
 		generators.put("loans-out", "4b984865-f93d-4481-b874-3dba863ec589");
 		generators.put("study","0518132e-dd8c-4773-8fa9-07c9af4444ee");
