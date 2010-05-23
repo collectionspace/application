@@ -80,16 +80,6 @@
 							<option id="trade">Trade</option>
 						</options>
 					</field>
-					<!--  XXX Not ready in UI layer yet -->
-					<field id="recordStatus">
-						<selector>.csc-object-identification-object-record-status</selector>
-						<options>
-							<option id="approved">Approved</option>
-							<option id="in-process">In process</option>
-							<option id="new">New</option>
-							<option id="temporary">Temporary</option>
-						</options>
-					</field>
 					<field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number">
 						<selector>.csc-object-identification-object-number</selector>
 						<title-selector>.csc-titleBar-object-identification-object-number</title-selector>
@@ -532,6 +522,20 @@
 			        </repeat>
 			        
 			        <!--  XXX NOT IN UI YET  --> 
+					
+					<!--  Following not active --> 
+					
+					<!--  CSC is included here for when they get put back (can't comment out in JSON)
+					
+					<field id="recordStatus">
+						<selector>.csc-object-identification-object-record-status</selector>
+						<options>
+							<option id="approved">Approved</option>
+							<option id="in-process">In process</option>
+							<option id="new">New</option>
+							<option id="temporary">Temporary</option>
+						</options>
+					</field>
 			        <field id="collection">
 					    <selector>.csc-object-identification-collection</selector>
 						<options>
@@ -572,7 +576,7 @@
 					 <field id="objectAssociatedEventOrganization" autocomplete="organization-organization">
 					    <selector>.csc-object-associated-event-organization</selector>
 					 </field>
-					  <field id="objectAssociatedEventPeople" autocomplete="people-people">
+					  <field id="objectAssociatedEventPeople" autocomplete="person-person">
 					    <selector>.csc-object-associated-event-people</selector>
 					 </field>
 					  <field id="objectAssociatedEventPerson" autocomplete="person-person">
@@ -587,7 +591,7 @@
 					  <field id="objectAssociatedOrganization" autocomplete="organization-organization">
 					    <selector>.csc-object-associated-organization</selector>
 					 </field>
-					  <field id="objectAssociatedPeople" autocomplete="people-people">
+					  <field id="objectAssociatedPeople" autocomplete="person-person">
 					    <selector>.csc-object-associated-people</selector>
 					 </field>
 					  <field id="objectAssociatedPerson" autocomplete="person-person">
@@ -605,9 +609,6 @@
 			    			<option id="?">?</option>
 						</options>					    
 					 </field>	
-					 <field id="objectHistoryNote">
-					    <selector>.csc-object-association-object-history-note</selector>
-					 </field>
 			         <field id="objectOwner" autocomplete="all-all">
 					    <selector>.csc-object-association-owner</selector>
 					 </field>
@@ -649,10 +650,7 @@
 					 </field>
  					 <field id="objectOwnershipExchangePriceValue" >
 					    <selector>.csc-object-association-ownership-exchange-price-value</selector>
-					 </field>
-					 <field id="objectOwnershipPlace" autocomplete="place-place">
-					    <selector>.csc-object-association-ownership-place</selector>
-					 </field>		
+					 </field>	
 					 <field id="objectRelatedObjectNumber">
 					    <selector>.csc-object-association-related-object-number</selector>
 					 </field>
@@ -704,9 +702,14 @@
 			         <field id="objectCatalogueNumber" >
 					    <selector>.csc-object-reference-catalogue-number</selector>
 					 </field> 
-					
-					<!--  Following not active --> 
-					<!--  CSC is included here for when they get put back (can't comment out in JSON)
+					 
+					 <field id="objectOwnershipPlace" autocomplete="place-place">
+					    <selector>.csc-object-association-ownership-place</selector>
+					 </field>	
+					 <field id="objectHistoryNote">
+					    <selector>.csc-object-association-object-history-note</selector>
+					 </field>
+					 
 					 <field id="datePeriod" >
 					    <selector>.csc-date-information-date-period</selector>
 					 </field> 
@@ -893,7 +896,7 @@
 			  <field id="currentOwner" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
-			  <field id="depositor" autocomplete="person-person, organization-organization" mini="summary">
+			  <field id="depositor" autocomplete="person-person,organization-organization" mini="summary">
 			    <selector>.csc-intake-depositor</selector>
 			  </field>
 			  <field id="depositorsRequirements">
@@ -949,7 +952,7 @@
 			  <field id="valuationReferenceNumber">
 			    <selector>.csc-intake-valuation-reference-number</selector>
 			  </field>
-			  <field id="valuer" autocomplete="person-person, organization-organization">
+			  <field id="valuer" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-valuer</selector>
 			  </field>			  
 			  <field id="insuranceNote">
@@ -961,7 +964,7 @@
 			  <field id="insuranceReferenceNumber">
 			    <selector>.csc-intake-insurance-reference-number</selector>
 			  </field>
-			  <field id="insurer" autocomplete="person-person, organization-organization">
+			  <field id="insurer" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-insurer</selector>
 			  </field>  
 			  <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
@@ -990,7 +993,7 @@
 			  <field id="conditionCheckReferenceNumber">
 			    <selector>.csc-intake-condition-check-reference-number</selector>
 			  </field>
-			  <field id="conditionCheckAssesor" autocomplete="person-person, organization-organization">
+			  <field id="conditionCheckAssesor" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-condition-check-assessor</selector>
 			  </field>			  
 			  <field id="conditionCheckDate" ui-type="date">
@@ -1100,10 +1103,11 @@
 			  <field id="objectPurchaseOfferPriceDenomination">
 			    <selector>.csc-acquisition-purchaser-price-denomination</selector>
 			  </field>
-			  
+			  <!-- not supported in service layer
 			  <field id="owner" autocomplete="person-person">
 			    <selector>.csc-acquisition-owner</selector>
 			  </field>
+			  -->
 			  <field id="objectPurchaseOfferPriceType">
 			    <services-tag>objectPurchasePriceDenomination</services-tag>
 			    <selector>.csc-acquisition-purchase-price-type</selector>
@@ -1240,9 +1244,6 @@
 			    <selector>.csc-personAuthority-deathDate</selector>
 			    <title-selector>.csc-titleBar-deathDate</title-selector>
 			  </field>
-			  <field id="referenceNumber">
-			    <selector>.csc-personAuthority-referenceNumber</selector>
-			  </field>
 			  <field id="middleName">
 			    <selector>.csc-personAuthority-middleName</selector>
 			  </field>
@@ -1308,9 +1309,6 @@
 			   <field id="occupation" autocomplete="occupation-occupation">
 			    <selector>.csc-personAuthority-occupation</selector>
 			  </field>
-			  <field id="referenceNumber">
-			    <selector>.csc-personAuthority-referenceNumber</selector>
-			  </field>
 			  <field id="nameNote">
 			    <selector>.csc-personAuthority-nameNote</selector>
 			  </field>
@@ -1323,6 +1321,8 @@
 			  <field id="deathPlace" autocomplete="place-place">
 			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
+			  <!-- No longer needed
+			  
 			  <field id="addressType1">
 			    <selector>.csc-contact-addressType1</selector>
 			    <options>
@@ -1333,7 +1333,9 @@
 			    <field id="telephoneNumber1">
 			    <selector>.csc-contact-telephoneNumber1</selector>
 			  </field>
-			  <!-- No longer needed
+			  <field id="referenceNumber">
+			    <selector>.csc-personAuthority-referenceNumber</selector>
+			  </field>
 			  <field id="addressText1">
 			    <selector>.csc-contact-addressText1</selector>
 			  </field>
