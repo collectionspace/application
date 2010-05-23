@@ -266,7 +266,7 @@ public class TestVocab extends ServicesBaseClass {
 	@Test public void testOrgs() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		// Create
-	JSONObject data=new JSONObject();
+		JSONObject data=new JSONObject();
 		data.put("displayName","TEST");
 		String id=ss.autocreateJSON("/organization/organization",data);
 		// Read

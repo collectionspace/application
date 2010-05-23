@@ -70,9 +70,8 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		deleteAll();
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		String path=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
-		log.info("path="+path);
 		JSONObject js=ss.retrieveJSON("collection-object/"+path);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
+		assertEquals(js.get("title"),getJSON("obj3.json").get("title"));
 	}
 	
 	@Test public void testObjectsPost() throws Exception {
@@ -81,7 +80,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		String path=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
 		ss.updateJSON("collection-object/"+path,getJSON("obj4.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+path);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj4.json")));
+		assertEquals(js.get("title"),getJSON("obj4.json").get("title"));
 	}
 
 	@Test public void testObjectsDelete() throws Exception {
@@ -89,7 +88,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		String path=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
 		JSONObject js=ss.retrieveJSON("collection-object/"+path);
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(js,getJSON("obj3.json")));
+		assertEquals(js.get("title"),getJSON("obj3.json").get("title"));
 		ss.deleteJSON("collection-object/"+path);
 		try {
 			ss.retrieveJSON("collection-object/"+path);
@@ -119,7 +118,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		JSONObject jo=ss.retrieveJSON("id/intake");
 		assertTrue(jo.getString("next").startsWith("IN2010."));
 		jo=ss.retrieveJSON("id/objects");
-		log.info("JSON",jo);
+		//log.info("JSON",jo);
 		assertTrue(jo.getString("next").startsWith("2010.1."));
 	}
 	

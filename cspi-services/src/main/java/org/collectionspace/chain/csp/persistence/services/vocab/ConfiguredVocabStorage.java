@@ -90,7 +90,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null));
 			}	
 			// First send without refid (don't know csid)	
-			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/"+vocab+"/items",body,creds,cache);
+			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/"+vocab+"/items",body,creds,cache);		
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			// This time with refid
@@ -232,6 +232,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			url+=postfix;
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
 			Document doc=data.getDocument();
+			log.info(url);
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies");
 			String[] tag_parts=r.getServicesListPath().split(",",2);
