@@ -85,19 +85,19 @@ public class TestNameThroughWebapp {
 	
 	@Test public void testAutocomplete() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Achmed+Abdullah&limit=150",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Dic+Penderyn&limit=150",null);
 		assertTrue(out.getStatus()<299);
 		String[] data=out.getContent().split("\n");
 		for(int i=0;i<data.length;i++) {
 			JSONObject entry=new JSONObject(data[i]);
-			assertTrue(entry.getString("label").toLowerCase().contains("achmed abdullah"));
+			assertTrue(entry.getString("label").toLowerCase().contains("dic penderyn"));
 			assertTrue(entry.has("urn"));
 		}
 	}
 	
 	@Test public void testAutocompleteRedirect() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/intake/source-vocab/depositor",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/acquisition/source-vocab/acquisitionAuthorizer",null);
 		assertTrue(out.getStatus()<299);
 		JSONObject data=new JSONObject(out.getContent());
 		String url=data.getString("url");
@@ -114,7 +114,7 @@ public class TestNameThroughWebapp {
 	//this isn't the right test... what is the right test?
 	@Test public void testAutocompleteVocabRedirect() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/intake/source-vocab/depositor",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/acquisition/source-vocab/acquisitionAuthorizer",null);
 		assertTrue(out.getStatus()<299);
 		JSONObject data=new JSONObject(out.getContent());
 		String url=data.getString("url");

@@ -7,12 +7,10 @@ import java.io.IOException;
 
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.controller.ChainServlet;
-import org.collectionspace.chain.storage.TestServiceThroughWebapp;
 import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
-import org.mortbay.log.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
