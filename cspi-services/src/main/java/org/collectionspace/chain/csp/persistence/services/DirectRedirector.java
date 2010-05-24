@@ -9,8 +9,11 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DirectRedirector implements ContextualisedStorage {
+	private static final Logger log=LoggerFactory.getLogger(DirectRedirector.class);
 	private Spec spec;
 
 	DirectRedirector(Spec spec) { this.spec=spec; }
