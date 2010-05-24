@@ -19,6 +19,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -96,7 +97,7 @@ public class RecordStorage implements ContextualisedStorage {
 				parts.put(record_path[0],doc);
 			}
 			ReturnedURL url;
-			log.info(doc.asXML());
+			//log.info(doc.asXML());
 			//some records are accepted as multipart in the service layers, others arent, that's why we split up here
 			if(r.isMultipart())
 				url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
@@ -300,7 +301,7 @@ public class RecordStorage implements ContextualisedStorage {
 					}
 				}
 			}
-			log.info(out.toString());
+			//log.info(out.toString());
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
@@ -354,9 +355,15 @@ public class RecordStorage implements ContextualisedStorage {
 					String key=((Element)node).selectSingleNode("sourceField").getText();
 					String uri=((Element)node).selectSingleNode("uri").getText();
 					String refname=((Element)node).selectSingleNode("refName").getText();
+					String fieldName = key.split(":")[1];
+					Field fieldinstance = (Field)r.getField(fieldName);
+					
 					if(uri!=null && uri.startsWith("/"))
 						uri=uri.substring(1);
 					JSONObject data=miniForURI(storage,creds,cache,refname,uri);
+					data.put("sourceFieldselector", fieldinstance.getSelector());
+					data.put("sourceFieldName", fieldName);
+					data.put("sourceFieldType", r.getID());
 					out.put(key,data);
 				}
 			}
