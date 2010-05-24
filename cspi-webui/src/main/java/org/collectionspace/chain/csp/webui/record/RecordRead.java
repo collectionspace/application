@@ -80,12 +80,18 @@ public class RecordRead implements WebMethod {
 			JSONObject entry=new JSONObject();
 			entry.put("csid",in.getString("csid"));
 			entry.put("recordtype",in.getString("recordtype"));
-			entry.put("sourceFieldName",field);
+			//entry.put("sourceFieldName",field);
+			entry.put("sourceFieldselector",in.getString("sourceFieldselector"));
+			entry.put("sourceFieldName",in.getString("sourceFieldName"));
+			entry.put("sourceFieldType",in.getString("sourceFieldType"));
+			
 			entry.put("number",in.getString("displayName"));
 			out.put(entry);
 		}
 		return out;
 	}
+	
+	
 	
 	/* Wrapper exists to decomplexify exceptions: also used inCreateUpdate, hence not private */
 	JSONObject getJSON(Storage storage,String csid) throws UIException {
