@@ -2,49 +2,20 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-
-import javax.activation.DataSource;
-import javax.mail.BodyPart;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
-
-import org.apache.commons.io.IOUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
-import org.collectionspace.chain.csp.config.ConfigRoot;
-import org.collectionspace.chain.csp.inner.CoreConfig;
-import org.collectionspace.chain.csp.persistence.services.ServicesStorage;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
-import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
-import org.collectionspace.chain.csp.schema.Record;
-import org.collectionspace.chain.csp.schema.Spec;
-import org.collectionspace.csp.api.container.CSPManager;
-import org.collectionspace.csp.api.core.CSPDependencyException;
-import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
-import org.collectionspace.csp.api.persistence.StorageGenerator;
-import org.collectionspace.csp.container.impl.CSPManagerImpl;
-import org.collectionspace.csp.helper.core.RequestCache;
-import org.collectionspace.chain.util.json.JSONUtils;
-import org.dom4j.Document;
 import org.dom4j.Node;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.InputSource;
 
 public class TestServiceThroughAPI extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughAPI.class);
@@ -129,7 +100,8 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
 		String p2=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
 		String p3=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
-		String[] names=ss.getPaths("collection-object",null);
+		JSONObject data = ss.getPathsJSON("collection-object",null);
+		String[] names=(String[]) data.get("listItems");
 		//XXX add pagination support CSPACE-1836
 		assertArrayContainsString(names,p1);
 		assertArrayContainsString(names,p2);
@@ -143,10 +115,11 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		String p2=ss.autocreateJSON("collection-object/",getJSON("obj-search.json"));
 		JSONObject restriction=new JSONObject();
 		restriction.put("keywords","aardvark");
-		String[] names=ss.getPaths("collection-object",restriction);
+		JSONObject data = ss.getPathsJSON("collection-object",restriction);
+		String[] names= (String[])data.get("listItems");
 		//XXX add pagination support CSPACE-1836
 		assertArrayContainsString(names,p2);
-		assertArrayDoesNotContainString(names,p1);		
+		assertArrayDoesNotContainString(names,p1);
 	}
 	
 	@Test public void testMini() throws Exception {

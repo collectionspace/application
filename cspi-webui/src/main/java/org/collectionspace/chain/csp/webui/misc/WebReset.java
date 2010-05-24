@@ -48,13 +48,16 @@ public class WebReset implements WebMethod {
 		try {
 			TTYOutputter tty=request.getTTYOutputter();
 			// Delete existing records
-			for(String dir : storage.getPaths("/",null)) {
+			JSONObject data = storage.getPathsJSON("/",null);
+			String[] paths = (String[]) data.get("listItems");
+			for(String dir : paths) {
 				// XXX yuck!
 				//need to delete auths
 				if("relations".equals(dir) || "place".equals(dir) || "rolePermission".equals(dir) || "role".equals(dir) || "vocab".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "direct".equals(dir) || "users".equals(dir))
 					continue;
 				tty.line("dir : "+dir);
-				String[] paths=storage.getPaths(dir,null);
+				data = storage.getPathsJSON(dir,null);
+				paths = (String[]) data.get("listItems");
 				for(int i=0;i<paths.length;i++) {
 					tty.line("path : "+dir+"/"+paths[i]);
 					try {
@@ -95,7 +98,8 @@ public class WebReset implements WebMethod {
 				//check++;
 				//don't increment page num as need to call page 0 as 
 				//once you delete a page worth the next page is now the current page
-				String[] res = storage.getPaths("/person/person",myjs);
+				data = storage.getPathsJSON("/person/person",myjs);
+				String[] res = (String[]) data.get("listItems");
 
 				if(res.length==0 || checkpagination.equals(res[0])){
 					resultsize=0;
@@ -120,7 +124,8 @@ public class WebReset implements WebMethod {
 				//check++;
 				//don't increment page num as need to call page 0 as 
 				//once you delete a page worth the next page is now the current page
-				String[] res = storage.getPaths("/organization/organization",myjs);
+				data = storage.getPathsJSON("/organization/organization",myjs);
+				String[] res = (String[]) data.get("listItems");
 
 				if(res.length==0 || checkpagination.equals(res[0])){
 					resultsize=0;

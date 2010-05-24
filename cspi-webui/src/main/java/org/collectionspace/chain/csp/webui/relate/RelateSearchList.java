@@ -18,8 +18,11 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RelateSearchList implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(RelateSearchList.class);
 	private Map<String,String> url_to_type=new HashMap<String,String>();
 	private boolean search;
 
@@ -42,7 +45,8 @@ public class RelateSearchList implements WebMethod {
 			addRestriction(restrictions,"dst",target,true);
 			addRestriction(restrictions,"type",type,false);
 			// XXX CSPACE-1834 need to support pagination
-			String[] relations = storage.getPaths("relations/main",restrictions);
+			JSONObject results = storage.getPathsJSON("relations/main",restrictions);
+			String[] relations = (String[]) results.get("listItems");
 			JSONObject out=new JSONObject();
 			JSONArray data=new JSONArray();
 			for(String r : relations)

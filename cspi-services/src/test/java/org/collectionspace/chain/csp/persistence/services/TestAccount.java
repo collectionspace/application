@@ -13,11 +13,8 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
-import org.mortbay.jetty.testing.HttpTester;
-import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,16 +31,17 @@ public class TestAccount extends ServicesBaseClass {
 		Storage ss;
 		try {
 			ss = makeServicesStorage(base+"/cspace-services/");
-		/* 
-		 *  arggg how do I get it to do an exact match */
-		String[] paths=ss.getPaths("users/",new JSONObject("{\"email\":\"bob@indigo-e.co.uk\"}"));
-
-		
-		if(paths.length>=1){
-			for(int i=0;i<paths.length;i++) {
-				log.info(paths[i] +"  : "+ i +" of "+ paths.length);
+			/* 
+			 *  arggg how do I get it to do an exact match */
+			JSONObject data = ss.getPathsJSON("users/",new JSONObject("{\"email\":\"bob@indigo-e.co.uk\"}"));
+			String[] paths=(String[])data.get("listItems");
+	
+			
+			if(paths.length>=1){
+				for(int i=0;i<paths.length;i++) {
+					log.info(paths[i] +"  : "+ i +" of "+ paths.length);
+				}
 			}
-		}
 		} catch (CSPDependencyException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,7 +64,8 @@ public class TestAccount extends ServicesBaseClass {
 	@Test public void testAccountCreate() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		/* delete user so we can create it later - will return 404 if user doesn't exist */
-		String[] paths=ss.getPaths("users/",new JSONObject("{\"userId\":\"test1@collectionspace.org\"}"));
+		JSONObject data = ss.getPathsJSON("users/",new JSONObject("{\"userId\":\"test1@collectionspace.org\"}"));
+		String[] paths= (String[])data.get("listItems");
 		if(paths.length>0)
 			ss.deleteJSON("users/"+paths[0]);
 		

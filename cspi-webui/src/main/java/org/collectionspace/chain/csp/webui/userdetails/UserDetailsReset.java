@@ -1,21 +1,13 @@
 package org.collectionspace.chain.csp.webui.userdetails;
 
-import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Properties;
 
-import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -238,7 +230,8 @@ public class UserDetailsReset implements WebMethod {
 				while(resultsize >0){
 					restriction.put("pageNum",pagenum);	
 					/* XXX need to force it to only do an exact match */
-					String[] paths=storage.getPaths(base,restriction);
+					JSONObject data = storage.getPathsJSON(base,restriction);
+					String[] paths = (String[]) data.get("listItems");
 					pagenum++;
 					
 					if(paths.length==0 || checkpagination.equals(paths[0])){
@@ -283,7 +276,7 @@ public class UserDetailsReset implements WebMethod {
 			if(!r.isType("record"))
 				continue;
 			try {
-				storage.getPaths(r.getID(),null);
+				storage.getPathsJSON(r.getID(),null);
 				return true;
 			} catch (Exception e) {
 				return false;

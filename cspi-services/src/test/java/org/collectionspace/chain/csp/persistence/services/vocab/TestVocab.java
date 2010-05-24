@@ -7,27 +7,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
-import org.collectionspace.chain.csp.config.ConfigRoot;
-import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.ServicesBaseClass;
-import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
-import org.collectionspace.chain.csp.schema.Record;
-import org.collectionspace.chain.csp.schema.Spec;
-import org.collectionspace.csp.api.container.CSPManager;
-import org.collectionspace.csp.api.core.CSPDependencyException;
-import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
-import org.collectionspace.csp.api.persistence.StorageGenerator;
-import org.collectionspace.csp.container.impl.CSPManagerImpl;
-import org.collectionspace.csp.helper.core.RequestCache;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.InputSource;
 
 public class TestVocab extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestVocab.class);
@@ -151,7 +139,8 @@ public class TestVocab extends ServicesBaseClass {
 		while(resultsize >0){
 			myjs.put("pageNum", check);
 			check++;
-			String[] res = ss.getPaths("/person/person",myjs);
+			JSONObject items = ss.getPathsJSON("/person/person",myjs);
+			String[] res = (String[])items.get("listItems");
 
 			if(res.length==0 || checkpagination.equals(res[0])){
 				resultsize=0;
@@ -223,7 +212,8 @@ public class TestVocab extends ServicesBaseClass {
 		while(resultsize >0){
 			myjs.put("pageNum", check);
 			check++;
-			String[] res = ss.getPaths("/place/place",myjs);
+			JSONObject items = ss.getPathsJSON("/place/place",myjs);
+			String[] res = (String[]) items.get("listItems");
 
 			if(res.length==0 || checkpagination.equals(res[0])){
 				resultsize=0;
@@ -296,7 +286,8 @@ public class TestVocab extends ServicesBaseClass {
 		while(resultsize >0){
 			myjs.put("pageNum", check);
 			check++;
-			String[] res = ss.getPaths("/organization/organization",myjs);
+			JSONObject items = ss.getPathsJSON("/organization/organization",myjs);
+			String[] res = (String[]) items.get("listItems");
 
 			if(res.length==0 || checkpagination.equals(res[0])){
 				resultsize=0;
@@ -346,7 +337,8 @@ public class TestVocab extends ServicesBaseClass {
 
 		while(resultsize >0){
 			myjs.put("pageNum", check);
-			String[] res = ss.getPaths("/organization/organization",myjs);
+			JSONObject items = ss.getPathsJSON("/organization/organization",myjs);
+			String[] res = (String[]) items.get("listItems");
 
 			if(res.length==0 || checkpagination.equals(res[0])){
 				resultsize=0;

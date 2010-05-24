@@ -22,8 +22,11 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebAutoComplete implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(WebAutoComplete.class);
 	private Record r;
 	
 	public WebAutoComplete(Record r) { this.r=r; }
@@ -45,7 +48,9 @@ public class WebAutoComplete implements WebMethod {
 				JSONObject restriction=new JSONObject();
 				restriction.put(n.getRecord().getDisplayNameField().getID(),start); // May be something other than display name
 				//XXX how do we do pagination for autocomplete?
-				for(String csid : storage.getPaths(path,restriction)) {
+				JSONObject results = storage.getPathsJSON(path,restriction);
+				String[] paths = (String[]) results.get("listItems");
+				for(String csid : paths) {
 					JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view");
 					JSONObject entry=new JSONObject();
 					entry.put("urn",data.get("refid"));

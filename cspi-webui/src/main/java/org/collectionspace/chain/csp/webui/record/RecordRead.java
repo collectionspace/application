@@ -56,7 +56,8 @@ public class RecordRead implements WebMethod {
 		JSONObject restrictions=new JSONObject();
 		restrictions.put("src",base+"/"+csid);
 		// XXX needs pagination support CSPACE-1819
-		String[] relations=storage.getPaths("relations/main",restrictions);
+		JSONObject data = storage.getPathsJSON("relations/main",restrictions);
+		String[] relations = (String[]) data.get("listItems");
 		for(String r : relations) {
 			try {
 				out.put(generateRelationEntry(storage,r));

@@ -65,7 +65,8 @@ public class RecordSearchList implements WebMethod {
 			if(pageNum!=null) {
 				restriction.put("pageNum",pageNum);
 			}
-			String[] paths=storage.getPaths(base,restriction);
+			JSONObject data = storage.getPathsJSON(base,restriction);
+			String[] paths = (String[]) data.get("listItems");
 			for(int i=0;i<paths.length;i++) {
 				if(paths[i].startsWith(base+"/"))
 					paths[i]=paths[i].substring((base+"/").length());

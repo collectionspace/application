@@ -18,6 +18,7 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +60,8 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		if(pageSize!=null){
 			restriction.put("pageSize",pageSize);
 		}
-		String[] results=storage.getPaths(r.getID()+"/"+n.getTitleRef(),restriction);
+		JSONObject data = storage.getPathsJSON(r.getID()+"/"+n.getTitleRef(),restriction);
+		String[] results = (String[]) data.get("listItems");
 		/* Get a view of each */
 		for(String result : results) {
 			out.put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));

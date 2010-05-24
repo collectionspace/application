@@ -9,10 +9,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
-import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
-import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
-import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
@@ -37,7 +34,7 @@ public class WebLogin implements WebMethod {
 			if(!r.isType("record"))
 				continue;
 			try {
-				storage.getPaths(r.getID(),null);
+				storage.getPathsJSON(r.getID(),null);
 				return true;
 			} catch (Exception e) {
 				return false;

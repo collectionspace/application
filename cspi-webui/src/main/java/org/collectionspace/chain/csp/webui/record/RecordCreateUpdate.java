@@ -1,9 +1,5 @@
 package org.collectionspace.chain.csp.webui.record;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Record;
@@ -21,8 +17,11 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RecordCreateUpdate implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(RecordCreateUpdate.class);
 	private String url_base,base;
 	private boolean create;
 	private Spec spec;
@@ -40,7 +39,9 @@ public class RecordCreateUpdate implements WebMethod {
 		JSONObject r=new JSONObject();
 		r.put("src",base+"/"+csid);	
 		// XXX needs pagination support CSPACE-1819
-		for(String relation : storage.getPaths("relations/main", r)) {
+		JSONObject data = storage.getPathsJSON("relations/main",r);
+		String[] paths = (String[]) data.get("listItems");
+		for(String relation : paths) {
 			storage.deleteJSON("relations/main/"+relation);
 		}
 	}

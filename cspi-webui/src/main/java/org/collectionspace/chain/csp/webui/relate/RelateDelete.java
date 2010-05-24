@@ -14,10 +14,13 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /* Only complexity is that we delete opposite directions */
 
 public class RelateDelete implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(RelateDelete.class);
 	private boolean one_way;
 	
 	public RelateDelete(boolean one_way) {
@@ -36,7 +39,8 @@ public class RelateDelete implements WebMethod {
 		restrictions.put("src",obj_fwd.getString("dst"));
 		restrictions.put("type",obj_fwd.getString("type")); // XXX what about non-self-inverses?
 		// XXX CSPACE-1834 need to support pagination
-		String[] relations=storage.getPaths("relations/main",restrictions);
+		JSONObject data = storage.getPathsJSON("relations/main",restrictions);
+		String[] relations = (String[]) data.get("listItems");
 		if(relations.length==0)
 			return null;
 		return relations[0];

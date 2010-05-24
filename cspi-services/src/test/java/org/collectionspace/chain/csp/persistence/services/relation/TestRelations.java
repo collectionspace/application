@@ -9,40 +9,24 @@ import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
-import org.collectionspace.chain.csp.config.ConfigRoot;
-import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.ServicesBaseClass;
-import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
-import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
-import org.collectionspace.chain.csp.schema.Record;
-import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
-import org.collectionspace.csp.api.container.CSPManager;
-import org.collectionspace.csp.api.core.CSPDependencyException;
-import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
-import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
-import org.collectionspace.csp.container.impl.CSPManagerImpl;
-import org.collectionspace.csp.helper.core.RequestCache;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
-import org.mortbay.jetty.testing.HttpTester;
-import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.xml.sax.InputSource;
 
 public class TestRelations extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestRelations.class);
@@ -150,18 +134,23 @@ public class TestRelations extends ServicesBaseClass {
 	@Test public void testRelationsSearchThroughAPI() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		// clear down, for sanity
-		String[] paths=ss.getPaths("relations/main",null);
+		//XXX THIS SHOULD BE LOOKED AT AND PROBABLY CHANGED!!
+		JSONObject data = ss.getPathsJSON("relations/main", null);
+		String[] paths = (String[])data.get("listItems");
 		for(String path : paths) {
 			ss.deleteJSON("relations/main/"+path);
-		}		
+		}
+
 		// create some test records
 		String obj1=makeRecord(ss,"A");
 		String obj2=makeRecord(ss,"B");
 		String obj3=makeRecord(ss,"C");
 		String p1=relate(ss,obj1,obj2);
 		String p2=relate(ss,obj1,obj3);
+
 		// simple list
-		paths=ss.getPaths("relations/main",null);
+		data = ss.getPathsJSON("relations/main", null);
+		paths=(String[])data.get("listItems");
 		assertEquals(2,paths.length);
 		assertTrue(paths[0].equals(p1) || paths[1].equals(p1));
 		assertTrue(paths[0].equals(p2) || paths[1].equals(p2));
@@ -171,7 +160,9 @@ public class TestRelations extends ServicesBaseClass {
 		// search for it
 		JSONObject restriction=new JSONObject();
 		restriction.put("dst","collection-object/"+id2);
-		paths=ss.getPaths("relations/main",restriction);
+		
+		data = ss.getPathsJSON("relations/main", restriction);
+		paths=(String[])data.get("listItems");
 		assertEquals(1,paths.length);
 		assertEquals(paths[0],p1);
 		// XXX should also test type and subject
