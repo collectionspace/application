@@ -39,6 +39,18 @@ public class Repeat implements FieldSet, FieldParent {
 		services_section=Util.getStringOrDefault(section,"/@section","common");
 	}
 
+	public Repeat(Repeat repeat, ReadOnlySection section) {
+		this.parent=repeat;
+		id=(String)section.getValue("/@id");
+		selector=(String)section.getValue("/selector");
+		is_visible=Util.getBooleanOrDefault(section,"/@show",true);
+		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
+		xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
+		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
+		asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
+		services_section=Util.getStringOrDefault(section,"/@section","common");
+	}
+
 	public String getID() { return id; }
 
 	void addChild(FieldSet f) { children.add(f); }
