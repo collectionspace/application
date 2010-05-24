@@ -83,14 +83,15 @@ public class TestNameThroughWebapp {
 		}			
 	}
 	
+	//XXX change so creates person and then tests person exists
 	@Test public void testAutocomplete() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Dic+Penderyn&limit=150",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=Achmed&limit=150",null);
 		assertTrue(out.getStatus()<299);
 		String[] data=out.getContent().split("\n");
 		for(int i=0;i<data.length;i++) {
 			JSONObject entry=new JSONObject(data[i]);
-			assertTrue(entry.getString("label").toLowerCase().contains("dic penderyn"));
+			assertTrue(entry.getString("label").toLowerCase().contains("achmed abdullah"));
 			assertTrue(entry.has("urn"));
 		}
 	}
