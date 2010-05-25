@@ -18,8 +18,6 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /** SplittingStorage is an implementation of storage which can be wrapped or used as a base class, which delegates 
  * the execution of methods to another implementation of storage on the basis of the first path component. This 
@@ -27,7 +25,6 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class SplittingStorage implements ContextualisedStorage {
-	private static final Logger log=LoggerFactory.getLogger(SplittingStorage.class);
 	private Map<String,ContextualisedStorage> children=new HashMap<String,ContextualisedStorage>();
 
 	public void addChild(String prefix,ContextualisedStorage store) {
