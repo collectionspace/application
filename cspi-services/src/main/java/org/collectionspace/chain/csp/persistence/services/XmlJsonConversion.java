@@ -143,16 +143,17 @@ public class XmlJsonConversion {
 	}
 	
 	/* Repeat syntax is challenging for dom4j */
-	private static List<Map<String,Element>> extractRepeats(Element container,FieldSet f) {
-		List<Map<String,Element>> out=new ArrayList<Map<String,Element>>();
+	private static List<Map<String, List <Element> >> extractRepeats(Element container,FieldSet f) {
+		List<Map<String,List<Element>>> out=new ArrayList<Map<String,List<Element>>>();
 		// Build index so that we can see when we return to the start
 		List<String> fields=new ArrayList<String>();
+		List<Element> repeatdatatypestuff = new ArrayList<Element>();
 		buildFieldList(fields,f);
 		Map<String,Integer> field_index=new HashMap<String,Integer>();
 		for(int i=0;i<fields.size();i++)
 			field_index.put(fields.get(i),i);
 		// Iterate through
-		Map<String,Element> member=null;
+		Map<String, List <Element> > member=null;
 		int prev=Integer.MAX_VALUE;
 		for(Object node : container.selectNodes("*")) {
 			if(!(node instanceof Element))
@@ -164,13 +165,16 @@ public class XmlJsonConversion {
 				// Must be a new instance
 				if(member!=null)
 					out.add(member);
-				member=new HashMap<String,Element>();
+				member=new HashMap<String, List <Element> >();
+				repeatdatatypestuff = new ArrayList<Element>();
 			}
 			prev=next;
-			member.put(((Element)node).getName(),(Element)node);
+			repeatdatatypestuff.add((Element)node);
+			member.put(((Element)node).getName(),repeatdatatypestuff);
 		}
 		if(member!=null)
 			out.add(member);
+		
 		return out;
 	}
 		
@@ -192,13 +196,14 @@ public class XmlJsonConversion {
 			return;
 		// Only first element is important in container
 		Element container=(Element)nodes.get(0);
-		List<Map<String,Element>> elements=extractRepeats(container,f);
+		List<Map<String,List <Element>>> elementlist=extractRepeats(container,f);
 		JSONArray array=new JSONArray();
-		for(Map<String,Element> group : elements) {
+		for(Map<String,List <Element>> grouplist : elementlist) {
 			// For each repeat
 			JSONObject member=new JSONObject();
 			for(FieldSet fs : f.getChildren()) {
-				Element child=group.get(fs.getServicesTag());
+				List <Element> childlist = grouplist.get(fs.getServicesTag());
+				for(Element child: childlist){
 				if(child==null)
 					continue;
 				if(fs instanceof Field) {
@@ -225,6 +230,7 @@ public class XmlJsonConversion {
 					out.put(fs.getID(),member.get(f.getID()));
 					return;
 				}
+				}
 			}
 			array.put(member);
 		}
@@ -249,6 +255,7 @@ public class XmlJsonConversion {
 	public static JSONObject convertToJson(Record r,Document doc) throws JSONException {
 		JSONObject out=new JSONObject();
 		convertToJson(out,r,doc);
+		String test = "W";
 		return out;
 	}
 }
