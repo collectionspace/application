@@ -1457,7 +1457,39 @@
 				</field>
 			</record>
 			
-            <record id="permission">
+			<record id="permission" type="authorizationdata">
+			    <web-url>permission</web-url>
+                <services-url>authorization/permissions</services-url>
+                <services-list-path>permissions-common-list/permission-list-item</services-list-path>
+                <services-record-path>permissions_common:http://collectionspace.org/services/authorization,permission</services-record-path>
+                <is-multipart>false</is-multipart>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                        </view>
+                    </structure>
+                </structures>
+                <terms-used>false</terms-used>
+                <repeat id="actions">
+                    <selector>.csc-permission-action-row:</selector>
+                    <repeat id="action" container="false">
+                        <selector>.csc-permission-action-row:</selector>
+                        <field id="name">
+                            <selector>.csc-permission-action-name</selector>
+                        </field>
+                    </repeat>
+                </repeat>
+                <field id="effect" mini="number">
+                    <selector>.csc-permission-effect</selector>
+                </field>
+                <field id="resourceName" mini="summary">
+                    <selector>.csc-permission-resourceName</selector>
+                </field>
+			</record>
+			
+            <!--<record id="permission">
             	<web-url>permission</web-url>
                 <services-url>authorization/permissions</services-url>
 				<services-list-path>permissions_list/*</services-list-path>
@@ -1471,7 +1503,6 @@
 						</view>
 					</structure>
 				</structures>
-				<is-multipart>false</is-multipart>
 				<terms-used>false</terms-used>
 				<field id="resourceName" mini="number">
 					<selector>.csc-permission-name</selector>
@@ -1482,7 +1513,7 @@
 						<selector>.csc-permission-action-name</selector>
 					</field>
 				</repeat>
-			</record>
+			</record>-->
            
  			<record id="rolePermission">
 				<is-multipart>false</is-multipart>

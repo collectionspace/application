@@ -26,11 +26,13 @@ public class RecordRead implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(RecordRead.class);
 	private String base;
 	private boolean record_type;
+	private boolean authorization_type;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public RecordRead(Record r) { 
 		this.base=r.getID();
 		record_type=r.isType("record");
+		authorization_type=r.isType("authorizationdata");
 	}
 		
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
@@ -97,7 +99,7 @@ public class RecordRead implements WebMethod {
 	JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		try {
-			if(record_type) {
+			if(record_type || authorization_type) {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				JSONArray relations=createRelations(storage,csid);

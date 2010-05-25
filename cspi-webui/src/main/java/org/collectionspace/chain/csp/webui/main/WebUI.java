@@ -161,7 +161,7 @@ public class WebUI implements CSP, UI, Configurable {
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 				}
 			}
-			else if(r.isType("record")){
+			else if(r.isType("record") || r.isType("authorizationdata")){
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord(r.getID())));
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));

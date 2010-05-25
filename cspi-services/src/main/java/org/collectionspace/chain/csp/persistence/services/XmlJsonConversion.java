@@ -2,8 +2,10 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
@@ -76,7 +78,7 @@ public class XmlJsonConversion {
 			}
 		}
 	}
-	
+
 	private static void addFieldSetToXml(Element root,FieldSet fs,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
 		if(!section.equals(fs.getSection()))
 			return;
@@ -135,9 +137,13 @@ public class XmlJsonConversion {
 	}
 
 	private static void buildFieldList(List<String> list,FieldSet f) {
-		if(f instanceof Repeat)
-			for(FieldSet a : ((Repeat)f).getChildren())
+		if(f instanceof Repeat){
+			for(FieldSet a : ((Repeat)f).getChildren()){
+				if(a instanceof Repeat)
+					list.add(a.getID());
 				buildFieldList(list,a);
+			}
+		}
 		if(f instanceof Field)
 			list.add(f.getID());
 	}
@@ -177,7 +183,60 @@ public class XmlJsonConversion {
 		
 		return out;
 	}
-		
+	
+	@SuppressWarnings("unchecked")
+	private static void addRepeatedNodeToJson(JSONObject out,Element container,Repeat f) throws JSONException {
+		List<Map<String,List <Element>>> elementlist=extractRepeats(container,f);
+		JSONArray array=new JSONArray();
+		JSONArray repeatarray = new JSONArray();
+		for(Map<String,List <Element>> grouplist : elementlist) {
+			// For each repeat
+			JSONObject member=new JSONObject();
+			for(FieldSet fs : f.getChildren()) {
+				List <Element> childlist = grouplist.get(fs.getServicesTag());
+				for(Element child: childlist){
+					if(child==null)
+						continue;
+					if(fs instanceof Field) {
+						if(((Field)fs).hasAutocompleteInstance()){
+							String deurned = getDeURNedValue((Field)fs,child.getText());
+							if(deurned !=""){
+								member.put("de-urned-"+fs.getID(), deurned);
+							}
+						}
+						
+						if(f.getXxxUiNoRepeat()){
+							member.put(f.getID(),child.getText());}
+						else{
+							//changed this as fields within repeats were not doing as expected
+							// used fs.getID() rather than f.getID()
+							member.put(fs.getID(),child.getText());
+						}
+					} else if(fs instanceof Repeat) {
+						JSONObject rp=new JSONObject();
+						addRepeatedNodeToJson(rp,child,(Repeat)fs);
+						repeatarray.put(rp);
+					}
+					if(f.getXxxUiNoRepeat()) {
+						out.put(fs.getID(),member.get(f.getID()));
+						return;
+					}
+					
+					//check if there are attributes and add them to the node
+					List<Node> attributes = container.selectNodes("@*");
+					for(Node n : attributes){
+						member.put(n.getName(),n.getText());
+					}
+				}
+				if(repeatarray.length() > 0)
+					array.put(repeatarray);
+			}
+			if(member.length() > 0)
+				array.put(member);
+		}
+		out.put(f.getID(),array);
+	}
+	
 	@SuppressWarnings("unchecked")
 	private static void addRepeatToJson(JSONObject out,Element root,Repeat f) throws JSONException {
 		if(f.getXxxServicesNoRepeat()) {
@@ -196,45 +255,8 @@ public class XmlJsonConversion {
 			return;
 		// Only first element is important in container
 		Element container=(Element)nodes.get(0);
-		List<Map<String,List <Element>>> elementlist=extractRepeats(container,f);
-		JSONArray array=new JSONArray();
-		for(Map<String,List <Element>> grouplist : elementlist) {
-			// For each repeat
-			JSONObject member=new JSONObject();
-			for(FieldSet fs : f.getChildren()) {
-				List <Element> childlist = grouplist.get(fs.getServicesTag());
-				for(Element child: childlist){
-				if(child==null)
-					continue;
-				if(fs instanceof Field) {
-					if(((Field)fs).hasAutocompleteInstance()){
-						String deurned = getDeURNedValue((Field)fs,child.getText());
-						if(deurned !=""){
-							member.put("de-urned-"+fs.getID(), deurned);
-						}
-					}
-					
-					if(f.getXxxUiNoRepeat()){
-						member.put(f.getID(),child.getText());}
-					else{
-						//changed this as fields within repeats were not doing as expected
-						// used fs.getID() rather than f.getID()
-						member.put(fs.getID(),child.getText());
-					}
-				} else if(fs instanceof Repeat) {
-					JSONObject rp=new JSONObject();
-					addRepeatToJson(rp,child,(Repeat)fs);					
-					member.put(f.getID(),rp);
-				}
-				if(f.getXxxUiNoRepeat()) {
-					out.put(fs.getID(),member.get(f.getID()));
-					return;
-				}
-				}
-			}
-			array.put(member);
-		}
-		out.put(f.getID(),array);
+		addRepeatedNodeToJson(out,container,f);
+		
 	}
 	
 	private static void addFieldSetToJson(JSONObject out,Element root,FieldSet fs) throws JSONException {
@@ -255,7 +277,6 @@ public class XmlJsonConversion {
 	public static JSONObject convertToJson(Record r,Document doc) throws JSONException {
 		JSONObject out=new JSONObject();
 		convertToJson(out,r,doc);
-		String test = "W";
 		return out;
 	}
 }
