@@ -18,6 +18,8 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /** SplittingStorage is an implementation of storage which can be wrapped or used as a base class, which delegates 
  * the execution of methods to another implementation of storage on the basis of the first path component. This 
@@ -25,6 +27,7 @@ import org.json.JSONObject;
  * 
  */
 public class SplittingStorage implements ContextualisedStorage {
+	private static final Logger log=LoggerFactory.getLogger(SplittingStorage.class);
 	private Map<String,ContextualisedStorage> children=new HashMap<String,ContextualisedStorage>();
 
 	public void addChild(String prefix,ContextualisedStorage store) {
@@ -80,8 +83,14 @@ public class SplittingStorage implements ContextualisedStorage {
 					if(e.getKey().equals(parts[0])) {
 						ContextualisedStorage storage=e.getValue();
 						JSONObject data=storage.getPathsJSON(root,creds,cache,parts[1],restriction);
-						
-						JSONObject paging = data.getJSONObject("pagination");
+						if(data==null){
+							data = new JSONObject();
+							data.put("listItems", new String[0]) ;
+						}
+						JSONObject paging = new JSONObject();
+						if(data.has("pagination")){
+							paging = data.getJSONObject("pagination");
+						}
 						if(!passed){
 							pagination = paging;
 							passed = true;
@@ -95,15 +104,16 @@ public class SplittingStorage implements ContextualisedStorage {
 								pagination.put("itemsInPage", totalinpage);
 							}
 						}
-						
+
 						//create one merged list
 						String[] paths = (String[]) data.get("listItems");
-						if(paths==null)
+						if(paths==null){
 							continue;
+						}
 						for(String s : paths) {
 							list.add(s);
 						}
-						
+
 						//keep the separate lists in a field
 						separatelists.add(paths);
 					}
