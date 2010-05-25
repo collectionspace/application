@@ -176,7 +176,7 @@ public class RecordStorage implements ContextualisedStorage {
 			
 			
 			List<Node> nodes=list.selectNodes("/"+r.getServicesListPath().split("/")[0]+"/*");
-			if(r.getServicesListPath().equals("roles_list/*")){
+			if(r.getServicesListPath().equals("roles_list/*") || r.getServicesListPath().equals("permissions_list/*")){
 				//XXX hack to deal with roles being inconsistent
 				// XXX CSPACE-1887 workaround
 				for(Node node : nodes) {
