@@ -61,9 +61,9 @@ public class TestGeneral {
 	private final static String loaninCreate = "{\"loanInNumber\":\"LI2010.1.2\",\"lendersAuthorizer\":\"lendersAuthorizer\",\"lendersAuthorizationDate\":\"lendersAuthorizationDate\",\"lendersContact\":\"lendersContact\",\"loanInContact\":\"loanInContact\",\"loanInConditions\":\"loanInConditions\",\"loanInDate\":\"loanInDate\",\"loanReturnDate\":\"loanReturnDate\",\"loanRenewalApplicationDate\":\"loanRenewalApplicationDate\",\"loanInNote\":\"loanInNote\",\"loanPurpose\":\"loanPurpose\"}";
 	private final static String intakeCreate = "{\"normalLocation\": \"normalLocationX\",\"fieldCollectionEventName\": \"fieldCollectionEventNameX\",\"earliestDateCertainty\": \"earliestDateCertaintyX\",\"earliestDate\": \"earliestDateX\",\"latestDate\": \"latestDateX\",\"entryNumber\": \"entryNumberX\",\"insurancePolicyNumber\": \"insurancePolicyNumberX\",\"depositorsRequirements\": \"depositorsRequirementsX\",\"entryReason\": \"entryReasonX\",\"earliestDateQualifier\": \"earliestDateQualifierX\"}";
 	private final static String objectCreate = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartment\":\"new DEPT\",\"objectName\":\"new OBJNAME\"}";
-	private final static String acquisitionCreate = "{\"acquisitionReason\":\"acquisitionReason\",\"acquisitionReferenceNumber\":\"acquisitionReferenceNumber\",\"acquisitionMethod\":\"acquisitionMethod\"}";
+	private final static String acquisitionCreate = "{\"acquisitionReason\":\"acquisitionReason\",\"acquisitionReferenceNumber\":\"acquisitionReferenceNumber\",\"acquisitionMethod\":\"acquisitionMethod\",\"acquisitionSources\":[{\"acquisitionSource\": \"11111\"},{\"acquisitionSource\": \"22222\"}]}";
 	private final static String roleCreate = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_1_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
-	private final static String permissionCreate = "{\"resourceName\":\"resourceName " + d.toString()+ "\", \"action\":[{\"name\":\"CREATE\"},{\"name\":\"READ\"},{\"name\":\"UPDATE\"},{\"name\":\"DELETE\"}]  }";
+	private final static String permissionCreate = "{\"effect\":\"PERMIT\",\"resourceName\":\"resourceName " + d.toString()+ "\", \"action\":[{\"name\":\"CREATE\"},{\"name\":\"READ\"},{\"name\":\"UPDATE\"},{\"name\":\"DELETE\"}]  }";
 
 	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
 	
@@ -348,7 +348,7 @@ public class TestGeneral {
 		testPostGetDelete(jetty, "/loanin/", loaninCreate, "loanInNote");
 		testPostGetDelete(jetty, "/acquisition/", acquisitionCreate, "acquisitionReason");
 		testPostGetDelete(jetty, "/role/", roleCreate, "description");
-		//testPostGetDelete(jetty, "/permission/", permissionCreate, "resourceName");
+		testPostGetDelete(jetty, "/permission/", permissionCreate, "resourceName");
 		
 	}
 	
@@ -368,6 +368,7 @@ public class TestGeneral {
 		testLists(jetty, "loanout", loanoutCreate, "items");
 		testLists(jetty, "acquisition", acquisitionCreate, "items");
 		testLists(jetty, "role", roleCreate, "items");
+		//testLists(jetty, "permission", permissionCreate, "items");
 	}
 
 
@@ -396,9 +397,9 @@ public class TestGeneral {
 		out=jettyDo(jetty,"DELETE","/chain"+out3.getHeader("Location"),null);
 		assertEquals(200,out.getStatus());
 		
-		//assertTrue(files.contains(out1.getHeader("Location")));
-		//assertTrue(files.contains(out2.getHeader("Location")));
-		//assertTrue(files.contains(out3.getHeader("Location")));
+		assertTrue(files.contains(out1.getHeader("Location")));
+		assertTrue(files.contains(out2.getHeader("Location")));
+		assertTrue(files.contains(out3.getHeader("Location")));
 		
 	}
 
@@ -568,18 +569,21 @@ public class TestGeneral {
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(data);
-		//log.info(out.getContent());
+		log.info("GET");
+		log.info(out.getContent());
 		assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
 		//change 
 		two.put(testfield, "newvalue");
 		out=jettyDo(jetty,"PUT","/chain"+id,makeRequest(two).toString());
 		assertEquals(200,out.getStatus());	
 		JSONObject oneA = new JSONObject(getFields(out.getContent()));
+		log.info("PUT");
+		log.info(out.getContent());
 		assertEquals(oneA.get(testfield).toString(),"newvalue");
 
 		//Delete
-		//out=jettyDo(jetty,"DELETE","/chain"+id,null);
-		//assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain"+id,null);
+		assertEquals(200,out.getStatus());
 		
 	}
 
@@ -600,6 +604,7 @@ public class TestGeneral {
 		//pagination?
 		HttpTester out=jettyDo(jetty,"GET","/chain/"+objtype,null);
 		assertEquals(200,out.getStatus());
+		log.info(out.getContent());
 		
 		/* create list of files */
 
