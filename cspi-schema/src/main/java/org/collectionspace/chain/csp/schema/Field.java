@@ -130,6 +130,7 @@ public class Field implements FieldSet {
 	public void config_finish(Spec spec) {
 		if(autocomplete_instance_ids.size()>0){
 			for (String autocomplete_instance_id : autocomplete_instance_ids){
+				autocomplete_instance_id = autocomplete_instance_id.trim();
 				if(!autocomplete_instance_id.equals("")){
 					instances.put(autocomplete_instance_id, spec.getInstance(autocomplete_instance_id));
 				}
