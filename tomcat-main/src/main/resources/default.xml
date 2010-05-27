@@ -1576,7 +1576,7 @@
 					</view>
 			  		<repeat id="list" asSibling="true">
 			  			<selector>.csc-recordList-row:</selector>
-			  			<field id="name" ui-type="list">
+			  			<field id="screenName" ui-type="list">
 			  				<selector>.csc-user-userList-name</selector>
 			  			</field>
 			  			<field id="status" ui-type="list">
