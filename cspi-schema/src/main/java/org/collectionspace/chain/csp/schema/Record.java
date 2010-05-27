@@ -20,6 +20,7 @@ public class Record implements FieldParent {
 	private Map<String,Structure> structure=new HashMap<String,Structure>();
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
+	private Map<String,FieldSet> summarylist=new HashMap<String,FieldSet>();
 	private Spec spec;
 	private Field mini_summary,mini_number,display_name;
 	private Set<String> type;
@@ -139,6 +140,8 @@ public class Record implements FieldParent {
 	
 	public Field getMiniNumber() { return mini_number; }
 	public Field getMiniSummary() { return mini_summary; }
+	public FieldSet[] getAllMiniSummaryList() { return summarylist.values().toArray(new FieldSet[0]); }
+	public FieldSet getMiniSummaryList(String key) { return summarylist.get(key); }
 	public Field getDisplayNameField() { return display_name; }
 	public Field getFieldByServicesFilterParam(String param) { return services_filter_param.get(param); }
 
@@ -152,6 +155,9 @@ public class Record implements FieldParent {
 	public void addInstance(Instance n) {
 		instances.put(n.getID(),n);
 		spec.addInstance(n);
+	}
+	public void addMiniSummaryList(FieldSet f){
+		summarylist.put(f.getID(), f);
 	}
 	
 	void dump(StringBuffer out) {

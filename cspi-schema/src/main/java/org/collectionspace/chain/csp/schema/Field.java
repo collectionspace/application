@@ -37,33 +37,24 @@ public class Field implements FieldSet {
 		autocomplete_instance_ids=Util.getSetOrDefault(section,"/@autocomplete",new String[]{""});
 		has_container = Util.getBooleanOrDefault(section, "/@container", true);
 		xxx_ui_refactored = Util.getBooleanOrDefault(section, "/@xxx_ui_refactored", false);
-		selector=(String)section.getValue("/selector");		
-		if(selector==null)
-			selector=".csc-"+id;
-		type=(String)section.getValue("/@ui-type");		
-		if(type==null)
-			type="plain";
-		autocomplete_selector=(String)section.getValue("/autocomplete-selector");
-		if(autocomplete_selector==null)
-			autocomplete_selector=selector+"-autocomplete";
-		container_selector=(String)section.getValue("/container-selector");
-		if(container_selector==null)
-			container_selector=selector+"-container";
-		title_selector=(String)section.getValue("/title-selector");
-		if(title_selector==null)
-			title_selector=selector+"-titlebar";		
-		String in_title=(String)section.getValue("/@in-title");
-		if(in_title!=null && ("1".equals(in_title) || "yes".equals(in_title.toLowerCase())))
-			this.in_title=true;
-		String in_tab=(String)section.getValue("/@in-tab");
-		if(in_tab!=null && ("1".equals(in_tab) || "yes".equals(in_tab.toLowerCase())))
-			this.in_tab=true;
+
+		selector=Util.getStringOrDefault(section,"/selector",".csc-"+id);
+		type=Util.getStringOrDefault(section,"/@ui-type","plain");
+		autocomplete_selector=Util.getStringOrDefault(section,"/autocomplete-selector",selector+"-autocomplete");
+		container_selector=Util.getStringOrDefault(section,"/container-selector",selector+"-container");
+		title_selector=Util.getStringOrDefault(section,"/title-selector",selector+"-titlebar");
+		
+
+		in_title = Util.getBooleanOrDefault(section, "/@in-title", false);
+		in_tab = Util.getBooleanOrDefault(section, "/@in-tab", false);
+
 		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
-		String mini=(String)section.getValue("/@mini");
-		if("number".equals(mini))
-			record.getRecord().setMiniNumber(this);
-		if("summary".equals(mini))
-			record.getRecord().setMiniSummary(this);
+
+		Set<String> minis=Util.getSetOrDefault(section,"/@mini",new String[]{""});
+		if(minis.contains("number")){	record.getRecord().setMiniNumber(this);	}
+		if(minis.contains("summary")){	record.getRecord().setMiniSummary(this);	}
+		if(minis.contains("list")){	record.getRecord().addMiniSummaryList(this);	}
+		
 		display_name=Util.getBooleanOrDefault(section,"/@display-name",false);
 		if(display_name)
 			record.getRecord().setDisplayName(this);
@@ -120,7 +111,7 @@ public class Field implements FieldSet {
 	public Instance[] getAllAutocompleteInstances() { return instances.values().toArray(new Instance[0]); }
 	//XXX hack so just returns the first autocomplete instance if multiple assigned
 	public Instance getAutocompleteInstance() { 
-		if(getAllAutocompleteInstances().length> 0) {
+		if(hasAutocompleteInstance()) {
 			return getAllAutocompleteInstances()[0]; 
 		}
 		return null;

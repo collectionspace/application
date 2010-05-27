@@ -18,6 +18,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMul
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
+import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -42,8 +43,8 @@ public class RecordStorage implements ContextualisedStorage {
 	private static final Logger log=LoggerFactory.getLogger(RecordStorage.class);
 	private ServicesConnection conn;
 	private Record r;
-	private Map<String,String> view_good=new HashMap<String,String>();
-	private Map<String,String> view_map=new HashMap<String,String>();
+	private Map<String,String> view_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
+	private Map<String,String> view_map=new HashMap<String,String>(); // map of csid to service name of field
 	private Set<String> xxx_view_deurn=new HashSet<String>();
 
 	public RecordStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
@@ -51,17 +52,31 @@ public class RecordStorage implements ContextualisedStorage {
 		this.r=r;
 		// Number
 		if(r.getMiniNumber()!=null){
-			view_good.put(r.getMiniNumber().getID(),"number");
+			view_good.put("number",r.getMiniNumber().getID());
 			view_map.put(r.getMiniNumber().getServicesTag(),r.getMiniNumber().getID());
 			if(r.getMiniNumber().getAutocompleteInstance()!=null)
 				xxx_view_deurn.add(r.getMiniNumber().getID());
 		}
 		// Summary
 		if(r.getMiniSummary() !=null){
-			view_good.put(r.getMiniSummary().getID(),"summary");
+			view_good.put("summary",r.getMiniSummary().getID());
 			view_map.put(r.getMiniSummary().getServicesTag(),r.getMiniSummary().getID());
 			if(r.getMiniSummary().getAutocompleteInstance()!=null)
 				xxx_view_deurn.add(r.getMiniSummary().getID());
+		}
+		//Summary list
+		if(r.getAllMiniSummaryList().length > 0){
+			for(FieldSet fs : r.getAllMiniSummaryList()) {
+				view_good.put("summarylist_"+ fs.getID(),fs.getID());
+				view_map.put(fs.getServicesTag(),fs.getID());
+				if(fs instanceof Field) {
+					// Single field
+					Field f=(Field)fs;
+					if(f.hasAutocompleteInstance()){
+						xxx_view_deurn.add(f.getID());
+					}
+				}
+			}
 		}
 	}
 
@@ -375,29 +390,51 @@ public class RecordStorage implements ContextualisedStorage {
 
 	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,CSPRequestCredentials creds,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject out=new JSONObject();
+		JSONObject summarylist=new JSONObject();
+		String summarylistname = "summarylist_";
 		Set<String> to_get=new HashSet<String>(view_good.keySet());
 		// Try to fullfil from gleaned info
-		for(String good : view_good.keySet()) {
+		for(String fieldname : view_good.keySet()) {
+			String good = view_good.get(fieldname);
 			String gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,good);
 			if(gleaned==null)
 				continue;
 			if(xxx_view_deurn.contains(good))
 				gleaned=xxx_deurn(gleaned);
-			out.put(view_good.get(good),gleaned);
-			to_get.remove(good);
+			
+			String name = fieldname;
+			if(name.startsWith(summarylistname)){
+				name = name.substring(summarylistname.length());
+				summarylist.put(name, gleaned);
+			}
+			else{
+				out.put(fieldname,gleaned);
+			}
+			to_get.remove(fieldname);
 		}
 		// Do a full request
 		if(to_get.size()>0) {
 			JSONObject data=simpleRetrieveJSON(creds,cache,filePath);
-			for(String good : to_get) {
+			for(String fieldname : to_get) {
+				String good = view_good.get(fieldname);
 				if(data.has(good)) {
-					String vkey=view_good.get(good);
+					String vkey=fieldname;
 					String value=data.getString(good);
 					if(xxx_view_deurn.contains(good))
 						value=xxx_deurn(value);
-					out.put(vkey,value);
+					
+					if(vkey.startsWith(summarylistname)){
+						String name = vkey.substring(summarylistname.length());
+						summarylist.put(name, value);
+					}
+					else{
+						out.put(vkey,value);
+					}
 				}
 			}
+		}
+		if(summarylist.length()>0){
+			out.put("summarylist", summarylist);
 		}
 		return out;
 	}
