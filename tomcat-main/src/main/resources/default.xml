@@ -1445,6 +1445,8 @@
                 <services-url>authorization/roles</services-url>
 				<services-list-path>roles_list/*</services-list-path>
 				<services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
+				<is-multipart>false</is-multipart>
+                <services-search-keyword>r</services-search-keyword>
 				<structures>
 					<structure id="screen">
 						<view>
@@ -1453,7 +1455,6 @@
 						</view>
 					</structure>
 				</structures>
-				<is-multipart>false</is-multipart>
 				<terms-used>false</terms-used>
 				<field id="roleName" mini="number">
 					<selector>.csc-role-name</selector>
@@ -1469,9 +1470,10 @@
 			<record id="permission" type="authorizationdata">
 			    <web-url>permission</web-url>
                 <services-url>authorization/permissions</services-url>
-                <services-list-path>permissions-common-list/permission-list-item</services-list-path>
+                <services-list-path>permissions_list/*</services-list-path>
                 <services-record-path>permissions_common:http://collectionspace.org/services/authorization,permission</services-record-path>
                 <is-multipart>false</is-multipart>
+                <services-search-keyword>res</services-search-keyword>
                 <structures>
                     <structure id="screen">
                         <view>
@@ -1497,13 +1499,43 @@
                     <selector>.csc-permission-resourceName</selector>
                 </field>
 			</record>
-			
-            <!--<record id="permission">
-            	<web-url>permission</web-url>
-                <services-url>authorization/permissions</services-url>
-				<services-list-path>permissions_list/*</services-list-path>
-				<services-record-path>permission:http://collectionspace.org/services/authorization,permission</services-record-path>
+
+            <!-- PermRole like Service layer wants it
+            <record id="permrole">
+                <is-multipart>false</is-multipart>
+                <services-url>authorization/permroles</services-url>
+                <services-list-path>permroles-common-list/permrole-list-item</services-list-path>
+                <services-record-path>permisson_roles_common:http://collectionspace.org/services/permroles, permisson_role</services-record-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                        </view>
+                        
+                    </structure>
+                </structures>
+                <selector>.csc-permissions-record-permission:</selector>
+                <repeat id="permisson" asSibling="true">
+                    <field id="permissionId" mini="summary">
+                        <selector>.csc-permissions-record-id:</selector>
+                    </field>
+                    <field id="resourceName">
+                        <selector>.csc-permissions-record-resourcename:</selector>
+                    </field>
+                </repeat>
+                    <field id="role" mini="number">
+                        <selector>.csc-permissions-record-type</selector>
+                    </field>
+                </repeat>
+            </record> -->
+            
+ 			<!--permrole like UI wants it -->
+ 			<record id="permrole">
 				<is-multipart>false</is-multipart>
+				<services-url>authorization/permroles</services-url>
+				<services-list-path>permroles-common-list/permrole-list-item</services-list-path>
+				<services-record-path>permisson_roles_common:http://collectionspace.org/services/permroles, permisson_role</services-record-path>
 				<structures>
 					<structure id="screen">
 						<view>
@@ -1512,45 +1544,9 @@
 						</view>
 					</structure>
 				</structures>
-				<terms-used>false</terms-used>
-				<field id="resourceName" mini="number">
-					<selector>.csc-permission-name</selector>
-				</field>
-				<repeat id="action">
-					<selector>.csc-permission-action-row:</selector>
-					<field id="name" container="false">
-						<selector>.csc-permission-action-name</selector>
-					</field>
-				</repeat>
-			</record>-->
-           
- 			<record id="rolePermission">
-				<is-multipart>false</is-multipart>
-				<services-url>authorization/roles</services-url>
-				<services-list-path>roles-common-list/role-list-item</services-list-path>
-				<services-record-path>roles_common:http://collectionspace.org/services/rolepermission, roles_common</services-record-path>
-				<structures>
-					<structure id="screen"> <!-- screen|print|blackberry etc -->
-						<view>
-							<titlebar show="false"></titlebar>
-							<sidebar show="false"></sidebar>
-							<edit-section id="permissions" show="true"></edit-section>
-							<list-section id="roleList" show="true"></list-section>
-						</view>
-						<repeat id="roleList" asSibling="true">
-							<selector>.csc-recordList-row:</selector>
-							<field id="name" ui-type="list">
-								<selector>.csc-role-roleList-name</selector>
-							</field>
-							<field id="csid" ui-type="list">
-								<selector>.csc-role-roleList-csid</selector>
-							</field>
-						</repeat>
-					</structure>
-				</structures>
-				<repeat id="permissions" asSibling="true">
+				<repeat id="permisson_roles" asSibling="true">
 					<selector>.csc-permissions-record-row:</selector>
-					<field id="permission" mini="summary">
+					<field id="permission_role" mini="summary">
 						<selector>.csc-permissions-record-permissions</selector>
 						<options>
 							<option id="none">none</option>
@@ -1563,7 +1559,7 @@
 						<selector>.csc-permissions-record-type</selector>
 					</field>
 				</repeat>
-			</record> 
+			</record>
 
 			<record id="users" type="userdata">
 		      <web-url>users</web-url>
@@ -1575,10 +1571,10 @@
 					<view>
 			  			<titlebar show="false"></titlebar>
 			  			<sidebar show="false"></sidebar>
-			  			<edit-section id="userDetails" show="true"></edit-section>
-			  			<list-section id="userList" show="true"></list-section>
+			  			<edit-section id="details" show="true"></edit-section>
+			  			<list-section id="list" show="true"></list-section>
 					</view>
-			  		<repeat id="userList" asSibling="true">
+			  		<repeat id="list" asSibling="true">
 			  			<selector>.csc-recordList-row:</selector>
 			  			<field id="name" ui-type="list">
 			  				<selector>.csc-user-userList-name</selector>
