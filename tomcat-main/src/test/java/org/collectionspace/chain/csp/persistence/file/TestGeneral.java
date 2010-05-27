@@ -63,8 +63,9 @@ public class TestGeneral {
 	private final static String objectCreate = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartment\":\"new DEPT\",\"objectName\":\"new OBJNAME\"}";
 	private final static String acquisitionCreate = "{\"acquisitionReason\":\"acquisitionReason\",\"acquisitionReferenceNumber\":\"acquisitionReferenceNumber\",\"acquisitionMethod\":\"acquisitionMethod\",\"acquisitionSources\":[{\"acquisitionSource\": \"11111\"},{\"acquisitionSource\": \"22222\"}]}";
 	private final static String roleCreate = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_1_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
-	private final static String permissionCreate = "{\"effect\":\"PERMIT\",\"resourceName\":\"resourceName " + d.toString()+ "\", \"action\":[{\"name\":\"CREATE\"},{\"name\":\"READ\"},{\"name\":\"UPDATE\"},{\"name\":\"DELETE\"}]  }";
-
+	private final static String permissionCreate = "{ \"resourceName\": \"resourceName " + d.toString()+ "\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]}, {\"action\": [{ \"name\": \"DELETE\" }]} ],  \"effect\": \"PERMIT\" }";
+	
+	
 	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
 	
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
@@ -569,16 +570,12 @@ public class TestGeneral {
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(data);
-		log.info("GET");
-		log.info(out.getContent());
 		assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
 		//change 
 		two.put(testfield, "newvalue");
 		out=jettyDo(jetty,"PUT","/chain"+id,makeRequest(two).toString());
 		assertEquals(200,out.getStatus());	
 		JSONObject oneA = new JSONObject(getFields(out.getContent()));
-		log.info("PUT");
-		log.info(out.getContent());
 		assertEquals(oneA.get(testfield).toString(),"newvalue");
 
 		//Delete
@@ -590,9 +587,7 @@ public class TestGeneral {
 	//generic list test
 	private void testLists(ServletTester jetty, String objtype, String data, String itemmarker)  throws Exception{
 
-		HttpTester out1=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));	
-		//HttpTester out2=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));	
-		//HttpTester out3=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));
+		HttpTester out1=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));
 
 		File storedir=new File(store.getStoreRoot(),"store");
 		if(!storedir.exists())
@@ -604,7 +599,6 @@ public class TestGeneral {
 		//pagination?
 		HttpTester out=jettyDo(jetty,"GET","/chain/"+objtype,null);
 		assertEquals(200,out.getStatus());
-		log.info(out.getContent());
 		
 		/* create list of files */
 
@@ -618,17 +612,8 @@ public class TestGeneral {
 		/* clean up */
 		out=jettyDo(jetty,"DELETE","/chain"+out1.getHeader("Location"),null);
 		assertEquals(200,out.getStatus());
-		
-		//out=jettyDo(jetty,"DELETE","/chain"+out2.getHeader("Location"),null);
-		//assertEquals(200,out.getStatus());
-		
-		//out=jettyDo(jetty,"DELETE","/chain"+out3.getHeader("Location"),null);
-		//assertEquals(200,out.getStatus());
-		
 
 		assertTrue(files.contains(out1.getHeader("Location")));
-		//assertTrue(files.contains(out2.getHeader("Location")));
-		//assertTrue(files.contains(out3.getHeader("Location")));
 	}
 	
 }
