@@ -80,26 +80,54 @@ public class RecordStorage implements ContextualisedStorage {
 		}
 	}
 
+	/**
+	 * Set the csids that were retrieved in the cache
+	 * @param cache The cache itself
+	 * @param path The path to the object on the service layer
+	 * @param key The key for the node in the json file
+	 * @param value The value for the node in the json file
+	 */
 	private void setGleanedValue(CSPRequestCache cache,String path,String key,String value) {
 		cache.setCached(getClass(),new String[]{"glean",path,key},value);
 	}
 
+	/**
+	 * Get a value out of the cache
+	 * @param {CSPRequestCache} cache The cache in which we store the csids
+	 * @param {String} path The path to the record 
+	 * @param {String} key The key to recreate the unique key to retrieve the cached value
+	 * @return {String} The csid that was stored 
+	 */
 	private String getGleanedValue(CSPRequestCache cache,String path,String key) {
 		return (String)cache.getCached(getClass(),new String[]{"glean",path,key});
 	}
 
+	/**
+	 * Convert an XML file into a JSON string
+	 * @param {JSONObject} out The JSON string to which the XML has been converted
+	 * @param {Document} in The XML document that has to be converted
+	 * @throws JSONException
+	 */
 	private void convertToJson(JSONObject out,Document in) throws JSONException {
 		XmlJsonConversion.convertToJson(out,r,in);
 	}
 
 	/**
-	 * Prepare the request for storage and send it through to the service layer
+	 * Convert the JSON from the UI Layer into XML for the Service layer while using the XML structure from default.xml
+	 * Send the XML through to the Service Layer to store it in the database
+	 * The Service Layer returns a url to the object we just stored.
+	 * @param {ContextualisedStorage} root 
+	 * @param {CSPRequestCredentials} creds
+	 * @param {CSPRequestCache} cache
+	 * @param {String} filePath part of the path to the Service URL (containing the type of object)
+	 * @param {JSONObject} jsonObject The JSON string coming in from the UI Layer, containing the object to be stored
+	 * @return {String} csid The id of the object in the database
 	 */
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 
 			//XXX CSPACE-1828 hack
-			if(r.getID().equals("role")){
+			if(r.getID().equals("role") || r.getID().equals("permission")){
 				String name = jsonObject.get("roleName").toString();
 				jsonObject.put("roleName","ROLE_"+name);
 			}
@@ -112,7 +140,7 @@ public class RecordStorage implements ContextualisedStorage {
 				parts.put(record_path[0],doc);
 			}
 			ReturnedURL url;
-			//log.info(doc.asXML());
+			log.info("MYXML"+doc.asXML());
 			//some records are accepted as multipart in the service layers, others arent, that's why we split up here
 			if(r.isMultipart())
 				url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
@@ -160,6 +188,9 @@ public class RecordStorage implements ContextualisedStorage {
 		}
 	}
 
+	/**
+	 * Gets a list of csids of a certain type of record together with the pagination info
+	 */
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -188,7 +219,6 @@ public class RecordStorage implements ContextualisedStorage {
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 			}
 			list=all.getDocument();
-			
 			
 			List<Node> nodes=list.selectNodes("/"+r.getServicesListPath().split("/")[0]+"/*");
 			if(r.getServicesListPath().equals("roles_list/*") || r.getServicesListPath().equals("permissions_list/*")){
@@ -250,6 +280,9 @@ public class RecordStorage implements ContextualisedStorage {
 		}
 	}
 
+	/**
+	 * Gets a list of csids of a certain type of record
+	 */
 	@SuppressWarnings("unchecked")
 	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -276,14 +309,13 @@ public class RecordStorage implements ContextualisedStorage {
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 			}
 			list=all.getDocument();
-			
 			List<Node> objects=list.selectNodes(r.getServicesListPath());
 			if(r.getServicesListPath().equals("roles_list/*")){
 				//XXX hack to deal with roles being inconsistent
 				// XXX CSPACE-1887 workaround
 				for(Node object : objects) {
 					String csid = object.valueOf( "@csid" );
-					out.add(csid);					
+					out.add(csid);
 				}
 				
 			}

@@ -30,6 +30,7 @@ public class Record implements FieldParent {
 	private boolean in_findedit=false;
 	private boolean is_multipart=false;
 	private boolean has_terms_used = false;
+	private String services_search_keyword = "kw";
 	
 	/* Service stuff */
 	private String services_url,services_list_path,in_tag,urn_syntax,authority_vocab_type,services_instances_path,services_single_instance_path;
@@ -54,6 +55,9 @@ public class Record implements FieldParent {
 		
 		//config whether record type has termsUsed or not (returns empty array in Json if = false )
 		has_terms_used = Util.getBooleanOrDefault(section,"/terms-used",true);
+		
+		//config the keyword to use for searching
+		services_search_keyword = Util.getStringOrDefault(section,"/services-search-keyword","kw");
 		
 		// XXX not currently used... not sure what it is for
 		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
@@ -116,8 +120,11 @@ public class Record implements FieldParent {
 	public String getRowSelector() { return row_selector; }
 	public String getListKey() { return list_key; }
 	public boolean isInFindEdit() { return in_findedit; }
+
 	public boolean isMultipart() { return is_multipart; }
 	public boolean hasTermsUsed() { return has_terms_used; }
+
+	public String getServicesSearchKeyword(){ return services_search_keyword; }
 	public String getInTag() { return in_tag; }
 	public String getURNSyntax() { return urn_syntax; }
 	public String getVocabType() {return authority_vocab_type; }

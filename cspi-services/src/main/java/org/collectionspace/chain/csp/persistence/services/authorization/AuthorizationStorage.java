@@ -32,6 +32,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -217,7 +218,7 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				if(restrictions.has("keywords")) {
 					/* Keyword search */
 					String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-					postfix += "kw="+data+"&";
+					postfix += "res="+data+"&";
 				} 
 				if(restrictions.has("pageSize")){
 					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
@@ -268,7 +269,7 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				if(restrictions.has("keywords")) {
 					/* Keyword search */
 					String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-					postfix += "kw="+data+"&";
+					postfix += "res="+data+"&";
 				} 
 				if(restrictions.has("pageSize")){
 					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
@@ -290,13 +291,16 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				if(node.matches("/"+r.getServicesListPath())){
 					String csid = node.valueOf( "@csid" );
 					listitems.add(csid);
-					setGleanedValue(cache,r.getServicesURL()+"/"+csid,view_map.get(node.getName()),node.getText());
+					if(view_map.get(node.getName())!=null) {
+						setGleanedValue(cache,r.getServicesURL()+"/"+csid,view_map.get(node.getName()),node.getText());
+					}
 				}
 				else{
 					pagination.put(node.getName(), node.getText());
 					
 				}
 			}
+			
 			out.put("pagination", pagination);
 			out.put("listItems", listitems.toArray(new String[0]));
 			return out;
