@@ -1,0 +1,15 @@
+<?xml version="1.0"  encoding="UTF-8"  standalone="yes"?>
+<ns2:permission_role xmlns:ns2="http://collectionspace.org/services/authorization">
+  <permission>
+    <permissionId>9ecac865-4ec5-4882-a153-a7e06ba4b975</permissionId>
+    <resourceName>accounts</resourceName>
+  </permission>
+  <role>
+    <roleId>081010b7-e949-4a6c-9b43-f8aaf7b671a1</roleId>
+    <roleName>ROLE_CO2</roleName>
+  </role>
+  <role>
+    <roleId>3772624d-1ab3-4e47-a26d-191fc6437410</roleId>
+    <roleName>ROLE_CO1</roleName>
+  </role>
+</ns2:permission_role>
