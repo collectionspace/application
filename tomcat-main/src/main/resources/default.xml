@@ -50,6 +50,27 @@
 				<structures>
 					<structure id="screen"> 
 					</structure>
+					<structure id="tab"> 
+					<view>
+			  			<titlebar show="false"></titlebar>
+			  			<sidebar show="false">
+			  			</sidebar>
+			  			<edit-section id="details" show="true"></edit-section>
+			  			<list-section id="lists" show="true"></list-section>
+						
+					</view>
+					
+			  		<repeat id="lists" asSibling="true">
+			  			<selector>.csc-recordList-row:</selector>
+						<field id="linktext" ui-type="linktext">
+							<selector>.csc-related-number</selector>
+							<linktext-target>objects.html?csid=${items.0.csid}"</linktext-target>
+						</field>
+						<field id="summary" ui-type="list">
+							<selector>.csc-related-summary</selector>
+						</field>
+			  		</repeat>
+					</structure>
 				</structures>
 				<web-url>objects</web-url>
 				<tab-url>object-tab</tab-url>

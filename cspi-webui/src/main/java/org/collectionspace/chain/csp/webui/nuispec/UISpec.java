@@ -28,9 +28,11 @@ import org.slf4j.LoggerFactory;
 public class UISpec implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(UISpec.class);
 	private Record record;
+	String structureview;
 
-	public UISpec(Record record) {
+	public UISpec(Record record, String structureview) {
 		this.record=record;
+		this.structureview = structureview;
 	}
 
 	// XXX make common
@@ -57,11 +59,10 @@ public class UISpec implements WebMethod {
 		return "${"+StringUtils.join(path,'.')+"}";		
 	}
 
-	// XXX no need to abstract out yet...
 	static JSONObject linktext(Field f) throws JSONException  {
 		JSONObject number=new JSONObject();
-		number.put("linktext","${items.0.number}");
-		number.put("target","${items.0.recordtype}.html?csid=${items.0.csid}");
+		number.put("linktext",f.getLinkText());
+		number.put("target",f.getLinkTextTarget());
 		return number;
 			
 	}
@@ -355,7 +356,7 @@ public class UISpec implements WebMethod {
 	private JSONObject uispec(UIRequest request,String suffix) throws UIException {
 		try {
 			JSONObject out=new JSONObject();
-			Structure s = record.getStructure("screen");
+			Structure s = record.getStructure(this.structureview);
 			if(s.showListSection()){
 				out.put(s.getListSectionName(),generateListSection(s));
 			}

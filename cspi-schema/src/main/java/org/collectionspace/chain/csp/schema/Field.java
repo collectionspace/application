@@ -24,7 +24,7 @@ public class Field implements FieldSet {
 	private String autocomplete_instance_id;
 	
 	/* UI */
-	private String selector,type,autocomplete_selector,container_selector,title_selector;
+	private String selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext;
 	private boolean in_title=false,in_tab=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
@@ -39,6 +39,9 @@ public class Field implements FieldSet {
 		xxx_ui_refactored = Util.getBooleanOrDefault(section, "/@xxx_ui_refactored", false);
 
 		selector=Util.getStringOrDefault(section,"/selector",".csc-"+id);
+
+		linktext=Util.getStringOrDefault(section,"/linktext","${items.0.number}");
+		linktext_target=Util.getStringOrDefault(section,"/linktext-target","${items.0.recordtype}.html?csid=${items.0.csid}");
 		type=Util.getStringOrDefault(section,"/@ui-type","plain");
 		autocomplete_selector=Util.getStringOrDefault(section,"/autocomplete-selector",selector+"-autocomplete");
 		container_selector=Util.getStringOrDefault(section,"/container-selector",selector+"-container");
@@ -69,6 +72,8 @@ public class Field implements FieldSet {
 	public String getAutocompleteSelector() { return autocomplete_selector; }
 	public String getContainerSelector() { return container_selector; }
 	public String getSelector() { return selector; }
+	public String getLinkTextTarget() { return linktext_target; }
+	public String getLinkText() { return linktext; }
 	public String getUIType() { return type; }
 	public boolean isInTitle() { return in_title; }
 	public boolean isInTab() { return in_tab; }
