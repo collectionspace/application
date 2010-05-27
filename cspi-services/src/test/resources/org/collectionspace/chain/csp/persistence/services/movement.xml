@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:movements-common xmlns:ns2="http://services.collectionspace.org/movement">
+<!-- actually all this seems to be ignored?? -->
+
+    <movementReferenceNumber>MV2010.99</movementReferenceNumber>
+    <locationDate>2012-01-29</locationDate>
+
+<currentLocation>111</currentLocation>
+<currentLocationFitness>111</currentLocationFitness>
+<currentLocationNote>111</currentLocationNote>
+<normalLocation>111</normalLocation>
+<movementContact>111</movementContact>
+<movementMethods>
+<movementMethod>111</movementMethod>
+</movementMethods>
+<movementNote>111</movementNote>
+<movementReferenceNumber>111</movementReferenceNumber>
+<plannedRemovalDate>111</plannedRemovalDate>
+<removalDate>111</removalDate>
+<reasonForMove>111</reasonForMove>
+
+</ns2:movements-common>

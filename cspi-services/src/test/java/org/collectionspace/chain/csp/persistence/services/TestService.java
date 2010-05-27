@@ -39,30 +39,91 @@ public class TestService extends ServicesBaseClass {
 		log.info("Services Running!");
 	}
 
-	private String cspace305_hack(String in) {
-		return in.replaceAll("/persons/","/collectionobjects/");
+
+	@Test public void testAllPostGetDelete() throws Exception {
+		// TODO Change the XML filenames to be more meaningful
+		// TODO Add vocab (the previous testVocabPost method was just an exact copy of testRolesPost!)
+		// TODO Add everything from CSPACE-1876 and more
+		
+		testPostGetDelete("collectionobjects/", "collectionobjects_common", "obj1.xml", "collectionobjects_common/objectNumber", "2");
+		// TODO make roleName dynamically vary otherwise POST fails if already exists 
+		testPostGetDelete("authorization/roles/", null, "obj5.xml", "role/description", "this role is for test users");
+		testPostGetDelete("authorization/permissions/", null, "permissions.xml", "permission/resourceName", "accounts");
+
+		// XXX Queries about movement service consistency currently being discussed by email:
+		// - apparently inconsistent naming of label for POST (see xxx_hack_mov)
+		// - ought it have more stuff inside? currently returning an empty movementMethods
+		// - apparently it is possible to POST using label collectionobjects_common too!?
+		//   (although it will still return the right label)
+		testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementMethods", "");	
+	}
+	
+	private String xxx_hack_for_mov(String partname) {
+		return partname.replace("movements_common", "movement_common");
 	}
 
-	@Test public void testObjectsPost() throws Exception {
-		Map<String,Document> parts=new HashMap<String,Document>();
-		parts.put("collectionobjects_common",getDocument("obj1.xml"));
-		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts,creds,cache);
-		assertEquals(201,url.getStatus());
-		log.info("got "+url.getURL());
-		//assertTrue(url.getURL().startsWith("/collectionobjects/"));	// XXX should be, but CSPACE-305
-		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()),null,creds,cache);
-		assertEquals(200,doc.getStatus());
-		String num=doc.getDocument("collectionobjects_common").selectSingleNode("collectionobjects_common/objectNumber").getText();
-		assertEquals("2",num);
-	}
+	private void testPostGetDelete(String serviceurl, String partname, String filename, String xpath, String expected) throws Exception {
+		ReturnedURL url;
+		log.info("Testing " + serviceurl + " with " + filename + " and partname=" + partname);
 
-	@Test public void testRolesPost() throws Exception {
-		Map<String,Document> parts=new HashMap<String,Document>();
-		ReturnedURL url=conn.getURL(RequestMethod.POST,"authorization/roles/",getDocument("obj5.xml"),creds,cache);
+		// TODO add document parsing for PUT, and for POSTs that require uniqueness (to maintain self-contained tests that don't destroy existing data)
+
+		// POST (Create)
+		if(partname != null) {
+			Map<String,Document> parts=new HashMap<String,Document>();
+			parts.put(xxx_hack_for_mov(partname),getDocument(filename));
+			url=conn.getMultipartURL(RequestMethod.POST,serviceurl,parts,creds,cache);
+		} else {
+			url=conn.getURL(RequestMethod.POST,serviceurl,getDocument(filename),creds,cache);
+		}
 		assertEquals(201,url.getStatus());
+		log.info("POST returned "+url.getURL());
+		assertTrue(url.getURL().startsWith("/"+serviceurl)); // ensures e.g. CSPACE-305 hasn't regressed
+		
+		// GET (Read)
+		int getStatus;
+		Document doc; 
+		if(partname != null) {
+			ReturnedMultipartDocument rdocs=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdocs.getStatus();
+			doc = rdocs.getDocument(partname);
+		} else {
+			ReturnedDocument rdoc=conn.getXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdoc.getStatus();
+			doc = rdoc.getDocument();
+		}
+		assertEquals(200,getStatus);
+		assertNotNull(doc);
+		Node n=doc.selectSingleNode(xpath);
+		assertNotNull(n);
+		String text=n.getText();
+		assertEquals(expected,text);	
+		
+		// DELETE (Delete)
 		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
-		assertEquals(200,status); // XXX CSPACE-73, should be 404
+		assertEquals(200,status);		
+		// Now try to delete non-existent (make sure CSPACE-73 hasn't regressed)
+		status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
+		assertEquals(404,status);
+		
+		// GET once more to make sure it isn't there
+		if(partname != null) {
+			ReturnedMultipartDocument rdocs=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdocs.getStatus();
+			doc = rdocs.getDocument(partname);
+		} else {
+			ReturnedDocument rdoc=conn.getXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdoc.getStatus();
+			doc = rdoc.getDocument();
+		}
+		assertEquals(404, getStatus); // ensures CSPACE-209 hasn't regressed
+		assertNull(doc);
+		
+		log.info("DONE");
 	}
+	
+
+
 
 	@Test public void testPermissionsPost() throws Exception {
 		Map<String,Document> parts=new HashMap<String,Document>();
@@ -72,11 +133,22 @@ public class TestService extends ServicesBaseClass {
 		assertEquals(200,status); // XXX CSPACE-73, should be 404
 	}
 	
-	@Test public void testVocabPost() throws Exception {
+	//@Test 
+	public void testRolePermissionsPost() throws Exception {
+		//create a permission
 		Map<String,Document> parts=new HashMap<String,Document>();
-		ReturnedURL url=conn.getURL(RequestMethod.POST,"authorization/roles/",getDocument("obj5.xml"),creds,cache);
+		ReturnedURL url=conn.getURL(RequestMethod.POST,"authorization/permissions/",getDocument("permissions.xml"),creds,cache);
 		assertEquals(201,url.getStatus());
+
+		//create permissionRole for the permission above
+		url = conn.getURL(RequestMethod.POST, "authorization/permissions/"+url.getURLTail()+"/permroles", getDocument("rolepermissions.xml"), creds, cache);
+		assertEquals(201, url.getStatus());
+		//delete the permissionRole
 		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
+		assertEquals(200,status); // XXX CSPACE-73, should be 404
+
+		//delete the permission
+		status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
 		assertEquals(200,status); // XXX CSPACE-73, should be 404
 	}
 
@@ -85,13 +157,14 @@ public class TestService extends ServicesBaseClass {
 		parts.put("collectionobjects_common",getDocument("obj1.xml"));		
 		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts,creds,cache);
 		assertEquals(201,url.getStatus());
-		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.PUT,cspace305_hack(url.getURL()),buildObject("32","obj2.xml","collectionobjects_common"),creds,cache);
+		ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.PUT,url.getURL(),buildObject("32","obj2.xml","collectionobjects_common"),creds,cache);
 		assertEquals(201,url.getStatus()); // 201?
-		doc=conn.getMultipartXMLDocument(RequestMethod.GET,cspace305_hack(url.getURL()),null,creds,cache);
+		doc=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
 		assertEquals(200,doc.getStatus());
 		String num=doc.getDocument("collectionobjects_common").selectSingleNode("collectionobjects_common/objectNumber").getText();
 		assertEquals("32",num);
 	}
+
 
 	// TODO pre-emptive cache population
 	
@@ -105,20 +178,6 @@ public class TestService extends ServicesBaseClass {
 		Map<String,Document> parts=new HashMap<String,Document>();
 		parts.put(part,doc);
 		return parts;
-	}
-	
-	@Test public void testDelete() throws Exception {
-		Map<String,Document> parts=new HashMap<String,Document>();
-		parts.put("collectionobjects_common",getDocument("obj1.xml"));		
-		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts,creds,cache);
-		assertEquals(201,url.getStatus());
-		ReturnedMultipartDocument doc1=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
-		assertEquals(200,doc1.getStatus());		
-		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
-		assertEquals(200,status); // XXX CSPACE-73, should be 404
-		ReturnedMultipartDocument doc2=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
-		assertEquals(404,doc2.getStatus());	 // XXX CSPACE-209, should be 404
-		assertNull(doc2.getDocument("collectionobjects_common"));
 	}
 	
 	@Test public void testSearch() throws Exception{
