@@ -56,7 +56,7 @@
 				<number-selector>.csc-accession-number</number-selector>
 				<row-selector>.csc-recordList-row:</row-selector>
 				<list-key>objects</list-key>
-					<field id="title" in-title="yes" mini="summary">
+					<field id="title" in-title="yes" mini="summary,list">
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
 						<selector>.csc-object-identification-object-title</selector>
 					</field>
@@ -80,7 +80,7 @@
 							<option id="trade">Trade</option>
 						</options>
 					</field>
-					<field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number">
+					<field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number,list">
 						<selector>.csc-object-identification-object-number</selector>
 						<title-selector>.csc-titleBar-object-identification-object-number</title-selector>
 						<options>
@@ -140,6 +140,9 @@
 					</field>
 					<field id="objectNameNote">
 						<selector>.csc-object-identification-object-note</selector>
+					</field>
+					<field id="objectName" mini="list">
+						<selector>.csc-object-identification-object-name</selector>
 					</field>
 					<field id="distinguishingFeatures">
 						<selector>.csc-object-identification-distinguishing-features</selector>
@@ -504,7 +507,7 @@
 						<selector>.csc-object-description-inscription-description-interpretation</selector>
 					</field>					
 					<repeat id="responsibleDepartments" xxx-ui-no-repeat="yes">
-			          <field id="responsibleDepartment">
+			          <field id="responsibleDepartment" mini="list">
 					    <selector>.csc-object-identification-responsible-department</selector>
 						<options>
 						  <option id="antiquities">Antiquities</option>
@@ -746,9 +749,7 @@
 						<selector>.csc-object-description-inscription-description-date</selector>
 					 </field>
 					 ".csc-object-description-inscription-description-date": "${fields.inscriptionDescriptionDate}",
-					 <field id="objectName">
-						<selector>.csc-object-identification-object-name</selector>
-					</field>
+					 
 					".csc-object-identification-object-name": "${fields.objectName}",
 					 <field id="material">
 						<selector>.csc-object-description-material</selector>
@@ -1236,6 +1237,7 @@
 			    <selector>.csc-personAuthority-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
 			  </field>
+			  
 			  <field id="birthDate" in-title="yes" ui-type="date">
 			    <selector>.csc-personAuthority-birthDate</selector>
 			    <title-selector>.csc-titleBar-birthDate</title-selector>
@@ -1288,9 +1290,6 @@
 			  <field id="deathPlace" autocomplete="place-place">
 			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
-			  <field id="group" >
-			    <selector>.csc-personAuthority-group</selector>
-			  </field>
 			  <!-- <field id="group"> -->
 			  <field id="group" autocomplete="person-person">
 			    <selector>.csc-personAuthority-group</selector>
@@ -1321,6 +1320,16 @@
 			  <field id="deathPlace" autocomplete="place-place">
 			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
+			  <field id="status">
+			    <selector>.csc-personAuthority-status</selector>
+			    <options>
+			      <option id="provisional" default="yes">Provisional</option>
+			      <option id="under review">Under Review</option>
+			      <option id="accepted">Accepted</option>
+			      <option id="rejected">Rejected</option>
+			    </options>
+			  </field>
+			  
 			  <!-- No longer needed
 			  
 			  <field id="addressType1">
