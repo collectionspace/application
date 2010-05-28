@@ -82,17 +82,17 @@ public class TestAccount extends ServicesBaseClass {
 		log.info("JSONOBJ",u3);
 		// Check output
 		assertEquals("Test Mccollectionspace.org",u3.getString("screenName"));
-		assertEquals("test2@collectionspace.org",u3.getString("userId"));
-		assertEquals("test2@collectionspace.org",u3.getString("email"));
+		assertEquals("test3@collectionspace.org",u3.getString("userId"));
+		assertEquals("test3@collectionspace.org",u3.getString("email"));
 		assertEquals("active",u3.getString("status"));
 		// Check the method we're about to use to check if login works works
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test2@collectionspace.org");
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test3@collectionspace.org");
 		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"blahblah");
 		cache.reset();
 		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds,cache);
 		assertFalse(out.getStatus()==200);		
 		// Check login works
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test2@collectionspace.org");
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test3@collectionspace.org");
 		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtestt");
 		cache.reset();
 		out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds,cache);
