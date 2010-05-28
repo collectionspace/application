@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <ns2:permission xmlns:ns2="http://collectionspace.org/services/authorization">
-    <resourceName>accounts</resourceName>
+    <resourceName>randomarea</resourceName>
     <action>
         <name>CREATE</name>
     </action>
