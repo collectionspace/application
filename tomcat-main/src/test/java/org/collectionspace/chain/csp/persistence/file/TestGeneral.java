@@ -76,17 +76,20 @@ public class TestGeneral {
 	
 	private final static String permroleCreate = "{ \"permissions\": [ {\"recordType\": \"Object Cataloging\", \"permission\": \"write\"}, {\"recordType\": \"Intake\", \"permission\": \"write\"}, {\"recordType\": \"Acquisition\", \"permission\": \"write\"}, {\"recordType\": \"Loan In\", \"permission\": \"read\"}, {\"recordType\": \"Loan out\", \"permission\": \"read\"}] }";
 
+	private final static String accountroleCreate = "{ \"account\": { \"userid\": \"\", \"screenname\": \"\", \"accountid\": \"\" }, \"roles\": [{ \"role\": { \"rolename\": \"\", \"roleid\": \"\" }}] }";
+
 	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
 	private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
 
-	private final static String testStr6 = "{\"userId\": \"unittest2@collectionspace.org\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
+	private final static String testStr6 = "{\"userId\": \"unittest2@collectionspace.org"+d.toString()+"\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
 	private final static String testStr7 = "{\"userId\": \"unittest2@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"active\"}";
 	private final static String testStr8 = "{\"email\": \"unittest2@collectionspace.org\", \"debug\" : true }";
 	private final static String testStr9 = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
 	private final static String testStr10 = "{\"roleName\": \"ROLE_USERS_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
 	private final static String testStr11 = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"contentPeople\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
-
+	private final static String testStr12 = "{\"userId\": \"unittest88@collectionspace.org"+ d.toString() +"\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
+	
 	private FileStorage store;
 	private UserDetailsReset udreset;
 
@@ -270,6 +273,7 @@ public class TestGeneral {
 	@Test public void testUserProfilesWithReset() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6));
+		log.info("MYUSER"+out.getContent());
 		assertEquals(out.getMethod(),null);
 		//create
 		String id=out.getHeader("Location");
@@ -328,6 +332,8 @@ public class TestGeneral {
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(roleCreate);
+		log.info("MYROLEONE"+one.get("roleName"));
+		log.info("MYROLETWO"+two.get("roleName"));
 		assertEquals(one.get("roleName"), two.get("roleName"));
 		
 		out = jettyDo(jetty, "PUT","/chain/"+id,makeSimpleRequest(roleCreate));
@@ -377,7 +383,7 @@ public class TestGeneral {
 		testLists(jetty, "loanout", loanoutCreate, "items");
 		testLists(jetty, "acquisition", acquisitionCreate, "items");
 		testLists(jetty, "role", roleCreate, "items");
-		//testLists(jetty, "permission", permissionCreate, "items");
+		//testLists(jetty, "permission", permissionWrite, "items");
 	}
 	/* XXX I don't think this is tetsing what it needs to */
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
@@ -665,6 +671,43 @@ public class TestGeneral {
 		}
 		
 	}
+	/*
+	@Test public void testUserRoles() throws Exception{
+		ServletTester jetty = setupJetty();
+		
+		//Create a user
+		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr12));
+		assertEquals(out.getMethod(),null);
+		log.info("MYCONTENT"+out.getContent());
+		JSONObject user = new JSONObject(out.getContent());
+		String user_id=out.getHeader("Location");
+		assertEquals(201,out.getStatus());
+		
+		//Create a role
+		out = jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleCreate));
+		JSONObject role = new JSONObject(out.getContent());
+		String role_id=out.getHeader("Location");
+		assertEquals(201,out.getStatus());
+		
+		//Assign the roles to the user
+		JSONObject json = new JSONObject(accountroleCreate);
+		json.getJSONObject("account").put("userid", getFields(user).getString("userId"));
+		json.getJSONObject("account").put("screenname", getFields(user).getString("screenName"));
+		json.getJSONObject("account").put("accountid", user.getString("csid"));
+		json.getJSONObject("roles").getJSONObject("role").put("rolename", getFields(role).getString("roleName"));
+		json.getJSONObject("roles").getJSONObject("role").put("roleid", role.getString("csid"));
+		
+		log.info("MYJSON"+json);
+		//out = jettyDo(jetty, "POST", "/chain/accountrole",makeSimpleRequest());
+		
+		//Delete the roles
+		out=jettyDo(jetty,"DELETE","/chain"+user_id,null);
+		assertEquals(200,out.getStatus());
+		
+		//Delete the user
+		out=jettyDo(jetty,"DELETE","/chain"+role_id,null);
+		assertEquals(200,out.getStatus());
+	}*/
 	
 	/*
 	@Test public void testPermRolePost() throws Exception {
@@ -714,4 +757,5 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());
 		
 	}*/
+
 }

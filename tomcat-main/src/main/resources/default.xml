@@ -7,7 +7,7 @@
 		<password>testtest</password>
 	</admin>
 	<email>
-		<baseurl>http://nightly.collectionspace.org:8180</baseurl>
+		<baseurl>http://192.168.101.22</baseurl>
 		<from>admin@collectionspace.org</from>
 		<to></to><!-- if specified then all emails will send to this address - used for debugging -->
 		<smtp>
@@ -29,7 +29,7 @@
 	</email>
 	<persistence>
 		<service>
-			<url>http://nightly.collectionspace.org:8180/cspace-services</url>
+			<url>http://192.168.101.22/cspace-services</url>
 		</service>
 	</persistence>
 	<ui>
@@ -1582,6 +1582,67 @@
 				</repeat>
 			</record>
 
+            <record id="accountrole">
+                <web-url>accountrole</web-url>
+                <services-url>/authorization/accounts/{csid}/accountroles</services-url>
+                <services-record-path>account_role:http://collectionspace.org/services/account_role,accountroles_common</services-record-path>   
+                <services-list-path>accountroles-common-list/accountrole-list-item</services-list-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                        </view>
+                    </structure>
+                </structures>
+                <repeat id="account" asSibling="true">
+                    <selector>.csc-accountrole-account-row:</selector>
+                    <field id="accountid">
+                        <selector>.csc-accountrole-account-accountid</selector>
+                    </field>
+                    <field id="screenname">
+                        <selector>.csc-accountrole-account-screenname</selector>
+                    </field>
+                    <field id="userid">
+                        <selector>.csc-accountrole-account-userid</selector>
+                    </field>
+                </repeat>
+                <repeat id="role" asSibling="true">
+                    <selector>.csc-accountrole-role-row:</selector>
+                    <field id="roleid">
+                        <selector>.csc-accountrole-role-roleid</selector>
+                    </field>
+                    <field id="rolename">
+                        <selector>.csc-accountrole-account-rolename</selector>
+                    </field>
+                </repeat>
+            </record>
+
+            <!--
+            <record id="accountrole">
+                <web-url>accountrole</web-url>
+                <services-url>/authorization/accounts/{csid}/accountroles</services-url>
+                <services-record-path>account_role:http://collectionspace.org/services/account_role,accountroles_common</services-record-path>   
+                <services-list-path>accounts-common-list/account-list-item</services-list-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                        </view>
+                    </structure>
+                </structures>
+                <repeat id="accountrole" asSibling="true">
+                    <selector>.csc-accountrole-record-row:</selector>
+                    <field id="name" mini="summary">
+                        <selector>.csc-accountrole-name</selector>
+                    </field>
+                    <field id="selected" mini="number">
+                        <selector>.csc-accountrole-selected</selector>
+                    </field>
+                </repeat>
+            </record>-->
+            
 			<record id="users" type="userdata">
 		      <web-url>users</web-url>
 			  <services-url>accounts</services-url>

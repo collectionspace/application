@@ -269,7 +269,7 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				if(restrictions.has("keywords")) {
 					/* Keyword search */
 					String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-					postfix += "res="+data+"&";
+						postfix += r.getServicesSearchKeyword()+"="+data+"&";
 				} 
 				if(restrictions.has("pageSize")){
 					postfix += "pgSz="+restrictions.getString("pageSize")+"&";

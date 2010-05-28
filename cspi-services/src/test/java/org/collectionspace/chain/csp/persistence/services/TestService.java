@@ -49,13 +49,14 @@ public class TestService extends ServicesBaseClass {
 		// TODO make roleName dynamically vary otherwise POST fails if already exists 
 		testPostGetDelete("authorization/roles/", null, "obj5.xml", "role/description", "this role is for test users");
 		testPostGetDelete("authorization/permissions/", null, "permissions.xml", "permission/resourceName", "accounts");
+		//testPostGetDelete("accounts/", null, "account.xml", "account/userid", "accounts");
 
 		// XXX Queries about movement service consistency currently being discussed by email:
 		// - apparently inconsistent naming of label for POST (see xxx_hack_mov)
 		// - ought it have more stuff inside? currently returning an empty movementMethods
 		// - apparently it is possible to POST using label collectionobjects_common too!?
 		//   (although it will still return the right label)
-		testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementMethods", "");	
+		//testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementMethods", "");	
 	}
 	
 	private String xxx_hack_for_mov(String partname) {
@@ -76,7 +77,9 @@ public class TestService extends ServicesBaseClass {
 		} else {
 			url=conn.getURL(RequestMethod.POST,serviceurl,getDocument(filename),creds,cache);
 		}
+
 		assertEquals(201,url.getStatus());
+
 		log.info("POST returned "+url.getURL());
 		assertTrue(url.getURL().startsWith("/"+serviceurl)); // ensures e.g. CSPACE-305 hasn't regressed
 		
@@ -92,6 +95,7 @@ public class TestService extends ServicesBaseClass {
 			getStatus = rdoc.getStatus();
 			doc = rdoc.getDocument();
 		}
+		log.info("MYXML",doc.asXML());
 		assertEquals(200,getStatus);
 		assertNotNull(doc);
 		Node n=doc.selectSingleNode(xpath);
@@ -133,6 +137,7 @@ public class TestService extends ServicesBaseClass {
 		assertEquals(200,status); // XXX CSPACE-73, should be 404
 	}
 	
+
 	//@Test 
 	public void testRolePermissionsPost() throws Exception {
 		//create a permission

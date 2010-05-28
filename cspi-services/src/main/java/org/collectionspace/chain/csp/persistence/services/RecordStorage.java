@@ -125,7 +125,6 @@ public class RecordStorage implements ContextualisedStorage {
 	 */
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-
 			Map<String,Document> parts=new HashMap<String,Document>();
 			Document doc = null;
 			for(String section : r.getServicesRecordPaths()) {
@@ -135,7 +134,6 @@ public class RecordStorage implements ContextualisedStorage {
 				parts.put(record_path[0],doc);
 			}
 			ReturnedURL url;
-
 			//some records are accepted as multipart in the service layers, others arent, that's why we split up here
 			if(r.isMultipart())
 				url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
