@@ -835,7 +835,7 @@
 			  		<repeat id="termsUsed" asSibling="true">
 			  			<selector>.csc-recordList-row:</selector>
 						<field id="linktext" ui-type="linktext">
-							<selector>.csc-related-summary</selector>
+							<selector>.csc-related-number</selector>
 						</field>
 						<field id="recordtype" ui-type="list">
 							<selector>.csc-related-recordtype</selector>
@@ -1717,7 +1717,7 @@
 			  		<repeat id="termsUsed" asSibling="true">
 			  			<selector>.csc-recordList-row:</selector>
 						<field id="linktext" ui-type="linktext">
-							<selector>.csc-related-summary</selector>
+							<selector>.csc-related-number</selector>
 						</field>
 						<field id="recordtype" ui-type="list">
 							<selector>.csc-related-recordtype</selector>
