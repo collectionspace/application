@@ -50,13 +50,34 @@
 				<structures>
 					<structure id="screen"> 
 					</structure>
+					<structure id="tab"> 
+					<view>
+			  			<titlebar show="false"></titlebar>
+			  			<sidebar show="false">
+			  			</sidebar>
+			  			<edit-section id="details" show="true"></edit-section>
+			  			<list-section id="lists" show="true"></list-section>
+						
+					</view>
+					
+			  		<repeat id="lists" asSibling="true">
+			  			<selector>.csc-recordList-row:</selector>
+						<field id="linktext" ui-type="linktext">
+							<selector>.csc-related-number</selector>
+							<linktext-target>objects.html?csid=${items.0.csid}"</linktext-target>
+						</field>
+						<field id="summary" ui-type="list">
+							<selector>.csc-related-summary</selector>
+						</field>
+			  		</repeat>
+					</structure>
 				</structures>
 				<web-url>objects</web-url>
 				<tab-url>object-tab</tab-url>
 				<number-selector>.csc-accession-number</number-selector>
 				<row-selector>.csc-recordList-row:</row-selector>
 				<list-key>objects</list-key>
-					<field id="title" in-title="yes" mini="summary">
+					<field id="title" in-title="yes" mini="summary,list">
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
 						<selector>.csc-object-identification-object-title</selector>
 					</field>
@@ -80,7 +101,7 @@
 							<option id="trade">Trade</option>
 						</options>
 					</field>
-					<field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number">
+					<field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number,list">
 						<selector>.csc-object-identification-object-number</selector>
 						<title-selector>.csc-titleBar-object-identification-object-number</title-selector>
 						<options>
@@ -140,6 +161,9 @@
 					</field>
 					<field id="objectNameNote">
 						<selector>.csc-object-identification-object-note</selector>
+					</field>
+					<field id="objectName" mini="list">
+						<selector>.csc-object-identification-object-name</selector>
 					</field>
 					<field id="distinguishingFeatures">
 						<selector>.csc-object-identification-distinguishing-features</selector>
@@ -504,7 +528,7 @@
 						<selector>.csc-object-description-inscription-description-interpretation</selector>
 					</field>					
 					<repeat id="responsibleDepartments" xxx-ui-no-repeat="yes">
-			          <field id="responsibleDepartment">
+			          <field id="responsibleDepartment" mini="list">
 					    <selector>.csc-object-identification-responsible-department</selector>
 						<options>
 						  <option id="antiquities">Antiquities</option>
@@ -552,7 +576,7 @@
 					 <field id="objectProductionOrganization" autocomplete="organization-organization">
 					    <selector>.csc-object-production-organization</selector>
 					 </field>
-					  <field id="objectProductionPeople" autocomplete="people-people">
+					  <field id="objectProductionPeople" autocomplete="person-person">
 					    <selector>.csc-object-production-people</selector>
 					 </field>
 					  <field id="objectProductionPerson" autocomplete="person-person">
@@ -746,9 +770,7 @@
 						<selector>.csc-object-description-inscription-description-date</selector>
 					 </field>
 					 ".csc-object-description-inscription-description-date": "${fields.inscriptionDescriptionDate}",
-					 <field id="objectName">
-						<selector>.csc-object-identification-object-name</selector>
-					</field>
+					 
 					".csc-object-identification-object-name": "${fields.objectName}",
 					 <field id="material">
 						<selector>.csc-object-description-material</selector>
@@ -813,7 +835,7 @@
 			  		<repeat id="termsUsed" asSibling="true">
 			  			<selector>.csc-recordList-row:</selector>
 						<field id="linktext" ui-type="linktext">
-							<selector>.csc-related-summary</selector>
+							<selector>.csc-related-number</selector>
 						</field>
 						<field id="recordtype" ui-type="list">
 							<selector>.csc-related-recordtype</selector>
@@ -896,7 +918,7 @@
 			  <field id="currentOwner" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
-			  <field id="depositor" autocomplete="person-person, organization-organization" mini="summary">
+			  <field id="depositor" autocomplete="person-person,organization-organization" mini="summary">
 			    <selector>.csc-intake-depositor</selector>
 			  </field>
 			  <field id="depositorsRequirements">
@@ -952,7 +974,7 @@
 			  <field id="valuationReferenceNumber">
 			    <selector>.csc-intake-valuation-reference-number</selector>
 			  </field>
-			  <field id="valuer" autocomplete="person-person, organization-organization">
+			  <field id="valuer" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-valuer</selector>
 			  </field>			  
 			  <field id="insuranceNote">
@@ -964,7 +986,7 @@
 			  <field id="insuranceReferenceNumber">
 			    <selector>.csc-intake-insurance-reference-number</selector>
 			  </field>
-			  <field id="insurer" autocomplete="person-person, organization-organization">
+			  <field id="insurer" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-insurer</selector>
 			  </field>  
 			  <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
@@ -993,7 +1015,7 @@
 			  <field id="conditionCheckReferenceNumber">
 			    <selector>.csc-intake-condition-check-reference-number</selector>
 			  </field>
-			  <field id="conditionCheckAssesor" autocomplete="person-person, organization-organization">
+			  <field id="conditionCheckAssesor" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-condition-check-assessor</selector>
 			  </field>			  
 			  <field id="conditionCheckDate" ui-type="date">
@@ -1103,7 +1125,6 @@
 			  <field id="objectPurchaseOfferPriceDenomination">
 			    <selector>.csc-acquisition-purchaser-price-denomination</selector>
 			  </field>
-			  
 			  <!-- not supported in service layer
 			  <field id="owner" autocomplete="person-person">
 			    <selector>.csc-acquisition-owner</selector>
@@ -1129,7 +1150,7 @@
 
 <!-- XXX best guess for placeauthority - awaiting feedback from service layer and ui layer -->
 			<record id="place" type="authority,compute-displayname">
-				<web-url>place</web-url>
+			  <web-url>place</web-url>
 			  <services-instances-path>placeauthorities_common:http://collectionspace.org/services/place,placeauthorities-common-list/placeauthority-list-item</services-instances-path>
 			  <services-single-instance-path>placeauthorities_common:http://collectionspace.org/services/place,personauthorities_common</services-single-instance-path>
 			  <services-list-path>http://collectionspace.org/services/place,places-common-list/place_list_item</services-list-path>
@@ -1237,6 +1258,7 @@
 			    <selector>.csc-personAuthority-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
 			  </field>
+			  
 			  <field id="birthDate" in-title="yes" ui-type="date">
 			    <selector>.csc-personAuthority-birthDate</selector>
 			    <title-selector>.csc-titleBar-birthDate</title-selector>
@@ -1289,9 +1311,6 @@
 			  <field id="deathPlace" autocomplete="place-place">
 			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
-			  <field id="group" >
-			    <selector>.csc-personAuthority-group</selector>
-			  </field>
 			  <!-- <field id="group"> -->
 			  <field id="group" autocomplete="person-person">
 			    <selector>.csc-personAuthority-group</selector>
@@ -1322,6 +1341,16 @@
 			  <field id="deathPlace" autocomplete="place-place">
 			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
+			  <field id="status">
+			    <selector>.csc-personAuthority-status</selector>
+			    <options>
+			      <option id="provisional" default="yes">Provisional</option>
+			      <option id="under review">Under Review</option>
+			      <option id="accepted">Accepted</option>
+			      <option id="rejected">Rejected</option>
+			    </options>
+			  </field>
+			  
 			  <!-- No longer needed
 			  
 			  <field id="addressType1">
@@ -1437,6 +1466,8 @@
                 <services-url>authorization/roles</services-url>
 				<services-list-path>roles_list/*</services-list-path>
 				<services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
+				<is-multipart>false</is-multipart>
+                <services-search-keyword>r</services-search-keyword>
 				<structures>
 					<structure id="screen">
 						<view>
@@ -1445,7 +1476,6 @@
 						</view>
 					</structure>
 				</structures>
-				<is-multipart>false</is-multipart>
 				<terms-used>false</terms-used>
 				<field id="roleName" mini="number">
 					<selector>.csc-role-name</selector>
@@ -1458,12 +1488,75 @@
 				</field>
 			</record>
 			
-            <record id="permission">
-            	<web-url>permission</web-url>
+			<record id="permission" type="authorizationdata">
+			    <web-url>permission</web-url>
                 <services-url>authorization/permissions</services-url>
-				<services-list-path>permissions_list/*</services-list-path>
-				<services-record-path>permission:http://collectionspace.org/services/authorization,permission</services-record-path>
+                <services-list-path>permissions_list/*</services-list-path>
+                <services-record-path>permissions_common:http://collectionspace.org/services/authorization,permission</services-record-path>
+                <is-multipart>false</is-multipart>
+                <services-search-keyword>res</services-search-keyword>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                        </view>
+                    </structure>
+                </structures>
+                <terms-used>false</terms-used>
+                <repeat id="actions">
+                    <selector>.csc-permission-action-row:</selector>
+                    <repeat id="action" container="false">
+                        <selector>.csc-permission-action-row:</selector>
+                        <field id="name">
+                            <selector>.csc-permission-action-name</selector>
+                        </field>
+                    </repeat>
+                </repeat>
+                <field id="effect" mini="number">
+                    <selector>.csc-permission-effect</selector>
+                </field>
+                <field id="resourceName" mini="summary">
+                    <selector>.csc-permission-resourceName</selector>
+                </field>
+			</record>
+
+            <!-- PermRole like Service layer wants it
+            <record id="permrole">
+                <is-multipart>false</is-multipart>
+                <services-url>authorization/permroles</services-url>
+                <services-list-path>permroles-common-list/permrole-list-item</services-list-path>
+                <services-record-path>permisson_roles_common:http://collectionspace.org/services/permroles, permisson_role</services-record-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                        </view>
+                        
+                    </structure>
+                </structures>
+                <selector>.csc-permissions-record-permission:</selector>
+                <repeat id="permisson" asSibling="true">
+                    <field id="permissionId" mini="summary">
+                        <selector>.csc-permissions-record-id:</selector>
+                    </field>
+                    <field id="resourceName">
+                        <selector>.csc-permissions-record-resourcename:</selector>
+                    </field>
+                </repeat>
+                    <field id="role" mini="number">
+                        <selector>.csc-permissions-record-type</selector>
+                    </field>
+                </repeat>
+            </record> -->
+            
+ 			<!--permrole like UI wants it -->
+ 			<record id="permrole">
 				<is-multipart>false</is-multipart>
+				<services-url>authorization/permroles</services-url>
+				<services-list-path>permroles-common-list/permrole-list-item</services-list-path>
+				<services-record-path>permisson_roles_common:http://collectionspace.org/services/permroles, permisson_role</services-record-path>
 				<structures>
 					<structure id="screen">
 						<view>
@@ -1472,46 +1565,9 @@
 						</view>
 					</structure>
 				</structures>
-				<is-multipart>false</is-multipart>
-				<terms-used>false</terms-used>
-				<field id="resourceName" mini="number">
-					<selector>.csc-permission-name</selector>
-				</field>
-				<repeat id="action">
-					<selector>.csc-permission-action-row:</selector>
-					<field id="name" container="false">
-						<selector>.csc-permission-action-name</selector>
-					</field>
-				</repeat>
-			</record>
-           
- 			<record id="rolePermission">
-				<is-multipart>false</is-multipart>
-				<services-url>authorization/roles</services-url>
-				<services-list-path>roles-common-list/role-list-item</services-list-path>
-				<services-record-path>roles_common:http://collectionspace.org/services/rolepermission, roles_common</services-record-path>
-				<structures>
-					<structure id="screen"> <!-- screen|print|blackberry etc -->
-						<view>
-							<titlebar show="false"></titlebar>
-							<sidebar show="false"></sidebar>
-							<edit-section id="permissions" show="true"></edit-section>
-							<list-section id="roleList" show="true"></list-section>
-						</view>
-						<repeat id="roleList" asSibling="true">
-							<selector>.csc-recordList-row:</selector>
-							<field id="name" ui-type="list">
-								<selector>.csc-role-roleList-name</selector>
-							</field>
-							<field id="csid" ui-type="list">
-								<selector>.csc-role-roleList-csid</selector>
-							</field>
-						</repeat>
-					</structure>
-				</structures>
-				<repeat id="permissions" asSibling="true">
+				<repeat id="permisson_roles" asSibling="true">
 					<selector>.csc-permissions-record-row:</selector>
-					<field id="permission" mini="summary">
+					<field id="permission_role" mini="summary">
 						<selector>.csc-permissions-record-permissions</selector>
 						<options>
 							<option id="none">none</option>
@@ -1524,8 +1580,69 @@
 						<selector>.csc-permissions-record-type</selector>
 					</field>
 				</repeat>
-			</record> 
+			</record>
 
+            <record id="accountrole">
+                <web-url>accountrole</web-url>
+                <services-url>/authorization/accounts/{csid}/accountroles</services-url>
+                <services-record-path>account_role:http://collectionspace.org/services/account_role,accountroles_common</services-record-path>   
+                <services-list-path>accountroles-common-list/accountrole-list-item</services-list-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                        </view>
+                    </structure>
+                </structures>
+                <repeat id="account" asSibling="true">
+                    <selector>.csc-accountrole-account-row:</selector>
+                    <field id="accountid">
+                        <selector>.csc-accountrole-account-accountid</selector>
+                    </field>
+                    <field id="screenname">
+                        <selector>.csc-accountrole-account-screenname</selector>
+                    </field>
+                    <field id="userid">
+                        <selector>.csc-accountrole-account-userid</selector>
+                    </field>
+                </repeat>
+                <repeat id="role" asSibling="true">
+                    <selector>.csc-accountrole-role-row:</selector>
+                    <field id="roleid">
+                        <selector>.csc-accountrole-role-roleid</selector>
+                    </field>
+                    <field id="rolename">
+                        <selector>.csc-accountrole-account-rolename</selector>
+                    </field>
+                </repeat>
+            </record>
+
+            <!--
+            <record id="accountrole">
+                <web-url>accountrole</web-url>
+                <services-url>/authorization/accounts/{csid}/accountroles</services-url>
+                <services-record-path>account_role:http://collectionspace.org/services/account_role,accountroles_common</services-record-path>   
+                <services-list-path>accounts-common-list/account-list-item</services-list-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                        </view>
+                    </structure>
+                </structures>
+                <repeat id="accountrole" asSibling="true">
+                    <selector>.csc-accountrole-record-row:</selector>
+                    <field id="name" mini="summary">
+                        <selector>.csc-accountrole-name</selector>
+                    </field>
+                    <field id="selected" mini="number">
+                        <selector>.csc-accountrole-selected</selector>
+                    </field>
+                </repeat>
+            </record>-->
+            
 			<record id="users" type="userdata">
 		      <web-url>users</web-url>
 			  <services-url>accounts</services-url>
@@ -1536,12 +1653,12 @@
 					<view>
 			  			<titlebar show="false"></titlebar>
 			  			<sidebar show="false"></sidebar>
-			  			<edit-section id="userDetails" show="true"></edit-section>
-			  			<list-section id="userList" show="true"></list-section>
+			  			<edit-section id="details" show="true"></edit-section>
+			  			<list-section id="list" show="true"></list-section>
 					</view>
-			  		<repeat id="userList" asSibling="true">
+			  		<repeat id="list" asSibling="true">
 			  			<selector>.csc-recordList-row:</selector>
-			  			<field id="name" ui-type="list">
+			  			<field id="screenName" ui-type="list">
 			  				<selector>.csc-user-userList-name</selector>
 			  			</field>
 			  			<field id="status" ui-type="list">
@@ -1600,7 +1717,7 @@
 			  		<repeat id="termsUsed" asSibling="true">
 			  			<selector>.csc-recordList-row:</selector>
 						<field id="linktext" ui-type="linktext">
-							<selector>.csc-related-summary</selector>
+							<selector>.csc-related-number</selector>
 						</field>
 						<field id="recordtype" ui-type="list">
 							<selector>.csc-related-recordtype</selector>
@@ -1683,7 +1800,7 @@
 				<field id="specialConditionsOfLoan">
 					<selector>.csc-loanOut-loanOutConditions</selector>
 				</field>
-				<field id="borrower" autocomplete="person-person" xxx_ui_refactored="true">
+				<field id="borrower" autocomplete="person-person,organization-organization" xxx_ui_refactored="true">
 					<selector>.csc-loanOut-borrower</selector>
 				</field>
 				<field id="loanOutNote">
@@ -1750,3 +1867,4 @@
 		</records>
 	</spec>
 </collection-space>
+
