@@ -91,36 +91,68 @@ public class TestRelations extends ServicesBaseClass {
 	
 	@Test public void testRelationsThroughAPI() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		//create 3 objects
 		String obj1=makeRecord(ss,"A");
 		String obj2=makeRecord(ss,"B");
 		String obj3=makeRecord(ss,"C");
-		JSONObject data=new JSONObject();
-		data.put("src","collection-object/"+obj1);
-		data.put("dst","collection-object/"+obj2);
-		data.put("type","affects");
-		// create
-		String path=ss.autocreateJSON("relations/main/",data);
-		//log.info("path="+path);
-		// get
+		
+		// relate obj1 and obj2
+		String path=relate(ss,obj1,obj2);
+		//relate  obj2 and obj3
+		String path2=relate(ss,obj2,obj3);
+		
+		// test relationship
 		JSONObject data2=ss.retrieveJSON("relations/main/"+path);
-		data2.remove("csid");
-		assertTrue(JSONUtils.checkJSONEquiv(data,data2));
+		assertTrue(JSONUtils.checkJSONEquiv("collection-object/"+obj1,data2.getString("src")));
+		assertTrue(JSONUtils.checkJSONEquiv("collection-object/"+obj2,data2.getString("dst")));
+		assertTrue(JSONUtils.checkJSONEquiv("affects",data2.getString("type")));
+		
 		// update
-		data.put("dst","collection-object/"+obj3);
-		ss.updateJSON("/relations/main/"+path,data);
+		updaterelate(ss,path,obj1,obj3);
+		
 		// get
 		JSONObject data3=ss.retrieveJSON("relations/main/"+path);
-		data3.remove("csid");		
-		assertTrue(JSONUtils.checkJSONEquiv(data,data3));		
+		assertTrue(JSONUtils.checkJSONEquiv("collection-object/"+obj1,data3.getString("src")));
+		assertTrue(JSONUtils.checkJSONEquiv("collection-object/"+obj3,data3.getString("dst")));
+		assertTrue(JSONUtils.checkJSONEquiv("affects",data3.getString("type")));
+		
+		//get list
+
+		// simple list
+		//XXX CSPACE-1080 - will need to update if this is improved
+		JSONObject datalist = ss.getPathsJSON("relations/main",null);
+		int truecount = 0;
+		String[] paths=(String[])datalist.get("listItems");
+		JSONObject pagination = datalist.getJSONObject("pagination");
+		boolean pagbool = false;
+		while(!pagbool){
+			pagbool = ( pagination.getInt("itemsInPage") + (pagination.getInt("pageSize") * pagination.getInt("pageNum")) ) <= pagination.getInt("totalItems");
+			for(int i=0;i<paths.length;i++){
+				if(paths[i].equals(path) || paths[i].equals(path2)){
+					truecount++;
+				}
+			}
+		}
+		assertEquals(truecount,2);
+		
 		// delete
 		ss.deleteJSON("/relations/main/"+path);
+		ss.deleteJSON("/relations/main/"+path2);
+		
+		// delete objects
+		ss.deleteJSON("collection-object/"+obj1);
+		ss.deleteJSON("collection-object/"+obj2);
+		ss.deleteJSON("collection-object/"+obj3);
+		
 		// get
 		try {
 			ss.retrieveJSON("relations/main/"+path);
 			assertTrue(false);
-		} catch(ExistException x) {}
+		} catch(ExistException x) {
+			assertTrue(true);
+		}
 	}
-	
+
 	private String relate(Storage ss,String obj1,String obj2) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject data=new JSONObject();
 		data.put("src","collection-object/"+obj1);
@@ -129,42 +161,13 @@ public class TestRelations extends ServicesBaseClass {
 		// create
 		return ss.autocreateJSON("relations/main/",data);
 	}
-	
-	//XXX CSPACE-1080 - will need to update if this is improved
-	@Test public void testRelationsSearchThroughAPI() throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		// clear down, for sanity
-		//XXX THIS SHOULD BE LOOKED AT AND PROBABLY CHANGED!!
-		JSONObject data = ss.getPathsJSON("relations/main", null);
-		String[] paths = (String[])data.get("listItems");
-		for(String path : paths) {
-			ss.deleteJSON("relations/main/"+path);
-		}
-
-		// create some test records
-		String obj1=makeRecord(ss,"A");
-		String obj2=makeRecord(ss,"B");
-		String obj3=makeRecord(ss,"C");
-		String p1=relate(ss,obj1,obj2);
-		String p2=relate(ss,obj1,obj3);
-
-		// simple list
-		data = ss.getPathsJSON("relations/main", null);
-		paths=(String[])data.get("listItems");
-		assertEquals(2,paths.length);
-		assertTrue(paths[0].equals(p1) || paths[1].equals(p1));
-		assertTrue(paths[0].equals(p2) || paths[1].equals(p2));
-		// get details of obj2
-		JSONObject r1=ss.retrieveJSON("relations/main/"+p1);
-		String id2=r1.getString("dst").split("/")[1];
-		// search for it
-		JSONObject restriction=new JSONObject();
-		restriction.put("dst","collection-object/"+id2);
-		
-		data = ss.getPathsJSON("relations/main", restriction);
-		paths=(String[])data.get("listItems");
-		assertEquals(1,paths.length);
-		assertEquals(paths[0],p1);
-		// XXX should also test type and subject
+	private void updaterelate(Storage ss,String path, String obj1,String obj2) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+		JSONObject data=new JSONObject();
+		data.put("src","collection-object/"+obj1);
+		data.put("dst","collection-object/"+obj2);
+		data.put("type","affects");
+		// udpate
+		ss.updateJSON("relations/main/"+path, data);
 	}
+	
 }
