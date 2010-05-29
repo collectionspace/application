@@ -53,7 +53,7 @@ public class WebReset implements WebMethod {
 			for(String dir : paths) {
 				// XXX yuck!
 				//need to delete auths
-				if("relations".equals(dir) || "place".equals(dir) || "rolePermission".equals(dir) || "permission".equals(dir) || "role".equals(dir) || "vocab".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "direct".equals(dir) || "users".equals(dir))
+				if("relations".equals(dir) || "place".equals(dir) || "rolePermission".equals(dir) || "permrole".equals(dir) || "permission".equals(dir) || "role".equals(dir) || "vocab".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "direct".equals(dir) || "users".equals(dir))
 					continue;
 				tty.line("dir : "+dir);
 				data = storage.getPathsJSON(dir,null);
