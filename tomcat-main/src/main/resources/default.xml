@@ -56,11 +56,11 @@
 			  			<sidebar show="false">
 			  			</sidebar>
 			  			<edit-section id="details" show="true"></edit-section>
-			  			<list-section id="lists" show="true"></list-section>
+			  			<list-section id="list" show="true"></list-section>
 						
 					</view>
 					
-			  		<repeat id="lists" asSibling="true">
+			  		<repeat id="list" asSibling="true">
 			  			<selector>.csc-recordList-row:</selector>
 						<field id="linktext" ui-type="linktext">
 							<selector>.csc-related-number</selector>
