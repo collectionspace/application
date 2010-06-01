@@ -82,7 +82,7 @@ public class TestGeneral {
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
 	private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
 
-	private final static String testStr6 = "{\"userId\": \"unittest2@collectionspace.org"+d.toString()+"\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
+	private final static String testStr6 = "{\"userId\": \"unittest2@collectionspace.org\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
 	private final static String testStr7 = "{\"userId\": \"unittest2@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"active\"}";
 	private final static String testStr8 = "{\"email\": \"unittest2@collectionspace.org\", \"debug\" : true }";
 	private final static String testStr9 = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
@@ -305,6 +305,7 @@ public class TestGeneral {
 		assertEquals(test1a.getJSONObject("fields").get("userId").toString(),test1b.get("userId").toString());
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(getFields(out.getContent()).,new JSONObject(testStr6)));
 		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(testStr7));
+		log.info(testStr7);
 		log.info("PUT "+id+":"+out.getContent());
 		assertEquals(200,out.getStatus());		
 		out=jettyDo(jetty,"GET","/chain"+id,null);
@@ -334,7 +335,7 @@ public class TestGeneral {
 		JSONObject two = new JSONObject(roleCreate);
 		log.info("MYROLEONE"+one.get("roleName"));
 		log.info("MYROLETWO"+two.get("roleName"));
-		assertEquals(one.get("roleName"), two.get("roleName"));
+		assertEquals(one.get("roleName"), two.getString("roleName").toUpperCase());
 		
 		out = jettyDo(jetty, "PUT","/chain/"+id,makeSimpleRequest(roleCreate));
 		//log.info(out.getContent());
@@ -342,7 +343,7 @@ public class TestGeneral {
 		assertEquals(200, out.getStatus());
 		one = new JSONObject(getFields(out.getContent()));
 		two = new JSONObject(roleCreate);
-		assertEquals(one.get("roleName"), two.get("roleName"));
+		assertEquals(one.get("roleName"), two.getString("roleName").toUpperCase());
 
 		out=jettyDo(jetty,"GET","/chain/role",null);
 		assertEquals(200,out.getStatus());
@@ -372,6 +373,37 @@ public class TestGeneral {
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/chain.properties",null);
 		assertEquals(200,out.getStatus());
 		assertTrue(out.getContent().contains("cspace.chain.store.dir"));
+	}
+
+	@Test public void mytest() throws Exception {
+
+		ServletTester jetty=setupJetty();
+		HttpTester out1;//=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));
+
+		
+		/* get all objects */
+		//pagination?
+		HttpTester out=jettyDo(jetty,"GET","/chain/permrole",null);
+		assertEquals(200,out.getStatus());
+		log.info(out.getContent());
+		
+		/* create list of files */
+/*
+		JSONObject result=new JSONObject(out.getContent());
+		JSONArray items=result.getJSONArray("items");
+		Set<String> files=new HashSet<String>();
+		for(int i=0;i<items.length();i++){
+			files.add("/"+objtype+"/"+items.getJSONObject(i).getString("csid"));
+		}
+*/
+		/* clean up */
+		/*
+		out=jettyDo(jetty,"DELETE","/chain"+out1.getHeader("Location"),null);
+		assertEquals(200,out.getStatus());
+
+		assertTrue(files.contains(out1.getHeader("Location")));
+		*/
+		
 	}
 	
 	@Test public void testObjectList() throws Exception {
@@ -671,6 +703,8 @@ public class TestGeneral {
 		}
 		
 	}
+
+
 	/*
 	@Test public void testUserRoles() throws Exception{
 		ServletTester jetty = setupJetty();
