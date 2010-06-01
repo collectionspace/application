@@ -62,12 +62,11 @@
 					
 			  		<repeat id="list" asSibling="true">
 			  			<selector>.csc-recordList-row:</selector>
-						<field id="linktext" ui-type="linktext">
-							<selector>.csc-related-number</selector>
-							<linktext-target>objects.html?csid=${items.0.csid}"</linktext-target>
-						</field>
 						<field id="summary" ui-type="list">
 							<selector>.csc-related-summary</selector>
+						</field>
+						<field id="number" ui-type="list">
+							<selector>.csc-related-number</selector>
 						</field>
 			  		</repeat>
 					</structure>
