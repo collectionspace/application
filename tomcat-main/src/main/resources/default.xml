@@ -859,7 +859,7 @@
 				
 			  	<repeat id="lenders" asSibling="true">
 			  		<selector>.csc-loanIn-lender-row:</selector>
-			    	<field id="lender" autocomplete="person-person" mini="summary"  xxx_ui_refactored="true" >
+			    	<field id="lender" autocomplete="person-person,organization-organization" mini="summary"  xxx_ui_refactored="true" >
 			      		<selector>.csc-loanIn-lender</selector>
 			    	</field>
 			  
