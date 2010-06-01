@@ -866,26 +866,26 @@
                 	<field id="lendersAuthorizer" autocomplete="person-person" xxx_ui_refactored="true">
 						<selector>.csc-loanIn-lendersAuthorizer</selector>
 					</field>
-    	            <field id="lendersAuthorizerDate" ui-type="date" container="false">
+    	            <field id="lendersAuthorizerDate" ui-type="date">
 						<selector>.csc-loanIn-lendersAuthorizerDate</selector>
 					</field>
 					<field id="lendersContact" autocomplete="person-person" xxx_ui_refactored="true">
 						<selector>.csc-loanIn-lendersContact</selector>
 					</field>
 			  	</repeat>
-                <field id="loanInContact" autocomplete="person-person" container="false">
+                <field id="loanInContact" autocomplete="person-person">
 					<selector>.csc-loanIn-loanInContact</selector>
 				</field>
                 <field id="loanInConditions">
 					<selector>.csc-loanIn-loanInConditions</selector>
 				</field>
-                <field id="loanInDate" ui-type="date" container="false">
+                <field id="loanInDate" ui-type="date">
 					<selector>.csc-loanIn-loanInDate</selector>
 				</field>
-                <field id="loanReturnDate" ui-type="date" container="false">
+                <field id="loanReturnDate" ui-type="date">
 					<selector>.csc-loanIn-loanReturnDate</selector>
 				</field>
-                <field id="loanRenewalApplicationDate" ui-type="date" container="false">
+                <field id="loanRenewalApplicationDate" ui-type="date">
 					<selector>.csc-loanIn-loanRenewalApplicationDate</selector>
 				</field>
                 <field id="loanInNote">
@@ -1117,7 +1117,7 @@
 			  </field>
 			  <repeat id="acquisitionSources">
 			  	<selector>.csc-acquisition-acquisition-source-row:</selector>
-			    <field id="acquisitionSource" autocomplete="person-person" mini="summary" container="false">
+			    <field id="acquisitionSource" autocomplete="person-person" mini="summary">
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
 			  </repeat>
@@ -1505,7 +1505,7 @@
                 <terms-used>false</terms-used>
                 <repeat id="actions">
                     <selector>.csc-permission-action-row:</selector>
-                    <repeat id="action" container="false">
+                    <repeat id="action">
                         <selector>.csc-permission-action-row:</selector>
                         <field id="name">
                             <selector>.csc-permission-action-name</selector>
@@ -1743,7 +1743,7 @@
 			    <field id="lendersAuthorizer" autocomplete="person-person"   xxx_ui_refactored="true">
 					<selector>.csc-loanOut-lendersAuthorizer</selector>
 				</field>	
-			    <field id="lendersAuthorizationDate" ui-type="date"  container="false">
+			    <field id="lendersAuthorizationDate" ui-type="date">
 					<selector>.csc-loanOut-lendersAuthorizationDate</selector>
 				</field>				
 				<field id="lendersContact" autocomplete="person-person"  xxx_ui_refactored="true">
@@ -1752,7 +1752,7 @@
 				<field id="borrowersContact" autocomplete="person-person"  xxx_ui_refactored="true">
 					<selector>.csc-loanOut-borrowersContact</selector>
 				</field>
-				<field id="loanReturnDate" ui-type="date" container="false">
+				<field id="loanReturnDate" ui-type="date">
 					<selector>.csc-loanOut-loanReturnDate</selector>
 				</field>
 				<field id="loanPurpose">
@@ -1767,17 +1767,17 @@
 			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
 			    	</options>
 				</field>
-				<field id="loanOutDate" ui-type="date" container="false">
+				<field id="loanOutDate" ui-type="date">
 					<selector>.csc-loanOut-loanOutDate</selector>
 				</field>
-				<field id="loanRenewalApplicationDate" ui-type="date" container="false">
+				<field id="loanRenewalApplicationDate" ui-type="date">
 					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
 				</field>
 				<!-- not supported in the Service layer
 				<field id="loanedObjectStatusNote">
 					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
 				</field>
-				<field id="loanedObjectStatusDate" ui-type="date" container="false">
+				<field id="loanedObjectStatusDate" ui-type="date">
 					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
 				</field>
 				<field id="loanedObjectStatus">

@@ -1,210 +1,32 @@
 {
-    "titleBar": {
-        ".csc-titleBar-intake-entry-number": "${fields.entryNumber}"
-    },
-    "recordEditor": {
-        ".csc-intake-current-owner": "${fields.currentOwner}",
-        ".csc-intake-current-owner-autocomplete": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.autocomplete",
-                "container": ".csc-intake-current-owner",
-                "options": {
-                    "queryUrl": "../../chain/intake/autocomplete/currentOwner",
-                    "vocabUrl": "../../chain/intake/source-vocab/currentOwner"
-                }
-            }]
-        },
-        ".csc-intake-depositor": "${fields.depositor}",
-        ".csc-intake-depositor-autocomplete": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.autocomplete",
-                "container": ".csc-intake-depositor",
-                "options": {
-                    "queryUrl": "../../chain/intake/autocomplete/depositor",
-                    "vocabUrl": "../../chain/intake/source-vocab/depositor"
-                }
-            }]
-        },
-        ".csc-intake-depositor-requirements": "${fields.depositorsRequirements}",
-        ".csc-intake-entry-date": "${fields.entryDate}",
-        ".csc-intake-entry-date-container": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-intake-entry-date-container"
-            }]
-        },
-        ".csc-intake-entry-method-row:": { 
-            "children": [
-                { ".csc-intake-entry-method": {
-                    "selection": "${fields.entryMethods.0.entryMethod}",
-                    "optionlist": ["in-person", "post", "found-on-doorstep"],
-                    "optionnames": ["In person", "Post", "Found on doorstep"],
-                    "default": "0"
-                } }
-            ]
-        },
-        ".csc-intake-entry-note": "${fields.entryNote}",
-        ".csc-intake-entry-number": "${fields.entryNumber}",
-        ".csc-intake-entry-number-container": {
-                "decorators": [{
-                    "type": "fluid",
-                    "func": "cspace.numberPatternChooser",
-                    "container": ".csc-intake-entry-number-container",
-                    "options": {
-                        "selectors": {
-                            "numberField": ".csc-intake-entry-number"
-                        },
-                        "model": {
-                            "list": ["intake", "study", "evaluations"],
-                            "samples": ["IN2009.1", "ST2009.1", "EV2009.1"],
-                            "names": ["Intake", "Study", "Evaluation"]
+    "sidebar": {
+        "relatedObjects": {
+            ".csc-recordList-row:": {
+                "children": [
+                    {
+                        ".csc-related-summary": "${items.0.summary}",
+                        ".csc-related-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                         }
                     }
-                }]
+                ]
+            }
         },
-        ".csc-intake-entry-reason": {
-            "selection": "${fields.entryReason}",
-            "optionlist": ["enquiry", "commission", "loan"],
-            "optionnames": ["Enquiry", "Commission", "Loan"]
+        "relatedProcedures": {
+            ".csc-recordList-row:": {
+                "children": [
+                    {
+                        ".csc-related-summary": "${items.0.summary}",
+                        ".csc-related-number": {
+                            "linktext": "${items.0.number}",
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                        },
+                        ".csc-related-recordtype": "${items.0.recordtype}"
+                    }
+                ]
+            }
         },
-        ".csc-intake-packing-note": "${fields.packingNote}",
-        ".csc-intake-return-date": "${fields.returnDate}",
-        ".csc-intake-return-date-container": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-intake-return-date-container"
-            }]
-        },
-
-        ".csc-intake-date-association": "${fields.associationDate}",
-        ".csc-intake-date-earliest-single": "${fields.earliestDate}",
-        ".csc-intake-date-earliest-single-container": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-intake-date-earliest-single-container"
-            }]
-        },
-        ".csc-intake-date-earliest-single-certainty": "${fields.earliestDateCertainty}",
-        ".csc-intake-date-earliest-single-qualifier": "${fields.earliestDateQualifier}",
-        ".csc-intake-date-latest": "${fields.latestDate}",
-        ".csc-intake-date-latest-single-container": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-intake-date-latest-single-container"
-            }]
-        },
-        ".csc-intake-date-latest-certainty": "${fields.latestDateCertainty}",
-        ".csc-intake-date-latest-qualifier": "${fields.latestDateQualifier}",
-        ".csc-intake-date-period": "${fields.datePeriod}",
-        ".csc-intake-date-text": "${fields.dateText}",
-
-        ".csc-intake-field-location-date": "${fields.fieldCollectionDate}",
-        ".csc-intake-field-location-date-container": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-intake-field-location-date-container"
-            }]
-        },
-        ".csc-intake-field-collection-event-name": "${fields.fieldCollectionEventName}",
-        ".csc-intake-field-collection-number": "${fields.fieldCollectionNumber}",
-        ".csc-intake-field-collector": "${fields.fieldCollector}",
-        ".csc-intake-field-collector-autocomplete": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.autocomplete",
-                "container": ".csc-intake-field-collector",
-                "options": {
-                    "queryUrl": "../../chain/intake/autocomplete/fieldCollector",
-                    "vocabUrl": "../../chain/intake/source-vocab/fieldCollector"
-                }
-            }]
-        },
-
-        ".csc-intake-valuation-reference-number": "${fields.valuationReferenceNumber}",
-        ".csc-intake-valuer": "${fields.valuer}",
-        ".csc-intake-valuer-autocomplete": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.autocomplete",
-                "container": ".csc-intake-valuer",
-                "options": {
-                    "queryUrl": "../../chain/intake/autocomplete/valuer",
-                    "vocabUrl": "../../chain/intake/source-vocab/valuer"                    
-                }
-            }]
-        },
-
-        ".csc-intake-insurance-note": "${fields.insuranceNote}",
-        ".csc-intake-insurance-policy-number": "${fields.insurancePolicyNumber}",
-        ".csc-intake-insurance-reference-number": "${fields.insuranceReferenceNumber}",
-        ".csc-intake-insurance-renewal-date": "${fields.insuranceRenewalDate}",
-        ".csc-intake-insurance-renewal-date-container": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-intake-insurance-renewal-date-container"
-            }]
-        },
-        ".csc-intake-insurer": "${fields.insurer}",
-        ".csc-intake-insurer-autocomplete": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.autocomplete",
-                "container": ".csc-intake-insurer",
-                "options": {
-                    "queryUrl": "../../chain/intake/autocomplete/insurer",
-                    "vocabUrl": "../../chain/intake/source-vocab/insurer"
-                }
-            }]
-        },
-
-        ".csc-intake-current-location": "${fields.currentLocation}",
-        ".csc-intake-current-location-fitness": "${fields.currentLocationFitness}",
-        ".csc-intake-current-location-note": "${fields.currentLocationNote}",
-        ".csc-intake-location-date": "${fields.locationDate}",
-        ".csc-intake-location-date-container": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-intake-location-date-container"
-            }]
-        },
-        ".csc-intake-normal-location": "${fields.normalLocation}",
-
-        ".csc-intake-condition-check-date": "${fields.conditionCheckDate}",
-        ".csc-intake-condition-check-date-container": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.datePicker",
-                "container": ".csc-intake-condition-check-date-container"
-            }]
-        },
-        ".csc-intake-condition-check-method": "${fields.conditionCheckMethod}",
-        ".csc-intake-condition-check-note": "${fields.conditionCheckNote}",
-        ".csc-intake-condition-check-reason": "${fields.conditionCheckReason}",
-        ".csc-intake-condition-check-reference-number": "${fields.conditionCheckReferenceNumber}",
-        ".csc-intake-condition-check-assessor": "${fields.conditionCheckAssesor}",
-        ".csc-intake-condition-check-assessor-autocomplete": {
-            "decorators": [{
-                "type": "fluid",
-                "func": "cspace.autocomplete",
-                "container": ".csc-intake-condition-check-assessor",
-                "options": {
-                    "queryUrl": "../../chain/intake/autocomplete/conditionCheckAssesor",
-                    "vocabUrl": "../../chain/intake/source-vocab/conditionCheckAssesor"
-                }
-            }]
-        }
-    },
-    
-    "sidebar": {
         "termsUsed": {
             ".csc-recordList-row:": {
                 "children": [
@@ -212,39 +34,232 @@
                         ".csc-related-number": {
                             "linktext": "${items.0.number}",
                             "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                         },
-                        ".csc-related-recordtype": "${items.0.recordtype}",
-                        ".csc-related-field": "${items.0.sourceFieldName}"
-                    }
-                ]
-                }
-        },
-        "relatedProcedures": {
-            ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                         },
-                        ".csc-related-recordtype": "${items.0.recordtype}",
-                        ".csc-related-summary": "${items.0.summary}"
-                    }
-                ]
-            }
-        },
-        "relatedObjects": {
-            ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                         },
-                        ".csc-related-summary": "${items.0.summary}"
+                        },
+                        ".csc-related-field": "${items.0.sourceFieldName}",
+                        ".csc-related-recordtype": "${items.0.recordtype}"
                     }
                 ]
             }
         }
+    },
+    "titleBar": {
+        ".csc-titleBar-intake-entry-number": "${fields.entryNumber}"
+    },
+    "recordEditor": {
+        ".csc-intake-condition-check-date": "${fields.conditionCheckDate}",
+        ".csc-intake-current-location": "${fields.currentLocation}",
+        ".csc-intake-condition-check-assessor-autocomplete": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../chain/intake/autocomplete/conditionCheckAssesor",
+                        "vocabUrl": "../../chain/intake/source-vocab/conditionCheckAssesor"
+                    }
+                }
+            ]
+        },
+        ".csc-intake-current-owner": "${fields.currentOwner}",
+        ".csc-intake-entry-date-container": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ]
+        },
+        ".csc-intake-date-earliest-single-container": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ]
+        },
+        ".csc-intake-condition-check-assessor": "${fields.conditionCheckAssesor}",
+        ".csc-intake-insurance-policy-number": "${fields.insurancePolicyNumber}",
+        ".csc-intake-insurer-autocomplete": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../chain/intake/autocomplete/insurer",
+                        "vocabUrl": "../../chain/intake/source-vocab/insurer"
+                    }
+                }
+            ]
+        },
+        ".csc-intake-valuer-autocomplete": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../chain/intake/autocomplete/valuer",
+                        "vocabUrl": "../../chain/intake/source-vocab/valuer"
+                    }
+                }
+            ]
+        },
+        ".csc-intake-depositor-autocomplete": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../chain/intake/autocomplete/depositor",
+                        "vocabUrl": "../../chain/intake/source-vocab/depositor"
+                    }
+                }
+            ]
+        },
+        ".csc-intake-date-latest-single-container": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ]
+        },
+        ".csc-intake-insurance-note": "${fields.insuranceNote}",
+        ".csc-intake-date-earliest-single-certainty": "${fields.earliestDateCertainty}",
+        ".csc-intake-location-date-container": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ]
+        },
+        ".csc-intake-date-latest-qualifier": "${fields.latestDateQualifier}",
+        ".csc-intake-insurance-reference-number": "${fields.insuranceReferenceNumber}",
+        ".csc-intake-insurance-renewal-date-container": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ]
+        },
+        ".csc-intake-date-earliest-single": "${fields.earliestDate}",
+        ".csc-intake-entry-number-container": {
+            "decorators": [
+                {
+                    "func": "cspace.numberPatternChooser",
+                    "type": "fluid",
+                    "options": {
+                        "model": {
+                            "names": [
+                                "Intake",
+                                "Study",
+                                "Evaluation"
+                            ],
+                            "list": [
+                                "intake",
+                                "study",
+                                "evaluations"
+                            ],
+                            "samples": [
+                                "IN2009.1",
+                                "ST2009.1",
+                                "EV2009.1"
+                            ]
+                        },
+                        "selectors": {
+                            "numberField": ".csc-intake-entry-number"
+                        }
+                    }
+                }
+            ]
+        },
+        ".csc-intake-depositor-requirements": "${fields.depositorsRequirements}",
+        ".csc-intake-insurance-renewal-date": "${fields.insuranceRenewalDate}",
+        ".csc-intake-entry-number": "${fields.entryNumber}",
+        ".csc-intake-normal-location": "${fields.normalLocation}",
+        ".csc-intake-date-period": "${fields.datePeriod}",
+        ".csc-intake-date-association": "${fields.associationDate}",
+        ".csc-intake-valuation-reference-number": "${fields.valuationReferenceNumber}",
+        ".csc-intake-condition-check-reference-number": "${fields.conditionCheckReferenceNumber}",
+        ".csc-intake-depositor": "${fields.depositor}",
+        ".csc-intake-condition-check-note": "${fields.conditionCheckNote}",
+        ".csc-intake-current-location-fitness": "${fields.currentLocationFitness}",
+        ".csc-intake-date-latest": "${fields.latestDate}",
+        ".csc-intake-entry-method-row:": {
+            "children": [
+                {
+                    ".csc-intake-entry-method": {
+                        "default": "0",
+                        "optionnames": [
+                            "In person",
+                            "Post",
+                            "Found on doorstep"
+                        ],
+                        "optionlist": [
+                            "in-person",
+                            "post",
+                            "found-on-doorstep"
+                        ],
+                        "selection": "${fields.entryMethods.0.entryMethod}"
+                    }
+                }
+            ]
+        },
+        ".csc-intake-packing-note": "${fields.packingNote}",
+        ".csc-intake-current-owner-autocomplete": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../chain/intake/autocomplete/currentOwner",
+                        "vocabUrl": "../../chain/intake/source-vocab/currentOwner"
+                    }
+                }
+            ]
+        },
+        ".csc-intake-entry-reason": {
+            "optionnames": [
+                "Enquiry",
+                "Commission",
+                "Loan"
+            ],
+            "optionlist": [
+                "enquiry",
+                "commission",
+                "loan"
+            ],
+            "selection": "${fields.entryReason}"
+        },
+        ".csc-intake-return-date": "${fields.returnDate}",
+        ".csc-intake-field-collection-event-name": "${fields.fieldCollectionEventName}",
+        ".csc-intake-valuer": "${fields.valuer}",
+        ".csc-intake-entry-date": "${fields.entryDate}",
+        ".csc-intake-date-earliest-single-qualifier": "${fields.earliestDateQualifier}",
+        ".csc-intake-entry-note": "${fields.entryNote}",
+        ".csc-intake-current-location-note": "${fields.currentLocationNote}",
+        ".csc-intake-date-text": "${fields.dateText}",
+        ".csc-intake-condition-check-reason": "${fields.conditionCheckReason}",
+        ".csc-intake-return-date-container": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ]
+        },
+        ".csc-intake-insurer": "${fields.insurer}",
+        ".csc-intake-condition-check-date-container": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ]
+        },
+        ".csc-intake-date-latest-certainty": "${fields.latestDateCertainty}",
+        ".csc-intake-condition-check-method": "${fields.conditionCheckMethod}",
+        ".csc-intake-location-date": "${fields.locationDate}"
     }
 }

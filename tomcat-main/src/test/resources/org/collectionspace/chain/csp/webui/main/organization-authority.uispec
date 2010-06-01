@@ -1,15 +1,14 @@
 {
     "sidebar": {
-        "termsUsed": {
+        "relatedObjects": {
             ".csc-recordList-row:": {
                 "children": [
                     {
+                        ".csc-related-summary": "${items.0.summary}",
                         ".csc-related-number": {
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}",
-                            "linktext": "${items.0.number}"
-                        },
-                        ".csc-related-recordtype": "${items.0.recordtype}",
-                        ".csc-related-field": "${items.0.sourceFieldName}"
+                            "linktext": "${items.0.number}",
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                        }
                     }
                 ]
             }
@@ -20,98 +19,71 @@
                     {
                         ".csc-related-summary": "${items.0.summary}",
                         ".csc-related-number": {
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}",
-                            "linktext": "${items.0.number}"
+                            "linktext": "${items.0.number}",
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                         },
                         ".csc-related-recordtype": "${items.0.recordtype}"
                     }
                 ]
             }
         },
-        "relatedObjects": {
+        "termsUsed": {
             ".csc-recordList-row:": {
                 "children": [
                     {
-                        ".csc-related-summary": "${items.0.summary}",
                         ".csc-related-number": {
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}",
-                            "linktext": "${items.0.number}"
-                        }
+                            "linktext": "${items.0.number}",
+                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                        },
+                        ".csc-related-field": "${items.0.sourceFieldName}",
+                        ".csc-related-recordtype": "${items.0.recordtype}"
                     }
                 ]
             }
         }
     },
+    "titleBar": {
+        ".csc-titleBar-dissolutionDate": "${fields.dissolutionDate}",
+        ".csc-titleBar-displayName": "${fields.displayName}",
+        ".csc-titleBar-foundationDate": "${fields.foundingDate}"
+    },
     "recordEditor": {
-        ".csc-organizationAuthority-foundingDate": "${fields.foundingDate}",
-        ".csc-organizationAuthority-group": "${fields.group}",
-        ".csc-organizationAuthority-contactName": "${fields.contactName}",
-        ".csc-organizationAuthority-longName": "${fields.longName}",
-        ".csc-organizationAuthority-dissolutionDate": "${fields.dissolutionDate}",
-        ".csc-organizationAuthority-foundingPlace": "${fields.foundingPlace}",
+        ".csc-organizationAuthority-history": "${fields.history}",
+        ".csc-organizationAuthority-nameAdditions": "${fields.nameAdditions}",
         ".csc-organizationAuthority-subBodyName": "${fields.subBody}",
         ".csc-organizationAuthority-displayName": "${fields.displayName}",
-        ".csc-organizationAuthority-group-autocomplete": {
+        ".csc-organizationAuthority-longName": "${fields.longName}",
+        ".csc-organizationAuthority-contactName": "${fields.contactName}",
+        ".csc-organizationAuthority-foundingDate-container": {
             "decorators": [
                 {
-                    "container": ".csc-organizationAuthority-group",
-                    "type": "fluid",
-                    "func": "cspace.autocomplete",
-                    "options": {
-                        "vocabUrl": "../../chain/vocabularies/organization/source-vocab/group",
-                        "queryUrl": "../../chain/vocabularies/organization/autocomplete/group"
-                    }
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
                 }
-            ]
-        },
-        ".csc-organizationAuthority-history": "${fields.history}",
-        ".csc-organizationAuthority-function": {
-            "optionlist": [
-                "academic institution",
-                "archives",
-                "distributor",
-                "gallery",
-                "library",
-                "museum",
-                "publisher",
-                "religious order"
-            ],
-            "selection": "${fields.function}",
-            "optionnames": [
-                "academic institution",
-                "archives",
-                "distributor",
-                "gallery",
-                "library",
-                "museum",
-                "publisher",
-                "religious order"
-            ]
-        },
-        ".csc-organizationAuthority-status": {
-            "optionlist": [
-                "provisional",
-                "under review",
-                "accepted",
-                "rejected"
-            ],
-            "selection": "${fields.status}",
-            "optionnames": [
-                "Provisional",
-                "Under Review",
-                "Accepted",
-                "Rejected"
             ]
         },
         ".csc-organizationAuthority-contactName-autocomplete": {
             "decorators": [
                 {
-                    "container": ".csc-organizationAuthority-contactName",
-                    "type": "fluid",
                     "func": "cspace.autocomplete",
+                    "type": "fluid",
                     "options": {
-                        "vocabUrl": "../../chain/vocabularies/organization/source-vocab/contactName",
-                        "queryUrl": "../../chain/vocabularies/organization/autocomplete/contactName"
+                        "queryUrl": "../../chain/vocabularies/organization/autocomplete/contactName",
+                        "vocabUrl": "../../chain/vocabularies/organization/source-vocab/contactName"
+                    }
+                }
+            ]
+        },
+        ".csc-organizationAuthority-foundingPlace": "${fields.foundingPlace}",
+        ".csc-organizationAuthority-dissolutionDate": "${fields.dissolutionDate}",
+        ".csc-organizationAuthority-group-autocomplete": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../chain/vocabularies/organization/autocomplete/group",
+                        "vocabUrl": "../../chain/vocabularies/organization/source-vocab/group"
                     }
                 }
             ]
@@ -119,39 +91,62 @@
         ".csc-organizationAuthority-dissolutionDate-container": {
             "decorators": [
                 {
-                    "container": ".csc-organizationAuthority-dissolutionDate-container",
-                    "type": "fluid",
-                    "func": "cspace.datePicker"
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
                 }
             ]
         },
-        ".csc-organizationAuthority-nameAdditions": "${fields.nameAdditions}",
+        ".csc-organizationAuthority-group": "${fields.group}",
+        ".csc-organizationAuthority-status": {
+            "optionnames": [
+                "Provisional",
+                "Under Review",
+                "Accepted",
+                "Rejected"
+            ],
+            "optionlist": [
+                "provisional",
+                "under review",
+                "accepted",
+                "rejected"
+            ],
+            "selection": "${fields.status}"
+        },
+        ".csc-organizationAuthority-foundingDate": "${fields.foundingDate}",
+        ".csc-organizationAuthority-function": {
+            "optionnames": [
+                "academic institution",
+                "archives",
+                "distributor",
+                "gallery",
+                "library",
+                "museum",
+                "publisher",
+                "religious order"
+            ],
+            "optionlist": [
+                "academic institution",
+                "archives",
+                "distributor",
+                "gallery",
+                "library",
+                "museum",
+                "publisher",
+                "religious order"
+            ],
+            "selection": "${fields.function}"
+        },
         ".csc-organizationAuthority-foundingPlace-autocomplete": {
             "decorators": [
                 {
-                    "container": ".csc-organizationAuthority-foundingPlace",
-                    "type": "fluid",
                     "func": "cspace.autocomplete",
+                    "type": "fluid",
                     "options": {
-                        "vocabUrl": "../../chain/vocabularies/organization/source-vocab/foundingPlace",
-                        "queryUrl": "../../chain/vocabularies/organization/autocomplete/foundingPlace"
+                        "queryUrl": "../../chain/vocabularies/organization/autocomplete/foundingPlace",
+                        "vocabUrl": "../../chain/vocabularies/organization/source-vocab/foundingPlace"
                     }
                 }
             ]
-        },
-        ".csc-organizationAuthority-foundingDate-container": {
-            "decorators": [
-                {
-                    "container": ".csc-organizationAuthority-foundingDate-container",
-                    "type": "fluid",
-                    "func": "cspace.datePicker"
-                }
-            ]
         }
-    },
-    "titleBar": {
-        ".csc-titleBar-displayName": "${fields.displayName}",
-        ".csc-titleBar-foundationDate": "${fields.foundingDate}",
-        ".csc-titleBar-dissolutionDate": "${fields.dissolutionDate}"
     }
 }
