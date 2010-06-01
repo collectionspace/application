@@ -157,9 +157,10 @@ public class Spec implements CSP, Configurable {
 		/* REPEAT/field -> FIELD */
 		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
-				Field r=new Field((Repeat)parent,section);
-				((Repeat)parent).addChild(r);
-				return r;
+				Field f=new Field((Repeat)parent,section);
+				f.getRecord().addRepeatField(f);
+				((Repeat)parent).addChild(f);
+				return f;
 			}
 		});
 		

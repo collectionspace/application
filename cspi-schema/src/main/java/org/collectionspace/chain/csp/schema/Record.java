@@ -19,6 +19,8 @@ public class Record implements FieldParent {
 	private String id;
 	private Map<String,Structure> structure=new HashMap<String,Structure>();
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
+	private Map<String,FieldSet> repeatfields=new HashMap<String,FieldSet>();
+	
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	private Map<String,FieldSet> summarylist=new HashMap<String,FieldSet>();
 	private Spec spec;
@@ -114,6 +116,8 @@ public class Record implements FieldParent {
 	public Spec getSpec() { return spec; }
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
 	public FieldSet getField(String id) { return fields.get(id); }
+	public FieldSet[] getAllRepeatFields() { return repeatfields.values().toArray(new FieldSet[0]); }
+	public FieldSet getRepeatField(String id) { return repeatfields.get(id); }
 	public Structure getStructure(String id) { return structure.get(id); }
 	public String getTermsUsedURL() { return terms_used_url; }
 	public String getNumberSelector() { return number_selector; }
@@ -154,6 +158,9 @@ public class Record implements FieldParent {
 
 	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);
+	}
+	public void addRepeatField(FieldSet f) {
+		repeatfields.put(f.getID(),f);
 	}
 	public void addStructure(Structure s) {
 		structure.put(s.getID(),s);
