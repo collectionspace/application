@@ -53,8 +53,8 @@ public class RecordRead implements WebMethod {
 		return mini;
 	}
 	
-	private JSONArray createRelations(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONArray out=new JSONArray();
+	private JSONObject createRelations(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		JSONObject recordtypes=new JSONObject();
 		JSONObject restrictions=new JSONObject();
 		restrictions.put("src",base+"/"+csid);
 		// XXX needs pagination support CSPACE-1819
@@ -62,12 +62,18 @@ public class RecordRead implements WebMethod {
 		String[] relations = (String[]) data.get("listItems");
 		for(String r : relations) {
 			try {
-				out.put(generateRelationEntry(storage,r));
+				JSONObject relateitem = generateRelationEntry(storage,r);
+				String type = relateitem.getString("recordtype");
+				if(!recordtypes.has(type)){
+					recordtypes.put(type, new JSONArray());
+				}
+				recordtypes.getJSONArray(type).put(relateitem);
 			} catch(Exception e) {
 				// Never mind.
 			}
 		}
-		return out;
+		
+		return recordtypes;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -102,7 +108,7 @@ public class RecordRead implements WebMethod {
 			if(record_type || authorization_type) {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
-				JSONArray relations=createRelations(storage,csid);
+				JSONObject relations=createRelations(storage,csid);
 				out.put("csid",csid);
 				out.put("fields",fields);
 				out.put("relations",relations);

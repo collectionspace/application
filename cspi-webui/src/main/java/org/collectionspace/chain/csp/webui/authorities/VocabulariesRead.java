@@ -1,9 +1,12 @@
 package org.collectionspace.chain.csp.webui.authorities;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Instance;
+import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
@@ -25,15 +28,17 @@ public class VocabulariesRead implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(VocabulariesRead.class);
 	private Instance n;
 	private String base;
+	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public VocabulariesRead(Instance n) {
 		this.base=n.getID();
 		this.n=n;
 	}
-
-	public void configure(WebUI ui, Spec spec) {
-		// TODO Auto-generated method stub
-
+	
+	public void configure(WebUI ui,Spec spec) {
+		for(Record r : spec.getAllRecords()) {
+			type_to_url.put(r.getID(),r.getWebURL());
+		}
 	}
 
 	/**
@@ -51,7 +56,6 @@ public class VocabulariesRead implements WebMethod {
 		JSONArray out=new JSONArray();
 		JSONObject mini = storage.retrieveJSON(path);
 		if(mini != null){
-			log.debug("mini="+mini);
 			Iterator t=mini.keys();
 			while(t.hasNext()) {
 				String field=(String)t.next();
@@ -68,6 +72,46 @@ public class VocabulariesRead implements WebMethod {
 		return out;
 	}
 	
+	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view");
+		out.put("csid",csid);
+		out.put("recordtype",type_to_url.get(type));
+		return out;
+	}
+
+	private JSONObject generateRelationEntry(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		/* Retrieve entry */
+		JSONObject in=storage.retrieveJSON("relations/main/"+csid);
+		String[] dstid=in.getString("dst").split("/");
+		String type=in.getString("type");
+		JSONObject mini=generateMiniRecord(storage,dstid[0],dstid[1]);
+		mini.put("relationshiptype",type);
+		mini.put("relid",in.getString("csid"));
+		return mini;
+	}
+	
+	private JSONObject createRelations(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		JSONObject recordtypes=new JSONObject();
+		JSONObject restrictions=new JSONObject();
+		restrictions.put("src",base+"/"+csid);
+		// XXX needs pagination support CSPACE-1819
+		JSONObject data = storage.getPathsJSON("relations/main",restrictions);
+		String[] relations = (String[]) data.get("listItems");
+		for(String r : relations) {
+			try {
+				JSONObject relateitem = generateRelationEntry(storage,r);
+				String type = relateitem.getString("recordtype");
+				if(!recordtypes.has(type)){
+					recordtypes.put(type, new JSONArray());
+				}
+				recordtypes.getJSONArray(type).put(relateitem);
+			} catch(Exception e) {
+				// Never mind.
+			}
+		}
+		return recordtypes;
+	}
+	
 	/* Wrapper exists to decomplexify exceptions */
 	private JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
@@ -77,7 +121,7 @@ public class VocabulariesRead implements WebMethod {
 			String refPath = n.getRecord().getID()+"/"+n.getTitleRef()+"/"+csid+"/refObjs";
 			
 			fields.put("csid",csid);
-			//JSONArray relations=createRelations(storage,csid);
+			JSONObject relations=createRelations(storage,csid);
 			out.put("fields",fields);
 			out.put("relations",new JSONArray());
 			//out.put("relations",relations);
