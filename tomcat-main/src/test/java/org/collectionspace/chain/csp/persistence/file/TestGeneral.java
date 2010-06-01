@@ -375,37 +375,6 @@ public class TestGeneral {
 		assertTrue(out.getContent().contains("cspace.chain.store.dir"));
 	}
 
-	@Test public void mytest() throws Exception {
-
-		ServletTester jetty=setupJetty();
-		HttpTester out1;//=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));
-
-		
-		/* get all objects */
-		//pagination?
-		HttpTester out=jettyDo(jetty,"GET","/chain/permrole",null);
-		assertEquals(200,out.getStatus());
-		log.info(out.getContent());
-		
-		/* create list of files */
-/*
-		JSONObject result=new JSONObject(out.getContent());
-		JSONArray items=result.getJSONArray("items");
-		Set<String> files=new HashSet<String>();
-		for(int i=0;i<items.length();i++){
-			files.add("/"+objtype+"/"+items.getJSONObject(i).getString("csid"));
-		}
-*/
-		/* clean up */
-		/*
-		out=jettyDo(jetty,"DELETE","/chain"+out1.getHeader("Location"),null);
-		assertEquals(200,out.getStatus());
-
-		assertTrue(files.contains(out1.getHeader("Location")));
-		*/
-		
-	}
-	
 	@Test public void testObjectList() throws Exception {
 		ServletTester jetty=setupJetty();
 
