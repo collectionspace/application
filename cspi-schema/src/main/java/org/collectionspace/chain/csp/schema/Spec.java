@@ -111,6 +111,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Record)parent,section);
 				((Record)parent).addField(f);
+				((Record)parent).addRepeatField(f);
 				String is_chooser=(String)section.getValue("/@chooser");
 				if(is_chooser!=null && ("1".equals(is_chooser) || "yes".equals(is_chooser.toLowerCase())))
 					f.setType("chooser");
@@ -141,6 +142,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Structure)parent,section);
 				((Structure)parent).addField(r);
+				((Structure)parent).addRepeatField(r);
 				return r;
 			}
 		});
@@ -149,6 +151,7 @@ public class Spec implements CSP, Configurable {
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Record)parent,section);
+				((Record)parent).addRepeatField(r);
 				((Record)parent).addField(r);
 				return r;
 			}

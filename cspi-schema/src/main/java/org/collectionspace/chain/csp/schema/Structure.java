@@ -58,6 +58,8 @@ public class Structure  implements FieldParent  {
 
 
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
+	private Map<String,FieldSet> repeatfields=new HashMap<String,FieldSet>();
+	
 	private Map<String,FieldSet> sidebar_sections=new HashMap<String,FieldSet>();
 	
 	
@@ -82,12 +84,17 @@ public class Structure  implements FieldParent  {
 	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);
 	}
+	public void addRepeatField(FieldSet f) {
+		repeatfields.put(f.getID(),f);
+	}
 	public void addSideBar(FieldSet f) {
 		sidebar_sections.put(f.getID(),f);
 	}
 
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
 	public FieldSet getField(String id) { return fields.get(id); }
+	public FieldSet[] getAllRepeatFields() { return repeatfields.values().toArray(new FieldSet[0]); }
+	public FieldSet getRepeatField(String id) { return repeatfields.get(id); }
 	public FieldSet getSideBarItems(String id) { return sidebar_sections.get(id); }
 	
 	public Boolean showTitleBar() { return showtitlebar; }

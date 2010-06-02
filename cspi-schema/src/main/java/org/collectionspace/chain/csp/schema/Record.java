@@ -117,6 +117,9 @@ public class Record implements FieldParent {
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
 	public FieldSet getField(String id) { return fields.get(id); }
 	public FieldSet[] getAllRepeatFields() { return repeatfields.values().toArray(new FieldSet[0]); }
+	/*
+	 * includes all the fields that are children of repeats as well as top level fields.
+	 */
 	public FieldSet getRepeatField(String id) { return repeatfields.get(id); }
 	public Structure getStructure(String id) { return structure.get(id); }
 	public String getTermsUsedURL() { return terms_used_url; }
