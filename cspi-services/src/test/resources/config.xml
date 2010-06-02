@@ -29,7 +29,7 @@
 	</email>
 	<persistence>
 		<service>
-			<url>http://nightly.collectionspace.org:8180/cspace-services</url>
+		    <url>http://nightly.collectionspace.org:8180/cspace-services</url>
 		</service>
 	</persistence>
 	<ui>
@@ -56,18 +56,17 @@
 			  			<sidebar show="false">
 			  			</sidebar>
 			  			<edit-section id="details" show="true"></edit-section>
-			  			<list-section id="lists" show="true"></list-section>
+			  			<list-section id="list" show="true"></list-section>
 						
 					</view>
 					
-			  		<repeat id="lists" asSibling="true">
+			  		<repeat id="list" asSibling="true">
 			  			<selector>.csc-recordList-row:</selector>
-						<field id="linktext" ui-type="linktext">
-							<selector>.csc-related-number</selector>
-							<linktext-target>objects.html?csid=${items.0.csid}"</linktext-target>
-						</field>
 						<field id="summary" ui-type="list">
 							<selector>.csc-related-summary</selector>
+						</field>
+						<field id="number" ui-type="list">
+							<selector>.csc-related-number</selector>
 						</field>
 			  		</repeat>
 					</structure>
@@ -340,7 +339,6 @@
 					<field id="dimensionValue">
 						<selector>.csc-object-description-dimension-value</selector>
 					</field>
-					<!--  XXX Not in UI Layer yet --> 
 					<field id="dimensionValueDate" ui-type="date">
 						<selector>.csc-object-description-dimension-value-date</selector>						
 					</field>
@@ -414,6 +412,9 @@
 						    <option id="?">?</option>
 			    		</options> 
 					</field> 
+					 <field id="contentDate" ui-type="date">
+						<selector>.csc-object-description-content-date</selector>
+					</field>
 					<field id="contentNote">
 						<selector>.csc-object-description-content-note</selector>
 					</field>
@@ -545,12 +546,6 @@
 			         </field>
 			        </repeat>
 			        
-			        <!--  XXX NOT IN UI YET  --> 
-					
-					<!--  Following not active --> 
-					
-					<!--  CSC is included here for when they get put back (can't comment out in JSON)
-					
 					<field id="recordStatus">
 						<selector>.csc-object-identification-object-record-status</selector>
 						<options>
@@ -560,16 +555,6 @@
 							<option id="temporary">Temporary</option>
 						</options>
 					</field>
-			        <field id="collection">
-					    <selector>.csc-object-identification-collection</selector>
-						<options>
-						  <option id="library-collection">Library collection</option>
-						  <option id="permanent-collection">Permanent collection</option>
-						  <option id="study-collection">Study collection</option>
-						  <option id="teaching-collection">Teaching collection</option>
-						</options>
-			         </field>
-			         
 			         <field id="objectProductionNote">
 					    <selector>.csc-object-production-note</selector>
 					 </field>
@@ -588,55 +573,55 @@
 					 <field id="objectProductionReason">
 					    <selector>.csc-object-production-reason</selector>
 					 </field>
-					 <field id="objectTechniqueType">
+					 <field id="techniqueType">
 					    <selector>.csc-object-production-technique-type</selector>
 					    <options>
 			    			<option id="?">?</option>
 						</options>
 					 </field>		
-					 <field id="objectAssociatedActivityNote">
+					 <field id="associatedActivityNote">
 					    <selector>.csc-object-associated-activity-note</selector>
 					 </field>		 
-					 <field id="objectAssociatedEventOrganization" autocomplete="organization-organization">
+					 <field id="associatedEventOrganization" autocomplete="organization-organization">
 					    <selector>.csc-object-associated-event-organization</selector>
 					 </field>
-					  <field id="objectAssociatedEventPeople" autocomplete="person-person">
+					  <field id="associatedEventPeople" autocomplete="person-person">
 					    <selector>.csc-object-associated-event-people</selector>
 					 </field>
-					  <field id="objectAssociatedEventPerson" autocomplete="person-person">
+					  <field id="associatedEventPerson" autocomplete="person-person">
 					    <selector>.csc-object-associated-event-person</selector>
 					 </field>
-					  <field id="objectAssociatedEventPlace" autocomplete="place-place">
+					  <field id="associatedEventPlace" autocomplete="place-place">
 					    <selector>.csc-object-associated-event-place</selector>
 					 </field>
-					 <field id="objectAssociatedObject">
+					 <field id="associatedObject">
 					    <selector>.csc-object-associated-object</selector>
 					 </field>					 
-					  <field id="objectAssociatedOrganization" autocomplete="organization-organization">
+					  <field id="associatedOrganization" autocomplete="organization-organization">
 					    <selector>.csc-object-associated-organization</selector>
 					 </field>
-					  <field id="objectAssociatedPeople" autocomplete="person-person">
+					  <field id="associatedPeople" autocomplete="person-person">
 					    <selector>.csc-object-associated-people</selector>
 					 </field>
-					  <field id="objectAssociatedPerson" autocomplete="person-person">
+					  <field id="associatedPerson" autocomplete="person-person">
 					    <selector>.csc-object-associated-person</selector>
 					 </field>
-					  <field id="objectAssociatedPlace" autocomplete="place-place">
+					  <field id="associatedPlace" autocomplete="place-place">
 					    <selector>.csc-object-associated-place</selector>
 					 </field>
-					 <field id="objectAssociationNote">
+					 <field id="associationNote">
 					    <selector>.csc-object-association-note</selector>
 					 </field>	
-					 <field id="objectAssociationType">
+					 <field id="associationType">
 					    <selector>.csc-object-association-type</selector>
 					    <options>
 			    			<option id="?">?</option>
 						</options>					    
 					 </field>	
-			         <field id="objectOwner" autocomplete="all-all">
+			         <field id="owner" autocomplete="all-all">
 					    <selector>.csc-object-association-owner</selector>
 					 </field>
-					 <field id="objectOwnershipAccess" >
+					 <field id="ownershipAccess" >
 					    <selector>.csc-object-association-ownership-access</selector>
 					    <options>
 			    			<option id="limited">limited</option>
@@ -644,7 +629,7 @@
 			    			<option id="restricted">restricted</option>
 			    		</options>	
 					 </field>
-					 <field id="objectOwnershipCategory" >
+					 <field id="ownershipCategory" >
 					    <selector>.csc-object-association-ownership-category</selector>
 					    <options>
 			    			<option id="company">company</option>
@@ -652,7 +637,7 @@
 			    			<option id="private">private</option>
 						</options>	
 					 </field>
- 					 <field id="objectOwnershipExchangeMethod" >
+ 					 <field id="ownershipExchangeMethod" >
 					    <selector>.csc-object-association-ownership-exchange-method</selector>
 					     <options>
 			    			<option id="bequest">bequest</option>
@@ -663,149 +648,153 @@
 			    			<option id="treasure">treasure</option>
 						</options>	
 					 </field>
- 					 <field id="objectOwnershipExchangeNote" >
+ 					 <field id="ownershipExchangeNote" >
 					    <selector>.csc-object-association-ownership-exchange-note</selector>
 					 </field>
- 					 <field id="objectOwnershipExchangePriceDenomination" >
+ 					 <field id="ownershipExchangePriceDenomination" >
 					    <selector>.csc-object-association-ownership-exchange-price-denomination</selector>
 					     <options>
 			    			<option id="?">?</option>
 						</options>
 					 </field>
- 					 <field id="objectOwnershipExchangePriceValue" >
+ 					 <field id="ownershipExchangePriceValue" >
 					    <selector>.csc-object-association-ownership-exchange-price-value</selector>
-					 </field>	
-					 <field id="objectRelatedObjectNumber">
-					    <selector>.csc-object-association-related-object-number</selector>
 					 </field>
-					 <field id="objectRelatedObjectAssociation">
-					    <selector>.csc-object-association-related-object-association</selector>
-					      <options>
-			    			<option id="?">?</option>
-						</options>
-					 </field>
-					 <field id="objectRelatedObjectNote">
-					    <selector>.csc-object-association-related-object-note</selector>
-					 </field>
-					 <field id="objectUsage">
+					 <field id="usage">
 					    <selector>.csc-object-association-usage</selector>
 					    <options>
 			    			<option id="?">?</option>
 						</options>
 					 </field>					 
-			         <field id="objectUsageNote">
+			         <field id="usageNote">
 					    <selector>.csc-object-association-usage-note</selector>
 					 </field>		
-					 <field id="objectOwnersPersonalExperience" >
+					 <field id="ownersPersonalExperience" >
 					    <selector>.csc-object-owners-personal-experience</selector>
 					 </field>
-					 <field id="objectOwnersPersonalResponse" >
+					 <field id="ownersPersonalResponse" >
 					    <selector>.csc-object-owners-personal-response</selector>
 					 </field>
-					 <field id="objectOwnersReference" >
+					 <field id="ownersReference" >
 					    <selector>.csc-object-owners-reference</selector>
 					 </field>
-	 				 <field id="objectOwnersContributionNote" >
+	 				 <field id="ownersContributionNote" >
 					    <selector>.csc-object-owners-contribution-note</selector>
 					 </field>
-					 <field id="objectViewersRole" >
+					 <field id="viewersRole" >
 					    <selector>.csc-object-viewers-role</selector>
 					 </field>
-					 <field id="objectViewersPersonalExperience" >
+					 <field id="viewersPersonalExperience" >
 					    <selector>.csc-object-viewers-personal-experience</selector>
 					 </field>
-					 <field id="objectViewersPersonalResponse" >
+					 <field id="viewersPersonalResponse" >
 					    <selector>.csc-object-viewers-personal-response</selector>
 					 </field>
-	 				 <field id="objectViewersReference" >
+	 				 <field id="viewersReference" >
 					    <selector>.csc-object-viewers-reference</selector>
 					 </field>
-	 				 <field id="objectViewersContributionNote" >
+	 				 <field id="viewersContributionNote" >
 					    <selector>.csc-object-viewers-contribution-note</selector>
 					 </field>
-			         <field id="objectCatalogueNumber" >
+			         <field id="catalogNumber" >
 					    <selector>.csc-object-reference-catalogue-number</selector>
 					 </field> 
 					 
-					 <field id="objectOwnershipPlace" autocomplete="place-place">
-					    <selector>.csc-object-association-ownership-place</selector>
-					 </field>	
 					 <field id="objectHistoryNote">
 					    <selector>.csc-object-association-object-history-note</selector>
 					 </field>
-					 
-					 <field id="datePeriod" >
-					    <selector>.csc-date-information-date-period</selector>
-					 </field> 
-					 ".csc-date-information-date-period": "${fields.datePeriod}",
-					 <field id="dateAssociation" >
-					    <selector>.csc-date-information-date-association</selector>
-					 </field> 
-					 ".csc-date-information-date-association": "${fields.dateAssociation}",
+					 <field id="ownershipPlace" autocomplete="place-place">
+					    <selector>.csc-object-association-ownership-place</selector>
+					 </field>	
 					  <field id="dateText" >
 					    <selector>.csc-date-information-date-text</selector>
 					 </field> 
-					 ".csc-date-information-date-text": "${fields.dateText}",
 					  <field id="dateLatestCertainty" >
 					    <selector>.csc-date-information-date-latest-certainty</selector>
 					 </field> 
-					 ".csc-date-information-date-latest-certainty": "${fields.dateLatestCertainty}",
 					  <field id="dateEarliestSingleCertainty" >
 					    <selector>.csc-date-information-date-earliest-single-certainty</selector>
 					 </field> 
-					 ".csc-date-information-date-earliest-single-certainty": "${fields.dateEarliestSingleCertainty}",
 					  <field id="dateLatestQualifier" >
 					    <selector>.csc-date-information-date-latest-qualifier</selector>
 					 </field> 
-					 ".csc-date-information-date-latest-qualifier": "${fields.dateLatestQualifier}",
 					 <field id="dateEarliestSingleQualifier" >
 					    <selector>.csc-date-information-date-earliest-single-qualifier</selector>
 					 </field> 
-					 ".csc-date-information-date-earliest-single-qualifier": "${fields.dateEarliestSingleQualifier}",
-					 <field id="inscriptionDate">
+					<field id="dateEarliestSingle" ui-type="date">
+						<selector>.csc-date-information-date-earliest-single-date</selector>						
+					</field>
+					
+					<field id="dateLatest" ui-type="date">
+						<selector>.csc-date-information-date-latest-date</selector>						
+					</field>
+					 <field id="datePeriod" >
+					    <selector>.csc-date-information-date-period</selector>
+					 </field> 
+					
+					 <field id="inscriptionDate" ui-type="date">
 						<selector>.csc-object-description-inscription-content-date</selector>
 					</field>
-					 ".csc-object-description-inscription-content-date": "${fields.inscriptionDate}",
 					 <field id="inscriptionDescriptionDate">
 						<selector>.csc-object-description-inscription-description-date</selector>
 					 </field>
-					 ".csc-object-description-inscription-description-date": "${fields.inscriptionDescriptionDate}",
-					 
-					".csc-object-identification-object-name": "${fields.objectName}",
-					 <field id="material">
-						<selector>.csc-object-description-material</selector>
-					</field>
-					".csc-object-description-material": "${fields.material}",
 					<field id="style">
 						<selector>.csc-object-description-style</selector>
 					</field>
-					".csc-object-description-style": "${fields.style}",
-					<field id="contentMethod">
-						<selector>.csc-object-description-content-method</selector>
-					</field>
-					".csc-object-description-content-method": "${fields.contentMethod}",
-					<field id="contentEventName">
-						<selector>.csc-object-description-content-event-name</selector>
-					</field>
-					".csc-object-description-content-event-name": "${fields.contentEventName}",
-					<field id="contentEventNameType">
-						<selector>.csc-object-description-content-event-name-type</selector>
-					</field>
-					".csc-object-description-content-event-name-type": "${fields.contentEventNameType}",
-					<field id="contentActivity">
-						<selector>.csc-object-description-content-activity</selector>
-					</field>
-					".csc-object-description-content-activity": "${fields.contentActivity}",
 					<field id="contentConcept">
 						<selector>.csc-object-description-content-concept</selector>
 					</field>
-					".csc-object-description-content-concept": "${fields.contentConcept}",
+					<field id="contentEventName">
+						<selector>.csc-object-description-content-event-name</selector>
+					</field>
+					<field id="contentEventNameType">
+						<selector>.csc-object-description-content-event-name-type</selector>
+					</field>
+					<field id="contentActivity">
+						<selector>.csc-object-description-content-activity</selector>
+					</field>
 					<field id="contentOther">
 						<selector>.csc-object-description-content-other</selector>
 					</field>
-					".csc-object-description-content-other": "${fields.contentOther}",
-					
+					 <field id="dateAssociation" >
+					    <selector>.csc-date-information-date-association</selector>
+					 </field> 
+					 
+					 <!--
+					 
+			        <field id="collection">
+					    <selector>.csc-object-identification-collection</selector>
+						<options>
+						  <option id="library-collection">Library collection</option>
+						  <option id="permanent-collection">Permanent collection</option>
+						  <option id="study-collection">Study collection</option>
+						  <option id="teaching-collection">Teaching collection</option>
+						</options>
+			         </field>
+			         
+					 <field id="material">
+						<selector>.csc-object-description-material</selector>
+					</field>
+					<field id="contentMethod">
+						<selector>.csc-object-description-content-method</selector>
+					</field>
+					 in service layer xsd but not here yet....
+ 				<xs:element name="otherNumberList" type="ns:otherNumberList" />
+				<xs:element name="material" type="xs:string" />
+
+                <xs:element name="objectProductionDate" type="xs:string" />
+                <xs:element name="technique" type="xs:string" />
+                <xs:element name="associatedConcept" type="xs:string" />
+                <xs:element name="associatedCulturalAffinity" type="xs:string" />
+                <xs:element name="associatedDate" type="xs:string" />
+                <xs:element name="associatedEventName" type="xs:string" />
+                <xs:element name="associatedEventNameType" type="xs:string" />
+                <xs:element name="ownershipDates" type="xs:string" />
+                <xs:element name="reference" type="xs:string" />
+                <xs:element name="fieldCollectionEventName" type="xs:string" />
 					-->
+					
+					
 					<!--  natural history -->
 					<!--  ID's probably can't use -'s , :( XXX -->
 					<field id="nhString" section="naturalhistory">
@@ -860,33 +849,33 @@
 				
 			  	<repeat id="lenders" asSibling="true">
 			  		<selector>.csc-loanIn-lender-row:</selector>
-			    	<field id="lender" autocomplete="person-person" mini="summary"  xxx_ui_refactored="true" >
+			    	<field id="lender" autocomplete="person-person,organization-organization" mini="summary"  xxx_ui_refactored="true" >
 			      		<selector>.csc-loanIn-lender</selector>
 			    	</field>
 			  
                 	<field id="lendersAuthorizer" autocomplete="person-person" xxx_ui_refactored="true">
 						<selector>.csc-loanIn-lendersAuthorizer</selector>
 					</field>
-    	            <field id="lendersAuthorizerDate" ui-type="date" container="false">
+    	            <field id="lendersAuthorizerDate" ui-type="date">
 						<selector>.csc-loanIn-lendersAuthorizerDate</selector>
 					</field>
 					<field id="lendersContact" autocomplete="person-person" xxx_ui_refactored="true">
 						<selector>.csc-loanIn-lendersContact</selector>
 					</field>
 			  	</repeat>
-                <field id="loanInContact" autocomplete="person-person" container="false">
+                <field id="loanInContact" autocomplete="person-person">
 					<selector>.csc-loanIn-loanInContact</selector>
 				</field>
                 <field id="loanInConditions">
 					<selector>.csc-loanIn-loanInConditions</selector>
 				</field>
-                <field id="loanInDate" ui-type="date" container="false">
+                <field id="loanInDate" ui-type="date">
 					<selector>.csc-loanIn-loanInDate</selector>
 				</field>
-                <field id="loanReturnDate" ui-type="date" container="false">
+                <field id="loanReturnDate" ui-type="date">
 					<selector>.csc-loanIn-loanReturnDate</selector>
 				</field>
-                <field id="loanRenewalApplicationDate" ui-type="date" container="false">
+                <field id="loanRenewalApplicationDate" ui-type="date">
 					<selector>.csc-loanIn-loanRenewalApplicationDate</selector>
 				</field>
                 <field id="loanInNote">
@@ -1118,7 +1107,7 @@
 			  </field>
 			  <repeat id="acquisitionSources">
 			  	<selector>.csc-acquisition-acquisition-source-row:</selector>
-			    <field id="acquisitionSource" autocomplete="person-person" mini="summary" container="false">
+			    <field id="acquisitionSource" autocomplete="person-person" mini="summary">
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
 			  </repeat>
@@ -1234,6 +1223,7 @@
 
 <!-- XXX uispec Urls have been edited/fixed to match those been generated by this xml for the time being -->
 			<record id="person" type="authority,compute-displayname">
+			  <terms-used>false</terms-used> <!-- XXX servcie layer doesn't currently support person terms but it does on  organisations - go figure -->
 		      <web-url>person</web-url>
 			  <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common-list/personauthority-list-item</services-instances-path>
 			  <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities_common</services-single-instance-path>
@@ -1461,7 +1451,7 @@
 			  </field>
 			</record>
 			
-            <record id="role">
+            <record id="role" type="authorizationdata">
             	<web-url>role</web-url>
                 <services-url>authorization/roles</services-url>
 				<services-list-path>roles_list/*</services-list-path>
@@ -1506,7 +1496,7 @@
                 <terms-used>false</terms-used>
                 <repeat id="actions">
                     <selector>.csc-permission-action-row:</selector>
-                    <repeat id="action" container="false">
+                    <repeat id="action">
                         <selector>.csc-permission-action-row:</selector>
                         <field id="name">
                             <selector>.csc-permission-action-name</selector>
@@ -1522,7 +1512,7 @@
 			</record>
 
             <!-- PermRole like Service layer wants it
-            <record id="permrole">
+            <record id="permrole" type="authorizationdata">
                 <is-multipart>false</is-multipart>
                 <services-url>authorization/permroles</services-url>
                 <services-list-path>permroles-common-list/permrole-list-item</services-list-path>
@@ -1552,7 +1542,7 @@
             </record> -->
             
  			<!--permrole like UI wants it -->
- 			<record id="permrole">
+ 			<record id="permrole" type="authorizationdata">
 				<is-multipart>false</is-multipart>
 				<services-url>authorization/permroles</services-url>
 				<services-list-path>permroles-common-list/permrole-list-item</services-list-path>
@@ -1582,7 +1572,7 @@
 				</repeat>
 			</record>
 
-            <record id="accountrole">
+            <record id="accountrole" type="authorizationdata">
                 <web-url>accountrole</web-url>
                 <services-url>/authorization/accounts/{csid}/accountroles</services-url>
                 <services-record-path>account_role:http://collectionspace.org/services/account_role,accountroles_common</services-record-path>   
@@ -1744,7 +1734,7 @@
 			    <field id="lendersAuthorizer" autocomplete="person-person"   xxx_ui_refactored="true">
 					<selector>.csc-loanOut-lendersAuthorizer</selector>
 				</field>	
-			    <field id="lendersAuthorizationDate" ui-type="date"  container="false">
+			    <field id="lendersAuthorizationDate" ui-type="date">
 					<selector>.csc-loanOut-lendersAuthorizationDate</selector>
 				</field>				
 				<field id="lendersContact" autocomplete="person-person"  xxx_ui_refactored="true">
@@ -1753,7 +1743,7 @@
 				<field id="borrowersContact" autocomplete="person-person"  xxx_ui_refactored="true">
 					<selector>.csc-loanOut-borrowersContact</selector>
 				</field>
-				<field id="loanReturnDate" ui-type="date" container="false">
+				<field id="loanReturnDate" ui-type="date">
 					<selector>.csc-loanOut-loanReturnDate</selector>
 				</field>
 				<field id="loanPurpose">
@@ -1768,17 +1758,17 @@
 			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
 			    	</options>
 				</field>
-				<field id="loanOutDate" ui-type="date" container="false">
+				<field id="loanOutDate" ui-type="date">
 					<selector>.csc-loanOut-loanOutDate</selector>
 				</field>
-				<field id="loanRenewalApplicationDate" ui-type="date" container="false">
+				<field id="loanRenewalApplicationDate" ui-type="date">
 					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
 				</field>
 				<!-- not supported in the Service layer
 				<field id="loanedObjectStatusNote">
 					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
 				</field>
-				<field id="loanedObjectStatusDate" ui-type="date" container="false">
+				<field id="loanedObjectStatusDate" ui-type="date">
 					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
 				</field>
 				<field id="loanedObjectStatus">
@@ -1867,4 +1857,3 @@
 		</records>
 	</spec>
 </collection-space>
-
