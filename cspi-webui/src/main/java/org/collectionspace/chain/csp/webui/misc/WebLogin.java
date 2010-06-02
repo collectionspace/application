@@ -34,7 +34,9 @@ public class WebLogin implements WebMethod {
 			if(!r.isType("record"))
 				continue;
 			try {
-				storage.getPathsJSON(r.getID(),null);
+				JSONObject restrictions = new JSONObject();
+				restrictions.put("pageSize", "1");
+				storage.getPathsJSON(r.getID(),restrictions);
 				return true;
 			} catch (Exception e) {
 				return false;
