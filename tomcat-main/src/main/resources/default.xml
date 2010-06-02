@@ -83,7 +83,23 @@
 					<field id="objectTitleLanguage">
 						<selector>.csc-object-identification-object-title-language</selector>
 					<options>
-			    			<option id="option">Option</option>
+			    			<option id="eng">English</option>
+                            <option id="spa">Spanish</option>
+                            <option id="fre">French</option>
+                            <option id="ita">Italian</option>
+                            <option id="por">Portuguese</option>
+                            <option id="ger">German</option>
+                            <option id="rus">Russian</option>
+                            <option id="ara">Arabic</option>
+                            <option id="chi">Chinese</option>
+                            <option id="heb">Hebrew</option>
+                            <option id="jpn">Japanese</option>
+                            <option id="kor">Korean</option>
+                            <option id="swa">Swahili</option>
+                            <option id="grc">Ancient Greek</option>
+                            <option id="lat">Latin</option>
+                            <option id="ang">Old English</option>
+                            <option id="enm">Middle English</option>
 			    		</options>
 			    	</field>
 					<field id="titleTranslation">
@@ -148,14 +164,34 @@
 					</field>
 					<field id="objectNameType">
 						<selector>.csc-object-identification-object-type</selector>
-						<options>
-				    		<option id="?">?</option>
-				   		</options>
+                        <options>
+                            <option id="classified">Classified</option>
+                            <option id="denomination">Denomination</option>
+                            <option id="simple">Simple</option>
+                            <option id="taxonomic">Taxonomic</option>
+                            <option id="typological">Typological</option>
+                        </options>
 					</field>
 					<field id="objectNameLanguage">
 						<selector>.csc-object-identification-object-language</selector>
 						<options>
-			    			<option id="option">Option</option>
+                            <option id="eng">English</option>
+                            <option id="spa">Spanish</option>
+                            <option id="fre">French</option>
+                            <option id="ita">Italian</option>
+                            <option id="por">Portuguese</option>
+                            <option id="ger">German</option>
+                            <option id="rus">Russian</option>
+                            <option id="ara">Arabic</option>
+                            <option id="chi">Chinese</option>
+                            <option id="heb">Hebrew</option>
+                            <option id="jpn">Japanese</option>
+                            <option id="kor">Korean</option>
+                            <option id="swa">Swahili</option>
+                            <option id="grc">Ancient Greek</option>
+                            <option id="lat">Latin</option>
+                            <option id="ang">Old English</option>
+                            <option id="enm">Middle English</option>
 			    		</options>
 					</field>
 					<field id="objectNameNote">
@@ -236,9 +272,6 @@
 					</field>
 					<field id="materialComponent">
 						<selector>.csc-object-description-material-component</selector>
-						<options>
-			    			<option id="option">Option</option>
-			    		</options>
 					</field>
 					<field id="materialComponentNote">
 						<selector>.csc-object-description-material-component-note</selector>
@@ -351,7 +384,23 @@
 					<field id="contentLanguage">
 						<selector>.csc-object-description-content-language</selector>
 						<options>
-			    			<option id="option">Option</option>
+                            <option id="eng">English</option>
+                            <option id="spa">Spanish</option>
+                            <option id="fre">French</option>
+                            <option id="ita">Italian</option>
+                            <option id="por">Portuguese</option>
+                            <option id="ger">German</option>
+                            <option id="rus">Russian</option>
+                            <option id="ara">Arabic</option>
+                            <option id="chi">Chinese</option>
+                            <option id="heb">Hebrew</option>
+                            <option id="jpn">Japanese</option>
+                            <option id="kor">Korean</option>
+                            <option id="swa">Swahili</option>
+                            <option id="grc">Ancient Greek</option>
+                            <option id="lat">Latin</option>
+                            <option id="ang">Old English</option>
+                            <option id="enm">Middle English</option>
 			    		</options>
 					</field>
 					<field id="contentPosition">
@@ -408,9 +457,6 @@
 					 
 					<field id="contentOtherType">
 						<selector>.csc-object-description-content-other-type</selector>
-						<options>
-						    <option id="?">?</option>
-			    		</options> 
 					</field> 
 					 <field id="contentDate" ui-type="date">
 						<selector>.csc-object-description-content-date</selector>
@@ -427,7 +473,23 @@
 					<field id="inscriptionLanguage">
 						<selector>.csc-object-description-inscription-content-language</selector>
 						<options>
-			    			<option id="option">Option</option>
+                            <option id="eng">English</option>
+                            <option id="spa">Spanish</option>
+                            <option id="fre">French</option>
+                            <option id="ita">Italian</option>
+                            <option id="por">Portuguese</option>
+                            <option id="ger">German</option>
+                            <option id="rus">Russian</option>
+                            <option id="ara">Arabic</option>
+                            <option id="chi">Chinese</option>
+                            <option id="heb">Hebrew</option>
+                            <option id="jpn">Japanese</option>
+                            <option id="kor">Korean</option>
+                            <option id="swa">Swahili</option>
+                            <option id="grc">Ancient Greek</option>
+                            <option id="lat">Latin</option>
+                            <option id="ang">Old English</option>
+                            <option id="enm">Middle English</option>
 			    		</options> 
 					</field>
 					<field id="inscriptionPosition">
@@ -472,9 +534,6 @@
 					</field>
 					<field id="inscriptionMethod">
 						<selector>.csc-object-description-inscription-content-method</selector>
-						<options>
-			    			<option id="option">Option</option>
-			    		</options>	
 					</field>
 					<field id="inscriptionInterpretation">
 						<selector>.csc-object-description-inscription-content-interpretation</selector>
@@ -521,9 +580,6 @@
 					</field>
 					<field id="inscriptionDescriptionMethod">
 						<selector>.csc-object-description-inscription-description-method</selector>
-						<options>
-			    			<option id="option">Option</option>
-			    		</options>
 					</field>
 					<field id="inscriptionDescriptionInterpretation">
 						<selector>.csc-object-description-inscription-description-interpretation</selector>
@@ -575,9 +631,6 @@
 					 </field>
 					 <field id="techniqueType">
 					    <selector>.csc-object-production-technique-type</selector>
-					    <options>
-			    			<option id="?">?</option>
-						</options>
 					 </field>		
 					 <field id="associatedActivityNote">
 					    <selector>.csc-object-associated-activity-note</selector>
@@ -614,9 +667,6 @@
 					 </field>	
 					 <field id="associationType">
 					    <selector>.csc-object-association-type</selector>
-					    <options>
-			    			<option id="?">?</option>
-						</options>					    
 					 </field>	
 			         <field id="owner" autocomplete="all-all">
 					    <selector>.csc-object-association-owner</selector>
@@ -654,7 +704,13 @@
  					 <field id="ownershipExchangePriceDenomination" >
 					    <selector>.csc-object-association-ownership-exchange-price-denomination</selector>
 					     <options>
-			    			<option id="?">?</option>
+			    			<option id="USD">US Dollar</option>
+                            <option id="CAD">Canadian Dollar</option>
+                            <option id="EUR">Euro</option>
+                            <option id="GBP">Pound Sterling</option>
+                            <option id="DKK">Danish Krone</option>
+                            <option id="SEK">Swedish Krona</option>
+                            <option id="CHF">Swiss Franc</option>
 						</options>
 					 </field>
  					 <field id="ownershipExchangePriceValue" >
@@ -662,9 +718,6 @@
 					 </field>
 					 <field id="usage">
 					    <selector>.csc-object-association-usage</selector>
-					    <options>
-			    			<option id="?">?</option>
-						</options>
 					 </field>					 
 			         <field id="usageNote">
 					    <selector>.csc-object-association-usage-note</selector>

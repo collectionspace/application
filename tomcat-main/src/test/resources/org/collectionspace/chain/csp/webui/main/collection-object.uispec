@@ -65,12 +65,8 @@
         ".csc-object-description-content-note": "${fields.contentNote}",
         ".csc-object-description-material-component-note": "${fields.materialComponentNote}",
         ".csc-object-description-inscription-content-language": {
-            "optionnames": [
-                "Option"
-            ],
-            "optionlist": [
-                "option"
-            ],
+            "optionnames": ["English","Spanish","French","Italian","Portuguese","German","Russian","Arabic","Chinese","Hebrew","Japanese","Korean","Swahili","Ancient Greek","Latin","Old English","Middle English"],
+            "optionlist": ["eng","spa","fre","ita","por","ger","rus","ara","chi","heb","jpn","kor","swa","grc","lat","ang","enm"],
             "selection": "${fields.inscriptionLanguage}"
         },
         ".csc-object-identification-object-title": "${fields.title}",
@@ -106,30 +102,18 @@
             "selection": "${fields.inscriptionPosition}"
         },
         ".csc-object-identification-object-title-language": {
-            "optionnames": [
-                "Option"
-            ],
-            "optionlist": [
-                "option"
-            ],
+            "optionnames": ["English","Spanish","French","Italian","Portuguese","German","Russian","Arabic","Chinese","Hebrew","Japanese","Korean","Swahili","Ancient Greek","Latin","Old English","Middle English"],
+            "optionlist": ["eng","spa","fre","ita","por","ger","rus","ara","chi","heb","jpn","kor","swa","grc","lat","ang","enm"],
             "selection": "${fields.objectTitleLanguage}"
         },
         ".csc-object-description-content-language": {
-            "optionnames": [
-                "Option"
-            ],
-            "optionlist": [
-                "option"
-            ],
+            "optionnames": ["English","Spanish","French","Italian","Portuguese","German","Russian","Arabic","Chinese","Hebrew","Japanese","Korean","Swahili","Ancient Greek","Latin","Old English","Middle English"],
+            "optionlist": ["eng","spa","fre","ita","por","ger","rus","ara","chi","heb","jpn","kor","swa","grc","lat","ang","enm"],
             "selection": "${fields.contentLanguage}"
         },
         ".csc-object-identification-object-type": {
-            "optionnames": [
-                "?"
-            ],
-            "optionlist": [
-                "?"
-            ],
+            "optionnames": ["Classified","Denomination","Simple","Taxonomic","Typological"],
+            "optionlist": ["classified","denomination","simple","taxonomic","typological"],
             "selection": "${fields.objectNameType}"
         },
         ".csc-object-description-color": "${fields.color}",
@@ -710,12 +694,8 @@
             "selection": "${fields.inscriptionDescriptionType}"
         },
         ".csc-object-identification-object-language": {
-            "optionnames": [
-                "Option"
-            ],
-            "optionlist": [
-                "option"
-            ],
+            "optionnames": ["English","Spanish","French","Italian","Portuguese","German","Russian","Arabic","Chinese","Hebrew","Japanese","Korean","Swahili","Ancient Greek","Latin","Old English","Middle English"],
+            "optionlist": ["eng","spa","fre","ita","por","ger","rus","ara","chi","heb","jpn","kor","swa","grc","lat","ang","enm"],
             "selection": "${fields.objectNameLanguage}"
         },
         ".csc-object-description-inscription-content-interpretation": "${fields.inscriptionInterpretation}",
