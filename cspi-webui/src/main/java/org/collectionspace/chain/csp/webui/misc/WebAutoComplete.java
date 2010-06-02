@@ -32,11 +32,8 @@ public class WebAutoComplete implements WebMethod {
 	public WebAutoComplete(Record r) { this.r=r; }
 	
 	private String[] doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,String start) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
-		FieldSet fs=r.getField(fieldname);
+		FieldSet fs=r.getRepeatField(fieldname);
 		List<String> out=new ArrayList<String>();
-		if(fs == null){//try and find field in repeats if not generall available
-			fs=r.getRepeatField(fieldname);
-		}
 		
 		if(!(fs instanceof Field))
 			return new String[0]; // Cannot autocomplete on groups
