@@ -544,12 +544,6 @@
 			         </field>
 			        </repeat>
 			        
-			        <!--  XXX NOT IN UI YET  --> 
-					
-					<!--  Following not active --> 
-					
-					<!--  CSC is included here for when they get put back (can't comment out in JSON)
-					
 					<field id="recordStatus">
 						<selector>.csc-object-identification-object-record-status</selector>
 						<options>
@@ -673,18 +667,6 @@
 					 </field>
  					 <field id="objectOwnershipExchangePriceValue" >
 					    <selector>.csc-object-association-ownership-exchange-price-value</selector>
-					 </field>	
-					 <field id="objectRelatedObjectNumber">
-					    <selector>.csc-object-association-related-object-number</selector>
-					 </field>
-					 <field id="objectRelatedObjectAssociation">
-					    <selector>.csc-object-association-related-object-association</selector>
-					      <options>
-			    			<option id="?">?</option>
-						</options>
-					 </field>
-					 <field id="objectRelatedObjectNote">
-					    <selector>.csc-object-association-related-object-note</selector>
 					 </field>
 					 <field id="objectUsage">
 					    <selector>.csc-object-association-usage</selector>
@@ -722,7 +704,7 @@
 	 				 <field id="objectViewersContributionNote" >
 					    <selector>.csc-object-viewers-contribution-note</selector>
 					 </field>
-			         <field id="objectCatalogueNumber" >
+			         <field id="catalogNumber" >
 					    <selector>.csc-object-reference-catalogue-number</selector>
 					 </field> 
 					 
@@ -732,7 +714,7 @@
 					 <field id="objectHistoryNote">
 					    <selector>.csc-object-association-object-history-note</selector>
 					 </field>
-					 
+					 <!--
 					 <field id="datePeriod" >
 					    <selector>.csc-date-information-date-period</selector>
 					 </field> 
@@ -803,7 +785,6 @@
 						<selector>.csc-object-description-content-other</selector>
 					</field>
 					".csc-object-description-content-other": "${fields.contentOther}",
-					
 					-->
 					<!--  natural history -->
 					<!--  ID's probably can't use -'s , :( XXX -->
