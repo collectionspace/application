@@ -396,7 +396,7 @@ public class RecordStorage implements ContextualisedStorage {
 					String uri=((Element)node).selectSingleNode("uri").getText();
 					String refname=((Element)node).selectSingleNode("refName").getText();
 					String fieldName = key.split(":")[1];
-					Field fieldinstance = (Field)r.getField(fieldName);
+					Field fieldinstance = (Field)r.getRepeatField(fieldName);
 					
 					if(uri!=null && uri.startsWith("/"))
 						uri=uri.substring(1);
