@@ -91,8 +91,8 @@ public class RecordSearchList implements WebMethod {
 		if(base.equals("permission")){
 			JSONObject grouped = groupPermissions(members);
 			//check if we have all the permissions we need
-			if(checkPermissions(grouped, storage))
-				out.put("groupedPermissions", grouped);
+			checkPermissions(grouped, storage);
+			out.put("groupedPermissions", grouped);
 		}
 		return out;
 	}
@@ -106,78 +106,87 @@ public class RecordSearchList implements WebMethod {
 	 * @throws UnimplementedException 
 	 * @throws ExistException 
 	 */
-	private boolean checkPermissions(JSONObject permissions, Storage storage) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+	private void checkPermissions(JSONObject permissions, Storage storage) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+		//get all the records from the default xml
 		Record[] records = r.getSpec().getAllRecords();
-		int totalRecords = 0;
-		int totalPermissions = 0;
-		String[] actions = {"read","update","delete","none"};
-		
+
+		//this list should probably be moved to the default xml
+		String[] resourceNames = {"id","idgenerators","/idgenerators/*/ids","vocabularies","vocabularyitems","/vocabularies/*/items/","locationauthorities","/locationauthorities/*/items/","locations","relations","relations/subject/*/type/*/object/*","contacts","notes"};
+
 		//loop over all types of records in the default.xml
 		for(Record record : records){
 			if(record.isType("record")){
-				//count the amount of records of type record
-				totalRecords += 1;
-				
-				//check whether this type of record is available in the grouped permissions
-				if(permissions.has(record.getID())){
-					JSONArray resourcelist = permissions.getJSONArray(record.getID());
-					
-					//check whether the record type has the four permissions (read, update, delete, none)
-					if(resourcelist.length() < 4){
-						//find the missing permission
-						List<String> missing = new ArrayList<String>();
-						boolean exists = false;
-						for(String action : actions){
-							for(int i=0, il=resourcelist.length();i<il;i++){
-								JSONObject resource = resourcelist.getJSONObject(i);
-								if(resource.has(action)){
-									exists = true;
-									break;
-								}else{
-									exists = false;
-									
-								}
-							}
-							if(!exists){
-								missing.add(action);
-							}
-						}
-						for(String s : missing){
-							//save the permission in the database
-							JSONObject ac = new JSONObject();
-							ac = createMissingPermissions(s, record, storage);
-							
-							//save the permission in the grouped permissions
-							resourcelist.put(ac);
-						}
-					}
-					totalPermissions +=1;
-				}else{
-					JSONArray actionlist = new JSONArray();
-					for(String s : actions){
-						JSONObject ac = createMissingPermissions(s, record, storage);
-						actionlist.put(ac);
-					}
-					//add the record and its permissions
-					permissions.put(record.getID(), actionlist);
-					totalPermissions +=1;
-				}
-				
+				addOrCreatePermissions(permissions, storage,record.getID());
 			}
 		}
-		if(totalRecords == totalPermissions)
-			return true;
-		else
-			return false;
+		for(String s : resourceNames){
+			addOrCreatePermissions(permissions, storage, s);
+		}
+	}
+
+	/**
+	 * Check whether or not the permissions for the resource name/record name exist and create them if not
+	 * @param {JSONObject} permissions A list of permissions that are already created
+	 * @param {Storage} storage The storage for this type of record (e.g. AuthorizationStorage for permission)
+	 * @param resourceName The resourceName for which the permissions need to be checked/created
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 * @throws JSONException
+	 */
+	private void addOrCreatePermissions(JSONObject permissions, Storage storage, String resourceName) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
+		String[] actions = {"read","update","delete","none"};
+
+		//check whether this type of record is available in the grouped permissions
+		if(permissions.has(resourceName)){
+			JSONArray resourcelist = permissions.getJSONArray(resourceName);
+
+			//check whether the record type has the four permissions (read, update, delete, none)
+			if(resourcelist.length() < 4){
+				//find the missing permission
+				List<String> missing = new ArrayList<String>();
+				boolean exists = false;
+				for(String action : actions){
+					for(int i=0, il=resourcelist.length();i<il;i++){
+						JSONObject resource = resourcelist.getJSONObject(i);
+						if(resource.has(action)){
+							exists = true;
+							break;
+						}else{
+							exists = false;
+						}
+					}
+					if(!exists){
+						missing.add(action);
+					}
+				}
+				for(String s : missing){
+					//save the permission in the database
+					JSONObject ac = new JSONObject();
+					ac = createMissingPermissions(s, resourceName, storage);
+					
+					//save the permission in the grouped permissions
+					resourcelist.put(ac);
+				}
+			}
+		}else{
+			JSONArray actionlist = new JSONArray();
+			for(String s : actions){
+				JSONObject ac = createMissingPermissions(s, resourceName, storage);
+				actionlist.put(ac);
+			}
+			//add the record and its permissions
+			permissions.put(resourceName, actionlist);
+		}
 	}
 	
-	private JSONObject createMissingPermissions(String s, Record record, Storage storage) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
+	private JSONObject createMissingPermissions(String s, String name, Storage storage) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
 		List<String> actions = new ArrayList<String>(Arrays.asList("read","update","delete","none"));
 		List<String> actionsforpermission = new ArrayList<String>();
 		
 		//create the new permission JSON
 		JSONObject permission = new JSONObject();
-		permission.put("resourceName", record.getID());
+		permission.put("resourceName", name);
 		permission.put("effect", "PERMIT");
 		
 		if(!s.equals("none")){
