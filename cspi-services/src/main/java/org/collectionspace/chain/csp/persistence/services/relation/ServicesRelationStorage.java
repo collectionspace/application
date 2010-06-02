@@ -27,6 +27,8 @@ import org.dom4j.Node;
 import org.jaxen.JaxenException;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /* /relate/main/      POST ::: {'src': src-type/src, 'type': type, 'dst': dst-type/dst} ::: id
  * /relate/main/<id>  PUT ::: {'src': src-type/src, 'type': type, 'dst': dst-type/dst} :::
@@ -38,6 +40,7 @@ import org.json.JSONObject;
 // XXX some hacks here because services don't seem to support multiple search crieteria on relationships. 
 
 public class ServicesRelationStorage implements ContextualisedStorage { 
+	private static final Logger log=LoggerFactory.getLogger(ServicesRelationStorage.class);
 	private ServicesConnection conn;
 	private RelationFactory factory;
 
