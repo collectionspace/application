@@ -24,7 +24,7 @@ public class VocabRedirector implements WebMethod {
 	public void configure(WebUI ui, Spec spec) {}
 
 	private String pathFor(String in) {
-		Field fd = (Field) r.getField(in);
+		Field fd = (Field) r.getRepeatField(in);
 		String weburl = fd.getAutocompleteInstance().getWebURL();
 		return "/vocabularies/"+weburl; 
 	}
