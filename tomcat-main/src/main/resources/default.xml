@@ -29,7 +29,7 @@
 	</email>
 	<persistence>
 		<service>
-			<url>http://nightly.collectionspace.org:8180/cspace-services</url>
+		    <url>http://nightly.collectionspace.org:8180/cspace-services</url>
 		</service>
 	</persistence>
 	<ui>
@@ -1460,7 +1460,7 @@
 			  </field>
 			</record>
 			
-            <record id="role">
+            <record id="role" type="authorizationdata">
             	<web-url>role</web-url>
                 <services-url>authorization/roles</services-url>
 				<services-list-path>roles_list/*</services-list-path>
@@ -1521,7 +1521,7 @@
 			</record>
 
             <!-- PermRole like Service layer wants it
-            <record id="permrole">
+            <record id="permrole" type="authorizationdata">
                 <is-multipart>false</is-multipart>
                 <services-url>authorization/permroles</services-url>
                 <services-list-path>permroles-common-list/permrole-list-item</services-list-path>
@@ -1551,7 +1551,7 @@
             </record> -->
             
  			<!--permrole like UI wants it -->
- 			<record id="permrole">
+ 			<record id="permrole" type="authorizationdata">
 				<is-multipart>false</is-multipart>
 				<services-url>authorization/permroles</services-url>
 				<services-list-path>permroles-common-list/permrole-list-item</services-list-path>
@@ -1581,7 +1581,7 @@
 				</repeat>
 			</record>
 
-            <record id="accountrole">
+            <record id="accountrole" type="authorizationdata">
                 <web-url>accountrole</web-url>
                 <services-url>/authorization/accounts/{csid}/accountroles</services-url>
                 <services-record-path>account_role:http://collectionspace.org/services/account_role,accountroles_common</services-record-path>   

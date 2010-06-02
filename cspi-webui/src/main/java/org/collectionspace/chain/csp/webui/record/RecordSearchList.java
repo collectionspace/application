@@ -1,6 +1,9 @@
 package org.collectionspace.chain.csp.webui.record;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.collectionspace.chain.csp.schema.Record;
@@ -24,9 +27,11 @@ public class RecordSearchList implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(RecordSearchList.class);
 	private boolean search;
 	private String base;
+	private Record r;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public RecordSearchList(Record r,boolean search) {
+		this.r = r;
 		this.base=r.getID();
 		this.search=search;
 	}
@@ -83,9 +88,122 @@ public class RecordSearchList implements WebMethod {
 		for(String p : paths)
 			members.put(generateEntry(storage,base,p));
 		out.put(key,members);
-		if(base.equals("permission"))
-			out.put("groupedPermissions", groupPermissions(members));
+		if(base.equals("permission")){
+			JSONObject grouped = groupPermissions(members);
+			//check if we have all the permissions we need
+			if(checkPermissions(grouped, storage))
+				out.put("groupedPermissions", grouped);
+		}
 		return out;
+	}
+	
+	/**
+	 * Check whether all the permissions are included in the list, if a permission isn't, add it
+	 * @param {JSONObject} permissions JSON containing grouped permissions
+	 * @return {boolean} Whether the grouped permissions contain the needed permissions
+	 * @throws JSONException 
+	 * @throws UnderlyingStorageException 
+	 * @throws UnimplementedException 
+	 * @throws ExistException 
+	 */
+	private boolean checkPermissions(JSONObject permissions, Storage storage) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+		Record[] records = r.getSpec().getAllRecords();
+		int totalRecords = 0;
+		int totalPermissions = 0;
+		String[] actions = {"read","update","delete","none"};
+		
+		//loop over all types of records in the default.xml
+		for(Record record : records){
+			if(record.isType("record")){
+				//count the amount of records of type record
+				totalRecords += 1;
+				
+				//check whether this type of record is available in the grouped permissions
+				if(permissions.has(record.getID())){
+					JSONArray resourcelist = permissions.getJSONArray(record.getID());
+					
+					//check whether the record type has the four permissions (read, update, delete, none)
+					if(resourcelist.length() < 4){
+						//find the missing permission
+						List<String> missing = new ArrayList<String>();
+						boolean exists = false;
+						for(String action : actions){
+							for(int i=0, il=resourcelist.length();i<il;i++){
+								JSONObject resource = resourcelist.getJSONObject(i);
+								if(resource.has(action)){
+									exists = true;
+									break;
+								}else{
+									exists = false;
+									
+								}
+							}
+							if(!exists){
+								missing.add(action);
+							}
+						}
+						for(String s : missing){
+							//save the permission in the database
+							JSONObject ac = new JSONObject();
+							ac = createMissingPermissions(s, record, storage);
+							
+							//save the permission in the grouped permissions
+							resourcelist.put(ac);
+						}
+					}
+					totalPermissions +=1;
+				}else{
+					JSONArray actionlist = new JSONArray();
+					for(String s : actions){
+						JSONObject ac = createMissingPermissions(s, record, storage);
+						actionlist.put(ac);
+					}
+					//add the record and its permissions
+					permissions.put(record.getID(), actionlist);
+					totalPermissions +=1;
+				}
+				
+			}
+		}
+		if(totalRecords == totalPermissions)
+			return true;
+		else
+			return false;
+	}
+	
+	private JSONObject createMissingPermissions(String s, Record record, Storage storage) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
+		List<String> actions = new ArrayList<String>(Arrays.asList("read","update","delete","none"));
+		List<String> actionsforpermission = new ArrayList<String>();
+		
+		//create the new permission JSON
+		JSONObject permission = new JSONObject();
+		permission.put("resourceName", record.getID());
+		permission.put("effect", "PERMIT");
+		
+		if(!s.equals("none")){
+			for(int i=0,il=actions.indexOf(s);i<=il;i++){
+				actionsforpermission.add(actions.get(i));
+			}
+		}
+		
+		JSONArray actionlist = new JSONArray();
+		for(String a : actionsforpermission){
+			JSONObject newaction = new JSONObject();
+			newaction.put("name", a.toUpperCase());
+			JSONArray namelist = new JSONArray();
+			namelist.put(newaction);
+			JSONObject action = new JSONObject();
+			action.put("action", namelist);
+			actionlist.put(action);
+		}
+		permission.put("actions",actionlist);
+		
+		//add the missing permission in the service layer
+		String csid = storage.autocreateJSON(r.getID(), permission);
+		//add the permission in the grouped permissions list
+		JSONObject ac = new JSONObject();
+		ac.put(s, csid);
+		return ac;
 	}
 	
 	/**
@@ -95,23 +213,50 @@ public class RecordSearchList implements WebMethod {
 	 * @throws JSONException
 	 */
 	private JSONObject groupPermissions(JSONArray permissionlist) throws JSONException{
+		//create a JSONObject to contain all of the grouped permissions
 		JSONObject permission = new JSONObject();
+		
+		//loop over all the permissions that are coming in
 		for(int i=0,il=permissionlist.length();i<il;i++){
 			JSONObject li = permissionlist.getJSONObject(i);
+			
+			//get the resourceName
 			String name = li.getString("summary");
-			String[] parts = name.split("_");
 			
+			//depending on the action number, save it as a read/write/delete/none
+			String action = "";
+			switch(li.getInt("action")){
+				case 1:
+					action = "read";
+					break;
+				case 7:
+					action="update";
+					break;
+				case 15:
+					action="delete";
+					break;
+				default:
+					action="none";
+					break;
+			}
 			
+			//save the permission (read,write,delete,none) and its csid
 			JSONObject perm = new JSONObject();
-			perm.put(parts[0], li.getString("csid"));
+			perm.put(action, li.getString("csid"));
+			
+			//get all the existing permissions for the current resourceName and save them in an array
 			JSONArray permArray = new JSONArray();
-			if(permission.has(parts[1])){
-				for(int j=0,jl=permission.getJSONArray(parts[1]).length();j<jl;j++){
-					permArray.put(permission.getJSONArray(parts[1]).get(j));
+			if(permission.has(name)){
+				for(int j=0,jl=permission.getJSONArray(name).length();j<jl;j++){
+					permArray.put(permission.getJSONArray(name).get(j));
 				}
 			}
+			
+			//add the new permission to the array
 			permArray.put(perm);
-			permission.put(parts[1], permArray);
+			
+			//save the resourceName and its new permissions
+			permission.put(name, permArray);
 		}
 		return permission;
 	}
