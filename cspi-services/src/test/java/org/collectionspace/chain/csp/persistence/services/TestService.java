@@ -75,20 +75,22 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 
-		Document repeatxml = getDocument("loaninXMLJSON.xml");
-		Record r = spec.getRecord("loanin");
-		Document repeatxml2 = getDocument("permissionXMLJSON.xml");
-		Record r2 = spec.getRecord("permission");
-		JSONObject j1 = getJSON("LoaninJSON.json");
-		JSONObject j2 = getJSON("permissionsJSON.json");
-		//JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, repeatxml);
-		//log.info(repeatjson.toString());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j1));
-		JSONObject repeatjson2 = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r2, repeatxml2);
-		//log.info(repeatjson2.toString());
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson2,j2));
+		testXMLJSON(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
+		testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
+		//testXMLJSON(spec, "organization","orgauthref.xml","permissionsJSON.json");
 	}
 
+	private void testXMLJSON(Spec spec, String objtype, String xmlfile, String jsonfile) throws Exception{
+
+		Document testxml = getDocument(xmlfile);
+		Record r = spec.getRecord(objtype);
+		JSONObject j = getJSON(jsonfile);
+		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, testxml);
+		log.info(repeatjson.toString());
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
+	
+	}
+	
 	@Test public void testAllPostGetDelete() throws Exception {
 		// TODO Change the XML filenames to be more meaningful
 		// TODO Add vocab (the previous testVocabPost method was just an exact copy of testRolesPost!)
