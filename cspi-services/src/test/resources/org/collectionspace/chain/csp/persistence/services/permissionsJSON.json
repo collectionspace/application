@@ -1,22 +1,6 @@
 {
     "effect": "PERMIT",
     "resourceName": "/authorization/roles/*/permroles/",
-	"actions": [
-	{
-		"action": [ { "name" : "CREATE" } ]
-	},
-	{
-		"action": [ { "name" : "READ" } ]
-	},
-	{
-		"action": [ { "name" : "UPDATE" } ]
-	},
-	{
-		"action": [ { "name" : "DELETE" } ]
-	},
-	{
-		"action": [ { "name" : "SEARCH" } ]
-	},
-	
-	]
+	"action":[{"name":"SEARCH"},{"name":"DELETE"},{"name":"UPDATE"},{"name":"READ"},{"name":"CREATE"}],
+	"tenant_id":"1"
 }

@@ -106,6 +106,22 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertArrayContainsString(names,p1);
 		assertArrayContainsString(names,p2);
 		assertArrayContainsString(names,p3);
+
+		ss.deleteJSON("collection-object/"+p1);
+		try {
+			ss.retrieveJSON("collection-object/"+p1);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {}
+		ss.deleteJSON("collection-object/"+p2);
+		try {
+			ss.retrieveJSON("collection-object/"+p2);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {}
+		ss.deleteJSON("collection-object/"+p3);
+		try {
+			ss.retrieveJSON("collection-object/"+p3);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {}
 	}
 	
 	@Test public void testSearch() throws Exception {
@@ -120,6 +136,16 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		//XXX add pagination support CSPACE-1836
 		assertArrayContainsString(names,p2);
 		assertArrayDoesNotContainString(names,p1);
+		ss.deleteJSON("collection-object/"+p1);
+		try {
+			ss.retrieveJSON("collection-object/"+p1);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {}
+		ss.deleteJSON("collection-object/"+p2);
+		try {
+			ss.retrieveJSON("collection-object/"+p2);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {}
 	}
 	
 	@Test public void testMini() throws Exception {
@@ -127,7 +153,12 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		String p1=ss.autocreateJSON("intake/",getJSON("int4.json"));
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/view");
 		assertEquals("depositorX",mini.getString("summary"));
-		assertEquals("entryNumberX",mini.getString("number"));		
+		assertEquals("entryNumberX",mini.getString("number"));	
+		ss.deleteJSON("intake/"+p1);
+		try {
+			ss.retrieveJSON("intake/"+p1);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {}	
 	}
 
 	private JSONObject makePerson(String pname) throws Exception {
@@ -163,7 +194,18 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertNotNull(member);
 		assertEquals("Dic Penderyn",member.getString("displayName"));
 		
+
+		ss.deleteJSON("person/person/"+p);
+		try {
+			ss.retrieveJSON("person/person/"+p);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {}
 		
+		ss.deleteJSON("person/person/"+p2);
+		try {
+			ss.retrieveJSON("person/person/"+p2);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {}	
 		// XXX retrieve by authority
 		// XXX also authorities
 	}

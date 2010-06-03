@@ -81,12 +81,12 @@ public class TestService extends ServicesBaseClass {
 		Record r2 = spec.getRecord("permission");
 		JSONObject j1 = getJSON("LoaninJSON.json");
 		JSONObject j2 = getJSON("permissionsJSON.json");
-		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, repeatxml);
+		//JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, repeatxml);
 		//log.info(repeatjson.toString());
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j1));
-		//JSONObject repeatjson2 = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r2, repeatxml2);
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j1));
+		JSONObject repeatjson2 = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r2, repeatxml2);
 		//log.info(repeatjson2.toString());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson2,j2));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson2,j2));
 	}
 
 	@Test public void testAllPostGetDelete() throws Exception {
@@ -95,9 +95,11 @@ public class TestService extends ServicesBaseClass {
 		// TODO Add everything from CSPACE-1876 and more
 		
 		testPostGetDelete("collectionobjects/", "collectionobjects_common", "obj1.xml", "collectionobjects_common/objectNumber", "2");
-		// TODO make roleName dynamically vary otherwise POST fails if already exists 
+		
+		// TODO make roleName dynamically vary otherwise POST fails if already exists (something like buildObject)
 		testPostGetDelete("authorization/roles/", null, "obj5.xml", "role/description", "this role is for test users");
-		//testPostGetDelete("authorization/permissions/", null, "permissions.xml", "permission/resourceName", "accounts");
+		testPostGetDelete("authorization/permissions/", null, "permissions.xml", "permission/resourceName", "testthing");
+		
 		//testPostGetDelete("accounts/", null, "account.xml", "account/userid", "accounts");
 
 		// XXX Queries about movement service consistency currently being discussed by email:
