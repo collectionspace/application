@@ -41,6 +41,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	//XXX add more tests for other record types
 	@Test public void testGetPostDelete() throws Exception {
 		getPostDelete("collection-object/","obj3.json","obj4.json","title");
+		getPostDelete("permission/","permissionsJSON.json","permissionsJSON.json","resourceName");//technically can't update permissions
 		
 	}
 	
