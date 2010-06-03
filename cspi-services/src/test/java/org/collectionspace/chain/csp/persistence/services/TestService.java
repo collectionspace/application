@@ -81,12 +81,12 @@ public class TestService extends ServicesBaseClass {
 		Record r2 = spec.getRecord("permission");
 		JSONObject j1 = getJSON("LoaninJSON.json");
 		JSONObject j2 = getJSON("permissionsJSON.json");
-		//JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, repeatxml);
+		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, repeatxml);
 		//log.info(repeatjson.toString());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j1));
-		JSONObject repeatjson2 = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r2, repeatxml2);
-		log.info(repeatjson2.toString());
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson2,j2));
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j1));
+		//JSONObject repeatjson2 = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r2, repeatxml2);
+		//log.info(repeatjson2.toString());
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson2,j2));
 	}
 
 	@Test public void testAllPostGetDelete() throws Exception {
