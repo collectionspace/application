@@ -238,19 +238,21 @@ public class UserDetailsReset implements WebMethod {
 						resultsize=0;
 						//testing whether we have actually returned the same page or the next page - all csid returned should be unique
 					}
-					checkpagination = paths[0];
-					/* make sure it is an exact match */
-					for(int i=0;i<paths.length;i++) {
-						//GET full details
-						JSONObject fields = storage.retrieveJSON(base+"/"+paths[i]);
+					else{
+						checkpagination = paths[0];
+						/* make sure it is an exact match */
+						for(int i=0;i<paths.length;i++) {
+							//GET full details
+							JSONObject fields = storage.retrieveJSON(base+"/"+paths[i]);
 						
-						String emailtest = fields.getString("email");
-						if(emailtest.equals(emailparam)){
-							JSONObject outputJSON = new JSONObject();
-							outputJSON.put("fields",fields);
-							outputJSON.put("ok",true);
-							outputJSON.put("csid",paths[i]);
-							return outputJSON;
+							String emailtest = fields.getString("email");
+							if(emailtest.equals(emailparam)){
+								JSONObject outputJSON = new JSONObject();
+								outputJSON.put("fields",fields);
+								outputJSON.put("ok",true);
+								outputJSON.put("csid",paths[i]);
+								return outputJSON;
+							}
 						}
 					}
 				}
