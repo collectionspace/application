@@ -1483,6 +1483,7 @@
                 <services-url>authorization/permissions</services-url>
                 <services-list-path>permissions_list/*</services-list-path>
                 <services-record-path>permissions_common:http://collectionspace.org/services/authorization,permission</services-record-path>
+                <terms-used>false</terms-used>
                 <is-multipart>false</is-multipart>
                 <services-search-keyword>res</services-search-keyword>
                 <structures>
@@ -1493,21 +1494,20 @@
                         </view>
                     </structure>
                 </structures>
-                <terms-used>false</terms-used>
-                <repeat id="actions">
-                    <selector>.csc-permission-action-row:</selector>
-                    <repeat id="action">
-                        <selector>.csc-permission-action-row:</selector>
-                        <field id="name">
-                            <selector>.csc-permission-action-name</selector>
-                        </field>
-                    </repeat>
-                </repeat>
+				<repeat id="action">
+					<selector>.csc-permission-action-row:</selector>
+					<field id="name">
+						<selector>.csc-permission-action</selector>
+					</field>
+				</repeat>
                 <field id="effect" mini="number">
                     <selector>.csc-permission-effect</selector>
                 </field>
                 <field id="resourceName" mini="summary">
                     <selector>.csc-permission-resourceName</selector>
+                </field>
+                <field id="tenant_id">
+                    <selector>.csc-permission-tenancy_id</selector>
                 </field>
 			</record>
 
