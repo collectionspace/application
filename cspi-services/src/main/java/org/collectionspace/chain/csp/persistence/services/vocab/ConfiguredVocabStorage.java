@@ -345,7 +345,29 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 		
 		JSONObject out=new JSONObject();
 		ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,generateURL(vocab,csid,"/refObjs"),null,creds,cache);
-		convertToJson(out, all.getDocument());
+		String test = all.getDocument().asXML();
+		if(all.getStatus()!=200)
+			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+		Document list=all.getDocument();
+		for(Object node : list.selectNodes("authority-ref-doc-list/authority-ref-doc-item")) {
+			if(!(node instanceof Element))
+				continue;
+			String key=((Element)node).selectSingleNode("sourceField").getText();
+			String uri=((Element)node).selectSingleNode("uri").getText();
+			String docid=((Element)node).selectSingleNode("docId").getText();
+			String doctype=((Element)node).selectSingleNode("docType").getText();
+			String fieldName = key.split(":")[1];
+			//Field fieldinstance = (Field)r.getRepeatField(fieldName);
+			
+			if(uri!=null && uri.startsWith("/"))
+				uri=uri.substring(1);
+			JSONObject data = new JSONObject();//=miniForURI(storage,creds,cache,refname,uri);
+			data.put("csid", docid);
+//			data.put("sourceFieldselector", fieldinstance.getSelector());
+			data.put("sourceFieldName", fieldName);
+			data.put("sourceFieldType", doctype);
+			out.put(key,data);
+		}
 		return out;
 	}
 
