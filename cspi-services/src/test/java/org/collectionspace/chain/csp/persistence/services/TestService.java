@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import org.apache.commons.io.IOUtils;
 import org.dom4j.Document;
@@ -22,12 +25,21 @@ import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.InputSource;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
+import org.collectionspace.chain.csp.config.ConfigRoot;
+import org.collectionspace.chain.csp.inner.CoreConfig;
+import org.collectionspace.chain.csp.persistence.services.XmlJsonConversion;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.util.json.JSONUtils;
+import org.collectionspace.csp.api.container.CSPManager;
+import org.collectionspace.csp.container.impl.CSPManagerImpl;
 
 public class TestService extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestService.class);
@@ -38,7 +50,44 @@ public class TestService extends ServicesBaseClass {
 	@Test public void testAssumptionMechanism() {
 		log.info("Services Running!");
 	}
+	private InputStream getRootSource(String file) {
+		return Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
+	}
 
+	protected JSONObject getJSON(String in) throws IOException, JSONException {
+		String path=getClass().getPackage().getName().replaceAll("\\.","/");
+		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
+		//log.info(path);
+		assertNotNull(stream);
+		String data=IOUtils.toString(stream,"UTF-8");
+		stream.close();		
+		return new JSONObject(data);
+	}
+	
+	@Test public void testXMLJSONConversion() throws Exception {
+
+		CSPManager cspm=new CSPManagerImpl();
+		cspm.register(new CoreConfig());
+		cspm.register(new Spec());
+		cspm.register(new ServicesStorageGenerator());
+		cspm.go();
+		cspm.configure(new InputSource(getRootSource("config.xml")),null);
+		ConfigRoot root=cspm.getConfigRoot();
+		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+
+		Document repeatxml = getDocument("loaninXMLJSON.xml");
+		Record r = spec.getRecord("loanin");
+		Document repeatxml2 = getDocument("permissionXMLJSON.xml");
+		Record r2 = spec.getRecord("permission");
+		JSONObject j1 = getJSON("LoaninJSON.json");
+		JSONObject j2 = getJSON("permissionsJSON.json");
+		//JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, repeatxml);
+		//log.info(repeatjson.toString());
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j1));
+		JSONObject repeatjson2 = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r2, repeatxml2);
+		log.info(repeatjson2.toString());
+		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson2,j2));
+	}
 
 	@Test public void testAllPostGetDelete() throws Exception {
 		// TODO Change the XML filenames to be more meaningful
@@ -193,12 +242,14 @@ public class TestService extends ServicesBaseClass {
 		parts.put("collectionobjects_common",doc1);		
 		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts,creds,cache);
 		assertEquals(201,url.getStatus());
+		String uid1 = url.getURL();
 		String non=url.getURLTail();
 		// Insert one aardvark
 		parts=new HashMap<String,Document>();
 		Document doc2=getDocument("obj-search.xml");
 		parts.put("collectionobjects_common",doc2);		
 		url=conn.getMultipartURL(RequestMethod.POST,"collectionobjects/",parts,creds,cache);
+		String uid2 = url.getURL();
 		assertEquals(201,url.getStatus());
 		String good=url.getURLTail();		
 		// search for aardvark
@@ -208,8 +259,18 @@ public class TestService extends ServicesBaseClass {
 		for(Node n : (List<Node>)doc.getDocument().selectNodes("collectionobjects-common-list/collection-object-list-item/csid")) {
 			csids.add(n.getText());
 		}
+
+		//delete non-aadvark and aadvark
+		int status=conn.getNone(RequestMethod.DELETE,uid1,null,creds,cache);
+		assertEquals(200,status); // XXX CSPACE-73, should be 404
+		status=conn.getNone(RequestMethod.DELETE,uid2,null,creds,cache);
+		assertEquals(200,status); // XXX CSPACE-73, should be 404
+		
+		//test
 		assertFalse(csids.size()==0);
 		assertTrue(csids.contains(good));
 		assertFalse(csids.contains(non));
+		
+		
 	}
 }

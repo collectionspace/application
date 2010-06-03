@@ -96,6 +96,7 @@ public class XmlJsonConversion {
 		for(FieldSet f : r.getAllFields()) {
 			addFieldSetToXml(root,f,in,section);
 		}
+		String test = doc.asXML();
 		log.debug(doc.asXML());
 		return doc;
 	}
@@ -138,10 +139,13 @@ public class XmlJsonConversion {
 
 	private static void buildFieldList(List<String> list,FieldSet f) {
 		if(f instanceof Repeat){
+			list.add(f.getID());
 			for(FieldSet a : ((Repeat)f).getChildren()){
-				if(a instanceof Repeat)
+				//if(a instanceof Repeat)
+				//	list.add(a.getID());
+				if(a instanceof Field)
 					list.add(a.getID());
-				buildFieldList(list,a);
+				//buildFieldList(list,a);
 			}
 		}
 		if(f instanceof Field)
@@ -156,8 +160,9 @@ public class XmlJsonConversion {
 		List<Element> repeatdatatypestuff = new ArrayList<Element>();
 		buildFieldList(fields,f);
 		Map<String,Integer> field_index=new HashMap<String,Integer>();
-		for(int i=0;i<fields.size();i++)
+		for(int i=0;i<fields.size();i++){
 			field_index.put(fields.get(i),i);
+		}
 		// Iterate through
 		Map<String, List <Element> > member=null;
 		int prev=Integer.MAX_VALUE;
@@ -175,6 +180,7 @@ public class XmlJsonConversion {
 				repeatdatatypestuff = new ArrayList<Element>();
 			}
 			prev=next;
+			repeatdatatypestuff = new ArrayList<Element>();
 			repeatdatatypestuff.add((Element)node);
 			member.put(((Element)node).getName(),repeatdatatypestuff);
 		}
@@ -234,6 +240,14 @@ public class XmlJsonConversion {
 			if(member.length() > 0)
 				array.put(member);
 		}
+		if(out.has(f.getID())){
+			//smoosh together multiple array items
+			JSONArray data = out.getJSONArray(f.getID());
+			for(int i=0;i<data.length();i++) {
+				int index = data.length() + i;
+				array.put(array.length(),data.get(i));
+			}
+		}
 		out.put(f.getID(),array);
 	}
 	
@@ -254,8 +268,11 @@ public class XmlJsonConversion {
 		if(nodes.size()==0)
 			return;
 		// Only first element is important in container
-		Element container=(Element)nodes.get(0);
-		addRepeatedNodeToJson(out,container,f);
+		//except when we have repeating items
+		for(Object repeatcontainer : nodes){
+			Element container=(Element)repeatcontainer;
+			addRepeatedNodeToJson(out,container,f);
+		}
 		
 	}
 	
