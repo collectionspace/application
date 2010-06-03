@@ -43,8 +43,8 @@ public class TabUISpec implements WebMethod {
 	private JSONObject uispec(UIRequest request,String suffix) throws UIException {
 		try {
 			JSONObject out=new JSONObject();
-			out.put("newRecord",newRecordSpec());
-			out.put("relatedRecords",relatedRecordSpec());
+			out.put("details",newRecordSpec());
+			out.put("list",relatedRecordSpec());
 			return out;
 		} catch (JSONException e) {
 			throw new UIException("Cannot generate UISpec due to JSONException",e);
