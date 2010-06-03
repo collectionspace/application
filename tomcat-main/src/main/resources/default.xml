@@ -603,7 +603,7 @@
 			        </repeat>
 			        
 					<field id="recordStatus">
-						<selector>.csc-object-identification-object-record-status</selector>
+						<selector>.csc-object-identification-record-status</selector>
 						<options>
 							<option id="approved">Approved</option>
 							<option id="in-process">In process</option>
@@ -1843,7 +1843,7 @@
 				<field id="specialConditionsOfLoan">
 					<selector>.csc-loanOut-loanOutConditions</selector>
 				</field>
-				<field id="borrower" autocomplete="person-person,organization-organization" xxx_ui_refactored="true">
+				<field id="borrower" autocomplete="person-person,organization-organization" mini="summary,list" xxx_ui_refactored="true">
 					<selector>.csc-loanOut-borrower</selector>
 				</field>
 				<field id="loanOutNote">
