@@ -36,36 +36,38 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	@Before public void checkServicesRunning() throws ConnectionException, BootstrapConfigLoadFailedException {
 		setup();
 	}
-			
-	@Test public void testObjectsPut() throws Exception {
-		deleteAll();
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		String path=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
-		JSONObject js=ss.retrieveJSON("collection-object/"+path);
-		assertEquals(js.get("title"),getJSON("obj3.json").get("title"));
+	
+
+	//XXX add more tests for other record types
+	@Test public void testGetPostDelete() throws Exception {
+		getPostDelete("collection-object/","obj3.json","obj4.json","title");
+		
 	}
 	
-	@Test public void testObjectsPost() throws Exception {
-		deleteAll();
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		String path=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
-		ss.updateJSON("collection-object/"+path,getJSON("obj4.json"));
-		JSONObject js=ss.retrieveJSON("collection-object/"+path);
-		assertEquals(js.get("title"),getJSON("obj4.json").get("title"));
+	private void getPostDelete(String objtype,String jsoncreate,String jsonupdate,String testfield) throws Exception {
+		getPostDelete(objtype,getJSON(jsoncreate),getJSON(jsonupdate),testfield);		
 	}
-
-	@Test public void testObjectsDelete() throws Exception {
-		deleteAll();
+	
+	private void getPostDelete(String objtype,JSONObject jsoncreate,JSONObject jsonupdate,String testfield) throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		String path=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
-		JSONObject js=ss.retrieveJSON("collection-object/"+path);
-		assertEquals(js.get("title"),getJSON("obj3.json").get("title"));
-		ss.deleteJSON("collection-object/"+path);
+		//create
+		String path=ss.autocreateJSON(objtype,jsoncreate);
+		//GET and test
+		JSONObject jsc=ss.retrieveJSON(objtype+path);
+		assertEquals(jsc.get(testfield),jsoncreate.get(testfield));
+		//UPDATE & Test
+		ss.updateJSON(objtype+path,jsonupdate);
+		JSONObject js=ss.retrieveJSON(objtype+path);
+		assertEquals(js.get(testfield),jsonupdate.get(testfield));
+		//DELETE & Test
+		ss.deleteJSON(objtype+path);
 		try {
-			ss.retrieveJSON("collection-object/"+path);
+			ss.retrieveJSON(objtype+path);
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(ExistException e) {}
+		
 	}
+	
 	
 	// XXX factor out
 	private static void assertArrayContainsString(String[] a,String b) {
@@ -168,38 +170,36 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 			out.put("group",pname);
 		return out;
 	}
-	
 	@Test public void testAuthorityRefs() throws Exception {
 		// Create a record with references
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		JSONObject person=makePerson(null);
 		String p=ss.autocreateJSON("person/person",person);
-		log.info("p="+p);
 		JSONObject po=ss.retrieveJSON("person/person/"+p);
-		log.info("po="+po);
 		String pname=po.getString("refid");
 		//
 		JSONObject person2=makePerson(pname);
 		String p2=ss.autocreateJSON("person/person",person2);
-		log.info("p2="+p2);
 		//
 		JSONObject data=getJSON("int4.json");
 		data.remove("valuer");
 		data.put("valuer",pname);
 		String p1=ss.autocreateJSON("intake/",data);
-		log.info("p1="+p1);
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs");
-		log.info("mini="+mini);
 		JSONObject member=mini.getJSONObject("intakes_common:valuer");		
 		assertNotNull(member);
 		assertEquals("Dic Penderyn",member.getString("displayName"));
-		
-
 		ss.deleteJSON("person/person/"+p);
 		try {
 			ss.retrieveJSON("person/person/"+p);
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(ExistException e) {}
+
+		ss.deleteJSON("intake/"+p1);
+		try {
+			ss.retrieveJSON("intake/"+p1);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {}	
 		
 		ss.deleteJSON("person/person/"+p2);
 		try {
@@ -209,4 +209,6 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		// XXX retrieve by authority
 		// XXX also authorities
 	}
+	
+
 }
