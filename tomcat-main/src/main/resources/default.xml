@@ -467,7 +467,7 @@
 					<field id="inscriptionContent">
 						<selector>.csc-object-description-inscription-content</selector>
 					</field>
-					<field id="inscriber" autocomplete="all-all"> 
+					<field id="inscriber" autocomplete="person-person,organization-organization"> 
 						<selector>.csc-object-description-inscription-content-inscriber</selector>
 					</field>
 					<field id="inscriptionLanguage">
