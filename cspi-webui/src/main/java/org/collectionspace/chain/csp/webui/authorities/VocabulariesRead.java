@@ -92,9 +92,9 @@ public class VocabulariesRead implements WebMethod {
 				JSONObject in=mini.getJSONObject(field);
 				JSONObject entry=new JSONObject();
 				entry.put("csid",in.getString("csid"));
-				entry.put("recordtype",in.getString("recordtype"));
+				entry.put("recordtype",in.getString("sourceFieldType"));
 				entry.put("sourceFieldName",field);
-				entry.put("number",in.getString("displayName"));
+				entry.put("number",in.getString("sourceFieldName"));
 				out.put(entry);
 			}
 		}
