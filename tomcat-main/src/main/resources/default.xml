@@ -1167,7 +1167,7 @@
 			  <field id="acquisitionFundingValue">
 			    <selector>.csc-acquisition-acquisition-funding-value</selector>
 			  </field>
-			  <field id="acquisitionFundingSource" autocomplete="person-person">
+			  <field id="acquisitionFundingSource" autocomplete="person-person,organization-organization">
 			    <selector>.csc-acquisition-acquisition-funding-source</selector>
 			  </field>
 			  <field id="acquisitionFundingSourceProvisos">
@@ -1204,7 +1204,7 @@
 			  </field>
 			  <repeat id="acquisitionSources">
 			  	<selector>.csc-acquisition-acquisition-source-row:</selector>
-			    <field id="acquisitionSource" autocomplete="person-person" mini="summary">
+			    <field id="acquisitionSource" autocomplete="person-person,organization-organization" mini="summary">
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
 			  </repeat>
