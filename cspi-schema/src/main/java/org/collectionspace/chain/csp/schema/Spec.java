@@ -186,6 +186,36 @@ public class Spec implements CSP, Configurable {
 				f.addOption((String)section.getValue("/@id"),(String)section.getValue(""),(String)section.getValue("/@sample"),dfault);
 				return f;
 			}
+		});
+		
+		/* RECORD/subrecords/subrecord -> SUBRECORD */
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"subrecords","subrecord"},SECTION_PREFIX+"subrecord",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Subrecord s=new Subrecord((Record)parent,section);
+				((Record)parent).addSubrecord(s);
+				return s;
+			}
+		});	
+		
+		/* SUBRECORD/repeat -> REPEAT */
+		rules.addRule(SECTION_PREFIX+"subrecord",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Repeat r=new Repeat((Subrecord)parent,section);
+				((Subrecord)parent).addField(r);
+				return r;
+			}
+		});
+		
+		/* SUBRECORD/services-record-path -> SUBRECORDPATH */
+		rules.addRule(SECTION_PREFIX+"subrecord",new String[]{"services-record-path"},SECTION_PREFIX+"subrecord-path",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Subrecord r=(Subrecord)parent;
+				String id=(String)section.getValue("/@id");
+				if(id==null)
+					id="common";
+				r.setServicesRecordPath(id,(String)section.getValue(""));
+				return r;
+			}
 		});		
 	}
 

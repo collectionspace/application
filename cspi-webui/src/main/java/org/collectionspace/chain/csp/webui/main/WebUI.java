@@ -36,6 +36,10 @@ import org.collectionspace.chain.csp.webui.userdetails.UserDetailsDelete;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsRead;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsReset;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsSearchList;
+import org.collectionspace.chain.csp.webui.userroles.UserRolesCreate;
+import org.collectionspace.chain.csp.webui.userroles.UserRolesDelete;
+import org.collectionspace.chain.csp.webui.userroles.UserRolesRead;
+import org.collectionspace.chain.csp.webui.userroles.UserRolesSearchList;
 import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
 import org.collectionspace.chain.csp.webui.record.RecordDelete;
 import org.collectionspace.chain.csp.webui.record.RecordRead;
@@ -179,6 +183,13 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new UserDetailsDelete(r.getID()));
 				addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new UserDetailsCreateUpdate(r,true));
 				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new UserDetailsCreateUpdate(r,false));
+				
+				//Lists for accountroles haven't been implemented in the service layer
+				//addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},2,new UserRolesSearchList(r,true));
+				//addMethod(Operation.READ,new String[]{r.getWebURL()},2,new UserRolesSearchList(r,false));
+				addMethod(Operation.READ,new String[]{r.getWebURL()},3,new UserRolesRead(r));
+				addMethod(Operation.CREATE,new String[]{r.getWebURL()},2,new UserRolesCreate(r));
+				addMethod(Operation.DELETE,new String[]{r.getWebURL()},3,new UserRolesDelete(r.getID()));
 			}
 			else if(r.isType("id")){
 				// XXX this isn't right but it does work. NEEDS to have it's own methods rather than piggy backing on RECORD

@@ -18,6 +18,7 @@ public class Record implements FieldParent {
 	private static final Logger log=LoggerFactory.getLogger(Record.class);
 	private String id;
 	private Map<String,Structure> structure=new HashMap<String,Structure>();
+	private Map<String,Subrecord> subrecord=new HashMap<String,Subrecord>();
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
 	private Map<String,FieldSet> repeatfields=new HashMap<String,FieldSet>();
 	
@@ -37,7 +38,7 @@ public class Record implements FieldParent {
 	/* Service stuff */
 	private String services_url,services_list_path,in_tag,urn_syntax,authority_vocab_type,services_instances_path,services_single_instance_path;
 	private Map<String,String> services_record_paths=new HashMap<String,String>();
-	private Map<String,Field> services_filter_param=new HashMap<String,Field>();	
+	private Map<String,Field> services_filter_param=new HashMap<String,Field>();
 	
 	// XXX utility methods
 	Record(Spec parent,ReadOnlySection section) {
@@ -122,6 +123,7 @@ public class Record implements FieldParent {
 	 */
 	public FieldSet getRepeatField(String id) { return repeatfields.get(id); }
 	public Structure getStructure(String id) { return structure.get(id); }
+	public Subrecord getSubRecord(String id){ return subrecord.get(id); }
 	public String getTermsUsedURL() { return terms_used_url; }
 	public String getNumberSelector() { return number_selector; }
 	public String getRowSelector() { return row_selector; }
@@ -167,6 +169,9 @@ public class Record implements FieldParent {
 	}
 	public void addStructure(Structure s) {
 		structure.put(s.getID(),s);
+	}
+	public void addSubrecord(Subrecord s) {
+		subrecord.put(s.getID(),s);
 	}
 	
 	public void addInstance(Instance n) {

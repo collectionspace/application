@@ -67,16 +67,23 @@ public class TestGeneral {
 	private final static String acquisitionCreate = "{\"acquisitionReason\":\"acquisitionReason\",\"acquisitionReferenceNumber\":\"acquisitionReferenceNumber\",\"acquisitionMethod\":\"acquisitionMethod\",\"acquisitionSources\":[{\"acquisitionSource\": \"11111\"},{\"acquisitionSource\": \"22222\"}]}";
 	private final static String roleCreate = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_1_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
 
-	private final static String permissionDelete = "{ \"resourceName\": \"delete_resourceName_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]}, {\"action\": [{ \"name\": \"DELETE\" }]} ], \"effect\": \"PERMIT\" }";
-	private final static String permissionRead = "{ \"resourceName\": \"read_resourceName_"+d.toString()+ "\", \"actions\": [ {\"action\": [{ \"name\": \"READ\" }]} ], \"effect\": \"PERMIT\" }";
-	private final static String permissionWrite = "{ \"resourceName\": \"write_resourceName_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]} ], \"effect\": \"PERMIT\" }";
-	private final static String permissionNone = "{ \"resourceName\": \"none_resourceName_"+d.toString()+"\", \"actions\": [], \"effect\": \"PERMIT\" }";
-	private final static String permission2Write = "{ \"resourceName\": \"write_resourceName2_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]} ], \"effect\": \"PERMIT\" }";
-	private final static String permission2None = "{ \"resourceName\": \"none_resourceName2_"+d.toString()+"\", \"actions\": [], \"effect\": \"PERMIT\" }";
+	/*private final static String permissionDelete = "{ \"resourceName\": \"resourceName_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]}, {\"action\": [{ \"name\": \"DELETE\" }]} ], \"effect\": \"PERMIT\" }";
+	private final static String permissionRead = "{ \"resourceName\": \"resourceName_"+d.toString()+ "\", \"actions\": [ {\"action\": [{ \"name\": \"READ\" }]} ], \"effect\": \"PERMIT\" }";
+	private final static String permissionWrite = "{ \"resourceName\": \"resourceName_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]} ], \"effect\": \"PERMIT\" }";
+	private final static String permissionNone = "{ \"resourceName\": \"resourceName_"+d.toString()+"\", \"actions\": [], \"effect\": \"PERMIT\" }";
+	private final static String permission2Write = "{ \"resourceName\": \"resourceName2_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]} ], \"effect\": \"PERMIT\" }";
+	private final static String permission2None = "{ \"resourceName\": \"resourceName2_"+d.toString()+"\", \"actions\": [], \"effect\": \"PERMIT\" }";
+	*/
+	private final static String permissionDelete = "{ \"resourceName\": \"intake\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]}, {\"action\": [{ \"name\": \"DELETE\" }]} ], \"effect\": \"PERMIT\" }";
+	private final static String permissionRead = "{ \"resourceName\": \"intake\", \"actions\": [ {\"action\": [{ \"name\": \"READ\" }]} ], \"effect\": \"PERMIT\" }";
+	private final static String permissionWrite = "{ \"resourceName\": \"intake\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]} ], \"effect\": \"PERMIT\" }";
+	private final static String permissionNone = "{ \"resourceName\": \"intake\", \"actions\": [], \"effect\": \"PERMIT\" }";
+	private final static String permission2Write = "{ \"resourceName\": \"loanin\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]} ], \"effect\": \"PERMIT\" }";
+	private final static String permission2None = "{ \"resourceName\": \"loanin\", \"actions\": [], \"effect\": \"PERMIT\" }";
 	
 	private final static String permroleCreate = "{ \"permissions\": [ {\"recordType\": \"Object Cataloging\", \"permission\": \"write\"}, {\"recordType\": \"Intake\", \"permission\": \"write\"}, {\"recordType\": \"Acquisition\", \"permission\": \"write\"}, {\"recordType\": \"Loan In\", \"permission\": \"read\"}, {\"recordType\": \"Loan out\", \"permission\": \"read\"}] }";
 
-	private final static String accountroleCreate = "{ \"account\": { \"userid\": \"\", \"screenname\": \"\", \"accountid\": \"\" }, \"roles\": [{ \"role\": { \"rolename\": \"\", \"roleid\": \"\" }}] }";
+	private final static String accountroleCreate = "{ \"account\": [{ \"userId\": \"\", \"screenName\": \"\", \"accountId\": \"\" }], \"roles\": [{ \"role\": [{ \"roleName\": \"\", \"roleId\": \"\" }]}] }";
 
 	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
 	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
@@ -363,11 +370,10 @@ public class TestGeneral {
 		testPostGetDelete(jetty, "/loanout/", loanoutCreate, "loanOutNote");
 		testPostGetDelete(jetty, "/loanin/", loaninCreate, "loanInNote");
 		testPostGetDelete(jetty, "/acquisition/", acquisitionCreate, "acquisitionReason");
-		//testPostGetDelete(jetty, "/role/", roleCreate, "description");
-		//testPostGetDelete(jetty, "/permission/", permissionRead, "resourceName");
+		testPostGetDelete(jetty, "/role/", roleCreate, "description");
+		testPostGetDelete(jetty, "/permission/", permissionRead, "resourceName");
 		//testPostGetDelete(jetty, "/permrole/", permroleCreate, "");
 	}
-	
 
 	@Test public void testServeStatic() throws Exception {
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/chain.properties",null);
@@ -383,8 +389,8 @@ public class TestGeneral {
 		testLists(jetty, "loanin", loaninCreate, "items");
 		testLists(jetty, "loanout", loanoutCreate, "items");
 		testLists(jetty, "acquisition", acquisitionCreate, "items");
-		//testLists(jetty, "role", roleCreate, "items");
-		//testLists(jetty, "permission", permissionWrite, "items");
+		testLists(jetty, "role", roleCreate, "items");
+		testLists(jetty, "permission", permissionWrite, "items");
 	}
 	/* XXX I don't think this is tetsing what it needs to */
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
@@ -581,17 +587,19 @@ public class TestGeneral {
 		String id=out.getHeader("Location");	
 		//Retrieve
 		out=jettyDo(jetty,"GET","/chain"+id,null);
-		//log.info("MYCONTENT"+out.getContent());
-		//if(id.contains(""))
+
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(data);
 		assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
+
 		//change
-		two.put(testfield, "newvalue");
-		out=jettyDo(jetty,"PUT","/chain"+id,makeRequest(two).toString());
-		assertEquals(200,out.getStatus());	
-		JSONObject oneA = new JSONObject(getFields(out.getContent()));
-		assertEquals(oneA.get(testfield).toString(),"newvalue");
+		if(!uipath.contains("permission")){
+			two.put(testfield, "newvalue");
+			out=jettyDo(jetty,"PUT","/chain"+id,makeRequest(two).toString());
+			assertEquals(200,out.getStatus());	
+			JSONObject oneA = new JSONObject(getFields(out.getContent()));
+			assertEquals(oneA.get(testfield).toString(),"newvalue");
+		}
 
 		//Delete
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
@@ -603,6 +611,7 @@ public class TestGeneral {
 	private void testLists(ServletTester jetty, String objtype, String data, String itemmarker)  throws Exception{
 
 		HttpTester out1=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));
+		assertEquals(201, out1.getStatus());
 
 		File storedir=new File(store.getStoreRoot(),"store");
 		if(!storedir.exists())
@@ -612,27 +621,46 @@ public class TestGeneral {
 
 		/* get all objects */
 		//pagination?
-		HttpTester out=jettyDo(jetty,"GET","/chain/"+objtype,null);
-		assertEquals(200,out.getStatus());
 		
-		/* create list of files */
+		
 
-		JSONObject result=new JSONObject(out.getContent());
-		JSONArray items=result.getJSONArray("items");
-		Set<String> files=new HashSet<String>();
-		for(int i=0;i<items.length();i++){
-			files.add("/"+objtype+"/"+items.getJSONObject(i).getString("csid"));
-		}
+		
+		HttpTester out;
+		int pgSz = 100;
+		int pgNum = 0;
+		boolean exists = false;
+		boolean end = false;
+		do{
+			out=jettyDo(jetty,"GET","/chain/"+objtype+"/search?pageNum="+pgNum+"&pageSize="+pgSz,null);
+			assertEquals(200,out.getStatus());
+			
+			/* create list of files */
 
+			JSONObject result=new JSONObject(out.getContent());
+			JSONArray items=result.getJSONArray("items");
+			Set<String> files=new HashSet<String>();
+			if(items.length() > 0){
+				for(int i=0;i<items.length();i++){
+					files.add("/"+objtype+"/"+items.getJSONObject(i).getString("csid"));
+				}
+			}else{
+				end = true;
+			}
+
+			exists = files.contains(out1.getHeader("Location"));
+			pgNum++;
+		}while(!end && !exists);
+		
+		assertTrue(exists);
+		
+		
 		/* clean up */
 		out=jettyDo(jetty,"DELETE","/chain"+out1.getHeader("Location"),null);
 		assertEquals(200,out.getStatus());
-
-		assertTrue(files.contains(out1.getHeader("Location")));
 	}
 	
 	// multiple permissions
-	//@Test 
+	@Test 
 	public void testPermissionGrouping() throws Exception {
 		ServletTester jetty = setupJetty();
 		HttpTester out;
@@ -647,7 +675,7 @@ public class TestGeneral {
 			out = jettyDo(jetty,"POST","/chain"+uipath,makeSimpleRequest(s));
 			assertEquals(out.getMethod(),null);
 			assertEquals(201,out.getStatus());	
-			String id=out.getHeader("Location");	
+			String id=out.getHeader("Location");
 			//Retrieve
 			out=jettyDo(jetty,"GET","/chain"+id,null);
 			JSONObject one = new JSONObject(getFields(out.getContent()));
@@ -661,11 +689,14 @@ public class TestGeneral {
 		
 		//get a list of the permissions
 		//pagination?
-		out=jettyDo(jetty,"GET","/chain/permission/search?query="+URLEncoder.encode(d.toString(),"UTF-8"),null);
+		//out=jettyDo(jetty,"GET","/chain/permission/search?query="+URLEncoder.encode(d.toString(),"UTF-8"),null);
+		out=jettyDo(jetty,"GET","/chain/permission",null);
 		assertEquals(200,out.getStatus());
 		JSONObject json = new JSONObject(out.getContent());
 		assertTrue(json.has("groupedPermissions"));
-
+		log.info("GET");
+		log.info(out.getContent());
+		
 		for(String id : ids){
 			//Delete
 			out=jettyDo(jetty,"DELETE","/chain"+id,null);
@@ -675,7 +706,6 @@ public class TestGeneral {
 	}
 
 
-	/*
 	@Test public void testUserRoles() throws Exception{
 		ServletTester jetty = setupJetty();
 		
@@ -695,14 +725,43 @@ public class TestGeneral {
 		
 		//Assign the roles to the user
 		JSONObject json = new JSONObject(accountroleCreate);
-		json.getJSONObject("account").put("userid", getFields(user).getString("userId"));
-		json.getJSONObject("account").put("screenname", getFields(user).getString("screenName"));
-		json.getJSONObject("account").put("accountid", user.getString("csid"));
-		json.getJSONObject("roles").getJSONObject("role").put("rolename", getFields(role).getString("roleName"));
-		json.getJSONObject("roles").getJSONObject("role").put("roleid", role.getString("csid"));
+		JSONArray account = json.getJSONArray("account");
+		for(int i=0,il=account.length();i<il;i++){
+			JSONObject accountitem = account.getJSONObject(i);
+			accountitem.put("userId", getFields(user).getString("userId"));
+			accountitem.put("screenName", getFields(user).getString("screenName"));
+			accountitem.put("accountId", user.getString("csid"));
+		}
 		
-		log.info("MYJSON"+json);
-		//out = jettyDo(jetty, "POST", "/chain/accountrole",makeSimpleRequest());
+		JSONArray roleslist = json.getJSONArray("roles");
+		for(int i=0,il=roleslist.length();i<il;i++){
+			JSONObject rolesitem = roleslist.getJSONObject(i);
+			JSONArray rolesitemlist = rolesitem.getJSONArray("role");
+			for(int j=0,jl=rolesitemlist.length();j<jl;j++){
+				JSONObject roleitem = rolesitemlist.getJSONObject(i);
+				roleitem.put("roleName", getFields(role).getString("roleName"));
+				roleitem.put("roleId", role.getString("csid"));
+			}
+		}
+		
+		//create an account_role
+		out = jettyDo(jetty, "POST", "/chain"+ user_id +"/userrole",makeRequest(json).toString());
+		log.info("MYRESPONSE"+out.getContent());
+		assertEquals(201, out.getStatus());
+		String acrole_id = out.getHeader("Location");
+		
+		//Get the account_role
+		out=jettyDo(jetty,"GET","/chain"+ user_id + acrole_id,null);
+		assertEquals(200, out.getStatus());
+		JSONObject one = new JSONObject(getFields(out.getContent()));
+		log.info("GET");
+		log.info(out.getContent());
+		assertEquals(one.get("account").toString(),json.get("account").toString());
+		assertEquals(one.get("roles").toString(),json.get("roles").toString());
+		
+		//Delete the account_role
+		out=jettyDo(jetty,"DELETE","/chain"+user_id+"/"+acrole_id,null);
+		assertEquals(200,out.getStatus());
 		
 		//Delete the roles
 		out=jettyDo(jetty,"DELETE","/chain"+user_id,null);
@@ -711,7 +770,7 @@ public class TestGeneral {
 		//Delete the user
 		out=jettyDo(jetty,"DELETE","/chain"+role_id,null);
 		assertEquals(200,out.getStatus());
-	}*/
+	}
 	
 	/*
 	@Test public void testPermRolePost() throws Exception {

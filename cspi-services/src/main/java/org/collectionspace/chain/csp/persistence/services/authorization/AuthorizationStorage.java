@@ -131,8 +131,6 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
-				if(r.getID().equals("permission"))
-					doc = removeSurroundingNode(doc);
 				parts.put(record_path[0],doc);
 			}
 			ReturnedURL url;
@@ -149,19 +147,6 @@ public class AuthorizationStorage implements ContextualisedStorage {
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private Document removeSurroundingNode(Document doc){
-		List<Node> nodes = doc.selectNodes("//action");
-		Node root = doc.selectSingleNode("//actions");
-		root.getParent().remove(root);
-		
-		for(Node action : nodes){
-			action.detach();
-			doc.getRootElement().add(action);
-		}
-		return doc;
 	}
 	
 	public void createJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject jsonObject) 
@@ -414,24 +399,41 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				}
 			}
 		}
+		//if it's a permission we also need to return the action
+		if(r.getID().equals("permission")){
+			JSONObject data=simpleRetrieveJSON(creds,cache,filePath);
+			int total = 0;
+			if(data.getJSONArray("actions").length() > 0){
+				JSONArray actions = data.getJSONArray("actions");
+				for(int i=0,il=actions.length();i<il;i++){
+					//all these lines are needed to get the name of the action out of the complex structure
+					JSONObject action = actions.getJSONObject(i);
+					if(action.has("action")){
+						JSONArray act = action.getJSONArray("action");
+						for(int j=0,jl=act.length();j<jl;j++){
+							JSONObject a = act.getJSONObject(j);
+							//we mapped the different actions to a binary number so that every combination has its unique number (expandable and dummy proof)
+							String name = a.getString("name");
+							if(name.equals("READ"))
+								total += 1;
+							else if(name.equals("CREATE"))
+								total += 2;
+							else if(name.equals("UPDATE"))
+								total += 4;
+							else if(name.equals("DELETE"))
+								total += 8;
+						}
+					}
+				}
+			}
+			out.put("action", total);
+		}
 		if(summarylist.length()>0){
 			out.put("summarylist", summarylist);
 		}
 		return out;
 	}
-	
-	@SuppressWarnings("unchecked")
-	private Document addSurroundingNode(Document doc){
-		List<Node> nodes = doc.selectNodes("//action");
-		Element actions = doc.getRootElement().addElement("actions");
-		
-		for(Node action : nodes){
-			action.detach();
-			actions.add(action);
-		}
-		return doc;
-	}
-	
+
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
@@ -452,8 +454,6 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				for(String section : r.getServicesRecordPaths()) {
 					String path=r.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
-					//surround the action nodes with an 'actions' node
-					addSurroundingNode(doc.getDocument());
 					convertToJson(out,doc.getDocument());
 				}
 			}
@@ -483,6 +483,8 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				status = docm.getStatus();
 			}
 			else{ 
+				log.info("UPDATEXML");
+				log.info(doc.asXML());
 				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, r.getServicesURL()+"/"+filePath, doc, creds, cache);
 				status = docm.getStatus();
 			}
