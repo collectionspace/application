@@ -948,17 +948,18 @@
 			    	<field id="lender" autocomplete="person-person,organization-organization" mini="summary"  xxx_ui_refactored="true" >
 			      		<selector>.csc-loanIn-lender</selector>
 			    	</field>
-			  
-                	<field id="lendersAuthorizer" autocomplete="person-person" xxx_ui_refactored="true">
-						<selector>.csc-loanIn-lendersAuthorizer</selector>
-					</field>
-    	            <field id="lendersAuthorizerDate" ui-type="date">
-						<selector>.csc-loanIn-lendersAuthorizerDate</selector>
-					</field>
-					<field id="lendersContact" autocomplete="person-person" xxx_ui_refactored="true">
-						<selector>.csc-loanIn-lendersContact</selector>
-					</field>
 			  	</repeat>
+			  
+                <field id="lendersAuthorizer" autocomplete="person-person" xxx_ui_refactored="true">
+					<selector>.csc-loanIn-lendersAuthorizer</selector>
+				</field>
+    	        <field id="lendersAuthorizationDate" ui-type="date">
+					<selector>.csc-loanIn-lendersAuthorizerDate</selector>
+				</field>
+				<field id="lendersContact" autocomplete="person-person" xxx_ui_refactored="true">
+					<selector>.csc-loanIn-lendersContact</selector>
+				</field>
+				
                 <field id="loanInContact" autocomplete="person-person">
 					<selector>.csc-loanIn-loanInContact</selector>
 				</field>
