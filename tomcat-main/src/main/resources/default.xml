@@ -138,6 +138,27 @@
 						  <option id="unknown">Unknown</option>
 						</options>
 					</field>	
+					<!--
+					<repeat id="otherNumberList">
+			  		<selector>.csc-object-identification-other-number-row:</selector>
+						<repeat id="otherNumber">
+			  		<selector>.csc-object-identification-other-number-row:</selector>
+							<field id="numberValue" in-tab="yes">
+								<selector>.csc-object-identification-other-number</selector>
+							</field>
+							<field id="numberType" in-tab="yes">
+								<selector>.csc-object-identification-other-number-type</selector>
+								<options>
+						  			<option id="lender">Lender</option>
+						  			<option id="obsolete">Obsolete</option>
+						  			<option id="previous">Previous</option>
+						  			<option id="serial">Serial</option>
+						  			<option id="unknown">Unknown</option>
+								</options>
+							</field>
+						</repeat>
+					</repeat>
+-->
 					<field id="briefDescription" in-tab="yes">
 						<selector>.csc-object-identification-brief-description</selector>
 					</field>
@@ -750,7 +771,7 @@
 					    <selector>.csc-object-viewers-contribution-note</selector>
 					 </field>
 			         <field id="catalogNumber" >
-					    <selector>.csc-object-reference-catalogue-number</selector>
+					    <selector>.csc-object-reference-catalog-number</selector>
 					 </field> 
 					 
 					 <field id="objectHistoryNote">
@@ -813,8 +834,46 @@
 					    <selector>.csc-date-information-date-association</selector>
 					 </field> 
 					 
-					 <!--
 					 
+					 <field id="material">
+						<selector>.csc-object-description-material</selector>
+					</field>
+					 <field id="objectProductionDate" ui-type="date" >
+					    <selector>.csc-object-production-date</selector>
+					 </field> 
+					 <field id="technique" >
+					    <selector>.csc-object-production-technique</selector>
+					 </field> 
+					 <field id="associatedConcept" >
+					    <selector>.csc-object-history-association-concept</selector>
+					 </field> 
+					 <field id="associatedCulturalAffinity" >
+					    <selector>.csc-object-history-association-cultural-affinity</selector>
+					 </field> 
+					 <field id="associatedDate" ui-type="date" >
+					    <selector>.csc-object-history-association-date</selector>
+					 </field> 
+					 <field id="associatedEventName" >
+					    <selector>.csc-object-history-association-event</selector>
+					 </field> 
+					 <field id="associatedEventNameType" >
+					    <selector>.csc-object-history-association-event-name</selector>
+					 </field> 
+					 <field id="ownershipDates" ui-type="date" >
+					    <selector>.csc-object-history-association-dates</selector>
+					 </field> 
+					 
+					 <field id="reference">
+						<selector>.csc-reference-reference</selector>
+					</field>
+					 <field id="fieldCollectionEventName" >
+					    <selector>.csc-object-collection-field-collection-event-name</selector>
+					 </field> 
+					 <!--
+					
+					 <field id="reference">
+						<selector>.csc-reference-reference</selector>
+					</field>
 			        <field id="collection">
 					    <selector>.csc-object-identification-collection</selector>
 						<options>
@@ -825,26 +884,10 @@
 						</options>
 			         </field>
 			         
-					 <field id="material">
-						<selector>.csc-object-description-material</selector>
-					</field>
 					<field id="contentMethod">
 						<selector>.csc-object-description-content-method</selector>
 					</field>
-					 in service layer xsd but not here yet....
- 				<xs:element name="otherNumberList" type="ns:otherNumberList" />
-				<xs:element name="material" type="xs:string" />
-
-                <xs:element name="objectProductionDate" type="xs:string" />
-                <xs:element name="technique" type="xs:string" />
-                <xs:element name="associatedConcept" type="xs:string" />
-                <xs:element name="associatedCulturalAffinity" type="xs:string" />
-                <xs:element name="associatedDate" type="xs:string" />
-                <xs:element name="associatedEventName" type="xs:string" />
-                <xs:element name="associatedEventNameType" type="xs:string" />
-                <xs:element name="ownershipDates" type="xs:string" />
-                <xs:element name="reference" type="xs:string" />
-                <xs:element name="fieldCollectionEventName" type="xs:string" />
+				
 					-->
 					
 					
