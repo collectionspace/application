@@ -1057,6 +1057,15 @@
 			  <field id="fieldCollectionEventName">
 			    <selector>.csc-intake-field-collection-event-name</selector>
 			  </field>
+			  <field id="fieldCollectionNumber">
+			    <selector>.csc-intake-field-collection-number</selector>
+			  </field>
+			  <field id="fieldCollectionDate" ui-type="date">
+			    <selector>.csc-intake-field-collection-date</selector>
+			  </field>
+			  <field id="fieldCollector">
+			    <selector>.csc-intake-field-collector</selector>
+			  </field>
 			  <field id="valuationReferenceNumber">
 			    <selector>.csc-intake-valuation-reference-number</selector>
 			  </field>
