@@ -868,7 +868,7 @@
 					</field>
 					 <field id="fieldCollectionEventName" >
 					    <selector>.csc-object-collection-field-collection-event-name</selector>
-					 </field> 
+					 </field>
 					 <!--
 					
 					 <field id="reference">
@@ -1357,6 +1357,9 @@
 			  <field id="middleName">
 			    <selector>.csc-personAuthority-middleName</selector>
 			  </field>
+			  <field id="foreName">
+                <selector>.csc-personAuthority-foreName</selector>
+              </field>
 			  <field id="surName">
 			    <selector>.csc-personAuthority-surName</selector>
 			  </field>
@@ -1591,7 +1594,7 @@
                     </structure>
                 </structures>
                 <terms-used>false</terms-used>
-                <repeat id="actions">
+                <repeat id="actions" xxx-services-no-repeat="true">
                     <selector>.csc-permission-action-row:</selector>
                     <repeat id="action">
                         <selector>.csc-permission-action-row:</selector>
@@ -1668,42 +1671,9 @@
 					</field>
 				</repeat>
 			</record>
-
-            <record id="accountrole" type="authorizationdata">
-                <web-url>accountrole</web-url>
-                <services-url>/authorization/accounts/{csid}/accountroles</services-url>
-                <services-record-path>account_role:http://collectionspace.org/services/account_role,accountroles_common</services-record-path>   
-                <services-list-path>accountroles-common-list/accountrole-list-item</services-list-path>
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                        </view>
-                    </structure>
-                </structures>
-                <repeat id="account" asSibling="true">
-                    <selector>.csc-accountrole-account-row:</selector>
-                    <field id="accountid">
-                        <selector>.csc-accountrole-account-accountid</selector>
-                    </field>
-                    <field id="screenname">
-                        <selector>.csc-accountrole-account-screenname</selector>
-                    </field>
-                    <field id="userid">
-                        <selector>.csc-accountrole-account-userid</selector>
-                    </field>
-                </repeat>
-                <repeat id="role" asSibling="true">
-                    <selector>.csc-accountrole-role-row:</selector>
-                    <field id="roleid">
-                        <selector>.csc-accountrole-role-roleid</selector>
-                    </field>
-                    <field id="rolename">
-                        <selector>.csc-accountrole-account-rolename</selector>
-                    </field>
-                </repeat>
-            </record>
+			
+			
+			
 
             <!--
             <record id="accountrole">
@@ -1757,6 +1727,47 @@
 					</repeat>
 			  	</structure>
 			  </structures>
+			  
+			  <subrecords>
+			     <subrecord id="userrole">
+	                <web-url>userrole</web-url>
+	                <services-url>accountroles</services-url>
+	                <services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>   
+	                <services-list-path>accountroles-common-list/accountrole-list-item</services-list-path>
+	                <structures>
+	                    <structure id="screen">
+	                        <view>
+	                            <titlebar show="false"></titlebar>
+	                            <sidebar show="false"></sidebar>
+	                        </view>
+	                    </structure>
+	                </structures>
+	                <repeat id="account" asSibling="true">
+	                    <selector>.csc-accountrole-account-row:</selector>
+	                    <field id="accountId">
+	                        <selector>.csc-accountrole-account-accountid</selector>
+	                    </field>
+	                    <field id="screenName">
+	                        <selector>.csc-accountrole-account-screenname</selector>
+	                    </field>
+	                    <field id="userId">
+	                        <selector>.csc-accountrole-account-userid</selector>
+	                    </field>
+	                </repeat>
+	                <repeat id="roles" xxx-services-no-repeat="true">
+	                    <selector>.csc-accountrole-roles-row:</selector>
+		                <repeat id="role" asSibling="true">
+		                    <selector>.csc-accountrole-role-row:</selector>
+		                    <field id="roleId">
+		                        <selector>.csc-accountrole-role-roleid</selector>
+		                    </field>
+		                    <field id="roleName">
+		                        <selector>.csc-accountrole-account-rolename</selector>
+		                    </field>
+		                </repeat>
+		            </repeat>
+			     </subrecord>
+			  </subrecords>
 
 			  <field id="userId">
 			  	<services-filter-param>uid</services-filter-param>
