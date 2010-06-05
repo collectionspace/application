@@ -765,10 +765,10 @@
 					    <selector>.csc-object-viewer-role</selector>
 					 </field>
 					 <field id="viewersPersonalExperience" >
-					    <selector>.csc-object-viewer-personal-experience</selector>
+					    <selector>.csc-object-viewer-experience</selector>
 					 </field>
 					 <field id="viewersPersonalResponse" >
-					    <selector>.csc-object-viewer-personal-response</selector>
+					    <selector>.csc-object-viewer-response</selector>
 					 </field>
 	 				 <field id="viewersReference" >
 					    <selector>.csc-object-viewer-reference</selector>
