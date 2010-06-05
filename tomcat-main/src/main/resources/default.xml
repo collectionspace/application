@@ -869,11 +869,6 @@
 					 <field id="fieldCollectionEventName" >
 					    <selector>.csc-object-collection-field-collection-event-name</selector>
 					 </field>
-					 <!--
-					
-					 <field id="reference">
-						<selector>.csc-reference-reference</selector>
-					</field>
 			        <field id="collection">
 					    <selector>.csc-object-identification-collection</selector>
 						<options>
@@ -883,6 +878,11 @@
 						  <option id="teaching-collection">Teaching collection</option>
 						</options>
 			         </field>
+					 <!--
+					
+					 <field id="reference">
+						<selector>.csc-reference-reference</selector>
+					</field>
 			         
 					<field id="contentMethod">
 						<selector>.csc-object-description-content-method</selector>
