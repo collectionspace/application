@@ -568,7 +568,7 @@
 					<field id="inscriptionDescription">
 						<selector>.csc-object-description-inscription-description</selector>
 					</field>
-					<field id="inscriptionDescriptionInscriber" autocomplete="person-person"> 
+					<field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization"> 
 					 	<selector>.csc-object-description-inscription-description-inscriber</selector>
 					</field>
 					<field id="inscriptionDescriptionPosition">
