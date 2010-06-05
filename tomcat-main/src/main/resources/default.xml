@@ -777,7 +777,7 @@
 					    <selector>.csc-object-viewer-contribution-note</selector>
 					 </field>
 			         <field id="catalogNumber" >
-					    <selector>.csc-object-reference-catalog-number</selector>
+					    <selector>.csc-reference-catalog-number</selector>
 					 </field> 
 					 
 					 <field id="objectHistoryNote">
@@ -886,9 +886,6 @@
 			         </field>
 					 <!--
 					
-					 <field id="reference">
-						<selector>.csc-reference-reference</selector>
-					</field>
 			        
 					<field id="contentMethod">
 						<selector>.csc-object-description-content-method</selector>
