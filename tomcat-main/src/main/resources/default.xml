@@ -689,11 +689,11 @@
 					 <field id="associationType">
 					    <selector>.csc-object-association-type</selector>
 					 </field>	
-			         <field id="owner" autocomplete="all-all">
-					    <selector>.csc-object-association-owner</selector>
+			         <field id="owner" autocomplete="person-person,organization-organization">
+					    <selector>.csc-object-history-association-owener</selector>
 					 </field>
 					 <field id="ownershipAccess" >
-					    <selector>.csc-object-association-ownership-access</selector>
+					    <selector>.csc-object-history-association-access</selector>
 					    <options>
 			    			<option id="limited">limited</option>
 			    			<option id="open">open</option>
@@ -701,7 +701,7 @@
 			    		</options>	
 					 </field>
 					 <field id="ownershipCategory" >
-					    <selector>.csc-object-association-ownership-category</selector>
+					    <selector>.csc-object-history-association-category</selector>
 					    <options>
 			    			<option id="company">company</option>
 			    			<option id="public">public</option>
@@ -709,7 +709,7 @@
 						</options>	
 					 </field>
  					 <field id="ownershipExchangeMethod" >
-					    <selector>.csc-object-association-ownership-exchange-method</selector>
+					    <selector>.csc-object-history-association-exchange-method</selector>
 					     <options>
 			    			<option id="bequest">bequest</option>
 			    			<option id="exchange">exchange</option>
@@ -720,10 +720,10 @@
 						</options>	
 					 </field>
  					 <field id="ownershipExchangeNote" >
-					    <selector>.csc-object-association-ownership-exchange-note</selector>
+					    <selector>.csc-object-history-association-exchange-note</selector>
 					 </field>
  					 <field id="ownershipExchangePriceDenomination" >
-					    <selector>.csc-object-association-ownership-exchange-price-denomination</selector>
+					    <selector>.csc-object-history-association-denomination</selector>
 					     <options>
 			    			<option id="USD">US Dollar</option>
                             <option id="CAD">Canadian Dollar</option>
@@ -735,7 +735,7 @@
 						</options>
 					 </field>
  					 <field id="ownershipExchangePriceValue" >
-					    <selector>.csc-object-association-ownership-exchange-price-value</selector>
+ 					 	<selector>.csc-object-history-association-exchange-price-value</selector>
 					 </field>
 					 <field id="usage">
 					    <selector>.csc-object-association-usage</selector>
@@ -778,7 +778,7 @@
 					    <selector>.csc-object-association-object-history-note</selector>
 					 </field>
 					 <field id="ownershipPlace" autocomplete="place-place">
-					    <selector>.csc-object-association-ownership-place</selector>
+					    <selector>.csc-object-history-association-owenership-place</selector>
 					 </field>	
 					  <field id="dateText" >
 					    <selector>.csc-date-information-date-text</selector>
