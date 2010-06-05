@@ -654,34 +654,34 @@
 					    <selector>.csc-object-production-technique-type</selector>
 					 </field>		
 					 <field id="associatedActivityNote">
-					    <selector>.csc-object-history-associated-activity-note</selector>
+					    <selector>.csc-object-history-association-activity-note</selector>
 					 </field>		 
 					 <field id="associatedEventOrganization" autocomplete="organization-organization">
-					    <selector>.csc-object-history-associated-event-organization</selector>
+					    <selector>.csc-object-history-association-event-organization</selector>
 					 </field>
 					  <field id="associatedEventPeople" autocomplete="person-person">
-					    <selector>.csc-object-history-associated-event-people</selector>
+					    <selector>.csc-object-history-association-event-people</selector>
 					 </field>
 					  <field id="associatedEventPerson" autocomplete="person-person">
-					    <selector>.csc-object-history-associated-event-person</selector>
+					    <selector>.csc-object-history-association-event-person</selector>
 					 </field>
 					  <field id="associatedEventPlace" autocomplete="place-place">
-					    <selector>.csc-object-history-associated-event-place</selector>
+					    <selector>.csc-object-history-association-event-place</selector>
 					 </field>
 					 <field id="associatedObject">
-					    <selector>.csc-object-history-associated-object</selector>
+					    <selector>.csc-object-history-association-object</selector>
 					 </field>					 
 					  <field id="associatedOrganization" autocomplete="organization-organization">
-					    <selector>.csc-object-history-associated-organization</selector>
+					    <selector>.csc-object-history-association-organization</selector>
 					 </field>
 					  <field id="associatedPeople" autocomplete="person-person">
-					    <selector>.csc-object-history-associated-people</selector>
+					    <selector>.csc-object-history-association-people</selector>
 					 </field>
 					  <field id="associatedPerson" autocomplete="person-person">
-					    <selector>.csc-object-history-associated-person</selector>
+					    <selector>.csc-object-history-association-person</selector>
 					 </field>
 					  <field id="associatedPlace" autocomplete="place-place">
-					    <selector>.csc-object-history-associated-place</selector>
+					    <selector>.csc-object-history-association-place</selector>
 					 </field>
 					 <field id="associationNote">
 					    <selector>.csc-object-history-association-note</selector>
@@ -690,7 +690,7 @@
 					    <selector>csc-object-history-association-type</selector>
 					 </field>	
 			         <field id="owner" autocomplete="person-person,organization-organization">
-					    <selector>.csc-object-history-association-owener</selector>
+					    <selector>.csc-object-history-association-owner</selector>
 					 </field>
 					 <field id="ownershipAccess" >
 					    <selector>.csc-object-history-association-access</selector>
@@ -741,7 +741,7 @@
 					    <selector>.csc-object-history-association-usage</selector>
 					 </field>					 
 			         <field id="usageNote">
-					    <selector>.csc-object-history-association-usage-note</selector>
+					    <selector>.csc-object-history-association-usage-notes</selector>
 					 </field>		
 					 <field id="ownersPersonalExperience" >
 					    <selector>.csc-object-owners-personal-experience</selector>
@@ -775,10 +775,10 @@
 					 </field> 
 					 
 					 <field id="objectHistoryNote">
-					    <selector>.csc-object-association-object-history-note</selector>
+					    <selector>.csc-object-history-association-object-history-note</selector>
 					 </field>
 					 <field id="ownershipPlace" autocomplete="place-place">
-					    <selector>.csc-object-history-association-owenership-place</selector>
+					    <selector>.csc-object-history-association-ownership-place</selector>
 					 </field>	
 					  <field id="dateText" >
 					    <selector>.csc-date-information-date-text</selector>
