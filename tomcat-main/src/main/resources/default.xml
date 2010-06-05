@@ -750,31 +750,31 @@
 					    <selector>.csc-object-history-association-usage-notes</selector>
 					 </field>		
 					 <field id="ownersPersonalExperience" >
-					    <selector>.csc-object-owners-personal-experience</selector>
+					    <selector>.csc-object-owner-experience</selector>
 					 </field>
 					 <field id="ownersPersonalResponse" >
-					    <selector>.csc-object-owners-personal-response</selector>
+					    <selector>.csc-object-owner-response</selector>
 					 </field>
 					 <field id="ownersReference" >
-					    <selector>.csc-object-owners-reference</selector>
+					    <selector>.csc-object-owner-reference</selector>
 					 </field>
 	 				 <field id="ownersContributionNote" >
-					    <selector>.csc-object-owners-contribution-note</selector>
+					    <selector>.csc-object-owner-contribution-note</selector>
 					 </field>
 					 <field id="viewersRole" >
-					    <selector>.csc-object-viewers-role</selector>
+					    <selector>.csc-object-viewer-role</selector>
 					 </field>
 					 <field id="viewersPersonalExperience" >
-					    <selector>.csc-object-viewers-personal-experience</selector>
+					    <selector>.csc-object-viewer-personal-experience</selector>
 					 </field>
 					 <field id="viewersPersonalResponse" >
-					    <selector>.csc-object-viewers-personal-response</selector>
+					    <selector>.csc-object-viewer-personal-response</selector>
 					 </field>
 	 				 <field id="viewersReference" >
-					    <selector>.csc-object-viewers-reference</selector>
+					    <selector>.csc-object-viewer-reference</selector>
 					 </field>
 	 				 <field id="viewersContributionNote" >
-					    <selector>.csc-object-viewers-contribution-note</selector>
+					    <selector>.csc-object-viewer-contribution-note</selector>
 					 </field>
 			         <field id="catalogNumber" >
 					    <selector>.csc-object-reference-catalog-number</selector>
@@ -889,7 +889,7 @@
 					 <field id="reference">
 						<selector>.csc-reference-reference</selector>
 					</field>
-			         
+			        
 					<field id="contentMethod">
 						<selector>.csc-object-description-content-method</selector>
 					</field>
