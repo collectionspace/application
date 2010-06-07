@@ -121,7 +121,17 @@ public class Field implements FieldSet {
 		}
 		return null;
 	}
-	public boolean hasAutocompleteInstance(){ if(getAllAutocompleteInstances().length> 0){return true;}; return false; }
+	public boolean hasAutocompleteInstance(){ 
+		if(autocomplete_instance_ids.size()>0){
+			for (String autocomplete_instance_id : autocomplete_instance_ids){
+				autocomplete_instance_id = autocomplete_instance_id.trim();
+				if(!autocomplete_instance_id.equals("")){
+					return true;
+				}
+			}
+		}
+		return false; 
+	}
 	
 	public void config_finish(Spec spec) {
 		if(autocomplete_instance_ids.size()>0){

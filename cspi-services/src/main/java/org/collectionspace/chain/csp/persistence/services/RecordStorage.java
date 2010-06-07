@@ -7,6 +7,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,6 +22,7 @@ import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -34,6 +36,7 @@ import org.dom4j.Element;
 
 import org.dom4j.Node;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -54,14 +57,14 @@ public class RecordStorage implements ContextualisedStorage {
 		if(r.getMiniNumber()!=null){
 			view_good.put("number",r.getMiniNumber().getID());
 			view_map.put(r.getMiniNumber().getServicesTag(),r.getMiniNumber().getID());
-			if(r.getMiniNumber().getAutocompleteInstance()!=null)
+			if(r.getMiniNumber().hasAutocompleteInstance())
 				xxx_view_deurn.add(r.getMiniNumber().getID());
 		}
 		// Summary
 		if(r.getMiniSummary() !=null){
 			view_good.put("summary",r.getMiniSummary().getID());
 			view_map.put(r.getMiniSummary().getServicesTag(),r.getMiniSummary().getID());
-			if(r.getMiniSummary().getAutocompleteInstance()!=null)
+			if(r.getMiniSummary().hasAutocompleteInstance())
 				xxx_view_deurn.add(r.getMiniSummary().getID());
 		}
 		//Summary list
@@ -442,6 +445,22 @@ public class RecordStorage implements ContextualisedStorage {
 			JSONObject data=simpleRetrieveJSON(creds,cache,filePath);
 			for(String fieldname : to_get) {
 				String good = view_good.get(fieldname);
+				//doesn't work with repeat objects
+				String value = JSONUtils.checkKey(data, good);
+				if(value != null){
+					String vkey=fieldname;
+					if(xxx_view_deurn.contains(good))
+						value=xxx_deurn(value);
+				
+					if(vkey.startsWith(summarylistname)){
+						String name = vkey.substring(summarylistname.length());
+						summarylist.put(name, value);
+					}
+					else{
+						out.put(vkey,value);
+					}
+				}
+				/*
 				if(data.has(good)) {
 					String vkey=fieldname;
 					String value=data.getString(good);
@@ -456,6 +475,7 @@ public class RecordStorage implements ContextualisedStorage {
 						out.put(vkey,value);
 					}
 				}
+				*/
 			}
 		}
 		if(summarylist.length()>0){

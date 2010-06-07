@@ -40,7 +40,39 @@ public class JSONUtils {
 		good = printMissing("Missing from a",bk,ak) && good;
 		return good;
 	}
-	
+
+	// XXX refactor
+	@SuppressWarnings("unchecked")
+	public static String checkKey(Object a, String test) throws JSONException {
+		if(a==null) {
+			return null;
+		}
+		if((a instanceof Number) || (a instanceof Boolean) || (a instanceof String)) {
+			return null;
+		}
+		if(a instanceof JSONArray) {
+			JSONArray bob = (JSONArray)a;
+			for(int i=0;i<bob.length();i++) {
+				int index = bob.length() + i;
+				return checkKey(bob.get(i), test);
+			}
+		}
+		
+		if(a instanceof JSONObject) {
+			if(((JSONObject) a).has(test)){
+				return ((JSONObject) a).getString(test);
+			}
+
+			Iterator t=((JSONObject)a).keys();
+			while(t.hasNext()) {
+				String key=(String)t.next();
+				String temp = checkKey(((JSONObject)a).get(key),test);
+				if(temp != null){ return temp; }
+			}
+		}
+		
+		return null;
+	}
 	// XXX refactor
 	@SuppressWarnings("unchecked")
 	public static boolean checkJSONEquiv(Object a,Object b) throws JSONException {
