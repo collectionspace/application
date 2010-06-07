@@ -949,7 +949,7 @@
 				
 			  	<repeat id="lenders" asSibling="true">
 			  		<selector>.csc-loanIn-lender-row:</selector>
-			    	<field id="lender" autocomplete="person-person,organization-organization" mini="summary"  xxx_ui_refactored="true" >
+			    	<field id="lender" autocomplete="person-person,organization-organization" mini="summary"  xxx_ui_refactored="true" in-title="yes" >
 			      		<selector>.csc-loanIn-lender</selector>
 			    	</field>
 			  	</repeat>
@@ -1911,7 +1911,7 @@
 				<field id="specialConditionsOfLoan">
 					<selector>.csc-loanOut-loanOutConditions</selector>
 				</field>
-				<field id="borrower" autocomplete="person-person,organization-organization" mini="summary,list" xxx_ui_refactored="true">
+				<field id="borrower" autocomplete="person-person,organization-organization" mini="summary,list" xxx_ui_refactored="true" in-title="yes">
 					<selector>.csc-loanOut-borrower</selector>
 				</field>
 				<field id="loanOutNote">
