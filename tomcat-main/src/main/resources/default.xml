@@ -1065,7 +1065,7 @@
 			    <selector>.csc-intake-field-collection-number</selector>
 			  </field>
 			  <field id="fieldCollectionDate" ui-type="date">
-			    <selector>.csc-intake-field-collection-date</selector>
+			    <selector>.csc-intake-field-location-date</selector>
 			  </field>
 			  <field id="fieldCollector">
 			    <selector>.csc-intake-field-collector</selector>
