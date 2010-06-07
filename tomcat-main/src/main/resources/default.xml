@@ -671,11 +671,9 @@
 					 <field id="associatedObject">
 					    <selector>.csc-object-history-association-object</selector>
 					 </field>
-					 <!--	
 					 <field id="associatedObjectType">
 					    <selector>.csc-object-history-association-object-type</selector>
-					 </field>
-					 -->					 
+					 </field>			 
 					 
 					  <field id="associatedOrganization" autocomplete="organization-organization">
 					    <selector>.csc-object-history-association-organization</selector>
