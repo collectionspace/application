@@ -29,106 +29,41 @@ public class TestVocab extends ServicesBaseClass {
 		setup();
 	}
 	
-	@Test public void testVocab() throws Exception {
+	@Test public void testAuthorities() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		// Create
-		JSONObject data=new JSONObject();
-		data.put("name","TEST");
-		String id=ss.autocreateJSON("/vocab/xxx",data);
-		Matcher m=vocab_urn.matcher(id);
-		assertTrue(m.matches());
-		assertEquals("TEST",m.group(3));
-		// Read
-		JSONObject out=ss.retrieveJSON("/vocab/xxx/"+id);
-		assertEquals("TEST",out.getString("name"));
-		// Update
-		data.remove("name");
-		data.put("name","TEST2");
-		ss.updateJSON("/vocab/xxx/"+id,data);
-		out=ss.retrieveJSON("/vocab/xxx/"+id);
-		assertEquals("TEST2",out.getString("name"));
-		String id3=out.getString("csid");
-		// List
-		data.remove("name");
-		data.put("name","TEST3");
-		String id2=ss.autocreateJSON("/vocab/xxx",data);
-		out=ss.retrieveJSON("/vocab/xxx/"+id2);
-		assertEquals("TEST3",out.getString("name"));
-		
-		boolean found1=false,found2=false;
-		JSONObject myjs = new JSONObject();
-		myjs.put("pageSize", "100");
-		myjs.put("pageNum", "1");
-		int resultsize=1;
-		int check = 0;
-		String checkpagination = "";
-		while(resultsize >0){
-			myjs.put("pageNum", check);
-			check++;
-			String[] res = ss.getPaths("/vocab/xxx",myjs);
-
-			resultsize=res.length;
-			if(res.length==0 || checkpagination.equals(res[0])){
-				resultsize=0;
-				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
-			}
-			else{
-				checkpagination = res[0];
-			}
-			for(String u : res) {
-				if(id3.equals(u)){
-					found1=true;
-				}
-				if(id2.equals(u)){
-					found2=true;
-				}
-			}
-			if(found1 && found2){
-				resultsize=0;
-			}
-		}
-		log.debug("id2="+id2+" f="+found2);
-		log.debug("id3="+id3+" f="+found1);
-		assertTrue(found1);
-		assertTrue(found2);
-		// Delete
-		ss.deleteJSON("/vocab/xxx/"+id2);
-		ss.deleteJSON("/vocab/xxx/"+id3);
-		try {
-			out=ss.retrieveJSON("/vocab/xxx/"+id2);
-			out=ss.retrieveJSON("/vocab/xxx/"+id3);		
-			assertTrue(false);
-		} catch(ExistException x) {}
+		testAllAuthorities(ss,"/person/person","displayName");
+		testAllAuthorities(ss,"/vocab/xxx","name");
+		testAllAuthorities(ss,"/organization/organization","displayName");
+		//testAllAuthorities(ss,"/place/place","displayName");
 	}
-
-	@Test public void testName() throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
+	
+	private void testAllAuthorities(Storage ss, String path, String testField) throws Exception {
 		// Create
 		JSONObject data=new JSONObject();
-		data.put("displayName","TEST");
+		data.put(testField,"TEST");
 		//XXX why has staus disappeared?
 		//data.put("status","Provisional");
-		String id=ss.autocreateJSON("/person/person",data);
+		String id=ss.autocreateJSON(path,data);
 		// Read
-		JSONObject out=ss.retrieveJSON("/person/person/"+id);
+		JSONObject out=ss.retrieveJSON(path+"/"+id);
 		log.info(out.toString());
-		assertEquals("TEST",out.getString("displayName"));
+		assertEquals("TEST",out.getString(testField));
 		//assertEquals("Provisional",out.getString("status"));
 		// Update
-		data.remove("displayName");
-		data.put("displayName","TEST2");
+		data.remove(testField);
+		data.put(testField,"TEST2");
 		//data.put("status","Provisional2");
-		ss.updateJSON("/person/person/"+id,data);
-		out=ss.retrieveJSON("/person/person/"+id);
-		assertEquals("TEST2",out.getString("displayName"));
+		ss.updateJSON(path + "/"+id,data);
+		out=ss.retrieveJSON(path + "/"+id);
+		assertEquals("TEST2",out.getString(testField));
 		//assertEquals("Provisional2",out.getString("status"));
 		String id3=out.getString("csid");
 		// List
-		data.remove("displayName");
-		data.put("displayName","TEST3");
-		String id2=ss.autocreateJSON("/person/person",data);
-		out=ss.retrieveJSON("/person/person/"+id2);
-		assertEquals("TEST3",out.getString("displayName"));		
+		data.remove(testField);
+		data.put(testField,"TEST3");
+		String id2=ss.autocreateJSON(path,data);
+		out=ss.retrieveJSON(path + "/"+id2);
+		assertEquals("TEST3",out.getString(testField));		
 		boolean found1=false,found2=false;
 		JSONObject myjs = new JSONObject();
 		myjs.put("pageSize", "100");
@@ -139,7 +74,12 @@ public class TestVocab extends ServicesBaseClass {
 		while(resultsize >0){
 			myjs.put("pageNum", check);
 			check++;
-			JSONObject items = ss.getPathsJSON("/person/person",myjs);
+			JSONObject items = ss.getPathsJSON(path,myjs);
+
+			String[] rest = ss.getPaths(path,myjs);
+			log.info("WWW");
+			log.info(items.toString());
+			//log.info(rest.);
 			String[] res = (String[])items.get("listItems");
 
 			if(res.length==0 || checkpagination.equals(res[0])){
@@ -165,164 +105,17 @@ public class TestVocab extends ServicesBaseClass {
 		assertTrue(found1);
 		assertTrue(found2);
 		// Delete
-		ss.deleteJSON("/person/person/"+id2);
-		ss.deleteJSON("/person/person/"+id3);
+		ss.deleteJSON(path + "/" + id2);
+		ss.deleteJSON(path + "/" + id3);
 		try {
-			out=ss.retrieveJSON("/person/person/"+id2);
-			out=ss.retrieveJSON("/person/person/"+id3);		
+			out=ss.retrieveJSON(path + "/" + id2);
+			out=ss.retrieveJSON(path + "/" + id3);		
 			assertTrue(false);
-		} catch(ExistException x) {}
-	}
-	
-	
-	/* XXX implement once placeauthority is sorted at the service layer 
-	@Test public void testPlace() throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		// Create
-		JSONObject data=new JSONObject();
-		data.put("displayName","TEST");
-		data.put("status","Provisional");
-		String id=ss.autocreateJSON("/place/place",data);
-		// Read
-		JSONObject out=ss.retrieveJSON("/place/place/"+id);
-		assertEquals("TEST",out.getString("displayName"));
-		assertEquals("Provisional",out.getString("status"));
-		// Update
-		data.remove("displayName");
-		data.put("displayName","TEST2");
-		data.put("status","Provisional2");
-		ss.updateJSON("/place/place/"+id,data);
-		out=ss.retrieveJSON("/place/place/"+id);
-		assertEquals("TEST2",out.getString("displayName"));
-		assertEquals("Provisional2",out.getString("status"));
-		String id3=out.getString("csid");
-		// List
-		data.remove("displayName");
-		data.put("displayName","TEST3");
-		String id2=ss.autocreateJSON("/place/place",data);
-		out=ss.retrieveJSON("/place/place/"+id2);
-		assertEquals("TEST3",out.getString("displayName"));
-		boolean found1=false,found2=false;
-		JSONObject myjs = new JSONObject();
-		myjs.put("pageSize", "100");
-		myjs.put("pageNum", "1");
-		int resultsize=1;
-		int check = 0;
-		String checkpagination = "";
-		while(resultsize >0){
-			myjs.put("pageNum", check);
-			check++;
-			JSONObject items = ss.getPathsJSON("/place/place",myjs);
-			String[] res = (String[]) items.get("listItems");
-
-			if(res.length==0 || checkpagination.equals(res[0])){
-				resultsize=0;
-				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
-			}
-			else{
-				checkpagination = res[0];
-			}
-			resultsize=res.length;
-			for(String u : res) {
-				if(id3.equals(u)){
-					found1=true;
-				}
-				if(id2.equals(u)){
-					found2=true;
-				}
-			}
-			if(found1 && found2){
-				resultsize=0;
-			}
+		} catch(ExistException x) {
+			assertTrue(true);
 		}
-		log.info("id2="+id2+" f="+found2);
-		log.info("id3="+id3+" f="+found1);
-		// XXX pagination: failing because pagination support is not there yet 
-		//assertTrue(found1);
-		//assertTrue(found2);
-		// Delete
-		ss.deleteJSON("/place/place/"+id2);
-		ss.deleteJSON("/place/place/"+id3);
-		try {
-			out=ss.retrieveJSON("/place/place/"+id2);
-			out=ss.retrieveJSON("/place/place/"+id3);		
-			assertTrue(false);
-		} catch(ExistException x) {}
 	}
 	
-*/
-
-	// XXX factor tests
-	@Test public void testOrgs() throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		// Create
-		JSONObject data=new JSONObject();
-		data.put("displayName","TEST");
-		String id=ss.autocreateJSON("/organization/organization",data);
-		// Read
-		JSONObject out=ss.retrieveJSON("/organization/organization/"+id);
-		assertEquals("TEST",out.getString("displayName"));
-		// Update
-		data.remove("name");
-		data.put("displayName","TEST2");
-		ss.updateJSON("/organization/organization/"+id,data);
-		out=ss.retrieveJSON("/organization/organization/"+id);
-		assertEquals("TEST2",out.getString("displayName"));
-		String id3=out.getString("csid");
-		// List
-		data.remove("name");
-		data.put("displayName","TEST3");
-		String id2=ss.autocreateJSON("/organization/organization",data);
-		out=ss.retrieveJSON("/organization/organization/"+id2);
-		assertEquals("TEST3",out.getString("displayName"));		
-
-		boolean found1=false,found2=false;
-		JSONObject myjs = new JSONObject();
-		myjs.put("pageSize", "100");
-		myjs.put("pageNum", "0");
-		int resultsize=1;
-		int check = 0;
-		String checkpagination = "";
-		while(resultsize >0){
-			myjs.put("pageNum", check);
-			check++;
-			JSONObject items = ss.getPathsJSON("/organization/organization",myjs);
-			String[] res = (String[]) items.get("listItems");
-
-			if(res.length==0 || checkpagination.equals(res[0])){
-				resultsize=0;
-				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
-			}
-			else{
-				checkpagination = res[0];
-			}
-			resultsize=res.length;
-			for(String u : res) {
-				if(id3.equals(u)){
-					found1=true;
-				}
-				if(id2.equals(u)){
-					found2=true;
-				}
-			}
-			if(found1 && found2){
-				resultsize=0;
-			}
-		}
-		
-		log.info("id2="+id2+" f="+found2);
-		log.info("id3="+id3+" f="+found1);
-		assertTrue(found1);
-		assertTrue(found2);
-//		// Delete
-		ss.deleteJSON("/organization/organization/"+id2);
-		ss.deleteJSON("/organization/organization/"+id3);
-		try {
-			out=ss.retrieveJSON("/organization/organization/"+id2);
-			out=ss.retrieveJSON("/organization/organization/"+id3);		
-			assertTrue(false);
-		} catch(ExistException x) {}
-	}
 	
 // if you want to delete all orgs you can run this one @Test //
 	public void testDelAllOrgs() throws Exception {
