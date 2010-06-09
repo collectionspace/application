@@ -1,4 +1,5 @@
 package org.collectionspace.chain.csp.persistence.services.vocab;
+// test comment
 
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
