@@ -70,8 +70,19 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		this.namespace=namespace;
 		this.tag=tag;
 		this.in_tag=in_tag;
+		
+		/*
+		 * Initialize all instances of vocab
+		 * */
+		initialiseVocab();
 	}
 
+	private void initialiseVocab(){
+		//need to search for vocab item
+		//if missing add it
+		
+	}
+	
 	// XXX refactor
 	private InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
@@ -258,20 +269,20 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
 			Document doc=data.getDocument();
+			JSONObject pagination = new JSONObject();
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies");
-			
-			JSONObject pagination = new JSONObject();
-			List<Node> nodes = doc.getDocument().selectNodes(item_path.split("/")[0]);
-			for(Node node : nodes){
-				if(node.matches("/"+item_path+"/*")){
-					String name=node.selectSingleNode("displayName").getText();
-					String csid=node.selectSingleNode("csid").getText();
+			List<Node> objects = doc.selectNodes("/"+item_path.split("/")[0]+"/*");
+			for(Node object : objects) {
+				if(object.matches("/"+item_path)){
+					String name=object.selectSingleNode("displayName").getText();
+					String csid=object.selectSingleNode("csid").getText();
 					if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase()))
 						list.add(constructURN(cache,vocab,csid,name));
 					cache.setCached(getClass(),new String[]{"namefor",csid},name);
-				}else{
-					pagination.put(node.getName(), node.getText());
+				}
+				else{
+					pagination.put(object.getName(), object.getText());
 				}
 			}
 			out.put("pagination", pagination);
