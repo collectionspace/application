@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns2:personauthorities_common xmlns:ns2="http://collectionspace.org/services/person">
+<displayName>PAHMA Person Authority (pahma)</displayName>
+<vocabType>PersonAuthority</vocabType>
+</ns2:personauthorities_common>
