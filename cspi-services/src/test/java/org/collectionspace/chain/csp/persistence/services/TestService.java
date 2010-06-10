@@ -101,21 +101,14 @@ public class TestService extends ServicesBaseClass {
 		// TODO make roleName dynamically vary otherwise POST fails if already exists (something like buildObject)
 		testPostGetDelete("authorization/roles/", null, "obj5.xml", "role/description", "this role is for test users");
 		testPostGetDelete("authorization/permissions/", null, "permissions.xml", "permission/resourceName", "testthing");
-		
+
+		testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementReferenceNumber", "MV2010.99");
+
 		//testPostGetDelete("accounts/", null, "account.xml", "account/userid", "accounts");
 
-		// XXX Queries about movement service consistency currently being discussed by email:
-		// - apparently inconsistent naming of label for POST (see xxx_hack_mov)
-		// - ought it have more stuff inside? currently returning an empty movementMethods
-		// - apparently it is possible to POST using label collectionobjects_common too!?
-		//   (although it will still return the right label)
-		//testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementMethods", "");	
+		// TODO might be worth adding test for CSPACE-1947 (POST with wrong label "succeeds")
 	}
 	
-	private String xxx_hack_for_mov(String partname) {
-		return partname.replace("movements_common", "movement_common");
-	}
-
 	private void testPostGetDelete(String serviceurl, String partname, String filename, String xpath, String expected) throws Exception {
 		ReturnedURL url;
 		log.info("Testing " + serviceurl + " with " + filename + " and partname=" + partname);
@@ -125,7 +118,7 @@ public class TestService extends ServicesBaseClass {
 		// POST (Create)
 		if(partname != null) {
 			Map<String,Document> parts=new HashMap<String,Document>();
-			parts.put(xxx_hack_for_mov(partname),getDocument(filename));
+			parts.put(partname,getDocument(filename));
 			url=conn.getMultipartURL(RequestMethod.POST,serviceurl,parts,creds,cache);
 		} else {
 			url=conn.getURL(RequestMethod.POST,serviceurl,getDocument(filename),creds,cache);
