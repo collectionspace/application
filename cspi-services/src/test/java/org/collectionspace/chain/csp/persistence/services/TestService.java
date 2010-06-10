@@ -210,6 +210,17 @@ public class TestService extends ServicesBaseClass {
 	//	status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
 	//	assertEquals(200,status); // XXX CSPACE-73, should be 404
 	}
+	@Test public void testAuthorityCreateUpdateDelete() throws Exception {
+
+		Map<String,Document> parts=new HashMap<String,Document>();
+		parts.put("personauthorities_common",getDocument("personAuth.xml"));
+		String id;
+		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"personauthorities/",parts,creds,cache);
+		id=url.getURLTail();
+		ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.PUT,"personauthorities/"+id,parts,creds,cache);
+		conn.getNone(RequestMethod.DELETE,"personauthorities/"+id,null,creds,cache);
+		
+	}
 
 	@Test public void testObjectsPut() throws Exception {
 		Map<String,Document> parts=new HashMap<String,Document>();
