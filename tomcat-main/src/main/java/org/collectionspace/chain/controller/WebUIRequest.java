@@ -214,12 +214,41 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 
+	public JSONObject getPostBody() throws UIException {
+		JSONObject jsondata = new JSONObject();
+		String jsonString = body;
+		try {
+			if(jsonString.length()>0){
+				String[] data = jsonString.split("&");
+				for(String item : data){
+					String[] itembits = item.split("=");
+					jsondata.put(itembits[0], itembits[1]);
+				}
+			}
+
+		} catch (JSONException e) {
+			throw new UIException("Cannot get request body, JSONException",e);
+		}
+		return jsondata;
+	}
+	
+	public Boolean isJSON() throws UIException {
+		try{
+			new JSONObject(body);
+			return true;
+		}
+		catch (JSONException e){
+			return false;
+		}
+	}
+	
 	public JSONObject getJSONBody() throws UIException {
 		try {
 			String jsonString = body;
 			if (StringUtils.isBlank(jsonString)) {
 				throw new UIException("No JSON content to store");
 			}
+			
 			// Store it
 			return new JSONObject(jsonString);
 		} catch (JSONException e) {

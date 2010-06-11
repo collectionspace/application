@@ -9,8 +9,10 @@ public interface UIRequest {
 	
 	public TTYOutputter getTTYOutputter() throws UIException;
 	public void sendJSONResponse(JSONObject out) throws UIException;
-	
+
 	JSONObject getJSONBody() throws UIException;
+	JSONObject getPostBody() throws UIException;
+	Boolean isJSON() throws UIException;
 	
 	public void setFailure(boolean isit,Exception why) throws UIException;
 	

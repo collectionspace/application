@@ -141,6 +141,20 @@ public class StreamUIRequest implements UIRequest {
 			throw new UIException("Bad JSON on standard input",e);
 		}
 	}
+	public JSONObject getPostBody() throws UIException {
+		try {
+			if(in.hasNext())
+				return new JSONObject(in.nextLine());
+			else
+				return null;
+		} catch (JSONException e) {
+			throw new UIException("Bad JSON on standard input",e);
+		}
+	}
+	public Boolean isJSON(){
+		
+		return true;
+	}
 
 	public void setSecondaryRedirectPath(String[] in) throws UIException {
 		rpath=in;
