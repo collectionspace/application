@@ -1,6 +1,8 @@
 package org.collectionspace.chain.csp.schema;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -36,7 +38,8 @@ public class Record implements FieldParent {
 	private String services_search_keyword = "kw";
 	
 	/* Service stuff */
-	private String services_url,services_list_path,in_tag,urn_syntax,authority_vocab_type,services_instances_path,services_single_instance_path;
+	private String authorization_name,services_url,services_list_path,in_tag,urn_syntax,authority_vocab_type,services_instances_path,services_single_instance_path;
+	private Set<String> authorization_includes;
 	private Map<String,String> services_record_paths=new HashMap<String,String>();
 	private Map<String,Field> services_filter_param=new HashMap<String,Field>();
 	
@@ -88,9 +91,26 @@ public class Record implements FieldParent {
 		tab_url=Util.getStringOrDefault(section,"/tab-url",web_url+"-tab");
 		
 		/* Service layer helpers */
-		
+
 		//path that the service layer uses to access this record
 		services_url=Util.getStringOrDefault(section,"/services-url",id);
+		
+		//authorization name
+
+		authorization_name = Util.getStringOrDefault(section,"/authorization-name",id);
+		if(type.contains("record")){
+			authorization_includes = Util.getSetOrDefault(section,"/authorization-includes",new String[]{services_url, "/"+services_url+"/*/authorityrefs/"});
+		}
+		else if(type.contains("authority")){
+			authorization_includes = Util.getSetOrDefault(section,"/authorization-includes",new String[]{services_url,services_url+"/*/items/", "/"+services_url+"/*/items/*/authorityrefs/", "/"+services_url+"/*/items/*/refobjs/", "/"+services_url+"/*/items/*/contacts/"});
+		}
+		else if(type.contains("id")){
+			authorization_includes = Util.getSetOrDefault(section,"/authorization-includes",new String[]{id,"idgenerators", "/idgenerators/*/ids/"});
+		}
+		else {
+			authorization_includes = Util.getSetOrDefault(section,"/authorization-includes",new String[]{});
+		}
+		
 		//service layer paths to list data for this record type
 		services_list_path=Util.getStringOrDefault(section,"/services-list-path",services_url+"-common-list/"+services_url+"-list-item");
 		
@@ -128,8 +148,8 @@ public class Record implements FieldParent {
 	public String getNumberSelector() { return number_selector; }
 	public String getRowSelector() { return row_selector; }
 	public String getListKey() { return list_key; }
+	
 	public boolean isInFindEdit() { return in_findedit; }
-
 	public boolean isMultipart() { return is_multipart; }
 	public boolean hasTermsUsed() { return has_terms_used; }
 
@@ -160,6 +180,14 @@ public class Record implements FieldParent {
 	public FieldSet getMiniSummaryList(String key) { return summarylist.get(key); }
 	public Field getDisplayNameField() { return display_name; }
 	public Field getFieldByServicesFilterParam(String param) { return services_filter_param.get(param); }
+	
+	//authorization
+	public String getAuthorizationName(){	return authorization_name; }
+	public String[] getAllAuthorizationTypes(){ return authorization_includes.toArray(new String[0]) ;	}
+	public Boolean isAuthorizationType(String name){
+		return authorization_includes.contains(name);
+	}
+	
 
 	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);

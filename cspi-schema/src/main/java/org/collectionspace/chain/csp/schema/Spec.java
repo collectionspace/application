@@ -25,9 +25,11 @@ public class Spec implements CSP, Configurable {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.spec.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 
-	private static final String required_version="8";
-	
+	private static final String required_version="9";
+
 	private Map<String,Record> records=new HashMap<String,Record>();
+	private Map<String,ControlledList> controlledlists=new HashMap<String,ControlledList>();
+	
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
@@ -73,6 +75,17 @@ public class Spec implements CSP, Configurable {
 				return Spec.this;
 			}
 		});
+		/* SPEC/controlledlists -> CONTROLLEDLISTS */
+		rules.addRule(SECTION_PREFIX+"spec",new String[]{"controlledlists"},SECTION_PREFIX+"controlledlists",null,null);
+		/* RECORDS/controlledlist -> CONTROLLEDLIST(@id) */
+		rules.addRule(SECTION_PREFIX+"controlledlists",new String[]{"controlledlist"},SECTION_PREFIX+"controlledlist",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				ControlledList c = new ControlledList(Spec.this, section);
+				controlledlists.put(c.getID(),c);
+				return c;
+			}
+		});
+		
 		/* SPEC/records -> RECORDS */
 		rules.addRule(SECTION_PREFIX+"spec",new String[]{"records"},SECTION_PREFIX+"records",null,null);
 		/* RECORDS/record -> RECORD(@id) */
@@ -225,6 +238,7 @@ public class Spec implements CSP, Configurable {
 	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
 	public Record getRecordByServicesUrl(String url) { return records_by_services_url.get(url); }
 	public Record[] getAllRecords() { return records.values().toArray(new Record[0]); }
+	public ControlledList[] getAllControlledLists() { return controlledlists.values().toArray(new ControlledList[0]); }
 
 	public void addInstance(Instance n) {
 		instances.put(n.getID(),n);
