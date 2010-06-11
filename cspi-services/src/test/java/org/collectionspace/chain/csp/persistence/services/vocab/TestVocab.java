@@ -76,10 +76,6 @@ public class TestVocab extends ServicesBaseClass {
 			check++;
 			JSONObject items = ss.getPathsJSON(path,myjs);
 
-			String[] rest = ss.getPaths(path,myjs);
-			log.info("WWW");
-			log.info(items.toString());
-			//log.info(rest.);
 			String[] res = (String[])items.get("listItems");
 
 			if(res.length==0 || checkpagination.equals(res[0])){
