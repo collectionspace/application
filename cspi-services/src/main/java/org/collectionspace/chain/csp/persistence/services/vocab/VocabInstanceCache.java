@@ -77,6 +77,7 @@ public class VocabInstanceCache {
 		csids.put(id,out.getURLTail());
 	}
 	
+	//XXX pagination? argh
 	@SuppressWarnings("unchecked")
 	private void buildVocabularies(CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException, UnderlyingStorageException {
 		ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/"+r.getServicesURL()+"/",null,creds,cache);
