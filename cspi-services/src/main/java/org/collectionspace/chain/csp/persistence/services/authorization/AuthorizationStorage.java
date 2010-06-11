@@ -22,6 +22,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ServicesCon
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -45,6 +46,7 @@ public class AuthorizationStorage implements ContextualisedStorage {
 	private Map<String,String> view_good=new HashMap<String,String>();
 	private Map<String,String> view_map=new HashMap<String,String>();
 	private Set<String> xxx_view_deurn=new HashSet<String>();
+	private PermissionCache permissions;
 	
 	public AuthorizationStorage(Record r, ServicesConnection conn) throws DocumentException, IOException{
 		this.conn = conn;
@@ -77,6 +79,8 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				}
 			}
 		}
+		Record permissionRecord = r.getSpec().getRecord("permission");
+		this.permissions = new PermissionCache(permissionRecord,conn);
 	}
 
 	/**
@@ -240,13 +244,21 @@ public class AuthorizationStorage implements ContextualisedStorage {
 
 	/**
 	 * Gets a list of csids of a certain type of record together with the pagination info
+	 * permissions might need to break the mold tho.
 	 */
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String rootPath, JSONObject restrictions) 
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			Document list=null;
 			JSONObject out = new JSONObject();
+			//do things differently if permissions - is there a better way to kick this off?
+			if(r.getID().equals("permission")){
+				out = permissions.getPathsJSON(root, creds, cache, rootPath, restrictions);
+				return out;
+			}
+			
+			
+			Document list=null;
 			JSONObject pagination = new JSONObject();
 			List<String> listitems=new ArrayList<String>();
 			String postfix = "?";
@@ -282,7 +294,6 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				}
 				else{
 					pagination.put(node.getName(), node.getText());
-					
 				}
 			}
 			
@@ -359,74 +370,58 @@ public class AuthorizationStorage implements ContextualisedStorage {
 		JSONObject summarylist=new JSONObject();
 		String summarylistname = "summarylist_";
 		Set<String> to_get=new HashSet<String>(view_good.keySet());
-		// Try to fullfil from gleaned info
-		for(String fieldname : view_good.keySet()) {
-			String good = view_good.get(fieldname);
-			String gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,good);
-			if(gleaned==null)
-				continue;
-			if(xxx_view_deurn.contains(good))
-				gleaned=xxx_deurn(gleaned);
-			
-			String name = fieldname;
-			if(name.startsWith(summarylistname)){
-				name = name.substring(summarylistname.length());
-				summarylist.put(name, gleaned);
-			}
-			else{
-				out.put(fieldname,gleaned);
-			}
-			to_get.remove(fieldname);
-		}
-		// Do a full request
-		if(to_get.size()>0) {
-			JSONObject data=simpleRetrieveJSON(creds,cache,filePath);
-			for(String fieldname : to_get) {
-				String good = view_good.get(fieldname);
-				if(data.has(good)) {
-					String vkey=fieldname;
-					String value=data.getString(good);
-					if(xxx_view_deurn.contains(good))
-						value=xxx_deurn(value);
-					
-					if(vkey.startsWith(summarylistname)){
-						String name = vkey.substring(summarylistname.length());
-						summarylist.put(name, value);
-					}
-					else{
-						out.put(vkey,value);
-					}
-				}
-			}
-		}
+
 		//if it's a permission we also need to return the action
 		if(r.getID().equals("permission")){
-			JSONObject data=simpleRetrieveJSON(creds,cache,filePath);
-			int total = 0;
-			if(data.getJSONArray("actions").length() > 0){
-				JSONArray actions = data.getJSONArray("actions");
-				for(int i=0,il=actions.length();i<il;i++){
-					//all these lines are needed to get the name of the action out of the complex structure
-					JSONObject action = actions.getJSONObject(i);
-					if(action.has("action")){
-						JSONArray act = action.getJSONArray("action");
-						for(int j=0,jl=act.length();j<jl;j++){
-							JSONObject a = act.getJSONObject(j);
-							//we mapped the different actions to a binary number so that every combination has its unique number (expandable and dummy proof)
-							String name = a.getString("name");
-							if(name.equals("READ"))
-								total += 1;
-							else if(name.equals("CREATE"))
-								total += 2;
-							else if(name.equals("UPDATE"))
-								total += 4;
-							else if(name.equals("DELETE"))
-								total += 8;
+			out = permissions.retrieveJSON(creds,cache,filePath);
+		}
+		else{
+
+			// Try to fullfil from gleaned info
+			for(String fieldname : view_good.keySet()) {
+				String good = view_good.get(fieldname);
+				String gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,good);
+				if(gleaned==null)
+					continue;
+				if(xxx_view_deurn.contains(good))
+					gleaned=xxx_deurn(gleaned);
+				
+				String name = fieldname;
+				if(name.startsWith(summarylistname)){
+					name = name.substring(summarylistname.length());
+					summarylist.put(name, gleaned);
+				}
+				else{
+					out.put(fieldname,gleaned);
+				}
+				to_get.remove(fieldname);
+			}
+			// Do a full request
+			if(to_get.size()>0) {
+				JSONObject data=simpleRetrieveJSON(creds,cache,filePath);
+				for(String fieldname : to_get) {
+					String good = view_good.get(fieldname);
+					//this might work with repeat objects
+					String value = JSONUtils.checkKey(data, good);
+					if(value != null){
+						String vkey=fieldname;
+						if(xxx_view_deurn.contains(good))
+							value=xxx_deurn(value);
+					
+						if(vkey.startsWith(summarylistname)){
+							String name = vkey.substring(summarylistname.length());
+							summarylist.put(name, value);
 						}
+						else{
+							out.put(vkey,value);
+						}
+					}
+					else{
+						String vkey=fieldname;
+						out.put(vkey,"");
 					}
 				}
 			}
-			out.put("action", total);
 		}
 		if(summarylist.length()>0){
 			out.put("summarylist", summarylist);

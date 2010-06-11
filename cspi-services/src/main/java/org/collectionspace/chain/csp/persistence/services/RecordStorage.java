@@ -422,6 +422,7 @@ public class RecordStorage implements ContextualisedStorage {
 		String summarylistname = "summarylist_";
 		Set<String> to_get=new HashSet<String>(view_good.keySet());
 		// Try to fullfil from gleaned info
+		//gleaned is info that everytime we read a record we cache certain parts of it
 		for(String fieldname : view_good.keySet()) {
 			String good = view_good.get(fieldname);
 			String gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,good);
@@ -445,7 +446,7 @@ public class RecordStorage implements ContextualisedStorage {
 			JSONObject data=simpleRetrieveJSON(creds,cache,filePath);
 			for(String fieldname : to_get) {
 				String good = view_good.get(fieldname);
-				//doesn't work with repeat objects
+				//this might work with repeat objects
 				String value = JSONUtils.checkKey(data, good);
 				if(value != null){
 					String vkey=fieldname;
@@ -460,22 +461,10 @@ public class RecordStorage implements ContextualisedStorage {
 						out.put(vkey,value);
 					}
 				}
-				/*
-				if(data.has(good)) {
+				else{
 					String vkey=fieldname;
-					String value=data.getString(good);
-					if(xxx_view_deurn.contains(good))
-						value=xxx_deurn(value);
-					
-					if(vkey.startsWith(summarylistname)){
-						String name = vkey.substring(summarylistname.length());
-						summarylist.put(name, value);
-					}
-					else{
-						out.put(vkey,value);
-					}
+					out.put(vkey,"");
 				}
-				*/
 			}
 		}
 		if(summarylist.length()>0){
