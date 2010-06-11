@@ -1,5 +1,8 @@
 package org.collectionspace.chain.csp.persistence.services;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
@@ -11,6 +14,7 @@ import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelat
 import org.collectionspace.chain.csp.persistence.services.user.UserStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ServicesVocabStorage;
+import org.collectionspace.chain.csp.schema.ControlledList;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSP;
@@ -42,29 +46,26 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		try {
 			ServicesConnection conn=new ServicesConnection(base_url);
 			for(Record r : spec.getAllRecords()) {
-				if(!r.isType("record"))
-					continue;
-				addChild(r.getID(),new RecordStorage(spec.getRecord(r.getID()),conn));
-			}
-			for(Record r : spec.getAllRecords()) {
-				if(!r.isType("authority"))
-					continue;
-				addChild(r.getID(),new ConfiguredVocabStorage(spec.getRecord(r.getID()),conn));
-			}
-			for(Record r : spec.getAllRecords()) {
-				if(!r.isType("userdata"))
-					continue;
-				addChild(r.getID(),new UserStorage(spec.getRecord(r.getID()),conn));
-			}
-			for(Record r : spec.getAllRecords()){
-				if(!r.isType("authorizationdata"))
-					continue;
-				addChild(r.getID(),new AuthorizationStorage(spec.getRecord(r.getID()), conn));
+				if(r.isType("record"))
+					addChild(r.getID(),new RecordStorage(spec.getRecord(r.getID()),conn));
+				if(r.isType("authority"))
+					addChild(r.getID(),new ConfiguredVocabStorage(spec.getRecord(r.getID()),conn));
+				if(r.isType("userdata"))
+					addChild(r.getID(),new UserStorage(spec.getRecord(r.getID()),conn));
+				if(r.isType("authorizationdata"))
+					addChild(r.getID(),new AuthorizationStorage(spec.getRecord(r.getID()), conn));
 			}
 			addChild("direct",new DirectRedirector(spec));
 			addChild("id",new ServicesIDGenerator(conn));
 			addChild("relations",new ServicesRelationStorage(conn));
-			addChild("vocab",new ServicesVocabStorage(conn));
+			
+			//vocabs
+			Map<String,String> vocabs=new HashMap<String,String>();
+			for(ControlledList c : spec.getAllControlledLists()){
+				vocabs.put(c.getID(), c.getName());
+			}
+			addChild("vocab",new ServicesVocabStorage(conn,vocabs));
+			
 		} catch (Exception e) {
 			throw new CSPDependencyException("Could not set target",e); // XXX wrong type
 		}
