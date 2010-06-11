@@ -1,5 +1,7 @@
 package org.collectionspace.chain.csp.webui.record;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -20,6 +22,9 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Test;
+import org.mortbay.jetty.testing.HttpTester;
+import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,17 +90,80 @@ public class RecordSearchList implements WebMethod {
 	private JSONObject pathsToJSON(Storage storage,String base,String[] paths,String key) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
-		for(String p : paths)
-			members.put(generateEntry(storage,base,p));
-		out.put(key,members);
+		/*
 		if(base.equals("permission")){
+			//get all permissions (argh pagination)
+			JSONObject restriction = new JSONObject();
+			JSONArray allpaths = getfullList(storage,restriction);
+
+			for(int i=0;i<allpaths.length();i++) {
+				members.put(generateEntry(storage,base,allpaths.getString(i)));
+			}
+			out.put(key,members);
 			JSONObject grouped = groupPermissions(members);
 			//check if we have all the permissions we need
 			checkPermissions(grouped, storage);
 			out.put("groupedPermissions", grouped);
 		}
+		else{
+		*/
+			for(String p : paths)
+				members.put(generateEntry(storage,base,p));
+			out.put(key,members);
+			/*
+		}
+		*/
 		return out;
 	}
+	
+	/**
+	 * Get full list without pagination
+	 * 
+	 */
+	private JSONArray getfullList(Storage storage, JSONObject restriction){
+		
+		JSONArray fulllist = new JSONArray();
+		int resultsize =1;
+		int pagenum = 0;
+		String checkpagination = "";
+		while(resultsize >0){
+			try {
+				restriction.put("pageNum", pagenum);
+				JSONObject data = storage.getPathsJSON(base,restriction);
+				//next page
+				pagenum++;
+
+				String[] results = (String[]) data.get("listItems");
+
+				if(results.length==0 || checkpagination.equals(results[0])){
+					resultsize=0;
+					//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+				}
+				else{
+					checkpagination = results[0];
+					for(int i=0;i<results.length;i++) {
+						if(results[i].startsWith(base+"/"))
+							results[i]=results[i].substring((base+"/").length());
+						fulllist.put(fulllist.length(),results[i]);
+					}
+				}
+			} catch (JSONException e) {
+				log.info(e.getMessage());
+				resultsize=0;
+			} catch (ExistException e) {
+				log.info(e.getMessage());
+				resultsize=0;
+			} catch (UnimplementedException e) {
+				log.info(e.getMessage());
+				resultsize=0;
+			} catch (UnderlyingStorageException e) {
+				log.info(e.getMessage());
+				resultsize=0;
+			}
+		}
+		return fulllist;
+	}
+	
 	
 	/**
 	 * Check whether all the permissions are included in the list, if a permission isn't, add it
@@ -140,9 +208,9 @@ public class RecordSearchList implements WebMethod {
 		//check whether this type of record is available in the grouped permissions
 		if(permissions.has(resourceName)){
 			JSONArray resourcelist = permissions.getJSONArray(resourceName);
-
 			//check whether the record type has the four permissions (read, update, delete, none)
-			if(resourcelist.length() < 4){
+			// need to check whether it has the right 4 permissions
+			//if(resourcelist.length() < 4){
 				//find the missing permission
 				List<String> missing = new ArrayList<String>();
 				boolean exists = false;
@@ -168,7 +236,7 @@ public class RecordSearchList implements WebMethod {
 					//save the permission in the grouped permissions
 					resourcelist.put(ac);
 				}
-			}
+			//}
 		}else{
 			JSONArray actionlist = new JSONArray();
 			for(String s : actions){
@@ -181,7 +249,15 @@ public class RecordSearchList implements WebMethod {
 	}
 	
 	private JSONObject createMissingPermissions(String s, String name, Storage storage) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
-		List<String> actions = new ArrayList<String>(Arrays.asList("read","update","delete","none"));
+		//might need to change to a hash if they need more complex permissions
+		List<String> actions = new ArrayList<String>(Arrays.asList("search","read","create","update","delete","none"));
+
+		/*
+		 * SEARCH=16;READ=1|:CREATE=2;UPDATE=4|;DELETE=8|;
+		 * read = SEARCH,READ = 9
+		 * update = SEARCH,READ,CREATE,UPDATE = 23
+		 * delete = SEARCH,READ,CREATE,UPDATE,DELETE =31 
+		 */
 		List<String> actionsforpermission = new ArrayList<String>();
 		
 		//create the new permission JSON
@@ -233,19 +309,29 @@ public class RecordSearchList implements WebMethod {
 			String name = li.getString("summary");
 			
 			//depending on the action number, save it as a read/write/delete/none
-			String action = "";
+			String action="";
+			Integer actionint = li.getInt("action");
+			/*
+			 * READ=1:CREATE=2;UPDATE=4;DELETE=8;SEARCH=16
+			 * update = READ,CREATE,UPDATE,SEARCH = 23
+			 * delete = READ,CREATE,UPDATE,DELETE,SEARCH =31 
+			 * read = READ,SEARCH = 9
+			 */
 			switch(li.getInt("action")){
-				case 1:
+				case 9:
 					action = "read";
 					break;
-				case 7:
+				case 23:
 					action="update";
 					break;
-				case 15:
+				case 31:
 					action="delete";
 					break;
-				default:
+				case 0:
 					action="none";
+					break;
+				default:
+					action="unknown";
 					break;
 			}
 			
@@ -260,12 +346,16 @@ public class RecordSearchList implements WebMethod {
 					permArray.put(permission.getJSONArray(name).get(j));
 				}
 			}
-			
-			//add the new permission to the array
-			permArray.put(perm);
+
+			//ignore unknown
+			if(!action.equals("unknown")){
+				//add the new permission to the array
+				permArray.put(perm);
+			}
 			
 			//save the resourceName and its new permissions
 			permission.put(name, permArray);
+			
 		}
 		return permission;
 	}
@@ -296,6 +386,7 @@ public class RecordSearchList implements WebMethod {
 			}
 			JSONObject data = storage.getPathsJSON(base,restriction);
 			String[] paths = (String[]) data.get("listItems");
+			
 			for(int i=0;i<paths.length;i++) {
 				if(paths[i].startsWith(base+"/"))
 					paths[i]=paths[i].substring((base+"/").length());
