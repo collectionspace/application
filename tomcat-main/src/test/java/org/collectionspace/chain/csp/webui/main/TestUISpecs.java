@@ -77,48 +77,56 @@ public class TestUISpecs {
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("intake.uispec"));
+		log.info(response.getContent());
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 		// Acquisition
 		response=jettyDo(jetty,"GET","/chain/acquisition/uispec",null);
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("acquisition.uispec"));
+		//log.info(response.getContent());
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 		// Person
 		response=jettyDo(jetty,"GET","/chain/person/uispec",null);
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("person.uispec"));
+		//log.info(response.getContent());
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));		
 		// Organization
 		response=jettyDo(jetty,"GET","/chain/organization/uispec",null);
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("organization-authority.uispec"));
+		//log.info(response.getContent());
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 		// Object tab
 		response=jettyDo(jetty,"GET","/chain/object-tab/uispec",null);
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("object-tab.uispec"));
+		//log.info(response.getContent());
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 		// UserDetails tab
 		response=jettyDo(jetty,"GET","/chain/users/uispec",null);
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("users.uispec"));
+		log.info(response.getContent());
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 		// Loanin tab
 		response=jettyDo(jetty,"GET","/chain/loanin/uispec",null);
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("loanin.uispec"));
+		//log.info(response.getContent());
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 		// Loanout tab
 		response=jettyDo(jetty,"GET","/chain/loanout/uispec",null);
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("loanout.uispec"));
+		//log.info(response.getContent());
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 		
 		// Roles tab
@@ -126,6 +134,15 @@ public class TestUISpecs {
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("roles.uispec"));
+		//log.info(response.getContent());
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
+
+		// Roles tab
+		response=jettyDo(jetty,"GET","/chain/permission/uispec",null);
+		assertEquals(200,response.getStatus());
+		generated=new JSONObject(response.getContent());
+		comparison=new JSONObject(getResourceString("roles.uispec"));
+		//log.info(response.getContent());
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
 
 		// Find-Edit
