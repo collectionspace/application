@@ -1225,10 +1225,13 @@
 			    <selector>.csc-acquisition-purchaser-price-denomination</selector>
 			  </field>
 			  <!-- not supported in service layer
-			  <field id="owner" autocomplete="person-person">
-			    <selector>.csc-acquisition-owner</selector>
-			  </field>
-			  -->
+              <repeat id="owners">
+                <selector>.csc-acquisition-owner-row:</selector>
+                <field id="owner" autocomplete="person-person,organization-organization">
+                  <selector>.csc-acquisition-owner</selector>
+                </field>
+              </repeat>
+              -->
 			  <field id="objectPurchaseOfferPriceType">
 			    <services-tag>objectPurchasePriceDenomination</services-tag>
 			    <selector>.csc-acquisition-purchase-price-type</selector>
