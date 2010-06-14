@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/collectionobject http://services.collectionspace.org/collectionobject/collectionobjects_common.xsd">
   <objectNumber><<objnum>></objectNumber>
-  <!-- XXX CSPACE-694
-  <otherNumbers>
-  	<otherNumber>3</otherNumber>
-  	<otherNumber>4</otherNumber>
-  </otherNumbers>
-  -->
-  <briefDescription>description</briefDescription>
-  <!-- XXX
-  <comments></comments>
-  <distFeatures></distFeatures>
-  -->
+  <comments>description</comments>
   <objectName>Left-handed screwdriver</objectName>
-  <!-- <responsibleDept></responsibleDept> -->
   <title><<objnum>></title>
 </ns2:collectionobjects_common>
   
