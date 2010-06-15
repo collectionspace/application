@@ -92,7 +92,9 @@ public class TestServiceThroughWebapp {
 		JSONObject content=new JSONObject(out.getContent());
 		content=getFields(content);
 		JSONObject one = new JSONObject(getResourceString("obj3.json"));
-		assertEquals(one.get("objectTitleLanguage"),content.get("objectTitleLanguage"));
+		log.info(one.toString());
+		log.info(content.toString());
+		assertEquals(one.get("titleLanguage"),content.get("titleLanguage"));
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj3.json")),content));
 		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(getResourceString("obj4.json")));
 		assertEquals(200,out.getStatus());
@@ -100,7 +102,7 @@ public class TestServiceThroughWebapp {
 		content=new JSONObject(out.getContent());
 		content=getFields(content);
 		JSONObject oneb = new JSONObject(getResourceString("obj4.json"));
-		assertEquals(oneb.get("objectTitleLanguage"),content.get("objectTitleLanguage"));
+		assertEquals(oneb.get("titleLanguage"),content.get("titleLanguage"));
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj4.json")),content));		
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
 		out=jettyDo(jetty,"GET","/chain"+id,null);
