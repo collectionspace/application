@@ -76,11 +76,12 @@
 				<number-selector>.csc-accession-number</number-selector>
 				<row-selector>.csc-recordList-row:</row-selector>
 				<list-key>objects</list-key>
+				
 					<field id="title" in-title="yes" mini="summary,list">
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
 						<selector>.csc-object-identification-object-title</selector>
 					</field>
-					<field id="objectTitleLanguage">
+					<field id="titleLanguage">
 						<selector>.csc-object-identification-object-title-language</selector>
 					<options>
 			    			<option id="eng">English</option>
@@ -158,7 +159,7 @@
 							</field>
 						</repeat>
 					</repeat>
--->
+-->					
 					<repeat id="briefDescriptions" xxx-ui-no-repeat="yes">
 					<field id="briefDescription">
 						<selector>.csc-object-identification-brief-description</selector>
@@ -490,10 +491,10 @@
 					<field id="inscriptionContent">
 						<selector>.csc-object-description-inscription-content</selector>
 					</field>
-					<field id="inscriber" autocomplete="person-person,organization-organization"> 
+					<field id="inscriptionContentInscriber" autocomplete="person-person,organization-organization"> 
 						<selector>.csc-object-description-inscription-content-inscriber</selector>
 					</field>
-					<field id="inscriptionLanguage">
+					<field id="inscriptionContentLanguage">
 						<selector>.csc-object-description-inscription-content-language</selector>
 						<options>
                             <option id="eng">English</option>
@@ -515,7 +516,7 @@
                             <option id="enm">Middle English</option>
 			    		</options> 
 					</field>
-					<field id="inscriptionPosition">
+					<field id="inscriptionContentPosition">
 						<selector>.csc-object-description-inscription-content-position</selector>
 						<options>
 			    			<option id="back">back</option>
@@ -532,7 +533,11 @@
 							<option id="verso">verso</option>
 						</options>
 					</field>
-					<field id="inscriptionScript">
+					
+					 <field id="inscriptionContentDate" ui-type="date">
+						<selector>.csc-object-description-inscription-content-date</selector>
+					</field>
+					<field id="inscriptionContentScript">
 						<selector>.csc-object-description-inscription-content-script</selector>
 						<options>
 				    		<option id="carolingian-miniscule">Carolingian miniscule</option>
@@ -544,7 +549,7 @@
 				    		<option id="square-capitals">square capitals</option>
 				  		</options>
 					</field>
-					<field id="inscriptionType">
+					<field id="inscriptionContentType">
 						<selector>.csc-object-description-inscription-content-type</selector>
 						<options>
 			    			<option id="brand">brand</option>
@@ -555,21 +560,24 @@
 			    			<option id="maker's-mark">maker's mark</option>
 			    		</options>
 					</field>
-					<field id="inscriptionMethod">
+					<field id="inscriptionContentMethod">
 						<selector>.csc-object-description-inscription-content-method</selector>
 					</field>
-					<field id="inscriptionInterpretation">
+					<field id="inscriptionContentInterpretation">
 						<selector>.csc-object-description-inscription-content-interpretation</selector>
 					</field>
-					<field id="inscriptionTranslation">
+					<field id="inscriptionContentTranslation">
 						<selector>.csc-object-description-inscription-content-translation</selector>
 					</field>
-					<field id="inscriptionTransliteration">
+					<field id="inscriptionContentTransliteration">
 						<selector>.csc-object-description-inscription-content-transliteration</selector>
 					</field>
 					<field id="inscriptionDescription">
 						<selector>.csc-object-description-inscription-description</selector>
 					</field>
+					 <field id="inscriptionDescriptionDate">
+						<selector>.csc-object-description-inscription-description-date</selector>
+					 </field>
 					<field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization"> 
 					 	<selector>.csc-object-description-inscription-description-inscriber</selector>
 					</field>
@@ -652,6 +660,9 @@
 					 <field id="objectProductionReason">
 					    <selector>.csc-object-production-reason</selector>
 					 </field>
+					 <field id="technique" >
+					    <selector>.csc-object-production-technique</selector>
+					 </field> 
 					 <field id="techniqueType">
 					    <selector>.csc-object-production-technique-type</selector>
 					 </field>		
@@ -689,6 +700,25 @@
 					  <field id="associatedPlace" autocomplete="place-place">
 					    <selector>.csc-object-history-association-place</selector>
 					 </field>
+					 <field id="associatedConcept" >
+					    <selector>.csc-object-history-association-concept</selector>
+					 </field> 
+					 <field id="associatedCulturalAffinity" >
+					    <selector>.csc-object-history-association-cultural-affinity</selector>
+					 </field> 
+					 <field id="associatedDate" ui-type="date" >
+					    <selector>.csc-object-history-association-date</selector>
+					 </field> 
+					 <field id="associatedEventName" >
+					    <selector>.csc-object-history-association-event</selector>
+					 </field> 
+					 <field id="associatedEventNameType" >
+					    <selector>.csc-object-history-association-event-name</selector>
+					 </field> 
+					 <field id="ownershipDates" ui-type="date" >
+					    <selector>.csc-object-history-association-dates</selector>
+					 </field> 
+					 
 					 <field id="associationNote">
 					    <selector>.csc-object-history-association-note</selector>
 					 </field>	
@@ -714,6 +744,9 @@
 			    			<option id="private">private</option>
 						</options>	
 					 </field>
+					 <field id="ownershipPlace" autocomplete="place-place">
+					    <selector>.csc-object-history-association-ownership-place</selector>
+					 </field>	
  					 <field id="ownershipExchangeMethod" >
 					    <selector>.csc-object-history-association-exchange-method</selector>
 					     <options>
@@ -728,7 +761,7 @@
  					 <field id="ownershipExchangeNote" >
 					    <selector>.csc-object-history-association-exchange-note</selector>
 					 </field>
- 					 <field id="ownershipExchangePriceDenomination" >
+ 					 <field id="ownershipExchangePriceCurrency" >
 					    <selector>.csc-object-history-association-denomination</selector>
 					     <options>
 			    			<option id="USD">US Dollar</option>
@@ -783,9 +816,9 @@
 					 <field id="objectHistoryNote">
 					    <selector>.csc-object-history-association-object-history-note</selector>
 					 </field>
-					 <field id="ownershipPlace" autocomplete="place-place">
-					    <selector>.csc-object-history-association-ownership-place</selector>
-					 </field>	
+					 <field id="dateAssociation" >
+					    <selector>.csc-date-information-date-association</selector>
+					 </field> 
 					  <field id="dateText" >
 					    <selector>.csc-date-information-date-text</selector>
 					 </field> 
@@ -811,13 +844,6 @@
 					 <field id="datePeriod" >
 					    <selector>.csc-date-information-date-period</selector>
 					 </field> 
-					
-					 <field id="inscriptionDate" ui-type="date">
-						<selector>.csc-object-description-inscription-content-date</selector>
-					</field>
-					 <field id="inscriptionDescriptionDate">
-						<selector>.csc-object-description-inscription-description-date</selector>
-					 </field>
 					<field id="style">
 						<selector>.csc-object-description-style</selector>
 					</field>
@@ -836,9 +862,6 @@
 					<field id="contentOther">
 						<selector>.csc-object-description-content-other</selector>
 					</field>
-					 <field id="dateAssociation" >
-					    <selector>.csc-date-information-date-association</selector>
-					 </field> 
 					 
 					 
 					 <field id="material">
@@ -846,27 +869,6 @@
 					</field>
 					 <field id="objectProductionDate" ui-type="date" >
 					    <selector>.csc-object-production-date</selector>
-					 </field> 
-					 <field id="technique" >
-					    <selector>.csc-object-production-technique</selector>
-					 </field> 
-					 <field id="associatedConcept" >
-					    <selector>.csc-object-history-association-concept</selector>
-					 </field> 
-					 <field id="associatedCulturalAffinity" >
-					    <selector>.csc-object-history-association-cultural-affinity</selector>
-					 </field> 
-					 <field id="associatedDate" ui-type="date" >
-					    <selector>.csc-object-history-association-date</selector>
-					 </field> 
-					 <field id="associatedEventName" >
-					    <selector>.csc-object-history-association-event</selector>
-					 </field> 
-					 <field id="associatedEventNameType" >
-					    <selector>.csc-object-history-association-event-name</selector>
-					 </field> 
-					 <field id="ownershipDates" ui-type="date" >
-					    <selector>.csc-object-history-association-dates</selector>
 					 </field> 
 					 
 					 <field id="reference">
@@ -1227,10 +1229,13 @@
 			    <selector>.csc-acquisition-purchaser-price-denomination</selector>
 			  </field>
 			  <!-- not supported in service layer
-			  <field id="owner" autocomplete="person-person">
-			    <selector>.csc-acquisition-owner</selector>
-			  </field>
-			  -->
+              <repeat id="owners">
+                <selector>.csc-acquisition-owner-row:</selector>
+                <field id="owner" autocomplete="person-person,organization-organization">
+                  <selector>.csc-acquisition-owner</selector>
+                </field>
+              </repeat>
+              -->
 			  <field id="objectPurchaseOfferPriceType">
 			    <services-tag>objectPurchasePriceDenomination</services-tag>
 			    <selector>.csc-acquisition-purchase-price-type</selector>
