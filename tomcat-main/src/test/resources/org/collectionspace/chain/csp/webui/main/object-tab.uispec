@@ -288,7 +288,7 @@
         ".csc-object-identification-object-title-language": {
             "optionnames": ["English", "Spanish", "French", "Italian", "Portuguese", "German", "Russian", "Arabic", "Chinese", "Hebrew", "Japanese", "Korean", "Swahili", "Ancient Greek", "Latin", "Old English", "Middle English"],
             "optionlist": ["eng", "spa", "fre", "ita", "por", "ger", "rus", "ara", "chi", "heb", "jpn", "kor", "swa", "grc", "lat", "ang", "enm"],
-            "selection": "${fields.objectTitleLanguage}"
+            "selection": "${fields.titleLanguage}"
         },
         ".csc-object-description-content-language": {
             "optionnames": ["English", "Spanish", "French", "Italian", "Portuguese", "German", "Russian", "Arabic", "Chinese", "Hebrew", "Japanese", "Korean", "Swahili", "Ancient Greek", "Latin", "Old English", "Middle English"],
