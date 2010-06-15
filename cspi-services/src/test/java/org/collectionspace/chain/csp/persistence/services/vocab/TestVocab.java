@@ -21,10 +21,6 @@ public class TestVocab extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestVocab.class);
 	private static Pattern vocab_urn=Pattern.compile("urn:cspace:org.collectionspace.demo:vocabulary\\((.*?)\\):item\\((.*?)\\)'(.*?)'");
 		
-	private InputStream getRootSource(String file) {
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
-	}
-	
 	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
 		setup();
 	}

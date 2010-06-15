@@ -39,7 +39,9 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.container.CSPManager;
+import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
+import org.collectionspace.csp.helper.test.TestConfigFinder;
 
 public class TestService extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestService.class);
@@ -50,10 +52,7 @@ public class TestService extends ServicesBaseClass {
 	@Test public void testAssumptionMechanism() {
 		log.info("Services Running!");
 	}
-	private InputStream getRootSource(String file) {
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
-	}
-
+	
 	protected JSONObject getJSON(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);

@@ -82,7 +82,7 @@ public class ServicesBaseClass {
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 	}
 	
-	private InputStream getRootSource(String fallbackFile) {
+	protected InputStream getRootSource(String fallbackFile) {
 		try {
 			return TestConfigFinder.getConfigStream();
 		} catch (CSPDependencyException e) {
