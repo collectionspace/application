@@ -2,7 +2,6 @@
 <ns2:collection-object xmlns:ns2="http://collectionspace.org/hello">
   <objectNumber><<objnum>></objectNumber>
   <otherNumber>3</otherNumber>
-  <briefDescription>description</briefDescription>
   <comments></comments>
   <distFeatures></distFeatures>
   <objectName>Left-handed screwdriver</objectName>
