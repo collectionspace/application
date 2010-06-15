@@ -76,6 +76,7 @@
 				<number-selector>.csc-accession-number</number-selector>
 				<row-selector>.csc-recordList-row:</row-selector>
 				<list-key>objects</list-key>
+				
 					<field id="title" in-title="yes" mini="summary,list">
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
 						<selector>.csc-object-identification-object-title</selector>
@@ -158,10 +159,12 @@
 							</field>
 						</repeat>
 					</repeat>
--->
-					<field id="briefDescription" in-tab="yes">
+-->					
+					<repeat id="briefDescriptions" xxx-ui-no-repeat="yes">
+					<field id="briefDescription">
 						<selector>.csc-object-identification-brief-description</selector>
 					</field>
+					</repeat>
 					<field id="objectNameCurrency">
 						<selector>.csc-object-identification-object-currency</selector>
 						<options>

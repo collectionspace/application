@@ -159,9 +159,11 @@
 						</repeat>
 					</repeat>
 -->
-					<field id="briefDescription" in-tab="yes">
+					<repeat id="briefDescriptions" xxx-ui-no-repeat="yes">
+					<field id="briefDescription">
 						<selector>.csc-object-identification-brief-description</selector>
 					</field>
+					</repeat>
 					<field id="objectNameCurrency">
 						<selector>.csc-object-identification-object-currency</selector>
 						<options>
