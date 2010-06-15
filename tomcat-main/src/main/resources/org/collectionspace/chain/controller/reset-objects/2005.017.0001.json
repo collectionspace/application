@@ -6,7 +6,10 @@
 "descInscriptionScript":"",
 "descContentPosition":"",
 "descColor":"",
-"briefDescription":"Action figure based on the character Luke Skywalker as he appeared in the film <i>Star Wars Episode IV: A New Hope<\/i>. ",
+"briefDescriptions":[{
+"briefDescription":"Action figure based on the character Luke Skywalker as he appeared in the film <i>Star Wars Episode IV: A New Hope<\/i>. "}
+],
+
 "descInscriptionPosition":"",
 "descComponentName":"",
 "descMaterialNote":"",
