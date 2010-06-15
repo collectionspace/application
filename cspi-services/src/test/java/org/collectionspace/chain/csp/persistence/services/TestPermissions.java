@@ -24,7 +24,6 @@ public class TestPermissions  extends ServicesBaseClass  {
 	String actionU = "<action><name>UPDATE</name></action>";
 	String actionD = "<action><name>DELETE</name></action>";
 	String actionS = "<action><name>SEARCH</name></action>";
-	String xmltenant = "<tenant_id>1</tenant_id>";
 	String permission_xmlend = "</ns2:permission>";
 	// <resourceName>/authorization/roles/*/permroles/</resourceName> 
 	

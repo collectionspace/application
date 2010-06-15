@@ -7,5 +7,4 @@
         <action><name>DELETE</name></action>
 		<action><name>SEARCH</name></action>
         <effect>PERMIT</effect>
-        <tenant_id>1</tenant_id>
 </ns2:permission>
