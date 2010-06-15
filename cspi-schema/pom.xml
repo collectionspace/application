@@ -44,13 +44,19 @@
       <type>jar</type>
     </dependency>  
     
-            <dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.5</version>
       <scope>test</scope>
     </dependency>
     
+    <dependency>
+      <groupId>org.collectionspace</groupId>
+      <artifactId>csp-helper</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency> 
     
   </dependencies>
   

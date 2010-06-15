@@ -11,6 +11,7 @@ import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
+import org.collectionspace.csp.helper.test.TestConfigFinder;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 import org.slf4j.Logger;
@@ -20,10 +21,14 @@ public class TestSchema {
 
 	private static final Logger log=LoggerFactory.getLogger(TestSchema.class);
 	
-	private InputStream getSource(String file) {
-		String name=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+file;
-		log.info(name);
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+	private InputStream getSource(String fallbackFile) {
+		try {
+			return TestConfigFinder.getConfigStream();
+		} catch (CSPDependencyException e) {
+			String name=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+fallbackFile;
+			log.info(name);
+			return Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+		}
 	}
 	
 	@Test public void testSchema()  {
