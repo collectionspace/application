@@ -665,7 +665,11 @@
 					 </field> 
 					 <field id="techniqueType">
 					    <selector>.csc-object-production-technique-type</selector>
-					 </field>		
+					 </field>	
+					 	
+					 <field id="associatedActivity">
+					    <selector>.csc-object-history-association-activity</selector>
+					 </field>		 
 					 <field id="associatedActivityNote">
 					    <selector>.csc-object-history-association-activity-note</selector>
 					 </field>		 
