@@ -25,6 +25,7 @@ import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.RequestCache;
+import org.collectionspace.csp.helper.test.TestConfigFinder;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
@@ -47,7 +48,7 @@ public class ServicesBaseClass {
 		config_controller.addSearchSuffix("test-config-loader2.xml");
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
-		base="http://nightly.collectionspace.org:8180";
+		base=TestConfigFinder.xxx_servicesBaseURL; // XXX still yuck but centralised now
 		//log.info("base="+base);
 		conn=new ServicesConnection(base+"/cspace-services");
 		creds=new ServicesRequestCredentials();
@@ -81,8 +82,13 @@ public class ServicesBaseClass {
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 	}
 	
-	private InputStream getRootSource(String file) {
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(file);
+	private InputStream getRootSource(String fallbackFile) {
+		try {
+			return TestConfigFinder.getConfigStream();
+		} catch (CSPDependencyException e) {
+			log.info("Falling back to trying to find old config file");
+			return Thread.currentThread().getContextClassLoader().getResourceAsStream(fallbackFile);
+		}
 	}
 	
 	protected Storage makeServicesStorage(String path) throws CSPDependencyException {
