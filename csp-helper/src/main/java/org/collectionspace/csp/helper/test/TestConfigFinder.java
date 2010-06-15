@@ -18,7 +18,7 @@ public class TestConfigFinder {
 	private static final Logger log=LoggerFactory.getLogger(TestConfigFinder.class);
 	
 	// xxx_servicesBaseURL moved here from ServicesBaseClass as a staging point before we get rid of it
-	public static final String xxx_servicesBaseURL = "http://http://nightly.collectionspace.org:8180"; // XXX hard-wired - ought to be found from the config file!
+	public static final String xxx_servicesBaseURL = "http://nightly.collectionspace.org:8180"; // XXX hard-wired - ought to be found from the config file!
 	
 	public static InputStream getConfigStream() throws CSPDependencyException {
 		// TODO next stage will be to move default.xml into here and rename it (CSPACE-1288)
