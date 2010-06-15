@@ -190,11 +190,30 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		return out;
 	}
 
+	private Document createFullEntry(String name, String shortIdentifier, String vocab) {
+		Document out=DocumentFactory.getInstance().createDocument();
+		Element root=out.addElement("ns2:"+items_section,namespace);
+		Element nametag=root.addElement("displayName");
+		nametag.addText(name);
+		Element sidtag=root.addElement("shortIdentifier");
+		sidtag.addText(shortIdentifier);
+		Element vocabtag=root.addElement(in_tag);
+		vocabtag.addText(vocab);
+		if(dnc_required.contains(items_section)) {
+			Element dnc=root.addElement("displayNameComputed");
+			dnc.addText("false");
+		}
+		//log.info("createEntry() ::: "+out.asXML());
+		return out;
+	}
+
 	private Document createList(String id) throws ExistException {
 		Document out=DocumentFactory.getInstance().createDocument();
 		Element root=out.addElement("ns2:"+tag,namespace);
+		Element sidtag=root.addElement("shortIdentifier");
+		sidtag.addText(id);
 		Element nametag=root.addElement("displayName");
-		nametag.addText(confound(id));
+		nametag.addText(id);
 		Element vocabtag=root.addElement("vocabType");
 		vocabtag.addText("enum");
 		return out;
@@ -203,12 +222,16 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			if(!jsonObject.has("name"))
-				throw new UnderlyingStorageException("Missing name argument to data");
-			String name=jsonObject.getString("name");
+			if(!jsonObject.has("displayName"))
+				throw new UnderlyingStorageException("Missing displayName argument to data");
+			if(!jsonObject.has("shortIdentifier"))
+				throw new UnderlyingStorageException("Missing shortIdentifier argument to data");
+
+			String shortid=jsonObject.getString("displayName");
+			String name=jsonObject.getString("shortIdentifier");
 			String vocab=getVocabularyId(creds,cache,filePath);
 			Map<String,Document> body=new HashMap<String,Document>();
-			body.put(items_section,createEntry(name,vocab));
+			body.put(items_section,createFullEntry(name, shortid,vocab));
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/"+vocab+"/items",body,creds,cache);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
@@ -380,7 +403,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 				name=doc.getDocument(items_section).selectSingleNode(name_path).getText();
 			}
 			JSONObject out=new JSONObject();
-			out.put("name",name);
+			out.put("shortIdentifier",name);
 			out.put("csid",URNNewName(creds,cache,filePath,name));
 			return out;
 		} catch (ConnectionException e) {
@@ -393,11 +416,11 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			if(!jsonObject.has("name"))
+			if(!jsonObject.has("shortIdentifier"))
 				throw new UnderlyingStorageException("Missing name argument to data");
-			String name=jsonObject.getString("name");
+			String name=jsonObject.getString("shortIdentifier");
 			Map<String,Document> body=new HashMap<String,Document>();
-			body.put(items_section,createEntry(name,URNtoVocab(creds,cache,filePath)));
+			body.put(items_section,createFullEntry(name,name,URNtoVocab(creds,cache,filePath)));
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,URNtoURL(creds,cache,filePath),body,creds,cache);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
