@@ -1045,7 +1045,7 @@
 			  <field id="packingNote">
 			    <selector>.csc-intake-packing-note</selector>
 			  </field>
-			  <field id="associationDate">
+			  <field id="dateAssociation">
 			    <selector>.csc-intake-date-association</selector>
 			  </field>
 			  <field id="earliestDateCertainty">
@@ -1113,7 +1113,7 @@
 			  <field id="conditionCheckReferenceNumber">
 			    <selector>.csc-intake-condition-check-reference-number</selector>
 			  </field>
-			  <field id="conditionCheckAssesor" autocomplete="person-person,organization-organization">
+			  <field id="conditionCheckerAssessor" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-condition-check-assessor</selector>
 			  </field>			  
 			  <field id="conditionCheckDate" ui-type="date">
