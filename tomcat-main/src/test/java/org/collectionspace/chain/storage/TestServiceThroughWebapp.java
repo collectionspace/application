@@ -136,22 +136,22 @@ public class TestServiceThroughWebapp {
 
 	@Test public void testAcquisition() throws Exception {
 		ServletTester jetty=setupJetty();
-		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/acquisition/",makeSimpleRequest(getResourceString("int5.json")));	
+		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/acquisition/",makeSimpleRequest(getResourceString("create_acquistion.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		JSONObject content=new JSONObject(out.getContent());
 		content=getFields(content);
-		JSONObject one = new JSONObject(getResourceString("int5.json"));
-		assertEquals(one.get("acquisitionFundingDenomination"),content.get("acquisitionFundingDenomination"));
+		JSONObject one = new JSONObject(getResourceString("create_acquistion.json"));
+		assertEquals(one.get("acquisitionFundingCurrency"),content.get("acquisitionFundingCurrency"));
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int5.json")),content));
-		out=jettyDo(jetty,"PUT","/chain"+path,makeSimpleRequest(getResourceString("int6.json")));
+		out=jettyDo(jetty,"PUT","/chain"+path,makeSimpleRequest(getResourceString("update_acquistion.json")));
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		content=new JSONObject(out.getContent());
 		content=getFields(content);
-		JSONObject oneb = new JSONObject(getResourceString("int6.json"));
-		assertEquals(oneb.get("acquisitionFundingDenomination"),content.get("acquisitionFundingDenomination"));
+		JSONObject oneb = new JSONObject(getResourceString("update_acquistion.json"));
+		assertEquals(oneb.get("acquisitionFundingCurrency"),content.get("acquisitionFundingCurrency"));
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int6.json")),content));		
 		out=jettyDo(jetty,"DELETE","/chain"+path,null);
 		out=jettyDo(jetty,"GET","/chain"+path,null);
