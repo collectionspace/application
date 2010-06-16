@@ -955,7 +955,7 @@
 				  </options>
 				</field>			
 				
-			  	<repeat id="lenders" asSibling="true">
+			  	<repeat id="lenders" asSibling="true" xxx-services-no-repeat="yes">
 			  		<selector>.csc-loanIn-lender-row:</selector>
 			    	<field id="lender" autocomplete="person-person,organization-organization" mini="summary"  xxx_ui_refactored="true" in-title="yes" >
 			      		<selector>.csc-loanIn-lender</selector>
