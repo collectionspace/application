@@ -24,12 +24,16 @@
     <module>tomcat-main</module>
   </modules>
   <build>
-  	<!-- make sure that each project's target/test-classes directory
-	     will have default.xml in it; deliberately in top-level pom.xml
-		 so as not to have references to tomcat-main in child projects -->
     <testResources>
+  	  <!-- default -->
       <testResource>
-        <directory>${basedir}/../tomcat-main/src/main/resources</directory>
+        <directory>${project.basedir}/src/test/resources</directory>
+      </testResource>
+  	  <!-- make sure that each project's target/test-classes directory
+	       will have default.xml in it; deliberately in top-level pom.xml
+	       so as not to have references to tomcat-main in child projects -->
+      <testResource>
+        <directory>${project.basedir}/../tomcat-main/src/main/resources</directory>
       </testResource>
     </testResources>
   </build>
