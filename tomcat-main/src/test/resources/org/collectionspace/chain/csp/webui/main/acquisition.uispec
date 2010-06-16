@@ -121,19 +121,6 @@
                 }
             ]
         },
-        ".csc-object-collection-field-collection-collector": "${fields.fieldCollector}",
-        ".csc-acquisition-acquisition-funding-source-autocomplete": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../chain/acquisition/autocomplete/acquisitionFundingSource",
-                        "vocabUrl": "../../chain/acquisition/source-vocab/acquisitionFundingSource"
-                    }
-                }
-            ]
-        },
         ".csc-acquisition-purchase-price-type": "${fields.objectPurchaseOfferPriceType}",
         ".csc-acquisition-reference-number-patternChooserContainer": {
             "decorators": [
