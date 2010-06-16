@@ -759,8 +759,8 @@ public class TestGeneral {
 		assertEquals(one.get("roles").toString(),json.get("roles").toString());
 		
 		//Delete the account_role
-		out=jettyDo(jetty,"DELETE","/chain"+user_id+""+acrole_id,null);
-		assertEquals(200,out.getStatus());
+		//out=jettyDo(jetty,"DELETE","/chain"+user_id+""+acrole_id,null);
+		//assertEquals(200,out.getStatus());
 		
 		//Delete the roles
 		out=jettyDo(jetty,"DELETE","/chain"+user_id,null);
