@@ -1022,6 +1022,20 @@
 			  <field id="depositorsRequirements">
 			    <selector>.csc-intake-depositor-requirements</selector>
 			  </field>
+			  <field id="entryDate" ui-type="date">
+				<selector>.csc-intake-entry-date</selector>
+			  </field>
+			  <repeat id="entryMethods" xxx-services-no-repeat="yes">
+			    <selector>.csc-intake-entry-method-row:</selector>
+			    <field id="entryMethod">
+			      <selector>.csc-intake-entry-method</selector>
+			      <options>
+			        <option id="in-person" default="yes">In person</option>
+			        <option id="post">Post</option>
+			        <option id="found-on-doorstep">Found on doorstep</option>
+			      </options>
+			    </field>
+			  </repeat>
 			  <field id="entryNote">
 			    <selector>.csc-intake-entry-note</selector>
 			  </field>
@@ -1045,6 +1059,79 @@
 			  <field id="packingNote">
 			    <selector>.csc-intake-packing-note</selector>
 			  </field>
+			  <field id="returnDate" ui-type="date">
+			    <selector>.csc-intake-return-date</selector>
+			  </field>
+			  
+			  
+			  <field id="valuationReferenceNumber">
+			    <selector>.csc-intake-valuation-reference-number</selector>
+			  </field>
+			  <field id="valuer" autocomplete="person-person,organization-organization">
+			    <selector>.csc-intake-valuer</selector>
+			  </field>	
+			  
+			  
+			  <field id="fieldCollectionEventName">
+			    <selector>.csc-intake-field-collection-event-name</selector>
+			  </field>
+			  		  
+			  <field id="insuranceNote">
+			    <selector>.csc-intake-insurance-note</selector>
+			  </field>
+			  <field id="insurancePolicyNumber">
+			    <selector>.csc-intake-insurance-policy-number</selector>
+			  </field>
+			  <field id="insuranceReferenceNumber">
+			    <selector>.csc-intake-insurance-reference-number</selector>
+			  </field>
+			  <field id="insuranceRenewalDate" ui-type="date">
+			    <selector>.csc-intake-insurance-renewal-date</selector>
+			  </field>
+			  <field id="insurer" autocomplete="person-person,organization-organization">
+			    <selector>.csc-intake-insurer</selector>
+			  </field>  
+			  
+			  
+			  <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
+			  <field id="currentLocation" >
+			    <selector>.csc-intake-current-location</selector>
+			  </field>
+			  <field id="currentLocationFitness">
+			    <selector>.csc-intake-current-location-fitness</selector>
+			  </field>
+			  <field id="currentLocationNote">
+			    <selector>.csc-intake-current-location-note</selector>
+			  </field>
+			  <field id="locationDate" ui-type="date">
+			    <selector>.csc-intake-location-date</selector>
+			  </field>
+			  <!--  <field id="normalLocation" autocomplete="location-location, place-place"> -->
+			  <field id="normalLocation">
+			    <selector>.csc-intake-normal-location</selector>
+			  </field>
+			  
+			  		  
+			  <field id="conditionCheckDate" ui-type="date">
+			    <selector>.csc-intake-condition-check-date</selector>
+			  </field>
+			  <field id="conditionCheckMethod">
+			    <selector>.csc-intake-condition-check-method</selector>
+			  </field>
+			  <field id="conditionCheckNote">
+			    <selector>.csc-intake-condition-check-note</selector>
+			  </field>
+			  <field id="conditionCheckReason">
+			    <selector>.csc-intake-condition-check-reason</selector>
+			  </field>
+			  <field id="conditionCheckReferenceNumber">
+			    <selector>.csc-intake-condition-check-reference-number</selector>
+			  </field>
+			  <field id="conditionCheckerAssessor" autocomplete="person-person,organization-organization">
+			    <selector>.csc-intake-condition-check-assessor</selector>
+			  </field>	
+			  
+			  
 			  <field id="dateAssociation">
 			    <selector>.csc-intake-date-association</selector>
 			  </field>
@@ -1066,65 +1153,6 @@
 			  <field id="dateText">
 			    <selector>.csc-intake-date-text</selector>
 			  </field>
-			  <field id="fieldCollectionEventName">
-			    <selector>.csc-intake-field-collection-event-name</selector>
-			  </field>
-			  <field id="valuationReferenceNumber">
-			    <selector>.csc-intake-valuation-reference-number</selector>
-			  </field>
-			  <field id="valuer" autocomplete="person-person,organization-organization">
-			    <selector>.csc-intake-valuer</selector>
-			  </field>			  
-			  <field id="insuranceNote">
-			    <selector>.csc-intake-insurance-note</selector>
-			  </field>
-			  <field id="insurancePolicyNumber">
-			    <selector>.csc-intake-insurance-policy-number</selector>
-			  </field>
-			  <field id="insuranceReferenceNumber">
-			    <selector>.csc-intake-insurance-reference-number</selector>
-			  </field>
-			  <field id="insurer" autocomplete="person-person,organization-organization">
-			    <selector>.csc-intake-insurer</selector>
-			  </field>  
-			  <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
-			  <field id="currentLocation" >
-			    <selector>.csc-intake-current-location</selector>
-			  </field>
-			  <field id="currentLocationFitness">
-			    <selector>.csc-intake-current-location-fitness</selector>
-			  </field>
-			  <field id="currentLocationNote">
-			    <selector>.csc-intake-current-location-note</selector>
-			  </field>
-			  <!--  <field id="normalLocation" autocomplete="location-location, place-place"> -->
-			  <field id="normalLocation">
-			    <selector>.csc-intake-normal-location</selector>
-			  </field>
-			  <field id="conditionCheckMethod">
-			    <selector>.csc-intake-condition-check-method</selector>
-			  </field>
-			  <field id="conditionCheckNote">
-			    <selector>.csc-intake-condition-check-note</selector>
-			  </field>
-			  <field id="conditionCheckReason">
-			    <selector>.csc-intake-condition-check-reason</selector>
-			  </field>
-			  <field id="conditionCheckReferenceNumber">
-			    <selector>.csc-intake-condition-check-reference-number</selector>
-			  </field>
-			  <field id="conditionCheckerAssessor" autocomplete="person-person,organization-organization">
-			    <selector>.csc-intake-condition-check-assessor</selector>
-			  </field>			  
-			  <field id="conditionCheckDate" ui-type="date">
-			    <selector>.csc-intake-condition-check-date</selector>
-			  </field>
-			  <field id="locationDate" ui-type="date">
-			    <selector>.csc-intake-location-date</selector>
-			  </field>
-			  <field id="insuranceRenewalDate" ui-type="date">
-			    <selector>.csc-intake-insurance-renewal-date</selector>
-			  </field>
   			  <field id="latestDate" ui-type="date">
 			    <selector>.csc-intake-date-latest</selector>
 			    <container-selector>.csc-intake-date-latest-single-container</container-selector>
@@ -1132,23 +1160,7 @@
 			  <field id="earliestDate" ui-type="date">
 			    <selector>.csc-intake-date-earliest-single</selector>
 			  </field>
-			  <field id="entryDate" ui-type="date">
-				<selector>.csc-intake-entry-date</selector>
-			  </field>
-			  <field id="returnDate" ui-type="date">
-			    <selector>.csc-intake-return-date</selector>
-			  </field>
-			  <repeat id="entryMethods" xxx-services-no-repeat="yes">
-			    <selector>.csc-intake-entry-method-row:</selector>
-			    <field id="entryMethod">
-			      <selector>.csc-intake-entry-method</selector>
-			      <options>
-			        <option id="in-person" default="yes">In person</option>
-			        <option id="post">Post</option>
-			        <option id="found-on-doorstep">Found on doorstep</option>
-			      </options>
-			    </field>
-			  </repeat>
+			  
 			</record>
 			
 			<record id="acquisition"  in-findedit="yes">
