@@ -9,7 +9,7 @@
   <packaging>pom</packaging>
   <name>Root</name>
   <modules>
-	<module>general-utils</module>
+    <module>general-utils</module>
     <module>csp-api</module>
     <module>csp-impl</module>
     <module>cspi-schema</module>
@@ -17,10 +17,20 @@
     <module>jxutils</module>
     <module>csp-helper</module>
 
-	<module>cspi-webui</module>
+    <module>cspi-webui</module>
     <module>cspi-file</module>
     <module>cspi-services</module>
 
     <module>tomcat-main</module>
   </modules>
+  <build>
+  	<!-- make sure that each project's target/test-classes directory
+	     will have default.xml in it; deliberately in top-level pom.xml
+		 so as not to have references to tomcat-main in child projects -->
+    <testResources>
+      <testResource>
+        <directory>${basedir}/../tomcat-main/src/main/resources</directory>
+      </testResource>
+    </testResources>
+  </build>
 </project>
