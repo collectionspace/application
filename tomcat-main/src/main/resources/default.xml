@@ -1182,7 +1182,7 @@
 			    <selector>.csc-acquisition-date</selector>
 			    <container-selector>.csc-acquisition-acquisition-date-container</container-selector>
 			  </field>
-			  <field id="acquisitionFundingDenomination">
+			  <field id="acquisitionFundingCurrency">
 			    <selector>.csc-acquisition-acquisition-funding-denomination</selector>
 			  </field>
 			  <field id="acquisitionFundingValue">
@@ -1229,9 +1229,49 @@
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
 			  </repeat>
-			  <field id="objectPurchaseOfferPriceDenomination">
+			  <field id="objectPurchaseOfferPriceCurrency">
 			    <selector>.csc-acquisition-purchaser-price-denomination</selector>
 			  </field>
+			  <field id="objectPurchaseOfferPriceValue">
+			    <selector>.csc-acquisition-purchaser-price</selector>
+			  </field>
+	
+			  <field id="groupPurchasePriceCurrency">
+			    <selector>.csc-acquisition-group-purchase-price-currency</selector>
+			  </field>
+			  <field id="groupPurchasePriceValue">
+			    <selector>.csc-acquisition-group-purchase-price-value</selector>
+			  </field>
+			  
+			  <field id="objectOfferPriceCurrency">
+			    <selector>.csc-acquisition-object-offer-price-currency</selector>
+			  </field>
+			  <field id="objectOfferPriceValue">
+			    <selector>.csc-acquisition-object-offer-price-value</selector>
+			  </field>
+			  
+			  <field id="objectPurchasePriceCurrency">
+			    <selector>.csc-acquisition-object-purchase-price-currency</selector>
+			  </field>
+			  <field id="objectPurchasePriceValue">
+			    <selector>.csc-acquisition-object-purchase-price-value</selector>
+			  </field>
+			  
+			  <field id="objectPurchaseOfferPriceCurrency">
+			    <selector>.csc-acquisition-object-purchase-offer-price-currency</selector>
+			  </field>
+			  <field id="objectPurchaseOfferPriceValue">
+			    <selector>.csc-acquisition-object-purchase-offer-price-value</selector>
+			  </field>
+			  
+			  <field id="originalObjectPurchasePriceCurrency">
+			    <selector>.csc-acquisition-original-object-purchase-price-currency</selector>
+			  </field>
+			  <field id="originalObjectPurchasePriceValue">
+			    <selector>.csc-acquisition-original-object-purchase-price-value</selector>
+			  </field>
+			  
+	
 			  <!-- not supported in service layer
               <repeat id="owners">
                 <selector>.csc-acquisition-owner-row:</selector>
@@ -1240,21 +1280,13 @@
                 </field>
               </repeat>
               -->
-			  <field id="objectPurchaseOfferPriceType">
-			    <services-tag>objectPurchasePriceDenomination</services-tag>
-			    <selector>.csc-acquisition-purchase-price-type</selector>
-			  </field>
-			  <field id="objectPurchaseOfferPriceValue">
-			    <selector>.csc-acquisition-purchaser-price</selector>
-			  </field>
+			  
+              <field id="owner" autocomplete="person-person,organization-organization">
+                 <selector>.csc-acquisition-owner</selector>
+              </field>
+			  
 			  <field id="transferOfTitleNumber">
 			    <selector>.csc-acquisition-transfer-of-title-number</selector>
-			  </field>
-			  <field id="fieldCollectionNumber">
-			    <selector>.csc-object-collection-field-collection-number</selector>
-			  </field>
-			  <field id="fieldCollector">
-			    <selector>.csc-object-collection-field-collection-collector</selector>
 			  </field>
 			</record>
 
