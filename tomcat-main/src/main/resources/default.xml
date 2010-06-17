@@ -1838,6 +1838,13 @@
 				  </options>
 				</field>			
 			  			  
+				<field id="borrower" autocomplete="person-person,organization-organization" mini="summary,list" xxx_ui_refactored="true" in-title="yes">
+					<selector>.csc-loanOut-borrower</selector>
+				</field>
+				<field id="borrowersContact" autocomplete="person-person"  xxx_ui_refactored="true">
+					<selector>.csc-loanOut-borrowersContact</selector>
+				</field>
+				
 			    <field id="lendersAuthorizer" autocomplete="person-person"   xxx_ui_refactored="true">
 					<selector>.csc-loanOut-lendersAuthorizer</selector>
 				</field>	
@@ -1847,31 +1854,7 @@
 				<field id="lendersContact" autocomplete="person-person"  xxx_ui_refactored="true">
 					<selector>.csc-loanOut-lendersContact</selector>
 				</field>
-				<field id="borrowersContact" autocomplete="person-person"  xxx_ui_refactored="true">
-					<selector>.csc-loanOut-borrowersContact</selector>
-				</field>
-				<field id="loanReturnDate" ui-type="date">
-					<selector>.csc-loanOut-loanReturnDate</selector>
-				</field>
-				<field id="loanPurpose">
-					<selector>.csc-loanOut-loanPurpose</selector>
-			    		<options>
-			      		<option id="exhibition" default="yes">Exhibition</option>
-			      		<option id="research">Research</option>
-			      		<option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
-			      		<option id="analysis">Analysis</option>
-			      		<option id="photography">Photography</option>
-			      		<option id="conservationotherrequestedservices">Conservation or other requested services</option>
-			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
-			    	</options>
-				</field>
-				<field id="loanOutDate" ui-type="date">
-					<selector>.csc-loanOut-loanOutDate</selector>
-				</field>
-				<field id="loanRenewalApplicationDate" ui-type="date">
-					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
-				</field>
-				<!-- not supported in the Service layer
+				
 				<field id="loanedObjectStatusNote">
 					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
 				</field>
@@ -1893,15 +1876,33 @@
 			      		<option id="returned">Returned</option>
 			    	</options>
 				</field>
-				-->
+				
+				<field id="loanOutDate" ui-type="date">
+					<selector>.csc-loanOut-loanOutDate</selector>
+				</field>
+				<field id="loanReturnDate" ui-type="date">
+					<selector>.csc-loanOut-loanReturnDate</selector>
+				</field>
+				<field id="loanRenewalApplicationDate" ui-type="date">
+					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
+				</field>
 				<field id="specialConditionsOfLoan">
 					<selector>.csc-loanOut-loanOutConditions</selector>
 				</field>
-				<field id="borrower" autocomplete="person-person,organization-organization" mini="summary,list" xxx_ui_refactored="true" in-title="yes">
-					<selector>.csc-loanOut-borrower</selector>
-				</field>
 				<field id="loanOutNote">
 					<selector>.csc-loanOut-loanOutNote</selector>
+				</field>
+				<field id="loanPurpose">
+					<selector>.csc-loanOut-loanPurpose</selector>
+			    		<options>
+			      		<option id="exhibition" default="yes">Exhibition</option>
+			      		<option id="research">Research</option>
+			      		<option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
+			      		<option id="analysis">Analysis</option>
+			      		<option id="photography">Photography</option>
+			      		<option id="conservationotherrequestedservices">Conservation or other requested services</option>
+			      		<option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
+			    	</options>
 				</field>
 			</record>
 			
