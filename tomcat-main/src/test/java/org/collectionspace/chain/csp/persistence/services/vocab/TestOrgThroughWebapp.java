@@ -21,6 +21,7 @@ import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+// These are to test the functionality for Organization as defined in WebUI.java
 public class TestOrgThroughWebapp {
 	private static final Logger log=LoggerFactory.getLogger(TestOrgThroughWebapp.class);
 	private static String cookie;
@@ -83,29 +84,46 @@ public class TestOrgThroughWebapp {
 			}
 		}		
 	}
-		
+	// Tests that an authority search includes the expected item	
 	@Test public void testAuthoritiesSearch() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization/search?query=National+Mask+%26+Puppet+Corp.",null);
+		// Create
+	    JSONObject data=new JSONObject("{'fields':{'displayName':'Test My Authority1'}}");
+	    HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",data.toString());              
+	    assertTrue(out.getStatus()<300);
+	    String url=out.getHeader("Location");
+		// Search
+		out=jettyDo(jetty,"GET","/chain/authorities/organization/search?query=Test+My+Authority1",null);
 		assertTrue(out.getStatus()<299);
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		assertTrue(results.length()>0);
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			assertTrue(entry.getString("displayName").toLowerCase().contains("national mask & puppet corp."));
+			assertTrue(entry.getString("displayName").toLowerCase().contains("test my authority1"));
 			assertEquals(entry.getString("number"),entry.getString("displayName"));
 			assertTrue(entry.has("refid"));
 		}
+		// Delete
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
+		assertEquals(400,out.getStatus());
 	}
-
+	// Tests that an authorities list includes the expected item
 	@Test public void testAuthoritiesList() throws Exception {
 		ServletTester jetty=setupJetty();
+		// Create
+	    JSONObject data=new JSONObject("{'fields':{'displayName':'Test My Authority2'}}");
+	    HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",data.toString());              
+	    assertTrue(out.getStatus()<300);
+	    String url=out.getHeader("Location");
+	    // Get List
 		int resultsize =1;
 		int pagenum = 0;
 		String checkpagination = "";
 		boolean found=false;
 		while(resultsize >0){
-			HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization?pageSize=200&pageNum="+pagenum,null);
+			out=jettyDo(jetty,"GET","/chain/authorities/organization?pageSize=200&pageNum="+pagenum,null);
 			pagenum++;
 			assertTrue(out.getStatus()<299);
 			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
@@ -118,40 +136,64 @@ public class TestOrgThroughWebapp {
 
 			for(int i=0;i<results.length();i++) {
 				JSONObject entry=results.getJSONObject(i);
-				if(entry.getString("displayName").toLowerCase().contains("national mask & puppet corp.")){
+				if(entry.getString("displayName").toLowerCase().contains("test my authority2")){
 					found=true;
 					resultsize=0;
 				}
 			}
 		}
 		assertTrue(found);
+		// Delete
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
+		assertEquals(400,out.getStatus());
 	}
-
-	@Test public void testNamesSearch() throws Exception {
+	// Tests an vocabularies organization search includes the appropriate item
+	@Test public void testOrganizationSearch() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=National+Mask+%26+Puppet+Corp.",null);
+		// Create
+	    JSONObject data=new JSONObject("{'fields':{'displayName':'Test Organization XXX'}}");
+	    HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",data.toString());              
+	    assertTrue(out.getStatus()<300);
+	    String url=out.getHeader("Location");
+		// Search
+		out=jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=Test+Organ",null);
 		assertTrue(out.getStatus()<299);
 			
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			assertTrue(entry.getString("displayName").toLowerCase().contains("national mask & puppet corp."));
+			assertTrue(entry.getString("displayName").toLowerCase().contains("test organization xxx"));
 			assertEquals(entry.getString("number"),entry.getString("displayName"));
 			assertTrue(entry.has("refid"));
 		}
 		
+		// Delete
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
+		assertEquals(400,out.getStatus());
+		
 	}
 
-	@Test public void testNamesList() throws Exception {
+	// Tests that a vocabularies organization list includes the appropriate item	
+	@Test public void testOrganizationList() throws Exception {
+		
 		ServletTester jetty=setupJetty();
+		// Create
+	    JSONObject data=new JSONObject("{'fields':{'displayName':'Test my Org XXX1'}}");
+	    HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",data.toString());              
+	    assertTrue(out.getStatus()<300);
+	    String url=out.getHeader("Location");
 
 		int resultsize =1;
 		int pagenum = 0;
 		String checkpagination = "";
 		boolean found=false;
 		while(resultsize >0){
-			HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization?pageSize=20&pageNum="+pagenum,null);
+			out=jettyDo(jetty,"GET","/chain/vocabularies/organization?pageSize=20&pageNum="+pagenum,null);
 			pagenum++;
 			assertTrue(out.getStatus()<299);
 			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
@@ -163,18 +205,32 @@ public class TestOrgThroughWebapp {
 			checkpagination = results.getJSONObject(0).getString("csid");
 			for(int i=0;i<results.length();i++) {
 				JSONObject entry=results.getJSONObject(i);
-				if(entry.getString("displayName").toLowerCase().contains("national mask & puppet corp.")){
+				if(entry.getString("displayName").toLowerCase().contains("test my org xxx1")){
 					found=true;
 					resultsize=0;
 				}
 			}
 		}
 		assertTrue(found);
+		
+		// Delete
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
+		assertEquals(400,out.getStatus());	
 	}
 
-	@Test public void testNamesGet() throws Exception {
+	// Tests a READ for an organization
+	@Test public void testOrganizationGet() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=National+Mask+%26+Puppet+Corp.",null);
+		// Create
+	    JSONObject data=new JSONObject("{'fields':{'displayName':'Test my Org XXX2'}}");
+	    HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",data.toString());              
+	    assertTrue(out.getStatus()<300);
+	    String url=out.getHeader("Location");
+	    // Search
+		out=jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=Test+my+Org+XXX2",null);
+		
 		assertTrue(out.getStatus()<299);
 		// Find candidate
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
@@ -184,13 +240,19 @@ public class TestOrgThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/vocabularies/organization/"+csid,null);
 		JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(csid,fields.getString("csid"));
-		assertEquals("National Mask & Puppet Corp.",fields.getString("displayName"));
+		assertEquals("Test my Org XXX2",fields.getString("displayName"));
+		
+		// Delete
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
+		assertEquals(400,out.getStatus());	
 	}
-
-	@Test public void testNamesCreateUpdateDelete() throws Exception {
+	// Tests an Update for an Organization
+	@Test public void testOrganizationCreateUpdateDelete() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Create
-		JSONObject data=new JSONObject("{'fields':{'displayName':'National Mask & Puppet Corp.'}}");
+		JSONObject data=new JSONObject("{'fields':{'displayName':'Test my Org XXX4'}}");
 		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",data.toString());		
 		assertTrue(out.getStatus()<300);
 		String url=out.getHeader("Location");
@@ -199,9 +261,9 @@ public class TestOrgThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
-		assertEquals("National Mask & Puppet Corp.",data.getString("displayName"));
+		assertEquals("Test my Org XXX4",data.getString("displayName"));
 		// Update
-		data=new JSONObject("{'fields':{'displayName':'Dic Penderyn'}}");
+		data=new JSONObject("{'fields':{'displayName':'A New Test Org'}}");
 		out=jettyDo(jetty,"PUT","/chain/vocabularies"+url,data.toString());		
 		assertTrue(out.getStatus()<300);
 		// Read
@@ -209,7 +271,7 @@ public class TestOrgThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
-		assertEquals("Dic Penderyn",data.getString("displayName"));
+		assertEquals("A New Test Org",data.getString("displayName"));
 		// Delete
 		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
 		assertTrue(out.getStatus()<299);
@@ -267,15 +329,66 @@ public class TestOrgThroughWebapp {
 
 	}
 	
-	@Test public void testAutocompleteInOrganization() throws Exception {
+	// Tests both a person and an organization autocomplete for an organization
+	@Test public void testAutocompletesForOrganization() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/organization/autocomplete/contactName?q=Achmed+Abdullah&limit=150",null);
+		// Create
+	    JSONObject org=new JSONObject("{'fields':{'displayName':'Test my Org XXX5'}}");
+	    HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",org.toString());              
+	    assertTrue(out.getStatus()<300);
+	    String url1=out.getHeader("Location");
+	    // Add a person
+	    JSONObject person=new JSONObject("{'fields':{'displayName':'Test Auto Person'}}");
+	    out=jettyDo(jetty,"POST","/chain/vocabularies/person/",person.toString());              
+	    assertTrue(out.getStatus()<300);
+	    String url2=out.getHeader("Location");	  
+	    // A second organization
+	    JSONObject org2=new JSONObject("{'fields':{'displayName':'Test another Org'}}");
+	    out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",org2.toString());              
+	    assertTrue(out.getStatus()<300);
+	    String url3=out.getHeader("Location");	
+	    
+	    // Test Autocomplete contactName
+	    out=jettyDo(jetty,"GET","/chain/vocabularies/organization/autocomplete/contactName?q=Test+Auto&limit=150",null);
 		assertTrue(out.getStatus()<299);
 		String[] data=out.getContent().split("\n");
 		for(int i=0;i<data.length;i++) {
 			JSONObject entry=new JSONObject(data[i]);
-			assertTrue(entry.getString("label").toLowerCase().contains("achmed abdullah"));
+			assertTrue(entry.getString("label").toLowerCase().contains("test auto person"));
 			assertTrue(entry.has("urn"));
 		}
+		// Test Autocomplete group
+	    out=jettyDo(jetty,"GET","/chain/vocabularies/organization/autocomplete/group?q=Test+another&limit=150",null);
+		assertTrue(out.getStatus()<299);
+		data=out.getContent().split("\n");
+		for(int i=0;i<data.length;i++) {
+			JSONObject entry=new JSONObject(data[i]);
+			assertTrue(entry.getString("label").toLowerCase().contains("test another org"));
+			assertTrue(entry.has("urn"));
+		}		
+		// Delete
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url1,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url1,null);
+		assertEquals(400,out.getStatus());	
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url2,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url2,null);
+		assertEquals(400,out.getStatus());	
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url3,null);
+		assertTrue(out.getStatus()<299);
+		out=jettyDo(jetty,"GET","/chain/vocabularies"+url3,null);
+		assertEquals(400,out.getStatus());	
 	}
+	// Tests that a redirect goes to the expected place
+	@Test public void testAutocompleteRedirect() throws Exception {
+		ServletTester jetty=setupJetty();
+		
+		HttpTester out=jettyDo(jetty,"GET","/chain/objects/source-vocab/contentOrganization",null);
+		assertTrue(out.getStatus()<299);
+		JSONObject data=new JSONObject(out.getContent());
+		String url=data.getString("url");
+		assertEquals("/vocabularies/organization",url);
+		
+	}	
 }
