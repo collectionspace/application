@@ -1130,37 +1130,6 @@
 			  <field id="conditionCheckerAssessor" autocomplete="person-person,organization-organization">
 			    <selector>.csc-intake-condition-check-assessor</selector>
 			  </field>	
-			  
-			  
-			  <field id="dateAssociation">
-			    <selector>.csc-intake-date-association</selector>
-			  </field>
-			  <field id="earliestDateCertainty">
-			    <selector>.csc-intake-date-earliest-single-certainty</selector>
-			  </field>
-			  <field id="earliestDateQualifier">
-			    <selector>.csc-intake-date-earliest-single-qualifier</selector>
-			  </field>
-			  <field id="latestDateCertainty">
-			    <selector>.csc-intake-date-latest-certainty</selector>
-			  </field>
-			  <field id="latestDateQualifier">
-			    <selector>.csc-intake-date-latest-qualifier</selector>
-			  </field>
-			  <field id="datePeriod">
-			    <selector>.csc-intake-date-period</selector>
-			  </field>			  
-			  <field id="dateText">
-			    <selector>.csc-intake-date-text</selector>
-			  </field>
-  			  <field id="latestDate" ui-type="date">
-			    <selector>.csc-intake-date-latest</selector>
-			    <container-selector>.csc-intake-date-latest-single-container</container-selector>
-			  </field>
-			  <field id="earliestDate" ui-type="date">
-			    <selector>.csc-intake-date-earliest-single</selector>
-			  </field>
-			  
 			</record>
 			
 			<record id="acquisition"  in-findedit="yes">
