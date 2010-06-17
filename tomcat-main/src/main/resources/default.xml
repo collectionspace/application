@@ -1367,21 +1367,12 @@
 			    <selector>.csc-personAuthority-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
 			  </field>
-			  
-			  <field id="birthDate" in-title="yes" ui-type="date">
-			    <selector>.csc-personAuthority-birthDate</selector>
-			    <title-selector>.csc-titleBar-birthDate</title-selector>
-			  </field>
-			  <field id="deathDate" in-title="yes" ui-type="date">
-			    <selector>.csc-personAuthority-deathDate</selector>
-			    <title-selector>.csc-titleBar-deathDate</title-selector>
-			  </field>
-			  <field id="middleName">
-			    <selector>.csc-personAuthority-middleName</selector>
-			  </field>
 			  <field id="foreName">
                 <selector>.csc-personAuthority-foreName</selector>
               </field>
+			  <field id="middleName">
+			    <selector>.csc-personAuthority-middleName</selector>
+			  </field>
 			  <field id="surName">
 			    <selector>.csc-personAuthority-surName</selector>
 			  </field>
@@ -1417,18 +1408,25 @@
 			   <field id="nameAdditions">
 			    <selector>.csc-personAuthority-nameAdditions</selector>
 			  </field>
-			  <field id="birthPlace" autocomplete="place-place">
+			  
+			  <field id="birthDate" in-title="yes" ui-type="date">
+			    <selector>.csc-personAuthority-birthDate</selector>
+			    <title-selector>.csc-titleBar-birthDate</title-selector>
+			  </field>
+			  <field id="deathDate" in-title="yes" ui-type="date">
+			    <selector>.csc-personAuthority-deathDate</selector>
+			    <title-selector>.csc-titleBar-deathDate</title-selector>
+			  </field>		 
+			  <field id="birthPlace">
 			    <selector>.csc-personAuthority-birthPlace</selector>
 			  </field>
-			  <field id="deathPlace" autocomplete="place-place">
+			  <field id="deathPlace">
 			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
-			  <!-- <field id="group"> -->
-			  <field id="group" autocomplete="person-person">
+			  <field id="group" >
 			    <selector>.csc-personAuthority-group</selector>
 			  </field>
-			  <!-- <field id="nationality"> -->
-			  <field id="nationality" autocomplete="person-person">
+			  <field id="nationality">
 			    <selector>.csc-personAuthority-nationality</selector>
 			  </field>
 			  <field id="gender">
@@ -1441,17 +1439,16 @@
 			   <field id="occupation" autocomplete="occupation-occupation">
 			    <selector>.csc-personAuthority-occupation</selector>
 			  </field>
-			  <field id="nameNote">
-			    <selector>.csc-personAuthority-nameNote</selector>
+			  
+			   <field id="schoolOrStyle">
+			    <selector>.csc-personAuthority-schoolorstyle</selector>
 			  </field>
+			  
 			  <field id="bioNote">
 			    <selector>.csc-personAuthority-bioNote</selector>
-			  </field>			 
-			  <field id="birthPlace" autocomplete="place-place">
-			    <selector>.csc-personAuthority-birthPlace</selector>
-			  </field>
-			  <field id="deathPlace" autocomplete="place-place">
-			    <selector>.csc-personAuthority-deathPlace</selector>
+			  </field>	
+			  <field id="nameNote">
+			    <selector>.csc-personAuthority-nameNote</selector>
 			  </field>
 			  <field id="status">
 			    <selector>.csc-personAuthority-status</selector>
@@ -1463,34 +1460,6 @@
 			    </options>
 			  </field>
 			  
-			  <!-- No longer needed
-			  
-			  <field id="addressType1">
-			    <selector>.csc-contact-addressType1</selector>
-			    <options>
-			      <option id="Home">home</option>
-			      <option id="Work">work</option>
-			    </options>
-			  </field>
-			    <field id="telephoneNumber1">
-			    <selector>.csc-contact-telephoneNumber1</selector>
-			  </field>
-			  <field id="referenceNumber">
-			    <selector>.csc-personAuthority-referenceNumber</selector>
-			  </field>
-			  <field id="addressText1">
-			    <selector>.csc-contact-addressText1</selector>
-			  </field>
-			 			 
-			  <field id="place" autocomplete="person-person">
-			    <selector>.csc-contact-place</selector>
-			  </field>
-			
-			  <field id="postcode1">
-			    <selector>.csc-contact-postcode1</selector>
-			  </field>
-			-->
-	
 			</record>
 
 			<record id="organization" type="authority,compute-displayname">
