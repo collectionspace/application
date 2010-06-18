@@ -81,7 +81,7 @@
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
 						<selector>.csc-object-identification-object-title</selector>
 					</field>
-					<field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
+					<field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum" xxx_ui_refactored="true">
 						<enum-default>English</enum-default>
 						<selector>.csc-object-identification-object-title-language</selector>
 			    	</field>
@@ -400,13 +400,13 @@
 				    		<option id="food">Food</option>
 				  		</options>
 					</field>
-					<field id="contentPeople" autocomplete="person-person">
+					<field id="contentPeople" autocomplete="person-person" xxx_ui_refactored="false">
 						<selector>.csc-object-description-content-people</selector>
 					</field>
-					<field id="contentPerson" autocomplete="person-person">
+					<field id="contentPerson" autocomplete="person-person" xxx_ui_refactored="false">
 						<selector>.csc-object-description-content-person</selector>
 					</field>
-					<field id="contentPlace" autocomplete="place-place"> 
+					<field id="contentPlace" autocomplete="place-place" xxx_ui_refactored="false"> 
 							<selector>.csc-object-description-content-place</selector>
 					</field>
 					<field id="contentScript">
@@ -421,7 +421,7 @@
 				    		<option id="square-capitals">square capitals</option>
 				  		</options>
 					</field>
-					<field id="contentOrganization" autocomplete="organization-organization"> 
+					<field id="contentOrganization" autocomplete="organization-organization" xxx_ui_refactored="false"> 
 						<selector>.csc-object-description-content-organization</selector>
 					</field>
 					 
@@ -437,7 +437,7 @@
 					<field id="inscriptionContent">
 						<selector>.csc-object-description-inscription-content</selector>
 					</field>
-					<field id="inscriptionContentInscriber" autocomplete="person-person,organization-organization"> 
+					<field id="inscriptionContentInscriber" autocomplete="person-person,organization-organization" xxx_ui_refactored="false"> 
 						<selector>.csc-object-description-inscription-content-inscriber</selector>
 					</field>
 					<field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
@@ -506,7 +506,7 @@
 					 <field id="inscriptionDescriptionDate">
 						<selector>.csc-object-description-inscription-description-date</selector>
 					 </field>
-					<field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization"> 
+					<field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization" xxx_ui_refactored="false"> 
 					 	<selector>.csc-object-description-inscription-description-inscriber</selector>
 					</field>
 					<field id="inscriptionDescriptionPosition">
@@ -573,16 +573,16 @@
 			         <field id="objectProductionNote">
 					    <selector>.csc-object-production-note</selector>
 					 </field>
-					 <field id="objectProductionOrganization" autocomplete="organization-organization">
+					 <field id="objectProductionOrganization" autocomplete="organization-organization" xxx_ui_refactored="false">
 					    <selector>.csc-object-production-organization</selector>
 					 </field>
-					  <field id="objectProductionPeople" autocomplete="person-person">
+					  <field id="objectProductionPeople" autocomplete="person-person" xxx_ui_refactored="false">
 					    <selector>.csc-object-production-people</selector>
 					 </field>
-					  <field id="objectProductionPerson" autocomplete="person-person">
+					  <field id="objectProductionPerson" autocomplete="person-person" xxx_ui_refactored="false">
 					    <selector>.csc-object-production-person</selector>
 					 </field>
-					  <field id="objectProductionPlace" autocomplete="place-place">
+					  <field id="objectProductionPlace" autocomplete="place-place" xxx_ui_refactored="false">
 					    <selector>.csc-object-production-place</selector>
 					 </field>
 					 <field id="objectProductionReason">
@@ -601,16 +601,16 @@
 					 <field id="associatedActivityNote">
 					    <selector>.csc-object-history-association-activity-note</selector>
 					 </field>		 
-					 <field id="associatedEventOrganization" autocomplete="organization-organization">
+					 <field id="associatedEventOrganization" autocomplete="organization-organization" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-event-organization</selector>
 					 </field>
-					  <field id="associatedEventPeople" autocomplete="person-person">
+					  <field id="associatedEventPeople" autocomplete="person-person" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-event-people</selector>
 					 </field>
-					  <field id="associatedEventPerson" autocomplete="person-person">
+					  <field id="associatedEventPerson" autocomplete="person-person" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-event-person</selector>
 					 </field>
-					  <field id="associatedEventPlace" autocomplete="place-place">
+					  <field id="associatedEventPlace" autocomplete="place-place" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-event-place</selector>
 					 </field>
 					 <field id="associatedObject">
@@ -620,16 +620,16 @@
 					    <selector>.csc-object-history-association-object-type</selector>
 					 </field>			 
 					 
-					  <field id="associatedOrganization" autocomplete="organization-organization">
+					  <field id="associatedOrganization" autocomplete="organization-organization" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-organization</selector>
 					 </field>
-					  <field id="associatedPeople" autocomplete="person-person">
+					  <field id="associatedPeople" autocomplete="person-person" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-people</selector>
 					 </field>
-					  <field id="associatedPerson" autocomplete="person-person">
+					  <field id="associatedPerson" autocomplete="person-person" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-person</selector>
 					 </field>
-					  <field id="associatedPlace" autocomplete="place-place">
+					  <field id="associatedPlace" autocomplete="place-place" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-place</selector>
 					 </field>
 					 <field id="associatedConcept" >
@@ -657,7 +657,7 @@
 					 <field id="associationType">
 					    <selector>csc-object-history-association-type</selector>
 					 </field>	
-			         <field id="owner" autocomplete="person-person,organization-organization">
+			         <field id="owner" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-owner</selector>
 					 </field>
 					 <field id="ownershipAccess" >
@@ -676,7 +676,7 @@
 			    			<option id="private">private</option>
 						</options>	
 					 </field>
-					 <field id="ownershipPlace" autocomplete="place-place">
+					 <field id="ownershipPlace" autocomplete="place-place" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-ownership-place</selector>
 					 </field>	
  					 <field id="ownershipExchangeMethod" >
@@ -885,18 +885,18 @@
 				
 			  	<repeat id="lenders" asSibling="true" xxx-services-no-repeat="yes">
 			  		<selector>.csc-loanIn-lender-row:</selector>
-			    	<field id="lender" autocomplete="person-person,organization-organization" mini="summary"  xxx_ui_refactored="true" in-title="yes" >
+			    	<field id="lender" autocomplete="person-person,organization-organization" mini="summary"  in-title="yes" >
 			      		<selector>.csc-loanIn-lender</selector>
 			    	</field>
 			  	</repeat>
 			  
-                <field id="lendersAuthorizer" autocomplete="person-person" xxx_ui_refactored="true">
+                <field id="lendersAuthorizer" autocomplete="person-person">
 					<selector>.csc-loanIn-lendersAuthorizer</selector>
 				</field>
     	        <field id="lendersAuthorizationDate" ui-type="date">
 					<selector>.csc-loanIn-lendersAuthorizerDate</selector>
 				</field>
-				<field id="lendersContact" autocomplete="person-person" xxx_ui_refactored="true">
+				<field id="lendersContact" autocomplete="person-person">
 					<selector>.csc-loanIn-lendersContact</selector>
 				</field>
 				
@@ -941,10 +941,10 @@
 				</structure>
 			  </structures>
 			  <row-selector>.csc-recordList-row:</row-selector>
-			  <field id="currentOwner" autocomplete="person-person,organization-organization">
+			  <field id="currentOwner" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
 			    <selector>.csc-intake-current-owner</selector>
 			  </field>
-			  <field id="depositor" autocomplete="person-person,organization-organization" mini="summary" in-title="yes" >
+			  <field id="depositor" autocomplete="person-person,organization-organization" mini="summary" in-title="yes"  xxx_ui_refactored="false">
 			    <selector>.csc-intake-depositor</selector>
 			  </field>
 			  <field id="depositorsRequirements">
@@ -995,7 +995,7 @@
 			  <field id="valuationReferenceNumber">
 			    <selector>.csc-intake-valuation-reference-number</selector>
 			  </field>
-			  <field id="valuer" autocomplete="person-person,organization-organization">
+			  <field id="valuer" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
 			    <selector>.csc-intake-valuer</selector>
 			  </field>	
 			  
@@ -1016,7 +1016,7 @@
 			  <field id="insuranceRenewalDate" ui-type="date">
 			    <selector>.csc-intake-insurance-renewal-date</selector>
 			  </field>
-			  <field id="insurer" autocomplete="person-person,organization-organization">
+			  <field id="insurer" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
 			    <selector>.csc-intake-insurer</selector>
 			  </field>  
 			  
@@ -1055,7 +1055,7 @@
 			  <field id="conditionCheckReferenceNumber">
 			    <selector>.csc-intake-condition-check-reference-number</selector>
 			  </field>
-			  <field id="conditionCheckerAssessor" autocomplete="person-person,organization-organization">
+			  <field id="conditionCheckerAssessor" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
 			    <selector>.csc-intake-condition-check-assessor</selector>
 			  </field>	
 			</record>
@@ -1072,7 +1072,7 @@
 			  <field id="accessionDate" ui-type="date">
 			    <selector>.csc-acquisition-accession-date</selector>
 			  </field>
-			  <field id="acquisitionAuthorizer" autocomplete="person-person">
+			  <field id="acquisitionAuthorizer" autocomplete="person-person" xxx_ui_refactored="false">
 			    <selector>.csc-acquisition-authorizer</selector>
 			  </field>
 			  <field id="acquisitionAuthorizerDate" ui-type="date">
@@ -1088,7 +1088,7 @@
 			  <field id="acquisitionFundingValue">
 			    <selector>.csc-acquisition-acquisition-funding-value</selector>
 			  </field>
-			  <field id="acquisitionFundingSource" autocomplete="person-person,organization-organization">
+			  <field id="acquisitionFundingSource" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
 			    <selector>.csc-acquisition-acquisition-funding-source</selector>
 			  </field>
 			  <field id="acquisitionFundingSourceProvisos">
@@ -1125,7 +1125,7 @@
 			  </field>
 			  <repeat id="acquisitionSources">
 			  	<selector>.csc-acquisition-acquisition-source-row:</selector>
-			    <field id="acquisitionSource" autocomplete="person-person,organization-organization" mini="summary">
+			    <field id="acquisitionSource" autocomplete="person-person,organization-organization" mini="summary" xxx_ui_refactored="false">
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
 			  </repeat>
@@ -1173,7 +1173,7 @@
 			  
               <repeat id="owners" xxx-services-no-repeat="yes">
                 <selector>.csc-acquisition-owner-row:</selector>
-                <field id="owner" autocomplete="person-person,organization-organization">
+                <field id="owner" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
                   <selector>.csc-acquisition-owner</selector>
                 </field>
               </repeat>
@@ -1364,7 +1364,7 @@
 			      <option id="female">Female</option>
 			    </options>
 			  </field>  
-			   <field id="occupation" autocomplete="occupation-occupation">
+			   <field id="occupation" autocomplete="occupation-occupation" xxx_ui_refactored="false">
 			    <selector>.csc-personAuthority-occupation</selector>
 			  </field>
 			  
@@ -1435,7 +1435,7 @@
 			  <field id="nameAdditions">
 			    <selector>.csc-organizationAuthority-nameAdditions</selector>
 			  </field>
-			  <field id="contactName" autocomplete="person-person">
+			  <field id="contactName" autocomplete="person-person" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-contactName</selector>
 			  </field>
 			  <field id="foundingDate" ui-type="date" in-title="yes">
@@ -1443,14 +1443,14 @@
 			    <title-selector>.csc-titleBar-foundationDate</title-selector>
 			  </field>
 			 <!--  <field id="foundingPlace"> -->
-			  <field id="foundingPlace" autocomplete="person-person">
+			  <field id="foundingPlace" autocomplete="person-person" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-foundingPlace</selector>
 			  </field>
 			  <field id="dissolutionDate" ui-type="date" in-title="yes">
 			    <selector>.csc-organizationAuthority-dissolutionDate</selector>
 			    <title-selector>.csc-titleBar-dissolutionDate</title-selector>
 			  </field>
-			  <field id="group" autocomplete="organization-organization">
+			  <field id="group" autocomplete="organization-organization" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-group</selector>
 			  </field>
 			  <field id="function">
@@ -1767,20 +1767,20 @@
 				  </options>
 				</field>			
 			  			  
-				<field id="borrower" autocomplete="person-person,organization-organization" mini="summary,list" xxx_ui_refactored="true" in-title="yes">
+				<field id="borrower" autocomplete="person-person,organization-organization" mini="summary,list" in-title="yes">
 					<selector>.csc-loanOut-borrower</selector>
 				</field>
-				<field id="borrowersContact" autocomplete="person-person"  xxx_ui_refactored="true">
+				<field id="borrowersContact" autocomplete="person-person">
 					<selector>.csc-loanOut-borrowersContact</selector>
 				</field>
 				
-			    <field id="lendersAuthorizer" autocomplete="person-person"   xxx_ui_refactored="true">
+			    <field id="lendersAuthorizer" autocomplete="person-person">
 					<selector>.csc-loanOut-lendersAuthorizer</selector>
 				</field>	
 			    <field id="lendersAuthorizationDate" ui-type="date">
 					<selector>.csc-loanOut-lendersAuthorizationDate</selector>
 				</field>				
-				<field id="lendersContact" autocomplete="person-person"  xxx_ui_refactored="true">
+				<field id="lendersContact" autocomplete="person-person">
 					<selector>.csc-loanOut-lendersContact</selector>
 				</field>
 				
@@ -1790,7 +1790,7 @@
 				<field id="loanedObjectStatusDate" ui-type="date">
 					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
 				</field>
-				<field id="loanedObjectStatus" autocomplete="vocab-lostatus" xxx_ui_refactored="true" ui-type="enum">
+				<field id="loanedObjectStatus" autocomplete="vocab-lostatus" ui-type="enum">
 					<enum-default>Requested</enum-default>
 					<selector>.csc-loanOut-loanedObjectStatus</selector>
 				</field>

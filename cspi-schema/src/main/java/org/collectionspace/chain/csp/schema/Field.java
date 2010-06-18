@@ -37,7 +37,7 @@ public class Field implements FieldSet {
 		id=(String)section.getValue("/@id");
 		autocomplete_instance_ids=Util.getSetOrDefault(section,"/@autocomplete",new String[]{""});
 		has_container = Util.getBooleanOrDefault(section, "/@container", false);
-		xxx_ui_refactored = Util.getBooleanOrDefault(section, "/@xxx_ui_refactored", false);
+		xxx_ui_refactored = Util.getBooleanOrDefault(section, "/@xxx_ui_refactored", true);
 
 		selector=Util.getStringOrDefault(section,"/selector",".csc-"+id);
 
