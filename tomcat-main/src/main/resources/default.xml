@@ -29,7 +29,7 @@
 	</email>
 	<persistence>
 		<service>
-		    <url>http://nightly.collectionspace.org:8180/cspace-services</url>
+		    <url>http://192.168.101.22/cspace-services</url>
 		</service>
 	</persistence>
 	<ui>
@@ -81,27 +81,9 @@
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
 						<selector>.csc-object-identification-object-title</selector>
 					</field>
-					<field id="titleLanguage">
+					<field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
+						<enum-default>English</enum-default>
 						<selector>.csc-object-identification-object-title-language</selector>
-					<options>
-			    			<option id="eng">English</option>
-                            <option id="spa">Spanish</option>
-                            <option id="fre">French</option>
-                            <option id="ita">Italian</option>
-                            <option id="por">Portuguese</option>
-                            <option id="ger">German</option>
-                            <option id="rus">Russian</option>
-                            <option id="ara">Arabic</option>
-                            <option id="chi">Chinese</option>
-                            <option id="heb">Hebrew</option>
-                            <option id="jpn">Japanese</option>
-                            <option id="kor">Korean</option>
-                            <option id="swa">Swahili</option>
-                            <option id="grc">Ancient Greek</option>
-                            <option id="lat">Latin</option>
-                            <option id="ang">Old English</option>
-                            <option id="enm">Middle English</option>
-			    		</options>
 			    	</field>
 					<field id="titleTranslation">
 						<selector>.csc-object-identification-object-title-translation</selector>
@@ -196,27 +178,9 @@
                             <option id="typological">Typological</option>
                         </options>
 					</field>
-					<field id="objectNameLanguage">
+					<field id="objectNameLanguage" autocomplete="vocab-languages" ui-type="enum">
+						<enum-default>English</enum-default>
 						<selector>.csc-object-identification-object-language</selector>
-						<options>
-                            <option id="eng">English</option>
-                            <option id="spa">Spanish</option>
-                            <option id="fre">French</option>
-                            <option id="ita">Italian</option>
-                            <option id="por">Portuguese</option>
-                            <option id="ger">German</option>
-                            <option id="rus">Russian</option>
-                            <option id="ara">Arabic</option>
-                            <option id="chi">Chinese</option>
-                            <option id="heb">Hebrew</option>
-                            <option id="jpn">Japanese</option>
-                            <option id="kor">Korean</option>
-                            <option id="swa">Swahili</option>
-                            <option id="grc">Ancient Greek</option>
-                            <option id="lat">Latin</option>
-                            <option id="ang">Old English</option>
-                            <option id="enm">Middle English</option>
-			    		</options>
 					</field>
 					<field id="objectNameNote">
 						<selector>.csc-object-identification-object-note</selector>
@@ -405,27 +369,9 @@
 					<field id="contentDescription">
 						<selector>.csc-object-description-content-description</selector>
 					</field>
-					<field id="contentLanguage">
+					<field id="contentLanguage" autocomplete="vocab-languages" ui-type="enum">
+						<enum-default>English</enum-default>
 						<selector>.csc-object-description-content-language</selector>
-						<options>
-                            <option id="eng">English</option>
-                            <option id="spa">Spanish</option>
-                            <option id="fre">French</option>
-                            <option id="ita">Italian</option>
-                            <option id="por">Portuguese</option>
-                            <option id="ger">German</option>
-                            <option id="rus">Russian</option>
-                            <option id="ara">Arabic</option>
-                            <option id="chi">Chinese</option>
-                            <option id="heb">Hebrew</option>
-                            <option id="jpn">Japanese</option>
-                            <option id="kor">Korean</option>
-                            <option id="swa">Swahili</option>
-                            <option id="grc">Ancient Greek</option>
-                            <option id="lat">Latin</option>
-                            <option id="ang">Old English</option>
-                            <option id="enm">Middle English</option>
-			    		</options>
 					</field>
 					<field id="contentPosition">
 						<selector>.csc-object-description-content-position</selector>
@@ -494,27 +440,9 @@
 					<field id="inscriptionContentInscriber" autocomplete="person-person,organization-organization"> 
 						<selector>.csc-object-description-inscription-content-inscriber</selector>
 					</field>
-					<field id="inscriptionContentLanguage">
+					<field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
+						<enum-default>English</enum-default>
 						<selector>.csc-object-description-inscription-content-language</selector>
-						<options>
-                            <option id="eng">English</option>
-                            <option id="spa">Spanish</option>
-                            <option id="fre">French</option>
-                            <option id="ita">Italian</option>
-                            <option id="por">Portuguese</option>
-                            <option id="ger">German</option>
-                            <option id="rus">Russian</option>
-                            <option id="ara">Arabic</option>
-                            <option id="chi">Chinese</option>
-                            <option id="heb">Hebrew</option>
-                            <option id="jpn">Japanese</option>
-                            <option id="kor">Korean</option>
-                            <option id="swa">Swahili</option>
-                            <option id="grc">Ancient Greek</option>
-                            <option id="lat">Latin</option>
-                            <option id="ang">Old English</option>
-                            <option id="enm">Middle English</option>
-			    		</options> 
 					</field>
 					<field id="inscriptionContentPosition">
 						<selector>.csc-object-description-inscription-content-position</selector>
@@ -1450,7 +1378,7 @@
 			  <field id="nameNote">
 			    <selector>.csc-personAuthority-nameNote</selector>
 			  </field>
-			  <field id="status">
+			  <field id="termStatus">
 			    <selector>.csc-personAuthority-status</selector>
 			    <options>
 			      <option id="provisional" default="yes">Provisional</option>
@@ -1461,6 +1389,7 @@
 			  </field>
 			  
 			</record>
+
 
 			<record id="organization" type="authority,compute-displayname">
 			  <web-url>organization</web-url>
@@ -1488,7 +1417,7 @@
 			    <selector>.csc-organizationAuthority-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
 			  </field>
-			  <field id="status">
+			  <field id="termStatus">
 			    <selector>.csc-organizationAuthority-status</selector>
 			    <options>
 			      <option id="provisional">Provisional</option>
@@ -1861,20 +1790,9 @@
 				<field id="loanedObjectStatusDate" ui-type="date">
 					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
 				</field>
-				<field id="loanedObjectStatus">
+				<field id="loanedObjectStatus" autocomplete="vocab-lostatus" xxx_ui_refactored="true" ui-type="enum">
+					<enum-default>Requested</enum-default>
 					<selector>.csc-loanOut-loanedObjectStatus</selector>
-			    		<options>
-			      		<option id="requested" default="yes">Requested</option>
-			      		<option id="authorized">Authorized</option>
-			      		<option id="agreed">Agreed</option>
-			      		<option id="conservation">Conservation</option>
-			      		<option id="requested">Requested</option>
-			      		<option id="sent">Sent</option>
-			      		<option id="photographyrequested">Photography requested</option>
-			      		<option id="refused">Refused</option>
-			      		<option id="renewed">Renewed</option>
-			      		<option id="returned">Returned</option>
-			    	</options>
 				</field>
 				
 				<field id="loanOutDate" ui-type="date">
@@ -1962,14 +1880,34 @@
 			 </record>
  			<record id="id" type="id"> <!-- XXX what is this type? something to do with next number generation, currently piggy backs on normal Record functionality -->
 			</record>
-		</records>
-
-		<controlledlists>
-			<controlledlist id="xxx">
-				<name>Temporary Vocab whilst none exist</name>
-			</controlledlist>
-			<controlledlist id="languages">
-				<name>My first list</name>
+			
+			<record id="vocab" type="authority">
+			  <terms-used>false</terms-used> 
+			  <refobj-used>false</refobj-used> 
+		      <web-url>vocab</web-url>
+			  <services-instances-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies-common-list/vocabulary-list-item</services-instances-path>
+			  <services-single-instance-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-single-instance-path>
+			  <services-list-path>http://collectionspace.org/services/vocabulary,vocabularyitems-common-list/vocabularyitem_list_item</services-list-path>
+			  <services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
+			  <services-url>vocabularies</services-url>
+			  <authority-vocab-type>enum</authority-vocab-type>
+			  <membership-tag>inVocabulary</membership-tag>
+			  <urn-syntax>urn:cspace:org.collectionspace.demo:vocabulary:{vocab}:item:{entry}'{display}'</urn-syntax>
+			  <structures>
+				<structure id="screen"> 
+				</structure>
+			  </structures>
+			  <instances>
+               <instance id="vocab-xxx">
+			      <web-url>xxx</web-url>
+			      <title-ref>xxx</title-ref>
+			      <title>Temporary Vocab whilst none exist</title>
+			    </instance>
+               <instance id="vocab-languages">
+               	<web-url>languages</web-url>
+			    <title-ref>languages</title-ref>
+			    <title>My first list</title>
+				<options>
 				<option id="eng">English</option>
 				<option id="spa">Spanish</option>
 				<option id="fre">French</option>
@@ -1987,7 +1925,36 @@
 				<option id="lat">Latin</option>
 				<option id="ang">Old English</option>
 				<option id="enm">Middle English</option>
-			</controlledlist>
-		</controlledlists>
+				</options>
+			    </instance>
+               <instance id="vocab-lostatus">
+               	<web-url>loanoutstatus</web-url>
+			    <title-ref>loanoutstatus</title-ref>
+			    <title>loanedObjectStatus</title>
+			    		<options>
+			      		<option id="requested">Requested</option>
+			      		<option id="authorized">Authorized</option>
+			      		<option id="agreed">Agreed</option>
+			      		<option id="conservation">Conservation</option>
+			      		<option id="sent">Sent</option>
+			      		<option id="photographyrequested">Photography requested</option>
+			      		<option id="refused">Refused</option>
+			      		<option id="renewed">Renewed</option>
+			      		<option id="returned">Returned</option>
+			    	</options>
+			    </instance>
+			  </instances>
+			  
+			  <field id="displayName" in-title="yes" display-name="yes">
+			    <selector>.csc-personAuthority-displayName</selector>
+			    <title-selector>.csc-titleBar-displayName</title-selector>
+			  </field>
+			  
+			  <field id="shortIdentifier" >
+			    <selector>.csc-personAuthority-shortIdentifier</selector>
+			  </field>
+			</record>
+		</records>
+
 	</spec>
 </collection-space>
