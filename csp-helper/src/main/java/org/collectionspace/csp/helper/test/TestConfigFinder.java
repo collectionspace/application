@@ -36,19 +36,18 @@ public class TestConfigFinder {
 		} catch (ClassNotFoundException e) {
 			// In Maven we can only see stuff in target/test-classes
 			// so this relies on top-level pom.xml copying the file in for us 
-			log.info("Falling back to current thread ClassLoader");
+			log.debug("Falling back to current thread ClassLoader");
 			loader = Thread.currentThread().getContextClassLoader();
 		}
 		try {
 			InputStream result = loader.getResourceAsStream(configFilename);
 			if(result!=null) {
-				log.info("Found config for testing: "+configFilename);
+				log.debug("Found config for testing: "+configFilename);
 				return result;
 			} else {
 				throw new NullPointerException();
 			}
 		} catch (Exception e) {
-			log.info("Failed to find config for unit testing");
 			throw new CSPDependencyException("Failed to find a config file for unit testing");
 		}
 	}

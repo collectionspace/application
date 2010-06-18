@@ -34,9 +34,7 @@ public class BootstrapConfigController {
 	private Map<String,List<ConfigOptionSource>> sources=new HashMap<String,List<ConfigOptionSource>>();
 	
 	private InputStream tryPath(String filename) {
-		log.info(filename);
 		String config_file=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+filename;
-		log.info("Looking for config loader in "+config_file);
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(config_file);
 	}
 	
@@ -45,7 +43,7 @@ public class BootstrapConfigController {
 		for(String suffix : suffixes) {
 			config=tryPath(suffix);
 			if(config!=null) {
-				log.info("success");
+				log.debug("success");
 				break;
 			}
 		}

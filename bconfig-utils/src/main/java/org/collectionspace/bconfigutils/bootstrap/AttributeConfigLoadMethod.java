@@ -31,7 +31,7 @@ public class AttributeConfigLoadMethod implements ConfigLoadMethod {
 		File base=new File(in,suffix);
 		if(!base.exists())
 			base.mkdir();
-		log.info("Using testing path "+base);
+		log.debug("Using testing path "+base);
 		try {
 			return base.getCanonicalPath();
 		} catch (IOException e) {
