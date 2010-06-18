@@ -16,6 +16,7 @@ import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesInitialize;
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesSearchList;
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesCreateUpdate;
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesDelete;
@@ -157,6 +158,8 @@ public class WebUI implements CSP, UI, Configurable {
 				for(Instance n : r.getAllInstances()) {
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},0,new AuthoritiesVocabulariesSearchList(n,false));
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(n,true));				
+					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"initialize"},0,new AuthoritiesVocabulariesInitialize(n,true));				
+					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"refresh"},0,new AuthoritiesVocabulariesInitialize(n,false));				
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesRead(n));
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord(r.getID())));
 					addMethod(Operation.CREATE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesCreateUpdate(n,true));
@@ -246,7 +249,9 @@ public class WebUI implements CSP, UI, Configurable {
 		Storage storage=generateStorage(session,cache);
 		String[] path=ui.getPrincipalPath();
 		Request r=new Request(this,cache,storage,ui);
+		String test = ui.getRequestedOperation().toString();
 		log.debug("ServiceRequest path: "+StringUtils.join(path,"/"));
+		log.debug(ui.getRequestedOperation().toString());
 		try {
 			if(tries.get(ui.getRequestedOperation()).call(path,r))
 				return;
