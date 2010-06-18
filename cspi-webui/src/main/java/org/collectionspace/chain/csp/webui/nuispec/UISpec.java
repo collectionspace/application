@@ -1,6 +1,5 @@
 package org.collectionspace.chain.csp.webui.nuispec;
 
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.schema.Structure;
-import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesSearchList;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
@@ -25,7 +23,6 @@ import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
-import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
