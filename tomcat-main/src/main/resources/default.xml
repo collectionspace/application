@@ -99,7 +99,7 @@
 							<option id="trade">Trade</option>
 						</options>
 					</field>
-					<field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number,list">
+					<field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number,list" xxx_ui_refactored="false">
 						<selector>.csc-object-identification-object-number</selector>
 						<title-selector>.csc-titleBar-object-identification-object-number</title-selector>
 						<options>
@@ -267,7 +267,7 @@
 					<field id="materialName">
 						<selector>.csc-object-description-material-name</selector>
 					</field>
-					<field id="materialSource" autocomplete="place-place"> 
+					<field id="materialSource" autocomplete="place-place" xxx_ui_refactored="false"> 
 						<selector>.csc-object-description-material-source</selector>
 					</field>
 					<field id="physicalDescription">
@@ -866,7 +866,7 @@
 			
 			  <row-selector>.csc-recordList-row:</row-selector>
 			  
-                <field id="loanInNumber" in-title="yes" chooser="yes" mini="number">
+                <field id="loanInNumber" in-title="yes" chooser="yes" mini="number" xxx_ui_refactored="false">
 			    <title-selector>.csc-titleBar-loanInNumber</title-selector>
 			    <selector>.csc-loanIn-loanInNumber</selector>
 			    <container-selector>.csc-loanIn-loanInNumber-patternChooserContainer</container-selector>				

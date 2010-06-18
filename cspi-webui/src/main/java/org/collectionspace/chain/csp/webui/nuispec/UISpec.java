@@ -326,14 +326,17 @@ public class UISpec implements WebMethod {
 						out.put(f.getSelector(),generateAutocomplete(f));
 					}
 				}
-				if("chooser".equals(f.getUIType())) {
+				else if("chooser".equals(f.getUIType())) {
 					out.put(f.getSelector(),generateChooser(f));
 				}
-				if("date".equals(f.getUIType())) {
+				else if("date".equals(f.getUIType())) {
 					out.put(f.getSelector(),generateDate(f));
 				}
-				if("sidebar".equals(f.getUIType())) {
+				else if("sidebar".equals(f.getUIType())) {
 					//out.put(f.getSelector(),generateSideBar(f));
+				}
+				else{
+					out.put(f.getSelector(),generateDataEntryField(f));	
 				}
 			}
 		} else if(fs instanceof Repeat) {
