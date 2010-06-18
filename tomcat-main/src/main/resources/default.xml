@@ -81,14 +81,14 @@
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
 						<selector>.csc-object-identification-object-title</selector>
 					</field>
-					<field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum" xxx_ui_refactored="true">
+					<field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
 						<enum-default>English</enum-default>
 						<selector>.csc-object-identification-object-title-language</selector>
 			    	</field>
 					<field id="titleTranslation">
 						<selector>.csc-object-identification-object-title-translation</selector>
 					</field>
-					<field id="titleType">
+					<field id="titleType" xxx_ui_refactored="false">
 						<selector>.csc-object-identification-object-title-type</selector>
 						<options>
 							<option id="assigned-by-artist">Assigned by Artist</option>
@@ -111,7 +111,7 @@
 					<field id="otherNumber" in-tab="yes">
 						<selector>.csc-object-identification-other-number</selector>
 					</field>
-					<field id="otherNumberType" in-tab="yes">
+					<field id="otherNumberType" in-tab="yes" xxx_ui_refactored="false">
 						<selector>.csc-object-identification-other-number-type</selector>
 						<options>
 						  <option id="lender">Lender</option>
@@ -129,7 +129,7 @@
 							<field id="numberValue" in-tab="yes">
 								<selector>.csc-object-identification-other-number</selector>
 							</field>
-							<field id="numberType" in-tab="yes">
+							<field id="numberType" in-tab="yes" xxx_ui_refactored="false">
 								<selector>.csc-object-identification-other-number-type</selector>
 								<options>
 						  			<option id="lender">Lender</option>
@@ -147,28 +147,28 @@
 						<selector>.csc-object-identification-brief-description</selector>
 					</field>
 					</repeat>
-					<field id="objectNameCurrency">
+					<field id="objectNameCurrency" xxx_ui_refactored="false">
 						<selector>.csc-object-identification-object-currency</selector>
 						<options>
 						  <option id="current">Current</option>
 						  <option id="archaic">Archaic</option>
 						</options>
 					</field>
-					<field id="objectNameLevel">
+					<field id="objectNameLevel" xxx_ui_refactored="false">
 						<selector>.csc-object-identification-object-level</selector>
 						<options>
 						  <option id="group">Group</option>
 						  <option id="subgroup">Subgroup</option>
 						</options>
 					</field>
-					<field id="objectNameSystem">
+					<field id="objectNameSystem" xxx_ui_refactored="false">
 						<selector>.csc-object-identification-object-system</selector>
 						<options>
 						  <option id="art-and-architecture-thesaurus">Art &amp; Architecture Thesaurus</option>
 						  <option id="nomenclature">Nomenclature</option>
 						</options>
 					</field>
-					<field id="objectNameType">
+					<field id="objectNameType" xxx_ui_refactored="false">
 						<selector>.csc-object-identification-object-type</selector>
                         <options>
                             <option id="classified">Classified</option>
@@ -200,7 +200,7 @@
 					<field id="copyNumber">
 						<selector>.csc-object-description-copy-number</selector>
 					</field>
-					<field id="objectStatus">
+					<field id="objectStatus" xxx_ui_refactored="false">
 						<selector>.csc-object-description-status</selector>
 						<options>
 							  <option id="copy">copy</option>
@@ -211,14 +211,14 @@
 							  <option id="type">type</option>
 						</options>
 					</field>
-					<field id="sex">
+					<field id="sex" xxx_ui_refactored="false">
 						<selector>.csc-object-description-sex</selector>
 						<options>
 							  <option id="male">male</option>
 							  <option id="female">female</option>
 						</options>
 					</field>
-					<field id="phase">
+					<field id="phase" xxx_ui_refactored="false">
 						<selector>.csc-object-description-phase</selector>
 						<options>
 							  <option id="adult">adult</option>
@@ -228,7 +228,7 @@
 							  <option id="pupa">pupa</option>
 						</options>
 					</field>
-					<field id="form">
+					<field id="form" xxx_ui_refactored="false">
 						<selector>.csc-object-description-form</selector>
 						<options>
 							  <option id="dry">dry</option>
@@ -246,7 +246,7 @@
 					<field id="ageQualifier">
 						<selector>.csc-object-description-age-qualifier</selector>
 					</field>
-					<field id="ageUnit">
+					<field id="ageUnit" xxx_ui_refactored="false">
 						<selector>.csc-object-description-age-unit</selector>
 						<options>
 							  <option id="days">Days</option>
@@ -273,7 +273,7 @@
 					<field id="physicalDescription">
 						<selector>.csc-object-description-physical-description</selector>
 					</field>
-					<field id="objectComponentName">
+					<field id="objectComponentName" xxx_ui_refactored="false">
 						<selector>.csc-object-description-object-component-name</selector>
 						<options>
 			    			<option id="blade">blade</option>
@@ -282,33 +282,33 @@
 							<option id="sleeve">sleeve</option>
 						</options>
 					</field>
-					<field id="objectComponentInformation">
+					<field id="objectComponentInformation" xxx_ui_refactored="false">
 						<selector>.csc-object-description-object-component-information</selector>
 						<options>
 			    			<option id="?">?</option>
 						</options>
 					</field>
-					<field id="technicalAttribute">
+					<field id="technicalAttribute" xxx_ui_refactored="false">
 						<selector>.csc-object-description-technical-attribute</selector>
 						<options>
 			    			<option id="magnetic-tape-type">magnetic tape type</option>
 							<option id="record-speed">record speed</option>
 						</options>
 					</field>
-					<field id="technicalAttributeMeasurement">
+					<field id="technicalAttributeMeasurement" xxx_ui_refactored="false">
 						<selector>.csc-object-description-technical-attribute-measurement</selector>
 						<options>
 			    			<option id="metal">metal</option>
 							<option id="78">78</option>
 						</options>
 					</field>
-					<field id="technicalAttributeMeasurementUnit">
+					<field id="technicalAttributeMeasurementUnit" xxx_ui_refactored="false">
 						<selector>.csc-object-description-technical-attribute-unit</selector>
 						<options>
 			    			<option id="rpm">rpm</option>
 						</options>
 					</field>
-					<field id="dimension">
+					<field id="dimension" xxx_ui_refactored="false">
 						<selector>.csc-object-description-dimension</selector>
 						<options>						
 						  <option id="area">area</option>
@@ -326,7 +326,7 @@
 						  <option id="width">width</option>
 						 </options>
 					</field>
-					<field id="dimensionMeasuredPart">
+					<field id="dimensionMeasuredPart" xxx_ui_refactored="false">
 						<selector>.csc-object-description-dimension-part</selector>
 						<options>						
 						  <option id="base">base</option>
@@ -339,7 +339,7 @@
 						  <option id="unframed">unframed</option>
 						</options>
 					</field>
-					<field id="dimensionMeasurementUnit">
+					<field id="dimensionMeasurementUnit" xxx_ui_refactored="false">
 					    <selector>.csc-object-description-dimension-unit</selector>
 						<options>						
 						  <option id="carats">carats</option>
@@ -360,7 +360,7 @@
 					<field id="dimensionValue">
 						<selector>.csc-object-description-dimension-value</selector>
 					</field>
-					<field id="dimensionValueDate" ui-type="date">
+					<field id="dimensionValueDate" ui-type="date" xxx_ui_refactored="false">
 						<selector>.csc-object-description-dimension-value-date</selector>						
 					</field>
 					<field id="dimensionValueQualifier">
@@ -373,7 +373,7 @@
 						<enum-default>English</enum-default>
 						<selector>.csc-object-description-content-language</selector>
 					</field>
-					<field id="contentPosition">
+					<field id="contentPosition" xxx_ui_refactored="false">
 						<selector>.csc-object-description-content-position</selector>
 						<options>
 			    			<option id="back">back</option>
@@ -393,7 +393,7 @@
 					<field id="contentObject">
 						<selector>.csc-object-description-content-object</selector>
 					</field>
-					<field id="contentObjectType">
+					<field id="contentObjectType" xxx_ui_refactored="false">
 						<selector>.csc-object-description-content-object-type</selector>
 						<options>
 				    		<option id="furniture">Furniture</option>
@@ -409,7 +409,7 @@
 					<field id="contentPlace" autocomplete="place-place" xxx_ui_refactored="false"> 
 							<selector>.csc-object-description-content-place</selector>
 					</field>
-					<field id="contentScript">
+					<field id="contentScript" xxx_ui_refactored="false">
 						<selector>.csc-object-description-content-script</selector>
 						<options>
 				    		<option id="carolingian-miniscule">Carolingian miniscule</option>
@@ -428,7 +428,7 @@
 					<field id="contentOtherType">
 						<selector>.csc-object-description-content-other-type</selector>
 					</field> 
-					 <field id="contentDate" ui-type="date">
+					 <field id="contentDate" ui-type="date" xxx_ui_refactored="false">
 						<selector>.csc-object-description-content-date</selector>
 					</field>
 					<field id="contentNote">
@@ -444,7 +444,7 @@
 						<enum-default>English</enum-default>
 						<selector>.csc-object-description-inscription-content-language</selector>
 					</field>
-					<field id="inscriptionContentPosition">
+					<field id="inscriptionContentPosition" xxx_ui_refactored="false">
 						<selector>.csc-object-description-inscription-content-position</selector>
 						<options>
 			    			<option id="back">back</option>
@@ -462,10 +462,10 @@
 						</options>
 					</field>
 					
-					 <field id="inscriptionContentDate" ui-type="date">
+					 <field id="inscriptionContentDate" ui-type="date" xxx_ui_refactored="false">
 						<selector>.csc-object-description-inscription-content-date</selector>
 					</field>
-					<field id="inscriptionContentScript">
+					<field id="inscriptionContentScript" xxx_ui_refactored="false">
 						<selector>.csc-object-description-inscription-content-script</selector>
 						<options>
 				    		<option id="carolingian-miniscule">Carolingian miniscule</option>
@@ -477,7 +477,7 @@
 				    		<option id="square-capitals">square capitals</option>
 				  		</options>
 					</field>
-					<field id="inscriptionContentType">
+					<field id="inscriptionContentType" xxx_ui_refactored="false">
 						<selector>.csc-object-description-inscription-content-type</selector>
 						<options>
 			    			<option id="brand">brand</option>
@@ -509,7 +509,7 @@
 					<field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization" xxx_ui_refactored="false"> 
 					 	<selector>.csc-object-description-inscription-description-inscriber</selector>
 					</field>
-					<field id="inscriptionDescriptionPosition">
+					<field id="inscriptionDescriptionPosition" xxx_ui_refactored="false">
 						<selector>.csc-object-description-inscription-description-position</selector>
 						<options>
 			    			<option id="back">back</option>
@@ -526,7 +526,7 @@
 							<option id="verso">verso</option>
 						</options>
 					</field>
-					<field id="inscriptionDescriptionType">
+					<field id="inscriptionDescriptionType" xxx_ui_refactored="false">
 						<selector>.csc-object-description-inscription-description-type</selector>
 						<options>
 			    			<option id="brand">brand</option>
@@ -544,7 +544,7 @@
 						<selector>.csc-object-description-inscription-description-interpretation</selector>
 					</field>					
 					<repeat id="responsibleDepartments" xxx-ui-no-repeat="yes">
-			          <field id="responsibleDepartment" mini="list">
+			          <field id="responsibleDepartment" mini="list" xxx_ui_refactored="false">
 					    <selector>.csc-object-identification-responsible-department</selector>
 						<options>
 						  <option id="antiquities">Antiquities</option>
@@ -561,7 +561,7 @@
 			         </field>
 			        </repeat>
 			        
-					<field id="recordStatus">
+					<field id="recordStatus" xxx_ui_refactored="false">
 						<selector>.csc-object-identification-record-status</selector>
 						<options>
 							<option id="approved">Approved</option>
@@ -638,7 +638,7 @@
 					 <field id="associatedCulturalAffinity" >
 					    <selector>.csc-object-history-association-cultural-affinity</selector>
 					 </field> 
-					 <field id="associatedDate" ui-type="date" >
+					 <field id="associatedDate" ui-type="date"  xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-date</selector>
 					 </field> 
 					 <field id="associatedEventName" >
@@ -647,7 +647,7 @@
 					 <field id="associatedEventNameType" >
 					    <selector>.csc-object-history-association-event-name</selector>
 					 </field> 
-					 <field id="ownershipDates" ui-type="date" >
+					 <field id="ownershipDates" ui-type="date"  xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-dates</selector>
 					 </field> 
 					 
@@ -660,7 +660,7 @@
 			         <field id="owner" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-owner</selector>
 					 </field>
-					 <field id="ownershipAccess" >
+					 <field id="ownershipAccess"  xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-access</selector>
 					    <options>
 			    			<option id="limited">limited</option>
@@ -668,7 +668,7 @@
 			    			<option id="restricted">restricted</option>
 			    		</options>	
 					 </field>
-					 <field id="ownershipCategory" >
+					 <field id="ownershipCategory"  xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-category</selector>
 					    <options>
 			    			<option id="company">company</option>
@@ -679,7 +679,7 @@
 					 <field id="ownershipPlace" autocomplete="place-place" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-ownership-place</selector>
 					 </field>	
- 					 <field id="ownershipExchangeMethod" >
+ 					 <field id="ownershipExchangeMethod"  xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-exchange-method</selector>
 					     <options>
 			    			<option id="bequest">bequest</option>
@@ -758,11 +758,11 @@
 					 <field id="dateEarliestSingleQualifier" >
 					    <selector>.csc-date-information-date-earliest-single-qualifier</selector>
 					 </field> 
-					<field id="dateEarliestSingle" ui-type="date">
+					<field id="dateEarliestSingle" ui-type="date" xxx_ui_refactored="false">
 						<selector>.csc-date-information-date-earliest-single-date</selector>						
 					</field>
 					
-					<field id="dateLatest" ui-type="date">
+					<field id="dateLatest" ui-type="date" xxx_ui_refactored="false">
 						<selector>.csc-date-information-date-latest-date</selector>						
 					</field>
 					 <field id="datePeriod" >
@@ -791,7 +791,7 @@
 					 <field id="material">
 						<selector>.csc-object-description-material</selector>
 					</field>
-					 <field id="objectProductionDate" ui-type="date" >
+					 <field id="objectProductionDate" ui-type="date"  xxx_ui_refactored="false">
 					    <selector>.csc-object-production-date</selector>
 					 </field> 
 					 
@@ -801,7 +801,7 @@
 					 <field id="fieldCollectionEventName" >
 					    <selector>.csc-object-collection-field-collection-event-name</selector>
 					 </field>
-			        <field id="collection">
+			        <field id="collection" xxx_ui_refactored="false">
 					    <selector>.csc-object-identification-collection</selector>
 						<options>
 						  <option id="library-collection">Library collection</option>
@@ -885,7 +885,7 @@
                 <field id="lendersAuthorizer" autocomplete="person-person">
 					<selector>.csc-loanIn-lendersAuthorizer</selector>
 				</field>
-    	        <field id="lendersAuthorizationDate" ui-type="date">
+    	        <field id="lendersAuthorizationDate" ui-type="date" xxx_ui_refactored="false">
 					<selector>.csc-loanIn-lendersAuthorizerDate</selector>
 				</field>
 				<field id="lendersContact" autocomplete="person-person">
@@ -898,10 +898,10 @@
                 <field id="loanInConditions">
 					<selector>.csc-loanIn-loanInConditions</selector>
 				</field>
-                <field id="loanInDate" ui-type="date">
+                <field id="loanInDate" ui-type="date" xxx_ui_refactored="false">
 					<selector>.csc-loanIn-loanInDate</selector>
 				</field>
-                <field id="loanReturnDate" ui-type="date">
+                <field id="loanReturnDate" ui-type="date" xxx_ui_refactored="false">
 					<selector>.csc-loanIn-loanReturnDate</selector>
 				</field>
                 <field id="loanRenewalApplicationDate" ui-type="date">
@@ -910,7 +910,7 @@
                 <field id="loanInNote">
 					<selector>.csc-loanIn-loanInNote</selector>
 				</field>
-                <field id="loanPurpose">
+                <field id="loanPurpose" xxx_ui_refactored="false">
 					<selector>.csc-loanIn-loanPurpose</selector>
 			    	<options>
 			      		<option id="exhibition" default="yes">Exhibition</option>
@@ -942,12 +942,12 @@
 			  <field id="depositorsRequirements">
 			    <selector>.csc-intake-depositor-requirements</selector>
 			  </field>
-			  <field id="entryDate" ui-type="date">
+			  <field id="entryDate" ui-type="date" xxx_ui_refactored="false">
 				<selector>.csc-intake-entry-date</selector>
 			  </field>
 			  <repeat id="entryMethods" xxx-services-no-repeat="yes">
 			    <selector>.csc-intake-entry-method-row:</selector>
-			    <field id="entryMethod">
+			    <field id="entryMethod" xxx_ui_refactored="false">
 			      <selector>.csc-intake-entry-method</selector>
 			      <options>
 			        <option id="in-person" default="yes">In person</option>
@@ -959,7 +959,7 @@
 			  <field id="entryNote">
 			    <selector>.csc-intake-entry-note</selector>
 			  </field>
-			  <field id="entryNumber" chooser="yes" in-title="yes" mini="number">
+			  <field id="entryNumber" chooser="yes" in-title="yes" mini="number" xxx_ui_refactored="false">
 			    <selector>.csc-intake-entry-number</selector>
 			    <title-selector>.csc-titleBar-intake-entry-number</title-selector>
 				  <options>
@@ -968,7 +968,7 @@
 					<option id="evaluations" sample="EV2009.1">Evaluation</option>
 				  </options>			    
 			  </field>
-			  <field id="entryReason">
+			  <field id="entryReason" xxx_ui_refactored="false">
 			    <selector>.csc-intake-entry-reason</selector>
 			    <options>
 			      <option id="enquiry">Enquiry</option>
@@ -1005,7 +1005,7 @@
 			  <field id="insuranceReferenceNumber">
 			    <selector>.csc-intake-insurance-reference-number</selector>
 			  </field>
-			  <field id="insuranceRenewalDate" ui-type="date">
+			  <field id="insuranceRenewalDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-intake-insurance-renewal-date</selector>
 			  </field>
 			  <field id="insurer" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
@@ -1023,7 +1023,7 @@
 			  <field id="currentLocationNote">
 			    <selector>.csc-intake-current-location-note</selector>
 			  </field>
-			  <field id="locationDate" ui-type="date">
+			  <field id="locationDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-intake-location-date</selector>
 			  </field>
 			  <!--  <field id="normalLocation" autocomplete="location-location, place-place"> -->
@@ -1032,7 +1032,7 @@
 			  </field>
 			  
 			  		  
-			  <field id="conditionCheckDate" ui-type="date">
+			  <field id="conditionCheckDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-intake-condition-check-date</selector>
 			  </field>
 			  <field id="conditionCheckMethod">
@@ -1067,10 +1067,10 @@
 			  <field id="acquisitionAuthorizer" autocomplete="person-person" xxx_ui_refactored="false">
 			    <selector>.csc-acquisition-authorizer</selector>
 			  </field>
-			  <field id="acquisitionAuthorizerDate" ui-type="date">
+			  <field id="acquisitionAuthorizerDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-acquisition-authorizer-date</selector>
 			  </field>
-			  <field id="acquisitionDate" ui-type="date">
+			  <field id="acquisitionDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-acquisition-date</selector>
 			    <container-selector>.csc-acquisition-acquisition-date-container</container-selector>
 			  </field>
@@ -1087,7 +1087,7 @@
 			  <field id="acquisitionFundingSourceProvisos">
 			    <selector>.csc-acquisition-acquisition-funding-provisos</selector>
 			  </field>
-			  <field id="acquisitionMethod">
+			  <field id="acquisitionMethod" xxx_ui_refactored="false">
 			    <selector>.csc-acquisition-acquisition-method</selector>
 			    <options>
 			      <option id="gift">Gift</option>
@@ -1106,7 +1106,7 @@
 			  <field id="acquisitionReason">
 			    <selector>.csc-acquisition-acquisition-reason</selector>
 			  </field>
-			  <field id="acquisitionReferenceNumber" in-title="yes" chooser="yes" mini="number">
+			  <field id="acquisitionReferenceNumber" in-title="yes" chooser="yes" mini="number" xxx_ui_refactored="false">
 			    <selector>.csc-acquisition-numberPatternChooser-reference-number</selector>
 			    <title-selector>.csc-titleBar-acquisition-reference-number</title-selector>
 			    <container-selector>.csc-acquisition-reference-number-patternChooserContainer</container-selector>
@@ -1306,7 +1306,7 @@
 			  <field id="initials">
 			    <selector>.csc-personAuthority-initials</selector>
 			  </field>
-			  <field id="salutation">
+			  <field id="salutation" xxx_ui_refactored="false">
 			    <selector>.csc-personAuthority-salutation</selector>
 			    <options>
 			      <option id="Dear">Dear</option>
@@ -1315,7 +1315,7 @@
 			      <option id="Your Royal Highness">Your Royal Highness</option>
 			    </options>
 			  </field>
-			  <field id="title">
+			  <field id="title" xxx_ui_refactored="false">
 			    <selector>.csc-personAuthority-title</selector>
 			    <options>
 			      <option id="Mr">Mr</option>
@@ -1336,11 +1336,11 @@
 			    <selector>.csc-personAuthority-nameAdditions</selector>
 			  </field>
 			  
-			  <field id="birthDate" in-title="yes" ui-type="date">
+			  <field id="birthDate" in-title="yes" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-personAuthority-birthDate</selector>
 			    <title-selector>.csc-titleBar-birthDate</title-selector>
 			  </field>
-			  <field id="deathDate" in-title="yes" ui-type="date">
+			  <field id="deathDate" in-title="yes" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-personAuthority-deathDate</selector>
 			    <title-selector>.csc-titleBar-deathDate</title-selector>
 			  </field>		 
@@ -1356,7 +1356,7 @@
 			  <field id="nationality">
 			    <selector>.csc-personAuthority-nationality</selector>
 			  </field>
-			  <field id="gender">
+			  <field id="gender" xxx_ui_refactored="false">
 		    <selector>.csc-personAuthority-gender</selector>
 			    <options>
 			      <option id="male">Male</option>
@@ -1377,7 +1377,7 @@
 			  <field id="nameNote">
 			    <selector>.csc-personAuthority-nameNote</selector>
 			  </field>
-			  <field id="termStatus">
+			  <field id="termStatus" xxx_ui_refactored="false">
 			    <selector>.csc-personAuthority-status</selector>
 			    <options>
 			      <option id="provisional" default="yes">Provisional</option>
@@ -1416,7 +1416,7 @@
 			    <selector>.csc-organizationAuthority-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
 			  </field>
-			  <field id="termStatus">
+			  <field id="termStatus" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-status</selector>
 			    <options>
 			      <option id="provisional">Provisional</option>
@@ -1437,7 +1437,7 @@
 			  <field id="contactName" autocomplete="person-person" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-contactName</selector>
 			  </field>
-			  <field id="foundingDate" ui-type="date" in-title="yes">
+			  <field id="foundingDate" ui-type="date" in-title="yes" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-foundingDate</selector>
 			    <title-selector>.csc-titleBar-foundationDate</title-selector>
 			  </field>
@@ -1452,7 +1452,7 @@
 			  <field id="group" autocomplete="organization-organization" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-group</selector>
 			  </field>
-			  <field id="function">
+			  <field id="function" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-function</selector>
 			    <options>
 			      <option id="academic institution">academic institution</option>
@@ -1467,6 +1467,48 @@
 			  </field>
 			  <field id="history">
 			    <selector>.csc-organizationAuthority-history</selector>
+			  </field>
+			</record>
+
+
+			<record id="contact" type="authority,compute-displayname">
+			  <web-url>contact</web-url>
+			  <services-instances-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities-common-list/contactauthority-list-item</services-instances-path>
+			  <services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
+			  <services-list-path>http://collectionspace.org/services/contact,contacts-common-list/contact_list_item</services-list-path>
+			  <services-record-path>contacts_common:http://collectionspace.org/services/contact,contacts_common</services-record-path>
+			  <services-url>orgauthorities</services-url>
+			  <authority-vocab-type>OrgAuthority</authority-vocab-type>
+			  <urn-syntax>urn:cspace:org.collectionspace.demo:contactauthority:{vocab}:contact:{entry}'{display}'</urn-syntax>
+			  <structures>
+				<structure id="screen"> 
+				</structure>
+			  </structures>
+			  <instances>
+			    <instance id="contact-primary">
+			      <web-url>contact</web-url>
+			      <title-ref>contact</title-ref>
+			      <title>Default Contact Authority</title>
+			    </instance>
+			  </instances>
+			  
+			  <field id="addressType">
+			    <selector>.csc-contactAuthority-addressType</selector>
+			  </field>
+			  <field id="addressPlace">
+			    <selector>.csc-contactAuthority-addressPlace</selector>
+			  </field>
+			  <field id="web">
+			    <selector>.csc-contactAuthority-web</selector>
+			  </field>
+			  <field id="email">
+			    <selector>.csc-contactAuthority-email</selector>
+			  </field>
+			  <field id="telephoneNumber">
+			    <selector>.csc-contactAuthority-telephoneNumber</selector>
+			  </field>
+			  <field id="faxNumber">
+			    <selector>.csc-contactAuthority-faxNumber</selector>
 			  </field>
 			</record>
 			
@@ -1712,7 +1754,7 @@
 			    <selector>.csc-user-email</selector>
 			  </field>
 			  <field id="createdAt"/>
-			  <field id="status">
+			  <field id="status" xxx_ui_refactored="false">
 			    <selector>.csc-user-status</selector>
                 <options>
                   <option id="active" default="yes">Active</option>
@@ -1757,7 +1799,7 @@
 			
 			  <row-selector>.csc-recordList-row:</row-selector>
 			  
-                <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number" >
+                <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number"  xxx_ui_refactored="false">
 			    <title-selector>.csc-titleBar-loanOutNumber</title-selector>
 			    <selector>.csc-loanOut-loanOutNumber</selector>
 			    <container-selector>.csc-loanOut-loanOutNumber-patternChooserContainer</container-selector>				
@@ -1776,7 +1818,7 @@
 			    <field id="lendersAuthorizer" autocomplete="person-person">
 					<selector>.csc-loanOut-lendersAuthorizer</selector>
 				</field>	
-			    <field id="lendersAuthorizationDate" ui-type="date">
+			    <field id="lendersAuthorizationDate" ui-type="date" xxx_ui_refactored="false">
 					<selector>.csc-loanOut-lendersAuthorizationDate</selector>
 				</field>				
 				<field id="lendersContact" autocomplete="person-person">
@@ -1786,7 +1828,7 @@
 				<field id="loanedObjectStatusNote">
 					<selector>.csc-loanOut-loanedObjectStatusNote</selector>
 				</field>
-				<field id="loanedObjectStatusDate" ui-type="date">
+				<field id="loanedObjectStatusDate" ui-type="date" xxx_ui_refactored="false">
 					<selector>.csc-loanOut-loanedObjectStatusDate</selector>
 				</field>
 				<field id="loanedObjectStatus" autocomplete="vocab-lostatus" ui-type="enum">
@@ -1794,13 +1836,13 @@
 					<selector>.csc-loanOut-loanedObjectStatus</selector>
 				</field>
 				
-				<field id="loanOutDate" ui-type="date">
+				<field id="loanOutDate" ui-type="date" xxx_ui_refactored="false">
 					<selector>.csc-loanOut-loanOutDate</selector>
 				</field>
-				<field id="loanReturnDate" ui-type="date">
+				<field id="loanReturnDate" ui-type="date" xxx_ui_refactored="false">
 					<selector>.csc-loanOut-loanReturnDate</selector>
 				</field>
-				<field id="loanRenewalApplicationDate" ui-type="date">
+				<field id="loanRenewalApplicationDate" ui-type="date" xxx_ui_refactored="false">
 					<selector>.csc-loanOut-loanRenewalApplicationDate</selector>
 				</field>
 				<field id="specialConditionsOfLoan">
@@ -1809,7 +1851,7 @@
 				<field id="loanOutNote">
 					<selector>.csc-loanOut-loanOutNote</selector>
 				</field>
-				<field id="loanPurpose">
+				<field id="loanPurpose" xxx_ui_refactored="false">
 					<selector>.csc-loanOut-loanPurpose</selector>
 			    		<options>
 			      		<option id="exhibition" default="yes">Exhibition</option>
