@@ -85,7 +85,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			JSONObject results = new JSONObject();
 			try {
 				Integer pageNum = 0;
-				Integer pageSize = 5;
+				Integer pageSize = 100;
 				JSONObject fulldata= list_vocab(results,n,storage,request,null, pageSize,pageNum);
 
 				while(!fulldata.isNull("pagination")){
