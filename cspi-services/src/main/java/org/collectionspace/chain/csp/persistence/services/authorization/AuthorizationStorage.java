@@ -231,7 +231,6 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				setGleanedValue(cache,r.getServicesURL()+"/"+csid,view_map.get(object.getName()),object.getText());
 			}
 
-			log.info(out.toString());
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
@@ -478,8 +477,6 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				status = docm.getStatus();
 			}
 			else{ 
-				log.info("UPDATEXML");
-				log.info(doc.asXML());
 				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, r.getServicesURL()+"/"+filePath, doc, creds, cache);
 				status = docm.getStatus();
 			}

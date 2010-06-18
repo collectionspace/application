@@ -26,13 +26,11 @@ public class TestSchema {
 			return TestConfigFinder.getConfigStream();
 		} catch (CSPDependencyException e) {
 			String name=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+fallbackFile;
-			log.info(name);
 			return Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
 		}
 	}
 	
 	@Test public void testSchema()  {
-		log.info("running testSchema" );
 		CSPManager cspm=new CSPManagerImpl();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
@@ -47,15 +45,12 @@ public class TestSchema {
 
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
-		log.info("testing Spec" );
 		assertNotNull(spec);
-		log.info(spec.dump());
 		Record r_obj=spec.getRecord("collection-object");
 
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("objects",r_obj.getWebURL());
-		log.info("finished running testSchema" );
 	
 		
 		/* RECORD/field -> FIELD(type) */

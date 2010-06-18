@@ -114,10 +114,10 @@ public class UserDetailsReset implements WebMethod {
 			Transport.send(msg);
 		} catch (AddressException e) {
 			// TODO Auto-generated catch block
-			log.info("AddressException: "+e.getMessage());
+			log.error("AddressException: "+e.getMessage());
 			throw new UIException("AddressException: "+e.getMessage());
 		} catch (MessagingException e) {
-			log.info("MessagingException: "+e.getMessage());
+			log.error("MessagingException: "+e.getMessage());
 			throw new UIException("MessagingException: "+e.getMessage());
 		}
 		
@@ -161,8 +161,6 @@ public class UserDetailsReset implements WebMethod {
 	
 	private long daysBetween(Date startDate, Date endDate) throws UIException {
 
-		log.info("Start: "+startDate); 
-		log.info("End: "+endDate); 
 		long daysBetween = 0; 
 		while (startDate.before(endDate)) { 
 			startDate.setTime(startDate.getTime() + (24*60*60*1000)); 
@@ -194,10 +192,10 @@ public class UserDetailsReset implements WebMethod {
 	private Boolean testToken(String csid, String token) throws UIException {
 		String match = createHash(csid);
 		if(!tokenExpired(token, match)){
-			log.info("token matches");
+			log.debug("token matches");
             return true;
 		}
-		log.info("token expired");
+		log.debug("token expired");
         return false;
     }
 

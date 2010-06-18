@@ -62,9 +62,9 @@ public class ConfigFinder {
 			File file=new File(System.getProperty("jboss.home.dir")+"/server/cspace/conf/cspace-config.xml");
 			Properties p=System.getProperties();
 			for(Entry k : p.entrySet()) {
-				log.info(" property "+k.getKey()+" = "+k.getValue());
+				log.debug(" property "+k.getKey()+" = "+k.getValue());
 			}
-			log.info("A Looking in "+System.getProperty("jboss.home.dir")+"/server/cspace/conf/cspace-config.xml");
+			log.debug("A Looking in "+System.getProperty("jboss.home.dir")+"/server/cspace/conf/cspace-config.xml");
 			if(!file.exists())
 				return null;
 			return new FileInputStream(file);			

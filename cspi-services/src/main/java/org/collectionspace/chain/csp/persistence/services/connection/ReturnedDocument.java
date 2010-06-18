@@ -36,7 +36,7 @@ public class ReturnedDocument implements Returned {
 		InputStream stream=method.getResponseBodyAsStream();
 		SAXReader reader=new SAXReader();
 		if(status>=400) {
-			log.info("Got error : "+IOUtils.toString(stream));
+			log.error("Got error : "+IOUtils.toString(stream));
 		}
 		// TODO errorhandling
 		Document out=null;

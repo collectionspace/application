@@ -68,7 +68,6 @@ public class ChainServlet extends HttpServlet  {
 
 	private void load_config(ServletContext ctx) throws BootstrapConfigLoadFailedException, CSPDependencyException {
 		try {
-			log.info(bootstrap.getOption("main-config"));
 			InputStream cfg_stream=ConfigFinder.getConfig(ctx);
 			if(cfg_stream==null) {
 				locked_down="Cannot find cspace config xml file";
@@ -159,7 +158,6 @@ public class ChainServlet extends HttpServlet  {
 				throw new BadRequestException("UIException",e);
 			}
 		} catch (BadRequestException x) {
-			log.info(getStackTrace(x));
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, getStackTrace(x));
 		}
 	}

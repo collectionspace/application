@@ -34,10 +34,10 @@ public class DependencyResolver {
 					r.run();
 					success.add(r);
 					anything=true;
-					log.info("Dynamic dependency task '"+task_name+"' CSP("+r.getName()+") loaded successfully");
+					log.debug("Dynamic dependency task '"+task_name+"' CSP("+r.getName()+") loaded successfully");
 					count++;
 				} catch(CSPDependencyException x) {
-					log.info("Dynamic dependency task '"+task_name+"' could not load CSP("+r.getName()+") yet: "+x.getMessage());
+					log.debug("Dynamic dependency task '"+task_name+"' could not load CSP("+r.getName()+") yet: "+x.getMessage());
 					errors.add(x);
 				}
 			}

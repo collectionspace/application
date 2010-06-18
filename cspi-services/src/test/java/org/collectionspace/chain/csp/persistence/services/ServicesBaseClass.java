@@ -86,7 +86,7 @@ public class ServicesBaseClass {
 		try {
 			return TestConfigFinder.getConfigStream();
 		} catch (CSPDependencyException e) {
-			log.info("Falling back to trying to find old config file");
+			log.debug("Falling back to trying to find old config file");
 			return Thread.currentThread().getContextClassLoader().getResourceAsStream(fallbackFile);
 		}
 	}

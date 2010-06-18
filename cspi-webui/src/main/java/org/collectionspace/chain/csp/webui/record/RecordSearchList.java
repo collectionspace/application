@@ -112,54 +112,6 @@ public class RecordSearchList implements WebMethod {
 		return out;
 	}
 	
-	/**
-	 * Get full list without pagination
-	 * 
-	 */
-	private JSONArray getfullList(Storage storage, JSONObject restriction){
-		
-		JSONArray fulllist = new JSONArray();
-		int resultsize =1;
-		int pagenum = 0;
-		String checkpagination = "";
-		while(resultsize >0){
-			try {
-				restriction.put("pageNum", pagenum);
-				JSONObject data = storage.getPathsJSON(base,restriction);
-				//next page
-				pagenum++;
-
-				String[] results = (String[]) data.get("listItems");
-
-				if(results.length==0 || checkpagination.equals(results[0])){
-					resultsize=0;
-					//testing whether we have actually returned the same page or the next page - all csid returned should be unique
-				}
-				else{
-					checkpagination = results[0];
-					for(int i=0;i<results.length;i++) {
-						if(results[i].startsWith(base+"/"))
-							results[i]=results[i].substring((base+"/").length());
-						fulllist.put(fulllist.length(),results[i]);
-					}
-				}
-			} catch (JSONException e) {
-				log.info(e.getMessage());
-				resultsize=0;
-			} catch (ExistException e) {
-				log.info(e.getMessage());
-				resultsize=0;
-			} catch (UnimplementedException e) {
-				log.info(e.getMessage());
-				resultsize=0;
-			} catch (UnderlyingStorageException e) {
-				log.info(e.getMessage());
-				resultsize=0;
-			}
-		}
-		return fulllist;
-	}
-	
 	
 	/**
 	 * Check whether all the permissions are included in the list, if a permission isn't, add it

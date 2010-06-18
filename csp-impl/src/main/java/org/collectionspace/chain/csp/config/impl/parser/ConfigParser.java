@@ -34,7 +34,7 @@ public class ConfigParser {
 	
 	public ConfigParser(RulesImpl rules) throws ConfigException {
 		factory = SAXParserFactory.newInstance();
-		log.info("Factoryclass",factory.getClass());
+		log.debug("Factoryclass",factory.getClass());
 		factory.setNamespaceAware(true);
 		TransformerFactory tf=TransformerFactory.newInstance();
 		if (!tf.getFeature(SAXSource.FEATURE) || !tf.getFeature(SAXResult.FEATURE))

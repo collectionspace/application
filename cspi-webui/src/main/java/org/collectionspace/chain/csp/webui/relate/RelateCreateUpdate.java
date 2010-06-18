@@ -109,9 +109,9 @@ public class RelateCreateUpdate implements WebMethod {
 					 * independently. It's arguable that this is the behaviour they expect, arguable that it is not.
 					 */
 					// Delete the reverse record for an update
-					log.info("forward is "+path);
+					//log.info("forward is "+path);
 					String csid_rev=find_reverse(storage,path);
-					log.info("reverse is "+csid_rev);
+					//log.info("reverse is "+csid_rev);
 					if(csid_rev!=null)
 						storage.deleteJSON("/relations/main/"+csid_rev);
 				}
