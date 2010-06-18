@@ -1,5 +1,7 @@
 package org.collectionspace.chain.csp.webui.nuispec;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,9 +16,14 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.schema.Structure;
+import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesSearchList;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.csp.api.persistence.ExistException;
+import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
+import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
@@ -28,6 +35,7 @@ import org.slf4j.LoggerFactory;
 public class UISpec implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(UISpec.class);
 	private Record record;
+	private Storage storage;
 	String structureview;
 
 	public UISpec(Record record, String structureview) {
@@ -93,6 +101,33 @@ public class UISpec implements WebMethod {
 					dfault=idx;
 				idx++;
 			}
+			//currently only supports single select dropdowns and not multiselect
+			if(dfault!=-1)
+				out.put("default",dfault+"");
+			out.put("optionlist",ids);
+			out.put("optionnames",names);			
+			return out;
+		}
+		else if("enum".equals(f.getUIType())) {
+			JSONArray allnames = controlledLists(f.getAutocompleteInstance().getID());
+			JSONArray ids=new JSONArray();
+			JSONArray names=new JSONArray();
+			int dfault = -1;
+			
+			for(int i=0;i<allnames.length();i++) {
+				String name = allnames.getString(i);
+				//currently only supports single select dropdowns and not multiselect
+				if(f.isEnumDefault(name)){
+					dfault = i;
+				}
+				String idname = name.replaceAll("\\W","");
+				ids.put(idname.toLowerCase());
+				names.put(name);
+			}
+			// Dropdown entry pulled from service layer data
+			JSONObject out=new JSONObject();
+			out.put("selection",plain(f));
+
 			if(dfault!=-1)
 				out.put("default",dfault+"");
 			out.put("optionlist",ids);
@@ -102,6 +137,56 @@ public class UISpec implements WebMethod {
 		return plain(f);	
 	}
 
+	private JSONArray controlledLists(String vocabtype) throws JSONException{
+
+		JSONArray displayNames = new JSONArray();
+		try {
+		    // Get List
+			int resultsize =1;
+			int pagenum = 0;
+			int pagesize = 200;
+			while(resultsize >0){
+				Record vr = this.record.getSpec().getRecord("vocab");
+				JSONObject restriction=new JSONObject();
+				restriction.put("pageNum", pagenum);
+				restriction.put("pageSize", pagesize);
+				Instance n = vr.getInstance(vocabtype);
+				
+				String url = vr.getID()+"/"+n.getTitleRef();
+				JSONObject data = storage.getPathsJSON(vr.getID()+"/"+n.getTitleRef(),restriction);
+				String[] results = (String[]) data.get("listItems");
+				/* Get a view of each */
+				for(String result : results) {
+					//change csid into displayName
+					String name = getDisplayNameList(storage,vr.getID(),n.getTitleRef(),result, "displayName");
+					displayNames.put(getDisplayNameList(storage,vr.getID(),n.getTitleRef(),result, "displayName"));
+				}
+
+				Integer total = data.getJSONObject("pagination").getInt("totalItems");
+				pagesize = data.getJSONObject("pagination").getInt("pageSize");
+				Integer itemsInPage = data.getJSONObject("pagination").getInt("itemsInPage");
+				pagenum = data.getJSONObject("pagination").getInt("pageNum");
+				pagenum++;
+				//are there more results
+				if(total <= (pagesize * (pagenum))){
+					break;
+				}
+			};
+		} catch (ExistException e) {
+			throw new JSONException("Exist exception");
+		} catch (UnimplementedException e) {
+			throw new JSONException("Unimplemented exception");
+		} catch (UnderlyingStorageException e) {
+			throw new JSONException("Unnderlying storage exception");
+		}
+		return displayNames;
+	}
+
+	private String getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid, String fieldName) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view");
+		return out.getString(fieldName);
+	}
+	
 	private JSONObject generateAutocomplete(Field f) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
@@ -216,7 +301,12 @@ public class UISpec implements WebMethod {
 				out.put(f.getSelector(),generateDataEntryField(f));	
 				
 				if(f.hasAutocompleteInstance()) {
-					out.put(f.getAutocompleteSelector(),generateAutocomplete(f));
+					if("enum".equals(f.getUIType())){
+						out.put(f.getAutocompleteSelector(),generateDataEntryField(f));
+					}
+					else{
+						out.put(f.getAutocompleteSelector(),generateAutocomplete(f));
+					}
 				}
 				if("chooser".equals(f.getUIType())) {
 					out.put(f.getContainerSelector(),generateChooser(f));
@@ -228,7 +318,12 @@ public class UISpec implements WebMethod {
 			else{
 				
 				if(f.hasAutocompleteInstance()) {
-					out.put(f.getSelector(),generateAutocomplete(f));
+					if("enum".equals(f.getUIType())){
+						out.put(f.getSelector(),generateDataEntryField(f));
+					}
+					else{
+						out.put(f.getSelector(),generateAutocomplete(f));
+					}
 				}
 				if("chooser".equals(f.getUIType())) {
 					out.put(f.getSelector(),generateChooser(f));
@@ -353,7 +448,8 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
-	private JSONObject uispec(UIRequest request,String suffix) throws UIException {
+	private JSONObject uispec(Storage storage) throws UIException {
+		this.storage = storage;
 		try {
 			JSONObject out=new JSONObject();
 			Structure s = record.getStructure(this.structureview);
@@ -380,7 +476,7 @@ public class UISpec implements WebMethod {
 
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
-		JSONObject out=uispec(q.getUIRequest(),StringUtils.join(tail,"/"));
+		JSONObject out=uispec(q.getStorage());
 		q.getUIRequest().sendJSONResponse(out);
 	}
 
