@@ -20,7 +20,6 @@ public class TestXTmpl {
 	private Document getDocument(String in) throws DocumentException, IOException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		log.info(path);
 		assertNotNull(stream);
 		SAXReader reader=new SAXReader();
 		Document doc=reader.read(stream);

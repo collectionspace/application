@@ -27,7 +27,7 @@ public class JSONUtils {
 		Set<String> c=new HashSet<String>(a);
 		c.removeAll(b);
 		for(String s : c) {
-			log.info(prefix +": "+s);
+			log.debug(prefix +": "+s);
 			good=false;
 		}
 		return good;
@@ -77,19 +77,19 @@ public class JSONUtils {
 	@SuppressWarnings("unchecked")
 	public static boolean checkJSONEquiv(Object a,Object b) throws JSONException {
 		if(a==null) {
-			log.info("a is null");
+			log.debug("a is null");
 			if(b!=null){
-				log.info("b is not null");
+				log.debug("b is not null");
 				return false;
 			}
 			return true;
 		}
 		if((a instanceof Number) || (a instanceof Boolean) || (a instanceof String)) {
 			if(!a.equals(b)){
-				log.info("a != b");
-				log.info(a.toString());
-				log.info(b.toString());
-				log.info("end");
+				log.debug("a != b");
+				log.debug(a.toString());
+				log.debug(b.toString());
+				log.debug("end");
 				return false;
 			}
 			return true;
@@ -98,14 +98,14 @@ public class JSONUtils {
 			if(!(b instanceof JSONArray))
 				return false;
 			if(((JSONArray)a).length()!=((JSONArray)b).length()){
-				log.info("array length diff a ="+ ((JSONArray)a).length()+": b= "+((JSONArray)b).length());
-				log.info(((JSONArray)a).toString());
+				log.debug("array length diff a ="+ ((JSONArray)a).length()+": b= "+((JSONArray)b).length());
+				log.debug(((JSONArray)a).toString());
 				return false;
 			}
 			
 			for(int i=0;i<((JSONArray) a).length();i++) {
 				if(!checkJSONEquiv(((JSONArray) a).get(i),((JSONArray) b).get(i))){
-					log.info("array length diff 2" +((JSONArray) a).get(i));
+					log.debug("array length diff 2" +((JSONArray) a).get(i));
 					return false;
 				}
 			}
@@ -113,9 +113,9 @@ public class JSONUtils {
 		}
 		
 		if(!(a instanceof JSONObject) || !(b instanceof JSONObject)){
-			log.info("One but not both are JSON objects - check for options");
-			log.info(((JSONObject)a).toString());
-			log.info(((JSONObject)b).toString());
+			log.debug("One but not both are JSON objects - check for options");
+			log.debug(((JSONObject)a).toString());
+			log.debug(((JSONObject)b).toString());
 			return false;
 		}
 		if(!checkKeys((JSONObject)a,(JSONObject)b))
