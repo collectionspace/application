@@ -232,7 +232,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			url+=postfix;
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
 			Document doc=data.getDocument();
-			log.info(url);
+			//log.info(url);
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies");
 			String[] tag_parts=r.getServicesListPath().split(",",2);
@@ -344,29 +344,31 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
 		
 		JSONObject out=new JSONObject();
-		ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,generateURL(vocab,csid,"/refObjs"),null,creds,cache);
-		String test = all.getDocument().asXML();
-		if(all.getStatus()!=200)
-			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-		Document list=all.getDocument();
-		for(Object node : list.selectNodes("authority-ref-doc-list/authority-ref-doc-item")) {
-			if(!(node instanceof Element))
-				continue;
-			String key=((Element)node).selectSingleNode("sourceField").getText();
-			String uri=((Element)node).selectSingleNode("uri").getText();
-			String docid=((Element)node).selectSingleNode("docId").getText();
-			String doctype=((Element)node).selectSingleNode("docType").getText();
-			String fieldName = key.split(":")[1];
-			//Field fieldinstance = (Field)r.getRepeatField(fieldName);
-			
-			if(uri!=null && uri.startsWith("/"))
-				uri=uri.substring(1);
-			JSONObject data = new JSONObject();//=miniForURI(storage,creds,cache,refname,uri);
-			data.put("csid", docid);
-//			data.put("sourceFieldselector", fieldinstance.getSelector());
-			data.put("sourceFieldName", fieldName);
-			data.put("sourceFieldType", doctype);
-			out.put(key,data);
+		if(r.hasRefObjUsed()){
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,generateURL(vocab,csid,"/refObjs"),null,creds,cache);
+			String test = all.getDocument().asXML();
+			if(all.getStatus()!=200)
+				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+			Document list=all.getDocument();
+			for(Object node : list.selectNodes("authority-ref-doc-list/authority-ref-doc-item")) {
+				if(!(node instanceof Element))
+					continue;
+				String key=((Element)node).selectSingleNode("sourceField").getText();
+				String uri=((Element)node).selectSingleNode("uri").getText();
+				String docid=((Element)node).selectSingleNode("docId").getText();
+				String doctype=((Element)node).selectSingleNode("docType").getText();
+				String fieldName = key.split(":")[1];
+				//Field fieldinstance = (Field)r.getRepeatField(fieldName);
+				
+				if(uri!=null && uri.startsWith("/"))
+					uri=uri.substring(1);
+				JSONObject data = new JSONObject();//=miniForURI(storage,creds,cache,refname,uri);
+				data.put("csid", docid);
+//				data.put("sourceFieldselector", fieldinstance.getSelector());
+				data.put("sourceFieldName", fieldName);
+				data.put("sourceFieldType", doctype);
+				out.put(key,data);
+			}
 		}
 		return out;
 	}

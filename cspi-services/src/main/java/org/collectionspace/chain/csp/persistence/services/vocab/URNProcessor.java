@@ -70,7 +70,7 @@ public class URNProcessor {
 				urn="/"+urn;
 			Matcher m=pattern.matcher(urn);
 			if(!m.matches())
-				throw new ExistException("Bad URN, does not exist");
+				throw new ExistException("Bad URN, does not exist" + urn);
 			String[] out=new String[6];
 			// 2,4,5 were URI encoded.
 			for(int i=0;i<out.length;i++) {

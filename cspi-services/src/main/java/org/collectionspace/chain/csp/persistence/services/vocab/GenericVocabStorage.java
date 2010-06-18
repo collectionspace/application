@@ -70,19 +70,8 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		this.namespace=namespace;
 		this.tag=tag;
 		this.in_tag=in_tag;
-		
-		/*
-		 * Initialize all instances of vocab
-		 * */
-		initialiseVocab();
 	}
 
-	private void initialiseVocab(){
-		//need to search for vocab item
-		//if missing add it
-		
-	}
-	
 	// XXX refactor
 	private InputStream getResource(String name) {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
@@ -132,6 +121,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Could not retrieve vocabularies");
 		List<Node> objects=doc.getDocument().selectNodes(list_item_path);
 		for(Node object : objects) {
+			//XXX should be shortindentifier as soon as CSPACE-2126 is resolved
 			String name=object.selectSingleNode("displayName").getText();
 			String base=unconfound(name);
 			if(base==null)
@@ -171,7 +161,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	private String[] deconstructURN(CSPRequestCache cache,String urn) throws ExistException {
 		Matcher m=urn_syntax.matcher(urn);
 		if(!m.matches())
-			throw new ExistException("Bad URN, does not exist");
+			throw new ExistException("Bad URN, does not exist: "+urn);
 		return new String[]{m.group(1),m.group(2),m.group(3),m.group(4)};
 	}
 
