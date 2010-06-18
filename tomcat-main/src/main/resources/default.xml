@@ -694,7 +694,7 @@
 					    <selector>.csc-object-history-association-exchange-note</selector>
 					 </field>
  					 <field id="ownershipExchangePriceCurrency"  autocomplete="vocab-currency" ui-type="enum">
-						<enum-default>Requested</enum-default>
+						<enum-default>US Dollar</enum-default>
 					    <selector>.csc-object-history-association-denomination</selector>
 					 </field>
  					 <field id="ownershipExchangePriceValue" >
@@ -1075,7 +1075,7 @@
 			    <container-selector>.csc-acquisition-acquisition-date-container</container-selector>
 			  </field>
 			  <field id="acquisitionFundingCurrency" autocomplete="vocab-currency" ui-type="enum">
-				<enum-default>Requested</enum-default>
+				<enum-default>US Dollar</enum-default>
 			    <selector>.csc-acquisition-acquisition-funding-denomination</selector>
 			  </field>
 			  <field id="acquisitionFundingValue">
@@ -1123,7 +1123,7 @@
 			    </field>
 			  </repeat>
 			  <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-				<enum-default>Requested</enum-default>
+				<enum-default>US Dollar</enum-default>
 			    <selector>.csc-acquisition-purchaser-price-denomination</selector>
 			  </field>
 			  <field id="objectPurchaseOfferPriceValue">
@@ -1131,7 +1131,7 @@
 			  </field>
 	
 			  <field id="groupPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-				<enum-default>Requested</enum-default>
+				<enum-default>US Dollar</enum-default>
 			    <selector>.csc-acquisition-group-purchase-price-currency</selector>
 			  </field>
 			  <field id="groupPurchasePriceValue">
@@ -1139,7 +1139,7 @@
 			  </field>
 			  
 			  <field id="objectOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-				<enum-default>Requested</enum-default>
+				<enum-default>US Dollar</enum-default>
 			    <selector>.csc-acquisition-object-offer-price-currency</selector>
 			  </field>
 			  <field id="objectOfferPriceValue">
@@ -1147,7 +1147,7 @@
 			  </field>
 			  
 			  <field id="objectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-				<enum-default>Requested</enum-default>
+				<enum-default>US Dollar</enum-default>
 			    <selector>.csc-acquisition-object-purchase-price-currency</selector>
 			  </field>
 			  <field id="objectPurchasePriceValue">
@@ -1155,7 +1155,7 @@
 			  </field>
 			  
 			  <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-				<enum-default>Requested</enum-default>
+				<enum-default>US Dollar</enum-default>
 			    <selector>.csc-acquisition-object-purchase-offer-price-currency</selector>
 			  </field>
 			  <field id="objectPurchaseOfferPriceValue">
@@ -1163,7 +1163,7 @@
 			  </field>
 			  
 			  <field id="originalObjectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-				<enum-default>Requested</enum-default>
+				<enum-default>US Dollar</enum-default>
 			    <selector>.csc-acquisition-original-object-purchase-price-currency</selector>
 			  </field>
 			  <field id="originalObjectPurchasePriceValue">
