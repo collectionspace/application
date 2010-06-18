@@ -43,7 +43,6 @@ public class TestVocab extends ServicesBaseClass {
 		String id=ss.autocreateJSON(path,data);
 		// Read
 		JSONObject out=ss.retrieveJSON(path+"/"+id);
-		log.info(out.toString());
 		assertEquals("TEST",out.getString(testField));
 		//assertEquals("Provisional",out.getString("status"));
 		// Update
@@ -137,7 +136,7 @@ public class TestVocab extends ServicesBaseClass {
 			for(String urn : res) {
 				try {
 					ss.deleteJSON("/organization/organization/"+urn);
-					log.info(check + "  Deleting "+urn);
+					log.debug(check + "  Deleting "+urn);
 				} catch(Exception e) { /* Sometimes records are wdged */ }
 				
 			}
