@@ -87,10 +87,17 @@ public class TestVocabThroughWebapp {
 		String vocabtype="languages";
 		//String vocabtype="loanoutstatus";
 		ServletTester jetty=setupJetty();
-		// Create
-		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/initialize",null);
+		// Create a single vocab
+		//HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/initialize",null);
+		
+		//create all vocabularies in <record id="vocab"
+		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/vocab/initialize",null);
+
 		// update and remove fields not in list
 		//HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/refresh",null);
+		
+		// update and remove fields not in each list within an authority
+		//HttpTester out=jettyDo(jetty,"GET","/chain/authorities/vocab/refresh",null);
 		assertTrue(out.getStatus()<300);
 		
 		

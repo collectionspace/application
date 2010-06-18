@@ -37,11 +37,16 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	private Instance n;
 	private Record r;
 	
-	
+
 	public AuthoritiesVocabulariesInitialize(Instance n, Boolean append) {
-		this.append=append;
-		this.n=n;
-		this.r=n.getRecord();
+		this.append = append;
+		this.n = n;
+		this.r = n.getRecord();
+	}
+	public AuthoritiesVocabulariesInitialize(Record r, Boolean append) {
+		this.append = append;
+		this.r = r;
+		this.n = null;
 	}
 	
 	private String getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid, String fieldName) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
@@ -76,8 +81,21 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	}
 	
 	private void initializeVocab(Storage storage,UIRequest request,String path) throws UIException {
+
+		if(n==null) {
+			// For now simply loop thr all the instances one after the other.
+			for(Instance n : r.getAllInstances()) {
+				resetvocabdata(storage, request, n);
+			}
+		} else {
+			resetvocabdata(storage, request, this.n);
+		}
+	}
+	
+	
+	private void resetvocabdata(Storage storage,UIRequest request, Instance instance) throws UIException {
 		//get list from Spec
-		Option[] allOpts = n.getAllOptions();
+		Option[] allOpts = instance.getAllOptions();
 		//step away if we have nothing
 		if(allOpts != null && allOpts.length > 0){
 
@@ -86,7 +104,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			try {
 				Integer pageNum = 0;
 				Integer pageSize = 100;
-				JSONObject fulldata= list_vocab(results,n,storage,request,null, pageSize,pageNum);
+				JSONObject fulldata= list_vocab(results,instance,storage,request,null, pageSize,pageNum);
 
 				while(!fulldata.isNull("pagination")){
 					Integer total = fulldata.getJSONObject("pagination").getInt("totalItems");
@@ -98,7 +116,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					pageNum++;
 					//are there more results
 					if(total > (pageSize * (pageNum))){
-						fulldata= list_vocab(results, n, storage, request, null, pageSize, pageNum);
+						fulldata= list_vocab(results, instance, storage, request, null, pageSize, pageNum);
 					}
 					else{
 						break;
@@ -114,7 +132,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					if(!results.has(name)){
 						//create it if term is not already present
 						JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
-						storage.autocreateJSON(r.getID()+"/"+n.getTitleRef(),data);
+						storage.autocreateJSON(r.getID()+"/"+instance.getTitleRef(),data);
 					}
 					else{
 						//remove from results so can delete everything else if necessary in next stage
@@ -129,7 +147,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					while(rit.hasNext()) {
 						String key=(String)rit.next();
 						String csid = results.getString(key);
-						storage.deleteJSON(r.getID()+"/"+n.getTitleRef()+"/"+csid);
+						storage.deleteJSON(r.getID()+"/"+instance.getTitleRef()+"/"+csid);
 					}
 				}
 
