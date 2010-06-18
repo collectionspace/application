@@ -75,17 +75,7 @@ public class Spec implements CSP, Configurable {
 				return Spec.this;
 			}
 		});
-		/* SPEC/controlledlists -> CONTROLLEDLISTS */
-		rules.addRule(SECTION_PREFIX+"spec",new String[]{"controlledlists"},SECTION_PREFIX+"controlledlists",null,null);
-		/* RECORDS/controlledlist -> CONTROLLEDLIST(@id) */
-		rules.addRule(SECTION_PREFIX+"controlledlists",new String[]{"controlledlist"},SECTION_PREFIX+"controlledlist",null,new Target(){
-			public Object populate(Object parent, ReadOnlySection section) {
-				ControlledList c = new ControlledList(Spec.this, section);
-				controlledlists.put(c.getID(),c);
-				return c;
-			}
-		});
-		
+
 		/* SPEC/records -> RECORDS */
 		rules.addRule(SECTION_PREFIX+"spec",new String[]{"records"},SECTION_PREFIX+"records",null,null);
 		/* RECORDS/record -> RECORD(@id) */
@@ -118,6 +108,17 @@ public class Spec implements CSP, Configurable {
 				return n;
 			}
 		});			
+		/* FIELD/options/option -> OPTION */
+		rules.addRule(SECTION_PREFIX+"instance",new String[]{"options","option"},SECTION_PREFIX+"option",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Instance n=(Instance)parent;
+				boolean dfault=false;
+				String value=(String)section.getValue("/@default");
+				dfault=(value!=null && ("yes".equals(value.toLowerCase()) || "1".equals(value.toLowerCase())));
+				n.addOption((String)section.getValue("/@id"),(String)section.getValue(""),(String)section.getValue("/@sample"),dfault);
+				return n;
+			}
+		});
 
 		/* RECORD/field -> FIELD */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
@@ -188,7 +189,7 @@ public class Spec implements CSP, Configurable {
 				return r;
 			}
 		});
-		
+
 		/* FIELD/options/option -> OPTION */
 		rules.addRule(SECTION_PREFIX+"field",new String[]{"options","option"},SECTION_PREFIX+"option",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {

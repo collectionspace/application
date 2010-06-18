@@ -35,6 +35,7 @@ public class Record implements FieldParent {
 	private boolean in_findedit=false;
 	private boolean is_multipart=false;
 	private boolean has_terms_used = false;
+	private boolean has_refobj_used = true;
 	private String services_search_keyword = "kw";
 	
 	/* Service stuff */
@@ -58,14 +59,16 @@ public class Record implements FieldParent {
 		
 		//config whether service layer needs call as multipart or not
 		is_multipart=Util.getBooleanOrDefault(section,"/is-multipart",true);
-		
+
 		//config whether record type has termsUsed or not (returns empty array in Json if = false )
 		has_terms_used = Util.getBooleanOrDefault(section,"/terms-used",true);
+		//config whether record type has relatedObj/procs or not (returns empty array in Json if = false )
+		has_refobj_used = Util.getBooleanOrDefault(section,"/refobj-used",true);
 		
 		//config the keyword to use for searching
 		services_search_keyword = Util.getStringOrDefault(section,"/services-search-keyword","kw");
 		
-		// XXX not currently used... not sure what it is for
+		// Used to differentiate between authority and vocabulary on create
 		in_tag=Util.getStringOrDefault(section,"/membership-tag","inAuthority");
 		
 		/* UI Layer helpers */
@@ -152,6 +155,7 @@ public class Record implements FieldParent {
 	public boolean isInFindEdit() { return in_findedit; }
 	public boolean isMultipart() { return is_multipart; }
 	public boolean hasTermsUsed() { return has_terms_used; }
+	public boolean hasRefObjUsed() { return has_refobj_used; }
 
 	public String getServicesSearchKeyword(){ return services_search_keyword; }
 	public String getInTag() { return in_tag; }

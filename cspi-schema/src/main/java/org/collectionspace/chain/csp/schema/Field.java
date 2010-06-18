@@ -17,6 +17,7 @@ public class Field implements FieldSet {
 	private String id;
 	private Instance autocomplete_instance;
 	private Set<String> autocomplete_instance_ids;
+	private Set<String> enum_default;
 
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	
@@ -62,6 +63,8 @@ public class Field implements FieldSet {
 		if(display_name)
 			record.getRecord().setDisplayName(this);
 		this.parent=record;
+		
+		enum_default = Util.getSetOrDefault(section, "/enum-default", new String[]{""});
 		services_section=Util.getStringOrDefault(section,"/@section","common");
 		services_filter_param=Util.getStringOrDefault(section,"/services-filter-param",null);
 		if(services_filter_param!=null)
@@ -131,6 +134,13 @@ public class Field implements FieldSet {
 			}
 		}
 		return false; 
+	}
+	
+	public boolean isEnumDefault(String name){
+		if(enum_default.contains(name)){
+			return true;
+		}
+		return false;
 	}
 	
 	public void config_finish(Spec spec) {
