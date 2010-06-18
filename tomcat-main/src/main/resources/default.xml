@@ -904,7 +904,7 @@
                 <field id="loanReturnDate" ui-type="date" xxx_ui_refactored="false">
 					<selector>.csc-loanIn-loanReturnDate</selector>
 				</field>
-                <field id="loanRenewalApplicationDate" ui-type="date">
+                <field id="loanRenewalApplicationDate" ui-type="date" xxx_ui_refactored="false">
 					<selector>.csc-loanIn-loanRenewalApplicationDate</selector>
 				</field>
                 <field id="loanInNote">
@@ -979,7 +979,7 @@
 			  <field id="packingNote">
 			    <selector>.csc-intake-packing-note</selector>
 			  </field>
-			  <field id="returnDate" ui-type="date">
+			  <field id="returnDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-intake-return-date</selector>
 			  </field>
 			  
@@ -1061,7 +1061,7 @@
 				</structure>
 			  </structures>		
 			
-			  <field id="accessionDate" ui-type="date">
+			  <field id="accessionDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-acquisition-accession-date</selector>
 			  </field>
 			  <field id="acquisitionAuthorizer" autocomplete="person-person" xxx_ui_refactored="false">
@@ -1445,7 +1445,7 @@
 			  <field id="foundingPlace" autocomplete="person-person" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-foundingPlace</selector>
 			  </field>
-			  <field id="dissolutionDate" ui-type="date" in-title="yes">
+			  <field id="dissolutionDate" ui-type="date" in-title="yes" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-dissolutionDate</selector>
 			    <title-selector>.csc-titleBar-dissolutionDate</title-selector>
 			  </field>
