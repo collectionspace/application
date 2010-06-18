@@ -59,13 +59,6 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			addChild("id",new ServicesIDGenerator(conn));
 			addChild("relations",new ServicesRelationStorage(conn));
 			
-			//vocabs
-			Map<String,String> vocabs=new HashMap<String,String>();
-			for(ControlledList c : spec.getAllControlledLists()){
-				vocabs.put(c.getID(), c.getName());
-			}
-			addChild("vocab",new ServicesVocabStorage(conn,vocabs));
-			
 		} catch (Exception e) {
 			throw new CSPDependencyException("Could not set target",e); // XXX wrong type
 		}
