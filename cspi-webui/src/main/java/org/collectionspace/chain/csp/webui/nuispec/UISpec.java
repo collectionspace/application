@@ -151,30 +151,35 @@ public class UISpec implements WebMethod {
 				
 				String url = vr.getID()+"/"+n.getTitleRef();
 				JSONObject data = storage.getPathsJSON(vr.getID()+"/"+n.getTitleRef(),restriction);
-				String[] results = (String[]) data.get("listItems");
-				/* Get a view of each */
-				for(String result : results) {
-					//change csid into displayName
-					String name = getDisplayNameList(storage,vr.getID(),n.getTitleRef(),result, "displayName");
-					displayNames.put(getDisplayNameList(storage,vr.getID(),n.getTitleRef(),result, "displayName"));
-				}
+				if(data.has("listItems")){
+					String[] results = (String[]) data.get("listItems");
+					/* Get a view of each */
+					for(String result : results) {
+						//change csid into displayName
+						String name = getDisplayNameList(storage,vr.getID(),n.getTitleRef(),result, "displayName");
+						displayNames.put(name);
+					}
 
-				Integer total = data.getJSONObject("pagination").getInt("totalItems");
-				pagesize = data.getJSONObject("pagination").getInt("pageSize");
-				Integer itemsInPage = data.getJSONObject("pagination").getInt("itemsInPage");
-				pagenum = data.getJSONObject("pagination").getInt("pageNum");
-				pagenum++;
-				//are there more results
-				if(total <= (pagesize * (pagenum))){
-					break;
+					Integer total = data.getJSONObject("pagination").getInt("totalItems");
+					pagesize = data.getJSONObject("pagination").getInt("pageSize");
+					Integer itemsInPage = data.getJSONObject("pagination").getInt("itemsInPage");
+					pagenum = data.getJSONObject("pagination").getInt("pageNum");
+					pagenum++;
+					//are there more results
+					if(total <= (pagesize * (pagenum))){
+						break;
+					}
 				}
-			};
+				else{
+					resultsize=0;
+				}
+			}
 		} catch (ExistException e) {
 			throw new JSONException("Exist exception");
 		} catch (UnimplementedException e) {
 			throw new JSONException("Unimplemented exception");
 		} catch (UnderlyingStorageException e) {
-			throw new JSONException("Unnderlying storage exception");
+			throw new JSONException("Underlying storage exception"+vocabtype);
 		}
 		return displayNames;
 	}
@@ -291,7 +296,6 @@ public class UISpec implements WebMethod {
 		if(fs instanceof Field) {
 			// Single field
 			Field f=(Field)fs;
-			
 			//XXX when all uispecs have moved across we can delete most of this
 			if(!f.isRefactored()){
 				// Single field
@@ -454,7 +458,7 @@ public class UISpec implements WebMethod {
 				out.put(s.getListSectionName(),generateListSection(s));
 			}
 			if(s.showEditSection()){
-			out.put(s.getEditSectionName(),generateDataEntrySection());
+				out.put(s.getEditSectionName(),generateDataEntrySection());
 			}
 			if(s.showTitleBar()){
 				out.put("titleBar",generateTitleSection());
