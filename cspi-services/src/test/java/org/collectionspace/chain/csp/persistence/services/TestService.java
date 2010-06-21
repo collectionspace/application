@@ -5,14 +5,11 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +26,6 @@ import org.xml.sax.InputSource;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
-import org.collectionspace.chain.csp.persistence.services.XmlJsonConversion;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
@@ -90,19 +86,21 @@ public class TestService extends ServicesBaseClass {
 	}
 	
 	@Test public void testAllPostGetDelete() throws Exception {
-		// TODO Change the XML filenames to be more meaningful
 		// TODO Add vocab (the previous testVocabPost method was just an exact copy of testRolesPost!)
 		// TODO Add everything from CSPACE-1876 and more
 		
 		testPostGetDelete("collectionobjects/", "collectionobjects_common", "obj1.xml", "collectionobjects_common/objectNumber", "2");
+		testPostGetDelete("acquisitions/", "acquisitions_common", "acquisition.xml", "acquisitions_common/acquisitionReferenceNumber", "2010.1");
+		testPostGetDelete("intakes/", "intakes_common", "intake.xml", "intakes_common/entryNumber","IN2010.2");
+		testPostGetDelete("loansin/", "loansin_common", "loaninXMLJSON.xml", "loansin_common/loanInNumber", "LI2010.1.21");
+		testPostGetDelete("loansout/", "loansout_common", "loanout.xml", "loansout_common/loanOutNumber", "LO2010.117");
+		testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementReferenceNumber", "MV2010.99");
 		
+		//testPostGetDelete("accounts/", null, "account.xml", "account/userid", "accounts");
+
 		// TODO make roleName dynamically vary otherwise POST fails if already exists (something like buildObject)
 		testPostGetDelete("authorization/roles/", null, "role.xml", "role/description", "this role is for test users");
 		testPostGetDelete("authorization/permissions/", null, "permissions.xml", "permission/resourceName", "testthing");
-
-		testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementReferenceNumber", "MV2010.99");
-
-		//testPostGetDelete("accounts/", null, "account.xml", "account/userid", "accounts");
 
 		// TODO might be worth adding test for CSPACE-1947 (POST with wrong label "succeeds")
 	}
@@ -209,11 +207,14 @@ public class TestService extends ServicesBaseClass {
 		String id;
 		//CREATE
 		ReturnedURL url=conn.getMultipartURL(RequestMethod.POST,"personauthorities/",parts,creds,cache);
+		assertEquals(201, url.getStatus());
 		id=url.getURLTail();
 		//UPDATE
 		ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.PUT,"personauthorities/"+id,parts,creds,cache);
+		assertEquals(200,doc.getStatus()); // XXX shouldn't this be 201?
 		//DELETE
 		conn.getNone(RequestMethod.DELETE,"personauthorities/"+id,null,creds,cache);
+		assertEquals(200, doc.getStatus());
 		
 	}
 

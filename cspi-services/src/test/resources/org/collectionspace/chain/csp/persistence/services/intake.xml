@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ns2:intakes_common xmlns:ns2="http://collectionspace.org/services/intake">
-  <entryNumber><<objnum>></entryNumber>
-  <entryDate>3</entryDate>
-  <!-- XXX
-  <entryMethod></entryMethod>
-  <entryReason></entryReason>
-  -->
-  <returnDate>Left-handed screwdriver</returnDate>
-  <!-- XXX
-  <depositor></depositor>
-  <entryNote></entryNote>
-  <packingNote></packingNote>
-  -->
+<ns2:intakes_common xmlns:ns2="http://collectionspace.org/services/intake" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/intake http://services.collectionspace.org/intake/intakes_common.xsd">
+    <entryNumber>IN2010.2</entryNumber>
+    <depositor>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(Alfred L. Kroeber)'Alfred L. Kroeber'</depositor>
 </ns2:intakes_common>
