@@ -2,10 +2,9 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
+import java.util.Stack;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
@@ -60,6 +59,32 @@ public class XmlJsonConversion {
 		if(!(value instanceof JSONArray))
 			throw new UnderlyingStorageException("Bad JSON in repeated field: must be string or array for repeatable field");
 		JSONArray array=(JSONArray)value;
+		
+		//reorder the list if it has a primary
+		//XXX this will be changed when service layer accepts non-initial values as primary
+		if(repeat.hasPrimary()){
+			Stack<Object> orderedarray = new Stack<Object>();
+			for(int i=0;i<array.length();i++) {
+				Object one_value=array.get(i);
+				if(one_value instanceof JSONObject) {
+					if(((JSONObject) one_value).has("_primary")){
+						if(((JSONObject) one_value).getBoolean("_primary")){
+							orderedarray.add(0, one_value);
+							continue;
+						}
+					}					
+				}
+				orderedarray.add(one_value);
+			}
+			JSONArray newarray = new JSONArray();
+			int j=0;
+			for(Object obj : orderedarray){
+				newarray.put(j, obj);
+				j++;
+			}
+			array = newarray;
+		}
+		
 		for(int i=0;i<array.length();i++) {
 			Object one_value=array.get(i);
 			if(one_value==null || ((one_value instanceof String) && StringUtils.isBlank((String)one_value)))
