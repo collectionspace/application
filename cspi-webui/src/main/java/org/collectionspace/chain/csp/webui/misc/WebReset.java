@@ -53,7 +53,7 @@ public class WebReset implements WebMethod {
 			for(String dir : paths) {
 				// XXX yuck!
 				// ignore authorities
-				if("place".equals(dir) || "vocab".equals(dir) || "person".equals(dir) || "organization".equals(dir)){
+				if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "person".equals(dir) || "organization".equals(dir)){
 					continue;
 				}
 				
@@ -115,6 +115,7 @@ public class WebReset implements WebMethod {
 
 				if(res.length==0 || checkpagination.equals(res[0])){
 					resultsize=0;
+					break;
 					//testing whether we have actually returned the same page or the next page - all csid returned should be unique
 				}
 				else{
@@ -130,7 +131,10 @@ public class WebReset implements WebMethod {
 					
 				}
 			}
-
+			
+			resultsize=1;
+			check = 0;
+			checkpagination = "";
 			while(resultsize >0){
 				myjs.put("pageNum", check);
 				//check++;
@@ -141,6 +145,7 @@ public class WebReset implements WebMethod {
 
 				if(res.length==0 || checkpagination.equals(res[0])){
 					resultsize=0;
+					break;
 					//testing whether we have actually returned the same page or the next page - all csid returned should be unique
 				}
 				else{
