@@ -11,7 +11,7 @@ public class Repeat implements FieldSet, FieldParent {
 	private Boolean is_visible;
 	private FieldParent parent;
 	private List<FieldSet> children=new ArrayList<FieldSet>();
-	private boolean xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
+	private boolean has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
 
 	/* Services */
 	private String services_tag,services_section;
@@ -26,6 +26,8 @@ public class Repeat implements FieldSet, FieldParent {
 		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
 		asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
 		services_section=Util.getStringOrDefault(section,"/@section","common");
+		// should this field allow a primary flag
+		has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);
 	}
 	public Repeat(Structure structure,ReadOnlySection section) {
 		this.parent=structure;
@@ -37,6 +39,8 @@ public class Repeat implements FieldSet, FieldParent {
 		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
 		asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
 		services_section=Util.getStringOrDefault(section,"/@section","common");
+		// should this field allow a primary flag
+		has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);
 	}
 
 	public Repeat(Repeat repeat, ReadOnlySection section) {
@@ -49,6 +53,8 @@ public class Repeat implements FieldSet, FieldParent {
 		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
 		asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
 		services_section=Util.getStringOrDefault(section,"/@section","common");
+		// should this field allow a primary flag
+		has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);
 	}
 	
 	public Repeat(Subrecord subrecord, ReadOnlySection section) {
@@ -61,6 +67,8 @@ public class Repeat implements FieldSet, FieldParent {
 		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
 		asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
 		services_section=Util.getStringOrDefault(section,"/@section","common");
+		// should this field allow a primary flag
+		has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);
 	}
 
 	public String getID() { return id; }
@@ -75,6 +83,7 @@ public class Repeat implements FieldSet, FieldParent {
 	public boolean getXxxUiNoRepeat() { return xxx_ui_no_repeat; }
 	public boolean isVisible() { return is_visible; }
 	public boolean asSibling() { return asSiblings;}
+	public boolean hasPrimary() {return has_primary;}
 	public String getSection() { return services_section; }
 
 	public String[] getIDPath() {
