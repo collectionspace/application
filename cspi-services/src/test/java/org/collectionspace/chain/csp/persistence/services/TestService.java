@@ -39,9 +39,7 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.container.CSPManager;
-import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
-import org.collectionspace.csp.helper.test.TestConfigFinder;
 
 public class TestService extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestService.class);
@@ -99,7 +97,7 @@ public class TestService extends ServicesBaseClass {
 		testPostGetDelete("collectionobjects/", "collectionobjects_common", "obj1.xml", "collectionobjects_common/objectNumber", "2");
 		
 		// TODO make roleName dynamically vary otherwise POST fails if already exists (something like buildObject)
-		testPostGetDelete("authorization/roles/", null, "obj5.xml", "role/description", "this role is for test users");
+		testPostGetDelete("authorization/roles/", null, "role.xml", "role/description", "this role is for test users");
 		testPostGetDelete("authorization/permissions/", null, "permissions.xml", "permission/resourceName", "testthing");
 
 		testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementReferenceNumber", "MV2010.99");
