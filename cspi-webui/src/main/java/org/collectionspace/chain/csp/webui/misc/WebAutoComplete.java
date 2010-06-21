@@ -31,7 +31,7 @@ public class WebAutoComplete implements WebMethod {
 	
 	public WebAutoComplete(Record r) { this.r=r; }
 	
-	private String[] doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,String start) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+	private String[] doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,String start, String pageSize, String pageNum) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		FieldSet fs=r.getRepeatField(fieldname);
 		List<String> out=new ArrayList<String>();
 		
@@ -46,8 +46,14 @@ public class WebAutoComplete implements WebMethod {
 			else{
 				String path=n.getRecord().getID()+"/"+n.getTitleRef();
 				JSONObject restriction=new JSONObject();
+				if(pageSize!=null) {
+					restriction.put("pageSize",pageSize);
+				}
+				if(pageNum!=null) {
+					restriction.put("pageNum",pageNum);
+				}
 				restriction.put(n.getRecord().getDisplayNameField().getID(),start); // May be something other than display name
-				//XXX how do we do pagination for autocomplete?
+				
 				JSONObject results = storage.getPathsJSON(path,restriction);
 				String[] paths = (String[]) results.get("listItems");
 				for(String csid : paths) {
@@ -71,7 +77,7 @@ public class WebAutoComplete implements WebMethod {
 		try {
 			TTYOutputter tty=request.getTTYOutputter();
 			String[] path=request.getPrincipalPath();
-			for(String v : doAutocomplete(cache,storage,path[path.length-1],request.getRequestArgument("q"))) {
+			for(String v : doAutocomplete(cache,storage,path[path.length-1],request.getRequestArgument("q"),request.getRequestArgument("pageSize"),request.getRequestArgument("pageNum"))) {
 				tty.line(v);
 			}
 			tty.flush();
