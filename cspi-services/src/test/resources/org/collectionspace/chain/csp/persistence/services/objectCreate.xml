@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/collectionobject http://services.collectionspace.org/collectionobject/collectionobjects_common.xsd">
+  <objectNumber>2</objectNumber>
+  <comments>description</comments>
+  <objectName>Left-handed screwdriver</objectName>
+  <title></title>
+  <briefDescriptions>
+<briefDescription>bob1</briefDescription>
+<briefDescription>bob2</briefDescription>
+</briefDescriptions>
+</ns2:collectionobjects_common>
+

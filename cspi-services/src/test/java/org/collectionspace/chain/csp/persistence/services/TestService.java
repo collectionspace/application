@@ -89,7 +89,7 @@ public class TestService extends ServicesBaseClass {
 		// TODO Add vocab (the previous testVocabPost method was just an exact copy of testRolesPost!)
 		// TODO Add everything from CSPACE-1876 and more
 		
-		testPostGetDelete("collectionobjects/", "collectionobjects_common", "obj1.xml", "collectionobjects_common/objectNumber", "2");
+		testCRUD("collectionobjects/", "collectionobjects_common", "objectCreate.xml", "objectUpdate.xml", "collectionobjects_common/objectNumber", "2");
 		testPostGetDelete("acquisitions/", "acquisitions_common", "acquisition.xml", "acquisitions_common/acquisitionReferenceNumber", "2010.1");
 		testPostGetDelete("intakes/", "intakes_common", "intake.xml", "intakes_common/entryNumber","IN2010.2");
 		testPostGetDelete("loansin/", "loansin_common", "loaninXMLJSON.xml", "loansin_common/loanInNumber", "LI2010.1.21");
@@ -103,6 +103,107 @@ public class TestService extends ServicesBaseClass {
 		testPostGetDelete("authorization/permissions/", null, "permissions.xml", "permission/resourceName", "testthing");
 
 		// TODO might be worth adding test for CSPACE-1947 (POST with wrong label "succeeds")
+	}
+	
+	/**
+	 * Test Create, Update, Read and Delete for a record type
+	 * 
+	 * @param serviceurl
+	 * @param partname
+	 * @param Createfilename
+	 * @param Updatefilename
+	 * @param xpath
+	 * @param expected
+	 */
+	private void testCRUD(String serviceurl, String partname, String Createfilename, String Updatefilename, String xpath, String expected) throws Exception {
+		ReturnedURL url;
+		log.info("Testing " + serviceurl + " with " + Createfilename + " and partname=" + partname);
+
+		// TODO add document parsing for PUT, and for POSTs that require uniqueness (to maintain self-contained tests that don't destroy existing data)
+
+		// POST (Create)
+		if(partname != null) {
+			Map<String,Document> parts=new HashMap<String,Document>();
+			parts.put(partname,getDocument(Createfilename));
+			url=conn.getMultipartURL(RequestMethod.POST,serviceurl,parts,creds,cache);
+		} else {
+			url=conn.getURL(RequestMethod.POST,serviceurl,getDocument(Createfilename),creds,cache);
+		}
+
+		assertEquals(201,url.getStatus());
+
+		log.info("POST returned "+url.getURL());
+		assertTrue(url.getURL().startsWith("/"+serviceurl)); // ensures e.g. CSPACE-305 hasn't regressed
+		
+		// GET (Read)
+		int getStatus;
+		Document doc; 
+		if(partname != null) {
+			ReturnedMultipartDocument rdocs=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdocs.getStatus();
+			doc = rdocs.getDocument(partname);
+		} else {
+			ReturnedDocument rdoc=conn.getXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdoc.getStatus();
+			doc = rdoc.getDocument();
+		}
+		log.info(doc.asXML());
+		assertEquals(200,getStatus);
+		assertNotNull(doc);
+		Node n=doc.selectSingleNode(xpath);
+		assertNotNull(n);
+		String text=n.getText();
+		assertEquals(expected,text);	
+		
+		//Update
+		if(partname != null) {
+			Map<String,Document> parts=new HashMap<String,Document>();
+			parts.put(partname,getDocument(Updatefilename));
+			conn.getMultipartXMLDocument(RequestMethod.PUT,url.getURL(),parts,creds,cache);
+			ReturnedMultipartDocument rdocs=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdocs.getStatus();
+			doc = rdocs.getDocument(partname);
+		} else {
+			conn.getXMLDocument(RequestMethod.PUT,url.getURL(),getDocument(Updatefilename),creds,cache);
+			ReturnedDocument rdoc=conn.getXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdoc.getStatus();
+			doc = rdoc.getDocument();
+		}
+
+		assertEquals(200,getStatus);
+		assertNotNull(doc);
+		n=doc.selectSingleNode(xpath);
+		assertNotNull(n);
+		text=n.getText();
+		assertEquals(expected,text);	
+
+		log.info(doc.asXML());
+		
+		
+		//Get
+		
+		// DELETE (Delete)
+		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
+		assertEquals(200,status);		
+		// Now try to delete non-existent (make sure CSPACE-73 hasn't regressed)
+		status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
+		assertEquals(404,status);
+		
+		// GET once more to make sure it isn't there
+		if(partname != null) {
+			ReturnedMultipartDocument rdocs=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdocs.getStatus();
+			doc = rdocs.getDocument(partname);
+		} else {
+			ReturnedDocument rdoc=conn.getXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdoc.getStatus();
+			doc = rdoc.getDocument();
+		}
+		assertEquals(404, getStatus); // ensures CSPACE-209 hasn't regressed
+		assertNull(doc);
+		
+		log.info("DONE");
+		
 	}
 	
 	private void testPostGetDelete(String serviceurl, String partname, String filename, String xpath, String expected) throws Exception {
