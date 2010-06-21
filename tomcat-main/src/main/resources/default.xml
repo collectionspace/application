@@ -142,7 +142,7 @@
 						</repeat>
 					</repeat>
 -->					
-					<repeat id="briefDescriptions" xxx-ui-no-repeat="yes">
+					<repeat id="briefDescriptions" has-primary="yes" xxx-ui-no-repeat="yes">
 					<field id="briefDescription">
 						<selector>.csc-object-identification-brief-description</selector>
 					</field>
