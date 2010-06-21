@@ -877,7 +877,7 @@
 				
 			  	<repeat id="lenders" asSibling="true" xxx-services-no-repeat="yes">
 			  		<selector>.csc-loanIn-lender-row:</selector>
-			    	<field id="lender" autocomplete="person-person,organization-organization" mini="summary"  in-title="yes" >
+			    	<field id="lender" autocomplete="person-person,organization-organization" mini="summary">
 			      		<selector>.csc-loanIn-lender</selector>
 			    	</field>
 			  	</repeat>
