@@ -95,8 +95,9 @@ public class TestService extends ServicesBaseClass {
 		testPostGetDelete("loansin/", "loansin_common", "loaninXMLJSON.xml", "loansin_common/loanInNumber", "LI2010.1.21");
 		testPostGetDelete("loansout/", "loansout_common", "loanout.xml", "loansout_common/loanOutNumber", "LO2010.117");
 		testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementReferenceNumber", "MV2010.99");
-		
-		//testPostGetDelete("accounts/", null, "account.xml", "account/userid", "accounts");
+		testPostGetDelete("relations/", "relations_common", "relationship.xml", "relations_common/relationshipType", "affects");
+
+		testPostGetDelete("accounts/", null, "account.xml", "accounts_common/userId", "barney");
 
 		// TODO make roleName dynamically vary otherwise POST fails if already exists (something like buildObject)
 		testPostGetDelete("authorization/roles/", null, "role.xml", "role/description", "this role is for test users");
@@ -105,6 +106,7 @@ public class TestService extends ServicesBaseClass {
 		// TODO might be worth adding test for CSPACE-1947 (POST with wrong label "succeeds")
 	}
 	
+	// TODO merge this method with testPostGetDelete - this is Chris's temporary fork to help testing repeatable fields
 	/**
 	 * Test Create, Update, Read and Delete for a record type
 	 * 
@@ -147,9 +149,9 @@ public class TestService extends ServicesBaseClass {
 			getStatus = rdoc.getStatus();
 			doc = rdoc.getDocument();
 		}
-		log.info(doc.asXML());
 		assertEquals(200,getStatus);
 		assertNotNull(doc);
+		log.info(doc.asXML()); // NB don't try to read doc until we know it's not null!
 		Node n=doc.selectSingleNode(xpath);
 		assertNotNull(n);
 		String text=n.getText();
@@ -274,6 +276,8 @@ public class TestService extends ServicesBaseClass {
 
 	//@Test 
 	public void testPermissionsPost() throws Exception {
+	// TODO check whether this is needed anymore - it should be covered by PostGetDelete above?
+	// TODO check whether should be commented back in - Chris was debugging permissions
 	//	Map<String,Document> parts=new HashMap<String,Document>();
 	//	ReturnedURL url=conn.getURL(RequestMethod.POST,"authorization/permissions/",getDocument("permissions.xml"),creds,cache);
 	//	assertEquals(201,url.getStatus());
@@ -284,6 +288,8 @@ public class TestService extends ServicesBaseClass {
 
 	//@Test 
 	public void testRolePermissionsPost() throws Exception {
+	// TODO check whether should be commented back in - Chris was debugging permissions
+	// NOTE this test is more complex than PostGetDelete and perhaps should remain as a separate test?
 		//create a permission
 	//	Map<String,Document> parts=new HashMap<String,Document>();
 	//	ReturnedURL url=conn.getURL(RequestMethod.POST,"authorization/permissions/",getDocument("permissions.xml"),creds,cache);
