@@ -1477,8 +1477,8 @@
 			  <services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
 			  <services-list-path>http://collectionspace.org/services/contact,contacts-common-list/contact_list_item</services-list-path>
 			  <services-record-path>contacts_common:http://collectionspace.org/services/contact,contacts_common</services-record-path>
-			  <services-url>orgauthorities</services-url>
-			  <authority-vocab-type>OrgAuthority</authority-vocab-type>
+			  <services-url>contactauthorities</services-url>
+			  <authority-vocab-type>ContactAuthority</authority-vocab-type>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:contactauthority:{vocab}:contact:{entry}'{display}'</urn-syntax>
 			  <structures>
 				<structure id="screen"> 
