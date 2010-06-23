@@ -2,8 +2,11 @@ package org.collectionspace.chain.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -215,6 +218,7 @@ public class WebUIRequest implements UIRequest {
 	}
 
 	public JSONObject getPostBody() throws UIException {
+
 		JSONObject jsondata = new JSONObject();
 		String jsonString = body;
 		try {
@@ -222,12 +226,14 @@ public class WebUIRequest implements UIRequest {
 				String[] data = jsonString.split("&");
 				for(String item : data){
 					String[] itembits = item.split("=");
-					jsondata.put(itembits[0], itembits[1]);
+					jsondata.put(URLDecoder.decode(itembits[0],"UTF-8"), URLDecoder.decode(itembits[1],"UTF-8"));
 				}
 			}
 
 		} catch (JSONException e) {
 			throw new UIException("Cannot get request body, JSONException",e);
+		} catch (UnsupportedEncodingException e) {
+			throw new UIException("Cannot get request body, UnsupportedEncodingException",e);
 		}
 		return jsondata;
 	}
