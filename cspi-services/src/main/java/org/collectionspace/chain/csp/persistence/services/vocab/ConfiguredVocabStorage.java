@@ -180,6 +180,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 					if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase()))
 						list.add(csid);
 					cache.setCached(getClass(),new String[]{"namefor",vocab,csid},name);
+					//why don't we use the one we are given?
 					String refname=urn_processor.constructURN("id",vocab,"id",csid,name);
 					cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refname);
 				}else{
@@ -244,6 +245,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase()))
 					out.add(csid);
 				cache.setCached(getClass(),new String[]{"namefor",vocab,csid},name);
+				//why don't we just use refName that is sent in the payload?
 				String refname=urn_processor.constructURN("id",vocab,"id",csid,name);
 				cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refname);
 			}
@@ -265,6 +267,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 
 	private JSONObject urnGet(String vocab,String entry,String refname) throws JSONException, ExistException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
+		//use cache?
 		out.put("recordtype",r.getWebURL());
 		out.put("refid",refname);
 		out.put("csid",entry);
@@ -280,6 +283,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				String vocab,csid;
 				if("_direct".equals(path[0])) {
 					if("urn".equals(path[1])) {
+						//this isn't simple pattern matching
 						return urnGet(path[2],path[3],path[4]);
 					}
 					vocab=path[2];

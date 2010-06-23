@@ -1294,6 +1294,8 @@
 			    <selector>.csc-personAuthority-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
 			  </field>
+			  <field id="shortIdentifier">
+			  </field>
 			  <field id="foreName">
                 <selector>.csc-personAuthority-foreName</selector>
               </field>
@@ -1415,6 +1417,8 @@
 			  <field id="displayName" in-title="yes" display-name="yes">
 			    <selector>.csc-organizationAuthority-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
+			  </field>
+			  <field id="shortIdentifier">
 			  </field>
 			  <field id="termStatus" xxx_ui_refactored="false">
 			    <selector>.csc-organizationAuthority-status</selector>

@@ -59,11 +59,10 @@ public class VocabInstanceCache {
 		}
 		Element nametag=root.addElement("displayName");
 		nametag.addText(confound(id));
-		//remove when all types support shortidentifier
-		if(vocab_type.equals("enum")){
-			Element sidtag=root.addElement("shortIdentifier");
-			sidtag.addText(id);
-		}
+		
+		Element sidtag=root.addElement("shortIdentifier");
+		sidtag.addText(id);
+		
 		Element vocabtag=root.addElement("vocabType");
 		vocabtag.addText(vocab_type); 
 		return out;

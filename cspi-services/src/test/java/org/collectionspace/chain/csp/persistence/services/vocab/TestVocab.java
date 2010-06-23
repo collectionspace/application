@@ -27,9 +27,9 @@ public class TestVocab extends ServicesBaseClass {
 	
 	@Test public void testAuthorities() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		testAllAuthorities(ss,"/person/person","displayName");
+		testAllAuthorities(ss,"/person/person","shortIdentifier");
 		testAllAuthorities(ss,"/vocab/xxx","shortIdentifier");
-		testAllAuthorities(ss,"/organization/organization","displayName");
+		testAllAuthorities(ss,"/organization/organization","shortIdentifier");
 		//testAllAuthorities(ss,"/place/place","displayName");
 	}
 	
