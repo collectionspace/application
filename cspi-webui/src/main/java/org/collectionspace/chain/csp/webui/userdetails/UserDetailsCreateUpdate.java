@@ -58,34 +58,51 @@ public class UserDetailsCreateUpdate implements WebMethod {
 	 */
 	private void assignRole(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
 		String roleName = "ROLE_TENANT_ADMINISTRATOR";
-		String roleId = "47b727ac-91c9-4df4-b65f-823ae5a88e32";
-		JSONObject roleitem = new JSONObject();
-		roleitem.put("roleName", roleName);
-		roleitem.put("roleId", roleId);
+		//find csid for roleName
+
+		JSONObject restriction=new JSONObject();
+		restriction.put("keywords",roleName);
+		JSONObject roledata = storage.getPathsJSON("/role",restriction);
+		String[] paths = (String[]) roledata.get("listItems");
+		String roleId = "";
 		
-		JSONArray role = new JSONArray();
-		role.put(roleitem);
-		JSONObject rolesobj = new JSONObject();
-		rolesobj.put("role",role);
-		JSONArray roles = new JSONArray();
-		roles.put(rolesobj);
-		JSONObject fields = new JSONObject();
-		JSONObject datafields = data.getJSONObject("fields");
-		JSONObject account = new JSONObject();
-		account.put("accountId", path);
-		account.put("userId", datafields.getString("userId"));
-		account.put("screenName", datafields.getString("screenName"));
-		JSONArray accounts = new JSONArray();
-		accounts.put(account);
-		
-		
-		JSONObject accountrole = new JSONObject();
-		fields.put("account", accounts);
-		fields.put("roles", roles);
-		accountrole.put("fields", fields);
-		
-		if(fields!=null)
-			path=storage.autocreateJSON(base,fields);
+		for(int i=0;i<paths.length;i++) {
+			JSONObject out=storage.retrieveJSON("/role/"+paths[i]+"");
+			String test = out.toString();
+			if(out.getString("roleName").equals(roleName)){
+				roleId=paths[i];
+			}
+		}
+		if(!roleId.equals("")){
+
+			JSONObject roleitem = new JSONObject();
+			roleitem.put("roleName", roleName);
+			roleitem.put("roleId", roleId);
+			
+			JSONArray role = new JSONArray();
+			role.put(roleitem);
+			JSONObject rolesobj = new JSONObject();
+			rolesobj.put("role",role);
+			JSONArray roles = new JSONArray();
+			roles.put(rolesobj);
+			JSONObject fields = new JSONObject();
+			JSONObject datafields = data.getJSONObject("fields");
+			JSONObject account = new JSONObject();
+			account.put("accountId", path);
+			account.put("userId", datafields.getString("userId"));
+			account.put("screenName", datafields.getString("screenName"));
+			JSONArray accounts = new JSONArray();
+			accounts.put(account);
+			
+			
+			JSONObject accountrole = new JSONObject();
+			fields.put("account", accounts);
+			fields.put("roles", roles);
+			accountrole.put("fields", fields);
+			
+			if(fields!=null)
+				path=storage.autocreateJSON(base,fields);
+		}
 		
 	}
 	
