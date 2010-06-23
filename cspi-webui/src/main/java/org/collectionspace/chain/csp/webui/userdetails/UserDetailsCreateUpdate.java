@@ -14,6 +14,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -45,6 +46,49 @@ public class UserDetailsCreateUpdate implements WebMethod {
 		return path;
 	}
 			
+	/**
+	 * This is here until we properly implement roles. This will automatically assign a role to a user on creation
+	 * @param storage
+	 * @param path
+	 * @param data
+	 * @throws JSONException
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 */
+	private void assignRole(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+		String roleName = "ROLE_TENANT_ADMINISTRATOR";
+		String roleId = "47b727ac-91c9-4df4-b65f-823ae5a88e32";
+		JSONObject roleitem = new JSONObject();
+		roleitem.put("roleName", roleName);
+		roleitem.put("roleId", roleId);
+		
+		JSONArray role = new JSONArray();
+		role.put(roleitem);
+		JSONObject rolesobj = new JSONObject();
+		rolesobj.put("role",role);
+		JSONArray roles = new JSONArray();
+		roles.put(rolesobj);
+		JSONObject fields = new JSONObject();
+		JSONObject datafields = data.getJSONObject("fields");
+		JSONObject account = new JSONObject();
+		account.put("accountId", path);
+		account.put("userId", datafields.getString("userId"));
+		account.put("screenName", datafields.getString("screenName"));
+		JSONArray accounts = new JSONArray();
+		accounts.put(account);
+		
+		
+		JSONObject accountrole = new JSONObject();
+		fields.put("account", accounts);
+		fields.put("roles", roles);
+		accountrole.put("fields", fields);
+		
+		if(fields!=null)
+			path=storage.autocreateJSON(base,fields);
+		
+	}
+	
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		JSONObject data = null;
 		data=request.getJSONBody();
@@ -55,6 +99,8 @@ public class UserDetailsCreateUpdate implements WebMethod {
 			try{
 				if(create) {
 					path=sendJSON(storage,null,data);
+					assignRole(storage,path,data);
+					//assign to default role.
 				} else{
 					path=sendJSON(storage,path,data);
 				}
