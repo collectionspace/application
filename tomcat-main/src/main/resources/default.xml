@@ -142,7 +142,8 @@
 						</repeat>
 					</repeat>
 -->					
-					<repeat id="briefDescriptions" has-primary="yes" xxx-ui-no-repeat="yes">
+					<repeat id="briefDescriptions" has-primary="yes">
+					<selector>.csc-object-identification-brief-description</selector>
 					<field id="briefDescription">
 						<selector>.csc-object-identification-brief-description</selector>
 					</field>
@@ -543,7 +544,8 @@
 					<field id="inscriptionDescriptionInterpretation">
 						<selector>.csc-object-description-inscription-description-interpretation</selector>
 					</field>					
-					<repeat id="responsibleDepartments" xxx-ui-no-repeat="yes">
+					<repeat id="responsibleDepartments">
+					  <selector>.csc-object-identification-responsible-department</selector>
 			          <field id="responsibleDepartment" mini="list" xxx_ui_refactored="false">
 					    <selector>.csc-object-identification-responsible-department</selector>
 						<options>
@@ -1117,7 +1119,7 @@
 				  </options>
 			  </field>
 			  <repeat id="acquisitionSources">
-			  	<selector>.csc-acquisition-acquisition-source-row:</selector>
+			  	<selector>.csc-acquisition-acquisition-source-container:</selector>
 			    <field id="acquisitionSource" autocomplete="person-person,organization-organization" mini="summary" xxx_ui_refactored="false">
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
