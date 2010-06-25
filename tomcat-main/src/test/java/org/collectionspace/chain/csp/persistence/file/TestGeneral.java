@@ -63,7 +63,8 @@ public class TestGeneral {
 	private final static String loanoutCreate = "{\"loanPurpose\":\"research\",\"loanedObjectStatus\":\"agreed\",\"loanOutNumber\":\"LO2010.1.3\",\"loanOutNote\":\"loan out notes\",\"specialConditionsOfLoan\":\"loanout conditions\",\"lendersAuthorizationDate\":\"May 27, 2010\",\"loanedObjectStatusDate\":\"May 28, 2010\",\"loanReturnDate\":\"May 26, 2010\",\"loanOutDate\":\"May 25, 2010\",\"loanRenewalApplicationDate\":\"May 24, 2010\",\"loanedObjectStatusNote\":\"status note\"}";
 	private final static String loaninCreate = "{\"loanInNumber\":\"LI2010.1.2\",\"lendersAuthorizer\":\"lendersAuthorizer\",\"lendersAuthorizationDate\":\"lendersAuthorizationDate\",\"lendersContact\":\"lendersContact\",\"loanInContact\":\"loanInContact\",\"loanInConditions\":\"loanInConditions\",\"loanInDate\":\"loanInDate\",\"loanReturnDate\":\"loanReturnDate\",\"loanRenewalApplicationDate\":\"loanRenewalApplicationDate\",\"loanInNote\":\"loanInNote\",\"loanPurpose\":\"loanPurpose\"}";
 	private final static String intakeCreate = "{\"normalLocation\": \"normalLocationX\",\"fieldCollectionEventName\": \"fieldCollectionEventNameX\",\"earliestDateCertainty\": \"earliestDateCertaintyX\",\"earliestDate\": \"earliestDateX\",\"latestDate\": \"latestDateX\",\"entryNumber\": \"entryNumberX\",\"insurancePolicyNumber\": \"insurancePolicyNumberX\",\"depositorsRequirements\": \"depositorsRequirementsX\",\"entryReason\": \"entryReasonX\",\"earliestDateQualifier\": \"earliestDateQualifierX\"}";
-	private final static String objectCreate = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartment\":\"new DEPT\",\"objectName\":\"new OBJNAME\"}";
+	private final static String objectCreate = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"2\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartments\":[{\"responsibleDepartment\":\"new DEPT\"}],\"objectName\":\"new OBJNAME\"}";
+	//private final static String objectCreate = "{\"accessionNumber\": \"new OBJNUM\", \"description\": \"new DESCRIPTION\", \"descInscriptionInscriber\": \"new INSCRIBER\", \"objectNumber\": \"1\", \"objectTitle\": \"new TITLE\", \"comments\": \"new COMMENTS\", \"distinguishingFeatures\": \"new DISTFEATRES\", \"responsibleDepartment\": \"new DEPT\",\"briefDescriptions\": [ { \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WAAAA\", \"primary\": \"arg\" }, { \"briefDescription\": \"WOOOOP\", \"primary\": \"bob\" } ], \"objectName\": \"new OBJNAME\"}";
 	private final static String acquisitionCreate = "{\"acquisitionReason\":\"acquisitionReason\",\"acquisitionReferenceNumber\":\"acquisitionReferenceNumber\",\"acquisitionMethod\":\"acquisitionMethod\",\"acquisitionSources\":[{\"acquisitionSource\": \"11111\"},{\"acquisitionSource\": \"22222\"}]}";
 	private final static String roleCreate = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_1_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
 
@@ -365,13 +366,13 @@ public class TestGeneral {
 
 	@Test public void testMultipleStoreTypes() throws Exception {
 		ServletTester jetty=setupJetty();
-		testPostGetDelete(jetty, "/objects/", objectCreate, "responsibleDepartment");
+		testPostGetDelete(jetty, "/objects/", objectCreate, "objectName");
 		testPostGetDelete(jetty, "/intake/", intakeCreate, "entryReason");
 		testPostGetDelete(jetty, "/loanout/", loanoutCreate, "loanOutNote");
 		testPostGetDelete(jetty, "/loanin/", loaninCreate, "loanInNote");
 		testPostGetDelete(jetty, "/acquisition/", acquisitionCreate, "acquisitionReason");
-		testPostGetDelete(jetty, "/role/", roleCreate, "description");
-		testPostGetDelete(jetty, "/permission/", permissionRead, "resourceName");
+		//testPostGetDelete(jetty, "/role/", roleCreate, "description");
+		//testPostGetDelete(jetty, "/permission/", permissionRead, "resourceName");
 		//testPostGetDelete(jetty, "/permrole/", permroleCreate, "");
 	}
 
@@ -583,6 +584,7 @@ public class TestGeneral {
 		//Create
 		out = jettyDo(jetty,"POST","/chain"+uipath,makeSimpleRequest(data));
 		assertEquals(out.getMethod(),null);
+		log.info(out.getContent());
 		assertEquals(201,out.getStatus());	
 		String id=out.getHeader("Location");	
 		//Retrieve
@@ -703,6 +705,7 @@ public class TestGeneral {
 		//assertTrue(json.has("groupedPermissions"));
 		
 	}
+
 
 	@Test public void testUserRoles() throws Exception{
 		ServletTester jetty = setupJetty();
