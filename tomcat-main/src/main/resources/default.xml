@@ -947,6 +947,8 @@
 			  <field id="entryDate" ui-type="date" xxx_ui_refactored="false">
 				<selector>.csc-intake-entry-date</selector>
 			  </field>
+			  <repeat id="entryMethods" asSibling="true" xxx-services-no-repeat="yes">
+			    <selector>.csc-intake-entry-method-row:</selector>
 			    <field id="entryMethod" xxx_ui_refactored="false">
 			      <selector>.csc-intake-entry-method</selector>
 			      <options>
@@ -955,6 +957,7 @@
 			        <option id="found-on-doorstep">Found on doorstep</option>
 			      </options>
 			    </field>
+			  </repeat>
 			  <field id="entryNote">
 			    <selector>.csc-intake-entry-note</selector>
 			  </field>
@@ -1169,9 +1172,12 @@
 			    <selector>.csc-acquisition-original-object-purchase-price-value</selector>
 			  </field>
 			  
+              <repeat id="owners"  asSibling="true" xxx-services-no-repeat="yes">
+                <selector>.csc-acquisition-owner-row:</selector>
                 <field id="owner" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
                   <selector>.csc-acquisition-owner</selector>
                 </field>
+              </repeat>
 			  
 			  <field id="transferOfTitleNumber">
 			    <selector>.csc-acquisition-transfer-of-title-number</selector>
