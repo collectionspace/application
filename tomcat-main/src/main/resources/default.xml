@@ -947,8 +947,6 @@
 			  <field id="entryDate" ui-type="date" xxx_ui_refactored="false">
 				<selector>.csc-intake-entry-date</selector>
 			  </field>
-			  <repeat id="entryMethods" xxx-services-no-repeat="yes">
-			    <selector>.csc-intake-entry-method-row:</selector>
 			    <field id="entryMethod" xxx_ui_refactored="false">
 			      <selector>.csc-intake-entry-method</selector>
 			      <options>
@@ -957,7 +955,6 @@
 			        <option id="found-on-doorstep">Found on doorstep</option>
 			      </options>
 			    </field>
-			  </repeat>
 			  <field id="entryNote">
 			    <selector>.csc-intake-entry-note</selector>
 			  </field>
