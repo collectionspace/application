@@ -1172,12 +1172,9 @@
 			    <selector>.csc-acquisition-original-object-purchase-price-value</selector>
 			  </field>
 			  
-              <repeat id="owners" xxx-services-no-repeat="yes">
-                <selector>.csc-acquisition-owner-row:</selector>
                 <field id="owner" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
                   <selector>.csc-acquisition-owner</selector>
                 </field>
-              </repeat>
 			  
 			  <field id="transferOfTitleNumber">
 			    <selector>.csc-acquisition-transfer-of-title-number</selector>
