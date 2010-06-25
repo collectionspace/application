@@ -298,7 +298,7 @@ public class XmlJsonConversion {
 	private static JSONArray addRepeatedNodeToJson(Element container,Repeat f) throws JSONException {
 		JSONObject out = new JSONObject();
 		JSONArray node = new JSONArray();
-		
+
 		//log.info("IAMHERE"+f.getID());
 
 		JSONArray elementlist=extractRepeatData(container,f);
@@ -325,6 +325,10 @@ public class XmlJsonConversion {
 					if(fs instanceof Field) {
 						for(int j=0;j<arrvalue.length();j++){
 							JSONObject repeatitem = new JSONObject();
+							//XXX remove when service layer supports primary tags
+							if(f.hasPrimary() && j==0){
+								repeatitem.put("_primary",true);
+							}
 							Element child = (Element)arrvalue.get(j);
 							repeatitem.put(fs.getID(), child.getText());
 							node.put(repeatitem);
