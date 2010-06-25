@@ -1119,7 +1119,7 @@
 				  </options>
 			  </field>
 			  <repeat id="acquisitionSources" has-primary="yes">
-			  	<selector>.csc-acquisition-acquisition-source-container:</selector>
+			  	<selector>.csc-acquisition-acquisition-source-container</selector>
 			    <field id="acquisitionSource" autocomplete="person-person,organization-organization" mini="summary" xxx_ui_refactored="false">
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
