@@ -7,7 +7,7 @@
 		<password>testtest</password>
 	</admin>
 	<email>
-		<baseurl>http://nightly.collectionspace.org:8180</baseurl>
+		<baseurl>http://demo.collectionspace.org:8180</baseurl>
 		<from>admin@collectionspace.org</from>
 		<to></to><!-- if specified then all emails will send to this address - used for debugging -->
 		<smtp>
@@ -29,7 +29,7 @@
 	</email>
 	<persistence>
 		<service>
-		    <url>http://nightly.collectionspace.org:8180/cspace-services</url>
+		    <url>http://demo.collectionspace.org:8180/cspace-services</url>
 		</service>
 	</persistence>
 	<ui>
