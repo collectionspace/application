@@ -135,7 +135,8 @@ public class UISpec implements WebMethod {
 	}
 
 	private JSONArray controlledLists(String vocabtype) throws JSONException{
-
+//need to cache this
+		
 		JSONArray displayNames = new JSONArray();
 		try {
 		    // Get List
@@ -188,6 +189,27 @@ public class UISpec implements WebMethod {
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view");
 		return out.getString(fieldName);
 	}
+	
+	private JSONObject generateRepeatEntry(Repeat r) throws JSONException {
+		JSONObject out = new JSONObject();
+		JSONArray decorators=new JSONArray();
+		JSONObject decorator=new JSONObject();
+		decorator.put("type","fluid");
+		decorator.put("func","cspace.makeRepeatable");
+		JSONObject options=new JSONObject();
+		JSONObject protoTree=new JSONObject();
+		for(FieldSet child : r.getChildren()) {
+			generateDataEntry(protoTree,child);
+		}
+
+		options.put("protoTree", protoTree);
+		options.put("elPath", "fields."+r.getID());
+		decorator.put("options",options);
+		decorators.put(decorator);
+		out.put("decorators",decorators);
+		return out;
+	}
+	
 	
 	private JSONObject generateAutocomplete(Field f) throws JSONException {
 		JSONObject out=new JSONObject();
@@ -356,16 +378,13 @@ public class UISpec implements WebMethod {
 						generateDataEntry(contents,child);
 					}
 					children.put(contents);
+					row.put("children",children);
+					out.put(r.getSelector(),row);
 				}
-				else{//default row [{},{},{}]
-					for(FieldSet child : r.getChildren()) {
-						JSONObject contents=new JSONObject();
-						generateDataEntry(contents,child);
-						children.put(contents);
-					}
+				else{
+					JSONObject contents=generateRepeatEntry((Repeat)fs);
+					out.put(r.getSelector(),contents);
 				}
-				row.put("children",children);
-				out.put(r.getSelector(),row);
 			}
 		}
 
