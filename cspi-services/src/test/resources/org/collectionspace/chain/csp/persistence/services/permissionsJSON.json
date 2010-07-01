@@ -1,5 +1,8 @@
 {
     "effect": "PERMIT",
     "resourceName": "testthing2",
-	"action":[{"name":"SEARCH"},{"name":"DELETE"},{"name":"UPDATE"},{"name":"READ"},{"name":"CREATE"}]
+	"actions":[{
+		"action":
+		[{"name":"SEARCH"},{"name":"DELETE"},{"name":"UPDATE"},{"name":"READ"},{"name":"CREATE"}]
+	}]
 }
