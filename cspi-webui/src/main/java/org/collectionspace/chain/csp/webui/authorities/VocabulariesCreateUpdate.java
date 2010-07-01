@@ -54,8 +54,8 @@ public class VocabulariesCreateUpdate implements WebMethod {
 				path=sendJSON(storage,null,data);
 				// JIRA CSPACE-1173 - is there a better way to do this? Should be used cached data at least
 				String path1=n.getRecord().getID()+"/"+n.getTitleRef();
-				JSONObject minirecord = storage.retrieveJSON(path1 +"/"+path+"/view");
-				data.put("urn", minirecord.get("refid")); //sibling of csid
+				//JSONObject minirecord = storage.retrieveJSON(path1 +"/"+path+"/view");
+				//data.put("urn", minirecord.get("refid")); //sibling of csid
 				//data.getJSONObject("fields").put("urn", minirecord.get("refid")); 
 			} else
 				path=sendJSON(storage,path,data);
@@ -63,6 +63,10 @@ public class VocabulariesCreateUpdate implements WebMethod {
 				throw new UIException("Insufficient data for create (no fields?)");
 			
 			data=reader.getJSON(storage,path);
+			String refid = data.getJSONObject("fields").getString("refid");
+			data.put("urn", refid);
+			data.getJSONObject("fields").put("urn", refid);
+			data.put("csid",path);
 			
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
