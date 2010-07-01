@@ -93,7 +93,7 @@ public class VocabInstanceCache {
 		List<Node> objects=doc.getDocument().selectNodes(tag_parts[1]);
 		for(Node object : objects) {
 			String name=object.selectSingleNode("displayName").getText();
-			String base=unconfound(name);
+			String base=object.selectSingleNode("shortIdentifier").getText();
 			if(base==null)
 				continue;
 			if(!vocabs.containsKey(base))
