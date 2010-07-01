@@ -33,11 +33,13 @@ public class UISpec implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(UISpec.class);
 	private Record record;
 	private Storage storage;
+	private JSONObject controlledCache;
 	String structureview;
 
 	public UISpec(Record record, String structureview) {
 		this.record=record;
 		this.structureview = structureview;
+		this.controlledCache = new JSONObject();
 	}
 
 	// XXX make common
@@ -106,6 +108,13 @@ public class UISpec implements WebMethod {
 			return out;
 		}
 		else if("enum".equals(f.getUIType())) {
+
+			//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
+			//XXX they shouldn't really be in the uispec but they are here until the UI and App decide how to communicate about them
+			if(controlledCache.has(f.getAutocompleteInstance().getID())){
+				return controlledCache.getJSONObject(f.getAutocompleteInstance().getID());
+			}
+			
 			JSONArray allnames = controlledLists(f.getAutocompleteInstance().getID());
 			JSONArray ids=new JSONArray();
 			JSONArray names=new JSONArray();
@@ -128,7 +137,8 @@ public class UISpec implements WebMethod {
 			if(dfault!=-1)
 				out.put("default",dfault+"");
 			out.put("optionlist",ids);
-			out.put("optionnames",names);			
+			out.put("optionnames",names);	
+			controlledCache.put(f.getAutocompleteInstance().getID(), out);
 			return out;
 		}
 		return plain(f);	
