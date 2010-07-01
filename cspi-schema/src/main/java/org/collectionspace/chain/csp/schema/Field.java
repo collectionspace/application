@@ -50,7 +50,8 @@ public class Field implements FieldSet {
 		
 
 		in_title = Util.getBooleanOrDefault(section, "/@in-title", false);
-		in_tab = Util.getBooleanOrDefault(section, "/@in-tab", false);
+		//no longer needed/used
+		//in_tab = Util.getBooleanOrDefault(section, "/@in-tab", false);
 
 		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
 
@@ -79,7 +80,7 @@ public class Field implements FieldSet {
 	public String getLinkText() { return linktext; }
 	public String getUIType() { return type; }
 	public boolean isInTitle() { return in_title; }
-	public boolean isInTab() { return in_tab; }
+	//public boolean isInTab() { return in_tab; }
 	public boolean hasContainer() {return has_container;}
 	public boolean isRefactored() { return xxx_ui_refactored; } //used until UI layer has moved all autocomplete to one container view
 	public String getTitleSelector() { return title_selector; }

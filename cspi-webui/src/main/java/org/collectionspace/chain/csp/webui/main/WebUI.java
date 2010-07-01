@@ -31,7 +31,6 @@ import org.collectionspace.chain.csp.webui.misc.WebReset;
 import org.collectionspace.chain.csp.webui.misc.WebUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.UISpec;
 import org.collectionspace.chain.csp.webui.nuispec.FindEditUISpec;
-import org.collectionspace.chain.csp.webui.nuispec.TabUISpec;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsCreateUpdate;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsDelete;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsRead;
@@ -147,10 +146,8 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.CREATE,new String[]{"passwordreset"},0,new UserDetailsReset(false,spec));
 		addMethod(Operation.CREATE,new String[]{"resetpassword"},0,new UserDetailsReset(true,spec));
 		for(Record r : spec.getAllRecords()) {
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"ouispec"},0,new WebUISpec(r.getID()));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UISpec(r,"screen"));
 			addMethod(Operation.READ,new String[]{r.getTabURL(),"uispec"},0,new UISpec(r,"tab"));
-			addMethod(Operation.READ,new String[]{r.getWebURL(),"oschema"},0,new WebUISpec(r.getID()));
 			
 			if(r.isType("authority")){
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(r,false));
