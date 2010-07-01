@@ -1938,7 +1938,6 @@
 			  <services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
 			  <services-url>vocabularies</services-url>
 			  <authority-vocab-type>enum</authority-vocab-type>
-			  <membership-tag>inVocabulary</membership-tag>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:vocabulary:{vocab}:item:{entry}'{display}'</urn-syntax>
 			  <structures>
 				<structure id="screen"> 
