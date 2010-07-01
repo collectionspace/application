@@ -142,8 +142,8 @@ public class VocabulariesRead implements WebMethod {
 		return recordtypes;
 	}
 	
-	/* Wrapper exists to decomplexify exceptions */
-	private JSONObject getJSON(Storage storage,String csid) throws UIException {
+	/* Wrapper exists to decomplexify exceptions: also used inCreateUpdate, hence not private */
+	JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		try {
 			JSONObject fields=storage.retrieveJSON(n.getRecord().getID()+"/"+n.getTitleRef()+"/"+csid);

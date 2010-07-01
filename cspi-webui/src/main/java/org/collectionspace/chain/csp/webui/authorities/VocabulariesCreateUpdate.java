@@ -20,10 +20,12 @@ import org.json.JSONObject;
 public class VocabulariesCreateUpdate implements WebMethod {
 	private boolean create;
 	private Instance n;
+	private  VocabulariesRead reader;
 	
 	public VocabulariesCreateUpdate(Instance n,boolean create) {
 		this.create=create;
 		this.n=n;
+		reader=new VocabulariesRead(n);
 	}
 	
 	
@@ -60,8 +62,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 			if(path==null)
 				throw new UIException("Insufficient data for create (no fields?)");
 			
-			data.put("csid",path);
-			data.getJSONObject("fields").put("csid",path);
+			data=reader.getJSON(storage,path);
 			
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
