@@ -6,7 +6,8 @@
   <objectName>Left-handed screwdriver with right hand bit</objectName>
   <title></title>
   <briefDescriptions>
-<briefDescription>one description</briefDescription>
+<briefDescription></briefDescription>
+<briefDescription>two description</briefDescription>
 </briefDescriptions>
 </ns2:collectionobjects_common>
 

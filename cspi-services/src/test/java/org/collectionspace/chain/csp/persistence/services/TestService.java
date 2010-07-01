@@ -70,6 +70,8 @@ public class TestService extends ServicesBaseClass {
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 
 		testXMLJSON(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
+		testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
+		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
 		//testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
 		//testXMLJSON(spec, "organization","orgauthref.xml","permissionsJSON.json");
 	}
@@ -77,10 +79,11 @@ public class TestService extends ServicesBaseClass {
 	private void testXMLJSON(Spec spec, String objtype, String xmlfile, String jsonfile) throws Exception{
 
 		Document testxml = getDocument(xmlfile);
+		String test = testxml.asXML();
 		Record r = spec.getRecord(objtype);
-		JSONObject j = getJSON(jsonfile);
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, testxml);
 		log.info(repeatjson.toString());
+		JSONObject j = getJSON(jsonfile);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}
@@ -88,8 +91,10 @@ public class TestService extends ServicesBaseClass {
 	@Test public void testAllPostGetDelete() throws Exception {
 		// TODO Add vocab (the previous testVocabPost method was just an exact copy of testRolesPost!)
 		// TODO Add everything from CSPACE-1876 and more
+		//testPostGetDelete("collectionobjects/", "collectionobjects_common", "objectCreate.xml", "collectionobjects_common/objectNumber", "2");
 		
 		testCRUD("collectionobjects/", "collectionobjects_common", "objectCreate.xml", "objectUpdate.xml", "collectionobjects_common/objectNumber", "2");
+
 		testPostGetDelete("acquisitions/", "acquisitions_common", "acquisition.xml", "acquisitions_common/acquisitionReferenceNumber", "2010.1");
 		testPostGetDelete("intakes/", "intakes_common", "intake.xml", "intakes_common/entryNumber","IN2010.2");
 		testPostGetDelete("loansin/", "loansin_common", "loaninXMLJSON.xml", "loansin_common/loanInNumber", "LI2010.1.21");
