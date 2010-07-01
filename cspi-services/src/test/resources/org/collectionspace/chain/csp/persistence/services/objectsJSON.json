@@ -1,0 +1,19 @@
+{
+    "objectNumber": "2010.1.7",
+    "briefDescriptions": [{
+        "_primary": true,
+        "briefDescription": ""
+    }, {
+        "briefDescription": "briefly3"
+    }, {
+        "briefDescription": "briefly2"
+    }],
+    "responsibleDepartments": [{
+        "_primary": true,
+        "responsibleDepartment": "ret"
+    }, {
+        "responsibleDepartment": "ethnography"
+    }, {
+        "responsibleDepartment": "ethnography"
+    }]
+}
