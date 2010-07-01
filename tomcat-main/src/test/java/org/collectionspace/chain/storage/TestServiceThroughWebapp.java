@@ -320,13 +320,13 @@ public class TestServiceThroughWebapp {
 		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/login","userid=test@collectionspace.org&password=testtest");	
 		assertEquals(303,out.getStatus());
 		assertEquals("/cspace-ui/html/createnew.html",out.getHeader("Location"));
-		out=jettyDo(jetty,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
+		out=jettyDo(jetty,"POST","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
-		out=jettyDo(jetty,"GET","/chain/login?userid=guest&password=toast",null);	
+		out=jettyDo(jetty,"POST","/chain/login?userid=guest&password=toast",null);	
 		assertEquals(303,out.getStatus());
 		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
-		out=jettyDo(jetty,"GET","/chain/login?userid=bob&password=bob",null);	
+		out=jettyDo(jetty,"POST","/chain/login?userid=bob&password=bob",null);	
 		assertEquals(303,out.getStatus());
 		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
 		
