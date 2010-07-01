@@ -5,7 +5,8 @@
         "_primary": true,
         "acquisitionSource": "11111"
     }, {
-        "acquisitionSource": "22222"
+        "de-urned-acquisitionSource": "Bing Crosby Ice Cream Sales, Inc.",
+        "acquisitionSource": "urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'"
     }],
     "acquisitionMethod": "acquisitionMethod",
     "owners": [{

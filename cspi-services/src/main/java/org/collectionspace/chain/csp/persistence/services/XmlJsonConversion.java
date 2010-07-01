@@ -134,14 +134,18 @@ public class XmlJsonConversion {
 			return;
 		// XXX just add first
 		Element el=(Element)nodes.get(0);
-		//Fields that have an autocomplete tag, should also have a sibling with the de-urned version of the urn to display nicely
+		addExtraToJson(out, el, f);
+		out.put(f.getID(),el.getText());
+	}
+	
+	//Fields that have an autocomplete tag, should also have a sibling with the de-urned version of the urn to display nicely
+	private static void addExtraToJson(JSONObject out,Element  el, Field f) throws JSONException{
 		if(f.hasAutocompleteInstance()){
 			String deurned = getDeURNedValue(f, el.getText());
 			if(deurned !=""){
 				out.put("de-urned-"+f.getID(), deurned);
 			}
 		}
-		out.put(f.getID(),el.getText());
 	}
 
 	private static String getDeURNedValue(Field f, String urn) throws JSONException {
@@ -330,6 +334,7 @@ public class XmlJsonConversion {
 								repeatitem.put("_primary",true);
 							}
 							Element child = (Element)arrvalue.get(j);
+							addExtraToJson(repeatitem,child, (Field)fs);
 							repeatitem.put(fs.getID(), child.getText());
 							node.put(repeatitem);
 						}
