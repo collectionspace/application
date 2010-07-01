@@ -317,7 +317,7 @@ public class TestServiceThroughWebapp {
 	
 	@Test public void testLogin() throws Exception {
 		ServletTester jetty=setupJetty();
-		UTF8SafeHttpTester out=jettyDo(jetty,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);	
+		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/login","userid=test@collectionspace.org&password=testtest");	
 		assertEquals(303,out.getStatus());
 		assertEquals("/cspace-ui/html/createnew.html",out.getHeader("Location"));
 		out=jettyDo(jetty,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
