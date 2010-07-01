@@ -327,6 +327,13 @@ public class TestRelationsThroughWebapp {
 		JSONArray rel3=data3.getJSONObject("relations").getJSONArray("objects");
 		assertNotNull(rel3);
 		assertEquals(2,rel3.length());
+		
+		out=jettyDo(jetty,"DELETE","/chain/"+id1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id2,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain/"+id3,null);
+		assertEquals(200,out.getStatus());
 	}
 	
 	// XXX update of two-way relations
