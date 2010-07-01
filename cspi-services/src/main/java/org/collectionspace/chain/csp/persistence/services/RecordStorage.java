@@ -463,7 +463,13 @@ public class RecordStorage implements ContextualisedStorage {
 				}
 				else{
 					String vkey=fieldname;
-					out.put(vkey,"");
+					if(vkey.startsWith(summarylistname)){
+						String name = vkey.substring(summarylistname.length());
+						summarylist.put(name, "");
+					}
+					else{
+						out.put(vkey,"");						
+					}
 				}
 			}
 		}
