@@ -947,7 +947,7 @@
 			  <field id="entryDate" ui-type="date" xxx_ui_refactored="false">
 				<selector>.csc-intake-entry-date</selector>
 			  </field>
-			  <repeat id="entryMethods" xxx-services-no-repeat="yes">
+			  <repeat id="entryMethods" asSibling="true" xxx-services-no-repeat="yes">
 			    <selector>.csc-intake-entry-method-row:</selector>
 			    <field id="entryMethod" xxx_ui_refactored="false">
 			      <selector>.csc-intake-entry-method</selector>
@@ -1119,7 +1119,7 @@
 				  </options>
 			  </field>
 			  <repeat id="acquisitionSources" has-primary="yes">
-			  	<selector>.csc-acquisition-acquisition-source</selector>
+			  	<selector>.csc-acquisition-acquisition-source-container</selector>
 			    <field id="acquisitionSource" autocomplete="person-person,organization-organization" mini="summary" xxx_ui_refactored="false">
 			      <selector>.csc-acquisition-acquisition-source</selector>
 			    </field>
@@ -1172,7 +1172,7 @@
 			    <selector>.csc-acquisition-original-object-purchase-price-value</selector>
 			  </field>
 			  
-              <repeat id="owners" xxx-services-no-repeat="yes">
+              <repeat id="owners"  asSibling="true" xxx-services-no-repeat="yes">
                 <selector>.csc-acquisition-owner-row:</selector>
                 <field id="owner" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
                   <selector>.csc-acquisition-owner</selector>
@@ -1938,8 +1938,7 @@
 			  <services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
 			  <services-url>vocabularies</services-url>
 			  <authority-vocab-type>enum</authority-vocab-type>
-				<!-- No longer needed. Vocab now behaves like an authority.
-				<membership-tag>inVocabulary</membership-tag> -->
+			  <membership-tag>inVocabulary</membership-tag>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:vocabulary:{vocab}:item:{entry}'{display}'</urn-syntax>
 			  <structures>
 				<structure id="screen"> 
