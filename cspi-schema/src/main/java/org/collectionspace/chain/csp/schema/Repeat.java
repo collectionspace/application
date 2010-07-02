@@ -11,64 +11,45 @@ public class Repeat implements FieldSet, FieldParent {
 	private Boolean is_visible;
 	private FieldParent parent;
 	private List<FieldSet> children=new ArrayList<FieldSet>();
-	private boolean has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
+	private boolean exists_in_service=true, has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
 
 	/* Services */
 	private String services_tag,services_section;
 
 	public Repeat(Record record,ReadOnlySection section) {
 		this.parent=record;
-		id=(String)section.getValue("/@id");
-		selector=(String)section.getValue("/selector");
-		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
-		is_visible=Util.getBooleanOrDefault(section,"/@show",true);
-		xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
-		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
-		asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
-		services_section=Util.getStringOrDefault(section,"/@section","common");
-		// should this field allow a primary flag
-		has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);
+		this.initialiseVariables(section);
 	}
 	public Repeat(Structure structure,ReadOnlySection section) {
 		this.parent=structure;
-		id=(String)section.getValue("/@id");
-		selector=(String)section.getValue("/selector");
-		is_visible=Util.getBooleanOrDefault(section,"/@show",true);
-		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
-		xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
-		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
-		asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
-		services_section=Util.getStringOrDefault(section,"/@section","common");
-		// should this field allow a primary flag
-		has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);
+		this.initialiseVariables(section);
 	}
 
 	public Repeat(Repeat repeat, ReadOnlySection section) {
 		this.parent=repeat;
-		id=(String)section.getValue("/@id");
-		selector=(String)section.getValue("/selector");
-		is_visible=Util.getBooleanOrDefault(section,"/@show",true);
-		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
-		xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
-		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
-		asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
-		services_section=Util.getStringOrDefault(section,"/@section","common");
-		// should this field allow a primary flag
-		has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);
+		this.initialiseVariables(section);
 	}
 	
 	public Repeat(Subrecord subrecord, ReadOnlySection section) {
 		this.parent=subrecord;
-		id=(String)section.getValue("/@id");
-		selector=(String)section.getValue("/selector");
-		is_visible=Util.getBooleanOrDefault(section,"/@show",true);
-		services_tag=Util.getStringOrDefault(section,"/services-tag",id);
-		xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
-		xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
-		asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
-		services_section=Util.getStringOrDefault(section,"/@section","common");
+		this.initialiseVariables(section);
+	}
+	/**
+	 * all constructors get variables initialised in the same way
+	 * @param section
+	 */
+	private void initialiseVariables(ReadOnlySection section){
+		this.id=(String)section.getValue("/@id");
+		this.selector=(String)section.getValue("/selector");
+		this.services_tag=Util.getStringOrDefault(section,"/services-tag",id);
+		this.is_visible=Util.getBooleanOrDefault(section,"/@show",true);
+		this.xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
+		this.xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
+		this.asSiblings = Util.getBooleanOrDefault(section,"/@asSibling",false);
+		this.services_section=Util.getStringOrDefault(section,"/@section","common");
+		this.exists_in_service = Util.getBooleanOrDefault(section, "/@exists-in-services", true);
 		// should this field allow a primary flag
-		has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);
+		this.has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);		
 	}
 
 	public String getID() { return id; }
@@ -79,6 +60,7 @@ public class Repeat implements FieldSet, FieldParent {
 	public Record getRecord() { return parent.getRecord(); }
 	public String getSelector() { return selector; }
 	public String getServicesTag() { return services_tag; }
+	public boolean isInServices() {	return exists_in_service;	}
 	public boolean getXxxServicesNoRepeat() { return xxx_services_no_repeat; }
 	public boolean getXxxUiNoRepeat() { return xxx_ui_no_repeat; }
 	public boolean isVisible() { return is_visible; }
