@@ -194,9 +194,11 @@ public class Record implements FieldParent {
 	
 
 	public void addField(FieldSet f) {
-		fields.put(f.getID(),f);
+		if(f.isInServices()){
+			fields.put(f.getID(),f);
+		}
 	}
-	public void addRepeatField(FieldSet f) {
+	public void addAllField(FieldSet f) {
 		repeatfields.put(f.getID(),f);
 	}
 	public void addStructure(Structure s) {

@@ -47,9 +47,11 @@ public class RecordStorage implements ContextualisedStorage {
 	private ServicesConnection conn;
 	private Record r;
 	private Map<String,String> view_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
+	private Map<String,String> view_extras=new HashMap<String,String>();// map of fields to values for merged fields
 	private Map<String,String> view_map=new HashMap<String,String>(); // map of csid to service name of field
 	private Set<String> xxx_view_deurn=new HashSet<String>();
-
+	private Map<String,List<String>> view_merge = new HashMap<String, List<String>>();
+	
 	public RecordStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
 		this.conn=conn;
 		this.r=r;
@@ -57,6 +59,9 @@ public class RecordStorage implements ContextualisedStorage {
 		if(r.getMiniNumber()!=null){
 			view_good.put("number",r.getMiniNumber().getID());
 			view_map.put(r.getMiniNumber().getServicesTag(),r.getMiniNumber().getID());
+			if(r.getMiniNumber().hasMergeData()){
+				view_merge.put("number",r.getMiniNumber().getAllMerge());				
+			}
 			if(r.getMiniNumber().hasAutocompleteInstance())
 				xxx_view_deurn.add(r.getMiniNumber().getID());
 		}
@@ -64,6 +69,9 @@ public class RecordStorage implements ContextualisedStorage {
 		if(r.getMiniSummary() !=null){
 			view_good.put("summary",r.getMiniSummary().getID());
 			view_map.put(r.getMiniSummary().getServicesTag(),r.getMiniSummary().getID());
+			if(r.getMiniSummary().hasMergeData()){
+				view_merge.put("summary",r.getMiniSummary().getAllMerge());				
+			}
 			if(r.getMiniSummary().hasAutocompleteInstance())
 				xxx_view_deurn.add(r.getMiniSummary().getID());
 		}
@@ -74,6 +82,9 @@ public class RecordStorage implements ContextualisedStorage {
 				view_map.put(fs.getServicesTag(),fs.getID());
 				if(fs instanceof Field) {
 					// Single field
+					if(((Field) fs).hasMergeData()){
+						view_merge.put("summarylist_"+fs.getID(),((Field) fs).getAllMerge());
+					}
 					Field f=(Field)fs;
 					if(f.hasAutocompleteInstance()){
 						xxx_view_deurn.add(f.getID());
@@ -415,6 +426,10 @@ public class RecordStorage implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Connection problem",e);
 		}
 	}
+	
+	private void getGleaned(){
+		
+	}
 
 	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,CSPRequestCredentials creds,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject out=new JSONObject();
@@ -424,12 +439,30 @@ public class RecordStorage implements ContextualisedStorage {
 		// Try to fullfil from gleaned info
 		//gleaned is info that everytime we read a record we cache certain parts of it
 		for(String fieldname : view_good.keySet()) {
+			String gleaned = null;
 			String good = view_good.get(fieldname);
-			String gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,good);
+			if(view_merge.containsKey(fieldname)){
+				List<String> mergeids = view_merge.get(fieldname);
+				for(String id : mergeids){
+					if(id == null)
+						continue;
+					//iterate for merged ids
+					gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,id);
+					if(gleaned!=null){
+						//if find value stop
+						break;
+					}
+				}
+			}
+			else{
+				gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,good);
+			}
+			
 			if(gleaned==null)
 				continue;
 			if(xxx_view_deurn.contains(good))
 				gleaned=xxx_deurn(gleaned);
+			
 			
 			String name = fieldname;
 			if(name.startsWith(summarylistname)){
@@ -446,8 +479,24 @@ public class RecordStorage implements ContextualisedStorage {
 			JSONObject data=simpleRetrieveJSON(creds,cache,filePath);
 			for(String fieldname : to_get) {
 				String good = view_good.get(fieldname);
+				String value = null;
+				if(view_merge.containsKey(fieldname)){
+					List<String> mergeids = view_merge.get(fieldname);
+					for(String id : mergeids){
+						if(id == null)
+							continue;
+						value = JSONUtils.checkKey(data, id);
+						//iterate for merged ids
+						if(value!=null){
+							//if find value stop
+							break;
+						}
+					}
+				}
+				else{
+					value = JSONUtils.checkKey(data, good);
+				}
 				//this might work with repeat objects
-				String value = JSONUtils.checkKey(data, good);
 				if(value != null){
 					String vkey=fieldname;
 					if(xxx_view_deurn.contains(good))

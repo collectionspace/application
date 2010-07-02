@@ -84,7 +84,7 @@ public class Structure  implements FieldParent  {
 	public void addField(FieldSet f) {
 		fields.put(f.getID(),f);
 	}
-	public void addRepeatField(FieldSet f) {
+	public void addAllField(FieldSet f) {
 		repeatfields.put(f.getID(),f);
 	}
 	public void addSideBar(FieldSet f) {

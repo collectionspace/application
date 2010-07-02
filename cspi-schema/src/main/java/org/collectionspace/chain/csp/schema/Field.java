@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.slf4j.Logger;
@@ -26,7 +27,8 @@ public class Field implements FieldSet {
 	
 	/* UI */
 	private String selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext;
-	private boolean in_title=false,in_tab=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
+	private boolean exists_in_service= true,in_title=false,in_tab=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
+	private Stack<String> merged = new Stack<String>();
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
 
@@ -65,6 +67,7 @@ public class Field implements FieldSet {
 			record.getRecord().setDisplayName(this);
 		this.parent=record;
 		
+		exists_in_service = Util.getBooleanOrDefault(section, "/@exists-in-services", true);
 		enum_default = Util.getSetOrDefault(section, "/enum-default", new String[]{""});
 		services_section=Util.getStringOrDefault(section,"/@section","common");
 		services_filter_param=Util.getStringOrDefault(section,"/services-filter-param",null);
@@ -81,13 +84,36 @@ public class Field implements FieldSet {
 	public String getUIType() { return type; }
 	public boolean isInTitle() { return in_title; }
 	//public boolean isInTab() { return in_tab; }
-	public boolean hasContainer() {return has_container;}
+	public boolean hasContainer() {	return has_container;	}
+	public boolean isInServices() {	return exists_in_service;	}
 	public boolean isRefactored() { return xxx_ui_refactored; } //used until UI layer has moved all autocomplete to one container view
 	public String getTitleSelector() { return title_selector; }
 	public String getServicesFilterParam() { return services_filter_param; }
 	public String getServicesTag() { return services_tag; }
 	
 	void setType(String in) { type=in; }
+	//CSPACE-869
+	void addMerge(String id, String rank){
+		try{
+			int index = Integer.parseInt(rank);
+			if(merged.size() < index){	merged.setSize(index);	}
+			merged.add(index, id);
+		}
+		catch(Exception e){
+			// something wrong - could have been a non number
+			log.error("Failed to add Merge field "+id+" into field "+this.id+ " at rank "+rank);
+		}
+		
+	}
+	public String getMerge(int index) { return merged.get(index); }
+	public List<String> getAllMerge() {	return merged;	}
+	public Boolean hasMergeData() {
+		if(merged.isEmpty())
+			return false;
+		
+		return true;
+	}
+	
 	void addOption(String id,String name,String sample,boolean dfault) {
 		Option opt=new Option(id,name,sample);
 		if(dfault)

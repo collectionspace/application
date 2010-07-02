@@ -125,13 +125,15 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Record)parent,section);
 				((Record)parent).addField(f);
-				((Record)parent).addRepeatField(f);
+				((Record)parent).addAllField(f);
 				String is_chooser=(String)section.getValue("/@chooser");
 				if(is_chooser!=null && ("1".equals(is_chooser) || "yes".equals(is_chooser.toLowerCase())))
 					f.setType("chooser");
 				return f;
 			}
 		});	
+		
+		
 		/* RECORD/structures/structure -> STRUCTURE */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"structures","structure"},SECTION_PREFIX+"structure",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
@@ -156,7 +158,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Structure)parent,section);
 				((Structure)parent).addField(r);
-				((Structure)parent).addRepeatField(r);
+				((Structure)parent).addAllField(r);
 				return r;
 			}
 		});
@@ -165,7 +167,7 @@ public class Spec implements CSP, Configurable {
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Record)parent,section);
-				((Record)parent).addRepeatField(r);
+				((Record)parent).addAllField(r);
 				((Record)parent).addField(r);
 				return r;
 			}
@@ -175,7 +177,7 @@ public class Spec implements CSP, Configurable {
 		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Repeat)parent,section);
-				f.getRecord().addRepeatField(f);
+				f.getRecord().addAllField(f);
 				((Repeat)parent).addChild(f);
 				return f;
 			}
@@ -198,6 +200,20 @@ public class Spec implements CSP, Configurable {
 				String value=(String)section.getValue("/@default");
 				dfault=(value!=null && ("yes".equals(value.toLowerCase()) || "1".equals(value.toLowerCase())));
 				f.addOption((String)section.getValue("/@id"),(String)section.getValue(""),(String)section.getValue("/@sample"),dfault);
+				return f;
+			}
+		});
+		/* FIELD/merges/merge -> OPTION */
+		rules.addRule(SECTION_PREFIX+"field",new String[]{"merges","merge"},SECTION_PREFIX+"merge",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Field f=(Field)parent;
+				f.addMerge((String)section.getValue("/@id"), (String)section.getValue("/@rank"));
+				/*
+				boolean dfault=false;
+				String value=(String)section.getValue("/@default");
+				dfault=(value!=null && ("yes".equals(value.toLowerCase()) || "1".equals(value.toLowerCase())));
+				f.addOption((String)section.getValue("/@id"),(String)section.getValue(""),(String)section.getValue("/@sample"),dfault);
+				*/
 				return f;
 			}
 		});

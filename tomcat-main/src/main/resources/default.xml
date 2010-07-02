@@ -76,6 +76,13 @@
 				<number-selector>.csc-accession-number</number-selector>
 				<row-selector>.csc-recordList-row:</row-selector>
 				<list-key>objects</list-key>
+					<field id="nametitle" mini="list" exists-in-services="false">
+						<selector>.csc-object-identification-object-nametitle</selector>
+						<merges>
+							<merge id="title" rank="1"/>
+							<merge id="objectName" rank="2"/>
+						</merges>
+					</field>
 				
 					<field id="title" in-title="yes" mini="summary,list">
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
