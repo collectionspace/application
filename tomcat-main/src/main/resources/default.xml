@@ -76,7 +76,7 @@
 				<number-selector>.csc-accession-number</number-selector>
 				<row-selector>.csc-recordList-row:</row-selector>
 				<list-key>objects</list-key>
-					<field id="nametitle" mini="list" exists-in-services="false">
+					<field id="nametitle" mini="summary,list" exists-in-services="false">
 						<selector>.csc-object-identification-object-nametitle</selector>
 						<merges>
 							<merge id="title" rank="1"/>
@@ -84,7 +84,7 @@
 						</merges>
 					</field>
 				
-					<field id="title" in-title="yes" mini="summary,list">
+					<field id="title" in-title="yes" mini="list">
 					    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
 						<selector>.csc-object-identification-object-title</selector>
 					</field>
