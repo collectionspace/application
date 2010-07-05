@@ -2014,12 +2014,21 @@
 			  </instances>
 			  
 			  <field id="displayName" in-title="yes" display-name="yes">
-			    <selector>.csc-personAuthority-displayName</selector>
+			    <selector>.csc-vocabulary-displayName</selector>
 			    <title-selector>.csc-titleBar-displayName</title-selector>
 			  </field>
 			  
+			  <field id="termStatus" xxx_ui_refactored="false">
+			    <selector>.csc-vocabulary-status</selector>
+			    <options>
+			      <option id="provisional" default="yes">Provisional</option>
+			      <option id="under review">Under Review</option>
+			      <option id="accepted">Accepted</option>
+			      <option id="rejected">Rejected</option>
+			    </options>
+			  </field>
 			  <field id="shortIdentifier" >
-			    <selector>.csc-personAuthority-shortIdentifier</selector>
+			    <selector>.csc-vocabulary-shortIdentifier</selector>
 			  </field>
 			</record>
 		</records>

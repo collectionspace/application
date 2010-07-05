@@ -38,21 +38,21 @@ public class TestVocab extends ServicesBaseClass {
 		JSONObject data=new JSONObject();
 		data.put(testField,"TEST");
 		data.put("displayName","TEST");
-		//XXX why has staus disappeared?
-		//data.put("status","Provisional");
+
+		data.put("termStatus","Provisional");
 		String id=ss.autocreateJSON(path,data);
 		// Read
 		JSONObject out=ss.retrieveJSON(path+"/"+id);
 		assertEquals("TEST",out.getString(testField));
-		//assertEquals("Provisional",out.getString("status"));
+		assertEquals("Provisional",out.getString("termStatus"));
 		// Update
 		data.remove(testField);
 		data.put(testField,"TEST2");
-		//data.put("status","Provisional2");
+		data.put("termStatus","Provisional2");
 		ss.updateJSON(path + "/"+id,data);
 		out=ss.retrieveJSON(path + "/"+id);
 		assertEquals("TEST2",out.getString(testField));
-		//assertEquals("Provisional2",out.getString("status"));
+		assertEquals("Provisional2",out.getString("termStatus"));
 		String id3=out.getString("csid");
 		// List
 		data.remove(testField);
@@ -109,38 +109,6 @@ public class TestVocab extends ServicesBaseClass {
 	}
 	
 	
-// if you want to delete all orgs you can run this one @Test //
-	public void testDelAllOrgs() throws Exception {
 
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		JSONObject myjs = new JSONObject();
-		myjs.put("pageSize", "100");
-		myjs.put("pageNum", "0");
-		int resultsize=1;
-		int check = 0;
-		String checkpagination = "";
-
-		while(resultsize >0){
-			myjs.put("pageNum", check);
-			JSONObject items = ss.getPathsJSON("/organization/organization",myjs);
-			String[] res = (String[]) items.get("listItems");
-
-			if(res.length==0 || checkpagination.equals(res[0])){
-				resultsize=0;
-				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
-			}
-			else{
-				checkpagination = res[0];
-			}
-			resultsize=res.length;
-			for(String urn : res) {
-				try {
-					ss.deleteJSON("/organization/organization/"+urn);
-					log.debug(check + "  Deleting "+urn);
-				} catch(Exception e) { /* Sometimes records are wdged */ }
-				
-			}
-		}
-	}
 	
 }
