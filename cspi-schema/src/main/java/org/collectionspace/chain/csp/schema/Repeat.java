@@ -7,7 +7,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 // XXX only one level of repetition at the moment. Should only be a matter of type furtling.
 public class Repeat implements FieldSet, FieldParent {
-	private String id,selector;
+	private String id,selector,userecord;
 	private Boolean is_visible;
 	private FieldParent parent;
 	private List<FieldSet> children=new ArrayList<FieldSet>();
@@ -49,7 +49,8 @@ public class Repeat implements FieldSet, FieldParent {
 		this.services_section=Util.getStringOrDefault(section,"/@section","common");
 		this.exists_in_service = Util.getBooleanOrDefault(section, "/@exists-in-services", true);
 		// should this field allow a primary flag
-		this.has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);		
+		this.has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);	
+		this.userecord = Util.getStringOrDefault(section, "/@userecord", "");
 	}
 
 	public String getID() { return id; }
@@ -67,7 +68,10 @@ public class Repeat implements FieldSet, FieldParent {
 	public boolean asSibling() { return asSiblings;}
 	public boolean hasPrimary() {return has_primary;}
 	public String getSection() { return services_section; }
-
+	
+	public boolean usesRecord(){ if(userecord != null && !userecord.equals("")){ return true; } return false;}
+	public Record usesRecordId(){ if(usesRecord()){ return this.getRecord().getSpec().getRecord(userecord); } return null; }
+	
 	public String[] getIDPath() {
 		if(xxx_ui_no_repeat) {
 			if(parent instanceof Repeat) {

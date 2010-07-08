@@ -18,6 +18,7 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mortbay.log.Log;
 
 
 public class UserRolesRead implements WebMethod{
@@ -28,7 +29,7 @@ public class UserRolesRead implements WebMethod{
 	public UserRolesRead(Record r){
 		this.base = r.getID();
 		this.base_url = r.getServicesURL();
-		this.sub_url = r.getSubRecord("userrole").getServicesURL();
+		this.sub_url = r.getSpec().getRecord("userrole").getServicesURL();
 		record_type=r.isType("userdata");
 	}
 	
@@ -62,7 +63,8 @@ public class UserRolesRead implements WebMethod{
 	}
 	
 	private void store_get(Storage storage,UIRequest request,String path) throws UIException {
-		
+		Log.info(path);
+		Log.info(path);
 		// Get the data
 		JSONObject outputJSON = getJSON(storage,path);
 		try {

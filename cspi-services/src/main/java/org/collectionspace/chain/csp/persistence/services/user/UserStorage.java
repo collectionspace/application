@@ -132,11 +132,16 @@ public class UserStorage implements ContextualisedStorage {
 	 */
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			ReturnedURL url;
+			ReturnedURL url = null;
 			if(jsonObject.has("roles")){
-				Document doc=XmlJsonConversion.convertToXml(r.getSubRecord("userrole"),jsonObject,"common");
-				String path = r.getServicesURL() + "/" + getAccountCsid(jsonObject) +"/"+ r.getSubRecord("userrole").getServicesURL();
-				url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);
+				for(Record allr : r.getAllSubRecords()){
+					if(allr.getID().equals("userrole")){
+						Document doc=XmlJsonConversion.convertToXml(allr,jsonObject,"common");
+						String path = r.getServicesURL() + "/" + getAccountCsid(jsonObject) +"/"+ allr.getServicesURL();
+						url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);
+					}
+				}
+				
 			}else{
 				jsonObject=correctPassword(jsonObject);
 				jsonObject= correctScreenName(jsonObject);
@@ -144,10 +149,14 @@ public class UserStorage implements ContextualisedStorage {
 				Document doc=XmlJsonConversion.convertToXml(r,jsonObject,"common");
 				url = conn.getURL(RequestMethod.POST,r.getServicesURL()+"/",doc,creds,cache);
 			}
-			
-			if(url.getStatus()>299 || url.getStatus()<200)
-				throw new UnderlyingStorageException("Bad response "+url.getStatus());
-			return url.getURLTail();
+			if(url != null){
+				if(url.getStatus()>299 || url.getStatus()<200)
+					throw new UnderlyingStorageException("Bad response "+url.getStatus());
+				return url.getURLTail();
+			}
+			else{
+				throw new ExistException("no sub record defined in cspaceconfig");
+			}
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (JSONException e) {
@@ -164,8 +173,13 @@ public class UserStorage implements ContextualisedStorage {
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts = filePath.split("/");
-			if(parts.length > 2)
-				filePath = parts[0] + "/" + r.getSubRecord("userrole").getServicesURL() + "/" + parts[2];
+			if(parts.length > 2){
+				for(Record allr : r.getAllSubRecords()){
+					if(allr.getID().equals(parts[2])){
+						filePath = parts[0] + "/" + allr.getServicesURL() + "/" + parts[2];
+						}
+				}
+			}
 			int status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds,cache);
 			if(status>299 || status<200) // XXX CSPACE-73, should be 404
 				throw new UnderlyingStorageException("Service layer exception status="+status);
@@ -377,8 +391,10 @@ public class UserStorage implements ContextualisedStorage {
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts = filePath.split("/");
-			if(parts.length > 2)
-				filePath = parts[0] + "/" + r.getSubRecord("userrole").getServicesURL() + "/" + parts[2];
+			
+			if(parts.length > 2){
+				filePath = parts[0] + "/" + r.getSpec().getRecord("userrole").getServicesURL() + "/" + parts[2];
+			}
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null,creds,cache);
 			JSONObject out=new JSONObject();
 			Document xml = null;
@@ -386,7 +402,7 @@ public class UserStorage implements ContextualisedStorage {
 			if((doc.getStatus()<200 || doc.getStatus()>=300))
 				throw new ExistException("Does not exist "+filePath);
 			if(parts.length > 2)
-				out=XmlJsonConversion.convertToJson(r.getSubRecord("userrole"),xml);
+				out=XmlJsonConversion.convertToJson(r.getSpec().getRecord("userrole"),xml);
 			else
 				out=XmlJsonConversion.convertToJson(r,xml);
 			return out;

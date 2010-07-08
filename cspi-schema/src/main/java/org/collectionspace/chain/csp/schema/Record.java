@@ -20,8 +20,9 @@ public class Record implements FieldParent {
 	private static final Logger log=LoggerFactory.getLogger(Record.class);
 	private String id;
 	private Map<String,Structure> structure=new HashMap<String,Structure>();
-	private Map<String,Subrecord> subrecord=new HashMap<String,Subrecord>();
+	private Map<String,Record> subrecords=new HashMap<String,Record>();
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
+	private Map<String,FieldSet> servicefields=new HashMap<String,FieldSet>();
 	private Map<String,FieldSet> repeatfields=new HashMap<String,FieldSet>();
 	
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
@@ -138,6 +139,7 @@ public class Record implements FieldParent {
 	public String getTabURL() { return tab_url; }
 	public boolean isType(String k) { return type.contains(k); }
 	public Spec getSpec() { return spec; }
+	public FieldSet[] getAllServiceFields() { return servicefields.values().toArray(new FieldSet[0]); }
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
 	public FieldSet getField(String id) { return fields.get(id); }
 	public FieldSet[] getAllRepeatFields() { return repeatfields.values().toArray(new FieldSet[0]); }
@@ -146,7 +148,17 @@ public class Record implements FieldParent {
 	 */
 	public FieldSet getRepeatField(String id) { return repeatfields.get(id); }
 	public Structure getStructure(String id) { return structure.get(id); }
-	public Subrecord getSubRecord(String id){ return subrecord.get(id); }
+	public Record getSubrecord(String id) { return subrecords.get(id); }
+	public Record[] getAllSubRecords(){ 
+		if(subrecords.values().isEmpty()){
+			for(FieldSet fs : this.getAllRepeatFields()){
+				if(fs.usesRecord()){
+					this.addSubRecord(fs.usesRecordId());
+				}
+			}
+		}
+		return subrecords.values().toArray(new Record[0]); }
+	
 	public String getTermsUsedURL() { return terms_used_url; }
 	public String getNumberSelector() { return number_selector; }
 	public String getRowSelector() { return row_selector; }
@@ -194,8 +206,9 @@ public class Record implements FieldParent {
 	
 
 	public void addField(FieldSet f) {
+		fields.put(f.getID(),f);
 		if(f.isInServices()){
-			fields.put(f.getID(),f);
+			servicefields.put(f.getID(),f);
 		}
 	}
 	public void addAllField(FieldSet f) {
@@ -204,8 +217,8 @@ public class Record implements FieldParent {
 	public void addStructure(Structure s) {
 		structure.put(s.getID(),s);
 	}
-	public void addSubrecord(Subrecord s) {
-		subrecord.put(s.getID(),s);
+	public void addSubRecord(Record r) {
+		subrecords.put(r.getID(),r);
 	}
 	
 	public void addInstance(Instance n) {

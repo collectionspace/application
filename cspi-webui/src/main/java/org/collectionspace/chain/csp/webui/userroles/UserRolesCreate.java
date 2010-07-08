@@ -22,7 +22,8 @@ public class UserRolesCreate implements WebMethod{
 	private String url_base,base;
 
 	public UserRolesCreate(Record r){
-		this.url_base=r.getSubRecord("userrole").getID();
+		this.url_base=r.getSpec().getRecord("userrole").getID();
+		//this.url_base=r.getSubRecord("userrole").getID();
 		this.base=r.getID();
 	}
 	

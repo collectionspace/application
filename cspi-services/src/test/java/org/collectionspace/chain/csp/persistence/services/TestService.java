@@ -72,6 +72,8 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
 		testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
+		testXMLJSON(spec, "userrole","accountrole.xml","accountrole.json");
+		
 		//testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
 		//testXMLJSON(spec, "organization","orgauthref.xml","permissionsJSON.json");
 	}
@@ -82,7 +84,6 @@ public class TestService extends ServicesBaseClass {
 		String test = testxml.asXML();
 		Record r = spec.getRecord(objtype);
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, testxml);
-		log.info(repeatjson.toString());
 		JSONObject j = getJSON(jsonfile);
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	

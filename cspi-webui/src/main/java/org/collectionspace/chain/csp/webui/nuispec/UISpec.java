@@ -323,77 +323,89 @@ public class UISpec implements WebMethod {
 		
 		return out;
 	}
+	private void generateSubRecord(JSONObject out,Record subrecord) throws JSONException {
+		for(FieldSet fs2 : subrecord.getAllFields()) {
+			generateDataEntry(out,fs2);
+		}
+		
+	}
 	
 	private void generateDataEntry(JSONObject out,FieldSet fs) throws JSONException {
-		if(fs instanceof Field) {
-			// Single field
-			Field f=(Field)fs;
-			//XXX when all uispecs have moved across we can delete most of this
-			if(!f.isRefactored()){
+		if(fs.usesRecord()){
+			generateSubRecord(out, fs.usesRecordId());
+		}
+		else{
+			
+			if(fs instanceof Field) {
 				// Single field
-				out.put(f.getSelector(),generateDataEntryField(f));	
-				
-				if(f.hasAutocompleteInstance()) {
-					if("enum".equals(f.getUIType())){
-						out.put(f.getAutocompleteSelector(),generateDataEntryField(f));
-					}
-					else{
-						out.put(f.getAutocompleteSelector(),generateAutocomplete(f));
-					}
-				}
-				if("chooser".equals(f.getUIType())) {
-					out.put(f.getContainerSelector(),generateChooser(f));
-				}
-				if("date".equals(f.getUIType())) {
-					out.put(f.getContainerSelector(),generateDate(f));
-				}
-			}
-			else{
-				
-				if(f.hasAutocompleteInstance()) {
-					if("enum".equals(f.getUIType())){
-						out.put(f.getSelector(),generateDataEntryField(f));
-					}
-					else{
-						out.put(f.getSelector(),generateAutocomplete(f));
-					}
-				}
-				else if("chooser".equals(f.getUIType())) {
-					out.put(f.getSelector(),generateChooser(f));
-				}
-				else if("date".equals(f.getUIType())) {
-					out.put(f.getSelector(),generateDate(f));
-				}
-				else if("sidebar".equals(f.getUIType())) {
-					//out.put(f.getSelector(),generateSideBar(f));
-				}
-				else{
+				Field f=(Field)fs;
+				//XXX when all uispecs have moved across we can delete most of this
+				if(!f.isRefactored()){
+					// Single field
 					out.put(f.getSelector(),generateDataEntryField(f));	
-				}
-			}
-		} else if(fs instanceof Repeat) {
-			// Container
-			Repeat r=(Repeat)fs;
-			if(r.getXxxUiNoRepeat()) {
-				FieldSet[] children=r.getChildren();
-				if(children.length==0)
-					return;
-				generateDataEntry(out,children[0]);
-			} else {
-				JSONObject row=new JSONObject();
-				JSONArray children=new JSONArray();
-				if(r.asSibling()){ // allow for row [{'','',''}]
-					JSONObject contents=new JSONObject();
-					for(FieldSet child : r.getChildren()) {
-						generateDataEntry(contents,child);
+					
+					if(f.hasAutocompleteInstance()) {
+						if("enum".equals(f.getUIType())){
+							out.put(f.getAutocompleteSelector(),generateDataEntryField(f));
+						}
+						else{
+							out.put(f.getAutocompleteSelector(),generateAutocomplete(f));
+						}
 					}
-					children.put(contents);
-					row.put("children",children);
-					out.put(r.getSelector(),row);
+					if("chooser".equals(f.getUIType())) {
+						out.put(f.getContainerSelector(),generateChooser(f));
+					}
+					if("date".equals(f.getUIType())) {
+						out.put(f.getContainerSelector(),generateDate(f));
+					}
 				}
 				else{
-					JSONObject contents=generateRepeatEntry((Repeat)fs);
-					out.put(r.getSelector(),contents);
+					
+					if(f.hasAutocompleteInstance()) {
+						if("enum".equals(f.getUIType())){
+							out.put(f.getSelector(),generateDataEntryField(f));
+						}
+						else{
+							out.put(f.getSelector(),generateAutocomplete(f));
+						}
+					}
+					else if("chooser".equals(f.getUIType())) {
+						out.put(f.getSelector(),generateChooser(f));
+					}
+					else if("date".equals(f.getUIType())) {
+						out.put(f.getSelector(),generateDate(f));
+					}
+					else if("sidebar".equals(f.getUIType())) {
+						//out.put(f.getSelector(),generateSideBar(f));
+					}
+					else{
+						out.put(f.getSelector(),generateDataEntryField(f));	
+					}
+				}
+			} else if(fs instanceof Repeat) {
+				// Container
+				Repeat r=(Repeat)fs;
+				if(r.getXxxUiNoRepeat()) {
+					FieldSet[] children=r.getChildren();
+					if(children.length==0)
+						return;
+					generateDataEntry(out,children[0]);
+				} else {
+					JSONObject row=new JSONObject();
+					JSONArray children=new JSONArray();
+					if(r.asSibling()){ // allow for row [{'','',''}]
+						JSONObject contents=new JSONObject();
+						for(FieldSet child : r.getChildren()) {
+							generateDataEntry(contents,child);
+						}
+						children.put(contents);
+						row.put("children",children);
+						out.put(r.getSelector(),row);
+					}
+					else{
+						JSONObject contents=generateRepeatEntry((Repeat)fs);
+						out.put(r.getSelector(),contents);
+					}
 				}
 			}
 		}

@@ -1533,25 +1533,42 @@
 				<authorization-name>role</authorization-name>
 			  	<authorization-includes>authorization/roles</authorization-includes>
 			  	<is-multipart>false</is-multipart>
+				<terms-used>false</terms-used>
                 <services-search-keyword>r</services-search-keyword>
 				<structures>
 					<structure id="screen">
 						<view>
 							<titlebar show="false"></titlebar>
 							<sidebar show="false"></sidebar>
+			  				<edit-section id="details" show="true"></edit-section>
+			  				<list-section id="list" show="true"></list-section>
 						</view>
+			  		<repeat id="list" asSibling="true">
+			  			<selector>.csc-recordList-row:</selector>
+			  			<field id="number" ui-type="list">
+			  				<selector>.csc-user-roleList-name</selector>
+			  			</field>
+			  			<field id="csid" ui-type="list">
+			  				<selector>.csc-user-userList-csid</selector>
+			  			</field>
+					</repeat>
+		
 					</structure>
 				</structures>
-				<terms-used>false</terms-used>
 				<field id="roleName" mini="number">
 					<selector>.csc-role-name</selector>
 				</field>
 				<field id="groupName" >
-					<selector>.csc-role-groupname</selector>
+					<selector>.csc-role-group</selector>
 				</field>
 				<field id="description" mini="summary">
-					<selector>.csc-role-desc</selector>
+					<selector>.csc-role-description</selector>
 				</field>
+				
+				<field userecord="permrole" exists-in-services="false">
+					<selector>.csc-permissions-record-row:</selector>
+				</field>
+				
 			</record>
 			
 			<record id="permission" type="authorizationdata">
@@ -1619,6 +1636,46 @@
                 </repeat>
             </record> -->
             
+			     <record id="userrole">
+	                <web-url>userrole</web-url>
+	                <services-url>accountroles</services-url>
+	                <services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>   
+	                <services-list-path>accountroles-common-list/accountrole-list-item</services-list-path>
+	                <structures>
+	                    <structure id="screen">
+	                        <view>
+	                            <titlebar show="false"></titlebar>
+	                            <sidebar show="false"></sidebar>
+	                        </view>
+	                    </structure>
+	                </structures>
+	                <repeat id="account" asSibling="true">
+	                    <selector>.csc-accountrole-account-row:</selector>
+	                    <field id="accountId">
+	                        <selector>.csc-accountrole-account-accountid</selector>
+	                    </field>
+	                    <field id="screenName">
+	                        <selector>.csc-accountrole-account-screenname</selector>
+	                    </field>
+	                    <field id="userId">
+	                        <selector>.csc-accountrole-account-userid</selector>
+	                    </field>
+	                </repeat>
+	                <repeat id="roles" xxx-services-no-repeat="true">
+	                    <selector>.csc-accountrole-roles-row:</selector>
+		                <repeat id="role" asSibling="true">
+		                    <selector>.csc-accountrole-role-row:</selector>
+		                    <field id="roleId">
+		                        <selector>.csc-accountrole-role-roleid</selector>
+		                    </field>
+		                    <field id="roleName">
+		                        <selector>.csc-accountrole-account-rolename</selector>
+		                    </field>
+		                </repeat>
+		            </repeat>
+			     </record>
+			
+			
  			<!--permrole like UI wants it -->
  			<record id="permrole" type="authorizationdata">
 				<is-multipart>false</is-multipart>
@@ -1632,6 +1689,8 @@
 						<view>
 							<titlebar show="false"></titlebar>
 							<sidebar show="false"></sidebar>
+			  				<edit-section id="details" show="true"></edit-section>
+			  				<list-section id="list" show="true"></list-section>
 						</view>
 					</structure>
 				</structures>
@@ -1709,47 +1768,6 @@
 					</repeat>
 			  	</structure>
 			  </structures>
-			  
-			  <subrecords>
-			     <subrecord id="userrole">
-	                <web-url>userrole</web-url>
-	                <services-url>accountroles</services-url>
-	                <services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>   
-	                <services-list-path>accountroles-common-list/accountrole-list-item</services-list-path>
-	                <structures>
-	                    <structure id="screen">
-	                        <view>
-	                            <titlebar show="false"></titlebar>
-	                            <sidebar show="false"></sidebar>
-	                        </view>
-	                    </structure>
-	                </structures>
-	                <repeat id="account" asSibling="true">
-	                    <selector>.csc-accountrole-account-row:</selector>
-	                    <field id="accountId">
-	                        <selector>.csc-accountrole-account-accountid</selector>
-	                    </field>
-	                    <field id="screenName">
-	                        <selector>.csc-accountrole-account-screenname</selector>
-	                    </field>
-	                    <field id="userId">
-	                        <selector>.csc-accountrole-account-userid</selector>
-	                    </field>
-	                </repeat>
-	                <repeat id="roles" xxx-services-no-repeat="true">
-	                    <selector>.csc-accountrole-roles-row:</selector>
-		                <repeat id="role" asSibling="true">
-		                    <selector>.csc-accountrole-role-row:</selector>
-		                    <field id="roleId">
-		                        <selector>.csc-accountrole-role-roleid</selector>
-		                    </field>
-		                    <field id="roleName">
-		                        <selector>.csc-accountrole-account-rolename</selector>
-		                    </field>
-		                </repeat>
-		            </repeat>
-			     </subrecord>
-			  </subrecords>
 
 			  <field id="userId">
 			  	<services-filter-param>uid</services-filter-param>
@@ -1774,6 +1792,10 @@
                   <option id="inactive">Inactive</option>
                 </options>
 			  </field>
+			  
+				<field userecord="userrole" exists-in-services="false" >
+					<selector>.csc-accountrole-account-row:</selector>
+				</field>
 			</record>
 		
 			<record id="loanout" in-findedit="yes">

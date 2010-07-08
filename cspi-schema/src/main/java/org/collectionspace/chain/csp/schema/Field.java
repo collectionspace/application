@@ -26,7 +26,7 @@ public class Field implements FieldSet {
 	private String autocomplete_instance_id;
 	
 	/* UI */
-	private String selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext;
+	private String selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext,userecord;
 	private boolean exists_in_service= true,in_title=false,in_tab=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
 	private Stack<String> merged = new Stack<String>();
 	private Map<String,Option> options=new HashMap<String,Option>();
@@ -42,6 +42,7 @@ public class Field implements FieldSet {
 		xxx_ui_refactored = Util.getBooleanOrDefault(section, "/@xxx_ui_refactored", true);
 
 		selector=Util.getStringOrDefault(section,"/selector",".csc-"+id);
+		userecord = Util.getStringOrDefault(section, "/@userecord", "");
 
 		linktext=Util.getStringOrDefault(section,"/linktext","${items.0.number}");
 		linktext_target=Util.getStringOrDefault(section,"/linktext-target","${items.0.recordtype}.html?csid=${items.0.csid}");
@@ -113,6 +114,9 @@ public class Field implements FieldSet {
 		
 		return true;
 	}
+	
+	public boolean usesRecord(){ if(userecord != null && !userecord.equals("")){ return true; } return false;}
+	public Record usesRecordId(){ if(usesRecord()){ return this.getRecord().getSpec().getRecord(userecord); } return null; }
 	
 	void addOption(String id,String name,String sample,boolean dfault) {
 		Option opt=new Option(id,name,sample);

@@ -8,4 +8,8 @@ public interface FieldSet {
 	public String getSection();
 	public boolean isInServices();
 	public void config_finish(Spec spec);
+	
+	//subrecords
+	public boolean usesRecord();
+	public Record usesRecordId();
 }

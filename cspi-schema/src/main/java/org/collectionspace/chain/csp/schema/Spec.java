@@ -126,6 +126,7 @@ public class Spec implements CSP, Configurable {
 				Field f=new Field((Record)parent,section);
 				((Record)parent).addField(f);
 				((Record)parent).addAllField(f);
+				
 				String is_chooser=(String)section.getValue("/@chooser");
 				if(is_chooser!=null && ("1".equals(is_chooser) || "yes".equals(is_chooser.toLowerCase())))
 					f.setType("chooser");
@@ -218,35 +219,6 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 		
-		/* RECORD/subrecords/subrecord -> SUBRECORD */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"subrecords","subrecord"},SECTION_PREFIX+"subrecord",null,new Target(){
-			public Object populate(Object parent, ReadOnlySection section) {
-				Subrecord s=new Subrecord((Record)parent,section);
-				((Record)parent).addSubrecord(s);
-				return s;
-			}
-		});	
-		
-		/* SUBRECORD/repeat -> REPEAT */
-		rules.addRule(SECTION_PREFIX+"subrecord",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
-			public Object populate(Object parent, ReadOnlySection section) {
-				Repeat r=new Repeat((Subrecord)parent,section);
-				((Subrecord)parent).addField(r);
-				return r;
-			}
-		});
-		
-		/* SUBRECORD/services-record-path -> SUBRECORDPATH */
-		rules.addRule(SECTION_PREFIX+"subrecord",new String[]{"services-record-path"},SECTION_PREFIX+"subrecord-path",null,new Target(){
-			public Object populate(Object parent, ReadOnlySection section) {
-				Subrecord r=(Subrecord)parent;
-				String id=(String)section.getValue("/@id");
-				if(id==null)
-					id="common";
-				r.setServicesRecordPath(id,(String)section.getValue(""));
-				return r;
-			}
-		});		
 	}
 
 	public EmailData getEmailData() { return ed.getEmailData(); }
