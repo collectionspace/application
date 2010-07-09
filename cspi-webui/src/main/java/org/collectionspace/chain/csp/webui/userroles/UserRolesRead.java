@@ -18,10 +18,12 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.mortbay.log.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class UserRolesRead implements WebMethod{
+	private static final Logger log=LoggerFactory.getLogger(UserRolesRead.class);
 	private String base,base_url,sub_url;
 	private boolean record_type;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
@@ -63,8 +65,6 @@ public class UserRolesRead implements WebMethod{
 	}
 	
 	private void store_get(Storage storage,UIRequest request,String path) throws UIException {
-		Log.info(path);
-		Log.info(path);
 		// Get the data
 		JSONObject outputJSON = getJSON(storage,path);
 		try {
