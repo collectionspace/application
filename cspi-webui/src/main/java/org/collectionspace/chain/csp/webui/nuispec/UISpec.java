@@ -205,7 +205,12 @@ public class UISpec implements WebMethod {
 		JSONArray decorators=new JSONArray();
 		JSONObject decorator=new JSONObject();
 		decorator.put("type","fluid");
-		decorator.put("func","cspace.makeRepeatable");
+		if(r.getChildren().length > 1){
+			decorator.put("func","cspace.repeatable");
+		}
+		else{
+			decorator.put("func","cspace.makeRepeatable");
+		}
 		JSONObject options=new JSONObject();
 		JSONObject protoTree=new JSONObject();
 		for(FieldSet child : r.getChildren()) {
