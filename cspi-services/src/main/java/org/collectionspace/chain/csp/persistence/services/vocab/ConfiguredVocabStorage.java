@@ -148,9 +148,10 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
 			String postfix = "?";
 			String prefix=null;
+			Boolean queryadded = false;
 			if(restrictions!=null){
 				if(restrictions.has(getDisplayNameKey())){
-					prefix=restrictions.getString(getDisplayNameKey());
+					prefix=restrictions.getString(getDisplayNameKey()); 
 				}
 				if(restrictions.has("pageSize")){
 					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
@@ -158,8 +159,13 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				if(restrictions.has("pageNum")){
 					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
 				}
+				if(restrictions.has("queryTerm")){
+					postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(prefix,"UTF8")+"&";
+					queryadded = true;
+				}
 			}
-			if(prefix!=null){
+			
+			if(prefix!=null && !queryadded){
 				postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
 			}
 			postfix = postfix.substring(0, postfix.length()-1);
