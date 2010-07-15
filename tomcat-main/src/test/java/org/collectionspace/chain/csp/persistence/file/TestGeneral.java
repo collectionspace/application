@@ -45,10 +45,16 @@ import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * This provides general tests for the WebAPP that are not covered with the more specific tests such as TestNameThroughWebapp
+ * @author 
+ *
+ */
 public class TestGeneral {
 
 	private static final Logger log=LoggerFactory.getLogger(TestGeneral.class);
 	
+	// Set up test data strings 
 	private final static String testStr = "{\"items\":[{\"value\":\"This is an experimental widget being tested. It will not do what you expect.\"," +
 	"\"title\":\"\",\"type\":\"caption\"},{\"title\":\"Your file\",\"type\":\"resource\",\"param\":\"file\"}," +
 	"{\"title\":\"Author\",\"type\":\"text\",\"param\":\"author\"},{\"title\":\"Title\",\"type\":\"text\"," +
@@ -60,6 +66,7 @@ public class TestGeneral {
 	private final static String testStr2a = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartment\":\"new DEPT\",\"objectName\":\"new OBJNAME\"}";
 	private final static Date d = new Date();
 	
+	
 	private final static String loanoutCreate = "{\"loanPurpose\":\"research\",\"loanedObjectStatus\":\"agreed\",\"loanOutNumber\":\"LO2010.1.3\",\"loanOutNote\":\"loan out notes\",\"specialConditionsOfLoan\":\"loanout conditions\",\"lendersAuthorizationDate\":\"May 27, 2010\",\"loanedObjectStatusDate\":\"May 28, 2010\",\"loanReturnDate\":\"May 26, 2010\",\"loanOutDate\":\"May 25, 2010\",\"loanRenewalApplicationDate\":\"May 24, 2010\",\"loanedObjectStatusNote\":\"status note\"}";
 	private final static String loaninCreate = "{\"loanInNumber\":\"LI2010.1.2\",\"lendersAuthorizer\":\"lendersAuthorizer\",\"lendersAuthorizationDate\":\"lendersAuthorizationDate\",\"lendersContact\":\"lendersContact\",\"loanInContact\":\"loanInContact\",\"loanInConditions\":\"loanInConditions\",\"loanInDate\":\"loanInDate\",\"loanReturnDate\":\"loanReturnDate\",\"loanRenewalApplicationDate\":\"loanRenewalApplicationDate\",\"loanInNote\":\"loanInNote\",\"loanPurpose\":\"loanPurpose\"}";
 	private final static String intakeCreate = "{\"normalLocation\": \"normalLocationX\",\"fieldCollectionEventName\": \"fieldCollectionEventNameX\",\"earliestDateCertainty\": \"earliestDateCertaintyX\",\"earliestDate\": \"earliestDateX\",\"latestDate\": \"latestDateX\",\"entryNumber\": \"entryNumberX\",\"insurancePolicyNumber\": \"insurancePolicyNumberX\",\"depositorsRequirements\": \"depositorsRequirementsX\",\"entryReason\": \"entryReasonX\",\"earliestDateQualifier\": \"earliestDateQualifierX\"}";
@@ -67,7 +74,7 @@ public class TestGeneral {
 	//private final static String objectCreate = "{\"accessionNumber\": \"new OBJNUM\", \"description\": \"new DESCRIPTION\", \"descInscriptionInscriber\": \"new INSCRIBER\", \"objectNumber\": \"1\", \"objectTitle\": \"new TITLE\", \"comments\": \"new COMMENTS\", \"distinguishingFeatures\": \"new DISTFEATRES\", \"responsibleDepartment\": \"new DEPT\",\"briefDescriptions\": [ { \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WAAAA\", \"primary\": \"arg\" }, { \"briefDescription\": \"WOOOOP\", \"primary\": \"bob\" } ], \"objectName\": \"new OBJNAME\"}";
 	private final static String acquisitionCreate = "{\"acquisitionReason\":\"acquisitionReason\",\"acquisitionReferenceNumber\":\"acquisitionReferenceNumber\",\"acquisitionMethod\":\"acquisitionMethod\",\"owners\":[{\"owner\":\"urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'\"}],\"acquisitionSources\":[{\"acquisitionSource\": \"11111\"},{\"acquisitionSource\": \"22222\"}]}";
 	private final static String roleCreate = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_1_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
-
+	private final static String personCreate = "{\"fields\":{\"displayName\":\"TEST_PERSON4_display\"}}";
 	/*private final static String permissionDelete = "{ \"resourceName\": \"resourceName_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]}, {\"action\": [{ \"name\": \"DELETE\" }]} ], \"effect\": \"PERMIT\" }";
 	private final static String permissionRead = "{ \"resourceName\": \"resourceName_"+d.toString()+ "\", \"actions\": [ {\"action\": [{ \"name\": \"READ\" }]} ], \"effect\": \"PERMIT\" }";
 	private final static String permissionWrite = "{ \"resourceName\": \"resourceName_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]} ], \"effect\": \"PERMIT\" }";
@@ -86,17 +93,17 @@ public class TestGeneral {
 
 	private final static String accountroleCreate = "{ \"account\": [{ \"userId\": \"\", \"screenName\": \"\", \"accountId\": \"\" }], \"roles\": [{ \"role\": [{ \"roleName\": \"\", \"roleId\": \"\" }]}] }";
 
-	private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
-	private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
-	private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
+	//private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
+	//private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
+	//private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
 
-	private final static String testStr6 = "{\"userId\": \"unittest2@collectionspace.org\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
-	private final static String testStr7 = "{\"userId\": \"unittest2@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"active\"}";
-	private final static String testStr8 = "{\"email\": \"unittest2@collectionspace.org\", \"debug\" : true }";
-	private final static String testStr9 = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
+	private final static String user2Create = "{\"userId\": \"unittest2@collectionspace.org\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
+	private final static String user2Update = "{\"userId\": \"unittest2@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"active\"}";
+	private final static String user2Email = "{\"email\": \"unittest2@collectionspace.org\", \"debug\" : true }";
+	//private final static String userEmail = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
 	private final static String testStr10 = "{\"roleName\": \"ROLE_USERS_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
-	private final static String testStr11 = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"contentPeople\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
-	private final static String testStr12 = "{\"userId\": \"unittest88@collectionspace.org"+ d.toString() +"\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
+	private final static String urnTestJoe = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"contentPeople\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
+	private final static String user88Create = "{\"userId\": \"unittest88@collectionspace.org"+ d.toString() +"\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
 	
 	private FileStorage store;
 	private UserDetailsReset udreset;
@@ -119,7 +126,12 @@ public class TestGeneral {
 			f.delete();
 		}
 	}
-
+	/** 
+	 * Creates a file storage area (store)
+	 * 
+	 * @throws IOException
+	 * @throws CSPDependencyException
+	 */
 	@Before public void setup() throws IOException, CSPDependencyException {
 		File tmp=new File(tmpdir());
 		File dir=new File(tmp,"ju-cspace");
@@ -130,12 +142,26 @@ public class TestGeneral {
 		store=new FileStorage(dir.toString());
 	}
 
-
+	/**
+	 * Utilities to deal with JSON
+	 **
+	 * Write JSON to store
+	 * @throws JSONException
+	 * @throws ExistException
+	 * @throws UnderlyingStorageException
+	 * @throws UnimplementedException
+	 */
 	@Test public void writeJSONToFile() throws JSONException, ExistException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		store.autocreateJSON("/objects/", jsonObject);
 	}
-
+	/**
+	 * Read JSON from store
+	 * @throws JSONException
+	 * @throws ExistException
+	 * @throws UnderlyingStorageException
+	 * @throws UnimplementedException
+	 */
 	@Test public void readJSONFromFile() throws JSONException, ExistException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		String path=store.autocreateJSON("/objects/", jsonObject);
@@ -144,6 +170,12 @@ public class TestGeneral {
 		assertTrue(JSONUtils.checkJSONEquiv(resultObj,testObj));
 	}
 
+	/**
+	 * Handles non-existing JSON
+	 * @throws JSONException
+	 * @throws UnderlyingStorageException
+	 * @throws UnimplementedException
+	 */
 	@Test public void testJSONNotExist() throws JSONException, UnderlyingStorageException, UnimplementedException {
 		try
 		{
@@ -152,7 +184,13 @@ public class TestGeneral {
 		}
 		catch (ExistException onfe) {}
 	}
-
+	/**
+	 * Update stored JSON
+	 * @throws ExistException
+	 * @throws JSONException
+	 * @throws UnderlyingStorageException
+	 * @throws UnimplementedException
+	 */
 	@Test public void testJSONUpdate() throws ExistException, JSONException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr2);
 		String id1=store.autocreateJSON("/objects/", jsonObject);
@@ -162,7 +200,13 @@ public class TestGeneral {
 		JSONObject testObj = new JSONObject(testStr);
 		assertTrue(JSONUtils.checkJSONEquiv(resultObj,testObj));
 	}
-
+	/**
+	 * Handles update to non-exiting JSON
+	 * @throws ExistException
+	 * @throws JSONException
+	 * @throws UnderlyingStorageException
+	 * @throws UnimplementedException
+	 */
 	@Test public void testJSONNoUpdateNonExisting() throws ExistException, JSONException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		try {
@@ -193,6 +237,11 @@ public class TestGeneral {
 		file.delete();
 	}
 
+	/**
+	 * Various Tests on Schema Store
+	 * @throws IOException
+	 * @throws JSONException
+	 */
 	@Test public void testSchemaStore() throws IOException, JSONException {
 		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
 		createSchemaFile("collection-object",false,true);
@@ -218,7 +267,6 @@ public class TestGeneral {
 	}
 
 	private void login(ServletTester tester) throws IOException, Exception {
-		//HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		String test = "{\"userid\":\"test@collectionspace.org\",\"password\":\"testtest\"}";
 		HttpTester out=jettyDo(tester,"POST","/chain/login/",test);
 		assertEquals(303,out.getStatus());
@@ -252,7 +300,10 @@ public class TestGeneral {
 		response.parse(tester.getResponses(request.generate()));
 		return response;
 	}
-
+/**
+ * Start up Jetty
+ * @throws Exception
+ */
 	@Test public void testJettyStartupWorks() throws Exception {
 		setupJetty();
 	}
@@ -277,62 +328,76 @@ public class TestGeneral {
 		return in;
 	}
 
-	
+/**
+ * Test the User Profiles 
+ * 
+ * A password reset is a 2 stage process:
+ * The user asks to reset the password - POST with users email address ( App generates a token)
+ * The user sets a new pw - POST ( App layer checks pw, email and token)
+ * 
+ * I'm unsure as to what was intended here.  Seems to send a password reset with the pw unchanged.
+ * Checks User Id is unchanged then does update and again checks User Id unchanged
+ * I'm confused about what was intended by the CheckJSONEquiv... routines as with the current data they would
+ * never match. 
+ * @throws Exception
+ */
 	@Test public void testUserProfilesWithReset() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr6));
-		log.info("MYUSER"+out.getContent());
+		// Create a User
+		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(user2Create));
 		assertEquals(out.getMethod(),null);
-		//create
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		
 		//ask to reset
-		log.info("4A");
-		out=jettyDo(jetty,"POST","/chain/passwordreset/",testStr8);
-		log.info(out.getContent());
-		
-		//reset
-		log.info("4B");
-		
-		//this should fail
+		out=jettyDo(jetty,"POST","/chain/passwordreset/",user2Email);
+				
+		//this should fail - switch this on when we want to test with a failing token
 		/*JSONObject obj = new JSONObject(out.getContent());
 		Long token = Long.parseLong(obj.getString("token"));
 		token -= (8*24*60*60*10000);
 		obj.put("token", token);
 		log.info(obj.toString());*/
 		
+		// Reset password - seems to be setting it to the same value here
 		out=jettyDo(jetty,"POST","/chain/resetpassword/",out.getContent());
-		log.info(out.getContent());
 		
-		log.info("5");
+		// Read
 		out=jettyDo(jetty,"GET","/chain"+id,null);
-		log.info("GET READ "+id+":"+out.getContent());
-		JSONObject test1a=new JSONObject(out.getContent());
-		JSONObject test1b=new JSONObject(testStr6);
-		assertEquals(test1a.getJSONObject("fields").get("userId").toString(),test1b.get("userId").toString());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(getFields(out.getContent()).,new JSONObject(testStr6)));
-		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(testStr7));
-		log.info(testStr7);
-		log.info("PUT "+id+":"+out.getContent());
+		
+		// Checks User Id is unchanged
+		JSONObject user2AfterReset=new JSONObject(out.getContent());
+		JSONObject user2CreateCopy=new JSONObject(user2Create);
+		assertEquals(user2AfterReset.getJSONObject("fields").get("userId").toString(),user2CreateCopy.get("userId").toString());
+		
+		// Don't know what this is aiming at (commented out already) but the much of the content is different eg status
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())), user2CreateCopy));
+		
+		// Updates - changes screen name and status
+		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(user2Update));
 		assertEquals(200,out.getStatus());		
+		
+		// Read
 		out=jettyDo(jetty,"GET","/chain"+id,null);
-		log.info("GET READ "+id+":"+out.getContent());
-		JSONObject test2a=new JSONObject(out.getContent());
-		JSONObject test2b=new JSONObject(testStr7);
-		assertEquals(test2a.getJSONObject("fields").get("userId").toString(),test2b.get("userId").toString());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())),new JSONObject(testStr7)));
+		
+		// Check User Id is unchanged
+		JSONObject user2AfterUpdate=new JSONObject(out.getContent());
+		JSONObject user2UpdateCopy=new JSONObject(user2Update);
+		assertEquals(user2AfterUpdate.getJSONObject("fields").get("userId").toString(),user2UpdateCopy.get("userId").toString());
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())), user2UpdateCopy));
+		
+		// Delete
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
-		assertEquals(200,out.getStatus());
 		log.info("DELETE "+id+":"+out.getContent());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 		
 		
 	}
-	
+	/*I think test below just duplicates the functionality in testPostGetDelete and can be removed
 	@Test public void testPostAndUpdateWithRoles() throws Exception {
 		ServletTester jetty=setupJetty();
+		//Create
 		HttpTester out=jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleCreate));
 		//log.info(out.getContent());
 		assertEquals(out.getMethod(),null);
@@ -362,8 +427,13 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
-	}
+	}*/
+	
 
+	/**
+	 * Tests CRUD for different Store Types
+	 * @throws Exception
+	 */
 	@Test public void testMultipleStoreTypes() throws Exception {
 		ServletTester jetty=setupJetty();
 		testPostGetDelete(jetty, "/objects/", objectCreate, "objectName");
@@ -375,13 +445,19 @@ public class TestGeneral {
 		//testPostGetDelete(jetty, "/permission/", permissionRead, "resourceName");
 		//testPostGetDelete(jetty, "/permrole/", permroleCreate, "");
 	}
-
+	/**
+	 * Tests a static page
+	 * @throws Exception
+	 */
 	@Test public void testServeStatic() throws Exception {
 		HttpTester out=jettyDo(setupJetty(),"GET","/chain/chain.properties",null);
 		assertEquals(200,out.getStatus());
 		assertTrue(out.getContent().contains("cspace.chain.store.dir"));
 	}
-
+	/** 
+	 * Test List functionality for different Store Types
+	 * @throws Exception
+	 */
 	@Test public void testObjectList() throws Exception {
 		ServletTester jetty=setupJetty();
 
@@ -394,13 +470,20 @@ public class TestGeneral {
 		//testLists(jetty, "permission", permissionWrite, "items");
 	}
 	/* XXX I don't think this is tetsing what it needs to */
+	/**
+	 * Writes a series of Objects then does a Read using a trailing slash
+	 * and checks each object is found
+	 */
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out1=jettyDo(jetty,"POST","/chain/objects",makeSimpleRequest(testStr2));	
 		HttpTester out2=jettyDo(jetty,"POST","/chain/objects",makeSimpleRequest(testStr2));	
 		HttpTester out3=jettyDo(jetty,"POST","/chain/objects",makeSimpleRequest(testStr2));
+		// Read with a trailing slash
 		HttpTester out=jettyDo(jetty,"GET","/chain/objects/",null);
 		assertEquals(200,out.getStatus());
+		
+		// Build up a list of items returned
 		JSONObject result=new JSONObject(out.getContent());
 		JSONArray items=result.getJSONArray("items");
 		Set<String> files=new HashSet<String>();
@@ -417,17 +500,25 @@ public class TestGeneral {
 		
 		out=jettyDo(jetty,"DELETE","/chain"+out3.getHeader("Location"),null);
 		assertEquals(200,out.getStatus());
-		
+		// Check each object is  in the list
 		assertTrue(files.contains(out1.getHeader("Location")));
 		assertTrue(files.contains(out2.getHeader("Location")));
 		assertTrue(files.contains(out3.getHeader("Location")));
 		
 	}
 
+	/**
+	 * Tests JSON is created in expected directories
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 * @throws JSONException
+	 */
 	@Test public void testDirectories() throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		String id1=store.autocreateJSON("/a", jsonObject);
 		String id2=store.autocreateJSON("/b", jsonObject);
+		// Creates dirs a and b as subdir of <Storeroot>/data/
 		File d1=new File(store.getStoreRoot());
 		assertTrue(d1.exists());
 		File d2=new File(d1,"data");
@@ -436,10 +527,14 @@ public class TestGeneral {
 		assertTrue(a.exists());
 		File b=new File(d2,"b");
 		assertTrue(b.exists());
+		// Checks JSON was stored in these directories
 		assertTrue(new File(a,id1+".json").exists());
 		assertTrue(new File(b,id2+".json").exists());
 	}
 	
+	/**
+	 * Sets up and sends email message providing you have set up the email address to send to
+	 */
 	@Test public void testEmail(){
 		Boolean doIreallyWantToSpam = false; // set to true when you have configured the email addresses
 		/* please personalises these emails before sending - I don't want your spam. */
@@ -499,10 +594,17 @@ public class TestGeneral {
 		//assertTrue(doIreallyWantToSpam);
 	}
 
+	/**
+	 * Tests the extracted part of the URN is as expected
+	 * @throws Exception
+	 */
 	@Test public void testDeURNedField() throws Exception {
+		
 		ServletTester jetty=setupJetty();
+
 		//create person authority to use
-		String personStr = "{\"shortIdentifier\":\"mytestperson\",\"displayName\":\"my test person\"}";
+		String personStr = "{\"shortIdentifier\":\"mytestperson\",\"displayName\":\"TEST my test person\"}";
+
 		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",makeSimpleRequest(personStr));
 		String person_id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
@@ -510,7 +612,7 @@ public class TestGeneral {
 		String urn = persondata.getString("urn");
 
 		//assign person authority
-		JSONObject testdata = new JSONObject(testStr11);
+		JSONObject testdata = new JSONObject(urnTestJoe);
 		testdata.getJSONObject("fields").put("contentPeople",urn);
 		
 		//create object
@@ -518,11 +620,11 @@ public class TestGeneral {
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
+		//read and check
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		JSONObject one = new JSONObject(getFields(out.getContent()));
-		JSONObject two = testdata;
 		assertEquals(one.get("contentPeople"), urn);
-		assertEquals(one.get("de-urned-contentPeople"), "my test person");
+		assertEquals(one.get("de-urned-contentPeople"), "TEST my test person");
 
 		//clean up
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
@@ -535,18 +637,21 @@ public class TestGeneral {
 		out=jettyDo(jetty,"GET","/chain/vocabularies/"+person_id,null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 	}
-	
+	/**
+	 * Checks a vocabulary (here a person) can be linked to an object 
+	 * @throws Exception
+	 */
 	@Test public void testTermsUsedVocab() throws Exception {
 		ServletTester jetty=setupJetty();
 		//create person authority to use
-		String personStr = "{\"displayName\":\"my test person2\"}";
+		String personStr = "{\"displayName\":\"TEST my test person2\"}";
 		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",makeSimpleRequest(personStr));
 		String person_id=out.getHeader("Location");
 		JSONObject persondata = new JSONObject(out.getContent());
 		String urn = persondata.getString("urn");
 
 		//assign person authority
-		JSONObject testdata = new JSONObject(testStr11);
+		JSONObject testdata = new JSONObject(urnTestJoe);
 		testdata.getJSONObject("fields").put("contentPeople",urn);
 		
 		//create object
@@ -555,9 +660,12 @@ public class TestGeneral {
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
-		JSONObject one = new JSONObject(getFields(out.getContent()));
-		assertEquals(one.get("contentPeople"), urn);
-		assertEquals(one.get("de-urned-contentPeople"), "my test person2");
+		
+		// I believe the items below where copied from test above and are not needed
+		//JSONObject one = new JSONObject(getFields(out.getContent()));
+		
+		//assertEquals(one.get("contentPeople"), urn);
+		//assertEquals(one.get("de-urned-contentPeople"), "TEST my test person2");
 
 		//get the objects linked to the vocab item
 		out = jettyDo(jetty,"GET","/chain/vocabularies"+person_id,null);
@@ -609,12 +717,13 @@ public class TestGeneral {
 		
 	}
 
-	//generic list test
+	// generic Lists
 	private void testLists(ServletTester jetty, String objtype, String data, String itemmarker)  throws Exception{
 
 		HttpTester out1=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));
 		assertEquals(201, out1.getStatus());
 
+		// Opens a file output stream - ?? not sure why
 		File storedir=new File(store.getStoreRoot(),"store");
 		if(!storedir.exists())
 			storedir.mkdir();
@@ -632,6 +741,7 @@ public class TestGeneral {
 		int pgNum = 0;
 		boolean exists = false;
 		boolean end = false;
+		// Page through looking for this id
 		do{
 			out=jettyDo(jetty,"GET","/chain/"+objtype+"/search?pageNum="+pgNum+"&pageSize="+pgSz,null);
 			assertEquals(200,out.getStatus());
@@ -639,7 +749,7 @@ public class TestGeneral {
 			/* create list of files */
 
 			JSONObject result=new JSONObject(out.getContent());
-			JSONArray items=result.getJSONArray("items");
+			JSONArray items=result.getJSONArray(itemmarker);
 			Set<String> files=new HashSet<String>();
 			if(items.length() > 0){
 				for(int i=0;i<items.length();i++){
@@ -661,7 +771,10 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());
 	}
 	
-	// multiple permissions
+	/**
+	 * Tests Multiple Permissions
+	 * @throws Exception
+	 */
 	@Test 
 	public void testPermissionGrouping() throws Exception {
 		ServletTester jetty = setupJetty();
@@ -696,6 +809,8 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());
 		JSONObject json = new JSONObject(out.getContent());
 		log.info(out.getContent());
+		
+		// Tidy up
 		for(String id : ids){
 			//Delete
 			out=jettyDo(jetty,"DELETE","/chain"+id,null);
@@ -706,12 +821,15 @@ public class TestGeneral {
 		
 	}
 
-
+	/**
+	 * Compares a generated user role to one directly posted 
+	 * @throws Exception
+	 */
 	@Test public void testUserRoles() throws Exception{
 		ServletTester jetty = setupJetty();
 		
 		//Create a user
-		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(testStr12));
+		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(user88Create));
 		assertEquals(out.getMethod(),null);
 		log.info("MYCONTENT"+out.getContent());
 		JSONObject user = new JSONObject(out.getContent());
@@ -748,16 +866,13 @@ public class TestGeneral {
 		
 		//create an account_role
 		out = jettyDo(jetty, "POST", "/chain"+ user_id +"/userrole",makeRequest(json).toString());
-		log.info("MYRESPONSE"+out.getContent());
 		assertEquals(201, out.getStatus());
 		String acrole_id = out.getHeader("Location");
 		
-		//Get the account_role
+		//Get the account_role and compare this to the originally assigned role
 		out=jettyDo(jetty,"GET","/chain"+ user_id + acrole_id,null);
 		assertEquals(200, out.getStatus());
 		JSONObject one = new JSONObject(getFields(out.getContent()));
-		log.info("GET");
-		log.info(out.getContent());
 		//assertEquals(one.get("account").toString(),json.get("account").toString());
 		log.info(one.get("roles").toString());
 		log.info(roleslist.toString());
@@ -777,15 +892,15 @@ public class TestGeneral {
 		assertTrue(testflag);
 		//assertEquals(one.get("roles").toString(),json.get("roles").toString());
 		
-		//Delete the account_role
-		//out=jettyDo(jetty,"DELETE","/chain"+user_id+""+acrole_id,null);
+		//Delete the account_role - commented out until service layer is sorted
+		//out=jettyDo(jetty,"DELETE","/chain"+user_id+acrole_id,null);
 		//assertEquals(200,out.getStatus());
 		
-		//Delete the roles
+		//Delete the user
 		out=jettyDo(jetty,"DELETE","/chain"+user_id,null);
 		assertEquals(200,out.getStatus());
 		
-		//Delete the user
+		//Delete the roles
 		out=jettyDo(jetty,"DELETE","/chain"+role_id,null);
 		assertEquals(200,out.getStatus());
 		
