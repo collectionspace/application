@@ -277,6 +277,10 @@ public class TestOrgThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());		
+		// Try another delete - should fail
+		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
+		assertEquals(400,out.getStatus());	
+		
 	}
 
 	/* this test will only work if you have field set up in default xml with two authorities assigned. 
