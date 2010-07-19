@@ -1645,7 +1645,7 @@
 	                </repeat>
 					
 					<repeat id="roles" xxx-services-no-repeat="true">
-						<selector>.csc-accountrole-roles-row:</selector>
+						<selector>.csc-accountrole-roles-row</selector>
 						<field id="roleId">
 							<selector>.csc-accountrole-role-roleid</selector>
 						</field>
