@@ -256,21 +256,21 @@ public class XmlJsonConversion {
 		//log.info("fields.size()"+ Integer.toString(fields.size()));
 		for(int i=0;i<fields.size();i++){
 			field_index.put(fields.get(i),i);
-			log.info(fields.get(i));
+			//log.info(fields.get(i));
 		}
 		JSONObject test = new JSONObject();
 		JSONArray testarray = new JSONArray();
 		// Iterate through
 		Integer prev=Integer.MAX_VALUE;
 		for(Object node : container.selectNodes("*")) {
-			log.info("getNODES: ");
+			//log.info("getNODES: ");
 			if(!(node instanceof Element))
 				continue;
 			Integer next=field_index.get(((Element)node).getName());
 			if(next==null)
 				continue;
 			if(next!=prev) {
-				log.info("dif");
+				//log.info("dif");
 				// Must be a new instance
 				if(test.length()>0){
 					newout.put(test);
@@ -297,13 +297,13 @@ public class XmlJsonConversion {
 		JSONObject out = new JSONObject();
 		JSONArray node = new JSONArray();
 
-		log.info("IAMHERE"+f.getID());
+		//log.info("IAMHERE"+f.getID());
 
 		JSONArray elementlist=extractRepeatData(container,f);
 
 		JSONObject siblingitem = new JSONObject();
 		for(int i=0;i<elementlist.length();i++){
-			log.info(elementlist.get(i).toString());
+			//log.info(elementlist.get(i).toString());
 			JSONObject element = elementlist.getJSONObject(i);
 
 
@@ -322,7 +322,7 @@ public class XmlJsonConversion {
 
 					if(fs instanceof Field) {
 						for(int j=0;j<arrvalue.length();j++){
-							log.info(Integer.toString(arrvalue.length()));
+							//log.info(Integer.toString(arrvalue.length()));
 							JSONObject repeatitem = new JSONObject();
 							//XXX remove when service layer supports primary tags
 							if(f.hasPrimary() && j==0){
@@ -389,8 +389,8 @@ public class XmlJsonConversion {
 		JSONArray node = new JSONArray();
 		// Only first element is important in container
 		//except when we have repeating items
-		log.info("NODE: "+Integer.toString(nodes.size()));
-		log.info("NODE: "+f.getID()+": "+Integer.toString(nodes.size()));
+		//log.info("NODE: "+Integer.toString(nodes.size()));
+		//log.info("NODE: "+f.getID()+": "+Integer.toString(nodes.size()));
 		for(Object repeatcontainer : nodes){
 			Element container=(Element)repeatcontainer;
 			//log.info("addRepeatToJson:repeat item "+container.asXML());
