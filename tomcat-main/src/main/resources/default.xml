@@ -115,40 +115,22 @@
 							<option id="loans-in" sample="LI2009.1.1">Loans In</option>
 						</options>
 					</field>
-					<field id="otherNumber" in-tab="yes">
-						<selector>.csc-object-identification-other-number</selector>
-					</field>
-					<field id="otherNumberType" in-tab="yes" xxx_ui_refactored="false">
-						<selector>.csc-object-identification-other-number-type</selector>
-						<options>
-						  <option id="lender">Lender</option>
-						  <option id="obsolete">Obsolete</option>
-						  <option id="previous">Previous</option>
-						  <option id="serial">Serial</option>
-						  <option id="unknown">Unknown</option>
-						</options>
-					</field>	
-					<!--
 					<repeat id="otherNumberList">
-			  		<selector>.csc-object-identification-other-number-row:</selector>
-						<repeat id="otherNumber">
-			  		<selector>.csc-object-identification-other-number-row:</selector>
-							<field id="numberValue" in-tab="yes">
-								<selector>.csc-object-identification-other-number</selector>
-							</field>
-							<field id="numberType" in-tab="yes" xxx_ui_refactored="false">
-								<selector>.csc-object-identification-other-number-type</selector>
-								<options>
-						  			<option id="lender">Lender</option>
-						  			<option id="obsolete">Obsolete</option>
-						  			<option id="previous">Previous</option>
-						  			<option id="serial">Serial</option>
-						  			<option id="unknown">Unknown</option>
-								</options>
-							</field>
-						</repeat>
+						<selector>.csc-object-identification-otherNumbers</selector>
+						<field id="otherNumber" in-tab="yes">
+							<selector>.csc-object-identification-other-number</selector>
+						</field>
+						<field id="otherNumberType" in-tab="yes" xxx_ui_refactored="false">
+							<selector>.csc-object-identification-other-number-type</selector>
+							<options>
+								<option id="lender">Lender</option>
+								<option id="obsolete">Obsolete</option>
+								<option id="previous">Previous</option>
+								<option id="serial">Serial</option>
+								<option id="unknown">Unknown</option>
+							</options>
+						</field>	
 					</repeat>
--->					
 					<repeat id="briefDescriptions" has-primary="yes">
 					<selector>.csc-object-identification-brief-description</selector>
 					<field id="briefDescription">
@@ -1661,9 +1643,20 @@
 	                        <selector>.csc-accountrole-account-userid</selector>
 	                    </field>
 	                </repeat>
+					
+					<repeat id="roles" xxx-services-no-repeat="true">
+						<selector>.csc-accountrole-roles-row:</selector>
+						<field id="roleId">
+							<selector>.csc-accountrole-role-roleid</selector>
+						</field>
+						<field id="roleName">
+							<selector>.csc-accountrole-account-rolename</selector>
+						</field>
+		            </repeat>
+					<!-- 
 	                <repeat id="roles" xxx-services-no-repeat="true">
 	                    <selector>.csc-accountrole-roles-row:</selector>
-		                <repeat id="role" asSibling="true">
+		                <repeat id="role" >
 		                    <selector>.csc-accountrole-role-row:</selector>
 		                    <field id="roleId">
 		                        <selector>.csc-accountrole-role-roleid</selector>
@@ -1673,6 +1666,7 @@
 		                    </field>
 		                </repeat>
 		            </repeat>
+					-->
 			     </record>
 			
 			
