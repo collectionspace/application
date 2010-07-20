@@ -1,6 +1,7 @@
 package org.collectionspace.chain.benchmark;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,9 +96,13 @@ public class TestIntake extends AbstractBenchmark {
     public void init() throws Exception
     {
     	HttpTester out;
+    	int i = 0;
+    	while(i<30){
 		//Create
 		out = jettyDo(jetty,"POST","/chain/"+recordType,makeSimpleRequest(dataCreate));
 		uid.add(out.getHeader("Location"));
+		i++;
+    	}
     }
 
     @After
@@ -143,8 +148,13 @@ public class TestIntake extends AbstractBenchmark {
     public void testDelete() throws Exception
     {
     	if(!uid.empty()){
-    	String id = uid.pop();
-    	jettyDo(jetty,"DELETE","/chain/"+id,null);
+    		String id = uid.pop();
+    		jettyDo(jetty,"DELETE","/chain/"+id,null);
+    		log.info("testDelete"+id);
+    	}
+    	else{
+    		log.info("delete failed");
+    		assertTrue(false);
     	}
     }
     
