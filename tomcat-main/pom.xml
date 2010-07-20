@@ -44,22 +44,6 @@
 
   <repositories>
     <repository>
-        <id>carrotsearch.labs.releases</id>
-        <name>Carrot Search Labs Releases Repository</name>
-        <url>http://repository.carrotsearch.com/labs/releases</url>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-    </repository>
-    <repository>
-        <id>carrotsearch.labs.snapshots</id>
-        <name>Carrot Search Labs Snapshots Repository</name>
-        <url>http://repository.carrotsearch.com/labs/snapshots</url>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-    </repository>
-    <repository>
         <id>Version99</id>
         <name>Version 99 Does Not Exist Maven repository</name>
         <layout>default</layout>
@@ -227,12 +211,6 @@
     	<type>jar</type>
     	<scope>test</scope>
     </dependency>
-    <dependency>
-    	<groupId>com.carrotsearch</groupId>
-    	<artifactId>junit-benchmarks</artifactId>
-    	<version>0.1.0-SNAPSHOT</version>
-    	<scope>test</scope>
-	</dependency>
         
     <!-- get empty jar instead of commons-logging -->
     
