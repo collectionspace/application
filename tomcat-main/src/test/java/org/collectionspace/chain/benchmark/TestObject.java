@@ -10,6 +10,7 @@ import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -123,7 +124,24 @@ public class TestObject extends AbstractBenchmark {
     	jetty=setupJetty();
     }
 
+    @Before
+    public void init() throws Exception
+    {
+    	HttpTester out;
+		//Create
+		out = jettyDo(jetty,"POST","/chain/"+recordType,makeSimpleRequest(dataCreate));
+		uid.add(out.getHeader("Location"));
+    }
 
+    @After
+    public void cleanup() throws Exception
+    {
+    	while(!uid.empty()){
+        	String id = uid.pop();
+        	jettyDo(jetty,"DELETE","/chain/"+id,null);
+        }
+    	
+    }
     @Test
     public void testList20() throws Exception
     {
