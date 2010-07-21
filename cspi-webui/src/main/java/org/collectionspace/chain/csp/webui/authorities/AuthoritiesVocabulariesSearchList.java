@@ -53,7 +53,8 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		JSONObject restriction=new JSONObject();
 		if(param!=null){
 			restriction.put("queryTerm", "kw");
-			restriction.put(r.getDisplayNameField().getID(),param);
+			restriction.put("queryString",param);
+			//restriction.put(r.getDisplayNameField().getID(),param);
 		}
 		if(pageNum!=null){
 			restriction.put("pageNum",pageNum);
