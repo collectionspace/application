@@ -18,6 +18,7 @@ import org.collectionspace.chain.csp.schema.Structure;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -127,13 +128,20 @@ public class UISpec implements WebMethod {
 			}
 			
 			for(int i=0;i<allnames.length();i++) {
-				String name = allnames.getString(i);
+				JSONObject namedata = allnames.getJSONObject(i);
+				String name = namedata.getString("displayName");
+				String shortId="";
+				if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
+					shortId = namedata.getString("shortIdentfier");
+				}
+				else{
+					shortId = name.replaceAll("\\W","");					
+				}
 				//currently only supports single select dropdowns and not multiselect
 				if(f.isEnumDefault(name)){
 					dfault = i + spacer;
 				}
-				String idname = name.replaceAll("\\W","");
-				ids.put(idname.toLowerCase());
+				ids.put(shortId.toLowerCase());
 				names.put(name);
 			}
 			// Dropdown entry pulled from service layer data
@@ -150,8 +158,6 @@ public class UISpec implements WebMethod {
 	}
 
 	private JSONArray controlledLists(String vocabtype) throws JSONException{
-//need to cache this
-		
 		JSONArray displayNames = new JSONArray();
 		try {
 		    // Get List
@@ -172,8 +178,8 @@ public class UISpec implements WebMethod {
 					/* Get a view of each */
 					for(String result : results) {
 						//change csid into displayName
-						String name = getDisplayNameList(storage,vr.getID(),n.getTitleRef(),result, "displayName");
-						displayNames.put(name);
+						JSONObject namedata = getDisplayNameList(storage,vr.getID(),n.getTitleRef(),result);
+						displayNames.put(namedata);
 					}
 
 					Integer total = data.getJSONObject("pagination").getInt("totalItems");
@@ -200,9 +206,10 @@ public class UISpec implements WebMethod {
 		return displayNames;
 	}
 
-	private String getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid, String fieldName) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private JSONObject getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		//should be using cached results from the previous query.
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view");
-		return out.getString(fieldName);
+		return out;
 	}
 	
 	private JSONObject generateRepeatEntry(Repeat r) throws JSONException {

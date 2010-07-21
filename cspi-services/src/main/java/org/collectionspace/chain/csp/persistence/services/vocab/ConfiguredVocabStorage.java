@@ -130,6 +130,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+status);
 			cache.removeCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]});
 			cache.removeCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]});
+			cache.removeCached(getClass(),new String[]{"shortId",vocab,filePath.split("/")[1]});
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
 		}	
@@ -187,12 +188,24 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				if(node.matches("/"+tag_parts[1])){
 					String name=node.selectSingleNode("displayName").getText();
 					String csid=node.selectSingleNode("csid").getText();
-					if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase()))
+					String refName=null;
+					if(node.selectSingleNode("refName")!=null){
+						refName=node.selectSingleNode("refName").getText();
+					}
+					String shortIdentifier=null;
+					if(node.selectSingleNode("shortIdentifier")!=null){
+						shortIdentifier=node.selectSingleNode("shortIdentifier").getText();
+					}
+					if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase())){
 						list.add(csid);
+					}
 					cache.setCached(getClass(),new String[]{"namefor",vocab,csid},name);
 					//why don't we use the one we are given?
-					String refname=urn_processor.constructURN("id",vocab,"id",csid,name);
-					cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refname);
+					if(refName!=null){
+						refName=urn_processor.constructURN("id",vocab,"id",csid,name);
+					}
+					cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refName);
+					cache.setCached(getClass(),new String[]{"shortId",vocab,csid},shortIdentifier);
 				}else{
 					pagination.put(node.getName(), node.getText());
 				}
@@ -288,7 +301,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] path=filePath.split("/");
-			JSONObject out = null;
+			JSONObject out = new JSONObject();
 
 				String vocab,csid;
 				if("_direct".equals(path[0])) {
@@ -309,21 +322,23 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				}else if(path[path.length-1].equals("authorityrefs")){
 					out=refViewRetrieveJSON(root, creds, cache, vocab, csid);
 				}else{
-					out=get(creds,cache,vocab,csid);
-					// XXX actually use cache			
+					//actually use cache			
 					String name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
 					String refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
+					String shortId=(String)cache.getCached(getClass(),new String[]{"shortId",vocab,csid});
 					if(name != null && refid != null && name.length() >0 && refid.length()>0){
 						out.put(getDisplayNameKey(), name);
 						out.put("refid", refid);
 						out.put("csid",csid);
 						out.put("authorityid", vocab);
+						out.put("shortIdentfier", shortId);
 						out.put("recordtype",r.getWebURL());
 					}
 					else{
 						out=get(creds,cache,vocab,csid);
 						cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
 						cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
+						cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentfier"));
 					}
 					
 				}
@@ -344,8 +359,9 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				throw new ExistException("Does not exist");
 			if(doc.getStatus()>299)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
-			String name=null;
-			String refid=null;
+			String name = null;
+			String refid = null;
+			String shortIdentifier = null;
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
@@ -353,6 +369,9 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				Document result=doc.getDocument(record_path[0]);
 				if("common".equals(section)) { // XXX hardwired :(
 					name=result.selectSingleNode(tag_path[1]+"/displayName").getText();
+					if(result.selectSingleNode(tag_path[1]+"/shortIdentifier")!=null){
+						shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
+					}
 					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
 				}
 				XmlJsonConversion.convertToJson(out,r,result);				
@@ -360,6 +379,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			out.put(getDisplayNameKey(),name);
 			out.put("csid",csid);
 			out.put("refid",refid);
+			out.put("shortIdentifier", shortIdentifier);
 			out.put("authorityid", vocab);
 			out.put("recordtype",r.getWebURL());
 			return out;
@@ -458,6 +478,8 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);
 			cache.setCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]},refname);
+			//XXX dont currently update the shortID???
+			//cache.setCached(getClass(),new String[]{"shortId",vocab,filePath.split("/")[1]},shortId);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
 		} catch (JSONException e) {

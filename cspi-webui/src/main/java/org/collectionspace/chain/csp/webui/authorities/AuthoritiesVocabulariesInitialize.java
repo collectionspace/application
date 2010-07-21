@@ -49,9 +49,10 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		this.n = null;
 	}
 	
-	private String getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid, String fieldName) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private JSONObject getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		//should be using cached data (hopefully) from previous getPathsJson call
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view");
-		return out.getString(fieldName);
+		return out;
 	}
 		
 	
@@ -72,7 +73,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		/* Get a view of each */
 		for(String result : results) {
 			//change csid into displayName
-			displayNames.put(getDisplayNameList(storage,r.getID(),n.getTitleRef(),result, "displayName"),result);
+			JSONObject datanames = getDisplayNameList(storage,r.getID(),n.getTitleRef(),result);
+			
+			displayNames.put(datanames.getString("displayName"),result);
 		}
 		JSONObject alldata = new JSONObject();
 		alldata.put("displayName", displayNames);
@@ -129,9 +132,14 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 				//only add if term is not already present
 				for(Option opt : allOpts){
 					String name = opt.getName();
+					String shortIdentifier = opt.getID();
 					if(!results.has(name)){
 						//create it if term is not already present
 						JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
+						if(opt.getID().isEmpty()){
+							shortIdentifier = name;
+						}
+						data.put("shortIdentifier", shortIdentifier);
 						storage.autocreateJSON(r.getID()+"/"+instance.getTitleRef(),data);
 					}
 					else{
