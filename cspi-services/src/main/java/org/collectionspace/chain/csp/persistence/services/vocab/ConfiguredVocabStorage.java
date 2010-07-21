@@ -160,7 +160,11 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
 				}
 				if(restrictions.has("queryTerm")){
-					postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(prefix,"UTF8")+"&";
+					String queryString = prefix;
+					if(restrictions.has("queryString")){
+						queryString=restrictions.getString("queryString");
+					}
+					postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
 					queryadded = true;
 				}
 			}
