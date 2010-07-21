@@ -249,7 +249,7 @@ public class TestService extends ServicesBaseClass {
 			getStatus = rdoc.getStatus();
 			doc = rdoc.getDocument();
 		}
-		log.info("MYXML",doc.asXML());
+		//log.info("MYXML",doc.asXML());
 		assertEquals(200,getStatus);
 		assertNotNull(doc);
 		Node n=doc.selectSingleNode(xpath);
