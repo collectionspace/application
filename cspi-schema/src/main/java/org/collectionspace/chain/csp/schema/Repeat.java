@@ -2,16 +2,18 @@ package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 // XXX only one level of repetition at the moment. Should only be a matter of type furtling.
 public class Repeat implements FieldSet, FieldParent {
-	private String id,selector,userecord;
+	private String id,selector,userecord, enum_blank;
 	private Boolean is_visible;
 	private FieldParent parent;
+	private Set<String> enum_default;
 	private List<FieldSet> children=new ArrayList<FieldSet>();
-	private boolean exists_in_service=true, has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
+	private boolean enum_hasblank=true,exists_in_service=true, has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
 
 	/* Services */
 	private String services_tag,services_section;
@@ -51,6 +53,9 @@ public class Repeat implements FieldSet, FieldParent {
 		// should this field allow a primary flag
 		this.has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);	
 		this.userecord = Util.getStringOrDefault(section, "/@userecord", "");
+		this.enum_default = Util.getSetOrDefault(section, "/enum/default", new String[]{""});
+		this.enum_hasblank = Util.getBooleanOrDefault(section, "/enum/@has-blank",true);
+		this.enum_blank = Util.getStringOrDefault(section, "/enum/blank-value", "Please select an item");
 	}
 
 	public String getID() { return id; }
@@ -90,6 +95,15 @@ public class Repeat implements FieldSet, FieldParent {
 				return new String[]{id};
 			}
 		}
+	}
+
+	public boolean hasEnumBlank(){ return enum_hasblank; }
+	public String enumBlankValue(){ return enum_blank; }
+	public boolean isEnumDefault(String name){
+		if(enum_default.contains(name)){
+			return true;
+		}
+		return false;
 	}
 	
 	public void config_finish(Spec spec) {

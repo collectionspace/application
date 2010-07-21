@@ -108,23 +108,29 @@ public class UISpec implements WebMethod {
 			return out;
 		}
 		else if("enum".equals(f.getUIType())) {
-
 			//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
 			//XXX they shouldn't really be in the uispec but they are here until the UI and App decide how to communicate about them
-			if(controlledCache.has(f.getAutocompleteInstance().getID())){
-				return controlledCache.getJSONObject(f.getAutocompleteInstance().getID());
+			if(!controlledCache.has(f.getAutocompleteInstance().getID())){
+				JSONArray getallnames = controlledLists(f.getAutocompleteInstance().getID());
+				controlledCache.put(f.getAutocompleteInstance().getID(), getallnames);
 			}
-			
-			JSONArray allnames = controlledLists(f.getAutocompleteInstance().getID());
+
+			JSONArray allnames = controlledCache.getJSONArray(f.getAutocompleteInstance().getID());
 			JSONArray ids=new JSONArray();
 			JSONArray names=new JSONArray();
 			int dfault = -1;
+			int spacer =0;
+			if(f.hasEnumBlank()){
+				ids.put("");
+				names.put(f.enumBlankValue());
+				spacer = 1;
+			}
 			
 			for(int i=0;i<allnames.length();i++) {
 				String name = allnames.getString(i);
 				//currently only supports single select dropdowns and not multiselect
 				if(f.isEnumDefault(name)){
-					dfault = i;
+					dfault = i + spacer;
 				}
 				String idname = name.replaceAll("\\W","");
 				ids.put(idname.toLowerCase());
@@ -138,7 +144,6 @@ public class UISpec implements WebMethod {
 				out.put("default",dfault+"");
 			out.put("optionlist",ids);
 			out.put("optionnames",names);	
-			controlledCache.put(f.getAutocompleteInstance().getID(), out);
 			return out;
 		}
 		return plain(f);	

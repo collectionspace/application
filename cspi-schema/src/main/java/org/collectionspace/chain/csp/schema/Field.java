@@ -26,8 +26,8 @@ public class Field implements FieldSet {
 	private String autocomplete_instance_id;
 	
 	/* UI */
-	private String selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext,userecord;
-	private boolean exists_in_service= true,in_title=false,in_tab=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
+	private String enum_blank,selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext,userecord;
+	private boolean enum_hasblank=true, exists_in_service= true,in_title=false,in_tab=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
 	private Stack<String> merged = new Stack<String>();
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
@@ -69,7 +69,9 @@ public class Field implements FieldSet {
 		this.parent=record;
 		
 		exists_in_service = Util.getBooleanOrDefault(section, "/@exists-in-services", true);
-		enum_default = Util.getSetOrDefault(section, "/enum-default", new String[]{""});
+		enum_default = Util.getSetOrDefault(section, "/enum/default", new String[]{""});
+		enum_hasblank = Util.getBooleanOrDefault(section, "/enum/@has-blank",true);
+		enum_blank = Util.getStringOrDefault(section, "/enum/blank-value", "Please select an item");
 		services_section=Util.getStringOrDefault(section,"/@section","common");
 		services_filter_param=Util.getStringOrDefault(section,"/services-filter-param",null);
 		if(services_filter_param!=null)
@@ -166,7 +168,8 @@ public class Field implements FieldSet {
 		}
 		return false; 
 	}
-	
+	public boolean hasEnumBlank(){ return enum_hasblank; }
+	public String enumBlankValue(){ return enum_blank; }
 	public boolean isEnumDefault(String name){
 		if(enum_default.contains(name)){
 			return true;
