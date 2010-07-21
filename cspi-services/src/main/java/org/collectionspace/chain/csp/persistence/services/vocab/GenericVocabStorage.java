@@ -85,23 +85,12 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		return reader.read(getResource(name));
 	}
 
-	private String confound(String name) throws ExistException {
+	private String vocabByShortIdentifier(String name) throws ExistException {
 		if(!vocabs.containsKey(name))
 			throw new ExistException("No such vocab "+name);
-		return vocabs.get(name)+" ("+name+")";
+		return vocabs.get(name);
 	}
 
-	private String unconfound(String name) {
-		if(name==null)
-			return null;
-		if(!name.endsWith(")"))
-			return null;
-		int pos=name.lastIndexOf('(');
-		if(pos==-1)
-			return null;
-		String rest=name.substring(pos+1);
-		return rest.substring(0,rest.length()-1);
-	}
 
 	// Only called if doesn't exist
 	private synchronized void createVocabulary(CSPRequestCredentials creds,CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
@@ -123,7 +112,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		for(Node object : objects) {
 			//XXX should be shortindentifier as soon as CSPACE-2126 is resolved
 			String name=object.selectSingleNode("displayName").getText();
-			String base=unconfound(name);
+			String base=name;
 			if(base==null)
 				continue;
 			if(!vocabs.containsKey(base))

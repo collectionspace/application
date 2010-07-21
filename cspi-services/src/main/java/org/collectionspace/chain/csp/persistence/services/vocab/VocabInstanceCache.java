@@ -31,23 +31,11 @@ public class VocabInstanceCache {
 		this.r=r;
 	}
 	
-	/* confound and unconfound extract and add the trailing identifier in the displayName which is used to sync with the config */
-	private String unconfound(String name) {
-		if(name==null)
-			return null;
-		if(!name.endsWith(")"))
-			return null;
-		int pos=name.lastIndexOf('(');
-		if(pos==-1)
-			return null;
-		String rest=name.substring(pos+1);
-		return rest.substring(0,rest.length()-1);
-	}
-	
-	private String confound(String name) throws ExistException {
+
+	private String vocabByShortIdentifier(String name) throws ExistException {
 		if(!vocabs.containsKey(name))
 			throw new ExistException("No such vocab "+name);
-		return vocabs.get(name)+" ("+name+")";
+		return vocabs.get(name);
 	}
 	
 	private Document createList(String namespace,String tag,String id, String vocab_type) throws ExistException {
@@ -58,7 +46,7 @@ public class VocabInstanceCache {
 			root=root.addElement(path[i]);
 		}
 		Element nametag=root.addElement("displayName");
-		nametag.addText(confound(id));
+		nametag.addText(vocabByShortIdentifier(id));
 		
 		Element sidtag=root.addElement("shortIdentifier");
 		sidtag.addText(id);
