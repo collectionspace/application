@@ -40,7 +40,7 @@ public class ConfigFinder {
 	
 	private static InputStream getDataFromAttributePath(ServletContext ctx) throws IOException {
 		String out=(String)ctx.getAttribute("config-path");
-		//log.info("B Looking in "+out);
+
 		if(out==null)
 			return null;
 		File file=new File(out);
@@ -51,7 +51,7 @@ public class ConfigFinder {
 	
 	private static InputStream getDataFromName(ServletContext ctx) {
 		String filename=(String)ctx.getAttribute("config-filename");
-		//log.info("C Looking in "+filename);	
+
 		try {
 			return Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
 		} catch(Exception x) { return null; }

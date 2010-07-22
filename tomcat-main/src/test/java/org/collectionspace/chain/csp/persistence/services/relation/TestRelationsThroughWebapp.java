@@ -59,7 +59,7 @@ public class TestRelationsThroughWebapp {
 		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
-		log.info("Got cookie "+cookie);
+		log.debug("Got cookie "+cookie);
 	}
 	
 	// XXX refactor into other copy of this method
@@ -136,11 +136,7 @@ public class TestRelationsThroughWebapp {
 		assertEquals(201,out.getStatus());	
 		String relid2 = out.getHeader("Location");
 		String csid2=new JSONObject(out.getContent()).getString("csid");
-		//log.info("id1="+id1);
-		//log.info("id2="+id2);
-		//log.info("id3="+id3);
-		//log.info("relid1="+relid1);
-		//log.info("relid2="+relid2);
+
 		// Check 1 has relation to 3
 		out=jettyDo(jetty,"GET","/chain"+id1,null);
 		JSONObject data1=new JSONObject(out.getContent());
@@ -180,8 +176,7 @@ public class TestRelationsThroughWebapp {
 		int i0=0,i1=1;
 		String rel_a=rel3.getJSONObject(i0).getString("csid");
 		String rel_b=rel3.getJSONObject(i1).getString("csid");
-		//log.info("rel_a="+rel_a.toString());
-		//log.info("rel_b="+rel_b.toString());
+
 		if(rel_a.equals(path2[2]) && rel_b.equals(path1[2])) {
 			i0=1;
 			i1=0;
@@ -360,7 +355,6 @@ public class TestRelationsThroughWebapp {
 		JSONObject data=new JSONObject(out.getContent());
 		String csid1=data.getString("csid");
 		assertNotNull(csid1);
-		//log.info("csid="+csid1);
 		// Update it to 2 -> 1
 		out=jettyDo(jetty,"PUT","/chain/relationships/"+csid1,createRelation(path2[1],path2[2],"affects",path1[1],path1[2],true).toString());
 		assertEquals(200,out.getStatus());

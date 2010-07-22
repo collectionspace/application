@@ -35,7 +35,7 @@ public class TestXTmpl {
 		document.setText("c","hello-c");
 		document.setContents("d",getDocument("tmpl2.xml").getRootElement());
 		document.setTexts("x",new String[]{"y","z"});
-		log.info(document.getDocument().asXML());
+
 		assertEquals("hi",document.getDocument().selectSingleNode("/a/b/d/e/f").getText());
 		assertEquals("hello-c",document.getDocument().selectSingleNode("/a/b/c").getText());
 		List<Node> x=document.getDocument().selectNodes("/a/b/w/x");
