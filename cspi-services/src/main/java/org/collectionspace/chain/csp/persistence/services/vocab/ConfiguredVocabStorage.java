@@ -321,12 +321,12 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 					out=refObjViewRetrieveJSON(root, creds, cache, vocab, csid);
 				}else if(path[path.length-1].equals("authorityrefs")){
 					out=refViewRetrieveJSON(root, creds, cache, vocab, csid);
-				}else{
+				}else if(path[path.length-1].equals("view")){
 					//actually use cache			
 					String name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
 					String refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
 					String shortId=(String)cache.getCached(getClass(),new String[]{"shortId",vocab,csid});
-					if(name != null && refid != null && name.length() >0 && refid.length()>0){
+					if(name != null && refid != null && name.length() >0 && refid.length()>0 && shortId !=null){
 						out.put(getDisplayNameKey(), name);
 						out.put("refid", refid);
 						out.put("csid",csid);
@@ -338,9 +338,13 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 						out=get(creds,cache,vocab,csid);
 						cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
 						cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
-						cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentfier"));
+						cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
 					}
-					
+				}else{
+					out=get(creds,cache,vocab,csid);
+					cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
+					cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
+					cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
 				}
 			return out;
 		} catch (ConnectionException e) {
