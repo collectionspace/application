@@ -365,7 +365,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
 			String name = null;
 			String refid = null;
-			String shortIdentifier = null;
+			String shortIdentifier = "";
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
