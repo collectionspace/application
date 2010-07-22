@@ -27,17 +27,17 @@ public class TestVocab extends ServicesBaseClass {
 	
 	@Test public void testAuthorities() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		testAllAuthorities(ss,"/person/person","shortIdentifier");
-		testAllAuthorities(ss,"/vocab/xxx","shortIdentifier");
-		testAllAuthorities(ss,"/organization/organization","shortIdentifier");
+		testAllAuthorities(ss,"/person/person","displayName");
+		testAllAuthorities(ss,"/vocab/xxx","displayName");
+		testAllAuthorities(ss,"/organization/organization","displayName");
 		//testAllAuthorities(ss,"/place/place","displayName");
 	}
 	
 	private void testAllAuthorities(Storage ss, String path, String testField) throws Exception {
 		// Create
 		JSONObject data=new JSONObject();
+		data.put("shortIdentifier","TEST");
 		data.put(testField,"TEST");
-		data.put("displayName","TEST");
 
 		data.put("termStatus","Provisional");
 		String id=ss.autocreateJSON(path,data);
