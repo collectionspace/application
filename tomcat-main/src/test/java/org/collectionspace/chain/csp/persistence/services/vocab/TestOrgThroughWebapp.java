@@ -36,7 +36,7 @@ public class TestOrgThroughWebapp {
 		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
-		//log.info("Got cookie "+cookie);
+		log.debug("Got cookie "+cookie);
 	}
 	
 	// XXX refactor
@@ -84,7 +84,14 @@ public class TestOrgThroughWebapp {
 			}
 		}		
 	}
-	// Tests that an authority search includes the expected item	
+	
+	
+	/**
+	 * Tests that an authority search includes the expected item
+	 * difference between an authority search and a vocabulary search is:
+	 * auth search searches all the vocabularies within an auth
+	 * vocab search just searches the one vocabulary	 * 
+	 */
 	@Test public void testAuthoritiesSearch() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Create
@@ -109,7 +116,12 @@ public class TestOrgThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());
 	}
-	// Tests that an authorities list includes the expected item
+	/**
+	 * Tests that an authority list includes the expected item
+	 * difference between an authority list and a vocabulary list is:
+	 * auth list lists all the vocabularies within an auth
+	 * vocab list just list the one vocabulary	 * 
+	 */
 	@Test public void testAuthoritiesList() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Create
@@ -149,7 +161,12 @@ public class TestOrgThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());
 	}
-	// Tests an vocabularies organization search includes the appropriate item
+	/**
+	 * Tests that an vocabulary search includes the expected item
+	 * difference between an authority search and a vocabulary search is:
+	 * auth search searches all the vocabularies within an auth
+	 * vocab search just searches the one vocabulary	 * 
+	 */
 	@Test public void testOrganizationSearch() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Create
@@ -177,8 +194,13 @@ public class TestOrgThroughWebapp {
 		assertEquals(400,out.getStatus());
 		
 	}
-
-	// Tests that a vocabularies organization list includes the appropriate item	
+	
+	/**
+	 * Tests that a vocabularies organization list includes the expected item
+	 * difference between an authority list and a vocabulary list is:
+	 * auth list lists all the vocabularies within an auth
+	 * vocab list just list the one vocabulary	 * 
+	 */
 	@Test public void testOrganizationList() throws Exception {
 		
 		ServletTester jetty=setupJetty();

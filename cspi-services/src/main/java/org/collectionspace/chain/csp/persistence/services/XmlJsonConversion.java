@@ -168,23 +168,19 @@ public class XmlJsonConversion {
 	}
 
 	private static void buildFieldList(List<String> list,FieldSet f) {
-		//log.info("BUILDFIELD ");
 		if(f instanceof Repeat){
 			list.add(f.getID());
-			//log.info("BUILDFIELD A "+f.getID());
 			for(FieldSet a : ((Repeat)f).getChildren()){
 				//if(a instanceof Repeat)
 				//	list.add(a.getID());
 				if(a instanceof Field){
 					list.add(a.getID());
-				//	log.info("BUILDFIELD B "+a.getID());
 				}
 				buildFieldList(list,a);
 			}
 		}
 		if(f instanceof Field){
 			list.add(f.getID());
-			//log.info("BUILDFIELD CS "+f.getID());
 		}
 	}
 	
@@ -196,16 +192,15 @@ public class XmlJsonConversion {
 		List<Element> repeatdatatypestuff = new ArrayList<Element>();
 		buildFieldList(fields,f);
 		Map<String,Integer> field_index=new HashMap<String,Integer>();
-		//log.info("fields.size()"+ Integer.toString(fields.size()));
+
 		for(int i=0;i<fields.size();i++){
 			field_index.put(fields.get(i),i);
-		//	log.info(fields.get(i));
 		}
 		// Iterate through
 		Map<String, List <Element> > member=null;
 		int prev=Integer.MAX_VALUE;
 		for(Object node : container.selectNodes("*")) {
-		//	log.info("getNODES: ");
+
 			if(!(node instanceof Element))
 				continue;
 			Integer next=field_index.get(((Element)node).getName());
@@ -235,7 +230,6 @@ public class XmlJsonConversion {
 		if(f instanceof Repeat){
 			for(FieldSet a : ((Repeat)f).getChildren()){
 				children.add(a.getID());
-			//	log.info("FOUND REPATE"+a.getID());
 			}
 		}
 		if(f instanceof Field){
@@ -253,24 +247,21 @@ public class XmlJsonConversion {
 		List<String> fields = FieldListFROMConfig(f);
 		
 		Map<String,Integer> field_index=new HashMap<String,Integer>();
-		//log.info("fields.size()"+ Integer.toString(fields.size()));
+		
 		for(int i=0;i<fields.size();i++){
 			field_index.put(fields.get(i),i);
-			//log.info(fields.get(i));
 		}
 		JSONObject test = new JSONObject();
 		JSONArray testarray = new JSONArray();
 		// Iterate through
 		Integer prev=Integer.MAX_VALUE;
 		for(Object node : container.selectNodes("*")) {
-			//log.info("getNODES: ");
 			if(!(node instanceof Element))
 				continue;
 			Integer next=field_index.get(((Element)node).getName());
 			if(next==null)
 				continue;
 			if(next!=prev) {
-				//log.info("dif");
 				// Must be a new instance
 				if(test.length()>0){
 					newout.put(test);
@@ -285,9 +276,6 @@ public class XmlJsonConversion {
 		if(test.length()>0){
 			newout.put(test);
 		}
-		//if(member!=null)
-		//	out.add(member);
-		//log.info("EHET"+newout.toString());
 		return newout;
 	}
 	
@@ -297,18 +285,14 @@ public class XmlJsonConversion {
 		JSONObject out = new JSONObject();
 		JSONArray node = new JSONArray();
 
-		//log.info("IAMHERE"+f.getID());
-
 		JSONArray elementlist=extractRepeatData(container,f);
 
 		JSONObject siblingitem = new JSONObject();
 		for(int i=0;i<elementlist.length();i++){
-			//log.info(elementlist.get(i).toString());
 			JSONObject element = elementlist.getJSONObject(i);
 
 
 			for(FieldSet fs : f.getChildren()) {
-				//log.info(fs.getID());
 				Iterator rit=element.keys();
 				while(rit.hasNext()) {
 					String key=(String)rit.next();
@@ -318,11 +302,9 @@ public class XmlJsonConversion {
 					}
 					Object value = element.get(key);
 					JSONArray arrvalue = (JSONArray)value;
-					//log.info(key);
 
 					if(fs instanceof Field) {
 						for(int j=0;j<arrvalue.length();j++){
-							//log.info(Integer.toString(arrvalue.length()));
 							JSONObject repeatitem = new JSONObject();
 							//XXX remove when service layer supports primary tags
 							if(f.hasPrimary() && j==0){
@@ -338,13 +320,11 @@ public class XmlJsonConversion {
 								node.put(repeatitem);
 							}
 						}
-						//out.put(fs.getID(), node);
 					}
 					else if(fs instanceof Repeat){
 						for(int j=0;j<arrvalue.length();j++){
 							Object repeatcontainer = arrvalue.get(j);
 							Element rpcontainer=(Element)repeatcontainer;
-							//log.info(fs.getID()+" start "+node.toString());
 							JSONObject repeatitem = new JSONObject();
 							JSONArray repeatdata = addRepeatedNodeToJson(rpcontainer,(Repeat)fs);
 							
@@ -369,7 +349,6 @@ public class XmlJsonConversion {
 	
 	@SuppressWarnings("unchecked")
 	private static void addRepeatToJson(JSONObject out,Element root,Repeat f) throws JSONException {
-		//log.info("HERE");
 		if(f.getXxxServicesNoRepeat()) {
 			FieldSet[] fields=f.getChildren();
 			if(fields.length==0)
@@ -382,22 +361,17 @@ public class XmlJsonConversion {
 			return;
 		}
 		List nodes=root.selectNodes(f.getServicesTag());
-		//log.info("NODE: +"+f.getServicesTag()+": "+Integer.toString(nodes.size()));
 		if(nodes.size()==0)
 			return;
 		
 		JSONArray node = new JSONArray();
 		// Only first element is important in container
 		//except when we have repeating items
-		//log.info("NODE: "+Integer.toString(nodes.size()));
-		//log.info("NODE: "+f.getID()+": "+Integer.toString(nodes.size()));
 		for(Object repeatcontainer : nodes){
 			Element container=(Element)repeatcontainer;
-			//log.info("addRepeatToJson:repeat item "+container.asXML());
 			JSONArray repeatitem = addRepeatedNodeToJson(container,f);
 			out.put(f.getID(), repeatitem);
 		}
-		//log.info(out.toString());
 	}
 	
 	private static void addFieldSetToJson(JSONObject out,Element root,FieldSet fs) throws JSONException {

@@ -237,41 +237,12 @@ public class TestGeneral {
 		file.delete();
 	}
 
-	/**
-	 * Various Tests on Schema Store
-	 * @throws IOException
-	 * @throws JSONException
-	 */
-	@Test public void testSchemaStore() throws IOException, JSONException {
-		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
-		createSchemaFile("collection-object",false,true);
-		JSONObject j=schema.getSchema("collection-object/test-json-handle.tmp");
-		JSONUtils.checkJSONEquiv(testStr2,j.toString());
-		deleteSchemaFile("collection-object",false);
-	}
-
-	@Test public void testDefaultingSchemaStore() throws IOException, JSONException {
-		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
-		createSchemaFile("collection-object",true,true);
-		JSONObject j=schema.getSchema("collection-object");
-		JSONUtils.checkJSONEquiv(testStr2,j.toString());
-		deleteSchemaFile("collection-object",true);
-	}
-
-	@Test public void testTrailingSlashOkayOnSchema() throws Exception {
-		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
-		createSchemaFile("collection-object",true,true);
-		JSONObject j=schema.getSchema("collection-object/");
-		JSONUtils.checkJSONEquiv(testStr2,j.toString());
-		deleteSchemaFile("collection-object",true);	
-	}
-
 	private void login(ServletTester tester) throws IOException, Exception {
 		String test = "{\"userid\":\"test@collectionspace.org\",\"password\":\"testtest\"}";
 		HttpTester out=jettyDo(tester,"POST","/chain/login/",test);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
-		log.info("Got cookie "+cookie);
+		log.debug("Got cookie "+cookie);
 	}
 	private ServletTester setupJetty() throws Exception {
 		ServletTester tester=new ServletTester();
@@ -299,6 +270,34 @@ public class TestGeneral {
 			request.setContent(data);
 		response.parse(tester.getResponses(request.generate()));
 		return response;
+	}
+	/**
+	 * Various Tests on Schema Store
+	 * @throws IOException
+	 * @throws JSONException
+	 */
+	@Test public void testSchemaStore() throws IOException, JSONException {
+		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
+		createSchemaFile("collection-object",false,true);
+		JSONObject j=schema.getSchema("collection-object/test-json-handle.tmp");
+		JSONUtils.checkJSONEquiv(testStr2,j.toString());
+		deleteSchemaFile("collection-object",false);
+	}
+
+	@Test public void testDefaultingSchemaStore() throws IOException, JSONException {
+		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
+		createSchemaFile("collection-object",true,true);
+		JSONObject j=schema.getSchema("collection-object");
+		JSONUtils.checkJSONEquiv(testStr2,j.toString());
+		deleteSchemaFile("collection-object",true);
+	}
+
+	@Test public void testTrailingSlashOkayOnSchema() throws Exception {
+		SchemaStore schema=new StubSchemaStore(store.getStoreRoot());
+		createSchemaFile("collection-object",true,true);
+		JSONObject j=schema.getSchema("collection-object/");
+		JSONUtils.checkJSONEquiv(testStr2,j.toString());
+		deleteSchemaFile("collection-object",true);	
 	}
 /**
  * Start up Jetty
@@ -357,7 +356,7 @@ public class TestGeneral {
 		Long token = Long.parseLong(obj.getString("token"));
 		token -= (8*24*60*60*10000);
 		obj.put("token", token);
-		log.info(obj.toString());*/
+		*/
 		
 		// Reset password - seems to be setting it to the same value here
 		out=jettyDo(jetty,"POST","/chain/resetpassword/",out.getContent());
@@ -388,7 +387,7 @@ public class TestGeneral {
 		
 		// Delete
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
-		log.info("DELETE "+id+":"+out.getContent());
+
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 		
@@ -399,19 +398,18 @@ public class TestGeneral {
 		ServletTester jetty=setupJetty();
 		//Create
 		HttpTester out=jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleCreate));
-		//log.info(out.getContent());
+
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(roleCreate);
-		log.info("MYROLEONE"+one.get("roleName"));
-		log.info("MYROLETWO"+two.get("roleName"));
+
 		assertEquals(one.get("roleName"), two.getString("roleName").toUpperCase());
 		
 		out = jettyDo(jetty, "PUT","/chain/"+id,makeSimpleRequest(roleCreate));
-		//log.info(out.getContent());
+
 		assertEquals(out.getMethod(), null);
 		assertEquals(200, out.getStatus());
 		one = new JSONObject(getFields(out.getContent()));
@@ -420,7 +418,7 @@ public class TestGeneral {
 
 		out=jettyDo(jetty,"GET","/chain/role",null);
 		assertEquals(200,out.getStatus());
-		log.info(out.getContent());
+
 		
 		
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
@@ -584,10 +582,10 @@ public class TestGeneral {
         	assertTrue(doIreallyWantToSpam);
         }
 		} catch (AddressException e) {
-			log.info(e.getMessage());
+			log.debug(e.getMessage());
 			assertTrue(false);
 		} catch (MessagingException e) {
-			log.info(e.getMessage());
+			log.debug(e.getMessage());
 			assertTrue(false);
 		}
 		}
@@ -683,16 +681,13 @@ public class TestGeneral {
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 	}
 
-	//generic search test
-
-		
 	// generic test post/get/put delete
 	private void testPostGetDelete(ServletTester jetty,String uipath, String data, String testfield) throws Exception {
 		HttpTester out;
 		//Create
 		out = jettyDo(jetty,"POST","/chain"+uipath,makeSimpleRequest(data));
 		assertEquals(out.getMethod(),null);
-		log.info(out.getContent());
+
 		assertEquals(201,out.getStatus());	
 		String id=out.getHeader("Location");	
 		//Retrieve
@@ -732,10 +727,6 @@ public class TestGeneral {
 
 		/* get all objects */
 		//pagination?
-		
-		
-
-		
 		HttpTester out;
 		int pgSz = 100;
 		int pgNum = 0;
@@ -775,7 +766,7 @@ public class TestGeneral {
 	 * Tests Multiple Permissions
 	 * @throws Exception
 	 */
-	@Test 
+	//@Test 
 	public void testPermissionGrouping() throws Exception {
 		ServletTester jetty = setupJetty();
 		HttpTester out;
@@ -795,8 +786,7 @@ public class TestGeneral {
 			out=jettyDo(jetty,"GET","/chain"+id,null);
 			JSONObject one = new JSONObject(getFields(out.getContent()));
 			JSONObject two = new JSONObject(s);
-			log.info("GET");
-			log.info(out.getContent());
+
 			assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
 			
 			ids.add(id);
@@ -808,7 +798,6 @@ public class TestGeneral {
 		out=jettyDo(jetty,"GET","/chain/permission",null);
 		assertEquals(200,out.getStatus());
 		JSONObject json = new JSONObject(out.getContent());
-		log.info(out.getContent());
 		
 		// Tidy up
 		for(String id : ids){
@@ -831,7 +820,6 @@ public class TestGeneral {
 		//Create a user
 		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(user88Create));
 		assertEquals(out.getMethod(),null);
-		log.info("MYCONTENT"+out.getContent());
 		JSONObject user = new JSONObject(out.getContent());
 		String user_id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
@@ -874,8 +862,6 @@ public class TestGeneral {
 		assertEquals(200, out.getStatus());
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		//assertEquals(one.get("account").toString(),json.get("account").toString());
-		log.info(one.get("roles").toString());
-		log.info(roleslist.toString());
 
 		Boolean testflag = false;
 		JSONArray testroleslist = one.getJSONArray("roles");
@@ -929,20 +915,18 @@ public class TestGeneral {
 		String id=out.getHeader("Location");	
 		//Retrieve
 		out=jettyDo(jetty,"GET","/chain"+id,null);
-		//log.info("MYCONTENT"+out.getContent());
+
 		//if(id.contains(""))
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(permroleCreate);
-		log.info("GET");
-		log.info(out.getContent());
+
 		//assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
 		//change
 		//two.put(testfield, "newvalue");
 		out=jettyDo(jetty,"PUT","/chain"+id,makeRequest(two).toString());
 		assertEquals(200,out.getStatus());	
 		JSONObject oneA = new JSONObject(getFields(out.getContent()));
-		log.info("PUT");
-		log.info(out.getContent());
+
 		//assertEquals(oneA.get(testfield).toString(),"newvalue");
 
 		//Delete permrole

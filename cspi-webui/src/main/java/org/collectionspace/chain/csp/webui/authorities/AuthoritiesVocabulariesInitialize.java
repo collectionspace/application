@@ -151,10 +151,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 				}
 				if(!this.append){
 					//delete everything that is not in options
-
-					Iterator rit=results.keys();
+					Iterator<String> rit=results.keys();
 					while(rit.hasNext()) {
-						String key=(String)rit.next();
+						String key=rit.next();
 						String csid = results.getString(key);
 						storage.deleteJSON(r.getID()+"/"+instance.getTitleRef()+"/"+csid);
 					}

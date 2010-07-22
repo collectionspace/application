@@ -33,7 +33,7 @@ public class TestVocabThroughWebapp {
 		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
-		log.info("Got cookie "+cookie);
+		log.debug("Got cookie "+cookie);
 	}
 	
 	// XXX refactor
@@ -85,19 +85,23 @@ public class TestVocabThroughWebapp {
 
 	@Test public void testInitialise() throws Exception{
 		String vocabtype="languages";
+		HttpTester out;
 		//String vocabtype="loanoutstatus";
 		ServletTester jetty=setupJetty();
 		// Create a single vocab
-		//HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/initialize",null);
+		out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/initialize",null);
+		assertTrue(out.getStatus()<300);
 		
 		//create all vocabularies in <record id="vocab"
-		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/vocab/initialize",null);
+		out=jettyDo(jetty,"GET","/chain/authorities/vocab/initialize",null);
+		assertTrue(out.getStatus()<300);
 
 		// update and remove fields not in list
-		//HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/refresh",null);
+		out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/refresh",null);
+		assertTrue(out.getStatus()<300);
 		
 		// update and remove fields not in each list within an authority
-		//HttpTester out=jettyDo(jetty,"GET","/chain/authorities/vocab/refresh",null);
+		out=jettyDo(jetty,"GET","/chain/authorities/vocab/refresh",null);
 		assertTrue(out.getStatus()<300);
 		
 		
@@ -202,7 +206,6 @@ public class TestVocabThroughWebapp {
 		
 		out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/search?query="+displayname,null);
 		assertTrue(out.getStatus()<299);
-		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
@@ -224,7 +227,6 @@ public class TestVocabThroughWebapp {
 		ServletTester jetty=setupJetty();
 		
 		HttpTester out=jettyDo(jetty,"GET","/chain/objects/source-vocab/inscriptionContentLanguage",null);
-		log.info(out.getContent());
 		assertTrue(out.getStatus()<299);
 		JSONObject data=new JSONObject(out.getContent());
 		String url=data.getString("url");

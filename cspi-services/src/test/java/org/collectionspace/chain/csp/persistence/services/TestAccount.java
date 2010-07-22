@@ -26,7 +26,8 @@ public class TestAccount extends ServicesBaseClass {
 	}
 	
 	//XXX this test needs work
-	@Test public void testAccountSearch() {
+	//@Test 
+	public void testAccountSearch() {
 		
 		Storage ss;
 		try {
@@ -39,7 +40,7 @@ public class TestAccount extends ServicesBaseClass {
 			
 			if(paths.length>=1){
 				for(int i=0;i<paths.length;i++) {
-					log.info(paths[i] +"  : "+ i +" of "+ paths.length);
+					//log.info(paths[i] +"  : "+ i +" of "+ paths.length);
 				}
 			}
 		} catch (CSPDependencyException e) {
@@ -73,13 +74,11 @@ public class TestAccount extends ServicesBaseClass {
 		/* create the user based on json */
 		/* will give a hidden 500 error if userid is not unique (useful eh?) */
 		String path=ss.autocreateJSON("users/",u1);
-		log.info("path="+path);
 		assertNotNull(path);
 		JSONObject u2=getJSON("user1.json");
 		ss.updateJSON("users/"+path,u2);
 		JSONObject u3=ss.retrieveJSON("users/"+path);
 		assertNotNull(u3);
-		log.info("JSONOBJ",u3);
 		// Check output
 		assertEquals("Test Mccollectionspace.org",u3.getString("screenName"));
 		assertEquals("test3@collectionspace.org",u3.getString("userId"));
@@ -96,7 +95,7 @@ public class TestAccount extends ServicesBaseClass {
 		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtestt");
 		cache.reset();
 		out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds,cache);
-		log.info("Status",out.getStatus());
+		log.debug("Status",out.getStatus());
 		//assertTrue(out.getStatus()==200);
 		//
 		ss.deleteJSON("users/"+path);

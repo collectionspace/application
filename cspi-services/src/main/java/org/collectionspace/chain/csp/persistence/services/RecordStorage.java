@@ -355,7 +355,6 @@ public class RecordStorage implements ContextualisedStorage {
 					}
 				}
 			}
-			//log.info(out.toString());
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);

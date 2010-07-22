@@ -37,7 +37,7 @@ public class TestUISpecs {
 		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
-		log.info("Got cookie "+cookie);
+		log.debug("Got cookie "+cookie);
 	}
 	
 	// XXX refactor into other copy of this method
@@ -82,6 +82,7 @@ public class TestUISpecs {
 		JSONObject comparison;
 		
 		response=jettyDo(jetty,"GET","/chain/objects/uispec",null);
+		log.debug(response.getContent());
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString("collection-object.uispec"));

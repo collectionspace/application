@@ -49,7 +49,7 @@ public class ServicesBaseClass {
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
 		base=TestConfigFinder.xxx_servicesBaseURL; // XXX still yuck but centralised now
-		//log.info("base="+base);
+
 		conn=new ServicesConnection(base+"/cspace-services");
 		creds=new ServicesRequestCredentials();
 		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test@collectionspace.org");
@@ -62,7 +62,7 @@ public class ServicesBaseClass {
 	protected JSONObject getJSON(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		//log.info(path);
+
 		assertNotNull(stream);
 		String data=IOUtils.toString(stream,"UTF-8");
 		stream.close();		
@@ -101,7 +101,6 @@ public class ServicesBaseClass {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
-		//log.info(spec.dump());
 		Record r_obj=spec.getRecord("collection-object");
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());

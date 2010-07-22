@@ -44,13 +44,13 @@ public class TestService extends ServicesBaseClass {
 	}
 
 	@Test public void testAssumptionMechanism() {
-		log.info("Services Running!");
+		log.debug("Services Running!");
 	}
 	
 	protected JSONObject getJSON(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
-		//log.info(path);
+		
 		assertNotNull(stream);
 		String data=IOUtils.toString(stream,"UTF-8");
 		stream.close();		
@@ -85,9 +85,7 @@ public class TestService extends ServicesBaseClass {
 		Record r = spec.getRecord(objtype);
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, testxml);
 		JSONObject j = getJSON(jsonfile);
-		//log.info("test");
-		//log.info(j.toString());
-		//log.info(repeatjson.toString());
+
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}
@@ -128,7 +126,7 @@ public class TestService extends ServicesBaseClass {
 	 */
 	private void testCRUD(String serviceurl, String partname, String Createfilename, String Updatefilename, String xpath, String expected) throws Exception {
 		ReturnedURL url;
-		log.info("Testing " + serviceurl + " with " + Createfilename + " and partname=" + partname);
+		log.debug("Testing " + serviceurl + " with " + Createfilename + " and partname=" + partname);
 
 		// TODO add document parsing for PUT, and for POSTs that require uniqueness (to maintain self-contained tests that don't destroy existing data)
 
@@ -143,7 +141,6 @@ public class TestService extends ServicesBaseClass {
 
 		assertEquals(201,url.getStatus());
 
-		log.info("POST returned "+url.getURL());
 		assertTrue(url.getURL().startsWith("/"+serviceurl)); // ensures e.g. CSPACE-305 hasn't regressed
 		
 		// GET (Read)
@@ -160,7 +157,6 @@ public class TestService extends ServicesBaseClass {
 		}
 		assertEquals(200,getStatus);
 		assertNotNull(doc);
-		log.info(doc.asXML()); // NB don't try to read doc until we know it's not null!
 		Node n=doc.selectSingleNode(xpath);
 		assertNotNull(n);
 		String text=n.getText();
@@ -186,10 +182,7 @@ public class TestService extends ServicesBaseClass {
 		n=doc.selectSingleNode(xpath);
 		assertNotNull(n);
 		text=n.getText();
-		assertEquals(expected,text);	
-
-		log.info(doc.asXML());
-		
+		assertEquals(expected,text);
 		
 		//Get
 		
@@ -212,14 +205,11 @@ public class TestService extends ServicesBaseClass {
 		}
 		assertEquals(404, getStatus); // ensures CSPACE-209 hasn't regressed
 		assertNull(doc);
-		
-		log.info("DONE");
-		
 	}
 	
 	private void testPostGetDelete(String serviceurl, String partname, String filename, String xpath, String expected) throws Exception {
 		ReturnedURL url;
-		log.info("Testing " + serviceurl + " with " + filename + " and partname=" + partname);
+		log.debug("Testing " + serviceurl + " with " + filename + " and partname=" + partname);
 
 		// TODO add document parsing for PUT, and for POSTs that require uniqueness (to maintain self-contained tests that don't destroy existing data)
 
@@ -234,7 +224,6 @@ public class TestService extends ServicesBaseClass {
 
 		assertEquals(201,url.getStatus());
 
-		log.info("POST returned "+url.getURL());
 		assertTrue(url.getURL().startsWith("/"+serviceurl)); // ensures e.g. CSPACE-305 hasn't regressed
 		
 		// GET (Read)
@@ -249,7 +238,6 @@ public class TestService extends ServicesBaseClass {
 			getStatus = rdoc.getStatus();
 			doc = rdoc.getDocument();
 		}
-		//log.info("MYXML",doc.asXML());
 		assertEquals(200,getStatus);
 		assertNotNull(doc);
 		Node n=doc.selectSingleNode(xpath);
@@ -277,7 +265,6 @@ public class TestService extends ServicesBaseClass {
 		assertEquals(404, getStatus); // ensures CSPACE-209 hasn't regressed
 		assertNull(doc);
 		
-		log.info("DONE");
 	}
 	
 

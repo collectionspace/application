@@ -37,7 +37,7 @@ public class TestSessions {
 		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
-		log.info("Got cookie "+cookie);
+		log.debug("Got cookie "+cookie);
 	}
 	
 	// XXX refactor into other copy of this method
@@ -83,7 +83,7 @@ public class TestSessions {
 		//cookie=response.getHeader("Set-Cookie");
 		assertNotNull(cookie);
 		assertTrue(cookie.startsWith("CSPACESESSID="));
-		log.info(cookie);
+		log.debug(cookie);
 		// Check we don't get a second "set"
 		response=jettyDo(jetty,"GET","/chain/intake/uispec",null);
 		assertEquals(200,response.getStatus());

@@ -65,8 +65,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			Element dnc=root.addElement("displayNameComputed");
 			dnc.addText("false");
 		}
-		log.debug("create Configured Vocab Entry");
-		//log.info("createEntry() ::: "+out.asXML());
+		log.debug("create Configured Vocab Entry"+out.asXML());
 		return out;
 	}
 
@@ -256,7 +255,6 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			url+=postfix;
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
 			Document doc=data.getDocument();
-			//log.info(url);
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies");
 			String[] tag_parts=r.getServicesListPath().split(",",2);

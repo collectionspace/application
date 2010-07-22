@@ -56,10 +56,10 @@ public class TestRelations extends ServicesBaseClass {
 		Relation r1=factory.create(null,"SubjectType-1261070872573-type","Subject-1261070872573","collectionobject-intake","ObjectType-1261070872573-type","Object-1261070872573");		
 		ReturnedURL doc2=conn.getMultipartURL(RequestMethod.POST,"/relations/",makeMultipartCommon("relations_common",r1.toDocument()),creds,cache);
 		assertTrue(doc2.getStatus()<300);
-		//log.info("url="+doc2.getURL());
+
 		ReturnedMultipartDocument doc3=conn.getMultipartXMLDocument(RequestMethod.GET,doc2.getURL(),null,creds,cache);
 		assertTrue(doc3.getStatus()<300);		
-		//log.info(doc3.getDocument("relations_common").asXML());
+
 		Relation r2=factory.load(null,doc3.getDocument("relations_common"));
 		assertEquals(r1.getSourceType(),r2.getSourceType());
 		assertEquals(r1.getDestinationType(),r2.getDestinationType());

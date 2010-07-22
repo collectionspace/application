@@ -34,7 +34,7 @@ public class TestNameThroughWebapp {
 		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
-		log.info("Got cookie "+cookie);
+		log.debug("Got cookie "+cookie);
 	}
 	
 	// XXX refactor
@@ -85,13 +85,13 @@ public class TestNameThroughWebapp {
 	
 	//XXX change so creates person and then tests person exists
 	@Test public void testAutocomplete() throws Exception {
-		ServletTester jetty=setupJetty();
-		// Create the entry we are going to check for
-		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTNursultan Nazarbayev'}}");
-		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
-		assertTrue(out.getStatus()<300);
-		String url=out.getHeader("Location");
-		
+			ServletTester jetty=setupJetty();
+			// Create the entry we are going to check for
+			JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTNursultan Nazarbayev'}}");
+			HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
+			assertTrue(out.getStatus()<300);
+			String url=out.getHeader("Location");
+			
 		// Now test
 		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=XXXTESTNursultan&limit=150",null);
 		assertTrue(out.getStatus()<299);
@@ -145,7 +145,7 @@ public class TestNameThroughWebapp {
 		
 		out=jettyDo(jetty,"GET","/chain/authorities/person/search?query=XXXTESTJacob+Zuma",null);
 		assertTrue(out.getStatus()<299);
-		log.info(out.getContent());
+
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
@@ -167,7 +167,6 @@ public class TestNameThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person",null);
 		assertTrue(out.getStatus()<299);
-		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 		boolean found=false;
 		for(int i=0;i<results.length();i++) {
@@ -191,7 +190,6 @@ public class TestNameThroughWebapp {
 		
 		out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=XXXTESTRaul+Castro",null);
 		assertTrue(out.getStatus()<299);
-		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
@@ -213,7 +211,7 @@ public class TestNameThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person",null);
 		assertTrue(out.getStatus()<299);
-		log.info(out.getContent());
+
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 		boolean found=false;
 		for(int i=0;i<results.length();i++) {
@@ -234,7 +232,6 @@ public class TestNameThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=" + testName.replace(' ','+'),null);
 		assertTrue(out.getStatus()<299);
-		log.info(out.getContent());
 		// Find candidate
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 //		assertEquals(1,results.length());
@@ -242,7 +239,7 @@ public class TestNameThroughWebapp {
 		String csid=entry.getString("csid");
 		out=jettyDo(jetty,"GET","/chain/vocabularies/person/"+csid,null);
 		JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
-		log.info("JSON",fields);
+
 		assertEquals(csid,fields.getString("csid"));
 		assertEquals(testName,fields.getString("displayName"));
 		// Now remove the name from the database

@@ -95,7 +95,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 	}
 
 	@Test public void testAssumptionMechanism() {
-		log.info("Services Running!");
+		log.debug("Services Running!");
 	}
 
 	@Test public void testPermissionsPost() throws Exception {
@@ -108,14 +108,14 @@ public class TestPermissions  extends ServicesBaseClass  {
 	}
 	
 	// assign permissions to one role
-	@Test public void testmultipleAssignPermissions() throws Exception {
+	//@Test 
+	public void testmultipleAssignPermissions() throws Exception {
 		//get all permissions
 
 		ReturnedDocument rdoc=conn.getXMLDocument(RequestMethod.GET,"authorization/permissions/",null,creds,cache);
 		int getStatus = rdoc.getStatus();
 		Document doc = rdoc.getDocument();
-			log.info(doc.toString());
-		
+			
 		
 		
 	}

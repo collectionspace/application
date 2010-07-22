@@ -92,7 +92,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		JSONObject jo=ss.retrieveJSON("id/intake");
 		assertTrue(jo.getString("next").startsWith("IN2010."));
 		jo=ss.retrieveJSON("id/objects");
-		//log.info("JSON",jo);
+
 		assertTrue(jo.getString("next").startsWith("2010.1."));
 	}
 	
