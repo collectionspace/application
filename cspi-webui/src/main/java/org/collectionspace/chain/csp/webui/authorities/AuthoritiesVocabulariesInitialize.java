@@ -136,8 +136,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					if(!results.has(name)){
 						//create it if term is not already present
 						JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
-						if(opt.getID().isEmpty()){
-							shortIdentifier = name;
+						if(opt.getID() == null){
+							//XXX here until the service layer does this
+							shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
 						}
 						data.put("shortIdentifier", shortIdentifier);
 						storage.autocreateJSON(r.getID()+"/"+instance.getTitleRef(),data);
