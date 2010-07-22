@@ -79,7 +79,7 @@ public class RecordRead implements WebMethod {
 	@SuppressWarnings("unchecked")
 	private JSONArray getTermsUsed(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject mini=storage.retrieveJSON(path+"/refs");
-		//log.info("mini="+mini);
+
 		JSONArray out=new JSONArray();
 		Iterator t=mini.keys();
 		while(t.hasNext()) {

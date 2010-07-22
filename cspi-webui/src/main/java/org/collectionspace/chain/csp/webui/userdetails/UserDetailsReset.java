@@ -144,8 +144,6 @@ public class UserDetailsReset implements WebMethod {
 					}
 				buf.append(Integer.toHexString(intVal).toUpperCase());
 			}
-				//log.info(csid);
-				//log.info(buf.toString());
 			return buf.toString().substring(0,5);
 		} catch (NoSuchAlgorithmException e) {
 			throw new UIException("There were problems with the algorithum");
