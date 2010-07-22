@@ -132,7 +132,7 @@ public class UISpec implements WebMethod {
 				String name = namedata.getString("displayName");
 				String shortId="";
 				if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
-					shortId = namedata.getString("shortIdentfier");
+					shortId = namedata.getString("shortIdentifier");
 				}
 				else{
 					shortId = name.replaceAll("\\W","");					
