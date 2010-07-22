@@ -45,7 +45,7 @@ public class TestServiceThroughWebapp {
 		UTF8SafeHttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		cookie=out.getHeader("Set-Cookie");
-		log.info("Got cookie "+cookie);
+		log.debug("Got cookie "+cookie);
 	}
 	
 	// XXX refactor into other copy of this method
@@ -92,8 +92,8 @@ public class TestServiceThroughWebapp {
 		JSONObject content=new JSONObject(out.getContent());
 		content=getFields(content);
 		JSONObject one = new JSONObject(getResourceString("obj3.json"));
-		log.info(one.toString());
-		log.info(content.toString());
+		//log.info(one.toString());
+		//log.info(content.toString());
 		assertEquals(one.get("titleLanguage"),content.get("titleLanguage"));
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj3.json")),content));
 		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(getResourceString("obj4.json")));
@@ -115,7 +115,7 @@ public class TestServiceThroughWebapp {
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
 		out=jettyDo(jetty,"GET","/chain"+path,null);
-		log.info(out.getContent());
+		//log.info(out.getContent());
 		JSONObject content=new JSONObject(out.getContent());
 		content=getFields(content);
 		JSONObject one = new JSONObject(getResourceString("int3.json"));
