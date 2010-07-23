@@ -89,6 +89,60 @@ public class TestService extends ServicesBaseClass {
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}
+	@Test public void testPersonContact() throws Exception {
+		String serviceurl = "personauthorities/urn:cspace:name(person)/items";
+		String filename = "personItem.xml";
+		String partname = "persons_common";
+		ReturnedURL url;
+		log.debug("Testing " + serviceurl + " with " + filename + " and partname=" + partname);
+
+		// TODO add document parsing for PUT, and for POSTs that require uniqueness (to maintain self-contained tests that don't destroy existing data)
+
+		// POST (Create)
+		if(partname != null) {
+			Map<String,Document> parts=new HashMap<String,Document>();
+			parts.put(partname,getDocument(filename));
+			url=conn.getMultipartURL(RequestMethod.POST,serviceurl,parts,creds,cache);
+		} else {
+			url=conn.getURL(RequestMethod.POST,serviceurl,getDocument(filename),creds,cache);
+		}
+
+		assertEquals(201,url.getStatus());
+
+		assertTrue(url.getURL().startsWith("/"+serviceurl)); // ensures e.g. CSPACE-305 hasn't regressed
+		
+		//create contact person
+
+		String serviceurlContact = "personauthorities/urn:cspace:name(person)/items/"+url.getURLTail()+"/contacts";
+		String filenameContact = "personItemContact.xml";
+		String partnameContact = "contacts_common";
+		log.info(serviceurlContact);
+		
+		testPostGetDelete(serviceurlContact, partnameContact, "personItemContact.xml", "contacts_common/email", "email@example.com");
+
+		// DELETE (Delete)
+		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
+		assertEquals(200,status);		
+		// Now try to delete non-existent (make sure CSPACE-73 hasn't regressed)
+		status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
+		assertEquals(404,status);
+		
+		// GET once more to make sure it isn't there
+		int getStatus;
+		Document doc; 
+		if(partname != null) {
+			ReturnedMultipartDocument rdocs=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdocs.getStatus();
+			doc = rdocs.getDocument(partname);
+		} else {
+			ReturnedDocument rdoc=conn.getXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
+			getStatus = rdoc.getStatus();
+			doc = rdoc.getDocument();
+		}
+		assertEquals(404, getStatus); // ensures CSPACE-209 hasn't regressed
+		assertNull(doc);
+	}
+	
 	
 	@Test public void testAllPostGetDelete() throws Exception {
 		// TODO Add vocab (the previous testVocabPost method was just an exact copy of testRolesPost!)
@@ -126,7 +180,8 @@ public class TestService extends ServicesBaseClass {
 	 */
 	private void testCRUD(String serviceurl, String partname, String Createfilename, String Updatefilename, String xpath, String expected) throws Exception {
 		ReturnedURL url;
-		log.debug("Testing " + serviceurl + " with " + Createfilename + " and partname=" + partname);
+		
+		log.info("Testing " + serviceurl + " with " + Createfilename + " and partname=" + partname);
 
 		// TODO add document parsing for PUT, and for POSTs that require uniqueness (to maintain self-contained tests that don't destroy existing data)
 
@@ -209,7 +264,7 @@ public class TestService extends ServicesBaseClass {
 	
 	private void testPostGetDelete(String serviceurl, String partname, String filename, String xpath, String expected) throws Exception {
 		ReturnedURL url;
-		log.debug("Testing " + serviceurl + " with " + filename + " and partname=" + partname);
+		log.info("Testing " + serviceurl + " with " + filename + " and partname=" + partname);
 
 		// TODO add document parsing for PUT, and for POSTs that require uniqueness (to maintain self-contained tests that don't destroy existing data)
 
@@ -239,11 +294,29 @@ public class TestService extends ServicesBaseClass {
 			doc = rdoc.getDocument();
 		}
 		assertEquals(200,getStatus);
+		log.info(doc.asXML());
 		assertNotNull(doc);
 		Node n=doc.selectSingleNode(xpath);
 		assertNotNull(n);
 		String text=n.getText();
 		assertEquals(expected,text);	
+		
+		//List
+log.info(serviceurl);
+		//if(partname != null) {
+		//	ReturnedMultipartDocument rdocs=conn.getMultipartXMLDocument(RequestMethod.GET,"/"+serviceurl,null,creds,cache);
+		//	getStatus = rdocs.getStatus();
+		//	doc = rdocs.getDocument(partname);
+		//} else {
+			ReturnedDocument rdoc1=conn.getXMLDocument(RequestMethod.GET,"/"+serviceurl,null,creds,cache);
+			getStatus = rdoc1.getStatus();
+			doc = rdoc1.getDocument();
+		//}
+		assertEquals(200,getStatus);
+		log.info("LISTLISTLIST");
+		log.info(doc.asXML());
+		log.info("LISTLISTLIST");
+		
 		
 		// DELETE (Delete)
 		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);

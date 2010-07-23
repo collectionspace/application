@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:contacts_common xmlns:ns2="http://collectionspace.org/services/contact">
+  <email>email@example.com</email>
+  <addressPlace>Anytown, USA</addressPlace>
+</ns2:contacts_common>
+

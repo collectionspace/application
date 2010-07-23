@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+  <ns2:persons_common xmlns:ns2="http://collectionspace.org/services/person">
+  <inAuthority>0975566a-72f1-409b-bf9a</inAuthority>
+  <displayName>John Wayne May 26, 1907-June 11, 1979</displayName>
+  <displayNameComputed>true</displayNameComputed>
+  <refName>
+    urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(john)'John Wayne May 26, 1907-June 11, 1979'
+  </refName>
+  <shortIdentifier>johnwayne</shortIdentifier>
+  <foreName>John</foreName>
+  <middleName></middleName>
+  <surName>Wayne</surName>
+  <initials>JW</initials>
+  <salutation>Mr.</salutation>
+  <title></title>
+  <nameAdditions>The Duke</nameAdditions>
+  <birthDate>May 26, 1907</birthDate>
+  <birthPlace>urn:cspace:org.collectionspace.demo:location:name(Museum):item:name(IA_Winterset)'Winterset, Iowa'</birthPlace>
+  <deathDate>June 11, 1979</deathDate>
+  <deathPlace></deathPlace>
+  <bioNote>born Marion Robert Morrison and better
+    known by his stage name John Wayne, was an American film actor, director
+    and producer. He epitomized rugged masculinity and has become an enduring
+    American icon. He is famous for his distinctive voice, walk and height.
+    He was also known for his conservative political views and his support in
+    the 1950s for anti-communist positions.
+  </bioNote>
+  <nameNote>Screen name</nameNote>
+</ns2:persons_common>
+
