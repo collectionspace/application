@@ -1074,10 +1074,12 @@
 			  <field id="acquisitionAuthorizerDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-acquisition-authorizer-date</selector>
 			  </field>
+			  <repeat id="acquisitionDates">
 			  <field id="acquisitionDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-acquisition-date</selector>
 			    <container-selector>.csc-acquisition-acquisition-date-container</container-selector>
 			  </field>
+			  </repeat>
 			  <field id="acquisitionFundingCurrency" autocomplete="vocab-currency" ui-type="enum">
 						<enum>
 							<default>US Dollar</default>

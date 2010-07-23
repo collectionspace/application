@@ -8,7 +8,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 // XXX only one level of repetition at the moment. Should only be a matter of type furtling.
 public class Repeat implements FieldSet, FieldParent {
-	private String id,selector,userecord, enum_blank;
+	private String id,selector,userecord, enum_blank,parentID;
 	private Boolean is_visible;
 	private FieldParent parent;
 	private Set<String> enum_default;
@@ -20,20 +20,24 @@ public class Repeat implements FieldSet, FieldParent {
 
 	public Repeat(Record record,ReadOnlySection section) {
 		this.parent=record;
+		this.parentID = record.getID();
 		this.initialiseVariables(section);
 	}
 	public Repeat(Structure structure,ReadOnlySection section) {
 		this.parent=structure;
+		this.parentID = structure.getID();
 		this.initialiseVariables(section);
 	}
 
 	public Repeat(Repeat repeat, ReadOnlySection section) {
 		this.parent=repeat;
+		this.parentID = repeat.getID();
 		this.initialiseVariables(section);
 	}
 	
 	public Repeat(Subrecord subrecord, ReadOnlySection section) {
 		this.parent=subrecord;
+		this.parentID = subrecord.getID();
 		this.initialiseVariables(section);
 	}
 	/**
@@ -42,7 +46,7 @@ public class Repeat implements FieldSet, FieldParent {
 	 */
 	private void initialiseVariables(ReadOnlySection section){
 		this.id=(String)section.getValue("/@id");
-		this.selector=(String)section.getValue("/selector");
+		this.selector=Util.getStringOrDefault(section,"/selector",".csc-"+this.parentID+"-"+id);
 		this.services_tag=Util.getStringOrDefault(section,"/services-tag",id);
 		this.is_visible=Util.getBooleanOrDefault(section,"/@show",true);
 		this.xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
