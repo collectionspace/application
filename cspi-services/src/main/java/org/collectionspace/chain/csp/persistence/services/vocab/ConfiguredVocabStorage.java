@@ -30,6 +30,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -53,11 +54,13 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 		this.r=r;
 	}
 
-	private Document createEntry(String section,String namespace,String root_tag,JSONObject data,String vocab,String refname) throws UnderlyingStorageException, ConnectionException, ExistException, JSONException {
+	private Document createEntry(String section,String namespace,String root_tag,JSONObject data,String vocab,String refname, Record r) throws UnderlyingStorageException, ConnectionException, ExistException, JSONException {
 		Document out=XmlJsonConversion.convertToXml(r,data,section);
 		Element root=out.getRootElement();
 		Element vocabtag=root.addElement(r.getInTag());
-		vocabtag.addText(vocab);
+		if(vocab!=null){
+			vocabtag.addText(vocab);
+		}
 		Element refnametag=root.addElement("refName");
 		if(refname!=null)
 			refnametag.addText(refname);
@@ -66,6 +69,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			dnc.addText("false");
 		}
 		log.debug("create Configured Vocab Entry"+out.asXML());
+		String datade = out.asXML();
 		return out;
 	}
 
@@ -86,7 +90,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
-				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null));
+				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null,r));
 			}	
 			// First send without refid (don't know csid)	
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/"+vocab+"/items",body,creds,cache);		
@@ -100,13 +104,88 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
-				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname));
+				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname,r));
 			}
 			ReturnedMultipartDocument out2=conn.getMultipartXMLDocument(RequestMethod.PUT,"/"+r.getServicesURL()+"/"+vocab+"/items/"+csid,body,creds,cache);
 			if(out2.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());			
 			cache.setCached(getClass(),new String[]{"namefor",vocab,out.getURLTail()},name);
 			cache.setCached(getClass(),new String[]{"reffor",vocab,out.getURLTail()},refname);
+			
+			// create related sub records?
+			for(Record sr : r.getAllSubRecords() ){
+				//sr.getID()
+				if(sr.isType("authority")){
+					String savePath = out.getURL() + "/" + sr.getServicesURL();
+					if(jsonObject.has(sr.getID())){
+						Object subdata = jsonObject.get(sr.getID());
+
+						if(subdata instanceof JSONArray){
+							JSONArray subarray = (JSONArray)subdata;
+
+							for(int i=0;i<subarray.length();i++) {
+								JSONObject subrecord = subarray.getJSONObject(i);
+								subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+							}
+							
+						}
+						else if(subdata instanceof JSONObject){
+							JSONObject subrecord = (JSONObject)subdata;
+							subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+						}
+					}
+				}
+			}
+			
+			return out.getURLTail();
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception",e);
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Cannot parse surrounding JSON",e);
+		}
+	}
+	
+	public String subautocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,Record myr,JSONObject jsonObject, String savePrefix)
+	throws ExistException, UnimplementedException, UnderlyingStorageException{
+		try {
+			Map<String,Document> body=new HashMap<String,Document>();
+			for(String section : r.getServicesRecordPaths()) {
+				String path=r.getServicesRecordPath(section);
+				String[] record_path=path.split(":",2);
+				String[] tag_path=record_path[1].split(",",2);
+				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,null,null,myr));
+			}	
+				
+			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,savePrefix,body,creds,cache);		
+			if(out.getStatus()>299)
+				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
+			
+			
+			// create related sub records?
+			for(Record sr : myr.getAllSubRecords() ){
+				//sr.getID()
+				if(sr.isType("authority")){
+					String savePath = out.getURL() + "/" + sr.getServicesURL();
+					if(jsonObject.has(sr.getID())){
+						Object subdata = jsonObject.get(sr.getID());
+
+						if(subdata instanceof JSONArray){
+							JSONArray subarray = (JSONArray)subdata;
+
+							for(int i=0;i<subarray.length();i++) {
+								JSONObject subrecord = subarray.getJSONObject(i);
+								subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+							}
+							
+						}
+						else if(subdata instanceof JSONObject){
+							JSONObject subrecord = (JSONObject)subdata;
+							subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+						}
+					}
+				}
+			}
+			
 			return out.getURLTail();
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
@@ -473,7 +552,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
-				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname));
+				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname,r));
 			}
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,generateURL(vocab,filePath.split("/")[1],""),body,creds,cache);
 			if(out.getStatus()>299)
