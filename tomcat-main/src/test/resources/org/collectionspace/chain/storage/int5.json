@@ -2,7 +2,7 @@
 			  "accessionDate": "accessionDate",
 			  "acquisitionAuthorizer": "acquisitionAuthorizer",
 			  "acquisitionAuthorizerDate": "acquisitionAuthorizerDate",
-			  "acquisitionDate": "acquisitionDate",
+			  "acquisitionDates": [{"acquisitionDate": "acquisitionDate"},{"acquisitionDate": "acquisitionDate"}],
 			  "acquisitionFundingDenomination": "acquisitionFundingDenomination",
 			  "acquisitionFundingValue": "acquisitionFundingValue",
 			  "acquisitionFundingSource": "acquisitionFundingSource",
