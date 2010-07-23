@@ -1314,6 +1314,10 @@
 			  </field>
 			  <field id="shortIdentifier">
 			  </field>
+			  <!--
+			  <repeat id="personName">
+			  	<selector>.csc-personAuthority-name</selector>
+				-->
 			  <field id="foreName">
                 <selector>.csc-personAuthority-foreName</selector>
               </field>
@@ -1355,7 +1359,9 @@
 			   <field id="nameAdditions">
 			    <selector>.csc-personAuthority-nameAdditions</selector>
 			  </field>
-			  
+			  <!--
+			  </repeat>
+			  -->
 			  <field id="birthDate" in-title="yes" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-personAuthority-birthDate</selector>
 			    <title-selector>.csc-titleBar-birthDate</title-selector>
@@ -1370,12 +1376,16 @@
 			  <field id="deathPlace">
 			    <selector>.csc-personAuthority-deathPlace</selector>
 			  </field>
+			  <repeat id="groups">
 			  <field id="group" >
 			    <selector>.csc-personAuthority-group</selector>
 			  </field>
+			  </repeat>
+			  <repeat id="nationalities">
 			  <field id="nationality">
 			    <selector>.csc-personAuthority-nationality</selector>
 			  </field>
+			  </repeat>
 			  <field id="gender" xxx_ui_refactored="false">
 		    <selector>.csc-personAuthority-gender</selector>
 			    <options>
@@ -1383,13 +1393,16 @@
 			      <option id="female">Female</option>
 			    </options>
 			  </field>  
+			  <repeat id="occupations">
 			   <field id="occupation" autocomplete="occupation-occupation" xxx_ui_refactored="false">
 			    <selector>.csc-personAuthority-occupation</selector>
 			  </field>
-			  
+			  </repeat>			  
+			  <repeat id="schoolsOrStyles">
 			   <field id="schoolOrStyle">
 			    <selector>.csc-personAuthority-schoolorstyle</selector>
 			  </field>
+			  </repeat>
 			  
 			  <field id="bioNote">
 			    <selector>.csc-personAuthority-bioNote</selector>
@@ -1406,7 +1419,11 @@
 			      <option id="rejected">Rejected</option>
 			    </options>
 			  </field>
-			  
+			  <repeat id="contact" exists-in-services="false">
+					<selector>.csc-contactAuthority-row:</selector>
+			  <field userecord="contact" exists-in-services="false" >
+			  </field>
+			  </repeat>
 			</record>
 
 
@@ -1499,7 +1516,7 @@
 			  <services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
 			  <services-list-path>http://collectionspace.org/services/contact,contacts-common-list/contact_list_item</services-list-path>
 			  <services-record-path>contacts_common:http://collectionspace.org/services/contact,contacts_common</services-record-path>
-			  <services-url>contactauthorities</services-url>
+			  <services-url>contacts</services-url>
 			  <authority-vocab-type>ContactAuthority</authority-vocab-type>
 			  <urn-syntax>urn:cspace:org.collectionspace.demo:contactauthority:{vocab}:contact:{entry}'{display}'</urn-syntax>
 			  <structures>
@@ -2006,8 +2023,8 @@
 			    <title-ref>languages</title-ref>
 			    <title>My first list</title>
 				<options>
-				<option>English</option>
-				<option>Spanish</option>
+				<option id="eng">English</option>
+				<option id="spn">Spanish</option>
 				<option>French</option>
 				<option>Italian</option>
 				<option>Portuguese</option>
