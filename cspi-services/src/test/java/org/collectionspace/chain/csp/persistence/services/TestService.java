@@ -94,7 +94,7 @@ public class TestService extends ServicesBaseClass {
 		String filename = "personItem.xml";
 		String partname = "persons_common";
 		ReturnedURL url;
-		log.debug("Testing " + serviceurl + " with " + filename + " and partname=" + partname);
+		log.info("Testing " + serviceurl + " with " + filename + " and partname=" + partname);
 
 		// TODO add document parsing for PUT, and for POSTs that require uniqueness (to maintain self-contained tests that don't destroy existing data)
 
@@ -110,13 +110,13 @@ public class TestService extends ServicesBaseClass {
 		assertEquals(201,url.getStatus());
 
 		assertTrue(url.getURL().startsWith("/"+serviceurl)); // ensures e.g. CSPACE-305 hasn't regressed
-		
+		log.info("CREATE PERSON" + url.getURL());
 		//create contact person
 
 		String serviceurlContact = "personauthorities/urn:cspace:name(person)/items/"+url.getURLTail()+"/contacts";
 		String filenameContact = "personItemContact.xml";
 		String partnameContact = "contacts_common";
-		log.info(serviceurlContact);
+		log.info("ADD CONTACT USING THIS URL "+ serviceurlContact);
 		
 		testPostGetDelete(serviceurlContact, partnameContact, "personItemContact.xml", "contacts_common/email", "email@example.com");
 
@@ -127,6 +127,7 @@ public class TestService extends ServicesBaseClass {
 		status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
 		assertEquals(404,status);
 		
+		log.info("DELETE PERSON");
 		// GET once more to make sure it isn't there
 		int getStatus;
 		Document doc; 
@@ -280,7 +281,8 @@ public class TestService extends ServicesBaseClass {
 		assertEquals(201,url.getStatus());
 
 		assertTrue(url.getURL().startsWith("/"+serviceurl)); // ensures e.g. CSPACE-305 hasn't regressed
-		
+
+		log.info("CREATE CONTACT "+url.getURL());
 		// GET (Read)
 		int getStatus;
 		Document doc; 
@@ -294,7 +296,7 @@ public class TestService extends ServicesBaseClass {
 			doc = rdoc.getDocument();
 		}
 		assertEquals(200,getStatus);
-		log.info(doc.asXML());
+		log.info("GET CONTACT "+doc.asXML());
 		assertNotNull(doc);
 		Node n=doc.selectSingleNode(xpath);
 		assertNotNull(n);
@@ -302,16 +304,11 @@ public class TestService extends ServicesBaseClass {
 		assertEquals(expected,text);	
 		
 		//List
-log.info(serviceurl);
-		//if(partname != null) {
-		//	ReturnedMultipartDocument rdocs=conn.getMultipartXMLDocument(RequestMethod.GET,"/"+serviceurl,null,creds,cache);
-		//	getStatus = rdocs.getStatus();
-		//	doc = rdocs.getDocument(partname);
-		//} else {
+		log.info("LIST from "+serviceurl);
 			ReturnedDocument rdoc1=conn.getXMLDocument(RequestMethod.GET,"/"+serviceurl,null,creds,cache);
 			getStatus = rdoc1.getStatus();
 			doc = rdoc1.getDocument();
-		//}
+			
 		assertEquals(200,getStatus);
 		log.info("LISTLISTLIST");
 		log.info(doc.asXML());
@@ -324,7 +321,8 @@ log.info(serviceurl);
 		// Now try to delete non-existent (make sure CSPACE-73 hasn't regressed)
 		status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
 		assertEquals(404,status);
-		
+
+		log.info("DELETE");
 		// GET once more to make sure it isn't there
 		if(partname != null) {
 			ReturnedMultipartDocument rdocs=conn.getMultipartXMLDocument(RequestMethod.GET,url.getURL(),null,creds,cache);
