@@ -4,7 +4,9 @@
   <displayName>Example Museum, Berkeley, CA</displayName>
   <displayNameComputed>true</displayNameComputed>
   <foundingDate>1901</foundingDate>
+  <contactNames>
   <contactName>John Doe</contactName>
+  </contactNames>
   <shortIdentifier>example</shortIdentifier>
   <longName>The Original Example Museum of Berkeley, CA</longName>
   <refName>
