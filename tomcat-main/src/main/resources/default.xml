@@ -949,7 +949,7 @@
 			  <field id="entryDate" ui-type="date" xxx_ui_refactored="false">
 				<selector>.csc-intake-entry-date</selector>
 			  </field>
-			  <repeat id="entryMethods" asSibling="true" xxx-services-no-repeat="yes">
+			  <repeat id="entryMethods" asSibling="true">
 			    <selector>.csc-intake-entry-method-row:</selector>
 			    <field id="entryMethod" xxx_ui_refactored="false">
 			      <selector>.csc-intake-entry-method</selector>
@@ -1012,9 +1012,11 @@
 			  <field id="insuranceRenewalDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-intake-insurance-renewal-date</selector>
 			  </field>
+			  <repeat id="insurers">
 			  <field id="insurer" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
 			    <selector>.csc-intake-insurer</selector>
 			  </field>  
+			  </repeat>
 			  
 			  
 			  <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
@@ -1039,21 +1041,40 @@
 			  <field id="conditionCheckDate" ui-type="date" xxx_ui_refactored="false">
 			    <selector>.csc-intake-condition-check-date</selector>
 			  </field>
+			  <repeat id="conditionCheckMethods">
 			  <field id="conditionCheckMethod">
 			    <selector>.csc-intake-condition-check-method</selector>
 			  </field>
+			  </repeat>
 			  <field id="conditionCheckNote">
 			    <selector>.csc-intake-condition-check-note</selector>
 			  </field>
+			  <repeat id="conditionCheckReasons">
 			  <field id="conditionCheckReason">
 			    <selector>.csc-intake-condition-check-reason</selector>
 			  </field>
+			  </repeat>
 			  <field id="conditionCheckReferenceNumber">
 			    <selector>.csc-intake-condition-check-reference-number</selector>
 			  </field>
-			  <field id="conditionCheckerAssessor" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
+			  <repeat id="conditionCheckersOrAssessors">
+			  <field id="conditionCheckerOrAssessor" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
 			    <selector>.csc-intake-condition-check-assessor</selector>
 			  </field>	
+			  </repeat>
+			  
+			  <field id="fieldCollectionDate" ui-type="date"></field>
+			  <field id="fieldCollectionNote"></field>
+			  <field id="fieldCollectionNumber"></field>
+			  <repeat id="fieldCollectionMethods">
+			  	<field id="fieldCollectionMethod"></field>
+			  </repeat>
+			  <repeat id="fieldCollectionSources">
+			  	<field id="fieldCollectionSource" autocomplete="person-person"></field>
+			  </repeat>
+			  <repeat id="fieldCollectors">
+			  	<field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
+			  </repeat>
 			</record>
 			
 			<record id="acquisition"  in-findedit="yes">

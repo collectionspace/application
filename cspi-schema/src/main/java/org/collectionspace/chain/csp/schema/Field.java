@@ -26,7 +26,7 @@ public class Field implements FieldSet {
 	private String autocomplete_instance_id;
 	
 	/* UI */
-	private String enum_blank,selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext,userecord;
+	private String parentID,enum_blank,selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext,userecord;
 	private boolean enum_hasblank=true, exists_in_service= true,in_title=false,in_tab=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
 	private Stack<String> merged = new Stack<String>();
 	private Map<String,Option> options=new HashMap<String,Option>();
@@ -36,12 +36,14 @@ public class Field implements FieldSet {
 	private String services_tag,services_section,services_filter_param;
 		
 	public Field(FieldParent record,ReadOnlySection section) {
+
+		parentID = record.getRecord().getID();
 		id=(String)section.getValue("/@id");
 		autocomplete_instance_ids=Util.getSetOrDefault(section,"/@autocomplete",new String[]{""});
 		has_container = Util.getBooleanOrDefault(section, "/@container", false);
 		xxx_ui_refactored = Util.getBooleanOrDefault(section, "/@xxx_ui_refactored", true);
 
-		selector=Util.getStringOrDefault(section,"/selector",".csc-"+id);
+		selector=Util.getStringOrDefault(section,"/selector",".csc-"+parentID+"-"+id);
 		userecord = Util.getStringOrDefault(section, "/@userecord", "");
 
 		linktext=Util.getStringOrDefault(section,"/linktext","${items.0.number}");
