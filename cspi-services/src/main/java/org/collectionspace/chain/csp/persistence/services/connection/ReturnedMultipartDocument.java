@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.persistence.services.connection;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +52,13 @@ public class ReturnedMultipartDocument implements Returned {
 				Document doc=null;
 				String[] content_type=part.getHeader("Content-Type");
 				if(content_type!=null && content_type.length>0 && "application/xml".equals(content_type[0])) {
-					doc=reader.read(new TeeInputStream(main,System.err),"UTF-8");
+					if(log.isDebugEnabled()) {
+						ByteArrayOutputStream dump = new ByteArrayOutputStream();
+						doc=reader.read(new TeeInputStream(main,dump),"UTF-8");
+						log.debug(dump.toString("UTF-8"));
+					} else {
+						doc=reader.read(main,"UTF-8");
+					}
 				}
 				addDocument(label,doc);
 				main.close();

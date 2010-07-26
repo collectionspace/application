@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.persistence.services.connection;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -41,7 +42,15 @@ public class ReturnedDocument implements Returned {
 		Document out=null;
 		Header content_type=method.getResponseHeader("Content-Type");
 		if(content_type!=null && "application/xml".equals(content_type.getValue())) {
-			out=reader.read(new TeeInputStream(stream,System.err));
+			if(log.isDebugEnabled()) {
+				ByteArrayOutputStream dump = new ByteArrayOutputStream();
+				// TODO CSPACE-2552 add ,"UTF-8" to reader.read()?
+				out=reader.read(new TeeInputStream(stream,dump));
+				log.debug(dump.toString("UTF-8"));
+			} else {
+				// TODO CSPACE-2552 add ,"UTF-8" to reader.read()?
+				out=reader.read(stream); 
+			}
 		}
 		stream.close();
 		doc=out;
