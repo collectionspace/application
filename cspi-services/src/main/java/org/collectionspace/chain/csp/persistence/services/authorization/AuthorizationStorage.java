@@ -38,8 +38,6 @@ import org.slf4j.LoggerFactory;
 
 public class AuthorizationStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(AuthorizationStorage.class);
-	private ServicesConnection conn;
-	private Record r;
 	private PermissionCache permissions;
 	
 	public AuthorizationStorage(Record r, ServicesConnection conn) throws DocumentException, IOException{
