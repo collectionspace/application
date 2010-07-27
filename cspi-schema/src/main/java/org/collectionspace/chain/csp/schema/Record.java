@@ -27,8 +27,9 @@ public class Record implements FieldParent {
 	
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	private Map<String,FieldSet> summarylist=new HashMap<String,FieldSet>();
+	private Map<String, Map<String, FieldSet>> minidataset=new HashMap<String, Map<String,FieldSet>>();
 	private Spec spec;
-	private Field mini_summary,mini_number,display_name;
+	private FieldSet mini_summary,mini_number,display_name;
 	private Set<String> type;
 	
 	/* UI Stuff */
@@ -157,7 +158,8 @@ public class Record implements FieldParent {
 				}
 			}
 		}
-		return subrecords.values().toArray(new Record[0]); }
+		return subrecords.values().toArray(new Record[0]); 
+	}
 	
 	public String getTermsUsedURL() { return terms_used_url; }
 	public String getNumberSelector() { return number_selector; }
@@ -183,18 +185,20 @@ public class Record implements FieldParent {
 	public String getServicesSingleInstancePath() { return services_single_instance_path; }
 	public String[] getServicesRecordPaths() { return services_record_paths.keySet().toArray(new String[0]); }
 	public String getServicesRecordPath(String name) { return services_record_paths.get(name); }
-	
+
 	void setMiniNumber(Field f) { mini_number=f; }
 	void setMiniSummary(Field f) { mini_summary=f; }
+	void setMiniNumber(Repeat f) { mini_number=f; }
+	void setMiniSummary(Repeat f) { mini_summary=f; }
 	void setDisplayName(Field f) { display_name=f; }
 	void setServicesRecordPath(String section,String path) { services_record_paths.put(section,path); }
 	void setServicesFilterParam(String param,Field field) { services_filter_param.put(param,field); }
 	
-	public Field getMiniNumber() { return mini_number; }
-	public Field getMiniSummary() { return mini_summary; }
+	public FieldSet getMiniNumber() { return mini_number; }
+	public FieldSet getMiniSummary() { return mini_summary; }
 	public FieldSet[] getAllMiniSummaryList() { return summarylist.values().toArray(new FieldSet[0]); }
 	public FieldSet getMiniSummaryList(String key) { return summarylist.get(key); }
-	public Field getDisplayNameField() { return display_name; }
+	public FieldSet getDisplayNameField() { return display_name; }
 	public Field getFieldByServicesFilterParam(String param) { return services_filter_param.get(param); }
 	
 	//authorization
@@ -225,8 +229,37 @@ public class Record implements FieldParent {
 		instances.put(n.getID(),n);
 		spec.addInstance(n);
 	}
+	//obsolete?
 	public void addMiniSummaryList(FieldSet f){
 		summarylist.put(f.getID(), f);
+	}
+	public void addMiniDataSet(FieldSet f, String s){
+		//s:{ name: field, name: field, name: field }
+		if(!minidataset.containsKey(s)){
+			Map<String,FieldSet> subdata=new HashMap<String,FieldSet>();
+			minidataset.put(s, subdata);
+		}
+		minidataset.get(s).put(f.getID(), f);
+	}
+	public void addMiniDataSet(Repeat r, String s){
+		//s:{ name: field, name: field, name: field }
+		if(!minidataset.containsKey(s)){
+			Map<String,FieldSet> subdata=new HashMap<String,FieldSet>();
+			minidataset.put(s, subdata);
+		}
+		minidataset.get(s).put(r.getID(), r);
+	}
+	public FieldSet[] getMiniDataSetByName(String s){
+		if(minidataset.containsKey(s)){
+			return minidataset.get(s).values().toArray(new FieldSet[0]);
+		}
+		return new FieldSet[0];
+	}
+	public String[] getAllMiniDataSets(){
+		if(minidataset.isEmpty()){
+			return new String[0];
+		}
+		return minidataset.keySet().toArray(new String[0]);
 	}
 	
 	void dump(StringBuffer out) {

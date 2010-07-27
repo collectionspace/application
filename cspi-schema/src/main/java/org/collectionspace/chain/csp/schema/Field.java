@@ -16,18 +16,15 @@ public class Field implements FieldSet {
 	private static final Logger log=LoggerFactory.getLogger(Field.class);
 	private FieldParent parent;
 	private String id;
-	private Instance autocomplete_instance;
 	private Set<String> autocomplete_instance_ids;
 	private Set<String> enum_default;
 
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	
-	/* Used only between construction and config_finish() */
-	private String autocomplete_instance_id;
 	
 	/* UI */
 	private String parentID,enum_blank,selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext,userecord;
-	private boolean enum_hasblank=true, exists_in_service= true,in_title=false,in_tab=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
+	private boolean enum_hasblank=true, exists_in_service= true,in_title=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
 	private Stack<String> merged = new Stack<String>();
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
@@ -64,6 +61,9 @@ public class Field implements FieldSet {
 		if(minis.contains("number")){	record.getRecord().setMiniNumber(this);	}
 		if(minis.contains("summary")){	record.getRecord().setMiniSummary(this);	}
 		if(minis.contains("list")){	record.getRecord().addMiniSummaryList(this);	}
+		for(String s : minis){
+			record.getRecord().addMiniDataSet(this,s);
+		}
 		
 		display_name=Util.getBooleanOrDefault(section,"/@display-name",false);
 		if(display_name)

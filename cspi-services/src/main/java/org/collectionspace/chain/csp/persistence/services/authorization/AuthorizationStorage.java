@@ -3,7 +3,6 @@ package org.collectionspace.chain.csp.persistence.services.authorization;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.persistence.services.GenericStorage;
 import org.collectionspace.chain.csp.persistence.services.XmlJsonConversion;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
@@ -19,8 +19,6 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDoc
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
-import org.collectionspace.chain.csp.schema.Field;
-import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -33,88 +31,27 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.Node;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AuthorizationStorage implements ContextualisedStorage {
+public class AuthorizationStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(AuthorizationStorage.class);
 	private ServicesConnection conn;
 	private Record r;
-	private Map<String,String> view_good=new HashMap<String,String>();
-	private Map<String,String> view_map=new HashMap<String,String>();
-	private Set<String> xxx_view_deurn=new HashSet<String>();
 	private PermissionCache permissions;
 	
 	public AuthorizationStorage(Record r, ServicesConnection conn) throws DocumentException, IOException{
-		this.conn = conn;
-		this.r = r;
-		// Number
-		if(r.getMiniNumber()!=null){
-			view_good.put("number",r.getMiniNumber().getID());
-			view_map.put(r.getMiniNumber().getServicesTag(),r.getMiniNumber().getID());
-			if(r.getMiniNumber().getAutocompleteInstance()!=null)
-				xxx_view_deurn.add(r.getMiniNumber().getID());
-		}
-		// Summary
-		if(r.getMiniSummary() !=null){
-			view_good.put("summary",r.getMiniSummary().getID());
-			view_map.put(r.getMiniSummary().getServicesTag(),r.getMiniSummary().getID());
-			if(r.getMiniSummary().getAutocompleteInstance()!=null)
-				xxx_view_deurn.add(r.getMiniSummary().getID());
-		}
-		//Summary list
-		if(r.getAllMiniSummaryList().length > 0){
-			for(FieldSet fs : r.getAllMiniSummaryList()) {
-				view_good.put("summarylist_"+ fs.getID(),fs.getID());
-				view_map.put(fs.getServicesTag(),fs.getID());
-				if(fs instanceof Field) {
-					// Single field
-					Field f=(Field)fs;
-					if(f.hasAutocompleteInstance()){
-						xxx_view_deurn.add(f.getID());
-					}
-				}
-			}
-		}
+		super(r,conn);
+		initializeGlean(r);
 		Record permissionRecord = r.getSpec().getRecord("permission");
 		this.permissions = new PermissionCache(permissionRecord,conn);
 	}
 
-	/**
-	 * Set the csids that were retrieved in the cache.
-	 * We use a combination of the path and the key to create a unique name to be able to retrieve the value later on.
-	 * @param cache The cache itself
-	 * @param path The path to the object on the service layer
-	 * @param key The name from the node in the XML file
-	 * @param value The value from the node in the XML file
-	 */
-	private void setGleanedValue(CSPRequestCache cache,String path,String key,String value) {
-		cache.setCached(getClass(),new String[]{"glean",path,key},value);
-	}
 
-	/**
-	 * Get a cached value out of the cache by using the path and the key
-	 * @param cache The cache itself
-	 * @param path The path to the object on the service layer
-	 * @param key The name from the node in the XML file
-	 * @return
-	 */
-	private String getGleanedValue(CSPRequestCache cache,String path,String key) {
-		return (String)cache.getCached(getClass(),new String[]{"glean",path,key});
-	}
 
-	/**
-	 * Convert the incoming XML from the Service Layer to JSON
-	 * @param out {JSONObject} The JSON that we send back to the UI Layer
-	 * @param in {Document} The XML Document we got from the Service Layer that has to be converted
-	 * @throws JSONException
-	 */
-	private void convertToJson(JSONObject out,Document in) throws JSONException {
-		XmlJsonConversion.convertToJson(out,r,in);
-	}
+
 
 	/**
 	 * Convert the JSON from the UI Layer into XML for the Service layer while using the XML structure from default.xml
@@ -172,27 +109,7 @@ public class AuthorizationStorage implements ContextualisedStorage {
 		}
 	}
 
-	/**
-	 * This function will decode a urn
-	 * @param {String} in a urn
-	 * @return {String} the decoded urn string
-	 * @throws UnderlyingStorageException
-	 */
-	private String xxx_deurn(String in) throws UnderlyingStorageException {
-		if(!in.startsWith("urn:"))
-			return in;
-		if(!in.endsWith("'"))
-			return in;
-		in=in.substring(0,in.length()-1);
-		int pos=in.lastIndexOf("'");
-		if(pos==-1)
-			return in+"'";
-		try {
-			return URLDecoder.decode(in.substring(pos+1),"UTF8");
-		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("No UTF8!");
-		}
-	}
+
 
 	/**
 	 * Returns a list of csid's from a certain type of record
@@ -312,9 +229,13 @@ public class AuthorizationStorage implements ContextualisedStorage {
 	public JSONObject retrieveJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String[] parts=filePath.split("/",2);
-			if(parts.length==2) {
-				return viewRetrieveJSON(root,creds,cache,parts[0],parts[1]);
+			String[] parts=filePath.split("/");
+			if(parts.length>=2) {
+				String extra = "";
+				if(parts.length==3){
+					extra = parts[2];
+				}
+				return viewRetrieveJSON(root,creds,cache,parts[0],parts[1],extra);
 			} else
 				return simpleRetrieveJSON(creds,cache,filePath);
 		} catch(JSONException x) {
@@ -322,19 +243,16 @@ public class AuthorizationStorage implements ContextualisedStorage {
 		}
 	}
 	
-	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view,String extra) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		if("view".equals(view))
-			return miniViewRetrieveJSON(cache,creds,filePath);
+			return miniViewRetrieveJSON(cache,creds,filePath,extra);
 		else if("refs".equals(view))
 			return refViewRetrieveJSON(storage,creds,cache,filePath);
 		else
 			return new JSONObject();
 	}
 
-	// XXX support URNs for reference
-	private JSONObject miniForURI(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String refname,String uri) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		return storage.retrieveJSON(storage,creds,cache,"direct/urn/"+uri+"/"+refname);
-	}
+
 
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
@@ -364,66 +282,102 @@ public class AuthorizationStorage implements ContextualisedStorage {
 		}
 	}
 
-	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,CSPRequestCredentials creds,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,CSPRequestCredentials creds,String filePath, String extra) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject out=new JSONObject();
 		JSONObject summarylist=new JSONObject();
 		String summarylistname = "summarylist_";
-		Set<String> to_get=new HashSet<String>(view_good.keySet());
-
-		//if it's a permission we also need to return the action
-		if(r.getID().equals("permission")){
-			out = permissions.retrieveJSON(creds,cache,filePath);
+		if(!extra.equals("")){
+			summarylistname = extra+"_";
 		}
-		else{
-
-			// Try to fullfil from gleaned info
-			for(String fieldname : view_good.keySet()) {
-				String good = view_good.get(fieldname);
-				String gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,good);
-				if(gleaned==null)
-					continue;
-				if(xxx_view_deurn.contains(good))
-					gleaned=xxx_deurn(gleaned);
-				
-				String name = fieldname;
-				if(name.startsWith(summarylistname)){
-					name = name.substring(summarylistname.length());
-					summarylist.put(name, gleaned);
-				}
-				else{
-					out.put(fieldname,gleaned);
-				}
+		Set<String> to_get=new HashSet<String>(view_good.keySet());
+		// Try to fullfil from gleaned info
+		//gleaned is info that everytime we read a record we cache certain parts of it
+		for(String fieldname : view_good.keySet()) {
+			//only get the info that is needed
+			String name = fieldname;
+			if(!name.startsWith(summarylistname)&& !name.equals("summary") && !name.equals("number")){
 				to_get.remove(fieldname);
+				continue;
 			}
-			// Do a full request
-			if(to_get.size()>0) {
-				JSONObject data=simpleRetrieveJSON(creds,cache,filePath);
-				for(String fieldname : to_get) {
-					String good = view_good.get(fieldname);
-					//this might work with repeat objects
-					String value = JSONUtils.checkKey(data, good);
-					if(value != null){
-						String vkey=fieldname;
-						if(xxx_view_deurn.contains(good))
-							value=xxx_deurn(value);
-					
-						if(vkey.startsWith(summarylistname)){
-							String name = vkey.substring(summarylistname.length());
-							summarylist.put(name, value);
-						}
-						else{
-							out.put(vkey,value);
+			
+			String gleaned = null;
+			String good = view_good.get(fieldname);
+			if(view_merge.containsKey(fieldname)){
+				List<String> mergeids = view_merge.get(fieldname);
+				for(String id : mergeids){
+					if(id == null)
+						continue;
+					//iterate for merged ids
+					gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,id);
+					if(gleaned!=null){
+						//if find value stop
+						break;
+					}
+				}
+			}
+			else{
+				gleaned=getGleanedValue(cache,r.getServicesURL()+"/"+filePath,good);
+			}
+			
+			if(gleaned==null)
+				continue;
+			if(xxx_view_deurn.contains(good))
+				gleaned=xxx_deurn(gleaned);
+			
+			
+			if(name.startsWith(summarylistname)){
+				name = name.substring(summarylistname.length());
+				summarylist.put(name, gleaned);
+			}
+			else{
+				out.put(fieldname,gleaned);
+			}
+			to_get.remove(fieldname);
+		}
+		// Do a full request
+		if(to_get.size()>0) {
+			JSONObject data=simpleRetrieveJSON(creds,cache,filePath);
+			for(String fieldname : to_get) {
+				String good = view_good.get(fieldname);
+				String value = null;
+				if(view_merge.containsKey(fieldname)){
+					List<String> mergeids = view_merge.get(fieldname);
+					for(String id : mergeids){
+						if(id == null)
+							continue;
+						value = JSONUtils.checkKey(data, id);
+						//iterate for merged ids
+						if(value!=null){
+							//if find value stop
+							break;
 						}
 					}
+				}
+				else{
+					value = JSONUtils.checkKey(data, good);
+				}
+				//this might work with repeat objects
+				if(value != null){
+					String vkey=fieldname;
+					if(xxx_view_deurn.contains(good))
+						value=xxx_deurn(value);
+				
+					if(vkey.startsWith(summarylistname)){
+						String name = vkey.substring(summarylistname.length());
+						summarylist.put(name, value);
+					}
 					else{
-						String vkey=fieldname;
-						if(vkey.startsWith(summarylistname)){
-							String name = vkey.substring(summarylistname.length());
-							summarylist.put(name, "");
-						}
-						else{
-							out.put(vkey,"");						
-						}
+						out.put(vkey,value);
+					}
+				}
+				else{
+					String vkey=fieldname;
+					if(vkey.startsWith(summarylistname)){
+						String name = vkey.substring(summarylistname.length());
+						summarylist.put(name, "");
+					}
+					else{
+						out.put(vkey,"");						
 					}
 				}
 			}
@@ -451,11 +405,8 @@ public class AuthorizationStorage implements ContextualisedStorage {
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, r.getServicesURL()+"/"+filePath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new ExistException("Does not exist "+filePath);
-				for(String section : r.getServicesRecordPaths()) {
-					String path=r.getServicesRecordPath(section);
-					String[] parts=path.split(":",2);
-					convertToJson(out,doc.getDocument());
-				}
+
+				convertToJson(out,doc.getDocument());
 			}
 			return out;
 		} catch (ConnectionException e) {

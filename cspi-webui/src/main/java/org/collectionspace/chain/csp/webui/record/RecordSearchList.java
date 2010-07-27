@@ -49,7 +49,11 @@ public class RecordSearchList implements WebMethod {
 	 * @throws JSONException
 	 */
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view");
+		String postfix = "list";
+		if(this.search){
+			postfix = "search";
+		}
+		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view/"+postfix);
 		out.put("csid",csid);
 		out.put("recordtype",type_to_url.get(type));
 		return out;

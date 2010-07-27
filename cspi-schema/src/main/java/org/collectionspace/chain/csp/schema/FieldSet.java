@@ -1,5 +1,7 @@
 package org.collectionspace.chain.csp.schema;
 
+import java.util.List;
+
 public interface FieldSet {
 	public String getID();
 	public String[] getIDPath();
@@ -12,4 +14,9 @@ public interface FieldSet {
 	//subrecords
 	public boolean usesRecord();
 	public Record usesRecordId();
+	
+	//
+	public boolean hasAutocompleteInstance();
+	public Boolean hasMergeData();
+	public List<String> getAllMerge();
 }

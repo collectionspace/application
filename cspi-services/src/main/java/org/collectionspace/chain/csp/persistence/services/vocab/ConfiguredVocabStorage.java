@@ -1,5 +1,6 @@
 package org.collectionspace.chain.csp.persistence.services.vocab;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.persistence.services.GenericStorage;
 import org.collectionspace.chain.csp.persistence.services.XmlJsonConversion;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
@@ -36,14 +38,15 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConfiguredVocabStorage implements ContextualisedStorage {
+public class ConfiguredVocabStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(ConfiguredVocabStorage.class);
 	private ServicesConnection conn;
 	private VocabInstanceCache vocab_cache;
 	private URNProcessor urn_processor;
 	private Record r;
 
-	public ConfiguredVocabStorage(Record r,ServicesConnection conn) throws  DocumentException {
+	public ConfiguredVocabStorage(Record r,ServicesConnection conn) throws  DocumentException, IOException {
+		super(r,conn);
 		this.conn=conn;
 		urn_processor=new URNProcessor(r.getURNSyntax());
 		Map<String,String> vocabs=new ConcurrentHashMap<String,String>();
@@ -74,7 +77,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	}
 
 	private String getDisplayNameKey() throws UnderlyingStorageException {
-		Field dnf=r.getDisplayNameField();
+		Field dnf=(Field)r.getDisplayNameField();
 		if(dnf==null)
 			throw new UnderlyingStorageException("no display-name='yes' field");
 		return dnf.getID();
@@ -194,10 +197,6 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 		}
 	}
 
-	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath,JSONObject jsonObject)
-	throws ExistException, UnimplementedException, UnderlyingStorageException {
-		throw new UnimplementedException("Cannot create at named path");
-	}
 
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
@@ -377,59 +376,97 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 	
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String[] path=filePath.split("/");
-			JSONObject out = new JSONObject();
-
-				String vocab,csid;
-				if("_direct".equals(path[0])) {
-					if("urn".equals(path[1])) {
-						//this isn't simple pattern matching
-						return urnGet(path[2],path[3],path[4]);
-					}
-					vocab=path[2];
-					csid=path[3];
-				} else {
-					vocab=vocab_cache.getVocabularyId(creds,cache,path[0]);
-					csid=path[1];	
-				}			
-				
-				
-				if(path[path.length-1].equals("refObjs")){
-					out=refObjViewRetrieveJSON(root, creds, cache, vocab, csid);
-				}else if(path[path.length-1].equals("authorityrefs")){
-					out=refViewRetrieveJSON(root, creds, cache, vocab, csid);
-				}else if(path[path.length-1].equals("view")){
-					//actually use cache			
-					String name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
-					String refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
-					String shortId=(String)cache.getCached(getClass(),new String[]{"shortId",vocab,csid});
-					if(name != null && refid != null && name.length() >0 && refid.length()>0 && shortId !=null){
-						out.put(getDisplayNameKey(), name);
-						out.put("refid", refid);
-						out.put("csid",csid);
-						out.put("authorityid", vocab);
-						out.put("shortIdentfier", shortId);
-						out.put("recordtype",r.getWebURL());
-					}
-					else{
-						out=get(creds,cache,vocab,csid);
-						cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
-						cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
-						cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
-					}
-				}else{
-					out=get(creds,cache,vocab,csid);
-					cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
-					cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
-					cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
+			Integer num = 0;
+			String[] parts=filePath.split("/");
+			//deal with different url structures
+			String vocab,csid;
+			if("_direct".equals(parts[0])) {
+				if("urn".equals(parts[1])) {
+					//this isn't simple pattern matching
+					return urnGet(parts[2],parts[3],parts[4]);
 				}
+				vocab=parts[2];
+				csid=parts[3];
+				num=4;
+			} else {
+				vocab=vocab_cache.getVocabularyId(creds,cache,parts[0]);
+				csid=parts[1];	
+				num = 2;
+			}		
+			
+			
+			if(parts.length>num) {
+				String extra = "";
+				Integer extradata = num + 1;
+				if(parts.length>extradata){
+					extra = parts[extradata];
+				}
+				return viewRetrieveJSON(root,creds,cache,vocab,csid,parts[num],extra);
+			} else
+				return simpleRetrieveJSON(creds,cache,vocab,csid);
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception",e);
+		}  catch(JSONException x) {
+			throw new UnderlyingStorageException("Error building JSON",x);
+		}
+		
+	}
+	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid,String view, String extra) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+		try{
+			if(view.equals("view")){
+				return miniViewRetrieveJSON(cache,creds,vocab, csid);
+			}
+			else if("authorityrefs".equals(view)){
+				String path = generateURL(vocab,csid,"/authorityrefs");
+				return refViewRetrieveJSON(storage,creds,cache,path);
+			}
+			else if("refObjs".equals(view)){
+				String path = generateURL(vocab,csid,"/refObjs");
+				return refObjViewRetrieveJSON(storage,creds,cache,path);			
+			}
+			else
+				return new JSONObject();
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception",e);
+		}
+	}
+	
+	
+	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,CSPRequestCredentials creds,String vocab,String csid) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+		try {
+			JSONObject out=new JSONObject();
+			//actually use cache			
+			String name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
+			String refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
+			String shortId=(String)cache.getCached(getClass(),new String[]{"shortId",vocab,csid});
+			if(name != null && refid != null && name.length() >0 && refid.length()>0 && shortId !=null){
+				out.put(getDisplayNameKey(), name);
+				out.put("refid", refid);
+				out.put("csid",csid);
+				out.put("authorityid", vocab);
+				out.put("shortIdentfier", shortId);
+				out.put("recordtype",r.getWebURL());
+			}
+			else{
+					return simpleRetrieveJSON(creds,cache,vocab,csid);
+			}
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
-		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Cannot generate JSON",e);
 		}
 	}
+	
+	
+	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException{
+		JSONObject out=new JSONObject();
+		out=get(creds,cache,vocab,csid);
+		cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
+		cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
+		cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
+		return out;
+	}
+	
+	
 	
 	private JSONObject get(CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
 		int status=0;
@@ -466,80 +503,7 @@ public class ConfiguredVocabStorage implements ContextualisedStorage {
 			return out;
 	}
 	
-	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
-		
-		JSONObject out=new JSONObject();
-		if(r.hasRefObjUsed()){
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,generateURL(vocab,csid,"/refObjs"),null,creds,cache);
-			String test = all.getDocument().asXML();
-			if(all.getStatus()!=200)
-				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-			Document list=all.getDocument();
-			for(Object node : list.selectNodes("authority-ref-doc-list/authority-ref-doc-item")) {
-				if(!(node instanceof Element))
-					continue;
-				String key=((Element)node).selectSingleNode("sourceField").getText();
-				String uri=((Element)node).selectSingleNode("uri").getText();
-				String docid=((Element)node).selectSingleNode("docId").getText();
-				String doctype=((Element)node).selectSingleNode("docType").getText();
-				String fieldName = key.split(":")[1];
-				//Field fieldinstance = (Field)r.getRepeatField(fieldName);
-				
-				if(uri!=null && uri.startsWith("/"))
-					uri=uri.substring(1);
-				JSONObject data = new JSONObject();//=miniForURI(storage,creds,cache,refname,uri);
-				data.put("csid", docid);
-//				data.put("sourceFieldselector", fieldinstance.getSelector());
-				data.put("sourceFieldName", fieldName);
-				data.put("sourceFieldType", doctype);
-				out.put(key,data);
-			}
-		}
-		return out;
-	}
-
-	// XXX support URNs for reference
-	private JSONObject miniForURI(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String refname,String uri) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		return storage.retrieveJSON(storage,creds,cache,"direct/urn/"+uri+"/"+refname);
-	}
 	
-	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
-		try {
-			JSONObject out=new JSONObject();
-			//not all the records need a reference, look in default.xml for which that don't
-			if(r.hasTermsUsed()){
-				String path = generateURL(vocab,csid,"/authorityrefs");
-				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
-				if(all.getStatus()!=200)
-					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-				Document list=all.getDocument();
-				for(Object node : list.selectNodes("authority-ref-list/authority-ref-item")) {
-					if(!(node instanceof Element))
-						continue;
-					String key=((Element)node).selectSingleNode("sourceField").getText();
-					String uri=((Element)node).selectSingleNode("uri").getText();
-					String refname=((Element)node).selectSingleNode("refName").getText();
-					String fieldName = key.split(":")[1];
-					Field fieldinstance = (Field)r.getRepeatField(fieldName);
-					
-					if(uri!=null && uri.startsWith("/"))
-						uri=uri.substring(1);
-					JSONObject data=miniForURI(storage,creds,cache,refname,uri);
-					data.put("sourceFieldselector", fieldinstance.getSelector());
-					data.put("sourceFieldName", fieldName);
-					data.put("sourceFieldType", r.getID());
-					out.put(key,data);
-				}
-			}
-			return out;
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection problem",e);
-		}
-	}
-	
-	private void convertToJson(JSONObject out,Document in) throws JSONException {
-		XmlJsonConversion.convertToJson(out,r,in);
-	}
 
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {

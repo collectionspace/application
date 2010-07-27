@@ -3,6 +3,7 @@ package org.collectionspace.chain.csp.schema;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
@@ -12,6 +13,7 @@ public class Repeat implements FieldSet, FieldParent {
 	private Boolean is_visible;
 	private FieldParent parent;
 	private Set<String> enum_default;
+	private Stack<String> merged = new Stack<String>();
 	private List<FieldSet> children=new ArrayList<FieldSet>();
 	private boolean enum_hasblank=true,exists_in_service=true, has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
 
@@ -60,6 +62,14 @@ public class Repeat implements FieldSet, FieldParent {
 		this.enum_default = Util.getSetOrDefault(section, "/enum/default", new String[]{""});
 		this.enum_hasblank = Util.getBooleanOrDefault(section, "/enum/@has-blank",true);
 		this.enum_blank = Util.getStringOrDefault(section, "/enum/blank-value", "Please select an item");
+		
+		Set<String> minis=Util.getSetOrDefault(section,"/@mini",new String[]{""});
+		if(minis.contains("number")){	this.parent.getRecord().setMiniNumber(this);	}
+		if(minis.contains("summary")){	this.parent.getRecord().setMiniSummary(this);	}
+		if(minis.contains("list")){	this.parent.getRecord().addMiniSummaryList(this);	}
+		for(String s : minis){
+			this.parent.getRecord().addMiniDataSet(this,s);
+		}
 	}
 
 	public String getID() { return id; }
@@ -101,6 +111,13 @@ public class Repeat implements FieldSet, FieldParent {
 		}
 	}
 
+	public boolean hasAutocompleteInstance(){ 
+		return false; 
+	}
+	public Boolean hasMergeData() {
+		return false;
+	}
+	public List<String> getAllMerge() {	return merged;	}
 	public boolean hasEnumBlank(){ return enum_hasblank; }
 	public String enumBlankValue(){ return enum_blank; }
 	public boolean isEnumDefault(String name){

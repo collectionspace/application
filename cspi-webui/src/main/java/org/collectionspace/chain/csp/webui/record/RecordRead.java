@@ -36,7 +36,7 @@ public class RecordRead implements WebMethod {
 	}
 		
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view");
+		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view/relate");
 		out.put("csid",csid);
 		out.put("recordtype",type_to_url.get(type));
 		return out;
