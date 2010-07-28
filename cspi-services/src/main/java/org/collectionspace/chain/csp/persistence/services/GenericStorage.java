@@ -20,6 +20,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ServicesCon
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
@@ -417,6 +418,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			if(r.hasTermsUsed()){
 				
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
+				String data2 = all.getDocument().asXML();
 				if(all.getStatus()!=200)
 					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 				Document list=all.getDocument();
@@ -427,15 +429,29 @@ public class GenericStorage  implements ContextualisedStorage {
 					String uri=((Element)node).selectSingleNode("uri").getText();
 					String refname=((Element)node).selectSingleNode("refName").getText();
 					String fieldName = key.split(":")[1];
-					Field fieldinstance = (Field)r.getRepeatField(fieldName);
+					Field fieldinstance= null;
+					if(r.getRepeatField(fieldName) instanceof Repeat){
+						Repeat rp = (Repeat)r.getRepeatField(fieldName);
+						for(FieldSet a : rp.getChildren()){
+							if(a instanceof Field && a.hasAutocompleteInstance()){
+								fieldinstance = (Field)a;
+							}
+						}
+					}
+					else{
+						fieldinstance = (Field)r.getRepeatField(fieldName);
+					}
 					
-					if(uri!=null && uri.startsWith("/"))
-						uri=uri.substring(1);
-					JSONObject data=miniForURI(storage,creds,cache,refname,uri);
-					data.put("sourceFieldselector", fieldinstance.getSelector());
-					data.put("sourceFieldName", fieldName);
-					data.put("sourceFieldType", r.getID());
-					out.put(key,data);
+					if(fieldinstance != null){
+					
+						if(uri!=null && uri.startsWith("/"))
+							uri=uri.substring(1);
+						JSONObject data=miniForURI(storage,creds,cache,refname,uri);
+						data.put("sourceFieldselector", fieldinstance.getSelector());
+						data.put("sourceFieldName", fieldName);
+						data.put("sourceFieldType", r.getID());
+						out.put(key,data);
+					}
 				}
 			}
 			return out;
