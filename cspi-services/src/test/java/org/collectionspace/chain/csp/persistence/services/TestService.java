@@ -71,7 +71,7 @@ public class TestService extends ServicesBaseClass {
 
 		testXMLJSON(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
 		testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
-		//testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
+		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
 		//testXMLJSON(spec, "userrole","accountrole.xml","accountrole.json");
 		
 		//testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
