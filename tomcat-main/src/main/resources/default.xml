@@ -871,19 +871,16 @@
 						  <option id="teaching-collection">Teaching collection</option>
 						</options>
 			         </field>
-					 <!--
-					
-					 <field id="reference">
-						<selector>.csc-reference-reference</selector>
-					</field>
-			         
-					<field id="contentMethod">
-						<selector>.csc-object-description-content-method</selector>
-					</field>
-				
-					-->
-					
-					
+					 
+					 <repeat id="fieldCollectionMethods">
+					 	<field id="fieldCollectionMethod"></field>
+					</repeat>
+					 <repeat id="fieldCollectionSources">
+					 	<field id="fieldCollectionSource"></field>
+					</repeat>
+					 <repeat id="fieldCollectors">
+					 	<field id="fieldCollector"></field>
+					</repeat>	
 					<!--  natural history -->
 					<!--  ID's probably can't use -'s , :( XXX -->
 					<field id="nhString" section="naturalhistory">
