@@ -705,9 +705,11 @@
 					 <field id="associationType">
 					    <selector>csc-object-history-association-type</selector>
 					 </field>	
+					 <repeat id="owners">
 			         <field id="owner" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-owner</selector>
 					 </field>
+					 </repeat>
 					 <field id="ownershipAccess"  xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-access</selector>
 					    <options>
