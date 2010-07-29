@@ -855,6 +855,10 @@
 					 <field id="reference">
 						<selector>.csc-reference-reference</selector>
 					</field>
+					<field id="fieldCollectionDate"></field>
+					<field id="fieldCollectionNote"></field>
+					<field id="fieldCollectionNumber"></field>
+					<field id="fieldCollectionPlace"></field>
 					 <field id="fieldCollectionEventName" >
 					    <selector>.csc-object-collection-field-collection-event-name</selector>
 					 </field>
