@@ -621,56 +621,78 @@
 					    <selector>.csc-object-production-technique-type</selector>
 					 </field>	
 					 	
-					 <field id="associatedActivity">
+					 <field id="assocActivity">
 					    <selector>.csc-object-history-association-activity</selector>
 					 </field>		 
-					 <field id="associatedActivityNote">
+					 <field id="assocActivityNote">
 					    <selector>.csc-object-history-association-activity-note</selector>
 					 </field>		 
-					 <field id="associatedEventOrganization" autocomplete="organization-organization" xxx_ui_refactored="false">
+					 <repeat id="assocEventOrganizations">
+					 	<field id="assocEventOrganization" autocomplete="organization-organization" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-event-organization</selector>
 					 </field>
-					  <field id="associatedEventPeople" autocomplete="person-person" xxx_ui_refactored="false">
+					 </repeat>
+					 <repeat id="assocEventPeoples">
+					 	<field id="assocEventPeople" autocomplete="person-person" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-event-people</selector>
 					 </field>
-					  <field id="associatedEventPerson" autocomplete="person-person" xxx_ui_refactored="false">
+					 </repeat>
+					 <repeat id="assocEventPersons">
+					 	<field id="assocEventPerson" autocomplete="person-person" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-event-person</selector>
 					 </field>
-					  <field id="associatedEventPlace" autocomplete="place-place" xxx_ui_refactored="false">
+					 </repeat>
+					 <repeat id="assocEventPlaces">
+					 	<field id="assocEventPlace" autocomplete="place-place" xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-event-place</selector>
 					 </field>
-					 <field id="associatedObject">
+					 </repeat>
+					 <field id="assocObject">
 					    <selector>.csc-object-history-association-object</selector>
 					 </field>
-					 <field id="associatedObjectType">
+					 <field id="assocObjectType">
 					    <selector>.csc-object-history-association-object-type</selector>
-					 </field>			 
-					 
-					  <field id="associatedOrganization" autocomplete="organization-organization" xxx_ui_refactored="false">
-					    <selector>.csc-object-history-association-organization</selector>
-					 </field>
-					  <field id="associatedPeople" autocomplete="person-person" xxx_ui_refactored="false">
-					    <selector>.csc-object-history-association-people</selector>
-					 </field>
-					  <field id="associatedPerson" autocomplete="person-person" xxx_ui_refactored="false">
-					    <selector>.csc-object-history-association-person</selector>
-					 </field>
-					  <field id="associatedPlace" autocomplete="place-place" xxx_ui_refactored="false">
-					    <selector>.csc-object-history-association-place</selector>
-					 </field>
-					 <field id="associatedConcept" >
+					 </field>		
+					  
+					 <repeat id="assocConcepts">
+					 <field id="assocConcept" >
 					    <selector>.csc-object-history-association-concept</selector>
 					 </field> 
-					 <field id="associatedCulturalAffinity" >
+					 </repeat>
+					 <repeat id="assocCulturalContexts">
+					 	<field id="assocCulturalContext" >
 					    <selector>.csc-object-history-association-cultural-affinity</selector>
 					 </field> 
-					 <field id="associatedDate" ui-type="date"  xxx_ui_refactored="false">
+					 </repeat>
+					 <repeat id="assocOrganizations">
+					 	<field id="assocOrganization" autocomplete="organization-organization" xxx_ui_refactored="false">
+					    <selector>.csc-object-history-association-organization</selector>
+					 </field>
+					 </repeat>
+					 <repeat id="assocPeoples">
+					  <field id="assocPeople" autocomplete="person-person" xxx_ui_refactored="false">
+					    <selector>.csc-object-history-association-people</selector>
+					 </field>
+					 </repeat>
+					 <repeat id="assocPersons">
+					  <field id="assocPerson" autocomplete="person-person" xxx_ui_refactored="false">
+					    <selector>.csc-object-history-association-person</selector>
+					 </field>
+					 </repeat>
+					 <repeat id="assocPlaces">
+					 	<field id="assocPlace" autocomplete="place-place" xxx_ui_refactored="false">
+					    <selector>.csc-object-history-association-place</selector>
+					 </field>
+					 </repeat>
+					 
+					 
+					 <field id="assocDate" ui-type="date"  xxx_ui_refactored="false">
 					    <selector>.csc-object-history-association-date</selector>
 					 </field> 
-					 <field id="associatedEventName" >
+					 <field id="assocEventName" >
 					    <selector>.csc-object-history-association-event</selector>
 					 </field> 
-					 <field id="associatedEventNameType" >
+					 <field id="assocEventNameType" >
 					    <selector>.csc-object-history-association-event-name</selector>
 					 </field> 
 					 <field id="ownershipDates" ui-type="date"  xxx_ui_refactored="false">
