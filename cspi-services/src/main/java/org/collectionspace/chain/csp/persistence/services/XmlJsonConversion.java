@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -153,16 +154,18 @@ public class XmlJsonConversion {
 		if(urn.isEmpty() || urn == null){
 			return "";
 		}
-		if(f.getAutocompleteInstance()!=null){
-			String urnsyntax = f.getAutocompleteInstance().getRecord().getURNSyntax();
+		//support multiassign of autocomplete instances
+		for ( Instance ins : f.getAllAutocompleteInstances() ){
+			String urnsyntax = ins.getRecord().getURNSyntax();
 			URNProcessor urnp = new URNProcessor(urnsyntax);
 			try {
 				return urnp.deconstructURN(urn,false)[5];
 			} catch (ExistException e) {
-				return "";
+				continue;
 			} catch (UnderlyingStorageException e) {
-				return "";
+				continue;
 			}
+			
 		}
 		return "";
 	}
