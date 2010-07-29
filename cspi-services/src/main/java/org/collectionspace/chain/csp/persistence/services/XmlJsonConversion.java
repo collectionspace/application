@@ -156,14 +156,16 @@ public class XmlJsonConversion {
 		}
 		//support multiassign of autocomplete instances
 		for ( Instance ins : f.getAllAutocompleteInstances() ){
-			String urnsyntax = ins.getRecord().getURNSyntax();
-			URNProcessor urnp = new URNProcessor(urnsyntax);
-			try {
-				return urnp.deconstructURN(urn,false)[5];
-			} catch (ExistException e) {
-				continue;
-			} catch (UnderlyingStorageException e) {
-				continue;
+			if(ins !=null){ // this authority hasn't been implemented yet
+				String urnsyntax = ins.getRecord().getURNSyntax();
+				URNProcessor urnp = new URNProcessor(urnsyntax);
+				try {
+					return urnp.deconstructURN(urn,false)[5];
+				} catch (ExistException e) {
+					continue;
+				} catch (UnderlyingStorageException e) {
+					continue;
+				}
 			}
 			
 		}
