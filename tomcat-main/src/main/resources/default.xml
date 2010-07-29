@@ -189,9 +189,11 @@
 					<field id="numberOfObjects">
 						<selector>.csc-object-identification-number-objects</selector>
 					</field>
-					<field id="comments" in-tab="yes">
+					<repeat id="comments">
+					<field id="comment">
 						<selector>.csc-object-identification-comments</selector>
 					</field>
+					</repeat>
 					<field id="copyNumber">
 						<selector>.csc-object-description-copy-number</selector>
 					</field>
@@ -223,6 +225,7 @@
 							  <option id="pupa">pupa</option>
 						</options>
 					</field>
+					<repeat id="forms">
 					<field id="form" xxx_ui_refactored="false">
 						<selector>.csc-object-description-form</selector>
 						<options>
@@ -232,6 +235,7 @@
 							  <option id="wet">wet</option>
 						</options>
 					</field>
+					</repeat>
 					<field id="editionNumber">
 						<selector>.csc-object-description-edition-number</selector>
 					</field>
@@ -250,9 +254,11 @@
 							  <option id="years">Years</option>
 						</options>
 					</field>
+					<repeat id="colors">
 					<field id="color">
 						<selector>.csc-object-description-color</selector>
 					</field>
+					</repeat>
 					<field id="materialComponent">
 						<selector>.csc-object-description-material-component</selector>
 					</field>
@@ -364,6 +370,7 @@
 					<field id="contentDescription">
 						<selector>.csc-object-description-content-description</selector>
 					</field>
+					<repeat id="contentLanguages">
 					<field id="contentLanguage" autocomplete="vocab-languages" ui-type="enum">
 						<enum>
 							<default>English</default>
@@ -371,6 +378,7 @@
 						</enum>
 						<selector>.csc-object-description-content-language</selector>
 					</field>
+					</repeat>
 					<field id="contentPosition" xxx_ui_refactored="false">
 						<selector>.csc-object-description-content-position</selector>
 						<options>
@@ -398,15 +406,24 @@
 				    		<option id="food">Food</option>
 				  		</options>
 					</field>
-					<field id="contentPeople" autocomplete="person-person" xxx_ui_refactored="false">
+					<repeat id="contentPeoples">
+						<field id="contentPeople" autocomplete="person-person" xxx_ui_refactored="false">
 						<selector>.csc-object-description-content-people</selector>
 					</field>
-					<field id="contentPerson" autocomplete="person-person" xxx_ui_refactored="false">
+					</repeat>
+					<repeat id="contentPersons">
+						<field id="contentPerson" autocomplete="person-person" xxx_ui_refactored="false">
 						<selector>.csc-object-description-content-person</selector>
 					</field>
-					<field id="contentPlace" autocomplete="place-place" xxx_ui_refactored="false"> 
+					</repeat>
+					<repeat id="contentPlaces">
+						<field id="contentPlace" autocomplete="place-place" xxx_ui_refactored="false"> 
 							<selector>.csc-object-description-content-place</selector>
 					</field>
+					</repeat>
+					
+					
+					<repeat id="contentScripts">
 					<field id="contentScript" xxx_ui_refactored="false">
 						<selector>.csc-object-description-content-script</selector>
 						<options>
@@ -419,9 +436,12 @@
 				    		<option id="square-capitals">square capitals</option>
 				  		</options>
 					</field>
+					</repeat>
+					<repeat id="contentOrganizations">
 					<field id="contentOrganization" autocomplete="organization-organization" xxx_ui_refactored="false"> 
 						<selector>.csc-object-description-content-organization</selector>
 					</field>
+					</repeat>
 					 
 					<field id="contentOtherType">
 						<selector>.csc-object-description-content-other-type</selector>
@@ -578,6 +598,10 @@
 					 <field id="objectProductionOrganization" autocomplete="organization-organization" xxx_ui_refactored="false">
 					    <selector>.csc-object-production-organization</selector>
 					 </field>
+					 <field id="objectProductionOrganizationRole"></field>
+					 <field id="objectProductionPeopleRole"></field>
+					 <field id="objectProductionPersonRole"></field>
+					 <field id="objectProductionPlaceRole"></field>
 					  <field id="objectProductionPeople" autocomplete="person-person" xxx_ui_refactored="false">
 					    <selector>.csc-object-production-people</selector>
 					 </field>
@@ -772,25 +796,30 @@
 					 <field id="datePeriod" >
 					    <selector>.csc-date-information-date-period</selector>
 					 </field> 
+					 <repeat id="styles">
 					<field id="style">
 						<selector>.csc-object-description-style</selector>
 					</field>
+					</repeat>
+					<repeat id="contentConcepts">
 					<field id="contentConcept">
 						<selector>.csc-object-description-content-concept</selector>
 					</field>
+					</repeat>
 					<field id="contentEventName">
 						<selector>.csc-object-description-content-event-name</selector>
 					</field>
 					<field id="contentEventNameType">
 						<selector>.csc-object-description-content-event-name-type</selector>
 					</field>
+					<repeat id="contentActivities">
 					<field id="contentActivity">
 						<selector>.csc-object-description-content-activity</selector>
 					</field>
+					</repeat>
 					<field id="contentOther">
 						<selector>.csc-object-description-content-other</selector>
 					</field>
-					 
 					 
 					 <field id="material">
 						<selector>.csc-object-description-material</selector>
