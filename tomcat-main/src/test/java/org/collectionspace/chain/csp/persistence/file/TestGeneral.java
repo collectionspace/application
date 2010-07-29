@@ -102,7 +102,7 @@ public class TestGeneral {
 	private final static String user2Email = "{\"email\": \"unittest2@collectionspace.org\", \"debug\" : true }";
 	//private final static String userEmail = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
 	private final static String testStr10 = "{\"roleName\": \"ROLE_USERS_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
-	private final static String urnTestJoe = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"contentPeople\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
+	private final static String urnTestJoe = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"inscriptionContentInscriber\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
 	private final static String user88Create = "{\"userId\": \"unittest88@collectionspace.org"+ d.toString() +"\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
 	
 	private FileStorage store;
@@ -452,6 +452,22 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());
 		assertTrue(out.getContent().contains("cspace.chain.store.dir"));
 	}
+/*	
+	
+	@Test public void testtest() throws Exception{
+		ServletTester jetty=setupJetty();
+		//HttpTester out1=jettyDo(jetty,"GET","/chain/intake",null);
+		String test = "{\"owners\":[],\"acquisitionSources\":[{\"acquisitionSource\":\"urn:cspace:org.collectionspace.demo:personauthority:id(0afcdc82-cc4d-43ce-8a82):person:id(8d442794-32bc-4494-8013)'Bing+Crosby'\",\"_primary\":true}],\"acquisitionDates\":[],\"objectPurchasePriceCurrency\":\"\",\"acquisitionFundingCurrency\":\"\",\"objectOfferPriceCurrency\":\"\",\"objectPurchaseOfferPriceCurrency\":\"\",\"originalObjectPurchasePriceCurrency\":\"\",\"acquisitionMethod\":\"\",\"groupPurchasePriceCurrency\":\"\",\"acquisitionReferenceNumber\":\"AR2010.3\"}";
+		
+		HttpTester out2=jettyDo(jetty,"GET","/chain/acquisition/85723332-66ee-4add-a8e1",null);
+		//log.info("SEARCH");
+		//log.info(out1.getContent());
+		log.info("RELATE");
+		log.info(out2.getContent());
+			
+	}
+*/	
+	
 	/** 
 	 * Test List functionality for different Store Types
 	 * @throws Exception
@@ -611,18 +627,20 @@ public class TestGeneral {
 
 		//assign person authority
 		JSONObject testdata = new JSONObject(urnTestJoe);
-		testdata.getJSONObject("fields").put("contentPeople",urn);
+		testdata.getJSONObject("fields").put("inscriptionContentInscriber",urn);
 		
 		//create object
 		out=jettyDo(jetty,"POST","/chain/objects/",testdata.toString());
+		log.info(out.getContent());
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		//read and check
 		out=jettyDo(jetty,"GET","/chain"+id,null);
 		JSONObject one = new JSONObject(getFields(out.getContent()));
-		assertEquals(one.get("contentPeople"), urn);
-		assertEquals(one.get("de-urned-contentPeople"), "TEST my test person");
+		log.info(one.toString());
+		assertEquals(one.get("inscriptionContentInscriber"), urn);
+		assertEquals(one.get("de-urned-inscriptionContentInscriber"), "TEST my test person");
 
 		//clean up
 		out=jettyDo(jetty,"DELETE","/chain"+id,null);
@@ -819,6 +837,7 @@ public class TestGeneral {
 		
 		//Create a user
 		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(user88Create));
+		log.info(out.getContent());
 		assertEquals(out.getMethod(),null);
 		JSONObject user = new JSONObject(out.getContent());
 		String user_id=out.getHeader("Location");
