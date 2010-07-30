@@ -139,24 +139,25 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	private String searchPath(JSONObject in) throws UnderlyingStorageException, JSONException {
 		if(in==null)
 			return "";
+		//http://nightly.collectionspace.org:8180/cspace-services/relations?sbj=cce0f7bf-3df4-4c24-85be
 		StringBuffer out=new StringBuffer();
 		boolean xxx_cspace_1080=false;
 		if(!xxx_cspace_1080 && in.has("src")) {
 			String[] src=splitTypeFromId(in.getString("src"));
-			out.append("/subject/"+src[1]);
+			out.append("&sbj="+src[1]);
 			xxx_cspace_1080=true;
 		}
 		if(!xxx_cspace_1080 && in.has("dst")) {
 			String[] dst=splitTypeFromId(in.getString("dst"));
-			out.append("/object/"+dst[1]);
+			out.append("&obj="+dst[1]);
 			xxx_cspace_1080=true;
 		}
 		if(!xxx_cspace_1080 && in.has("type")) {
-			out.append("/type/"+in.getString("type"));
+			out.append("&prd="+in.getString("type"));
 			xxx_cspace_1080=true;
 		}
 		String ret=out.toString();
-		if(ret.startsWith("/"))
+		if(ret.startsWith("&"))
 			ret=ret.substring(1);
 		return ret;
 	}
@@ -198,7 +199,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		extractPaths(rootPath,new String[]{"main"},0);
 		try {
 			List<String> list=new ArrayList<String>();
-			ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/relations/"+searchPath(restrictions),null,creds,cache);
+			ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/relations?"+searchPath(restrictions),null,creds,cache);
 			Document doc=data.getDocument();
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve relation, missing relations_common");
