@@ -419,38 +419,48 @@ public class GenericStorage  implements ContextualisedStorage {
 				
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 				String data2 = all.getDocument().asXML();
+				log.info(path);
+				log.info(data2);
 				if(all.getStatus()!=200)
 					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 				Document list=all.getDocument();
 				for(Object node : list.selectNodes("authority-ref-list/authority-ref-item")) {
 					if(!(node instanceof Element))
 						continue;
-					String key=((Element)node).selectSingleNode("sourceField").getText();
-					String uri=((Element)node).selectSingleNode("uri").getText();
-					String refname=((Element)node).selectSingleNode("refName").getText();
-					String fieldName = key.split(":")[1];
-					Field fieldinstance= null;
-					if(r.getRepeatField(fieldName) instanceof Repeat){
-						Repeat rp = (Repeat)r.getRepeatField(fieldName);
-						for(FieldSet a : rp.getChildren()){
-							if(a instanceof Field && a.hasAutocompleteInstance()){
-								fieldinstance = (Field)a;
+					if(((Element) node).hasContent()){
+
+						String key=((Element)node).selectSingleNode("sourceField").getText();
+						String uri=((Element)node).selectSingleNode("uri").getText();
+						String refname=((Element)node).selectSingleNode("refName").getText();
+
+						String fieldName = key;
+						if(key.split(":").length>1){
+							fieldName = key.split(":")[1];
+						}
+						
+						Field fieldinstance= null;
+						if(r.getRepeatField(fieldName) instanceof Repeat){
+							Repeat rp = (Repeat)r.getRepeatField(fieldName);
+							for(FieldSet a : rp.getChildren()){
+								if(a instanceof Field && a.hasAutocompleteInstance()){
+									fieldinstance = (Field)a;
+								}
 							}
 						}
-					}
-					else{
-						fieldinstance = (Field)r.getRepeatField(fieldName);
-					}
-					
-					if(fieldinstance != null){
-					
-						if(uri!=null && uri.startsWith("/"))
-							uri=uri.substring(1);
-						JSONObject data=miniForURI(storage,creds,cache,refname,uri);
-						data.put("sourceFieldselector", fieldinstance.getSelector());
-						data.put("sourceFieldName", fieldName);
-						data.put("sourceFieldType", r.getID());
-						out.put(key,data);
+						else{
+							fieldinstance = (Field)r.getRepeatField(fieldName);
+						}
+						
+						if(fieldinstance != null){
+						
+							if(uri!=null && uri.startsWith("/"))
+								uri=uri.substring(1);
+							JSONObject data=miniForURI(storage,creds,cache,refname,uri);
+							data.put("sourceFieldselector", fieldinstance.getSelector());
+							data.put("sourceFieldName", fieldName);
+							data.put("sourceFieldType", r.getID());
+							out.put(key,data);
+						}
 					}
 				}
 			}

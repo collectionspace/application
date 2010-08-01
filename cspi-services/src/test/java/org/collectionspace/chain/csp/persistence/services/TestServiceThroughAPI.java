@@ -187,7 +187,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		data.put("valuer",pname);
 		String p1=ss.autocreateJSON("intake/",data);
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs");
-		JSONObject member=mini.getJSONObject("intakes_common:valuer");		
+		JSONObject member=mini.getJSONObject("valuer");		
 		assertNotNull(member);
 		assertEquals("Dic Penderyn",member.getString("displayName"));
 		ss.deleteJSON("person/person/"+p);
