@@ -419,8 +419,6 @@ public class GenericStorage  implements ContextualisedStorage {
 				
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 				String data2 = all.getDocument().asXML();
-				log.info(path);
-				log.info(data2);
 				if(all.getStatus()!=200)
 					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 				Document list=all.getDocument();
