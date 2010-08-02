@@ -84,19 +84,34 @@ public class RecordRead implements WebMethod {
 		Iterator t=mini.keys();
 		while(t.hasNext()) {
 			String field=(String)t.next();
-			JSONObject in=mini.getJSONObject(field);
-			JSONObject entry=new JSONObject();
-			entry.put("csid",in.getString("csid"));
-			entry.put("recordtype",in.getString("recordtype"));
-			//entry.put("sourceFieldName",field);
-			entry.put("sourceFieldselector",in.getString("sourceFieldselector"));
-			entry.put("sourceFieldName",in.getString("sourceFieldName"));
-			entry.put("sourceFieldType",in.getString("sourceFieldType"));
-			
-			entry.put("number",in.getString("displayName"));
-			out.put(entry);
+			if(mini.get(field) instanceof JSONArray){
+				JSONArray array = (JSONArray)mini.get(field);
+				for(int i=0;i<array.length();i++) {
+					JSONObject in = array.getJSONObject(i);
+					JSONObject entry=getTermsUsedData(in);
+					out.put(entry);
+				}
+			}
+			else{
+				JSONObject in=mini.getJSONObject(field);
+				JSONObject entry=getTermsUsedData(in);
+				out.put(entry);
+			}
 		}
 		return out;
+	}
+	
+	private JSONObject getTermsUsedData(JSONObject in) throws JSONException{
+		JSONObject entry=new JSONObject();
+		entry.put("csid",in.getString("csid"));
+		entry.put("recordtype",in.getString("recordtype"));
+		//entry.put("sourceFieldName",field);
+		entry.put("sourceFieldselector",in.getString("sourceFieldselector"));
+		entry.put("sourceFieldName",in.getString("sourceFieldName"));
+		entry.put("sourceFieldType",in.getString("sourceFieldType"));
+		
+		entry.put("number",in.getString("displayName"));
+		return entry;
 	}
 	
 	

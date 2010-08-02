@@ -459,7 +459,15 @@ public class GenericStorage  implements ContextualisedStorage {
 							data.put("sourceFieldselector", fieldinstance.getSelector());
 							data.put("sourceFieldName", fieldName);
 							data.put("sourceFieldType", r.getID());
-							out.put(key,data);
+							if(out.has(key)){
+								JSONArray temp = out.getJSONArray(key).put(data);
+								out.put(key,temp);
+							}
+							else{
+								JSONArray temp = new JSONArray();
+								temp.put(data);
+								out.put(key,temp);
+							}
 						}
 					}
 				}
