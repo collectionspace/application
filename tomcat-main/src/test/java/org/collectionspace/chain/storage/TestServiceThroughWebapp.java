@@ -319,7 +319,7 @@ public class TestServiceThroughWebapp {
 		ServletTester jetty=setupJetty();
 		UTF8SafeHttpTester out=jettyDo(jetty,"POST","/chain/login","userid=test@collectionspace.org&password=testtest");	
 		assertEquals(303,out.getStatus());
-		assertEquals("/cspace-ui/html/createnew.html",out.getHeader("Location"));
+		assertEquals("/cspace-ui/html/findedit.html",out.getHeader("Location"));
 		out=jettyDo(jetty,"POST","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
