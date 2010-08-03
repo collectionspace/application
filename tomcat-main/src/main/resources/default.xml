@@ -1082,7 +1082,7 @@
                 <field id="fieldCollectionNote"></field>
                 <field id="fieldCollectionNumber"></field>
                 <repeat id="fieldCollectionMethods">
-                    <field id="fieldCollectionMethod"></field>
+                    <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
                 </repeat>
                 <repeat id="fieldCollectionSources">
                     <field id="fieldCollectionSource" autocomplete="person-person"></field>
@@ -2064,6 +2064,24 @@
                             <option>Swiss Franc</option>
                         </options>
                     </instance>
+					<instance id="vocab-collectionmethod">
+                        <web-url>collectionmethod</web-url>
+                        <title-ref>collectionmethod</title-ref>
+                        <title>Collection Method</title>
+						<options>
+                            <option id="borehole">borehole</option>
+						    <option id="commissioned">commissioned</option>
+						    <option id="exchanged">exchanged</option>
+						    <option id="founddead">found dead</option>
+						    <option id="metaldetector">metal detector</option>
+						    <option id="netted">netted</option>
+						    <option id="photographed">photographed</option>
+						    <option id="purchased">purchased</option>
+						    <option id="salvaged">salvaged</option>
+						    <option id="shot">shot</option>
+						    <option id="trapped">trapped</option>
+						</options>
+					</instance>
                 </instances>
                 <field id="displayName" in-title="yes" display-name="yes">
                     <selector>.csc-vocabulary-displayName</selector>
