@@ -10,6 +10,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDoc
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.dom4j.Node;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Assume;
 import org.junit.Before;
@@ -187,9 +188,17 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		data.put("valuer",pname);
 		String p1=ss.autocreateJSON("intake/",data);
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs");
-		JSONObject member=mini.getJSONObject("valuer");		
+		log.info(mini.toString());
+		JSONArray member=mini.getJSONArray("intakes_common:valuer");
 		assertNotNull(member);
-		assertEquals("Dic Penderyn",member.getString("displayName"));
+		Boolean test = false;
+		for(int i = 0; i<member.length();i++){
+			JSONObject memberitem = member.getJSONObject(i);
+			if("Dic Penderyn".equals(memberitem.getString("displayName"))){
+				test=true;
+			}
+		}
+		assertTrue(test);
 		ss.deleteJSON("person/person/"+p);
 		try {
 			ss.retrieveJSON("person/person/"+p);
