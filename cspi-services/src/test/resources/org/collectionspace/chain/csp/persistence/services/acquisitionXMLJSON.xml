@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ns2:acquisitions_common xmlns:ns2="http://collectionspace.org/services/acquisition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/acquisition http://services.collectionspace.org/acquisition/acquisitions_common.xsd">
 <acquisitionReferenceNumber>acquisitionReferenceNumber</acquisitionReferenceNumber>
+<acquisitionDates/>
 <acquisitionSources>
 <acquisitionSource>11111</acquisitionSource>
 <acquisitionSource>urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'</acquisitionSource>
