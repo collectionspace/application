@@ -104,12 +104,17 @@ public class TestOrgThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		assertTrue(results.length()>0);
+		Boolean test =false;
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			assertTrue(entry.getString("displayName").toLowerCase().contains("test my authority1"));
+			log.info(entry.toString());
+			if(entry.getString("displayName").toLowerCase().contains("test my authority1")){
+				test = true;
+			}
 			assertEquals(entry.getString("number"),entry.getString("displayName"));
 			assertTrue(entry.has("refid"));
 		}
+		assertTrue(test);
 		// Delete
 		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
 		assertTrue(out.getStatus()<299);
@@ -180,12 +185,18 @@ public class TestOrgThroughWebapp {
 			
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 
+		Boolean test =false;
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			assertTrue(entry.getString("displayName").toLowerCase().contains("test organization xxx"));
+			log.info(entry.toString());
+			if(entry.getString("displayName").toLowerCase().contains("test organization xxx")){
+				test = true;
+			}
 			assertEquals(entry.getString("number"),entry.getString("displayName"));
 			assertTrue(entry.has("refid"));
 		}
+		assertTrue(test);
+		
 		
 		// Delete
 		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
