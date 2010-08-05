@@ -1,5 +1,6 @@
 {
     "acquisitionReason": "newvalue",
+	"acquisitionDates":[],
     "acquisitionReferenceNumber": "acquisitionReferenceNumber",
     "acquisitionSources": [{
         "_primary": true,
