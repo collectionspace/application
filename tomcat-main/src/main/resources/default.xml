@@ -1113,25 +1113,25 @@
                         <container-selector>.csc-acquisition-acquisition-date-container</container-selector>
                     </field>
                 </repeat>
-				<repeat id="acquisitionFundingList">
-					<repeat id="acquisitionFunding">
-                <field id="acquisitionFundingCurrency" autocomplete="vocab-currency" ui-type="enum">
-                    <enum>
-                        <default>US Dollar</default>
-                    </enum>
-                    <selector>.csc-acquisition-acquisition-funding-denomination</selector>
-                </field>
-                <field id="acquisitionFundingValue">
-                    <selector>.csc-acquisition-acquisition-funding-value</selector>
-                </field>
-                <field id="acquisitionFundingSource" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
-                    <selector>.csc-acquisition-acquisition-funding-source</selector>
-                </field>
-                <field id="acquisitionFundingSourceProvisos">
-                    <selector>.csc-acquisition-acquisition-funding-provisos</selector>
-                </field>
+				
+				<repeat id="acquisitionFundingList/acquisitionFunding"  has-primary="yes">
+                	<field id="acquisitionFundingCurrency" autocomplete="vocab-currency" ui-type="enum">
+                    	<enum>
+                        	<default>US Dollar</default>
+                    	</enum>
+                    	<selector>.csc-acquisition-acquisition-funding-denomination</selector>
+                	</field>
+               		<field id="acquisitionFundingValue">
+                    	<selector>.csc-acquisition-acquisition-funding-value</selector>
+                	</field>
+                	<field id="acquisitionFundingSource" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
+                    	<selector>.csc-acquisition-acquisition-funding-source</selector>
+                	</field>
+                	<field id="acquisitionFundingSourceProvisos">
+                    	<selector>.csc-acquisition-acquisition-funding-provisos</selector>
+                	</field>
 				</repeat>
-				</repeat>
+				
                 <field id="acquisitionMethod" xxx_ui_refactored="false">
                     <selector>.csc-acquisition-acquisition-method</selector>
                     <options>
