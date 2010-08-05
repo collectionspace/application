@@ -5,6 +5,20 @@
 <acquisitionSource>11111</acquisitionSource>
 <acquisitionSource>urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'</acquisitionSource>
 </acquisitionSources>
+<acquisitionFundingList>
+	<acquisitionFunding>
+                <acquisitionFundingCurrency>A</acquisitionFundingCurrency>
+                <acquisitionFundingValue>S</acquisitionFundingValue>
+                <acquisitionFundingSource>D</acquisitionFundingSource>
+                <acquisitionFundingSourceProvisos>F</acquisitionFundingSourceProvisos>
+	</acquisitionFunding>
+	<acquisitionFunding>
+                <acquisitionFundingCurrency>Aq</acquisitionFundingCurrency>
+                <acquisitionFundingValue>Sq</acquisitionFundingValue>
+                <acquisitionFundingSource>Dq</acquisitionFundingSource>
+                <acquisitionFundingSourceProvisos>Fq</acquisitionFundingSourceProvisos>
+	</acquisitionFunding>
+</acquisitionFundingList>
 <acquisitionReason>newvalue</acquisitionReason>
 <acquisitionMethod>acquisitionMethod</acquisitionMethod>
 <owner>urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'</owner>
