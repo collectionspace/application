@@ -142,8 +142,9 @@ public class TestServiceThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain"+path,null);
 		JSONObject content=new JSONObject(out.getContent());
 		content=getFields(content);
+		log.info(content.toString());
 		JSONObject one = new JSONObject(getResourceString("create_acquistion.json"));
-		assertEquals(one.get("acquisitionFundingCurrency"),content.get("acquisitionFundingCurrency"));
+		assertEquals(one.get("acquisitionProvisos"),content.get("acquisitionProvisos"));
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int5.json")),content));
 		out=jettyDo(jetty,"PUT","/chain"+path,makeSimpleRequest(getResourceString("update_acquistion.json")));
 		assertEquals(200,out.getStatus());
@@ -151,7 +152,7 @@ public class TestServiceThroughWebapp {
 		content=new JSONObject(out.getContent());
 		content=getFields(content);
 		JSONObject oneb = new JSONObject(getResourceString("update_acquistion.json"));
-		assertEquals(oneb.get("acquisitionFundingCurrency"),content.get("acquisitionFundingCurrency"));
+		assertEquals(oneb.get("acquisitionProvisos"),content.get("acquisitionProvisos"));
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int6.json")),content));		
 		out=jettyDo(jetty,"DELETE","/chain"+path,null);
 		out=jettyDo(jetty,"GET","/chain"+path,null);
