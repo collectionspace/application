@@ -10,12 +10,13 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 // XXX only one level of repetition at the moment. Should only be a matter of type furtling.
 public class Repeat implements FieldSet, FieldParent {
 	private String id,selector,userecord, enum_blank,parentID;
+	private String[] services_parent;
 	private Boolean is_visible;
 	private FieldParent parent;
 	private Set<String> enum_default;
 	private Stack<String> merged = new Stack<String>();
 	private List<FieldSet> children=new ArrayList<FieldSet>();
-	private boolean enum_hasblank=true,exists_in_service=true, has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
+	private boolean has_services_parent=false,enum_hasblank=true,exists_in_service=true, has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
 
 	/* Services */
 	private String services_tag,services_section;
@@ -49,7 +50,6 @@ public class Repeat implements FieldSet, FieldParent {
 	private void initialiseVariables(ReadOnlySection section){
 		this.id=(String)section.getValue("/@id");
 		this.selector=Util.getStringOrDefault(section,"/selector",".csc-"+this.parentID+"-"+id);
-		this.services_tag=Util.getStringOrDefault(section,"/services-tag",id);
 		this.is_visible=Util.getBooleanOrDefault(section,"/@show",true);
 		this.xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
 		this.xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
@@ -70,9 +70,22 @@ public class Repeat implements FieldSet, FieldParent {
 		for(String s : minis){
 			this.parent.getRecord().addMiniDataSet(this,s);
 		}
+		
+		String[] idparts = this.id.split("/");
+		if(idparts.length>1){
+			int len = idparts.length -1;
+			this.has_services_parent=true;
+			this.id = idparts[len];
+			idparts[len]=null;
+			this.services_parent=idparts;
+			this.asSiblings=true;
+		}
+		this.services_tag=Util.getStringOrDefault(section,"/services-tag",id);
 	}
 
-	public String getID() { return id; }
+	public String getID() {	return id; }
+	public boolean hasServicesParent() { return has_services_parent; }
+	public String[] getServicesParent() { return services_parent; }
 
 	void addChild(FieldSet f) { children.add(f); }
 	public FieldSet[] getChildren() { return children.toArray(new FieldSet[0]); }
