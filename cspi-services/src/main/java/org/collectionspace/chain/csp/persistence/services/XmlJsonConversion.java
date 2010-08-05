@@ -37,8 +37,16 @@ public class XmlJsonConversion {
 	}
 	
 	private static void addRepeatToXml(Element root,Repeat repeat,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
+
 		Element element=root;
-		if(!repeat.getXxxServicesNoRepeat()) {	// Sometimes the UI is ahead of the services layer
+		if(repeat.hasServicesParent()){
+			for(String path : repeat.getServicesParent()){
+				if(path !=null){
+					element=element.addElement(path);
+				}
+			}
+		}
+		else if(!repeat.getXxxServicesNoRepeat()) {	// Sometimes the UI is ahead of the services layer
 			element=root.addElement(repeat.getServicesTag());
 		}
 		Object value=null;
@@ -51,6 +59,7 @@ public class XmlJsonConversion {
 		} else {
 			value=in.opt(repeat.getID());			
 		}		
+		
 		if(value==null || ((value instanceof String) && StringUtils.isBlank((String)value)))
 			return;
 		if(value instanceof String) { // And sometimes the services ahead of the UI
@@ -86,8 +95,11 @@ public class XmlJsonConversion {
 			}
 			array = newarray;
 		}
-		
+		Element repeatelement=element;
 		for(int i=0;i<array.length();i++) {
+			if(repeat.hasServicesParent()){
+				repeatelement=element.addElement(repeat.getServicesTag());
+			}
 			Object one_value=array.get(i);
 			if(one_value==null || ((one_value instanceof String) && StringUtils.isBlank((String)one_value)))
 				continue;
@@ -98,12 +110,13 @@ public class XmlJsonConversion {
 					continue;
 				JSONObject d1=new JSONObject();
 				d1.put(fs[0].getID(),one_value);
-				addFieldSetToXml(element,fs[0],d1,section);
+				addFieldSetToXml(repeatelement,fs[0],d1,section);
 			} else if(one_value instanceof JSONObject) {
 				for(FieldSet fs : repeat.getChildren())
-					addFieldSetToXml(element,fs,(JSONObject)one_value,section);
+					addFieldSetToXml(repeatelement,fs,(JSONObject)one_value,section);
 			}
 		}
+		element=repeatelement;
 	}
 
 	private static void addFieldSetToXml(Element root,FieldSet fs,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
@@ -111,8 +124,9 @@ public class XmlJsonConversion {
 			return;
 		if(fs instanceof Field)
 			addFieldToXml(root,(Field)fs,in);
-		else if(fs instanceof Repeat)
+		else if(fs instanceof Repeat){
 			addRepeatToXml(root,(Repeat)fs,in,section);
+		}
 	}
 	
 	public static Document convertToXml(Record r,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
@@ -287,7 +301,6 @@ public class XmlJsonConversion {
 	
 	@SuppressWarnings("unchecked")
 	private static JSONArray addRepeatedNodeToJson(Element container,Repeat f) throws JSONException {
-		JSONObject out = new JSONObject();
 		JSONArray node = new JSONArray();
 
 		JSONArray elementlist=extractRepeatData(container,f);
@@ -372,10 +385,29 @@ public class XmlJsonConversion {
 		JSONArray node = new JSONArray();
 		// Only first element is important in container
 		//except when we have repeating items
+		int pos = 0;
 		for(Object repeatcontainer : nodes){
+			pos++;
 			Element container=(Element)repeatcontainer;
-			JSONArray repeatitem = addRepeatedNodeToJson(container,f);
-			out.put(f.getID(), repeatitem);
+			if(f.asSibling()){
+				JSONArray repeatitem = addRepeatedNodeToJson(container,f);
+				JSONArray temp = new JSONArray();
+				if(!out.has(f.getID())){
+					out.put(f.getID(), temp);
+				}
+				for(int arraysize=0 ;arraysize< repeatitem.length(); arraysize++){
+					JSONObject repeated = repeatitem.getJSONObject(arraysize);
+
+					if(f.hasPrimary() && pos==1){
+						repeated.put("_primary",true);
+					}
+					out.getJSONArray(f.getID()).put(repeated);
+				}
+			}
+			else{
+				JSONArray repeatitem = addRepeatedNodeToJson(container,f);
+				out.put(f.getID(), repeatitem);
+			}
 		}
 	}
 	
