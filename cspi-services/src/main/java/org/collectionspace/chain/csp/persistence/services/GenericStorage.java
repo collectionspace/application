@@ -489,6 +489,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnimplementedException 
 	 */
 	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path) throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
+
+		JSONObject out=new JSONObject();
 		try{
 
 			Map<String,String> reset_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
@@ -496,7 +498,6 @@ public class GenericStorage  implements ContextualisedStorage {
 			Set<String> reset_deurn=new HashSet<String>();
 			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
 			
-			JSONObject out=new JSONObject();
 			if(r.hasRefObjUsed()){
 				//XXX need a way to append the data needed from the field whcih we don't know until after we have got the information...
 				reset_map.put("docType", "docType");
@@ -576,7 +577,16 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection problem",e);
+			JSONObject dataitem = new JSONObject();
+			dataitem.put("csid", "");
+			dataitem.put("sourceFieldselector", "Functionality Failed");
+			dataitem.put("sourceFieldName", "Functionality Failed");
+			dataitem.put("sourceFieldType", "Functionality Failed");
+			dataitem.put("message", e.getMessage());
+			
+			out.put("Functionality Failed",dataitem);
+			return out;
+			//throw new UnderlyingStorageException("Connection problem",e);
 		}
 	}
 
