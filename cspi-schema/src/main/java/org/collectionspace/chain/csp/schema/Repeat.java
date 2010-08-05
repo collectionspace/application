@@ -9,7 +9,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 // XXX only one level of repetition at the moment. Should only be a matter of type furtling.
 public class Repeat implements FieldSet, FieldParent {
-	private String id,selector,userecord, enum_blank,parentID;
+	private String fullid,id,selector,userecord, enum_blank,parentID;
 	private String[] services_parent;
 	private Boolean is_visible;
 	private FieldParent parent;
@@ -48,8 +48,8 @@ public class Repeat implements FieldSet, FieldParent {
 	 * @param section
 	 */
 	private void initialiseVariables(ReadOnlySection section){
+		this.fullid = (String)section.getValue("/@id");
 		this.id=(String)section.getValue("/@id");
-		this.selector=Util.getStringOrDefault(section,"/selector",".csc-"+this.parentID+"-"+id);
 		this.is_visible=Util.getBooleanOrDefault(section,"/@show",true);
 		this.xxx_services_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-services-no-repeat",false);
 		this.xxx_ui_no_repeat=Util.getBooleanOrDefault(section,"/@xxx-ui-no-repeat",false);
@@ -59,6 +59,17 @@ public class Repeat implements FieldSet, FieldParent {
 		// should this field allow a primary flag
 		this.has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);	
 		this.userecord = Util.getStringOrDefault(section, "/@userecord", "");
+
+		String[] idparts = this.id.split("/");
+		if(idparts.length>1){
+			int len = idparts.length -1;
+			this.has_services_parent=true;
+			this.id = idparts[len];
+			idparts[len]=null;
+			this.services_parent=idparts;
+			this.asSiblings=true;
+		}
+		this.selector=Util.getStringOrDefault(section,"/selector",".csc-"+this.parentID+"-"+id);
 		this.enum_default = Util.getSetOrDefault(section, "/enum/default", new String[]{""});
 		this.enum_hasblank = Util.getBooleanOrDefault(section, "/enum/@has-blank",true);
 		this.enum_blank = Util.getStringOrDefault(section, "/enum/blank-value", "Please select an item");
@@ -71,19 +82,11 @@ public class Repeat implements FieldSet, FieldParent {
 			this.parent.getRecord().addMiniDataSet(this,s);
 		}
 		
-		String[] idparts = this.id.split("/");
-		if(idparts.length>1){
-			int len = idparts.length -1;
-			this.has_services_parent=true;
-			this.id = idparts[len];
-			idparts[len]=null;
-			this.services_parent=idparts;
-			this.asSiblings=true;
-		}
 		this.services_tag=Util.getStringOrDefault(section,"/services-tag",id);
 	}
 
 	public String getID() {	return id; }
+	public String getfullID() {	return fullid; }
 	public boolean hasServicesParent() { return has_services_parent; }
 	public String[] getServicesParent() { return services_parent; }
 

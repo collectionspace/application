@@ -378,7 +378,11 @@ public class XmlJsonConversion {
 			out.put(f.getID(),members);
 			return;
 		}
-		List nodes=root.selectNodes(f.getServicesTag());
+		String nodeName = f.getServicesTag();
+		if(f.hasServicesParent()){
+			nodeName = f.getfullID();
+		}
+		List nodes=root.selectNodes(nodeName);
 		if(nodes.size()==0)
 			return;
 		
