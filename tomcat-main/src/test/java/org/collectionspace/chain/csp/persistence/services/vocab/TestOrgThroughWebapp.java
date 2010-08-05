@@ -257,23 +257,26 @@ public class TestOrgThroughWebapp {
 	@Test public void testOrganizationGet() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Create
-	    JSONObject data=new JSONObject("{'fields':{'displayName':'Test my Org XXX2'}}");
+	    JSONObject data=new JSONObject("{'fields':{'displayName':'TestmyOrgXXX2'}}");
 	    HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",data.toString());              
 	    assertTrue(out.getStatus()<300);
 	    String url=out.getHeader("Location");
 	    // Search
-		out=jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=Test+my+Org+XXX2",null);
+		out=jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=TestmyOrgXXX2",null);
 		
 		assertTrue(out.getStatus()<299);
 		// Find candidate
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
+		log.info(Integer.toString(results.length()));
+		
 		assertTrue(results.length()>0);
 		JSONObject entry=results.getJSONObject(0);
 		String csid=entry.getString("csid");
 		out=jettyDo(jetty,"GET","/chain/vocabularies/organization/"+csid,null);
 		JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(csid,fields.getString("csid"));
-		assertEquals("Test my Org XXX2",fields.getString("displayName"));
+		assertEquals("TestmyOrgXXX2",fields.getString("displayName"));
+
 		
 		// Delete
 		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
