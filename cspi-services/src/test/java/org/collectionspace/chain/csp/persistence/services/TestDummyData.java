@@ -33,13 +33,13 @@ public class TestDummyData extends ServicesBaseClass  {
 		String intakeUrl = create("intakes/", "intakes_common", "dummydata-intake.xml");
 		String loaninUrl = create("loansin/", "loansin_common", "dummydata-loanin.xml");
 		String loanoutUrl = create("loansout/", "loansout_common", "dummydata-loanout.xml");
-		String acquisitionUrl = create("acquisitions/", "acquisitions_common", "dummydata-acquisition.xml");
+//		String acquisitionUrl = create("acquisitions/", "acquisitions_common", "dummydata-acquisition.xml");
 //		log.info(objectUrl);
 
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		
 		//argh uses id not serviceurl
-
+/*
 		String path=relate(ss,loaninUrl,intakeUrl);
 		String path2=relate(ss,intakeUrl,loaninUrl);
 		log.info("objectUrl"+objectUrl);
@@ -48,7 +48,7 @@ public class TestDummyData extends ServicesBaseClass  {
 		log.info("loanoutUrl"+loanoutUrl);
 		log.info("acquisitionUrl"+acquisitionUrl);
 		log.info(path);
-		
+*/		
 
 	}
 	
