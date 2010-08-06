@@ -1942,14 +1942,14 @@
             </record>
             <record id="movement">
                 <services-url>movements</services-url>
-                <services-list-path>movements-common-list/movements-list-item</services-list-path>
+                <services-list-path>movements-common-list/movement-list-item</services-list-path>
                 <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
                 <structures>
                     <structure id="screen"></structure>
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
                 <!--  Object Location Information Group -->
-                <field id="currentLocation" in-title="yes">
+                <field id="currentLocation" in-title="yes" mini="summary">
                     <selector>.csc-movement-currentLocation</selector>
                     <title-selector>.csc-titleBar-currentLocation</title-selector>
                 </field>
@@ -1978,7 +1978,7 @@
                 <field id="movementNote">
                     <selector>.csc-movement-movementNote</selector>
                 </field>
-                <field id="movementReferenceNumber">
+                <field id="movementReferenceNumber" mini="number">
                     <selector>.csc-movement-movementReferenceNumber</selector>
                 </field>
                 <field id="plannedRemovalDate">
@@ -1992,7 +1992,12 @@
                 </field>
             </record>
             <record id="id" type="id">
-                <!-- XXX what is this type? something to do with next number generation, currently piggy backs on normal Record functionality -->
+                <!-- 
+				This is the type for id generators - if you add a new record type that has an id_generator you need to:
+				log into cspace db and look at table id_generators and find the csid for the record type
+				use that id in cspi-services/persistence.services/ServicesIDGenerator
+				and magically it will all work
+				currently inherits most functionality from normal Record functionality -->
             </record>
             <record id="vocab" type="authority">
                 <terms-used>false</terms-used>
