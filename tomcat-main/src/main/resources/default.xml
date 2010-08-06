@@ -1942,8 +1942,8 @@
             </record>
             <record id="movement">
                 <services-url>movements</services-url>
-                <services-list-path>movements-common</services-list-path>
-                <services-record-path>movements_common:http://collectionspace.org/services/movement,movement_common</services-record-path>
+                <services-list-path>movements-common-list/movements-list-item</services-list-path>
+                <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
                 <structures>
                     <structure id="screen"></structure>
                 </structures>
