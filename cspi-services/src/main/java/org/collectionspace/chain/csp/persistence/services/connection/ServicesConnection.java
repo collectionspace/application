@@ -150,7 +150,7 @@ public class ServicesConnection {
 				int response=client.executeMethod(method);
 				out.setResponse(method,response);
 			} catch(Exception e) {
-				throw new ConnectionException("Failure at "+base_url+""+uri+":"+e.getMessage(),e);
+				throw new ConnectionException("Failure at "+base_url+" / "+uri+":"+e.getMessage(),e);
 			} finally {
 				method.releaseConnection();
 			}
