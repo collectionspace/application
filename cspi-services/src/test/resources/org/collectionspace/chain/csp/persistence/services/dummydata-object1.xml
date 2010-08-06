@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/collectionobject http://services.collectionspace.org/collectionobject/collectionobjects_common.xsd">
+ 
+                <!-- Object Identification Information -->
+<objectNumber>CompleteObject001</objectNumber>
+<!-- not currently working
+<otherNumberList>
+    <otherNumber>
+        <numberValue>411</numberValue>
+        <numberType>obsolete</numberType>
+    </otherNumber>
+    <otherNumber>
+        <numberValue>1821-2373-1736-8382</numberValue>
+        <numberType>serial</numberType>
+    </otherNumber>
+</otherNumberList>
+-->
+<briefDescriptions>
+    <briefDescription>A petrified Ogre found in the woods of Neverland</briefDescription>
+    <briefDescription>Or it could be a petrified tree looking slightly like an ogre</briefDescription>
+    <briefDescription>Or just a rock, looking a lot like a petrified tree</briefDescription>
+</briefDescriptions>
+<comments>
+    <comment>Seriously guys, it's just a piece of rock</comment>
+</comments>
+<distinguishingFeatures>Made out of rock, pretty big</distinguishingFeatures>
+<numberOfObjects>1</numberOfObjects>
+<objectName></objectName>
+<objectNameCurrency>current</objectNameCurrency>
+<objectNameLevel>subgroup</objectNameLevel>
+<objectNameNote>Je ne suis pas une baguette</objectNameNote>
+<objectNameSystem>nomenclature</objectNameSystem>
+<objectNameType>simple</objectNameType>
+<objectNameLanguage>french</objectNameLanguage>
+<responsibleDepartments>
+    <responsibleDepartment>antiquities</responsibleDepartment>
+    <responsibleDepartment>decorative-arts</responsibleDepartment>
+    <responsibleDepartment>ethnography</responsibleDepartment>
+</responsibleDepartments>
+<collection>study-collection</collection>
+<title>Petrified Ogre</title>
+<titleLanguage>swahili</titleLanguage>
+<titleTranslation>waka waka</titleTranslation>
+<titleType>generic</titleType>
+<recordStatus>in-process</recordStatus>
+
+<!-- Object Description Information -->
+<age>10223</age>
+<ageQualifier>Document</ageQualifier>
+<ageUnit>years</ageUnit>
+<colors>
+    <color></color>
+</colors>
+<!-- Object Description - Content Information -->
+<contentActivities>
+    <contentActivity></contentActivity>
+</contentActivities>
+<contentConcepts>
+    <contentConcept></contentConcept>
+</contentConcepts>
+<contentDate></contentDate>
+<contentDescription>Content of a piece of rock?! .. well there might be diamonds and petrified fish in it</contentDescription>
+<contentEventName></contentEventName>
+<contentEventNameType></contentEventNameType>
+<contentNote>pst., it's not a real ogre</contentNote>
+<contentLanguages>
+    <contentLanguage></contentLanguage>
+</contentLanguages>
+<contentObject>The Ogres hand</contentObject>
+<contentObjectType></contentObjectType>
+<contentOrganizations>
+    <contentOrganization>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(wolperorganization)'Wolper+Organization'</contentOrganization>
+</contentOrganizations>
+<contentOther></contentOther>
+<contentOtherType></contentOtherType>
+<contentPeoples>
+    <contentPeople></contentPeople>
+</contentPeoples>
+<contentPersons>
+    <contentPerson>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(gingerrogers)'Ginger+Rogers'</contentPerson>
+</contentPersons>
+<contentPlaces>
+    <contentPlace></contentPlace>
+</contentPlaces>
+<contentPosition></contentPosition>
+<contentScripts>
+    <contentScript></contentScript>
+</contentScripts>
+<copyNumber>1</copyNumber>
+<!-- Object Description - Dimension Information -->
+<dimension>height</dimension>
+<dimensionMeasuredPart>base</dimensionMeasuredPart>
+<dimensionMeasurementUnit>stories</dimensionMeasurementUnit>
+<dimensionValue>2</dimensionValue>
+<dimensionValueDate></dimensionValueDate>
+<dimensionValueQualifier></dimensionValueQualifier>
+<editionNumber>123-bg-192</editionNumber>
+<forms>
+    <form></form>
+</forms>
+<!-- Object description Inscription - Content Information -->
+<inscriptionContent>Non, c'est vrai! Je ne suis pas une baguette</inscriptionContent>
+<inscriptionContentInscriber>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(screenmagicinc.)'Screen+Magic+Inc.'</inscriptionContentInscriber>
+<inscriptionContentDate></inscriptionContentDate>
+<inscriptionContentInterpretation>It could mean a lot of things, but oddly no connection to ogres</inscriptionContentInterpretation>
+<inscriptionContentLanguage>arabic</inscriptionContentLanguage>
+<inscriptionContentMethod></inscriptionContentMethod>
+<inscriptionContentPosition>base</inscriptionContentPosition>
+<inscriptionContentScript>gothic-script</inscriptionContentScript>
+<inscriptionContentTranslation>No, it's true, I'm not a baguette</inscriptionContentTranslation>
+<inscriptionContentTransliteration>I'm a vegetarian</inscriptionContentTransliteration>
+<inscriptionContentType>label</inscriptionContentType>
+<!-- Object Description Inscription - Description Information -->
+<inscriptionDescription>Big symbol at the base</inscriptionDescription>
+<inscriptionDescriptionInscriber>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(reginabadet)'Regina+Badet'</inscriptionDescriptionInscriber>
+<inscriptionDescriptionDate></inscriptionDescriptionDate>
+<inscriptionDescriptionInterpretation>No Idea</inscriptionDescriptionInterpretation>
+<inscriptionDescriptionMethod></inscriptionDescriptionMethod>
+<inscriptionDescriptionPosition>bottom</inscriptionDescriptionPosition>
+<inscriptionDescriptionType>decoration</inscriptionDescriptionType>
+<!-- Object Description Material Information -->
+<material></material>
+<materialComponent>It is not gold</materialComponent>
+<materialComponentNote></materialComponentNote>
+<materialName>rocky balboa rocks</materialName>
+<materialSource></materialSource>
+<!-- Misc Object Description Information -->
+<objectStatus>holotype</objectStatus>
+<phase>adult</phase>
+<physicalDescription>It's pretty big - the size of an ogre.. Three arms and a hump-back</physicalDescription>
+<sex>female</sex>
+<styles>
+    <style></style>
+</styles>
+<technicalAttribute>record-speed</technicalAttribute>
+<technicalAttributeMeasurement></technicalAttributeMeasurement>
+<technicalAttributeMeasurementUnit></technicalAttributeMeasurementUnit>
+<objectComponentName>sleeve</objectComponentName>
+<objectComponentInformation></objectComponentInformation>
+<!-- Object Production Information -->
+<objectProductionDate></objectProductionDate>
+<objectProductionNote>.. But it wasn't</objectProductionNote>
+<objectProductionOrganization>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(boardwalkrecords)'Boardwalk+Records'</objectProductionOrganization>
+<objectProductionOrganizationRole></objectProductionOrganizationRole>
+<objectProductionPeople></objectProductionPeople>
+<objectProductionPeopleRole></objectProductionPeopleRole>
+<objectProductionPerson>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(virginiaboardman)'Virginia+Boardman'</objectProductionPerson>
+<objectProductionPersonRole></objectProductionPersonRole>
+<objectProductionPlace></objectProductionPlace>
+<objectProductionPlaceRole></objectProductionPlaceRole>
+<objectProductionReason>Because he thought it'd be pretty</objectProductionReason>
+<technique></technique>
+<techniqueType></techniqueType>
+<!-- Object History and Association Information - Association -->
+<!-- In the following field names, "assoc" is an abbreviation for "association". -->
+<!-- See the comments to CSPACE-2501 for a discussion of the database identifier -->
+<!-- length limit that made this abbreviation necessary. -->
+<assocActivity></assocActivity>
+<assocActivityNote>associated act. note</assocActivityNote>
+<assocConcepts>
+    <assocConcept></assocConcept>
+</assocConcepts>
+<assocCulturalContexts>
+    <assocCulturalContext></assocCulturalContext>
+</assocCulturalContexts>
+<assocDate></assocDate>
+<assocEventName></assocEventName>
+<assocEventNameType></assocEventNameType>
+<assocEventOrganizations>
+    <assocEventOrganization>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(7-eleven)'7-Eleven'</assocEventOrganization>
+</assocEventOrganizations>
+<assocEventPeoples>
+    <assocEventPeople></assocEventPeople>
+</assocEventPeoples>
+<assocEventPersons>
+    <assocEventPerson>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(maryannecasseta)'Mary+Anne+Cassata'</assocEventPerson>
+</assocEventPersons>
+<assocEventPlaces>
+    <assocEventPlace></assocEventPlace>
+</assocEventPlaces>
+<assocObject>A little piece of string</assocObject>
+<assocObjectType></assocObjectType>
+<assocOrganizations>
+    <assocOrganization>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(robertmaxwellassociates)'Robert+Maxwell+Associates'</assocOrganization>
+</assocOrganizations>
+<assocPeoples>
+    <assocPeople></assocPeople>
+</assocPeoples>
+<assocPersons>
+    <assocPerson>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(maryannecasseta)'Mary+Anne+Cassata'</assocPerson>
+</assocPersons>
+<assocPlaces>
+    <assocPlace></assocPlace>
+</assocPlaces>
+<associationNote>Actually they are in no way associated</associationNote>
+<associationType></associationType>
+<!-- Object History and Association Information - History -->
+<objectHistoryNote>Someone found it, then gave it to a museum, duh!</objectHistoryNote>
+<owners>
+    <owner></owner>
+</owners>
+<ownershipAccess>open</ownershipAccess>
+<ownershipCategory>public</ownershipCategory>
+<ownershipDates></ownershipDates>
+<ownershipExchangeMethod>exchange</ownershipExchangeMethod>
+<ownershipExchangeNote>none</ownershipExchangeNote>
+<ownershipExchangePriceCurrency>poundsterling</ownershipExchangePriceCurrency>
+<ownershipExchangePriceValue>189</ownershipExchangePriceValue>
+<ownershipPlace></ownershipPlace>
+<usage></usage>
+<usageNote>No use at all actually</usageNote>
+<!-- Object Owner's Contribution Information -->
+<ownersPersonalExperience>These object records are tedious to fill out</ownersPersonalExperience>
+<ownersPersonalResponse>Should have gone with an automagic solution</ownersPersonalResponse>
+<ownersReference></ownersReference>
+<ownersContributionNote>Haven't really contributed with much</ownersContributionNote>
+<!-- Object Viewers Contribution Information -->
+<viewersRole>Dont know what viewers role is</viewersRole>
+<viewersPersonalExperience>Probably a horrible one, considering how uninteresting this object is</viewersPersonalExperience>
+<viewersPersonalResponse>\"yeah, that was pretty horrible\", viewer, 1982</viewersPersonalResponse>
+<viewersReference></viewersReference>
+<viewersContributionNote>You got the basic details down - it was horrible, what else can I say</viewersContributionNote>
+<!-- Reference Information -->
+<reference></reference>
+<catalogNumber>BH-90210</catalogNumber>
+<!--  Object Collection Information Group -->
+<fieldCollectionDate></fieldCollectionDate>
+<fieldCollectionMethods>
+    <fieldCollectionMethod></fieldCollectionMethod>
+</fieldCollectionMethods>
+<fieldCollectionNote></fieldCollectionNote>
+<fieldCollectionNumber></fieldCollectionNumber>
+<fieldCollectionPlace></fieldCollectionPlace>
+<fieldCollectionSources>
+    <fieldCollectionSource></fieldCollectionSource>
+</fieldCollectionSources>
+<fieldCollectors>
+    <fieldCollector></fieldCollector>
+</fieldCollectors>
+<fieldCollectionEventName></fieldCollectionEventName>
+<!-- Object Description Date Information -->
+<!-- This appears to be a placeholder structured date -->
+<dateAssociation></dateAssociation>
+<dateEarliestSingle></dateEarliestSingle>
+<dateEarliestSingleCertainty></dateEarliestSingleCertainty>
+<dateEarliestSingleQualifier></dateEarliestSingleQualifier>
+<dateLatest></dateLatest>
+<dateLatestCertainty></dateLatestCertainty>
+<dateLatestQualifier></dateLatestQualifier>
+<datePeriod></datePeriod>
+<dateText></dateText>                
+                
+</ns2:collectionobjects_common>
+
