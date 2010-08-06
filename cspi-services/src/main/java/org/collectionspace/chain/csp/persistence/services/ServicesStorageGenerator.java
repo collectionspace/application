@@ -57,7 +57,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			}
 			addChild("direct",new DirectRedirector(spec));
 			addChild("id",new ServicesIDGenerator(conn));
-			addChild("relations",new ServicesRelationStorage(conn));
+			addChild("relations",new ServicesRelationStorage(conn,spec));
 			
 		} catch (Exception e) {
 			throw new CSPDependencyException("Could not set target",e); // XXX wrong type

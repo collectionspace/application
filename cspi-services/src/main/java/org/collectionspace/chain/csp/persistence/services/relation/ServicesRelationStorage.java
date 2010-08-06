@@ -14,6 +14,8 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDoc
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
@@ -42,7 +44,10 @@ import org.slf4j.LoggerFactory;
 public class ServicesRelationStorage implements ContextualisedStorage { 
 	private static final Logger log=LoggerFactory.getLogger(ServicesRelationStorage.class);
 	private ServicesConnection conn;
+	private Spec spec;
 	private RelationFactory factory;
+	private Map<String,String> type_to_surl=new HashMap<String,String>();
+	private Map<String,String> surl_to_type=new HashMap<String,String>();
 
 	private static Set<String> types=new HashSet<String>();
 	
@@ -51,8 +56,15 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		types.add("new"); // XXX Only one type is bad for testing. remove when there's a second real one
 	}
 	
-	public ServicesRelationStorage(ServicesConnection conn) throws JaxenException, InvalidXTmplException, DocumentException, IOException {
+	public ServicesRelationStorage(ServicesConnection conn,Spec spec) throws JaxenException, InvalidXTmplException, DocumentException, IOException {
 		this.conn=conn;
+		this.spec = spec;
+		
+
+		for(Record r : spec.getAllRecords()) {
+			type_to_surl.put(r.getID(),r.getServicesURL());
+			surl_to_type.put(r.getServicesURL(), r.getID());
+		}
 		factory=new RelationFactory();
 	}
 
@@ -66,6 +78,12 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	private Relation dataToRelation(CSPRequestCache cache,String id,JSONObject data) throws JSONException, UnderlyingStorageException {
 		String[] src=splitTypeFromId(data.getString("src"));
 		String[] dst=splitTypeFromId(data.getString("dst"));
+		if(type_to_surl.containsKey(src[0])){
+			src[0] = type_to_surl.get(src[0]);
+		}
+		if(type_to_surl.containsKey(dst[0])){
+			dst[0] = type_to_surl.get(dst[0]);
+		}
 		String type=data.getString("type");
 		if(!types.contains(type))
 			throw new UnderlyingStorageException("type "+type+" is undefined");
@@ -74,8 +92,16 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 
 	private JSONObject relationToData(CSPRequestCache cache,Relation r) throws JSONException {
 		JSONObject out=new JSONObject();
-		out.put("src",r.getSourceType()+"/"+r.getSourceId());
-		out.put("dst",r.getDestinationType()+"/"+r.getDestinationId());
+		String srct = r.getSourceType();
+		String dstt = r.getDestinationType();
+		if(surl_to_type.containsKey(r.getSourceType())){
+			srct = surl_to_type.get(r.getSourceType());
+		}
+		if(surl_to_type.containsKey(r.getDestinationType())){
+			dstt = surl_to_type.get(r.getDestinationType());
+		}
+		out.put("src",srct+"/"+r.getSourceId());
+		out.put("dst",dstt+"/"+r.getDestinationId());
 		out.put("type",r.getRelationshipType());
 		out.put("csid",r.getID());
 		return out;
@@ -107,7 +133,9 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		try {
 			extractPaths(filePath,new String[]{"main"},0);
 			Map<String,Document> in=new HashMap<String,Document>();
-			in.put("relations_common",dataToRelation(cache,null,data).toDocument());
+			Document datapath = dataToRelation(cache,null,data).toDocument();
+			log.info("AUTOCREATE"+datapath.asXML());
+			in.put("relations_common",datapath);
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/relations/",in,creds,cache);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not add relation status="+out.getStatus());
@@ -128,6 +156,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);
+			log.info("DELETE"+parts[0]);
 			int status=conn.getNone(RequestMethod.DELETE,"/relations/"+parts[0],null,creds,cache);
 			if(status>299)
 				throw new UnderlyingStorageException("Could not delete relation, status="+status);
@@ -252,6 +281,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);
+			log.info("RETRIEVE"+parts[0]);
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.GET,"/relations/"+parts[0],null,creds,cache);
 			if(out.getStatus()==404)
 				throw new ExistException("Not found");
