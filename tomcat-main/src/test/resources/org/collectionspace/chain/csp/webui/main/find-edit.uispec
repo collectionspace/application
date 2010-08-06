@@ -1,68 +1,69 @@
 {
-    "objects": {
-            ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-accession-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "objects.html?csid=${items.0.csid}"
-                         },
-                        ".csc-summary": "${items.0.summary}"
-                    }
-                ]
-            }
-    },
-    "proceduresIntake": {
-            ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-entry-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "intake.html?csid=${items.0.csid}"
-                         },
-                        ".csc-summary": "${items.0.summary}"
-                    }
-                ]
-            }
-    },
     "proceduresLoanin": {
-            ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-entry-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "loanin.html?csid=${items.0.csid}"
-                         },
-                        ".csc-summary": "${items.0.summary}"
-                    }
-                ]
-            }
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "loanin.html?csid=${items.0.csid}"
+                }
+            }]
+        }
     },
-    "proceduresLoanout": {
-            ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-entry-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "loanout.html?csid=${items.0.csid}"
-                         },
-                        ".csc-summary": "${items.0.summary}"
-                    }
-                ]
-            }
+    "proceduresMovement": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "movement.html?csid=${items.0.csid}"
+                }
+            }]
+        }
+    },
+    "authorityTerms": {},
+    "proceduresIntake": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "intake.html?csid=${items.0.csid}"
+                }
+            }]
+        }
     },
     "proceduresAcquisition": {
-            ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-entry-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "acquisition.html?csid=${items.0.csid}"
-                         },
-                        ".csc-summary": "${items.0.summary}"
-                    }
-                ]
-            }
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "acquisition.html?csid=${items.0.csid}"
+                }
+            }]
+        }
     },
-    "authorityTerms": {}
+    "proceduresLoanout": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "loanout.html?csid=${items.0.csid}"
+                }
+            }]
+        }
+    },
+    "objects": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-accession-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "objects.html?csid=${items.0.csid}"
+                },
+                ".csc-summary": "${items.0.summary}"
+            }]
+        }
+    }
 }
