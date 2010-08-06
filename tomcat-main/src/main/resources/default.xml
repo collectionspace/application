@@ -1940,7 +1940,7 @@
                     </options>
                 </field>
             </record>
-            <record id="movement">
+            <record id="movement" in-findedit="yes">
                 <services-url>movements</services-url>
                 <services-list-path>movements-common-list/movement-list-item</services-list-path>
                 <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
