@@ -577,6 +577,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 			return out;
 		} catch (ConnectionException e) {
+			log.error("failed to retrieve refObjs for "+path);
 			JSONObject dataitem = new JSONObject();
 			dataitem.put("csid", "");
 			dataitem.put("sourceFieldselector", "Functionality Failed");
@@ -648,6 +649,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 			ReturnedURL url;
 			//some records are accepted as multipart in the service layers, others arent, that's why we split up here
+			String test = doc.asXML();
 			if(r.isMultipart())
 				url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
 			else
