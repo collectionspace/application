@@ -171,6 +171,8 @@ public class WebReset implements WebMethod {
 				i++;
 				JSONObject name=new JSONObject();
 				name.put("displayName",line);
+				String shortID = line.replaceAll("\\W", "").toLowerCase();
+				name.put("shortIdentifier",shortID);
 				storage.autocreateJSON("/person/person",name);
 				tty.line("Created Person "+name);
 				tty.flush();
@@ -184,6 +186,8 @@ public class WebReset implements WebMethod {
 				i++;
 				JSONObject name=new JSONObject();
 				name.put("displayName",line);
+				String shortID = line.replaceAll("\\W", "").toLowerCase();
+				name.put("shortIdentifier",shortID);
 				storage.autocreateJSON("/organization/organization",name);
 				tty.line("Created Organisation "+line);
 				tty.flush();
