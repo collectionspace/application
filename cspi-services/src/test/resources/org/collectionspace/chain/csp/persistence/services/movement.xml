@@ -3,7 +3,7 @@
     <movementReferenceNumber>MV2010.99</movementReferenceNumber>
     <locationDate>2012-01-29</locationDate>
 
-<!--
+
     <currentLocation>blah</currentLocation>
     <currentLocationFitness>blah</currentLocationFitness>
     <currentLocationNote>blah</currentLocationNote>
@@ -13,12 +13,12 @@
     <plannedRemovalDate>blah</plannedRemovalDate>
     <removalDate>blah</removalDate>
     <reasonForMove>blah</reasonForMove>
--->
 
-<!--
+
+
     <movementMethods>
         <movementMethod>blah</movementMethod>
     </movementMethods>
--->
+
 
 </ns2:movements_common>

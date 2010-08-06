@@ -72,6 +72,7 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
 		testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
+		testXMLJSON(spec,"movement","movement.xml","objectsJSON.json");
 		
 		
 		//testXMLJSON(spec, "userrole","accountrole.xml","accountrole.json");
@@ -253,7 +254,9 @@ public class TestService extends ServicesBaseClass {
 		testPostGetDelete("intakes/", "intakes_common", "intake.xml", "intakes_common/entryNumber","IN2010.2");
 		testPostGetDelete("loansin/", "loansin_common", "loaninXMLJSON.xml", "loansin_common/loanInNumber", "LI2010.1.21");
 		testPostGetDelete("loansout/", "loansout_common", "loanout.xml", "loansout_common/loanOutNumber", "LO2010.117");
-//		testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementReferenceNumber", "MV2010.99");
+
+		
+		testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementReferenceNumber", "MV2010.99");
 //		testPostGetDelete("relations/", "relations_common", "relationship.xml", "relations_common/relationshipType", "affects");
 
 //		testPostGetDelete("accounts/", null, "account.xml", "accounts_common/userId", "barney");
