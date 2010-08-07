@@ -1973,7 +1973,7 @@
                     <selector>.csc-movement-movementContact</selector>
                 </field>
                 <repeat id="movementMethods">
-                    <selector>.csc-movement-movementMethod-row:</selector>
+                    <selector>.csc-movement-movementMethod</selector>
                     <field id="movementMethod">
                         <selector>.csc-movement-movementMethod</selector>
                     </field>
