@@ -137,6 +137,8 @@
                         <selector>.csc-object-identification-brief-description</selector>
                     </field>
                 </repeat>
+				<repeat id="objectNameList/objectNameGroup">
+					
                 <field id="objectNameCurrency" xxx_ui_refactored="false">
                     <selector>.csc-object-identification-object-currency</selector>
                     <options>
@@ -180,6 +182,7 @@
                 <field id="objectName" mini="list">
                     <selector>.csc-object-identification-object-name</selector>
                 </field>
+				</repeat>
                 <field id="distinguishingFeatures">
                     <selector>.csc-object-identification-distinguishing-features</selector>
                 </field>
