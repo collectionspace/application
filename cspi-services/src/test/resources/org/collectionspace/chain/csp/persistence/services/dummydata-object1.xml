@@ -26,13 +26,7 @@
 </comments>
 <distinguishingFeatures>Made out of rock, pretty big</distinguishingFeatures>
 <numberOfObjects>1</numberOfObjects>
-<objectName></objectName>
-<objectNameCurrency>current</objectNameCurrency>
-<objectNameLevel>subgroup</objectNameLevel>
-<objectNameNote>Je ne suis pas une baguette</objectNameNote>
-<objectNameSystem>nomenclature</objectNameSystem>
-<objectNameType>simple</objectNameType>
-<objectNameLanguage>french</objectNameLanguage>
+<objectNameList><objectNameGroup><objectName></objectName><objectNameCurrency>current</objectNameCurrency><objectNameLevel>subgroup</objectNameLevel><objectNameNote>Je ne suis pas une baguette</objectNameNote><objectNameSystem>nomenclature</objectNameSystem><objectNameType>simple</objectNameType><objectNameLanguage>french</objectNameLanguage></objectNameGroup></objectNameList>
 <responsibleDepartments>
     <responsibleDepartment>antiquities</responsibleDepartment>
     <responsibleDepartment>decorative-arts</responsibleDepartment>
