@@ -70,8 +70,9 @@ public class TestGeneral {
 	private final static String loanoutCreate = "{\"loanPurpose\":\"research\",\"loanedObjectStatus\":\"agreed\",\"loanOutNumber\":\"LO2010.1.3\",\"loanOutNote\":\"loan out notes\",\"specialConditionsOfLoan\":\"loanout conditions\",\"lendersAuthorizationDate\":\"May 27, 2010\",\"loanedObjectStatusDate\":\"May 28, 2010\",\"loanReturnDate\":\"May 26, 2010\",\"loanOutDate\":\"May 25, 2010\",\"loanRenewalApplicationDate\":\"May 24, 2010\",\"loanedObjectStatusNote\":\"status note\"}";
 	private final static String loaninCreate = "{\"loanInNumber\":\"LI2010.1.2\",\"lendersAuthorizer\":\"lendersAuthorizer\",\"lendersAuthorizationDate\":\"lendersAuthorizationDate\",\"lendersContact\":\"lendersContact\",\"loanInContact\":\"loanInContact\",\"loanInConditions\":\"loanInConditions\",\"loanInDate\":\"loanInDate\",\"loanReturnDate\":\"loanReturnDate\",\"loanRenewalApplicationDate\":\"loanRenewalApplicationDate\",\"loanInNote\":\"loanInNote\",\"loanPurpose\":\"loanPurpose\"}";
 	private final static String intakeCreate = "{\"normalLocation\": \"normalLocationX\",\"fieldCollectionEventName\": \"fieldCollectionEventNameX\",\"earliestDateCertainty\": \"earliestDateCertaintyX\",\"earliestDate\": \"earliestDateX\",\"latestDate\": \"latestDateX\",\"entryNumber\": \"entryNumberX\",\"insurancePolicyNumber\": \"insurancePolicyNumberX\",\"depositorsRequirements\": \"depositorsRequirementsX\",\"entryReason\": \"entryReasonX\",\"earliestDateQualifier\": \"earliestDateQualifierX\"}";
-	private final static String objectCreate = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"2\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartments\":[{\"responsibleDepartment\":\"new DEPT\"}],\"objectName\":\"new OBJNAME\"}";
+	private final static String objectCreate = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"2\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartments\":[{\"responsibleDepartment\":\"new DEPT\"}],\"objectNameGroup\": [{ \"objectName\": \"new OBJNAME\",}]}";
 	//private final static String objectCreate = "{\"accessionNumber\": \"new OBJNUM\", \"description\": \"new DESCRIPTION\", \"descInscriptionInscriber\": \"new INSCRIBER\", \"objectNumber\": \"1\", \"objectTitle\": \"new TITLE\", \"comments\": \"new COMMENTS\", \"distinguishingFeatures\": \"new DISTFEATRES\", \"responsibleDepartment\": \"new DEPT\",\"briefDescriptions\": [ { \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WAAAA\", \"primary\": \"arg\" }, { \"briefDescription\": \"WOOOOP\", \"primary\": \"bob\" } ], \"objectName\": \"new OBJNAME\"}";
+	private final static String movementCreate = "{\"normalLocation\":\"blah\",\"movementContact\":\"blah\",\"movementReferenceNumber\":\"MV2010.99\",\"currentLocationFitness\":\"blah\",\"removalDate\":\"blah\",\"locationDate\":\"2012-01-29\",\"plannedRemovalDate\":\"blah\",\"movementMethods\":[{\"movementMethod\":\"blah\"}],\"movementNote\":\"blah\",\"reasonForMove\":\"blah\",\"currentLocation\":\"blah\",\"currentLocationNote\":\"blah\"}";
 	private final static String acquisitionCreate = "{\"acquisitionReason\":\"acquisitionReason\",\"acquisitionReferenceNumber\":\"acquisitionReferenceNumber\",\"acquisitionMethod\":\"acquisitionMethod\",\"owners\":[{\"owner\":\"urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'\"}],\"acquisitionSources\":[{\"acquisitionSource\": \"11111\"},{\"acquisitionSource\": \"22222\"}]}";
 	private final static String roleCreate = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_1_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
 	private final static String personCreate = "{\"fields\":{\"displayName\":\"TEST_PERSON4_display\"}}";
@@ -434,7 +435,8 @@ public class TestGeneral {
 	 */
 	@Test public void testMultipleStoreTypes() throws Exception {
 		ServletTester jetty=setupJetty();
-		testPostGetDelete(jetty, "/objects/", objectCreate, "objectName");
+		testPostGetDelete(jetty, "/movement/", movementCreate, "movementReferenceNumber");
+		testPostGetDelete(jetty, "/objects/", objectCreate, "distinguishingFeatures");
 		testPostGetDelete(jetty, "/intake/", intakeCreate, "entryReason");
 		testPostGetDelete(jetty, "/loanout/", loanoutCreate, "loanOutNote");
 		testPostGetDelete(jetty, "/loanin/", loaninCreate, "loanInNote");
@@ -475,12 +477,13 @@ public class TestGeneral {
 	@Test public void testObjectList() throws Exception {
 		ServletTester jetty=setupJetty();
 
-		testLists(jetty, "objects", objectCreate, "items");
+/*		testLists(jetty, "objects", objectCreate, "items");
 		testLists(jetty, "intake", intakeCreate, "items");
 		testLists(jetty, "loanin", loaninCreate, "items");
 		testLists(jetty, "loanout", loanoutCreate, "items");
 		testLists(jetty, "acquisition", acquisitionCreate, "items");
 		testLists(jetty, "role", roleCreate, "items");
+*/		testLists(jetty, "movement", movementCreate, "items");
 		//testLists(jetty, "permission", permissionWrite, "items");
 	}
 	/* XXX I don't think this is tetsing what it needs to */
@@ -663,6 +666,7 @@ public class TestGeneral {
 		String personStr = "{\"displayName\":\"TEST my test person2\"}";
 		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",makeSimpleRequest(personStr));
 		String person_id=out.getHeader("Location");
+		log.info(out.getContent());
 		JSONObject persondata = new JSONObject(out.getContent());
 		String urn = persondata.getString("urn");
 
@@ -705,7 +709,7 @@ public class TestGeneral {
 		//Create
 		out = jettyDo(jetty,"POST","/chain"+uipath,makeSimpleRequest(data));
 		assertEquals(out.getMethod(),null);
-
+log.info(out.getContent());
 		assertEquals(201,out.getStatus());	
 		String id=out.getHeader("Location");	
 		//Retrieve
@@ -713,6 +717,8 @@ public class TestGeneral {
 
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(data);
+		log.info(one.toString());
+		log.info(two.toString());
 		assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
 
 		//change
@@ -734,6 +740,7 @@ public class TestGeneral {
 	private void testLists(ServletTester jetty, String objtype, String data, String itemmarker)  throws Exception{
 
 		HttpTester out1=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));
+		log.info(out1.getContent());
 		assertEquals(201, out1.getStatus());
 
 		// Opens a file output stream - ?? not sure why
@@ -753,6 +760,7 @@ public class TestGeneral {
 		// Page through looking for this id
 		do{
 			out=jettyDo(jetty,"GET","/chain/"+objtype+"/search?pageNum="+pgNum+"&pageSize="+pgSz,null);
+			log.info(objtype+":"+out.getContent());
 			assertEquals(200,out.getStatus());
 			
 			/* create list of files */
