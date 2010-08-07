@@ -30,7 +30,6 @@
         "responsibleDepartment": "ethnography"
     }],
     "ownershipAccess": "",
-    "objectNameNote": "objectNameNote",
     "contentOther": "contentOther",
     "inscriptionContentPosition": "",
     "inscriptionContentTransliteration": "",
@@ -56,7 +55,6 @@
     "ownershipExchangePriceValue": "",
     "ownersContributionNote": "",
     "objectProductionPeople": "",
-    "objectNameSystem": "objectNameSystem",
     "contentPosition": "contentPosition",
     "contentEventName": "contentEventName",
     "dimensionMeasurementUnit": "",
@@ -87,7 +85,6 @@
     "technicalAttributeMeasurement": "",
     "contentDate": "contentDate",
     "title": "title",
-    "objectNameLanguage": "objectNameLanguage",
     "titleType": "titleType",
     "titleTranslation": "titleTranslation",
     "inscriptionDescriptionType": "",
@@ -206,7 +203,6 @@
     }],
     "dateLatestCertainty": "",
     "physicalDescription": "",
-    "objectNameType": "objectNameType",
     "contentConcepts": [{
         "contentConcept": "contentConcept a"
     },
@@ -254,7 +250,6 @@
     "objectProductionOrganizationRole": "",
     "recordStatus": "recordStatus",
     "numberOfObjects": "numberOfObjects",
-    "objectNameCurrency": "objectNameCurrency",
     "technicalAttribute": "",
     "objectComponentName": "",
     "dimensionValue": "",
@@ -267,12 +262,19 @@
     "forms": [{
         "form": ""
     }],
-    "objectNameLevel": "objectNameLevel",
     "viewersContributionNote": "",
     "editionNumber": "",
     "distinguishingFeatures": "distinguishingFeatures",
     "dateAssociation": "",
+	"objectNameGroup":[{
     "objectName": "objectName",
+    "objectNameNote": "objectNameNote",
+    "objectNameSystem": "objectNameSystem",
+    "objectNameType": "objectNameType",
+    "objectNameCurrency": "objectNameCurrency",
+    "objectNameLanguage": "objectNameLanguage",
+    "objectNameLevel": "objectNameLevel"
+	}],
     "dateEarliestSingleCertainty": "",
     "fieldCollectors": [{
         "fieldCollector": ""

@@ -24,6 +24,8 @@
 </comments>
 <distinguishingFeatures>distinguishingFeatures</distinguishingFeatures>
 <numberOfObjects>numberOfObjects</numberOfObjects>
+<objectNameList>
+	<objectNameGroup>
 <objectName>objectName</objectName>
 <objectNameCurrency>objectNameCurrency</objectNameCurrency>
 <objectNameLevel>objectNameLevel</objectNameLevel>
@@ -31,6 +33,8 @@
 <objectNameSystem>objectNameSystem</objectNameSystem>
 <objectNameType>objectNameType</objectNameType>
 <objectNameLanguage>objectNameLanguage</objectNameLanguage>
+		</objectNameGroup>
+		</objectNameList>
 <responsibleDepartments>
 <responsibleDepartment>ethnography1</responsibleDepartment>
 <responsibleDepartment>ethnography2</responsibleDepartment>
