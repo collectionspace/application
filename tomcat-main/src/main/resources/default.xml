@@ -1506,7 +1506,7 @@
                     <selector>.csc-organizationAuthority-longName</selector>
                 </field>
                 <repeat id="subBodies">
-                    <field id="subBody">
+                    <field id="subBody" autocomplete="organization-organization">
                         <selector>.csc-organizationAuthority-subBodyName</selector>
                     </field>
                 </repeat>
