@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 public class RelateSearchList implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(RelateSearchList.class);
-	private Map<String,String> url_to_type=new HashMap<String,String>();
+	private Map<String,String> url_to_typeid=new HashMap<String,String>();
 	private boolean search;
 
 	public RelateSearchList(boolean in) { search=in; }
@@ -33,7 +33,7 @@ public class RelateSearchList implements WebMethod {
 			return;
 		if(map) {
 			String[] in=value.split("/");
-			value=url_to_type.get(in[0])+"/"+in[1];
+			value=url_to_typeid.get(in[0])+"/"+in[1];
 		}
 		restrictions.put(key,value);	
 	}
@@ -76,7 +76,7 @@ public class RelateSearchList implements WebMethod {
 	// XXX refactor these
 	public void configure(WebUI ui, Spec spec) {
 		for(Record r : spec.getAllRecords()) {
-			url_to_type.put(r.getWebURL(),r.getID());
+			url_to_typeid.put(r.getWebURL(),r.getID());
 		}
 	}
 }
