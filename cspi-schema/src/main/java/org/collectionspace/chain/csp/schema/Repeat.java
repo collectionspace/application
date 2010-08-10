@@ -9,7 +9,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 // XXX only one level of repetition at the moment. Should only be a matter of type furtling.
 public class Repeat implements FieldSet, FieldParent {
-	private String fullid,id,selector,userecord, enum_blank,parentID;
+	private String fullid,id,selector_affix, selector,userecord, enum_blank,parentID;
 	private String[] services_parent;
 	private Boolean is_visible;
 	private FieldParent parent;
@@ -69,6 +69,8 @@ public class Repeat implements FieldSet, FieldParent {
 			this.services_parent=idparts;
 			this.asSiblings=true;
 		}
+
+		this.selector_affix = Util.getStringOrDefault(section, "/@selector-affix", "");
 		this.selector=Util.getStringOrDefault(section,"/selector",".csc-"+this.parentID+"-"+id);
 		this.enum_default = Util.getSetOrDefault(section, "/enum/default", new String[]{""});
 		this.enum_hasblank = Util.getBooleanOrDefault(section, "/enum/@has-blank",true);
@@ -103,7 +105,8 @@ public class Repeat implements FieldSet, FieldParent {
 	public boolean asSibling() { return asSiblings;}
 	public boolean hasPrimary() {return has_primary;}
 	public String getSection() { return services_section; }
-	
+
+	public String getSelectorAffix(){ return selector_affix; }
 	public boolean usesRecord(){ if(userecord != null && !userecord.equals("")){ return true; } return false;}
 	public Record usesRecordId(){ if(usesRecord()){ return this.getRecord().getSpec().getRecord(userecord); } return null; }
 	

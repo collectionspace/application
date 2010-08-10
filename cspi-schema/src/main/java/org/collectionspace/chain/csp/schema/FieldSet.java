@@ -12,6 +12,7 @@ public interface FieldSet {
 	public void config_finish(Spec spec);
 	
 	//subrecords
+	public String getSelectorAffix();
 	public boolean usesRecord();
 	public Record usesRecordId();
 	

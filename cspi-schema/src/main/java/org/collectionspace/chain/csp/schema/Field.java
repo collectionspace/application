@@ -23,7 +23,7 @@ public class Field implements FieldSet {
 	
 	
 	/* UI */
-	private String parentID,enum_blank,selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext,userecord;
+	private String parentID,selector_affix,enum_blank,selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext,userecord;
 	private boolean enum_hasblank=true, exists_in_service= true,in_title=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
 	private Stack<String> merged = new Stack<String>();
 	private Map<String,Option> options=new HashMap<String,Option>();
@@ -43,6 +43,7 @@ public class Field implements FieldSet {
 		selector=Util.getStringOrDefault(section,"/selector",".csc-"+parentID+"-"+id);
 		userecord = Util.getStringOrDefault(section, "/@userecord", "");
 
+		selector_affix = Util.getStringOrDefault(section, "/@selector-affix", "");
 		linktext=Util.getStringOrDefault(section,"/linktext","${items.0.number}");
 		linktext_target=Util.getStringOrDefault(section,"/linktext-target","${items.0.recordtype}.html?csid=${items.0.csid}");
 		type=Util.getStringOrDefault(section,"/@ui-type","plain");
@@ -119,6 +120,7 @@ public class Field implements FieldSet {
 		return true;
 	}
 	
+	public String getSelectorAffix(){ return selector_affix; }
 	public boolean usesRecord(){ if(userecord != null && !userecord.equals("")){ return true; } return false;}
 	public Record usesRecordId(){ if(usesRecord()){ return this.getRecord().getSpec().getRecord(userecord); } return null; }
 	

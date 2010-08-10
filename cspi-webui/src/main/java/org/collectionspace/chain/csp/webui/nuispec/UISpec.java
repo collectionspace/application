@@ -212,7 +212,7 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 	
-	private JSONObject generateRepeatEntry(Repeat r) throws JSONException {
+	private JSONObject generateRepeatEntry(Repeat r, String affix) throws JSONException {
 		JSONObject out = new JSONObject();
 		JSONArray decorators=new JSONArray();
 		JSONObject decorator=new JSONObject();
@@ -222,7 +222,7 @@ public class UISpec implements WebMethod {
 		JSONObject options=new JSONObject();
 		JSONObject protoTree=new JSONObject();
 		for(FieldSet child : r.getChildren()) {
-			generateDataEntry(protoTree,child);
+			generateDataEntry(protoTree,child, affix);
 		}
 
 		options.put("protoTree", protoTree);
@@ -317,35 +317,43 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
-	private JSONObject generateDataEntrySection() throws JSONException {
+	private JSONObject generateDataEntrySection(String affix) throws JSONException {
 		JSONObject out=new JSONObject();
 		for(FieldSet fs : record.getAllFields()) {
-			generateDataEntry(out,fs);
+			generateDataEntry(out,fs,affix);
 		}
 		return out;
 	}
 
 	
-	private JSONObject generateListSection(Structure s) throws JSONException {
+	private JSONObject generateListSection(Structure s, String affix) throws JSONException {
 		JSONObject out=new JSONObject();
 		String id = s.getListSectionName();
 		if(s.getField(id) != null){
 			FieldSet fs = s.getField(id);
-			generateDataEntry(out,fs);
+			generateDataEntry(out,fs, affix);
 		}
 		
 		return out;
 	}
-	private void generateSubRecord(JSONObject out,Record subrecord) throws JSONException {
+	private void generateSubRecord(JSONObject out,Record subrecord, String affix) throws JSONException {
 		for(FieldSet fs2 : subrecord.getAllFields()) {
-			generateDataEntry(out,fs2);
+			generateDataEntry(out,fs2, affix);
 		}
 		
 	}
 	
-	private void generateDataEntry(JSONObject out,FieldSet fs) throws JSONException {
+	private void generateDataEntry(JSONObject out,FieldSet fs, String affix) throws JSONException {
 		if(fs.usesRecord()){
-			generateSubRecord(out, fs.usesRecordId());
+			if(!fs.getSelectorAffix().equals("")){
+				if(!affix.equals("")){
+					affix = affix+"-"+fs.getSelectorAffix();
+				}
+				else{
+					affix = "-"+fs.getSelectorAffix();
+				}
+			}
+			generateSubRecord(out, fs.usesRecordId(), affix);
 		}
 		else{
 			
@@ -355,44 +363,44 @@ public class UISpec implements WebMethod {
 				//XXX when all uispecs have moved across we can delete most of this
 				if(!f.isRefactored()){
 					// Single field
-					out.put(f.getSelector(),generateDataEntryField(f));	
+					out.put(f.getSelector()+affix,generateDataEntryField(f));	
 					
 					if(f.hasAutocompleteInstance()) {
 						if("enum".equals(f.getUIType())){
-							out.put(f.getAutocompleteSelector(),generateDataEntryField(f));
+							out.put(f.getAutocompleteSelector()+affix,generateDataEntryField(f));
 						}
 						else{
-							out.put(f.getAutocompleteSelector(),generateAutocomplete(f));
+							out.put(f.getAutocompleteSelector()+affix,generateAutocomplete(f));
 						}
 					}
 					if("chooser".equals(f.getUIType())) {
-						out.put(f.getContainerSelector(),generateChooser(f));
+						out.put(f.getContainerSelector()+affix,generateChooser(f));
 					}
 					if("date".equals(f.getUIType())) {
-						out.put(f.getContainerSelector(),generateDate(f));
+						out.put(f.getContainerSelector()+affix,generateDate(f));
 					}
 				}
 				else{
 					
 					if(f.hasAutocompleteInstance()) {
 						if("enum".equals(f.getUIType())){
-							out.put(f.getSelector(),generateDataEntryField(f));
+							out.put(f.getSelector()+affix,generateDataEntryField(f));
 						}
 						else{
-							out.put(f.getSelector(),generateAutocomplete(f));
+							out.put(f.getSelector()+affix,generateAutocomplete(f));
 						}
 					}
 					else if("chooser".equals(f.getUIType())) {
-						out.put(f.getSelector(),generateChooser(f));
+						out.put(f.getSelector()+affix,generateChooser(f));
 					}
 					else if("date".equals(f.getUIType())) {
-						out.put(f.getSelector(),generateDate(f));
+						out.put(f.getSelector()+affix,generateDate(f));
 					}
 					else if("sidebar".equals(f.getUIType())) {
-						//out.put(f.getSelector(),generateSideBar(f));
+						//out.put(f.getSelector()+affix,generateSideBar(f));
 					}
 					else{
-						out.put(f.getSelector(),generateDataEntryField(f));	
+						out.put(f.getSelector()+affix,generateDataEntryField(f));	
 					}
 				}
 			} else if(fs instanceof Repeat) {
@@ -402,21 +410,21 @@ public class UISpec implements WebMethod {
 					FieldSet[] children=r.getChildren();
 					if(children.length==0)
 						return;
-					generateDataEntry(out,children[0]);
+					generateDataEntry(out,children[0], affix);
 				} else {
 					JSONObject row=new JSONObject();
 					JSONArray children=new JSONArray();
 					if(r.asSibling()){ // allow for row [{'','',''}]
 						JSONObject contents=new JSONObject();
 						for(FieldSet child : r.getChildren()) {
-							generateDataEntry(contents,child);
+							generateDataEntry(contents,child, affix);
 						}
 						children.put(contents);
 						row.put("children",children);
 						out.put(r.getSelector(),row);
 					}
 					else{
-						JSONObject contents=generateRepeatEntry((Repeat)fs);
+						JSONObject contents=generateRepeatEntry((Repeat)fs, affix);
 						out.put(r.getSelector(),contents);
 					}
 				}
@@ -425,22 +433,22 @@ public class UISpec implements WebMethod {
 
 	}
 
-	private void generateTitleSectionEntry(JSONObject out,FieldSet fs) throws JSONException {
+	private void generateTitleSectionEntry(JSONObject out,FieldSet fs, String affix) throws JSONException {
 		if(fs instanceof Field) {
 			Field f=(Field)fs;
 			if(!f.isInTitle())
 				return;
-			out.put(f.getTitleSelector(),plain(f));
+			out.put(f.getTitleSelector()+affix,plain(f));
 		} else if(fs instanceof Repeat) {
 			for(FieldSet child : ((Repeat)fs).getChildren())
-				generateTitleSectionEntry(out,child);
+				generateTitleSectionEntry(out,child, affix);
 		}
 	}
 
-	private JSONObject generateTitleSection() throws JSONException {
+	private JSONObject generateTitleSection(String affix) throws JSONException {
 		JSONObject out=new JSONObject();
 		for(FieldSet f : record.getAllFields()) {
-			generateTitleSectionEntry(out,f);
+			generateTitleSectionEntry(out,f, affix);
 		}
 		return out;
 	}
@@ -468,15 +476,15 @@ public class UISpec implements WebMethod {
 	}
 
 	// XXX refactor
-	private JSONObject generateSideDataEntry(JSONObject out, FieldSet fs) throws JSONException {
+	private JSONObject generateSideDataEntry(JSONObject out, FieldSet fs, String affix) throws JSONException {
 		Repeat f=(Repeat)fs;
 		JSONObject listrow=new JSONObject();
-		generateDataEntry(listrow,fs);
+		generateDataEntry(listrow,fs, affix);
 		out.put(f.getID(),listrow);
 		return out;
 	}
 	
-	private JSONObject generateSideDataEntry(Structure s, JSONObject out, String fieldName,String url_frag,boolean include_type,boolean include_summary,boolean include_sourcefield )throws JSONException {
+	private JSONObject generateSideDataEntry(Structure s, JSONObject out, String fieldName,String url_frag,boolean include_type,boolean include_summary,boolean include_sourcefield, String affix )throws JSONException {
 		FieldSet fs = s.getSideBarItems(fieldName);
 		if(fs == null){
 			//XXX default to show if not specified
@@ -485,7 +493,7 @@ public class UISpec implements WebMethod {
 		else if(fs instanceof Repeat){
 			if(((Repeat)fs).isVisible()){
 				if(s.getField(fs.getID()) != null){
-					generateSideDataEntry(out,s.getField(fs.getID()));
+					generateSideDataEntry(out,s.getField(fs.getID()), affix);
 				}
 				else{
 					out.put(fieldName,generateSidebarPart(url_frag,include_type,include_summary,include_sourcefield));
@@ -498,31 +506,32 @@ public class UISpec implements WebMethod {
 
 	// XXX sidebar is partially fixed for now
 	//need to clean up this code - reduce duplication
-	private JSONObject generateSidebarSection(Structure s) throws JSONException {
+	private JSONObject generateSidebarSection(Structure s, String affix) throws JSONException {
 		JSONObject out=new JSONObject();
-		generateSideDataEntry(s, out,"termsUsed","${items.0.recordtype}.html",true,false,true);
-		generateSideDataEntry(s, out,"relatedProcedures","${items.0.recordtype}.html",true,true,false);
-		generateSideDataEntry(s, out,"relatedObjects","${items.0.recordtype}.html",false,true,false);
+		generateSideDataEntry(s, out,"termsUsed","${items.0.recordtype}.html",true,false,true, affix);
+		generateSideDataEntry(s, out,"relatedProcedures","${items.0.recordtype}.html",true,true,false, affix);
+		generateSideDataEntry(s, out,"relatedObjects","${items.0.recordtype}.html",false,true,false, affix);
 		return out;
 	}
 
 	private JSONObject uispec(Storage storage) throws UIException {
 		this.storage = storage;
+		String affix = "";
 		try {
 			JSONObject out=new JSONObject();
 			Structure s = record.getStructure(this.structureview);
 			if(s.showListSection()){
-				out.put(s.getListSectionName(),generateListSection(s));
+				out.put(s.getListSectionName(),generateListSection(s,affix));
 			}
 			if(s.showEditSection()){
-				out.put(s.getEditSectionName(),generateDataEntrySection());
+				out.put(s.getEditSectionName(),generateDataEntrySection(affix));
 			}
 			if(s.showTitleBar()){
-				out.put("titleBar",generateTitleSection());
+				out.put("titleBar",generateTitleSection(affix));
 			}
 			
 			if(s.showSideBar()){
-				out.put("sidebar",generateSidebarSection(s));
+				out.put("sidebar",generateSidebarSection(s, affix));
 			}
 			return out;
 		} catch (JSONException e) {
