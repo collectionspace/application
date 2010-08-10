@@ -57,7 +57,7 @@ public class Repeat implements FieldSet, FieldParent {
 		this.services_section=Util.getStringOrDefault(section,"/@section","common");
 		this.exists_in_service = Util.getBooleanOrDefault(section, "/@exists-in-services", true);
 		// should this field allow a primary flag
-		this.has_primary = Util.getBooleanOrDefault(section, "/@has-primary", false);	
+		this.has_primary = Util.getBooleanOrDefault(section, "/@has-primary", true);	
 		this.userecord = Util.getStringOrDefault(section, "/@userecord", "");
 
 		String[] idparts = this.id.split("/");
