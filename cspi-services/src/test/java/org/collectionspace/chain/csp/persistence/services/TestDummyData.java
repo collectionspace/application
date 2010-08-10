@@ -1,6 +1,7 @@
 package org.collectionspace.chain.csp.persistence.services;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +10,7 @@ import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedExcep
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
-import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -28,34 +29,57 @@ public class TestDummyData extends ServicesBaseClass  {
 		setup();
 	}
 
-	@Test public void testDataCreation() throws Exception{
-		String objectUrl = create("collectionobjects/", "collectionobjects_common", "dummydata-object1.xml","collection-object");
-		String intakeUrl = create("intakes/", "intakes_common", "dummydata-intake.xml","intake");
-		String loaninUrl = create("loansin/", "loansin_common", "dummydata-loanin.xml","loanin");
-		String loanoutUrl = create("loansout/", "loansout_common", "dummydata-loanout.xml","loanout");
-//		String acquisitionUrl = create("acquisitions/", "acquisitions_common", "dummydata-acquisition.xml","acquisition");
-//		log.info(objectUrl);
+	@Test public void testDataCreation() {
+		Storage ss;
+		try {
+			ss = makeServicesStorage(base+"/cspace-services/");
 
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		
-		//argh uses id not serviceurl
+			//create objects/procedures/
+			
+			String objectUrl = create("collectionobjects/", "collectionobjects_common", "dummydata-object1.xml","collection-object");
+			String intakeUrl = create("intakes/", "intakes_common", "dummydata-intake.xml","intake");
+			String loaninUrl = create("loansin/", "loansin_common", "dummydata-loanin.xml","loanin");
+			String loanoutUrl = create("loansout/", "loansout_common", "dummydata-loanout.xml","loanout");
+			String acquisitionUrl = create("acquisitions/", "acquisitions_common", "dummydata-acquisition.xml","acquisition");
+			
+			//make relationships
 
-		String path=relate(ss,objectUrl,intakeUrl);
-		String path2=relate(ss,intakeUrl,objectUrl);
+			relate2way(ss,objectUrl,intakeUrl);
+			relate2way(ss,objectUrl,loaninUrl);
+			relate2way(ss,objectUrl,loanoutUrl);
+			relate2way(ss,objectUrl,acquisitionUrl);
+
+			testRelations(ss,objectUrl,intakeUrl,"affects");
+			testRelations(ss,objectUrl,loaninUrl,"affects");
+			testRelations(ss,objectUrl,loanoutUrl,"affects");
+			testRelations(ss,objectUrl,acquisitionUrl,"affects");
+		} catch (CSPDependencyException e) {
+			fail(e.getMessage());
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+	}
+	
+	private Boolean testRelations(Storage ss, String src, String dst, String type) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
 		
 
-		JSONObject datalist = ss.getPathsJSON("relations/main",null);
+		JSONObject searchRestriction = new JSONObject();
+		searchRestriction.put("src",src);
+		searchRestriction.put("dst",dst);
+		searchRestriction.put("type","affects");
 		
-		log.info(datalist.toString());
-		
-		log.info("objectUrl"+objectUrl);
-		log.info("intakeUrl"+intakeUrl);
-		log.info("loaninUrl"+loaninUrl);
-		log.info("loanoutUrl"+loanoutUrl);
-//		log.info("acquisitionUrl"+acquisitionUrl);
-		log.info(path);
-		
+///relations?sbj=f3b18013-154d-4e1d-ac5e&obj=c5a79acc-55c6-4046-8f4b
+		JSONObject datalist = ss.getPathsJSON("relations/main",searchRestriction);
+		String[] listitems = (String[])datalist.get("listItems");
+		assertEquals(listitems.length,1);
+		return false;
+	}
+	
+	private String relate2way(Storage ss,String obj1,String obj2) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
 
+		String path3=relate(ss,obj1,obj2);
+		String path3a=relate(ss,obj2,obj1);
+		return path3;
 	}
 	
 	private String relate(Storage ss,String obj1,String obj2) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
