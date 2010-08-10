@@ -1,7 +1,7 @@
 <!--  XXX autocomplete needs renaming to something like authority -->
 <collection-space>
     <bootstrap />
-    <version>9</version>
+    <version>10</version>
     <admin>
         <username>test@collectionspace.org</username>
         <password>testtest</password>
@@ -35,6 +35,20 @@
         </service>
     </persistence>
     <ui>
+    	<relationships>
+    		<relation id="broader">
+    			<displayName>has broader term</displayName>
+    			<directional>true</directional>
+				<sourceTypes>objects,intake,acquisition</sourceTypes>
+				<destinationTypes>intake,acquisition</destinationTypes>
+    		</relation>
+    		<relation id="affects">
+    			<displayName>affects</displayName>
+    			<directional>false</directional>
+				<sourceTypes>objects,intake,acquisition,loanin,loanout</sourceTypes>
+				<destinationTypes>objects,intake,acquisition,loanin,loanout</destinationTypes>
+    		</relation>
+    	</relationships>
         <web>
             <login-dest>/cspace-ui/html/findedit.html</login-dest>
             <login-failed-dest>/cspace-ui/html/index.html</login-failed-dest>
