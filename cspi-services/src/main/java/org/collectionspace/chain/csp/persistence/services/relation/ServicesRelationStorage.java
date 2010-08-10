@@ -39,7 +39,8 @@ import org.slf4j.LoggerFactory;
  * 
  */
 
-// XXX some hacks here because services don't seem to support multiple search crieteria on relationships. 
+// XXX some hacks here because services don't seem to support multiple search criteria on relationships. 
+// XXX need to implement CSPACE-1080
 
 public class ServicesRelationStorage implements ContextualisedStorage { 
 	private static final Logger log=LoggerFactory.getLogger(ServicesRelationStorage.class);
@@ -52,6 +53,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	private static Set<String> types=new HashSet<String>();
 	
 	static {
+		//needs to be set thr CSPACE-2557
 		types.add("affects");
 		types.add("new"); // XXX Only one type is bad for testing. remove when there's a second real one
 	}
@@ -134,7 +136,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			extractPaths(filePath,new String[]{"main"},0);
 			Map<String,Document> in=new HashMap<String,Document>();
 			Document datapath = dataToRelation(cache,null,data).toDocument();
-			log.info("AUTOCREATE"+datapath.asXML());
+		//	log.info("AUTOCREATE"+datapath.asXML());
 			in.put("relations_common",datapath);
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/relations/",in,creds,cache);
 			if(out.getStatus()>299)
@@ -170,20 +172,16 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			return "";
 		//http://nightly.collectionspace.org:8180/cspace-services/relations?sbj=cce0f7bf-3df4-4c24-85be
 		StringBuffer out=new StringBuffer();
-		boolean xxx_cspace_1080=false;
-		if(!xxx_cspace_1080 && in.has("src")) {
+		if(in.has("src")) {
 			String[] src=splitTypeFromId(in.getString("src"));
 			out.append("&sbj="+src[1]);
-			xxx_cspace_1080=true;
 		}
-		if(!xxx_cspace_1080 && in.has("dst")) {
+		if(in.has("dst")) {
 			String[] dst=splitTypeFromId(in.getString("dst"));
 			out.append("&obj="+dst[1]);
-			xxx_cspace_1080=true;
 		}
-		if(!xxx_cspace_1080 && in.has("type")) {
+		if(in.has("type")) {
 			out.append("&prd="+in.getString("type"));
-			xxx_cspace_1080=true;
 		}
 		String ret=out.toString();
 		if(ret.startsWith("&"))
@@ -192,6 +190,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	}
 	
 	// Needed because of CSPACE-1080
+	//XXX is this still needed?CSPACE-1080 has been resolved...
 	private boolean post_filter(CSPRequestCredentials creds,CSPRequestCache cache,JSONObject restrictions,Node candidate) throws ExistException, UnderlyingStorageException, ConnectionException, JSONException {
 		if(restrictions==null)
 			return true;
