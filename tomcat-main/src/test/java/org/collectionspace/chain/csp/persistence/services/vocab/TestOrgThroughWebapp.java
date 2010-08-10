@@ -80,7 +80,7 @@ public class TestOrgThroughWebapp {
 		if(out.getStatus()<299){
 			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 			if(results.length()==0){
-				jettyDo(jetty,"GET","/chain/reset",null);
+				jettyDo(jetty,"GET","/chain/reset/nodelete",null);
 			}
 		}		
 	}

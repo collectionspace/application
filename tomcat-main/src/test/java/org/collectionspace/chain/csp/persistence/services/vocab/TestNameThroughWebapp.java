@@ -78,10 +78,12 @@ public class TestNameThroughWebapp {
 		if(out.getStatus()<299){
 			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 			if(results.length()==0){
-				jettyDo(jetty,"GET","/chain/reset",null);
+				jettyDo(jetty,"GET","/chain/reset/nodelete",null);
 			}
 		}			
 	}
+	
+
 	
 	//XXX change so creates person and then tests person exists
 	@Test public void testAutocomplete() throws Exception {
@@ -108,7 +110,7 @@ public class TestNameThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());		
 	}
-	
+
 	@Test public void testAutocompleteRedirect() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/acquisition/source-vocab/acquisitionAuthorizer",null);
@@ -245,7 +247,16 @@ public class TestNameThroughWebapp {
 		// Now remove the name from the database
 		deleteName(testName);
 	}
+	
+	@Test public void testPersonWithContactAuthorityCRUD() throws Exception {
+		ServletTester jetty=setupJetty();
+		JSONObject data=new JSONObject("{'csid': '', 'fields': {'salutation': 'Your Majaesty','termStatus': 'under review','title': 'Miss', 'gender': 'female','displayName': 'bob','nameNote': 'sdf','bioNote': 'sdfsdf', 'foreName': 'sdf', 'middleName': 'sdf', 'surName': 'sdf', 'nameAdditions': 'sdf', 'initials': 'sdf', 'contact': [{'addresType': 'AAA', 'addresPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}, {'addresType': 'BBB','addresPlace': 'BVV','web': 'VVV', 'email': 'VVV','telephoneNumber': 'VV','faxNumber': 'VV' }]}}}");
 
+		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
+		assertTrue(out.getStatus()<300);
+		String url=out.getHeader("Location");
+	}
+	
 	@Test public void testNamesCreateUpdateDelete() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Create

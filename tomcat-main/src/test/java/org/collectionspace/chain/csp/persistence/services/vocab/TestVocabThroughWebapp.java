@@ -77,7 +77,7 @@ public class TestVocabThroughWebapp {
 		if(out.getStatus()<299){
 			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 			if(results.length()==0){
-				jettyDo(jetty,"GET","/chain/reset",null);
+				jettyDo(jetty,"GET","/chain/reset/nodelete",null);
 			}
 		}	
 		*/		
@@ -89,20 +89,20 @@ public class TestVocabThroughWebapp {
 		//String vocabtype="loanoutstatus";
 		ServletTester jetty=setupJetty();
 		// Create a single vocab
-		out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/initialize",null);
-		assertTrue(out.getStatus()<300);
+//		out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/initialize",null);
+//		assertTrue(out.getStatus()<300);
 		
 		//create all vocabularies in <record id="vocab"
 		out=jettyDo(jetty,"GET","/chain/authorities/vocab/initialize",null);
 		assertTrue(out.getStatus()<300);
 
 		// update and remove fields not in list
-		out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/refresh",null);
-		assertTrue(out.getStatus()<300);
+//		out=jettyDo(jetty,"GET","/chain/vocabularies/"+vocabtype+"/refresh",null);
+//		assertTrue(out.getStatus()<300);
 		
 		// update and remove fields not in each list within an authority
-		out=jettyDo(jetty,"GET","/chain/authorities/vocab/refresh",null);
-		assertTrue(out.getStatus()<300);
+//		out=jettyDo(jetty,"GET","/chain/authorities/vocab/refresh",null);
+//		assertTrue(out.getStatus()<300);
 		
 		
 	}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -42,47 +43,50 @@ public class WebReset implements WebMethod {
 		return data;
 	}
 
-	private void reset(Storage storage,UIRequest request) throws UIException { 
+	private void reset(Storage storage,UIRequest request,String path) throws UIException { 
 		//remember to log into the fornt end before trying to run this
+		JSONObject data = new JSONObject();
 		// Temporary hack to reset db
 		try {
 			TTYOutputter tty=request.getTTYOutputter();
-			// Delete existing records
-			JSONObject data = storage.getPathsJSON("/",null);
-			String[] paths = (String[]) data.get("listItems");
-			for(String dir : paths) {
-				// XXX yuck!
-				// ignore authorities
-				if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "person".equals(dir) || "organization".equals(dir)){
-					continue;
-				}
-				
-				// ignore authorization
-				if("rolePermission".equals(dir) || "accountrole".equals(dir)  || "permrole".equals(dir) || "permission".equals(dir) || "role".equals(dir)|| "userrole".equals(dir) || "users".equals(dir) ){
-					continue;
-				}
-				
-				// ignore other - tho we do need to clean these up
-				if("relations".equals(dir) || "direct".equals(dir) || "id".equals(dir) )
-					continue;
-				
-				
-				tty.line("dir : "+dir);
-				data = storage.getPathsJSON(dir,null);
-				paths = (String[]) data.get("listItems");
-				for(int i=0;i<paths.length;i++) {
-					tty.line("path : "+dir+"/"+paths[i]);
-					try {
-						storage.deleteJSON(dir+"/"+paths[i]);
-					} catch (UnimplementedException e) {
-						// Never mind
-						tty.line("ux");
-					} catch (UnderlyingStorageException e) {
-						tty.line("UnderlyingStorageEception");
+			if(!path.equals("nodelete")){
+				// Delete existing records
+				data = storage.getPathsJSON("/",null);
+				String[] paths = (String[]) data.get("listItems");
+				for(String dir : paths) {
+					// XXX yuck!
+					// ignore authorities
+					if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "person".equals(dir) || "organization".equals(dir)){
+						continue;
 					}
-					tty.line("ok");
-					tty.flush();
-				}					
+					
+					// ignore authorization
+					if("rolePermission".equals(dir) || "accountrole".equals(dir)  || "permrole".equals(dir) || "permission".equals(dir) || "role".equals(dir)|| "userrole".equals(dir) || "users".equals(dir) ){
+						continue;
+					}
+					
+					// ignore other - tho we do need to clean these up
+					if("relations".equals(dir) || "direct".equals(dir) || "id".equals(dir) )
+						continue;
+					
+					
+					tty.line("dir : "+dir);
+					data = storage.getPathsJSON(dir,null);
+					paths = (String[]) data.get("listItems");
+					for(int i=0;i<paths.length;i++) {
+						tty.line("path : "+dir+"/"+paths[i]);
+						try {
+							storage.deleteJSON(dir+"/"+paths[i]);
+						} catch (UnimplementedException e) {
+							// Never mind
+							tty.line("ux");
+						} catch (UnderlyingStorageException e) {
+							tty.line("UnderlyingStorageEception");
+						}
+						tty.line("ok");
+						tty.flush();
+					}					
+				}
 			}
 			// Create records anew
 			tty.line("Create records anew");
@@ -212,7 +216,7 @@ public class WebReset implements WebMethod {
 
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
-		reset(q.getStorage(),q.getUIRequest());
+		reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 
 	public void configure() throws ConfigException {}
