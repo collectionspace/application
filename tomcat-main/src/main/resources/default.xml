@@ -1536,19 +1536,8 @@
                     </field>
                 </repeat>
                 <repeat id="functions">
-                    <field id="function" xxx_ui_refactored="false">
-                        <selector>.csc-organizationAuthority-function</selector>
-                        <options>
-                            <option id="academic institution">academic institution</option>
-                            <option id="archives">archives</option>
-                            <option id="distributor">distributor</option>
-                            <option id="gallery">gallery</option>
-                            <option id="library">library</option>
-                            <option id="museum">museum</option>
-                            <option id="publisher">publisher</option>
-                            <option id="religious order">religious order</option>
-                        </options>
-                    </field>
+                    <field id="function">
+                        <selector>.csc-organizationAuthority-function</selector>                    </field>
                 </repeat>
                 <repeat id="historyNotes">
                     <field id="historyNote">
