@@ -1612,7 +1612,7 @@
                 <field id="roleName" mini="number">
                     <selector>.csc-role-name</selector>
                 </field>
-                <field id="groupName">
+                <field id="roleGroup">
                     <selector>.csc-role-group</selector>
                 </field>
                 <field id="description" mini="summary">
@@ -1698,7 +1698,7 @@
                         </view>
                     </structure>
                 </structures>
-                <repeat id="account" asSibling="true">
+                <repeat id="account" asSibling="true" has-primary="false" xxx-ui-no-repeat="true">
                     <selector>.csc-accountrole-account-row:</selector>
                     <field id="accountId">
                         <selector>.csc-accountrole-account-accountid</selector>
@@ -1710,7 +1710,7 @@
                         <selector>.csc-accountrole-account-userid</selector>
                     </field>
                 </repeat>
-                <repeat id="roles" xxx-services-no-repeat="true">
+                	<repeat id="roles/role" has-primary="false" xxx-hack-authorization="true">
                     <selector>.csc-accountrole-roles-row</selector>
                     <field id="roleId">
                         <selector>.csc-accountrole-role-roleid</selector>
@@ -1718,21 +1718,7 @@
                     <field id="roleName">
                         <selector>.csc-accountrole-account-rolename</selector>
                     </field>
-                </repeat>
-                <!-- 
-	                <repeat id="roles" xxx-services-no-repeat="true">
-	                    <selector>.csc-accountrole-roles-row:</selector>
-		                <repeat id="role" >
-		                    <selector>.csc-accountrole-role-row:</selector>
-		                    <field id="roleId">
-		                        <selector>.csc-accountrole-role-roleid</selector>
-		                    </field>
-		                    <field id="roleName">
-		                        <selector>.csc-accountrole-account-rolename</selector>
-		                    </field>
-		                </repeat>
-		            </repeat>
-					-->
+					</repeat>
             </record>
             <!--permrole like UI wants it -->
             <record id="permrole" type="authorizationdata">
@@ -1752,6 +1738,7 @@
                         </view>
                     </structure>
                 </structures>
+				<!--
                 <repeat id="permisson_roles" asSibling="true">
                     <selector>.csc-permissions-record-row:</selector>
                     <field id="permission_role" mini="summary">
@@ -1767,6 +1754,19 @@
                         <selector>.csc-permissions-record-type</selector>
                     </field>
                 </repeat>
+  -->
+                <group id="role" asSibling="true">
+                    <field id="roleId">
+                    </field>
+                    <field id="roleName">
+                    </field>
+                </group>
+                <repeat id="permissions/permission" has-primary="false" xxx-hack-authorization="true">
+                    <field id="permissionId">
+                    </field>
+                    <field id="resourceName">
+                    </field>
+				</repeat>
             </record>
             <!--
             <record id="accountrole">
