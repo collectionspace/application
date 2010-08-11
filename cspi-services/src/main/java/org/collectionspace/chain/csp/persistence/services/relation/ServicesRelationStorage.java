@@ -72,6 +72,10 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 
 	private String[] splitTypeFromId(String path) throws UnderlyingStorageException {
 		String[] out=path.split("/");
+		if(out[0].equals("")){
+			path = path.substring(1);
+			out=path.split("/");
+		}
 		if(out.length!=2)
 			throw new UnderlyingStorageException("Path must be two components, not "+path);
 		return out;
@@ -198,12 +202,22 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		String src_csid=candidate.selectSingleNode("subjectCsid").getText();
 		String rest_src=restrictions.optString("src");
 		if(rest_src!=null && !"".equals(rest_src)) {
+			String[] data = rest_src.split("/");
+			if(data[0].equals("")){
+				rest_src = rest_src.substring(1);
+				data = rest_src.split("/");
+			}
 			if(!src_csid.equals(rest_src.split("/")[1]))
 				return false;
 		}
 		String dst_csid=candidate.selectSingleNode("objectCsid").getText();		
 		String rest_dst=restrictions.optString("dst");
 		if(rest_dst!=null && !"".equals(rest_dst)) {
+			String[] data2 = rest_dst.split("/");
+			if(data2[0].equals("")){
+				rest_dst = rest_dst.substring(1);
+				data2 = rest_dst.split("/");
+			}
 			if(!dst_csid.equals(rest_dst.split("/")[1]))
 				return false;
 		}
