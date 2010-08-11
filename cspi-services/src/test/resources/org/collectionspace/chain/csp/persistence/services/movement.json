@@ -6,7 +6,7 @@
     "removalDate": "blah",
     "locationDate": "2012-01-29",
     "plannedRemovalDate": "blah",
-    "movementMethods": [{
+    "movementMethods": [{"_primary":true,
         "movementMethod": "blah"
     }],
     "movementNote": "blah",

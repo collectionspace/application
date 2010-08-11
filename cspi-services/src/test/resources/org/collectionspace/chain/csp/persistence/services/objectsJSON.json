@@ -8,10 +8,10 @@
     "inscriptionContentInscriber": "",
     "viewersPersonalResponse": "",
     "viewersReference": "",
-    "fieldCollectionMethods": [{
+    "fieldCollectionMethods": [{"_primary":true,
         "fieldCollectionMethod": ""
     }],
-    "assocEventPeoples": [{
+    "assocEventPeoples": [{"_primary":true,
         "assocEventPeople": ""
     }],
     "ownershipPlace": "",
@@ -36,7 +36,7 @@
     "contentOtherType": "contentOtherType",
     "associationType": "",
     "dateLatestQualifier": "",
-    "styles": [{
+    "styles": [{"_primary":true,
         "style": ""
     }],
     "contentObject": "contentObject",
@@ -45,7 +45,7 @@
     "objectProductionNote": "",
     "ownershipExchangePriceCurrency": "",
     "objectProductionOrganization": "",
-    "owners": [{
+    "owners": [{"_primary":true,
         "owner": ""
     }],
     "inscriptionDescriptionDate": "",
@@ -58,7 +58,7 @@
     "contentPosition": "contentPosition",
     "contentEventName": "contentEventName",
     "dimensionMeasurementUnit": "",
-    "contentLanguages": [{
+    "contentLanguages": [{"_primary":true,
         "contentLanguage": "English"
     },
     {
@@ -70,10 +70,10 @@
     "objectProductionPerson": "",
     "inscriptionContent": "",
     "collection": "collection",
-    "assocCulturalContexts": [{
+    "assocCulturalContexts": [{"_primary":true,
         "assocCulturalContext": ""
     }],
-    "otherNumberList": [{
+    "otherNumberList": [{"_primary":true,
         "otherNumber": "\n\t\t\n\t\t\n\t"
     },
     {
@@ -88,10 +88,10 @@
     "titleType": "titleType",
     "titleTranslation": "titleTranslation",
     "inscriptionDescriptionType": "",
-    "assocPersons": [{
+    "assocPersons": [{"_primary":true,
         "assocPerson": ""
     }],
-    "assocPeoples": [{
+    "assocPeoples": [{"_primary":true,
         "assocPeople": ""
     }],
     "dateText": "",
@@ -107,13 +107,13 @@
     "techniqueType": "",
     "fieldCollectionNumber": "",
     "inscriptionDescription": "",
-    "assocEventPersons": [{
+    "assocEventPersons": [{"_primary":true,
         "assocEventPerson": ""
     }],
     "fieldCollectionPlace": "",
     "dateLatest": "",
     "fieldCollectionDate": "",
-    "comments": [{
+    "comments": [{"_primary":true,
         "comment": "comment a "
     },
     {
@@ -137,12 +137,12 @@
     "viewersRole": "",
     "assocActivity": "",
     "ownersPersonalExperience": "",
-    "assocPlaces": [{
+    "assocPlaces": [{"_primary":true,
         "assocPlace": ""
     }],
     "ageUnit": "ageUnit",
     "materialSource": "",
-    "contentOrganizations": [{
+    "contentOrganizations": [{"_primary":true,
         "contentOrganization": "contentOrganization a"
     },
     {
@@ -161,7 +161,7 @@
     "ownershipDates": "",
     "inscriptionContentInterpretation": "",
     "age": "age",
-    "contentActivities": [{
+    "contentActivities": [{"_primary":true,
         "contentActivity": "contentActivity a"
     },
     {
@@ -170,7 +170,7 @@
     {
         "contentActivity": "contentActivity c"
     }],
-    "contentPersons": [{
+    "contentPersons": [{"_primary":true,
         "contentPerson": "contentPerson 2"
     },
     {
@@ -179,10 +179,10 @@
     {
         "contentPerson": "contentPerson 4"
     }],
-    "assocOrganizations": [{
+    "assocOrganizations": [{"_primary":true,
         "assocOrganization": ""
     }],
-    "contentScripts": [{
+    "contentScripts": [{"_primary":true,
         "contentScript": "contentScript 1"
     },
     {
@@ -192,7 +192,7 @@
         "contentScript": "contentScript 3"
     }],
     "objectNumber": "2010.1.9",
-    "colors": [{
+    "colors": [{"_primary":true,
         "color": "red"
     },
     {
@@ -203,7 +203,7 @@
     }],
     "dateLatestCertainty": "",
     "physicalDescription": "",
-    "contentConcepts": [{
+    "contentConcepts": [{"_primary":true,
         "contentConcept": "contentConcept a"
     },
     {
@@ -214,12 +214,12 @@
     }],
     "assocObject": "",
     "inscriptionContentType": "",
-    "assocEventPlaces": [{
+    "assocEventPlaces": [{"_primary":true,
         "assocEventPlace": ""
     }],
     "contentEventNameType": "contentEventNameType",
     "inscriptionDescriptionInscriber": "",
-    "contentPlaces": [{
+    "contentPlaces": [{"_primary":true,
         "contentPlace": "contentPlace 1"
     },
     {
@@ -235,7 +235,7 @@
     "contentNote": "contentNote",
     "titleLanguage": "titleLanguage",
     "dateEarliestSingleQualifier": "",
-    "contentPeoples": [{
+    "contentPeoples": [{"_primary":true,
         "contentPeople": "contentPeople s"
     },
     {
@@ -256,17 +256,17 @@
     "materialComponent": "",
     "objectProductionPersonRole": "",
     "objectProductionPeopleRole": "",
-    "fieldCollectionSources": [{
+    "fieldCollectionSources": [{"_primary":true,
         "fieldCollectionSource": ""
     }],
-    "forms": [{
+    "forms": [{"_primary":true,
         "form": ""
     }],
     "viewersContributionNote": "",
     "editionNumber": "",
     "distinguishingFeatures": "distinguishingFeatures",
     "dateAssociation": "",
-	"objectNameGroup":[{
+	"objectNameGroup":[{"_primary":true,
     "objectName": "objectName",
     "objectNameNote": "objectNameNote",
     "objectNameSystem": "objectNameSystem",
@@ -276,17 +276,17 @@
     "objectNameLevel": "objectNameLevel"
 	}],
     "dateEarliestSingleCertainty": "",
-    "fieldCollectors": [{
+    "fieldCollectors": [{"_primary":true,
         "fieldCollector": ""
     }],
-    "assocEventOrganizations": [{
+    "assocEventOrganizations": [{"_primary":true,
         "assocEventOrganization": ""
     }],
     "datePeriod": "",
     "reference": "",
     "dimension": "",
     "ownershipExchangeNote": "",
-    "assocConcepts": [{
+    "assocConcepts": [{"_primary":true,
         "assocConcept": ""
     }],
     "usage": "",
