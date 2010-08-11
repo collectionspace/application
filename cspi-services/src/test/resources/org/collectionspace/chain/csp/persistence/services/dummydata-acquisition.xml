@@ -9,15 +9,10 @@
                 	<acquisitionDate></acquisitionDate>
                 </acquisitionDates>
 <acquisitionFundingList>
-	<acquisitionFunding>
-                <acquisitionFundingCurrency>Made up again</acquisitionFundingCurrency>
-                <acquisitionFundingValue>10100</acquisitionFundingValue>
-                <acquisitionFundingSource>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(peoplearefunnyproductions)'People+Are+Funny+Productions'</acquisitionFundingSource>
-                <acquisitionFundingSourceProvisos>200 of them</acquisitionFundingSourceProvisos>
-	</acquisitionFunding>
+<acquisitionFunding><acquisitionFundingCurrency>Made up again</acquisitionFundingCurrency><acquisitionFundingValue>10100</acquisitionFundingValue><acquisitionFundingSource>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(peoplearefunnyproductions)'People+Are+Funny+Productions'</acquisitionFundingSource><acquisitionFundingSourceProvisos>200 of them</acquisitionFundingSourceProvisos></acquisitionFunding>
 </acquisitionFundingList>
                 <acquisitionMethod>exchange</acquisitionMethod>
-                <acquisitionNote>Some random note about the acquisition</acquisitionNote>
+				<acquisitionNote>Some random note about the acquisition</acquisitionNote>
                 <acquisitionProvisos>... Is provisos even a real word? probably not...</acquisitionProvisos>
                 <acquisitionReason>Because I felt like it</acquisitionReason>
                 <acquisitionReferenceNumber>CompleteAquisition001</acquisitionReferenceNumber>
