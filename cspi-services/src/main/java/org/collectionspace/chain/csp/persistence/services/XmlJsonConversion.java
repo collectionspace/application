@@ -381,6 +381,10 @@ public class XmlJsonConversion {
 		String nodeName = f.getServicesTag();
 		if(f.hasServicesParent()){
 			nodeName = f.getfullID();
+			//XXX hack because of weird repeats in accountroles permroles etc
+			if(f.getServicesParent().length==0){
+				nodeName = f.getID();
+			}
 		}
 		List nodes=root.selectNodes(nodeName);
 		if(nodes.size()==0)

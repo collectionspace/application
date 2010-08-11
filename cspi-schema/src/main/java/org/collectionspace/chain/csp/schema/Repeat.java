@@ -11,7 +11,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 public class Repeat implements FieldSet, FieldParent {
 	private String fullid,id,selector_affix, selector,userecord, enum_blank,parentID;
 	private String[] services_parent;
-	private Boolean is_visible;
+	private Boolean is_visible,xxx_hack_authorization;
 	private FieldParent parent;
 	private Set<String> enum_default;
 	private Stack<String> merged = new Stack<String>();
@@ -60,13 +60,19 @@ public class Repeat implements FieldSet, FieldParent {
 		this.has_primary = Util.getBooleanOrDefault(section, "/@has-primary", true);	
 		this.userecord = Util.getStringOrDefault(section, "/@userecord", "");
 
+		this.xxx_hack_authorization=Util.getBooleanOrDefault(section,"/@xxx-hack-authorization",false);
 		String[] idparts = this.id.split("/");
 		if(idparts.length>1){
 			int len = idparts.length -1;
 			this.has_services_parent=true;
 			this.id = idparts[len];
 			idparts[len]=null;
-			this.services_parent=idparts;
+			if(!xxx_hack_authorization){
+				this.services_parent=idparts;
+			}
+			else{
+				this.services_parent = new String[0];
+			}
 			this.asSiblings=true;
 		}
 
