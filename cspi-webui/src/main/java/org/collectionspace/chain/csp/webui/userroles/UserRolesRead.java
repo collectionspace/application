@@ -26,7 +26,6 @@ public class UserRolesRead implements WebMethod{
 	private static final Logger log=LoggerFactory.getLogger(UserRolesRead.class);
 	private String base,base_url,sub_url;
 	private boolean record_type;
-	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public UserRolesRead(Record r){
 		this.base = r.getID();
@@ -84,7 +83,6 @@ public class UserRolesRead implements WebMethod{
 	
 	public void configure(WebUI ui, Spec spec) {
 		for(Record r : spec.getAllRecords()) {
-			type_to_url.put(r.getID(),r.getWebURL());
 		}
 	}
 }

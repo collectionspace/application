@@ -92,7 +92,7 @@ public class UserRolesSearchList implements WebMethod{
 
 	public void configure(WebUI ui,Spec spec) {
 		for(Record r : spec.getAllRecords()) {
-			type_to_url.put(r.getID(),r.getWebURL());
+			type_to_url.put(r.getServicesURL(),r.getWebURL());
 		}
 	}
 }

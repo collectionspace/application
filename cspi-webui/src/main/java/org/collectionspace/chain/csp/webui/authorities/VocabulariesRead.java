@@ -167,9 +167,8 @@ public class VocabulariesRead implements WebMethod {
 	JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		try {
-			JSONObject fields=storage.retrieveJSON(n.getRecord().getID()+"/"+n.getTitleRef()+"/"+csid);
-
 			String refPath = n.getRecord().getID()+"/"+n.getTitleRef()+"/"+csid;
+			JSONObject fields=storage.retrieveJSON(refPath);
 			
 			fields.put("csid",csid);
 			//JSONObject relations=createRelations(storage,csid);
