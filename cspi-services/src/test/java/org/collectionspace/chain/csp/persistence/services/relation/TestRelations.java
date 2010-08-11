@@ -118,22 +118,25 @@ public class TestRelations extends ServicesBaseClass {
 		
 		//get list
 
+		JSONObject searchRestriction = new JSONObject();
+		searchRestriction.put("src","collection-object/"+obj2);
+		searchRestriction.put("type","affects");
+
 		// simple list
 		//XXX CSPACE-1080 - will need to update if this is improved
-		JSONObject datalist = ss.getPathsJSON("relations/main",null);
+		JSONObject datalist = ss.getPathsJSON("relations/main",searchRestriction);
 		int truecount = 0;
 		String[] paths=(String[])datalist.get("listItems");
+		log.info(datalist.toString());
 		JSONObject pagination = datalist.getJSONObject("pagination");
 		boolean pagbool = false;
-		while(!pagbool){
-			pagbool = ( pagination.getInt("itemsInPage") + (pagination.getInt("pageSize") * pagination.getInt("pageNum")) ) <= pagination.getInt("totalItems");
-			for(int i=0;i<paths.length;i++){
-				if(paths[i].equals(path) || paths[i].equals(path2)){
-					truecount++;
-				}
+		for(int i=0;i<paths.length;i++){
+			if(paths[i].equals(path) || paths[i].equals(path2)){
+				truecount++;
 			}
 		}
-		assertEquals(truecount,2);
+		
+		assertTrue(truecount>0);
 		
 		// delete
 		ss.deleteJSON("/relations/main/"+path);
