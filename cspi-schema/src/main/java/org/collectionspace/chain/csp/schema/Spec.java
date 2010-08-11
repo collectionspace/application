@@ -173,6 +173,16 @@ public class Spec implements CSP, Configurable {
 				return r;
 			}
 		});
+
+		/* RECORD/group -> GROUP */
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Group r=new Group((Record)parent,section);
+				((Record)parent).addAllField(r);
+				((Record)parent).addField(r);
+				return r;
+			}
+		});
 		
 		/* REPEAT/field -> FIELD */
 		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){

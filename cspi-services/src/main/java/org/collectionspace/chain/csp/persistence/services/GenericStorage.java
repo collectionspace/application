@@ -586,8 +586,8 @@ public class GenericStorage  implements ContextualisedStorage {
 			dataitem.put("message", e.getMessage());
 			
 			out.put("Functionality Failed",dataitem);
-			return out;
-			//throw new UnderlyingStorageException("Connection problem",e);
+			//return out;
+			throw new UnderlyingStorageException("Connection problem",e);
 		}
 	}
 

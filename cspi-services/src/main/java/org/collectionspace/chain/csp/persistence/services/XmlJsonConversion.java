@@ -390,6 +390,7 @@ public class XmlJsonConversion {
 		if(nodes.size()==0)
 			return;
 		
+		
 		JSONArray node = new JSONArray();
 		// Only first element is important in container
 		//except when we have repeating items

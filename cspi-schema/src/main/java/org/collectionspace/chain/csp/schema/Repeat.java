@@ -9,17 +9,17 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 // XXX only one level of repetition at the moment. Should only be a matter of type furtling.
 public class Repeat implements FieldSet, FieldParent {
-	private String fullid,id,selector_affix, selector,userecord, enum_blank,parentID;
-	private String[] services_parent;
-	private Boolean is_visible,xxx_hack_authorization;
-	private FieldParent parent;
-	private Set<String> enum_default;
-	private Stack<String> merged = new Stack<String>();
-	private List<FieldSet> children=new ArrayList<FieldSet>();
-	private boolean has_services_parent=false,enum_hasblank=true,exists_in_service=true, has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
+	protected String fullid,id,selector_affix, selector,userecord, enum_blank,parentID;
+	protected String[] services_parent;
+	protected Boolean is_visible,xxx_hack_authorization;
+	protected FieldParent parent;
+	protected Set<String> enum_default;
+	protected Stack<String> merged = new Stack<String>();
+	protected List<FieldSet> children=new ArrayList<FieldSet>();
+	protected boolean has_services_parent=false,enum_hasblank=true,exists_in_service=true, has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
 
 	/* Services */
-	private String services_tag,services_section;
+	protected String services_tag,services_section;
 
 	public Repeat(Record record,ReadOnlySection section) {
 		this.parent=record;
@@ -47,7 +47,7 @@ public class Repeat implements FieldSet, FieldParent {
 	 * all constructors get variables initialised in the same way
 	 * @param section
 	 */
-	private void initialiseVariables(ReadOnlySection section){
+	protected void initialiseVariables(ReadOnlySection section){
 		this.fullid = (String)section.getValue("/@id");
 		this.id=(String)section.getValue("/@id");
 		this.is_visible=Util.getBooleanOrDefault(section,"/@show",true);
