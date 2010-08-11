@@ -74,10 +74,8 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
 		testXMLJSON(spec,"movement","movement.xml","movement.json");
 		testXMLJSON(spec,"role","role.xml","role.json");
-		//testXMLJSON(spec,"permrole","rolepermissions.xml","role.json");
-		
-		
-		testXMLJSON(spec, "userrole","accountrole.xml","accountrole.json");
+		//testXMLJSON(spec,"permrole","rolepermissions.xml","rolepermissions.json");
+		//testXMLJSON(spec, "userrole","accountrole.xml","accountrole.json");
 		
 		//testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
 		//testXMLJSON(spec, "organization","orgauthref.xml","permissionsJSON.json");
@@ -101,10 +99,8 @@ public class TestService extends ServicesBaseClass {
 	//	testJSONXML(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
 		testJSONXML(spec,"movement","movement.xml","movement.json");
 		testJSONXML(spec,"role","role.xml","role.json");
-		//testJSONXML(spec,"permrole","rolepermissions.xml","role.json");
-		
-		
-		testJSONXML(spec, "userrole","accountrole.xml","accountrole.json");		
+		//testJSONXML(spec,"permrole","rolepermissions.xml","rolepermissions.json");
+		//testJSONXML(spec, "userrole","accountrole.xml","accountrole.json");	
 	}
 
 	private void testJSONXML(Spec spec, String objtype, String xmlfile, String jsonfile) throws Exception{
