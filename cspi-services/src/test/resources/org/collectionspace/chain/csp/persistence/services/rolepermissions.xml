@@ -8,4 +8,8 @@
     <permissionId>a9a3a06-a3d7-4d3e-a979-4390d7c11470</permissionId>
     <resourceName>/authorization/roles/*/permroles/</resourceName>
   </permission>
+  <permission>
+    <permissionId>a9a3a06-a3d7-4d3e-a979-4390d7c11470</permissionId>
+    <resourceName>/acquisition/</resourceName>
+  </permission>
 </ns2:permission_role>
