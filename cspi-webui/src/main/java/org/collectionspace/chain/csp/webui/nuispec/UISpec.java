@@ -9,6 +9,7 @@ import org.collectionspace.chain.csp.config.ConfigException;
 
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
@@ -403,7 +404,16 @@ public class UISpec implements WebMethod {
 						out.put(f.getSelector()+affix,generateDataEntryField(f));	
 					}
 				}
-			} else if(fs instanceof Repeat) {
+			} 
+			else if(fs instanceof Group) {
+				Group g = (Group)fs;
+				JSONObject contents=new JSONObject();
+				for(FieldSet child : g.getChildren()) {
+					generateDataEntry(contents,child, affix);
+				}
+				out.put(g.getSelector(),contents);
+			} 
+			else if(fs instanceof Repeat) {
 				// Container
 				Repeat r=(Repeat)fs;
 				if(r.getXxxUiNoRepeat()) {
