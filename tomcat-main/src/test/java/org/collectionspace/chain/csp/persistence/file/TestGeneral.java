@@ -789,54 +789,6 @@ log.info(out.getContent());
 	}
 	
 	/**
-	 * Tests Multiple Permissions
-	 * @throws Exception
-	 */
-	//@Test 
-	public void testPermissionGrouping() throws Exception {
-		ServletTester jetty = setupJetty();
-		HttpTester out;
-		String testfield = "resourceName";
-		String uipath = "/permission/";
-		String[] data = {permissionRead, permissionWrite, permissionDelete, permissionNone,permission2Write, permission2None};
-		List<String> ids = new ArrayList<String>();
-		
-		//create the permissions
-		for(String s : data){
-			//Create
-			out = jettyDo(jetty,"POST","/chain"+uipath,makeSimpleRequest(s));
-			assertEquals(out.getMethod(),null);
-			assertEquals(201,out.getStatus());	
-			String id=out.getHeader("Location");
-			//Retrieve
-			out=jettyDo(jetty,"GET","/chain"+id,null);
-			JSONObject one = new JSONObject(getFields(out.getContent()));
-			JSONObject two = new JSONObject(s);
-
-			assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
-			
-			ids.add(id);
-		}
-		
-		//get a list of the permissions
-		//pagination?
-		//out=jettyDo(jetty,"GET","/chain/permission/search?query="+URLEncoder.encode(d.toString(),"UTF-8"),null);
-		out=jettyDo(jetty,"GET","/chain/permission",null);
-		assertEquals(200,out.getStatus());
-		JSONObject json = new JSONObject(out.getContent());
-		
-		// Tidy up
-		for(String id : ids){
-			//Delete
-			out=jettyDo(jetty,"DELETE","/chain"+id,null);
-			assertEquals(200,out.getStatus());
-		}
-		
-		//assertTrue(json.has("groupedPermissions"));
-		
-	}
-
-	/**
 	 * Compares a generated user role to one directly posted 
 	 * @throws Exception
 	 */
