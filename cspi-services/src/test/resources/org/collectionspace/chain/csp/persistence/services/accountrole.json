@@ -1,9 +1,11 @@
 {
-    "roles": [{
-        "role": [{
-            "roleName": "ROLE_TENANT_ADMINISTRATOR",
-            "roleId": "35d93b3b-8c30-4712-bae2-97820ff59626"
-        }]
+    "role": [{
+        "roleName": "ROLE_TENANT_ADMINISTRATOR",
+        "roleId": "35d93b3b-8c30-4712-bae2-97820ff59626"
+    },
+	{
+        "roleName": "ROLE_TENANT_ADMINISTRATOR",
+        "roleId": "35d93b3b-8c30-4712-bae2-97820ff59626"
     }],
     "account": [{
         "accountId": "8dba4f76-6014-4f27-98e1-6a43e4d2b04d",
