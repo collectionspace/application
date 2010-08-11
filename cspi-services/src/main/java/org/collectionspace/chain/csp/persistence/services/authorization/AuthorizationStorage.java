@@ -165,14 +165,11 @@ public class AuthorizationStorage extends GenericStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			JSONObject out = new JSONObject();
-			//do things differently if permissions - is there a better way to kick this off?
-			if(r.getID().equals("permission")){
-				out = permissions.getPathsJSON(root, creds, cache, rootPath, restrictions);
-				return out;
-			}
-			
+
 			
 			Document list=null;
+			String prefix=null;
+			Boolean queryadded = false;
 			JSONObject pagination = new JSONObject();
 			List<String> listitems=new ArrayList<String>();
 			String postfix = "?";
@@ -187,6 +184,14 @@ public class AuthorizationStorage extends GenericStorage {
 				}
 				if(restrictions.has("pageNum")){
 					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
+				}
+				if(restrictions.has("queryTerm")){
+					String queryString = prefix;
+					if(restrictions.has("queryString")){
+						queryString=restrictions.getString("queryString");
+					}
+					postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
+					queryadded = true;
 				}
 			}
 			postfix = postfix.substring(0, postfix.length()-1);
