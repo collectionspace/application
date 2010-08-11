@@ -2,43 +2,37 @@
     "sidebar": {
         "relatedObjects": {
             ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-summary": "${items.0.summary}",
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                        }
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                     }
-                ]
+                }]
             }
         },
         "relatedProcedures": {
             ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-summary": "${items.0.summary}",
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                        },
-                        ".csc-related-recordtype": "${items.0.recordtype}"
-                    }
-                ]
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    },
+                    ".csc-related-recordtype": "${items.0.recordtype}"
+                }]
             }
         },
         "termsUsed": {
             ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                        },
-                        ".csc-related-field": "${items.0.sourceFieldName}",
-                        ".csc-related-recordtype": "${items.0.recordtype}"
-                    }
-                ]
+                "children": [{
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    },
+                    ".csc-related-field": "${items.0.sourceFieldName}",
+                    ".csc-related-recordtype": "${items.0.recordtype}"
+                }]
             }
         }
     },
@@ -48,105 +42,119 @@
         ".csc-titleBar-foundationDate": "${fields.foundingDate}"
     },
     "recordEditor": {
-        ".csc-organizationAuthority-history": "${fields.history}",
+        ".csc-organization-contactNames": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.contactNames",
+                    "protoTree": {
+                        ".csc-organizationAuthority-contactName": "${fields.contactNames.0.contactName}",
+                        ".csc-organizationAuthority-contactName-autocomplete": {
+                            "decorators": [{
+                                "func": "cspace.autocomplete",
+                                "type": "fluid",
+                                "options": {
+                                    "queryUrl": "../../chain/vocabularies/organization/autocomplete/contactName",
+                                    "vocabUrl": "../../chain/vocabularies/organization/source-vocab/contactName"
+                                }
+                            }]
+                        }
+                    }
+                }
+            }]
+        },
         ".csc-organizationAuthority-nameAdditions": "${fields.nameAdditions}",
-        ".csc-organizationAuthority-subBodyName": "${fields.subBody}",
         ".csc-organizationAuthority-displayName": "${fields.displayName}",
         ".csc-organizationAuthority-longName": "${fields.longName}",
-        ".csc-organizationAuthority-contactName": "${fields.contactName}",
         ".csc-organizationAuthority-foundingDate-container": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ]
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
         },
-        ".csc-organizationAuthority-contactName-autocomplete": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../chain/vocabularies/organization/autocomplete/contactName",
-                        "vocabUrl": "../../chain/vocabularies/organization/source-vocab/contactName"
-                    }
-                }
-            ]
-        },
+        ".csc-organization-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-organizationAuthority-foundingPlace": "${fields.foundingPlace}",
         ".csc-organizationAuthority-dissolutionDate": "${fields.dissolutionDate}",
-        ".csc-organizationAuthority-group-autocomplete": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../chain/vocabularies/organization/autocomplete/group",
-                        "vocabUrl": "../../chain/vocabularies/organization/source-vocab/group"
+        ".csc-organization-subBodies": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.subBodies",
+                    "protoTree": {
+                        ".csc-organizationAuthority-subBodyName": {
+                            "valuebinding": "${fields.subBodies.0.subBody}",
+                            "decorators": [{
+                                "func": "cspace.autocomplete",
+                                "type": "fluid",
+                                "options": {
+                                    "queryUrl": "../../chain/vocabularies/organization/autocomplete/subBody",
+                                    "vocabUrl": "../../chain/vocabularies/organization/source-vocab/subBody"
+                                }
+                            }]
+                        }
                     }
                 }
-            ]
+            }]
+        },
+        ".csc-organization-functions": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.functions",
+                    "protoTree": {
+                        ".csc-organizationAuthority-function": "${fields.functions.0.function}"
+                    }
+                }
+            }]
         },
         ".csc-organizationAuthority-dissolutionDate-container": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ]
-        },
-        ".csc-organizationAuthority-group": "${fields.group}",
-        ".csc-organizationAuthority-status": {
-            "optionnames": [
-                "Provisional",
-                "Under Review",
-                "Accepted",
-                "Rejected"
-            ],
-            "optionlist": [
-                "provisional",
-                "under review",
-                "accepted",
-                "rejected"
-            ],
-            "selection": "${fields.status}"
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
         },
         ".csc-organizationAuthority-foundingDate": "${fields.foundingDate}",
-        ".csc-organizationAuthority-function": {
-            "optionnames": [
-                "academic institution",
-                "archives",
-                "distributor",
-                "gallery",
-                "library",
-                "museum",
-                "publisher",
-                "religious order"
-            ],
-            "optionlist": [
-                "academic institution",
-                "archives",
-                "distributor",
-                "gallery",
-                "library",
-                "museum",
-                "publisher",
-                "religious order"
-            ],
-            "selection": "${fields.function}"
+        ".csc-organizationAuthority-status": {
+            "optionnames": ["Provisional", "Under Review", "Accepted", "Rejected"],
+            "optionlist": ["provisional", "under review", "accepted", "rejected"],
+            "selection": "${fields.termStatus}"
         },
-        ".csc-organizationAuthority-foundingPlace-autocomplete": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../chain/vocabularies/organization/autocomplete/foundingPlace",
-                        "vocabUrl": "../../chain/vocabularies/organization/source-vocab/foundingPlace"
+        ".csc-organization-historyNotes": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.historyNotes",
+                    "protoTree": {
+                        ".csc-organizationAuthority-history": "${fields.historyNotes.0.historyNote}"
                     }
                 }
-            ]
+            }]
+        },
+        ".csc-organization-groups": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.groups",
+                    "protoTree": {
+                        ".csc-organizationAuthority-group": "${fields.groups.0.group}"
+                    }
+                }
+            }]
+        },
+        ".csc-organizationAuthority-foundingPlace-autocomplete": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../chain/vocabularies/organization/autocomplete/foundingPlace",
+                    "vocabUrl": "../../chain/vocabularies/organization/source-vocab/foundingPlace"
+                }
+            }]
         }
     }
 }

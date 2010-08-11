@@ -1,0 +1,67 @@
+{
+    "sidebar": {
+        "relatedObjects": {
+            ".csc-recordList-row:": {
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    }
+                }]
+            }
+        },
+        "relatedProcedures": {
+            ".csc-recordList-row:": {
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    },
+                    ".csc-related-recordtype": "${items.0.recordtype}"
+                }]
+            }
+        },
+        "termsUsed": {
+            ".csc-recordList-row:": {
+                "children": [{
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    },
+                    ".csc-related-field": "${items.0.sourceFieldName}",
+                    ".csc-related-recordtype": "${items.0.recordtype}"
+                }]
+            }
+        }
+    },
+    "titleBar": {
+        ".csc-titleBar-currentLocation": "${fields.currentLocation}"
+    },
+    "recordEditor": {
+        ".csc-movement-currentLocationNote": "${fields.currentLocationNote}",
+        ".csc-movement-movementReferenceNumber": "${fields.movementReferenceNumber}",
+        ".csc-movement-reasonForMove": "${fields.reasonForMove}",
+        ".csc-movement-movementNote": "${fields.movementNote}",
+        ".csc-movement-plannedRemovalDate": "${fields.plannedRemovalDate}",
+        ".csc-movement-currentLocation": "${fields.currentLocation}",
+        ".csc-movement-removalDate": "${fields.removalDate}",
+        ".csc-movement-movementContact": "${fields.movementContact}",
+        ".csc-movement-locationDate": "${fields.locationDate}",
+        ".csc-movement-currentLocationFitness": "${fields.currentLocationFitness}",
+        ".csc-movement-movementMethods": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.movementMethods",
+                    "protoTree": {
+                        ".csc-movement-movementMethods": "${fields.movementMethods.0.movementMethod}"
+                    }
+                }
+            }]
+        },
+        ".csc-movement-normalLocation": "${fields.normalLocation}"
+    }
+}

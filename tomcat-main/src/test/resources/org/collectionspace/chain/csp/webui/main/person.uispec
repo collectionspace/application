@@ -2,43 +2,37 @@
     "sidebar": {
         "relatedObjects": {
             ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-summary": "${items.0.summary}",
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                        }
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                     }
-                ]
+                }]
             }
         },
         "relatedProcedures": {
             ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-summary": "${items.0.summary}",
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                        },
-                        ".csc-related-recordtype": "${items.0.recordtype}"
-                    }
-                ]
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    },
+                    ".csc-related-recordtype": "${items.0.recordtype}"
+                }]
             }
         },
         "termsUsed": {
             ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                        },
-                        ".csc-related-field": "${items.0.sourceFieldName}",
-                        ".csc-related-recordtype": "${items.0.recordtype}"
-                    }
-                ]
+                "children": [{
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    },
+                    ".csc-related-field": "${items.0.sourceFieldName}",
+                    ".csc-related-recordtype": "${items.0.recordtype}"
+                }]
             }
         }
     },
@@ -52,164 +46,111 @@
         ".csc-personAuthority-deathPlace": "${fields.deathPlace}",
         ".csc-personAuthority-status": {
             "default": "0",
-            "optionnames": [
-                "Provisional",
-                "Under Review",
-                "Accepted",
-                "Rejected"
-            ],
-            "optionlist": [
-                "provisional",
-                "under review",
-                "accepted",
-                "rejected"
-            ],
-            "selection": "${fields.status}"
+            "optionnames": ["Provisional", "Under Review", "Accepted", "Rejected"],
+            "optionlist": ["provisional", "under review", "accepted", "rejected"],
+            "selection": "${fields.termStatus}"
         },
         ".csc-personAuthority-birthDate": "${fields.birthDate}",
-        ".csc-personAuthority-nationality-autocomplete": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../chain/vocabularies/person/autocomplete/nationality",
-                        "vocabUrl": "../../chain/vocabularies/person/source-vocab/nationality"
+        ".csc-person-occupations": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.occupations",
+                    "protoTree": {
+                        ".csc-personAuthority-occupation-autocomplete": {
+                            "decorators": [{
+                                "func": "cspace.autocomplete",
+                                "type": "fluid",
+                                "options": {
+                                    "queryUrl": "../../chain/vocabularies/person/autocomplete/occupation",
+                                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/occupation"
+                                }
+                            }]
+                        },
+                        ".csc-personAuthority-occupation": "${fields.occupations.0.occupation}"
                     }
                 }
-            ]
+            }]
         },
         ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
+        ".csc-contactAuthority-web": "${fields.web}",
         ".csc-personAuthority-gender": {
-            "optionnames": [
-                "Male",
-                "Female"
-            ],
-            "optionlist": [
-                "male",
-                "female"
-            ],
+            "optionnames": ["Male", "Female"],
+            "optionlist": ["male", "female"],
             "selection": "${fields.gender}"
         },
-        ".csc-personAuthority-birthPlace-autocomplete": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../chain/vocabularies/person/autocomplete/birthPlace",
-                        "vocabUrl": "../../chain/vocabularies/person/source-vocab/birthPlace"
+        ".csc-contactAuthority-addressType": "${fields.addressType}",
+        ".csc-contactAuthority-faxNumber": "${fields.faxNumber}",
+        ".csc-personAuthority-middleName": "${fields.middleName}",
+        ".csc-person-nationalities": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.nationalities",
+                    "protoTree": {
+                        ".csc-personAuthority-nationality": "${fields.nationalities.0.nationality}"
                     }
                 }
-            ]
+            }]
         },
-        ".csc-personAuthority-occupation": "${fields.occupation}",
-        ".csc-personAuthority-middleName": "${fields.middleName}",
         ".csc-personAuthority-surName": "${fields.surName}",
+        ".csc-contactAuthority-telephoneNumber": "${fields.telephoneNumber}",
         ".csc-personAuthority-salutation": {
-            "optionnames": [
-                "Dear",
-                "My Darling",
-                "Your Majaesty",
-                "Your Royal Highness"
-            ],
-            "optionlist": [
-                "Dear",
-                "My Darling",
-                "Your Majaesty",
-                "Your Royal Highness"
-            ],
+            "optionnames": ["Dear", "My Darling", "Your Majaesty", "Your Royal Highness"],
+            "optionlist": ["Dear", "My Darling", "Your Majaesty", "Your Royal Highness"],
             "selection": "${fields.salutation}"
+        },
+        ".csc-person-schoolsOrStyles": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.schoolsOrStyles",
+                    "protoTree": {
+                        ".csc-personAuthority-schoolorstyle": "${fields.schoolsOrStyles.0.schoolOrStyle}"
+                    }
+                }
+            }]
         },
         ".csc-personAuthority-displayName": "${fields.displayName}",
         ".csc-personAuthority-title": {
-            "optionnames": [
-                "Mr",
-                "Mrs",
-                "Ms",
-                "Miss",
-                "Dr",
-                "Professor",
-                "Sir",
-                "Dame",
-                "Baron",
-                "Baroness",
-                "Lord",
-                "Lady"
-            ],
-            "optionlist": [
-                "Mr",
-                "Mrs",
-                "Ms",
-                "Miss",
-                "Dr",
-                "Professor",
-                "Sir",
-                "Dame",
-                "Baron",
-                "Baroness",
-                "Lord",
-                "Lady"
-            ],
+            "optionnames": ["Mr", "Mrs", "Ms", "Miss", "Dr", "Professor", "Sir", "Dame", "Baron", "Baroness", "Lord", "Lady"],
+            "optionlist": ["Mr", "Mrs", "Ms", "Miss", "Dr", "Professor", "Sir", "Dame", "Baron", "Baroness", "Lord", "Lady"],
             "selection": "${fields.title}"
         },
-        ".csc-personAuthority-group-autocomplete": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../chain/vocabularies/person/autocomplete/group",
-                        "vocabUrl": "../../chain/vocabularies/person/source-vocab/group"
-                    }
-                }
-            ]
-        },
+        ".csc-contactAuthority-addressPlace": "${fields.addressPlace}",
         ".csc-personAuthority-initials": "${fields.initials}",
         ".csc-personAuthority-birthDate-container": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ]
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
         },
+        ".csc-personAuthority-foreName": "${fields.foreName}",
         ".csc-personAuthority-deathDate": "${fields.deathDate}",
-        ".csc-personAuthority-group": "${fields.group}",
         ".csc-personAuthority-birthPlace": "${fields.birthPlace}",
-        ".csc-personAuthority-nationality": "${fields.nationality}",
         ".csc-personAuthority-bioNote": "${fields.bioNote}",
-        ".csc-personAuthority-occupation-autocomplete": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../chain/vocabularies/person/autocomplete/occupation",
-                        "vocabUrl": "../../chain/vocabularies/person/source-vocab/occupation"
+        ".csc-person-groups": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.groups",
+                    "protoTree": {
+                        ".csc-personAuthority-group": "${fields.groups.0.group}"
                     }
                 }
-            ]
+            }]
         },
-        ".csc-personAuthority-deathPlace-autocomplete": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../chain/vocabularies/person/autocomplete/deathPlace",
-                        "vocabUrl": "../../chain/vocabularies/person/source-vocab/deathPlace"
-                    }
-                }
-            ]
-        },
+        ".csc-contactAuthority-email": "${fields.email}",
+        ".csc-person-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-personAuthority-deathDate-container": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ]
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
         }
     }
 }

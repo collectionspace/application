@@ -1,27 +1,24 @@
 {
-    "roleList": {
-        ".csc-recordList-row:": {
-            "children": [
-                {
-                    ".csc-role-roleList-name": "${items.0.name}",
-                    ".csc-role-roleList-csid": "${items.0.csid}"
-                }
-            ]
+    "details": {
+        ".csc-role-name": "${fields.roleName}",
+        ".csc-role-description": "${fields.description}",
+        ".csc-role-group": "${fields.roleGroup}",
+        ".csc-permrole-role": {
+            "children": [{}]
+        },
+        ".csc-permrole-permission": {
+            "children": [{
+                ".csc-permrole-permissionId": "${fields.permission.0.permissionId}",
+                ".csc-permrole-resourceName": "${fields.permission.0.resourceName}"
+            }]
         }
     },
-    "permissions": {
-        ".csc-permissions-record-row:": {
-            "children": [
-                {
-                    ".csc-permissions-record-permissions": {
-                        "selection": "${fields.permissions.0.permission}",
-                        "optionlist": ["none", "read","write", "delete"],
-                        "optionnames": ["none", "read","write", "delete"],
-                        "default": "2"
-                    },
-                    ".csc-permissions-record-type": "${fields.permissions.0.recordType}"
-                }
-            ]
+    "list": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-user-roleList-name": "${items.0.number}",
+                ".csc-user-userList-csid": "${items.0.csid}"
+            }]
         }
     }
 }

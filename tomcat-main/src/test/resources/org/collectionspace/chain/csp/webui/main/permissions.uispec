@@ -1,0 +1,29 @@
+{
+    "recordEditor": {
+        ".csc-permission-action-row:": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.actions",
+                    "protoTree": {
+                        ".csc-permission-action-row:": {
+                            "decorators": [{
+                                "func": "cspace.makeRepeatable",
+                                "type": "fluid",
+                                "options": {
+                                    "elPath": "fields.action",
+                                    "protoTree": {
+                                        ".csc-permission-action-name": "${fields.actions.0.action.0.name}"
+                                    }
+                                }
+                            }]
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-permission-effect": "${fields.effect}",
+        ".csc-permission-resourceName": "${fields.resourceName}"
+    }
+}
