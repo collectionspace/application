@@ -11,7 +11,6 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 public class Group extends Repeat {
 
 	public Group(Record record, ReadOnlySection section) {
-		
 		super(record, section);
 		this.asSiblings = true; //needed for XMLJSONConversion
 	}

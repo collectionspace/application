@@ -110,11 +110,8 @@ public class UserStorage implements ContextualisedStorage {
 	 * @throws JSONException
 	 */
 	private String getAccountCsid(JSONObject data) throws JSONException{
-		JSONArray account = data.getJSONArray("account");
-		String csid = "";
-		for(int i=0,il=account.length();i<il;i++){
-			csid = account.getJSONObject(i).getString("accountId");
-		}
+		JSONObject account = data.getJSONObject("account");
+		String csid = account.getString("accountId");
 		return csid;
 	}
 
@@ -133,7 +130,7 @@ public class UserStorage implements ContextualisedStorage {
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			ReturnedURL url = null;
-			if(jsonObject.has("roles")){
+			if(jsonObject.has("role")){
 				for(Record allr : r.getAllSubRecords()){
 					if(allr.getID().equals("userrole")){
 						Document doc=XmlJsonConversion.convertToXml(allr,jsonObject,"common");

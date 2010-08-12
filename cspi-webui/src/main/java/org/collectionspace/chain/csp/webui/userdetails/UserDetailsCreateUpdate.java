@@ -81,23 +81,18 @@ public class UserDetailsCreateUpdate implements WebMethod {
 			
 			JSONArray role = new JSONArray();
 			role.put(roleitem);
-			JSONObject rolesobj = new JSONObject();
-			rolesobj.put("role",role);
-			JSONArray roles = new JSONArray();
-			roles.put(rolesobj);
 			JSONObject fields = new JSONObject();
 			JSONObject datafields = data.getJSONObject("fields");
+			
 			JSONObject account = new JSONObject();
 			account.put("accountId", path);
 			account.put("userId", datafields.getString("userId"));
 			account.put("screenName", datafields.getString("screenName"));
-			JSONArray accounts = new JSONArray();
-			accounts.put(account);
 			
 			
 			JSONObject accountrole = new JSONObject();
-			fields.put("account", accounts);
-			fields.put("roles", roles);
+			fields.put("account", account);
+			fields.put("role", role);
 			accountrole.put("fields", fields);
 			
 			if(fields!=null)
