@@ -13,11 +13,11 @@ public class Group extends Repeat {
 	public Group(Record record, ReadOnlySection section) {
 		
 		super(record, section);
-		// TODO Auto-generated constructor stub
+		this.asSiblings = true; //needed for XMLJSONConversion
 	}
 
 	public Group(Group parent, ReadOnlySection section) {
 		super(parent, section);
-		// TODO Auto-generated constructor stub
+		this.asSiblings = true; //needed for XMLJSONConversion
 	}
 }
