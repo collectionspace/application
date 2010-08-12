@@ -96,7 +96,7 @@ public class UserDetailsCreateUpdate implements WebMethod {
 			accountrole.put("fields", fields);
 			
 			if(fields!=null)
-				path=storage.autocreateJSON(base,fields);
+				path=storage.autocreateJSON(spec.getRecordByWebUrl("userrole").getID(),fields);
 		}
 		
 	}

@@ -20,6 +20,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMul
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
@@ -50,7 +51,27 @@ public class AuthorizationStorage extends GenericStorage {
 
 
 
+	/**
+	 * Gets the csid from an role or account out of the json authorization
+	 * @param data
+	 * @param primaryField
+	 * @return
+	 * @throws JSONException
+	 */
+	private String getSubCsid(JSONObject data, String primaryField) throws JSONException{
+		String[] path = primaryField.split("/");
+		JSONObject temp = data;
+		int finalnum = path.length - 1;
+		for(int i=0;i<finalnum; i++){
+			if(temp.has(path[i])){
+				temp = temp.getJSONObject(path[i]);
+			}
+		}
+		String csid = temp.getString(path[finalnum]);
+		return csid;
+	}	
 
+	
 	/**
 	 * Convert the JSON from the UI Layer into XML for the Service layer while using the XML structure from default.xml
 	 * Send the XML through to the Service Layer to store it in the database
@@ -64,22 +85,38 @@ public class AuthorizationStorage extends GenericStorage {
 	 */
 	public String autocreateJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			Map<String,Document> parts=new HashMap<String,Document>();
+			ReturnedURL url = null;
 			Document doc = null;
-			for(String section : r.getServicesRecordPaths()) {
-				String path=r.getServicesRecordPath(section);
-				String[] record_path=path.split(":",2);
-				doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
-				parts.put(record_path[0],doc);
+
+			//used by userroles and permroles as they have complex urls
+			if(r.hasPrimaryField()){
+
+				for(String section : r.getServicesRecordPaths()) {
+					doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+					String path = r.getServicesURL();
+					path = path.replace("*", getSubCsid(jsonObject,r.getPrimaryField()));
+					log.info("WWWW"+path);
+					url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);			
+				}
 			}
-			ReturnedURL url;
-			//some records are accepted as multipart in the service layers, others arent, that's why we split up here
-			if(r.isMultipart())
-				url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
-			else
-				url = conn.getURL(RequestMethod.POST, r.getServicesURL()+"/", doc, creds, cache);
-			if(url.getStatus()>299 || url.getStatus()<200)
-				throw new UnderlyingStorageException("Bad response "+url.getStatus());
+			else{
+
+				Map<String,Document> parts=new HashMap<String,Document>();
+				for(String section : r.getServicesRecordPaths()) {
+					String path=r.getServicesRecordPath(section);
+					String[] record_path=path.split(":",2);
+					doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+					parts.put(record_path[0],doc);
+				}
+				//some records are accepted as multipart in the service layers, others arent, that's why we split up here
+				if(r.isMultipart())
+					url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
+				else
+					url = conn.getURL(RequestMethod.POST, r.getServicesURL()+"/", doc, creds, cache);
+				if(url.getStatus()>299 || url.getStatus()<200)
+					throw new UnderlyingStorageException("Bad response "+url.getStatus());
+			}
+			
 			return url.getURLTail();
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
@@ -232,15 +269,35 @@ public class AuthorizationStorage extends GenericStorage {
 	public JSONObject retrieveJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String[] parts=filePath.split("/");
-			if(parts.length>=2) {
-				String extra = "";
-				if(parts.length==3){
-					extra = parts[2];
+
+			String[] parts = filePath.split("/");
+			
+			if(parts.length > 2){
+				Spec s = r.getSpec();
+				//{csid}/userrole/{csid}
+				if(s.hasRecordByWebUrl(parts[1])){
+					String path = s.getRecordByWebUrl(parts[1]).getServicesURL();
+					int len = parts.length -1 ;
+					for(int i=0; i<len;i++){
+						path = path.replace("*", parts[i]);
+						i++;
+					}
+					filePath = path + "/" + parts[len];
+					return simpleRetrieveJSONFullPath(creds,cache,filePath);
 				}
-				return viewRetrieveJSON(root,creds,cache,parts[0],parts[1],extra);
-			} else
+				else{
+					//{csid}/refobj/bob
+					String extra = "";
+					if(parts.length==3){
+						extra = parts[2];
+					}
+					return viewRetrieveJSON(root,creds,cache,parts[0],parts[1],extra);
+				} 
+			}
+			else {
 				return simpleRetrieveJSON(creds,cache,filePath);
+			}
+			
 		} catch(JSONException x) {
 			throw new UnderlyingStorageException("Error building JSON",x);
 		}
@@ -390,13 +447,19 @@ public class AuthorizationStorage extends GenericStorage {
 		}
 		return out;
 	}
-
+	
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
+	UnimplementedException, UnderlyingStorageException {
+		String fullpath = r.getServicesURL()+"/"+filePath;
+		return simpleRetrieveJSONFullPath( creds, cache, fullpath);
+	}
+	
+	public JSONObject simpleRetrieveJSONFullPath(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			JSONObject out=new JSONObject();
 			if(r.isMultipart()){
-				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null,creds,cache);
+				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,filePath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new ExistException("Does not exist "+filePath);
 				for(String section : r.getServicesRecordPaths()) {
@@ -405,7 +468,7 @@ public class AuthorizationStorage extends GenericStorage {
 					convertToJson(out,doc.getDocument(parts[0]));
 				}
 			}else{
-				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, r.getServicesURL()+"/"+filePath,null, creds, cache);
+				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new ExistException("Does not exist "+filePath);
 

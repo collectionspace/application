@@ -24,29 +24,29 @@ import org.slf4j.LoggerFactory;
 
 public class UserRolesRead implements WebMethod{
 	private static final Logger log=LoggerFactory.getLogger(UserRolesRead.class);
-	private String base,base_url,sub_url;
+	private String base,base_url,sub_base;
 	private boolean record_type;
 	
 	public UserRolesRead(Record r){
 		this.base = r.getID();
 		this.base_url = r.getServicesURL();
-		this.sub_url = r.getSpec().getRecord("userrole").getServicesURL();
-		record_type=r.isType("userdata");
+		this.sub_base = r.getSpec().getRecord("users").getID();
+		record_type=r.isType("authorizationdata");
 	}
 	
 	/* Wrapper exists to decomplexify exceptions */
 	private JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		try {
-			if(record_type) {
-				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
+			if(!record_type) {
+				JSONObject fields=storage.retrieveJSON("base+/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				out.put("fields",fields);
 				out.put("ok",true);
 				out.put("message","");
 				out.put("relations",new JSONArray());
 			} else {
-				out=storage.retrieveJSON(base+"/"+csid);
+				out=storage.retrieveJSON(this.sub_base+"/"+csid);
 			}
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found "+e,e);
@@ -82,7 +82,5 @@ public class UserRolesRead implements WebMethod{
 	}
 	
 	public void configure(WebUI ui, Spec spec) {
-		for(Record r : spec.getAllRecords()) {
-		}
 	}
 }

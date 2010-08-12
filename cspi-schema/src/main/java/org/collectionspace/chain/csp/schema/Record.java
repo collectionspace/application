@@ -33,7 +33,7 @@ public class Record implements FieldParent {
 	private Set<String> type;
 	
 	/* UI Stuff */
-	private String web_url,terms_used_url,number_selector,row_selector,list_key,ui_url,tab_url;
+	private String web_url,terms_used_url,number_selector,row_selector,list_key,ui_url,tab_url,primaryfield;
 	private boolean in_findedit=false;
 	private boolean is_multipart=false;
 	private boolean has_terms_used = false;
@@ -130,7 +130,7 @@ public class Record implements FieldParent {
 		//
 		services_single_instance_path=Util.getStringOrDefault(section,"/services-single-instance-path",
 				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"-common");
-		
+		primaryfield = Util.getStringOrDefault(section, "/primaryfield","");
 		spec=parent;
 	}
 	
@@ -160,7 +160,8 @@ public class Record implements FieldParent {
 		}
 		return subrecords.values().toArray(new Record[0]); 
 	}
-	
+	public String getPrimaryField(){ return primaryfield; };
+	public Boolean hasPrimaryField(){ if(primaryfield.equals("")){return false;} else {return true;}}
 	public String getTermsUsedURL() { return terms_used_url; }
 	public String getNumberSelector() { return number_selector; }
 	public String getRowSelector() { return row_selector; }

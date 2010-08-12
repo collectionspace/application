@@ -130,7 +130,7 @@ public class UserStorage implements ContextualisedStorage {
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			ReturnedURL url = null;
-			if(jsonObject.has("role")){
+			if(jsonObject.has("account")){
 				for(Record allr : r.getAllSubRecords()){
 					if(allr.getID().equals("userrole")){
 						Document doc=XmlJsonConversion.convertToXml(allr,jsonObject,"common");
@@ -390,11 +390,21 @@ public class UserStorage implements ContextualisedStorage {
 			String[] parts = filePath.split("/");
 			
 			if(parts.length > 2){
-				filePath = parts[0] + "/" + r.getSpec().getRecord("userrole").getServicesURL() + "/" + parts[2];
+				String path = r.getSpec().getRecord("userrole").getServicesURL();
+				int len = parts.length -1 ;
+				for(int i=0; i<len;i++){
+					path = path.replace("*", parts[i]);
+					i++;
+				}
+				filePath = path + "/" + parts[len];
 			}
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null,creds,cache);
+			else{
+				filePath = r.getServicesURL()+"/"+filePath;
+			}
+			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,filePath,null,creds,cache);
 			JSONObject out=new JSONObject();
 			Document xml = null;
+			String test = doc.getDocument().asXML();
 			xml = doc.getDocument();
 			if((doc.getStatus()<200 || doc.getStatus()>=300))
 				throw new ExistException("Does not exist "+filePath);
