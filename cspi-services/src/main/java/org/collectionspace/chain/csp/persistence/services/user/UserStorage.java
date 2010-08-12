@@ -387,16 +387,24 @@ public class UserStorage implements ContextualisedStorage {
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
+			Boolean isUserRole = false;
 			String[] parts = filePath.split("/");
-			
-			if(parts.length > 2){
+			if(parts.length >= 2 && parts[1].equals("userrole")){
+				isUserRole = true;
 				String path = r.getSpec().getRecord("userrole").getServicesURL();
 				int len = parts.length -1 ;
-				for(int i=0; i<len;i++){
+				int i=0;
+				for(i=0; i<len;i++){
 					path = path.replace("*", parts[i]);
 					i++;
 				}
-				filePath = path + "/" + parts[len];
+				if(len>=i){
+					path = path + "/" + parts[len];
+				}
+				else{
+					path = path + "/12"  ;// must have a number on the end and that number can't be a single digit 
+				}
+				filePath = path;
 			}
 			else{
 				filePath = r.getServicesURL()+"/"+filePath;
@@ -408,7 +416,7 @@ public class UserStorage implements ContextualisedStorage {
 			xml = doc.getDocument();
 			if((doc.getStatus()<200 || doc.getStatus()>=300))
 				throw new ExistException("Does not exist "+filePath);
-			if(parts.length > 2)
+			if(isUserRole)
 				out=XmlJsonConversion.convertToJson(r.getSpec().getRecord("userrole"),xml);
 			else
 				out=XmlJsonConversion.convertToJson(r,xml);

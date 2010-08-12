@@ -25,12 +25,14 @@ import org.slf4j.LoggerFactory;
 public class RecordRead implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(RecordRead.class);
 	private String base;
+	private Record record;
 	private boolean record_type;
 	private boolean authorization_type;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public RecordRead(Record r) { 
 		this.base=r.getID();
+		this.record = r;
 		record_type=r.isType("record");
 		authorization_type=r.isType("authorizationdata");
 	}
@@ -78,24 +80,28 @@ public class RecordRead implements WebMethod {
 	
 	@SuppressWarnings("unchecked")
 	private JSONArray getTermsUsed(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONObject mini=storage.retrieveJSON(path+"/refs");
 
 		JSONArray out=new JSONArray();
-		Iterator t=mini.keys();
-		while(t.hasNext()) {
-			String field=(String)t.next();
-			if(mini.get(field) instanceof JSONArray){
-				JSONArray array = (JSONArray)mini.get(field);
-				for(int i=0;i<array.length();i++) {
-					JSONObject in = array.getJSONObject(i);
+		if(record.hasTermsUsed()){
+
+			JSONObject mini=storage.retrieveJSON(path+"/refs");
+
+			Iterator t=mini.keys();
+			while(t.hasNext()) {
+				String field=(String)t.next();
+				if(mini.get(field) instanceof JSONArray){
+					JSONArray array = (JSONArray)mini.get(field);
+					for(int i=0;i<array.length();i++) {
+						JSONObject in = array.getJSONObject(i);
+						JSONObject entry=getTermsUsedData(in);
+						out.put(entry);
+					}
+				}
+				else{
+					JSONObject in=mini.getJSONObject(field);
 					JSONObject entry=getTermsUsedData(in);
 					out.put(entry);
 				}
-			}
-			else{
-				JSONObject in=mini.getJSONObject(field);
-				JSONObject entry=getTermsUsedData(in);
-				out.put(entry);
 			}
 		}
 		return out;

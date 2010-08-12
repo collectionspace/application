@@ -1589,6 +1589,7 @@
                 <authorization-includes>authorization/roles</authorization-includes>
                 <is-multipart>false</is-multipart>
                 <terms-used>false</terms-used>
+				<has-ref-obj>false></has-ref-obj>
                 <services-search-keyword>r</services-search-keyword>
                 <structures>
                     <structure id="screen">
@@ -1685,11 +1686,12 @@
                     </field>
                 </repeat>
             </record> -->
-            <record id="userrole">
+            <record id="userrole" type="authorizationdata">
                 <web-url>userrole</web-url>
-                <services-url>accountroles</services-url>
+                <services-url>accounts/*/accountroles</services-url>
                 <services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>
                 <services-list-path>accountroles-common-list/accountrole-list-item</services-list-path>
+				<primaryfield>account/accountId</primaryfield>
                 <structures>
                     <structure id="screen">
                         <view>
@@ -1728,7 +1730,8 @@
                 <services-record-path>permisson_roles_common:http://collectionspace.org/services/permroles, permisson_role</services-record-path>
                 <authorization-name>permrole</authorization-name>
                 <authorization-includes>authorization/roles/permroles,/authorization/roles/*/permroles/</authorization-includes>
-                <structures>
+                <primaryfield>role/roleId</primaryfield>
+				<structures>
                     <structure id="screen">
                         <view>
                             <titlebar show="false"></titlebar>

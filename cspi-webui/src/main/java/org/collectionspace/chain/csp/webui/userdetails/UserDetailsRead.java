@@ -18,8 +18,11 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserDetailsRead  implements WebMethod {
+	private static final Logger log=LoggerFactory.getLogger(UserDetailsRead.class);
 	private String base;
 	private boolean record_type;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
@@ -36,6 +39,11 @@ public class UserDetailsRead  implements WebMethod {
 			if(record_type) {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
+
+				JSONObject roles = storage.retrieveJSON(base+"/"+csid+"/"+"userrole");
+				if(roles.has("role")){
+					fields.put("role",roles.getJSONArray("role"));
+				}
 				out.put("fields",fields);
 				out.put("ok",true);
 				out.put("message","");
