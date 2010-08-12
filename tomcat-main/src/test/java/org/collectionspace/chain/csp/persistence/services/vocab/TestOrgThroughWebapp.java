@@ -397,9 +397,11 @@ public class TestOrgThroughWebapp {
 			assertTrue(entry.getString("label").toLowerCase().contains("test auto person"));
 			assertTrue(entry.has("urn"));
 		}
-		// Test Autocomplete group
-	    out=jettyDo(jetty,"GET","/chain/vocabularies/organization/autocomplete/group?q=Test+another&limit=150",null);
+		// Test Autocomplete subBody
+	    out=jettyDo(jetty,"GET","/chain/vocabularies/organization/autocomplete/subBody?q=Test+another&limit=150",null);
 		assertTrue(out.getStatus()<299);
+		log.info(Integer.toString(out.getStatus()));
+		log.info("TTT"+out.getContent());
 		data=out.getContent().split("\n");
 		for(int i=0;i<data.length;i++) {
 			JSONObject entry=new JSONObject(data[i]);
