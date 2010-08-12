@@ -16,8 +16,8 @@ public class Group extends Repeat {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-
-
+	public Group(Group parent, ReadOnlySection section) {
+		super(parent, section);
+		// TODO Auto-generated constructor stub
+	}
 }

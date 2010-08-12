@@ -174,16 +174,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 
-		/* RECORD/group -> GROUP */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
-			public Object populate(Object parent, ReadOnlySection section) {
-				Group r=new Group((Record)parent,section);
-				((Record)parent).addAllField(r);
-				((Record)parent).addField(r);
-				return r;
-			}
-		});
-		
+
 		/* REPEAT/field -> FIELD */
 		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
@@ -193,7 +184,52 @@ public class Spec implements CSP, Configurable {
 				return f;
 			}
 		});
-		
+
+
+		/* RECORD/group -> GROUP */
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Group r=new Group((Record)parent,section);
+				((Record)parent).addAllField(r);
+				((Record)parent).addField(r);
+				return r;
+			}
+		});
+		/* GROUP/field -> FIELD */
+		rules.addRule(SECTION_PREFIX+"group",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Field f=new Field((Group)parent,section);
+				f.getRecord().addAllField(f);
+				((Group)parent).addChild(f);
+				return f;
+			}
+		});
+		/* GROUP/group -> GROUP */
+		rules.addRule(SECTION_PREFIX+"group",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Group r=new Group((Group)parent,section);
+				((Group)parent).addChild(r);
+				return r;
+			}
+		});
+		/* REPEAT/group -> GROUP */
+		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Group r=new Group((Group)parent,section);
+				((Repeat)parent).addChild(r);
+				return r;
+			}
+		});
+		/* GROUP/repeat -> REPEAT */
+		rules.addRule(SECTION_PREFIX+"group",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Repeat r=new Repeat((Repeat)parent,section);
+				((Group)parent).addChild(r);
+				return r;
+			}
+		});
+
+
 		/* REPEAT/repeat -> REPEAT */
 		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
@@ -202,6 +238,7 @@ public class Spec implements CSP, Configurable {
 				return r;
 			}
 		});
+		
 
 		/* FIELD/options/option -> OPTION */
 		rules.addRule(SECTION_PREFIX+"field",new String[]{"options","option"},SECTION_PREFIX+"option",null,new Target(){

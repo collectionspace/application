@@ -11,6 +11,7 @@ import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
@@ -34,6 +35,59 @@ public class XmlJsonConversion {
 		String value=in.optString(field.getID());
 		Element element=root.addElement(field.getServicesTag());
 		element.addText(value);
+	}
+	
+	//XXX could refactor this and addRepeatToXML as this is what happens in the middle of addRepeatToXML
+	private static void addGroupToXml(Element root, Group group, JSONObject in, String section) throws JSONException, UnderlyingStorageException{
+		Element element=root;
+
+		if(group.hasServicesParent()){
+			for(String path : group.getServicesParent()){
+				if(path !=null){
+					element=element.addElement(path);
+				}
+			}
+		}
+
+		Object value=null;
+		value=in.opt(group.getID());
+		
+		if(value==null || ((value instanceof String) && StringUtils.isBlank((String)value)))
+			return;
+		if(value instanceof String) { // And sometimes the services ahead of the UI
+			JSONObject next=new JSONObject();
+			next.put(group.getID(),value);
+			value=next;
+		}
+		if(!(value instanceof JSONObject))
+			throw new UnderlyingStorageException("Bad JSON in repeated field: must be string or object for group field not an array - that would a repeat field");
+		JSONObject object=(JSONObject)value;
+		
+
+		Element groupelement=element;
+
+			groupelement=element.addElement(group.getServicesTag());
+			Object one_value=object;
+			if(one_value==null || ((one_value instanceof String) && StringUtils.isBlank((String)one_value)))
+			{ //do nothing 
+				
+			}
+			else if(one_value instanceof String) {
+				// Assume it's just the first entry (useful if there's only one)
+				FieldSet[] fs=group.getChildren();
+				if(fs.length<1){ //do nothing 
+					
+				}
+				else{
+					JSONObject d1=new JSONObject();
+					d1.put(fs[0].getID(),one_value);
+					addFieldSetToXml(groupelement,fs[0],d1,section);
+				}
+			} else if(one_value instanceof JSONObject) {
+				for(FieldSet fs : group.getChildren())
+					addFieldSetToXml(groupelement,fs,(JSONObject)one_value,section);
+			}
+		element=groupelement;
 	}
 	
 	private static void addRepeatToXml(Element root,Repeat repeat,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
@@ -124,6 +178,9 @@ public class XmlJsonConversion {
 			return;
 		if(fs instanceof Field)
 			addFieldToXml(root,(Field)fs,in);
+		else if(fs instanceof Group){
+			addGroupToXml(root,(Group)fs,in,section);
+		}
 		else if(fs instanceof Repeat){
 			addRepeatToXml(root,(Repeat)fs,in,section);
 		}
@@ -251,6 +308,11 @@ public class XmlJsonConversion {
 				children.add(a.getID());
 			}
 		}
+		if(f instanceof Group){
+			for(FieldSet a : ((Group)f).getChildren()){
+				children.add(a.getID());
+			}
+		}
 		if(f instanceof Field){
 			
 		}
@@ -365,6 +427,32 @@ public class XmlJsonConversion {
 		return node;
 	}
 	
+	private static void addGroupToJson(JSONObject out, Element root, Group f) throws JSONException{
+		String nodeName = f.getServicesTag();
+		if(f.hasServicesParent()){
+			nodeName = f.getfullID();
+			//XXX hack because of weird repeats in accountroles permroles etc
+			if(f.getServicesParent().length==0){
+				nodeName = f.getID();
+			}
+		}
+		List nodes=root.selectNodes(nodeName);
+		if(nodes.size()==0)
+			return;
+		
+		
+		JSONArray node = new JSONArray();
+		// Only first element is important in group container
+		int pos = 0;
+		for(Object repeatcontainer : nodes){
+			pos++;
+			Element container=(Element)repeatcontainer;
+			JSONArray repeatitem = addRepeatedNodeToJson(container,f);
+			JSONObject repeated = repeatitem.getJSONObject(0);
+			out.put(f.getID(), repeated);
+		}
+		
+	}
 	@SuppressWarnings("unchecked")
 	private static void addRepeatToJson(JSONObject out,Element root,Repeat f) throws JSONException {
 		if(f.getXxxServicesNoRepeat()) {
@@ -423,7 +511,9 @@ public class XmlJsonConversion {
 	private static void addFieldSetToJson(JSONObject out,Element root,FieldSet fs) throws JSONException {
 		if(fs instanceof Field)
 			addFieldToJson(out,root,(Field)fs);
-		if(fs instanceof Repeat)
+		else if(fs instanceof Group)
+			addGroupToJson(out,root,(Group)fs);
+		else if(fs instanceof Repeat)
 			addRepeatToJson(out,root,(Repeat)fs);
 	}
 	

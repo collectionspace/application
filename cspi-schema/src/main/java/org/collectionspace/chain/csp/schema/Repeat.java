@@ -32,6 +32,11 @@ public class Repeat implements FieldSet, FieldParent {
 		this.initialiseVariables(section);
 	}
 
+	public Repeat(Group group, ReadOnlySection section) {
+		this.parent=group;
+		this.parentID = group.getID();
+		this.initialiseVariables(section);
+	}
 	public Repeat(Repeat repeat, ReadOnlySection section) {
 		this.parent=repeat;
 		this.parentID = repeat.getID();
