@@ -1698,7 +1698,7 @@
                         </view>
                     </structure>
                 </structures>
-                <repeat id="account" asSibling="true" has-primary="false" xxx-ui-no-repeat="true">
+                <group id="account">
                     <selector>.csc-accountrole-account-row:</selector>
                     <field id="accountId">
                         <selector>.csc-accountrole-account-accountid</selector>
@@ -1709,7 +1709,7 @@
                     <field id="userId">
                         <selector>.csc-accountrole-account-userid</selector>
                     </field>
-                </repeat>
+                </group>
                 	<repeat id="roles/role" has-primary="false" xxx-hack-authorization="true">
                     <selector>.csc-accountrole-roles-row</selector>
                     <field id="roleId">
@@ -1755,7 +1755,7 @@
                     </field>
                 </repeat>
   -->
-                <group id="role" asSibling="true">
+                <group id="role">
                     <field id="roleId">
                     </field>
                     <field id="roleName">
