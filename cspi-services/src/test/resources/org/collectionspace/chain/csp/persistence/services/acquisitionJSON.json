@@ -27,5 +27,7 @@
     "owners": [{
         "owner": "urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'",
         "de-urned-owner": "Bing Crosby Ice Cream Sales, Inc."
- 	}]
+ 	}],
+	
+    "fieldCollectionEventNames": []
 }
