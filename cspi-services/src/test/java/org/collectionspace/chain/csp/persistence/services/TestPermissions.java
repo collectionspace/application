@@ -54,7 +54,8 @@ public class TestPermissions  extends ServicesBaseClass  {
 		//list permissions for a role
 		
 	}
-	@Test public void testPermissions() throws Exception{
+	//@Test
+	public void testPermissions() throws Exception{
 		//create role
 		JSONObject roledata = createRole("role.json");
 		String role = roledata.getString("roleId");
