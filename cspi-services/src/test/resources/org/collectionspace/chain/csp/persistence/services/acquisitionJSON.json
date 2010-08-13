@@ -2,6 +2,8 @@
     "acquisitionReason": "newvalue",
 	"acquisitionDates":[],
     "acquisitionReferenceNumber": "acquisitionReferenceNumber",
+	
+    "accessionDate": "April 1, 2010",
     "acquisitionSources": [{
         "_primary": true,
         "acquisitionSource": "11111"

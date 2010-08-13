@@ -254,7 +254,7 @@ public class TestService extends ServicesBaseClass {
 		
 		testCRUD("collectionobjects/", "collectionobjects_common", "objectCreate.xml", "objectUpdate.xml", "collectionobjects_common/objectNumber", "2");
 
-		testPostGetDelete("acquisitions/", "acquisitions_common", "acquisition.xml", "acquisitions_common/accessionDate", "April 1, 2010");
+		testPostGetDelete("acquisitions/", "acquisitions_common", "acquisitionXMLJSON.xml", "acquisitions_common/accessionDate", "April 1, 2010");
 		testPostGetDelete("intakes/", "intakes_common", "intake.xml", "intakes_common/entryNumber","IN2010.2");
 		testPostGetDelete("loansin/", "loansin_common", "loaninXMLJSON.xml", "loansin_common/loanInNumber", "LI2010.1.21");
 		testPostGetDelete("loansout/", "loansout_common", "loanout.xml", "loansout_common/loanOutNumber", "LO2010.117");

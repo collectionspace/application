@@ -20,6 +20,8 @@
                 <acquisitionFundingSourceProvisos>Fq</acquisitionFundingSourceProvisos>
 	</acquisitionFunding>
 </acquisitionFundingList>
+<accessionDate>April 1, 2010</accessionDate>
+<fieldCollectionEventNames/>
 <acquisitionReason>newvalue</acquisitionReason>
 <acquisitionMethod>acquisitionMethod</acquisitionMethod>
 <owner>urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'</owner>
