@@ -92,7 +92,7 @@ public class TestGeneral {
 	
 	private final static String permroleCreate = "{ \"permissions\": [ {\"recordType\": \"Object Cataloging\", \"permission\": \"write\"}, {\"recordType\": \"Intake\", \"permission\": \"write\"}, {\"recordType\": \"Acquisition\", \"permission\": \"write\"}, {\"recordType\": \"Loan In\", \"permission\": \"read\"}, {\"recordType\": \"Loan out\", \"permission\": \"read\"}] }";
 
-	private final static String accountroleCreate = "{ \"account\": [{ \"userId\": \"\", \"screenName\": \"\", \"accountId\": \"\" }], \"roles\": [{ \"role\": [{ \"roleName\": \"\", \"roleId\": \"\" }]}] }";
+	private final static String accountroleCreate = "{ \"account\": { \"userId\": \"\", \"screenName\": \"\", \"accountId\": \"\" },  \"role\": [{ \"roleName\": \"\", \"roleId\": \"\" }] }";
 
 	//private final static String testStr3 = "{\"a\":\"b\",\"id\":\"***misc***\",\"objects\":\"***objects***\",\"intake\":\"***intake***\"}";
 	//private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
@@ -477,13 +477,13 @@ public class TestGeneral {
 	@Test public void testObjectList() throws Exception {
 		ServletTester jetty=setupJetty();
 
-/*		testLists(jetty, "objects", objectCreate, "items");
+		testLists(jetty, "objects", objectCreate, "items");
 		testLists(jetty, "intake", intakeCreate, "items");
 		testLists(jetty, "loanin", loaninCreate, "items");
 		testLists(jetty, "loanout", loanoutCreate, "items");
 		testLists(jetty, "acquisition", acquisitionCreate, "items");
 		testLists(jetty, "role", roleCreate, "items");
-*/		testLists(jetty, "movement", movementCreate, "items");
+		testLists(jetty, "movement", movementCreate, "items");
 		//testLists(jetty, "permission", permissionWrite, "items");
 	}
 	/* XXX I don't think this is tetsing what it needs to */
@@ -794,7 +794,8 @@ log.info(out.getContent());
 	 * 
 	
 	 @Test  - remvoe test whilst working on permissions
-	 */public void testUserRoles() throws Exception{
+	 */
+	@Test public void testUserRoles() throws Exception{
 		ServletTester jetty = setupJetty();
 		
 		//Create a user
@@ -808,55 +809,56 @@ log.info(out.getContent());
 		
 		//Create a role
 		out = jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleCreate));
+		log.info(out.getContent());
 		JSONObject role = new JSONObject(out.getContent());
 		String role_id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		
 		//Assign the roles to the user
 		JSONObject json = new JSONObject(accountroleCreate);
-		JSONArray account = json.getJSONArray("account");
-		for(int i=0,il=account.length();i<il;i++){
-			JSONObject accountitem = account.getJSONObject(i);
-			accountitem.put("userId", getFields(user).getString("userId"));
-			accountitem.put("screenName", getFields(user).getString("screenName"));
-			accountitem.put("accountId", user.getString("csid"));
-		}
+		log.info(json.toString());
+		JSONObject account = json.getJSONObject("account");
+		account.put("userId", getFields(user).getString("userId"));
+		account.put("screenName", getFields(user).getString("screenName"));
+		account.put("accountId", user.getString("csid"));
 		
-		JSONArray roleslist = json.getJSONArray("roles");
-		for(int i=0,il=roleslist.length();i<il;i++){
-			JSONObject rolesitem = roleslist.getJSONObject(i);
-			JSONArray rolesitemlist = rolesitem.getJSONArray("role");
+		
+			JSONArray rolesitemlist = json.getJSONArray("role");
 			for(int j=0,jl=rolesitemlist.length();j<jl;j++){
 				JSONObject roleitem = rolesitemlist.getJSONObject(j);
 				roleitem.put("roleName", getFields(role).getString("roleName"));
 				roleitem.put("roleId", role.getString("csid"));
 			}
-		}
 		
 		//create an account_role
 		out = jettyDo(jetty, "POST", "/chain"+ user_id +"/userrole",makeRequest(json).toString());
+		log.info("834"+out.getContent());
 		assertEquals(201, out.getStatus());
 		String acrole_id = out.getHeader("Location");
 		
 		//Get the account_role and compare this to the originally assigned role
 		out=jettyDo(jetty,"GET","/chain"+ user_id + acrole_id,null);
+		log.info("/chain"+ user_id + acrole_id);
+		log.info("840"+out.getContent());
 		assertEquals(200, out.getStatus());
-		JSONObject one = new JSONObject(getFields(out.getContent()));
+		JSONObject one = new JSONObject(out.getContent());
 		//assertEquals(one.get("account").toString(),json.get("account").toString());
 log.info("/chain"+ user_id + acrole_id+ ":"+one.toString());
 		Boolean testflag = false;
-		JSONArray testroleslist = one.getJSONArray("roles");
-		for(int i=0,il=testroleslist.length();i<il;i++){
-			JSONObject rolesitem = roleslist.getJSONObject(i);
-			JSONArray rolesitemlist = rolesitem.getJSONArray("role");
-			for(int j=0,jl=rolesitemlist.length();j<jl;j++){
-				JSONObject roleitem = rolesitemlist.getJSONObject(j);
+			JSONArray rolesitemlista = one.getJSONArray("role");
+			for(int j=0,jl=rolesitemlista.length();j<jl;j++){
+				JSONObject roleitem = rolesitemlista.getJSONObject(j);
 				if(roleitem.getString("roleId").equals(role.getString("csid"))){
 					testflag = true;
 				}
 			}
-		}
 		assertTrue(testflag);
+		
+		//getuser
+		HttpTester out3=jettyDo(jetty,"GET","/chain"+ user_id,null);
+		log.info(out3.getContent());
+		
+		
 		//assertEquals(one.get("roles").toString(),json.get("roles").toString());
 		
 		//Delete the account_role - commented out until service layer is sorted
@@ -870,7 +872,8 @@ log.info("/chain"+ user_id + acrole_id+ ":"+one.toString());
 		//Delete the roles
 		out=jettyDo(jetty,"DELETE","/chain"+role_id,null);
 		assertEquals(200,out.getStatus());
-		
+
+		log.info(out3.getContent());
 	}
 	
 	/*
