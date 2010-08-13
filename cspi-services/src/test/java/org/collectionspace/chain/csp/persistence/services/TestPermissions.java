@@ -17,6 +17,7 @@ import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.dom4j.Document;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -55,8 +56,10 @@ public class TestPermissions  extends ServicesBaseClass  {
 	}
 	@Test public void testPermissions() throws Exception{
 		//create role
-		String role = createRole("role.json");
-		assertFalse(role.equals(""));
+		JSONObject roledata = createRole("role.json");
+		String role = roledata.getString("roleId");
+		log.info(roledata.toString());
+		assertFalse(roledata==null);
 		
 		//list permissions for role
 		//cspace-services/authorization/roles/{csid}/permroles/xxx
@@ -75,8 +78,10 @@ public class TestPermissions  extends ServicesBaseClass  {
 		//get acquisition crudl
 
 		///cspace-services/authorization/permissions?res=acquisition&actGrp=CRUDL
+		String resourceName = "acquisition";
+		
 		JSONObject permrestrictions = new JSONObject();
-		permrestrictions.put("keywords", "acquisition");
+		permrestrictions.put("keywords", resourceName);
 		permrestrictions.put("queryString", "CRUDL");
 		permrestrictions.put("queryTerm", "actGrp");
 
@@ -91,24 +96,35 @@ public class TestPermissions  extends ServicesBaseClass  {
 			fail("missing permission type Acquisition CRUDL " + permrestrictions.toString());			
 		}
 		
+		JSONObject permdata = new JSONObject();
+		permdata.put("permissionId", permID);
+		permdata.put("resourceName", resourceName);
+		JSONArray permarray = new JSONArray();
+		permarray.put(permdata);
+		
 		JSONObject addperm = new JSONObject();
+		addperm.put("permission", permarray);
+		addperm.put("role", roledata);
 		
-		//"permissions": [
-		 //               {"recordType": "Acquisition", "permission": "write"}, 
-		  //          ],
+		log.info(addperm.toString());
+		//add permissions to role
+
+		String path=ss.autocreateJSON("users",addperm);
+		log.info(path);
+		assertNotNull(path);
 		
-		
+		//test permissions is in role
 		
 	}
-	private String createRole(String jsonFile){
+	private JSONObject createRole(String jsonFile){
 
 		Storage ss;
 		try{
 			//delete this role if exist
 			JSONObject u1=getJSON(jsonFile);
-			String userId = u1.getString("roleName");
+			String roleName = u1.getString("roleName");
 			JSONObject test = new JSONObject();
-			test.put("keywords", userId);
+			test.put("keywords", roleName);
 			ss = makeServicesStorage(base+"/cspace-services/");
 			/* delete role if already exists */
 			JSONObject data = ss.getPathsJSON("role/",test);
@@ -126,7 +142,11 @@ public class TestPermissions  extends ServicesBaseClass  {
 			JSONObject u3=ss.retrieveJSON("role/"+path);
 			assertNotNull(u3);
 			//return role path
-			return path;
+
+			JSONObject roledata = new JSONObject();
+			roledata.put("roleName", roleName);
+			roledata.put("roleId", path);
+			return roledata;
 			
 		} catch (CSPDependencyException e) {
 			fail("CSPDependencyException:"+e.getMessage());
@@ -141,7 +161,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 		} catch (IOException e) {
 			fail("IOException:"+e.getMessage());
 		}
-		return "";
+		return null;
 	}
 	private String createUser(String jsonFile){
 
