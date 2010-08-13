@@ -32,6 +32,20 @@ public class UserDetailsRead  implements WebMethod {
 		record_type=r.isType("userdata");
 	}
 		
+	/**
+	 * create role array
+	 * [{roleId:"","roleName":"",selected:"yes|no"},{ ... }]
+	 * @param activeRoles
+	 * @return
+	 */
+	private JSONObject getRoles(JSONObject activeRoles){
+		JSONObject set = new JSONObject();
+		//just return the roles that are assign
+		//we are ignoring pagination so this will return the first 40 roles only
+		//UI doesn't know what it wants to do about pagination etc
+		return set;
+	}
+	
 	/* Wrapper exists to decomplexify exceptions */
 	private JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
@@ -39,11 +53,10 @@ public class UserDetailsRead  implements WebMethod {
 			if(record_type) {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
-
 				JSONObject roles = storage.retrieveJSON(base+"/"+csid+"/"+"userrole");
-				if(roles.has("role")){
-					fields.put("role",roles.getJSONArray("role"));
-				}
+				JSONObject allroles = getRoles(roles);
+				fields.put("role",allroles);
+				
 				out.put("fields",fields);
 				out.put("ok",true);
 				out.put("message","");
