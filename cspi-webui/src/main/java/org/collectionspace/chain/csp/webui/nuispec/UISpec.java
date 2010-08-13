@@ -424,7 +424,7 @@ public class UISpec implements WebMethod {
 				} else {
 					JSONObject row=new JSONObject();
 					JSONArray children=new JSONArray();
-					if(r.asSibling()){ // allow for row [{'','',''}]
+					if(r.asSibling() && !r.hasServicesParent()){ // allow for row [{'','',''}]
 						JSONObject contents=new JSONObject();
 						for(FieldSet child : r.getChildren()) {
 							generateDataEntry(contents,child, affix);

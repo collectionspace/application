@@ -1224,7 +1224,7 @@
                 <field id="originalObjectPurchasePriceValue">
                     <selector>.csc-acquisition-original-object-purchase-price-value</selector>
                 </field>
-                <repeat id="owners" asSibling="true" xxx-services-no-repeat="yes">
+                <repeat id="owners"  xxx-services-no-repeat="yes">
                     <selector>.csc-acquisition-owner</selector>
                     <field id="owner" autocomplete="person-person,organization-organization">
                         <selector>.csc-acquisition-owner</selector>
