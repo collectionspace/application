@@ -21,18 +21,6 @@ import org.slf4j.LoggerFactory;
 public class TestServiceThroughAPI extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughAPI.class);
 
-	// XXX refactor
-	@SuppressWarnings("unchecked")
-	private void deleteAll() throws Exception {
-		ReturnedDocument all=conn.getXMLDocument(RequestMethod.GET,"collectionobjects/",null,creds,cache);
-		if(all.getStatus()!=200)
-			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-		List<Node> objects=all.getDocument().selectNodes("collectionobjects-common-list/collection-object-list-item");
-		for(Node object : objects) {
-			String csid=object.selectSingleNode("csid").getText();
-			conn.getNone(RequestMethod.DELETE,"collectionobjects/"+csid,null,creds,cache);
-		}
-	}
 	
 	@Before public void checkServicesRunning() throws ConnectionException, BootstrapConfigLoadFailedException {
 		setup();
@@ -100,7 +88,6 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	
 	// XXX use autocreate not create when create dies
 	@Test public void testObjectsList() throws Exception {
-		deleteAll();
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
 		String p2=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
@@ -130,7 +117,6 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	}
 	
 	@Test public void testSearch() throws Exception {
-		deleteAll();
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
 		String p2=ss.autocreateJSON("collection-object/",getJSON("obj-search.json"));
