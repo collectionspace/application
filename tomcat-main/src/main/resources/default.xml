@@ -1990,45 +1990,55 @@
                 <row-selector>.csc-recordList-row:</row-selector>
                 <!--  Object Location Information Group -->
                 <field id="currentLocation" in-title="yes" mini="summary">
-                    <selector>.csc-movement-currentLocation</selector>
                     <title-selector>.csc-titleBar-currentLocation</title-selector>
                 </field>
                 <field id="currentLocationFitness">
-                    <selector>.csc-movement-currentLocationFitness</selector>
-                </field>
-                <field id="currentLocationNote">
-                    <selector>.csc-movement-currentLocationNote</selector>
-                </field>
-                <field id="locationDate">
+                    <options>
+                        <option id="dangerous">Dangerous</option>
+                        <option id="suitable">Suitable</option>
+                        <option id="temporary">Temporary</option>
+                        <option id="unsuitable">Unsuitable</option>
+                    </options>
+                </field>                
+                <field id="currentLocationNote"></field>
+                <field id="locationDate" ui-type="date" xxx_ui_refactored="false">
                     <selector>.csc-movement-locationDate</selector>
                 </field>
-                <field id="normalLocation">
-                    <selector>.csc-movement-normalLocation</selector>
-                </field>
+                <field id="normalLocation"></field>
                 <!--  Movement Information Group -->
-                <field id="movementContact">
-                    <selector>.csc-movement-movementContact</selector>
-                </field>
+                <field id="movementContact" autocomplete="person-person"></field>
                 <repeat id="movementMethods">
-                    <selector>.csc-movement-movementMethods</selector>
                     <field id="movementMethod">
                         <selector>.csc-movement-movementMethods</selector>
+                        <options>
+                            <option id="forklift">Forklift</option>
+                            <option id="handcarried">Handcarried</option>
+                            <option id="trolley">Trolley</option>
+                        </options>
                     </field>
                 </repeat>
-                <field id="movementNote">
-                    <selector>.csc-movement-movementNote</selector>
+                <field id="movementNote"></field>
+                <field id="movementReferenceNumber" chooser="yes" in-title="no" mini="number" xxx_ui_refactored="false">
+                    <options>
+                        <option id="movement" sample="MV2010.001">Movement</option>
+                    </options>
                 </field>
-                <field id="movementReferenceNumber" mini="number">
-                    <selector>.csc-movement-movementReferenceNumber</selector>
-                </field>
-                <field id="plannedRemovalDate">
+                <field id="plannedRemovalDate" ui-type="date" xxx_ui_refactored="false">
                     <selector>.csc-movement-plannedRemovalDate</selector>
                 </field>
-                <field id="removalDate">
+                <field id="removalDate" ui-type="date" xxx_ui_refactored="false">
                     <selector>.csc-movement-removalDate</selector>
                 </field>
                 <field id="reasonForMove">
-                    <selector>.csc-movement-reasonForMove</selector>
+                    <options>
+                        <option id="conservation">Conservation</option>
+                        <option id="exhibition">Exhibition</option>
+                        <option id="inventory">Inventory</option>
+                        <option id="loan">Loan</option>
+                        <option id="newstoragelocation">New Storage Location</option>
+                        <option id="photography">Photography</option>
+                        <option id="research">Research</option>
+                    </options>
                 </field>
             </record>
             <record id="id" type="id">
