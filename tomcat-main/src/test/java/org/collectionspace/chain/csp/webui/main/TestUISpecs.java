@@ -73,118 +73,42 @@ public class TestUISpecs {
 		response.parse(tester.getResponses(request.generate()));
 		return response;
 	}
-	
-	@Test public void testUISpec() throws Exception {
-		ServletTester jetty=setupJetty();
-		// Collection-Object
+	private void uispec(ServletTester jetty, String url, String uijson) throws Exception {
+
 		HttpTester response;
 		JSONObject generated;
 		JSONObject comparison;
-		
-		response=jettyDo(jetty,"GET","/chain/objects/uispec",null);
-		log.debug(response.getContent());
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("collection-object.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 
-		// Intake
-		response=jettyDo(jetty,"GET","/chain/intake/uispec",null);
+		response=jettyDo(jetty,"GET",url,null);
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("intake.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
+		comparison=new JSONObject(getResourceString(uijson));
+		log.info(response.getContent());
+		log.info(comparison.toString());
+		log.info(generated.toString());
+		assertTrue("Failed to create correct uispec for "+url,JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 		
-		// Acquisition
-		response=jettyDo(jetty,"GET","/chain/acquisition/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("acquisition.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
-		
-		// Person
-		response=jettyDo(jetty,"GET","/chain/person/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("person.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
-		
-		// Organization
-		response=jettyDo(jetty,"GET","/chain/organization/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("organization-authority.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
-		
-		// Object tab
-		response=jettyDo(jetty,"GET","/chain/object-tab/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("object-tab.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
-		
-		// Loanin tab
-		response=jettyDo(jetty,"GET","/chain/loanin/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("loanin.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
-		
-		// Loanout tab
-		response=jettyDo(jetty,"GET","/chain/loanout/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("loanout.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
- 
-		// UserDetails tab
-		response=jettyDo(jetty,"GET","/chain/users/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("users.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
+	}
+	
+	@Test public void testUISpec() throws Exception {
+		ServletTester jetty=setupJetty();
 
-		 
-		
-		// Roles tab
-		response=jettyDo(jetty,"GET","/chain/role/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("permroles.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
-
-		// Permissions tab
-		response=jettyDo(jetty,"GET","/chain/permission/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("roles.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
-
-		// Role/Permissions tab
-		response=jettyDo(jetty,"GET","/chain/permrole/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("permroles.uispec"));
-		//log.info(response.getContent());
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
-
-		// Find-Edit
-		response=jettyDo(jetty,"GET","/chain/find-edit/uispec",null);
-		assertEquals(200,response.getStatus());
-		generated=new JSONObject(response.getContent());
-		comparison=new JSONObject(getResourceString("find-edit.uispec"));
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));	
-		
+		uispec(jetty,"/chain/acquisition/uispec","acquisition.uispec");
+/*		uispec(jetty,"/chain/objects/uispec","collection-object.uispec");
+		uispec(jetty,"/chain/object-tab/uispec","object-tab.uispec");
+		uispec(jetty,"/chain/intake/uispec","intake.uispec");
+		uispec(jetty,"/chain/acquisition/uispec","acquisition.uispec");
+		uispec(jetty,"/chain/loanout/uispec","loanout.uispec");
+		uispec(jetty,"/chain/person/uispec","person.uispec");
+		uispec(jetty,"/chain/organization/uispec","organization.uispec");
+		uispec(jetty,"/chain/loanin/uispec","loanin.uispec");
+		uispec(jetty,"/chain/users/uispec","users.uispec");
+		uispec(jetty,"/chain/role/uispec","roles");
+		uispec(jetty,"/chain/permission/uispec","permissions.uispec");
+		uispec(jetty,"/chain/permrole/uispec","permroles.uispec");
+		uispec(jetty,"/chain/movement/uispec","movement.uispec");
+		uispec(jetty,"/chain/find-edit/uispec","find-edit.uispec");
+*/		
+	
 	}
 }

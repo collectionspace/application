@@ -2,43 +2,37 @@
     "sidebar": {
         "relatedObjects": {
             ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-summary": "${items.0.summary}",
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                        }
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                     }
-                ]
+                }]
             }
         },
         "relatedProcedures": {
             ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-summary": "${items.0.summary}",
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                        },
-                        ".csc-related-recordtype": "${items.0.recordtype}"
-                    }
-                ]
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    },
+                    ".csc-related-recordtype": "${items.0.recordtype}"
+                }]
             }
         },
         "termsUsed": {
             ".csc-recordList-row:": {
-                "children": [
-                    {
-                        ".csc-related-number": {
-                            "linktext": "${items.0.number}",
-                            "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                        },
-                        ".csc-related-field": "${items.0.sourceFieldName}",
-                        ".csc-related-recordtype": "${items.0.recordtype}"
-                    }
-                ]
+                "children": [{
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    },
+                    ".csc-related-field": "${items.0.sourceFieldName}",
+                    ".csc-related-recordtype": "${items.0.recordtype}"
+                }]
             }
         }
     },
@@ -46,124 +40,181 @@
         ".csc-titleBar-acquisition-reference-number": "${fields.acquisitionReferenceNumber}"
     },
     "recordEditor": {
-        ".csc-acquisition-acquisition-funding-denomination": "${fields.acquisitionFundingDenomination}",
-        ".csc-acquisition-acquisition-source-row:": {
-            "children": [
-                {
-                    ".csc-acquisition-acquisition-source": "${fields.acquisitionSources.0.acquisitionSource}",
-                    ".csc-acquisition-acquisition-source-autocomplete": {
-                        "decorators": [
-                            {
+        ".csc-acquisition-object-purchase-price-currency": {
+            "default": "3",
+            "optionnames": ["Please select an item", "Swiss Franc", "Canadian Dollar", "US Dollar", "Pound Sterling", "Euro", "Swedish Krona", "Danish Krone"],
+            "optionlist": ["", "swissfranc", "canadiandollar", "usdollar", "poundsterling", "euro", "swedishkrona", "danishkrone"],
+            "selection": "${fields.objectPurchasePriceCurrency}"
+        },
+        ".csc-acquisition-original-object-purchase-price-value": "${fields.originalObjectPurchasePriceValue}",
+        ".csc-acquisition-acquisitionAuthorizerDate-container": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
+        },
+        ".csc-acquisition-acquisitionFunding": {
+            "children": [{
+                ".csc-acquisition-acquisitionFundingSourceProvisos": "${fields.acquisitionFunding.0.acquisitionFundingSourceProvisos}",
+                ".csc-acquisition-acquisitionFundingSource-autocomplete": {
+                    "decorators": [{
+                        "func": "cspace.autocomplete",
+                        "type": "fluid",
+                        "options": {
+                            "queryUrl": "../../chain/acquisition/autocomplete/acquisitionFundingSource",
+                            "vocabUrl": "../../chain/acquisition/source-vocab/acquisitionFundingSource"
+                        }
+                    }]
+                },
+                ".csc-acquisition-acquisitionFundingSource": "${fields.acquisitionFunding.0.acquisitionFundingSource}",
+                ".csc-acquisition-acquisitionFundingValue": "${fields.acquisitionFunding.0.acquisitionFundingValue}",
+                ".csc-acquisition-acquisitionFundingCurrency": {
+                    "default": "3",
+                    "optionnames": ["Please select an item", "Swiss Franc", "Canadian Dollar", "US Dollar", "Pound Sterling", "Euro", "Swedish Krona", "Danish Krone"],
+                    "optionlist": ["", "swissfranc", "canadiandollar", "usdollar", "poundsterling", "euro", "swedishkrona", "danishkrone"],
+                    "selection": "${fields.acquisitionFunding.0.acquisitionFundingCurrency}"
+                }
+            }]
+        },
+        ".csc-acquisition-acquisition-reason": "${fields.acquisitionReason}",
+        ".csc-acquisition-object-purchase-price-value": "${fields.objectPurchasePriceValue}",
+        ".csc-acquisition-acquisition-provisos": "${fields.acquisitionProvisos}",
+        ".csc-acquisition-acquisitionAuthorizer": {
+            "valuebinding": "${fields.acquisitionAuthorizer}",
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../chain/acquisition/autocomplete/acquisitionAuthorizer",
+                    "vocabUrl": "../../chain/acquisition/source-vocab/acquisitionAuthorizer"
+                }
+            }]
+        },
+        ".csc-acquisition-object-offer-price-value": "${fields.objectOfferPriceValue}",
+        ".csc-acquisition-numberPatternChooser-reference-number": "${fields.acquisitionReferenceNumber}",
+        ".csc-acquisition-object-offer-price-currency": {
+            "default": "3",
+            "optionnames": ["Please select an item", "Swiss Franc", "Canadian Dollar", "US Dollar", "Pound Sterling", "Euro", "Swedish Krona", "Danish Krone"],
+            "optionlist": ["", "swissfranc", "canadiandollar", "usdollar", "poundsterling", "euro", "swedishkrona", "danishkrone"],
+            "selection": "${fields.objectOfferPriceCurrency}"
+        },
+        ".csc-acquisition-object-purchase-offer-price-currency": {
+            "default": "3",
+            "optionnames": ["Please select an item", "Swiss Franc", "Canadian Dollar", "US Dollar", "Pound Sterling", "Euro", "Swedish Krona", "Danish Krone"],
+            "optionlist": ["", "swissfranc", "canadiandollar", "usdollar", "poundsterling", "euro", "swedishkrona", "danishkrone"],
+            "selection": "${fields.objectPurchaseOfferPriceCurrency}"
+        },
+        ".csc-acquisition-fieldCollectionEventName": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.fieldCollectionEventNames",
+                    "protoTree": {
+                        ".csc-acquisition-fieldCollectionEventName": "${fields.fieldCollectionEventNames.0.fieldCollectionEventName}"
+                    }
+                }
+            }]
+        },
+        ".csc-acquisition-original-object-purchase-price-currency": {
+            "default": "3",
+            "optionnames": ["Please select an item", "Swiss Franc", "Canadian Dollar", "US Dollar", "Pound Sterling", "Euro", "Swedish Krona", "Danish Krone"],
+            "optionlist": ["", "swissfranc", "canadiandollar", "usdollar", "poundsterling", "euro", "swedishkrona", "danishkrone"],
+            "selection": "${fields.originalObjectPurchasePriceCurrency}"
+        },
+        ".csc-acquisition-acquisition-method": {
+            "optionnames": ["Gift", "Purchase", "Exchange", "Transfer", "Treasure"],
+            "optionlist": ["gift", "purchase", "exchange", "transfer", "treasure"],
+            "selection": "${fields.acquisitionMethod}"
+        },
+        ".csc-acquisition-accession-date": "${fields.accessionDate}",
+        ".csc-acquisition-owner": {
+            "children": [{
+                ".csc-acquisition-owner": {
+                    "valuebinding": "${fields.owners.0.owner}",
+                    "decorators": [{
+                        "func": "cspace.autocomplete",
+                        "type": "fluid",
+                        "options": {
+                            "queryUrl": "../../chain/acquisition/autocomplete/owner",
+                            "vocabUrl": "../../chain/acquisition/source-vocab/owner"
+                        }
+                    }]
+                }
+            }]
+        },
+        ".csc-acquisition-group-purchase-price-currency": {
+            "default": "3",
+            "optionnames": ["Please select an item", "Swiss Franc", "Canadian Dollar", "US Dollar", "Pound Sterling", "Euro", "Swedish Krona", "Danish Krone"],
+            "optionlist": ["", "swissfranc", "canadiandollar", "usdollar", "poundsterling", "euro", "swedishkrona", "danishkrone"],
+            "selection": "${fields.groupPurchasePriceCurrency}"
+        },
+        ".csc-acquisition-group-purchase-price-value": "${fields.groupPurchasePriceValue}",
+        ".csc-acquisition-acquisitionSource": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.acquisitionSources",
+                    "protoTree": {
+                        ".csc-acquisition-acquisitionSource": {
+                            "valuebinding": "${fields.acquisitionSources.0.acquisitionSource}",
+                            "decorators": [{
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
                                     "queryUrl": "../../chain/acquisition/autocomplete/acquisitionSource",
                                     "vocabUrl": "../../chain/acquisition/source-vocab/acquisitionSource"
                                 }
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        ".csc-acquisition-acquisition-reason": "${fields.acquisitionReason}",
-        ".csc-acquisition-authorizer-date-container": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ]
-        },
-        ".csc-acquisition-acquisition-provisos": "${fields.acquisitionProvisos}",
-        ".csc-acquisition-acquisition-funding-value": "${fields.acquisitionFundingValue}",
-        ".csc-object-collection-field-collection-number": "${fields.fieldCollectionNumber}",
-        ".csc-acquisition-acquisition-funding-source": "${fields.acquisitionFundingSource}",
-        ".csc-acquisition-acquisition-funding-provisos": "${fields.acquisitionFundingSourceProvisos}",
-        ".csc-acquisition-numberPatternChooser-reference-number": "${fields.acquisitionReferenceNumber}",
-        ".csc-acquisition-purchaser-price-denomination": "${fields.objectPurchaseOfferPriceDenomination}",
-        ".csc-acquisition-purchaser-price": "${fields.objectPurchaseOfferPriceValue}",
-        ".csc-acquisition-authorizer-autocomplete": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../chain/acquisition/autocomplete/acquisitionAuthorizer",
-                        "vocabUrl": "../../chain/acquisition/source-vocab/acquisitionAuthorizer"
-                    }
-                }
-            ]
-        },
-        ".csc-acquisition-acquisition-method": {
-            "optionnames": [
-                "Gift",
-                "Purchase",
-                "Exchange",
-                "Transfer",
-                "Treasure"
-            ],
-            "optionlist": [
-                "gift",
-                "purchase",
-                "exchange",
-                "transfer",
-                "treasure"
-            ],
-            "selection": "${fields.acquisitionMethod}"
-        },
-        ".csc-acquisition-accession-date": "${fields.accessionDate}",
-        ".csc-acquisition-acquisition-date-container": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ]
-        },
-        ".csc-acquisition-purchase-price-type": "${fields.objectPurchaseOfferPriceType}",
-        ".csc-acquisition-reference-number-patternChooserContainer": {
-            "decorators": [
-                {
-                    "func": "cspace.numberPatternChooser",
-                    "type": "fluid",
-                    "options": {
-                        "model": {
-                            "names": [
-                                "Accession",
-                                "Archives",
-                                "Library"
-                            ],
-                            "list": [
-                                "objects",
-                                "archives",
-                                "library"
-                            ],
-                            "samples": [
-                                "2009.1",
-                                "AR2009.42",
-                                "LIB2009.1"
-                            ]
-                        },
-                        "selectors": {
-                            "numberField": ".csc-acquisition-numberPatternChooser-reference-number"
+                            }]
                         }
                     }
                 }
-            ]
+            }]
+        },
+        ".csc-acquisition-reference-number-patternChooserContainer": {
+            "decorators": [{
+                "func": "cspace.numberPatternChooser",
+                "type": "fluid",
+                "options": {
+                    "model": {
+                        "names": ["Accession", "Archives", "Library"],
+                        "list": ["objects", "archives", "library"],
+                        "samples": ["2009.1", "AR2009.42", "LIB2009.1"]
+                    },
+                    "selectors": {
+                        "numberField": ".csc-acquisition-numberPatternChooser-reference-number"
+                    }
+                }
+            }]
         },
         ".csc-acquisition-acquisition-note": "${fields.acquisitionNote}",
-        ".csc-acquisition-date": "${fields.acquisitionDate}",
+        ".csc-acquisition-acquisitionAuthorizerDate": "${fields.acquisitionAuthorizerDate}",
         ".csc-acquisition-accession-date-container": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ]
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
         },
-        ".csc-acquisition-authorizer": "${fields.acquisitionAuthorizer}",
+        ".csc-acquisition-object-purchase-offer-price-value": "${fields.objectPurchaseOfferPriceValue}",
         ".csc-acquisition-transfer-of-title-number": "${fields.transferOfTitleNumber}",
-        ".csc-acquisition-authorizer-date": "${fields.acquisitionAuthorizerDate}"
+        ".csc-acquisition-acquisitionDates": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.acquisitionDates",
+                    "protoTree": {
+                        ".csc-acquisition-date": "${fields.acquisitionDates.0.acquisitionDate}",
+                        ".csc-acquisition-acquisition-date-container": {
+                            "decorators": [{
+                                "func": "cspace.datePicker",
+                                "type": "fluid"
+                            }]
+                        }
+                    }
+                }
+            }]
+        }
     }
 }
