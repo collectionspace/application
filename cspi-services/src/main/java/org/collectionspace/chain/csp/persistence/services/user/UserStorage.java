@@ -412,7 +412,6 @@ public class UserStorage implements ContextualisedStorage {
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,filePath,null,creds,cache);
 			JSONObject out=new JSONObject();
 			Document xml = null;
-			String test = doc.getDocument().asXML();
 			xml = doc.getDocument();
 			if((doc.getStatus()<200 || doc.getStatus()>=300))
 				throw new ExistException("Does not exist "+filePath);

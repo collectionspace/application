@@ -46,15 +46,67 @@ public class TestPermissions  extends ServicesBaseClass  {
 		//change permission action in a role
 	@Test public void testRoles() throws Exception{
 		//create user
-		String user = createUser("user1.json");
-		assertFalse(user.equals(""));
+		JSONObject userdata = createUser("user1.json");
+		String userId = userdata.getString("userId");
+		String csidId = userdata.getString("accountId");
+		assertFalse(userdata==null);
 		
 		//list roles for user
+		//cspace-services/authorization/roles/{csid}/permroles/xxx
+
+		Storage ss;
+		ss = makeServicesStorage(base+"/cspace-services/");
+		JSONObject data = ss.getPathsJSON("accounts/"+userId+"/accountrole",null);
+		String[] roleperms=(String[]) data.get("listItems");
+		log.info(data.toString());
+
+		if(roleperms.length>0){
+			log.info("has roles already");
+		}
 		
-		//list permissions for a role
+		//create a role
+		JSONObject roledata = createRole("role.json");
+		String role = roledata.getString("roleId");
+		log.info(roledata.toString());
+		assertFalse(roledata==null);
+		
+		//add a role
+		JSONObject addroledata = new JSONObject();
+		addroledata.put("roleId", role);
+		addroledata.put("roleName", roledata.getString("roleName"));
+		JSONArray rolearray = new JSONArray();
+		rolearray.put(addroledata);
+		
+		JSONObject addrole = new JSONObject();
+		addrole.put("role", rolearray);
+		addrole.put("account", userdata);
+		
+		log.info(addrole.toString());
+		//add permissions to role
+
+		String path=ss.autocreateJSON("userrole",addrole);
+		log.info(path);
+		assertNotNull(path);
+		
+		
+		//delete role
+		ss.deleteJSON("role/"+role);
+		try {
+			ss.retrieveJSON("role/"+role);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {
+		}
+		
+		//delete user
+		ss.deleteJSON("users/"+csidId);
+		try {
+			ss.retrieveJSON("users/"+csidId);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {
+		}
 		
 	}
-	//@Test
+	@Test
 	public void testPermissions() throws Exception{
 		//create role
 		JSONObject roledata = createRole("role.json");
@@ -110,12 +162,20 @@ public class TestPermissions  extends ServicesBaseClass  {
 		log.info(addperm.toString());
 		//add permissions to role
 
-		String path=ss.autocreateJSON("users",addperm);
+		String path=ss.autocreateJSON("permrole",addperm);
 		log.info(path);
 		assertNotNull(path);
 		
 		//test permissions is in role
+
 		
+		//delete role
+		ss.deleteJSON("role/"+role);
+		try {
+			ss.retrieveJSON("role/"+role);
+			assertFalse(true); // XXX use JUnit exception annotation
+		} catch(ExistException e) {
+		}
 	}
 	private JSONObject createRole(String jsonFile){
 
@@ -164,11 +224,12 @@ public class TestPermissions  extends ServicesBaseClass  {
 		}
 		return null;
 	}
-	private String createUser(String jsonFile){
+	private JSONObject createUser(String jsonFile){
 
 		Storage ss;
 		try {
 			JSONObject u1=getJSON(jsonFile);
+			String screenName = u1.getString("screenName");
 			String userId = u1.getString("userId");
 			JSONObject test = new JSONObject();
 			test.put("userId", userId);
@@ -187,7 +248,12 @@ public class TestPermissions  extends ServicesBaseClass  {
 			ss.updateJSON("users/"+path,u2);
 			JSONObject u3=ss.retrieveJSON("users/"+path);
 			assertNotNull(u3);
-			return path;
+
+			JSONObject userdata = new JSONObject();
+			userdata.put("screenName", screenName);
+			userdata.put("accountId", path);//csid
+			userdata.put("userId", userId);//really email
+			return userdata;
 		} catch (CSPDependencyException e) {
 			fail("CSPDependencyException:"+e.getMessage());
 		} catch (JSONException e) {
@@ -201,7 +267,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 		} catch (IOException e) {
 			fail("IOException:"+e.getMessage());
 		}
-		return "";
+		return null;
 	}
 	
 //roles
