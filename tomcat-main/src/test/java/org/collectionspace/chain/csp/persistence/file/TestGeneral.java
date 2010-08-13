@@ -347,6 +347,7 @@ public class TestGeneral {
 		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(user2Create));
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
+		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
 		
 		//ask to reset
@@ -441,7 +442,7 @@ public class TestGeneral {
 		testPostGetDelete(jetty, "/loanout/", loanoutCreate, "loanOutNote");
 		testPostGetDelete(jetty, "/loanin/", loaninCreate, "loanInNote");
 		testPostGetDelete(jetty, "/acquisition/", acquisitionCreate, "acquisitionReason");
-		//testPostGetDelete(jetty, "/role/", roleCreate, "description");
+		testPostGetDelete(jetty, "/role/", roleCreate, "description");
 		//testPostGetDelete(jetty, "/permission/", permissionRead, "resourceName");
 		//testPostGetDelete(jetty, "/permrole/", permroleCreate, "");
 	}
