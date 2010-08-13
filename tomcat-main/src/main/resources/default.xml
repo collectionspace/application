@@ -1759,11 +1759,9 @@
             <!--permrole like UI wants it -->
             <record id="permrole" type="authorizationdata">
                 <is-multipart>false</is-multipart>
-                <services-url>authorization/permroles</services-url>
+                <services-url>authorization/roles/*/permroles</services-url>
                 <services-list-path>permroles-common-list/permrole-list-item</services-list-path>
-                <services-record-path>permisson_roles_common:http://collectionspace.org/services/permroles, permisson_role</services-record-path>
-                <authorization-name>permrole</authorization-name>
-                <authorization-includes>authorization/roles/permroles,/authorization/roles/*/permroles/</authorization-includes>
+                <services-record-path>permission_role:http://collectionspace.org/services/authorization,permission_role</services-record-path>
                 <primaryfield>role/roleId</primaryfield>
 				<structures>
                     <structure id="screen">
