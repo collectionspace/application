@@ -94,6 +94,7 @@ public class TestVocabThroughWebapp {
 		
 		//create all vocabularies in <record id="vocab"
 		out=jettyDo(jetty,"GET","/chain/authorities/vocab/initialize",null);
+		log.info(out.getContent());
 		assertTrue(out.getStatus()<300);
 
 		// update and remove fields not in list
