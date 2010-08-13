@@ -88,6 +88,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		if(n==null) {
 			// For now simply loop thr all the instances one after the other.
 			for(Instance n : r.getAllInstances()) {
+				log.info(n.getID());
 				resetvocabdata(storage, request, n);
 			}
 		} else {
