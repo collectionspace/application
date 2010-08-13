@@ -2137,7 +2137,7 @@
                         <title>Condition Check Method</title>
                         <options>
                             <option id="observed">Observed</option>
-                            <option id="x-rayed">X-Rayed</option>
+                            <option id="xrayed">X-Rayed</option>
                         </options>
                     </instance>
                     <instance id="vocab-entrymethod">
@@ -2145,9 +2145,9 @@
                         <title-ref>entrymethod</title-ref>
                         <title>Entry Method</title>
                         <options>
-                            <option id="in-person" default="yes">In person</option>
+                            <option id="inperson">In person</option>
                             <option id="post">Post</option>
-                            <option id="found-on-doorstep">Found on doorstep</option>
+                            <option id="foundondoorstep">Found on doorstep</option>
                         </options>
                     </instance>
 					<instance id="vocab-conditioncheckreason">
@@ -2156,9 +2156,9 @@
                         <title>Condition Check Reason</title>
                         <options>
                             <option id="consideration">Consideration</option>
-                            <option id="damaged-in-transit">Damaged in transit</option>
+                            <option id="damagedintransit">Damaged in transit</option>
                             <option id="enquiry">Enquiry</option>
-                            <option id="loan-in">Loan in</option>
+                            <option id="loanin">Loan in</option>
                             <option id="conservation">Conservation</option>
                         </options>
                     </instance>
@@ -2171,7 +2171,7 @@
                     <selector>.csc-vocabulary-status</selector>
                     <options>
                         <option id="provisional" default="yes">Provisional</option>
-                        <option id="under review">Under Review</option>
+                        <option id="under-review">Under Review</option>
                         <option id="accepted">Accepted</option>
                         <option id="rejected">Rejected</option>
                     </options>
