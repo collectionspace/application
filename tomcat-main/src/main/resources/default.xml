@@ -991,16 +991,9 @@
                 <field id="entryDate" ui-type="date" xxx_ui_refactored="false">
                     <selector>.csc-intake-entry-date</selector>
                 </field>
-                <repeat id="entryMethods" asSibling="true">
-                    <selector>.csc-intake-entry-method-row:</selector>
-                    <field id="entryMethod" xxx_ui_refactored="false">
-                        <selector>.csc-intake-entry-method</selector>
-                        <options>
-                            <option id="in-person" default="yes">In person</option>
-                            <option id="post">Post</option>
-                            <option id="found-on-doorstep">Found on doorstep</option>
-                        </options>
-                    </field>
+                <repeat id="entryMethods">
+                    <selector>.csc-intake-entryMethod</selector>
+                    <field id="entryMethod" autocomplete="vocab-entrymethod" ui-type="enum"></field>
                 </repeat>
                 <field id="entryNote">
                     <selector>.csc-intake-entry-note</selector>
@@ -1026,14 +1019,12 @@
                     <selector>.csc-intake-packing-note</selector>
                 </field>
                 <field id="returnDate" ui-type="date" xxx_ui_refactored="false">
-                    <selector>.csc-intake-return-date</selector>
+                    <container-selector>.csc-intake-returnDate-container</container-selector>
                 </field>
                 <field id="valuationReferenceNumber">
                     <selector>.csc-intake-valuation-reference-number</selector>
                 </field>
-                <field id="valuer" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
-                    <selector>.csc-intake-valuer</selector>
-                </field>
+                <field id="valuer" autocomplete="person-person,organization-organization"></field>
                 <field id="fieldCollectionEventName">
                     <selector>.csc-intake-field-collection-event-name</selector>
                 </field>
@@ -1050,9 +1041,8 @@
                     <selector>.csc-intake-insurance-renewal-date</selector>
                 </field>
                 <repeat id="insurers">
-                    <field id="insurer" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
-                        <selector>.csc-intake-insurer</selector>
-                    </field>
+                    <selector>.csc-intake-insurer</selector>
+                    <field id="insurer" autocomplete="person-person,organization-organization"></field>
                 </repeat>
                 <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
                 <field id="currentLocation">
@@ -1075,36 +1065,40 @@
                     <selector>.csc-intake-condition-check-date</selector>
                 </field>
                 <repeat id="conditionCheckMethods">
-                    <field id="conditionCheckMethod">
-                        <selector>.csc-intake-condition-check-method</selector>
-                    </field>
+                    <selector>.csc-intake-conditionCheckMethod</selector>
+                    <field id="conditionCheckMethod" autocomplete="vocab-conditioncheckmethod" ui-type="enum"></field>
                 </repeat>
                 <field id="conditionCheckNote">
                     <selector>.csc-intake-condition-check-note</selector>
                 </field>
                 <repeat id="conditionCheckReasons">
-                    <field id="conditionCheckReason">
-                        <selector>.csc-intake-condition-check-reason</selector>
-                    </field>
+                    <selector>.csc-intake-conditionCheckReason</selector>
+                    <field id="conditionCheckReason" autocomplete="vocab-conditioncheckreason" ui-type="enum"></field>
                 </repeat>
                 <field id="conditionCheckReferenceNumber">
                     <selector>.csc-intake-condition-check-reference-number</selector>
                 </field>
                 <repeat id="conditionCheckersOrAssessors">
-                    <field id="conditionCheckerOrAssessor" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
-                        <selector>.csc-intake-condition-check-assessor</selector>
-                    </field>
+                    <selector>.csc-intake-conditionCheckerOrAssessor</selector>
+                    <field id="conditionCheckerOrAssessor" autocomplete="person-person,organization-organization"></field>
                 </repeat>
-                <field id="fieldCollectionDate" ui-type="date"></field>
+                <field id="fieldCollectionDate" ui-type="date" xxx_ui_refactored="false">
+                    <selector>.csc-intake-fieldCollectionDate</selector>
+                    <container-selector>.csc-intake-fieldCollectionDate-container</container-selector>
+                </field>
                 <field id="fieldCollectionNote"></field>
                 <field id="fieldCollectionNumber"></field>
+                <field id="fieldCollectionPlace"></field>
                 <repeat id="fieldCollectionMethods">
+                    <selector>.csc-intake-fieldCollectionMethod</selector>
                     <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
                 </repeat>
                 <repeat id="fieldCollectionSources">
+                    <selector>.csc-intake-fieldCollectionSource</selector>
                     <field id="fieldCollectionSource" autocomplete="person-person"></field>
                 </repeat>
                 <repeat id="fieldCollectors">
+                    <selector>.csc-intake-fieldCollector</selector>
                     <field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
                 </repeat>
             </record>
@@ -2137,6 +2131,37 @@
 						    <option id="trapped">trapped</option>
 						</options>
 					</instance>
+                    <instance id="vocab-conditioncheckmethod">
+                        <web-url>conditioncheckmethod</web-url>
+                        <title-ref>conditioncheckmethod</title-ref>
+                        <title>Condition Check Method</title>
+                        <options>
+                            <option id="observed">Observed</option>
+                            <option id="x-rayed">X-Rayed</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-entrymethod">
+                        <web-url>entrymethod</web-url>
+                        <title-ref>entrymethod</title-ref>
+                        <title>Entry Method</title>
+                        <options>
+                            <option id="in-person" default="yes">In person</option>
+                            <option id="post">Post</option>
+                            <option id="found-on-doorstep">Found on doorstep</option>
+                        </options>
+                    </instance>
+					<instance id="vocab-conditioncheckreason">
+                        <web-url>conditioncheckreason</web-url>
+                        <title-ref>conditioncheckreason</title-ref>
+                        <title>Condition Check Reason</title>
+                        <options>
+                            <option id="consideration">Consideration</option>
+                            <option id="damaged-in-transit">Damaged in transit</option>
+                            <option id="enquiry">Enquiry</option>
+                            <option id="loan-in">Loan in</option>
+                            <option id="conservation">Conservation</option>
+                        </options>
+                    </instance>
                 </instances>
                 <field id="displayName" in-title="yes" display-name="yes">
                     <selector>.csc-vocabulary-displayName</selector>
