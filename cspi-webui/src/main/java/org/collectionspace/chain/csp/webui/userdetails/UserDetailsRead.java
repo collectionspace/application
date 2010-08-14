@@ -25,10 +25,12 @@ public class UserDetailsRead  implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(UserDetailsRead.class);
 	private String base;
 	private boolean record_type;
+	private Record r;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public UserDetailsRead(Record r) { 
 		this.base=r.getID();
+		this.r = r;
 		record_type=r.isType("userdata");
 	}
 		
@@ -37,13 +39,22 @@ public class UserDetailsRead  implements WebMethod {
 	 * [{roleId:"","roleName":"",selected:"yes|no"},{ ... }]
 	 * @param activeRoles
 	 * @return
+	 * @throws UnderlyingStorageException 
+	 * @throws UnimplementedException 
+	 * @throws ExistException 
 	 */
-	private JSONObject getRoles(JSONObject activeRoles){
+	private JSONObject getRoles(Storage storage,JSONObject activeRoles) throws ExistException, UnimplementedException, UnderlyingStorageException{
 		JSONObject set = new JSONObject();
-		//just return the roles that are assign
+		//get all roles
+		
+		String filePath = r.getSpec().getRecordByWebUrl("role").getID()+"/";
+		JSONObject roles = storage.retrieveJSON(filePath);
+		log.info("DEBUG"+filePath+roles.toString());
+		//mark active roles
+		
 		//we are ignoring pagination so this will return the first 40 roles only
 		//UI doesn't know what it wants to do about pagination etc
-		return set;
+		return activeRoles;
 	}
 	
 	/* Wrapper exists to decomplexify exceptions */
@@ -54,7 +65,7 @@ public class UserDetailsRead  implements WebMethod {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				JSONObject roles = storage.retrieveJSON(base+"/"+csid+"/"+"userrole");
-				JSONObject allroles = getRoles(roles);
+				JSONObject allroles = getRoles(storage,roles);
 				fields.put("role",allroles);
 				
 				out.put("fields",fields);

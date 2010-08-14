@@ -29,20 +29,22 @@ public class UserDetailsCreateUpdate implements WebMethod {
 		this.base=r.getID();
 		this.create=create;
 	}
-		
 	
 	
 	private String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject fields=data.optJSONObject("fields");
 		if(path!=null) {
 			// Update
-			if(fields!=null)
+			if(fields!=null){
 				storage.updateJSON(base+"/"+path,fields);
+			}
 		} else {
 			// Create
-			if(fields!=null)
+			if(fields!=null){
 				path=storage.autocreateJSON(base,fields);
+			}
 		}
+
 		return path;
 	}
 			
@@ -57,48 +59,67 @@ public class UserDetailsCreateUpdate implements WebMethod {
 	 * @throws UnderlyingStorageException
 	 */
 	private void assignRole(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
-		String roleName = "ROLE_TENANT_ADMINISTRATOR";
-		//find csid for roleName
-
-		JSONObject restriction=new JSONObject();
-		restriction.put("keywords",roleName);
-		JSONObject roledata = storage.getPathsJSON("/role",restriction);
-		String[] paths = (String[]) roledata.get("listItems");
-		String roleId = "";
+		JSONObject fields=data.optJSONObject("fields");
 		
-		for(int i=0;i<paths.length;i++) {
-			JSONObject out=storage.retrieveJSON("/role/"+paths[i]+"");
-			String test = out.toString();
-			if(out.getString("roleName").equals(roleName)){
-				roleId=paths[i];
+		JSONArray roledata = new JSONArray();
+		
+		if(fields.has("role")){
+			JSONArray roles = fields.getJSONArray("role");
+			for(int i=0;i<roles.length();i++){
+				JSONObject role = roles.getJSONObject(i);
+				if(role.getString("active").equals("active")){
+					JSONObject roleitem = new JSONObject();
+					roleitem.put("roleName", role.getString("roleName"));
+					roleitem.put("roleId", role.getString("roleId"));
+					roledata.put(roleitem);
+				}
 			}
 		}
-		if(!roleId.equals("")){
+		else{
+			//temporary munge so new users can login
 
-			JSONObject roleitem = new JSONObject();
-			roleitem.put("roleName", roleName);
-			roleitem.put("roleId", roleId);
+			String roleName = "ROLE_TENANT_ADMINISTRATOR";
+			//find csid for roleName
+
+			JSONObject restriction=new JSONObject();
+			restriction.put("keywords",roleName);
+			JSONObject testroledata = storage.getPathsJSON("/role",restriction);
+			String[] paths = (String[]) testroledata.get("listItems");
+			String roleId = "";
 			
-			JSONArray role = new JSONArray();
-			role.put(roleitem);
-			JSONObject fields = new JSONObject();
-			JSONObject datafields = data.getJSONObject("fields");
-			
-			JSONObject account = new JSONObject();
-			account.put("accountId", path);
-			account.put("userId", datafields.getString("userId"));
-			account.put("screenName", datafields.getString("screenName"));
-			
-			
-			JSONObject accountrole = new JSONObject();
-			fields.put("account", account);
-			fields.put("role", role);
-			accountrole.put("fields", fields);
-			
-			if(fields!=null)
-				path=storage.autocreateJSON(spec.getRecordByWebUrl("userrole").getID(),fields);
+			for(int i=0;i<paths.length;i++) {
+				JSONObject out=storage.retrieveJSON("/role/"+paths[i]+"");
+				String test = out.toString();
+				if(out.getString("roleName").equals(roleName)){
+					roleId=paths[i];
+				}
+			}
+			if(!roleId.equals("")){
+
+				JSONObject roleitem = new JSONObject();
+				roleitem.put("roleName", roleName);
+				roleitem.put("roleId", roleId);
+				
+				roledata.put(roleitem);
+			}
 		}
 		
+
+		JSONObject account = new JSONObject();
+		account.put("accountId", path);
+		account.put("userId", fields.getString("userId"));
+		account.put("screenName", fields.getString("screenName"));
+		
+
+		JSONObject accountrole = new JSONObject();
+		JSONObject arfields = new JSONObject();
+		arfields.put("account", account);
+		arfields.put("role", roledata);
+		accountrole.put("fields", arfields);
+		
+		if(fields!=null)
+			path=storage.autocreateJSON(spec.getRecordByWebUrl("userrole").getID(),arfields);
+	
 	}
 	
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
