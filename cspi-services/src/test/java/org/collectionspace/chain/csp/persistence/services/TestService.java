@@ -459,11 +459,11 @@ public class TestService extends ServicesBaseClass {
 	}
 	
 
-	
-	@Test 
+	/*
+	@Ignore 
 	public void testRolePermissionsPost() throws Exception {
-		ReturnedURL url=conn.getURL(RequestMethod.POST,"authorization/roles/cbdb4f45-2fac-461b-93ef-6fec21a2ad97/permroles",getDocument("rolepermissions.xml"),creds,cache);
-		assertEquals(201,url.getStatus());
+	//	ReturnedURL url=conn.getURL(RequestMethod.POST,"authorization/roles/cbdb4f45-2fac-461b-93ef-6fec21a2ad97/permroles",getDocument("rolepermissions.xml"),creds,cache);
+	//	assertEquals(201,url.getStatus());
 
 		
 		
@@ -485,6 +485,7 @@ public class TestService extends ServicesBaseClass {
 	//	status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
 	//	assertEquals(200,status); // XXX CSPACE-73, should be 404
 	}
+	*/
 	
 	@Test public void testAuthorityCreateUpdateDelete() throws Exception {
 
