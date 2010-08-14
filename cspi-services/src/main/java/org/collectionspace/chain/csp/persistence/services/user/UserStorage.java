@@ -402,7 +402,7 @@ public class UserStorage implements ContextualisedStorage {
 					path = path + "/" + parts[len];
 				}
 				else{
-					path = path + "/12"  ;// must have a number on the end and that number can't be a single digit 
+					path = path + "/"+parts[0]  ;// must have a number on the end and that number can't be a single digit 
 				}
 				filePath = path;
 			}
