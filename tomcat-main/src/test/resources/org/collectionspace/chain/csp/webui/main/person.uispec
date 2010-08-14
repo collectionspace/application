@@ -1,16 +1,5 @@
 {
     "sidebar": {
-        "relatedObjects": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    }
-                }]
-            }
-        },
         "relatedProcedures": {
             ".csc-recordList-row:": {
                 "children": [{
@@ -23,6 +12,17 @@
                 }]
             }
         },
+        "relatedObjects": {
+            ".csc-recordList-row:": {
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    }
+                }]
+            }
+        },
         "termsUsed": {
             ".csc-recordList-row:": {
                 "children": [{
@@ -30,51 +30,25 @@
                         "linktext": "${items.0.number}",
                         "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                     },
-                    ".csc-related-field": "${items.0.sourceFieldName}",
-                    ".csc-related-recordtype": "${items.0.recordtype}"
+                    ".csc-related-recordtype": "${items.0.recordtype}",
+                    ".csc-related-field": "${items.0.sourceFieldName}"
                 }]
             }
         }
     },
-    "titleBar": {
-        ".csc-titleBar-displayName": "${fields.displayName}",
-        ".csc-titleBar-birthDate": "${fields.birthDate}",
-        ".csc-titleBar-deathDate": "${fields.deathDate}"
-    },
     "recordEditor": {
         ".csc-personAuthority-nameNote": "${fields.nameNote}",
         ".csc-personAuthority-deathPlace": "${fields.deathPlace}",
+        ".csc-personAuthority-birthDate": "${fields.birthDate}",
         ".csc-personAuthority-status": {
             "default": "0",
             "optionnames": ["Provisional", "Under Review", "Accepted", "Rejected"],
             "optionlist": ["provisional", "under review", "accepted", "rejected"],
             "selection": "${fields.termStatus}"
         },
-        ".csc-personAuthority-birthDate": "${fields.birthDate}",
-        ".csc-person-occupations": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.occupations",
-                    "protoTree": {
-                        ".csc-personAuthority-occupation-autocomplete": {
-                            "decorators": [{
-                                "func": "cspace.autocomplete",
-                                "type": "fluid",
-                                "options": {
-                                    "queryUrl": "../../chain/vocabularies/person/autocomplete/occupation",
-                                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/occupation"
-                                }
-                            }]
-                        },
-                        ".csc-personAuthority-occupation": "${fields.occupations.0.occupation}"
-                    }
-                }
-            }]
-        },
-        ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
+        ".csc-personAuthority-name": "${fields.name}",
         ".csc-contactAuthority-web": "${fields.web}",
+        ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
         ".csc-personAuthority-gender": {
             "optionnames": ["Male", "Female"],
             "optionlist": ["male", "female"],
@@ -82,34 +56,34 @@
         },
         ".csc-contactAuthority-addressType": "${fields.addressType}",
         ".csc-contactAuthority-faxNumber": "${fields.faxNumber}",
-        ".csc-personAuthority-middleName": "${fields.middleName}",
-        ".csc-person-nationalities": {
+        ".csc-personAuthority-occupation": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.nationalities",
+                    "elPath": "fields.occupations",
                     "protoTree": {
-                        ".csc-personAuthority-nationality": "${fields.nationalities.0.nationality}"
+                        ".csc-personAuthority-occupation": "${fields.occupations.0.occupation}"
                     }
                 }
             }]
         },
+        ".csc-personAuthority-middleName": "${fields.middleName}",
         ".csc-personAuthority-surName": "${fields.surName}",
         ".csc-contactAuthority-telephoneNumber": "${fields.telephoneNumber}",
         ".csc-personAuthority-salutation": {
-            "optionnames": ["Dear", "My Darling", "Your Majaesty", "Your Royal Highness"],
-            "optionlist": ["Dear", "My Darling", "Your Majaesty", "Your Royal Highness"],
+            "optionnames": ["Dear", "Hello", "To"],
+            "optionlist": ["dear", "hello", "to"],
             "selection": "${fields.salutation}"
         },
-        ".csc-person-schoolsOrStyles": {
+        ".csc-personAuthority-schoolOrStyle": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
                     "elPath": "fields.schoolsOrStyles",
                     "protoTree": {
-                        ".csc-personAuthority-schoolorstyle": "${fields.schoolsOrStyles.0.schoolOrStyle}"
+                        ".csc-personAuthority-schoolOrStyle": "${fields.schoolsOrStyles.0.schoolOrStyle}"
                     }
                 }
             }]
@@ -128,11 +102,7 @@
                 "type": "fluid"
             }]
         },
-        ".csc-personAuthority-foreName": "${fields.foreName}",
-        ".csc-personAuthority-deathDate": "${fields.deathDate}",
-        ".csc-personAuthority-birthPlace": "${fields.birthPlace}",
-        ".csc-personAuthority-bioNote": "${fields.bioNote}",
-        ".csc-person-groups": {
+        ".csc-personAuthority-group": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
@@ -144,6 +114,22 @@
                 }
             }]
         },
+        ".csc-personAuthority-foreName": "${fields.foreName}",
+        ".csc-personAuthority-deathDate": "${fields.deathDate}",
+        ".csc-personAuthority-nationality": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.nationalities",
+                    "protoTree": {
+                        ".csc-personAuthority-nationality": "${fields.nationalities.0.nationality}"
+                    }
+                }
+            }]
+        },
+        ".csc-personAuthority-birthPlace": "${fields.birthPlace}",
+        ".csc-personAuthority-bioNote": "${fields.bioNote}",
         ".csc-contactAuthority-email": "${fields.email}",
         ".csc-person-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-personAuthority-deathDate-container": {
@@ -152,5 +138,10 @@
                 "type": "fluid"
             }]
         }
+    },
+    "titleBar": {
+        ".csc-titleBar-birthDate": "${fields.birthDate}",
+        ".csc-titleBar-displayName": "${fields.displayName}",
+        ".csc-titleBar-deathDate": "${fields.deathDate}"
     }
 }

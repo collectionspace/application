@@ -1,15 +1,23 @@
 {
     "details": {
         ".csc-role-name": "${fields.roleName}",
-        ".csc-role-description": "${fields.description}",
         ".csc-role-group": "${fields.roleGroup}",
+        ".csc-role-description": "${fields.description}",
         ".csc-permrole-role": {
-            "children": [{}]
+            ".csc-permrole-roleId": "${fields.role.0.roleId}",
+            ".csc-permrole-roleName": "${fields.role.0.roleName}"
         },
         ".csc-permrole-permission": {
-            "children": [{
-                ".csc-permrole-permissionId": "${fields.permission.0.permissionId}",
-                ".csc-permrole-resourceName": "${fields.permission.0.resourceName}"
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.permission",
+                    "protoTree": {
+                        ".csc-permrole-permissionId": "${fields.permission.0.permissionId}",
+                        ".csc-permrole-resourceName": "${fields.permission.0.resourceName}"
+                    }
+                }
             }]
         }
     },

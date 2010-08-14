@@ -94,21 +94,21 @@ public class TestUISpecs {
 		ServletTester jetty=setupJetty();
 
 		uispec(jetty,"/chain/acquisition/uispec","acquisition.uispec");
-/*		uispec(jetty,"/chain/objects/uispec","collection-object.uispec");
+		uispec(jetty,"/chain/objects/uispec","collection-object.uispec");
 		uispec(jetty,"/chain/object-tab/uispec","object-tab.uispec");
 		uispec(jetty,"/chain/intake/uispec","intake.uispec");
 		uispec(jetty,"/chain/acquisition/uispec","acquisition.uispec");
 		uispec(jetty,"/chain/loanout/uispec","loanout.uispec");
 		uispec(jetty,"/chain/person/uispec","person.uispec");
-		uispec(jetty,"/chain/organization/uispec","organization.uispec");
+		uispec(jetty,"/chain/organization/uispec","organization-authority.uispec");
 		uispec(jetty,"/chain/loanin/uispec","loanin.uispec");
 		uispec(jetty,"/chain/users/uispec","users.uispec");
-		uispec(jetty,"/chain/role/uispec","roles");
+		uispec(jetty,"/chain/role/uispec","roles.uispec");
 		uispec(jetty,"/chain/permission/uispec","permissions.uispec");
 		uispec(jetty,"/chain/permrole/uispec","permroles.uispec");
 		uispec(jetty,"/chain/movement/uispec","movement.uispec");
 		uispec(jetty,"/chain/find-edit/uispec","find-edit.uispec");
-*/		
+		
 	
 	}
 }

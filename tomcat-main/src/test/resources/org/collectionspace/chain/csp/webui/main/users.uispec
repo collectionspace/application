@@ -1,22 +1,33 @@
 {
     "details": {
-        ".csc-user-userName": "${fields.screenName}",
         ".csc-user-status": {
             "default": "0",
             "optionnames": ["Active", "Inactive"],
             "optionlist": ["active", "inactive"],
             "selection": "${fields.status}"
         },
+        ".csc-user-userName": "${fields.screenName}",
         ".csc-users-createdAt": "${fields.createdAt}",
         ".csc-accountrole-roles-row": {
-            "children": [{
-                ".csc-accountrole-account-rolename": "${fields.role.0.roleName}",
-                ".csc-accountrole-role-roleid": "${fields.role.0.roleId}"
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.role",
+                    "protoTree": {
+                        ".csc-accountrole-account-rolename": "${fields.role.0.roleName}",
+                        ".csc-accountrole-role-roleid": "${fields.role.0.roleId}"
+                    }
+                }
             }]
         },
-        ".csc-accountrole-account-accountid": "${fields.accountId}",
-        ".csc-user-password": "${fields.password}",
         ".csc-user-userID": "${fields.userId}",
+        ".csc-user-password": "${fields.password}",
+        ".csc-accountrole-account-row:": {
+            ".csc-accountrole-account-userid": "${fields.account.0.userId}",
+            ".csc-accountrole-account-screenname": "${fields.account.0.screenName}",
+            ".csc-accountrole-account-accountid": "${fields.account.0.accountId}"
+        },
         ".csc-user-email": "${fields.email}"
     },
     "list": {
