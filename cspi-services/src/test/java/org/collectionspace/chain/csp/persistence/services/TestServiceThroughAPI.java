@@ -34,7 +34,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		getPostDelete("acquisition/","acquisitionJSON.json","acquisitionJSON.json","acquisitionReason");
 		getPostDelete("collection-object/","objectsJSON.json","objectsJSON.json","title");
 		getPostDelete("movement/","movement.json","movement.json","movementReferenceNumber");
-		getPostDelete("role/","role.json","role.json","roleName");
+	//	getPostDelete("role/","role.json","role.json","roleName");
 	//	getPostDelete("permrole","rolepermissions.xml","rolepermissions.json");
 	//	getPostDelete("userrole","accountrole.xml","accountrole.json");
 		
@@ -63,7 +63,8 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		try {
 			ss.retrieveJSON(objtype+path);
 			assertFalse(true); // XXX use JUnit exception annotation
-		} catch(ExistException e) {}
+		} catch(ExistException e) {
+		}
 		
 	}
 	

@@ -98,7 +98,7 @@ public class TestGeneral {
 	//private final static String testStr4 = "{\"a\":\"b\",\"id\":\"MISC2009.1\",\"objects\":\"OBJ2009.1\",\"intake\":\"IN2009.1\"}";
 	//private final static String testStr5 = "{\"a\":\"b\",\"id\":\"MISC2009.2\",\"objects\":\"OBJ2009.2\",\"intake\":\"IN2009.2\"}";
 
-	private final static String user2Create = "{\"userId\": \"unittest2@collectionspace.org\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
+	private final static String user2Create = "{\"userId\": \"unittest2@collectionspace.org\",\"screenName\": \"unittestzzz\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
 	private final static String user2Update = "{\"userId\": \"unittest2@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"active\"}";
 	private final static String user2Email = "{\"email\": \"unittest2@collectionspace.org\", \"debug\" : true }";
 	//private final static String userEmail = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
@@ -328,6 +328,37 @@ public class TestGeneral {
 		return in;
 	}
 
+	private HttpTester createUser(ServletTester jetty, String JSONfile) throws IOException, JSONException, Exception{
+
+		HttpTester out;
+		JSONObject u1=new JSONObject(JSONfile);
+		String userId = u1.getString("userId");
+		JSONObject test = new JSONObject();
+		test.put("userId", userId);
+log.info(test.toString());
+		/* delete user if already exists */
+		out=jettyDo(jetty,"GET","/chain/users/search",test.toString());
+		log.info(out.getContent());
+		String itemmarker = "items";
+		JSONObject result=new JSONObject(out.getContent());
+		JSONArray items=result.getJSONArray(itemmarker);
+		if(items.length()>0){
+			for(int i=0;i<items.length();i++){
+				JSONObject user = items.getJSONObject(i);
+				if(user.getString("userId").equals(userId)){
+					//delete record
+					String csid = user.getString("csid");
+					out=jettyDo(jetty,"DELETE","/chain/users/"+csid,null);
+				}
+			}
+		}
+		
+		// Create a User
+		out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(JSONfile));
+		assertEquals(out.getMethod(),null);
+		return out;
+	}
+	
 /**
  * Test the User Profiles 
  * 
@@ -343,9 +374,9 @@ public class TestGeneral {
  */
 	@Test public void testUserProfilesWithReset() throws Exception {
 		ServletTester jetty=setupJetty();
-		// Create a User
-		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(user2Create));
-		assertEquals(out.getMethod(),null);
+		HttpTester out;
+		//delete user if already exists 
+out = createUser(jetty,user2Create);
 		String id=out.getHeader("Location");
 		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
@@ -455,21 +486,23 @@ public class TestGeneral {
 		assertEquals(200,out.getStatus());
 		assertTrue(out.getContent().contains("cspace.chain.store.dir"));
 	}
-/*	
+	/*
 	
 	@Test public void testtest() throws Exception{
 		ServletTester jetty=setupJetty();
+		String url = "http://nightly.collectionspace.org:8180/chain/users/2c8fb223-9c62-4432-849c-12cfb7b94da5";
+		
 		//HttpTester out1=jettyDo(jetty,"GET","/chain/intake",null);
 		String test = "{\"owners\":[],\"acquisitionSources\":[{\"acquisitionSource\":\"urn:cspace:org.collectionspace.demo:personauthority:id(0afcdc82-cc4d-43ce-8a82):person:id(8d442794-32bc-4494-8013)'Bing+Crosby'\",\"_primary\":true}],\"acquisitionDates\":[],\"objectPurchasePriceCurrency\":\"\",\"acquisitionFundingCurrency\":\"\",\"objectOfferPriceCurrency\":\"\",\"objectPurchaseOfferPriceCurrency\":\"\",\"originalObjectPurchasePriceCurrency\":\"\",\"acquisitionMethod\":\"\",\"groupPurchasePriceCurrency\":\"\",\"acquisitionReferenceNumber\":\"AR2010.3\"}";
 		
-		HttpTester out2=jettyDo(jetty,"GET","/chain/acquisition/85723332-66ee-4add-a8e1",null);
+		HttpTester out2=jettyDo(jetty,"GET",url,null);
 		//log.info("SEARCH");
 		//log.info(out1.getContent());
 		log.info("RELATE");
 		log.info(out2.getContent());
 			
 	}
-*/	
+	*/
 	
 	/** 
 	 * Test List functionality for different Store Types
@@ -789,19 +822,90 @@ log.info(out.getContent());
 		assertEquals(200,out.getStatus());
 	}
 	
-	/**
-	 * Compares a generated user role to one directly posted 
-	 * @throws Exception
-	 * 
 	
-	 @Test  - remvoe test whilst working on permissions
+	private JSONObject createRoleWithPermission(String role) throws Exception{
+
+		/*
+        "permissions": [
+            {"recordType": "Acquisition", "permission": "write"},
+            {"recordType": "Loan In", "permission": "read"},
+        ],
+		 */
+		JSONArray permission = new JSONArray();
+		JSONObject perm1 = new JSONObject();
+		perm1.put("recordType", "acquisition");
+		perm1.put("permission", "read");
+
+		JSONObject perm2 = new JSONObject();
+		perm2.put("recordType", "intake");
+		perm2.put("permission", "write");
+		permission.put(perm1);
+		permission.put(perm2);
+		JSONObject roleJSON= new JSONObject(role);
+		roleJSON.put("permissions", permission);
+		return roleJSON;		
+	}
+	
+	private JSONObject createUserWithRoles(ServletTester jetty,String user) throws Exception{
+
+		//create role
+		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleCreate));
+		log.info(out.getContent());
+		JSONObject role = new JSONObject(out.getContent()).getJSONObject("fields");
+		String role_id=out.getHeader("Location");
+		assertEquals(201,out.getStatus());
+		
+		/*
+        "role": [
+            {"roleName": "Acquisition", "roleId": "write", "active":"active"},
+        ],
+		 */
+log.info(role.toString());
+		JSONArray roles = new JSONArray();
+		JSONObject role1 = new JSONObject();
+		role1.put("roleName", role.getString("roleName"));
+		role1.put("roleId", role_id);
+		role1.put("active", "active");
+		
+		roles.put(role1);
+
+		JSONObject userJSON= new JSONObject(user);
+		userJSON.put("role", roles);
+		return userJSON;		
+
+	}
+	
+	@Test public void testUserRolesUI() throws Exception{
+		ServletTester jetty = setupJetty();
+		JSONObject userdata = createUserWithRoles(jetty,user88Create);
+
+		HttpTester out = jettyDo(jetty,"POST","/chain/users/",makeRequest(userdata).toString());
+		log.info("AA"+out.getContent());
+
+		String userid = out.getHeader("Location");
+		log.info(userid);
+		
+		out=jettyDo(jetty,"GET","/chain"+userid,null);
+		log.info("BB"+out.getContent());
+
+	/*	
+		JSONObject roledata = createRoleWithPermission(roleCreate);
+		
+
+		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeRequest(roledata).toString());
+		log.info(out.getContent());
+	*/	
+	}
+
+	/**
+	 * This test assigning roles to users using seperate calls
+	 * in reality roles will be included inthe user payload
+	 * @throws Exception
 	 */
 	@Test public void testUserRoles() throws Exception{
 		ServletTester jetty = setupJetty();
-		
 		//Create a user
-		HttpTester out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(user88Create));
-		log.info(out.getContent());
+		HttpTester out = createUser(jetty,user88Create);
 		assertEquals(out.getMethod(),null);
 		JSONObject user = new JSONObject(out.getContent());
 		String user_id=out.getHeader("Location");
@@ -836,6 +940,11 @@ log.info(out.getContent());
 		log.info("834"+out.getContent());
 		assertEquals(201, out.getStatus());
 		String acrole_id = out.getHeader("Location");
+		
+		//delete an account_role
+		
+		//create an account_role again
+		
 		
 		//Get the account_role and compare this to the originally assigned role
 		out=jettyDo(jetty,"GET","/chain"+ user_id + acrole_id,null);

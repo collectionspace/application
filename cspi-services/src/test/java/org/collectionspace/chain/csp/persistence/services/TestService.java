@@ -93,6 +93,8 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 
+		//need intake
+		//needloanout
 
 		testJSONXML(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
 		testJSONXML(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
@@ -457,8 +459,14 @@ public class TestService extends ServicesBaseClass {
 	}
 	
 
-	//@Test 
+	
+	@Test 
 	public void testRolePermissionsPost() throws Exception {
+		ReturnedURL url=conn.getURL(RequestMethod.POST,"authorization/roles/cbdb4f45-2fac-461b-93ef-6fec21a2ad97/permroles",getDocument("rolepermissions.xml"),creds,cache);
+		assertEquals(201,url.getStatus());
+
+		
+		
 	// TODO check whether should be commented back in - Chris was debugging permissions
 	// NOTE this test is more complex than PostGetDelete and perhaps should remain as a separate test?
 		//create a permission

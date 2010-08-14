@@ -1691,35 +1691,6 @@
                     <selector>.csc-permission-resourceName</selector>
                 </field>
             </record>
-            <!-- PermRole like Service layer wants it
-            <record id="permrole" type="authorizationdata">
-                <is-multipart>false</is-multipart>
-                <services-url>authorization/permroles</services-url>
-                <services-list-path>permroles-common-list/permrole-list-item</services-list-path>
-                <services-record-path>permisson_roles_common:http://collectionspace.org/services/permroles, permisson_role</services-record-path>
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                        </view>
-                        
-                    </structure>
-                </structures>
-                <selector>.csc-permissions-record-permission:</selector>
-                <repeat id="permisson" asSibling="true">
-                    <field id="permissionId" mini="summary">
-                        <selector>.csc-permissions-record-id:</selector>
-                    </field>
-                    <field id="resourceName">
-                        <selector>.csc-permissions-record-resourcename:</selector>
-                    </field>
-                </repeat>
-                    <field id="role" mini="number">
-                        <selector>.csc-permissions-record-type</selector>
-                    </field>
-                </repeat>
-            </record> -->
             <record id="userrole" type="authorizationdata">
                 <web-url>userrole</web-url>
                 <services-url>accounts/*/accountroles</services-url>
