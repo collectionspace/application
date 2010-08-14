@@ -875,6 +875,7 @@ log.info(role.toString());
 
 	}
 	
+	/*
 	@Test public void testUserRolesUI() throws Exception{
 		ServletTester jetty = setupJetty();
 		JSONObject userdata = createUserWithRoles(jetty,user88Create);
@@ -888,14 +889,15 @@ log.info(role.toString());
 		out=jettyDo(jetty,"GET","/chain"+userid,null);
 		log.info("BB"+out.getContent());
 
-	/*	
-		JSONObject roledata = createRoleWithPermission(roleCreate);
+		
+	//	JSONObject roledata = createRoleWithPermission(roleCreate);
 		
 
-		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeRequest(roledata).toString());
-		log.info(out.getContent());
-	*/	
+	//	HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeRequest(roledata).toString());
+	//	log.info(out.getContent());
+		
 	}
+*/
 
 	/**
 	 * This test assigning roles to users using seperate calls
