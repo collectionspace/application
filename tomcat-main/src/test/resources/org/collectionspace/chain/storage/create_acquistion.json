@@ -3,10 +3,17 @@
 			  "acquisitionAuthorizer": "acquisitionAuthorizer",
 			  "acquisitionAuthorizerDate": "acquisitionAuthorizerDate",
 			  "acquisitionDates": [{"acquisitionDate": "acquisitionDate"},{"acquisitionDate": "acquisitionDate"}],
-			  "acquisitionFundingCurrency": "acquisitionFundingCurrency",
+			  "acquisitionFundingList":[ {"acquisitionFunding" : [
+			  {"acquisitionFundingCurrency": "acquisitionFundingCurrency",
 			  "acquisitionFundingValue": "acquisitionFundingValue",
 			  "acquisitionFundingSource": "acquisitionFundingSource",
-			  "acquisitionFundingSourceProvisos": "acquisitionFundingSourceProvisos",
+			  "acquisitionFundingSourceProvisos": "acquisitionFundingSourceProvisos"},
+			  {"acquisitionFundingCurrency": "acquisitionFundingCurrency",
+			  "acquisitionFundingValue": "acquisitionFundingValue",
+			  "acquisitionFundingSource": "acquisitionFundingSource",
+			  "acquisitionFundingSourceProvisos": "acquisitionFundingSourceProvisos"}
+			  ]
+			  }],			  
 			  "acquisitionMethod": "acquisitionMethod",
 			  "acquisitionNote": "acquisitionNote",
 			  "acquisitionProvisos": "acquisitionProvisos",
