@@ -49,7 +49,9 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		return out;		
 	}
 	
-	private void search_or_list_vocab(JSONArray out,Instance n,Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	
+	
+	private void search_or_list_vocab(JSONObject out,Instance n,Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject restriction=new JSONObject();
 		if(param!=null){
 			restriction.put("queryTerm", "kw");
@@ -63,17 +65,33 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			restriction.put("pageSize",pageSize);
 		}
 		JSONObject data = storage.getPathsJSON(r.getID()+"/"+n.getTitleRef(),restriction);
-		String[] results = (String[]) data.get("listItems");
+
+		String[] paths = (String[]) data.get("listItems");
+		JSONObject pagination = new JSONObject();
+		if(data.has("pagination")){
+			pagination = data.getJSONObject("pagination");
+		}
+		
+		JSONArray members = new JSONArray();
 		/* Get a view of each */
-		for(String result : results) {
-			out.put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));
+		for(String result : paths) {
+			members.put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));
+		}
+
+		if(param==null)
+			out.put("items",members);
+		else
+			out.put("results",members);
+		
+		if(pagination!=null){
+			out.put("pagination",pagination);
 		}
 		log.debug(restriction.toString());
 	}
 	
 	private void search_or_list(Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws UIException {
 		try {
-			JSONArray results=new JSONArray();
+			JSONObject results=new JSONObject();
 			if(n==null) {
 				// For now simply merge all the instances one after the other. XXX do something cleverer.
 				for(Instance n : r.getAllInstances()) {
@@ -82,12 +100,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			} else {
 				search_or_list_vocab(results,n,storage,ui,param,pageSize,pageNum);				
 			}
-			JSONObject out=new JSONObject();
-			if(param==null)
-				out.put("items",results);
-			else
-				out.put("results",results);
-			ui.sendJSONResponse(out);
+			ui.sendJSONResponse(results);
 		} catch (JSONException e) {
 			throw new UIException("Cannot generate JSON",e);
 		} catch (ExistException e) {

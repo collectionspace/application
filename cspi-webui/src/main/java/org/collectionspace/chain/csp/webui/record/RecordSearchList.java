@@ -87,7 +87,7 @@ public class RecordSearchList implements WebMethod {
 	 * @throws UnimplementedException
 	 * @throws UnderlyingStorageException
 	 */
-	private JSONObject pathsToJSON(Storage storage,String base,String[] paths,String key) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+	private JSONObject pathsToJSON(Storage storage,String base,String[] paths,String key, JSONObject pagination) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
 		/*
@@ -113,6 +113,9 @@ public class RecordSearchList implements WebMethod {
 			/*
 		}
 		*/
+			if(pagination!=null){
+			out.put("pagination",pagination);
+			}
 		return out;
 	}
 	
@@ -338,13 +341,17 @@ public class RecordSearchList implements WebMethod {
 			}
 			JSONObject data = storage.getPathsJSON(base,restriction);
 			String[] paths = (String[]) data.get("listItems");
+			JSONObject pagination = new JSONObject();
+			if(data.has("pagination")){
+				pagination = data.getJSONObject("pagination");
+			}
 			
 			for(int i=0;i<paths.length;i++) {
 				if(paths[i].startsWith(base+"/"))
 					paths[i]=paths[i].substring((base+"/").length());
 			}
 			
-			ui.sendJSONResponse(pathsToJSON(storage,base,paths,key));
+			ui.sendJSONResponse(pathsToJSON(storage,base,paths,key,pagination));
 		} catch (JSONException e) {
 			throw new UIException("JSONException during autocompletion",e);
 		} catch (ExistException e) {
