@@ -77,7 +77,7 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec,"permrole","rolepermissions.xml","rolepermissions.json");
 		testXMLJSON(spec, "userrole","accountrole.xml","accountrole.json");
 		
-		//testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
+		testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
 		//testXMLJSON(spec, "organization","orgauthref.xml","permissionsJSON.json");
 	}
 	
@@ -104,6 +104,7 @@ public class TestService extends ServicesBaseClass {
 		
 		testJSONXML(spec,"permrole","rolepermissions.xml","rolepermissions.json");
 		testJSONXML(spec, "userrole","accountrole.xml","accountrole.json");	
+		testJSONXML(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
 	}
 
 	private void testJSONXML(Spec spec, String objtype, String xmlfile, String jsonfile) throws Exception{

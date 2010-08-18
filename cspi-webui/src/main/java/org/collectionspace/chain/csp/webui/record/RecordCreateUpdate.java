@@ -80,6 +80,104 @@ public class RecordCreateUpdate implements WebMethod {
 		return path;
 	}
 			
+	private JSONObject getPerm(Storage storage, String resourceName, String permlevel) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+
+		JSONObject permitem = new JSONObject();
+		String actions = "";
+
+		///cspace-services/authorization/permissions?res=acquisition&actGrp=CRUDL
+		String queryString = "CRUDL";
+		if(permlevel.equals("none")){
+			queryString = "";
+			actions = "[]";	
+		}
+		if(permlevel.equals("read")){
+			queryString = "RL";
+			actions = "[{\"name\":\"READ\"},{\"name\":\"SEARCH\"}]";
+		}
+		if(permlevel.equals("write")){
+			queryString = "CRUL";
+			actions = "[{\"name\":\"CREATE\"},{\"name\":\"READ\"},{\"name\":\"UPDATE\"},{\"name\":\"SEARCH\"}]";
+		}
+		if(permlevel.equals("delete")){
+			queryString = "CRUDL";
+			actions = "[{\"name\":\"CREATE\"},{\"name\":\"READ\"},{\"name\":\"UPDATE\"},{\"name\":\"DELETE\"},{\"name\":\"SEARCH\"}]";
+		}
+
+		JSONObject permrestrictions = new JSONObject();
+		permrestrictions.put("keywords", resourceName);
+		permrestrictions.put("queryTerm", "actGrp");
+		permrestrictions.put("queryString", queryString);
+		
+		String permid = "";
+		JSONObject data = storage.getPathsJSON(spec.getRecordByWebUrl("permission").getID(),permrestrictions);
+
+		if(data.has("listItems")){
+			String[] paths = (String[]) data.get("listItems");
+			if(paths.length >=1){//if returns multiple just use teh first one
+				permid = paths[0];
+			}
+			else{
+				//create the permission
+				/**
+				 * {
+    "effect": "PERMIT",
+    "resourceName": "testthing2",
+	
+	"action":[{"name":"CREATE"},{"name":"READ"},{"name":"UPDATE"},{"name":"DELETE"},{"name":"SEARCH"}]
+}
+				 */
+						
+				JSONObject permission_add = new JSONObject();
+				JSONArray allactions = new JSONArray(actions);
+				permission_add.put("effect", "PERMIT");
+				permission_add.put("resourceName", resourceName);
+				permission_add.put("actionGroup", queryString);
+				permission_add.put("actions", allactions);
+
+				permid=storage.autocreateJSON(spec.getRecordByWebUrl("permission").getID(),permission_add);
+			}
+		}
+
+		if(!permid.equals("")){
+			permitem.put("resourceName", resourceName);
+			permitem.put("permissionId", permid);
+		}
+		return permitem;
+
+		
+	}
+	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+		JSONObject fields=data.optJSONObject("fields");
+		
+		JSONArray permdata = new JSONArray();
+		if(fields.has("permission")){
+			JSONArray permissions = fields.getJSONArray("permission");
+			for(int i=0;i<permissions.length();i++){
+				JSONObject perm = permissions.getJSONObject(i);
+				JSONObject permitem = getPerm(storage,perm.getString("recordType"),perm.getString("permission"));
+				if(permitem.has("permissionId")){
+					permdata.put(permitem);
+				}
+			}
+		}
+
+		JSONObject roledata = new JSONObject();
+		roledata.put("roleName", fields.getString("roleName"));
+		roledata.put("roleId", path);
+		
+		
+
+		JSONObject accountrole = new JSONObject();
+		JSONObject arfields = new JSONObject();
+		arfields.put("role", roledata);
+		arfields.put("permission", permdata);
+		accountrole.put("fields", arfields);
+		
+		if(fields!=null)
+			path=storage.autocreateJSON(spec.getRecordByWebUrl("permrole").getID(),arfields);
+	}
+	
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject data=request.getJSONBody();
@@ -91,6 +189,10 @@ public class RecordCreateUpdate implements WebMethod {
 				path=sendJSON(storage,path,data);
 			if(path==null)
 				throw new UIException("Insufficient data for create (no fields?)");
+
+			if(this.base.equals("role")){
+				assignPermissions(storage,path,data);
+			}
 			data=reader.getJSON(storage,path);
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);

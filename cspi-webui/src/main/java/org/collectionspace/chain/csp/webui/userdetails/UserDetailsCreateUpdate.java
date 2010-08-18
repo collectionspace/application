@@ -132,11 +132,11 @@ public class UserDetailsCreateUpdate implements WebMethod {
 			try{
 				if(create) {
 					path=sendJSON(storage,null,data);
-					assignRole(storage,path,data);
 					//assign to default role.
 				} else{
 					path=sendJSON(storage,path,data);
 				}
+				assignRole(storage,path,data);
 				if(path==null){
 					throw new UIException("Insufficient data for create (no fields?)");
 				}

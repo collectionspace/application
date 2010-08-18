@@ -432,7 +432,7 @@ public class UserStorage implements ContextualisedStorage {
 		ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath,null,creds,cache);
 		if(doc.getStatus()>299 || doc.getStatus()<200)
 			throw new UnderlyingStorageException("Bad response "+doc.getStatus());
-		log.debug(doc.getDocument().asXML());
+		log.info("1458 fix: "+doc.getDocument().asXML());
 		String created_at=doc.getDocument().selectSingleNode("accounts_common/createdAt").getText();
 		String status=doc.getDocument().selectSingleNode("accounts_common/status").getText();		
 		in.put("createdAt",created_at);
@@ -447,8 +447,9 @@ public class UserStorage implements ContextualisedStorage {
 		try {
 			// XXX when CSPACE-1458 is fixed, remove the call to xxx_cspace1458_fix, and just pass jsonObject as this arg. (fao Chris or somoeone else at CARET).
 			jsonObject=correctPassword(jsonObject);
-			Document in=XmlJsonConversion.convertToXml(r,xxx_cspace1458_fix(filePath,jsonObject,creds,cache),"common");
-			log.debug("Sending: "+in.asXML());
+			Document in=XmlJsonConversion.convertToXml(r,jsonObject,"common");
+			//Document in=XmlJsonConversion.convertToXml(r,xxx_cspace1458_fix(filePath,jsonObject,creds,cache),"common");
+			log.info("Sending: "+in.asXML());
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.PUT,r.getServicesURL()+"/"+filePath,in,creds,cache);
 			if(doc.getStatus()==404)
 				throw new ExistException("Not found: "+r.getServicesURL()+"/"+filePath);

@@ -90,13 +90,18 @@ public class AuthorizationStorage extends GenericStorage {
 
 			//used by userroles and permroles as they have complex urls
 			if(r.hasPrimaryField()){
+				//XXX test if works: need to delete first before create/update
+			//	deleteJSON(root,creds,cache,filePath);
 
 				for(String section : r.getServicesRecordPaths()) {
 					doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
 					String path = r.getServicesURL();
 					path = path.replace("*", getSubCsid(jsonObject,r.getPrimaryField()));
-					log.info("WWWW"+path);
-					url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);			
+
+					deleteJSON(root,creds,cache,path);
+					log.info(doc.asXML());
+					url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);		
+					
 				}
 			}
 			else{
@@ -136,7 +141,34 @@ public class AuthorizationStorage extends GenericStorage {
 	public void deleteJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			int status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds,cache);
+			int status = 0;
+			if(r.hasDeleteMethod()){
+				//get all data to post back
+				//hopefully the filepath we have is the filepath to get the data from
+				Document doc = simpleRetrieveXML(creds,cache,filePath+"/1234");
+				String nodepath = "/"+ r.getServicesListPath()+"/*";
+				List<Node> nodes=doc.selectNodes(nodepath);
+				if(nodes.size()>0){
+					status=201;
+					//post it back to delete it
+/*
+					log.info("TRYING TO DELETE ACCOUNTROLE");
+					log.info(doc.asXML());
+					log.info(filePath+"?_method=delete");
+					ReturnedURL url = null;
+					url = conn.getURL(RequestMethod.POST, filePath+"?_method=delete", doc, creds, cache);
+					status = url.getStatus();
+					//status=conn.getNone(RequestMethod.POST,r.getServicesURL()+"/"+filePath+"?_method=delete",doc,creds,cache);
+					 	
+*/
+				}
+				else{//if we didn't need to delete it because there was nothing there then everything was good
+					status=201;
+				}
+			}
+			else{
+				status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds,cache);				
+			}
 			if(status>299 || status<200) // XXX CSPACE-73, should be 404
 				throw new UnderlyingStorageException("Service layer exception status="+status);
 		} catch (ConnectionException e) {
@@ -283,7 +315,7 @@ public class AuthorizationStorage extends GenericStorage {
 						i++;
 					}
 					filePath = path + "/" + parts[len];
-					return simpleRetrieveJSONFullPath(creds,cache,filePath);
+					return simpleRetrieveJSONFullPath(creds,cache,filePath,s.getRecordByWebUrl(parts[1]).getRecord());
 				}
 				else{
 					//{csid}/refobj/bob
@@ -454,7 +486,23 @@ public class AuthorizationStorage extends GenericStorage {
 		return simpleRetrieveJSONFullPath( creds, cache, fullpath);
 	}
 	
+	private Document simpleRetrieveXML(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws UnimplementedException, ExistException, ConnectionException {
+		if(r.isMultipart()){
+			throw new UnimplementedException("this functionality is currently only for non multipart xml");
+		}else{
+			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
+			if((doc.getStatus()<200 || doc.getStatus()>=300))
+				throw new ExistException("Does not exist "+filePath);
+
+			return doc.getDocument();
+		}
+	}
 	public JSONObject simpleRetrieveJSONFullPath(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
+	UnimplementedException, UnderlyingStorageException {
+		return simpleRetrieveJSONFullPath( creds, cache, filePath, r);
+	}
+	
+	public JSONObject simpleRetrieveJSONFullPath(CSPRequestCredentials creds,CSPRequestCache cache,String filePath, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			JSONObject out=new JSONObject();
@@ -472,7 +520,7 @@ public class AuthorizationStorage extends GenericStorage {
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new ExistException("Does not exist "+filePath);
 
-				convertToJson(out,doc.getDocument());
+				convertToJson(out,doc.getDocument(),thisr);
 			}
 			return out;
 		} catch (ConnectionException e) {

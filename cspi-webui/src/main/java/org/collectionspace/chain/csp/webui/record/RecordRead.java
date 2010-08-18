@@ -120,7 +120,26 @@ public class RecordRead implements WebMethod {
 		return entry;
 	}
 	
-	
+	private JSONArray getPermissions(Storage storage,JSONObject activePermissions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
+		JSONObject set = new JSONObject();
+		//get all permissions
+		/*
+		String filePath = record.getSpec().getRecordByWebUrl("permission").getID()+"/";
+		JSONObject permissions = storage.retrieveJSON(filePath);
+		log.info("DEBUG"+filePath+permissions.toString() + activePermissions.toString());
+		*/
+		//mark active roles
+		
+		
+		
+		//we are ignoring pagination so this will return the first 40 roles only
+		//UI doesn't know what it wants to do about pagination etc
+		if(activePermissions.has("permission"))
+		{
+			return activePermissions.getJSONArray("permission");
+		}
+		return null;
+	}
 	
 	/* Wrapper exists to decomplexify exceptions: also used inCreateUpdate, hence not private */
 	JSONObject getJSON(Storage storage,String csid) throws UIException {
@@ -134,6 +153,13 @@ public class RecordRead implements WebMethod {
 				out.put("fields",fields);
 				out.put("relations",relations);
 				out.put("termsUsed",getTermsUsed(storage,base+"/"+csid));
+				if(authorization_type && base.equals("role")){
+					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permrole/1234");
+					JSONArray allperms = getPermissions(storage,permissions);
+					
+					fields.put("permission",allperms);
+					
+				}
 			} else {
 				out=storage.retrieveJSON(base+"/"+csid);
 			}
