@@ -72,9 +72,10 @@ public class TestGeneral {
 	private final static String intakeCreate = "{\"normalLocation\": \"normalLocationX\",\"fieldCollectionEventName\": \"fieldCollectionEventNameX\",\"earliestDateCertainty\": \"earliestDateCertaintyX\",\"earliestDate\": \"earliestDateX\",\"latestDate\": \"latestDateX\",\"entryNumber\": \"entryNumberX\",\"insurancePolicyNumber\": \"insurancePolicyNumberX\",\"depositorsRequirements\": \"depositorsRequirementsX\",\"entryReason\": \"entryReasonX\",\"earliestDateQualifier\": \"earliestDateQualifierX\"}";
 	private final static String objectCreate = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"2\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartments\":[{\"responsibleDepartment\":\"new DEPT\"}],\"objectNameGroup\": [{ \"objectName\": \"new OBJNAME\",}]}";
 	//private final static String objectCreate = "{\"accessionNumber\": \"new OBJNUM\", \"description\": \"new DESCRIPTION\", \"descInscriptionInscriber\": \"new INSCRIBER\", \"objectNumber\": \"1\", \"objectTitle\": \"new TITLE\", \"comments\": \"new COMMENTS\", \"distinguishingFeatures\": \"new DISTFEATRES\", \"responsibleDepartment\": \"new DEPT\",\"briefDescriptions\": [ { \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WOOOO\" },{ \"briefDescription\": \"WAAAA\", \"primary\": \"arg\" }, { \"briefDescription\": \"WOOOOP\", \"primary\": \"bob\" } ], \"objectName\": \"new OBJNAME\"}";
-	private final static String movementCreate = "{\"normalLocation\":\"blah\",\"movementContact\":\"blah\",\"movementReferenceNumber\":\"MV2010.99\",\"currentLocationFitness\":\"blah\",\"removalDate\":\"blah\",\"locationDate\":\"2012-01-29\",\"plannedRemovalDate\":\"blah\",\"movementMethods\":[{\"movementMethod\":\"blah\"}],\"movementNote\":\"blah\",\"reasonForMove\":\"blah\",\"currentLocation\":\"blah\",\"currentLocationNote\":\"blah\"}";
+	private final static String movementCreate = "{\"normalLocation\":\"blah\",\"movementContact\":\"blah\",\"movementReferenceNumber\":\"MV2010.99\",\"currentLocationFitness\":\"blah\",\"removalDate\":\"2012-04-29\",\"locationDate\":\"2012-01-29\",\"plannedRemovalDate\":\"2012-03-29\",\"movementMethods\":[{\"movementMethod\":\"blah\"}],\"movementNote\":\"blah\",\"reasonForMove\":\"blah\",\"currentLocation\":\"blah\",\"currentLocationNote\":\"blah\"}";
 	private final static String acquisitionCreate = "{\"acquisitionReason\":\"acquisitionReason\",\"acquisitionReferenceNumber\":\"acquisitionReferenceNumber\",\"acquisitionMethod\":\"acquisitionMethod\",\"owners\":[{\"owner\":\"urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'\"}],\"acquisitionSources\":[{\"acquisitionSource\": \"11111\"},{\"acquisitionSource\": \"22222\"}]}";
 	private final static String roleCreate = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_1_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
+	private final static String role2Create = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_2_TEST_" + d.toString() + "\", \"description\": \"this role is also for test users\"}";
 	private final static String personCreate = "{\"fields\":{\"displayName\":\"TEST_PERSON4_display\"}}";
 	/*private final static String permissionDelete = "{ \"resourceName\": \"resourceName_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]}, {\"action\": [{ \"name\": \"DELETE\" }]} ], \"effect\": \"PERMIT\" }";
 	private final static String permissionRead = "{ \"resourceName\": \"resourceName_"+d.toString()+ "\", \"actions\": [ {\"action\": [{ \"name\": \"READ\" }]} ], \"effect\": \"PERMIT\" }";
@@ -846,10 +847,10 @@ log.info(out.getContent());
 		return roleJSON;		
 	}
 	
-	private JSONObject createUserWithRoles(ServletTester jetty,String user) throws Exception{
+	private JSONObject createUserWithRoles(ServletTester jetty,String user, String roleJSON) throws Exception{
 
 		//create role
-		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleCreate));
+		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleJSON));
 		log.info(out.getContent());
 		JSONObject role = new JSONObject(out.getContent()).getJSONObject("fields");
 		String role_id=out.getHeader("Location");
@@ -860,7 +861,6 @@ log.info(out.getContent());
             {"roleName": "Acquisition", "roleId": "write", "active":"active"},
         ],
 		 */
-log.info(role.toString());
 		JSONArray roles = new JSONArray();
 		JSONObject role1 = new JSONObject();
 		role1.put("roleName", role.getString("roleName"));
@@ -874,36 +874,62 @@ log.info(role.toString());
 		return userJSON;		
 
 	}
-	
 	/*
+	
 	@Test public void testUserRolesUI() throws Exception{
 		ServletTester jetty = setupJetty();
-		JSONObject userdata = createUserWithRoles(jetty,user88Create);
-
+		JSONObject userdata = createUserWithRoles(jetty,user88Create,roleCreate);
+		JSONObject userdata2 = createUserWithRoles(jetty,user88Create,role2Create);
+//create user with roles in payload
 		HttpTester out = jettyDo(jetty,"POST","/chain/users/",makeRequest(userdata).toString());
-		log.info("AA"+out.getContent());
+		assertEquals(201,out.getStatus());
+		log.info(out.getContent());
 
 		String userid = out.getHeader("Location");
 		log.info(userid);
-		
+
 		out=jettyDo(jetty,"GET","/chain"+userid,null);
-		log.info("BB"+out.getContent());
+		assertEquals(200,out.getStatus());
+		log.info(out.getContent());
 
+		String screenname = userdata2.getString("userName");
+		userdata2.remove("userName");
+		userdata2.put("screenName", screenname);
 		
-	//	JSONObject roledata = createRoleWithPermission(roleCreate);
 		
+		out=jettyDo(jetty,"PUT","/chain"+userid,makeRequest(userdata2).toString());
+		assertEquals(out.getMethod(), null);
+		//assertEquals(200,out.getStatus());
+		log.info(out.getContent());
 
-	//	HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeRequest(roledata).toString());
-	//	log.info(out.getContent());
+		out=jettyDo(jetty,"GET","/chain"+userid,null);
+		assertEquals(200,out.getStatus());
+		log.info(out.getContent());
+		
+		//delete roles
+
+		//Delete the roles
+		String roles_id1 = userdata.getJSONArray("role").getJSONObject(0).getString("role_id");
+		String roles_id2 = userdata2.getJSONArray("role").getJSONObject(0).getString("role_id");
+
+		out=jettyDo(jetty,"DELETE","/chain"+roles_id1,null);
+		assertEquals(200,out.getStatus());
+		out=jettyDo(jetty,"DELETE","/chain"+roles_id2,null);
+		assertEquals(200,out.getStatus());
+		
+		//delete user
+		out=jettyDo(jetty,"DELETE","/chain"+userid,null);
+		assertEquals(200,out.getStatus());
 		
 	}
-*/
+/*
 
 	/**
 	 * This test assigning roles to users using seperate calls
 	 * in reality roles will be included inthe user payload
 	 * @throws Exception
 	 */
+	/*
 	@Test public void testUserRoles() throws Exception{
 		ServletTester jetty = setupJetty();
 		//Create a user
@@ -987,7 +1013,7 @@ log.info("/chain"+ user_id + acrole_id+ ":"+one.toString());
 
 		log.info(out3.getContent());
 	}
-	
+	*/
 	/*
 	@Test public void testPermRolePost() throws Exception {
 		ServletTester jetty = setupJetty();
