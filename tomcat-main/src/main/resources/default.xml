@@ -1972,7 +1972,7 @@
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
                 <!--  Object Location Information Group -->
-                <field id="currentLocation" in-title="yes" mini="summary">
+                <field id="currentLocation" in-title="yes" mini="summary,search,list,relate,terms">
                     <title-selector>.csc-titleBar-currentLocation</title-selector>
                 </field>
                 <field id="currentLocationFitness">
@@ -2001,7 +2001,7 @@
                     </field>
                 </repeat>
                 <field id="movementNote"></field>
-                <field id="movementReferenceNumber" chooser="yes" in-title="no" mini="number" xxx_ui_refactored="false">
+                <field id="movementReferenceNumber" chooser="yes" in-title="no" mini="number,search,list,relate,terms" xxx_ui_refactored="false">
                     <options>
                         <option id="movement" sample="MV2010.001">Movement</option>
                     </options>
