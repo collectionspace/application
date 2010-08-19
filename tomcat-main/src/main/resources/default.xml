@@ -982,10 +982,10 @@
                     <structure id="screen"></structure>
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
-                <field id="currentOwner" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
+                <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
                     <selector>.csc-intake-current-owner</selector>
                 </field>
-                <field id="depositor" autocomplete="person-person,organization-organization" mini="summary" in-title="yes" xxx_ui_refactored="false">
+                <field id="depositor" autocomplete="person-person,organization-organization"  xxx_ui_refactored="false">
                     <selector>.csc-intake-depositor</selector>
                 </field>
                 <field id="depositorsRequirements">
@@ -1001,7 +1001,7 @@
                 <field id="entryNote">
                     <selector>.csc-intake-entry-note</selector>
                 </field>
-                <field id="entryNumber" chooser="yes" in-title="yes" mini="number" xxx_ui_refactored="false">
+                <field id="entryNumber" chooser="yes" in-title="yes" mini="number,search,list,terms,relate" xxx_ui_refactored="false">
                     <selector>.csc-intake-entry-number</selector>
                     <title-selector>.csc-titleBar-intake-entry-number</title-selector>
                     <options>
