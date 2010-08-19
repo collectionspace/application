@@ -16,7 +16,7 @@ public class Repeat implements FieldSet, FieldParent {
 	protected Set<String> enum_default;
 	protected Stack<String> merged = new Stack<String>();
 	protected List<FieldSet> children=new ArrayList<FieldSet>();
-	protected boolean has_services_parent=false,enum_hasblank=true,exists_in_service=true, has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
+	protected boolean is_expander=false,has_services_parent=false,enum_hasblank=true,exists_in_service=true, has_primary = false, xxx_services_no_repeat=false,xxx_ui_no_repeat=false,asSiblings=false;
 
 	/* Services */
 	protected String services_tag,services_section;
@@ -64,6 +64,8 @@ public class Repeat implements FieldSet, FieldParent {
 		// should this field allow a primary flag
 		this.has_primary = Util.getBooleanOrDefault(section, "/@has-primary", true);	
 		this.userecord = Util.getStringOrDefault(section, "/@userecord", "");
+		//used by uispec to create new structure
+		this.is_expander = Util.getBooleanOrDefault(section, "/@as-expander", false);
 
 		this.xxx_hack_authorization=Util.getBooleanOrDefault(section,"/@xxx-hack-authorization",false);
 		String[] idparts = this.id.split("/");
@@ -115,6 +117,7 @@ public class Repeat implements FieldSet, FieldParent {
 	public boolean isVisible() { return is_visible; }
 	public boolean asSibling() { return asSiblings;}
 	public boolean hasPrimary() {return has_primary;}
+	public boolean isExpander() { return is_expander;}
 	public String getSection() { return services_section; }
 
 	public String getSelectorAffix(){ return selector_affix; }

@@ -76,6 +76,27 @@ public class UISpec implements WebMethod {
 			
 	}
 	
+	private JSONObject generateOptionField(Field f) throws JSONException {
+		// Dropdown entry
+		JSONObject out=new JSONObject();
+		out.put("selection",plain(f));
+		JSONArray ids=new JSONArray();
+		JSONArray names=new JSONArray();
+		int idx=0,dfault=-1;
+		for(Option opt : f.getAllOptions()) {
+			ids.put(opt.getID());
+			names.put(opt.getName());
+			if(opt.isDefault())
+				dfault=idx;
+			idx++;
+		}
+		//currently only supports single select dropdowns and not multiselect
+		if(dfault!=-1)
+			out.put("default",dfault+"");
+		out.put("optionlist",ids);
+		out.put("optionnames",names);			
+		return out;
+	}
 	// XXX factor
 	private Object generateDataEntryField(Field f) throws JSONException {
 		if("plain".equals(f.getUIType())) {
@@ -89,25 +110,8 @@ public class UISpec implements WebMethod {
 			return linktext(f);
 		}
 		else if("dropdown".equals(f.getUIType())) {
-			// Dropdown entry
-			JSONObject out=new JSONObject();
-			out.put("selection",plain(f));
-			JSONArray ids=new JSONArray();
-			JSONArray names=new JSONArray();
-			int idx=0,dfault=-1;
-			for(Option opt : f.getAllOptions()) {
-				ids.put(opt.getID());
-				names.put(opt.getName());
-				if(opt.isDefault())
-					dfault=idx;
-				idx++;
-			}
-			//currently only supports single select dropdowns and not multiselect
-			if(dfault!=-1)
-				out.put("default",dfault+"");
-			out.put("optionlist",ids);
-			out.put("optionnames",names);			
-			return out;
+					
+			return generateOptionField(f);
 		}
 		else if("enum".equals(f.getUIType())) {
 			//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
@@ -212,25 +216,76 @@ public class UISpec implements WebMethod {
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view");
 		return out;
 	}
+
+	private JSONObject generateRepeatExpanderEntry(Repeat r, String affix) throws JSONException {
+		JSONObject expander = new JSONObject();
+		expander.put("type", "fluid.renderer.repeat");
+		expander.put("controlledBy", "fields."+r.getID());
+		expander.put("pathAs", "row");
+		expander.put("repeatID", r.getSelector());
+
+		if(r.getChildren().length>0){
+			JSONObject tree = new JSONObject();
+			for(FieldSet child : r.getChildren()) {
+				generateDataEntry(tree,child, affix);
+			}
+			expander.put("tree", tree);
+		}
+		return expander;
+	}
+	private JSONObject generateSelectionExpanderEntry(Field f, String affix) throws JSONException {
+		JSONObject expander = new JSONObject();
+		expander.put("type", "fluid.renderer.selection.inputs");
+		expander.put("rowID", f.getSelector()+"-row");
+		expander.put("labelID", f.getSelector()+"-label");
+		expander.put("inputID", f.getSelector()+"-input");
+		expander.put("selectID", f.getID());
+
+		JSONObject tree = new JSONObject();
+		tree = generateOptionField(f);
+		expander.put("tree", tree);
+		return expander;
+	}
+	private JSONObject generateNonExpanderEntry(Repeat r, String affix) throws JSONException {
+		JSONObject out = new JSONObject();
+		JSONObject expander = new JSONObject();
+		expander.put("type", "fluid.renderer.noexpand");
+
+		if(r.getChildren().length>0){
+			JSONObject tree = new JSONObject();
+			for(FieldSet child : r.getChildren()) {
+				generateDataEntry(tree,child, affix);
+			}
+			expander.put("tree", tree);
+		}
+		out.put("expander", expander);
+		return out;
+	}
 	
 	private JSONObject generateRepeatEntry(Repeat r, String affix) throws JSONException {
-		JSONObject out = new JSONObject();
-		JSONArray decorators=new JSONArray();
-		JSONObject decorator=new JSONObject();
-		decorator.put("type","fluid");
-		int size = r.getChildren().length;
-		decorator.put("func","cspace.makeRepeatable");
-		JSONObject options=new JSONObject();
-		JSONObject protoTree=new JSONObject();
-		for(FieldSet child : r.getChildren()) {
-			generateDataEntry(protoTree,child, affix);
-		}
 
-		options.put("protoTree", protoTree);
-		options.put("elPath", "fields."+r.getID());
-		decorator.put("options",options);
-		decorators.put(decorator);
-		out.put("decorators",decorators);
+		JSONObject out = new JSONObject();
+		if(r.isExpander()){
+			out =  generateRepeatExpanderEntry(r,affix);
+		}
+		else{
+			JSONArray decorators=new JSONArray();
+			JSONObject decorator=new JSONObject();
+			decorator.put("type","fluid");
+			int size = r.getChildren().length;
+			decorator.put("func","cspace.makeRepeatable");
+			JSONObject options=new JSONObject();
+			JSONObject protoTree=new JSONObject();
+			for(FieldSet child : r.getChildren()) {
+				generateDataEntry(protoTree,child, affix);
+			}
+
+			options.put("protoTree", protoTree);
+			options.put("elPath", "fields."+r.getID());
+			decorator.put("options",options);
+			decorators.put(decorator);
+			out.put("decorators",decorators);
+		}
 		return out;
 	}
 	
@@ -361,8 +416,14 @@ public class UISpec implements WebMethod {
 			if(fs instanceof Field) {
 				// Single field
 				Field f=(Field)fs;
+				if(f.isExpander()){
+					if("radio".equals(f.getUIType())){
+						JSONObject obj = generateSelectionExpanderEntry(f,affix);
+						out.put("expander",obj);
+					}
+				}
 				//XXX when all uispecs have moved across we can delete most of this
-				if(!f.isRefactored()){
+				else if(!f.isRefactored()){
 					// Single field
 					out.put(f.getSelector()+affix,generateDataEntryField(f));	
 					
@@ -439,6 +500,9 @@ public class UISpec implements WebMethod {
 						if(((Repeat)fs).getChildren().length==1){
 							Field child = (Field)r.getChildren()[0];
 							selector = child.getSelector();
+						}
+						if(fs.isExpander()){
+							selector="expander";
 						}
 						
 						out.put(selector,contents);

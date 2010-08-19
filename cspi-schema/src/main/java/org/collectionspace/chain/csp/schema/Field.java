@@ -24,7 +24,7 @@ public class Field implements FieldSet {
 	
 	/* UI */
 	private String parentID,selector_affix,enum_blank,selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext,userecord;
-	private boolean enum_hasblank=true, exists_in_service= true,in_title=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
+	private boolean is_expander=false,enum_hasblank=true, exists_in_service= true,in_title=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
 	private Stack<String> merged = new Stack<String>();
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
@@ -50,6 +50,8 @@ public class Field implements FieldSet {
 		autocomplete_selector=Util.getStringOrDefault(section,"/autocomplete-selector",selector+"-autocomplete");
 		container_selector=Util.getStringOrDefault(section,"/container-selector",selector+"-container");
 		title_selector=Util.getStringOrDefault(section,"/title-selector",selector+"-titlebar");
+		//used by uispec to create new structure
+		is_expander = Util.getBooleanOrDefault(section, "/@as-expander", false);
 		
 
 		in_title = Util.getBooleanOrDefault(section, "/@in-title", false);
@@ -92,6 +94,7 @@ public class Field implements FieldSet {
 	//public boolean isInTab() { return in_tab; }
 	public boolean hasContainer() {	return has_container;	}
 	public boolean isInServices() {	return exists_in_service;	}
+	public boolean isExpander() { return is_expander;}
 	public boolean isRefactored() { return xxx_ui_refactored; } //used until UI layer has moved all autocomplete to one container view
 	public String getTitleSelector() { return title_selector; }
 	public String getServicesFilterParam() { return services_filter_param; }

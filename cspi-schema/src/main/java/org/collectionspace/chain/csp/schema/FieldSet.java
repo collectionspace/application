@@ -20,4 +20,5 @@ public interface FieldSet {
 	public boolean hasAutocompleteInstance();
 	public Boolean hasMergeData();
 	public List<String> getAllMerge();
+	public boolean isExpander();
 }
