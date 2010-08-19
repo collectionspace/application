@@ -88,14 +88,14 @@
                 <number-selector>.csc-accession-number</number-selector>
                 <row-selector>.csc-recordList-row:</row-selector>
                 <list-key>objects</list-key>
-                <field id="nametitle" mini="summary,list" exists-in-services="false">
+                <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
                     <selector>.csc-object-identification-object-nametitle</selector>
                     <merges>
                         <merge id="title" rank="1" />
                         <merge id="objectName" rank="2" />
                     </merges>
                 </field>
-                <field id="title" in-title="yes" mini="list">
+                <field id="title" in-title="yes" mini="search">
                     <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
                     <selector>.csc-object-identification-object-title</selector>
                 </field>
@@ -120,7 +120,7 @@
                         <option id="trade">Trade</option>
                     </options>
                 </field>
-                <field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number,list" xxx_ui_refactored="false">
+                <field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number,search,list,relate" xxx_ui_refactored="false">
                     <selector>.csc-object-identification-object-number</selector>
                     <title-selector>.csc-titleBar-object-identification-object-number</title-selector>
                     <options>
@@ -193,7 +193,7 @@
                 <field id="objectNameNote">
                     <selector>.csc-object-identification-object-note</selector>
                 </field>
-                <field id="objectName" mini="list">
+                <field id="objectName" mini="search">
                     <selector>.csc-object-identification-object-name</selector>
                 </field>
 				</repeat>
@@ -579,7 +579,7 @@
                 </field>
                 <repeat id="responsibleDepartments" has-primary="yes">
                     <selector>.csc-object-identification-responsible-department</selector>
-                    <field id="responsibleDepartment" mini="list" xxx_ui_refactored="false">
+                    <field id="responsibleDepartment" mini="search" xxx_ui_refactored="false">
                         <selector>.csc-object-identification-responsible-department</selector>
                         <options>
                             <option id="antiquities">Antiquities</option>
