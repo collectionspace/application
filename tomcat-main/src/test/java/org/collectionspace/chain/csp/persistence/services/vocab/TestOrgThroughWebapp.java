@@ -74,6 +74,7 @@ public class TestOrgThroughWebapp {
 	}
 	
 	@BeforeClass public static void reset() throws Exception {
+		log.info("TestOrgThroughWebapp: initialize");
 		ServletTester jetty=setupJetty();
 		//test if need to reset data - only reset it org auth are null
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization/",null);
@@ -83,6 +84,7 @@ public class TestOrgThroughWebapp {
 				jettyDo(jetty,"GET","/chain/reset/nodelete",null);
 			}
 		}		
+		log.info("TestOrgThroughWebapp: initialize finished");
 	}
 	
 	
@@ -93,6 +95,7 @@ public class TestOrgThroughWebapp {
 	 * vocab search just searches the one vocabulary	 * 
 	 */
 	@Test public void testAuthoritiesSearch() throws Exception {
+		log.info("ORG : AuthoritiesSearch : test_start");
 		ServletTester jetty=setupJetty();
 		// Create
 	    JSONObject data=new JSONObject("{'fields':{'displayName':'Test My Authority1'}}");
@@ -120,6 +123,7 @@ public class TestOrgThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());
+		log.info("ORG : AuthoritiesSearch : test_end");
 	}
 	/**
 	 * Tests that an authority list includes the expected item
@@ -128,6 +132,7 @@ public class TestOrgThroughWebapp {
 	 * vocab list just list the one vocabulary	 * 
 	 */
 	@Test public void testAuthoritiesList() throws Exception {
+		log.info("ORG : AuthoritiesList : test_start");
 		ServletTester jetty=setupJetty();
 		// Create
 	    JSONObject data=new JSONObject("{'fields':{'displayName':'Test My Authority2'}}");
@@ -140,7 +145,8 @@ public class TestOrgThroughWebapp {
 		String checkpagination = "";
 		boolean found=false;
 		while(resultsize >0){
-			out=jettyDo(jetty,"GET","/chain/authorities/organization?pageSize=200&pageNum="+pagenum,null);
+			log.info("ORG : AuthoritiesList : Get Page: "+pagenum);
+			out=jettyDo(jetty,"GET","/chain/authorities/organization?pageSize=40&pageNum="+pagenum,null);
 			pagenum++;
 			assertTrue(out.getStatus()<299);
 			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
@@ -165,6 +171,7 @@ public class TestOrgThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());
+		log.info("ORG : AuthoritiesList : test_end");
 	}
 	/**
 	 * Tests that an vocabulary search includes the expected item
@@ -173,6 +180,7 @@ public class TestOrgThroughWebapp {
 	 * vocab search just searches the one vocabulary	 * 
 	 */
 	@Test public void testOrganizationSearch() throws Exception {
+		log.info("ORG : OrganizationSearch : test_start");
 		ServletTester jetty=setupJetty();
 		// Create
 	    JSONObject data=new JSONObject("{'fields':{'displayName':'Test Organization XXX'}}");
@@ -203,7 +211,8 @@ public class TestOrgThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());
-		
+
+		log.info("ORG : OrganizationSearch : test_end");
 	}
 	
 	/**
@@ -213,6 +222,7 @@ public class TestOrgThroughWebapp {
 	 * vocab list just list the one vocabulary	 * 
 	 */
 	@Test public void testOrganizationList() throws Exception {
+		log.info("ORG : OrganizationList : test_start");
 		
 		ServletTester jetty=setupJetty();
 		// Create
@@ -226,7 +236,8 @@ public class TestOrgThroughWebapp {
 		String checkpagination = "";
 		boolean found=false;
 		while(resultsize >0){
-			out=jettyDo(jetty,"GET","/chain/vocabularies/organization?pageSize=20&pageNum="+pagenum,null);
+			log.info("ORG : OrganizationList : GET page:"+pagenum);
+			out=jettyDo(jetty,"GET","/chain/vocabularies/organization?pageSize=40&pageNum="+pagenum,null);
 			pagenum++;
 			assertTrue(out.getStatus()<299);
 			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
@@ -251,10 +262,13 @@ public class TestOrgThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());	
+
+		log.info("ORG : OrganizationList : test_end");
 	}
 
 	// Tests a READ for an organization
 	@Test public void testOrganizationGet() throws Exception {
+		log.info("ORG : OrganizationGet : test_start");
 		ServletTester jetty=setupJetty();
 		// Create
 	    JSONObject data=new JSONObject("{'fields':{'displayName':'TestmyOrgXXX2'}}");
@@ -283,9 +297,11 @@ public class TestOrgThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());	
+		log.info("ORG : OrganizationGet : test_end");
 	}
 	// Tests an Update for an Organization
 	@Test public void testOrganizationCreateUpdateDelete() throws Exception {
+		log.info("ORG : OrganizationCreateUpdateDelete : test_start");
 		ServletTester jetty=setupJetty();
 		// Create
 		JSONObject data=new JSONObject("{'fields':{'displayName':'Test my Org XXX4'}}");
@@ -316,6 +332,7 @@ public class TestOrgThroughWebapp {
 		// Try another delete - should fail
 		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());	
+		log.info("ORG : OrganizationCreateUpdateDelete : test_end");
 		
 	}
 
@@ -324,6 +341,7 @@ public class TestOrgThroughWebapp {
 	 * don't forget to add in the instances necceassry as well.
 	 * @Test */
 	 public void testNamesMultiAssign() throws Exception {
+			log.info("ORG : NamesMultiAssign : test_start");
 		ServletTester jetty=setupJetty();
 		// Create in single assign list: 
 		JSONObject data=new JSONObject("{'fields':{'displayName':'Custom Data'}}");
@@ -367,28 +385,34 @@ public class TestOrgThroughWebapp {
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url2,null);
 		assertEquals(400,out.getStatus());	
 
+		log.info("ORG : NamesMultiAssign : test_end");
 	}
 	
 	// Tests both a person and an organization autocomplete for an organization
 	@Test public void testAutocompletesForOrganization() throws Exception {
+		log.info("ORG : AutocompletesForOrganization : test_start");
 		ServletTester jetty=setupJetty();
 		// Create
+		log.info("ORG : AutocompletesForOrganization : CREATE");
 	    JSONObject org=new JSONObject("{'fields':{'displayName':'Test my Org XXX5'}}");
 	    HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",org.toString());              
 	    assertTrue(out.getStatus()<300);
 	    String url1=out.getHeader("Location");
 	    // Add a person
+		log.info("ORG : AutocompletesForOrganization : ADD Person");
 	    JSONObject person=new JSONObject("{'fields':{'displayName':'Test Auto Person'}}");
 	    out=jettyDo(jetty,"POST","/chain/vocabularies/person/",person.toString());              
 	    assertTrue(out.getStatus()<300);
 	    String url2=out.getHeader("Location");	  
 	    // A second organization
+		log.info("ORG : AutocompletesForOrganization : Add org");
 	    JSONObject org2=new JSONObject("{'fields':{'displayName':'Test another Org'}}");
 	    out=jettyDo(jetty,"POST","/chain/vocabularies/organization/",org2.toString());              
 	    assertTrue(out.getStatus()<300);
 	    String url3=out.getHeader("Location");	
 	    
 	    // Test Autocomplete contactName
+		log.info("ORG : AutocompletesForOrganization : test against contact Name");
 	    out=jettyDo(jetty,"GET","/chain/vocabularies/organization/autocomplete/contactName?q=Test+Auto&limit=150",null);
 		assertTrue(out.getStatus()<299);
 		String[] data=out.getContent().split("\n");
@@ -398,10 +422,9 @@ public class TestOrgThroughWebapp {
 			assertTrue(entry.has("urn"));
 		}
 		// Test Autocomplete subBody
+		log.info("ORG : AutocompletesForOrganization : test against subBody");
 	    out=jettyDo(jetty,"GET","/chain/vocabularies/organization/autocomplete/subBody?q=Test+another&limit=150",null);
 		assertTrue(out.getStatus()<299);
-		log.info(Integer.toString(out.getStatus()));
-		log.info("TTT"+out.getContent());
 		data=out.getContent().split("\n");
 		for(int i=0;i<data.length;i++) {
 			JSONObject entry=new JSONObject(data[i]);
@@ -409,6 +432,7 @@ public class TestOrgThroughWebapp {
 			assertTrue(entry.has("urn"));
 		}		
 		// Delete
+		log.info("ORG : AutocompletesForOrganization : DELETE");
 		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url1,null);
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url1,null);
@@ -421,9 +445,11 @@ public class TestOrgThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url3,null);
 		assertEquals(400,out.getStatus());	
+		log.info("ORG : AutocompletesForOrganization : test_end");
 	}
 	// Tests that a redirect goes to the expected place
 	@Test public void testAutocompleteRedirect() throws Exception {
+		log.info("ORG : AutocompleteRedirect : test_start");
 		ServletTester jetty=setupJetty();
 		
 		HttpTester out=jettyDo(jetty,"GET","/chain/objects/source-vocab/contentOrganization",null);
@@ -431,6 +457,7 @@ public class TestOrgThroughWebapp {
 		JSONObject data=new JSONObject(out.getContent());
 		String url=data.getString("url");
 		assertEquals("/vocabularies/organization",url);
+		log.info("ORG : AutocompleteRedirect : test_end");
 		
 	}	
 }

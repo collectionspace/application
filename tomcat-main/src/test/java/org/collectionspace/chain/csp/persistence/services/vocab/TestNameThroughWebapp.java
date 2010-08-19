@@ -87,6 +87,7 @@ public class TestNameThroughWebapp {
 	
 	//XXX change so creates person and then tests person exists
 	@Test public void testAutocomplete() throws Exception {
+		log.info("NAME: Autocomplete: test_start");
 			ServletTester jetty=setupJetty();
 			// Create the entry we are going to check for
 			JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTNursultan Nazarbayev'}}");
@@ -108,10 +109,12 @@ public class TestNameThroughWebapp {
 		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
-		assertEquals(400,out.getStatus());		
+		assertEquals(400,out.getStatus());	
+		log.info("NAME: Autocomplete: test_end");	
 	}
 
 	@Test public void testAutocompleteRedirect() throws Exception {
+		log.info("NAME: AutocompleteRedirect: test_start");
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/acquisition/source-vocab/acquisitionAuthorizer",null);
 		assertTrue(out.getStatus()<299);
@@ -124,20 +127,24 @@ public class TestNameThroughWebapp {
 		data=new JSONObject(out.getContent());
 		url=data.getString("url");
 		assertEquals("/vocabularies/organization",url);
+		log.info("NAME: AutocompleteRedirect: test_end");
 		
 	}
 	
 	//this isn't the right test... what is the right test?
 	@Test public void testAutocompleteVocabRedirect() throws Exception {
+		log.info("NAME: AutocompleteVocabRedirect: test_start");
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/acquisition/source-vocab/acquisitionAuthorizer",null);
 		assertTrue(out.getStatus()<299);
 		JSONObject data=new JSONObject(out.getContent());
 		String url=data.getString("url");
 		assertEquals("/vocabularies/person",url);
+		log.info("NAME: AutocompleteVocabRedirect: test_end");
 	}
 	
 	@Test public void testAuthoritiesSearch() throws Exception {
+		log.info("NAME: AuthoritiesSearch: test_start");
 		ServletTester jetty=setupJetty();
 		// Create the entry we are going to check for
 		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTJacob Zuma'}}");
@@ -161,6 +168,7 @@ public class TestNameThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());
+		log.info("NAME: AuthoritiesSearch: test_end");
 	}
 
 	// XXX failing due to pagination - reinsert when pagination works
@@ -182,6 +190,7 @@ public class TestNameThroughWebapp {
 	*/
 
 	@Test public void testNamesSearch() throws Exception {
+		log.info("NAME: NamesSearch: test_start");
 		ServletTester jetty=setupJetty();
 		//jettyDo(jetty,"GET","/chain/quick-reset",null);
 		// Create the entry we are going to check for
@@ -205,6 +214,7 @@ public class TestNameThroughWebapp {
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertEquals(400,out.getStatus());
+		log.info("NAME: NamesSearch: test_start");
 	}
 
 	// XXX failing due to pagination - reinsert when pagination works
@@ -226,6 +236,7 @@ public class TestNameThroughWebapp {
 	*/
 
 	@Test public void testNamesGet() throws Exception {
+		log.info("NAME: Get: test_start");
 		// Create the name we want to test against, and after testing - delete it
 		String testName = "XXXTESTHamid Karzai"; 
 
@@ -246,45 +257,55 @@ public class TestNameThroughWebapp {
 		assertEquals(testName,fields.getString("displayName"));
 		// Now remove the name from the database
 		deleteName(testName);
+		log.info("NAME: Get: test_end");
 	}
 	
 	@Test public void testPersonWithContactAuthorityCRUD() throws Exception {
+		log.info("NAME: PersonWithContactAuthorityCRUD: test_start");
 		ServletTester jetty=setupJetty();
 		JSONObject data=new JSONObject("{'csid': '', 'fields': {'salutation': 'Your Majaesty','termStatus': 'under review','title': 'Miss', 'gender': 'female','displayName': 'bob','nameNote': 'sdf','bioNote': 'sdfsdf', 'foreName': 'sdf', 'middleName': 'sdf', 'surName': 'sdf', 'nameAdditions': 'sdf', 'initials': 'sdf', 'contact': [{'addresType': 'AAA', 'addresPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}, {'addresType': 'BBB','addresPlace': 'BVV','web': 'VVV', 'email': 'VVV','telephoneNumber': 'VV','faxNumber': 'VV' }]}}}");
 
 		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
 		assertTrue(out.getStatus()<300);
 		String url=out.getHeader("Location");
+		log.info("NAME: PersonWithContactAuthorityCRUD: test_end");
 	}
 	
 	@Test public void testNamesCreateUpdateDelete() throws Exception {
+		log.info("NAME: NamesCreateUpdateDelete: test_start");
 		ServletTester jetty=setupJetty();
 		// Create
+		log.info("NAME: NamesCreateUpdateDelete: CREATE");
 		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTFred Bloggs'}}");
 		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
 		assertTrue(out.getStatus()<300);
 		String url=out.getHeader("Location");
 		// Read
+		log.info("NAME: NamesCreateUpdateDelete: READ");
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertTrue(out.getStatus()<299);
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
 		assertEquals("XXXTESTFred Bloggs",data.getString("displayName"));
 		// Update
+		log.info("NAME: NamesCreateUpdateDelete: UPDATE");
 		data=new JSONObject("{'fields':{'displayName':'XXXTESTOwain Glyndwr'}}");
 		out=jettyDo(jetty,"PUT","/chain/vocabularies"+url,data.toString());		
 		assertTrue(out.getStatus()<300);
 		// Read
+		log.info("NAME: NamesCreateUpdateDelete: READ");
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
 		assertTrue(out.getStatus()<299);
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
 		assertEquals("XXXTESTOwain Glyndwr",data.getString("displayName"));
 		// Delete
+		log.info("NAME: NamesCreateUpdateDelete: DELETE");
 		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
 		assertTrue(out.getStatus()<299);
 		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
-		assertEquals(400,out.getStatus());		
+		assertEquals(400,out.getStatus());	
+		log.info("NAME: NamesCreateUpdateDelete: test_end");	
 	}
 	
 	private String getName(String name) throws Exception
