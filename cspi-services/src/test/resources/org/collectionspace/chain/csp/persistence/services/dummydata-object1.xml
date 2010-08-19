@@ -83,12 +83,14 @@
 </contentScripts>
 <copyNumber>1</copyNumber>
 <!-- Object Description - Dimension Information -->
+<dimensionGroup><dimensions>
 <dimension>height</dimension>
-<dimensionMeasuredPart>base</dimensionMeasuredPart>
-<dimensionMeasurementUnit>stories</dimensionMeasurementUnit>
-<dimensionValue>2</dimensionValue>
-<dimensionValueDate></dimensionValueDate>
-<dimensionValueQualifier></dimensionValueQualifier>
+<measuredPart>base</measuredPart>
+<measurementUnit>stories</measurementUnit>
+<value>2</value>
+<valueDate></valueDate>
+<valueQualifier></valueQualifier>
+</dimensions></dimensionGroup>
 <editionNumber>123-bg-192</editionNumber>
 <forms>
     <form></form>

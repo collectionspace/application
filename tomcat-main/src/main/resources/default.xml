@@ -323,7 +323,8 @@
                         <option id="rpm">rpm</option>
                     </options>
                 </field>
-                <field id="dimension" xxx_ui_refactored="false">
+				<repeat id="dimensionGroups/dimensions">
+					<field id="dimension" xxx_ui_refactored="false">
                     <selector>.csc-object-description-dimension</selector>
                     <options>
                         <option id="area">area</option>
@@ -341,7 +342,7 @@
                         <option id="width">width</option>
                     </options>
                 </field>
-                <field id="dimensionMeasuredPart" xxx_ui_refactored="false">
+					<field id="measuredPart" xxx_ui_refactored="false">
                     <selector>.csc-object-description-dimension-part</selector>
                     <options>
                         <option id="base">base</option>
@@ -354,7 +355,7 @@
                         <option id="unframed">unframed</option>
                     </options>
                 </field>
-                <field id="dimensionMeasurementUnit" xxx_ui_refactored="false">
+					<field id="measurementUnit" xxx_ui_refactored="false">
                     <selector>.csc-object-description-dimension-unit</selector>
                     <options>
                         <option id="carats">carats</option>
@@ -372,15 +373,17 @@
                         <option id="stories">stories</option>
                     </options>
                 </field>
-                <field id="dimensionValue">
+					<field id="value">
                     <selector>.csc-object-description-dimension-value</selector>
-                </field>
-                <field id="dimensionValueDate" ui-type="date" xxx_ui_refactored="false">
+					</field>
+					<field id="valueDate" ui-type="date" xxx_ui_refactored="false">
                     <selector>.csc-object-description-dimension-value-date</selector>
                 </field>
-                <field id="dimensionValueQualifier">
+					<field id="valueQualifier">
                     <selector>.csc-object-description-dimension-value-qualifier</selector>
-                </field>
+					</field>
+				</repeat>
+				
                 <field id="contentDescription">
                     <selector>.csc-object-description-content-description</selector>
                 </field>
@@ -1124,7 +1127,7 @@
                     </field>
                 </repeat>
 				
-				<repeat id="acquisitionFundingList/acquisitionFunding"  has-primary="yes">
+				<repeat id="acquisitionFundingList/acquisitionFunding">
                 	<field id="acquisitionFundingCurrency" autocomplete="vocab-currency" ui-type="enum">
                     	<enum>
                         	<default>US Dollar</default>
@@ -1165,7 +1168,6 @@
                     </options>
                 </field>
                 <repeat id="acquisitionSources">
-                    <selector>.csc-acquisition-acquisitionSource</selector>
                     <field id="acquisitionSource" autocomplete="person-person,organization-organization" mini="summary">
                         <selector>.csc-acquisition-acquisitionSource</selector>
                     </field>
@@ -1653,9 +1655,18 @@
                 <field id="description" mini="summary">
                     <selector>.csc-role-description</selector>
                 </field>
-                <field userecord="permrole" exists-in-services="false">
+                <repeat id="permissions" exists-in-services="false" as-expander="true">
                     <selector>.csc-permissions-record-row:</selector>
-                </field>
+                	<field id="permission" ui-type="radio" as-expander="true">
+                    <options>
+                        <option id="none">none</option>
+                        <option id="read">read</option>
+                        <option id="write">write</option>
+                        <option id="delete">delete</option>
+                    </options>
+                    </field>
+                    <field id="recordType"></field>
+                </repeat>
             </record>
             <record id="permission" type="authorizationdata">
                 <web-url>permission</web-url>
