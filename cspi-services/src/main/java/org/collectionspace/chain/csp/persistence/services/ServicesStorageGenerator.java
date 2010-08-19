@@ -1,7 +1,5 @@
 package org.collectionspace.chain.csp.persistence.services;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
@@ -13,8 +11,6 @@ import org.collectionspace.chain.csp.persistence.services.connection.ServicesCon
 import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
 import org.collectionspace.chain.csp.persistence.services.user.UserStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
-import org.collectionspace.chain.csp.persistence.services.vocab.ServicesVocabStorage;
-import org.collectionspace.chain.csp.schema.ControlledList;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSP;
