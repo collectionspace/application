@@ -1433,13 +1433,13 @@
                         <option id="Lady">Lady</option>
                     </options>
                 </field>
-                <field id="foreName">
+                <field id="foreName" mini="list,search,relate,terms">
                     <selector>.csc-personAuthority-foreName</selector>
                 </field>
                 <field id="middleName">
                     <selector>.csc-personAuthority-middleName</selector>
                 </field>
-                <field id="surName">
+                <field id="surName" mini="list,search,relate,terms">
                     <selector>.csc-personAuthority-surName</selector>
                 </field>
                 <field id="initials">
@@ -1510,6 +1510,43 @@
                 </field>
                 <field userecord="contact" exists-in-services="false"></field>
             </record>
+			<record id="location" type="authority,compute-displayname">
+                <web-url>location</web-url>
+                <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities-common-list/locationauthority-list-item</services-instances-path>
+                <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locations_common</services-single-instance-path>
+                <services-list-path>http://collectionspace.org/services/location,locations-common-list/location_list_item</services-list-path>
+                <services-record-path>locations_common:http://collectionspace.org/services/location,locations_common</services-record-path>
+                <services-url>locationauthorities</services-url>
+                <authority-vocab-type>LocationAuthority</authority-vocab-type>
+                <urn-syntax>urn:cspace:org.collectionspace.demo:locationauthority:{vocab}:location:{entry}'{display}'</urn-syntax>
+                <structures>
+                    <structure id="screen"></structure>
+                </structures>
+                <instances>
+                    <instance id="location-location">
+                        <web-url>location</web-url>
+                        <title-ref>location</title-ref>
+                        <title>Default Storage Location Authority</title>
+                    </instance>
+                </instances>
+                <field id="displayName" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
+                    <title-selector>.csc-titleBar-displayName</title-selector>
+                </field>
+                <field id="shortIdentifier"></field>
+				<field id="name" mini="summary,list,search,relate,terms"></field>
+                <field id="termStatus" xxx_ui_refactored="false">
+                    <options>
+                        <option id="provisional">Provisional</option>
+                        <option id="under review">Under Review</option>
+                        <option id="accepted">Accepted</option>
+                        <option id="rejected">Rejected</option>
+                    </options>
+                </field>
+				<field id="conditionNote"></field>
+				<field id="conditionNoteDate"></field>
+				<field id="securityNote"></field>
+				<field id="locationType"></field>
+			</record>
             <record id="organization" type="authority,compute-displayname">
                 <web-url>organization</web-url>
                 <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities-common-list/orgauthority-list-item</services-instances-path>
@@ -1543,7 +1580,7 @@
                         <option id="rejected">Rejected</option>
                     </options>
                 </field>
-                <field id="longName">
+                <field id="longName" mini="summary,list,search,relate,terms">
                     <selector>.csc-organizationAuthority-longName</selector>
                 </field>
                 <repeat id="subBodies">
