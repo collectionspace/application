@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 
 public class ServicesConnection {
 	private static final Logger log=LoggerFactory.getLogger(ServicesConnection.class);
+	private static final Logger perflog=LoggerFactory.getLogger("org.collectionspace.perflog");
 	private String base_url;
 	private MultiThreadedHttpConnectionManager manager;
 	
@@ -143,11 +144,30 @@ public class ServicesConnection {
 			HttpMethod method=createMethod(method_type,uri,body_data);
 			if(body_data!=null) {
 				method.setRequestHeader("Content-Type",src.getMIMEType());
+				// XXX Not sure if or when this ever actually writes to stderr?
 				body_data=new TeeInputStream(body_data,System.err);
 			}
 			try {
 				HttpClient client=makeClient(creds,cache);
+
+				String requestContext = null;
+				if(perflog.isDebugEnabled()) {
+					// TODO add more context, e.g. session id?
+					requestContext  = "HttpClient@" + Integer.toHexString(client.hashCode());
+					requestContext += "/CSPRequestCache@" + Integer.toHexString(cache.hashCode()) + ",";
+					String queryString = method.getQueryString();
+					perflog.debug("  app,svc," + requestContext
+							+ method.getName() + " " + method.getURI()
+							+ (queryString!=null ? queryString : "")
+									);
+				}
+
 				int response=client.executeMethod(method);
+
+				if(perflog.isDebugEnabled()) {
+					perflog.debug("  svc,app," + requestContext + "HttpClient.executeMethod done");
+				}
+
 				out.setResponse(method,response);
 			} catch(Exception e) {
 				throw new ConnectionException("Failure at "+base_url+" / "+uri+":"+e.getMessage(),e);
