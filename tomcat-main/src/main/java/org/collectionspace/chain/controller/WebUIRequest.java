@@ -26,6 +26,7 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
 import org.collectionspace.csp.api.ui.UIUmbrella;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -208,6 +209,15 @@ public class WebUIRequest implements UIRequest {
 	}
 
 	public void sendJSONResponse(JSONObject data) throws UIException {
+		try {
+			response.setContentType("text/json;charset=UTF-8");
+			out=response.getWriter();
+			out.print(data.toString());
+		} catch (IOException e) {
+			throw new UIException("Cannot send JSON to client",e);
+		}
+	}
+	public void sendJSONResponse(JSONArray data) throws UIException {
 		try {
 			response.setContentType("text/json;charset=UTF-8");
 			out=response.getWriter();

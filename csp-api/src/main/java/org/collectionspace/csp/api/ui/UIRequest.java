@@ -1,5 +1,6 @@
 package org.collectionspace.csp.api.ui;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public interface UIRequest {
@@ -9,6 +10,7 @@ public interface UIRequest {
 	
 	public TTYOutputter getTTYOutputter() throws UIException;
 	public void sendJSONResponse(JSONObject out) throws UIException;
+	public void sendJSONResponse(JSONArray out) throws UIException;
 
 	JSONObject getJSONBody() throws UIException;
 	JSONObject getPostBody() throws UIException;
@@ -28,4 +30,5 @@ public interface UIRequest {
 	public Operation getRequestedOperation() throws UIException;
 	
 	public UISession getSession() throws UIException;
+
 }

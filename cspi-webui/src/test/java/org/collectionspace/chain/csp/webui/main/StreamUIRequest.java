@@ -13,6 +13,7 @@ import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -126,6 +127,9 @@ public class StreamUIRequest implements UIRequest {
 	}
 
 	public void sendJSONResponse(JSONObject data) throws UIException {
+		println(out,data.toString());
+	}
+	public void sendJSONResponse(JSONArray data) throws UIException {
 		println(out,data.toString());
 	}
 
