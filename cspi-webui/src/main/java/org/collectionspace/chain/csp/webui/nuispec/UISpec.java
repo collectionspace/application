@@ -434,8 +434,14 @@ public class UISpec implements WebMethod {
 						out.put(r.getSelector(),row);
 					}
 					else{
-						JSONObject contents=generateRepeatEntry((Repeat)fs, affix);
-						out.put(r.getSelector(),contents);
+						JSONObject contents=generateRepeatEntry(r, affix);
+						String selector = r.getSelector();
+						if(((Repeat)fs).getChildren().length==1){
+							Field child = (Field)r.getChildren()[0];
+							selector = child.getSelector();
+						}
+						
+						out.put(selector,contents);
 					}
 				}
 			}
