@@ -1,6 +1,7 @@
 package org.collectionspace.chain.csp.persistence.services;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.HashMap;
@@ -79,6 +80,8 @@ public class TestDummyData extends ServicesBaseClass  {
 
 		String path3=relate(ss,obj1,obj2);
 		String path3a=relate(ss,obj2,obj1);
+		assertNotNull("relate one way", path3);
+		assertNotNull("relate second way", path3a);
 		return path3;
 	}
 	
