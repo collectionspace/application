@@ -1112,6 +1112,14 @@
                 <structures>
                     <structure id="screen"></structure>
                 </structures>
+				
+                <field id="ownersource" mini="summary,search,list,relate" exists-in-services="false">
+                    <selector>.csc-object-identification-object-nametitle</selector>
+                    <merges>
+                        <merge id="owner" rank="2" />
+                        <merge id="acquisitionSource" rank="1" />
+                    </merges>
+                </field>
                 <field id="accessionDate" ui-type="date" xxx_ui_refactored="false">
                     <selector>.csc-acquisition-accession-date</selector>
                 </field>
@@ -1157,7 +1165,7 @@
                 <field id="acquisitionReason">
                     <selector>.csc-acquisition-acquisition-reason</selector>
                 </field>
-                <field id="acquisitionReferenceNumber" in-title="yes" chooser="yes" mini="number" xxx_ui_refactored="false">
+                <field id="acquisitionReferenceNumber" in-title="yes" chooser="yes" mini="number,search,list,relate,terms" xxx_ui_refactored="false">
                     <selector>.csc-acquisition-numberPatternChooser-reference-number</selector>
                     <title-selector>.csc-titleBar-acquisition-reference-number</title-selector>
                     <container-selector>.csc-acquisition-reference-number-patternChooserContainer</container-selector>
@@ -1168,7 +1176,7 @@
                     </options>
                 </field>
                 <repeat id="acquisitionSources">
-                    <field id="acquisitionSource" autocomplete="person-person,organization-organization" mini="summary">
+                    <field id="acquisitionSource" autocomplete="person-person,organization-organization">
                         <selector>.csc-acquisition-acquisitionSource</selector>
                     </field>
                 </repeat>
