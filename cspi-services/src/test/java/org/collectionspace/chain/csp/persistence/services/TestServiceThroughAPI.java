@@ -152,7 +152,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		String p1=ss.autocreateJSON("intake/",getJSON("int4.json"));
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/view");
-		assertEquals("depositorX",mini.getString("summary"));
+		assertEquals("currentOwnerX",mini.getString("summary"));
 		assertEquals("entryNumberX",mini.getString("number"));	
 		ss.deleteJSON("intake/"+p1);
 		try {
