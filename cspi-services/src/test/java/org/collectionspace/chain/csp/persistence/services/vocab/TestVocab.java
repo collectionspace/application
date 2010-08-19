@@ -26,11 +26,16 @@ public class TestVocab extends ServicesBaseClass {
 	}
 	
 	@Test public void testAuthorities() throws Exception {
+		log.info("testAuthorities_start");
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		log.info("testAuthorities:person");
 		testAllAuthorities(ss,"/person/person","displayName");
+		log.info("testAuthorities:vocab");
 		testAllAuthorities(ss,"/vocab/xxx","displayName");
+		log.info("testAuthorities:organization");
 		testAllAuthorities(ss,"/organization/organization","displayName");
 		//testAllAuthorities(ss,"/place/place","displayName");
+		log.info("testAuthorities_finish");
 	}
 	
 	private void testAllAuthorities(Storage ss, String path, String testField) throws Exception {
