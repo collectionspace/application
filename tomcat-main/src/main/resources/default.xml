@@ -1900,7 +1900,7 @@
                     </structure>
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
-                <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number" xxx_ui_refactored="false">
+                <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number,search,list,relate,terms" xxx_ui_refactored="false">
                     <title-selector>.csc-titleBar-loanOutNumber</title-selector>
                     <selector>.csc-loanOut-loanOutNumber</selector>
                     <container-selector>.csc-loanOut-loanOutNumber-patternChooserContainer</container-selector>
