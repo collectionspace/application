@@ -920,7 +920,7 @@
                     </structure>
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
-                <field id="loanInNumber" in-title="yes" chooser="yes" mini="number" xxx_ui_refactored="false">
+                <field id="loanInNumber" in-title="yes" chooser="yes" mini="number,search,list,terms,relate" xxx_ui_refactored="false">
                     <title-selector>.csc-titleBar-loanInNumber</title-selector>
                     <selector>.csc-loanIn-loanInNumber</selector>
                     <container-selector>.csc-loanIn-loanInNumber-patternChooserContainer</container-selector>
@@ -930,7 +930,7 @@
                 </field>
                 <repeat id="lenders" asSibling="true" xxx-services-no-repeat="yes">
                     <selector>.csc-loanIn-lender-row:</selector>
-                    <field id="lender" autocomplete="person-person,organization-organization" in-title="yes" mini="summary">
+                    <field id="lender" autocomplete="person-person,organization-organization" in-title="yes" mini="summary,search,list">
                         <selector>.csc-loanIn-lender</selector>
                     </field>
                 </repeat>
