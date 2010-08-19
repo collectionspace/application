@@ -38,6 +38,7 @@ public class Record implements FieldParent {
 	private boolean is_multipart=false;
 	private boolean has_terms_used = false;
 	private boolean has_refobj_used = true;
+	private boolean has_delete_method = false;
 	private String services_search_keyword = "kw";
 	
 	/* Service stuff */
@@ -131,6 +132,7 @@ public class Record implements FieldParent {
 		services_single_instance_path=Util.getStringOrDefault(section,"/services-single-instance-path",
 				services_url+"_common:http://collectionspace.org/services/"+services_url+","+services_url+"-common");
 		primaryfield = Util.getStringOrDefault(section, "/primaryfield","");
+		has_delete_method = Util.getBooleanOrDefault(section, "/hasdeletemethod", false);
 		spec=parent;
 	}
 	
@@ -171,6 +173,7 @@ public class Record implements FieldParent {
 	public boolean isMultipart() { return is_multipart; }
 	public boolean hasTermsUsed() { return has_terms_used; }
 	public boolean hasRefObjUsed() { return has_refobj_used; }
+	public boolean hasDeleteMethod() { return has_delete_method; }
 
 	public String getServicesSearchKeyword(){ return services_search_keyword; }
 	public String getInTag() { return in_tag; }
