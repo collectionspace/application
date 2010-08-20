@@ -969,6 +969,7 @@
                 <field id="loanInContact" autocomplete="person-person">
                     <selector>.csc-loanIn-loanInContact</selector>
                 </field>
+				<field id="borrowersAuthorizer" autocomplete="person-person"></field>
                 <field id="loanInConditions">
                     <selector>.csc-loanIn-loanInConditions</selector>
                 </field>
