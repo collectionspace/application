@@ -25,6 +25,7 @@ public class Field implements FieldSet {
 	/* UI */
 	private String parentID,selector_affix,enum_blank,selector,type,autocomplete_selector,container_selector,title_selector,linktext_target,linktext,userecord;
 	private boolean is_expander=false,enum_hasblank=true, exists_in_service= true,in_title=false,display_name=false, has_container=true, xxx_ui_refactored = false ;
+	private boolean seperate_container = false,seperate_default=false;
 	private Stack<String> merged = new Stack<String>();
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
@@ -39,7 +40,7 @@ public class Field implements FieldSet {
 		autocomplete_instance_ids=Util.getSetOrDefault(section,"/@autocomplete",new String[]{""});
 		has_container = Util.getBooleanOrDefault(section, "/@container", false);
 		xxx_ui_refactored = Util.getBooleanOrDefault(section, "/@xxx_ui_refactored", true);
-
+		seperate_container = Util.getBooleanOrDefault(section,"/@seperate_ui_container", false);
 		selector=Util.getStringOrDefault(section,"/selector",".csc-"+parentID+"-"+id);
 		userecord = Util.getStringOrDefault(section, "/@userecord", "");
 
@@ -47,6 +48,10 @@ public class Field implements FieldSet {
 		linktext=Util.getStringOrDefault(section,"/linktext","${items.0.number}");
 		linktext_target=Util.getStringOrDefault(section,"/linktext-target","${items.0.recordtype}.html?csid=${items.0.csid}");
 		type=Util.getStringOrDefault(section,"/@ui-type","plain");
+		if(type.equals("date")){
+			seperate_default = true;
+		}
+		seperate_container = Util.getBooleanOrDefault(section,"/@seperate_ui_container", seperate_default);
 		autocomplete_selector=Util.getStringOrDefault(section,"/autocomplete-selector",selector+"-autocomplete");
 		container_selector=Util.getStringOrDefault(section,"/container-selector",selector+"-container");
 		title_selector=Util.getStringOrDefault(section,"/title-selector",selector+"-titlebar");
@@ -95,7 +100,7 @@ public class Field implements FieldSet {
 	public boolean hasContainer() {	return has_container;	}
 	public boolean isInServices() {	return exists_in_service;	}
 	public boolean isExpander() { return is_expander;}
-	public boolean isRefactored() { return xxx_ui_refactored; } //used until UI layer has moved all autocomplete to one container view
+	public boolean isRefactored() { return !seperate_container; } //used until UI layer has moved all autocomplete to one container view
 	public String getTitleSelector() { return title_selector; }
 	public String getServicesFilterParam() { return services_filter_param; }
 	public String getServicesTag() { return services_tag; }
