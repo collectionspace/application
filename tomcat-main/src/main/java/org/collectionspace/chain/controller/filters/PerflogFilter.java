@@ -32,7 +32,7 @@ public class PerflogFilter implements Filter {
 			String queryString = hreq.getQueryString();
 			perflog.debug("ui,app," + contextString
 					+ hreq.getMethod() + " " + hreq.getPathInfo()
-					+ "?" + (queryString!=null ? queryString : "")
+					+ (queryString!=null ? "?" + queryString : "")
 					+ " " + hreq.getContentLength());
 			filterChain.doFilter(req,resp);
 			perflog.debug("app,ui," + contextString + "FilterChain.doFilter done");
