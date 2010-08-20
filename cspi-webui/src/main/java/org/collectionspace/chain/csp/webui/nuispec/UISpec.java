@@ -236,7 +236,7 @@ public class UISpec implements WebMethod {
 	private JSONObject generateSelectionExpanderEntry(Field f, String affix) throws JSONException {
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.renderer.selection.inputs");
-		expander.put("rowID", f.getSelector()+"-row");
+		expander.put("rowID", f.getSelector()+"-row:");
 		expander.put("labelID", f.getSelector()+"-label");
 		expander.put("inputID", f.getSelector()+"-input");
 		expander.put("selectID", f.getID());
