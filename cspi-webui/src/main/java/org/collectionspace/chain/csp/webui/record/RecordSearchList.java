@@ -90,32 +90,13 @@ public class RecordSearchList implements WebMethod {
 	private JSONObject pathsToJSON(Storage storage,String base,String[] paths,String key, JSONObject pagination) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
-		/*
-		if(base.equals("permission")){
-			//get all permissions (argh pagination)
-			JSONObject restriction = new JSONObject();
-			JSONArray allpaths = getfullList(storage,restriction);
-
-			for(int i=0;i<allpaths.length();i++) {
-				members.put(generateEntry(storage,base,allpaths.getString(i)));
-			}
-			out.put(key,members);
-			JSONObject grouped = groupPermissions(members);
-			//check if we have all the permissions we need
-			checkPermissions(grouped, storage);
-			out.put("groupedPermissions", grouped);
-		}
-		else{
-		*/
-			for(String p : paths)
-				members.put(generateEntry(storage,base,p));
-			out.put(key,members);
-			/*
-		}
-		*/
-			if(pagination!=null){
+		for(String p : paths)
+			members.put(generateEntry(storage,base,p));
+		out.put(key,members);
+		
+		if(pagination!=null){
 			out.put("pagination",pagination);
-			}
+		}
 		return out;
 	}
 	
@@ -339,19 +320,9 @@ public class RecordSearchList implements WebMethod {
 			if(pageNum!=null) {
 				restriction.put("pageNum",pageNum);
 			}
-			JSONObject data = storage.getPathsJSON(base,restriction);
-			String[] paths = (String[]) data.get("listItems");
-			JSONObject pagination = new JSONObject();
-			if(data.has("pagination")){
-				pagination = data.getJSONObject("pagination");
-			}
 			
-			for(int i=0;i<paths.length;i++) {
-				if(paths[i].startsWith(base+"/"))
-					paths[i]=paths[i].substring((base+"/").length());
-			}
-			
-			ui.sendJSONResponse(pathsToJSON(storage,base,paths,key,pagination));
+			JSONObject returndata = getJSON(storage,restriction,key,base);
+			ui.sendJSONResponse(returndata);
 		} catch (JSONException e) {
 			throw new UIException("JSONException during autocompletion",e);
 		} catch (ExistException e) {
@@ -364,6 +335,25 @@ public class RecordSearchList implements WebMethod {
 	}
 	
 
+	/* Wrapper exists to be used inRead, hence not private */
+	JSONObject getJSON(Storage storage,JSONObject restriction, String key, String mybase) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException{
+		JSONObject out = new JSONObject();
+
+		JSONObject data = storage.getPathsJSON(mybase,restriction);
+		String[] paths = (String[]) data.get("listItems");
+		JSONObject pagination = new JSONObject();
+		if(data.has("pagination")){
+			pagination = data.getJSONObject("pagination");
+		}
+		
+		for(int i=0;i<paths.length;i++) {
+			if(paths[i].startsWith(mybase+"/"))
+				paths[i]=paths[i].substring((mybase+"/").length());
+		}
+		out = pathsToJSON(storage,mybase,paths,key,pagination);
+		return out;
+	}
+	
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
 		if(search)

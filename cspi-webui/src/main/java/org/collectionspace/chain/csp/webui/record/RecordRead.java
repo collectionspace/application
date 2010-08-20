@@ -26,13 +26,18 @@ public class RecordRead implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(RecordRead.class);
 	private String base;
 	private Record record;
+
+	private RecordSearchList searcher;
+	private Spec spec;
 	private boolean record_type;
 	private boolean authorization_type;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public RecordRead(Record r) { 
 		this.base=r.getID();
+		this.spec=r.getSpec();
 		this.record = r;
+		this.searcher = new RecordSearchList(r,false);
 		record_type=r.isType("record");
 		authorization_type=r.isType("authorizationdata");
 	}
@@ -120,25 +125,46 @@ public class RecordRead implements WebMethod {
 		return entry;
 	}
 	
-	private JSONArray getPermissions(Storage storage,JSONObject activePermissions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
-		JSONObject set = new JSONObject();
+	private JSONArray getPermissions(Storage storage,JSONObject activePermissions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException{
+		JSONArray set = new JSONArray();
+		JSONObject testset = new JSONObject();
 		//get all permissions
-		/*
-		String filePath = record.getSpec().getRecordByWebUrl("permission").getID()+"/";
-		JSONObject permissions = storage.retrieveJSON(filePath);
-		log.info("DEBUG"+filePath+permissions.toString() + activePermissions.toString());
-		*/
-		//mark active roles
-		
-		
-		
+		JSONObject permrestrictions = new JSONObject();
+		permrestrictions.put("queryTerm", "actGrp");
+		permrestrictions.put("queryString", "CRUDL");
+		String permbase = spec.getRecordByWebUrl("permission").getID();
+		JSONObject returndata = searcher.getJSON(storage,permrestrictions,"items",permbase);
+
 		//we are ignoring pagination so this will return the first 40 roles only
 		//UI doesn't know what it wants to do about pagination etc
+		
+		//mark active roles
 		if(activePermissions.has("permission"))
 		{
-			return activePermissions.getJSONArray("permission");
+			JSONArray active = activePermissions.getJSONArray("permission");
+			for(int j=0;j<active.length();j++){
+				testset.put(active.getJSONObject(j).getString("resourceName"),active.getJSONObject(j));
+			}
 		}
-		return null;
+		
+
+		//merge active and nonactive
+		JSONArray items = returndata.getJSONArray("items");
+		for(int i=0;i<items.length();i++){
+			JSONObject item = items.getJSONObject(i);
+			JSONObject permission = new JSONObject();
+			String resourcename = item.getString("summary");
+			permission.put("resourceName", resourcename);
+			String permlevel =  "none";
+			if(testset.has(resourcename)){
+				permlevel = testset.getJSONObject(resourcename).getString("permissionId");
+			}
+			permission.put("permission", permlevel);
+			set.put(permission);
+		}
+		
+		
+		return set;
 	}
 	
 	/* Wrapper exists to decomplexify exceptions: also used inCreateUpdate, hence not private */
@@ -156,9 +182,7 @@ public class RecordRead implements WebMethod {
 				if(authorization_type && base.equals("role")){
 					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permrole/1234");
 					JSONArray allperms = getPermissions(storage,permissions);
-					
 					fields.put("permission",allperms);
-					
 				}
 			} else {
 				out=storage.retrieveJSON(base+"/"+csid);

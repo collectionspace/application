@@ -114,7 +114,7 @@ public class RecordCreateUpdate implements WebMethod {
 
 		if(data.has("listItems")){
 			String[] paths = (String[]) data.get("listItems");
-			if(paths.length >=1){//if returns multiple just use teh first one
+			if(paths.length >=1){//if returns multiple just use the first one
 				permid = paths[0];
 			}
 			else{
