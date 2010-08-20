@@ -6,13 +6,13 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 public class Relation {
 
-	private String id,name,sample; 
+	private String id,name; 
 	private boolean directional = false;
 
 	private Set<String> source,destination;
 
-	Relation(String id,ReadOnlySection section) { 
-		this.id=id; 
+	Relation(Spec spec,ReadOnlySection section) { 
+		this.id=(String)section.getValue("/@id");
 		this.name=Util.getStringOrDefault(section,"/displayName",id);
 		this.directional=Util.getBooleanOrDefault(section,"/directional",true);
 		this.source=Util.getSetOrDefault(section,"/sourceTypes",new String[]{""});
@@ -27,15 +27,16 @@ public class Relation {
 	public String[] getAllSource(){
 		return source.toArray(new String[0]);
 	}
+	
 	public String[] getAllDestination(){
 		return destination.toArray(new String[0]);
 	}
 	
-	public Boolean isSourceType(String name){
+	public Boolean hasSourceType(String name){
 		return source.contains(name);
 	}
 	
-	public Boolean isDestinationType(String name){
+	public Boolean hasDestinationType(String name){
 		return destination.contains(name);
 	}
 	

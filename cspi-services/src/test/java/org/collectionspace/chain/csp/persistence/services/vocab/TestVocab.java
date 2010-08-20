@@ -40,6 +40,7 @@ public class TestVocab extends ServicesBaseClass {
 	
 	private void testAllAuthorities(Storage ss, String path, String testField) throws Exception {
 		// Create
+		log.info("testAuthorities_"+path+"_create");
 		JSONObject data=new JSONObject();
 		data.put("shortIdentifier","TEST");
 		data.put(testField,"TEST");
@@ -47,10 +48,12 @@ public class TestVocab extends ServicesBaseClass {
 		data.put("termStatus","Provisional");
 		String id=ss.autocreateJSON(path,data);
 		// Read
+		log.info("testAuthorities_"+path+"_read");
 		JSONObject out=ss.retrieveJSON(path+"/"+id);
 		assertEquals("TEST",out.getString(testField));
 		assertEquals("Provisional",out.getString("termStatus"));
 		// Update
+		log.info("testAuthorities_"+path+"_update");
 		data.remove(testField);
 		data.put(testField,"TEST2");
 		data.put("termStatus","Provisional2");
@@ -60,6 +63,7 @@ public class TestVocab extends ServicesBaseClass {
 		assertEquals("Provisional2",out.getString("termStatus"));
 		String id3=out.getString("csid");
 		// List
+		log.info("testAuthorities_"+path+"_list");
 		data.remove(testField);
 		data.put(testField,"TEST3");
 		String id2=ss.autocreateJSON(path,data);
@@ -73,6 +77,7 @@ public class TestVocab extends ServicesBaseClass {
 		int check = 0;
 		String checkpagination = "";
 		while(resultsize >0){
+			log.info("testAuthorities_"+path+"_page: "+check);
 			myjs.put("pageNum", check);
 			check++;
 			JSONObject items = ss.getPathsJSON(path,myjs);
@@ -102,6 +107,7 @@ public class TestVocab extends ServicesBaseClass {
 		assertTrue(found1);
 		assertTrue(found2);
 		// Delete
+		log.info("testAuthorities_"+path+"_delete");
 		ss.deleteJSON(path + "/" + id2);
 		ss.deleteJSON(path + "/" + id3);
 		try {

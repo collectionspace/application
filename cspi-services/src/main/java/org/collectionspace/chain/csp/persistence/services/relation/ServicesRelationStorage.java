@@ -50,18 +50,20 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	private Map<String,String> type_to_surl=new HashMap<String,String>();
 	private Map<String,String> surl_to_type=new HashMap<String,String>();
 
-	private static Set<String> types=new HashSet<String>();
+	private static Map<String,org.collectionspace.chain.csp.schema.Relation> types=new HashMap<String,org.collectionspace.chain.csp.schema.Relation>();
 	
 	static {
 		//needs to be set thr CSPACE-2557
-		types.add("affects");
-		types.add("new"); // XXX Only one type is bad for testing. remove when there's a second real one
+	//	types.add("affects");
+	//	types.add("new"); // XXX Only one type is bad for testing. remove when there's a second real one
 	}
 	
 	public ServicesRelationStorage(ServicesConnection conn,Spec spec) throws JaxenException, InvalidXTmplException, DocumentException, IOException {
 		this.conn=conn;
 		this.spec = spec;
-		
+		for(org.collectionspace.chain.csp.schema.Relation rel : spec.getAllRelations()){
+			types.put(rel.getID(),rel);
+		}
 
 		for(Record r : spec.getAllRecords()) {
 			type_to_surl.put(r.getID(),r.getServicesURL());
@@ -91,8 +93,18 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			dst[0] = type_to_surl.get(dst[0]);
 		}
 		String type=data.getString("type");
-		if(!types.contains(type))
+		if(types.containsKey(type)){
+			org.collectionspace.chain.csp.schema.Relation rel = types.get(type);
+			if(!rel.hasDestinationType(dst[0]) && !rel.hasDestinationType("all") ){
+				throw new UnderlyingStorageException("type "+type+" is undefined for destination:"+dst[0]);
+			}
+			if(!rel.hasSourceType("all") && !rel.hasSourceType(src[0]) ){
+				throw new UnderlyingStorageException("type "+type+" is undefined for source: "+src[0]);
+			}
+		}
+		else{
 			throw new UnderlyingStorageException("type "+type+" is undefined");
+		}
 		return factory.create(id,src[0],src[1],type,dst[0],dst[1]);
 	}
 

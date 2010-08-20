@@ -588,7 +588,7 @@ public class TestRelationsThroughWebapp {
 		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path2[1],path2[2],"affects",path3[1],path3[2],true).toString());
 		assertEquals(201,out.getStatus());	
 		String csid2=new JSONObject(out.getContent()).getString("csid");
-		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path3[1],path3[2],"new",path1[1],path1[2],true).toString());
+		out=jettyDo(jetty,"POST","/chain/relationships/",createRelation(path3[1],path3[2],"broader",path1[1],path1[2],true).toString());
 		assertEquals(201,out.getStatus());	
 		String csid3=new JSONObject(out.getContent()).getString("csid");
 		// Total length should be 3
@@ -628,7 +628,7 @@ public class TestRelationsThroughWebapp {
 		assertEquals(200,out.getStatus());
 		items=new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(2,items.length());
-		out=jettyDo(jetty,"GET","/chain/relationships/search?type=new",null);
+		out=jettyDo(jetty,"GET","/chain/relationships/search?type=broader",null);
 		assertEquals(200,out.getStatus());
 		items=new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(1,items.length());	

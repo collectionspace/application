@@ -47,14 +47,14 @@
     		<relation id="broader">
     			<displayName>has broader term</displayName>
     			<directional>true</directional>
-				<sourceTypes>objects,intake,acquisition</sourceTypes>
-				<destinationTypes>intake,acquisition</destinationTypes>
+				<sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout</sourceTypes>
+				<destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout</destinationTypes>
     		</relation>
     		<relation id="affects">
     			<displayName>affects</displayName>
     			<directional>false</directional>
-				<sourceTypes>objects,intake,acquisition,loanin,loanout</sourceTypes>
-				<destinationTypes>objects,intake,acquisition,loanin,loanout</destinationTypes>
+				<sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout</sourceTypes>
+				<destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout</destinationTypes>
     		</relation>
     	</relationships>
         <records>

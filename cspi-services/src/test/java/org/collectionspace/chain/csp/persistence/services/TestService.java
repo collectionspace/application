@@ -53,7 +53,7 @@ public class TestService extends ServicesBaseClass {
 		
 		assertNotNull(stream);
 		String data=IOUtils.toString(stream,"UTF-8");
-		stream.close();		
+		stream.close();	
 		return new JSONObject(data);
 	}
 	

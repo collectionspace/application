@@ -28,7 +28,7 @@ public class Spec implements CSP, Configurable {
 	private static final String required_version="10";
 
 	private Map<String,Record> records=new HashMap<String,Record>();
-	private Map<String,ControlledList> controlledlists=new HashMap<String,ControlledList>();
+	private Map<String,Relation> relationships=new HashMap<String,Relation>();
 	
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
@@ -76,6 +76,18 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 
+		/* SPEC/relationships -> RELATIONSHIPS */
+		rules.addRule(SECTION_PREFIX+"spec",new String[]{"relationships"},SECTION_PREFIX+"relationships",null,null);
+		/* RELATIONSHIPS/relation -> RELATION(@id) */
+		rules.addRule(SECTION_PREFIX+"relationships",new String[]{"relation"},SECTION_PREFIX+"relation",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Relation r=new Relation(Spec.this,section);
+				relationships.put(r.getID(),r);
+				return r;
+			}
+		});
+		
+		
 		/* SPEC/records -> RECORDS */
 		rules.addRule(SECTION_PREFIX+"spec",new String[]{"records"},SECTION_PREFIX+"records",null,null);
 		/* RECORDS/record -> RECORD(@id) */
@@ -270,6 +282,11 @@ public class Spec implements CSP, Configurable {
 
 	public EmailData getEmailData() { return ed.getEmailData(); }
 	public AdminData getAdminData() { return adminData.getAdminData(); }
+	
+	public Boolean hasRelationship(String id){ if(relationships.containsKey(id)){return true;} else return false;}
+	public Relation getRelation(String id) { return relationships.get(id); }
+	public Relation[] getAllRelations(){ return relationships.values().toArray(new Relation[0]); }
+	
 	public Boolean hasRecord(String id){ if(records.containsKey(id)){return true;} else return false;}
 	public Boolean hasRecordByServicesUrl(String url){ if(records_by_services_url.containsKey(url)){return true;} else return false;}
 	public Boolean hasRecordByWebUrl(String url){ if(records_by_web_url.containsKey(url)){return true;} else return false;}
@@ -277,8 +294,7 @@ public class Spec implements CSP, Configurable {
 	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
 	public Record getRecordByServicesUrl(String url) { return records_by_services_url.get(url); }
 	public Record[] getAllRecords() { return records.values().toArray(new Record[0]); }
-	public ControlledList[] getAllControlledLists() { return controlledlists.values().toArray(new ControlledList[0]); }
-
+	
 	public void addInstance(Instance n) {
 		instances.put(n.getID(),n);
 	}
