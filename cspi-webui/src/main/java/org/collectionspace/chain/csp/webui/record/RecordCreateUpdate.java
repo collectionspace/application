@@ -151,8 +151,8 @@ public class RecordCreateUpdate implements WebMethod {
 		JSONObject fields=data.optJSONObject("fields");
 		
 		JSONArray permdata = new JSONArray();
-		if(fields.has("permission")){
-			JSONArray permissions = fields.getJSONArray("permission");
+		if(fields.has("permissions")){
+			JSONArray permissions = fields.getJSONArray("permissions");
 			for(int i=0;i<permissions.length();i++){
 				JSONObject perm = permissions.getJSONObject(i);
 				JSONObject permitem = getPerm(storage,perm.getString("recordType"),perm.getString("permission"));

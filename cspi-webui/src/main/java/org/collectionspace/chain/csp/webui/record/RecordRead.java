@@ -139,9 +139,9 @@ public class RecordRead implements WebMethod {
 		//UI doesn't know what it wants to do about pagination etc
 		
 		//mark active roles
-		if(activePermissions.has("permission"))
+		if(activePermissions.has("permissions"))
 		{
-			JSONArray active = activePermissions.getJSONArray("permission");
+			JSONArray active = activePermissions.getJSONArray("permissions");
 			for(int j=0;j<active.length();j++){
 				testset.put(active.getJSONObject(j).getString("resourceName"),active.getJSONObject(j));
 			}
@@ -182,7 +182,7 @@ public class RecordRead implements WebMethod {
 				if(authorization_type && base.equals("role")){
 					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permrole/1234");
 					JSONArray allperms = getPermissions(storage,permissions);
-					fields.put("permission",allperms);
+					fields.put("permissions",allperms);
 				}
 			} else {
 				out=storage.retrieveJSON(base+"/"+csid);
