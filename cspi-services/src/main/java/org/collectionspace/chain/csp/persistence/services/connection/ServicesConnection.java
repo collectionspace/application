@@ -155,10 +155,10 @@ public class ServicesConnection {
 					// TODO add more context, e.g. session id?
 					requestContext  = "HttpClient@" + Integer.toHexString(client.hashCode());
 					requestContext += "/CSPRequestCache@" + Integer.toHexString(cache.hashCode()) + ",";
-					String queryString = method.getQueryString();
+					//String queryString = method.getQueryString();
 					perflog.debug("  app,svc," + requestContext
 							+ method.getName() + " " + method.getURI()
-							+ (queryString!=null ? queryString : "")
+							//+ (queryString!=null ? queryString : "")
 									);
 				}
 
