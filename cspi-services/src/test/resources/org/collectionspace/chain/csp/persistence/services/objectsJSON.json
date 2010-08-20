@@ -55,7 +55,11 @@
     "ownershipExchangePriceValue": "",
     "ownersContributionNote": "",
     "objectProductionPeople": "",
-    "contentPosition": "contentPosition",
+    "contentPositions": [
+	{"_primary":true,
+        "contentPosition": "contentPosition"
+		}
+		],
     "contentEventName": "contentEventName",
     "dimensionMeasurementUnit": "",
     "contentLanguages": [{"_primary":true,

@@ -101,7 +101,7 @@
     <contentPlace>contentPlace 2</contentPlace>
     <contentPlace>contentPlace 3</contentPlace>
 </contentPlaces>
-<contentPosition>contentPosition</contentPosition>
+<contentPositions><contentPosition>contentPosition</contentPosition></contentPositions>
 <contentScripts>
     <contentScript>contentScript 1</contentScript> 
     <contentScript>contentScript 2</contentScript> 
