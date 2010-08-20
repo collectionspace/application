@@ -35,6 +35,14 @@
         </service>
     </persistence>
     <ui>
+        <web>
+            <login-dest>/cspace-ui/html/findedit.html</login-dest>
+            <login-failed-dest>/cspace-ui/html/index.html</login-failed-dest>
+            <front-page>/cspace-ui/html/</front-page>
+            <tmp-schema-path />
+        </web>
+    </ui>
+    <spec>
     	<relationships>
     		<relation id="broader">
     			<displayName>has broader term</displayName>
@@ -49,14 +57,6 @@
 				<destinationTypes>objects,intake,acquisition,loanin,loanout</destinationTypes>
     		</relation>
     	</relationships>
-        <web>
-            <login-dest>/cspace-ui/html/findedit.html</login-dest>
-            <login-failed-dest>/cspace-ui/html/index.html</login-failed-dest>
-            <front-page>/cspace-ui/html/</front-page>
-            <tmp-schema-path />
-        </web>
-    </ui>
-    <spec>
         <records>
             <record id="collection-object" in-findedit="yes">
                 <services-url>collectionobjects</services-url>
@@ -108,6 +108,12 @@
                 </field>
                 <field id="titleTranslation">
                     <selector>.csc-object-identification-object-title-translation</selector>
+                </field>
+                <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
+                    <enum>
+                        <default>English</default>
+                        <blank-value>Please select a value</blank-value>
+                    </enum>
                 </field>
                 <field id="titleType" xxx_ui_refactored="false">
                     <selector>.csc-object-identification-object-title-type</selector>
@@ -323,6 +329,7 @@
                         <option id="rpm">rpm</option>
                     </options>
                 </field>
+				<field id="dimensionSummary"></field>
 				<repeat id="dimensionGroups/dimensions">
 					<field id="dimension" xxx_ui_refactored="false">
                     <selector>.csc-object-description-dimension</selector>
@@ -396,6 +403,7 @@
                         <selector>.csc-object-description-content-language</selector>
                     </field>
                 </repeat>
+				<repeat id="contentPositions">
                 <field id="contentPosition" xxx_ui_refactored="false">
                     <selector>.csc-object-description-content-position</selector>
                     <options>
@@ -413,6 +421,7 @@
                         <option id="verso">verso</option>
                     </options>
                 </field>
+				</repeat>
                 <field id="contentObject">
                     <selector>.csc-object-description-content-object</selector>
                 </field>
@@ -604,6 +613,11 @@
                         <option id="temporary">Temporary</option>
                     </options>
                 </field>
+				<repeat id="objectProductionDates">
+                <field id="objectProductionDate" ui-type="date" xxx_ui_refactored="false">
+                    <selector>.csc-object-production-date</selector>
+                </field>
+				</repeat>
                 <field id="objectProductionNote">
                     <selector>.csc-object-production-note</selector>
                 </field>
@@ -623,15 +637,27 @@
                 <field id="objectProductionPlace" autocomplete="place-place" xxx_ui_refactored="false">
                     <selector>.csc-object-production-place</selector>
                 </field>
+				<repeat id="objectProductionReasons">
                 <field id="objectProductionReason">
                     <selector>.csc-object-production-reason</selector>
                 </field>
+				</repeat>
                 <field id="technique">
                     <selector>.csc-object-production-technique</selector>
                 </field>
                 <field id="techniqueType">
                     <selector>.csc-object-production-technique-type</selector>
                 </field>
+				
+                <field id="assocConceptNote"></field>
+                <field id="assocCulturalContextNote"></field>
+				<field id="assocDateNote"></field>
+                <field id="assocEventNote"></field>
+                <field id="assocOrganizationNote"></field>
+                <field id="assocPeopleNote"></field>
+                <field id="assocPersonNote"></field>
+                <field id="assocPlaceNote"></field>
+				
                 <field id="assocActivity">
                     <selector>.csc-object-history-association-activity</selector>
                 </field>
@@ -706,12 +732,6 @@
                 <field id="ownershipDates" ui-type="date" xxx_ui_refactored="false">
                     <selector>.csc-object-history-association-dates</selector>
                 </field>
-                <field id="associationNote">
-                    <selector>.csc-object-history-association-note</selector>
-                </field>
-                <field id="associationType">
-                    <selector>csc-object-history-association-type</selector>
-                </field>
                 <repeat id="owners">
                     <field id="owner" autocomplete="person-person,organization-organization" xxx_ui_refactored="false">
                         <selector>.csc-object-history-association-owner</selector>
@@ -771,9 +791,11 @@
                 <field id="ownersPersonalResponse">
                     <selector>.csc-object-owner-response</selector>
                 </field>
+                <repeat id="ownersReferences">
                 <field id="ownersReference">
                     <selector>.csc-object-owner-reference</selector>
                 </field>
+				</repeat>
                 <field id="ownersContributionNote">
                     <selector>.csc-object-owner-contribution-note</selector>
                 </field>
@@ -786,9 +808,11 @@
                 <field id="viewersPersonalResponse">
                     <selector>.csc-object-viewer-response</selector>
                 </field>
+				<repeat id="viewersReferences">
                 <field id="viewersReference">
                     <selector>.csc-object-viewer-reference</selector>
                 </field>
+				</repeat>
                 <field id="viewersContributionNote">
                     <selector>.csc-object-viewer-contribution-note</selector>
                 </field>
@@ -852,12 +876,11 @@
                 <field id="material">
                     <selector>.csc-object-description-material</selector>
                 </field>
-                <field id="objectProductionDate" ui-type="date" xxx_ui_refactored="false">
-                    <selector>.csc-object-production-date</selector>
-                </field>
+                <repeat id="references">
                 <field id="reference">
                     <selector>.csc-reference-reference</selector>
                 </field>
+				</repeat>
                 <field id="fieldCollectionDate"></field>
                 <field id="fieldCollectionNote"></field>
                 <field id="fieldCollectionNumber"></field>
