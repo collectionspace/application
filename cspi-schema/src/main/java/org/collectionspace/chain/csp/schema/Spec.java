@@ -28,7 +28,7 @@ public class Spec implements CSP, Configurable {
 	private static final String required_version="10";
 
 	private Map<String,Record> records=new HashMap<String,Record>();
-	private Map<String,Relation> relationships=new HashMap<String,Relation>();
+	private Map<String,Relationship> relationships=new HashMap<String,Relationship>();
 	
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
@@ -81,7 +81,7 @@ public class Spec implements CSP, Configurable {
 		/* RELATIONSHIPS/relation -> RELATION(@id) */
 		rules.addRule(SECTION_PREFIX+"relationships",new String[]{"relation"},SECTION_PREFIX+"relation",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
-				Relation r=new Relation(Spec.this,section);
+				Relationship r=new Relationship(Spec.this,section);
 				relationships.put(r.getID(),r);
 				return r;
 			}
@@ -284,8 +284,8 @@ public class Spec implements CSP, Configurable {
 	public AdminData getAdminData() { return adminData.getAdminData(); }
 	
 	public Boolean hasRelationship(String id){ if(relationships.containsKey(id)){return true;} else return false;}
-	public Relation getRelation(String id) { return relationships.get(id); }
-	public Relation[] getAllRelations(){ return relationships.values().toArray(new Relation[0]); }
+	public Relationship getRelation(String id) { return relationships.get(id); }
+	public Relationship[] getAllRelations(){ return relationships.values().toArray(new Relationship[0]); }
 	
 	public Boolean hasRecord(String id){ if(records.containsKey(id)){return true;} else return false;}
 	public Boolean hasRecordByServicesUrl(String url){ if(records_by_services_url.containsKey(url)){return true;} else return false;}

@@ -15,6 +15,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMul
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.xtmpl.InvalidXTmplException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -50,7 +51,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	private Map<String,String> type_to_surl=new HashMap<String,String>();
 	private Map<String,String> surl_to_type=new HashMap<String,String>();
 
-	private static Map<String,org.collectionspace.chain.csp.schema.Relation> types=new HashMap<String,org.collectionspace.chain.csp.schema.Relation>();
+	private static Map<String,Relationship> types=new HashMap<String,Relationship>();
 	
 	static {
 		//needs to be set thr CSPACE-2557
@@ -61,7 +62,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	public ServicesRelationStorage(ServicesConnection conn,Spec spec) throws JaxenException, InvalidXTmplException, DocumentException, IOException {
 		this.conn=conn;
 		this.spec = spec;
-		for(org.collectionspace.chain.csp.schema.Relation rel : spec.getAllRelations()){
+		for(Relationship rel : spec.getAllRelations()){
 			types.put(rel.getID(),rel);
 		}
 
@@ -94,7 +95,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		}
 		String type=data.getString("type");
 		if(types.containsKey(type)){
-			org.collectionspace.chain.csp.schema.Relation rel = types.get(type);
+			Relationship rel = types.get(type);
 			if(!rel.hasDestinationType(dst[0]) && !rel.hasDestinationType("all") ){
 				throw new UnderlyingStorageException("type "+type+" is undefined for destination:"+dst[0]);
 			}
