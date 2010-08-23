@@ -152,11 +152,10 @@ public class RecordRead implements WebMethod {
 
 		//we are ignoring pagination so this will return the first 40 roles only
 		//UI doesn't know what it wants to do about pagination etc
-		log.info("AAAAAAAAAA"+activePermissions.toString());
 		//mark active roles
-		if(activePermissions.has("permissions"))
+		if(activePermissions.has("permission"))
 		{
-			JSONArray active = activePermissions.getJSONArray("permissions");
+			JSONArray active = activePermissions.getJSONArray("permission");
 			for(int j=0;j<active.length();j++){
 				log.info(active.getJSONObject(j).getString("resourceName"));
 				testset.put(active.getJSONObject(j).getString("resourceName"),active.getJSONObject(j));
@@ -172,10 +171,8 @@ public class RecordRead implements WebMethod {
 			String resourcename = item.getString("summary");
 			permission.put("resourceName", resourcename);
 			String permlevel =  "none";
-			log.info(resourcename);
 			if(testset.has(resourcename)){
 				permlevel = convertPermissionLevel(testset.getJSONObject(resourcename).getString("actionGroup"));
-				log.info("WWWWWWWWWWWWWWWWWWWWWW"+permlevel +testset.getJSONObject(resourcename).toString() );
 			}
 			permission.put("permission", permlevel);
 			set.put(permission);
@@ -197,9 +194,7 @@ public class RecordRead implements WebMethod {
 				out.put("fields",fields);
 				out.put("relations",relations);
 				out.put("termsUsed",getTermsUsed(storage,base+"/"+csid));
-				log.info("EEEEEEEEEEEE");
 				if(authorization_type && base.equals("role")){
-					log.info("WWWWEEEEEWWWWWWW");
 					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permrole/1234");
 					JSONArray allperms = getPermissions(storage,permissions);
 					fields.put("permissions",allperms);
