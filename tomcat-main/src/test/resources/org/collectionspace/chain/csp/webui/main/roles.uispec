@@ -1,32 +1,39 @@
 {
-    "details": {
-        ".csc-role-name": "${fields.roleName}",
-        ".csc-role-group": "${fields.roleGroup}",
-        ".csc-role-description": "${fields.description}",
-        ".csc-permrole-role": {
-            ".csc-permrole-roleId": "${fields.role.0.roleId}",
-            ".csc-permrole-roleName": "${fields.role.0.roleName}"
-        },
-        ".csc-permrole-permission": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.permission",
-                    "protoTree": {
-                        ".csc-permrole-permissionId": "${fields.permission.0.permissionId}",
-                        ".csc-permrole-resourceName": "${fields.permission.0.resourceName}"
-                    }
-                }
-            }]
-        }
-    },
     "list": {
         ".csc-recordList-row:": {
-            "children": [{
-                ".csc-user-roleList-name": "${items.0.number}",
-                ".csc-user-userList-csid": "${items.0.csid}"
-            }]
+            "children": [
+                {
+                    ".csc-role-roleList-name": "${items.0.number}",
+                    ".csc-role-roleList-csid": "${items.0.csid}"
+                }
+            ]
+        }
+    },
+    "details": {
+        ".csc-role-group": "${fields.groupName}",
+        ".csc-role-name": "${fields.roleName}",
+        ".csc-role-description": "${fields.description}",
+        "expander": {
+            "type": "fluid.renderer.repeat",
+            "controlledBy": "fields.permissions",
+            "pathAs": "row",
+            "repeatID": ".csc-permissions-record-row:",
+            "tree": {
+                ".csc-permissions-record-type": "${{row}.recordType}",
+                "expander": {
+                    "type": "fluid.renderer.selection.inputs",
+                    "rowID": ".csc-permissions-radio:",
+                    "labelID": ".csc-permissions-record-permission-label",
+                    "inputID": ".csc-permissions-record-permission",
+                    "selectID": "permissions-select",
+                    "tree": {
+                        "selection": "${{row}.permission}",
+                        "optionlist": ["none", "read", "write", "delete"],
+                        "optionnames": ["none", "read", "write", "delete"],
+                        "default": "write"
+                    }
+                }
+            }
         }
     }
 }
