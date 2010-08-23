@@ -108,6 +108,7 @@ public class Repeat implements FieldSet, FieldParent {
 	void addChild(FieldSet f) { children.add(f); }
 	public FieldSet[] getChildren() { return children.toArray(new FieldSet[0]); }
 
+	public FieldParent getParent() {return this.parent;}
 	public Record getRecord() { return parent.getRecord(); }
 	public String getSelector() { return selector; }
 	public String getServicesTag() { return services_tag; }

@@ -109,6 +109,12 @@ public class Structure  implements FieldParent  {
 
 
 	public void config_finish(Spec spec) {}
+
+	@Override
+	public boolean isExpander() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }

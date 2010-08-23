@@ -46,6 +46,10 @@ public class UISpec implements WebMethod {
 
 	// XXX make common
 	static String plain(Field f) {
+		if(f.getParent().isExpander()){
+			return radio(f);
+		}
+
 		List<String> path=new ArrayList<String>();
 		String pad="fields";
 		for(String part : f.getIDPath()) {
@@ -53,6 +57,16 @@ public class UISpec implements WebMethod {
 			pad="0";
 			path.add(part);
 		}
+		return "${"+StringUtils.join(path,'.')+"}";		
+	}
+	// XXX make common
+	static String radio(Field f) {
+		List<String> path=new ArrayList<String>();
+		String pad="{row}";
+		path.add(pad);
+		
+		String[] paths = f.getIDPath();
+		path.add(paths[paths.length - 1]);
 		return "${"+StringUtils.join(path,'.')+"}";		
 	}
 	// XXX make common
@@ -79,7 +93,12 @@ public class UISpec implements WebMethod {
 	private JSONObject generateOptionField(Field f) throws JSONException {
 		// Dropdown entry
 		JSONObject out=new JSONObject();
-		out.put("selection",plain(f));
+		if("radio".equals(f.getUIType())) {
+			out.put("selection",radio(f));
+		}
+		else{
+			out.put("selection",plain(f));
+		}
 		JSONArray ids=new JSONArray();
 		JSONArray names=new JSONArray();
 		int idx=0,dfault=-1;

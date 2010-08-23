@@ -145,6 +145,7 @@ public class Field implements FieldSet {
 	public Option getOption(String id) { return options.get(id); }
 	public Option[] getAllOptions() { return options_list.toArray(new Option[0]); }
 
+	public FieldParent getParent() {return this.parent;}
 	public Record getRecord() { return parent.getRecord(); }
 
 	public String[] getIDPath() { 

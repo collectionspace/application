@@ -280,4 +280,10 @@ public class Record implements FieldParent {
 		for(FieldSet fs : fields.values())
 			fs.config_finish(spec);
 	}
+
+	@Override
+	public boolean isExpander() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
