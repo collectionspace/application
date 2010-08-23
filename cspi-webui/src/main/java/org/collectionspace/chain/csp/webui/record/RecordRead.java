@@ -125,6 +125,21 @@ public class RecordRead implements WebMethod {
 		return entry;
 	}
 	
+	private String convertPermissionLevel(String actGrp){
+		String level = "none";
+		if(actGrp.equals("CRUDL")){
+			level="delete";
+		}
+		else if(actGrp.equals("CRUL")){
+			level="write";
+		}
+		else if(actGrp.equals("RL")){
+			level="read";
+		}
+		
+		return level;
+	}
+	
 	private JSONArray getPermissions(Storage storage,JSONObject activePermissions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException{
 		JSONArray set = new JSONArray();
 		JSONObject testset = new JSONObject();
@@ -137,12 +152,13 @@ public class RecordRead implements WebMethod {
 
 		//we are ignoring pagination so this will return the first 40 roles only
 		//UI doesn't know what it wants to do about pagination etc
-		
+		log.info("AAAAAAAAAA"+activePermissions.toString());
 		//mark active roles
 		if(activePermissions.has("permissions"))
 		{
 			JSONArray active = activePermissions.getJSONArray("permissions");
 			for(int j=0;j<active.length();j++){
+				log.info(active.getJSONObject(j).getString("resourceName"));
 				testset.put(active.getJSONObject(j).getString("resourceName"),active.getJSONObject(j));
 			}
 		}
@@ -156,8 +172,10 @@ public class RecordRead implements WebMethod {
 			String resourcename = item.getString("summary");
 			permission.put("resourceName", resourcename);
 			String permlevel =  "none";
+			log.info(resourcename);
 			if(testset.has(resourcename)){
-				permlevel = testset.getJSONObject(resourcename).getString("permissionId");
+				permlevel = convertPermissionLevel(testset.getJSONObject(resourcename).getString("actionGroup"));
+				log.info("WWWWWWWWWWWWWWWWWWWWWW"+permlevel +testset.getJSONObject(resourcename).toString() );
 			}
 			permission.put("permission", permlevel);
 			set.put(permission);
@@ -179,7 +197,9 @@ public class RecordRead implements WebMethod {
 				out.put("fields",fields);
 				out.put("relations",relations);
 				out.put("termsUsed",getTermsUsed(storage,base+"/"+csid));
+				log.info("EEEEEEEEEEEE");
 				if(authorization_type && base.equals("role")){
+					log.info("WWWWEEEEEWWWWWWW");
 					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permrole/1234");
 					JSONArray allperms = getPermissions(storage,permissions);
 					fields.put("permissions",allperms);
