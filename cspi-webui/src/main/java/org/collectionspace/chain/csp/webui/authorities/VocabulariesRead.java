@@ -172,6 +172,7 @@ public class VocabulariesRead implements WebMethod {
 			csid = fields.getString("csid");
 			//fields.put("csid",csid);
 			//JSONObject relations=createRelations(storage,csid);
+			out.put("csid",csid);
 			out.put("fields",fields);
 			out.put("relations",new JSONArray());
 			//out.put("relations",relations);
@@ -195,11 +196,7 @@ public class VocabulariesRead implements WebMethod {
 	private void store_get(Storage storage,UIRequest request,String path) throws UIException {
 		// Get the data
 		JSONObject outputJSON = getJSON(storage,path);
-		try {
-			outputJSON.put("csid",path);
-		} catch (JSONException e1) {
-			throw new UIException("Cannot add csid",e1);
-		}
+	
 		// Write the requested JSON out
 		request.sendJSONResponse(outputJSON);
 	}
