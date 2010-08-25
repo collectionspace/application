@@ -516,9 +516,14 @@ public class UISpec implements WebMethod {
 					else{
 						JSONObject contents=generateRepeatEntry(r, affix);
 						String selector = r.getSelector();
-						if(((Repeat)fs).getChildren().length==1){
+						//CSPACE-2619 scalar repeatables are different from group repeats
+						if(r.getChildren().length==1){
 							Field child = (Field)r.getChildren()[0];
 							selector = child.getSelector();
+							//XXX CSPACE-2706 hack
+							if(child.getUIType().equals("date")){
+								selector = r.getSelector();
+							}
 						}
 						if(fs.isExpander()){
 							selector="expander";
