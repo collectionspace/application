@@ -676,28 +676,28 @@
                 <field id="assocObjectType"></field>
                 <repeat id="assocConcepts">
                     <field id="assocConcept"></field>
-                    <field id="assocConceptNote"></field>
                 </repeat>
+                    <field id="assocConceptNote"></field>
                 <repeat id="assocCulturalContexts">
                     <field id="assocCulturalContext"></field>
-                    <field id="assocCulturalContextNote"></field>
                 </repeat>
+                    <field id="assocCulturalContextNote"></field>
                 <repeat id="assocOrganizations">
                     <field id="assocOrganization" autocomplete="organization-organization"></field>
-                    <field id="assocOrganizationNote"></field>
                 </repeat>
+                    <field id="assocOrganizationNote"></field>
                 <repeat id="assocPeoples">
                     <field id="assocPeople" autocomplete="person-person"></field>
-                    <field id="assocPeopleNote"></field>
                 </repeat>
+                    <field id="assocPeopleNote"></field>
                 <repeat id="assocPersons">
                     <field id="assocPerson" autocomplete="person-person"></field>
-                    <field id="assocPersonNote"></field>
                 </repeat>
+                    <field id="assocPersonNote"></field>
                 <repeat id="assocPlaces">
                     <field id="assocPlace" autocomplete="place-place"></field>
-                    <field id="assocPlaceNote"></field>
                 </repeat>
+                    <field id="assocPlaceNote"></field>
                 <field id="assocDate" ui-type="date"></field>
                 <field id="assocDateNote"></field>
                 <field id="assocEventName"></field>
