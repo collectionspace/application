@@ -42,7 +42,7 @@ public class Record implements FieldParent {
 	private String services_search_keyword = "kw";
 	
 	/* Service stuff */
-	private String authorization_name,services_url,services_list_path,in_tag,urn_syntax,authority_vocab_type,services_instances_path,services_single_instance_path;
+	private String authorization_name,services_url,services_list_path,in_tag,vocab_syntax,urn_syntax,authority_vocab_type,services_instances_path,services_single_instance_path;
 	private Set<String> authorization_includes;
 	private Map<String,String> services_record_paths=new HashMap<String,String>();
 	private Map<String,Field> services_filter_param=new HashMap<String,Field>();
@@ -123,6 +123,7 @@ public class Record implements FieldParent {
 		
 		//used by service layer to construct authority names
 		urn_syntax=Util.getStringOrDefault(section,"/urn-syntax","urn:cspace.org.collectionspace.demo."+id+":name({vocab}):"+id+":name({entry})'{display}'");
+		vocab_syntax=Util.getStringOrDefault(section, "/vocab-syntax", "urn:cspace:name");
 		authority_vocab_type = Util.getStringOrDefault(section, "/authority-vocab-type", "PersonAuthority");
 		//
 		services_instances_path=Util.getStringOrDefault(section,"/services-instances-path",
@@ -185,6 +186,7 @@ public class Record implements FieldParent {
 	public String getServicesSearchKeyword(){ return services_search_keyword; }
 	public String getInTag() { return in_tag; }
 	public String getURNSyntax() { return urn_syntax; }
+	public String getURNVocab() {return vocab_syntax; }
 	public String getVocabType() {return authority_vocab_type; }
 
 	public Instance[] getAllInstances() { return instances.values().toArray(new Instance[0]); }
