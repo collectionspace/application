@@ -19,7 +19,7 @@
             "pathAs": "row",
             "repeatID": ".csc-permissions-record-row:",
             "tree": {
-                ".csc-permissions-record-type": "${{row}.recordType}",
+                ".csc-permissions-record-type": "${{row}.resourceName}",
                 "expander": {
                     "type": "fluid.renderer.selection.inputs",
                     "rowID": ".csc-permissions-radio:",
