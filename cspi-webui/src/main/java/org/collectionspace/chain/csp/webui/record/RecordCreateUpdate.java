@@ -33,6 +33,7 @@ public class RecordCreateUpdate implements WebMethod {
 		this.base=r.getID();
 		this.create=create;
 		reader=new RecordRead(r);
+		reader.configure(spec);
 	}
 		
 	private void deleteAllRelations(Storage storage,String csid) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
@@ -193,6 +194,7 @@ public class RecordCreateUpdate implements WebMethod {
 			if(this.base.equals("role")){
 				assignPermissions(storage,path,data);
 			}
+			
 			data=reader.getJSON(storage,path);
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);

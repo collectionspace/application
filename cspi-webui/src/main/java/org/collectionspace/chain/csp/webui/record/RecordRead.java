@@ -239,4 +239,9 @@ public class RecordRead implements WebMethod {
 			type_to_url.put(r.getID(),r.getWebURL());
 		}
 	}
+	public void configure(Spec spec) {
+		for(Record r : spec.getAllRecords()) {
+			type_to_url.put(r.getID(),r.getWebURL());
+		}
+	}
 }
