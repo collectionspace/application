@@ -99,11 +99,18 @@ public class GenericStorage  implements ContextualisedStorage {
 						view_good.put(prefix+"_"+ fs.getID(),fs.getID());
 						view_map.put(fs.getServicesTag(),fs.getID());
 						if(fs instanceof Field) {
-							// Single field
-							if(((Field) fs).hasMergeData()){
-								view_merge.put(prefix+"_"+fs.getID(),((Field) fs).getAllMerge());
-							}
 							Field f=(Field)fs;
+							// Single field
+							if(f.hasMergeData()){
+								view_merge.put(prefix+"_"+f.getID(),f.getAllMerge());
+								for(String fm : f.getAllMerge()){
+									if(fm!=null){
+										if(r.getRepeatField(fm).hasAutocompleteInstance()){
+											xxx_view_deurn.add(f.getID());
+										}
+									}
+								}
+							}
 							if(f.hasAutocompleteInstance()){
 								xxx_view_deurn.add(f.getID());
 							}

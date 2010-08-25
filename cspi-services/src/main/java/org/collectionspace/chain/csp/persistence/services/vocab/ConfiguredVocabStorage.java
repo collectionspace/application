@@ -111,9 +111,12 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			}
 			ReturnedMultipartDocument out2=conn.getMultipartXMLDocument(RequestMethod.PUT,"/"+r.getServicesURL()+"/"+vocab+"/items/"+csid,body,creds,cache);
 			if(out2.getStatus()>299)
-				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());			
+				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
+			//id
 			cache.setCached(getClass(),new String[]{"namefor",vocab,out.getURLTail()},name);
 			cache.setCached(getClass(),new String[]{"reffor",vocab,out.getURLTail()},refname);
+			cache.setCached(getClass(),new String[]{"csidfor",vocab,out.getURLTail()},out.getURLTail());
+			
 			
 			// create related sub records?
 			for(Record sr : r.getAllSubRecords() ){
@@ -208,6 +211,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			cache.removeCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]});
 			cache.removeCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]});
 			cache.removeCached(getClass(),new String[]{"shortId",vocab,filePath.split("/")[1]});
+			cache.removeCached(getClass(),new String[]{"csidfor",vocab,filePath.split("/")[1]});
+			//delete name and id versions from teh cache?
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
 		}	
@@ -439,6 +444,12 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
 			String refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
 			String shortId=(String)cache.getCached(getClass(),new String[]{"shortId",vocab,csid});
+			String testcsid=(String)cache.getCached(getClass(),new String[]{"csidfor",vocab,csid}); 
+			//incase using nameurn
+			if(testcsid!=null && testcsid.equals("") && !testcsid.equals(csid))
+			{
+				csid = testcsid;
+			}
 			if(name != null && refid != null && name.length() >0 && refid.length()>0 && shortId !=null){
 				out.put(getDisplayNameKey(), name);
 				out.put("refid", refid);
@@ -448,7 +459,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				out.put("recordtype",r.getWebURL());
 			}
 			else{
-					return simpleRetrieveJSON(creds,cache,vocab,csid);
+				return simpleRetrieveJSON(creds,cache,vocab,csid);
 			}
 			return out;
 		} catch (ConnectionException e) {
@@ -460,6 +471,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException{
 		JSONObject out=new JSONObject();
 		out=get(creds,cache,vocab,csid);
+		cache.setCached(getClass(),new String[]{"csidfor",vocab,csid},out.get("csid"));//cos csid might be a refname at this point..
 		cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
 		cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
 		cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
@@ -494,8 +506,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 				XmlJsonConversion.convertToJson(out,r,result);				
 			}
+			
+			//deurn url incase we were sent name not id as csid
+			String[] urned = urn_processor.deconstructURN(refid,false);
+			//csid = urn_processor.deconstructURN(refid,false)[4];
+			
 			out.put(getDisplayNameKey(),name);
-			out.put("csid",csid);
+			out.put("csid",urned[4]);
 			out.put("refid",refid);
 			out.put("shortIdentifier", shortIdentifier);
 			out.put("authorityid", vocab);
@@ -523,6 +540,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);
 			cache.setCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]},refname);
+			
 			//XXX dont currently update the shortID???
 			//cache.setCached(getClass(),new String[]{"shortId",vocab,filePath.split("/")[1]},shortId);
 		} catch (ConnectionException e) {

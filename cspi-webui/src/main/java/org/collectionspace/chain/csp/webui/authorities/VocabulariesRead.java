@@ -167,16 +167,16 @@ public class VocabulariesRead implements WebMethod {
 	JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		try {
-			String refPath = n.getRecord().getID()+"/"+n.getTitleRef()+"/"+csid;
-			JSONObject fields=storage.retrieveJSON(refPath);
-			
-			fields.put("csid",csid);
+			String refPath = n.getRecord().getID()+"/"+n.getTitleRef()+"/";
+			JSONObject fields=storage.retrieveJSON(refPath+csid);
+			csid = fields.getString("csid");
+			//fields.put("csid",csid);
 			//JSONObject relations=createRelations(storage,csid);
 			out.put("fields",fields);
 			out.put("relations",new JSONArray());
 			//out.put("relations",relations);
-			out.put("termsUsed",getTermsUsed(storage,refPath));
-			out.put("refobjs",getRefObj(storage,refPath));
+			out.put("termsUsed",getTermsUsed(storage,refPath+csid));
+			out.put("refobjs",getRefObj(storage,refPath+csid));
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found "+e,e);
 		} catch (UnimplementedException e) {
