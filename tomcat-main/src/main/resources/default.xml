@@ -157,51 +157,50 @@
                         <selector>.csc-object-identification-brief-description</selector>
                     </field>
                 </repeat>
-				<repeat id="objectNameList/objectNameGroup">
-					
-                <field id="objectNameCurrency" seperate_ui_container="true">
-                    <selector>.csc-object-identification-object-currency</selector>
-                    <options>
-                        <option id="current">Current</option>
-                        <option id="archaic">Archaic</option>
-                    </options>
-                </field>
-                <field id="objectNameLevel" seperate_ui_container="true">
-                    <selector>.csc-object-identification-object-level</selector>
-                    <options>
-                        <option id="group">Group</option>
-                        <option id="subgroup">Subgroup</option>
-                    </options>
-                </field>
-                <field id="objectNameSystem" seperate_ui_container="true">
-                    <selector>.csc-object-identification-object-system</selector>
-                    <options>
-                        <option id="art-and-architecture-thesaurus">Art &amp; Architecture Thesaurus</option>
-                        <option id="nomenclature">Nomenclature</option>
-                    </options>
-                </field>
-                <field id="objectNameType" seperate_ui_container="true">
-                    <selector>.csc-object-identification-object-type</selector>
-                    <options>
-                        <option id="classified">Classified</option>
-                        <option id="denomination">Denomination</option>
-                        <option id="simple">Simple</option>
-                        <option id="taxonomic">Taxonomic</option>
-                        <option id="typological">Typological</option>
-                    </options>
-                </field>
-                <field id="objectNameLanguage" autocomplete="vocab-languages" ui-type="enum">
-                    <enum>
-                        <default>English</default>
-                    </enum>
-                    <selector>.csc-object-identification-object-language</selector>
-                </field>
-                <field id="objectNameNote">
-                    <selector>.csc-object-identification-object-note</selector>
-                </field>
-                <field id="objectName" mini="search">
-                    <selector>.csc-object-identification-object-name</selector>
-                </field>
+				<repeat id="objectNameList/objectNameGroup">    					
+                    <field id="objectNameCurrency" seperate_ui_container="true">
+                        <selector>.csc-object-identification-object-currency</selector>
+                        <options>
+                            <option id="current">Current</option>
+                            <option id="archaic">Archaic</option>
+                        </options>
+                    </field>
+                    <field id="objectNameLevel" seperate_ui_container="true">
+                        <selector>.csc-object-identification-object-level</selector>
+                        <options>
+                            <option id="group">Group</option>
+                            <option id="subgroup">Subgroup</option>
+                        </options>
+                    </field>
+                    <field id="objectNameSystem" seperate_ui_container="true">
+                        <selector>.csc-object-identification-object-system</selector>
+                        <options>
+                            <option id="art-and-architecture-thesaurus">Art &amp; Architecture Thesaurus</option>
+                            <option id="nomenclature">Nomenclature</option>
+                        </options>
+                    </field>
+                    <field id="objectNameType" seperate_ui_container="true">
+                        <selector>.csc-object-identification-object-type</selector>
+                        <options>
+                            <option id="classified">Classified</option>
+                            <option id="denomination">Denomination</option>
+                            <option id="simple">Simple</option>
+                            <option id="taxonomic">Taxonomic</option>
+                            <option id="typological">Typological</option>
+                        </options>
+                    </field>
+                    <field id="objectNameLanguage" autocomplete="vocab-languages" ui-type="enum">
+                        <enum>
+                            <default>English</default>
+                        </enum>
+                        <selector>.csc-object-identification-object-language</selector>
+                    </field>
+                    <field id="objectNameNote">
+                        <selector>.csc-object-identification-object-note</selector>
+                    </field>
+                    <field id="objectName" mini="search">
+                        <selector>.csc-object-identification-object-name</selector>
+                    </field>
 				</repeat>
                 <field id="distinguishingFeatures">
                     <selector>.csc-object-identification-distinguishing-features</selector>
@@ -288,7 +287,7 @@
                 <field id="materialName">
                     <selector>.csc-object-description-material-name</selector>
                 </field>
-                <field id="materialSource" autocomplete="place-place" seperate_ui_container="true">
+                <field id="materialSource" autocomplete="place-place">
                     <selector>.csc-object-description-material-source</selector>
                 </field>
                 <field id="physicalDescription">
@@ -348,46 +347,46 @@
                         <option id="weight">weight</option>
                         <option id="width">width</option>
                     </options>
-                </field>
-					<field id="measuredPart" seperate_ui_container="true">
-                    <selector>.csc-object-description-dimension-part</selector>
-                    <options>
-                        <option id="base">base</option>
-                        <option id="frame">frame</option>
-                        <option id="framed">framed</option>
-                        <option id="image-size">image size</option>
-                        <option id="mount">mount</option>
-                        <option id="paper-size">paper size</option>
-                        <option id="plate-size">plate size</option>
-                        <option id="unframed">unframed</option>
-                    </options>
-                </field>
-					<field id="measurementUnit" seperate_ui_container="true">
-                    <selector>.csc-object-description-dimension-unit</selector>
-                    <options>
-                        <option id="carats">carats</option>
-                        <option id="centimeters">centimeters</option>
-                        <option id="cubic-centimeters">cubic centimeters</option>
-                        <option id="feet">feet</option>
-                        <option id="inches">inches</option>
-                        <option id="kilograms">kilograms</option>
-                        <option id="liters">liters</option>
-                        <option id="millimeters">millimeters</option>
-                        <option id="meters">meters</option>
-                        <option id="minutes">minutes</option>
-                        <option id="pixels">pixels</option>
-                        <option id="square-feet">square feet</option>
-                        <option id="stories">stories</option>
-                    </options>
-                </field>
-					<field id="value">
-                    <selector>.csc-object-description-dimension-value</selector>
-					</field>
-					<field id="valueDate" ui-type="date">
-                    <selector>.csc-object-description-dimension-value-date</selector>
-                </field>
-					<field id="valueQualifier">
-                    <selector>.csc-object-description-dimension-value-qualifier</selector>
+                    </field>
+    					<field id="measuredPart" seperate_ui_container="true">
+                        <selector>.csc-object-description-dimension-part</selector>
+                        <options>
+                            <option id="base">base</option>
+                            <option id="frame">frame</option>
+                            <option id="framed">framed</option>
+                            <option id="image-size">image size</option>
+                            <option id="mount">mount</option>
+                            <option id="paper-size">paper size</option>
+                            <option id="plate-size">plate size</option>
+                            <option id="unframed">unframed</option>
+                        </options>
+                    </field>
+    					<field id="measurementUnit" seperate_ui_container="true">
+                        <selector>.csc-object-description-dimension-unit</selector>
+                        <options>
+                            <option id="carats">carats</option>
+                            <option id="centimeters">centimeters</option>
+                            <option id="cubic-centimeters">cubic centimeters</option>
+                            <option id="feet">feet</option>
+                            <option id="inches">inches</option>
+                            <option id="kilograms">kilograms</option>
+                            <option id="liters">liters</option>
+                            <option id="millimeters">millimeters</option>
+                            <option id="meters">meters</option>
+                            <option id="minutes">minutes</option>
+                            <option id="pixels">pixels</option>
+                            <option id="square-feet">square feet</option>
+                            <option id="stories">stories</option>
+                        </options>
+                    </field>
+    					<field id="value">
+                        <selector>.csc-object-description-dimension-value</selector>
+    					</field>
+    					<field id="valueDate" ui-type="date">
+                        <selector>.csc-object-description-dimension-value-date</selector>
+                    </field>
+    					<field id="valueQualifier">
+                        <selector>.csc-object-description-dimension-value-qualifier</selector>
 					</field>
 				</repeat>
 				
@@ -404,23 +403,23 @@
                     </field>
                 </repeat>
 				<repeat id="contentPositions">
-                <field id="contentPosition" seperate_ui_container="true">
-                    <selector>.csc-object-description-content-position</selector>
-                    <options>
-                        <option id="back">back</option>
-                        <option id="base">base</option>
-                        <option id="bottom">bottom</option>
-                        <option id="front">front</option>
-                        <option id="inside">inside</option>
-                        <option id="left">left</option>
-                        <option id="outside">outside</option>
-                        <option id="recto">recto</option>
-                        <option id="right">right</option>
-                        <option id="rim">rim</option>
-                        <option id="top">top</option>
-                        <option id="verso">verso</option>
-                    </options>
-                </field>
+                    <field id="contentPosition" seperate_ui_container="true">
+                        <selector>.csc-object-description-content-position</selector>
+                        <options>
+                            <option id="back">back</option>
+                            <option id="base">base</option>
+                            <option id="bottom">bottom</option>
+                            <option id="front">front</option>
+                            <option id="inside">inside</option>
+                            <option id="left">left</option>
+                            <option id="outside">outside</option>
+                            <option id="recto">recto</option>
+                            <option id="right">right</option>
+                            <option id="rim">rim</option>
+                            <option id="top">top</option>
+                            <option id="verso">verso</option>
+                        </options>
+                    </field>
 				</repeat>
                 <field id="contentObject">
                     <selector>.csc-object-description-content-object</selector>
@@ -433,17 +432,17 @@
                     </options>
                 </field>
                 <repeat id="contentPeoples">
-                    <field id="contentPeople" autocomplete="person-person" seperate_ui_container="true">
+                    <field id="contentPeople" autocomplete="person-person">
                         <selector>.csc-object-description-content-people</selector>
                     </field>
                 </repeat>
                 <repeat id="contentPersons">
-                    <field id="contentPerson" autocomplete="person-person" seperate_ui_container="true">
+                    <field id="contentPerson" autocomplete="person-person">
                         <selector>.csc-object-description-content-person</selector>
                     </field>
                 </repeat>
                 <repeat id="contentPlaces">
-                    <field id="contentPlace" autocomplete="place-place"  seperate_ui_container="true">
+                    <field id="contentPlace" autocomplete="place-place">
                         <selector>.csc-object-description-content-place</selector>
                     </field>
                 </repeat>
@@ -462,7 +461,7 @@
                     </field>
                 </repeat>
                 <repeat id="contentOrganizations">
-                    <field id="contentOrganization" autocomplete="organization-organization" seperate_ui_container="true">
+                    <field id="contentOrganization" autocomplete="organization-organization">
                         <selector>.csc-object-description-content-organization</selector>
                     </field>
                 </repeat>
@@ -478,7 +477,7 @@
                 <field id="inscriptionContent">
                     <selector>.csc-object-description-inscription-content</selector>
                 </field>
-                <field id="inscriptionContentInscriber" autocomplete="person-person,organization-organization" seperate_ui_container="true">
+                <field id="inscriptionContentInscriber" autocomplete="person-person,organization-organization">
                     <selector>.csc-object-description-inscription-content-inscriber</selector>
                 </field>
                 <field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
@@ -546,10 +545,10 @@
                 <field id="inscriptionDescription">
                     <selector>.csc-object-description-inscription-description</selector>
                 </field>
-                <field id="inscriptionDescriptionDate">
+                <field id="inscriptionDescriptionDate" ui-type="date">
                     <selector>.csc-object-description-inscription-description-date</selector>
                 </field>
-                <field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization" seperate_ui_container="true">
+                <field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization">
                     <selector>.csc-object-description-inscription-description-inscriber</selector>
                 </field>
                 <field id="inscriptionDescriptionPosition" seperate_ui_container="true">
@@ -614,33 +613,33 @@
                     </options>
                 </field>
 				<repeat id="objectProductionDates">
-                <field id="objectProductionDate" ui-type="date">
-                    <selector>.csc-object-production-date</selector>
-                </field>
+                    <field id="objectProductionDate" ui-type="date">
+                        <selector>.csc-object-production-date</selector>
+                    </field>
 				</repeat>
                 <field id="objectProductionNote">
                     <selector>.csc-object-production-note</selector>
                 </field>
-                <field id="objectProductionOrganization" autocomplete="organization-organization" seperate_ui_container="true">
+                <field id="objectProductionOrganization" autocomplete="organization-organization">
                     <selector>.csc-object-production-organization</selector>
                 </field>
                 <field id="objectProductionOrganizationRole"></field>
                 <field id="objectProductionPeopleRole"></field>
                 <field id="objectProductionPersonRole"></field>
                 <field id="objectProductionPlaceRole"></field>
-                <field id="objectProductionPeople" autocomplete="person-person" seperate_ui_container="true">
+                <field id="objectProductionPeople" autocomplete="person-person">
                     <selector>.csc-object-production-people</selector>
                 </field>
-                <field id="objectProductionPerson" autocomplete="person-person" seperate_ui_container="true">
+                <field id="objectProductionPerson" autocomplete="person-person">
                     <selector>.csc-object-production-person</selector>
                 </field>
-                <field id="objectProductionPlace" autocomplete="place-place" seperate_ui_container="true">
+                <field id="objectProductionPlace" autocomplete="place-place">
                     <selector>.csc-object-production-place</selector>
                 </field>
 				<repeat id="objectProductionReasons">
-                <field id="objectProductionReason">
-                    <selector>.csc-object-production-reason</selector>
-                </field>
+                    <field id="objectProductionReason">
+                        <selector>.csc-object-production-reason</selector>
+                    </field>
 				</repeat>
                 <field id="technique">
                     <selector>.csc-object-production-technique</selector>
@@ -649,91 +648,65 @@
                     <selector>.csc-object-production-technique-type</selector>
                 </field>
 				
-                <field id="assocConceptNote"></field>
-                <field id="assocCulturalContextNote"></field>
-				<field id="assocDateNote"></field>
                 <field id="assocEventNote"></field>
-                <field id="assocOrganizationNote"></field>
-                <field id="assocPeopleNote"></field>
-                <field id="assocPersonNote"></field>
-                <field id="assocPlaceNote"></field>
 				
-                <field id="assocActivity">
-                    <selector>.csc-object-history-association-activity</selector>
-                </field>
-                <field id="assocActivityNote">
-                    <selector>.csc-object-history-association-activity-note</selector>
-                </field>
+                <field id="assocActivity"></field>
+                <field id="assocActivityNote"></field>
                 <repeat id="assocEventOrganizations">
-                    <field id="assocEventOrganization" autocomplete="organization-organization" seperate_ui_container="true">
+                    <field id="assocEventOrganization" autocomplete="organization-organization">
                         <selector>.csc-object-history-association-event-organization</selector>
                     </field>
                 </repeat>
                 <repeat id="assocEventPeoples">
-                    <field id="assocEventPeople" autocomplete="person-person" seperate_ui_container="true">
+                    <field id="assocEventPeople" autocomplete="person-person">
                         <selector>.csc-object-history-association-event-people</selector>
                     </field>
                 </repeat>
                 <repeat id="assocEventPersons">
-                    <field id="assocEventPerson" autocomplete="person-person"  seperate_ui_container="true">
+                    <field id="assocEventPerson" autocomplete="person-person">
                         <selector>.csc-object-history-association-event-person</selector>
                     </field>
                 </repeat>
                 <repeat id="assocEventPlaces">
-                    <field id="assocEventPlace" autocomplete="place-place" seperate_ui_container="true">
+                    <field id="assocEventPlace" autocomplete="place-place">
                         <selector>.csc-object-history-association-event-place</selector>
                     </field>
                 </repeat>
-                <field id="assocObject">
-                    <selector>.csc-object-history-association-object</selector>
-                </field>
-                <field id="assocObjectType">
-                    <selector>.csc-object-history-association-object-type</selector>
-                </field>
+                <field id="assocObject"></field>
+                <field id="assocObjectType"></field>
                 <repeat id="assocConcepts">
-                    <field id="assocConcept">
-                        <selector>.csc-object-history-association-concept</selector>
-                    </field>
+                    <field id="assocConcept"></field>
+                    <field id="assocConceptNote"></field>
                 </repeat>
                 <repeat id="assocCulturalContexts">
-                    <field id="assocCulturalContext">
-                        <selector>.csc-object-history-association-cultural-affinity</selector>
-                    </field>
+                    <field id="assocCulturalContext"></field>
+                    <field id="assocCulturalContextNote"></field>
                 </repeat>
                 <repeat id="assocOrganizations">
-                    <field id="assocOrganization" autocomplete="organization-organization" seperate_ui_container="true">
-                        <selector>.csc-object-history-association-organization</selector>
-                    </field>
+                    <field id="assocOrganization" autocomplete="organization-organization"></field>
+                    <field id="assocOrganizationNote"></field>
                 </repeat>
                 <repeat id="assocPeoples">
-                    <field id="assocPeople" autocomplete="person-person" seperate_ui_container="true">
-                        <selector>.csc-object-history-association-people</selector>
-                    </field>
+                    <field id="assocPeople" autocomplete="person-person"></field>
+                    <field id="assocPeopleNote"></field>
                 </repeat>
                 <repeat id="assocPersons">
-                    <field id="assocPerson" autocomplete="person-person" seperate_ui_container="true">
-                        <selector>.csc-object-history-association-person</selector>
-                    </field>
+                    <field id="assocPerson" autocomplete="person-person"></field>
+                    <field id="assocPersonNote"></field>
                 </repeat>
                 <repeat id="assocPlaces">
-                    <field id="assocPlace" autocomplete="place-place" seperate_ui_container="true">
-                        <selector>.csc-object-history-association-place</selector>
-                    </field>
+                    <field id="assocPlace" autocomplete="place-place"></field>
+                    <field id="assocPlaceNote"></field>
                 </repeat>
-                <field id="assocDate" ui-type="date">
-                    <selector>.csc-object-history-association-date</selector>
-                </field>
-                <field id="assocEventName">
-                    <selector>.csc-object-history-association-event</selector>
-                </field>
-                <field id="assocEventNameType">
-                    <selector>.csc-object-history-association-event-name</selector>
-                </field>
+                <field id="assocDate" ui-type="date"></field>
+                <field id="assocDateNote"></field>
+                <field id="assocEventName"></field>
+                <field id="assocEventNameType"></field>
                 <field id="ownershipDates" ui-type="date">
                     <selector>.csc-object-history-association-dates</selector>
                 </field>
                 <repeat id="owners">
-                    <field id="owner" autocomplete="person-person,organization-organization" seperate_ui_container="true">
+                    <field id="owner" autocomplete="person-person,organization-organization">
                         <selector>.csc-object-history-association-owner</selector>
                     </field>
                 </repeat>
@@ -753,7 +726,7 @@
                         <option id="private">private</option>
                     </options>
                 </field>
-                <field id="ownershipPlace" autocomplete="place-place" seperate_ui_container="true">
+                <field id="ownershipPlace" autocomplete="place-place">
                     <selector>.csc-object-history-association-ownership-place</selector>
                 </field>
                 <field id="ownershipExchangeMethod" seperate_ui_container="true">
@@ -792,9 +765,9 @@
                     <selector>.csc-object-owner-response</selector>
                 </field>
                 <repeat id="ownersReferences">
-                <field id="ownersReference">
-                    <selector>.csc-object-owner-reference</selector>
-                </field>
+                    <field id="ownersReference">
+                        <selector>.csc-object-owner-reference</selector>
+                    </field>
 				</repeat>
                 <field id="ownersContributionNote">
                     <selector>.csc-object-owner-contribution-note</selector>
@@ -809,9 +782,9 @@
                     <selector>.csc-object-viewer-response</selector>
                 </field>
 				<repeat id="viewersReferences">
-                <field id="viewersReference">
-                    <selector>.csc-object-viewer-reference</selector>
-                </field>
+                    <field id="viewersReference">
+                        <selector>.csc-object-viewer-reference</selector>
+                    </field>
 				</repeat>
                 <field id="viewersContributionNote">
                     <selector>.csc-object-viewer-contribution-note</selector>
@@ -877,17 +850,15 @@
                     <selector>.csc-object-description-material</selector>
                 </field>
                 <repeat id="references">
-                <field id="reference">
-                    <selector>.csc-reference-reference</selector>
-                </field>
+                    <field id="reference">
+                        <selector>.csc-reference-reference</selector>
+                    </field>
 				</repeat>
-                <field id="fieldCollectionDate"></field>
+                <field id="fieldCollectionDate" ui-type="date"></field>
                 <field id="fieldCollectionNote"></field>
                 <field id="fieldCollectionNumber"></field>
                 <field id="fieldCollectionPlace"></field>
-                <field id="fieldCollectionEventName">
-                    <selector>.csc-object-collection-field-collection-event-name</selector>
-                </field>
+                <field id="fieldCollectionEventName"></field>
                 <field id="collection" seperate_ui_container="true">
                     <selector>.csc-object-identification-collection</selector>
                     <options>
