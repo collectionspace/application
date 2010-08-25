@@ -77,11 +77,13 @@
     "assocCulturalContexts": [{"_primary":true,
         "assocCulturalContext": ""
     }],
-    "otherNumberList": [{"_primary":true,
-        "otherNumber": "\n\t\t\n\t\t\n\t"
+    "otherNumber": [{"_primary":true,
+		"numberValue":"a",
+		"numberType":"v"
     },
     {
-        "otherNumber": "\n\t\t\n\t\t\n\t"
+		"numberValue":"b",
+		"numberType":"f"
     }],
     "dimensionValueDate": "",
     "materialComponentNote": "",

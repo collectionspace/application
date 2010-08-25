@@ -135,12 +135,12 @@
                         <option id="loans-in" sample="LI2009.1.1">Loans In</option>
                     </options>
                 </field>
-                <repeat id="otherNumberList">
+                <repeat id="otherNumberList/otherNumber">
                     <selector>.csc-object-identification-otherNumbers</selector>
-                    <field id="otherNumber" in-tab="yes">
+                    <field id="numberValue" in-tab="yes">
                         <selector>.csc-object-identification-other-number</selector>
                     </field>
-                    <field id="otherNumberType" in-tab="yes" seperate_ui_container="true">
+                    <field id="numberType" in-tab="yes" seperate_ui_container="true">
                         <selector>.csc-object-identification-other-number-type</selector>
                         <options>
                             <option id="lender">Lender</option>
@@ -1340,6 +1340,7 @@
                 <services-url>personauthorities</services-url>
                 <authority-vocab-type>PersonAuthority</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
+                <vocab-syntax>urn:cspace:name</vocab-syntax>
                 <structures>
                     <structure id="screen"></structure>
                 </structures>
