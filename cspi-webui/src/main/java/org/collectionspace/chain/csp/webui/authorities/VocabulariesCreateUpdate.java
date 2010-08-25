@@ -66,7 +66,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 			String refid = data.getJSONObject("fields").getString("refid");
 			data.put("urn", refid);
 			data.getJSONObject("fields").put("urn", refid);
-			data.put("csid",path);
+			data.put("csid",data.getJSONObject("fields").getString("csid"));
 			
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);

@@ -527,7 +527,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		try {
 			String name=jsonObject.getString(getDisplayNameKey());
 			String vocab=vocab_cache.getVocabularyId(creds,cache,filePath.split("/")[0]);
-			String refname=urn_processor.constructURN("id",vocab,"id",filePath.split("/")[1],name);
+			String csid = filePath.split("/")[1];
+			String refname=urn_processor.constructURN("id",vocab,"id",csid,name);
+			if(csid.startsWith(r.getURNVocab())){
+				String shortid = csid.substring(r.getURNVocab().length() + 1, csid.length()-1);
+				//shortid = 
+				refname=urn_processor.constructURN("id",vocab,r.getURNVocab(),shortid,name);
+			}
 			Map<String,Document> body=new HashMap<String,Document>();
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
@@ -535,7 +541,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String[] tag_path=record_path[1].split(",",2);
 				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname,r));
 			}
-			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,generateURL(vocab,filePath.split("/")[1],""),body,creds,cache);
+			String url = generateURL(vocab,filePath.split("/")[1],"");
+			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,url,body,creds,cache);
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);
