@@ -20,6 +20,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -31,12 +32,13 @@ public class WebAutoComplete implements WebMethod {
 	
 	public WebAutoComplete(Record r) { this.r=r; }
 	
-	private String[] doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,String start, String pageSize, String pageNum) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+	private JSONArray doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,String start, String pageSize, String pageNum) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		FieldSet fs=r.getRepeatField(fieldname);
-		List<String> out=new ArrayList<String>();
+		JSONArray out = new JSONArray();
+		//List<String> out=new ArrayList<String>();
 		
 		if(!(fs instanceof Field))
-			return new String[0]; // Cannot autocomplete on groups
+			return out; // Cannot autocomplete on groups
 		
 		//support multiassign of autocomplete instances
 		for(Instance n : ((Field)fs).getAllAutocompleteInstances()) {
@@ -61,26 +63,23 @@ public class WebAutoComplete implements WebMethod {
 					JSONObject entry=new JSONObject();
 					entry.put("urn",data.get("refid"));
 					entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));
-					out.add(entry.toString());
+					out.put(entry);
 				}
 			}
 		}
 		
 		//Instance n=((Field)fs).getAutocompleteInstance();
-		if(out==null){
-			return new String[0]; 
-		}
-		return out.toArray(new String[0]);
+		return out;
 	}
 	
 	private void autocomplete(CSPRequestCache cache,Storage storage,UIRequest request) throws UIException {
 		try {
-			TTYOutputter tty=request.getTTYOutputter();
+
 			String[] path=request.getPrincipalPath();
-			for(String v : doAutocomplete(cache,storage,path[path.length-1],request.getRequestArgument("q"),request.getRequestArgument("pageSize"),request.getRequestArgument("pageNum"))) {
-				tty.line(v);
-			}
-			tty.flush();
+			JSONArray out = doAutocomplete(cache,storage,path[path.length-1],request.getRequestArgument("q"),request.getRequestArgument("pageSize"),request.getRequestArgument("pageNum"));
+			
+			request.sendJSONResponse(out);
+			
 		} catch (JSONException e) {
 			throw new UIException("JSONException during autocompletion",e);
 		} catch (ExistException e) {

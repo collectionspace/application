@@ -98,9 +98,9 @@ public class TestNameThroughWebapp {
 		// Now test
 		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=XXXTESTNursultan&limit=150",null);
 		assertTrue(out.getStatus()<299);
-		String[] testData=out.getContent().split("\n");
-		for(int i=0;i<testData.length;i++) {
-			JSONObject entry=new JSONObject(testData[i]);
+		JSONArray testdata = new JSONArray(out.getContent());
+		for(int i=0;i<testdata.length();i++) {
+			JSONObject entry=testdata.getJSONObject(i);
 			assertTrue(entry.getString("label").toLowerCase().contains("xxxtestnursultan nazarbayev"));
 			assertTrue(entry.has("urn"));
 		}
@@ -118,15 +118,30 @@ public class TestNameThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/acquisition/source-vocab/acquisitionAuthorizer",null);
 		assertTrue(out.getStatus()<299);
-		JSONObject data=new JSONObject(out.getContent());
-		String url=data.getString("url");
-		assertEquals("/vocabularies/person",url);
+		
+		JSONArray data=new JSONArray(out.getContent());
+		boolean test = false;
+		for(int i=0;i<data.length();i++){
+			String url=data.getJSONObject(i).getString("url");
+			if(url.equals("/vocabularies/person")){
+				test=true;
+			}
+		}
+		assertTrue("correct vocab not found",test);
+		
 
 		out=jettyDo(jetty,"GET","/chain/objects/source-vocab/contentOrganization",null);
 		assertTrue(out.getStatus()<299);
-		data=new JSONObject(out.getContent());
-		url=data.getString("url");
-		assertEquals("/vocabularies/organization",url);
+
+		data=new JSONArray(out.getContent());
+		test = false;
+		for(int i=0;i<data.length();i++){
+			String url=data.getJSONObject(i).getString("url");
+			if(url.equals("/vocabularies/organization")){
+				test=true;
+			}
+		}
+		assertTrue("correct vocab not found",test);
 		log.info("NAME: AutocompleteRedirect: test_end");
 		
 	}
@@ -137,9 +152,18 @@ public class TestNameThroughWebapp {
 		ServletTester jetty=setupJetty();
 		HttpTester out=jettyDo(jetty,"GET","/chain/acquisition/source-vocab/acquisitionAuthorizer",null);
 		assertTrue(out.getStatus()<299);
-		JSONObject data=new JSONObject(out.getContent());
-		String url=data.getString("url");
-		assertEquals("/vocabularies/person",url);
+		
+
+		JSONArray data=new JSONArray(out.getContent());
+		boolean test = false;
+		for(int i=0;i<data.length();i++){
+			String url=data.getJSONObject(i).getString("url");
+			if(url.equals("/vocabularies/person")){
+				test=true;
+			}
+		}
+		assertTrue("correct vocab not found",test);
+		
 		log.info("NAME: AutocompleteVocabRedirect: test_end");
 	}
 	
@@ -268,6 +292,7 @@ public class TestNameThroughWebapp {
 		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
 		assertTrue(out.getStatus()<300);
 		String url=out.getHeader("Location");
+		log.info(out.getContent());
 		log.info("NAME: PersonWithContactAuthorityCRUD: test_end");
 	}
 	

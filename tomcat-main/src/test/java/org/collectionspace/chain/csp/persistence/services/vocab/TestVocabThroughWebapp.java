@@ -229,9 +229,17 @@ public class TestVocabThroughWebapp {
 		
 		HttpTester out=jettyDo(jetty,"GET","/chain/objects/source-vocab/inscriptionContentLanguage",null);
 		assertTrue(out.getStatus()<299);
-		JSONObject data=new JSONObject(out.getContent());
-		String url=data.getString("url");
-		assertEquals("/vocabularies/languages",url);
+
+		JSONArray data=new JSONArray(out.getContent());
+		boolean test = false;
+		for(int i=0;i<data.length();i++){
+			String url=data.getJSONObject(i).getString("url");
+			if(url.equals("/vocabularies/languages")){
+				test=true;
+			}
+		}
+		assertTrue("correct vocab not found",test);
+		
 		
 	}	
 	//inscriptionContentLanguage

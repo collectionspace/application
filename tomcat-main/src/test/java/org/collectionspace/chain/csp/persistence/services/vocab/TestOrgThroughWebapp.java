@@ -415,9 +415,9 @@ public class TestOrgThroughWebapp {
 		log.info("ORG : AutocompletesForOrganization : test against contact Name");
 	    out=jettyDo(jetty,"GET","/chain/vocabularies/organization/autocomplete/contactName?q=Test+Auto&limit=150",null);
 		assertTrue(out.getStatus()<299);
-		String[] data=out.getContent().split("\n");
-		for(int i=0;i<data.length;i++) {
-			JSONObject entry=new JSONObject(data[i]);
+		JSONArray data = new JSONArray(out.getContent());
+		for(int i=0;i<data.length();i++) {
+			JSONObject entry=data.getJSONObject(i);
 			assertTrue(entry.getString("label").toLowerCase().contains("test auto person"));
 			assertTrue(entry.has("urn"));
 		}
@@ -425,9 +425,9 @@ public class TestOrgThroughWebapp {
 		log.info("ORG : AutocompletesForOrganization : test against subBody");
 	    out=jettyDo(jetty,"GET","/chain/vocabularies/organization/autocomplete/subBody?q=Test+another&limit=150",null);
 		assertTrue(out.getStatus()<299);
-		data=out.getContent().split("\n");
-		for(int i=0;i<data.length;i++) {
-			JSONObject entry=new JSONObject(data[i]);
+		 data = new JSONArray(out.getContent());
+			for(int i=0;i<data.length();i++) {
+				JSONObject entry=data.getJSONObject(i);;
 			assertTrue(entry.getString("label").toLowerCase().contains("test another org"));
 			assertTrue(entry.has("urn"));
 		}		
@@ -454,9 +454,15 @@ public class TestOrgThroughWebapp {
 		
 		HttpTester out=jettyDo(jetty,"GET","/chain/objects/source-vocab/contentOrganization",null);
 		assertTrue(out.getStatus()<299);
-		JSONObject data=new JSONObject(out.getContent());
-		String url=data.getString("url");
-		assertEquals("/vocabularies/organization",url);
+		JSONArray data=new JSONArray(out.getContent());
+		boolean test = false;
+		for(int i=0;i<data.length();i++){
+			String url=data.getJSONObject(i).getString("url");
+			if(url.equals("/vocabularies/organization")){
+				test=true;
+			}
+		}
+		assertTrue("correct vocab not found",test);
 		log.info("ORG : AutocompleteRedirect : test_end");
 		
 	}	
