@@ -52,7 +52,7 @@ public class Structure  implements FieldParent  {
 
 	private Record record;
 	private String id,titlebar, sidebar, listsection, editsection, editselector;
-	private Boolean showtitlebar,showsidebar, showlistsection, showeditsection;
+	private Boolean showtitlebar = true,showsidebar = true, showlistsection = false, showeditsection = true;
 	public static String SECTION_PREFIX="org.collectionspace.app.config.structure.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 
@@ -62,6 +62,19 @@ public class Structure  implements FieldParent  {
 	
 	private Map<String,FieldSet> sidebar_sections=new HashMap<String,FieldSet>();
 	
+	public Structure(Record record, String uid){
+		this.record=record;
+		id=uid;
+		showtitlebar=true;
+		showsidebar=true;
+		showeditsection=true;
+		showlistsection=false;
+		
+		titlebar="titlebar";
+		sidebar="sidebar";
+		editsection="recordEditor";
+		listsection="list";
+	}
 	
 	public Structure(Record record,ReadOnlySection section) {
 		this.record=record;

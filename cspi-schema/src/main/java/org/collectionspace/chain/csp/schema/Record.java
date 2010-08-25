@@ -150,7 +150,14 @@ public class Record implements FieldParent {
 	 * includes all the fields that are children of repeats as well as top level fields.
 	 */
 	public FieldSet getRepeatField(String id) { return repeatfields.get(id); }
-	public Structure getStructure(String id) { return structure.get(id); }
+	public Structure getStructure(String id) { 
+		//fall back if structure isn't defined used defaults
+		if(!structure.containsKey(id)){
+			Structure s=new Structure(this,id );
+			structure.put(id,s);
+		}
+		return structure.get(id);
+	}
 	public Record getSubrecord(String id) { return subrecords.get(id); }
 	public Record[] getAllSubRecords(){ 
 		if(subrecords.values().isEmpty()){
