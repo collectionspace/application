@@ -47,14 +47,14 @@
     		<relation id="broader">
     			<displayName>has broader term</displayName>
     			<directional>true</directional>
-				<sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout</sourceTypes>
-				<destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout</destinationTypes>
+				<sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements</sourceTypes>
+				<destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements</destinationTypes>
     		</relation>
     		<relation id="affects">
     			<displayName>affects</displayName>
     			<directional>false</directional>
-				<sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout</sourceTypes>
-				<destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout</destinationTypes>
+				<sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements</sourceTypes>
+				<destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements</destinationTypes>
     		</relation>
     	</relationships>
         <records>
@@ -1966,6 +1966,33 @@
                 <structures>
                     <structure id="screen"></structure>
                 </structures>
+
+
+                <structures>
+                    <structure id="screen"></structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <web-url>movement</web-url>
+                <tab-url>movement-tab</tab-url>
+
+
+
                 <row-selector>.csc-recordList-row:</row-selector>
                 <!--  Object Location Information Group -->
                 <field id="currentLocation" in-title="yes" mini="summary,search,list,relate,terms">
