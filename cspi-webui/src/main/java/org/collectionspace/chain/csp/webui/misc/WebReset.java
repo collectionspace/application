@@ -88,6 +88,7 @@ public class WebReset implements WebMethod {
 					}					
 				}
 			}
+			log.info("this might take some time, go get a cup of tea and be patient");
 			// Create records anew
 			tty.line("Create records anew");
 			String schedule=getResource("reset.txt");
