@@ -531,7 +531,6 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String refname=urn_processor.constructURN("id",vocab,"id",csid,name);
 			if(csid.startsWith(r.getURNVocab())){
 				String shortid = csid.substring(r.getURNVocab().length() + 1, csid.length()-1);
-				//shortid = 
 				refname=urn_processor.constructURN("id",vocab,r.getURNVocab(),shortid,name);
 			}
 			Map<String,Document> body=new HashMap<String,Document>();

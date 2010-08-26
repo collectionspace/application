@@ -145,26 +145,33 @@ public class AuthorizationStorage extends GenericStorage {
 			if(r.hasDeleteMethod()){
 				//get all data to post back
 				//hopefully the filepath we have is the filepath to get the data from
-				Document doc = simpleRetrieveXML(creds,cache,filePath+"/1234");
-				String nodepath = "/"+ r.getServicesListPath()+"/*";
-				List<Node> nodes=doc.selectNodes(nodepath);
-				if(nodes.size()>0){
-					status=201;
-					//post it back to delete it
-/*
-					log.info("TRYING TO DELETE ACCOUNTROLE");
-					log.info(doc.asXML());
-					log.info(filePath+"?_method=delete");
-					ReturnedURL url = null;
-					url = conn.getURL(RequestMethod.POST, filePath+"?_method=delete", doc, creds, cache);
-					status = url.getStatus();
-					//status=conn.getNone(RequestMethod.POST,r.getServicesURL()+"/"+filePath+"?_method=delete",doc,creds,cache);
-					 	
-*/
+				Document doc = null;
+				try{
+					doc = simpleRetrieveXML(creds,cache,filePath+"/1234");
+					String nodepath = "/"+ r.getServicesListPath()+"/*";
+					List<Node> nodes=doc.selectNodes(nodepath);
+					if(nodes.size()>0){
+						status=201;
+						//post it back to delete it
+	/*
+						log.info("TRYING TO DELETE ACCOUNTROLE");
+						log.info(doc.asXML());
+						log.info(filePath+"?_method=delete");
+						ReturnedURL url = null;
+						url = conn.getURL(RequestMethod.POST, filePath+"?_method=delete", doc, creds, cache);
+						status = url.getStatus();
+						//status=conn.getNone(RequestMethod.POST,r.getServicesURL()+"/"+filePath+"?_method=delete",doc,creds,cache);
+						 	
+	*/
+					}
+					else{//if we didn't need to delete it because there was nothing there then everything was good
+						status=201;
+					}
 				}
-				else{//if we didn't need to delete it because there was nothing there then everything was good
-					status=201;
+				catch(ExistException ex){
+					//ignore as nothign to delete if nothing exists
 				}
+				
 			}
 			else{
 				status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds,cache);				
