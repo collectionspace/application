@@ -1229,7 +1229,7 @@
                 <field id="originalObjectPurchasePriceValue">
                     <selector>.csc-acquisition-original-object-purchase-price-value</selector>
                 </field>
-                <repeat id="owners"  xxx-services-no-repeat="yes">
+                <repeat id="owners">
                     <selector>.csc-acquisition-owner</selector>
                     <field id="owner" autocomplete="person-person,organization-organization">
                         <selector>.csc-acquisition-owner</selector>
@@ -1861,9 +1861,15 @@
                         <option id="inactive">Inactive</option>
                     </options>
                 </field>
-                <field userecord="userrole" exists-in-services="false">
-                    <selector>.csc-accountrole-account-row:</selector>
-                </field>
+				
+                <repeat id="roles" exists-in-services="false" as-expander="true">
+                    <selector>.csc-accountrole-roles-row:</selector>
+                	
+                    <field id="roleName"></field>
+                    <field id="roleGroup"></field>
+                    <field id="roleSelected"></field>
+                </repeat>
+				
             </record>
             <record id="loanout" in-findedit="yes">
                 <services-url>loansout</services-url>
@@ -1961,13 +1967,10 @@
             </record>
             <record id="movement" in-findedit="yes">
                 <services-url>movements</services-url>
+                <web-url>movement</web-url>
+                <tab-url>movement-tab</tab-url>
                 <services-list-path>movements-common-list/movement-list-item</services-list-path>
                 <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
-                <structures>
-                    <structure id="screen"></structure>
-                </structures>
-
-
                 <structures>
                     <structure id="screen"></structure>
                     <structure id="tab">
@@ -1988,8 +1991,6 @@
                         </repeat>
                     </structure>
                 </structures>
-                <web-url>movement</web-url>
-                <tab-url>movement-tab</tab-url>
 
 
 
