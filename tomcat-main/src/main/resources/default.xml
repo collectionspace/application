@@ -858,7 +858,9 @@
                 <field id="fieldCollectionNote"></field>
                 <field id="fieldCollectionNumber"></field>
                 <field id="fieldCollectionPlace"></field>
-                <field id="fieldCollectionEventName"></field>
+				<repeat id="fieldCollectionEventNames">
+                	<field id="fieldCollectionEventName"></field>
+				</repeat>
                 <field id="collection" seperate_ui_container="true">
                     <selector>.csc-object-identification-collection</selector>
                     <options>
