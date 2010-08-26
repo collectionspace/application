@@ -1025,9 +1025,11 @@
                     <selector>.csc-intake-valuation-reference-number</selector>
                 </field>
                 <field id="valuer" autocomplete="person-person,organization-organization"></field>
-                <field id="fieldCollectionEventName">
-                    <selector>.csc-intake-field-collection-event-name</selector>
-                </field>
+                <repeat id="fieldCollectionEventNames">
+                	<field id="fieldCollectionEventName">
+                    	<selector>.csc-intake-field-collection-event-name</selector>
+                	</field>
+				</repeat>
                 <field id="insuranceNote">
                     <selector>.csc-intake-insurance-note</selector>
                 </field>
