@@ -3,9 +3,7 @@ package org.collectionspace.csp.api.ui;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public interface UIRequest {
-	public Object getUnderlyingObject(String name) throws UIException;
-	
+public interface UIRequest {	
 	public String[] getPrincipalPath() throws UIException;
 	
 	public TTYOutputter getTTYOutputter() throws UIException;

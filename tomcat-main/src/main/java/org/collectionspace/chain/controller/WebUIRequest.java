@@ -95,14 +95,6 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 
-	public Object getUnderlyingObject(String name) throws UIException {
-		if("servlet.http-request".equals(name))
-			return request;
-		if("servlet.http-response".equals(name))
-			return response;
-		throw new UIException("No such object");
-	}
-
 	public String[] getPrincipalPath() throws UIException { return ppath; }
 
 	public void setFailure(boolean isit, Exception why) throws UIException {
