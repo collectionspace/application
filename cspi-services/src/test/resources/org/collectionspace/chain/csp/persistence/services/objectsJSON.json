@@ -250,9 +250,9 @@
     {
         "contentPeople": "contentPeople b"
     }],
-    "fieldCollectionEventNames": [
+    "fieldColEventNames": [
 	{"_primary":true,
-	"fieldCollectionEventName":"fieldCollectionEventName"}
+	"fieldColEventName":"fieldCollectionEventName"}
 	],
     "inscriptionDescriptionMethod": "",
     "sex": "",

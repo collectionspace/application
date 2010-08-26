@@ -234,7 +234,7 @@
 <fieldCollectors>
     <fieldCollector></fieldCollector>
 </fieldCollectors>
-<fieldCollectionEventNames><fieldCollectionEventName>fieldCollectionEventName</fieldCollectionEventName></fieldCollectionEventNames>
+<fieldColEventNames><fieldColEventName>fieldCollectionEventName</fieldColEventName></fieldColEventNames>
 <!-- Object Description Date Information -->
 <!-- This appears to be a placeholder structured date -->
 <dateAssociation></dateAssociation>
