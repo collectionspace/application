@@ -195,7 +195,7 @@ public class RecordRead implements WebMethod {
 				out.put("relations",relations);
 				out.put("termsUsed",getTermsUsed(storage,base+"/"+csid));
 				if(authorization_type && base.equals("role")){
-					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permrole/1234");
+					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permroles/");
 					JSONArray allperms = getPermissions(storage,permissions);
 					fields.put("permissions",allperms);
 				}
