@@ -4,15 +4,19 @@
 <objectNumber>2010.1.9</objectNumber>
 <otherNumberList>
 	<otherNumber>
-		<numberValue>12</numberValue>
-		<numberType>34</numberType>
+		<numberValue>a</numberValue>
+		<numberType>v</numberType>
 	</otherNumber>
 	<otherNumber>
-		<numberValue>55</numberValue>
-		<numberType>we</numberType>
+		<numberValue>b</numberValue>
+		<numberType>f</numberType>
 	</otherNumber>
 </otherNumberList>
-
+<references/>
+<ownersReferences/>
+<objectProductionDates/>
+<objectProductionReasons/>
+<viewersReferences/>
 <briefDescriptions>
     <briefDescription>bob</briefDescription>
     <briefDescription>george</briefDescription>

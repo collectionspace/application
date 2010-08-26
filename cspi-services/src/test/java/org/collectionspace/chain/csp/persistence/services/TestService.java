@@ -98,13 +98,13 @@ public class TestService extends ServicesBaseClass {
 
 		testJSONXML(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
 		testJSONXML(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
-	//	testJSONXML(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
+		testJSONXML(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
 		testJSONXML(spec,"movement","movement.xml","movement.json");
 		testJSONXML(spec,"role","role.xml","role.json");
 		
-		testJSONXML(spec,"permrole","rolepermissions.xml","rolepermissions.json");
-		testJSONXML(spec, "userrole","accountrole.xml","accountrole.json");	
-		testJSONXML(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
+//		testJSONXML(spec,"permrole","rolepermissions.xml","rolepermissions.json");
+//		testJSONXML(spec, "userrole","accountrole.xml","accountrole.json");	
+//		testJSONXML(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
 	}
 
 	private void testJSONXML(Spec spec, String objtype, String xmlfile, String jsonfile) throws Exception{
@@ -136,6 +136,7 @@ public class TestService extends ServicesBaseClass {
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, testxml);
 		JSONObject j = getJSON(jsonfile);
 		log.info(repeatjson.toString());
+		log.info(j.toString());
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}

@@ -7,17 +7,18 @@
     "objectHistoryNote": "",
     "inscriptionContentInscriber": "",
     "viewersPersonalResponse": "",
-    "viewersReference": "",
-    "fieldCollectionMethods": [{"_primary":true,
+    "fieldCollectionMethods": [{
+        "_primary": true,
         "fieldCollectionMethod": ""
     }],
-    "assocEventPeoples": [{"_primary":true,
+    "assocEventPeoples": [{
+        "_primary": true,
         "assocEventPeople": ""
     }],
+    "references": [],
     "ownershipPlace": "",
-    "ownersReference": "",
     "catalogNumber": "",
-    "associationNote": "",
+    "assocEventNote": "",
     "objectStatus": "",
     "responsibleDepartments": [{
         "_primary": true,
@@ -31,21 +32,37 @@
     }],
     "ownershipAccess": "",
     "contentOther": "contentOther",
+    "contentPositions": [{
+        "_primary": true,
+        "contentPosition": "contentPosition"
+    }],
     "inscriptionContentPosition": "",
     "inscriptionContentTransliteration": "",
     "contentOtherType": "contentOtherType",
-    "associationType": "",
-    "dateLatestQualifier": "",
-    "styles": [{"_primary":true,
+    "styles": [{
+        "_primary": true,
         "style": ""
     }],
+    "dateLatestQualifier": "",
+    "assocPersonNote": "",
     "contentObject": "contentObject",
     "ownershipExchangeMethod": "",
+    "objectNameGroup": [{
+        "objectNameCurrency": "objectNameCurrency",
+        "_primary": true,
+        "objectNameLanguage": "objectNameLanguage",
+        "objectName": "objectName",
+        "objectNameSystem": "objectNameSystem",
+        "objectNameType": "objectNameType",
+        "objectNameNote": "objectNameNote",
+        "objectNameLevel": "objectNameLevel"
+    }],
     "objectComponentInformation": "",
     "objectProductionNote": "",
     "ownershipExchangePriceCurrency": "",
     "objectProductionOrganization": "",
-    "owners": [{"_primary":true,
+    "owners": [{
+        "_primary": true,
         "owner": ""
     }],
     "inscriptionDescriptionDate": "",
@@ -55,15 +72,11 @@
     "ownershipExchangePriceValue": "",
     "ownersContributionNote": "",
     "objectProductionPeople": "",
-    "contentPositions": [
-	{"_primary":true,
-        "contentPosition": "contentPosition"
-		}
-		],
     "contentEventName": "contentEventName",
-    "dimensionMeasurementUnit": "",
-    "contentLanguages": [{"_primary":true,
-        "contentLanguage": "English"
+    "objectProductionReasons": [],
+    "contentLanguages": [{
+        "contentLanguage": "English",
+        "_primary": true
     },
     {
         "contentLanguage": "POlish"
@@ -74,30 +87,24 @@
     "objectProductionPerson": "",
     "inscriptionContent": "",
     "collection": "collection",
-    "assocCulturalContexts": [{"_primary":true,
+    "assocCulturalContextNote": "",
+    "assocCulturalContexts": [{
+        "_primary": true,
         "assocCulturalContext": ""
     }],
-    "otherNumber": [{"_primary":true,
-		"numberValue":"a",
-		"numberType":"v"
-    },
-    {
-		"numberValue":"b",
-		"numberType":"f"
-    }],
-    "dimensionValueDate": "",
     "materialComponentNote": "",
-    "dimensionValueQualifier": "",
-    "technicalAttributeMeasurement": "",
     "contentDate": "contentDate",
+    "technicalAttributeMeasurement": "",
     "title": "title",
     "titleType": "titleType",
     "titleTranslation": "titleTranslation",
     "inscriptionDescriptionType": "",
-    "assocPersons": [{"_primary":true,
+    "assocPersons": [{
+        "_primary": true,
         "assocPerson": ""
     }],
-    "assocPeoples": [{"_primary":true,
+    "assocPeoples": [{
+        "_primary": true,
         "assocPeople": ""
     }],
     "dateText": "",
@@ -109,17 +116,20 @@
     "ageQualifier": "ageQualifier",
     "fieldCollectionNote": "",
     "material": "",
+    "viewersReferences": [],
     "assocEventNameType": "",
     "techniqueType": "",
     "fieldCollectionNumber": "",
     "inscriptionDescription": "",
-    "assocEventPersons": [{"_primary":true,
+    "assocEventPersons": [{
+        "_primary": true,
         "assocEventPerson": ""
     }],
     "fieldCollectionPlace": "",
     "dateLatest": "",
     "fieldCollectionDate": "",
-    "comments": [{"_primary":true,
+    "comments": [{
+        "_primary": true,
         "comment": "comment a "
     },
     {
@@ -128,7 +138,6 @@
     {
         "comment": "comment c "
     }],
-    "objectProductionReason": "",
     "contentDescription": "contentDescription",
     "assocEventName": "",
     "briefDescriptions": [{
@@ -138,17 +147,17 @@
     {
         "briefDescription": "george"
     }],
-    "objectProductionDate": "",
     "objectProductionPlace": "",
     "viewersRole": "",
     "assocActivity": "",
     "ownersPersonalExperience": "",
-    "assocPlaces": [{"_primary":true,
+    "assocPlaces": [{
+        "_primary": true,
         "assocPlace": ""
     }],
     "ageUnit": "ageUnit",
-    "materialSource": "",
-    "contentOrganizations": [{"_primary":true,
+    "contentOrganizations": [{
+        "_primary": true,
         "contentOrganization": "contentOrganization a"
     },
     {
@@ -160,14 +169,16 @@
     {
         "contentOrganization": "contentOrganization f"
     }],
+    "materialSource": "",
     "ownershipCategory": "",
     "contentObjectType": "contentObjectType",
+    "dimensionSummary": "",
     "assocObjectType": "",
     "copyNumber": "copyNumber",
     "ownershipDates": "",
     "inscriptionContentInterpretation": "",
-    "age": "age",
-    "contentActivities": [{"_primary":true,
+    "contentActivities": [{
+        "_primary": true,
         "contentActivity": "contentActivity a"
     },
     {
@@ -176,7 +187,18 @@
     {
         "contentActivity": "contentActivity c"
     }],
-    "contentPersons": [{"_primary":true,
+    "otherNumber": [{
+        "_primary": true,
+        "numberValue": "a",
+        "numberType": "v"
+    },
+    {
+        "numberValue": "b",
+        "numberType": "f"
+    }],
+    "age": "age",
+    "contentPersons": [{
+        "_primary": true,
         "contentPerson": "contentPerson 2"
     },
     {
@@ -185,10 +207,12 @@
     {
         "contentPerson": "contentPerson 4"
     }],
-    "assocOrganizations": [{"_primary":true,
+    "assocOrganizations": [{
+        "_primary": true,
         "assocOrganization": ""
     }],
-    "contentScripts": [{"_primary":true,
+    "contentScripts": [{
+        "_primary": true,
         "contentScript": "contentScript 1"
     },
     {
@@ -198,7 +222,8 @@
         "contentScript": "contentScript 3"
     }],
     "objectNumber": "2010.1.9",
-    "colors": [{"_primary":true,
+    "colors": [{
+        "_primary": true,
         "color": "red"
     },
     {
@@ -207,9 +232,11 @@
     {
         "color": "blue"
     }],
+    "ownersReferences": [],
     "dateLatestCertainty": "",
     "physicalDescription": "",
-    "contentConcepts": [{"_primary":true,
+    "contentConcepts": [{
+        "_primary": true,
         "contentConcept": "contentConcept a"
     },
     {
@@ -219,14 +246,23 @@
         "contentConcept": "contentConcept c"
     }],
     "assocObject": "",
+    "fieldColEventNames": [{
+        "_primary": true,
+        "fieldColEventName": "fieldCollectionEventName"
+    }],
     "inscriptionContentType": "",
-    "assocEventPlaces": [{"_primary":true,
+    "assocEventPlaces": [{
+        "_primary": true,
         "assocEventPlace": ""
     }],
+    "assocConceptNote": "",
     "contentEventNameType": "contentEventNameType",
     "inscriptionDescriptionInscriber": "",
-    "contentPlaces": [{"_primary":true,
-        "contentPlace": "contentPlace 1"
+    "assocPlaceNote": "",
+    "assocDateNote": "",
+    "contentPlaces": [{
+        "contentPlace": "contentPlace 1",
+        "_primary": true
     },
     {
         "contentPlace": "contentPlace 2"
@@ -238,10 +274,11 @@
     "phase": "",
     "technicalAttributeMeasurementUnit": "",
     "objectProductionPlaceRole": "",
-    "contentNote": "contentNote",
     "titleLanguage": "titleLanguage",
+    "contentNote": "contentNote",
     "dateEarliestSingleQualifier": "",
-    "contentPeoples": [{"_primary":true,
+    "contentPeoples": [{
+        "_primary": true,
         "contentPeople": "contentPeople s"
     },
     {
@@ -250,10 +287,6 @@
     {
         "contentPeople": "contentPeople b"
     }],
-    "fieldColEventNames": [
-	{"_primary":true,
-	"fieldColEventName":"fieldCollectionEventName"}
-	],
     "inscriptionDescriptionMethod": "",
     "sex": "",
     "objectProductionOrganizationRole": "",
@@ -261,44 +294,40 @@
     "numberOfObjects": "numberOfObjects",
     "technicalAttribute": "",
     "objectComponentName": "",
-    "dimensionValue": "",
     "materialComponent": "",
     "objectProductionPersonRole": "",
+    "objectProductionDates": [],
     "objectProductionPeopleRole": "",
-    "fieldCollectionSources": [{"_primary":true,
+    "fieldCollectionSources": [{
+        "_primary": true,
         "fieldCollectionSource": ""
     }],
-    "forms": [{"_primary":true,
+    "forms": [{
+        "_primary": true,
         "form": ""
     }],
     "viewersContributionNote": "",
     "editionNumber": "",
     "distinguishingFeatures": "distinguishingFeatures",
     "dateAssociation": "",
-	"objectNameGroup":[{"_primary":true,
-    "objectName": "objectName",
-    "objectNameNote": "objectNameNote",
-    "objectNameSystem": "objectNameSystem",
-    "objectNameType": "objectNameType",
-    "objectNameCurrency": "objectNameCurrency",
-    "objectNameLanguage": "objectNameLanguage",
-    "objectNameLevel": "objectNameLevel"
-	}],
+    "titleTranslationLanguage": "",
     "dateEarliestSingleCertainty": "",
-    "fieldCollectors": [{"_primary":true,
+    "fieldCollectors": [{
+        "_primary": true,
         "fieldCollector": ""
     }],
-    "assocEventOrganizations": [{"_primary":true,
-        "assocEventOrganization": ""
+    "assocPeopleNote": "",
+    "assocEventOrganizations": [{
+        "assocEventOrganization": "",
+        "_primary": true
     }],
     "datePeriod": "",
-    "reference": "",
-    "dimension": "",
+    "assocOrganizationNote": "",
     "ownershipExchangeNote": "",
-    "assocConcepts": [{"_primary":true,
-        "assocConcept": ""
+    "assocConcepts": [{
+        "assocConcept": "",
+        "_primary": true
     }],
     "usage": "",
-    "inscriptionContentDate": "",
-    "dimensionMeasuredPart": ""
+    "inscriptionContentDate": ""
 }
