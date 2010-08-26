@@ -80,6 +80,7 @@ public class TestUISpecs {
 		JSONObject comparison;
 
 		response=jettyDo(jetty,"GET",url,null);
+		log.info(response.getContent());
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString(uijson));
@@ -107,7 +108,9 @@ public class TestUISpecs {
 		uispec(jetty,"/chain/permission/uispec","permissions.uispec");
 		uispec(jetty,"/chain/permrole/uispec","permroles.uispec");
 		uispec(jetty,"/chain/movement/uispec","movement.uispec");
+		uispec(jetty,"/chain/movement-tab/uispec","movement.uispec");
 		*/
+		
 		uispec(jetty,"/chain/find-edit/uispec","find-edit.uispec");
 		
 	
