@@ -1866,7 +1866,7 @@
                     </options>
                 </field>
 				
-                <repeat id="roles" exists-in-services="false" as-expander="true">
+                <repeat id="role" exists-in-services="false" as-expander="true">
                     <selector>.csc-accountrole-roles-row:</selector>
                 	
                     <field id="roleName"></field>
