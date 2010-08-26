@@ -147,7 +147,7 @@ public class AuthorizationStorage extends GenericStorage {
 				//hopefully the filepath we have is the filepath to get the data from
 				Document doc = null;
 				try{
-					doc = simpleRetrieveXML(creds,cache,filePath+"/1234");
+					doc = simpleRetrieveXML(creds,cache,filePath+"/");
 					String nodepath = "/"+ r.getServicesListPath()+"/*";
 					List<Node> nodes=doc.selectNodes(nodepath);
 					if(nodes.size()>0){
@@ -169,7 +169,8 @@ public class AuthorizationStorage extends GenericStorage {
 					}
 				}
 				catch(ExistException ex){
-					//ignore as nothign to delete if nothing exists
+					//ignore as nothign to delete if nothing exists	
+					status=201;
 				}
 				
 			}
