@@ -329,7 +329,7 @@
                     </options>
                 </field>
 				<field id="dimensionSummary"></field>
-				<repeat id="dimensionGroups/dimensions">
+				<repeat id="dimensions/dimensionGroup">
 					<field id="dimension" seperate_ui_container="true">
                     <selector>.csc-object-description-dimension</selector>
                     <options>
