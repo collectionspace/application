@@ -875,7 +875,7 @@ log.info(out.getContent());
 		JSONObject role1 = new JSONObject();
 		role1.put("roleName", role.getString("roleName"));
 		role1.put("roleId", role_id);
-		role1.put("active", "active");
+		role1.put("roleSelected", "true");
 		
 		roles.put(role1);
 
@@ -936,8 +936,8 @@ log.info(out.getContent());
 		JSONObject userdata2 = createUserWithRoles(jetty,user88Create,role2Create);
 //create user with roles in payload
 		HttpTester out = jettyDo(jetty,"POST","/chain/users/",makeRequest(userdata).toString());
-		assertEquals(201,out.getStatus());
 		log.info(out.getContent());
+		assertEquals(201,out.getStatus());
 
 		String userid = out.getHeader("Location");
 		log.info(userid);
