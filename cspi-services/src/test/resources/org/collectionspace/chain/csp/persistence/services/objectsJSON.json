@@ -173,6 +173,19 @@
     "ownershipCategory": "",
     "contentObjectType": "contentObjectType",
     "dimensionSummary": "",
+	"dimensionGroup":[{
+        "_primary": true,
+		"dimension":"dimension",
+		"measuredPart":"measuredPart",
+		"measurementUnit":"measurementUnit",
+		"value":"value",
+		"valueDate":"valueDate",
+		"valueQualifier":"valueQualifier"
+	}
+	],
+	
+	
+	
     "assocObjectType": "",
     "copyNumber": "copyNumber",
     "ownershipDates": "",

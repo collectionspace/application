@@ -113,12 +113,16 @@
 </contentScripts>
 <copyNumber>copyNumber</copyNumber>
 <!-- Object Description - Dimension Information -->
-<dimension></dimension>
-<dimensionMeasuredPart></dimensionMeasuredPart>
-<dimensionMeasurementUnit></dimensionMeasurementUnit>
-<dimensionValue></dimensionValue>
-<dimensionValueDate></dimensionValueDate>
-<dimensionValueQualifier></dimensionValueQualifier>
+<dimensions>
+	<dimensionGroup>
+		<dimension>dimension</dimension>
+		<measuredPart>measuredPart</measuredPart>
+		<measurementUnit>measurementUnit</measurementUnit>
+		<value>value</value>
+		<valueDate>valueDate</valueDate>
+		<valueQualifier>valueQualifier</valueQualifier>
+	</dimensionGroup>
+</dimensions>
 <editionNumber></editionNumber>
 <forms>
     <form></form>
