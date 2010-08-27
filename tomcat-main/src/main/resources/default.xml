@@ -871,7 +871,7 @@
                     </options>
                 </field>
                 <repeat id="fieldCollectionMethods">
-                    <field id="fieldCollectionMethod"></field>
+                    <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
                 </repeat>
                 <repeat id="fieldCollectionSources">
                     <field id="fieldCollectionSource"></field>
@@ -1067,40 +1067,33 @@
                     <selector>.csc-intake-condition-check-date</selector>
                 </field>
                 <repeat id="conditionCheckMethods">
-                    <selector>.csc-intake-conditionCheckMethod</selector>
                     <field id="conditionCheckMethod" autocomplete="vocab-conditioncheckmethod" ui-type="enum"></field>
                 </repeat>
                 <field id="conditionCheckNote">
                     <selector>.csc-intake-condition-check-note</selector>
                 </field>
                 <repeat id="conditionCheckReasons">
-                    <selector>.csc-intake-conditionCheckReason</selector>
                     <field id="conditionCheckReason" autocomplete="vocab-conditioncheckreason" ui-type="enum"></field>
                 </repeat>
                 <field id="conditionCheckReferenceNumber">
                     <selector>.csc-intake-condition-check-reference-number</selector>
                 </field>
                 <repeat id="conditionCheckersOrAssessors">
-                    <selector>.csc-intake-conditionCheckerOrAssessor</selector>
                     <field id="conditionCheckerOrAssessor" autocomplete="person-person,organization-organization"></field>
                 </repeat>
                 <field id="fieldCollectionDate" ui-type="date">
-                    <selector>.csc-intake-fieldCollectionDate</selector>
                     <container-selector>.csc-intake-fieldCollectionDate-container</container-selector>
                 </field>
                 <field id="fieldCollectionNote"></field>
                 <field id="fieldCollectionNumber"></field>
                 <field id="fieldCollectionPlace"></field>
                 <repeat id="fieldCollectionMethods">
-                    <selector>.csc-intake-fieldCollectionMethod</selector>
                     <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
                 </repeat>
                 <repeat id="fieldCollectionSources">
-                    <selector>.csc-intake-fieldCollectionSource</selector>
                     <field id="fieldCollectionSource" autocomplete="person-person"></field>
                 </repeat>
                 <repeat id="fieldCollectors">
-                    <selector>.csc-intake-fieldCollector</selector>
                     <field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
                 </repeat>
             </record>
