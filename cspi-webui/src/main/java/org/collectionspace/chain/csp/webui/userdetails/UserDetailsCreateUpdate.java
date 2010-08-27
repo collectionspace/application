@@ -67,7 +67,7 @@ public class UserDetailsCreateUpdate implements WebMethod {
 			JSONArray roles = fields.getJSONArray("role");
 			for(int i=0;i<roles.length();i++){
 				JSONObject role = roles.getJSONObject(i);
-				if(role.getString("active").equals("active")){
+				if(role.getString("roleSelected").equals("true")){
 					JSONObject roleitem = new JSONObject();
 					roleitem.put("roleName", role.getString("roleName"));
 					roleitem.put("roleId", role.getString("roleId"));

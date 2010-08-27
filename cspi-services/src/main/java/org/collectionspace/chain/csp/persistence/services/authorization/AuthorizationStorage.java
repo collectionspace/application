@@ -152,6 +152,7 @@ public class AuthorizationStorage extends GenericStorage {
 					List<Node> nodes=doc.selectNodes(nodepath);
 					if(nodes.size()>0){
 						status=201;
+						status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds,cache);	
 						//post it back to delete it
 	/*
 						log.info("TRYING TO DELETE ACCOUNTROLE");
