@@ -541,15 +541,20 @@ public class GenericStorage  implements ContextualisedStorage {
 					Record thisr = r.getSpec().getRecordByServicesUrl(recordurl);
 					resetGlean(thisr,reset_good,reset_map,reset_deurn,reset_merge);// what glean info required for this one..
 					String csid = parts[parts.length-1];
-					JSONObject dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", "/authority-ref-doc-list/authority-ref-doc-item/"+uri, thisr);
+					JSONObject dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", r.getServicesURL()+"/"+uri, thisr);
 					dataitem.getJSONObject("summarylist").put("uri",filePath);
 					
 					String key = dataitem.getJSONObject("summarylist").getString("sourceField");
-					String fieldName = key.split(":")[1];
-					Field fieldinstance = (Field)thisr.getRepeatField(fieldName);
+					String fieldName = "unknown";
+					String fieldSelector = "unknown";
+					if(key.contains(":")){
+						fieldName = key.split(":")[1];
+						Field fieldinstance = (Field)thisr.getRepeatField(fieldName);
+						fieldSelector = fieldinstance.getSelector();
+					}
 
 					dataitem.put("csid", csid);
-					dataitem.put("sourceFieldselector", fieldinstance.getSelector());
+					dataitem.put("sourceFieldselector", fieldSelector);
 					dataitem.put("sourceFieldName", fieldName);
 					dataitem.put("sourceFieldType", dataitem.getJSONObject("summarylist").getString("docType"));
 					
