@@ -46,14 +46,16 @@ public class UserDetailsRead  implements WebMethod {
 	 */
 	private JSONArray getRoles(Storage storage,JSONObject activeRoles) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
 		JSONObject set = new JSONObject();
+		JSONArray roles = new JSONArray();
 		//get all roles - actually dont
 		
 		//String filePath = r.getSpec().getRecordByWebUrl("role").getID()+"/";
 		//JSONObject roles = storage.retrieveJSON(filePath);
 		//log.info("DEBUG"+filePath+roles.toString());
 		//mark active roles
-		JSONArray roles = activeRoles.getJSONArray("role");
-		
+		if(activeRoles.has("role")){
+			roles = activeRoles.getJSONArray("role");
+		}
 		//we are ignoring pagination so this will return the first 40 roles only
 		//UI doesn't know what it wants to do about pagination etc
 		return roles;
