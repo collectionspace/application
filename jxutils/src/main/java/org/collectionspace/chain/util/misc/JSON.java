@@ -6,7 +6,9 @@
  */
 package org.collectionspace.chain.util.misc;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,5 +37,16 @@ public class JSON {
 		} else {
 			return in;
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static Map<String,String> stringObjectToMap(JSONObject in) throws JSONException {
+		Map<String,String> out=new HashMap<String,String>();
+		Iterator ks=in.keys();
+		while(ks.hasNext()) {
+			String k=(String)ks.next();
+			out.put(k,in.getString(k));
+		}
+		return out;
 	}
 }

@@ -17,6 +17,10 @@ public class WebTTYOutputter implements TTYOutputter {
 		res.setContentType("text/plain");
 	}
 	
+	WebTTYOutputter(PrintWriter pw) {
+		this.pw=pw;
+	}
+	
 	public void flush() throws UIException { pw.flush(); }
 	public void line(String text) throws UIException { pw.println(text); }
 	

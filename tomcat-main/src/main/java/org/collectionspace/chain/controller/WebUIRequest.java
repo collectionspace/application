@@ -41,7 +41,7 @@ public class WebUIRequest implements UIRequest {
 	private Operation operation_performed=Operation.READ;
 	private Map<String,String> rargs=new HashMap<String,String>();
 	private PrintWriter out=null;
-	private String body;
+	private String body; // XXX what if it's binary?
 	private WebUIUmbrella umbrella;
 	private WebUISession session;
 
@@ -220,7 +220,6 @@ public class WebUIRequest implements UIRequest {
 	}
 
 	public JSONObject getPostBody() throws UIException {
-
 		JSONObject jsondata = new JSONObject();
 		String jsonString = body;
 		try {
