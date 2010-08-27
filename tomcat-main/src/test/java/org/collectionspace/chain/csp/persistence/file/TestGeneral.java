@@ -510,7 +510,7 @@ out = createUser(jetty,user2Create);
 		String testdata = "{\"termsUsed\":[],\"relations\":{\"intake\":[{\"summary\":\"Sean Bean\",\"summarylist\":{\"currentOwner\":\"Sean Bean\",\"entryNumber\":\"CompleteIntake001\"},\"csid\":\"b369100f-ccc7-4390-aecc\",\"number\":\"CompleteIntake001\",\"relid\":\"bca548a6-1777-421a-b513\",\"relationshiptype\":\"affects\",\"recordtype\":\"intake\"},{\"summary\":\"Sean Bean\",\"summarylist\":{\"currentOwner\":\"Sean Bean\",\"entryNumber\":\"CompleteIntake001\"},\"csid\":\"58346028-dbcb-42bb-88e2\",\"number\":\"CompleteIntake001\",\"relid\":\"7378e437-c701-4c47-b789\",\"relationshiptype\":\"affects\",\"recordtype\":\"intake\"}],\"objects\":[{\"summary\":\"\",\"summarylist\":{\"nametitle\":\"\",\"objectNumber\":\"2010.1.16\"},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"number\":\"2010.1.16\",\"relid\":\"42db720b-078c-4ef0-ae34\",\"relationshiptype\":\"affects\",\"recordtype\":\"objects\"},{\"summary\":\"\",\"summarylist\":{\"nametitle\":\"\",\"objectNumber\":\"2010.1.16\"},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"number\":\"2010.1.16\",\"relid\":\"163c7d9d-1ce4-446e-ba58\",\"relationshiptype\":\"affects\",\"recordtype\":\"objects\"}]},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"fields\":{\"technique\":\"\",\"inscriptionContentTranslation\":\"\",\"assocActivityNote\":\"\",\"inscriptionContentMethod\":\"\",\"inscriptionDescriptionPosition\":\"\",\"objectHistoryNote\":\"\",\"inscriptionContentInscriber\":\"\",\"viewersPersonalResponse\":\"\",\"fieldCollectionMethods\":[],\"assocEventPeoples\":[{\"_primary\":true,\"assocEventPeople\":\"\"}],\"references\":[{\"_primary\":true,\"reference\":\"\"}],\"ownershipPlace\":\"\",\"catalogNumber\":\"\",\"assocEventNote\":\"\",\"objectStatus\":\"\",\"responsibleDepartments\":[{\"_primary\":true,\"responsibleDepartment\":\"\"}],\"ownershipAccess\":\"\",\"contentOther\":\"\",\"contentPositions\":[{\"_primary\":true,\"contentPosition\":\"\"}],\"inscriptionContentPosition\":\"\",\"inscriptionContentTransliteration\":\"\",\"contentOtherType\":\"\",\"styles\":[{\"_primary\":true,\"style\":\"\"}],\"dateLatestQualifier\":\"\",\"contentObject\":\"\",\"ownershipExchangeMethod\":\"\",\"objectComponentInformation\":\"\",\"objectProductionNote\":\"\",\"ownershipExchangePriceCurrency\":\"\",\"objectProductionOrganization\":\"\",\"owners\":[{\"_primary\":true,\"owner\":\"\"}],\"assocDate\":\"\",\"inscriptionDescriptionDate\":\"\",\"inscriptionDescriptionInterpretation\":\"\",\"usageNote\":\"\",\"ownershipExchangePriceValue\":\"\",\"ownersContributionNote\":\"\",\"objectProductionPeople\":\"\",\"contentEventName\":\"\",\"objectProductionReasons\":[{\"objectProductionReason\":\"\",\"_primary\":true}],\"contentLanguages\":[{\"contentLanguage\":\"\",\"_primary\":true}],\"objectProductionPerson\":\"\",\"inscriptionContent\":\"\",\"collection\":\"\",\"assocCulturalContexts\":[{\"_primary\":true,\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"}],\"otherNumberList\":[{\"_primary\":true,\"otherNumber\":\"sdf\"},{\"otherNumber\":\"fff\"}],\"materialComponentNote\":\"\",\"contentDate\":\"\",\"technicalAttributeMeasurement\":\"\",\"title\":\"\",\"titleType\":\"\",\"titleTranslation\":\"\",\"inscriptionDescriptionType\":\"\",\"assocPersons\":[{\"_primary\":true,\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"}],\"assocPeoples\":[{\"_primary\":true,\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"}],\"dateText\":\"\",\"viewersPersonalExperience\":\"\",\"materialName\":\"\",\"dateEarliestSingle\":\"\",\"inscriptionContentScript\":\"\",\"ownersPersonalResponse\":\"\",\"ageQualifier\":\"\",\"fieldCollectionNote\":\"\",\"material\":\"\",\"viewersReferences\":[{\"_primary\":true,\"viewersReference\":\"\"}],\"assocEventNameType\":\"\",\"techniqueType\":\"\",\"fieldCollectionNumber\":\"\",\"inscriptionDescription\":\"\",\"assocEventPersons\":[{\"_primary\":true,\"assocEventPerson\":\"\"}],\"fieldCollectionPlace\":\"\",\"dateLatest\":\"\",\"fieldCollectionDate\":\"\",\"comments\":[{\"_primary\":true,\"comment\":\"\"}],\"contentDescription\":\"\",\"nhString\":\"\",\"assocEventName\":\"\",\"briefDescriptions\":[{\"_primary\":true,\"briefDescription\":\"\"}],\"objectProductionPlace\":\"\",\"viewersRole\":\"\",\"assocActivity\":\"\",\"ownersPersonalExperience\":\"\",\"assocPlaces\":[{\"_primary\":true,\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"}],\"ageUnit\":\"\",\"contentOrganizations\":[{\"_primary\":true,\"contentOrganization\":\"\"}],\"materialSource\":\"\",\"ownershipCategory\":\"\",\"contentObjectType\":\"\",\"dimensionSummary\":\"\",\"assocObjectType\":\"\",\"copyNumber\":\"\",\"ownershipDates\":\"\",\"inscriptionContentInterpretation\":\"\",\"contentActivities\":[{\"_primary\":true,\"contentActivity\":\"\"}],\"age\":\"\",\"contentPersons\":[{\"_primary\":true,\"contentPerson\":\"\"}],\"assocOrganizations\":[{\"_primary\":true,\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"}],\"contentScripts\":[{\"_primary\":true,\"contentScript\":\"\"}],\"objectNumber\":\"2010.1.16\",\"colors\":[{\"_primary\":true,\"color\":\"\"}],\"ownersReferences\":[{\"_primary\":true,\"ownersReference\":\"\"}],\"dateLatestCertainty\":\"\",\"physicalDescription\":\"\",\"contentConcepts\":[{\"_primary\":true,\"contentConcept\":\"\"}],\"assocObject\":\"\",\"inscriptionContentType\":\"\",\"assocEventPlaces\":[{\"_primary\":true,\"assocEventPlace\":\"\"}],\"contentEventNameType\":\"\",\"inscriptionDescriptionInscriber\":\"\",\"assocDateNote\":\"\",\"contentPlaces\":[{\"contentPlace\":\"\",\"_primary\":true}],\"inscriptionContentLanguage\":\"\",\"phase\":\"\",\"technicalAttributeMeasurementUnit\":\"\",\"objectProductionPlaceRole\":\"\",\"titleLanguage\":\"\",\"contentNote\":\"\",\"dateEarliestSingleQualifier\":\"\",\"contentPeoples\":[{\"_primary\":true,\"contentPeople\":\"\"}],\"fieldCollectionEventName\":\"\",\"inscriptionDescriptionMethod\":\"\",\"sex\":\"\",\"objectProductionOrganizationRole\":\"\",\"recordStatus\":\"\",\"numberOfObjects\":\"\",\"technicalAttribute\":\"\",\"objectComponentName\":\"\",\"materialComponent\":\"\",\"objectProductionPersonRole\":\"\",\"objectProductionDates\":[{\"_primary\":true,\"objectProductionDate\":\"\"}],\"objectProductionPeopleRole\":\"\",\"fieldCollectionSources\":[],\"forms\":[{\"_primary\":true,\"form\":\"\"}],\"viewersContributionNote\":\"\",\"editionNumber\":\"\",\"distinguishingFeatures\":\"\",\"dateAssociation\":\"\",\"titleTranslationLanguage\":\"\",\"dateEarliestSingleCertainty\":\"\",\"fieldCollectors\":[],\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"assocEventOrganizations\":[{\"assocEventOrganization\":\"\",\"_primary\":true}],\"datePeriod\":\"\",\"ownershipExchangeNote\":\"\",\"assocConcepts\":[{\"assocConcept\":\"\",\"_primary\":true},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"}],\"usage\":\"\",\"inscriptionContentDate\":\"\",\"dimensions\":[],\"objectNameGroup\":[]},\"items\":[]}";
 		ServletTester jetty=setupJetty();
 		
-		HttpTester out2=jettyDo(jetty,"GET","/chain/objects/search?query=O'hare&pageNum=0&pageSize=10",null);
+		HttpTester out2=jettyDo(jetty,"GET","/chain/vocabularies/person/552e81e1-76b2-4117-9fbd",null);
 		log.info(out2.getContent());
 		
 	}
@@ -891,6 +891,7 @@ log.info(out.getContent());
 		JSONObject rolepermsdata = createRoleWithPermission(roleCreate,"acquisitions", "intakes"); 
 
 		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeRequest(rolepermsdata).toString());
+		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
 		String role_id = out.getHeader("Location");
 
@@ -906,24 +907,27 @@ log.info(out.getContent());
 		out=jettyDo(jetty,"DELETE","/chain"+role_id,null);
 		assertEquals(200,out.getStatus());
 		//XXX test removed until service layer have fixed there stuff
-/*		
+		
 		//test data
 		JSONArray perms = data.getJSONObject("fields").getJSONArray("permissions");
+		log.info(perms.toString());
 		int test = 0;
 		for(int i=0; i<perms.length();i++){
 			JSONObject thisperm = perms.getJSONObject(i);
 			if(thisperm.getString("resourceName").equals("intakes")){
-				assertEquals("write",thisperm.getString("permission"));
+				//XXX test removed until service layer have fixed there stuff
+				//assertEquals("write",thisperm.getString("permission"));
 				test++;
 			}
 			if(thisperm.getString("resourceName").equals("acquisitions")){
-				assertEquals("read",thisperm.getString("permission"));
+				//XXX test removed until service layer have fixed there stuff
+				//assertEquals("read",thisperm.getString("permission"));
 				test++;
 			}
 		}
 		assertEquals("failed to find acquisitions and intakes",2,test);
 
- */
+ 
 	}
 	
 	@Test public void testUserRolesUI() throws Exception{
@@ -976,7 +980,7 @@ log.info(out.getContent());
 
 		//test role_1 deleted to payload
 		//XXX test removed until service layer have fixed their stuff
-		/*
+		
 		assertEquals("Should only be one role, if more then it didn't delete, if less then it didn't add",1,roles.length());
 
 		//test role_2 added to payload
@@ -985,7 +989,7 @@ log.info(out.getContent());
 			//assertEquals()
 			assertEquals(role.getString("roleName"),userdata.getJSONArray("role").getJSONObject(0).getString("roleName"));
 		}
-		*/
+		
 	}
 
 
