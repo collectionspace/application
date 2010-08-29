@@ -258,7 +258,7 @@ public class TestService extends ServicesBaseClass {
 		// TODO Add everything from CSPACE-1876 and more
 		//testPostGetDelete("collectionobjects/", "collectionobjects_common", "objectCreate.xml", "collectionobjects_common/objectNumber", "2");
 		
-		testCRUD("collectionobjects/", "collectionobjects_common", "objectCreate.xml", "objectUpdate.xml", "collectionobjects_common/objectNumber", "2");
+		testCRUD("collectionobjects/", "collectionobjects_common", "objectCreate.xml", "objectsXMLJSON.xml", "collectionobjects_common/objectNumber", "2010.1.9");
 
 		testPostGetDelete("acquisitions/", "acquisitions_common", "acquisitionXMLJSON.xml", "acquisitions_common/accessionDate", "April 1, 2010");
 		testPostGetDelete("intakes/", "intakes_common", "intake.xml", "intakes_common/entryNumber","IN2010.2");
@@ -350,6 +350,7 @@ public class TestService extends ServicesBaseClass {
 		text=n.getText();
 		assertEquals(expected,text);
 		
+		log.info(doc.asXML());
 		//Get
 		
 		// DELETE (Delete)
