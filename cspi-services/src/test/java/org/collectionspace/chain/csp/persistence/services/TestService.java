@@ -140,6 +140,152 @@ public class TestService extends ServicesBaseClass {
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}
+
+        @Test
+        public void testPersonContactPostViaCSIDs() throws Exception {
+            String filename = "";
+            String partname = "";
+            ReturnedURL url = null;
+            Map<String, Document> parts = new HashMap<String, Document>();
+            StringBuilder serviceurl = new StringBuilder("");
+            ReturnedMultipartDocument rdocs = null;
+            ReturnedDocument rdoc = null;
+            int status = 0;
+            Document doc = null;
+            String text = "";
+            String xpath = "";
+
+            // POST (Create) a person authority
+            serviceurl.append("personauthorities/");
+            partname = "personauthorities_common";
+            filename = "personAuth.xml";
+            log.info("Testing create at " + serviceurl + " with " + filename + " and partname=" + partname);
+            parts.put(partname, getDocument(filename));
+            url = conn.getMultipartURL(RequestMethod.POST, serviceurl.toString(), parts, creds, cache);
+            assertEquals(201, url.getStatus());
+            String authUrl = url.getURL();
+            String authId = url.getURLTail();
+            // Test creation with a GET
+            if (partname != null) {
+                rdocs = conn.getMultipartXMLDocument(RequestMethod.GET, authUrl, null, creds, cache);
+                status = rdocs.getStatus();
+                doc = rdocs.getDocument(partname);
+            } else {
+                rdoc = conn.getXMLDocument(RequestMethod.GET, authUrl, null, creds, cache);
+                status = rdoc.getStatus();
+                doc = rdoc.getDocument();
+            }
+            assertEquals(200, status);
+            assertNotNull(doc);
+            log.info(doc.asXML());
+            log.info("CREATED PERSONAUTHORITY AT " + authUrl);
+
+            // POST (Create) a person item within the person authority
+            serviceurl.append(authId + "/items/");
+            partname = "persons_common";
+            filename = "personItem.xml";
+            log.info("Testing create at " + serviceurl + " with " + filename + " and partname=" + partname);
+            if (partname != null) {
+                parts = new HashMap<String, Document>();
+                parts.put(partname, getDocument(filename));
+                url = conn.getMultipartURL(RequestMethod.POST, serviceurl.toString(), parts, creds, cache);
+            } else {
+                url = conn.getURL(RequestMethod.POST, serviceurl.toString(), getDocument(filename), creds, cache);
+            }
+            assertEquals(201, url.getStatus());
+            String itemUrl = url.getURL();
+            String itemId = url.getURLTail();
+            // Test creation with a GET
+            if (partname != null) {
+                rdocs = conn.getMultipartXMLDocument(RequestMethod.GET, itemUrl, null, creds, cache);
+                status = rdocs.getStatus();
+                doc = rdocs.getDocument(partname);
+            } else {
+                rdoc = conn.getXMLDocument(RequestMethod.GET, itemUrl, null, creds, cache);
+                status = rdoc.getStatus();
+                doc = rdoc.getDocument();
+            }
+            assertEquals(200, status);
+            assertNotNull(doc);
+            log.info(doc.asXML());
+            // Test that the parent authority lists this item as a child
+            String parentUrl = authUrl + "/items/";
+            log.info("LIST from " + parentUrl);
+            rdoc = conn.getXMLDocument(RequestMethod.GET, parentUrl, null, creds, cache);
+            status = rdoc.getStatus();
+            doc = rdoc.getDocument();
+            assertEquals(200, status);
+            log.info(doc.asXML());
+            xpath = "//totalItems";
+            Node n = doc.selectSingleNode(xpath);
+            assertNotNull(n);
+            text = n.getText();
+            log.info("Value of XPath expression '" + xpath + "' = " + text);
+            assert (!text.trim().equals("0"));
+            xpath = "//person_list_item/csid";
+            List<Node> nodes = doc.selectNodes(xpath);
+            assertNotNull(nodes);
+            assert (nodes.size() > 0);
+            boolean foundItemInAuthority = false;
+            for (Node node : nodes) {
+                log.info("found '" + node.getText().trim() + "' comparing to " + authId);
+                if (node.getText().trim().equals(itemId)) {
+                    foundItemInAuthority = true;
+                }
+            }
+            assert (foundItemInAuthority);
+            log.info("CREATED PERSON AT " + itemUrl);
+
+            // POST (Create) a contact sub-resource within the person item
+            // and perform a full POST, GET, DELETE cycle on that contact
+            serviceurl.append(itemId + "/contacts");
+            partname = "contacts_common";
+            filename = "personItemContact.xml";
+            log.info("ADDING CONTACT USING THIS URL " + serviceurl);
+            testPostGetDelete(serviceurl.toString(), partname, filename, "contacts_common/email", "email@example.com");
+
+            // DELETE (Delete) the person item within the person authority
+            status = conn.getNone(RequestMethod.DELETE, itemUrl, null, creds, cache);
+            assertEquals(200, status);
+            // Now try to delete non-existent (make sure CSPACE-73 hasn't regressed)
+            status = conn.getNone(RequestMethod.DELETE, itemUrl, null, creds, cache);
+            assertEquals(404, status);
+            // GET once more to make sure it isn't there
+            if (partname != null) {
+                rdocs = conn.getMultipartXMLDocument(RequestMethod.GET, itemUrl, null, creds, cache);
+                status = rdocs.getStatus();
+                doc = rdocs.getDocument(partname);
+            } else {
+                rdoc = conn.getXMLDocument(RequestMethod.GET, itemUrl, null, creds, cache);
+                status = rdoc.getStatus();
+                doc = rdoc.getDocument();
+            }
+            assertEquals(404, status); // ensures CSPACE-209 hasn't regressed
+            assertNull(doc);
+            log.info("DELETED PERSON");
+
+            // DELETE (Delete) the person authority
+            status = conn.getNone(RequestMethod.DELETE, authUrl, null, creds, cache);
+            assertEquals(200, status);
+            // Now try to delete non-existent (make sure CSPACE-73 hasn't regressed)
+            status = conn.getNone(RequestMethod.DELETE, authUrl, null, creds, cache);
+            assertEquals(404, status);
+            // GET once more to make sure it isn't there
+            if (partname != null) {
+                rdocs = conn.getMultipartXMLDocument(RequestMethod.GET, authUrl, null, creds, cache);
+                status = rdocs.getStatus();
+                doc = rdocs.getDocument(partname);
+            } else {
+                rdoc = conn.getXMLDocument(RequestMethod.GET, authUrl, null, creds, cache);
+                status = rdoc.getStatus();
+                doc = rdoc.getDocument();
+            }
+            assertEquals(404, status); // ensures CSPACE-209 hasn't regressed
+            assertNull(doc);
+            log.info("DELETED PERSON AUTHORITY");
+
+        }
+
 	@Test public void testPersonContact() throws Exception {
 		String serviceurl = "personauthorities/urn:cspace:name(person)/items";
 		String filename = "personItem.xml";
