@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
   <ns2:persons_common xmlns:ns2="http://collectionspace.org/services/person">
-  <inAuthority>0975566a-72f1-409b-bf9a</inAuthority>
   <displayName>John Wayne May 26, 1907-June 11, 1979</displayName>
   <displayNameComputed>true</displayNameComputed>
   <refName>
