@@ -5,7 +5,9 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -155,8 +157,20 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 	
+	private String aWhileAgoAsExpectedByExpiresHeader() {
+		SimpleDateFormat format=new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+		Date a_while_ago=new Date(new Date().getTime()-24*60*60*1000);
+		return format.format(a_while_ago);
+	}
+	
 	public void solidify() throws UIException {
 		try {
+			/* We always disable cacheing for now (for IE). We probably want to be cleverer at some point. XXX */
+			response.addHeader("Pragma","no-cache");
+			response.addHeader("Last-Modified",aWhileAgoAsExpectedByExpiresHeader());
+			response.addHeader("Cache-Control","no-store, no-cache, must-revalidate");
+			response.addHeader("Cache-Control","post-check=0, pre-check=0");
+			/* End of cacheing stuff */
 			if(failure) {
 				// Failed
 				response.setStatus(400);
