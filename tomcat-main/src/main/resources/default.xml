@@ -1864,6 +1864,7 @@
                 	
                     <field id="roleName"></field>
                     <field id="roleGroup"></field>
+                    <field id="roleId"></field>
                     <field id="roleSelected"></field>
                 </repeat>
 				
