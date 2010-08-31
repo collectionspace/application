@@ -91,6 +91,7 @@ public class RecordCreateUpdate implements WebMethod {
 		if(permlevel.equals("none")){
 			queryString = "";
 			actions = "[]";	
+			return permitem;
 		}
 		if(permlevel.equals("read")){
 			queryString = "RL";
@@ -143,6 +144,7 @@ public class RecordCreateUpdate implements WebMethod {
 		if(!permid.equals("")){
 			permitem.put("resourceName", resourceName);
 			permitem.put("permissionId", permid);
+			permitem.put("actionGroup", queryString);
 		}
 		return permitem;
 

@@ -99,9 +99,7 @@ public class AuthorizationStorage extends GenericStorage {
 					path = path.replace("*", getSubCsid(jsonObject,r.getPrimaryField()));
 
 					deleteJSON(root,creds,cache,path);
-					log.info(doc.asXML());
-					url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);		
-					
+					url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);	
 				}
 			}
 			else{
@@ -508,6 +506,10 @@ public class AuthorizationStorage extends GenericStorage {
 	}
 	public JSONObject simpleRetrieveJSONFullPath(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
+		if(filePath.endsWith("/permroles/")){
+			Record thisr = r.getSpec().getRecord("permrole");
+			return simpleRetrieveJSONFullPath( creds, cache, filePath, thisr);
+		}
 		return simpleRetrieveJSONFullPath( creds, cache, filePath, r);
 	}
 	
@@ -528,7 +530,7 @@ public class AuthorizationStorage extends GenericStorage {
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new ExistException("Does not exist "+filePath);
-
+				String test =  doc.getDocument().asXML();
 				convertToJson(out,doc.getDocument(),thisr);
 			}
 			return out;
