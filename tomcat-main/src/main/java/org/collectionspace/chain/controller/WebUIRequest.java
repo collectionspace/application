@@ -158,7 +158,7 @@ public class WebUIRequest implements UIRequest {
 	}
 	
 	private String aWhileAgoAsExpectedByExpiresHeader() {
-		SimpleDateFormat format=new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+		SimpleDateFormat format=new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz");
 		Date a_while_ago=new Date(new Date().getTime()-24*60*60*1000);
 		return format.format(a_while_ago);
 	}

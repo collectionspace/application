@@ -83,7 +83,7 @@ public class TestAjaxExpiresHeaders {
 		assertEquals("no-cache",out.getHeader("pragma"));
 		String last_modified=out.getHeader("Last-Modified");
 		assertNotNull(last_modified);
-		SimpleDateFormat format=new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+		SimpleDateFormat format=new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz");
 		Date when=format.parse(last_modified);
 		assertTrue(when.getTime()<new Date().getTime());
 		Enumeration cc=out.getHeaderValues("Cache-Control");
