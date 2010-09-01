@@ -479,7 +479,7 @@ public class TestService extends ServicesBaseClass {
 		String partnameContact = "contacts_common";
 		log.info("ADD CONTACT USING THIS URL "+ serviceurlContact);
 		
-		testPostGetDelete(serviceurlContact, partnameContact, "personItemContact.xml", "contacts_common/email", "email@example.com");
+		testPostGetDelete(serviceurlContact, partnameContact, filenameContact, "contacts_common/email", "email@example.com");
 
 		// DELETE (Delete)
 		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
@@ -535,7 +535,7 @@ public class TestService extends ServicesBaseClass {
 		String partnameContact = "contacts_common";
 		log.info("ADD CONTACT USING THIS URL "+ serviceurlContact);
 		
-		testPostGetDelete(serviceurlContact, partnameContact, "personItemContact.xml", "contacts_common/email", "email@example.com");
+		testPostGetDelete(serviceurlContact, partnameContact, filenameContact, "contacts_common/email", "email@example.com");
 
 		// DELETE (Delete)
 		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);

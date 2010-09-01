@@ -20,6 +20,8 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMul
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -72,7 +74,6 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			dnc.addText("false");
 		}
 		log.debug("create Configured Vocab Entry"+out.asXML());
-		String datade = out.asXML();
 		return out;
 	}
 
@@ -119,25 +120,43 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			
 			// create related sub records?
-			for(Record sr : r.getAllSubRecords() ){
+			for(FieldSet fs : r.getAllSubRecords()){
+				Record sr = fs.usesRecordId();
 				//sr.getID()
 				if(sr.isType("authority")){
 					String savePath = out.getURL() + "/" + sr.getServicesURL();
-					if(jsonObject.has(sr.getID())){
-						Object subdata = jsonObject.get(sr.getID());
-
-						if(subdata instanceof JSONArray){
-							JSONArray subarray = (JSONArray)subdata;
-
-							for(int i=0;i<subarray.length();i++) {
-								JSONObject subrecord = subarray.getJSONObject(i);
+					if(fs instanceof Field){//get the fields form inline XXX untested - might not work...
+						JSONObject subdata = new JSONObject();
+						//loop thr jsonObject and find the fields I need
+						for(FieldSet subfs: sr.getAllFields()){
+							String key = subfs.getID();
+							if(jsonObject.has(key)){
+								subdata.put(key, jsonObject.get(key));
+							}
+						}
+						subautocreateJSON(root,creds,cache,sr,subdata,savePath);
+					}
+					else if(fs instanceof Group){//JSONObject
+						if(jsonObject.has(fs.getID())){
+							Object subdata = jsonObject.get(fs.getID());
+							if(subdata instanceof JSONObject){
+								JSONObject subrecord = (JSONObject)subdata;
 								subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
 							}
-							
 						}
-						else if(subdata instanceof JSONObject){
-							JSONObject subrecord = (JSONObject)subdata;
-							subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+					}
+					else{//JSONArray
+						if(jsonObject.has(fs.getID())){
+							Object subdata = jsonObject.get(fs.getID());
+							if(subdata instanceof JSONArray){
+								JSONArray subarray = (JSONArray)subdata;
+
+								for(int i=0;i<subarray.length();i++) {
+									JSONObject subrecord = subarray.getJSONObject(i);
+									subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+								}
+								
+							}
 						}
 					}
 				}
@@ -155,8 +174,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException{
 		try {
 			Map<String,Document> body=new HashMap<String,Document>();
-			for(String section : r.getServicesRecordPaths()) {
-				String path=r.getServicesRecordPath(section);
+			for(String section : myr.getServicesRecordPaths()) {
+				String path=myr.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
 				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,null,null,myr));
@@ -168,7 +187,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			
 			// create related sub records?
-			for(Record sr : myr.getAllSubRecords() ){
+			for(FieldSet allfs : myr.getAllSubRecords()){
+				Record sr = allfs.usesRecordId();
 				//sr.getID()
 				if(sr.isType("authority")){
 					String savePath = out.getURL() + "/" + sr.getServicesURL();
@@ -363,10 +383,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}
 	}
 
+	private String generateURL(String vocab,String path,String extrapath,Record myr) throws ExistException, ConnectionException, UnderlyingStorageException {
+		String url = myr.getServicesURL()+"/"+vocab+"/items/"+path+extrapath;
+		return url;
+	}
 	private String generateURL(String vocab,String path,String extrapath) throws ExistException, ConnectionException, UnderlyingStorageException {
 		String url = r.getServicesURL()+"/"+vocab+"/items/"+path+extrapath;
 		return url;
-		
 	}
 
 	private JSONObject urnGet(String vocab,String entry,String refname) throws JSONException, ExistException, UnderlyingStorageException {
@@ -408,7 +431,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 				return viewRetrieveJSON(root,creds,cache,vocab,csid,parts[num],extra);
 			} else
-				return simpleRetrieveJSON(creds,cache,vocab,csid);
+				return simpleRetrieveJSON(root,creds,cache,vocab,csid);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception",e);
 		}  catch(JSONException x) {
@@ -419,7 +442,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid,String view, String extra) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try{
 			if(view.equals("view")){
-				return miniViewRetrieveJSON(cache,creds,vocab, csid);
+				return miniViewRetrieveJSON(storage, cache,creds,vocab, csid);
 			}
 			else if("authorityrefs".equals(view)){
 				String path = generateURL(vocab,csid,"/authorityrefs");
@@ -437,7 +460,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	}
 	
 	
-	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,CSPRequestCredentials creds,String vocab,String csid) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject miniViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCache cache,CSPRequestCredentials creds,String vocab,String csid) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
 			JSONObject out=new JSONObject();
 			//actually use cache			
@@ -459,7 +482,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				out.put("recordtype",r.getWebURL());
 			}
 			else{
-				return simpleRetrieveJSON(creds,cache,vocab,csid);
+				return simpleRetrieveJSON(storage, creds,cache,vocab,csid);
 			}
 			return out;
 		} catch (ConnectionException e) {
@@ -468,9 +491,9 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	}
 	
 	
-	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException{
+	public JSONObject simpleRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException{
 		JSONObject out=new JSONObject();
-		out=get(creds,cache,vocab,csid);
+		out=get(storage, creds,cache,vocab,csid);
 		cache.setCached(getClass(),new String[]{"csidfor",vocab,csid},out.get("csid"));//cos csid might be a refname at this point..
 		cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
 		cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
@@ -478,13 +501,42 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		return out;
 	}
 	
+	private JSONArray get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid,String filePath, Record thisr) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
+		JSONArray itemarray = new JSONArray();
+//get list view
+
+		String node = "/"+thisr.getServicesListPath().split("/")[0]+"/*";
+		JSONObject data = getListView(storage,creds,cache,filePath,node,"/"+thisr.getServicesListPath(),"csid",false);
+		
+
+		String[] filepaths = (String[]) data.get("listItems");
+		for(String uri : filepaths) {
+			String path = uri;
+			if(path!=null && path.startsWith("/"))
+				path=path.substring(1);
+			
+			String[] parts=path.split("/");
+			String recordurl = parts[0];
+			String mycsid = parts[parts.length-1];
+			
+			try {
+				JSONObject itemdata= simpleRetrieveJSON( creds, cache, filePath+"/"+mycsid,"",  thisr);
+				itemdata.put("_subrecordcsid", mycsid);//add in csid so I can do update with a modicum of confidence
+				itemarray.put(itemdata);
+			} catch (UnimplementedException e) {
+				throw new UnderlyingStorageException(e.getMessage());
+			}
+		}
+		return itemarray;
+		
+	}
 	
-	
-	private JSONObject get(CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
+	private JSONObject get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
 		int status=0;
 		JSONObject out = new JSONObject();
 			// XXX pagination support
-			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,generateURL(vocab,csid,""),null,creds,cache);
+			String url = generateURL(vocab,csid,"");
+			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,url,null,creds,cache);
 			if(doc.getStatus()==404)
 				throw new ExistException("Does not exist");
 			if(doc.getStatus()>299)
@@ -505,6 +557,34 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
 				}
 				XmlJsonConversion.convertToJson(out,r,result);				
+			}
+			
+
+			// get related sub records?
+			for(FieldSet fs : r.getAllSubRecords()){
+				Record sr = fs.usesRecordId();
+				//sr.getID()
+				if(sr.isType("authority")){
+					String getPath = url + "/" + sr.getServicesURL();
+					JSONArray subout = get(storage, creds,cache,vocab,csid,getPath,sr);
+					if(fs instanceof Field){
+						JSONObject fielddata = subout.getJSONObject(0);
+
+						Iterator<String> rit=fielddata.keys();
+						while(rit.hasNext()) {
+							String key=rit.next();
+							out.put(key, fielddata.get(key));
+						}
+					}
+					else if(fs instanceof Group){
+						if(subout.length()>0){
+							out.put(fs.getID(), subout.getJSONObject(0));
+						}
+					}
+					else{
+						out.put(fs.getID(), subout);
+					}
+				}
 			}
 			
 			//deurn url incase we were sent name not id as csid
@@ -546,6 +626,134 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);
 			cache.setCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]},refname);
+			
+			
+			//subrecord update
+			for(FieldSet fs : r.getAllSubRecords()){
+				Record sr = fs.usesRecordId();
+				
+				//get list of existing subrecords
+				JSONObject existingcsid = new JSONObject();
+				JSONObject updatecsid = new JSONObject();
+				JSONArray createcsid = new JSONArray();
+				String getPath = url + "/" + sr.getServicesURL();
+				String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
+				JSONObject data = getListView(root,creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false);
+				
+
+				String[] filepaths = (String[]) data.get("listItems");
+				for(String uri : filepaths) {
+					String path = uri;
+					if(path!=null && path.startsWith("/"))
+						path=path.substring(1);
+					existingcsid.put(path,"original");
+				}
+				
+				//how does that compare to what we need
+				if(sr.isType("authority")){
+					if(fs instanceof Field){
+						JSONObject subdata = new JSONObject();
+						//loop thr jsonObject and find the fields I need
+						for(FieldSet subfs: sr.getAllFields()){
+							String key = subfs.getID();
+							if(jsonObject.has(key)){
+								subdata.put(key, jsonObject.get(key));
+							}
+						}
+
+						if(filepaths.length ==0){
+							//create
+							createcsid.put(subdata);
+						}
+						else{
+							//update - there should only be one
+							String firstcsid = filepaths[0];
+							updatecsid.put(firstcsid, subdata);
+							existingcsid.remove(firstcsid);
+						}
+					}
+					else if(fs instanceof Group){//JSONObject
+						//do we have a csid
+						//subrecorddata.put(value);
+						if(jsonObject.has(fs.getID())){
+							Object subdata = jsonObject.get(fs.getID());
+							if(subdata instanceof JSONObject){
+								if(((JSONObject) subdata).has("_subrecordcsid")){
+									String thiscsid = ((JSONObject) subdata).getString("_subrecordcsid");
+									//update
+									if(existingcsid.has(thiscsid)){
+										updatecsid.put(thiscsid, (JSONObject) subdata);
+										existingcsid.remove(thiscsid);
+									}
+									else{
+										//something has gone wrong... best just create it from scratch
+										createcsid.put(subdata);
+									}
+								}
+								else{
+									//create
+									createcsid.put(subdata);
+								}
+							}
+						}
+					}
+					else{//JSONArray Repeat
+						//need to find if we have csid's for each one
+						if(jsonObject.has(fs.getID())){
+							Object subdata = jsonObject.get(fs.getID());
+							if(subdata instanceof JSONArray){
+								JSONArray subarray = (JSONArray)subdata;
+
+								for(int i=0;i<subarray.length();i++) {
+									JSONObject subrecord = subarray.getJSONObject(i);
+									if(((JSONObject) subdata).has("_subrecordcsid")){
+										String thiscsid = ((JSONObject) subdata).getString("_subrecordcsid");
+										//update
+										if(existingcsid.has(thiscsid)){
+											updatecsid.put(thiscsid, (JSONObject) subdata);
+											existingcsid.remove(thiscsid);
+										}
+										else{
+											//something has gone wrong... best just create it from scratch
+											createcsid.put(subdata);
+										}
+									}
+									else{
+										//create
+										createcsid.put(subdata);
+									}
+								}
+							}
+						}
+					}
+					
+
+					String savePath = url + "/" + sr.getServicesURL()+"/";
+					
+					//do delete JSONObject existingcsid = new JSONObject();
+					Iterator<String> rit=existingcsid.keys();
+					while(rit.hasNext()) {
+						String key=rit.next();
+						deleteJSON(root,creds,cache,key,savePath);
+					}
+					
+					//do update JSONObject updatecsid = new JSONObject();
+					Iterator<String> keys = updatecsid.keys();
+					while(keys.hasNext()) {
+						String key=keys.next();
+						JSONObject value = updatecsid.getJSONObject(key);
+						updateJSON( root, creds, cache, key,  value, sr, savePath);
+					}
+					
+					
+					//do create JSONArray createcsid = new JSONArray();
+					for(int i=0;i<createcsid.length();i++){
+						JSONObject value = createcsid.getJSONObject(i);
+						subautocreateJSON(root,creds,cache,sr,value,savePath);
+					}
+				}
+			}
+			
 			
 			//XXX dont currently update the shortID???
 			//cache.setCached(getClass(),new String[]{"shortId",vocab,filePath.split("/")[1]},shortId);

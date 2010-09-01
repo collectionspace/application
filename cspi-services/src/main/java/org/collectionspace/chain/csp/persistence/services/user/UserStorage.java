@@ -131,7 +131,8 @@ public class UserStorage implements ContextualisedStorage {
 		try {
 			ReturnedURL url = null;
 			if(jsonObject.has("account")){
-				for(Record allr : r.getAllSubRecords()){
+				for(FieldSet allfs : r.getAllSubRecords()){
+					Record allr = allfs.usesRecordId();
 					if(allr.getID().equals("userrole")){
 						Document doc=XmlJsonConversion.convertToXml(allr,jsonObject,"common");
 						String path = r.getServicesURL() + "/" + getAccountCsid(jsonObject) +"/"+ allr.getServicesURL();
@@ -171,10 +172,11 @@ public class UserStorage implements ContextualisedStorage {
 		try {
 			String[] parts = filePath.split("/");
 			if(parts.length > 2){
-				for(Record allr : r.getAllSubRecords()){
+				for(FieldSet allfs : r.getAllSubRecords()){
+					Record allr = allfs.usesRecordId();
 					if(allr.getID().equals(parts[2])){
 						filePath = parts[0] + "/" + allr.getServicesURL() + "/" + parts[2];
-						}
+					}
 				}
 			}
 			int status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds,cache);

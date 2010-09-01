@@ -343,10 +343,18 @@ public class GenericStorage  implements ContextualisedStorage {
 	 */
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
+
+		JSONObject out=new JSONObject();
+		out = simpleRetrieveJSON(creds,cache,filePath,thisr.getServicesURL()+"/", r);
+		return out;
+	}
+
+	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String servicesurl, Record thisr) throws ExistException,
+	UnimplementedException, UnderlyingStorageException {
 		try {
 			JSONObject out=new JSONObject();
-			if(r.isMultipart()){
-				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,thisr.getServicesURL()+"/"+filePath,null,creds,cache);
+			if(thisr.isMultipart()){
+				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,servicesurl+filePath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new ExistException("Does not exist "+filePath);
 
@@ -356,7 +364,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					convertToJson(out,doc.getDocument(parts[0]), thisr);
 				}
 			}else{
-				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, thisr.getServicesURL()+"/"+filePath,null, creds, cache);
+				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+filePath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new ExistException("Does not exist "+filePath);
 				convertToJson(out,doc.getDocument(), thisr);
@@ -602,39 +610,46 @@ public class GenericStorage  implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Connection problem",e);
 		}
 	}
-
-
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr, String serviceurl)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Map<String,Document> parts=new HashMap<String,Document>();
 			Document doc = null;
-			for(String section : r.getServicesRecordPaths()) {
-				String path=r.getServicesRecordPath(section);
+			for(String section : thisr.getServicesRecordPaths()) {
+				String path=thisr.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
-				doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+				doc=XmlJsonConversion.convertToXml(thisr,jsonObject,section);
 				parts.put(record_path[0],doc);
 			}
 			int status = 0;
-			if(r.isMultipart()){
-				ReturnedMultipartDocument docm = conn.getMultipartXMLDocument(RequestMethod.PUT,r.getServicesURL()+"/"+filePath,parts,creds,cache);
+			if(thisr.isMultipart()){
+				ReturnedMultipartDocument docm = conn.getMultipartXMLDocument(RequestMethod.PUT,serviceurl+filePath,parts,creds,cache);
 				status = docm.getStatus();
 			}
 			else{ 
-				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, r.getServicesURL()+"/"+filePath, doc, creds, cache);
+				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, serviceurl+filePath, doc, creds, cache);
 				status = docm.getStatus();
 			}
 			
 			if(status==404)
-				throw new ExistException("Not found: "+r.getServicesURL()+"/"+filePath);
+				throw new ExistException("Not found: "+serviceurl+filePath);
 			if(status>299 || status<200)
 				throw new UnderlyingStorageException("Bad response "+status);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);
-
 		}
+	}
+	
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr)
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
+		updateJSON( root, creds, cache, filePath,  jsonObject, thisr, thisr.getServicesURL()+"/");
+	}
+
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
+		updateJSON( root, creds, cache, filePath,  jsonObject, r);
 	}
 	
 	
@@ -682,15 +697,25 @@ public class GenericStorage  implements ContextualisedStorage {
 		throw new UnimplementedException("Cannot post to full path");
 	}
 
-	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
-			int status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds,cache);
+			int status=conn.getNone(RequestMethod.DELETE,serviceurl+filePath,null,creds,cache);
 			if(status>299 || status<200) // XXX CSPACE-73, should be 404
 				throw new UnderlyingStorageException("Service layer exception status="+status);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		}		
+	}
+
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, Record thisr) throws ExistException,
+	UnimplementedException, UnderlyingStorageException {
+		String serviceurl = thisr.getServicesURL()+"/";
+		deleteJSON(root,creds,cache,filePath,serviceurl);
+	}
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
+	UnimplementedException, UnderlyingStorageException {
+		deleteJSON(root,creds,cache,filePath,r);
 	}
 
 	@Override

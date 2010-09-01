@@ -20,7 +20,7 @@ public class Record implements FieldParent {
 	private static final Logger log=LoggerFactory.getLogger(Record.class);
 	private String id;
 	private Map<String,Structure> structure=new HashMap<String,Structure>();
-	private Map<String,Record> subrecords=new HashMap<String,Record>();
+	private Map<String,FieldSet> subrecords=new HashMap<String,FieldSet>();
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
 	private Map<String,FieldSet> servicefields=new HashMap<String,FieldSet>();
 	private Map<String,FieldSet> repeatfields=new HashMap<String,FieldSet>();
@@ -159,16 +159,16 @@ public class Record implements FieldParent {
 		}
 		return structure.get(id);
 	}
-	public Record getSubrecord(String id) { return subrecords.get(id); }
-	public Record[] getAllSubRecords(){ 
+	public Record getSubrecord(String fieldid) { return subrecords.get(fieldid).usesRecordId(); }
+	public FieldSet[] getAllSubRecords(){ 
 		if(subrecords.values().isEmpty()){
 			for(FieldSet fs : this.getAllRepeatFields()){
 				if(fs.usesRecord()){
-					this.addSubRecord(fs.usesRecordId());
+					this.addSubRecord(fs);
 				}
 			}
 		}
-		return subrecords.values().toArray(new Record[0]); 
+		return subrecords.values().toArray(new FieldSet[0]); 
 	}
 	public String getPrimaryField(){ return primaryfield; };
 	public Boolean hasPrimaryField(){ if(primaryfield.equals("")){return false;} else {return true;}}
@@ -234,8 +234,8 @@ public class Record implements FieldParent {
 	public void addStructure(Structure s) {
 		structure.put(s.getID(),s);
 	}
-	public void addSubRecord(Record r) {
-		subrecords.put(r.getID(),r);
+	public void addSubRecord(FieldSet fs) {
+		subrecords.put(fs.getID(),fs);
 	}
 	
 	public void addInstance(Instance n) {
