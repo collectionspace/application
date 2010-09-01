@@ -220,6 +220,7 @@ public class TestService extends ServicesBaseClass {
             Node n = doc.selectSingleNode(xpath);
             assertNotNull(n);
             text = n.getText();
+            assertNotNull(text);
             log.info("Value of XPath expression '" + xpath + "' = " + text);
             assert (!text.trim().equals("0"));
             xpath = "//person_list_item/csid";
@@ -228,7 +229,7 @@ public class TestService extends ServicesBaseClass {
             assert (nodes.size() > 0);
             boolean foundItemInAuthority = false;
             for (Node node : nodes) {
-                log.info("found '" + node.getText().trim() + "' comparing to " + authId);
+                log.info("found '" + node.getText().trim() + "' comparing to " + itemId);
                 if (node.getText().trim().equals(itemId)) {
                     foundItemInAuthority = true;
                 }
@@ -305,8 +306,8 @@ public class TestService extends ServicesBaseClass {
 
             // POST (Create) a person authority
             serviceurl.append("personauthorities/");
-            partname = "personauthorities_common";
             filename = "personAuth.xml";
+            partname = "personauthorities_common";
             log.info("Testing create at " + serviceurl + " with " + filename + " and partname=" + partname);
             parts.put(partname, getDocument(filename));
             url = conn.getMultipartURL(RequestMethod.POST, serviceurl.toString(), parts, creds, cache);
@@ -331,20 +332,20 @@ public class TestService extends ServicesBaseClass {
             assertNotNull(n);
             text = n.getText();
             assertNotNull(text);
-            assert(text.contains("urn:"));
+            log.info("Value of XPath expression '" + xpath + "' = " + text);
+            assert(text.contains("urn:cspace:"));
             if (text.contains(NAME_FORM)) {
                 authShortId = text.substring(text.indexOf(NAME_FORM));
             } else if (text.contains(ID_FORM)) {
                 authShortId = text.substring(text.indexOf(ID_FORM));
             }
             assertNotNull(authShortId);
-            log.info("Value of XPath expression '" + xpath + "' = " + text);
             log.info("CREATED PERSONAUTHORITY AT " + authUrl);
 
             // POST (Create) a person item within the person authority
             serviceurl.append(authShortId + "/items/");
-            partname = "persons_common";
             filename = "personItem.xml";
+            partname = "persons_common";
             log.info("Testing create at " + serviceurl + " with " + filename + " and partname=" + partname);
             if (partname != null) {
                 parts = new HashMap<String, Document>();
@@ -381,6 +382,7 @@ public class TestService extends ServicesBaseClass {
             n = doc.selectSingleNode(xpath);
             assertNotNull(n);
             text = n.getText();
+            assertNotNull(text);
             log.info("Value of XPath expression '" + xpath + "' = " + text);
             assert (!text.trim().equals("0"));
             xpath = "//person_list_item/csid";
@@ -389,7 +391,7 @@ public class TestService extends ServicesBaseClass {
             assert (nodes.size() > 0);
             boolean foundItemInAuthority = false;
             for (Node node : nodes) {
-                log.info("found '" + node.getText().trim() + "' comparing to " + authId);
+                log.info("found '" + node.getText().trim() + "' comparing to " + itemId);
                 if (node.getText().trim().equals(itemId)) {
                     foundItemInAuthority = true;
                 }
