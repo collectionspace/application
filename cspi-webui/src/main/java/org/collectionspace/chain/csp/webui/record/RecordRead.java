@@ -157,7 +157,6 @@ public class RecordRead implements WebMethod {
 		{
 			JSONArray active = activePermissions.getJSONArray("permission");
 			for(int j=0;j<active.length();j++){
-				log.info(active.getJSONObject(j).getString("resourceName"));
 				testset.put(active.getJSONObject(j).getString("resourceName"),active.getJSONObject(j));
 			}
 		}

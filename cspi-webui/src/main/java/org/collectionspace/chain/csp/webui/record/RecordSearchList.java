@@ -139,7 +139,7 @@ public class RecordSearchList implements WebMethod {
 	
 
 	/* Wrapper exists to be used inRead, hence not private */
-	JSONObject getJSON(Storage storage,JSONObject restriction, String key, String mybase) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException{
+	public JSONObject getJSON(Storage storage,JSONObject restriction, String key, String mybase) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException{
 		JSONObject out = new JSONObject();
 
 		JSONObject data = storage.getPathsJSON(mybase,restriction);

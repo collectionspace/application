@@ -9,6 +9,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.csp.webui.record.RecordSearchList;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -25,37 +26,75 @@ public class UserDetailsRead  implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(UserDetailsRead.class);
 	private String base;
 	private boolean record_type;
+	private RecordSearchList searcher;
+	private Spec spec;
 	private Record r;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public UserDetailsRead(Record r) { 
 		this.base=r.getID();
 		this.r = r;
+		this.spec=r.getSpec();
+		this.searcher = new RecordSearchList(r,false);
 		record_type=r.isType("userdata");
 	}
 		
 	/**
 	 * create role array
-	 * [{roleId:"","roleName":"",selected:"yes|no"},{ ... }]
+	 * [{roleId:"","roleName":"",roleSelected:"true/false"},{ ... }]
 	 * @param activeRoles
 	 * @return
 	 * @throws UnderlyingStorageException 
 	 * @throws UnimplementedException 
 	 * @throws ExistException 
 	 * @throws JSONException 
+	 * @throws UIException 
 	 */
-	private JSONArray getRoles(Storage storage,JSONObject activeRoles) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
+	private JSONArray getRoles(Storage storage,JSONObject activeRoles) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException{
 		JSONObject set = new JSONObject();
 		JSONArray roles = new JSONArray();
+		JSONObject testset = new JSONObject();
 		//get all roles - actually dont
+
+	//	JSONObject rolerestrictions = new JSONObject();
+	//	String rolebase = spec.getRecordByWebUrl("role").getID()+"/";
+	//	JSONObject returndata = searcher.getJSON(storage,rolerestrictions,"items",rolebase);
 		
-		//String filePath = r.getSpec().getRecordByWebUrl("role").getID()+"/";
-		//JSONObject roles = storage.retrieveJSON(filePath);
-		//log.info("DEBUG"+filePath+roles.toString());
 		//mark active roles
-		if(activeRoles.has("role")){
-			roles = activeRoles.getJSONArray("role");
+		if(activeRoles.has("role"))
+		{
+			JSONArray active = activeRoles.getJSONArray("role");
+			for(int j=0;j<active.length();j++){
+				active.getJSONObject(j).put("roleSelected", "true");
+				String roleId = active.getJSONObject(j).getString("roleId");
+
+				String[] ids=roleId.split("/");
+				active.getJSONObject(j).put("roleId", ids[ids.length - 1]);
+	//			testset.put(active.getJSONObject(j).getString("roleId"),active.getJSONObject(j));
+			}
+			roles = active;
 		}
+		
+		//merge active and nonactive
+		/*
+		JSONArray items = returndata.getJSONArray("items");
+		for(int i=0;i<items.length();i++){
+			JSONObject item = items.getJSONObject(i);
+			JSONObject role = new JSONObject();
+			String roleId = item.getString("csid");
+			if(testset.has(roleId)){
+				item.put("roleSelected", "true");
+			}
+			else{
+				item.put("roleSelected", "false");
+			}
+			roles.put(item);
+		}
+		*/
+		
+		
+		
+
 		//we are ignoring pagination so this will return the first 40 roles only
 		//UI doesn't know what it wants to do about pagination etc
 		return roles;

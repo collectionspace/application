@@ -167,7 +167,9 @@ public class RecordCreateUpdate implements WebMethod {
 
 		JSONObject roledata = new JSONObject();
 		roledata.put("roleName", fields.getString("roleName"));
-		roledata.put("roleId", path);
+
+		String[] ids=path.split("/");
+		roledata.put("roleId", ids[ids.length - 1]);
 		
 		
 
