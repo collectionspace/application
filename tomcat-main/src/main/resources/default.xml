@@ -287,7 +287,7 @@
                 <field id="materialName">
                     <selector>.csc-object-description-material-name</selector>
                 </field>
-                <field id="materialSource" autocomplete="place-place">
+                <field id="materialSource">
                     <selector>.csc-object-description-material-source</selector>
                 </field>
                 <field id="physicalDescription">
@@ -442,7 +442,7 @@
                     </field>
                 </repeat>
                 <repeat id="contentPlaces">
-                    <field id="contentPlace" autocomplete="place-place">
+                    <field id="contentPlace" >
                         <selector>.csc-object-description-content-place</selector>
                     </field>
                 </repeat>
@@ -633,7 +633,7 @@
                 <field id="objectProductionPerson" autocomplete="person-person">
                     <selector>.csc-object-production-person</selector>
                 </field>
-                <field id="objectProductionPlace" autocomplete="place-place">
+                <field id="objectProductionPlace">
                     <selector>.csc-object-production-place</selector>
                 </field>
 				<repeat id="objectProductionReasons">
@@ -668,7 +668,7 @@
                     </field>
                 </repeat>
                 <repeat id="assocEventPlaces">
-                    <field id="assocEventPlace" autocomplete="place-place">
+                    <field id="assocEventPlace">
                         <selector>.csc-object-history-association-event-place</selector>
                     </field>
                 </repeat>
@@ -695,7 +695,7 @@
                 </repeat>
                     <field id="assocPersonNote"></field>
                 <repeat id="assocPlaces">
-                    <field id="assocPlace" autocomplete="place-place"></field>
+                    <field id="assocPlace"></field>
                 </repeat>
                     <field id="assocPlaceNote"></field>
                 <field id="assocDate" ui-type="date"></field>
@@ -726,7 +726,7 @@
                         <option id="private">private</option>
                     </options>
                 </field>
-                <field id="ownershipPlace" autocomplete="place-place">
+                <field id="ownershipPlace">
                     <selector>.csc-object-history-association-ownership-place</selector>
                 </field>
                 <field id="ownershipExchangeMethod" seperate_ui_container="true">
@@ -1501,7 +1501,7 @@
                         <option id="rejected">Rejected</option>
                     </options>
                 </field>
-                <field userecord="contact" exists-in-services="false"></field>
+                <group id="contact" userecord="contact" exists-in-services="false"></group>
             </record>
 			<record id="location" type="authority,compute-displayname">
                 <web-url>location</web-url>
@@ -1621,7 +1621,7 @@
                 <web-url>contact</web-url>
                 <services-instances-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities-common-list/contactauthority-list-item</services-instances-path>
                 <services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
-                <services-list-path>http://collectionspace.org/services/contact,contacts-common-list/contact_list_item</services-list-path>
+                <services-list-path>contacts-common-list/contact-list-item</services-list-path>
                 <services-record-path>contacts_common:http://collectionspace.org/services/contact,contacts_common</services-record-path>
                 <services-url>contacts</services-url>
                 <authority-vocab-type>ContactAuthority</authority-vocab-type>
