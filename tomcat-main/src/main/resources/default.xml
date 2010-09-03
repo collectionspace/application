@@ -979,10 +979,10 @@
                     <structure id="screen"></structure>
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
-                <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" autocomplete="person-person,organization-organization" seperate_ui_container="true">
+                <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" autocomplete="person-person,organization-organization">
                     <selector>.csc-intake-current-owner</selector>
                 </field>
-                <field id="depositor" autocomplete="person-person,organization-organization"  seperate_ui_container="true">
+                <field id="depositor" autocomplete="person-person,organization-organization">
                     <selector>.csc-intake-depositor</selector>
                 </field>
                 <field id="depositorsRequirements">
@@ -1134,7 +1134,7 @@
                     	</enum>
                 	</field>
                		<field id="acquisitionFundingValue"></field>
-                	<field id="acquisitionFundingSource" autocomplete="person-person,organization-organization" seperate_ui_container="true"></field>
+                	<field id="acquisitionFundingSource" autocomplete="person-person,organization-organization"></field>
                 	<field id="acquisitionFundingSourceProvisos"></field>
 				</repeat>
 				
@@ -1585,7 +1585,7 @@
                     <selector>.csc-organizationAuthority-nameAdditions</selector>
                 </field>
                 <repeat id="contactNames">
-                    <field id="contactName" autocomplete="person-person" seperate_ui_container="true">
+                    <field id="contactName" autocomplete="person-person">
                         <selector>.csc-organizationAuthority-contactName</selector>
                     </field>
                 </repeat>
@@ -1594,7 +1594,7 @@
                     <title-selector>.csc-titleBar-foundationDate</title-selector>
                 </field>
                 <!--  <field id="foundingPlace"> -->
-                <field id="foundingPlace" autocomplete="person-person" seperate_ui_container="true">
+                <field id="foundingPlace" autocomplete="person-person">
                     <selector>.csc-organizationAuthority-foundingPlace</selector>
                 </field>
                 <field id="dissolutionDate" ui-type="date" in-title="yes" >
