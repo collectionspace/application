@@ -128,7 +128,7 @@ public class RecordCreateUpdate implements WebMethod {
 				permid = item.getString("csid");
 			}
 		}
-		if(!permid.equals("")){
+		if(permid.equals("")){
 
 			//create the permission
 			/**
