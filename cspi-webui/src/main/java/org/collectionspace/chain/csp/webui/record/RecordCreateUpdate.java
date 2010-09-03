@@ -26,14 +26,16 @@ public class RecordCreateUpdate implements WebMethod {
 	private boolean create;
 	private Spec spec;
 	private RecordRead reader;
+	private RecordSearchList searcher;
 	
 	public RecordCreateUpdate(Record r,boolean create) { 
 		spec=r.getSpec();
 		this.url_base=r.getWebURL();
 		this.base=r.getID();
 		this.create=create;
-		reader=new RecordRead(r);
-		reader.configure(spec);
+		this.reader=new RecordRead(r);
+		this.reader.configure(spec);
+		this.searcher = new RecordSearchList(r,false);
 	}
 		
 	private void deleteAllRelations(Storage storage,String csid) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
@@ -81,7 +83,7 @@ public class RecordCreateUpdate implements WebMethod {
 		return path;
 	}
 			
-	private JSONObject getPerm(Storage storage, String resourceName, String permlevel) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+	private JSONObject getPerm(Storage storage, String resourceName, String permlevel) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 
 		JSONObject permitem = new JSONObject();
 		String actions = "";
@@ -110,36 +112,46 @@ public class RecordCreateUpdate implements WebMethod {
 		permrestrictions.put("keywords", resourceName);
 		permrestrictions.put("queryTerm", "actGrp");
 		permrestrictions.put("queryString", queryString);
-		
+
+		String permbase = spec.getRecordByWebUrl("permission").getID();
+		JSONObject data = searcher.getJSON(storage,permrestrictions,"items",permbase);
+
 		String permid = "";
-		JSONObject data = storage.getPathsJSON(spec.getRecordByWebUrl("permission").getID(),permrestrictions);
-
-		if(data.has("listItems")){
-			String[] paths = (String[]) data.get("listItems");
-			if(paths.length >=1){//if returns multiple just use the first one
-				permid = paths[0];
-			}
-			else{
-				//create the permission
-				/**
-				 * {
-    "effect": "PERMIT",
-    "resourceName": "testthing2",
-	
-	"action":[{"name":"CREATE"},{"name":"READ"},{"name":"UPDATE"},{"name":"DELETE"},{"name":"SEARCH"}]
-}
-				 */
-						
-				JSONObject permission_add = new JSONObject();
-				JSONArray allactions = new JSONArray(actions);
-				permission_add.put("effect", "PERMIT");
-				permission_add.put("resourceName", resourceName);
-				permission_add.put("actionGroup", queryString);
-				permission_add.put("actions", allactions);
-
-				permid=storage.autocreateJSON(spec.getRecordByWebUrl("permission").getID(),permission_add);
+		JSONArray items = data.getJSONArray("items");
+		for(int i=0;i<items.length();i++){
+			JSONObject item = items.getJSONObject(i);
+			JSONObject permission = new JSONObject();
+			String resourcename = item.getString("summary");
+			String actionGroup = item.getString("number");
+			//need to do a double check as the query is an inexact match
+			if(resourcename.equals(resourceName) && actionGroup.equals(queryString)){
+				permid = item.getString("csid");
 			}
 		}
+		if(!permid.equals("")){
+
+			//create the permission
+			/**
+			 * {
+"effect": "PERMIT",
+"resourceName": "testthing2",
+
+"action":[{"name":"CREATE"},{"name":"READ"},{"name":"UPDATE"},{"name":"DELETE"},{"name":"SEARCH"}]
+}
+			 */
+					
+			JSONObject permission_add = new JSONObject();
+			JSONArray allactions = new JSONArray(actions);
+			permission_add.put("effect", "PERMIT");
+			permission_add.put("resourceName", resourceName);
+			permission_add.put("actionGroup", queryString);
+			permission_add.put("actions", allactions);
+
+			permid=storage.autocreateJSON(spec.getRecordByWebUrl("permission").getID(),permission_add);
+			
+		}
+		
+		
 
 		if(!permid.equals("")){
 			permitem.put("resourceName", resourceName);
@@ -150,7 +162,7 @@ public class RecordCreateUpdate implements WebMethod {
 
 		
 	}
-	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject fields=data.optJSONObject("fields");
 		
 		JSONArray permdata = new JSONArray();
