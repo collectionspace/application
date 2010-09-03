@@ -35,7 +35,7 @@
                 <originalObjectPurchasePriceCurrency></originalObjectPurchasePriceCurrency>
                 <originalObjectPurchasePriceValue></originalObjectPurchasePriceValue>
                 <transferOfTitleNumber>Yes please</transferOfTitleNumber>
-				<owners><owner>rn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(stephencharla)'Stephen+Charla'</owner></owners>
+				<owners><owner>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(stephencharla)'Stephen+Charla'</owner></owners>
                 <!-- Object Collection Information Group -->
                 <fieldCollectionEventNames><fieldCollectionEventName>fieldCollectionEventName</fieldCollectionEventName></fieldCollectionEventNames>
 </ns2:acquisitions_common>
