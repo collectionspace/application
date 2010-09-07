@@ -50,89 +50,6 @@ public class AuthorizationStorage extends GenericStorage {
 
 
 
-
-	/**
-	 * Gets the csid from an role or account out of the json authorization
-	 * @param data
-	 * @param primaryField
-	 * @return
-	 * @throws JSONException
-	 */
-	private String getSubCsid(JSONObject data, String primaryField) throws JSONException{
-		String[] path = primaryField.split("/");
-		JSONObject temp = data;
-		int finalnum = path.length - 1;
-		for(int i=0;i<finalnum; i++){
-			if(temp.has(path[i])){
-				temp = temp.getJSONObject(path[i]);
-			}
-		}
-		String csid = temp.getString(path[finalnum]);
-		return csid;
-	}	
-
-	
-	/**
-	 * Convert the JSON from the UI Layer into XML for the Service layer while using the XML structure from default.xml
-	 * Send the XML through to the Service Layer to store it in the database
-	 * The Service Layer returns a url to the object we just stored.
-	 * @param {ContextualisedStorage} root 
-	 * @param {CSPRequestCredentials} creds
-	 * @param {CSPRequestCache} cache
-	 * @param {String} filePath part of the path to the Service URL (containing the type of object)
-	 * @param {JSONObject} jsonObject The JSON string coming in from the UI Layer, containing the object to be stored
-	 * @return {String} csid The id of the object in the database
-	 */
-	public String autocreateJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
-		try {
-			ReturnedURL url = null;
-			Document doc = null;
-
-			//used by userroles and permroles as they have complex urls
-			if(r.hasPrimaryField()){
-				//XXX test if works: need to delete first before create/update
-			//	deleteJSON(root,creds,cache,filePath);
-
-				for(String section : r.getServicesRecordPaths()) {
-					doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
-					String path = r.getServicesURL();
-					path = path.replace("*", getSubCsid(jsonObject,r.getPrimaryField()));
-
-					deleteJSON(root,creds,cache,path);
-					url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);	
-				}
-			}
-			else{
-
-				Map<String,Document> parts=new HashMap<String,Document>();
-				for(String section : r.getServicesRecordPaths()) {
-					String path=r.getServicesRecordPath(section);
-					String[] record_path=path.split(":",2);
-					doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
-					parts.put(record_path[0],doc);
-				}
-				//some records are accepted as multipart in the service layers, others arent, that's why we split up here
-				if(r.isMultipart())
-					url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
-				else
-					url = conn.getURL(RequestMethod.POST, r.getServicesURL()+"/", doc, creds, cache);
-				if(url.getStatus()>299 || url.getStatus()<200)
-					throw new UnderlyingStorageException("Bad response "+url.getStatus());
-			}
-			
-			return url.getURLTail();
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
-		} catch (JSONException e) {
-			throw new UnimplementedException("JSONException",e);
-		}
-	}
-	
-	public void createJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject jsonObject) 
-	throws ExistException,UnimplementedException, UnderlyingStorageException {
-		throw new UnimplementedException("Cannot post to full path");
-	}
-
 	/**
 	 * Remove an object in the Service Layer.
 	 */
@@ -150,7 +67,7 @@ public class AuthorizationStorage extends GenericStorage {
 					List<Node> nodes=doc.selectNodes(nodepath);
 					if(nodes.size()>0){
 						status=201;
-						status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds,cache);	
+						status=conn.getNone(RequestMethod.DELETE,filePath,null,creds,cache);	
 						//post it back to delete it
 	/*
 						log.info("TRYING TO DELETE ACCOUNTROLE");

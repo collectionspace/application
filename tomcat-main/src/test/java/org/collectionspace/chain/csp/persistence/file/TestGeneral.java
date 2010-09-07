@@ -506,21 +506,21 @@ out = createUser(jetty,user2Create);
 			
 	}
 	*/
-	/*
+	
 	@Test public void test() throws Exception{
 		String testdata = "{\"csid\":\"\",\"fields\":{\"role\":[{\"roleName\":\"ROLE_ADMINISTRATOR\",\"roleGroup\":\"Museum staff\",\"roleSelected\":false,\"roleId\":\"5c10b05b-3c62-4760-b663-d1f42f199ea6\"},{\"roleName\":\"ROLE_READER\",\"roleGroup\":\"Museum staff\",\"roleSelected\":true,\"roleId\":\"1a138929-5c90-4bd4-bcf1-fa2001fdb26a\"}],\"email\":\"bobbob@bob.com\",\"screenName\":\"bobbob\",\"password\":\"bobbobbob\",\"userId\":\"bobbob@bob.com\"}}";
 	//	String testdata2 = "{\"csid\":\"\",\"fields\":{\"permissions\":[{\"resourceName\":\"idgenerators\",\"permission\":\"delete\"},{\"resourceName\":\"id\",\"permission\":\"delete\"},{\"resourceName\":\"collectionobjects\",\"permission\":\"none\"},{\"resourceName\":\"intakes\",\"permission\":\"none\"},{\"resourceName\":\"loansin\",\"permission\":\"none\"},{\"resourceName\":\"loansout\",\"permission\":\"none\"},{\"resourceName\":\"movements\",\"permission\":\"none\"},{\"resourceName\":\"vocabularies\",\"permission\":\"none\"},{\"resourceName\":\"vocabularyitems\",\"permission\":\"none\"},{\"resourceName\":\"orgauthorities\",\"permission\":\"none\"},{\"resourceName\":\"organizations\",\"permission\":\"none\"},{\"resourceName\":\"personauthorities\",\"permission\":\"none\"},{\"resourceName\":\"persons\",\"permission\":\"none\"},{\"resourceName\":\"locationauthorities\",\"permission\":\"none\"},{\"resourceName\":\"locations\",\"permission\":\"none\"},{\"resourceName\":\"acquisitions\",\"permission\":\"none\"},{\"resourceName\":\"relations\",\"permission\":\"none\"},{\"resourceName\":\"accounts\",\"permission\":\"none\"},{\"resourceName\":\"dimensions\",\"permission\":\"none\"},{\"resourceName\":\"contacts\",\"permission\":\"none\"},{\"resourceName\":\"notes\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions/permroles\",\"permission\":\"none\"},{\"resourceName\":\"accounts/accountroles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles/permroles\",\"permission\":\"none\"},{\"resourceName\":\"idgenerators\",\"permission\":\"none\"},{\"resourceName\":\"id\",\"permission\":\"none\"},{\"resourceName\":\"collectionobjects\",\"permission\":\"none\"},{\"resourceName\":\"intakes\",\"permission\":\"none\"},{\"resourceName\":\"loansin\",\"permission\":\"none\"},{\"resourceName\":\"loansout\",\"permission\":\"none\"},{\"resourceName\":\"movements\",\"permission\":\"none\"},{\"resourceName\":\"reports\",\"permission\":\"none\"},{\"resourceName\":\"vocabularies\",\"permission\":\"none\"},{\"resourceName\":\"vocabularyitems\",\"permission\":\"none\"},{\"resourceName\":\"orgauthorities\",\"permission\":\"none\"},{\"resourceName\":\"organizations\",\"permission\":\"none\"},{\"resourceName\":\"personauthorities\",\"permission\":\"none\"},{\"resourceName\":\"persons\",\"permission\":\"none\"},{\"resourceName\":\"locationauthorities\",\"permission\":\"none\"},{\"resourceName\":\"locations\",\"permission\":\"none\"},{\"resourceName\":\"acquisitions\",\"permission\":\"none\"},{\"resourceName\":\"relations\",\"permission\":\"none\"},{\"resourceName\":\"accounts\",\"permission\":\"none\"},{\"resourceName\":\"dimensions\",\"permission\":\"none\"},{\"resourceName\":\"contacts\",\"permission\":\"none\"},{\"resourceName\":\"notes\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions/permroles\",\"permission\":\"none\"},{\"resourceName\":\"accounts/accountroles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles/permroles\",\"permission\":\"none\"}],\"roleName\":\"bobby2b\"}}";
 		//String testdata = "{\"termsUsed\":[],\"relations\":{\"intake\":[{\"summary\":\"Sean Bean\",\"summarylist\":{\"currentOwner\":\"Sean Bean\",\"entryNumber\":\"CompleteIntake001\"},\"csid\":\"b369100f-ccc7-4390-aecc\",\"number\":\"CompleteIntake001\",\"relid\":\"bca548a6-1777-421a-b513\",\"relationshiptype\":\"affects\",\"recordtype\":\"intake\"},{\"summary\":\"Sean Bean\",\"summarylist\":{\"currentOwner\":\"Sean Bean\",\"entryNumber\":\"CompleteIntake001\"},\"csid\":\"58346028-dbcb-42bb-88e2\",\"number\":\"CompleteIntake001\",\"relid\":\"7378e437-c701-4c47-b789\",\"relationshiptype\":\"affects\",\"recordtype\":\"intake\"}],\"objects\":[{\"summary\":\"\",\"summarylist\":{\"nametitle\":\"\",\"objectNumber\":\"2010.1.16\"},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"number\":\"2010.1.16\",\"relid\":\"42db720b-078c-4ef0-ae34\",\"relationshiptype\":\"affects\",\"recordtype\":\"objects\"},{\"summary\":\"\",\"summarylist\":{\"nametitle\":\"\",\"objectNumber\":\"2010.1.16\"},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"number\":\"2010.1.16\",\"relid\":\"163c7d9d-1ce4-446e-ba58\",\"relationshiptype\":\"affects\",\"recordtype\":\"objects\"}]},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"fields\":{\"technique\":\"\",\"inscriptionContentTranslation\":\"\",\"assocActivityNote\":\"\",\"inscriptionContentMethod\":\"\",\"inscriptionDescriptionPosition\":\"\",\"objectHistoryNote\":\"\",\"inscriptionContentInscriber\":\"\",\"viewersPersonalResponse\":\"\",\"fieldCollectionMethods\":[],\"assocEventPeoples\":[{\"_primary\":true,\"assocEventPeople\":\"\"}],\"references\":[{\"_primary\":true,\"reference\":\"\"}],\"ownershipPlace\":\"\",\"catalogNumber\":\"\",\"assocEventNote\":\"\",\"objectStatus\":\"\",\"responsibleDepartments\":[{\"_primary\":true,\"responsibleDepartment\":\"\"}],\"ownershipAccess\":\"\",\"contentOther\":\"\",\"contentPositions\":[{\"_primary\":true,\"contentPosition\":\"\"}],\"inscriptionContentPosition\":\"\",\"inscriptionContentTransliteration\":\"\",\"contentOtherType\":\"\",\"styles\":[{\"_primary\":true,\"style\":\"\"}],\"dateLatestQualifier\":\"\",\"contentObject\":\"\",\"ownershipExchangeMethod\":\"\",\"objectComponentInformation\":\"\",\"objectProductionNote\":\"\",\"ownershipExchangePriceCurrency\":\"\",\"objectProductionOrganization\":\"\",\"owners\":[{\"_primary\":true,\"owner\":\"\"}],\"assocDate\":\"\",\"inscriptionDescriptionDate\":\"\",\"inscriptionDescriptionInterpretation\":\"\",\"usageNote\":\"\",\"ownershipExchangePriceValue\":\"\",\"ownersContributionNote\":\"\",\"objectProductionPeople\":\"\",\"contentEventName\":\"\",\"objectProductionReasons\":[{\"objectProductionReason\":\"\",\"_primary\":true}],\"contentLanguages\":[{\"contentLanguage\":\"\",\"_primary\":true}],\"objectProductionPerson\":\"\",\"inscriptionContent\":\"\",\"collection\":\"\",\"assocCulturalContexts\":[{\"_primary\":true,\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"}],\"otherNumberList\":[{\"_primary\":true,\"otherNumber\":\"sdf\"},{\"otherNumber\":\"fff\"}],\"materialComponentNote\":\"\",\"contentDate\":\"\",\"technicalAttributeMeasurement\":\"\",\"title\":\"\",\"titleType\":\"\",\"titleTranslation\":\"\",\"inscriptionDescriptionType\":\"\",\"assocPersons\":[{\"_primary\":true,\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"}],\"assocPeoples\":[{\"_primary\":true,\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"}],\"dateText\":\"\",\"viewersPersonalExperience\":\"\",\"materialName\":\"\",\"dateEarliestSingle\":\"\",\"inscriptionContentScript\":\"\",\"ownersPersonalResponse\":\"\",\"ageQualifier\":\"\",\"fieldCollectionNote\":\"\",\"material\":\"\",\"viewersReferences\":[{\"_primary\":true,\"viewersReference\":\"\"}],\"assocEventNameType\":\"\",\"techniqueType\":\"\",\"fieldCollectionNumber\":\"\",\"inscriptionDescription\":\"\",\"assocEventPersons\":[{\"_primary\":true,\"assocEventPerson\":\"\"}],\"fieldCollectionPlace\":\"\",\"dateLatest\":\"\",\"fieldCollectionDate\":\"\",\"comments\":[{\"_primary\":true,\"comment\":\"\"}],\"contentDescription\":\"\",\"nhString\":\"\",\"assocEventName\":\"\",\"briefDescriptions\":[{\"_primary\":true,\"briefDescription\":\"\"}],\"objectProductionPlace\":\"\",\"viewersRole\":\"\",\"assocActivity\":\"\",\"ownersPersonalExperience\":\"\",\"assocPlaces\":[{\"_primary\":true,\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"}],\"ageUnit\":\"\",\"contentOrganizations\":[{\"_primary\":true,\"contentOrganization\":\"\"}],\"materialSource\":\"\",\"ownershipCategory\":\"\",\"contentObjectType\":\"\",\"dimensionSummary\":\"\",\"assocObjectType\":\"\",\"copyNumber\":\"\",\"ownershipDates\":\"\",\"inscriptionContentInterpretation\":\"\",\"contentActivities\":[{\"_primary\":true,\"contentActivity\":\"\"}],\"age\":\"\",\"contentPersons\":[{\"_primary\":true,\"contentPerson\":\"\"}],\"assocOrganizations\":[{\"_primary\":true,\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"}],\"contentScripts\":[{\"_primary\":true,\"contentScript\":\"\"}],\"objectNumber\":\"2010.1.16\",\"colors\":[{\"_primary\":true,\"color\":\"\"}],\"ownersReferences\":[{\"_primary\":true,\"ownersReference\":\"\"}],\"dateLatestCertainty\":\"\",\"physicalDescription\":\"\",\"contentConcepts\":[{\"_primary\":true,\"contentConcept\":\"\"}],\"assocObject\":\"\",\"inscriptionContentType\":\"\",\"assocEventPlaces\":[{\"_primary\":true,\"assocEventPlace\":\"\"}],\"contentEventNameType\":\"\",\"inscriptionDescriptionInscriber\":\"\",\"assocDateNote\":\"\",\"contentPlaces\":[{\"contentPlace\":\"\",\"_primary\":true}],\"inscriptionContentLanguage\":\"\",\"phase\":\"\",\"technicalAttributeMeasurementUnit\":\"\",\"objectProductionPlaceRole\":\"\",\"titleLanguage\":\"\",\"contentNote\":\"\",\"dateEarliestSingleQualifier\":\"\",\"contentPeoples\":[{\"_primary\":true,\"contentPeople\":\"\"}],\"fieldCollectionEventName\":\"\",\"inscriptionDescriptionMethod\":\"\",\"sex\":\"\",\"objectProductionOrganizationRole\":\"\",\"recordStatus\":\"\",\"numberOfObjects\":\"\",\"technicalAttribute\":\"\",\"objectComponentName\":\"\",\"materialComponent\":\"\",\"objectProductionPersonRole\":\"\",\"objectProductionDates\":[{\"_primary\":true,\"objectProductionDate\":\"\"}],\"objectProductionPeopleRole\":\"\",\"fieldCollectionSources\":[],\"forms\":[{\"_primary\":true,\"form\":\"\"}],\"viewersContributionNote\":\"\",\"editionNumber\":\"\",\"distinguishingFeatures\":\"\",\"dateAssociation\":\"\",\"titleTranslationLanguage\":\"\",\"dateEarliestSingleCertainty\":\"\",\"fieldCollectors\":[],\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"assocEventOrganizations\":[{\"assocEventOrganization\":\"\",\"_primary\":true}],\"datePeriod\":\"\",\"ownershipExchangeNote\":\"\",\"assocConcepts\":[{\"assocConcept\":\"\",\"_primary\":true},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"}],\"usage\":\"\",\"inscriptionContentDate\":\"\",\"dimensions\":[],\"objectNameGroup\":[]},\"items\":[]}";
 		ServletTester jetty=setupJetty();
 		String csid = "0e07e795-fb9d-4f39-a848";
-		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/"+csid,null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/users",null);
 		//JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
 		 //cspace-services/personauthorities/5c642112-f75a-43b4-aff8/items/0e07e795-fb9d-4f39-a848/
 	//	HttpTester out2=jettyDo(jetty,"POST","/chain/users",testdata);
 		log.info(out.getContent());
 		
 	}
-	*/
+	
 
 	/** 
 	 * Test List functionality for different Store Types
@@ -896,7 +896,8 @@ log.info(out.getContent());
 
 		ServletTester jetty = setupJetty();
 //		create role with permissions
-		JSONObject rolepermsdata = createRoleWithPermission(roleCreate,"acquisitions", "intakes"); 
+		JSONObject rolepermsdata = createRoleWithPermission(roleCreate,"loansin", "loansout"); 
+		JSONObject roleperms2data = createRoleWithPermission(roleCreate,"acquisitions", "intakes"); 
 
 		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeRequest(rolepermsdata).toString());
 		log.info(out.getContent());
@@ -906,36 +907,63 @@ log.info(out.getContent());
 		//get role
 		out=jettyDo(jetty,"GET","/chain"+role_id,null);
 		assertEquals(200,out.getStatus());
-
 		//test
 		JSONObject data = new JSONObject(out.getContent());
 		log.info(data.toString());
+		
+
+		//update role
+		out=jettyDo(jetty,"PUT","/chain"+role_id,makeRequest(roleperms2data).toString());
+		assertEquals(200,out.getStatus());
+		//test
+		JSONObject dataUP = new JSONObject(out.getContent());
+		
+		
 		
 		//delete role		
 		out=jettyDo(jetty,"DELETE","/chain"+role_id,null);
 		assertEquals(200,out.getStatus());
 		//XXX test removed until service layer have fixed there stuff
 		
-		//test data
+		
+		//test data GET
+		log.info("GET: "+data.toString());
 		JSONArray perms = data.getJSONObject("fields").getJSONArray("permissions");
-		log.info(perms.toString());
 		int test = 0;
 		for(int i=0; i<perms.length();i++){
 			JSONObject thisperm = perms.getJSONObject(i);
-			if(thisperm.getString("resourceName").equals("intakes")){
+			if(thisperm.getString("resourceName").equals("loansout")){
 				//XXX test removed until service layer have fixed there stuff
 				assertEquals("write",thisperm.getString("permission"));
 				test++;
 			}
-			if(thisperm.getString("resourceName").equals("acquisitions")){
+			if(thisperm.getString("resourceName").equals("loansin")){
 				//XXX test removed until service layer have fixed there stuff
 				assertEquals("read",thisperm.getString("permission"));
 				test++;
 			}
 		}
-		//assertEquals("failed to find acquisitions and intakes",2,test);
+		assertEquals("failed to find loansout and loansin",2,test);
 
- 
+
+		//test data UPDATE
+		log.info("UPDATA: "+dataUP.toString());
+		JSONArray permsUP = dataUP.getJSONObject("fields").getJSONArray("permissions");
+		int testUP = 0;
+		for(int i=0; i<permsUP.length();i++){
+			JSONObject thisperm = permsUP.getJSONObject(i);
+			if(thisperm.getString("resourceName").equals("intakes")){
+				//XXX test removed until service layer have fixed there stuff
+				assertEquals("write",thisperm.getString("permission"));
+				testUP++;
+			}
+			if(thisperm.getString("resourceName").equals("acquisitions")){
+				//XXX test removed until service layer have fixed there stuff
+				assertEquals("read",thisperm.getString("permission"));
+				testUP++;
+			}
+		}
+		assertEquals("failed to find acquisitions and intakes",2,testUP);
 	}
 	
 	@Test public void testUserRolesUI() throws Exception{
@@ -973,7 +1001,6 @@ log.info(out.getContent());
 		//delete roles
 
 		//Delete the roles
-		log.info(userdata.toString());
 		String roles_id1 = userdata.getJSONArray("role").getJSONObject(0).getString("roleId");
 		String roles_id2 = userdata2.getJSONArray("role").getJSONObject(0).getString("roleId");
 
@@ -995,7 +1022,7 @@ log.info(out.getContent());
 		for(int i=0; i<roles.length();i++){
 			JSONObject role = roles.getJSONObject(i);
 			//assertEquals()
-			assertEquals(role.getString("roleName"),userdata.getJSONArray("role").getJSONObject(0).getString("roleName"));
+			assertEquals(role.getString("roleName"),userdata2.getJSONArray("role").getJSONObject(0).getString("roleName"));
 		}
 		
 	}
