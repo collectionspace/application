@@ -666,23 +666,39 @@ public class GenericStorage  implements ContextualisedStorage {
 	 */
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			Map<String,Document> parts=new HashMap<String,Document>();
+
+			ReturnedURL url = null;
 			Document doc = null;
-			for(String section : r.getServicesRecordPaths()) {
-				String path=r.getServicesRecordPath(section);
-				String[] record_path=path.split(":",2);
-				doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
-				parts.put(record_path[0],doc);
+			//used by userroles and permroles as they have complex urls
+			if(r.hasPrimaryField()){
+				//XXX test if works: need to delete first before create/update
+			//	deleteJSON(root,creds,cache,filePath);
+
+				for(String section : r.getServicesRecordPaths()) {
+					doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+					String path = r.getServicesURL();
+					path = path.replace("*", getSubCsid(jsonObject,r.getPrimaryField()));
+
+					deleteJSON(root,creds,cache,path);
+					url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);	
+				}
 			}
-			ReturnedURL url;
-			//some records are accepted as multipart in the service layers, others arent, that's why we split up here
-			String test = doc.asXML();
-			if(r.isMultipart())
-				url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
-			else
-				url = conn.getURL(RequestMethod.POST, r.getServicesURL()+"/", doc, creds, cache);
-			if(url.getStatus()>299 || url.getStatus()<200)
-				throw new UnderlyingStorageException("Bad response "+url.getStatus());
+			else{
+				Map<String,Document> parts=new HashMap<String,Document>();
+				for(String section : r.getServicesRecordPaths()) {
+					String path=r.getServicesRecordPath(section);
+					String[] record_path=path.split(":",2);
+					doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+					parts.put(record_path[0],doc);
+				}
+				//some records are accepted as multipart in the service layers, others arent, that's why we split up here
+				if(r.isMultipart())
+					url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
+				else
+					url = conn.getURL(RequestMethod.POST, r.getServicesURL()+"/", doc, creds, cache);
+				if(url.getStatus()>299 || url.getStatus()<200)
+					throw new UnderlyingStorageException("Bad response "+url.getStatus());
+			}
 			return url.getURLTail();
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
@@ -690,7 +706,26 @@ public class GenericStorage  implements ContextualisedStorage {
 			throw new UnimplementedException("JSONException",e);
 		}
 	}
-
+	
+	/**
+	 * Gets the csid from an role or account out of the json authorization
+	 * @param data
+	 * @param primaryField
+	 * @return
+	 * @throws JSONException
+	 */
+	private String getSubCsid(JSONObject data, String primaryField) throws JSONException{
+		String[] path = primaryField.split("/");
+		JSONObject temp = data;
+		int finalnum = path.length - 1;
+		for(int i=0;i<finalnum; i++){
+			if(temp.has(path[i])){
+				temp = temp.getJSONObject(path[i]);
+			}
+		}
+		String csid = temp.getString(path[finalnum]);
+		return csid;
+	}
 
 	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
