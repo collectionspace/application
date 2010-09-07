@@ -3,6 +3,7 @@ package org.collectionspace.chain.csp.webui.record;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -109,19 +110,31 @@ public class RecordSearchList implements WebMethod {
 	 * @param {String} pageNum The amount of pages requested.
 	 * @throws UIException
 	 */
-	private void search_or_list(Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws UIException {
+	private void search_or_list(Storage storage,UIRequest ui) throws UIException {
 		try {
 			JSONObject restriction=new JSONObject();
 			String key="items";
-			if(param!=null) {
-				restriction.put("keywords",param);
-				key="results";
-			}
-			if(pageSize!=null) {
-				restriction.put("pageSize",pageSize);
-			}
-			if(pageNum!=null) {
-				restriction.put("pageNum",pageNum);
+			
+			Set<String> args = ui.getAllRequestArgument();
+			for(String restrict : args){
+				if(ui.getRequestArgument(restrict)!=null){
+					String value = ui.getRequestArgument(restrict);
+					if(restrict.equals("query") && search){
+						restrict = "keywords";
+						key="results";
+					}
+					if(restrict.equals("pageSize")||restrict.equals("pageNum")||restrict.equals("keywords")){
+						restriction.put(restrict,value);
+					}
+					else if(restrict.equals("query")){
+						//ignore - someone was doing something odd
+					}
+					else{
+						//XXX I would so prefer not to restrict and just pass stuff up but I know it will cause issues later
+						restriction.put("queryTerm",restrict);
+						restriction.put("queryString",value);
+					}
+				}
 			}
 			
 			JSONObject returndata = getJSON(storage,restriction,key,base);
@@ -159,10 +172,7 @@ public class RecordSearchList implements WebMethod {
 	
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
-		if(search)
-			search_or_list(q.getStorage(),q.getUIRequest(),q.getUIRequest().getRequestArgument("query"),q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
-		else
-			search_or_list(q.getStorage(),q.getUIRequest(),null,q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
+		search_or_list(q.getStorage(),q.getUIRequest());
 	}
 
 	public void configure(WebUI ui,Spec spec) {

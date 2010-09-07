@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -132,6 +134,15 @@ public class WebUIRequest implements UIRequest {
 
 	public String getRequestArgument(String key) throws UIException {
 		return request.getParameter(key);
+	}
+	public Set<String> getAllRequestArgument() throws UIException {
+		Set<String> params = new HashSet<String>();
+		Enumeration e = request.getParameterNames();
+		while (e.hasMoreElements()) {
+			String name = (String)e.nextElement();
+			params.add(name);
+		}
+		return params;
 	}
 
 	public Operation getRequestedOperation() throws UIException {

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
@@ -173,6 +174,9 @@ public class CompositeWebUIRequest implements UIRequest {
 
 	@Override
 	public String getRequestArgument(String key) throws UIException { return params.get(key); }
+	
+	@Override
+	public Set<String> getAllRequestArgument() throws UIException { return params.keySet(); }
 
 	@Override
 	public Operation getRequestedOperation() throws UIException { return op_req; }

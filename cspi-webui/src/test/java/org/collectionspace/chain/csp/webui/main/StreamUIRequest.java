@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
@@ -124,6 +125,9 @@ public class StreamUIRequest implements UIRequest {
 
 	public String getRequestArgument(String key) throws UIException {
 		return qargs.get(key);
+	}
+	public Set<String> getAllRequestArgument() throws UIException {
+		return qargs.keySet();
 	}
 
 	public void sendJSONResponse(JSONObject data) throws UIException {

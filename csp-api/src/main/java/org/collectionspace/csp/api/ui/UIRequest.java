@@ -1,5 +1,7 @@
 package org.collectionspace.csp.api.ui;
 
+import java.util.Set;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,8 +25,9 @@ public interface UIRequest {
 	public void setRedirectArgument(String key,String value) throws UIException;
 	public void deleteRedirectArgument(String key) throws UIException;
 	public String getRedirectArgument(String key) throws UIException;
-	
+
 	public String getRequestArgument(String key) throws UIException;
+	public Set<String> getAllRequestArgument() throws UIException;
 	public Operation getRequestedOperation() throws UIException;
 	
 	public UISession getSession() throws UIException;
