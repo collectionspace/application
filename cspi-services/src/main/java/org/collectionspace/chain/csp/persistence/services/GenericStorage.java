@@ -345,7 +345,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	UnimplementedException, UnderlyingStorageException {
 
 		JSONObject out=new JSONObject();
-		out = simpleRetrieveJSON(creds,cache,filePath,thisr.getServicesURL()+"/", r);
+		out = simpleRetrieveJSON(creds,cache,filePath,thisr.getServicesURL()+"/", thisr);
 		return out;
 	}
 
