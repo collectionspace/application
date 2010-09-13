@@ -80,13 +80,11 @@ public class TestUISpecs {
 		JSONObject comparison;
 
 		response=jettyDo(jetty,"GET",url,null);
-		log.info(response.getContent());
 		assertEquals(200,response.getStatus());
 		generated=new JSONObject(response.getContent());
 		comparison=new JSONObject(getResourceString(uijson));
-		log.info(response.getContent());
-		log.info(comparison.toString());
-		log.info(generated.toString());
+		log.info("BASELINE"+comparison.toString());
+		log.info("GENERATED"+generated.toString());
 		assertTrue("Failed to create correct uispec for "+url,JSONUtils.checkJSONEquivOrEmptyStringKey(generated,comparison));
 		
 	}
@@ -94,22 +92,22 @@ public class TestUISpecs {
 	@Test public void testUISpec() throws Exception {
 		ServletTester jetty=setupJetty();
 
-/*		uispec(jetty,"/chain/acquisition/uispec","acquisition.uispec");
-		uispec(jetty,"/chain/objects/uispec","collection-object.uispec");
-		uispec(jetty,"/chain/object-tab/uispec","object-tab.uispec");
-		uispec(jetty,"/chain/intake/uispec","intake.uispec");
-		uispec(jetty,"/chain/acquisition/uispec","acquisition.uispec");
-		uispec(jetty,"/chain/loanout/uispec","loanout.uispec");
-		uispec(jetty,"/chain/person/uispec","person.uispec");
-		uispec(jetty,"/chain/organization/uispec","organization-authority.uispec");
-		uispec(jetty,"/chain/loanin/uispec","loanin.uispec");
-		uispec(jetty,"/chain/users/uispec","users.uispec");
-		uispec(jetty,"/chain/role/uispec","roles.uispec");
-		uispec(jetty,"/chain/permission/uispec","permissions.uispec");
-		uispec(jetty,"/chain/permrole/uispec","permroles.uispec");
-		uispec(jetty,"/chain/movement/uispec","movement.uispec");
-		uispec(jetty,"/chain/movement-tab/uispec","movement.uispec");
-		*/
+//		uispec(jetty,"/chain/acquisition/uispec","acquisition.uispec");
+//		uispec(jetty,"/chain/objects/uispec","collection-object.uispec");
+//		uispec(jetty,"/chain/object-tab/uispec","object-tab.uispec");
+//		uispec(jetty,"/chain/intake/uispec","intake.uispec");
+//		uispec(jetty,"/chain/acquisition/uispec","acquisition.uispec");
+//		uispec(jetty,"/chain/loanout/uispec","loanout.uispec");
+//		uispec(jetty,"/chain/person/uispec","person.uispec");
+//		uispec(jetty,"/chain/organization/uispec","organization-authority.uispec");
+//		uispec(jetty,"/chain/loanin/uispec","loanin.uispec");
+//		uispec(jetty,"/chain/users/uispec","users.uispec");
+//		uispec(jetty,"/chain/role/uispec","roles.uispec");
+//		uispec(jetty,"/chain/permission/uispec","permissions.uispec");
+//		uispec(jetty,"/chain/permrole/uispec","permroles.uispec");
+//		uispec(jetty,"/chain/movement/uispec","movement.uispec");
+//		uispec(jetty,"/chain/movement-tab/uispec","movement.uispec");
+//		
 		
 		uispec(jetty,"/chain/find-edit/uispec","find-edit.uispec");
 		
