@@ -10,6 +10,7 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.controller.ChainServlet;
+import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,62 +23,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 // These are to test the functionality for Organization as defined in WebUI.java
-public class TestOrgThroughWebapp {
+public class TestOrgThroughWebapp extends TestBase{
 	private static final Logger log=LoggerFactory.getLogger(TestOrgThroughWebapp.class);
-	private static String cookie;
-	
-	// XXX refactor
-	protected InputStream getResource(String name) {
-		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
-		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-	}
-	
-	private static void login(ServletTester tester) throws IOException, Exception {
-		HttpTester out=jettyDo(tester,"GET","/chain/login?userid=test@collectionspace.org&password=testtest",null);
-		assertEquals(303,out.getStatus());
-		cookie=out.getHeader("Set-Cookie");
-		log.debug("Got cookie "+cookie);
-	}
-	
-	// XXX refactor
-	private static HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
-		HttpTester request = new HttpTester();
-		HttpTester response = new HttpTester();
-		request.setMethod(method);
-		request.setHeader("Host","tester");
-		request.setURI(path);
-		request.setVersion("HTTP/1.0");		
-		if(cookie!=null)
-			request.addHeader(HttpHeaders.COOKIE,cookie);
-		if(data!=null)
-			request.setContent(data);
-		response.parse(tester.getResponses(request.generate()));
-		return response;
-	}
-	
-	// XXX refactor into other copy of this method
-	private static ServletTester setupJetty() throws Exception {
-		BootstrapConfigController config_controller=new BootstrapConfigController(null);
-		config_controller.addSearchSuffix("test-config-loader2.xml");
-		config_controller.go();
-		String base=config_controller.getOption("services-url");		
-		ServletTester tester=new ServletTester();
-		tester.setContextPath("/chain");
-		tester.addServlet(ChainServlet.class, "/*");
-		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
-		tester.setAttribute("storage","service");
-		tester.setAttribute("store-url",base+"/cspace-services/");	
-		tester.setAttribute("config-filename","default.xml");
-		tester.start();
-		login(tester);
-		return tester;
-	}
+
 	
 	@BeforeClass public static void reset() throws Exception {
 		log.info("TestOrgThroughWebapp: initialize");
 		ServletTester jetty=setupJetty();
 		//test if need to reset data - only reset it org auth are null
-		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization/",null);
+		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization/?pageSize=2",null);
 		if(out.getStatus()<299){
 			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 			if(results.length()==0){

@@ -25,6 +25,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
+import org.collectionspace.chain.csp.persistence.TestBase;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsReset;
 import org.collectionspace.chain.uispec.SchemaStore;
@@ -50,7 +51,7 @@ import org.slf4j.LoggerFactory;
  * @author 
  *
  */
-public class TestGeneral {
+public class TestGeneral extends TestBase {
 
 	private static final Logger log=LoggerFactory.getLogger(TestGeneral.class);
 	
@@ -65,8 +66,11 @@ public class TestGeneral {
 	private final static String testStr2 = "{\"accessionNumber\":\"OBJNUM\",\"description\":\"DESCRIPTION\",\"descInscriptionInscriber\":\"INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"TITLE\",\"comments\":\"COMMENTS\",\"distinguishingFeatures\":\"DISTFEATURES\",\"responsibleDepartment\":\"DEPT\",\"objectName\":\"OBJNAME\"}";
 	private final static String testStr2a = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartment\":\"new DEPT\",\"objectName\":\"new OBJNAME\"}";
 	private final static Date d = new Date();
+	private final static String testStr10 = "{\"roleName\": \"ROLE_USERS_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
+	private final static String urnTestJoe = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"inscriptionContentInscriber\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
 	
 	
+	/*	
 	private final static String loanoutCreate = "{\"loanPurpose\":\"research\",\"loanedObjectStatus\":\"agreed\",\"loanOutNumber\":\"LO2010.1.3\",\"loanOutNote\":\"loan out notes\",\"specialConditionsOfLoan\":\"loanout conditions\",\"lendersAuthorizationDate\":\"May 27, 2010\",\"loanedObjectStatusDate\":\"May 28, 2010\",\"loanReturnDate\":\"May 26, 2010\",\"loanOutDate\":\"May 25, 2010\",\"loanRenewalApplicationDate\":\"May 24, 2010\",\"loanedObjectStatusNote\":\"status note\"}";
 	private final static String loaninCreate = "{\"loanInNumber\":\"LI2010.1.2\",\"lendersAuthorizer\":\"lendersAuthorizer\",\"lendersAuthorizationDate\":\"lendersAuthorizationDate\",\"lendersContact\":\"lendersContact\",\"loanInContact\":\"loanInContact\",\"loanInConditions\":\"loanInConditions\",\"loanInDate\":\"loanInDate\",\"loanReturnDate\":\"loanReturnDate\",\"loanRenewalApplicationDate\":\"loanRenewalApplicationDate\",\"loanInNote\":\"loanInNote\",\"loanPurpose\":\"loanPurpose\"}";
 	private final static String intakeCreate = "{\"normalLocation\": \"normalLocationX\",\"fieldCollectionEventName\": \"fieldCollectionEventNameX\",\"earliestDateCertainty\": \"earliestDateCertaintyX\",\"earliestDate\": \"earliestDateX\",\"latestDate\": \"latestDateX\",\"entryNumber\": \"entryNumberX\",\"insurancePolicyNumber\": \"insurancePolicyNumberX\",\"depositorsRequirements\": \"depositorsRequirementsX\",\"entryReason\": \"entryReasonX\",\"earliestDateQualifier\": \"earliestDateQualifierX\"}";
@@ -77,13 +81,8 @@ public class TestGeneral {
 	private final static String roleCreate = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_1_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
 	private final static String role2Create = "{\"roleGroup\":\"roleGroup\", \"roleName\": \"ROLE_2_TEST_" + d.toString() + "\", \"description\": \"this role is also for test users\"}";
 	private final static String personCreate = "{\"fields\":{\"displayName\":\"TEST_PERSON4_display\"}}";
-	/*private final static String permissionDelete = "{ \"resourceName\": \"resourceName_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]}, {\"action\": [{ \"name\": \"DELETE\" }]} ], \"effect\": \"PERMIT\" }";
-	private final static String permissionRead = "{ \"resourceName\": \"resourceName_"+d.toString()+ "\", \"actions\": [ {\"action\": [{ \"name\": \"READ\" }]} ], \"effect\": \"PERMIT\" }";
-	private final static String permissionWrite = "{ \"resourceName\": \"resourceName_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]} ], \"effect\": \"PERMIT\" }";
-	private final static String permissionNone = "{ \"resourceName\": \"resourceName_"+d.toString()+"\", \"actions\": [], \"effect\": \"PERMIT\" }";
-	private final static String permission2Write = "{ \"resourceName\": \"resourceName2_"+d.toString()+"\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]} ], \"effect\": \"PERMIT\" }";
-	private final static String permission2None = "{ \"resourceName\": \"resourceName2_"+d.toString()+"\", \"actions\": [], \"effect\": \"PERMIT\" }";
-	*/
+
+
 	private final static String permissionDelete = "{ \"resourceName\": \"intake\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]}, {\"action\": [{ \"name\": \"DELETE\" }]} ], \"effect\": \"PERMIT\" }";
 	private final static String permissionRead = "{ \"resourceName\": \"intake\", \"actions\": [ {\"action\": [{ \"name\": \"READ\" }]} ], \"effect\": \"PERMIT\" }";
 	private final static String permissionWrite = "{ \"resourceName\": \"intake\", \"actions\": [ {\"action\": [{ \"name\": \"CREATE\" }]}, {\"action\": [{ \"name\": \"READ\" }]}, {\"action\": [{ \"name\": \"UPDATE\" }]} ], \"effect\": \"PERMIT\" }";
@@ -103,10 +102,8 @@ public class TestGeneral {
 	private final static String user2Update = "{\"userId\": \"unittest2@collectionspace.org\",\"screenName\": \"unittestzzz\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"active\"}";
 	private final static String user2Email = "{\"email\": \"unittest2@collectionspace.org\", \"debug\" : true }";
 	//private final static String userEmail = "{\"email\": \"unittest@collectionspace.org\", \"debug\" : true }";
-	private final static String testStr10 = "{\"roleName\": \"ROLE_USERS_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
-	private final static String urnTestJoe = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"inscriptionContentInscriber\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
 	private final static String user88Create = "{\"userId\": \"unittest88@collectionspace.org"+ d.toString() +"\",\"userName\": \"unittest2@collectionspace.org\",\"password\": \"testpassword\",\"email\": \"unittest2@collectionspace.org\",\"status\": \"inactive\"}";
-	
+	*/
 	private FileStorage store;
 	private UserDetailsReset udreset;
 
@@ -239,41 +236,6 @@ public class TestGeneral {
 		file.delete();
 	}
 
-	private void login(ServletTester tester) throws IOException, Exception {
-		String test = "{\"userid\":\"test@collectionspace.org\",\"password\":\"testtest\"}";
-		HttpTester out=jettyDo(tester,"POST","/chain/login/",test);
-		log.info(out.getContent());
-		assertEquals(303,out.getStatus());
-		cookie=out.getHeader("Set-Cookie");
-		log.debug("Got cookie "+cookie);
-	}
-	private ServletTester setupJetty() throws Exception {
-		ServletTester tester=new ServletTester();
-		tester.setContextPath("/chain");
-		tester.addServlet(ChainServlet.class, "/*");
-		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
-		tester.setAttribute("test-store",store.getStoreRoot());
-		tester.setAttribute("config-filename","default.xml");
-		tester.start();
-		login(tester);
-		return tester;
-	}
-
-	// XXX refactor
-	private HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
-		HttpTester request = new HttpTester();
-		HttpTester response = new HttpTester();
-		request.setMethod(method);
-		request.setHeader("Host","tester");
-		request.setURI(path);
-		request.setVersion("HTTP/1.0");
-		if(cookie!=null)
-			request.addHeader(HttpHeaders.COOKIE,cookie);
-		if(data!=null)
-			request.setContent(data);
-		response.parse(tester.getResponses(request.generate()));
-		return response;
-	}
 	/**
 	 * Various Tests on Schema Store
 	 * @throws IOException
@@ -308,26 +270,6 @@ public class TestGeneral {
  */
 	@Test public void testJettyStartupWorks() throws Exception {
 		setupJetty();
-	}
-
-	private JSONObject makeRequest(JSONObject fields) throws JSONException {
-		JSONObject out=new JSONObject();
-		out.put("fields",fields);
-		return out;
-	}
-	
-	private String makeSimpleRequest(String in) throws JSONException {
-		return makeRequest(new JSONObject(in)).toString();
-	}
-	
-	private String getFields(String in) throws JSONException {
-		return getFields(new JSONObject(in)).toString();
-	}
-
-	private JSONObject getFields(JSONObject in) throws JSONException {
-		in=in.getJSONObject("fields");
-		in.remove("csid");
-		return in;
 	}
 
 	private HttpTester createUser(ServletTester jetty, String JSONfile) throws IOException, JSONException, Exception{
@@ -507,7 +449,7 @@ out = createUser(jetty,user2Create);
 	}
 	*/
 	
-	@Test public void test() throws Exception{
+	@Test public void test2() throws Exception{
 		String testdata = "{\"csid\":\"\",\"fields\":{\"role\":[{\"roleName\":\"ROLE_ADMINISTRATOR\",\"roleGroup\":\"Museum staff\",\"roleSelected\":false,\"roleId\":\"5c10b05b-3c62-4760-b663-d1f42f199ea6\"},{\"roleName\":\"ROLE_READER\",\"roleGroup\":\"Museum staff\",\"roleSelected\":true,\"roleId\":\"1a138929-5c90-4bd4-bcf1-fa2001fdb26a\"}],\"email\":\"bobbob@bob.com\",\"screenName\":\"bobbob\",\"password\":\"bobbobbob\",\"userId\":\"bobbob@bob.com\"}}";
 	//	String testdata2 = "{\"csid\":\"\",\"fields\":{\"permissions\":[{\"resourceName\":\"idgenerators\",\"permission\":\"delete\"},{\"resourceName\":\"id\",\"permission\":\"delete\"},{\"resourceName\":\"collectionobjects\",\"permission\":\"none\"},{\"resourceName\":\"intakes\",\"permission\":\"none\"},{\"resourceName\":\"loansin\",\"permission\":\"none\"},{\"resourceName\":\"loansout\",\"permission\":\"none\"},{\"resourceName\":\"movements\",\"permission\":\"none\"},{\"resourceName\":\"vocabularies\",\"permission\":\"none\"},{\"resourceName\":\"vocabularyitems\",\"permission\":\"none\"},{\"resourceName\":\"orgauthorities\",\"permission\":\"none\"},{\"resourceName\":\"organizations\",\"permission\":\"none\"},{\"resourceName\":\"personauthorities\",\"permission\":\"none\"},{\"resourceName\":\"persons\",\"permission\":\"none\"},{\"resourceName\":\"locationauthorities\",\"permission\":\"none\"},{\"resourceName\":\"locations\",\"permission\":\"none\"},{\"resourceName\":\"acquisitions\",\"permission\":\"none\"},{\"resourceName\":\"relations\",\"permission\":\"none\"},{\"resourceName\":\"accounts\",\"permission\":\"none\"},{\"resourceName\":\"dimensions\",\"permission\":\"none\"},{\"resourceName\":\"contacts\",\"permission\":\"none\"},{\"resourceName\":\"notes\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions/permroles\",\"permission\":\"none\"},{\"resourceName\":\"accounts/accountroles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles/permroles\",\"permission\":\"none\"},{\"resourceName\":\"idgenerators\",\"permission\":\"none\"},{\"resourceName\":\"id\",\"permission\":\"none\"},{\"resourceName\":\"collectionobjects\",\"permission\":\"none\"},{\"resourceName\":\"intakes\",\"permission\":\"none\"},{\"resourceName\":\"loansin\",\"permission\":\"none\"},{\"resourceName\":\"loansout\",\"permission\":\"none\"},{\"resourceName\":\"movements\",\"permission\":\"none\"},{\"resourceName\":\"reports\",\"permission\":\"none\"},{\"resourceName\":\"vocabularies\",\"permission\":\"none\"},{\"resourceName\":\"vocabularyitems\",\"permission\":\"none\"},{\"resourceName\":\"orgauthorities\",\"permission\":\"none\"},{\"resourceName\":\"organizations\",\"permission\":\"none\"},{\"resourceName\":\"personauthorities\",\"permission\":\"none\"},{\"resourceName\":\"persons\",\"permission\":\"none\"},{\"resourceName\":\"locationauthorities\",\"permission\":\"none\"},{\"resourceName\":\"locations\",\"permission\":\"none\"},{\"resourceName\":\"acquisitions\",\"permission\":\"none\"},{\"resourceName\":\"relations\",\"permission\":\"none\"},{\"resourceName\":\"accounts\",\"permission\":\"none\"},{\"resourceName\":\"dimensions\",\"permission\":\"none\"},{\"resourceName\":\"contacts\",\"permission\":\"none\"},{\"resourceName\":\"notes\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions/permroles\",\"permission\":\"none\"},{\"resourceName\":\"accounts/accountroles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles/permroles\",\"permission\":\"none\"}],\"roleName\":\"bobby2b\"}}";
 		//String testdata = "{\"termsUsed\":[],\"relations\":{\"intake\":[{\"summary\":\"Sean Bean\",\"summarylist\":{\"currentOwner\":\"Sean Bean\",\"entryNumber\":\"CompleteIntake001\"},\"csid\":\"b369100f-ccc7-4390-aecc\",\"number\":\"CompleteIntake001\",\"relid\":\"bca548a6-1777-421a-b513\",\"relationshiptype\":\"affects\",\"recordtype\":\"intake\"},{\"summary\":\"Sean Bean\",\"summarylist\":{\"currentOwner\":\"Sean Bean\",\"entryNumber\":\"CompleteIntake001\"},\"csid\":\"58346028-dbcb-42bb-88e2\",\"number\":\"CompleteIntake001\",\"relid\":\"7378e437-c701-4c47-b789\",\"relationshiptype\":\"affects\",\"recordtype\":\"intake\"}],\"objects\":[{\"summary\":\"\",\"summarylist\":{\"nametitle\":\"\",\"objectNumber\":\"2010.1.16\"},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"number\":\"2010.1.16\",\"relid\":\"42db720b-078c-4ef0-ae34\",\"relationshiptype\":\"affects\",\"recordtype\":\"objects\"},{\"summary\":\"\",\"summarylist\":{\"nametitle\":\"\",\"objectNumber\":\"2010.1.16\"},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"number\":\"2010.1.16\",\"relid\":\"163c7d9d-1ce4-446e-ba58\",\"relationshiptype\":\"affects\",\"recordtype\":\"objects\"}]},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"fields\":{\"technique\":\"\",\"inscriptionContentTranslation\":\"\",\"assocActivityNote\":\"\",\"inscriptionContentMethod\":\"\",\"inscriptionDescriptionPosition\":\"\",\"objectHistoryNote\":\"\",\"inscriptionContentInscriber\":\"\",\"viewersPersonalResponse\":\"\",\"fieldCollectionMethods\":[],\"assocEventPeoples\":[{\"_primary\":true,\"assocEventPeople\":\"\"}],\"references\":[{\"_primary\":true,\"reference\":\"\"}],\"ownershipPlace\":\"\",\"catalogNumber\":\"\",\"assocEventNote\":\"\",\"objectStatus\":\"\",\"responsibleDepartments\":[{\"_primary\":true,\"responsibleDepartment\":\"\"}],\"ownershipAccess\":\"\",\"contentOther\":\"\",\"contentPositions\":[{\"_primary\":true,\"contentPosition\":\"\"}],\"inscriptionContentPosition\":\"\",\"inscriptionContentTransliteration\":\"\",\"contentOtherType\":\"\",\"styles\":[{\"_primary\":true,\"style\":\"\"}],\"dateLatestQualifier\":\"\",\"contentObject\":\"\",\"ownershipExchangeMethod\":\"\",\"objectComponentInformation\":\"\",\"objectProductionNote\":\"\",\"ownershipExchangePriceCurrency\":\"\",\"objectProductionOrganization\":\"\",\"owners\":[{\"_primary\":true,\"owner\":\"\"}],\"assocDate\":\"\",\"inscriptionDescriptionDate\":\"\",\"inscriptionDescriptionInterpretation\":\"\",\"usageNote\":\"\",\"ownershipExchangePriceValue\":\"\",\"ownersContributionNote\":\"\",\"objectProductionPeople\":\"\",\"contentEventName\":\"\",\"objectProductionReasons\":[{\"objectProductionReason\":\"\",\"_primary\":true}],\"contentLanguages\":[{\"contentLanguage\":\"\",\"_primary\":true}],\"objectProductionPerson\":\"\",\"inscriptionContent\":\"\",\"collection\":\"\",\"assocCulturalContexts\":[{\"_primary\":true,\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"}],\"otherNumberList\":[{\"_primary\":true,\"otherNumber\":\"sdf\"},{\"otherNumber\":\"fff\"}],\"materialComponentNote\":\"\",\"contentDate\":\"\",\"technicalAttributeMeasurement\":\"\",\"title\":\"\",\"titleType\":\"\",\"titleTranslation\":\"\",\"inscriptionDescriptionType\":\"\",\"assocPersons\":[{\"_primary\":true,\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"}],\"assocPeoples\":[{\"_primary\":true,\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"}],\"dateText\":\"\",\"viewersPersonalExperience\":\"\",\"materialName\":\"\",\"dateEarliestSingle\":\"\",\"inscriptionContentScript\":\"\",\"ownersPersonalResponse\":\"\",\"ageQualifier\":\"\",\"fieldCollectionNote\":\"\",\"material\":\"\",\"viewersReferences\":[{\"_primary\":true,\"viewersReference\":\"\"}],\"assocEventNameType\":\"\",\"techniqueType\":\"\",\"fieldCollectionNumber\":\"\",\"inscriptionDescription\":\"\",\"assocEventPersons\":[{\"_primary\":true,\"assocEventPerson\":\"\"}],\"fieldCollectionPlace\":\"\",\"dateLatest\":\"\",\"fieldCollectionDate\":\"\",\"comments\":[{\"_primary\":true,\"comment\":\"\"}],\"contentDescription\":\"\",\"nhString\":\"\",\"assocEventName\":\"\",\"briefDescriptions\":[{\"_primary\":true,\"briefDescription\":\"\"}],\"objectProductionPlace\":\"\",\"viewersRole\":\"\",\"assocActivity\":\"\",\"ownersPersonalExperience\":\"\",\"assocPlaces\":[{\"_primary\":true,\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"}],\"ageUnit\":\"\",\"contentOrganizations\":[{\"_primary\":true,\"contentOrganization\":\"\"}],\"materialSource\":\"\",\"ownershipCategory\":\"\",\"contentObjectType\":\"\",\"dimensionSummary\":\"\",\"assocObjectType\":\"\",\"copyNumber\":\"\",\"ownershipDates\":\"\",\"inscriptionContentInterpretation\":\"\",\"contentActivities\":[{\"_primary\":true,\"contentActivity\":\"\"}],\"age\":\"\",\"contentPersons\":[{\"_primary\":true,\"contentPerson\":\"\"}],\"assocOrganizations\":[{\"_primary\":true,\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"}],\"contentScripts\":[{\"_primary\":true,\"contentScript\":\"\"}],\"objectNumber\":\"2010.1.16\",\"colors\":[{\"_primary\":true,\"color\":\"\"}],\"ownersReferences\":[{\"_primary\":true,\"ownersReference\":\"\"}],\"dateLatestCertainty\":\"\",\"physicalDescription\":\"\",\"contentConcepts\":[{\"_primary\":true,\"contentConcept\":\"\"}],\"assocObject\":\"\",\"inscriptionContentType\":\"\",\"assocEventPlaces\":[{\"_primary\":true,\"assocEventPlace\":\"\"}],\"contentEventNameType\":\"\",\"inscriptionDescriptionInscriber\":\"\",\"assocDateNote\":\"\",\"contentPlaces\":[{\"contentPlace\":\"\",\"_primary\":true}],\"inscriptionContentLanguage\":\"\",\"phase\":\"\",\"technicalAttributeMeasurementUnit\":\"\",\"objectProductionPlaceRole\":\"\",\"titleLanguage\":\"\",\"contentNote\":\"\",\"dateEarliestSingleQualifier\":\"\",\"contentPeoples\":[{\"_primary\":true,\"contentPeople\":\"\"}],\"fieldCollectionEventName\":\"\",\"inscriptionDescriptionMethod\":\"\",\"sex\":\"\",\"objectProductionOrganizationRole\":\"\",\"recordStatus\":\"\",\"numberOfObjects\":\"\",\"technicalAttribute\":\"\",\"objectComponentName\":\"\",\"materialComponent\":\"\",\"objectProductionPersonRole\":\"\",\"objectProductionDates\":[{\"_primary\":true,\"objectProductionDate\":\"\"}],\"objectProductionPeopleRole\":\"\",\"fieldCollectionSources\":[],\"forms\":[{\"_primary\":true,\"form\":\"\"}],\"viewersContributionNote\":\"\",\"editionNumber\":\"\",\"distinguishingFeatures\":\"\",\"dateAssociation\":\"\",\"titleTranslationLanguage\":\"\",\"dateEarliestSingleCertainty\":\"\",\"fieldCollectors\":[],\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"assocEventOrganizations\":[{\"assocEventOrganization\":\"\",\"_primary\":true}],\"datePeriod\":\"\",\"ownershipExchangeNote\":\"\",\"assocConcepts\":[{\"assocConcept\":\"\",\"_primary\":true},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"}],\"usage\":\"\",\"inscriptionContentDate\":\"\",\"dimensions\":[],\"objectNameGroup\":[]},\"items\":[]}";
@@ -755,142 +697,7 @@ out = createUser(jetty,user2Create);
 		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 	}
 
-	// generic test post/get/put delete
-	private void testPostGetDelete(ServletTester jetty,String uipath, String data, String testfield) throws Exception {
-		HttpTester out;
-		//Create
-		out = jettyDo(jetty,"POST","/chain"+uipath,makeSimpleRequest(data));
-		assertEquals(out.getMethod(),null);
-log.info(out.getContent());
-		assertEquals(201,out.getStatus());	
-		String id=out.getHeader("Location");	
-		//Retrieve
-		out=jettyDo(jetty,"GET","/chain"+id,null);
 
-		JSONObject one = new JSONObject(getFields(out.getContent()));
-		JSONObject two = new JSONObject(data);
-		log.info(one.toString());
-		log.info(two.toString());
-		assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
-
-		//change
-		if(!uipath.contains("permission")){
-			two.put(testfield, "newvalue");
-			out=jettyDo(jetty,"PUT","/chain"+id,makeRequest(two).toString());
-			assertEquals(200,out.getStatus());	
-			JSONObject oneA = new JSONObject(getFields(out.getContent()));
-			assertEquals(oneA.get(testfield).toString(),"newvalue");
-		}
-
-		//Delete
-		out=jettyDo(jetty,"DELETE","/chain"+id,null);
-		assertEquals(200,out.getStatus());
-		
-	}
-
-	// generic Lists
-	private void testLists(ServletTester jetty, String objtype, String data, String itemmarker)  throws Exception{
-
-		HttpTester out1=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));
-		log.info(out1.getContent());
-		assertEquals(201, out1.getStatus());
-
-		// Opens a file output stream - ?? not sure why
-		File storedir=new File(store.getStoreRoot(),"store");
-		if(!storedir.exists())
-			storedir.mkdir();
-		File junk=new File(storedir,"junk");
-		IOUtils.write("junk",new FileOutputStream(junk));
-
-		/* get all objects */
-		//pagination?
-		HttpTester out;
-		int pgSz = 100;
-		int pgNum = 0;
-		boolean exists = false;
-		boolean end = false;
-		// Page through looking for this id
-		do{
-			out=jettyDo(jetty,"GET","/chain/"+objtype+"/search?pageNum="+pgNum+"&pageSize="+pgSz,null);
-			log.info(objtype+":"+out.getContent());
-			assertEquals(200,out.getStatus());
-			
-			/* create list of files */
-
-			JSONObject result=new JSONObject(out.getContent());
-			JSONArray items=result.getJSONArray(itemmarker);
-			Set<String> files=new HashSet<String>();
-			if(items.length() > 0){
-				for(int i=0;i<items.length();i++){
-					files.add("/"+objtype+"/"+items.getJSONObject(i).getString("csid"));
-				}
-			}else{
-				end = true;
-			}
-
-			exists = files.contains(out1.getHeader("Location"));
-			pgNum++;
-		}while(!end && !exists);
-		
-		assertTrue(exists);
-		
-		
-		/* clean up */
-		out=jettyDo(jetty,"DELETE","/chain"+out1.getHeader("Location"),null);
-		assertEquals(200,out.getStatus());
-	}
-	
-	
-	private JSONObject createRoleWithPermission(String role, String permname, String permname2) throws Exception{
-
-		/*
-        "permissions": [
-            {"resourceName": "Acquisition", "permission": "write"},
-            {"resourceName": "Loan In", "permission": "read"},
-        ],
-		 */
-		JSONArray permission = new JSONArray();
-		JSONObject perm1 = new JSONObject();
-		perm1.put("resourceName", permname);
-		perm1.put("permission", "read");
-
-		JSONObject perm2 = new JSONObject();
-		perm2.put("resourceName", permname2);
-		perm2.put("permission", "write");
-		permission.put(perm1);
-		permission.put(perm2);
-		JSONObject roleJSON= new JSONObject(role);
-		roleJSON.put("permissions", permission);
-		return roleJSON;		
-	}
-	
-	private JSONObject createUserWithRoles(ServletTester jetty,String user, String roleJSON) throws Exception{
-
-		//create role
-		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleJSON));
-		log.info(out.getContent());
-		JSONObject role = new JSONObject(out.getContent()).getJSONObject("fields");
-		String role_id=out.getHeader("Location");
-		assertEquals(201,out.getStatus());
-		
-		/*
-        "role": [
-            {"roleName": "Acquisition", "roleId": "write", "active":"active"},
-        ],
-		 */
-		JSONArray roles = new JSONArray();
-		JSONObject role1 = new JSONObject();
-		role1.put("roleName", role.getString("roleName"));
-		role1.put("roleId", role_id);
-		role1.put("roleSelected", "true");
-		
-		roles.put(role1);
-
-		JSONObject userJSON= new JSONObject(user);
-		userJSON.put("role", roles);
-		return userJSON;		
-
-	}
 	
 	@Test public void testRolesPermsUI() throws Exception {
 

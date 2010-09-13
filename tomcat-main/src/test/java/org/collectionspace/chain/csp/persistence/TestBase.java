@@ -1,13 +1,21 @@
 package org.collectionspace.chain.csp.persistence;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
 
+import org.apache.commons.io.IOUtils;
+import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.controller.ChainServlet;
+import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Test;
 import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -17,30 +25,110 @@ import org.slf4j.LoggerFactory;
 public class TestBase extends TestData {
 	private static final Logger log=LoggerFactory.getLogger(TestBase.class);
 	
-	private String cookie;
+	private static String cookie;
 	
-	
-	protected void login(ServletTester tester) throws IOException, Exception {
-		String test = "{\"userid\":\"test@collectionspace.org\",\"password\":\"testtest\"}";
-		HttpTester out=jettyDo(tester,"POST","/chain/login/",test);
-		log.info(out.getContent());
-		assertEquals(303,out.getStatus());
-		cookie=out.getHeader("Set-Cookie");
+
+	protected static void login(ServletTester tester) throws IOException, Exception {
+		JSONObject user = getDefaultUser();
+		login(tester, user, false);
+	}
+	protected static void login(ServletTester tester, Boolean isUTF8) throws IOException, Exception {
+		JSONObject user = getDefaultUser();
+		login(tester, user, isUTF8);
+	}
+	protected static void login(ServletTester tester, JSONObject user) throws IOException, Exception {
+		login(tester, user, false);
+	}
+
+	protected static void login(ServletTester tester, JSONObject user, Boolean isUTF8) throws IOException, Exception {
+		String test = user.toString();
+		if(isUTF8){
+			UTF8SafeHttpTester out=jettyDoUTF8(tester,"POST","/chain/login/",test);
+			assertEquals(303,out.getStatus());
+			cookie=out.getHeader("Set-Cookie");
+		}
+		else{
+			HttpTester out=jettyDo(tester,"POST","/chain/login/",test);
+			assertEquals(303,out.getStatus());
+			cookie=out.getHeader("Set-Cookie");
+		}
+		
 		log.debug("Got cookie "+cookie);
 	}
-	protected ServletTester setupJetty() throws Exception {
+	
+	
+	protected static ServletTester setupJetty() throws Exception {
+		return setupJetty(null, null,false);
+	}
+	protected static ServletTester setupJetty(String controller) throws Exception {
+		return setupJetty(controller, null,false);
+	}
+	protected static ServletTester setupJetty(String controller, JSONObject user) throws Exception {
+		return setupJetty(controller, user,false);
+	}
+	protected static ServletTester setupJetty(JSONObject user) throws Exception {
+		return setupJetty(null, user,false);
+	}
+
+	protected static ServletTester setupJetty(Boolean isUTF8) throws Exception {
+		return setupJetty(null, null,isUTF8);
+	}
+	protected static ServletTester setupJetty(String controller,Boolean isUTF8) throws Exception {
+		return setupJetty(controller, null,isUTF8);
+	}
+	protected static ServletTester setupJetty(JSONObject user,Boolean isUTF8) throws Exception {
+		return setupJetty(null, user,isUTF8);
+	}
+
+
+	//controller: "test-config-loader2.xml"
+	protected static ServletTester setupJetty(String controller, JSONObject user,Boolean isUTF8) throws Exception {
+		String base="";
+		if(controller!=null){
+			BootstrapConfigController config_controller=new BootstrapConfigController(null);
+			config_controller.addSearchSuffix(controller);
+			config_controller.go();
+			base=config_controller.getOption("services-url");	
+		}
 		ServletTester tester=new ServletTester();
 		tester.setContextPath("/chain");
 		tester.addServlet(ChainServlet.class, "/*");
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
+		if(controller!=null){
+			tester.setAttribute("storage","service");
+			tester.setAttribute("store-url",base+"/cspace-services/");
+		}
 		tester.setAttribute("config-filename","default.xml");
 		tester.start();
-		login(tester);
+		if(user != null){
+			login(tester, user, isUTF8);
+		}
+		else{
+			login(tester, isUTF8);
+		}
+		
 		return tester;
 	}
+	
 
-	// XXX refactor
-	protected HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
+
+	protected InputStream getLocalResource(String name) {
+		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+name;
+		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+	}
+	
+
+	protected String getResourceString(String name) throws IOException {
+		InputStream in=getLocalResource(name);
+		return IOUtils.toString(in);
+	}
+	
+	protected static UTF8SafeHttpTester jettyDoUTF8(ServletTester tester,String method,String path,String data_str) throws IOException, Exception {
+		UTF8SafeHttpTester out=new UTF8SafeHttpTester();
+		out.request(tester,method,path,data_str,cookie);
+		return out;
+	}
+	protected static HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
 		HttpTester response = new HttpTester();
 		request.setMethod(method);
@@ -53,11 +141,23 @@ public class TestBase extends TestData {
 			request.setContent(data);
 		response.parse(tester.getResponses(request.generate()));
 		return response;
-	}
-	
+	}	
+
 	protected JSONObject makeRequest(JSONObject fields) throws JSONException {
 		JSONObject out=new JSONObject();
 		out.put("fields",fields);
+		return out;
+	}
+	
+	protected JSONObject makeRequest(JSONObject fields,JSONObject[] relations) throws JSONException {
+		JSONObject out=new JSONObject();
+		out.put("fields",fields);
+		if(relations!=null) {
+			JSONArray r=new JSONArray();
+			for(JSONObject s : relations)
+				r.put(s);
+			out.put("relations",r);
+		}
 		return out;
 	}
 	
@@ -124,5 +224,88 @@ public class TestBase extends TestData {
 		userJSON.put("role", roles);
 		return userJSON;		
 
+	}
+	
+	// generic test post/get/put delete
+	protected void testPostGetDelete(ServletTester jetty,String uipath, String data, String testfield) throws Exception {
+		HttpTester out;
+		//Create
+		out = jettyDo(jetty,"POST","/chain"+uipath,makeSimpleRequest(data));
+		assertEquals(out.getMethod(),null);
+		log.info(out.getContent());
+		assertEquals(201,out.getStatus());	
+		String id=out.getHeader("Location");	
+		//Retrieve
+		out=jettyDo(jetty,"GET","/chain"+id,null);
+
+		JSONObject one = new JSONObject(getFields(out.getContent()));
+		JSONObject two = new JSONObject(data);
+		log.info(one.toString());
+		log.info(two.toString());
+		assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
+
+		//change
+		if(!uipath.contains("permission")){
+			two.put(testfield, "newvalue");
+			out=jettyDo(jetty,"PUT","/chain"+id,makeRequest(two).toString());
+			assertEquals(200,out.getStatus());	
+			JSONObject oneA = new JSONObject(getFields(out.getContent()));
+			assertEquals(oneA.get(testfield).toString(),"newvalue");
+		}
+
+		//Delete
+		out=jettyDo(jetty,"DELETE","/chain"+id,null);
+		assertEquals(200,out.getStatus());
+		
+	}
+	
+	// generic Lists
+	protected void testLists(ServletTester jetty, String objtype, String data, String itemmarker)  throws Exception{
+
+		HttpTester out1=jettyDo(jetty,"POST","/chain/"+objtype+"/",makeSimpleRequest(data));
+		log.info(out1.getContent());
+		assertEquals(201, out1.getStatus());
+
+
+		/* get all objects */
+		//pagination?
+		HttpTester out;
+		int pgSz = 100;
+		int pgNum = 0;
+		boolean exists = false;
+		boolean end = false;
+		// Page through looking for this id
+		do{
+			out=jettyDo(jetty,"GET","/chain/"+objtype+"/search?pageNum="+pgNum+"&pageSize="+pgSz,null);
+			log.info(objtype+":"+out.getContent());
+			assertEquals(200,out.getStatus());
+			
+			/* create list of files */
+
+			JSONObject result=new JSONObject(out.getContent());
+			JSONArray items=result.getJSONArray(itemmarker);
+			Set<String> files=new HashSet<String>();
+			if(items.length() > 0){
+				for(int i=0;i<items.length();i++){
+					files.add("/"+objtype+"/"+items.getJSONObject(i).getString("csid"));
+				}
+			}else{
+				end = true;
+			}
+
+			exists = files.contains(out1.getHeader("Location"));
+			pgNum++;
+		}while(!end && !exists);
+		
+		assertTrue(exists);
+		
+		
+		/* clean up */
+		out=jettyDo(jetty,"DELETE","/chain"+out1.getHeader("Location"),null);
+		assertEquals(200,out.getStatus());
+	}
+	
+	@Test public void test(){
+		assertTrue(true);
 	}
 }

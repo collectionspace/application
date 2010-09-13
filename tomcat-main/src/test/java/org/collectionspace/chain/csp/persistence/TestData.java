@@ -1,6 +1,7 @@
 package org.collectionspace.chain.csp.persistence;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +10,7 @@ import java.util.Date;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +38,19 @@ public class TestData {
 	
 	protected final String user88Create  = addData("userCreate.json", "userId").toString();
 		
+
+	protected static JSONObject getDefaultUser(){
+
+		JSONObject user = new JSONObject();
+		try {
+			user.put("userid", "test@collectionspace.org");
+			user.put("password", "testtest");
+			return user;
+		} catch (JSONException e) {
+			errored(e);
+		}
+		return user;
+	}
 	
 	
 	
@@ -54,8 +69,8 @@ public class TestData {
 		}
 		return userObj;
 	}
-	
-	private void errored(Exception e){
+
+	protected static void errored(Exception e){
 		log.error("ERROR occured"+e.getMessage());
 		org.junit.Assert.fail("ERROR occured"+e.getMessage());
 	}
@@ -77,5 +92,8 @@ public class TestData {
 		}
 		return null;
 	}
-	
+
+	@Test public void test(){
+		assertTrue(true);
+	}
 }
