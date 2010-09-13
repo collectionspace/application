@@ -432,7 +432,7 @@
                     </options>
                 </field>
                 <repeat id="contentPeoples">
-                    <field id="contentPeople" autocomplete="person-person">
+                    <field id="contentPeople">
                         <selector>.csc-object-description-content-people</selector>
                     </field>
                 </repeat>
@@ -627,7 +627,7 @@
                 <field id="objectProductionPeopleRole"></field>
                 <field id="objectProductionPersonRole"></field>
                 <field id="objectProductionPlaceRole"></field>
-                <field id="objectProductionPeople" autocomplete="person-person">
+                <field id="objectProductionPeople">
                     <selector>.csc-object-production-people</selector>
                 </field>
                 <field id="objectProductionPerson" autocomplete="person-person">
@@ -658,7 +658,7 @@
                     </field>
                 </repeat>
                 <repeat id="assocEventPeoples">
-                    <field id="assocEventPeople" autocomplete="person-person">
+                    <field id="assocEventPeople">
                         <selector>.csc-object-history-association-event-people</selector>
                     </field>
                 </repeat>
@@ -874,10 +874,10 @@
                     <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
                 </repeat>
                 <repeat id="fieldCollectionSources">
-                    <field id="fieldCollectionSource"></field>
+                    <field id="fieldCollectionSource" autocomplete="person-person"></field>
                 </repeat>
                 <repeat id="fieldCollectors">
-                    <field id="fieldCollector"></field>
+                    <field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
                 </repeat>
                 <!--  natural history -->
                 <!--  ID's probably can't use -'s , :( XXX -->
@@ -1050,7 +1050,7 @@
                 <field id="currentLocation">
                     <selector>.csc-intake-current-location</selector>
                 </field>
-                <field id="currentLocationFitness">
+                <field id="currentLocationFitness" autocomplete="vocab-conditionfitness" ui-type="enum">
                     <selector>.csc-intake-current-location-fitness</selector>
                 </field>
                 <field id="currentLocationNote">
@@ -2146,6 +2146,17 @@
 						    <option id="trapped">trapped</option>
 						</options>
 					</instance>
+                    <instance id="vocab-conditionfitness">
+                        <web-url>conditionfitness</web-url>
+                        <title-ref>conditionfitness</title-ref>
+                        <title>Condition Fitness</title>
+                        <options>
+                            <option id="dangerous">Dangerous</option>
+                            <option id="suitable">Suitable</option>
+                            <option id="reasonable">Reasonable</option>
+                            <option id="unsuitable">Unsuitable</option>
+                        </options>
+                    </instance>
                     <instance id="vocab-conditioncheckmethod">
                         <web-url>conditioncheckmethod</web-url>
                         <title-ref>conditioncheckmethod</title-ref>
