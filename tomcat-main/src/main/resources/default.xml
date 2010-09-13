@@ -1594,7 +1594,7 @@
                     <title-selector>.csc-titleBar-foundationDate</title-selector>
                 </field>
                 <!--  <field id="foundingPlace"> -->
-                <field id="foundingPlace" autocomplete="person-person">
+                <field id="foundingPlace">
                     <selector>.csc-organizationAuthority-foundingPlace</selector>
                 </field>
                 <field id="dissolutionDate" ui-type="date" in-title="yes" >
