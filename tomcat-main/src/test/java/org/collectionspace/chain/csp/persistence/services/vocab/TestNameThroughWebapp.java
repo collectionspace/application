@@ -16,22 +16,9 @@ public class TestNameThroughWebapp extends TestBase{
 	private static final Logger log=LoggerFactory.getLogger(TestNameThroughWebapp.class);
 	
 
-	@BeforeClass public  void reset() throws Exception {
-		ServletTester jetty=setupJetty();
-		//test if need to reset data - only reset it org auth are null
-		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person/?pageSize=2",null);
-		if(out.getStatus()<299){
-			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
-			if(results.length()==0){
-				jettyDo(jetty,"GET","/chain/reset/nodelete",null);
-			}
-		}			
-	}
-	
-
 	
 	//XXX change so creates person and then tests person exists
-	@Test public void testAutocomplete() throws Exception {
+	@Test public  void testAutocomplete() throws Exception {
 		log.info("NAME: Autocomplete: test_start");
 			ServletTester jetty=setupJetty();
 			// Create the entry we are going to check for

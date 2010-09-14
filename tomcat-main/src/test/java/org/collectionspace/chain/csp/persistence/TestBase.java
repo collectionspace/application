@@ -15,6 +15,7 @@ import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
@@ -26,21 +27,34 @@ public class TestBase extends TestData {
 	private static final Logger log=LoggerFactory.getLogger(TestBase.class);
 	
 	private static String cookie;
+	@BeforeClass public static void reset() throws Exception {
+		log.info("initialize authorities");
+		ServletTester jetty=setupJetty();
+		//test if need to reset data - only reset it org auth are null
+		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization/?pageSize=1",null);
+		if(out.getStatus()<299){
+			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
+			if(results.length()==0){
+				jettyDo(jetty,"GET","/chain/reset/nodelete",null);
+			}
+		}		
+		log.info("initialize finished");
+	}
 	
 
-	protected  void login(ServletTester tester) throws IOException, Exception {
+	protected static void login(ServletTester tester) throws IOException, Exception {
 		JSONObject user = getDefaultUser();
 		login(tester, user, false);
 	}
-	protected  void login(ServletTester tester, Boolean isUTF8) throws IOException, Exception {
+	protected static void login(ServletTester tester, Boolean isUTF8) throws IOException, Exception {
 		JSONObject user = getDefaultUser();
 		login(tester, user, isUTF8);
 	}
-	protected  void login(ServletTester tester, JSONObject user) throws IOException, Exception {
+	protected static void login(ServletTester tester, JSONObject user) throws IOException, Exception {
 		login(tester, user, false);
 	}
 
-	protected void login(ServletTester tester, JSONObject user, Boolean isUTF8) throws IOException, Exception {
+	protected static void login(ServletTester tester, JSONObject user, Boolean isUTF8) throws IOException, Exception {
 		String test = user.toString();
 		if(isUTF8){
 			UTF8SafeHttpTester out=jettyDoUTF8(tester,"POST","/chain/login/",test);
@@ -57,32 +71,32 @@ public class TestBase extends TestData {
 	}
 	
 	
-	protected  ServletTester setupJetty() throws Exception {
+	protected static ServletTester setupJetty() throws Exception {
 		return setupJetty("test-config-loader2.xml", null,false);
 	}
-	protected  ServletTester setupJetty(String controller) throws Exception {
+	protected static ServletTester setupJetty(String controller) throws Exception {
 		return setupJetty(controller, null,false);
 	}
-	protected  ServletTester setupJetty(String controller, JSONObject user) throws Exception {
+	protected static ServletTester setupJetty(String controller, JSONObject user) throws Exception {
 		return setupJetty(controller, user,false);
 	}
-	protected  ServletTester setupJetty(JSONObject user) throws Exception {
+	protected static ServletTester setupJetty(JSONObject user) throws Exception {
 		return setupJetty("test-config-loader2.xml", user,false);
 	}
 
-	protected  ServletTester setupJetty(Boolean isUTF8) throws Exception {
+	protected static ServletTester setupJetty(Boolean isUTF8) throws Exception {
 		return setupJetty("test-config-loader2.xml", null,isUTF8);
 	}
-	protected  ServletTester setupJetty(String controller,Boolean isUTF8) throws Exception {
+	protected static ServletTester setupJetty(String controller,Boolean isUTF8) throws Exception {
 		return setupJetty(controller, null,isUTF8);
 	}
-	protected  ServletTester setupJetty(JSONObject user,Boolean isUTF8) throws Exception {
+	protected static ServletTester setupJetty(JSONObject user,Boolean isUTF8) throws Exception {
 		return setupJetty("test-config-loader2.xml", user,isUTF8);
 	}
 
 
 	//controller: "test-config-loader2.xml"
-	protected  ServletTester setupJetty(String controller, JSONObject user,Boolean isUTF8) throws Exception {
+	protected static ServletTester setupJetty(String controller, JSONObject user,Boolean isUTF8) throws Exception {
 		String base="";
 		if(controller!=null){
 			BootstrapConfigController config_controller=new BootstrapConfigController(null);
@@ -128,7 +142,7 @@ public class TestBase extends TestData {
 		out.request(tester,method,path,data_str,cookie);
 		return out;
 	}
-	protected HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
+	protected static HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
 		HttpTester response = new HttpTester();
 		request.setMethod(method);

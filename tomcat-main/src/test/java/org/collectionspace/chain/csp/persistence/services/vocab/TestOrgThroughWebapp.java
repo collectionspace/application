@@ -27,20 +27,6 @@ public class TestOrgThroughWebapp extends TestBase{
 	private static final Logger log=LoggerFactory.getLogger(TestOrgThroughWebapp.class);
 
 	
-	@BeforeClass public void reset() throws Exception {
-		log.info("TestOrgThroughWebapp: initialize");
-		ServletTester jetty=setupJetty();
-		//test if need to reset data - only reset it org auth are null
-		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/organization/?pageSize=2",null);
-		if(out.getStatus()<299){
-			JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
-			if(results.length()==0){
-				jettyDo(jetty,"GET","/chain/reset/nodelete",null);
-			}
-		}		
-		log.info("TestOrgThroughWebapp: initialize finished");
-	}
-	
 	
 	/**
 	 * Tests that an authority search includes the expected item
