@@ -15,6 +15,7 @@ public interface FieldSet {
 	
 	//subrecords
 	public String getSelectorAffix();
+	public String getSelector();
 	public boolean usesRecord();
 	public Record usesRecordId();
 	
