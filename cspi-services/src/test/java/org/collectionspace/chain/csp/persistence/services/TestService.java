@@ -121,9 +121,9 @@ public class TestService extends ServicesBaseClass {
 		}
 //convert json -> xml and back to json and see if it still looks the same..
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, doc);
-		log.info(doc.asXML());
-		log.info(j.toString());
-		log.info(repeatjson.toString());
+//		log.info(doc.asXML());
+//		log.info(j.toString());
+//		log.info(repeatjson.toString());
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}
@@ -135,8 +135,8 @@ public class TestService extends ServicesBaseClass {
 		Record r = spec.getRecord(objtype);
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, testxml);
 		JSONObject j = getJSON(jsonfile);
-		log.info(repeatjson.toString());
-		log.info(j.toString());
+//		log.info(repeatjson.toString());
+//		log.info(j.toString());
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}
@@ -177,7 +177,7 @@ public class TestService extends ServicesBaseClass {
             }
             assertEquals(200, status);
             assertNotNull(doc);
-            log.info(doc.asXML());
+
             log.info("CREATED PERSONAUTHORITY AT " + authUrl);
 
             // POST (Create) a person item within the person authority
@@ -207,7 +207,7 @@ public class TestService extends ServicesBaseClass {
             }
             assertEquals(200, status);
             assertNotNull(doc);
-            log.info(doc.asXML());
+
             // Test that the parent authority lists this item as a child
             String parentUrl = authUrl + "/items/";
             log.info("LIST from " + parentUrl);
@@ -326,7 +326,7 @@ public class TestService extends ServicesBaseClass {
             }
             assertEquals(200, status);
             assertNotNull(doc);
-            log.info(doc.asXML());
+
             xpath = "//refName"; // Might be more concretely specified as "/" + partname + "/refname" (if root element name always == partname)
             Node n = doc.selectSingleNode(xpath);
             assertNotNull(n);
@@ -369,7 +369,7 @@ public class TestService extends ServicesBaseClass {
             }
             assertEquals(200, status);
             assertNotNull(doc);
-            log.info(doc.asXML());
+
             // Test that the parent authority lists this item as a child
             String parentUrl = "personauthorities/" + authShortId + "/items/";
             log.info("LIST from " + parentUrl);
