@@ -18,7 +18,7 @@ public class TestVocabThroughWebapp extends TestBase {
 	
 
 	
-	@BeforeClass public static void reset() throws Exception {
+	@BeforeClass public void reset() throws Exception {
 		ServletTester jetty=setupJetty();
 		/*test if need to reset data - only reset it org auth are null
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person/?pageSize=2",null);
@@ -28,7 +28,7 @@ public class TestVocabThroughWebapp extends TestBase {
 				jettyDo(jetty,"GET","/chain/reset/nodelete",null);
 			}
 		}	
-		*/		
+		*/
 	}
 
 	@Test public void testInitialise() throws Exception{

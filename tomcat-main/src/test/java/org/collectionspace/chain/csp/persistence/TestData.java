@@ -18,7 +18,6 @@ public class TestData {
 	private static final Logger log=LoggerFactory.getLogger(TestData.class);
 
 	// Set up test data strings 
-		protected final static Date d = new Date();
 	
 	protected final String loanoutCreate = addData("loanoutCreate.json").toString();
 	protected final String loaninCreate = addData("loaninCreate.json").toString();
@@ -63,6 +62,7 @@ public class TestData {
 		JSONObject userObj = getJSON(jsonfile);
 		try {
 			String stuff = userObj.getString(field);
+			Date d = new Date();
 			userObj.put(field, stuff+d.toString());
 		} catch (JSONException e) {
 			errored(e);
@@ -88,7 +88,7 @@ public class TestData {
 		} catch (IOException e) {
 			errored(e);
 		} catch (JSONException e) {
-			errored(e);
+			errored(e);			
 		}
 		return null;
 	}

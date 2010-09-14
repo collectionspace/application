@@ -28,19 +28,19 @@ public class TestBase extends TestData {
 	private static String cookie;
 	
 
-	protected static void login(ServletTester tester) throws IOException, Exception {
+	protected  void login(ServletTester tester) throws IOException, Exception {
 		JSONObject user = getDefaultUser();
 		login(tester, user, false);
 	}
-	protected static void login(ServletTester tester, Boolean isUTF8) throws IOException, Exception {
+	protected  void login(ServletTester tester, Boolean isUTF8) throws IOException, Exception {
 		JSONObject user = getDefaultUser();
 		login(tester, user, isUTF8);
 	}
-	protected static void login(ServletTester tester, JSONObject user) throws IOException, Exception {
+	protected  void login(ServletTester tester, JSONObject user) throws IOException, Exception {
 		login(tester, user, false);
 	}
 
-	protected static void login(ServletTester tester, JSONObject user, Boolean isUTF8) throws IOException, Exception {
+	protected void login(ServletTester tester, JSONObject user, Boolean isUTF8) throws IOException, Exception {
 		String test = user.toString();
 		if(isUTF8){
 			UTF8SafeHttpTester out=jettyDoUTF8(tester,"POST","/chain/login/",test);
@@ -57,32 +57,32 @@ public class TestBase extends TestData {
 	}
 	
 	
-	protected static ServletTester setupJetty() throws Exception {
-		return setupJetty(null, null,false);
+	protected  ServletTester setupJetty() throws Exception {
+		return setupJetty("test-config-loader2.xml", null,false);
 	}
-	protected static ServletTester setupJetty(String controller) throws Exception {
+	protected  ServletTester setupJetty(String controller) throws Exception {
 		return setupJetty(controller, null,false);
 	}
-	protected static ServletTester setupJetty(String controller, JSONObject user) throws Exception {
+	protected  ServletTester setupJetty(String controller, JSONObject user) throws Exception {
 		return setupJetty(controller, user,false);
 	}
-	protected static ServletTester setupJetty(JSONObject user) throws Exception {
-		return setupJetty(null, user,false);
+	protected  ServletTester setupJetty(JSONObject user) throws Exception {
+		return setupJetty("test-config-loader2.xml", user,false);
 	}
 
-	protected static ServletTester setupJetty(Boolean isUTF8) throws Exception {
-		return setupJetty(null, null,isUTF8);
+	protected  ServletTester setupJetty(Boolean isUTF8) throws Exception {
+		return setupJetty("test-config-loader2.xml", null,isUTF8);
 	}
-	protected static ServletTester setupJetty(String controller,Boolean isUTF8) throws Exception {
+	protected  ServletTester setupJetty(String controller,Boolean isUTF8) throws Exception {
 		return setupJetty(controller, null,isUTF8);
 	}
-	protected static ServletTester setupJetty(JSONObject user,Boolean isUTF8) throws Exception {
-		return setupJetty(null, user,isUTF8);
+	protected  ServletTester setupJetty(JSONObject user,Boolean isUTF8) throws Exception {
+		return setupJetty("test-config-loader2.xml", user,isUTF8);
 	}
 
 
 	//controller: "test-config-loader2.xml"
-	protected static ServletTester setupJetty(String controller, JSONObject user,Boolean isUTF8) throws Exception {
+	protected  ServletTester setupJetty(String controller, JSONObject user,Boolean isUTF8) throws Exception {
 		String base="";
 		if(controller!=null){
 			BootstrapConfigController config_controller=new BootstrapConfigController(null);
@@ -128,7 +128,7 @@ public class TestBase extends TestData {
 		out.request(tester,method,path,data_str,cookie);
 		return out;
 	}
-	protected static HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
+	protected HttpTester jettyDo(ServletTester tester,String method,String path,String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
 		HttpTester response = new HttpTester();
 		request.setMethod(method);
@@ -141,7 +141,8 @@ public class TestBase extends TestData {
 			request.setContent(data);
 		response.parse(tester.getResponses(request.generate()));
 		return response;
-	}	
+	}		
+
 
 	protected JSONObject makeRequest(JSONObject fields) throws JSONException {
 		JSONObject out=new JSONObject();
@@ -199,13 +200,11 @@ public class TestBase extends TestData {
 	}
 	
 	protected JSONObject createUserWithRoles(ServletTester jetty,String user, String roleJSON) throws Exception{
-
 		//create role
 		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleJSON));
-		log.info(out.getContent());
+		assertEquals(201,out.getStatus());
 		JSONObject role = new JSONObject(out.getContent()).getJSONObject("fields");
 		String role_id=out.getHeader("Location");
-		assertEquals(201,out.getStatus());
 		
 		/*
         "role": [
@@ -232,7 +231,6 @@ public class TestBase extends TestData {
 		//Create
 		out = jettyDo(jetty,"POST","/chain"+uipath,makeSimpleRequest(data));
 		assertEquals(out.getMethod(),null);
-		log.info(out.getContent());
 		assertEquals(201,out.getStatus());	
 		String id=out.getHeader("Location");	
 		//Retrieve
@@ -240,8 +238,8 @@ public class TestBase extends TestData {
 
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(data);
-		log.info(one.toString());
-		log.info(two.toString());
+//		log.info(one.toString());
+//		log.info(two.toString());
 		assertEquals(one.get(testfield).toString(),two.get(testfield).toString());
 
 		//change

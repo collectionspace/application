@@ -16,7 +16,7 @@ public class TestNameThroughWebapp extends TestBase{
 	private static final Logger log=LoggerFactory.getLogger(TestNameThroughWebapp.class);
 	
 
-	@BeforeClass public static void reset() throws Exception {
+	@BeforeClass public  void reset() throws Exception {
 		ServletTester jetty=setupJetty();
 		//test if need to reset data - only reset it org auth are null
 		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person/?pageSize=2",null);
