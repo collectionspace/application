@@ -313,6 +313,14 @@ public class Spec implements CSP, Configurable {
 		}
 	}
 	
+	public Map<String,String> ui_url_to_id(){
+		Map<String,String> url_to_type=new HashMap<String,String>();
+		for(Record r : getAllRecords()) {
+			url_to_type.put(r.getWebURL(),r.getID());
+		}
+		return url_to_type;		
+	}
+	
 	public String dump() {
 		StringBuffer out=new StringBuffer();
 		for(Record r : records.values())

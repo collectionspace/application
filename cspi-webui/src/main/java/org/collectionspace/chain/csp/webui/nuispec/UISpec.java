@@ -33,10 +33,14 @@ import org.slf4j.LoggerFactory;
 
 public class UISpec implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(UISpec.class);
-	private Record record;
-	private Storage storage;
-	private JSONObject controlledCache;
-	String structureview;
+	protected Record record;
+	protected Storage storage;
+	protected JSONObject controlledCache;
+	protected String structureview;
+
+	public UISpec() {
+		this.controlledCache = new JSONObject();
+	}
 
 	public UISpec(Record record, String structureview) {
 		this.record=record;
@@ -45,7 +49,7 @@ public class UISpec implements WebMethod {
 	}
 
 	// XXX make common
-	static String plain(Field f) {
+	protected String plain(Field f) {
 		if(f.getParent().isExpander()){
 			return radio(f);
 		}
@@ -60,7 +64,7 @@ public class UISpec implements WebMethod {
 		return "${"+StringUtils.join(path,'.')+"}";		
 	}
 	// XXX make common
-	static String radio(Field f) {
+	protected String radio(Field f) {
 		List<String> path=new ArrayList<String>();
 		String pad="{row}";
 		path.add(pad);
@@ -71,7 +75,7 @@ public class UISpec implements WebMethod {
 	}
 	// XXX make common
 	// ${items.0.name}
-	static String plainlist(Field f) {
+	protected String plainlist(Field f) {
 		List<String> path=new ArrayList<String>();
 		String name="items";
 		path.add(name);
@@ -82,15 +86,22 @@ public class UISpec implements WebMethod {
 		return "${"+StringUtils.join(path,'.')+"}";		
 	}
 
-	static JSONObject linktext(Field f) throws JSONException  {
+	protected JSONObject linktext(Field f) throws JSONException  {
 		JSONObject number=new JSONObject();
 		number.put("linktext",f.getLinkText());
 		number.put("target",f.getLinkTextTarget());
 		return number;
 			
 	}
+
+	protected String getSelectorAffix(FieldSet fs){
+		return fs.getSelectorAffix();
+	}
+	protected String getSelector(FieldSet fs){
+		return fs.getSelector();
+	}
 	
-	private JSONObject generateOptionField(Field f) throws JSONException {
+	protected Object generateOptionField(Field f) throws JSONException {
 		// Dropdown entry
 		JSONObject out=new JSONObject();
 		if("radio".equals(f.getUIType())) {
@@ -117,7 +128,7 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 	// XXX factor
-	private Object generateDataEntryField(Field f) throws JSONException {
+	protected Object generateDataEntryField(Field f) throws JSONException {
 		if("plain".equals(f.getUIType())) {
 			// Plain entry
 			return plain(f);
@@ -129,59 +140,63 @@ public class UISpec implements WebMethod {
 			return linktext(f);
 		}
 		else if("dropdown".equals(f.getUIType())) {
-					
 			return generateOptionField(f);
 		}
 		else if("enum".equals(f.getUIType())) {
-			//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
-			//XXX they shouldn't really be in the uispec but they are here until the UI and App decide how to communicate about them
-			if(!controlledCache.has(f.getAutocompleteInstance().getID())){
-				JSONArray getallnames = controlledLists(f.getAutocompleteInstance().getID());
-				controlledCache.put(f.getAutocompleteInstance().getID(), getallnames);
-			}
-
-			JSONArray allnames = controlledCache.getJSONArray(f.getAutocompleteInstance().getID());
-			JSONArray ids=new JSONArray();
-			JSONArray names=new JSONArray();
-			int dfault = -1;
-			int spacer =0;
-			if(f.hasEnumBlank()){
-				ids.put("");
-				names.put(f.enumBlankValue());
-				spacer = 1;
-			}
-			
-			for(int i=0;i<allnames.length();i++) {
-				JSONObject namedata = allnames.getJSONObject(i);
-				String name = namedata.getString("displayName");
-				String shortId="";
-				if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
-					shortId = namedata.getString("shortIdentifier");
-				}
-				else{
-					shortId = name.replaceAll("\\W","");					
-				}
-				//currently only supports single select dropdowns and not multiselect
-				if(f.isEnumDefault(name)){
-					dfault = i + spacer;
-				}
-				ids.put(shortId.toLowerCase());
-				names.put(name);
-			}
-			// Dropdown entry pulled from service layer data
-			JSONObject out=new JSONObject();
-			out.put("selection",plain(f));
-
-			if(dfault!=-1)
-				out.put("default",dfault+"");
-			out.put("optionlist",ids);
-			out.put("optionnames",names);	
-			return out;
+			return generateENUMField(f);
 		}
 		return plain(f);	
 	}
 
-	private JSONArray controlledLists(String vocabtype) throws JSONException{
+
+	protected Object generateENUMField(Field f) throws JSONException {
+		//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
+		//XXX they shouldn't really be in the uispec but they are here until the UI and App decide how to communicate about them
+		if(!controlledCache.has(f.getAutocompleteInstance().getID())){
+			JSONArray getallnames = controlledLists(f.getAutocompleteInstance().getID());
+			controlledCache.put(f.getAutocompleteInstance().getID(), getallnames);
+		}
+
+		JSONArray allnames = controlledCache.getJSONArray(f.getAutocompleteInstance().getID());
+		JSONArray ids=new JSONArray();
+		JSONArray names=new JSONArray();
+		int dfault = -1;
+		int spacer =0;
+		if(f.hasEnumBlank()){
+			ids.put("");
+			names.put(f.enumBlankValue());
+			spacer = 1;
+		}
+		
+		for(int i=0;i<allnames.length();i++) {
+			JSONObject namedata = allnames.getJSONObject(i);
+			String name = namedata.getString("displayName");
+			String shortId="";
+			if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
+				shortId = namedata.getString("shortIdentifier");
+			}
+			else{
+				shortId = name.replaceAll("\\W","");					
+			}
+			//currently only supports single select dropdowns and not multiselect
+			if(f.isEnumDefault(name)){
+				dfault = i + spacer;
+			}
+			ids.put(shortId.toLowerCase());
+			names.put(name);
+		}
+		// Dropdown entry pulled from service layer data
+		JSONObject out=new JSONObject();
+		out.put("selection",plain(f));
+
+		if(dfault!=-1)
+			out.put("default",dfault+"");
+		out.put("optionlist",ids);
+		out.put("optionnames",names);	
+		return out;
+	}
+	
+	protected JSONArray controlledLists(String vocabtype,Record vr, Integer limit) throws JSONException{
 		JSONArray displayNames = new JSONArray();
 		try {
 		    // Get List
@@ -189,7 +204,6 @@ public class UISpec implements WebMethod {
 			int pagenum = 0;
 			int pagesize = 200;
 			while(resultsize >0){
-				Record vr = this.record.getSpec().getRecord("vocab");
 				JSONObject restriction=new JSONObject();
 				restriction.put("pageNum", pagenum);
 				restriction.put("pageSize", pagesize);
@@ -215,6 +229,10 @@ public class UISpec implements WebMethod {
 					if(total <= (pagesize * (pagenum))){
 						break;
 					}
+					//have we got enough results?
+					if(limit !=0 && limit <= (pagesize * (pagenum)) ){
+						break;
+					}
 				}
 				else{
 					resultsize=0;
@@ -229,6 +247,10 @@ public class UISpec implements WebMethod {
 		}
 		return displayNames;
 	}
+	protected JSONArray controlledLists(String vocabtype) throws JSONException{
+		Record vr = this.record.getSpec().getRecord("vocab");
+		return controlledLists(vocabtype,vr,0);
+	}
 
 	private JSONObject getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		//should be using cached results from the previous query.
@@ -236,12 +258,12 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
-	private JSONObject generateRepeatExpanderEntry(Repeat r, String affix) throws JSONException {
+	protected JSONObject generateRepeatExpanderEntry(Repeat r, String affix) throws JSONException {
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.renderer.repeat");
 		expander.put("controlledBy", "fields."+r.getID());
 		expander.put("pathAs", "row");
-		expander.put("repeatID", r.getSelector());
+		expander.put("repeatID", getSelector(r));
 
 		if(r.getChildren().length>0){
 			JSONObject tree = new JSONObject();
@@ -252,19 +274,20 @@ public class UISpec implements WebMethod {
 		}
 		return expander;
 	}
-	private JSONObject generateSelectionExpanderEntry(Field f, String affix) throws JSONException {
+	protected JSONObject generateSelectionExpanderEntry(Field f, String affix) throws JSONException {
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.renderer.selection.inputs");
-		expander.put("rowID", f.getSelector()+"-row:");
-		expander.put("labelID", f.getSelector()+"-label");
-		expander.put("inputID", f.getSelector()+"-input");
+		expander.put("rowID", getSelector(f)+"-row:");
+		expander.put("labelID", getSelector(f)+"-label");
+		expander.put("inputID", getSelector(f)+"-input");
 		expander.put("selectID", f.getID());
 
 		JSONObject tree = new JSONObject();
-		tree = generateOptionField(f);
+		tree = (JSONObject)generateOptionField(f);
 		expander.put("tree", tree);
 		return expander;
 	}
+	
 	private JSONObject generateNonExpanderEntry(Repeat r, String affix) throws JSONException {
 		JSONObject out = new JSONObject();
 		JSONObject expander = new JSONObject();
@@ -281,7 +304,7 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 	
-	private JSONObject generateRepeatEntry(Repeat r, String affix) throws JSONException {
+	protected JSONObject generateRepeatEntry(Repeat r, String affix) throws JSONException {
 
 		JSONObject out = new JSONObject();
 		if(r.isExpander()){
@@ -291,7 +314,6 @@ public class UISpec implements WebMethod {
 			JSONArray decorators=new JSONArray();
 			JSONObject decorator=new JSONObject();
 			decorator.put("type","fluid");
-			int size = r.getChildren().length;
 			decorator.put("func","cspace.makeRepeatable");
 			JSONObject options=new JSONObject();
 			JSONObject protoTree=new JSONObject();
@@ -309,7 +331,7 @@ public class UISpec implements WebMethod {
 	}
 	
 	
-	private JSONObject generateAutocomplete(Field f) throws JSONException {
+	protected JSONObject generateAutocomplete(Field f) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
 		JSONObject decorator=new JSONObject();
@@ -318,7 +340,7 @@ public class UISpec implements WebMethod {
 
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
-				decorator.put("container",f.getSelector());
+				decorator.put("container",getSelector(f));
 			}
 		}
 		JSONObject options=new JSONObject();
@@ -336,7 +358,7 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
-	private JSONObject generateChooser(Field f) throws JSONException {
+	protected JSONObject generateChooser(Field f) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
 		JSONObject decorator=new JSONObject();
@@ -349,7 +371,7 @@ public class UISpec implements WebMethod {
 		}
 		JSONObject options=new JSONObject();
 		JSONObject selectors=new JSONObject();
-		selectors.put("numberField",f.getSelector());
+		selectors.put("numberField",getSelector(f));
 		options.put("selectors",selectors);
 		JSONObject model=new JSONObject();
 		JSONArray ids=new JSONArray();
@@ -373,7 +395,7 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
-	private JSONObject generateDate(Field f) throws JSONException {
+	protected JSONObject generateDate(Field f) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
 		JSONObject decorator=new JSONObject();
@@ -392,7 +414,7 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
-	private JSONObject generateDataEntrySection(String affix) throws JSONException {
+	protected JSONObject generateDataEntrySection(String affix) throws JSONException {
 		JSONObject out=new JSONObject();
 		for(FieldSet fs : record.getAllFields()) {
 			generateDataEntry(out,fs,affix);
@@ -418,14 +440,14 @@ public class UISpec implements WebMethod {
 		
 	}
 	
-	private void generateDataEntry(JSONObject out,FieldSet fs, String affix) throws JSONException {
+	protected void generateDataEntry(JSONObject out,FieldSet fs, String affix) throws JSONException {
 		if(fs.usesRecord()){
-			if(!fs.getSelectorAffix().equals("")){
+			if(!getSelectorAffix(fs).equals("")){
 				if(!affix.equals("")){
-					affix = affix+"-"+fs.getSelectorAffix();
+					affix = affix+"-"+getSelectorAffix(fs);
 				}
 				else{
-					affix = "-"+fs.getSelectorAffix();
+					affix = "-"+getSelectorAffix(fs);
 				}
 			}
 			generateSubRecord(out, fs.usesRecordId(), affix);
@@ -436,105 +458,139 @@ public class UISpec implements WebMethod {
 				// Single field
 				Field f=(Field)fs;
 				if(f.isExpander()){
-					if("radio".equals(f.getUIType())){
-						JSONObject obj = generateSelectionExpanderEntry(f,affix);
-						out.put("expander",obj);
-					}
+					generateExpanderDataEntry(out, affix, f);
 				}
 				//XXX when all uispecs have moved across we can delete most of this
 				else if(!f.isRefactored()){
-					// Single field
-					out.put(f.getSelector()+affix,generateDataEntryField(f));	
-					
-					if(f.hasAutocompleteInstance()) {
-						if("enum".equals(f.getUIType())){
-							out.put(f.getAutocompleteSelector()+affix,generateDataEntryField(f));
-						}
-						else{
-							out.put(f.getAutocompleteSelector()+affix,generateAutocomplete(f));
-						}
-					}
-					if("chooser".equals(f.getUIType())) {
-						out.put(f.getContainerSelector()+affix,generateChooser(f));
-					}
-					if("date".equals(f.getUIType())) {
-						out.put(f.getContainerSelector()+affix,generateDate(f));
-					}
+					generateFieldDataEntry_notrefactored(out, affix, f);
 				}
 				else{
-					
-					if(f.hasAutocompleteInstance()) {
-						if("enum".equals(f.getUIType())){
-							out.put(f.getSelector()+affix,generateDataEntryField(f));
-						}
-						else{
-							out.put(f.getSelector()+affix,generateAutocomplete(f));
-						}
-					}
-					else if("chooser".equals(f.getUIType())) {
-						out.put(f.getSelector()+affix,generateChooser(f));
-					}
-					else if("date".equals(f.getUIType())) {
-						out.put(f.getSelector()+affix,generateDate(f));
-					}
-					else if("sidebar".equals(f.getUIType())) {
-						//out.put(f.getSelector()+affix,generateSideBar(f));
-					}
-					else{
-						out.put(f.getSelector()+affix,generateDataEntryField(f));	
-					}
+					generateFieldDataEntry_refactored(out, affix, f);
 				}
 			} 
 			else if(fs instanceof Group) {
-				Group g = (Group)fs;
-				JSONObject contents=new JSONObject();
-				for(FieldSet child : g.getChildren()) {
-					generateDataEntry(contents,child, affix);
-				}
-				out.put(g.getSelector(),contents);
+				generateGroupDataEntry(out, fs, affix);
 			} 
 			else if(fs instanceof Repeat) {
-				// Container
-				Repeat r=(Repeat)fs;
-				if(r.getXxxUiNoRepeat()) {
-					FieldSet[] children=r.getChildren();
-					if(children.length==0)
-						return;
-					generateDataEntry(out,children[0], affix);
-				} else {
-					JSONObject row=new JSONObject();
-					JSONArray children=new JSONArray();
-					if(r.asSibling() && !r.hasServicesParent()){ // allow for row [{'','',''}]
-						JSONObject contents=new JSONObject();
-						for(FieldSet child : r.getChildren()) {
-							generateDataEntry(contents,child, affix);
-						}
-						children.put(contents);
-						row.put("children",children);
-						out.put(r.getSelector(),row);
-					}
-					else{
-						JSONObject contents=generateRepeatEntry(r, affix);
-						String selector = r.getSelector();
-						//CSPACE-2619 scalar repeatables are different from group repeats
-						if(r.getChildren().length==1){
-							Field child = (Field)r.getChildren()[0];
-							selector = child.getSelector();
-							//XXX CSPACE-2706 hack
-							if(child.getUIType().equals("date")){
-								selector = r.getSelector();
-							}
-						}
-						if(fs.isExpander()){
-							selector="expander";
-						}
-						
-						out.put(selector,contents);
-					}
-				}
+				generateRepeatDataEntry(out, fs, affix);
 			}
 		}
 
+	}
+
+	protected void generateExpanderDataEntry(JSONObject out, String affix, Field f)
+			throws JSONException {
+		if("radio".equals(f.getUIType())){
+			JSONObject obj = generateSelectionExpanderEntry(f,affix);
+			out.put("expander",obj);
+		}
+	}
+
+	protected void generateRepeatDataEntry(JSONObject out, FieldSet fs,
+			String affix) throws JSONException {
+		// Container
+		Repeat r=(Repeat)fs;
+		if(r.getXxxUiNoRepeat()) {
+			FieldSet[] children=r.getChildren();
+			if(children.length!=0){
+				generateDataEntry(out,children[0], affix);
+			}
+		} else {
+			JSONObject row=new JSONObject();
+			JSONArray children=new JSONArray();
+			if(r.asSibling() && !r.hasServicesParent()){ // allow for row [{'','',''}]
+				repeatSibling(out, affix, r, row, children);
+			}
+			else{
+				repeatNonSibling(out, fs, affix, r);
+			}
+		}
+	}
+
+	protected void repeatNonSibling(JSONObject out, FieldSet fs, String affix,
+			Repeat r) throws JSONException {
+		JSONObject contents=generateRepeatEntry(r, affix);
+		String selector = getSelector(r);
+		//CSPACE-2619 scalar repeatables are different from group repeats
+		if(r.getChildren().length==1){
+			Field child = (Field)r.getChildren()[0];
+			selector = getSelector(child);
+			//XXX CSPACE-2706 hack
+			if(child.getUIType().equals("date")){
+				selector = getSelector(r);
+			}
+		}
+		if(fs.isExpander()){
+			selector="expander";
+		}
+		
+		out.put(selector,contents);
+	}
+
+	protected void repeatSibling(JSONObject out, String affix, Repeat r,
+			JSONObject row, JSONArray children) throws JSONException {
+		JSONObject contents=new JSONObject();
+		for(FieldSet child : r.getChildren()) {
+			generateDataEntry(contents,child, affix);
+		}
+		children.put(contents);
+		row.put("children",children);
+		out.put(getSelector(r),row);
+	}
+
+	protected void generateGroupDataEntry(JSONObject out, FieldSet fs,
+			String affix) throws JSONException {
+		Group g = (Group)fs;
+		JSONObject contents=new JSONObject();
+		for(FieldSet child : g.getChildren()) {
+			generateDataEntry(contents,child, affix);
+		}
+		out.put(getSelector(g),contents);
+	}
+
+	protected void generateFieldDataEntry_refactored(JSONObject out, String affix, Field f)
+			throws JSONException {
+		if(f.hasAutocompleteInstance()) {
+			makeAuthorities(out, affix, f);
+		}
+		else if("chooser".equals(f.getUIType())) {
+			out.put(getSelector(f)+affix,generateChooser(f));
+		}
+		else if("date".equals(f.getUIType())) {
+			out.put(getSelector(f)+affix,generateDate(f));
+		}
+		else if("sidebar".equals(f.getUIType())) {
+			//out.put(getSelector(f)+affix,generateSideBar(f));
+		}
+		else{
+			out.put(getSelector(f)+affix,generateDataEntryField(f));	
+		}
+	}
+
+	protected void makeAuthorities(JSONObject out, String affix, Field f)
+			throws JSONException {
+		if("enum".equals(f.getUIType())){
+			out.put(getSelector(f)+affix,generateDataEntryField(f));
+		}
+		else{
+			out.put(getSelector(f)+affix,generateAutocomplete(f));
+		}
+	}
+
+	protected void generateFieldDataEntry_notrefactored(JSONObject out, String affix, Field f)
+			throws JSONException {
+		// Single field
+		out.put(getSelector(f)+affix,generateDataEntryField(f));	
+		
+		if(f.hasAutocompleteInstance()) {
+			makeAuthorities(out, affix, f);
+		}
+		if("chooser".equals(f.getUIType())) {
+			out.put(f.getContainerSelector()+affix,generateChooser(f));
+		}
+		if("date".equals(f.getUIType())) {
+			out.put(f.getContainerSelector()+affix,generateDate(f));
+		}
 	}
 
 	private void generateTitleSectionEntry(JSONObject out,FieldSet fs, String affix) throws JSONException {

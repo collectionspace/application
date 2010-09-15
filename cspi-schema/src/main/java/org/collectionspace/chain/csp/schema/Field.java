@@ -141,7 +141,7 @@ public class Field implements FieldSet {
 		if("plain".equals(type))
 			type="dropdown";
 	}
-	
+
 	public Option getOption(String id) { return options.get(id); }
 	public Option[] getAllOptions() { return options_list.toArray(new Option[0]); }
 

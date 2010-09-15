@@ -53,7 +53,7 @@ public class RelateCreateUpdate implements WebMethod {
 		return createServicesObject(source.getString("recordtype"),source.getString("csid"),type,target.getString("recordtype"),target.getString("csid"));
 	}
 
-	private String sendJSONOne(Storage storage,String path,JSONObject data,boolean reverse) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	public String sendJSONOne(Storage storage,String path,JSONObject data,boolean reverse) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject fields=convertPayload(data,reverse);
 		if(path!=null) {
 			// Update
@@ -154,9 +154,17 @@ public class RelateCreateUpdate implements WebMethod {
 	}
 
 	public void configure(WebUI ui, Spec spec) {
-		for(Record r : spec.getAllRecords()) {
-			url_to_type.put(r.getWebURL(),r.getID());
-		}
+		url_to_type = spec.ui_url_to_id();
+		//for(Record r : spec.getAllRecords()) {
+		//	url_to_type.put(r.getWebURL(),r.getID());
+		//}
+	}
+
+	public void configure(Spec spec) {
+		url_to_type = spec.ui_url_to_id();
+		//for(Record r : spec.getAllRecords()) {
+		//	url_to_type.put(r.getWebURL(),r.getID());
+		//}
 	}
 
 	public void run(Object in, String[] tail) throws UIException {

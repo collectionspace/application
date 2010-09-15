@@ -66,7 +66,7 @@ public class RecordCreateUpdate implements WebMethod {
 		}
 	}
 	
-	private String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	public String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject fields=data.optJSONObject("fields");
 		JSONArray relations=data.optJSONArray("relations");
 		if(path!=null) {
