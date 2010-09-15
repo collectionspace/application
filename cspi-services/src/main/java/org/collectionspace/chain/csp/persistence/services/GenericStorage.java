@@ -19,6 +19,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.util.json.JSONUtils;
@@ -557,6 +558,11 @@ public class GenericStorage  implements ContextualisedStorage {
 					String fieldSelector = "unknown";
 					if(key.contains(":")){
 						fieldName = key.split(":")[1];
+						//XXX fixCSPACE-2909 would be nice if they gave us the actual field rather than the parent
+						//XXX CSPACE-2586
+						while(thisr.getRepeatField(fieldName) instanceof Repeat || thisr.getRepeatField(fieldName) instanceof Group ){
+							fieldName = ((Repeat)thisr.getRepeatField(fieldName)).getChildren()[0].getID();
+						}
 						Field fieldinstance = (Field)thisr.getRepeatField(fieldName);
 						fieldSelector = fieldinstance.getSelector();
 					}
