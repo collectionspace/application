@@ -31,7 +31,8 @@ public class WebLogin implements WebMethod {
 	
 	private boolean testSuccess(Storage storage) {
 		for(Record r : spec.getAllRecords()) {
-			if(!r.isType("record"))
+			//XXX should be tested against something else but in the meantime testing again
+			if(!r.isType("userdata"))
 				continue;
 			try {
 				JSONObject restrictions = new JSONObject();
