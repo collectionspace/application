@@ -190,9 +190,6 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new UserDetailsCreateUpdate(r,true));
 				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new UserDetailsCreateUpdate(r,false));
 				
-				//Lists for accountroles haven't been implemented in the service layer
-				//addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},2,new UserRolesSearchList(r,true));
-				//addMethod(Operation.READ,new String[]{r.getWebURL()},2,new UserRolesSearchList(r,false));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},3,new UserRolesRead(spec.getRecordByWebUrl("userrole")));
 				addMethod(Operation.CREATE,new String[]{r.getWebURL()},2,new UserRolesCreate(spec.getRecordByWebUrl("userrole")));
 				addMethod(Operation.DELETE,new String[]{r.getWebURL()},3,new UserRolesDelete(spec.getRecordByWebUrl("userrole").getID()));
