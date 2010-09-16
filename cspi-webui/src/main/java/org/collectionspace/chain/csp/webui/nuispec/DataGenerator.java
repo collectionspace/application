@@ -22,6 +22,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
@@ -40,8 +41,12 @@ public class DataGenerator  extends UISpec {
 	private static final Logger log=LoggerFactory.getLogger(DataGenerator.class);
 	private String dataprefix;
 	private String repeataffix = "";
+	private String extraprefix="";
 	private Integer repeatnum = 3;
 	private Integer quant = 1;
+	private Integer startvalue = 0;
+	private Integer maxrecords = 20; //how many records will we set relations on
+	
 	private Integer authoritylimit = 50; // 0 = nolimit return all authority items for each authority
 
 	private BigDecimal minValue = new BigDecimal("0");
@@ -51,6 +56,8 @@ public class DataGenerator  extends UISpec {
 	private RecordCreateUpdate writer;
 	private RelateCreateUpdate relater;
 	private Spec spec;
+
+	private TTYOutputter tty;
 
 
 	public DataGenerator(Spec spec) {
@@ -81,6 +88,23 @@ public class DataGenerator  extends UISpec {
 			Integer rnum = Integer.parseInt(rstring);
 			this.repeatnum = rnum;
 		}
+		//how many records will we set relationships on
+		if(ui.getRequestArgument("maxrelationships")!=null){
+			String mxstring = ui.getRequestArgument("maxrelationships");
+			Integer mxnum = Integer.parseInt(mxstring);
+			this.maxrecords = mxnum;
+		}
+		//how many records will we set relationships on
+		if(ui.getRequestArgument("startvalue")!=null){
+			String startvalue = ui.getRequestArgument("startvalue");
+			Integer stnum = Integer.parseInt(startvalue);
+			this.startvalue = stnum;
+		}
+		//how many records will we set relationships on
+		if(ui.getRequestArgument("extraprefix")!=null){
+			String exstring = ui.getRequestArgument("extraprefix");
+			this.extraprefix = exstring;
+		}
 		//do we really want to randomly choose authority item from all the authoritys
 		//setting this will speed up the initialization of this script
 		if(ui.getRequestArgument("authoritylimit")!=null){
@@ -88,9 +112,15 @@ public class DataGenerator  extends UISpec {
 			Integer anum = Integer.parseInt(astring);
 			this.authoritylimit = anum;
 		}
-		
+
+		tty.line("Creating "+quant.toString()+" records of type "+record.getWebURL());
+		tty.flush();
 		for(Integer i=0; i<quant;i++){
 			try {
+				if((quant % 10)==0){
+					tty.line(quant.toString());
+					tty.flush();
+				}
 				out.put(i.toString(), makedata(i,""));
 			} catch (JSONException e) {
 				throw new UIException("Cannot generate UISpec due to JSONException",e);
@@ -101,7 +131,9 @@ public class DataGenerator  extends UISpec {
 	}
 
 	private JSONObject makedata(Integer num,String affix) throws JSONException{
-		this.dataprefix = num.toString();
+		num = num + this.startvalue;
+		
+		this.dataprefix = this.extraprefix + num.toString();
 		JSONObject out=new JSONObject();
 		out = generateDataEntrySection(affix);
 		return out;
@@ -138,13 +170,14 @@ public class DataGenerator  extends UISpec {
 						this.record = r;
 						this.structureview="screen";
 						this.writer=new RecordCreateUpdate(r,true);
-						log.info(r.getID());
 						JSONObject items = createRecords(storage,ui);
 						returnData.put(r.getID(), items.getJSONObject(r.getID()));
 					}
 				}
 			}
 		//lets create some relationships
+		tty.line("Initializing relationships");
+		tty.flush();
 		createDataSetRelationships(returnData);
 		
 		} catch (JSONException x) {
@@ -160,14 +193,14 @@ public class DataGenerator  extends UISpec {
 		return returnData;
 	}
 	//lets create some relationships
-	protected JSONObject createDataSetRelationships(JSONObject dataset) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+	protected JSONObject createDataSetRelationships(JSONObject dataset) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject out = new JSONObject();
 		this.relater = new RelateCreateUpdate(true);
 		this.relater.configure(spec);
 //dataset: {"intake":{"1":"528ba269-c6df-49ea-a3da","0":"b2efd56f-a6f9-4a99-8870"},"loanin":{"1":
 		//how many records are there
 		Integer recordnums = this.quant;
-		Integer maxrecords = 100;
+		Integer maxrecords = this.maxrecords;
 
 		Integer tempmax = recordnums;
 		if(recordnums>maxrecords){tempmax = maxrecords;}
@@ -197,19 +230,22 @@ public class DataGenerator  extends UISpec {
 						for(Integer m=currentrecord;m>=temp;m--){
 							String dstCsid =  dataset.getJSONObject(allrecordtypes.getString(k)).getString(m.toString());
 
-							log.info(currentrecord.toString()+":"+m.toString());
-							log.info(sourceType+":"+srcCsid+ " associated with "+dstType+":"+dstCsid);
+							//log.info(currentrecord.toString()+":"+m.toString());
+
+							tty.line(currentrecord.toString()+":"+m.toString()+">>"+sourceType+":"+srcCsid+ " associated with "+dstType+":"+dstCsid);
+							//log.info(sourceType+":"+srcCsid+ " associated with "+dstType+":"+dstCsid);
 							JSONObject relatedata = createRelation(sourceType,srcCsid,"affects",dstType,dstCsid,false);
 
 							relater.sendJSONOne(storage,null,relatedata,false);
+							
+							//one way 2-way? I think I need to comment this one out...
 							relater.sendJSONOne(storage,null,relatedata,true);
 							
 						}
+						tty.flush();
 						currentrecord--;
 					}
-					//tempmax
-					
-					
+					tty.flush();
 				}
 			}
 		}
@@ -250,7 +286,10 @@ public class DataGenerator  extends UISpec {
 
 				String path=writer.sendJSON(storage,null,data);
 				dataitems.put(key,path);
-				log.info(path);
+				//log.info(path);
+
+				tty.line("created record "+path);
+				tty.flush();
 				
 			}
 			returnData.put(this.record.getID(),dataitems);
@@ -277,6 +316,7 @@ public class DataGenerator  extends UISpec {
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
 		JSONObject out = new JSONObject();
+		tty=q.getUIRequest().getTTYOutputter();
 		if(this.record == null){
 			out = createAllRecords(q.getStorage(),q.getUIRequest());
 		}
@@ -307,7 +347,7 @@ public class DataGenerator  extends UISpec {
 			return radio(f);
 		}
 
-		return this.dataprefix+"_" + repeataffix +f.getID();		
+		return this.dataprefix+" - " + repeataffix +f.getID();		
 	}
 	protected void generateFieldDataEntry_notrefactored(JSONObject out, String affix, Field f)
 	throws JSONException {
@@ -320,7 +360,7 @@ public class DataGenerator  extends UISpec {
 		String selector = getSelector(r);
 		JSONArray arr = new JSONArray();
 		for(Integer i=0;i<repeatnum;i++){
-			repeataffix = i.toString()+"_";
+			repeataffix = i.toString()+" - ";
 			JSONObject protoTree=new JSONObject();
 			for(FieldSet child : r.getChildren()) {
 				generateDataEntry(protoTree,child, affix);
