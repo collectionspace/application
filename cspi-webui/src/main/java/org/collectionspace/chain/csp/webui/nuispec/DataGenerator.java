@@ -117,8 +117,8 @@ public class DataGenerator  extends UISpec {
 		tty.flush();
 		for(Integer i=0; i<quant;i++){
 			try {
-				if((quant % 10)==0){
-					tty.line(quant.toString());
+				if((i % 10)==0){
+					tty.line("So far up to number: "+i.toString());
 					tty.flush();
 				}
 				out.put(i.toString(), makedata(i,""));
@@ -159,6 +159,8 @@ public class DataGenerator  extends UISpec {
 	}
 	protected JSONObject createAllRecords(Storage storage,UIRequest ui) throws UIException {
 
+		tty.line("Lets make some records");
+		tty.flush();
 		JSONObject returnData = new JSONObject();
 		try{
 			if(this.record == null){
@@ -272,6 +274,9 @@ public class DataGenerator  extends UISpec {
 	
 	protected JSONObject createRecords(Storage storage,UIRequest ui) throws UIException {
 
+		tty.line("Making "+this.record.getID());
+		tty.flush();
+		
 		JSONObject returnData = new JSONObject();
 		JSONObject out= datagenerator(storage,ui);
 		try{
@@ -288,7 +293,7 @@ public class DataGenerator  extends UISpec {
 				dataitems.put(key,path);
 				//log.info(path);
 
-				tty.line("created record "+path);
+				tty.line("created "+this.record.getID()+" with csid of: "+path);
 				tty.flush();
 				
 			}
