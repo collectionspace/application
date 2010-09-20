@@ -687,7 +687,7 @@
                 </repeat>
                     <field id="assocOrganizationNote"></field>
                 <repeat id="assocPeoples">
-                    <field id="assocPeople" autocomplete="person-person"></field>
+                    <field id="assocPeople"></field>
                 </repeat>
                     <field id="assocPeopleNote"></field>
                 <repeat id="assocPersons">
