@@ -924,12 +924,9 @@
                         <option id="loanin" sample="LI2010.1">Loan In</option>
                     </options>
                 </field>
-                <repeat id="lenders" asSibling="true" xxx-services-no-repeat="yes">
-                    <selector>.csc-loanIn-lender-row:</selector>
-                    <field id="lender" autocomplete="person-person,organization-organization" in-title="yes" mini="summary,search,list">
-                        <selector>.csc-loanIn-lender</selector>
-                    </field>
-                </repeat>
+                <field id="lender" autocomplete="person-person,organization-organization" in-title="yes" mini="summary,search,list">
+                	<selector>.csc-loanIn-lender</selector>
+                </field>
                 <field id="lendersAuthorizer" autocomplete="person-person">
                     <selector>.csc-loanIn-lendersAuthorizer</selector>
                 </field>
