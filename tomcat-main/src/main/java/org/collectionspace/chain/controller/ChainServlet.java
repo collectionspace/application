@@ -159,7 +159,7 @@ public class ChainServlet extends HttpServlet  {
 			}
 			// Send result
 			req.sendJSONResponse(out);
-			req.solidify();
+			req.solidify(true);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -200,7 +200,7 @@ public class ChainServlet extends HttpServlet  {
 					serve_composite(web,req);
 				} else {
 					web.serviceRequest(req);
-					req.solidify();
+					req.solidify(true);
 				}
 			} catch (UIException e) {
 				throw new BadRequestException("UIException",e);

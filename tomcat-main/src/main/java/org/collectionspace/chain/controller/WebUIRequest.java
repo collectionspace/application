@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
@@ -36,7 +35,7 @@ import org.json.JSONObject;
 
 public class WebUIRequest implements UIRequest {
 	private static final String COOKIENAME="CSPACESESSID";
-	
+
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 	private String[] ppath,rpath=null;
@@ -45,9 +44,11 @@ public class WebUIRequest implements UIRequest {
 	private Operation operation_performed=Operation.READ;
 	private Map<String,String> rargs=new HashMap<String,String>();
 	private PrintWriter out=null;
+	private String out_data=null; // We store to allow late changes to headers
 	private String body; // XXX what if it's binary?
 	private WebUIUmbrella umbrella;
 	private WebUISession session;
+	private boolean solidified=false;
 
 	public WebUIRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response) throws IOException, UIException {
 		this.request=request;
@@ -80,7 +81,7 @@ public class WebUIRequest implements UIRequest {
 		// No valid session: make our own
 		return umbrella.createSession();
 	}
-	
+
 	// XXX expire sessions
 	private void setSession() {
 		if(session.isOld())
@@ -88,10 +89,12 @@ public class WebUIRequest implements UIRequest {
 		Cookie cookie=new Cookie(COOKIENAME,session.getID());
 		response.addCookie(cookie);
 	}
-	
+
+	// NOTE No changes to solidified stuff can happen after you get the TTY outputter
 	public TTYOutputter getTTYOutputter() throws UIException { 
 		try {
 			WebTTYOutputter tty=new WebTTYOutputter(response);
+			solidify(false);
 			out=tty.getWriter();
 			return tty;
 		} catch (IOException e) {
@@ -119,7 +122,7 @@ public class WebUIRequest implements UIRequest {
 		rpath=in;
 		secondary_redirect=true;
 	}
-	
+
 	public void deleteRedirectArgument(String key) throws UIException {
 		rargs.remove(key);
 	}
@@ -157,7 +160,7 @@ public class WebUIRequest implements UIRequest {
 			return Operation.READ;
 		return Operation.READ;
 	}
-	
+
 	private void set_status() {
 		switch(operation_performed) {
 		case CREATE:
@@ -167,15 +170,32 @@ public class WebUIRequest implements UIRequest {
 			response.setStatus(200);
 		}
 	}
-	
+
 	private String aWhileAgoAsExpectedByExpiresHeader() {
 		SimpleDateFormat format=new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss zzz");
 		Date a_while_ago=new Date(new Date().getTime()-24*60*60*1000);
 		return format.format(a_while_ago);
 	}
+
+	private void close() {
+		if(out!=null)
+			out.close();
+		out=null;
+	}
 	
-	public void solidify() throws UIException {
+	public void solidify(boolean close) throws UIException {
 		try {
+			if(out_data!=null) {
+				out=response.getWriter();
+				out.print(out_data);
+				out_data=null;
+			}
+			if(solidified) {
+				if(close)
+					close();
+				return;
+			}
+			solidified=true;
 			/* We always disable cacheing for now (for IE). We probably want to be cleverer at some point. XXX */
 			response.addHeader("Pragma","no-cache");
 			response.addHeader("Last-Modified",aWhileAgoAsExpectedByExpiresHeader());
@@ -218,30 +238,20 @@ public class WebUIRequest implements UIRequest {
 					set_status();
 				}
 			}
-			if(out!=null)
-				out.close();
+			if(close)
+				close();
 		} catch (IOException e) {
 			throw new UIException("Could not send error",e);
 		}
 	}
 
 	public void sendJSONResponse(JSONObject data) throws UIException {
-		try {
-			response.setContentType("text/json;charset=UTF-8");
-			out=response.getWriter();
-			out.print(data.toString());
-		} catch (IOException e) {
-			throw new UIException("Cannot send JSON to client",e);
-		}
+		response.setContentType("text/json;charset=UTF-8");
+		out_data=data.toString();
 	}
 	public void sendJSONResponse(JSONArray data) throws UIException {
-		try {
-			response.setContentType("text/json;charset=UTF-8");
-			out=response.getWriter();
-			out.print(data.toString());
-		} catch (IOException e) {
-			throw new UIException("Cannot send JSON to client",e);
-		}
+		response.setContentType("text/json;charset=UTF-8");
+		out_data=data.toString();
 	}
 
 	public JSONObject getPostBody() throws UIException {
@@ -263,7 +273,7 @@ public class WebUIRequest implements UIRequest {
 		}
 		return jsondata;
 	}
-	
+
 	public Boolean isJSON() throws UIException {
 		try{
 			new JSONObject(body);
@@ -273,14 +283,14 @@ public class WebUIRequest implements UIRequest {
 			return false;
 		}
 	}
-	
+
 	public JSONObject getJSONBody() throws UIException {
 		try {
 			String jsonString = body;
 			if (StringUtils.isBlank(jsonString)) {
 				throw new UIException("No JSON content to store");
 			}
-			
+
 			// Store it
 			return new JSONObject(jsonString);
 		} catch (JSONException e) {
