@@ -13,6 +13,9 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -36,6 +39,8 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIUmbrella;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.dom4j.DocumentException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xml.sax.InputSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +57,7 @@ public class ChainServlet extends HttpServlet  {
 	private BootstrapConfigController bootstrap;
 	private String locked_down=null;
 	private UIUmbrella umbrella;
-	
+
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
 	 * Better present it on first request.
 	 */
@@ -122,6 +127,45 @@ public class ChainServlet extends HttpServlet  {
 		return result.toString();
 	}
 
+	private boolean is_composite(WebUIRequest req) throws UIException {
+		String[] path=req.getPrincipalPath();
+		if(path.length!=1)
+			return false;
+		return path[0]=="composite";
+	}
+
+	/* We do all this very sequentially rather than in one big loop to avoid the fear of weird races and to fail early on parse errors */
+	private void serve_composite(UI ui,WebUIRequest req) throws UIException {
+		try {
+			// Extract JSON request payload
+			JSONObject in=req.getPostBody();
+			// Build composite object for each subrequest
+			Map <String,CompositeWebUIRequest> subrequests=new HashMap<String,CompositeWebUIRequest>();
+			Iterator<?> ki=in.keys();
+			while(ki.hasNext()) {
+				String key=(String)ki.next();
+				JSONObject value=in.getJSONObject(key);
+				CompositeWebUIRequest sub=new CompositeWebUIRequest(req,value);
+				subrequests.put(key,sub);
+			}
+			// Build a place for results
+			JSONObject out=new JSONObject();
+			// Execute each composite object
+			for(String key : subrequests.keySet()) {
+				CompositeWebUIRequest sub=subrequests.get(key);
+				ui.serviceRequest(sub);
+				JSONObject value=sub.solidify();
+				out.put(key,value);
+			}
+			// Send result
+			req.sendJSONResponse(out);
+			req.solidify();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Responding to a request. The request is assumed to consist of a path to a requested JSON object.
 	 * The response returns the object in string form (or an empty string if not found).
@@ -152,8 +196,12 @@ public class ChainServlet extends HttpServlet  {
 			}
 			try {
 				WebUIRequest req=new WebUIRequest(umbrella,servlet_request,servlet_response);
-				web.serviceRequest(req);
-				req.solidify();
+				if(is_composite(req)) {
+					serve_composite(web,req);
+				} else {
+					web.serviceRequest(req);
+					req.solidify();
+				}
 			} catch (UIException e) {
 				throw new BadRequestException("UIException",e);
 			}
