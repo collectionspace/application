@@ -302,11 +302,8 @@
                         <option id="sleeve">sleeve</option>
                     </options>
                 </field>
-                <field id="objectComponentInformation" seperate_ui_container="true">
+                <field id="objectComponentInformation">
                     <selector>.csc-object-description-object-component-information</selector>
-                    <options>
-                        <option id="?">?</option>
-                    </options>
                 </field>
                 <field id="technicalAttribute" seperate_ui_container="true">
                     <selector>.csc-object-description-technical-attribute</selector>
