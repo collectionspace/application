@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.webui.misc.Generic;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -39,66 +40,6 @@ public class UserDetailsRead  implements WebMethod {
 		record_type=r.isType("userdata");
 	}
 		
-	/**
-	 * create role array
-	 * [{roleId:"","roleName":"",roleSelected:"true/false"},{ ... }]
-	 * @param activeRoles
-	 * @return
-	 * @throws UnderlyingStorageException 
-	 * @throws UnimplementedException 
-	 * @throws ExistException 
-	 * @throws JSONException 
-	 * @throws UIException 
-	 */
-	private JSONArray getRoles(Storage storage,JSONObject activeRoles) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException{
-		JSONObject set = new JSONObject();
-		JSONArray roles = new JSONArray();
-		JSONObject testset = new JSONObject();
-		//get all roles - actually dont
-
-	//	JSONObject rolerestrictions = new JSONObject();
-	//	String rolebase = spec.getRecordByWebUrl("role").getID()+"/";
-	//	JSONObject returndata = searcher.getJSON(storage,rolerestrictions,"items",rolebase);
-		
-		//mark active roles
-		if(activeRoles.has("role"))
-		{
-			JSONArray active = activeRoles.getJSONArray("role");
-			for(int j=0;j<active.length();j++){
-				active.getJSONObject(j).put("roleSelected", "true");
-				String roleId = active.getJSONObject(j).getString("roleId");
-
-				String[] ids=roleId.split("/");
-				active.getJSONObject(j).put("roleId", ids[ids.length - 1]);
-	//			testset.put(active.getJSONObject(j).getString("roleId"),active.getJSONObject(j));
-			}
-			roles = active;
-		}
-		
-		//merge active and nonactive
-		/*
-		JSONArray items = returndata.getJSONArray("items");
-		for(int i=0;i<items.length();i++){
-			JSONObject item = items.getJSONObject(i);
-			JSONObject role = new JSONObject();
-			String roleId = item.getString("csid");
-			if(testset.has(roleId)){
-				item.put("roleSelected", "true");
-			}
-			else{
-				item.put("roleSelected", "false");
-			}
-			roles.put(item);
-		}
-		*/
-		
-		
-		
-
-		//we are ignoring pagination so this will return the first 40 roles only
-		//UI doesn't know what it wants to do about pagination etc
-		return roles;
-	}
 	
 	/* Wrapper exists to decomplexify exceptions */
 	private JSONObject getJSON(Storage storage,String csid) throws UIException {
@@ -108,7 +49,7 @@ public class UserDetailsRead  implements WebMethod {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				JSONObject roles = storage.retrieveJSON(base+"/"+csid+"/"+"userrole");
-				JSONArray allroles = getRoles(storage,roles);
+				JSONArray allroles = Generic.getRoles(storage,roles);
 				fields.put("role",allroles);
 				
 				out.put("fields",fields);

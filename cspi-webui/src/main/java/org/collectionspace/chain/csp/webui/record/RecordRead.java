@@ -10,6 +10,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.csp.webui.misc.Generic;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -125,20 +126,6 @@ public class RecordRead implements WebMethod {
 		return entry;
 	}
 	
-	private String convertPermissionLevel(String actGrp){
-		String level = "none";
-		if(actGrp.equals("CRUDL")){
-			level="delete";
-		}
-		else if(actGrp.equals("CRUL")){
-			level="write";
-		}
-		else if(actGrp.equals("RL")){
-			level="read";
-		}
-		
-		return level;
-	}
 	
 	private JSONArray getPermissions(Storage storage,JSONObject activePermissions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException{
 		JSONArray set = new JSONArray();
@@ -171,7 +158,7 @@ public class RecordRead implements WebMethod {
 			permission.put("resourceName", resourcename);
 			String permlevel =  "none";
 			if(testset.has(resourcename)){
-				permlevel = convertPermissionLevel(testset.getJSONObject(resourcename).getString("actionGroup"));
+				permlevel = Generic.PermissionLevelString(testset.getJSONObject(resourcename).getString("actionGroup"));
 			}
 			permission.put("permission", permlevel);
 			set.put(permission);

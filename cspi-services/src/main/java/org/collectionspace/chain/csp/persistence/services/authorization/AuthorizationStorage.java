@@ -189,9 +189,11 @@ public class AuthorizationStorage extends GenericStorage {
 			}
 			postfix = postfix.substring(0, postfix.length()-1);
 			if(postfix.length() == 0){postfix +="/";}
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+postfix,null,creds,cache);
+			
+			String serviceurl = r.getServicesURL()+postfix;
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,serviceurl,null,creds,cache);
 			if(all.getStatus()!=200){
-				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+				throw new ConnectionException("Bad request during identifier cache map update: status not 200"+r.getServicesURL()+postfix);
 			}
 			list=all.getDocument();
 			
@@ -225,7 +227,6 @@ public class AuthorizationStorage extends GenericStorage {
 	public JSONObject retrieveJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-
 			String[] parts = filePath.split("/");
 			
 			if(parts.length > 2){
@@ -406,7 +407,22 @@ public class AuthorizationStorage extends GenericStorage {
 	
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
-		String fullpath = r.getServicesURL()+"/"+filePath;
+		String fullpath = r.getServicesURL();
+		if(fullpath.contains("*")){
+			String[] parts = filePath.split("/");
+			int i=0;
+			while(fullpath.contains("*")){
+				String replace = (parts[i] != null) ? parts[i] : "0";
+				int pos = fullpath.indexOf("*");
+				String end = fullpath.substring(pos + 1);
+				String start = fullpath.substring(0, pos);
+				fullpath = start + replace + end;
+				i++;
+			}
+		}
+		else{
+			fullpath = fullpath+"/"+filePath;
+		}
 		return simpleRetrieveJSONFullPath( creds, cache, fullpath);
 	}
 	
@@ -445,9 +461,10 @@ public class AuthorizationStorage extends GenericStorage {
 				}
 			}else{
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
-				if((doc.getStatus()<200 || doc.getStatus()>=300))
-					throw new ExistException("Does not exist "+filePath);
-				String test =  doc.getDocument().asXML();
+				if((doc.getStatus()<200 || doc.getStatus()>=300)){
+					String status = Integer.toString(doc.getStatus());
+					throw new ExistException(status + ":Does not exist "+filePath);
+				}
 				convertToJson(out,doc.getDocument(),thisr);
 			}
 			return out;
