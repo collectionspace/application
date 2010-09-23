@@ -1,5 +1,7 @@
 package org.collectionspace.chain.csp.webui.misc;
 
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -11,8 +13,22 @@ import org.json.JSONObject;
 
 public class Generic {
 
-	
-	
+	/**
+	 * CSPACE-2894
+	 * make permission names match the UI names when the app sends the data to the UI
+	 * @param spec
+	 * @param servicename
+	 * @return
+	 */
+	public static String ResourceName(Spec spec, String servicename){
+		try{
+			Record test = spec.getRecordByServicesUrl(servicename);
+			return test.getWebURL();
+		}
+		catch(Exception e){
+			return servicename;
+		}
+	}
 
 	/**
 	 * CSPACE-2913
