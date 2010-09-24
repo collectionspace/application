@@ -51,11 +51,12 @@ public class DataGenerator  extends UISpec {
 
 	private BigDecimal minValue = new BigDecimal("0");
 	private BigDecimal maxValue = new BigDecimal("1423453127");
-	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMMM dd, yyyy");
 	Random random = new Random();
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMMM dd, yyyy");
 	private RecordCreateUpdate writer;
 	private RelateCreateUpdate relater;
 	private Spec spec;
+	
 
 	private TTYOutputter tty;
 
@@ -74,7 +75,8 @@ public class DataGenerator  extends UISpec {
 		this.storage = storage;
 		maxValue = new BigDecimal(dateToLong("January 01, 2010"));
 		minValue = new BigDecimal(dateToLong("January 01, 1970"));
-		
+		log.info("initialize params");
+		tty.line("initialize params");
 		JSONObject out=new JSONObject();
 		Structure s = record.getStructure(this.structureview);
 		//how many records do we want to create
@@ -113,11 +115,13 @@ public class DataGenerator  extends UISpec {
 			this.authoritylimit = anum;
 		}
 
+		log.info("Creating "+quant.toString()+" records of type "+record.getWebURL());
 		tty.line("Creating "+quant.toString()+" records of type "+record.getWebURL());
 		tty.flush();
 		for(Integer i=0; i<quant;i++){
 			try {
 				if((i % 10)==0){
+					log.info("So far up to number: "+i.toString());
 					tty.line("So far up to number: "+i.toString());
 					tty.flush();
 				}
@@ -159,6 +163,7 @@ public class DataGenerator  extends UISpec {
 	}
 	protected JSONObject createAllRecords(Storage storage,UIRequest ui) throws UIException {
 
+		log.info("Lets make some records");
 		tty.line("Lets make some records");
 		tty.flush();
 		JSONObject returnData = new JSONObject();
@@ -178,7 +183,8 @@ public class DataGenerator  extends UISpec {
 				}
 			}
 		//lets create some relationships
-		tty.line("Initializing relationships");
+			log.info("Initializing relationships");
+			tty.line("Initializing relationships");
 		tty.flush();
 		createDataSetRelationships(returnData);
 		
@@ -274,6 +280,7 @@ public class DataGenerator  extends UISpec {
 	
 	protected JSONObject createRecords(Storage storage,UIRequest ui) throws UIException {
 
+		log.info("Making "+this.record.getID());
 		tty.line("Making "+this.record.getID());
 		tty.flush();
 		
@@ -293,6 +300,7 @@ public class DataGenerator  extends UISpec {
 				dataitems.put(key,path);
 				//log.info(path);
 
+				log.info("created "+this.record.getID()+" with csid of: "+path);
 				tty.line("created "+this.record.getID()+" with csid of: "+path);
 				tty.flush();
 				
@@ -300,12 +308,20 @@ public class DataGenerator  extends UISpec {
 			returnData.put(this.record.getID(),dataitems);
 
 		} catch (JSONException x) {
+			tty.line("JSONException(Failed to parse json: "+x);
+			log.info("JSONException(Failed to parse json: "+x);
 			throw new UIException("Failed to parse json: "+x,x);
 		} catch (ExistException x) {
+			log.info("ExistException(Existence exception: "+x);
+			tty.line("ExistException(Existence exception: "+x);
 			throw new UIException("Existence exception: "+x,x);
 		} catch (UnimplementedException x) {
+			tty.line("UnimplementedException(UnimplementedException: "+x);
+			log.info("UnimplementedException(UnimplementedException: "+x);
 			throw new UIException("Unimplemented exception: "+x,x);
 		} catch (UnderlyingStorageException x) {
+			tty.line("UnderlyingStorageException(UnderlyingStorageException: "+x);
+			log.info("UnderlyingStorageException(UnderlyingStorageException: "+x);
 			throw new UIException("Problem storing: "+x,x);
 		}
 		
@@ -317,8 +333,26 @@ public class DataGenerator  extends UISpec {
 	public void configure(WebUI ui, Spec spec) {
 	}
 
+	private void initvariables(){
+		random = new Random();
+		
+		dataprefix = "";
+		repeataffix = "";
+		extraprefix="";
+		repeatnum = 3;
+		quant = 1;
+		startvalue = 0;
+		maxrecords = 20; //how many records will we set relations on
+		
+		authoritylimit = 50; // 0 = nolimit return all authority items for each authority
+
+		minValue = new BigDecimal("0");
+		maxValue = new BigDecimal("1423453127");
+	}
+	
 	@Override
 	public void run(Object in, String[] tail) throws UIException {
+		initvariables();
 		Request q=(Request)in;
 		JSONObject out = new JSONObject();
 		tty=q.getUIRequest().getTTYOutputter();
@@ -431,6 +465,11 @@ public class DataGenerator  extends UISpec {
 		Integer i =0;
 		for(Instance type : f.getAllAutocompleteInstances()){
 			if(!controlledCache.has(type.getID())){
+				log.info("generating authority: "+type.getID()+":"+type.getRecord());
+				try {
+					tty.line("generating authority: "+type.getID()+":"+type.getRecord());
+				} catch (UIException e) {
+				}
 				JSONArray thesenames = controlledLists(type.getID(),type.getRecord(),authoritylimit);
 				controlledCache.put(type.getID(), thesenames);
 				allnames.put(i.toString(), thesenames);
