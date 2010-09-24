@@ -703,8 +703,8 @@ out = createUser(jetty,user2Create);
 
 		ServletTester jetty = setupJetty();
 //		create role with permissions
-		JSONObject rolepermsdata = createRoleWithPermission(roleCreate,"loansin", "loansout"); 
-		JSONObject roleperms2data = createRoleWithPermission(roleCreate,"acquisitions", "intakes"); 
+		JSONObject rolepermsdata = createRoleWithPermission(roleCreate,"loanin", "loanout"); 
+		JSONObject roleperms2data = createRoleWithPermission(roleCreate,"acquisition", "intake"); 
 
 		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeRequest(rolepermsdata).toString());
 		log.info(out.getContent());
@@ -739,12 +739,12 @@ out = createUser(jetty,user2Create);
 		int test = 0;
 		for(int i=0; i<perms.length();i++){
 			JSONObject thisperm = perms.getJSONObject(i);
-			if(thisperm.getString("resourceName").equals("loansout")){
+			if(thisperm.getString("resourceName").equals("loanout")){
 				//XXX test removed until service layer have fixed there stuff
 				assertEquals("write",thisperm.getString("permission"));
 				test++;
 			}
-			if(thisperm.getString("resourceName").equals("loansin")){
+			if(thisperm.getString("resourceName").equals("loanin")){
 				//XXX test removed until service layer have fixed there stuff
 				assertEquals("read",thisperm.getString("permission"));
 				test++;
@@ -759,12 +759,12 @@ out = createUser(jetty,user2Create);
 		int testUP = 0;
 		for(int i=0; i<permsUP.length();i++){
 			JSONObject thisperm = permsUP.getJSONObject(i);
-			if(thisperm.getString("resourceName").equals("intakes")){
+			if(thisperm.getString("resourceName").equals("intake")){
 				//XXX test removed until service layer have fixed there stuff
 				assertEquals("write",thisperm.getString("permission"));
 				testUP++;
 			}
-			if(thisperm.getString("resourceName").equals("acquisitions")){
+			if(thisperm.getString("resourceName").equals("acquisition")){
 				//XXX test removed until service layer have fixed there stuff
 				assertEquals("read",thisperm.getString("permission"));
 				testUP++;

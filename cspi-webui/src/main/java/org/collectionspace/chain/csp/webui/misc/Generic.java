@@ -20,7 +20,7 @@ public class Generic {
 	 * @param servicename
 	 * @return
 	 */
-	public static String ResourceName(Spec spec, String servicename){
+	public static String ResourceNameUI(Spec spec, String servicename){
 		try{
 			Record test = spec.getRecordByServicesUrl(servicename);
 			return test.getWebURL();
@@ -29,7 +29,15 @@ public class Generic {
 			return servicename;
 		}
 	}
-
+	public static String ResourceNameServices(Spec spec, String uiname){
+		try{
+			Record test = spec.getRecordByWebUrl(uiname);
+			return test.getServicesURL();
+		}
+		catch(Exception e){
+			return uiname;
+		}
+	}
 	/**
 	 * CSPACE-2913
 	 * 	permissions: {

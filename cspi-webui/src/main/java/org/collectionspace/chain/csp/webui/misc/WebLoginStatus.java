@@ -48,7 +48,7 @@ public class WebLoginStatus  implements WebMethod {
 		{
 			JSONArray active = activePermissions.getJSONArray("permission");
 			for(int j=0;j<active.length();j++){
-				String resourceName = Generic.ResourceName(spec,active.getJSONObject(j).getString("resourceName"));
+				String resourceName = Generic.ResourceNameUI(spec,active.getJSONObject(j).getString("resourceName"));
 				JSONArray permissions = Generic.PermissionLevelArray(active.getJSONObject(j).getString("actionGroup"));
 				perms.put(resourceName, permissions);
 			}

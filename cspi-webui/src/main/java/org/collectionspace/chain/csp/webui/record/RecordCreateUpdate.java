@@ -7,6 +7,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.csp.webui.misc.Generic;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -109,7 +110,7 @@ public class RecordCreateUpdate implements WebMethod {
 		}
 
 		JSONObject permrestrictions = new JSONObject();
-		permrestrictions.put("keywords", resourceName);
+		permrestrictions.put("keywords", Generic.ResourceNameServices(spec, resourceName));
 		permrestrictions.put("queryTerm", "actGrp");
 		permrestrictions.put("queryString", queryString);
 
@@ -124,7 +125,7 @@ public class RecordCreateUpdate implements WebMethod {
 			String resourcename = item.getString("summary");
 			String actionGroup = item.getString("number");
 			//need to do a double check as the query is an inexact match
-			if(resourcename.equals(resourceName) && actionGroup.equals(queryString)){
+			if(resourcename.equals(Generic.ResourceNameServices(spec, resourceName)) && actionGroup.equals(queryString)){
 				permid = item.getString("csid");
 			}
 		}
@@ -143,7 +144,7 @@ public class RecordCreateUpdate implements WebMethod {
 			JSONObject permission_add = new JSONObject();
 			JSONArray allactions = new JSONArray(actions);
 			permission_add.put("effect", "PERMIT");
-			permission_add.put("resourceName", resourceName);
+			permission_add.put("resourceName", Generic.ResourceNameServices(spec, resourceName));
 			permission_add.put("actionGroup", queryString);
 			permission_add.put("actions", allactions);
 
@@ -154,7 +155,7 @@ public class RecordCreateUpdate implements WebMethod {
 		
 
 		if(!permid.equals("")){
-			permitem.put("resourceName", resourceName);
+			permitem.put("resourceName", Generic.ResourceNameServices(spec, resourceName));
 			permitem.put("permissionId", permid);
 			permitem.put("actionGroup", queryString);
 		}

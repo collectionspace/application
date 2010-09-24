@@ -155,7 +155,7 @@ public class RecordRead implements WebMethod {
 			JSONObject item = items.getJSONObject(i);
 			JSONObject permission = new JSONObject();
 			String resourcename = item.getString("summary");
-			permission.put("resourceName", Generic.ResourceName(spec, resourcename));
+			permission.put("resourceName", Generic.ResourceNameUI(spec, resourcename));
 			String permlevel =  "none";
 			if(testset.has(resourcename)){
 				permlevel = Generic.PermissionLevelString(testset.getJSONObject(resourcename).getString("actionGroup"));
