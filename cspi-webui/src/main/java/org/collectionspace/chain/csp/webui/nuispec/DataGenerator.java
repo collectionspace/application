@@ -224,7 +224,7 @@ public class DataGenerator  extends UISpec {
 		
 		Integer numOfRecords = allrecordtypes.length();
 		for(int j=0;j<numOfRecords;j++){
-			String sourceType = spec.getRecord(allrecordtypes.getString(j)).getWebURL();;
+			String sourceType = spec.getRecord(allrecordtypes.getString(j)).getWebURL();
 			for(int k=0;k<numOfRecords;k++){
 				String dstType = spec.getRecord(allrecordtypes.getString(k)).getWebURL();
 				if(!dstType.equals(sourceType)){
@@ -241,6 +241,7 @@ public class DataGenerator  extends UISpec {
 							//log.info(currentrecord.toString()+":"+m.toString());
 
 							tty.line(currentrecord.toString()+":"+m.toString()+">>"+sourceType+":"+srcCsid+ " associated with "+dstType+":"+dstCsid);
+							log.info(currentrecord.toString()+":"+m.toString()+">>"+sourceType+":"+srcCsid+ " associated with "+dstType+":"+dstCsid);
 							//log.info(sourceType+":"+srcCsid+ " associated with "+dstType+":"+dstCsid);
 							JSONObject relatedata = createRelation(sourceType,srcCsid,"affects",dstType,dstCsid,false);
 
