@@ -10,6 +10,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.csp.webui.misc.Generic;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -54,6 +55,11 @@ public class RecordSearchList implements WebMethod {
 		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view/"+postfix);
 		out.put("csid",csid);
 		out.put("recordtype",type_to_url.get(type));
+		// CSPACE-2894
+		if(this.r.getID().equals("permission")){
+			String summary = out.getString("summary");
+			out.put("summary", Generic.ResourceNameUI(this.r.getSpec(), summary));
+		}
 		return out;
 	}
 	
