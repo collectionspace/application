@@ -823,13 +823,14 @@ public class GenericStorage  implements ContextualisedStorage {
 
 
 	@SuppressWarnings("unchecked")
-	protected JSONObject getListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException{
+	protected JSONObject getListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
 		JSONObject out = new JSONObject();
 		JSONObject pagination = new JSONObject();
 		Document list=null;
 		List<String> listitems=new ArrayList<String>();
 		ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 		if(all.getStatus()!=200){
+			//throw new StatusException(all.getStatus(),path,"Bad request during identifier cache map update: status not 200");
 			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 		}
 		list=all.getDocument();
