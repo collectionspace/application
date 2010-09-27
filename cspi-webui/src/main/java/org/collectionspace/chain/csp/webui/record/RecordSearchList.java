@@ -59,6 +59,7 @@ public class RecordSearchList implements WebMethod {
 		if(this.r.getID().equals("permission")){
 			String summary = out.getString("summary");
 			out.put("summary", Generic.ResourceNameUI(this.r.getSpec(), summary));
+			out.put("display", Generic.getPermissionView(this.r.getSpec(), summary));
 		}
 		return out;
 	}

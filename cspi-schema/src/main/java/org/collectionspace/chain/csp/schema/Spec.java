@@ -288,8 +288,8 @@ public class Spec implements CSP, Configurable {
 	public Relationship[] getAllRelations(){ return relationships.values().toArray(new Relationship[0]); }
 	
 	public Boolean hasRecord(String id){ if(records.containsKey(id)){return true;} else return false;}
-	public Boolean hasRecordByServicesUrl(String url){ if(records_by_services_url.containsKey(url)){return true;} else return false;}
-	public Boolean hasRecordByWebUrl(String url){ if(records_by_web_url.containsKey(url)){return true;} else return false;}
+	public Boolean hasRecordByServicesUrl(String url) { return records_by_services_url.containsKey(url); }
+	public Boolean hasRecordByWebUrl(String url){ return records_by_web_url.containsKey(url);}
 	public Record getRecord(String id) { return records.get(id); }
 	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
 	public Record getRecordByServicesUrl(String url) { return records_by_services_url.get(url); }

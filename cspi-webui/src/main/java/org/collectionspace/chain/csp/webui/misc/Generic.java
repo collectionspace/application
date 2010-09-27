@@ -13,6 +13,33 @@ import org.json.JSONObject;
 
 public class Generic {
 
+	
+	public static String getPermissionView(Spec spec, String servicename){
+		try{
+			Record test = null;
+			//can we do a simple match
+			if(spec.hasRecordByServicesUrl(servicename)){
+				test = spec.getRecordByServicesUrl(servicename);
+			}
+			else{
+				//else loop thr the records and see if we can do an auth match 
+				for(Record r : spec.getAllRecords()) {
+					if(r.isAuthorizationType(servicename)){
+						test = r;
+					}
+				}
+			}
+			if(test.getAuthorizationView()){
+				return "show";
+			}
+			return "none";
+		}
+		catch(Exception e){
+			//do not display as we don't know what this is
+			return "none";
+		}
+	}
+	
 	/**
 	 * CSPACE-2894
 	 * make permission names match the UI names when the app sends the data to the UI
@@ -22,7 +49,19 @@ public class Generic {
 	 */
 	public static String ResourceNameUI(Spec spec, String servicename){
 		try{
-			Record test = spec.getRecordByServicesUrl(servicename);
+			Record test = null;
+			//can we do a simple match
+			if(spec.hasRecordByServicesUrl(servicename)){
+				test = spec.getRecordByServicesUrl(servicename);
+			}
+			else{
+				//else loop thr the records and see if we can do an auth match 
+				for(Record r : spec.getAllRecords()) {
+					if(r.isAuthorizationType(servicename)){
+						test = r;
+					}
+				}
+			}
 			return test.getWebURL();
 		}
 		catch(Exception e){

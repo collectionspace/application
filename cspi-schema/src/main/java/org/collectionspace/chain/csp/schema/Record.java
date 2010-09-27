@@ -44,6 +44,7 @@ public class Record implements FieldParent {
 	/* Service stuff */
 	private String authorization_name,services_url,services_list_path,in_tag,vocab_syntax,urn_syntax,authority_vocab_type,services_instances_path,services_single_instance_path;
 	private Set<String> authorization_includes;
+	private Boolean authorization_view;
 	private Map<String,String> services_record_paths=new HashMap<String,String>();
 	private Map<String,Field> services_filter_param=new HashMap<String,Field>();
 	
@@ -104,18 +105,9 @@ public class Record implements FieldParent {
 		//authorization name
 
 		authorization_name = Util.getStringOrDefault(section,"/authorization-name",id);
-		if(type.contains("record")){
-			authorization_includes = Util.getSetOrDefault(section,"/authorization-includes",new String[]{services_url, "/"+services_url+"/*/authorityrefs/"});
-		}
-		else if(type.contains("authority")){
-			authorization_includes = Util.getSetOrDefault(section,"/authorization-includes",new String[]{services_url,services_url+"/*/items/", "/"+services_url+"/*/items/*/authorityrefs/", "/"+services_url+"/*/items/*/refobjs/", "/"+services_url+"/*/items/*/contacts/"});
-		}
-		else if(type.contains("id")){
-			authorization_includes = Util.getSetOrDefault(section,"/authorization-includes",new String[]{id,"idgenerators", "/idgenerators/*/ids/"});
-		}
-		else {
-			authorization_includes = Util.getSetOrDefault(section,"/authorization-includes",new String[]{});
-		}
+		authorization_includes = Util.getSetOrDefault(section,"/authorization-includes",new String[]{services_url});
+
+		authorization_view = Util.getBooleanOrDefault(section, "/authorization-view", true);
 		
 		//service layer paths to list data for this record type
 		services_list_path=Util.getStringOrDefault(section,"/services-list-path",services_url+"-common-list/"+services_url+"-list-item");
@@ -215,6 +207,7 @@ public class Record implements FieldParent {
 	public Field getFieldByServicesFilterParam(String param) { return services_filter_param.get(param); }
 	
 	//authorization
+	public Boolean getAuthorizationView(){	return authorization_view;	}
 	public String getAuthorizationName(){	return authorization_name; }
 	public String[] getAllAuthorizationTypes(){ return authorization_includes.toArray(new String[0]) ;	}
 	public Boolean isAuthorizationType(String name){
