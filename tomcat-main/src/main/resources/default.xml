@@ -1505,6 +1505,7 @@
                 <services-record-path>locations_common:http://collectionspace.org/services/location,locations_common</services-record-path>
                 <services-url>locationauthorities</services-url>
                 <authority-vocab-type>LocationAuthority</authority-vocab-type>
+				<authorization-view>false</authorization-view>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:locationauthority:{vocab}:location:{entry}'{display}'</urn-syntax>
                 <structures>
                     <structure id="screen"></structure>
@@ -1542,6 +1543,7 @@
                 <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
                 <services-url>orgauthorities</services-url>
                 <authority-vocab-type>OrgAuthority</authority-vocab-type>
+                
                 <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
                 <structures>
                     <structure id="screen"></structure>
@@ -1654,7 +1656,6 @@
                 <services-url>authorization/roles</services-url>
                 <services-list-path>roles_list/*</services-list-path>
                 <services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
-                <authorization-name>role</authorization-name>
                 <authorization-includes>authorization/roles</authorization-includes>
                 <is-multipart>false</is-multipart>
                 <terms-used>false</terms-used>
@@ -1707,8 +1708,8 @@
                 <services-url>authorization/permissions</services-url>
                 <services-list-path>permissions_list/*</services-list-path>
                 <services-record-path>permissions_common:http://collectionspace.org/services/authorization,permission</services-record-path>
-                <authorization-name>permission</authorization-name>
                 <authorization-includes>authorization/permissions</authorization-includes>
+				<authorization-view>false</authorization-view>
                 <is-multipart>false</is-multipart>
                 <services-search-keyword>res</services-search-keyword>
                 <structures>
@@ -1732,6 +1733,8 @@
                 <services-url>accounts/*/accountroles</services-url>
                 <services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>
                 <services-list-path>account_role/role</services-list-path>
+				<authorization-includes>accounts/accountroles</authorization-includes>
+                
 				<primaryfield>account/accountId</primaryfield>
 				<hasdeletemethod>true</hasdeletemethod>
                 <is-multipart>false</is-multipart>
@@ -1805,6 +1808,7 @@
                 <services-url>authorization/roles/*/permroles</services-url>
                 <services-list-path>permission_role/permission</services-list-path>
                 <services-record-path>permission_role:http://collectionspace.org/services/authorization,permission_role</services-record-path>
+				<authorization-includes>authorization/roles/permroles</authorization-includes>
                 <primaryfield>role/roleId</primaryfield>
 				<hasdeletemethod>true</hasdeletemethod>
                 <is-multipart>false</is-multipart>
@@ -1838,8 +1842,6 @@
                 <services-url>accounts</services-url>
                 <services-record-path>:http://collectionspace.org/services/account,accounts_common</services-record-path>
                 <services-list-path>accounts-common-list/account-list-item</services-list-path>
-                <authorization-name>accounts</authorization-name>
-                <authorization-includes>accounts,accounts/accountroles,/accounts/*/accountroles/</authorization-includes>
                 <structures>
                     <structure id="screen">
                         <!-- screen|print|blackberry etc -->
@@ -2075,6 +2077,7 @@
                 </field>
             </record>
             <record id="id" type="id">
+				<authorization-view>false</authorization-view>
                 <!-- 
 				This is the type for id generators - if you add a new record type that has an id_generator you need to:
 				log into cspace db and look at table id_generators and find the csid for the record type
