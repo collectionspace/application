@@ -53,7 +53,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	
 	private void search_or_list_vocab(JSONObject out,Instance n,Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject restriction=new JSONObject();
-		if(param!=null){
+		if(param!=null && !param.equals("")){
 			restriction.put("queryTerm", "kw");
 			restriction.put("queryString",param);
 			//restriction.put(r.getDisplayNameField().getID(),param);
