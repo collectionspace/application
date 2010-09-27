@@ -30,6 +30,7 @@ import org.collectionspace.chain.csp.webui.misc.WebLogout;
 import org.collectionspace.chain.csp.webui.misc.WebReset;
 import org.collectionspace.chain.csp.webui.misc.WebUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.DataGenerator;
+import org.collectionspace.chain.csp.webui.nuispec.UISchema;
 import org.collectionspace.chain.csp.webui.nuispec.UISpec;
 import org.collectionspace.chain.csp.webui.nuispec.FindEditUISpec;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsCreateUpdate;
@@ -150,6 +151,8 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"generator"},0,new DataGenerator(spec));
 		for(Record r : spec.getAllRecords()) {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"generator"},0,new DataGenerator(r,"screen"));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"uischema"},0,new UISchema(r,"screen"));
+			addMethod(Operation.READ,new String[]{r.getTabURL(),"uischema"},0,new UISchema(r,"tab"));
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UISpec(r,"screen"));
 			addMethod(Operation.READ,new String[]{r.getTabURL(),"uispec"},0,new UISpec(r,"tab"));
 			

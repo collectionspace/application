@@ -423,7 +423,7 @@ public class UISpec implements WebMethod {
 	}
 
 	
-	private JSONObject generateListSection(Structure s, String affix) throws JSONException {
+	protected JSONObject generateListSection(Structure s, String affix) throws JSONException {
 		JSONObject out=new JSONObject();
 		String id = s.getListSectionName();
 		if(s.getField(id) != null){
@@ -605,7 +605,7 @@ public class UISpec implements WebMethod {
 		}
 	}
 
-	private JSONObject generateTitleSection(String affix) throws JSONException {
+	protected JSONObject generateTitleSection(String affix) throws JSONException {
 		JSONObject out=new JSONObject();
 		for(FieldSet f : record.getAllFields()) {
 			generateTitleSectionEntry(out,f, affix);
@@ -666,7 +666,7 @@ public class UISpec implements WebMethod {
 
 	// XXX sidebar is partially fixed for now
 	//need to clean up this code - reduce duplication
-	private JSONObject generateSidebarSection(Structure s, String affix) throws JSONException {
+	protected JSONObject generateSidebarSection(Structure s, String affix) throws JSONException {
 		JSONObject out=new JSONObject();
 		generateSideDataEntry(s, out,"termsUsed","${items.0.recordtype}.html",true,false,true, affix);
 		generateSideDataEntry(s, out,"relatedProcedures","${items.0.recordtype}.html",true,true,false, affix);
@@ -674,7 +674,7 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
-	private JSONObject uispec(Storage storage) throws UIException {
+	protected JSONObject uispec(Storage storage) throws UIException {
 		this.storage = storage;
 		String affix = "";
 		try {
