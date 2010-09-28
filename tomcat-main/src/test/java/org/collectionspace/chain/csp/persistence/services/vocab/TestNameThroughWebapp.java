@@ -23,12 +23,11 @@ public class TestNameThroughWebapp extends TestBase{
 			ServletTester jetty=setupJetty();
 			// Create the entry we are going to check for
 			JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTNursultan Nazarbayev'}}");
-			HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
-			assertTrue(out.getStatus()<300);
+			HttpTester out = POSTData("/vocabularies/person/",data,jetty);	
 			String url=out.getHeader("Location");
 			
 		// Now test
-		out=jettyDo(jetty,"GET","/chain/intake/autocomplete/depositor?q=XXXTESTNursultan&limit=150",null);
+		out = GETData("/intake/autocomplete/depositor?q=XXXTESTNursultan&limit=150",jetty);
 		assertTrue(out.getStatus()<299);
 		JSONArray testdata = new JSONArray(out.getContent());
 		for(int i=0;i<testdata.length();i++) {
@@ -38,18 +37,15 @@ public class TestNameThroughWebapp extends TestBase{
 		}
 		
 		// Delete the entry from the database
-		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
-		assertTrue(out.getStatus()<299);
-		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
-		assertEquals(400,out.getStatus());	
+		DELETEData("/vocabularies/"+url,jetty);
 		log.info("NAME: Autocomplete: test_end");	
 	}
 
 	@Test public void testAutocompleteRedirect() throws Exception {
 		log.info("NAME: AutocompleteRedirect: test_start");
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/acquisition/source-vocab/acquisitionAuthorizer",null);
-		assertTrue(out.getStatus()<299);
+
+		HttpTester out = GETData("/acquisition/source-vocab/acquisitionAuthorizer",jetty);
 		
 		JSONArray data=new JSONArray(out.getContent());
 		boolean test = false;
@@ -62,8 +58,7 @@ public class TestNameThroughWebapp extends TestBase{
 		assertTrue("correct vocab not found",test);
 		
 
-		out=jettyDo(jetty,"GET","/chain/objects/source-vocab/contentOrganization",null);
-		assertTrue(out.getStatus()<299);
+		out = GETData("/objects/source-vocab/contentOrganization",jetty);
 
 		data=new JSONArray(out.getContent());
 		test = false;
@@ -82,8 +77,7 @@ public class TestNameThroughWebapp extends TestBase{
 	@Test public void testAutocompleteVocabRedirect() throws Exception {
 		log.info("NAME: AutocompleteVocabRedirect: test_start");
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/acquisition/source-vocab/acquisitionAuthorizer",null);
-		assertTrue(out.getStatus()<299);
+		HttpTester out = GETData("/acquisition/source-vocab/acquisitionAuthorizer",jetty);
 		
 
 		JSONArray data=new JSONArray(out.getContent());
@@ -104,12 +98,11 @@ public class TestNameThroughWebapp extends TestBase{
 		ServletTester jetty=setupJetty();
 		// Create the entry we are going to check for
 		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTJacob Zuma'}}");
-		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
-		assertTrue(out.getStatus()<300);
+		HttpTester out = POSTData("/vocabularies/person/",data,jetty);	
+
 		String url=out.getHeader("Location");
-		
-		out=jettyDo(jetty,"GET","/chain/authorities/person/search?query=XXXTESTJacob+Zuma",null);
-		assertTrue(out.getStatus()<299);
+
+		out = GETData("/authorities/person/search?query=XXXTESTJacob+Zuma",jetty);
 
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
@@ -120,10 +113,7 @@ public class TestNameThroughWebapp extends TestBase{
 		}
 		
 		// Delete the entry from the database
-		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
-		assertTrue(out.getStatus()<299);
-		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
-		assertEquals(400,out.getStatus());
+		DELETEData("/vocabularies/"+url,jetty);
 		log.info("NAME: AuthoritiesSearch: test_end");
 	}
 
@@ -131,7 +121,7 @@ public class TestNameThroughWebapp extends TestBase{
 	/*
 	@Test public void testAuthoritiesList() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/authorities/person",null);
+		HttpTester out=GETData("/authorities/person",jetty);
 		assertTrue(out.getStatus()<299);
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 		boolean found=false;
@@ -148,15 +138,14 @@ public class TestNameThroughWebapp extends TestBase{
 	@Test public void testNamesSearch() throws Exception {
 		log.info("NAME: NamesSearch: test_start");
 		ServletTester jetty=setupJetty();
-		//jettyDo(jetty,"GET","/chain/quick-reset",null);
+		//GETData("/quick-reset",jetty);
 		// Create the entry we are going to check for
 		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTRaul Castro'}}");
-		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
-		assertTrue(out.getStatus()<300);
+		HttpTester out = POSTData("/vocabularies/person/",data,jetty);	
 		String url=out.getHeader("Location");
 		
-		out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=XXXTESTRaul+Castro",null);
-		assertTrue(out.getStatus()<299);
+		out=GETData("/vocabularies/person/search?query=XXXTESTRaul+Castro",jetty);
+
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
@@ -166,10 +155,7 @@ public class TestNameThroughWebapp extends TestBase{
 		}
 		
 		// Delete the entry from the database
-		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
-		assertTrue(out.getStatus()<299);
-		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
-		assertEquals(400,out.getStatus());
+		DELETEData("/vocabularies/"+url,jetty);
 		log.info("NAME: NamesSearch: test_start");
 	}
 
@@ -177,7 +163,8 @@ public class TestNameThroughWebapp extends TestBase{
 	/*
 	@Test public void testNamesList() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person",null);
+		HttpTester 
+		out = GETData("/vocabularies/person",jetty);
 		assertTrue(out.getStatus()<299);
 
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
@@ -199,14 +186,13 @@ public class TestNameThroughWebapp extends TestBase{
 		setName(testName);
 		// Carry out the test
 		ServletTester jetty=setupJetty();
-		HttpTester out=jettyDo(jetty,"GET","/chain/vocabularies/person/search?query=" + testName.replace(' ','+'),null);
-		assertTrue(out.getStatus()<299);
+		HttpTester out = GETData("/vocabularies/person/search?query=" + testName.replace(' ','+'),jetty);
 		// Find candidate
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 //		assertEquals(1,results.length());
 		JSONObject entry=results.getJSONObject(0);
 		String csid=entry.getString("csid");
-		out=jettyDo(jetty,"GET","/chain/vocabularies/person/"+csid,null);
+		out = GETData("/vocabularies/person/"+csid,jetty);
 		JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
 
 		assertEquals(csid,fields.getString("csid"));
@@ -221,8 +207,7 @@ public class TestNameThroughWebapp extends TestBase{
 		ServletTester jetty=setupJetty();
 		JSONObject data=new JSONObject("{'csid': '', 'fields': {'salutation': 'Your Majaesty','termStatus': 'under review','title': 'Miss', 'gender': 'female','displayName': 'bob','nameNote': 'sdf','bioNote': 'sdfsdf', 'foreName': 'sdf', 'middleName': 'sdf', 'surName': 'sdf', 'nameAdditions': 'sdf', 'initials': 'sdf', 'contact': [{'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}, {'addressType': 'BBB','addressPlace': 'BVV','web': 'VVV', 'email': 'VVV','telephoneNumber': 'VV','faxNumber': 'VV' }]}}}");
 
-		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
-		assertTrue(out.getStatus()<300);
+		HttpTester out = POSTData("/vocabularies/person/",data,jetty);	
 		String url=out.getHeader("Location");
 		log.info(out.getContent());
 		log.info("NAME: PersonWithContactAuthorityCRUD: test_end");
@@ -234,15 +219,13 @@ public class TestNameThroughWebapp extends TestBase{
 		// Create
 		log.info("NAME: NamesCreateUpdateDelete: CREATE");
 		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTFred Bloggs', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
-		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
-//		assertTrue(out.getStatus()<300);
+		HttpTester out = POSTData("/vocabularies/person/",data,jetty);
 		String url=out.getHeader("Location");
 		log.info(out.getContent());
 		JSONObject updatefields = new JSONObject(out.getContent()).getJSONObject("fields");
 		// Read
 		log.info("NAME: NamesCreateUpdateDelete: READ");
-		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
-		assertTrue(out.getStatus()<299);
+		out = GETData("/vocabularies"+url,jetty);
 		log.info(out.getContent());
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
@@ -254,23 +237,18 @@ public class TestNameThroughWebapp extends TestBase{
 		data = new JSONObject();
 		data.put("fields", updatefields);
 		//data=new JSONObject("{'fields':{'displayName':'XXXTESTOwain Glyndwr', 'contact': {'addressType': 'DDD',  'faxNumber': 'ADDDDAA'}}}");
-		out=jettyDo(jetty,"PUT","/chain/vocabularies"+url,data.toString());	
+		out=PUTData("/vocabularies"+url,data,jetty);	
 		log.info(out.getContent());	
-		assertTrue(out.getStatus()<300);
 		// Read
 		log.info("NAME: NamesCreateUpdateDelete: READ");
-		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
-		assertTrue(out.getStatus()<299);
-		log.info(out.getContent());
+		out = GETData("/vocabularies"+url,jetty);
+
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
 		assertEquals("XXXTESTOwain Glyndwr",data.getString("displayName"));
 		// Delete
 		log.info("NAME: NamesCreateUpdateDelete: DELETE");
-		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
-		assertTrue(out.getStatus()<299);
-		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
-		assertEquals(400,out.getStatus());	
+		DELETEData("/vocabularies/"+url,jetty);
 		log.info("NAME: NamesCreateUpdateDelete: test_end");	
 	}
 	
@@ -279,12 +257,11 @@ public class TestNameThroughWebapp extends TestBase{
 		ServletTester jetty=setupJetty();
 		// Create
 		JSONObject data=new JSONObject("{'fields':{'displayName':'" + name + "'}}");
-		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
-		assertTrue(out.getStatus()<300);
+		HttpTester out = POSTData("/vocabularies/person/",data,jetty);	
 		String url=out.getHeader("Location");
 		// Read
-		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
-		assertTrue(out.getStatus()<299);
+		out = GETData("/vocabularies"+url,jetty);
+		
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
 		return data.getString("displayName");
@@ -295,10 +272,9 @@ public class TestNameThroughWebapp extends TestBase{
 		ServletTester jetty=setupJetty();
 		// Update
 		JSONObject data=new JSONObject("{'fields':{'displayName':'" + name + "'}}");
-		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
+		HttpTester out = POSTData("/vocabularies/person/",data,jetty);		
 		String url=out.getHeader("Location");
-		out=jettyDo(jetty,"PUT","/chain/vocabularies"+url,data.toString());		
-		assertTrue(out.getStatus()<300);
+		out=PUTData("/vocabularies"+url,data,jetty);	
 	}
 	
 	private void deleteName(String name) throws Exception
@@ -306,12 +282,9 @@ public class TestNameThroughWebapp extends TestBase{
 		ServletTester jetty=setupJetty();
 		// Delete
 		JSONObject data=new JSONObject("{'fields':{'displayName':'" + name + "'}}");
-		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",data.toString());		
+		HttpTester out = POSTData("/vocabularies/person/",data,jetty);		
 		String url=out.getHeader("Location");
-		out=jettyDo(jetty,"DELETE","/chain/vocabularies"+url,null);
-		assertTrue(out.getStatus()<299);
-//		out=jettyDo(jetty,"GET","/chain/vocabularies"+url,null);
-//		assertEquals(400,out.getStatus());		
+		DELETEData("/vocabularies/"+url,jetty);
 	}
 	
 

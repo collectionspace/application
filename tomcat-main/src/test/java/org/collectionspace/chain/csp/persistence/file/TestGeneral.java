@@ -272,36 +272,7 @@ public class TestGeneral extends TestBase {
 		setupJetty();
 	}
 
-	private HttpTester createUser(ServletTester jetty, String JSONfile) throws IOException, JSONException, Exception{
 
-		HttpTester out;
-		JSONObject u1=new JSONObject(JSONfile);
-		String userId = u1.getString("userId");
-		JSONObject test = new JSONObject();
-		test.put("userId", userId);
-log.info(test.toString());
-		/* delete user if already exists */
-		out=jettyDo(jetty,"GET","/chain/users/search",test.toString());
-		log.info(out.getContent());
-		String itemmarker = "items";
-		JSONObject result=new JSONObject(out.getContent());
-		JSONArray items=result.getJSONArray(itemmarker);
-		if(items.length()>0){
-			for(int i=0;i<items.length();i++){
-				JSONObject user = items.getJSONObject(i);
-				if(user.getString("userId").equals(userId)){
-					//delete record
-					String csid = user.getString("csid");
-					out=jettyDo(jetty,"DELETE","/chain/users/"+csid,null);
-				}
-			}
-		}
-		
-		// Create a User
-		out=jettyDo(jetty,"POST","/chain/users/",makeSimpleRequest(JSONfile));
-		assertEquals(out.getMethod(),null);
-		return out;
-	}
 	
 /**
  * Test the User Profiles 
@@ -320,12 +291,13 @@ log.info(test.toString());
 		ServletTester jetty=setupJetty();
 		HttpTester out;
 		//delete user if already exists 
-out = createUser(jetty,user2Create);
+		out = createUser(jetty,user2Create);
 		String id=out.getHeader("Location");
-		assertEquals(201,out.getStatus());
-		
+
+		out = GETData(id,jetty);
+		log.info(out.getContent());
 		//ask to reset
-		out=jettyDo(jetty,"POST","/chain/passwordreset/",user2Email);
+		out = POSTData("/passwordreset/",user2Email,jetty);
 				
 		//this should fail - switch this on when we want to test with a failing token
 		/*JSONObject obj = new JSONObject(out.getContent());
@@ -333,16 +305,19 @@ out = createUser(jetty,user2Create);
 		token -= (8*24*60*60*10000);
 		obj.put("token", token);
 		*/
+		JSONObject obj = new JSONObject(out.getContent());
+		obj.put("password", "testetst");
+
+		// Reset password
+		out = POSTData("/resetpassword/",obj,jetty);
 		
-		// Reset password - seems to be setting it to the same value here
-		out=jettyDo(jetty,"POST","/chain/resetpassword/",out.getContent());
-		
-		// Read
-		out=jettyDo(jetty,"GET","/chain"+id,null);
+		// Read - seems to be failing -need to refresh jetty - probably because I hashed the login to get teh reset
+		jetty=setupJetty();
+		HttpTester out2 = GETData(id,jetty);
 		
 		// Checks User Id is unchanged
-		log.info(out.getContent());
-		JSONObject user2AfterReset=new JSONObject(out.getContent());
+		log.info(out2.getContent());
+		JSONObject user2AfterReset=new JSONObject(out2.getContent());
 		JSONObject user2CreateCopy=new JSONObject(user2Create);
 		assertEquals(user2AfterReset.getJSONObject("fields").get("userId").toString(),user2CreateCopy.get("userId").toString());
 		
@@ -350,12 +325,10 @@ out = createUser(jetty,user2Create);
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())), user2CreateCopy));
 		
 		// Updates - changes screen name and status
-		out=jettyDo(jetty,"PUT","/chain"+id,makeSimpleRequest(user2Update));
-		log.info(out.getContent());
-		//assertEquals(200,out.getStatus());		
+		out = PUTData(id,makeSimpleRequest(user2Update),jetty);
 		
 		// Read
-		out=jettyDo(jetty,"GET","/chain"+id,null);
+		out = GETData(id,jetty);
 		
 		// Check User Id is unchanged
 		JSONObject user2AfterUpdate=new JSONObject(out.getContent());
@@ -364,46 +337,10 @@ out = createUser(jetty,user2Create);
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getFields(out.getContent())), user2UpdateCopy));
 		
 		// Delete
-		out=jettyDo(jetty,"DELETE","/chain"+id,null);
-
-		out=jettyDo(jetty,"GET","/chain"+id,null);
-		assertTrue(out.getStatus()>=400); // XXX should probably be 404
+		DELETEData(id,jetty);
 		
 		
 	}
-	/*I think test below just duplicates the functionality in testPostGetDelete and can be removed
-	@Test public void testPostAndUpdateWithRoles() throws Exception {
-		ServletTester jetty=setupJetty();
-		//Create
-		HttpTester out=jettyDo(jetty,"POST","/chain/role/",makeSimpleRequest(roleCreate));
-
-		assertEquals(out.getMethod(),null);
-		String id=out.getHeader("Location");
-		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain"+id,null);
-		JSONObject one = new JSONObject(getFields(out.getContent()));
-		JSONObject two = new JSONObject(roleCreate);
-
-		assertEquals(one.get("roleName"), two.getString("roleName").toUpperCase());
-		
-		out = jettyDo(jetty, "PUT","/chain/"+id,makeSimpleRequest(roleCreate));
-
-		assertEquals(out.getMethod(), null);
-		assertEquals(200, out.getStatus());
-		one = new JSONObject(getFields(out.getContent()));
-		two = new JSONObject(roleCreate);
-		assertEquals(one.get("roleName"), two.getString("roleName").toUpperCase());
-
-		out=jettyDo(jetty,"GET","/chain/role",null);
-		assertEquals(200,out.getStatus());
-
-		
-		
-		out=jettyDo(jetty,"DELETE","/chain"+id,null);
-		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain"+id,null);
-		assertTrue(out.getStatus()>=400); // XXX should probably be 404
-	}*/
 	
 
 	/**
@@ -412,13 +349,13 @@ out = createUser(jetty,user2Create);
 	 */
 	@Test public void testMultipleStoreTypes() throws Exception {
 		ServletTester jetty=setupJetty();
-/*		testPostGetDelete(jetty, "/movement/", movementCreate, "movementReferenceNumber");
+		testPostGetDelete(jetty, "/movement/", movementCreate, "movementReferenceNumber");
 		testPostGetDelete(jetty, "/objects/", objectCreate, "distinguishingFeatures");
 		testPostGetDelete(jetty, "/intake/", intakeCreate, "entryReason");
 		testPostGetDelete(jetty, "/loanout/", loanoutCreate, "loanOutNote");
 		testPostGetDelete(jetty, "/loanin/", loaninCreate, "loanInNote");
 		testPostGetDelete(jetty, "/acquisition/", acquisitionCreate, "acquisitionReason");
-	*/	testPostGetDelete(jetty, "/role/", roleCreate, "description");
+		testPostGetDelete(jetty, "/role/", roleCreate, "description");
 		//testPostGetDelete(jetty, "/permission/", permissionRead, "resourceName");
 		//testPostGetDelete(jetty, "/permrole/", permroleCreate, "");
 	}
@@ -427,39 +364,26 @@ out = createUser(jetty,user2Create);
 	 * @throws Exception
 	 */
 	@Test public void testServeStatic() throws Exception {
-		HttpTester out=jettyDo(setupJetty(),"GET","/chain/chain.properties",null);
-		assertEquals(200,out.getStatus());
+
+		HttpTester out = GETData("/chain.properties",setupJetty());
 		assertTrue(out.getContent().contains("cspace.chain.store.dir"));
 	}
-	/*
-	
-	@Test public void testtest() throws Exception{
-		ServletTester jetty=setupJetty();
-		String url = "http://nightly.collectionspace.org:8180/chain/users/2c8fb223-9c62-4432-849c-12cfb7b94da5";
-		
-		//HttpTester out1=jettyDo(jetty,"GET","/chain/intake",null);
-		String test = "{\"owners\":[],\"acquisitionSources\":[{\"acquisitionSource\":\"urn:cspace:org.collectionspace.demo:personauthority:id(0afcdc82-cc4d-43ce-8a82):person:id(8d442794-32bc-4494-8013)'Bing+Crosby'\",\"_primary\":true}],\"acquisitionDates\":[],\"objectPurchasePriceCurrency\":\"\",\"acquisitionFundingCurrency\":\"\",\"objectOfferPriceCurrency\":\"\",\"objectPurchaseOfferPriceCurrency\":\"\",\"originalObjectPurchasePriceCurrency\":\"\",\"acquisitionMethod\":\"\",\"groupPurchasePriceCurrency\":\"\",\"acquisitionReferenceNumber\":\"AR2010.3\"}";
-		
-		HttpTester out2=jettyDo(jetty,"GET",url,null);
-		//log.info("SEARCH");
-		//log.info(out1.getContent());
-		log.info("RELATE");
-		log.info(out2.getContent());
-			
-	}
-	*/
+
+
 	
 	@Test public void test2() throws Exception{
 		String testdata = "{\"csid\":\"\",\"fields\":{\"role\":[{\"roleName\":\"ROLE_ADMINISTRATOR\",\"roleGroup\":\"Museum staff\",\"roleSelected\":false,\"roleId\":\"5c10b05b-3c62-4760-b663-d1f42f199ea6\"},{\"roleName\":\"ROLE_READER\",\"roleGroup\":\"Museum staff\",\"roleSelected\":true,\"roleId\":\"1a138929-5c90-4bd4-bcf1-fa2001fdb26a\"}],\"email\":\"bobbob@bob.com\",\"screenName\":\"bobbob\",\"password\":\"bobbobbob\",\"userId\":\"bobbob@bob.com\"}}";
 	//	String testdata2 = "{\"csid\":\"\",\"fields\":{\"permissions\":[{\"resourceName\":\"idgenerators\",\"permission\":\"delete\"},{\"resourceName\":\"id\",\"permission\":\"delete\"},{\"resourceName\":\"collectionobjects\",\"permission\":\"none\"},{\"resourceName\":\"intakes\",\"permission\":\"none\"},{\"resourceName\":\"loansin\",\"permission\":\"none\"},{\"resourceName\":\"loansout\",\"permission\":\"none\"},{\"resourceName\":\"movements\",\"permission\":\"none\"},{\"resourceName\":\"vocabularies\",\"permission\":\"none\"},{\"resourceName\":\"vocabularyitems\",\"permission\":\"none\"},{\"resourceName\":\"orgauthorities\",\"permission\":\"none\"},{\"resourceName\":\"organizations\",\"permission\":\"none\"},{\"resourceName\":\"personauthorities\",\"permission\":\"none\"},{\"resourceName\":\"persons\",\"permission\":\"none\"},{\"resourceName\":\"locationauthorities\",\"permission\":\"none\"},{\"resourceName\":\"locations\",\"permission\":\"none\"},{\"resourceName\":\"acquisitions\",\"permission\":\"none\"},{\"resourceName\":\"relations\",\"permission\":\"none\"},{\"resourceName\":\"accounts\",\"permission\":\"none\"},{\"resourceName\":\"dimensions\",\"permission\":\"none\"},{\"resourceName\":\"contacts\",\"permission\":\"none\"},{\"resourceName\":\"notes\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions/permroles\",\"permission\":\"none\"},{\"resourceName\":\"accounts/accountroles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles/permroles\",\"permission\":\"none\"},{\"resourceName\":\"idgenerators\",\"permission\":\"none\"},{\"resourceName\":\"id\",\"permission\":\"none\"},{\"resourceName\":\"collectionobjects\",\"permission\":\"none\"},{\"resourceName\":\"intakes\",\"permission\":\"none\"},{\"resourceName\":\"loansin\",\"permission\":\"none\"},{\"resourceName\":\"loansout\",\"permission\":\"none\"},{\"resourceName\":\"movements\",\"permission\":\"none\"},{\"resourceName\":\"reports\",\"permission\":\"none\"},{\"resourceName\":\"vocabularies\",\"permission\":\"none\"},{\"resourceName\":\"vocabularyitems\",\"permission\":\"none\"},{\"resourceName\":\"orgauthorities\",\"permission\":\"none\"},{\"resourceName\":\"organizations\",\"permission\":\"none\"},{\"resourceName\":\"personauthorities\",\"permission\":\"none\"},{\"resourceName\":\"persons\",\"permission\":\"none\"},{\"resourceName\":\"locationauthorities\",\"permission\":\"none\"},{\"resourceName\":\"locations\",\"permission\":\"none\"},{\"resourceName\":\"acquisitions\",\"permission\":\"none\"},{\"resourceName\":\"relations\",\"permission\":\"none\"},{\"resourceName\":\"accounts\",\"permission\":\"none\"},{\"resourceName\":\"dimensions\",\"permission\":\"none\"},{\"resourceName\":\"contacts\",\"permission\":\"none\"},{\"resourceName\":\"notes\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions\",\"permission\":\"none\"},{\"resourceName\":\"authorization/permissions/permroles\",\"permission\":\"none\"},{\"resourceName\":\"accounts/accountroles\",\"permission\":\"none\"},{\"resourceName\":\"authorization/roles/permroles\",\"permission\":\"none\"}],\"roleName\":\"bobby2b\"}}";
 		//String testdata = "{\"termsUsed\":[],\"relations\":{\"intake\":[{\"summary\":\"Sean Bean\",\"summarylist\":{\"currentOwner\":\"Sean Bean\",\"entryNumber\":\"CompleteIntake001\"},\"csid\":\"b369100f-ccc7-4390-aecc\",\"number\":\"CompleteIntake001\",\"relid\":\"bca548a6-1777-421a-b513\",\"relationshiptype\":\"affects\",\"recordtype\":\"intake\"},{\"summary\":\"Sean Bean\",\"summarylist\":{\"currentOwner\":\"Sean Bean\",\"entryNumber\":\"CompleteIntake001\"},\"csid\":\"58346028-dbcb-42bb-88e2\",\"number\":\"CompleteIntake001\",\"relid\":\"7378e437-c701-4c47-b789\",\"relationshiptype\":\"affects\",\"recordtype\":\"intake\"}],\"objects\":[{\"summary\":\"\",\"summarylist\":{\"nametitle\":\"\",\"objectNumber\":\"2010.1.16\"},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"number\":\"2010.1.16\",\"relid\":\"42db720b-078c-4ef0-ae34\",\"relationshiptype\":\"affects\",\"recordtype\":\"objects\"},{\"summary\":\"\",\"summarylist\":{\"nametitle\":\"\",\"objectNumber\":\"2010.1.16\"},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"number\":\"2010.1.16\",\"relid\":\"163c7d9d-1ce4-446e-ba58\",\"relationshiptype\":\"affects\",\"recordtype\":\"objects\"}]},\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"fields\":{\"technique\":\"\",\"inscriptionContentTranslation\":\"\",\"assocActivityNote\":\"\",\"inscriptionContentMethod\":\"\",\"inscriptionDescriptionPosition\":\"\",\"objectHistoryNote\":\"\",\"inscriptionContentInscriber\":\"\",\"viewersPersonalResponse\":\"\",\"fieldCollectionMethods\":[],\"assocEventPeoples\":[{\"_primary\":true,\"assocEventPeople\":\"\"}],\"references\":[{\"_primary\":true,\"reference\":\"\"}],\"ownershipPlace\":\"\",\"catalogNumber\":\"\",\"assocEventNote\":\"\",\"objectStatus\":\"\",\"responsibleDepartments\":[{\"_primary\":true,\"responsibleDepartment\":\"\"}],\"ownershipAccess\":\"\",\"contentOther\":\"\",\"contentPositions\":[{\"_primary\":true,\"contentPosition\":\"\"}],\"inscriptionContentPosition\":\"\",\"inscriptionContentTransliteration\":\"\",\"contentOtherType\":\"\",\"styles\":[{\"_primary\":true,\"style\":\"\"}],\"dateLatestQualifier\":\"\",\"contentObject\":\"\",\"ownershipExchangeMethod\":\"\",\"objectComponentInformation\":\"\",\"objectProductionNote\":\"\",\"ownershipExchangePriceCurrency\":\"\",\"objectProductionOrganization\":\"\",\"owners\":[{\"_primary\":true,\"owner\":\"\"}],\"assocDate\":\"\",\"inscriptionDescriptionDate\":\"\",\"inscriptionDescriptionInterpretation\":\"\",\"usageNote\":\"\",\"ownershipExchangePriceValue\":\"\",\"ownersContributionNote\":\"\",\"objectProductionPeople\":\"\",\"contentEventName\":\"\",\"objectProductionReasons\":[{\"objectProductionReason\":\"\",\"_primary\":true}],\"contentLanguages\":[{\"contentLanguage\":\"\",\"_primary\":true}],\"objectProductionPerson\":\"\",\"inscriptionContent\":\"\",\"collection\":\"\",\"assocCulturalContexts\":[{\"_primary\":true,\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"},{\"assocCulturalContext\":\"\"}],\"otherNumberList\":[{\"_primary\":true,\"otherNumber\":\"sdf\"},{\"otherNumber\":\"fff\"}],\"materialComponentNote\":\"\",\"contentDate\":\"\",\"technicalAttributeMeasurement\":\"\",\"title\":\"\",\"titleType\":\"\",\"titleTranslation\":\"\",\"inscriptionDescriptionType\":\"\",\"assocPersons\":[{\"_primary\":true,\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"},{\"assocPerson\":\"\"}],\"assocPeoples\":[{\"_primary\":true,\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"},{\"assocPeople\":\"\"}],\"dateText\":\"\",\"viewersPersonalExperience\":\"\",\"materialName\":\"\",\"dateEarliestSingle\":\"\",\"inscriptionContentScript\":\"\",\"ownersPersonalResponse\":\"\",\"ageQualifier\":\"\",\"fieldCollectionNote\":\"\",\"material\":\"\",\"viewersReferences\":[{\"_primary\":true,\"viewersReference\":\"\"}],\"assocEventNameType\":\"\",\"techniqueType\":\"\",\"fieldCollectionNumber\":\"\",\"inscriptionDescription\":\"\",\"assocEventPersons\":[{\"_primary\":true,\"assocEventPerson\":\"\"}],\"fieldCollectionPlace\":\"\",\"dateLatest\":\"\",\"fieldCollectionDate\":\"\",\"comments\":[{\"_primary\":true,\"comment\":\"\"}],\"contentDescription\":\"\",\"nhString\":\"\",\"assocEventName\":\"\",\"briefDescriptions\":[{\"_primary\":true,\"briefDescription\":\"\"}],\"objectProductionPlace\":\"\",\"viewersRole\":\"\",\"assocActivity\":\"\",\"ownersPersonalExperience\":\"\",\"assocPlaces\":[{\"_primary\":true,\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"},{\"assocPlace\":\"\"}],\"ageUnit\":\"\",\"contentOrganizations\":[{\"_primary\":true,\"contentOrganization\":\"\"}],\"materialSource\":\"\",\"ownershipCategory\":\"\",\"contentObjectType\":\"\",\"dimensionSummary\":\"\",\"assocObjectType\":\"\",\"copyNumber\":\"\",\"ownershipDates\":\"\",\"inscriptionContentInterpretation\":\"\",\"contentActivities\":[{\"_primary\":true,\"contentActivity\":\"\"}],\"age\":\"\",\"contentPersons\":[{\"_primary\":true,\"contentPerson\":\"\"}],\"assocOrganizations\":[{\"_primary\":true,\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"},{\"assocOrganization\":\"\"}],\"contentScripts\":[{\"_primary\":true,\"contentScript\":\"\"}],\"objectNumber\":\"2010.1.16\",\"colors\":[{\"_primary\":true,\"color\":\"\"}],\"ownersReferences\":[{\"_primary\":true,\"ownersReference\":\"\"}],\"dateLatestCertainty\":\"\",\"physicalDescription\":\"\",\"contentConcepts\":[{\"_primary\":true,\"contentConcept\":\"\"}],\"assocObject\":\"\",\"inscriptionContentType\":\"\",\"assocEventPlaces\":[{\"_primary\":true,\"assocEventPlace\":\"\"}],\"contentEventNameType\":\"\",\"inscriptionDescriptionInscriber\":\"\",\"assocDateNote\":\"\",\"contentPlaces\":[{\"contentPlace\":\"\",\"_primary\":true}],\"inscriptionContentLanguage\":\"\",\"phase\":\"\",\"technicalAttributeMeasurementUnit\":\"\",\"objectProductionPlaceRole\":\"\",\"titleLanguage\":\"\",\"contentNote\":\"\",\"dateEarliestSingleQualifier\":\"\",\"contentPeoples\":[{\"_primary\":true,\"contentPeople\":\"\"}],\"fieldCollectionEventName\":\"\",\"inscriptionDescriptionMethod\":\"\",\"sex\":\"\",\"objectProductionOrganizationRole\":\"\",\"recordStatus\":\"\",\"numberOfObjects\":\"\",\"technicalAttribute\":\"\",\"objectComponentName\":\"\",\"materialComponent\":\"\",\"objectProductionPersonRole\":\"\",\"objectProductionDates\":[{\"_primary\":true,\"objectProductionDate\":\"\"}],\"objectProductionPeopleRole\":\"\",\"fieldCollectionSources\":[],\"forms\":[{\"_primary\":true,\"form\":\"\"}],\"viewersContributionNote\":\"\",\"editionNumber\":\"\",\"distinguishingFeatures\":\"\",\"dateAssociation\":\"\",\"titleTranslationLanguage\":\"\",\"dateEarliestSingleCertainty\":\"\",\"fieldCollectors\":[],\"csid\":\"4f8a5552-ddab-4b7f-84e6\",\"assocEventOrganizations\":[{\"assocEventOrganization\":\"\",\"_primary\":true}],\"datePeriod\":\"\",\"ownershipExchangeNote\":\"\",\"assocConcepts\":[{\"assocConcept\":\"\",\"_primary\":true},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"},{\"assocConcept\":\"\"}],\"usage\":\"\",\"inscriptionContentDate\":\"\",\"dimensions\":[],\"objectNameGroup\":[]},\"items\":[]}";
 		ServletTester jetty=setupJetty();
-		String csid = "0e07e795-fb9d-4f39-a848";
-		HttpTester out=jettyDo(jetty,"GET","/chain/users",null);
+		String csid = "/users/";
+		HttpTester out;
+		
+		out = GETData(csid,jetty);
 		//JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
 		 //cspace-services/personauthorities/5c642112-f75a-43b4-aff8/items/0e07e795-fb9d-4f39-a848/
 	//	HttpTester out2=jettyDo(jetty,"POST","/chain/users",testdata);
-		log.info(out.getContent());
+		//log.info(out.getContent());
 		
 	}
 	
@@ -487,12 +411,11 @@ out = createUser(jetty,user2Create);
 	 */
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
 		ServletTester jetty=setupJetty();
-		HttpTester out1=jettyDo(jetty,"POST","/chain/objects",makeSimpleRequest(testStr2));	
-		HttpTester out2=jettyDo(jetty,"POST","/chain/objects",makeSimpleRequest(testStr2));	
-		HttpTester out3=jettyDo(jetty,"POST","/chain/objects",makeSimpleRequest(testStr2));
+		HttpTester out1 = POSTData("/objects",makeSimpleRequest(testStr2),jetty);
+		HttpTester out2 = POSTData("/objects",makeSimpleRequest(testStr2),jetty);
+		HttpTester out3 = POSTData("/objects",makeSimpleRequest(testStr2),jetty);
 		// Read with a trailing slash
-		HttpTester out=jettyDo(jetty,"GET","/chain/objects/",null);
-		assertEquals(200,out.getStatus());
+		HttpTester out = GETData("/objects/",jetty);
 		
 		// Build up a list of items returned
 		JSONObject result=new JSONObject(out.getContent());
@@ -503,14 +426,10 @@ out = createUser(jetty,user2Create);
 		}
 
 		/* clean up */
-		out=jettyDo(jetty,"DELETE","/chain"+out1.getHeader("Location"),null);
-		assertEquals(200,out.getStatus());
-		
-		out=jettyDo(jetty,"DELETE","/chain"+out2.getHeader("Location"),null);
-		assertEquals(200,out.getStatus());
-		
-		out=jettyDo(jetty,"DELETE","/chain"+out3.getHeader("Location"),null);
-		assertEquals(200,out.getStatus());
+		DELETEData(out1.getHeader("Location"),jetty);
+		DELETEData(out2.getHeader("Location"),jetty);
+		DELETEData(out3.getHeader("Location"),jetty);
+
 		// Check each object is  in the list
 		assertTrue(files.contains(out1.getHeader("Location")));
 		assertTrue(files.contains(out2.getHeader("Location")));
@@ -616,7 +535,7 @@ out = createUser(jetty,user2Create);
 		//create person authority to use
 		String personStr = "{\"shortIdentifier\":\"mytestperson\",\"displayName\":\"TEST my test person\"}";
 
-		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",makeSimpleRequest(personStr));
+		HttpTester out = POSTData("/vocabularies/person/",makeSimpleRequest(personStr),jetty);
 		String person_id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		JSONObject persondata = new JSONObject(out.getContent());
@@ -627,28 +546,23 @@ out = createUser(jetty,user2Create);
 		testdata.getJSONObject("fields").put("inscriptionContentInscriber",urn);
 		
 		//create object
-		out=jettyDo(jetty,"POST","/chain/objects/",testdata.toString());
+		out = POSTData("/objects/",testdata,jetty);
 		log.info(out.getContent());
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		//read and check
-		out=jettyDo(jetty,"GET","/chain"+id,null);
+		out = GETData(id,jetty);
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		log.info(one.toString());
 		assertEquals(one.get("inscriptionContentInscriber"), urn);
 		assertEquals(one.get("de-urned-inscriptionContentInscriber"), "TEST my test person");
 
 		//clean up
-		out=jettyDo(jetty,"DELETE","/chain"+id,null);
-		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain"+id,null);
-		assertTrue(out.getStatus()>=400); // XXX should probably be 404
+		DELETEData(id,jetty);
+
+		DELETEData("/vocabularies/"+person_id,jetty);
 		
-		out=jettyDo(jetty,"DELETE","/chain/vocabularies/"+person_id,null);
-		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/vocabularies/"+person_id,null);
-		assertTrue(out.getStatus()>=400); // XXX should probably be 404
 	}
 	/**
 	 * Checks a vocabulary (here a person) can be linked to an object 
@@ -658,9 +572,10 @@ out = createUser(jetty,user2Create);
 		ServletTester jetty=setupJetty();
 		//create person authority to use
 		String personStr = "{\"displayName\":\"TEST my test person2\"}";
-		HttpTester out=jettyDo(jetty,"POST","/chain/vocabularies/person/",makeSimpleRequest(personStr));
+		HttpTester out = POSTData("/vocabularies/person/",makeSimpleRequest(personStr),jetty);
 		String person_id=out.getHeader("Location");
-		log.info(out.getContent());
+		
+
 		JSONObject persondata = new JSONObject(out.getContent());
 		String urn = persondata.getString("urn");
 
@@ -669,11 +584,10 @@ out = createUser(jetty,user2Create);
 		testdata.getJSONObject("fields").put("contentPeople",urn);
 		
 		//create object
-		out=jettyDo(jetty,"POST","/chain/objects/",testdata.toString());
-		assertEquals(out.getMethod(),null);
+		out = POSTData("/objects/",testdata,jetty);
 		String id=out.getHeader("Location");
-		assertEquals(201,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain"+id,null);
+		
+		out = GETData(id,jetty);
 		
 		// I believe the items below where copied from test above and are not needed
 		//JSONObject one = new JSONObject(getFields(out.getContent()));
@@ -682,19 +596,12 @@ out = createUser(jetty,user2Create);
 		//assertEquals(one.get("de-urned-contentPeople"), "TEST my test person2");
 
 		//get the objects linked to the vocab item
-		out = jettyDo(jetty,"GET","/chain/vocabularies"+person_id,null);
-		assertEquals(200, out.getStatus());
+
+		out = GETData("/vocabularies"+person_id,jetty);
 		
 		//clean up
-		out=jettyDo(jetty,"DELETE","/chain"+id,null);
-		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain"+id,null);
-		assertTrue(out.getStatus()>=400); // XXX should probably be 404
-		
-		out=jettyDo(jetty,"DELETE","/chain/vocabularies/"+person_id,null);
-		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"GET","/chain/vocabularies/"+person_id,null);
-		assertTrue(out.getStatus()>=400); // XXX should probably be 404
+		DELETEData(id,jetty);
+		DELETEData("/vocabularies/"+person_id,jetty);
 	}
 
 
@@ -706,31 +613,26 @@ out = createUser(jetty,user2Create);
 		JSONObject rolepermsdata = createRoleWithPermission(roleCreate,"loanin", "loanout"); 
 		JSONObject roleperms2data = createRoleWithPermission(roleCreate,"acquisition", "intake"); 
 
-		HttpTester out = jettyDo(jetty,"POST","/chain/role/",makeRequest(rolepermsdata).toString());
-		log.info(out.getContent());
-		assertEquals(201,out.getStatus());
+		HttpTester out = POSTData("/role/",makeRequest(rolepermsdata),jetty);
 		String role_id = out.getHeader("Location");
 
 		//get role
-		out=jettyDo(jetty,"GET","/chain"+role_id,null);
-		assertEquals(200,out.getStatus());
+		out = GETData(role_id,jetty);
+
 		//test
 		JSONObject data = new JSONObject(out.getContent());
 		log.info(data.toString());
 		
 
 		//update role
-		out=jettyDo(jetty,"PUT","/chain"+role_id,makeRequest(roleperms2data).toString());
-		assertEquals(200,out.getStatus());
+		out = PUTData(role_id,makeRequest(roleperms2data),jetty);
 		//test
 		JSONObject dataUP = new JSONObject(out.getContent());
 		
 		
 		
 		//delete role		
-		out=jettyDo(jetty,"DELETE","/chain"+role_id,null);
-		assertEquals(200,out.getStatus());
-		//XXX test removed until service layer have fixed there stuff
+		DELETEData(role_id,jetty);
 		
 		
 		//test data GET
@@ -778,30 +680,20 @@ out = createUser(jetty,user2Create);
 		JSONObject userdata = createUserWithRoles(jetty,user88Create,roleCreate);
 		JSONObject userdata2 = createUserWithRoles(jetty,user88Create,role2Create);
 //create user with roles in payload
-		HttpTester out = jettyDo(jetty,"POST","/chain/users/",makeRequest(userdata).toString());
-		log.info("1::"+out.getContent());
-		assertEquals(201,out.getStatus());
-
+		HttpTester out = POSTData("/users/",makeRequest(userdata),jetty);
 		String userid = out.getHeader("Location");
 		log.info("2::"+userid);
 
-		out=jettyDo(jetty,"GET","/chain"+userid,null);
-		assertEquals(200,out.getStatus());
-		log.info("3::"+out.getContent());
+		out = GETData(userid,jetty);
 
 		String screenname = userdata2.getString("userName");
 		userdata2.remove("userName");
 		userdata2.put("screenName", screenname);
 		
 		
-		out=jettyDo(jetty,"PUT","/chain"+userid,makeRequest(userdata2).toString());
-		assertEquals(out.getMethod(), null);
-		//assertEquals(200,out.getStatus());
-		log.info("PUT"+out.getContent());
+		out = PUTData(userid,makeRequest(userdata2),jetty);
 
-		out=jettyDo(jetty,"GET","/chain"+userid,null);
-		assertEquals(200,out.getStatus());
-		log.info("GET:"+out.getContent());
+		out = GETData(userid,jetty);
 
 		JSONObject data = new JSONObject(out.getContent());
 		JSONArray roles = data.getJSONObject("fields").getJSONArray("role");
@@ -811,14 +703,13 @@ out = createUser(jetty,user2Create);
 		String roles_id1 = userdata.getJSONArray("role").getJSONObject(0).getString("roleId");
 		String roles_id2 = userdata2.getJSONArray("role").getJSONObject(0).getString("roleId");
 
-		out=jettyDo(jetty,"DELETE","/chain"+roles_id1,null);
-		assertEquals(200,out.getStatus());
-		out=jettyDo(jetty,"DELETE","/chain"+roles_id2,null);
-		assertEquals(200,out.getStatus());
+
+		DELETEData(roles_id1,jetty);
+		DELETEData(roles_id2,jetty);
 		
 		//delete user
-		out=jettyDo(jetty,"DELETE","/chain"+userid,null);
-		assertEquals(200,out.getStatus());
+		DELETEData(userid,jetty);
+		
 
 		//test role_1 deleted to payload
 		//XXX test removed until service layer have fixed their stuff
