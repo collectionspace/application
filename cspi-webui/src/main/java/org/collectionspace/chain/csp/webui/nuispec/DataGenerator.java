@@ -171,20 +171,19 @@ public class DataGenerator  extends UISpec {
 		tty.flush();
 		JSONObject returnData = new JSONObject();
 		try{
-			if(this.record == null){
-				for(Record r : spec.getAllRecords()) {
-					if(r.isType("authority") || r.isType("authorizationdata") || r.isType("id") || r.isType("userdata")){
-						//don't do these yet (if ever)
-					}
-					else{
-						this.record = r;
-						this.structureview="screen";
-						this.writer=new RecordCreateUpdate(r,true);
-						JSONObject items = createRecords(storage,ui);
-						returnData.put(r.getID(), items.getJSONObject(r.getID()));
-					}
+			for(Record r : spec.getAllRecords()) {
+				if(r.isType("authority") || r.isType("authorizationdata") || r.isType("id") || r.isType("userdata")){
+					//don't do these yet (if ever)
+				}
+				else{
+					this.record = r;
+					this.structureview="screen";
+					this.writer=new RecordCreateUpdate(r,true);
+					JSONObject items = createRecords(storage,ui);
+					returnData.put(r.getID(), items.getJSONObject(r.getID()));
 				}
 			}
+			
 		//lets create some relationships
 			log.info("Initializing relationships");
 			tty.line("Initializing relationships");
@@ -222,7 +221,6 @@ public class DataGenerator  extends UISpec {
 		while(rit.hasNext()) {
 			String recordtype=(String)rit.next();
 			allrecordtypes.put(recordtype);
-
 		}
 		
 		Integer numOfRecords = allrecordtypes.length();
