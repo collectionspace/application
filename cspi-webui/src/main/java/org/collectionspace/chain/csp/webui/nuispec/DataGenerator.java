@@ -56,6 +56,7 @@ public class DataGenerator  extends UISpec {
 	private RecordCreateUpdate writer;
 	private RelateCreateUpdate relater;
 	private Spec spec;
+	private Boolean doall  = false;
 	
 
 	private TTYOutputter tty;
@@ -63,11 +64,13 @@ public class DataGenerator  extends UISpec {
 
 	public DataGenerator(Spec spec) {
 		super();
+		this.doall = true;
 		this.spec = spec;
 	}
 
 	public DataGenerator(Record record, String structureview) {
 		super(record, structureview);
+		this.doall = false;
 		this.writer=new RecordCreateUpdate(record,true);
 	}
 	
@@ -357,7 +360,7 @@ public class DataGenerator  extends UISpec {
 		Request q=(Request)in;
 		JSONObject out = new JSONObject();
 		tty=q.getUIRequest().getTTYOutputter();
-		if(this.record == null){
+		if(doall){
 			out = createAllRecords(q.getStorage(),q.getUIRequest());
 		}
 		else{
