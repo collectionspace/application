@@ -195,7 +195,6 @@ public class UISpec implements WebMethod {
 		out.put("optionnames",names);	
 		return out;
 	}
-	
 	protected JSONArray controlledLists(String vocabtype,Record vr, Integer limit) throws JSONException{
 		JSONArray displayNames = new JSONArray();
 		try {
@@ -203,6 +202,9 @@ public class UISpec implements WebMethod {
 			int resultsize =1;
 			int pagenum = 0;
 			int pagesize = 200;
+			if(limit !=0 && limit < pagesize){
+				pagesize = limit;
+			}
 			while(resultsize >0){
 				JSONObject restriction=new JSONObject();
 				restriction.put("pageNum", pagenum);
