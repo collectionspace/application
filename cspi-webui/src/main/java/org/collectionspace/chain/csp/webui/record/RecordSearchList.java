@@ -147,13 +147,13 @@ public class RecordSearchList implements WebMethod {
 			JSONObject returndata = getJSON(storage,restriction,key,base);
 			ui.sendJSONResponse(returndata);
 		} catch (JSONException e) {
-			throw new UIException("JSONException during autocompletion",e);
+			throw new UIException("JSONException during search_or_list",e);
 		} catch (ExistException e) {
-			throw new UIException("ExistException during autocompletion",e);
+			throw new UIException("ExistException during search_or_list",e);
 		} catch (UnimplementedException e) {
-			throw new UIException("UnimplementedException during autocompletion",e);
+			throw new UIException("UnimplementedException during search_or_list",e);
 		} catch (UnderlyingStorageException e) {
-			throw new UIException("UnderlyingStorageException during autocompletion",e);
+			throw new UIException("UnderlyingStorageException during search_or_list",e);
 		}			
 	}
 	
