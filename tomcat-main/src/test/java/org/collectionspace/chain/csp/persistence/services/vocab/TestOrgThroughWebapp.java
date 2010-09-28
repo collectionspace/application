@@ -229,7 +229,6 @@ public class TestOrgThroughWebapp extends TestBase {
 		out = GETData("/vocabularies/organization/search?query=TestmyOrgXXX2",
 				jetty);
 
-		assertTrue(out.getStatus() < 299);
 		// Find candidate
 		JSONArray results = new JSONObject(out.getContent())
 				.getJSONArray("results");
@@ -293,16 +292,13 @@ public class TestOrgThroughWebapp extends TestBase {
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Custom Data'}}");
 		HttpTester out = POSTData("/vocabularies/pcustom/", data, jetty);
-		assertTrue(out.getStatus() < 300);
 		String url = out.getHeader("Location");
 		data = new JSONObject("{'fields':{'displayName':'Custom Data 3'}}");
 		out = POSTData("/vocabularies/pcustom/", data, jetty);
-		assertTrue(out.getStatus() < 300);
 		String url3 = out.getHeader("Location");
 		// Create in second single assign list:
 		data = new JSONObject("{'fields':{'displayName':'Custom Data 2'}}");
 		out = POSTData("/vocabularies/person/", data, jetty);
-		assertTrue(out.getStatus() < 300);
 		String url2 = out.getHeader("Location");
 		// Read
 		out = GETData("/vocabularies" + url, jetty);
@@ -393,7 +389,6 @@ public class TestOrgThroughWebapp extends TestBase {
 
 		HttpTester out = GETData("/objects/source-vocab/contentOrganization",
 				jetty);
-		assertTrue(out.getStatus() < 299);
 		JSONArray data = new JSONArray(out.getContent());
 		boolean test = false;
 		for (int i = 0; i < data.length(); i++) {

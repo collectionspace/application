@@ -42,12 +42,11 @@ public class TestRestrictedPermissions extends TestBase{
 
 	@Test public void testUserRolesUI() throws Exception{
 		ServletTester jetty = setupJetty();
-		JSONObject userdata = createUserWithRoles(jetty,user88Create,roleCreate);
-		JSONObject userdata2 = createUserWithRoles(jetty,user88Create,role2Create);
+	//	JSONObject userdata = createUserWithRoles(jetty,user88Create,roleCreate);
+	//	JSONObject userdata2 = createUserWithRoles(jetty,user88Create,role2Create);
 //create user with roles in payload
 		//HttpTester out = POSTData("/users/",makeRequest(userdata),jetty);
 		//log.info("1::"+out.getContent());
-		//assertEquals(201,out.getStatus());
 	}
 	
 	

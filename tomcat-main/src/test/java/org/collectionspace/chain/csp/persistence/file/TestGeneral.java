@@ -537,7 +537,6 @@ public class TestGeneral extends TestBase {
 
 		HttpTester out = POSTData("/vocabularies/person/",makeSimpleRequest(personStr),jetty);
 		String person_id=out.getHeader("Location");
-		assertEquals(201,out.getStatus());
 		JSONObject persondata = new JSONObject(out.getContent());
 		String urn = persondata.getString("urn");
 
@@ -547,10 +546,8 @@ public class TestGeneral extends TestBase {
 		
 		//create object
 		out = POSTData("/objects/",testdata,jetty);
-		log.info(out.getContent());
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
-		assertEquals(201,out.getStatus());
 		//read and check
 		out = GETData(id,jetty);
 		JSONObject one = new JSONObject(getFields(out.getContent()));

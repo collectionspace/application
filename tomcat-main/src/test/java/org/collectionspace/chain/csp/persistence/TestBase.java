@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
 public class TestBase extends TestData {
 	private static final Logger log = LoggerFactory.getLogger(TestBase.class);
 
-	private static String cookie;
+	protected static String cookie;
 
 	@BeforeClass
 	public static void reset() throws Exception {
@@ -362,8 +362,7 @@ public class TestBase extends TestData {
 	protected JSONObject createUserWithRolesById(ServletTester jetty,
 			String user, String roleId) throws Exception {
 		// create role
-		HttpTester out = jettyDo(jetty, "GET", "/chain/" + roleId, null);
-		assertEquals(200, out.getStatus());
+		HttpTester out = GETData(roleId, jetty);
 		JSONObject role = new JSONObject(out.getContent())
 				.getJSONObject("fields");
 
@@ -384,9 +383,8 @@ public class TestBase extends TestData {
 	protected JSONObject createUserWithRoles(ServletTester jetty, String user,
 			String roleJSON) throws Exception {
 		// create role
-		HttpTester out = jettyDo(jetty, "POST", "/chain/role/",
-				makeSimpleRequest(roleJSON));
-		assertEquals(201, out.getStatus());
+		HttpTester out = POSTData("/role/",
+				makeSimpleRequest(roleJSON), jetty);
 		JSONObject role = new JSONObject(out.getContent())
 				.getJSONObject("fields");
 		String role_id = out.getHeader("Location");
@@ -400,9 +398,7 @@ public class TestBase extends TestData {
 			String data, String testfield) throws Exception {
 		HttpTester out;
 		// Create
-		out = jettyDo(jetty, "POST", "/chain" + uipath, makeSimpleRequest(data));
-		assertEquals(out.getMethod(), null);
-		assertEquals(201, out.getStatus());
+		out = POSTData(uipath, makeSimpleRequest(data),jetty);
 		String id = out.getHeader("Location");
 		// Retrieve
 		out = jettyDo(jetty, "GET", "/chain" + id, null);
@@ -417,16 +413,13 @@ public class TestBase extends TestData {
 		// change
 		if (!uipath.contains("permission")) {
 			two.put(testfield, "newvalue");
-			out = jettyDo(jetty, "PUT", "/chain" + id, makeRequest(two)
-					.toString());
-			assertEquals(200, out.getStatus());
+			out = PUTData(id, makeRequest(two), jetty);
 			JSONObject oneA = new JSONObject(getFields(out.getContent()));
 			assertEquals(oneA.get(testfield).toString(), "newvalue");
 		}
 
 		// Delete
-		out = jettyDo(jetty, "DELETE", "/chain" + id, null);
-		assertEquals(200, out.getStatus());
+		DELETEData(id, jetty);
 
 	}
 
@@ -445,9 +438,8 @@ public class TestBase extends TestData {
 		boolean end = false;
 		// Page through looking for this id
 		do {
-			out = jettyDo(jetty, "GET", "/chain/" + objtype
-					+ "/search?pageNum=" + pgNum + "&pageSize=" + pgSz, null);
-			log.info(objtype + ":" + out.getContent());
+			out = GETData("/" + objtype
+					+ "/search?pageNum=" + pgNum + "&pageSize=" + pgSz, jetty);
 			assertEquals(200, out.getStatus());
 
 			/* create list of files */

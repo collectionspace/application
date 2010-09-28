@@ -25,20 +25,16 @@ public class TestVocabThroughWebapp extends TestBase {
 		ServletTester jetty = setupJetty();
 		// Create a single vocab
 		// out = GETData("/vocabularies/"+vocabtype+"/initialize",jetty);
-		// assertTrue(out.getStatus()<300);
 
 		// create all vocabularies in <record id="vocab"
 		out = GETData("/authorities/vocab/initialize", jetty);
 		log.info(out.getContent());
-		assertTrue(out.getStatus() < 300);
 
 		// update and remove fields not in list
 		// out = GETData("/vocabularies/"+vocabtype+"/refresh",jetty);
-		// assertTrue(out.getStatus()<300);
 
 		// update and remove fields not in each list within an authority
 		// out = GETData("/authorities/vocab/refresh",jetty);
-		// assertTrue(out.getStatus()<300);
 
 	}
 
@@ -65,7 +61,6 @@ public class TestVocabThroughWebapp extends TestBase {
 		data = new JSONObject("{'fields':{'" + testfield + "':'"
 				+ displaynameUpdate + "'}}");
 		out = PUTData("/vocabularies" + url, data, jetty);
-		assertTrue(out.getStatus() < 300);
 		// Read
 		out = GETData("/vocabularies" + url, jetty);
 		data = new JSONObject(out.getContent()).getJSONObject("fields");
@@ -141,7 +136,6 @@ public class TestVocabThroughWebapp extends TestBase {
 
 		out = GETData("/vocabularies/" + vocabtype + "/search?query="
 				+ displayname, jetty);
-		assertTrue(out.getStatus() < 299);
 		JSONArray results = new JSONObject(out.getContent())
 				.getJSONArray("results");
 		for (int i = 0; i < results.length(); i++) {

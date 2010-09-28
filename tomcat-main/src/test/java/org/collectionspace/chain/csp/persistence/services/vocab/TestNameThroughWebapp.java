@@ -28,7 +28,6 @@ public class TestNameThroughWebapp extends TestBase{
 			
 		// Now test
 		out = GETData("/intake/autocomplete/depositor?q=XXXTESTNursultan&limit=150",jetty);
-		assertTrue(out.getStatus()<299);
 		JSONArray testdata = new JSONArray(out.getContent());
 		for(int i=0;i<testdata.length();i++) {
 			JSONObject entry=testdata.getJSONObject(i);
@@ -122,7 +121,6 @@ public class TestNameThroughWebapp extends TestBase{
 	@Test public void testAuthoritiesList() throws Exception {
 		ServletTester jetty=setupJetty();
 		HttpTester out=GETData("/authorities/person",jetty);
-		assertTrue(out.getStatus()<299);
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 		boolean found=false;
 		for(int i=0;i<results.length();i++) {
@@ -165,7 +163,6 @@ public class TestNameThroughWebapp extends TestBase{
 		ServletTester jetty=setupJetty();
 		HttpTester 
 		out = GETData("/vocabularies/person",jetty);
-		assertTrue(out.getStatus()<299);
 
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 		boolean found=false;

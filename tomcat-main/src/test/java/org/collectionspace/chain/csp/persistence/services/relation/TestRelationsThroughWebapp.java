@@ -188,7 +188,6 @@ public class TestRelationsThroughWebapp extends TestBase {
 				path1[1], path1[2], false);
 		data.remove("one-way");
 		out = POSTData("/relationships", data, jetty);
-		assertEquals(201, out.getStatus());
 		// Get csid
 		JSONObject datacs = new JSONObject(out.getContent());
 		String csid1 = datacs.getString("csid");
@@ -477,7 +476,6 @@ public class TestRelationsThroughWebapp extends TestBase {
 		ServletTester jetty = setupJetty();
 		// Check list is empty
 		HttpTester out = GETData("/relationships/", jetty);
-		assertEquals(200, out.getStatus());
 		JSONArray items = new JSONObject(out.getContent())
 				.getJSONArray("items");
 		Integer offset = items.length();
@@ -501,7 +499,6 @@ public class TestRelationsThroughWebapp extends TestBase {
 		String csid1 = new JSONObject(out.getContent()).getString("csid");
 
 		out = GETData("/relationships/" + csid1, jetty);
-		assertEquals(200, out.getStatus());
 		JSONObject rel1 = new JSONObject(out.getContent());
 		assertEquals(path2[2], rel1.getJSONObject("source").getString("csid"));
 		assertEquals(path1[2], rel1.getJSONObject("target").getString("csid"));
@@ -514,51 +511,42 @@ public class TestRelationsThroughWebapp extends TestBase {
 		String csid3 = new JSONObject(out.getContent()).getString("csid");
 		// Total length should be 3 XXX pagination & offset
 		// out = GETData("/relationships",jetty);
-		// assertEquals(200,out.getStatus());
 		// items=new JSONObject(out.getContent()).getJSONArray("items");
 		// assertEquals(3,items.length());
 		// Should be two starting at 2
 		out = GETData("/relationships/search?source=" + path2[1] + "/"
 				+ path2[2], jetty);
-		assertEquals(200, out.getStatus());
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(2, items.length());
 		// Should be one staring at 3, none at 1
 		out = GETData("/relationships/search?source=" + path3[1] + "/"
 				+ path3[2], jetty);
-		assertEquals(200, out.getStatus());
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(1, items.length());
 		out = GETData("/relationships/search?source=" + path1[1] + "/"
 				+ path1[2], jetty);
-		assertEquals(200, out.getStatus());
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(0, items.length());
 		// Targets: two at 1, none at 2, one at 3
 		out = GETData("/relationships/search?target=" + path1[1] + "/"
 				+ path1[2], jetty);
-		assertEquals(200, out.getStatus());
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(2, items.length());
 		out = GETData("/relationships/search?target=" + path2[1] + "/"
 				+ path2[2], jetty);
-		assertEquals(200, out.getStatus());
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(0, items.length());
 		out = GETData("/relationships/search?target=" + path3[1] + "/"
 				+ path3[2], jetty);
-		assertEquals(200, out.getStatus());
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(1, items.length());
 
 		// out=GETData("/relationships/search?type=broader",null);
-		// assertEquals(200,out.getStatus());
 		// items=new JSONObject(out.getContent()).getJSONArray("items");
 		// assertEquals(1,items.length());
 		// Combination: target = 1, type = affects; just one
 		out = GETData("/relationships/search?type=affects&target=" + path1[1]
 				+ "/" + path1[2], jetty);
-		assertEquals(200, out.getStatus());
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(1, items.length());
 		// Combination: source = 2, target = 3; just one
@@ -608,14 +596,13 @@ public class TestRelationsThroughWebapp extends TestBase {
 		// Check length is 3
 		/*
 		 * length checking is having "issues" HttpTester out =
-		 * GETData("/relationships/",jetty); assertEquals(200,out.getStatus());
+		 * GETData("/relationships/",jetty); 
 		 * JSONArray items=new
 		 * JSONObject(out.getContent()).getJSONArray("items");
 		 * //log.info(out.getContent()); //assertEquals(3,(items.length() -
 		 * offset) + 1); // Delete the two way relationship
 		 * DELETEData("/relationships/"+csid,jetty); // Check length is 1, and
 		 * it's the right one HttpTester out = GETData("/relationships/",jetty);
-		 * assertEquals(200,out.getStatus()); items=new
 		 * JSONObject(out.getContent()).getJSONArray("items");
 		 * //assertEquals(1,items.length()); HttpTester out =
 		 * GETData("/relationships/"+items.getString(0),jetty); //JSONObject
