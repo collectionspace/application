@@ -26,6 +26,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
@@ -347,6 +348,7 @@ public class UserDetailsReset implements WebMethod {
 			
 		}
 		request.sendJSONResponse(outputJSON);
+		request.setOperationPerformed(Operation.CREATE);
 	}
 	
 	/* check token and if matches csid then reset password 
@@ -428,6 +430,7 @@ public class UserDetailsReset implements WebMethod {
 		 * I think we should let them login, it has the advantage 
 		 * that they find out straight away if they can't remember the new password  */
 		request.sendJSONResponse(outputJSON);
+		request.setOperationPerformed(Operation.CREATE);
 	}
 	
 
