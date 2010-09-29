@@ -193,9 +193,17 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			String[] src=splitTypeFromId(in.getString("src"));
 			out.append("&sbj="+src[1]);
 		}
+		if(in.has("srcType")) {
+			String srctype=in.getString("srcType");
+			out.append("&srcType="+srctype);
+		}
 		if(in.has("dst")) {
 			String[] dst=splitTypeFromId(in.getString("dst"));
 			out.append("&obj="+dst[1]);
+		}
+		if(in.has("dstType")) {
+			String dsttype=in.getString("dstType");
+			out.append("&objType="+dsttype);
 		}
 		if(in.has("type")) {
 			out.append("&prd="+in.getString("type"));

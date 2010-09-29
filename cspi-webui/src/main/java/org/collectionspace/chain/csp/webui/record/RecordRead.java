@@ -65,19 +65,28 @@ public class RecordRead implements WebMethod {
 		JSONObject recordtypes=new JSONObject();
 		JSONObject restrictions=new JSONObject();
 		restrictions.put("src",base+"/"+csid);
-		// XXX needs pagination support CSPACE-1819
-		JSONObject data = storage.getPathsJSON("relations/main",restrictions);
-		String[] relations = (String[]) data.get("listItems");
-		for(String r : relations) {
-			try {
-				JSONObject relateitem = generateRelationEntry(storage,r);
-				String type = relateitem.getString("recordtype");
-				if(!recordtypes.has(type)){
-					recordtypes.put(type, new JSONArray());
+		//loop over all procedure/recordtypes
+		for(Record thisr : spec.getAllRecords()) {
+			if(thisr.isType("record")||thisr.isType("procedure")){
+				JSONObject myres = restrictions;
+				myres.put("dstType", thisr.getServicesURL());
+				// XXX needs pagination support CSPACE-1819
+				JSONObject data = storage.getPathsJSON("relations/main",myres);
+				String[] relations = (String[]) data.get("listItems");
+				
+				for(String r : relations) {
+					try {
+						JSONObject relateitem = generateRelationEntry(storage,r);
+						String type = relateitem.getString("recordtype");
+						if(!recordtypes.has(type)){
+							recordtypes.put(type, new JSONArray());
+						}
+						recordtypes.getJSONArray(type).put(relateitem);
+					} catch(Exception e) {
+						// Never mind.
+						//Probably should do something with the errors... could be a permissions issue
+					}
 				}
-				recordtypes.getJSONArray(type).put(relateitem);
-			} catch(Exception e) {
-				// Never mind.
 			}
 		}
 		
