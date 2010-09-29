@@ -1,0 +1,64 @@
+{
+    "objects": {
+        "type": "object",
+        "properties": {
+            "termsUsed": {
+                "type": "array",
+                "default": [] 
+            },
+            "relations": {
+                "type": "object",
+                "default": {} 
+            },
+            "fields": {
+                "type": "object",
+                "properties": {
+                    "responsibleDepartments": {
+                        "type": "array",
+                        "default": [] 
+                    },
+                    "fieldCollectionMethods": {
+                        "type": "array",
+                        "default": [] 
+                    },
+                    "ownershipExchangePriceCurrency": {
+                        "type": "string",
+                        "default": "usdollar" 
+                    },
+                    "objectNumber": {
+                        "type": "string" 
+                    },
+                    "dimensionGroup": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "_primary": {
+                                    "type": "boolean" 
+                                },
+                                "dimension": {
+                                    "type": "string" 
+                                },
+                                "valueDate": {
+                                    "type": "date" 
+                                },
+                                "measuredPart": {
+                                    "type": "string" 
+                                },
+                                "measurementUnit": {
+                                    "type": "string" 
+                                },
+                                "value": {
+                                    "type": "number" 
+                                },
+                                "valueQualifier": {
+                                    "type": "string" 
+                                } 
+                            } 
+                        } 
+                    } 
+                } 
+            } 
+        } 
+    }
+}
