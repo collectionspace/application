@@ -10,17 +10,17 @@ public interface FieldSet {
 	public Record getRecord();
 	public String getServicesTag();
 	public String getSection();
-	public boolean isInServices();
+	public Boolean isInServices();
 	public void config_finish(Spec spec);
 	
 	//subrecords
 	public String getSelectorAffix();
 	public String getSelector();
-	public boolean usesRecord();
+	public Boolean usesRecord();
 	public Record usesRecordId();
 	
 	//
-	public boolean hasAutocompleteInstance();
+	public Boolean hasAutocompleteInstance();
 	public Boolean hasMergeData();
 	public List<String> getAllMerge();
 	public boolean isExpander();
