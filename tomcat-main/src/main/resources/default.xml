@@ -882,7 +882,7 @@
                     <services-tag>nh-string</services-tag>
                 </field>
             </record>
-            <record id="loanin" in-findedit="yes">
+            <record id="loanin" in-findedit="yes" type="record,procedure">
                 <services-url>loansin</services-url>
                 <services-list-path>loansin-common-list/loanin-list-item</services-list-path>
                 <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
@@ -965,7 +965,7 @@
                     </options>
                 </field>
             </record>
-            <record id="intake" in-findedit="yes">
+            <record id="intake" in-findedit="yes" type="record,procedure">
                 <services-url>intakes</services-url>
                 <services-list-path>intakes-common-list/intake-list-item</services-list-path>
                 <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
@@ -1091,7 +1091,7 @@
                     <field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
                 </repeat>
             </record>
-            <record id="acquisition" in-findedit="yes">
+            <record id="acquisition" in-findedit="yes" type="record,procedure">
                 <services-url>acquisitions</services-url>
                 <services-list-path>acquisitions-common-list/acquisition-list-item</services-list-path>
                 <services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
@@ -1533,6 +1533,8 @@
 				<field id="conditionNote"></field>
 				<field id="conditionNoteDate"></field>
 				<field id="securityNote"></field>
+				<field id="accessNote"></field>
+				<field id="address"></field>
 				<field id="locationType"></field>
 			</record>
             <record id="organization" type="authority,compute-displayname">
@@ -1899,7 +1901,7 @@
                 </repeat>
 				
             </record>
-            <record id="loanout" in-findedit="yes">
+            <record id="loanout" in-findedit="yes" type="record,procedure">
                 <services-url>loansout</services-url>
                 <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
                 <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
@@ -1993,7 +1995,7 @@
                     </options>
                 </field>
             </record>
-            <record id="movement" in-findedit="yes">
+            <record id="movement" in-findedit="yes" type="record,procedure">
                 <services-url>movements</services-url>
                 <web-url>movement</web-url>
                 <tab-url>movement-tab</tab-url>
