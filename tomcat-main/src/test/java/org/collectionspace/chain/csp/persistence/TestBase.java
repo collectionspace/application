@@ -236,7 +236,8 @@ public class TestBase extends TestData {
 
 		HttpTester out=jettyDo(jetty,"DELETE","/chain"+id,null);
 		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a DELETE url: /chain"+id +"/n"+out.getContent(),testStatus("DELETE",out.getStatus()));
-
+		log.debug(id+":"+out.getContent());
+		
 		//out=jettyDo(jetty,"GET","/chain"+id,null);
 		//assertTrue(testStatus("GETFAIL",out.getStatus()));
 	}
@@ -252,9 +253,9 @@ public class TestBase extends TestData {
 	 */
 	protected HttpTester POSTData(String url, String data, ServletTester jetty) throws IOException, Exception{
 		HttpTester out = jettyDo(jetty,"POST","/chain"+url,data);
-		log.info(out.getContent());
 		assertEquals(out.getMethod(),null);
 		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a POST url: /chain"+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",out.getStatus()));
+		log.debug(url+":"+out.getContent());
 		return out;
 	}
 	/**
@@ -281,14 +282,14 @@ public class TestBase extends TestData {
 	//	return GETData(url,null,jetty);
 		HttpTester out=jettyDo(jetty,"GET","/chain"+url,null);
 		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a GET url: /chain"+url+" /n"+out.getContent(),testStatus("GET",out.getStatus()));
-		
-		log.info(url+":"+out.getContent());
+		log.debug(url+":"+out.getContent());
 		return out;
 	
 	}
 	protected HttpTester GETData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
 		HttpTester out=jettyDo(jetty,"GET","/chain"+url,null);
 		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a GET where we were expecting "+ Integer.toString(testStatus)+" url : /chain"+url+" /n"+out.getContent(),(testStatus == out.getStatus()));
+		log.debug(url+":"+out.getContent());
 		return out;
 	}
 	/**
@@ -303,6 +304,7 @@ public class TestBase extends TestData {
 	protected HttpTester GETData(String url, String params, ServletTester jetty) throws IOException, Exception{
 		HttpTester out=jettyDo(jetty,"GET","/chain"+url,params);
 		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a GET url: /chain"+url+" "+params +"/n"+out.getContent(),testStatus("GET",out.getStatus()));
+		log.debug(url+":"+out.getContent());
 		return out;
 	}
 	
@@ -318,8 +320,8 @@ public class TestBase extends TestData {
 	protected HttpTester PUTData(String url, String data, ServletTester jetty ) throws IOException, Exception{
 
 		HttpTester out=jettyDo(jetty,"PUT","/chain"+url,data);
-		//log.info(out.getContent());
 		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a PUT url: /chain"+url+" "+data +"/n"+out.getContent(),testStatus("PUT",out.getStatus()));
+		log.debug(url+":"+out.getContent());
 		return out;
 	}
 	/**
@@ -405,8 +407,6 @@ public class TestBase extends TestData {
 
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(data);
-		// log.info(one.toString());
-		// log.info(two.toString());
 		assertEquals(one.get(testfield).toString(), two.get(testfield)
 				.toString());
 
@@ -484,7 +484,7 @@ public class TestBase extends TestData {
 				if(user.getString("email").equals(userId)){
 					//delete record
 					String csid = user.getString("csid");
-					log.info("DELETE + "+csid);
+					log.debug("DELETE + "+csid);
 					DELETEData("/users/"+csid,jetty);
 				}
 			}

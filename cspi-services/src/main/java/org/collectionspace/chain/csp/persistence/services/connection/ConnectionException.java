@@ -11,6 +11,8 @@ package org.collectionspace.chain.csp.persistence.services.connection;
  */
 public class ConnectionException extends Exception {
 	private static final long serialVersionUID = -129549065899185645L;
+	Integer status;
+	String url;
 
 	public ConnectionException() {
 	}
@@ -25,5 +27,29 @@ public class ConnectionException extends Exception {
 
 	public ConnectionException(String message, Throwable cause) {
 		super(message, cause);
+	}
+	public ConnectionException(String message, Integer status, String url) {
+		super(message);
+		this.url = url;
+		this.status = status;
+	}
+	public ConnectionException(String message, Throwable cause, Integer status, String url) {
+		super(message, cause);
+		this.url = url;
+		this.status = status;
+	}
+	
+	public String getMessage(){
+		String parent_msg = super.getMessage();
+		String msg = "";
+		if(this.url!=null){
+			msg += "URL:"+this.url+":";
+		}
+		if(this.status!=null){
+
+			msg += "STATUS:"+Integer.toString(this.status)+":";
+		}
+		msg += parent_msg;
+		return msg;
 	}
 }

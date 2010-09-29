@@ -49,6 +49,7 @@ public class TestUISpecs extends TestBase {
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
 		// uispec(jetty,"/person/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/objects/uispec","collection-object.uispec");
+		 uispec(jetty,"/role/uischema","collection-object.uischema");
 		// uispec(jetty,"/object-tab/uispec","object-tab.uispec");
 		// uispec(jetty,"/intake/uispec","intake.uispec");
 		// uispec(jetty,"/acquisition/uispec","acquisition.uispec");

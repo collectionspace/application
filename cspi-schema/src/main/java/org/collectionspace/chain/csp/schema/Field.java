@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ public class Field implements FieldSet {
 	private String id;
 	private Set<String> autocomplete_instance_ids;
 	private Set<String> enum_default;
+	private Set<String> option_default;
 
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	
@@ -82,6 +84,7 @@ public class Field implements FieldSet {
 		enum_default = Util.getSetOrDefault(section, "/enum/default", new String[]{""});
 		enum_hasblank = Util.getBooleanOrDefault(section, "/enum/@has-blank",true);
 		enum_blank = Util.getStringOrDefault(section, "/enum/blank-value", "Please select an item");
+		option_default = Util.getSetOrDefault(section, "/@default", new String[]{""});
 		services_section=Util.getStringOrDefault(section,"/@section","common");
 		services_filter_param=Util.getStringOrDefault(section,"/services-filter-param",null);
 		if(services_filter_param!=null)
@@ -134,8 +137,10 @@ public class Field implements FieldSet {
 	
 	void addOption(String id,String name,String sample,boolean dfault) {
 		Option opt=new Option(id,name,sample);
-		if(dfault)
+		if(dfault){
 			opt.setDefault();
+			option_default.add(name);
+		}
 		options.put(id,opt);
 		options_list.add(opt);
 		if("plain".equals(type))
@@ -144,6 +149,7 @@ public class Field implements FieldSet {
 
 	public Option getOption(String id) { return options.get(id); }
 	public Option[] getAllOptions() { return options_list.toArray(new Option[0]); }
+	public String getOptionDefault() { option_default.remove("");return StringUtils.join(option_default, ",");}
 
 	public FieldParent getParent() {return this.parent;}
 	public Record getRecord() { return parent.getRecord(); }
@@ -183,6 +189,7 @@ public class Field implements FieldSet {
 	}
 	public boolean hasEnumBlank(){ return enum_hasblank; }
 	public String enumBlankValue(){ return enum_blank; }
+	public String getEnumDefault(){ return StringUtils.join(enum_default, ","); }
 	public boolean isEnumDefault(String name){
 		if(enum_default.contains(name)){
 			return true;

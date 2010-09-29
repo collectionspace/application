@@ -12,11 +12,11 @@
                     "elPath": "fields.permission",
                     "protoTree": {
                         ".csc-permrole-permissionId": "${fields.permission.0.permissionId}",
-                        ".csc-permrole-resourceName": "${fields.permission.0.resourceName}"
+                        ".csc-permrole-resourceName": "${fields.permission.0.resourceName}",
+                        ".csc-permrole-actionGroup": "${fields.permission.0.actionGroup}"
                     }
                 }
             }]
         }
     },
     "list": {}
-}

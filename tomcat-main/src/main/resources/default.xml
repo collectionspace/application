@@ -1659,7 +1659,7 @@
                 <authorization-includes>authorization/roles</authorization-includes>
                 <is-multipart>false</is-multipart>
                 <terms-used>false</terms-used>
-				<has-ref-obj>false></has-ref-obj>
+				<refobj-used>false</refobj-used>
                 <services-search-keyword>r</services-search-keyword>
                 <structures>
                     <structure id="screen">
@@ -1689,14 +1689,14 @@
                 <field id="description" mini="summary">
                     <selector>.csc-role-description</selector>
                 </field>
-                <repeat id="permissions" exists-in-services="false" as-expander="true">
+                <repeat id="permissions" exists-in-services="false" as-expander="true" has-primary="false">
                     <selector>.csc-permissions-record-row:</selector>
                 	<field id="permission" ui-type="radio" as-expander="true">
                     <options>
                         <option id="none">none</option>
                         <option id="read">read</option>
                         <option id="write">write</option>
-                        <option id="delete">delete</option>
+                        <option id="delete" default="yes">delete</option>
                     </options>
                     </field>
                     <field id="resourceName">

@@ -7,27 +7,21 @@
             "selection": "${fields.status}"
         },
         ".csc-user-userName": "${fields.screenName}",
-        ".csc-users-createdAt": "${fields.createdAt}",
-        ".csc-accountrole-roles-row": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.role",
-                    "protoTree": {
-                        ".csc-accountrole-account-rolename": "${fields.role.0.roleName}",
-                        ".csc-accountrole-role-roleid": "${fields.role.0.roleId}"
-                    }
-                }
-            }]
+        "expander": {
+            "repeatID": ".csc-accountrole-roles-row:",
+            "tree": {
+                ".csc-users-roleGroup": "${{row}.roleGroup}",
+                ".csc-users-roleSelected": "${{row}.roleSelected}",
+                ".csc-users-roleName": "${{row}.roleName}",
+                ".csc-users-roleId": "${{row}.roleId}"
+            },
+            "type": "fluid.renderer.repeat",
+            "pathAs": "row",
+            "controlledBy": "fields.role"
         },
+        ".csc-users-createdAt": "${fields.createdAt}",
         ".csc-user-userID": "${fields.userId}",
         ".csc-user-password": "${fields.password}",
-        ".csc-accountrole-account-row:": {
-            ".csc-accountrole-account-userid": "${fields.account.0.userId}",
-            ".csc-accountrole-account-screenname": "${fields.account.0.screenName}",
-            ".csc-accountrole-account-accountid": "${fields.account.0.accountId}"
-        },
         ".csc-user-email": "${fields.email}"
     },
     "list": {

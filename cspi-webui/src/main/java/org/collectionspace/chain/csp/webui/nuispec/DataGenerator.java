@@ -396,8 +396,7 @@ public class DataGenerator  extends UISpec {
 		out.put(getSelector(f)+affix,generateDataEntryField(f));	
 	}	
 
-	protected void repeatNonSibling(JSONObject out, FieldSet fs, String affix,
-			Repeat r) throws JSONException {
+	private void repeatItem(JSONObject out, Repeat r, String affix) throws JSONException{
 		String selector = getSelector(r);
 		JSONArray arr = new JSONArray();
 		for(Integer i=0;i<repeatnum;i++){
@@ -411,20 +410,13 @@ public class DataGenerator  extends UISpec {
 		}
 		out.put(selector,arr);
 	}
+	protected void repeatNonSibling(JSONObject out, FieldSet fs, String affix,
+			Repeat r) throws JSONException {
+		repeatItem(out, r, affix);
+	}
 	protected void repeatSibling(JSONObject out, String affix, Repeat r,
 			JSONObject row, JSONArray children) throws JSONException {
-		String selector = getSelector(r);
-		JSONArray arr = new JSONArray();
-		for(Integer i=0;i<repeatnum;i++){
-			repeataffix = i.toString()+"_";
-			JSONObject protoTree=new JSONObject();
-			for(FieldSet child : r.getChildren()) {
-				generateDataEntry(protoTree,child, affix);
-			}
-			arr.put(protoTree);
-			repeataffix = "";
-		}
-		out.put(selector,arr);
+		repeatItem(out, r, affix);
 	}
 	
 	protected void makeAuthorities(JSONObject out, String affix, Field f)
