@@ -42,7 +42,9 @@ public class Record implements FieldParent {
 	private String services_search_keyword = "kw";
 	
 	/* Service stuff */
-	private String authorization_name,services_url,services_list_path,in_tag,vocab_syntax,urn_syntax,authority_vocab_type,services_instances_path,services_single_instance_path;
+	private String authorization_name, services_url, services_list_path,
+			in_tag, vocab_syntax, urn_syntax, authority_vocab_type,
+			services_instances_path, services_fields_path,services_single_instance_path;
 	private Set<String> authorization_includes;
 	private Boolean authorization_view;
 	private Map<String,String> services_record_paths=new HashMap<String,String>();
@@ -111,7 +113,7 @@ public class Record implements FieldParent {
 		
 		//service layer paths to list data for this record type
 		services_list_path=Util.getStringOrDefault(section,"/services-list-path",services_url+"-common-list/"+services_url+"-list-item");
-		
+		services_fields_path = Util.getStringOrDefault(section, "/services-fields-path", services_url+"-common-list/fieldsReturned");
 		
 		//used by service layer to construct authority names
 		urn_syntax=Util.getStringOrDefault(section,"/urn-syntax","urn:cspace.org.collectionspace.demo."+id+":name({vocab}):"+id+":name({entry})'{display}'");
@@ -186,6 +188,7 @@ public class Record implements FieldParent {
 	
 	public String getServicesURL() { return services_url; }
 	public String getServicesListPath() { return services_list_path; }
+	public String getServicesFieldsPath() { return services_fields_path; }
 	public String getServicesInstancesPath() { return services_instances_path; }
 	public String getServicesSingleInstancePath() { return services_single_instance_path; }
 	public String[] getServicesRecordPaths() { return services_record_paths.keySet().toArray(new String[0]); }

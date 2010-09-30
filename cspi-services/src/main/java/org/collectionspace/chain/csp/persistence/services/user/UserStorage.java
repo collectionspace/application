@@ -260,6 +260,17 @@ public class UserStorage implements ContextualisedStorage {
 							}
 						}
 					}
+					/* this hopefully will reduce fan out - needs testing */
+					if(list.selectSingleNode(r.getServicesFieldsPath())!=null){
+						String myfields = list.selectSingleNode(r.getServicesFieldsPath()).getText();
+						String[] allfields = myfields.split("\\|");
+						for(String s : allfields){
+							String gleaned = getGleanedValue(cache,r.getServicesURL()+"/"+csid,s);
+							if(gleaned==null){
+								setGleanedValue(cache,r.getServicesURL()+"/"+csid,s,"");
+							}
+						}
+					}
 				}else{
 					pagination.put(node.getName(), node.getText());
 				}

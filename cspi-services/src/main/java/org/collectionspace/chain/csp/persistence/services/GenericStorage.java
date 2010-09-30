@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -257,7 +258,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 			to_get.remove(fieldname);
 		}
-		// Do a full request
+		// Do a full request only if values in list of fields returned != list from cspace-config
 		if(to_get.size()>0) {
 			JSONObject data=simpleRetrieveJSON(creds,cache,filePath,thisr);
 			for(String fieldname : to_get) {
@@ -877,6 +878,17 @@ public class GenericStorage  implements ContextualisedStorage {
 									}
 								}
 								setGleanedValue(cache,r.getServicesURL()+"/"+csid,json_name,value);
+							}
+						}
+					}
+					/* this hopefully will reduce fan out - needs more testing */
+					if(list.selectSingleNode(r.getServicesFieldsPath())!=null){
+						String myfields = list.selectSingleNode(r.getServicesFieldsPath()).getText();
+						String[] allfields = myfields.split("\\|");
+						for(String s : allfields){
+							String gleaned = getGleanedValue(cache,r.getServicesURL()+"/"+csid,s);
+							if(gleaned==null){
+								setGleanedValue(cache,r.getServicesURL()+"/"+csid,s,"");
 							}
 						}
 					}
