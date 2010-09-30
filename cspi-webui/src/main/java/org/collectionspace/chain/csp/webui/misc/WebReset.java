@@ -56,12 +56,12 @@ public class WebReset implements WebMethod {
 				for(String dir : paths) {
 					// XXX yuck!
 					// ignore authorities
-					if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "person".equals(dir) || "organization".equals(dir)){
+					if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "location".equals(dir) || "person".equals(dir) || "organization".equals(dir)){
 						continue;
 					}
 					
 					// ignore authorization
-					if("rolePermission".equals(dir) || "accountrole".equals(dir)  || "permrole".equals(dir) || "permission".equals(dir) || "role".equals(dir)|| "userrole".equals(dir) || "users".equals(dir) ){
+					if("rolePermission".equals(dir) || "accountrole".equals(dir)  || "userperm".equals(dir)|| "permrole".equals(dir) || "permission".equals(dir) || "role".equals(dir)|| "userrole".equals(dir) || "users".equals(dir) ){
 						continue;
 					}
 					
@@ -78,10 +78,10 @@ public class WebReset implements WebMethod {
 						try {
 							storage.deleteJSON(dir+"/"+paths[i]);
 						} catch (UnimplementedException e) {
-							// Never mind
+							tty.line("UnimplementedException"+e);
 							tty.line("ux");
 						} catch (UnderlyingStorageException e) {
-							tty.line("UnderlyingStorageEception");
+							tty.line("UnderlyingStorageEception"+e);
 						}
 						tty.line("ok");
 						tty.flush();
@@ -89,14 +89,18 @@ public class WebReset implements WebMethod {
 				}
 			}
 			log.info("this might take some time, go get a cup of tea and be patient");
+			tty.line("this might take some time, go get a cup of tea and be patient");
 			// Create records anew
 			tty.line("Create records anew");
 			String schedule=getResource("reset.txt");
 			for(String line : schedule.split("\n")) {
 				String[] parts=line.split(" +",2);
-				tty.line("Creating "+parts[0]);
-				storage.autocreateJSON(parts[0],getJSONResource(parts[1]));
-				tty.flush();
+				if(!parts[0].equals("")){
+					tty.line("Creating "+parts[0]);
+					log.info("Creating "+parts[0]);
+					storage.autocreateJSON(parts[0],getJSONResource(parts[1]));
+					tty.flush();
+				}
 			}
 			// Delete existing vocab entries
 
@@ -106,7 +110,8 @@ public class WebReset implements WebMethod {
 			int resultsize=1;
 			int check = 0;
 			String checkpagination = "";
-			
+
+			log.info("Delete existing vocab entries");
 			tty.line("Delete existing vocab entries");
 			
 
@@ -131,6 +136,7 @@ public class WebReset implements WebMethod {
 					try {
 						storage.deleteJSON("/person/person/"+urn);
 						tty.line("Deleting Person "+urn);
+						log.info("Deleting Person "+urn);
 					} catch(Exception e) { /* Sometimes records are wdged */ }
 					tty.flush();
 					
@@ -161,6 +167,7 @@ public class WebReset implements WebMethod {
 					try {
 						storage.deleteJSON("/organization/organization/"+urn);
 						tty.line("Deleting Organization "+urn);
+						log.info("Deleting Organization "+urn);
 					} catch(Exception e) { /* Sometimes records are wdged */ }
 					tty.flush();
 					
@@ -180,6 +187,7 @@ public class WebReset implements WebMethod {
 				name.put("shortIdentifier",shortID);
 				storage.autocreateJSON("/person/person",name);
 				tty.line("Created Person "+name);
+				log.info("Created Person "+name);
 				tty.flush();
 				if(quick && i>20)
 					break;
@@ -195,13 +203,15 @@ public class WebReset implements WebMethod {
 				name.put("shortIdentifier",shortID);
 				storage.autocreateJSON("/organization/organization",name);
 				tty.line("Created Organisation "+line);
+				log.info("Created Organisation "+line);
 				tty.flush();
 				if(quick && i>20)
 					break;
 			}
 			
-			
+
 			tty.line("done");
+			log.info("done");
 		} catch (ExistException e) {
 			throw new UIException("Existence problem",e);
 		} catch (UnimplementedException e) {
