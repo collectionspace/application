@@ -177,7 +177,7 @@ J. Blackton
 Carlyle Blackwell
 Ronee Blakley
 Harry Blaney
-Vicente Blasco Ib‡–ez
+Vicente Blasco Ibï¿½ï¿½ez
 Archie Bleyer
 Holbrook Blinn
 James Blish
@@ -304,7 +304,7 @@ Sue Carol
 Horace Carpenter
 Mary Carr
 David Carradine
-Ben CarrŽ
+Ben Carrï¿½
 Nancy Carroll
 Madeleine Carroll
 Diahann Carroll
@@ -525,7 +525,7 @@ Elliott Dexter
 Dorothy Dickson
 W.K.L. Dickson
 Marlene Dietrich
-Albert DieudonnŽ
+Albert Dieudonnï¿½
 Walt Disney
 Raymond Ditmars
 Beulah Dix
@@ -1708,7 +1708,7 @@ Garry Sherman
 Brooke Shields
 Nell Shipman
 Anne Shirley
-Dmitriií  Shostakovich
+Dmitriiï¿½ Shostakovich
 Ethel Shutta
 George Sidney
 Don Siegel
@@ -2053,3 +2053,4 @@ Doraldina
 Allakariallak 
 Iman 
 Vera-Ellen 
+Bob
