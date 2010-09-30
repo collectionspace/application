@@ -261,7 +261,7 @@ public class TestServiceThroughWebapp extends TestBase{
 		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/login","userid=test@collectionspace.org&password=testtest");	
 		assertEquals(303,out.getStatus());
-		assertEquals("/cspace-ui/html/findedit.html",out.getHeader("Location"));
+		assertEquals("/cspace-ui/html/myCollectionSpace.html",out.getHeader("Location"));
 		out=jettyDoUTF8(jetty,"POST","/chain/login?userid=test@collectionspace.org&password=testtest",null);
 		assertEquals(303,out.getStatus());
 		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
