@@ -71,12 +71,14 @@ public class Generic {
 	public static String ResourceNameServices(Spec spec, String uiname){
 		try{
 			Record test = spec.getRecordByWebUrl(uiname);
-			return test.getServicesURL();
+			return test.getAuthorizationType();
 		}
 		catch(Exception e){
 			return uiname;
 		}
 	}
+	
+	
 	/**
 	 * CSPACE-2913
 	 * 	permissions: {

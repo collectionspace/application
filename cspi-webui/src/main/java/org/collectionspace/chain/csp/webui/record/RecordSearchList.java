@@ -98,6 +98,7 @@ public class RecordSearchList implements WebMethod {
 		for(String p : paths)
 			members.put(generateEntry(storage,base,p));
 		out.put(key,members);
+
 		
 		if(pagination!=null){
 			out.put("pagination",pagination);

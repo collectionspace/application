@@ -39,13 +39,11 @@ import org.slf4j.LoggerFactory;
 
 public class AuthorizationStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(AuthorizationStorage.class);
-	private PermissionCache permissions;
 	
 	public AuthorizationStorage(Record r, ServicesConnection conn) throws DocumentException, IOException{
 		super(r,conn);
 		initializeGlean(r);
 		Record permissionRecord = r.getSpec().getRecord("permission");
-		this.permissions = new PermissionCache(permissionRecord,conn);
 	}
 
 
