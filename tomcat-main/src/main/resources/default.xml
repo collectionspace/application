@@ -118,6 +118,7 @@
                 <field id="titleType" seperate_ui_container="true">
                     <selector>.csc-object-identification-object-title-type</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="assigned-by-artist">Assigned by Artist</option>
                         <option id="collection">Collection</option>
                         <option id="generic">Generic</option>
@@ -143,6 +144,7 @@
                     <field id="numberType" in-tab="yes" seperate_ui_container="true">
                         <selector>.csc-object-identification-other-number-type</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="lender">Lender</option>
                             <option id="obsolete">Obsolete</option>
                             <option id="previous">Previous</option>
@@ -161,6 +163,7 @@
                     <field id="objectNameCurrency" seperate_ui_container="true">
                         <selector>.csc-object-identification-object-currency</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="current">Current</option>
                             <option id="archaic">Archaic</option>
                         </options>
@@ -175,6 +178,7 @@
                     <field id="objectNameSystem" seperate_ui_container="true">
                         <selector>.csc-object-identification-object-system</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="art-and-architecture-thesaurus">Art &amp; Architecture Thesaurus</option>
                             <option id="nomenclature">Nomenclature</option>
                         </options>
@@ -182,6 +186,7 @@
                     <field id="objectNameType" seperate_ui_container="true">
                         <selector>.csc-object-identification-object-type</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="classified">Classified</option>
                             <option id="denomination">Denomination</option>
                             <option id="simple">Simple</option>
@@ -219,6 +224,7 @@
                 <field id="objectStatus" seperate_ui_container="true">
                     <selector>.csc-object-description-status</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="copy">copy</option>
                         <option id="forgery">forgery</option>
                         <option id="holotype">holotype</option>
@@ -237,6 +243,7 @@
                 <field id="phase" seperate_ui_container="true">
                     <selector>.csc-object-description-phase</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="adult">adult</option>
                         <option id="imago">imago</option>
                         <option id="larva">larva</option>
@@ -248,6 +255,7 @@
                     <field id="form" seperate_ui_container="true">
                         <selector>.csc-object-description-form</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="dry">dry</option>
                             <option id="pinned">pinned</option>
                             <option id="thin-section">thin section</option>
@@ -267,6 +275,7 @@
                 <field id="ageUnit" seperate_ui_container="true">
                     <selector>.csc-object-description-age-unit</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="days">Days</option>
                         <option id="months">Months</option>
                         <option id="weeks">Weeks</option>
@@ -296,6 +305,7 @@
                 <field id="objectComponentName" seperate_ui_container="true">
                     <selector>.csc-object-description-object-component-name</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="blade">blade</option>
                         <option id="buttonhole">buttonhole</option>
                         <option id="handle">handle</option>
@@ -308,6 +318,7 @@
                 <field id="technicalAttribute" seperate_ui_container="true">
                     <selector>.csc-object-description-technical-attribute</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="magnetic-tape-type">magnetic tape type</option>
                         <option id="record-speed">record speed</option>
                     </options>
@@ -315,6 +326,7 @@
                 <field id="technicalAttributeMeasurement" seperate_ui_container="true">
                     <selector>.csc-object-description-technical-attribute-measurement</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="metal">metal</option>
                         <option id="78">78</option>
                     </options>
@@ -322,6 +334,7 @@
                 <field id="technicalAttributeMeasurementUnit" seperate_ui_container="true">
                     <selector>.csc-object-description-technical-attribute-unit</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="rpm">rpm</option>
                     </options>
                 </field>
@@ -403,6 +416,7 @@
                     <field id="contentPosition" seperate_ui_container="true">
                         <selector>.csc-object-description-content-position</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="back">back</option>
                             <option id="base">base</option>
                             <option id="bottom">bottom</option>
@@ -424,6 +438,7 @@
                 <field id="contentObjectType" seperate_ui_container="true">
                     <selector>.csc-object-description-content-object-type</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="furniture">Furniture</option>
                         <option id="food">Food</option>
                     </options>
@@ -447,6 +462,7 @@
                     <field id="contentScript" seperate_ui_container="true">
                         <selector>.csc-object-description-content-script</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="carolingian-miniscule">Carolingian miniscule</option>
                             <option id="gothic-script">Gothic script</option>
                             <option id="palmer-method">Palmer method</option>
@@ -487,6 +503,7 @@
                 <field id="inscriptionContentPosition" seperate_ui_container="true">
                     <selector>.csc-object-description-inscription-content-position</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="back">back</option>
                         <option id="base">base</option>
                         <option id="bottom">bottom</option>
@@ -507,6 +524,7 @@
                 <field id="inscriptionContentScript" seperate_ui_container="true">
                     <selector>.csc-object-description-inscription-content-script</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="carolingian-miniscule">Carolingian miniscule</option>
                         <option id="gothic-script">Gothic script</option>
                         <option id="palmer-method">Palmer method</option>
@@ -519,6 +537,7 @@
                 <field id="inscriptionContentType" seperate_ui_container="true">
                     <selector>.csc-object-description-inscription-content-type</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="brand">brand</option>
                         <option id="decoration">decoration</option>
                         <option id="estate-stamp">estate stamp</option>
@@ -551,6 +570,7 @@
                 <field id="inscriptionDescriptionPosition" seperate_ui_container="true">
                     <selector>.csc-object-description-inscription-description-position</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="back">back</option>
                         <option id="base">base</option>
                         <option id="bottom">bottom</option>
@@ -568,6 +588,7 @@
                 <field id="inscriptionDescriptionType" seperate_ui_container="true">
                     <selector>.csc-object-description-inscription-description-type</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="brand">brand</option>
                         <option id="decoration">decoration</option>
                         <option id="estate-stamp">estate stamp</option>
@@ -587,6 +608,7 @@
                     <field id="responsibleDepartment" mini="search" seperate_ui_container="true">
                         <selector>.csc-object-identification-responsible-department</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="antiquities">Antiquities</option>
                             <option id="architecture-design">Architecture and Design</option>
                             <option id="decorative-arts">Decorative Arts</option>
@@ -603,6 +625,7 @@
                 <field id="recordStatus" seperate_ui_container="true">
                     <selector>.csc-object-identification-record-status</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="approved">Approved</option>
                         <option id="in-process">In process</option>
                         <option id="new">New</option>
@@ -861,6 +884,7 @@
                 <field id="collection" seperate_ui_container="true">
                     <selector>.csc-object-identification-collection</selector>
                     <options>
+                            <option id="">Please select a value</option>
                         <option id="library-collection">Library collection</option>
                         <option id="permanent-collection">Permanent collection</option>
                         <option id="study-collection">Study collection</option>
@@ -955,7 +979,8 @@
                 <field id="loanPurpose" seperate_ui_container="true">
                     <selector>.csc-loanIn-loanPurpose</selector>
                     <options>
-                        <option id="exhibition" default="yes">Exhibition</option>
+                        <option id="" default="yes">Please select a value</option>
+                        <option id="exhibition">Exhibition</option>
                         <option id="research">Research</option>
                         <option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
                         <option id="analysis">Analysis</option>
@@ -1004,6 +1029,7 @@
                 <field id="entryReason" seperate_ui_container="true">
                     <selector>.csc-intake-entry-reason</selector>
                     <options>
+                        <option id="" default="yes">Please select a value</option>
                         <option id="enquiry">Enquiry</option>
                         <option id="commission">Commission</option>
                         <option id="loan">Loan</option>
@@ -1406,6 +1432,7 @@
                 <field id="title">
                     <selector>.csc-personAuthority-title</selector>
                     <options>
+                        <option id="" default="yes">Please select a value</option>
                         <option id="Mr">Mr</option>
                         <option id="Mrs">Mrs</option>
                         <option id="Ms">Ms</option>
@@ -1464,6 +1491,7 @@
                 <field id="gender" seperate_ui_container="true">
                     <selector>.csc-personAuthority-gender</selector>
                     <options>
+                        <option id="" default="yes">Please select a value</option>
                         <option id="male">Male</option>
                         <option id="female">Female</option>
                     </options>
@@ -1985,7 +2013,8 @@
                 <field id="loanPurpose" seperate_ui_container="true">
                     <selector>.csc-loanOut-loanPurpose</selector>
                     <options>
-                        <option id="exhibition" default="yes">Exhibition</option>
+                        <option id="" default="yes">Please select a value</option>
+                        <option id="exhibition">Exhibition</option>
                         <option id="research">Research</option>
                         <option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
                         <option id="analysis">Analysis</option>
@@ -2031,6 +2060,7 @@
                 </field>
                 <field id="currentLocationFitness">
                     <options>
+                        <option id="" default="yes">Please select a value</option>
                         <option id="dangerous">Dangerous</option>
                         <option id="suitable">Suitable</option>
                         <option id="temporary">Temporary</option>
@@ -2048,6 +2078,7 @@
                     <field id="movementMethod">
                         <selector>.csc-movement-movementMethods</selector>
                         <options>
+                        <option id="" default="yes">Please select a value</option>
                             <option id="forklift">Forklift</option>
                             <option id="handcarried">Handcarried</option>
                             <option id="trolley">Trolley</option>
@@ -2068,6 +2099,7 @@
                 </field>
                 <field id="reasonForMove">
                     <options>
+                        <option id="" default="yes">Please select a value</option>
                         <option id="conservation">Conservation</option>
                         <option id="exhibition">Exhibition</option>
                         <option id="inventory">Inventory</option>
