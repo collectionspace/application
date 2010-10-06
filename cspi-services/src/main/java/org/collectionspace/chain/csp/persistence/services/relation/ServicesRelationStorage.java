@@ -160,9 +160,9 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 				throw new UnderlyingStorageException("Could not add relation status="+out.getStatus());
 			return out.getURLTail();
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Could not add relation",e);
+			throw new UnderlyingStorageException("Could not add relation"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Could not retrieve data",e);
+			throw new UnderlyingStorageException("Could not retrieve data"+e.getLocalizedMessage());
 		}
 	}
 
@@ -178,9 +178,9 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			log.info("DELETE"+parts[0]);
 			int status=conn.getNone(RequestMethod.DELETE,"/relations/"+parts[0],null,creds,cache);
 			if(status>299)
-				throw new UnderlyingStorageException("Could not delete relation, status="+status);
+				throw new UnderlyingStorageException("Could not delete relation, status="+status,status,"/relations/"+parts[0]);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Could not delete relation",e);
+			throw new UnderlyingStorageException("Could not delete relation"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
 
@@ -282,7 +282,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			out.put("listItems",list.toArray(new String[0]));
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Could not retrieve relation",e);
+			throw new UnderlyingStorageException("Could not retrieve relation"+e.getLocalizedMessage(),e.getStatus(),e.getUrl());
 		} catch (JSONException e) {
 			throw new UnderlyingStorageException("Could not retrieve relation",e);
 		}
@@ -305,9 +305,9 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			}
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Could not retrieve relation",e);
+			throw new UnderlyingStorageException("Could not retrieve relation"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Could not retrieve relation",e);
+			throw new UnderlyingStorageException("Could not retrieve relation"+e.getLocalizedMessage());
 		}
 	}
 
@@ -318,17 +318,17 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			log.info("RETRIEVE"+parts[0]);
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.GET,"/relations/"+parts[0],null,creds,cache);
 			if(out.getStatus()==404)
-				throw new ExistException("Not found");
+				throw new UnderlyingStorageException("Could not retrieve relation",out.getStatus(),"/relations/"+parts[0]);
 			Document doc=out.getDocument("relations_common");
 			if(doc==null)
-				throw new UnderlyingStorageException("Could not retrieve relation, missing relations_common");
+				throw new UnderlyingStorageException("Could not retrieve relation, missing relations_common",out.getStatus(),"/relations/"+parts[0]);
 			return relationToData(cache,factory.load(parts[0],doc));
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Could not retrieve relation",e);
+			throw new UnderlyingStorageException("Could not retrieve relation"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JaxenException e) {
-			throw new UnderlyingStorageException("Could not retrieve relation",e);
+			throw new UnderlyingStorageException("Could not retrieve relation"+e.getLocalizedMessage(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Could not retrieve relation",e);
+			throw new UnderlyingStorageException("Could not retrieve relation"+e.getLocalizedMessage(),e);
 		}
 	}
 
@@ -342,11 +342,11 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			if(out.getStatus()==404)
 				throw new ExistException("Not found");
 			if(out.getStatus()>299)
-				throw new UnderlyingStorageException("Could not update relation, status="+out.getStatus());
+				throw new UnderlyingStorageException("Could not update relation",out.getStatus(),"/relations/"+parts[0]);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Could not update relation",e);
+			throw new UnderlyingStorageException("Could not update relation"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Could not retrieve data",e);
+			throw new UnderlyingStorageException("Could not retrieve data"+e.getLocalizedMessage(),e);
 		}
 	}
 }

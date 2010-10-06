@@ -358,8 +358,8 @@ public class GenericStorage  implements ContextualisedStorage {
 			if(thisr.isMultipart()){
 				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,servicesurl+filePath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
-					throw new ExistException("Does not exist "+filePath);
-
+					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
+				
 				for(String section : thisr.getServicesRecordPaths()) {
 					String path=thisr.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
@@ -368,12 +368,12 @@ public class GenericStorage  implements ContextualisedStorage {
 			}else{
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+filePath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
-					throw new ExistException("Does not exist "+filePath);
+					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
 				convertToJson(out,doc.getDocument(), thisr);
 			}
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		}
@@ -437,7 +437,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 				String data2 = all.getDocument().asXML();
 				if(all.getStatus()!=200)
-					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+					throw new ConnectionException("Bad request during identifier cache map update: status not 200",all.getStatus(),path);
 				Document list=all.getDocument();
 				for(Object node : list.selectNodes("authority-ref-list/authority-ref-item")) {
 					if(!(node instanceof Element))
@@ -489,7 +489,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection problem",e);
+			throw new UnderlyingStorageException("Connection problem"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
 
@@ -614,7 +614,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			
 			out.put("Functionality Failed",dataitem);
 			//return out;
-			throw new UnderlyingStorageException("Connection problem",e);
+			throw new UnderlyingStorageException("Connection problem"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr, String serviceurl)
@@ -638,12 +638,12 @@ public class GenericStorage  implements ContextualisedStorage {
 				status = docm.getStatus();
 			}
 			
-			if(status==404)
-				throw new ExistException("Not found: "+serviceurl+filePath);
+			//if(status==404)
+			//	throw new ExistException("Not found: "+serviceurl+filePath);
 			if(status>299 || status<200)
-				throw new UnderlyingStorageException("Bad response "+status);
+				throw new UnderlyingStorageException("Bad response ",status,serviceurl+filePath);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);
 		}
@@ -704,11 +704,11 @@ public class GenericStorage  implements ContextualisedStorage {
 				else
 					url = conn.getURL(RequestMethod.POST, r.getServicesURL()+"/", doc, creds, cache);
 				if(url.getStatus()>299 || url.getStatus()<200)
-					throw new UnderlyingStorageException("Bad response "+url.getStatus());
+					throw new UnderlyingStorageException("Bad response ",url.getStatus(),r.getServicesURL()+"/");
 			}
 			return url.getURLTail();
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException(e.getMessage(),e.getStatus(), e.getUrl(),e);
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);
 		}
@@ -744,9 +744,9 @@ public class GenericStorage  implements ContextualisedStorage {
 		try {
 			int status=conn.getNone(RequestMethod.DELETE,serviceurl+filePath,null,creds,cache);
 			if(status>299 || status<200) // XXX CSPACE-73, should be 404
-				throw new UnderlyingStorageException("Service layer exception status="+status);
+				throw new UnderlyingStorageException("Service layer exception",status,serviceurl+filePath);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}		
 	}
 
@@ -814,7 +814,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			return data;
 			
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (UnsupportedEncodingException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (JSONException e) {
@@ -832,7 +832,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 		if(all.getStatus()!=200){
 			//throw new StatusException(all.getStatus(),path,"Bad request during identifier cache map update: status not 200");
-			throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+			throw new ConnectionException("Bad request during identifier cache map update: status not 200",all.getStatus(),path);
 		}
 		list=all.getDocument();
 		

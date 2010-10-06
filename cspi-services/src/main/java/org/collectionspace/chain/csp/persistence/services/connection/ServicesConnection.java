@@ -14,6 +14,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -116,7 +117,7 @@ public class ServicesConnection {
 			out=new DeleteMethod(uri);
 			break;
 		default:
-			throw new ConnectionException("Unsupported method "+method);
+			throw new ConnectionException("Unsupported method "+method,0,uri);
 		}
 		if(qps!=null)
 			out.setQueryString(qps);
@@ -169,8 +170,10 @@ public class ServicesConnection {
 				}
 
 				out.setResponse(method,response);
-			} catch(Exception e) {
-				throw new ConnectionException("Failure at "+base_url+" / "+uri+":"+e.getMessage(),e);
+			} catch(ConnectionException e) {
+				throw new ConnectionException(e.getMessage(),e.status,base_url+"/"+uri,e);
+			} catch (Exception e) {
+				throw new ConnectionException(e.getMessage(),0,base_url+"/"+uri,e);
 			} finally {
 				method.releaseConnection();
 			}

@@ -33,12 +33,20 @@ public class ConnectionException extends Exception {
 		this.url = url;
 		this.status = status;
 	}
-	public ConnectionException(String message, Throwable cause, Integer status, String url) {
+	public ConnectionException(String message, int status, String url, Throwable cause) {
 		super(message, cause);
 		this.url = url;
 		this.status = status;
 	}
 	
+	public String getUrl(){
+		return this.url;
+	}
+	
+	public Integer getStatus(){
+		return this.status;
+	}
+	/*
 	public String getMessage(){
 		String parent_msg = super.getMessage();
 		String msg = "";
@@ -52,4 +60,5 @@ public class ConnectionException extends Exception {
 		msg += parent_msg;
 		return msg;
 	}
+	*/
 }

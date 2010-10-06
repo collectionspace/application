@@ -98,7 +98,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 		body.put(section,createList(id));
 		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/",body,creds,cache);
 		if(out.getStatus()>299)
-			throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
+			throw new UnderlyingStorageException("Could not create vocabulary",out.getStatus(),"/"+prefix+"/");
 		csids.put(id,out.getURLTail());
 	}
 
@@ -213,12 +213,12 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			body.put(items_section,createFullEntry(name, shortid,vocab));
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+prefix+"/"+vocab+"/items",body,creds,cache);
 			if(out.getStatus()>299)
-				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
+				throw new UnderlyingStorageException("Could not create vocabulary ",out.getStatus(),"/"+prefix+"/"+vocab+"/items");
 			String urn=constructURN(cache,vocab,out.getURLTail(),name);
 			cache.setCached(getClass(),new String[]{"namefor",out.getURLTail()},name);
 			return urn;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception",e);
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
 			throw new UnderlyingStorageException("Cannot parse surrounding JSON",e);
 		}
@@ -232,12 +232,13 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {			
-			int status=conn.getNone(RequestMethod.DELETE,URNtoURL(creds,cache,filePath),null,creds,cache);
+			String url = URNtoURL(creds,cache,filePath);
+			int status=conn.getNone(RequestMethod.DELETE,url,null,creds,cache);
 			if(status>299)
-				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+status);
+				throw new UnderlyingStorageException("Could not retrieve vocabulary ",status,url);
 			cache.removeCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]});
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception",e);
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}	
 	}
 
@@ -273,7 +274,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			Document doc=data.getDocument();
 			JSONObject pagination = new JSONObject();
 			if(doc==null)
-				throw new UnderlyingStorageException("Could not retrieve vocabularies");
+				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,url);
 			List<Node> objects = doc.selectNodes("/"+item_path.split("/")[0]+"/*");
 			for(Node object : objects) {
 				if(object.matches("/"+item_path)){
@@ -291,7 +292,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			out.put("listItems",list.toArray(new String[0]));
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception",e);
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (UnsupportedEncodingException e) {
 			throw new UnderlyingStorageException("UTF-8 not supported!?");
 		} catch (JSONException e) {
@@ -328,7 +329,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
 			Document doc=data.getDocument();
 			if(doc==null)
-				throw new UnderlyingStorageException("Could not retrieve vocabularies");
+				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,url);
 			List<Node> objects=doc.getDocument().selectNodes(item_path);
 			for(Node object : objects) {
 				String name=object.selectSingleNode("displayName").getText();
@@ -339,7 +340,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			}
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception",e);
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (UnsupportedEncodingException e) {
 			throw new UnderlyingStorageException("UTF-8 not supported!?");
 		} catch (JSONException e) {
@@ -374,11 +375,12 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			String name=(String)cache.getCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]});
 			if(name==null) {			
 				// XXX pagination support
-				ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,URNtoURL(creds,cache,filePath),null,creds,cache);
-				if(doc.getStatus()==404)
-					throw new ExistException("Does not exist");
+				String url = URNtoURL(creds,cache,filePath);
+				ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,url,null,creds,cache);
+				//if(doc.getStatus()==404)
+				//	throw new ExistException("Does not exist");
 				if(doc.getStatus()>299)
-					throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
+					throw new UnderlyingStorageException("Could not retrieve vocabulary ",doc.getStatus(),url);
 				name=doc.getDocument(items_section).selectSingleNode(name_path).getText();
 			}
 			JSONObject out=new JSONObject();
@@ -386,7 +388,7 @@ public class GenericVocabStorage implements ContextualisedStorage {
 			out.put("csid",URNNewName(creds,cache,filePath,name));
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception",e);
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
 			throw new UnderlyingStorageException("Cannot generate JSON",e);
 		}
@@ -396,16 +398,17 @@ public class GenericVocabStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			if(!jsonObject.has("shortIdentifier"))
-				throw new UnderlyingStorageException("Missing name argument to data");
+				throw new UnderlyingStorageException("Missing shortIdentifier argument to data");
 			String name=jsonObject.getString("shortIdentifier");
 			Map<String,Document> body=new HashMap<String,Document>();
 			body.put(items_section,createFullEntry(name,name,URNtoVocab(creds,cache,filePath)));
-			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,URNtoURL(creds,cache,filePath),body,creds,cache);
+			String url = URNtoURL(creds,cache,filePath);
+			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,url,body,creds,cache);
 			if(out.getStatus()>299)
-				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
+				throw new UnderlyingStorageException("Could not create vocabulary",out.getStatus(),url);
 			cache.setCached(getClass(),new String[]{"namefor",deconstructURN(cache,filePath)[2]},name);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception",e);
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
 			throw new UnderlyingStorageException("Cannot parse surrounding JSON",e);
 		}

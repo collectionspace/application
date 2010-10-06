@@ -2,10 +2,12 @@ package org.collectionspace.chain.csp.persistence.services.connection;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
 import javax.mail.BodyPart;
+import javax.mail.MessagingException;
 import javax.mail.internet.InternetHeaders;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
@@ -36,8 +38,10 @@ public class MultipartRequestDataSource implements RequestDataSource {
 				data=new ByteArrayInputStream(indata.toByteArray());
 				ctype=body_mime.getContentType();
 			}
-		} catch(Exception e) {
-			throw new ConnectionException("Could not connect",e);
+		} catch (MessagingException e) {
+			throw new ConnectionException("Could not connect"+e.getLocalizedMessage(),e);
+		} catch (IOException e) {
+			throw new ConnectionException("Could not connect"+e.getLocalizedMessage(),e);
 		}			
 
 	}

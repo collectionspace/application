@@ -125,11 +125,11 @@ public class RecordStorage extends GenericStorage {
 			}
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception:UnsupportedEncodingException",e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception:JSONException",e);
 		}
 	}
 

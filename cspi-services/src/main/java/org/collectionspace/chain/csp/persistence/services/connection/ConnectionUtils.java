@@ -33,7 +33,7 @@ public class ConnectionUtils {
 			try {
 				return serializetoXML(in);
 			} catch (IOException e) {
-				throw new ConnectionException("Could not connect",e);
+				throw new ConnectionException("Could not connect "+e.getLocalizedMessage(),e);
 			}
 		}
 		return null;
@@ -44,7 +44,7 @@ public class ConnectionUtils {
 			try {
 				return serializeToBytes(in);
 			} catch (IOException e) {
-				throw new ConnectionException("Could not connect",e);
+				throw new ConnectionException("Could not connect"+e.getLocalizedMessage(),e);
 			}
 		}
 		return null;

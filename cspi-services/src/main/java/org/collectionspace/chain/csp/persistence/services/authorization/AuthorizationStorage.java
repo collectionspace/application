@@ -126,7 +126,7 @@ public class AuthorizationStorage extends GenericStorage {
 			if(postfix.length() == 0){postfix +="/";}
 			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+postfix,null,creds,cache);
 			if(all.getStatus()!=200){
-				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+				throw new ConnectionException("Bad request in Authorization Storage: status not 200", all.getStatus(),r.getServicesURL()+postfix);
 			}
 			list=all.getDocument();
 			List<Node> objects=list.selectNodes(r.getServicesListPath());
@@ -139,11 +139,11 @@ public class AuthorizationStorage extends GenericStorage {
 
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e);
 		}
 	}
 
@@ -191,7 +191,7 @@ public class AuthorizationStorage extends GenericStorage {
 			String serviceurl = r.getServicesURL()+postfix;
 			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,serviceurl,null,creds,cache);
 			if(all.getStatus()!=200){
-				throw new ConnectionException("Bad request during identifier cache map update: status not 200"+r.getServicesURL()+postfix);
+				throw new ConnectionException("Bad request in Authorization Storage getPathsJSON: status not 200",all.getStatus(),r.getServicesURL()+postfix);
 			}
 			list=all.getDocument();
 			
@@ -213,11 +213,11 @@ public class AuthorizationStorage extends GenericStorage {
 			out.put("listItems", listitems.toArray(new String[0]));
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e);
 		}
 	}
 
@@ -277,7 +277,7 @@ public class AuthorizationStorage extends GenericStorage {
 				String path = r.getServicesURL()+"/"+filePath+"/authorityrefs";
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 				if(all.getStatus()!=200)
-					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+					throw new ConnectionException("Bad request problem in AuthorizationStorage/refViewRetrieve: status not 200",all.getStatus(),path);
 				Document list=all.getDocument();
 				for(Object node : list.selectNodes("authority-ref-list/authority-ref-item")) {
 					if(!(node instanceof Element))
@@ -293,7 +293,7 @@ public class AuthorizationStorage extends GenericStorage {
 			}
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection problem",e);
+			throw new UnderlyingStorageException("Connection problem in AuthorizationStorage:"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
 
@@ -467,9 +467,9 @@ public class AuthorizationStorage extends GenericStorage {
 			}
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+ e.getLocalizedMessage(),e);
 		}
 	}
 

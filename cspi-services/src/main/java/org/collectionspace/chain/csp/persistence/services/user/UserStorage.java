@@ -149,16 +149,16 @@ public class UserStorage implements ContextualisedStorage {
 			}
 			if(url != null){
 				if(url.getStatus()>299 || url.getStatus()<200)
-					throw new UnderlyingStorageException("Bad response "+url.getStatus());
+					throw new UnderlyingStorageException("Bad response ",url.getStatus(),r.getServicesURL()+"/");
 				return url.getURLTail();
 			}
 			else{
-				throw new ExistException("no sub record defined in cspaceconfig");
+				throw new ExistException("no sub record defined in cspaceconfig: "+r.getServicesURL()+"/");
 			}
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
-			throw new UnimplementedException("JSONException",e);
+			throw new UnimplementedException("JSONException"+e.getLocalizedMessage(),e);
 		}
 	}
 
@@ -181,9 +181,9 @@ public class UserStorage implements ContextualisedStorage {
 			}
 			int status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds,cache);
 			if(status>299 || status<200) // XXX CSPACE-73, should be 404
-				throw new UnderlyingStorageException("Service layer exception status="+status);
+				throw new UnderlyingStorageException("Service layer exception",status,r.getServicesURL()+"/"+filePath);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}		
 	}
 	
@@ -227,7 +227,7 @@ public class UserStorage implements ContextualisedStorage {
 			
 			ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+postfix,null,creds,cache);
 			if(doc.getStatus()<200 || doc.getStatus()>399)
-				throw new UnderlyingStorageException("Cannot retrieve account list");
+				throw new UnderlyingStorageException("Cannot retrieve account list",doc.getStatus(),r.getServicesURL()+"/"+postfix);
 			Document list=doc.getDocument();
 			
 			JSONObject pagination = new JSONObject();
@@ -281,11 +281,11 @@ public class UserStorage implements ContextualisedStorage {
 			
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("Exception building query",e);
+			throw new UnderlyingStorageException("Exception building query"+e.getLocalizedMessage(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Exception building query",e);
+			throw new UnderlyingStorageException("Exception building query"+e.getLocalizedMessage(),e);
 		}
 	}
 	
@@ -328,7 +328,7 @@ public class UserStorage implements ContextualisedStorage {
 			
 			ReturnedDocument doc=conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+postfix,null,creds,cache);
 			if(doc.getStatus()<200 || doc.getStatus()>399)
-				throw new UnderlyingStorageException("Cannot retrieve account list");
+				throw new UnderlyingStorageException("Cannot retrieve account list",doc.getStatus(),r.getServicesURL()+"/"+postfix);
 			Document list=doc.getDocument();
 			List<Node> objects=list.selectNodes(r.getServicesListPath());
 			for(Node object : objects) {
@@ -360,11 +360,11 @@ public class UserStorage implements ContextualisedStorage {
 			}
 			return out.toArray(new String[0]);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("Exception building query",e);
+			throw new UnderlyingStorageException("Exception building query"+e.getLocalizedMessage(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Exception building query",e);
+			throw new UnderlyingStorageException("Exception building query"+e.getLocalizedMessage(),e);
 		}
 	}
 
@@ -377,7 +377,7 @@ public class UserStorage implements ContextualisedStorage {
 		try {
 			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+"/"+filePath+"/authorityrefs",null,creds,cache);
 			if(all.getStatus()!=200)
-				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
+				throw new ConnectionException("Bad request in UserStorage: status not 200",all.getStatus(),r.getServicesURL()+"/"+filePath+"/authorityrefs");
 			Document list=all.getDocument();
 			JSONObject out=new JSONObject();
 			for(Object node : list.selectNodes("authority-ref-list/authority-ref-item")) {
@@ -393,7 +393,7 @@ public class UserStorage implements ContextualisedStorage {
 			}
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection problem",e);
+			throw new UnderlyingStorageException("Connection problem"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
 	
@@ -427,16 +427,16 @@ public class UserStorage implements ContextualisedStorage {
 			Document xml = null;
 			xml = doc.getDocument();
 			if((doc.getStatus()<200 || doc.getStatus()>=300))
-				throw new ExistException("Does not exist "+filePath);
+				throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
 			if(isUserRole)
 				out=XmlJsonConversion.convertToJson(r.getSpec().getRecord("userrole"),xml);
 			else
 				out=XmlJsonConversion.convertToJson(r,xml);
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e);
 		}
 	}
 
@@ -464,14 +464,14 @@ public class UserStorage implements ContextualisedStorage {
 			//Document in=XmlJsonConversion.convertToXml(r,xxx_cspace1458_fix(filePath,jsonObject,creds,cache),"common");
 			log.info("Sending: "+in.asXML());
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.PUT,r.getServicesURL()+"/"+filePath,in,creds,cache);
-			if(doc.getStatus()==404)
-				throw new ExistException("Not found: "+r.getServicesURL()+"/"+filePath);
+			//if(doc.getStatus()==404)
+			//	throw new ExistException("Not found: "+r.getServicesURL()+"/"+filePath);
 			if(doc.getStatus()>299 || doc.getStatus()<200)
-				throw new UnderlyingStorageException("Bad response "+doc.getStatus());
+				throw new UnderlyingStorageException("Bad response ",doc.getStatus(),r.getServicesURL()+"/"+filePath);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
-			throw new UnimplementedException("JSONException",e);
+			throw new UnimplementedException("JSONException"+e.getLocalizedMessage(),e);
 		}
 	}
 	

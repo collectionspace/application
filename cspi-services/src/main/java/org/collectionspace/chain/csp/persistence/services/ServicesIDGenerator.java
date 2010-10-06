@@ -87,9 +87,9 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 			out.put("next",val);
 			return out;
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("JSON exception",e);
+			throw new UnderlyingStorageException("JSON exception"+e.getLocalizedMessage(),e);
 		}
 	}
 }

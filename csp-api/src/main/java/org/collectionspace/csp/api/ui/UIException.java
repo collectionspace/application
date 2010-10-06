@@ -6,12 +6,61 @@
  */
 package org.collectionspace.csp.api.ui;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /** Storage method through an exception. Exceptions are a mess and need to be tidied. */
 public class UIException extends Exception {
 	private static final long serialVersionUID = 7415760251413302328L;
+	Integer status;
+	String url;
 
 	public UIException() {}
 	public UIException(String message) { super(message); }
 	public UIException(Throwable cause) { super(cause); }
 	public UIException(String message, Throwable cause) { super(message, cause); }
+	public UIException(String message, Integer status, String url) {
+		super(message);
+		this.url = url;
+		this.status = status;
+	}
+	public UIException(String message, Integer status, String url, Throwable cause) {
+		super(message, cause);
+		this.url = url;
+		this.status = status;
+	}
+	public String getPrettyMessage(){
+		String parent_msg = super.getMessage();
+		String msg = "";
+		if(this.url!=null){
+			msg += "URL:"+this.url+":";
+		}
+		if(this.status!=null){
+
+			msg += "STATUS:"+Integer.toString(this.status)+":";
+		}
+		msg += parent_msg;
+		return msg;
+	}
+	public String getUrl(){
+		return this.url;
+	}
+	
+	public Integer getStatus(){
+		return this.status;
+	}
+	
+	public JSONObject getJSON(){
+		try {
+			JSONObject error = new JSONObject();
+			error.put("status", this.getStatus());
+			error.put("url", this.getUrl());
+			error.put("message", this.getLocalizedMessage());
+			//error.put("stack", this.getStackTrace());
+			return error;
+		} catch (JSONException e) {
+			// well if the JSON fails we have bad thinsg all around.
+			return  new JSONObject();
+		}
+	}
 }
