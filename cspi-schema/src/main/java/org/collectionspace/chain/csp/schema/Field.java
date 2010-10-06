@@ -238,7 +238,7 @@ public class Field implements FieldSet {
 		Option opt = new Option(id, name, sample);
 		if (dfault) {
 			opt.setDefault();
-			option_default.add(name);
+			option_default.add(opt.getID());
 		}
 		options.put(id, opt);
 		options_list.add(opt);
