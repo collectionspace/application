@@ -23,11 +23,11 @@ public class UserRolesDelete implements WebMethod{
 		try {
 			storage.deleteJSON(base+"/"+path);
 		} catch (ExistException e) {
-			throw new UIException("JSON Not found "+e,e);
+			throw new UIException("ExistException "+e,e);
 		} catch (UnimplementedException e) {
 			throw new UIException("Unimplemented",e);
 		} catch (UnderlyingStorageException e) {
-			throw new UIException("Problem getting",e);
+			throw new UIException("Problem getting"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
 

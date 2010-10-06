@@ -162,8 +162,7 @@ public class UISchema extends UISpec {
 
 			return out;
 		} catch (JSONException e) {
-			throw new UIException(
-					"Cannot generate UISpec due to JSONException", e);
+			throw new UIException("Cannot generate UISpec due to JSONException", e);
 		}
 	}
 

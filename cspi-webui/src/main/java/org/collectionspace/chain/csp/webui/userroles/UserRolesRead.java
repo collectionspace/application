@@ -49,11 +49,11 @@ public class UserRolesRead implements WebMethod{
 				out=storage.retrieveJSON(this.sub_base+"/"+csid);
 			}
 		} catch (ExistException e) {
-			throw new UIException("JSON Not found "+e,e);
+			throw new UIException("ExistException "+e,e);
 		} catch (UnimplementedException e) {
 			throw new UIException("Unimplemented",e);
 		} catch (UnderlyingStorageException e) {
-			throw new UIException("Problem getting",e);
+			throw new UIException("Problem getting"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
 			throw new UIException("Could not create JSON"+e,e);
 		}

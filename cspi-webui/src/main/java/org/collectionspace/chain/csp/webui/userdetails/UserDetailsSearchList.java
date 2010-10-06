@@ -81,7 +81,7 @@ public class UserDetailsSearchList implements WebMethod {
 		} catch (UnimplementedException e) {
 			throw new UIException("UnimplementedException during autocompletion",e);
 		} catch (UnderlyingStorageException e) {
-			throw new UIException("UnderlyingStorageException during autocompletion",e);
+			throw new UIException("during autocompletion"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}			
 	}
 	

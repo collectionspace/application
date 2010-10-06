@@ -56,13 +56,13 @@ public class RelateDelete implements WebMethod {
 			storage.deleteJSON("/relations/main/"+path);
 			request.setOperationPerformed(Operation.DELETE);
 		} catch (ExistException e) {
-			throw new UIException("Exist exception deleting "+e,e);
+			throw new UIException("Exist exception deleting ",e);
 		} catch (UnimplementedException e) {
-			throw new UIException("Unimplemented exception deleting "+e,e);
+			throw new UIException("Unimplemented exception deleting ",e);
 		} catch (UnderlyingStorageException e) {
-			throw new UIException("Underlying storage exception deleting "+e,e);
+			throw new UIException("Underlying storage exception deleting "+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
-			throw new UIException("Exception building JSON "+e,e);
+			throw new UIException("Exception building JSON ",e);
 		}
 	}
 	

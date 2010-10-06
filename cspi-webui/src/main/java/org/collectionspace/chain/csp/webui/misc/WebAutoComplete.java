@@ -86,8 +86,8 @@ public class WebAutoComplete implements WebMethod {
 			throw new UIException("ExistException during autocompletion",e);
 		} catch (UnimplementedException e) {
 			throw new UIException("UnimplementedException during autocompletion",e);
-		} catch (UnderlyingStorageException e) {
-			throw new UIException("UnderlyingStorageException during autocompletion",e);
+		} catch (UnderlyingStorageException x) {
+			throw new UIException("UnderlyingStorageException during autocompletion"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
 		}
 	}
 	

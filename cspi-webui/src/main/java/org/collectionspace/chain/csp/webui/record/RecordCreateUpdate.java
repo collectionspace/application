@@ -224,8 +224,12 @@ public class RecordCreateUpdate implements WebMethod {
 		} catch (UnimplementedException x) {
 			throw new UIException("Unimplemented exception: "+x,x);
 		} catch (UnderlyingStorageException x) {
-			throw new UIException("Problem storing: "+x,x);
+			UIException ui =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			request.sendJSONResponse(ui.getJSON());
+		}catch (Exception x) {
+			throw new UIException(x);
 		}
+	
 	}
 	
 	public void run(Object in, String[] tail) throws UIException {

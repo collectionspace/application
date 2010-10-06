@@ -32,8 +32,8 @@ public class VocabulariesDelete implements WebMethod {
 			throw new UIException("JSON Not found "+e,e);
 		} catch (UnimplementedException e) {
 			throw new UIException("Unimplemented",e);
-		} catch (UnderlyingStorageException e) {
-			throw new UIException("Problem getting",e);
+		} catch (UnderlyingStorageException x) {
+			throw new UIException("Problem getting"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
 		}
 	}
 	

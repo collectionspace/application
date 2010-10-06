@@ -216,8 +216,8 @@ public class WebReset implements WebMethod {
 			throw new UIException("Existence problem",e);
 		} catch (UnimplementedException e) {
 			throw new UIException("Unimplemented ",e);
-		} catch (UnderlyingStorageException e) {
-			throw new UIException("Problem storing",e);
+		} catch (UnderlyingStorageException x) {
+			throw new UIException("Problem storing"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
 		} catch (JSONException e) {
 			throw new UIException("Invalid JSON",e);
 		} catch (IOException e) {

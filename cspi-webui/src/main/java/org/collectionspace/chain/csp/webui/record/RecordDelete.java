@@ -27,7 +27,7 @@ public class RecordDelete implements WebMethod {
 		} catch (UnimplementedException e) {
 			throw new UIException("Unimplemented",e);
 		} catch (UnderlyingStorageException e) {
-			throw new UIException("Problem getting",e);
+			throw new UIException("Problem getting"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
 	

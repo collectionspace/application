@@ -48,11 +48,11 @@ public class UserRolesCreate implements WebMethod{
 					throw new UIException("Insufficient data for create (no fields?)");
 				}
 			} catch (ExistException x) {
-				throw new UIException("Existence exception: "+x,x);
+				throw new UIException("Existence exception: ",x);
 			} catch (UnimplementedException x) {
-				throw new UIException("Unimplemented exception: "+x,x);
+				throw new UIException("Unimplemented exception: ",x);
 			} catch (UnderlyingStorageException x) {
-				throw new UIException("Problem storing: "+x,x);
+				throw new UIException("Problem storing: "+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
 			} 
 
 			data.put("csid",path);

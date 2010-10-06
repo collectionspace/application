@@ -143,13 +143,13 @@ public class RelateCreateUpdate implements WebMethod {
 			if(create)
 				request.setSecondaryRedirectPath(new String[]{"relationships",path}); // XXX should be derivable
 		} catch (JSONException x) {
-			throw new UIException("Failed to parse json: "+x,x);
+			throw new UIException("Failed to parse json: ",x);
 		} catch (ExistException x) {
-			throw new UIException("Existence exception: "+x,x);
+			throw new UIException("Existence exception: ",x);
 		} catch (UnimplementedException x) {
-			throw new UIException("Unimplemented exception: "+x,x);
+			throw new UIException("Unimplemented exception: ",x);
 		} catch (UnderlyingStorageException x) {
-			throw new UIException("Problem storing: "+x,x);
+			throw new UIException("Problem storing: "+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
 		}
 	}
 
