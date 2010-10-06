@@ -101,7 +101,7 @@
                 </field>
                 <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
                     <enum>
-                        <default>English</default>
+                        <default>eng</default>
                         <blank-value>Please select a value</blank-value>
                     </enum>
                     <selector>.csc-object-identification-object-title-language</selector>
@@ -111,7 +111,7 @@
                 </field>
                 <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
                     <enum>
-                        <default>English</default>
+                        <default>eng</default>
                         <blank-value>Please select a value</blank-value>
                     </enum>
                 </field>
@@ -196,7 +196,8 @@
                     </field>
                     <field id="objectNameLanguage" autocomplete="vocab-languages" ui-type="enum">
                         <enum>
-                            <default>English</default>
+                            <default>eng</default>
+							<blank-value>Please select a value</blank-value>
                         </enum>
                         <selector>.csc-object-identification-object-language</selector>
                     </field>
@@ -406,7 +407,7 @@
                 <repeat id="contentLanguages">
                     <field id="contentLanguage" autocomplete="vocab-languages" ui-type="enum">
                         <enum>
-                            <default>English</default>
+                            <default>eng</default>
                             <blank-value>Please select a value</blank-value>
                         </enum>
                         <selector>.csc-object-description-content-language</selector>
@@ -495,7 +496,7 @@
                 </field>
                 <field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
                     <enum>
-                        <default>English</default>
+                        <default>eng</default>
                         <blank-value>Please select a value</blank-value>
                     </enum>
                     <selector>.csc-object-description-inscription-content-language</selector>
@@ -588,7 +589,7 @@
                 <field id="inscriptionDescriptionType" seperate_ui_container="true">
                     <selector>.csc-object-description-inscription-description-type</selector>
                     <options>
-                            <option id="">Please select a value</option>
+                        <option id="">Please select a value</option>
                         <option id="brand">brand</option>
                         <option id="decoration">decoration</option>
                         <option id="estate-stamp">estate stamp</option>
@@ -625,10 +626,10 @@
                 <field id="recordStatus" seperate_ui_container="true">
                     <selector>.csc-object-identification-record-status</selector>
                     <options>
-                            <option id="">Please select a value</option>
+                        <option id="">Please select a value</option>
                         <option id="approved">Approved</option>
                         <option id="in-process">In process</option>
-                        <option id="new">New</option>
+                        <option id="new" default="yes">New</option>
                         <option id="temporary">Temporary</option>
                     </options>
                 </field>
@@ -765,7 +766,7 @@
                 </field>
                 <field id="ownershipExchangePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                     <enum has-blank="false">
-                        <default>US Dollar</default>
+                        <default>USD</default>
                     </enum>
                     <selector>.csc-object-history-association-denomination</selector>
                 </field>
@@ -1031,6 +1032,7 @@
                     <options>
                         <option id="" default="yes">Please select a value</option>
                         <option id="enquiry">Enquiry</option>
+                        <option id="consideration">Consideration</option>
                         <option id="commission">Commission</option>
                         <option id="loan">Loan</option>
                     </options>
@@ -1150,7 +1152,7 @@
 				<repeat id="acquisitionFundingList/acquisitionFunding">
                 	<field id="acquisitionFundingCurrency" autocomplete="vocab-currency" ui-type="enum">
                     	<enum>
-                        	<default>US Dollar</default>
+                        	<default>USD</default>
                     	</enum>
                 	</field>
                		<field id="acquisitionFundingValue"></field>
@@ -1161,7 +1163,7 @@
                 <field id="acquisitionMethod" seperate_ui_container="true">
                     <selector>.csc-acquisition-acquisition-method</selector>
                     <options>
-                        <option id="gift">Gift</option>
+                        <option id="gift" default="yes">Gift</option>
                         <option id="purchase">Purchase</option>
                         <option id="exchange">Exchange</option>
                         <option id="transfer">Transfer</option>
@@ -1194,7 +1196,7 @@
                 </repeat>
                 <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                     <enum>
-                        <default>US Dollar</default>
+                        <default>USD</default>
                     </enum>
                     <selector>.csc-acquisition-purchaser-price-denomination</selector>
                 </field>
@@ -1203,7 +1205,7 @@
                 </field>
                 <field id="groupPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                     <enum>
-                        <default>US Dollar</default>
+                        <default>USD</default>
                     </enum>
                     <selector>.csc-acquisition-group-purchase-price-currency</selector>
                 </field>
@@ -1212,7 +1214,7 @@
                 </field>
                 <field id="objectOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                     <enum>
-                        <default>US Dollar</default>
+                        <default>USD</default>
                     </enum>
                     <selector>.csc-acquisition-object-offer-price-currency</selector>
                 </field>
@@ -1221,7 +1223,7 @@
                 </field>
                 <field id="objectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                     <enum>
-                        <default>US Dollar</default>
+                        <default>USD</default>
                     </enum>
                     <selector>.csc-acquisition-object-purchase-price-currency</selector>
                 </field>
@@ -1230,7 +1232,7 @@
                 </field>
                 <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                     <enum>
-                        <default>US Dollar</default>
+                        <default>USD</default>
                     </enum>
                     <selector>.csc-acquisition-object-purchase-offer-price-currency</selector>
                 </field>
@@ -1239,7 +1241,7 @@
                 </field>
                 <field id="originalObjectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                     <enum>
-                        <default>US Dollar</default>
+                        <default>USD</default>
                     </enum>
                     <selector>.csc-acquisition-original-object-purchase-price-currency</selector>
                 </field>
@@ -1990,9 +1992,6 @@
                     <selector>.csc-loanOut-loanedObjectStatusDate</selector>
                 </field>
                 <field id="loanedObjectStatus" autocomplete="vocab-lostatus" ui-type="enum">
-                    <enum>
-                        <default>Requested</default>
-                    </enum>
                     <selector>.csc-loanOut-loanedObjectStatus</selector>
                 </field>
                 <field id="loanOutDate" ui-type="date">
@@ -2184,10 +2183,10 @@
                         <title-ref>currency</title-ref>
                         <title>Standard Currency</title>
                         <options>
-                            <option>US Dollar</option>
+                            <option id="USD">US Dollar</option>
                             <option>Canadian Dollar</option>
-                            <option>Euro</option>
-                            <option>Pound Sterling</option>
+                            <option id="EUR">Euro</option>
+                            <option id="GBP">Pound Sterling</option>
                             <option>Danish Krone</option>
                             <option>Swedish Krona</option>
                             <option>Swiss Franc</option>
