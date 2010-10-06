@@ -147,13 +147,7 @@ public class TestRelations extends ServicesBaseClass {
 		ss.deleteJSON("collection-object/"+obj2);
 		ss.deleteJSON("collection-object/"+obj3);
 		
-		// get
-		try {
-			ss.retrieveJSON("relations/main/"+path);
-			assertTrue(false);
-		} catch(ExistException x) {
-			assertTrue(true);
-		}
+		
 	}
 
 	private String relate(Storage ss,String obj1,String obj2) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {

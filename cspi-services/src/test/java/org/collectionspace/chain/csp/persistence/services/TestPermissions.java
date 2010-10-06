@@ -99,11 +99,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 		
 		//delete user
 		ss.deleteJSON("users/"+csidId);
-		try {
-			ss.retrieveJSON("users/"+csidId);
-			assertFalse(true); // XXX use JUnit exception annotation
-		} catch(ExistException e) {
-		}
+		
 		
 	}
 	@Test
