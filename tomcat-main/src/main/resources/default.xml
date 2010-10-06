@@ -26,7 +26,7 @@
                 <daysvalid>7</daysvalid>
             </token>
             <subject>CollectionSpace Password reset request</subject>
-            <message>A password reset has been requested from this email. If you wish to reset your password please click on this link {{link}}</message>
+            <message>Dear {{greeting}},\n A password reset has been requested from this email.\n\n If you wish to reset your password please click on this link:\n {{link}} \n\n Yours Sincerely\n The CollectionSpace Team</message>
         </passwordreset>
     </email>
     <persistence>

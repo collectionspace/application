@@ -61,7 +61,7 @@ public class UserDetailsReset implements WebMethod {
 	
 
 	
-	private Boolean doEmail(String csid, String emailparam, Request in) throws UIException {
+	private Boolean doEmail(String csid, String emailparam, Request in, JSONObject userdetails) throws UIException, JSONException {
 		
 		String token = createToken(csid);
 		EmailData ed = spec.getEmailData();
@@ -71,7 +71,8 @@ public class UserDetailsReset implements WebMethod {
 		String messagebase = ed.getPasswordResetMessage();
 		String link = ed.getBaseURL() + "/cspace-ui/html/?token="+token+"&email="+ emailparam;
 		String message = messagebase.replaceAll("\\{\\{link\\}\\}", link);
-		
+		String greeting = userdetails.getJSONObject("fields").getString("screenName");
+		message = message.replaceAll("\\{\\{greeting\\}\\}", greeting);
 		
 	    String SMTP_HOST_NAME = ed.getSMTPHost();
 	    String SMTP_PORT = ed.getSMTPPort();
@@ -111,14 +112,11 @@ public class UserDetailsReset implements WebMethod {
 
 			// Setting the Subject and Content Type
 			msg.setSubject(subject);
-			msg.setContent(message, "text/plain");
+			msg.setText(message);
 			Transport.send(msg);
 		} catch (AddressException e) {
-			// TODO Auto-generated catch block
-			log.error("AddressException: "+e.getMessage());
 			throw new UIException("AddressException: "+e.getMessage());
 		} catch (MessagingException e) {
-			log.error("MessagingException: "+e.getMessage());
 			throw new UIException("MessagingException: "+e.getMessage());
 		}
 		
@@ -266,7 +264,7 @@ public class UserDetailsReset implements WebMethod {
 		} catch (UnimplementedException e) {
 			throw new UIException("UnimplementedException during search on email address",e);
 		} catch (UnderlyingStorageException e) {
-			throw new UIException("UnderlyingStorageException during search on email address " + emailparam +":"+base,e);
+			throw new UIException("UnderlyingStorageException during search on email address " + e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
 
@@ -314,7 +312,7 @@ public class UserDetailsReset implements WebMethod {
 						outputJSON.put("email", emailparam);
 					}
 					else{
-						doEmail(csid,emailparam,in);
+						doEmail(csid,emailparam,in,userdetails);
 					}
 			
 					outputJSON.put("ok",true);
@@ -343,7 +341,7 @@ public class UserDetailsReset implements WebMethod {
 				outputJSON.put("ok", false);
 				outputJSON.put("message", "The admin details in cspace-config.xml failed");
 			} catch (JSONException x) {
-				throw new UIException("Failed to parse json: "+x,x);
+				throw new UIException("Failed to parse json: ",x);
 			}
 			
 		}
@@ -392,13 +390,13 @@ public class UserDetailsReset implements WebMethod {
 							outputJSON.put("ok",true);
 							outputJSON.put("message","Your Password has been succesfully changed, Please login");
 						}	catch (JSONException x) {
-							throw new UIException("Failed to parse json: "+x,x);
+							throw new UIException("Failed to parse json: ",x);
 						} catch (ExistException x) {
-							throw new UIException("Existence exception: "+x,x);
+							throw new UIException("Existence exception: ",x);
 						} catch (UnimplementedException x) {
-							throw new UIException("Unimplemented exception: "+x,x);
+							throw new UIException("Unimplemented exception: ",x);
 						} catch (UnderlyingStorageException x) {
-							throw new UIException("Problem storing: "+x,x);
+							throw new UIException("Problem storing: "+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
 						} 
 					}
 					else{
@@ -414,7 +412,7 @@ public class UserDetailsReset implements WebMethod {
 				request.getSession().setValue(UISession.PASSWORD,"");
 				in.reset();
 			} catch (JSONException x) {
-				throw new UIException("Failed to parse json: "+x,x);
+				throw new UIException("Failed to parse json: ",x);
 			}
 		}
 		else{
@@ -422,7 +420,7 @@ public class UserDetailsReset implements WebMethod {
 				outputJSON.put("ok", false);
 				outputJSON.put("message", "The admin details in cspace-config.xml failed");
 			} catch (JSONException x) {
-				throw new UIException("Failed to parse json: "+x,x);
+				throw new UIException("Failed to parse json: ",x);
 			}
 			
 		}
