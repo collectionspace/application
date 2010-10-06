@@ -34,7 +34,7 @@ public class WebUISession implements UISession {
 			}
 			return hexString+"";
 		} catch(NoSuchAlgorithmException nsae){
-			throw new UIException("MD5 not supported");
+			throw new UIException("MD5 not supported",nsae);
 		}
 	}
 	

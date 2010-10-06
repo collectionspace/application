@@ -98,7 +98,7 @@ public class WebUIRequest implements UIRequest {
 			out=tty.getWriter();
 			return tty;
 		} catch (IOException e) {
-			throw new UIException("Cannot create response PrintWriter");
+			throw new UIException("Cannot create response PrintWriter",e);
 		}
 	}
 
