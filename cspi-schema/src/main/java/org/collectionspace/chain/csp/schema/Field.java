@@ -108,7 +108,7 @@ public class Field implements FieldSet {
 		enum_hasblank = Util.getBooleanOrDefault(section, "/enum/@has-blank",
 				true);
 		enum_blank = Util.getStringOrDefault(section, "/enum/blank-value",
-				"Please select an item");
+				"Please select a value");
 		option_default = Util.getSetOrDefault(section, "/@default",
 				new String[] { "" });
 		services_section = Util.getStringOrDefault(section, "/@section",

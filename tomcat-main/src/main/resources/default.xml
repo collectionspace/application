@@ -626,7 +626,6 @@
                 <field id="recordStatus" seperate_ui_container="true">
                     <selector>.csc-object-identification-record-status</selector>
                     <options>
-                        <option id="">Please select a value</option>
                         <option id="approved">Approved</option>
                         <option id="in-process">In process</option>
                         <option id="new" default="yes">New</option>
