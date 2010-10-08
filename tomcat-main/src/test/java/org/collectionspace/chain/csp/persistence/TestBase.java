@@ -224,6 +224,27 @@ public class TestBase extends TestData {
 		}
 		return false;
 	}
+	/**
+	 * to be used when we are testing permissions and we want things to fail with 403 etc
+	 * @param type
+	 * @param status
+	 * @param testValue
+	 * @return
+	 */
+	protected Boolean testStatus(String type, Integer status, Integer testValue) {
+		if (type.equals("GET")) {
+			return (status == testValue);
+		} else if (type.equals("POST")) {
+			return (status == testValue);
+		} else if (type.equals("PUT")) {
+			return (status == testValue);
+		} else if (type.equals("DELETE")) {
+			return (status == testValue);
+		} else if (type.equals("GETFAIL")) {
+			return (status == testValue);
+		}
+		return false;
+	}
 	
 	/**
 	 * package with default tests for success
