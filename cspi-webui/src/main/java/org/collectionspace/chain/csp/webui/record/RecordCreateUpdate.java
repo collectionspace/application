@@ -84,29 +84,47 @@ public class RecordCreateUpdate implements WebMethod {
 		return path;
 	}
 			
+	private JSONObject permJSON(String permValue) throws JSONException{
+		JSONObject perm = new JSONObject();
+		perm.put("name", permValue);
+		return perm;
+	}
 	private JSONObject getPerm(Storage storage, String resourceName, String permlevel) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 
 		JSONObject permitem = new JSONObject();
-		String actions = "";
+		JSONArray actions =  new JSONArray();
+		JSONObject permR = permJSON("READ");
+		JSONObject permC = permJSON("CREATE");
+		JSONObject permU = permJSON("UPDATE");
+		JSONObject permD = permJSON("DELETE");
+		JSONObject permL = permJSON("SEARCH");
 
 		///cspace-services/authorization/permissions?res=acquisition&actGrp=CRUDL
 		String queryString = "CRUDL";
 		if(permlevel.equals("none")){
 			queryString = "";
-			actions = "[]";	
+			actions = new JSONArray();
 			return permitem;
 		}
 		if(permlevel.equals("read")){
 			queryString = "RL";
-			actions = "[{\"name\":\"READ\"},{\"name\":\"SEARCH\"}]";
+			actions.put(permR);
+			actions.put(permL);
 		}
 		if(permlevel.equals("write")){
 			queryString = "CRUL";
-			actions = "[{\"name\":\"CREATE\"},{\"name\":\"READ\"},{\"name\":\"UPDATE\"},{\"name\":\"SEARCH\"}]";
+			actions.put(permC);
+			actions.put(permR);
+			actions.put(permU);
+			actions.put(permL);
 		}
 		if(permlevel.equals("delete")){
 			queryString = "CRUDL";
-			actions = "[{\"name\":\"CREATE\"},{\"name\":\"READ\"},{\"name\":\"UPDATE\"},{\"name\":\"DELETE\"},{\"name\":\"SEARCH\"}]";
+			actions.put(permC);
+			actions.put(permR);
+			actions.put(permU);
+			actions.put(permD);
+			actions.put(permL);
 		}
 
 		JSONObject permrestrictions = new JSONObject();
@@ -142,11 +160,10 @@ public class RecordCreateUpdate implements WebMethod {
 			 */
 					
 			JSONObject permission_add = new JSONObject();
-			JSONArray allactions = new JSONArray(actions);
 			permission_add.put("effect", "PERMIT");
 			permission_add.put("resourceName", Generic.ResourceNameServices(spec, resourceName));
 			permission_add.put("actionGroup", queryString);
-			permission_add.put("actions", allactions);
+			permission_add.put("action", actions);
 
 			permid=storage.autocreateJSON(spec.getRecordByWebUrl("permission").getID(),permission_add);
 			
