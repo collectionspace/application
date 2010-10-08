@@ -254,8 +254,14 @@ public class TestBase extends TestData {
 	protected HttpTester POSTData(String url, String data, ServletTester jetty) throws IOException, Exception{
 		HttpTester out = jettyDo(jetty,"POST","/chain"+url,data);
 		assertEquals(out.getMethod(),null);
-		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a POST url: /chain"+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",out.getStatus()));
-		log.debug(url+":"+out.getContent());
+		Integer status = out.getStatus();
+		if (status < 400) {
+			JSONObject test = new JSONObject(out.getContent());
+			if (test.has("status")) {
+				status = Integer.parseInt(test.getString("status"));
+			}
+		}
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /chain"+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
 		return out;
 	}
 	/**
@@ -281,14 +287,28 @@ public class TestBase extends TestData {
 	protected HttpTester GETData(String url, ServletTester jetty) throws IOException, Exception{
 	//	return GETData(url,null,jetty);
 		HttpTester out=jettyDo(jetty,"GET","/chain"+url,null);
-		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a GET url: /chain"+url+" /n"+out.getContent(),testStatus("GET",out.getStatus()));
+		Integer status = out.getStatus();
+		if (status < 400) {
+			JSONObject test = new JSONObject(out.getContent());
+			if (test.has("status")) {
+				status = Integer.parseInt(test.getString("status"));
+			}
+		}
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET url: /chain"+url+" /n"+out.getContent(),testStatus("GET",status));
 		log.debug(url+":"+out.getContent());
 		return out;
 	
 	}
 	protected HttpTester GETData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
 		HttpTester out=jettyDo(jetty,"GET","/chain"+url,null);
-		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a GET where we were expecting "+ Integer.toString(testStatus)+" url : /chain"+url+" /n"+out.getContent(),(testStatus == out.getStatus()));
+		Integer status = out.getStatus();
+		if (status < 400) {
+			JSONObject test = new JSONObject(out.getContent());
+			if (test.has("status")) {
+				status = Integer.parseInt(test.getString("status"));
+			}
+		}
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET where we were expecting "+ Integer.toString(testStatus)+" url : /chain"+url+" /n"+out.getContent(),(testStatus == status));
 		log.debug(url+":"+out.getContent());
 		return out;
 	}
@@ -303,7 +323,14 @@ public class TestBase extends TestData {
 	 */
 	protected HttpTester GETData(String url, String params, ServletTester jetty) throws IOException, Exception{
 		HttpTester out=jettyDo(jetty,"GET","/chain"+url,params);
-		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a GET url: /chain"+url+" "+params +"/n"+out.getContent(),testStatus("GET",out.getStatus()));
+		Integer status = out.getStatus();
+		if (status < 400) {
+			JSONObject test = new JSONObject(out.getContent());
+			if (test.has("status")) {
+				status = Integer.parseInt(test.getString("status"));
+			}
+		}
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET url: /chain"+url+" "+params +"/n"+out.getContent(),testStatus("GET",status));
 		log.debug(url+":"+out.getContent());
 		return out;
 	}
@@ -320,7 +347,14 @@ public class TestBase extends TestData {
 	protected HttpTester PUTData(String url, String data, ServletTester jetty ) throws IOException, Exception{
 
 		HttpTester out=jettyDo(jetty,"PUT","/chain"+url,data);
-		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a PUT url: /chain"+url+" "+data +"/n"+out.getContent(),testStatus("PUT",out.getStatus()));
+		Integer status = out.getStatus();
+		if (status < 400) {
+			JSONObject test = new JSONObject(out.getContent());
+			if (test.has("status")) {
+				status = Integer.parseInt(test.getString("status"));
+			}
+		}
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a PUT url: /chain"+url+" "+data +"/n"+out.getContent(),testStatus("PUT",status));
 		log.debug(url+":"+out.getContent());
 		return out;
 	}
@@ -346,6 +380,22 @@ public class TestBase extends TestData {
 		 * "permissions": [ {"resourceName": "Acquisition", "permission":
 		 * "write"}, {"resourceName": "Loan In", "permission": "read"}, ],
 		 */
+		JSONObject perm11 = new JSONObject();
+		perm11.put("resourceName", "permission");
+		perm11.put("permission", "delete");
+		JSONObject perm12 = new JSONObject();
+		perm12.put("resourceName", "authorization/permissions/permroles");
+		perm12.put("permission", "delete");
+		JSONObject perm13 = new JSONObject();
+		perm13.put("resourceName", "userrole");
+		perm13.put("permission", "delete");
+		JSONObject perm14 = new JSONObject();
+		perm14.put("resourceName", "permrole");
+		perm14.put("permission", "delete");
+		JSONObject perm15 = new JSONObject();
+		perm15.put("resourceName", "authorization/roles/accountroles");
+		perm15.put("permission", "delete");
+		
 		JSONArray permission = new JSONArray();
 		JSONObject perm1 = new JSONObject();
 		perm1.put("resourceName", permname);
@@ -356,6 +406,11 @@ public class TestBase extends TestData {
 		perm2.put("permission", "write");
 		permission.put(perm1);
 		permission.put(perm2);
+		permission.put(perm11);
+		permission.put(perm12);
+		permission.put(perm13);
+		permission.put(perm14);
+		permission.put(perm15);
 		JSONObject roleJSON = new JSONObject(role);
 		roleJSON.put("permissions", permission);
 		return roleJSON;
@@ -371,7 +426,7 @@ public class TestBase extends TestData {
 		JSONArray roles = new JSONArray();
 		JSONObject role1 = new JSONObject();
 		role1.put("roleName", role.getString("roleName"));
-		role1.put("roleId", roleId);
+		role1.put("roleId", roleId.split("/")[2]);
 		role1.put("roleSelected", "true");
 
 		roles.put(role1);

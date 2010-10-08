@@ -28,7 +28,15 @@ public class TestData {
 	protected final String roleCreate = addData("roleCreate.json","roleName").toString();
 	protected final String role2Create = addData("role2Create.json","roleName").toString();
 	protected final String personCreate = addData("personCreate.json").toString();
+
+	protected final String roleRead =  addData("role_read.json").toString();
+	protected final String roleWrite =  addData("role_write.json").toString();
+	protected final String roleNone =  addData("role_none.json").toString();
 	
+	protected final String userRead =  addData("userRead.json").toString();
+	protected final String userWrite =  addData("userWrite.json").toString();
+	protected final String userNone =  addData("userNone.json").toString();
+
 	protected final String user2Create =  addData("user2Create.json").toString();
 	protected final String user2Update = addData("userUpdate.json").toString();
 	protected final String user2Email = addData("userEmail.json").toString();
