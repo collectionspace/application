@@ -1822,6 +1822,8 @@
                 <group id="account">
                     <field id="accountId">
                     </field>
+                    <field id="screenName">
+                    </field>
                     <field id="userId">
                     </field>
                 </group>
