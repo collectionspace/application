@@ -42,7 +42,11 @@ public class WebLoginStatus  implements WebMethod {
 		{
 			JSONObject account = activePermissions.getJSONObject("account");
 			String csid = account.getString("accountId");
+			String screenName = account.getString("screenName");
+			String userId = account.getString("userId");
 			data.put("csid",csid);
+			data.put("screenName",screenName);
+			data.put("userId",userId);
 		}
 		if(activePermissions.has("permission"))
 		{
@@ -70,6 +74,8 @@ public class WebLoginStatus  implements WebMethod {
 					JSONObject perms = getPermissions(storage);
 					output.put("permissions",perms.getJSONObject("permissions"));
 					output.put("csid",perms.getString("csid"));
+					output.put("screenName",perms.getString("screenName"));
+					output.put("userId",perms.getString("userId"));
 					output.put("login", true);
 				}
 			}
@@ -78,7 +84,7 @@ public class WebLoginStatus  implements WebMethod {
 			}
 			request.sendJSONResponse(output);
 		} catch (JSONException x) {
-			throw new UIException("Failed to parse json: ",x);
+			throw new UIException("Failed to parse json: "+x.getMessage(),x);
 		} catch (ExistException x) {
 			throw new UIException("Existence exception: ",x);
 		} catch (UnimplementedException x) {

@@ -30,20 +30,15 @@ public class WebLogin implements WebMethod {
 	}
 	
 	private boolean testSuccess(Storage storage) {
-		for(Record r : spec.getAllRecords()) {
-			//XXX should be tested against something else but in the meantime testing again
-			if(!r.isType("userdata"))
-				continue;
-			try {
-				JSONObject restrictions = new JSONObject();
-				restrictions.put("pageSize", "1");
-				storage.getPathsJSON(r.getID(),restrictions);
-				return true;
-			} catch (Exception e) {
-				return false;
-			}
+
+		try {
+			String base = spec.getRecordByWebUrl("userperm").getID();
+			JSONObject activePermissions = storage.retrieveJSON(base + "/0/");
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
-		return false;
+		
 	}
 	
 	private void login(Request in) throws UIException { // Temporary hack for Mars
