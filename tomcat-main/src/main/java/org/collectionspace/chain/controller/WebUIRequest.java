@@ -87,7 +87,7 @@ public class WebUIRequest implements UIRequest {
 		if(session.isOld())
 			return; // No need to reset session
 		Cookie cookie=new Cookie(COOKIENAME,session.getID());
-		cookie.setPath("/");
+		cookie.setPath("/");//XXX should be /chain - so either need to have a parameter in cspace-config or try and ask tomcat who we are
 		response.addCookie(cookie);
 	}
 
