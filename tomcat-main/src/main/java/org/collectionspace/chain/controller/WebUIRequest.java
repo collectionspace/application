@@ -87,6 +87,7 @@ public class WebUIRequest implements UIRequest {
 		if(session.isOld())
 			return; // No need to reset session
 		Cookie cookie=new Cookie(COOKIENAME,session.getID());
+		cookie.setPath("/");
 		response.addCookie(cookie);
 	}
 
