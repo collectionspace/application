@@ -47,14 +47,15 @@ public class Field implements FieldSet {
 		has_container = Util.getBooleanOrDefault(section, "/@container", false);
 		xxx_ui_refactored = Util.getBooleanOrDefault(section,
 				"/@xxx_ui_refactored", true);
-		seperate_container = Util.getBooleanOrDefault(section,
-				"/@seperate_ui_container", false);
+		
 		selector = Util.getStringOrDefault(section, "/selector", ".csc-"
 				+ parentID + "-" + id);
+		
 		userecord = Util.getStringOrDefault(section, "/@userecord", "");
 
 		selector_affix = Util.getStringOrDefault(section, "/@selector-affix",
 				"");
+		
 		linktext = Util.getStringOrDefault(section, "/linktext",
 				"${items.0.number}");
 		linktext_target = Util.getStringOrDefault(section, "/linktext-target",

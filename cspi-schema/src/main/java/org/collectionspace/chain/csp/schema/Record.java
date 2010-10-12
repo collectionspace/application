@@ -43,7 +43,7 @@ public class Record implements FieldParent {
 	private String services_search_keyword = "kw";
 
 	/* Service stuff */
-	private String authorization_name, services_url, services_list_path,
+	private String services_url, services_list_path,
 			in_tag, vocab_syntax, urn_syntax, authority_vocab_type,
 			services_instances_path, services_fields_path,
 			services_single_instance_path, authorization_includes;
@@ -117,10 +117,7 @@ public class Record implements FieldParent {
 		// path that the service layer uses to access this record
 		services_url = Util.getStringOrDefault(section, "/services-url", id);
 
-		// authorization name
-
-		authorization_name = Util.getStringOrDefault(section,
-				"/authorization-name", id);
+		// authorization 
 		authorization_includes = Util.getStringOrDefault(section,
 				"/authorization-includes", services_url);
 
@@ -394,9 +391,6 @@ public class Record implements FieldParent {
 		return authorization_view;
 	}
 
-	public String getAuthorizationName() {
-		return authorization_name;
-	}
 
 	public String getAuthorizationType() {
 		return authorization_includes;
