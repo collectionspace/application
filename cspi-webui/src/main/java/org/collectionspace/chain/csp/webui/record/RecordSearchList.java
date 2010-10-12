@@ -153,8 +153,9 @@ public class RecordSearchList implements WebMethod {
 			throw new UIException("ExistException during search_or_list",e);
 		} catch (UnimplementedException e) {
 			throw new UIException("UnimplementedException during search_or_list",e);
-		} catch (UnderlyingStorageException e) {
-			throw new UIException("UnderlyingStorageException during search_or_list"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (UnderlyingStorageException x) {
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			ui.sendJSONResponse(uiexception.getJSON());
 		}			
 	}
 	

@@ -80,8 +80,9 @@ public class UserDetailsSearchList implements WebMethod {
 			throw new UIException("ExistException during autocompletion",e);
 		} catch (UnimplementedException e) {
 			throw new UIException("UnimplementedException during autocompletion",e);
-		} catch (UnderlyingStorageException e) {
-			throw new UIException("during autocompletion"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (UnderlyingStorageException x) {
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			ui.sendJSONResponse(uiexception.getJSON());
 		}			
 	}
 	

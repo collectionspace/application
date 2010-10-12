@@ -167,7 +167,8 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			} catch (UnimplementedException e) {
 				throw new UIException("Unimplemented exception",e);
 			} catch (UnderlyingStorageException x) {
-				throw new UIException("Underlying storage exception"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
+				UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+				request.sendJSONResponse(uiexception.getJSON());
 			}
 		}
 	}

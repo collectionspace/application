@@ -149,7 +149,8 @@ public class RelateCreateUpdate implements WebMethod {
 		} catch (UnimplementedException x) {
 			throw new UIException("Unimplemented exception: ",x);
 		} catch (UnderlyingStorageException x) {
-			throw new UIException("Problem storing: "+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			request.sendJSONResponse(uiexception.getJSON());
 		}
 	}
 

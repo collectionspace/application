@@ -263,8 +263,9 @@ public class UserDetailsReset implements WebMethod {
 			throw new UIException("ExistException during search on email address",e);
 		} catch (UnimplementedException e) {
 			throw new UIException("UnimplementedException during search on email address",e);
-		} catch (UnderlyingStorageException e) {
-			throw new UIException("UnderlyingStorageException during search on email address " + e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (UnderlyingStorageException x) {
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			return uiexception.getJSON();
 		}
 	}
 
@@ -396,7 +397,8 @@ public class UserDetailsReset implements WebMethod {
 						} catch (UnimplementedException x) {
 							throw new UIException("Unimplemented exception: ",x);
 						} catch (UnderlyingStorageException x) {
-							throw new UIException("Problem storing: "+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
+							UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+							outputJSON =  uiexception.getJSON();
 						} 
 					}
 					else{

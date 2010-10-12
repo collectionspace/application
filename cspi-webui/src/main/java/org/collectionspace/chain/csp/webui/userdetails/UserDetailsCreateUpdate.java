@@ -128,36 +128,38 @@ public class UserDetailsCreateUpdate implements WebMethod {
 		
 		boolean notfailed = true;
 		String msg="";
-		try{
-			try{
-				if(create) {
-					path=sendJSON(storage,null,data);
-					//assign to default role.
-				} else{
-					path=sendJSON(storage,path,data);
-				}
-				assignRole(storage,path,data);
-				if(path==null){
-					throw new UIException("Insufficient data for create (no fields?)");
-				}
-			} catch (ExistException x) {
-				throw new UIException("Existence exception: ",x);
-			} catch (UnimplementedException x) {
-				throw new UIException("Unimplemented exception: ",x);
-			} catch (UnderlyingStorageException x) {
-				throw new UIException("Problem storing: "+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
-			} 
-
-			data.put("csid",path);
-			data.put("ok",notfailed);
-			data.put("message",msg);
+		try {
+			if (create) {
+				path = sendJSON(storage, null, data);
+				// assign to default role.
+			} else {
+				path = sendJSON(storage, path, data);
+			}
+			assignRole(storage, path, data);
+			if (path == null) {
+				throw new UIException(
+						"Insufficient data for create (no fields?)");
+			}
+			data.put("csid", path);
+			data.put("ok", notfailed);
+			data.put("message", msg);
 			request.sendJSONResponse(data);
-			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
-			if(create&&notfailed)
-				request.setSecondaryRedirectPath(new String[]{url_base,path});
-		}	catch (JSONException x) {
-			throw new UIException("Failed to parse json: ",x);
+			request.setOperationPerformed(create ? Operation.CREATE
+					: Operation.UPDATE);
+			if (create && notfailed)
+				request.setSecondaryRedirectPath(new String[] { url_base, path });
+		} catch (JSONException x) {
+			throw new UIException("Failed to parse json: ", x);
+		} catch (ExistException x) {
+			throw new UIException("Existence exception: ", x);
+		} catch (UnimplementedException x) {
+			throw new UIException("Unimplemented exception: ", x);
+		} catch (UnderlyingStorageException x) {
+			UIException uiexception = new UIException(x.getMessage(), x
+					.getStatus(), x.getUrl(), x);
+			request.sendJSONResponse(uiexception.getJSON());
 		}
+
 		
 	}
 	

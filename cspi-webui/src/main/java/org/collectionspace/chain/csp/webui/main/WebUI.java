@@ -249,12 +249,13 @@ public class WebUI implements CSP, UI, Configurable {
 	public void serviceRequest(UIRequest ui) throws UIException {		
 		UISession session=ui.getSession();
 		CSPRequestCache cache=new RequestCache();
-		Storage storage=generateStorage(session,cache);
 		String[] path=ui.getPrincipalPath();
+		Storage storage=generateStorage(session,cache);
 		Request r=new Request(this,cache,storage,ui);
+		
 		String test = ui.getRequestedOperation().toString();
 		log.debug("ServiceRequest path: "+StringUtils.join(path,"/"));
-		log.debug(ui.getRequestedOperation().toString());
+		log.debug(test);
 		try {
 			if(tries.get(ui.getRequestedOperation()).call(path,r))
 				return;

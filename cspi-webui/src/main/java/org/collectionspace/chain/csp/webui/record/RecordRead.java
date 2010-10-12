@@ -201,8 +201,9 @@ public class RecordRead implements WebMethod {
 			throw new UIException("JSON Not found ",e);
 		} catch (UnimplementedException e) {
 			throw new UIException("Unimplemented",e);
-		} catch (UnderlyingStorageException e) {
-			throw new UIException("Problem getting"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (UnderlyingStorageException x) {
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			return uiexception.getJSON();
 		} catch (JSONException e) {
 			throw new UIException("Could not create JSON",e);
 		}

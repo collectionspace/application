@@ -27,8 +27,9 @@ public class UserDetailsDelete implements WebMethod {
 			throw new UIException("JSON Not found "+e,e);
 		} catch (UnimplementedException e) {
 			throw new UIException("Unimplemented",e);
-		} catch (UnderlyingStorageException e) {
-			throw new UIException("Problem getting"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (UnderlyingStorageException x) {
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			request.sendJSONResponse(uiexception.getJSON());
 		}
 	}
 

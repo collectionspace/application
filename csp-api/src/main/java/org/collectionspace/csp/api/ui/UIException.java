@@ -56,7 +56,7 @@ public class UIException extends Exception {
 			error.put("status", this.getStatus());
 			error.put("url", this.getUrl());
 			error.put("message", this.getLocalizedMessage());
-			//error.put("stack", this.getStackTrace());
+			error.put("stack", this.getStackTrace());
 			return error;
 		} catch (JSONException e) {
 			// well if the JSON fails we have bad thinsg all around.

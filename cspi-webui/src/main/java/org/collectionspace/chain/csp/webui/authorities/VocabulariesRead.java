@@ -183,7 +183,8 @@ public class VocabulariesRead implements WebMethod {
 		} catch (UnimplementedException e) {
 			throw new UIException("Unimplemented",e);
 		} catch (UnderlyingStorageException x) {
-			throw new UIException("Problem getting"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			return uiexception.getJSON();
 		} catch (JSONException e) {
 			throw new UIException("Could not create JSON"+e,e);
 		}
