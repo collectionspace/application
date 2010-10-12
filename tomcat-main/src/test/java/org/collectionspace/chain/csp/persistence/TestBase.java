@@ -275,13 +275,7 @@ public class TestBase extends TestData {
 	protected HttpTester POSTData(String url, String data, ServletTester jetty) throws IOException, Exception{
 		HttpTester out = jettyDo(jetty,"POST","/chain"+url,data);
 		assertEquals(out.getMethod(),null);
-		Integer status = out.getStatus();
-		if (status < 400) {
-			JSONObject test = new JSONObject(out.getContent());
-			if (test.has("status")) {
-				status = Integer.parseInt(test.getString("status"));
-			}
-		}
+		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /chain"+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
 		return out;
 	}
@@ -308,13 +302,7 @@ public class TestBase extends TestData {
 	protected HttpTester GETData(String url, ServletTester jetty) throws IOException, Exception{
 	//	return GETData(url,null,jetty);
 		HttpTester out=jettyDo(jetty,"GET","/chain"+url,null);
-		Integer status = out.getStatus();
-		if (status < 400) {
-			JSONObject test = new JSONObject(out.getContent());
-			if (test.has("status")) {
-				status = Integer.parseInt(test.getString("status"));
-			}
-		}
+		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET url: /chain"+url+" /n"+out.getContent(),testStatus("GET",status));
 		log.debug(url+":"+out.getContent());
 		return out;
@@ -322,14 +310,8 @@ public class TestBase extends TestData {
 	}
 	protected HttpTester GETData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
 		HttpTester out=jettyDo(jetty,"GET","/chain"+url,null);
-		Integer status = out.getStatus();
-		if (status < 400) {
-			JSONObject test = new JSONObject(out.getContent());
-			if (test.has("status")) {
-				status = Integer.parseInt(test.getString("status"));
-			}
-		}
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET where we were expecting "+ Integer.toString(testStatus)+" url : /chain"+url+" /n"+out.getContent(),(testStatus == status));
+		Integer status = getStatus(out.getContent(),  out.getStatus());
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET where we were expecting "+ Integer.toString(testStatus)+" url : /chain"+url+" /n"+out.getContent(),(Integer.toString(testStatus).equals(Integer.toString(status))));
 		log.debug(url+":"+out.getContent());
 		return out;
 	}
@@ -344,13 +326,7 @@ public class TestBase extends TestData {
 	 */
 	protected HttpTester GETData(String url, String params, ServletTester jetty) throws IOException, Exception{
 		HttpTester out=jettyDo(jetty,"GET","/chain"+url,params);
-		Integer status = out.getStatus();
-		if (status < 400) {
-			JSONObject test = new JSONObject(out.getContent());
-			if (test.has("status")) {
-				status = Integer.parseInt(test.getString("status"));
-			}
-		}
+		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET url: /chain"+url+" "+params +"/n"+out.getContent(),testStatus("GET",status));
 		log.debug(url+":"+out.getContent());
 		return out;
@@ -368,16 +344,26 @@ public class TestBase extends TestData {
 	protected HttpTester PUTData(String url, String data, ServletTester jetty ) throws IOException, Exception{
 
 		HttpTester out=jettyDo(jetty,"PUT","/chain"+url,data);
-		Integer status = out.getStatus();
-		if (status < 400) {
-			JSONObject test = new JSONObject(out.getContent());
-			if (test.has("status")) {
-				status = Integer.parseInt(test.getString("status"));
-			}
-		}
+		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a PUT url: /chain"+url+" "+data +"/n"+out.getContent(),testStatus("PUT",status));
 		log.debug(url+":"+out.getContent());
 		return out;
+	}
+	
+	private Integer getStatus(String content, Integer status){
+
+		if (status <= 400) {
+			try{
+				JSONObject test = new JSONObject(content);
+				if (test.has("status")) {
+					status = Integer.parseInt(test.getString("status"));
+				}
+			}
+			catch(Exception ex){
+				//do nothing - obviously isn't what we hoped for
+			}
+		}
+		return status;
 	}
 	/**
 	 * package with default status tests for success

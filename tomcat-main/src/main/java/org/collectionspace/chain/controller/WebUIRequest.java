@@ -32,9 +32,13 @@ import org.collectionspace.csp.api.ui.UIUmbrella;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class WebUIRequest implements UIRequest {
+	private static final Logger log = LoggerFactory.getLogger(WebUIRequest.class);
 	private static final String COOKIENAME="CSPACESESSID";
+	private static final Integer lifeInMins = 30;
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
@@ -86,8 +90,10 @@ public class WebUIRequest implements UIRequest {
 	private void setSession() {
 		if(session.isOld())
 			return; // No need to reset session
+
 		Cookie cookie=new Cookie(COOKIENAME,session.getID());
 		cookie.setPath("/");//XXX should be /chain - so either need to have a parameter in cspace-config or try and ask tomcat who we are
+		cookie.setMaxAge(60 * lifeInMins);
 		response.addCookie(cookie);
 	}
 
