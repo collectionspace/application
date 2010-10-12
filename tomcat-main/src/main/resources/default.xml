@@ -1801,7 +1801,6 @@
             </record>
 
             <record id="userperm" type="authorizationdata">
-                <is-multipart>false</is-multipart>
                 <services-url>accounts/*/accountperms</services-url>
                 <services-list-path>account_permission/permission</services-list-path>
                 <services-record-path>account_permission:http://collectionspace.org/services/authorization,account_permission</services-record-path>
