@@ -691,20 +691,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 			}
 			else{
-				Map<String,Document> parts=new HashMap<String,Document>();
-				for(String section : r.getServicesRecordPaths()) {
-					String path=r.getServicesRecordPath(section);
-					String[] record_path=path.split(":",2);
-					doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
-					parts.put(record_path[0],doc);
-				}
-				//some records are accepted as multipart in the service layers, others arent, that's why we split up here
-				if(r.isMultipart())
-					url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
-				else
-					url = conn.getURL(RequestMethod.POST, r.getServicesURL()+"/", doc, creds, cache);
-				if(url.getStatus()>299 || url.getStatus()<200)
-					throw new UnderlyingStorageException("Bad response ",url.getStatus(),r.getServicesURL()+"/");
+				url = autoCreateSub(creds, cache, jsonObject, doc);
 			}
 			return url.getURLTail();
 		} catch (ConnectionException e) {
@@ -712,6 +699,28 @@ public class GenericStorage  implements ContextualisedStorage {
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);
 		}
+	}
+
+	protected ReturnedURL autoCreateSub(CSPRequestCredentials creds,
+			CSPRequestCache cache, JSONObject jsonObject, Document doc)
+			throws JSONException, UnderlyingStorageException,
+			ConnectionException {
+		ReturnedURL url;
+		Map<String,Document> parts=new HashMap<String,Document>();
+		for(String section : r.getServicesRecordPaths()) {
+			String path=r.getServicesRecordPath(section);
+			String[] record_path=path.split(":",2);
+			doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+			parts.put(record_path[0],doc);
+		}
+		//some records are accepted as multipart in the service layers, others arent, that's why we split up here
+		if(r.isMultipart())
+			url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
+		else
+			url = conn.getURL(RequestMethod.POST, r.getServicesURL()+"/", doc, creds, cache);
+		if(url.getStatus()>299 || url.getStatus()<200)
+			throw new UnderlyingStorageException("Bad response ",url.getStatus(),r.getServicesURL()+"/");
+		return url;
 	}
 	
 	/**
@@ -721,7 +730,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @return
 	 * @throws JSONException
 	 */
-	private String getSubCsid(JSONObject data, String primaryField) throws JSONException{
+	protected String getSubCsid(JSONObject data, String primaryField) throws JSONException{
 		String[] path = primaryField.split("/");
 		JSONObject temp = data;
 		int finalnum = path.length - 1;
@@ -832,7 +841,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 		if(all.getStatus()!=200){
 			//throw new StatusException(all.getStatus(),path,"Bad request during identifier cache map update: status not 200");
-			throw new ConnectionException("Bad request during identifier cache map update: status not 200",all.getStatus(),path);
+			throw new ConnectionException("Bad request during identifier cache map update: status not 200"+Integer.toString(all.getStatus()),all.getStatus(),path);
 		}
 		list=all.getDocument();
 		
