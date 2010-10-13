@@ -72,6 +72,7 @@ public class WebUIRequest implements UIRequest {
 	}
 
 	private WebUISession calculateSessionId() throws UIException {
+		
 		Cookie[] cookies=request.getCookies();
 		if(cookies==null)
 			cookies=new Cookie[0];
