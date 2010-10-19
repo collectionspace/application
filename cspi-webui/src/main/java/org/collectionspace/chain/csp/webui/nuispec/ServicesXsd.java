@@ -201,7 +201,7 @@ public class ServicesXsd implements WebMethod {
 			}
 
 			generateSearchList(root, ns);
-			 log.info(doc.asXML());
+			// log.info(doc.asXML());
 			// return doc.asXML();
 
 			JSONObject out = new JSONObject();
