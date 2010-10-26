@@ -46,7 +46,8 @@ public class TestServiceThroughWebapp extends TestBase{
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj4.json")),content));		
 		out=jettyDoUTF8(jetty,"DELETE","/chain"+id,null);
 		out=jettyDoUTF8(jetty,"GET","/chain"+id,null);
-		assertTrue(out.getStatus()!=200); // XXX should be 404
+		JSONObject bob = new JSONObject(out.getContent());
+		assertTrue(Integer.parseInt(bob.getString("status"))!=200); // XXX should be 404
 	}
 
 	@Test public void testIntake() throws Exception {
@@ -73,7 +74,8 @@ public class TestServiceThroughWebapp extends TestBase{
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int4.json")),content));		
 		out=jettyDoUTF8(jetty,"DELETE","/chain"+path,null);
 		out=jettyDoUTF8(jetty,"GET","/chain"+path,null);
-		assertTrue(out.getStatus()!=200); // XXX should be 404		
+		JSONObject bob = new JSONObject(out.getContent());
+		assertTrue(Integer.parseInt(bob.getString("status"))!=200); // XXX should be 404	
 	}
 
 	@Test public void testAcquisition() throws Exception {
@@ -98,7 +100,8 @@ public class TestServiceThroughWebapp extends TestBase{
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int6.json")),content));		
 		out=jettyDoUTF8(jetty,"DELETE","/chain"+path,null);
 		out=jettyDoUTF8(jetty,"GET","/chain"+path,null);
-		assertTrue(out.getStatus()!=200); // XXX should be 404		
+		JSONObject bob = new JSONObject(out.getContent());
+		assertTrue(Integer.parseInt(bob.getString("status"))!=200); // XXX should be 404	
 	}
 
 	@Test public void testIDGenerate() throws Exception {
