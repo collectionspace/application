@@ -30,14 +30,14 @@ public class UIException extends Exception {
 		this.status = status;
 	}
 	public String getPrettyMessage(){
-		String parent_msg = super.getMessage();
+		String parent_msg = super.getLocalizedMessage();
 		String msg = "";
 		if(this.url!=null){
-			msg += "URL:"+this.url+":";
+			msg += " URL:"+this.url+":";
 		}
 		if(this.status!=null){
 
-			msg += "STATUS:"+Integer.toString(this.status)+":";
+			msg += " STATUS:"+Integer.toString(this.status)+":";
 		}
 		msg += parent_msg;
 		return msg;
@@ -56,7 +56,7 @@ public class UIException extends Exception {
 			error.put("status", this.getStatus());
 			error.put("ok", false);
 			error.put("url", this.getUrl());
-			error.put("message", this.getLocalizedMessage());
+			error.put("message", this.getPrettyMessage());
 			error.put("stack", this.getStackTrace());
 			return error;
 		} catch (JSONException e) {
