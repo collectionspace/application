@@ -153,7 +153,7 @@ public class UISchema extends UISpec {
 		JSONObject out = new JSONObject();
 
 		try {
-			if (params.equals("recordlist")) {
+			if (params.toLowerCase().equals("recordlist")) {
 				JSONObject schema = new JSONObject();
 				JSONArray recrds = new JSONArray();
 				for(Record rc : this.spec.getAllRecords()){
