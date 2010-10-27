@@ -18,8 +18,8 @@ public class TestConfigFinder {
 	private static final Logger log=LoggerFactory.getLogger(TestConfigFinder.class);
 	
 	// xxx_servicesBaseURL moved here from ServicesBaseClass as a staging point before we get rid of it
-	public static final String xxx_servicesBaseURL = "http://nightly.collectionspace.org:8180"; // XXX hard-wired - ought to be found from the config file!
-	private static final String configFilename = "default.xml";
+	public static final String xxx_servicesBaseURL = "http://localhost:8180"; // only used if everything else fails.
+	public static final String configFilename = "default.xml";
 	
 	// This method only works for Eclipse and not mvn test :( - see below
 	private static final String classNearDefaultXml = "org.collectionspace.chain.controller.ChainServlet"; 
