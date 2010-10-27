@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.webui.nuispec;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
@@ -25,10 +26,16 @@ import org.slf4j.LoggerFactory;
 public class UISchema extends UISpec {
 	private static final Logger log = LoggerFactory.getLogger(UISchema.class);
 	protected JSONObject controlledCache;
+	private Spec spec;
 
 
 	public UISchema(Record record, String structureview) {
 		super(record, structureview);
+	}
+	public UISchema(Spec spec) {
+		super();
+		this.spec = spec;
+		this.record = null;
 	}
 
 	protected JSONObject generateTermsUsed() throws JSONException {
@@ -142,8 +149,33 @@ public class UISchema extends UISpec {
 		return out;
 	}
 
-	private JSONObject uischema(Storage storage) throws UIException {
+	private JSONObject uiotherschema(Storage storage, String params) throws UIException {
+		JSONObject out = new JSONObject();
+
+		try {
+			if (params.equals("recordlist")) {
+				JSONObject schema = new JSONObject();
+				JSONArray recrds = new JSONArray();
+				for(Record rc : this.spec.getAllRecords()){
+					if(rc.isType("record")||rc.isType("authority")||rc.isType("procedure")){
+						if(!rc.getID().equals("vocab")){ // vocab is weird - ignore for the moment
+							recrds.put(rc.getWebURL());
+						}
+					}
+				}
+				schema.put("type", "array");
+				schema.put("default", recrds);
+				out.put(params, schema);
+			}
+		} catch (JSONException e) {
+			throw new UIException("Cannot generate UISpec due to JSONException", e);
+		}
+		return out;
+	}
+	
+	private JSONObject uirecordschema(Storage storage,Record record) throws UIException {
 		this.storage = storage;
+		this.record = record;
 		try {
 			JSONObject out = new JSONObject();
 			JSONObject details = new JSONObject();
@@ -177,7 +209,13 @@ public class UISchema extends UISpec {
 
 	public void run(Object in, String[] tail) throws UIException {
 		Request q = (Request) in;
-		JSONObject out = uischema(q.getStorage());
+		JSONObject out;
+		if(this.record != null){
+			out = uirecordschema(q.getStorage(),this.record);
+		}
+		else{
+			out = uiotherschema(q.getStorage(),StringUtils.join(tail,"/"));
+		}
 		q.getUIRequest().sendJSONResponse(out);
 	}
 

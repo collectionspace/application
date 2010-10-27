@@ -154,6 +154,7 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"find-edit","uispec"},0,new FindEditUISpec(spec.getAllRecords()));
 		addMethod(Operation.CREATE,new String[]{"passwordreset"},0,new UserDetailsReset(false,spec));
 		addMethod(Operation.CREATE,new String[]{"resetpassword"},0,new UserDetailsReset(true,spec));
+		addMethod(Operation.READ,new String[]{"global","uischema"},1,new UISchema(spec));
 
 		addMethod(Operation.READ,new String[]{"generator"},0,new DataGenerator(spec));
 		for(Record r : spec.getAllRecords()) {
