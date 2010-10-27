@@ -39,22 +39,27 @@ import org.xml.sax.InputSource;
 public class ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(ServicesBaseClass.class);
 	protected ServicesConnection conn;
-	protected String base;
+	protected String base = null;
 	protected CSPRequestCredentials creds;
 	protected CSPRequestCache cache=new RequestCache();
 
 	protected void setup() throws BootstrapConfigLoadFailedException, ConnectionException {
+
 		BootstrapConfigController config_controller=new BootstrapConfigController();
 		config_controller.addSearchSuffix("test-config-loader2.xml");
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
-		base=TestConfigFinder.xxx_servicesBaseURL; // XXX still yuck but centralised now
+		try {
+			base=getBaseUrl(TestConfigFinder.configFilename);
+		} catch (CSPDependencyException e) {
+			assertNotNull("Base service url invalid in config file: "+TestConfigFinder.configFilename,base);
+		} // XXX still yuck but centralised now
 
 		conn=new ServicesConnection(base+"/cspace-services");
 		creds=new ServicesRequestCredentials();
 		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test@collectionspace.org");
 		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtest");		
-		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds,cache);
+		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"accounts/0/accountperms",null,creds,cache);
 		Assume.assumeTrue(out.getStatus()==200);
 	}
 	
@@ -90,14 +95,27 @@ public class ServicesBaseClass {
 			return Thread.currentThread().getContextClassLoader().getResourceAsStream(fallbackFile);
 		}
 	}
-	
-	protected Storage makeServicesStorage(String path) throws CSPDependencyException {
+	private CSPManager getServiceManager(String filename) throws CSPDependencyException{
 		CSPManager cspm=new CSPManagerImpl();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
-		cspm.configure(new InputSource(getRootSource("config.xml")),null);
+		cspm.configure(new InputSource(getRootSource(filename)),null);
+		return cspm;
+		
+	}
+	private String getBaseUrl(String filename) throws CSPDependencyException{
+		CSPManager cspm=getServiceManager(filename);
+		ConfigRoot root=cspm.getConfigRoot();
+		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+		ServicesStorageGenerator gen=(ServicesStorageGenerator)cspm.getStorage("service");
+		String baseurl = gen.getBase();
+		return baseurl;
+	}
+	
+	protected Storage makeServicesStorage(String path) throws CSPDependencyException {
+		CSPManager cspm=getServiceManager("config.xml");
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
