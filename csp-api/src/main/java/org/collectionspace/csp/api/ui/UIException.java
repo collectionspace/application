@@ -30,7 +30,7 @@ public class UIException extends Exception {
 		this.status = status;
 	}
 	public String getPrettyMessage(){
-		String parent_msg = super.getLocalizedMessage();
+		String parent_msg = super.getMessage();
 		String msg = "";
 		if(this.url!=null){
 			msg += " URL:"+this.url+":";
