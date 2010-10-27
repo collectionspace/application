@@ -1,3 +1,9 @@
+/* Copyright 2010 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.csp.webui.main;
 
 import static org.junit.Assert.*;
@@ -49,6 +55,7 @@ public class TestUISpecs extends TestBase {
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
 		// uispec(jetty,"/person/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/objects/uispec","collection-object.uispec");
+		// uispec(jetty,"/intake/serviceschema","collection-object.uispec");
 		// uispec(jetty,"/role/uischema","collection-object.uischema");
 		// uispec(jetty,"/object-tab/uispec","object-tab.uispec");
 		// uispec(jetty,"/intake/uispec","intake.uispec");
