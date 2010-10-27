@@ -193,7 +193,6 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	private String searchPath(JSONObject in) throws UnderlyingStorageException, JSONException {
 		if(in==null)
 			return "";
-		//http://nightly.collectionspace.org:8180/cspace-services/relations?sbj=cce0f7bf-3df4-4c24-85be
 		StringBuffer out=new StringBuffer();
 		if(in.has("src")) {
 			String[] src=splitTypeFromId(in.getString("src"));
