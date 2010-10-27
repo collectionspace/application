@@ -1,3 +1,9 @@
+/* Copyright 2010 University of Cambridge
+ * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
+ * compliance with this License.
+ *
+ * You may obtain a copy of the ECL 2.0 License at https://source.collectionspace.org/collection-space/LICENSE.txt
+ */
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
@@ -10,12 +16,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * 
- * @author caret
- * 
- *
- */
+
 public class Record implements FieldParent {
 	private static final Logger log=LoggerFactory.getLogger(Record.class);
 	private String id;
