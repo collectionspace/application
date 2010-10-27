@@ -50,6 +50,7 @@ public class TestUISpecs extends TestBase {
 	public void testUISpec() throws Exception {
 		ServletTester jetty = setupJetty();
 
+		 uispec(jetty,"/global/uischema/recordList","recordlist.uischema");
 		// uispec(jetty,"/acquisition/uispec","acquisition.uispec");
 		// uispec(jetty,"/movement/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
