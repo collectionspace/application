@@ -59,7 +59,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 					addChild(r.getID(),new AuthorizationStorage(spec.getRecord(r.getID()), conn));
 			}
 			addChild("direct",new DirectRedirector(spec));
-			addChild("id",new ServicesIDGenerator(conn));
+			addChild("id",new ServicesIDGenerator(conn,spec));
 			addChild("relations",new ServicesRelationStorage(conn,spec));
 			
 		} catch (Exception e) {

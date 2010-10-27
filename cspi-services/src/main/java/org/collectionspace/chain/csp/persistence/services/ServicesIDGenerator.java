@@ -14,6 +14,9 @@ import java.util.Random;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -27,11 +30,12 @@ import org.json.JSONObject;
 public class ServicesIDGenerator implements ContextualisedStorage {
 	private Random rnd=new Random();
 	private ServicesConnection conn;
+	private Spec spec;
 	
 	private static final Map<String,String> generators=new HashMap<String,String>();
-	
+
 	/*these keys are the primary keys in the id_generators table in the service layer.
-	while using these keys we get more information about the type of the object (like the prefix for the generated id)*/
+	while using these keys we get more information about the type of the object (like the prefix for the generated id)
 	static {
 		generators.put("accession-activity","1a67470b-19b1-4ae3-88d4-2a0aa936270e");
 		generators.put("objects","9dd92952-c384-44dc-a736-95e435c1759c"); // XXX temporary hack for venus
@@ -51,8 +55,17 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		generators.put("uuid","1fa40353-05b8-4ae6-82a6-44a18b4f3c12");
 		generators.put("movement", "49ca9d8d-7136-47ff-a70e-4a47b9038b70");
 	}
-
-	public ServicesIDGenerator(ServicesConnection conn) { this.conn=conn; }
+*/
+	public ServicesIDGenerator(ServicesConnection conn, Spec spec) { 
+		this.conn=conn;
+		this.spec= spec;
+		Record idgenerator = spec.getRecord("id");
+		for(FieldSet fs: idgenerator.getAllFields()){
+			String name = fs.getID();
+			String id = fs.getSelector();
+			generators.put(name, id);
+		}
+	}
 	
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");

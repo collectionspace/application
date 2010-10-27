@@ -146,8 +146,9 @@ public class TestServiceThroughWebapp extends TestBase{
 		assertTrue(jo.getString("next").startsWith("LIB2010."));
 
 		//test the archives generated id
-		out=jettyDoUTF8(jetty,"GET","/chain/id/archives",null);
+		out=jettyDoUTF8(jetty,"GET","/chain/id/archive",null);
 		jo=new JSONObject(out.getContent());
+		log.info(out.getContent());
 		assertTrue(jo.getString("next").startsWith("AR2010."));
 	}
 
