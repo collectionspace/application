@@ -37,6 +37,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	}
 
 	public String getName() { return "persistence.services"; }
+	public String getBase() { return base_url; }
 
 	private void real_init(Spec spec) throws CSPDependencyException {
 		try {
