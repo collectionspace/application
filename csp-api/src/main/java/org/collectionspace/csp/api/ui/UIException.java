@@ -54,6 +54,7 @@ public class UIException extends Exception {
 		try {
 			JSONObject error = new JSONObject();
 			error.put("status", this.getStatus());
+			error.put("ok", false);
 			error.put("url", this.getUrl());
 			error.put("message", this.getLocalizedMessage());
 			error.put("stack", this.getStackTrace());
