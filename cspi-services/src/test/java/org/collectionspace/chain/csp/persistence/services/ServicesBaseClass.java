@@ -107,26 +107,27 @@ public class ServicesBaseClass {
 	}
 	private String getBaseUrl(String filename) throws CSPDependencyException{
 		CSPManager cspm=getServiceManager(filename);
-		ConfigRoot root=cspm.getConfigRoot();
-		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		ServicesStorageGenerator gen=(ServicesStorageGenerator)cspm.getStorage("service");
 		String baseurl = gen.getBase();
 		return baseurl;
 	}
 	
 	protected Storage makeServicesStorage(String path) throws CSPDependencyException {
-		CSPManager cspm=getServiceManager("config.xml");
+		CSPManager cspm=getServiceManager("default.xml");
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
+		
+		//XXX this is spec specific testing that will break when we rename the object in the UI
 		Record r_obj=spec.getRecord("collection-object");
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("objects",r_obj.getWebURL());
+		
 		StorageGenerator gen=cspm.getStorage("service");
 		CSPRequestCredentials creds=gen.createCredentials();
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test@collectionspace.org");
-		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtest");
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,spec.getAdminData().getAuthUser());
+		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,spec.getAdminData().getAuthPass());
 		return gen.getStorage(creds,new RequestCache());
 	}
 }
