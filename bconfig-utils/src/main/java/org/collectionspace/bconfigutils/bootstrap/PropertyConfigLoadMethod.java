@@ -91,6 +91,7 @@ public class PropertyConfigLoadMethod implements ConfigLoadMethod {
 		Properties props=prop_files.get(src);
 		if(props==null)
 			return null;
-		return props.getProperty(e.getTextTrim());
+		String value = props.getProperty(e.getTextTrim()); 
+		return value == null? null: value.trim();
 	}
 }
