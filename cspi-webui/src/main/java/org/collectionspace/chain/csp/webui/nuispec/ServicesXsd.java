@@ -179,44 +179,37 @@ public class ServicesXsd implements WebMethod {
 		stfld2.addAttribute("minOccurs", "1");
 	}
 
-	private JSONObject serviceschema(Storage s) throws UIException {
-		try {
-			Document doc = DocumentFactory.getInstance().createDocument();
-			Namespace ns = new Namespace("xs",
-					"http://www.w3.org/2001/XMLSchema");
-			String[] parts = record.getServicesRecordPath(section)
-					.split(":", 2);
-			String[] rootel = parts[1].split(",");
-			Element root = doc.addElement(new QName("schema", new Namespace(
-					"xs", "http://www.w3.org/2001/XMLSchema")));
-			root.addAttribute("targetNamespace", rootel[0]);
-			root.addAttribute("xnlns", rootel[0]);
-			root.addAttribute("xnlns:ns", rootel[0]);
-			root.addAttribute("xnlns:jaxb", "http://java.sun.com/xml/ns/jaxb");
-			root.addAttribute("jaxb:version", "1.0");
-			root.addAttribute("elementFormDefault", "unqualified");
+	private String serviceschema(Storage s) throws UIException {
 
-			Element ele = root.addElement(new QName("element", ns));
-			ele.addAttribute("name", rootel[1]);
-			Element cele = ele.addElement(new QName("complexType", ns));
+		Document doc = DocumentFactory.getInstance().createDocument();
+		Namespace ns = new Namespace("xs", "http://www.w3.org/2001/XMLSchema");
+		String[] parts = record.getServicesRecordPath(section).split(":", 2);
+		String[] rootel = parts[1].split(",");
+		Element root = doc.addElement(new QName("schema", new Namespace("xs",
+				"http://www.w3.org/2001/XMLSchema")));
+		root.addAttribute("targetNamespace", rootel[0]);
+		root.addAttribute("xnlns", rootel[0]);
+		root.addAttribute("xnlns:ns", rootel[0]);
+		root.addAttribute("xnlns:jaxb", "http://java.sun.com/xml/ns/jaxb");
+		root.addAttribute("jaxb:version", "1.0");
+		root.addAttribute("elementFormDefault", "unqualified");
 
-			// add toplevel items
+		Element ele = root.addElement(new QName("element", ns));
+		ele.addAttribute("name", rootel[1]);
+		Element cele = ele.addElement(new QName("complexType", ns));
 
-			for (FieldSet fs : record.getAllFields()) {
-				generateDataEntry(cele, fs, ns, root, false);
-			}
+		// add toplevel items
 
-			generateSearchList(root, ns);
-			// log.info(doc.asXML());
-			// return doc.asXML();
-
-			JSONObject out = new JSONObject();
-			out.put("data", doc.asXML());
-			return out;
-		} catch (JSONException e) {
-			throw new UIException(
-					"Cannot generate ServicesSchema due to JSONException", e);
+		for (FieldSet fs : record.getAllFields()) {
+			generateDataEntry(cele, fs, ns, root, false);
 		}
+
+		generateSearchList(root, ns);
+		// log.info(doc.asXML());
+		// return doc.asXML();
+
+		return doc.asXML();
+
 	}
 
 	@Override
@@ -228,8 +221,8 @@ public class ServicesXsd implements WebMethod {
 	@Override
 	public void run(Object in, String[] tail) throws UIException {
 		Request q = (Request) in;
-		JSONObject out = serviceschema(q.getStorage());
-		q.getUIRequest().sendJSONResponse(out);
+		String out = serviceschema(q.getStorage());
+		q.getUIRequest().sendXMLResponse(out);
 
 	}
 }

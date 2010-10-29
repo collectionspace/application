@@ -259,6 +259,10 @@ public class WebUIRequest implements UIRequest {
 		}
 	}
 
+	public void sendXMLResponse(String data) throws UIException {
+		response.setContentType("text/xml;charset=UTF-8");
+		out_data=data;
+	}
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		response.setContentType("text/json;charset=UTF-8");
 		out_data=data.toString();

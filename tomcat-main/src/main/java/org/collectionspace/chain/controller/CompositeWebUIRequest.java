@@ -206,7 +206,13 @@ public class CompositeWebUIRequest implements UIRequest {
 			return false;
 		}
 	}
-
+	
+	@Override
+	public void sendXMLResponse(String data) throws UIException {
+		mime_type_out="text/xml;charset=UTF-8";
+		new PrintWriter(body_out).print(data);
+	}
+	
 	@Override
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		mime_type_out="text/json;charset=UTF-8";

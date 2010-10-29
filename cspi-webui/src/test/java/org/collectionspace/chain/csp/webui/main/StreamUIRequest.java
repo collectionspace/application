@@ -136,6 +136,9 @@ public class StreamUIRequest implements UIRequest {
 		return qargs.keySet();
 	}
 
+	public void sendXMLResponse(String data) throws UIException {
+		println(out,data);
+	}
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		println(out,data.toString());
 	}

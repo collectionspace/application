@@ -15,6 +15,7 @@ public interface UIRequest {
 	public String[] getPrincipalPath() throws UIException;
 	
 	public TTYOutputter getTTYOutputter() throws UIException;
+	public void sendXMLResponse(String out) throws UIException;
 	public void sendJSONResponse(JSONObject out) throws UIException;
 	public void sendJSONResponse(JSONArray out) throws UIException;
 
