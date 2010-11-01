@@ -14,11 +14,20 @@ import java.io.InputStream;
 import java.util.Date;
 
 import org.apache.commons.io.IOUtils;
+import org.collectionspace.chain.csp.config.ConfigRoot;
+import org.collectionspace.chain.csp.inner.CoreConfig;
+import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.csp.api.container.CSPManager;
+import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.container.impl.CSPManagerImpl;
+import org.collectionspace.csp.helper.test.TestConfigFinder;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.InputSource;
 
 public class TestData {
 	private static final Logger log=LoggerFactory.getLogger(TestData.class);
@@ -50,14 +59,41 @@ public class TestData {
 	protected final static String urnTestJoe = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"inscriptionContentInscriber\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
 	
 	protected final String user88Create  = addData("userCreate.json", "userId").toString();
+
+	private static InputStream getSource(String fallbackFile) {
+        TestData demo = new TestData();
+		try {
+			return TestConfigFinder.getConfigStream();
+		} catch (CSPDependencyException e) {
+			String name=demo.getClass().getPackage().getName().replaceAll("\\.","/")+"/"+fallbackFile;
+			return Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+		}
+	}
+
+	protected static JSONObject getDefaultUser(ServletTester tester){
+
+		CSPManager cspm=new CSPManagerImpl();
+		cspm.register(new CoreConfig());
+		cspm.register(new Spec());
+		try {
+			cspm.go();
+			tester.getAttribute("config-filename");
+			String filename=(String)tester.getAttribute("config-filename");
+			cspm.configure(new InputSource(getSource(filename)),null);
+		} catch (CSPDependencyException e) {
+			log.error("CSPManagerImpl failed");
+			log.error(e.getLocalizedMessage() );
+		}
 		
 
-	protected static JSONObject getDefaultUser(){
-
+		ConfigRoot root=cspm.getConfigRoot();
+		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+		String username = spec.getAdminData().getAuthUser();
+		String pass = spec.getAdminData().getAuthPass();
 		JSONObject user = new JSONObject();
 		try {
-			user.put("userid", "test@collectionspace.org");
-			user.put("password", "testtest");
+			user.put("userid", username);
+			user.put("password", pass);
 			return user;
 		} catch (JSONException e) {
 			errored(e);

@@ -53,13 +53,13 @@ public class TestBase extends TestData {
 
 	protected static void login(ServletTester tester) throws IOException,
 			Exception {
-		JSONObject user = getDefaultUser();
+		JSONObject user = getDefaultUser(tester);
 		login(tester, user, false);
 	}
 
 	protected static void login(ServletTester tester, Boolean isUTF8)
 			throws IOException, Exception {
-		JSONObject user = getDefaultUser();
+		JSONObject user = getDefaultUser(tester);
 		login(tester, user, isUTF8);
 	}
 
