@@ -30,21 +30,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CompositeWebUIRequest implements UIRequest {
+public class CompositeWebUIRequestPart implements UIRequest {
 	private WebUIRequest parent;
 	private String[] ppath;
 	private Map<String,String> params=new HashMap<String,String>();
 	private Map<String,String> rparams=new HashMap<String,String>();
 	private String[] rpath=null;
 	private boolean secondary_redirect=false;
-	private Operation op_req,op_res;
+	private Operation op_req,op_res=Operation.READ;
 	private ByteArrayOutputStream body_out=new ByteArrayOutputStream();
 	private String body_in; // XXX what if it's binary?
 	private String mime_type_out="";
 	private boolean failure=false;
 	private Exception exception;
 	
-	public CompositeWebUIRequest(WebUIRequest parent,JSONObject query) throws JSONException, UIException {
+	public CompositeWebUIRequestPart(WebUIRequest parent,JSONObject query) throws JSONException, UIException {
 		this.parent=parent;
 		String ppath=query.getString("path");
 		List<String> p=new ArrayList<String>();
@@ -101,12 +101,12 @@ public class CompositeWebUIRequest implements UIRequest {
 						path.append(URLEncoder.encode(e.getValue(),"UTF-8"));
 					}
 					if(secondary_redirect)
-						set_status();
+						status=set_status();
 					else
 						status=303;
 					out.put("redirect",path.toString());
 				} else {
-					set_status();
+					status=set_status();
 				}
 			}
 			out.put("body",body_out.toString("UTF-8"));
@@ -210,19 +210,25 @@ public class CompositeWebUIRequest implements UIRequest {
 	@Override
 	public void sendXMLResponse(String data) throws UIException {
 		mime_type_out="text/xml;charset=UTF-8";
-		new PrintWriter(body_out).print(data);
+		PrintWriter pw=new PrintWriter(body_out);
+		pw.print(data);
+		pw.flush();
 	}
 	
 	@Override
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		mime_type_out="text/json;charset=UTF-8";
-		new PrintWriter(body_out).print(data.toString());
+		PrintWriter pw=new PrintWriter(body_out);
+		pw.print(data.toString());
+		pw.flush();
 	}
 
 	@Override
 	public void sendJSONResponse(JSONArray data) throws UIException {
 		mime_type_out="text/json;charset=UTF-8";
-		new PrintWriter(body_out).print(data.toString());
+		PrintWriter pw=new PrintWriter(body_out);
+		pw.print(data.toString());
+		pw.flush();
 	}
 
 	@Override

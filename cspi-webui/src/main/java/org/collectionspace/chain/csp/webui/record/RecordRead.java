@@ -208,6 +208,7 @@ public class RecordRead implements WebMethod {
 		} catch (UnimplementedException e) {
 			throw new UIException("Unimplemented",e);
 		} catch (UnderlyingStorageException x) {
+			// XXX dan to fix exception handling during Nov 2010
 			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
 			return uiexception.getJSON();
 		} catch (JSONException e) {

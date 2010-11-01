@@ -34,6 +34,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIUmbrella;
@@ -131,34 +132,35 @@ public class ChainServlet extends HttpServlet  {
 		String[] path=req.getPrincipalPath();
 		if(path.length!=1)
 			return false;
-		return path[0]=="composite";
+		return "composite".equals(path[0]);
 	}
 
 	/* We do all this very sequentially rather than in one big loop to avoid the fear of weird races and to fail early on parse errors */
 	private void serve_composite(UI ui,WebUIRequest req) throws UIException {
 		try {
 			// Extract JSON request payload
-			JSONObject in=req.getPostBody();
+			JSONObject in=req.getJSONBody();
 			// Build composite object for each subrequest
-			Map <String,CompositeWebUIRequest> subrequests=new HashMap<String,CompositeWebUIRequest>();
+			Map <String,CompositeWebUIRequestPart> subrequests=new HashMap<String,CompositeWebUIRequestPart>();
 			Iterator<?> ki=in.keys();
 			while(ki.hasNext()) {
 				String key=(String)ki.next();
 				JSONObject value=in.getJSONObject(key);
-				CompositeWebUIRequest sub=new CompositeWebUIRequest(req,value);
+				CompositeWebUIRequestPart sub=new CompositeWebUIRequestPart(req,value);
 				subrequests.put(key,sub);
 			}
 			// Build a place for results
 			JSONObject out=new JSONObject();
 			// Execute each composite object
 			for(String key : subrequests.keySet()) {
-				CompositeWebUIRequest sub=subrequests.get(key);
+				CompositeWebUIRequestPart sub=subrequests.get(key);
 				ui.serviceRequest(sub);
 				JSONObject value=sub.solidify();
 				out.put(key,value);
 			}
 			// Send result
 			req.sendJSONResponse(out);
+			req.setOperationPerformed(req.getRequestedOperation());
 			req.solidify(true);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
