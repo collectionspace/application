@@ -83,6 +83,7 @@ public class TestBase extends TestData {
 		}
 
 		log.debug("Got cookie " + cookie);
+		cookie=cookie.replaceAll(";.*$","");
 	}
 
 	protected static ServletTester setupJetty() throws Exception {
