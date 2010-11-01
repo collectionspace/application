@@ -98,7 +98,10 @@ public class TestOrgThroughWebapp extends TestBase {
 			out = GETData("/authorities/organization?pageSize=40&pageNum="
 					+ pagenum, jetty);
 			pagenum++;
-			JSONArray results = new JSONObject(out.getContent())
+			String content=out.getContent();
+			System.err.println("XXX If this test fails shortly after this statement, there's a good chance that you don't have the default system file encoding set to UTF8."+
+					           "Unfortunately a library we depend on for the test rarness is badly written with respect to character set handling. We're working on it.\n");
+			JSONArray results = new JSONObject(content)
 					.getJSONArray("items");
 
 			if (results.length() == 0

@@ -77,6 +77,19 @@ public class ConfigFinder {
 		} catch(Exception x) { return null; }
 	}
 
+	private static InputStream getDataFromEnvironmentVariable() {
+		try {
+			String filename=System.getenv("TEST_CONFIG");
+			if(filename==null)
+				return null;
+			File file=new File(filename);
+			if(!file.exists())
+				return null;
+			return new FileInputStream(file);			
+		} catch(Exception x) { return null; }
+	}
+
+	
 	private static InputStream getDataFromClasspath() {
 		try {
 			return Thread.currentThread().getContextClassLoader().getResourceAsStream("cspace-config.xml");
@@ -84,7 +97,10 @@ public class ConfigFinder {
 	}
 	
 	public static InputStream getConfig(ServletContext ctx) throws IOException {
-		InputStream out=getDataFromAttribute(ctx);
+		InputStream out=getDataFromEnvironmentVariable();
+		if(out!=null)
+			return out;
+		out=getDataFromAttribute(ctx);
 		if(out!=null)
 			return out;
 		out=getDataFromAttributePath(ctx);

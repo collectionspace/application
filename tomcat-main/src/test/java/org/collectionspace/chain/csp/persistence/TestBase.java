@@ -41,7 +41,7 @@ public class TestBase extends TestData {
 		// test if need to reset data - only reset it org auth are null
 		HttpTester out = jettyDo(jetty, "GET",
 				"/chain/authorities/organization/?pageSize=1", null);
-		if (out.getStatus() < 299) {
+		if (out.getStatus() <= 299) {
 			JSONArray results = new JSONObject(out.getContent())
 					.getJSONArray("items");
 			if (results.length() == 0) {

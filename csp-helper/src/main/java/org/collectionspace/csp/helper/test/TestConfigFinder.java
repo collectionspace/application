@@ -6,7 +6,10 @@
  */
 package org.collectionspace.csp.helper.test;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Map;
 
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.slf4j.Logger;
@@ -19,18 +22,44 @@ import org.slf4j.LoggerFactory;
  * in JUnit tests without any other dependencies.
  * Its scope is intended to be restricted to use in JUnit tests ONLY.
  */
+/* bconfig-utils needs to be simplified anyway. I'll probably nick this code to replace it. -- dan */
 public class TestConfigFinder {
 
 	private static final Logger log=LoggerFactory.getLogger(TestConfigFinder.class);
 	
-	// xxx_servicesBaseURL moved here from ServicesBaseClass as a staging point before we get rid of it
-	public static final String xxx_servicesBaseURL = "http://localhost:8180"; // only used if everything else fails.
 	public static final String configFilename = "default.xml";
 	
 	// This method only works for Eclipse and not mvn test :( - see below
 	private static final String classNearDefaultXml = "org.collectionspace.chain.controller.ChainServlet"; 
-	
+
 	public static InputStream getConfigStream() throws CSPDependencyException {
+		InputStream out=getConfigStreamViaEnvironmentVariable();
+		if(out!=null)
+			return out;		
+		out=getConfigStreamViaClassLoader();
+		if(out!=null)
+			return out;
+		throw new CSPDependencyException("No config file found by any method");
+	}
+
+	private static InputStream getConfigStreamViaEnvironmentVariable() throws CSPDependencyException {
+		Map<String,String> env_vars=System.getenv();
+		if(env_vars==null)
+			return null;
+		String filename=env_vars.get("TEST_CONFIG");
+		if(filename==null)
+			return null;
+		try {
+			InputStream file = new FileInputStream(filename);
+			if(file==null)
+				throw new CSPDependencyException("Could not open specified file in TEST_CONFIG: "+filename);
+			return file;
+		} catch (FileNotFoundException e) {
+			throw new CSPDependencyException("Could not open specified file in TEST_CONFIG: "+filename);
+		}
+	}
+		
+	private static InputStream getConfigStreamViaClassLoader() throws CSPDependencyException {
 		// TODO next stage will be to move default.xml into here and rename it (CSPACE-1288)
 		// CSPACE-2114 initial (still messy, but better than before) stage is to change 
 		// from 3 files (2x config and default) to just one of them (default.xml hard-coded here)
@@ -51,10 +80,10 @@ public class TestConfigFinder {
 				log.debug("Found config for testing: "+configFilename);
 				return result;
 			} else {
-				throw new NullPointerException();
+				throw new CSPDependencyException("Failed to open config file at "+configFilename);
 			}
 		} catch (Exception e) {
-			throw new CSPDependencyException("Failed to find a config file for unit testing");
+			return null;
 		}
 	}
 }
