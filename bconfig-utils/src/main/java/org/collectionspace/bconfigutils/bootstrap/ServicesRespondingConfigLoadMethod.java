@@ -13,13 +13,15 @@ import java.net.URL;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.log4j.Logger;
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.mortbay.log.Log;
 
 /** Expects a URL, but will only return it if the service layer is working at this URL */
 // XXX CSPACE-88
-public class ServicesRespondingConfigLoadMethod implements ConfigLoadMethod {	
+public class ServicesRespondingConfigLoadMethod implements ConfigLoadMethod {
+	private static final Logger log=Logger.getLogger(ServicesRespondingConfigLoadMethod.class);
+	
 	private boolean ping_socket(String host,int port) {
 		try {
 			Socket s=new Socket(host,port);
@@ -37,7 +39,7 @@ public class ServicesRespondingConfigLoadMethod implements ConfigLoadMethod {
 		try {
 			urld = new URL(url);
 		} catch (MalformedURLException e) {
-			Log.warn("Bad URL "+e);
+			log.warn("Bad URL "+e);
 			return false;
 		}
 		if(!ping_socket(urld.getHost(),urld.getPort()))

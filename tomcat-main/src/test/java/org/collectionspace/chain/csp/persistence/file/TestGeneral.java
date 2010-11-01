@@ -417,6 +417,21 @@ public class TestGeneral extends TestBase {
 	 */
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
 		ServletTester jetty=setupJetty();
+		
+		// clear (avoid paging)
+		JSONArray items=null;
+		while(items==null || items.length()>0) {
+			HttpTester out = GETData("/objects/",jetty);
+			JSONObject result=new JSONObject(out.getContent());
+			items=result.getJSONArray("items");
+			Set<String> files=new HashSet<String>();
+			for(int i=0;i<items.length();i++){
+				String id="/objects/"+items.getJSONObject(i).getString("csid");
+				DELETEData(id,jetty);
+				
+			}
+		}
+		
 		HttpTester out1 = POSTData("/objects",makeSimpleRequest(testStr2),jetty);
 		HttpTester out2 = POSTData("/objects",makeSimpleRequest(testStr2),jetty);
 		HttpTester out3 = POSTData("/objects",makeSimpleRequest(testStr2),jetty);
@@ -425,10 +440,11 @@ public class TestGeneral extends TestBase {
 		
 		// Build up a list of items returned
 		JSONObject result=new JSONObject(out.getContent());
-		JSONArray items=result.getJSONArray("items");
+		items=result.getJSONArray("items");
 		Set<String> files=new HashSet<String>();
 		for(int i=0;i<items.length();i++){
-			files.add("/objects/"+items.getJSONObject(i).getString("csid"));
+			String id="/objects/"+items.getJSONObject(i).getString("csid");
+			files.add(id);
 		}
 
 		/* clean up */
