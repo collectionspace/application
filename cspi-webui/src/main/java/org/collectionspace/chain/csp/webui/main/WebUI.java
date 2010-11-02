@@ -166,6 +166,10 @@ public class WebUI implements CSP, UI, Configurable {
 			addMethod(Operation.READ,new String[]{r.getTabURL(),"uispec"},0,new UISpec(r,"tab"));
 			
 			if(r.isType("authority")){
+				//urls like record urls to make life easier for the UI CSPACE-1139
+				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(r,false));
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(r,true));
+				
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(r,false));
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(r,true));
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"initialize"},0,new AuthoritiesVocabulariesInitialize(r,true));
