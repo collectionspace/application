@@ -57,6 +57,9 @@
 				<destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements</destinationTypes>
     		</relation>
     	</relationships>
+		<schemas>
+			<schema id="recordlist"></schema>
+		</schemas>
         <records>
             <record id="collection-object" in-findedit="yes">
                 <services-url>collectionobjects</services-url>
