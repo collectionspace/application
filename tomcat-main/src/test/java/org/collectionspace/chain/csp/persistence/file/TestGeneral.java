@@ -420,17 +420,7 @@ public class TestGeneral extends TestBase {
 		
 		// clear (avoid paging)
 		JSONArray items=null;
-		while(items==null || items.length()>0) {
-			HttpTester out = GETData("/objects/",jetty);
-			JSONObject result=new JSONObject(out.getContent());
-			items=result.getJSONArray("items");
-			Set<String> files=new HashSet<String>();
-			for(int i=0;i<items.length();i++){
-				String id="/objects/"+items.getJSONObject(i).getString("csid");
-				DELETEData(id,jetty);
-				
-			}
-		}
+
 		
 		HttpTester out1 = POSTData("/objects",makeSimpleRequest(testStr2),jetty);
 		HttpTester out2 = POSTData("/objects",makeSimpleRequest(testStr2),jetty);
@@ -442,11 +432,34 @@ public class TestGeneral extends TestBase {
 		JSONObject result=new JSONObject(out.getContent());
 		items=result.getJSONArray("items");
 		Set<String> files=new HashSet<String>();
-		for(int i=0;i<items.length();i++){
-			String id="/objects/"+items.getJSONObject(i).getString("csid");
-			files.add(id);
-		}
 
+		int pgSz = 100;
+		int pgNum = 0;
+		String objtype = "objects";
+		String itemmarker = "items";
+		boolean exists = false;
+		boolean end = false;
+		// Page through 
+		do {
+			out = GETData("/" + objtype + "/?pageNum=" + pgNum + "&pageSize=" + pgSz, jetty);
+			assertEquals(200, out.getStatus());
+
+			/* create list of files */
+
+			JSONObject result1 = new JSONObject(out.getContent());
+			JSONArray items1 = result1.getJSONArray(itemmarker);
+			if (items1.length() > 0) {
+				for (int i = 0; i < items1.length(); i++) {
+					files.add("/" + objtype + "/"
+							+ items1.getJSONObject(i).getString("csid"));
+				}
+			} else {
+				end = true;
+			}
+
+			exists = files.contains(out1.getHeader("Location")) && files.contains(out2.getHeader("Location")) && files.contains(out3.getHeader("Location"));
+			pgNum++;
+		} while (!end && !exists);
 		/* clean up */
 		DELETEData(out1.getHeader("Location"),jetty);
 		DELETEData(out2.getHeader("Location"),jetty);
