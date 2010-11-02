@@ -21,6 +21,7 @@ import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Schemas;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesInitialize;
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesSearchList;
@@ -154,8 +155,10 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"find-edit","uispec"},0,new FindEditUISpec(spec.getAllRecords()));
 		addMethod(Operation.CREATE,new String[]{"passwordreset"},0,new UserDetailsReset(false,spec));
 		addMethod(Operation.CREATE,new String[]{"resetpassword"},0,new UserDetailsReset(true,spec));
-		addMethod(Operation.READ,new String[]{"global","uischema"},1,new UISchema(spec));
 
+		for(Schemas s : spec.getAllSchemas()){
+			addMethod(Operation.READ,new String[]{s.getWebURL(), "uischema" },0,new UISchema(spec,s));
+		}
 		addMethod(Operation.READ,new String[]{"generator"},0,new DataGenerator(spec));
 		for(Record r : spec.getAllRecords()) {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"generator"},0,new DataGenerator(r,"screen"));

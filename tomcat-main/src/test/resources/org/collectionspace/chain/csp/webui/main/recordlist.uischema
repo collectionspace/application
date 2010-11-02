@@ -1,5 +1,5 @@
 {
-    "recordList": {
+    "recordlist": {
         "default": ["person", "intake", "location", "loanin", "loanout", "contact", "acquisition", "organization", "objects", "movement"],
         "type": "array"
     }

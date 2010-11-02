@@ -35,6 +35,7 @@ public class Spec implements CSP, Configurable {
 
 	private Map<String,Record> records=new HashMap<String,Record>();
 	private Map<String,Relationship> relationships=new HashMap<String,Relationship>();
+	private Map<String,Schemas> schemas=new HashMap<String,Schemas>();
 	
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
@@ -81,6 +82,18 @@ public class Spec implements CSP, Configurable {
 				return Spec.this;
 			}
 		});
+
+		/* SPEC/schemas -> SCHEMAS */
+		rules.addRule(SECTION_PREFIX+"spec",new String[]{"schemas"},SECTION_PREFIX+"schemas",null,null);
+		/* RELATIONSHIPS/relation -> RELATION(@id) */
+		rules.addRule(SECTION_PREFIX+"schemas",new String[]{"schema"},SECTION_PREFIX+"schema",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Schemas s=new Schemas(Spec.this,section);
+				schemas.put(s.getID(),s);
+				return s;
+			}
+		});
+
 
 		/* SPEC/relationships -> RELATIONSHIPS */
 		rules.addRule(SECTION_PREFIX+"spec",new String[]{"relationships"},SECTION_PREFIX+"relationships",null,null);
@@ -292,6 +305,11 @@ public class Spec implements CSP, Configurable {
 	public Boolean hasRelationship(String id){ if(relationships.containsKey(id)){return true;} else return false;}
 	public Relationship getRelation(String id) { return relationships.get(id); }
 	public Relationship[] getAllRelations(){ return relationships.values().toArray(new Relationship[0]); }
+	
+
+	public Boolean hasSchema(String id){ if(schemas.containsKey(id)){return true;} else return false;}
+	public Schemas getSchema(String id) { return schemas.get(id); }
+	public Schemas[] getAllSchemas(){ return schemas.values().toArray(new Schemas[0]); }
 	
 	public Boolean hasRecord(String id){ if(records.containsKey(id)){return true;} else return false;}
 	public Boolean hasRecordByServicesUrl(String url) { return records_by_services_url.containsKey(url); }

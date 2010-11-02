@@ -12,6 +12,7 @@ import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
+import org.collectionspace.chain.csp.schema.Schemas;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebUI;
@@ -27,6 +28,7 @@ public class UISchema extends UISpec {
 	private static final Logger log = LoggerFactory.getLogger(UISchema.class);
 	protected JSONObject controlledCache;
 	private Spec spec;
+	private Schemas schema;
 
 
 	public UISchema(Record record, String structureview) {
@@ -34,6 +36,12 @@ public class UISchema extends UISpec {
 	}
 	public UISchema(Spec spec) {
 		super();
+		this.spec = spec;
+		this.record = null;
+	}
+	public UISchema(Spec spec, Schemas s) {
+		super();
+		this.schema = s;
 		this.spec = spec;
 		this.record = null;
 	}
@@ -151,9 +159,14 @@ public class UISchema extends UISpec {
 
 	private JSONObject uiotherschema(Storage storage, String params) throws UIException {
 		JSONObject out = new JSONObject();
-
+		String sectionname = "";
+		String sectionid = params.toLowerCase();
+		if(schema !=null){
+			sectionid = schema.getID();
+			sectionname = schema.getWebURL();
+		}
 		try {
-			if (params.toLowerCase().equals("recordlist")) {
+			if (sectionid.toLowerCase().equals("recordlist")) {
 				JSONObject schema = new JSONObject();
 				JSONArray recrds = new JSONArray();
 				for(Record rc : this.spec.getAllRecords()){
@@ -165,7 +178,7 @@ public class UISchema extends UISpec {
 				}
 				schema.put("type", "array");
 				schema.put("default", recrds);
-				out.put(params, schema);
+				out.put(sectionname, schema);
 			}
 		} catch (JSONException e) {
 			throw new UIException("Cannot generate UISpec due to JSONException", e);
@@ -195,7 +208,7 @@ public class UISchema extends UISpec {
 
 			out.put(record.getWebURL(), details);
 			/*
-			 * { "objects": { "type": "object", "properties": {
+			 * { "cataloging": { "type": "object", "properties": {
 			 */
 
 			return out;
