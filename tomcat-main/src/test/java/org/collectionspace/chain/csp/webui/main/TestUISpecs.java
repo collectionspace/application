@@ -37,6 +37,7 @@ public class TestUISpecs extends TestBase {
 
 		response = GETData(url, jetty);
 
+		log.info("GENERATED" + response.getContent());
 		generated = new JSONObject(response.getContent());
 		comparison = new JSONObject(getResourceString(uijson));
 		log.info("BASELINE" + comparison.toString());
@@ -50,12 +51,14 @@ public class TestUISpecs extends TestBase {
 	public void testUISpec() throws Exception {
 		ServletTester jetty = setupJetty();
 
-		 uispec(jetty,"/global/uischema/recordList","recordlist.uischema");
+		// uispec(jetty,"/recordlist/uischema","recordlist.uischema");
+		 
+		 
 		// uispec(jetty,"/acquisition/uispec","acquisition.uispec");
 		// uispec(jetty,"/movement/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
 		// uispec(jetty,"/person/generator?quantity=10","acquisition.uispec");
-		// uispec(jetty,"/objects/uispec","collection-object.uispec");
+		// uispec(jetty,"/cataloging/uispec","collection-object.uispec");
 		// uispec(jetty,"/intake/serviceschema","collection-object.uispec");
 		// uispec(jetty,"/role/uischema","collection-object.uischema");
 		// uispec(jetty,"/object-tab/uispec","object-tab.uispec");
