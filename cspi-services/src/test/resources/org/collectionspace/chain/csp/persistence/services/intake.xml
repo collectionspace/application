@@ -5,12 +5,12 @@
     <currentLocationList>
         <currentLocationGroup>
             <currentLocation/>
-            <currentLocationFitness>suitable</currentLocationNote>
+            <currentLocationFitness>suitable</currentLocationFitness>
             <currentLocationNote>this is a note about the first location</currentLocationNote>
         </currentLocationGroup>
         <currentLocationGroup>
             <currentLocation/>
-            <currentLocationFitness>dangerous</currentLocationNote>
+            <currentLocationFitness>dangerous</currentLocationFitness>
             <currentLocationNote>this is a note about the second location</currentLocationNote>
         </currentLocationGroup>
     </currentLocationList>
