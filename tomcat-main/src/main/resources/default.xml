@@ -1070,16 +1070,18 @@
                     <selector>.csc-intake-insurer</selector>
                     <field id="insurer" autocomplete="person-person,organization-organization"></field>
                 </repeat>
-                <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
-                <field id="currentLocation">
-                    <selector>.csc-intake-current-location</selector>
-                </field>
-                <field id="currentLocationFitness" autocomplete="vocab-conditionfitness" ui-type="enum">
-                    <selector>.csc-intake-current-location-fitness</selector>
-                </field>
-                <field id="currentLocationNote">
-                    <selector>.csc-intake-current-location-note</selector>
-                </field>
+                <repeat id="currentLocationList/currentLocationGroup">
+                    <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
+                    <field id="currentLocation">
+                        <selector>.csc-intake-current-location</selector>
+                    </field>
+                    <field id="currentLocationFitness" autocomplete="vocab-conditionfitness" ui-type="enum">
+                        <selector>.csc-intake-current-location-fitness</selector>
+                    </field>
+                    <field id="currentLocationNote">
+                        <selector>.csc-intake-current-location-note</selector>
+                    </field>
+                </repeat>
                 <field id="locationDate" ui-type="date">
                     <selector>.csc-intake-location-date</selector>
                 </field>

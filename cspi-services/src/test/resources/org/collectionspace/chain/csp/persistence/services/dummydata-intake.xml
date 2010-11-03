@@ -46,9 +46,13 @@
                 </insurers>
 
                 <!-- Object Location Information Group -->
-                <currentLocation>Afghanistan</currentLocation>
-                <currentLocationFitness>Probably not too good</currentLocationFitness>
-                <currentLocationNote>Careful with them talibans</currentLocationNote>
+                <currentLocationList>
+                    <currentLocationGroup>
+                        <currentLocation>Afghanistan</currentLocation>
+                        <currentLocationFitness>Probably not too good</currentLocationFitness>
+                        <currentLocationNote>Hazards presented by earthquakes and military activities</currentLocationNote>
+                    </currentLocationGroup>
+                </currentLocationList>
                 <locationDate>Jul 15, 2009</locationDate>
                 <normalLocation>At home</normalLocation>
 

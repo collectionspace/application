@@ -2,4 +2,16 @@
 <ns2:intakes_common xmlns:ns2="http://collectionspace.org/services/intake" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/intake http://services.collectionspace.org/intake/intakes_common.xsd">
     <entryNumber>IN2010.2</entryNumber>
     <depositor>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(Alfred L. Kroeber)'Alfred L. Kroeber'</depositor>
+    <currentLocationList>
+        <currentLocationGroup>
+            <currentLocation/>
+            <currentLocationFitness>suitable</currentLocationNote>
+            <currentLocationNote>this is a note about the first location</currentLocationNote>
+        </currentLocationGroup>
+        <currentLocationGroup>
+            <currentLocation/>
+            <currentLocationFitness>dangerous</currentLocationNote>
+            <currentLocationNote>this is a note about the second location</currentLocationNote>
+        </currentLocationGroup>
+    </currentLocationList>
 </ns2:intakes_common>
