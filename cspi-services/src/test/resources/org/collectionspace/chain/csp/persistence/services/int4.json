@@ -25,9 +25,19 @@
   "insuranceReferenceNumber": "insuranceReferenceNumberX",
   "insuranceRenewalDate": "insuranceRenewalDateX",
   "insurer": "insurerX",
-  "currentLocation": "currentLocationX",
-  "currentLocationFitness": "currentLocationFitnessX",
-  "currentLocationNote": "currentLocationNoteX",
+  "currentLocationGroup": [
+        {
+            "_primary": true,
+            "currentLocationFitness": "suitable",
+            "currentLocation": "upstairs",
+            "currentLocationNote": "this is a note about the upstairs location"
+        },
+        {
+            "currentLocationFitness": "dangerous",
+            "currentLocation": "downstairs",
+            "currentLocationNote": "this is a note about the downstairs location"
+        }
+    ],
   "locationDate": "locationDateX",
   "normalLocation": "normalLocationX",
   "conditionCheckDate": "conditionCheckDateX",

@@ -4,14 +4,14 @@
     <depositor>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(Alfred L. Kroeber)'Alfred L. Kroeber'</depositor>
     <currentLocationList>
         <currentLocationGroup>
-            <currentLocation/>
+            <currentLocation>upstairs</currentLocation>
             <currentLocationFitness>suitable</currentLocationFitness>
-            <currentLocationNote>this is a note about the first location</currentLocationNote>
+            <currentLocationNote>this is a note about the upstairs location</currentLocationNote>
         </currentLocationGroup>
         <currentLocationGroup>
-            <currentLocation/>
+            <currentLocation>downstairs</currentLocation>
             <currentLocationFitness>dangerous</currentLocationFitness>
-            <currentLocationNote>this is a note about the second location</currentLocationNote>
+            <currentLocationNote>this is a note about the downstairs location</currentLocationNote>
         </currentLocationGroup>
     </currentLocationList>
 </ns2:intakes_common>
