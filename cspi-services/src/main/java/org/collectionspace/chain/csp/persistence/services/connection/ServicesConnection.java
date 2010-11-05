@@ -157,7 +157,7 @@ public class ServicesConnection {
 					requestContext  = "HttpClient@" + Integer.toHexString(client.hashCode());
 					requestContext += "/CSPRequestCache@" + Integer.toHexString(cache.hashCode()) + ",";
 					//String queryString = method.getQueryString();
-					perflog.debug("  app,svc," + requestContext
+					perflog.debug(System.currentTimeMillis()+",\""+Thread.currentThread().getName()+"\",app,svc," + requestContext
 							+ method.getName() + " " + method.getURI()
 							//+ (queryString!=null ? queryString : "")
 									);
@@ -166,7 +166,7 @@ public class ServicesConnection {
 				int response=client.executeMethod(method);
 
 				if(perflog.isDebugEnabled()) {
-					perflog.debug("  svc,app," + requestContext + "HttpClient.executeMethod done");
+					perflog.debug(System.currentTimeMillis()+",\""+Thread.currentThread().getName()+"\",svc,app," + requestContext + "HttpClient.executeMethod done");
 				}
 
 				out.setResponse(method,response);

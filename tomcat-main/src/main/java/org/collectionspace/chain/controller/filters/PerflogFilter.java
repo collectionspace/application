@@ -36,12 +36,12 @@ public class PerflogFilter implements Filter {
 			// TODO might want to add more context e.g. sessionid etc
 			String contextString = "HttpServletRequest@" + Integer.toHexString(hreq.hashCode()) + ",";
 			String queryString = hreq.getQueryString();
-			perflog.debug("ui,app," + contextString
+			perflog.debug(System.currentTimeMillis()+",\""+Thread.currentThread().getName()+"\",ui,app," + contextString
 					+ hreq.getMethod() + " " + hreq.getPathInfo()
 					+ (queryString!=null ? "?" + queryString : "")
 					+ " " + hreq.getContentLength());
 			filterChain.doFilter(req,resp);
-			perflog.debug("app,ui," + contextString + "FilterChain.doFilter done");
+			perflog.debug(System.currentTimeMillis()+",\""+Thread.currentThread().getName()+"\",app,ui," + contextString + "FilterChain.doFilter done");
 		}
 	}
 
