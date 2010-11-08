@@ -263,7 +263,8 @@ public class TestBase extends TestData {
 	protected void DELETEData(String id, ServletTester jetty) throws IOException, Exception {
 
 		HttpTester out=jettyDo(jetty,"DELETE","/chain"+id,null);
-		assertTrue("Status "+Integer.toString(out.getStatus())+" was wrong for a DELETE url: /chain"+id +"/n"+out.getContent(),testStatus("DELETE",out.getStatus()));
+		Integer status = getStatus(out.getContent(),  out.getStatus());
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a DELETE url: /chain"+id +"/n"+out.getContent(),testStatus("DELETE",status));
 		log.debug(id+":"+out.getContent());
 		
 		//out=jettyDo(jetty,"GET","/chain"+id,null);
