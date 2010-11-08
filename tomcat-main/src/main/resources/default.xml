@@ -1591,7 +1591,8 @@
                         <title>Default Organization Authority</title>
                     </instance>
                 </instances>
-                <field id="displayName" in-title="yes" display-name="yes">
+                <field id="displayName" in-title="yes" display-name="yes"
+                        mini="summary,list,search,relate,terms">
                     <selector>.csc-organizationAuthority-displayName</selector>
                     <title-selector>.csc-titleBar-displayName</title-selector>
                 </field>
@@ -1605,9 +1606,17 @@
                         <option id="rejected">Rejected</option>
                     </options>
                 </field>
-                <field id="longName" mini="summary,list,search,relate,terms">
-                    <selector>.csc-organizationAuthority-longName</selector>
-                </field>
+                <repeat id="mainBodyGroupList/mainBodyGroup">
+                    <field id="longName"> <!-- mini="summary,list,search,relate,terms" moved to displayName -->
+                        <selector>.csc-organizationAuthority-longName</selector>
+                    </field>
+                    <field id="shortName">
+                        <selector>.csc-organizationAuthority-shortName</selector>
+                    </field>
+                    <field id="nameAdditions">
+                        <selector>.csc-organizationAuthority-nameAdditions</selector>
+                    </field>
+                </repeat>
                 <repeat id="subBodies">
                     <field id="subBody" autocomplete="organization-organization">
                         <selector>.csc-organizationAuthority-subBodyName</selector>

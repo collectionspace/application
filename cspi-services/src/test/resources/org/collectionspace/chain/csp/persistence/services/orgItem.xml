@@ -8,10 +8,14 @@
   <contactName>John Doe</contactName>
   </contactNames>
   <shortIdentifier>example</shortIdentifier>
-  <longName>The Original Example Museum of Berkeley, CA</longName>
+  <mainBodyGroupList>
+      <mainBodyGroup>
+          <longName>The Original Example Museum of Berkeley, CA</longName>
+          <shortName>Example Museum</shortName>
+          <nameAdditions>University of California, Berkeley</nameAdditions>
+      </mainBodyGroup>
+  </mainBodyGroupList>
   <refName>
    urn:cspace:org.collectionspace.demo:orgauthority:name(oragnization):organization:name(example)'Example Museum, Berkeley, CA'
   </refName>
-  <shortName>Example Museum</shortName>
-  <nameAdditions>University of California, Berkeley</nameAdditions>
 </ns2:organizations_common>
