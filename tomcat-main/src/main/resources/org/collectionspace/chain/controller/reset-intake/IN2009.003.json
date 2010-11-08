@@ -36,9 +36,19 @@
 	"InsuranceReferenceNumber": "00101010101",
 	"insuranceRenewalDate": "tomorrow",
 	"insurer": "Carl Goodman",
-	"currentLocation": "upstairs",
-	"currentLocationFitness": "perfect",
-	"currentLocationNote": "do not look at or breath on",
+	"currentLocationGroup": [
+            {
+                "_primary": true,
+                "currentLocationFitness": "suitable",
+                "currentLocation": "upstairs",
+                "currentLocationNote": "this is a note about the upstairs location"
+            },
+            {
+                "currentLocationFitness": "dangerous",
+                "currentLocation": "downstairs",
+                "currentLocationNote": "this is a note about the downstairs location"
+            }
+        ],
 	"locationDate": "yesterday",
 	"normalLocation": "foot rest",
 	"conditionCheckDate": "",

@@ -7,7 +7,14 @@
     "numObjects": "",
     "conditionCheckNote": "",
     "InsuranceReferenceNumber": "",
-    "currentLocationFitness": "",
+    "currentLocationGroup": [
+        {
+            "_primary": true,
+            "currentLocationFitness": "",
+            "currentLocation": "",
+            "currentLocationNote": ""
+        }
+    ],
     "donor": "",
     "description": "",
     "entryMethods": [{
@@ -16,7 +23,6 @@
     "insuranceNote": "",
     "conditionCheckMethod": "",
     "entryNote": "",
-    "currentLocationNote": "",
     "conditionCheckDate": "",
     "insurer": "",
     "Valuer": "",
@@ -46,7 +52,6 @@
     "packingNote": "",
     "latestDateQualifier": "",
     "datePeriod": "",
-    "currentLocation": "",
     "conditionCheckReason": "",
     "responsibleEntity": "",
     "fieldCollectionNumber": "",
