@@ -196,7 +196,7 @@ public class TestOrgThroughWebapp {
 		// Search
 		//Nuxeos rebuild borks this test - lost partial matching
 		//out = GETData("/vocabularies/organization/search?query=Test+Organ", jetty);
-		out = GETData("/vocabularies/organization/search?query=Test+Organization", jetty);
+		out = jettyDo(jetty,"GET","/chain/vocabularies/organization/search?query=Test+Organization+XXX",null);
 		assertTrue(out.getStatus()<299);
 			
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");

@@ -1002,5 +1002,12 @@ log.info(out.getContent());
 		
 	}
 
-
+/*
+	@Test public void testReset() throws Exception {
+		ServletTester jetty = setupJetty();
+		HttpTester out=jettyDo(jetty,"GET","/chain/reset",null);
+			System.err.println("Reason:"+out.getReason());
+		assertEquals(200,out.getStatus());
+	}
+*/
 }
