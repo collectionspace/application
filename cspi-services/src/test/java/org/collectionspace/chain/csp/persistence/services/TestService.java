@@ -57,7 +57,7 @@ public class TestService extends ServicesBaseClass {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
 		
-		assertNotNull(stream);
+		assertNotNull("missing file:"+in,stream);
 		String data=IOUtils.toString(stream,"UTF-8");
 		stream.close();	
 		return new JSONObject(data);
@@ -78,7 +78,7 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
 		testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
-   //             testXMLJSON(spec,"intake","intake.xml","intake.json");
+		//testXMLJSON(spec,"intake","intake.xml","intake.json");
 		testXMLJSON(spec,"movement","movement.xml","movement.json");
 		testXMLJSON(spec,"role","role.xml","role.json");
 		testXMLJSON(spec,"permrole","rolepermissions.xml","rolepermissions.json");
