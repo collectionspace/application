@@ -14,7 +14,7 @@ public class TestComposite extends TestBase {
 	
 	private JSONObject createCompositePOSTPartJSON(String payload) throws JSONException {
 		JSONObject out=new JSONObject();
-		out.put("path","/objects/");
+		out.put("path","/cataloging/");
 		out.put("method","POST");
 		out.put("body",payload);
 		return out;
@@ -61,9 +61,9 @@ public class TestComposite extends TestBase {
 		assertEquals("201",q1.getString("status"));
 		assertEquals("201",q2.getString("status"));
 		assertEquals("201",q3.getString("status"));
-		assertTrue(q1.getString("redirect").startsWith("/objects/"));
-		assertTrue(q2.getString("redirect").startsWith("/objects/"));
-		assertTrue(q3.getString("redirect").startsWith("/objects/"));
+		assertTrue(q1.getString("redirect").startsWith("/cataloging/"));
+		assertTrue(q2.getString("redirect").startsWith("/cataloging/"));
+		assertTrue(q3.getString("redirect").startsWith("/cataloging/"));
 		String id1=q1.getString("redirect");
 		String id2=q2.getString("redirect");
 		String id3=q3.getString("redirect");
