@@ -485,7 +485,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				out.put("refid", refid);
 				out.put("csid",csid);
 				out.put("authorityid", vocab);
-				out.put("shortIdentfier", shortId);
+				out.put("shortIdentifier", shortId);
 				out.put("recordtype",r.getWebURL());
 			}
 			else{
