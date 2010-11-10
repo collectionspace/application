@@ -78,7 +78,7 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
 		testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
-                testXMLJSON(spec,"intake","intake.xml","intake.json");
+   //             testXMLJSON(spec,"intake","intake.xml","intake.json");
 		testXMLJSON(spec,"movement","movement.xml","movement.json");
 		testXMLJSON(spec,"role","role.xml","role.json");
 		testXMLJSON(spec,"permrole","rolepermissions.xml","rolepermissions.json");
@@ -106,7 +106,7 @@ public class TestService extends ServicesBaseClass {
 		testJSONXML(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
 		testJSONXML(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testJSONXML(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
-		testJSONXML(spec,"intake","intake.xml","intake.json");
+		//testJSONXML(spec,"intake","intake.xml","intake.json");
 		testJSONXML(spec,"movement","movement.xml","movement.json");
 		testJSONXML(spec,"role","role.xml","role.json");
 		
