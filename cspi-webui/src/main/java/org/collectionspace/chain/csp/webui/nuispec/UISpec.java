@@ -678,7 +678,7 @@ public class UISpec implements WebMethod {
 		JSONObject out=new JSONObject();
 		generateSideDataEntry(s, out,"termsUsed","${items.0.recordtype}.html",true,false,true, affix);
 		generateSideDataEntry(s, out,"relatedProcedures","${items.0.recordtype}.html",true,true,false, affix);
-		generateSideDataEntry(s, out,"relatedObjects","${items.0.recordtype}.html",false,true,false, affix);
+		generateSideDataEntry(s, out,"relatedCataloging","${items.0.recordtype}.html",false,true,false, affix);
 		return out;
 	}
 
