@@ -64,7 +64,6 @@ public class TestRestrictedPermissions extends TestBase{
 		}
 	}
 	
-*/
 	
 	@Before public void createUsers() throws Exception{
 
@@ -123,4 +122,5 @@ public class TestRestrictedPermissions extends TestBase{
 	}
 	
 	
+*/
 }
