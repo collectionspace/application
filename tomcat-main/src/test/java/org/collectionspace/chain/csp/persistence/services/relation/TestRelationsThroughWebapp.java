@@ -42,14 +42,14 @@ public class TestRelationsThroughWebapp extends TestBase {
 	@Test
 	public void testRelationsCreate() throws Exception {
 		ServletTester jetty = setupJetty();
-		// First create a couple of objects
-		HttpTester out = POSTData("/objects/",
+		// First create a couple of cataloging
+		HttpTester out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
@@ -72,11 +72,11 @@ public class TestRelationsThroughWebapp extends TestBase {
 		JSONObject data1 = new JSONObject(out.getContent());
 		// that the destination is 3
 		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray(
-				"objects");
+				"cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
 		JSONObject mini1 = rel1.getJSONObject(0);
-		assertEquals("objects", mini1.getString("recordtype"));
+		assertEquals("cataloging", mini1.getString("recordtype"));
 		assertEquals(mini1.getString("csid"), path3[2]);
 		String rida = mini1.getString("relid");
 
@@ -86,10 +86,10 @@ public class TestRelationsThroughWebapp extends TestBase {
 		assertEquals("affects", rd1.getString("type"));
 		assertEquals(rida, rd1.getString("csid"));
 		JSONObject src1 = rd1.getJSONObject("source");
-		assertEquals("objects", src1.getString("recordtype"));
+		assertEquals("cataloging", src1.getString("recordtype"));
 		assertEquals(path1[2], src1.get("csid"));
 		JSONObject dst1 = rd1.getJSONObject("target");
-		assertEquals("objects", dst1.getString("recordtype"));
+		assertEquals("cataloging", dst1.getString("recordtype"));
 		assertEquals(path3[2], dst1.get("csid"));
 
 		// Check that 2 has no relations at all
@@ -104,7 +104,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		JSONObject data3 = new JSONObject(out.getContent());
 		// untangle them
 		JSONArray rel3 = data3.getJSONObject("relations").getJSONArray(
-				"objects");
+				"cataloging");
 		assertNotNull(rel3);
 		assertEquals(2, rel3.length());
 		int i0 = 0, i1 = 1;
@@ -118,10 +118,10 @@ public class TestRelationsThroughWebapp extends TestBase {
 		JSONObject rel31 = rel3.getJSONObject(i0);
 		JSONObject rel32 = rel3.getJSONObject(i1);
 		// check desintations
-		assertEquals("objects", rel31.getString("recordtype"));
+		assertEquals("cataloging", rel31.getString("recordtype"));
 		assertEquals(rel31.getString("csid"), path1[2]);
 		String rid31 = rel31.getString("relid");
-		assertEquals("objects", rel32.getString("recordtype"));
+		assertEquals("cataloging", rel32.getString("recordtype"));
 		assertEquals(rel32.getString("csid"), path2[2]);
 		String rid32 = rel32.getString("relid");
 		// check actual records
@@ -131,10 +131,10 @@ public class TestRelationsThroughWebapp extends TestBase {
 		assertEquals("affects", rd31.getString("type"));
 		assertEquals(rid31, rd31.getString("csid"));
 		JSONObject src31 = rd31.getJSONObject("source");
-		assertEquals("objects", src31.getString("recordtype"));
+		assertEquals("cataloging", src31.getString("recordtype"));
 		assertEquals(path3[2], src31.get("csid"));
 		JSONObject dst31 = rd31.getJSONObject("target");
-		assertEquals("objects", dst31.getString("recordtype"));
+		assertEquals("cataloging", dst31.getString("recordtype"));
 		assertEquals(path1[2], dst31.get("csid"));
 		// 3 -> 2
 		out = GETData("/relationships/" + rid32, jetty);
@@ -142,10 +142,10 @@ public class TestRelationsThroughWebapp extends TestBase {
 		assertEquals("affects", rd32.getString("type"));
 		assertEquals(rid32, rd32.getString("csid"));
 		JSONObject src32 = rd32.getJSONObject("source");
-		assertEquals("objects", src32.getString("recordtype"));
+		assertEquals("cataloging", src32.getString("recordtype"));
 		assertEquals(path3[2], src32.get("csid"));
 		JSONObject dst32 = rd32.getJSONObject("target");
-		assertEquals("objects", dst32.getString("recordtype"));
+		assertEquals("cataloging", dst32.getString("recordtype"));
 		assertEquals(path2[2], dst32.get("csid"));
 
 		/* clean up */
@@ -177,15 +177,15 @@ public class TestRelationsThroughWebapp extends TestBase {
 	@Test
 	public void testRelationsMissingOneWay() throws Exception {
 		ServletTester jetty = setupJetty();
-		// First create a couple of objects
-		HttpTester out = POSTData("/objects/",
+		// First create a couple of cataloging
+		HttpTester out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 
 		String id1 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
@@ -202,13 +202,13 @@ public class TestRelationsThroughWebapp extends TestBase {
 		out = GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
 		JSONArray rel3 = data3.getJSONObject("relations").getJSONArray(
-				"objects");
+				"cataloging");
 		assertNotNull(rel3);
 		assertEquals(1, rel3.length());
 		out = GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
 		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray(
-				"objects");
+				"cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
 
@@ -222,14 +222,14 @@ public class TestRelationsThroughWebapp extends TestBase {
 	@Test
 	public void testMultipleCreate() throws Exception {
 		ServletTester jetty = setupJetty();
-		// Create test objects
-		HttpTester out = POSTData("/objects/",
+		// Create test cataloging
+		HttpTester out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
@@ -250,7 +250,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		out = GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
 		JSONArray rel3 = data3.getJSONObject("relations").getJSONArray(
-				"objects");
+				"cataloging");
 		assertNotNull(rel3);
 		assertEquals(2, rel3.length());
 
@@ -264,14 +264,14 @@ public class TestRelationsThroughWebapp extends TestBase {
 	@Test
 	public void testUpdate() throws Exception {
 		ServletTester jetty = setupJetty();
-		// Create test objects
-		HttpTester out = POSTData("/objects/",
+		// Create test cataloging
+		HttpTester out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
@@ -299,7 +299,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		out = GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
 		JSONArray rel2 = data2.getJSONObject("relations").getJSONArray(
-				"objects");
+				"cataloging");
 		
 		out = GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
@@ -327,7 +327,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		HttpTester out = POSTData("/intake/",
 				makeSimpleRequest(getResourceString("2007.4-a.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
 		out = POSTData("/acquisition/",
@@ -352,7 +352,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		out = GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
 		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray(
-				"objects");
+				"cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
 		out = GETData(id2, jetty);
@@ -415,7 +415,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		// Check it
 		out = GETData(id1, jetty);
 		data1 = new JSONObject(out.getContent());
-		rel1 = data1.getJSONObject("relations").getJSONArray("objects");
+		rel1 = data1.getJSONObject("relations").getJSONArray("cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
 		out = GETData(id2, jetty);
@@ -438,9 +438,9 @@ public class TestRelationsThroughWebapp extends TestBase {
 
 	@Test
 	public void testRelationshipType() throws Exception {
-		// Create test objects
+		// Create test cataloging
 		ServletTester jetty = setupJetty();
-		HttpTester out = POSTData("/objects/",
+		HttpTester out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
 		out = POSTData("/intake/",
@@ -464,11 +464,11 @@ public class TestRelationsThroughWebapp extends TestBase {
 		out = GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
 		JSONArray rels2 = data2.getJSONObject("relations").getJSONArray(
-				"objects");
+				"cataloging");
 		assertNotNull(rels2);
 		assertEquals(1, rels2.length());
 		JSONObject rel2 = rels2.getJSONObject(0);
-		assertEquals(rel2.getString("recordtype"), "objects");
+		assertEquals(rel2.getString("recordtype"), "cataloging");
 
 		// clean up after
 		DELETEData("/relationships/" + csid, jetty);
@@ -486,11 +486,11 @@ public class TestRelationsThroughWebapp extends TestBase {
 				.getJSONArray("items");
 		Integer offset = items.length();
 		// assertEquals(0,items.length());
-		// Create some objects
+		// Create some cataloging
 		out = POSTData("/intake/",
 				makeSimpleRequest(getResourceString("2007.4-a.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
 		out = POSTData("/acquisition/",
@@ -579,11 +579,11 @@ public class TestRelationsThroughWebapp extends TestBase {
 				.getJSONArray("items");
 		Integer offset = itemsall.length();
 
-		// Create some objects
+		// Create some cataloging
 		out = POSTData("/intake/",
 				makeSimpleRequest(getResourceString("2007.4-a.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/objects/",
+		out = POSTData("/cataloging/",
 				makeSimpleRequest(getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
 		out = POSTData("/acquisition/",

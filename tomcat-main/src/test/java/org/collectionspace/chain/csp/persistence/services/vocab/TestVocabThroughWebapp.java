@@ -163,7 +163,7 @@ public class TestVocabThroughWebapp extends TestBase {
 		ServletTester jetty = setupJetty();
 
 		HttpTester out = GETData(
-				"/objects/source-vocab/inscriptionContentLanguage", jetty);
+				"/cataloging/source-vocab/inscriptionContentLanguage", jetty);
 
 		JSONArray data = new JSONArray(out.getContent());
 		boolean test = false;

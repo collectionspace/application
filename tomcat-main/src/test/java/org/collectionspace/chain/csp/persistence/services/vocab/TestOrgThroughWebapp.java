@@ -397,7 +397,7 @@ public class TestOrgThroughWebapp extends TestBase {
 		log.info("ORG : AutocompleteRedirect : test_start");
 		ServletTester jetty = setupJetty();
 
-		HttpTester out = GETData("/objects/source-vocab/contentOrganization",
+		HttpTester out = GETData("/cataloging/source-vocab/contentOrganization",
 				jetty);
 		JSONArray data = new JSONArray(out.getContent());
 		boolean test = false;

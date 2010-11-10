@@ -44,7 +44,7 @@ public class TestRestrictedPermissions extends TestBase{
 
 	/* XXX All these tests are disabled due to roles and permissions cacheing issue in service layer. They sometimes pass and sometimes fail as a result of this issue. -- dan, Nov 2010 */
 	
-	/*
+/*	
 	 @After public void destroyUser() throws Exception{
 
 		//log in as default user who has delete privileges
@@ -64,7 +64,7 @@ public class TestRestrictedPermissions extends TestBase{
 		}
 	}
 	
-
+*/
 	
 	@Before public void createUsers() throws Exception{
 
@@ -110,17 +110,17 @@ public class TestRestrictedPermissions extends TestBase{
 		//HttpTester out = POSTData("/users/",makeRequest(userdata),jetty);
 		log.info("1::"+out.getContent());
 
-		//out = GETData("/objects",jetty);
+		//out = GETData("/cataloging",jetty);
 
-//		testLists(jetty, "objects", objectCreate, "items");
-//		testLists(jetty, "intake", intakeCreate, "items");
-//		testLists(jetty, "loanin", loaninCreate, "items");
-//		testLists(jetty, "loanout", loanoutCreate, "items");
-//		testLists(jetty, "acquisition", acquisitionCreate, "items");
+//		testLists(jetty, "cataloging", objectCreate, "items");
+		testLists(jetty, "intake", intakeCreate, "items");
+		testLists(jetty, "loanin", loaninCreate, "items");
+		testLists(jetty, "loanout", loanoutCreate, "items");
+		testLists(jetty, "acquisition", acquisitionCreate, "items");
 //		testLists(jetty, "role", roleCreate, "items");
-//		testLists(jetty, "movement", movementCreate, "items");
+		testLists(jetty, "movement", movementCreate, "items");
 			//testLists(jetty, "permission", permissionWrite, "items");
 	}
-	*/
+	
 	
 }

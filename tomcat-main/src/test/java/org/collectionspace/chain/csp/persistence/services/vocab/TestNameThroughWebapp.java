@@ -63,7 +63,7 @@ public class TestNameThroughWebapp extends TestBase{
 		assertTrue("correct vocab not found",test);
 		
 
-		out = GETData("/objects/source-vocab/contentOrganization",jetty);
+		out = GETData("/cataloging/source-vocab/contentOrganization",jetty);
 
 		data=new JSONArray(out.getContent());
 		test = false;
