@@ -84,7 +84,7 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec,"permrole","rolepermissions.xml","rolepermissions.json");
 		testXMLJSON(spec, "userrole","accountrole.xml","accountrole.json");
 		
-		testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
+//		testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
 		//testXMLJSON(spec, "organization","orgauthref.xml","permissionsJSON.json");
 	}
 	
@@ -129,9 +129,9 @@ public class TestService extends ServicesBaseClass {
 		}
 //convert json -> xml and back to json and see if it still looks the same..
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, doc);
-//		log.info(doc.asXML());
-//		log.info(j.toString());
-//		log.info(repeatjson.toString());
+		log.info(doc.asXML());
+		log.info(j.toString());
+		log.info(repeatjson.toString());
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}
@@ -143,8 +143,8 @@ public class TestService extends ServicesBaseClass {
 		Record r = spec.getRecord(objtype);
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, testxml);
 		JSONObject j = getJSON(jsonfile);
-//		log.info(repeatjson.toString());
-//		log.info(j.toString());
+		log.info(repeatjson.toString());
+		log.info(j.toString());
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}

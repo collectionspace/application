@@ -97,7 +97,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		JSONObject jo=ss.retrieveJSON("id/intake");
 		assertTrue(jo.getString("next").startsWith("IN2010."));
-		jo=ss.retrieveJSON("id/objects");
+		jo=ss.retrieveJSON("id/cataloging");
 
 		assertTrue(jo.getString("next").startsWith("2010.1."));
 	}

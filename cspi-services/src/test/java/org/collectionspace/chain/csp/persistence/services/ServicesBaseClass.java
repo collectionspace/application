@@ -61,7 +61,7 @@ public class ServicesBaseClass {
 			assertNotNull("Base service url invalid in config file: "+TestConfigFinder.configFilename,base);
 		} // XXX still yuck but centralised now
 
-		conn=new ServicesConnection(base+"/cspace-services");
+		conn=new ServicesConnection(base);
 		creds=new ServicesRequestCredentials();
 		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test@collectionspace.org");
 		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtest");		
@@ -128,7 +128,7 @@ public class ServicesBaseClass {
 		Record r_obj=spec.getRecord("collection-object");
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
-		assertEquals("objects",r_obj.getWebURL());
+		assertEquals("cataloging",r_obj.getWebURL());
 		
 		StorageGenerator gen=cspm.getStorage("service");
 		CSPRequestCredentials creds=gen.createCredentials();

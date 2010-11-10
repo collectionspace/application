@@ -86,11 +86,11 @@
                         </repeat>
                     </structure>
                 </structures>
-                <web-url>objects</web-url>
-                <tab-url>object-tab</tab-url>
+                <web-url>cataloging</web-url>
+                <tab-url>cataloging-tab</tab-url>
                 <number-selector>.csc-accession-number</number-selector>
                 <row-selector>.csc-recordList-row:</row-selector>
-                <list-key>objects</list-key>
+                <list-key>cataloging</list-key>
                 <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
                     <selector>.csc-object-identification-object-nametitle</selector>
                     <merges>
@@ -1188,7 +1188,7 @@
                     <title-selector>.csc-titleBar-acquisition-reference-number</title-selector>
                     <container-selector>.csc-acquisition-reference-number-patternChooserContainer</container-selector>
                     <options>
-                        <option id="objects" sample="2009.1">Accession</option>
+                        <option id="cataloging" sample="2009.1">Accession</option>
                         <option id="archives" sample="AR2009.42">Archives</option>
                         <option id="library" sample="LIB2009.1">Library</option>
                     </options>
@@ -1987,6 +1987,7 @@
                 <field id="borrowersContact" autocomplete="person-person">
                     <selector>.csc-loanOut-borrowersContact</selector>
                 </field>
+				<repeat id="lenderList/lenderGroup">
                 <field id="lendersAuthorizer" autocomplete="person-person">
                     <selector>.csc-loanOut-lendersAuthorizer</selector>
                 </field>
@@ -1996,6 +1997,8 @@
                 <field id="lendersContact" autocomplete="person-person">
                     <selector>.csc-loanOut-lendersContact</selector>
                 </field>
+				
+				</repeat>
                 <field id="loanedObjectStatusNote">
                     <selector>.csc-loanOut-loanedObjectStatusNote</selector>
                 </field>
@@ -2101,9 +2104,7 @@
                         <option id="movement" sample="MV2010.001">Movement</option>
                     </options>
                 </field>
-                <field id="plannedRemovalDate" ui-type="date">
-                    <selector>.csc-movement-plannedRemovalDate</selector>
-                </field>
+                <field id="plannedRemovalDate" ui-type="date"></field>
                 <field id="removalDate" ui-type="date">
                     <selector>.csc-movement-removalDate</selector>
                 </field>
@@ -2121,6 +2122,7 @@
                 </field>
             </record>
             <record id="id" type="id">
+
                 <authorization-view>false</authorization-view>
 
                 <field id="accession-activity"><selector>1a67470b-19b1-4ae3-88d4-2a0aa936270e</selector></field>
@@ -2145,6 +2147,7 @@
                                 use that id here
                                 and magically it will all work
                                 currently inherits most functionality from normal Record functionality -->
+
             </record>
             <record id="vocab" type="authority">
                 <terms-used>false</terms-used>

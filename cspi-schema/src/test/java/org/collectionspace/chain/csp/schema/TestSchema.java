@@ -56,7 +56,7 @@ public class TestSchema {
 
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
-		assertEquals("objects",r_obj.getWebURL());
+		assertEquals("cataloging",r_obj.getWebURL());
 	
 		
 		/* RECORD/field -> FIELD(type) */
