@@ -55,12 +55,12 @@
             }]
         }
     },
-    "objects": {
+    "cataloging": {
         ".csc-recordList-row:": {
             "children": [{
                 ".csc-accession-number": {
                     "linktext": "${items.0.number}",
-                    "target": "objects.html?csid=${items.0.csid}"
+                    "target": "cataloging.html?csid=${items.0.csid}"
                 },
                 ".csc-summary": "${items.0.summary}"
             }]

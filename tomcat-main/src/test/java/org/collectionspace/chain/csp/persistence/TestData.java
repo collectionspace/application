@@ -69,9 +69,7 @@ public class TestData {
 			return Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
 		}
 	}
-
-	protected static JSONObject getDefaultUser(ServletTester tester){
-
+	protected static Spec getSpec(ServletTester tester){
 		CSPManager cspm=new CSPManagerImpl();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
@@ -88,6 +86,11 @@ public class TestData {
 
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+		return spec;
+	}
+
+	protected static JSONObject getDefaultUser(ServletTester tester){
+		Spec spec = getSpec(tester);
 		String username = spec.getAdminData().getAuthUser();
 		String pass = spec.getAdminData().getAuthPass();
 		JSONObject user = new JSONObject();

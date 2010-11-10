@@ -12,7 +12,7 @@
         },
         {
             "display": "show",
-            "resourceName": "objects",
+            "resourceName": "cataloging",
             "permission": "write"
         },
         {

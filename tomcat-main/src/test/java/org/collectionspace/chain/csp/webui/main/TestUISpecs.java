@@ -61,7 +61,7 @@ public class TestUISpecs extends TestBase {
 		// uispec(jetty,"/cataloging/uispec","collection-object.uispec");
 		// uispec(jetty,"/intake/serviceschema","collection-object.uispec");
 		// uispec(jetty,"/role/uischema","collection-object.uischema");
-		// uispec(jetty,"/object-tab/uispec","object-tab.uispec");
+		// uispec(jetty,"/cataloging-tab/uispec","cataloging-tab.uispec");
 		// uispec(jetty,"/intake/uispec","intake.uispec");
 		// uispec(jetty,"/acquisition/uispec","acquisition.uispec");
 		// uispec(jetty,"/loanout/uispec","loanout.uispec");

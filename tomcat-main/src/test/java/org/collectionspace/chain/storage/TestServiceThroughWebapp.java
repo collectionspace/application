@@ -14,6 +14,8 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
+import org.collectionspace.chain.csp.persistence.TestData;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.json.JSONArray;
@@ -31,7 +33,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	
 	@Test public void testCollectionObjectBasic() throws Exception {
 		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
+		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/cataloging/",makeSimpleRequest(getResourceString("obj3.json")));	
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		out=jettyDoUTF8(jetty,"GET","/chain"+id,null);
@@ -179,7 +181,7 @@ public class TestServiceThroughWebapp extends TestBase{
 		
 	@Test public void testAutoGet() throws Exception {
 		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/chain/objects/__auto",null);
+		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/chain/cataloging/__auto",null);
 		assertEquals(200,out.getStatus());
 		// XXX this is correct currently, whilst __auto is stubbed.
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(),new JSONObject(out.getContent())));
@@ -188,25 +190,25 @@ public class TestServiceThroughWebapp extends TestBase{
 	@Test public void testList() throws Exception {
 		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
 		// do not delete all
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/chain/objects",null);
+		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/chain/cataloging",null);
 		assertEquals(200,out.getStatus());
 		JSONObject in=new JSONObject(out.getContent());
 		JSONArray items=in.getJSONArray("items");
 		// empty
-		out=jettyDoUTF8(jetty,"GET","/chain/objects",null);
+		out=jettyDoUTF8(jetty,"GET","/chain/cataloging",null);
 		assertEquals(200,out.getStatus());
 		in=new JSONObject(out.getContent());
 		items=in.getJSONArray("items");
 		Integer offset = items.length();
 		// put a couple in
-		out=jettyDoUTF8(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
+		out=jettyDoUTF8(jetty,"POST","/chain/cataloging/",makeSimpleRequest(getResourceString("obj3.json")));	
 		String id1=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
-		out=jettyDoUTF8(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));	
+		out=jettyDoUTF8(jetty,"POST","/chain/cataloging/",makeSimpleRequest(getResourceString("obj3.json")));	
 		String id2=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		// size 2, right ones, put them in the right place
-		out=jettyDoUTF8(jetty,"GET","/chain/objects",null);
+		out=jettyDoUTF8(jetty,"GET","/chain/cataloging",null);
 		assertEquals(200,out.getStatus());
 		in=new JSONObject(out.getContent());
 		items=in.getJSONArray("items");
@@ -227,8 +229,8 @@ public class TestServiceThroughWebapp extends TestBase{
 		/*
 		assertEquals(id1.split("/")[2],obj1.getString("csid"));
 		assertEquals(id2.split("/")[2],obj2.getString("csid"));
-		assertEquals("objects",obj1.getString("recordtype"));
-		assertEquals("objects",obj2.getString("recordtype"));
+		assertEquals("cataloging",obj1.getString("recordtype"));
+		assertEquals("cataloging",obj2.getString("recordtype"));
 		assertEquals("title",obj1.getString("summary"));
 		assertEquals("title",obj2.getString("summary"));
 		assertEquals("objectNumber",obj1.getString("number"));
@@ -239,16 +241,16 @@ public class TestServiceThroughWebapp extends TestBase{
 	@Test public void testSearch() throws Exception {
 		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
 		// one aardvark, one non-aardvark
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3-search.json")));	
+		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/cataloging/",makeSimpleRequest(getResourceString("obj3-search.json")));	
 		assertEquals(201,out.getStatus());
 		String id1=out.getHeader("Location");
 		String good=id1.split("/")[2];
-		out=jettyDoUTF8(jetty,"POST","/chain/objects/",makeSimpleRequest(getResourceString("obj3.json")));
+		out=jettyDoUTF8(jetty,"POST","/chain/cataloging/",makeSimpleRequest(getResourceString("obj3.json")));
 		String id2=out.getHeader("Location");
 		String bad=id2.split("/")[2];
 		assertEquals(201,out.getStatus());
 		// search
-		out=jettyDoUTF8(jetty,"GET","/chain/objects/search?query=aardvark",null);
+		out=jettyDoUTF8(jetty,"GET","/chain/cataloging/search?query=aardvark",null);
 		assertEquals(200,out.getStatus());
 		//log.info(out.getContent());
 		// check
@@ -269,10 +271,13 @@ public class TestServiceThroughWebapp extends TestBase{
 	
 	@Test public void testLogin() throws Exception {
 		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/login","userid=test@collectionspace.org&password=testtest");	
+		Spec spec = TestData.getSpec(jetty);
+		String pwd = spec.getAdminData().getAuthPass();
+		String username = spec.getAdminData().getAuthUser();
+		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/login","userid="+username+"&password="+pwd);	
 		assertEquals(303,out.getStatus());
 		assertEquals("/cspace-ui/html/myCollectionSpace.html",out.getHeader("Location"));
-		out=jettyDoUTF8(jetty,"POST","/chain/login?userid=test@collectionspace.org&password=testtest",null);
+		out=jettyDoUTF8(jetty,"POST","/chain/login?userid="+username+"&password="+pwd,null);
 		assertEquals(303,out.getStatus());
 		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
 		out=jettyDoUTF8(jetty,"POST","/chain/login?userid=guest&password=toast",null);	
@@ -281,7 +286,6 @@ public class TestServiceThroughWebapp extends TestBase{
 		out=jettyDoUTF8(jetty,"POST","/chain/login?userid=bob&password=bob",null);	
 		assertEquals(303,out.getStatus());
 		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
-		
 		
 	}
 }

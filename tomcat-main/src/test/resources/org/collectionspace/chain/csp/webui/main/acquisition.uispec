@@ -191,7 +191,7 @@
                 "options": {
                     "model": {
                         "names": ["Accession", "Archives", "Library"],
-                        "list": ["objects", "archives", "library"],
+                        "list": ["cataloging", "archives", "library"],
                         "samples": ["2009.1", "AR2009.42", "LIB2009.1"]
                     },
                     "selectors": {

@@ -30,8 +30,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/assocPeople",
-                                    "vocabUrl": "../../chain/objects/source-vocab/assocPeople"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/assocPeople",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/assocPeople"
                                 }
                             }]
                         }
@@ -76,8 +76,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/assocEventPlace",
-                                    "vocabUrl": "../../chain/objects/source-vocab/assocEventPlace"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/assocEventPlace",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/assocEventPlace"
                                 }
                             }]
                         }
@@ -116,8 +116,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/objects/autocomplete/inscriptionContentInscriber",
-                    "vocabUrl": "../../chain/objects/source-vocab/inscriptionContentInscriber"
+                    "queryUrl": "../../chain/cataloging/autocomplete/inscriptionContentInscriber",
+                    "vocabUrl": "../../chain/cataloging/source-vocab/inscriptionContentInscriber"
                 }
             }]
         },
@@ -160,8 +160,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/owner",
-                                    "vocabUrl": "../../chain/objects/source-vocab/owner"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/owner",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/owner"
                                 }
                             }]
                         },
@@ -224,8 +224,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/objects/autocomplete/objectProductionPeople",
-                    "vocabUrl": "../../chain/objects/source-vocab/objectProductionPeople"
+                    "queryUrl": "../../chain/cataloging/autocomplete/objectProductionPeople",
+                    "vocabUrl": "../../chain/cataloging/source-vocab/objectProductionPeople"
                 }
             }]
         },
@@ -326,8 +326,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/assocPlace",
-                                    "vocabUrl": "../../chain/objects/source-vocab/assocPlace"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/assocPlace",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/assocPlace"
                                 }
                             }]
                         },
@@ -343,7 +343,7 @@
                 "options": {
                     "model": {
                         "names": ["Intake", "Accession", "Loans In"],
-                        "list": ["intake", "objects", "loans-in"],
+                        "list": ["intake", "cataloging", "loans-in"],
                         "samples": ["IN2009.1.1", "2009.1.1", "LI2009.1.1"]
                     },
                     "selectors": {
@@ -373,8 +373,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/objects/autocomplete/ownershipPlace",
-                    "vocabUrl": "../../chain/objects/source-vocab/ownershipPlace"
+                    "queryUrl": "../../chain/cataloging/autocomplete/ownershipPlace",
+                    "vocabUrl": "../../chain/cataloging/source-vocab/ownershipPlace"
                 }
             }]
         },
@@ -472,8 +472,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/contentOrganization",
-                                    "vocabUrl": "../../chain/objects/source-vocab/contentOrganization"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/contentOrganization",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/contentOrganization"
                                 }
                             }]
                         }
@@ -497,8 +497,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/assocPerson",
-                                    "vocabUrl": "../../chain/objects/source-vocab/assocPerson"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/assocPerson",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/assocPerson"
                                 }
                             }]
                         }
@@ -520,8 +520,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/objects/autocomplete/materialSource",
-                    "vocabUrl": "../../chain/objects/source-vocab/materialSource"
+                    "queryUrl": "../../chain/cataloging/autocomplete/materialSource",
+                    "vocabUrl": "../../chain/cataloging/source-vocab/materialSource"
                 }
             }]
         },
@@ -545,8 +545,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/objects/autocomplete/objectProductionPerson",
-                    "vocabUrl": "../../chain/objects/source-vocab/objectProductionPerson"
+                    "queryUrl": "../../chain/cataloging/autocomplete/objectProductionPerson",
+                    "vocabUrl": "../../chain/cataloging/source-vocab/objectProductionPerson"
                 }
             }]
         },
@@ -575,8 +575,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/assocOrganization",
-                                    "vocabUrl": "../../chain/objects/source-vocab/assocOrganization"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/assocOrganization",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/assocOrganization"
                                 }
                             }]
                         },
@@ -616,8 +616,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/contentPeople",
-                                    "vocabUrl": "../../chain/objects/source-vocab/contentPeople"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/contentPeople",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/contentPeople"
                                 }
                             }]
                         },
@@ -650,8 +650,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/assocEventPeople",
-                                    "vocabUrl": "../../chain/objects/source-vocab/assocEventPeople"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/assocEventPeople",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/assocEventPeople"
                                 }
                             }]
                         },
@@ -672,8 +672,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/objects/autocomplete/inscriptionDescriptionInscriber",
-                    "vocabUrl": "../../chain/objects/source-vocab/inscriptionDescriptionInscriber"
+                    "queryUrl": "../../chain/cataloging/autocomplete/inscriptionDescriptionInscriber",
+                    "vocabUrl": "../../chain/cataloging/source-vocab/inscriptionDescriptionInscriber"
                 }
             }]
         },
@@ -691,8 +691,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/assocEventOrganization",
-                                    "vocabUrl": "../../chain/objects/source-vocab/assocEventOrganization"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/assocEventOrganization",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/assocEventOrganization"
                                 }
                             }]
                         },
@@ -739,8 +739,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/contentPerson",
-                                    "vocabUrl": "../../chain/objects/source-vocab/contentPerson"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/contentPerson",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/contentPerson"
                                 }
                             }]
                         },
@@ -800,8 +800,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/assocEventPerson",
-                                    "vocabUrl": "../../chain/objects/source-vocab/assocEventPerson"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/assocEventPerson",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/assocEventPerson"
                                 }
                             }]
                         },
@@ -832,8 +832,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/objects/autocomplete/objectProductionPlace",
-                    "vocabUrl": "../../chain/objects/source-vocab/objectProductionPlace"
+                    "queryUrl": "../../chain/cataloging/autocomplete/objectProductionPlace",
+                    "vocabUrl": "../../chain/cataloging/source-vocab/objectProductionPlace"
                 }
             }]
         },
@@ -849,8 +849,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/objects/autocomplete/objectProductionOrganization",
-                    "vocabUrl": "../../chain/objects/source-vocab/objectProductionOrganization"
+                    "queryUrl": "../../chain/cataloging/autocomplete/objectProductionOrganization",
+                    "vocabUrl": "../../chain/cataloging/source-vocab/objectProductionOrganization"
                 }
             }]
         },
@@ -904,8 +904,8 @@
                                 "func": "cspace.autocomplete",
                                 "type": "fluid",
                                 "options": {
-                                    "queryUrl": "../../chain/objects/autocomplete/contentPlace",
-                                    "vocabUrl": "../../chain/objects/source-vocab/contentPlace"
+                                    "queryUrl": "../../chain/cataloging/autocomplete/contentPlace",
+                                    "vocabUrl": "../../chain/cataloging/source-vocab/contentPlace"
                                 }
                             }]
                         }
