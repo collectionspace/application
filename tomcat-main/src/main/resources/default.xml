@@ -1070,7 +1070,7 @@
                     <selector>.csc-intake-insurer</selector>
                     <field id="insurer" autocomplete="person-person,organization-organization"></field>
                 </repeat>
-                <repeat id="currentLocationList/currentLocationGroup">
+                <repeat id="currentLocationGroupList/currentLocationGroup">
                     <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
                     <field id="currentLocation">
                         <selector>.csc-intake-current-location</selector>
