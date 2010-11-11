@@ -1,0 +1,28 @@
+{
+  "entryNumber": "IN2010.337",
+  "depositor": "urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(Alfred L. Kroeber)'Alfred L. Kroeber'",
+  "de-urned-depositor":"Alfred L. Kroeber",
+  "currentLocationGroup": [
+        {
+            "_primary": true,
+            "currentLocationFitness": "suitable",
+            "currentLocation": "upstairs",
+            "currentLocationNote": "this is a note about the upstairs location"
+        },
+        {
+            "currentLocationFitness": "dangerous",
+            "currentLocation": "downstairs",
+            "currentLocationNote": "this is a note about the downstairs location"
+        }
+    ],
+    "entryMethods": [],
+    "fieldCollectionMethods": [],
+    "fieldCollectionSources": [],
+    "fieldCollectors": [],
+    "fieldCollectionEventNames": [],
+    "insurers": [],
+    "conditionCheckMethods": [],
+    "conditionCheckReasons": [],
+    "conditionCheckersOrAssessors": []
+
+}

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ns2:intakes_common xmlns:ns2="http://collectionspace.org/services/intake" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/intake http://services.collectionspace.org/intake/intakes_common.xsd">
-    <entryNumber>IN2010.2</entryNumber>
+<ns2:intakes_common xmlns:ns2="http://collectionspace.org/services/intake">
+    <entryNumber>IN2010.337</entryNumber>
     <depositor>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(Alfred L. Kroeber)'Alfred L. Kroeber'</depositor>
-    <currentLocationList>
+    <currentLocationGroupList>
         <currentLocationGroup>
             <currentLocation>upstairs</currentLocation>
             <currentLocationFitness>suitable</currentLocationFitness>
@@ -13,5 +13,16 @@
             <currentLocationFitness>dangerous</currentLocationFitness>
             <currentLocationNote>this is a note about the downstairs location</currentLocationNote>
         </currentLocationGroup>
-    </currentLocationList>
+    </currentLocationGroupList>
+
+   <entryMethods/>
+   <fieldCollectionMethods/>
+   <fieldCollectionSources/>
+   <fieldCollectors/>
+   <fieldCollectionEventNames/>
+   <insurers/>
+   <conditionCheckMethods/>
+   <conditionCheckReasons/>
+   <conditionCheckersOrAssessors/>
+
 </ns2:intakes_common>

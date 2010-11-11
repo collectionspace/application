@@ -78,14 +78,14 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
 		testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
-		//testXMLJSON(spec,"intake","intake.xml","intake.json");
+		testXMLJSON(spec,"intake","intake.xml","intake.json");
 		testXMLJSON(spec,"movement","movement.xml","movement.json");
 		testXMLJSON(spec,"role","role.xml","role.json");
 		testXMLJSON(spec,"permrole","rolepermissions.xml","rolepermissions.json");
 		testXMLJSON(spec, "userrole","accountrole.xml","accountrole.json");
 		
-//		testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
-		//testXMLJSON(spec, "organization","orgauthref.xml","permissionsJSON.json");
+//                testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
+//                testXMLJSON(spec, "organization","orgauthref.xml","permissionsJSON.json");
 	}
 	
 	@Test public void testJSONXMLConversion() throws Exception {
@@ -106,7 +106,7 @@ public class TestService extends ServicesBaseClass {
 		testJSONXML(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
 		testJSONXML(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testJSONXML(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
-		//testJSONXML(spec,"intake","intake.xml","intake.json");
+		testJSONXML(spec,"intake","intake.xml","intake.json");
 		testJSONXML(spec,"movement","movement.xml","movement.json");
 		testJSONXML(spec,"role","role.xml","role.json");
 		
@@ -117,8 +117,10 @@ public class TestService extends ServicesBaseClass {
 
 	private void testJSONXML(Spec spec, String objtype, String xmlfile, String jsonfile) throws Exception{
 
+                log.info("Converting JSON to XML for record type " + objtype);
 		Record r = spec.getRecord(objtype);
 		JSONObject j = getJSON(jsonfile);
+                log.info("Original JSON:\n" + j.toString());
 		Map<String,Document> parts=new HashMap<String,Document>();
 		Document doc = null;
 		for(String section : r.getServicesRecordPaths()) {
@@ -127,25 +129,27 @@ public class TestService extends ServicesBaseClass {
 			doc=XmlJsonConversion.convertToXml(r,j,section);
 			parts.put(record_path[0],doc);
 		}
-//convert json -> xml and back to json and see if it still looks the same..
+                log.info("After XML->JSON conversion:\n" + doc.asXML());
+                //convert json -> xml and back to json and see if it still looks the same..
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, doc);
-		log.info(doc.asXML());
-		log.info(j.toString());
-		log.info(repeatjson.toString());
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
+		log.info("After JSON->XML re-conversion:\n" + repeatjson.toString());
+		assertTrue("JSON->XML->JSON round-trip doesn't match original JSON",
+                        JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}
 
 	private void testXMLJSON(Spec spec, String objtype, String xmlfile, String jsonfile) throws Exception{
 
+                log.info("Converting XML to JSON for record type " + objtype);
 		Document testxml = getDocument(xmlfile);
 		String test = testxml.asXML();
+                log.info("Original XML:\n" + test);
+                JSONObject j = getJSON(jsonfile);
+		log.info("Original JSON:\n" + j.toString());
 		Record r = spec.getRecord(objtype);
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, testxml);
-		JSONObject j = getJSON(jsonfile);
-		log.info(repeatjson.toString());
-		log.info(j.toString());
-		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
+		log.info("After XML->JSON conversion:\n" + repeatjson.toString());
+		assertTrue("Generated JSON doesn't match original JSON", JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
 	
 	}
 
@@ -578,7 +582,7 @@ public class TestService extends ServicesBaseClass {
 		testCRUD("collectionobjects/", "collectionobjects_common", "objectCreate.xml", "objectsXMLJSON.xml", "collectionobjects_common/objectNumber", "2010.1.9");
 
 		testPostGetDelete("acquisitions/", "acquisitions_common", "acquisitionXMLJSON.xml", "acquisitions_common/accessionDate", "April 1, 2010");
-		testPostGetDelete("intakes/", "intakes_common", "intake.xml", "intakes_common/entryNumber","IN2010.2");
+		testPostGetDelete("intakes/", "intakes_common", "intake.xml", "intakes_common/entryNumber","IN2010.337");
 		testPostGetDelete("loansin/", "loansin_common", "loaninXMLJSON.xml", "loansin_common/loanInNumber", "LI2010.1.21");
 		testPostGetDelete("loansout/", "loansout_common", "loanout.xml", "loansout_common/loanOutNumber", "LO2010.117");
 
@@ -710,7 +714,7 @@ public class TestService extends ServicesBaseClass {
 
 //		assertTrue(url.getURL().startsWith("/"+serviceurl)); // ensures e.g. CSPACE-305 hasn't regressed
 
-		log.info("CREATE CONTACT "+url.getURL());
+		log.info("CREATED RECORD "+url.getURL());
 		// GET (Read)
 		int getStatus;
 		Document doc; 
@@ -724,7 +728,7 @@ public class TestService extends ServicesBaseClass {
 			doc = rdoc.getDocument();
 		}
 		assertEquals(200,getStatus);
-		log.info("GET CONTACT "+doc.asXML());
+		log.info("RETRIEVED RECORD "+doc.asXML());
 		assertNotNull(doc);
 		Node n=doc.selectSingleNode(xpath);
 		assertNotNull(n);
