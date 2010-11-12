@@ -5,9 +5,19 @@
     "loanOutNote": "loan out notes",
     "specialConditionsOfLoan": "loanout conditions",
     "lendersAuthorizationDate": "May 27, 2010",
-    "loanedObjectStatusDate": "May 28, 2010",
-    "loanReturnDate": "May 26, 2010",
+    "loanedObjectStatusGroup": [
+        {
+            "_primary": true,
+            "loanedObjectStatus": "returned",
+            "loanedObjectStatusDate": "November 9, 2010",
+            "loanedObjectStatusNote": "Back in the barn."
+        },
+        {
+            "loanedObjectStatus": "sent",
+            "loanedObjectStatusDate": "November 1, 2010",
+            "loanedObjectStatusNote": "Call to find out when this is coming back."
+        }
+    ],
     "loanOutDate": "May 25, 2010",
-    "loanRenewalApplicationDate": "May 24, 2010",
-    "loanedObjectStatusNote": "status note"
+    "loanRenewalApplicationDate": "May 24, 2010"
 }

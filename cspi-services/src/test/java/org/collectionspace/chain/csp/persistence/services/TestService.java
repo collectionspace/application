@@ -76,6 +76,7 @@ public class TestService extends ServicesBaseClass {
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 
 		testXMLJSON(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
+                testXMLJSON(spec, "loanout","loanout.xml","loanout.json");
 		testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
 		testXMLJSON(spec,"intake","intake.xml","intake.json");
@@ -104,6 +105,7 @@ public class TestService extends ServicesBaseClass {
 		//needloanout
 
 		testJSONXML(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
+                testJSONXML(spec, "loanout","loanout.xml","loanout.json");
 		testJSONXML(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testJSONXML(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
 		testJSONXML(spec,"intake","intake.xml","intake.json");

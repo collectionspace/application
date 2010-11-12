@@ -1987,7 +1987,6 @@
                 <field id="borrowersContact" autocomplete="person-person">
                     <selector>.csc-loanOut-borrowersContact</selector>
                 </field>
-				<repeat id="lenderList/lenderGroup">
                 <field id="lendersAuthorizer" autocomplete="person-person">
                     <selector>.csc-loanOut-lendersAuthorizer</selector>
                 </field>
@@ -1997,17 +1996,17 @@
                 <field id="lendersContact" autocomplete="person-person">
                     <selector>.csc-loanOut-lendersContact</selector>
                 </field>
-				
-				</repeat>
-                <field id="loanedObjectStatusNote">
-                    <selector>.csc-loanOut-loanedObjectStatusNote</selector>
-                </field>
-                <field id="loanedObjectStatusDate" ui-type="date">
-                    <selector>.csc-loanOut-loanedObjectStatusDate</selector>
-                </field>
-                <field id="loanedObjectStatus" autocomplete="vocab-lostatus" ui-type="enum">
-                    <selector>.csc-loanOut-loanedObjectStatus</selector>
-                </field>
+                <repeat id="loanedObjectStatusGroupList/loanedObjectStatusGroup">
+                    <field id="loanedObjectStatus" autocomplete="vocab-lostatus" ui-type="enum">
+                        <selector>.csc-loanOut-loanedObjectStatus</selector>
+                    </field>
+                    <field id="loanedObjectStatusDate" ui-type="date">
+                        <selector>.csc-loanOut-loanedObjectStatusDate</selector>
+                    </field>
+                    <field id="loanedObjectStatusNote">
+                        <selector>.csc-loanOut-loanedObjectStatusNote</selector>
+                    </field>
+                </repeat>
                 <field id="loanOutDate" ui-type="date">
                     <selector>.csc-loanOut-loanOutDate</selector>
                 </field>
