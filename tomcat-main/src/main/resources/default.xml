@@ -39,6 +39,7 @@
             <login-dest>/cspace-ui/html/myCollectionSpace.html</login-dest>
             <login-failed-dest>/cspace-ui/html/index.html</login-failed-dest>
             <front-page>/cspace-ui/html/</front-page>
+            <find-page>myCollectionSpace</find-page>
             <tmp-schema-path />
         </web>
     </ui>
@@ -2007,7 +2008,7 @@
                         <selector>.csc-loanOut-loanedObjectStatusNote</selector>
                     </field>
                 </repeat>
-                <field id="loanOutDate" ui-type="date">
+				<field id="loanOutDate" ui-type="date">
                     <selector>.csc-loanOut-loanOutDate</selector>
                 </field>
                 <field id="loanReturnDate" ui-type="date">

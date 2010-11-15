@@ -86,7 +86,7 @@ public class WebUI implements CSP, UI, Configurable {
 	private CSPContext ctx;
 	private StorageGenerator xxx_storage;
 	private String uispec_path;
-	private String login_dest,login_failed_dest,front_page;
+	private String login_dest,login_failed_dest,front_page,find_page;
 
 	public String getName() { return "ui.webui"; }
 	public String getUISpecPath() { return uispec_path; }
@@ -134,6 +134,8 @@ public class WebUI implements CSP, UI, Configurable {
 				login_dest=(String)section.getValue("/login-dest");
 				login_failed_dest=(String)section.getValue("/login-failed-dest");
 				front_page=(String)section.getValue("/front-page");
+				find_page=(String)section.getValue("/find-page");
+				
 				return WebUI.this;
 			}
 		});	
@@ -152,7 +154,7 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"loginstatus"},0, new WebLoginStatus(spec));
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
-		addMethod(Operation.READ,new String[]{"find-edit","uispec"},0,new FindEditUISpec(spec.getAllRecords()));
+		addMethod(Operation.READ,new String[]{find_page,"uispec"},0,new FindEditUISpec(spec.getAllRecords()));
 		addMethod(Operation.CREATE,new String[]{"passwordreset"},0,new UserDetailsReset(false,spec));
 		addMethod(Operation.CREATE,new String[]{"resetpassword"},0,new UserDetailsReset(true,spec));
 

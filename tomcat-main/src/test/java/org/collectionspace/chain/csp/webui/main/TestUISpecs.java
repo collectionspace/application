@@ -15,6 +15,7 @@ import org.apache.commons.io.IOUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -76,7 +77,7 @@ public class TestUISpecs extends TestBase {
 		// uispec(jetty,"/movement-tab/uispec","movement.uispec");
 		//		
 
-		uispec(jetty, "/find-edit/uispec", "find-edit.uispec");
+		uispec(jetty, "/myCollectionSpace/uispec", "find-edit.uispec");
 
 	}
 }
