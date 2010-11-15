@@ -34,7 +34,7 @@ public class TestAjaxExpiresHeaders extends TestBase  {
 	@Test public void testNoCacheHeaders() throws Exception {
 		ServletTester jetty=setupJetty();
 
-		HttpTester out = GETData("/find-edit/uispec",jetty);
+		HttpTester out = GETData("/myCollectionSpace/uispec",jetty);
 		assertEquals("no-cache",out.getHeader("pragma"));
 		String last_modified=out.getHeader("Last-Modified");
 		assertNotNull(last_modified);
