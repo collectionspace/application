@@ -66,6 +66,14 @@ public class WebLoginStatus  implements WebMethod {
 				perms.put(resourceName, permissions);
 			}
 		}
+//		put resources with none permissions in
+
+		for(Record r : spec.getAllRecords()) {
+			if(!perms.has(r.getWebURL())){
+				perms.put(r.getWebURL(), new JSONArray());
+			}
+		}
+		
 		data.put("permissions",perms);
 		return data;
 	}
