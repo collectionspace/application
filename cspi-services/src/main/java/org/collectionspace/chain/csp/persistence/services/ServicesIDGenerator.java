@@ -60,7 +60,7 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		this.conn=conn;
 		this.spec= spec;
 		Record idgenerator = spec.getRecord("id");
-		for(FieldSet fs: idgenerator.getAllFields()){
+		for(FieldSet fs: idgenerator.getAllFields("")){
 			String name = fs.getID();
 			String id = fs.getSelector();
 			generators.put(name, id);

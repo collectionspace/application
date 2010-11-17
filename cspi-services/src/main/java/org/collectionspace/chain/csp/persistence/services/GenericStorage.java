@@ -158,8 +158,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param {Document} in The XML document that has to be converted
 	 * @throws JSONException
 	 */
-	protected void convertToJson(JSONObject out,Document in) throws JSONException {
-		XmlJsonConversion.convertToJson(out,r,in);
+	protected void convertToJson(JSONObject out,Document in, String permlevel, String section) throws JSONException {
+		XmlJsonConversion.convertToJson(out,r,in,permlevel,section);
 	}
 	/**
 	 * Convert an XML file into a JSON string
@@ -168,8 +168,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param r
 	 * @throws JSONException
 	 */
-	protected void convertToJson(JSONObject out,Document in, Record r) throws JSONException {
-		XmlJsonConversion.convertToJson(out,r,in);
+	protected void convertToJson(JSONObject out,Document in, Record r, String permlevel, String section) throws JSONException {
+		XmlJsonConversion.convertToJson(out,r,in,permlevel,section);
 	}
 	
 	protected void getGleaned(){
@@ -369,13 +369,15 @@ public class GenericStorage  implements ContextualisedStorage {
 				for(String section : thisr.getServicesRecordPaths()) {
 					String path=thisr.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
-					convertToJson(out,doc.getDocument(parts[0]), thisr);
+					if(doc.getDocument(parts[0]) != null ){
+						convertToJson(out,doc.getDocument(parts[0]), thisr, "GET",section);
+					}
 				}
 			}else{
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+filePath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
-				convertToJson(out,doc.getDocument(), thisr);
+				convertToJson(out,doc.getDocument(), thisr, "GET", "common");
 			}
 			return out;
 		} catch (ConnectionException e) {
@@ -462,7 +464,7 @@ public class GenericStorage  implements ContextualisedStorage {
 						Field fieldinstance= null;
 						if(r.getRepeatField(fieldName) instanceof Repeat){
 							Repeat rp = (Repeat)r.getRepeatField(fieldName);
-							for(FieldSet a : rp.getChildren()){
+							for(FieldSet a : rp.getChildren("GET")){
 								if(a instanceof Field && a.hasAutocompleteInstance()){
 									fieldinstance = (Field)a;
 								}
@@ -568,7 +570,7 @@ public class GenericStorage  implements ContextualisedStorage {
 						//XXX fixCSPACE-2909 would be nice if they gave us the actual field rather than the parent
 						//XXX CSPACE-2586
 						while(thisr.getRepeatField(fieldName) instanceof Repeat || thisr.getRepeatField(fieldName) instanceof Group ){
-							fieldName = ((Repeat)thisr.getRepeatField(fieldName)).getChildren()[0].getID();
+							fieldName = ((Repeat)thisr.getRepeatField(fieldName)).getChildren("GET")[0].getID();
 						}
 						Field fieldinstance = (Field)thisr.getRepeatField(fieldName);
 						fieldSelector = fieldinstance.getSelector();
@@ -631,8 +633,10 @@ public class GenericStorage  implements ContextualisedStorage {
 			for(String section : thisr.getServicesRecordPaths()) {
 				String path=thisr.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
-				doc=XmlJsonConversion.convertToXml(thisr,jsonObject,section);
-				parts.put(record_path[0],doc);
+				doc=XmlJsonConversion.convertToXml(thisr,jsonObject,section,"PUT");
+				if(doc !=null){
+					parts.put(record_path[0],doc);
+				}
 			}
 			int status = 0;
 			if(thisr.isMultipart()){
@@ -688,7 +692,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			//	deleteJSON(root,creds,cache,filePath);
 
 				for(String section : r.getServicesRecordPaths()) {
-					doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+					doc=XmlJsonConversion.convertToXml(r,jsonObject,section,"POST");
 					String path = r.getServicesURL();
 					path = path.replace("*", getSubCsid(jsonObject,r.getPrimaryField()));
 
@@ -716,8 +720,10 @@ public class GenericStorage  implements ContextualisedStorage {
 		for(String section : r.getServicesRecordPaths()) {
 			String path=r.getServicesRecordPath(section);
 			String[] record_path=path.split(":",2);
-			doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
-			parts.put(record_path[0],doc);
+			doc=XmlJsonConversion.convertToXml(r,jsonObject,section,"POST");
+			if(doc!=null){
+				parts.put(record_path[0],doc);
+			}
 		}
 		//some records are accepted as multipart in the service layers, others arent, that's why we split up here
 		if(r.isMultipart())

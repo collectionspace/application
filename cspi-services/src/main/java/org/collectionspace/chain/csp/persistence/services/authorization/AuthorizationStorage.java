@@ -461,7 +461,7 @@ public class AuthorizationStorage extends GenericStorage {
 				for(String section : r.getServicesRecordPaths()) {
 					String path=r.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
-					convertToJson(out,doc.getDocument(parts[0]));
+					convertToJson(out,doc.getDocument(parts[0]),"GET",section);
 				}
 			}else{
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
@@ -469,7 +469,7 @@ public class AuthorizationStorage extends GenericStorage {
 					String status = Integer.toString(doc.getStatus());
 					throw new ExistException(status + ":Does not exist "+filePath);
 				}
-				convertToJson(out,doc.getDocument(),thisr);
+				convertToJson(out,doc.getDocument(),thisr,"GET","common");
 			}
 			return out;
 		} catch (ConnectionException e) {
@@ -488,7 +488,7 @@ public class AuthorizationStorage extends GenericStorage {
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
-				doc=XmlJsonConversion.convertToXml(r,jsonObject,section);
+				doc=XmlJsonConversion.convertToXml(r,jsonObject,section,"PUT");
 				parts.put(record_path[0],doc);
 			}
 			int status = 0;

@@ -89,6 +89,10 @@ public class TestService extends ServicesBaseClass {
 //                testXMLJSON(spec, "organization","orgauthref.xml","permissionsJSON.json");
 	}
 	
+	/**
+	 * I wouldn't call this a robust multipart test - needs more work but works fine for single part multipart xml
+	 * @throws Exception
+	 */
 	@Test public void testJSONXMLConversion() throws Exception {
 
 		CSPManager cspm=new CSPManagerImpl();
@@ -105,7 +109,7 @@ public class TestService extends ServicesBaseClass {
 		//needloanout
 
 		testJSONXML(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
-                testJSONXML(spec, "loanout","loanout.xml","loanout.json");
+		testJSONXML(spec, "loanout","loanout.xml","loanout.json");
 		testJSONXML(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testJSONXML(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
 		testJSONXML(spec,"intake","intake.xml","intake.json");
@@ -125,34 +129,50 @@ public class TestService extends ServicesBaseClass {
                 log.info("Original JSON:\n" + j.toString());
 		Map<String,Document> parts=new HashMap<String,Document>();
 		Document doc = null;
+		JSONObject testjson = new JSONObject();
 		for(String section : r.getServicesRecordPaths()) {
 			String path=r.getServicesRecordPath(section);
 			String[] record_path=path.split(":",2);
-			doc=XmlJsonConversion.convertToXml(r,j,section);
+			doc=XmlJsonConversion.convertToXml(r,j,section,"");
 			parts.put(record_path[0],doc);
+            log.info("After XML->JSON conversion:\n" + doc.asXML());
+    		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, doc,"","common");//this is where we specify the multipart section we are considering
+    		for(String name: JSONObject.getNames(repeatjson)){
+    			testjson.put(name, repeatjson.get(name));
+    		}
+    		log.info("After JSON->XML re-conversion:\n" + testjson.toString());
 		}
-                log.info("After XML->JSON conversion:\n" + doc.asXML());
+
                 //convert json -> xml and back to json and see if it still looks the same..
-		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, doc);
-		log.info("After JSON->XML re-conversion:\n" + repeatjson.toString());
 		assertTrue("JSON->XML->JSON round-trip doesn't match original JSON",
-                        JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
+                        JSONUtils.checkJSONEquivOrEmptyStringKey(testjson,j));
 	
 	}
 
-	private void testXMLJSON(Spec spec, String objtype, String xmlfile, String jsonfile) throws Exception{
+	/**
+	 * This doesn't currently test multipart xml conversion
+	 * @param spec
+	 * @param objtype
+	 * @param xmlfile
+	 * @param jsonfile
+	 * @throws Exception
+	 */
+	private void testXMLJSON(Spec spec, String objtype, String xmlfile,
+			String jsonfile) throws Exception {
 
-                log.info("Converting XML to JSON for record type " + objtype);
+		log.info("Converting XML to JSON for record type " + objtype);
 		Document testxml = getDocument(xmlfile);
 		String test = testxml.asXML();
-                log.info("Original XML:\n" + test);
-                JSONObject j = getJSON(jsonfile);
+		log.info("Original XML:\n" + test);
+		JSONObject j = getJSON(jsonfile);
 		log.info("Original JSON:\n" + j.toString());
 		Record r = spec.getRecord(objtype);
-		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, testxml);
+		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion
+				.convertToJson(r, testxml, "","common");//this is where we specify the multipart section we are considering
 		log.info("After XML->JSON conversion:\n" + repeatjson.toString());
-		assertTrue("Generated JSON doesn't match original JSON", JSONUtils.checkJSONEquivOrEmptyStringKey(repeatjson,j));
-	
+		assertTrue("Generated JSON doesn't match original JSON", JSONUtils
+				.checkJSONEquivOrEmptyStringKey(repeatjson, j));
+
 	}
 
         @Test

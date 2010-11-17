@@ -66,7 +66,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	}
 
 	private Document createEntry(String section,String namespace,String root_tag,JSONObject data,String vocab,String refname, Record r) throws UnderlyingStorageException, ConnectionException, ExistException, JSONException {
-		Document out=XmlJsonConversion.convertToXml(r,data,section);
+		Document out=XmlJsonConversion.convertToXml(r,data,section,"POST");
 		Element root=out.getRootElement();
 		Element vocabtag=root.addElement(r.getInTag());
 		if(vocab!=null){
@@ -126,7 +126,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			
 			// create related sub records?
-			for(FieldSet fs : r.getAllSubRecords()){
+			for(FieldSet fs : r.getAllSubRecords("POST")){
 				Record sr = fs.usesRecordId();
 				//sr.getID()
 				if(sr.isType("authority")){
@@ -134,7 +134,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					if(fs instanceof Field){//get the fields form inline XXX untested - might not work...
 						JSONObject subdata = new JSONObject();
 						//loop thr jsonObject and find the fields I need
-						for(FieldSet subfs: sr.getAllFields()){
+						for(FieldSet subfs: sr.getAllFields("POST")){
 							String key = subfs.getID();
 							if(jsonObject.has(key)){
 								subdata.put(key, jsonObject.get(key));
@@ -193,7 +193,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			
 			// create related sub records?
-			for(FieldSet allfs : myr.getAllSubRecords()){
+			for(FieldSet allfs : myr.getAllSubRecords("POST")){
 				Record sr = allfs.usesRecordId();
 				//sr.getID()
 				if(sr.isType("authority")){
@@ -562,13 +562,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
 					}
 					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
-				}
-				XmlJsonConversion.convertToJson(out,r,result);				
+					XmlJsonConversion.convertToJson(out,r,result,"GET",section);	
+				}			
 			}
 			
 
 			// get related sub records?
-			for(FieldSet fs : r.getAllSubRecords()){
+			for(FieldSet fs : r.getAllSubRecords("GET")){
 				Record sr = fs.usesRecordId();
 				//sr.getID()
 				if(sr.isType("authority")){
@@ -636,7 +636,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			
 			//subrecord update
-			for(FieldSet fs : r.getAllSubRecords()){
+			for(FieldSet fs : r.getAllSubRecords("PUT")){
 				Record sr = fs.usesRecordId();
 				
 				//get list of existing subrecords
@@ -661,7 +661,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					if(fs instanceof Field){
 						JSONObject subdata = new JSONObject();
 						//loop thr jsonObject and find the fields I need
-						for(FieldSet subfs: sr.getAllFields()){
+						for(FieldSet subfs: sr.getAllFields("PUT")){
 							String key = subfs.getID();
 							if(jsonObject.has(key)){
 								subdata.put(key, jsonObject.get(key));

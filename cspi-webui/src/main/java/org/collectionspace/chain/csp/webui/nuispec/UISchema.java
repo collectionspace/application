@@ -99,7 +99,7 @@ public class UISchema extends UISpec {
 
 		String selector = getSelector(r);
 		JSONObject protoTree = new JSONObject();
-		for (FieldSet child : r.getChildren()) {
+		for (FieldSet child : r.getChildren("")) {
 			generateDataEntry(protoTree, child, affix);
 		}
 		if (r.hasPrimary()) {

@@ -7,7 +7,9 @@
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
@@ -20,9 +22,10 @@ public class Repeat implements FieldSet, FieldParent {
 	protected String[] services_parent;
 	protected Boolean is_visible, xxx_hack_authorization;
 	protected FieldParent parent;
-	protected Set<String> enum_default;
+	protected Set<String> enum_default,perm_defaults;
 	protected Stack<String> merged = new Stack<String>();
 	protected List<FieldSet> children = new ArrayList<FieldSet>();
+	protected Map<String,List<FieldSet>> childrenperm = new HashMap<String, List<FieldSet>>();
 	protected Boolean is_expander = false, has_services_parent = false,
 			enum_hasblank = true, exists_in_service = true,
 			has_primary = false, xxx_services_no_repeat = false,
@@ -132,6 +135,7 @@ public class Repeat implements FieldSet, FieldParent {
 
 		this.services_tag = Util.getStringOrDefault(section, "/services-tag",
 				id);
+		this.perm_defaults = Util.getSetOrDefault(section, "/@attributes", new String[] {"GET","PUT","POST","DELETE"});
 	}
 
 	public String getID() {
@@ -152,10 +156,26 @@ public class Repeat implements FieldSet, FieldParent {
 
 	void addChild(FieldSet f) {
 		children.add(f);
+
+		for(String perm : f.getAllFieldPerms()){
+			if(!childrenperm.containsKey(perm)){
+				childrenperm.put(perm, new ArrayList<FieldSet>());
+			}
+			childrenperm.get(perm).add(f);
+		}
 	}
 
-	public FieldSet[] getChildren() {
-		return children.toArray(new FieldSet[0]);
+//	public FieldSet[] getChildren() {
+//		return children.toArray(new FieldSet[0]);
+//	}
+	public FieldSet[] getChildren(String perm) {
+		if(perm.equals("")){
+			return children.toArray(new FieldSet[0]);
+		}
+		if(childrenperm.containsKey(perm)){
+			return childrenperm.get(perm).toArray(new FieldSet[0]);
+		}
+		return new FieldSet[0];
 	}
 
 	public FieldParent getParent() {
@@ -255,7 +275,15 @@ public class Repeat implements FieldSet, FieldParent {
 	public List<String> getAllMerge() {
 		return merged;
 	}
-
+	
+	public String[] getAllFieldPerms(){
+		return perm_defaults.toArray(new String[0]);
+	}
+	
+	public boolean hasFieldPerm(String perm){
+		return perm_defaults.contains(perm);
+	}
+	
 	public boolean hasEnumBlank() {
 		return enum_hasblank;
 	}

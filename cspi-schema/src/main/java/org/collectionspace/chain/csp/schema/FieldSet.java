@@ -17,6 +17,9 @@ public interface FieldSet {
 	public String getServicesTag();
 	public String getSection();
 	public Boolean isInServices();
+	public boolean hasFieldPerm(String k);
+	public String[] getAllFieldPerms();
+
 	public void config_finish(Spec spec);
 	
 	//subrecords

@@ -26,6 +26,7 @@ public class Field implements FieldSet {
 	private Set<String> autocomplete_instance_ids;
 	private Set<String> enum_default;
 	private Set<String> option_default;
+	private Set<String> perm_defaults;
 
 	private Map<String, Instance> instances = new HashMap<String, Instance>();
 
@@ -125,6 +126,7 @@ public class Field implements FieldSet {
 		if (services_filter_param != null)
 			record.getRecord().setServicesFilterParam(services_filter_param,
 					this);
+		perm_defaults = Util.getSetOrDefault(section, "/@attributes", new String[] {"GET","PUT","POST","DELETE"});
 	}
 
 	public String getID() {
@@ -260,7 +262,15 @@ public class Field implements FieldSet {
 	public Option[] getAllOptions() {
 		return options_list.toArray(new Option[0]);
 	}
+	
+	public String[] getAllFieldPerms(){
+		return perm_defaults.toArray(new String[0]);
+	}
 
+	public boolean hasFieldPerm(String perm){
+		return perm_defaults.contains(perm);
+	}
+	
 	public String getOptionDefault() {
 		option_default.remove("");
 		return StringUtils.join(option_default, ",");

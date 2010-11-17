@@ -77,7 +77,7 @@ public class ServicesXsd implements WebMethod {
 		Element ele = root.addElement(new QName("complexType", ns));
 		ele.addAttribute("name", listName);
 		Element sele = ele.addElement(new QName("sequence", ns));
-		for (FieldSet fs : r.getChildren()) {
+		for (FieldSet fs : r.getChildren("")) {
 			generateDataEntry(sele, fs, ns, root, true);
 		}
 
@@ -112,7 +112,7 @@ public class ServicesXsd implements WebMethod {
 				Element field = ele.addElement(new QName("element", ns));
 				field.addAttribute("name", rfs.getServicesTag());
 
-				listName = rfs.getChildren()[0].getServicesTag() + "List";
+				listName = rfs.getChildren("")[0].getServicesTag() + "List";
 				field.addAttribute("type", listName);
 
 			}
@@ -200,7 +200,7 @@ public class ServicesXsd implements WebMethod {
 
 		// add toplevel items
 
-		for (FieldSet fs : record.getAllFields()) {
+		for (FieldSet fs : record.getAllFields("")) {
 			generateDataEntry(cele, fs, ns, root, false);
 		}
 

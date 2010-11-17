@@ -37,14 +37,14 @@ import org.slf4j.LoggerFactory;
 
 public class XmlJsonConversion {
 	private static final Logger log=LoggerFactory.getLogger(XmlJsonConversion.class);
-	private static void addFieldToXml(Element root,Field field,JSONObject in) throws JSONException {
+	private static void addFieldToXml(Element root,Field field,JSONObject in, String permlevel) throws JSONException {
 		String value=in.optString(field.getID());
 		Element element=root.addElement(field.getServicesTag());
 		element.addText(value);
 	}
 	
 	//XXX could refactor this and addRepeatToXML as this is what happens in the middle of addRepeatToXML
-	private static void addGroupToXml(Element root, Group group, JSONObject in, String section) throws JSONException, UnderlyingStorageException{
+	private static void addGroupToXml(Element root, Group group, JSONObject in, String section, String permlevel) throws JSONException, UnderlyingStorageException{
 		Element element=root;
 
 		if(group.hasServicesParent()){
@@ -80,23 +80,23 @@ public class XmlJsonConversion {
 			}
 			else if(one_value instanceof String) {
 				// Assume it's just the first entry (useful if there's only one)
-				FieldSet[] fs=group.getChildren();
+				FieldSet[] fs=group.getChildren(permlevel);
 				if(fs.length<1){ //do nothing 
 					
 				}
 				else{
 					JSONObject d1=new JSONObject();
 					d1.put(fs[0].getID(),one_value);
-					addFieldSetToXml(groupelement,fs[0],d1,section);
+					addFieldSetToXml(groupelement,fs[0],d1,section,permlevel);
 				}
 			} else if(one_value instanceof JSONObject) {
-				for(FieldSet fs : group.getChildren())
-					addFieldSetToXml(groupelement,fs,(JSONObject)one_value,section);
+				for(FieldSet fs : group.getChildren(permlevel))
+					addFieldSetToXml(groupelement,fs,(JSONObject)one_value,section,permlevel);
 			}
 		element=groupelement;
 	}
 	
-	private static void addRepeatToXml(Element root,Repeat repeat,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
+	private static void addRepeatToXml(Element root,Repeat repeat,JSONObject in,String section, String permlevel) throws JSONException, UnderlyingStorageException {
 
 		Element element=root;
 		if(repeat.hasServicesParent()){
@@ -111,10 +111,10 @@ public class XmlJsonConversion {
 		}
 		Object value=null;
 		if(repeat.getXxxUiNoRepeat()) { // and sometimes the app ahead of the services
-			FieldSet[] children=repeat.getChildren();
+			FieldSet[] children=repeat.getChildren(permlevel);
 			if(children.length==0)
 				return;
-			addFieldSetToXml(element,children[0],in,section);
+			addFieldSetToXml(element,children[0],in,section,permlevel);
 			return;
 		} else {
 			value=in.opt(repeat.getID());			
@@ -165,48 +165,51 @@ public class XmlJsonConversion {
 				continue;
 			if(one_value instanceof String) {
 				// Assume it's just the first entry (useful if there's only one)
-				FieldSet[] fs=repeat.getChildren();
+				FieldSet[] fs=repeat.getChildren(permlevel);
 				if(fs.length<1)
 					continue;
 				JSONObject d1=new JSONObject();
 				d1.put(fs[0].getID(),one_value);
-				addFieldSetToXml(repeatelement,fs[0],d1,section);
+				addFieldSetToXml(repeatelement,fs[0],d1,section,permlevel);
 			} else if(one_value instanceof JSONObject) {
-				for(FieldSet fs : repeat.getChildren())
-					addFieldSetToXml(repeatelement,fs,(JSONObject)one_value,section);
+				for(FieldSet fs : repeat.getChildren(permlevel))
+					addFieldSetToXml(repeatelement,fs,(JSONObject)one_value,section,permlevel);
 			}
 		}
 		element=repeatelement;
 	}
 
-	private static void addFieldSetToXml(Element root,FieldSet fs,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
+	private static void addFieldSetToXml(Element root,FieldSet fs,JSONObject in,String section, String permlevel) throws JSONException, UnderlyingStorageException {
 		if(!section.equals(fs.getSection()))
 			return;
 		if(fs instanceof Field)
-			addFieldToXml(root,(Field)fs,in);
+			addFieldToXml(root,(Field)fs,in,permlevel);
 		else if(fs instanceof Group){
-			addGroupToXml(root,(Group)fs,in,section);
+			addGroupToXml(root,(Group)fs,in,section,permlevel);
 		}
 		else if(fs instanceof Repeat){
-			addRepeatToXml(root,(Repeat)fs,in,section);
+			addRepeatToXml(root,(Repeat)fs,in,section,permlevel);
 		}
 	}
 	
-	public static Document convertToXml(Record r,JSONObject in,String section) throws JSONException, UnderlyingStorageException {
+	public static Document convertToXml(Record r,JSONObject in,String section, String permtype) throws JSONException, UnderlyingStorageException {
 		Document doc=DocumentFactory.getInstance().createDocument();
 		String[] parts=r.getServicesRecordPath(section).split(":",2);
 		String[] rootel=parts[1].split(",");
 		Element root=doc.addElement(new QName(rootel[1],new Namespace("ns2",rootel[0])));
-		for(FieldSet f : r.getAllServiceFields()) {
-			addFieldSetToXml(root,f,in,section);
+		if(r.getAllServiceFields(permtype,section).length >0){
+			for(FieldSet f : r.getAllServiceFields(permtype,section)) {
+				addFieldSetToXml(root,f,in,section,permtype);
+			}
+			String test = doc.asXML();
+			//log.debug(doc.asXML());
+			return doc;
 		}
-		String test = doc.asXML();
-		//log.debug(doc.asXML());
-		return doc;
+		return null;
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static void addFieldToJson(JSONObject out,Element root,Field f) throws JSONException {
+	private static void addFieldToJson(JSONObject out,Element root,Field f, String permlevel) throws JSONException {
 		List nodes=root.selectNodes(f.getServicesTag());
 		if(nodes.size()==0)
 			return;
@@ -249,16 +252,16 @@ public class XmlJsonConversion {
 		return "";
 	}
 
-	private static void buildFieldList(List<String> list,FieldSet f) {
+	private static void buildFieldList(List<String> list,FieldSet f, String permlevel) {
 		if(f instanceof Repeat){
 			list.add(f.getID());
-			for(FieldSet a : ((Repeat)f).getChildren()){
+			for(FieldSet a : ((Repeat)f).getChildren(permlevel)){
 				//if(a instanceof Repeat)
 				//	list.add(a.getID());
 				if(a instanceof Field){
 					list.add(a.getID());
 				}
-				buildFieldList(list,a);
+				buildFieldList(list,a,permlevel);
 			}
 		}
 		if(f instanceof Field){
@@ -267,12 +270,12 @@ public class XmlJsonConversion {
 	}
 	
 	/* Repeat syntax is challenging for dom4j */
-	private static List<Map<String, List <Element> >> extractRepeats(Element container,FieldSet f) {
+	private static List<Map<String, List <Element> >> extractRepeats(Element container,FieldSet f, String permlevel) {
 		List<Map<String,List<Element>>> out=new ArrayList<Map<String,List<Element>>>();
 		// Build index so that we can see when we return to the start
 		List<String> fields=new ArrayList<String>();
 		List<Element> repeatdatatypestuff = new ArrayList<Element>();
-		buildFieldList(fields,f);
+		buildFieldList(fields,f,permlevel);
 		Map<String,Integer> field_index=new HashMap<String,Integer>();
 
 		for(int i=0;i<fields.size();i++){
@@ -306,16 +309,16 @@ public class XmlJsonConversion {
 	}
 	
 
-	private static List<String> FieldListFROMConfig(FieldSet f) {
+	private static List<String> FieldListFROMConfig(FieldSet f, String permlevel) {
 		List<String> children = new ArrayList<String>();
 		
 		if(f instanceof Repeat){
-			for(FieldSet a : ((Repeat)f).getChildren()){
+			for(FieldSet a : ((Repeat)f).getChildren(permlevel)){
 				children.add(a.getID());
 			}
 		}
 		if(f instanceof Group){
-			for(FieldSet a : ((Group)f).getChildren()){
+			for(FieldSet a : ((Group)f).getChildren(permlevel)){
 				children.add(a.getID());
 			}
 		}
@@ -326,12 +329,12 @@ public class XmlJsonConversion {
 	}
 	
 	/* Repeat syntax is challenging for dom4j */
-	private static JSONArray extractRepeatData(Element container,FieldSet f) throws JSONException {
+	private static JSONArray extractRepeatData(Element container,FieldSet f, String permlevel) throws JSONException {
 		
 		List<Map<String,List<Element>>> out=new ArrayList<Map<String,List<Element>>>();
 		JSONArray newout = new JSONArray();
 		// Build index so that we can see when we return to the start
-		List<String> fields = FieldListFROMConfig(f);
+		List<String> fields = FieldListFROMConfig(f,permlevel);
 		
 		Map<String,Integer> field_index=new HashMap<String,Integer>();
 		
@@ -368,17 +371,17 @@ public class XmlJsonConversion {
 	
 	
 	@SuppressWarnings("unchecked")
-	private static JSONArray addRepeatedNodeToJson(Element container,Repeat f) throws JSONException {
+	private static JSONArray addRepeatedNodeToJson(Element container,Repeat f, String permlevel) throws JSONException {
 		JSONArray node = new JSONArray();
 
-		JSONArray elementlist=extractRepeatData(container,f);
+		JSONArray elementlist=extractRepeatData(container,f,permlevel);
 
 		JSONObject siblingitem = new JSONObject();
 		for(int i=0;i<elementlist.length();i++){
 			JSONObject element = elementlist.getJSONObject(i);
 
 
-			for(FieldSet fs : f.getChildren()) {
+			for(FieldSet fs : f.getChildren(permlevel)) {
 				Iterator rit=element.keys();
 				while(rit.hasNext()) {
 					String key=(String)rit.next();
@@ -412,7 +415,7 @@ public class XmlJsonConversion {
 							Object repeatcontainer = arrvalue.get(j);
 							Element rpcontainer=(Element)repeatcontainer;
 							JSONObject repeatitem = new JSONObject();
-							JSONArray repeatdata = addRepeatedNodeToJson(rpcontainer,(Repeat)fs);
+							JSONArray repeatdata = addRepeatedNodeToJson(rpcontainer,(Repeat)fs, permlevel);
 							
 							if(f.asSibling()){
 								siblingitem.put(fs.getID(), repeatdata);
@@ -433,7 +436,7 @@ public class XmlJsonConversion {
 		return node;
 	}
 	
-	private static void addGroupToJson(JSONObject out, Element root, Group f) throws JSONException{
+	private static void addGroupToJson(JSONObject out, Element root, Group f,String permlevel) throws JSONException{
 		String nodeName = f.getServicesTag();
 		if(f.hasServicesParent()){
 			nodeName = f.getfullID();
@@ -453,21 +456,21 @@ public class XmlJsonConversion {
 		for(Object repeatcontainer : nodes){
 			pos++;
 			Element container=(Element)repeatcontainer;
-			JSONArray repeatitem = addRepeatedNodeToJson(container,f);
+			JSONArray repeatitem = addRepeatedNodeToJson(container,f,permlevel);
 			JSONObject repeated = repeatitem.getJSONObject(0);
 			out.put(f.getID(), repeated);
 		}
 		
 	}
 	@SuppressWarnings("unchecked")
-	private static void addRepeatToJson(JSONObject out,Element root,Repeat f) throws JSONException {
+	private static void addRepeatToJson(JSONObject out,Element root,Repeat f,String permlevel) throws JSONException {
 		if(f.getXxxServicesNoRepeat()) {
-			FieldSet[] fields=f.getChildren();
+			FieldSet[] fields=f.getChildren(permlevel);
 			if(fields.length==0)
 				return;
 			JSONArray members=new JSONArray();
 			JSONObject data=new JSONObject();
-			addFieldSetToJson(data,root,fields[0]);
+			addFieldSetToJson(data,root,fields[0],permlevel);
 			members.put(data);
 			out.put(f.getID(),members);
 			return;
@@ -493,7 +496,7 @@ public class XmlJsonConversion {
 			pos++;
 			Element container=(Element)repeatcontainer;
 			if(f.asSibling()){
-				JSONArray repeatitem = addRepeatedNodeToJson(container,f);
+				JSONArray repeatitem = addRepeatedNodeToJson(container,f,permlevel);
 				JSONArray temp = new JSONArray();
 				if(!out.has(f.getID())){
 					out.put(f.getID(), temp);
@@ -508,31 +511,31 @@ public class XmlJsonConversion {
 				}
 			}
 			else{
-				JSONArray repeatitem = addRepeatedNodeToJson(container,f);
+				JSONArray repeatitem = addRepeatedNodeToJson(container,f,permlevel);
 				out.put(f.getID(), repeatitem);
 			}
 		}
 	}
 	
-	private static void addFieldSetToJson(JSONObject out,Element root,FieldSet fs) throws JSONException {
+	private static void addFieldSetToJson(JSONObject out,Element root,FieldSet fs,String permlevel) throws JSONException {
 		if(fs instanceof Field)
-			addFieldToJson(out,root,(Field)fs);
+			addFieldToJson(out,root,(Field)fs,permlevel);
 		else if(fs instanceof Group)
-			addGroupToJson(out,root,(Group)fs);
+			addGroupToJson(out,root,(Group)fs,permlevel);
 		else if(fs instanceof Repeat)
-			addRepeatToJson(out,root,(Repeat)fs);
+			addRepeatToJson(out,root,(Repeat)fs,permlevel);
 	}
 	
-	public static void convertToJson(JSONObject out,Record r,Document doc) throws JSONException {
+	public static void convertToJson(JSONObject out,Record r,Document doc, String permlevel, String section) throws JSONException {
 		Element root=doc.getRootElement();
-		for(FieldSet f : r.getAllServiceFields()) {
-			addFieldSetToJson(out,root,f);
+		for(FieldSet f : r.getAllServiceFields(permlevel,section)) {
+			addFieldSetToJson(out,root,f,permlevel);
 		}
 	}
 
-	public static JSONObject convertToJson(Record r,Document doc) throws JSONException {
+	public static JSONObject convertToJson(Record r,Document doc, String permlevel, String section) throws JSONException {
 		JSONObject out=new JSONObject();
-		convertToJson(out,r,doc);
+		convertToJson(out,r,doc,permlevel,section);
 		return out;
 	}
 }

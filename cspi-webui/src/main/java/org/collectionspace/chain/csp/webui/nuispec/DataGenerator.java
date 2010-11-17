@@ -408,7 +408,7 @@ public class DataGenerator  extends UISpec {
 		for(Integer i=0;i<repeatnum;i++){
 			repeataffix = i.toString()+" - ";
 			JSONObject protoTree=new JSONObject();
-			for(FieldSet child : r.getChildren()) {
+			for(FieldSet child : r.getChildren("POST")) {
 				generateDataEntry(protoTree,child, affix);
 			}
 			arr.put(protoTree);

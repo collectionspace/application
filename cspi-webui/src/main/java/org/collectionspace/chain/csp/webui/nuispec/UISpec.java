@@ -273,9 +273,9 @@ public class UISpec implements WebMethod {
 		expander.put("pathAs", "row");
 		expander.put("repeatID", getSelector(r));
 
-		if(r.getChildren().length>0){
+		if(r.getChildren("").length>0){
 			JSONObject tree = new JSONObject();
-			for(FieldSet child : r.getChildren()) {
+			for(FieldSet child : r.getChildren("")) {
 				generateDataEntry(tree,child, affix);
 			}
 			expander.put("tree", tree);
@@ -301,9 +301,9 @@ public class UISpec implements WebMethod {
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.renderer.noexpand");
 
-		if(r.getChildren().length>0){
+		if(r.getChildren("").length>0){
 			JSONObject tree = new JSONObject();
-			for(FieldSet child : r.getChildren()) {
+			for(FieldSet child : r.getChildren("")) {
 				generateDataEntry(tree,child, affix);
 			}
 			expander.put("tree", tree);
@@ -325,7 +325,7 @@ public class UISpec implements WebMethod {
 			decorator.put("func","cspace.makeRepeatable");
 			JSONObject options=new JSONObject();
 			JSONObject protoTree=new JSONObject();
-			for(FieldSet child : r.getChildren()) {
+			for(FieldSet child : r.getChildren("")) {
 				generateDataEntry(protoTree,child, affix);
 			}
 
@@ -424,7 +424,7 @@ public class UISpec implements WebMethod {
 
 	protected JSONObject generateDataEntrySection(String affix) throws JSONException {
 		JSONObject out=new JSONObject();
-		for(FieldSet fs : record.getAllFields()) {
+		for(FieldSet fs : record.getAllFields("")) {
 			generateDataEntry(out,fs,affix);
 		}
 		return out;
@@ -442,7 +442,7 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 	private void generateSubRecord(JSONObject out,Record subrecord, String affix) throws JSONException {
-		for(FieldSet fs2 : subrecord.getAllFields()) {
+		for(FieldSet fs2 : subrecord.getAllFields("")) {
 			generateDataEntry(out,fs2, affix);
 		}
 		
@@ -499,7 +499,7 @@ public class UISpec implements WebMethod {
 		// Container
 		Repeat r=(Repeat)fs;
 		if(r.getXxxUiNoRepeat()) {
-			FieldSet[] children=r.getChildren();
+			FieldSet[] children=r.getChildren("");
 			if(children.length!=0){
 				generateDataEntry(out,children[0], affix);
 			}
@@ -520,8 +520,8 @@ public class UISpec implements WebMethod {
 		JSONObject contents=generateRepeatEntry(r, affix);
 		String selector = getSelector(r);
 		//CSPACE-2619 scalar repeatables are different from group repeats
-		if(r.getChildren().length==1){
-			Field child = (Field)r.getChildren()[0];
+		if(r.getChildren("").length==1){
+			Field child = (Field)r.getChildren("")[0];
 			selector = getSelector(child);
 			//XXX CSPACE-2706 hack
 			if(child.getUIType().equals("date")){
@@ -538,7 +538,7 @@ public class UISpec implements WebMethod {
 	protected void repeatSibling(JSONObject out, String affix, Repeat r,
 			JSONObject row, JSONArray children) throws JSONException {
 		JSONObject contents=new JSONObject();
-		for(FieldSet child : r.getChildren()) {
+		for(FieldSet child : r.getChildren("")) {
 			generateDataEntry(contents,child, affix);
 		}
 		children.put(contents);
@@ -550,7 +550,7 @@ public class UISpec implements WebMethod {
 			String affix) throws JSONException {
 		Group g = (Group)fs;
 		JSONObject contents=new JSONObject();
-		for(FieldSet child : g.getChildren()) {
+		for(FieldSet child : g.getChildren("")) {
 			generateDataEntry(contents,child, affix);
 		}
 		out.put(getSelector(g),contents);
@@ -608,14 +608,14 @@ public class UISpec implements WebMethod {
 				return;
 			out.put(f.getTitleSelector()+affix,plain(f));
 		} else if(fs instanceof Repeat) {
-			for(FieldSet child : ((Repeat)fs).getChildren())
+			for(FieldSet child : ((Repeat)fs).getChildren(""))
 				generateTitleSectionEntry(out,child, affix);
 		}
 	}
 
 	protected JSONObject generateTitleSection(String affix) throws JSONException {
 		JSONObject out=new JSONObject();
-		for(FieldSet f : record.getAllFields()) {
+		for(FieldSet f : record.getAllFields("")) {
 			generateTitleSectionEntry(out,f, affix);
 		}
 		return out;

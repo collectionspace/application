@@ -117,7 +117,7 @@ public class UserStorage extends GenericStorage {
 		jsonObject = correctScreenName(jsonObject);
 		jsonObject = correctUserId(jsonObject);
 		doc = XmlJsonConversion.convertToXml(r, jsonObject,
-				"common");
+				"common","POST");
 		url = conn.getURL(RequestMethod.POST, r.getServicesURL() + "/",
 				doc, creds, cache);
 		if(url.getStatus()>299 || url.getStatus()<200)
@@ -134,7 +134,7 @@ public class UserStorage extends GenericStorage {
 
 		String[] parts = filePath.split("/");
 		if (parts.length > 2) {
-			for (FieldSet allfs : r.getAllSubRecords()) {
+			for (FieldSet allfs : r.getAllSubRecords("DELETE")) {
 				Record allr = allfs.usesRecordId();
 				if (allr.getID().equals(parts[2])) {
 					filePath = parts[0] + "/" + allr.getServicesURL() + "/"
@@ -350,9 +350,9 @@ public class UserStorage extends GenericStorage {
 						.getStatus(), filePath);
 			if (isUserRole)
 				out = XmlJsonConversion.convertToJson(r.getSpec().getRecord(
-						"userrole"), xml);
+						"userrole"), xml,"GET","common");// XXX hardwired common section :(
 			else
-				out = XmlJsonConversion.convertToJson(r, xml);
+				out = XmlJsonConversion.convertToJson(r, xml,"GET","common");// XXX hardwired common section :(
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception"
@@ -373,7 +373,7 @@ public class UserStorage extends GenericStorage {
 			// Chris or somoeone else at CARET).
 			jsonObject = correctPassword(jsonObject);
 			Document in = XmlJsonConversion.convertToXml(r, jsonObject,
-					"common");
+					"common","PUT");
 			// Document
 			// in=XmlJsonConversion.convertToXml(r,xxx_cspace1458_fix(filePath,jsonObject,creds,cache),"common");
 			log.info("Sending: " + in.asXML());

@@ -27,8 +27,14 @@ public class Record implements FieldParent {
 	private String id;
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
 	private Map<String, FieldSet> subrecords = new HashMap<String, FieldSet>();
+	private Map<String, Map<String, FieldSet>> subrecordsperm = new HashMap<String, Map<String, FieldSet>>();
 	private Map<String, FieldSet> fields = new HashMap<String, FieldSet>();
 	private Map<String, FieldSet> servicefields = new HashMap<String, FieldSet>();
+	private Map<String, Map<String, Map<String, FieldSet>>> servicepermfields = new HashMap<String, Map<String,Map<String, FieldSet>>>();
+	private Map<String, Map<String, FieldSet>> genpermfields = new HashMap<String, Map<String, FieldSet>>();
+	private Map<String, Map<String, FieldSet>> repeatpermfields = new HashMap<String, Map<String, FieldSet>>();
+	
+	
 	private Map<String, FieldSet> repeatfields = new HashMap<String, FieldSet>();
 
 	private Map<String, Instance> instances = new HashMap<String, Instance>();
@@ -188,20 +194,50 @@ public class Record implements FieldParent {
 		return spec;
 	}
 
-	public FieldSet[] getAllServiceFields() {
-		return servicefields.values().toArray(new FieldSet[0]);
+	public FieldSet[] getAllServiceFields(String perm, String section) {
+		if(perm.equals("")){//return everything
+			return servicefields.values().toArray(new FieldSet[0]);
+		}
+		if(servicepermfields.containsKey(perm)){
+			if(servicepermfields.get(perm).containsKey(section)){
+				return servicepermfields.get(perm).get(section).values().toArray(new FieldSet[0]);
+			}
+		}
+		return new FieldSet[0];
 	}
+	
+//	public FieldSet[] getAllServiceFields() {
+//		return servicefields.values().toArray(new FieldSet[0]);
+//	}
 
-	public FieldSet[] getAllFields() {
-		return fields.values().toArray(new FieldSet[0]);
+	public FieldSet[] getAllFields(String perm) {
+		if(perm.equals("")){
+			return fields.values().toArray(new FieldSet[0]);
+		}
+		if(genpermfields.containsKey(perm)){
+			return genpermfields.get(perm).values().toArray(new FieldSet[0]);
+		}
+		return new FieldSet[0];
 	}
+//	public FieldSet[] getAllFields() {
+//		return fields.values().toArray(new FieldSet[0]);
+//	}
 
 	public FieldSet getField(String id) {
 		return fields.get(id);
 	}
 
-	public FieldSet[] getAllRepeatFields() {
-		return repeatfields.values().toArray(new FieldSet[0]);
+	//public FieldSet[] getAllRepeatFields() {
+	//	return repeatfields.values().toArray(new FieldSet[0]);
+	//}
+	public FieldSet[] getAllRepeatFields(String perm) {
+		if(perm.equals("")){
+			return repeatfields.values().toArray(new FieldSet[0]);
+		}
+		if(repeatpermfields.containsKey(perm)){
+			return repeatpermfields.get(perm).values().toArray(new FieldSet[0]);
+		}
+		return new FieldSet[0];
 	}
 
 	/*
@@ -225,9 +261,21 @@ public class Record implements FieldParent {
 		return subrecords.get(fieldid).usesRecordId();
 	}
 
+	public FieldSet[] getAllSubRecords(String perm) {
+		if(!subrecordsperm.containsKey(perm)){
+			subrecordsperm.put(perm, new HashMap<String, FieldSet>());
+			for (FieldSet fs : this.getAllRepeatFields(perm)) {
+				if (fs.usesRecord()) {
+					this.addSubRecord(fs,perm);
+				}
+			}
+		}
+		return subrecordsperm.get(perm).values().toArray(new FieldSet[0]);
+	}	
+	/*
 	public FieldSet[] getAllSubRecords() {
 		if (subrecords.values().isEmpty()) {
-			for (FieldSet fs : this.getAllRepeatFields()) {
+			for (FieldSet fs : this.getAllRepeatFields("")) {
 				if (fs.usesRecord()) {
 					this.addSubRecord(fs);
 				}
@@ -235,6 +283,7 @@ public class Record implements FieldParent {
 		}
 		return subrecords.values().toArray(new FieldSet[0]);
 	}
+	*/
 
 	public String getPrimaryField() {
 		return primaryfield;
@@ -410,19 +459,40 @@ public class Record implements FieldParent {
 		fields.put(f.getID(), f);
 		if (f.isInServices()) {
 			servicefields.put(f.getID(), f);
+			for(String perm : f.getAllFieldPerms()){
+				if(!servicepermfields.containsKey(perm)){
+					servicepermfields.put(perm, new HashMap<String,Map<String, FieldSet>>());
+				}
+				if(!servicepermfields.get(perm).containsKey(f.getSection())){
+					servicepermfields.get(perm).put(f.getSection(), new HashMap<String, FieldSet>());
+				}
+				servicepermfields.get(perm).get(f.getSection()).put(f.getID(), f);
+			}
+		}
+		for(String perm : f.getAllFieldPerms()){
+			if(!genpermfields.containsKey(perm)){
+				genpermfields.put(perm, new HashMap<String, FieldSet>());
+			}
+			genpermfields.get(perm).put(f.getID(), f);
 		}
 	}
 
 	public void addAllField(FieldSet f) {
 		repeatfields.put(f.getID(), f);
+		for(String perm : f.getAllFieldPerms()){
+			if(!repeatpermfields.containsKey(perm)){
+				repeatpermfields.put(perm, new HashMap<String, FieldSet>());
+			}
+			repeatpermfields.get(perm).put(f.getID(), f);
+		}
 	}
 
 	public void addStructure(Structure s) {
 		structure.put(s.getID(), s);
 	}
 
-	public void addSubRecord(FieldSet fs) {
-		subrecords.put(fs.getID(), fs);
+	public void addSubRecord(FieldSet fs, String perm) {
+		subrecordsperm.get(perm).put(fs.getID(), fs);
 	}
 
 	public void addInstance(Instance n) {
