@@ -3,8 +3,8 @@
     <bootstrap />
     <version>10</version>
     <admin>
-        <username>test@collectionspace.org</username>
-        <password>testtest</password>
+        <username>admin@collectionspace.org</username>
+        <password>Administrator</password>
     </admin>
     <email>
         <baseurl>http://localhost:8180</baseurl>

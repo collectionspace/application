@@ -60,11 +60,12 @@ public class ServicesBaseClass {
 		} catch (CSPDependencyException e) {
 			assertNotNull("Base service url invalid in config file: "+TestConfigFinder.configFilename,base);
 		} // XXX still yuck but centralised now
+		log.info("ServicesBaseClass setting up connection using base URL:"+base);
 
 		conn=new ServicesConnection(base);
 		creds=new ServicesRequestCredentials();
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test@collectionspace.org");
-		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtest");		
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"admin@collectionspace.org");
+		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"Administrator");		
 		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"accounts/0/accountperms",null,creds,cache);
 		Assume.assumeTrue(out.getStatus()==200);
 	}
