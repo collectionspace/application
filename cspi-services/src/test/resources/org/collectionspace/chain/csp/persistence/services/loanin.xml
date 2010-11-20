@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:loansin_common xmlns:ns2="http://collectionspace.org/services/loanin">
+    <loanInNumber>LI2010.1.21</loanInNumber>
+    <loanInContact></loanInContact>
+    <loanInDate></loanInDate>
+    <lenderGroupList>
+       <lenderGroup>
+           <lender>urn:cspace:org.collectionspace.demo:orgauthority:id(2a6dcf2e-2ec6-47ca-a460):organization:id(b53b23c9-81bf-447b-838f)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'</lender>
+           <lendersAuthorizer></lendersAuthorizer>
+           <lendersAuthorizationDate>October 29, 2009</lendersAuthorizationDate>
+           <lendersContact></lendersContact>
+       </lenderGroup>
+       <lenderGroup>
+           <lender></lender>
+           <lendersAuthorizer></lendersAuthorizer>
+           <lendersAuthorizationDate>October 30, 2009</lendersAuthorizationDate>
+           <lendersContact></lendersContact>
+       </lenderGroup>
+    </lenderGroupList>
+    <loanInConditions>Loan in conditions.</loanInConditions>
+    <loanInNote></loanInNote>
+    <loanPurpose></loanPurpose>
+    <loanReturnDate></loanReturnDate>
+    <loanRenewalApplicationDate></loanRenewalApplicationDate>
+</ns2:loansin_common>
+
+

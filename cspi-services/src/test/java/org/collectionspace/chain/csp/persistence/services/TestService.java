@@ -75,7 +75,7 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 
-		testXMLJSON(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
+		testXMLJSON(spec, "loanin","loanin.xml","loanin.json");
                 testXMLJSON(spec, "loanout","loanout.xml","loanout.json");
 		testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
@@ -108,7 +108,7 @@ public class TestService extends ServicesBaseClass {
 		//need intake
 		//needloanout
 
-		testJSONXML(spec, "loanin","loaninXMLJSON.xml","LoaninJSON.json");
+		testJSONXML(spec, "loanin","loanin.xml","loanin.json");
 		testJSONXML(spec, "loanout","loanout.xml","loanout.json");
 		testJSONXML(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testJSONXML(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
@@ -605,7 +605,7 @@ public class TestService extends ServicesBaseClass {
 
 		testPostGetDelete("acquisitions/", "acquisitions_common", "acquisitionXMLJSON.xml", "acquisitions_common/accessionDate", "April 1, 2010");
 		testPostGetDelete("intakes/", "intakes_common", "intake.xml", "intakes_common/entryNumber","IN2010.337");
-		testPostGetDelete("loansin/", "loansin_common", "loaninXMLJSON.xml", "loansin_common/loanInNumber", "LI2010.1.21");
+		testPostGetDelete("loansin/", "loansin_common", "loanin.xml", "loansin_common/loanInNumber", "LI2010.1.21");
 		testPostGetDelete("loansout/", "loansout_common", "loanout.xml", "loansout_common/loanOutNumber", "LO2010.117");
 
 		
@@ -732,7 +732,7 @@ public class TestService extends ServicesBaseClass {
 			url=conn.getURL(RequestMethod.POST,serviceurl,getDocument(filename),creds,cache);
 		}
 
-		assertEquals(201,url.getStatus());
+		assertEquals("Failed to receive 201 status code on create",201,url.getStatus());
 
 //		assertTrue(url.getURL().startsWith("/"+serviceurl)); // ensures e.g. CSPACE-305 hasn't regressed
 
@@ -749,13 +749,13 @@ public class TestService extends ServicesBaseClass {
 			getStatus = rdoc.getStatus();
 			doc = rdoc.getDocument();
 		}
-		assertEquals(200,getStatus);
+		assertEquals("Failed to receive expected 200 status code on read",200,getStatus);
 		log.info("RETRIEVED RECORD "+doc.asXML());
-		assertNotNull(doc);
+		assertNotNull("Record received on read was unexpectedly null",doc);
 		Node n=doc.selectSingleNode(xpath);
-		assertNotNull(n);
+		assertNotNull("Expected XPath expression was not found in record",n);
 		String text=n.getText();
-		assertEquals(expected,text);	
+		assertEquals("Expected value was not found in record",expected,text);
 		
 		//List
 		log.info("LIST from "+serviceurl);
@@ -763,7 +763,7 @@ public class TestService extends ServicesBaseClass {
 			getStatus = rdoc1.getStatus();
 			doc = rdoc1.getDocument();
 			
-		assertEquals(200,getStatus);
+		assertEquals("Failed to receive expected 200 status code on list read",200,getStatus);
 		log.info("LISTLISTLIST");
 		log.info(doc.asXML());
 		log.info("LISTLISTLIST");
@@ -771,10 +771,10 @@ public class TestService extends ServicesBaseClass {
 		
 		// DELETE (Delete)
 		int status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
-		assertEquals(200,status);		
+		assertEquals("Failed to receive expected 200 status code on delete",200,status);
 		// Now try to delete non-existent (make sure CSPACE-73 hasn't regressed)
 		status=conn.getNone(RequestMethod.DELETE,url.getURL(),null,creds,cache);
-		assertEquals(404,status);
+		assertEquals("Failed to receive expected 404 status code on repeated delete of same record",404,status);
 
 		log.info("DELETE");
 		// GET once more to make sure it isn't there
@@ -787,8 +787,8 @@ public class TestService extends ServicesBaseClass {
 			getStatus = rdoc.getStatus();
 			doc = rdoc.getDocument();
 		}
-		assertEquals(404, getStatus); // ensures CSPACE-209 hasn't regressed
-		assertNull(doc);
+		assertEquals("Failed to receive expected 404 status code on repeated delete of same record",404, getStatus); // ensures CSPACE-209 hasn't regressed
+		assertNull("Contents of deleted record were unexpectedly not null",doc);
 		
 	}
 	

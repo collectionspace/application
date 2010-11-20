@@ -126,12 +126,15 @@ public class JSONUtils {
 		}
 		if(!checkKeys((JSONObject)a,(JSONObject)b))
 			return false;
-		if(((JSONObject)a).length()!=((JSONObject)b).length())
+		if(((JSONObject)a).length()!=((JSONObject)b).length()) {
+                        log.info("Lengths of two JSON objects don't match.");
 			return false;
+                }
 		Iterator t=((JSONObject)a).keys();
 		while(t.hasNext()) {
 			String key=(String)t.next();
 			if(!((JSONObject)b).has(key)) {
+                                log.info("b missing key " + key);
 				return false;
 			}
 			if(!checkJSONEquiv(((JSONObject)a).get(key),((JSONObject)b).get(key)))
