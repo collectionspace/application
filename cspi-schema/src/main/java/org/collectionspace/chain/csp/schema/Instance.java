@@ -56,6 +56,15 @@ public class Instance {
 		if("plain".equals(type))
 			type="dropdown";
 	}
+	public void deleteOption(String id,String name,String sample,boolean dfault) {
+		Option opt=new Option(id,name,sample);
+		if(dfault){
+			opt.setDefault();
+			option_default.remove(name);
+		}
+		options.remove(id);
+		options_list.remove(opt);
+	}
 	public Option getOption(String id) { return options.get(id); }
 	public Option[] getAllOptions() { return options_list.toArray(new Option[0]); }
 	public String getOptionDefault() { return StringUtils.join(option_default, ",");}

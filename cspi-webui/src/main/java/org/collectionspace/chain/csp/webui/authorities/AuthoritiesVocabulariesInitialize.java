@@ -128,25 +128,32 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		//Where do we get the list from?
 		//from Spec
 		Option[] allOpts = instance.getAllOptions();
-
-		//nothing in Spec? well maybe we have a path?
-		if (allOpts == null || allOpts.length == 0) {
-			// were we passed a path?
-			Set<String> args = request.getAllRequestArgument();
-			for (String restrict : args) {
-				if (restrict.equals("datapath")) {
-					String value = request.getRequestArgument(restrict);
-					log.info("getting data from path: "+value);
-					try{
-						String names = getResource(value);
-						for (String line : names.split("\n")) {
-							line = line.trim();
-							instance.addOption(null, line, null, false);
-						}
-					} catch (IOException e) {
-						throw new UIException("IOException",e);
-					}
+		
+		//but first check: do we have a path?
+		Set<String> args = request.getAllRequestArgument();
+		if(args.contains("datapath")){
+			//remove all opts from instance as we have a path
+			if(allOpts != null && allOpts.length > 0){
+				for(Option opt : allOpts){
+					String name = opt.getName();
+					String shortIdentifier = opt.getID();
+					String sample = opt.getSample();
+					Boolean dfault = opt.isDefault();
+					instance.deleteOption(shortIdentifier, name, sample, dfault);
 				}
+			}
+			
+			//add from path
+			String value = request.getRequestArgument("datapath");
+			log.info("getting data from path: "+value);
+			try{
+				String names = getResource(value);
+				for (String line : names.split("\n")) {
+					line = line.trim();
+					instance.addOption(null, line, null, false);
+				}
+			} catch (IOException e) {
+				throw new UIException("IOException",e);
 			}
 			allOpts = instance.getAllOptions();
 		}
