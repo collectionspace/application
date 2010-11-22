@@ -6,10 +6,18 @@
  */
 package org.collectionspace.chain.csp.webui.authorities;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
+import java.util.Set;
+import java.util.Map.Entry;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
@@ -102,10 +110,47 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		}
 	}
 	
+	private JSONObject getJSONResource(String in) throws IOException, JSONException {	
+		return new JSONObject(getResource(in));
+	}
+
+	private String getResource(String in) throws IOException {
+		File file=new File(in);
+		if(!file.exists())
+			return null;
+		InputStream stream= new FileInputStream(file);
+		String data=IOUtils.toString(stream);
+		stream.close();		
+		return data;
+	}
 	
 	private void resetvocabdata(Storage storage,UIRequest request, Instance instance) throws UIException {
-		//get list from Spec
+		//Where do we get the list from?
+		//from Spec
 		Option[] allOpts = instance.getAllOptions();
+
+		//nothing in Spec? well maybe we have a path?
+		if (allOpts == null || allOpts.length == 0) {
+			// were we passed a path?
+			Set<String> args = request.getAllRequestArgument();
+			for (String restrict : args) {
+				if (restrict.equals("datapath")) {
+					String value = request.getRequestArgument(restrict);
+					log.info("getting data from path: "+value);
+					try{
+						String names = getResource(value);
+						for (String line : names.split("\n")) {
+							line = line.trim();
+							instance.addOption(null, line, null, false);
+						}
+					} catch (IOException e) {
+						throw new UIException("IOException",e);
+					}
+				}
+			}
+			allOpts = instance.getAllOptions();
+		}
+
 		//step away if we have nothing
 		if(allOpts != null && allOpts.length > 0){
 
@@ -141,6 +186,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					String name = opt.getName();
 					String shortIdentifier = opt.getID();
 					if(!results.has(name)){
+						log.info("adding term "+name);
 						//create it if term is not already present
 						JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
 						if(opt.getID() == null){
@@ -149,6 +195,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 						}
 						data.put("shortIdentifier", shortIdentifier);
 						storage.autocreateJSON(r.getID()+"/"+instance.getTitleRef(),data);
+						results.remove(name);
 					}
 					else{
 						//remove from results so can delete everything else if necessary in next stage
@@ -163,6 +210,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 						String key=rit.next();
 						String csid = results.getString(key);
 						storage.deleteJSON(r.getID()+"/"+instance.getTitleRef()+"/"+csid);
+						log.info("deleting term "+key);
 					}
 				}
 

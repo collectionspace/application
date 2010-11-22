@@ -45,7 +45,7 @@ public class Instance {
 	public String getTitleRef() { return title_ref; }
 	public String getWebURL() { return web_url; }
 
-	void addOption(String id,String name,String sample,boolean dfault) {
+	public void addOption(String id,String name,String sample,boolean dfault) {
 		Option opt=new Option(id,name,sample);
 		if(dfault){
 			opt.setDefault();
