@@ -39,7 +39,6 @@
             <login-dest>/cspace-ui/html/myCollectionSpace.html</login-dest>
             <login-failed-dest>/cspace-ui/html/index.html</login-failed-dest>
             <front-page>/cspace-ui/html/</front-page>
-            <find-page>myCollectionSpace</find-page>
             <tmp-schema-path />
         </web>
     </ui>
@@ -48,14 +47,14 @@
             <relation id="broader">
                 <displayName>has broader term</displayName>
                 <directional>true</directional>
-                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements</sourceTypes>
-                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements</destinationTypes>
+                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit</sourceTypes>
+                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit</destinationTypes>
             </relation>
             <relation id="affects">
                 <displayName>affects</displayName>
                 <directional>false</directional>
-                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements</sourceTypes>
-                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements</destinationTypes>
+                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit</sourceTypes>
+                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit</destinationTypes>
             </relation>
         </relationships>
         <schemas>
@@ -1000,10 +999,23 @@
                 <services-url>intakes</services-url>
                 <services-list-path>intakes-common-list/intake-list-item</services-list-path>
                 <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <structures>
                     <structure id="screen"></structure>
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
+
+                <!-- Added for collectionspace_core: -->
+                <field id="tenantID" section="collectionspace_core">
+                    <services-tag>tenantID</services-tag>
+                </field>
+                <field id="createdAt" section="collectionspace_core">
+                    <services-tag>createdAt</services-tag>
+                </field>
+                <field id="updatedAt" section="collectionspace_core">
+                    <services-tag>updatedAt</services-tag>
+                </field>
+
                 <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" autocomplete="person-person,organization-organization">
                     <selector>.csc-intake-current-owner</selector>
                 </field>
@@ -2010,7 +2022,7 @@
                         <selector>.csc-loanOut-loanedObjectStatusNote</selector>
                     </field>
                 </repeat>
-				<field id="loanOutDate" ui-type="date">
+                <field id="loanOutDate" ui-type="date">
                     <selector>.csc-loanOut-loanOutDate</selector>
                 </field>
                 <field id="loanReturnDate" ui-type="date">
@@ -2123,6 +2135,50 @@
                     </options>
                 </field>
             </record>
+            <!-- CSPACE-3209 added objectexit record. -->
+            <record id="objectexit" in-findedit="yes" type="record,procedure">
+                <services-url>objectexit</services-url>
+                <web-url>objectexit</web-url>
+                <tab-url>objectexit-tab</tab-url>
+                <services-list-path>objectexit_common_list/objectexit_list_item</services-list-path>
+                <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
+                <structures>
+                    <structure id="screen"></structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+
+                <row-selector>.csc-recordList-row:</row-selector>
+                <!--  Object Entry Information Group -->
+                <field id="exitNumber" chooser="yes" in-title="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                    <options>
+                        <option id="objectexit" sample="EX2010.001">objectexit</option>
+                    </options>
+                </field>
+                <field id="currentOwner"></field>
+                <field id="depositor"></field>
+                <field id="exitNote"></field>
+                <field id="exitDate"></field>
+                <field id="exitMethod"></field>
+                <field id="exitReason"></field>
+                <field id="packingNote"></field>
+            </record>
+
             <record id="id" type="id">
 
                 <authorization-view>false</authorization-view>
@@ -2143,7 +2199,8 @@
                 <field id="study"><selector>0518132e-dd8c-4773-8fa9-07c9af4444ee</selector></field>
                 <field id="uuid"><selector>1fa40353-05b8-4ae6-82a6-44a18b4f3c12</selector></field>
                 <field id="movement"><selector>49ca9d8d-7136-47ff-a70e-4a47b9038b70</selector></field>
-                <!--
+                <field id="objectexit"><selector>d4eea707-d473-4367-853a-728fbcd9be17</selector></field>
+                                <!--
                                 This is the type for id generators - if you add a new record type that has an id_generator you need to:
                                 log into cspace db and look at table id_generators and find the csid for the record type
                                 use that id here
