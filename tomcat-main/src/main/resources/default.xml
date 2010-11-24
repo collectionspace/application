@@ -2144,8 +2144,8 @@
                     </options>
                 </field>
             </record>
-            <!-- 
-            <record id="objectexit" in-findedit="no" type="record,procedure">
+            <!-- CSPACE-3209 added objectexit record. -->
+            <record id="objectexit" in-findedit="no" in-recordlist="no" type="record,procedure">
                 <services-list-path>objectexit_common_list/objectexit_list_item</services-list-path>
                 <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
                 <structures>
@@ -2170,7 +2170,7 @@
                 </structures>
 
                 <row-selector>.csc-recordList-row:</row-selector>
-                //  Object Entry Information Group 
+                <!--  Object Entry Information Group -->
                 <field id="exitNumber" chooser="yes" in-title="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
                     <options>
                         <option id="objectexit" sample="EX2010.001">objectexit</option>
@@ -2181,8 +2181,8 @@
                 </field>
                 <field id="depositor" autocomplete="person-person,organization-organization"></field>
                 <field id="exitDate" ui-type="date"></field>
-                //exitMethod needs to be made repeatable in the Services layer; re-opening  
-                // repeat id="exitMethods" 
+                <!-- exitMethod needs to be made repeatable in the Services layer; re-opening  -->
+                <!-- repeat id="exitMethods" -->
                     <field id="exitMethod">
                         <options>
                             <option id="" default="yes">Please select a value</option>
@@ -2191,7 +2191,7 @@
                             <option id="post">Post</option>
                         </options>
                     </field>
-                // </repeat> 
+                <!-- /repeat -->
                 <field id="exitNote"></field>
                 <field id="exitReason">
                     <options>
@@ -2203,9 +2203,8 @@
                 </field>
                 <field id="packingNote"></field>
             </record>
-			-->
 
-            <record id="id" type="id">
+            <record id="id"  type="id">
 
                 <authorization-view>false</authorization-view>
 
@@ -2234,7 +2233,7 @@
                                 currently inherits most functionality from normal Record functionality -->
 
             </record>
-            <record id="vocab" type="authority">
+            <record id="vocab" in-recordlist="no" type="authority">
                 <terms-used>false</terms-used>
                 <refobj-used>false</refobj-used>
                 <web-url>vocab</web-url>

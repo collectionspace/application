@@ -171,7 +171,7 @@ public class UISchema extends UISpec {
 				JSONArray recrds = new JSONArray();
 				for(Record rc : this.spec.getAllRecords()){
 					if(rc.isType("record")||rc.isType("authority")||rc.isType("procedure")){
-						if(!rc.getID().equals("vocab")){ // vocab is weird - ignore for the moment
+						if(rc.isInRecordList()){
 							recrds.put(rc.getWebURL());
 						}
 					}

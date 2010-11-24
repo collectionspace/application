@@ -48,6 +48,7 @@ public class Record implements FieldParent {
 	private String web_url, terms_used_url, number_selector, row_selector,
 			list_key, ui_url, tab_url, primaryfield;
 	private boolean in_findedit = false;
+	private boolean in_recordlist = true;
 	private boolean is_multipart = false;
 	private boolean has_terms_used = false;
 	private boolean has_refobj_used = true;
@@ -77,7 +78,9 @@ public class Record implements FieldParent {
 
 		// specified that it is included in the findedit uispec
 		in_findedit = Util.getBooleanOrDefault(section, "/@in-findedit", false);
-
+		// specified that it is included in the findedit uispec
+		in_recordlist = Util.getBooleanOrDefault(section, "/@in-recordlist", true);
+		
 		// config whether service layer needs call as multipart or not
 		is_multipart = Util.getBooleanOrDefault(section, "/is-multipart", true);
 
@@ -315,6 +318,9 @@ public class Record implements FieldParent {
 
 	public boolean isInFindEdit() {
 		return in_findedit;
+	}
+	public boolean isInRecordList() {
+		return in_recordlist;
 	}
 
 	public boolean isMultipart() {
