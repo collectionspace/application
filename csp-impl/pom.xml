@@ -6,7 +6,7 @@
   <artifactId>csp-impl</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>CSP: Web UI</name>
+  <name>CSP: Impl</name>
   
     <parent>
     <groupId>org.collectionspace</groupId>
