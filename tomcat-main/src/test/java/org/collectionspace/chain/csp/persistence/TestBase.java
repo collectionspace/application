@@ -36,6 +36,8 @@ public class TestBase extends TestData {
 
 	@BeforeClass
 	public static void reset() throws Exception {
+		/*
+		 * no longer initialise here -need to explicitly call TestGenerateAuthorities
 		log.info("initialize authorities");
 		ServletTester jetty = setupJetty();
 		// test if need to reset data - only reset it org auth are null
@@ -49,6 +51,7 @@ public class TestBase extends TestData {
 			}
 		}
 		log.info("initialize finished");
+		*/
 	}
 
 	protected static void login(ServletTester tester) throws IOException,

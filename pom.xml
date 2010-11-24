@@ -43,6 +43,11 @@
         <configuration>
             <!-- need more memory than the default for our unit tests -->
             <argLine>-Xmx1050m -Dfile.encoding=UTF8</argLine>
+            
+          <excludes>
+            <exclude>**/TestDummyData.java</exclude>
+            <exclude>**/TestGenerateAuthorities.java</exclude>
+          </excludes>
         </configuration>
       </plugin> 
     </plugins>
