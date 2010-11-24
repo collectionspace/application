@@ -2181,8 +2181,7 @@
                 </field>
                 <field id="depositor" autocomplete="person-person,organization-organization"></field>
                 <field id="exitDate" ui-type="date"></field>
-                <!-- exitMethod needs to be made repeatable in the Services layer; re-opening  -->
-                <!-- repeat id="exitMethods" -->
+                <repeat id="exitMethods">
                     <field id="exitMethod">
                         <options>
                             <option id="" default="yes">Please select a value</option>
@@ -2191,7 +2190,7 @@
                             <option id="post">Post</option>
                         </options>
                     </field>
-                <!-- /repeat -->
+                </repeat>
                 <field id="exitNote"></field>
                 <field id="exitReason">
                     <options>
