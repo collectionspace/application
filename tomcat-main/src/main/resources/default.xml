@@ -39,6 +39,7 @@
             <login-dest>/cspace-ui/html/myCollectionSpace.html</login-dest>
             <login-failed-dest>/cspace-ui/html/index.html</login-failed-dest>
             <front-page>/cspace-ui/html/</front-page>
+            <find-page>myCollectionSpace</find-page>
             <tmp-schema-path />
         </web>
     </ui>
@@ -999,11 +1000,15 @@
                 <services-url>intakes</services-url>
                 <services-list-path>intakes-common-list/intake-list-item</services-list-path>
                 <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
-                <!-- CSPACE-3185 - Initial addition of new CollectionSpace Core MIME part with createdAt and updatedAt fields -->
-                <!--services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path -->
+				<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+
                 <structures>
                     <structure id="screen"></structure>
                 </structures>
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET"></field>
+				
                 <row-selector>.csc-recordList-row:</row-selector>
 
                 <!-- Added for collectionspace_core: -->
@@ -2012,6 +2017,7 @@
                 <field id="lendersContact" autocomplete="person-person">
                     <selector>.csc-loanOut-lendersContact</selector>
                 </field>
+
                 <repeat id="loanedObjectStatusGroupList/loanedObjectStatusGroup">
                     <field id="loanedObjectStatus" autocomplete="vocab-lostatus" ui-type="enum">
                         <selector>.csc-loanOut-loanedObjectStatus</selector>
@@ -2137,10 +2143,7 @@
                 </field>
             </record>
             <!-- CSPACE-3209 added objectexit record. -->
-            <record id="objectexit" in-findedit="yes" type="record,procedure">
-                <services-url>objectexit</services-url>
-                <web-url>objectexit</web-url>
-                <tab-url>objectexit-tab</tab-url>
+            <record id="objectexit" in-findedit="no" type="record,procedure">
                 <services-list-path>objectexit_common_list/objectexit_list_item</services-list-path>
                 <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
                 <structures>
