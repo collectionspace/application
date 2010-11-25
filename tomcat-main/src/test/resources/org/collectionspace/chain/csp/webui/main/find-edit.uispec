@@ -1,5 +1,5 @@
 {
-    "proceduresLoanin": {
+    "loanin": {
         ".csc-recordList-row:": {
             "children": [{
                 ".csc-summary": "${items.0.summary}",
@@ -10,7 +10,7 @@
             }]
         }
     },
-    "proceduresMovement": {
+    "movement": {
         ".csc-recordList-row:": {
             "children": [{
                 ".csc-summary": "${items.0.summary}",
@@ -22,7 +22,7 @@
         }
     },
     "authorityTerms": {},
-    "proceduresIntake": {
+    "intake": {
         ".csc-recordList-row:": {
             "children": [{
                 ".csc-summary": "${items.0.summary}",
@@ -33,7 +33,7 @@
             }]
         }
     },
-    "proceduresAcquisition": {
+    "acquisition": {
         ".csc-recordList-row:": {
             "children": [{
                 ".csc-summary": "${items.0.summary}",
@@ -44,7 +44,7 @@
             }]
         }
     },
-    "proceduresLoanout": {
+    "loanout": {
         ".csc-recordList-row:": {
             "children": [{
                 ".csc-summary": "${items.0.summary}",
