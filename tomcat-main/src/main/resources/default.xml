@@ -1554,7 +1554,7 @@
                 </field>
                 <group id="contact" userecord="contact" exists-in-services="false"></group>
             </record>
-            <record id="location" type="authority,compute-displayname">
+            <record id="location" in-recordlist="no"  type="authority,compute-displayname">
                 <web-url>location</web-url>
                 <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities-common-list/locationauthority-list-item</services-instances-path>
                 <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locations_common</services-single-instance-path>
@@ -1678,7 +1678,7 @@
                     </field>
                 </repeat>
             </record>
-            <record id="contact" type="authority,compute-displayname">
+            <record id="contact" in-recordlist="no" type="authority,compute-displayname">
                 <web-url>contact</web-url>
                 <services-instances-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities-common-list/contactauthority-list-item</services-instances-path>
                 <services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
