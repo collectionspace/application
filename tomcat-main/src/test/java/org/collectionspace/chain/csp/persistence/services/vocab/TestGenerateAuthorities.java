@@ -20,7 +20,7 @@ public class TestGenerateAuthorities extends TestBase {
 		// String vocabtype="loanoutstatus";
 		ServletTester jetty = setupJetty();
 		// delete all records, procedures,vocabularies created and repopulate the authorities with dummy data
-		out = GETData("/reset", jetty);
+		out = GETData("/reset/nodelete", jetty);
 
 		// update and remove fields not in each list within an authority
 		// /chain/vocabularies/person/initialize?datapath=/Users/csm22/Documents/collectionspace/svcapp/cspi-webui/src/main/resources/org/collectionspace/chain/csp/webui/misc/names.txt
