@@ -49,7 +49,7 @@ public class FindEditUISpec implements WebMethod {
 			for(Record record : records) {
 				if(!record.isInFindEdit())
 					continue;
-				out.put(record.getListKey(),listEntry(record.getRowSelector(),record.getNumberSelector(),record.getUIURL()));				
+				out.put(record.getWebURL(),listEntry(record.getRowSelector(),record.getNumberSelector(),record.getUIURL()));				
 			}
 			out.put("authorityTerms",new JSONObject());
 			return out;

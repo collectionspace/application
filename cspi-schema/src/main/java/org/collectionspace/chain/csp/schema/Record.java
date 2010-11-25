@@ -46,7 +46,7 @@ public class Record implements FieldParent {
 
 	/* UI Stuff */
 	private String web_url, terms_used_url, number_selector, row_selector,
-			list_key, ui_url, tab_url, primaryfield;
+			ui_url, tab_url, primaryfield;
 	private boolean in_findedit = false;
 	private boolean in_recordlist = true;
 	private boolean is_multipart = false;
@@ -115,10 +115,6 @@ public class Record implements FieldParent {
 		// ui layer json used in list views
 		row_selector = Util.getStringOrDefault(section, "/row-selector",
 				".csc-recordList-row:");
-
-		//
-		list_key = Util.getStringOrDefault(section, "/list-key", "procedures"
-				+ id.substring(0, 1).toUpperCase() + id.substring(1));
 
 		// ui layer path: defaults to web_url if not specified
 		ui_url = Util.getStringOrDefault(section, "/ui-url", web_url + ".html");
@@ -310,10 +306,6 @@ public class Record implements FieldParent {
 
 	public String getRowSelector() {
 		return row_selector;
-	}
-
-	public String getListKey() {
-		return list_key;
 	}
 
 	public boolean isInFindEdit() {
