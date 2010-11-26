@@ -1,42 +1,5 @@
 {
-    "sidebar": {
-        "relatedProcedures": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    },
-                    ".csc-related-recordtype": "${items.0.recordtype}"
-                }]
-            }
-        },
-        "termsUsed": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    },
-                    ".csc-related-recordtype": "${items.0.recordtype}",
-                    ".csc-related-field": "${items.0.sourceFieldName}"
-                }]
-            }
-        },
-        "relatedCataloging": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    }
-                }]
-            }
-        }
-    },
-    "recordEditor": {
+    "details": {
         ".csc-movement-plannedRemovalDate-container": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -120,7 +83,12 @@
         },
         ".csc-movement-removalDate": "${fields.removalDate}"
     },
-    "titleBar": {
-        ".csc-titleBar-currentLocation": "${fields.currentLocation}"
+    "list": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-related-summary": "${items.0.summary}",
+                ".csc-related-number": "${items.0.number}"
+            }]
+        }
     }
 }

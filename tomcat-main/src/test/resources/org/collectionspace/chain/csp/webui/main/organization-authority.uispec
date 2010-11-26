@@ -1,16 +1,5 @@
 {
     "sidebar": {
-        "relatedObjects": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    }
-                }]
-            }
-        },
         "relatedProcedures": {
             ".csc-recordList-row:": {
                 "children": [{
@@ -30,53 +19,37 @@
                         "linktext": "${items.0.number}",
                         "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
                     },
-                    ".csc-related-field": "${items.0.sourceFieldName}",
-                    ".csc-related-recordtype": "${items.0.recordtype}"
+                    ".csc-related-recordtype": "${items.0.recordtype}",
+                    ".csc-related-field": "${items.0.sourceFieldName}"
+                }]
+            }
+        },
+        "relatedCataloging": {
+            ".csc-recordList-row:": {
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    }
                 }]
             }
         }
     },
-    "titleBar": {
-        ".csc-titleBar-dissolutionDate": "${fields.dissolutionDate}",
-        ".csc-titleBar-displayName": "${fields.displayName}",
-        ".csc-titleBar-foundationDate": "${fields.foundingDate}"
-    },
     "recordEditor": {
-        ".csc-organization-contactNames": {
+        ".csc-organizationAuthority-history": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.contactNames",
+                    "elPath": "fields.historyNotes",
                     "protoTree": {
-                        ".csc-organizationAuthority-contactName": "${fields.contactNames.0.contactName}",
-                        ".csc-organizationAuthority-contactName-autocomplete": {
-                            "decorators": [{
-                                "func": "cspace.autocomplete",
-                                "type": "fluid",
-                                "options": {
-                                    "queryUrl": "../../chain/vocabularies/organization/autocomplete/contactName",
-                                    "vocabUrl": "../../chain/vocabularies/organization/source-vocab/contactName"
-                                }
-                            }]
-                        }
+                        ".csc-organizationAuthority-history": "${fields.historyNotes.0.historyNote}"
                     }
                 }
             }]
         },
-        ".csc-organizationAuthority-nameAdditions": "${fields.nameAdditions}",
-        ".csc-organizationAuthority-displayName": "${fields.displayName}",
-        ".csc-organizationAuthority-longName": "${fields.longName}",
-        ".csc-organizationAuthority-foundingDate-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
-        ".csc-organization-shortIdentifier": "${fields.shortIdentifier}",
-        ".csc-organizationAuthority-foundingPlace": "${fields.foundingPlace}",
-        ".csc-organizationAuthority-dissolutionDate": "${fields.dissolutionDate}",
-        ".csc-organization-subBodies": {
+        ".csc-organizationAuthority-subBodyName": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
@@ -98,43 +71,59 @@
                 }
             }]
         },
-        ".csc-organization-functions": {
+        ".csc-organizationAuthority-displayName": "${fields.displayName}",
+        ".csc-organizationAuthority-contactName": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.functions",
+                    "elPath": "fields.contactNames",
                     "protoTree": {
-                        ".csc-organizationAuthority-function": "${fields.functions.0.function}"
+                        ".csc-organizationAuthority-contactName": {
+                            "valuebinding": "${fields.contactNames.0.contactName}",
+                            "decorators": [{
+                                "func": "cspace.autocomplete",
+                                "type": "fluid",
+                                "options": {
+                                    "queryUrl": "../../chain/vocabularies/organization/autocomplete/contactName",
+                                    "vocabUrl": "../../chain/vocabularies/organization/source-vocab/contactName"
+                                }
+                            }]
+                        }
                     }
                 }
             }]
         },
+        ".csc-organization-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-organizationAuthority-foundingDate-container": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
+        },
+        ".csc-organizationAuthority-foundingPlace": "${fields.foundingPlace}",
+        ".csc-organization-mainBodyGroup": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.mainBodyGroup",
+                    "protoTree": {
+                        ".csc-organizationAuthority-nameAdditions": "${fields.mainBodyGroup.0.nameAdditions}",
+                        ".csc-organizationAuthority-longName": "${fields.mainBodyGroup.0.longName}",
+                        ".csc-organizationAuthority-shortName": "${fields.mainBodyGroup.0.shortName}"
+                    }
+                }
+            }]
+        },
+        ".csc-organizationAuthority-dissolutionDate": "${fields.dissolutionDate}",
         ".csc-organizationAuthority-dissolutionDate-container": {
             "decorators": [{
                 "func": "cspace.datePicker",
                 "type": "fluid"
             }]
         },
-        ".csc-organizationAuthority-foundingDate": "${fields.foundingDate}",
-        ".csc-organizationAuthority-status": {
-            "optionnames": ["Provisional", "Under Review", "Accepted", "Rejected"],
-            "optionlist": ["provisional", "under review", "accepted", "rejected"],
-            "selection": "${fields.termStatus}"
-        },
-        ".csc-organization-historyNotes": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.historyNotes",
-                    "protoTree": {
-                        ".csc-organizationAuthority-history": "${fields.historyNotes.0.historyNote}"
-                    }
-                }
-            }]
-        },
-        ".csc-organization-groups": {
+        ".csc-organizationAuthority-group": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
@@ -146,15 +135,28 @@
                 }
             }]
         },
-        ".csc-organizationAuthority-foundingPlace-autocomplete": {
+        ".csc-organizationAuthority-status": {
+            "optionnames": ["Provisional", "Under Review", "Accepted", "Rejected"],
+            "optionlist": ["provisional", "under review", "accepted", "rejected"],
+            "selection": "${fields.termStatus}"
+        },
+        ".csc-organizationAuthority-foundingDate": "${fields.foundingDate}",
+        ".csc-organizationAuthority-function": {
             "decorators": [{
-                "func": "cspace.autocomplete",
+                "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/vocabularies/organization/autocomplete/foundingPlace",
-                    "vocabUrl": "../../chain/vocabularies/organization/source-vocab/foundingPlace"
+                    "elPath": "fields.functions",
+                    "protoTree": {
+                        ".csc-organizationAuthority-function": "${fields.functions.0.function}"
+                    }
                 }
             }]
         }
+    },
+    "titleBar": {
+        ".csc-titleBar-dissolutionDate": "${fields.dissolutionDate}",
+        ".csc-titleBar-displayName": "${fields.displayName}",
+        ".csc-titleBar-foundationDate": "${fields.foundingDate}"
     }
 }

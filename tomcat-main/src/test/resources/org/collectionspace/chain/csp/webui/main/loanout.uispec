@@ -12,17 +12,6 @@
                 }]
             }
         },
-        "relatedObjects": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    }
-                }]
-            }
-        },
         "termsUsed": {
             ".csc-recordList-row:": {
                 "children": [{
@@ -32,6 +21,17 @@
                     },
                     ".csc-related-recordtype": "${items.0.recordtype}",
                     ".csc-related-field": "${items.0.sourceFieldName}"
+                }]
+            }
+        },
+        "relatedCataloging": {
+            ".csc-recordList-row:": {
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    }
                 }]
             }
         }
@@ -59,7 +59,6 @@
                 }
             }]
         },
-        ".csc-loanOut-loanedObjectStatusNote": "${fields.loanedObjectStatusNote}",
         ".csc-loanOut-lendersAuthorizationDate": "${fields.lendersAuthorizationDate}",
         ".csc-loanOut-borrower": {
             "valuebinding": "${fields.borrower}",
@@ -72,12 +71,11 @@
                 }
             }]
         },
-        ".csc-loanOut-loanedObjectStatusDate": "${fields.loanedObjectStatusDate}",
         ".csc-loanOut-loanReturnDate": "${fields.loanReturnDate}",
         ".csc-loanOut-loanPurpose": {
             "default": "0",
-            "optionnames": ["Exhibition", "Research", "Scientific or exhibit preparation", "Analysis", "Photography", "Conservation or other requested services", "Long-term collections management and storage"],
-            "optionlist": ["exhibition", "research", "scientificorexhibitpreparation", "analysis", "photography", "conservationotherrequestedservices", "longtermcollectionsmanagementandstorage"],
+            "optionnames": ["Please select a value", "Exhibition", "Research", "Scientific or exhibit preparation", "Analysis", "Photography", "Conservation or other requested services", "Long-term collections management and storage"],
+            "optionlist": ["", "exhibition", "research", "scientificorexhibitpreparation", "analysis", "photography", "conservationotherrequestedservices", "longtermcollectionsmanagementandstorage"],
             "selection": "${fields.loanPurpose}"
         },
         ".csc-loanOut-loanOutDate": "${fields.loanOutDate}",
@@ -88,19 +86,6 @@
             }]
         },
         ".csc-loanOut-loanReturnDate-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
-        ".csc-loanOut-loanedObjectStatus": {
-            "default": "1",
-            "optionnames": ["Please select an item", "Requested", "Sent", "Agreed", "Refused", "Photography requested", "Returned", "Renewed", "Authorized", "Conservation"],
-            "optionlist": ["", "requested", "sent", "agreed", "refused", "photographyrequested", "returned", "renewed", "authorized", "conservation"],
-            "selection": "${fields.loanedObjectStatus}"
-        },
-        ".csc-loanOut-loanOutConditions": "${fields.specialConditionsOfLoan}",
-        ".csc-loanOut-lendersAuthorizationDate-container": {
             "decorators": [{
                 "func": "cspace.datePicker",
                 "type": "fluid"
@@ -122,6 +107,13 @@
                 }
             }]
         },
+        ".csc-loanOut-lendersAuthorizationDate-container": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
+        },
+        ".csc-loanOut-loanOutConditions": "${fields.specialConditionsOfLoan}",
         ".csc-loanOut-loanOutNumber": "${fields.loanOutNumber}",
         ".csc-loanOut-loanOutDate-container": {
             "decorators": [{
@@ -129,13 +121,31 @@
                 "type": "fluid"
             }]
         },
-        ".csc-loanOut-loanedObjectStatusDate-container": {
+        ".csc-loanOut-loanRenewalApplicationDate": "${fields.loanRenewalApplicationDate}",
+        ".csc-loanout-loanedObjectStatusGroup": {
             "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.loanedObjectStatusGroup",
+                    "protoTree": {
+                        ".csc-loanOut-loanedObjectStatus": {
+                            "optionnames": ["Please select a value", "Conservation", "Returned", "Refused", "Requested", "Agreed", "Sent", "Authorized", "Photography requested", "Renewed"],
+                            "optionlist": ["", "conservation", "returned", "refused", "requested", "agreed", "sent", "authorized", "photographyrequested", "renewed"],
+                            "selection": "${fields.loanedObjectStatusGroup.0.loanedObjectStatus}"
+                        },
+                        ".csc-loanOut-loanedObjectStatusNote": "${fields.loanedObjectStatusGroup.0.loanedObjectStatusNote}",
+                        ".csc-loanOut-loanedObjectStatusDate-container": {
+                            "decorators": [{
+                                "func": "cspace.datePicker",
+                                "type": "fluid"
+                            }]
+                        },
+                        ".csc-loanOut-loanedObjectStatusDate": "${fields.loanedObjectStatusGroup.0.loanedObjectStatusDate}"
+                    }
+                }
             }]
         },
-        ".csc-loanOut-loanRenewalApplicationDate": "${fields.loanRenewalApplicationDate}",
         ".csc-loanOut-loanOutNote": "${fields.loanOutNote}",
         ".csc-loanOut-lendersAuthorizer": {
             "valuebinding": "${fields.lendersAuthorizer}",

@@ -7,6 +7,7 @@
                 "expander": {
                     "inputID": ".csc-role-permission-input",
                     "tree": {
+                        "default": "3",
                         "optionnames": ["none", "read", "write", "delete"],
                         "optionlist": ["none", "read", "write", "delete"],
                         "selection": "${{row}.permission}"

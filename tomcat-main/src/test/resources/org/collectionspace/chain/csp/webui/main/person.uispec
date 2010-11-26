@@ -12,17 +12,6 @@
                 }]
             }
         },
-        "relatedObjects": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    }
-                }]
-            }
-        },
         "termsUsed": {
             ".csc-recordList-row:": {
                 "children": [{
@@ -32,6 +21,17 @@
                     },
                     ".csc-related-recordtype": "${items.0.recordtype}",
                     ".csc-related-field": "${items.0.sourceFieldName}"
+                }]
+            }
+        },
+        "relatedCataloging": {
+            ".csc-recordList-row:": {
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    }
                 }]
             }
         }
@@ -50,12 +50,12 @@
         ".csc-contactAuthority-web": "${fields.web}",
         ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
         ".csc-personAuthority-gender": {
-            "optionnames": ["Male", "Female"],
-            "optionlist": ["male", "female"],
+            "default": "0",
+            "optionnames": ["Please select a value", "Male", "Female"],
+            "optionlist": ["", "male", "female"],
             "selection": "${fields.gender}"
         },
         ".csc-contactAuthority-addressType": "${fields.addressType}",
-        ".csc-contactAuthority-faxNumber": "${fields.faxNumber}",
         ".csc-personAuthority-occupation": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -68,6 +68,7 @@
                 }
             }]
         },
+        ".csc-contactAuthority-faxNumber": "${fields.faxNumber}",
         ".csc-personAuthority-middleName": "${fields.middleName}",
         ".csc-personAuthority-surName": "${fields.surName}",
         ".csc-contactAuthority-telephoneNumber": "${fields.telephoneNumber}",
@@ -90,8 +91,9 @@
         },
         ".csc-personAuthority-displayName": "${fields.displayName}",
         ".csc-personAuthority-title": {
-            "optionnames": ["Mr", "Mrs", "Ms", "Miss", "Dr", "Professor", "Sir", "Dame", "Baron", "Baroness", "Lord", "Lady"],
-            "optionlist": ["Mr", "Mrs", "Ms", "Miss", "Dr", "Professor", "Sir", "Dame", "Baron", "Baroness", "Lord", "Lady"],
+            "default": "0",
+            "optionnames": ["Please select a value", "Mr", "Mrs", "Ms", "Miss", "Dr", "Professor", "Sir", "Dame", "Baron", "Baroness", "Lord", "Lady"],
+            "optionlist": ["", "Mr", "Mrs", "Ms", "Miss", "Dr", "Professor", "Sir", "Dame", "Baron", "Baroness", "Lord", "Lady"],
             "selection": "${fields.title}"
         },
         ".csc-contactAuthority-addressPlace": "${fields.addressPlace}",

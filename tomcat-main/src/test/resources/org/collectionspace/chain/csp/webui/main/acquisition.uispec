@@ -12,17 +12,6 @@
                 }]
             }
         },
-        "relatedObjects": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    }
-                }]
-            }
-        },
         "termsUsed": {
             ".csc-recordList-row:": {
                 "children": [{
@@ -34,13 +23,23 @@
                     ".csc-related-field": "${items.0.sourceFieldName}"
                 }]
             }
+        },
+        "relatedCataloging": {
+            ".csc-recordList-row:": {
+                "children": [{
+                    ".csc-related-summary": "${items.0.summary}",
+                    ".csc-related-number": {
+                        "linktext": "${items.0.number}",
+                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
+                    }
+                }]
+            }
         }
     },
     "recordEditor": {
         ".csc-acquisition-object-purchase-price-currency": {
-            "default": "4",
-            "optionnames": ["Please select an item", "Swedish Krona", "Canadian Dollar", "Swiss Franc", "US Dollar", "Danish Krone", "Pound Sterling", "Euro"],
-            "optionlist": ["", "swedishkrona", "canadiandollar", "swissfranc", "usdollar", "danishkrone", "poundsterling", "euro"],
+            "optionnames": ["Please select a value", "US Dollar", "Swiss Franc", "Euro", "Canadian Dollar", "Danish Krone", "Swedish Krona", "Pound Sterling"],
+            "optionlist": ["", "usd", "swissfranc", "eur", "canadiandollar", "danishkrone", "swedishkrona", "gbp"],
             "selection": "${fields.objectPurchasePriceCurrency}"
         },
         ".csc-acquisition-original-object-purchase-price-value": "${fields.originalObjectPurchasePriceValue}",
@@ -65,9 +64,8 @@
                         },
                         ".csc-acquisition-acquisitionFundingValue": "${fields.acquisitionFunding.0.acquisitionFundingValue}",
                         ".csc-acquisition-acquisitionFundingCurrency": {
-                            "default": "4",
-                            "optionnames": ["Please select an item", "Swedish Krona", "Canadian Dollar", "Swiss Franc", "US Dollar", "Danish Krone", "Pound Sterling", "Euro"],
-                            "optionlist": ["", "swedishkrona", "canadiandollar", "swissfranc", "usdollar", "danishkrone", "poundsterling", "euro"],
+                            "optionnames": ["Please select a value", "US Dollar", "Swiss Franc", "Euro", "Canadian Dollar", "Danish Krone", "Swedish Krona", "Pound Sterling"],
+                            "optionlist": ["", "usd", "swissfranc", "eur", "canadiandollar", "danishkrone", "swedishkrona", "gbp"],
                             "selection": "${fields.acquisitionFunding.0.acquisitionFundingCurrency}"
                         }
                     }
@@ -98,15 +96,13 @@
         ".csc-object-identification-object-nametitle": "${fields.ownersource}",
         ".csc-acquisition-numberPatternChooser-reference-number": "${fields.acquisitionReferenceNumber}",
         ".csc-acquisition-object-offer-price-currency": {
-            "default": "4",
-            "optionnames": ["Please select an item", "Swedish Krona", "Canadian Dollar", "Swiss Franc", "US Dollar", "Danish Krone", "Pound Sterling", "Euro"],
-            "optionlist": ["", "swedishkrona", "canadiandollar", "swissfranc", "usdollar", "danishkrone", "poundsterling", "euro"],
+            "optionnames": ["Please select a value", "US Dollar", "Swiss Franc", "Euro", "Canadian Dollar", "Danish Krone", "Swedish Krona", "Pound Sterling"],
+            "optionlist": ["", "usd", "swissfranc", "eur", "canadiandollar", "danishkrone", "swedishkrona", "gbp"],
             "selection": "${fields.objectOfferPriceCurrency}"
         },
         ".csc-acquisition-object-purchase-offer-price-currency": {
-            "default": "4",
-            "optionnames": ["Please select an item", "Swedish Krona", "Canadian Dollar", "Swiss Franc", "US Dollar", "Danish Krone", "Pound Sterling", "Euro"],
-            "optionlist": ["", "swedishkrona", "canadiandollar", "swissfranc", "usdollar", "danishkrone", "poundsterling", "euro"],
+            "optionnames": ["Please select a value", "US Dollar", "Swiss Franc", "Euro", "Canadian Dollar", "Danish Krone", "Swedish Krona", "Pound Sterling"],
+            "optionlist": ["", "usd", "swissfranc", "eur", "canadiandollar", "danishkrone", "swedishkrona", "gbp"],
             "selection": "${fields.objectPurchaseOfferPriceCurrency}"
         },
         ".csc-acquisition-fieldCollectionEventName": {
@@ -122,12 +118,12 @@
             }]
         },
         ".csc-acquisition-original-object-purchase-price-currency": {
-            "default": "4",
-            "optionnames": ["Please select an item", "Swedish Krona", "Canadian Dollar", "Swiss Franc", "US Dollar", "Danish Krone", "Pound Sterling", "Euro"],
-            "optionlist": ["", "swedishkrona", "canadiandollar", "swissfranc", "usdollar", "danishkrone", "poundsterling", "euro"],
+            "optionnames": ["Please select a value", "US Dollar", "Swiss Franc", "Euro", "Canadian Dollar", "Danish Krone", "Swedish Krona", "Pound Sterling"],
+            "optionlist": ["", "usd", "swissfranc", "eur", "canadiandollar", "danishkrone", "swedishkrona", "gbp"],
             "selection": "${fields.originalObjectPurchasePriceCurrency}"
         },
         ".csc-acquisition-acquisition-method": {
+            "default": "0",
             "optionnames": ["Gift", "Purchase", "Exchange", "Transfer", "Treasure"],
             "optionlist": ["gift", "purchase", "exchange", "transfer", "treasure"],
             "selection": "${fields.acquisitionMethod}"
@@ -156,9 +152,8 @@
         },
         ".csc-acquisition-accession-date": "${fields.accessionDate}",
         ".csc-acquisition-group-purchase-price-currency": {
-            "default": "4",
-            "optionnames": ["Please select an item", "Swedish Krona", "Canadian Dollar", "Swiss Franc", "US Dollar", "Danish Krone", "Pound Sterling", "Euro"],
-            "optionlist": ["", "swedishkrona", "canadiandollar", "swissfranc", "usdollar", "danishkrone", "poundsterling", "euro"],
+            "optionnames": ["Please select a value", "US Dollar", "Swiss Franc", "Euro", "Canadian Dollar", "Danish Krone", "Swedish Krona", "Pound Sterling"],
+            "optionlist": ["", "usd", "swissfranc", "eur", "canadiandollar", "danishkrone", "swedishkrona", "gbp"],
             "selection": "${fields.groupPurchasePriceCurrency}"
         },
         ".csc-acquisition-group-purchase-price-value": "${fields.groupPurchasePriceValue}",
@@ -191,7 +186,7 @@
                 "options": {
                     "model": {
                         "names": ["Accession", "Archives", "Library"],
-                        "list": ["cataloging", "archives", "library"],
+                        "list": ["accession", "archive", "library"],
                         "samples": ["2009.1", "AR2009.42", "LIB2009.1"]
                     },
                     "selectors": {

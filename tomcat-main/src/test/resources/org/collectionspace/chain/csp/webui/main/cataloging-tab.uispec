@@ -1,42 +1,5 @@
 {
-    "sidebar": {
-        "relatedProcedures": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    },
-                    ".csc-related-recordtype": "${items.0.recordtype}"
-                }]
-            }
-        },
-        "termsUsed": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    },
-                    ".csc-related-recordtype": "${items.0.recordtype}",
-                    ".csc-related-field": "${items.0.sourceFieldName}"
-                }]
-            }
-        },
-        "relatedCataloging": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    }
-                }]
-            }
-        }
-    },
-    "recordEditor": {
+    "details": {
         ".csc-object-description-inscription-content-inscriber": {
             "valuebinding": "${fields.inscriptionContentInscriber}",
             "decorators": [{
@@ -986,8 +949,12 @@
             "selection": "${fields.contentObjectType}"
         }
     },
-    "titleBar": {
-        ".csc-titleBar-object-identification-object-number": "${fields.objectNumber}",
-        ".csc-titleBar-object-identification-object-title": "${fields.title}"
+    "list": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-related-summary": "${items.0.summary}",
+                ".csc-related-number": "${items.0.number}"
+            }]
+        }
     }
 }
