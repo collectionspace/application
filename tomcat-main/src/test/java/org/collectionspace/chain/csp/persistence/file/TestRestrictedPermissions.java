@@ -44,9 +44,10 @@ public class TestRestrictedPermissions extends TestBase{
 
 	/* XXX All these tests are disabled due to roles and permissions cacheing issue in service layer. They sometimes pass and sometimes fail as a result of this issue. -- dan, Nov 2010 */
 	
-/*	
+	
 	 @After public void destroyUser() throws Exception{
 
+		log.info("Delete test users for restricted tests");
 		//log in as default user who has delete privileges
 		ServletTester jetty = setupJetty();
 		if(role_id!=null){
@@ -67,9 +68,11 @@ public class TestRestrictedPermissions extends TestBase{
 	
 	@Before public void createUsers() throws Exception{
 
+		log.info("Create test users for restricted tests");
 		ServletTester jetty = setupJetty();
 		HttpTester out;
 //READ
+		log.info("CREATE READ USER");
 		out = POSTData("/role",roleRead,jetty);
 		String roler_id = out.getHeader("Location");
 		deleteme.add(roler_id);
@@ -78,6 +81,7 @@ public class TestRestrictedPermissions extends TestBase{
 		String user_r_id = out.getHeader("Location");
 		deleteme.add(user_r_id);
 //WRITE		
+		log.info("CREATE WRITE USER");
 		out = POSTData("/role",roleWrite,jetty);
 		String rolew_id = out.getHeader("Location");
 		deleteme.add(rolew_id);
@@ -86,6 +90,7 @@ public class TestRestrictedPermissions extends TestBase{
 		String user_w_id = out.getHeader("Location");
 		deleteme.add(user_w_id);
 //NONE
+		log.info("CREATE NONE USER");
 		out = POSTData("/role",roleNone,jetty);
 		String rolen_id = out.getHeader("Location");
 		deleteme.add(rolen_id);
@@ -100,11 +105,7 @@ public class TestRestrictedPermissions extends TestBase{
 		ServletTester jetty = setupJetty(getRestrictedUser(userWrite));
 		HttpTester out;
 		out = GETData("/loginstatus",jetty);
-		// user doesn't seem to exist long enough to login as in the course of the unit test... 
-		//  or else I am doing bad things when creating a user...
 		 
-	//	JSONObject userdata = createUserWithRoles(jetty,user88Create,roleCreate);
-	//	JSONObject userdata2 = createUserWithRoles(jetty,user88Create,role2Create);
 //create user with roles in payload
 		//HttpTester out = POSTData("/users/",makeRequest(userdata),jetty);
 		log.info("1::"+out.getContent());
@@ -112,15 +113,15 @@ public class TestRestrictedPermissions extends TestBase{
 		//out = GETData("/cataloging",jetty);
 
 //		testLists(jetty, "cataloging", objectCreate, "items");
-		testLists(jetty, "intake", intakeCreate, "items");
-		testLists(jetty, "loanin", loaninCreate, "items");
-		testLists(jetty, "loanout", loanoutCreate, "items");
-		testLists(jetty, "acquisition", acquisitionCreate, "items");
+//		testLists(jetty, "intake", intakeCreate, "items");
+//		testLists(jetty, "loanin", loaninCreate, "items");
+//		testLists(jetty, "loanout", loanoutCreate, "items");
+//		testLists(jetty, "acquisition", acquisitionCreate, "items");
 //		testLists(jetty, "role", roleCreate, "items");
-		testLists(jetty, "movement", movementCreate, "items");
-			//testLists(jetty, "permission", permissionWrite, "items");
+//		testLists(jetty, "movement", movementCreate, "items");
+		
 	}
 	
 	
-*/
+
 }
