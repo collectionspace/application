@@ -52,29 +52,31 @@ public class TestUISpecs extends TestBase {
 	public void testUISpec() throws Exception {
 		ServletTester jetty = setupJetty();
 
-		// uispec(jetty,"/recordlist/uischema","recordlist.uischema");
-		 
-		 
-		// uispec(jetty,"/acquisition/uispec","acquisition.uispec");
+		 uispec(jetty,"/recordlist/uischema","recordlist.uischema");
+		 uispec(jetty,"/cataloging/uischema","collection-object.uischema");
 		// uispec(jetty,"/movement/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
 		// uispec(jetty,"/person/generator?quantity=10","acquisition.uispec");
-		// uispec(jetty,"/cataloging/uispec","collection-object.uispec");
 		// uispec(jetty,"/intake/serviceschema","collection-object.uispec");
 		// uispec(jetty,"/role/uischema","collection-object.uischema");
-		// uispec(jetty,"/cataloging-tab/uispec","cataloging-tab.uispec");
-		// uispec(jetty,"/intake/uispec","intake.uispec");
-		// uispec(jetty,"/acquisition/uispec","acquisition.uispec");
-		// uispec(jetty,"/loanout/uispec","loanout.uispec");
-		// uispec(jetty,"/person/uispec","person.uispec");
-		// uispec(jetty,"/organization/uispec","organization-authority.uispec");
-		// uispec(jetty,"/loanin/uispec","loanin.uispec");
-		// uispec(jetty,"/users/uispec","users.uispec");
-		// uispec(jetty,"/role/uispec","roles.uispec");
-		// uispec(jetty,"/permission/uispec","permissions.uispec");
-		// uispec(jetty,"/permrole/uispec","permroles.uispec");
-		// uispec(jetty,"/movement/uispec","movement.uispec");
-		// uispec(jetty,"/movement-tab/uispec","movement.uispec");
+		 
+		 
+		 uispec(jetty,"/acquisition/uispec","acquisition.uispec");
+		 uispec(jetty,"/cataloging/uispec","collection-object.uispec");
+		 uispec(jetty,"/intake/uispec","intake.uispec");
+		 uispec(jetty,"/loanout/uispec","loanout.uispec");
+		 uispec(jetty,"/person/uispec","person.uispec");
+		 uispec(jetty,"/organization/uispec","organization-authority.uispec");
+		 uispec(jetty,"/loanin/uispec","loanin.uispec");
+		 uispec(jetty,"/users/uispec","users.uispec");
+		 uispec(jetty,"/role/uispec","roles.uispec");
+		 uispec(jetty,"/permission/uispec","permissions.uispec");
+		 uispec(jetty,"/permrole/uispec","permroles.uispec");
+		 uispec(jetty,"/movement/uispec","movement.uispec");
+		 
+		 
+		 uispec(jetty,"/cataloging-tab/uispec","cataloging-tab.uispec");
+		 uispec(jetty,"/movement-tab/uispec","movement-tab.uispec");
 		//		
 
 		uispec(jetty, "/myCollectionSpace/uispec", "find-edit.uispec");
