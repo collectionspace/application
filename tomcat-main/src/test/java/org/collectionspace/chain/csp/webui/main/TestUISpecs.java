@@ -67,15 +67,20 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/acquisition/uispec", "acquisition.uispec");
 		uispec(jetty, "/cataloging/uispec", "collection-object.uispec");
 		uispec(jetty, "/intake/uispec", "intake.uispec");
-		uispec(jetty, "/loanout/uispec", "loanout.uispec");
-		uispec(jetty, "/person/uispec", "person.uispec");
-		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
 		uispec(jetty, "/loanin/uispec", "loanin.uispec");
+		uispec(jetty, "/loanout/uispec", "loanout.uispec");
+		uispec(jetty, "/movement/uispec", "movement.uispec");
+		uispec(jetty, "/objectexit/uispec", "objectexit.uispec");
+		
 		uispec(jetty, "/users/uispec", "users.uispec");
 		uispec(jetty, "/role/uispec", "roles.uispec");
 		uispec(jetty, "/permission/uispec", "permissions.uispec");
 		uispec(jetty, "/permrole/uispec", "permroles.uispec");
-		uispec(jetty, "/movement/uispec", "movement.uispec");
+		
+
+		uispec(jetty, "/person/uispec", "person.uispec");
+		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
+		
 
 		uispec(jetty, "/cataloging-tab/uispec", "cataloging-tab.uispec");
 		uispec(jetty, "/movement-tab/uispec", "movement-tab.uispec");
