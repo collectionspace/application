@@ -118,7 +118,7 @@ public class TestServiceThroughWebapp extends TestBase{
 		JSONObject jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("IN2010."));
 		//test the accessions generated id
-		out=jettyDoUTF8(jetty,"GET","/chain/id/objects",null);
+		out=jettyDoUTF8(jetty,"GET","/chain/id/accession",null);
 		jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("2010.1."));
 
