@@ -60,6 +60,7 @@
         </relationships>
         <schemas>
             <schema id="recordlist"></schema>
+            <schema id="recordtypes"></schema>
         </schemas>
         <records>
             <record id="collection-object" in-findedit="yes">
