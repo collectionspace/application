@@ -180,6 +180,46 @@ public class UISchema extends UISpec {
 				schema.put("default", recrds);
 				out.put(sectionname, schema);
 			}
+			else if(sectionid.toLowerCase().equals("recordtypes")){
+
+				
+				JSONObject pschema = new JSONObject();
+				JSONObject aschema = new JSONObject();
+				JSONObject cschema = new JSONObject();
+
+				JSONArray precrds = new JSONArray();
+				JSONArray arecrds = new JSONArray();
+				JSONArray crecrds = new JSONArray();
+				/**
+				 * { "procedures": { "type": "array", "default": ["loanout",
+				 * "movement", ...] }, "vocabularies": { "type": "array",
+				 * "default": ["person", "organization", ...] }, "cataloging": {
+				 * "type": "array", "default": ["cataloging"] } }
+				 */
+				for (Record rc : this.spec.getAllRecords()) {
+					if (rc.isInRecordList()) {
+						if (rc.isType("procedure")) {
+							precrds.put(rc.getWebURL());
+						} else if (rc.isType("authority")) {
+							arecrds.put(rc.getWebURL());
+						} else if (rc.isType("record")) {
+							crecrds.put(rc.getWebURL());
+						}
+					}
+				}
+
+				pschema.put("type", "array");
+				pschema.put("default", precrds);
+				aschema.put("type", "array");
+				aschema.put("default", arecrds);
+				cschema.put("type", "array");
+				cschema.put("default", crecrds);
+
+				out.put("procedures", pschema);
+				out.put("vocabularies", aschema);
+				out.put("cataloging", cschema);
+				
+			}
 		} catch (JSONException e) {
 			throw new UIException("Cannot generate UISpec due to JSONException", e);
 		}

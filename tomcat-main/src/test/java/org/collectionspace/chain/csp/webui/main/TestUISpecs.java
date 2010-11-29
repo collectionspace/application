@@ -54,6 +54,8 @@ public class TestUISpecs extends TestBase {
 
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
 		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
+		uispec(jetty, "/recordtypes/uischema", "recordtypes.uischema");
+		
 	}
 
 	@Test
