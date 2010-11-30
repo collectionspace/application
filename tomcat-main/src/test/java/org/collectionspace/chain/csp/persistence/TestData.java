@@ -33,13 +33,16 @@ public class TestData {
 	private static final Logger log=LoggerFactory.getLogger(TestData.class);
 
 	// Set up test data strings 
-	
-	protected final String loanoutCreate = addData("loanoutCreate.json").toString();
-	protected final String loaninCreate = addData("loaninCreate.json").toString();
+
+        protected final String objectCreate = addData("objectCreate.json").toString();
+
+	protected final String acquisitionCreate = addData("acquisitionCreate.json").toString();
 	protected final String intakeCreate = addData("intakeCreate.json").toString();
-	protected final String objectCreate = addData("objectCreate.json").toString();
+	protected final String loaninCreate = addData("loaninCreate.json").toString();
+	protected final String loanoutCreate = addData("loanoutCreate.json").toString();
 	protected final String movementCreate = addData("movementCreate.json").toString();
-	protected final String acquisitionCreate =  addData("acquisitionCreate.json").toString();
+ 	protected final String objectexitCreate = addData("objectexitCreate.json").toString();
+
 	protected final String roleCreate = addData("roleCreate.json","roleName").toString();
 	protected final String role2Create = addData("role2Create.json","roleName").toString();
 	protected final String personCreate = addData("personCreate.json").toString();

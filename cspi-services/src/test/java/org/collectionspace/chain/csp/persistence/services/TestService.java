@@ -75,15 +75,18 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 
-		testXMLJSON(spec, "loanin","loanin.xml","loanin.json");
-                testXMLJSON(spec, "loanout","loanout.xml","loanout.json");
-		testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
-		testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
+                testXMLJSON(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
+
+                testXMLJSON(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
 		testXMLJSON(spec,"intake","intake.xml","intake.json");
+		testXMLJSON(spec,"loanin","loanin.xml","loanin.json");
+                testXMLJSON(spec,"loanout","loanout.xml","loanout.json");
 		testXMLJSON(spec,"movement","movement.xml","movement.json");
+		testXMLJSON(spec,"objectexit","objectexit.xml","objectexit.json");
+
 		testXMLJSON(spec,"role","role.xml","role.json");
 		testXMLJSON(spec,"permrole","rolepermissions.xml","rolepermissions.json");
-		testXMLJSON(spec, "userrole","accountrole.xml","accountrole.json");
+		testXMLJSON(spec,"userrole","accountrole.xml","accountrole.json");
 		
 //                testXMLJSON(spec, "permission","permissionXMLJSON.xml","permissionsJSON.json");
 //                testXMLJSON(spec, "organization","orgauthref.xml","permissionsJSON.json");
@@ -105,15 +108,15 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 
-		//need intake
-		//needloanout
+                testJSONXML(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
 
-		testJSONXML(spec, "loanin","loanin.xml","loanin.json");
-		testJSONXML(spec, "loanout","loanout.xml","loanout.json");
 		testJSONXML(spec,"acquisition","acquisitionXMLJSON.xml","acquisitionJSON.json");
-		testJSONXML(spec,"collection-object","objectsXMLJSON.xml","objectsJSON.json");
+		testJSONXML(spec,"loanin","loanin.xml","loanin.json");
+		testJSONXML(spec,"loanout","loanout.xml","loanout.json");
 		testJSONXML(spec,"intake","intake.xml","intake.json");
 		testJSONXML(spec,"movement","movement.xml","movement.json");
+		testJSONXML(spec,"objectexit","objectexit.xml","objectexit.json");
+
 		testJSONXML(spec,"role","role.xml","role.json");
 		
 //		testJSONXML(spec,"permrole","rolepermissions.xml","rolepermissions.json");
@@ -607,9 +610,9 @@ public class TestService extends ServicesBaseClass {
 		testPostGetDelete("intakes/", "intakes_common", "intake.xml", "intakes_common/entryNumber","IN2010.337");
 		testPostGetDelete("loansin/", "loansin_common", "loanin.xml", "loansin_common/loanInNumber", "LI2010.1.21");
 		testPostGetDelete("loansout/", "loansout_common", "loanout.xml", "loansout_common/loanOutNumber", "LO2010.117");
-
-		
 		testPostGetDelete("movements/", "movements_common", "movement.xml", "movements_common/movementReferenceNumber", "MV2010.99");
+                testPostGetDelete("objectexit/", "objectexit_common", "objectexit.xml", "objectexit_common/exitNumber", "EX2011.5");
+
 //		testPostGetDelete("relations/", "relations_common", "relationship.xml", "relations_common/relationshipType", "affects");
 
 //		testPostGetDelete("accounts/", null, "account.xml", "accounts_common/userId", "barney");
