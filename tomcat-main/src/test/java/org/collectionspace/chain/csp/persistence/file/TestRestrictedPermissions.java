@@ -42,9 +42,7 @@ public class TestRestrictedPermissions extends TestBase{
 		return user;
 	}
 
-	/* XXX All these tests are disabled due to roles and permissions cacheing issue in service layer. They sometimes pass and sometimes fail as a result of this issue. -- dan, Nov 2010 */
-	
-	
+	/**
 	 @After public void destroyUser() throws Exception{
 
 		log.info("Delete test users for restricted tests");
@@ -64,7 +62,7 @@ public class TestRestrictedPermissions extends TestBase{
 			}
 		}
 	}
-	
+	**/
 	
 	@Before public void createUsers() throws Exception{
 
@@ -90,6 +88,24 @@ public class TestRestrictedPermissions extends TestBase{
 		String user_w_id = out.getHeader("Location");
 		deleteme.add(user_w_id);
 //NONE
+		log.info("CREATE HALF NONE USER");
+		out = POSTData("/role",roleNone,jetty);
+		String rolen1_id = out.getHeader("Location");
+		deleteme.add(rolen1_id);
+		JSONObject usern1data = createUserWithRolesById(jetty,userNone1,rolen1_id); 
+		out=POSTData("/users/",makeRequest(usern1data).toString(),jetty);
+		String user_n1_id = out.getHeader("Location");
+		deleteme.add(user_n1_id);
+		
+		log.info("CREATE OTHER HALF NONE USER");
+		out = POSTData("/role",roleNone,jetty);
+		String rolen2_id = out.getHeader("Location");
+		deleteme.add(rolen2_id);
+		JSONObject usern2data = createUserWithRolesById(jetty,userNone2,rolen2_id); 
+		out=POSTData("/users/",makeRequest(usern2data).toString(),jetty);
+		String user_n2_id = out.getHeader("Location");
+		deleteme.add(user_n2_id);
+		
 		log.info("CREATE NONE USER");
 		out = POSTData("/role",roleNone,jetty);
 		String rolen_id = out.getHeader("Location");
