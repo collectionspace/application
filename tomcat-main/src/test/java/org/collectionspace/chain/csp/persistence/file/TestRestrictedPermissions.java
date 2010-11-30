@@ -69,6 +69,7 @@ public class TestRestrictedPermissions extends TestBase{
 		log.info("Create test users for restricted tests");
 		ServletTester jetty = setupJetty();
 		HttpTester out;
+		
 //READ
 		log.info("CREATE READ USER");
 		out = POSTData("/role",roleRead,jetty);
@@ -89,7 +90,7 @@ public class TestRestrictedPermissions extends TestBase{
 		deleteme.add(user_w_id);
 //NONE
 		log.info("CREATE HALF NONE USER");
-		out = POSTData("/role",roleNone,jetty);
+		out = POSTData("/role",roleNone1,jetty);
 		String rolen1_id = out.getHeader("Location");
 		deleteme.add(rolen1_id);
 		JSONObject usern1data = createUserWithRolesById(jetty,userNone1,rolen1_id); 
@@ -98,7 +99,7 @@ public class TestRestrictedPermissions extends TestBase{
 		deleteme.add(user_n1_id);
 		
 		log.info("CREATE OTHER HALF NONE USER");
-		out = POSTData("/role",roleNone,jetty);
+		out = POSTData("/role",roleNone2,jetty);
 		String rolen2_id = out.getHeader("Location");
 		deleteme.add(rolen2_id);
 		JSONObject usern2data = createUserWithRolesById(jetty,userNone2,rolen2_id); 
