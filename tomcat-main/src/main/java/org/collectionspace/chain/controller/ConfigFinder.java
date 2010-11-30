@@ -63,6 +63,7 @@ public class ConfigFinder {
 		} catch(Exception x) { return null; }
 	}
 
+	@SuppressWarnings("unchecked")
 	private static InputStream getDataFromJBossPath() {
 		try {
 			File file=new File(System.getProperty("jboss.home.dir")+"/server/cspace/conf/cspace-config.xml");
