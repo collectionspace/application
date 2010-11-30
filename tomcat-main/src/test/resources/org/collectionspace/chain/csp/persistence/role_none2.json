@@ -88,7 +88,7 @@
         {
             "display": "show",
             "resourceName": "acquisition",
-            "permission": "none"
+            "permission": "delete"
         },
         {
             "display": "none",
