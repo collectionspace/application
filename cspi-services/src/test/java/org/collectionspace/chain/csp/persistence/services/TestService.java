@@ -134,18 +134,17 @@ public class TestService extends ServicesBaseClass {
 		Document doc = null;
 		JSONObject testjson = new JSONObject();
 		for(String section : r.getServicesRecordPaths()) {
-			String path=r.getServicesRecordPath(section);
-			String[] record_path=path.split(":",2);
-			doc=XmlJsonConversion.convertToXml(r,j,section,"");
-			parts.put(record_path[0],doc);
-            log.info("After XML->JSON conversion:\n" + doc.asXML());
-    		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, doc,"","common");//this is where we specify the multipart section we are considering
-    		for(String name: JSONObject.getNames(repeatjson)){
-    			testjson.put(name, repeatjson.get(name));
-    		}
-    		log.info("After JSON->XML re-conversion:\n" + testjson.toString());
+                    String path=r.getServicesRecordPath(section);
+                    String[] record_path=path.split(":",2);
+                    doc=XmlJsonConversion.convertToXml(r,j,section,"");
+                    parts.put(record_path[0],doc);
+                    log.info("After JSON->XML conversion:\n" + doc.asXML());
+                    JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion.convertToJson(r, doc,"","common");//this is where we specify the multipart section we are considering
+                    for(String name: JSONObject.getNames(repeatjson)){
+                            testjson.put(name, repeatjson.get(name));
+                    }
+                    log.info("After XML->JSON re-conversion:\n" + testjson.toString());
 		}
-
                 //convert json -> xml and back to json and see if it still looks the same..
 		assertTrue("JSON->XML->JSON round-trip doesn't match original JSON",
                         JSONUtils.checkJSONEquivOrEmptyStringKey(testjson,j));
