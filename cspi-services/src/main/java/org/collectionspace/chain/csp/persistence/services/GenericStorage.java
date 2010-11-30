@@ -239,7 +239,7 @@ public class GenericStorage  implements ContextualisedStorage {
 						continue;
 					//iterate for merged ids
 					gleaned=getGleanedValue(cache,cachelistitem,id);
-					if(gleaned!=null){
+					if(gleaned!=null && gleaned !=""){
 						//if find value stop
 						break;
 					}
