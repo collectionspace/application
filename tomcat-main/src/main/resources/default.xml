@@ -2146,7 +2146,7 @@
                 </field>
             </record>
             <!-- CSPACE-3209 added objectexit record. -->
-            <record id="objectexit" in-findedit="no" type="record,procedure">
+            <record id="objectexit" in-findedit="no" in-recordlist="no" type="record,procedure">
                 <services-list-path>objectexit_common_list/objectexit_list_item</services-list-path>
                 <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
                 <structures>
