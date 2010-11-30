@@ -237,7 +237,7 @@ public class GenericStorage  implements ContextualisedStorage {
 						continue;
 					//iterate for merged ids
 					gleaned=getGleanedValue(cache,cachelistitem,id);
-					if(gleaned!=null){
+					if(gleaned!=null && gleaned !=""){
 						//if find value stop
 						break;
 					}
@@ -275,7 +275,7 @@ public class GenericStorage  implements ContextualisedStorage {
 							continue;
 						value = JSONUtils.checkKey(data, id);
 						//iterate for merged ids
-						if(value!=null){
+						if(value!=null && value !=""){
 							//if find value stop
 							break;
 						}
