@@ -277,7 +277,7 @@ public class GenericStorage  implements ContextualisedStorage {
 							continue;
 						value = JSONUtils.checkKey(data, id);
 						//iterate for merged ids
-						if(value!=null){
+						if(value!=null && value !=""){
 							//if find value stop
 							break;
 						}
