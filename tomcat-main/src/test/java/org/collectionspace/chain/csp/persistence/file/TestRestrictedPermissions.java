@@ -10,8 +10,11 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.collectionspace.chain.csp.persistence.TestBase;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
@@ -66,10 +69,22 @@ public class TestRestrictedPermissions extends TestBase{
 	
 	@Before public void createUsers() throws Exception{
 
+		
 		log.info("Create test users for restricted tests");
 		ServletTester jetty = setupJetty();
 		HttpTester out;
 		
+
+		//only create roles if there are less than 5 roles
+		//yeap arbitrary hack 
+		out = GETData("/role",jetty);
+
+		JSONObject result = new JSONObject(out.getContent());
+		JSONArray items = result.getJSONArray("items");
+		if (items.length() > 4) {
+			//do nothing we have enough users/roles
+		}
+		else{
 //READ
 		log.info("CREATE READ USER");
 		out = POSTData("/role",roleRead,jetty);
@@ -115,7 +130,7 @@ public class TestRestrictedPermissions extends TestBase{
 		out=POSTData("/users/",makeRequest(userndata).toString(),jetty);
 		String user_n_id = out.getHeader("Location");
 		deleteme.add(user_n_id);
-		
+		}
 	}
 
 	@Test public void testUserRolesUI() throws Exception{
