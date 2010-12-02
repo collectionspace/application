@@ -127,8 +127,10 @@ public class TestRestrictedPermissions extends TestBase{
 		//HttpTester out = POSTData("/users/",makeRequest(userdata),jetty);
 		log.info("1::"+out.getContent());
 
+		assertTrue(true);
 		//out = GETData("/cataloging",jetty);
-
+		
+//can't use these as they need full permissions read,write,delete,lst to work
 //		testLists(jetty, "cataloging", objectCreate, "items");
 //		testLists(jetty, "intake", intakeCreate, "items");
 //		testLists(jetty, "loanin", loaninCreate, "items");
