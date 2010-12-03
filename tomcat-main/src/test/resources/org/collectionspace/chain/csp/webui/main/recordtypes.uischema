@@ -4,7 +4,7 @@
         "type": "array"
     },
     "procedures": {
-        "default": ["intake", "loanin", "loanout", "acquisition", "movement"],
+        "default": ["intake", "loanin", "loanout", "acquisition", "movement", "objectexit"],
         "type": "array"
     },
     "cataloging": {
