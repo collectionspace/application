@@ -86,10 +86,14 @@
     "dimensionValueQualifier": "",
     "technicalAttributeMeasurement": "",
     "contentDate": "contentDate",
-    "title": "title",
+    "titleGroup": [{
+        "_primary": true,
+        "title": "title",
+        "titleType": "titleType",
+        "titleTranslation": "titleTranslation",
+        "titleTranslationLanguage": "titleTranslationLanguage",
+    }],
     "objectNameLanguage": "objectNameLanguage",
-    "titleType": "titleType",
-    "titleTranslation": "titleTranslation",
     "inscriptionDescriptionType": "",
     "assocPersons": [{
         "assocPerson": ""
@@ -237,7 +241,6 @@
     "technicalAttributeMeasurementUnit": "",
     "objectProductionPlaceRole": "",
     "contentNote": "contentNote",
-    "titleLanguage": "titleLanguage",
     "dateEarliestSingleQualifier": "",
     "contentPeoples": [{
         "contentPeople": "contentPeople s"

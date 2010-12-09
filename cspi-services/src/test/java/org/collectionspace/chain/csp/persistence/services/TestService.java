@@ -53,7 +53,7 @@ public class TestService extends ServicesBaseClass {
 		log.debug("Services Running!");
 	}
 	
-	protected JSONObject getJSON(String in) throws IOException, JSONException {
+    protected JSONObject getJSON(String in) throws IOException, JSONException {
 		String path=getClass().getPackage().getName().replaceAll("\\.","/");
 		InputStream stream=Thread.currentThread().getContextClassLoader().getResourceAsStream(path+"/"+in);
 		

@@ -1,8 +1,11 @@
 {
-					"title": "aardvark title",
-					"titleLanguage": "titleLanguage",
-					"titleTranslation": "titleTranslation",
-					"titleType": "titleType",
+                                        "titleGroup": [{
+                                            "_primary": true,
+                                            "title": "aardvark title",
+                                            "titleType": "titleType",
+                                            "titleTranslation": "titleTranslation",
+                                            "titleTranslationLanguage": "titleTranslationLanguage",
+                                        }],
 					"objectNumber": "objectNumber",
 					"otherNumber": "otherNumber",
 					"otherNumberType": "otherNumberType",

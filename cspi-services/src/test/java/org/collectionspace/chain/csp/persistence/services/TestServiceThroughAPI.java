@@ -36,7 +36,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	//XXX add more tests for other record types
 	@Test public void testGetPostDelete() throws Exception {
 
-            	getPostDelete("collection-object/","objectsJSON.json","objectsJSON.json","title");
+            	getPostDelete("collection-object/","objectsJSON.json","objectsJSON.json","distinguishingFeatures");
 
                 getPostDelete("acquisition/","acquisitionJSON.json","acquisitionJSON.json","acquisitionReason");
 		getPostDelete("loanin/","LoaninJSON.json","LoaninJSON.json","loanInNumber");

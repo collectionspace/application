@@ -33,10 +33,15 @@
     <responsibleDepartment>ethnography</responsibleDepartment>
 </responsibleDepartments>
 <collection>study-collection</collection>
-<title>Petrified Ogre</title>
-<titleLanguage>swahili</titleLanguage>
-<titleTranslation>waka waka</titleTranslation>
-<titleType>generic</titleType>
+<titleGroupList>
+    <titleGroup>
+        <title>Petrified Ogre</title>
+        <titleLanguage>swahili</titleLanguage>
+        <titleTranslation>waka waka</titleTranslation>
+        <titleTranslationLanguage>klingon</titleTranslationLanguage>
+        <titleType>generic</titleType>
+    </titleGroup>
+</titleGroupList>
 <recordStatus>in-process</recordStatus>
 
 <!-- Object Description Information -->
@@ -55,19 +60,31 @@
 </contentConcepts>
 <contentDate></contentDate>
 <contentDescription>Content of a piece of rock?! .. well there might be diamonds and petrified fish in it</contentDescription>
-<contentEventName></contentEventName>
-<contentEventNameType></contentEventNameType>
+<contentEventNameGroupList>
+    <contentEventNameGroup>
+        <contentEventName></contentEventName>
+        <contentEventNameType></contentEventNameType>
+    </contentEventNameGroup>
+</contentEventNameGroupList>
 <contentNote>pst., it's not a real ogre</contentNote>
 <contentLanguages>
     <contentLanguage></contentLanguage>
 </contentLanguages>
-<contentObject>The Ogres hand</contentObject>
-<contentObjectType></contentObjectType>
+<contentObjectGroupList>
+    <contentObjectGroup>
+        <contentObject>The Ogres hand</contentObject>
+        <contentObjectType></contentObjectType>
+    </contentObjectGroup>
+</contentObjectGroupList>
 <contentOrganizations>
     <contentOrganization>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(wolperorganization)'Wolper+Organization'</contentOrganization>
 </contentOrganizations>
-<contentOther></contentOther>
-<contentOtherType></contentOtherType>
+<contentObjectGroupList>
+    <contentObjectGroup>
+        <contentOther></contentOther>
+        <contentOtherType></contentOtherType>
+    </contentObjectGroup>
+</contentObjectGroupList>
 <contentPeoples>
     <contentPeople></contentPeople>
 </contentPeoples>
@@ -116,11 +133,15 @@
 <inscriptionDescriptionPosition>bottom</inscriptionDescriptionPosition>
 <inscriptionDescriptionType>decoration</inscriptionDescriptionType>
 <!-- Object Description Material Information -->
-<material></material>
-<materialComponent>It is not gold</materialComponent>
-<materialComponentNote></materialComponentNote>
-<materialName>rocky balboa rocks</materialName>
-<materialSource></materialSource>
+<materialGroupList>
+    <materialGroup>
+        <material></material>
+        <materialComponent>It is not gold</materialComponent>
+        <materialComponentNote></materialComponentNote>
+        <materialName>rocky balboa rocks</materialName>
+        <materialSource></materialSource>
+    </materialGroup>
+</materialGroupList>
 <!-- Misc Object Description Information -->
 <objectStatus>holotype</objectStatus>
 <phase>adult</phase>
@@ -129,31 +150,64 @@
 <styles>
     <style></style>
 </styles>
-<technicalAttribute>record-speed</technicalAttribute>
-<technicalAttributeMeasurement></technicalAttributeMeasurement>
-<technicalAttributeMeasurementUnit></technicalAttributeMeasurementUnit>
-<objectComponentName>sleeve</objectComponentName>
-<objectComponentInformation></objectComponentInformation>
+<technicalAttributeGroupList>
+    <technicalAttributeGroup>
+        <technicalAttribute>record-speed</technicalAttribute>
+        <technicalAttributeMeasurement>78</technicalAttributeMeasurement>
+        <technicalAttributeMeasurementUnit>rpm</technicalAttributeMeasurementUnit>
+    </technicalAttributeGroup>
+</technicalAttributeGroupList>
+<objectComponentGroupList>
+    <objectComponentGroup>
+        <objectComponentName>sleeve</objectComponentName>
+        <objectComponentInformation></objectComponentInformation>
+    </objectComponentGroup>
+</objectComponentGroupList>
 <!-- Object Production Information -->
 <objectProductionDate></objectProductionDate>
 <objectProductionNote>.. But it wasn't</objectProductionNote>
-<objectProductionOrganization>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(boardwalkrecords)'Boardwalk+Records'</objectProductionOrganization>
-<objectProductionOrganizationRole></objectProductionOrganizationRole>
-<objectProductionPeople></objectProductionPeople>
-<objectProductionPeopleRole></objectProductionPeopleRole>
-<objectProductionPerson>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(virginiaboardman)'Virginia+Boardman'</objectProductionPerson>
-<objectProductionPersonRole></objectProductionPersonRole>
-<objectProductionPlace></objectProductionPlace>
-<objectProductionPlaceRole></objectProductionPlaceRole>
+<objectProductionOrganizationGroupList>
+    <objectProductionOrganizationGroup>
+        <objectProductionOrganization>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(boardwalkrecords)'Boardwalk+Records'</objectProductionOrganization>
+        <objectProductionOrganizationRole></objectProductionOrganizationRole>
+    </objectProductionOrganizationGroup>
+</objectProductionOrganizationGroupList>
+<objectProductionPeopleGroupList>
+    <objectProductionPeopleGroup>
+        <objectProductionPeople></objectProductionPeople>
+        <objectProductionPeopleRole></objectProductionPeopleRole>
+    </objectProductionPeopleGroup>
+</objectProductionPeopleGroupList>
+<objectProductionPersonGroupList>
+    <objectProductionPersonGroup>
+        <objectProductionPerson>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(virginiaboardman)'Virginia+Boardman'</objectProductionPerson>
+        <objectProductionPersonRole></objectProductionPersonRole>
+    </objectProductionPersonGroup>
+</objectProductionPersonGroupList>
+<objectProductionPlaceGroupList>
+    <objectProductionPlaceGroup>
+        <objectProductionPlace></objectProductionPlace>
+        <objectProductionPlaceRole></objectProductionPlaceRole>
+    </objectProductionPlaceGroup>
+</objectProductionPlaceGroupList>
 <objectProductionReason>Because he thought it'd be pretty</objectProductionReason>
-<technique></technique>
-<techniqueType></techniqueType>
+<techniqueGroupList>
+    <techniqueGroup>
+        <technique></technique>
+        <techniqueType></techniqueType>
+    </techniqueGroup>
+</techniqueGroupList>
 <!-- Object History and Association Information - Association -->
 <!-- In the following field names, "assoc" is an abbreviation for "association". -->
 <!-- See the comments to CSPACE-2501 for a discussion of the database identifier -->
 <!-- length limit that made this abbreviation necessary. -->
-<assocActivity></assocActivity>
-<assocActivityNote>associated act. note</assocActivityNote>
+<assocActivityGroupList>
+    <assocActivityGroup>
+        <assocActivity></assocActivity>
+        <assocActivityType></assocActivityType>
+        <assocActivityNote>associated act. note</assocActivityNote>
+    </assocActivityGroup>
+</assocActivityGroupList>
 <assocConcepts>
     <assocConcept></assocConcept>
 </assocConcepts>

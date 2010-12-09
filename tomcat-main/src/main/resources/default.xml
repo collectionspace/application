@@ -100,38 +100,41 @@
                         <merge id="objectName" rank="2" />
                     </merges>
                 </field>
-                <field id="title" in-title="yes" mini="search">
-                    <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
-                    <selector>.csc-object-identification-object-title</selector>
-                </field>
-                <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
-                    <enum>
-                        <default>eng</default>
-                        <blank-value>Please select a value</blank-value>
-                    </enum>
-                    <selector>.csc-object-identification-object-title-language</selector>
-                </field>
-                <field id="titleTranslation">
-                    <selector>.csc-object-identification-object-title-translation</selector>
-                </field>
-                <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
-                    <enum>
-                        <default>eng</default>
-                        <blank-value>Please select a value</blank-value>
-                    </enum>
-                </field>
-                <field id="titleType" seperate_ui_container="true">
-                    <selector>.csc-object-identification-object-title-type</selector>
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="assigned-by-artist">Assigned by Artist</option>
-                        <option id="collection">Collection</option>
-                        <option id="generic">Generic</option>
-                        <option id="popular">Popular</option>
-                        <option id="series">Series</option>
-                        <option id="trade">Trade</option>
-                    </options>
-                </field>
+                <repeat id="titleGroupList/titleGroup">
+                    <!-- selector>.csc-collection-object-titleGroup</selector -->
+                    <field id="title" in-title="yes" mini="search">
+                        <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
+                        <selector>.csc-object-identification-object-title</selector>
+                    </field>
+                    <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
+                        <enum>
+                            <default>eng</default>
+                            <blank-value>Please select a value</blank-value>
+                        </enum>
+                        <selector>.csc-object-identification-object-title-language</selector>
+                    </field>
+                    <field id="titleTranslation">
+                        <selector>.csc-object-identification-object-title-translation</selector>
+                    </field>
+                    <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
+                        <enum>
+                            <default>eng</default>
+                            <blank-value>Please select a value</blank-value>
+                        </enum>
+                    </field>
+                    <field id="titleType" seperate_ui_container="true">
+                        <selector>.csc-object-identification-object-title-type</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="assigned-by-artist">Assigned by Artist</option>
+                            <option id="collection">Collection</option>
+                            <option id="generic">Generic</option>
+                            <option id="popular">Popular</option>
+                            <option id="series">Series</option>
+                            <option id="trade">Trade</option>
+                        </options>
+                    </field>
+                </repeat>
                 <field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number,search,list,relate" seperate_ui_container="true">
                     <selector>.csc-object-identification-object-number</selector>
                     <title-selector>.csc-titleBar-object-identification-object-number</title-selector>
@@ -293,57 +296,69 @@
                         <selector>.csc-object-description-color</selector>
                     </field>
                 </repeat>
-                <field id="materialComponent">
-                    <selector>.csc-object-description-material-component</selector>
-                </field>
-                <field id="materialComponentNote">
-                    <selector>.csc-object-description-material-component-note</selector>
-                </field>
-                <field id="materialName">
-                    <selector>.csc-object-description-material-name</selector>
-                </field>
-                <field id="materialSource">
-                    <selector>.csc-object-description-material-source</selector>
-                </field>
+                <repeat id="materialGroupList/materialGroup">
+                    <!-- selector>.csc-collection-object-materialGroup</selector -->
+                    <field id="material">
+                        <selector>.csc-object-description-material</selector>
+                    </field>
+                    <field id="materialComponent">
+                        <selector>.csc-object-description-material-component</selector>
+                    </field>
+                    <field id="materialComponentNote">
+                        <selector>.csc-object-description-material-component-note</selector>
+                    </field>
+                    <field id="materialName">
+                        <selector>.csc-object-description-material-name</selector>
+                    </field>
+                    <field id="materialSource">
+                        <selector>.csc-object-description-material-source</selector>
+                    </field>
+                </repeat>
                 <field id="physicalDescription">
                     <selector>.csc-object-description-physical-description</selector>
                 </field>
-                <field id="objectComponentName" seperate_ui_container="true">
-                    <selector>.csc-object-description-object-component-name</selector>
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="blade">blade</option>
-                        <option id="buttonhole">buttonhole</option>
-                        <option id="handle">handle</option>
-                        <option id="sleeve">sleeve</option>
-                    </options>
-                </field>
-                <field id="objectComponentInformation">
-                    <selector>.csc-object-description-object-component-information</selector>
-                </field>
-                <field id="technicalAttribute" seperate_ui_container="true">
-                    <selector>.csc-object-description-technical-attribute</selector>
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="magnetic-tape-type">magnetic tape type</option>
-                        <option id="record-speed">record speed</option>
-                    </options>
-                </field>
-                <field id="technicalAttributeMeasurement" seperate_ui_container="true">
-                    <selector>.csc-object-description-technical-attribute-measurement</selector>
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="metal">metal</option>
-                        <option id="78">78</option>
-                    </options>
-                </field>
-                <field id="technicalAttributeMeasurementUnit" seperate_ui_container="true">
-                    <selector>.csc-object-description-technical-attribute-unit</selector>
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="rpm">rpm</option>
-                    </options>
-                </field>
+                <repeat id="objectComponentGroupList/objectComponentGroup">
+                    <!-- selector>.csc-collection-object-objectComponentGroup</selector -->
+                    <field id="objectComponentName" seperate_ui_container="true">
+                        <selector>.csc-object-description-object-component-name</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="blade">blade</option>
+                            <option id="buttonhole">buttonhole</option>
+                            <option id="handle">handle</option>
+                            <option id="sleeve">sleeve</option>
+                        </options>
+                    </field>
+                    <field id="objectComponentInformation">
+                        <selector>.csc-object-description-object-component-information</selector>
+                    </field>
+                </repeat>
+                <repeat id="technicalAttributeGroupList/technicalAttributeGroup">
+                    <!-- selector>.csc-collection-object-technicalAttributeGroup</selector -->
+                    <field id="technicalAttribute" seperate_ui_container="true">
+                        <selector>.csc-object-description-technical-attribute</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="magnetic-tape-type">magnetic tape type</option>
+                            <option id="record-speed">record speed</option>
+                        </options>
+                    </field>
+                    <field id="technicalAttributeMeasurement" seperate_ui_container="true">
+                        <selector>.csc-object-description-technical-attribute-measurement</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="metal">metal</option>
+                            <option id="78">78</option>
+                        </options>
+                    </field>
+                    <field id="technicalAttributeMeasurementUnit" seperate_ui_container="true">
+                        <selector>.csc-object-description-technical-attribute-unit</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="rpm">rpm</option>
+                        </options>
+                    </field>
+                </repeat>
                 <field id="dimensionSummary"></field>
                 <repeat id="dimensions/dimensionGroup">
                     <field id="dimension" seperate_ui_container="true">
@@ -438,17 +453,20 @@
                         </options>
                     </field>
                 </repeat>
-                <field id="contentObject">
-                    <selector>.csc-object-description-content-object</selector>
-                </field>
-                <field id="contentObjectType" seperate_ui_container="true">
-                    <selector>.csc-object-description-content-object-type</selector>
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="furniture">Furniture</option>
-                        <option id="food">Food</option>
-                    </options>
-                </field>
+                <repeat id="contentObjectGroupList/contentObjectGroup">
+                    <!-- selector>.csc-collection-object-contentObjectGroup</selector -->
+                    <field id="contentObject">
+                        <selector>.csc-object-description-content-object</selector>
+                    </field>
+                    <field id="contentObjectType" seperate_ui_container="true">
+                        <selector>.csc-object-description-content-object-type</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="furniture">Furniture</option>
+                            <option id="food">Food</option>
+                        </options>
+                    </field>
+                </repeat>
                 <repeat id="contentPeoples">
                     <field id="contentPeople">
                         <selector>.csc-object-description-content-people</selector>
@@ -484,9 +502,15 @@
                         <selector>.csc-object-description-content-organization</selector>
                     </field>
                 </repeat>
-                <field id="contentOtherType">
-                    <selector>.csc-object-description-content-other-type</selector>
-                </field>
+                <repeat id="contentOtherGroupList/contentOtherGroup">
+                    <!-- selector>.csc-collection-object-contentObjectGroup</selector -->
+                    <field id="contentOther">
+                        <selector>.csc-object-description-content-other</selector>
+                    </field>
+                    <field id="contentOtherType">
+                        <selector>.csc-object-description-content-other-type</selector>
+                    </field>
+                </repeat>
                 <field id="contentDate" ui-type="date" >
                     <selector>.csc-object-description-content-date</selector>
                 </field>
@@ -645,38 +669,58 @@
                 <field id="objectProductionNote">
                     <selector>.csc-object-production-note</selector>
                 </field>
-                <field id="objectProductionOrganization" autocomplete="organization-organization">
-                    <selector>.csc-object-production-organization</selector>
-                </field>
-                <field id="objectProductionOrganizationRole"></field>
-                <field id="objectProductionPeopleRole"></field>
-                <field id="objectProductionPersonRole"></field>
-                <field id="objectProductionPlaceRole"></field>
-                <field id="objectProductionPeople">
-                    <selector>.csc-object-production-people</selector>
-                </field>
-                <field id="objectProductionPerson" autocomplete="person-person">
-                    <selector>.csc-object-production-person</selector>
-                </field>
-                <field id="objectProductionPlace">
-                    <selector>.csc-object-production-place</selector>
-                </field>
+                <repeat id="objectProductionOrganizationGroupList/objectProductionOrganizationGroup">
+                    <!-- selector>.csc-collection-object-objectProductionOrganizationGroup</selector -->
+                    <field id="objectProductionOrganization" autocomplete="organization-organization">
+                        <selector>.csc-object-production-organization</selector>
+                    </field>
+                    <field id="objectProductionOrganizationRole"></field>
+                </repeat>
+                <repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
+                    <!-- selector>.csc-object-production-objectProductionPeopleGroup</selector -->
+                    <field id="objectProductionPeople">
+                        <selector>.csc-object-production-people</selector>
+                    </field>
+                    <field id="objectProductionPeopleRole"></field>
+                </repeat>
+                <repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+                    <!-- selector>.csc-object-production-objectProductionPersonGroup</selector -->
+                    <field id="objectProductionPerson" autocomplete="person-person">
+                        <selector>.csc-object-production-person</selector>
+                    </field>
+                    <field id="objectProductionPersonRole"></field>
+                </repeat>
+                <repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+                    <!-- selector>.csc-collection-object-objectProductionPlaceGroup</selector -->
+                    <field id="objectProductionPlace">
+                        <selector>.csc-object-production-place</selector>
+                    </field>
+                    <field id="objectProductionPlaceRole"></field>
+                </repeat>
                 <repeat id="objectProductionReasons">
                     <field id="objectProductionReason">
                         <selector>.csc-object-production-reason</selector>
                     </field>
                 </repeat>
-                <field id="technique">
-                    <selector>.csc-object-production-technique</selector>
-                </field>
-                <field id="techniqueType">
-                    <selector>.csc-object-production-technique-type</selector>
-                </field>
+                <repeat id="techniqueGroupList/techniqueGroup">
+                    <!-- selector>csc-collection-object-techniqueGroup</selector -->
+                    <field id="technique">
+                        <selector>.csc-object-production-technique</selector>
+                    </field>
+                    <field id="techniqueType">
+                        <selector>.csc-object-production-technique-type</selector>
+                    </field>
+                </repeat>
+
+                <repeat id="assocActivityGroupList/assocActivityGroup">
+                    <!-- selector>.csc-collection-object-assocActivityGroup</selector -->
+                    <field id="assocActivity"></field>
+                    <field id="assocActivityType"></field>
+                    <field id="assocActivityNote"></field>
+                </repeat>
 
                 <field id="assocEventNote"></field>
 
-                <field id="assocActivity"></field>
-                <field id="assocActivityNote"></field>
                 <repeat id="assocEventOrganizations">
                     <field id="assocEventOrganization" autocomplete="organization-organization">
                         <selector>.csc-object-history-association-event-organization</selector>
@@ -697,38 +741,56 @@
                         <selector>.csc-object-history-association-event-place</selector>
                     </field>
                 </repeat>
-                <field id="assocObject"></field>
-                <field id="assocObjectType"></field>
-                <repeat id="assocConcepts">
+                <repeat id="assocObjectGroupList/assocObjectGroup">
+                    <field id="assocObject"></field>
+                    <field id="assocObjectType"></field>
+                    <field id="assocObjectNote"></field>
+               </repeat>
+                <repeat id="assocConceptGroupList/assocConceptGroup">
                     <field id="assocConcept"></field>
+                    <field id="assocConceptType"></field>
+                    <field id="assocConceptNote"></field>
                 </repeat>
-                <field id="assocConceptNote"></field>
-                <repeat id="assocCulturalContexts">
+                <repeat id="assocCulturalContextGroupList/assocCulturalContext">
                     <field id="assocCulturalContext"></field>
+                    <field id="assocCulturalContextType"></field>
+                    <field id="assocCulturalContextNote"></field>
                 </repeat>
-                <field id="assocCulturalContextNote"></field>
-                <repeat id="assocOrganizations">
+                <repeat id="assocOrganizationGroupList/assocOrganizationGroup">
                     <field id="assocOrganization" autocomplete="organization-organization"></field>
+                    <!-- CSPACE-2927: This new 'type' field may need to provide terms from a controlled -->
+                    <!-- vocabulary; needs functional clarification from Megan, et al. -->
+                    <field id="assocOrganizationType"></field>
+                    <field id="assocOrganizationNote"></field>
                 </repeat>
-                <field id="assocOrganizationNote"></field>
-                <repeat id="assocPeoples">
+                <repeat id="assocPeopleGroupList/assocPeopleGroup">
                     <field id="assocPeople"></field>
+                    <field id="assocPeopleType"></field>
+                    <field id="assocPeopleNote"></field>
                 </repeat>
-                <field id="assocPeopleNote"></field>
-                <repeat id="assocPersons">
+                <repeat id="assocPersonGroupList/assocPersonGroup">
                     <field id="assocPerson" autocomplete="person-person"></field>
+                    <field id="assocPersonType"></field>
+                    <field id="assocPersonNote"></field>
                 </repeat>
-                <field id="assocPersonNote"></field>
-                <repeat id="assocPlaces">
+                <repeat id="assocPlaceGroupList/assocPlaceGroup">
                     <field id="assocPlace"></field>
+                    <field id="assocPlaceType"></field>
+                    <field id="assocPlaceNote"></field>
                 </repeat>
-                <field id="assocPlaceNote"></field>
-                <field id="assocDate" ui-type="date"></field>
-                <field id="assocDateNote"></field>
+                <repeat id="assocDateGroupList/assocDateGroup">
+                    <selector>.csc-object-history-association-assocDateGroup</selector>
+                    <field id="assocDate" ui-type="date">
+                         <!-- Experimenting with explicitly naming the selector to get container behavior working -->
+                         <selector>.csc-object-history-association-assocDate</selector>
+                    </field>
+                    <field id="assocDateType"></field>
+                    <field id="assocDateNote"></field>
+                </repeat>
                 <field id="assocEventName"></field>
                 <field id="assocEventNameType"></field>
                 <field id="ownershipDates" ui-type="date">
-                    <selector>.csc-object-history-association-dates</selector>
+                    <selector>.csc-object-history-association-ownershipDates</selector>
                 </field>
                 <repeat id="owners">
                     <field id="owner" autocomplete="person-person,organization-organization">
@@ -777,12 +839,10 @@
                 <field id="ownershipExchangePriceValue">
                     <selector>.csc-object-history-association-exchange-price-value</selector>
                 </field>
-                <field id="usage">
-                    <selector>.csc-object-history-association-usage</selector>
-                </field>
-                <field id="usageNote">
-                    <selector>.csc-object-history-association-usage-notes</selector>
-                </field>
+                <repeat id="usageGroupList/usageGroup">
+                    <field id="usage"/>
+                    <field id="usageNote"/>
+                </repeat>
                 <field id="ownersPersonalExperience">
                     <selector>.csc-object-owner-experience</selector>
                 </field>
@@ -857,23 +917,20 @@
                         <selector>.csc-object-description-content-concept</selector>
                     </field>
                 </repeat>
-                <field id="contentEventName">
-                    <selector>.csc-object-description-content-event-name</selector>
-                </field>
-                <field id="contentEventNameType">
-                    <selector>.csc-object-description-content-event-name-type</selector>
-                </field>
+                <repeat id="contentEventNameGroupList/contentEventNameGroup">
+                    <!-- selector>csc-collection-object-contentEventNameGroup</selector -->
+                    <field id="contentEventName">
+                        <selector>.csc-object-description-content-event-name</selector>
+                    </field>
+                    <field id="contentEventNameType">
+                        <selector>.csc-object-description-content-event-name-type</selector>
+                    </field>
+                </repeat>
                 <repeat id="contentActivities">
                     <field id="contentActivity">
                         <selector>.csc-object-description-content-activity</selector>
                     </field>
                 </repeat>
-                <field id="contentOther">
-                    <selector>.csc-object-description-content-other</selector>
-                </field>
-                <field id="material">
-                    <selector>.csc-object-description-material</selector>
-                </field>
                 <repeat id="references">
                     <field id="reference">
                         <selector>.csc-reference-reference</selector>
@@ -2161,7 +2218,7 @@
                 </structures>
 
                 <row-selector>.csc-recordList-row:</row-selector>
-                <!--  Object Entry Information Group -->
+                <!--  Object Exit Information Group -->
                 <field id="exitNumber" chooser="yes" in-title="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
                     <options>
                         <option id="objectexit" sample="EX2010.1">Object Exit</option>

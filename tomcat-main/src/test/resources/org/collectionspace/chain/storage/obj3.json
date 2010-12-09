@@ -1,12 +1,17 @@
 {
-					"title": "title",
-					"titleLanguage": "titleLanguage",
-					"titleTranslation": "titleTranslation",
-					"titleType": "titleType",
+                                       "titleGroup": [{
+                                            "_primary": true,
+                                            "title": "title",
+                                            "titleType": "titleType",
+                                            "titleTranslation": "titleTranslation",
+                                            "titleTranslationLanguage": "titleTranslationLanguage",
+                                        }],
 					"objectNumber": "objectNumber",
 					"otherNumber": "otherNumber",
 					"otherNumberType": "otherNumberType",
-					"briefDescription": "briefDescription",
+					"briefDescriptions":[{
+                                            "briefDescription": "briefDescription"}
+                                         ],
 					"objectName": "objectName",
 					"objectNameCurrency": "objectNameCurrency",
 					"objectNameLevel": "objectNameLevel",

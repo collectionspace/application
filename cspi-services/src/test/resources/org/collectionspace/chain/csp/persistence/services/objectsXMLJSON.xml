@@ -45,10 +45,15 @@
 <responsibleDepartment>ethnography</responsibleDepartment>
 </responsibleDepartments>
 <collection>collection</collection>
-<title>title</title>
-<titleLanguage>titleLanguage</titleLanguage>
-<titleTranslation>titleTranslation</titleTranslation>
-<titleType>titleType</titleType>
+<titleGroupList>
+    <titleGroup>
+        <title>title</title>
+        <titleLanguage>titleLanguage</titleLanguage>
+        <titleTranslationLanguage>titleTranslationLanguage</titleTranslationLanguage>
+        <titleTranslation>titleTranslation</titleTranslation>
+        <titleType>titleType</titleType>
+    </titleGroup>
+</titleGroupList>
 <recordStatus>recordStatus</recordStatus>
 <!-- Object Description Information -->
 <age>age</age>
@@ -72,24 +77,36 @@
 </contentConcepts>
 <contentDate>contentDate</contentDate>
 <contentDescription>contentDescription</contentDescription>
-<contentEventName>contentEventName</contentEventName>
-<contentEventNameType>contentEventNameType</contentEventNameType>
+<contentEventNameGroupList>
+	<contentEventNameGroup>
+    	<contentEventName>contentEventName</contentEventName>
+    	<contentEventNameType>contentEventNameType</contentEventNameType>
+	</contentEventNameGroup>
+</contentEventNameGroupList>
 <contentNote>contentNote</contentNote>
 <contentLanguages>
     <contentLanguage>English</contentLanguage>
     <contentLanguage>POlish</contentLanguage>
     <contentLanguage>Russian</contentLanguage>
 </contentLanguages>
-<contentObject>contentObject</contentObject>
-<contentObjectType>contentObjectType</contentObjectType>
+<contentObjectGroupList>
+	<contentObjectGroup>
+  		<contentObject>contentObject</contentObject>
+  		<contentObjectType>contentObjectType</contentObjectType>
+	</contentObjectGroup>
+</contentObjectGroupList>
 <contentOrganizations>
     <contentOrganization>contentOrganization a</contentOrganization>
     <contentOrganization>contentOrganization s</contentOrganization>
     <contentOrganization>contentOrganization d</contentOrganization>
     <contentOrganization>contentOrganization f</contentOrganization>
 </contentOrganizations>
-<contentOther>contentOther</contentOther>
-<contentOtherType>contentOtherType</contentOtherType>
+<contentOtherGroupList>
+	<contentOtherGroup>
+    	<contentOther>contentOther</contentOther>
+    	<contentOtherType>contentOtherType</contentOtherType>
+	</contentOtherGroup>
+</contentOtherGroupList>
 <contentPeoples>
     <contentPeople>contentPeople s</contentPeople>
     <contentPeople>contentPeople g</contentPeople>
@@ -107,9 +124,9 @@
 </contentPlaces>
 <contentPositions><contentPosition>contentPosition</contentPosition></contentPositions>
 <contentScripts>
-    <contentScript>contentScript 1</contentScript> 
-    <contentScript>contentScript 2</contentScript> 
-    <contentScript>contentScript 3</contentScript> 
+    <contentScript>contentScript 1</contentScript>
+    <contentScript>contentScript 2</contentScript>
+    <contentScript>contentScript 3</contentScript>
 </contentScripts>
 <copyNumber>copyNumber</copyNumber>
 <!-- Object Description - Dimension Information -->
@@ -166,7 +183,7 @@
 <technicalAttributeMeasurementUnit></technicalAttributeMeasurementUnit>
 <objectComponentName></objectComponentName>
 <objectComponentInformation></objectComponentInformation>
-<!-- Object Production Information -->
+<!-- Object Production Information -->cd .
 <objectProductionDate></objectProductionDate>
 <objectProductionNote></objectProductionNote>
 <objectProductionOrganization></objectProductionOrganization>
@@ -186,9 +203,6 @@
 <!-- length limit that made this abbreviation necessary. -->
 <assocActivity></assocActivity>
 <assocActivityNote></assocActivityNote>
-<assocConcepts>
-    <assocConcept></assocConcept>
-</assocConcepts>
 <assocCulturalContexts>
     <assocCulturalContext></assocCulturalContext>
 </assocCulturalContexts>
@@ -212,15 +226,36 @@
 <assocOrganizations>
     <assocOrganization></assocOrganization>
 </assocOrganizations>
-<assocPeoples>
-    <assocPeople></assocPeople>
-</assocPeoples>
-<assocPersons>
-    <assocPerson></assocPerson>
-</assocPersons>
-<assocPlaces>
-    <assocPlace></assocPlace>
-</assocPlaces>
+<assocPersonGroupList>
+    <assocPersonGroup>
+        <assocPerson></assocPerson>
+        <assocPersonType></assocPersonType>
+        <assocPersonNote></assocPersonNote>
+    </assocPersonGroup>
+</assocPersonGroupList>
+<!--
+<assocPeopleGroupList>
+    <assocPeopleGroup>
+        <assocPeople></assocPeople>
+        <assocPeopleType></assocPeopleType>
+        <assocPeopleNote></assocPeopleNote>
+    </assocPeopleGroup>
+</assocPeopleGroupList>
+-->
+<assocConceptGroupList>
+    <assocConceptGroup>
+        <assocConcept></assocConcept>
+        <assocConceptType></assocConceptType>
+        <assocConceptNote></assocConceptNote>
+    </assocConceptGroup>
+</assocConceptGroupList>
+<assocPlaceGroupList>
+    <assocPlaceGroup>
+        <assocPlace></assocPlace>
+        <assocPlaceType></assocPlaceType>
+        <assocPlaceNote></assocPlaceNote>
+    </assocPlaceGroup>
+</assocPlaceGroupList>
 <associationNote></associationNote>
 <associationType></associationType>
 <!-- Object History and Association Information - History -->
@@ -278,6 +313,6 @@
 <dateLatestCertainty></dateLatestCertainty>
 <dateLatestQualifier></dateLatestQualifier>
 <datePeriod></datePeriod>
-<dateText></dateText>         
+<dateText></dateText>
 
 </ns2:collectionobjects_common>

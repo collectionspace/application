@@ -42,7 +42,9 @@ public class TestServiceThroughWebapp extends TestBase{
 		JSONObject one = new JSONObject(getResourceString("obj3.json"));
 		//log.info(one.toString());
 		//log.info(content.toString());
-		assertEquals(one.get("titleLanguage"),content.get("titleLanguage"));
+                // Haven't yet identified whether JSONObject can use dot-delimited path notation - Aron
+		//assertEquals(one.get("titleGroup.0.titleLanguage"),content.get("titleGroup.0.titleLanguage"));
+                assertEquals(one.get("distinguishingFeatures"),content.get("distinguishingFeatures"));
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj3.json")),content));
 		out=jettyDoUTF8(jetty,"PUT","/chain"+id,makeSimpleRequest(getResourceString("obj4.json")));
 		assertEquals(200,out.getStatus());
@@ -50,7 +52,8 @@ public class TestServiceThroughWebapp extends TestBase{
 		content=new JSONObject(out.getContent());
 		content=getFields(content);
 		JSONObject oneb = new JSONObject(getResourceString("obj4.json"));
-		assertEquals(oneb.get("titleLanguage"),content.get("titleLanguage"));
+		// assertEquals(oneb.get("titleGroup.0.titleLanguage"),content.get("titleGroup.0.titleLanguage"));
+                assertEquals(oneb.get("distinguishingFeatures"),content.get("distinguishingFeatures"));
 		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj4.json")),content));		
 		out=jettyDoUTF8(jetty,"DELETE","/chain"+id,null);
 		out=jettyDoUTF8(jetty,"GET","/chain"+id,null);
