@@ -1001,29 +1001,17 @@
                 <services-url>intakes</services-url>
                 <services-list-path>intakes-common-list/intake-list-item</services-list-path>
                 <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
-				<!-- <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path> -->
+				<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 
                 <structures>
                     <structure id="screen"></structure>
                 </structures>
-				<!--
+
 				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
 				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
 				<field id="updatedAt" section="collectionspace_core" attributes="GET"></field>
-				-->
-				
-                <row-selector>.csc-recordList-row:</row-selector>
 
-                <!-- Added for collectionspace_core: -->
-                <field id="tenantID" section="collectionspace_core">
-                    <services-tag>tenantID</services-tag>
-                </field>
-                <field id="createdAt" section="collectionspace_core">
-                    <services-tag>createdAt</services-tag>
-                </field>
-                <field id="updatedAt" section="collectionspace_core">
-                    <services-tag>updatedAt</services-tag>
-                </field>
+                <row-selector>.csc-recordList-row:</row-selector>
 
                 <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" autocomplete="person-person,organization-organization">
                     <selector>.csc-intake-current-owner</selector>
