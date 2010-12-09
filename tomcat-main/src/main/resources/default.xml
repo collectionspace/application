@@ -90,7 +90,7 @@
                 </structures>
                 <web-url>cataloging</web-url>
                 <tab-url>cataloging-tab</tab-url>
-                <number-selector>.csc-accession-number</number-selector>
+                <number-selector>.csc-entry-number</number-selector>
                 <row-selector>.csc-recordList-row:</row-selector>
                 <list-key>cataloging</list-key>
                 <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
