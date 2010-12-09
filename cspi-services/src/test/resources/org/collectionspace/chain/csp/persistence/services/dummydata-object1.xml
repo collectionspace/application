@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 
-<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/collectionobject http://services.collectionspace.org/collectionobject/collectionobjects_common.xsd">
+<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://collectionspace.org/services/collectionobject 
+  file:///home/aron/collectionobjects_common.xsd">
+      <!--
+http://services.collectionspace.org/collectionobject/collectionobjects_common.xsd"-->
  
                 <!-- Object Identification Information -->
 <objectNumber>CompleteObject001</objectNumber>
@@ -79,12 +84,12 @@
 <contentOrganizations>
     <contentOrganization>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(wolperorganization)'Wolper+Organization'</contentOrganization>
 </contentOrganizations>
-<contentObjectGroupList>
-    <contentObjectGroup>
+<contentOtherGroupList>
+    <contentOtherGroup>
         <contentOther></contentOther>
         <contentOtherType></contentOtherType>
-    </contentObjectGroup>
-</contentObjectGroupList>
+    </contentOtherGroup>
+</contentOtherGroupList>
 <contentPeoples>
     <contentPeople></contentPeople>
 </contentPeoples>
@@ -291,18 +296,7 @@
 
 <fieldColEventNames>
 	<fieldColEventName>fieldCollectionEventName</fieldColEventName>
-</fieldColEventNames>
-<!-- Object Description Date Information -->
-<!-- This appears to be a placeholder structured date -->
-<dateAssociation></dateAssociation>
-<dateEarliestSingle></dateEarliestSingle>
-<dateEarliestSingleCertainty></dateEarliestSingleCertainty>
-<dateEarliestSingleQualifier></dateEarliestSingleQualifier>
-<dateLatest></dateLatest>
-<dateLatestCertainty></dateLatestCertainty>
-<dateLatestQualifier></dateLatestQualifier>
-<datePeriod></datePeriod>
-<dateText></dateText>                
+</fieldColEventNames>             
                 
 </ns2:collectionobjects_common>
 
