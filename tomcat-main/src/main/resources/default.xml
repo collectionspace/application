@@ -751,7 +751,7 @@
                     <field id="assocConceptType"></field>
                     <field id="assocConceptNote"></field>
                 </repeat>
-                <repeat id="assocCulturalContextGroupList/assocCulturalContext">
+                <repeat id="assocCulturalContextGroupList/assocCulturalContextGroup">
                     <field id="assocCulturalContext"></field>
                     <field id="assocCulturalContextType"></field>
                     <field id="assocCulturalContextNote"></field>
