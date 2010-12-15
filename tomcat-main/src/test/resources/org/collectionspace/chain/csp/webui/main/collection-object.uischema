@@ -263,7 +263,7 @@
                     "ownersContributionNote": {
                         "type": "string"
                     },
-                    "assocCulturalContext": {
+                    "assocCulturalContextGroup": {
                         "items": {
                             "properties": {
                                 "_primary": {
