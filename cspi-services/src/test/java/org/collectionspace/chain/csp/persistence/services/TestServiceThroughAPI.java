@@ -6,6 +6,8 @@
  */
 package org.collectionspace.chain.csp.persistence.services;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 import java.util.List;
@@ -95,14 +97,19 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 				assertFalse(true);
 		}
 	}
+
+        public static String getCurrentYear() {
+		Calendar cal = GregorianCalendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+		return Integer.toString(year);
+	}
 	
 	@Test public void testGetId() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		JSONObject jo=ss.retrieveJSON("id/intake");
-		assertTrue(jo.getString("next").startsWith("IN2010."));
+		assertTrue(jo.getString("next").startsWith("IN" + getCurrentYear() + "."));
 		jo=ss.retrieveJSON("id/accession");
-
-		assertTrue(jo.getString("next").startsWith("2010.1."));
+		assertTrue(jo.getString("next").startsWith(getCurrentYear() + ".1."));
 	}
 	
 	// XXX use autocreate not create when create dies
