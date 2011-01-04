@@ -56,7 +56,7 @@ public class UISpec implements WebMethod {
 
 	// XXX make common
 	protected String plain(Field f) {
-		if(f.getParent().isExpander()){
+		if(f.getParent().isExpander() || f.getParent() instanceof Repeat){
 			return radio(f);
 		}
 
@@ -324,11 +324,28 @@ public class UISpec implements WebMethod {
 			decorator.put("type","fluid");
 			decorator.put("func","cspace.makeRepeatable");
 			JSONObject options=new JSONObject();
-			JSONObject protoTree=new JSONObject();
+			JSONObject preProtoTree=new JSONObject();
 			for(FieldSet child : r.getChildren("")) {
-				generateDataEntry(protoTree,child, affix);
+				generateDataEntry(preProtoTree,child, affix);
 			}
-
+			JSONObject subexpander = new JSONObject();
+			subexpander.put("type", "fluid.renderer.repeat");
+            subexpander.put("pathAs", "row");
+            subexpander.put( "controlledBy", "fields."+r.getID());
+            subexpander.put("repeatID", "repeat:");
+            subexpander.put("tree", preProtoTree);
+			
+			JSONObject supertree = new JSONObject();
+			supertree.put("expander", subexpander);
+			
+			JSONObject expander = new JSONObject();
+			expander.put("type", "fluid.noexpand");
+			expander.put("tree", supertree);
+			
+			
+			JSONObject protoTree = new JSONObject();
+			protoTree.put("expander", expander);
+			
 			options.put("protoTree", protoTree);
 			options.put("elPath", "fields."+r.getID());
 			decorator.put("options",options);
@@ -361,7 +378,7 @@ public class UISpec implements WebMethod {
 		decorators.put(decorator);
 		out.put("decorators",decorators);
 		if(f.isRefactored()){
-			out.put("valuebinding", generateDataEntryField(f));
+			out.put("value", generateDataEntryField(f));
 		}
 		return out;
 	}
