@@ -119,42 +119,42 @@ public class TestServiceThroughWebapp extends TestBase{
 		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/chain/id/intake",null);
 		JSONObject jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("IN2010."));
+		assertTrue(jo.getString("next").startsWith("IN" + getCurrentYear() + "."));
 		//test the accessions generated id
 		out=jettyDoUTF8(jetty,"GET","/chain/id/accession",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("2010.1."));
+		assertTrue(jo.getString("next").startsWith("" + getCurrentYear() + ".1."));
 
 		//test the loans-in generated id
 		out=jettyDoUTF8(jetty,"GET","/chain/id/loanin",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("LI2010."));
+		assertTrue(jo.getString("next").startsWith("LI" + getCurrentYear() + "."));
 
 		//test the loans-out generated id
 		out=jettyDoUTF8(jetty,"GET","/chain/id/loanout",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("LO2010."));
+		assertTrue(jo.getString("next").startsWith("LO" + getCurrentYear() + "."));
 
 		//test the study generated id
 		out=jettyDoUTF8(jetty,"GET","/chain/id/study",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("ST2010."));
+		assertTrue(jo.getString("next").startsWith("ST" + getCurrentYear() + "."));
 
 		//test the evaluation generated id
 		out=jettyDoUTF8(jetty,"GET","/chain/id/evaluation",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("EV2010."));
+		assertTrue(jo.getString("next").startsWith("EV" + getCurrentYear() + "."));
 
 		//test the library generated id
 		out=jettyDoUTF8(jetty,"GET","/chain/id/library",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("LIB2010."));
+		assertTrue(jo.getString("next").startsWith("LIB" + getCurrentYear() + "."));
 
 		//test the archives generated id
 		out=jettyDoUTF8(jetty,"GET","/chain/id/archive",null);
 		jo=new JSONObject(out.getContent());
 		log.info(out.getContent());
-		assertTrue(jo.getString("next").startsWith("AR2010."));
+		assertTrue(jo.getString("next").startsWith("AR" + getCurrentYear() + "."));
 	}
 
 	@Test public void testTermsUsed() throws Exception {

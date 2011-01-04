@@ -11,6 +11,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -53,7 +55,13 @@ public class TestBase extends TestData {
 		log.info("initialize finished");
 		*/
 	}
-
+	
+	protected static String getCurrentYear() {
+		Calendar cal = GregorianCalendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+		return Integer.toString(year);
+	}
+    
 	protected static void login(ServletTester tester) throws IOException,
 			Exception {
 		JSONObject user = getDefaultUser(tester);
