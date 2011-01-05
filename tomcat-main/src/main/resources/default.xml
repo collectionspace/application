@@ -5,6 +5,7 @@
     <admin>
         <username>admin@collectionspace.org</username>
         <password>Administrator</password>
+        <cookievalidformins>30</cookievalidformins>
     </admin>
     <email>
         <baseurl>http://localhost:8180</baseurl>
@@ -1066,7 +1067,7 @@
 
 				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
 				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-				<field id="updatedAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
 
                 <row-selector>.csc-recordList-row:</row-selector>
 

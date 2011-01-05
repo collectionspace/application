@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 public class WebUIRequest implements UIRequest {
 	private static final Logger log = LoggerFactory.getLogger(WebUIRequest.class);
 	private static final String COOKIENAME="CSPACESESSID";
-	private static final Integer lifeInMins = 30;
+	private Integer lifeInMins = 45;
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
@@ -60,7 +60,7 @@ public class WebUIRequest implements UIRequest {
 	private WebUISession session;
 	private boolean solidified=false;
 
-	public WebUIRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response) throws IOException, UIException {
+	private void initRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response) throws IOException, UIException{
 		this.request=request;
 		this.response=response;
 		List<String> p=new ArrayList<String>();
@@ -75,6 +75,16 @@ public class WebUIRequest implements UIRequest {
 			throw new UIException("Bad umbrella");
 		this.umbrella=(WebUIUmbrella)umbrella;
 		session=calculateSessionId();
+		
+	}
+	public WebUIRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response, Integer cookieLife) throws IOException, UIException {
+		this.lifeInMins = cookieLife;
+		initRequest(umbrella,request,response);
+	}
+
+	public WebUIRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response) throws IOException, UIException {
+		this.lifeInMins = 15;
+		initRequest(umbrella,request,response);
 	}
 
 	private WebUISession calculateSessionId() throws UIException {
@@ -100,7 +110,7 @@ public class WebUIRequest implements UIRequest {
 
 		Cookie cookie=new Cookie(COOKIENAME,session.getID());
 		cookie.setPath("/");//XXX should be /chain - so either need to have a parameter in cspace-config or try and ask tomcat who we are
-		cookie.setMaxAge(60 * lifeInMins);
+		cookie.setMaxAge(1 * lifeInMins);
 		response.addCookie(cookie);
 	}
 

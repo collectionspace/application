@@ -27,6 +27,7 @@ import org.apache.commons.io.IOUtils;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
+import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
@@ -197,7 +198,9 @@ public class ChainServlet extends HttpServlet  {
 				}
 			}
 			try {
-				WebUIRequest req=new WebUIRequest(umbrella,servlet_request,servlet_response);
+				ConfigRoot root=cspm.getConfigRoot();
+				Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+				WebUIRequest req=new WebUIRequest(umbrella,servlet_request,servlet_response,spec.getAdminData().getCookieLife());
 				if(is_composite(req)) {
 					serve_composite(web,req);
 				} else {
