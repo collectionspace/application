@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.persistence.services;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
@@ -98,9 +99,9 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		}
 	}
 
-        public static String getCurrentYear() {
+    public static String getCurrentYear() {
 		Calendar cal = GregorianCalendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
+        int year = cal.get(Calendar.YEAR);
 		return Integer.toString(year);
 	}
 	
@@ -112,21 +113,47 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertTrue(jo.getString("next").startsWith(getCurrentYear() + ".1."));
 	}
 	
+	public static <T> T[] concat(T[] first, T[] second) {
+		  T[] result = Arrays.copyOf(first, first.length + second.length);
+		  System.arraycopy(second, 0, result, first.length, second.length);
+		  return result;
+	}
+	
 	// XXX use autocreate not create when create dies
 	@Test public void testObjectsList() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
 		String p2=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
 		String p3=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
-		JSONObject data = ss.getPathsJSON("collection-object",null);
-		String[] names=(String[]) data.get("listItems");
+		int num = 0;
+		Boolean keeptrying = true;
+		String[] names = null;
+		String tester = "";
+		JSONObject rest = new JSONObject();
+		while (keeptrying) {
+			rest.put("pageNum", num);
+			JSONObject data = ss.getPathsJSON("collection-object", rest);
+			String[] names_temp = (String[]) data.get("listItems");
+			if (names_temp.length > 0) {
+				if (tester.equals(names_temp[0])) {
+					keeptrying = false;
+				} else {
+					tester = names_temp[0];
+					if (names == null) {
+						names = names_temp;
+					} else {
+						names = concat(names, names_temp);
+					}
+				}
+			} else {
+				keeptrying = false;
+			}
+			num++;
+		}
 
-		//XXX add pagination support CSPACE-1836
-                log.info("XXX Tests with more collectionobject records than are returned " +
-                        "by the default page size might fail until CSPACE-1836 is resolved.");
-                assertArrayContainsString(names,p1);
-                assertArrayContainsString(names,p2);
-                assertArrayContainsString(names,p3);
+		assertArrayContainsString(names, p1);
+		assertArrayContainsString(names, p2);
+		assertArrayContainsString(names, p3);
 
 		ss.deleteJSON("collection-object/"+p1);
 		try {
@@ -149,6 +176,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		} catch(Exception e) {
 			assertTrue(true); // XXX use JUnit exception annotation
 		}
+		
 	}
 	
 	@Test public void testSearch() throws Exception {
