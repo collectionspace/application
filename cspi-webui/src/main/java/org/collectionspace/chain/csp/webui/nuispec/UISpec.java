@@ -55,10 +55,7 @@ public class UISpec implements WebMethod {
 	}
 
 	// XXX make common
-	protected String plain(Field f) {
-		if(f.getParent().isExpander() || f.getParent() instanceof Repeat){
-			return radio(f);
-		}
+	protected String veryplain(Field f) {
 
 		List<String> path=new ArrayList<String>();
 		String pad="fields";
@@ -68,6 +65,14 @@ public class UISpec implements WebMethod {
 			path.add(part);
 		}
 		return "${"+StringUtils.join(path,'.')+"}";		
+	}
+
+	// XXX make common
+	protected String plain(Field f) {
+		if(f.getParent().isExpander() || f.getParent() instanceof Repeat){
+			return radio(f);
+		}
+		return veryplain(f);
 	}
 	// XXX make common
 	protected String radio(Field f) {
@@ -623,7 +628,7 @@ public class UISpec implements WebMethod {
 			Field f=(Field)fs;
 			if(!f.isInTitle())
 				return;
-			out.put(f.getTitleSelector()+affix,plain(f));
+			out.put(f.getTitleSelector()+affix,veryplain(f));
 		} else if(fs instanceof Repeat) {
 			for(FieldSet child : ((Repeat)fs).getChildren(""))
 				generateTitleSectionEntry(out,child, affix);
