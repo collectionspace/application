@@ -222,6 +222,18 @@ public class RecordCreateUpdate implements WebMethod {
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject data=request.getJSONBody();
+
+			if(this.base.equals("role")){
+				JSONObject fields=data.optJSONObject("fields");
+				if((fields.optString("roleName") == null || fields.optString("roleName").equals("")) && fields.optString("displayName") !=null){
+					String test  = fields.optString("displayName");
+					test = test.toUpperCase();
+					test.replaceAll("\\W", "_");
+					fields.put("roleName", "ROLE_"+test);
+					data.put("fields", fields);
+				}
+			}
+			
 			if(create) {
 				path=sendJSON(storage,null,data);
 				data.put("csid",path);

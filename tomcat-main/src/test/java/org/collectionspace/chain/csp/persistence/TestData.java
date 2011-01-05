@@ -43,8 +43,8 @@ public class TestData {
 	protected final String movementCreate = addData("movementCreate.json").toString();
  	protected final String objectexitCreate = addData("objectexitCreate.json").toString();
 
-	protected final String roleCreate = addData("roleCreate.json","roleName").toString();
-	protected final String role2Create = addData("role2Create.json","roleName").toString();
+	protected final String roleCreate = addData("roleCreate.json","displayName").toString();
+	protected final String role2Create = addData("role2Create.json","displayName").toString();
 	protected final String personCreate = addData("personCreate.json").toString();
 
 	protected final String roleRead =  addData("role_read.json").toString();

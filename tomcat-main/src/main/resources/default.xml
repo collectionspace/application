@@ -1791,7 +1791,10 @@
                         </repeat>
                     </structure>
                 </structures>
-                <field id="roleName" mini="number">
+                <field id="roleName">
+                    <selector>.csc-role-oldname</selector>
+                </field>
+                <field id="displayName" mini="number">
                     <selector>.csc-role-name</selector>
                 </field>
                 <field id="roleGroup">
