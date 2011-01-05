@@ -55,8 +55,10 @@ public class ServicesBaseClass {
 		config_controller.addSearchSuffix("test-config-loader2.xml");
 		config_controller.addSearchSuffix("test-config-loader.xml");
 		config_controller.go();
+		Spec spec = null;
 		try {
 			base=getBaseUrl(TestConfigFinder.configFilename);
+			spec = getDefaultSpec(TestConfigFinder.configFilename);
 		} catch (CSPDependencyException e) {
 			assertNotNull("Base service url invalid in config file: "+TestConfigFinder.configFilename,base);
 		} // XXX still yuck but centralised now
@@ -64,8 +66,10 @@ public class ServicesBaseClass {
 
 		conn=new ServicesConnection(base);
 		creds=new ServicesRequestCredentials();
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"admin@collectionspace.org");
-		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"Administrator");		
+
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,spec.getAdminData().getAuthUser());
+		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,spec.getAdminData().getAuthPass());
+
 		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"accounts/0/accountperms",null,creds,cache);
 		Assume.assumeTrue(out.getStatus()==200);
 	}
@@ -117,6 +121,13 @@ public class ServicesBaseClass {
 		ServicesStorageGenerator gen=(ServicesStorageGenerator)cspm.getStorage("service");
 		String baseurl = gen.getBase();
 		return baseurl;
+	}
+	
+	private Spec getDefaultSpec(String filename) throws CSPDependencyException {
+		CSPManager cspm=getServiceManager(filename);
+		ConfigRoot root=cspm.getConfigRoot();
+		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+		return spec;
 	}
 	
 	protected Storage makeServicesStorage(String path) throws CSPDependencyException {
