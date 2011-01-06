@@ -744,10 +744,7 @@ public class TestGeneral extends TestBase {
 		
 
 		//test role_1 deleted to payload
-		//XXX test removed until service layer have fixed their stuff
-		
-		//XXX CSPACE-3158 service layer seems to be adding ROLE_SPRING_ADMIN to everything
-		assertEquals("Should only be one role, if more then it didn't delete, if less then it didn't add",2,roles.length());
+		assertEquals("Should only be one role, if more then it didn't delete, if less then it didn't add",1,roles.length());
 
 		//test role_2 added to payload
 		for(int i=0; i<roles.length();i++){
