@@ -16,7 +16,7 @@ public class TestGenerateAuthorities extends TestBase {
 	.getLogger(TestGenerateAuthorities.class);
 	
 	
-//	@Test
+	@Test
 	public void testSetUp() throws Exception {
 		HttpTester out;
 		log.info("initialize authorities");
