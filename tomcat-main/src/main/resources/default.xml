@@ -69,7 +69,9 @@
                 <services-list-path>collectionobjects-common-list/collection-object-list-item</services-list-path>
                 <services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
                 <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
-                <structures>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<structures>
                     <structure id="screen"></structure>
                     <structure id="tab">
                         <view>
@@ -94,6 +96,13 @@
                 <number-selector>.csc-entry-number</number-selector>
                 <row-selector>.csc-recordList-row:</row-selector>
                 <list-key>cataloging</list-key>
+				
+				
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
                     <selector>.csc-object-identification-object-nametitle</selector>
                     <merges>
@@ -973,7 +982,9 @@
                 <services-url>loansin</services-url>
                 <services-list-path>loansin-common-list/loanin-list-item</services-list-path>
                 <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
-                <structures>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<structures>
                     <structure id="screen">
                         <view>
                             <titlebar show="true"></titlebar>
@@ -1000,6 +1011,11 @@
                     </structure>
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <field id="loanInNumber" in-title="yes" chooser="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
                     <title-selector>.csc-titleBar-loanInNumber</title-selector>
                     <selector>.csc-loanIn-loanInNumber</selector>
@@ -1197,10 +1213,18 @@
                 <services-url>acquisitions</services-url>
                 <services-list-path>acquisitions-common-list/acquisition-list-item</services-list-path>
                 <services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
-                <structures>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<structures>
                     <structure id="screen"></structure>
                 </structures>
 
+                
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <field id="ownersource" mini="summary,search,list,relate" exists-in-services="false">
                     <selector>.csc-object-identification-object-nametitle</selector>
                     <merges>
@@ -1430,7 +1454,9 @@
                 <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
                 <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
-                <services-url>personauthorities</services-url>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<services-url>personauthorities</services-url>
                 <authority-vocab-type>PersonAuthority</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
                 <vocab-syntax>urn:cspace:name</vocab-syntax>
@@ -1444,6 +1470,12 @@
                         <title>Default Person Authority</title>
                     </instance>
                 </instances>
+                
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <field id="displayName" in-title="yes" display-name="yes">
                     <selector>.csc-personAuthority-displayName</selector>
                     <title-selector>.csc-titleBar-displayName</title-selector>
@@ -1607,7 +1639,9 @@
                 <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locations_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/location,locations-common-list/location_list_item</services-list-path>
                 <services-record-path>locations_common:http://collectionspace.org/services/location,locations_common</services-record-path>
-                <services-url>locationauthorities</services-url>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<services-url>locationauthorities</services-url>
                 <authority-vocab-type>LocationAuthority</authority-vocab-type>
                 <authorization-view>false</authorization-view>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:locationauthority:{vocab}:location:{entry}'{display}'</urn-syntax>
@@ -1621,6 +1655,12 @@
                         <title>Default Storage Location Authority</title>
                     </instance>
                 </instances>
+                
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <field id="displayName" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
                     <title-selector>.csc-titleBar-displayName</title-selector>
                 </field>
@@ -1647,7 +1687,9 @@
                 <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
                 <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
-                <services-url>orgauthorities</services-url>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<services-url>orgauthorities</services-url>
                 <authority-vocab-type>OrgAuthority</authority-vocab-type>
 
                 <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
@@ -1661,6 +1703,12 @@
                         <title>Default Organization Authority</title>
                     </instance>
                 </instances>
+                
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <field id="displayName" in-title="yes" display-name="yes"
                         mini="summary,list,search,relate,terms">
                     <selector>.csc-organizationAuthority-displayName</selector>
@@ -1731,7 +1779,9 @@
                 <services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
                 <services-list-path>contacts-common-list/contact-list-item</services-list-path>
                 <services-record-path>contacts_common:http://collectionspace.org/services/contact,contacts_common</services-record-path>
-                <services-url>contacts</services-url>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<services-url>contacts</services-url>
                 <authority-vocab-type>ContactAuthority</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:contactauthority:{vocab}:contact:{entry}'{display}'</urn-syntax>
                 <structures>
@@ -1744,6 +1794,12 @@
                         <title>Default Contact Authority</title>
                     </instance>
                 </instances>
+                
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <field id="addressType">
                     <selector>.csc-contactAuthority-addressType</selector>
                 </field>
@@ -1957,7 +2013,9 @@
                 <web-url>users</web-url>
                 <services-url>accounts</services-url>
                 <services-record-path>:http://collectionspace.org/services/account,accounts_common</services-record-path>
-                <services-list-path>accounts-common-list/account-list-item</services-list-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<services-list-path>accounts-common-list/account-list-item</services-list-path>
                 <structures>
                     <structure id="screen">
                         <!-- screen|print|blackberry etc -->
@@ -1981,6 +2039,12 @@
                         </repeat>
                     </structure>
                 </structures>
+                
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <field id="userId">
                     <services-filter-param>uid</services-filter-param>
                     <selector>.csc-user-userID</selector>
@@ -2019,7 +2083,9 @@
                 <services-url>loansout</services-url>
                 <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
                 <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
-                <structures>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<structures>
                     <structure id="screen">
                         <view>
                             <titlebar show="true"></titlebar>
@@ -2046,6 +2112,12 @@
                     </structure>
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
+                
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
                     <title-selector>.csc-titleBar-loanOutNumber</title-selector>
                     <selector>.csc-loanOut-loanOutNumber</selector>
@@ -2116,7 +2188,9 @@
                 <tab-url>movement-tab</tab-url>
                 <services-list-path>movements-common-list/movement-list-item</services-list-path>
                 <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
-                <structures>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<structures>
                     <structure id="screen"></structure>
                     <structure id="tab">
                         <view>
@@ -2140,6 +2214,12 @@
 
 
                 <row-selector>.csc-recordList-row:</row-selector>
+                
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <!--  Object Location Information Group -->
                 <field id="currentLocation" in-title="yes" mini="summary,search,list,relate,terms">
                     <title-selector>.csc-titleBar-currentLocation</title-selector>
@@ -2200,7 +2280,9 @@
                 <services-url>objectexit</services-url>
                 <services-list-path>objectexit_common_list/objectexit_list_item</services-list-path>
                 <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
-                <structures>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
+				<structures>
                     <structure id="screen"></structure>
                     <structure id="tab">
                         <view>
@@ -2222,6 +2304,12 @@
                 </structures>
 
                 <row-selector>.csc-recordList-row:</row-selector>
+                
+
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
                 <!--  Object Exit Information Group -->
                 <field id="exitNumber" chooser="yes" in-title="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
                     <options>
@@ -2297,7 +2385,8 @@
                 <services-single-instance-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/vocabulary,vocabularyitems-common-list/vocabularyitem_list_item</services-list-path>
                 <services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
-                <services-url>vocabularies</services-url>
+                
+				<services-url>vocabularies</services-url>
                 <authority-vocab-type>enum</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:vocabulary:{vocab}:item:{entry}'{display}'</urn-syntax>
                 <structures>
@@ -2424,6 +2513,8 @@
                         </options>
                     </instance>
                 </instances>
+                
+				
                 <field id="displayName" in-title="yes" display-name="yes">
                     <selector>.csc-vocabulary-displayName</selector>
                     <title-selector>.csc-titleBar-displayName</title-selector>

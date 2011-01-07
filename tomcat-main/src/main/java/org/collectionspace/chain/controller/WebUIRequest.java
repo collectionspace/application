@@ -110,7 +110,7 @@ public class WebUIRequest implements UIRequest {
 
 		Cookie cookie=new Cookie(COOKIENAME,session.getID());
 		cookie.setPath("/");//XXX should be /chain - so either need to have a parameter in cspace-config or try and ask tomcat who we are
-		cookie.setMaxAge(1 * lifeInMins);
+		cookie.setMaxAge(60 * lifeInMins);
 		response.addCookie(cookie);
 	}
 

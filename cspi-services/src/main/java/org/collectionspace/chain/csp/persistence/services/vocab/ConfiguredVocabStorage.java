@@ -67,19 +67,21 @@ public class ConfiguredVocabStorage extends GenericStorage {
 
 	private Document createEntry(String section,String namespace,String root_tag,JSONObject data,String vocab,String refname, Record r) throws UnderlyingStorageException, ConnectionException, ExistException, JSONException {
 		Document out=XmlJsonConversion.convertToXml(r,data,section,"POST");
-		Element root=out.getRootElement();
-		Element vocabtag=root.addElement(r.getInTag());
-		if(vocab!=null){
-			vocabtag.addText(vocab);
+		if(out!=null){
+			Element root=out.getRootElement();
+			Element vocabtag=root.addElement(r.getInTag());
+			if(vocab!=null){
+				vocabtag.addText(vocab);
+			}
+			Element refnametag=root.addElement("refName");
+			if(refname!=null)
+				refnametag.addText(refname);
+			if(r.isType("compute-displayname")) {
+				Element dnc=root.addElement("displayNameComputed");
+				dnc.addText("false");
+			}
+			log.debug("create Configured Vocab Entry"+out.asXML());
 		}
-		Element refnametag=root.addElement("refName");
-		if(refname!=null)
-			refnametag.addText(refname);
-		if(r.isType("compute-displayname")) {
-			Element dnc=root.addElement("displayNameComputed");
-			dnc.addText("false");
-		}
-		log.debug("create Configured Vocab Entry"+out.asXML());
 		return out;
 	}
 
@@ -100,7 +102,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
-				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null,r));
+				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null,r);
+				if(temp!=null){
+					body.put(record_path[0],temp);
+				}
 			}	
 			// First send without refid (don't know csid)	
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/"+vocab+"/items",body,creds,cache);		
@@ -114,7 +119,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
-				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname,r));
+				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname,r);
+				if(temp!=null){
+					body.put(record_path[0],temp);
+				}
 			}
 			ReturnedMultipartDocument out2=conn.getMultipartXMLDocument(RequestMethod.PUT,"/"+r.getServicesURL()+"/"+vocab+"/items/"+csid,body,creds,cache);
 			if(out2.getStatus()>299)
@@ -184,7 +192,12 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String path=myr.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
-				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,null,null,myr));
+
+				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,null,null,myr);
+				if(temp!=null){
+					body.put(record_path[0],temp);
+				}
+				
 			}	
 				
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,savePrefix,body,creds,cache);		
@@ -625,7 +638,12 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
-				body.put(record_path[0],createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname,r));
+
+				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname,r);
+				if(temp!=null){
+					body.put(record_path[0],temp);
+				}
+				
 			}
 			String url = generateURL(vocab,filePath.split("/")[1],"");
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,url,body,creds,cache);
