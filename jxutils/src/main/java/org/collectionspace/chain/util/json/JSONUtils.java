@@ -59,7 +59,6 @@ public class JSONUtils {
 		if(a instanceof JSONArray) {
 			JSONArray bob = (JSONArray)a;
 			for(int i=0;i<bob.length();i++) {
-				int index = bob.length() + i;
 				return checkKey(bob.get(i), test);
 			}
 		}
