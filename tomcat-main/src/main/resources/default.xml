@@ -5,7 +5,7 @@
     <admin>
         <username>admin@collectionspace.org</username>
         <password>Administrator</password>
-        <cookievalidformins>30</cookievalidformins>
+        <cookievalidformins>60</cookievalidformins>
     </admin>
     <email>
         <baseurl>http://localhost:8180</baseurl>
