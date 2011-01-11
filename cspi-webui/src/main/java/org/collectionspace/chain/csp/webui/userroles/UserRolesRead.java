@@ -48,8 +48,11 @@ public class UserRolesRead implements WebMethod{
 				JSONObject fields=storage.retrieveJSON("base+/"+csid);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				out.put("fields",fields);
-				out.put("ok",true);
-				out.put("message","");
+				out.put("isError",false);
+				JSONObject messages = new JSONObject();
+				messages.put("message", "");
+				messages.put("severity", "info");
+				out.put("messages",messages);
 				out.put("relations",new JSONArray());
 			} else {
 				out=storage.retrieveJSON(this.sub_base+"/"+csid);

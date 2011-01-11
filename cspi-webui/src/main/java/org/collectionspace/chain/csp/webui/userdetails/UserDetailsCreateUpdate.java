@@ -147,8 +147,12 @@ public class UserDetailsCreateUpdate implements WebMethod {
 						"Insufficient data for create (no fields?)");
 			}
 			data.put("csid", path);
-			data.put("ok", notfailed);
-			data.put("message", msg);
+			boolean isError = !notfailed;
+			data.put("isError", isError);
+			JSONObject messages = new JSONObject();
+			messages.put("message", msg);
+			messages.put("severity", "info");
+			data.put("messages", messages);
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create ? Operation.CREATE
 					: Operation.UPDATE);

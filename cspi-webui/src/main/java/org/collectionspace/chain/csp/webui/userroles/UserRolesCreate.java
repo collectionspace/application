@@ -54,8 +54,19 @@ public class UserRolesCreate implements WebMethod{
 			}
 
 			data.put("csid", path);
-			data.put("ok", notfailed);
-			data.put("message", msg);
+			boolean isError = !notfailed;
+			data.put("isError",isError);
+			JSONObject messages = new JSONObject();
+			messages.put("message", msg);
+
+			if(notfailed){
+				messages.put("severity", "info");				
+			}
+			else{
+				messages.put("severity", "error");				
+			}
+			data.put("messages", messages);
+			
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(Operation.CREATE);
 			if (notfailed)

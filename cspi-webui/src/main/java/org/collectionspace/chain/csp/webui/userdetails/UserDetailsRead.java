@@ -59,8 +59,11 @@ public class UserDetailsRead  implements WebMethod {
 				fields.put("role",allroles);
 				
 				out.put("fields",fields);
-				out.put("ok",true);
-				out.put("message","");
+				out.put("isError",false);
+				JSONObject messages = new JSONObject();
+				messages.put("message", "");
+				messages.put("severity", "info");
+				out.put("messages", messages);
 				out.put("relations",new JSONArray());
 			} else {
 				out=storage.retrieveJSON(base+"/"+csid);

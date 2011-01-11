@@ -220,7 +220,7 @@ public class UserDetailsReset implements WebMethod {
 		JSONObject restriction=new JSONObject();
 		JSONObject failedJSON = new JSONObject();
 		try {
-			failedJSON.put("ok",false);
+			failedJSON.put("isError",true);
 			if(emailparam!=null && emailparam!="") {
 				restriction.put("email",emailparam);	
 				restriction.put("pageSize","40");	
@@ -250,7 +250,7 @@ public class UserDetailsReset implements WebMethod {
 							if(emailtest.equals(emailparam)){
 								JSONObject outputJSON = new JSONObject();
 								outputJSON.put("fields",fields);
-								outputJSON.put("ok",true);
+								outputJSON.put("isError",false);
 								outputJSON.put("csid",paths[i]);
 								return outputJSON;
 							}
@@ -310,7 +310,7 @@ public class UserDetailsReset implements WebMethod {
 			try {
 				emailparam = data.getString("email");
 				JSONObject userdetails = getcsID(storage,emailparam);
-				if(userdetails.getBoolean("ok")){
+				if(!userdetails.getBoolean("isError")){
 					String csid = userdetails.getString("csid");
 
 					/* for debug purposes */
@@ -322,8 +322,12 @@ public class UserDetailsReset implements WebMethod {
 						doEmail(csid,emailparam,in,userdetails);
 					}
 			
-					outputJSON.put("ok",true);
-					outputJSON.put("message","Password reset sent to " + emailparam);
+					outputJSON.put("isError",false);
+
+					JSONObject messages = new JSONObject();
+					messages.put("message", "Password reset sent to " + emailparam);
+					messages.put("severity", "info");
+					outputJSON.put("messages", messages);
 				}
 				else {
 					outputJSON = userdetails;
@@ -334,8 +338,11 @@ public class UserDetailsReset implements WebMethod {
 			} catch (UIException e) {
 				//throw new UIException("Failed to send email",e);
 				try {
-					outputJSON.put("ok", false);
-					outputJSON.put("message", "Failed to send email: "+e.getMessage());
+					outputJSON.put("isError", true);
+					JSONObject messages = new JSONObject();
+					messages.put("message", "Failed to send email: "+e.getMessage());
+					messages.put("severity", "error");
+					outputJSON.put("messages", messages);
 				} catch (JSONException e1) {
 					throw new UIException("JSONException during error messaging",e);
 				}
@@ -345,8 +352,11 @@ public class UserDetailsReset implements WebMethod {
 		}
 		else{
 			try {
-				outputJSON.put("ok", false);
-				outputJSON.put("message", "The admin details in cspace-config.xml failed");
+				outputJSON.put("isError", true);
+				JSONObject messages = new JSONObject();
+				messages.put("message", "The admin details in cspace-config.xml failed");
+				messages.put("severity", "error");
+				outputJSON.put("messages", messages);
 			} catch (JSONException x) {
 				throw new UIException("Failed to parse json: ",x);
 			}
@@ -379,7 +389,7 @@ public class UserDetailsReset implements WebMethod {
 				String password=data.getString("password");
 				String email=data.getString("email");
 				JSONObject userdetails = getcsID(storage,email);
-				if(userdetails.getBoolean("ok")){
+				if(!userdetails.getBoolean("isError")){
 					String csid = userdetails.getString("csid");
 					if(testToken(csid,token)){
 						/* update userdetails */
@@ -394,8 +404,11 @@ public class UserDetailsReset implements WebMethod {
 							
 							sendJSON(storage,path,changedata);
 							
-							outputJSON.put("ok",true);
-							outputJSON.put("message","Your Password has been succesfully changed, Please login");
+							outputJSON.put("isError",false);
+							JSONObject messages = new JSONObject();
+							messages.put("message", "Your Password has been succesfully changed, Please login");
+							messages.put("severity", "info");
+							outputJSON.put("messages", messages);
 						}	catch (JSONException x) {
 							throw new UIException("Failed to parse json: ",x);
 						} catch (ExistException x) {
@@ -408,8 +421,11 @@ public class UserDetailsReset implements WebMethod {
 						} 
 					}
 					else{
-						outputJSON.put("ok", false);
-						outputJSON.put("message", "Token was not valid");
+						outputJSON.put("isError",false);
+						JSONObject messages = new JSONObject();
+						messages.put("message", "Token was not valid");
+						messages.put("severity", "error");
+						outputJSON.put("messages", messages);
 					}
 				}
 				else{
@@ -425,8 +441,12 @@ public class UserDetailsReset implements WebMethod {
 		}
 		else{
 			try {
-				outputJSON.put("ok", false);
-				outputJSON.put("message", "The admin details in cspace-config.xml failed");
+				outputJSON.put("isError",false);
+				JSONObject messages = new JSONObject();
+				messages.put("message", "The admin details in cspace-config.xml failed");
+				messages.put("severity", "error");
+				outputJSON.put("messages", messages);
+				
 			} catch (JSONException x) {
 				throw new UIException("Failed to parse json: ",x);
 			}

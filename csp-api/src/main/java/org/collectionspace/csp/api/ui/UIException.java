@@ -6,6 +6,7 @@
  */
 package org.collectionspace.csp.api.ui;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,11 +54,14 @@ public class UIException extends Exception {
 	public JSONObject getJSON(){
 		try {
 			JSONObject error = new JSONObject();
-			error.put("status", this.getStatus());
-			error.put("ok", false);
-			error.put("url", this.getUrl());
-			error.put("message", this.getPrettyMessage());
-			error.put("stack", this.getStackTrace());
+			JSONObject messages = new JSONObject();
+			messages.put("severity", "error");
+			messages.put("message", this.getPrettyMessage());
+			//error.put("status", this.getStatus());
+			error.put("isError", true);
+			//error.put("url", this.getUrl());
+			//error.put("messages", this.getPrettyMessage());
+			//error.put("stack", this.getStackTrace());
 			return error;
 		} catch (JSONException e) {
 			// well if the JSON fails we have bad thinsg all around.

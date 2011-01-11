@@ -130,7 +130,7 @@ public class TestComposite extends TestBase {
 		JSONObject b11=new JSONObject(q11.getString("body"));
 		JSONObject b12=new JSONObject(q12.getString("body"));
 		assertEquals("4",b10.getJSONObject("fields").getString("objectNumber"));
-		assertEquals(false,b11.getBoolean("ok"));
+		assertEquals(true,b11.getBoolean("isError"));
 		assertEquals("3",b12.getJSONObject("fields").getString("objectNumber"));
 	}
 }
