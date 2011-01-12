@@ -2234,7 +2234,7 @@
                     </options>
                 </field>
                 <field id="currentLocationNote"></field>
-                <field id="locationDate" ui-type="date">
+                <field id="locationDate" in-title="yes" ui-type="date">
                     <selector>.csc-movement-locationDate</selector>
                 </field>
                 <field id="normalLocation"></field>
