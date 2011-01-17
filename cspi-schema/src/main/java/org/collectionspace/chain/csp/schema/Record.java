@@ -30,8 +30,11 @@ public class Record implements FieldParent {
 	private Map<String, Map<String, FieldSet>> subrecordsperm = new HashMap<String, Map<String, FieldSet>>();
 	private Map<String, FieldSet> fields = new HashMap<String, FieldSet>();
 	private Map<String, FieldSet> servicefields = new HashMap<String, FieldSet>();
+	private Map<String, FieldSet> mergedfields = new HashMap<String, FieldSet>();
+	
 	private Map<String, Map<String, Map<String, FieldSet>>> servicepermfields = new HashMap<String, Map<String,Map<String, FieldSet>>>();
 	private Map<String, Map<String, FieldSet>> genpermfields = new HashMap<String, Map<String, FieldSet>>();
+	private Map<String, Map<String, FieldSet>> mergedpermfields = new HashMap<String, Map<String, FieldSet>>();
 	private Map<String, Map<String, FieldSet>> repeatpermfields = new HashMap<String, Map<String, FieldSet>>();
 	
 	
@@ -193,6 +196,21 @@ public class Record implements FieldParent {
 		return spec;
 	}
 
+	public FieldSet[]  getAllMergedFields(){
+		FieldSet[] merged = mergedfields.values().toArray(new FieldSet[0]);
+		return merged;
+	}
+	
+	public Boolean getPerm(String fieldId, String perm){
+		if(genpermfields.containsKey(perm)){
+			if(genpermfields.get(perm).containsKey(fieldId)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 	public FieldSet[] getAllServiceFields(String perm, String section) {
 		if(perm.equals("")){//return everything
 			return servicefields.values().toArray(new FieldSet[0]);
@@ -296,6 +314,12 @@ public class Record implements FieldParent {
 		}
 	}
 
+	public Boolean hasMergeData() {
+		if (mergedfields.isEmpty())
+			return false;
+
+		return true;
+	}
 	public String getTermsUsedURL() {
 		return terms_used_url;
 	}
@@ -386,7 +410,10 @@ public class Record implements FieldParent {
 	public String getServicesRecordPath(String name) {
 		return services_record_paths.get(name);
 	}
-
+	void setMerged(Field f){
+		mergedfields.put(f.getID(), f);
+	}
+	
 	void setMiniNumber(Field f) {
 		mini_number = f;
 	}

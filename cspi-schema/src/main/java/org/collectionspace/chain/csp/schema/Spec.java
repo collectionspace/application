@@ -211,6 +211,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Repeat)parent,section);
 				f.getRecord().addAllField(f);
+				f.getRecord().addField(f);
 				((Repeat)parent).addChild(f);
 				return f;
 			}
@@ -231,6 +232,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Group)parent,section);
 				f.getRecord().addAllField(f);
+				f.getRecord().addField(f);
 				((Group)parent).addChild(f);
 				return f;
 			}

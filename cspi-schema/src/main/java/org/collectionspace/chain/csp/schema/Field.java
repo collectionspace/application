@@ -195,13 +195,14 @@ public class Field implements FieldSet {
 	}
 
 	// CSPACE-869
-	void addMerge(String id, String rank) {
+	void addMerge(String mid, String rank) {
 		try {
 			int index = Integer.parseInt(rank);
 			if (merged.size() < index) {
 				merged.setSize(index);
 			}
-			merged.add(index, id);
+			merged.add(index, mid);
+			parent.getRecord().setMerged(this);
 		} catch (Exception e) {
 			// something wrong - could have been a non number
 			log.error("Failed to add Merge field " + id + " into field "
