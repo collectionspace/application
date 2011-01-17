@@ -1225,7 +1225,7 @@
 				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
 				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
 				
-                <field id="ownersource" mini="summary,search,list,relate" exists-in-services="false">
+                <field id="ownersource" mini="summary,search,list,relate"  in-title="yes" exists-in-services="false">
                     <selector>.csc-object-identification-object-nametitle</selector>
                     <merges>
                         <merge id="owner" rank="2" />

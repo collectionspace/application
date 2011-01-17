@@ -207,25 +207,42 @@ public class XmlJsonConversion {
 		}
 		return null;
 	}
-	
-	@SuppressWarnings("unchecked")
-	private static void addFieldToJson(JSONObject out,Element root,Field f, String permlevel) throws JSONException {
-		List nodes=root.selectNodes(f.getServicesTag());
-		if(nodes.size()==0)
-			return;
-		// XXX just add first
-		Element el=(Element)nodes.get(0);
-		addExtraToJson(out, el, f);
-		out.put(f.getID(),el.getText());
-	}
-	
-	//Fields that have an autocomplete tag, should also have a sibling with the de-urned version of the urn to display nicely
-	private static void addExtraToJson(JSONObject out,Element  el, Field f) throws JSONException{
+	private static String getDeUrned(Element  el, Field f) throws JSONException{
 		if(f.hasAutocompleteInstance()){
 			String deurned = getDeURNedValue(f, el.getText());
-			if(deurned !=""){
-				out.put("de-urned-"+f.getID(), deurned);
-			}
+			return deurned;
+		}
+		return "";
+	}
+	private static Element getFieldNodeEl(Element root,Field f){
+		List nodes=root.selectNodes(f.getServicesTag());
+		if(nodes.size()==0)
+			return null;
+		// XXX just add first
+		Element el=(Element)nodes.get(0);
+		return el;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static void addFieldToJson(JSONObject out,Element root,Field f, String permlevel, JSONObject tempSon) throws JSONException {
+		Element el=getFieldNodeEl(root,f);
+		if(el == null){
+			return;
+		}
+		addExtraToJson(out, el, f, tempSon);
+		out.put(f.getID(),el.getText());
+
+		tempSon = addtemp(tempSon, f.getID(), el.getText());
+	}
+	
+	// Fields that have an autocomplete tag, should also have a sibling with the
+	// de-urned version of the urn to display nicely
+	private static void addExtraToJson(JSONObject out, Element el, Field f, JSONObject tempSon)
+			throws JSONException {
+		String deurned = getDeUrned(el, f);
+		if (deurned != "") {
+			tempSon = addtemp(tempSon, f.getID(), deurned);
+			out.put("de-urned-" + f.getID(), deurned);
 		}
 	}
 
@@ -369,9 +386,15 @@ public class XmlJsonConversion {
 		return newout;
 	}
 	
+	private static JSONObject addtemp(JSONObject temp, String id, String text) throws JSONException{
+		if(!temp.has(id)){
+			temp.put(id,text);
+		}
+		return temp;
+	}
 	
 	@SuppressWarnings("unchecked")
-	private static JSONArray addRepeatedNodeToJson(Element container,Repeat f, String permlevel) throws JSONException {
+	private static JSONArray addRepeatedNodeToJson(Element container,Repeat f, String permlevel, JSONObject tempSon) throws JSONException {
 		JSONArray node = new JSONArray();
 
 		JSONArray elementlist=extractRepeatData(container,f,permlevel);
@@ -400,7 +423,7 @@ public class XmlJsonConversion {
 								repeatitem.put("_primary",true);
 							}
 							Element child = (Element)arrvalue.get(j);
-							addExtraToJson(repeatitem,child, (Field)fs);
+							addExtraToJson(repeatitem,child, (Field)fs, tempSon);
 							if(f.asSibling()){
 								siblingitem.put(fs.getID(), child.getText());
 							}
@@ -408,6 +431,8 @@ public class XmlJsonConversion {
 								repeatitem.put(fs.getID(), child.getText());
 								node.put(repeatitem);
 							}
+
+							tempSon = addtemp(tempSon, fs.getID(), child.getText());
 						}
 					}
 					else if(fs instanceof Repeat){
@@ -415,7 +440,7 @@ public class XmlJsonConversion {
 							Object repeatcontainer = arrvalue.get(j);
 							Element rpcontainer=(Element)repeatcontainer;
 							JSONObject repeatitem = new JSONObject();
-							JSONArray repeatdata = addRepeatedNodeToJson(rpcontainer,(Repeat)fs, permlevel);
+							JSONArray repeatdata = addRepeatedNodeToJson(rpcontainer,(Repeat)fs, permlevel, tempSon);
 							
 							if(f.asSibling()){
 								siblingitem.put(fs.getID(), repeatdata);
@@ -436,7 +461,7 @@ public class XmlJsonConversion {
 		return node;
 	}
 	
-	private static void addGroupToJson(JSONObject out, Element root, Group f,String permlevel) throws JSONException{
+	private static void addGroupToJson(JSONObject out, Element root, Group f,String permlevel, JSONObject tempSon) throws JSONException{
 		String nodeName = f.getServicesTag();
 		if(f.hasServicesParent()){
 			nodeName = f.getfullID();
@@ -456,21 +481,21 @@ public class XmlJsonConversion {
 		for(Object repeatcontainer : nodes){
 			pos++;
 			Element container=(Element)repeatcontainer;
-			JSONArray repeatitem = addRepeatedNodeToJson(container,f,permlevel);
+			JSONArray repeatitem = addRepeatedNodeToJson(container,f,permlevel,tempSon);
 			JSONObject repeated = repeatitem.getJSONObject(0);
 			out.put(f.getID(), repeated);
 		}
 		
 	}
 	@SuppressWarnings("unchecked")
-	private static void addRepeatToJson(JSONObject out,Element root,Repeat f,String permlevel) throws JSONException {
+	private static void addRepeatToJson(JSONObject out,Element root,Repeat f,String permlevel, JSONObject tempSon) throws JSONException {
 		if(f.getXxxServicesNoRepeat()) {
 			FieldSet[] fields=f.getChildren(permlevel);
 			if(fields.length==0)
 				return;
 			JSONArray members=new JSONArray();
 			JSONObject data=new JSONObject();
-			addFieldSetToJson(data,root,fields[0],permlevel);
+			addFieldSetToJson(data,root,fields[0],permlevel, tempSon);
 			members.put(data);
 			out.put(f.getID(),members);
 			return;
@@ -496,7 +521,7 @@ public class XmlJsonConversion {
 			pos++;
 			Element container=(Element)repeatcontainer;
 			if(f.asSibling()){
-				JSONArray repeatitem = addRepeatedNodeToJson(container,f,permlevel);
+				JSONArray repeatitem = addRepeatedNodeToJson(container,f,permlevel,tempSon);
 				JSONArray temp = new JSONArray();
 				if(!out.has(f.getID())){
 					out.put(f.getID(), temp);
@@ -511,25 +536,45 @@ public class XmlJsonConversion {
 				}
 			}
 			else{
-				JSONArray repeatitem = addRepeatedNodeToJson(container,f,permlevel);
+				JSONArray repeatitem = addRepeatedNodeToJson(container,f,permlevel,tempSon);
 				out.put(f.getID(), repeatitem);
 			}
 		}
 	}
 	
-	private static void addFieldSetToJson(JSONObject out,Element root,FieldSet fs,String permlevel) throws JSONException {
+	private static void addFieldSetToJson(JSONObject out,Element root,FieldSet fs,String permlevel, JSONObject tempSon) throws JSONException {
 		if(fs instanceof Field)
-			addFieldToJson(out,root,(Field)fs,permlevel);
+			addFieldToJson(out,root,(Field)fs,permlevel, tempSon);
 		else if(fs instanceof Group)
-			addGroupToJson(out,root,(Group)fs,permlevel);
+			addGroupToJson(out,root,(Group)fs,permlevel,tempSon);
 		else if(fs instanceof Repeat)
-			addRepeatToJson(out,root,(Repeat)fs,permlevel);
+			addRepeatToJson(out,root,(Repeat)fs,permlevel, tempSon);
 	}
 	
 	public static void convertToJson(JSONObject out,Record r,Document doc, String permlevel, String section) throws JSONException {
 		Element root=doc.getRootElement();
+		JSONObject tempSon = new JSONObject();
 		for(FieldSet f : r.getAllServiceFields(permlevel,section)) {
-			addFieldSetToJson(out,root,f,permlevel);
+			addFieldSetToJson(out,root,f,permlevel, tempSon);
+		}
+		
+		if(r.hasMergeData()){
+			for(FieldSet f : r.getAllMergedFields()){
+				for(String fm : f.getAllMerge()){
+					if (fm != null) {
+						if (r.getPerm(fm, permlevel)) {
+							if (tempSon.has(fm)) {
+								String data = tempSon.getString(fm);
+								if (data != null && !data.equals("")
+										&& !out.has(f.getID())) {
+									out.put(f.getID(), data);
+								}
+							}
+						}
+					}
+				}
+			}
+			
 		}
 	}
 
