@@ -58,7 +58,7 @@ public class TestServiceThroughWebapp extends TestBase{
 		out=jettyDoUTF8(jetty,"DELETE","/chain"+id,null);
 		out=jettyDoUTF8(jetty,"GET","/chain"+id,null);
 		JSONObject bob = new JSONObject(out.getContent());
-		assertTrue(Integer.parseInt(bob.getString("status"))!=200); // XXX should be 404
+		assertTrue(bob.getBoolean("isError"));
 	}
 
 	@Test public void testIntake() throws Exception {
@@ -86,7 +86,7 @@ public class TestServiceThroughWebapp extends TestBase{
 		out=jettyDoUTF8(jetty,"DELETE","/chain"+path,null);
 		out=jettyDoUTF8(jetty,"GET","/chain"+path,null);
 		JSONObject bob = new JSONObject(out.getContent());
-		assertTrue(Integer.parseInt(bob.getString("status"))!=200); // XXX should be 404	
+		assertTrue(bob.getBoolean("isError"));
 	}
 
 	@Test public void testAcquisition() throws Exception {
@@ -112,7 +112,7 @@ public class TestServiceThroughWebapp extends TestBase{
 		out=jettyDoUTF8(jetty,"DELETE","/chain"+path,null);
 		out=jettyDoUTF8(jetty,"GET","/chain"+path,null);
 		JSONObject bob = new JSONObject(out.getContent());
-		assertTrue(Integer.parseInt(bob.getString("status"))!=200); // XXX should be 404	
+		assertTrue(bob.getBoolean("isError"));	
 	}
 
 	@Test public void testIDGenerate() throws Exception {
