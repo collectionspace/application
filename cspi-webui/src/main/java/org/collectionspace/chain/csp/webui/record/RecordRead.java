@@ -35,6 +35,7 @@ public class RecordRead implements WebMethod {
 	private Record record;
 
 	private RecordSearchList searcher;
+	private RecordAuthorities termsused;
 	private Spec spec;
 	private boolean record_type;
 	private boolean authorization_type;
@@ -45,6 +46,7 @@ public class RecordRead implements WebMethod {
 		this.spec=r.getSpec();
 		this.record = r;
 		this.searcher = new RecordSearchList(r,false);
+		this.termsused = new RecordAuthorities(r);
 		record_type=r.isType("record");
 		authorization_type=r.isType("authorizationdata");
 	}
@@ -102,48 +104,8 @@ public class RecordRead implements WebMethod {
 		return recordtypes;
 	}
 	
-	@SuppressWarnings("unchecked")
-	private JSONArray getTermsUsed(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 
-		JSONArray out=new JSONArray();
-		if(record.hasTermsUsed()){
 
-			JSONObject restrictions = new JSONObject();
-			JSONObject mini=storage.retrieveJSON(path+"/refs",restrictions);
-
-			Iterator t=mini.keys();
-			while(t.hasNext()) {
-				String field=(String)t.next();
-				if(mini.get(field) instanceof JSONArray){
-					JSONArray array = (JSONArray)mini.get(field);
-					for(int i=0;i<array.length();i++) {
-						JSONObject in = array.getJSONObject(i);
-						JSONObject entry=getTermsUsedData(in);
-						out.put(entry);
-					}
-				}
-				else{
-					JSONObject in=mini.getJSONObject(field);
-					JSONObject entry=getTermsUsedData(in);
-					out.put(entry);
-				}
-			}
-		}
-		return out;
-	}
-	
-	private JSONObject getTermsUsedData(JSONObject in) throws JSONException{
-		JSONObject entry=new JSONObject();
-		entry.put("csid",in.getString("csid"));
-		entry.put("recordtype",in.getString("recordtype"));
-		//entry.put("sourceFieldName",field);
-		entry.put("sourceFieldselector",in.getString("sourceFieldselector"));
-		entry.put("sourceFieldName",in.getString("sourceFieldName"));
-		entry.put("sourceFieldType",in.getString("sourceFieldType"));
-		
-		entry.put("number",in.getString("displayName"));
-		return entry;
-	}
 	
 	
 	private JSONArray getPermissions(Storage storage,JSONObject activePermissions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException{
@@ -193,13 +155,14 @@ public class RecordRead implements WebMethod {
 		JSONObject restrictions=new JSONObject();
 		try {
 			if(record_type || authorization_type) {
+				JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid,restrictions);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				JSONObject relations=createRelations(storage,csid);
 				out.put("csid",csid);
 				out.put("fields",fields);
 				out.put("relations",relations);
-				out.put("termsUsed",getTermsUsed(storage,base+"/"+csid));
+				out.put("termsUsed",tusd);
 				if(authorization_type && base.equals("role")){
 					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permroles/",restrictions);
 					JSONArray allperms = getPermissions(storage,permissions);
