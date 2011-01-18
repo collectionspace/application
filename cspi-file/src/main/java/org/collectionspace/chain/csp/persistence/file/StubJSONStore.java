@@ -100,10 +100,11 @@ public class StubJSONStore implements Storage {
 	/* (non-Javadoc)
 	 * @see org.collectionspace.JSONStore#retrieveJson(java.lang.String)
 	 */
-	public JSONObject retrieveJSON(String filePath) throws ExistException, UnderlyingStorageException, UnimplementedException {
+	public JSONObject retrieveJSON(String filePath,JSONObject restrictions) throws ExistException, UnderlyingStorageException, UnimplementedException {
 		// XXX hack: support views properly
 		String XXXCHOP="/view";
 		String XXXCHOP2="/refs";
+		
 
 		
 		if(filePath.endsWith(XXXCHOP))
@@ -111,7 +112,7 @@ public class StubJSONStore implements Storage {
 		if(filePath.endsWith(XXXCHOP2))
 			return new JSONObject();
 		if(idRequest(filePath))
-			return id.retrieveJSON(filePath);
+			return id.retrieveJSON(filePath,restrictions);
 		File jsonFile = fileFromPath(filePath);
 		if (!jsonFile.exists()) {
 			throw new ExistException("No such file: " + filePath);
@@ -235,4 +236,5 @@ public class StubJSONStore implements Storage {
 		}
 		jsonFile.delete();
 	}
+
 }

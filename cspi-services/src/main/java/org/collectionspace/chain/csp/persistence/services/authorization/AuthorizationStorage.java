@@ -228,7 +228,7 @@ public class AuthorizationStorage extends GenericStorage {
 	}
 
 	
-	public JSONObject retrieveJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
+	public JSONObject retrieveJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts = filePath.split("/");
@@ -252,7 +252,7 @@ public class AuthorizationStorage extends GenericStorage {
 					if(parts.length==3){
 						extra = parts[2];
 					}
-					return viewRetrieveJSON(root,creds,cache,parts[0],parts[1],extra);
+					return viewRetrieveJSON(root,creds,cache,parts[0],parts[1],extra,restrictions);
 				} 
 			}
 			else {
@@ -264,18 +264,18 @@ public class AuthorizationStorage extends GenericStorage {
 		}
 	}
 	
-	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view,String extra) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view,String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		if("view".equals(view))
 			return miniViewRetrieveJSON(cache,creds,filePath,extra);
 		else if("refs".equals(view))
-			return refViewRetrieveJSON(storage,creds,cache,filePath);
+			return refViewRetrieveJSON(storage,creds,cache,filePath,restrictions);
 		else
 			return new JSONObject();
 	}
 
 
 
-	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
 			JSONObject out=new JSONObject();
 			//not all the records need a reference, look in default.xml for which that don't
@@ -293,7 +293,7 @@ public class AuthorizationStorage extends GenericStorage {
 					String refname=((Element)node).selectSingleNode("refName").getText();
 					if(uri!=null && uri.startsWith("/"))
 						uri=uri.substring(1);
-					JSONObject data=miniForURI(storage,creds,cache,refname,uri);
+					JSONObject data=miniForURI(storage,creds,cache,refname,uri, restrictions);
 					out.put(key,data);
 				}
 			}

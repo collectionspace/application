@@ -61,13 +61,14 @@ public class ServicesStorage extends SplittingStorage implements Storage {
 		return storage.getPaths(storage,creds,cache,rootPath,restrictions);
 	}
 
-	public JSONObject retrieveJSON(String filePath)
+	public JSONObject retrieveJSON(String filePath, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
-		return storage.retrieveJSON(storage,creds,cache,filePath);
+		return storage.retrieveJSON(storage,creds,cache,filePath, restrictions);
 	}
 
 	public void updateJSON(String filePath, JSONObject jsonObject)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		storage.updateJSON(storage,creds,cache, filePath, jsonObject);
 	}
+
 }

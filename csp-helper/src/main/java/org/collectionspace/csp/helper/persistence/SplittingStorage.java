@@ -148,9 +148,9 @@ public class SplittingStorage implements ContextualisedStorage {
 		}
 	}
 
-	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,false);
-		return get(parts[0]).retrieveJSON(root,creds,cache,parts[1]);
+		return get(parts[0]).retrieveJSON(root,creds,cache,parts[1],restrictions);
 	}
 
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {

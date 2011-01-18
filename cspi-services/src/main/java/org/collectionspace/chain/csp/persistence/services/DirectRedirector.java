@@ -54,13 +54,13 @@ public class DirectRedirector implements ContextualisedStorage {
 		throw new UnimplementedException("direct uses get only");
 	}
 	
-	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String path)
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String path, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		/* Find relevant controller, and call */
 		String[] url=path.split("/");
 		Record r=spec.getRecordByServicesUrl(url[1]);
 		if(!r.isType("authority"))
 			throw new UnimplementedException("Only authorities supported at direct at the moment");
-		return root.retrieveJSON(root,creds,cache,r.getID()+"/_direct/"+url[0]+"/"+url[2]+"/"+url[4]+"/"+url[5]);
+		return root.retrieveJSON(root,creds,cache,r.getID()+"/_direct/"+url[0]+"/"+url[2]+"/"+url[4]+"/"+url[5], restrictions);
 	}
 }

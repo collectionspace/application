@@ -19,7 +19,7 @@ public interface Storage {
 	 * @param filePath - path to the file
 	 * @return  String of valid JSON format, or an empty string if an error was encountered.
 	 */
-	public JSONObject retrieveJSON(String filePath)
+	public JSONObject retrieveJSON(String filePath, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
 	/**

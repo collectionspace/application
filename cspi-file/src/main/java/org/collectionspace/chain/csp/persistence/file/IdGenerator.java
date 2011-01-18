@@ -112,7 +112,7 @@ public class IdGenerator implements Storage {
 		return null;
 	}
 
-	public JSONObject retrieveJSON(String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public JSONObject retrieveJSON(String filePath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		try {
 			out.put("next",sequenceToString(filePath,getSequence(filePath)));

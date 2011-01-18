@@ -400,16 +400,17 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnimplementedException
 	 * @throws UnderlyingStorageException
 	 * @throws JSONException
+	 * @throws UnsupportedEncodingException 
 	 * @throws ConnectionException 
 	 */
-	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view, String extra) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
 		if(view.equals("view")){
 			//get a view of a specific item e.g. for search results
 			return miniViewRetrieveJSON(cache,creds,filePath, extra, null,r);
 		}
 		else if("refs".equals(view)){
 			String path = r.getServicesURL()+"/"+filePath+"/authorityrefs";
-			return refViewRetrieveJSON(storage,creds,cache,path);
+			return refViewRetrieveJSON(storage,creds,cache,path,restrictions);
 		}
 		else if("refObjs".equals(view)){
 			String path = r.getServicesURL()+"/"+filePath+"/refObjs";
@@ -420,8 +421,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	}
 
 	// XXX support URNs for reference
-	protected JSONObject miniForURI(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String refname,String uri) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		return storage.retrieveJSON(storage,creds,cache,"direct/urn/"+uri+"/"+refname);
+	protected JSONObject miniForURI(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String refname,String uri, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		return storage.retrieveJSON(storage,creds,cache,"direct/urn/"+uri+"/"+refname, restrictions);
 	}
 
 
@@ -435,13 +436,14 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnimplementedException
 	 * @throws UnderlyingStorageException
 	 * @throws JSONException
+	 * @throws UnsupportedEncodingException 
 	 */
-	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
 		try {
 			JSONObject out=new JSONObject();
 			//not all the records need a reference, look in default.xml for which that don't
 			if(r.hasTermsUsed()){
-				
+				path =  getRestrictedPath(path, restrictions);
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 				String data2 = all.getDocument().asXML();
 				if(all.getStatus()!=200)
@@ -478,7 +480,7 @@ public class GenericStorage  implements ContextualisedStorage {
 						
 							if(uri!=null && uri.startsWith("/"))
 								uri=uri.substring(1);
-							JSONObject data=miniForURI(storage,creds,cache,refname,uri);
+							JSONObject data=miniForURI(storage,creds,cache,refname,uri,restrictions);
 							data.put("sourceFieldselector", fieldinstance.getSelector());
 							data.put("sourceFieldName", fieldName);
 							data.put("sourceFieldType", r.getID());
@@ -498,7 +500,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection problem"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		}
+		} 
 	}
 
 	/**
@@ -790,7 +792,41 @@ public class GenericStorage  implements ContextualisedStorage {
 		return null;
 	}
 
+	private String getRestrictedPath(String basepath, JSONObject restrictions) throws UnsupportedEncodingException, JSONException{
 
+		String postfix = "?";
+		String prefix=null;
+		Boolean queryadded = false;
+		if(restrictions!=null){
+			if(restrictions.has("keywords")) {
+				/* Keyword search */
+				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
+				postfix += "kw="+data+"&";
+			} 
+			if(restrictions.has("pageSize")){
+				postfix += "pgSz="+restrictions.getString("pageSize")+"&";
+			}
+			if(restrictions.has("pageNum")){
+				postfix += "pgNum="+restrictions.getString("pageNum")+"&";
+			}
+			if(restrictions.has("queryTerm")){
+				String queryString = prefix;
+				if(restrictions.has("queryString")){
+					queryString=restrictions.getString("queryString");
+				}
+				postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
+				queryadded = true;
+			}
+		}
+		//if(prefix!=null && !queryadded){
+		//	postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
+		//}
+		postfix = postfix.substring(0, postfix.length()-1);
+		if(postfix.length() == 0){postfix +="/";}
+		
+		String path = basepath+postfix;
+		return path;
+	}
 
 	/**
 	 * Gets a list of csids of a certain type of record together with the pagination info
@@ -798,37 +834,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String postfix = "?";
-			String prefix=null;
-			Boolean queryadded = false;
-			if(restrictions!=null){
-				if(restrictions.has("keywords")) {
-					/* Keyword search */
-					String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-					postfix += "kw="+data+"&";
-				} 
-				if(restrictions.has("pageSize")){
-					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
-				}
-				if(restrictions.has("pageNum")){
-					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
-				}
-				if(restrictions.has("queryTerm")){
-					String queryString = prefix;
-					if(restrictions.has("queryString")){
-						queryString=restrictions.getString("queryString");
-					}
-					postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
-					queryadded = true;
-				}
-			}
-			//if(prefix!=null && !queryadded){
-			//	postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
-			//}
-			postfix = postfix.substring(0, postfix.length()-1);
-			if(postfix.length() == 0){postfix +="/";}
+			String path = getRestrictedPath(r.getServicesURL(), restrictions);
 			
-			String path = r.getServicesURL()+postfix;
 			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
 			JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false);
 			
@@ -931,7 +938,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * e.g. for related objs, search etcn and therefore will require a different dataset returned
 	 * @throws  
 	 */
-	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=filePath.split("/");
@@ -940,11 +947,13 @@ public class GenericStorage  implements ContextualisedStorage {
 				if(parts.length==3){
 					extra = parts[2];
 				}
-				return viewRetrieveJSON(root,creds,cache,parts[0],parts[1],extra);
+				return viewRetrieveJSON(root,creds,cache,parts[0],parts[1],extra, restrictions);
 			} else
 				return simpleRetrieveJSON(creds,cache,filePath);
 		} catch(JSONException x) {
 			throw new UnderlyingStorageException("Error building JSON",x);
+		} catch (UnsupportedEncodingException x) {
+			throw new UnderlyingStorageException("Error UnsupportedEncodingException JSON",x);
 		}
 	}
 

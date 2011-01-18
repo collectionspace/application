@@ -71,7 +71,7 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 	 * This function generates a new id for the next inputted object.
 	 * The id in the static list on top is the primary key in the generators_id table on the service layer.
 	 */
-	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String val=conn.getTextDocument(RequestMethod.POST,"idgenerators/"+generators.get(filePath)+"/ids",null,creds,cache);
 			JSONObject out=new JSONObject();
