@@ -170,7 +170,8 @@ public class TestGeneral extends TestBase {
 	@Test public void readJSONFromFile() throws JSONException, ExistException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
 		String path=store.autocreateJSON("/cataloging/", jsonObject);
-		JSONObject resultObj = store.retrieveJSON("/cataloging/"+path);
+        JSONObject restrictions = null;
+		JSONObject resultObj = store.retrieveJSON("/cataloging/"+path, restrictions);
 		JSONObject testObj = new JSONObject(testStr);
 		assertTrue(JSONUtils.checkJSONEquiv(resultObj,testObj));
 	}
@@ -184,7 +185,8 @@ public class TestGeneral extends TestBase {
 	@Test public void testJSONNotExist() throws JSONException, UnderlyingStorageException, UnimplementedException {
 		try
 		{
-			store.retrieveJSON("nonesuch.json");
+            JSONObject restrictions = null;
+			store.retrieveJSON("nonesuch.json", restrictions);
 			assertTrue(false);
 		}
 		catch (ExistException onfe) {}
@@ -200,8 +202,9 @@ public class TestGeneral extends TestBase {
 		JSONObject jsonObject = new JSONObject(testStr2);
 		String id1=store.autocreateJSON("/cataloging/", jsonObject);
 		jsonObject = new JSONObject(testStr);
-		store.updateJSON("/cataloging/"+id1, jsonObject);		
-		JSONObject resultObj = store.retrieveJSON("/cataloging/"+id1);
+		store.updateJSON("/cataloging/"+id1, jsonObject);
+        JSONObject restrictions = null;
+		JSONObject resultObj = store.retrieveJSON("/cataloging/"+id1, restrictions);
 		JSONObject testObj = new JSONObject(testStr);
 		assertTrue(JSONUtils.checkJSONEquiv(resultObj,testObj));
 	}
