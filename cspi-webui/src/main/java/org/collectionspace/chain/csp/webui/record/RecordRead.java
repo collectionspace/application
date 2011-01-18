@@ -50,7 +50,9 @@ public class RecordRead implements WebMethod {
 	}
 		
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view/relate");
+
+		JSONObject restrictions = new JSONObject();
+		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view/relate",restrictions);
 		out.put("csid",csid);
 		out.put("recordtype",type_to_url.get(type));
 		return out;
@@ -58,7 +60,8 @@ public class RecordRead implements WebMethod {
 
 	private JSONObject generateRelationEntry(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		/* Retrieve entry */
-		JSONObject in=storage.retrieveJSON("relations/main/"+csid);
+		JSONObject restrictions = new JSONObject();
+		JSONObject in=storage.retrieveJSON("relations/main/"+csid,restrictions);
 		String[] dstid=in.getString("dst").split("/");
 		String type=in.getString("type");
 		JSONObject mini=generateMiniRecord(storage,dstid[0],dstid[1]);
@@ -105,7 +108,8 @@ public class RecordRead implements WebMethod {
 		JSONArray out=new JSONArray();
 		if(record.hasTermsUsed()){
 
-			JSONObject mini=storage.retrieveJSON(path+"/refs");
+			JSONObject restrictions = new JSONObject();
+			JSONObject mini=storage.retrieveJSON(path+"/refs",restrictions);
 
 			Iterator t=mini.keys();
 			while(t.hasNext()) {
@@ -186,9 +190,10 @@ public class RecordRead implements WebMethod {
 	/* Wrapper exists to decomplexify exceptions: also used inCreateUpdate, hence not private */
 	JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
+		JSONObject restrictions=new JSONObject();
 		try {
 			if(record_type || authorization_type) {
-				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
+				JSONObject fields=storage.retrieveJSON(base+"/"+csid,restrictions);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				JSONObject relations=createRelations(storage,csid);
 				out.put("csid",csid);
@@ -196,12 +201,12 @@ public class RecordRead implements WebMethod {
 				out.put("relations",relations);
 				out.put("termsUsed",getTermsUsed(storage,base+"/"+csid));
 				if(authorization_type && base.equals("role")){
-					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permroles/");
+					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permroles/",restrictions);
 					JSONArray allperms = getPermissions(storage,permissions);
 					fields.put("permissions",allperms);
 				}
 			} else {
-				out=storage.retrieveJSON(base+"/"+csid);
+				out=storage.retrieveJSON(base+"/"+csid,restrictions);
 			}
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found ",e);

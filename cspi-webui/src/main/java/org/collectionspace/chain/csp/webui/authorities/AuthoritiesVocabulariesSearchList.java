@@ -47,7 +47,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	}
 	
 	private JSONObject generateMiniRecord(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view");
+		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view", new JSONObject());
 		out.put("csid",csid);
 		out.put("recordtype",inst_type);
 		out.put("number",out.get(r.getDisplayNameField().getID()));

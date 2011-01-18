@@ -65,7 +65,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	
 	private JSONObject getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		//should be using cached data (hopefully) from previous getPathsJson call
-		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view");
+		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view", new JSONObject());
 		return out;
 	}
 		

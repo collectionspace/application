@@ -59,7 +59,7 @@ public class VocabulariesRead implements WebMethod {
 	 */
 	@SuppressWarnings("unchecked")
 	private JSONArray getTermsUsed(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONObject mini=storage.retrieveJSON(path+"/authorityrefs");
+		JSONObject mini=storage.retrieveJSON(path+"/authorityrefs", new JSONObject());
 		JSONArray out=new JSONArray();
 		Iterator t=mini.keys();
 		while(t.hasNext()) {
@@ -109,7 +109,7 @@ public class VocabulariesRead implements WebMethod {
 	@SuppressWarnings("unchecked")
 	private JSONArray getRefObj(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONArray out=new JSONArray();
-		JSONObject mini = storage.retrieveJSON(path+"/refObjs");
+		JSONObject mini = storage.retrieveJSON(path+"/refObjs", new JSONObject());
 		if(mini != null){
 			Iterator t=mini.keys();
 			while(t.hasNext()) {
@@ -130,7 +130,7 @@ public class VocabulariesRead implements WebMethod {
 	}
 	
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view");
+		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view", new JSONObject());
 		out.put("csid",csid);
 		out.put("recordtype",type_to_url.get(type));
 		return out;
@@ -138,7 +138,7 @@ public class VocabulariesRead implements WebMethod {
 
 	private JSONObject generateRelationEntry(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		/* Retrieve entry */
-		JSONObject in=storage.retrieveJSON("relations/main/"+csid);
+		JSONObject in=storage.retrieveJSON("relations/main/"+csid, new JSONObject());
 		String[] dstid=in.getString("dst").split("/");
 		String type=in.getString("type");
 		JSONObject mini=generateMiniRecord(storage,dstid[0],dstid[1]);
@@ -174,7 +174,7 @@ public class VocabulariesRead implements WebMethod {
 		JSONObject out=new JSONObject();
 		try {
 			String refPath = n.getRecord().getID()+"/"+n.getTitleRef()+"/";
-			JSONObject fields=storage.retrieveJSON(refPath+csid);
+			JSONObject fields=storage.retrieveJSON(refPath+csid, new JSONObject());
 			csid = fields.getString("csid");
 			//fields.put("csid",csid);
 			//JSONObject relations=createRelations(storage,csid);

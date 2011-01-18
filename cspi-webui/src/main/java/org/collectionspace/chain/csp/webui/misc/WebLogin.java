@@ -39,7 +39,7 @@ public class WebLogin implements WebMethod {
 
 		try {
 			String base = spec.getRecordByWebUrl("userperm").getID();
-			JSONObject activePermissions = storage.retrieveJSON(base + "/0/");
+			JSONObject activePermissions = storage.retrieveJSON(base + "/0/", new JSONObject());
 			return true;
 		} catch (Exception e) {
 			return false;

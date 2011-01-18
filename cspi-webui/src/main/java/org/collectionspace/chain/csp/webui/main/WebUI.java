@@ -54,6 +54,7 @@ import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
 import org.collectionspace.chain.csp.webui.record.RecordDelete;
 import org.collectionspace.chain.csp.webui.record.RecordRead;
 import org.collectionspace.chain.csp.webui.record.RecordSearchList;
+import org.collectionspace.chain.csp.webui.record.RecordAuthorities;
 import org.collectionspace.chain.csp.webui.relate.RelateCreateUpdate;
 import org.collectionspace.chain.csp.webui.relate.RelateDelete;
 import org.collectionspace.chain.csp.webui.relate.RelateRead;
@@ -202,6 +203,7 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new RecordCreateUpdate(r,true));
 				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"authorities"},1,new RecordAuthorities(r));
 			}
 			else if(r.isType("userdata")){
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new UserDetailsSearchList(r,true));

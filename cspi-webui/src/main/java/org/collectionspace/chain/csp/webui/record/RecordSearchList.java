@@ -58,7 +58,8 @@ public class RecordSearchList implements WebMethod {
 		if(this.search){
 			postfix = "search";
 		}
-		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view/"+postfix);
+		JSONObject restrictions = new JSONObject();
+		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view/"+postfix,restrictions);
 		out.put("csid",csid);
 		out.put("recordtype",type_to_url.get(type));
 		// CSPACE-2894

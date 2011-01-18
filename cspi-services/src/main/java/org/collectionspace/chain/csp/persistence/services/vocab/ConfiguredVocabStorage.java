@@ -422,7 +422,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		return out;
 	}
 	
-	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			Integer num = 0;
 			String[] parts=filePath.split("/");
@@ -449,24 +449,26 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				if(parts.length>extradata){
 					extra = parts[extradata];
 				}
-				return viewRetrieveJSON(root,creds,cache,vocab,csid,parts[num],extra);
+				return viewRetrieveJSON(root,creds,cache,vocab,csid,parts[num],extra, restrictions);
 			} else
 				return simpleRetrieveJSON(root,creds,cache,vocab,csid);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}  catch(JSONException x) {
 			throw new UnderlyingStorageException("Error building JSON"+x.getLocalizedMessage(),x);
+		}  catch (UnsupportedEncodingException x) {
+			throw new UnderlyingStorageException("Error UnsupportedEncodingException JSON",x);
 		}
 		
 	}
-	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid,String view, String extra) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
 		try{
 			if(view.equals("view")){
 				return miniViewRetrieveJSON(storage, cache,creds,vocab, csid);
 			}
 			else if("authorityrefs".equals(view)){
 				String path = generateURL(vocab,csid,"/authorityrefs");
-				return refViewRetrieveJSON(storage,creds,cache,path);
+				return refViewRetrieveJSON(storage,creds,cache,path,restrictions);
 			}
 			else if("refObjs".equals(view)){
 				String path = generateURL(vocab,csid,"/refObjs");

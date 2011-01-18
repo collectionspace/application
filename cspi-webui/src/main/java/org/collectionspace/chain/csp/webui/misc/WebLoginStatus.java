@@ -39,7 +39,7 @@ public class WebLoginStatus  implements WebMethod {
 
 		String permbase = "accountperms";//spec.getRecordByWebUrl("userperm").getID();
 		String base = spec.getRecordByWebUrl("userperm").getID();
-		JSONObject activePermissions = storage.retrieveJSON(base + "/0/");
+		JSONObject activePermissions = storage.retrieveJSON(base + "/0/", new JSONObject());
 
 		//we are ignoring pagination so this will return the first 40 permissions only
 		//UI doesn't know what it wants to do about pagination etc

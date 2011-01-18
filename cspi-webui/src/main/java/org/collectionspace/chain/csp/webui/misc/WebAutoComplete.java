@@ -65,7 +65,7 @@ public class WebAutoComplete implements WebMethod {
 				JSONObject results = storage.getPathsJSON(path,restriction);
 				String[] paths = (String[]) results.get("listItems");
 				for(String csid : paths) {
-					JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view");
+					JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view", new JSONObject());
 					JSONObject entry=new JSONObject();
 					entry.put("urn",data.get("refid"));
 					entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));

@@ -83,7 +83,7 @@ public class TestAccount extends ServicesBaseClass {
 		assertNotNull(path);
 		JSONObject u2=getJSON("user1.json");
 		ss.updateJSON("users/"+path,u2);
-		JSONObject u3=ss.retrieveJSON("users/"+path);
+		JSONObject u3=ss.retrieveJSON("users/"+path, new JSONObject());
 		assertNotNull(u3);
 		// Check output
 		assertEquals("Test Mccollectionspace.org",u3.getString("screenName"));

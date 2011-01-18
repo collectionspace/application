@@ -108,7 +108,7 @@ public class TestRelations extends ServicesBaseClass {
 		String path2=relate(ss,obj2,obj3);
 		
 		// test relationship
-		JSONObject data2=ss.retrieveJSON("relations/main/"+path);
+		JSONObject data2=ss.retrieveJSON("relations/main/"+path, new JSONObject());
 		assertTrue(JSONUtils.checkJSONEquiv("collection-object/"+obj1,data2.getString("src")));
 		assertTrue(JSONUtils.checkJSONEquiv("collection-object/"+obj2,data2.getString("dst")));
 		assertTrue(JSONUtils.checkJSONEquiv("affects",data2.getString("type")));
@@ -117,7 +117,7 @@ public class TestRelations extends ServicesBaseClass {
 		updaterelate(ss,path,obj1,obj3);
 		
 		// get
-		JSONObject data3=ss.retrieveJSON("relations/main/"+path);
+		JSONObject data3=ss.retrieveJSON("relations/main/"+path, new JSONObject());
 		assertTrue(JSONUtils.checkJSONEquiv("collection-object/"+obj1,data3.getString("src")));
 		assertTrue(JSONUtils.checkJSONEquiv("collection-object/"+obj3,data3.getString("dst")));
 		assertTrue(JSONUtils.checkJSONEquiv("affects",data3.getString("type")));

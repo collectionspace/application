@@ -98,7 +98,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 		//delete role
 		ss.deleteJSON("role/"+role);
 		try {
-			ss.retrieveJSON("role/"+role);
+			ss.retrieveJSON("role/"+role, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(ExistException e) {
 		}
@@ -174,7 +174,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 		//delete role
 		ss.deleteJSON("role/"+role);
 		try {
-			ss.retrieveJSON("role/"+role);
+			ss.retrieveJSON("role/"+role, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(ExistException e) {
 		}
@@ -202,7 +202,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 			String path=ss.autocreateJSON("role/",u1);
 			assertNotNull(path);
 
-			JSONObject u3=ss.retrieveJSON("role/"+path);
+			JSONObject u3=ss.retrieveJSON("role/"+path, new JSONObject());
 			assertNotNull(u3);
 			//return role path
 
@@ -248,7 +248,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 			assertNotNull(path);
 			JSONObject u2=getJSON(jsonFile);
 			ss.updateJSON("users/"+path,u2);
-			JSONObject u3=ss.retrieveJSON("users/"+path);
+			JSONObject u3=ss.retrieveJSON("users/"+path, new JSONObject());
 			assertNotNull(u3);
 
 			JSONObject userdata = new JSONObject();

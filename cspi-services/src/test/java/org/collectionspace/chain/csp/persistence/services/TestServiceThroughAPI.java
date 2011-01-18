@@ -64,16 +64,16 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		//create
 		String path=ss.autocreateJSON(objtype,jsoncreate);
 		//GET and test
-		JSONObject jsc=ss.retrieveJSON(objtype+path);
+		JSONObject jsc=ss.retrieveJSON(objtype+path, new JSONObject());
 		assertEquals(jsc.get(testfield),jsoncreate.get(testfield));
 		//UPDATE & Test
 		ss.updateJSON(objtype+path,jsonupdate);
-		JSONObject js=ss.retrieveJSON(objtype+path);
+		JSONObject js=ss.retrieveJSON(objtype+path, new JSONObject());
 		assertEquals(js.get(testfield),jsonupdate.get(testfield));
 		//DELETE & Test
 		ss.deleteJSON(objtype+path);
 		try {
-			ss.retrieveJSON(objtype+path);
+			ss.retrieveJSON(objtype+path, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(Exception e) {
 			assertTrue(true); // XXX use JUnit exception annotation
@@ -107,9 +107,9 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	
 	@Test public void testGetId() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
-		JSONObject jo=ss.retrieveJSON("id/intake");
+		JSONObject jo=ss.retrieveJSON("id/intake", new JSONObject());
 		assertTrue(jo.getString("next").startsWith("IN" + getCurrentYear() + "."));
-		jo=ss.retrieveJSON("id/accession");
+		jo=ss.retrieveJSON("id/accession", new JSONObject());
 		assertTrue(jo.getString("next").startsWith(getCurrentYear() + ".1."));
 	}
 	
@@ -157,21 +157,21 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 
 		ss.deleteJSON("collection-object/"+p1);
 		try {
-			ss.retrieveJSON("collection-object/"+p1);
+			ss.retrieveJSON("collection-object/"+p1, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(Exception e) {
 			assertTrue(true); // XXX use JUnit exception annotation
 		}
 		ss.deleteJSON("collection-object/"+p2);
 		try {
-			ss.retrieveJSON("collection-object/"+p2);
+			ss.retrieveJSON("collection-object/"+p2, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(Exception e) {
 			assertTrue(true); // XXX use JUnit exception annotation
 		}
 		ss.deleteJSON("collection-object/"+p3);
 		try {
-			ss.retrieveJSON("collection-object/"+p3);
+			ss.retrieveJSON("collection-object/"+p3, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(Exception e) {
 			assertTrue(true); // XXX use JUnit exception annotation
@@ -193,7 +193,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		ss.deleteJSON("collection-object/"+p1);
 		ss.deleteJSON("collection-object/"+p2);
 		try {
-			ss.retrieveJSON("collection-object/"+p2);
+			ss.retrieveJSON("collection-object/"+p2, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(Exception e) {
 			assertTrue(true); // XXX use JUnit exception annotation
@@ -203,12 +203,12 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	@Test public void testMini() throws Exception {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		String p1=ss.autocreateJSON("intake/",getJSON("int4.json"));
-		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/view");
+		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/view", new JSONObject());
 		assertEquals("currentOwnerX",mini.getString("summary"));
 		assertEquals("entryNumberX",mini.getString("number"));	
 		ss.deleteJSON("intake/"+p1);
 		try {
-			ss.retrieveJSON("intake/"+p1);	
+			ss.retrieveJSON("intake/"+p1, new JSONObject());	
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(Exception e) {
 			assertTrue(true); // XXX use JUnit exception annotation
@@ -227,7 +227,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		Storage ss=makeServicesStorage(base+"/cspace-services/");
 		JSONObject person=makePerson(null);
 		String p=ss.autocreateJSON("person/person",person);
-		JSONObject po=ss.retrieveJSON("person/person/"+p);
+		JSONObject po=ss.retrieveJSON("person/person/"+p, new JSONObject());
 		String pname=po.getString("refid");
 		//
 		JSONObject person2=makePerson(pname);
@@ -237,7 +237,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		data.remove("valuer");
 		data.put("valuer",pname);
 		String p1=ss.autocreateJSON("intake/",data);
-		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs");
+		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/refs", new JSONObject());
 		log.info(mini.toString());
 		JSONArray member=mini.getJSONArray("intakes_common:valuer");
 		assertNotNull(member);
@@ -251,7 +251,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		assertTrue(test);
 		ss.deleteJSON("person/person/"+p);
 		try {
-			ss.retrieveJSON("person/person/"+p);
+			ss.retrieveJSON("person/person/"+p, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(Exception e) {
 			assertTrue(true); // XXX use JUnit exception annotation
@@ -259,14 +259,14 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 
 		ss.deleteJSON("intake/"+p1);
 		try {
-			ss.retrieveJSON("intake/"+p1);
+			ss.retrieveJSON("intake/"+p1, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(Exception e) {
 			assertTrue(true); // XXX use JUnit exception annotation
 		}
 		ss.deleteJSON("person/person/"+p2);
 		try {
-			ss.retrieveJSON("person/person/"+p2);
+			ss.retrieveJSON("person/person/"+p2, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
 		} catch(Exception e) {
 			assertTrue(true); // XXX use JUnit exception annotation

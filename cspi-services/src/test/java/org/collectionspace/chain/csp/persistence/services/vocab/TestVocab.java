@@ -55,7 +55,7 @@ public class TestVocab extends ServicesBaseClass {
 		String id=ss.autocreateJSON(path,data);
 		// Read
 		log.info("testAuthorities_"+path+"_read");
-		JSONObject out=ss.retrieveJSON(path+"/"+id);
+		JSONObject out=ss.retrieveJSON(path+"/"+id, new JSONObject());
 		assertEquals("TEST",out.getString(testField));
 		assertEquals("Provisional",out.getString("termStatus"));
 		// Update
@@ -64,7 +64,7 @@ public class TestVocab extends ServicesBaseClass {
 		data.put(testField,"TEST2");
 		data.put("termStatus","Provisional2");
 		ss.updateJSON(path + "/"+id,data);
-		out=ss.retrieveJSON(path + "/"+id);
+		out=ss.retrieveJSON(path + "/"+id, new JSONObject());
 		assertEquals("TEST2",out.getString(testField));
 		assertEquals("Provisional2",out.getString("termStatus"));
 		String id3=out.getString("csid");
@@ -73,7 +73,7 @@ public class TestVocab extends ServicesBaseClass {
 		data.remove(testField);
 		data.put(testField,"TEST3");
 		String id2=ss.autocreateJSON(path,data);
-		out=ss.retrieveJSON(path + "/"+id2);
+		out=ss.retrieveJSON(path + "/"+id2, new JSONObject());
 		assertEquals("TEST3",out.getString(testField));		
 		boolean found1=false,found2=false;
 		JSONObject myjs = new JSONObject();
@@ -117,8 +117,8 @@ public class TestVocab extends ServicesBaseClass {
 		ss.deleteJSON(path + "/" + id2);
 		ss.deleteJSON(path + "/" + id3);
 		try {
-			out=ss.retrieveJSON(path + "/" + id2);
-			out=ss.retrieveJSON(path + "/" + id3);		
+			out=ss.retrieveJSON(path + "/" + id2, new JSONObject());
+			out=ss.retrieveJSON(path + "/" + id3, new JSONObject());		
 			assertTrue(false);
 		} catch(ExistException x) {
 			assertTrue(true);
