@@ -276,7 +276,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			List<Node> nodes=doc.getDocument().selectNodes("/"+xmlroot+"/*");
 			for(Node node : nodes){
 				if(node.matches("/"+xmlroot+"/relation-list-item")){
-					if(post_filter(creds,cache,restrictions,node))
+					//if(post_filter(creds,cache,restrictions,node))
 						list.add(node.selectSingleNode("csid").getText());
 				}else{
 					pagination.put(node.getName(), node.getText());
