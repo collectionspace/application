@@ -94,7 +94,7 @@ public class UserDetailsCreateUpdate implements WebMethod {
 			String roleId = "";
 			
 			for(int i=0;i<paths.length;i++) {
-				JSONObject out=storage.retrieveJSON("/role/"+paths[i]+"");
+				JSONObject out=storage.retrieveJSON("/role/"+paths[i]+"", new JSONObject());
 				String test = out.toString();
 				if(out.getString("roleName").equals(roleName)){
 					roleId=paths[i];

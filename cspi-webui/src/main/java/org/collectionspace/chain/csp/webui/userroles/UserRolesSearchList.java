@@ -35,7 +35,7 @@ public class UserRolesSearchList implements WebMethod{
 	}
 		
 	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONObject out=storage.retrieveJSON(type+"/"+csid+"");
+		JSONObject out=storage.retrieveJSON(type+"/"+csid+"", new JSONObject());
 		out.put("csid",csid);
 		out.put("recordtype",type_to_url.get(type));
 		return out;		

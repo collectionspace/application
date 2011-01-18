@@ -244,7 +244,7 @@ public class UserDetailsReset implements WebMethod {
 						/* make sure it is an exact match */
 						for(int i=0;i<paths.length;i++) {
 							//GET full details
-							JSONObject fields = storage.retrieveJSON(base+"/"+paths[i]);
+							JSONObject fields = storage.retrieveJSON(base+"/"+paths[i], new JSONObject());
 						
 							String emailtest = fields.getString("email");
 							if(emailtest.equals(emailparam)){

@@ -75,7 +75,7 @@ public class RelateCreateUpdate implements WebMethod {
 
 	private String find_reverse(Storage storage,String csid_fwd) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		// What's our destination
-		JSONObject obj_fwd=storage.retrieveJSON("/relations/main/"+csid_fwd);
+		JSONObject obj_fwd=storage.retrieveJSON("/relations/main/"+csid_fwd, new JSONObject());
 		// Find a backward record
 		JSONObject restrictions=new JSONObject();
 		restrictions.put("dst",obj_fwd.getString("src"));

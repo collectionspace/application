@@ -52,9 +52,9 @@ public class UserDetailsRead  implements WebMethod {
 		JSONObject out=new JSONObject();
 		try {
 			if(record_type) {
-				JSONObject fields=storage.retrieveJSON(base+"/"+csid);
+				JSONObject fields=storage.retrieveJSON(base+"/"+csid, new JSONObject());
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
-				JSONObject roles = storage.retrieveJSON(base+"/"+csid+"/"+"userrole");
+				JSONObject roles = storage.retrieveJSON(base+"/"+csid+"/"+"userrole", new JSONObject());
 				JSONArray allroles = Generic.getRoles(storage,roles);
 				fields.put("role",allroles);
 				
@@ -66,7 +66,7 @@ public class UserDetailsRead  implements WebMethod {
 				out.put("messages", messages);
 				out.put("relations",new JSONArray());
 			} else {
-				out=storage.retrieveJSON(base+"/"+csid);
+				out=storage.retrieveJSON(base+"/"+csid, new JSONObject());
 			}
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found ",e);

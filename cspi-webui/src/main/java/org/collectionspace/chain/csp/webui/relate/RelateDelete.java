@@ -38,7 +38,7 @@ public class RelateDelete implements WebMethod {
 	// XXX factor
 	private String findReverse(Storage storage,String csid_fwd) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		// What's our destination
-		JSONObject obj_fwd=storage.retrieveJSON("/relations/main/"+csid_fwd);
+		JSONObject obj_fwd=storage.retrieveJSON("/relations/main/"+csid_fwd, new JSONObject());
 		// Find a backward record
 		JSONObject restrictions=new JSONObject();
 		restrictions.put("dst",obj_fwd.getString("src"));

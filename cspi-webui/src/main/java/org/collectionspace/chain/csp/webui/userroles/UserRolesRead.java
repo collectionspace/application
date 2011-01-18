@@ -45,7 +45,7 @@ public class UserRolesRead implements WebMethod{
 		JSONObject out=new JSONObject();
 		try {
 			if(!record_type) {
-				JSONObject fields=storage.retrieveJSON("base+/"+csid);
+				JSONObject fields=storage.retrieveJSON("base+/"+csid, new JSONObject());
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
 				out.put("fields",fields);
 				out.put("isError",false);
@@ -55,7 +55,7 @@ public class UserRolesRead implements WebMethod{
 				out.put("messages",messages);
 				out.put("relations",new JSONArray());
 			} else {
-				out=storage.retrieveJSON(this.sub_base+"/"+csid);
+				out=storage.retrieveJSON(this.sub_base+"/"+csid, new JSONObject());
 			}
 		} catch (ExistException e) {
 			throw new UIException("ExistException "+e,e);
