@@ -59,6 +59,7 @@ public class UIException extends Exception {
 			messages.put("message", this.getPrettyMessage());
 			//error.put("status", this.getStatus());
 			error.put("isError", true);
+			error.put("messages", messages);
 			//error.put("url", this.getUrl());
 			//error.put("messages", this.getPrettyMessage());
 			//error.put("stack", this.getStackTrace());
