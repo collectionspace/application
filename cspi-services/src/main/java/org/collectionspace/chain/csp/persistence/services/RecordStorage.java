@@ -69,23 +69,11 @@ public class RecordStorage extends GenericStorage {
 		try {
 			Document list=null;
 			List<String> out=new ArrayList<String>();
-			String postfix = "?";
-			if(restrictions!=null){
-				if(restrictions.has("keywords")) {
-					/* Keyword search */
-					String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-					postfix += "kw="+data+"&";
-				} 
-				if(restrictions.has("pageSize")){
-					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
-				}
-				if(restrictions.has("pageNum")){
-					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
-				}
-			}
-			postfix = postfix.substring(0, postfix.length()-1);
-			if(postfix.length() == 0){postfix +="/";}
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+postfix,null,creds,cache);
+
+			String path = getRestrictedPath(  r.getServicesURL(),  restrictions, r.getServicesSearchKeyword(), "", false, "");
+			
+			
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			if(all.getStatus()!=200){
 				throw new ConnectionException("Bad request during identifier cache map update: status not 200");
 			}

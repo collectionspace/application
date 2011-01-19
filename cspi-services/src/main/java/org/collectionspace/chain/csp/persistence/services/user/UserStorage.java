@@ -173,35 +173,10 @@ public class UserStorage extends GenericStorage {
 						"UTF-8"));
 			}
 			// pagination
-			String url = r.getServicesURL() + "/";
-			String postfix = "?";
-
 			String tail = args.toString();
-			if (tail.length() > 0) {
-				postfix += tail.substring(1) + "&";
-			}
-			String prefix=null;
-			if (restrictions != null) {
-				if (restrictions.has("pageSize")) {
-					postfix += "pgSz=" + restrictions.getString("pageSize")
-							+ "&";
-				}
-				if (restrictions.has("pageNum")) {
-					postfix += "pgNum=" + restrictions.getString("pageNum")
-							+ "&";
-				}
-				if(restrictions.has("queryTerm")){
-					String queryString = prefix;
-					if(restrictions.has("queryString")){
-						queryString=restrictions.getString("queryString");
-					}
-					postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
-				}
-			}
-			postfix = postfix.substring(0, postfix.length() - 1);
-			if(postfix.length() == 0){postfix +="/";}
 			
-			String path = r.getServicesURL()+postfix;
+			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), tail, false, "");
+			
 			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
 			JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false);
 			
@@ -244,33 +219,15 @@ public class UserStorage extends GenericStorage {
 						"UTF-8"));
 			}
 			// pagination
-			String url = r.getServicesURL() + "/";
-			String postfix = "?";
 
 			String tail = args.toString();
-			if (tail.length() > 0) {
-				postfix += tail.substring(1) + "&";
-			}
-			if (restrictions != null) {
-				if (restrictions.has("pageSize")) {
-					postfix += "pgSz=" + restrictions.getString("pageSize")
-							+ "&";
-				}
-				if (restrictions.has("pageNum")) {
-					postfix += "pgNum=" + restrictions.getString("pageNum")
-							+ "&";
-				}
-			}
-			postfix = postfix.substring(0, postfix.length() - 1);
+			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), tail, false, "");
+			
 
-			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, r
-					.getServicesURL()
-					+ "/" + postfix, null, creds, cache);
+			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, path, null, creds, cache);
 			if (doc.getStatus() < 200 || doc.getStatus() > 399)
 				throw new UnderlyingStorageException(
-						"Cannot retrieve account list", doc.getStatus(), r
-								.getServicesURL()
-								+ "/" + postfix);
+						"Cannot retrieve account list", doc.getStatus(), path);
 			Document list = doc.getDocument();
 			List<Node> objects = list.selectNodes(r.getServicesListPath());
 			for (Node object : objects) {

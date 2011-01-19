@@ -114,25 +114,11 @@ public class AuthorizationStorage extends GenericStorage {
 		try {
 			Document list=null;
 			List<String> out=new ArrayList<String>();
-			String postfix = "?";
-			if(restrictions!=null){
-				if(restrictions.has("keywords")) {
-					/* Keyword search */
-					String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-					postfix += "res="+data+"&";
-				} 
-				if(restrictions.has("pageSize")){
-					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
-				}
-				if(restrictions.has("pageNum")){
-					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
-				}
-			}
-			postfix = postfix.substring(0, postfix.length()-1);
-			if(postfix.length() == 0){postfix +="/";}
-			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,r.getServicesURL()+postfix,null,creds,cache);
+			String path = getRestrictedPath(r.getServicesURL(), restrictions, "res", "", false, "");
+			
+			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			if(all.getStatus()!=200){
-				throw new ConnectionException("Bad request in Authorization Storage: status not 200", all.getStatus(),r.getServicesURL()+postfix);
+				throw new ConnectionException("Bad request in Authorization Storage: status not 200", all.getStatus(),path);
 			}
 			list=all.getDocument();
 			List<Node> objects=list.selectNodes(r.getServicesListPath());
@@ -169,35 +155,11 @@ public class AuthorizationStorage extends GenericStorage {
 			Boolean queryadded = false;
 			JSONObject pagination = new JSONObject();
 			List<String> listitems=new ArrayList<String>();
-			String postfix = "?";
-			if(restrictions!=null){
-				if(restrictions.has("keywords")) {
-					/* Keyword search */
-					String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-						postfix += r.getServicesSearchKeyword()+"="+data+"&";
-				} 
-				if(restrictions.has("pageSize")){
-					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
-				}
-				if(restrictions.has("pageNum")){
-					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
-				}
-				if(restrictions.has("queryTerm")){
-					String queryString = prefix;
-					if(restrictions.has("queryString")){
-						queryString=restrictions.getString("queryString");
-					}
-					postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
-					queryadded = true;
-				}
-			}
-			postfix = postfix.substring(0, postfix.length()-1);
-			if(postfix.length() == 0){postfix +="/";}
+			String serviceurl = getRestrictedPath(  r.getServicesURL(),  restrictions, r.getServicesSearchKeyword(), "", false, "");
 			
-			String serviceurl = r.getServicesURL()+postfix;
 			ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,serviceurl,null,creds,cache);
 			if(all.getStatus()!=200){
-				throw new ConnectionException("Bad request in Authorization Storage getPathsJSON: status not 200",all.getStatus(),r.getServicesURL()+postfix);
+				throw new ConnectionException("Bad request in Authorization Storage getPathsJSON: status not 200",all.getStatus(),serviceurl);
 			}
 			list=all.getDocument();
 			

@@ -269,39 +269,21 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			List<String> list=new ArrayList<String>();
 			String vocab=vocab_cache.getVocabularyId(creds,cache,rootPath);
 			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
-			String postfix = "?";
+
 			String prefix=null;
-			Boolean queryadded = false;
+
 			if(restrictions!=null){
 				if(restrictions.has(getDisplayNameKey())){
 					prefix=restrictions.getString(getDisplayNameKey()); 
 				}
-				if(restrictions.has("pageSize")){
-					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
-				}
-				if(restrictions.has("pageNum")){
-					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
-				}
-				if(restrictions.has("queryTerm")){
-					String queryString = prefix;
-					if(restrictions.has("queryString")){
-						queryString=restrictions.getString("queryString");
-					}
-					postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
-					queryadded = true;
-				}
 			}
+
+			String path = getRestrictedPath(url, restrictions, r.getServicesSearchKeyword(), "", true, getDisplayNameKey() );
 			
-			if(prefix!=null && !queryadded){
-				postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
-			}
-			postfix = postfix.substring(0, postfix.length()-1);
-			
-			url+=postfix;
-			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
+			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			Document doc=data.getDocument();
 			if(doc==null)
-				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,url);
+				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,path);
 			String[] tag_parts=r.getServicesListPath().split(",",2);
 			
 			JSONObject pagination = new JSONObject();
@@ -357,29 +339,20 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String vocab=vocab_cache.getVocabularyId(creds,cache,rootPath);
 			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
 
-			String postfix = "?";
 			String prefix=null;
+
 			if(restrictions!=null){
 				if(restrictions.has(getDisplayNameKey())){
-					prefix=restrictions.getString(getDisplayNameKey());
-				}
-				if(restrictions.has("pageSize")){
-					postfix += "pgSz="+restrictions.getString("pageSize")+"&";
-				}
-				if(restrictions.has("pageNum")){
-					postfix += "pgNum="+restrictions.getString("pageNum")+"&";
+					prefix=restrictions.getString(getDisplayNameKey()); 
 				}
 			}
-			if(prefix!=null){
-				postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
-			}
-			postfix = postfix.substring(0, postfix.length()-1);
+
+			String path = getRestrictedPath(url, restrictions, r.getServicesSearchKeyword(), "", true, getDisplayNameKey() );
 			
-			url+=postfix;
-			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,url,null,creds,cache);
+			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			Document doc=data.getDocument();
 			if(doc==null)
-				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,url);
+				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,path);
 			String[] tag_parts=r.getServicesListPath().split(",",2);
 			List<Node> objects=doc.getDocument().selectNodes(tag_parts[1]);
 			

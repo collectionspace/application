@@ -443,7 +443,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			JSONObject out=new JSONObject();
 			//not all the records need a reference, look in default.xml for which that don't
 			if(r.hasTermsUsed()){
-				path =  getRestrictedPath(path, restrictions);
+				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 				String data2 = all.getDocument().asXML();
 				if(all.getStatus()!=200)
@@ -792,16 +792,25 @@ public class GenericStorage  implements ContextualisedStorage {
 		return null;
 	}
 
-	private String getRestrictedPath(String basepath, JSONObject restrictions) throws UnsupportedEncodingException, JSONException{
-
+	protected String getRestrictedPath(String basepath, JSONObject restrictions, String keywordparam, String tail, Boolean isVocab, String displayName) throws UnsupportedEncodingException, JSONException{
+		
 		String postfix = "?";
+
+		if (tail.length() > 0) {
+			postfix += tail.substring(1) + "&";
+		}
+		
 		String prefix=null;
 		Boolean queryadded = false;
 		if(restrictions!=null){
-			if(restrictions.has("keywords")) {
+
+			if(isVocab && restrictions.has(displayName)){
+				prefix=restrictions.getString(displayName); 
+			}
+			else if(restrictions.has("keywords")) {
 				/* Keyword search */
 				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
-				postfix += "kw="+data+"&";
+				postfix += keywordparam+"="+data+"&";
 			} 
 			if(restrictions.has("pageSize")){
 				postfix += "pgSz="+restrictions.getString("pageSize")+"&";
@@ -818,9 +827,13 @@ public class GenericStorage  implements ContextualisedStorage {
 				queryadded = true;
 			}
 		}
-		//if(prefix!=null && !queryadded){
-		//	postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
-		//}
+
+		if(isVocab){
+			if(prefix!=null && !queryadded){
+				postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
+			}
+		}
+
 		postfix = postfix.substring(0, postfix.length()-1);
 		if(postfix.length() == 0){postfix +="/";}
 		
@@ -834,7 +847,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String path = getRestrictedPath(r.getServicesURL(), restrictions);
+			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");
 			
 			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
 			JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false);
