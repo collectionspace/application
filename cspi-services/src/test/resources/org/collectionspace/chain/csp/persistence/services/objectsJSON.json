@@ -387,5 +387,5 @@
     "datePeriod": "",
     "ownershipExchangeNote": "",
     "inscriptionContentDate": "",
-	"nametitle":"title"
+    "nametitle": "objectName"
 }
