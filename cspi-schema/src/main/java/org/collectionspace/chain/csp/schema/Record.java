@@ -500,6 +500,10 @@ public class Record implements FieldParent {
 			}
 			genpermfields.get(perm).put(f.getID(), f);
 		}
+		if(!genpermfields.containsKey("")){
+			genpermfields.put("", new HashMap<String, FieldSet>());
+		}
+		genpermfields.get("").put(f.getID(), f);
 	}
 
 	public void addAllField(FieldSet f) {
