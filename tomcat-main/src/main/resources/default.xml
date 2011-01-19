@@ -2010,6 +2010,7 @@
                 </repeat>
             </record>
             <record id="users" type="userdata">
+                <is-multipart>false</is-multipart>
                 <web-url>users</web-url>
                 <services-url>accounts</services-url>
                 <services-record-path>:http://collectionspace.org/services/account,accounts_common</services-record-path>
