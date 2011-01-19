@@ -122,7 +122,7 @@ public class TestService extends ServicesBaseClass {
 		cspm.configure(new InputSource(getRootSource("config.xml")), null);
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
-
+/*
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
 		 		"objectsJSON.json");
 
@@ -133,7 +133,7 @@ public class TestService extends ServicesBaseClass {
 		testJSONXML(spec, "intake", "intake.xml", "intake.json");
 		testJSONXML(spec, "movement", "movement.xml", "movement.json");
 		testJSONXML(spec, "objectexit", "objectexit.xml", "objectexit.json");
-
+*/
 		testJSONXML(spec, "role", "role.xml", "role.json");
 
 		// testJSONXML(spec,"permrole","rolepermissions.xml","rolepermissions.json");
@@ -153,18 +153,24 @@ public class TestService extends ServicesBaseClass {
 		Document doc = null;
 		JSONObject testjson = new JSONObject();
 		for (String section : r.getServicesRecordPaths()) {
-			String path = r.getServicesRecordPath(section);
-			String[] record_path = path.split(":", 2);
-			doc = XmlJsonConversion.convertToXml(r, j, section, "");
-			parts.put(record_path[0], doc);
-			log.info("After JSON->XML conversion:\n" + doc.asXML());
-			JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion
-					.convertToJson(r, doc, "", "common");// this is where we specify the multipart section
-															// we are considering
-			for (String name : JSONObject.getNames(repeatjson)) {
-				testjson.put(name, repeatjson.get(name));
+			if (section.equals("common")) {
+				String path = r.getServicesRecordPath(section);
+				String[] record_path = path.split(":", 2);
+				doc = XmlJsonConversion.convertToXml(r, j, section, "");
+				parts.put(record_path[0], doc);
+				log.info("After JSON->XML conversion:\n" + doc.asXML());
+				JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion
+						.convertToJson(r, doc, "", "common");// this is where we
+																// specify the
+																// multipart
+																// section
+				// we are considering
+				for (String name : JSONObject.getNames(repeatjson)) {
+					testjson.put(name, repeatjson.get(name));
+				}
+				log.info("After XML->JSON re-conversion:\n"
+						+ testjson.toString());
 			}
-			log.info("After XML->JSON re-conversion:\n" + testjson.toString());
 		}
 		// convert json -> xml and back to json and see if it still looks the
 		// same..
