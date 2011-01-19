@@ -124,10 +124,10 @@ public class TestService extends ServicesBaseClass {
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
-				"objectsJSON.json");
+		 		"objectsJSON.json");
 
 		testJSONXML(spec, "acquisition", "acquisitionXMLJSON.xml",
-				"acquisitionJSON.json");
+		 		"acquisitionJSON.json");
 		testJSONXML(spec, "loanin", "loanin.xml", "loanin.json");
 		testJSONXML(spec, "loanout", "loanout.xml", "loanout.json");
 		testJSONXML(spec, "intake", "intake.xml", "intake.json");
