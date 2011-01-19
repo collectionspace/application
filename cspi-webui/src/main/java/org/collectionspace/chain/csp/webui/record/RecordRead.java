@@ -36,6 +36,7 @@ public class RecordRead implements WebMethod {
 
 	private RecordSearchList searcher;
 	private RecordAuthorities termsused;
+	private RecordRelated relatedobj;
 	private Spec spec;
 	private boolean record_type;
 	private boolean authorization_type;
@@ -51,26 +52,7 @@ public class RecordRead implements WebMethod {
 		authorization_type=r.isType("authorizationdata");
 	}
 		
-	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 
-		JSONObject restrictions = new JSONObject();
-		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view/relate",restrictions);
-		out.put("csid",csid);
-		out.put("recordtype",type_to_url.get(type));
-		return out;
-	}
-
-	private JSONObject generateRelationEntry(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		/* Retrieve entry */
-		JSONObject restrictions = new JSONObject();
-		JSONObject in=storage.retrieveJSON("relations/main/"+csid,restrictions);
-		String[] dstid=in.getString("dst").split("/");
-		String type=in.getString("type");
-		JSONObject mini=generateMiniRecord(storage,dstid[0],dstid[1]);
-		mini.put("relationshiptype",type);
-		mini.put("relid",in.getString("csid"));
-		return mini;
-	}
 	
 	private JSONObject createRelations(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject recordtypes=new JSONObject();
@@ -79,25 +61,11 @@ public class RecordRead implements WebMethod {
 		//loop over all procedure/recordtypes
 		for(Record thisr : spec.getAllRecords()) {
 			if(thisr.isType("record")||thisr.isType("procedure")){
-				JSONObject myres = restrictions;
-				myres.put("dstType", thisr.getServicesURL());
-				// XXX needs pagination support CSPACE-1819
-				JSONObject data = storage.getPathsJSON("relations/main",myres);
-				String[] relations = (String[]) data.get("listItems");
+
+				this.relatedobj = new RecordRelated(this.record,thisr);
+				this.relatedobj.configure(spec);
+				recordtypes = this.relatedobj.getRelations(storage, restrictions,recordtypes);
 				
-				for(String r : relations) {
-					try {
-						JSONObject relateitem = generateRelationEntry(storage,r);
-						String type = relateitem.getString("recordtype");
-						if(!recordtypes.has(type)){
-							recordtypes.put(type, new JSONArray());
-						}
-						recordtypes.getJSONArray(type).put(relateitem);
-					} catch(Exception e) {
-						// Never mind.
-						//Probably should do something with the errors... could be a permissions issue
-					}
-				}
 			}
 		}
 		
