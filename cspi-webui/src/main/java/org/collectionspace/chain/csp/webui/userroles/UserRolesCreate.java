@@ -20,6 +20,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -65,7 +66,9 @@ public class UserRolesCreate implements WebMethod{
 			else{
 				messages.put("severity", "error");				
 			}
-			data.put("messages", messages);
+			JSONArray arr = new JSONArray();
+			arr.put(messages);
+			data.put("messages", arr);
 			
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(Operation.CREATE);

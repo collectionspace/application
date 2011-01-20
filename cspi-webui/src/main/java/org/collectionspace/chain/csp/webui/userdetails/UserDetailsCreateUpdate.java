@@ -152,7 +152,9 @@ public class UserDetailsCreateUpdate implements WebMethod {
 			JSONObject messages = new JSONObject();
 			messages.put("message", msg);
 			messages.put("severity", "info");
-			data.put("messages", messages);
+			JSONArray arr = new JSONArray();
+			arr.put(messages);
+			data.put("messages", arr);
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create ? Operation.CREATE
 					: Operation.UPDATE);

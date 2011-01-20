@@ -36,6 +36,7 @@ import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.collectionspace.csp.api.ui.UISession;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -327,7 +328,9 @@ public class UserDetailsReset implements WebMethod {
 					JSONObject messages = new JSONObject();
 					messages.put("message", "Password reset sent to " + emailparam);
 					messages.put("severity", "info");
-					outputJSON.put("messages", messages);
+					JSONArray arr = new JSONArray();
+					arr.put(messages);
+					outputJSON.put("messages", arr);
 				}
 				else {
 					outputJSON = userdetails;
@@ -342,7 +345,9 @@ public class UserDetailsReset implements WebMethod {
 					JSONObject messages = new JSONObject();
 					messages.put("message", "Failed to send email: "+e.getMessage());
 					messages.put("severity", "error");
-					outputJSON.put("messages", messages);
+					JSONArray arr = new JSONArray();
+					arr.put(messages);
+					outputJSON.put("messages", arr);
 				} catch (JSONException e1) {
 					throw new UIException("JSONException during error messaging",e);
 				}
@@ -356,7 +361,9 @@ public class UserDetailsReset implements WebMethod {
 				JSONObject messages = new JSONObject();
 				messages.put("message", "The admin details in cspace-config.xml failed");
 				messages.put("severity", "error");
-				outputJSON.put("messages", messages);
+				JSONArray arr = new JSONArray();
+				arr.put(messages);
+				outputJSON.put("messages", arr);
 			} catch (JSONException x) {
 				throw new UIException("Failed to parse json: ",x);
 			}
@@ -408,7 +415,9 @@ public class UserDetailsReset implements WebMethod {
 							JSONObject messages = new JSONObject();
 							messages.put("message", "Your Password has been succesfully changed, Please login");
 							messages.put("severity", "info");
-							outputJSON.put("messages", messages);
+							JSONArray arr = new JSONArray();
+							arr.put(messages);
+							outputJSON.put("messages", arr);
 						}	catch (JSONException x) {
 							throw new UIException("Failed to parse json: ",x);
 						} catch (ExistException x) {
@@ -425,7 +434,9 @@ public class UserDetailsReset implements WebMethod {
 						JSONObject messages = new JSONObject();
 						messages.put("message", "Token was not valid");
 						messages.put("severity", "error");
-						outputJSON.put("messages", messages);
+						JSONArray arr = new JSONArray();
+						arr.put(messages);
+						outputJSON.put("messages", arr);
 					}
 				}
 				else{
@@ -445,7 +456,9 @@ public class UserDetailsReset implements WebMethod {
 				JSONObject messages = new JSONObject();
 				messages.put("message", "The admin details in cspace-config.xml failed");
 				messages.put("severity", "error");
-				outputJSON.put("messages", messages);
+				JSONArray arr = new JSONArray();
+				arr.put(messages);
+				outputJSON.put("messages", arr);
 				
 			} catch (JSONException x) {
 				throw new UIException("Failed to parse json: ",x);

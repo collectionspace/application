@@ -52,7 +52,9 @@ public class UserRolesRead implements WebMethod{
 				JSONObject messages = new JSONObject();
 				messages.put("message", "");
 				messages.put("severity", "info");
-				out.put("messages",messages);
+				JSONArray arr = new JSONArray();
+				arr.put(messages);
+				out.put("messages", arr);
 				out.put("relations",new JSONArray());
 			} else {
 				out=storage.retrieveJSON(this.sub_base+"/"+csid, new JSONObject());
