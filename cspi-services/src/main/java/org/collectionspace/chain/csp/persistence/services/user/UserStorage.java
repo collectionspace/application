@@ -271,8 +271,7 @@ public class UserStorage extends GenericStorage {
 		}
 	}
 
-	public JSONObject retrieveJSON(ContextualisedStorage root,
-			CSPRequestCredentials creds, CSPRequestCache cache, String filePath)
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions)
 			throws ExistException, UnimplementedException,
 			UnderlyingStorageException {
 		try {
