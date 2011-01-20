@@ -9,8 +9,11 @@ import org.json.JSONObject;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestComposite extends TestBase {
+	private static final Logger log=LoggerFactory.getLogger(TestComposite.class);
 	
 	private JSONObject createCompositePOSTPartJSON(String payload) throws JSONException {
 		JSONObject out=new JSONObject();
@@ -52,7 +55,7 @@ public class TestComposite extends TestBase {
 		p.put("p1",p1);
 		p.put("p2",p2);
 		p.put("p3",p3);
-		System.err.println("p="+p);
+		log.info("p="+p);
 		HttpTester out = POSTData("/composite",p.toString(),jetty);
 		JSONObject jout=new JSONObject(out.getContent());
 		JSONObject q1=jout.getJSONObject("p1");
@@ -76,7 +79,7 @@ public class TestComposite extends TestBase {
 		JSONObject pp=new JSONObject();
 		pp.put("p4",p4);
 		pp.put("p5",p5);
-		System.err.println("pp="+pp);
+		log.info("pp="+pp);
 		HttpTester out2 = PUTData("/composite",pp.toString(),jetty);
 		JSONObject jout2=new JSONObject(out2.getContent());
 		JSONObject q4=jout2.getJSONObject("p4");
@@ -88,7 +91,7 @@ public class TestComposite extends TestBase {
 		ppp.put("p6",createCompositeGETPartJSON(id1));
 		ppp.put("p7",createCompositeGETPartJSON(id2));
 		ppp.put("p8",createCompositeGETPartJSON(id3));
-		System.err.println("ppp="+ppp);
+		log.info("ppp="+ppp);
 		HttpTester out3 = GETData("/composite",ppp.toString(),jetty);
 		JSONObject jout3=new JSONObject(out3.getContent());
 		JSONObject q6=jout3.getJSONObject("p6");
@@ -97,7 +100,7 @@ public class TestComposite extends TestBase {
 		assertEquals("200",q6.getString("status"));
 		assertEquals("200",q7.getString("status"));
 		assertEquals("200",q8.getString("status"));
-		System.err.println("p6="+q6);
+		log.info("p6="+q6);
 		JSONObject b6=new JSONObject(q6.getString("body"));
 		JSONObject b7=new JSONObject(q7.getString("body"));
 		JSONObject b8=new JSONObject(q8.getString("body"));
@@ -114,12 +117,12 @@ public class TestComposite extends TestBase {
 		// Try some things that should fail, mixed with some things that should not
 		JSONObject ppppp=new JSONObject();
 		ppppp.put("p10",createCompositeGETPartJSON(id1));
-		ppppp.put("p11",createCompositeGETPartJSON(id2));
+		ppppp.put("p11",createCompositeGETPartJSON(id2)); // this is failing
 		ppppp.put("p12",createCompositeGETPartJSON(id3));
-		System.err.println("ppppp="+ppppp);
+		log.info("ppppp="+ppppp);
 		HttpTester out5 = GETData("/composite",ppppp.toString(),jetty);
 		JSONObject jout5=new JSONObject(out5.getContent());
-		System.err.println("jout5="+jout5);
+		log.info("jout5="+jout5);
 		JSONObject q10=jout5.getJSONObject("p10");
 		JSONObject q11=jout5.getJSONObject("p11");
 		JSONObject q12=jout5.getJSONObject("p12");
