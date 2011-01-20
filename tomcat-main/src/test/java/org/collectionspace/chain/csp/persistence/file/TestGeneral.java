@@ -169,9 +169,9 @@ public class TestGeneral extends TestBase {
 	 */
 	@Test public void readJSONFromFile() throws JSONException, ExistException, UnderlyingStorageException, UnimplementedException {
 		JSONObject jsonObject = new JSONObject(testStr);
+		JSONObject restrictions = new JSONObject();
 		String path=store.autocreateJSON("/cataloging/", jsonObject);
-        JSONObject restrictions = null;
-		JSONObject resultObj = store.retrieveJSON("/cataloging/"+path, restrictions);
+		JSONObject resultObj = store.retrieveJSON("/cataloging/"+path,restrictions);
 		JSONObject testObj = new JSONObject(testStr);
 		assertTrue(JSONUtils.checkJSONEquiv(resultObj,testObj));
 	}
@@ -185,8 +185,8 @@ public class TestGeneral extends TestBase {
 	@Test public void testJSONNotExist() throws JSONException, UnderlyingStorageException, UnimplementedException {
 		try
 		{
-            JSONObject restrictions = null;
-			store.retrieveJSON("nonesuch.json", restrictions);
+			JSONObject restrictions = new JSONObject();
+			store.retrieveJSON("nonesuch.json",restrictions);
 			assertTrue(false);
 		}
 		catch (ExistException onfe) {}
@@ -199,12 +199,12 @@ public class TestGeneral extends TestBase {
 	 * @throws UnimplementedException
 	 */
 	@Test public void testJSONUpdate() throws ExistException, JSONException, UnderlyingStorageException, UnimplementedException {
+		JSONObject restrictions = new JSONObject();
 		JSONObject jsonObject = new JSONObject(testStr2);
 		String id1=store.autocreateJSON("/cataloging/", jsonObject);
 		jsonObject = new JSONObject(testStr);
-		store.updateJSON("/cataloging/"+id1, jsonObject);
-        JSONObject restrictions = null;
-		JSONObject resultObj = store.retrieveJSON("/cataloging/"+id1, restrictions);
+		store.updateJSON("/cataloging/"+id1, jsonObject);		
+		JSONObject resultObj = store.retrieveJSON("/cataloging/"+id1,restrictions);
 		JSONObject testObj = new JSONObject(testStr);
 		assertTrue(JSONUtils.checkJSONEquiv(resultObj,testObj));
 	}
@@ -387,6 +387,7 @@ public class TestGeneral extends TestBase {
 		ServletTester jetty=setupJetty();
 		String csid = "/users/";
 		HttpTester out;
+		//out = GETData("/loanout/8fe3f151-8115-4a60-8572",jetty);
 		
 //		DELETEData("/users/c990a163-ef62-4f06-95ae-c362d3fac9ff",jetty);
 		//JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
