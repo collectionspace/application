@@ -34,6 +34,7 @@ public class Record implements FieldParent {
 	
 	private Map<String, Map<String, Map<String, FieldSet>>> servicepermfields = new HashMap<String, Map<String,Map<String, FieldSet>>>();
 	private Map<String, Map<String, FieldSet>> genpermfields = new HashMap<String, Map<String, FieldSet>>();
+	private Map<String, Map<String, FieldSet>> allgenpermfields = new HashMap<String, Map<String, FieldSet>>();
 	private Map<String, Map<String, FieldSet>> mergedpermfields = new HashMap<String, Map<String, FieldSet>>();
 	private Map<String, Map<String, FieldSet>> repeatpermfields = new HashMap<String, Map<String, FieldSet>>();
 	
@@ -202,8 +203,8 @@ public class Record implements FieldParent {
 	}
 	
 	public Boolean getPerm(String fieldId, String perm){
-		if(genpermfields.containsKey(perm)){
-			if(genpermfields.get(perm).containsKey(fieldId)){
+		if(allgenpermfields.containsKey(perm)){
+			if(allgenpermfields.get(perm).containsKey(fieldId)){
 				return true;
 			}
 		}
@@ -481,8 +482,8 @@ public class Record implements FieldParent {
 	}
 
 	public void addField(FieldSet f , Boolean plusServices){
-		fields.put(f.getID(), f);
 		if (plusServices) {
+			fields.put(f.getID(), f);
 			if (f.isInServices()) {
 				servicefields.put(f.getID(), f);
 				for (String perm : f.getAllFieldPerms()) {
@@ -499,18 +500,29 @@ public class Record implements FieldParent {
 							f.getID(), f);
 				}
 			}
-		}
-		for(String perm : f.getAllFieldPerms()){
-			if(!genpermfields.containsKey(perm)){
-				genpermfields.put(perm, new HashMap<String, FieldSet>());
+			for (String perm : f.getAllFieldPerms()) {
+				if (!genpermfields.containsKey(perm)) {
+					genpermfields.put(perm, new HashMap<String, FieldSet>());
+				}
+				genpermfields.get(perm).put(f.getID(), f);
 			}
-			genpermfields.get(perm).put(f.getID(), f);
+			if (!genpermfields.containsKey("")) {
+				genpermfields.put("", new HashMap<String, FieldSet>());
+			}
+			genpermfields.get("").put(f.getID(), f);
+		} else {
+
+			for (String perm : f.getAllFieldPerms()) {
+				if (!allgenpermfields.containsKey(perm)) {
+					allgenpermfields.put(perm, new HashMap<String, FieldSet>());
+				}
+				allgenpermfields.get(perm).put(f.getID(), f);
+			}
+			if (!allgenpermfields.containsKey("")) {
+				allgenpermfields.put("", new HashMap<String, FieldSet>());
+			}
+			allgenpermfields.get("").put(f.getID(), f);
 		}
-		if(!genpermfields.containsKey("")){
-			genpermfields.put("", new HashMap<String, FieldSet>());
-		}
-		genpermfields.get("").put(f.getID(), f);
-		
 		
 	}
 	public void addField(FieldSet f) {
