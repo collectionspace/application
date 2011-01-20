@@ -48,20 +48,22 @@ public class RecordAuthorities implements WebMethod {
 
 			JSONObject mini = storage.retrieveJSON(path + "/refs",restrictions);
 
-			Iterator t = mini.keys();
-			while (t.hasNext()) {
-				String field = (String) t.next();
-				if (mini.get(field) instanceof JSONArray) {
-					JSONArray array = (JSONArray) mini.get(field);
-					for (int i = 0; i < array.length(); i++) {
-						JSONObject in = array.getJSONObject(i);
+			if (mini.length() > 0) {
+				Iterator t = mini.keys();
+				while (t.hasNext()) {
+					String field = (String) t.next();
+					if (mini.get(field) instanceof JSONArray) {
+						JSONArray array = (JSONArray) mini.get(field);
+						for (int i = 0; i < array.length(); i++) {
+							JSONObject in = array.getJSONObject(i);
+							JSONObject entry = getTermsUsedData(in);
+							out.put(entry);
+						}
+					} else {
+						JSONObject in = mini.getJSONObject(field);
 						JSONObject entry = getTermsUsedData(in);
 						out.put(entry);
 					}
-				} else {
-					JSONObject in = mini.getJSONObject(field);
-					JSONObject entry = getTermsUsedData(in);
-					out.put(entry);
 				}
 			}
 		}

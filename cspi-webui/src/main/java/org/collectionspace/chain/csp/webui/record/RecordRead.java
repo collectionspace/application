@@ -123,9 +123,9 @@ public class RecordRead implements WebMethod {
 		JSONObject restrictions=new JSONObject();
 		try {
 			if(record_type || authorization_type) {
-				JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid,restrictions);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
+				JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
 				JSONObject relations=createRelations(storage,csid);
 				out.put("csid",csid);
 				out.put("fields",fields);

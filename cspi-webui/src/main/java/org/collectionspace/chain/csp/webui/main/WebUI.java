@@ -211,6 +211,7 @@ public class WebUI implements CSP, UI, Configurable {
 						 addMethod(Operation.READ,new String[]{r.getWebURL(),r2.getWebURL()},1,new RecordRelated(r,r2)); 
 					 }
 				}
+				
 			}
 			else if(r.isType("userdata")){
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new UserDetailsSearchList(r,true));
@@ -281,8 +282,8 @@ public class WebUI implements CSP, UI, Configurable {
 		Request r=new Request(this,cache,storage,ui);
 		
 		String test = ui.getRequestedOperation().toString();
-		log.debug("ServiceRequest path: "+StringUtils.join(path,"/"));
-		log.debug(test);
+		log.info("ServiceRequest path: "+StringUtils.join(path,"/"));
+		log.info(test);
 		try {
 			if(tries.get(ui.getRequestedOperation()).call(path,r))
 				return;
