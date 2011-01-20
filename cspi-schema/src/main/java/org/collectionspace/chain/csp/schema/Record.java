@@ -480,18 +480,24 @@ public class Record implements FieldParent {
 		return authorization_includes.contains(name);
 	}
 
-	public void addField(FieldSet f) {
+	public void addField(FieldSet f , Boolean plusServices){
 		fields.put(f.getID(), f);
-		if (f.isInServices()) {
-			servicefields.put(f.getID(), f);
-			for(String perm : f.getAllFieldPerms()){
-				if(!servicepermfields.containsKey(perm)){
-					servicepermfields.put(perm, new HashMap<String,Map<String, FieldSet>>());
+		if (plusServices) {
+			if (f.isInServices()) {
+				servicefields.put(f.getID(), f);
+				for (String perm : f.getAllFieldPerms()) {
+					if (!servicepermfields.containsKey(perm)) {
+						servicepermfields.put(perm,
+								new HashMap<String, Map<String, FieldSet>>());
+					}
+					if (!servicepermfields.get(perm)
+							.containsKey(f.getSection())) {
+						servicepermfields.get(perm).put(f.getSection(),
+								new HashMap<String, FieldSet>());
+					}
+					servicepermfields.get(perm).get(f.getSection()).put(
+							f.getID(), f);
 				}
-				if(!servicepermfields.get(perm).containsKey(f.getSection())){
-					servicepermfields.get(perm).put(f.getSection(), new HashMap<String, FieldSet>());
-				}
-				servicepermfields.get(perm).get(f.getSection()).put(f.getID(), f);
 			}
 		}
 		for(String perm : f.getAllFieldPerms()){
@@ -504,6 +510,11 @@ public class Record implements FieldParent {
 			genpermfields.put("", new HashMap<String, FieldSet>());
 		}
 		genpermfields.get("").put(f.getID(), f);
+		
+		
+	}
+	public void addField(FieldSet f) {
+		addField(f,true);
 	}
 
 	public void addAllField(FieldSet f) {

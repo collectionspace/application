@@ -122,18 +122,19 @@ public class TestService extends ServicesBaseClass {
 		cspm.configure(new InputSource(getRootSource("config.xml")), null);
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
-/*
+
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
 		 		"objectsJSON.json");
-
+		
 		testJSONXML(spec, "acquisition", "acquisitionXMLJSON.xml",
 		 		"acquisitionJSON.json");
+		
 		testJSONXML(spec, "loanin", "loanin.xml", "loanin.json");
 		testJSONXML(spec, "loanout", "loanout.xml", "loanout.json");
 		testJSONXML(spec, "intake", "intake.xml", "intake.json");
 		testJSONXML(spec, "movement", "movement.xml", "movement.json");
 		testJSONXML(spec, "objectexit", "objectexit.xml", "objectexit.json");
-*/
+
 		testJSONXML(spec, "role", "role.xml", "role.json");
 
 		// testJSONXML(spec,"permrole","rolepermissions.xml","rolepermissions.json");
