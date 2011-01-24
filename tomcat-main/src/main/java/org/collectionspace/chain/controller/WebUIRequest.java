@@ -105,8 +105,8 @@ public class WebUIRequest implements UIRequest {
 
 	// XXX expire sessions
 	private void setSession() {
-		if(session.isOld())
-			return; // No need to reset session
+		//if(session.isOld())
+		//	return; // No need to reset session
 
 		Cookie cookie=new Cookie(COOKIENAME,session.getID());
 		cookie.setPath("/");//XXX should be /chain - so either need to have a parameter in cspace-config or try and ask tomcat who we are
