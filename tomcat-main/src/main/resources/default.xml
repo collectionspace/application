@@ -103,8 +103,7 @@
 				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
 				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
 				
-                <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
-                    <selector>.csc-object-identification-object-nametitle</selector>
+                <field id="nametitle" in-title="yes" mini="summary,search,list,relate" exists-in-services="false">
                     <merges>
                         <merge id="title" rank="1" />
                         <merge id="objectName" rank="2" />
@@ -112,8 +111,7 @@
                 </field>
                 <repeat id="titleGroupList/titleGroup">
                     <!-- selector>.csc-collection-object-titleGroup</selector -->
-                    <field id="title" in-title="yes" mini="search">
-                        <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
+                    <field id="title" mini="search">
                         <selector>.csc-object-identification-object-title</selector>
                     </field>
                     <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
@@ -1225,8 +1223,7 @@
 				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
 				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
 				
-                <field id="ownersource" mini="summary,search,list,relate"  in-title="yes" exists-in-services="false">
-                    <selector>.csc-object-acquisition-ownersource</selector>
+                <field id="ownersource" in-title="yes" mini="summary,search,list,relate" exists-in-services="false">
                     <merges>
                         <merge id="owner" rank="2" />
                         <merge id="acquisitionSource" rank="1" />
