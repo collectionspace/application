@@ -419,7 +419,7 @@ public class AuthorizationStorage extends GenericStorage {
 			if(r.isMultipart()){
 				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,filePath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
-					throw new ExistException("Does not exist "+filePath);
+					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
 				for(String section : r.getServicesRecordPaths()) {
 					String path=r.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
@@ -429,7 +429,7 @@ public class AuthorizationStorage extends GenericStorage {
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300)){
 					String status = Integer.toString(doc.getStatus());
-					throw new ExistException(status + ":Does not exist "+filePath);
+					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
 				}
 				convertToJson(out,doc.getDocument(),thisr,"GET","common");
 			}
