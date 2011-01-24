@@ -79,10 +79,10 @@ public class WebLoginStatus  implements WebMethod {
 	}
 	
 	public void testlogin(Request in) throws UIException {
+		UIRequest request=in.getUIRequest();
 		try{
 			Storage storage = in.getStorage();
 			JSONObject output= new JSONObject();
-			UIRequest request=in.getUIRequest();
 			if(request.getSession() != null && request.getSession().getValue(UISession.USERID) != null ){
 				if(request.getSession().getValue(UISession.USERID).equals("")){
 					output.put("login", false);
@@ -103,11 +103,13 @@ public class WebLoginStatus  implements WebMethod {
 		} catch (JSONException x) {
 			throw new UIException("Failed to parse json: "+x.getMessage(),x);
 		} catch (ExistException x) {
+			//failed login test
 			throw new UIException("Existence exception: ",x);
 		} catch (UnimplementedException x) {
 			throw new UIException("Unimplemented exception: ",x);
 		} catch (UnderlyingStorageException x) {
-			throw new UIException("Problem storing: "+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			request.sendJSONResponse(uiexception.getJSON());
 		}
 		
 		
