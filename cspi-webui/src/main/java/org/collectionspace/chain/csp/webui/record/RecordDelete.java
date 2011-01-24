@@ -27,6 +27,13 @@ public class RecordDelete implements WebMethod {
 
 	private void store_delete(Storage storage,UIRequest request,String path) throws UIException {
 		try {
+			if(base.equals("role")){
+				//business logic. Only delete role if no active users exists who have this role set
+				//CSPACE-3283
+				
+				//get all users with this role
+				//awaiting on CSPACE-3442
+			}
 			storage.deleteJSON(base+"/"+path);
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found "+e,e);
