@@ -215,9 +215,16 @@ public class UISchema extends UISpec {
 				cschema.put("type", "array");
 				cschema.put("default", crecrds);
 
-				out.put("procedures", pschema);
-				out.put("vocabularies", aschema);
-				out.put("cataloging", cschema);
+				JSONObject rtypes = new JSONObject();
+				JSONObject ptypes = new JSONObject();
+
+				ptypes.put("procedures", pschema);
+				ptypes.put("vocabularies", aschema);
+				ptypes.put("cataloging", cschema);
+				rtypes.put("type","object");
+				rtypes.put("properties",ptypes);
+
+				out.put("recordtypes", rtypes);
 				
 			}
 		} catch (JSONException e) {

@@ -1,14 +1,19 @@
 {
-    "vocabularies": {
-        "default": ["person", "organization"],
-        "type": "array"
-    },
-    "procedures": {
-        "default": ["intake", "loanin", "loanout", "acquisition", "movement", "objectexit"],
-        "type": "array"
-    },
-    "cataloging": {
-        "default": ["cataloging"],
-        "type": "array"
+    "recordtypes": {
+        "properties": {
+            "vocabularies": {
+                "default": ["person", "organization"],
+                "type": "array"
+            },
+            "procedures": {
+                "default": ["intake", "loanin", "loanout", "acquisition", "movement", "objectexit"],
+                "type": "array"
+            },
+            "cataloging": {
+                "default": ["cataloging"],
+                "type": "array"
+            }
+        },
+        "type": "object"
     }
 }
