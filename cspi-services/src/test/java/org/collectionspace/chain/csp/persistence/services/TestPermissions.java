@@ -100,7 +100,8 @@ public class TestPermissions  extends ServicesBaseClass  {
 		try {
 			ss.retrieveJSON("role/"+role, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
-		} catch(ExistException e) {
+		} catch(UnderlyingStorageException e) {
+			assertTrue(true); // XXX use JUnit exception annotation
 		}
 		
 		//delete user
@@ -176,7 +177,8 @@ public class TestPermissions  extends ServicesBaseClass  {
 		try {
 			ss.retrieveJSON("role/"+role, new JSONObject());
 			assertFalse(true); // XXX use JUnit exception annotation
-		} catch(ExistException e) {
+		} catch(UnderlyingStorageException e) {
+			assertTrue(true); // XXX use JUnit exception annotation
 		}
 	}
 	private JSONObject createRole(String jsonFile){
