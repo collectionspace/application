@@ -85,7 +85,7 @@ public class Structure  implements FieldParent  {
 	public Structure(Record record,ReadOnlySection section) {
 		this.record=record;
 		id=(String)section.getValue("/@id");
-		showtitlebar=Util.getBooleanOrDefault(section,"/view/titlebar/@show",true);
+		showtitlebar=Util.getBooleanOrDefault(section,"/view/titlebar/@show",false);
 		showsidebar=Util.getBooleanOrDefault(section,"/view/sidebar/@show",true);
 		showeditsection=Util.getBooleanOrDefault(section,"/view/edit-section/@show",true);
 		showlistsection=Util.getBooleanOrDefault(section,"/view/list-section/@show",false);
