@@ -66,6 +66,7 @@
         <records>
             <record id="collection-object" in-findedit="yes">
                 <services-url>collectionobjects</services-url>
+				<services-tenant-singular>CollectionObject</services-tenant-singular>
                 <services-list-path>collectionobjects-common-list/collection-object-list-item</services-list-path>
                 <services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
                 <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
@@ -103,7 +104,8 @@
 				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
 				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
 				
-                <field id="nametitle" in-title="yes" mini="summary,search,list,relate" exists-in-services="false">
+                <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
+                    <selector>.csc-object-identification-object-nametitle</selector>
                     <merges>
                         <merge id="title" rank="1" />
                         <merge id="objectName" rank="2" />
@@ -111,7 +113,8 @@
                 </field>
                 <repeat id="titleGroupList/titleGroup">
                     <!-- selector>.csc-collection-object-titleGroup</selector -->
-                    <field id="title" mini="search">
+                    <field id="title" in-title="yes" mini="search">
+                        <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
                         <selector>.csc-object-identification-object-title</selector>
                     </field>
                     <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
@@ -978,6 +981,8 @@
             </record>
             <record id="loanin" in-findedit="yes" type="record,procedure">
                 <services-url>loansin</services-url>
+				<services-tenant-plural>Loansin</services-tenant-plural>
+				<services-tenant-singular>Loanin</services-tenant-singular>
                 <services-list-path>loansin-common-list/loanin-list-item</services-list-path>
                 <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
@@ -985,7 +990,7 @@
 				<structures>
                     <structure id="screen">
                         <view>
-                            <titlebar show="true"></titlebar>
+                            <titlebar show="false"></titlebar>
                             <sidebar show="true">
                                 <repeat id="termsUsed" show="true"></repeat>
                                 <repeat id="relatedProcedures" show="true"></repeat>
@@ -1071,6 +1076,7 @@
             </record>
             <record id="intake" in-findedit="yes" type="record,procedure">
                 <services-url>intakes</services-url>
+				<services-tenant-singular>Intake</services-tenant-singular>
                 <services-list-path>intakes-common-list/intake-list-item</services-list-path>
                 <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
 				<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
@@ -1209,6 +1215,7 @@
             </record>
             <record id="acquisition" in-findedit="yes" type="record,procedure">
                 <services-url>acquisitions</services-url>
+				<services-tenant-singular>Acquisition</services-tenant-singular>
                 <services-list-path>acquisitions-common-list/acquisition-list-item</services-list-path>
                 <services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
@@ -1223,7 +1230,8 @@
 				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
 				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
 				
-                <field id="ownersource" in-title="yes" mini="summary,search,list,relate" exists-in-services="false">
+                <field id="ownersource" mini="summary,search,list,relate"  in-title="yes" exists-in-services="false">
+                    <selector>.csc-object-acquisition-ownersource</selector>
                     <merges>
                         <merge id="owner" rank="2" />
                         <merge id="acquisitionSource" rank="1" />
@@ -1447,6 +1455,7 @@
                 <terms-used>false</terms-used>
                 <!-- XXX servcie layer doesn't currently support person terms but it does on  organisations - go figure -->
                 <web-url>person</web-url>
+				<services-tenant-singular>Person</services-tenant-singular>
                 <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common-list/personauthority-list-item</services-instances-path>
                 <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
@@ -1632,6 +1641,8 @@
             </record>
             <record id="location" in-recordlist="no"  type="authority,compute-displayname">
                 <web-url>location</web-url>
+				<services-tenant-plural>Locationauthorities</services-tenant-plural>
+				<services-tenant-singular>Locationauthority</services-tenant-singular>
                 <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities-common-list/locationauthority-list-item</services-instances-path>
                 <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locations_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/location,locations-common-list/location_list_item</services-list-path>
@@ -1680,6 +1691,8 @@
             </record>
             <record id="organization" type="authority,compute-displayname">
                 <web-url>organization</web-url>
+				<services-tenant-plural>Orgauthorities</services-tenant-plural>
+				<services-tenant-singular>Orgauthority</services-tenant-singular>
                 <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities-common-list/orgauthority-list-item</services-instances-path>
                 <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
@@ -1772,6 +1785,7 @@
             </record>
             <record id="contact" in-recordlist="no" type="authority,compute-displayname">
                 <web-url>contact</web-url>
+				<services-tenant-singular>Contact</services-tenant-singular>
                 <services-instances-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities-common-list/contactauthority-list-item</services-instances-path>
                 <services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
                 <services-list-path>contacts-common-list/contact-list-item</services-list-path>
@@ -1818,6 +1832,8 @@
             </record>
             <record id="role" type="authorizationdata">
                 <web-url>role</web-url>
+				<services-tenant-plural>authorization/roles</services-tenant-plural>
+				<services-tenant-singular>Role</services-tenant-singular>
                 <services-url>authorization/roles</services-url>
                 <services-list-path>roles_list/*</services-list-path>
                 <services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
@@ -1873,6 +1889,8 @@
             </record>
             <record id="permission" type="authorizationdata">
                 <web-url>permission</web-url>
+				<services-tenant-plural>authorization/permissions</services-tenant-plural>
+				<services-tenant-singular>Permission</services-tenant-singular>
                 <services-url>authorization/permissions</services-url>
                 <services-list-path>permissions_list/*</services-list-path>
                 <services-record-path>permissions_common:http://collectionspace.org/services/authorization,permission</services-record-path>
@@ -1938,6 +1956,8 @@
             </record>
 
             <record id="userperm" type="authorizationdata">
+				<services-tenant-plural>authorization/roles/accountroles</services-tenant-plural>
+				<services-tenant-singular>AccountRole</services-tenant-singular>
                 <services-url>accounts/*/accountperms</services-url>
                 <services-list-path>account_permission/permission</services-list-path>
                 <services-record-path>account_permission:http://collectionspace.org/services/authorization,account_permission</services-record-path>
@@ -1974,6 +1994,8 @@
             </record>
             <record id="permrole" type="authorizationdata">
                 <is-multipart>false</is-multipart>
+				<services-tenant-plural>authorization/permissions/permroles</services-tenant-plural>
+				<services-tenant-singular>PermissionRole</services-tenant-singular>
                 <services-url>authorization/roles/*/permroles</services-url>
                 <services-list-path>permission_role/permission</services-list-path>
                 <services-record-path>permission_role:http://collectionspace.org/services/authorization,permission_role</services-record-path>
@@ -2009,6 +2031,7 @@
             <record id="users" type="userdata">
                 <is-multipart>false</is-multipart>
                 <web-url>users</web-url>
+				<services-tenant-singular>Account</services-tenant-singular>
                 <services-url>accounts</services-url>
                 <services-record-path>:http://collectionspace.org/services/account,accounts_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
@@ -2079,6 +2102,8 @@
             </record>
             <record id="loanout" in-findedit="yes" type="record,procedure">
                 <services-url>loansout</services-url>
+				<services-tenant-plural>Loansout</services-tenant-plural>
+				<services-tenant-singular>Loanout</services-tenant-singular>
                 <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
                 <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
@@ -2086,7 +2111,7 @@
 				<structures>
                     <structure id="screen">
                         <view>
-                            <titlebar show="true"></titlebar>
+                            <titlebar show="false"></titlebar>
                             <sidebar show="true">
                                 <repeat id="termsUsed" show="true"></repeat>
                                 <repeat id="relatedProcedures" show="true"></repeat>
@@ -2184,6 +2209,7 @@
                 <services-url>movements</services-url>
                 <web-url>movement</web-url>
                 <tab-url>movement-tab</tab-url>
+				<services-tenant-singular>Movement</services-tenant-singular>
                 <services-list-path>movements-common-list/movement-list-item</services-list-path>
                 <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
@@ -2276,6 +2302,8 @@
             <record id="objectexit" in-findedit="yes" type="record,procedure">
                 <!-- Added this tag because services path is currently singular for Object Exit. -->
                 <services-url>objectexit</services-url>
+				<services-tenant-plural>ObjectExit</services-tenant-plural>
+				<services-tenant-singular>ObjectExit</services-tenant-singular>
                 <services-list-path>objectexit_common_list/objectexit_list_item</services-list-path>
                 <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
@@ -2344,6 +2372,8 @@
 
             <record id="id"  type="id">
 
+				<services-tenant-plural>id</services-tenant-plural>
+				<services-tenant-singular>id</services-tenant-singular>
                 <authorization-view>false</authorization-view>
 
                 <field id="accession"><selector>9dd92952-c384-44dc-a736-95e435c1759c</selector></field>
@@ -2379,6 +2409,8 @@
                 <terms-used>false</terms-used>
                 <refobj-used>false</refobj-used>
                 <web-url>vocab</web-url>
+				<services-tenant-plural>Vocabularies</services-tenant-plural>
+				<services-tenant-singular>Vocabulary</services-tenant-singular>
                 <services-instances-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies-common-list/vocabulary-list-item</services-instances-path>
                 <services-single-instance-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/vocabulary,vocabularyitems-common-list/vocabularyitem_list_item</services-list-path>
