@@ -64,6 +64,7 @@ public class Record implements FieldParent {
 			in_tag, vocab_syntax, urn_syntax, authority_vocab_type,
 			services_instances_path, services_fields_path,
 			services_single_instance_path, authorization_includes;
+	private String tenant_sg, tenant_pl, schemalocation, servicesdochandler,serviceabstract,servicecommon,servicevalidator;
 	private Boolean authorization_view;
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
 	private Map<String, Field> services_filter_param = new HashMap<String, Field>();
@@ -170,6 +171,18 @@ public class Record implements FieldParent {
 		primaryfield = Util.getStringOrDefault(section, "/primaryfield", "");
 		has_delete_method = Util.getBooleanOrDefault(section,
 				"/hasdeletemethod", false);
+		
+
+		tenant_sg = Util.getStringOrDefault(section, "/services-tenant-singular", services_url);
+		tenant_pl = Util.getStringOrDefault(section, "/services-tenant-plural", tenant_sg+"s");
+
+		schemalocation = Util.getStringOrDefault(section, "/services-schemalocation", "http://services.collectionspace.org");
+		
+		servicesdochandler = Util.getStringOrDefault(section, "/services-dochandler","org.collectionspace.services."+ tenant_sg.toLowerCase() +".nuxeo."+ tenant_sg+"DocumentModelHandler");
+		serviceabstract = Util.getStringOrDefault(section, "/services-abstract","org.collectionspace.services."+tenant_sg.toLowerCase()+"."+ tenant_pl +"CommonList");
+		servicecommon =Util.getStringOrDefault(section, "/services-common", serviceabstract + "$"+tenant_sg+"ListItem");
+		servicevalidator = Util.getStringOrDefault(section, "/services-validator","org.collectionspace.services."+ tenant_sg.toLowerCase() +".nuxeo."+ tenant_sg+"ValidatorHandler");
+
 		spec = parent;
 	}
 
@@ -200,6 +213,12 @@ public class Record implements FieldParent {
 	public FieldSet[]  getAllMergedFields(){
 		FieldSet[] merged = mergedfields.values().toArray(new FieldSet[0]);
 		return merged;
+	}
+	public FieldSet[]  getAllGenFields(String perm){
+		if(allgenpermfields.containsKey(perm)){
+			return allgenpermfields.get(perm).values().toArray(new FieldSet[0]);
+		}
+		return new FieldSet[0];
 	}
 	
 	public Boolean getPerm(String fieldId, String perm){
@@ -388,6 +407,33 @@ public class Record implements FieldParent {
 		return services_url;
 	}
 
+	public String getServicesTenantSg() {
+		return tenant_sg;
+	}
+
+	public String getServicesTenantPl() {
+		return tenant_pl;
+	}
+	
+	public String getServicesAbstractCommonList(){
+		return serviceabstract;
+	}
+	public String getServicesValidatorHandler(){
+		return servicevalidator;
+		
+	}
+	public String getServicesCommonList(){
+		return servicecommon;
+	}
+
+	public String getServicesSchemaBaseLocation(){
+		return schemalocation;
+	}
+	
+	public String getServicesDocHandler(){
+		return servicesdochandler;
+	}
+	
 	public String getServicesListPath() {
 		return services_list_path;
 	}
@@ -510,20 +556,18 @@ public class Record implements FieldParent {
 				genpermfields.put("", new HashMap<String, FieldSet>());
 			}
 			genpermfields.get("").put(f.getID(), f);
-		} else {
+		} 
 
-			for (String perm : f.getAllFieldPerms()) {
-				if (!allgenpermfields.containsKey(perm)) {
-					allgenpermfields.put(perm, new HashMap<String, FieldSet>());
-				}
-				allgenpermfields.get(perm).put(f.getID(), f);
+		for (String perm : f.getAllFieldPerms()) {
+			if (!allgenpermfields.containsKey(perm)) {
+				allgenpermfields.put(perm, new HashMap<String, FieldSet>());
 			}
-			if (!allgenpermfields.containsKey("")) {
-				allgenpermfields.put("", new HashMap<String, FieldSet>());
-			}
-			allgenpermfields.get("").put(f.getID(), f);
+			allgenpermfields.get(perm).put(f.getID(), f);
 		}
-		
+		if (!allgenpermfields.containsKey("")) {
+			allgenpermfields.put("", new HashMap<String, FieldSet>());
+		}
+		allgenpermfields.get("").put(f.getID(), f);
 	}
 	public void addField(FieldSet f) {
 		addField(f,true);
