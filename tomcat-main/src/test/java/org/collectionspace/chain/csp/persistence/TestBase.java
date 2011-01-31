@@ -89,6 +89,7 @@ public class TestBase extends TestData {
 			cookie = out.getHeader("Set-Cookie");
 		} else {
 			HttpTester out = jettyDo(tester, "POST", "/chain/login/", test);
+			log.info(out.getContent());
 			assertEquals(303, out.getStatus());
 			cookie = out.getHeader("Set-Cookie");
 		}
@@ -100,6 +101,15 @@ public class TestBase extends TestData {
 	protected static ServletTester setupJetty() throws Exception {
 		return setupJetty("test-config-loader2.xml", null, false);
 	}
+
+	protected static ServletTester setupJetty(Boolean isUTF8, String configfile) throws Exception {
+		return setupJetty("test-config-loader2.xml", null, isUTF8, configfile);
+	}
+
+	protected static ServletTester setupJetty(JSONObject user, String configfile) throws Exception {
+		return setupJetty("test-config-loader2.xml", user, false, configfile);
+	}
+
 
 	protected static ServletTester setupJetty(String controller)
 			throws Exception {
@@ -132,6 +142,10 @@ public class TestBase extends TestData {
 	// controller: "test-config-loader2.xml"
 	protected static ServletTester setupJetty(String controller,
 			JSONObject user, Boolean isUTF8) throws Exception {
+		return setupJetty(controller,user,isUTF8,"default.xml");
+	}
+	protected static ServletTester setupJetty(String controller,
+			JSONObject user, Boolean isUTF8, String configfile) throws Exception {
 		String base = "";
 		if (controller != null) {
 			BootstrapConfigController config_controller = new BootstrapConfigController(
@@ -148,7 +162,7 @@ public class TestBase extends TestData {
 			tester.setAttribute("storage", "service");
 			tester.setAttribute("store-url", base + "/cspace-services/");
 		}
-		tester.setAttribute("config-filename", "default.xml");
+		tester.setAttribute("config-filename", configfile);
 		tester.start();
 		if (user != null) {
 			login(tester, user, isUTF8);
