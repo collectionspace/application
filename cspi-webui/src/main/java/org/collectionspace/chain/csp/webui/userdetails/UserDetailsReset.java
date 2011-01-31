@@ -120,6 +120,8 @@ public class UserDetailsReset implements WebMethod {
 			// Setting the Subject and Content Type
 			msg.setSubject(subject);
 			msg.setText(message);
+            msg.setContent(message, "text/plain");
+
 			Transport.send(msg);
 		} catch (AddressException e) {
 			throw new UIException("AddressException: "+e.getMessage());
