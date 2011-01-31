@@ -1,0 +1,25 @@
+<!-- This is a quick lookup file to match UI urls to config to service tenants (maynot need the service info in here) -->
+<collection-space>
+<tenants>
+	<tenant>
+		<ui-url>/cspace-ui/html/</ui-url>
+		<ui-name>Default</ui-name>
+		<service-id>1</service-id>
+		<configname>default.xml</configname>
+	</tenant>
+	<tenant>
+		<ui-url>/cspace-ui/tenant1/</ui-url>
+		<ui-name>Tenant the First</ui-name>
+		<service-id>3</service-id>
+		<configname>tenant1.xml</configname>
+	</tenant>
+	<tenant>
+		<ui-url>/cspace-ui/tenant2/</ui-url>
+		<ui-name>Tenant the Second</ui-name>
+		<service-id>2</service-id>
+		<configname>tenant2.xml</configname>
+	</tenant>
+	
+	
+</tenants>
+</collection-space>
