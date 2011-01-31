@@ -23,6 +23,8 @@ public class Services {
 	protected Namespace nsservices = new Namespace("service", "http://collectionspace.org/services/common/service"); 
 	protected Namespace nsxsi = new Namespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");  
 	protected Namespace nstypes = new Namespace("types", "http://collectionspace.org/services/common/types"); 
+	protected String schemaloc = "http://collectionspace.org/services/common/tenant " +
+	"http://collectionspace.org/services/common/tenant.xsd";
 
 	public Services() {
 	}
@@ -55,8 +57,7 @@ public class Services {
 		//String[] rootel = parts[1].split(",");
 
 		Element root = doc.addElement(new QName("TenantBindingConfig", this.nstenant));
-		root.addAttribute("xsi:schemaLocation", "http://collectionspace.org/services/common/tenant " +
-					"http://collectionspace.org/services/common/tenant.xsd");
+		root.addAttribute("xsi:schemaLocation", this.schemaloc);
 		root.add(this.nsservices);
 		root.add(this.nsxsi);
 		root.add(this.nstypes);
@@ -181,7 +182,7 @@ public class Services {
 		data += "\n\n";
 	}
 
-	private String doLists(Record r, Element el, Namespace thisns) {
+	private void doLists(Record r, Element el, Namespace thisns) {
 		String data = "\n\nGETLISTRS \n\n";
 		for (FieldSet fs : r.getAllMiniSummaryList()) {
 
@@ -222,7 +223,7 @@ public class Services {
 			}
 
 		}
-		return data;
+		log.info(data);
 	}
 
 	private void doAuths(Element auth, Namespace types, Record r) {

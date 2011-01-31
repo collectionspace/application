@@ -42,7 +42,8 @@ public class TestSchema {
 		cspm.register(new Spec());
 		try {
 			cspm.go();
-			cspm.configure(new InputSource(getSource("config.xml")),null);
+			InputSource configsource = new InputSource(getSource("config.xml"));
+			cspm.configure(configsource,null);
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );
