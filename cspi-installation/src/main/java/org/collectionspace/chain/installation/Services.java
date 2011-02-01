@@ -2,6 +2,7 @@ package org.collectionspace.chain.installation;
 
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
@@ -41,28 +42,28 @@ public class Services {
 		//as well as loop over all tenatn specific instances
 	}
 
-	public String doit() {
-		String data = "";
-		data += doServiceBindingsCommon();
-
-		return data;
+	public void doit() {
+		doServiceBindingsCommon();
 	}
 
 	/**
+	 * if this.defaultonly - true then return
 	 * service-bindings-common.xml - a shared prototype of core and common
 	 * services, common to all tenants. This file has the basic definitions of
 	 * the services, and the system, core, and common parts of each service. It
 	 * includes the most common definitions of the field types, to make it easy
 	 * to define a new tenant.
 	 * 
+	 * else
+	 * return domain specific file
+	 * 
 	 * @return
 	 */
-	private String doServiceBindingsCommon() {
+	private void doServiceBindingsCommon() {
 		
 		
 		Document doc = DocumentFactory.getInstance().createDocument();
-		//String[] parts = record.getServicesRecordPath(section).split(":", 2);
-		//String[] rootel = parts[1].split(",");
+
 
 		Element root = doc.addElement(new QName("TenantBindingConfig", this.nstenant));
 		root.addAttribute("xsi:schemaLocation", this.schemaloc);
@@ -72,48 +73,49 @@ public class Services {
 		
 
 
+		//<tenant:tenantBinding version="0.1">
 		Element ele = root.addElement(new QName("tenantBinding", nstenant));
 		ele.addAttribute("name", this.tenantSpec.getTenant());
 		ele.addAttribute("displayName", this.tenantSpec.getTenantDisplay());
 		ele.addAttribute("version", this.tenantSpec.getTenantVersion());
 
+		//<tenant:repositoryDomain name="default-domain" repositoryClient="nuxeo-java"/>
 		Element rele = ele.addElement(new QName("repositoryDomain", nstenant));
 		rele.addAttribute("name", this.tenantSpec.getRepoDomain());
 		rele.addAttribute("repositoryClient", this.tenantSpec.getRepoClient());
 		
-		
+		//add in <tenant:properties> if required
 		makeProperties(ele);
 		
-		String data = "doServiceBindingsCommon\n\n";
+		//loop over each record type and add <tenant:serviceBindings
 		for (Record r : this.spec.getAllRecords()) {
 			if (r.isType("record")) {
-				data += r.getID();
-				data += "::";
 
-				setDomain(r);
-				if (!this.domainsection.equals("")) {
+				setDomain(r);//if this domain does this record actually have domain specific info
+				if (!this.domainsection.equals("")) {//empty string means no domain specific data
 					String rtype="procedure";
 					if (!r.isType("procedure") && r.isType("record")) {
 						rtype = "object";
-					}
+					//<tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
 						Element cele = ele.addElement(new QName(
 								"serviceBindings", nstenant));
 						cele.addAttribute("name", r.getServicesTenantPl());
 						cele.addAttribute("type", rtype);
-						cele.addAttribute("version", "1.0");
+						cele.addAttribute("version", "0.1");
 
 						doProcedure(r, cele, nsservices);
-					
+
+					}
 
 				}
-				data += "\n\n";
 			}
 		}
 
 		log.info(doc.asXML());
-		return data;
+		return ;
 	}
 
+	//add in dateformats and languages if required
 	private void makeProperties(Element ele){
 		Boolean showLang = true;
 		Boolean showDate = true;
@@ -155,7 +157,6 @@ public class Services {
 				}
 			}
 		}
-		
 	}
 	
 	private void makePart(Record r, Element cele, String id, String label, String order,
@@ -183,6 +184,51 @@ public class Services {
 		}
 	}
 
+	//define fields that needs to have different datatypes in the nuxeo db
+	private void doInitHandler(Record r, Element el, Namespace thisns, String section){
+
+		Element dhele = el.addElement(new QName("initHandler", thisns));
+		Element cele = dhele.addElement(new QName("classname", thisns));
+		cele.addText("org.collectionspace.services.common.init.ModifyFieldDatatypes");
+		Element pele = dhele.addElement(new QName("params", thisns));
+		
+		//loop over all fields to find out is they have a defined datatype
+		for(FieldSet f: r.getAllGenFields("")){
+			if(f instanceof Field){
+				Field fd = (Field)f;
+				if(fd.getSection().equals(section)){
+
+					if(!fd.getDataType().equals("")){
+						FieldParent fp = fd.getParent();
+						String col = "item";
+
+						String tablebase = r.getServicesRecordPath(section).split(":",2)[0];
+						
+						String table = "nuxeo."+tablebase;
+						if(fp instanceof Repeat){
+							Repeat rp = (Repeat)fp;
+							table += "_"+rp.getServicesTag().toLowerCase();
+							if(rp.hasServicesParent()){
+								//affects table and col
+								table = rp.getServicesTag().toLowerCase();
+								col = fd.getServicesTag().toLowerCase();
+							}
+						}
+						Element a = pele.addElement(new QName("field", thisns));
+						Element b = a.addElement(new QName("table",thisns));
+						b.addText(table);
+						Element c = a.addElement(new QName("col",thisns));
+						c.addText(col);
+						Element d = a.addElement(new QName("type",thisns));
+						d.addText(fd.getDataType().toUpperCase());
+						Element e = a.addElement(new QName("param",thisns));
+						
+					}
+				}
+			}
+		}
+	}
+	
 	private void doDocHandler(Record r, Element el, Namespace thisns, String section){
 		//<service:DocHandlerParams>
 		Element dhele = el.addElement(new QName("DocHandlerParams", thisns));
@@ -202,15 +248,17 @@ public class Services {
 		
 		doLists(r,lrele,thisns,section);
 		
-		
-		
 	}
-	
-	private void setDomain(Record r){
-		this.domainsection = ""; //assumes only one domain
-		for(String section : r. getServicesRecordPaths()){
-			if(!section.equals("common") && !section.equals("collectionspace_core")){
-				this.domainsection = section; //assumes only one domain
+
+	//are we in common or a domain area?
+	private void setDomain(Record r) {
+		if (!this.defaultonly) {
+			this.domainsection = ""; // assumes only one domain
+			for (String section : r.getServicesRecordPaths()) {
+				if (!section.equals("common")
+						&& !section.equals("collectionspace_core")) {
+					this.domainsection = section; // assumes only one domain
+				}
 			}
 		}
 	}
@@ -226,6 +274,7 @@ public class Services {
 		
 	}
 	
+	//return domain or core specific information
 	private void doServiceObject(Record r, Element el, Namespace thisns){
 		//<service:object name="Intake" version="0.1">
 		Element cele = el.addElement(new QName("object", thisns));
@@ -261,32 +310,37 @@ public class Services {
 	}
 	
 	private void doProcedure(Record r, Element el, Namespace thisns) {
-
+		//<service:repositoryDomain>default-domain</service:repositoryDomain>
 		Element repository = el.addElement(new QName("repositoryDomain",thisns));
 		repository.addText(this.tenantSpec.getRepoDomain());
 		
 		if(this.defaultonly){
+			//<service:documentHandler>
 			String docHandler = r.getServicesDocHandler();
 			Element documentHandler = el.addElement(new QName("documentHandler",thisns));
 			documentHandler.addText(docHandler);
+			//<service:validatorHandler>
 			Element validatorHandler = el.addElement(new QName("validatorHandler",thisns));
 			validatorHandler.addText(r.getServicesValidatorHandler());
 		}
-		if(!this.domainsection.equals("")){//only do if domain exists
+		if(!this.domainsection.equals("")){//only do if domain exists or is common
+			//<service:object name="CollectionObject" version="0.1">
+			//defines all authref fields
 			doServiceObject(r, el, this.nsservices);
+
+			//<service:DocHandlerParams> include fields to show in list results
 			doDocHandler(r, el, this.nsservices, this.domainsection);
+			
+			//<service:initHandler> which fields need to be modified in the nuxeo db
+			doInitHandler(r, el, this.nsservices, this.domainsection);
 		}
 
-		
-		String data = "";
-
-		//data += getAuthRefs(r);
-		//data += getLists(r);
-		data += "\n\n";
 	}
 
+	
+	//defines fields to show in list results
 	private void doLists(Record r, Element el, Namespace thisns, String section) {
-		String data = "\n\nGETLISTRS \n\n";
+
 		for (FieldSet fs : r.getAllMiniSummaryList()) {
 
 			if (fs.isInServices() && fs.getSection().equals(section)) {
@@ -325,12 +379,8 @@ public class Services {
 
 				elrf.addText(fs.getServicesTag());
 				xlrf.addText(name);
-				
-				data += "\n";
 			}
-
 		}
-		log.info(data);
 	}
 
 	private void doAuths(Element auth, Namespace types, Record r, String section) {

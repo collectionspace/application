@@ -129,7 +129,7 @@
                 </field>
                 <repeat id="titleGroupList/titleGroup">
                     <!-- selector>.csc-collection-object-titleGroup</selector -->
-                    <field id="title" in-title="yes" mini="search">
+                    <field id="title" in-title="yes" mini="search" datatype="largetext">
                         <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
                         <selector>.csc-object-identification-object-title</selector>
                     </field>
@@ -140,7 +140,7 @@
                         </enum>
                         <selector>.csc-object-identification-object-title-language</selector>
                     </field>
-                    <field id="titleTranslation">
+                    <field id="titleTranslation" datatype="largetext">
                         <selector>.csc-object-identification-object-title-translation</selector>
                     </field>
                     <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
@@ -190,7 +190,7 @@
                 </repeat>
                 <repeat id="briefDescriptions" has-primary="yes">
                     <selector>.csc-object-identification-brief-description</selector>
-                    <field id="briefDescription">
+                    <field id="briefDescription" datatype="largetext">
                         <selector>.csc-object-identification-brief-description</selector>
                     </field>
                 </repeat>
@@ -236,7 +236,7 @@
                         </enum>
                         <selector>.csc-object-identification-object-language</selector>
                     </field>
-                    <field id="objectNameNote">
+                    <field id="objectNameNote" datatype="largetext">
                         <selector>.csc-object-identification-object-note</selector>
                     </field>
                     <field id="objectName" mini="search">
@@ -250,7 +250,7 @@
                     <selector>.csc-object-identification-number-objects</selector>
                 </field>
                 <repeat id="comments">
-                    <field id="comment">
+                    <field id="comment" datatype="largetext">
                         <selector>.csc-object-identification-comments</selector>
                     </field>
                 </repeat>
@@ -305,7 +305,7 @@
                 <field id="age">
                     <selector>.csc-object-description-age</selector>
                 </field>
-                <field id="ageQualifier">
+                <field id="ageQualifier" datatype="largetext">
                     <selector>.csc-object-description-age-qualifier</selector>
                 </field>
                 <field id="ageUnit" seperate_ui_container="true">
@@ -319,7 +319,7 @@
                     </options>
                 </field>
                 <repeat id="colors">
-                    <field id="color">
+                    <field id="color" datatype="largetext">
                         <selector>.csc-object-description-color</selector>
                     </field>
                 </repeat>
@@ -448,7 +448,7 @@
                     </field>
                 </repeat>
 
-                <field id="contentDescription">
+                <field id="contentDescription" datatype="largetext">
                     <selector>.csc-object-description-content-description</selector>
                 </field>
                 <repeat id="contentLanguages">
@@ -725,7 +725,7 @@
                     <field id="objectProductionPlaceRole"></field>
                 </repeat>
                 <repeat id="objectProductionReasons">
-                    <field id="objectProductionReason">
+                    <field id="objectProductionReason" datatype="largetext">
                         <selector>.csc-object-production-reason</selector>
                     </field>
                 </repeat>
@@ -877,7 +877,7 @@
                     <selector>.csc-object-owner-response</selector>
                 </field>
                 <repeat id="ownersReferences">
-                    <field id="ownersReference">
+                    <field id="ownersReference" datatype="largetext">
                         <selector>.csc-object-owner-reference</selector>
                     </field>
                 </repeat>
@@ -894,7 +894,7 @@
                     <selector>.csc-object-viewer-response</selector>
                 </field>
                 <repeat id="viewersReferences">
-                    <field id="viewersReference">
+                    <field id="viewersReference" datatype="largetext">
                         <selector>.csc-object-viewer-reference</selector>
                     </field>
                 </repeat>

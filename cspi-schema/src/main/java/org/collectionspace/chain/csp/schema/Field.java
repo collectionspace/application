@@ -33,7 +33,7 @@ public class Field implements FieldSet {
 	/* UI */
 	private String parentID, selector_affix, enum_blank, selector, type,
 			autocomplete_selector, container_selector, title_selector,
-			linktext_target, linktext, userecord;
+			linktext_target, linktext, userecord, datatype;
 	private Boolean is_expander = false, enum_hasblank = true,
 			exists_in_service = true, in_title = false, display_name = false,
 			has_container = true, xxx_ui_refactored = false;
@@ -126,6 +126,7 @@ public class Field implements FieldSet {
 		if (services_filter_param != null)
 			record.getRecord().setServicesFilterParam(services_filter_param,
 					this);
+		datatype = Util.getStringOrDefault(section, "/@datatype", "");
 		perm_defaults = Util.getSetOrDefault(section, "/@attributes", new String[] {"GET","PUT","POST","DELETE"});
 	}
 
@@ -188,6 +189,11 @@ public class Field implements FieldSet {
 
 	public String getServicesTag() {
 		return services_tag;
+	}
+	
+	//XXX could be used for validation at the app layer
+	public String getDataType(){
+		return datatype;
 	}
 
 	void setType(String in) {

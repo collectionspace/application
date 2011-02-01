@@ -63,9 +63,8 @@ public class TestServices {
 
 		String filename = "tenant1.xml";
 		CSPManager cspm=getServiceManager(filename);
-		Services bob = new Services(getSpec(filename,cspm), getTenantData(filename,cspm),false);
+		Services bob = new Services(getSpec(filename,cspm), getTenantData(filename,cspm),true);
 	
-		String tester = bob.doit();
-		log.info(tester);
+		bob.doit();
 	}
 }
