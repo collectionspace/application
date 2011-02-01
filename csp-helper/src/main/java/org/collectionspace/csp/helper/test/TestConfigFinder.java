@@ -27,10 +27,21 @@ public class TestConfigFinder {
 
 	private static final Logger log=LoggerFactory.getLogger(TestConfigFinder.class);
 	
-	public static final String configFilename = "default.xml";
+	public static  String configFilename = "default.xml";
 	
 	// This method only works for Eclipse and not mvn test :( - see below
 	private static final String classNearDefaultXml = "org.collectionspace.chain.controller.ChainServlet"; 
+
+	public static InputStream getConfigStream(String filename) throws CSPDependencyException {
+		configFilename =filename;
+		InputStream out=getConfigStreamViaEnvironmentVariable();
+		if(out!=null)
+			return out;		
+		out=getConfigStreamViaClassLoader();
+		if(out!=null)
+			return out;
+		throw new CSPDependencyException("No config file found by any method");
+	}
 
 	public static InputStream getConfigStream() throws CSPDependencyException {
 		InputStream out=getConfigStreamViaEnvironmentVariable();

@@ -17,6 +17,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.ServicesCon
 import org.collectionspace.chain.csp.persistence.services.relation.ServicesRelationStorage;
 import org.collectionspace.chain.csp.persistence.services.user.UserStorage;
 import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
+import org.collectionspace.chain.csp.schema.AdminData;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSP;
@@ -37,6 +38,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	public static String SERVICE_ROOT=SECTION_PREFIX+"service";
 	private String base_url;
 	private CSPContext ctx;
+	private TenantSpec tenantData;
 	
 	public Storage getStorage(CSPRequestCredentials credentials,CSPRequestCache cache) {
 		return new ServicesStorage(this,credentials,cache);
@@ -44,6 +46,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 
 	public String getName() { return "persistence.services"; }
 	public String getBase() { return base_url; }
+	public TenantSpec getTenantData() { return tenantData; }
 
 	private void real_init(Spec spec) throws CSPDependencyException {
 		try {
@@ -79,7 +82,24 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				((CoreConfig)parent).setRoot(SERVICE_ROOT,ServicesStorageGenerator.this);
 				base_url=(String)milestone.getValue("/url");
+
+				tenantData = new TenantSpec(milestone);
 				return ServicesStorageGenerator.this;
+			}
+		});
+
+		rules.addRule(SECTION_PREFIX+"service", new String[]{"repository","dateformats","pattern"},SECTION_PREFIX+"dateformat", null, new Target(){
+			public Object populate(Object parent, ReadOnlySection milestone) {
+				String format = (String)milestone.getValue("");
+				tenantData.addFormat(format);
+				return this;
+			}
+		});
+		rules.addRule(SECTION_PREFIX+"service", new String[]{"languages","language"},SECTION_PREFIX+"language", null, new Target(){
+			public Object populate(Object parent, ReadOnlySection milestone) {
+				String lang = (String)milestone.getValue("");
+				tenantData.addLanguage(lang);
+				return this;
 			}
 		});
 	}
