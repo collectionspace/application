@@ -57,10 +57,10 @@ public class ServicesBaseClass {
 		config_controller.go();
 		Spec spec = null;
 		try {
-			base=getBaseUrl(TestConfigFinder.configFilename);
-			spec = getDefaultSpec(TestConfigFinder.configFilename);
+			base=getBaseUrl();
+			spec = getDefaultSpec();
 		} catch (CSPDependencyException e) {
-			assertNotNull("Base service url invalid in config file: "+TestConfigFinder.configFilename,base);
+			assertNotNull("Base service url invalid in config file",base);
 		} // XXX still yuck but centralised now
 		log.info("ServicesBaseClass setting up connection using base URL:"+base);
 
@@ -98,40 +98,40 @@ public class ServicesBaseClass {
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 	}
 	
-	protected InputStream getRootSource(String fallbackFile) {
+	protected InputStream getRootSource() throws CSPDependencyException {
 		try {
 			return TestConfigFinder.getConfigStream();
 		} catch (CSPDependencyException e) {
-			log.debug("Falling back to trying to find old config file");
-			return Thread.currentThread().getContextClassLoader().getResourceAsStream(fallbackFile);
+			log.error("Failed to find config file");
+			throw new CSPDependencyException("failed to find config file");
 		}
 	}
-	private CSPManager getServiceManager(String filename) throws CSPDependencyException{
+	private CSPManager getServiceManager() throws CSPDependencyException{
 		CSPManager cspm=new CSPManagerImpl();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
-		cspm.configure(new InputSource(getRootSource(filename)),null);
+		cspm.configure(new InputSource(getRootSource()),null);
 		return cspm;
 		
 	}
-	private String getBaseUrl(String filename) throws CSPDependencyException{
-		CSPManager cspm=getServiceManager(filename);
+	private String getBaseUrl() throws CSPDependencyException{
+		CSPManager cspm=getServiceManager();
 		ServicesStorageGenerator gen=(ServicesStorageGenerator)cspm.getStorage("service");
 		String baseurl = gen.getBase();
 		return baseurl;
 	}
 	
-	private Spec getDefaultSpec(String filename) throws CSPDependencyException {
-		CSPManager cspm=getServiceManager(filename);
+	private Spec getDefaultSpec() throws CSPDependencyException {
+		CSPManager cspm=getServiceManager();
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		return spec;
 	}
 	
-	protected Storage makeServicesStorage(String path) throws CSPDependencyException {
-		CSPManager cspm=getServiceManager("default.xml");
+	protected Storage makeServicesStorage() throws CSPDependencyException {
+		CSPManager cspm=getServiceManager();
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);

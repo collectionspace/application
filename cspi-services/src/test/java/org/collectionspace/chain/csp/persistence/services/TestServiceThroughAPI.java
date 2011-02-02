@@ -60,7 +60,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	}
 	
 	private void getPostDelete(String objtype,JSONObject jsoncreate,JSONObject jsonupdate,String testfield) throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		Storage ss=makeServicesStorage();
 		//create
 		String path=ss.autocreateJSON(objtype,jsoncreate);
 		//GET and test
@@ -106,7 +106,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	}
 	
 	@Test public void testGetId() throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		Storage ss=makeServicesStorage();
 		JSONObject jo=ss.retrieveJSON("id/intake", new JSONObject());
 		assertTrue(jo.getString("next").startsWith("IN" + getCurrentYear() + "."));
 		jo=ss.retrieveJSON("id/accession", new JSONObject());
@@ -121,7 +121,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	
 	// XXX use autocreate not create when create dies
 	@Test public void testObjectsList() throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		Storage ss=makeServicesStorage();
 		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
 		String p2=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
 		String p3=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
@@ -180,7 +180,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	}
 	
 	@Test public void testSearch() throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		Storage ss=makeServicesStorage();
 		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
 		String p2=ss.autocreateJSON("collection-object/",getJSON("obj-search.json"));
 		JSONObject restriction=new JSONObject();
@@ -201,7 +201,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	}
 	
 	@Test public void testMini() throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		Storage ss=makeServicesStorage();
 		String p1=ss.autocreateJSON("intake/",getJSON("int4.json"));
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/view", new JSONObject());
 		assertEquals("currentOwnerX",mini.getString("summary"));
@@ -224,7 +224,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	}
 	@Test public void testAuthorityRefs() throws Exception {
 		// Create a record with references
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		Storage ss=makeServicesStorage();
 		JSONObject person=makePerson(null);
 		String p=ss.autocreateJSON("person/person",person);
 		JSONObject po=ss.retrieveJSON("person/person/"+p, new JSONObject());

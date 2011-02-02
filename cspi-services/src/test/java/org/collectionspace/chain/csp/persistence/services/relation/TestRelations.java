@@ -96,7 +96,7 @@ public class TestRelations extends ServicesBaseClass {
 	}
 	
 	@Test public void testRelationsThroughAPI() throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		Storage ss=makeServicesStorage();
 		//create 3 objects
 		String obj1=makeRecord(ss,"A");
 		String obj2=makeRecord(ss,"B");

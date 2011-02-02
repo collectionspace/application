@@ -61,7 +61,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 		//cspace-services/authorization/roles/{csid}/permroles/xxx
 
 		Storage ss;
-		ss = makeServicesStorage(base+"/cspace-services/");
+		ss = makeServicesStorage();
 		JSONObject data = ss.getPathsJSON("accounts/"+userId+"/accountrole",null);
 		String[] roleperms=(String[]) data.get("listItems");
 		log.info(data.toString());
@@ -121,7 +121,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 		//cspace-services/authorization/roles/{csid}/permroles/xxx
 
 		Storage ss;
-		ss = makeServicesStorage(base+"/cspace-services/");
+		ss = makeServicesStorage();
 		JSONObject data = ss.getPathsJSON("roles/"+role+"/permrole",null);
 		String[] roleperms=(String[]) data.get("listItems");
 		log.info(data.toString());
@@ -190,7 +190,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 			String roleName = u1.getString("roleName");
 			JSONObject test = new JSONObject();
 			test.put("keywords", roleName);
-			ss = makeServicesStorage(base+"/cspace-services/");
+			ss = makeServicesStorage();
 			/* delete role if already exists */
 			JSONObject data = ss.getPathsJSON("role/",test);
 			String[] paths= (String[])data.get("listItems");
@@ -237,7 +237,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 			String userId = u1.getString("userId");
 			JSONObject test = new JSONObject();
 			test.put("userId", userId);
-			ss = makeServicesStorage(base+"/cspace-services/");
+			ss = makeServicesStorage();
 			/* delete user if already exists */
 			JSONObject data = ss.getPathsJSON("users/",test);
 			String[] paths= (String[])data.get("listItems");

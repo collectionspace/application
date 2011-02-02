@@ -78,7 +78,7 @@ public class TestService extends ServicesBaseClass {
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
 		// argh - test break when config changes *sob*
-		cspm.configure(new InputSource(getRootSource("config.xml")), null);
+		cspm.configure(new InputSource(getRootSource()), null);
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
@@ -119,7 +119,7 @@ public class TestService extends ServicesBaseClass {
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
 		// argh - test break when config changes *sob*
-		cspm.configure(new InputSource(getRootSource("config.xml")), null);
+		cspm.configure(new InputSource(getRootSource()), null);
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 

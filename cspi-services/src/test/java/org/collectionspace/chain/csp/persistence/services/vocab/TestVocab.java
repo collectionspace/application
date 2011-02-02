@@ -33,7 +33,7 @@ public class TestVocab extends ServicesBaseClass {
 	
 	@Test public void testAuthorities() throws Exception {
 		log.info("testAuthorities_start");
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		Storage ss=makeServicesStorage();
 		log.info("testAuthorities:person");
 		testAllAuthorities(ss,"/person/person","displayName");
 		log.info("testAuthorities:vocab");

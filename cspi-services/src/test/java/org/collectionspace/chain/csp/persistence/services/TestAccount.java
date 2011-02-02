@@ -37,7 +37,7 @@ public class TestAccount extends ServicesBaseClass {
 		
 		Storage ss;
 		try {
-			ss = makeServicesStorage(base+"/cspace-services/");
+			ss = makeServicesStorage();
 			/* 
 			 *  arggg how do I get it to do an exact match */
 			JSONObject data = ss.getPathsJSON("users/",new JSONObject("{\"email\":\"bob@indigo-e.co.uk\"}"));
@@ -69,7 +69,7 @@ public class TestAccount extends ServicesBaseClass {
 	}
 	
 	@Test public void testAccountCreate() throws Exception {
-		Storage ss=makeServicesStorage(base+"/cspace-services/");
+		Storage ss=makeServicesStorage();
 		/* delete user so we can create it later - will return 404 if user doesn't exist */
 		JSONObject data = ss.getPathsJSON("users/",new JSONObject("{\"userId\":\"test3@collectionspace.org\"}"));
 		String[] paths= (String[])data.get("listItems");

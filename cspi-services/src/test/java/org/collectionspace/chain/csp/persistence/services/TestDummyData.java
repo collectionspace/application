@@ -39,7 +39,7 @@ public class TestDummyData extends ServicesBaseClass  {
 	@Test public void testDataCreation() {
 		Storage ss;
 		try {
-			ss = makeServicesStorage(base+"/cspace-services/");
+			ss = makeServicesStorage();
 
 			//create objects/procedures/
 			
