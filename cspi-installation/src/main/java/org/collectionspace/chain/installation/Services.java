@@ -23,6 +23,9 @@ public class Services {
 	protected Boolean defaultonly;
 	protected String domainsection;
 
+	/**
+	 * not sure how configurable these need to be - they can be made more flexible
+	 */
 	protected Namespace nstenant = new Namespace("tenant", "http://collectionspace.org/services/common/tenant"); 
 	protected Namespace nsservices = new Namespace("service", "http://collectionspace.org/services/common/service"); 
 	protected Namespace nsxsi = new Namespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");  
@@ -38,8 +41,6 @@ public class Services {
 		this.tenantSpec = td;
 		this.defaultonly = isdefault;
 		this.domainsection = "common";
-		//XXX need to pull in from default rather from tenant specific eek
-		//as well as loop over all tenatn specific instances
 	}
 
 	public void doit() {
@@ -87,15 +88,17 @@ public class Services {
 		//add in <tenant:properties> if required
 		makeProperties(ele);
 		
+		Boolean debug = false;
 		//loop over each record type and add <tenant:serviceBindings
 		for (Record r : this.spec.getAllRecords()) {
-			if (r.isType("record")) {
+			if (r.isType("record") && debug) {
 
 				setDomain(r);//if this domain does this record actually have domain specific info
 				if (!this.domainsection.equals("")) {//empty string means no domain specific data
 					String rtype="procedure";
 					if (!r.isType("procedure") && r.isType("record")) {
 						rtype = "object";
+					}
 					//<tenant:serviceBindings name="CollectionObjects" type="object" version="0.1">
 						Element cele = ele.addElement(new QName(
 								"serviceBindings", nstenant));
@@ -103,19 +106,38 @@ public class Services {
 						cele.addAttribute("type", rtype);
 						cele.addAttribute("version", "0.1");
 
-						doProcedure(r, cele, nsservices);
-
-					}
-
+						addServiceBinding(r, cele, nsservices, false);
 				}
+			}
+			if(r.isType("authority")){
+
+				addVocabularies(r, ele);
+			}
+			if(r.isType("userdata")){
+
+				Element cele = ele.addElement(new QName(
+						"serviceBindings", nstenant));
+				cele.addAttribute("name", r.getServicesTenantPl());
+				cele.addAttribute("version", "0.1");
+
+				addServiceBinding(r, cele, nsservices, false);
+			}
+			if(r.isType("authorizationdata")){
+				addAuthorization(r,ele);
 			}
 		}
 
+		//addExtras();
+		
+		
 		log.info(doc.asXML());
 		return ;
 	}
 
-	//add in dateformats and languages if required
+	/**
+	 * add in dateformats and languages if required
+	 * @param ele
+	 */
 	private void makeProperties(Element ele){
 		Boolean showLang = true;
 		Boolean showDate = true;
@@ -159,6 +181,19 @@ public class Services {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param r
+	 * @param cele
+	 * @param id
+	 * @param label
+	 * @param order
+	 * @param namespaceURI
+	 * @param schemaLocation
+	 * @param thisns
+	 * @param addAuths
+	 * @param section
+	 */
 	private void makePart(Record r, Element cele, String id, String label, String order,
 			String namespaceURI, String schemaLocation, Namespace thisns, Boolean addAuths, String section) {
 		Element pele = cele.addElement(new QName("part", thisns));
@@ -184,52 +219,70 @@ public class Services {
 		}
 	}
 
-	//define fields that needs to have different datatypes in the nuxeo db
-	private void doInitHandler(Record r, Element el, Namespace thisns, String section){
+	/**
+	 * define fields that needs to have different datatypes in the nuxeo db
+	 * @param r
+	 * @param el
+	 * @param thisns
+	 * @param section
+	 * @param isAuthority
+	 */
+	private void doInitHandler(Record r, Element el, Namespace thisns, String section, Boolean isAuthority){
 
-		Element dhele = el.addElement(new QName("initHandler", thisns));
-		Element cele = dhele.addElement(new QName("classname", thisns));
-		cele.addText("org.collectionspace.services.common.init.ModifyFieldDatatypes");
-		Element pele = dhele.addElement(new QName("params", thisns));
-		
-		//loop over all fields to find out is they have a defined datatype
-		for(FieldSet f: r.getAllGenFields("")){
-			if(f instanceof Field){
-				Field fd = (Field)f;
-				if(fd.getSection().equals(section)){
+		if(!isAuthority){
 
-					if(!fd.getDataType().equals("")){
-						FieldParent fp = fd.getParent();
-						String col = "item";
+			Element dhele = el.addElement(new QName("initHandler", thisns));
+			Element cele = dhele.addElement(new QName("classname", thisns));
+			cele.addText("org.collectionspace.services.common.init.ModifyFieldDatatypes");
+			Element pele = dhele.addElement(new QName("params", thisns));
+			
+			//loop over all fields to find out is they have a defined datatype
+			for(FieldSet f: r.getAllGenFields("")){
+				if(f instanceof Field){
+					Field fd = (Field)f;
+					if(fd.getSection().equals(section)){
 
-						String tablebase = r.getServicesRecordPath(section).split(":",2)[0];
-						
-						String table = "nuxeo."+tablebase;
-						if(fp instanceof Repeat){
-							Repeat rp = (Repeat)fp;
-							table += "_"+rp.getServicesTag().toLowerCase();
-							if(rp.hasServicesParent()){
-								//affects table and col
-								table = rp.getServicesTag().toLowerCase();
-								col = fd.getServicesTag().toLowerCase();
+						if(!fd.getDataType().equals("")){
+							FieldParent fp = fd.getParent();
+							String col = "item";
+
+							String tablebase = r.getServicesRecordPath(section).split(":",2)[0];
+							
+							if(fp instanceof Repeat){
+								Repeat rp = (Repeat)fp;
+								tablebase += "_"+rp.getServicesTag().toLowerCase();
+								if(rp.hasServicesParent()){
+									//affects table and col
+									tablebase = rp.getServicesTag().toLowerCase();
+									col = fd.getServicesTag().toLowerCase();
+								}
 							}
+							String table = "nuxeo."+tablebase;
+							Element a = pele.addElement(new QName("field", thisns));
+							Element b = a.addElement(new QName("table",thisns));
+							b.addText(table);
+							Element c = a.addElement(new QName("col",thisns));
+							c.addText(col);
+							Element d = a.addElement(new QName("type",thisns));
+							d.addText(fd.getDataType().toUpperCase());
+							Element e = a.addElement(new QName("param",thisns));
+							
 						}
-						Element a = pele.addElement(new QName("field", thisns));
-						Element b = a.addElement(new QName("table",thisns));
-						b.addText(table);
-						Element c = a.addElement(new QName("col",thisns));
-						c.addText(col);
-						Element d = a.addElement(new QName("type",thisns));
-						d.addText(fd.getDataType().toUpperCase());
-						Element e = a.addElement(new QName("param",thisns));
-						
 					}
 				}
 			}
 		}
 	}
 	
-	private void doDocHandler(Record r, Element el, Namespace thisns, String section){
+	/**
+	 * <service:DocHandlerParams>
+	 * @param r
+	 * @param el
+	 * @param thisns
+	 * @param section
+	 * @param isAuthority
+	 */
+	private void doDocHandler(Record r, Element el, Namespace thisns, String section, Boolean isAuthority){
 		//<service:DocHandlerParams>
 		Element dhele = el.addElement(new QName("DocHandlerParams", thisns));
 		Element pele = dhele.addElement(new QName("params", thisns));
@@ -246,11 +299,15 @@ public class Services {
 		
 		Element lrele = pele.addElement(new QName("ListResultsFields", thisns));
 		
-		doLists(r,lrele,thisns,section);
-		
+		if(!isAuthority){// only do if not authority view
+			doLists(r,lrele,thisns,section);
+		}
 	}
 
-	//are we in common or a domain area?
+	/**
+	 * are we in common or a domain area?
+	 * @param r
+	 */
 	private void setDomain(Record r) {
 		if (!this.defaultonly) {
 			this.domainsection = ""; // assumes only one domain
@@ -263,7 +320,11 @@ public class Services {
 		}
 	}
 	
-	private void makeLowerParts(Record r, Namespace thisns, Element cele, String label, String labelsg){
+	
+	/**
+	 * domain specific tenant binding
+	 */
+	private void makeLowerParts(Record r, Namespace thisns, Element cele, String label, String labelsg, Boolean isAuthority){
 		Integer num = 3;
 		String sectional = r.getServicesRecordPath(this.domainsection);
 		String[] sectionparts=sectional.split(":",2);
@@ -274,42 +335,119 @@ public class Services {
 		
 	}
 	
-	//return domain or core specific information
-	private void doServiceObject(Record r, Element el, Namespace thisns){
+	/**
+	 * return domain or core specific information
+	 * @param r
+	 * @param el
+	 * @param thisns
+	 * @param isAuthority
+	 */
+	private void doServiceObject(Record r, Element el, Namespace thisns, Boolean isAuthority){
 		//<service:object name="Intake" version="0.1">
 		Element cele = el.addElement(new QName("object", thisns));
-		cele.addAttribute("name", r.getServicesTenantSg());
+
+		if(isAuthority){
+			cele.addAttribute("name", r.getServicesTenantAuthSg());
+		}
+		else{
+			cele.addAttribute("name", r.getServicesTenantSg());
+		}
 		cele.addAttribute("version", "1.0");
 
 		String label = r.getServicesTenantPl().toLowerCase();
 		String labelsg = r.getServicesTenantSg().toLowerCase();
 
+		if(isAuthority){
+			label = r.getServicesTenantAuthPl().toLowerCase();
+			labelsg = r.getServicesTenantAuthSg().toLowerCase();
+		}
+
 		if(this.defaultonly){
-			makeUpperParts(r, thisns, cele, label, labelsg);
+			makeUpperParts(r, thisns, cele, label, labelsg, isAuthority);
 		}
 		else{
-			makeLowerParts(r, thisns, cele, label, labelsg);
+			makeLowerParts(r, thisns, cele, label, labelsg, isAuthority);
 		}
 	}
 
+	/**
+	 * core specific tenantbinding
+	 * @param r
+	 * @param thisns
+	 * @param cele
+	 * @param label
+	 * @param labelsg
+	 * @param isAuthority
+	 */
 	private void makeUpperParts(Record r, Namespace thisns, Element cele,
-			String label, String labelsg) {
+			String label, String labelsg, Boolean isAuthority) {
 		
-		String common = r.getServicesRecordPath("common");
-		String core = r.getServicesRecordPath("collectionspace_core");
-		String[] commonparts=common.split(":",2);
-		String[] coreparts=core.split(":",2);
+		//<service:part id="0" control_group="Managed" versionable="true" auditable="false" label="intakes-system" updated="" order="0">
 		
 		String schemaLocation0 = "http://collectionspace.org/services/common/system http://collectionspace.org/services/common/system/system-response.xsd";
-		String schemaLocationCore = coreparts[1].split(",",2)[0] + " " + r.getServicesSchemaBaseLocation() + "/collectionspace_core.xsd";
-		String schemaLocationCommon = commonparts[1].split(",",2)[0] + " "+ r.getServicesSchemaBaseLocation() + labelsg + "/" + label + "_common.xsd";
-//<service:part id="0" control_group="Managed" versionable="true" auditable="false" label="intakes-system" updated="" order="0">
-		makePart(r,cele,"0",label,"0","http://collectionspace.org/services/common/system",schemaLocation0,thisns,false,"");
-		makePart(r,cele,"1",coreparts[0],"1",coreparts[1].split(",",2)[0],schemaLocationCore,thisns,false,"");
-		makePart(r,cele,"2",commonparts[0],"2",commonparts[1].split(",",2)[0],schemaLocationCommon,thisns,true,"common");
+		makePart(r,cele,"0",label+"-system","0","http://collectionspace.org/services/common/system",schemaLocation0,thisns,false,"");
+
+		Integer num = 1;
+		if(r.hasServicesRecordPath("collectionspace_core")){
+			String core = r.getServicesRecordPath("collectionspace_core");
+			String[] coreparts=core.split(":",2);
+			String schemaLocationCore = coreparts[1].split(",",2)[0] + " " + r.getServicesSchemaBaseLocation() + "/collectionspace_core.xsd";
+			makePart(r,cele,num.toString(),coreparts[0],num.toString(),coreparts[1].split(",",2)[0],schemaLocationCore,thisns,false,"");
+			num++;
+		}
+	
+		if(r.hasServicesRecordPath("common")){
+			String common = r.getServicesRecordPath("common");
+			String[] commonparts=common.split(":",2);
+			String schemaLocationCommon = commonparts[1].split(",",2)[0] + " "+ r.getServicesSchemaBaseLocation() + labelsg + "/" + label + "_common.xsd";
+			
+			if(r.isType("authorizationdata")){
+				schemaLocationCommon = commonparts[1].split(",",2)[0] + " "+ r.getServicesSchemaBaseLocation()  + "/" + label + ".xsd";
+				
+			}
+			makePart(r,cele,num.toString(),commonparts[0],num.toString(),commonparts[1].split(",",2)[0],schemaLocationCommon,thisns,true,"common");
+			num++;
+		}	
 	}
 	
-	private void doProcedure(Record r, Element el, Namespace thisns) {
+	/**
+	 * vocabs have 2 parts in the tenant binding
+	 * @param r
+	 * @param el
+	 */
+	private void addVocabularies(Record r, Element el){
+		//add standard procedure like bit
+		Element cele = el.addElement(new QName(
+				"serviceBindings", nstenant));
+		cele.addAttribute("name", r.getServicesTenantPl());
+		cele.addAttribute("version", "0.1");
+		addServiceBinding(r, cele, nsservices, false);
+		
+		//add vocabulary bit
+		Element cele2 = el.addElement(new QName(
+				"serviceBindings", nstenant));
+		cele2.addAttribute("name", r.getServicesTenantAuthPl());
+		cele2.addAttribute("version", "0.1");
+		addServiceBinding(r, cele2, nsservices, true);
+		
+	}
+	
+	/**
+	 * Add Authorities into the mix
+	 * seems to be pretty standard...
+	 * @param r
+	 * @param el
+	 */
+	private void addAuthorization(Record r, Element el){
+		//add standard procedure like bit
+		Element cele = el.addElement(new QName(
+				"serviceBindings", nstenant));
+		cele.addAttribute("name", r.getServicesTenantPl());
+		cele.addAttribute("version", "0.1");
+		addServiceBinding(r, cele, nsservices, false);
+	}
+	
+	private void addServiceBinding(Record r, Element el, Namespace thisns, Boolean isAuthority) {
 		//<service:repositoryDomain>default-domain</service:repositoryDomain>
 		Element repository = el.addElement(new QName("repositoryDomain",thisns));
 		repository.addText(this.tenantSpec.getRepoDomain());
@@ -326,16 +464,17 @@ public class Services {
 		if(!this.domainsection.equals("")){//only do if domain exists or is common
 			//<service:object name="CollectionObject" version="0.1">
 			//defines all authref fields
-			doServiceObject(r, el, this.nsservices);
+			doServiceObject(r, el, this.nsservices, isAuthority);
 
 			//<service:DocHandlerParams> include fields to show in list results
-			doDocHandler(r, el, this.nsservices, this.domainsection);
+			doDocHandler(r, el, this.nsservices, this.domainsection, isAuthority);
 			
 			//<service:initHandler> which fields need to be modified in the nuxeo db
-			doInitHandler(r, el, this.nsservices, this.domainsection);
+			doInitHandler(r, el, this.nsservices, this.domainsection, isAuthority);
 		}
 
 	}
+	
 
 	
 	//defines fields to show in list results

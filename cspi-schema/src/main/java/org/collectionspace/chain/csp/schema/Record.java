@@ -64,7 +64,7 @@ public class Record implements FieldParent {
 			in_tag, vocab_syntax, urn_syntax, authority_vocab_type,
 			services_instances_path, services_fields_path,
 			services_single_instance_path, authorization_includes;
-	private String tenant_sg, tenant_pl, schemalocation, servicesdochandler,serviceabstract,servicecommon,servicevalidator;
+	private String tenant_sg, tenant_pl, tenant_auth_sg, tenant_auth_pl, schemalocation, servicesdochandler,serviceabstract,servicecommon,servicevalidator;
 	private Boolean authorization_view;
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
 	private Map<String, Field> services_filter_param = new HashMap<String, Field>();
@@ -175,6 +175,8 @@ public class Record implements FieldParent {
 
 		tenant_sg = Util.getStringOrDefault(section, "/services-tenant-singular", services_url);
 		tenant_pl = Util.getStringOrDefault(section, "/services-tenant-plural", tenant_sg+"s");
+		tenant_auth_sg = Util.getStringOrDefault(section, "/services-tenant-auth-singular", services_url);
+		tenant_auth_pl = Util.getStringOrDefault(section, "/services-tenant-auth-plural", tenant_auth_sg+"s");
 
 		schemalocation = Util.getStringOrDefault(section, "/services-schemalocation", "http://services.collectionspace.org");
 		
@@ -414,6 +416,14 @@ public class Record implements FieldParent {
 	public String getServicesTenantPl() {
 		return tenant_pl;
 	}
+
+	public String getServicesTenantAuthSg() {
+		return tenant_auth_sg;
+	}
+
+	public String getServicesTenantAuthPl() {
+		return tenant_auth_pl;
+	}
 	
 	public String getServicesAbstractCommonList(){
 		return serviceabstract;
@@ -456,6 +466,12 @@ public class Record implements FieldParent {
 
 	public String getServicesRecordPath(String name) {
 		return services_record_paths.get(name);
+	}
+	public Boolean hasServicesRecordPath(String name) {
+		if(services_record_paths.containsKey(name)){
+			return true;
+		}
+		return false;
 	}
 	void setMerged(Field f){
 		mergedfields.put(f.getID(), f);

@@ -32,7 +32,7 @@
     </email>
     <persistence>
         <service>
-            <url>http://nightly.collectionspace.org:8180/cspace-services</url>
+            <url>http://localhost:8180/cspace-services</url>
 			<tenant>
 				<name>hearstmuseum.berkeley.edu</name>
 				<version>0.1</version>
@@ -1471,6 +1471,8 @@
                 <terms-used>false</terms-used>
                 <!-- XXX servcie layer doesn't currently support person terms but it does on  organisations - go figure -->
                 <web-url>person</web-url>
+				<services-tenant-auth-singular>Personauthority</services-tenant-auth-singular>
+				<services-tenant-auth-plural>Personauthorities</services-tenant-auth-plural>
 				<services-tenant-singular>Person</services-tenant-singular>
                 <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common-list/personauthority-list-item</services-instances-path>
                 <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities_common</services-single-instance-path>
@@ -1657,8 +1659,9 @@
             </record>
             <record id="location" in-recordlist="no"  type="authority,compute-displayname">
                 <web-url>location</web-url>
-				<services-tenant-plural>Locationauthorities</services-tenant-plural>
-				<services-tenant-singular>Locationauthority</services-tenant-singular>
+				<services-tenant-auth-plural>Locationauthorities</services-tenant-auth-plural>
+				<services-tenant-auth-singular>Locationauthority</services-tenant-auth-singular>
+				<services-tenant-singular>Location</services-tenant-singular>
                 <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities-common-list/locationauthority-list-item</services-instances-path>
                 <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locations_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/location,locations-common-list/location_list_item</services-list-path>
@@ -1707,8 +1710,9 @@
             </record>
             <record id="organization" type="authority,compute-displayname">
                 <web-url>organization</web-url>
-				<services-tenant-plural>Orgauthorities</services-tenant-plural>
-				<services-tenant-singular>Orgauthority</services-tenant-singular>
+				<services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
+				<services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
+				<services-tenant-singular>Organization</services-tenant-singular>
                 <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities-common-list/orgauthority-list-item</services-instances-path>
                 <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
@@ -1932,6 +1936,7 @@
             </record>
             <record id="userrole" type="authorizationdata">
                 <web-url>userrole</web-url>
+				<services-tenant-label>accountroles</services-tenant-label>
                 <services-url>accounts/*/accountroles</services-url>
                 <services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>
                 <services-list-path>account_role/role</services-list-path>
@@ -2425,13 +2430,15 @@
                 <terms-used>false</terms-used>
                 <refobj-used>false</refobj-used>
                 <web-url>vocab</web-url>
-				<services-tenant-plural>Vocabularies</services-tenant-plural>
-				<services-tenant-singular>Vocabulary</services-tenant-singular>
+				<services-tenant-auth-plural>Vocabularies</services-tenant-auth-plural>
+				<services-tenant-auth-singular>Vocabulary</services-tenant-auth-singular>
+				<services-tenant-singular>Vocabularyitem</services-tenant-singular>
                 <services-instances-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies-common-list/vocabulary-list-item</services-instances-path>
                 <services-single-instance-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/vocabulary,vocabularyitems-common-list/vocabularyitem_list_item</services-list-path>
                 <services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
-                
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
 				<services-url>vocabularies</services-url>
                 <authority-vocab-type>enum</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:vocabulary:{vocab}:item:{entry}'{display}'</urn-syntax>
