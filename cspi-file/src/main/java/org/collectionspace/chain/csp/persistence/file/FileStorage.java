@@ -75,10 +75,6 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 		});	
 	}
 	public void config_finish() throws CSPDependencyException {
-		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
-		String boot_root=bootstrap.getOption("store");
-		if(boot_root!=null)
-			root=boot_root;
 		real_init();
 	}
 	public CSPRequestCredentials createCredentials() { return null; }

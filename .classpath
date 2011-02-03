@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="bconfig-utils/src/main/java"/>
+	<classpathentry kind="src" path="cspi-installation/src/test/java"/>
+	<classpathentry kind="src" path="cspi-installation/src/main/java"/>
+	<classpathentry kind="src" path="cspi-installation/src/main/resources"/>
 	<classpathentry kind="src" path="bconfig-utils/src/main/resources"/>
 	<classpathentry kind="src" path="csp-api/src/main/java"/>
 	<classpathentry kind="src" path="csp-helper/src/main/java"/>

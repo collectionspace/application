@@ -27,31 +27,22 @@ public class TestConfigFinder {
 
 	private static final Logger log=LoggerFactory.getLogger(TestConfigFinder.class);
 	
-	private static  String configFilename = "default.xml";
-	
 	// This method only works for Eclipse and not mvn test :( - see below
 	private static final String classNearDefaultXml = "org.collectionspace.chain.controller.ChainServlet"; 
 	
 	//used to test multi tenancy
 	public static InputStream getConfigStream(String filename) throws CSPDependencyException {
-		configFilename =filename;
 		InputStream out=getConfigStreamViaEnvironmentVariable();
 		if(out!=null)
 			return out;		
-		out=getConfigStreamViaClassLoader();
+		out=getConfigStreamViaClassLoader(filename);
 		if(out!=null)
 			return out;
 		throw new CSPDependencyException("No config file found by any method");
 	}
 
 	public static InputStream getConfigStream() throws CSPDependencyException {
-		InputStream out=getConfigStreamViaEnvironmentVariable();
-		if(out!=null)
-			return out;		
-		out=getConfigStreamViaClassLoader();
-		if(out!=null)
-			return out;
-		throw new CSPDependencyException("No config file found by any method");
+		return getConfigStream("default.xml");
 	}
 
 	private static InputStream getConfigStreamViaEnvironmentVariable() throws CSPDependencyException {
@@ -71,7 +62,7 @@ public class TestConfigFinder {
 		}
 	}
 		
-	private static InputStream getConfigStreamViaClassLoader() throws CSPDependencyException {
+	private static InputStream getConfigStreamViaClassLoader(String configFilename) throws CSPDependencyException {
 		// TODO next stage will be to move default.xml into here and rename it (CSPACE-1288)
 		// CSPACE-2114 initial (still messy, but better than before) stage is to change 
 		// from 3 files (2x config and default) to just one of them (default.xml hard-coded here)
