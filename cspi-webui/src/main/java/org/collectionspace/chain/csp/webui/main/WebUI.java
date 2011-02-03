@@ -270,10 +270,6 @@ public class WebUI implements CSP, UI, Configurable {
 		return xxx_storage.getStorage(creds,cache); // XXX
 	}
 	
-	public Storage regenerateStorage(UISession session) {
-		return generateStorage(session,new RequestCache());
-	}
-	
 	public void serviceRequest(UIRequest ui) throws UIException {		
 		UISession session=ui.getSession();
 		CSPRequestCache cache=new RequestCache();

@@ -327,5 +327,4 @@ public class WebUIRequest implements UIRequest {
 	}
 
 	public UISession getSession() throws UIException { return session; }
-	public Storage resetStorage() { return umbrella.getWebUI().regenerateStorage(session); }
 }
