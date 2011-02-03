@@ -99,69 +99,38 @@ public class TestBase extends TestData {
 	}
 
 	protected static ServletTester setupJetty() throws Exception {
-		return setupJetty("test-config-loader2.xml", null, false);
+		return setupJetty( null, false);
 	}
 
 	protected static ServletTester setupJetty(Boolean isUTF8, String configfile) throws Exception {
-		return setupJetty("test-config-loader2.xml", null, isUTF8, configfile);
+		return setupJetty( null, isUTF8, configfile);
 	}
 
 	protected static ServletTester setupJetty(JSONObject user, String configfile) throws Exception {
-		return setupJetty("test-config-loader2.xml", user, false, configfile);
-	}
-
-
-	protected static ServletTester setupJetty(String controller)
-			throws Exception {
-		return setupJetty(controller, null, false);
-	}
-
-	protected static ServletTester setupJetty(String controller, JSONObject user)
-			throws Exception {
-		return setupJetty(controller, user, false);
+		return setupJetty( user, false, configfile);
 	}
 
 	protected static ServletTester setupJetty(JSONObject user) throws Exception {
-		return setupJetty("test-config-loader2.xml", user, false);
+		return setupJetty( user, false);
 	}
 
-	protected static ServletTester setupJetty(Boolean isUTF8) throws Exception {
-		return setupJetty("test-config-loader2.xml", null, isUTF8);
-	}
-
-	protected static ServletTester setupJetty(String controller, Boolean isUTF8)
+	protected static ServletTester setupJetty(Boolean isUTF8)
 			throws Exception {
-		return setupJetty(controller, null, isUTF8);
-	}
-
-	protected static ServletTester setupJetty(JSONObject user, Boolean isUTF8)
-			throws Exception {
-		return setupJetty("test-config-loader2.xml", user, isUTF8);
+		return setupJetty(null, isUTF8);
 	}
 
 	// controller: "test-config-loader2.xml"
-	protected static ServletTester setupJetty(String controller,
+	protected static ServletTester setupJetty(
 			JSONObject user, Boolean isUTF8) throws Exception {
-		return setupJetty(controller,user,isUTF8,"default.xml");
+		return setupJetty(user,isUTF8,"default.xml");
 	}
-	protected static ServletTester setupJetty(String controller,
-			JSONObject user, Boolean isUTF8, String configfile) throws Exception {
+	protected static ServletTester setupJetty(JSONObject user, Boolean isUTF8, String configfile) throws Exception {
 		String base = "";
-		if (controller != null) {
-			BootstrapConfigController config_controller = new BootstrapConfigController(
-					null);
-			config_controller.addSearchSuffix(controller);
-			config_controller.go();
-			base = config_controller.getOption("services-url");
-		}
+				
 		ServletTester tester = new ServletTester();
 		tester.setContextPath("/chain");
 		tester.addServlet(ChainServlet.class, "/*");
 		tester.addServlet("org.mortbay.jetty.servlet.DefaultServlet", "/");
-		if (controller != null) {
-			tester.setAttribute("storage", "service");
-			tester.setAttribute("store-url", base + "/cspace-services/");
-		}
 		tester.setAttribute("config-filename", configfile);
 		tester.start();
 		if (user != null) {

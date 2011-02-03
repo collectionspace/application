@@ -31,7 +31,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	
 	
 	@Test public void testCollectionObjectBasic() throws Exception {
-		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
+		ServletTester jetty=setupJetty(true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/cataloging/",makeSimpleRequest(getResourceString("obj3.json")));	
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
@@ -61,7 +61,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 
 	@Test public void testIntake() throws Exception {
-		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
+		ServletTester jetty=setupJetty(true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/intake/",makeSimpleRequest(getResourceString("int3.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
@@ -89,7 +89,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 
 	@Test public void testAcquisition() throws Exception {
-		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
+		ServletTester jetty=setupJetty(true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/acquisition/",makeSimpleRequest(getResourceString("create_acquistion.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
@@ -115,7 +115,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 
 	@Test public void testIDGenerate() throws Exception {
-		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
+		ServletTester jetty=setupJetty(true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/chain/id/intake",null);
 		JSONObject jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("IN" + getCurrentYear() + "."));
@@ -157,7 +157,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 
 	@Test public void testTermsUsed() throws Exception {
-		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
+		ServletTester jetty=setupJetty(true);
 		
 		JSONObject data=new JSONObject("{'fields':{'displayName':'David Bowie'}}");
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/vocabularies/person",data.toString());
@@ -182,7 +182,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 		
 	@Test public void testAutoGet() throws Exception {
-		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
+		ServletTester jetty=setupJetty(true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/chain/cataloging/__auto",null);
 		assertEquals(200,out.getStatus());
 		// XXX this is correct currently, whilst __auto is stubbed.
@@ -190,7 +190,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 	
 	@Test public void testList() throws Exception {
-		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
+		ServletTester jetty=setupJetty(true);
 		// do not delete all
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/chain/cataloging",null);
 		assertEquals(200,out.getStatus());
@@ -241,7 +241,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 	
 	@Test public void testSearch() throws Exception {
-		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
+		ServletTester jetty=setupJetty(true);
 		// one aardvark, one non-aardvark
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/cataloging/",makeSimpleRequest(getResourceString("obj3-search.json")));	
 		assertEquals(201,out.getStatus());
@@ -272,7 +272,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 	
 	@Test public void testLogin() throws Exception {
-		ServletTester jetty=setupJetty("test-config-loader2.xml",true);
+		ServletTester jetty=setupJetty(true);
 		Spec spec = TestData.getSpec(jetty);
 		String pwd = spec.getAdminData().getAuthPass();
 		String username = spec.getAdminData().getAuthUser();
