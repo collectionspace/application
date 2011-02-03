@@ -33,6 +33,8 @@
     <persistence>
         <service>
             <url>http://localhost:8180/cspace-services</url>
+			<config-tenant></config-tenant>
+			<config-bindings></config-bindings>
         </service>
     </persistence>
     <ui>
@@ -42,6 +44,16 @@
             <front-page>/cspace-ui/html/</front-page>
             <find-page>myCollectionSpace</find-page>
             <tmp-schema-path />
+			<mappings>
+				<map>
+					<url>/cspace-ui/html/cataloging.html</url>
+					<recordtype>procedure</recordtype>
+					<file>/cspace-ui/html/record.html</file>
+					<configure>
+						<meta id="title">CollectionSpace - {record/web-url}</meta>
+					</configure>
+				</map>
+			</mappings>
         </web>
     </ui>
     <spec>
@@ -69,7 +81,6 @@
 				<services-tenant-singular>CollectionObject</services-tenant-singular>
                 <services-list-path>collectionobjects-common-list/collection-object-list-item</services-list-path>
                 <services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
-                <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 				
 				<structures>
@@ -1012,6 +1023,23 @@
                             </field>
                         </repeat>
                     </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
 
@@ -1083,6 +1111,23 @@
 
                 <structures>
                     <structure id="screen"></structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
                 </structures>
 
 				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
@@ -1222,6 +1267,23 @@
 				
 				<structures>
                     <structure id="screen"></structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
                 </structures>
 
                 
@@ -1455,6 +1517,8 @@
                 <terms-used>false</terms-used>
                 <!-- XXX servcie layer doesn't currently support person terms but it does on  organisations - go figure -->
                 <web-url>person</web-url>
+				<services-tenant-auth-singular>Personauthority</services-tenant-auth-singular>
+				<services-tenant-auth-plural>Personauthorities</services-tenant-auth-plural>
 				<services-tenant-singular>Person</services-tenant-singular>
                 <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common-list/personauthority-list-item</services-instances-path>
                 <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities_common</services-single-instance-path>
@@ -1691,8 +1755,9 @@
             </record>
             <record id="organization" type="authority,compute-displayname">
                 <web-url>organization</web-url>
-				<services-tenant-plural>Orgauthorities</services-tenant-plural>
-				<services-tenant-singular>Orgauthority</services-tenant-singular>
+				<services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
+				<services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
+				<services-tenant-singular>Organization</services-tenant-singular>
                 <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities-common-list/orgauthority-list-item</services-instances-path>
                 <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
@@ -2133,6 +2198,23 @@
                             </field>
                         </repeat>
                     </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
                 </structures>
                 <row-selector>.csc-recordList-row:</row-selector>
                 
@@ -2409,13 +2491,15 @@
                 <terms-used>false</terms-used>
                 <refobj-used>false</refobj-used>
                 <web-url>vocab</web-url>
-				<services-tenant-plural>Vocabularies</services-tenant-plural>
-				<services-tenant-singular>Vocabulary</services-tenant-singular>
+				<services-tenant-auth-plural>Vocabularies</services-tenant-auth-plural>
+				<services-tenant-auth-singular>Vocabulary</services-tenant-auth-singular>
+				<services-tenant-singular>Vocabularyitem</services-tenant-singular>
                 <services-instances-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies-common-list/vocabulary-list-item</services-instances-path>
                 <services-single-instance-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/vocabulary,vocabularyitems-common-list/vocabularyitem_list_item</services-list-path>
                 <services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
-                
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				
 				<services-url>vocabularies</services-url>
                 <authority-vocab-type>enum</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:vocabulary:{vocab}:item:{entry}'{display}'</urn-syntax>
