@@ -24,8 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
@@ -56,7 +54,6 @@ public class ChainServlet extends HttpServlet  {
 	private static final long serialVersionUID = -4343156244448081917L;
 	private boolean inited=false;
 	private CSPManager cspm=new CSPManagerImpl();
-	private BootstrapConfigController bootstrap;
 	private String locked_down=null;
 	private UIUmbrella umbrella;
 
@@ -68,7 +65,6 @@ public class ChainServlet extends HttpServlet  {
 		cspm.register(new CoreConfig());
 		cspm.register(new FileStorage());
 		cspm.register(new ServicesStorageGenerator());
-		cspm.register(new BootstrapCSP(bootstrap));
 		cspm.register(new WebUI());
 		cspm.register(new Spec());
 	}
@@ -92,8 +88,6 @@ public class ChainServlet extends HttpServlet  {
 		if(inited)
 			return;
 		try {
-			bootstrap=new BootstrapConfigController(getServletContext());
-			bootstrap.go();
 			// Register csps
 			register_csps();
 			cspm.go(); // Start up CSPs

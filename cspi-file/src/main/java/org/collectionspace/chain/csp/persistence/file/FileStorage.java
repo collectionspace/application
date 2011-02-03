@@ -9,8 +9,6 @@ package org.collectionspace.chain.csp.persistence.file;
 import java.io.File;
 import java.io.IOException;
 
-import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
@@ -69,6 +67,7 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"persistence","file"},SECTION_PREFIX+"file",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				((CoreConfig)parent).setRoot(FILE_ROOT,FileStorage.this);
+				((CoreConfig)parent).setRoot(CSPContext.XXX_SERVICE_NAME,"file"); // XXX should be path-selectable
 				root=(String)milestone.getValue("/store");
 				return FileStorage.this;
 			}

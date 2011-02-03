@@ -77,12 +77,13 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	}
 
 	public void configure(Rules rules) throws CSPDependencyException {
-		/* MAIN/persistence/file -> SERVICE */
+		/* MAIN/persistence/service -> SERVICE */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"persistence","service"},SECTION_PREFIX+"service",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				((CoreConfig)parent).setRoot(SERVICE_ROOT,ServicesStorageGenerator.this);
 				base_url=(String)milestone.getValue("/url");
-
+				((CoreConfig)parent).setRoot(CSPContext.XXX_SERVICE_NAME,"service");  // XXX should be path-selectable
+				
 				tenantData = new TenantSpec(milestone);
 				return ServicesStorageGenerator.this;
 			}

@@ -7,27 +7,39 @@
 package org.collectionspace.chain.csp.webui.main;
 
 import org.collectionspace.csp.api.core.CSPRequestCache;
+import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
 
 public class Request {
 	private CSPRequestCache cache;
-	private Storage storage;
+	private StorageGenerator storage_generator;
+	private Storage storage=null;
 	private UIRequest uir;
-	private WebUI wui;
 	
-	Request(WebUI wui,CSPRequestCache cache,Storage storage,UIRequest ui) {
+	Request(StorageGenerator storage_generator,CSPRequestCache cache,UIRequest ui) {
 		this.cache=cache;
-		this.storage=storage;
+		this.storage_generator=storage_generator;
 		this.uir=ui;
-		this.wui=wui;
+	}
+	
+	private CSPRequestCredentials generateCredentials(UISession session) {
+		CSPRequestCredentials creds=storage_generator.createCredentials(); // XXX
+		if(session!=null && creds!=null) {
+			creds.setCredential(StorageGenerator.CRED_USERID,session.getValue(UISession.USERID));
+			creds.setCredential(StorageGenerator.CRED_PASSWORD,session.getValue(UISession.PASSWORD));
+		}
+		return creds;
 	}
 	
 	public CSPRequestCache getCache() { return cache; }
-	public Storage getStorage() throws UIException { 
+	public synchronized Storage getStorage() throws UIException { 
 		if(storage==null) {
-			storage=wui.generateStorage(uir.getSession(),cache);
+			CSPRequestCredentials creds=generateCredentials(uir.getSession());
+			storage=storage_generator.getStorage(creds,cache);
 		}
 		return storage;
 	}

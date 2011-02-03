@@ -17,7 +17,6 @@ import org.collectionspace.chain.csp.persistence.TestBase;
 import org.collectionspace.chain.csp.persistence.TestData;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

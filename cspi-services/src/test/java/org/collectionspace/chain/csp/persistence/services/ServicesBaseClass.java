@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
@@ -51,10 +50,6 @@ public class ServicesBaseClass {
 
 	protected void setup() throws BootstrapConfigLoadFailedException, ConnectionException {
 
-		BootstrapConfigController config_controller=new BootstrapConfigController();
-		config_controller.addSearchSuffix("test-config-loader2.xml");
-		config_controller.addSearchSuffix("test-config-loader.xml");
-		config_controller.go();
 		Spec spec = null;
 		try {
 			base=getBaseUrl();

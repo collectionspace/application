@@ -17,7 +17,7 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 
 public class BootstrapCSP implements CSP, Configurable {
 	private static final String SECTION_PREFIX="org.collectionspace.app.config.bootstrap.";	
-	public static String BOOTSTRAP_ROOT=SECTION_PREFIX+"bootstrap";
+	private static String BOOTSTRAP_ROOT=SECTION_PREFIX+"bootstrap";
 	private BootstrapConfigController bootstrap;
 	
 	public BootstrapCSP(BootstrapConfigController bootstrap) { this.bootstrap=bootstrap; }

@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.collectionspace.chain.storage.UTF8SafeHttpTester;

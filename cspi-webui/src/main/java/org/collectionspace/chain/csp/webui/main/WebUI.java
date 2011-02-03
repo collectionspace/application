@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapCSP;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
@@ -257,25 +255,14 @@ public class WebUI implements CSP, UI, Configurable {
 		configure_finish(spec);
 		for(WebMethod m : all_methods)
 			m.configure(this,spec);		
-		BootstrapConfigController bootstrap=(BootstrapConfigController)ctx.getConfigRoot().getRoot(BootstrapCSP.BOOTSTRAP_ROOT);
-		xxx_storage=ctx.getStorage(bootstrap.getOption("storage-type"));
+		String name=(String)ctx.getConfigRoot().getRoot(CSPContext.XXX_SERVICE_NAME);
+		xxx_storage=ctx.getStorage(name);
 	}
 
-	Storage generateStorage(UISession session,CSPRequestCache cache) {
-		CSPRequestCredentials creds=xxx_storage.createCredentials(); // XXX
-		if(session!=null && creds!=null) {
-			creds.setCredential(StorageGenerator.CRED_USERID,session.getValue(UISession.USERID));
-			creds.setCredential(StorageGenerator.CRED_PASSWORD,session.getValue(UISession.PASSWORD));
-		}
-		return xxx_storage.getStorage(creds,cache); // XXX
-	}
-	
 	public void serviceRequest(UIRequest ui) throws UIException {		
-		UISession session=ui.getSession();
 		CSPRequestCache cache=new RequestCache();
 		String[] path=ui.getPrincipalPath();
-		Storage storage=generateStorage(session,cache);
-		Request r=new Request(this,cache,storage,ui);
+		Request r=new Request(xxx_storage,cache,ui);
 		
 		String test = ui.getRequestedOperation().toString();
 		log.debug("ServiceRequest path: "+StringUtils.join(path,"/"));

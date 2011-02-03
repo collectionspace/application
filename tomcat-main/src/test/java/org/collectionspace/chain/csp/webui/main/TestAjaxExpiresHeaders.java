@@ -15,7 +15,6 @@ import java.util.Date;
 import java.util.Enumeration;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.junit.Test;

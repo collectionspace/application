@@ -13,6 +13,10 @@ import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.api.ui.UI;
 
 public interface CSPContext {
+	public static final String XXX_GENERAL_SERVICE_PREFIX="org.collectionspace.app.config.persistence.service.";
+	public static String XXX_SERVICE_NAME=XXX_GENERAL_SERVICE_PREFIX+"xxxname";
+	
+	
 	// Config
 	public void addConfigRules(Configurable cfg);
 	public void setConfigRoot(ConfigRoot cfg);
