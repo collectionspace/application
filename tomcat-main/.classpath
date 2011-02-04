@@ -26,7 +26,6 @@
 	<classpathentry kind="var" path="M2_REPO/org/collectionspace/cspi-file/1.0-SNAPSHOT/cspi-file-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/collectionspace/cspi-services/1.0-SNAPSHOT/cspi-services-1.0-SNAPSHOT.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/csp-api"/>
-	<classpathentry kind="var" path="M2_REPO/org/collectionspace/bconfig-utils/1.0-SNAPSHOT/bconfig-utils-1.0-SNAPSHOT.jar"/>
 	<classpathentry kind="src" path="/jxutils"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

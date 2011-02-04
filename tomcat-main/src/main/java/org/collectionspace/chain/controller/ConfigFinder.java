@@ -23,7 +23,7 @@ import org.apache.commons.io.IOUtils;
 
 /** Here's where we look for the config. 
  * 
- * First we look for a servlet data containing the actual config.
+ * First we look for an environment variable containing the actual config.
  * Next we look for a servlet attribute specifying a path.
  * Next we look in ${jboss.home.dir}/server/cspace/conf/cspace-config.xml
  * Next we look in the classpath for a name supplied in a servlet attribute.

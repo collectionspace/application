@@ -45,13 +45,6 @@
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
-
-    <dependency>
-      <groupId>org.collectionspace</groupId>
-      <artifactId>bconfig-utils</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>jar</type>
-    </dependency>  
     
         <dependency>
       <groupId>org.collectionspace</groupId>
@@ -156,7 +149,6 @@
       <type>jar</type>
     </dependency>
     
-    <!-- required to get tests to compile because of use of serlvet in bconfig-utils. Not actually needed. -->
             <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>

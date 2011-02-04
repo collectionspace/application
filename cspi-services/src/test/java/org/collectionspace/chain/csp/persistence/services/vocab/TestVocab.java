@@ -12,7 +12,6 @@ import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.persistence.services.ServicesBaseClass;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -27,7 +26,7 @@ public class TestVocab extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestVocab.class);
 	private static Pattern vocab_urn=Pattern.compile("urn:cspace:org.collectionspace.demo:vocabulary\\((.*?)\\):item\\((.*?)\\)'(.*?)'");
 		
-	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
+	@Before public void checkServicesRunning() throws ConnectionException {
 		setup();
 	}
 	

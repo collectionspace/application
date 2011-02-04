@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
@@ -48,7 +47,7 @@ public class ServicesBaseClass {
 	protected CSPRequestCredentials creds;
 	protected CSPRequestCache cache=new RequestCache();
 
-	protected void setup() throws BootstrapConfigLoadFailedException, ConnectionException {
+	protected void setup() throws ConnectionException {
 
 		Spec spec = null;
 		try {

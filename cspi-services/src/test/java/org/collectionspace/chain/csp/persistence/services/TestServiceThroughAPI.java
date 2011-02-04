@@ -12,7 +12,6 @@ import java.util.GregorianCalendar;
 import static org.junit.Assert.*;
 
 import java.util.List;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
@@ -31,7 +30,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughAPI.class);
 
 	
-	@Before public void checkServicesRunning() throws ConnectionException, BootstrapConfigLoadFailedException {
+	@Before public void checkServicesRunning() throws ConnectionException {
 		setup();
 	}
 	

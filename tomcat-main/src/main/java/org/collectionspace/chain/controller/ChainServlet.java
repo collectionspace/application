@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
@@ -69,7 +68,7 @@ public class ChainServlet extends HttpServlet  {
 		cspm.register(new Spec());
 	}
 
-	private void load_config(ServletContext ctx) throws BootstrapConfigLoadFailedException, CSPDependencyException {
+	private void load_config(ServletContext ctx) throws CSPDependencyException {
 		try {
 			InputStream cfg_stream=ConfigFinder.getConfig(ctx);
 			if(cfg_stream==null) {
@@ -78,9 +77,9 @@ public class ChainServlet extends HttpServlet  {
 				cspm.configure(new InputSource(cfg_stream),null); // XXX not null
 			}
 		} catch (UnsupportedEncodingException e) {
-			throw new BootstrapConfigLoadFailedException("Config has bad character encoding",e);
+			throw new CSPDependencyException("Config has bad character encoding",e);
 		} catch (IOException e) {
-			throw new BootstrapConfigLoadFailedException("Cannot load config",e);			
+			throw new CSPDependencyException("Cannot load config",e);			
 		}
 	}
 
@@ -93,8 +92,6 @@ public class ChainServlet extends HttpServlet  {
 			cspm.go(); // Start up CSPs
 			load_config(getServletContext());
 		} catch (IOException e) {
-			throw new BadRequestException("Cannot load config"+e,e);
-		} catch (BootstrapConfigLoadFailedException e) {
 			throw new BadRequestException("Cannot load config"+e,e);
 		} catch (DocumentException e) {
 			throw new BadRequestException("Cannot load backend"+e,e);

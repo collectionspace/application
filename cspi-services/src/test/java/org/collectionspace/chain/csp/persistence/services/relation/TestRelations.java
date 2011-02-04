@@ -14,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.persistence.services.ServicesBaseClass;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
@@ -42,7 +41,7 @@ public class TestRelations extends ServicesBaseClass {
 		return IOUtils.toString(in);
 	}
 	
-	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
+	@Before public void checkServicesRunning() throws ConnectionException {
 		setup();
 	}
 	

@@ -8,4 +8,5 @@ package org.collectionspace.chain.csp.config;
 
 public interface ConfigRoot {
 	public Object getRoot(String key);
+	public void setRoot(String key,Object value); // XXX shouldn't be visible except during configuration
 }

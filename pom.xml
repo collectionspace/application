@@ -13,7 +13,6 @@
     <module>csp-api</module>
     <module>csp-impl</module>
     <module>cspi-schema</module>
-    <module>bconfig-utils</module>
     <module>jxutils</module>
     <module>csp-helper</module>
 

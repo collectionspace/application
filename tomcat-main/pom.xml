@@ -66,12 +66,6 @@
     </dependency> 
     <dependency>
       <groupId>org.collectionspace</groupId>
-      <artifactId>bconfig-utils</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>jar</type>
-    </dependency> 
-    <dependency>
-      <groupId>org.collectionspace</groupId>
       <artifactId>jxutils</artifactId>
       <version>1.0-SNAPSHOT</version>
       <scope>test</scope>

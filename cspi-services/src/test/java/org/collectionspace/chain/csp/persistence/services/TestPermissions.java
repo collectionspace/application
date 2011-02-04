@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
@@ -36,7 +35,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 	///cspace-services/authorization/permissions?res=acquisition&actGrp=CRUDL
 	 
 	
-	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
+	@Before public void checkServicesRunning() throws ConnectionException {
 		setup();
 	}
 

@@ -61,13 +61,6 @@
     </dependency>  
 
     <dependency>
-      <groupId>org.collectionspace</groupId>
-      <artifactId>bconfig-utils</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>jar</type>
-    </dependency>  
-
-    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
       <version>1.5.6</version>
@@ -77,6 +70,14 @@
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.5.6</version>
     </dependency>
+  
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+      <type>jar</type>
+    </dependency>
+  
   
     <dependency>
       <groupId>commons-io</groupId>

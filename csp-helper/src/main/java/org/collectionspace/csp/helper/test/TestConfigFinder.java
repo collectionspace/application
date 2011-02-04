@@ -15,14 +15,6 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/*
- * This probably duplicates some of the functionality
- * of bconfig-utils and/or tomcat-main's ConfigFinder
- * but this is deliberately very simple, and should work
- * in JUnit tests without any other dependencies.
- * Its scope is intended to be restricted to use in JUnit tests ONLY.
- */
-/* bconfig-utils needs to be simplified anyway. I'll probably nick this code to replace it. -- dan */
 public class TestConfigFinder {
 
 	private static final Logger log=LoggerFactory.getLogger(TestConfigFinder.class);

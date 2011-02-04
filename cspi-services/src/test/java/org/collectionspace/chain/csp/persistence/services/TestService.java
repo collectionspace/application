@@ -29,7 +29,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
@@ -48,8 +47,7 @@ public class TestService extends ServicesBaseClass {
 			.getLogger(TestService.class);
 
 	@Before
-	public void checkServicesRunning()
-			throws BootstrapConfigLoadFailedException, ConnectionException {
+	public void checkServicesRunning() throws ConnectionException {
 		setup();
 	}
 

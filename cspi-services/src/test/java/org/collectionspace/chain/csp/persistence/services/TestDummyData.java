@@ -13,7 +13,6 @@ import static org.junit.Assert.fail;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
@@ -32,7 +31,7 @@ import org.slf4j.LoggerFactory;
 
 public class TestDummyData extends ServicesBaseClass  {
 	private static final Logger log=LoggerFactory.getLogger(TestDummyData.class);
-	@Before public void checkServicesRunning() throws BootstrapConfigLoadFailedException, ConnectionException {
+	@Before public void checkServicesRunning() throws ConnectionException {
 		setup();
 	}
 

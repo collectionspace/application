@@ -8,7 +8,6 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import static org.junit.Assert.*;
 
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigLoadFailedException;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
@@ -27,7 +26,7 @@ import org.slf4j.LoggerFactory;
 public class TestAccount extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestAccount.class);
 	
-	@Before public void checkServicesRunning() throws ConnectionException, BootstrapConfigLoadFailedException {
+	@Before public void checkServicesRunning() throws ConnectionException {
 		setup();
 	}
 	

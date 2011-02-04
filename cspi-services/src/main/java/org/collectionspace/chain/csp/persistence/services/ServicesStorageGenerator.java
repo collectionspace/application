@@ -7,6 +7,7 @@
 package org.collectionspace.chain.csp.persistence.services;
 
 
+import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
@@ -80,9 +81,9 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		/* MAIN/persistence/service -> SERVICE */
 		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"persistence","service"},SECTION_PREFIX+"service",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
-				((CoreConfig)parent).setRoot(SERVICE_ROOT,ServicesStorageGenerator.this);
+				((ConfigRoot)parent).setRoot(SERVICE_ROOT,ServicesStorageGenerator.this);
 				base_url=(String)milestone.getValue("/url");
-				((CoreConfig)parent).setRoot(CSPContext.XXX_SERVICE_NAME,"service");  // XXX should be path-selectable
+				((ConfigRoot)parent).setRoot(CSPContext.XXX_SERVICE_NAME,"service");  // XXX should be path-selectable
 				
 				tenantData = new TenantSpec(milestone);
 				return ServicesStorageGenerator.this;

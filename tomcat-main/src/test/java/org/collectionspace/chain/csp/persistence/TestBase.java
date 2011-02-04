@@ -17,7 +17,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
-import org.collectionspace.bconfigutils.bootstrap.BootstrapConfigController;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.json.JSONArray;
