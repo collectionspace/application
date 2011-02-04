@@ -6,7 +6,6 @@
  */
 package org.collectionspace.chain.controller;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -32,7 +31,6 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
-import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIUmbrella;
@@ -51,16 +49,16 @@ import org.slf4j.LoggerFactory;
 public class ChainServlet extends HttpServlet  {	
 	private static final Logger log=LoggerFactory.getLogger(ChainServlet.class);
 	private static final long serialVersionUID = -4343156244448081917L;
-	private boolean inited=false;
-	private CSPManager cspm=new CSPManagerImpl();
+	protected boolean inited=false;
+	protected CSPManager cspm=new CSPManagerImpl();
 	private String locked_down=null;
-	private UIUmbrella umbrella;
+	protected UIUmbrella umbrella;
 
 	/* Not in the constructor because errors during construction of servlets tend to get lost in a mess of startup.
 	 * Better present it on first request.
 	 */
 
-	private void register_csps() throws IOException, DocumentException {
+	protected void register_csps() throws IOException, DocumentException {
 		cspm.register(new CoreConfig());
 		cspm.register(new FileStorage());
 		cspm.register(new ServicesStorageGenerator());
@@ -68,7 +66,8 @@ public class ChainServlet extends HttpServlet  {
 		cspm.register(new Spec());
 	}
 
-	private void load_config(ServletContext ctx) throws CSPDependencyException {
+
+	protected void load_config(ServletContext ctx) throws CSPDependencyException {
 		try {
 			InputStream cfg_stream=ConfigFinder.getConfig(ctx);
 			if(cfg_stream==null) {
@@ -83,7 +82,7 @@ public class ChainServlet extends HttpServlet  {
 		}
 	}
 
-	private synchronized void setup() throws BadRequestException {
+	protected synchronized void setup() throws BadRequestException {
 		if(inited)
 			return;
 		try {
@@ -101,6 +100,14 @@ public class ChainServlet extends HttpServlet  {
 		inited=true;
 	}
 
+	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path) throws IOException{
+log.info(path);
+        InputStream is=sc.getResourceAsStream(path);
+        //.getClass().getClassLoader().getResourceAsStream("/html/record.html");
+
+		IOUtils.copy(is,servlet_response.getOutputStream());
+		return true;
+	}
 	private boolean perhapsServeFixedContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		String pathinfo=servlet_request.getPathInfo();
 		if(pathinfo.startsWith("/"))
@@ -168,13 +175,19 @@ public class ChainServlet extends HttpServlet  {
 	public void service(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		try {
 			if(locked_down!=null) {
-				servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
+				//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else
+
+				servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Servlet is locked down in a hard fail because of fatal error: "+locked_down);
+				//servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
 				return;
 			}
 			if(!inited)
 				setup();
 			if(locked_down!=null) {
-				servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
+				//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else
+
+				servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Servlet is locked down in a hard fail because of fatal error: "+locked_down);
+				//servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
 				return;
 			}
 			if(perhapsServeFixedContent(servlet_request,servlet_response))
