@@ -10,7 +10,15 @@
     <servlet-name>ChainServlet</servlet-name>
     <servlet-class>org.collectionspace.chain.controller.ChainServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>ChainUIServlet</servlet-name>
+    <servlet-class>org.collectionspace.chain.controller.ChainUIServlet</servlet-class>
+  </servlet>
 
+  <servlet-mapping>
+    <servlet-name>ChainUIServlet</servlet-name>
+    <url-pattern>/ui/*</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ChainServlet</servlet-name>
     <url-pattern>/*</url-pattern>

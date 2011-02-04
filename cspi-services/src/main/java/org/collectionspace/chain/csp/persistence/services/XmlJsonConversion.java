@@ -27,7 +27,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Namespace;
-import org.dom4j.Node;
 import org.dom4j.QName;
 import org.json.JSONArray;
 import org.json.JSONException;
