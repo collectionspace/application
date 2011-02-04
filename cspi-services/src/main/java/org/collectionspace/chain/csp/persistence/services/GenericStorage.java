@@ -11,7 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -445,7 +444,6 @@ public class GenericStorage  implements ContextualisedStorage {
 			if(r.hasTermsUsed()){
 				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
-				String data2 = all.getDocument().asXML();
 				if(all.getStatus()!=200)
 					throw new ConnectionException("Bad request during identifier cache map update: status not 200",all.getStatus(),path);
 				Document list=all.getDocument();
@@ -844,7 +842,6 @@ public class GenericStorage  implements ContextualisedStorage {
 	/**
 	 * Gets a list of csids of a certain type of record together with the pagination info
 	 */
-	@SuppressWarnings("unchecked")
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");
