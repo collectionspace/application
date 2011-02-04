@@ -6,6 +6,9 @@
  */
 package org.collectionspace.chain.csp.persistence.services;
 
+import org.collectionspace.csp.api.core.CSP;
+import org.collectionspace.csp.api.core.CSPContext;
+import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
