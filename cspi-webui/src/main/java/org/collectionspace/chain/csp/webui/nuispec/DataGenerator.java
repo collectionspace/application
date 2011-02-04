@@ -38,7 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Takes the default.xml record structures and creates a record 
+ * Takes the cspace-config.xml record structures and creates a record 
  * that can be saved and used for test data 
  * @author csm22
  *

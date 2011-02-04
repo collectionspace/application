@@ -240,7 +240,7 @@ public class AuthorizationStorage extends GenericStorage {
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
 			JSONObject out=new JSONObject();
-			//not all the records need a reference, look in default.xml for which that don't
+			//not all the records need a reference, look in cspace-config.xml for which that don't
 			if(r.hasTermsUsed()){
 				String path = r.getServicesURL()+"/"+filePath+"/authorityrefs";
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);

@@ -440,7 +440,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
 		try {
 			JSONObject out=new JSONObject();
-			//not all the records need a reference, look in default.xml for which that don't
+			//not all the records need a reference, look in cspace-config.xml for which that don't
 			if(r.hasTermsUsed()){
 				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
@@ -671,7 +671,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	
 	
 	/**
-	 * Convert the JSON from the UI Layer into XML for the Service layer while using the XML structure from default.xml
+	 * Convert the JSON from the UI Layer into XML for the Service layer while using the XML structure from cspace-config.xml
 	 * Send the XML through to the Service Layer to store it in the database
 	 * The Service Layer returns a url to the object we just stored.
 	 * @param {ContextualisedStorage} root 

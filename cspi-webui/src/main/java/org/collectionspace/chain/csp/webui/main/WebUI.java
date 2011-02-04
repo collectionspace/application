@@ -102,8 +102,8 @@ public class WebUI implements CSP, UI, Configurable {
 	 * would open up the url /chain/logout for GET method with no parameters on the url and call WebLogout.java
 	 * 
 	 * addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
-	 * would open up the url /chain/<web-url>/{parameter} where web-url is the name in default.xml
-	 * expecting one parameter and calling RecordRead.java and passing the record info from default.xml
+	 * would open up the url /chain/<web-url>/{parameter} where web-url is the name in cspace-config.xml
+	 * expecting one parameter and calling RecordRead.java and passing the record info from cspace-config.xml
 	 * 
 	 * @param op - GET/POST that request came in as
 	 * Operation.CREATE = POST
