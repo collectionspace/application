@@ -8,8 +8,10 @@ package org.collectionspace.chain.csp.webui.main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.Configurable;
@@ -26,6 +28,8 @@ import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesSe
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesCreateUpdate;
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesDelete;
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
+import org.collectionspace.chain.csp.webui.external.UIMapping;
+import org.collectionspace.chain.csp.webui.external.UIMeta;
 import org.collectionspace.chain.csp.webui.misc.VocabRedirector;
 import org.collectionspace.chain.csp.webui.misc.WebAuto;
 import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
@@ -33,7 +37,6 @@ import org.collectionspace.chain.csp.webui.misc.WebLogin;
 import org.collectionspace.chain.csp.webui.misc.WebLoginStatus;
 import org.collectionspace.chain.csp.webui.misc.WebLogout;
 import org.collectionspace.chain.csp.webui.misc.WebReset;
-import org.collectionspace.chain.csp.webui.misc.WebUISpec;
 import org.collectionspace.chain.csp.webui.nuispec.DataGenerator;
 import org.collectionspace.chain.csp.webui.nuispec.ServicesXsd;
 import org.collectionspace.chain.csp.webui.nuispec.UISchema;
@@ -47,7 +50,6 @@ import org.collectionspace.chain.csp.webui.userdetails.UserDetailsSearchList;
 import org.collectionspace.chain.csp.webui.userroles.UserRolesCreate;
 import org.collectionspace.chain.csp.webui.userroles.UserRolesDelete;
 import org.collectionspace.chain.csp.webui.userroles.UserRolesRead;
-import org.collectionspace.chain.csp.webui.userroles.UserRolesSearchList;
 import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
 import org.collectionspace.chain.csp.webui.record.RecordDelete;
 import org.collectionspace.chain.csp.webui.record.RecordRead;
@@ -63,15 +65,11 @@ import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.core.CSPRequestCache;
-import org.collectionspace.csp.api.core.CSPRequestCredentials;
-import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
-import org.collectionspace.csp.api.ui.UISession;
-import org.collectionspace.csp.api.ui.UIUmbrella;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -80,6 +78,10 @@ public class WebUI implements CSP, UI, Configurable {
 	private static final Logger log=LoggerFactory.getLogger(WebUI.class);
 	public static String SECTION_PREFIX="org.collectionspace.app.config.ui.web.";
 	public static String WEBUI_ROOT=SECTION_PREFIX+"web";
+	
+	private UIMapping uiMapping;
+	private UIMeta uiMeta;
+	private Set<UIMapping> allmappings = new HashSet<UIMapping>();
 
 	private Map<Operation,Trie> tries=new HashMap<Operation,Trie>();
 	private List<WebMethod> all_methods=new ArrayList<WebMethod>();
@@ -139,6 +141,35 @@ public class WebUI implements CSP, UI, Configurable {
 				return WebUI.this;
 			}
 		});	
+		
+		/* MAIN/ui/web/mappings ->UI */
+
+		rules.addRule(SECTION_PREFIX+"web", new String[]{"mappings","map"},SECTION_PREFIX+"uimapping", null, new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				uiMapping = new UIMapping((WebUI)parent,section);
+				addMapping(uiMapping);
+				return uiMapping;
+			}
+		});
+		rules.addRule(SECTION_PREFIX+"uimapping", new String[]{"configure","meta"},SECTION_PREFIX+"uimetamapping", null, new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				UIMapping map = (UIMapping)parent;
+				uiMeta = new UIMeta((UIMapping)parent, section);
+				map.addMetaConfig(uiMeta);
+				return uiMeta;
+			}
+		});
+		
+	}
+ 
+	private void addMapping(UIMapping uim){
+		allmappings.add(uim);
+	}
+	public UIMapping[] getAllMappings(){
+		return allmappings.toArray(new UIMapping[0]);
+	}
+	public UIMeta getMetaConfig(){
+		return uiMeta;
 	}
 
 	private void configure_finish(Spec spec) {

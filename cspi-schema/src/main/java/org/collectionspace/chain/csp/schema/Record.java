@@ -6,9 +6,7 @@
  */
 package org.collectionspace.chain.csp.schema;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -24,7 +22,10 @@ import org.slf4j.LoggerFactory;
  */
 public class Record implements FieldParent {
 	private static final Logger log = LoggerFactory.getLogger(Record.class);
-	private String id;
+	private Map<String, String> allStrings = new HashMap<String, String>();
+	private Map<String, Boolean> allBooleans = new HashMap<String, Boolean>();
+	private Map<String, Set<String>> allSets = new HashMap<String, Set<String>>();
+	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
 	private Map<String, FieldSet> subrecords = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> subrecordsperm = new HashMap<String, Map<String, FieldSet>>();
@@ -46,26 +47,8 @@ public class Record implements FieldParent {
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
 	private FieldSet mini_summary, mini_number, display_name;
-	private Set<String> type;
-
-	/* UI Stuff */
-	private String web_url, terms_used_url, number_selector, row_selector,
-			ui_url, tab_url, primaryfield;
-	private boolean in_findedit = false;
-	private boolean in_recordlist = true;
-	private boolean is_multipart = false;
-	private boolean has_terms_used = false;
-	private boolean has_refobj_used = true;
-	private boolean has_delete_method = false;
-	private String services_search_keyword = "kw";
 
 	/* Service stuff */
-	private String services_url, services_list_path,
-			in_tag, vocab_syntax, urn_syntax, authority_vocab_type,
-			services_instances_path, services_fields_path,
-			services_single_instance_path, authorization_includes;
-	private String tenant_sg, tenant_pl, tenant_auth_sg, tenant_auth_pl, schemalocation, servicesdochandler,serviceabstract,servicecommon,servicevalidator;
-	private Boolean authorization_view;
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
 	private Map<String, Field> services_filter_param = new HashMap<String, Field>();
 
@@ -74,138 +57,159 @@ public class Record implements FieldParent {
 		/* parameters */
 		// this is what the service layer id defaults to if not specified later
 		// standard = singular form of the concept
-		id = (String) section.getValue("/@id");
+		this.initStrings(section,"@id",null);
 
 		// record,authority,compute-displayname can have multiple types using
 		// commas
-		type = Util.getSetOrDefault(section, "/@type",
-				new String[] { "record" });
+		this.initSet(section,"@type",new String[] { "record" });
 
 		// specified that it is included in the findedit uispec
-		in_findedit = Util.getBooleanOrDefault(section, "/@in-findedit", false);
+		this.initBoolean(section,"@in-findedit",false);
 		// specified that it is included in the findedit uispec
-		in_recordlist = Util.getBooleanOrDefault(section, "/@in-recordlist", true);
+		this.initBoolean(section,"@in-recordlist",true);
 		
 		// config whether service layer needs call as multipart or not
-		is_multipart = Util.getBooleanOrDefault(section, "/is-multipart", true);
+		this.initBoolean(section,"is-multipart",true);
 
 		// config whether record type has termsUsed or not (returns empty array
 		// in Json if = false )
-		has_terms_used = Util.getBooleanOrDefault(section, "/terms-used", true);
+		this.initBoolean(section,"terms-used",true);
 		// config whether record type has relatedObj/procs or not (returns empty
 		// array in Json if = false )
-		has_refobj_used = Util.getBooleanOrDefault(section, "/refobj-used",
-				true);
+		this.initBoolean(section,"refobj-used",true);
 
 		// config the keyword to use for searching
-		services_search_keyword = Util.getStringOrDefault(section,
-				"/services-search-keyword", "kw");
+		this.initStrings(section,"services-search-keyword","kw");
 
 		// Used to differentiate between authority and vocabulary on create
-		in_tag = Util.getStringOrDefault(section, "/membership-tag",
-				"inAuthority");
+		this.initStrings(section,"membership-tag","inAuthority");
 
 		/* UI Layer helpers */
 		// ui layer path
-		web_url = Util.getStringOrDefault(section, "/web-url", id);
+		this.initStrings(section,"web-url", getString("@id"));
 
 		// specify url if not nameAuthority
-		terms_used_url = Util.getStringOrDefault(section, "/terms-used-url",
-				"nameAuthority");
+		this.initStrings(section,"terms-used-url", "nameAuthority");
 
 		// ui layer json row
-		number_selector = Util.getStringOrDefault(section, "/number-selector",
-				".csc-entry-number");
+		this.initStrings(section,"number-selector", ".csc-entry-number");
 
 		// ui layer json used in list views
-		row_selector = Util.getStringOrDefault(section, "/row-selector",
-				".csc-recordList-row:");
+		this.initStrings(section,"row-selector",".csc-recordList-row:");
 
 		// ui layer path: defaults to web_url if not specified
-		ui_url = Util.getStringOrDefault(section, "/ui-url", web_url + ".html");
+		this.initStrings(section,"ui-url", getString("web-url") + ".html");
 
 		// ui layer path
-		tab_url = Util
-				.getStringOrDefault(section, "/tab-url", web_url + "-tab");
+		this.initStrings(section,"tab-url", getString("web-url") + "-tab");
 
 		/* Service layer helpers */
 
 		// path that the service layer uses to access this record
-		services_url = Util.getStringOrDefault(section, "/services-url", id);
+		this.initStrings(section,"services-url", getString("@id"));
 
 		// authorization 
-		authorization_includes = Util.getStringOrDefault(section,
-				"/authorization-includes", services_url);
+		this.initStrings(section,"authorization-includes", getString("services-url"));
 
-		authorization_view = Util.getBooleanOrDefault(section,
-				"/authorization-view", true);
+		this.initBoolean(section,"authorization-view",true);
 
 		// service layer paths to list data for this record type
-		services_list_path = Util.getStringOrDefault(section,
-				"/services-list-path", services_url + "-common-list/"
-						+ services_url + "-list-item");
-		services_fields_path = Util.getStringOrDefault(section,
-				"/services-fields-path", services_url
+		this.initStrings(section,"services-list-path", getString("services-url") + "-common-list/"
+				+ getString("services-url") + "-list-item");
+
+		this.initStrings(section,"services-fields-path", getString("services-url")
 						+ "-common-list/fieldsReturned");
 
 		// used by service layer to construct authority names
-		urn_syntax = Util.getStringOrDefault(section, "/urn-syntax",
-				"urn:cspace.org.collectionspace.demo." + id + ":name({vocab}):"
-						+ id + ":name({entry})'{display}'");
-		vocab_syntax = Util.getStringOrDefault(section, "/vocab-syntax",
-				"urn:cspace:name");
-		authority_vocab_type = Util.getStringOrDefault(section,
-				"/authority-vocab-type", "PersonAuthority");
+		this.initStrings(section,"urn-syntax","urn:cspace.org.collectionspace.demo." + getString("@id") + ":name({vocab}):"
+						+ getString("@id") + ":name({entry})'{display}'");
+		this.initStrings(section,"vocab-syntax","urn:cspace:name");
+		this.initStrings(section,"authority-vocab-type","PersonAuthority");
 		//
-		services_instances_path = Util.getStringOrDefault(section,
-				"/services-instances-path", services_url
+		this.initStrings(section,"services-instances-path", getString("services-url")
 						+ "_common:http://collectionspace.org/services/"
-						+ services_url + "," + services_url + "-common-list/"
-						+ services_url + "-list-item");
+						+ getString("services-url") + "," + getString("services-url") + "-common-list/"
+						+ getString("services-url") + "-list-item");
 
 		//
-		services_single_instance_path = Util.getStringOrDefault(section,
-				"/services-single-instance-path", services_url
+		this.initStrings(section,"services-single-instance-path", getString("services-url")
 						+ "_common:http://collectionspace.org/services/"
-						+ services_url + "," + services_url + "-common");
-		primaryfield = Util.getStringOrDefault(section, "/primaryfield", "");
-		has_delete_method = Util.getBooleanOrDefault(section,
-				"/hasdeletemethod", false);
-		
+						+ getString("services-url") + "," + getString("services-url") + "-common");
+		this.initStrings(section,"primaryfield", "");
+		this.initBoolean(section,"hasdeletemethod",true);
 
-		tenant_sg = Util.getStringOrDefault(section, "/services-tenant-singular", services_url);
-		tenant_pl = Util.getStringOrDefault(section, "/services-tenant-plural", tenant_sg+"s");
-		tenant_auth_sg = Util.getStringOrDefault(section, "/services-tenant-auth-singular", services_url);
-		tenant_auth_pl = Util.getStringOrDefault(section, "/services-tenant-auth-plural", tenant_auth_sg+"s");
+		this.initStrings(section,"services-tenant-singular", getString("services-url"));
+		this.initStrings(section,"services-tenant-plural", getString("services-tenant-singular")+"s");
+		this.initStrings(section,"services-tenant-auth-singular", getString("services-url"));
+		this.initStrings(section,"services-tenant-auth-plural", getString("services-tenant-singular")+"s");
 
-		schemalocation = Util.getStringOrDefault(section, "/services-schemalocation", "http://services.collectionspace.org");
+		this.initStrings(section,"services-schemalocation", "http://services.collectionspace.org");
 		
-		servicesdochandler = Util.getStringOrDefault(section, "/services-dochandler","org.collectionspace.services."+ tenant_sg.toLowerCase() +".nuxeo."+ tenant_sg+"DocumentModelHandler");
-		serviceabstract = Util.getStringOrDefault(section, "/services-abstract","org.collectionspace.services."+tenant_sg.toLowerCase()+"."+ tenant_pl +"CommonList");
-		servicecommon =Util.getStringOrDefault(section, "/services-common", serviceabstract + "$"+tenant_sg+"ListItem");
-		servicevalidator = Util.getStringOrDefault(section, "/services-validator","org.collectionspace.services."+ tenant_sg.toLowerCase() +".nuxeo."+ tenant_sg+"ValidatorHandler");
+		this.initStrings(section,"services-dochandler","org.collectionspace.services."+ getString("services-tenant-singular").toLowerCase() +".nuxeo."+ getString("services-tenant-singular")+"DocumentModelHandler");
+		this.initStrings(section,"services-abstract","org.collectionspace.services."+getString("services-tenant-singular").toLowerCase()+"."+ getString("services-tenant-plural") +"CommonList");
+		this.initStrings(section,"services-common", getString("services-abstract") + "$"+getString("services-tenant-singular")+"ListItem");
+		this.initStrings(section,"services-validator","org.collectionspace.services."+ getString("services-tenant-singular").toLowerCase() +".nuxeo."+ getString("services-tenant-singular")+"ValidatorHandler");
 
 		spec = parent;
 	}
 
+
+	/** start generic functions **/
+	protected Set<String> initSet(ReadOnlySection section, String name, String[] defaultval){
+		Set<String> vard = Util.getSetOrDefault(section, "/"+name, defaultval);
+		allSets.put(name,vard);
+		return vard;
+	}
+	protected String initStrings(ReadOnlySection section, String name, String defaultval){
+		String vard = Util.getStringOrDefault(section, "/"+name, defaultval);
+		allStrings.put(name,vard);
+		return vard;
+	}
+	protected Boolean initBoolean(ReadOnlySection section, String name, Boolean defaultval){
+		Boolean vard = Util.getBooleanOrDefault(section, "/"+name, defaultval);
+		allBooleans.put(name,vard);
+		return vard;
+	}
+	protected String getString(String name){
+		if(allStrings.containsKey(name)){
+			return allStrings.get(name);
+		}
+		return null;
+	}
+
+	protected Boolean getBoolean(String name){
+		if(allBooleans.containsKey(name)){
+			return allBooleans.get(name);
+		}
+		return null;
+	}
+
+	protected Set<String> getSet(String name){
+		if(allSets.containsKey(name)){
+			return allSets.get(name);
+		}
+		return null;
+	}
+	/** end generic functions **/
+	
 	public String getID() {
-		return id;
+		return getString("@id");
 	}
 
 	public String getWebURL() {
-		return web_url;
+		return getString("web-url");
 	}
 
 	public String getUIURL() {
-		return ui_url;
+		return getString("ui-url");
 	}
 
 	public String getTabURL() {
-		return tab_url;
+		return getString("tab-url");
 	}
 
 	public boolean isType(String k) {
-		return type.contains(k);
+		return getSet("@type").contains(k);
 	}
 
 	public Spec getSpec() {
@@ -325,11 +329,11 @@ public class Record implements FieldParent {
 	*/
 
 	public String getPrimaryField() {
-		return primaryfield;
+		return getString("primaryfield");
 	};
 
 	public Boolean hasPrimaryField() {
-		if (primaryfield.equals("")) {
+		if (getPrimaryField().equals("")) {
 			return false;
 		} else {
 			return true;
@@ -343,58 +347,58 @@ public class Record implements FieldParent {
 		return true;
 	}
 	public String getTermsUsedURL() {
-		return terms_used_url;
+		return getString("terms-used-url");
 	}
 
 	public String getNumberSelector() {
-		return number_selector;
+		return getString("number-selector");
 	}
 
 	public String getRowSelector() {
-		return row_selector;
+		return getString("row-selector");
 	}
 
 	public boolean isInFindEdit() {
-		return in_findedit;
+		return getBoolean("@in-findedit");
 	}
 	public boolean isInRecordList() {
-		return in_recordlist;
+		return getBoolean("@in-recordlist");
 	}
 
 	public boolean isMultipart() {
-		return is_multipart;
+		return getBoolean("is-multipart");
 	}
 
 	public boolean hasTermsUsed() {
-		return has_terms_used;
+		return getBoolean("terms-used");
 	}
 
 	public boolean hasRefObjUsed() {
-		return has_refobj_used;
+		return getBoolean("refobj-used");
 	}
 
 	public boolean hasDeleteMethod() {
-		return has_delete_method;
+		return getBoolean("hasdeletemethod");
 	}
 
 	public String getServicesSearchKeyword() {
-		return services_search_keyword;
+		return getString("services-search-keyword");
 	}
 
 	public String getInTag() {
-		return in_tag;
+		return getString("membership-tag");
 	}
 
 	public String getURNSyntax() {
-		return urn_syntax;
+		return getString("urn-syntax");
 	}
 
 	public String getURNVocab() {
-		return vocab_syntax;
+		return getString("vocab-syntax");
 	}
 
 	public String getVocabType() {
-		return authority_vocab_type;
+		return getString("authority-vocab-type");
 	}
 
 	public Instance[] getAllInstances() {
@@ -406,58 +410,58 @@ public class Record implements FieldParent {
 	}
 
 	public String getServicesURL() {
-		return services_url;
+		return getString("services-url");
 	}
 
 	public String getServicesTenantSg() {
-		return tenant_sg;
+		return getString("services-tenant-singular");
 	}
 
 	public String getServicesTenantPl() {
-		return tenant_pl;
+		return getString("services-tenant-plural");
 	}
 
 	public String getServicesTenantAuthSg() {
-		return tenant_auth_sg;
+		return getString("services-tenant-auth-singular");
 	}
 
 	public String getServicesTenantAuthPl() {
-		return tenant_auth_pl;
+		return getString("services-tenant-auth-plural");
 	}
 	
 	public String getServicesAbstractCommonList(){
-		return serviceabstract;
+		return getString("services-abstract");
 	}
 	public String getServicesValidatorHandler(){
-		return servicevalidator;
+		return getString("services-validator");
 		
 	}
 	public String getServicesCommonList(){
-		return servicecommon;
+		return getString("services-common");
 	}
 
 	public String getServicesSchemaBaseLocation(){
-		return schemalocation;
+		return getString("schema-location");
 	}
 	
 	public String getServicesDocHandler(){
-		return servicesdochandler;
+		return getString("services-dochandler");
 	}
 	
 	public String getServicesListPath() {
-		return services_list_path;
+		return getString("services-list-path");
 	}
 
 	public String getServicesFieldsPath() {
-		return services_fields_path;
+		return getString("services-fields-path");
 	}
 
 	public String getServicesInstancesPath() {
-		return services_instances_path;
+		return getString("services-instances-path");
 	}
 
 	public String getServicesSingleInstancePath() {
-		return services_single_instance_path;
+		return getString("services-single-instance-path");
 	}
 
 	public String[] getServicesRecordPaths() {
@@ -531,16 +535,16 @@ public class Record implements FieldParent {
 
 	// authorization
 	public Boolean getAuthorizationView() {
-		return authorization_view;
+		return getBoolean("authorization-view");
 	}
 
 
 	public String getAuthorizationType() {
-		return authorization_includes;
+		return getString("authorization-includes");
 	}
 
 	public Boolean isAuthorizationType(String name) {
-		return authorization_includes.contains(name);
+		return getAuthorizationType().contains(name);
 	}
 
 	public void addField(FieldSet f , Boolean plusServices){
@@ -650,9 +654,9 @@ public class Record implements FieldParent {
 	}
 
 	void dump(StringBuffer out) {
-		out.append("  record id=" + id + "\n");
-		out.append("    web_url=" + web_url + "\n");
-		out.append("    type=" + type + "\n");
+		out.append("  record id=" + this.getID() + "\n");
+		out.append("    web_url=" + getWebURL() + "\n");
+		out.append("    type=" + getSet("@type") + "\n");
 	}
 
 	public Record getRecord() {
@@ -668,7 +672,6 @@ public class Record implements FieldParent {
 
 	@Override
 	public boolean isExpander() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }
