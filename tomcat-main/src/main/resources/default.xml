@@ -46,9 +46,9 @@
             <tmp-schema-path />
 			<mappings>
 				<map>
-					<url>/cspace-ui/html/cataloging.html</url>
+					<url></url>
 					<recordtype>procedure</recordtype>
-					<file>/cspace-ui/html/record.html</file>
+					<file>/html/record.html</file>
 					<configure>
 						<meta id="title">CollectionSpace - {record/web-url}</meta>
 					</configure>
