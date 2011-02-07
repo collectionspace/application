@@ -21,7 +21,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>ChainServlet</servlet-name>
-    <url-pattern>/*</url-pattern>
+    <url-pattern>/chain/*</url-pattern>
   </servlet-mapping>
 
   <!-- INFO if you're really paranoid about performance, comment out the following

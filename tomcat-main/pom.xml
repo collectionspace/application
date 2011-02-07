@@ -210,7 +210,7 @@
     
   </dependencies>
   <build>
-    <finalName>chain</finalName>
+    <finalName>collectionspace</finalName>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -232,7 +232,7 @@
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>maven-jetty-plugin</artifactId>
         <configuration>
-	  <contextPath>chain</contextPath>
+	  <contextPath>collectionspace</contextPath>
         </configuration>
       </plugin>
       <plugin>
