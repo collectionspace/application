@@ -39,12 +39,20 @@
     </persistence>
     <ui>
         <web>
-            <login-dest>/cspace-ui/html/myCollectionSpace.html</login-dest>
-            <login-failed-dest>/cspace-ui/html/index.html</login-failed-dest>
-            <front-page>/cspace-ui/html/</front-page>
+            <login-dest>/collectionspace/ui/html/myCollectionSpace.html</login-dest>
+            <login-failed-dest>/collectionspace/ui/html/index.html</login-failed-dest>
+            <front-page>/collectionspace/ui/html/index.html</front-page>
             <find-page>myCollectionSpace</find-page>
             <tmp-schema-path />
 			<mappings>
+				<map>
+					<recordtype>record</recordtype>
+					<file>/html/record.html</file>
+				</map>
+				<map>
+					<recordtype>authority</recordtype>
+					<file>/html/record.html</file>
+				</map>
 				<map>
 					<url></url>
 					<recordtype>procedure</recordtype>
