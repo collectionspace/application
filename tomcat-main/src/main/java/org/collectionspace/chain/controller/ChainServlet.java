@@ -101,9 +101,12 @@ public class ChainServlet extends HttpServlet  {
 	}
 
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path) throws IOException{
-log.info(path);
+
         InputStream is=sc.getResourceAsStream(path);
-        //.getClass().getClassLoader().getResourceAsStream("/html/record.html");
+
+        
+		if(is==null)
+			return false; // Not for us
 
 		IOUtils.copy(is,servlet_response.getOutputStream());
 		return true;
@@ -174,6 +177,13 @@ log.info(path);
 	@Override
 	public void service(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		try {
+
+			String pathinfo = servlet_request.getPathInfo();
+			String[] pathbits = pathinfo.substring(1).split("/");
+			if (pathbits[0].equals("chain")) {
+				servlet_response.sendRedirect(pathinfo);
+				return;
+			}
 			if(locked_down!=null) {
 				//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else
 

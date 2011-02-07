@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -16,9 +16,7 @@ import org.collectionspace.chain.csp.webui.external.UIMapping;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.ui.UI;
 
-
-
-public class ChainUIServlet extends ChainServlet{
+public class ChainUIServlet extends ChainServlet {
 
 	/**
 	 * 
@@ -34,62 +32,46 @@ public class ChainUIServlet extends ChainServlet{
 				setup();
 
 			String pathinfo = servlet_request.getPathInfo();
-
 			// should we redirect this url or just do the normal stuff
 
 			// Setup our request object
-			UI web=cspm.getUI("web");
-			WebUI webui = (WebUI)web;
+			UI web = cspm.getUI("web");
+			WebUI webui = (WebUI) web;
 			UIMapping[] allmappings = webui.getAllMappings();
-			
+
 			ConfigRoot root = cspm.getConfigRoot();
 			Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
-			
 
-	        if(pathinfo.equals("/html")){
-	        	pathinfo = "/html/index.html";
-	        }
-			String msg = "";
+			if (pathinfo.equals("/html") || pathinfo.equals("/html/")) {
+				servlet_response.sendRedirect("/collectionspace/ui/html/index.html");
+			}
+			
 			String path = pathinfo;
-			for(UIMapping map : allmappings){
-				if(map.hasUrl()){
-					//does pathinfo match url
-					if(map.getUrl().equals(pathinfo)){
-						msg += "this is the path of doom"+map.getUrl()+":"+map.getFile()+":"+pathinfo;
+			for (UIMapping map : allmappings) {
+				if (map.hasUrl()) {
+					// does pathinfo match url
+					if (map.getUrl().equals(pathinfo)) {
 						path = map.getFile();
 					}
-				}
-				else if(map.hasType()){
-					for(Record r : spec.getAllRecords()) {
-						//msg += "MAPTYPE: "+map.getType()+":";
-						if(r.isType(map.getType())){
-							//msg += r.getUIURL()+":";
-							if(pathinfo.equals("/html/"+r.getUIURL())){
-								msg += "this is the path of doom"+map.getType()+":"+r.getUIURL()+":"+map.getFile()+":"+pathinfo;
+				} else if (map.hasType()) {
+					for (Record r : spec.getAllRecords()) {
+						if (r.isType(map.getType())) {
+							if (pathinfo.equals("/html/" + r.getUIURL())) {
 								path = map.getFile();
 							}
 						}
 					}
 				}
 			}
-			
-			ServletContext sc=null;  
-            
-	        sc=getServletContext().getContext("/cspace-ui");
-	        	
-	        	if(serverFixedExternalContent(servlet_request,servlet_response,sc,path)){
-	        		return;
-	        	}  
-	        //InputStream is=sc.getResourceAsStream("/html/record.html");
-	        //.getClass().getClassLoader().getResourceAsStream("/html/record.html");
 
-			//IOUtils.copy(is,servlet_response.getOutputStream());
+			ServletContext sc = null;
 
+			sc = getServletContext().getContext("/cspace-ui");
 
-			//servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,
-			//		"Chris has taken over the servlet world waa haaa haaaaa: "
-			//				+ msg);
-	
+			if (serverFixedExternalContent(servlet_request, servlet_response,
+					sc, path)) {
+				return;
+			}
 
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,
