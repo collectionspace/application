@@ -6,7 +6,9 @@
  */
 package org.collectionspace.chain.csp.schema;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,6 +27,10 @@ public class Record implements FieldParent {
 	private Map<String, String> allStrings = new HashMap<String, String>();
 	private Map<String, Boolean> allBooleans = new HashMap<String, Boolean>();
 	private Map<String, Set<String>> allSets = new HashMap<String, Set<String>>();
+	/* just used for documentation to retrieve defaults */
+	private Map<String, String> allDefaultStrings = new HashMap<String, String>();
+	private Map<String, Boolean> allDefaultBooleans = new HashMap<String, Boolean>();
+	private Map<String, Set<String>> allDefaultSets = new HashMap<String, Set<String>>();
 	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
 	private Map<String, FieldSet> subrecords = new HashMap<String, FieldSet>();
@@ -65,7 +71,7 @@ public class Record implements FieldParent {
 
 		// specified that it is included in the findedit uispec
 		this.initBoolean(section,"@in-findedit",false);
-		// specified that it is included in the findedit uispec
+
 		this.initBoolean(section,"@in-recordlist",true);
 		
 		// config whether service layer needs call as multipart or not
@@ -157,18 +163,24 @@ public class Record implements FieldParent {
 	/** start generic functions **/
 	protected Set<String> initSet(ReadOnlySection section, String name, String[] defaultval){
 		Set<String> vard = Util.getSetOrDefault(section, "/"+name, defaultval);
+		allDefaultSets.put(name,new HashSet<String>(Arrays.asList(defaultval)));
 		allSets.put(name,vard);
 		return vard;
 	}
 	protected String initStrings(ReadOnlySection section, String name, String defaultval){
 		String vard = Util.getStringOrDefault(section, "/"+name, defaultval);
+		allDefaultStrings.put(name,defaultval);
 		allStrings.put(name,vard);
 		return vard;
 	}
 	protected Boolean initBoolean(ReadOnlySection section, String name, Boolean defaultval){
 		Boolean vard = Util.getBooleanOrDefault(section, "/"+name, defaultval);
+		allDefaultBooleans.put(name,defaultval);
 		allBooleans.put(name,vard);
 		return vard;
+	}
+	protected String[] getAllString(){
+		return allStrings.keySet().toArray(new String[0]);
 	}
 	protected String getString(String name){
 		if(allStrings.containsKey(name)){
@@ -177,6 +189,9 @@ public class Record implements FieldParent {
 		return null;
 	}
 
+	protected String[] getAllBoolean(){
+		return allBooleans.keySet().toArray(new String[0]);
+	}
 	protected Boolean getBoolean(String name){
 		if(allBooleans.containsKey(name)){
 			return allBooleans.get(name);
@@ -184,6 +199,10 @@ public class Record implements FieldParent {
 		return null;
 	}
 
+	protected String[] getAllSets(){
+		return allSets.keySet().toArray(new String[0]);
+	}
+	
 	protected Set<String> getSet(String name){
 		if(allSets.containsKey(name)){
 			return allSets.get(name);
@@ -657,6 +676,25 @@ public class Record implements FieldParent {
 		out.append("  record id=" + this.getID() + "\n");
 		out.append("    web_url=" + getWebURL() + "\n");
 		out.append("    type=" + getSet("@type") + "\n");
+
+		for(String s: this.getAllString()){
+			out.append("String,"+ s);
+			out.append(",Value,"+ this.allStrings.get(s));
+			out.append(",Default,"+ this.allDefaultStrings.get(s));
+			out.append("\n");
+		}
+		for(String s: this.getAllBoolean()){
+			out.append("Boolean,"+ s);
+			out.append(",Value,"+ this.allBooleans.get(s));
+			out.append(",Default,"+ this.allDefaultBooleans.get(s));
+			out.append("\n");
+		}
+		for(String s: this.getAllSets()){
+			out.append("Set,"+ s);
+			out.append(",Value,"+ this.allSets.get(s));
+			out.append(",Default,"+ this.allDefaultSets.get(s));
+			out.append("\n");
+		}
 	}
 
 	public Record getRecord() {
