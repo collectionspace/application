@@ -50,7 +50,8 @@ public class TestUISpecs extends TestBase {
 	@Test
 	public void testUISchema() throws Exception {
 		ServletTester jetty = setupJetty();
-
+		//ServletTester jetty=setupJetty(false,"tenant1.xml");
+		
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
 		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
 		uispec(jetty, "/recordtypes/uischema", "recordtypes.uischema");

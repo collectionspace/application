@@ -74,6 +74,9 @@ public class ChainUIServlet extends ChainServlet {
 
 			ServletContext sc = null;
 			sc = getServletContext().getContext("/cspace-ui");
+			if(sc==null){
+				servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,"missing servlet context cspace-ui");
+			}
 
 			Boolean doMetaConfig = false;
 			String path = pathinfo;
@@ -118,11 +121,11 @@ public class ChainUIServlet extends ChainServlet {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,
 					getStackTrace(x));
 		} catch (ConnectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+					getStackTrace(e));
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,
+					getStackTrace(e));
 		}
 	}
 	/* borrowed from ContectionUtils and tweaked e.g. set newline = true*/
