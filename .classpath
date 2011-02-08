@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="general-utils/src/main/java"/>
+	<classpathentry kind="src" path="csp-impl/src/main/java"/>
+	<classpathentry kind="src" path="csp-impl/src/main/resources"/>
+	<classpathentry kind="src" path="csp-impl/src/test/resources"/>
+	<classpathentry kind="src" path="csp-impl/src/test/java"/>
 	<classpathentry kind="src" path="jxutils/src/main/java"/>
 	<classpathentry kind="src" path="jxutils/src/test/resources"/>
 	<classpathentry kind="src" path="jxutils/src/test/java"/>
 	<classpathentry kind="src" path="csp-api/src/main/java"/>
 	<classpathentry kind="src" path="csp-helper/src/main/java"/>
-	<classpathentry kind="src" path="csp-impl/src/main/java"/>
 	<classpathentry kind="src" path="cspi-file/src/main/java"/>
 	<classpathentry kind="src" path="cspi-services/src/main/java"/>
 	<classpathentry kind="src" path="cspi-services/src/main/resources"/>

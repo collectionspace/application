@@ -1,0 +1,6 @@
+<tag8>
+	<xslt src="test5.xslt">
+		<tag9/>
+	</xslt>
+	<include src="test6.xml" strip-root="true"/>
+</tag8>
