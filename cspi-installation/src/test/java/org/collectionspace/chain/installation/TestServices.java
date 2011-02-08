@@ -63,8 +63,15 @@ public class TestServices {
 
 		String filename = "tenant1.xml";
 		CSPManager cspm=getServiceManager(filename);
-		Services bob = new Services(getSpec(filename,cspm), getTenantData(filename,cspm),true);
-	
-		bob.doit();
+		//tenant specific
+		Services tenantbob = new Services(getSpec(filename,cspm), getTenantData(filename,cspm),false);
+		
+		//common file
+		Services commonbob = new Services(getSpec(filename,cspm), getTenantData(filename,cspm),true);
+
+		log.info("tenant1");
+		tenantbob.doit();
+		log.info("common");
+		commonbob.doit();
 	}
 }

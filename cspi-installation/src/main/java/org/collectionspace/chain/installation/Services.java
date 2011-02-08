@@ -76,13 +76,21 @@ public class Services {
 
 		//<tenant:tenantBinding version="0.1">
 		Element ele = root.addElement(new QName("tenantBinding", nstenant));
-		ele.addAttribute("name", this.tenantSpec.getTenant());
-		ele.addAttribute("displayName", this.tenantSpec.getTenantDisplay());
+		if(!this.defaultonly){
+			ele.addAttribute("name", this.tenantSpec.getTenant());
+			ele.addAttribute("displayName", this.tenantSpec.getTenantDisplay());
+		}
 		ele.addAttribute("version", this.tenantSpec.getTenantVersion());
 
 		//<tenant:repositoryDomain name="default-domain" repositoryClient="nuxeo-java"/>
 		Element rele = ele.addElement(new QName("repositoryDomain", nstenant));
-		rele.addAttribute("name", this.tenantSpec.getRepoDomain());
+
+		if(this.defaultonly){
+			rele.addAttribute("name", this.tenantSpec.getDefaultDomain());
+		}
+		else{
+			rele.addAttribute("name", this.tenantSpec.getRepoDomain());
+		}
 		rele.addAttribute("repositoryClient", this.tenantSpec.getRepoClient());
 		
 		//add in <tenant:properties> if required
@@ -123,7 +131,8 @@ public class Services {
 				addServiceBinding(r, cele, nsservices, false);
 			}
 			if(r.isType("authorizationdata")){
-				addAuthorization(r,ele);
+				//	ignore at the moment as they are so non standard
+				//	addAuthorization(r,ele);
 			}
 		}
 
@@ -141,7 +150,7 @@ public class Services {
 	private void makeProperties(Element ele){
 		Boolean showLang = true;
 		Boolean showDate = true;
-		if (!this.domainsection.equals("")) {
+		if (!this.defaultonly) {
 			if(this.tenantSpec.isDefaultLanguage()){
 				showLang = false;
 			}
@@ -450,9 +459,9 @@ public class Services {
 	private void addServiceBinding(Record r, Element el, Namespace thisns, Boolean isAuthority) {
 		//<service:repositoryDomain>default-domain</service:repositoryDomain>
 		Element repository = el.addElement(new QName("repositoryDomain",thisns));
-		repository.addText(this.tenantSpec.getRepoDomain());
-		
+
 		if(this.defaultonly){
+			repository.addText(this.tenantSpec.getDefaultDomain());
 			//<service:documentHandler>
 			String docHandler = r.getServicesDocHandler();
 			Element documentHandler = el.addElement(new QName("documentHandler",thisns));
@@ -461,6 +470,10 @@ public class Services {
 			Element validatorHandler = el.addElement(new QName("validatorHandler",thisns));
 			validatorHandler.addText(r.getServicesValidatorHandler());
 		}
+		else{
+			repository.addText(this.tenantSpec.getRepoDomain());
+		}
+		
 		if(!this.domainsection.equals("")){//only do if domain exists or is common
 			//<service:object name="CollectionObject" version="0.1">
 			//defines all authref fields
