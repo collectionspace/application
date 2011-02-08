@@ -100,17 +100,21 @@ public class ChainServlet extends HttpServlet  {
 		inited=true;
 	}
 
-	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path) throws IOException{
+	protected boolean serveContent(HttpServletResponse servlet_response,InputStream is) throws IOException{
 
-        InputStream is=sc.getResourceAsStream(path);
-
-        
 		if(is==null)
 			return false; // Not for us
 
 		IOUtils.copy(is,servlet_response.getOutputStream());
 		return true;
 	}
+	
+	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path) throws IOException{
+
+        InputStream is=sc.getResourceAsStream(path);
+        return serveContent(servlet_response,is);
+	}
+	
 	private boolean perhapsServeFixedContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		String pathinfo=servlet_request.getPathInfo();
 		if(pathinfo.startsWith("/"))
