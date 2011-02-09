@@ -31,8 +31,9 @@ public class TestAssembly {
 		}			
 	}
 
-	/*
-	@Test public void testAssembly() throws Exception {
+	
+	//@Test 
+	public void testAssembly() throws Exception {
 		StringWriter sbos=new StringWriter();
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/test1.xml";
 		InputStream in=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
@@ -42,5 +43,5 @@ public class TestAssembly {
 		log.info(sbos.toString().replaceAll("\\s",""));
 		assertEquals(assembly1,sbos.toString().replaceAll("\\s",""));
 	}
-	*/
+	
 }
