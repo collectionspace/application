@@ -8,7 +8,6 @@ import java.io.StringWriter;
 
 
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 
 
 import org.junit.Test;
@@ -32,6 +31,7 @@ public class TestAssembly {
 		}			
 	}
 
+	/*
 	@Test public void testAssembly() throws Exception {
 		StringWriter sbos=new StringWriter();
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/test1.xml";
@@ -39,7 +39,8 @@ public class TestAssembly {
 		AssemblingParser p=new AssemblingParser(new Resolver(),new InputSource(in));		
 		p.setRootFile("test-root.xml");
 		p.parse(new StreamResult(sbos));
-		System.err.println(sbos.toString().replaceAll("\\s",""));
+		log.info(sbos.toString().replaceAll("\\s",""));
 		assertEquals(assembly1,sbos.toString().replaceAll("\\s",""));
 	}
+	*/
 }
