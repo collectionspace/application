@@ -27,12 +27,12 @@ public class TestSchema {
 
 	private static final Logger log=LoggerFactory.getLogger(TestSchema.class);
 	
-	private InputStream getSource(String fallbackFile) {
+	private InputSource getSource(String fallbackFile) {
 		try {
 			return TestConfigFinder.getConfigStream();
 		} catch (CSPDependencyException e) {
 			String name=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+fallbackFile;
-			return Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+			return new InputSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
 		}
 	}
 	
@@ -42,7 +42,7 @@ public class TestSchema {
 		cspm.register(new Spec());
 		try {
 			cspm.go();
-			InputSource configsource = new InputSource(getSource("config.xml"));
+			InputSource configsource = getSource("config.xml");
 			cspm.configure(configsource,null);
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");

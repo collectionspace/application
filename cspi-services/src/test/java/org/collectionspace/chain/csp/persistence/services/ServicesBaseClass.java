@@ -92,7 +92,7 @@ public class ServicesBaseClass {
 		return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 	}
 	
-	protected InputStream getRootSource() throws CSPDependencyException {
+	protected InputSource getRootSource() throws CSPDependencyException {
 		try {
 			return TestConfigFinder.getConfigStream();
 		} catch (CSPDependencyException e) {
@@ -106,7 +106,7 @@ public class ServicesBaseClass {
 		cspm.register(new Spec());
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
-		cspm.configure(new InputSource(getRootSource()),null);
+		cspm.configure(getRootSource(),null);
 		return cspm;
 		
 	}

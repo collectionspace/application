@@ -21,6 +21,7 @@ import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.api.ui.UI;
+import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 
 public class CSPManagerImpl implements CSPManager {
@@ -43,14 +44,14 @@ public class CSPManagerImpl implements CSPManager {
 		csps.go();
 	}
 
-	public void configure(InputSource in,String url) throws CSPDependencyException {
+	public void configure(InputSource in,EntityResolver er) throws CSPDependencyException {
 		RulesImpl rules=new RulesImpl();
 		for(Configurable config : config_csps) {
 			config.configure(rules);
 		}
 		try {
-			ConfigParser parser = new ConfigParser(rules);
-			parser.parse(in,url);
+			ConfigParser parser = new ConfigParser(rules,er);
+			parser.parse(in);
 			for(Configurable config : config_csps) {
 				config.config_finish();
 			}

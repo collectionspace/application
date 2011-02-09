@@ -32,7 +32,7 @@ public class TestAssembly {
 		StringWriter sbos=new StringWriter();
 		String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/test1.xml";
 		InputStream in=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-		AssemblingParser p=new AssemblingParser(new Resolver(),new InputSource(in));		
+		AssemblingParser p=new AssemblingParser(new CheckingResolver(),new InputSource(in));		
 		p.setRootFile("test-root.xml");
 		p.parse(new StreamResult(sbos));
 		log.info(sbos.toString().replaceAll("\\s",""));

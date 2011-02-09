@@ -67,13 +67,13 @@ public class TestData {
 	
 	protected final String user88Create  = addData("userCreate.json", "userId").toString();
 
-	private static InputStream getSource(String fallbackFile) {
+	private static InputSource getSource(String fallbackFile) {
         TestData demo = new TestData();
 		try {
 			return TestConfigFinder.getConfigStream();
 		} catch (CSPDependencyException e) {
 			String name=demo.getClass().getPackage().getName().replaceAll("\\.","/")+"/"+fallbackFile;
-			return Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+			return new InputSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
 		}
 	}
 	protected static Spec getSpec(ServletTester tester){
@@ -84,7 +84,7 @@ public class TestData {
 			cspm.go();
 			tester.getAttribute("config-filename");
 			String filename=(String)tester.getAttribute("config-filename");
-			cspm.configure(new InputSource(getSource(filename)),null);
+			cspm.configure(getSource(filename),null);
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );

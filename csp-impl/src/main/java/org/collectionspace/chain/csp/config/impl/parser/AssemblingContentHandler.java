@@ -74,9 +74,9 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 			delegated_root=root;
 			delegated_depth=1;
 		} catch (TransformerConfigurationException e) {
-			throw new SAXException("Could not create inner parser");
+			throw new SAXException("Could not create inner parser",e);
 		} catch (ConfigException e) {
-			throw new SAXException("Could not create inner parser");
+			throw new SAXException("Could not create inner parser",e);
 		}
 		
 	}
@@ -87,11 +87,11 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 			DefaultHandler inner=new AssemblingContentHandler(parser,this,false,strip,this);
 			sp.parse(src,inner);
 		} catch (ParserConfigurationException e) {
-			throw new SAXException("Could not create inner parser");
+			throw new SAXException("Could not create inner parser",e);
 		} catch (ConfigException e) {
-			throw new SAXException("Could not create inner parser");
+			throw new SAXException("Could not create inner parser",e);
 		} catch (IOException e) {
-			throw new SAXException("Could not create inner parser");
+			throw new SAXException("Could not create inner parser",e);
 		}
 	}
 	

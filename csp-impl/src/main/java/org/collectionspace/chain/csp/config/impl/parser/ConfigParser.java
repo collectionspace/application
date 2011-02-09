@@ -24,37 +24,40 @@ import org.xml.sax.ContentHandler;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import org.xml.sax.XMLReader;
 
 public class ConfigParser {
 	private static final Logger log=LoggerFactory.getLogger(ConfigParser.class);
 	private ConfigLoadingMessages messages=new ConfigLoadingMessagesImpl();
 	private SAXParserFactory factory;
 	private RulesImpl rules;
+	private EntityResolver er;
 	
-	private static final class Resolver implements EntityResolver {
+	private final class Resolver implements EntityResolver {
 		@Override public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
-			String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+systemId;
-			InputStream in=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
-			return new InputSource(in);
-		}			
+			if("core.xml".equals(systemId) || "root.xml".equals(systemId)) {
+				String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+systemId;
+				InputStream in=Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+				if(in!=null)
+					return new InputSource(in);
+			}
+			return er.resolveEntity(publicId,systemId);
+		}
 	}
 	
-	public ConfigParser(RulesImpl rules) throws ConfigException {
+	public ConfigParser(RulesImpl rules,EntityResolver er) throws ConfigException {
 		factory = SAXParserFactory.newInstance();
 		log.debug("Factoryclass",factory.getClass());
 		factory.setNamespaceAware(true);
 		messages=new ConfigLoadingMessagesImpl(); // In the end we probably want to pass this in
 		this.rules=rules;
+		this.er=er;
 	}
 	
-	public void parse(InputSource src,String url) throws ConfigException {
+	public void parse(InputSource src) throws ConfigException {
 		ConfigErrorHandler errors=new ConfigErrorHandler(messages);
 		try {
 			ParseRun handler=new ParseRun();
 			ContentHandler content_handler=new MainConfigHandler(handler);
-			if(url!=null)
-				src.setSystemId(url);
 			AssemblingParser p=new AssemblingParser(new Resolver(),src);
 			p.parse(new SAXResult(content_handler));
 			TreeNode tree=handler.getTree();

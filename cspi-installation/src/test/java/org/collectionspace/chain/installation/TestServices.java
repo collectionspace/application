@@ -21,12 +21,12 @@ import org.xml.sax.InputSource;
 public class TestServices {
 	private static final Logger log = LoggerFactory.getLogger(TestServices.class);
 
-	private InputStream getSource(String fallbackFile) {
+	private InputSource getSource(String fallbackFile) {
 		try {
 			return TestConfigFinder.getConfigStream(fallbackFile);
 		} catch (CSPDependencyException e) {
 			String name=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+fallbackFile;
-			return Thread.currentThread().getContextClassLoader().getResourceAsStream(name);
+			return new InputSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
 		}
 	}
 	
@@ -51,7 +51,7 @@ public class TestServices {
 		cspm.register(new ServicesStorageGenerator());
 		try {
 			cspm.go();
-			cspm.configure(new InputSource(getSource(filename)),null);
+			cspm.configure(getSource(filename),null);
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );

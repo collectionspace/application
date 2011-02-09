@@ -35,10 +35,13 @@ import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIUmbrella;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
+import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.dom4j.DocumentException;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,16 +72,19 @@ public class ChainServlet extends HttpServlet  {
 
 	protected void load_config(ServletContext ctx) throws CSPDependencyException {
 		try {
-			InputStream cfg_stream=ConfigFinder.getConfig(ctx);
+			ConfigFinder cfg=new ConfigFinder(ctx);
+			InputSource cfg_stream=cfg.resolveEntity(null,"cspace-config.xml");
 			if(cfg_stream==null) {
 				locked_down="Cannot find cspace config xml file";
 			} else {
-				cspm.configure(new InputSource(cfg_stream),null); // XXX not null
+				cspm.configure(cfg_stream,cfg);
 			}
 		} catch (UnsupportedEncodingException e) {
 			throw new CSPDependencyException("Config has bad character encoding",e);
 		} catch (IOException e) {
 			throw new CSPDependencyException("Cannot load config",e);			
+		} catch (SAXException e) {
+			throw new CSPDependencyException("Cannot parse config file",e);			
 		}
 	}
 
