@@ -105,7 +105,6 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 	}
 	
 	IncludeTag resolveIncludeTag(String name) {
-		System.err.println("this="+this);
 		IncludeTag out=include_tags.get(name);
 		if(out!=null)
 			return out;
