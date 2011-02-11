@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="Application Layer Nightly Build Script" default="write_chain_properties">
+<project name="Application Layer Nightly Build Script" default="deploy_cspace_config">
 	<property environment="env"/>
     <property name="config_destination" value="${env.JBOSS_HOME}/server/cspace/conf" />
 	<property name="app_trunk" location=".." />
