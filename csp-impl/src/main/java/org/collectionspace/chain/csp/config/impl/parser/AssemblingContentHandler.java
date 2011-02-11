@@ -185,6 +185,18 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		return true;
 	}
 	
+	public InputSource find_entity(String all) throws SAXException,IOException {
+		SAXException e=null;
+		for(String src : all.split(",")) {
+			try {
+				InputSource out=resolveEntity(null,src);
+				if(out!=null)
+					return out;
+			} catch(SAXException x) { e=x; }
+		}
+		throw new SAXException(all+" file(s) not found",e);
+	}
+	
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		depth++;
 		if(depth==1 && strip)
@@ -205,7 +217,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 					if("@".equals(include.src))
 						apply_include(parser.getMain(),include.strip);
 					else
-						apply_include(resolveEntity(null,include.src),include.strip);
+						apply_include(find_entity(include.src),include.strip);
 				} else {
 					up.startElement(uri, localName, qName, attributes);
 				}
