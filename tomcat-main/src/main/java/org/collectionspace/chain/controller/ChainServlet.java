@@ -73,7 +73,7 @@ public class ChainServlet extends HttpServlet  {
 	protected void load_config(ServletContext ctx) throws CSPDependencyException {
 		try {
 			ConfigFinder cfg=new ConfigFinder(ctx);
-			InputSource cfg_stream=cfg.resolveEntity(null,"cspace-config.xml");
+			InputSource cfg_stream=cfg.resolveEntity("-//CSPACE//ROOT","cspace-config.xml");
 			if(cfg_stream==null) {
 				locked_down="Cannot find cspace config xml file";
 			} else {

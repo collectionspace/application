@@ -41,6 +41,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
+import org.collectionspace.csp.helper.core.ConfigFinder;
 
 public class TestService extends ServicesBaseClass {
 	private static final Logger log = LoggerFactory
@@ -76,7 +77,7 @@ public class TestService extends ServicesBaseClass {
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
 		// argh - test break when config changes *sob*
-		cspm.configure(getRootSource(), null);
+		cspm.configure(getRootSource(), new ConfigFinder(null));
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
@@ -117,7 +118,7 @@ public class TestService extends ServicesBaseClass {
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
 		// argh - test break when config changes *sob*
-		cspm.configure(getRootSource(), null);
+		cspm.configure(getRootSource(),new ConfigFinder(null));
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 

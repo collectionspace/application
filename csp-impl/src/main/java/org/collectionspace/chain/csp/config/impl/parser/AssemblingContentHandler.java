@@ -84,7 +84,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 	private void apply_include(InputSource src,boolean strip) throws SAXException {
 		try {
 			SAXParser sp=factory.newSAXParser();
-			DefaultHandler inner=new AssemblingContentHandler(parser,this,false,strip,this);
+			DefaultHandler inner=new AssemblingContentHandler(parser,up,false,strip,this);
 			sp.parse(src,inner);
 		} catch (ParserConfigurationException e) {
 			throw new SAXException("Could not create inner parser",e);
@@ -105,6 +105,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 	}
 	
 	IncludeTag resolveIncludeTag(String name) {
+		System.err.println("this="+this);
 		IncludeTag out=include_tags.get(name);
 		if(out!=null)
 			return out;

@@ -32,7 +32,7 @@ public class ConfigParser {
 	private RulesImpl rules;
 	private EntityResolver er;
 	
-	private final class Resolver implements EntityResolver {
+	private class Resolver implements EntityResolver {
 		@Override public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
 			if("core.xml".equals(systemId) || "root.xml".equals(systemId)) {
 				String path=getClass().getPackage().getName().replaceAll("\\.","/")+"/"+systemId;

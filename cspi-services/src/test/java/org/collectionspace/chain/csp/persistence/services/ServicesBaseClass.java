@@ -28,6 +28,7 @@ import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.StorageGenerator;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
+import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.core.RequestCache;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
 import org.dom4j.Document;
@@ -106,7 +107,7 @@ public class ServicesBaseClass {
 		cspm.register(new Spec());
 		cspm.register(new ServicesStorageGenerator());
 		cspm.go();
-		cspm.configure(getRootSource(),null);
+		cspm.configure(getRootSource(),new ConfigFinder(null));
 		return cspm;
 		
 	}

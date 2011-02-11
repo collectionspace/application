@@ -20,6 +20,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
+import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -84,7 +85,7 @@ public class TestData {
 			cspm.go();
 			tester.getAttribute("config-filename");
 			String filename=(String)tester.getAttribute("config-filename");
-			cspm.configure(getSource(filename),null);
+			cspm.configure(getSource(filename),new ConfigFinder(null));
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );

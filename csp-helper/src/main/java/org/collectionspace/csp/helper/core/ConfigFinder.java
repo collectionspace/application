@@ -49,16 +49,15 @@ public class ConfigFinder implements EntityResolver {
 		this.ctx=ctx;
 	}
 
-	private static InputStream getDataFromAttribute(ServletContext ctx) {
+	private InputStream getDataFromAttribute() {
 		String out=(String)ctx.getAttribute("config-data");
 		if(out==null)
 			return null;
 		return IOUtils.toInputStream(out);
 	}
 
-	private static InputStream getDataFromAttributePath(ServletContext ctx) throws IOException {
+	private InputStream getDataFromAttributePath() throws IOException {
 		String out=(String)ctx.getAttribute("config-path");
-
 		if(out==null)
 			return null;
 		File file=new File(out);
@@ -67,11 +66,11 @@ public class ConfigFinder implements EntityResolver {
 		return new FileInputStream(file);
 	}
 
-	private static InputStream getDataFromName(ServletContext ctx) {
-		String filename=(String)ctx.getAttribute("config-filename");
+	private InputStream getDataFromName() {
+		String path=(String)ctx.getAttribute("config-filename");
 
 		try {
-			return Thread.currentThread().getContextClassLoader().getResourceAsStream(filename);
+			return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
 		} catch(Exception x) { return null; }
 	}
 
@@ -142,14 +141,14 @@ public class ConfigFinder implements EntityResolver {
 			InputStream out=getDataFromEnvironmentVariable();
 			if(out!=null)
 				return new InputSource(out);
-			if(ctx!=null) {
-				out=getDataFromAttribute(ctx);
+			if(ctx!=null && "-//CSPACE//ROOT".equals(publicId)) {
+				out=getDataFromAttribute();
 				if(out!=null)
 					return new InputSource(out);
-				out=getDataFromAttributePath(ctx);
+				out=getDataFromAttributePath();
 				if(out!=null)
 					return new InputSource(out);
-				out=getDataFromName(ctx);
+				out=getDataFromName();
 				if(out!=null)
 					return new InputSource(out);
 			}

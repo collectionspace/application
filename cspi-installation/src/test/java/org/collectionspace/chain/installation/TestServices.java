@@ -12,6 +12,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
+import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -51,7 +52,7 @@ public class TestServices {
 		cspm.register(new ServicesStorageGenerator());
 		try {
 			cspm.go();
-			cspm.configure(getSource(filename),null);
+			cspm.configure(getSource(filename),new ConfigFinder(null));
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );
