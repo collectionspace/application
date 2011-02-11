@@ -7,7 +7,7 @@
 
 	<target name="deploy_cspace_config" description="Copies the war and xml file to their locations">
 	  <copy todir="${config_destination}">
-        <fileset dir="${app_trunk}/tomcat-main/src/main/resources" excludes="**/*.xml"/>
+        <fileset dir="${app_trunk}/tomcat-main/src/main/resources/*.xml"/>
       </copy>
       <copy file="${app_trunk}/tomcat-main/src/main/resources/nightly-settings.xml" tofile="${app_trunk}/tomcat-main/src/main/resources/local-settings.xml"/>
 	</target>
