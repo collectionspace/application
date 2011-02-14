@@ -76,7 +76,7 @@ public class UserDetailsReset implements WebMethod {
 
 		/* ABSTRACT EMAIL STUFF : WHERE do we get the content of emails from? cspace-config.xml */
 		String messagebase = ed.getPasswordResetMessage();
-		String link = ed.getBaseURL() + "/collectionspace/ui/html/?token="+token+"&email="+ emailparam;
+		String link = ed.getBaseURL() + "/collectionspace/ui/html/index.html?token="+token+"&email="+ emailparam;
 		String message = messagebase.replaceAll("\\{\\{link\\}\\}", link);
 		String greeting = userdetails.getJSONObject("fields").getString("screenName");
 		message = message.replaceAll("\\{\\{greeting\\}\\}", greeting);
