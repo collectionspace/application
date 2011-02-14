@@ -940,7 +940,7 @@
                 <services-url>loansin</services-url>
 				<services-tenant-plural>Loansin</services-tenant-plural>
 				<services-tenant-singular>Loanin</services-tenant-singular>
-                <services-list-path>loansin-common-list/loanin-list-item</services-list-path>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 				
@@ -1207,7 +1207,7 @@
             <record id="acquisition" in-findedit="yes" type="record,procedure">
                 <services-url>acquisitions</services-url>
 				<services-tenant-singular>Acquisition</services-tenant-singular>
-                <services-list-path>acquisitions-common-list/acquisition-list-item</services-list-path>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 				
