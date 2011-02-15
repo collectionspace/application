@@ -2326,7 +2326,7 @@
                     </options>
                 </field>
             </record>
-			<record id="dimension">
+			<record id="dimension" in-recordlist="no">
 				
 				<field id="dimension">
 					<options>
@@ -2396,7 +2396,7 @@
 				<field id="valueDate" ui-type="date"></field>
 				
 			</record>
-			<record id="blob">
+			<record id="blob" in-recordlist="no">
 				
                 <field id="encoding"></field>
                 <field id="mime-type"></field>
