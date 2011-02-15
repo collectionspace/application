@@ -118,6 +118,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		  return result;
 	}
 	
+	
 	// XXX use autocreate not create when create dies
 	@Test public void testObjectsList() throws Exception {
 		Storage ss=makeServicesStorage();

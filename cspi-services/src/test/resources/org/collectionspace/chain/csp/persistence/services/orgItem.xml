@@ -15,7 +15,4 @@
           <nameAdditions>University of California, Berkeley</nameAdditions>
       </mainBodyGroup>
   </mainBodyGroupList>
-  <refName>
-   urn:cspace:org.collectionspace.demo:orgauthority:name(oragnization):organization:name(example)'Example Museum, Berkeley, CA'
-  </refName>
 </ns2:organizations_common>

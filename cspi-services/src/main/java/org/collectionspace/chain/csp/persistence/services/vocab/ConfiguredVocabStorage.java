@@ -539,11 +539,15 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String name = null;
 			String refid = null;
 			String shortIdentifier = "";
+			log.info(url);
+			log.info("SSS");
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
 				Document result=doc.getDocument(record_path[0]);
+				log.info("DDD");
+				log.info(url+":"+record_path[0]+":");
 				if("common".equals(section)) { // XXX hardwired :(
 					name=result.selectSingleNode(tag_path[1]+"/displayName").getText();
 					if(result.selectSingleNode(tag_path[1]+"/shortIdentifier")!=null){

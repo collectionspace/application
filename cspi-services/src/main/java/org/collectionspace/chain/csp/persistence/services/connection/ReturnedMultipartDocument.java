@@ -9,16 +9,17 @@ package org.collectionspace.chain.csp.persistence.services.connection;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-import javax.activation.DataSource;
-import javax.mail.BodyPart;
-import javax.mail.internet.MimeMultipart;
 
+import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.TeeInputStream;
-import org.collectionspace.chain.csp.persistence.services.StreamDataSource;
 import org.dom4j.Document;
+import org.dom4j.DocumentHelper;
+import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,33 +38,35 @@ public class ReturnedMultipartDocument implements Returned {
 
 	private void addDocument(String name,Document doc) { docs.put(name,doc); }	
 	
-	public void setResponse(HttpMethod method, int status) throws Exception {
+	
+	public void setResponse(HttpMethod method, int status) throws Exception  {
 		this.status=status;
-		if(status<300) {
-			InputStream stream=method.getResponseBodyAsStream();
-			DataSource ds=new StreamDataSource(stream,"multipart/mixed");
-			MimeMultipart mmp=new MimeMultipart(ds);
-			for(int i=0;i<mmp.getCount();i++) {
-				BodyPart part=mmp.getBodyPart(i);
-				String label=part.getHeader("label")[0];
-				InputStream main=part.getInputStream();
-				SAXReader reader=new SAXReader();
-				// TODO errorhandling
-				Document doc=null;
-				String[] content_type=part.getHeader("Content-Type");
-				if(content_type!=null && content_type.length>0 && "application/xml".equals(content_type[0])) {
-					if(log.isDebugEnabled()) {
-						ByteArrayOutputStream dump = new ByteArrayOutputStream();
-						doc=reader.read(new TeeInputStream(main,dump),"UTF-8");
-						log.debug(dump.toString("UTF-8"));
-					} else {
-						doc=reader.read(main,"UTF-8");
-					}
-				}
-				addDocument(label,doc);
-				main.close();
-			}
-			stream.close();
+		InputStream stream=method.getResponseBodyAsStream();
+		SAXReader reader=new SAXReader();
+		if(status>=400) {
+			log.info("Got error : "+IOUtils.toString(stream));
 		}
+		// TODO errorhandling
+		Document doc=null;
+		Header content_type=method.getResponseHeader("Content-Type");
+		if(content_type!=null && "application/xml".equals(content_type.getValue())) {
+			
+			if(log.isDebugEnabled()) {
+				ByteArrayOutputStream dump = new ByteArrayOutputStream();
+				doc=reader.read(new TeeInputStream(stream,dump));
+				log.debug(dump.toString("UTF-8"));
+			} else {
+				doc=reader.read(stream,"UTF-8"); 
+			}
+			//split up document
+			Element root=doc.getRootElement();
+			// iterate through child elements of root
+	        for ( Iterator i = root.elementIterator(); i.hasNext(); ) {
+	            Element element = (Element) i.next();
+				addDocument(element.getName(),DocumentHelper.parseText( element.asXML() ));
+	        }
+		}
+		stream.close();
 	}
+	
 }

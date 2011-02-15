@@ -1001,6 +1001,8 @@ public class TestService extends ServicesBaseClass {
 
 		Map<String, Document> parts = new HashMap<String, Document>();
 		parts.put("personauthorities_common", getDocument("personAuth.xml"));
+		Map<String, Document> parts1 = new HashMap<String, Document>();
+		parts1.put("personauthorities_common", getDocument("personAuth.xml"));
 		String id;
 		// CREATE
 		ReturnedURL url = conn.getMultipartURL(RequestMethod.POST,
@@ -1009,7 +1011,7 @@ public class TestService extends ServicesBaseClass {
 		id = url.getURLTail();
 		// UPDATE
 		ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(
-				RequestMethod.PUT, "personauthorities/" + id, parts, creds,
+				RequestMethod.PUT, "personauthorities/" + id, parts1, creds,
 				cache);
 		assertEquals(200, doc.getStatus()); // XXX shouldn't this be 201?
 		// DELETE
