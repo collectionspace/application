@@ -55,6 +55,7 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
 		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
 		uispec(jetty, "/recordtypes/uischema", "recordtypes.uischema");
+		//uispec(jetty, "/media/uischema", "media.uischema");
 		
 		//serviceschema
 		//uispec(jetty, "/cataloging/serviceschema", "collection-object.uischema");
@@ -67,7 +68,7 @@ public class TestUISpecs extends TestBase {
 		// uispec(jetty,"/movement/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
 		// uispec(jetty,"/person/generator?quantity=10","acquisition.uispec");
-
+		
 /*
 		uispec(jetty, "/acquisition/uispec", "acquisition.uispec");
 		uispec(jetty, "/cataloging/uispec", "collection-object.uispec");
@@ -75,6 +76,7 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/loanin/uispec", "loanin.uispec");
 		uispec(jetty, "/loanout/uispec", "loanout.uispec");
 		uispec(jetty, "/movement/uispec", "movement.uispec");
+		uispec(jetty, "/media/uispec", "media.uispec");
 		uispec(jetty, "/objectexit/uispec", "objectexit.uispec");
 		
 		uispec(jetty, "/users/uispec", "users.uispec");
