@@ -2326,13 +2326,154 @@
                     </options>
                 </field>
             </record>
+			<record id="dimension">
+				
+				<field id="dimension">
+					<options>
+						<option id="" default="yes">Please select a value</option>
+						<option id="area">Area</option>
+						<option id="base">Base</option>
+						<option id="circumference">Circumference</option>
+						<option id="count">Count</option>
+						<option id="depth">Depth</option>
+						<option id="diameter">Diameter</option>
+						<option id="height">Height</option>
+						<option id="length">Length</option>
+						<option id="running_time">Running Time</option>
+						<option id="target">Target</option>
+						<option id="volume">Volume</option>
+						<option id="weight">Weight</option>
+						<option id="width" >Width</option>
+					</options>
+				</field>
+				<field id="measuredBy" autocomplete="person-person,organization-organization"></field>
+				<field id="measurementUnit">
+					<options>
+						<option id="" default="yes">Please select a value</option>
+						<option id="carats">Carats</option>
+						<option id="centimeters">Centimeters</option>
+						<option id="cubic_centimeters">Cubic Centimeters</option>
+						<option id="feet">Feet</option>
+						<option id="inches">Inches</option>
+						<option id="kilograms">Kilograms</option>
+						<option id="liters">Liters</option>
+						<option id="millimeters">Millimeters</option>
+						<option id="meters">Meters</option>
+						<option id="minutes">Minutes</option>
+						<option id="pixels">Pixels</option>
+						<option id="square_feet">Square Feet</option>
+						<option id="stories">Stories</option>
+					</options>
+				</field>
+				
+				<field id="measurementMethod">
+					<options>
+						<option id="" default="yes">Please select a value</option>						
+						<option id="microscopy_reticule">Microscopy (reticule)</option>
+						<option id="standard_mesh_screen">Standard Mesh/Screen</option>
+						<option id="sliding_calipers">Sliding Calipers</option>
+						<option id="spreading_calipers">Spreading Calipers</option>
+						<option id="measuring_tape_cloth">Measuring Tape (cloth)</option>
+						<option id="measuring_tape_metal">Measuring Tape (metal)</option>
+						<option id="osteometric_board">Osteometric Board</option>
+						<option id="ruler">Ruler</option>
+						<option id="pacing_pedometer">Pacing Pedometer</option>
+						<option id="odometer">Odometer</option>
+						<option id="taping_chaining">Taping/Thaining</option>
+						<option id="stadia_transit">Stadia/Transit</option>
+						<option id="optical_range_finder">Optical Range Finder</option>
+						<option id="electronic_distance_measurement">Electronic Distance Measurement</option>
+						<option id="protractor">Protractor</option>
+						<option id="goniometer">Goniometer</option>
+						<option id="theodolite_total_station">Theodolite/Total Station</option>
+						<option id="balance_beam_scale">Balance/Beam Scale</option>
+						<option id="spring_scale">Spring Scale</option>
+						<option id="hydraulic_or_pneumatic_scale">Hydraulic or Pneumatic Scale</option>
+					</options>
+				</field>
+				<field id="value"></field>
+				<field id="valueQualifier"></field>
+				<field id="valueDate" ui-type="date"></field>
+				
+			</record>
+			<record id="blob">
+				
+                <field id="encoding"></field>
+                <field id="mime-type"></field>
+                <field id="data"></field>
+                <field id="name"></field>
+                <field id="length"></field>
+                <field id="digest"></field>
+                <field id="uri"></field>
+                <field id="id"></field>
+			</record>
+			<record id="media" in-findedit="yes" type="procedure,record">
+				
+				
+				<field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+				<field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+				<field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+				
+                <field id="contributor" autocomplete="person-person,organization-organization"></field>
+                <field id="copyrightStatement"></field>
+                <field id="coverage"></field>
+                <field id="creator" autocomplete="person-person,organization-organization"></field>
+				<repeat id="dates">
+					<field id="date" ui-type="date"></field>
+				</repeat>
+                <field id="dateCreated"></field>
+                <field id="dateModified"></field>
+                <field id="description"></field>
+				<repeat id="dimensions">
+					<field id="dimension" userecord="dimension"></field>
+				</repeat>
+                <field id="filename"></field>
+                <field id="format"></field>
+                <field id="identificationNumber" chooser="yes" in-title="yes" mini="number" seperate_ui_container="true">
+                    <options>
+                        <option id="media" sample="MH2010.1">Media Handling</option>
+                    </options>
+                </field>
+				<repeat id="languages">
+					<field id="language" autocomplete="vocab-languages" ui-type="enum"></field>
+				</repeat>
+                <field id="location"></field>
+                <field id="publisher" autocomplete="person-person,organization-organization"></field>
+				<repeat id="relations">
+					<field id="relation"></field>
+				</repeat>
+                <field id="rightsHolder" autocomplete="person-person,organization-organization"></field>
+                <field id="source"></field>
+				<repeat id="subjects">
+					<field id="subject"></field>
+				</repeat>
+                <field id="title"></field>
+				<repeat id="types">
+                	<field id="type">
+						<options>
+							<option id="" default="yes">Please select a value</option>
+							<option id="dataset" >Dataset</option>
+							<option id="document" >Document</option>
+							<option id="moving_image" >Moving Image</option>
+							<option id="still_image" >Still Image</option>
+							<option id="sound" >Sound</option>
+						</options>
+					</field>
+				</repeat>
+                <field id="uri"></field>
+                <field id="blobCsid"></field>
+				
+                <group id="blob" userecord="blob" exists-in-services="false"></group>
+				
+			</record>
+			
             <!-- CSPACE-3209 added objectexit record. -->
             <record id="objectexit" in-findedit="yes" type="record,procedure">
                 <!-- Added this tag because services path is currently singular for Object Exit. -->
                 <services-url>objectexit</services-url>
 				<services-tenant-plural>ObjectExit</services-tenant-plural>
 				<services-tenant-singular>ObjectExit</services-tenant-singular>
-                <services-list-path>objectexit_common_list/objectexit_list_item</services-list-path>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 				
@@ -2414,6 +2555,7 @@
                 <field id="study"><selector>0518132e-dd8c-4773-8fa9-07c9af4444ee</selector></field>
                 <field id="movement"><selector>49ca9d8d-7136-47ff-a70e-4a47b9038b70</selector></field>
                 <field id="objectexit"><selector>d4eea707-d473-4367-853a-728fbcd9be17</selector></field>
+                <field id="media"><selector>d4eea707-d473-4367-853a-728fbcd9be17</selector></field>
 			  
 			  <!-- not obviously used -->
                 <field id="accession-activity"><selector>1a67470b-19b1-4ae3-88d4-2a0aa936270e</selector></field>
