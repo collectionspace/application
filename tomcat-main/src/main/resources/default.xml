@@ -1284,14 +1284,17 @@
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 				
 				<structures>
-                    <structure id="screen"></structure>
+                    <structure id="screen">
+                    	<view>
+                    		<label-section id="messagekeys" show="false"></label-section>
+						</view>
+                    </structure>
                     <structure id="tab">
                         <view>
                             <titlebar show="false"></titlebar>
                             <sidebar show="false"></sidebar>
                             <edit-section id="details" show="true"></edit-section>
                             <list-section id="list" show="true"></list-section>
-                            <label-section id="messagekeys" show="false"></label-section>
                         </view>
                         <repeat id="list" asSibling="true">
                             <selector>.csc-recordList-row:</selector>
@@ -2592,7 +2595,11 @@
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 				
 				<structures>
-                    <structure id="screen"></structure>
+                    <structure id="screen">
+                    	<view>
+                    		<label-section id="messagekeys" show="true"></label-section>
+						</view>
+                    </structure>
                     <structure id="tab">
                         <view>
                             <titlebar show="false"></titlebar>
