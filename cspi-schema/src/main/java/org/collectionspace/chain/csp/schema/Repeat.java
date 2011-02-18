@@ -7,60 +7,63 @@
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 // XXX only one level of repetition at the moment. Should only be a matter of type furtling.
 public class Repeat implements FieldSet, FieldParent {
-	protected String fullid, id, selector_affix, selector, userecord,
-			enum_blank, parentID;
+	private Map<String, String> allStrings = new HashMap<String, String>();
+	protected Map<String, Boolean> allBooleans = new HashMap<String, Boolean>();
+	private Map<String, Set<String>> allSets = new HashMap<String, Set<String>>();
+	/* just used for documentation to retrieve defaults */
+	private Map<String, String> allDefaultStrings = new HashMap<String, String>();
+	private Map<String, Boolean> allDefaultBooleans = new HashMap<String, Boolean>();
+	private Map<String, Set<String>> allDefaultSets = new HashMap<String, Set<String>>();
+	
+	
 	protected String[] services_parent;
-	protected Boolean is_visible, xxx_hack_authorization;
 	protected FieldParent parent;
-	protected Set<String> enum_default,perm_defaults;
 	protected Stack<String> merged = new Stack<String>();
 	protected List<FieldSet> children = new ArrayList<FieldSet>();
 	protected Map<String,List<FieldSet>> childrenperm = new HashMap<String, List<FieldSet>>();
-	protected Boolean is_expander = false, has_services_parent = false,
-			enum_hasblank = true, exists_in_service = true,
-			has_primary = false, xxx_services_no_repeat = false,
-			xxx_ui_no_repeat = false, asSiblings = false;
 
 	/* Services */
-	protected String services_tag, services_section;
 
 	public Repeat(Record record, ReadOnlySection section) {
 		this.parent = record;
-		this.parentID = record.getID();
+		allStrings.put("parentID", record.getID());
 		this.initialiseVariables(section);
 	}
 
 	public Repeat(Structure structure, ReadOnlySection section) {
 		this.parent = structure;
-		this.parentID = structure.getID();
+		allStrings.put("parentID", structure.getID());
 		this.initialiseVariables(section);
 	}
 
 	public Repeat(Group group, ReadOnlySection section) {
 		this.parent = group;
-		this.parentID = group.getID();
+		allStrings.put("parentID", group.getID());
 		this.initialiseVariables(section);
 	}
 
 	public Repeat(Repeat repeat, ReadOnlySection section) {
 		this.parent = repeat;
-		this.parentID = repeat.getID();
+		allStrings.put("parentID", repeat.getID());
 		this.initialiseVariables(section);
 	}
 
 	public Repeat(Subrecord subrecord, ReadOnlySection section) {
 		this.parent = subrecord;
-		this.parentID = subrecord.getID();
+		allStrings.put("parentID", subrecord.getID());
 		this.initialiseVariables(section);
 	}
 
@@ -70,53 +73,49 @@ public class Repeat implements FieldSet, FieldParent {
 	 * @param section
 	 */
 	protected void initialiseVariables(ReadOnlySection section) {
-		this.fullid = (String) section.getValue("/@id");
-		this.id = (String) section.getValue("/@id");
-		this.is_visible = Util.getBooleanOrDefault(section, "/@show", true);
-		this.xxx_services_no_repeat = Util.getBooleanOrDefault(section,
-				"/@xxx-services-no-repeat", false);
-		this.xxx_ui_no_repeat = Util.getBooleanOrDefault(section,
-				"/@xxx-ui-no-repeat", false);
-		this.asSiblings = Util.getBooleanOrDefault(section, "/@asSibling",
-				false);
-		this.services_section = Util.getStringOrDefault(section, "/@section",
-				"common");
-		this.exists_in_service = Util.getBooleanOrDefault(section,
-				"/@exists-in-services", true);
-		// should this field allow a primary flag
-		this.has_primary = Util.getBooleanOrDefault(section, "/@has-primary",
-				true);
-		this.userecord = Util.getStringOrDefault(section, "/@userecord", "");
-		// used by uispec to create new structure
-		this.is_expander = Util.getBooleanOrDefault(section, "/@as-expander",
-				false);
+		this.initStrings(section,"@id",null);
+		this.setRepeatSubRecord(false);
+		allStrings.put("fullid",getString("@id"));
+		this.initStrings(section,"@label-affix", "-label");
 
-		this.xxx_hack_authorization = Util.getBooleanOrDefault(section,
-				"/@xxx-hack-authorization", false);
-		String[] idparts = this.id.split("/");
+		this.initBoolean(section,"@show",true);
+		this.initBoolean(section,"@xxx-services-no-repeat",false);
+		this.initBoolean(section,"@xxx-ui-no-repeat",false);
+		this.initBoolean(section,"@asSibling",false);
+		this.initStrings(section,"@section","common");
+		this.initBoolean(section,"@exists-in-services",true);
+		// should this field allow a primary flag
+		this.initBoolean(section,"@has-primary",true);
+		this.initStrings(section,"@userecord","");
+		// used by uispec to create new structure
+		this.initBoolean(section,"@as-expander",false);
+
+		this.initBoolean(section,"@xxx-hack-authorization",false);
+		allBooleans.put("has_services_parent",false);
+
+		String[] idparts = getString("@id").split("/");
 		if (idparts.length > 1) {
 			int len = idparts.length - 1;
-			this.has_services_parent = true;
-			this.id = idparts[len];
+			allBooleans.put("has_services_parent",true);
+
+			allStrings.put("@id",idparts[len]);
 			idparts[len] = null;
-			if (!xxx_hack_authorization) {
+			if (!getBoolean("@xxx-hack-authorization")) {
 				this.services_parent = idparts;
 			} else {
 				this.services_parent = new String[0];
 			}
-			this.asSiblings = true;
+			allBooleans.put("@asSibling",true);
 		}
+		this.initStrings(section,"selector",".csc-"
+				+ getString("parentID") + "-" + getString("@id"));
+		this.initStrings(section,"@selector-affix","");
 
-		this.selector_affix = Util.getStringOrDefault(section,
-				"/@selector-affix", "");
-		this.selector = Util.getStringOrDefault(section, "/selector", ".csc-"
-				+ this.parentID + "-" + id);
-		this.enum_default = Util.getSetOrDefault(section, "/enum/default",
-				new String[] { "" });
-		this.enum_hasblank = Util.getBooleanOrDefault(section,
-				"/enum/@has-blank", true);
-		this.enum_blank = Util.getStringOrDefault(section, "/enum/blank-value",
-				"Please select an item");
+
+		this.initSet(section,"enum/default",new String[] { "" });		
+		this.initBoolean(section,"enum/@has-blank",true);
+		this.initStrings(section,"enum/blank-value", "Please select a value");
+		
 
 		Set<String> minis = Util.getSetOrDefault(section, "/@mini",
 				new String[] { "" });
@@ -133,21 +132,74 @@ public class Repeat implements FieldSet, FieldParent {
 			this.parent.getRecord().addMiniDataSet(this, s);
 		}
 
-		this.services_tag = Util.getStringOrDefault(section, "/services-tag",
-				id);
-		this.perm_defaults = Util.getSetOrDefault(section, "/@attributes", new String[] {"GET","PUT","POST","DELETE"});
+		if(this.parent instanceof Record){
+			this.initStrings(section,"label", ((Record) this.parent).getUILabel(getString("@id")));
+		}
+		this.initStrings(section,"services-tag",getString("@id"));
+		this.initSet(section, "@attributes", new String[] {"GET","PUT","POST","DELETE"});
 	}
 
+	/** start generic functions **/
+	protected Set<String> initSet(ReadOnlySection section, String name, String[] defaultval){
+		Set<String> vard = Util.getSetOrDefault(section, "/"+name, defaultval);
+		allDefaultSets.put(name,new HashSet<String>(Arrays.asList(defaultval)));
+		allSets.put(name,vard);
+		return vard;
+	}
+	protected String initStrings(ReadOnlySection section, String name, String defaultval){
+		String vard = Util.getStringOrDefault(section, "/"+name, defaultval);
+		allDefaultStrings.put(name,defaultval);
+		allStrings.put(name,vard);
+		return vard;
+	}
+	protected Boolean initBoolean(ReadOnlySection section, String name, Boolean defaultval){
+		Boolean vard = Util.getBooleanOrDefault(section, "/"+name, defaultval);
+		allDefaultBooleans.put(name,defaultval);
+		allBooleans.put(name,vard);
+		return vard;
+	}
+	protected String[] getAllString(){
+		return allStrings.keySet().toArray(new String[0]);
+	}
+	protected String getString(String name){
+		if(allStrings.containsKey(name)){
+			return allStrings.get(name);
+		}
+		return null;
+	}
+
+	protected String[] getAllBoolean(){
+		return allBooleans.keySet().toArray(new String[0]);
+	}
+	protected Boolean getBoolean(String name){
+		if(allBooleans.containsKey(name)){
+			return allBooleans.get(name);
+		}
+		return null;
+	}
+
+	protected String[] getAllSets(){
+		return allSets.keySet().toArray(new String[0]);
+	}
+	
+	protected Set<String> getSet(String name){
+		if(allSets.containsKey(name)){
+			return allSets.get(name);
+		}
+		return null;
+	}
+	/** end generic functions **/
+
 	public String getID() {
-		return id;
+		return getString("@id");
 	}
 
 	public String getfullID() {
-		return fullid;
+		return getString("fullid");
 	}
 
 	public boolean hasServicesParent() {
-		return has_services_parent;
+		return getBoolean("has_services_parent");
 	}
 
 	public String[] getServicesParent() {
@@ -187,51 +239,64 @@ public class Repeat implements FieldSet, FieldParent {
 	}
 
 	public String getSelector() {
-		return selector;
+		return getString("selector");
+	}
+	public String getLabel() {
+		return getString("label");
 	}
 
 	public String getServicesTag() {
-		return services_tag;
+		return getString("services-tag");
 	}
 
 	public Boolean isInServices() {
-		return exists_in_service;
+		return getBoolean("@exists-in-services");
 	}
 
 	public Boolean getXxxServicesNoRepeat() {
-		return xxx_services_no_repeat;
+		return getBoolean("@xxx-services-no-repeat");
 	}
 
 	public Boolean getXxxUiNoRepeat() {
-		return xxx_ui_no_repeat;
+		return getBoolean("@xxx-ui-no-repeat");
 	}
 
 	public Boolean isVisible() {
-		return is_visible;
+		return getBoolean("@show");
 	}
 
 	public Boolean asSibling() {
-		return asSiblings;
+		return getBoolean("@asSibling");
 	}
 
 	public Boolean hasPrimary() {
-		return has_primary;
+		return getBoolean("@has-primary");
 	}
 
 	public boolean isExpander() {
-		return is_expander;
+		return getBoolean("@as-expander");
 	}
 
+	public boolean isRepeatSubRecord() {
+		return getBoolean("@is-subrecord");
+	}
+	
+	public void setRepeatSubRecord(Boolean var) {
+		allBooleans.put("@is-subrecord",var);
+	}
+	
 	public String getSection() {
-		return services_section;
+		return getString("@section");
 	}
-
+	public String getLabelAffix() {
+		return getString("@label-affix");
+	}
 	public String getSelectorAffix() {
-		return selector_affix;
+		return getString("@selector-affix");
 	}
 
 	public Boolean usesRecord() {
-		if (userecord != null && !userecord.equals("")) {
+		if (getString("@userecord") != null && !getString("@userecord").equals("")) {
 			return true;
 		}
 		return false;
@@ -239,13 +304,13 @@ public class Repeat implements FieldSet, FieldParent {
 
 	public Record usesRecordId() {
 		if (usesRecord()) {
-			return this.getRecord().getSpec().getRecord(userecord);
+			return this.getRecord().getSpec().getRecord(getString("@userecord"));
 		}
 		return null;
 	}
 
 	public String[] getIDPath() {
-		if (xxx_ui_no_repeat) {
+		if (getBoolean("@xxx-ui-no-repeat")) {
 			if (parent instanceof Repeat) {
 				return ((Repeat) parent).getIDPath();
 			} else {
@@ -256,10 +321,10 @@ public class Repeat implements FieldSet, FieldParent {
 				String[] pre = ((Repeat) parent).getIDPath();
 				String[] out = new String[pre.length + 1];
 				System.arraycopy(pre, 0, out, 0, pre.length);
-				out[pre.length] = id;
+				out[pre.length] = getString("@id");
 				return out;
 			} else {
-				return new String[] { id };
+				return new String[] { getString("@id") };
 			}
 		}
 	}
@@ -275,25 +340,30 @@ public class Repeat implements FieldSet, FieldParent {
 	public List<String> getAllMerge() {
 		return merged;
 	}
-	
+
 	public String[] getAllFieldPerms(){
-		return perm_defaults.toArray(new String[0]);
+		return getSet("@attributes").toArray(new String[0]);
 	}
-	
+
 	public boolean hasFieldPerm(String perm){
-		return perm_defaults.contains(perm);
+		return getSet("@attributes").contains(perm);
 	}
-	
+
+
 	public boolean hasEnumBlank() {
-		return enum_hasblank;
+		return getBoolean("enum/@has-blank");
 	}
 
 	public String enumBlankValue() {
-		return enum_blank;
+		return getString("enum/blank-value");
+	}
+
+	public String getEnumDefault() {
+		return StringUtils.join(getSet("enum/default"), ",");
 	}
 
 	public Boolean isEnumDefault(String name) {
-		if (enum_default.contains(name)) {
+		if (getSet("enum/default").contains(name)) {
 			return true;
 		}
 		return false;
@@ -302,5 +372,29 @@ public class Repeat implements FieldSet, FieldParent {
 	public void config_finish(Spec spec) {
 		for (FieldSet child : children)
 			child.config_finish(spec);
+	}
+	
+	void dump(StringBuffer out) {
+		out.append("  id=" + this.getID() + "\n");
+		out.append("    type=" + getSet("@type") + "\n");
+
+		for(String s: this.getAllString()){
+			out.append("String,"+ s);
+			out.append(",Value,"+ this.allStrings.get(s));
+			out.append(",Default,"+ this.allDefaultStrings.get(s));
+			out.append("\n");
+		}
+		for(String s: this.getAllBoolean()){
+			out.append("Boolean,"+ s);
+			out.append(",Value,"+ this.allBooleans.get(s));
+			out.append(",Default,"+ this.allDefaultBooleans.get(s));
+			out.append("\n");
+		}
+		for(String s: this.getAllSets()){
+			out.append("Set,"+ s);
+			out.append(",Value,"+ this.allSets.get(s));
+			out.append(",Default,"+ this.allDefaultSets.get(s));
+			out.append("\n");
+		}
 	}
 }

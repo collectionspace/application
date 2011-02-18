@@ -24,7 +24,9 @@ public interface FieldSet {
 	
 	//subrecords
 	public String getSelectorAffix();
+	public String getLabelAffix();
 	public String getSelector();
+	public String getLabel();
 	public Boolean usesRecord();
 	public Record usesRecordId();
 	
@@ -33,4 +35,6 @@ public interface FieldSet {
 	public Boolean hasMergeData();
 	public List<String> getAllMerge();
 	public boolean isExpander();
+	public boolean isRepeatSubRecord();
+	public void setRepeatSubRecord(Boolean var);
 }

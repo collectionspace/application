@@ -18,11 +18,11 @@ public class Group extends Repeat {
 
 	public Group(Record record, ReadOnlySection section) {
 		super(record, section);
-		this.asSiblings = true; //needed for XMLJSONConversion
+		allBooleans.put("@asSibling",true);
 	}
 
 	public Group(Group parent, ReadOnlySection section) {
 		super(parent, section);
-		this.asSiblings = true; //needed for XMLJSONConversion
+		allBooleans.put("@asSibling",true);
 	}
 }

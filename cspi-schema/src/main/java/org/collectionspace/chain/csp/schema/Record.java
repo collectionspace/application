@@ -33,6 +33,7 @@ public class Record implements FieldParent {
 	private Map<String, Set<String>> allDefaultSets = new HashMap<String, Set<String>>();
 	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
+	private Map<String, String> uisection = new HashMap<String, String>();
 	private Map<String, FieldSet> subrecords = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> subrecordsperm = new HashMap<String, Map<String, FieldSet>>();
 	private Map<String, FieldSet> fields = new HashMap<String, FieldSet>();
@@ -271,6 +272,21 @@ public class Record implements FieldParent {
 //	public FieldSet[] getAllServiceFields() {
 //		return servicefields.values().toArray(new FieldSet[0]);
 //	}
+	public String getUIprefix(){
+		return ".csc-" + getString("@id") + "-";
+	}
+	public String getUILabel(String id){
+		return getString("@id") + "-" + id + "Label";
+	}
+	public String getUILabelSelector(String id){
+		return getUIprefix() +  id + "-label";
+	}
+	public String[] getAllUISections(){
+		return uisection.values().toArray(new String[0]);
+	}
+	public String getUISections(String id){
+		return uisection.get(id);
+	}
 
 	public FieldSet[] getAllFields(String perm) {
 		if(perm.equals("")){
@@ -622,6 +638,9 @@ public class Record implements FieldParent {
 		}
 	}
 
+	public void addUISection(String id){
+		uisection.put(id,id);
+	}
 	public void addStructure(Structure s) {
 		structure.put(s.getID(), s);
 	}

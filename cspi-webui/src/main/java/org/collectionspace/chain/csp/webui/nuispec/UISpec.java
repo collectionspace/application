@@ -25,7 +25,6 @@ import org.collectionspace.chain.csp.schema.Structure;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
-import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -69,7 +68,7 @@ public class UISpec implements WebMethod {
 
 	// XXX make common
 	protected String plain(Field f) {
-		if(f.getParent().isExpander() || f.getParent() instanceof Repeat){
+		if(f.getParent().isExpander() || f.getParent() instanceof Repeat|| f.isRepeatSubRecord()){
 			return radio(f);
 		}
 		return veryplain(f);
@@ -223,7 +222,7 @@ public class UISpec implements WebMethod {
 				Instance n = vr.getInstance(vocabtype);
 				
 				String url = vr.getID()+"/"+n.getTitleRef();
-				JSONObject data = storage.getPathsJSON(vr.getID()+"/"+n.getTitleRef(),restriction);
+				JSONObject data = storage.getPathsJSON(url,restriction);
 				if(data.has("listItems")){
 					String[] results = (String[]) data.get("listItems");
 					/* Get a view of each */
@@ -235,7 +234,7 @@ public class UISpec implements WebMethod {
 
 					Integer total = data.getJSONObject("pagination").getInt("totalItems");
 					pagesize = data.getJSONObject("pagination").getInt("pageSize");
-					Integer itemsInPage = data.getJSONObject("pagination").getInt("itemsInPage");
+					//Integer itemsInPage = data.getJSONObject("pagination").getInt("itemsInPage");
 					pagenum = data.getJSONObject("pagination").getInt("pageNum");
 					pagenum++;
 					//are there more results
@@ -256,7 +255,7 @@ public class UISpec implements WebMethod {
 		} catch (UnimplementedException e) {
 			throw new JSONException("Unimplemented exception");
 		} catch (UnderlyingStorageException e) {
-			throw new JSONException("Underlying storage exception"+vocabtype);
+			throw new JSONException("Underlying storage exception"+vocabtype + e);
 		}
 		return displayNames;
 	}
@@ -444,6 +443,33 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
+	protected JSONObject generateMessageKeys(String affix, JSONObject temp ) throws JSONException {
+		for(String st: record.getAllUISections()){
+			if(st!=null){
+				JSONObject msg = new JSONObject();
+				msg.put("messagekey", record.getUILabel(st));
+				temp.put(record.getUILabelSelector(st),msg);
+			}
+		}
+		
+		for(FieldSet fs : record.getAllFields("")) {
+			if(fs.getID()!=null){
+				JSONObject msg = new JSONObject();
+				msg.put("messagekey", fs.getLabel());
+				temp.put(record.getUILabelSelector(fs.getID()), msg);
+			}
+		}
+		return temp;
+		
+	}
+
+	protected JSONObject generateRecordEditor(String affix, Boolean addMessages) throws JSONException{
+		JSONObject out = generateDataEntrySection(affix);
+		if(addMessages){
+			out = generateMessageKeys(affix,out);
+		}
+		return out;
+	}
 	protected JSONObject generateDataEntrySection(String affix) throws JSONException {
 		JSONObject out=new JSONObject();
 		for(FieldSet fs : record.getAllFields("")) {
@@ -463,9 +489,14 @@ public class UISpec implements WebMethod {
 		
 		return out;
 	}
-	private void generateSubRecord(JSONObject out,Record subrecord, String affix) throws JSONException {
+	private void generateSubRecord(JSONObject out, FieldSet fs, String affix) throws JSONException {
+		Record subrecord = fs.usesRecordId();
 		for(FieldSet fs2 : subrecord.getAllFields("")) {
+			if(fs.getParent() instanceof Repeat){
+				fs2.setRepeatSubRecord(true);
+			}
 			generateDataEntry(out,fs2, affix);
+			fs2.setRepeatSubRecord(false);
 		}
 		
 	}
@@ -480,7 +511,7 @@ public class UISpec implements WebMethod {
 					affix = "-"+getSelectorAffix(fs);
 				}
 			}
-			generateSubRecord(out, fs.usesRecordId(), affix);
+			generateSubRecord(out, fs, affix);
 		}
 		else{
 			
@@ -714,7 +745,7 @@ public class UISpec implements WebMethod {
 				out.put(s.getListSectionName(),generateListSection(s,affix));
 			}
 			if(s.showEditSection()){
-				out.put(s.getEditSectionName(),generateDataEntrySection(affix));
+				out.put(s.getEditSectionName(),generateRecordEditor(affix, s.showMessageKey()));
 			}
 			if(s.showTitleBar()){
 				out.put("titleBar",generateTitleSection(affix));

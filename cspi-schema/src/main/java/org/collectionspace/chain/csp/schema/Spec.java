@@ -106,7 +106,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 		
-		
+
 		/* SPEC/records -> RECORDS */
 		rules.addRule(SECTION_PREFIX+"spec",new String[]{"records"},SECTION_PREFIX+"records",null,null);
 		/* RECORDS/record -> RECORD(@id) */
@@ -116,6 +116,27 @@ public class Spec implements CSP, Configurable {
 				records.put(r.getID(),r);
 				records_by_web_url.put(r.getWebURL(),r);
 				records_by_services_url.put(r.getServicesURL(),r);
+				return r;
+			}
+		});
+		/* SPEC/section -> Sections */
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"section"},SECTION_PREFIX+"uisection",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				String id=(String)section.getValue("/@id");
+				Record r=(Record)parent;
+				r.addUISection(id);
+				
+				return r;
+			}
+		});
+
+		/* Section/section -> Sections */
+		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"section"},SECTION_PREFIX+"uisection",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				String id=(String)section.getValue("/@id");
+				Record r=(Record)parent;
+				r.addUISection(id);
+				
 				return r;
 			}
 		});
@@ -152,7 +173,7 @@ public class Spec implements CSP, Configurable {
 		});
 
 		/* RECORD/field -> FIELD */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Record)parent,section);
 				((Record)parent).addField(f);
@@ -185,6 +206,7 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 
+
 		/* STRUCTURE/repeat -> REPEAT */
 		rules.addRule(SECTION_PREFIX+"structure",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
@@ -196,7 +218,7 @@ public class Spec implements CSP, Configurable {
 		});
 
 		/* RECORD/repeat -> REPEAT */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Record)parent,section);
 				((Record)parent).addAllField(r);
@@ -219,7 +241,7 @@ public class Spec implements CSP, Configurable {
 
 
 		/* RECORD/group -> GROUP */
-		rules.addRule(SECTION_PREFIX+"record",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
+		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Group r=new Group((Record)parent,section);
 				((Record)parent).addAllField(r);

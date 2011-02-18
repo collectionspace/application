@@ -7,7 +7,9 @@
 package org.collectionspace.chain.csp.schema;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,72 +23,65 @@ import org.slf4j.LoggerFactory;
 // XXX unentangle UI and SVC parts
 public class Field implements FieldSet {
 	private static final Logger log = LoggerFactory.getLogger(Field.class);
+	private Map<String, String> allStrings = new HashMap<String, String>();
+	private Map<String, Boolean> allBooleans = new HashMap<String, Boolean>();
+	private Map<String, Set<String>> allSets = new HashMap<String, Set<String>>();
+	/* just used for documentation to retrieve defaults */
+	private Map<String, String> allDefaultStrings = new HashMap<String, String>();
+	private Map<String, Boolean> allDefaultBooleans = new HashMap<String, Boolean>();
+	private Map<String, Set<String>> allDefaultSets = new HashMap<String, Set<String>>();
+	
 	private FieldParent parent;
-	private String id;
-	private Set<String> autocomplete_instance_ids;
-	private Set<String> enum_default;
-	private Set<String> option_default;
-	private Set<String> perm_defaults;
 
 	private Map<String, Instance> instances = new HashMap<String, Instance>();
 
 	/* UI */
-	private String parentID, selector_affix, enum_blank, selector, type,
-			autocomplete_selector, container_selector, title_selector,
-			linktext_target, linktext, userecord, datatype;
-	private Boolean is_expander = false, enum_hasblank = true,
-			exists_in_service = true, in_title = false, display_name = false,
-			has_container = true, xxx_ui_refactored = false;
-	private Boolean seperate_container = false, seperate_default = false;
+	private Boolean seperate_default = false;
 	private Stack<String> merged = new Stack<String>();
 	private Map<String, Option> options = new HashMap<String, Option>();
 	private List<Option> options_list = new ArrayList<Option>();
 
 	/* Services */
-	private String services_tag, services_section, services_filter_param;
 
 	public Field(FieldParent record, ReadOnlySection section) {
 
-		parentID = record.getRecord().getID();
-		id = (String) section.getValue("/@id");
-		autocomplete_instance_ids = Util.getSetOrDefault(section,
-				"/@autocomplete", new String[] { "" });
-		has_container = Util.getBooleanOrDefault(section, "/@container", false);
-		xxx_ui_refactored = Util.getBooleanOrDefault(section,
-				"/@xxx_ui_refactored", true);
+		allStrings.put("parentID", record.getRecord().getID());
+		this.setRepeatSubRecord(false);
+		this.initStrings(section,"@id",null);
 		
-		selector = Util.getStringOrDefault(section, "/selector", ".csc-"
-				+ parentID + "-" + id);
-		
-		userecord = Util.getStringOrDefault(section, "/@userecord", "");
+		this.initSet(section,"@autocomplete",new String[] { "" });
+		this.initBoolean(section,"@container",false);
+		this.initBoolean(section,"@xxx_ui_refactored",true);
 
-		selector_affix = Util.getStringOrDefault(section, "/@selector-affix",
-				"");
+		this.initStrings(section,"selector", ".csc-" + getString("parentID") + "-" +  getString("@id"));
+		this.initStrings(section,"label", "" + getString("parentID") + "-" +  getString("@id")+"Label");
+		this.initStrings(section,"@userecord", "");
+		this.initStrings(section,"@selector-affix", "");
+		this.initStrings(section,"@label-affix", "-label");
 		
-		linktext = Util.getStringOrDefault(section, "/linktext",
-				"${items.0.number}");
-		linktext_target = Util.getStringOrDefault(section, "/linktext-target",
-				"${items.0.recordtype}.html?csid=${items.0.csid}");
-		type = Util.getStringOrDefault(section, "/@ui-type", "plain");
-		if (type.equals("date")) {
+		this.initStrings(section,"linktext", "${items.0.number}");
+		
+		this.initStrings(section,"linktext-target", "${items.0.recordtype}.html?csid=${items.0.csid}");
+
+		this.initStrings(section,"@ui-type", "plain");
+		if (getString("@ui-type").equals("date")) {
 			seperate_default = true;
 		}
-		seperate_container = Util.getBooleanOrDefault(section,
-				"/@seperate_ui_container", seperate_default);
-		autocomplete_selector = Util.getStringOrDefault(section,
-				"/autocomplete-selector", selector + "-autocomplete");
-		container_selector = Util.getStringOrDefault(section,
-				"/container-selector", selector + "-container");
-		title_selector = Util.getStringOrDefault(section, "/title-selector",
-				selector + "-titlebar");
+		
+		this.initBoolean(section,"@seperate_ui_container",seperate_default);
+		
+		this.initStrings(section,"autocomplete-selector", getString("selector") + "-autocomplete");
+		this.initStrings(section,"container-selector", getString("selector") + "-container");
+		this.initStrings(section,"title-selector", getString("selector") + "-titlebar");
 		// used by uispec to create new structure
-		is_expander = Util.getBooleanOrDefault(section, "/@as-expander", false);
-
-		in_title = Util.getBooleanOrDefault(section, "/@in-title", false);
+		this.initBoolean(section,"@as-expander",false);
+		
+		
+		this.initBoolean(section,"@in-title",false);
 		// no longer needed/used
 		// in_tab = Util.getBooleanOrDefault(section, "/@in-tab", false);
-
-		services_tag = Util.getStringOrDefault(section, "/services-tag", id);
+		
+		this.initStrings(section,"services-tag", getString("@id"));
 
 		Set<String> minis = Util.getSetOrDefault(section, "/@mini",
 				new String[] { "" });
@@ -103,101 +98,158 @@ public class Field implements FieldSet {
 			record.getRecord().addMiniDataSet(this, s);
 		}
 
-		display_name = Util.getBooleanOrDefault(section, "/@display-name",
-				false);
-		if (display_name)
+		this.initBoolean(section,"@display-name",false);
+		if (getBoolean("@display-name"))
 			record.getRecord().setDisplayName(this);
 		this.parent = record;
-
-		exists_in_service = Util.getBooleanOrDefault(section,
-				"/@exists-in-services", true);
-		enum_default = Util.getSetOrDefault(section, "/enum/default",
-				new String[] { "" });
-		enum_hasblank = Util.getBooleanOrDefault(section, "/enum/@has-blank",
-				true);
-		enum_blank = Util.getStringOrDefault(section, "/enum/blank-value",
-				"Please select a value");
-		option_default = Util.getSetOrDefault(section, "/@default",
-				new String[] { "" });
-		services_section = Util.getStringOrDefault(section, "/@section",
-				"common");
-		services_filter_param = Util.getStringOrDefault(section,
-				"/services-filter-param", null);
-		if (services_filter_param != null)
-			record.getRecord().setServicesFilterParam(services_filter_param,
-					this);
-		datatype = Util.getStringOrDefault(section, "/@datatype", "");
-		perm_defaults = Util.getSetOrDefault(section, "/@attributes", new String[] {"GET","PUT","POST","DELETE"});
+		
+		this.initBoolean(section,"@exists-in-services",true);
+		
+		this.initSet(section,"enum/default",new String[] { "" });		
+		this.initBoolean(section,"enum/@has-blank",true);
+		this.initStrings(section,"enum/blank-value", "Please select a value");
+		
+		this.initSet(section,"@default",new String[] { "" });
+		this.initStrings(section,"@section", "common");
+		this.initStrings(section,"services-filter-param", null);
+		if (getString("services-filter-param") != null)
+			record.getRecord().setServicesFilterParam(getString("services-filter-param"),this);
+		
+		this.initStrings(section,"@datatype", "");
+		
+		this.initSet(section,"@attributes",new String[] {"GET","PUT","POST","DELETE"});
 	}
 
+
+	/** start generic functions **/
+	protected Set<String> initSet(ReadOnlySection section, String name, String[] defaultval){
+		Set<String> vard = Util.getSetOrDefault(section, "/"+name, defaultval);
+		allDefaultSets.put(name,new HashSet<String>(Arrays.asList(defaultval)));
+		allSets.put(name,vard);
+		return vard;
+	}
+	protected String initStrings(ReadOnlySection section, String name, String defaultval){
+		String vard = Util.getStringOrDefault(section, "/"+name, defaultval);
+		allDefaultStrings.put(name,defaultval);
+		allStrings.put(name,vard);
+		return vard;
+	}
+	protected Boolean initBoolean(ReadOnlySection section, String name, Boolean defaultval){
+		Boolean vard = Util.getBooleanOrDefault(section, "/"+name, defaultval);
+		allDefaultBooleans.put(name,defaultval);
+		allBooleans.put(name,vard);
+		return vard;
+	}
+	protected String[] getAllString(){
+		return allStrings.keySet().toArray(new String[0]);
+	}
+	protected String getString(String name){
+		if(allStrings.containsKey(name)){
+			return allStrings.get(name);
+		}
+		return null;
+	}
+
+	protected String[] getAllBoolean(){
+		return allBooleans.keySet().toArray(new String[0]);
+	}
+	protected Boolean getBoolean(String name){
+		if(allBooleans.containsKey(name)){
+			return allBooleans.get(name);
+		}
+		return null;
+	}
+
+	protected String[] getAllSets(){
+		return allSets.keySet().toArray(new String[0]);
+	}
+	
+	protected Set<String> getSet(String name){
+		if(allSets.containsKey(name)){
+			return allSets.get(name);
+		}
+		return null;
+	}
+	/** end generic functions **/
 	public String getID() {
-		return id;
+		return  getString("@id");
 	}
 
 	public String getAutocompleteSelector() {
-		return autocomplete_selector;
+		return getString("autocomplete-selector");
 	}
 
 	public String getContainerSelector() {
-		return container_selector;
+		return getString("container-selector");
 	}
 
 	public String getSelector() {
-		return selector;
+		return getString("selector");
+	}
+	public String getLabel() {
+		return getString("label");
 	}
 
 	public String getLinkTextTarget() {
-		return linktext_target;
+		return getString("linktext-target");
 	}
 
 	public String getLinkText() {
-		return linktext;
+		return getString("linktext");
 	}
 
 	public String getUIType() {
-		return type;
+		return getString("@ui-type");
 	}
 
 	public Boolean isInTitle() {
-		return in_title;
+		return getBoolean("@in-title");
 	}
 
 	// public boolean isInTab() { return in_tab; }
 	public Boolean hasContainer() {
-		return has_container;
+		return getBoolean("@container");
 	}
 
 	public Boolean isInServices() {
-		return exists_in_service;
+		return getBoolean("@exists-in-services");
 	}
 
 	public boolean isExpander() {
-		return is_expander;
+		return getBoolean("@as-expander");
+	}
+
+	public boolean isRepeatSubRecord() {
+		return getBoolean("@is-subrecord");
+	}
+	
+	public void setRepeatSubRecord(Boolean var) {
+		allBooleans.put("@is-subrecord",var);
 	}
 
 	public Boolean isRefactored() {
-		return !seperate_container;
+		return !getBoolean("@seperate_ui_container");
 	} // used until UI layer has moved all autocomplete to one container view
 
 	public String getTitleSelector() {
-		return title_selector;
+		return getString("title-selector");
 	}
 
 	public String getServicesFilterParam() {
-		return services_filter_param;
+		return getString("services-filter-param");
 	}
 
 	public String getServicesTag() {
-		return services_tag;
+		return getString("services-tag");
 	}
 	
 	//XXX could be used for validation at the app layer
 	public String getDataType(){
-		return datatype;
+		return getString("@datatype");
 	}
 
 	void setType(String in) {
-		type = in;
+		allStrings.put("@ui-type",in);
 	}
 
 	// CSPACE-869
@@ -211,8 +263,8 @@ public class Field implements FieldSet {
 			parent.getRecord().setMerged(this);
 		} catch (Exception e) {
 			// something wrong - could have been a non number
-			log.error("Failed to add Merge field " + id + " into field "
-					+ this.id + " at rank " + rank);
+			log.error("Failed to add Merge field " +  getString("@id") + " into field "
+					+  getString("@id") + " at rank " + rank);
 		}
 
 	}
@@ -232,12 +284,15 @@ public class Field implements FieldSet {
 		return true;
 	}
 
+	public String getLabelAffix() {
+		return getString("@label-affix");
+	}
 	public String getSelectorAffix() {
-		return selector_affix;
+		return getString("@selector-affix");
 	}
 
 	public Boolean usesRecord() {
-		if (userecord != null && !userecord.equals("")) {
+		if (getString("@userecord") != null && !getString("@userecord").equals("")) {
 			return true;
 		}
 		return false;
@@ -245,7 +300,7 @@ public class Field implements FieldSet {
 
 	public Record usesRecordId() {
 		if (usesRecord()) {
-			return this.getRecord().getSpec().getRecord(userecord);
+			return this.getRecord().getSpec().getRecord(getString("@userecord"));
 		}
 		return null;
 	}
@@ -254,12 +309,12 @@ public class Field implements FieldSet {
 		Option opt = new Option(id, name, sample);
 		if (dfault) {
 			opt.setDefault();
-			option_default.add(opt.getID());
+			getSet("@default").add(opt.getID());
 		}
 		options.put(id, opt);
 		options_list.add(opt);
-		if ("plain".equals(type))
-			type = "dropdown";
+		if ("plain".equals(getString("@ui-type")))
+			setType("dropdown");
 	}
 
 	public Option getOption(String id) {
@@ -271,16 +326,16 @@ public class Field implements FieldSet {
 	}
 	
 	public String[] getAllFieldPerms(){
-		return perm_defaults.toArray(new String[0]);
+		return getSet("@attributes").toArray(new String[0]);
 	}
 
 	public boolean hasFieldPerm(String perm){
-		return perm_defaults.contains(perm);
+		return getSet("@attributes").contains(perm);
 	}
 	
 	public String getOptionDefault() {
-		option_default.remove("");
-		return StringUtils.join(option_default, ",");
+		getSet("@default").remove("");
+		return StringUtils.join(getSet("@default"), ",");
 	}
 
 	public FieldParent getParent() {
@@ -296,15 +351,15 @@ public class Field implements FieldSet {
 			String[] pre = ((Repeat) parent).getIDPath();
 			String[] out = new String[pre.length + 1];
 			System.arraycopy(pre, 0, out, 0, pre.length);
-			out[pre.length] = id;
+			out[pre.length] =  getString("@id");
 			return out;
 		} else {
-			return new String[] { id };
+			return new String[] {  getString("@id") };
 		}
 	}
 
 	public String getSection() {
-		return services_section;
+		return getString("@section");
 	}
 
 	public Instance[] getAllAutocompleteInstances() {
@@ -321,8 +376,8 @@ public class Field implements FieldSet {
 	}
 
 	public Boolean hasAutocompleteInstance() {
-		if (autocomplete_instance_ids.size() > 0) {
-			for (String autocomplete_instance_id : autocomplete_instance_ids) {
+		if (getSet("@autocomplete").size() > 0) {
+			for (String autocomplete_instance_id : getSet("@autocomplete")) {
 				autocomplete_instance_id = autocomplete_instance_id.trim();
 				if (!autocomplete_instance_id.equals("")) {
 					return true;
@@ -333,33 +388,57 @@ public class Field implements FieldSet {
 	}
 
 	public boolean hasEnumBlank() {
-		return enum_hasblank;
+		return getBoolean("enum/@has-blank");
 	}
 
 	public String enumBlankValue() {
-		return enum_blank;
+		return getString("enum/blank-value");
 	}
 
 	public String getEnumDefault() {
-		return StringUtils.join(enum_default, ",");
+		return StringUtils.join(getSet("enum/default"), ",");
 	}
 
 	public boolean isEnumDefault(String name) {
-		if (enum_default.contains(name)) {
+		if (getSet("enum/default").contains(name)) {
 			return true;
 		}
 		return false;
 	}
 
 	public void config_finish(Spec spec) {
-		if (autocomplete_instance_ids.size() > 0) {
-			for (String autocomplete_instance_id : autocomplete_instance_ids) {
+		if (getSet("@autocomplete").size() > 0) {
+			for (String autocomplete_instance_id : getSet("@autocomplete")) {
 				autocomplete_instance_id = autocomplete_instance_id.trim();
 				if (!autocomplete_instance_id.equals("")) {
 					instances.put(autocomplete_instance_id, spec
 							.getInstance(autocomplete_instance_id));
 				}
 			}
+		}
+	}
+	
+	void dump(StringBuffer out) {
+		out.append("  id=" + this.getID() + "\n");
+		out.append("    type=" + getSet("@type") + "\n");
+
+		for(String s: this.getAllString()){
+			out.append("String,"+ s);
+			out.append(",Value,"+ this.allStrings.get(s));
+			out.append(",Default,"+ this.allDefaultStrings.get(s));
+			out.append("\n");
+		}
+		for(String s: this.getAllBoolean()){
+			out.append("Boolean,"+ s);
+			out.append(",Value,"+ this.allBooleans.get(s));
+			out.append(",Default,"+ this.allDefaultBooleans.get(s));
+			out.append("\n");
+		}
+		for(String s: this.getAllSets()){
+			out.append("Set,"+ s);
+			out.append(",Value,"+ this.allSets.get(s));
+			out.append(",Default,"+ this.allDefaultSets.get(s));
+			out.append("\n");
 		}
 	}
 }
