@@ -57,16 +57,17 @@ public class Structure  implements FieldParent  {
 	private static final Logger log=LoggerFactory.getLogger(Structure.class);
 
 	private Record record;
-	private String id,titlebar, sidebar, listsection, editsection, editselector;
-	private Boolean showtitlebar = true,showsidebar = true, showlistsection = false, showeditsection = true;
+	private String id,titlebar, sidebar, listsection, editsection, editselector,msgsection;
+	private Boolean showtitlebar = true,showsidebar = true, showlistsection = false, showeditsection = true, showmsgsection=false;
 	public static String SECTION_PREFIX="org.collectionspace.app.config.structure.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 
 
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
 	private Map<String,FieldSet> repeatfields=new HashMap<String,FieldSet>();
-	
+
 	private Map<String,FieldSet> sidebar_sections=new HashMap<String,FieldSet>();
+	private Map<String,FieldSet> mainarea_sections=new HashMap<String,FieldSet>();
 	
 	public Structure(Record record, String uid){
 		this.record=record;
@@ -75,11 +76,13 @@ public class Structure  implements FieldParent  {
 		showsidebar=true;
 		showeditsection=true;
 		showlistsection=false;
+		showmsgsection=false;
 		
 		titlebar="titlebar";
 		sidebar="sidebar";
 		editsection="recordEditor";
 		listsection="list";
+		msgsection="messagekeys";
 	}
 	
 	public Structure(Record record,ReadOnlySection section) {
@@ -89,11 +92,13 @@ public class Structure  implements FieldParent  {
 		showsidebar=Util.getBooleanOrDefault(section,"/view/sidebar/@show",true);
 		showeditsection=Util.getBooleanOrDefault(section,"/view/edit-section/@show",true);
 		showlistsection=Util.getBooleanOrDefault(section,"/view/list-section/@show",false);
+		showmsgsection=Util.getBooleanOrDefault(section,"/view/label-section/@show",true);
 		
 		titlebar=Util.getStringOrDefault(section, "/view/titlebar", "titlebar");
 		sidebar=Util.getStringOrDefault(section, "/view/sidebar", "sidebar");
 		editsection=Util.getStringOrDefault(section, "/view/edit-section/@id", "recordEditor");
 		listsection=Util.getStringOrDefault(section, "/view/list-section/@id", "list");
+		msgsection=Util.getStringOrDefault(section, "/view/label-section/@id", "messagekeys");
 		
 	}
 	
@@ -109,22 +114,28 @@ public class Structure  implements FieldParent  {
 	public void addSideBar(FieldSet f) {
 		sidebar_sections.put(f.getID(),f);
 	}
+	public void addMainArea(FieldSet f){
+		mainarea_sections.put(f.getID(),f);
+	}
 
 	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
 	public FieldSet getField(String id) { return fields.get(id); }
 	public FieldSet[] getAllRepeatFields() { return repeatfields.values().toArray(new FieldSet[0]); }
 	public FieldSet getRepeatField(String id) { return repeatfields.get(id); }
 	public FieldSet getSideBarItems(String id) { return sidebar_sections.get(id); }
+	public FieldSet getMainAreaItems(String id) { return mainarea_sections.get(id); }
 	
 	public Boolean showTitleBar() { return showtitlebar; }
 	public Boolean showSideBar() { return showsidebar; }
 	public Boolean showEditSection() { return showeditsection; }
 	public Boolean showListSection() { return showlistsection; }
+	public Boolean showMessageKey() { return showmsgsection; }
 	
 	public String getTitleBar() { return titlebar; }
 	public String getSideBar() { return sidebar; }
 	public String getListSectionName() { return listsection; }
 	public String getEditSectionName() { return editsection; }
+	public String getMessageSectionName() { return msgsection; }
 
 
 	public void config_finish(Spec spec) {}
