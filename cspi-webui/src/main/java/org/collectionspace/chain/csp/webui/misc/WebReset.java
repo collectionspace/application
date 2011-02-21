@@ -120,7 +120,7 @@ public class WebReset implements WebMethod {
 			log.info("Delete existing vocab entries");
 			tty.line("Delete existing vocab entries");
 			
-			data = deletall("/person/persontest","Deleting Person ", storage, data, tty, myjs);
+			data = deletall("/person/person","Deleting Person ", storage, data, tty, myjs);
 			data = deletall("/person/persontest1","Deleting Person ", storage, data, tty, myjs);
 			data = deletall("/person/persontest2","Deleting Person ", storage, data, tty, myjs);
 			data = deletall("/organization/organization","Deleting Organization ", storage, data, tty, myjs);
@@ -183,6 +183,7 @@ public class WebReset implements WebMethod {
 			TTYOutputter tty, JSONObject myjs) throws JSONException,
 			ExistException, UnimplementedException, UnderlyingStorageException,
 			UIException {
+		
 		int resultsize;
 		int check;
 		String checkpagination;
@@ -208,10 +209,13 @@ public class WebReset implements WebMethod {
 			resultsize=res.length;
 			for(String urn : res) {
 				try {
-					storage.deleteJSON(path+urn);
+					storage.deleteJSON(path+"/"+urn);
 					tty.line(msg+urn);
 					log.info(msg+urn);
-				} catch(Exception e) { /* Sometimes records are wdged */ }
+				} catch(Exception e) { 
+					String bob="";
+					/* Sometimes records are wdged */ 
+					}
 				tty.flush();
 				
 			}
