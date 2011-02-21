@@ -266,9 +266,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			JSONObject out = new JSONObject();
-			List<String> list=new ArrayList<String>();
+			List<String> list=new ArrayList<String>();	
 			String vocab=vocab_cache.getVocabularyId(creds,cache,rootPath);
 			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
+				
 
 			String prefix=null;
 
@@ -282,6 +283,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			Document doc=data.getDocument();
+			log.info(doc.asXML());
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,path);
 			String[] tag_parts=r.getServicesListPath().split(",",2);

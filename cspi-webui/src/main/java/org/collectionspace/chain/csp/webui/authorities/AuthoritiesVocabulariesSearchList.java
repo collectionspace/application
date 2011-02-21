@@ -35,11 +35,13 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	private boolean search;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
+	//search all instances of an authority
 	public AuthoritiesVocabulariesSearchList(Record r,boolean search) {
 		this.r=r;
 		this.search=search;
 	}
 
+	//search a specific instance of an authority
 	public AuthoritiesVocabulariesSearchList(Instance n,boolean search) {
 		this.n=n;
 		this.r=n.getRecord();
@@ -57,8 +59,10 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	
 	
 	
-	private void search_or_list_vocab(JSONObject out,Instance n,Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private void search_or_list_vocab(JSONObject out,Instance n,Storage storage,UIRequest ui,String param, String pageSize, String pageNum, JSONObject temp ) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject restriction=new JSONObject();
+		String resultstring = "results";
+		
 		if(param!=null && !param.equals("")){
 			restriction.put("queryTerm", "kw");
 			restriction.put("queryString",param);
@@ -72,6 +76,10 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		}
 		JSONObject data = storage.getPathsJSON(r.getID()+"/"+n.getTitleRef(),restriction);
 
+		if(param==null){
+			resultstring = "items"
+;		}
+		
 		String[] paths = (String[]) data.get("listItems");
 		JSONObject pagination = new JSONObject();
 		if(data.has("pagination")){
@@ -81,15 +89,36 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		JSONArray members = new JSONArray();
 		/* Get a view of each */
 		for(String result : paths) {
-			members.put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));
+			
+			if(temp.has(resultstring)){
+				temp.getJSONArray(resultstring).put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));
+				members = temp.getJSONArray(resultstring);
+			}
+			else{
+				members.put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));
+			}
 		}
 
-		if(param==null)
-			out.put("items",members);
-		else
-			out.put("results",members);
+		out.put(resultstring,members);
 		
 		if(pagination!=null){
+			if(temp.has("pagination")){
+				JSONObject pag2 = temp.getJSONObject("pagination");
+				String itemsInPage = pag2.getString("itemsInPage");
+				String pagSize = pag2.getString("pageSize");
+				String totalItems = pag2.getString("totalItems");
+				
+				String itemsInPage1 = pagination.getString("itemsInPage");
+				String pagSize1 = pagination.getString("pageSize");
+				String totalItems1 = pagination.getString("totalItems");
+				int iip = Integer.parseInt(itemsInPage) +Integer.parseInt(itemsInPage1);
+				int ps = Integer.parseInt(pagSize) +Integer.parseInt(pagSize1);
+				int ti = Integer.parseInt(totalItems) +Integer.parseInt(totalItems1);
+				pagination.put("itemsInPage", Integer.toString(iip) );
+				pagination.put("pageSize", Integer.toString(ps) );
+				pagination.put("totalItems", Integer.toString(ti) );
+				
+			}
 			out.put("pagination",pagination);
 		}
 		log.debug(restriction.toString());
@@ -99,12 +128,13 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		try {
 			JSONObject results=new JSONObject();
 			if(n==null) {
-				// For now simply merge all the instances one after the other. XXX do something cleverer.
 				for(Instance n : r.getAllInstances()) {
-					search_or_list_vocab(results,n,storage,ui,param,pageSize,pageNum);
+					JSONObject results2=new JSONObject();
+					search_or_list_vocab(results2,n,storage,ui,param,pageSize,pageNum,results);
+					results = results2;
 				}
 			} else {
-				search_or_list_vocab(results,n,storage,ui,param,pageSize,pageNum);				
+				search_or_list_vocab(results,n,storage,ui,param,pageSize,pageNum,new JSONObject());				
 			}
 			ui.sendJSONResponse(results);
 		} catch (JSONException e) {
