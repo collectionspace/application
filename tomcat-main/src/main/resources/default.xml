@@ -37,6 +37,9 @@
 				
 				<structures>
                     <structure id="screen">
+                    	<view>
+                    		<label-section id="messagekeys" show="true"></label-section>
+						</view>
                     </structure>
                     <structure id="tab">
                         <view>
@@ -44,7 +47,7 @@
                             <sidebar show="false"></sidebar>
                             <edit-section id="details" show="true"></edit-section>
                             <list-section id="list" show="true"></list-section>
-                            <label-section id="messagekeys" show="false"></label-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="list" asSibling="true">
                             <selector>.csc-recordList-row:</selector>
@@ -1004,7 +1007,7 @@
                             </sidebar>
                             <edit-section show="true"></edit-section>
                             <list-section show="false"></list-section>
-                            <label-section id="messagekeys" show="false"></label-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="termsUsed" asSibling="true">
                             <selector>.csc-recordList-row:</selector>
@@ -1025,7 +1028,7 @@
                             <sidebar show="false"></sidebar>
                             <edit-section id="details" show="true"></edit-section>
                             <list-section id="list" show="true"></list-section>
-                            <label-section id="messagekeys" show="false"></label-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="list" asSibling="true">
                             <selector>.csc-recordList-row:</selector>
@@ -1110,14 +1113,18 @@
 				<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 
                 <structures>
-                    <structure id="screen"></structure>
+                    <structure id="screen">
+                    	<view>
+                    		<label-section id="messagekeys" show="true"></label-section>
+						</view>
+                    </structure>
                     <structure id="tab">
                         <view>
                             <titlebar show="false"></titlebar>
                             <sidebar show="false"></sidebar>
                             <edit-section id="details" show="true"></edit-section>
                             <list-section id="list" show="true"></list-section>
-                            <label-section id="messagekeys" show="false"></label-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="list" asSibling="true">
                             <selector>.csc-recordList-row:</selector>
@@ -1286,7 +1293,7 @@
 				<structures>
                     <structure id="screen">
                     	<view>
-                    		<label-section id="messagekeys" show="false"></label-section>
+                            <label-section id="messagekeys" show="true"></label-section>
 						</view>
                     </structure>
                     <structure id="tab">
@@ -1295,6 +1302,7 @@
                             <sidebar show="false"></sidebar>
                             <edit-section id="details" show="true"></edit-section>
                             <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="list" asSibling="true">
                             <selector>.csc-recordList-row:</selector>
@@ -1562,7 +1570,11 @@
                 <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
                 <vocab-syntax>urn:cspace:name</vocab-syntax>
                 <structures>
-                    <structure id="screen"></structure>
+                    <structure id="screen">
+                    	<view>
+                    		<label-section id="messagekeys" show="true"></label-section>
+						</view>
+                    </structure>
                 </structures>
                 <instances>
                     <instance id="person-person">
@@ -1765,7 +1777,11 @@
 
                 <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
                 <structures>
-                    <structure id="screen"></structure>
+                    <structure id="screen">
+                    	<view>
+                    		<label-section id="messagekeys" show="true"></label-section>
+						</view>
+                    </structure>
                 </structures>
                 <instances>
                     <instance id="organization-organization">
@@ -1865,7 +1881,11 @@
                 <authority-vocab-type>ContactAuthority</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:contactauthority:{vocab}:contact:{entry}'{display}'</urn-syntax>
                 <structures>
-                    <structure id="screen"></structure>
+                    <structure id="screen">
+                    	<view>
+                    		<label-section id="messagekeys" show="true"></label-section>
+						</view>
+                    </structure>
                 </structures>
                 <instances>
                     <instance id="contact-primary">
@@ -2203,7 +2223,7 @@
                             </sidebar>
                             <edit-section show="true"></edit-section>
                             <list-section show="false"></list-section>
-                            <label-section id="messagekeys" show="false"></label-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="termsUsed" asSibling="true">
                             <selector>.csc-recordList-row:</selector>
@@ -2224,7 +2244,7 @@
                             <sidebar show="false"></sidebar>
                             <edit-section id="details" show="true"></edit-section>
                             <list-section id="list" show="true"></list-section>
-                            <label-section id="messagekeys" show="false"></label-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="list" asSibling="true">
                             <selector>.csc-recordList-row:</selector>
@@ -2320,14 +2340,16 @@
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 				
 				<structures>
-                    <structure id="screen"></structure>
+                    <structure id="screen">
+                            <label-section id="messagekeys" show="true"></label-section>
+					</structure>
                     <structure id="tab">
                         <view>
                             <titlebar show="false"></titlebar>
                             <sidebar show="false"></sidebar>
                             <edit-section id="details" show="true"></edit-section>
                             <list-section id="list" show="true"></list-section>
-                            <label-section id="messagekeys" show="false"></label-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="list" asSibling="true">
                             <selector>.csc-recordList-row:</selector>
@@ -2503,7 +2525,7 @@
                             <sidebar show="false"></sidebar>
                             <edit-section id="details" show="true"></edit-section>
                             <list-section id="list" show="true"></list-section>
-                            <label-section id="messagekeys" show="false"></label-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="list" asSibling="true">
                             <selector>.csc-recordList-row:</selector>
