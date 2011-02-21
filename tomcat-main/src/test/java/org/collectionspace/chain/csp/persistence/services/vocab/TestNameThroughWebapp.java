@@ -222,21 +222,21 @@ public class TestNameThroughWebapp extends TestBase{
 		JSONObject data=new JSONObject();
 		HttpTester out ;
 		// Create
-		/*
+		
 		log.info("NAME: NamesCreateUpdateDelete person test: CREATE");
-		JSONObject data=new JSONObject("{'fields':{'displayName':'TESTTESTFred Bloggers', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
-		HttpTester out = POSTData("/vocabularies/persontest/",data,jetty);
+		data=new JSONObject("{'fields':{'displayName':'TESTTESTFred Bloggers', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
+		out = POSTData("/vocabularies/persontest1/",data,jetty);
 		String url=out.getHeader("Location");
 		log.info(out.getContent());
 		
 		log.info("NAME: NamesCreateUpdateDelete person default: CREATE");
 		data=new JSONObject("{'fields':{'displayName':'DDDDTESTFred Bloggers', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
-		out = POSTData("/vocabularies/person/",data,jetty);
+		out = POSTData("/vocabularies/persontest2/",data,jetty);
 		String url2=out.getHeader("Location");
 		log.info(out.getContent());
-*/
+
 		//all person authorities
-/*		
+		
 		out = GETData("/authorities/person/search?query=TESTTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
@@ -253,29 +253,29 @@ public class TestNameThroughWebapp extends TestBase{
 		assertEquals(2,results2.length());
 		
 		//specific person authority
-		out=GETData("/vocabularies/person/search?query=TESTTESTFred",jetty);
+		out=GETData("/vocabularies/persontest1/search?query=TESTTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results3=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(0,results3.length());
-		out=GETData("/vocabularies/person/search?query=DDDDTESTFred",jetty);
+		out=GETData("/vocabularies/persontest1/search?query=DDDDTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results32=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results32.length());
-		out=GETData("/vocabularies/person/search?query=Bloggers",jetty);
+		out=GETData("/vocabularies/persontest1/search?query=Bloggers",jetty);
 		log.info(out.getContent());
 		JSONArray results31=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results31.length());
 		
 		//specific person authority
-		out=GETData("/vocabularies/persontest/search?query=TESTTESTFred",jetty);
+		out=GETData("/vocabularies/persontest2/search?query=TESTTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results4=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results4.length());
-		out=GETData("/vocabularies/persontest/search?query=DDDDTESTFred",jetty);
+		out=GETData("/vocabularies/persontest2/search?query=DDDDTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results42=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(0,results42.length());
-		out=GETData("/vocabularies/persontest/search?query=Bloggers",jetty);
+		out=GETData("/vocabularies/persontest2/search?query=Bloggers",jetty);
 		log.info(out.getContent());
 		JSONArray results41=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results41.length());
@@ -295,12 +295,12 @@ public class TestNameThroughWebapp extends TestBase{
 		log.info(out.getContent());
 		JSONArray results11=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(2,results11.length());
-*/
+
 		// Read
 		// Delete
-		log.info("NAME: NamesCreateUpdateDelete: DELETE");
-//		DELETEData("/vocabularies/"+url,jetty);
-//		DELETEData("/vocabularies/"+url2,jetty);
+	log.info("NAME: NamesCreateUpdateDelete: DELETE");
+		DELETEData("/vocabularies/"+url,jetty);
+		DELETEData("/vocabularies/"+url2,jetty);
 		log.info("NAME: NamesCreateUpdateDelete: test_end");
 		}
 		

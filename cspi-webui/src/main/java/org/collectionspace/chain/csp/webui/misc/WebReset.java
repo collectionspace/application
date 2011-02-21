@@ -120,69 +120,16 @@ public class WebReset implements WebMethod {
 			log.info("Delete existing vocab entries");
 			tty.line("Delete existing vocab entries");
 			
-
-			while(resultsize >0){
-				myjs.put("pageNum", check);
-				//check++;
-				//don't increment page num as need to call page 0 as 
-				//once you delete a page worth the next page is now the current page
-				data = storage.getPathsJSON("/person/person",myjs);
-				String[] res = (String[]) data.get("listItems");
-
-				if(res.length==0 || checkpagination.equals(res[0])){
-					resultsize=0;
-					break;
-					//testing whether we have actually returned the same page or the next page - all csid returned should be unique
-				}
-				else{
-					checkpagination = res[0];
-				}
-				resultsize=res.length;
-				for(String urn : res) {
-					try {
-						storage.deleteJSON("/person/person/"+urn);
-						tty.line("Deleting Person "+urn);
-						log.info("Deleting Person "+urn);
-					} catch(Exception e) { /* Sometimes records are wdged */ }
-					tty.flush();
-					
-				}
-			}
+			data = deletall("/person/persontest","Deleting Person ", storage, data, tty, myjs);
+			data = deletall("/person/persontest1","Deleting Person ", storage, data, tty, myjs);
+			data = deletall("/person/persontest2","Deleting Person ", storage, data, tty, myjs);
+			data = deletall("/organization/organization","Deleting Organization ", storage, data, tty, myjs);
 			
-			resultsize=1;
-			check = 0;
-			checkpagination = "";
-			while(resultsize >0){
-				myjs.put("pageNum", check);
-				//check++;
-				//don't increment page num as need to call page 0 as 
-				//once you delete a page worth the next page is now the current page
-				data = storage.getPathsJSON("/organization/organization",myjs);
-				String[] res = (String[]) data.get("listItems");
-
-				if(res.length==0 || checkpagination.equals(res[0])){
-					resultsize=0;
-					break;
-					//testing whether we have actually returned the same page or the next page - all csid returned should be unique
-				}
-				else{
-					checkpagination = res[0];
-				}
-				resultsize=res.length;
-				for(String urn : res) {
-					try {
-						storage.deleteJSON("/organization/organization/"+urn);
-						tty.line("Deleting Organization "+urn);
-						log.info("Deleting Organization "+urn);
-					} catch(Exception e) { /* Sometimes records are wdged */ }
-					tty.flush();
-					
-				}
-			}
 			
 			tty.line("Creating");
 			tty.flush();
 			// Create vocab entries
+			
 			String names=getResource("names.txt");
 			int i=0;
 			for(String line : names.split("\n")) {
@@ -215,6 +162,7 @@ public class WebReset implements WebMethod {
 					break;
 			}
 			
+			
 
 			tty.line("done");
 			log.info("done");
@@ -229,6 +177,46 @@ public class WebReset implements WebMethod {
 		} catch (IOException e) {
 			throw new UIException("IOException",e);
 		}
+	}
+
+	private JSONObject deletall(String path, String msg, Storage storage, JSONObject data,
+			TTYOutputter tty, JSONObject myjs) throws JSONException,
+			ExistException, UnimplementedException, UnderlyingStorageException,
+			UIException {
+		int resultsize;
+		int check;
+		String checkpagination;
+		resultsize=1;
+		check = 0;
+		checkpagination = "";
+		while(resultsize >0){
+			myjs.put("pageNum", check);
+			//check++;
+			//don't increment page num as need to call page 0 as 
+			//once you delete a page worth the next page is now the current page
+			data = storage.getPathsJSON(path,myjs);
+			String[] res = (String[]) data.get("listItems");
+
+			if(res.length==0 || checkpagination.equals(res[0])){
+				resultsize=0;
+				break;
+				//testing whether we have actually returned the same page or the next page - all csid returned should be unique
+			}
+			else{
+				checkpagination = res[0];
+			}
+			resultsize=res.length;
+			for(String urn : res) {
+				try {
+					storage.deleteJSON(path+urn);
+					tty.line(msg+urn);
+					log.info(msg+urn);
+				} catch(Exception e) { /* Sometimes records are wdged */ }
+				tty.flush();
+				
+			}
+		}
+		return data;
 	}
 
 	public void run(Object in,String[] tail) throws UIException {
