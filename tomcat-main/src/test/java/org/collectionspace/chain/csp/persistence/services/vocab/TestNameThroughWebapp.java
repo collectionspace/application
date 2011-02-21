@@ -256,11 +256,11 @@ public class TestNameThroughWebapp extends TestBase{
 		out=GETData("/vocabularies/persontest1/search?query=TESTTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results3=new JSONObject(out.getContent()).getJSONArray("results");
-		assertEquals(0,results3.length());
+		assertEquals(1,results3.length());
 		out=GETData("/vocabularies/persontest1/search?query=DDDDTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results32=new JSONObject(out.getContent()).getJSONArray("results");
-		assertEquals(1,results32.length());
+		assertEquals(0,results32.length());
 		out=GETData("/vocabularies/persontest1/search?query=Bloggers",jetty);
 		log.info(out.getContent());
 		JSONArray results31=new JSONObject(out.getContent()).getJSONArray("results");
@@ -270,11 +270,11 @@ public class TestNameThroughWebapp extends TestBase{
 		out=GETData("/vocabularies/persontest2/search?query=TESTTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results4=new JSONObject(out.getContent()).getJSONArray("results");
-		assertEquals(1,results4.length());
+		assertEquals(0,results4.length());
 		out=GETData("/vocabularies/persontest2/search?query=DDDDTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results42=new JSONObject(out.getContent()).getJSONArray("results");
-		assertEquals(0,results42.length());
+		assertEquals(1,results42.length());
 		out=GETData("/vocabularies/persontest2/search?query=Bloggers",jetty);
 		log.info(out.getContent());
 		JSONArray results41=new JSONObject(out.getContent()).getJSONArray("results");
