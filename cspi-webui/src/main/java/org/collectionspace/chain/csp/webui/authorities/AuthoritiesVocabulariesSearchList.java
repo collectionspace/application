@@ -87,7 +87,10 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		}
 		
 		JSONArray members = new JSONArray();
-		/* Get a view of each */
+		/* Get a view of each */ 
+		if(temp.has(resultstring)){
+			members = temp.getJSONArray(resultstring);
+		}
 		for(String result : paths) {
 			
 			if(temp.has(resultstring)){

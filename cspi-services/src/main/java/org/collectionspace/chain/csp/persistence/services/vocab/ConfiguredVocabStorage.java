@@ -108,9 +108,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 			}	
 			// First send without refid (don't know csid)	
-			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/"+vocab+"/items",body,creds,cache);		
+			String pathurl ="/"+r.getServicesURL()+"/"+vocab+"/items"; 
+			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,pathurl,body,creds,cache);		
 			if(out.getStatus()>299)
-				throw new UnderlyingStorageException("Could not create vocabulary",out.getStatus(),"/"+r.getServicesURL()+"/"+vocab+"/items");
+				throw new UnderlyingStorageException("Could not create vocabulary",out.getStatus(),pathurl);
 			// This time with refid
 			String csid=out.getURLTail();
 			String refname=urn_processor.constructURN("id",vocab,"id",out.getURLTail(),name);
@@ -124,7 +125,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					body.put(record_path[0],temp);
 				}
 			}
-			ReturnedMultipartDocument out2=conn.getMultipartXMLDocument(RequestMethod.PUT,"/"+r.getServicesURL()+"/"+vocab+"/items/"+csid,body,creds,cache);
+			ReturnedMultipartDocument out2=conn.getMultipartXMLDocument(RequestMethod.PUT,pathurl+"/"+csid,body,creds,cache);
 			if(out2.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 			//id
