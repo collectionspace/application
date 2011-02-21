@@ -214,19 +214,46 @@ public class TestNameThroughWebapp extends TestBase{
 		String url=out.getHeader("Location");
 		log.info(out.getContent());
 		log.info("NAME: PersonWithContactAuthorityCRUD: test_end");
-	}
+}
 	
-	@Test public void testNamesCreateUpdateDelete() throws Exception {
+		@Test public void testNames2CreateUpdateDelete() throws Exception {
 		log.info("NAME: NamesCreateUpdateDelete: test_start");
 		ServletTester jetty=setupJetty();
 		// Create
 		log.info("NAME: NamesCreateUpdateDelete: CREATE");
-		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTFred Bloggs', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
-		HttpTester out = POSTData("/vocabularies/person/",data,jetty);
+		JSONObject data=new JSONObject("{'fields':{'displayName':'BBBTESTFred Bloggs', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
+		HttpTester out = POSTData("/vocabularies/persontest/",data,jetty);
 		String url=out.getHeader("Location");
 		log.info(out.getContent());
 		JSONObject updatefields = new JSONObject(out.getContent()).getJSONObject("fields");
+
+		//all person authorities
+		out = GETData("/authorities/person/search?query=BBBTESTFred",jetty);
+		log.info(out.getContent());
+		//specific person authority
+		out=GETData("/vocabularies/person/search?query=BBBTESTFred",jetty);
+		log.info(out.getContent());
+		//specific person authority
+		out=GETData("/vocabularies/persontest/search?query=BBBTESTFred",jetty);
+		log.info(out.getContent());
+		//all person authorities
+		out=GETData("/person/search?query=BBBTESTFred",jetty);
+		log.info(out.getContent());
+
 		// Read
+		}
+		
+		@Test public void testNamesCreateUpdateDelete() throws Exception {
+			log.info("NAME: NamesCreateUpdateDelete: test_start");
+			ServletTester jetty=setupJetty();
+			// Create
+			log.info("NAME: NamesCreateUpdateDelete: CREATE");
+			JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTFred Bloggs', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
+			HttpTester out = POSTData("/vocabularies/person/",data,jetty);
+			String url=out.getHeader("Location");
+			log.info(out.getContent());
+			JSONObject updatefields = new JSONObject(out.getContent()).getJSONObject("fields");
+			// Read
 		log.info("NAME: NamesCreateUpdateDelete: READ");
 		out = GETData("/vocabularies"+url,jetty);
 		log.info(out.getContent());

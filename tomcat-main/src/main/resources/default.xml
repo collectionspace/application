@@ -1582,6 +1582,11 @@
                         <title-ref>person</title-ref>
                         <title>Default Person Authority</title>
                     </instance>
+                    <instance id="person-test2">
+                        <web-url>persontest</web-url>
+                        <title-ref>persontest</title-ref>
+                        <title>Test Person Authority</title>
+                    </instance>
                 </instances>
                 
 			<section>
