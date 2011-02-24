@@ -12,7 +12,12 @@
 		<numberType>f</numberType>
 	</otherNumber>
 </otherNumberList>
-<references/>
+<referenceGroupList>
+	<referenceGroup>
+		<reference>reference</reference>
+		<referenceNote>referenceNote</referenceNote>
+	</referenceGroup>
+</referenceGroupList>
 <ownersReferences/>
 <objectProductionDates/>
 <objectProductionReasons/>
@@ -171,7 +176,9 @@
 <materialName></materialName>
 <materialSource></materialSource>
 <!-- Misc Object Description Information -->
-<objectStatus></objectStatus>
+<objectStatusList>
+	<objectStatus>objectStatus</objectStatus>
+</objectStatusList>
 <phase></phase>
 <physicalDescription></physicalDescription>
 <sex></sex>

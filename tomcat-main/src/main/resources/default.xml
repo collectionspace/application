@@ -250,18 +250,20 @@
                 <field id="copyNumber">
                     <selector>.csc-object-description-copy-number</selector>
                 </field>
-                <field id="objectStatus" seperate_ui_container="true">
-                    <selector>.csc-object-description-status</selector>
-                    <options>
-                        <option id="">Please select a value</option>
-                        <option id="copy">copy</option>
-                        <option id="forgery">forgery</option>
-                        <option id="holotype">holotype</option>
-                        <option id="paralectotype">paralectotype</option>
-                        <option id="paratype">paratype</option>
-                        <option id="type">type</option>
-                    </options>
-                </field>
+                <repeat id="objectStatusList">
+                    <field id="objectStatus" seperate_ui_container="true">
+                        <selector>.csc-object-description-object-status</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="copy">copy</option>
+                            <option id="forgery">forgery</option>
+                            <option id="holotype">holotype</option>
+                            <option id="paralectotype">paralectotype</option>
+                            <option id="paratype">paratype</option>
+                            <option id="type">type</option>
+                        </options>
+                    </field>
+                </repeat>
                 <field id="sex" seperate_ui_container="true">
                     <selector>.csc-object-description-sex</selector>
                     <options>
@@ -919,16 +921,13 @@
                 </field>
 				
 			</section>
+            
+            <!-- CSPACE-3501: reference and catalog number combined into a repeatable group; catalog number renamed reference note -->
 			<section id="referenceInformation">
-                <repeat id="references">
-                    <field id="reference">
-                        <selector>.csc-reference-reference</selector>
-                    </field>
-                </repeat>
-                <field id="catalogNumber">
-                    <selector>.csc-reference-catalog-number</selector>
-                </field>
-				
+                <repeat id="referenceGroupList/referenceGroup">
+                	<field id="reference"></field>
+                	<field id="referenceNote"></field>
+                </repeat>  
 			</section>
 			<section id="objectCollectionInformation">
                 <field id="fieldCollectionDate" ui-type="date"></field>
@@ -1381,6 +1380,7 @@
                 <field id="transferOfTitleNumber">
                     <selector>.csc-acquisition-transfer-of-title-number</selector>
                 </field>
+                <field id="creditLine"></field>
                 <field id="groupPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                     <enum>
                         <default>USD</default>

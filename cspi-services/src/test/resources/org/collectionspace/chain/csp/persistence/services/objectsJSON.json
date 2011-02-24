@@ -17,12 +17,21 @@
             "assocEventPeople": ""
         }
     ],
-    "references": [
-
+  "referenceGroup": [
+        {
+            "_primary": true,
+            "reference": "reference",
+            "referenceNote": "referenceNote"
+        }
     ],
     "ownershipPlace": "",
     "catalogNumber": "",
-    "objectStatus": "",
+    "objectStatusList": [
+        {
+            "_primary": true,
+            "objectStatus": "objectStatus"
+        }
+    ],
     "responsibleDepartments": [
         {
             "_primary": true,
