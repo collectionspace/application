@@ -75,6 +75,7 @@ public class Field implements FieldSet {
 		this.initStrings(section,"title-selector", getString("selector") + "-titlebar");
 		// used by uispec to create new structure
 		this.initBoolean(section,"@as-expander",false);
+		this.initBoolean(section,"@as-conditional-expander",false);
 		
 		
 		this.initBoolean(section,"@in-title",false);
@@ -218,7 +219,11 @@ public class Field implements FieldSet {
 	public boolean isExpander() {
 		return getBoolean("@as-expander");
 	}
-
+	
+	public boolean isConditionExpander(){
+		return getBoolean("@as-conditional-expander");
+	}
+	
 	public boolean isRepeatSubRecord() {
 		return getBoolean("@is-subrecord");
 	}

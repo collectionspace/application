@@ -89,7 +89,8 @@ public class Repeat implements FieldSet, FieldParent {
 		this.initStrings(section,"@userecord","");
 		// used by uispec to create new structure
 		this.initBoolean(section,"@as-expander",false);
-
+		this.initBoolean(section,"@as-conditional-expander",false);
+		
 		this.initBoolean(section,"@xxx-hack-authorization",false);
 		allBooleans.put("has_services_parent",false);
 
@@ -275,6 +276,10 @@ public class Repeat implements FieldSet, FieldParent {
 
 	public boolean isExpander() {
 		return getBoolean("@as-expander");
+	}
+	
+	public boolean isConditionExpander(){
+		return getBoolean("@as-conditional-expander");
 	}
 
 	public boolean isRepeatSubRecord() {

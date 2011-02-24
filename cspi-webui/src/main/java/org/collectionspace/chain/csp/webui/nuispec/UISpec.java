@@ -270,6 +270,8 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
+	
+	
 	protected JSONObject generateRepeatExpanderEntry(Repeat r, String affix) throws JSONException {
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.renderer.repeat");
@@ -282,10 +284,27 @@ public class UISpec implements WebMethod {
 			for(FieldSet child : r.getChildren("")) {
 				generateDataEntry(tree,child, affix);
 			}
-			expander.put("tree", tree);
+			if(r.isConditionExpander()){
+				expander.put("valueAs", "rowValue");
+				JSONObject cexpander = new JSONObject();
+				JSONObject texpander = new JSONObject();
+				cexpander.put("type", "fluid.renderer.condition");
+				JSONObject condpander = new JSONObject();
+				condpander.put("funcName", "cspace.adminRoles.assertDisplay");
+				condpander.put("args", "{rowValue}.display");
+
+				cexpander.put("condition", condpander);
+				cexpander.put("trueTree", tree);
+				texpander.put("expander", cexpander);
+				expander.put("tree", texpander);
+			}
+			else{
+				expander.put("tree", tree);
+			}
 		}
 		return expander;
 	}
+	
 	protected JSONObject generateSelectionExpanderEntry(Field f, String affix) throws JSONException {
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.renderer.selection.inputs");

@@ -35,6 +35,7 @@ public interface FieldSet {
 	public Boolean hasMergeData();
 	public List<String> getAllMerge();
 	public boolean isExpander();
+	public boolean isConditionExpander();
 	public boolean isRepeatSubRecord();
 	public void setRepeatSubRecord(Boolean var);
 }

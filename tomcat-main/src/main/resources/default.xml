@@ -1976,7 +1976,7 @@
                 <field id="description" mini="summary">
                     <selector>.csc-role-description</selector>
                 </field>
-                <repeat id="permissions" exists-in-services="false" as-expander="true" has-primary="false">
+                <repeat id="permissions" exists-in-services="false" as-expander="true" as-conditional-expander="true" has-primary="false">
                     <selector>.csc-permissions-record-row:</selector>
                     <field id="permission" ui-type="radio" as-expander="true">
                         <options>
