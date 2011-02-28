@@ -2513,7 +2513,7 @@
 				<field id="valueDate" ui-type="date"></field>
 				</section>
 			</record>
-			<record id="blob" in-recordlist="no">
+			<record id="blobs" in-recordlist="no">
 				<section>
                 <field id="encoding"></field>
                 <field id="mime-type"></field>
@@ -2611,7 +2611,7 @@
                 <field id="uri"></field>
                 <field id="blobCsid"></field>
 				
-                <group id="blob" userecord="blob" exists-in-services="false"></group>
+                <group id="blobs" userecord="blobs" exists-in-services="false"></group>
 				</section>
 				
 			</record>
