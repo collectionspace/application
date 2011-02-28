@@ -2517,7 +2517,7 @@
                     <field id="copyrightStatement"></field>
                     <field id="identificationNumber" chooser="yes" in-title="yes" mini="number" seperate_ui_container="true">
                         <options>
-                            <option id="media" sample="MH2010.1">Media Handling</option>
+                            <option id="media" sample="MR2011.1.1">Media Resource</option>
                         </options>
                     </field>
                     <repeat id="types">
@@ -2627,7 +2627,7 @@
                 </section>
             </record>
 
-            <record id="id"  type="id">
+            <record id="id" type="id">
                 <services-tenant-plural>id</services-tenant-plural>
                 <services-tenant-singular>id</services-tenant-singular>
                 <authorization-view>false</authorization-view>
@@ -2642,7 +2642,7 @@
                     <field id="study"><selector>0518132e-dd8c-4773-8fa9-07c9af4444ee</selector></field>
                     <field id="movement"><selector>49ca9d8d-7136-47ff-a70e-4a47b9038b70</selector></field>
                     <field id="objectexit"><selector>d4eea707-d473-4367-853a-728fbcd9be17</selector></field>
-                    <field id="media"><selector>d4eea707-d473-4367-853a-728fbcd9be17</selector></field>
+                    <field id="media"><selector>cd91d8b8-f346-4925-a425-93e02bd1c5c9</selector></field>
                     <!-- not obviously used -->
                     <field id="accession-activity"><selector>1a67470b-19b1-4ae3-88d4-2a0aa936270e</selector></field>
                     <field id="intake-object"><selector>a91db555-5c53-4996-9918-6712351397a0</selector></field>
