@@ -171,7 +171,7 @@ public class ChainUIServlet extends ChainServlet {
 					if (r.isType(map.getType())) {
 						if(r.isType("authority")){
 							for(Instance ins: r.getAllInstances()){
-								if (pathinfo.equals("/html/" + ins.getWebURL())) {
+								if (pathinfo.equals("/html/" + ins.getUIURL())) {
 									return map;
 								}
 							}
