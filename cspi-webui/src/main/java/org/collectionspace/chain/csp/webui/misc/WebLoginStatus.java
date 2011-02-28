@@ -43,7 +43,6 @@ public class WebLoginStatus  implements WebMethod {
 
 		//we are ignoring pagination so this will return the first 40 permissions only
 		//UI doesn't know what it wants to do about pagination etc
-
 		if(activePermissions.has("account"))
 		{
 			JSONObject account = activePermissions.getJSONObject("account");
@@ -65,6 +64,11 @@ public class WebLoginStatus  implements WebMethod {
 				JSONArray permissions = Generic.PermissionLevelArray(active.getJSONObject(j).getString("actionGroup"));
 				perms.put(resourceName, permissions);
 			}
+		}
+		else{
+			//no permissions = no roles for this tenant
+			return new JSONObject();
+			
 		}
 //		put resources with none permissions in
 
@@ -89,11 +93,17 @@ public class WebLoginStatus  implements WebMethod {
 				}				
 				else{
 					JSONObject perms = getPermissions(storage);
-					output.put("permissions",perms.getJSONObject("permissions"));
-					output.put("csid",perms.getString("csid"));
-					output.put("screenName",perms.getString("screenName"));
-					output.put("userId",perms.getString("userId"));
-					output.put("login", true);
+					if(perms.has("permissions")){
+						output.put("permissions",perms.getJSONObject("permissions"));
+						output.put("csid",perms.getString("csid"));
+						output.put("screenName",perms.getString("screenName"));
+						output.put("userId",perms.getString("userId"));
+						output.put("login", true);
+					}
+					else{
+						output.put("login", false);
+						output.put("message", "no roles associated with this user");
+					}
 				}
 			}
 			else{
