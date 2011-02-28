@@ -33,6 +33,7 @@ import org.apache.commons.io.input.TeeInputStream;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionUtils;
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.external.UIMapping;
@@ -168,6 +169,13 @@ public class ChainUIServlet extends ChainServlet {
 			} else if (map.hasType()) {
 				for (Record r : spec.getAllRecords()) {
 					if (r.isType(map.getType())) {
+						if(r.isType("authority")){
+							for(Instance ins: r.getAllInstances()){
+								if (pathinfo.equals("/html/" + ins.getWebURL())) {
+									return map;
+								}
+							}
+						}
 						if (pathinfo.equals("/html/" + r.getUIURL())) {
 							return map;
 						}
