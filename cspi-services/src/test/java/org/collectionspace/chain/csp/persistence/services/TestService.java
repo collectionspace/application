@@ -122,6 +122,7 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
+		testJSONXML(spec, "media", "media.xml", "mediaJSON.json");
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
 		 		"objectsJSON.json");
 		
@@ -720,6 +721,9 @@ public class TestService extends ServicesBaseClass {
 				"movements_common/movementReferenceNumber", "MV2010.99");
 		testPostGetDelete("objectexit/", "objectexit_common", "objectexit.xml",
 				"objectexit_common/exitNumber", "EX2011.5");
+				
+		testPostGetDelete("media/", "media_common", "media.xml",
+				"media_common/title", "EX2011.5");
 
 		// testPostGetDelete("relations/", "relations_common",
 		// "relationship.xml", "relations_common/relationshipType", "affects");
@@ -1056,6 +1060,7 @@ public class TestService extends ServicesBaseClass {
 		return parts;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testSearch() throws Exception {
 		// Insert one non-aardvark

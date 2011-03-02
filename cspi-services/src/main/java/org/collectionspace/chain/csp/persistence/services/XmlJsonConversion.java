@@ -127,7 +127,7 @@ public class XmlJsonConversion {
 			value=next;
 		}
 		if(!(value instanceof JSONArray))
-			throw new UnderlyingStorageException("Bad JSON in repeated field: must be string or array for repeatable field");
+			throw new UnderlyingStorageException("Bad JSON in repeated field: must be string or array for repeatable field"+repeat.getID());
 		JSONArray array=(JSONArray)value;
 		
 		//reorder the list if it has a primary

@@ -378,6 +378,24 @@ public class GenericStorage  implements ContextualisedStorage {
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
 				convertToJson(out,doc.getDocument(), thisr, "GET", "common");
 			}
+
+			for(FieldSet fs : thisr.getAllSubRecords("GET")){
+				Record sr = fs.usesRecordId();
+				String getPath = servicesurl+filePath + "/" + sr.getServicesURL();
+				if(null !=fs.getServicesUrl()){
+					getPath = servicesurl+filePath + "/" +fs.getServicesUrl();
+				}
+				JSONObject outer = simpleRetrieveJSON(creds,cache,getPath,"",sr);
+				
+				//seems to work for media blob
+				//need to get update and delete working? tho not going to be used for media as handling blob seperately
+				if(fs instanceof Group){
+					JSONArray group = new JSONArray();
+					group.put(outer);
+					out.put(fs.getID(), group);
+				}
+				String test = "";
+			}
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
@@ -669,7 +687,81 @@ public class GenericStorage  implements ContextualisedStorage {
 		updateJSON( root, creds, cache, filePath,  jsonObject, r);
 	}
 	
-	
+	/** 
+	 * needs some tests.. just copied from ConfiguredVocabStorage
+	 * @param root
+	 * @param creds
+	 * @param cache
+	 * @param myr
+	 * @param jsonObject
+	 * @param savePrefix
+	 * @return
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 */
+	public String subautocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,Record myr,JSONObject jsonObject, String savePrefix)
+	throws ExistException, UnimplementedException, UnderlyingStorageException{
+		try {
+
+			ReturnedURL url = null;
+			Document doc = null;
+			//used by userroles and permroles as they have complex urls
+			if(myr.hasPrimaryField()){
+				//XXX test if works: need to delete first before create/update
+			//	deleteJSON(root,creds,cache,filePath);
+
+				for(String section : myr.getServicesRecordPaths()) {
+					doc=XmlJsonConversion.convertToXml(myr,jsonObject,section,"POST");
+					String path = myr.getServicesURL();
+					path = path.replace("*", getSubCsid(jsonObject,myr.getPrimaryField()));
+
+					deleteJSON(root,creds,cache,path);
+					url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);	
+				}
+			}
+			else{
+				url = autoCreateSub(creds, cache, jsonObject, doc);
+			}
+			
+			
+			
+			// create related sub records?
+			for(FieldSet allfs : myr.getAllSubRecords("POST")){
+				Record sr = allfs.usesRecordId();
+				//sr.getID()
+				if(sr.isType("authority")){
+				}
+				else{
+					
+					String savePath = url.getURL() + "/" + sr.getServicesURL();
+					if(jsonObject.has(sr.getID())){
+						Object subdata = jsonObject.get(sr.getID());
+
+						if(subdata instanceof JSONArray){
+							JSONArray subarray = (JSONArray)subdata;
+
+							for(int i=0;i<subarray.length();i++) {
+								JSONObject subrecord = subarray.getJSONObject(i);
+								subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+							}
+							
+						}
+						else if(subdata instanceof JSONObject){
+							JSONObject subrecord = (JSONObject)subdata;
+							subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+						}
+					}
+				}
+			}
+			
+			return url.getURLTail();
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Cannot parse surrounding JSON"+e.getLocalizedMessage(),e);
+		}
+	}
 	/**
 	 * Convert the JSON from the UI Layer into XML for the Service layer while using the XML structure from cspace-config.xml
 	 * Send the XML through to the Service Layer to store it in the database
@@ -703,6 +795,55 @@ public class GenericStorage  implements ContextualisedStorage {
 			else{
 				url = autoCreateSub(creds, cache, jsonObject, doc);
 			}
+			
+
+			// create related sub records?
+			//I am developing this.. it might not work...
+			for(FieldSet fs : r.getAllSubRecords("POST")){
+				Record sr = fs.usesRecordId();
+				//sr.getID()
+				if(sr.isType("authority")){
+				}
+				else{
+					String savePath = url.getURLTail() + "/" + sr.getServicesURL();
+					if(fs instanceof Field){//get the fields form inline XXX untested - might not work...
+						JSONObject subdata = new JSONObject();
+						//loop thr jsonObject and find the fields I need
+						for(FieldSet subfs: sr.getAllFields("POST")){
+							String key = subfs.getID();
+							if(jsonObject.has(key)){
+								subdata.put(key, jsonObject.get(key));
+							}
+						}
+						subautocreateJSON(root,creds,cache,sr,subdata,savePath);
+					}
+					else if(fs instanceof Group){//JSONObject
+						if(jsonObject.has(fs.getID())){
+							Object subdata = jsonObject.get(fs.getID());
+							if(subdata instanceof JSONObject){
+								JSONObject subrecord = (JSONObject)subdata;
+								subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+							}
+						}
+					}
+					else{//JSONArray
+						if(jsonObject.has(fs.getID())){
+							Object subdata = jsonObject.get(fs.getID());
+							if(subdata instanceof JSONArray){
+								JSONArray subarray = (JSONArray)subdata;
+
+								for(int i=0;i<subarray.length();i++) {
+									JSONObject subrecord = subarray.getJSONObject(i);
+									subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+								}
+								
+							}
+						}
+					}
+				}
+			}
+			
+			
 			return url.getURLTail();
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException(e.getMessage(),e.getStatus(), e.getUrl(),e);
