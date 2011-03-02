@@ -803,6 +803,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				Record sr = fs.usesRecordId();
 				//sr.getID()
 				if(sr.isType("authority")){
+					//need to use code from configuredVocabStorage
 				}
 				else{
 					String savePath = url.getURLTail() + "/" + sr.getServicesURL();
