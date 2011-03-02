@@ -15,6 +15,7 @@ public interface FieldSet {
 	public FieldParent getParent();
 	public Record getRecord();
 	public String getServicesTag();
+	public String getServicesUrl();
 	public String getSection();
 	public Boolean isInServices();
 	public boolean hasFieldPerm(String k);

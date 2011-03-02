@@ -92,6 +92,7 @@ public class Repeat implements FieldSet, FieldParent {
 		this.initBoolean(section,"@as-conditional-expander",false);
 		
 		this.initBoolean(section,"@xxx-hack-authorization",false);
+		this.initStrings(section,"@serviceurl", null);
 		allBooleans.put("has_services_parent",false);
 
 		String[] idparts = getString("@id").split("/");
@@ -248,6 +249,10 @@ public class Repeat implements FieldSet, FieldParent {
 
 	public String getServicesTag() {
 		return getString("services-tag");
+	}
+	
+	public String getServicesUrl(){
+		return getString("@serviceurl");
 	}
 
 	public Boolean isInServices() {

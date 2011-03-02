@@ -2455,6 +2455,10 @@
                 </section>
             </record>
             <record id="blobs" in-recordlist="no">
+            	<services-record-path>blobs_common://collectionspace.org/services/blob,blobs_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				<services-list-path>abstract-common-list/list-item</services-list-path>
+
                 <section>
                     <field id="encoding"></field>
                     <field id="mime-type"></field>
@@ -2468,6 +2472,10 @@
             </record>
 
             <record id="media" in-findedit="yes" type="procedure,record">
+				<services-record-path>media_common:http://collectionspace.org/services/media,media_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				<services-list-path>abstract-common-list/list-item</services-list-path>
+
                 <structures>
                     <structure id="screen"></structure>
                     <structure id="tab">
@@ -2501,8 +2509,18 @@
                     <field id="dateCreated"></field>
                     <field id="dateModified"></field>
                     <field id="dimensionSummary"></field>
-                    <repeat id="dimensions">
+                    <repeat id="dimensionGroupList/dimensionGroup">
+                    	<!--
                         <field id="dimension" userecord="dimension"></field>
+						-->
+                        <field id="measuredPart" ></field>
+                        <field id="dimension" ></field>
+                        <field id="measuredBy" ></field>
+                        <field id="measurementUnit"></field>
+                        <field id="measurementMethod" ></field>
+                        <field id="value" ></field>
+                        <field id="valueDate"></field>
+                        <field id="valueQualifier" ></field>
                     </repeat>
                     <field id="title"></field>
                     <field id="contributor" autocomplete="person-person,organization-organization"></field>
@@ -2547,7 +2565,7 @@
                 <section>
                     <field id="uri"></field>
                     <field id="blobCsid"></field>
-                    <group id="blobs" userecord="blobs" exists-in-services="false"></group>
+                    <group id="blobs" userecord="blobs" serviceurl="blob"  attributes="GET"></group>
                 </section>
             </record>
 

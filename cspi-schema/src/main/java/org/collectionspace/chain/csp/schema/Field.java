@@ -58,6 +58,7 @@ public class Field implements FieldSet {
 		this.initStrings(section,"@userecord", "");
 		this.initStrings(section,"@selector-affix", "");
 		this.initStrings(section,"@label-affix", "-label");
+		this.initStrings(section,"@serviceurl", null);
 		
 		this.initStrings(section,"linktext", "${items.0.number}");
 		
@@ -246,6 +247,10 @@ public class Field implements FieldSet {
 
 	public String getServicesTag() {
 		return getString("services-tag");
+	}
+	
+	public String getServicesUrl(){
+		return getString("@serviceurl");
 	}
 	
 	//XXX could be used for validation at the app layer

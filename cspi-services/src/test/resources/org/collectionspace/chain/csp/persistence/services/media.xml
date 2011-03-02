@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns2:media_common xmlns:ns2="http://collectionspace.org/services/media">
+	<blobCsid></blobCsid>
+	<srcUri></srcUri>
+    <dateModified>
+    </dateModified>
+    <copyrightStatement>dsfadsf</copyrightStatement>
+    <location>
+    </location>
+    <subjects>
+        <subject>sdf asdf</subject>
+        <subject>asdf</subject>
+    </subjects>
+    <blobCsid>
+    </blobCsid>
+    <rightsHolder>
+    </rightsHolder>
+    <creator>urn:cspace:org.collectionspace.demo:orgauthority:id(4cc1991b-cee2-48b8-80f8):organization:id(ae637175-ec37-416e-8909)'Playtime+Products+Inc.'</creator>
+    <publisher>
+    </publisher>
+    <languages>
+        <language>
+        </language>
+    </languages>
+    <title>sdf</title>
+    <dimensionSummary>sdf</dimensionSummary>
+    <dates>
+        <date>
+        </date>
+    </dates>
+    <contributor>
+    </contributor>
+    <description>asdf adfsasdf</description>
+    <dimensions>
+        <dimension>base</dimension>
+    </dimensions>
+    <types>
+        <type>
+        </type>
+    </types>
+    <format>
+    </format>
+    <uri>
+    </uri>
+    <source>
+    </source>
+    <relations>
+        <relation>
+        </relation>
+    </relations>
+    <coverage>
+    </coverage>
+    <dateCreated>
+    </dateCreated>
+    <filename>
+    </filename>
+    <identificationNumber>MR2011.1.7</identificationNumber>
+</ns2:media_common>
+
+
+</ns2:media_common>

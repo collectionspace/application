@@ -1,0 +1,42 @@
+{
+        "subjects": [{
+            "_primary": true,
+            "subject": "sdf asdf"
+        }, {
+            "subject": "asdf"
+        }],
+        "languages": [{
+            "language": "",
+            "_primary": true
+        }],
+        "dates": [{
+            "_primary": true,
+			"date":""
+        }],
+        "dimensionGroup": [{
+        	"_primary": true,
+        	"measuredBy": "urn:cspace:org.collectionspace.demo:personauthority:id(d417d4af-e963-4ab1-8b69):person:id(641d5140-3924-4053-a10b)'Tom+Mix'",
+        	"dimension": "base",
+        	"valueDate": "2011-03-23",
+        	"measuredPart": "",
+        	"measurementUnit": "inches",
+        	"value": "",
+        	"valueQualifier": "",
+        	"measurementMethod": "spreading_calipers"
+        }],
+        "types": [{
+            "type": "",
+            "_primary": true
+        }],
+        "relations": [{
+            "relation": "",
+            "_primary": true
+        }],
+        "dimensionSummary": "sdf",
+        "title": "sdf",
+        "identificationNumber": "MR2011.1.7",
+		"de-urned-creator": "Playtime Products Inc.",
+        "creator": "urn:cspace:org.collectionspace.demo:orgauthority:id(4cc1991b-cee2-48b8-80f8):organization:id(ae637175-ec37-416e-8909)'Playtime+Products+Inc.'",
+        "description": "asdf adfsasdf",
+        "copyrightStatement": "dsfadsf"
+    }
