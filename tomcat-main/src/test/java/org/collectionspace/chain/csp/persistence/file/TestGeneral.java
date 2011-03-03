@@ -358,6 +358,7 @@ public class TestGeneral extends TestBase {
 	 */
 	@Test public void testMultipleStoreTypes() throws Exception {
 		ServletTester jetty=setupJetty();
+		testPostGetDelete(jetty, "/media/", mediaCreate, "identificationNumber");
 		testPostGetDelete(jetty, "/movement/", movementCreate, "movementReferenceNumber");
 		testPostGetDelete(jetty, "/cataloging/", objectCreate, "distinguishingFeatures");
 		testPostGetDelete(jetty, "/intake/", intakeCreate, "entryReason");
@@ -413,6 +414,7 @@ public class TestGeneral extends TestBase {
 		testLists(jetty, "acquisition", acquisitionCreate, "items");
 		testLists(jetty, "role", roleCreate, "items");
 		testLists(jetty, "movement", movementCreate, "items");
+		testLists(jetty, "media", mediaCreate, "items");
 		//testLists(jetty, "permission", permissionWrite, "items");
 	}
 	/* XXX I don't think this is tetsing what it needs to */

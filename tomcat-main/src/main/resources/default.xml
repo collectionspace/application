@@ -2565,7 +2565,7 @@
                 <section>
                     <field id="uri"></field>
                     <field id="blobCsid"></field>
-                    <group id="blobs" userecord="blobs" serviceurl="blob"  attributes="GET"></group>
+                    <group id="blobs" userecord="blobs" serviceurl="blob" onlyifexists="blobCsid" attributes="GET"></group>
                 </section>
             </record>
 

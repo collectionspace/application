@@ -42,6 +42,7 @@ public class TestData {
 	protected final String loaninCreate = addData("loaninCreate.json").toString();
 	protected final String loanoutCreate = addData("loanoutCreate.json").toString();
 	protected final String movementCreate = addData("movementCreate.json").toString();
+	protected final String mediaCreate = addData("mediaCreate.json").toString();
  	protected final String objectexitCreate = addData("objectexitCreate.json").toString();
 
 	protected final String roleCreate = addData("roleCreate.json","displayName").toString();
