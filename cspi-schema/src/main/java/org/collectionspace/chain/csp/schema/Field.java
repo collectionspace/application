@@ -56,6 +56,7 @@ public class Field implements FieldSet {
 		this.initStrings(section,"selector", ".csc-" + getString("parentID") + "-" +  getString("@id"));
 		this.initStrings(section,"label", "" + getString("parentID") + "-" +  getString("@id")+"Label");
 		this.initStrings(section,"@userecord", "");
+		this.initStrings(section,"@onlyifexists","");
 		this.initStrings(section,"@selector-affix", "");
 		this.initStrings(section,"@label-affix", "-label");
 		this.initStrings(section,"@serviceurl", null);
@@ -307,7 +308,14 @@ public class Field implements FieldSet {
 		}
 		return false;
 	}
-
+	
+	public String usesRecordValidator() {
+		if(getString("@onlyifexists") !=null && !getString("@onlyifexists").equals("")){
+			return getString("@onlyifexists");
+		}
+		return null;
+	}
+	
 	public Record usesRecordId() {
 		if (usesRecord()) {
 			return this.getRecord().getSpec().getRecord(getString("@userecord"));

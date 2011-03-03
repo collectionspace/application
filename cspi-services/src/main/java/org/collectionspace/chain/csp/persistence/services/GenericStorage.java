@@ -381,21 +381,32 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 
 			for(FieldSet fs : thisr.getAllSubRecords("GET")){
+				Boolean validator = true;
 				Record sr = fs.usesRecordId();
-				String getPath = servicesurl+filePath + "/" + sr.getServicesURL();
-				if(null !=fs.getServicesUrl()){
-					getPath = servicesurl+filePath + "/" +fs.getServicesUrl();
+				if(fs.usesRecordValidator()!= null){
+					validator = false;
+					if(out.has(fs.usesRecordValidator())){
+						String test = out.getString(fs.usesRecordValidator());
+						if(test!=null && !test.equals("")){
+							validator = true;
+						}
+					}
 				}
-				JSONObject outer = simpleRetrieveJSON(creds,cache,getPath,"",sr);
-				
-				//seems to work for media blob
-				//need to get update and delete working? tho not going to be used for media as handling blob seperately
-				if(fs instanceof Group){
-					JSONArray group = new JSONArray();
-					group.put(outer);
-					out.put(fs.getID(), group);
+				if(validator){
+					String getPath = servicesurl+filePath + "/" + sr.getServicesURL();
+					if(null !=fs.getServicesUrl()){
+						getPath = servicesurl+filePath + "/" +fs.getServicesUrl();
+					}
+					JSONObject outer = simpleRetrieveJSON(creds,cache,getPath,"",sr);
+					
+					//seems to work for media blob
+					//need to get update and delete working? tho not going to be used for media as handling blob seperately
+					if(fs instanceof Group){
+						JSONArray group = new JSONArray();
+						group.put(outer);
+						out.put(fs.getID(), group);
+					}
 				}
-				String test = "";
 			}
 			return out;
 		} catch (ConnectionException e) {

@@ -29,6 +29,7 @@ public interface FieldSet {
 	public String getSelector();
 	public String getLabel();
 	public Boolean usesRecord();
+	public String usesRecordValidator();
 	public Record usesRecordId();
 	
 	//

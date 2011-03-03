@@ -87,6 +87,7 @@ public class Repeat implements FieldSet, FieldParent {
 		// should this field allow a primary flag
 		this.initBoolean(section,"@has-primary",true);
 		this.initStrings(section,"@userecord","");
+		this.initStrings(section,"@onlyifexists","");
 		// used by uispec to create new structure
 		this.initBoolean(section,"@as-expander",false);
 		this.initBoolean(section,"@as-conditional-expander",false);
@@ -310,6 +311,13 @@ public class Repeat implements FieldSet, FieldParent {
 			return true;
 		}
 		return false;
+	}
+	
+	public String usesRecordValidator() {
+		if(getString("@onlyifexists") !=null && !getString("@onlyifexists").equals("")){
+			return getString("@onlyifexists");
+		}
+		return null;
 	}
 
 	public Record usesRecordId() {
