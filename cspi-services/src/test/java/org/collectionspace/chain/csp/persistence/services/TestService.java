@@ -81,6 +81,7 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
+		testXMLJSON(spec, "media", "media.xml", "mediaJSON.json");
 		testXMLJSON(spec, "collection-object", "objectsXMLJSON.xml",
 				"objectsJSON.json");
 
@@ -704,6 +705,8 @@ public class TestService extends ServicesBaseClass {
 		// testPostGetDelete("collectionobjects/", "collectionobjects_common",
 		// "objectCreate.xml", "collectionobjects_common/objectNumber", "2");
 
+		testPostGetDelete("media/", "media_common", "media.xml",
+				"media_common/title", "EX2011.5");
 		testCRUD("collectionobjects/", "collectionobjects_common",
 				"objectCreate.xml", "objectsXMLJSON.xml",
 				"collectionobjects_common/objectNumber", "2010.1.9");
@@ -722,8 +725,6 @@ public class TestService extends ServicesBaseClass {
 		testPostGetDelete("objectexit/", "objectexit_common", "objectexit.xml",
 				"objectexit_common/exitNumber", "EX2011.5");
 				
-		testPostGetDelete("media/", "media_common", "media.xml",
-				"media_common/title", "EX2011.5");
 
 		// testPostGetDelete("relations/", "relations_common",
 		// "relationship.xml", "relations_common/relationshipType", "affects");

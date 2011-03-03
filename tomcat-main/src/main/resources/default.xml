@@ -2526,10 +2526,12 @@
                     <field id="contributor" autocomplete="person-person,organization-organization"></field>
                     <field id="creator" autocomplete="person-person,organization-organization"></field>
                     <repeat id="languages">
+                    	<services-tag>languageList</services-tag>
                         <field id="language" autocomplete="vocab-languages" ui-type="enum"></field>
                     </repeat>
                     <field id="publisher" autocomplete="person-person,organization-organization"></field>
                     <repeat id="relations">
+                    	<services-tag>relationList</services-tag>
                         <field id="relation"></field>
                     </repeat>
                     <field id="copyrightStatement"></field>
@@ -2539,6 +2541,7 @@
                         </options>
                     </field>
                     <repeat id="types">
+                    	<services-tag>typeList</services-tag>
                         <field id="type">
                             <options>
                                 <option id="" default="yes">Please select a value</option>
@@ -2552,10 +2555,12 @@
                     </repeat>
                     <field id="coverage"></field>
                     <repeat id="dates">
+                    	<services-tag>dateList</services-tag>
                         <field id="date" ui-type="date"></field>
                     </repeat>
                     <field id="source"></field>
                     <repeat id="subjects">
+                    	<services-tag>subjectList</services-tag>
                         <field id="subject"></field>
                     </repeat>
                     <field id="rightsHolder" autocomplete="person-person,organization-organization"></field>
