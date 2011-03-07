@@ -2455,6 +2455,8 @@
                 </section>
             </record>
             <record id="blobs" in-recordlist="no">
+                <terms-used>false</terms-used>
+                <refobj-used>false</refobj-used>
             	<services-record-path>blobs_common://collectionspace.org/services/blob,blobs_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 				<services-list-path>abstract-common-list/list-item</services-list-path>

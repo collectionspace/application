@@ -30,6 +30,7 @@ import org.collectionspace.chain.csp.webui.authorities.VocabulariesDelete;
 import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
 import org.collectionspace.chain.csp.webui.external.UIMapping;
 import org.collectionspace.chain.csp.webui.external.UIMeta;
+import org.collectionspace.chain.csp.webui.mediablob.BlobCreateUpdate;
 import org.collectionspace.chain.csp.webui.misc.VocabRedirector;
 import org.collectionspace.chain.csp.webui.misc.WebAuto;
 import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
@@ -181,6 +182,7 @@ public class WebUI implements CSP, UI, Configurable {
 
 		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin(this,spec)); /* XXX need to remove this one when UI layer moves across to POST */
 		addMethod(Operation.CREATE,new String[]{"login"},0,new WebLogin(this,spec));
+		addMethod(Operation.CREATE,new String[]{"upload"},0,new BlobCreateUpdate(this,spec));
 		addMethod(Operation.READ,new String[]{"logout"},0,new WebLogout());
 		addMethod(Operation.READ,new String[]{"loginstatus"},0, new WebLoginStatus(spec));
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
