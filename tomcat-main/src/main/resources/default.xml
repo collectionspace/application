@@ -2625,6 +2625,7 @@
                 <!-- not used in ui yet -->
                 <section>
                     <field id="uri"></field>
+					<field id="srcUri"></field>
                     <field id="blobCsid"></field>
                     <group id="blobs" userecord="blobs" serviceurl="blob" onlyifexists="blobCsid" attributes="GET"></group>
                 </section>
