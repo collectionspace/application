@@ -183,6 +183,7 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"login"},0,new WebLogin(this,spec)); /* XXX need to remove this one when UI layer moves across to POST */
 		addMethod(Operation.CREATE,new String[]{"login"},0,new WebLogin(this,spec));
 		addMethod(Operation.CREATE,new String[]{"upload"},0,new BlobCreateUpdate(this,spec));
+		addMethod(Operation.READ,new String[]{"upload"},0,new BlobCreateUpdate(this,spec));
 		addMethod(Operation.READ,new String[]{"logout"},0,new WebLogout());
 		addMethod(Operation.READ,new String[]{"loginstatus"},0, new WebLoginStatus(spec));
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
