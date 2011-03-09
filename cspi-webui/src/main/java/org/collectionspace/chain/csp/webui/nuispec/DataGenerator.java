@@ -178,8 +178,11 @@ public class DataGenerator  extends UISpec {
 		JSONObject returnData = new JSONObject();
 		try{
 			for(Record r : spec.getAllRecords()) {
-				if(r.isType("authority") || r.isType("authorizationdata") || r.isType("id") ||r.isType("blobs") ||r.isType("dimension") || r.isType("userdata")){
+				if(r.isType("authority") || r.isType("authorizationdata") || r.isType("id") || r.isType("userdata")){
 					//don't do these yet (if ever)
+				}
+				else if (r.getID().equals("blobs") || r.getID().equals("dimension")|| r.getID().equals("contacts")){
+					//and ignore these
 				}
 				else{
 					this.record = r;
