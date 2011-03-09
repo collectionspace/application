@@ -60,6 +60,7 @@ public class WebReset implements WebMethod {
 				data = storage.getPathsJSON("/",null);
 				String[] paths = (String[]) data.get("listItems");
 				for(String dir : paths) {
+					log.info(dir);
 					// XXX yuck!
 					// ignore authorities
 					if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "location".equals(dir) || "person".equals(dir) || "organization".equals(dir)){
@@ -72,7 +73,7 @@ public class WebReset implements WebMethod {
 					}
 					
 					// ignore other - tho we do need to clean these up
-					if("relations".equals(dir) || "direct".equals(dir) || "id".equals(dir) )
+					if("dimension".equals(dir) ||"blobs".equals(dir) ||"relations".equals(dir) || "direct".equals(dir) || "id".equals(dir) )
 						continue;
 					
 					
