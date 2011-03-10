@@ -8,14 +8,14 @@
             <relation id="broader">
                 <displayName>has broader term</displayName>
                 <directional>true</directional>
-                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit</sourceTypes>
-                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit</destinationTypes>
+                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</sourceTypes>
+                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</destinationTypes>
             </relation>
             <relation id="affects">
                 <displayName>affects</displayName>
                 <directional>false</directional>
-                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit</sourceTypes>
-                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit</destinationTypes>
+                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</sourceTypes>
+                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</destinationTypes>
             </relation>
         </relationships>
 
