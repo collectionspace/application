@@ -359,8 +359,8 @@ public class GenericStorage  implements ContextualisedStorage {
 
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String servicesurl, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
+		JSONObject out=new JSONObject();
 		try {
-			JSONObject out=new JSONObject();
 			if(thisr.isMultipart()){
 				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,servicesurl+filePath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
@@ -373,13 +373,21 @@ public class GenericStorage  implements ContextualisedStorage {
 						convertToJson(out,doc.getDocument(parts[0]), thisr, "GET",section);
 					}
 				}
-			}else{
+			}
+			else{
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+filePath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
 				convertToJson(out,doc.getDocument(), thisr, "GET", "common");
 			}
 
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Service layer exception",e);
+		}
+		
+		try{
 			for(FieldSet fs : thisr.getAllSubRecords("GET")){
 				Boolean validator = true;
 				Record sr = fs.usesRecordId();
@@ -408,12 +416,12 @@ public class GenericStorage  implements ContextualisedStorage {
 					}
 				}
 			}
-			return out;
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Service layer exception",e);
 		}
+		catch (Exception e) {
+			//ignore exceptions for sub records at the moment - make it more intellegent later
+			//throw new UnderlyingStorageException("Service layer exception",e);
+		}
+		return out;
 	}
 	/**
 	 * Construct different data sets for different view needs
