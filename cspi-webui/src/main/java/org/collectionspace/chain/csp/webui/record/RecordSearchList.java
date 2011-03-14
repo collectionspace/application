@@ -132,22 +132,24 @@ public class RecordSearchList implements WebMethod {
 			
 			Set<String> args = ui.getAllRequestArgument();
 			for(String restrict : args){
-				if(ui.getRequestArgument(restrict)!=null){
-					String value = ui.getRequestArgument(restrict);
-					if(restrict.equals("query") && search){
-						restrict = "keywords";
-						key="results";
-					}
-					if(restrict.equals("pageSize")||restrict.equals("pageNum")||restrict.equals("keywords")){
-						restriction.put(restrict,value);
-					}
-					else if(restrict.equals("query")){
-						//ignore - someone was doing something odd
-					}
-					else{
-						//XXX I would so prefer not to restrict and just pass stuff up but I know it will cause issues later
-						restriction.put("queryTerm",restrict);
-						restriction.put("queryString",value);
+				if(!restrict.equals("_")){
+					if(ui.getRequestArgument(restrict)!=null){
+						String value = ui.getRequestArgument(restrict);
+						if(restrict.equals("query") && search){
+							restrict = "keywords";
+							key="results";
+						}
+						if(restrict.equals("pageSize")||restrict.equals("pageNum")||restrict.equals("keywords")){
+							restriction.put(restrict,value);
+						}
+						else if(restrict.equals("query")){
+							//ignore - someone was doing something odd
+						}
+						else{
+							//XXX I would so prefer not to restrict and just pass stuff up but I know it will cause issues later
+							restriction.put("queryTerm",restrict);
+							restriction.put("queryString",value);
+						}
 					}
 				}
 			}
