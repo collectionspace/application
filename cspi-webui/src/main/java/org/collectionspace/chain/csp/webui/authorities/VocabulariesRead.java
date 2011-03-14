@@ -107,23 +107,34 @@ public class VocabulariesRead implements WebMethod {
 	 * @throws JSONException
 	 */
 	@SuppressWarnings("unchecked")
-	private JSONArray getRefObj(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private JSONArray getRefObj(Storage storage,String path)   {
 		JSONArray out=new JSONArray();
-		JSONObject mini = storage.retrieveJSON(path+"/refObjs", new JSONObject());
-		if(mini != null){
-			Iterator t=mini.keys();
-			while(t.hasNext()) {
-				String field=(String)t.next();
-				JSONObject in=mini.getJSONObject(field);
-				/*
-				JSONObject entry=new JSONObject();
-				entry.put("csid",in.getString("csid"));
-				entry.put("recordtype",in.getString("sourceFieldType"));
-				entry.put("sourceFieldName",field);
-				entry.put("number",in.getString("sourceFieldName"));
-				*/
-				out.put(in);
+		try{
+			JSONObject mini = storage.retrieveJSON(path+"/refObjs", new JSONObject());
+			if(mini != null){
+				Iterator t=mini.keys();
+				while(t.hasNext()) {
+					String field=(String)t.next();
+					JSONObject in=mini.getJSONObject(field);
+					/*
+					JSONObject entry=new JSONObject();
+					entry.put("csid",in.getString("csid"));
+					entry.put("recordtype",in.getString("sourceFieldType"));
+					entry.put("sourceFieldName",field);
+					entry.put("number",in.getString("sourceFieldName"));
+					*/
+					out.put(in);
+				}
 			}
+		}
+		catch(JSONException ex){
+			//wordlessly eat the errors at the moment as they might be permission errors
+		} catch (ExistException e) {
+			//wordlessly eat the errors at the moment as they might be permission errors
+		} catch (UnimplementedException e) {
+			//wordlessly eat the errors at the moment as they might be permission errors
+		} catch (UnderlyingStorageException e) {
+			//wordlessly eat the errors at the moment as they might be permission errors
 		}
 		
 		return out;
