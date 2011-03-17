@@ -2579,7 +2579,7 @@
                     <field id="valueQualifier"></field>
                     <field id="valueDate" ui-type="date"></field>
                     </repeat>
-                    <field id="title"></field>
+                    <field id="title" mini="summary,search,list,relate"></field>
                     <field id="contributor" autocomplete="person-person,organization-organization"></field>
                     <field id="creator" autocomplete="person-person,organization-organization"></field>
                     <repeat id="languages">
@@ -2592,7 +2592,7 @@
                         <field id="relation"></field>
                     </repeat>
                     <field id="copyrightStatement"></field>
-                    <field id="identificationNumber" chooser="yes" in-title="yes" mini="number" seperate_ui_container="true">
+                    <field id="identificationNumber" chooser="yes" in-title="yes" mini="number,summary,search,list,relate" seperate_ui_container="true">
                         <options>
                             <option id="media" sample="MR2011.1.1">Media Resource</option>
                         </options>
