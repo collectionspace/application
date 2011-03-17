@@ -23,6 +23,24 @@
     <servlet-name>ChainServlet</servlet-name>
     <url-pattern>/chain/*</url-pattern>
   </servlet-mapping>
+  
+<filter>
+  <filter-name>CharSetFilter</filter-name>
+  <filter-class>org.collectionspace.chain.controller.filters.CharSetFilter</filter-class>
+  <init-param>
+    <param-name>encodings</param-name>
+    <param-value>US-ASCII, UTF-8, EUC-KR, ISO-8859-15, ISO-8859-1</param-value>
+  </init-param>
+  <init-param>
+    <param-name>inputEncodingParameterName</param-name>
+    <param-value>ie</param-value>
+  </init-param>
+</filter>
+
+<filter-mapping>
+  <filter-name>CharSetFilter</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping>
 
   <!-- INFO if you're really paranoid about performance, comment out the following
        filter blocks; otherwise leave them in and use log4j.properties to control logging --> 
