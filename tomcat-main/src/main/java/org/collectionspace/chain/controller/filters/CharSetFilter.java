@@ -93,7 +93,12 @@ public class CharSetFilter implements Filter {
   @SuppressWarnings("unchecked")
   @Override
   public void doFilter(ServletRequest sreq, ServletResponse sres, FilterChain fc) throws IOException, ServletException {
-    final HttpServletRequest req = (HttpServletRequest) sreq;
+
+	  sres.setCharacterEncoding("UTF-8");
+	  sreq.setCharacterEncoding("UTF-8");
+	  fc.doFilter(sreq, sres);
+	  /*
+	  final HttpServletRequest req = (HttpServletRequest) sreq;
     final HttpServletResponse res = (HttpServletResponse) sres;
 
     final Map<String, String[]> params;
@@ -106,6 +111,7 @@ public class CharSetFilter implements Filter {
 
     HttpServletRequest wrapper = new ParametersWrapper(req, params);
     fc.doFilter(wrapper, res);
+    */
   }
 
   @Override
