@@ -7,7 +7,6 @@
 package org.collectionspace.chain.controller;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -29,12 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
-import org.apache.commons.fileupload.FileItemHeaders;
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.servlet.*;
-import org.apache.commons.fileupload.util.Streams;
+import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
@@ -62,54 +56,19 @@ public class WebUIRequest implements UIRequest {
 	private PrintWriter out=null;
 	private String out_data=null; // We store to allow late changes to headers
 	private String body; // XXX what if it's binary?
-	private FileItemHeaders contentHeaders; 
-	private String contenttype; 
-	private InputStream ibody;
 	private WebUIUmbrella umbrella;
 	private WebUISession session;
 	private boolean solidified=false;
 
 	private void initRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response) throws IOException, UIException{
 		this.request=request;
-		this.response=response;
-		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-		if(isMultipart){
-			ibody = request.getInputStream();
-			contenttype = request.getHeader("Content-Type");
-			// Create a new file upload handler
-			ServletFileUpload upload = new ServletFileUpload();
-
-			// Parse the request
-			FileItemIterator iter;
-			try {
-				iter = upload.getItemIterator(request);
-				while (iter.hasNext()) {
-					FileItemStream item = iter.next();
-					String name = item.getFieldName();
-					InputStream stream = item.openStream();
-					if (item.isFormField()) {
-					//	System.out.println("Form field " + name + " with value "
-			        //    + Streams.asString(stream) + " detected.");
-					} else {
-					//	System.out.println("File field " + name + " with file name "
-			        //    + item.getName() + " detected.");
-			        // Process the input stream
-						contentHeaders = item.getHeaders();
-						ibody = stream;
-					}
-				}
-			} catch (FileUploadException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		this.response=response; 
 		List<String> p=new ArrayList<String>();
 		for(String part : request.getPathInfo().split("/")) {
 			if("".equals(part))
 				continue;
 			p.add(part);
 		}		
-		
 		this.ppath=p.toArray(new String[0]);
 		body=IOUtils.toString(request.getInputStream(),"UTF-8");
 		if(!(umbrella instanceof WebUIUmbrella))
@@ -118,7 +77,6 @@ public class WebUIRequest implements UIRequest {
 		session=calculateSessionId();
 		
 	}
-	
 	public WebUIRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response, Integer cookieLife) throws IOException, UIException {
 		this.lifeInMins = cookieLife;
 		initRequest(umbrella,request,response);
@@ -331,18 +289,6 @@ public class WebUIRequest implements UIRequest {
 	public void sendJSONResponse(JSONArray data) throws UIException {
 		response.setContentType("text/json;charset=UTF-8");
 		out_data=data.toString();
-	}
-
-	public InputStream getiBody() throws UIException {
-		return ibody;
-	}
-
-	public String getContentType() throws UIException{
-		return contenttype;
-	}
-	public String getBody() throws UIException {
-		String jsonString = body;
-		return body;
 	}
 
 	public JSONObject getPostBody() throws UIException {
