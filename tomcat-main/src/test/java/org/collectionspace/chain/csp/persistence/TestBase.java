@@ -246,7 +246,7 @@ public class TestBase extends TestData {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * package with default tests for success
 	 * @param id
@@ -259,6 +259,23 @@ public class TestBase extends TestData {
 		HttpTester out=jettyDo(jetty,"DELETE","/chain"+id,null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a DELETE url: /chain"+id +"/n"+out.getContent(),testStatus("DELETE",status));
+		log.debug(id+":"+out.getContent());
+		
+		//out=jettyDo(jetty,"GET","/chain"+id,null);
+		//assertTrue(testStatus("GETFAIL",out.getStatus()));
+	}
+	/**
+	 * package with default tests for success
+	 * @param id
+	 * @param jetty
+	 * @throws IOException
+	 * @throws Exception
+	 */
+	protected void DELETEData(String id, ServletTester jetty, String data) throws IOException, Exception {
+
+		HttpTester out=jettyDo(jetty,"DELETE","/chain"+id,data);
+		Integer status = getStatus(out.getContent(),  out.getStatus());
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a DELETE url: /chain"+id +"/n"+out.getContent()+" with data "+data,testStatus("DELETE",status));
 		log.debug(id+":"+out.getContent());
 		
 		//out=jettyDo(jetty,"GET","/chain"+id,null);

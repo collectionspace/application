@@ -38,6 +38,8 @@ public class TestRelationsThroughWebapp extends TestBase {
 		out.put("one-way", one_way);
 		return out;
 	}
+	
+
 
 	@Test
 	public void testRelationsCreate() throws Exception {
@@ -592,35 +594,41 @@ public class TestRelationsThroughWebapp extends TestBase {
 		String[] path1 = id1.split("/");
 		String[] path2 = id2.split("/");
 		String[] path3 = id3.split("/");
-		// Create two relationships, one two way
+		// Create three relationships, one two way
 		out = POSTData("/relationships/", createRelation(path2[1], path2[2],
 				"affects", path1[1], path1[2], true), jetty);
 		String csid2 = new JSONObject(out.getContent()).getString("csid");
 		out = POSTData("/relationships/", createRelation(path3[1], path3[2],
 				"affects", path1[1], path1[2], false), jetty);
 		String csid = new JSONObject(out.getContent()).getString("csid");
-		// Check length is 3
-		/*
-		 * length checking is having "issues" HttpTester out =
-		 * GETData("/relationships/",jetty); 
-		 * JSONArray items=new
-		 * JSONObject(out.getContent()).getJSONArray("items");
-		 * //log.info(out.getContent()); //assertEquals(3,(items.length() -
-		 * offset) + 1); // Delete the two way relationship
-		 * DELETEData("/relationships/"+csid,jetty); // Check length is 1, and
-		 * it's the right one HttpTester out = GETData("/relationships/",jetty);
-		 * JSONObject(out.getContent()).getJSONArray("items");
-		 * //assertEquals(1,items.length()); HttpTester out =
-		 * GETData("/relationships/"+items.getString(0),jetty); //JSONObject
-		 * rel1=new JSONObject(out.getContent());
-		 * //assertEquals(path2[2],rel1.getJSONObject
-		 * ("source").getString("csid"));
-		 * //assertEquals(path1[2],rel1.getJSONObject
-		 * ("target").getString("csid"));
-		 */
-		// cleanup
 
+		out = POSTData("/relationships/", createRelation(path3[1], path3[2],
+				"affects", path2[1], path2[2], false), jetty);
+		String csid3 = new JSONObject(out.getContent()).getString("csid");
+		
+		//delete first relationship
 		DELETEData("/relationships/" + csid2, jetty);
+		
+		//delete second relationship
+		String path = "/relationships/0?source="+id3+"&target="+id1+"&type=affects";
+		DELETEData(path, jetty);
+		
+		//delete third relationship
+		JSONObject delrel = new JSONObject();
+		JSONObject source = new JSONObject();
+		JSONObject target = new JSONObject();
+		source.put("csid", path3[2]);
+		source.put("recordtype", path3[1]);
+		target.put("csid", path2[2]);
+		target.put("recordtype", path2[1]);
+		delrel.put("source", source);
+		delrel.put("target", target);
+		delrel.put("type", "affects");
+		delrel.put("one-way", "false");
+		DELETEData("/relationships/0", jetty, delrel.toString());
+		
+		
+		
 		DELETEData(id1, jetty);
 		DELETEData(id2, jetty);
 		DELETEData(id3, jetty);

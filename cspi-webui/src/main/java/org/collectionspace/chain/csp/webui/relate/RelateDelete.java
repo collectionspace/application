@@ -35,15 +35,12 @@ public class RelateDelete implements WebMethod {
 	
 	public void configure(WebUI ui, Spec spec) {}
 
-	// XXX factor
-	private String findReverse(Storage storage,String csid_fwd) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
-		// What's our destination
-		JSONObject obj_fwd=storage.retrieveJSON("/relations/main/"+csid_fwd, new JSONObject());
-		// Find a backward record
+	private String  getRelationShipID(Storage storage,String source,String target,String type) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+
 		JSONObject restrictions=new JSONObject();
-		restrictions.put("dst",obj_fwd.getString("src"));
-		restrictions.put("src",obj_fwd.getString("dst"));
-		restrictions.put("type",obj_fwd.getString("type")); // XXX what about non-self-inverses?
+		restrictions.put("dst",target);
+		restrictions.put("src",source);
+		restrictions.put("type",type); // XXX what about non-self-inverses?
 		// XXX CSPACE-1834 need to support pagination
 		JSONObject data = storage.getPathsJSON("relations/main",restrictions);
 		String[] relations = (String[]) data.get("listItems");
@@ -52,12 +49,52 @@ public class RelateDelete implements WebMethod {
 		return relations[0];
 	}
 	
+	// XXX factor
+	private String findReverse(Storage storage,String csid_fwd) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+		// What's our destination
+		JSONObject obj_fwd=storage.retrieveJSON("/relations/main/"+csid_fwd, new JSONObject());
+		// Find a backward record
+		return getRelationShipID(storage, obj_fwd.getString("dst"), obj_fwd.getString("src"), obj_fwd.getString("type"));
+		
+	}
+	
 	private void relate_delete(Storage storage,UIRequest request,String path) throws UIException {
 		try {
-			if(!one_way) {
-				String rev=findReverse(storage,path);
-				if(rev!=null)
-					storage.deleteJSON("/relations/main/"+rev);
+			String source = request.getRequestArgument("source");
+			String target = request.getRequestArgument("target");
+			String type = request.getRequestArgument("type");
+			String oneway = request.getRequestArgument("one-way");
+			if(oneway !=null && oneway !=""){
+				one_way = Boolean.parseBoolean(oneway);
+			}
+
+			if(request.isJSON()){
+				JSONObject data=request.getJSONBody();
+				if(data.has("source")&&data.has("target")&&data.has("type")){
+					source = data.getJSONObject("source").getString("recordtype") + "/" + data.getJSONObject("source").getString("csid");
+					target = data.getJSONObject("target").getString("recordtype") + "/" + data.getJSONObject("target").getString("csid");
+					type = data.getString("type");
+					if(data.has("one-way")){
+						one_way = data.getBoolean("one-way"); 
+					}
+				}
+			}
+			
+			if(source != null && target != null && type != null && source !="" && target !="" &&  type !=""){
+				path = getRelationShipID(storage, source,target,type);
+				if(!one_way){ // easier to find reverse if have actually sub items
+					String reverse = getRelationShipID(storage, target, source, type);
+					if(reverse!=null)
+						storage.deleteJSON("/relations/main/"+reverse);
+				}
+			}
+			else{
+				//find csids' if delete sent with just relationship csid rather than sub items
+				if(!one_way) {
+					String rev=findReverse(storage,path);
+					if(rev!=null)
+						storage.deleteJSON("/relations/main/"+rev);
+				}
 			}
 			storage.deleteJSON("/relations/main/"+path);
 			request.setOperationPerformed(Operation.DELETE);
