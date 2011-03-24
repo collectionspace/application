@@ -29,11 +29,11 @@ import org.slf4j.LoggerFactory;
 
 public class RecordCreateUpdate implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(RecordCreateUpdate.class);
-	private String url_base,base;
-	private boolean create;
-	private Spec spec;
-	private RecordRead reader;
-	private RecordSearchList searcher;
+	protected String url_base,base;
+	protected boolean create;
+	protected Spec spec;
+	protected RecordRead reader;
+	protected RecordSearchList searcher;
 	
 	public RecordCreateUpdate(Record r,boolean create) { 
 		spec=r.getSpec();
