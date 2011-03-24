@@ -35,20 +35,19 @@ public class BlobCreateUpdate   extends RecordCreateUpdate  {
 		try {
 			JSONObject data=new JSONObject();
 			JSONObject data2=new JSONObject();
+			JSONObject data3=new JSONObject();
 			data2.put("fileName", request.getFileName());
 			data2.put("getbyteBody", request.getbyteBody());
 			data2.put("contentType", "multipart/form-data");
 			data.put("fields", data2);
 			if(create) {
 				path=sendJSON(storage,null,data);
-				data.put("csid",path);
-				//data.getJSONObject("fields").put("csid",path);
-			}
-
-			
-			String sata="{\"termsUsed\":[],\"relations\":{},\"csid\":\""+path+"\",\"fields\":{\"name\":\"03-31-09_1404.jpg\",\"length\":\"69430\",\"csid\":\"d6b99ab1-0db5-4f6f-84f2\",\"uri\":\"/blobs/d6b99ab1-0db5-4f6f-84f2/content\"}}";
-			data = new JSONObject(sata);
-			request.sendJSONResponse(data);
+				data3.put("file",  path);
+				String[] parts = path.split("/");
+				String csid = parts[parts.length -1];
+				data3.put("csid",csid);
+			}			
+			request.sendJSONResponse(data3);
 			request.setOperationPerformed(Operation.CREATE);
 		} catch (JSONException x) {
 			throw new UIException("Failed to parse json: "+x,x);

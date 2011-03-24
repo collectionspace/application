@@ -31,12 +31,14 @@ public class RecordCreateUpdate implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(RecordCreateUpdate.class);
 	protected String url_base,base;
 	protected boolean create;
+	protected Record record;
 	protected Spec spec;
 	protected RecordRead reader;
 	protected RecordSearchList searcher;
 	
 	public RecordCreateUpdate(Record r,boolean create) { 
-		spec=r.getSpec();
+		this.spec=r.getSpec();
+		this.record = r;
 		this.url_base=r.getWebURL();
 		this.base=r.getID();
 		this.create=create;

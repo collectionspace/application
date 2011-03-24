@@ -38,15 +38,11 @@ public class BlobStorage extends GenericStorage {
 		String path = r.getServicesURL();
 			url = conn.getStringURL(RequestMethod.POST, path, bitten, uploadname, type, creds, cache);
 		} catch (ConnectionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new UnderlyingStorageException(e.getMessage(),e.getStatus(), e.getUrl(),e);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		return url.getURLTail();
-		//String bob = "";
-		//return bob;
+			throw new UnimplementedException("JSONException",e);
+		}
+		return conn.getBase()+"/"+url.getURL();
 	}
 
 }

@@ -73,6 +73,9 @@ public class ServicesConnection {
 		initClient();
 	}
 
+	public String getBase(){
+		return base_url;
+	}
 	private String prepend_base(String uri) throws ConnectionException {
 		if(uri==null)
 			throw new ConnectionException("URI cannot be null");
