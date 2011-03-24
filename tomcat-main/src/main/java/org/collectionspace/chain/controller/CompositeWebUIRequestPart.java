@@ -8,6 +8,7 @@ package org.collectionspace.chain.controller;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -149,7 +150,22 @@ public class CompositeWebUIRequestPart implements UIRequest {
 			throw new UIException("Cannot get request body, JSONException",e);
 		}
 	}
+	public byte[] getbyteBody() throws UIException {
+		return null;
+	}
+	public String getFileName() throws UIException{
+		return "";
+	}
+	@Override
+	public String getBody() throws UIException {
 
+		String jsonString = body_in;
+		return jsonString;
+	}
+
+	public String getContentType() throws UIException{
+		return null;
+	}
 	@Override
 	public JSONObject getPostBody() throws UIException {
 		JSONObject jsondata = new JSONObject();

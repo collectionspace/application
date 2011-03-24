@@ -27,6 +27,7 @@ import org.json.JSONObject;
 public class StreamUIRequest implements UIRequest {
 	private LineIterator in;
 	private OutputStream out,err;
+	private InputStream ibody;
 	private String[] path,rpath;
 	private boolean secondary_redirect=false;
 	private Operation request;
@@ -34,6 +35,7 @@ public class StreamUIRequest implements UIRequest {
 	private Map<String,String> qargs=new HashMap<String,String>();
 
 	public StreamUIRequest(InputStream in,OutputStream out,OutputStream err,Operation request,String[] path,Map<String,String> args) throws IOException {
+		this.ibody=in;
 		this.in=IOUtils.lineIterator(in,"UTF-8");
 		this.out=out;
 		this.err=err;
@@ -157,6 +159,21 @@ public class StreamUIRequest implements UIRequest {
 		} catch (JSONException e) {
 			throw new UIException("Bad JSON on standard input",e);
 		}
+	}
+	public String getBody() throws UIException {
+
+		if(in.hasNext())
+			return in.nextLine();
+		return null;
+	}
+	public String getContentType() throws UIException{
+		return null;
+	}
+	public byte[] getbyteBody() throws UIException {
+		return null;
+	}
+	public String getFileName() throws UIException{
+		return "";
 	}
 	public JSONObject getPostBody() throws UIException {
 		try {

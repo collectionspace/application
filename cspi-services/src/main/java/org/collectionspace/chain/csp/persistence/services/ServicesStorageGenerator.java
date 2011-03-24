@@ -53,6 +53,8 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 		try {
 			ServicesConnection conn=new ServicesConnection(base_url);
 			for(Record r : spec.getAllRecords()) {
+				if(r.isType("blob"))
+					addChild(r.getID(),new BlobStorage(spec.getRecord(r.getID()),conn));
 				if(r.isType("record"))
 					addChild(r.getID(),new RecordStorage(spec.getRecord(r.getID()),conn));
 				if(r.isType("authority"))

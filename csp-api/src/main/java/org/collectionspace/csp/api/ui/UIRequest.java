@@ -6,6 +6,8 @@
  */
 package org.collectionspace.csp.api.ui;
 
+import java.io.InputStream;
+import java.util.Collection;
 import java.util.Set;
 
 import org.json.JSONArray;
@@ -21,6 +23,10 @@ public interface UIRequest {
 
 	JSONObject getJSONBody() throws UIException;
 	JSONObject getPostBody() throws UIException;
+	String getBody() throws UIException;
+	String getContentType() throws UIException;
+	public byte[] getbyteBody() throws UIException;
+	String getFileName() throws UIException;
 	Boolean isJSON() throws UIException;
 	
 	public void setFailure(boolean isit,Exception why) throws UIException;
@@ -38,5 +44,6 @@ public interface UIRequest {
 	public Operation getRequestedOperation() throws UIException;
 	
 	public UISession getSession() throws UIException;
+
 
 }

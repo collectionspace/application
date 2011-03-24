@@ -10,11 +10,8 @@ package org.collectionspace.chain.csp.persistence.services.connection;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
 import org.apache.commons.httpclient.UsernamePasswordCredentials;
@@ -25,7 +22,6 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.io.input.TeeInputStream;
-import org.collectionspace.chain.csp.persistence.services.ServicesRequestCredentials;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
@@ -182,6 +178,13 @@ public class ServicesConnection {
 		}
 	}
 
+	private RequestDataSource makeStringSource(byte[] body, String type,String uploadname) throws ConnectionException {
+		RequestDataSource src=null;
+		if(body!=null) {
+			src=new StringRequestDataSource(body, type, uploadname);
+		}
+		return src;
+	}
 	private RequestDataSource makeDocumentSource(Document body) throws ConnectionException {
 		RequestDataSource src=null;
 		if(body!=null) {
@@ -216,6 +219,13 @@ public class ServicesConnection {
 		return out.getText();
 	}
 
+	public ReturnedURL getStringURL(RequestMethod method_type,String uri,byte[] body,String uploadname,String type,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
+		ReturnedURL out=new ReturnedURL();
+		doRequest(out,method_type,uri,makeStringSource(body,type,uploadname),creds,cache);
+		out.relativize(base_url); // Annoying, but we don't want to have factories etc. or too many args
+		return out;
+	}
+	
 	public ReturnedURL getURL(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
 		ReturnedURL out=new ReturnedURL();
 		doRequest(out,method_type,uri,makeDocumentSource(body),creds,cache);

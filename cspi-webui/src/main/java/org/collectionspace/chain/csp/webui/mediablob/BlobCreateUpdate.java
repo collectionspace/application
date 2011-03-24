@@ -2,35 +2,51 @@ package org.collectionspace.chain.csp.webui.mediablob;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.csp.webui.misc.Generic;
+import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
+import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
+import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
+import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class BlobCreateUpdate  implements WebMethod {
+public class BlobCreateUpdate   extends RecordCreateUpdate  {
 	private static final Logger log=LoggerFactory.getLogger(BlobCreateUpdate.class);
-	private WebUI ui;
-	private Spec spec;
-	private String upload_dest;
 	
-	public BlobCreateUpdate(WebUI ui,Spec spec) {
-		this.spec=spec;
-		this.ui=ui;
+	public BlobCreateUpdate(Record r,Boolean create) {
+		super(r,create);
 	}
 	
 
+	
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject data=new JSONObject();
-			String sata="{\"termsUsed\":[],\"relations\":{},\"csid\":\"d6b99ab1-0db5-4f6f-84f2\",\"fields\":{\"name\":\"03-31-09_1404.jpg\",\"length\":\"69430\",\"csid\":\"d6b99ab1-0db5-4f6f-84f2\",\"uri\":\"/blobs/d6b99ab1-0db5-4f6f-84f2/content\"}}";
+			JSONObject data2=new JSONObject();
+			data2.put("fileName", request.getFileName());
+			data2.put("getbyteBody", request.getbyteBody());
+			data2.put("contentType", "multipart/form-data");
+			data.put("fields", data2);
+			if(create) {
+				path=sendJSON(storage,null,data);
+				data.put("csid",path);
+				//data.getJSONObject("fields").put("csid",path);
+			}
+
+			
+			String sata="{\"termsUsed\":[],\"relations\":{},\"csid\":\""+path+"\",\"fields\":{\"name\":\"03-31-09_1404.jpg\",\"length\":\"69430\",\"csid\":\"d6b99ab1-0db5-4f6f-84f2\",\"uri\":\"/blobs/d6b99ab1-0db5-4f6f-84f2/content\"}}";
 			data = new JSONObject(sata);
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(Operation.CREATE);
