@@ -26,15 +26,11 @@ public class StringRequestDataSource  implements RequestDataSource {
 			
 			if(body!=null) {
 				MimeMultipart body_mime=new MimeMultipart();
-				//for(Map.Entry<String,Document> e : body.entrySet()) {
-					InternetHeaders headers=new InternetHeaders();
-					//headers.addHeader("label",e.getKey());
-					headers.addHeader("Content-Type","image/jpeg");
-					headers.addHeader("Content-Disposition"," form-data; name=\"file\"; filename=\""+uploadName+"\"");
-					//byte[] bitten = ConnectionUtils.streamToBytes(body);
-					BodyPart part=new MimeBodyPart(headers,body);
-					body_mime.addBodyPart(part);
-				//}
+				InternetHeaders headers=new InternetHeaders();
+				headers.addHeader("Content-Type","image/jpeg");
+				headers.addHeader("Content-Disposition"," form-data; name=\"file\"; filename=\""+uploadName+"\"");
+				BodyPart part=new MimeBodyPart(headers,body);
+				body_mime.addBodyPart(part);
 				ByteArrayOutputStream indata=new ByteArrayOutputStream();
 				body_mime.writeTo(indata);
 				log.debug("MultiPart request ");
