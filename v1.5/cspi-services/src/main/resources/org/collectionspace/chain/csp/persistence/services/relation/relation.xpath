@@ -1,5 +1,0 @@
-src-type=relations_common/documentType1
-dst-type=relations_common/documentType2
-src=relations_common/documentId1
-dst=relations_common/documentId2
-type=relations_common/relationshipType

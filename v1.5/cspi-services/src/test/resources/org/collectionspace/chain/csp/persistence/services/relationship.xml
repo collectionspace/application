@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<ns2:relations_common xmlns:ns2="http://collectionspace.org/services/relation">
-  <documentType1></documentType1>
-  <relationshipType>affects</relationshipType>
-  <documentId2>814ed9d4-3315-44fc-993b</documentId2>
-  <documentType2></documentType2>
-  <documentId1>e62d2306-518b-414b-9591</documentId1>
-</ns2:relations_common>
