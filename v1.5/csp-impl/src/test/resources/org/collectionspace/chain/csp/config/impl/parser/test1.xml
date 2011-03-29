@@ -1,0 +1,12 @@
+<tag1>
+	<define tag="tag13" mode="xslt" src="test2.xslt" root="tag2"/>
+	<define tag="tag14" mode="include" src="test4.xml"/>
+	<tag13>
+		<tag3>
+		<tag4>4</tag4>
+		</tag3>
+		<tag7>tag7</tag7>
+		<tag16/>
+		<tag17/>
+	</tag13>
+</tag1>

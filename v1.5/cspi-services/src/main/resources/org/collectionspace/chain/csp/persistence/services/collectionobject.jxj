@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<translations xmlns:xtmpl="http://www.collectionspace.org/xtmpl">
+	<translation type="collection-object">
+		<json2xml squash-empty="yes">
+			<map>
+                <mapping json=".accessionNumber" key="objectNumber"/>
+                <mapping json=".description" key="briefDescription"/>
+                <mapping json=".comments" key="comments"/>
+                <mapping json=".distinguishingFeatures" key="distFeatures"/>
+                <mapping json=".numberOfObjects" key="numberOfObjects"/>
+                <mapping json=".objectName" key="objectName"/>
+                <mapping json=".otherNumberType" key="otherNumberType"/>
+                <mapping json=".objectCurrency" key="objectNameCurrency"/>
+                <mapping json=".objectNote" key="objectNameNote"/>
+                <mapping json=".objectSystem" key="objectNameSystem"/>
+                <mapping json=".objectType" key="objectNameType"/>
+                <mapping json=".objectLanguage" key="objectNameLanguage"/>
+       			<mapping json=".responsibleDepartment" key="responsibleDept"/>
+                <mapping json=".objectTitle" key="title"/>
+                <mapping json=".objectTitleLanguage" key="objectTitleLanguage"/>
+                <mapping json=".objectTitleTranslation" key="titleTranslation"/>
+                <mapping json=".objectTitleType" key="titleType"/>
+                <mapping json=".descAge" key="age"/>
+                <mapping json=".descAgeQualifier" key="ageQualifier"/>
+                <mapping json=".descAgeUnit" key="ageUnit"/>
+                <mapping json=".descColor" key="color"/>
+                <mapping json=".descContentActivity" key="contentActivity"/>
+                <mapping json=".descContentConcept" key="contentConcept"/>
+                <mapping json=".descContentDescription" key="contentDescription"/>
+                <mapping json=".descContentEventName" key="contentEventName"/>
+                <mapping json=".descContentEventNameType" key="contentEventNameType"/>
+                <mapping json=".descContentNote" key="contentNote"/>
+                <mapping json=".descContentLanguage" key="contentLanguage"/>
+                <mapping json=".descContentObject" key="contentObject"/>
+                <mapping json=".descContentObjectType" key="contentObjectType"/>
+                <mapping json=".descContentOrganization" key="contentOrganization"/>
+                <mapping json=".descContentOther" key="contentOther"/>
+                <mapping json=".descContentOtherType" key="contentOtherType"/>
+                <mapping json=".descContentPeople" key="contentPeople"/>
+                <mapping json=".descContentPerson" key="contentPerson"/>
+                <mapping json=".descContentPlace" key="contentPlace"/>
+                <mapping json=".descContentPosition" key="contentPosition"/>
+                <mapping json=".descCopyNumber" key="copyNumber"/>
+                <mapping json=".descDimension" key="dimension"/>
+                <mapping json=".descDimensionPart" key="dimensionMeasuredPart"/>
+                <mapping json=".descDimensionUnit" key="dimensionMeasurementUnit"/>
+                <mapping json=".descDimensionValue" key="dimensionValue"/>
+                <mapping json=".descDimensionValueQualifier" key="dimensionValueQualifier"/>
+                <mapping json=".descEditionNumber" key="editionNumber"/>
+                <mapping json=".descForm" key="form"/>
+                <mapping json=".descInscriptionContent" key="inscriptionContent"/>
+                <mapping json=".descInscriptionContentInscriber" key="inscriber"/>
+                <mapping json=".descInscriptionContentDate" key="inscriptionDate"/>
+                <mapping json=".descInscriptionContentInterpretation" key="inscriptionInterpretation"/>
+                <mapping json=".descInscriptionContentLanguage" key="inscriptionLanguage"/>
+                <mapping json=".descInscriptionContentMethod" key="inscriptionMethod"/>
+                <mapping json=".descInscriptionContentPosition" key="inscriptionPosition"/>
+                <mapping json=".descInscriptionContentScript" key="inscriptionScript"/>
+                <mapping json=".descInscriptionContentTranslation" key="inscriptionTranslation"/>
+                <mapping json=".descInscriptionContentTransliteration" key="inscriptionTransliteration"/>
+                <mapping json=".descInscriptionContentType" key="inscriptionType"/>
+                <mapping json=".descInscriptionDescription" key="inscriptionDescription"/>
+                <mapping json=".descInscriptionDescriptionInscriber" key="inscriptionDescriptionInscriber"/>
+                <mapping json=".descInscriptionDescriptionDate" key="inscriptionDescriptionDate"/>
+                <mapping json=".descInscriptionDescriptionInterpretation" key="inscriptionDescriptionInterpretation"/>
+                <mapping json=".descInscriptionDescriptionMethod" key="inscriptionDescriptionMethod"/>
+                <mapping json=".descInscriptionDescriptionPosition" key="inscriptionDescriptionPosition"/>
+                <mapping json=".descInscriptionDescriptionType" key="inscriptionDescriptionType"/>
+                <mapping json=".descMaterial" key="material"/>
+                <mapping json=".descMaterialComponent" key="materialComponent"/>
+                <mapping json=".descMaterialNote" key="materialComponentNote"/>
+                <mapping json=".descMaterialName" key="materialName"/>
+                <mapping json=".descMaterialSource" key="materialSource"/>
+                <mapping json=".descStatus" key="objectStatus"/>
+                <mapping json=".descPhase" key="phase"/>
+                <mapping json=".descPhysicalDescription" key="physicalDescription"/>
+                <mapping json=".descSex" key="sex"/>
+                <mapping json=".descStyle" key="style"/>
+                <mapping json=".descTechAttribute" key="technicalAttribute"/>
+                <mapping json=".descTechAttributeMeasure" key="technicalAttributeMeasurement"/>
+                <mapping json=".descTechAttributeUnit" key="technicalAttributeMeasurementUnit"/>
+                <mapping json=".descComponentName" key="objectComponentName"/>
+                <mapping json=".descComponentInfo" key="objectComponentInformation"/>
+                <mapping json=".descDateAssociation" key="dateAssociation"/>
+                <mapping json=".descDateEarliestSingleCertainty" key="dateEarliestSingleCertainty"/>
+                <mapping json=".descDateEarliestSingleQualifier" key="dateEarlierstSingleQualifier"/>
+                <mapping json=".descDateLatestSingleCertainty" key="dateLatestCertainty"/>
+                <mapping json=".descDateLatestSingleQualifier" key="dateLatestQualifier"/>
+                <mapping json=".descDatePeriod" key="datePeriod"/>
+                <mapping json=".descDateText" key="dateText"/>
+                <assembly key="misc">
+				  <mapping json=".objectLevel" assembly-key="level"/>
+				  <mapping json=".descContentScript" assembly-key="content-script" />
+				  <mapping json=".descContentMethod" assembly-key="content-method"/>
+				  <mapping json=".otherNumber" assembly-key="otherNumber"/>
+				</assembly>
+            </map>
+            <template>
+				<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject">
+				    <objectNumber xtmpl:point="objectNumber"></objectNumber>
+				    <otherNumber>XXX</otherNumber>
+				    <otherNumberType xtmpl:point="otherNumberType"/>
+                    <briefDescription xtmpl:point="briefDescription"></briefDescription>
+                    <comments xtmpl:point="comments"></comments>
+                    <distinguishingFeatures xtmpl:point="distFeatures"></distinguishingFeatures>
+                    <numberOfObjects xtmpl:point="numberOfObjects"></numberOfObjects>
+                    <objectName xtmpl:point="objectName"></objectName>
+                    <objectNameCurrency xtmpl:point="objectNameCurrency"></objectNameCurrency>
+                    <objectNameLevel>XXX</objectNameLevel>
+                    <objectNameNote xtmpl:point="objectNameNote"></objectNameNote>
+                    <objectNameSystem xtmpl:point="objectNameSystem"></objectNameSystem>
+                    <objectNameType xtmpl:point="objectNameType"></objectNameType>
+                    <objectNameLanguage xtmpl:point="objectNameLanguage"></objectNameLanguage>
+                    <responsibleDepartments><responsibleDepartment xtmpl:point="responsibleDept"/></responsibleDepartments>
+                    <title xtmpl:point="title"></title>
+                    <objectTitleLanguage xtmpl:point="objectTitleLanguage"></objectTitleLanguage>
+                    <titleTranslation xtmpl:point="titleTranslation"></titleTranslation>
+                    <titleType xtmpl:point="titleType"></titleType>
+                    <age xtmpl:point="age"></age>
+                    <ageQualifier xtmpl:point="ageQualifier"></ageQualifier>
+                    <ageUnit xtmpl:point="ageUnit"></ageUnit>
+                    <color xtmpl:point="color"></color>
+                    <contentActivity xtmpl:point="contentActivity"></contentActivity>
+                    <contentConcept xtmpl:point="contentConcept"></contentConcept>
+                    <contentDate>XXX</contentDate>
+                    <contentDescription xtmpl:point="contentDescription"></contentDescription>
+                    <contentEventName xtmpl:point="contentEventName"></contentEventName>
+                    <contentEventNameType xtmpl:point="contentEventNameType"></contentEventNameType>
+                    <contentNote xtmpl:point="contentNote"></contentNote>
+                    <contentLanguage xtmpl:point="contentLanguage"></contentLanguage>
+                    <contentObject xtmpl:point="contentObject"></contentObject>
+                    <contentObjectType xtmpl:point="contentObjectType"></contentObjectType>
+                    <contentOrganization xtmpl:point="contentOrganization"></contentOrganization>
+                    <contentOther xtmpl:point="contentOther"></contentOther>
+                    <contentOtherType xtmpl:point="contentOtherType"></contentOtherType>
+                    <contentPeople xtmpl:point="contentPeople"></contentPeople>
+                    <contentPerson xtmpl:point="contentPerson"></contentPerson>
+                    <contentPlace xtmpl:point="contentPlace"></contentPlace>
+                    <contentPosition xtmpl:point="contentPosition"></contentPosition>
+                    <contentScript>XXX</contentScript>
+                    <copyNumber xtmpl:point="copyNumber"></copyNumber>
+                    <dimension xtmpl:point="dimension"></dimension>
+                    <dimensionMeasuredPart xtmpl:point="dimensionMeasuredPart"></dimensionMeasuredPart>
+                    <dimensionMeasurementUnit xtmpl:point="dimensionMeasurementUnit"></dimensionMeasurementUnit>
+                    <dimensionValue xtmpl:point="dimensionValue"></dimensionValue>
+					<dimensionValueDate>XXX</dimensionValueDate>
+                    <dimensionValueQualifier xtmpl:point="dimensionValueQualifier"></dimensionValueQualifier>
+                    <editionNumber xtmpl:point="editionNumber"></editionNumber>
+                    <form xtmpl:point="form"></form>
+                    <inscriptionContent xtmpl:point="inscriptionContent"></inscriptionContent>
+                    <inscriber xtmpl:point="inscriber"></inscriber>
+                    <inscriptionDate xtmpl:point="inscriptionDate"></inscriptionDate>
+                    <inscriptionInterpretation xtmpl:point="inscriptionInterpretation"></inscriptionInterpretation>
+                    <inscriptionLanguage xtmpl:point="inscriptionLanguage"></inscriptionLanguage>
+                    <inscriptionMethod xtmpl:point="inscriptionMethod"></inscriptionMethod>
+                    <inscriptionPosition xtmpl:point="inscriptionPosition"></inscriptionPosition>
+                    <inscriptionScript xtmpl:point="inscriptionScript"></inscriptionScript>
+                    <inscriptionTranslation xtmpl:point="inscriptionTranslation"></inscriptionTranslation>
+                    <inscriptionTransliteration xtmpl:point="inscriptionTransliteration"></inscriptionTransliteration>
+                    <inscriptionType xtmpl:point="inscriptionType"></inscriptionType>
+                    <inscriptionDescription xtmpl:point="inscriptionDescription"></inscriptionDescription>
+                    <inscriptionDescriptionInscriber xtmpl:point="inscriptionDescriptionInscriber"></inscriptionDescriptionInscriber>
+                    <inscriptionDescriptionDate xtmpl:point="inscriptionDescriptionDate"></inscriptionDescriptionDate>
+                    <inscriptionDescriptionInterpretation xtmpl:point="inscriptionDescriptionInterpretation"></inscriptionDescriptionInterpretation>
+                    <inscriptionDescriptionMethod xtmpl:point="inscriptionDescriptionMethod"></inscriptionDescriptionMethod>
+                    <inscriptionDescriptionPosition xtmpl:point="inscriptionDescriptionPosition"></inscriptionDescriptionPosition>
+                    <inscriptionDescriptionType xtmpl:point="inscriptionDescriptionType"></inscriptionDescriptionType>
+                    <material xtmpl:point="material"></material>
+                    <materialComponent xtmpl:point="materialComponent"></materialComponent>
+                    <materialComponentNote xtmpl:point="materialComponentNote"></materialComponentNote>
+                    <materialName xtmpl:point="materialName"></materialName>
+                    <materialSource xtmpl:point="materialSource"></materialSource>
+                    <objectStatus xtmpl:point="objectStatus"></objectStatus>
+                    <phase xtmpl:point="phase"></phase>
+                    <physicalDescription xtmpl:point="physicalDescription"></physicalDescription>
+                    <sex xtmpl:point="sex"></sex>
+                    <style xtmpl:point="style"></style>
+                    <technicalAttribute xtmpl:point="technicalAttribute"></technicalAttribute>
+                    <technicalAttributeMeasurement xtmpl:point="technicalAttributeMeasurement"></technicalAttributeMeasurement>
+                    <technicalAttributeMeasurementUnit xtmpl:point="technicalAttributeMeasurementUnit"></technicalAttributeMeasurementUnit>
+                    <objectComponentName xtmpl:point="objectComponentName"></objectComponentName>
+                    <objectComponentInformation xtmpl:point="objectComponentInformation"></objectComponentInformation>
+                    <dateAssociation xtmpl:point="dateAssociation"></dateAssociation>
+                    <dateEarliestSingle xtmpl:point="misc"></dateEarliestSingle> <!-- XXX -->
+                    <dateEarliestSingleCertainty xtmpl:point="dateEarliestSingleCertainty"></dateEarliestSingleCertainty>
+                    <dateEarliestSingleQualifier xtmpl:point="dateEarlierstSingleQualifier"></dateEarliestSingleQualifier>
+                    <dateLatest>XXX</dateLatest>
+                    <dateLatestCertainty xtmpl:point="dateLatestCertainty"></dateLatestCertainty>
+                    <dateLatestQualifier xtmpl:point="dateLatestQualifier"></dateLatestQualifier>
+                    <datePeriod xtmpl:point="datePeriod"></datePeriod>
+                    <dateText xtmpl:point="dateText"></dateText>
+				</ns2:collectionobjects_common>
+			</template>
+		</json2xml>
+		<xml2json>
+			<map>
+                <mapping xpath="collectionobjects_common/objectNumber" key="objectNumber"/>
+                <mapping xpath="collectionobjects_common/otherNumberType" key="otherNumberType"/>
+                <mapping xpath="collectionobjects_common/briefDescription" key="briefDescription"/>
+                <mapping xpath="collectionobjects_common/comments" key="comments"/>
+                <mapping xpath="collectionobjects_common/distinguishingFeatures" key="distFeatures"/>
+                <mapping xpath="collectionobjects_common/numberOfObjects" key="numberOfObjects"/>
+                <mapping xpath="collectionobjects_common/objectName" key="objectName"/>
+                <mapping xpath="collectionobjects_common/objectNameCurrency" key="objectNameCurrency"/>
+                <mapping xpath="collectionobjects_common/objectNameNote" key="objectNameNote"/>
+                <mapping xpath="collectionobjects_common/objectNameSystem" key="objectNameSystem"/>
+                <mapping xpath="collectionobjects_common/objectNameType" key="objectNameType"/>
+                <mapping xpath="collectionobjects_common/objectNameLanguage" key="objectNameLanguage"/>
+                <mapping xpath="collectionobjects_common/responsibleDepartments/responsibleDepartment" key="responsibleDept"/>
+                <mapping xpath="collectionobjects_common/title" key="title"/>
+                <mapping xpath="collectionobjects_common/objectTitleLanguage" key="objectTitleLanguage"/>
+                <mapping xpath="collectionobjects_common/titleTranslation" key="titleTranslation"/>
+                <mapping xpath="collectionobjects_common/titleType" key="titleType"/>
+                <mapping xpath="collectionobjects_common/age" key="age"/>
+                <mapping xpath="collectionobjects_common/ageQualifier" key="ageQualifier"/>
+                <mapping xpath="collectionobjects_common/ageUnit" key="ageUnit"/>
+                <mapping xpath="collectionobjects_common/color" key="color"/>
+                <mapping xpath="collectionobjects_common/contentActivity" key="contentActivity"/>
+                <mapping xpath="collectionobjects_common/contentConcept" key="contentConcept"/>
+                <mapping xpath="collectionobjects_common/contentDescription" key="contentDescription"/>
+                <mapping xpath="collectionobjects_common/contentEventName" key="contentEventName"/>
+                <mapping xpath="collectionobjects_common/contentEventNameType" key="contentEventNameType"/>
+                <mapping xpath="collectionobjects_common/contentNote" key="contentNote"/>
+                <mapping xpath="collectionobjects_common/contentLanguage" key="contentLanguage"/>
+                <mapping xpath="collectionobjects_common/contentObject" key="contentObject"/>
+                <mapping xpath="collectionobjects_common/contentObjectType" key="contentObjectType"/>
+                <mapping xpath="collectionobjects_common/contentOrganization" key="contentOrganization"/>
+                <mapping xpath="collectionobjects_common/contentOther" key="contentOther"/>
+                <mapping xpath="collectionobjects_common/contentOtherType" key="contentOtherType"/>
+                <mapping xpath="collectionobjects_common/contentPeople" key="contentPeople"/>
+                <mapping xpath="collectionobjects_common/contentPerson" key="contentPerson"/>
+                <mapping xpath="collectionobjects_common/contentPlace" key="contentPlace"/>
+                <mapping xpath="collectionobjects_common/contentPosition" key="contentPosition"/>
+                <mapping xpath="collectionobjects_common/copyNumber" key="copyNumber"/>
+                <mapping xpath="collectionobjects_common/dimension" key="dimension"/>
+                <mapping xpath="collectionobjects_common/dimensionMeasuredPart" key="dimensionMeasuredPart"/>
+                <mapping xpath="collectionobjects_common/dimensionMeasurementUnit" key="dimensionMeasurementUnit"/>
+                <mapping xpath="collectionobjects_common/dimensionValue" key="dimensionValue"/>
+                <mapping xpath="collectionobjects_common/dimensionValueQualifier" key="dimensionValueQualifier"/>
+                <mapping xpath="collectionobjects_common/editionNumber" key="editionNumber"/>
+                <mapping xpath="collectionobjects_common/form" key="form"/>
+                <mapping xpath="collectionobjects_common/inscriptionContent" key="inscriptionContent"/>
+                <mapping xpath="collectionobjects_common/inscriber" key="inscriber"/>
+                <mapping xpath="collectionobjects_common/inscriptionDate" key="inscriptionDate"/>
+                <mapping xpath="collectionobjects_common/inscriptionInterpretation" key="inscriptionInterpretation"/>
+                <mapping xpath="collectionobjects_common/inscriptionLanguage" key="inscriptionLanguage"/>
+                <mapping xpath="collectionobjects_common/inscriptionMethod" key="inscriptionMethod"/>
+                <mapping xpath="collectionobjects_common/inscriptionPosition" key="inscriptionPosition"/>
+                <mapping xpath="collectionobjects_common/inscriptionScript" key="inscriptionScript"/>
+                <mapping xpath="collectionobjects_common/inscriptionTranslation" key="inscriptionTranslation"/>
+                <mapping xpath="collectionobjects_common/inscriptionTransliteration" key="inscriptionTransliteration"/>
+                <mapping xpath="collectionobjects_common/inscriptionType" key="inscriptionType"/>
+                <mapping xpath="collectionobjects_common/inscriptionDescription" key="inscriptionDescription"/>
+                <mapping xpath="collectionobjects_common/inscriptionDescriptionInscriber" key="inscriptionDescriptionInscriber"/>
+                <mapping xpath="collectionobjects_common/inscriptionDescriptionDate" key="inscriptionDescriptionDate"/>
+                <mapping xpath="collectionobjects_common/inscriptionDescriptionInterpretation" key="inscriptionDescriptionInterpretation"/>
+                <mapping xpath="collectionobjects_common/inscriptionDescriptionMethod" key="inscriptionDescriptionMethod"/>
+                <mapping xpath="collectionobjects_common/inscriptionDescriptionPosition" key="inscriptionDescriptionPosition"/>
+                <mapping xpath="collectionobjects_common/inscriptionDescriptionType" key="inscriptionDescriptionType"/>
+                <mapping xpath="collectionobjects_common/material" key="material"/>
+                <mapping xpath="collectionobjects_common/materialComponent" key="materialComponent"/>
+                <mapping xpath="collectionobjects_common/materialComponentNote" key="materialComponentNote"/>
+                <mapping xpath="collectionobjects_common/materialName" key="materialName"/>
+                <mapping xpath="collectionobjects_common/materialSource" key="materialSource"/>
+                <mapping xpath="collectionobjects_common/objectStatus" key="objectStatus"/>
+                <mapping xpath="collectionobjects_common/phase" key="phase"/>
+                <mapping xpath="collectionobjects_common/physicalDescription" key="physicalDescription"/>
+                <mapping xpath="collectionobjects_common/sex" key="sex"/>
+                <mapping xpath="collectionobjects_common/style" key="style"/>
+                <mapping xpath="collectionobjects_common/technicalAttribute" key="technicalAttribute"/>
+                <mapping xpath="collectionobjects_common/technicalAttributeMeasurement" key="technicalAttributeMeasurement"/>
+                <mapping xpath="collectionobjects_common/technicalAttributeMeasurementUnit" key="technicalAttributeMeasurementUnit"/>
+                <mapping xpath="collectionobjects_common/objectComponentName" key="objectComponentName"/>
+                <mapping xpath="collectionobjects_common/objectComponentInformation" key="objectComponentInformation"/>
+                <mapping xpath="collectionobjects_common/dateAssociation" key="dateAssociation"/>
+                <mapping xpath="collectionobjects_common/dateEarliestSingleCertainty" key="dateEarliestSingleCertainty"/>
+                <mapping xpath="collectionobjects_common/dateEarliestSingleQualifier" key="dateEarlierstSingleQualifier"/>
+                <mapping xpath="collectionobjects_common/dateLatestCertainty" key="dateLatestCertainty"/>
+                <mapping xpath="collectionobjects_common/dateLatestQualifier" key="dateLatestQualifier"/>
+                <mapping xpath="collectionobjects_common/datePeriod" key="datePeriod"/>
+                <mapping xpath="collectionobjects_common/dateText" key="dateText"/>	
+                <assembly xpath="collectionobjects_common/dateEarliestSingle">
+                	<mapping key="object-level" assembly-key="level"/>
+                	<mapping key="content-script" assembly-key="content-script" />
+				    <mapping key="content-method" assembly-key="content-method"/>
+				    <mapping key="otherNumber" assembly-key="otherNumber"/>
+                </assembly>		
+			</map>
+			<template>
+			  {
+                    "accessionNumber": "\u0000objectNumber",                    
+                    "description": "\u0000briefDescription",
+                    "comments": "\u0000comments",
+                    "distinguishingFeatures": "\u0000distFeatures",
+                    "numberOfObjects": "\u0000numberOfObjects",
+                    "objectName": "\u0000objectName",
+                    "otherNumber": "\u0000otherNumber",
+                    "otherNumberType": "\u0000otherNumberType",                    
+                    "objectCurrency": "\u0000objectNameCurrency",
+                    "objectNote": "\u0000objectNameNote",
+                    "objectSystem": "\u0000objectNameSystem",
+                    "objectType": "\u0000objectNameType",
+                    "objectLanguage": "\u0000objectNameLanguage",
+                    "responsibleDepartment": "\u0000responsibleDept",
+                    "objectTitle": "\u0000title",
+                    "objectTitleLanguage": "\u0000objectTitleLanguage",
+                    "objectTitleTranslation": "\u0000titleTranslation",
+                    "objectTitleType": "\u0000titleType",
+                    "descAge": "\u0000age",
+                    "descAgeQualifier": "\u0000ageQualifier",
+                    "descAgeUnit": "\u0000ageUnit",
+                    "descColor": "\u0000color",
+                    "descContentActivity": "\u0000contentActivity",
+                    "descContentConcept": "\u0000contentConcept",
+                    "descContentDescription": "\u0000contentDescription",
+                    "descContentEventName": "\u0000contentEventName",
+                    "descContentEventNameType": "\u0000contentEventNameType",
+                    "descContentNote": "\u0000contentNote",
+                    "descContentLanguage": "\u0000contentLanguage",
+                    "descContentObject": "\u0000contentObject",
+                    "descContentObjectType": "\u0000contentObjectType",
+                    "descContentOrganization": "\u0000contentOrganization",
+                    "descContentOther": "\u0000contentOther",
+                    "descContentOtherType": "\u0000contentOtherType",
+                    "descContentPeople": "\u0000contentPeople",
+                    "descContentPerson": "\u0000contentPerson",
+                    "descContentPlace": "\u0000contentPlace",
+                    "descContentPosition": "\u0000contentPosition",
+                    "descCopyNumber": "\u0000copyNumber",
+                    "descDimension": "\u0000dimension",
+                    "descDimensionPart": "\u0000dimensionMeasuredPart",
+                    "descDimensionUnit": "\u0000dimensionMeasurementUnit",
+                    "descDimensionValue": "\u0000dimensionValue",
+                    "descDimensionValueQualifier": "\u0000dimensionValueQualifier",
+                    "descEditionNumber": "\u0000editionNumber",
+                    "descForm": "\u0000form",
+                    "descInscriptionContent": "\u0000inscriptionContent",
+                    "descInscriptionContentInscriber": "\u0000inscriber",
+                    "descInscriptionContentDate": "\u0000inscriptionDate",
+                    "descInscriptionContentInterpretation": "\u0000inscriptionInterpretation",
+                    "descInscriptionContentLanguage": "\u0000inscriptionLanguage",
+                    "descInscriptionContentMethod": "\u0000inscriptionMethod",
+                    "descInscriptionContentPosition": "\u0000inscriptionPosition",
+                    "descInscriptionContentScript": "\u0000inscriptionScript",
+                    "descInscriptionContentTranslation": "\u0000inscriptionTranslation",
+                    "descInscriptionContentTransliteration": "\u0000inscriptionTransliteration",
+                    "descInscriptionContentType": "\u0000inscriptionType",
+                    "descInscriptionDescription": "\u0000inscriptionDescription",
+                    "descInscriptionDescriptionInscriber": "\u0000inscriptionDescriptionInscriber",
+                    "descInscriptionDescriptionDate": "\u0000inscriptionDescriptionDate",
+                    "descInscriptionDescriptionInterpretation": "\u0000inscriptionDescriptionInterpretation",
+                    "descInscriptionDescriptionMethod": "\u0000inscriptionDescriptionMethod",
+                    "descInscriptionDescriptionPosition": "\u0000inscriptionDescriptionPosition",
+                    "descInscriptionDescriptionType": "\u0000inscriptionDescriptionType",
+                    "descMaterial": "\u0000material",
+                    "descMaterialComponent": "\u0000materialComponent",
+                    "descMaterialNote": "\u0000materialComponentNote",
+                    "descMaterialName": "\u0000materialName",
+                    "descMaterialSource": "\u0000materialSource",
+                    "descStatus": "\u0000objectStatus",
+                    "descPhase": "\u0000phase",
+                    "descPhysicalDescription": "\u0000physicalDescription",
+                    "descSex": "\u0000sex",
+                    "descStyle": "\u0000style",
+                    "descTechAttribute": "\u0000technicalAttribute",
+                    "descTechAttributeMeasure": "\u0000technicalAttributeMeasurement",
+                    "descTechAttributeUnit": "\u0000technicalAttributeMeasurementUnit",
+                    "descComponentName": "\u0000objectComponentName",
+                    "descComponentInfo": "\u0000objectComponentInformation",
+                    "descDateAssociation": "\u0000dateAssociation",
+                    "descDateEarliestSingleCertainty": "\u0000dateEarliestSingleCertainty",
+                    "descDateEarliestSingleQualifier": "\u0000dateEarlierstSingleQualifier",
+                    "descDateLatestSingleCertainty": "\u0000dateLatestCertainty",
+                    "descDateLatestSingleQualifier": "\u0000dateLatestQualifier",
+                    "descDatePeriod": "\u0000datePeriod",
+                    "descDateText": "\u0000dateText",
+					"objectLevel": "\u0000object-level",
+					"descContentScript": "\u0000content-script",
+					"descContentMethod": "\u0000content-method"
+			  }
+			</template>
+		</xml2json>
+	</translation>
+</translations>

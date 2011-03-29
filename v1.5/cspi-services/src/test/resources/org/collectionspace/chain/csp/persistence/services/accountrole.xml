@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:account_role xmlns:ns2="http://collectionspace.org/services/authorization">
+    <account>
+      <accountId>8dba4f76-6014-4f27-98e1-6a43e4d2b04d</accountId>
+      <screenName>unittest2@collectionspace.org</screenName>
+      <userId>unittest2@collectionspace.org</userId>
+    </account>
+    <role>
+      <roleId>35d93b3b-8c30-4712-bae2-97820ff59626</roleId>
+      <roleName>ROLE_TENANT_ADMINISTRATOR</roleName>
+    </role>
+    <role>
+      <roleId>35d93b3b-8c30-4712-bae2-97820ff59626</roleId>
+      <roleName>ROLE_TENANT_ADMINISTRATOR</roleName>
+    </role>
+</ns2:account_role>

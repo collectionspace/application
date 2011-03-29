@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:acquisitions_common xmlns:ns2="http://collectionspace.org/services/acquisition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/acquisition http://services.collectionspace.org/acquisition/acquisitions_common.xsd">
+    <acquisitionFundingList>
+        <acquisitionFunding>
+            <acquisitionFundingSourceProvisos>funding source provisos-1</acquisitionFundingSourceProvisos>
+            <acquisitionFundingSource>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth)'TestPersonAuth':person:name(franFundingSourceOne)</acquisitionFundingSource>
+            <acquisitionFundingCurrency/>
+            <acquisitionFundingValue/>
+        </acquisitionFunding>
+        <acquisitionFunding>
+            <acquisitionFundingSourceProvisos>funding source provisos-2</acquisitionFundingSourceProvisos>
+            <acquisitionFundingSource>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth)'TestPersonAuth':person:name(fahdFundingSourceTwo)</acquisitionFundingSource>
+            <acquisitionFundingCurrency/>
+            <acquisitionFundingValue/>
+        </acquisitionFunding>
+        <acquisitionFunding>
+            <acquisitionFundingSourceProvisos/>
+            <acquisitionFundingSource/>
+            <acquisitionFundingCurrency>USD</acquisitionFundingCurrency>
+            <acquisitionFundingValue/>
+        </acquisitionFunding>
+    </acquisitionFundingList>
+    <acquisitionSources>
+        <acquisitionSource>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth)'TestPersonAuth':person:name(sammySourceOne)</acquisitionSource>
+        <acquisitionSource>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth)'TestPersonAuth':person:name(serenaSourceTwo)</acquisitionSource>
+    </acquisitionSources>
+    <acquisitionDates/>
+    <accessionDate>April 1, 2010</accessionDate>
+    <acquisitionAuthorizer>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth)'TestPersonAuth':person:name(annieAuth)</acquisitionAuthorizer>
+</ns2:acquisitions_common>

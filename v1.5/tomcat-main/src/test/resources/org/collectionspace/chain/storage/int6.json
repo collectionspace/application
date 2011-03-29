@@ -1,0 +1,20 @@
+{
+			  "accessionDate": "accessionDate2",
+			  "acquisitionAuthorizer": "acquisitionAuthorizer2",
+			  "acquisitionAuthorizerDate": "acquisitionAuthorizerDate2",
+			  "acquisitionDates": [{"acquisitionDate": "acquisitionDate"},{"acquisitionDate": "acquisitionDate"}],
+			  "acquisitionFundingDenomination": "acquisitionFundingDenomination2",
+			  "acquisitionFundingValue": "acquisitionFundingValue2",
+			  "acquisitionFundingSource": "acquisitionFundingSource2",
+			  "acquisitionFundingSourceProvisos": "acquisitionFundingSourceProvisos2",
+			  "acquisitionMethod": "acquisitionMethod2",
+			  "acquisitionNote": "acquisitionNote2",
+			  "acquisitionProvisos": "acquisitionProvisos2",
+			  "acquisitionReason": "acquisitionReason2",
+			  "acquisitionReferenceNumber": "acquisitionReferenceNumber2",
+              "acquisitionSources":[{"acquisitionSource": "acquisitionSource2"}],
+			  "objectPurchaseOfferPriceDenomination": "objectPurchaseOfferPriceDenomination2",
+			  "objectPurchaseOfferPriceType": "objectPurchaseOfferPriceType2",
+			  "objectPurchaseOfferPriceValue": "objectPurchaseOfferPriceValue2",
+			  "transferOfTitleNumber": "transferOfTitleNumber2"
+}

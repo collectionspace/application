@@ -1,0 +1,88 @@
+Chain
+=====
+
+Purpose
+-------
+
+SVCAPP is designed to integrate all three layers.
+
+Quality
+-------
+
+The code has not been used widely in production.
+It does have pretty good unit test coverage.
+It is not very well documented, and has no coherent javadocs.
+  It was much better documented before dan got his hands on it, for which he will spend more time in pergatory.
+Error handling is okay, but not perfect.
+
+Unit tests have not been run outside CARET, you may need to skip them, but let me know which fail.
+
+Configuration
+-------------
+
+You can configure where the schemas and objects are stored, which backend to use, and where the services URL goes. 
+
+These should be supplied in a file called chain.properties somewhere on the classpath, or else in
+
+  ${jboss.server.home.dir}/server/cspace/config/application/chain.properties
+
+this is necessary for jboss which doesn't seem to have an easily accessible classpath, but for tomact or jetty it
+makes more sense to put it into the classpath, I think.
+
+In more detail on the above, if you're not very familiar with the nuances of the above (few are):
+
+  JBoss: use ${jboss.server.home.dir}/server/cspace/config/application/chain.properties
+  Tomcat 5.5: shared/classes/chain.properties
+  Tomcat 6: lib/chain.properties
+  Jetty: not sure. can someone help?
+
+Properties are:
+
+cspace.chain.store -- backend to use. "file" is the backend for hello World, "service" uses services.
+                      Note that the default is currently "file".
+                      
+                      We MUST SET THIS TO service OR WE WILL NOT BE USING THE SERVICES.
+                      
+                      However, setting it to file might help during testing what's up.
+                      
+cspace.chain.store.url -- base URL for services, used when services is selected as backend.
+                          Must not end in slash. This is rubbish and should be fixed. (CSPACE-318)
+
+cspace.chain.store.dir -- used with file backend, where files are stored. A path.
+
+cspace.chain.schema.dir -- Directory for UISpec, must be a directory on the filesystem with UI Spec in it.
+                           Required for both backends.
+
+In case this is too vague, here's something too specific, my own chain.properties:
+
+  cspace.chain.store=service
+  cspace.chain.store.url=http://chalk-233:8080/helloworld/cspace-nuxeo
+  cspace.chain.schema.dir=/tmp
+
+Functionality
+-------------
+
+URL             Method 	 Description 	                                 URL Examples
+/objects        GET    Fetches a list of objects in the system, 
+                       scoped to the supplied context 	 
+                       
+/objects/[id]   GET    Fetches a specific object, specified by the id    ./objects/1984.068.0335b.json
+
+                POST   Creates a new object, specified by the id 
+                	 
+                PUT    Updates the object specified by id                ./objects/1984.068.0335b.json
+                
+                DELETE Removes object specified by id                    ./objects/1984.068.0335b.json
+                
+/objects/schema GET    Provides a declarative Schema object describing 
+                       the data model and how it should be rendered      ./objects/schema/schema.json
+                                                                         ./objects/schema/
+
+Documentation
+-------------
+
+Here
+Unit tests
+Method Documentation
+Collectionspace Wiki
+dan@caret.cam.ac.uk

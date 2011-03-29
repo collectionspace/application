@@ -1,0 +1,23 @@
+{
+    "loanPurpose": "research",
+    "loanedObjectStatus": "agreed",
+    "loanOutNumber": "LO2010.1.3",
+    "loanOutNote": "loan out notes",
+    "specialConditionsOfLoan": "loanout conditions",
+    "lendersAuthorizationDate": "May 27, 2010",
+    "loanedObjectStatusGroup": [
+        {
+            "_primary": true,
+            "loanedObjectStatus": "returned",
+            "loanedObjectStatusDate": "November 9, 2010",
+            "loanedObjectStatusNote": "Back in the barn."
+        },
+        {
+            "loanedObjectStatus": "sent",
+            "loanedObjectStatusDate": "November 1, 2010",
+            "loanedObjectStatusNote": "Call to find out when this is coming back."
+        }
+    ],
+    "loanOutDate": "May 25, 2010",
+    "loanRenewalApplicationDate": "May 24, 2010"
+}

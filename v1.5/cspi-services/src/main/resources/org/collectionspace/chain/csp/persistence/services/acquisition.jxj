@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<translations xmlns:xtmpl="http://www.collectionspace.org/xtmpl">
+	<translation type="acquisition">
+		<json2xml squash-empty="yes">
+			<map>
+			    <mapping json=".acquReferenceNum" key="ref-num" />
+			    <mapping json=".acquDate" key="date" />
+			    <mapping json=".acquAccessionDate" key="acc-date" />
+			    <mapping json=".acquFundingSource" key="funding-source" />
+			    <mapping json=".acquFundingProviso" key="funding-proviso" />
+			    <mapping json=".acquFundingValue" key="funding-value" />
+			    <mapping json=".acquProviso" key="proviso" />
+			    <mapping json=".acquAuthorize" key="authorize" />
+			    <mapping json=".acquTitleNum" key="title-num" />
+			    <mapping json=".acquReason" key="reason" />
+			    <mapping json=".acquSource" key="source" />
+			    <mapping json=".acquNote" key="note" />
+			    <mapping json=".acquMethod" key="method" />
+			    <mapping json=".acquPrice" key="price" />
+			    <mapping json=".acquPriceDesc" key="price-desc" />
+			    <mapping json=".acquPriceDenom" key="price-denom" />
+			    <mapping json=".acquFundingDenom" key="funding-denom" />
+			    <mapping json=".acquAuthorizeDate" key="authorizer-date"/>
+			    <mapping json=".acquPriceType" key="price-type"/>
+			</map>
+			<template>
+			  <ns2:acquisitions_common xmlns:ns2="http://collectionspace.org/services/acquisition">
+			    <acquisitionReferenceNumber xtmpl:point="ref-num"/>
+			    <acquisitionDate xtmpl:point="date"/>
+			    <accessionDate xtmpl:point="acc-date"/>
+			    <acquisitionFundingSource xtmpl:point="funding-source"/>
+			    <acquisitionFunding xtmpl:point="funding-value"/>
+			    <acquisitionFundingSourceProvisos xtmpl:point="funding-proviso"/>
+			    <acquisitionProvisos xtmpl:point="proviso"/>
+			    <acquisitionAuthorizer xtmpl:point="authorize"/>
+			    <acquisitionMethod xtmpl:point="method"/>
+			    <transferOfTitleNumber xtmpl:point="title-num"/>
+			    <acquisitionReason xtmpl:point="reason"/>
+			    <acquisitionSources><acquisitionSource xtmpl:point="source"/></acquisitionSources>
+			    <acquisitionNote xtmpl:point="note"/>
+			    <objectPurchasePrice xtmpl:point="price"/>
+			    <groupPurchasePrice xtmpl:point="price-desc"/> <!-- XXX misuse -->
+			    <originalObjectPurchasePriceDenomination xtmpl:point="price-denom"/> <!-- XXX misuse? -->
+			    <objectOfferPrice xtmpl:point="funding-denom"/> <!-- XXX misuse -->
+			    <acquisitionAuthorizerDate xtmpl:point="authorizer-date"/>
+			    <objectPurchaseOfferPrice xtmpl:point="price-type"/> <!-- XXX misuse -->
+			  </ns2:acquisitions_common>
+			</template>
+		</json2xml>
+		<xml2json>
+			<map>
+			    <mapping xpath="acquisitions_common/acquisitionReferenceNumber" key="ref-num"/>
+			    <mapping xpath="acquisitions_common/acquisitionDate" key="date"/>
+			    <mapping xpath="acquisitions_common/accessionDate" key="acc-date"/>
+			    <mapping xpath="acquisitions_common/acquisitionFundingSource" key="funding-source"/>
+			    <mapping xpath="acquisitions_common/acquisitionFunding" key="funding-value"/>
+			    <mapping xpath="acquisitions_common/acquisitionFundingSourceProvisos" key="funding-proviso"/>
+			    <mapping xpath="acquisitions_common/acquisitionProvisos" key="proviso"/>
+			    <mapping xpath="acquisitions_common/acquisitionAuthorizer" key="authorize"/>
+			    <mapping xpath="acquisitions_common/acquisitionMethod" key="method"/>
+			    <mapping xpath="acquisitions_common/transferOfTitleNumber" key="title-num"/>
+			    <mapping xpath="acquisitions_common/acquisitionReason" key="reason"/>
+			    <mapping xpath="acquisitions_common/acquisitionSources/acquisitionSource" key="source"/>
+			    <mapping xpath="acquisitions_common/acquisitionNote" key="note"/>
+			    <mapping xpath="acquisitions_common/objectPurchasePrice" key="price"/>
+			    <mapping xpath="acquisitions_common/groupPurchasePrice" key="price-desc"/> 
+			    <mapping xpath="acquisitions_common/originalObjectPurchasePriceDenomination" key="price-denom"/> 
+			    <mapping xpath="acquisitions_common/objectOfferPrice" key="funding-denom"/> 
+				<mapping xpath="acquisitions_common/acquisitionAuthorizerDate" key="authorizer-date"/>
+				<mapping xpath="acquisitions_common/objectPurchaseOfferPrice" key="price-type"/>
+			</map>
+			<template>
+			{
+				"acquReferenceNum": "\u0000ref-num",
+			    "acquDate": "\u0000date",
+			    "acquAccessionDate": "\u0000acc-date",
+			    "acquFundingSource": "\u0000funding-source",
+			    "acquFundingProviso": "\u0000funding-proviso",
+			    "acquFundingValue": "\u0000funding-value",
+			    "acquProviso": "\u0000proviso",
+			    "acquAuthorize": "\u0000authorize",
+			    "acquTitleNum": "\u0000title-num",
+			    "acquReason": "\u0000reason",
+			    "acquSource": "\u0000source",
+			    "acquNote": "\u0000note",
+			    "acquMethod": "\u0000method",
+			    "acquPrice": "\u0000price",
+			    "acquPriceDesc": "\u0000price-desc",
+			    "acquPriceDenom": "\u0000price-denom",
+			    "acquFundingDenom": "\u0000funding-denom",
+			    "acquAuthorizeDate": "\u0000authorizer-date",
+			    "acquPriceType": "\u0000price-type"
+			}
+			</template>
+		</xml2json>
+	</translation>
+</translations>
+  

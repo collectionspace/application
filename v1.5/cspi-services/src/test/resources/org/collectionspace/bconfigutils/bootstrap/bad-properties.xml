@@ -1,0 +1,13 @@
+<!-- this file tells the config loader what to do with various system properties, where to find them, etc -->
+<config>
+  <properties>org/collectionspace/chain/config/broken.properties</properties>
+  
+  <!-- only for testing -->
+  <option name="test-properties">
+    <property>test.properties</property>
+    <default>failure</default>
+  </option>
+  <option name="test">
+    <default>success</default>
+  </option>
+</config>

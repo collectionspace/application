@@ -1,0 +1,94 @@
+{
+    "details": {
+        ".csc-movement-plannedRemovalDate-container": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
+        },
+        ".csc-movement-movementReferenceNumber-container": {
+            "decorators": [{
+                "func": "cspace.numberPatternChooser",
+                "type": "fluid",
+                "options": {
+                    "model": {
+                        "names": ["Movement"],
+                        "list": ["movement"],
+                        "samples": ["MV2010.001"]
+                    },
+                    "selectors": {
+                        "numberField": ".csc-movement-movementReferenceNumber"
+                    }
+                }
+            }]
+        },
+        ".csc-movement-movementNote": "${fields.movementNote}",
+        ".csc-movement-plannedRemovalDate": "${fields.plannedRemovalDate}",
+        ".csc-movement-currentLocation": "${fields.currentLocation}",
+        ".csc-movement-movementContact": {
+            "valuebinding": "${fields.movementContact}",
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../chain/movement/autocomplete/movementContact",
+                    "vocabUrl": "../../chain/movement/source-vocab/movementContact"
+                }
+            }]
+        },
+        ".csc-movement-removalDate-container": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
+        },
+        ".csc-movement-locationDate": "${fields.locationDate}",
+        ".csc-movement-currentLocationFitness": {
+            "default": "0",
+            "optionnames": ["Please select a value", "Dangerous", "Suitable", "Temporary", "Unsuitable"],
+            "optionlist": ["", "dangerous", "suitable", "temporary", "unsuitable"],
+            "selection": "${fields.currentLocationFitness}"
+        },
+        ".csc-movement-normalLocation": "${fields.normalLocation}",
+        ".csc-movement-movementMethods": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.movementMethods",
+                    "protoTree": {
+                        ".csc-movement-movementMethods": {
+                            "default": "0",
+                            "optionnames": ["Please select a value", "Forklift", "Handcarried", "Trolley"],
+                            "optionlist": ["", "forklift", "handcarried", "trolley"],
+                            "selection": "${fields.movementMethods.0.movementMethod}"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-movement-currentLocationNote": "${fields.currentLocationNote}",
+        ".csc-movement-locationDate-container": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }]
+        },
+        ".csc-movement-movementReferenceNumber": "${fields.movementReferenceNumber}",
+        ".csc-movement-reasonForMove": {
+            "default": "0",
+            "optionnames": ["Please select a value", "Conservation", "Exhibition", "Inventory", "Loan", "New Storage Location", "Photography", "Research"],
+            "optionlist": ["", "conservation", "exhibition", "inventory", "loan", "newstoragelocation", "photography", "research"],
+            "selection": "${fields.reasonForMove}"
+        },
+        ".csc-movement-removalDate": "${fields.removalDate}"
+    },
+    "list": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-related-summary": "${items.0.summary}",
+                ".csc-related-number": "${items.0.number}"
+            }]
+        }
+    }
+}

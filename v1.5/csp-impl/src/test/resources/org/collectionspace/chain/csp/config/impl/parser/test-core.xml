@@ -1,0 +1,5 @@
+<!-- core definitions go here -->
+<core>
+  <define tag="tag16" mode="include" src="test7.xml"/>
+  <define tag="tag17" mode="include" src="test7.xml" global="yes"/>
+</core>

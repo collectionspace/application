@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:accounts_common xmlns:ns2="http://collectionspace.org/services/account">
+<userId>barney</userId>
+<password>YUdsMGFHVnlaVEE0</password>
+<screenName>barney</screenName>
+<personRefName>barney</personRefName>
+<email>barney@dinoland.com</email>
+<phone>1234567890</phone>
+</ns2:accounts_common>

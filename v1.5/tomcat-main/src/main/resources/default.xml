@@ -1,0 +1,2906 @@
+<!--  XXX autocomplete needs renaming to something like authority -->
+<collection-space>
+    <version>10</version>
+    <include src="local-settings.xml,settings.xml" strip-root="yes"/>
+    <spec>
+
+        <relationships>
+            <relation id="broader">
+                <displayName>has broader term</displayName>
+                <directional>true</directional>
+                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</sourceTypes>
+                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</destinationTypes>
+            </relation>
+            <relation id="affects">
+                <displayName>affects</displayName>
+                <directional>false</directional>
+                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</sourceTypes>
+                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</destinationTypes>
+            </relation>
+        </relationships>
+
+        <schemas>
+            <schema id="recordlist"></schema>
+            <schema id="recordtypes"></schema>
+        </schemas>
+
+        <records>
+
+            <record id="collection-object" in-findedit="yes">
+                <services-url>collectionobjects</services-url>
+                <services-tenant-singular>CollectionObject</services-tenant-singular>
+                <services-list-path>collectionobjects-common-list/collection-object-list-item</services-list-path>
+                <services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <web-url>cataloging</web-url>
+                <tab-url>cataloging-tab</tab-url>
+                <number-selector>.csc-entry-number</number-selector>
+                <row-selector>.csc-recordList-row:</row-selector>
+                <list-key>cataloging</list-key>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
+                        <selector>.csc-object-identification-object-nametitle</selector>
+                        <merges>
+                            <merge id="title" rank="1" />
+                            <merge id="objectName" rank="2" />
+                        </merges>
+                    </field>
+                </section>
+                <section id="identificationInformation">
+                    <field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number,search,list,relate" seperate_ui_container="true">
+                        <selector>.csc-object-identification-object-number</selector>
+                        <title-selector>.csc-titleBar-object-identification-object-number</title-selector>
+                        <options>
+                            <option id="intake" sample="IN2009.1.1">Intake</option>
+                            <option id="accession" sample="2009.1.1">Accession</option>
+                            <option id="loanin" sample="LI2009.1.1">Loans In</option>
+                        </options>
+                    </field>
+                    <field id="numberOfObjects">
+                        <selector>.csc-object-identification-number-objects</selector>
+                    </field>
+                    <repeat id="otherNumberList/otherNumber">
+                        <selector>.csc-object-identification-otherNumbers</selector>
+                        <field id="numberValue" in-tab="yes">
+                            <selector>.csc-object-identification-other-number</selector>
+                        </field>
+                        <field id="numberType" in-tab="yes" seperate_ui_container="true">
+                            <selector>.csc-object-identification-other-number-type</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="lender">Lender</option>
+                                <option id="obsolete">Obsolete</option>
+                                <option id="previous">Previous</option>
+                                <option id="serial">Serial</option>
+                                <option id="unknown">Unknown</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <repeat id="responsibleDepartments" has-primary="yes">
+                        <selector>.csc-object-identification-responsible-department</selector>
+                        <field id="responsibleDepartment" mini="search" seperate_ui_container="true">
+                            <selector>.csc-object-identification-responsible-department</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="antiquities">Antiquities</option>
+                                <option id="architecture-design">Architecture and Design</option>
+                                <option id="decorative-arts">Decorative Arts</option>
+                                <option id="ethnography">Ethnography</option>
+                                <option id="herpetology">Herpetology</option>
+                                <option id="media-performance-art">Media and Performance Art</option>
+                                <option id="paintings-sculpture">Paintings and Sculpture</option>
+                                <option id="paleobotany">Paleobotany</option>
+                                <option id="photographs">Photographs</option>
+                                <option id="prints-drawings">Prints and Drawings</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <field id="collection" seperate_ui_container="true">
+                        <selector>.csc-object-identification-collection</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="library-collection">Library collection</option>
+                            <option id="permanent-collection">Permanent collection</option>
+                            <option id="study-collection">Study collection</option>
+                            <option id="teaching-collection">Teaching collection</option>
+                        </options>
+                    </field>
+                    <field id="recordStatus" seperate_ui_container="true">
+                        <selector>.csc-object-identification-record-status</selector>
+                        <options>
+                            <option id="approved">Approved</option>
+                            <option id="in-process">In process</option>
+                            <option id="new" default="yes">New</option>
+                            <option id="temporary">Temporary</option>
+                        </options>
+                    </field>
+                    <repeat id="briefDescriptions" has-primary="yes">
+                        <selector>.csc-object-identification-brief-description</selector>
+                        <field id="briefDescription">
+                            <selector>.csc-object-identification-brief-description</selector>
+                        </field>
+                    </repeat>
+                    <field id="distinguishingFeatures">
+                        <selector>.csc-object-identification-distinguishing-features</selector>
+                    </field>
+                    <repeat id="comments">
+                        <field id="comment">
+                            <selector>.csc-object-identification-comments</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="titleGroupList/titleGroup">
+                        <!-- selector>.csc-collection-object-titleGroup</selector -->
+                        <field id="title" in-title="yes" mini="search">
+                            <title-selector>.csc-titleBar-object-identification-object-title</title-selector>
+                            <selector>.csc-object-identification-object-title</selector>
+                        </field>
+                        <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
+                            <enum>
+                                <default>eng</default>
+                                <blank-value>Please select a value</blank-value>
+                            </enum>
+                            <selector>.csc-object-identification-object-title-language</selector>
+                        </field>
+                        <field id="titleTranslation">
+                            <selector>.csc-object-identification-object-title-translation</selector>
+                        </field>
+                        <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
+                            <enum>
+                                <default>eng</default>
+                                <blank-value>Please select a value</blank-value>
+                            </enum>
+                        </field>
+                        <field id="titleType" seperate_ui_container="true">
+                            <selector>.csc-object-identification-object-title-type</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="assigned-by-artist">Assigned by Artist</option>
+                                <option id="collection">Collection</option>
+                                <option id="generic">Generic</option>
+                                <option id="popular">Popular</option>
+                                <option id="series">Series</option>
+                                <option id="trade">Trade</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <repeat id="objectNameList/objectNameGroup">
+                        <field id="objectNameCurrency" seperate_ui_container="true">
+                            <selector>.csc-object-identification-object-currency</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="current">Current</option>
+                                <option id="archaic">Archaic</option>
+                            </options>
+                        </field>
+                        <field id="objectNameLevel" seperate_ui_container="true">
+                            <selector>.csc-object-identification-object-level</selector>
+                            <options>
+                                <option id="group">Group</option>
+                                <option id="subgroup">Subgroup</option>
+                            </options>
+                        </field>
+                        <field id="objectNameSystem" seperate_ui_container="true">
+                            <selector>.csc-object-identification-object-system</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="art-and-architecture-thesaurus">Art &amp; Architecture Thesaurus</option>
+                                <option id="nomenclature">Nomenclature</option>
+                            </options>
+                        </field>
+                        <field id="objectNameType" seperate_ui_container="true">
+                            <selector>.csc-object-identification-object-type</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="classified">Classified</option>
+                                <option id="denomination">Denomination</option>
+                                <option id="simple">Simple</option>
+                                <option id="taxonomic">Taxonomic</option>
+                                <option id="typological">Typological</option>
+                            </options>
+                        </field>
+                        <field id="objectNameLanguage" autocomplete="vocab-languages" ui-type="enum">
+                            <enum>
+                                <default>eng</default>
+                                <blank-value>Please select a value</blank-value>
+                            </enum>
+                            <selector>.csc-object-identification-object-language</selector>
+                        </field>
+                        <field id="objectNameNote">
+                            <selector>.csc-object-identification-object-note</selector>
+                        </field>
+                        <field id="objectName" mini="search">
+                            <selector>.csc-object-identification-object-name</selector>
+                        </field>
+                    </repeat>
+                </section>
+                <section id="descriptionInformation">
+                    <field id="copyNumber">
+                        <selector>.csc-object-description-copy-number</selector>
+                    </field>
+                    <repeat id="objectStatusList">
+                        <field id="objectStatus" seperate_ui_container="true">
+                            <selector>.csc-object-description-object-status</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="copy">copy</option>
+                                <option id="forgery">forgery</option>
+                                <option id="holotype">holotype</option>
+                                <option id="paralectotype">paralectotype</option>
+                                <option id="paratype">paratype</option>
+                                <option id="type">type</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <field id="sex" seperate_ui_container="true">
+                        <selector>.csc-object-description-sex</selector>
+                        <options>
+                            <option id="male">male</option>
+                            <option id="female">female</option>
+                        </options>
+                    </field>
+                    <field id="phase" seperate_ui_container="true">
+                        <selector>.csc-object-description-phase</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="adult">adult</option>
+                            <option id="imago">imago</option>
+                            <option id="larva">larva</option>
+                            <option id="nymph">nymph</option>
+                            <option id="pupa">pupa</option>
+                        </options>
+                    </field>
+                    <repeat id="forms">
+                        <field id="form" seperate_ui_container="true">
+                            <selector>.csc-object-description-form</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="dry">dry</option>
+                                <option id="pinned">pinned</option>
+                                <option id="thin-section">thin section</option>
+                                <option id="wet">wet</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <field id="editionNumber">
+                        <selector>.csc-object-description-edition-number</selector>
+                    </field>
+                    <field id="age">
+                        <selector>.csc-object-description-age</selector>
+                    </field>
+                    <field id="ageQualifier">
+                        <selector>.csc-object-description-age-qualifier</selector>
+                    </field>
+                    <field id="ageUnit" seperate_ui_container="true">
+                        <selector>.csc-object-description-age-unit</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="days">Days</option>
+                            <option id="months">Months</option>
+                            <option id="weeks">Weeks</option>
+                            <option id="years">Years</option>
+                        </options>
+                    </field>
+                    <repeat id="styles">
+                        <field id="style">
+                            <selector>.csc-object-description-style</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="colors">
+                        <field id="color">
+                            <selector>.csc-object-description-color</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="materialGroupList/materialGroup">
+                        <!-- selector>.csc-collection-object-materialGroup</selector -->
+                        <field id="material">
+                            <selector>.csc-object-description-material</selector>
+                        </field>
+                        <field id="materialComponent">
+                            <selector>.csc-object-description-material-component</selector>
+                        </field>
+                        <field id="materialComponentNote">
+                            <selector>.csc-object-description-material-component-note</selector>
+                        </field>
+                        <field id="materialName">
+                            <selector>.csc-object-description-material-name</selector>
+                        </field>
+                        <field id="materialSource">
+                            <selector>.csc-object-description-material-source</selector>
+                        </field>
+                    </repeat>
+                    <field id="physicalDescription">
+                        <selector>.csc-object-description-physical-description</selector>
+                    </field>
+                    <repeat id="objectComponentGroupList/objectComponentGroup">
+                        <!-- selector>.csc-collection-object-objectComponentGroup</selector -->
+                        <field id="objectComponentName" seperate_ui_container="true">
+                            <selector>.csc-object-description-object-component-name</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="blade">blade</option>
+                                <option id="buttonhole">buttonhole</option>
+                                <option id="handle">handle</option>
+                                <option id="sleeve">sleeve</option>
+                            </options>
+                        </field>
+                        <field id="objectComponentInformation">
+                            <selector>.csc-object-description-object-component-information</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="technicalAttributeGroupList/technicalAttributeGroup">
+                        <!-- selector>.csc-collection-object-technicalAttributeGroup</selector -->
+                        <field id="technicalAttribute" seperate_ui_container="true">
+                            <selector>.csc-object-description-technical-attribute</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="magnetic-tape-type">magnetic tape type</option>
+                                <option id="record-speed">record speed</option>
+                            </options>
+                        </field>
+                        <field id="technicalAttributeMeasurement" seperate_ui_container="true">
+                            <selector>.csc-object-description-technical-attribute-measurement</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="metal">metal</option>
+                                <option id="78">78</option>
+                            </options>
+                        </field>
+                        <field id="technicalAttributeMeasurementUnit" seperate_ui_container="true">
+                            <selector>.csc-object-description-technical-attribute-unit</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="rpm">rpm</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <field id="dimensionSummary"></field>
+                    <repeat id="dimensions/dimensionGroup">
+                        <field id="dimension" seperate_ui_container="true">
+                            <selector>.csc-object-description-dimension</selector>
+                            <options>
+                                <option id="area">area</option>
+                                <option id="base">base</option>
+                                <option id="circumference">circumference</option>
+                                <option id="count">count</option>
+                                <option id="depth">depth</option>
+                                <option id="diameter">diameter</option>
+                                <option id="height">height</option>
+                                <option id="length">length</option>
+                                <option id="running-time">running time</option>
+                                <option id="target">target</option>
+                                <option id="volume">volume</option>
+                                <option id="weight">weight</option>
+                                <option id="width">width</option>
+                            </options>
+                        </field>
+                        <field id="measuredPart" seperate_ui_container="true">
+                            <selector>.csc-object-description-dimension-part</selector>
+                            <options>
+                                <option id="base">base</option>
+                                <option id="frame">frame</option>
+                                <option id="framed">framed</option>
+                                <option id="image-size">image size</option>
+                                <option id="mount">mount</option>
+                                <option id="paper-size">paper size</option>
+                                <option id="plate-size">plate size</option>
+                                <option id="unframed">unframed</option>
+                            </options>
+                        </field>
+                        <field id="measurementUnit" seperate_ui_container="true">
+                            <selector>.csc-object-description-dimension-unit</selector>
+                            <options>
+                                <option id="carats">carats</option>
+                                <option id="centimeters">centimeters</option>
+                                <option id="cubic-centimeters">cubic centimeters</option>
+                                <option id="feet">feet</option>
+                                <option id="inches">inches</option>
+                                <option id="kilograms">kilograms</option>
+                                <option id="liters">liters</option>
+                                <option id="millimeters">millimeters</option>
+                                <option id="meters">meters</option>
+                                <option id="minutes">minutes</option>
+                                <option id="pixels">pixels</option>
+                                <option id="square-feet">square feet</option>
+                                <option id="stories">stories</option>
+                            </options>
+                        </field>
+                        <field id="value">
+                            <selector>.csc-object-description-dimension-value</selector>
+                        </field>
+                        <field id="valueDate" ui-type="date">
+                            <selector>.csc-object-description-dimension-value-date</selector>
+                        </field>
+                        <field id="valueQualifier">
+                            <selector>.csc-object-description-dimension-value-qualifier</selector>
+                        </field>
+                    </repeat>
+                    <section id="contentInformation">
+                        <field id="contentDescription">
+                            <selector>.csc-object-description-content-description</selector>
+                        </field>
+                        <repeat id="contentLanguages">
+                            <field id="contentLanguage" autocomplete="vocab-languages" ui-type="enum">
+                                <enum>
+                                    <default>eng</default>
+                                    <blank-value>Please select a value</blank-value>
+                                </enum>
+                                <selector>.csc-object-description-content-language</selector>
+                            </field>
+                        </repeat>
+                        <repeat id="contentActivities">
+                            <field id="contentActivity">
+                                <selector>.csc-object-description-content-activity</selector>
+                            </field>
+                        </repeat>
+                        <repeat id="contentConcepts">
+                            <field id="contentConcept">
+                                <selector>.csc-object-description-content-concept</selector>
+                            </field>
+                        </repeat>
+                        <field id="contentDate" ui-type="date" >
+                            <selector>.csc-object-description-content-date</selector>
+                        </field>
+                        <repeat id="contentPositions">
+                            <field id="contentPosition" seperate_ui_container="true">
+                                <selector>.csc-object-description-content-position</selector>
+                                <options>
+                                    <option id="">Please select a value</option>
+                                    <option id="back">back</option>
+                                    <option id="base">base</option>
+                                    <option id="bottom">bottom</option>
+                                    <option id="front">front</option>
+                                    <option id="inside">inside</option>
+                                    <option id="left">left</option>
+                                    <option id="outside">outside</option>
+                                    <option id="recto">recto</option>
+                                    <option id="right">right</option>
+                                    <option id="rim">rim</option>
+                                    <option id="top">top</option>
+                                    <option id="verso">verso</option>
+                                </options>
+                            </field>
+                        </repeat>
+                        <repeat id="contentObjectGroupList/contentObjectGroup">
+                            <!-- selector>.csc-collection-object-contentObjectGroup</selector -->
+                            <field id="contentObject">
+                                <selector>.csc-object-description-content-object</selector>
+                            </field>
+                            <field id="contentObjectType" seperate_ui_container="true">
+                                <selector>.csc-object-description-content-object-type</selector>
+                                <options>
+                                    <option id="">Please select a value</option>
+                                    <option id="furniture">Furniture</option>
+                                    <option id="food">Food</option>
+                                </options>
+                            </field>
+                        </repeat>
+                        <repeat id="contentPeoples">
+                            <field id="contentPeople">
+                                <selector>.csc-object-description-content-people</selector>
+                            </field>
+                        </repeat>
+                        <repeat id="contentPersons">
+                            <field id="contentPerson" autocomplete="person-person">
+                                <selector>.csc-object-description-content-person</selector>
+                            </field>
+                        </repeat>
+                        <repeat id="contentPlaces">
+                            <field id="contentPlace" >
+                                <selector>.csc-object-description-content-place</selector>
+                            </field>
+                        </repeat>
+                        <repeat id="contentScripts">
+                            <field id="contentScript" seperate_ui_container="true">
+                                <selector>.csc-object-description-content-script</selector>
+                                <options>
+                                    <option id="">Please select a value</option>
+                                    <option id="carolingian-miniscule">Carolingian miniscule</option>
+                                    <option id="gothic-script">Gothic script</option>
+                                    <option id="palmer-method">Palmer method</option>
+                                    <option id="roman-cursive">Roman cursive</option>
+                                    <option id="rustic-capitals">rustic capitals</option>
+                                    <option id="spencerian-method">Spencerian method</option>
+                                    <option id="square-capitals">square capitals</option>
+                                </options>
+                            </field>
+                        </repeat>
+                        <repeat id="contentOrganizations">
+                            <field id="contentOrganization" autocomplete="organization-organization">
+                                <selector>.csc-object-description-content-organization</selector>
+                            </field>
+                        </repeat>
+                        <repeat id="contentEventNameGroupList/contentEventNameGroup">
+                            <!-- selector>csc-collection-object-contentEventNameGroup</selector -->
+                            <field id="contentEventName">
+                                <selector>.csc-object-description-content-event-name</selector>
+                            </field>
+                            <field id="contentEventNameType">
+                                <selector>.csc-object-description-content-event-name-type</selector>
+                            </field>
+                        </repeat>
+                        <repeat id="contentOtherGroupList/contentOtherGroup">
+                            <!-- selector>.csc-collection-object-contentObjectGroup</selector -->
+                            <field id="contentOther">
+                                <selector>.csc-object-description-content-other</selector>
+                            </field>
+                            <field id="contentOtherType">
+                                <selector>.csc-object-description-content-other-type</selector>
+                            </field>
+                        </repeat>
+                        <field id="contentNote">
+                            <selector>.csc-object-description-content-note</selector>
+                        </field>
+                    </section>
+                    <section id="textualInscriptionInformation">
+                        <field id="inscriptionContent">
+                            <selector>.csc-object-description-inscription-content</selector>
+                        </field>
+                        <field id="inscriptionContentInscriber" autocomplete="person-person,organization-organization">
+                            <selector>.csc-object-description-inscription-content-inscriber</selector>
+                        </field>
+                        <field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
+                            <enum>
+                                <default>eng</default>
+                                <blank-value>Please select a value</blank-value>
+                            </enum>
+                            <selector>.csc-object-description-inscription-content-language</selector>
+                        </field>
+                        <field id="inscriptionContentDate" ui-type="date">
+                            <selector>.csc-object-description-inscription-content-date</selector>
+                        </field>
+                        <field id="inscriptionContentPosition" seperate_ui_container="true">
+                            <selector>.csc-object-description-inscription-content-position</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="back">back</option>
+                                <option id="base">base</option>
+                                <option id="bottom">bottom</option>
+                                <option id="front">front</option>
+                                <option id="inside">inside</option>
+                                <option id="left">left</option>
+                                <option id="outside">outside</option>
+                                <option id="recto">recto</option>
+                                <option id="right">right</option>
+                                <option id="rim">rim</option>
+                                <option id="top">top</option>
+                                <option id="verso">verso</option>
+                            </options>
+                        </field>
+                        <field id="inscriptionContentScript" seperate_ui_container="true">
+                            <selector>.csc-object-description-inscription-content-script</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="carolingian-miniscule">Carolingian miniscule</option>
+                                <option id="gothic-script">Gothic script</option>
+                                <option id="palmer-method">Palmer method</option>
+                                <option id="roman-cursive">Roman cursive</option>
+                                <option id="rustic-capitals">rustic capitals</option>
+                                <option id="spencerian-method">Spencerian method</option>
+                                <option id="square-capitals">square capitals</option>
+                            </options>
+                        </field>
+                        <field id="inscriptionContentType" seperate_ui_container="true">
+                            <selector>.csc-object-description-inscription-content-type</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="brand">brand</option>
+                                <option id="decoration">decoration</option>
+                                <option id="estate-stamp">estate stamp</option>
+                                <option id="graffiti">graffiti</option>
+                                <option id="label">label</option>
+                                <option id="maker's-mark">maker's mark</option>
+                            </options>
+                        </field>
+                        <field id="inscriptionContentMethod">
+                            <selector>.csc-object-description-inscription-content-method</selector>
+                        </field>
+                        <field id="inscriptionContentInterpretation">
+                            <selector>.csc-object-description-inscription-content-interpretation</selector>
+                        </field>
+                        <field id="inscriptionContentTranslation">
+                            <selector>.csc-object-description-inscription-content-translation</selector>
+                        </field>
+                        <field id="inscriptionContentTransliteration">
+                            <selector>.csc-object-description-inscription-content-transliteration</selector>
+                        </field>
+                    </section>
+                    <section id="nonTextualInscriptionInformation">
+                        <field id="inscriptionDescription">
+                            <selector>.csc-object-description-inscription-description</selector>
+                        </field>
+                        <field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization">
+                            <selector>.csc-object-description-inscription-description-inscriber</selector>
+                        </field>
+                        <field id="inscriptionDescriptionDate" ui-type="date">
+                            <selector>.csc-object-description-inscription-description-date</selector>
+                        </field>
+                        <field id="inscriptionDescriptionPosition" seperate_ui_container="true">
+                            <selector>.csc-object-description-inscription-description-position</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="back">back</option>
+                                <option id="base">base</option>
+                                <option id="bottom">bottom</option>
+                                <option id="front">front</option>
+                                <option id="inside">inside</option>
+                                <option id="left">left</option>
+                                <option id="outside">outside</option>
+                                <option id="recto">recto</option>
+                                <option id="right">right</option>
+                                <option id="rim">rim</option>
+                                <option id="top">top</option>
+                                <option id="verso">verso</option>
+                            </options>
+                        </field>
+                        <field id="inscriptionDescriptionType" seperate_ui_container="true">
+                            <selector>.csc-object-description-inscription-description-type</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="brand">brand</option>
+                                <option id="decoration">decoration</option>
+                                <option id="estate-stamp">estate stamp</option>
+                                <option id="graffiti">graffiti</option>
+                                <option id="label">label</option>
+                                <option id="maker's-mark">maker's mark</option>
+                            </options>
+                        </field>
+                        <field id="inscriptionDescriptionMethod">
+                            <selector>.csc-object-description-inscription-description-method</selector>
+                        </field>
+                        <field id="inscriptionDescriptionInterpretation">
+                            <selector>.csc-object-description-inscription-description-interpretation</selector>
+                        </field>
+                    </section>
+                </section>
+                <section id="objectProductionInformation">
+                    <repeat id="objectProductionDates">
+                        <field id="objectProductionDate" ui-type="date">
+                            <selector>.csc-object-production-date</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="techniqueGroupList/techniqueGroup">
+                        <!-- selector>csc-collection-object-techniqueGroup</selector -->
+                        <field id="technique">
+                            <selector>.csc-object-production-technique</selector>
+                        </field>
+                        <field id="techniqueType">
+                            <selector>.csc-object-production-technique-type</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+                        <!-- selector>.csc-collection-object-objectProductionPlaceGroup</selector -->
+                        <field id="objectProductionPlace">
+                            <selector>.csc-object-production-place</selector>
+                        </field>
+                        <field id="objectProductionPlaceRole"></field>
+                    </repeat>
+                    <repeat id="objectProductionReasons">
+                        <field id="objectProductionReason">
+                            <selector>.csc-object-production-reason</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
+                        <!-- selector>.csc-object-production-objectProductionPeopleGroup</selector -->
+                        <field id="objectProductionPeople">
+                            <selector>.csc-object-production-people</selector>
+                        </field>
+                        <field id="objectProductionPeopleRole"></field>
+                    </repeat>
+                    <repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+                        <!-- selector>.csc-object-production-objectProductionPersonGroup</selector -->
+                        <field id="objectProductionPerson" autocomplete="person-person">
+                            <selector>.csc-object-production-person</selector>
+                        </field>
+                        <field id="objectProductionPersonRole"></field>
+                    </repeat>
+                    <repeat id="objectProductionOrganizationGroupList/objectProductionOrganizationGroup">
+                        <!-- selector>.csc-collection-object-objectProductionOrganizationGroup</selector -->
+                        <field id="objectProductionOrganization" autocomplete="organization-organization">
+                            <selector>.csc-object-production-organization</selector>
+                        </field>
+                        <field id="objectProductionOrganizationRole"></field>
+                    </repeat>
+                    <field id="objectProductionNote">
+                        <selector>.csc-object-production-note</selector>
+                    </field>
+                </section>
+                <section id="objectHistoryAssociationInformation">
+                    <field id="objectHistoryNote">
+                        <selector>.csc-object-history-association-object-history-note</selector>
+                    </field>
+                    <repeat id="usageGroupList/usageGroup">
+                        <field id="usage"/>
+                        <field id="usageNote"/>
+                    </repeat>
+                    <repeat id="owners">
+                        <field id="owner" autocomplete="person-person,organization-organization">
+                            <selector>.csc-object-history-association-owner</selector>
+                        </field>
+                    </repeat>
+                    <field id="ownershipDates" ui-type="date">
+                        <selector>.csc-object-history-association-ownershipDates</selector>
+                    </field>
+                    <field id="ownershipAccess" seperate_ui_container="true">
+                        <selector>.csc-object-history-association-access</selector>
+                        <options>
+                            <option id="limited">limited</option>
+                            <option id="open">open</option>
+                            <option id="restricted">restricted</option>
+                        </options>
+                    </field>
+                    <field id="ownershipCategory" seperate_ui_container="true">
+                        <selector>.csc-object-history-association-category</selector>
+                        <options>
+                            <option id="company">company</option>
+                            <option id="public">public</option>
+                            <option id="private">private</option>
+                        </options>
+                    </field>
+                    <field id="ownershipPlace">
+                        <selector>.csc-object-history-association-ownership-place</selector>
+                    </field>
+                    <field id="ownershipExchangeMethod" seperate_ui_container="true">
+                        <selector>.csc-object-history-association-exchange-method</selector>
+                        <options>
+                            <option id="bequest">bequest</option>
+                            <option id="exchange">exchange</option>
+                            <option id="gift">gift</option>
+                            <option id="purchase">purchase</option>
+                            <option id="transfer">transfer</option>
+                            <option id="treasure">treasure</option>
+                        </options>
+                    </field>
+                    <field id="ownershipExchangeNote">
+                        <selector>.csc-object-history-association-exchange-note</selector>
+                    </field>
+                    <field id="ownershipExchangePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
+                        <enum has-blank="false">
+                            <default>USD</default>
+                        </enum>
+                        <selector>.csc-object-history-association-denomination</selector>
+                    </field>
+                    <field id="ownershipExchangePriceValue">
+                        <selector>.csc-object-history-association-exchange-price-value</selector>
+                    </field>
+                    <section id="associationInformation">
+                        <repeat id="assocActivityGroupList/assocActivityGroup">
+                            <!-- selector>.csc-collection-object-assocActivityGroup</selector -->
+                            <field id="assocActivity"></field>
+                            <field id="assocActivityType"></field>
+                            <field id="assocActivityNote"></field>
+                        </repeat>
+                        <repeat id="assocObjectGroupList/assocObjectGroup">
+                            <field id="assocObject"></field>
+                            <field id="assocObjectType"></field>
+                            <field id="assocObjectNote"></field>
+                        </repeat>
+                        <repeat id="assocConceptGroupList/assocConceptGroup">
+                            <field id="assocConcept"></field>
+                            <field id="assocConceptType"></field>
+                            <field id="assocConceptNote"></field>
+                        </repeat>
+                        <repeat id="assocCulturalContextGroupList/assocCulturalContextGroup">
+                            <field id="assocCulturalContext"></field>
+                            <field id="assocCulturalContextType"></field>
+                            <field id="assocCulturalContextNote"></field>
+                        </repeat>
+                        <repeat id="assocOrganizationGroupList/assocOrganizationGroup">
+                            <field id="assocOrganization" autocomplete="organization-organization"></field>
+                            <!-- CSPACE-2927: This new 'type' field may need to provide terms from a controlled -->
+                            <!-- vocabulary; needs functional clarification from Megan, et al. -->
+                            <field id="assocOrganizationType"></field>
+                            <field id="assocOrganizationNote"></field>
+                        </repeat>
+                        <repeat id="assocPeopleGroupList/assocPeopleGroup">
+                            <field id="assocPeople"></field>
+                            <field id="assocPeopleType"></field>
+                            <field id="assocPeopleNote"></field>
+                        </repeat>
+                        <repeat id="assocPersonGroupList/assocPersonGroup">
+                            <field id="assocPerson" autocomplete="person-person"></field>
+                            <field id="assocPersonType"></field>
+                            <field id="assocPersonNote"></field>
+                        </repeat>
+                        <repeat id="assocPlaceGroupList/assocPlaceGroup">
+                            <field id="assocPlace"></field>
+                            <field id="assocPlaceType"></field>
+                            <field id="assocPlaceNote"></field>
+                        </repeat>
+                        <field id="assocEventName"></field>
+                        <field id="assocEventNameType"></field>
+                        <repeat id="assocEventOrganizations">
+                            <field id="assocEventOrganization" autocomplete="organization-organization">
+                                <selector>.csc-object-history-association-event-organization</selector>
+                            </field>
+                        </repeat>
+                        <repeat id="assocEventPeoples">
+                            <field id="assocEventPeople">
+                                <selector>.csc-object-history-association-event-people</selector>
+                            </field>
+                        </repeat>
+                        <repeat id="assocEventPersons">
+                            <field id="assocEventPerson" autocomplete="person-person">
+                                <selector>.csc-object-history-association-event-person</selector>
+                            </field>
+                        </repeat>
+                        <repeat id="assocEventPlaces">
+                            <field id="assocEventPlace">
+                                <selector>.csc-object-history-association-event-place</selector>
+                            </field>
+                        </repeat>
+                        <field id="assocEventNote"></field>
+                        <repeat id="assocDateGroupList/assocDateGroup">
+                            <selector>.csc-object-history-association-assocDateGroup</selector>
+                            <field id="assocDate" ui-type="date">
+                                <!-- Experimenting with explicitly naming the selector to get container behavior working -->
+                                <selector>.csc-object-history-association-assocDate</selector>
+                            </field>
+                            <field id="assocDateType"></field>
+                            <field id="assocDateNote"></field>
+                        </repeat>
+                    </section>
+                </section>
+                <section id="objectOwnerContributionInformation">
+                    <field id="ownersPersonalExperience">
+                        <selector>.csc-object-owner-experience</selector>
+                    </field>
+                    <field id="ownersPersonalResponse">
+                        <selector>.csc-object-owner-response</selector>
+                    </field>
+                    <repeat id="ownersReferences">
+                        <field id="ownersReference">
+                            <selector>.csc-object-owner-reference</selector>
+                        </field>
+                    </repeat>
+                    <field id="ownersContributionNote">
+                        <selector>.csc-object-owner-contribution-note</selector>
+                    </field>
+                </section>
+                <section id="objectViewerContributionInformation">
+                    <field id="viewersRole">
+                        <selector>.csc-object-viewer-role</selector>
+                    </field>
+                    <field id="viewersPersonalExperience">
+                        <selector>.csc-object-viewer-experience</selector>
+                    </field>
+                    <field id="viewersPersonalResponse">
+                        <selector>.csc-object-viewer-response</selector>
+                    </field>
+                    <repeat id="viewersReferences">
+                        <field id="viewersReference">
+                            <selector>.csc-object-viewer-reference</selector>
+                        </field>
+                    </repeat>
+                    <field id="viewersContributionNote">
+                        <selector>.csc-object-viewer-contribution-note</selector>
+                    </field>
+                </section>
+                <!-- CSPACE-3501: reference and catalog number combined into a repeatable group; catalog number renamed reference note -->
+                <section id="referenceInformation">
+                    <repeat id="referenceGroupList/referenceGroup">
+                        <field id="reference"></field>
+                        <field id="referenceNote"></field>
+                    </repeat>
+                </section>
+                <section id="objectCollectionInformation">
+                    <field id="fieldCollectionDate" ui-type="date"></field>
+                    <repeat id="fieldCollectionMethods">
+                        <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
+                    </repeat>
+                    <field id="fieldCollectionNote"></field>
+                    <field id="fieldCollectionNumber"></field>
+                    <field id="fieldCollectionPlace"></field>
+                    <repeat id="fieldCollectionSources">
+                        <field id="fieldCollectionSource" autocomplete="person-person"></field>
+                    </repeat>
+                    <repeat id="fieldCollectors">
+                        <field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
+                    </repeat>
+                    <repeat id="fieldColEventNames">
+                        <field id="fieldColEventName"></field>
+                    </repeat>
+                </section>
+                <!-- ununsed -->
+                <section >
+                    <field id="dateAssociation">
+                        <selector>.csc-date-information-date-association</selector>
+                    </field>
+                    <field id="dateText">
+                        <selector>.csc-date-information-date-text</selector>
+                    </field>
+                    <field id="dateLatestCertainty">
+                        <selector>.csc-date-information-date-latest-certainty</selector>
+                    </field>
+                    <field id="dateEarliestSingleCertainty">
+                        <selector>.csc-date-information-date-earliest-single-certainty</selector>
+                    </field>
+                    <field id="dateLatestQualifier">
+                        <selector>.csc-date-information-date-latest-qualifier</selector>
+                    </field>
+                    <field id="dateEarliestSingleQualifier">
+                        <selector>.csc-date-information-date-earliest-single-qualifier</selector>
+                    </field>
+                    <field id="dateEarliestSingle" ui-type="date">
+                        <selector>.csc-date-information-date-earliest-single-date</selector>
+                    </field>
+                    <field id="dateLatest" ui-type="date">
+                        <selector>.csc-date-information-date-latest-date</selector>
+                    </field>
+                    <field id="datePeriod">
+                        <selector>.csc-date-information-date-period</selector>
+                    </field>
+                    <!--  natural history -->
+                    <!--  ID's probably can't use -'s , :( XXX -->
+                    <field id="nhString" section="naturalhistory">
+                        <services-tag>nh-string</services-tag>
+                    </field>
+                </section>
+            </record>
+
+            <record id="loanin" in-findedit="yes" type="record,procedure">
+                <services-url>loansin</services-url>
+                <services-tenant-plural>Loansin</services-tenant-plural>
+                <services-tenant-singular>Loanin</services-tenant-singular>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
+                <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="true">
+                                <repeat id="termsUsed" show="true"></repeat>
+                                <repeat id="relatedProcedures" show="true"></repeat>
+                                <repeat id="relatedObjects" show="true"></repeat>
+                            </sidebar>
+                            <edit-section show="true"></edit-section>
+                            <list-section show="false"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="termsUsed" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="linktext" ui-type="linktext">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                            <field id="recordtype" ui-type="list">
+                                <selector>.csc-related-recordtype</selector>
+                            </field>
+                            <field id="sourceFieldName" ui-type="list">
+                                <selector>.csc-related-field</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <row-selector>.csc-recordList-row:</row-selector>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section id="loaninInformation">
+                    <field id="loanInNumber" in-title="yes" chooser="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
+                        <title-selector>.csc-titleBar-loanInNumber</title-selector>
+                        <selector>.csc-loanIn-loanInNumber</selector>
+                        <container-selector>.csc-loanIn-loanInNumber-patternChooserContainer</container-selector>
+                        <options>
+                            <option id="loanin" sample="LI2010.1">Loan In</option>
+                        </options>
+                    </field>
+                    <field id="loanPurpose" seperate_ui_container="true">
+                        <selector>.csc-loanIn-loanPurpose</selector>
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="exhibition">Exhibition</option>
+                            <option id="research">Research</option>
+                            <option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
+                            <option id="analysis">Analysis</option>
+                            <option id="photography">Photography</option>
+                            <option id="conservationotherrequestedservices">Conservation or other requested services</option>
+                            <option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
+                        </options>
+                    </field>
+                    <repeat id="lenderGroupList/lenderGroup">
+                        <field id="lender" autocomplete="person-person,organization-organization" in-title="yes" mini="summary,search,list">
+                            <selector>.csc-loanIn-lender</selector>
+                        </field>
+                        <field id="lendersAuthorizer" autocomplete="person-person">
+                            <selector>.csc-loanIn-lendersAuthorizer</selector>
+                        </field>
+                        <field id="lendersAuthorizationDate" ui-type="date" >
+                            <selector>.csc-loanIn-lendersAuthorizerDate</selector>
+                        </field>
+                        <field id="lendersContact" autocomplete="person-person">
+                            <selector>.csc-loanIn-lendersContact</selector>
+                        </field>
+                    </repeat>
+                    <field id="loanInContact" autocomplete="person-person">
+                        <selector>.csc-loanIn-loanInContact</selector>
+                    </field>
+                    <field id="borrowersAuthorizer" autocomplete="person-person"></field>
+                    <field id="loanInConditions">
+                        <selector>.csc-loanIn-loanInConditions</selector>
+                    </field>
+                    <field id="loanInNote">
+                        <selector>.csc-loanIn-loanInNote</selector>
+                    </field>
+                    <field id="loanInDate" ui-type="date" >
+                        <selector>.csc-loanIn-loanInDate</selector>
+                    </field>
+                    <field id="loanReturnDate" ui-type="date" >
+                        <selector>.csc-loanIn-loanReturnDate</selector>
+                    </field>
+                    <field id="loanRenewalApplicationDate" ui-type="date" >
+                        <selector>.csc-loanIn-loanRenewalApplicationDate</selector>
+                    </field>
+                </section>
+            </record>
+
+            <record id="intake" in-findedit="yes" type="record,procedure">
+                <services-url>intakes</services-url>
+                <services-tenant-singular>Intake</services-tenant-singular>
+                <services-list-path>intakes-common-list/intake-list-item</services-list-path>
+                <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <row-selector>.csc-recordList-row:</row-selector>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section id="objectEntryInformation">
+                    <field id="entryNumber" chooser="yes" in-title="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
+                        <selector>.csc-intake-entry-number</selector>
+                        <title-selector>.csc-titleBar-intake-entry-number</title-selector>
+                        <options>
+                            <option id="intake" sample="IN2009.1">Intake</option>
+                            <option id="study" sample="ST2009.1">Study</option>
+                            <option id="evaluation" sample="EV2009.1">Evaluation</option>
+                        </options>
+                    </field>
+                    <field id="entryDate" ui-type="date">
+                        <selector>.csc-intake-entry-date</selector>
+                    </field>
+                    <field id="entryReason" seperate_ui_container="true">
+                        <selector>.csc-intake-entry-reason</selector>
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="enquiry">Enquiry</option>
+                            <option id="consideration">Consideration</option>
+                            <option id="commission">Commission</option>
+                            <option id="loan">Loan</option>
+                        </options>
+                    </field>
+                    <repeat id="entryMethods">
+                        <selector>.csc-intake-entryMethod</selector>
+                        <field id="entryMethod" autocomplete="vocab-entrymethod" ui-type="enum"></field>
+                    </repeat>
+                    <field id="returnDate" ui-type="date">
+                        <container-selector>.csc-intake-returnDate-container</container-selector>
+                    </field>
+                    <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" autocomplete="person-person,organization-organization">
+                        <selector>.csc-intake-current-owner</selector>
+                    </field>
+                    <field id="depositor" autocomplete="person-person,organization-organization">
+                        <selector>.csc-intake-depositor</selector>
+                    </field>
+                    <field id="depositorsRequirements">
+                        <selector>.csc-intake-depositor-requirements</selector>
+                    </field>
+                    <field id="entryNote">
+                        <selector>.csc-intake-entry-note</selector>
+                    </field>
+                    <field id="packingNote">
+                        <selector>.csc-intake-packing-note</selector>
+                    </field>
+                </section>
+                <section id="objectCollectionInformation">
+                    <field id="fieldCollectionDate" ui-type="date">
+                        <container-selector>.csc-intake-fieldCollectionDate-container</container-selector>
+                    </field>
+                    <repeat id="fieldCollectionMethods">
+                        <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
+                    </repeat>
+                    <field id="fieldCollectionNote"></field>
+                    <field id="fieldCollectionNumber"></field>
+                    <field id="fieldCollectionPlace"></field>
+                    <repeat id="fieldCollectionSources">
+                        <field id="fieldCollectionSource" autocomplete="person-person"></field>
+                    </repeat>
+                    <repeat id="fieldCollectors">
+                        <field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
+                    </repeat>
+                    <repeat id="fieldCollectionEventNames">
+                        <field id="fieldCollectionEventName">
+                            <selector>.csc-intake-field-collection-event-name</selector>
+                        </field>
+                    </repeat>
+                </section>
+                <section id="valuationInformation">
+                    <field id="valuer" autocomplete="person-person,organization-organization"></field>
+                    <field id="valuationReferenceNumber">
+                        <selector>.csc-intake-valuation-reference-number</selector>
+                    </field>
+                </section>
+                <section id="insuranceInformation">
+                    <repeat id="insurers">
+                        <selector>.csc-intake-insurer</selector>
+                        <field id="insurer" autocomplete="person-person,organization-organization"></field>
+                    </repeat>
+                    <field id="insurancePolicyNumber">
+                        <selector>.csc-intake-insurance-policy-number</selector>
+                    </field>
+                    <field id="insuranceRenewalDate" ui-type="date">
+                        <selector>.csc-intake-insurance-renewal-date</selector>
+                    </field>
+                    <field id="insuranceReferenceNumber">
+                        <selector>.csc-intake-insurance-reference-number</selector>
+                    </field>
+                    <field id="insuranceNote">
+                        <selector>.csc-intake-insurance-note</selector>
+                    </field>
+                </section>
+                <section id="locationInformation">
+                    <repeat id="currentLocationGroupList/currentLocationGroup">
+                        <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
+                        <field id="currentLocation">
+                            <selector>.csc-intake-current-location</selector>
+                        </field>
+                        <field id="currentLocationFitness" autocomplete="vocab-conditionfitness" ui-type="enum">
+                            <selector>.csc-intake-current-location-fitness</selector>
+                        </field>
+                        <field id="currentLocationNote">
+                            <selector>.csc-intake-current-location-note</selector>
+                        </field>
+                    </repeat>
+                    <field id="locationDate" ui-type="date">
+                        <selector>.csc-intake-location-date</selector>
+                    </field>
+                    <!--  <field id="normalLocation" autocomplete="location-location, place-place"> -->
+                    <field id="normalLocation">
+                        <selector>.csc-intake-normal-location</selector>
+                    </field>
+                </section>
+                <section id="conditionInformation">
+                    <repeat id="conditionCheckMethods">
+                        <field id="conditionCheckMethod" autocomplete="vocab-conditioncheckmethod" ui-type="enum"></field>
+                    </repeat>
+                    <repeat id="conditionCheckReasons">
+                        <field id="conditionCheckReason" autocomplete="vocab-conditioncheckreason" ui-type="enum"></field>
+                    </repeat>
+                    <repeat id="conditionCheckersOrAssessors">
+                        <field id="conditionCheckerOrAssessor" autocomplete="person-person,organization-organization"></field>
+                    </repeat>
+                    <field id="conditionCheckNote">
+                        <selector>.csc-intake-condition-check-note</selector>
+                    </field>
+                    <field id="conditionCheckDate" ui-type="date">
+                        <selector>.csc-intake-condition-check-date</selector>
+                    </field>
+                    <field id="conditionCheckReferenceNumber">
+                        <selector>.csc-intake-condition-check-reference-number</selector>
+                    </field>
+                </section>
+            </record>
+
+            <record id="acquisition" in-findedit="yes" type="record,procedure">
+                <services-url>acquisitions</services-url>
+                <services-tenant-singular>Acquisition</services-tenant-singular>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
+                <services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="ownersource" mini="summary,search,list,relate"  in-title="yes" exists-in-services="false">
+                        <selector>.csc-object-acquisition-ownersource</selector>
+                        <merges>
+                            <merge id="owner" rank="2" />
+                            <merge id="acquisitionSource" rank="1" />
+                        </merges>
+                    </field>
+                </section>
+                <section id="acquisitionInformation">
+                    <field id="acquisitionReferenceNumber" in-title="yes" chooser="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                        <selector>.csc-acquisition-numberPatternChooser-reference-number</selector>
+                        <title-selector>.csc-titleBar-acquisition-reference-number</title-selector>
+                        <container-selector>.csc-acquisition-reference-number-patternChooserContainer</container-selector>
+                        <options>
+                            <option id="accession" sample="2009.1">Accession</option>
+                            <option id="archive" sample="AR2009.42">Archives</option>
+                            <option id="library" sample="LIB2009.1">Library</option>
+                        </options>
+                    </field>
+                    <field id="accessionDate" ui-type="date">
+                        <selector>.csc-acquisition-accession-date</selector>
+                    </field>
+                    <field id="acquisitionAuthorizer" autocomplete="person-person"></field>
+                    <field id="acquisitionAuthorizerDate" ui-type="date">
+                        <selector>.csc-acquisition-acquisitionAuthorizerDate</selector>
+                        <container-selector>.csc-acquisition-acquisitionAuthorizerDate-container</container-selector>
+                    </field>
+                    <repeat id="acquisitionDates">
+                        <field id="acquisitionDate" ui-type="date">
+                            <selector>.csc-acquisition-date</selector>
+                            <container-selector>.csc-acquisition-acquisition-date-container</container-selector>
+                        </field>
+                    </repeat>
+                    <field id="acquisitionMethod" seperate_ui_container="true">
+                        <selector>.csc-acquisition-acquisition-method</selector>
+                        <options>
+                            <option id="gift" default="yes">Gift</option>
+                            <option id="purchase">Purchase</option>
+                            <option id="exchange">Exchange</option>
+                            <option id="transfer">Transfer</option>
+                            <option id="treasure">Treasure</option>
+                        </options>
+                    </field>
+                    <repeat id="acquisitionSources">
+                        <field id="acquisitionSource" autocomplete="person-person,organization-organization">
+                            <selector>.csc-acquisition-acquisitionSource</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="owners">
+                        <selector>.csc-acquisition-owner</selector>
+                        <field id="owner" autocomplete="person-person,organization-organization">
+                            <selector>.csc-acquisition-owner</selector>
+                        </field>
+                    </repeat>
+                    <field id="transferOfTitleNumber">
+                        <selector>.csc-acquisition-transfer-of-title-number</selector>
+                    </field>
+                    <field id="creditLine"></field>
+                    <field id="groupPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
+                        <enum>
+                            <default>USD</default>
+                        </enum>
+                        <selector>.csc-acquisition-group-purchase-price-currency</selector>
+                    </field>
+                    <field id="groupPurchasePriceValue">
+                        <selector>.csc-acquisition-group-purchase-price-value</selector>
+                    </field>
+                    <field id="objectOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
+                        <enum>
+                            <default>USD</default>
+                        </enum>
+                        <selector>.csc-acquisition-object-offer-price-currency</selector>
+                    </field>
+                    <field id="objectOfferPriceValue">
+                        <selector>.csc-acquisition-object-offer-price-value</selector>
+                    </field>
+                    <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
+                        <enum>
+                            <default>USD</default>
+                        </enum>
+                        <selector>.csc-acquisition-purchaser-price-denomination</selector>
+                    </field>
+                    <field id="objectPurchaseOfferPriceValue">
+                        <selector>.csc-acquisition-purchaser-price</selector>
+                    </field>
+                    <field id="objectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
+                        <enum>
+                            <default>USD</default>
+                        </enum>
+                        <selector>.csc-acquisition-object-purchase-price-currency</selector>
+                    </field>
+                    <field id="objectPurchasePriceValue">
+                        <selector>.csc-acquisition-object-purchase-price-value</selector>
+                    </field>
+                    <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
+                        <enum>
+                            <default>USD</default>
+                        </enum>
+                        <selector>.csc-acquisition-object-purchase-offer-price-currency</selector>
+                    </field>
+                    <field id="objectPurchaseOfferPriceValue">
+                        <selector>.csc-acquisition-object-purchase-offer-price-value</selector>
+                    </field>
+                    <field id="originalObjectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
+                        <enum>
+                            <default>USD</default>
+                        </enum>
+                        <selector>.csc-acquisition-original-object-purchase-price-currency</selector>
+                    </field>
+                    <field id="originalObjectPurchasePriceValue">
+                        <selector>.csc-acquisition-original-object-purchase-price-value</selector>
+                    </field>
+                    <field id="acquisitionReason">
+                        <selector>.csc-acquisition-acquisition-reason</selector>
+                    </field>
+                    <field id="acquisitionNote">
+                        <selector>.csc-acquisition-acquisition-note</selector>
+                    </field>
+                    <field id="acquisitionProvisos">
+                        <selector>.csc-acquisition-acquisition-provisos</selector>
+                    </field>
+                    <repeat id="acquisitionFundingList/acquisitionFunding">
+                        <field id="acquisitionFundingCurrency" autocomplete="vocab-currency" ui-type="enum">
+                            <enum>
+                                <default>USD</default>
+                            </enum>
+                        </field>
+                        <field id="acquisitionFundingValue"></field>
+                        <field id="acquisitionFundingSource" autocomplete="person-person,organization-organization"></field>
+                        <field id="acquisitionFundingSourceProvisos"></field>
+                    </repeat>
+                </section>
+                <section id="objectCollectionInformation">
+                    <repeat id="fieldCollectionEventNames">
+                        <selector>.csc-acquisition-fieldCollectionEventName</selector>
+                        <field id="fieldCollectionEventName"></field>
+                    </repeat>
+                </section>
+            </record>
+
+            <!-- XXX best guess for placeauthority - awaiting feedback from service layer and ui layer -->
+            <!--
+                <record id="place" type="authority,compute-displayname">
+                  <web-url>place</web-url>
+                  <services-instances-path>placeauthorities_common:http://collectionspace.org/services/place,placeauthorities-common-list/placeauthority-list-item</services-instances-path>
+                  <services-single-instance-path>placeauthorities_common:http://collectionspace.org/services/place,personauthorities_common</services-single-instance-path>
+                  <services-list-path>http://collectionspace.org/services/place,places-common-list/place_list_item</services-list-path>
+                  <services-record-path>places_common:http://collectionspace.org/services/place,places_common</services-record-path>
+                  <services-url>placeauthorities</services-url>
+                  <urn-syntax>urn:cspace:org.collectionspace.demo:placeauthority:{vocab}:place:{entry}'{display}'</urn-syntax>
+                  <structures>
+                        <structure id="screen">
+                        </structure>
+                  </structures>
+                  <instances>
+                    <instance id="place-place">
+                      <web-url>place</web-url>
+                      <title-ref>place</title-ref>
+                      <title>Default Place Authority</title>
+                    </instance>
+                  </instances>
+
+                  <field id="displayName" in-title="yes" display-name="yes">
+                    <selector>.csc-placeAuthority-displayName</selector>
+                    <title-selector>.csc-titleBar-displayName</title-selector>
+                  </field>
+
+                  <field id="name">
+                    <selector>.csc-placeAuthority-name</selector>
+                  </field>
+
+                  <field id="nameType">
+                    <selector>.csc-placeAuthority-nameType</selector>
+                  </field>
+                  <field id="nameStatus">
+                    <selector>.csc-placeAuthority-nameStatus</selector>
+                    <options>
+                      <option id="current">Current</option>
+                      <option id="dialect">Dialect</option>
+                      <option id="historical">Historical</option>
+                        </options>
+                  </field>
+                  <field id="placeCoordinates">
+                    <selector>.csc-placeAuthority-placeCoordinates</selector>
+                  </field>
+                  <field id="placeCoordinatesQualifier">
+                    <selector>.csc-placeAuthority-placeCoordinatesQualifier</selector>
+                  </field>
+                  <field id="coordinatesType">
+                    <selector>.csc-placeAuthority-coordinatesType</selector>
+                    <options>
+                      <option id="altitudedepth">Altitude Depth</option>
+                      <option id="latitudeandlongitude">Latitude and longitude</option>
+                      <option id="nationalgridreference">National Grid reference</option>
+                      <option id="universaltransversemercator">Universal Transverse Mercator</option>
+                        </options>
+                  </field>
+                  <field id="placeStatus">
+                    <selector>.csc-placeAuthority-placeStatus</selector>
+                    <options>
+                         <option id="nationalbattlefield">National battlefield site</option>
+                         <option id="nationalmemorial">National memorial</option>
+                         <option id="nationalmonument">National monument</option>
+                         <option id="nationalpark">National park</option>
+                         <option id="nationalregisterofhistoricalplaces">National register of historic places</option>
+                    </options>
+                  </field>
+                  <field id="note">
+                    <selector>.csc-placeAuthority-note</selector>
+                  </field>
+                  <field id="owner" autocompete="person-person">
+                    <selector>.csc-placeAuthority-owner</selector>
+                  </field>
+                  <field id="termStatus">
+                    <selector>.csc-placeAuthority-termStatus</selector>
+                    <options>
+                      <option id="provisional">Provisional</option>
+                      <option id="under review">Under Review</option>
+                      <option id="accepted">Accepted</option>
+                      <option id="rejected">Rejected</option>
+                    </options>
+                  </field>
+
+                </record>
+-->
+
+            <!-- XXX uispec Urls have been edited/fixed to match those been generated by this xml for the time being -->
+            <record id="person" type="authority,compute-displayname">
+                <terms-used>false</terms-used>
+                <!-- XXX servcie layer doesn't currently support person terms but it does on  organisations - go figure -->
+                <web-url>person</web-url>
+                <services-tenant-auth-singular>Personauthority</services-tenant-auth-singular>
+                <services-tenant-auth-plural>Personauthorities</services-tenant-auth-plural>
+                <services-tenant-singular>Person</services-tenant-singular>
+                <services-instances-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities-common-list/personauthority-list-item</services-instances-path>
+                <services-single-instance-path>personauthorities_common:http://collectionspace.org/services/person,personauthorities_common</services-single-instance-path>
+                <services-list-path>http://collectionspace.org/services/person,persons-common-list/person_list_item</services-list-path>
+                <services-record-path>persons_common:http://collectionspace.org/services/person,persons_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-url>personauthorities</services-url>
+                <authority-vocab-type>PersonAuthority</authority-vocab-type>
+                <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
+                <vocab-syntax>urn:cspace:name</vocab-syntax>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                </structures>
+                <instances>
+                    <instance id="person-person">
+                        <web-url>person</web-url>
+                        <title-ref>person</title-ref>
+                        <title>Default Person Authority</title>
+                    </instance>
+                    <instance id="person-test1">
+                        <web-url>persontest1</web-url>
+                        <title-ref>persontest1</title-ref>
+                        <title>Test Person Authority</title>
+                    </instance>
+                    <instance id="person-test2">
+                        <web-url>persontest2</web-url>
+                        <title-ref>persontest2</title-ref>
+                        <title>Test Person Authority</title>
+                    </instance>
+                </instances>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section id="personNameAuthorityInformation">
+                    <field id="displayName" in-title="yes" display-name="yes">
+                        <selector>.csc-personAuthority-displayName</selector>
+                        <title-selector>.csc-titleBar-displayName</title-selector>
+                    </field>
+                    <field id="termStatus" seperate_ui_container="true">
+                        <selector>.csc-personAuthority-status</selector>
+                        <options>
+                            <option id="provisional" default="yes">Provisional</option>
+                            <option id="under review">Under Review</option>
+                            <option id="accepted">Accepted</option>
+                            <option id="rejected">Rejected</option>
+                        </options>
+                    </field>
+                    <field id="salutation">
+                        <selector>.csc-personAuthority-salutation</selector>
+                        <options>
+                            <option id="dear">Dear</option>
+                            <option id="hello">Hello</option>
+                            <option id="to">To</option>
+                        </options>
+                    </field>
+                    <field id="title">
+                        <selector>.csc-personAuthority-title</selector>
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="Mr">Mr</option>
+                            <option id="Mrs">Mrs</option>
+                            <option id="Ms">Ms</option>
+                            <option id="Miss">Miss</option>
+                            <option id="Dr">Dr</option>
+                            <option id="Professor">Professor</option>
+                            <option id="Sir">Sir</option>
+                            <option id="Dame">Dame</option>
+                            <option id="Baron">Baron</option>
+                            <option id="Baroness">Baroness</option>
+                            <option id="Lord">Lord</option>
+                            <option id="Lady">Lady</option>
+                        </options>
+                    </field>
+                    <field id="foreName" mini="list,search,relate,terms">
+                        <selector>.csc-personAuthority-foreName</selector>
+                    </field>
+                    <field id="middleName">
+                        <selector>.csc-personAuthority-middleName</selector>
+                    </field>
+                    <field id="surName" mini="list,search,relate,terms">
+                        <selector>.csc-personAuthority-surName</selector>
+                    </field>
+                    <field id="nameAdditions">
+                        <selector>.csc-personAuthority-nameAdditions</selector>
+                    </field>
+                    <field id="initials">
+                        <selector>.csc-personAuthority-initials</selector>
+                    </field>
+                    <field id="gender" seperate_ui_container="true">
+                        <selector>.csc-personAuthority-gender</selector>
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="male">Male</option>
+                            <option id="female">Female</option>
+                        </options>
+                    </field>
+                    <repeat id="occupations">
+                        <selector>.csc-personAuthority-occupation</selector>
+                        <field id="occupation">
+                            <selector>.csc-personAuthority-occupation</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="schoolsOrStyles">
+                        <selector>.csc-personAuthority-schoolOrStyle</selector>
+                        <field id="schoolOrStyle">
+                            <selector>.csc-personAuthority-schoolOrStyle</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="groups">
+                        <selector>.csc-personAuthority-group</selector>
+                        <field id="group">
+                            <selector>.csc-personAuthority-group</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="nationalities">
+                        <selector>.csc-personAuthority-nationality</selector>
+                        <field id="nationality">
+                            <selector>.csc-personAuthority-nationality</selector>
+                        </field>
+                    </repeat>
+                    <field id="nameNote">
+                        <selector>.csc-personAuthority-nameNote</selector>
+                    </field>
+                    <field id="birthDate" in-title="yes" ui-type="date">
+                        <selector>.csc-personAuthority-birthDate</selector>
+                        <title-selector>.csc-titleBar-birthDate</title-selector>
+                    </field>
+                    <field id="birthPlace">
+                        <selector>.csc-personAuthority-birthPlace</selector>
+                    </field>
+                    <field id="deathDate" in-title="yes" ui-type="date">
+                        <selector>.csc-personAuthority-deathDate</selector>
+                        <title-selector>.csc-titleBar-deathDate</title-selector>
+                    </field>
+                    <field id="deathPlace">
+                        <selector>.csc-personAuthority-deathPlace</selector>
+                    </field>
+                    <field id="bioNote">
+                        <selector>.csc-personAuthority-bioNote</selector>
+                    </field>
+                </section>
+                <section id="contactInformation">
+                    <group id="contact" userecord="contact" exists-in-services="false"></group>
+                </section>
+                <!-- not used in UI -->
+                <section >
+                    <field id="shortIdentifier"></field>
+                    <field id="name">
+                        <selector>.csc-personAuthority-name</selector>
+                    </field>
+                </section>
+            </record>
+
+            <record id="location" in-recordlist="no"  type="authority,compute-displayname">
+                <web-url>location</web-url>
+                <services-tenant-plural>Locationauthorities</services-tenant-plural>
+                <services-tenant-singular>Locationauthority</services-tenant-singular>
+                <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities-common-list/locationauthority-list-item</services-instances-path>
+                <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locations_common</services-single-instance-path>
+                <services-list-path>http://collectionspace.org/services/location,locations-common-list/location_list_item</services-list-path>
+                <services-record-path>locations_common:http://collectionspace.org/services/location,locations_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-url>locationauthorities</services-url>
+                <authority-vocab-type>LocationAuthority</authority-vocab-type>
+                <authorization-view>false</authorization-view>
+                <urn-syntax>urn:cspace:org.collectionspace.demo:locationauthority:{vocab}:location:{entry}'{display}'</urn-syntax>
+                <structures>
+                    <structure id="screen"></structure>
+                </structures>
+                <instances>
+                    <instance id="location-location">
+                        <web-url>location</web-url>
+                        <title-ref>location</title-ref>
+                        <title>Default Storage Location Authority</title>
+                    </instance>
+                </instances>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section>
+                    <field id="displayName" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
+                        <title-selector>.csc-titleBar-displayName</title-selector>
+                    </field>
+                    <field id="shortIdentifier"></field>
+                    <field id="name" mini="summary,list,search,relate,terms"></field>
+                    <field id="termStatus" seperate_ui_container="true">
+                        <options>
+                            <option id="provisional">Provisional</option>
+                            <option id="under review">Under Review</option>
+                            <option id="accepted">Accepted</option>
+                            <option id="rejected">Rejected</option>
+                        </options>
+                    </field>
+                    <field id="conditionNote"></field>
+                    <field id="conditionNoteDate"></field>
+                    <field id="securityNote"></field>
+                    <field id="accessNote"></field>
+                    <field id="address"></field>
+                    <field id="locationType"></field>
+                </section>
+            </record>
+
+            <record id="organization" type="authority,compute-displayname">
+                <web-url>organization</web-url>
+                <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
+                <services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
+                <services-tenant-singular>Organization</services-tenant-singular>
+                <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities-common-list/orgauthority-list-item</services-instances-path>
+                <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
+                <services-list-path>http://collectionspace.org/services/organization,organizations-common-list/organization_list_item</services-list-path>
+                <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-url>orgauthorities</services-url>
+                <authority-vocab-type>OrgAuthority</authority-vocab-type>
+                <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                </structures>
+                <instances>
+                    <instance id="organization-organization">
+                        <web-url>organization</web-url>
+                        <title-ref>organization</title-ref>
+                        <title>Default Organization Authority</title>
+                    </instance>
+                </instances>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section id="organizationNameAuthorityInformation">
+                    <field id="displayName" in-title="yes" display-name="yes" mini="summary,list,search,relate,terms">
+                        <selector>.csc-organizationAuthority-displayName</selector>
+                        <title-selector>.csc-titleBar-displayName</title-selector>
+                    </field>
+                    <field id="termStatus" seperate_ui_container="true">
+                        <selector>.csc-organizationAuthority-status</selector>
+                        <options>
+                            <option id="provisional">Provisional</option>
+                            <option id="under review">Under Review</option>
+                            <option id="accepted">Accepted</option>
+                            <option id="rejected">Rejected</option>
+                        </options>
+                    </field>
+                    <repeat id="mainBodyGroupList/mainBodyGroup">
+                        <field id="longName"> <!-- mini="summary,list,search,relate,terms" moved to displayName -->
+                            <selector>.csc-organizationAuthority-longName</selector>
+                        </field>
+                        <field id="shortName">
+                            <selector>.csc-organizationAuthority-shortName</selector>
+                        </field>
+                        <field id="nameAdditions">
+                            <selector>.csc-organizationAuthority-nameAdditions</selector>
+                        </field>
+                    </repeat>
+                    <field id="foundingDate" ui-type="date" in-title="yes" >
+                        <selector>.csc-organizationAuthority-foundingDate</selector>
+                        <title-selector>.csc-titleBar-foundationDate</title-selector>
+                    </field>
+                    <field id="foundingPlace">
+                        <selector>.csc-organizationAuthority-foundingPlace</selector>
+                    </field>
+                    <field id="dissolutionDate" ui-type="date" in-title="yes" >
+                        <selector>.csc-organizationAuthority-dissolutionDate</selector>
+                        <title-selector>.csc-titleBar-dissolutionDate</title-selector>
+                    </field>
+                    <repeat id="contactNames">
+                        <field id="contactName" autocomplete="person-person">
+                            <selector>.csc-organizationAuthority-contactName</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="subBodies">
+                        <field id="subBody" autocomplete="organization-organization">
+                            <selector>.csc-organizationAuthority-subBodyName</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="groups">
+                        <field id="group" >
+                            <selector>.csc-organizationAuthority-group</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="functions">
+                        <field id="function">
+                            <selector>.csc-organizationAuthority-function</selector>
+                        </field>
+                    </repeat>
+                    <repeat id="historyNotes">
+                        <field id="historyNote">
+                            <selector>.csc-organizationAuthority-history</selector>
+                        </field>
+                    </repeat>
+                </section>
+                <section id="contactInformation">
+                </section>
+                <!-- not used in UI -->
+                <section>
+                    <field id="shortIdentifier"></field>
+                </section>
+            </record>
+
+            <record id="contact" in-recordlist="no" type="authority,compute-displayname">
+                <web-url>contact</web-url>
+                <services-tenant-singular>Contact</services-tenant-singular>
+                <services-instances-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities-common-list/contactauthority-list-item</services-instances-path>
+                <services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
+                <services-list-path>contacts-common-list/contact-list-item</services-list-path>
+                <services-record-path>contacts_common:http://collectionspace.org/services/contact,contacts_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-url>contacts</services-url>
+                <authority-vocab-type>ContactAuthority</authority-vocab-type>
+                <urn-syntax>urn:cspace:org.collectionspace.demo:contactauthority:{vocab}:contact:{entry}'{display}'</urn-syntax>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                </structures>
+                <instances>
+                    <instance id="contact-primary">
+                        <web-url>contact</web-url>
+                        <title-ref>contact</title-ref>
+                        <title>Default Contact Authority</title>
+                    </instance>
+                </instances>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section>
+                    <field id="addressType">
+                        <selector>.csc-contactAuthority-addressType</selector>
+                    </field>
+                    <field id="addressPlace">
+                        <selector>.csc-contactAuthority-addressPlace</selector>
+                    </field>
+                    <field id="web">
+                        <selector>.csc-contactAuthority-web</selector>
+                    </field>
+                    <field id="email">
+                        <selector>.csc-contactAuthority-email</selector>
+                    </field>
+                    <field id="telephoneNumber">
+                        <selector>.csc-contactAuthority-telephoneNumber</selector>
+                    </field>
+                    <field id="faxNumber">
+                        <selector>.csc-contactAuthority-faxNumber</selector>
+                    </field>
+                </section>
+            </record>
+
+            <record id="role" type="authorizationdata">
+                <web-url>role</web-url>
+                <services-tenant-plural>authorization/roles</services-tenant-plural>
+                <services-tenant-singular>Role</services-tenant-singular>
+                <services-url>authorization/roles</services-url>
+                <services-list-path>roles_list/*</services-list-path>
+                <services-record-path>role:http://collectionspace.org/services/authorization,role</services-record-path>
+                <authorization-includes>authorization/roles</authorization-includes>
+                <is-multipart>false</is-multipart>
+                <terms-used>false</terms-used>
+                <refobj-used>false</refobj-used>
+                <services-search-keyword>r</services-search-keyword>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-user-roleList-name</selector>
+                            </field>
+                            <field id="csid" ui-type="list">
+                                <selector>.csc-user-roleList-csid</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <section>
+                    <field id="roleName">
+                        <selector>.csc-role-oldname</selector>
+                    </field>
+                    <field id="displayName" mini="number">
+                        <selector>.csc-role-name</selector>
+                    </field>
+                    <field id="roleGroup">
+                        <selector>.csc-role-group</selector>
+                    </field>
+                    <field id="description" mini="summary">
+                        <selector>.csc-role-description</selector>
+                    </field>
+                    <repeat id="permissions" exists-in-services="false" as-expander="true" as-conditional-expander="true" has-primary="false">
+                        <selector>.csc-permissions-record-row:</selector>
+                        <field id="permission" ui-type="radio" as-expander="true">
+                            <options>
+                                <option id="none">none</option>
+                                <option id="read">read</option>
+                                <option id="write">write</option>
+                                <option id="delete" default="yes">delete</option>
+                            </options>
+                        </field>
+                        <field id="resourceName">
+                        </field>
+                    </repeat>
+                </section>
+            </record>
+
+            <record id="permission" type="authorizationdata">
+                <web-url>permission</web-url>
+                <services-tenant-plural>authorization/permissions</services-tenant-plural>
+                <services-tenant-singular>Permission</services-tenant-singular>
+                <services-url>authorization/permissions</services-url>
+                <services-list-path>permissions_list/*</services-list-path>
+                <services-record-path>permissions_common:http://collectionspace.org/services/authorization,permission</services-record-path>
+                <authorization-includes>authorization/permissions</authorization-includes>
+                <authorization-view>false</authorization-view>
+                <is-multipart>false</is-multipart>
+                <services-search-keyword>res</services-search-keyword>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                        </view>
+                    </structure>
+                </structures>
+                <terms-used>false</terms-used>
+                <section>
+                    <repeat id="actions/action" has-primary="false" xxx-hack-authorization="true">
+                        <field id="name"></field>
+                    </repeat>
+                    <field id="effect"></field>
+                    <field id="actionGroup" mini="number"></field>
+                    <field id="resourceName" mini="summary"></field>
+                </section>
+            </record>
+
+            <record id="userrole" type="authorizationdata">
+                <web-url>userrole</web-url>
+                <services-url>accounts/*/accountroles</services-url>
+                <services-record-path>account_role:http://collectionspace.org/services/authorization,account_role</services-record-path>
+                <services-list-path>account_role/role</services-list-path>
+                <authorization-includes>accounts/accountroles</authorization-includes>
+                <primaryfield>account/accountId</primaryfield>
+                <hasdeletemethod>true</hasdeletemethod>
+                <is-multipart>false</is-multipart>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                        </view>
+                    </structure>
+                </structures>
+                <section>
+                    <group id="account">
+                        <selector>.csc-accountrole-account-row:</selector>
+                        <field id="accountId">
+                            <selector>.csc-accountrole-account-accountid</selector>
+                        </field>
+                        <field id="screenName">
+                            <selector>.csc-accountrole-account-screenname</selector>
+                        </field>
+                        <field id="userId">
+                            <selector>.csc-accountrole-account-userid</selector>
+                        </field>
+                    </group>
+                    <repeat id="roles/role" has-primary="false" xxx-hack-authorization="true">
+                        <selector>.csc-accountrole-roles-row</selector>
+                        <field id="roleId">
+                            <selector>.csc-accountrole-role-roleid</selector>
+                        </field>
+                        <field id="roleName">
+                            <selector>.csc-accountrole-account-rolename</selector>
+                        </field>
+                    </repeat>
+                </section>
+            </record>
+
+            <record id="userperm" type="authorizationdata">
+                <services-tenant-plural>authorization/roles/accountroles</services-tenant-plural>
+                <services-tenant-singular>AccountRole</services-tenant-singular>
+                <services-url>accounts/*/accountperms</services-url>
+                <services-list-path>account_permission/permission</services-list-path>
+                <services-record-path>account_permission:http://collectionspace.org/services/authorization,account_permission</services-record-path>
+                <primaryfield>account/accountId</primaryfield>
+                <hasdeletemethod>true</hasdeletemethod>
+                <is-multipart>false</is-multipart>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                    </structure>
+                </structures>
+                <section>
+                    <group id="account">
+                        <field id="accountId">
+                        </field>
+                        <field id="screenName">
+                        </field>
+                        <field id="userId">
+                        </field>
+                    </group>
+                    <repeat id="permissions/permission" has-primary="false" xxx-hack-authorization="true">
+                        <field id="permissionId">
+                        </field>
+                        <field id="resourceName">
+                        </field>
+                        <field id="actionGroup">
+                        </field>
+                    </repeat>
+                </section>
+            </record>
+
+            <record id="permrole" type="authorizationdata">
+                <is-multipart>false</is-multipart>
+                <services-tenant-plural>authorization/permissions/permroles</services-tenant-plural>
+                <services-tenant-singular>PermissionRole</services-tenant-singular>
+                <services-url>authorization/roles/*/permroles</services-url>
+                <services-list-path>permission_role/permission</services-list-path>
+                <services-record-path>permission_role:http://collectionspace.org/services/authorization,permission_role</services-record-path>
+                <authorization-includes>authorization/roles/permroles</authorization-includes>
+                <primaryfield>role/roleId</primaryfield>
+                <hasdeletemethod>true</hasdeletemethod>
+                <is-multipart>false</is-multipart>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                    </structure>
+                </structures>
+                <section>
+                    <group id="role">
+                        <field id="roleId">
+                        </field>
+                        <field id="roleName">
+                        </field>
+                    </group>
+                    <repeat id="permissions/permission" has-primary="false" xxx-hack-authorization="true">
+                        <field id="permissionId">
+                        </field>
+                        <field id="resourceName">
+                        </field>
+                        <field id="actionGroup">
+                        </field>
+                    </repeat>
+                </section>
+            </record>
+
+            <record id="users" type="userdata">
+                <is-multipart>false</is-multipart>
+                <web-url>users</web-url>
+                <services-tenant-singular>Account</services-tenant-singular>
+                <services-url>accounts</services-url>
+                <services-record-path>:http://collectionspace.org/services/account,accounts_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-list-path>accounts-common-list/account-list-item</services-list-path>
+                <structures>
+                    <structure id="screen">
+                        <!-- screen|print|blackberry etc -->
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="screenName" ui-type="list">
+                                <selector>.csc-user-userList-name</selector>
+                            </field>
+                            <field id="status" ui-type="list">
+                                <selector>.csc-user-userList-status</selector>
+                            </field>
+                            <field id="csid" ui-type="list">
+                                <selector>.csc-user-userList-csid</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section>
+                    <field id="userId">
+                        <services-filter-param>uid</services-filter-param>
+                        <selector>.csc-user-userID</selector>
+                    </field>
+                    <field id="screenName">
+                        <services-filter-param>sn</services-filter-param>
+                        <selector>.csc-user-userName</selector>
+                    </field>
+                    <field id="password">
+                        <selector>.csc-user-password</selector>
+                    </field>
+                    <field id="email">
+                        <services-filter-param>email</services-filter-param>
+                        <selector>.csc-user-email</selector>
+                    </field>
+                    <field id="createdAt" />
+                    <field id="status" seperate_ui_container="true">
+                        <selector>.csc-user-status</selector>
+                        <options>
+                            <option id="active" default="yes">Active</option>
+                            <option id="inactive">Inactive</option>
+                        </options>
+                    </field>
+                    <repeat id="role" exists-in-services="false" as-expander="true" has-primary="false">
+                        <selector>.csc-accountrole-roles-row:</selector>
+                        <field id="roleName"></field>
+                        <field id="roleGroup"></field>
+                        <field id="roleId"></field>
+                        <field id="roleSelected"></field>
+                    </repeat>
+                </section>
+            </record>
+
+            <record id="loanout" in-findedit="yes" type="record,procedure">
+                <services-url>loansout</services-url>
+                <services-tenant-plural>Loansout</services-tenant-plural>
+                <services-tenant-singular>Loanout</services-tenant-singular>
+                <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
+                <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="true">
+                                <repeat id="termsUsed" show="true"></repeat>
+                                <repeat id="relatedProcedures" show="true"></repeat>
+                                <repeat id="relatedObjects" show="true"></repeat>
+                            </sidebar>
+                            <edit-section show="true"></edit-section>
+                            <list-section show="false"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="termsUsed" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="linktext" ui-type="linktext">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                            <field id="recordtype" ui-type="list">
+                                <selector>.csc-related-recordtype</selector>
+                            </field>
+                            <field id="sourceFieldName" ui-type="list">
+                                <selector>.csc-related-field</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <row-selector>.csc-recordList-row:</row-selector>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section id="loanoutInformation">
+                    <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                        <title-selector>.csc-titleBar-loanOutNumber</title-selector>
+                        <selector>.csc-loanOut-loanOutNumber</selector>
+                        <container-selector>.csc-loanOut-loanOutNumber-patternChooserContainer</container-selector>
+                        <options>
+                            <option id="loanout" sample="LO2010.1">Loan Out</option>
+                        </options>
+                    </field>
+                    <field id="borrower" autocomplete="person-person,organization-organization" mini="summary,list" in-title="yes">
+                        <selector>.csc-loanOut-borrower</selector>
+                    </field>
+                    <field id="borrowersContact" autocomplete="person-person">
+                        <selector>.csc-loanOut-borrowersContact</selector>
+                    </field>
+                    <field id="specialConditionsOfLoan">
+                        <selector>.csc-loanOut-loanOutConditions</selector>
+                    </field>
+                    <field id="loanPurpose" seperate_ui_container="true">
+                        <selector>.csc-loanOut-loanPurpose</selector>
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="exhibition">Exhibition</option>
+                            <option id="research">Research</option>
+                            <option id="scientificorexhibitpreparation">Scientific or exhibit preparation</option>
+                            <option id="analysis">Analysis</option>
+                            <option id="photography">Photography</option>
+                            <option id="conservationotherrequestedservices">Conservation or other requested services</option>
+                            <option id="longtermcollectionsmanagementandstorage">Long-term collections management and storage</option>
+                        </options>
+                    </field>
+                    <field id="lendersAuthorizer" autocomplete="person-person">
+                        <selector>.csc-loanOut-lendersAuthorizer</selector>
+                    </field>
+                    <field id="lendersContact" autocomplete="person-person">
+                        <selector>.csc-loanOut-lendersContact</selector>
+                    </field>
+                    <field id="lendersAuthorizationDate" ui-type="date">
+                        <selector>.csc-loanOut-lendersAuthorizationDate</selector>
+                    </field>
+                    <field id="loanOutNote">
+                        <selector>.csc-loanOut-loanOutNote</selector>
+                    </field>
+                    <repeat id="loanedObjectStatusGroupList/loanedObjectStatusGroup">
+                        <field id="loanedObjectStatus" autocomplete="vocab-lostatus" ui-type="enum">
+                            <selector>.csc-loanOut-loanedObjectStatus</selector>
+                        </field>
+                        <field id="loanedObjectStatusDate" ui-type="date">
+                            <selector>.csc-loanOut-loanedObjectStatusDate</selector>
+                        </field>
+                        <field id="loanedObjectStatusNote">
+                            <selector>.csc-loanOut-loanedObjectStatusNote</selector>
+                        </field>
+                    </repeat>
+                    <field id="loanOutDate" ui-type="date">
+                        <selector>.csc-loanOut-loanOutDate</selector>
+                    </field>
+                    <field id="loanReturnDate" ui-type="date">
+                        <selector>.csc-loanOut-loanReturnDate</selector>
+                    </field>
+                    <field id="loanRenewalApplicationDate" ui-type="date">
+                        <selector>.csc-loanOut-loanRenewalApplicationDate</selector>
+                    </field>
+                </section>
+            </record>
+
+            <record id="movement" in-findedit="yes" type="record,procedure">
+                <services-url>movements</services-url>
+                <web-url>movement</web-url>
+                <tab-url>movement-tab</tab-url>
+                <services-tenant-singular>Movement</services-tenant-singular>
+                <services-list-path>movements-common-list/movement-list-item</services-list-path>
+                <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <structures>
+                    <structure id="screen">
+                        <label-section id="messagekeys" show="true"></label-section>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <row-selector>.csc-recordList-row:</row-selector>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section id="locationMovementInformation">
+                    <!--  Object Location Information Group -->
+                    <field id="currentLocation" in-title="yes" mini="summary,search,list,relate,terms">
+                        <title-selector>.csc-titleBar-currentLocation</title-selector>
+                    </field>
+                    <field id="currentLocationFitness">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="dangerous">Dangerous</option>
+                            <option id="suitable">Suitable</option>
+                            <option id="temporary">Temporary</option>
+                            <option id="unsuitable">Unsuitable</option>
+                        </options>
+                    </field>
+                    <field id="currentLocationNote"></field>
+                    <field id="locationDate" in-title="yes" ui-type="date">
+                        <selector>.csc-movement-locationDate</selector>
+                    </field>
+                    <field id="normalLocation"></field>
+                </section>
+                <section id="movementControlInformation">
+                    <!--  Movement Information Group -->
+                    <field id="movementReferenceNumber" chooser="yes" in-title="no" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                        <options>
+                            <option id="movement" sample="MV2010.001">Movement</option>
+                        </options>
+                    </field>
+                    <field id="plannedRemovalDate" ui-type="date"></field>
+                    <field id="removalDate" ui-type="date">
+                        <selector>.csc-movement-removalDate</selector>
+                    </field>
+                    <field id="reasonForMove">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="conservation">Conservation</option>
+                            <option id="exhibition">Exhibition</option>
+                            <option id="inventory">Inventory</option>
+                            <option id="loan">Loan</option>
+                            <option id="newstoragelocation">New Storage Location</option>
+                            <option id="photography">Photography</option>
+                            <option id="research">Research</option>
+                        </options>
+                    </field>
+                    <field id="movementContact" autocomplete="person-person"></field>
+                    <repeat id="movementMethods">
+                        <field id="movementMethod">
+                            <selector>.csc-movement-movementMethods</selector>
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="forklift">Forklift</option>
+                                <option id="handcarried">Handcarried</option>
+                                <option id="trolley">Trolley</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <field id="movementNote"></field>
+                </section>
+            </record>
+
+            <record id="dimension" in-recordlist="no">
+                <section>
+                    <field id="dimension">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="area">Area</option>
+                            <option id="base">Base</option>
+                            <option id="circumference">Circumference</option>
+                            <option id="count">Count</option>
+                            <option id="depth">Depth</option>
+                            <option id="diameter">Diameter</option>
+                            <option id="height">Height</option>
+                            <option id="length">Length</option>
+                            <option id="running_time">Running Time</option>
+                            <option id="target">Target</option>
+                            <option id="volume">Volume</option>
+                            <option id="weight">Weight</option>
+                            <option id="width" >Width</option>
+                        </options>
+                    </field>
+                    <field id="measuredBy" autocomplete="person-person,organization-organization"></field>
+                    <field id="measurementUnit">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="carats">Carats</option>
+                            <option id="centimeters">Centimeters</option>
+                            <option id="cubic_centimeters">Cubic Centimeters</option>
+                            <option id="feet">Feet</option>
+                            <option id="inches">Inches</option>
+                            <option id="kilograms">Kilograms</option>
+                            <option id="liters">Liters</option>
+                            <option id="millimeters">Millimeters</option>
+                            <option id="meters">Meters</option>
+                            <option id="minutes">Minutes</option>
+                            <option id="pixels">Pixels</option>
+                            <option id="square_feet">Square Feet</option>
+                            <option id="stories">Stories</option>
+                        </options>
+                    </field>
+                    <field id="measurementMethod">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="microscopy_reticule">Microscopy (reticule)</option>
+                            <option id="standard_mesh_screen">Standard Mesh/Screen</option>
+                            <option id="sliding_calipers">Sliding Calipers</option>
+                            <option id="spreading_calipers">Spreading Calipers</option>
+                            <option id="measuring_tape_cloth">Measuring Tape (cloth)</option>
+                            <option id="measuring_tape_metal">Measuring Tape (metal)</option>
+                            <option id="osteometric_board">Osteometric Board</option>
+                            <option id="ruler">Ruler</option>
+                            <option id="pacing_pedometer">Pacing Pedometer</option>
+                            <option id="odometer">Odometer</option>
+                            <option id="taping_chaining">Taping/Thaining</option>
+                            <option id="stadia_transit">Stadia/Transit</option>
+                            <option id="optical_range_finder">Optical Range Finder</option>
+                            <option id="electronic_distance_measurement">Electronic Distance Measurement</option>
+                            <option id="protractor">Protractor</option>
+                            <option id="goniometer">Goniometer</option>
+                            <option id="theodolite_total_station">Theodolite/Total Station</option>
+                            <option id="balance_beam_scale">Balance/Beam Scale</option>
+                            <option id="spring_scale">Spring Scale</option>
+                            <option id="hydraulic_or_pneumatic_scale">Hydraulic or Pneumatic Scale</option>
+                        </options>
+                    </field>
+                    <field id="value"></field>
+                    <field id="valueQualifier"></field>
+                    <field id="valueDate" ui-type="date"></field>
+                </section>
+            </record>
+            <record id="blobs" in-recordlist="no">
+                <terms-used>false</terms-used>
+                <refobj-used>false</refobj-used>
+            	<services-record-path>blobs_common://collectionspace.org/services/blob,blobs_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				<services-list-path>abstract-common-list/list-item</services-list-path>
+
+                <section>
+                    <field id="encoding"></field>
+                    <field id="mime-type"></field>
+                    <field id="data"></field>
+                    <field id="name"></field>
+                    <field id="length"></field>
+                    <field id="digest"></field>
+                    <field id="uri"></field>
+                    <field id="id"></field>
+                </section>
+            </record>
+
+            <record id="media" in-findedit="yes" type="procedure,record">
+				<services-record-path>media_common:http://collectionspace.org/services/media,media_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+				<services-list-path>abstract-common-list/list-item</services-list-path>
+
+                <structures>
+                    <structure id="screen"></structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section id="mediaInformation">
+                    <field id="filename"></field>
+                    <field id="location"></field>
+                    <field id="format"></field>
+                    <field id="dateCreated"></field>
+                    <field id="dateModified"></field>
+                    <field id="dimensionSummary"></field>
+                    <repeat id="dimensionGroupList/dimensionGroup">
+                   		<field id="dimension">
+                        	<options>
+                            	<option id="" default="yes">Please select a value</option>
+                            	<option id="area">Area</option>
+                            	<option id="base">Base</option>
+                            	<option id="circumference">Circumference</option>
+                            	<option id="count">Count</option>
+                            	<option id="depth">Depth</option>
+                            	<option id="diameter">Diameter</option>
+                            	<option id="height">Height</option>
+                            	<option id="length">Length</option>
+                            	<option id="running_time">Running Time</option>
+                            	<option id="target">Target</option>
+                            	<option id="volume">Volume</option>
+                            	<option id="weight">Weight</option>
+                            	<option id="width" >Width</option>
+                        	</options>
+                    	</field>
+                    <field id="measuredBy" autocomplete="person-person,organization-organization"></field>
+                    <field id="measurementUnit">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="carats">Carats</option>
+                            <option id="centimeters">Centimeters</option>
+                            <option id="cubic_centimeters">Cubic Centimeters</option>
+                            <option id="feet">Feet</option>
+                            <option id="inches">Inches</option>
+                            <option id="kilograms">Kilograms</option>
+                            <option id="liters">Liters</option>
+                            <option id="millimeters">Millimeters</option>
+                            <option id="meters">Meters</option>
+                            <option id="minutes">Minutes</option>
+                            <option id="pixels">Pixels</option>
+                            <option id="square_feet">Square Feet</option>
+                            <option id="stories">Stories</option>
+                        </options>
+                    </field>
+                    <field id="measurementMethod">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="microscopy_reticule">Microscopy (reticule)</option>
+                            <option id="standard_mesh_screen">Standard Mesh/Screen</option>
+                            <option id="sliding_calipers">Sliding Calipers</option>
+                            <option id="spreading_calipers">Spreading Calipers</option>
+                            <option id="measuring_tape_cloth">Measuring Tape (cloth)</option>
+                            <option id="measuring_tape_metal">Measuring Tape (metal)</option>
+                            <option id="osteometric_board">Osteometric Board</option>
+                            <option id="ruler">Ruler</option>
+                            <option id="pacing_pedometer">Pacing Pedometer</option>
+                            <option id="odometer">Odometer</option>
+                            <option id="taping_chaining">Taping/Thaining</option>
+                            <option id="stadia_transit">Stadia/Transit</option>
+                            <option id="optical_range_finder">Optical Range Finder</option>
+                            <option id="electronic_distance_measurement">Electronic Distance Measurement</option>
+                            <option id="protractor">Protractor</option>
+                            <option id="goniometer">Goniometer</option>
+                            <option id="theodolite_total_station">Theodolite/Total Station</option>
+                            <option id="balance_beam_scale">Balance/Beam Scale</option>
+                            <option id="spring_scale">Spring Scale</option>
+                            <option id="hydraulic_or_pneumatic_scale">Hydraulic or Pneumatic Scale</option>
+                        </options>
+                    </field>
+                    <field id="value"></field>
+                    <field id="valueQualifier"></field>
+                    <field id="valueDate" ui-type="date"></field>
+                    </repeat>
+                    <field id="title"></field>
+                    <field id="contributor" autocomplete="person-person,organization-organization"></field>
+                    <field id="creator" autocomplete="person-person,organization-organization"></field>
+                    <repeat id="languages">
+                    	<services-tag>languageList</services-tag>
+                        <field id="language" autocomplete="vocab-languages" ui-type="enum"></field>
+                    </repeat>
+                    <field id="publisher" autocomplete="person-person,organization-organization"></field>
+                    <repeat id="relations">
+                    	<services-tag>relationList</services-tag>
+                        <field id="relation"></field>
+                    </repeat>
+                    <field id="copyrightStatement"></field>
+                    <field id="identificationNumber" chooser="yes" in-title="yes" mini="number" seperate_ui_container="true">
+                        <options>
+                            <option id="media" sample="MR2011.1.1">Media Resource</option>
+                        </options>
+                    </field>
+                    <repeat id="types">
+                    	<services-tag>typeList</services-tag>
+                        <field id="type">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="dataset" >Dataset</option>
+                                <option id="document" >Document</option>
+                                <option id="moving_image" >Moving Image</option>
+                                <option id="still_image" >Still Image</option>
+                                <option id="sound" >Sound</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <field id="coverage"></field>
+                    <repeat id="dates">
+                    	<services-tag>dateList</services-tag>
+                        <field id="date" ui-type="date"></field>
+                    </repeat>
+                    <field id="source"></field>
+                    <repeat id="subjects">
+                    	<services-tag>subjectList</services-tag>
+                        <field id="subject"></field>
+                    </repeat>
+                    <field id="rightsHolder" autocomplete="person-person,organization-organization"></field>
+                    <field id="description"></field>
+                </section>
+                <!-- not used in ui yet -->
+                <section>
+                    <field id="uri"></field>
+					<field id="srcUri"></field>
+                    <field id="blobCsid"></field>
+                    <group id="blobs" userecord="blobs" serviceurl="blob" onlyifexists="blobCsid" attributes="GET"></group>
+                </section>
+            </record>
+
+            <!-- CSPACE-3209 added objectexit record. -->
+            <record id="objectexit" in-findedit="yes" type="record,procedure">
+                <!-- Added this tag because services path is currently singular for Object Exit. -->
+                <services-url>objectexit</services-url>
+                <services-tenant-plural>ObjectExit</services-tenant-plural>
+                <services-tenant-singular>ObjectExit</services-tenant-singular>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
+                <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <row-selector>.csc-recordList-row:</row-selector>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                </section>
+                <section id="objectexitInformation">
+                    <!--  Object Exit Information Group -->
+                    <field id="exitNumber" chooser="yes" in-title="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                        <options>
+                            <option id="objectexit" sample="EX2010.1">Object Exit</option>
+                        </options>
+                    </field>
+                    <field id="currentOwner" autocomplete="person-person,organization-organization"
+                           mini="summary,list" in-title="yes">
+                    </field>
+                    <field id="depositor" autocomplete="person-person,organization-organization"></field>
+                    <field id="exitDate" ui-type="date"></field>
+                    <repeat id="exitMethods">
+                        <field id="exitMethod">
+                            <selector>.csc-objectexit-exitMethods</selector>
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="courier">Courier</option>
+                                <option id="inperson">In Person</option>
+                                <option id="post">Post</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <field id="exitNote"></field>
+                    <field id="exitReason">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="deaccession">Deaccession</option>
+                            <option id="disposal">Disposal</option>
+                            <option id="returnofloan">Return of Loan</option>
+                        </options>
+                    </field>
+                    <field id="packingNote"></field>
+                </section>
+            </record>
+
+            <record id="id" type="id">
+                <services-tenant-plural>id</services-tenant-plural>
+                <services-tenant-singular>id</services-tenant-singular>
+                <authorization-view>false</authorization-view>
+                <section>
+                    <field id="accession"><selector>9dd92952-c384-44dc-a736-95e435c1759c</selector></field>
+                    <field id="archive"><selector>70586d30-9dca-4a07-a3a2-1976fe898028</selector></field>
+                    <field id="evaluation"><selector>d2d80822-25c7-4c7c-a105-fc40cdb0c50f</selector></field>
+                    <field id="intake"><selector>8088cfa5-c743-4824-bb4d-fb11b12847f7</selector></field>
+                    <field id="library"><selector>80fedaf6-1647-4f30-9f53-a75a3cac2ffd</selector></field>
+                    <field id="loanin"><selector>ed87e7c6-0678-4f42-9d33-f671835586ef</selector></field>
+                    <field id="loanout"><selector>4b984865-f93d-4481-b874-3dba863ec589</selector></field>
+                    <field id="study"><selector>0518132e-dd8c-4773-8fa9-07c9af4444ee</selector></field>
+                    <field id="movement"><selector>49ca9d8d-7136-47ff-a70e-4a47b9038b70</selector></field>
+                    <field id="objectexit"><selector>d4eea707-d473-4367-853a-728fbcd9be17</selector></field>
+                    <field id="media"><selector>cd91d8b8-f346-4925-a425-93e02bd1c5c9</selector></field>
+                    <!-- not obviously used -->
+                    <field id="accession-activity"><selector>1a67470b-19b1-4ae3-88d4-2a0aa936270e</selector></field>
+                    <field id="intake-object"><selector>a91db555-5c53-4996-9918-6712351397a0</selector></field>
+                    <field id="uuid"><selector>1fa40353-05b8-4ae6-82a6-44a18b4f3c12</selector></field>
+                    <!--
+                        This is the type for id generators - if you add a new record type that has an id_generator you need to:
+                        log into cspace db and look at table id_generators and find the csid for the record type
+                        use that id here
+                        and magically it will all work
+                        the field id is the id used in the option tag e.g.
+                        <options>
+                            <option id="intake" sample="IN2009.1.1">Intake</option>
+                            <option id="accession" sample="2009.1.1">Accession</option>
+                            <option id="loanin" sample="LI2009.1.1">Loans In</option>
+                        </options>
+                        currently inherits most functionality from normal Record functionality -->
+                </section>
+            </record>
+
+            <record id="vocab" in-recordlist="no" type="authority">
+                <terms-used>false</terms-used>
+                <refobj-used>false</refobj-used>
+                <web-url>vocab</web-url>
+                <services-tenant-auth-plural>Vocabularies</services-tenant-auth-plural>
+                <services-tenant-auth-singular>Vocabulary</services-tenant-auth-singular>
+                <services-tenant-singular>Vocabularyitem</services-tenant-singular>
+                <services-instances-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies-common-list/vocabulary-list-item</services-instances-path>
+                <services-single-instance-path>vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-single-instance-path>
+                <services-list-path>http://collectionspace.org/services/vocabulary,vocabularyitems-common-list/vocabularyitem_list_item</services-list-path>
+                <services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-url>vocabularies</services-url>
+                <authority-vocab-type>enum</authority-vocab-type>
+                <urn-syntax>urn:cspace:org.collectionspace.demo:vocabulary:{vocab}:item:{entry}'{display}'</urn-syntax>
+                <structures>
+                    <structure id="screen"></structure>
+                </structures>
+                <instances>
+                    <instance id="vocab-xxx">
+                        <web-url>xxx</web-url>
+                        <title-ref>xxx</title-ref>
+                        <title>Temporary Vocab whilst none exist</title>
+                    </instance>
+                    <instance id="vocab-languages">
+                        <web-url>languages</web-url>
+                        <title-ref>languages</title-ref>
+                        <title>My first list</title>
+                        <options>
+                            <option id="eng">English</option>
+                            <option id="spn">Spanish</option>
+                            <option>French</option>
+                            <option>Italian</option>
+                            <option>Portuguese</option>
+                            <option>German</option>
+                            <option>Russian</option>
+                            <option>Arabic</option>
+                            <option>Chinese</option>
+                            <option>Hebrew</option>
+                            <option>Japanese</option>
+                            <option>Korean</option>
+                            <option>Swahili</option>
+                            <option>Ancient Greek</option>
+                            <option>Latin</option>
+                            <option>Old English</option>
+                            <option>Middle English</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-lostatus">
+                        <web-url>loanoutstatus</web-url>
+                        <title-ref>loanoutstatus</title-ref>
+                        <title>loanedObjectStatus</title>
+                        <options>
+                            <option>Requested</option>
+                            <option>Authorized</option>
+                            <option>Agreed</option>
+                            <option>Conservation</option>
+                            <option>Sent</option>
+                            <option>Photography requested</option>
+                            <option>Refused</option>
+                            <option>Renewed</option>
+                            <option>Returned</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-currency">
+                        <web-url>currency</web-url>
+                        <title-ref>currency</title-ref>
+                        <title>Standard Currency</title>
+                        <options>
+                            <option id="USD">US Dollar</option>
+                            <option>Canadian Dollar</option>
+                            <option id="EUR">Euro</option>
+                            <option id="GBP">Pound Sterling</option>
+                            <option>Danish Krone</option>
+                            <option>Swedish Krona</option>
+                            <option>Swiss Franc</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-collectionmethod">
+                        <web-url>collectionmethod</web-url>
+                        <title-ref>collectionmethod</title-ref>
+                        <title>Collection Method</title>
+                        <options>
+                            <option id="borehole">borehole</option>
+                            <option id="commissioned">commissioned</option>
+                            <option id="exchanged">exchanged</option>
+                            <option id="founddead">found dead</option>
+                            <option id="metaldetector">metal detector</option>
+                            <option id="netted">netted</option>
+                            <option id="photographed">photographed</option>
+                            <option id="purchased">purchased</option>
+                            <option id="salvaged">salvaged</option>
+                            <option id="shot">shot</option>
+                            <option id="trapped">trapped</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-conditionfitness">
+                        <web-url>conditionfitness</web-url>
+                        <title-ref>conditionfitness</title-ref>
+                        <title>Condition Fitness</title>
+                        <options>
+                            <option id="dangerous">Dangerous</option>
+                            <option id="suitable">Suitable</option>
+                            <option id="reasonable">Reasonable</option>
+                            <option id="unsuitable">Unsuitable</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-conditioncheckmethod">
+                        <web-url>conditioncheckmethod</web-url>
+                        <title-ref>conditioncheckmethod</title-ref>
+                        <title>Condition Check Method</title>
+                        <options>
+                            <option id="observed">Observed</option>
+                            <option id="xrayed">X-Rayed</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-entrymethod">
+                        <web-url>entrymethod</web-url>
+                        <title-ref>entrymethod</title-ref>
+                        <title>Entry Method</title>
+                        <options>
+                            <option id="inperson">In person</option>
+                            <option id="post">Post</option>
+                            <option id="foundondoorstep">Found on doorstep</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-conditioncheckreason">
+                        <web-url>conditioncheckreason</web-url>
+                        <title-ref>conditioncheckreason</title-ref>
+                        <title>Condition Check Reason</title>
+                        <options>
+                            <option id="consideration">Consideration</option>
+                            <option id="damagedintransit">Damaged in transit</option>
+                            <option id="enquiry">Enquiry</option>
+                            <option id="loanin">Loan in</option>
+                            <option id="conservation">Conservation</option>
+                        </options>
+                    </instance>
+                </instances>
+                <section>
+                    <field id="displayName" in-title="yes" display-name="yes">
+                        <selector>.csc-vocabulary-displayName</selector>
+                        <title-selector>.csc-titleBar-displayName</title-selector>
+                    </field>
+                    <field id="termStatus" seperate_ui_container="true">
+                        <selector>.csc-vocabulary-status</selector>
+                        <options>
+                            <option id="provisional" default="yes">Provisional</option>
+                            <option id="under-review">Under Review</option>
+                            <option id="accepted">Accepted</option>
+                            <option id="rejected">Rejected</option>
+                        </options>
+                    </field>
+                    <field id="shortIdentifier">
+                        <selector>.csc-vocabulary-shortIdentifier</selector>
+                    </field>
+                </section>
+            </record>
+
+        </records>
+    </spec>
+</collection-space>

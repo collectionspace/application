@@ -1,0 +1,14 @@
+{
+    "loanInDate": "",
+    "loanInNumber": "LI2010.1.21",
+    "loanInContact": "",
+    "loanInConditions": "",
+    "loanInNote": "",
+    "loanReturnDate": "",
+    "loanPurpose": "",
+    
+    "de-urned-lender": "Bing Crosby Ice Cream Sales, Inc.",
+    "lender": "urn:cspace:org.collectionspace.demo:orgauthority:id(2a6dcf2e-2ec6-47ca-a460):organization:id(b53b23c9-81bf-447b-838f)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'",
+	
+    "loanRenewalApplicationDate": ""
+}

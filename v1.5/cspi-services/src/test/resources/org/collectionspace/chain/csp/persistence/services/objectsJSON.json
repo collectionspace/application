@@ -1,0 +1,400 @@
+{
+    "inscriptionContentTranslation": "",
+    "inscriptionContentMethod": "",
+    "inscriptionDescriptionPosition": "",
+    "objectHistoryNote": "",
+    "viewersPersonalResponse": "",
+    "inscriptionContentInscriber": "",
+    "fieldCollectionMethods": [
+        {
+            "_primary": true,
+            "fieldCollectionMethod": ""
+        }
+    ],
+    "assocEventPeoples": [
+        {
+            "_primary": true,
+            "assocEventPeople": ""
+        }
+    ],
+  "referenceGroup": [
+        {
+            "_primary": true,
+            "reference": "reference",
+            "referenceNote": "referenceNote"
+        }
+    ],
+    "ownershipPlace": "",
+    "catalogNumber": "",
+    "objectStatusList": [
+        {
+            "_primary": true,
+            "objectStatus": "objectStatus"
+        }
+    ],
+    "responsibleDepartments": [
+        {
+            "_primary": true,
+            "responsibleDepartment": "ethnography1"
+        },
+        {
+            "responsibleDepartment": "ethnography2"
+        },
+        {
+            "responsibleDepartment": "ethnography"
+        }
+    ],
+    "ownershipAccess": "",
+    "inscriptionContentPosition": "",
+    "contentPositions": [
+        {
+            "_primary": true,
+            "contentPosition": "contentPosition"
+        }
+    ],
+    "inscriptionContentTransliteration": "",
+    "styles": [
+        {
+            "_primary": true,
+            "style": ""
+        }
+    ],
+    "dateLatestQualifier": "",
+    "ownershipExchangeMethod": "",
+    "objectNameGroup": [
+        {
+            "objectNameCurrency": "objectNameCurrency",
+            "_primary": true,
+            "objectNameLanguage": "objectNameLanguage",
+            "objectName": "objectName",
+            "objectNameSystem": "objectNameSystem",
+            "objectNameType": "objectNameType",
+            "objectNameNote": "objectNameNote",
+            "objectNameLevel": "objectNameLevel"
+        }
+    ],
+    "objectProductionNote": "",
+    "ownershipExchangePriceCurrency": "",
+    "contentObjectGroup": [
+        {
+            "_primary": true,
+            "contentObjectType": "contentObjectType",
+            "contentObject": "contentObject"
+        }
+    ],
+    "owners": [
+        {
+            "_primary": true,
+            "owner": ""
+        }
+    ],
+    "inscriptionDescriptionDate": "",
+    "inscriptionDescriptionInterpretation": "",
+    "ownershipExchangePriceValue": "",
+    "ownersContributionNote": "",
+    "objectProductionReasons": [
+
+    ],
+    "contentLanguages": [
+        {
+            "contentLanguage": "English",
+            "_primary": true
+        },
+        {
+            "contentLanguage": "POlish"
+        },
+        {
+            "contentLanguage": "Russian"
+        }
+    ],
+    "assocPlaceGroup": [
+        {
+            "_primary": true,
+            "assocPlace": "",
+            "assocPlaceNote": "",
+            "assocPlaceType": ""
+        }
+    ],
+    "inscriptionContent": "",
+    "collection": "collection",
+    "contentDate": "contentDate",
+    "assocConceptGroup": [
+        {
+            "assocConcept": "",
+            "_primary": true,
+            "assocConceptNote": "",
+            "assocConceptType": ""
+        }
+    ],
+    "inscriptionDescriptionType": "",
+    "assocPersonGroup": [
+        {
+            "_primary": true,
+            "assocPersonType": "",
+            "assocPersonNote": "",
+            "assocPerson": ""
+        }
+    ],
+    "dateText": "",
+    "viewersPersonalExperience": "",
+    "dateEarliestSingle": "",
+    "inscriptionContentScript": "",
+    "ownersPersonalResponse": "",
+    "ageQualifier": "ageQualifier",
+    "contentEventNameGroup": [
+        {
+            "_primary": true,
+            "contentEventNameType": "contentEventNameType",
+            "contentEventName": "contentEventName"
+        }
+    ],
+    "fieldCollectionNote": "",
+    "viewersReferences": [
+
+    ],
+    "assocEventNameType": "",
+    "fieldCollectionNumber": "",
+    "inscriptionDescription": "",
+    "assocEventPersons": [
+        {
+            "_primary": true,
+            "assocEventPerson": ""
+        }
+    ],
+    "fieldCollectionPlace": "",
+    "dateLatest": "",
+    "fieldCollectionDate": "",
+    "comments": [
+        {
+            "_primary": true,
+            "comment": "comment a "
+        },
+        {
+            "comment": "comment b "
+        },
+        {
+            "comment": "comment c "
+        }
+    ],
+    "contentDescription": "contentDescription",
+    "assocEventName": "",
+    "briefDescriptions": [
+        {
+            "_primary": true,
+            "briefDescription": "bob"
+        },
+        {
+            "briefDescription": "george"
+        }
+    ],
+    "dimensionGroup": [
+        {
+            "_primary": true,
+            "dimension": "dimension",
+            "valueDate": "valueDate",
+            "measuredPart": "measuredPart",
+            "measurementUnit": "measurementUnit",
+            "value": "value",
+            "valueQualifier": "valueQualifier"
+        }
+    ],
+    "viewersRole": "",
+    "ownersPersonalExperience": "",
+    "ageUnit": "ageUnit",
+    "contentOrganizations": [
+        {
+            "_primary": true,
+            "contentOrganization": "contentOrganization a"
+        },
+        {
+            "contentOrganization": "contentOrganization s"
+        },
+        {
+            "contentOrganization": "contentOrganization d"
+        },
+        {
+            "contentOrganization": "contentOrganization f"
+        }
+    ],
+    "ownershipCategory": "",
+    "copyNumber": "copyNumber",
+    "ownershipDates": "",
+    "inscriptionContentInterpretation": "",
+    "contentActivities": [
+        {
+            "_primary": true,
+            "contentActivity": "contentActivity a"
+        },
+        {
+            "contentActivity": "contentActivity b"
+        },
+        {
+            "contentActivity": "contentActivity c"
+        }
+    ],
+    "otherNumber": [
+        {
+            "_primary": true,
+            "numberValue": "a",
+            "numberType": "v"
+        },
+        {
+            "numberValue": "b",
+            "numberType": "f"
+        }
+    ],
+    "age": "age",
+    "contentOtherGroup": [
+        {
+            "contentOther": "contentOther",
+            "_primary": true,
+            "contentOtherType": "contentOtherType"
+        }
+    ],
+    "contentPersons": [
+        {
+            "_primary": true,
+            "contentPerson": "contentPerson 2"
+        },
+        {
+            "contentPerson": "contentPerson 3"
+        },
+        {
+            "contentPerson": "contentPerson 4"
+        }
+    ],
+    "contentScripts": [
+        {
+            "_primary": true,
+            "contentScript": "contentScript 1"
+        },
+        {
+            "contentScript": "contentScript 2"
+        },
+        {
+            "contentScript": "contentScript 3"
+        }
+    ],
+    "objectNumber": "2010.1.9",
+    "colors": [
+        {
+            "_primary": true,
+            "color": "red"
+        },
+        {
+            "color": "green"
+        },
+        {
+            "color": "blue"
+        }
+    ],
+    "ownersReferences": [
+
+    ],
+    "dateLatestCertainty": "",
+    "physicalDescription": "",
+    "contentConcepts": [
+        {
+            "_primary": true,
+            "contentConcept": "contentConcept a"
+        },
+        {
+            "contentConcept": "contentConcept b"
+        },
+        {
+            "contentConcept": "contentConcept c"
+        }
+    ],
+    "fieldColEventNames": [
+        {
+            "_primary": true,
+            "fieldColEventName": "fieldCollectionEventName"
+        }
+    ],
+    "inscriptionContentType": "",
+    "assocEventPlaces": [
+        {
+            "_primary": true,
+            "assocEventPlace": ""
+        }
+    ],
+    "titleGroup": [
+        {
+            "_primary": true,
+            "title": "title",
+            "titleTranslationLanguage": "titleTranslationLanguage",
+            "titleType": "titleType",
+            "titleTranslation": "titleTranslation",
+            "titleLanguage": "titleLanguage"
+        }
+    ],
+    "inscriptionDescriptionInscriber": "",
+    "contentPlaces": [
+        {
+            "contentPlace": "contentPlace 1",
+            "_primary": true
+        },
+        {
+            "contentPlace": "contentPlace 2"
+        },
+        {
+            "contentPlace": "contentPlace 3"
+        }
+    ],
+    "inscriptionContentLanguage": "",
+    "phase": "",
+    "contentNote": "contentNote",
+    "dateEarliestSingleQualifier": "",
+    "contentPeoples": [
+        {
+            "_primary": true,
+            "contentPeople": "contentPeople s"
+        },
+        {
+            "contentPeople": "contentPeople g"
+        },
+        {
+            "contentPeople": "contentPeople b"
+        }
+    ],
+    "sex": "",
+    "inscriptionDescriptionMethod": "",
+    "numberOfObjects": "numberOfObjects",
+    "recordStatus": "recordStatus",
+    "objectProductionDates": [
+
+    ],
+    "fieldCollectionSources": [
+        {
+            "_primary": true,
+            "fieldCollectionSource": ""
+        }
+    ],
+    "forms": [
+        {
+            "_primary": true,
+            "form": ""
+        }
+    ],
+    "viewersContributionNote": "",
+    "editionNumber": "",
+    "distinguishingFeatures": "distinguishingFeatures",
+    "dateAssociation": "",
+    "dateEarliestSingleCertainty": "",
+    "fieldCollectors": [
+        {
+            "_primary": true,
+            "fieldCollector": ""
+        }
+    ],
+    "assocEventOrganizations": [
+        {
+            "assocEventOrganization": "",
+            "_primary": true
+        }
+    ],
+    "datePeriod": "",
+    "ownershipExchangeNote": "",
+    "inscriptionContentDate": "",
+    "nametitle": "title"
+}

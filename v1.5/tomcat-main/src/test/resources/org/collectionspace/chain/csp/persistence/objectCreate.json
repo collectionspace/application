@@ -1,0 +1,15 @@
+{
+    "accessionNumber": "new OBJNUM",
+    "description": "new DESCRIPTION",
+    "descInscriptionInscriber": "new INSCRIBER",
+    "objectNumber": "2",
+    "objectTitle": "new TITLE",
+    "comments": "new COMMENTS",
+    "distinguishingFeatures": "new DISTFEATURES",
+    "responsibleDepartments": [{
+        "responsibleDepartment": "new DEPT"
+    }],
+    "objectNameGroup": [{
+        "objectName": "new OBJNAME",
+    }]
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<ns2:acquisitions_common xmlns:ns2="http://collectionspace.org/services/acquisition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/acquisition http://services.collectionspace.org/acquisition/acquisitions_common.xsd">
+                <accessionDate>Jul 1, 2010</accessionDate>
+                <acquisitionAuthorizer>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(elainehammerstein)'Elaine+Hammerstein'</acquisitionAuthorizer>
+                <acquisitionAuthorizerDate>Jul 2, 2010</acquisitionAuthorizerDate>
+                
+                <acquisitionDates>
+                	<acquisitionDate></acquisitionDate>
+                </acquisitionDates>
+<acquisitionFundingList>
+<acquisitionFunding><acquisitionFundingCurrency>Made up again</acquisitionFundingCurrency><acquisitionFundingValue>10100</acquisitionFundingValue><acquisitionFundingSource>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(peoplearefunnyproductions)'People+Are+Funny+Productions'</acquisitionFundingSource><acquisitionFundingSourceProvisos>200 of them</acquisitionFundingSourceProvisos></acquisitionFunding>
+</acquisitionFundingList>
+                <acquisitionMethod>exchange</acquisitionMethod>
+				<acquisitionNote>Some random note about the acquisition</acquisitionNote>
+                <acquisitionProvisos>... Is provisos even a real word? probably not...</acquisitionProvisos>
+                <acquisitionReason>Because I felt like it</acquisitionReason>
+                <acquisitionReferenceNumber>CompleteAquisition001</acquisitionReferenceNumber>
+                <owner>Jane Miller</owner>
+                <acquisitionSources>
+                	<acquisitionSource>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(stephencharla)'Stephen+Charla'</acquisitionSource>
+                	<acquisitionSource>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(emersonradiophonographcorporation)'Emerson+Radio+Phonograph+Corporation'</acquisitionSource>
+                	<acquisitionSource></acquisitionSource>
+                	<acquisitionSource>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(irwintoylimited)'Irwin+Toy+Limited'</acquisitionSource>
+                </acquisitionSources>
+                
+                <groupPurchasePriceCurrency>made up</groupPurchasePriceCurrency>
+                <groupPurchasePriceValue>200000</groupPurchasePriceValue>
+                <objectOfferPriceCurrency></objectOfferPriceCurrency>
+                <objectOfferPriceValue></objectOfferPriceValue>
+                <objectPurchaseOfferPriceCurrency></objectPurchaseOfferPriceCurrency>
+                <objectPurchaseOfferPriceValue></objectPurchaseOfferPriceValue>
+                <objectPurchasePriceCurrency></objectPurchasePriceCurrency>
+                <objectPurchasePriceValue></objectPurchasePriceValue>
+                <originalObjectPurchasePriceCurrency></originalObjectPurchasePriceCurrency>
+                <originalObjectPurchasePriceValue></originalObjectPurchasePriceValue>
+                <transferOfTitleNumber>Yes please</transferOfTitleNumber>
+				<owners><owner>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(stephencharla)'Stephen+Charla'</owner></owners>
+                <!-- Object Collection Information Group -->
+                <fieldCollectionEventNames><fieldCollectionEventName>fieldCollectionEventName</fieldCollectionEventName></fieldCollectionEventNames>
+</ns2:acquisitions_common>

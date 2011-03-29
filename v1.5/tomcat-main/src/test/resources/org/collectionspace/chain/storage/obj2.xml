@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns2:collection-object xmlns:ns2="http://collectionspace.org/hello">
+  <objectNumber><<objnum>></objectNumber>
+  <otherNumber>3</otherNumber>
+  <comments></comments>
+  <distFeatures></distFeatures>
+  <objectName>Left-handed screwdriver</objectName>
+  <responsibleDept></responsibleDept>
+  <title><<objnum>></title>
+</ns2:collection-object>

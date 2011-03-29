@@ -1,0 +1,12 @@
+{
+    "normalLocation": "normalLocationX",
+    "fieldCollectionEventName": "fieldCollectionEventNameX",
+    "earliestDateCertainty": "earliestDateCertaintyX",
+    "earliestDate": "earliestDateX",
+    "latestDate": "latestDateX",
+    "entryNumber": "entryNumberX",
+    "insurancePolicyNumber": "insurancePolicyNumberX",
+    "depositorsRequirements": "depositorsRequirementsX",
+    "entryReason": "entryReasonX",
+    "earliestDateQualifier": "earliestDateQualifierX"
+}

@@ -1,0 +1,19 @@
+{
+    "recordEditor": {
+        ".csc-permission-effect": "${fields.effect}",
+        ".csc-permission-actionGroup": "${fields.actionGroup}",
+        ".csc-permission-name": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.action",
+                    "protoTree": {
+                        ".csc-permission-name": "${fields.action.0.name}"
+                    }
+                }
+            }]
+        },
+        ".csc-permission-resourceName": "${fields.resourceName}"
+    }
+}

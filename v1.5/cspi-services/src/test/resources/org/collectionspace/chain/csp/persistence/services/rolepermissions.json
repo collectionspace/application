@@ -1,0 +1,16 @@
+{
+    "role": {
+        "roleName": "ROLE_COLLECTIONS_REGISTRAR",
+        "roleId": "4"
+    },
+    "permission": [{
+		"actionGroup":"read",
+        "permissionId": "a9a3a06-a3d7-4d3e-a979-4390d7c11470",
+        "resourceName": "/authorization/roles/*/permroles/"
+    },
+    {
+		"actionGroup":"write",
+        "permissionId": "a9a3a06-a3d7-4d3e-a979-4390d7c11470",
+        "resourceName": "/acquisition/"
+    }]
+}

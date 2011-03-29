@@ -1,0 +1,16 @@
+{
+    "normalLocation": "blah",
+    "movementContact": "blah",
+    "movementReferenceNumber": "MV2010.99",
+    "currentLocationFitness": "blah",
+    "removalDate": "2012-04-29",
+    "locationDate": "2012-01-29",
+    "plannedRemovalDate": "2012-03-29",
+    "movementMethods": [{
+        "movementMethod": "blah"
+    }],
+    "movementNote": "blah",
+    "reasonForMove": "blah",
+    "currentLocation": "blah",
+    "currentLocationNote": "blah"
+}

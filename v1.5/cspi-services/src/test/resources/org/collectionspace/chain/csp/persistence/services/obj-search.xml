@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<ns2:collectionobjects_common xmlns:ns2="http://collectionspace.org/services/collectionobject" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/collectionobject http://services.collectionspace.org/collectionobject/collectionobjects_common.xsd">
+  <objectNumber>2</objectNumber>
+  <comments><comment>description</comment></comments>
+  <objectNameList><objectNameGroup><objectName>AARDVARK Left-handed screwdriver</objectName></objectNameGroup></objectNameList>
+  <titleGroupList><titleGroup><title></title></titleGroup></titleGroupList>
+</ns2:collectionobjects_common>

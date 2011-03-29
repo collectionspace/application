@@ -1,0 +1,17 @@
+<?xml version="1.0"  encoding="UTF-8"  standalone="yes"?>
+<ns2:permission_role xmlns:ns2="http://collectionspace.org/services/authorization">
+  <role>
+    <roleId>4</roleId>
+    <roleName>ROLE_COLLECTIONS_REGISTRAR</roleName>
+  </role>
+  <permission>
+  	<actionGroup>read</actionGroup>
+    <permissionId>a9a3a06-a3d7-4d3e-a979-4390d7c11470</permissionId>
+    <resourceName>/authorization/roles/*/permroles/</resourceName>
+  </permission>
+  <permission>
+  	<actionGroup>write</actionGroup>
+    <permissionId>a9a3a06-a3d7-4d3e-a979-4390d7c11470</permissionId>
+    <resourceName>/acquisition/</resourceName>
+  </permission>
+</ns2:permission_role>

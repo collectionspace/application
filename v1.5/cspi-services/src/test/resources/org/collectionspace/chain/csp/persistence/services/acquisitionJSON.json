@@ -1,0 +1,37 @@
+{
+    "acquisitionReason": "newvalue",
+	"acquisitionDates":[],
+    "acquisitionReferenceNumber": "acquisitionReferenceNumber",
+	
+    "accessionDate": "April 1, 2010",
+    "acquisitionSources": [{
+        "_primary": true,
+        "acquisitionSource": "11111"
+    },
+    {
+        "de-urned-acquisitionSource": "Bing Crosby Ice Cream Sales, Inc.",
+        "acquisitionSource": "urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'"
+    }],
+    "acquisitionMethod": "acquisitionMethod",
+    "acquisitionFunding": [{
+        "acquisitionFundingSourceProvisos": "F",
+        "_primary": true,
+        "acquisitionFundingSource": "D",
+        "acquisitionFundingCurrency": "A",
+        "acquisitionFundingValue": "S"
+    },
+    {
+        "acquisitionFundingSourceProvisos": "Fq",
+        "acquisitionFundingSource": "Dq",
+        "acquisitionFundingCurrency": "Aq",
+        "acquisitionFundingValue": "Sq"
+    }],
+    "owners": [{
+		"_primary": true,
+        "owner": "urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'",
+        "de-urned-owner": "Bing Crosby Ice Cream Sales, Inc."
+ 	}],
+	
+    "fieldCollectionEventNames": [],
+	"ownersource" :"11111"
+}

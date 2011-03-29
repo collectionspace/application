@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<ns2:objectexit_common
+    xmlns:ns2="http://collectionspace.org/services/objectexit"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://collectionspace.org/services/objectexit http://services.collectionspace.org/objectexit/objectexit_common.xsd">
+
+    <currentOwner>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(jimnabors)'Jim+Nabors'</currentOwner>
+    <depositor>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(zsazsagabor)'Zsa+Zsa+Gabor'</depositor>
+    <exitDate>July 1, 2010</exitDate>
+    <exitMethods>
+        <exitMethod>courier</exitMethod>
+        <exitMethod>post</exitMethod>
+    </exitMethods>
+    <exitNote>This object has been declared a World Heritage Nuisance and must be disposed of forthwith.</exitNote>
+    <exitNumber>CompleteObjectExit001</exitNumber>
+    <exitReason>disposal</exitReason>
+    <packingNote>Packed really, really, really well.  Sealed in thick layers of aluminium foil and holiday wrapping paper.</packingNote>
+                
+</ns2:objectexit_common>

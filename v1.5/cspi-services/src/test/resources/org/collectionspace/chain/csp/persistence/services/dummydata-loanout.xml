@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+
+<ns2:loansout_common xmlns:ns2="http://collectionspace.org/services/loanout" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/loanout http://services.collectionspace.org/loanout/loansout_common.xsd">
+ 
+                <loanOutNumber>CompleteLoansOut001</loanOutNumber>
+                <borrower>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(zsazsagabor)'Zsa+Zsa+Gabor'</borrower>
+                <borrowersContact>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(ernestborgnine)'Ernest+Borgnine'</borrowersContact>
+                <lendersAuthorizer>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(jimnabors)'Jim+Nabors'</lendersAuthorizer>
+                <lendersAuthorizationDate>Dec 24, 2012</lendersAuthorizationDate>
+                <lendersContact>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(fredmacmurray)'Fred+MacMurray'</lendersContact>
+                
+                <!-- The three fields below were added as scalars specifically for release 0.7. -->
+                <!-- These fields will be removed, to be replaced by sub-loans, in a future release. -->
+                <loanedObjectStatus></loanedObjectStatus>
+                <loanedObjectStatusDate></loanedObjectStatusDate>
+                <loanedObjectStatusNote></loanedObjectStatusNote>
+                
+                <loanOutDate>Jul 1, 2010</loanOutDate>
+                <loanReturnDate>Jul 2, 2011</loanReturnDate>
+                <loanRenewalApplicationDate>Jul 3, 2010</loanRenewalApplicationDate>
+                <specialConditionsOfLoan>Horrible - absolutely horrible. Touch it and it falls apart.</specialConditionsOfLoan>
+                <loanOutNote>borrowers insurance will have to pay when it is destroyed, and I'll be rich rich rich</loanOutNote>
+                <loanPurpose>longtermcollectionsmanagementandstorage</loanPurpose>
+</ns2:loansout_common>

@@ -1,0 +1,7 @@
+Yet another templating language for XML. I know, depressing, isn't it. I couldn't find one simple enough. A good java
+implementation of something like TAL would have been ideal, but even that is probably a bit too complex and unnecessary.
+Fortunately, it's very simple to do, and parallels jtmpl in structure.
+
+XTmplTmpl -- the template itself.
+XTmplDocument -- an instance thereof ready for the filling out with values.
+InvalidXTmplException -- Something went wrong.

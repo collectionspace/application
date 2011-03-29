@@ -1,0 +1,75 @@
+<ns2:intakes_common xmlns:ns2="http://collectionspace.org/services/intake" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/intake http://services.collectionspace.org/intake/intakes_common.xsd">
+ 
+                <!--  Object Entry Information Group -->
+                <currentOwner>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(seanbean)'Sean+Bean'</currentOwner>
+                <depositor>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(tommyjones)'Tommy+Jones'</depositor>
+                <depositorsRequirements>Must wear suit and tie</depositorsRequirements>
+                <entryDate>Jul 16, 2010</entryDate>
+                <entryMethods>
+                	<entryMethod>found-on-doorstep</entryMethod>
+                </entryMethods>
+                <entryNote>Some random entry note can be specified here</entryNote>
+                <entryNumber>CompleteIntake001</entryNumber>
+                <entryReason>commission</entryReason>
+                <packingNote>Packed with bubble-wrap and duct-tape - no one will ever be able to open it</packingNote>
+                <returnDate>Jul 14, 2010</returnDate>
+
+                <!--  Object Collection Information Group -->
+                <fieldCollectionDate></fieldCollectionDate>
+                <fieldCollectionMethods>
+                	<fieldCollectionMethod></fieldCollectionMethod>
+                </fieldCollectionMethods>
+                <fieldCollectionNote></fieldCollectionNote>
+                <fieldCollectionNumber></fieldCollectionNumber>
+                <fieldCollectionPlace></fieldCollectionPlace>
+                <fieldCollectionSources>
+                	<fieldCollectionSource></fieldCollectionSource>
+                </fieldCollectionSources>
+                <fieldCollectors>
+                	<fieldCollector></fieldCollector>
+                </fieldCollectors>
+                <fieldCollectionEventNames>
+                	<fieldCollectionEventName>Red Cross Art Give-away-day</fieldCollectionEventName>
+                </fieldCollectionEventNames>
+
+                <!-- Valuation Information Group -->
+                <valuationReferenceNumber>911-101-404-411</valuationReferenceNumber>
+                <valuer>urn:cspace:org.collectionspace.demo:orgauthority:name(organization):organization:name(twentiethcentury-foxfilmcorporation)'Twentieth+Century-Fox+Film+Corporation'</valuer>
+
+               <!-- Insurance Information Group -->
+                <insuranceNote>Dont break it - we cannot afford it</insuranceNote>
+                <insurancePolicyNumber>BH-90210</insurancePolicyNumber>
+                <insuranceReferenceNumber>1234-5678-90</insuranceReferenceNumber>
+                <insuranceRenewalDate>Jul 5, 2010</insuranceRenewalDate>
+                <insurers>
+                	<insurer>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(arnoldschwarzenegger)'Arnold Schwarzenegger'</insurer>
+                </insurers>
+
+                <!-- Object Location Information Group -->
+                <currentLocationList>
+                    <currentLocationGroup>
+                        <currentLocation>Afghanistan</currentLocation>
+                        <currentLocationFitness>Probably not too good</currentLocationFitness>
+                        <currentLocationNote>Hazards presented by earthquakes and military activities</currentLocationNote>
+                    </currentLocationGroup>
+                </currentLocationList>
+                <locationDate>Jul 15, 2009</locationDate>
+                <normalLocation>At home</normalLocation>
+
+                <!-- Condition Check/Technical Assessment Information Group -->
+                <conditionCheckDate>Jul 19, 2010</conditionCheckDate>
+                <conditionCheckMethods>
+                	<conditionCheckMethod></conditionCheckMethod>
+                </conditionCheckMethods>
+                <conditionCheckNote>We got the governator himself to travel back in time, and bring some robot spiders, so the condition can be proper checked</conditionCheckNote>
+                <conditionCheckReasons>
+                	<conditionCheckReason></conditionCheckReason>
+                </conditionCheckReasons>
+                <conditionCheckReferenceNumber>TERM-II</conditionCheckReferenceNumber>
+                <conditionCheckersOrAssessors>
+                	<conditionCheckerOrAssessor>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(tommyjones)'Tommy+Jones'</conditionCheckerOrAssessor>
+                </conditionCheckersOrAssessors>
+
+</ns2:intakes_common>
+
+

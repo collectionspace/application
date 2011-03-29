@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="var" path="M2_REPO/org/collectionspace/csp-api/1.0-SNAPSHOT/csp-api-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/json/json/20080701/json-20080701.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/collectionspace/csp-helper/1.0-SNAPSHOT/csp-helper-1.0-SNAPSHOT.jar"/>
+	<classpathentry kind="var" path="M2_REPO/commons-io/commons-io/1.4/commons-io-1.4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

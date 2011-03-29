@@ -1,0 +1,6 @@
+<?xml version="1.0"  encoding="UTF-8"  standalone="yes"?>
+<ns2:role xmlns:ns2="http://collectionspace.org/services/authorization">
+  <roleName>ROLE_USERS_TEST_10</roleName>
+  <roleGroup>ROLE_USERS_TEST_10</roleGroup>
+  <description>this role is for test users</description>
+</ns2:role>

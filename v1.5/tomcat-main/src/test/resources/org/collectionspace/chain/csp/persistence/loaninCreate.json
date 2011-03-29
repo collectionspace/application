@@ -1,0 +1,13 @@
+{
+    "loanInNumber": "LI2010.1.2",
+    "lendersAuthorizer": "lendersAuthorizer",
+    "lendersAuthorizationDate": "lendersAuthorizationDate",
+    "lendersContact": "lendersContact",
+    "loanInContact": "loanInContact",
+    "loanInConditions": "loanInConditions",
+    "loanInDate": "loanInDate",
+    "loanReturnDate": "loanReturnDate",
+    "loanRenewalApplicationDate": "loanRenewalApplicationDate",
+    "loanInNote": "loanInNote",
+    "loanPurpose": "loanPurpose"
+}

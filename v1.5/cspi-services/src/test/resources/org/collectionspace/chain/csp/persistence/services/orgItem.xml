@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:organizations_common xmlns:ns2="http://collectionspace.org/services/organization">
+  <inAuthority>f0cf4c50-8f8a-4df0-869a</inAuthority>
+  <displayName>Example Museum, Berkeley, CA</displayName>
+  <displayNameComputed>true</displayNameComputed>
+  <foundingDate>1901</foundingDate>
+  <contactNames>
+  <contactName>John Doe</contactName>
+  </contactNames>
+  <shortIdentifier>example</shortIdentifier>
+  <mainBodyGroupList>
+      <mainBodyGroup>
+          <longName>The Original Example Museum of Berkeley, CA</longName>
+          <shortName>Example Museum</shortName>
+          <nameAdditions>University of California, Berkeley</nameAdditions>
+      </mainBodyGroup>
+  </mainBodyGroupList>
+</ns2:organizations_common>

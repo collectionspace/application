@@ -1,0 +1,293 @@
+{
+    "technique": "",
+    "inscriptionContentTranslation": "",
+    "assocActivityNote": "",
+    "inscriptionContentMethod": "",
+    "inscriptionDescriptionPosition": "",
+    "objectHistoryNote": "",
+    "inscriptionContentInscriber": "",
+    "viewersPersonalResponse": "",
+    "viewersReference": "",
+    "fieldCollectionMethods": [{
+        "fieldCollectionMethod": ""
+    }],
+    "assocEventPeoples": [{
+        "assocEventPeople": ""
+    }],
+    "ownershipPlace": "",
+    "ownersReference": "",
+    "catalogNumber": "",
+    "associationNote": "",
+    "objectStatus": "",
+    "responsibleDepartments": [{
+        "_primary": true,
+        "responsibleDepartment": "ethnography1 a"
+    },
+    {
+        "responsibleDepartment": "ethnography2 a"
+    },
+    {
+        "responsibleDepartment": "ethnography a"
+    }],
+    "ownershipAccess": "",
+    "objectNameNote": "objectNameNote a",
+    "contentOther": "contentOther a",
+    "inscriptionContentPosition": "",
+    "inscriptionContentTransliteration": "",
+    "contentOtherType": "contentOtherType a",
+    "associationType": "",
+    "dateLatestQualifier": "",
+    "styles": [{
+        "style": ""
+    }],
+    "contentObject": "contentObject a",
+    "ownershipExchangeMethod": "",
+    "objectComponentInformation": "",
+    "objectProductionNote": "",
+    "ownershipExchangePriceCurrency": "",
+    "objectProductionOrganization": "",
+    "owners": [{
+        "owner": ""
+    }],
+    "inscriptionDescriptionDate": "",
+    "assocDate": "",
+    "inscriptionDescriptionInterpretation": "",
+    "usageNote": "",
+    "ownershipExchangePriceValue": "",
+    "ownersContributionNote": "",
+    "objectProductionPeople": "",
+    "objectNameSystem": "objectNameSystem a",
+    "contentPosition": "contentPosition a",
+    "contentEventName": "contentEventName a",
+    "dimensionMeasurementUnit": "",
+    "contentLanguages": [{
+        "contentLanguage": "English"
+    },
+    {
+        "contentLanguage": "Polish"
+    },
+    {
+        "contentLanguage": "Russian"
+    }],
+    "objectProductionPerson": "",
+    "inscriptionContent": "",
+    "collection": "collection",
+    "assocCulturalContexts": [{
+        "assocCulturalContext": ""
+    }],
+    "otherNumberList": [{
+        "otherNumber": "\n\t\t\n\t\t\n\t"
+    },
+    {
+        "otherNumber": "\n\t\t\n\t\t\n\t"
+    }],
+    "dimensionValueDate": "",
+    "materialComponentNote": "",
+    "dimensionValueQualifier": "",
+    "technicalAttributeMeasurement": "",
+    "contentDate": "contentDate",
+    "title": "title UPDATED",
+    "objectNameLanguage": "objectNameLanguage",
+    "titleType": "titleType",
+    "titleTranslation": "titleTranslation",
+    "inscriptionDescriptionType": "",
+    "assocPersons": [{
+        "assocPerson": ""
+    }],
+    "assocPeoples": [{
+        "assocPeople": ""
+    }],
+    "dateText": "",
+    "viewersPersonalExperience": "",
+    "materialName": "",
+    "dateEarliestSingle": "",
+    "inscriptionContentScript": "",
+    "ownersPersonalResponse": "",
+    "ageQualifier": "ageQualifier",
+    "fieldCollectionNote": "",
+    "material": "",
+    "assocEventNameType": "",
+    "techniqueType": "",
+    "fieldCollectionNumber": "",
+    "inscriptionDescription": "",
+    "assocEventPersons": [{
+        "assocEventPerson": ""
+    }],
+    "fieldCollectionPlace": "",
+    "dateLatest": "",
+    "fieldCollectionDate": "",
+    "comments": [{
+        "comment": "comment a "
+    },
+    {
+        "comment": "comment b "
+    },
+    {
+        "comment": "comment c "
+    }],
+    "objectProductionReason": "",
+    "contentDescription": "contentDescription",
+    "assocEventName": "",
+    "briefDescriptions": [{
+        "_primary": true,
+        "briefDescription": "bob"
+    },
+    {
+        "briefDescription": "george"
+    }],
+    "objectProductionDate": "",
+    "objectProductionPlace": "",
+    "viewersRole": "",
+    "assocActivity": "",
+    "ownersPersonalExperience": "",
+    "assocPlaces": [{
+        "assocPlace": ""
+    }],
+    "ageUnit": "ageUnit",
+    "materialSource": "",
+    "contentOrganizations": [{
+        "contentOrganization": "contentOrganization a"
+    },
+    {
+        "contentOrganization": "contentOrganization s"
+    },
+    {
+        "contentOrganization": "contentOrganization d"
+    },
+    {
+        "contentOrganization": "contentOrganization f"
+    }],
+    "ownershipCategory": "",
+    "contentObjectType": "contentObjectType",
+    "assocObjectType": "",
+    "copyNumber": "copyNumber",
+    "ownershipDates": "",
+    "inscriptionContentInterpretation": "",
+    "age": "age",
+    "contentActivities": [{
+        "contentActivity": "contentActivity a"
+    },
+    {
+        "contentActivity": "contentActivity b"
+    },
+    {
+        "contentActivity": "contentActivity c"
+    }],
+    "contentPersons": [{
+        "contentPerson": "contentPerson 2"
+    },
+    {
+        "contentPerson": "contentPerson 3"
+    },
+    {
+        "contentPerson": "contentPerson 4"
+    }],
+    "assocOrganizations": [{
+        "assocOrganization": ""
+    }],
+    "contentScripts": [{
+        "contentScript": "contentScript 1"
+    },
+    {
+        "contentScript": "contentScript 2"
+    },
+    {
+        "contentScript": "contentScript 3"
+    }],
+    "objectNumber": "2010.1.9",
+    "colors": [{
+        "color": "red"
+    },
+    {
+        "color": "green"
+    },
+    {
+        "color": "blue"
+    }],
+    "dateLatestCertainty": "",
+    "physicalDescription": "",
+    "objectNameType": "objectNameType",
+    "contentConcepts": [{
+        "contentConcept": "contentConcept a"
+    },
+    {
+        "contentConcept": "contentConcept b"
+    },
+    {
+        "contentConcept": "contentConcept c"
+    }],
+    "assocObject": "",
+    "inscriptionContentType": "",
+    "assocEventPlaces": [{
+        "assocEventPlace": ""
+    }],
+    "contentEventNameType": "contentEventNameType",
+    "inscriptionDescriptionInscriber": "",
+    "contentPlaces": [{
+        "contentPlace": "contentPlace 1"
+    },
+    {
+        "contentPlace": "contentPlace 2"
+    },
+    {
+        "contentPlace": "contentPlace 3"
+    }],
+    "inscriptionContentLanguage": "",
+    "phase": "",
+    "technicalAttributeMeasurementUnit": "",
+    "objectProductionPlaceRole": "",
+    "contentNote": "contentNote",
+    "titleLanguage": "titleLanguage",
+    "dateEarliestSingleQualifier": "",
+    "contentPeoples": [{
+        "contentPeople": "contentPeople s"
+    },
+    {
+        "contentPeople": "contentPeople g"
+    },
+    {
+        "contentPeople": "contentPeople b"
+    }],
+    "fieldCollectionEventName": "",
+    "inscriptionDescriptionMethod": "",
+    "sex": "",
+    "objectProductionOrganizationRole": "",
+    "recordStatus": "recordStatus",
+    "numberOfObjects": "numberOfObjects",
+    "objectNameCurrency": "objectNameCurrency",
+    "technicalAttribute": "",
+    "objectComponentName": "",
+    "dimensionValue": "",
+    "materialComponent": "",
+    "objectProductionPersonRole": "",
+    "objectProductionPeopleRole": "",
+    "fieldCollectionSources": [{
+        "fieldCollectionSource": ""
+    }],
+    "forms": [{
+        "form": ""
+    }],
+    "objectNameLevel": "objectNameLevel",
+    "viewersContributionNote": "",
+    "editionNumber": "",
+    "distinguishingFeatures": "distinguishingFeatures",
+    "dateAssociation": "",
+    "objectName": "objectName",
+    "dateEarliestSingleCertainty": "",
+    "fieldCollectors": [{
+        "fieldCollector": ""
+    }],
+    "assocEventOrganizations": [{
+        "assocEventOrganization": ""
+    }],
+    "datePeriod": "",
+    "reference": "",
+    "dimension": "",
+    "ownershipExchangeNote": "",
+    "assocConcepts": [{
+        "assocConcept": ""
+    }],
+    "usage": "",
+    "inscriptionContentDate": "",
+    "dimensionMeasuredPart": ""
+}
