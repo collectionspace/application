@@ -42,7 +42,7 @@ public class BlobStorage extends GenericStorage {
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);
 		}
-		return conn.getBase()+"/"+url.getURL();
+		return conn.getBase()+url.getURL();
 	}
 
 }
