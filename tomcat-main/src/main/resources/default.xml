@@ -2464,7 +2464,7 @@
 
                 <section>
                     <field id="encoding"></field>
-                    <field id="mime-type"></field>
+                    <field id="mimeType"></field>
                     <field id="data"></field>
                     <field id="name"></field>
                     <field id="length"></field>
