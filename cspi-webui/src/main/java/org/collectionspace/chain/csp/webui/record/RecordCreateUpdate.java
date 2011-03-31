@@ -235,6 +235,28 @@ public class RecordCreateUpdate implements WebMethod {
 					data.put("fields", fields);
 				}
 			}
+			if(this.record.getID().equals("media")){
+				JSONObject fields=data.optJSONObject("fields");
+				if(fields.optString("srcUri") != null){
+					//is this internal or external?
+					//XXX HACK as ervice layer having issues with external urls
+					String uri = fields.getString("srcUri");
+					/*
+					String baseurl = "http://nightly.collectionspace.org:8180/cspace-services/blobs/";
+					if(uri.startsWith(baseurl)){
+						uri = uri.replace(baseurl, "");
+						String[] parts = uri.split("/");
+						fields.put("blobCsid",parts[0]);
+						fields.remove("srcUri");
+					}
+					*/
+					String[] parts = uri.split("/blobs/");
+					String[] bits = parts[1].split("/");
+					fields.put("blobCsid",bits[0]);
+					fields.remove("srcUri");
+					data.put("fields", fields);
+				}
+			}
 			
 			if(create) {
 				path=sendJSON(storage,null,data);
