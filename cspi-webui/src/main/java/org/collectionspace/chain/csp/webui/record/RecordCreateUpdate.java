@@ -237,7 +237,8 @@ public class RecordCreateUpdate implements WebMethod {
 			}
 			if(this.record.getID().equals("media")){
 				JSONObject fields=data.optJSONObject("fields");
-				if(fields.optString("srcUri") != null){
+				if(fields.has("srcUri")){
+					
 					//is this internal or external?
 					//XXX HACK as ervice layer having issues with external urls
 					String uri = fields.getString("srcUri");

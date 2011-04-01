@@ -1,7 +1,10 @@
 {
     "subjects": [{
-        "_primary": true
-    }],
+            "_primary": true,
+            "subject": "sdf asdf"
+        }, {
+            "subject": "asdf"
+        }],
     "dimensionGroup": [{}],
     "languages": [{
         "language": "",
