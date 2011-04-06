@@ -37,6 +37,7 @@
                 <number-selector>.csc-entry-number</number-selector>
                 <row-selector>.csc-recordList-row:</row-selector>
                 <list-key>cataloging</list-key>
+				<hassoftdelete>true</hassoftdelete>
                 <structures>
                     <structure id="screen">
                         <view>
@@ -65,7 +66,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                     <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
                         <selector>.csc-object-identification-object-nametitle</selector>
                         <merges>
@@ -2503,7 +2504,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="mediaInformation">
                     <field id="filename"></field>
@@ -2592,7 +2593,7 @@
                         <field id="relation"></field>
                     </repeat>
                     <field id="copyrightStatement"></field>
-                    <field id="identificationNumber" chooser="yes" in-title="yes" mini="number,summary,search,list,relate" seperate_ui_container="true">
+                    <field id="identificationNumber" chooser="yes" in-title="yes" mini="number,search,list,relate" seperate_ui_container="true">
                         <options>
                             <option id="media" sample="MR2011.1.1">Media Resource</option>
                         </options>
