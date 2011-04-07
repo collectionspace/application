@@ -144,6 +144,7 @@ public class Record implements FieldParent {
 						+ getString("services-url") + "," + getString("services-url") + "-common");
 		this.initStrings(section,"primaryfield", "");
 		this.initBoolean(section,"hasdeletemethod",false);
+		this.initBoolean(section,"hassoftdelete",false);
 
 		this.initStrings(section,"services-tenant-singular", getString("services-url"));
 		this.initStrings(section,"services-tenant-plural", getString("services-tenant-singular")+"s");
@@ -416,6 +417,10 @@ public class Record implements FieldParent {
 		return getBoolean("hasdeletemethod");
 	}
 
+	public boolean hasSoftDeleteMethod() {
+		return getBoolean("hassoftdelete");
+	}
+	
 	public String getServicesSearchKeyword() {
 		return getString("services-search-keyword");
 	}

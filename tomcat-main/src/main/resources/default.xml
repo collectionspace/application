@@ -973,7 +973,8 @@
                 <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen">
                         <view>
                             <titlebar show="false"></titlebar>
@@ -1022,7 +1023,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="loaninInformation">
                     <field id="loanInNumber" in-title="yes" chooser="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
@@ -1088,7 +1089,8 @@
                 <services-list-path>intakes-common-list/intake-list-item</services-list-path>
                 <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -1117,7 +1119,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="objectEntryInformation">
                     <field id="entryNumber" chooser="yes" in-title="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
@@ -1260,7 +1262,8 @@
                 <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -1288,7 +1291,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                     <field id="ownersource" mini="summary,search,list,relate"  in-title="yes" exists-in-services="false">
                         <selector>.csc-object-acquisition-ownersource</selector>
                         <merges>
@@ -1532,7 +1535,8 @@
                 <authority-vocab-type>PersonAuthority</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
                 <vocab-syntax>urn:cspace:name</vocab-syntax>
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -1559,7 +1563,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="personNameAuthorityInformation">
                     <field id="displayName" in-title="yes" display-name="yes">
@@ -1694,7 +1698,8 @@
                 <authority-vocab-type>LocationAuthority</authority-vocab-type>
                 <authorization-view>false</authorization-view>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:locationauthority:{vocab}:location:{entry}'{display}'</urn-syntax>
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen"></structure>
                 </structures>
                 <instances>
@@ -1707,7 +1712,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section>
                     <field id="displayName" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
@@ -1745,7 +1750,8 @@
                 <services-url>orgauthorities</services-url>
                 <authority-vocab-type>OrgAuthority</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -1762,7 +1768,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="organizationNameAuthorityInformation">
                     <field id="displayName" in-title="yes" display-name="yes" mini="summary,list,search,relate,terms">
@@ -1779,7 +1785,7 @@
                         </options>
                     </field>
                     <repeat id="mainBodyGroupList/mainBodyGroup">
-                        <field id="longName"> <!-- mini="summary,list,search,relate,terms" moved to displayName -->
+                        <field id="longName"> 
                             <selector>.csc-organizationAuthority-longName</selector>
                         </field>
                         <field id="shortName">
@@ -1862,7 +1868,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section>
                     <field id="addressType">
@@ -2130,7 +2136,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section>
                     <field id="userId">
@@ -2173,7 +2179,8 @@
                 <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
                 <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen">
                         <view>
                             <titlebar show="false"></titlebar>
@@ -2222,7 +2229,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="loanoutInformation">
                     <field id="loanOutNumber" in-title="yes" chooser="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
@@ -2298,7 +2305,8 @@
                 <services-list-path>movements-common-list/movement-list-item</services-list-path>
                 <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen">
                         <label-section id="messagekeys" show="true"></label-section>
                     </structure>
@@ -2325,7 +2333,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="locationMovementInformation">
                     <!--  Object Location Information Group -->
@@ -2387,7 +2395,8 @@
             </record>
 
             <record id="dimension" in-recordlist="no">
-                <section>
+                <hassoftdelete>true</hassoftdelete>
+				<section>
                     <field id="dimension">
                         <options>
                             <option id="" default="yes">Please select a value</option>
@@ -2462,7 +2471,8 @@
             	<services-record-path>blobs_common://collectionspace.org/services/blob,blobs_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 				<services-list-path>abstract-common-list/list-item</services-list-path>
-
+				<hassoftdelete>true</hassoftdelete>
+				
                 <section>
                     <field id="encoding"></field>
                     <field id="mimeType"></field>
@@ -2480,7 +2490,8 @@
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
 				<services-list-path>abstract-common-list/list-item</services-list-path>
 
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen"></structure>
                     <structure id="tab">
                         <view>
@@ -2642,7 +2653,8 @@
                 <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -2671,7 +2683,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="summary,search,list,relate"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="objectexitInformation">
                     <!--  Object Exit Information Group -->
@@ -2759,7 +2771,8 @@
                 <services-url>vocabularies</services-url>
                 <authority-vocab-type>enum</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:vocabulary:{vocab}:item:{entry}'{display}'</urn-syntax>
-                <structures>
+                <hassoftdelete>true</hassoftdelete>
+				<structures>
                     <structure id="screen"></structure>
                 </structures>
                 <instances>
