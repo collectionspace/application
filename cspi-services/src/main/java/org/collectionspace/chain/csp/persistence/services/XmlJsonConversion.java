@@ -190,7 +190,31 @@ public class XmlJsonConversion {
 			addRepeatToXml(root,(Repeat)fs,in,section,permlevel);
 		}
 	}
-	
+	public static Document getXMLSoftDelete(){
+		Document doc=DocumentFactory.getInstance().createDocument();
+		Element subroot = doc.addElement("document");
+		subroot.addAttribute("name", "workflow");
+		Element root=subroot.addElement(new QName("workflow_common",new Namespace("ns2","http://collectionspace.org/services/workflow")));
+		root.addNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
+		//<ns2:workflow_common xmlns:ns2="http://collectionspace.org/services/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+		Element element=root.addElement("lifeCyclePolicy");
+		element.addText("default");
+		Element element2=root.addElement("currentLifeCycleState");
+		element2.addText("deleted");
+
+		String test = doc.asXML();
+		log.debug(doc.asXML());
+		return doc;
+		/**<document name="workflows">
+		  <ns2:workflows_common>
+		     <lifeCyclePolicy>default</lifeCyclePolicy>
+		     <currentLifeCycleState>deleted</currentLifeCycleState>
+		  </ns2:workflows_common>
+		</document>
+		**/
+		
+	}
 	public static Document convertToXml(Record r,JSONObject in,String section, String permtype) throws JSONException, UnderlyingStorageException {
 		Document doc=DocumentFactory.getInstance().createDocument();
 		String[] parts=r.getServicesRecordPath(section).split(":",2);
