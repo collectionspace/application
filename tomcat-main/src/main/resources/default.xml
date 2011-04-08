@@ -263,6 +263,7 @@
                     <field id="sex" seperate_ui_container="true">
                         <selector>.csc-object-description-sex</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="male">male</option>
                             <option id="female">female</option>
                         </options>
@@ -387,6 +388,7 @@
                         <field id="dimension" seperate_ui_container="true">
                             <selector>.csc-object-description-dimension</selector>
                             <options>
+                            	<option id="">Please select a value</option>
                                 <option id="area">area</option>
                                 <option id="base">base</option>
                                 <option id="circumference">circumference</option>
@@ -405,6 +407,7 @@
                         <field id="measuredPart" seperate_ui_container="true">
                             <selector>.csc-object-description-dimension-part</selector>
                             <options>
+                            	<option id="">Please select a value</option>
                                 <option id="base">base</option>
                                 <option id="frame">frame</option>
                                 <option id="framed">framed</option>
@@ -418,6 +421,7 @@
                         <field id="measurementUnit" seperate_ui_container="true">
                             <selector>.csc-object-description-dimension-unit</selector>
                             <options>
+                            	<option id="">Please select a value</option>
                                 <option id="carats">carats</option>
                                 <option id="centimeters">centimeters</option>
                                 <option id="cubic-centimeters">cubic centimeters</option>
@@ -752,6 +756,7 @@
                     <field id="ownershipAccess" seperate_ui_container="true">
                         <selector>.csc-object-history-association-access</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="limited">limited</option>
                             <option id="open">open</option>
                             <option id="restricted">restricted</option>
@@ -760,6 +765,7 @@
                     <field id="ownershipCategory" seperate_ui_container="true">
                         <selector>.csc-object-history-association-category</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="company">company</option>
                             <option id="public">public</option>
                             <option id="private">private</option>
@@ -771,6 +777,7 @@
                     <field id="ownershipExchangeMethod" seperate_ui_container="true">
                         <selector>.csc-object-history-association-exchange-method</selector>
                         <options>
+                            <option id="">Please select a value</option>
                             <option id="bequest">bequest</option>
                             <option id="exchange">exchange</option>
                             <option id="gift">gift</option>
@@ -783,7 +790,7 @@
                         <selector>.csc-object-history-association-exchange-note</selector>
                     </field>
                     <field id="ownershipExchangePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
-                        <enum has-blank="false">
+                        <enum>
                             <default>USD</default>
                         </enum>
                         <selector>.csc-object-history-association-denomination</selector>
@@ -1582,7 +1589,7 @@
                     <field id="salutation">
                         <selector>.csc-personAuthority-salutation</selector>
                         <options>
-                            <option id="dear">Dear</option>
+                            <option id="dear" default="yes">Dear</option>
                             <option id="hello">Hello</option>
                             <option id="to">To</option>
                         </options>
@@ -1778,6 +1785,7 @@
                     <field id="termStatus" seperate_ui_container="true">
                         <selector>.csc-organizationAuthority-status</selector>
                         <options>
+                            <option id="" default="yes">Please select a value</option>
                             <option id="provisional">Provisional</option>
                             <option id="under review">Under Review</option>
                             <option id="accepted">Accepted</option>
@@ -2597,6 +2605,9 @@
                     <repeat id="languages">
                     	<services-tag>languageList</services-tag>
                         <field id="language" autocomplete="vocab-languages" ui-type="enum"></field>
+                        <enum>
+                            <default>eng</default>
+                        </enum>
                     </repeat>
                     <field id="publisher" autocomplete="person-person,organization-organization"></field>
                     <repeat id="relations">
