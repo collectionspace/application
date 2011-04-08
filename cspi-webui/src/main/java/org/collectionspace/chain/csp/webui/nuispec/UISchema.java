@@ -138,6 +138,7 @@ public class UISchema extends UISpec {
 		} else if ("enum".equals(f.getUIType())) {
 			return generateENUMField(f);
 		}
+		//ignore ui-type uploader
 		return plain(f);
 	}
 

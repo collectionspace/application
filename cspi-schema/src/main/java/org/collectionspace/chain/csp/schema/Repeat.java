@@ -134,6 +134,8 @@ public class Repeat implements FieldSet, FieldParent {
 		for (String s : minis) {
 			this.parent.getRecord().addMiniDataSet(this, s);
 		}
+		
+		this.initStrings(section,"@ui-type", "plain");
 
 		if(this.parent instanceof Record){
 			this.initStrings(section,"label", ((Record) this.parent).getUILabel(getString("@id")));
@@ -246,6 +248,10 @@ public class Repeat implements FieldSet, FieldParent {
 	}
 	public String getLabel() {
 		return getString("label");
+	}
+
+	public String getUIType() {
+		return getString("@ui-type");
 	}
 
 	public String getServicesTag() {

@@ -155,6 +155,7 @@ public class UISpec implements WebMethod {
 		else if("enum".equals(f.getUIType())) {
 			return generateENUMField(f);
 		}
+		//ignore ui-type uploader
 		return plain(f);	
 	}
 
@@ -521,6 +522,10 @@ public class UISpec implements WebMethod {
 	}
 	
 	protected void generateDataEntry(JSONObject out,FieldSet fs, String affix) throws JSONException {
+
+		if("uploader".equals(fs.getUIType())) {
+			generateUploaderEntry(out,fs,affix);
+		}
 		if(fs.usesRecord()){
 			if(!getSelectorAffix(fs).equals("")){
 				if(!affix.equals("")){
@@ -628,6 +633,36 @@ public class UISpec implements WebMethod {
 		out.put(getSelector(g),contents);
 	}
 
+	protected void generateUploaderEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
+
+		String cond = "";
+		if(f instanceof Group){
+			Group gp = (Group)f;
+			String test = gp.usesRecordValidator();
+			FieldSet tester = record.getField(test);
+			if(tester instanceof Field){
+				cond = plain((Field)tester);
+			}
+		}
+		JSONObject ttree = new JSONObject();
+		ttree.put(f.getSelector(),new JSONObject());
+		JSONObject decorator = new JSONObject();
+		decorator.put("type","addClass");
+		decorator.put("classes","hidden");
+		JSONObject decorators = new JSONObject();
+		decorators.put("decorators", decorator);
+		JSONObject ftree = new JSONObject();
+		ftree.put(f.getSelector(),decorators);
+		JSONObject cexpander = new JSONObject();
+		cexpander.put("type", "fluid.renderer.condition");
+		cexpander.put("condition", cond);
+		cexpander.put("trueTree", ttree);
+		cexpander.put("falseTree", ftree);
+
+		
+		out.put("expander",cexpander);
+	}
+	
 	protected void generateFieldDataEntry_refactored(JSONObject out, String affix, Field f)
 			throws JSONException {
 		if(f.hasAutocompleteInstance()) {
