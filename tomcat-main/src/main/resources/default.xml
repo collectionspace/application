@@ -985,7 +985,7 @@
                     <structure id="screen">
                         <view>
                             <titlebar show="false"></titlebar>
-                            <sidebar show="true">
+                            <sidebar show="false">
                                 <repeat id="termsUsed" show="true"></repeat>
                                 <repeat id="relatedProcedures" show="true"></repeat>
                                 <repeat id="relatedObjects" show="true"></repeat>
@@ -2192,11 +2192,7 @@
                     <structure id="screen">
                         <view>
                             <titlebar show="false"></titlebar>
-                            <sidebar show="true">
-                                <repeat id="termsUsed" show="true"></repeat>
-                                <repeat id="relatedProcedures" show="true"></repeat>
-                                <repeat id="relatedObjects" show="true"></repeat>
-                            </sidebar>
+                            <sidebar show="false"></sidebar>
                             <edit-section show="true"></edit-section>
                             <list-section show="false"></list-section>
                             <label-section id="messagekeys" show="true"></label-section>
