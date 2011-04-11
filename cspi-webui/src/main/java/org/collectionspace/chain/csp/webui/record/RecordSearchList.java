@@ -67,7 +67,11 @@ public class RecordSearchList implements WebMethod {
 			// CSPACE-2894
 			if(this.r.getID().equals("permission")){
 				String summary = out.getString("summary");
-				out.put("summary", Generic.ResourceNameUI(this.r.getSpec(), summary));
+				String name = Generic.ResourceNameUI(this.r.getSpec(), summary);
+				if(name.endsWith("/*/workflow/")){
+					return null;
+				}
+				out.put("summary", name);
 				out.put("display", Generic.getPermissionView(this.r.getSpec(), summary));
 			}
 		} catch (ExistException e) {
@@ -132,8 +136,12 @@ public class RecordSearchList implements WebMethod {
 	private JSONObject pathsToJSON(Storage storage,String base,String[] paths,String key, JSONObject pagination) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
-		for(String p : paths)
-			members.put(generateEntry(storage,base,p));
+		for(String p : paths){
+			JSONObject temp = generateEntry(storage,base,p);
+			if(temp !=null){
+				members.put(temp);
+			}
+		}
 		out.put(key,members);
 
 		
