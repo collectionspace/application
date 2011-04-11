@@ -553,11 +553,12 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			// XXX pagination support
 			String url = generateURL(vocab,csid,"");
 
+			String softurl = url;
 			if(r.hasSoftDeleteMethod()){
-				url = softpath(url);
+				softurl = softpath(url);
 			}
 			
-			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,url,null,creds,cache);
+			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,softurl,null,creds,cache);
 			if(doc.getStatus()==404)
 				throw new ExistException("Does not exist");
 			if(doc.getStatus()>299)
