@@ -136,11 +136,11 @@ public class RecordRead implements WebMethod {
 					
 				}
 				
-				if(testset.has(resourcename) && !temp.has(resourcename)){
+				else if(testset.has(resourcename) && !temp.has(resourcename)){
 					permlevel = Generic.PermissionLevelString(testset.getJSONObject(resourcename).getString("actionGroup"));
 
 					permission.put("permission", permlevel);
-					temp.put(resourcename, permission);
+					temp.put(Generic.ResourceNameUI(spec, resourcename), permission);
 				}
 				
 			}
