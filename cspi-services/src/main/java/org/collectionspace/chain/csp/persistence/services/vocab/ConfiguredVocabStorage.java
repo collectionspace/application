@@ -246,9 +246,22 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		try {			
 			String vocab=vocab_cache.getVocabularyId(creds,cache,filePath.split("/")[0]);
 			String url = generateURL(vocab,filePath.split("/")[1],"");
-			int status=conn.getNone(RequestMethod.DELETE,url,null,creds,cache);
-			if(status>299)
-				throw new UnderlyingStorageException("Could not retrieve vocabulary",status,url);
+
+			if(r.hasSoftDeleteMethod()){
+				int status = 0;
+				Document doc = null;
+				doc=XmlJsonConversion.getXMLSoftDelete();
+				String workflow = "/workflow";
+				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, url+workflow, doc, creds, cache);
+				status = docm.getStatus();
+				if(status>299 || status<200)
+					throw new UnderlyingStorageException("Bad response ",status,url);
+			}
+			else{
+				int status=conn.getNone(RequestMethod.DELETE,url,null,creds,cache);
+				if(status>299)
+					throw new UnderlyingStorageException("Could not retrieve vocabulary",status,url);
+			}
 			cache.removeCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]});
 			cache.removeCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]});
 			cache.removeCached(getClass(),new String[]{"shortId",vocab,filePath.split("/")[1]});
@@ -504,7 +517,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 //get list view
 
 		String node = "/"+thisr.getServicesListPath().split("/")[0]+"/*";
-		JSONObject data = getListView(storage,creds,cache,filePath,node,"/"+thisr.getServicesListPath(),"csid",false);
+		JSONObject data = getListView(storage,creds,cache,filePath,node,"/"+thisr.getServicesListPath(),"csid",false, thisr);
 		
 
 		String[] filepaths = (String[]) data.get("listItems");
@@ -645,7 +658,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				JSONArray createcsid = new JSONArray();
 				String getPath = url + "/" + sr.getServicesURL();
 				String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
-				JSONObject data = getListView(root,creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false);
+				JSONObject data = getListView(root,creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
 				
 
 				String[] filepaths = (String[]) data.get("listItems");
@@ -741,7 +754,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					Iterator<String> rit=existingcsid.keys();
 					while(rit.hasNext()) {
 						String key=rit.next();
-						deleteJSON(root,creds,cache,key,savePath);
+						deleteJSON(root,creds,cache,key,savePath,sr);
 					}
 					
 					//do update JSONObject updatecsid = new JSONObject();

@@ -361,6 +361,10 @@ public class GenericStorage  implements ContextualisedStorage {
 	UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		try {
+			if(thisr.hasSoftDeleteMethod()){
+				filePath = softpath(filePath);
+			}
+			
 			if(thisr.isMultipart()){
 				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,servicesurl+filePath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
@@ -481,6 +485,9 @@ public class GenericStorage  implements ContextualisedStorage {
 			//not all the records need a reference, look in cspace-config.xml for which that don't
 			if(r.hasTermsUsed()){
 				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
+				if(r.hasSoftDeleteMethod()){//XXX completely not the right thinsg to do but a good enough hack
+					path = softpath(path);
+				}
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 				if(all.getStatus()!=200)
 					throw new ConnectionException("Bad request during identifier cache map update: status not 200",all.getStatus(),path);
@@ -579,7 +586,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				view_merge = reset_merge;
 				
 				String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
-				JSONObject data = getListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true);
+				JSONObject data = getListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, r);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
 
 				reset_good = view_good;
 				reset_map = view_map;
@@ -698,7 +705,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				JSONArray createcsid = new JSONArray();
 				String getPath = serviceurl+filePath + "/" + sr.getServicesURL();
 				String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
-				JSONObject data = getListView(root,creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false);
+				JSONObject data = getListView(root,creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
 				
 
 				String[] filepaths = (String[]) data.get("listItems");
@@ -797,7 +804,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					Iterator<String> rit=existingcsid.keys();
 					while(rit.hasNext()) {
 						String key=rit.next();
-						deleteJSON(root,creds,cache,key,savePath);
+						deleteJSON(root,creds,cache,key,savePath,sr);
 					}
 					
 					//do update JSONObject updatecsid = new JSONObject();
@@ -1056,7 +1063,8 @@ public class GenericStorage  implements ContextualisedStorage {
 		throw new UnimplementedException("Cannot post to full path");
 	}
 
-	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl) throws ExistException,
+	//don't call direct as need to check if soft or hard delete first
+	public void hardDeleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
 			int status=conn.getNone(RequestMethod.DELETE,serviceurl+filePath,null,creds,cache);
@@ -1066,11 +1074,43 @@ public class GenericStorage  implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}		
 	}
+	public void softDeleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl) throws ExistException,
+	UnimplementedException, UnderlyingStorageException {
+		try {
+			int status = 0;
+			Document doc = null;
+			doc=XmlJsonConversion.getXMLSoftDelete();
+			String workflow = "/workflow";
+			ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, serviceurl+filePath+workflow, doc, creds, cache);
+			status = docm.getStatus();
+			if(status>299 || status<200)
+				throw new UnderlyingStorageException("Bad response ",status,serviceurl+filePath);
+		}
+		catch (ConnectionException e) {	
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		}
+		
+	}
 
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		String serviceurl = thisr.getServicesURL()+"/";
-		deleteJSON(root,creds,cache,filePath,serviceurl);
+		if(thisr.hasSoftDeleteMethod()){
+			softDeleteJSON(root,creds,cache,filePath,serviceurl);
+		}
+		else{
+			hardDeleteJSON(root,creds,cache,filePath,serviceurl);
+		}
+	}
+	
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl, Record thisr) throws ExistException,
+	UnimplementedException, UnderlyingStorageException {
+		if(thisr.hasSoftDeleteMethod()){
+			softDeleteJSON(root,creds,cache,filePath,serviceurl);
+		}
+		else{
+			hardDeleteJSON(root,creds,cache,filePath,serviceurl);
+		}
 	}
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
@@ -1143,7 +1183,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");
 			
 			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
-			JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false);
+			JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
 			
 			return data;
 			
@@ -1157,8 +1197,35 @@ public class GenericStorage  implements ContextualisedStorage {
 	}
 
 
-	@SuppressWarnings("unchecked")
-	protected JSONObject getListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	protected JSONObject getListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+		if(r.hasSoftDeleteMethod()){
+			return getSoftListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+		}
+		else{
+			return getHardListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+		}
+	}
+	protected String softpath(String path){
+		String softdeletepath = path;
+		
+		//does path include a ? if so add &wf_delete else add ?wf_delete
+		if(path.contains("?")){
+			softdeletepath += "&";
+		}
+		else{
+			softdeletepath += "?";
+		}
+		softdeletepath += "wf_deleted=false";
+		return softdeletepath;
+	}
+	
+	protected JSONObject getSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+		String softdeletepath = softpath(path);
+		
+		return getHardListView(root,creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid);
+	}
+	
+	protected JSONObject getHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
 		JSONObject out = new JSONObject();
 		JSONObject pagination = new JSONObject();
 		Document list=null;

@@ -97,10 +97,13 @@ public class RecordCreateUpdate implements WebMethod {
 		perm.put("name", permValue);
 		return perm;
 	}
-	private JSONObject getPerm(Storage storage, String resourceName, String permlevel) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
+	
+	private JSONObject getPerm(Storage storage, String resourceName, String permlevel, Boolean isWorkflow) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 
+		Record r = Generic.RecordNameServices(spec,resourceName);
 		JSONObject permitem = new JSONObject();
 		JSONArray actions =  new JSONArray();
+		JSONArray wf_actions =  new JSONArray();
 		JSONObject permR = permJSON("READ");
 		JSONObject permC = permJSON("CREATE");
 		JSONObject permU = permJSON("UPDATE");
@@ -109,6 +112,9 @@ public class RecordCreateUpdate implements WebMethod {
 
 		///cspace-services/authorization/permissions?res=acquisition&actGrp=CRUDL
 		String queryString = "CRUDL";
+		String wf_querystring = "";
+
+		
 		if(permlevel.equals("none")){
 			queryString = "";
 			actions = new JSONArray();
@@ -127,21 +133,58 @@ public class RecordCreateUpdate implements WebMethod {
 			actions.put(permL);
 		}
 		if(permlevel.equals("delete")){
-			queryString = "CRUDL";
-			actions.put(permC);
-			actions.put(permR);
-			actions.put(permU);
-			actions.put(permD);
-			actions.put(permL);
+			if(r.hasSoftDeleteMethod()){
+				queryString = "CRUL";
+				actions.put(permC);
+				actions.put(permR);
+				actions.put(permU);
+				actions.put(permL);
+				wf_querystring = "CRUDL";
+				wf_actions.put(permC);
+				wf_actions.put(permR);
+				wf_actions.put(permU);
+				wf_actions.put(permD);
+				wf_actions.put(permL);
+			}
+			else{
+				queryString = "CRUDL";
+				actions.put(permC);
+				actions.put(permR);
+				actions.put(permU);
+				actions.put(permD);
+				actions.put(permL);
+			}
 		}
 
-		JSONObject permrestrictions = new JSONObject();
-		permrestrictions.put("keywords", Generic.ResourceNameServices(spec, resourceName));
-		permrestrictions.put("queryTerm", "actGrp");
-		permrestrictions.put("queryString", queryString);
-
 		String permbase = spec.getRecordByWebUrl("permission").getID();
-		JSONObject data = searcher.getJSON(storage,permrestrictions,"items",permbase);
+		
+		if(isWorkflow){
+
+			if(r.hasSoftDeleteMethod()){
+				if(wf_querystring.equals("")){
+					wf_querystring = "RL";
+					wf_actions.put(permR);
+					wf_actions.put(permL);
+				}
+				
+				permitem = getPermID(storage, Generic.ResourceNameServices(spec, resourceName)+"/*/workflow/", wf_querystring, permbase, wf_actions);
+			}
+		}
+		else{
+			permitem = getPermID(storage, Generic.ResourceNameServices(spec, resourceName), queryString, permbase, actions);
+		}
+		return permitem;
+	}
+	
+
+	private JSONObject getPermID(Storage storage, String name, String queryString, String permbase, JSONArray actions) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException{
+
+		JSONObject permitem = new JSONObject();
+		JSONObject wf_permrestrictions = new JSONObject();
+		wf_permrestrictions.put("keywords", name);
+		wf_permrestrictions.put("queryTerm", "actGrp");
+		wf_permrestrictions.put("queryString", queryString);
+		JSONObject data = searcher.getJSON(storage,wf_permrestrictions,"items",permbase);
 
 		String permid = "";
 		JSONArray items = data.getJSONArray("items");
@@ -151,7 +194,7 @@ public class RecordCreateUpdate implements WebMethod {
 			String resourcename = item.getString("summary");
 			String actionGroup = item.getString("number");
 			//need to do a double check as the query is an inexact match
-			if(resourcename.equals(Generic.ResourceNameServices(spec, resourceName)) && actionGroup.equals(queryString)){
+			if(resourcename.equals(name) && actionGroup.equals(queryString)){
 				permid = item.getString("csid");
 			}
 		}
@@ -169,7 +212,7 @@ public class RecordCreateUpdate implements WebMethod {
 					
 			JSONObject permission_add = new JSONObject();
 			permission_add.put("effect", "PERMIT");
-			permission_add.put("resourceName", Generic.ResourceNameServices(spec, resourceName));
+			permission_add.put("resourceName", name);
 			permission_add.put("actionGroup", queryString);
 			permission_add.put("action", actions);
 
@@ -177,17 +220,16 @@ public class RecordCreateUpdate implements WebMethod {
 			
 		}
 		
-		
-
 		if(!permid.equals("")){
-			permitem.put("resourceName", Generic.ResourceNameServices(spec, resourceName));
+			permitem.put("resourceName", name);
 			permitem.put("permissionId", permid);
 			permitem.put("actionGroup", queryString);
 		}
 		return permitem;
 
-		
 	}
+	
+	
 	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject fields=data.optJSONObject("fields");
 		
@@ -196,13 +238,24 @@ public class RecordCreateUpdate implements WebMethod {
 			JSONArray permissions = fields.getJSONArray("permissions");
 			for(int i=0;i<permissions.length();i++){
 				JSONObject perm = permissions.getJSONObject(i);
-				JSONObject permitem = getPerm(storage,perm.getString("resourceName"),perm.getString("permission"));
-				if(permitem.has("permissionId")){
-					permdata.put(permitem);
+
+				Record r = Generic.RecordNameServices(spec,perm.getString("resourceName"));
+				if(r!=null){
+					if(r.hasSoftDeleteMethod()){
+						JSONObject permitem = getPerm(storage,perm.getString("resourceName"),perm.getString("permission"),true);
+						if(permitem.has("permissionId")){
+							permdata.put(permitem);
+						}
+					}
+					JSONObject permitem = getPerm(storage,perm.getString("resourceName"),perm.getString("permission"),false);
+					if(permitem.has("permissionId")){
+						permdata.put(permitem);
+					}
 				}
 			}
 		}
 
+		log.info("permdata"+permdata.toString());
 		JSONObject roledata = new JSONObject();
 		roledata.put("roleName", fields.getString("roleName"));
 
@@ -216,7 +269,7 @@ public class RecordCreateUpdate implements WebMethod {
 		arfields.put("role", roledata);
 		arfields.put("permission", permdata);
 		accountrole.put("fields", arfields);
-		
+		log.info("WAAA"+arfields.toString());
 		if(fields!=null)
 			path=storage.autocreateJSON(spec.getRecordByWebUrl("permrole").getID(),arfields);
 	}

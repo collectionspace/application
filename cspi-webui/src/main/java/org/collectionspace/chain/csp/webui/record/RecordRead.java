@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -79,13 +80,8 @@ public class RecordRead implements WebMethod {
 	private JSONArray getPermissions(Storage storage,JSONObject activePermissions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException{
 		JSONArray set = new JSONArray();
 		JSONObject testset = new JSONObject();
-		//get all permissions
-		JSONObject permrestrictions = new JSONObject();
-		permrestrictions.put("queryTerm", "actGrp");
-		permrestrictions.put("queryString", "CRUDL");
-		String permbase = spec.getRecordByWebUrl("permission").getID();
-		JSONObject returndata = searcher.getJSON(storage,permrestrictions,"items",permbase);
-
+		
+		log.info(activePermissions.toString());
 		//we are ignoring pagination so this will return the first 40 roles only
 		//UI doesn't know what it wants to do about pagination etc
 		//mark active roles
@@ -96,23 +92,73 @@ public class RecordRead implements WebMethod {
 				testset.put(active.getJSONObject(j).getString("resourceName"),active.getJSONObject(j));
 			}
 		}
-		
 
-		//merge active and nonactive
-		JSONArray items = returndata.getJSONArray("items");
-		for(int i=0;i<items.length();i++){
-			JSONObject item = items.getJSONObject(i);
-			JSONObject permission = new JSONObject();
-			String resourcename = item.getString("summary");
-			permission.put("resourceName", Generic.ResourceNameUI(spec, resourcename));
-			String permlevel =  "none";
-			if(testset.has(resourcename)){
-				permlevel = Generic.PermissionLevelString(testset.getJSONObject(resourcename).getString("actionGroup"));
-			}
-			permission.put("permission", permlevel);
-			set.put(permission);
-		}
+		JSONObject temp = new JSONObject();
 		
+		//get all permissions
+		int pageNum = 0;
+		JSONObject permrestrictions = new JSONObject();
+		permrestrictions.put("queryTerm", "actGrp");
+		permrestrictions.put("queryString", "CRUDL");
+		permrestrictions.put("pageNum", Integer.toString(pageNum));
+		String permbase = spec.getRecordByWebUrl("permission").getID();
+		JSONObject returndata = searcher.getJSON(storage,permrestrictions,"items",permbase);
+		while(returndata.has("items") && returndata.getJSONArray("items").length()>0){
+
+			//merge active and nonactive
+			JSONArray items = returndata.getJSONArray("items");
+			for(int i=0;i<items.length();i++){
+				JSONObject item = items.getJSONObject(i);
+				JSONObject permission = new JSONObject();
+				String resourcename = item.getString("summary");
+				permission.put("resourceName", Generic.ResourceNameUI(spec, resourcename));
+				String permlevel =  "none";
+				
+
+				if(resourcename.endsWith("/*/workflow/")){
+					String resourcename1 = resourcename.substring(1);
+					String resource = resourcename1.split("\\/\\*\\/workflow\\/")[0]; 
+					String tempres = Generic.ResourceNameUI(spec, resource);
+					if(testset.has(resourcename)){
+						permlevel = Generic.PermissionLevelString(testset.getJSONObject(resourcename1).getString("actionGroup"));
+					
+						if(permlevel.equals("delete")){
+							JSONObject permission2 = new JSONObject();
+							permission2.put("resourceName", tempres);
+							permission2.put("permission", permlevel);
+							temp.put(tempres, permission2);
+						}
+						
+					}
+					
+				}
+				
+				if(testset.has(resourcename) && !temp.has(resourcename)){
+					permlevel = Generic.PermissionLevelString(testset.getJSONObject(resourcename).getString("actionGroup"));
+
+					permission.put("permission", permlevel);
+					temp.put(resourcename, permission);
+				}
+				
+			}
+			
+			
+			pageNum++;
+			permrestrictions.put("pageNum", Integer.toString(pageNum));
+			returndata = searcher.getJSON(storage,permrestrictions,"items",permbase);
+			
+		}
+
+		
+		
+		//change soft workflow to main Delete
+		Iterator rit=temp.keys();
+		while(rit.hasNext()) {
+			String key=(String)rit.next();
+			Object value = temp.get(key);
+
+			set.put(value);
+		}
 		
 		return set;
 	}
@@ -125,17 +171,22 @@ public class RecordRead implements WebMethod {
 			if(record_type || authorization_type) {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid,restrictions);
 				fields.put("csid",csid); // XXX remove this, subject to UI team approval?
-				JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
-				JSONObject relations=createRelations(storage,csid);
 				out.put("csid",csid);
 				out.put("fields",fields);
-				out.put("relations",relations);
-				out.put("termsUsed",tusd);
-				if(authorization_type && base.equals("role")){
-					JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permroles/",restrictions);
-					JSONArray allperms = getPermissions(storage,permissions);
-					fields.put("permissions",allperms);
+				if(base.equals("role")){
+					if(authorization_type){
+						JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permroles/",restrictions);
+						JSONArray allperms = getPermissions(storage,permissions);
+						fields.put("permissions",allperms);
+					}
 				}
+				else{
+					JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
+					JSONObject relations=createRelations(storage,csid);
+					out.put("relations",relations);
+					out.put("termsUsed",tusd);
+				}
+				
 			} else {
 				out=storage.retrieveJSON(base+"/"+csid,restrictions);
 			}

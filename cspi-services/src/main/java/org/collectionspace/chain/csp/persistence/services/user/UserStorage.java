@@ -143,8 +143,8 @@ public class UserStorage extends GenericStorage {
 			}
 		}
 
-		String serviceurl = r.getServicesURL() + "/";
-		deleteJSON(root,creds,cache,filePath,serviceurl);
+		//String serviceurl = r.getServicesURL() + "/";
+		deleteJSON(root,creds,cache,filePath,r);
 		
 	}
 
@@ -178,7 +178,7 @@ public class UserStorage extends GenericStorage {
 			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), tail, false, "");
 			
 			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
-			JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false);
+			JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
 			
 			return data;
 			

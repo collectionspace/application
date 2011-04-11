@@ -74,6 +74,7 @@ public class Generic {
 			return servicename;
 		}
 	}
+	
 	public static String ResourceNameServices(Spec spec, String uiname){
 		try{
 			Record test = spec.getRecordByWebUrl(uiname);
@@ -81,6 +82,16 @@ public class Generic {
 		}
 		catch(Exception e){
 			return uiname;
+		}
+	}
+	
+	public static Record RecordNameServices(Spec spec, String uiname){
+		try{
+			Record test = spec.getRecordByWebUrl(uiname);
+			return test;
+		}
+		catch(Exception e){
+			return null;
 		}
 	}
 	
