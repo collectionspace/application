@@ -176,6 +176,10 @@ public class UserStorage extends GenericStorage {
 			String tail = args.toString();
 			
 			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), tail, false, "");
+
+			if(r.hasSoftDeleteMethod()){
+				path = softpath(path);
+			}
 			
 			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
 			JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);

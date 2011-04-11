@@ -295,6 +295,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 
 			String path = getRestrictedPath(url, restrictions, r.getServicesSearchKeyword(), "", true, getDisplayNameKey() );
 			
+
+			if(r.hasSoftDeleteMethod()){
+				path = softpath(path);
+			}
+			
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			Document doc=data.getDocument();
 			log.info(doc.asXML());
@@ -547,6 +552,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		JSONObject out = new JSONObject();
 			// XXX pagination support
 			String url = generateURL(vocab,csid,"");
+
+			if(r.hasSoftDeleteMethod()){
+				url = softpath(url);
+			}
+			
 			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,url,null,creds,cache);
 			if(doc.getStatus()==404)
 				throw new ExistException("Does not exist");
@@ -555,15 +565,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String name = null;
 			String refid = null;
 			String shortIdentifier = "";
-			log.info(url);
-			log.info("SSS");
+			
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
 				Document result=doc.getDocument(record_path[0]);
-				log.info("DDD");
-				log.info(url+":"+record_path[0]+":");
+
 				if("common".equals(section)) { // XXX hardwired :(
 					name=result.selectSingleNode(tag_path[1]+"/displayName").getText();
 					if(result.selectSingleNode(tag_path[1]+"/shortIdentifier")!=null){
