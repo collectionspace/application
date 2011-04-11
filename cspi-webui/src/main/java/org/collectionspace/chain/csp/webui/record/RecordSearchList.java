@@ -53,21 +53,51 @@ public class RecordSearchList implements WebMethod {
 	 * @throws UnderlyingStorageException
 	 * @throws JSONException
 	 */
-	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws JSONException  {
 		String postfix = "list";
 		if(this.search){
 			postfix = "search";
 		}
 		JSONObject restrictions = new JSONObject();
-		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view/"+postfix,restrictions);
-		out.put("csid",csid);
-		out.put("recordtype",type_to_url.get(type));
-		// CSPACE-2894
-		if(this.r.getID().equals("permission")){
-			String summary = out.getString("summary");
-			out.put("summary", Generic.ResourceNameUI(this.r.getSpec(), summary));
-			out.put("display", Generic.getPermissionView(this.r.getSpec(), summary));
-		}
+		JSONObject out = new JSONObject();
+		try {
+			out = storage.retrieveJSON(type+"/"+csid+"/view/"+postfix,restrictions);
+			out.put("csid",csid);
+			out.put("recordtype",type_to_url.get(type));
+			// CSPACE-2894
+			if(this.r.getID().equals("permission")){
+				String summary = out.getString("summary");
+				out.put("summary", Generic.ResourceNameUI(this.r.getSpec(), summary));
+				out.put("display", Generic.getPermissionView(this.r.getSpec(), summary));
+			}
+		} catch (ExistException e) {
+			out.put("csid",csid);
+			out.put("isError", true);
+			JSONObject msg = new JSONObject();
+			msg.put("severity", "error");
+			msg.put("message", "Exist Exception:"+e.getMessage());
+			JSONArray msgs = new JSONArray();
+			msgs.put(msg);
+			out.put("messages", msgs);
+		} catch (UnimplementedException e) {
+			out.put("csid",csid);
+			out.put("isError", true);
+			JSONObject msg = new JSONObject();
+			msg.put("severity", "error");
+			msg.put("message", "Exist Exception:"+e.getMessage());
+			JSONArray msgs = new JSONArray();
+			msgs.put(msg);
+			out.put("messages", msgs);
+		} catch (UnderlyingStorageException e) {
+			out.put("csid",csid);
+			out.put("isError", true);
+			JSONObject msg = new JSONObject();
+			msg.put("severity", "error");
+			msg.put("message", "Exist Exception:"+e.getMessage());
+			JSONArray msgs = new JSONArray();
+			msgs.put(msg);
+			out.put("messages", msgs);
+		} 
 		return out;
 	}
 	
