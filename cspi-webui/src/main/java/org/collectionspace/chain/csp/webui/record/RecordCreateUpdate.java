@@ -133,7 +133,7 @@ public class RecordCreateUpdate implements WebMethod {
 			actions.put(permL);
 		}
 		if(permlevel.equals("delete")){
-			if(r.hasSoftDeleteMethod()){
+			if(r!=null && r.hasSoftDeleteMethod()){
 				queryString = "CRUL";
 				actions.put(permC);
 				actions.put(permR);
@@ -160,7 +160,7 @@ public class RecordCreateUpdate implements WebMethod {
 		
 		if(isWorkflow){
 
-			if(r.hasSoftDeleteMethod()){
+			if(r!=null && r.hasSoftDeleteMethod()){
 				if(wf_querystring.equals("")){
 					wf_querystring = "RL";
 					wf_actions.put(permR);
@@ -240,8 +240,8 @@ public class RecordCreateUpdate implements WebMethod {
 				JSONObject perm = permissions.getJSONObject(i);
 
 				Record r = Generic.RecordNameServices(spec,perm.getString("resourceName"));
-				if(r!=null){
-					if(r.hasSoftDeleteMethod()){
+				//if(r!=null){
+					if(r!=null && r.hasSoftDeleteMethod()){
 						JSONObject permitem = getPerm(storage,perm.getString("resourceName"),perm.getString("permission"),true);
 						if(permitem.has("permissionId")){
 							permdata.put(permitem);
@@ -251,7 +251,7 @@ public class RecordCreateUpdate implements WebMethod {
 					if(permitem.has("permissionId")){
 						permdata.put(permitem);
 					}
-				}
+				//}
 			}
 		}
 

@@ -116,7 +116,10 @@ public class RecordRead implements WebMethod {
 				
 
 				if(resourcename.endsWith("/*/workflow/")){
-					String resourcename1 = resourcename.substring(1);
+					String resourcename1 = resourcename;
+					if(resourcename.startsWith("/")){
+						resourcename1 = resourcename.substring(1);
+					}
 					String resource = resourcename1.split("\\/\\*\\/workflow\\/")[0]; 
 					String tempres = Generic.ResourceNameUI(spec, resource);
 					if(testset.has(resourcename)){
