@@ -49,6 +49,8 @@ public class UISchema extends UISpec {
 	protected JSONObject generateTermsUsed() throws JSONException {
 		return generateSchemaObject("array", new JSONArray(), null, null);
 	}
+	protected void generateUploaderEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
+	}
 
 	protected JSONObject generateRelations() throws JSONException {
 		return generateSchemaObject("object", new JSONObject(), null, null);
