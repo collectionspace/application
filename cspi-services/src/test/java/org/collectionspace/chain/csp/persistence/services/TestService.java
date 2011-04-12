@@ -559,7 +559,7 @@ public class TestService extends ServicesBaseClass {
 
 	}
 
-	@Test
+	//@Test
 	public void testPersonContact() throws Exception {
 		String serviceurl = "personauthorities/urn:cspace:name(person)/items";
 		String filename = "personItem.xml";
@@ -628,7 +628,7 @@ public class TestService extends ServicesBaseClass {
 		assertNull(doc);
 	}
 
-	@Test
+	//@Test
 	public void testOrgContact() throws Exception {
 		String serviceurl = "orgauthorities/urn:cspace:name(organization)/items";
 		String filename = "orgItem.xml";
