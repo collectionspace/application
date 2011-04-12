@@ -635,14 +635,15 @@ public class UISpec implements WebMethod {
 
 	protected void generateUploaderEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
 
-		String cond = "";
+		JSONObject cond = new JSONObject();
 		if(f instanceof Group){
 			Group gp = (Group)f;
 			String test = gp.usesRecordValidator();
 			FieldSet tester = record.getField(test);
 			if(tester instanceof Field){
-				cond = plain((Field)tester);
+				cond.put("args",plain((Field)tester));
 			}
+			cond.put("funcName", "cspace.mediaUploader.assertBlob");
 		}
 		JSONObject ttree = new JSONObject();
 		ttree.put(f.getSelector(),new JSONObject());

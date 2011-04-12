@@ -7,8 +7,7 @@
         <subject>sdf asdf</subject>
         <subject>asdf</subject>
     </subjectList>
-    <blobCsid>
-    </blobCsid>
+    <blobCsid></blobCsid>
     <dimensionGroupList/>
     <rightsHolder>rightsHolder</rightsHolder>
     <creator>urn:cspace:org.collectionspace.demo:orgauthority:id(4cc1991b-cee2-48b8-80f8):organization:id(ae637175-ec37-416e-8909)'Playtime+Products+Inc.'</creator>
@@ -28,8 +27,6 @@
         <type>typed</type>
     </typeList>
     <format>format</format>
-    <uri>
-    </uri>
     <source>source</source>
     <relationList>
         <relation>relation</relation>
@@ -39,5 +36,5 @@
     </dateCreated>
     <filename>
     </filename>
-    <identificationNumber>MR2011.1.7</identificationNumber>
+    <identificationNumber>MR2011.1.9</identificationNumber>
 </ns2:media_common>

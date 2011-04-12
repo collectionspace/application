@@ -254,7 +254,7 @@ public class TestServiceThroughWebapp extends TestBase{
 		// search
 		out=jettyDoUTF8(jetty,"GET","/chain/cataloging/search?query=aardvark",null);
 		assertEquals(200,out.getStatus());
-		//log.info(out.getContent());
+		log.info(out.getContent());
 		// check
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		boolean found=false;

@@ -53,21 +53,55 @@ public class RecordSearchList implements WebMethod {
 	 * @throws UnderlyingStorageException
 	 * @throws JSONException
 	 */
-	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private JSONObject generateMiniRecord(Storage storage,String type,String csid) throws JSONException  {
 		String postfix = "list";
 		if(this.search){
 			postfix = "search";
 		}
 		JSONObject restrictions = new JSONObject();
-		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view/"+postfix,restrictions);
-		out.put("csid",csid);
-		out.put("recordtype",type_to_url.get(type));
-		// CSPACE-2894
-		if(this.r.getID().equals("permission")){
-			String summary = out.getString("summary");
-			out.put("summary", Generic.ResourceNameUI(this.r.getSpec(), summary));
-			out.put("display", Generic.getPermissionView(this.r.getSpec(), summary));
-		}
+		JSONObject out = new JSONObject();
+		try {
+			out = storage.retrieveJSON(type+"/"+csid+"/view/"+postfix,restrictions);
+			out.put("csid",csid);
+			out.put("recordtype",type_to_url.get(type));
+			// CSPACE-2894
+			if(this.r.getID().equals("permission")){
+				String summary = out.getString("summary");
+				String name = Generic.ResourceNameUI(this.r.getSpec(), summary);
+				if(name.endsWith("/*/workflow/")){
+					return null;
+				}
+				out.put("summary", name);
+				out.put("display", Generic.getPermissionView(this.r.getSpec(), summary));
+			}
+		} catch (ExistException e) {
+			out.put("csid",csid);
+			out.put("isError", true);
+			JSONObject msg = new JSONObject();
+			msg.put("severity", "error");
+			msg.put("message", "Exist Exception:"+e.getMessage());
+			JSONArray msgs = new JSONArray();
+			msgs.put(msg);
+			out.put("messages", msgs);
+		} catch (UnimplementedException e) {
+			out.put("csid",csid);
+			out.put("isError", true);
+			JSONObject msg = new JSONObject();
+			msg.put("severity", "error");
+			msg.put("message", "Exist Exception:"+e.getMessage());
+			JSONArray msgs = new JSONArray();
+			msgs.put(msg);
+			out.put("messages", msgs);
+		} catch (UnderlyingStorageException e) {
+			out.put("csid",csid);
+			out.put("isError", true);
+			JSONObject msg = new JSONObject();
+			msg.put("severity", "error");
+			msg.put("message", "Exist Exception:"+e.getMessage());
+			JSONArray msgs = new JSONArray();
+			msgs.put(msg);
+			out.put("messages", msgs);
+		} 
 		return out;
 	}
 	
@@ -102,8 +136,12 @@ public class RecordSearchList implements WebMethod {
 	private JSONObject pathsToJSON(Storage storage,String base,String[] paths,String key, JSONObject pagination) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
-		for(String p : paths)
-			members.put(generateEntry(storage,base,p));
+		for(String p : paths){
+			JSONObject temp = generateEntry(storage,base,p);
+			if(temp !=null){
+				members.put(temp);
+			}
+		}
 		out.put(key,members);
 
 		
