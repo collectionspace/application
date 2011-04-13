@@ -191,8 +191,35 @@ public class RecordSearchList implements WebMethod {
 					}
 				}
 			}
-			
-			JSONObject returndata = getJSON(storage,restriction,key,base);
+
+			JSONObject returndata = new JSONObject();
+
+			if(this.r.getID().equals("permission")){
+				//pagination isn't properly implemented in permissions so just keep looping til we get everything
+				int pgnum = 0;
+				if(restriction.has("pageNum")){ //just get teh page specified
+					returndata = getJSON(storage,restriction,key,base);
+				}
+				else{ // if not specified page then loop over them all.
+					JSONArray newitems =new JSONArray();
+					returndata = getJSON(storage,restriction,key,base);
+					while(returndata.has(key) && returndata.getJSONArray(key).length()>0){
+
+						JSONArray items = returndata.getJSONArray(key);
+						for(int i=0;i<items.length();i++){
+							newitems.put(items.get(i));
+						}
+						pgnum++;
+						restriction.put("pageNum", Integer.toString(pgnum));
+						
+						returndata = getJSON(storage,restriction,key,base);
+					}
+					returndata.put(key, newitems);
+				}
+			}
+			else{
+				returndata = getJSON(storage,restriction,key,base);
+			}
 			ui.sendJSONResponse(returndata);
 		} catch (JSONException e) {
 			throw new UIException("JSONException during search_or_list",e);
