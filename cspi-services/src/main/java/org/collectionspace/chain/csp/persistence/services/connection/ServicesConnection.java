@@ -196,6 +196,13 @@ public class ServicesConnection {
 		return src;
 	}
 
+	private RequestDataSource makeUnknownSource(Document body) throws ConnectionException {
+		RequestDataSource src=null;
+		if(body!=null) {
+			src=new DocumentUnknownRequestDataSource(body);
+		}
+		return src;
+	}
 	private RequestDataSource makeMultipartSource(Map<String,Document> body) throws ConnectionException {
 		RequestDataSource src=null;
 		if(body!=null) {
@@ -207,6 +214,12 @@ public class ServicesConnection {
 	public ReturnedDocument getXMLDocument(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
 		ReturnedDocument out=new ReturnedDocument();
 		doRequest(out,method_type,uri,makeDocumentSource(body),creds,cache);
+		return out;
+	}
+
+	public ReturnUnknown getUnknownDocument(RequestMethod method_type,String uri,Document body,CSPRequestCredentials creds,CSPRequestCache cache) throws ConnectionException {
+		ReturnUnknown out=new ReturnUnknown();
+		doRequest(out,method_type,uri,makeUnknownSource(body),creds,cache);
 		return out;
 	}
 

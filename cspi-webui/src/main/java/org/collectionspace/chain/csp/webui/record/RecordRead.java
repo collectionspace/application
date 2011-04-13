@@ -214,12 +214,20 @@ public class RecordRead implements WebMethod {
 		// Get the data
 		JSONObject outputJSON = getJSON(storage,path);
 		try {
-			outputJSON.put("csid",path);
+			if(record.isType("blob")){
+				String content = outputJSON.getString("contenttype");
+				byte[] bob = (byte[])outputJSON.get("getByteBody"); 
+				String getByteBody = bob.toString();
+				request.sendUnknown(getByteBody, content);
+			}
+			else{
+				outputJSON.put("csid",path);
+				// Write the requested JSON out
+				request.sendJSONResponse(outputJSON);
+			}
 		} catch (JSONException e1) {
 			throw new UIException("Cannot add csid",e1);
 		}
-		// Write the requested JSON out
-		request.sendJSONResponse(outputJSON);
 	}
 	
 	public void run(Object in, String[] tail) throws UIException {

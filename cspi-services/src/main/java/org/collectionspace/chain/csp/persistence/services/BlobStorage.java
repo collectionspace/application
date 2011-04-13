@@ -1,9 +1,14 @@
 package org.collectionspace.chain.csp.persistence.services;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import org.dom4j.Document;
 
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnUnknown;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Record;
@@ -27,6 +32,59 @@ public class BlobStorage extends GenericStorage {
 		initializeGlean(r);
 	}
 	
+	public JSONObject viewRetrieveImg(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
+		JSONObject out=new JSONObject();
+		String servicesurl = r.getServicesURL()+"/";
+		try {
+			filePath = filePath +"/derivatives/"+view+"/content";
+			String softpath = filePath;
+			if(r.hasSoftDeleteMethod()){
+				softpath = softpath(filePath);
+			}
+			
+			if(r.isMultipart()){
+				ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
+				if((doc.getStatus()<200 || doc.getStatus()>=300))
+					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
+				out.put("getByteBody", doc.getBytes());
+				out.put("contenttype", doc.getContentType());
+				
+			}
+			else{
+				ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
+				if((doc.getStatus()<200 || doc.getStatus()>=300))
+					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
+
+				out.put("getByteBody", doc.getBytes());
+				out.put("contenttype", doc.getContentType());
+			}
+
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		}
+		return out;
+	}
+	
+	
+	
+	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,
+	UnimplementedException, UnderlyingStorageException {
+		try {
+			String[] parts=filePath.split("/");
+			if(parts.length>=2) {
+				String extra = "";
+				if(parts.length==3){
+					extra = parts[2];
+				}
+				return viewRetrieveImg(root,creds,cache,parts[0],parts[1],extra, restrictions);
+			} else
+				return simpleRetrieveJSON(creds,cache,filePath);
+		} catch(JSONException x) {
+			throw new UnderlyingStorageException("Error building JSON",x);
+		} catch (UnsupportedEncodingException x) {
+			throw new UnderlyingStorageException("Error UnsupportedEncodingException JSON",x);
+		}
+	}
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		
 

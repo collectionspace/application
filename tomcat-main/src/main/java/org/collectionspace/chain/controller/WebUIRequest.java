@@ -6,10 +6,7 @@
  */
 package org.collectionspace.chain.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -26,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,8 +35,6 @@ import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.*;
-import org.apache.commons.fileupload.util.Streams;
-import org.collectionspace.chain.csp.persistence.services.connection.ConnectionUtils;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
@@ -344,6 +338,10 @@ public class WebUIRequest implements UIRequest {
 
 	public void sendXMLResponse(String data) throws UIException {
 		response.setContentType("text/xml;charset=UTF-8");
+		out_data=data;
+	}
+	public void sendUnknown(String data, String contenttype) throws UIException {
+		response.setContentType(contenttype);
 		out_data=data;
 	}
 	public void sendJSONResponse(JSONObject data) throws UIException {
