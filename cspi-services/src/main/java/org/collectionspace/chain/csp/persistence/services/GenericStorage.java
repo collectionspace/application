@@ -361,14 +361,15 @@ public class GenericStorage  implements ContextualisedStorage {
 	UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		try {
+			String softpath = filePath;
 			if(thisr.hasSoftDeleteMethod()){
-				filePath = softpath(filePath);
+				softpath = softpath(filePath);
 			}
 			
 			if(thisr.isMultipart()){
-				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,servicesurl+filePath,null,creds,cache);
+				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,servicesurl+softpath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
-					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
+					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
 				
 				for(String section : thisr.getServicesRecordPaths()) {
 					String path=thisr.getServicesRecordPath(section);
@@ -379,9 +380,9 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 			}
 			else{
-				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+filePath,null, creds, cache);
+				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+softpath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
-					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
+					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
 				convertToJson(out,doc.getDocument(), thisr, "GET", "common");
 			}
 
