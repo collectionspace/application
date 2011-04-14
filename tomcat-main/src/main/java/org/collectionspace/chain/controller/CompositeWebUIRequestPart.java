@@ -238,6 +238,16 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		pw.print(data);
 		pw.flush();
 	}
+
+	public void sendUnknown(byte[] data, String contenttype) throws UIException {
+		mime_type_out=contenttype;
+		try {
+			body_out.write(data);
+			body_out.flush();
+		} catch (IOException e) {
+			throw new UIException("Could not write data",e);
+		}
+	}
 	
 	@Override
 	public void sendJSONResponse(JSONObject data) throws UIException {

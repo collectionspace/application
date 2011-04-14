@@ -664,8 +664,12 @@ public class TestGeneral extends TestBase {
 		assertTrue(response.getString("file").contains("/blobs/"));
 		assertTrue(response.optString("csid")!=null);
 		assertNotSame("",response.optString("csid"));
+		String read_url = response.getString("file").replaceAll("^.*?/blobs/","/blobs/")+"/Original";
+		UTF8SafeHttpTester out2=GETBinaryData(read_url,jetty,200);
+		log.info(out2.getHeader("Content-Type"));
+		byte[] img = out2.getBinaryContent();
+		assertArrayEquals(img,data);
 	}
-	
 	
 	@Test public void testRolesPermsUI() throws Exception {
 

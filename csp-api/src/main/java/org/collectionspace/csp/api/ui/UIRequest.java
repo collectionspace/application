@@ -16,6 +16,7 @@ public interface UIRequest {
 	
 	public TTYOutputter getTTYOutputter() throws UIException;
 	public void sendXMLResponse(String out) throws UIException;
+	public void sendUnknown(byte[] data, String contenttype) throws UIException;
 	public void sendUnknown(String data, String contenttype) throws UIException;
 	public void sendJSONResponse(JSONObject out) throws UIException;
 	public void sendJSONResponse(JSONArray out) throws UIException;

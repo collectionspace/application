@@ -61,6 +61,10 @@ public class UTF8SafeHttpTester {
 			return null;
 		}
     }
+
+    public byte[] getBinaryContent() { 
+    	return content.toByteArray();
+    }
     
     public void setBinaryContent(ByteArrayInputStream data) throws Exception {
     	

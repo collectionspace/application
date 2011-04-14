@@ -49,6 +49,7 @@ public class ReturnUnknown  implements Returned {
 			} else {
 
 	            ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+	            IOUtils.copy(stream,byteOut);
 	            new TeeInputStream(stream,byteOut);
 	            bytebody = byteOut.toByteArray();
 				
