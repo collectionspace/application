@@ -9,6 +9,7 @@ package org.collectionspace.chain.csp.persistence;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
@@ -162,6 +163,21 @@ public class TestBase extends TestData {
 		return out;
 	}
 
+	protected static UTF8SafeHttpTester jettyDoData(ServletTester tester,
+			String method, String path, byte[] data) throws IOException,
+			Exception {
+		UTF8SafeHttpTester out = new UTF8SafeHttpTester();
+		byte[] head="------JettyTester\r\nContent-Disposition: form-data; name=\"file\"; filename=\"1.jpg\"\r\nContent-Type: image/jpeg\r\n\r\n".getBytes("UTF-8");
+		byte[] tail="\r\n------JettyTester--\r\n".getBytes("UTF-8");
+		byte[] msg = new byte[head.length+data.length+tail.length];
+		System.arraycopy(head,0,msg,0,head.length);
+		System.arraycopy(data,0,msg,head.length,data.length);
+		System.arraycopy(tail,0,msg,head.length+data.length,tail.length);
+		
+		out.request_binary(tester, method, path, msg, cookie,"multipart/form-data; boundary=----JettyTester");
+		return out;
+	}
+	
 	protected static HttpTester jettyDo(ServletTester tester, String method,
 			String path, String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
@@ -294,6 +310,13 @@ public class TestBase extends TestData {
 	protected HttpTester POSTData(String url, String data, ServletTester jetty) throws IOException, Exception{
 		HttpTester out = jettyDo(jetty,"POST","/chain"+url,data);
 		assertEquals(out.getMethod(),null);
+		Integer status = getStatus(out.getContent(),  out.getStatus());
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /chain"+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
+		return out;
+	}
+
+	protected UTF8SafeHttpTester POSTBinaryData(String url, byte[] data, ServletTester jetty) throws IOException, Exception{
+		UTF8SafeHttpTester out = jettyDoData(jetty,"POST","/chain"+url,data);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /chain"+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
 		return out;

@@ -48,7 +48,7 @@ public class BlobCreateUpdate   extends RecordCreateUpdate  {
 				data3.put("csid",csid);
 			}			
 			request.sendJSONResponse(data3);
-			request.setOperationPerformed(Operation.OK);
+			request.setOperationPerformed(Operation.CREATE);
 		} catch (JSONException x) {
 			throw new UIException("Failed to parse json: "+x,x);
 		} catch (Exception x) {
