@@ -185,7 +185,7 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.CREATE,new String[]{"login"},0,new WebLogin(this,spec));
 		addMethod(Operation.CREATE,new String[]{"uploads"},0,new BlobCreateUpdate(spec.getRecord("blobs"),true));
 		addMethod(Operation.READ,new String[]{"uploads"},0,new BlobCreateUpdate(spec.getRecord("blobs"),true));
-		addMethod(Operation.READ,new String[]{"blobs"},1,new BlobRead());
+		addMethod(Operation.READ,new String[]{"download"},1,new BlobRead());
 		addMethod(Operation.READ,new String[]{"logout"},0,new WebLogout());
 		addMethod(Operation.READ,new String[]{"loginstatus"},0, new WebLoginStatus(spec));
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
@@ -228,7 +228,7 @@ public class WebUI implements CSP, UI, Configurable {
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 				}
 			}
-			else if(r.isType("record") || r.isType("authorizationdata")){
+			else if(r.isType("record") || r.isType("blob") || r.isType("authorizationdata")){
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord(r.getID())));
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
