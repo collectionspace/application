@@ -164,10 +164,10 @@ public class TestBase extends TestData {
 	}
 
 	protected static UTF8SafeHttpTester jettyDoData(ServletTester tester,
-			String method, String path, byte[] data) throws IOException,
+			String method, String path, String filename, String content_type,byte[] data) throws IOException,
 			Exception {
 		UTF8SafeHttpTester out = new UTF8SafeHttpTester();
-		byte[] head="------JettyTester\r\nContent-Disposition: form-data; name=\"file\"; filename=\"1.jpg\"\r\nContent-Type: image/jpeg\r\n\r\n".getBytes("UTF-8");
+		byte[] head=("------JettyTester\r\nContent-Disposition: form-data; name=\"file\"; filename=\""+filename+"\"\r\nContent-Type: "+content_type+"\r\n\r\n").getBytes("UTF-8");
 		byte[] tail="\r\n------JettyTester--\r\n".getBytes("UTF-8");
 		byte[] msg = new byte[head.length+data.length+tail.length];
 		System.arraycopy(head,0,msg,0,head.length);
@@ -316,7 +316,7 @@ public class TestBase extends TestData {
 	}
 
 	protected UTF8SafeHttpTester POSTBinaryData(String url, byte[] data, ServletTester jetty) throws IOException, Exception{
-		UTF8SafeHttpTester out = jettyDoData(jetty,"POST","/chain"+url,data);
+		UTF8SafeHttpTester out = jettyDoData(jetty,"POST","/chain"+url,"1.jpeg","image/jpeg",data);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /chain"+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
 		return out;
