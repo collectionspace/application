@@ -671,11 +671,6 @@ public class TestGeneral extends TestBase {
 		assertArrayEquals(img,data);
 	}
 	
-	@Test public void testMedia() throws Exception {
-		ServletTester jetty = setupJetty();
-		HttpTester out = GETData("/media/a82a95f1-768c-4afa-aaac",jetty);
-	}
-	
 	@Test public void testRolesPermsUI() throws Exception {
 
 		ServletTester jetty = setupJetty();
