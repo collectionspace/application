@@ -318,7 +318,7 @@ public class TestBase extends TestData {
 	protected UTF8SafeHttpTester POSTBinaryData(String url, byte[] data, ServletTester jetty) throws IOException, Exception{
 		UTF8SafeHttpTester out = jettyDoData(jetty,"POST","/chain"+url,"1.jpeg","image/jpeg",data);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /chain"+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /chain"+url+" with data: "+data +"/n"+out.getContent(),testStatus("PUT",status));
 		return out;
 	}
 	/**
