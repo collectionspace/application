@@ -142,6 +142,12 @@ public class RecordRead implements WebMethod {
 					permission.put("permission", permlevel);
 					temp.put(Generic.ResourceNameUI(spec, resourcename), permission);
 				}
+				else if(!temp.has(resourcename)){
+					permlevel = "none";
+
+					permission.put("permission", permlevel);
+					temp.put(Generic.ResourceNameUI(spec, resourcename), permission);
+				}
 				
 			}
 			
