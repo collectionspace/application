@@ -1879,9 +1879,12 @@
                     <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section>
-                    <field id="addressType">
-                        <selector>.csc-contactAuthority-addressType</selector>
-                    </field>
+                	<field id="addressType" autocomplete="vocab-addresstype" ui-type="enum">
+                		<enum>
+							<blank-value>Please select a value</blank-value>
+						</enum>
+						<selector>.csc-contactAuthority-addressType</selector>
+                      </field>
                     <field id="addressPlace">
                         <selector>.csc-contactAuthority-addressPlace</selector>
                     </field>
@@ -2900,6 +2903,17 @@
                             <option id="enquiry">Enquiry</option>
                             <option id="loanin">Loan in</option>
                             <option id="conservation">Conservation</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-addresstype">
+                        <web-url>addresstype</web-url>
+                        <title-ref>addresstype</title-ref>
+                        <title>Contact Address Type</title>
+                        <options>
+                            <option id="alternative">Alternative</option>
+                            <option id="mailing">Mailing</option>
+                            <option id="previous">Previous</option>
+                            <option id="street">Street</option>
                         </options>
                     </instance>
                 </instances>

@@ -22,6 +22,7 @@ package org.collectionspace.chain.storage;
 
 // Modified for characterset safety at CARET. Same licence applies.
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -60,6 +61,14 @@ public class UTF8SafeHttpTester {
 			return null;
 		}
     }
+
+    public byte[] getBinaryContent() { 
+    	return content.toByteArray();
+    }
+    
+    public void setBinaryContent(ByteArrayInputStream data) throws Exception {
+    	
+    }
     
     private class PH extends HttpParser.EventHandler
     {
@@ -88,6 +97,10 @@ public class UTF8SafeHttpTester {
 		byte[] data=null;
 		if(data_str!=null)
 			data=data_str.getBytes("UTF-8");
+		request_binary(tester,method,path,data,cookie,"text/plain; charset=utf-8");
+	}
+    
+    public void request_binary(ServletTester tester,String method,String path,byte[] data,String cookie,String content_type) throws Exception {
 		Buffer bb=new ByteArrayBuffer(32*1024 + (data!=null?data.length:0));
 		Buffer sb=new ByteArrayBuffer(4*1024);
 		ByteArrayEndPoint endp = new ByteArrayEndPoint(new byte[]{},1);
@@ -97,7 +110,7 @@ public class UTF8SafeHttpTester {
 		generator.setVersion(HttpVersions.HTTP_1_0_ORDINAL);
 		HttpFields fields=new HttpFields();
 		fields.put("Host","tester");
-		fields.put(HttpHeaders.CONTENT_TYPE,"text/plain; charset=utf-8");
+		fields.put(HttpHeaders.CONTENT_TYPE,content_type);
 		fields.put(HttpHeaders.COOKIE,cookie);
 		if(data!=null)
 			fields.putLongField(HttpHeaders.CONTENT_LENGTH,data.length);

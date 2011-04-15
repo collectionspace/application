@@ -6,12 +6,10 @@
  */
 package org.collectionspace.chain.controller;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -26,7 +24,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,8 +36,6 @@ import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.*;
-import org.apache.commons.fileupload.util.Streams;
-import org.collectionspace.chain.csp.persistence.services.connection.ConnectionUtils;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
@@ -66,7 +61,9 @@ public class WebUIRequest implements UIRequest {
 	private Operation operation_performed=Operation.READ;
 	private Map<String,String> rargs=new HashMap<String,String>();
 	private PrintWriter out=null;
+	private OutputStream out_stream=null;
 	private String out_data=null; // We store to allow late changes to headers
+	private byte[] out_binary_data=null;
 	private String body; // XXX what if it's binary?
 	private FileItemHeaders contentHeaders; 
 	private String contenttype; 
@@ -277,6 +274,12 @@ public class WebUIRequest implements UIRequest {
 	private void close() {
 		if(out!=null)
 			out.close();
+		if(out_stream!=null)
+			try {
+				out_stream.close();
+			} catch (IOException e) {
+				// Deliberate no-op: we can't really do much else
+			}
 		out=null;
 	}
 	
@@ -286,6 +289,10 @@ public class WebUIRequest implements UIRequest {
 				out=response.getWriter();
 				out.print(out_data);
 				out_data=null;
+			}
+			if(out_binary_data!=null) {
+				out_stream=response.getOutputStream();
+				out_stream.write(out_binary_data);
 			}
 			if(solidified) {
 				if(close)
@@ -345,6 +352,14 @@ public class WebUIRequest implements UIRequest {
 	public void sendXMLResponse(String data) throws UIException {
 		response.setContentType("text/xml;charset=UTF-8");
 		out_data=data;
+	}
+	public void sendUnknown(String data, String contenttype) throws UIException {
+		response.setContentType(contenttype);
+		out_data=data;
+	}
+	public void sendUnknown(byte[] data, String contenttype) throws UIException {
+		response.setContentType(contenttype);
+		out_binary_data=data;
 	}
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		response.setContentType("text/json;charset=UTF-8");

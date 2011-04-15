@@ -9,8 +9,10 @@ package org.collectionspace.chain.csp.persistence.file;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +36,7 @@ import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsReset;
+import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.collectionspace.chain.uispec.SchemaStore;
 import org.collectionspace.chain.uispec.StubSchemaStore;
 import org.collectionspace.chain.util.json.JSONUtils;
@@ -651,7 +654,22 @@ public class TestGeneral extends TestBase {
 		DELETEData("/vocabularies/"+person_id,jetty);
 	}
 
-
+	@Test public void testUpload() throws Exception {
+		ServletTester jetty = setupJetty();
+		String filename = getClass().getPackage().getName().replaceAll("\\.","/")+"/darwin-beard-hat.jpg";
+		byte[] data = IOUtils.toByteArray(Thread.currentThread().getContextClassLoader().getResourceAsStream(filename));
+		UTF8SafeHttpTester out=POSTBinaryData("/uploads",data,jetty);
+		log.info(out.getContent());
+		JSONObject response = new JSONObject(out.getContent());
+		assertTrue(response.getString("file").contains("/blobs/"));
+		assertTrue(response.optString("csid")!=null);
+		assertNotSame("",response.optString("csid"));
+		String read_url = response.getString("file").replaceAll("^.*?/blobs/","/download/")+"/Original";
+		UTF8SafeHttpTester out2=GETBinaryData(read_url,jetty,200);
+		log.info(out2.getHeader("Content-Type"));
+		byte[] img = out2.getBinaryContent();
+		assertArrayEquals(img,data);
+	}
 	
 	@Test public void testRolesPermsUI() throws Exception {
 

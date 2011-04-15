@@ -141,6 +141,19 @@ public class StreamUIRequest implements UIRequest {
 	public void sendXMLResponse(String data) throws UIException {
 		println(out,data);
 	}
+	public void sendUnknown(String data, String contenttype) throws UIException {
+		println(out,data);
+	}
+	
+	public void sendUnknown(byte[] data, String contenttype) throws UIException {
+		try {
+			out.write(data);
+		} catch (IOException e) {
+			throw new UIException("Cannot write data",e);
+		}
+	}
+
+	
 	public void sendJSONResponse(JSONObject data) throws UIException {
 		println(out,data.toString());
 	}

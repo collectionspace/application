@@ -365,6 +365,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			if(thisr.hasSoftDeleteMethod()){
 				softpath = softpath(filePath);
 			}
+			
 			if(thisr.isMultipart()){
 				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,servicesurl+softpath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))

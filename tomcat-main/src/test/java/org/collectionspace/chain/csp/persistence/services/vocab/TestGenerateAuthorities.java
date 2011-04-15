@@ -15,7 +15,7 @@ public class TestGenerateAuthorities extends TestBase {
 	private static final Logger log = LoggerFactory
 	.getLogger(TestGenerateAuthorities.class);
 	
-	
+
 	@Test
 	public void testSetUp() throws Exception {
 		HttpTester out;
@@ -24,7 +24,8 @@ public class TestGenerateAuthorities extends TestBase {
 		ServletTester jetty = setupJetty();
 		
 		// repopulate the authorities with dummy data
-		out = GETData("/reset/nodelete", jetty);
+		//DONOT RUN THIS TEST LOCALLY 
+		out = GETData("/reset/", jetty);
 		
 
 		//do we have any records
@@ -42,4 +43,6 @@ public class TestGenerateAuthorities extends TestBase {
 		// /chain/vocabularies/person/initialize?datapath=/Users/csm22/Documents/collectionspace/svcapp/cspi-webui/src/main/resources/org/collectionspace/chain/csp/webui/misc/names.txt
 
 	}
+	
+	
 }

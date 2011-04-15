@@ -53,8 +53,7 @@ public class BlobCreateUpdate   extends RecordCreateUpdate  {
 			throw new UIException("Failed to parse json: "+x,x);
 		} catch (Exception x) {
 			throw new UIException(x);
-		}
-	
+		}	
 	}
 	
 	public void run(Object in,String[] tail) throws UIException {

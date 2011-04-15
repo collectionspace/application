@@ -191,7 +191,7 @@ public class RecordSearchList implements WebMethod {
 					}
 				}
 			}
-
+			
 			JSONObject returndata = new JSONObject();
 
 			if(this.r.getID().equals("permission")){
@@ -220,6 +220,7 @@ public class RecordSearchList implements WebMethod {
 			else{
 				returndata = getJSON(storage,restriction,key,base);
 			}
+			
 			ui.sendJSONResponse(returndata);
 		} catch (JSONException e) {
 			throw new UIException("JSONException during search_or_list",e);
