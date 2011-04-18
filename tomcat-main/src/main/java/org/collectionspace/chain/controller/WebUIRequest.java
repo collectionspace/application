@@ -103,7 +103,7 @@ public class WebUIRequest implements UIRequest {
 			            if (item != null) {
 			                InputStream stream = item.openStream();
 			                int len;
-			                byte[] buffer = new byte[8192];
+			                byte[] buffer = new byte[38192];
 			                while ((len = stream.read(buffer, 0, buffer.length)) != -1) {
 			                  byteOut.write(buffer, 0, len);
 			                }
