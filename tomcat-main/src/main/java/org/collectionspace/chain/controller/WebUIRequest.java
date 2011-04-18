@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.TeeInputStream;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.commons.fileupload.FileItemHeaders;
@@ -102,11 +103,8 @@ public class WebUIRequest implements UIRequest {
 			            ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
 			            if (item != null) {
 			                InputStream stream = item.openStream();
-			                int len;
-			                byte[] buffer = new byte[38192];
-			                while ((len = stream.read(buffer, 0, buffer.length)) != -1) {
-			                  byteOut.write(buffer, 0, len);
-			                }
+				            IOUtils.copy(stream,byteOut);
+				            new TeeInputStream(stream,byteOut);
 			               
 			            }
 			            bytebody = byteOut.toByteArray();
