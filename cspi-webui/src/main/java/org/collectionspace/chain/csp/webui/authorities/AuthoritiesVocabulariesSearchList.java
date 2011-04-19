@@ -77,8 +77,8 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		JSONObject data = storage.getPathsJSON(r.getID()+"/"+n.getTitleRef(),restriction);
 
 		if(param==null){
-			resultstring = "items"
-;		}
+			resultstring = "items";
+		}
 		
 		String[] paths = (String[]) data.get("listItems");
 		JSONObject pagination = new JSONObject();
