@@ -1692,7 +1692,7 @@
                 </section>
             </record>
 
-            <record id="location" in-recordlist="no"  type="authority,compute-displayname">
+            <record id="location"   type="authority,compute-displayname">
                 <web-url>location</web-url>
                 <services-tenant-plural>Locationauthorities</services-tenant-plural>
                 <services-tenant-singular>Locationauthority</services-tenant-singular>
