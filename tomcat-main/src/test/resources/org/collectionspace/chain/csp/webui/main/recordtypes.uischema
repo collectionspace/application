@@ -2,7 +2,7 @@
     "recordtypes": {
         "properties": {
             "vocabularies": {
-                "default": ["person", "organization"],
+                "default": ["person","location","organization"],
                 "type": "array"
             },
             "procedures": {
