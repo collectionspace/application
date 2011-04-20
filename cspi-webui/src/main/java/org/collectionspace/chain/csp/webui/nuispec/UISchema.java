@@ -72,7 +72,7 @@ public class UISchema extends UISpec {
 	}
 
 	protected Object generateOptionField(Field f) throws JSONException {
-		String type = "array";
+		String type = "string";
 		String defaultval = f.getOptionDefault();
 		return generateSchemaObject(type, defaultval, null, null);
 	}
