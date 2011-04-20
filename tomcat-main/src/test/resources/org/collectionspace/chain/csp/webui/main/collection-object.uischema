@@ -26,7 +26,7 @@
                     },
                     "inscriptionDescriptionPosition": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "objectHistoryNote": {
                         "type": "string"
@@ -80,7 +80,7 @@
                                 },
                                 "responsibleDepartment": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -89,7 +89,7 @@
                     },
                     "ownershipAccess": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "contentPositions": {
                         "items": {
@@ -99,7 +99,7 @@
                                 },
                                 "contentPosition": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -108,7 +108,7 @@
                     },
                     "inscriptionContentPosition": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "inscriptionContentTransliteration": {
                         "type": "string"
@@ -135,14 +135,14 @@
                     },
                     "ownershipExchangeMethod": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "objectNameGroup": {
                         "items": {
                             "properties": {
                                 "objectNameCurrency": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 },
                                 "_primary": {
                                     "type": "boolean"
@@ -156,18 +156,18 @@
                                 },
                                 "objectNameSystem": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 },
                                 "objectNameType": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 },
                                 "objectNameNote": {
                                     "type": "string"
                                 },
                                 "objectNameLevel": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -189,7 +189,7 @@
                                 },
                                 "contentObjectType": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 },
                                 "contentObject": {
                                     "type": "string"
@@ -310,7 +310,7 @@
                     },
                     "collection": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "inscriptionContent": {
                         "type": "string"
@@ -343,7 +343,7 @@
                     },
                     "inscriptionDescriptionType": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "assocPersonGroup": {
                         "items": {
@@ -379,7 +379,7 @@
                     },
                     "inscriptionContentScript": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "ownersPersonalResponse": {
                         "type": "string"
@@ -415,7 +415,7 @@
                                 },
                                 "objectStatus": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -530,18 +530,18 @@
                                 },
                                 "dimension": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 },
                                 "valueDate": {
                                     "type": "date"
                                 },
                                 "measuredPart": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 },
                                 "measurementUnit": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 },
                                 "value": {
                                     "type": "string"
@@ -625,7 +625,7 @@
                     },
                     "ageUnit": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "assocCulturalContextGroup": {
                         "items": {
@@ -663,7 +663,7 @@
                     },
                     "ownershipCategory": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "dimensionSummary": {
                         "type": "string"
@@ -702,7 +702,7 @@
                                 },
                                 "numberType": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -754,7 +754,7 @@
                                 },
                                 "objectComponentName": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -769,7 +769,7 @@
                                 },
                                 "contentScript": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -843,7 +843,7 @@
                     },
                     "inscriptionContentType": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "assocEventPlaces": {
                         "items": {
@@ -874,7 +874,7 @@
                                 },
                                 "titleType": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 },
                                 "titleTranslation": {
                                     "type": "string"
@@ -911,7 +911,7 @@
                     },
                     "phase": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "contentNote": {
                         "type": "string"
@@ -958,7 +958,7 @@
                     },
                     "sex": {
                         "default": "",
-                        "type": "array"
+                        "type": "string"
                     },
                     "assocDateGroup": {
                         "items": {
@@ -985,25 +985,25 @@
                     },
                     "recordStatus": {
                         "default": "new",
-                        "type": "array"
+                        "type": "string"
                     },
                     "technicalAttributeGroup": {
                         "items": {
                             "properties": {
                                 "technicalAttributeMeasurement": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 },
                                 "technicalAttribute": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 },
                                 "_primary": {
                                     "type": "boolean"
                                 },
                                 "technicalAttributeMeasurementUnit": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -1063,7 +1063,7 @@
                                 },
                                 "form": {
                                     "default": "",
-                                    "type": "array"
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
