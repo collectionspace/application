@@ -1735,12 +1735,18 @@
                             <option id="rejected">Rejected</option>
                         </options>
                     </field>
-                    <field id="conditionNote"></field>
-                    <field id="conditionNoteDate"></field>
+					<repeat id="conditionGroup">
+                    	<field id="conditionNote"></field>
+                    	<field id="conditionNoteDate" ui-type="date"></field>
+					</repeat>
                     <field id="securityNote"></field>
                     <field id="accessNote"></field>
                     <field id="address"></field>
-                    <field id="locationType"></field>
+					<field id="type" autocomplete="vocab-locationtype" ui-type="enum">
+                		<enum>
+							<blank-value>Please select a value</blank-value>
+						</enum>
+                    </field>
                 </section>
             </record>
 
@@ -2914,6 +2920,19 @@
                             <option id="mailing">Mailing</option>
                             <option id="previous">Previous</option>
                             <option id="street">Street</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-locationtype">
+                        <web-url>locationtype</web-url>
+                        <title-ref>locationtype</title-ref>
+                        <title>Location Type</title>
+                        <options>
+                            <option id="building">Building</option>
+                            <option id="room">Room</option>
+                            <option id="unit">Unit</option>
+                            <option id="shelf">Shelf</option>
+                            <option id="drawer">Drawer</option>
+                            <option id="tray">Tray</option>
                         </options>
                     </instance>
                 </instances>
