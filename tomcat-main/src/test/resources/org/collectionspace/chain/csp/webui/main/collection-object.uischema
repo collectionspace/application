@@ -1007,39 +1007,18 @@
                         "type": "array"
                     },
                     "objectProductionDates": {
-                        "dateAssociation": {
-                            "type": "string"
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "type": "boolean"
+                                },
+                                "objectProductionDate": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
                         },
-                        "dateRangeEnd": {
-                            "type": "string"
-                        },
-                        "dateSingleOrRangeStartQualifierValue": {
-                            "type": "string"
-                        },
-                        "dateSingleOrRangeStartQualifier": {
-                            "type": "string"
-                        },
-                        "dateSingleOrRangeStart": {
-                            "type": "string"
-                        },
-                        "dateRangeEndCertainty": {
-                            "type": "string"
-                        },
-                        "dateRangeEndQualifier": {
-                            "type": "string"
-                        },
-                        "dateSingleOrRangeStartCertainty": {
-                            "type": "string"
-                        },
-                        "datePeriod": {
-                            "type": "string"
-                        },
-                        "dateRangeEndQualifierValue": {
-                            "type": "string"
-                        },
-                        "dateText": {
-                            "type": "string"
-                        }
+                        "type": "array"
                     },
                     "objectProductionOrganizationGroup": {
                         "items": {

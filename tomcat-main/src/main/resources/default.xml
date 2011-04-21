@@ -687,13 +687,13 @@
                 </section>
                 <section id="objectProductionInformation">
                 	
-                	<group id="objectProductionDates"> 
+                	<repeat id="objectProductionDates"> 
                 		
 						<!-- ui-type="groupfield/structureddate" ui-func="cspace.structuredDate" userecord="structureddate" -->
                        	<field id="objectProductionDate"   >
                             <selector>.csc-object-production-date</selector>
                         </field>
-                  	</group> 
+                  	</repeat> 
                     <repeat id="techniqueGroupList/techniqueGroup">
                         <!-- selector>csc-collection-object-techniqueGroup</selector -->
                         <field id="technique">
