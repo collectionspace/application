@@ -686,10 +686,11 @@
                     </section>
                 </section>
                 <section id="objectProductionInformation">
+                	
                 	<group id="objectProductionDates"> 
                 		
-						<!-- ui-type="groupfield/structureddate" ui-func="cspace.structuredDate" -->
-                       	<field id="objectProductionDate" userecord="structureddate"  >
+						<!-- ui-type="groupfield/structureddate" ui-func="cspace.structuredDate" userecord="structureddate" -->
+                       	<field id="objectProductionDate"   >
                             <selector>.csc-object-production-date</selector>
                         </field>
                   	</group> 
