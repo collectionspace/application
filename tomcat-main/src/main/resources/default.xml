@@ -686,8 +686,9 @@
                     </section>
                 </section>
                 <section id="objectProductionInformation">
-                    <repeat id="objectProductionDates">
-                        <field id="objectProductionDate" ui-type="date">
+                	
+                	<repeat id="objectProductionDates">
+                       	<field id="objectProductionDate" ui-type="groupfield/structureddate" ui-func="cspace.structuredDate">
                             <selector>.csc-object-production-date</selector>
                         </field>
                     </repeat>
@@ -1692,7 +1693,7 @@
                 </section>
             </record>
 
-            <record id="location"   type="authority,compute-displayname">
+            <record id="location"  type="authority,compute-displayname">
                 <web-url>location</web-url>
                 <services-tenant-plural>Locationauthorities</services-tenant-plural>
                 <services-tenant-singular>Locationauthority</services-tenant-singular>
@@ -1729,6 +1730,7 @@
                     <field id="name" mini="summary,list,search,relate,terms"></field>
                     <field id="termStatus" seperate_ui_container="true">
                         <options>
+                            <option id="" default="yes">Please select a value</option>
                             <option id="provisional">Provisional</option>
                             <option id="under review">Under Review</option>
                             <option id="accepted">Accepted</option>
@@ -2405,6 +2407,23 @@
                     </repeat>
                     <field id="movementNote"></field>
                 </section>
+            </record>
+
+					
+            <record id="structureddate" in-recordlist="no">
+            	<section>
+                <field id="dateText"></field>
+                <field id="dateAssociation"></field>
+                <field id="datePeriod"></field>
+                <field id="dateSingleOrRangeStart"></field>
+                <field id="dateSingleOrRangeStartCertainty"></field>
+                <field id="dateSingleOrRangeStartQualifier"></field>
+                <field id="dateSingleOrRangeStartQualifierValue"></field>
+                <field id="dateRangeEnd"></field>
+                <field id="dateRangeEndCertainty"></field>
+                <field id="dateRangeEndQualifier"></field>
+                <field id="dateRangeEndQualifierValue"></field>
+				</section>
             </record>
 
             <record id="dimension" in-recordlist="no">
