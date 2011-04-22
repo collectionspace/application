@@ -73,7 +73,7 @@ public class WebReset implements WebMethod {
 					}
 					
 					// ignore other - tho we do need to clean these up
-					if("dimension".equals(dir) ||"blobs".equals(dir) ||"relations".equals(dir) || "direct".equals(dir) || "id".equals(dir) )
+					if("dimension".equals(dir) ||"structureddate".equals(dir)  ||"blobs".equals(dir) ||"relations".equals(dir) || "direct".equals(dir) || "id".equals(dir) )
 						continue;
 					
 					
