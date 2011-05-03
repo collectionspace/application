@@ -1752,6 +1752,11 @@
 						</enum>
                     </field>
                 </section>
+				
+                <section id="hierarchy">
+                    <group id="hierarchy" userecord="hierarchy" exists-in-services="false"></group>
+                </section>
+					
             </record>
 
             <record id="organization" type="authority,compute-displayname">
@@ -2428,6 +2433,53 @@
 				</section>
             </record>
 
+            <record id="hierarchy" in-recordlist="no">
+            	
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="hierarchy" show="true"></edit-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="false"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+				
+            	<section>
+            		<field id="broaderContext"  autocomplete="broader"></field>
+            		<repeat id="narrowerContexts">
+            			<field id="narrowerContext" autocomplete="narrower"></field>
+            		</repeat>
+            		<repeat id="relatedTerms">
+            			<field id="relatedTerm" autocomplete="relatedTerm"></field>
+            		</repeat>
+            	</section>
+				
+				<section>
+					<repeat id="equivalentContexts"></repeat>
+					<group id="equivalentContext" ui-type="hierarchy" onlyifexists="equivalentContexts" attributes="GET"></group>
+				</section>
+            </record>
+
             <record id="dimension" in-recordlist="no">
                 <hassoftdelete>true</hassoftdelete>
 				<section>
@@ -2507,6 +2559,11 @@
 				<services-list-path>abstract-common-list/list-item</services-list-path>
 				<hassoftdelete>true</hassoftdelete>
 				
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                </section>
                 <section>
                     <field id="encoding"></field>
                     <field id="mimeType"></field>

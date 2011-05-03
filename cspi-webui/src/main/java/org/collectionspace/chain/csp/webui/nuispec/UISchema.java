@@ -51,6 +51,8 @@ public class UISchema extends UISpec {
 	}
 	protected void generateUploaderEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
 	}
+	protected void generateHierarchyEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
+	}
 
 	protected JSONObject generateRelations() throws JSONException {
 		return generateSchemaObject("object", new JSONObject(), null, null);
@@ -70,6 +72,30 @@ public class UISchema extends UISpec {
 		String defaultval = f.getEnumDefault();
 		return generateSchemaObject(type, defaultval, null, null);
 	}
+	
+
+	protected Object generateGroupField(FieldSet f)
+			throws JSONException {
+		JSONObject out = new JSONObject();
+		JSONObject items = new JSONObject();
+
+		String parts[] = f.getUIType().split("/");
+		Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+
+		String selector = getSelector(f);
+		JSONObject protoTree = new JSONObject();
+		for(FieldSet fs2 : subitems.getAllFields("")) {
+			generateDataEntry(protoTree, fs2, "");
+		}
+		protoTree.put("_primary", generateSchemaObject("boolean", null,
+					null, null));
+		
+		items = generateSchemaObject("object", null, protoTree, null);
+
+		out.put(selector, items);
+		return out;
+	}
+	
 
 	protected Object generateOptionField(Field f) throws JSONException {
 		String type = "string";
@@ -139,6 +165,8 @@ public class UISchema extends UISpec {
 			return generateOptionField(f);
 		} else if ("enum".equals(f.getUIType())) {
 			return generateENUMField(f);
+		} else if(f.getUIType().startsWith("groupfield")) {
+			return generateGroupField(f);
 		}
 		//ignore ui-type uploader
 		return plain(f);

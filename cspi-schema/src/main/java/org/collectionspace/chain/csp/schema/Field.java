@@ -65,6 +65,7 @@ public class Field implements FieldSet {
 		
 		this.initStrings(section,"linktext-target", "${items.0.recordtype}.html?csid=${items.0.csid}");
 
+		this.initStrings(section,"@ui-func", "");
 		this.initStrings(section,"@ui-type", "plain");
 		if (getString("@ui-type").equals("date")) {
 			seperate_default = true;
@@ -203,6 +204,10 @@ public class Field implements FieldSet {
 
 	public String getUIType() {
 		return getString("@ui-type");
+	}
+	
+	public String getUIFunc() {
+		return getString("@ui-func");
 	}
 
 	public Boolean isInTitle() {

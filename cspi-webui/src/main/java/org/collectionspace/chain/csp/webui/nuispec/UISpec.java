@@ -155,10 +155,52 @@ public class UISpec implements WebMethod {
 		else if("enum".equals(f.getUIType())) {
 			return generateENUMField(f);
 		}
+		else if(f.getUIType().startsWith("groupfield")) {
+			return generateGroupField(f);
+		}
 		//ignore ui-type uploader
 		return plain(f);	
 	}
 
+	protected Object generateGroupField(Field f) throws JSONException {
+		JSONObject out=new JSONObject();
+
+		JSONArray decorators=new JSONArray();
+		JSONObject decorator=new JSONObject();
+		decorator.put("type","fluid");
+		decorator.put("func",f.getUIFunc());
+		JSONObject options=new JSONObject();
+		
+		
+		String parts[] = f.getUIType().split("/");
+		JSONObject subexpander = new JSONObject();
+		Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+		//subexpander.put("subexpander",subitems.getID());
+		for(FieldSet fs2 : subitems.getAllFields("")) {
+
+			generateDataEntry(subexpander,fs2, "");
+		}
+		
+		
+		
+		JSONObject expander = new JSONObject();
+		expander.put("type", "fluid.noexpand");
+		expander.put("tree", subexpander);
+		
+		
+		JSONObject protoTree = new JSONObject();
+		protoTree.put("expander", expander);
+		
+		options.put("protoTree", protoTree);
+		options.put("summaryElPath", "fields."+f.getID());
+		decorator.put("options",options);
+		decorators.put(decorator);
+		out.put("decorators",decorators);
+		out.put("value",plain(f));
+		
+		
+		return out;
+	}
 
 	protected Object generateENUMField(Field f) throws JSONException {
 		//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
@@ -526,6 +568,9 @@ public class UISpec implements WebMethod {
 		if("uploader".equals(fs.getUIType())) {
 			generateUploaderEntry(out,fs,affix);
 		}
+		if("hierarchy".equals(fs.getUIType())) {
+			generateHierarchyEntry(out,fs,affix);
+		}
 		if(fs.usesRecord()){
 			if(!getSelectorAffix(fs).equals("")){
 				if(!affix.equals("")){
@@ -634,6 +679,12 @@ public class UISpec implements WebMethod {
 	}
 
 	protected void generateUploaderEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
+		generateConditionalEntry(out,  f,  affix, "cspace.mediaUploader.assertBlob");
+	}
+	protected void generateHierarchyEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
+		generateConditionalEntry(out,  f,  affix, "cspace.hierarchy.assertEquivalentContexts");
+	}
+	private void generateConditionalEntry(JSONObject out, FieldSet f, String affix, String condition) throws JSONException{
 
 		JSONObject cond = new JSONObject();
 		if(f instanceof Group){
@@ -643,7 +694,7 @@ public class UISpec implements WebMethod {
 			if(tester instanceof Field){
 				cond.put("args",plain((Field)tester));
 			}
-			cond.put("funcName", "cspace.mediaUploader.assertBlob");
+			cond.put("funcName", condition);
 		}
 		JSONObject ttree = new JSONObject();
 		ttree.put(f.getSelector(),new JSONObject());
