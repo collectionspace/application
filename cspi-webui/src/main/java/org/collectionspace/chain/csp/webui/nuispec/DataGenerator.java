@@ -181,7 +181,7 @@ public class DataGenerator  extends UISpec {
 				if(r.isType("authority") || r.isType("authorizationdata") || r.isType("id") || r.isType("userdata")){
 					//don't do these yet (if ever)
 				}
-				else if (r.getID().equals("blobs") || r.getID().equals("dimension")|| r.getID().equals("contacts")){
+				else if (r.getID().equals("structureddate") ||r.getID().equals("media") ||r.getID().equals("hierarchy") ||r.getID().equals("blobs") || r.getID().equals("dimension")|| r.getID().equals("contacts")){
 					//and ignore these
 				}
 				else{
