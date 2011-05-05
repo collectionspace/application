@@ -1761,7 +1761,7 @@
                 <section id="hierarchy">
                 	<group id="hierarchyUnit" exists-in-services="false">
                 		<selector>hierarchy</selector>
-                    <group id="hierarchy" userecord="hierarchy"></group>
+                    <group id="location" userecord="hierarchy"></group>
 					</group>
                 </section>
 					
@@ -2440,7 +2440,6 @@
                 <field id="dateRangeEndQualifierValue"></field>
 				</section>
             </record>
-
             <record id="hierarchy" in-recordlist="no">
             	
                 <structures>
@@ -2451,24 +2450,6 @@
                             <edit-section id="hierarchy" show="true"></edit-section>
                             <label-section id="messagekeys" show="true"></label-section>
                         </view>
-                    </structure>
-                    <structure id="tab">
-                        <view>
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="false"></list-section>
-                            <label-section id="messagekeys" show="true"></label-section>
-                        </view>
-                        <repeat id="list" asSibling="true">
-                            <selector>.csc-recordList-row:</selector>
-                            <field id="summary" ui-type="list">
-                                <selector>.csc-related-summary</selector>
-                            </field>
-                            <field id="number" ui-type="list">
-                                <selector>.csc-related-number</selector>
-                            </field>
-                        </repeat>
                     </structure>
                 </structures>
 				
@@ -2488,10 +2469,9 @@
             			<field id="relatedTerm" autocomplete="relatedTerm"></field>
             		</repeat>
             	</section>
-				
 				<section>
-					<repeat id="equivalentContexts">
-						 <group id="equivalentContext" ui-type="hierarchy" onlyifexists="equivalentContexts" attributes="GET"></group>
+					<repeat id="equivalentContexts" as-expander="true">
+						<field id="equivalentContext" ui-type="hierarchy" attributes="GET"></field>
 					</repeat>
 				</section>
             </record>

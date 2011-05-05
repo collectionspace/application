@@ -54,7 +54,7 @@ public class UISpec implements WebMethod {
 	}
 
 	// XXX make common
-	protected String veryplain(Field f) {
+	protected String veryplain(FieldSet f) {
 
 		List<String> path=new ArrayList<String>();
 		String pad="fields";
@@ -164,11 +164,8 @@ public class UISpec implements WebMethod {
 
 	protected Object generateGroupField(Field f) throws JSONException {
 		JSONObject out=new JSONObject();
-
+		
 		JSONArray decorators=new JSONArray();
-		JSONObject decorator=new JSONObject();
-		decorator.put("type","fluid");
-		decorator.put("func",f.getUIFunc());
 		JSONObject options=new JSONObject();
 		
 		
@@ -193,7 +190,7 @@ public class UISpec implements WebMethod {
 		
 		options.put("protoTree", protoTree);
 		options.put("summaryElPath", "fields."+f.getID());
-		decorator.put("options",options);
+		JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options);
 		decorators.put(decorator);
 		out.put("decorators",decorators);
 		out.put("value",plain(f));
@@ -315,7 +312,9 @@ public class UISpec implements WebMethod {
 
 	
 	
-	protected JSONObject generateRepeatExpanderEntry(Repeat r, String affix) throws JSONException {
+	protected JSONArray generateRepeatExpanderEntry(Repeat r, String affix) throws JSONException {
+		JSONArray expanders = new JSONArray();
+		JSONObject siblingexpander = new JSONObject();
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.renderer.repeat");
 		expander.put("controlledBy", "fields."+r.getID());
@@ -325,7 +324,21 @@ public class UISpec implements WebMethod {
 		if(r.getChildren("").length>0){
 			JSONObject tree = new JSONObject();
 			for(FieldSet child : r.getChildren("")) {
-				generateDataEntry(tree,child, affix);
+				if(child.getUIType().equals("hierarchy")){
+
+					expander.put("repeatID", getSelector(child)+":");
+					generateHierarchyEntry(siblingexpander, child,  affix);
+					expanders.put(siblingexpander.getJSONObject("expander"));
+					if(child instanceof Field){
+						String classes = "cs-hierarchy-equivalentContext";
+						JSONObject decorator = getDecorator("addClass",classes,null,null);
+						tree.put("value", generateDataEntryField((Field)child));
+						tree.put("decorators", decorator);
+					}
+				}
+				else{
+					generateDataEntry(tree,child, affix);
+				}
 			}
 			if(r.isConditionExpander()){
 				expander.put("valueAs", "rowValue");
@@ -345,7 +358,8 @@ public class UISpec implements WebMethod {
 				expander.put("tree", tree);
 			}
 		}
-		return expander;
+		expanders.put(expander);
+		return expanders;
 	}
 	
 	protected JSONObject generateSelectionExpanderEntry(Field f, String affix) throws JSONException {
@@ -382,13 +396,13 @@ public class UISpec implements WebMethod {
 
 		JSONObject out = new JSONObject();
 		if(r.isExpander()){
-			out =  generateRepeatExpanderEntry(r,affix);
+			JSONArray expanders= generateRepeatExpanderEntry(r,affix);
+			out.put("expanders", expanders);
 		}
 		else{
 			JSONArray decorators=new JSONArray();
-			JSONObject decorator=new JSONObject();
-			decorator.put("type","fluid");
-			decorator.put("func","cspace.makeRepeatable");
+
+			
 			JSONObject options=new JSONObject();
 			JSONObject preProtoTree=new JSONObject();
 			for(FieldSet child : r.getChildren("")) {
@@ -414,7 +428,8 @@ public class UISpec implements WebMethod {
 			
 			options.put("protoTree", protoTree);
 			options.put("elPath", "fields."+r.getID());
-			decorator.put("options",options);
+
+			JSONObject decorator = getDecorator("fluid",null,"cspace.makeRepeatable",options);
 			decorators.put(decorator);
 			out.put("decorators",decorators);
 		}
@@ -425,15 +440,8 @@ public class UISpec implements WebMethod {
 	protected JSONObject generateAutocomplete(Field f) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
-		JSONObject decorator=new JSONObject();
-		decorator.put("type","fluid");
-		decorator.put("func","cspace.autocomplete");
 
-		if(!f.isRefactored()){
-			if(f.hasContainer()){
-				decorator.put("container",getSelector(f));
-			}
-		}
+		
 		JSONObject options=new JSONObject();
 		String extra="";
 		if(f.getRecord().isType("authority"))
@@ -463,8 +471,13 @@ public class UISpec implements WebMethod {
 			}
 			options.put("strings", strings);
 		}
-		
-		decorator.put("options",options);
+
+		JSONObject decorator=getDecorator("fluid",null,"cspace.autocomplete",options);
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",getSelector(f));
+			}
+		}
 		decorators.put(decorator);
 		out.put("decorators",decorators);
 		if(f.isRefactored()){
@@ -476,14 +489,7 @@ public class UISpec implements WebMethod {
 	protected JSONObject generateChooser(Field f) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
-		JSONObject decorator=new JSONObject();
-		decorator.put("type","fluid");
-		decorator.put("func","cspace.numberPatternChooser");
-		if(!f.isRefactored()){
-			if(f.hasContainer()){
-				decorator.put("container",f.getContainerSelector());
-			}
-		}
+
 		JSONObject options=new JSONObject();
 		JSONObject selectors=new JSONObject();
 		selectors.put("numberField",getSelector(f));
@@ -501,7 +507,13 @@ public class UISpec implements WebMethod {
 		model.put("samples",samples);
 		model.put("names",names);
 		options.put("model",model);
-		decorator.put("options",options);
+		
+		JSONObject decorator=getDecorator("fluid",null,"cspace.numberPatternChooser",options);
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",f.getContainerSelector());
+			}
+		}
 		decorators.put(decorator);
 		out.put("decorators",decorators);
 		if(f.isRefactored()){
@@ -513,9 +525,7 @@ public class UISpec implements WebMethod {
 	protected JSONObject generateDate(Field f) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
-		JSONObject decorator=new JSONObject();
-		decorator.put("type","fluid");
-		decorator.put("func","cspace.datePicker");
+		JSONObject decorator=getDecorator("fluid",null,"cspace.datePicker",null);
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
 				decorator.put("container",f.getContainerSelector());
@@ -532,21 +542,23 @@ public class UISpec implements WebMethod {
 	protected JSONObject generateMessageKeys(String affix, JSONObject temp, Record r) throws JSONException {
 		for(String st: r.getAllUISections()){
 			if(st!=null){
-				JSONObject msg = new JSONObject();
-				msg.put("messagekey", r.getUILabel(st));
-				temp.put(r.getUILabelSelector(st),msg);
+				generateMessageKey(temp, r.getUILabelSelector(st),r.getUILabel(st));
 			}
 		}
 		
 		for(FieldSet fs : r.getAllFields("")) {
 			if(fs.getID()!=null){
-				JSONObject msg = new JSONObject();
-				msg.put("messagekey", fs.getLabel());
-				temp.put(r.getUILabelSelector(fs.getID()), msg);
+				generateMessageKey(temp, r.getUILabelSelector(fs.getID()), fs.getLabel());
 			}
 		}
 		return temp;
 		
+	}
+	
+	private void generateMessageKey(JSONObject temp, String labelSelector, String label) throws JSONException {
+		JSONObject msg = new JSONObject();
+		msg.put("messagekey", label);
+		temp.put(labelSelector, msg);
 	}
 
 	protected JSONObject generateRecordEditor(String affix, Boolean addMessages) throws JSONException{
@@ -687,9 +699,18 @@ public class UISpec implements WebMethod {
 		}
 		if(fs.isExpander()){
 			selector="expander";
+			JSONArray expanders = contents.getJSONArray("expanders");
+			if(expanders.length() == 1){
+				out.put(selector,expanders.getJSONObject(0));
+			}
+			else{
+				out.put(selector,expanders);
+				
+			}
 		}
-		
-		out.put(selector,contents);
+		else{
+			out.put(selector,contents);
+		}
 	}
 
 	protected void repeatSibling(JSONObject out, String affix, Repeat r,
@@ -714,12 +735,7 @@ public class UISpec implements WebMethod {
 	}
 
 	protected void generateUploaderEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
-		generateConditionalEntry(out,  f,  affix, "cspace.mediaUploader.assertBlob");
-	}
-	protected void generateHierarchyEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
-		generateConditionalEntry(out,  f,  affix, "cspace.hierarchy.assertEquivalentContexts");
-	}
-	private void generateConditionalEntry(JSONObject out, FieldSet f, String affix, String condition) throws JSONException{
+		String condition =  "cspace.mediaUploader.assertBlob";
 
 		JSONObject cond = new JSONObject();
 		if(f instanceof Group){
@@ -733,9 +749,7 @@ public class UISpec implements WebMethod {
 		}
 		JSONObject ttree = new JSONObject();
 		ttree.put(f.getSelector(),new JSONObject());
-		JSONObject decorator = new JSONObject();
-		decorator.put("type","addClass");
-		decorator.put("classes","hidden");
+		JSONObject decorator = getDecorator("addClass","hidden",null,null);
 		JSONObject decorators = new JSONObject();
 		decorators.put("decorators", decorator);
 		JSONObject ftree = new JSONObject();
@@ -748,6 +762,49 @@ public class UISpec implements WebMethod {
 
 		
 		out.put("expander",cexpander);
+		
+	}
+	protected void generateHierarchyEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
+		String condition =  "cspace.hierarchy.assertEquivalentContexts";
+		JSONObject cond = new JSONObject();
+		if(f instanceof Field){
+			FieldSet fs = (FieldSet)f.getParent();
+			JSONObject args = new JSONObject();
+			args.put(fs.getID(), veryplain(fs));
+			cond.put("args",args);
+			cond.put("funcName", condition);
+		}
+		JSONObject ttree = new JSONObject();
+		generateMessageKey(ttree, record.getUILabelSelector(f.getID()), f.getLabel());
+		
+		JSONObject decorator = getDecorator("addClass","hidden",null,null);
+		JSONObject decorators = new JSONObject();
+		decorators.put("decorators", decorator);
+		JSONObject ftree = new JSONObject();
+		ftree.put(record.getUILabelSelector(f.getID()),decorators);
+		JSONObject cexpander = new JSONObject();
+		cexpander.put("type", "fluid.renderer.condition");
+		cexpander.put("condition", cond);
+		cexpander.put("trueTree", ttree);
+		cexpander.put("falseTree", ftree);
+
+		
+		out.put("expander",cexpander);
+	}
+	
+	protected JSONObject getDecorator(String type, String className, String func, JSONObject options) throws JSONException{
+		JSONObject decorator = new JSONObject();
+		decorator.put("type",type);
+		if(className != null){
+			decorator.put("classes",className);
+		}
+		if(func != null){
+			decorator.put("func",func);
+		}
+		if(options != null){
+			decorator.put("options",options);
+		}
+		return decorator;
 	}
 	
 	protected void generateFieldDataEntry_refactored(JSONObject out, String affix, Field f)
