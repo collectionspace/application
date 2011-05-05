@@ -270,7 +270,7 @@ public class Spec implements CSP, Configurable {
 		/* REPEAT/group -> GROUP */
 		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
-				Group r=new Group((Group)parent,section);
+				Group r=new Group((Repeat)parent,section);
 				((Repeat)parent).addChild(r);
 				return r;
 			}

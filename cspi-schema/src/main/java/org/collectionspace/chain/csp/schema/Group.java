@@ -21,6 +21,10 @@ public class Group extends Repeat {
 		allBooleans.put("@asSibling",true);
 	}
 
+	public Group(Repeat parent, ReadOnlySection section) {
+		super(parent, section);
+		allBooleans.put("@asSibling",true);
+	}
 	public Group(Group parent, ReadOnlySection section) {
 		super(parent, section);
 		allBooleans.put("@asSibling",true);
