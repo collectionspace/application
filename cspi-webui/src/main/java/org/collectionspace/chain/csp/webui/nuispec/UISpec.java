@@ -561,6 +561,18 @@ public class UISpec implements WebMethod {
 		temp.put(labelSelector, msg);
 	}
 
+	protected JSONObject generateHierarchySection(String affix, Boolean addMessages) throws JSONException{
+		JSONObject out = new JSONObject();
+		Record subf = record.getSpec().getRecord("hierarchy");
+		generateSubRecord(subf, out, false, affix);
+		
+		if(addMessages){
+			out = generateMessageKeys(affix,out, subf);
+		}
+		return out;
+	}
+	
+	
 	protected JSONObject generateRecordEditor(String affix, Boolean addMessages) throws JSONException{
 		JSONObject out = generateDataEntrySection(affix);
 		if(addMessages){
@@ -568,14 +580,18 @@ public class UISpec implements WebMethod {
 		}
 		return out;
 	}
+	
 	protected JSONObject generateDataEntrySection(String affix) throws JSONException {
+		return generateDataEntrySection(affix,record);
+	}
+	
+	protected JSONObject generateDataEntrySection(String affix, Record r) throws JSONException {
 		JSONObject out=new JSONObject();
-		for(FieldSet fs : record.getAllFields("")) {
+		for(FieldSet fs : r.getAllFields("")) {
 			generateDataEntry(out,fs,affix);
 		}
 		return out;
 	}
-
 	
 	protected JSONObject generateListSection(Structure s, String affix) throws JSONException {
 		JSONObject out=new JSONObject();
@@ -589,16 +605,24 @@ public class UISpec implements WebMethod {
 	}
 	private void generateSubRecord(JSONObject out, FieldSet fs, String affix) throws JSONException {
 		Record subrecord = fs.usesRecordId();
-		for(FieldSet fs2 : subrecord.getAllFields("")) {
-			if(fs.getParent() instanceof Repeat){
+		Boolean repeated = false;
+		if(fs.getParent() instanceof Repeat){
+			repeated = true;
+		}
+		generateSubRecord(subrecord, out,  repeated,  affix);
+		
+	}
+	private void generateSubRecord(Record subr, JSONObject out, Boolean repeated, String affix) throws JSONException {
+		for(FieldSet fs2 : subr.getAllFields("")) {
+			if(repeated){
 				fs2.setRepeatSubRecord(true);
 			}
 			generateDataEntry(out,fs2, affix);
 			fs2.setRepeatSubRecord(false);
 		}
-		Structure s = subrecord.getStructure(this.structureview);
+		Structure s = subr.getStructure(this.structureview);
 		if(s.showMessageKey()){
-			out = generateMessageKeys(affix,out, subrecord);
+			out = generateMessageKeys(affix,out, subr);
 		}
 		
 	}
@@ -945,6 +969,9 @@ public class UISpec implements WebMethod {
 			}
 			if(s.showEditSection()){
 				out.put(s.getEditSectionName(),generateRecordEditor(affix, s.showMessageKey()));
+			}
+			if(s.showHierarchySection()){
+				out.put(s.getHierarchySectionName(),generateHierarchySection(affix, s.showMessageKey()));
 			}
 			if(s.showTitleBar()){
 				out.put("titleBar",generateTitleSection(affix));

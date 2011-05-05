@@ -6,6 +6,8 @@
  */
 package org.collectionspace.chain.csp.webui.nuispec;
 
+import java.util.Iterator;
+
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Field;
@@ -53,9 +55,15 @@ public class UISchema extends UISpec {
 	}
 	protected void generateHierarchyEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
 	}
+	
 
 	protected JSONObject generateRelations() throws JSONException {
 		return generateSchemaObject("object", new JSONObject(), null, null);
+	}
+	
+	protected JSONObject generateFields(Record r) throws JSONException {
+		return generateSchemaObject("object", null,
+				generateDataEntrySection("",r), null);
 	}
 
 	protected JSONObject generateFields() throws JSONException {
@@ -169,7 +177,7 @@ public class UISchema extends UISpec {
 			return generateGroupField(f);
 		}
 		//ignore ui-type uploader
-		return plain(f);
+		return generateSchemaObject("string", null, null, null);
 	}
 
 	protected JSONObject generateSchemaObject(String type, Object defaultobj,
@@ -277,9 +285,25 @@ public class UISchema extends UISpec {
 			}
 			if (record.hasRefObjUsed()) {
 				properties.put("relations", generateRelations());
-
 			}
-			properties.put("fields", generateFields());
+			JSONObject fields = generateFields();
+			JSONObject prop = fields.getJSONObject("properties");
+			
+
+			if(record.hasHierarchyUsed("screen")){
+				JSONObject temp = generateFields(record.getSpec().getRecord("hierarchy"));
+				JSONObject prop2 = temp.getJSONObject("properties");
+
+				Iterator rit=prop2.keys();
+				while(rit.hasNext()) {
+					String key=(String)rit.next();
+					Object value = prop2.get(key);
+					prop.put(key,value);
+				}
+			}
+			fields.put("properties", prop);
+			properties.put("fields", fields);
+			
 			properties.put("csid", generateSchemaObject("string", null, null,
 					null));
 			details = generateSchemaObject("object", null, properties, null);

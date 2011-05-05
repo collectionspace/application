@@ -84,6 +84,8 @@ public class Record implements FieldParent {
 		// config whether record type has relatedObj/procs or not (returns empty
 		// array in Json if = false )
 		this.initBoolean(section,"refobj-used",true);
+		
+		this.initBoolean(section,"hierarchy-used",false);
 
 		// config the keyword to use for searching
 		this.initStrings(section,"services-search-keyword","kw");
@@ -411,6 +413,9 @@ public class Record implements FieldParent {
 
 	public boolean hasRefObjUsed() {
 		return getBoolean("refobj-used");
+	}
+	public boolean hasHierarchyUsed(String type) {
+		return this.getStructure(type).showHierarchySection();
 	}
 
 	public boolean hasDeleteMethod() {

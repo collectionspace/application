@@ -1714,6 +1714,7 @@
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
+							<hierachy-section show="true"></hierachy-section>
                         </view>
                     </structure>
                 </structures>
@@ -1758,12 +1759,6 @@
                     </field>
                 </section>
 				
-                <section id="hierarchy">
-                	<group id="hierarchyUnit" exists-in-services="false">
-                		<selector>hierarchy</selector>
-                    <group id="location" userecord="hierarchy"></group>
-					</group>
-                </section>
 					
             </record>
 
@@ -2440,6 +2435,16 @@
                 <field id="dateRangeEndQualifierValue"></field>
 				</section>
             </record>
+			
+			<!-- 
+                <section id="hierarchy">
+                	<group id="hierarchyUnit" exists-in-services="false">
+                		<selector>hierarchy</selector>
+                    <group id="location" userecord="hierarchy"></group>
+					</group>
+                </section>
+				
+				-->
             <record id="hierarchy" in-recordlist="no">
             	
                 <structures>
