@@ -766,6 +766,7 @@ public class UISpec implements WebMethod {
 	}
 	protected void generateHierarchyEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
 		String condition =  "cspace.hierarchy.assertEquivalentContexts";
+		Record thisr = f.getRecord();
 		JSONObject cond = new JSONObject();
 		if(f instanceof Field){
 			FieldSet fs = (FieldSet)f.getParent();
@@ -775,13 +776,13 @@ public class UISpec implements WebMethod {
 			cond.put("funcName", condition);
 		}
 		JSONObject ttree = new JSONObject();
-		generateMessageKey(ttree, record.getUILabelSelector(f.getID()), f.getLabel());
+		generateMessageKey(ttree, thisr.getUILabelSelector(f.getID()), f.getLabel());
 		
 		JSONObject decorator = getDecorator("addClass","hidden",null,null);
 		JSONObject decorators = new JSONObject();
 		decorators.put("decorators", decorator);
 		JSONObject ftree = new JSONObject();
-		ftree.put(record.getUILabelSelector(f.getID()),decorators);
+		ftree.put(thisr.getUILabelSelector(f.getID()),decorators);
 		JSONObject cexpander = new JSONObject();
 		cexpander.put("type", "fluid.renderer.condition");
 		cexpander.put("condition", cond);

@@ -53,8 +53,9 @@ public class Field implements FieldSet {
 		this.initBoolean(section,"@container",false);
 		this.initBoolean(section,"@xxx_ui_refactored",true);
 
-		this.initStrings(section,"selector", ".csc-" + getString("parentID") + "-" +  getString("@id"));
-		this.initStrings(section,"label", "" + getString("parentID") + "-" +  getString("@id")+"Label");
+		this.initStrings(section,"selectorID", getString("parentID"));
+		this.initStrings(section,"selector", ".csc-" + getString("selectorID") + "-" +  getString("@id"));
+		this.initStrings(section,"label", "" + getString("selectorID") + "-" +  getString("@id")+"Label");
 		this.initStrings(section,"@userecord", "");
 		this.initStrings(section,"@onlyifexists","");
 		this.initStrings(section,"@selector-affix", "");
