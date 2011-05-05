@@ -1709,8 +1709,13 @@
                 <authorization-view>false</authorization-view>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:locationauthority:{vocab}:location:{entry}'{display}'</urn-syntax>
                 <hassoftdelete>true</hassoftdelete>
+				
 				<structures>
-                    <structure id="screen"></structure>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
                 </structures>
                 <instances>
                     <instance id="location-location">
@@ -1754,7 +1759,10 @@
                 </section>
 				
                 <section id="hierarchy">
-                    <group id="hierarchy" userecord="hierarchy" exists-in-services="false"></group>
+                	<group id="hierarchyUnit" exists-in-services="false">
+                		<selector>hierarchy</selector>
+                    <group id="hierarchy" userecord="hierarchy"></group>
+					</group>
                 </section>
 					
             </record>
@@ -2467,7 +2475,14 @@
             	<section>
             		<field id="broaderContext"  autocomplete="broader"></field>
             		<repeat id="narrowerContexts">
-            			<field id="narrowerContext" autocomplete="narrower"></field>
+            			<field id="narrowerContext" autocomplete="narrower">
+            				<autocomplete-options>
+            					<strings>
+            						narrowerChange|Warning: %narrower currently has broader term %broader. Change broader term?
+								</strings>
+								<funcName>selectMatch|cspace.autocomplete.selectMatchConfirm</funcName>
+            				</autocomplete-options>
+            			</field>
             		</repeat>
             		<repeat id="relatedTerms">
             			<field id="relatedTerm" autocomplete="relatedTerm"></field>

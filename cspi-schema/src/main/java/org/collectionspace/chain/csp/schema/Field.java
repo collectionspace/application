@@ -72,8 +72,10 @@ public class Field implements FieldSet {
 		}
 		
 		this.initBoolean(section,"@seperate_ui_container",seperate_default);
-		
+
 		this.initStrings(section,"autocomplete-selector", getString("selector") + "-autocomplete");
+		this.initStrings(section,"autocomplete-options/funcName", "");
+		this.initStrings(section,"autocomplete-options/strings", "");
 		this.initStrings(section,"container-selector", getString("selector") + "-container");
 		this.initStrings(section,"title-selector", getString("selector") + "-titlebar");
 		// used by uispec to create new structure
@@ -181,6 +183,12 @@ public class Field implements FieldSet {
 
 	public String getAutocompleteSelector() {
 		return getString("autocomplete-selector");
+	}
+	public String getAutocompleteFuncName() {
+		return getString("autocomplete-options/funcName");
+	}
+	public String getAutocompleteStrings() {
+		return getString("autocomplete-options/strings");
 	}
 
 	public String getContainerSelector() {

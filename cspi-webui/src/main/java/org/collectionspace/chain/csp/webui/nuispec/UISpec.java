@@ -440,6 +440,30 @@ public class UISpec implements WebMethod {
 			extra="vocabularies/";
 		options.put("queryUrl","../../chain/"+extra+f.getRecord().getWebURL()+"/autocomplete/"+f.getID());
 		options.put("vocabUrl","../../chain/"+extra+f.getRecord().getWebURL()+"/source-vocab/"+f.getID());
+
+		if(!f.getAutocompleteFuncName().equals("")){
+			JSONObject invokers = new JSONObject();
+			JSONObject subitem = new JSONObject();
+			String test[] = f.getAutocompleteFuncName().split("\\|");
+			if(test.length>1){
+				subitem.put("funcName",test[1]);
+				invokers.put(test[0], subitem);				
+			}
+			options.put("invokers", invokers);
+		}
+		if(!f.getAutocompleteStrings().equals("")){
+			JSONObject strings = new JSONObject();
+			String val = f.getAutocompleteStrings();
+			String lines[] = val.split("\\r?\\n");
+			for(int i=0; i<lines.length;i++){
+				String[] data = lines[i].split("\\|");
+				if(data.length==2){
+					strings.put(data[0].trim(), data[1].trim());
+				}
+			}
+			options.put("strings", strings);
+		}
+		
 		decorator.put("options",options);
 		decorators.put(decorator);
 		out.put("decorators",decorators);
@@ -505,20 +529,20 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
-	protected JSONObject generateMessageKeys(String affix, JSONObject temp ) throws JSONException {
-		for(String st: record.getAllUISections()){
+	protected JSONObject generateMessageKeys(String affix, JSONObject temp, Record r) throws JSONException {
+		for(String st: r.getAllUISections()){
 			if(st!=null){
 				JSONObject msg = new JSONObject();
-				msg.put("messagekey", record.getUILabel(st));
-				temp.put(record.getUILabelSelector(st),msg);
+				msg.put("messagekey", r.getUILabel(st));
+				temp.put(r.getUILabelSelector(st),msg);
 			}
 		}
 		
-		for(FieldSet fs : record.getAllFields("")) {
+		for(FieldSet fs : r.getAllFields("")) {
 			if(fs.getID()!=null){
 				JSONObject msg = new JSONObject();
 				msg.put("messagekey", fs.getLabel());
-				temp.put(record.getUILabelSelector(fs.getID()), msg);
+				temp.put(r.getUILabelSelector(fs.getID()), msg);
 			}
 		}
 		return temp;
@@ -528,7 +552,7 @@ public class UISpec implements WebMethod {
 	protected JSONObject generateRecordEditor(String affix, Boolean addMessages) throws JSONException{
 		JSONObject out = generateDataEntrySection(affix);
 		if(addMessages){
-			out = generateMessageKeys(affix,out);
+			out = generateMessageKeys(affix,out, record);
 		}
 		return out;
 	}
@@ -559,6 +583,10 @@ public class UISpec implements WebMethod {
 			}
 			generateDataEntry(out,fs2, affix);
 			fs2.setRepeatSubRecord(false);
+		}
+		Structure s = subrecord.getStructure(this.structureview);
+		if(s.showMessageKey()){
+			out = generateMessageKeys(affix,out, subrecord);
 		}
 		
 	}
@@ -643,8 +671,15 @@ public class UISpec implements WebMethod {
 		String selector = getSelector(r);
 		//CSPACE-2619 scalar repeatables are different from group repeats
 		if(r.getChildren("").length==1){
-			Field child = (Field)r.getChildren("")[0];
-			selector = getSelector(child);
+			FieldSet child = null;
+			if(r.getChildren("")[0] instanceof Field){
+				child = (Field)r.getChildren("")[0];
+				selector = getSelector(child);
+			}
+			else if(r.getChildren("")[0] instanceof Group){
+				child = (Group)r.getChildren("")[0];
+				selector = getSelector(child);
+			}
 			//XXX CSPACE-2706 hack
 			if(child.getUIType().equals("date")){
 				selector = getSelector(r);
