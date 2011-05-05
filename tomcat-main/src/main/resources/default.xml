@@ -2573,6 +2573,10 @@
                     <field id="digest"></field>
                     <field id="uri"></field>
                     <field id="id"></field>
+					
+					<field id="imgThumb" exists-in-services="false"></field>
+					<field id="imgMedium" exists-in-services="false"></field>
+					<field id="imgOrig" exists-in-services="false"></field>
                 </section>
             </record>
 
@@ -2614,6 +2618,7 @@
                     <field id="format"></field>
                     <field id="dateCreated"></field>
                     <field id="dateModified"></field>
+					<field id="externalMediaUrl"></field>
                     <field id="dimensionSummary"></field>
                     <repeat id="dimensionGroupList/dimensionGroup">
                    		<field id="dimension">
