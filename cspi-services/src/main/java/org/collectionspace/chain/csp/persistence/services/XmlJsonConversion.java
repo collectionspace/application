@@ -237,8 +237,41 @@ public class XmlJsonConversion {
 		}
 		return "";
 	}
+	
+	private static List getComplexNodes(Element root,String context,String condition,String value,String extract) {
+		List out=new ArrayList();
+		for(Object n : root.selectNodes(context)) {
+			if(!(n instanceof Element))
+				continue;
+			Element candidate=(Element)n;
+			boolean match = false;
+			for(Object n2 : candidate.selectNodes(condition)) {
+				if(!(n2 instanceof Element))
+					continue;
+				if(value.equals(((Element)n2).getText()))
+					match=true;
+			}
+			if(!match)
+				continue;
+			for(Object n3 : candidate.selectNodes(extract)) {
+				if(!(n3 instanceof Element))
+					continue;
+				out.add(n3);
+			}
+		}		
+		return out;
+	}
+	
+	private static List getNodes(Element root,String spec) {
+		if(spec!=null && spec.length()>0 && spec.charAt(0)==';') {
+			String[] parts=spec.split(";");
+			return getComplexNodes(root,parts[1],parts[2],parts[3],parts[4]);
+		} else
+			return root.selectNodes(spec);
+	}
+	
 	private static Element getFieldNodeEl(Element root,Field f){
-		List nodes=root.selectNodes(f.getServicesTag());
+		List nodes=getNodes(root,f.getServicesTag());
 		if(nodes.size()==0)
 			return null;
 		// XXX just add first

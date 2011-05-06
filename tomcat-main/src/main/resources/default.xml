@@ -2576,7 +2576,15 @@
                     <field id="digest"></field>
                     <field id="uri"></field>
                     <field id="id"></field>
-					
+					<field id="width">
+						<services-tag>;dimensionGroupList/dimensionGroup;dimension;width;value</services-tag>
+					</field>
+					<field id="height">
+						<services-tag>;dimensionGroupList/dimensionGroup;dimension;height;value</services-tag>
+					</field>
+					<field id="depth">
+						<services-tag>;dimensionGroupList/dimensionGroup;dimension;depth;value</services-tag>
+					</field>					
 					<field id="imgThumb" exists-in-services="false"></field>
 					<field id="imgMedium" exists-in-services="false"></field>
 					<field id="imgOrig" exists-in-services="false"></field>

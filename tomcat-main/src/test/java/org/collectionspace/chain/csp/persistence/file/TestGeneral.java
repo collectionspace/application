@@ -664,11 +664,48 @@ public class TestGeneral extends TestBase {
 		assertTrue(response.getString("file").contains("/blobs/"));
 		assertTrue(response.optString("csid")!=null);
 		assertNotSame("",response.optString("csid"));
+		// Actual resource
 		String read_url = response.getString("file").replaceAll("^.*?/blobs/","/download/")+"/Original";
 		UTF8SafeHttpTester out2=GETBinaryData(read_url,jetty,200);
 		log.info(out2.getHeader("Content-Type"));
 		byte[] img = out2.getBinaryContent();
 		assertArrayEquals(img,data);
+		System.err.println(response.getString("file"));
+	}
+	
+	@Test public void testMediaWithBlob() throws Exception {
+		ServletTester jetty = setupJetty();
+		// Create a blob
+		String filename = getClass().getPackage().getName().replaceAll("\\.","/")+"/darwin-beard-hat.jpg";
+		byte[] data = IOUtils.toByteArray(Thread.currentThread().getContextClassLoader().getResourceAsStream(filename));
+		UTF8SafeHttpTester out2=POSTBinaryData("/uploads",data,jetty);
+		log.info(out2.getContent());
+		JSONObject response = new JSONObject(out2.getContent());
+		System.err.println(response);
+		String blob_id = response.getString("csid");
+		// Create
+		JSONObject media=new JSONObject(mediaCreate);
+		JSONObject blob = new JSONObject();
+		blob.put("updatedAt","2011-05-06T18:23:27Z");
+		blob.put("createdAt","2011-05-06T18:23:27Z");
+		blob.put("name","darwin-beard-hat.jpg");
+		blob.put("mimeType","image/jpeg");
+		blob.put("length",data.length);
+		JSONArray blobs = new JSONArray();
+		blobs.put(blob);
+		media.put("blobs",blobs);
+		media.put("blobCsid",blob_id);
+		HttpTester out = POSTData("/media",makeRequest(media),jetty);
+		assertEquals(201,out.getStatus());
+		String id=out.getHeader("Location");
+		// Get
+		out = GETData(id,jetty);
+		// Check the hairy width field is present
+		JSONObject content=new JSONObject(out.getContent());
+		assertEquals("120",content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("width"));
+		System.err.println(out.getContent());
+		// Delete
+		DELETEData(id,jetty);
 	}
 	
 	@Test public void testRolesPermsUI() throws Exception {
