@@ -6,45 +6,110 @@
  */
 package org.collectionspace.chain.csp.schema;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 public class Relationship {
 
-	private String id,name; 
-	private boolean directional = false;
-
-	private Set<String> source,destination;
+	private Map<String, String> allStrings = new HashMap<String, String>();
+	private Map<String, Boolean> allBooleans = new HashMap<String, Boolean>();
+	private Map<String, Set<String>> allSets = new HashMap<String, Set<String>>();
+	/* just used for documentation to retrieve defaults */
+	private Map<String, String> allDefaultStrings = new HashMap<String, String>();
+	private Map<String, Boolean> allDefaultBooleans = new HashMap<String, Boolean>();
+	private Map<String, Set<String>> allDefaultSets = new HashMap<String, Set<String>>();
+	
 
 	Relationship(Spec spec,ReadOnlySection section) { 
-		this.id=(String)section.getValue("/@id");
-		this.name=Util.getStringOrDefault(section,"/displayName",id);
-		this.directional=Util.getBooleanOrDefault(section,"/directional",true);
-		this.source=Util.getSetOrDefault(section,"/sourceTypes",new String[]{""});
-		this.destination=Util.getSetOrDefault(section,"/destinationTypes",new String[]{""});
+
+		this.initStrings(section,"@id",null);
+		this.initStrings(section,"displayName",getString("@id"));
+		this.initStrings(section,"predicate",getString("@id"));
+		this.initStrings(section,"subject",getString("n"));
+		this.initStrings(section,"object",getString("n"));
+		this.initBoolean(section,"directional",true);
+		this.initSet(section,"sourceTypes",new String[] { "" });	
+		this.initSet(section,"destinationTypes",new String[] { "" });	
+		
 	}
-	
-	
-	public String getID() { return id; }
-	public String getDisplayName() { return name; }
-	public Boolean isDirectional() { return this.directional; }
+
+	public String getID() {	return  getString("@id");	}
+	public String getDisplayName() { return getString("displayName"); }
+	public String getSubject() { return getString("subject"); }
+	public String getObject() { return getString("object"); }
+	public String getPredicate() { return getString("predicate"); }
+	public Boolean isDirectional() { return getBoolean("directional"); }
 	
 	public String[] getAllSource(){
-		return source.toArray(new String[0]);
+		return getSet("sourceTypes").toArray(new String[0]);
 	}
 	
 	public String[] getAllDestination(){
-		return destination.toArray(new String[0]);
+		return getSet("destinationTypes").toArray(new String[0]);
 	}
 	
 	public Boolean hasSourceType(String name){
-		return source.contains(name);
+		return getSet("sourceTypes").contains(name);
 	}
 	
 	public Boolean hasDestinationType(String name){
-		return destination.contains(name);
+		return getSet("destinationTypes").contains(name);
 	}
 	
+	
+	/** start generic functions **/
+	protected Set<String> initSet(ReadOnlySection section, String name, String[] defaultval){
+		Set<String> vard = Util.getSetOrDefault(section, "/"+name, defaultval);
+		allDefaultSets.put(name,new HashSet<String>(Arrays.asList(defaultval)));
+		allSets.put(name,vard);
+		return vard;
+	}
+	protected String initStrings(ReadOnlySection section, String name, String defaultval){
+		String vard = Util.getStringOrDefault(section, "/"+name, defaultval);
+		allDefaultStrings.put(name,defaultval);
+		allStrings.put(name,vard);
+		return vard;
+	}
+	protected Boolean initBoolean(ReadOnlySection section, String name, Boolean defaultval){
+		Boolean vard = Util.getBooleanOrDefault(section, "/"+name, defaultval);
+		allDefaultBooleans.put(name,defaultval);
+		allBooleans.put(name,vard);
+		return vard;
+	}
+	protected String[] getAllString(){
+		return allStrings.keySet().toArray(new String[0]);
+	}
+	protected String getString(String name){
+		if(allStrings.containsKey(name)){
+			return allStrings.get(name);
+		}
+		return null;
+	}
 
+	protected String[] getAllBoolean(){
+		return allBooleans.keySet().toArray(new String[0]);
+	}
+	protected Boolean getBoolean(String name){
+		if(allBooleans.containsKey(name)){
+			return allBooleans.get(name);
+		}
+		return null;
+	}
+
+	protected String[] getAllSets(){
+		return allSets.keySet().toArray(new String[0]);
+	}
+	
+	protected Set<String> getSet(String name){
+		if(allSets.containsKey(name)){
+			return allSets.get(name);
+		}
+		return null;
+	}
+	/** end generic functions **/
 }
