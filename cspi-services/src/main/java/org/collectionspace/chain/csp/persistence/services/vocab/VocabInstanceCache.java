@@ -86,7 +86,10 @@ public class VocabInstanceCache {
 		String[] tag_parts=path_parts[1].split(",",2);
 		List<Node> objects=doc.getDocument().selectNodes(tag_parts[1]);
 		for(Node object : objects) {
-			String name=object.selectSingleNode("displayName").getText();
+			String name = "MISSING";
+			if(null !=object.selectSingleNode("displayName") ){
+				name=object.selectSingleNode("displayName").getText();
+			}
 			if(null == object.selectSingleNode("shortIdentifier")){
 				continue;
 			}

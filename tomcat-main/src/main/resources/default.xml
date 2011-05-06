@@ -3,11 +3,19 @@
     <version>10</version>
     <include src="local-settings.xml,settings.xml" strip-root="yes"/>
     <spec>
+		<relationshipsnew>
+			<relation id="">
+				<left>1|0|n</left>
+				<right>1|0|n</right>
+			</relation>
+		</relationshipsnew>
 
         <relationships>
             <relation id="broader">
                 <displayName>has broader term</displayName>
                 <directional>true</directional>
+				<type>hierarchical</type>
+				
                 <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</sourceTypes>
                 <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</destinationTypes>
             </relation>
@@ -1696,6 +1704,8 @@
             </record>
 
             <record id="location"  type="authority,compute-displayname">
+                <terms-used>false</terms-used>
+                <!-- XXX servcie layer doesn't currently support location terms but it does on  organisations - go figure -->
                 <web-url>location</web-url>
                 <services-tenant-plural>Locationauthorities</services-tenant-plural>
                 <services-tenant-singular>Locationauthority</services-tenant-singular>
