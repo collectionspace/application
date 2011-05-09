@@ -30,8 +30,10 @@ public class MultipartRequestDataSource implements RequestDataSource {
 
 		if (body != null) {
 			for(String mapkey: body.keySet()){
-				Element rooted = body.get(mapkey).getRootElement();
-				root.add(rooted);
+				if(body.containsKey(mapkey) && body.get(mapkey)!=null){
+					Element rooted = body.get(mapkey).getRootElement();
+					root.add(rooted);
+				}
 			}
 			data = ConnectionUtils.documentToStream(document);
 		}
