@@ -2463,7 +2463,7 @@
                 </structures>
 				
             	<section>
-            		<field id="broaderContext"  autocomplete="person-person"></field>
+            		<field id="broaderContext"  autocomplete="person-person,organisation-organisation"></field>
             		<repeat id="narrowerContexts">
             			<field id="narrowerContext" autocomplete="narrower">
             				<autocomplete-options>
