@@ -20,6 +20,7 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.schema.Structure;
+import org.collectionspace.chain.csp.schema.UISpecRunContext;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
@@ -134,7 +135,7 @@ public class DataGenerator  extends UISpec {
 					tty.line("So far up to number: "+i.toString());
 					tty.flush();
 				}
-				out.put(i.toString(), makedata(i,""));
+				out.put(i.toString(), makedata(i));
 			} catch (JSONException e) {
 				throw new UIException("Cannot generate UISpec due to JSONException",e);
 			}
@@ -143,12 +144,14 @@ public class DataGenerator  extends UISpec {
 		return out;
 	}
 
-	private JSONObject makedata(Integer num,String affix) throws JSONException{
+	private JSONObject makedata(Integer num) throws JSONException{
+
+		UISpecRunContext context= new UISpecRunContext();
 		num = num + this.startvalue;
 		
 		this.dataprefix = this.extraprefix + num.toString();
 		JSONObject out=new JSONObject();
-		out = generateDataEntrySection(affix);
+		out = generateDataEntrySection(context);
 		return out;
 	}
 	
@@ -399,44 +402,44 @@ public class DataGenerator  extends UISpec {
 
 		return this.dataprefix+" - " + repeataffix +f.getID();		
 	}
-	protected void generateFieldDataEntry_notrefactored(JSONObject out, String affix, Field f)
+	protected void generateFieldDataEntry_notrefactored(JSONObject out, UISpecRunContext context, Field f)
 	throws JSONException {
 		// Single field
-		out.put(getSelector(f)+affix,generateDataEntryField(f));	
+		out.put(getSelector(f)+context.getAffix(),generateDataEntryField(f,context));	
 	}	
 
-	private void repeatItem(JSONObject out, Repeat r, String affix) throws JSONException{
+	private void repeatItem(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException{
 		String selector = getSelector(r);
 		JSONArray arr = new JSONArray();
 		for(Integer i=0;i<repeatnum;i++){
 			repeataffix = i.toString()+" - ";
 			JSONObject protoTree=new JSONObject();
 			for(FieldSet child : r.getChildren("POST")) {
-				generateDataEntry(protoTree,child, affix);
+				generateDataEntry(protoTree,child, context);
 			}
 			arr.put(protoTree);
 			repeataffix = "";
 		}
 		out.put(selector,arr);
 	}
-	protected void repeatNonSibling(JSONObject out, FieldSet fs, String affix,
+	protected void repeatNonSibling(JSONObject out, FieldSet fs, UISpecRunContext context,
 			Repeat r) throws JSONException {
-		repeatItem(out, r, affix);
+		repeatItem(out, r, context);
 	}
-	protected void repeatSibling(JSONObject out, String affix, Repeat r,
+	protected void repeatSibling(JSONObject out, UISpecRunContext context, Repeat r,
 			JSONObject row, JSONArray children) throws JSONException {
-		repeatItem(out, r, affix);
+		repeatItem(out, r, context);
 	}
 	
-	protected void makeAuthorities(JSONObject out, String affix, Field f)
+	protected void makeAuthorities(JSONObject out, UISpecRunContext context, Field f)
 	throws JSONException {
 		if("enum".equals(f.getUIType())){
-			out.put(getSelector(f)+affix,generateDataEntryField(f));
+			out.put(getSelector(f)+context.getAffix(),generateDataEntryField(f,context));
 		}
 		else{
 			//get authority
 			Object data = generateAuthorityField(f);
-			out.put(getSelector(f)+affix,data);
+			out.put(getSelector(f)+context.getAffix(),data);
 		}
 	}
 	

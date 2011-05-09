@@ -10,12 +10,15 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Iterator;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.mortbay.jetty.HttpHeaders;
@@ -28,6 +31,47 @@ public class TestUISpecs extends TestBase {
 	private static final Logger log = LoggerFactory
 			.getLogger(TestUISpecs.class);
 
+	private JSONArray xxxsorted(JSONArray in) throws Exception {
+		JSONArray out=new JSONArray();
+		Object[] v=new Object[in.length()];
+		for(int i=0;i<v.length;i++)
+			v[i]=in.get(i);
+		Arrays.sort(v);
+		for(int i=0;i<v.length;i++)
+			out.put(v[i]);
+		return out;
+	}
+	/* XXX at the moment options are returned unsorted from the service layer, so we need to sort them
+	 */
+	private void xxxfixOptions_a(JSONArray v) throws Exception {
+		for(int i=0;i<v.length();i++) {
+			Object x=v.get(i);
+			if(x instanceof JSONObject)
+				xxxfixOptions((JSONObject)x);
+			else if(x instanceof JSONArray)
+				xxxfixOptions_a((JSONArray)x);
+		}
+	}
+	
+	private void xxxfixOptions(JSONObject in) throws Exception {
+		if(in.has("optionnames"))
+			in.put("optionnames",xxxsorted(in.getJSONArray("optionnames")));
+		if(in.has("optionlist"))
+			in.put("optionlist",xxxsorted(in.getJSONArray("optionlist")));
+		Iterator t = in.keys();
+		while(t.hasNext()) {
+			String k = (String)t.next();
+			Object v = in.get(k);
+			if(v!= null) {
+				if(v instanceof JSONObject)
+					xxxfixOptions((JSONObject)v);
+				else if(v instanceof JSONArray) {
+					xxxfixOptions_a((JSONArray)v);
+				}
+			}
+		}
+	}
+	
 	private void uispec(ServletTester jetty, String url, String uijson)
 			throws Exception {
 
@@ -40,6 +84,9 @@ public class TestUISpecs extends TestBase {
 		//log.info("GENERATED" + response.getContent());
 		generated = new JSONObject(response.getContent());
 		comparison = new JSONObject(getResourceString(uijson));
+		xxxfixOptions(generated);
+		xxxfixOptions(comparison);
+		
 		log.info("BASELINE" + comparison.toString());
 		log.info("GENERATED" + generated.toString());
 		assertTrue("Failed to create correct uispec for " + url, JSONUtils
@@ -68,17 +115,20 @@ public class TestUISpecs extends TestBase {
 		// uispec(jetty,"/movement/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
 		// uispec(jetty,"/person/generator?quantity=10","acquisition.uispec");
-		
-/*
-		uispec(jetty, "/acquisition/uispec", "acquisition.uispec");
+
 		uispec(jetty, "/cataloging/uispec", "collection-object.uispec");
+		
+		uispec(jetty, "/acquisition/uispec", "acquisition.uispec");
 		uispec(jetty, "/intake/uispec", "intake.uispec");
 		uispec(jetty, "/loanin/uispec", "loanin.uispec");
 		uispec(jetty, "/loanout/uispec", "loanout.uispec");
 		uispec(jetty, "/movement/uispec", "movement.uispec");
 		uispec(jetty, "/media/uispec", "media.uispec");
 		uispec(jetty, "/objectexit/uispec", "objectexit.uispec");
-		
+/*
+ * 		These can probably be renabled, but will need specs updating from nightly.
+ * 		I don't have the time or energy to do them at the moment. -- dan
+ * 		
 		uispec(jetty, "/users/uispec", "users.uispec");
 		uispec(jetty, "/role/uispec", "roles.uispec");
 		uispec(jetty, "/permission/uispec", "permissions.uispec");

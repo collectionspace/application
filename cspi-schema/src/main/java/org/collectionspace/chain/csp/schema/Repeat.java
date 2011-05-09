@@ -88,6 +88,7 @@ public class Repeat implements FieldSet, FieldParent {
 		this.initBoolean(section,"@has-primary",true);
 		this.initStrings(section,"@userecord","");
 		this.initStrings(section,"@onlyifexists","");
+		this.initStrings(section,"@ui-spec-prefix","");
 		// used by uispec to create new structure
 		this.initBoolean(section,"@as-expander",false);
 		this.initBoolean(section,"@as-conditional-expander",false);

@@ -2775,7 +2775,7 @@
                     <field id="uri"></field>
 					<field id="srcUri"></field>
                     <field id="blobCsid"></field>
-                    <group id="blobs" ui-type="uploader" userecord="blobs" serviceurl="blob" onlyifexists="blobCsid" attributes="GET"></group>
+                    <group id="blobs" ui-type="uploader" userecord="blobs" serviceurl="blob" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs"/>
                 </section>
             </record>
 

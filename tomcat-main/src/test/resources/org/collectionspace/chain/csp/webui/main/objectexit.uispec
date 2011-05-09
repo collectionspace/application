@@ -1,116 +1,163 @@
 {
-    "sidebar": {
-        "relatedProcedures": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    },
-                    ".csc-related-recordtype": "${items.0.recordtype}"
-                }]
+   "recordEditor":{
+      ".csc-objectexit-updatedAt-label":{
+         "messagekey":"objectexit-updatedAtLabel"
+      },
+      ".csc-objectexit-exitDate-label":{
+         "messagekey":"objectexit-exitDateLabel"
+      },
+      ".csc-objectexit-packingNote":"${fields.packingNote}",
+      ".csc-objectexit-createdAt":"${fields.createdAt}",
+      ".csc-objectexit-exitNote":"${fields.exitNote}",
+      ".csc-objectexit-packingNote-label":{
+         "messagekey":"objectexit-packingNoteLabel"
+      },
+      ".csc-objectexit-depositor":{
+         "decorators":[
+            {
+               "func":"cspace.autocomplete",
+               "type":"fluid",
+               "options":{
+                  "queryUrl":"../../chain/objectexit/autocomplete/depositor",
+                  "vocabUrl":"../../chain/objectexit/source-vocab/depositor"
+               }
             }
-        },
-        "termsUsed": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    },
-                    ".csc-related-recordtype": "${items.0.recordtype}",
-                    ".csc-related-field": "${items.0.sourceFieldName}"
-                }]
+         ],
+         "value":"${fields.depositor}"
+      },
+      ".csc-objectexit-exitNumber-container":{
+         "decorators":[
+            {
+               "func":"cspace.numberPatternChooser",
+               "type":"fluid",
+               "options":{
+                  "model":{
+                     "names":[
+                        "Object Exit"
+                     ],
+                     "list":[
+                        "objectexit"
+                     ],
+                     "samples":[
+                        "EX2010.1"
+                     ]
+                  },
+                  "selectors":{
+                     "numberField":".csc-objectexit-exitNumber"
+                  }
+               }
             }
-        },
-        "relatedCataloging": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    }
-                }]
+         ]
+      },
+      ".csc-objectexit-tenantID-label":{
+         "messagekey":"objectexit-tenantIDLabel"
+      },
+      ".csc-objectexit-tenantID":"${fields.tenantID}",
+      ".csc-objectexit-currentOwner":{
+         "decorators":[
+            {
+               "func":"cspace.autocomplete",
+               "type":"fluid",
+               "options":{
+                  "queryUrl":"../../chain/objectexit/autocomplete/currentOwner",
+                  "vocabUrl":"../../chain/objectexit/source-vocab/currentOwner"
+               }
             }
-        }
-    },
-    "recordEditor": {
-        ".csc-objectexit-currentOwner": {
-            "valuebinding": "${fields.currentOwner}",
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../chain/objectexit/autocomplete/currentOwner",
-                    "vocabUrl": "../../chain/objectexit/source-vocab/currentOwner"
-                }
-            }]
-        },
-        ".csc-objectexit-exitNote": "${fields.exitNote}",
-        ".csc-objectexit-exitDate-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
-        ".csc-objectexit-exitDate": "${fields.exitDate}",
-        ".csc-objectexit-exitNumber": "${fields.exitNumber}",
-        ".csc-objectexit-depositor": {
-            "valuebinding": "${fields.depositor}",
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../chain/objectexit/autocomplete/depositor",
-                    "vocabUrl": "../../chain/objectexit/source-vocab/depositor"
-                }
-            }]
-        },
-        ".csc-objectexit-exitNumber-container": {
-            "decorators": [{
-                "func": "cspace.numberPatternChooser",
-                "type": "fluid",
-                "options": {
-                    "model": {
-                        "names": ["objectexit"],
-                        "list": ["objectexit"],
-                        "samples": ["EX2010.001"]
-                    },
-                    "selectors": {
-                        "numberField": ".csc-objectexit-exitNumber"
-                    }
-                }
-            }]
-        },
-        ".csc-objectexit-exitReason": {
-            "default": "0",
-            "optionnames": ["Please select a value", "Deaccession", "Disposal", "Return of Loan"],
-            "optionlist": ["", "deaccession", "disposal", "returnofloan"],
-            "selection": "${fields.exitReason}"
-        },
-        ".csc-objectexit-packingNote": "${fields.packingNote}",
-        ".csc-objectexit-exitMethod": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.exitMethods",
-                    "protoTree": {
-                        ".csc-objectexit-exitMethod": {
-                            "default": "0",
-                            "optionnames": ["Please select a value", "Courier", "In Person", "Post"],
-                            "optionlist": ["", "courier", "inperson", "post"],
-                            "selection": "${fields.exitMethods.0.exitMethod}"
-                        }
-                    }
-                }
-            }]
-        }
-    },
-    "titleBar": {
-        ".csc-objectexit-currentOwner-titlebar": "${fields.currentOwner}",
-        ".csc-objectexit-exitNumber-titlebar": "${fields.exitNumber}"
-    }
+         ],
+         "value":"${fields.currentOwner}"
+      },
+      ".csc-objectexit-updatedAt":"${fields.updatedAt}",
+      ".csc-objectexit-exitDate-container":{
+         "decorators":[
+            {
+               "func":"cspace.datePicker",
+               "type":"fluid"
+            }
+         ]
+      },
+      ".csc-objectexit-exitReason-label":{
+         "messagekey":"objectexit-exitReasonLabel"
+      },
+      ".csc-objectexit-currentOwner-label":{
+         "messagekey":"objectexit-currentOwnerLabel"
+      },
+      ".csc-objectexit-createdAt-label":{
+         "messagekey":"objectexit-createdAtLabel"
+      },
+      ".csc-objectexit-exitNumber":"${fields.exitNumber}",
+      ".csc-objectexit-objectexitInformation-label":{
+         "messagekey":"objectexit-objectexitInformationLabel"
+      },
+      ".csc-objectexit-exitMethods":{
+         "decorators":[
+            {
+               "func":"cspace.makeRepeatable",
+               "type":"fluid",
+               "options":{
+                  "elPath":"fields.exitMethods",
+                  "protoTree":{
+                     "expander":{
+                        "tree":{
+                           "expander":{
+                              "repeatID":"repeat:",
+                              "tree":{
+                                 ".csc-objectexit-exitMethods":{
+                                    "default":"0",
+                                    "optionnames":[
+                                       "Please select a value",
+                                       "Courier",
+                                       "In Person",
+                                       "Post"
+                                    ],
+                                    "optionlist":[
+                                       "",
+                                       "courier",
+                                       "inperson",
+                                       "post"
+                                    ],
+                                    "selection":"${{row}.exitMethod}"
+                                 }
+                              },
+                              "type":"fluid.renderer.repeat",
+                              "pathAs":"row",
+                              "controlledBy":"fields.exitMethods"
+                           }
+                        },
+                        "type":"fluid.noexpand"
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      ".csc-objectexit-depositor-label":{
+         "messagekey":"objectexit-depositorLabel"
+      },
+      ".csc-objectexit-exitDate":"${fields.exitDate}",
+      ".csc-objectexit-exitReason":{
+         "default":"0",
+         "optionnames":[
+            "Please select a value",
+            "Deaccession",
+            "Disposal",
+            "Return of Loan"
+         ],
+         "optionlist":[
+            "",
+            "deaccession",
+            "disposal",
+            "returnofloan"
+         ],
+         "selection":"${fields.exitReason}"
+      },
+      ".csc-objectexit-exitNumber-label":{
+         "messagekey":"objectexit-exitNumberLabel"
+      },
+      ".csc-objectexit-exitNote-label":{
+         "messagekey":"objectexit-exitNoteLabel"
+      },
+      ".csc-objectexit-exitMethods-label":{
+         "messagekey":"objectexit-exitMethodsLabel"
+      }
+   }
 }

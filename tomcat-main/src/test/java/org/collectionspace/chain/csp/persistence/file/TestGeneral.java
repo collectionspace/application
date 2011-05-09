@@ -708,6 +708,15 @@ public class TestGeneral extends TestBase {
 		DELETEData(id,jetty);
 	}
 	
+	@Test public void testMediaUISpec() throws Exception {
+		ServletTester jetty = setupJetty();
+		HttpTester out = GETData("/media/uispec",jetty);
+		assertEquals(200,out.getStatus());
+		System.err.println(out.getContent());
+		JSONObject spec=new JSONObject(out.getContent());
+		assertEquals("${fields.length}",spec.getJSONObject("recordEditor").getString(".csc-blobs-length"));
+	}
+	
 	@Test public void testRolesPermsUI() throws Exception {
 
 		ServletTester jetty = setupJetty();

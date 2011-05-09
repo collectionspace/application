@@ -1,126 +1,160 @@
 {
-    "sidebar": {
-        "relatedProcedures": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    },
-                    ".csc-related-recordtype": "${items.0.recordtype}"
-                }]
+   "recordEditor":{
+      ".csc-movement-plannedRemovalDate-container":{
+         "decorators":[
+            {
+               "func":"cspace.datePicker",
+               "type":"fluid"
             }
-        },
-        "termsUsed": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    },
-                    ".csc-related-recordtype": "${items.0.recordtype}",
-                    ".csc-related-field": "${items.0.sourceFieldName}"
-                }]
+         ]
+      },
+      ".csc-movement-movementNote":"${fields.movementNote}",
+      ".csc-movement-movementReferenceNumber-container":{
+         "decorators":[
+            {
+               "func":"cspace.numberPatternChooser",
+               "type":"fluid",
+               "options":{
+                  "model":{
+                     "names":[
+                        "Movement"
+                     ],
+                     "list":[
+                        "movement"
+                     ],
+                     "samples":[
+                        "MV2010.001"
+                     ]
+                  },
+                  "selectors":{
+                     "numberField":".csc-movement-movementReferenceNumber"
+                  }
+               }
             }
-        },
-        "relatedCataloging": {
-            ".csc-recordList-row:": {
-                "children": [{
-                    ".csc-related-summary": "${items.0.summary}",
-                    ".csc-related-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "${items.0.recordtype}.html?csid=${items.0.csid}"
-                    }
-                }]
+         ]
+      },
+      ".csc-movement-tenantID":"${fields.tenantID}",
+      ".csc-movement-plannedRemovalDate":"${fields.plannedRemovalDate}",
+      ".csc-movement-currentLocation":"${fields.currentLocation}",
+      ".csc-movement-movementContact":{
+         "decorators":[
+            {
+               "func":"cspace.autocomplete",
+               "type":"fluid",
+               "options":{
+                  "queryUrl":"../../chain/movement/autocomplete/movementContact",
+                  "vocabUrl":"../../chain/movement/source-vocab/movementContact"
+               }
             }
-        }
-    },
-    "recordEditor": {
-        ".csc-movement-plannedRemovalDate-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
-        ".csc-movement-movementReferenceNumber-container": {
-            "decorators": [{
-                "func": "cspace.numberPatternChooser",
-                "type": "fluid",
-                "options": {
-                    "model": {
-                        "names": ["Movement"],
-                        "list": ["movement"],
-                        "samples": ["MV2010.001"]
-                    },
-                    "selectors": {
-                        "numberField": ".csc-movement-movementReferenceNumber"
-                    }
-                }
-            }]
-        },
-        ".csc-movement-movementNote": "${fields.movementNote}",
-        ".csc-movement-plannedRemovalDate": "${fields.plannedRemovalDate}",
-        ".csc-movement-currentLocation": "${fields.currentLocation}",
-        ".csc-movement-movementContact": {
-            "valuebinding": "${fields.movementContact}",
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../chain/movement/autocomplete/movementContact",
-                    "vocabUrl": "../../chain/movement/source-vocab/movementContact"
-                }
-            }]
-        },
-        ".csc-movement-removalDate-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
-        ".csc-movement-locationDate": "${fields.locationDate}",
-        ".csc-movement-currentLocationFitness": {
-            "default": "0",
-            "optionnames": ["Please select a value", "Dangerous", "Suitable", "Temporary", "Unsuitable"],
-            "optionlist": ["", "dangerous", "suitable", "temporary", "unsuitable"],
-            "selection": "${fields.currentLocationFitness}"
-        },
-        ".csc-movement-normalLocation": "${fields.normalLocation}",
-        ".csc-movement-movementMethods": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.movementMethods",
-                    "protoTree": {
-                        ".csc-movement-movementMethods": {
-                            "default": "0",
-                            "optionnames": ["Please select a value", "Forklift", "Handcarried", "Trolley"],
-                            "optionlist": ["", "forklift", "handcarried", "trolley"],
-                            "selection": "${fields.movementMethods.0.movementMethod}"
-                        }
-                    }
-                }
-            }]
-        },
-        ".csc-movement-currentLocationNote": "${fields.currentLocationNote}",
-        ".csc-movement-locationDate-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
-        ".csc-movement-movementReferenceNumber": "${fields.movementReferenceNumber}",
-        ".csc-movement-reasonForMove": {
-            "default": "0",
-            "optionnames": ["Please select a value", "Conservation", "Exhibition", "Inventory", "Loan", "New Storage Location", "Photography", "Research"],
-            "optionlist": ["", "conservation", "exhibition", "inventory", "loan", "newstoragelocation", "photography", "research"],
-            "selection": "${fields.reasonForMove}"
-        },
-        ".csc-movement-removalDate": "${fields.removalDate}"
-    },
-    "titleBar": {
-        ".csc-titleBar-currentLocation": "${fields.currentLocation}"
-    }
+         ],
+         "value":"${fields.movementContact}"
+      },
+      ".csc-movement-removalDate-container":{
+         "decorators":[
+            {
+               "func":"cspace.datePicker",
+               "type":"fluid"
+            }
+         ]
+      },
+      ".csc-movement-locationDate":"${fields.locationDate}",
+      ".csc-movement-currentLocationFitness":{
+         "default":"0",
+         "optionnames":[
+            "Please select a value",
+            "Dangerous",
+            "Suitable",
+            "Temporary",
+            "Unsuitable"
+         ],
+         "optionlist":[
+            "",
+            "dangerous",
+            "suitable",
+            "temporary",
+            "unsuitable"
+         ],
+         "selection":"${fields.currentLocationFitness}"
+      },
+      ".csc-movement-normalLocation":"${fields.normalLocation}",
+      ".csc-movement-movementMethods":{
+         "decorators":[
+            {
+               "func":"cspace.makeRepeatable",
+               "type":"fluid",
+               "options":{
+                  "elPath":"fields.movementMethods",
+                  "protoTree":{
+                     "expander":{
+                        "tree":{
+                           "expander":{
+                              "repeatID":"repeat:",
+                              "tree":{
+                                 ".csc-movement-movementMethods":{
+                                    "default":"0",
+                                    "optionnames":[
+                                       "Please select a value",
+                                       "Forklift",
+                                       "Handcarried",
+                                       "Trolley"
+                                    ],
+                                    "optionlist":[
+                                       "",
+                                       "forklift",
+                                       "handcarried",
+                                       "trolley"
+                                    ],
+                                    "selection":"${{row}.movementMethod}"
+                                 }
+                              },
+                              "type":"fluid.renderer.repeat",
+                              "pathAs":"row",
+                              "controlledBy":"fields.movementMethods"
+                           }
+                        },
+                        "type":"fluid.noexpand"
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      ".csc-movement-currentLocationNote":"${fields.currentLocationNote}",
+      ".csc-movement-locationDate-container":{
+         "decorators":[
+            {
+               "func":"cspace.datePicker",
+               "type":"fluid"
+            }
+         ]
+      },
+      ".csc-movement-createdAt":"${fields.createdAt}",
+      ".csc-movement-movementReferenceNumber":"${fields.movementReferenceNumber}",
+      ".csc-movement-reasonForMove":{
+         "default":"0",
+         "optionnames":[
+            "Please select a value",
+            "Conservation",
+            "Exhibition",
+            "Inventory",
+            "Loan",
+            "New Storage Location",
+            "Photography",
+            "Research"
+         ],
+         "optionlist":[
+            "",
+            "conservation",
+            "exhibition",
+            "inventory",
+            "loan",
+            "newstoragelocation",
+            "photography",
+            "research"
+         ],
+         "selection":"${fields.reasonForMove}"
+      },
+      ".csc-movement-updatedAt":"${fields.updatedAt}",
+      ".csc-movement-removalDate":"${fields.removalDate}"
+   }
 }

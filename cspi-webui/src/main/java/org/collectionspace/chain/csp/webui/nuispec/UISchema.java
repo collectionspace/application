@@ -16,6 +16,7 @@ import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Schemas;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.schema.UISpecRunContext;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.persistence.Storage;
@@ -51,24 +52,24 @@ public class UISchema extends UISpec {
 	protected JSONObject generateTermsUsed() throws JSONException {
 		return generateSchemaObject("array", new JSONArray(), null, null);
 	}
-	protected void generateUploaderEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
+	protected void generateUploaderEntry(JSONObject out, FieldSet f, UISpecRunContext affix) throws JSONException{
 	}
-	protected void generateHierarchyEntry(JSONObject out, FieldSet f, String affix) throws JSONException{
+	protected void generateHierarchyEntry(JSONObject out, FieldSet f, UISpecRunContext affix) throws JSONException{
 	}
 	
 
-	protected JSONObject generateRelations() throws JSONException {
+	private JSONObject generateRelations() throws JSONException {
 		return generateSchemaObject("object", new JSONObject(), null, null);
 	}
 	
-	protected JSONObject generateFields(Record r) throws JSONException {
+	private JSONObject generateFields(Record r,UISpecRunContext context) throws JSONException {
 		return generateSchemaObject("object", null,
-				generateDataEntrySection("",r), null);
+				generateDataEntrySection(context,r), null);
 	}
 
-	protected JSONObject generateFields() throws JSONException {
+	private JSONObject generateFields(UISpecRunContext context) throws JSONException {
 		return generateSchemaObject("object", null,
-				generateDataEntrySection(""), null);
+				generateDataEntrySection(context), null);
 	}
 
 	protected String getSelector(FieldSet fs) {
@@ -81,8 +82,7 @@ public class UISchema extends UISpec {
 		return generateSchemaObject(type, defaultval, null, null);
 	}
 	
-
-	protected Object generateGroupField(FieldSet f)
+	protected Object generateGroupField(FieldSet f,UISpecRunContext context)
 			throws JSONException {
 		JSONObject out = new JSONObject();
 		JSONObject items = new JSONObject();
@@ -93,7 +93,7 @@ public class UISchema extends UISpec {
 		String selector = getSelector(f);
 		JSONObject protoTree = new JSONObject();
 		for(FieldSet fs2 : subitems.getAllFields("")) {
-			generateDataEntry(protoTree, fs2, "");
+			generateDataEntry(protoTree, fs2,context);
 		}
 		protoTree.put("_primary", generateSchemaObject("boolean", null,
 					null, null));
@@ -112,31 +112,31 @@ public class UISchema extends UISpec {
 	}
 
 	protected void generateFieldDataEntry_notrefactored(JSONObject out,
-			String affix, Field f) throws JSONException {
+			UISpecRunContext affix, Field f) throws JSONException {
 		generateFieldDataEntry_refactored(out, affix, f);
 	}
 
-	protected void generateExpanderDataEntry(JSONObject out, String affix,
+	protected void generateExpanderDataEntry(JSONObject out, UISpecRunContext affix,
 			Field f) throws JSONException {
 		out.put(getSelector(f), generateOptionField(f));
 	}
 
-	protected JSONObject generateChooser(Field f) throws JSONException {
+	protected JSONObject generateChooser(Field f,UISpecRunContext context) throws JSONException {
 		return generateSchemaObject("string", null, null, null);
 	}
 
-	protected JSONObject generateAutocomplete(Field f) throws JSONException {
+	protected JSONObject generateAutocomplete(Field f,UISpecRunContext context) throws JSONException {
 		return generateSchemaObject("string", null, null, null);
 	}
 
-	private void repeatItem(JSONObject out, Repeat r, String affix)
+	private void repeatItem(JSONObject out, Repeat r, UISpecRunContext context)
 			throws JSONException {
 		JSONObject items = new JSONObject();
 
 		String selector = getSelector(r);
 		JSONObject protoTree = new JSONObject();
 		for (FieldSet child : r.getChildren("")) {
-			generateDataEntry(protoTree, child, affix);
+			generateDataEntry(protoTree, child, context);
 		}
 		if (r.hasPrimary()) {
 			protoTree.put("_primary", generateSchemaObject("boolean", null,
@@ -147,22 +147,22 @@ public class UISchema extends UISpec {
 		out.put(selector, generateSchemaObject("array", null, null, items));
 	}
 
-	protected void repeatNonSibling(JSONObject out, FieldSet fs, String affix,
+	protected void repeatNonSibling(JSONObject out, FieldSet fs, UISpecRunContext context,
 			Repeat r) throws JSONException {
-		repeatItem(out, r, affix);
+		repeatItem(out, r, context);
 	}
 
-	protected void repeatSibling(JSONObject out, String affix, Repeat r,
+	protected void repeatSibling(JSONObject out, UISpecRunContext context, Repeat r,
 			JSONObject row, JSONArray children) throws JSONException {
-		repeatItem(out, r, affix);
+		repeatItem(out, r, context);
 	}
 
-	protected JSONObject generateDate(Field f) throws JSONException {
+	protected JSONObject generateDate(Field f,UISpecRunContext context) throws JSONException {
 		String type = "date";
 		return generateSchemaObject(type, null, null, null);
 	}
 
-	protected Object generateDataEntryField(Field f) throws JSONException {
+	protected Object generateDataEntryField(Field f,UISpecRunContext context) throws JSONException {
 		if ("plain".equals(f.getUIType())) {
 			return generateSchemaObject("string", null, null, null);
 		} else if ("list".equals(f.getUIType())) {
@@ -174,13 +174,13 @@ public class UISchema extends UISpec {
 		} else if ("enum".equals(f.getUIType())) {
 			return generateENUMField(f);
 		} else if(f.getUIType().startsWith("groupfield")) {
-			return generateGroupField(f);
+			return generateGroupField(f,context);
 		}
 		//ignore ui-type uploader
 		return generateSchemaObject("string", null, null, null);
 	}
 
-	protected JSONObject generateSchemaObject(String type, Object defaultobj,
+	private JSONObject generateSchemaObject(String type, Object defaultobj,
 			JSONObject properties, JSONObject items) throws JSONException {
 		JSONObject out = new JSONObject();
 		out.put("type", type);// array|object|string
@@ -273,6 +273,7 @@ public class UISchema extends UISpec {
 	}
 	
 	private JSONObject uirecordschema(Storage storage,Record record) throws UIException {
+		UISpecRunContext context = new UISpecRunContext();
 		this.storage = storage;
 		this.record = record;
 		try {
@@ -286,12 +287,12 @@ public class UISchema extends UISpec {
 			if (record.hasRefObjUsed()) {
 				properties.put("relations", generateRelations());
 			}
-			JSONObject fields = generateFields();
+			JSONObject fields = generateFields(context);
 			JSONObject prop = fields.getJSONObject("properties");
 			
 
 			if(record.hasHierarchyUsed("screen")){
-				JSONObject temp = generateFields(record.getSpec().getRecord("hierarchy"));
+				JSONObject temp = generateFields(record.getSpec().getRecord("hierarchy"),context);
 				JSONObject prop2 = temp.getJSONObject("properties");
 
 				Iterator rit=prop2.keys();
