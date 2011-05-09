@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.collectionspace.chain.csp.persistence.services.GenericStorage;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
@@ -24,8 +25,11 @@ import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Node;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class VocabInstanceCache {
+	private static final Logger log=LoggerFactory.getLogger(VocabInstanceCache.class);
 	private Map<String,String> csids=new HashMap<String,String>();
 	private ServicesConnection conn;
 	private Map<String,String> vocabs;
@@ -53,12 +57,13 @@ public class VocabInstanceCache {
 		}
 		Element nametag=root.addElement("displayName");
 		nametag.addText(vocabByShortIdentifier(id));
-		
+
 		Element sidtag=root.addElement("shortIdentifier");
 		sidtag.addText(id);
 		
 		Element vocabtag=root.addElement("vocabType");
 		vocabtag.addText(vocab_type); 
+	//	log.info(out.asXML());
 		return out;
 	}
 	
@@ -70,6 +75,7 @@ public class VocabInstanceCache {
 		String[] tag_parts=path_parts[1].split(",",2);
 		body.put(path_parts[0],createList(tag_parts[0],tag_parts[1],id,vocab_type));
 		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/",body,creds,cache);
+	//	log.info("/"+r.getServicesURL()+"/");
 		if(out.getStatus()>299)
 			throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
 		csids.put(id,out.getURLTail());

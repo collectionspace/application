@@ -8,7 +8,6 @@ package org.collectionspace.chain.csp.persistence.services.vocab;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.persistence.services.GenericStorage;
 import org.collectionspace.chain.csp.persistence.services.XmlJsonConversion;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
@@ -30,6 +28,7 @@ import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -38,6 +37,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.json.JSONArray;
@@ -92,6 +92,67 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		return dnf.getID();
 	}
 
+	protected Element createRelationship(Relationship rel, Object data, String csid, String subjtype) throws ExistException, UnderlyingStorageException{
+
+		Document doc=DocumentFactory.getInstance().createDocument();
+		Element subroot = doc.addElement("relation-list-item");
+
+		Element predicate=subroot.addElement("predicate");
+		predicate.addText(rel.getPredicate());
+		Element subject=subroot.addElement("subject");
+		Element subjcsid = subject.addElement("csid");
+		Element subjdtype = subject.addElement("documentType");
+		if(csid != null){
+			subjcsid.addText(csid);
+		}
+		else{
+			subjcsid.addText("${itemCSID}");
+		}
+		subjdtype.addText(subjtype);
+		
+		//find out record type from urn - need to loop thr all authorities type
+		Record associatedRecord = this.r;
+		String associatedcsid ="";
+		String associateduri =null;
+		String associatedtest = (String)data;
+		for(Record myr : this.r.getSpec().getAllRecords()){
+			if(myr.isType("authority")){
+				URNProcessor temp_processor;
+				temp_processor=new URNProcessor(myr.getURNSyntax());
+				if(temp_processor.validUrn(associatedtest, false)){
+					associatedRecord = myr;
+					String[] b = temp_processor.deconstructURN(associatedtest, false);
+					associatedcsid = b[4];
+					associateduri = associatedtest;
+				}
+			}
+			else{
+				//not implemented yet - but I bet I will have to - assume /chain/intake/csid
+				if(associatedtest.startsWith(myr.getWebURL())){
+					associatedRecord = myr;
+					String[] bits = associatedtest.split("/");
+					associatedcsid = bits[bits.length -1 ];
+				}
+			}
+		}
+		
+		String[] b = urn_processor.deconstructURN((String)data, false);
+		
+		Element object=subroot.addElement("object");
+		Element objcsid = object.addElement("csid");
+		objcsid.addText(associatedcsid);
+		Element objdtype = object.addElement("documentType");
+		objdtype.addText(associatedRecord.getServicesURL());
+		if(associateduri!=null){
+
+			Element objutype = object.addElement("uri");
+			objutype.addText(associateduri);
+		}
+		
+		
+		return subroot;
+	}
+	
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -105,13 +166,42 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null,r);
 				if(temp!=null){
 					body.put(record_path[0],temp);
+					log.info(temp.asXML());
 				}
+
 			}	
+			
+			if(r.hasHierarchyUsed("screen")){
+				ArrayList<Element> alleles = new ArrayList<Element>();
+				for(Relationship rel : r.getSpec().getAllRelations()){
+					//does this relationship apply to this record
+					if(rel.hasSourceType(r.getID())){
+						
+						//does this record have the data in the json
+						if(jsonObject.has(rel.getID())){
+							Element bit = createRelationship(rel,jsonObject.get(rel.getID()),null,r.getServicesURL());
+							if(bit != null){
+								alleles.add(bit);
+							}
+						}
+					}
+				}
+				//add relationships section
+				if(!alleles.isEmpty()){
+					Element[] array = (Element[])alleles.toArray(new Element[0]);
+					Document out=XmlJsonConversion.getXMLRelationship(array);
+
+					body.put("relations-common-list",out);
+				}
+			}
+			
 			// First send without refid (don't know csid)	
 			String pathurl ="/"+r.getServicesURL()+"/"+vocab+"/items"; 
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,pathurl,body,creds,cache);		
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary",out.getStatus(),pathurl);
+			
+			
 			// This time with refid
 			String csid=out.getURLTail();
 			String refname=urn_processor.constructURN("id",vocab,"id",out.getURLTail(),name);
@@ -298,6 +388,9 @@ public class ConfiguredVocabStorage extends GenericStorage {
 
 			if(r.hasSoftDeleteMethod()){
 				path = softpath(path);
+			}
+			if(r.hasHierarchyUsed("screen")){
+				path = hierarchicalpath(path);
 			}
 			
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
@@ -557,6 +650,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			if(r.hasSoftDeleteMethod()){
 				softurl = softpath(url);
 			}
+			if(r.hasHierarchyUsed("screen")){
+				softurl = hierarchicalpath(softurl);
+			}
+			
 			
 			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,softurl,null,creds,cache);
 			if(doc.getStatus()==404)

@@ -180,6 +180,10 @@ public class UserStorage extends GenericStorage {
 			if(r.hasSoftDeleteMethod()){
 				path = softpath(path);
 			}
+			if(r.hasHierarchyUsed("screen")){
+				path = hierarchicalpath(path);
+			}
+			
 			
 			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
 			JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);

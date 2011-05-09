@@ -69,6 +69,17 @@ public class URNProcessor {
 			throw new UnderlyingStorageException("UTF-8 not supported!?");
 		}
 	}
+	
+	public boolean validUrn(String urn,boolean prefix){
+
+		if(!prefix)
+			urn="/"+urn;
+		Matcher m=pattern.matcher(urn);
+		if(!m.matches()){
+			return false;
+		}
+		return true;
+	}
 
 	public String[] deconstructURN(String urn,boolean prefix) throws ExistException, UnderlyingStorageException {	
 		try {
