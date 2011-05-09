@@ -92,18 +92,26 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		return dnf.getID();
 	}
 
-	protected Element createRelationship(Relationship rel, Object data, String csid, String subjtype) throws ExistException, UnderlyingStorageException{
+	protected Element createRelationship(Relationship rel, Object data, String csid, String subjtype, String subjuri, Boolean reverseIt) throws ExistException, UnderlyingStorageException{
 
 		Document doc=DocumentFactory.getInstance().createDocument();
 		Element subroot = doc.addElement("relation-list-item");
 
 		Element predicate=subroot.addElement("predicate");
 		predicate.addText(rel.getPredicate());
-		Element subject=subroot.addElement("subject");
+		String subjectName = "subject";
+		String objectName = "object";
+		if(reverseIt){
+			subjectName = "object";
+			objectName = "subject";
+		}
+		Element subject=subroot.addElement(subjectName);
 		Element subjcsid = subject.addElement("csid");
 		Element subjdtype = subject.addElement("documentType");
 		if(csid != null){
 			subjcsid.addText(csid);
+			Element sbjutype = subject.addElement("uri");
+			sbjutype.addText(subjuri);
 		}
 		else{
 			subjcsid.addText("${itemCSID}");
@@ -136,9 +144,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			}
 		}
 		
-		String[] b = urn_processor.deconstructURN((String)data, false);
 		
-		Element object=subroot.addElement("object");
+		Element object=subroot.addElement(objectName);
 		Element objcsid = object.addElement("csid");
 		objcsid.addText(associatedcsid);
 		Element objdtype = object.addElement("documentType");
@@ -174,17 +181,39 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			if(r.hasHierarchyUsed("screen")){
 				ArrayList<Element> alleles = new ArrayList<Element>();
 				for(Relationship rel : r.getSpec().getAllRelations()){
+					Relationship newrel=rel;
+					Boolean inverse = false;
+					if(rel.hasInverse()){
+						newrel = r.getSpec().getRelation(rel.getInverse());
+						inverse = true;
+					}
 					//does this relationship apply to this record
 					if(rel.hasSourceType(r.getID())){
 						
 						//does this record have the data in the json
 						if(jsonObject.has(rel.getID())){
-							Element bit = createRelationship(rel,jsonObject.get(rel.getID()),null,r.getServicesURL());
-							if(bit != null){
-								alleles.add(bit);
+							if(rel.getObject().equals("1")){
+								Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),null,r.getServicesURL(),null, inverse);
+								if(bit != null){
+									alleles.add(bit);
+								}
+							}
+							else if(rel.getObject().equals("n")){
+								JSONArray temp = jsonObject.getJSONArray(rel.getID());
+								for(int i=0; i<temp.length();i++){
+									String argh = rel.getChildName();
+									JSONObject brgh = temp.getJSONObject(i);
+									String uri = brgh.getString(argh);
+									Element bit = createRelationship(newrel,uri,null,r.getServicesURL(),null, inverse);
+									if(bit != null){
+										alleles.add(bit);
+									}
+								}
+								
 							}
 						}
 					}
+				
 				}
 				//add relationships section
 				if(!alleles.isEmpty()){
@@ -192,6 +221,9 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					Document out=XmlJsonConversion.getXMLRelationship(array);
 
 					body.put("relations-common-list",out);
+				}
+				else{
+					body.put("relations-common-list",null);
 				}
 			}
 			
@@ -746,6 +778,58 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 				
 			}
+
+			if(r.hasHierarchyUsed("screen")){
+				ArrayList<Element> alleles = new ArrayList<Element>();
+				for(Relationship rel : r.getSpec().getAllRelations()){
+					Relationship newrel=rel;
+					Boolean inverse = false;
+					if(rel.hasInverse()){
+						newrel = r.getSpec().getRelation(rel.getInverse());
+						inverse = true;
+					}
+					//does this relationship apply to this record
+					if(rel.hasSourceType(r.getID())){
+						
+						//does this record have the data in the json
+						if(jsonObject.has(rel.getID())){
+							if(rel.getObject().equals("1")){
+								Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),csid,r.getServicesURL(),refname, inverse);
+								if(bit != null){
+									alleles.add(bit);
+								}
+							}
+							else if(rel.getObject().equals("n")){
+								JSONArray temp = jsonObject.getJSONArray(rel.getID());
+								for(int i=0; i<temp.length();i++){
+									String argh = rel.getChildName();
+									JSONObject brgh = temp.getJSONObject(i);
+									String uri = brgh.getString(argh);
+									Element bit = createRelationship(newrel,uri,csid,r.getServicesURL(),refname, inverse);
+									if(bit != null){
+										alleles.add(bit);
+									}
+								}
+								
+							}
+						}
+					}
+				}
+				//add relationships section
+				if(!alleles.isEmpty()){
+					Element[] array = (Element[])alleles.toArray(new Element[0]);
+					Document out=XmlJsonConversion.getXMLRelationship(array);
+					body.put("relations-common-list",out);
+				}
+				else{
+
+					body.put("relations-common-list",null);
+				}
+				//probably should put empty array in if no data
+			}
+			
+			
+			
 			String url = generateURL(vocab,filePath.split("/")[1],"");
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,url,body,creds,cache);
 			if(out.getStatus()>299)

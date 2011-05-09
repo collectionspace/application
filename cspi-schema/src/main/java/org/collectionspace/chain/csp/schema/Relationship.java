@@ -28,10 +28,13 @@ public class Relationship {
 	Relationship(Spec spec,ReadOnlySection section) { 
 
 		this.initStrings(section,"@id",null);
+		this.initStrings(section,"childname",getString("@id"));
 		this.initStrings(section,"displayName",getString("@id"));
 		this.initStrings(section,"predicate",getString("@id"));
-		this.initStrings(section,"subject",getString("n"));
-		this.initStrings(section,"object",getString("n"));
+		this.initStrings(section,"subject","n");
+		this.initStrings(section,"object","n");
+		this.initStrings(section,"inverseOf","");
+		
 		this.initBoolean(section,"directional",true);
 		this.initSet(section,"sourceTypes",new String[] { "" });	
 		this.initSet(section,"destinationTypes",new String[] { "" });	
@@ -39,10 +42,13 @@ public class Relationship {
 	}
 
 	public String getID() {	return  getString("@id");	}
+	public String getChildName() { return getString("childname"); }
 	public String getDisplayName() { return getString("displayName"); }
 	public String getSubject() { return getString("subject"); }
 	public String getObject() { return getString("object"); }
 	public String getPredicate() { return getString("predicate"); }
+	public String getInverse() { return getString("inverseOf"); }
+	public Boolean hasInverse() { if(getString("inverseOf").equals("")){ return false; } else { return true; } }
 	public Boolean isDirectional() { return getBoolean("directional"); }
 	
 	public String[] getAllSource(){

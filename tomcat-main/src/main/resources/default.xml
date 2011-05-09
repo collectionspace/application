@@ -10,8 +10,19 @@
 				<subject>n</subject>
 				<object>1</object>
                 <directional>false</directional>
-                <sourceTypes>location,personauthorities,person,organisation</sourceTypes>
-                <destinationTypes>location,personauthorities,person,organisation</destinationTypes>
+                <sourceTypes>location,personauthorities,person,organization</sourceTypes>
+                <destinationTypes>location,personauthorities,person,organization</destinationTypes>
+			</relation>
+			<relation id="narrowerContexts">
+				<inverseOf>broaderContext</inverseOf>
+                <displayName>has narrower term</displayName>
+				<predicate>hasNarrower</predicate>
+				<subject>1</subject>
+				<object>n</object>
+				<childname>narrowerContext</childname>
+                <directional>false</directional>
+                <sourceTypes>location,personauthorities,person,organization</sourceTypes>
+                <destinationTypes>location,personauthorities,person,organization</destinationTypes>
 			</relation>
             <relation id="broader">
                 <displayName>has broader term</displayName>
@@ -2463,9 +2474,9 @@
                 </structures>
 				
             	<section>
-            		<field id="broaderContext"  autocomplete="person-person,organisation-organisation"></field>
+            		<field id="broaderContext"  autocomplete="person-person,organization-organization"></field>
             		<repeat id="narrowerContexts">
-            			<field id="narrowerContext" autocomplete="narrower">
+            			<field id="narrowerContext" autocomplete="person-person,organization-organization">
             				<autocomplete-options>
             					<strings>
             						narrowerChange|Warning: %narrower currently has broader term %broader. Change broader term?
