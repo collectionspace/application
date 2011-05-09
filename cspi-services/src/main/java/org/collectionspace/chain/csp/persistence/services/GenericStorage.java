@@ -365,6 +365,9 @@ public class GenericStorage  implements ContextualisedStorage {
 			if(thisr.hasSoftDeleteMethod()){
 				softpath = softpath(filePath);
 			}
+			if(thisr.hasHierarchyUsed("screen")){
+				softpath = hierarchicalpath(softpath);
+			}
 			
 			if(thisr.isMultipart()){
 				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,servicesurl+softpath,null,creds,cache);
@@ -488,6 +491,9 @@ public class GenericStorage  implements ContextualisedStorage {
 				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
 				if(r.hasSoftDeleteMethod()){//XXX completely not the right thinsg to do but a good enough hack
 					path = softpath(path);
+				}
+				if(r.hasHierarchyUsed("screen")){
+					path = hierarchicalpath(path);
 				}
 				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 				if(all.getStatus()!=200)
@@ -1209,6 +1215,9 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @return
 	 */
 	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+		if(r.hasHierarchyUsed("screen")){
+			path = hierarchicalpath(path);
+		}
 		if(r.hasSoftDeleteMethod()){
 			return getRepeatableSoftListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
 		}
@@ -1218,6 +1227,9 @@ public class GenericStorage  implements ContextualisedStorage {
 	}
 
 	protected JSONObject getListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+		if(r.hasHierarchyUsed("screen")){
+			path = hierarchicalpath(path);
+		}
 		if(r.hasSoftDeleteMethod()){
 			return getSoftListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
 		}
@@ -1237,6 +1249,19 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 		softdeletepath += "wf_deleted=false";
 		return softdeletepath;
+	}
+	protected String hierarchicalpath(String path){
+		String hierarchicalpath = path;
+		
+		//does path include a ? if so add &wf_delete else add ?wf_delete
+		if(path.contains("?")){
+			hierarchicalpath += "&";
+		}
+		else{
+			hierarchicalpath += "?";
+		}
+		hierarchicalpath += "showRelations=true";
+		return hierarchicalpath;
 	}
 
 	protected JSONObject getRepeatableSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {

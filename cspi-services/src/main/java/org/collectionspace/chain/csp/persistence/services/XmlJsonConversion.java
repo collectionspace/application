@@ -215,6 +215,21 @@ public class XmlJsonConversion {
 		**/
 		
 	}
+	public static Document getXMLRelationship(Element[] listItems){
+		Document doc=DocumentFactory.getInstance().createDocument();
+		Element root=doc.addElement(new QName("relations-common-list",new Namespace("ns3","http://collectionspace.org/services/relation")));
+		root.addNamespace("ns2", "http://collectionspace.org/services/jaxb");
+		//<ns3:relations-common-list xmlns:ns3="http://collectionspace.org/services/relation" xmlns:ns2="http://collectionspace.org/services/jaxb">
+
+		for(Element bitdoc : listItems){
+			root.add(bitdoc);
+		}
+
+		String test = doc.asXML();
+		//log.debug(doc.asXML());
+		return doc;
+		
+	}
 	public static Document convertToXml(Record r,JSONObject in,String section, String permtype) throws JSONException, UnderlyingStorageException {
 		Document doc=DocumentFactory.getInstance().createDocument();
 		String[] parts=r.getServicesRecordPath(section).split(":",2);
