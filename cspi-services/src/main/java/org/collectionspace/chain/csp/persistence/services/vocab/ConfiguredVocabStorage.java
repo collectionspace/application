@@ -561,7 +561,6 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				num = 2;
 			}		
 			
-			
 			if(parts.length>num) {
 				String extra = "";
 				Integer extradata = num + 1;
@@ -702,6 +701,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String[] tag_path=record_path[1].split(",",2);
 				Document result=doc.getDocument(record_path[0]);
 
+
 				if("common".equals(section)) { // XXX hardwired :(
 					name=result.selectSingleNode(tag_path[1]+"/displayName").getText();
 					if(result.selectSingleNode(tag_path[1]+"/shortIdentifier")!=null){
@@ -709,7 +709,75 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					}
 					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
 					XmlJsonConversion.convertToJson(out,r,result,"GET",section);	
-				}			
+				}
+				else{
+					XmlJsonConversion.convertToJson(out,r,result,"GET",section);						
+				}
+			}
+
+			//deurn url incase we were sent name not id as csid
+			String[] urned = urn_processor.deconstructURN(refid,false);
+			
+			String thiscsid = urned[4];
+			if(r.hasHierarchyUsed("screen")){
+				//lets do relationship stuff...
+				Document list = doc.getDocument("relations-common-list");
+				//loop over all the relationship types
+
+				List<String> listitems=new ArrayList<String>();
+//persons-common-list/person_list_item
+				List<Node> nodes=list.selectNodes("/relations-common-list/*");
+
+				for(Node node : nodes) {
+					if(node.matches("/relations-common-list/relation-list-item")){
+						String test = node.asXML();
+						String relationshipType = node.selectSingleNode("relationshipType").getText();
+						String subjCSID = node.selectSingleNode("subjectCsid").getText();
+						String objCSID = node.selectSingleNode("objectCsid").getText();
+						String suri="";
+						if(node.selectSingleNode("subject/uri")!=null){
+							suri=node.selectSingleNode("subject/uri").getText();
+						}
+						String ouri="";
+						if(node.selectSingleNode("object/uri")!=null){
+							ouri=node.selectSingleNode("object/uri").getText();
+						}
+
+						String relateduri = ouri;
+						
+						if(r.getSpec().hasRelationshipByPredicate(relationshipType)){
+							Relationship rel = r.getSpec().getRelationshipByPredicate(relationshipType);
+							Relationship newrel = rel;
+							//is this subject or object
+							if(thiscsid.equals(objCSID)){
+								//should we invert
+								if(r.getSpec().hasRelationshipInverse(rel.getID())){
+									newrel = r.getSpec().getInverseRelationship(rel.getID());
+									relateduri = suri;
+								}
+							}
+							
+
+							if(newrel.getObject().equals("n")){ //array
+								JSONObject subdata = new JSONObject();
+								subdata.put(newrel.getChildName(),relateduri);
+								if(out.has(newrel.getID())){
+									out.getJSONArray(newrel.getID()).put(subdata);
+								}
+								else{
+									JSONArray bob = new JSONArray();
+									bob.put(subdata);
+									out.put(newrel.getID(), bob);
+								}
+							}
+							else{//string
+								out.put(newrel.getID(), relateduri);
+							}
+							
+						}
+					}
+				}
+				
 			}
 			
 
@@ -740,8 +808,6 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 			}
 			
-			//deurn url incase we were sent name not id as csid
-			String[] urned = urn_processor.deconstructURN(refid,false);
 			//csid = urn_processor.deconstructURN(refid,false)[4];
 			
 			out.put(getDisplayNameKey(),name);

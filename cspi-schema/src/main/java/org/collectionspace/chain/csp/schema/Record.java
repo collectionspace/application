@@ -85,8 +85,6 @@ public class Record implements FieldParent {
 		// array in Json if = false )
 		this.initBoolean(section,"refobj-used",true);
 		
-		this.initBoolean(section,"hierarchy-used",false);
-
 		// config the keyword to use for searching
 		this.initStrings(section,"services-search-keyword","kw");
 

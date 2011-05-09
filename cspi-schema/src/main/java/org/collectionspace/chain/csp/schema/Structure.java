@@ -92,7 +92,7 @@ public class Structure  implements FieldParent  {
 		id=(String)section.getValue("/@id");
 		showtitlebar=Util.getBooleanOrDefault(section,"/view/titlebar/@show",false);
 		showsidebar=Util.getBooleanOrDefault(section,"/view/sidebar/@show",false);
-		showhierarchysection=Util.getBooleanOrDefault(section,"/view/hierachy-section/@show",false);
+		showhierarchysection=Util.getBooleanOrDefault(section,"/view/hierarchy-section/@show",false);
 		showeditsection=Util.getBooleanOrDefault(section,"/view/edit-section/@show",true);
 		showlistsection=Util.getBooleanOrDefault(section,"/view/list-section/@show",false);
 		showmsgsection=Util.getBooleanOrDefault(section,"/view/label-section/@show",false);

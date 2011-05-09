@@ -35,6 +35,8 @@ public class Spec implements CSP, Configurable {
 
 	private Map<String,Record> records=new HashMap<String,Record>();
 	private Map<String,Relationship> relationships=new HashMap<String,Relationship>();
+	private Map<String,Relationship> relationshipsPredicate=new HashMap<String,Relationship>();
+	private Map<String,String> inverserelationships = new HashMap<String,String>();
 	private Map<String,Schemas> schemas=new HashMap<String,Schemas>();
 	
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
@@ -102,6 +104,10 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Relationship r=new Relationship(Spec.this,section);
 				relationships.put(r.getID(),r);
+				relationshipsPredicate.put(r.getPredicate(),r);
+				if(r.hasInverse()){
+					inverserelationships.put(r.getInverse(), r.getID());
+				}
 				return r;
 			}
 		});
@@ -325,11 +331,14 @@ public class Spec implements CSP, Configurable {
 
 	public EmailData getEmailData() { return ed.getEmailData(); }
 	public AdminData getAdminData() { return adminData.getAdminData(); }
-	
+
 	public Boolean hasRelationship(String id){ if(relationships.containsKey(id)){return true;} else return false;}
+	public Boolean hasRelationshipByPredicate(String id){ if(relationshipsPredicate.containsKey(id)){return true;} else return false;}
 	public Relationship getRelation(String id) { return relationships.get(id); }
+	public Relationship getRelationshipByPredicate(String id){ return relationshipsPredicate.get(id); }
 	public Relationship[] getAllRelations(){ return relationships.values().toArray(new Relationship[0]); }
-	
+	public Relationship getInverseRelationship(String id) { if(inverserelationships.containsKey(id)){ return relationships.get(inverserelationships.get(id));	} else return null;	}
+	public Boolean hasRelationshipInverse(String id){ if(inverserelationships.containsKey(id) && relationships.containsKey(inverserelationships.get(id))){return true;} else return false;}
 
 	public Boolean hasSchema(String id){ if(schemas.containsKey(id)){return true;} else return false;}
 	public Schemas getSchema(String id) { return schemas.get(id); }
