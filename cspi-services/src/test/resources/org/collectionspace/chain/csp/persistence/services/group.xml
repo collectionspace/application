@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns2:groups_common
+    xmlns:ns2="http://collectionspace.org/services/group" >
+		<title>This is my group</title>
+    <owner>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(jimnabors)'Jim+Nabors'</owner>
+		<scopeNote>This is just for testing</scopeNote>
+		<responsibleDepartment>jokes</responsibleDepartment>
+</ns2:groups_common>

@@ -36,6 +36,11 @@
             "permission": "delete"
         },
         {
+            "display": "none",
+            "resourceName": "group",
+            "permission": "delete"
+        },
+        {
             "display": "show",
             "resourceName": "movement",
             "permission": "delete"

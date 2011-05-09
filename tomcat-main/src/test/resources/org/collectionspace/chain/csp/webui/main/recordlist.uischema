@@ -1,6 +1,6 @@
 {
     "recordlist": {
-        "default": ["person", "intake", "location", "loanin", "loanout", "acquisition", "organization", "cataloging", "movement", "media", "objectexit"],
+        "default": ["person", "intake", "location", "loanin", "loanout", "acquisition", "organization", "cataloging", "movement", "media", "objectexit", "group"],
         "type": "array"
     }
 }

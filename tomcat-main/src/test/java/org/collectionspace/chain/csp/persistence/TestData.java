@@ -44,6 +44,7 @@ public class TestData {
 	protected final String movementCreate = addData("movementCreate.json").toString();
 	protected final String mediaCreate = addData("mediaCreate.json").toString();
  	protected final String objectexitCreate = addData("objectexitCreate.json").toString();
+ 	protected final String groupCreate = addData("groupCreate.json").toString();
 
 	protected final String roleCreate = addData("roleCreate.json","displayName").toString();
 	protected final String role2Create = addData("role2Create.json","displayName").toString();

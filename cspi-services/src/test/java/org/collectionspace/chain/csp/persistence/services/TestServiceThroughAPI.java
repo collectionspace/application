@@ -44,6 +44,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		getPostDelete("loanin/","LoaninJSON.json","LoaninJSON.json","loanInNumber");
 		getPostDelete("movement/","movement.json","movement.json","movementReferenceNumber");
 		getPostDelete("objectexit/","objectexit.json","objectexit.json","exitNote");
+		getPostDelete("group/","group.json","group.json","title");
 
 	//	getPostDelete("role/","role.json","role.json","roleName");
 	//	getPostDelete("permrole","rolepermissions.xml","rolepermissions.json");

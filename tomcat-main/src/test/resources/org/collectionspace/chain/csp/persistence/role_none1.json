@@ -36,6 +36,11 @@
             "permission": "none"
         },
         {
+            "display": "none",
+            "resourceName": "group",
+            "permission": "none"
+        },
+        {
             "display": "show",
             "resourceName": "movement",
             "permission": "none"

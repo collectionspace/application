@@ -48,7 +48,8 @@ public class TestDummyData extends ServicesBaseClass  {
 			String intakeUrl = create("intakes/", "intakes_common", "dummydata-intake.xml","intake");
 			String loaninUrl = create("loansin/", "loansin_common", "dummydata-loanin.xml","loanin");
 			String loanoutUrl = create("loansout/", "loansout_common", "dummydata-loanout.xml","loanout");
-                        String objectexitUrl = create("objectexit/", "objectexit_common", "dummydata-objectexit.xml","objectexit");
+			String objectexitUrl = create("objectexit/", "objectexit_common", "dummydata-objectexit.xml","objectexit");
+			String groupUrl = create("group/", "group_common", "dummydata-group.xml","group");
 			
 			//make relationships
 
@@ -56,13 +57,14 @@ public class TestDummyData extends ServicesBaseClass  {
 			relate2way(ss,objectUrl,intakeUrl);
 			relate2way(ss,objectUrl,loaninUrl);
 			relate2way(ss,objectUrl,loanoutUrl);
-                        relate2way(ss,objectUrl,objectexitUrl);
+			relate2way(ss,objectUrl,objectexitUrl);
 
-                        testRelations(ss,objectUrl,acquisitionUrl,"affects");
+			testRelations(ss,objectUrl,acquisitionUrl,"affects");
 			testRelations(ss,objectUrl,intakeUrl,"affects");
 			testRelations(ss,objectUrl,loaninUrl,"affects");
 			testRelations(ss,objectUrl,loanoutUrl,"affects");
-                        testRelations(ss,objectUrl,objectexitUrl,"affects");
+			testRelations(ss,objectUrl,objectexitUrl,"affects");
+			testRelations(ss,objectUrl,groupUrl,"affects");
 		} catch (CSPDependencyException e) {
 			fail(e.getMessage());
 		} catch (Exception e) {

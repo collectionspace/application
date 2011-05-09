@@ -35,8 +35,8 @@
             <relation id="affects">
                 <displayName>affects</displayName>
                 <directional>false</directional>
-                <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</sourceTypes>
-                <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</destinationTypes>
+                <sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media</sourceTypes>
+                <destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media</destinationTypes>
             </relation>
         </relationships>
 
@@ -2789,7 +2789,7 @@
                 <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
-				<structures>
+                  <structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -2855,6 +2855,73 @@
                     <field id="packingNote"></field>
                 </section>
             </record>
+
+            <record id="group" in-findedit="yes" type="record,procedure">
+                <!-- Added this tag because services path is currently singular for Object Exit. -->
+                <services-url>groups</services-url>
+                <services-tenant-plural>Groups</services-tenant-plural>
+                <services-tenant-singular>Group</services-tenant-singular>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
+                <services-record-path>groups_common:http://collectionspace.org/services/group,groups_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <hassoftdelete>true</hassoftdelete>
+                  <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="false"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>.csc-recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>.csc-related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>.csc-related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <row-selector>.csc-recordList-row:</row-selector>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                </section>
+                <section id="groupInformation">
+                    <!--  Object Exit Information Group -->
+										<field id="title" in-title="yes" mini="number,search,list,relate,terms" >
+											<selector>.csc-group-title</selector>
+										</field>
+                    <field id="scopeNote"></field>
+										<field id="responsibleDepartment" seperate_ui_container="true">
+											<selector>.csc-group-responsibleDepartment</selector>
+											<options>
+												<option id="">Please select a value</option>
+												<option id="antiquities">Antiquities</option>
+												<option id="architecture-design">Architecture and Design</option>
+												<option id="decorative-arts">Decorative Arts</option>
+												<option id="ethnography">Ethnography</option>
+												<option id="herpetology">Herpetology</option>
+												<option id="media-performance-art">Media and Performance Art</option>
+												<option id="paintings-sculpture">Paintings and Sculpture</option>
+												<option id="paleobotany">Paleobotany</option>
+												<option id="photographs">Photographs</option>
+												<option id="prints-drawings">Prints and Drawings</option>
+											</options>
+										</field>
+                    <field id="owner" autocomplete="person-person"
+                           mini="summary,list" in-title="yes"></field>
+                </section>
+							</record> <!-- close GROUPS record -->
 
             <record id="id" type="id">
                 <services-tenant-plural>id</services-tenant-plural>
