@@ -3,14 +3,16 @@
     <version>10</version>
     <include src="local-settings.xml,settings.xml" strip-root="yes"/>
     <spec>
-		<relationshipsnew>
-			<relation id="">
-				<left>1|0|n</left>
-				<right>1|0|n</right>
+    	<relationships>
+			<relation id="broaderContext">
+                <displayName>has broader term</displayName>
+				<predicate>hasBroader</predicate>
+				<subject>n</subject>
+				<object>1</object>
+                <directional>false</directional>
+                <sourceTypes>location,personauthorities,person,organisation</sourceTypes>
+                <destinationTypes>location,personauthorities,person,organisation</destinationTypes>
 			</relation>
-		</relationshipsnew>
-
-        <relationships>
             <relation id="broader">
                 <displayName>has broader term</displayName>
                 <directional>true</directional>
@@ -2461,7 +2463,7 @@
                 </structures>
 				
             	<section>
-            		<field id="broaderContext"  autocomplete="broader"></field>
+            		<field id="broaderContext"  autocomplete="person-person"></field>
             		<repeat id="narrowerContexts">
             			<field id="narrowerContext" autocomplete="narrower">
             				<autocomplete-options>
