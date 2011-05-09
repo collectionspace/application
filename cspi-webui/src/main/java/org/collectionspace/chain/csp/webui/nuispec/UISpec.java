@@ -48,6 +48,10 @@ public class UISpec implements WebMethod {
 		this.controlledCache = new JSONObject();
 	}
 
+	private String[] getFullIDPath(FieldSet fs,UISpecRunContext context) {
+		return fs.getIDPath();
+	}
+	
 	public UISpec(Record record, String structureview) {
 		this.record=record;
 		this.structureview = structureview;

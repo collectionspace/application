@@ -1766,39 +1766,43 @@
                            "dateAssociation":"${fields.dateAssociation}",
                            "dateEarliestSingleEra":{
                               "optionnames":[
-                                 "Please select a value"
+                                 "Please select a value",
+                                 "BCE",
+                                 "CE"
                               ],
                               "optionlist":[
-                                 ""
+                                 "",
+                                 "bce",
+                                 "ce"
                               ],
                               "selection":"${fields.dateEarliestSingleEra}"
                            },
                            "dateDisplayDate":"${fields.dateDisplayDate}",
                            "dateEarliestSingleCertainty":{
                               "optionnames":[
-                                 "Please select a value"
+                                 "After","Approximate","Before","Circa","Please select a value","Possibly","Probably"
                               ],
                               "optionlist":[
-                                 ""
+                                 "","after","approximate","before","circa","possibly","probably"
                               ],
                               "selection":"${fields.dateEarliestSingleCertainty}"
                            },
                            "dateLatestEra":{
                               "optionnames":[
-                                 "Please select a value"
+                                 "BCE","CE","Please select a value"
                               ],
                               "optionlist":[
-                                 ""
+                                 "","bce","ce"
                               ],
                               "selection":"${fields.dateLatestEra}"
                            },
                            "dateEarliestSingleQualifierValue":"${fields.dateEarliestSingleQualifierValue}",
                            "dateLatestCertainty":{
                               "optionnames":[
-                                 "Please select a value"
+                                 "After","Approximate","Before","Circa","Please select a value","Possibly","Probably"
                               ],
                               "optionlist":[
-                                 ""
+                                 "","after","approximate","before","circa","possibly","probably"
                               ],
                               "selection":"${fields.dateLatestCertainty}"
                            },
@@ -1815,10 +1819,10 @@
                            "dateLatestQualifierValue":"${fields.dateLatestQualifierValue}",
                            "dateEarliestSingleQualifierUnit":{
                               "optionnames":[
-                                 "Please select a value"
+                                 "Day(s)","Month(s)","Please select a value","Year(s)"
                               ],
                               "optionlist":[
-                                 ""
+                                 "","days","month","years"
                               ],
                               "selection":"${fields.dateEarliestSingleQualifierUnit}"
                            },
@@ -1827,10 +1831,10 @@
                            "dateNote":"${fields.dateNote}",
                            "dateLatestQualifierUnit":{
                               "optionnames":[
-                                 "Please select a value"
+                                 "Day(s)","Month(s)","Please select a value","Year(s)"
                               ],
                               "optionlist":[
-                                 ""
+                                 "","days","month","years"
                               ],
                               "selection":"${fields.dateLatestQualifierUnit}"
                            },
