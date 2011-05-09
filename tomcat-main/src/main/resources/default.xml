@@ -708,13 +708,10 @@
                 </section>
                 <section id="objectProductionInformation">
                 	
-                	<repeat id="objectProductionDates"> 
-                		
-						<!-- ui-type="groupfield/structureddate" ui-func="cspace.structuredDate" userecord="structureddate" -->
-                       	<field id="objectProductionDate"   >
+                       	<field id="objectProductionDate"   ui-type="groupfield/structureddate" ui-func="cspace.structuredDate"  >
                             <selector>.csc-object-production-date</selector>
                         </field>
-                  	</repeat> 
+                	
                     <repeat id="techniqueGroupList/techniqueGroup">
                         <!-- selector>csc-collection-object-techniqueGroup</selector -->
                         <field id="technique">
@@ -2446,17 +2443,32 @@
 					
             <record id="structureddate" in-recordlist="no">
             	<section>
-                <field id="dateText"></field>
-                <field id="dateAssociation"></field>
-                <field id="datePeriod"></field>
-                <field id="dateSingleOrRangeStart"></field>
-                <field id="dateSingleOrRangeStartCertainty"></field>
-                <field id="dateSingleOrRangeStartQualifier"></field>
-                <field id="dateSingleOrRangeStartQualifierValue"></field>
-                <field id="dateRangeEnd"></field>
-                <field id="dateRangeEndCertainty"></field>
-                <field id="dateRangeEndQualifier"></field>
-                <field id="dateRangeEndQualifierValue"></field>
+                <field id="dateNote"><selector>dateNote</selector></field>
+                <field id="dateAssociation"><selector>dateAssociation</selector></field>
+                <field id="datePeriod"><selector>datePeriod</selector></field>
+				<field id="dateDisplayDate"><selector>dateDisplayDate</selector></field>
+				
+				<field id="dateEarliestSingleYear"><selector>dateEarliestSingleYear</selector></field>
+				<field id="dateEarliestSingleMonth"><selector>dateEarliestSingleMonth</selector></field>
+				<field id="dateEarliestSingleDay"><selector>dateEarliestSingleDay</selector></field>
+				<field id="dateEarliestSingleEra" autocomplete="vocab-dateera" ui-type="enum"><selector>dateEarliestSingleEra</selector></field>
+				
+				<field id="dateEarliestSingleCertainty" autocomplete="vocab-dateCertainty" ui-type="enum"><selector>dateEarliestSingleCertainty</selector></field>
+				<field id="dateEarliestSingleQualifier" autocomplete="vocab-dateValuequalifier" ui-type="enum"><selector>dateEarliestSingleQualifier</selector></field>
+				<field id="dateEarliestSingleQualifierValue"><selector>dateEarliestSingleQualifierValue</selector></field>
+				<field id="dateEarliestSingleQualifierUnit" autocomplete="vocab-datequalifier" ui-type="enum" ><selector>dateEarliestSingleQualifierUnit</selector></field>
+				
+				
+				<field id="dateLatestYear"><selector>dateLatestYear</selector></field>
+				<field id="dateLatestMonth"><selector>dateLatestMonth</selector></field>
+				<field id="dateLatestDay"><selector>dateLatestDay</selector></field>
+				<field id="dateLatestEra" autocomplete="vocab-dateera" ui-type="enum"><selector>dateLatestEra</selector></field>
+				
+				<field id="dateLatestCertainty" autocomplete="vocab-dateCertainty" ui-type="enum"><selector>dateLatestCertainty</selector></field>
+				<field id="dateLatestQualifier" autocomplete="vocab-dateValuequalifier" ui-type="enum"><selector>dateLatestQualifier</selector></field>
+				<field id="dateLatestQualifierValue"><selector>dateLatestQualifierValue</selector></field>
+				<field id="dateLatestQualifierUnit" autocomplete="vocab-datequalifier" ui-type="enum" ><selector>dateLatestQualifierUnit</selector></field>
+				
 				</section>
             </record>
 			
@@ -3040,6 +3052,48 @@
                             <option id="shelf">Shelf</option>
                             <option id="drawer">Drawer</option>
                             <option id="tray">Tray</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-dateera">
+                        <web-url>dateera</web-url>
+                        <title-ref>dateera</title-ref>
+                        <title>Date Era</title>
+                        <options>
+                            <option id="ce">CE</option>
+                            <option id="bce">BCE</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-datequalifier">
+                        <web-url>datequalifier</web-url>
+                        <title-ref>datequalifier</title-ref>
+                        <title>Date Qualifier</title>
+                        <options>
+                            <option id="days">Day(s)</option>
+                            <option id="month">Month(s)</option>
+                            <option id="years">Year(s)</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-dateValuequalifier">
+                        <web-url>dateValuequalifier</web-url>
+                        <title-ref>dateValuequalifier</title-ref>
+                        <title>Date Value Qualifier</title>
+                        <options>
+                            <option id="+/-">+/-</option>
+                            <option id="+">+</option>
+                            <option id="-">-</option>
+                        </options>
+                    </instance>
+                    <instance id="vocab-dateCertainty">
+                        <web-url>datecertainty</web-url>
+                        <title-ref>datecertainty</title-ref>
+                        <title>Date Certainty</title>
+                        <options>
+                        	<option id="after">After</option>
+                            <option id="approximate">Approximate</option>
+                            <option id="before">Before</option>
+                            <option id="circa">Circa</option>
+                            <option id="probably">Probably</option> 
+                            <option id="possibly">Possibly</option>
                         </options>
                     </instance>
                 </instances>
