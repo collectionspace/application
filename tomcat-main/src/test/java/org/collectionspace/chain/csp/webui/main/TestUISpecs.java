@@ -8,6 +8,7 @@ package org.collectionspace.chain.csp.webui.main;
 
 import static org.junit.Assert.*;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -86,6 +87,10 @@ public class TestUISpecs extends TestBase {
 		comparison = new JSONObject(getResourceString(uijson));
 		xxxfixOptions(generated);
 		xxxfixOptions(comparison);
+		
+		// You can use these, Chris, to write stuff out if the spec has changed to altre the test file
+		//IOUtils.write(generated.toString(),new FileOutputStream("/tmp/gschema.out"));
+		//IOUtils.write(comparison.toString(),new FileOutputStream("/tmp/bschema.out"));
 		
 		log.info("BASELINE" + comparison.toString());
 		log.info("GENERATED" + generated.toString());

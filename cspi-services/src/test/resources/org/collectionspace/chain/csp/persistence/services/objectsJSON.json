@@ -361,9 +361,7 @@
     "inscriptionDescriptionMethod": "",
     "numberOfObjects": "numberOfObjects",
     "recordStatus": "recordStatus",
-    "objectProductionDates": [
-
-    ],
+    "objectProductionDate": "",
     "fieldCollectionSources": [
         {
             "_primary": true,

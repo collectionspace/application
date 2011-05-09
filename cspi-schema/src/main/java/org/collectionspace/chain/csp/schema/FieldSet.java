@@ -25,6 +25,7 @@ public interface FieldSet {
 	
 	//subrecords
 	public String getSelectorAffix();
+	public String getUISpecPrefix();
 	public String getLabelAffix();
 	public String getSelector();
 	public String getLabel();

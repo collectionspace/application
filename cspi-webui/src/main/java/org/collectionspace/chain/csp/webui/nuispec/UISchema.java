@@ -49,7 +49,7 @@ public class UISchema extends UISpec {
 		this.record = null;
 	}
 
-	protected JSONObject generateTermsUsed() throws JSONException {
+	protected JSONObject generateTermsUsed(UISpecRunContext affix) throws JSONException {
 		return generateSchemaObject("array", new JSONArray(), null, null);
 	}
 	protected void generateUploaderEntry(JSONObject out, FieldSet f, UISpecRunContext affix) throws JSONException{
@@ -76,7 +76,7 @@ public class UISchema extends UISpec {
 		return fs.getID();
 	}
 
-	protected Object generateENUMField(Field f) throws JSONException {
+	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
 		String type = "string";
 		String defaultval = f.getEnumDefault();
 		return generateSchemaObject(type, defaultval, null, null);
@@ -105,7 +105,7 @@ public class UISchema extends UISpec {
 	}
 	
 
-	protected Object generateOptionField(Field f) throws JSONException {
+	protected Object generateOptionField(Field f,UISpecRunContext context) throws JSONException {
 		String type = "string";
 		String defaultval = f.getOptionDefault();
 		return generateSchemaObject(type, defaultval, null, null);
@@ -116,9 +116,9 @@ public class UISchema extends UISpec {
 		generateFieldDataEntry_refactored(out, affix, f);
 	}
 
-	protected void generateExpanderDataEntry(JSONObject out, UISpecRunContext affix,
+	protected void generateExpanderDataEntry(JSONObject out, UISpecRunContext context,
 			Field f) throws JSONException {
-		out.put(getSelector(f), generateOptionField(f));
+		out.put(getSelector(f), generateOptionField(f,context));
 	}
 
 	protected JSONObject generateChooser(Field f,UISpecRunContext context) throws JSONException {
@@ -170,9 +170,9 @@ public class UISchema extends UISpec {
 		} else if ("linktext".equals(f.getUIType())) {
 			return generateSchemaObject("object", new JSONObject(), null, null);
 		} else if ("dropdown".equals(f.getUIType())) {
-			return generateOptionField(f);
+			return generateOptionField(f,context);
 		} else if ("enum".equals(f.getUIType())) {
-			return generateENUMField(f);
+			return generateENUMField(f,context);
 		} else if(f.getUIType().startsWith("groupfield")) {
 			return generateGroupField(f,context);
 		}
@@ -282,7 +282,7 @@ public class UISchema extends UISpec {
 			JSONObject properties = new JSONObject();
 
 			if (record.hasTermsUsed()) {
-				properties.put("termsUsed", generateTermsUsed());
+				properties.put("termsUsed", generateTermsUsed(context));
 			}
 			if (record.hasRefObjUsed()) {
 				properties.put("relations", generateRelations());

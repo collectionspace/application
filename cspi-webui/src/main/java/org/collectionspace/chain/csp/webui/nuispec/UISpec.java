@@ -55,7 +55,7 @@ public class UISpec implements WebMethod {
 	}
 
 	// XXX make common
-	protected String veryplain(FieldSet f) {
+	protected String veryplain(FieldSet f,UISpecRunContext context) {
 
 		List<String> path=new ArrayList<String>();
 		String pad="fields";
@@ -68,11 +68,11 @@ public class UISpec implements WebMethod {
 	}
 
 	// XXX make common
-	protected String plain(Field f) {
+	protected String plain(Field f,UISpecRunContext context) {
 		if(f.getParent().isExpander() || f.getParent() instanceof Repeat|| f.isRepeatSubRecord()){
 			return radio(f);
 		}
-		return veryplain(f);
+		return veryplain(f,context);
 	}
 	// XXX make common
 	protected String radio(Field f) {
@@ -111,14 +111,14 @@ public class UISpec implements WebMethod {
 		return fs.getSelector();
 	}
 	
-	protected Object generateOptionField(Field f) throws JSONException {
+	protected Object generateOptionField(Field f,UISpecRunContext context) throws JSONException {
 		// Dropdown entry
 		JSONObject out=new JSONObject();
 		if("radio".equals(f.getUIType())) {
 			out.put("selection",radio(f));
 		}
 		else{
-			out.put("selection",plain(f));
+			out.put("selection",plain(f,context));
 		}
 		JSONArray ids=new JSONArray();
 		JSONArray names=new JSONArray();
@@ -141,7 +141,7 @@ public class UISpec implements WebMethod {
 	protected Object generateDataEntryField(Field f,UISpecRunContext context) throws JSONException {
 		if("plain".equals(f.getUIType())) {
 			// Plain entry
-			return plain(f);
+			return plain(f,context);
 		} 
 		else if("list".equals(f.getUIType())){
 			return plainlist(f);
@@ -150,16 +150,16 @@ public class UISpec implements WebMethod {
 			return linktext(f);
 		}
 		else if("dropdown".equals(f.getUIType())) {
-			return generateOptionField(f);
+			return generateOptionField(f,context);
 		}
 		else if("enum".equals(f.getUIType())) {
-			return generateENUMField(f);
+			return generateENUMField(f,context);
 		}
 		else if(f.getUIType().startsWith("groupfield")) {
 			return generateGroupField(f,context);
 		}
 		//ignore ui-type uploader
-		return plain(f);	
+		return plain(f,context);	
 	}
 
 	protected Object generateGroupField(Field f,UISpecRunContext context) throws JSONException {
@@ -193,13 +193,13 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options);
 		decorators.put(decorator);
 		out.put("decorators",decorators);
-		out.put("value",plain(f));
+		out.put("value",plain(f,context));
 		
 		
 		return out;
 	}
 
-	protected Object generateENUMField(Field f) throws JSONException {
+	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
 		//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
 		//XXX they shouldn't really be in the uispec but they are here until the UI and App decide how to communicate about them
 		if(!controlledCache.has(f.getAutocompleteInstance().getID())){
@@ -237,7 +237,7 @@ public class UISpec implements WebMethod {
 		}
 		// Dropdown entry pulled from service layer data
 		JSONObject out=new JSONObject();
-		out.put("selection",plain(f));
+		out.put("selection",plain(f,context));
 
 		if(dfault!=-1)
 			out.put("default",dfault+"");
@@ -362,7 +362,7 @@ public class UISpec implements WebMethod {
 		return expanders;
 	}
 	
-	protected JSONObject generateSelectionExpanderEntry(Field f, UISpecRunContext affix) throws JSONException {
+	protected JSONObject generateSelectionExpanderEntry(Field f, UISpecRunContext context) throws JSONException {
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.renderer.selection.inputs");
 		expander.put("rowID", getSelector(f)+"-row:");
@@ -371,7 +371,7 @@ public class UISpec implements WebMethod {
 		expander.put("selectID", f.getID());
 
 		JSONObject tree = new JSONObject();
-		tree = (JSONObject)generateOptionField(f);
+		tree = (JSONObject)generateOptionField(f,context);
 		expander.put("tree", tree);
 		return expander;
 	}
@@ -637,15 +637,19 @@ public class UISpec implements WebMethod {
 			generateHierarchyEntry(out,fs,context);
 		}
 		if(fs.usesRecord()){
+			UISpecRunContext sub = context.createChild();
 			if(!getSelectorAffix(fs).equals("")){
 				if(!context.equals("")){
-					context.appendAffix("-"+getSelectorAffix(fs));
+					sub.appendAffix("-"+getSelectorAffix(fs));
 				}
 				else{
-					context.appendAffix("-"+getSelectorAffix(fs));
+					sub.appendAffix("-"+getSelectorAffix(fs));
 				}
 			}
-			generateSubRecord(out, fs, context);
+			String sp=fs.getUISpecPrefix();
+			if(sp!=null)
+				sub.setUIPrefix(sp);
+			generateSubRecord(out, fs,sub);
 		}
 		else{
 			
@@ -768,7 +772,7 @@ public class UISpec implements WebMethod {
 			String test = gp.usesRecordValidator();
 			FieldSet tester = record.getField(test);
 			if(tester instanceof Field){
-				cond.put("args",plain((Field)tester));
+				cond.put("args",plain((Field)tester,context));
 			}
 			cond.put("funcName", condition);
 		}
@@ -796,7 +800,7 @@ public class UISpec implements WebMethod {
 		if(f instanceof Field){
 			FieldSet fs = (FieldSet)f.getParent();
 			JSONObject args = new JSONObject();
-			args.put(fs.getID(), veryplain(fs));
+			args.put(fs.getID(), veryplain(fs,context));
 			cond.put("args",args);
 			cond.put("funcName", condition);
 		}
@@ -884,7 +888,7 @@ public class UISpec implements WebMethod {
 			Field f=(Field)fs;
 			if(!f.isInTitle())
 				return;
-			out.put(f.getTitleSelector()+context.getAffix(),veryplain(f));
+			out.put(f.getTitleSelector()+context.getAffix(),veryplain(f,context));
 		} else if(fs instanceof Repeat) {
 			for(FieldSet child : ((Repeat)fs).getChildren(""))
 				generateTitleSectionEntry(out,child, context);

@@ -61,6 +61,7 @@ public class Field implements FieldSet {
 		this.initStrings(section,"@selector-affix", "");
 		this.initStrings(section,"@label-affix", "-label");
 		this.initStrings(section,"@serviceurl", null);
+		this.initStrings(section,"@ui-spec-prefix","");
 		
 		this.initStrings(section,"linktext", "${items.0.number}");
 		
@@ -314,6 +315,10 @@ public class Field implements FieldSet {
 	}
 	public String getSelectorAffix() {
 		return getString("@selector-affix");
+	}
+	
+	public String getUISpecPrefix() {
+		return getString("@ui-spec-prefix");
 	}
 
 	public Boolean usesRecord() {

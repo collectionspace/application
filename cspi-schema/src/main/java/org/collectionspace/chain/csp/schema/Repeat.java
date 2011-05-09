@@ -204,6 +204,10 @@ public class Repeat implements FieldSet, FieldParent {
 		return getString("fullid");
 	}
 
+	public String getUISpecPrefix() {
+		return getString("@ui-spec-prefix");
+	}
+	
 	public boolean hasServicesParent() {
 		return getBoolean("has_services_parent");
 	}
