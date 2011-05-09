@@ -41,6 +41,10 @@ public class BlobStorage extends GenericStorage {
 			if(r.hasSoftDeleteMethod()){
 				softpath = softpath(filePath);
 			}
+			if(r.hasHierarchyUsed("screen")){
+				softpath = hierarchicalpath(softpath);
+			}
+			
 			
 			if(r.isMultipart()){
 				ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
