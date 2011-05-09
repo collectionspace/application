@@ -221,12 +221,12 @@ public class XmlJsonConversion {
 		root.addNamespace("ns2", "http://collectionspace.org/services/jaxb");
 		//<ns3:relations-common-list xmlns:ns3="http://collectionspace.org/services/relation" xmlns:ns2="http://collectionspace.org/services/jaxb">
 
-		for(Element bitdoc : listItems){
-			root.add(bitdoc);
+		if(listItems != null){
+			for(Element bitdoc : listItems){
+				root.add(bitdoc);
+			}
 		}
 
-		String test = doc.asXML();
-		//log.debug(doc.asXML());
 		return doc;
 		
 	}
