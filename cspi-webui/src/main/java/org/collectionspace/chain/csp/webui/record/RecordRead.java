@@ -173,7 +173,7 @@ public class RecordRead implements WebMethod {
 	}
 	
 	/* Wrapper exists to decomplexify exceptions: also used inCreateUpdate, hence not private */
-	JSONObject getJSON(Storage storage,String csid) throws UIException {
+	public JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		JSONObject restrictions=new JSONObject();
 		try {

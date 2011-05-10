@@ -9,6 +9,7 @@ import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.misc.Generic;
 import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
+import org.collectionspace.chain.csp.webui.record.RecordRead;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -47,7 +48,12 @@ public class BlobCreateUpdate   extends RecordCreateUpdate  {
 				String csid = parts[parts.length -1];
 				data3.put("csid",csid);
 			}			
-			request.sendJSONResponse(data3);
+			//readblob metadata
+
+			JSONObject data7=reader.getJSON(storage,data3.getString("csid"));
+			data7.put("file", path);
+			data7.put("csid", data3.get("csid"));
+			request.sendJSONResponse(data7);
 			request.setOperationPerformed(Operation.OK);
 		} catch (JSONException x) {
 			throw new UIException("Failed to parse json: "+x,x);
