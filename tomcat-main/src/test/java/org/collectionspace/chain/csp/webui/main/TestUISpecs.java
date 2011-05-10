@@ -87,8 +87,8 @@ public class TestUISpecs extends TestBase {
 		xxxfixOptions(comparison);
 		
 		// You can use these, Chris, to write stuff out if the spec has changed to altre the test file
-		IOUtils.write(generated.toString(),new FileOutputStream("/tmp/gschema.out"));
-		IOUtils.write(comparison.toString(),new FileOutputStream("/tmp/bschema.out"));
+		//IOUtils.write(generated.toString(),new FileOutputStream("/tmp/gschema.out"));
+		//IOUtils.write(comparison.toString(),new FileOutputStream("/tmp/bschema.out"));
 		
 		log.info("BASELINE" + comparison.toString());
 		log.info("GENERATED" + generated.toString());
