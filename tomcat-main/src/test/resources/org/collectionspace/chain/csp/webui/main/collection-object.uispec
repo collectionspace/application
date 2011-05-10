@@ -1748,7 +1748,7 @@
                "func":"cspace.structuredDate",
                "type":"fluid",
                "options":{
-                  "summaryElPath":"fields.objectProductionDate",
+                  "elPath":"fields.objectProductionDate",
                   "protoTree":{
                      "expander":{
                         "tree":{
