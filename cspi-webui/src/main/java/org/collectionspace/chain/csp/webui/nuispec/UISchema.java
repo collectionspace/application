@@ -84,7 +84,7 @@ public class UISchema extends UISpec {
 	
 	protected Object generateGroupField(FieldSet f,UISpecRunContext context)
 			throws JSONException {
-		JSONObject out = new JSONObject();
+		//JSONObject out = new JSONObject();
 		JSONObject items = new JSONObject();
 
 		String parts[] = f.getUIType().split("/");
@@ -100,8 +100,8 @@ public class UISchema extends UISpec {
 		
 		items = generateSchemaObject("object", null, protoTree, null);
 
-		out.put(selector, items);
-		return out;
+		//out.put(selector, items);
+		return items;
 	}
 	
 
