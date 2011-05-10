@@ -219,6 +219,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	private JSONObject makePerson(String pname) throws Exception {
 		JSONObject out=new JSONObject();
 		out.put("displayName","Dic Penderyn");
+		out.put("broaderContext","urn:cspace:org.collectionspace.demo:personauthority:id(9b798ee8-55bb-4fd1-9c15):person:id(5dc0e154-e76b-4917-8b3b)'John+Wray'");
 		if(pname!=null)
 			out.put("group",pname);
 		return out;

@@ -257,12 +257,15 @@ public class TestService extends ServicesBaseClass {
 		// POST (Create) a person item within the person authority
 		serviceurl.append(authId + "/items/");
 		partname = "persons_common";
+		String partname1 = "relations-common-list";
 		filename = "personItem.xml";
+		String filename1 = "relationshipItem.xml";
 		log.info("Testing create at " + serviceurl + " with " + filename
 				+ " and partname=" + partname);
 		if (partname != null) {
 			parts = new HashMap<String, Document>();
 			parts.put(partname, getDocument(filename));
+			parts.put(partname1, getDocument(filename1));
 			url = conn.getMultipartURL(RequestMethod.POST, serviceurl
 					.toString(), parts, creds, cache);
 		} else {
