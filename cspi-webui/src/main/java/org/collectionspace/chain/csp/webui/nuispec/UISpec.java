@@ -166,13 +166,15 @@ public class UISpec implements WebMethod {
 		return plain(f,context);	
 	}
 
-	protected Object generateGroupField(Field f,UISpecRunContext context) throws JSONException {
+	protected Object generateGroupField(FieldSet fs,UISpecRunContext context) throws JSONException {
 		JSONObject out=new JSONObject();
+		if(fs instanceof Field){
+			Field f = (Field)fs;
 		
 		JSONArray decorators=new JSONArray();
 		JSONObject options=new JSONObject();
 		
-		
+	//	context.appendAffix("BBBBBBOOOOOBBBB");
 		String parts[] = f.getUIType().split("/");
 		JSONObject subexpander = new JSONObject();
 		Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
@@ -193,12 +195,13 @@ public class UISpec implements WebMethod {
 		protoTree.put("expander", expander);
 		
 		options.put("protoTree", protoTree);
-		options.put("summaryElPath", "fields."+f.getID());
+		options.put("elPath", "fields."+f.getID());
 		JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options);
 		decorators.put(decorator);
 		out.put("decorators",decorators);
 		out.put("value",plain(f,context));
-		
+
+		}
 		
 		return out;
 	}
