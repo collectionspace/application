@@ -519,82 +519,80 @@
                         "type": "array"
                     },
                     "objectProductionDate": {
-                        "objectProductionDate": {
-                            "properties": {
-                                "dateEarliestSingleQualifier": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "dateLatestDay": {
-                                    "type": "string"
-                                },
-                                "dateLatestYear": {
-                                    "type": "string"
-                                },
-                                "dateAssociation": {
-                                    "type": "string"
-                                },
-                                "dateEarliestSingleEra": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "dateDisplayDate": {
-                                    "type": "string"
-                                },
-                                "dateEarliestSingleCertainty": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "dateLatestEra": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "dateEarliestSingleQualifierValue": {
-                                    "type": "string"
-                                },
-                                "dateLatestCertainty": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "dateEarliestSingleYear": {
-                                    "type": "string"
-                                },
-                                "dateLatestQualifier": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "dateLatestQualifierValue": {
-                                    "type": "string"
-                                },
-                                "dateEarliestSingleQualifierUnit": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "datePeriod": {
-                                    "type": "string"
-                                },
-                                "dateLatestMonth": {
-                                    "type": "string"
-                                },
-                                "_primary": {
-                                    "type": "boolean"
-                                },
-                                "dateNote": {
-                                    "type": "string"
-                                },
-                                "dateLatestQualifierUnit": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "dateEarliestSingleDay": {
-                                    "type": "string"
-                                },
-                                "dateEarliestSingleMonth": {
-                                    "type": "string"
-                                }
+                        "properties": {
+                            "dateEarliestSingleQualifier": {
+                                "default": "",
+                                "type": "string"
                             },
-                            "type": "object"
-                        }
+                            "dateLatestDay": {
+                                "type": "string"
+                            },
+                            "dateLatestYear": {
+                                "type": "string"
+                            },
+                            "dateAssociation": {
+                                "type": "string"
+                            },
+                            "dateEarliestSingleEra": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "dateDisplayDate": {
+                                "type": "string"
+                            },
+                            "dateEarliestSingleCertainty": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "dateLatestEra": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "dateEarliestSingleQualifierValue": {
+                                "type": "string"
+                            },
+                            "dateLatestCertainty": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "dateEarliestSingleYear": {
+                                "type": "string"
+                            },
+                            "dateLatestQualifier": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "dateLatestQualifierValue": {
+                                "type": "string"
+                            },
+                            "dateEarliestSingleQualifierUnit": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "datePeriod": {
+                                "type": "string"
+                            },
+                            "dateLatestMonth": {
+                                "type": "string"
+                            },
+                            "_primary": {
+                                "type": "boolean"
+                            },
+                            "dateNote": {
+                                "type": "string"
+                            },
+                            "dateLatestQualifierUnit": {
+                                "default": "",
+                                "type": "string"
+                            },
+                            "dateEarliestSingleDay": {
+                                "type": "string"
+                            },
+                            "dateEarliestSingleMonth": {
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
                     },
                     "dimensionGroup": {
                         "items": {
