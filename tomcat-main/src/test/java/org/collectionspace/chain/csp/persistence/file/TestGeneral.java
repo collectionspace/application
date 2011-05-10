@@ -702,12 +702,9 @@ public class TestGeneral extends TestBase {
 		out = GETData(id,jetty);
 		JSONObject content=new JSONObject(out.getContent());
 		// Check the hairy image URLs are present
-		assertEquals("http://nightly.collectionspace.org:8180/collectionspace/chain/download/"+blob_id+"/Original",
-				content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgOrig"));
-		assertEquals("http://nightly.collectionspace.org:8180/collectionspace/chain/download/"+blob_id+"/Thumbnail",
-				content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgThumb"));
-		assertEquals("http://nightly.collectionspace.org:8180/collectionspace/chain/download/"+blob_id+"/Medium",
-				content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgMedium"));
+		assertTrue(content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgOrig").endsWith("/download/"+blob_id+"/Original"));
+		assertTrue(content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgThumb").endsWith("/download/"+blob_id+"/Thumbnail"));
+		assertTrue(content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgMedium").endsWith("/download/"+blob_id+"/Medium"));
 		// Get derivatives
 		String read_url = content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgOrig");
 		String read2_url = content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgThumb");
