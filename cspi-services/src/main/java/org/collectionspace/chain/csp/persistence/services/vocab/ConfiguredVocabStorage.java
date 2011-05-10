@@ -173,7 +173,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null,r);
 				if(temp!=null){
 					body.put(record_path[0],temp);
-					log.info(temp.asXML());
+					//log.info(temp.asXML());
 				}
 
 			}	
@@ -427,7 +427,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			Document doc=data.getDocument();
-			log.info(doc.asXML());
+			//log.info(doc.asXML());
 			if(doc==null)
 				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,path);
 			String[] tag_parts=r.getServicesListPath().split(",",2);
