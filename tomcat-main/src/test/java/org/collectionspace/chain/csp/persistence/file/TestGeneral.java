@@ -700,10 +700,7 @@ public class TestGeneral extends TestBase {
 		String id=out.getHeader("Location");
 		// Get
 		out = GETData(id,jetty);
-		// Check the hairy width field is present
 		JSONObject content=new JSONObject(out.getContent());
-		assertEquals("120",content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("width"));
-		System.err.println(out.getContent());
 		// Check the hairy image URLs are present
 		assertEquals("http://nightly.collectionspace.org:8180/collectionspace/chain/download/"+blob_id+"/Original",
 				content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgOrig"));
