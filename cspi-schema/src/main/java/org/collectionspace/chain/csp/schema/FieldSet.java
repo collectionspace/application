@@ -27,7 +27,10 @@ public interface FieldSet {
 	public String getSelectorAffix();
 	public String getUISpecPrefix();
 	public String getLabelAffix();
+	public String getContainerSelector();
+	public String getPreContainerSelector();
 	public String getSelector();
+	public String getPreSelector();
 	public String getLabel();
 	public Boolean usesRecord();
 	public String usesRecordValidator();

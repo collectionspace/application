@@ -54,8 +54,9 @@ public class Field implements FieldSet {
 		this.initBoolean(section,"@xxx_ui_refactored",true);
 
 		this.initStrings(section,"selectorID", getString("parentID"));
-		this.initStrings(section,"selector", ".csc-" + getString("selectorID") + "-" +  getString("@id"));
-		this.initStrings(section,"label", "" + getString("selectorID") + "-" +  getString("@id")+"Label");
+		this.initStrings(section,"selector", getString("selectorID") + "-" +  getString("@id"));
+		this.initStrings(section,"preselector", ".csc-" );
+		this.initStrings(section,"label", "" + getString("selector") + "Label");
 		this.initStrings(section,"@userecord", "");
 		this.initStrings(section,"@onlyifexists","");
 		this.initStrings(section,"@selector-affix", "");
@@ -79,6 +80,7 @@ public class Field implements FieldSet {
 		this.initStrings(section,"autocomplete-options/funcName", "");
 		this.initStrings(section,"autocomplete-options/strings", "");
 		this.initStrings(section,"container-selector", getString("selector") + "-container");
+		this.initStrings(section,"precontainer-selector", getString("preselector"));
 		this.initStrings(section,"title-selector", getString("selector") + "-titlebar");
 		// used by uispec to create new structure
 		this.initBoolean(section,"@as-expander",false);
@@ -196,9 +198,15 @@ public class Field implements FieldSet {
 	public String getContainerSelector() {
 		return getString("container-selector");
 	}
+	public String getPreContainerSelector() {
+		return getString("precontainer-selector");
+	}
 
 	public String getSelector() {
 		return getString("selector");
+	}
+	public String getPreSelector() {
+		return getString("preselector");
 	}
 	public String getLabel() {
 		return getString("label");
