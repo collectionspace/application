@@ -294,17 +294,35 @@ public class XmlJsonConversion {
 		Element el=(Element)nodes.get(0);
 		return el;
 	}
+
+	private static String csid_value(String csid,String spec,String ims_url) {
+		String[] parts = spec.split(";");
+		if(parts.length<2)
+			parts = new String[]{spec,""};
+		if(parts.length<3)
+			parts = new String[]{null,parts[0],parts[1]};
+		String prefix1="";
+		String prefix2="";
+		if("ims".equals(parts[0]) && ims_url!=null)
+			prefix1=ims_url;
+		return prefix1+parts[1]+csid+parts[2];
+	}
 	
 	@SuppressWarnings("unchecked")
-	private static void addFieldToJson(JSONObject out,Element root,Field f, String permlevel, JSONObject tempSon) throws JSONException {
-		Element el=getFieldNodeEl(root,f);
-		if(el == null){
-			return;
+	private static void addFieldToJson(JSONObject out,Element root,Field f, String permlevel, JSONObject tempSon,String csid,String ims_url) throws JSONException {
+		String use_csid=f.useCsid();
+		if(use_csid!=null) {
+			out.put(f.getID(),csid_value(csid,f.useCsid(),ims_url));			
+		} else {
+			Element el=getFieldNodeEl(root,f);
+			if(el == null){
+				return;
+			}
+			addExtraToJson(out, el, f, tempSon);
+			out.put(f.getID(),el.getText());
+	
+			tempSon = addtemp(tempSon, f.getID(), el.getText());
 		}
-		addExtraToJson(out, el, f, tempSon);
-		out.put(f.getID(),el.getText());
-
-		tempSon = addtemp(tempSon, f.getID(), el.getText());
 	}
 	
 	// Fields that have an autocomplete tag, should also have a sibling with the
@@ -560,14 +578,14 @@ public class XmlJsonConversion {
 		
 	}
 	@SuppressWarnings("unchecked")
-	private static void addRepeatToJson(JSONObject out,Element root,Repeat f,String permlevel, JSONObject tempSon) throws JSONException {
+	private static void addRepeatToJson(JSONObject out,Element root,Repeat f,String permlevel, JSONObject tempSon,String csid,String ims_url) throws JSONException {
 		if(f.getXxxServicesNoRepeat()) {
 			FieldSet[] fields=f.getChildren(permlevel);
 			if(fields.length==0)
 				return;
 			JSONArray members=new JSONArray();
 			JSONObject data=new JSONObject();
-			addFieldSetToJson(data,root,fields[0],permlevel, tempSon);
+			addFieldSetToJson(data,root,fields[0],permlevel, tempSon,csid,ims_url);
 			members.put(data);
 			out.put(f.getID(),members);
 			return;
@@ -614,20 +632,20 @@ public class XmlJsonConversion {
 		}
 	}
 	
-	private static void addFieldSetToJson(JSONObject out,Element root,FieldSet fs,String permlevel, JSONObject tempSon) throws JSONException {
+	private static void addFieldSetToJson(JSONObject out,Element root,FieldSet fs,String permlevel, JSONObject tempSon,String csid,String ims_url) throws JSONException {
 		if(fs instanceof Field)
-			addFieldToJson(out,root,(Field)fs,permlevel, tempSon);
+			addFieldToJson(out,root,(Field)fs,permlevel, tempSon,csid,ims_url);
 		else if(fs instanceof Group)
 			addGroupToJson(out,root,(Group)fs,permlevel,tempSon);
 		else if(fs instanceof Repeat)
-			addRepeatToJson(out,root,(Repeat)fs,permlevel, tempSon);
+			addRepeatToJson(out,root,(Repeat)fs,permlevel, tempSon,csid,ims_url);
 	}
 	
-	public static void convertToJson(JSONObject out,Record r,Document doc, String permlevel, String section) throws JSONException {
+	public static void convertToJson(JSONObject out,Record r,Document doc, String permlevel, String section,String csid,String ims_url) throws JSONException {
 		Element root=doc.getRootElement();
 		JSONObject tempSon = new JSONObject();
 		for(FieldSet f : r.getAllServiceFields(permlevel,section)) {
-			addFieldSetToJson(out,root,f,permlevel, tempSon);
+			addFieldSetToJson(out,root,f,permlevel, tempSon,csid,ims_url);
 		}
 		
 		if(r.hasMergeData()){
@@ -650,9 +668,9 @@ public class XmlJsonConversion {
 		}
 	}
 
-	public static JSONObject convertToJson(Record r,Document doc, String permlevel, String section) throws JSONException {
+	public static JSONObject convertToJson(Record r,Document doc, String permlevel, String section,String csid,String ims_url) throws JSONException {
 		JSONObject out=new JSONObject();
-		convertToJson(out,r,doc,permlevel,section);
+		convertToJson(out,r,doc,permlevel,section,csid,ims_url);
 		return out;
 	}
 }

@@ -63,6 +63,7 @@ public class Field implements FieldSet {
 		this.initStrings(section,"@label-affix", "-label");
 		this.initStrings(section,"@serviceurl", null);
 		this.initStrings(section,"@ui-spec-prefix","");
+		this.initStrings(section,"@with-csid","");
 		
 		this.initStrings(section,"linktext", "${items.0.number}");
 		
@@ -75,6 +76,7 @@ public class Field implements FieldSet {
 		}
 		
 		this.initBoolean(section,"@seperate_ui_container",seperate_default);
+		this.initStrings(section,"use-csid",null);
 
 		this.initStrings(section,"autocomplete-selector", getString("selector") + "-autocomplete");
 		this.initStrings(section,"autocomplete-options/funcName", "");
@@ -254,6 +256,10 @@ public class Field implements FieldSet {
 		return getBoolean("@is-subrecord");
 	}
 	
+	public String useCsid() {
+		return getString("use-csid");
+	}
+	
 	public void setRepeatSubRecord(Boolean var) {
 		allBooleans.put("@is-subrecord",var);
 	}
@@ -334,6 +340,10 @@ public class Field implements FieldSet {
 		return getString("@ui-spec-prefix");
 	}
 
+	public String getWithCSID() {
+		return getString("@with-csid");
+	}
+	
 	public Boolean usesRecord() {
 		if (getString("@userecord") != null && !getString("@userecord").equals("")) {
 			return true;

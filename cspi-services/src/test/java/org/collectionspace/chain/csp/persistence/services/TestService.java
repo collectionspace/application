@@ -164,7 +164,7 @@ public class TestService extends ServicesBaseClass {
 				parts.put(record_path[0], doc);
 				log.info("After JSON->XML conversion:\n" + doc.asXML());
 				JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion
-						.convertToJson(r, doc, "", "common");// this is where we
+						.convertToJson(r, doc, "", "common","","");// this is where we
 																// specify the
 																// multipart
 																// section
@@ -203,7 +203,7 @@ public class TestService extends ServicesBaseClass {
 		log.info("Original JSON:\n" + j.toString());
 		Record r = spec.getRecord(objtype);
 		JSONObject repeatjson = org.collectionspace.chain.csp.persistence.services.XmlJsonConversion
-				.convertToJson(r, testxml, "", "common"); // this is where we specify the multipart section
+				.convertToJson(r, testxml, "", "common","",""); // this is where we specify the multipart section
 															// we are considering
 		log.info("After XML->JSON conversion:\n" + repeatjson.toString());
 		assertTrue("Generated JSON doesn't match original JSON", JSONUtils

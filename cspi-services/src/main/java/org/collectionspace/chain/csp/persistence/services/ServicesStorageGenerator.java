@@ -37,7 +37,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 	private static final Logger log=LoggerFactory.getLogger(ServicesStorageGenerator.class);
 	public static String SECTION_PREFIX="org.collectionspace.app.config.persistence.service.";
 	public static String SERVICE_ROOT=SECTION_PREFIX+"service";
-	private String base_url;
+	private String base_url,ims_url;
 	private CSPContext ctx;
 	private TenantSpec tenantData;
 	
@@ -47,11 +47,12 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 
 	public String getName() { return "persistence.services"; }
 	public String getBase() { return base_url; }
+	public String getIMSBase() { return ims_url; }
 	public TenantSpec getTenantData() { return tenantData; }
 
 	private void real_init(Spec spec) throws CSPDependencyException {
 		try {
-			ServicesConnection conn=new ServicesConnection(base_url);
+			ServicesConnection conn=new ServicesConnection(base_url,ims_url);
 			for(Record r : spec.getAllRecords()) {
 				if(r.isType("blob"))
 					addChild(r.getID(),new BlobStorage(spec.getRecord(r.getID()),conn));
@@ -86,7 +87,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 				((ConfigRoot)parent).setRoot(SERVICE_ROOT,ServicesStorageGenerator.this);
 				base_url=(String)milestone.getValue("/url");
 				((ConfigRoot)parent).setRoot(CSPContext.XXX_SERVICE_NAME,"service");  // XXX should be path-selectable
-				
+				ims_url=(String)milestone.getValue("/ims-url");
 				tenantData = new TenantSpec(milestone);
 				return ServicesStorageGenerator.this;
 			}

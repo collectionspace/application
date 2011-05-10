@@ -667,7 +667,7 @@ public class TestGeneral extends TestBase {
 		// Actual resource
 		String read_url = response.getString("file").replaceAll("^.*?/blobs/","/download/")+"/Original";
 		UTF8SafeHttpTester out2=GETBinaryData(read_url,jetty,200);
-		log.info(out2.getHeader("Content-Type"));
+		assertEquals("image/jpeg",out2.getHeader("Content-Type"));
 		byte[] img = out2.getBinaryContent();
 		assertArrayEquals(img,data);
 		System.err.println(response.getString("file"));
@@ -704,6 +704,27 @@ public class TestGeneral extends TestBase {
 		JSONObject content=new JSONObject(out.getContent());
 		assertEquals("120",content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("width"));
 		System.err.println(out.getContent());
+		// Check the hairy image URLs are present
+		assertEquals("http://nightly.collectionspace.org:8180/collectionspace/chain/download/"+blob_id+"/Original",
+				content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgOrig"));
+		assertEquals("http://nightly.collectionspace.org:8180/collectionspace/chain/download/"+blob_id+"/Thumbnail",
+				content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgThumb"));
+		assertEquals("http://nightly.collectionspace.org:8180/collectionspace/chain/download/"+blob_id+"/Medium",
+				content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgMedium"));
+		// Get derivatives
+		String read_url = content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgOrig");
+		String read2_url = content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgThumb");
+		String read3_url = content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgMedium");
+		UTF8SafeHttpTester out3=GETBinaryData(read_url,jetty,200);
+		assertEquals("image/jpeg",out3.getHeader("Content-Type"));
+		byte[] img = out3.getBinaryContent();
+		assertArrayEquals(img,data);
+		out3=GETBinaryData(read2_url,jetty,200);
+		assertEquals("image/jpeg",out3.getHeader("Content-Type"));
+		out3=GETBinaryData(read3_url,jetty,200);
+		assertEquals("image/jpeg",out3.getHeader("Content-Type"));
+
+		
 		// Delete
 		DELETEData(id,jetty);
 	}

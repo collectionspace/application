@@ -86,7 +86,7 @@ public class TestUISpecs extends TestBase {
 		xxxfixOptions(generated);
 		xxxfixOptions(comparison);
 		
-		// You can use these, Chris, to write stuff out if the spec has changed to altre the test file
+		// You can use these, Chris, to write stuff out if the spec has changed to alter the test file -- dan
 		//IOUtils.write(generated.toString(),new FileOutputStream("/tmp/gschema.out"));
 		//IOUtils.write(comparison.toString(),new FileOutputStream("/tmp/bschema.out"));
 		

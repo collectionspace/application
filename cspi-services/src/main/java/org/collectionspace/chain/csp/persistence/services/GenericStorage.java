@@ -158,8 +158,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param {Document} in The XML document that has to be converted
 	 * @throws JSONException
 	 */
-	protected void convertToJson(JSONObject out,Document in, String permlevel, String section) throws JSONException {
-		XmlJsonConversion.convertToJson(out,r,in,permlevel,section);
+	protected void convertToJson(JSONObject out,Document in, String permlevel, String section,String csid,String ims_base) throws JSONException {
+		XmlJsonConversion.convertToJson(out,r,in,permlevel,section,csid,ims_base);
 	}
 	/**
 	 * Convert an XML file into a JSON string
@@ -168,8 +168,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param r
 	 * @throws JSONException
 	 */
-	protected void convertToJson(JSONObject out,Document in, Record r, String permlevel, String section) throws JSONException {
-		XmlJsonConversion.convertToJson(out,r,in,permlevel,section);
+	protected void convertToJson(JSONObject out,Document in, Record r, String permlevel, String section, String csid) throws JSONException {
+		XmlJsonConversion.convertToJson(out,r,in,permlevel,section,csid,conn.getIMSBase());
 	}
 	
 	protected void getGleaned(){
@@ -359,6 +359,12 @@ public class GenericStorage  implements ContextualisedStorage {
 
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String servicesurl, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
+		String csid="";
+		String[] path_parts = filePath.split("/");
+		if(path_parts.length>1)
+			csid = path_parts[1];
+		else
+			csid = filePath;
 		JSONObject out=new JSONObject();
 		try {
 			String softpath = filePath;
@@ -378,7 +384,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					String path=thisr.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
 					if(doc.getDocument(parts[0]) != null ){
-						convertToJson(out,doc.getDocument(parts[0]), thisr, "GET",section);
+						convertToJson(out,doc.getDocument(parts[0]), thisr, "GET",section , csid);
 					}
 				}
 			}
@@ -386,7 +392,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+softpath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
-				convertToJson(out,doc.getDocument(), thisr, "GET", "common");
+				convertToJson(out,doc.getDocument(), thisr, "GET", "common",csid);
 			}
 
 		} catch (ConnectionException e) {
@@ -411,7 +417,10 @@ public class GenericStorage  implements ContextualisedStorage {
 				if(validator){
 					String getPath = servicesurl+filePath + "/" + sr.getServicesURL();
 					if(null !=fs.getServicesUrl()){
-						getPath = servicesurl+filePath + "/" +fs.getServicesUrl();
+						getPath = fs.getServicesUrl();
+					}
+					if(fs.getWithCSID()!=null) {
+						getPath = getPath + "/" + out.getString(fs.getWithCSID());
 					}
 					JSONObject outer = simpleRetrieveJSON(creds,cache,getPath,"",sr);
 					

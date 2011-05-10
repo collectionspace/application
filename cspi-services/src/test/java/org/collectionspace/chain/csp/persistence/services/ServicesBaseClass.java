@@ -49,17 +49,18 @@ public class ServicesBaseClass {
 	protected CSPRequestCache cache=new RequestCache();
 
 	protected void setup() throws ConnectionException {
-
 		Spec spec = null;
+		String ims_base="";
 		try {
 			base=getBaseUrl();
+			ims_base=getIMSBaseUrl();
 			spec = getDefaultSpec();
 		} catch (CSPDependencyException e) {
 			assertNotNull("Base service url invalid in config file",base);
 		} // XXX still yuck but centralised now
 		log.info("ServicesBaseClass setting up connection using base URL:"+base);
 
-		conn=new ServicesConnection(base);
+		conn=new ServicesConnection(base,ims_base);
 		creds=new ServicesRequestCredentials();
 
 		creds.setCredential(ServicesStorageGenerator.CRED_USERID,spec.getAdminData().getAuthUser());
@@ -115,6 +116,13 @@ public class ServicesBaseClass {
 		CSPManager cspm=getServiceManager();
 		ServicesStorageGenerator gen=(ServicesStorageGenerator)cspm.getStorage("service");
 		String baseurl = gen.getBase();
+		return baseurl;
+	}
+
+	private String getIMSBaseUrl() throws CSPDependencyException{
+		CSPManager cspm=getServiceManager();
+		ServicesStorageGenerator gen=(ServicesStorageGenerator)cspm.getStorage("service");
+		String baseurl = gen.getIMSBase();
 		return baseurl;
 	}
 	

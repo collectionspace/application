@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 public class ServicesConnection {
 	private static final Logger log=LoggerFactory.getLogger(ServicesConnection.class);
 	private static final Logger perflog=LoggerFactory.getLogger("org.collectionspace.perflog");
-	private String base_url;
+	private String base_url,ims_url;
 	private MultiThreadedHttpConnectionManager manager;
 	
 	private void initClient() {
@@ -66,15 +66,19 @@ public class ServicesConnection {
 		return client;
 	}
 	
-	public ServicesConnection(String base_url) {
+	public ServicesConnection(String base_url,String ims_url) {
 		if(base_url.endsWith("/"))
 			base_url=base_url.substring(0,base_url.length()-1);
 		this.base_url=base_url;
+		this.ims_url=ims_url;
 		initClient();
 	}
 
 	public String getBase(){
 		return base_url;
+	}
+	public String getIMSBase(){
+		return ims_url;
 	}
 	private String prepend_base(String uri) throws ConnectionException {
 		if(uri==null)

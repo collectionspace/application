@@ -47,4 +47,5 @@ public interface FieldSet {
 	public boolean isRepeatSubRecord();
 	public void setRepeatSubRecord(Boolean var);
 	public String getUIType();
+	public String getWithCSID();
 }

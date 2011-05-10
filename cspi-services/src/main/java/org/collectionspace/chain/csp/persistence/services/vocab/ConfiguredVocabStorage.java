@@ -633,7 +633,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	
 	public JSONObject simpleRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException{
 		JSONObject out=new JSONObject();
-		out=get(storage, creds,cache,vocab,csid);
+		out=get(storage, creds,cache,vocab,csid,conn.getIMSBase());
 		cache.setCached(getClass(),new String[]{"csidfor",vocab,csid},out.get("csid"));//cos csid might be a refname at this point..
 		cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
 		cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
@@ -671,7 +671,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		
 	}
 	
-	private JSONObject get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
+	private JSONObject get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid,String ims_url) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
 		int status=0;
 		JSONObject out = new JSONObject();
 			// XXX pagination support
@@ -708,10 +708,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
 					}
 					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
-					XmlJsonConversion.convertToJson(out,r,result,"GET",section);	
+					XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);	
 				}
 				else{
-					XmlJsonConversion.convertToJson(out,r,result,"GET",section);						
+					XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);
 				}
 			}
 

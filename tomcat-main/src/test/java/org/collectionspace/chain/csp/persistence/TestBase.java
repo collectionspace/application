@@ -359,7 +359,11 @@ public class TestBase extends TestData {
 	}
 
 	protected UTF8SafeHttpTester GETBinaryData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/chain"+url,null);
+		if(url.contains("/chain/"))
+			url = url.substring(url.indexOf("/chain/"));
+		else
+			url = "/chain" + url;
+		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET",url,null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET where we were expecting "+ Integer.toString(testStatus)+" url : /chain"+url+" /n"+out.getContent(),(Integer.toString(testStatus).equals(Integer.toString(status))));
 		log.debug(url+":"+out.getContent());

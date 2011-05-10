@@ -413,7 +413,7 @@ public class AuthorizationStorage extends GenericStorage {
 	}
 	
 	public JSONObject simpleRetrieveJSONFullPath(CSPRequestCredentials creds,CSPRequestCache cache,String filePath, Record thisr) throws ExistException,
-	UnimplementedException, UnderlyingStorageException {
+			UnimplementedException, UnderlyingStorageException {
 		try {
 			JSONObject out=new JSONObject();
 			if(r.isMultipart()){
@@ -423,7 +423,7 @@ public class AuthorizationStorage extends GenericStorage {
 				for(String section : r.getServicesRecordPaths()) {
 					String path=r.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
-					convertToJson(out,doc.getDocument(parts[0]),"GET",section);
+					convertToJson(out,doc.getDocument(parts[0]),"GET",section,"","");
 				}
 			}else{
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);
@@ -431,7 +431,7 @@ public class AuthorizationStorage extends GenericStorage {
 					String status = Integer.toString(doc.getStatus());
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
 				}
-				convertToJson(out,doc.getDocument(),thisr,"GET","common");
+				convertToJson(out,doc.getDocument(),thisr,"GET","common","");
 			}
 			return out;
 		} catch (ConnectionException e) {

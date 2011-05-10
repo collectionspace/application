@@ -89,6 +89,7 @@ public class Repeat implements FieldSet, FieldParent {
 		this.initStrings(section,"@userecord","");
 		this.initStrings(section,"@onlyifexists","");
 		this.initStrings(section,"@ui-spec-prefix","");
+		this.initStrings(section,"@with-csid",null);
 		// used by uispec to create new structure
 		this.initBoolean(section,"@as-expander",false);
 		this.initBoolean(section,"@as-conditional-expander",false);
@@ -409,6 +410,10 @@ public class Repeat implements FieldSet, FieldParent {
 		return getString("enum/blank-value");
 	}
 
+	public String getWithCSID() {
+		return getString("@with-csid");
+	}
+	
 	public String getEnumDefault() {
 		return StringUtils.join(getSet("enum/default"), ",");
 	}

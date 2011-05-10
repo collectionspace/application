@@ -2610,9 +2610,15 @@
 					<field id="depth">
 						<services-tag>;dimensionGroupList/dimensionGroup;dimension;depth;value</services-tag>
 					</field>					
-					<field id="imgThumb" exists-in-services="false"></field>
-					<field id="imgMedium" exists-in-services="false"></field>
-					<field id="imgOrig" exists-in-services="false"></field>
+					<field id="imgThumb">
+						<use-csid>ims;download/;/Thumbnail</use-csid>
+					</field>
+					<field id="imgMedium">
+						<use-csid>ims;download/;/Medium</use-csid>
+					</field>
+					<field id="imgOrig">
+						<use-csid>ims;download/;/Original</use-csid>
+					</field>
                 </section>
             </record>
 
@@ -2775,7 +2781,7 @@
                     <field id="uri"></field>
 					<field id="srcUri"></field>
                     <field id="blobCsid"></field>
-                    <group id="blobs" ui-type="uploader" userecord="blobs" serviceurl="blob" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs"/>
+                    <group id="blobs" ui-type="uploader" userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs" with-csid="blobCsid"/>
                 </section>
             </record>
 

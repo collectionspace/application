@@ -314,9 +314,9 @@ public class UserStorage extends GenericStorage {
 						.getStatus(), filePath);
 			if (isUserRole)
 				out = XmlJsonConversion.convertToJson(r.getSpec().getRecord(
-						"userrole"), xml,"GET","common");// XXX hardwired common section :(
+						"userrole"), xml,"GET","common","","");// XXX hardwired common section :(
 			else
-				out = XmlJsonConversion.convertToJson(r, xml,"GET","common");// XXX hardwired common section :(
+				out = XmlJsonConversion.convertToJson(r, xml,"GET","common","","");// XXX hardwired common section :(
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception"
