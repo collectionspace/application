@@ -49,7 +49,7 @@ public class TestDummyData extends ServicesBaseClass  {
 			String loaninUrl = create("loansin/", "loansin_common", "dummydata-loanin.xml","loanin");
 			String loanoutUrl = create("loansout/", "loansout_common", "dummydata-loanout.xml","loanout");
 			String objectexitUrl = create("objectexit/", "objectexit_common", "dummydata-objectexit.xml","objectexit");
-			String groupUrl = create("group/", "group_common", "dummydata-group.xml","group");
+	//		String groupUrl = create("group/", "group_common", "dummydata-group.xml","group");
 			
 			//make relationships
 
@@ -64,7 +64,7 @@ public class TestDummyData extends ServicesBaseClass  {
 			testRelations(ss,objectUrl,loaninUrl,"affects");
 			testRelations(ss,objectUrl,loanoutUrl,"affects");
 			testRelations(ss,objectUrl,objectexitUrl,"affects");
-			testRelations(ss,objectUrl,groupUrl,"affects");
+	//		testRelations(ss,objectUrl,groupUrl,"affects");
 		} catch (CSPDependencyException e) {
 			fail(e.getMessage());
 		} catch (Exception e) {
