@@ -8,21 +8,14 @@ package org.collectionspace.chain.csp.webui.main;
 
 import static org.junit.Assert.*;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.controller.ChainServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
-import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
-import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
@@ -49,12 +42,16 @@ public class TestUISpecs extends TestBase {
 			Object x=v.get(i);
 			if(x instanceof JSONObject)
 				xxxfixOptions((JSONObject)x);
-			else if(x instanceof JSONArray)
+			else if(x instanceof JSONArray){
+				v.put(i,xxxsorted((JSONArray)x));
 				xxxfixOptions_a((JSONArray)x);
+			}
 		}
 	}
 	
 	private void xxxfixOptions(JSONObject in) throws Exception {
+		JSONObject old = in;
+		
 		if(in.has("optionnames"))
 			in.put("optionnames",xxxsorted(in.getJSONArray("optionnames")));
 		if(in.has("optionlist"))
@@ -67,6 +64,7 @@ public class TestUISpecs extends TestBase {
 				if(v instanceof JSONObject)
 					xxxfixOptions((JSONObject)v);
 				else if(v instanceof JSONArray) {
+					in.put(k,xxxsorted((JSONArray)v));
 					xxxfixOptions_a((JSONArray)v);
 				}
 			}
@@ -103,11 +101,11 @@ public class TestUISpecs extends TestBase {
 	public void testUISchema() throws Exception {
 		ServletTester jetty = setupJetty();
 		//ServletTester jetty=setupJetty(false,"tenant1.xml");
-		
+
+		//uispec(jetty, "/location/uischema", "location.uischema");
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
 		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
 		uispec(jetty, "/recordtypes/uischema", "recordtypes.uischema");
-		//uispec(jetty, "/media/uischema", "media.uischema");
 		
 		//serviceschema
 		//uispec(jetty, "/cataloging/serviceschema", "collection-object.uischema");
@@ -120,6 +118,9 @@ public class TestUISpecs extends TestBase {
 		// uispec(jetty,"/movement/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
 		// uispec(jetty,"/person/generator?quantity=10","acquisition.uispec");
+
+//	uispec(jetty, "/cataloging/uispec", "hierarchy.uispec");
+//		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
 
 		uispec(jetty, "/cataloging/uispec", "collection-object.uispec");
 		
@@ -142,6 +143,7 @@ public class TestUISpecs extends TestBase {
 
 		uispec(jetty, "/person/uispec", "person.uispec");
 		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
+		uispec(jetty, "/location/uispec", "objectexit.uispec");
 		
 
 		uispec(jetty, "/cataloging-tab/uispec", "cataloging-tab.uispec");
