@@ -26,6 +26,7 @@
                            "expander":{
                               "repeatID":"repeat:",
                               "tree":{
+                                 ".csc-media-date":"${{row}.date}",
                                  ".csc-media-date-container":{
                                     "decorators":[
                                        {
@@ -33,8 +34,7 @@
                                           "type":"fluid"
                                        }
                                     ]
-                                 },
-                                 ".csc-media-date":"${{row}.date}"
+                                 }
                               },
                               "type":"fluid.renderer.repeat",
                               "pathAs":"row",
@@ -48,8 +48,8 @@
             }
          ]
       },
-      ".csc-blobs-uri":"${fields.uri}",
       ".csc-media-coverage":"${fields.coverage}",
+      ".csc-blobs-uri":"${fields.blobs.0.uri}",
       ".csc-media-relation":{
          "decorators":[
             {
@@ -78,7 +78,7 @@
          ]
       },
       ".csc-media-srcUri":"${fields.srcUri}",
-      ".csc-blobs-digest":"${fields.digest}",
+      ".csc-media-format":"${fields.format}",
       ".csc-media-contributor":{
          "decorators":[
             {
@@ -92,21 +92,21 @@
          ],
          "value":"${fields.contributor}"
       },
-      ".csc-media-format":"${fields.format}",
-      ".csc-blobs-mimeType":"${fields.mimeType}",
-      ".csc-media-dateCreated":"${fields.dateCreated}",
+      ".csc-blobs-digest":"${fields.blobs.0.digest}",
       ".csc-media-dateModified":"${fields.dateModified}",
-      ".csc-blobs-imgThumb":"${fields.imgThumb}",
-      ".csc-blobs-name":"${fields.name}",
+      ".csc-media-dateCreated":"${fields.dateCreated}",
+      ".csc-blobs-mimeType":"${fields.blobs.0.mimeType}",
+      ".csc-blobs-imgThumb":"${fields.blobs.0.imgThumb}",
+      ".csc-blobs-name":"${fields.blobs.0.name}",
       "expander":{
+         "condition":{
+            "funcName":"cspace.mediaUploader.assertBlob",
+            "args":"${fields.blobCsid}"
+         },
          "trueTree":{
             ".csc-media-blobs":{
 
             }
-         },
-         "condition":{
-            "funcName":"cspace.mediaUploader.assertBlob",
-            "args":"${fields.blobCsid}"
          },
          "type":"fluid.renderer.condition",
          "falseTree":{
@@ -119,7 +119,7 @@
          }
       },
       ".csc-media-updatedAt":"${fields.updatedAt}",
-      ".csc-blobs-depth":"${fields.depth}",
+      ".csc-blobs-depth":"${fields.blobs.0.depth}",
       ".csc-media-location":"${fields.location}",
       ".csc-media-rightsHolder":{
          "decorators":[
@@ -135,7 +135,7 @@
          "value":"${fields.rightsHolder}"
       },
       ".csc-media-tenantID":"${fields.tenantID}",
-      ".csc-blobs-imgOrig":"${fields.imgOrig}",
+      ".csc-blobs-imgOrig":"${fields.blobs.0.imgOrig}",
       ".csc-media-copyrightStatement":"${fields.copyrightStatement}",
       ".csc-media-type":{
          "decorators":[
@@ -153,20 +153,20 @@
                                  ".csc-media-type":{
                                     "default":"0",
                                     "optionnames":[
-                                       "Please select a value",
                                        "Dataset",
                                        "Document",
                                        "Moving Image",
-                                       "Still Image",
-                                       "Sound"
+                                       "Please select a value",
+                                       "Sound",
+                                       "Still Image"
                                     ],
                                     "optionlist":[
                                        "",
                                        "dataset",
                                        "document",
                                        "moving_image",
-                                       "still_image",
-                                       "sound"
+                                       "sound",
+                                       "still_image"
                                     ],
                                     "selection":"${{row}.type}"
                                  }
@@ -184,9 +184,9 @@
          ]
       },
       ".csc-media-source":"${fields.source}",
-      ".csc-blobs-updatedAt":"${fields.updatedAt}",
-      ".csc-blobs-width":"${fields.width}",
+      ".csc-blobs-updatedAt":"${fields.blobs.0.updatedAt}",
       ".csc-media-externalMediaUrl":"${fields.externalMediaUrl}",
+      ".csc-blobs-width":"${fields.blobs.0.width}",
       ".csc-media-subject":{
          "decorators":[
             {
@@ -214,9 +214,8 @@
             }
          ]
       },
-      ".csc-blobs-encoding":"${fields.encoding}",
-      ".csc-blobs-createdAt":"${fields.createdAt}",
-      ".csc-blobs-id":"${fields.id}",
+      ".csc-blobs-encoding":"${fields.blobs.0.encoding}",
+      ".csc-blobs-createdAt":"${fields.blobs.0.createdAt}",
       ".csc-media-dimensionGroup":{
          "decorators":[
             {
@@ -230,18 +229,9 @@
                            "expander":{
                               "repeatID":"repeat:",
                               "tree":{
-                                 ".csc-media-valueDate-container":{
-                                    "decorators":[
-                                       {
-                                          "func":"cspace.datePicker",
-                                          "type":"fluid"
-                                       }
-                                    ]
-                                 },
                                  ".csc-media-dimension":{
                                     "default":"0",
                                     "optionnames":[
-                                       "Please select a value",
                                        "Area",
                                        "Base",
                                        "Circumference",
@@ -250,6 +240,7 @@
                                        "Diameter",
                                        "Height",
                                        "Length",
+                                       "Please select a value",
                                        "Running Time",
                                        "Target",
                                        "Volume",
@@ -274,10 +265,17 @@
                                     ],
                                     "selection":"${{row}.dimension}"
                                  },
+                                 ".csc-media-valueDate-container":{
+                                    "decorators":[
+                                       {
+                                          "func":"cspace.datePicker",
+                                          "type":"fluid"
+                                       }
+                                    ]
+                                 },
                                  ".csc-media-measurementUnit":{
                                     "default":"0",
                                     "optionnames":[
-                                       "Please select a value",
                                        "Carats",
                                        "Centimeters",
                                        "Cubic Centimeters",
@@ -285,10 +283,11 @@
                                        "Inches",
                                        "Kilograms",
                                        "Liters",
-                                       "Millimeters",
                                        "Meters",
+                                       "Millimeters",
                                        "Minutes",
                                        "Pixels",
+                                       "Please select a value",
                                        "Square Feet",
                                        "Stories"
                                     ],
@@ -301,8 +300,8 @@
                                        "inches",
                                        "kilograms",
                                        "liters",
-                                       "millimeters",
                                        "meters",
+                                       "millimeters",
                                        "minutes",
                                        "pixels",
                                        "square_feet",
@@ -323,58 +322,58 @@
                                     ],
                                     "value":"${{row}.measuredBy}"
                                  },
-                                 ".csc-media-valueQualifier":"${{row}.valueQualifier}",
-                                 ".csc-media-value":"${{row}.value}",
                                  ".csc-media-measurementMethod":{
                                     "default":"0",
                                     "optionnames":[
-                                       "Please select a value",
-                                       "Microscopy (reticule)",
-                                       "Standard Mesh/Screen",
-                                       "Sliding Calipers",
-                                       "Spreading Calipers",
+                                       "Balance/Beam Scale",
+                                       "Electronic Distance Measurement",
+                                       "Goniometer",
+                                       "Hydraulic or Pneumatic Scale",
                                        "Measuring Tape (cloth)",
                                        "Measuring Tape (metal)",
-                                       "Osteometric Board",
-                                       "Ruler",
-                                       "Pacing Pedometer",
+                                       "Microscopy (reticule)",
                                        "Odometer",
-                                       "Taping/Thaining",
-                                       "Stadia/Transit",
                                        "Optical Range Finder",
-                                       "Electronic Distance Measurement",
+                                       "Osteometric Board",
+                                       "Pacing Pedometer",
+                                       "Please select a value",
                                        "Protractor",
-                                       "Goniometer",
-                                       "Theodolite/Total Station",
-                                       "Balance/Beam Scale",
+                                       "Ruler",
+                                       "Sliding Calipers",
+                                       "Spreading Calipers",
                                        "Spring Scale",
-                                       "Hydraulic or Pneumatic Scale"
+                                       "Stadia/Transit",
+                                       "Standard Mesh/Screen",
+                                       "Taping/Thaining",
+                                       "Theodolite/Total Station"
                                     ],
                                     "optionlist":[
                                        "",
-                                       "microscopy_reticule",
-                                       "standard_mesh_screen",
-                                       "sliding_calipers",
-                                       "spreading_calipers",
+                                       "balance_beam_scale",
+                                       "electronic_distance_measurement",
+                                       "goniometer",
+                                       "hydraulic_or_pneumatic_scale",
                                        "measuring_tape_cloth",
                                        "measuring_tape_metal",
-                                       "osteometric_board",
-                                       "ruler",
-                                       "pacing_pedometer",
+                                       "microscopy_reticule",
                                        "odometer",
-                                       "taping_chaining",
-                                       "stadia_transit",
                                        "optical_range_finder",
-                                       "electronic_distance_measurement",
+                                       "osteometric_board",
+                                       "pacing_pedometer",
                                        "protractor",
-                                       "goniometer",
-                                       "theodolite_total_station",
-                                       "balance_beam_scale",
+                                       "ruler",
+                                       "sliding_calipers",
+                                       "spreading_calipers",
                                        "spring_scale",
-                                       "hydraulic_or_pneumatic_scale"
+                                       "stadia_transit",
+                                       "standard_mesh_screen",
+                                       "taping_chaining",
+                                       "theodolite_total_station"
                                     ],
                                     "selection":"${{row}.measurementMethod}"
                                  },
+                                 ".csc-media-value":"${{row}.value}",
+                                 ".csc-media-valueQualifier":"${{row}.valueQualifier}",
                                  ".csc-media-valueDate":"${{row}.valueDate}"
                               },
                               "type":"fluid.renderer.repeat",
@@ -389,19 +388,33 @@
             }
          ]
       },
+      ".csc-blobs-id":"${fields.blobs.0.id}",
       ".csc-media-blobCsid":"${fields.blobCsid}",
       ".csc-media-title":"${fields.title}",
-      ".csc-blobs-tenantID":"${fields.tenantID}",
-      ".csc-blobs-height":"${fields.height}",
-      ".csc-blobs-data":"${fields.data}",
+      ".csc-blobs-tenantID":"${fields.blobs.0.tenantID}",
+      ".csc-blobs-data":"${fields.blobs.0.data}",
+      ".csc-blobs-height":"${fields.blobs.0.height}",
       ".csc-media-identificationNumber":"${fields.identificationNumber}",
       ".csc-media-filename":"${fields.filename}",
-      ".csc-blobs-imgMedium":"${fields.imgMedium}",
+      ".csc-blobs-imgMedium":"${fields.blobs.0.imgMedium}",
       ".csc-media-description":"${fields.description}",
       ".csc-media-createdAt":"${fields.createdAt}",
-      ".csc-blobs-length":"${fields.length}",
+      ".csc-blobs-length":"${fields.blobs.0.length}",
       ".csc-media-dimensionSummary":"${fields.dimensionSummary}",
       ".csc-media-uri":"${fields.uri}",
+      ".csc-media-publisher":{
+         "decorators":[
+            {
+               "func":"cspace.autocomplete",
+               "type":"fluid",
+               "options":{
+                  "queryUrl":"../../chain/media/autocomplete/publisher",
+                  "vocabUrl":"../../chain/media/source-vocab/publisher"
+               }
+            }
+         ],
+         "value":"${fields.publisher}"
+      },
       ".csc-media-language":{
          "decorators":[
             {
@@ -417,44 +430,44 @@
                               "tree":{
                                  ".csc-media-language":{
                                     "optionnames":[
-                                       "Please select a value",
-                                       "Old English",
-                                       "Middle English",
-                                       "Latin",
                                        "Ancient Greek",
-                                       "Japanese",
-                                       "Swahili",
-                                       "Korean",
-                                       "Hebrew",
-                                       "Chinese",
-                                       "Russian",
                                        "Arabic",
-                                       "German",
-                                       "Portuguese",
-                                       "Italian",
-                                       "French",
+                                       "Chinese",
                                        "English",
-                                       "Spanish"
+                                       "French",
+                                       "German",
+                                       "Hebrew",
+                                       "Italian",
+                                       "Japanese",
+                                       "Korean",
+                                       "Latin",
+                                       "Middle English",
+                                       "Old English",
+                                       "Please select a value",
+                                       "Portuguese",
+                                       "Russian",
+                                       "Spanish",
+                                       "Swahili"
                                     ],
                                     "optionlist":[
                                        "",
-                                       "oldenglish",
-                                       "middleenglish",
-                                       "latin",
                                        "ancientgreek",
-                                       "japanese",
-                                       "swahili",
-                                       "korean",
-                                       "hebrew",
-                                       "chinese",
-                                       "russian",
                                        "arabic",
-                                       "german",
-                                       "portuguese",
-                                       "italian",
-                                       "french",
+                                       "chinese",
                                        "eng",
-                                       "spn"
+                                       "french",
+                                       "german",
+                                       "hebrew",
+                                       "italian",
+                                       "japanese",
+                                       "korean",
+                                       "latin",
+                                       "middleenglish",
+                                       "oldenglish",
+                                       "portuguese",
+                                       "russian",
+                                       "spn",
+                                       "swahili"
                                     ],
                                     "selection":"${{row}.language}"
                                  }
@@ -470,19 +483,6 @@
                }
             }
          ]
-      },
-      ".csc-media-publisher":{
-         "decorators":[
-            {
-               "func":"cspace.autocomplete",
-               "type":"fluid",
-               "options":{
-                  "queryUrl":"../../chain/media/autocomplete/publisher",
-                  "vocabUrl":"../../chain/media/source-vocab/publisher"
-               }
-            }
-         ],
-         "value":"${fields.publisher}"
       },
       ".csc-media-identificationNumber-container":{
          "decorators":[

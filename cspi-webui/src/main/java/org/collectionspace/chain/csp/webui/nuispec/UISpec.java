@@ -8,6 +8,7 @@ package org.collectionspace.chain.csp.webui.nuispec;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -48,8 +49,12 @@ public class UISpec implements WebMethod {
 		this.controlledCache = new JSONObject();
 	}
 
+	// XXX should be moved into fs.getIDPath itself, but refactoring would take too long for 1.7 -- dan
 	private String[] getFullIDPath(FieldSet fs,UISpecRunContext context) {
-		return fs.getIDPath();
+		List<String> out = new ArrayList<String>();
+		out.addAll(Arrays.asList(context.getUIPrefix()));
+		out.addAll(Arrays.asList(fs.getIDPath()));		
+		return out.toArray(new String[0]);
 	}
 	
 	public UISpec(Record record, String structureview) {
@@ -63,7 +68,7 @@ public class UISpec implements WebMethod {
 
 		List<String> path=new ArrayList<String>();
 		String pad="fields";
-		for(String part : f.getIDPath()) {
+		for(String part : getFullIDPath(f,context)) {
 			path.add(pad);
 			pad="0";
 			path.add(part);

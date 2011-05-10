@@ -714,7 +714,7 @@ public class TestGeneral extends TestBase {
 		assertEquals(200,out.getStatus());
 		System.err.println(out.getContent());
 		JSONObject spec=new JSONObject(out.getContent());
-		assertEquals("${fields.length}",spec.getJSONObject("recordEditor").getString(".csc-blobs-length"));
+		assertEquals("${fields.blobs.0.length}",spec.getJSONObject("recordEditor").getString(".csc-blobs-length"));
 	}
 	
 	@Test public void testRolesPermsUI() throws Exception {

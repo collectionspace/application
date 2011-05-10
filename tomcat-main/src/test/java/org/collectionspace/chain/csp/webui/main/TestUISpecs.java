@@ -8,9 +8,11 @@ package org.collectionspace.chain.csp.webui.main;
 
 import static org.junit.Assert.*;
 
+import java.io.FileOutputStream;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.json.JSONArray;
@@ -50,8 +52,6 @@ public class TestUISpecs extends TestBase {
 	}
 	
 	private void xxxfixOptions(JSONObject in) throws Exception {
-		JSONObject old = in;
-		
 		if(in.has("optionnames"))
 			in.put("optionnames",xxxsorted(in.getJSONArray("optionnames")));
 		if(in.has("optionlist"))
@@ -87,8 +87,8 @@ public class TestUISpecs extends TestBase {
 		xxxfixOptions(comparison);
 		
 		// You can use these, Chris, to write stuff out if the spec has changed to altre the test file
-		//IOUtils.write(generated.toString(),new FileOutputStream("/tmp/gschema.out"));
-		//IOUtils.write(comparison.toString(),new FileOutputStream("/tmp/bschema.out"));
+		IOUtils.write(generated.toString(),new FileOutputStream("/tmp/gschema.out"));
+		IOUtils.write(comparison.toString(),new FileOutputStream("/tmp/bschema.out"));
 		
 		log.info("BASELINE" + comparison.toString());
 		log.info("GENERATED" + generated.toString());
