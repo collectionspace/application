@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+  <ns3:relations-common-list xmlns:ns3="http://collectionspace.org/services/relation" xmlns:ns2="http://collectionspace.org/services/jaxb">
+    <relation-list-item>
+                <predicate>hasBroader</predicate>
+                <subject>
+                  <csid>${itemCSID}</csid>
+                  <documentType>Person</documentType>
+                </subject>
+                <object>
+                  <csid>2a5f119a-acd0-4b89-a535</csid>
+                  <uri>/cspace-services/locationauthorities/urn:cspace:name(CSPACE3739LocationAuthority)/items/2a5f119a-acd0-4b89-a535</uri>
+                  <documentType>Location</documentType>
+                </object>
+        </relation-list-item>
+        <relation-list-item>
+                <predicate>hasBroader</predicate>
+                <subject>
+                  <uri>/cspace-services/locationauthorities/urn:cspace:name(CSPACE3739LocationAuthority)/items/d3c11cc2-ef65-4994-b800</uri>
+                  <csid>d3c11cc2-ef65-4994-b800</csid>
+                  <documentType>Location</documentType>
+                </subject>
+                <object>
+                  <csid>${itemCSID}</csid>
+                  <documentType>P</documentType>
+                </object>
+        </relation-list-item>
+  </ns3:relations-common-list>
