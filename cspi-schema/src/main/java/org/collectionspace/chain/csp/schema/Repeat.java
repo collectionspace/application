@@ -111,11 +111,13 @@ public class Repeat implements FieldSet, FieldParent {
 			}
 			allBooleans.put("@asSibling",true);
 		}
-		this.initStrings(section,"selector", getString("selectorID") + "-" +  getString("@id"));
+		this.initStrings(section,"selector", getString("parentID") + "-" +  getString("@id"));
 		this.initStrings(section,"preselector", ".csc-" );
 
 		this.initStrings(section,"container-selector", getString("selector") + "-container");
 		this.initStrings(section,"precontainer-selector", getString("preselector"));
+		this.initStrings(section,"pretitle-selector", getString("preselector"));
+		this.initStrings(section,"title-selector", getString("selector") + "-titlebar");
 		
 		this.initStrings(section,"@selector-affix","");
 
@@ -263,6 +265,13 @@ public class Repeat implements FieldSet, FieldParent {
 	}
 	public String getSelector() {
 		return getString("selector");
+	}
+	public String getTitleSelector() {
+		return getString("title-selector");
+	}
+	
+	public String getPreTitleSelector() {
+		return getString("pretitle-selector");
 	}
 	public String getLabel() {
 		return getString("label");

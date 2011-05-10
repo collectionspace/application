@@ -81,6 +81,7 @@ public class Field implements FieldSet {
 		this.initStrings(section,"autocomplete-options/strings", "");
 		this.initStrings(section,"container-selector", getString("selector") + "-container");
 		this.initStrings(section,"precontainer-selector", getString("preselector"));
+		this.initStrings(section,"pretitle-selector", getString("preselector"));
 		this.initStrings(section,"title-selector", getString("selector") + "-titlebar");
 		// used by uispec to create new structure
 		this.initBoolean(section,"@as-expander",false);
@@ -263,6 +264,10 @@ public class Field implements FieldSet {
 
 	public String getTitleSelector() {
 		return getString("title-selector");
+	}
+	
+	public String getPreTitleSelector() {
+		return getString("pretitle-selector");
 	}
 
 	public String getServicesFilterParam() {

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UISpecRunContext {
-	private String affix=""; /* Eg in .csc-foo-bar-baz */
 	private String ui_prefix=null; /* Eg in ${foo.0.bar.0.baz} */
+	private String ui_affix=null; /* Eg in .csc-foo-bar-baz */
 	private UISpecRunContext parent=null;
 	
 	public UISpecRunContext() {}
@@ -13,18 +13,24 @@ public class UISpecRunContext {
 		parent = p;
 	}
 	
-	public void appendAffix(String suffix) {
-		affix += suffix;
+	public void setUIAffix(String p) {
+		ui_affix = p;
 	}
 	public void setUIPrefix(String p) {
 		ui_prefix = p;
 	}
-	
+
 	private void getUIPrefix(List<String> out) {
 		if(parent!=null)
 			parent.getUIPrefix(out);
 		if(ui_prefix!=null)
 			out.add(ui_prefix);
+	}
+	private void getUIAffix(List<String> out) {
+		if(parent!=null)
+			parent.getUIAffix(out);
+		if(ui_affix!=null)
+			out.add(ui_affix);
 	}
 	
 	public String[] getUIPrefix() {
@@ -33,11 +39,10 @@ public class UISpecRunContext {
 		return out.toArray(new String[0]);
 	}
 	
-	public String getAffix() { 
-		String prefix="";
-		if(parent!=null)
-			prefix = parent.getAffix();
-		return prefix+affix;
+	public String[] getUIAffix() { 
+		List <String> out = new ArrayList<String>();
+		getUIAffix(out);
+		return out.toArray(new String[0]);
 	}
 	public UISpecRunContext createChild() {
 		return new UISpecRunContext(this);

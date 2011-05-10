@@ -29,6 +29,8 @@ public interface FieldSet {
 	public String getLabelAffix();
 	public String getContainerSelector();
 	public String getPreContainerSelector();
+	public String getTitleSelector();
+	public String getPreTitleSelector();
 	public String getSelector();
 	public String getPreSelector();
 	public String getLabel();
