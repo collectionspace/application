@@ -104,13 +104,13 @@
             "args":"${fields.blobCsid}"
          },
          "trueTree":{
-            "media-blobs":{
+            ".csc-media-blobs":{
 
             }
          },
          "type":"fluid.renderer.condition",
          "falseTree":{
-            "media-blobs":{
+            ".csc-media-blobs":{
                "decorators":{
                   "classes":"hidden",
                   "type":"addClass"
