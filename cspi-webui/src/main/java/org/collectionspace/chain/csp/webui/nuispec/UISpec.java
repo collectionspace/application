@@ -113,11 +113,31 @@ public class UISpec implements WebMethod {
 		return number;	
 	}
 
+	private String makeSelector(String pre, UISpecRunContext context, String post){
+		List<String> affixes = Arrays.asList(context.getUIAffix());
+		String selector = pre;
+		for(String part : affixes) {
+			if(part != null && part !=""){
+				selector += part;
+			}
+		}
+		selector += post;
+		
+		return selector;
+	}
+	
 	protected String getSelectorAffix(FieldSet fs){
 		return fs.getSelectorAffix();
 	}
-	protected String getSelector(FieldSet fs){
-		return fs.getSelector();
+	protected String getContainerSelector(FieldSet fs,  UISpecRunContext context){
+		return makeSelector(fs.getPreContainerSelector(),context,fs.getContainerSelector());
+	}
+	protected String getTitleSelector(FieldSet fs,  UISpecRunContext context){
+		return makeSelector(fs.getPreTitleSelector(),context,fs.getTitleSelector());
+	}
+	
+	protected String getSelector(FieldSet fs, UISpecRunContext context){
+		return makeSelector(fs.getPreSelector(),context,fs.getSelector());
 	}
 	
 	protected Object generateOptionField(Field f,UISpecRunContext context) throws JSONException {
@@ -178,15 +198,16 @@ public class UISpec implements WebMethod {
 		
 		JSONArray decorators=new JSONArray();
 		JSONObject options=new JSONObject();
-		
-	//	context.appendAffix("BBBBBBOOOOOBBBB");
+		UISpecRunContext sub = context.createChild();
+		sub.setUIAffix("objectProductionDates-");
+		//context.appendAffix("objectProductionDates-");
 		String parts[] = f.getUIType().split("/");
 		JSONObject subexpander = new JSONObject();
 		Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 		//subexpander.put("subexpander",subitems.getID());
 		for(FieldSet fs2 : subitems.getAllFields("")) {
 
-			generateDataEntry(subexpander,fs2, context);
+			generateDataEntry(subexpander,fs2, sub);
 		}
 		
 		
@@ -331,14 +352,14 @@ public class UISpec implements WebMethod {
 		expander.put("type", "fluid.renderer.repeat");
 		expander.put("controlledBy", "fields."+r.getID());
 		expander.put("pathAs", "row");
-		expander.put("repeatID", getSelector(r));
+		expander.put("repeatID", getSelector(r,context));
 
 		if(r.getChildren("").length>0){
 			JSONObject tree = new JSONObject();
 			for(FieldSet child : r.getChildren("")) {
 				if(child.getUIType().equals("hierarchy")){
 
-					expander.put("repeatID", getSelector(child)+":");
+					expander.put("repeatID", getSelector(child,context)+":");
 					generateHierarchyEntry(siblingexpander, child,  context);
 					expanders.put(siblingexpander.getJSONObject("expander"));
 					if(child instanceof Field){
@@ -377,9 +398,9 @@ public class UISpec implements WebMethod {
 	protected JSONObject generateSelectionExpanderEntry(Field f, UISpecRunContext context) throws JSONException {
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.renderer.selection.inputs");
-		expander.put("rowID", getSelector(f)+"-row:");
-		expander.put("labelID", getSelector(f)+"-label");
-		expander.put("inputID", getSelector(f)+"-input");
+		expander.put("rowID", getSelector(f,context)+"-row:");
+		expander.put("labelID", getSelector(f,context)+"-label");
+		expander.put("inputID", getSelector(f,context)+"-input");
 		expander.put("selectID", f.getID());
 
 		JSONObject tree = new JSONObject();
@@ -488,7 +509,7 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=getDecorator("fluid",null,"cspace.autocomplete",options);
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
-				decorator.put("container",getSelector(f));
+				decorator.put("container",getSelector(f,context));
 			}
 		}
 		decorators.put(decorator);
@@ -505,7 +526,7 @@ public class UISpec implements WebMethod {
 
 		JSONObject options=new JSONObject();
 		JSONObject selectors=new JSONObject();
-		selectors.put("numberField",getSelector(f));
+		selectors.put("numberField",getSelector(f,context));
 		options.put("selectors",selectors);
 		JSONObject model=new JSONObject();
 		JSONArray ids=new JSONArray();
@@ -524,7 +545,7 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=getDecorator("fluid",null,"cspace.numberPatternChooser",options);
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
-				decorator.put("container",f.getContainerSelector());
+				decorator.put("container",getContainerSelector(f,context));
 			}
 		}
 		decorators.put(decorator);
@@ -541,7 +562,7 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=getDecorator("fluid",null,"cspace.datePicker",null);
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
-				decorator.put("container",f.getContainerSelector());
+				decorator.put("container",getContainerSelector(f,context));
 			}
 		}
 		decorators.put(decorator);
@@ -652,10 +673,10 @@ public class UISpec implements WebMethod {
 			UISpecRunContext sub = context.createChild();
 			if(!getSelectorAffix(fs).equals("")){
 				if(!context.equals("")){
-					sub.appendAffix("-"+getSelectorAffix(fs));
+					sub.setUIAffix(getSelectorAffix(fs));
 				}
 				else{
-					sub.appendAffix("-"+getSelectorAffix(fs));
+					sub.setUIAffix(getSelectorAffix(fs));
 				}
 			}
 			String sp=fs.getUISpecPrefix();
@@ -721,21 +742,21 @@ public class UISpec implements WebMethod {
 	protected void repeatNonSibling(JSONObject out, FieldSet fs, UISpecRunContext context,
 			Repeat r) throws JSONException {
 		JSONObject contents=generateRepeatEntry(r, context);
-		String selector = getSelector(r);
+		String selector = getSelector(r,context);
 		//CSPACE-2619 scalar repeatables are different from group repeats
 		if(r.getChildren("").length==1){
 			FieldSet child = null;
 			if(r.getChildren("")[0] instanceof Field){
 				child = (Field)r.getChildren("")[0];
-				selector = getSelector(child);
+				selector = getSelector(child,context);
 			}
 			else if(r.getChildren("")[0] instanceof Group){
 				child = (Group)r.getChildren("")[0];
-				selector = getSelector(child);
+				selector = getSelector(child,context);
 			}
 			//XXX CSPACE-2706 hack
 			if(child.getUIType().equals("date")){
-				selector = getSelector(r);
+				selector = getSelector(r,context);
 			}
 		}
 		if(fs.isExpander()){
@@ -762,7 +783,7 @@ public class UISpec implements WebMethod {
 		}
 		children.put(contents);
 		row.put("children",children);
-		out.put(getSelector(r),row);
+		out.put(getSelector(r,context),row);
 	}
 
 	protected void generateGroupDataEntry(JSONObject out, FieldSet fs,
@@ -772,7 +793,7 @@ public class UISpec implements WebMethod {
 		for(FieldSet child : g.getChildren("")) {
 			generateDataEntry(contents,child, context);
 		}
-		out.put(getSelector(g),contents);
+		out.put(getSelector(g,context),contents);
 	}
 
 	protected void generateUploaderEntry(JSONObject out, FieldSet f, UISpecRunContext context) throws JSONException{
@@ -855,43 +876,43 @@ public class UISpec implements WebMethod {
 			makeAuthorities(out, context, f);
 		}
 		else if("chooser".equals(f.getUIType())) {
-			out.put(getSelector(f)+context.getAffix(),generateChooser(f,context));
+			out.put(getSelector(f,context),generateChooser(f,context));
 		}
 		else if("date".equals(f.getUIType())) {
-			out.put(getSelector(f)+context.getAffix(),generateDate(f,context));
+			out.put(getSelector(f,context),generateDate(f,context));
 		}
 		else if("sidebar".equals(f.getUIType())) {
 			//Won't work now if uncommented
 			//out.put(getSelector(f)+affix,generateSideBar(f));
 		}
 		else{
-			out.put(getSelector(f)+context.getAffix(),generateDataEntryField(f,context));	
+			out.put(getSelector(f,context),generateDataEntryField(f,context));	
 		}
 	}
 
 	protected void makeAuthorities(JSONObject out, UISpecRunContext context, Field f)
 			throws JSONException {
 		if("enum".equals(f.getUIType())){
-			out.put(getSelector(f)+context.getAffix(),generateDataEntryField(f,context));
+			out.put(getSelector(f,context),generateDataEntryField(f,context));
 		}
 		else{
-			out.put(getSelector(f)+context.getAffix(),generateAutocomplete(f,context));
+			out.put(getSelector(f,context),generateAutocomplete(f,context));
 		}
 	}
 
 	protected void generateFieldDataEntry_notrefactored(JSONObject out, UISpecRunContext context, Field f)
 			throws JSONException {
 		// Single field
-		out.put(getSelector(f)+context.getAffix(),generateDataEntryField(f,context));	
+		out.put(getSelector(f,context),generateDataEntryField(f,context));	
 		
 		if(f.hasAutocompleteInstance()) {
 			makeAuthorities(out, context, f);
 		}
 		if("chooser".equals(f.getUIType())) {
-			out.put(f.getContainerSelector()+context.getAffix(),generateChooser(f,context));
+			out.put(getContainerSelector(f,context),generateChooser(f,context));
 		}
 		if("date".equals(f.getUIType())) {
-			out.put(f.getContainerSelector()+context.getAffix(),generateDate(f,context));
+			out.put(getContainerSelector(f,context),generateDate(f,context));
 		}
 	}
 
@@ -900,7 +921,7 @@ public class UISpec implements WebMethod {
 			Field f=(Field)fs;
 			if(!f.isInTitle())
 				return;
-			out.put(f.getTitleSelector()+context.getAffix(),veryplain(f,context));
+			out.put(getTitleSelector(f,context),veryplain(f,context));
 		} else if(fs instanceof Repeat) {
 			for(FieldSet child : ((Repeat)fs).getChildren(""))
 				generateTitleSectionEntry(out,child, context);

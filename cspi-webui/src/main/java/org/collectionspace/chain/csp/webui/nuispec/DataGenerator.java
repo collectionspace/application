@@ -405,7 +405,7 @@ public class DataGenerator  extends UISpec {
 	protected void generateFieldDataEntry_notrefactored(JSONObject out, UISpecRunContext context, Field f)
 	throws JSONException {
 		// Single field
-		out.put(getSelector(f)+context.getAffix(),generateDataEntryField(f,context));	
+		out.put(getSelector(f,context),generateDataEntryField(f,context));	
 	}	
 
 	private void repeatItem(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException{
@@ -434,12 +434,12 @@ public class DataGenerator  extends UISpec {
 	protected void makeAuthorities(JSONObject out, UISpecRunContext context, Field f)
 	throws JSONException {
 		if("enum".equals(f.getUIType())){
-			out.put(getSelector(f)+context.getAffix(),generateDataEntryField(f,context));
+			out.put(getSelector(f,context),generateDataEntryField(f,context));
 		}
 		else{
 			//get authority
 			Object data = generateAuthorityField(f);
-			out.put(getSelector(f)+context.getAffix(),data);
+			out.put(getSelector(f,context),data);
 		}
 	}
 	

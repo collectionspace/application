@@ -72,7 +72,7 @@ public class UISchema extends UISpec {
 				generateDataEntrySection(context), null);
 	}
 
-	protected String getSelector(FieldSet fs) {
+	protected String getSelector(FieldSet fs, UISpecRunContext context) {
 		return fs.getID();
 	}
 
@@ -90,7 +90,7 @@ public class UISchema extends UISpec {
 		String parts[] = f.getUIType().split("/");
 		Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 
-		String selector = getSelector(f);
+		String selector = getSelector(f,context);
 		JSONObject protoTree = new JSONObject();
 		for(FieldSet fs2 : subitems.getAllFields("")) {
 			generateDataEntry(protoTree, fs2,context);
@@ -118,7 +118,7 @@ public class UISchema extends UISpec {
 
 	protected void generateExpanderDataEntry(JSONObject out, UISpecRunContext context,
 			Field f) throws JSONException {
-		out.put(getSelector(f), generateOptionField(f,context));
+		out.put(getSelector(f,context), generateOptionField(f,context));
 	}
 
 	protected JSONObject generateChooser(Field f,UISpecRunContext context) throws JSONException {
@@ -133,7 +133,7 @@ public class UISchema extends UISpec {
 			throws JSONException {
 		JSONObject items = new JSONObject();
 
-		String selector = getSelector(r);
+		String selector = getSelector(r,context);
 		JSONObject protoTree = new JSONObject();
 		for (FieldSet child : r.getChildren("")) {
 			generateDataEntry(protoTree, child, context);
