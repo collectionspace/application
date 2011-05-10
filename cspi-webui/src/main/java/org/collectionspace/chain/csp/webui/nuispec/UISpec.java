@@ -810,12 +810,12 @@ public class UISpec implements WebMethod {
 			cond.put("funcName", condition);
 		}
 		JSONObject ttree = new JSONObject();
-		ttree.put(f.getSelector(),new JSONObject());
+		ttree.put(getSelector(f,context),new JSONObject());
 		JSONObject decorator = getDecorator("addClass","hidden",null,null);
 		JSONObject decorators = new JSONObject();
 		decorators.put("decorators", decorator);
 		JSONObject ftree = new JSONObject();
-		ftree.put(f.getSelector(),decorators);
+		ftree.put(getSelector(f,context),decorators);
 		JSONObject cexpander = new JSONObject();
 		cexpander.put("type", "fluid.renderer.condition");
 		cexpander.put("condition", cond);
