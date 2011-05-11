@@ -32,7 +32,12 @@ public class TestUISpecs extends TestBase {
 		Object[] v=new Object[in.length()];
 		for(int i=0;i<v.length;i++)
 			v[i]=in.get(i);
-		Arrays.sort(v);
+		try{
+			Arrays.sort(v);
+		}
+		catch(Exception ex){
+			log.info("well that was weird, let pretend nothing happened");
+		}
 		for(int i=0;i<v.length;i++)
 			out.put(v[i]);
 		return out;
@@ -121,7 +126,8 @@ public class TestUISpecs extends TestBase {
 
 //	uispec(jetty, "/cataloging/uispec", "hierarchy.uispec");
 //		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
-
+		uispec(jetty, "/person/uispec", "person.uispec");
+		
 		uispec(jetty, "/cataloging/uispec", "collection-object.uispec");
 		
 		uispec(jetty, "/acquisition/uispec", "acquisition.uispec");
