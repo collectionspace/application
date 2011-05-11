@@ -88,7 +88,21 @@
         ".csc-blobs-mimeType": "${fields.blobs.0.mimeType}",
         ".csc-blobs-imgThumb": "${fields.blobs.0.imgThumb}",
         ".csc-blobs-name": "${fields.blobs.0.name}",
-        "expander": {
+        "expander": [{
+            "repeatID": ".csc-blobs-dimensionGroup",
+            "tree": {
+                ".csc-blobs-measurementMethod": "${{row}.measurementMethod}",
+                ".csc-blobs-value": "${{row}.value}",
+                ".csc-blobs-measuredBy": "${{row}.measuredBy}",
+                ".csc-blobs-valueQualifier": "${{row}.valueQualifier}",
+                ".csc-blobs-valueDate": "${{row}.valueDate}",
+                ".csc-blobs-dimension": "${{row}.dimension}",
+                ".csc-blobs-measurementUnit": "${{row}.measurementUnit}"
+            },
+            "type": "fluid.renderer.repeat",
+            "pathAs": "row",
+            "controlledBy": "fields.blobs.0.dimensionGroup"
+        }, {
             "condition": {
                 "funcName": "cspace.mediaUploader.assertBlob",
                 "args": "${fields.blobCsid}"
@@ -105,7 +119,7 @@
                     }
                 }
             }
-        },
+        }],
         ".csc-media-updatedAt": "${fields.updatedAt}",
         ".csc-media-location": "${fields.location}",
         ".csc-media-rightsHolder": {
@@ -257,43 +271,6 @@
         ".csc-blobs-length": "${fields.blobs.0.length}",
         ".csc-media-dimensionSummary": "${fields.dimensionSummary}",
         ".csc-media-uri": "${fields.uri}",
-        ".csc-blobs-dimensionGroup": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.blobs.0.dimensionGroup",
-                    "protoTree": {
-                        "expander": {
-                            "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-blobs-measurementMethod": "${{row}.measurementMethod}",
-                                        ".csc-blobs-value": "${{row}.value}",
-                                        ".csc-blobs-valueDate-container": {
-                                            "decorators": [{
-                                                "func": "cspace.datePicker",
-                                                "type": "fluid"
-                                            }]
-                                        },
-                                        ".csc-blobs-measuredBy": "${{row}.measuredBy}",
-                                        ".csc-blobs-valueQualifier": "${{row}.valueQualifier}",
-                                        ".csc-blobs-valueDate": "${{row}.valueDate}",
-                                        ".csc-blobs-dimension": "${{row}.dimension}",
-                                        ".csc-blobs-measurementUnit": "${{row}.measurementUnit}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.blobs.0.dimensionGroup"
-                                }
-                            },
-                            "type": "fluid.noexpand"
-                        }
-                    }
-                }
-            }]
-        },
         ".csc-media-publisher": {
             "decorators": [{
                 "func": "cspace.autocomplete",
