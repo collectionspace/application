@@ -89,7 +89,7 @@
         ".csc-blobs-imgThumb": "${fields.blobs.0.imgThumb}",
         ".csc-blobs-name": "${fields.blobs.0.name}",
         "expander": [{
-            "repeatID": ".csc-blobs-dimensionGroup",
+            "repeatID": ".csc-blobs-dimensionGroup:",
             "tree": {
                 ".csc-blobs-measurementMethod": "${{row}.measurementMethod}",
                 ".csc-blobs-value": "${{row}.value}",

@@ -355,7 +355,7 @@ public class UISpec implements WebMethod {
 		expander.put("type", "fluid.renderer.repeat");
 		expander.put("controlledBy", veryplainWithoutEnclosure(r,context));//"fields."+r.getID());
 		expander.put("pathAs", "row");
-		expander.put("repeatID", getSelector(r,context));
+		expander.put("repeatID", getSelector(r,context)+":");
 
 		if(r.getChildren("").length>0){
 			JSONObject tree = new JSONObject();
