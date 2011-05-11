@@ -2593,30 +2593,30 @@
                     <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section>
-                    <field id="encoding"></field>
-                    <field id="mimeType"></field>
-                    <field id="data"></field>
+                    <field id="encoding" attributes="GET"></field>
+                    <field id="mimeType" attributes="GET"></field>
+                    <field id="data" attributes="GET"></field>
                     <field id="name"></field>
-                    <field id="length"></field>
+                    <field id="length" attributes="GET"></field>
                     <field id="digest"></field>
                     <field id="uri"></field>
                     <field id="id"></field>
-                    <repeat id="dimensionGroupList/dimensionGroup">
+                    <repeat id="dimensionGroupList/dimensionGroup" as-expander="true" attributes="GET">
                    		<field id="dimension"></field>
                     	<field id="measuredBy"></field>
                     	<field id="measurementUnit"></field>
                    		<field id="measurementMethod"></field>
                     	<field id="value"></field>
                     	<field id="valueQualifier"></field>
-                    	<field id="valueDate" ui-type="date"></field>
+                    	<field id="valueDate"></field>
                     </repeat>
-					<field id="imgThumb">
+					<field id="imgThumb" attributes="GET">
 						<use-csid>ims;download/;/Thumbnail</use-csid>
 					</field>
-					<field id="imgMedium">
+					<field id="imgMedium" attributes="GET">
 						<use-csid>ims;download/;/Medium</use-csid>
 					</field>
-					<field id="imgOrig">
+					<field id="imgOrig" attributes="GET">
 						<use-csid>ims;download/;/Original</use-csid>
 					</field>
                 </section>

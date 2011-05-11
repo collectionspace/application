@@ -765,12 +765,14 @@ public class UISpec implements WebMethod {
 		if(fs.isExpander()){
 			selector="expander";
 			JSONArray expanders = contents.getJSONArray("expanders");
+			if(out.has("expander")){
+				expanders.put(out.get("expander"));
+			}
 			if(expanders.length() == 1){
 				out.put(selector,expanders.getJSONObject(0));
 			}
 			else{
 				out.put(selector,expanders);
-				
 			}
 		}
 		else{
