@@ -138,11 +138,11 @@
     },
     "recordEditor": {
         ".csc-person-deathPlace-label": {
-            "messagekey": "personAuthority-deathPlaceLabel"
+            "messagekey": "person-deathPlaceLabel"
         },
         ".csc-personAuthority-nameNote": "${fields.nameNote}",
         ".csc-person-middleName-label": {
-            "messagekey": "personAuthority-middleNameLabel"
+            "messagekey": "person-middleNameLabel"
         },
         ".csc-person-createdAt-label": {
             "messagekey": "person-createdAtLabel"
@@ -197,18 +197,18 @@
         ".csc-contactAuthority-faxNumber": "${fields..0.faxNumber}",
         ".csc-contact-tenantID": "${fields..0.tenantID}",
         ".csc-person-deathDate-label": {
-            "messagekey": "personAuthority-deathDateLabel"
+            "messagekey": "person-deathDateLabel"
         },
         ".csc-person-nameNote-label": {
-            "messagekey": "personAuthority-nameNoteLabel"
+            "messagekey": "person-nameNoteLabel"
         },
         ".csc-contact-createdAt": "${fields..0.createdAt}",
         ".csc-person-birthDate-label": {
-            "messagekey": "personAuthority-birthDateLabel"
+            "messagekey": "person-birthDateLabel"
         },
         ".csc-contactAuthority-telephoneNumber": "${fields..0.telephoneNumber}",
         ".csc-person-bioNote-label": {
-            "messagekey": "personAuthority-bioNoteLabel"
+            "messagekey": "person-bioNoteLabel"
         },
         ".csc-personAuthority-salutation": {
             "default": "0",
@@ -217,7 +217,7 @@
             "selection": "${fields.salutation}"
         },
         ".csc-person-initials-label": {
-            "messagekey": "personAuthority-initialsLabel"
+            "messagekey": "person-initialsLabel"
         },
         ".csc-personAuthority-title": {
             "default": "0",
@@ -226,10 +226,10 @@
             "selection": "${fields.title}"
         },
         ".csc-contact-faxNumber-label": {
-            "messagekey": "contactAuthority-faxNumberLabel"
+            "messagekey": "contact-faxNumberLabel"
         },
         ".csc-person-salutation-label": {
-            "messagekey": "personAuthority-salutationLabel"
+            "messagekey": "person-salutationLabel"
         },
         ".csc-personAuthority-birthDate-container": {
             "decorators": [{
@@ -245,14 +245,14 @@
         },
         ".csc-personAuthority-deathDate": "${fields.deathDate}",
         ".csc-contact-web-label": {
-            "messagekey": "contactAuthority-webLabel"
+            "messagekey": "contact-webLabel"
         },
         ".csc-personAuthority-birthPlace": "${fields.birthPlace}",
         ".csc-contact-createdAt-label": {
             "messagekey": "contact-createdAtLabel"
         },
         ".csc-person-surName-label": {
-            "messagekey": "personAuthority-surNameLabel"
+            "messagekey": "person-surNameLabel"
         },
         ".csc-contactAuthority-email": "${fields..0.email}",
         ".csc-person-shortIdentifier": "${fields.shortIdentifier}",
@@ -266,7 +266,7 @@
             "messagekey": "person-updatedAtLabel"
         },
         ".csc-contact-telephoneNumber-label": {
-            "messagekey": "contactAuthority-telephoneNumberLabel"
+            "messagekey": "contact-telephoneNumberLabel"
         },
         ".csc-person-personNameAuthorityInformation-label": {
             "messagekey": "person-personNameAuthorityInformationLabel"
@@ -275,26 +275,26 @@
             "messagekey": "person-shortIdentifierLabel"
         },
         ".csc-person-gender-label": {
-            "messagekey": "personAuthority-genderLabel"
+            "messagekey": "person-genderLabel"
         },
         ".csc-person-schoolsOrStyles-label": {
             "messagekey": "person-schoolsOrStylesLabel"
         },
         ".csc-person-tenantID": "${fields.tenantID}",
         ".csc-contact-addressPlace-label": {
-            "messagekey": "contactAuthority-addressPlaceLabel"
+            "messagekey": "contact-addressPlaceLabel"
         },
         ".csc-person-nationalities-label": {
             "messagekey": "person-nationalitiesLabel"
         },
         ".csc-person-name-label": {
-            "messagekey": "personAuthority-nameLabel"
+            "messagekey": "person-nameLabel"
         },
         ".csc-contact-email-label": {
-            "messagekey": "contactAuthority-emailLabel"
+            "messagekey": "contact-emailLabel"
         },
         ".csc-contact-addressType-label": {
-            "messagekey": "contactAuthority-addressTypeLabel"
+            "messagekey": "contact-addressTypeLabel"
         },
         ".csc-person-contactInformation-label": {
             "messagekey": "person-contactInformationLabel"
@@ -306,7 +306,7 @@
         },
         ".csc-personAuthority-middleName": "${fields.middleName}",
         ".csc-person-birthPlace-label": {
-            "messagekey": "personAuthority-birthPlaceLabel"
+            "messagekey": "person-birthPlaceLabel"
         },
         ".csc-personAuthority-surName": "${fields.surName}",
         ".csc-personAuthority-schoolOrStyle": {
@@ -339,19 +339,19 @@
             "messagekey": "person-contactLabel"
         },
         ".csc-person-nameAdditions-label": {
-            "messagekey": "personAuthority-nameAdditionsLabel"
+            "messagekey": "person-nameAdditionsLabel"
         },
         ".csc-person-occupations-label": {
             "messagekey": "person-occupationsLabel"
         },
         ".csc-person-displayName-label": {
-            "messagekey": "personAuthority-displayNameLabel"
+            "messagekey": "person-displayNameLabel"
         },
         ".csc-personAuthority-initials": "${fields.initials}",
         ".csc-contactAuthority-addressPlace": "${fields..0.addressPlace}",
         ".csc-contact-updatedAt": "${fields..0.updatedAt}",
         ".csc-person-title-label": {
-            "messagekey": "personAuthority-titleLabel"
+            "messagekey": "person-titleLabel"
         },
         ".csc-personAuthority-group": {
             "decorators": [{
@@ -408,11 +408,11 @@
             }]
         },
         ".csc-person-termStatus-label": {
-            "messagekey": "personAuthority-statusLabel"
+            "messagekey": "person-termStatusLabel"
         },
         ".csc-personAuthority-bioNote": "${fields.bioNote}",
         ".csc-person-foreName-label": {
-            "messagekey": "personAuthority-foreNameLabel"
+            "messagekey": "person-foreNameLabel"
         }
     }
 }

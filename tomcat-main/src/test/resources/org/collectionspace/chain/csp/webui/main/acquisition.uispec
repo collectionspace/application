@@ -53,7 +53,7 @@
             "messagekey": "acquisition-ownersLabel"
         },
         ".csc-acquisition-objectPurchaseOfferPriceValue-label": {
-            "messagekey": "acquisition-object-purchase-offer-price-valueLabel"
+            "messagekey": "acquisition-objectPurchaseOfferPriceValueLabel"
         },
         ".csc-acquisition-acquisitionAuthorizer": {
             "decorators": [{
@@ -67,7 +67,7 @@
             "value": "${fields.acquisitionAuthorizer}"
         },
         ".csc-acquisition-ownersource-label": {
-            "messagekey": "object-acquisition-ownersourceLabel"
+            "messagekey": "acquisition-ownersourceLabel"
         },
         ".csc-acquisition-acquisitionFunding-label": {
             "messagekey": "acquisition-acquisitionFundingLabel"
@@ -130,14 +130,14 @@
             "selection": "${fields.groupPurchasePriceCurrency}"
         },
         ".csc-acquisition-acquisitionProvisos-label": {
-            "messagekey": "acquisition-acquisition-provisosLabel"
+            "messagekey": "acquisition-acquisitionProvisosLabel"
         },
         ".csc-acquisition-objectPurchasePriceCurrency-label": {
-            "messagekey": "acquisition-object-purchase-price-currencyLabel"
+            "messagekey": "acquisition-objectPurchasePriceCurrencyLabel"
         },
         ".csc-acquisition-group-purchase-price-value": "${fields.groupPurchasePriceValue}",
         ".csc-acquisition-groupPurchasePriceValue-label": {
-            "messagekey": "acquisition-group-purchase-price-valueLabel"
+            "messagekey": "acquisition-groupPurchasePriceValueLabel"
         },
         ".csc-acquisition-acquisitionAuthorizer-label": {
             "messagekey": "acquisition-acquisitionAuthorizerLabel"
@@ -159,20 +159,20 @@
         ".csc-acquisition-object-purchase-offer-price-value": "${fields.objectPurchaseOfferPriceValue}",
         ".csc-object-acquisition-ownersource": "${fields.ownersource}",
         ".csc-acquisition-transferOfTitleNumber-label": {
-            "messagekey": "acquisition-transfer-of-title-numberLabel"
+            "messagekey": "acquisition-transferOfTitleNumberLabel"
         },
         ".csc-acquisition-originalObjectPurchasePriceValue-label": {
-            "messagekey": "acquisition-original-object-purchase-price-valueLabel"
+            "messagekey": "acquisition-originalObjectPurchasePriceValueLabel"
         },
         ".csc-acquisition-creditLine-label": {
             "messagekey": "acquisition-creditLineLabel"
         },
         ".csc-acquisition-acquisitionMethod-label": {
-            "messagekey": "acquisition-acquisition-methodLabel"
+            "messagekey": "acquisition-acquisitionMethodLabel"
         },
         ".csc-acquisition-original-object-purchase-price-value": "${fields.originalObjectPurchasePriceValue}",
         ".csc-acquisition-objectPurchasePriceValue-label": {
-            "messagekey": "acquisition-object-purchase-price-valueLabel"
+            "messagekey": "acquisition-objectPurchasePriceValueLabel"
         },
         ".csc-acquisition-acquisitionAuthorizerDate-container": {
             "decorators": [{
@@ -181,7 +181,7 @@
             }]
         },
         ".csc-acquisition-objectPurchaseOfferPriceCurrency-label": {
-            "messagekey": "acquisition-object-purchase-offer-price-currencyLabel"
+            "messagekey": "acquisition-objectPurchaseOfferPriceCurrencyLabel"
         },
         ".csc-acquisition-object-purchase-price-value": "${fields.objectPurchasePriceValue}",
         ".csc-acquisition-acquisition-provisos": "${fields.acquisitionProvisos}",
@@ -190,10 +190,10 @@
             "messagekey": "acquisition-updatedAtLabel"
         },
         ".csc-acquisition-objectOfferPriceValue-label": {
-            "messagekey": "acquisition-object-offer-price-valueLabel"
+            "messagekey": "acquisition-objectOfferPriceValueLabel"
         },
         ".csc-acquisition-acquisitionReason-label": {
-            "messagekey": "acquisition-acquisition-reasonLabel"
+            "messagekey": "acquisition-acquisitionReasonLabel"
         },
         ".csc-acquisition-numberPatternChooser-reference-number": "${fields.acquisitionReferenceNumber}",
         ".csc-acquisition-acquisitionInformation-label": {
@@ -206,7 +206,7 @@
             "selection": "${fields.objectOfferPriceCurrency}"
         },
         ".csc-acquisition-originalObjectPurchasePriceCurrency-label": {
-            "messagekey": "acquisition-original-object-purchase-price-currencyLabel"
+            "messagekey": "acquisition-originalObjectPurchasePriceCurrencyLabel"
         },
         ".csc-acquisition-object-purchase-offer-price-currency": {
             "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
@@ -214,7 +214,7 @@
             "selection": "${fields.objectPurchaseOfferPriceCurrency}"
         },
         ".csc-acquisition-groupPurchasePriceCurrency-label": {
-            "messagekey": "acquisition-group-purchase-price-currencyLabel"
+            "messagekey": "acquisition-groupPurchasePriceCurrencyLabel"
         },
         ".csc-acquisition-fieldCollectionEventName": {
             "decorators": [{
@@ -247,10 +247,10 @@
             "selection": "${fields.originalObjectPurchasePriceCurrency}"
         },
         ".csc-acquisition-accessionDate-label": {
-            "messagekey": "acquisition-accession-dateLabel"
+            "messagekey": "acquisition-accessionDateLabel"
         },
         ".csc-acquisition-acquisitionReferenceNumber-label": {
-            "messagekey": "acquisition-numberPatternChooser-reference-numberLabel"
+            "messagekey": "acquisition-acquisitionReferenceNumberLabel"
         },
         ".csc-acquisition-acquisitionSource": {
             "decorators": [{
@@ -288,7 +288,7 @@
             }]
         },
         ".csc-acquisition-acquisitionNote-label": {
-            "messagekey": "acquisition-acquisition-noteLabel"
+            "messagekey": "acquisition-acquisitionNoteLabel"
         },
         ".csc-acquisition-createdAt-label": {
             "messagekey": "acquisition-createdAtLabel"
@@ -315,7 +315,7 @@
             "messagekey": "acquisition-acquisitionAuthorizerDateLabel"
         },
         ".csc-acquisition-objectOfferPriceCurrency-label": {
-            "messagekey": "acquisition-object-offer-price-currencyLabel"
+            "messagekey": "acquisition-objectOfferPriceCurrencyLabel"
         },
         ".csc-acquisition-acquisitionDates": {
             "decorators": [{

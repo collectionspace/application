@@ -6,20 +6,20 @@
             "messagekey": "loanout-updatedAtLabel"
         },
         ".csc-loanout-borrower-label": {
-            "messagekey": "loanOut-borrowerLabel"
+            "messagekey": "loanout-borrowerLabel"
         },
         ".csc-loanout-loanRenewalApplicationDate-label": {
-            "messagekey": "loanOut-loanRenewalApplicationDateLabel"
+            "messagekey": "loanout-loanRenewalApplicationDateLabel"
         },
         ".csc-loanOut-loanOutDate": "${fields.loanOutDate}",
         ".csc-loanout-createdAt-label": {
             "messagekey": "loanout-createdAtLabel"
         },
         ".csc-loanout-loanOutNumber-label": {
-            "messagekey": "loanOut-loanOutNumberLabel"
+            "messagekey": "loanout-loanOutNumberLabel"
         },
         ".csc-loanout-lendersAuthorizer-label": {
-            "messagekey": "loanOut-lendersAuthorizerLabel"
+            "messagekey": "loanout-lendersAuthorizerLabel"
         },
         ".csc-loanOut-loanOutNumber-patternChooserContainer": {
             "decorators": [{
@@ -45,7 +45,7 @@
             }]
         },
         ".csc-loanout-loanPurpose-label": {
-            "messagekey": "loanOut-loanPurposeLabel"
+            "messagekey": "loanout-loanPurposeLabel"
         },
         ".csc-loanout-loanedObjectStatusGroup": {
             "decorators": [{
@@ -157,13 +157,13 @@
         },
         ".csc-loanout-updatedAt": "${fields.updatedAt}",
         ".csc-loanout-borrowersContact-label": {
-            "messagekey": "loanOut-borrowersContactLabel"
+            "messagekey": "loanout-borrowersContactLabel"
         },
         ".csc-loanout-lendersAuthorizationDate-label": {
-            "messagekey": "loanOut-lendersAuthorizationDateLabel"
+            "messagekey": "loanout-lendersAuthorizationDateLabel"
         },
         ".csc-loanout-lendersContact-label": {
-            "messagekey": "loanOut-lendersContactLabel"
+            "messagekey": "loanout-lendersContactLabel"
         },
         ".csc-loanOut-lendersAuthorizationDate-container": {
             "decorators": [{
@@ -173,20 +173,20 @@
         },
         ".csc-loanOut-loanOutNumber": "${fields.loanOutNumber}",
         ".csc-loanout-loanReturnDate-label": {
-            "messagekey": "loanOut-loanReturnDateLabel"
+            "messagekey": "loanout-loanReturnDateLabel"
         },
         ".csc-loanOut-loanRenewalApplicationDate": "${fields.loanRenewalApplicationDate}",
         ".csc-loanout-specialConditionsOfLoan-label": {
-            "messagekey": "loanOut-loanOutConditionsLabel"
+            "messagekey": "loanout-specialConditionsOfLoanLabel"
         },
         ".csc-loanout-loanedObjectStatusGroup-label": {
             "messagekey": "loanout-loanedObjectStatusGroupLabel"
         },
         ".csc-loanout-loanOutDate-label": {
-            "messagekey": "loanOut-loanOutDateLabel"
+            "messagekey": "loanout-loanOutDateLabel"
         },
         ".csc-loanout-loanOutNote-label": {
-            "messagekey": "loanOut-loanOutNoteLabel"
+            "messagekey": "loanout-loanOutNoteLabel"
         }
     }
 }

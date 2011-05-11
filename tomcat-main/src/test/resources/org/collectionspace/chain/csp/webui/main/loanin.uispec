@@ -1,13 +1,13 @@
 {
     "recordEditor": {
         ".csc-loanin-loanInNumber-label": {
-            "messagekey": "loanIn-loanInNumberLabel"
+            "messagekey": "loanin-loanInNumberLabel"
         },
         ".csc-loanin-createdAt-label": {
             "messagekey": "loanin-createdAtLabel"
         },
         ".csc-loanin-loanReturnDate-label": {
-            "messagekey": "loanIn-loanReturnDateLabel"
+            "messagekey": "loanin-loanReturnDateLabel"
         },
         ".csc-loanin-lenderGroup": {
             "decorators": [{
@@ -115,14 +115,14 @@
             "messagekey": "loanin-borrowersAuthorizerLabel"
         },
         ".csc-loanin-loanInNote-label": {
-            "messagekey": "loanIn-loanInNoteLabel"
+            "messagekey": "loanin-loanInNoteLabel"
         },
         ".csc-loanin-createdAt": "${fields.createdAt}",
         ".csc-loanin-loaninInformation-label": {
             "messagekey": "loanin-loaninInformationLabel"
         },
         ".csc-loanin-loanPurpose-label": {
-            "messagekey": "loanIn-loanPurposeLabel"
+            "messagekey": "loanin-loanPurposeLabel"
         },
         ".csc-loanIn-loanPurpose": {
             "default": "0",
@@ -143,7 +143,7 @@
             "value": "${fields.borrowersAuthorizer}"
         },
         ".csc-loanin-loanRenewalApplicationDate-label": {
-            "messagekey": "loanIn-loanRenewalApplicationDateLabel"
+            "messagekey": "loanin-loanRenewalApplicationDateLabel"
         },
         ".csc-loanIn-loanRenewalApplicationDate-container": {
             "decorators": [{
@@ -160,13 +160,13 @@
         ".csc-loanIn-loanInNote": "${fields.loanInNote}",
         ".csc-loanIn-loanReturnDate": "${fields.loanReturnDate}",
         ".csc-loanin-loanInDate-label": {
-            "messagekey": "loanIn-loanInDateLabel"
+            "messagekey": "loanin-loanInDateLabel"
         },
         ".csc-loanin-loanInConditions-label": {
-            "messagekey": "loanIn-loanInConditionsLabel"
+            "messagekey": "loanin-loanInConditionsLabel"
         },
         ".csc-loanin-loanInContact-label": {
-            "messagekey": "loanIn-loanInContactLabel"
+            "messagekey": "loanin-loanInContactLabel"
         },
         ".csc-loanin-updatedAt-label": {
             "messagekey": "loanin-updatedAtLabel"

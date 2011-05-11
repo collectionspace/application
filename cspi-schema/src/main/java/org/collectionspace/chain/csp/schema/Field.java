@@ -56,7 +56,9 @@ public class Field implements FieldSet {
 		this.initStrings(section,"selectorID", getString("parentID"));
 		this.initStrings(section,"selector", getString("selectorID") + "-" +  getString("@id"));
 		this.initStrings(section,"preselector", ".csc-" );
-		this.initStrings(section,"label", "" + getString("selector") + "Label");
+		//this.initStrings(section,"label", "" + getString("selector") + "Label");
+		//this should be overwritten by selector but currently the UI has inconsistencies which means teh labels are always defined correctly inspite of the selector
+		this.initStrings(section,"label", "" + getString("selectorID") + "-" +  getString("@id") + "Label");
 		this.initStrings(section,"@userecord", "");
 		this.initStrings(section,"@onlyifexists","");
 		this.initStrings(section,"@selector-affix", "");
