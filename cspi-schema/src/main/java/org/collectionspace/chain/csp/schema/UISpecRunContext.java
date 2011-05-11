@@ -6,6 +6,7 @@ import java.util.List;
 public class UISpecRunContext {
 	private String ui_prefix=null; /* Eg in ${foo.0.bar.0.baz} */
 	private String ui_affix=null; /* Eg in .csc-foo-bar-baz */
+	private Boolean pad = true; /* should this have a 0 in the veryplain ${field.parent.0.child} */
 	private UISpecRunContext parent=null;
 	
 	public UISpecRunContext() {}
@@ -18,6 +19,13 @@ public class UISpecRunContext {
 	}
 	public void setUIPrefix(String p) {
 		ui_prefix = p;
+	}
+
+	public void setPad(Boolean b){
+		pad = b;
+	}
+	public Boolean hasPad(){
+		return pad;
 	}
 
 	private void getUIPrefix(List<String> out) {

@@ -119,6 +119,7 @@ public class Repeat implements FieldSet, FieldParent {
 		this.initStrings(section,"precontainer-selector", getString("preselector"));
 		this.initStrings(section,"pretitle-selector", getString("preselector"));
 		this.initStrings(section,"title-selector", getString("selector") + "-titlebar");
+		this.initStrings(section, "@primarykey", getString("selector"));
 		
 		this.initStrings(section,"@selector-affix","");
 
@@ -308,6 +309,9 @@ public class Repeat implements FieldSet, FieldParent {
 
 	public Boolean asSibling() {
 		return getBoolean("@asSibling");
+	}
+	public String getPrimaryKey() {
+		return getString("@primarykey");
 	}
 
 	public Boolean hasPrimary() {

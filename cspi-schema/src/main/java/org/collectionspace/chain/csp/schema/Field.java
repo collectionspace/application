@@ -52,10 +52,12 @@ public class Field implements FieldSet {
 		this.initSet(section,"@autocomplete",new String[] { "" });
 		this.initBoolean(section,"@container",false);
 		this.initBoolean(section,"@xxx_ui_refactored",true);
+		
 
 		this.initStrings(section,"selectorID", getString("parentID"));
 		this.initStrings(section,"selector", getString("selectorID") + "-" +  getString("@id"));
 		this.initStrings(section,"preselector", ".csc-" );
+		this.initStrings(section, "@primarykey", getString("selector"));
 		//this.initStrings(section,"label", "" + getString("selector") + "Label");
 		//this should be overwritten by selector but currently the UI has inconsistencies which means teh labels are always defined correctly inspite of the selector
 		this.initStrings(section,"label", "" + getString("selectorID") + "-" +  getString("@id") + "Label");
@@ -276,6 +278,9 @@ public class Field implements FieldSet {
 	
 	public String getPreTitleSelector() {
 		return getString("pretitle-selector");
+	}
+	public String getPrimaryKey() {
+		return getString("@primarykey");
 	}
 
 	public String getServicesFilterParam() {

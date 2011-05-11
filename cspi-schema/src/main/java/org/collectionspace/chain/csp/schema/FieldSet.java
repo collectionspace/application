@@ -34,6 +34,7 @@ public interface FieldSet {
 	public String getSelector();
 	public String getPreSelector();
 	public String getLabel();
+	public String getPrimaryKey();
 	public Boolean usesRecord();
 	public String usesRecordValidator();
 	public Record usesRecordId();

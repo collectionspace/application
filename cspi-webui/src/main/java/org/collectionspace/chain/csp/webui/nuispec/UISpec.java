@@ -68,15 +68,26 @@ public class UISpec implements WebMethod {
 
 		List<String> path=new ArrayList<String>();
 		String pad="fields";
+		path.add(pad);
 		for(String part : getFullIDPath(f,context)) {
-			path.add(pad);
-			pad="0";
+			if(pad.equals("0")){
+				if(context.hasPad()){
+					path.add(pad);
+				}
+				pad="";
+			}
+			else{
+				pad="0";
+			}
 			path.add(part);
 		}
 		return StringUtils.join(path,'.');		
 	}
 	protected String veryplain(FieldSet f,UISpecRunContext context) {
 		return "${"+veryplainWithoutEnclosure(f,context)+"}";		
+	}
+	protected String veryplain(String f) {
+		return "${"+f+"}";		
 	}
 
 	// XXX make common
@@ -202,7 +213,8 @@ public class UISpec implements WebMethod {
 		JSONArray decorators=new JSONArray();
 		JSONObject options=new JSONObject();
 		UISpecRunContext sub = context.createChild();
-		sub.setUIAffix("objectProductionDates-");
+		sub.setUIPrefix(f.getID());
+		sub.setPad(false);
 		//context.appendAffix("objectProductionDates-");
 		String parts[] = f.getUIType().split("/");
 		JSONObject subexpander = new JSONObject();
@@ -213,7 +225,8 @@ public class UISpec implements WebMethod {
 			generateDataEntry(subexpander,fs2, sub);
 		}
 		
-		
+
+		sub.setUIAffix(f.getID()+"-");
 		
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.noexpand");
@@ -224,11 +237,11 @@ public class UISpec implements WebMethod {
 		protoTree.put("expander", expander);
 		
 		options.put("protoTree", protoTree);
-		options.put("elPath", "fields."+f.getID());
+		options.put("elPath", "fields."+f.getPrimaryKey());
 		JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options);
 		decorators.put(decorator);
 		out.put("decorators",decorators);
-		out.put("value",plain(f,context));
+		out.put("value",veryplain("fields."+f.getPrimaryKey()));
 
 		}
 		
