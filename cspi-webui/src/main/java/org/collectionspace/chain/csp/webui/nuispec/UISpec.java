@@ -64,7 +64,7 @@ public class UISpec implements WebMethod {
 	}
 
 	// XXX make common
-	protected String veryplain(FieldSet f,UISpecRunContext context) {
+	protected String veryplainWithoutEnclosure(FieldSet f,UISpecRunContext context) {
 
 		List<String> path=new ArrayList<String>();
 		String pad="fields";
@@ -73,7 +73,10 @@ public class UISpec implements WebMethod {
 			pad="0";
 			path.add(part);
 		}
-		return "${"+StringUtils.join(path,'.')+"}";		
+		return StringUtils.join(path,'.');		
+	}
+	protected String veryplain(FieldSet f,UISpecRunContext context) {
+		return "${"+veryplainWithoutEnclosure(f,context)+"}";		
 	}
 
 	// XXX make common
@@ -350,7 +353,7 @@ public class UISpec implements WebMethod {
 		JSONObject siblingexpander = new JSONObject();
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.renderer.repeat");
-		expander.put("controlledBy", "fields."+r.getID());
+		expander.put("controlledBy", veryplainWithoutEnclosure(r,context));//"fields."+r.getID());
 		expander.put("pathAs", "row");
 		expander.put("repeatID", getSelector(r,context));
 
@@ -445,7 +448,7 @@ public class UISpec implements WebMethod {
 			JSONObject subexpander = new JSONObject();
 			subexpander.put("type", "fluid.renderer.repeat");
             subexpander.put("pathAs", "row");
-            subexpander.put( "controlledBy", "fields."+r.getID());
+            subexpander.put( "controlledBy", veryplainWithoutEnclosure(r,context));
             subexpander.put("repeatID", "repeat:");
             subexpander.put("tree", preProtoTree);
 			
@@ -461,7 +464,7 @@ public class UISpec implements WebMethod {
 			protoTree.put("expander", expander);
 			
 			options.put("protoTree", protoTree);
-			options.put("elPath", "fields."+r.getID());
+			options.put("elPath",veryplainWithoutEnclosure(r,context));
 
 			JSONObject decorator = getDecorator("fluid",null,"cspace.makeRepeatable",options);
 			decorators.put(decorator);
