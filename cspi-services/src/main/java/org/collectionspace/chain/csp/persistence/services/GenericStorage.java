@@ -704,6 +704,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				doc=XmlJsonConversion.convertToXml(thisr,jsonObject,section,"PUT");
 				if(doc !=null){
 					parts.put(record_path[0],doc);
+				//	log.info(doc.asXML());
 				}
 			}
 			int status = 0;
@@ -721,84 +722,57 @@ public class GenericStorage  implements ContextualisedStorage {
 			//XXX Completely untested subrecord update
 			for(FieldSet fs : r.getAllSubRecords("PUT")){
 				Record sr = fs.usesRecordId();
-				
-				//get list of existing subrecords
-				JSONObject existingcsid = new JSONObject();
-				JSONObject updatecsid = new JSONObject();
-				JSONArray createcsid = new JSONArray();
-				String getPath = serviceurl+filePath + "/" + sr.getServicesURL();
-				String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
-				JSONObject data = getListView(root,creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
-				
+				if(sr.isRealRecord()){//only deal with ones which are seperate Records in the services
 
-				String[] filepaths = (String[]) data.get("listItems");
-				for(String uri : filepaths) {
-					String path = uri;
-					if(path!=null && path.startsWith("/"))
-						path=path.substring(1);
-					existingcsid.put(path,"original");
-				}
-				
-				//how does that compare to what we need
-				if(sr.isType("authority")){
-					//need to use configuredVocabStorage
-				}
-				else{
-					if(fs instanceof Field){
-						JSONObject subdata = new JSONObject();
-						//loop thr jsonObject and find the fields I need
-						for(FieldSet subfs: sr.getAllFields("PUT")){
-							String key = subfs.getID();
-							if(jsonObject.has(key)){
-								subdata.put(key, jsonObject.get(key));
-							}
-						}
+					//get list of existing subrecords
+					JSONObject existingcsid = new JSONObject();
+					JSONObject updatecsid = new JSONObject();
+					JSONArray createcsid = new JSONArray();
+					String getPath = serviceurl+filePath + "/" + sr.getServicesURL();
+					String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
+					JSONObject data = getListView(root,creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
+					
 
-						if(filepaths.length ==0){
-							//create
-							createcsid.put(subdata);
-						}
-						else{
-							//update - there should only be one
-							String firstcsid = filepaths[0];
-							updatecsid.put(firstcsid, subdata);
-							existingcsid.remove(firstcsid);
-						}
+					String[] filepaths = (String[]) data.get("listItems");
+					for(String uri : filepaths) {
+						String path = uri;
+						if(path!=null && path.startsWith("/"))
+							path=path.substring(1);
+						existingcsid.put(path,"original");
 					}
-					else if(fs instanceof Group){//JSONObject
-						//do we have a csid
-						//subrecorddata.put(value);
-						if(jsonObject.has(fs.getID())){
-							Object subdata = jsonObject.get(fs.getID());
-							if(subdata instanceof JSONObject){
-								if(((JSONObject) subdata).has("_subrecordcsid")){
-									String thiscsid = ((JSONObject) subdata).getString("_subrecordcsid");
-									//update
-									if(existingcsid.has(thiscsid)){
-										updatecsid.put(thiscsid, (JSONObject) subdata);
-										existingcsid.remove(thiscsid);
-									}
-									else{
-										//something has gone wrong... best just create it from scratch
-										createcsid.put(subdata);
-									}
-								}
-								else{
-									//create
-									createcsid.put(subdata);
+					
+					//how does that compare to what we need
+					if(sr.isType("authority")){
+						//need to use configuredVocabStorage
+					}
+					else{
+						if(fs instanceof Field){
+							JSONObject subdata = new JSONObject();
+							//loop thr jsonObject and find the fields I need
+							for(FieldSet subfs: sr.getAllFields("PUT")){
+								String key = subfs.getID();
+								if(jsonObject.has(key)){
+									subdata.put(key, jsonObject.get(key));
 								}
 							}
-						}
-					}
-					else{//JSONArray Repeat
-						//need to find if we have csid's for each one
-						if(jsonObject.has(fs.getID())){
-							Object subdata = jsonObject.get(fs.getID());
-							if(subdata instanceof JSONArray){
-								JSONArray subarray = (JSONArray)subdata;
 
-								for(int i=0;i<subarray.length();i++) {
-									JSONObject subrecord = subarray.getJSONObject(i);
+							if(filepaths.length ==0){
+								//create
+								createcsid.put(subdata);
+							}
+							else{
+								//update - there should only be one
+								String firstcsid = filepaths[0];
+								updatecsid.put(firstcsid, subdata);
+								existingcsid.remove(firstcsid);
+							}
+						}
+						else if(fs instanceof Group){//JSONObject
+							//do we have a csid
+							//subrecorddata.put(value);
+							if(jsonObject.has(fs.getID())){
+								Object subdata = jsonObject.get(fs.getID());
+								if(subdata instanceof JSONObject){
 									if(((JSONObject) subdata).has("_subrecordcsid")){
 										String thiscsid = ((JSONObject) subdata).getString("_subrecordcsid");
 										//update
@@ -818,33 +792,64 @@ public class GenericStorage  implements ContextualisedStorage {
 								}
 							}
 						}
-					}
-					
+						else{//JSONArray Repeat
+							//need to find if we have csid's for each one
+							if(jsonObject.has(fs.getID())){
+								Object subdata = jsonObject.get(fs.getID());
+								if(subdata instanceof JSONArray){
+									JSONArray subarray = (JSONArray)subdata;
 
-					String savePath = serviceurl+filePath + "/" + sr.getServicesURL()+"/";
-					
-					//do delete JSONObject existingcsid = new JSONObject();
-					Iterator<String> rit=existingcsid.keys();
-					while(rit.hasNext()) {
-						String key=rit.next();
-						deleteJSON(root,creds,cache,key,savePath,sr);
+									for(int i=0;i<subarray.length();i++) {
+										JSONObject subrecord = subarray.getJSONObject(i);
+										if(((JSONObject) subdata).has("_subrecordcsid")){
+											String thiscsid = ((JSONObject) subdata).getString("_subrecordcsid");
+											//update
+											if(existingcsid.has(thiscsid)){
+												updatecsid.put(thiscsid, (JSONObject) subdata);
+												existingcsid.remove(thiscsid);
+											}
+											else{
+												//something has gone wrong... best just create it from scratch
+												createcsid.put(subdata);
+											}
+										}
+										else{
+											//create
+											createcsid.put(subdata);
+										}
+									}
+								}
+							}
+						}
+						
+
+						String savePath = serviceurl+filePath + "/" + sr.getServicesURL()+"/";
+						
+						//do delete JSONObject existingcsid = new JSONObject();
+						Iterator<String> rit=existingcsid.keys();
+						while(rit.hasNext()) {
+							String key=rit.next();
+							deleteJSON(root,creds,cache,key,savePath,sr);
+						}
+						
+						//do update JSONObject updatecsid = new JSONObject();
+						Iterator<String> keys = updatecsid.keys();
+						while(keys.hasNext()) {
+							String key=keys.next();
+							JSONObject value = updatecsid.getJSONObject(key);
+							updateJSON( root, creds, cache, key,  value, sr, savePath);
+						}
+						
+						
+						//do create JSONArray createcsid = new JSONArray();
+						for(int i=0;i<createcsid.length();i++){
+							JSONObject value = createcsid.getJSONObject(i);
+							subautocreateJSON(root,creds,cache,sr,value,savePath);
+						}
 					}
 					
-					//do update JSONObject updatecsid = new JSONObject();
-					Iterator<String> keys = updatecsid.keys();
-					while(keys.hasNext()) {
-						String key=keys.next();
-						JSONObject value = updatecsid.getJSONObject(key);
-						updateJSON( root, creds, cache, key,  value, sr, savePath);
-					}
-					
-					
-					//do create JSONArray createcsid = new JSONArray();
-					for(int i=0;i<createcsid.length();i++){
-						JSONObject value = createcsid.getJSONObject(i);
-						subautocreateJSON(root,creds,cache,sr,value,savePath);
-					}
 				}
+				
 			}
 			
 			

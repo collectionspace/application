@@ -36,10 +36,31 @@ import org.slf4j.LoggerFactory;
 
 public class XmlJsonConversion {
 	private static final Logger log=LoggerFactory.getLogger(XmlJsonConversion.class);
-	private static void addFieldToXml(Element root,Field field,JSONObject in, String permlevel) throws JSONException {
+	private static void addFieldToXml(Element root,Field field,JSONObject in, String permlevel) throws JSONException, UnderlyingStorageException {
+		
 		String value=in.optString(field.getID());
 		Element element=root.addElement(field.getServicesTag());
-		element.addText(value);
+		if(field.getUIType().startsWith("groupfield")){
+			addSubRecordToXml(element,field,in.getJSONObject(field.getID()), permlevel);
+		}
+		else{
+			element.addText(value);
+		}
+	}
+	
+	private static void addSubRecordToXml(Element root,Field field,JSONObject in, String permlevel) throws JSONException, UnderlyingStorageException{
+		String parts[] = field.getUIType().split("/");
+		Record subitems = field.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+
+		if(subitems.getAllServiceFields(permlevel,"common").length >0){
+			for(FieldSet f : subitems.getAllServiceFields(permlevel,"common")) {
+				addFieldSetToXml(root,f,in,"common",permlevel);
+			}
+			String test = root.asXML();
+			log.debug(root.asXML());
+			//return doc;
+		}
+		
 	}
 	
 	//XXX could refactor this and addRepeatToXML as this is what happens in the middle of addRepeatToXML
@@ -319,7 +340,21 @@ public class XmlJsonConversion {
 				return;
 			}
 			addExtraToJson(out, el, f, tempSon);
-			out.put(f.getID(),el.getText());
+
+			if(f.getUIType().startsWith("groupfield")){
+				String parts[] = f.getUIType().split("/");
+				Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+
+				JSONObject temp = new JSONObject();
+				for(FieldSet fs : subitems.getAllServiceFields(permlevel,"common")) {
+					addFieldSetToJson(temp,root,fs,permlevel, tempSon,csid,ims_url);
+				}
+
+				out.put(f.getID(),temp);
+			}
+			else{
+				out.put(f.getID(),el.getText());
+			}
 	
 			tempSon = addtemp(tempSon, f.getID(), el.getText());
 		}

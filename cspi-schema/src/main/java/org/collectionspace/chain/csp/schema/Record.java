@@ -74,6 +74,8 @@ public class Record implements FieldParent {
 		this.initBoolean(section,"@in-findedit",false);
 
 		this.initBoolean(section,"@in-recordlist",true);
+		this.initBoolean(section,"@separate-record",true);
+		
 		
 		// config whether service layer needs call as multipart or not
 		this.initBoolean(section,"is-multipart",true);
@@ -400,7 +402,10 @@ public class Record implements FieldParent {
 	public boolean isInRecordList() {
 		return getBoolean("@in-recordlist");
 	}
-
+	public boolean isRealRecord() {
+		return getBoolean("@separate-record");
+	}
+	
 	public boolean isMultipart() {
 		return getBoolean("is-multipart");
 	}

@@ -709,7 +709,8 @@
                 <section id="objectProductionInformation">
                 	
                        	<field id="objectProductionDate"   ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
-                            <selector>object-production-date</selector>
+                            <services-tag>objectProductionDateGroup</services-tag>
+							<selector>object-production-date</selector>
                         </field>
                 	
                     <repeat id="techniqueGroupList/techniqueGroup">
@@ -2441,7 +2442,7 @@
             </record>
 
 					
-            <record id="structureddate" in-recordlist="no">
+            <record id="structureddate" in-recordlist="no" separate-record="false">
             	<section>
                 <field id="dateNote"><selector>dateNote</selector><preselector></preselector></field>
                 <field id="dateAssociation"><selector>dateAssociation</selector><preselector></preselector></field>
