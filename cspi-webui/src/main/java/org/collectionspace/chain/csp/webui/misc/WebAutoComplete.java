@@ -69,6 +69,29 @@ public class WebAutoComplete implements WebMethod {
 					JSONObject entry=new JSONObject();
 					entry.put("urn",data.get("refid"));
 					entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));
+					
+					//find out broaderContext
+
+					String base = r.getSpec().getRecordByWebUrl(data.getString("recordtype")).getServicesURL();
+					JSONObject r=new JSONObject();
+					r.put("src",base+"/"+data.getString("csid"));	
+					r.put("type","hasBroader");	
+					// XXX needs pagination support CSPACE-1819
+					JSONObject reldata = storage.getPathsJSON("relations/hierarchical",r);
+					if(reldata.has("listItems")){
+						if(reldata.getJSONObject("moredata").length() >0){
+							//there is a relationship
+							String[] reld = (String[])reldata.get("listItems");
+							String hcsid = reld[0];
+							JSONObject mored = reldata.getJSONObject("moredata").getJSONObject(hcsid);
+							//it's name is
+							JSONObject broaderthan = new JSONObject();
+							broaderthan.put("label", mored.getString("objectname"));
+							entry.put("broader", broaderthan);
+						}
+					}
+					//http://nightly.collectionspace.org:8180/cspace-services/relations?sbjType=personauthorities&prd=hasBroader&sbj=54148223-aa09-4dbd-8e93
+					// /relate/main/<id>  GET ::: ::: {'src': src-type/src, 'type': type, 'dst': dst-type/dst}
 					out.put(entry);
 				}
 			}

@@ -69,6 +69,7 @@ public class SplittingStorage implements ContextualisedStorage {
 			//XXX THIS SHOULD BE LOOKED AT AND CHANGED !!!
 			JSONObject out = new JSONObject();
 			JSONObject pagination = new JSONObject();
+			JSONObject moredata = new JSONObject();
 			boolean passed = false;
 			List<String[]> separatelists = new ArrayList<String[]>();
 			String parts[]=split(rootPath,true);
@@ -83,6 +84,9 @@ public class SplittingStorage implements ContextualisedStorage {
 						if(data==null){
 							data = new JSONObject();
 							data.put("listItems", new String[0]) ;
+						}
+						if(data.has("moredata")){
+							moredata = data.getJSONObject("moredata");
 						}
 						JSONObject paging = new JSONObject();
 						if(data.has("pagination")){
@@ -117,6 +121,7 @@ public class SplittingStorage implements ContextualisedStorage {
 				}
 				
 				pagination.put("separatelists", separatelists);
+				out.put("moredata", moredata);
 				out.put("pagination", pagination);
 				out.put("listItems",list.toArray(new String[0]));
 				

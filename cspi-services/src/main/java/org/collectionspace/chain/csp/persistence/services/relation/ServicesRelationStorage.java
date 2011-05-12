@@ -132,6 +132,23 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		return out;
 	}
 
+	private Boolean isPathType(String in,String[] prefixes,int var) throws UnderlyingStorageException {
+		if(in==null) 
+			return false;
+		if(in.startsWith("/"))
+			in=in.substring(1);
+		if(in.endsWith("/"))
+			in=in.substring(0,in.length()-1);
+		String[] split=in.split("/");
+		if(split.length!=prefixes.length+var)
+			return false;
+		for(int i=0;i<prefixes.length;i++){
+			if(!prefixes[i].equals(split[i])){
+				return false;
+			}
+		}
+		return true;
+	}
 	// XXX refactor
 	private String[] extractPaths(String in,String[] prefixes,int var) throws UnderlyingStorageException {
 		if(in==null) 
@@ -264,8 +281,17 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out = new JSONObject();
-		extractPaths(rootPath,new String[]{"main"},0);
+		Boolean isHierarchical = false;
+		if(isPathType(rootPath,new String[]{"main"},0)){
+			extractPaths(rootPath,new String[]{"main"},0);
+		}
+		else if (isPathType(rootPath,new String[]{"hierarchical"},0)){
+			extractPaths(rootPath,new String[]{"hierarchical"},0);
+			isHierarchical = true;
+		}
+		
 		try {
+			JSONObject moredata = new JSONObject();
 			List<String> list=new ArrayList<String>();
 			ReturnedDocument data=conn.getXMLDocument(RequestMethod.GET,"/relations?"+searchPath(restrictions),null,creds,cache);
 			Document doc=data.getDocument();
@@ -278,6 +304,16 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 				if(node.matches("/"+xmlroot+"/relation-list-item")){
 					//if(post_filter(creds,cache,restrictions,node))
 						list.add(node.selectSingleNode("csid").getText());
+						if(isHierarchical){
+							JSONObject hdata = new JSONObject();
+							hdata.put("subjecturi", node.selectSingleNode("subject").selectSingleNode("uri").getText());
+							hdata.put("objecturi", node.selectSingleNode("object").selectSingleNode("uri").getText());
+							hdata.put("subjectname", node.selectSingleNode("subject").selectSingleNode("name").getText());
+							hdata.put("objectname", node.selectSingleNode("object").selectSingleNode("name").getText());
+							hdata.put("type", node.selectSingleNode("predicate").getText());
+							hdata.put("csid", node.selectSingleNode("csid").getText());
+							moredata.put(node.selectSingleNode("csid").getText(), hdata);
+						}
 				}else{
 					pagination.put(node.getName(), node.getText());
 				}
@@ -285,6 +321,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			
 			out.put("pagination", pagination);
 			out.put("listItems",list.toArray(new String[0]));
+			out.put("moredata",moredata);
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Could not retrieve relation"+e.getLocalizedMessage(),e.getStatus(),e.getUrl());
