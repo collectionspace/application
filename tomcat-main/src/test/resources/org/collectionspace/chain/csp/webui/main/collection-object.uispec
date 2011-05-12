@@ -1247,58 +1247,58 @@
                     "protoTree": {
                         "expander": {
                             "tree": {
-                                "dateEarliestSingleMonth": "${fields.objectProductionDates.dateEarliestSingleMonth}",
-                                "dateLatestCertainty": {
-                                    "optionnames": ["After", "Approximate", "Before", "Circa", "Please select a value", "Possibly", "Probably"],
-                                    "optionlist": ["", "after", "approximate", "before", "circa", "possibly", "probably"],
-                                    "selection": "${fields.objectProductionDates.dateLatestCertainty}"
-                                },
-                                "dateEarliestSingleQualifierUnit": {
-                                    "optionnames": ["Day(s)", "Month(s)", "Please select a value", "Year(s)"],
-                                    "optionlist": ["", "days", "month", "years"],
-                                    "selection": "${fields.objectProductionDates.dateEarliestSingleQualifierUnit}"
-                                },
-                                "dateDisplayDate": "${fields.objectProductionDates.dateDisplayDate}",
-                                "dateEarliestSingleQualifierValue": "${fields.objectProductionDates.dateEarliestSingleQualifierValue}",
-                                "dateLatestMonth": "${fields.objectProductionDates.dateLatestMonth}",
-                                "dateEarliestSingleCertainty": {
-                                    "optionnames": ["After", "Approximate", "Before", "Circa", "Please select a value", "Possibly", "Probably"],
-                                    "optionlist": ["", "after", "approximate", "before", "circa", "possibly", "probably"],
-                                    "selection": "${fields.objectProductionDates.dateEarliestSingleCertainty}"
-                                },
-                                "dateEarliestSingleEra": {
-                                    "optionnames": ["BCE", "CE", "Please select a value"],
-                                    "optionlist": ["", "bce", "ce"],
-                                    "selection": "${fields.objectProductionDates.dateEarliestSingleEra}"
-                                },
-                                "dateLatestDay": "${fields.objectProductionDates.dateLatestDay}",
-                                "dateLatestEra": {
-                                    "optionnames": ["BCE", "CE", "Please select a value"],
-                                    "optionlist": ["", "bce", "ce"],
-                                    "selection": "${fields.objectProductionDates.dateLatestEra}"
-                                },
-                                "datePeriod": "${fields.objectProductionDates.datePeriod}",
-                                "dateLatestQualifierValue": "${fields.objectProductionDates.dateLatestQualifierValue}",
-                                "dateLatestQualifier": {
-                                    "optionnames": ["Please select a value"],
-                                    "optionlist": [""],
-                                    "selection": "${fields.objectProductionDates.dateLatestQualifier}"
-                                },
-                                "dateLatestYear": "${fields.objectProductionDates.dateLatestYear}",
-                                "dateAssociation": "${fields.objectProductionDates.dateAssociation}",
-                                "dateLatestQualifierUnit": {
-                                    "optionnames": ["Day(s)", "Month(s)", "Please select a value", "Year(s)"],
-                                    "optionlist": ["", "days", "month", "years"],
-                                    "selection": "${fields.objectProductionDates.dateLatestQualifierUnit}"
-                                },
-                                "dateEarliestSingleDay": "${fields.objectProductionDates.dateEarliestSingleDay}",
                                 "dateEarliestSingleQualifier": {
                                     "optionnames": ["Please select a value"],
                                     "optionlist": [""],
-                                    "selection": "${fields.objectProductionDates.dateEarliestSingleQualifier}"
+                                    "selection": "${fields.objectProductionDate.dateEarliestSingleQualifier}"
                                 },
-                                "dateNote": "${fields.dateNote}",
-                                "dateEarliestSingleYear": "${fields.objectProductionDates.dateEarliestSingleYear}"
+                                "dateLatestDay": "${fields.objectProductionDate.dateLatestDay}",
+                                "dateLatestYear": "${fields.objectProductionDate.dateLatestYear}",
+                                "dateAssociation": "${fields.objectProductionDate.dateAssociation}",
+                                "dateEarliestSingleEra": {
+                                    "optionnames": ["BCE", "CE", "Please select a value"],
+                                    "optionlist": ["", "bce", "ce"],
+                                    "selection": "${fields.objectProductionDate.dateEarliestSingleEra}"
+                                },
+                                "dateDisplayDate": "${fields.objectProductionDate.dateDisplayDate}",
+                                "dateEarliestSingleCertainty": {
+                                    "optionnames": ["After", "Approximate", "Before", "Circa", "Please select a value", "Possibly", "Probably"],
+                                    "optionlist": ["", "after", "approximate", "before", "circa", "possibly", "probably"],
+                                    "selection": "${fields.objectProductionDate.dateEarliestSingleCertainty}"
+                                },
+                                "dateLatestEra": {
+                                    "optionnames": ["BCE", "CE", "Please select a value"],
+                                    "optionlist": ["", "bce", "ce"],
+                                    "selection": "${fields.objectProductionDate.dateLatestEra}"
+                                },
+                                "dateEarliestSingleQualifierValue": "${fields.objectProductionDate.dateEarliestSingleQualifierValue}",
+                                "dateLatestCertainty": {
+                                    "optionnames": ["After", "Approximate", "Before", "Circa", "Please select a value", "Possibly", "Probably"],
+                                    "optionlist": ["", "after", "approximate", "before", "circa", "possibly", "probably"],
+                                    "selection": "${fields.objectProductionDate.dateLatestCertainty}"
+                                },
+                                "dateEarliestSingleYear": "${fields.objectProductionDate.dateEarliestSingleYear}",
+                                "dateLatestQualifier": {
+                                    "optionnames": ["Please select a value"],
+                                    "optionlist": [""],
+                                    "selection": "${fields.objectProductionDate.dateLatestQualifier}"
+                                },
+                                "dateLatestQualifierValue": "${fields.objectProductionDate.dateLatestQualifierValue}",
+                                "dateEarliestSingleQualifierUnit": {
+                                    "optionnames": ["Day(s)", "Month(s)", "Please select a value", "Year(s)"],
+                                    "optionlist": ["", "days", "month", "years"],
+                                    "selection": "${fields.objectProductionDate.dateEarliestSingleQualifierUnit}"
+                                },
+                                "datePeriod": "${fields.objectProductionDate.datePeriod}",
+                                "dateLatestMonth": "${fields.objectProductionDate.dateLatestMonth}",
+                                "dateNote": "${fields.objectProductionDate.dateNote}",
+                                "dateLatestQualifierUnit": {
+                                    "optionnames": ["Day(s)", "Month(s)", "Please select a value", "Year(s)"],
+                                    "optionlist": ["", "days", "month", "years"],
+                                    "selection": "${fields.objectProductionDate.dateLatestQualifierUnit}"
+                                },
+                                "dateEarliestSingleDay": "${fields.objectProductionDate.dateEarliestSingleDay}",
+                                "dateEarliestSingleMonth": "${fields.objectProductionDate.dateEarliestSingleMonth}"
                             },
                             "type": "fluid.noexpand"
                         }
