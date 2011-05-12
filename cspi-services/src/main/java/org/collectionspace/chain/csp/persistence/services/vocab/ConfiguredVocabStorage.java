@@ -866,14 +866,17 @@ public class ConfiguredVocabStorage extends GenericStorage {
 								}
 							}
 							else if(rel.getObject().equals("n")){
+								//if()
 								JSONArray temp = jsonObject.getJSONArray(rel.getID());
 								for(int i=0; i<temp.length();i++){
 									String argh = rel.getChildName();
 									JSONObject brgh = temp.getJSONObject(i);
-									String uri = brgh.getString(argh);
-									Element bit = createRelationship(newrel,uri,csid,r.getServicesURL(),refname, inverse);
-									if(bit != null){
-										alleles.add(bit);
+									if(brgh.has(argh)){
+										String uri = brgh.getString(argh);
+										Element bit = createRelationship(newrel,uri,csid,r.getServicesURL(),refname, inverse);
+										if(bit != null){
+											alleles.add(bit);
+										}
 									}
 								}
 								
