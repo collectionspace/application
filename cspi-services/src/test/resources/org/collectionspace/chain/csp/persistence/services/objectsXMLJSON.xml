@@ -18,8 +18,27 @@
 		<referenceNote>referenceNote</referenceNote>
 	</referenceGroup>
 </referenceGroupList>
+<objectProductionDateGroup>
+            <dateEarliestSingleQualifier/>
+            <dateLatestDay/>
+            <dateLatestYear/>
+            <dateAssociation/>
+            <dateDisplayDate/>
+            <dateEarliestSingleCertainty/>
+            <dateEarliestSingleQualifierValue/>
+            <dateEarliestSingleYear/>
+            <dateLatestCertainty/>
+            <dateLatestQualifier/>
+            <dateLatestQualifierValue/>
+            <dateEarliestSingleQualifierUnit/>
+            <datePeriod/>
+            <dateLatestMonth/>
+            <dateNote/>
+            <dateLatestQualifierUnit/>
+            <dateEarliestSingleDay/>
+            <dateEarliestSingleMonth/>
+        </objectProductionDateGroup>
 <ownersReferences/>
-<objectProductionDate/>
 <objectProductionReasons/>
 <viewersReferences/>
 <briefDescriptions>
