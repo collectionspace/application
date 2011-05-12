@@ -1248,8 +1248,8 @@
                         "expander": {
                             "tree": {
                                 "dateEarliestSingleQualifier": {
-                                    "optionnames": ["Please select a value"],
-                                    "optionlist": [""],
+                                    "optionnames": ["+", "+/-", "-"],
+                                    "optionlist": ["+", "+/-", "-"],
                                     "selection": "${fields.objectProductionDate.dateEarliestSingleQualifier}"
                                 },
                                 "dateLatestDay": "${fields.objectProductionDate.dateLatestDay}",
@@ -1279,8 +1279,8 @@
                                 },
                                 "dateEarliestSingleYear": "${fields.objectProductionDate.dateEarliestSingleYear}",
                                 "dateLatestQualifier": {
-                                    "optionnames": ["Please select a value"],
-                                    "optionlist": [""],
+                                    "optionnames": ["+", "+/-", "-"],
+                                    "optionlist": ["+", "+/-", "-"],
                                     "selection": "${fields.objectProductionDate.dateLatestQualifier}"
                                 },
                                 "dateLatestQualifierValue": "${fields.objectProductionDate.dateLatestQualifierValue}",
