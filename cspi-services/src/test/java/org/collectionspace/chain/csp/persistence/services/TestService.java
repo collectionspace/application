@@ -82,8 +82,8 @@ public class TestService extends ServicesBaseClass {
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
 		testXMLJSON(spec, "media", "media.xml", "mediaJSON.json");
-		testXMLJSON(spec, "collection-object", "objectsXMLJSON.xml",
-				"objectsJSON.json");
+	//	testXMLJSON(spec, "collection-object", "objectsXMLJSON.xml",
+	//			"objectsJSON.json");
 
 		testXMLJSON(spec, "acquisition", "acquisitionXMLJSON.xml",
 				"acquisitionJSON.json");
