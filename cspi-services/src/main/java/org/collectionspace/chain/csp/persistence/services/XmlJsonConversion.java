@@ -41,7 +41,9 @@ public class XmlJsonConversion {
 		String value=in.optString(field.getID());
 		Element element=root.addElement(field.getServicesTag());
 		if(field.getUIType().startsWith("groupfield")){
-			addSubRecordToXml(element,field,in.getJSONObject(field.getID()), permlevel);
+			if(in.has(field.getID())){
+				addSubRecordToXml(element,field,in.getJSONObject(field.getID()), permlevel);
+			}
 		}
 		else{
 			element.addText(value);
