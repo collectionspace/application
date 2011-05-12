@@ -16,7 +16,7 @@ public class TestGenerateAuthorities extends TestBase {
 	.getLogger(TestGenerateAuthorities.class);
 	
 
-	/*
+	
 	@Test
 	public void testSetUp() throws Exception {
 		HttpTester out;
@@ -44,6 +44,6 @@ public class TestGenerateAuthorities extends TestBase {
 		// /chain/vocabularies/person/initialize?datapath=/Users/csm22/Documents/collectionspace/svcapp/cspi-webui/src/main/resources/org/collectionspace/chain/csp/webui/misc/names.txt
 
 	}
-	*/
+	
 	
 }
