@@ -81,6 +81,8 @@ public class Field implements FieldSet {
 		
 		this.initBoolean(section,"@seperate_ui_container",seperate_default);
 		this.initStrings(section,"use-csid",null);
+		this.initStrings(section,"use-csid/@id",null);
+		
 
 		this.initStrings(section,"autocomplete-selector", getString("selector") + "-autocomplete");
 		this.initStrings(section,"autocomplete-options/funcName", "");
@@ -259,9 +261,12 @@ public class Field implements FieldSet {
 	public boolean isRepeatSubRecord() {
 		return getBoolean("@is-subrecord");
 	}
-	
+
 	public String useCsid() {
 		return getString("use-csid");
+	}
+	public String useCsidField() {
+		return getString("use-csid/@id");
 	}
 	
 	public void setRepeatSubRecord(Boolean var) {

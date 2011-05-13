@@ -335,6 +335,9 @@ public class XmlJsonConversion {
 	private static void addFieldToJson(JSONObject out,Element root,Field f, String permlevel, JSONObject tempSon,String csid,String ims_url) throws JSONException {
 		String use_csid=f.useCsid();
 		if(use_csid!=null) {
+			if(f.useCsidField()!=null){
+				csid = tempSon.getString(f.useCsidField());
+			}
 			out.put(f.getID(),csid_value(csid,f.useCsid(),ims_url));			
 		} else {
 			Element el=getFieldNodeEl(root,f);
