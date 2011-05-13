@@ -19,24 +19,26 @@
 	</referenceGroup>
 </referenceGroupList>
 <objectProductionDateGroup>
-            <dateEarliestSingleQualifier/>
-            <dateLatestDay/>
-            <dateLatestYear/>
-            <dateAssociation/>
-            <dateDisplayDate/>
-            <dateEarliestSingleCertainty/>
-            <dateEarliestSingleQualifierValue/>
-            <dateEarliestSingleYear/>
-            <dateLatestCertainty/>
-            <dateLatestQualifier/>
-            <dateLatestQualifierValue/>
-            <dateEarliestSingleQualifierUnit/>
-            <datePeriod/>
-            <dateLatestMonth/>
-            <dateNote/>
-            <dateLatestQualifierUnit/>
-            <dateEarliestSingleDay/>
-            <dateEarliestSingleMonth/>
+		<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+        <dateLatestDay>22</dateLatestDay>
+        <dateLatestYear>5</dateLatestYear>
+        <dateAssociation>sdf</dateAssociation>
+        <dateEarliestSingleEra>bce</dateEarliestSingleEra>
+        <dateDisplayDate>sdf</dateDisplayDate>
+        <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+        <dateLatestEra>bce</dateLatestEra>
+        <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+        <dateLatestCertainty>approximate</dateLatestCertainty>
+        <dateEarliestSingleYear>1</dateEarliestSingleYear>
+        <dateLatestQualifier>+</dateLatestQualifier>
+        <dateLatestQualifierValue>2</dateLatestQualifierValue>
+        <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+        <datePeriod>sdf</datePeriod>
+        <dateLatestMonth>11</dateLatestMonth>
+        <dateNote>sdf</dateNote>
+        <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+        <dateEarliestSingleDay>3</dateEarliestSingleDay>
+        <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
         </objectProductionDateGroup>
 <ownersReferences/>
 <objectProductionReasons/>
