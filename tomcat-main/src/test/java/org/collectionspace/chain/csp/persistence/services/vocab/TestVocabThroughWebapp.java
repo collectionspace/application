@@ -34,13 +34,13 @@ public class TestVocabThroughWebapp extends TestBase {
 
 		// create all vocabularies in <record id="vocab"
 		out = GETData("/authorities/vocab/initialize", jetty);
-		log.info(out.getContent());
 
 		// update and remove fields not in list
-		// out = GETData("/vocabularies/"+vocabtype+"/refresh",jetty);
+//		 out = GETData("/vocabularies/"+vocabtype+"/refresh",jetty);
 
 		// update and remove fields not in each list within an authority
 		// out = GETData("/authorities/vocab/refresh",jetty);
+			log.info(out.getContent());
 
 	}
 
