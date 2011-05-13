@@ -349,7 +349,7 @@ public class XmlJsonConversion {
 
 				JSONObject temp = new JSONObject();
 				for(FieldSet fs : subitems.getAllServiceFields(permlevel,"common")) {
-					addFieldSetToJson(temp,root,fs,permlevel, tempSon,csid,ims_url);
+					addFieldSetToJson(temp,el,fs,permlevel, tempSon,csid,ims_url);
 				}
 
 				out.put(f.getID(),temp);
