@@ -1784,6 +1784,112 @@
 					
             </record>
 
+            <record id="taxonomy"  type="authority,compute-displayname" in-recordlist="no" in-findedit="no">
+                <!-- No Terms Used yet as the only authority autocomplete field currently present in this record type -->
+                <!-- is within a nested complexType and can't be retrieved -->
+                <terms-used>false</terms-used>
+                <web-url>taxonomy</web-url>
+                <!-- singular names are used throughout except for this authority's service URL path component, per CSPACE-3322 -->
+                <services-tenant-plural>Taxonomyauthority</services-tenant-plural>
+                <services-tenant-singular>Taxonomyauthority</services-tenant-singular>
+                <services-instances-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,taxonomyauthority-common-list/taxonomyauthority-list-item</services-instances-path>
+                <services-single-instance-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,taxonomyauthority_common</services-single-instance-path>
+                <services-list-path>http://collectionspace.org/services/taxonomy,taxon-common-list/taxon_list_item</services-list-path>
+                <services-record-path>taxon_common:http://collectionspace.org/services/taxonomy,taxon_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-url>taxonomyauthorities</services-url>
+                <authority-vocab-type>TaxonomyAuthority</authority-vocab-type>
+                <authorization-view>false</authorization-view>
+                <urn-syntax>urn:cspace:org.collectionspace.demo:taxonomyauthority:{vocab}:taxon:{entry}'{display}'</urn-syntax>
+                <hassoftdelete>true</hassoftdelete>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                            <!-- Leave false until this record type is added to broader, narrow terms lists above -->
+                            <hierarchy-section show="false"></hierarchy-section>
+                        </view>
+                    </structure>
+                </structures>
+                <instances>
+                    <instance id="taxonomy-taxonomy">
+                        <web-url>taxonomy</web-url>
+                        <title-ref>taxonomy</title-ref>
+                        <title>Default Scientific Taxonomy Authority</title>
+                    </instance>
+                </instances>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                </section>
+                <section>
+                    <field id="shortIdentifier"></field>
+                    <field id="displayName" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
+                        <title-selector>.csc-titleBar-displayName</title-selector>
+                    </field>
+                    <field id="termStatus" seperate_ui_container="true">
+                        <options>
+                            <option id="provisional" default="yes">Provisional</option>
+                            <option id="under review">Under Review</option>
+                            <option id="accepted">Accepted</option>
+                            <option id="rejected">Rejected</option>
+                        </options>
+                    </field>
+                    <field id="taxonFullName" mini="summary,list,search,relate,terms"></field>
+                    <field id="taxonRank" seperate_ui_container="true">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="domain">domain</option>
+                            <option id="kingdom">kingdom</option>
+                            <option id="phylum">phylum</option>
+                            <option id="division">division</option>
+                            <option id="family">family</option>
+                            <option id="class">class</option>
+                            <option id="order">order</option>
+                            <option id="genus">genus</option>
+                            <option id="species">species</option>
+                        </options>
+                    </field>
+                    <field id="taxonCurrency" seperate_ui_container="true">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="current">current</option>
+                            <option id="obsolete">obsolete</option>
+                            <option id="archaic">archaic</option>
+                        </options>
+                    </field>
+                    <repeat id="taxonAuthorGroup" has-primary="yes">
+                        <field id="taxonAuthor" autocomplete="person-person"></field>
+                        <field id="taxonAuthorType" seperate_ui_container="true">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="ascribed">ascribed</option>
+                                <option id="parenthetical">parenthetical</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <field id="taxonYear"></field>
+                    <repeat id="taxonCitationList" has-primary="yes">
+                        <field id="taxonCitation"></field>
+                    </repeat>
+                    <field id="taxonomicStatus" seperate_ui_container="true">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="valid">current</option>
+                            <option id="invalid">obsolete</option>
+                        </options>
+                    </field>
+                    <!-- Will later be a controlled list of data sources for Taxon names; e.g. "IPNI" -->
+                    <field id="taxonNameSource"></field>
+                    <field id="taxonNameSourceCode"></field>
+                    <field id="taxonGUID"></field>
+                    <field id="taxonNote"></field>
+                    <!-- Verify how this boolean field is to be represented -->
+                    <field id="taxonIsNamedHybrid"></field>
+                </section>
+            </record>
+
             <record id="organization" type="authority,compute-displayname">
                 <web-url>organization</web-url>
                 <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
