@@ -2627,7 +2627,7 @@
                     	<field id="valueQualifier"></field>
                     	<field id="valueDate"></field>
                     </repeat>
-					<field id="imgThumb" attributes="GET">
+					<field id="imgThumb" attributes="GET" mini="search,list,relate">
 						<use-csid>ims;download/;/Thumbnail</use-csid>
 					</field>
 					<field id="imgMedium" attributes="GET">
