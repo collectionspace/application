@@ -10,9 +10,12 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -388,10 +391,21 @@ public class DataGenerator  extends UISpec {
 		return "";
 	}
 
-	protected String getSelector(FieldSet fs){
+	protected String getSelector(FieldSet fs, UISpecRunContext context){
 		return fs.getID();
 	}
-	protected String plain(Field f) {
+
+	protected String veryplain(FieldSet f,UISpecRunContext context) {
+		return this.dataprefix+" - " + repeataffix +f.getID();	
+	}
+	protected String veryplain(String f) {
+		return f;	
+	}
+	protected String veryplainWithoutEnclosure(FieldSet f,UISpecRunContext context) {
+		return this.dataprefix+" - " + repeataffix +f.getID();	
+	}
+	
+	protected String plain(Field f, UISpecRunContext context) {
 		if(f.getUIType().equals("date")){
 			Date test = randomDate();
 			return DATE_FORMAT.format(test);
@@ -409,7 +423,7 @@ public class DataGenerator  extends UISpec {
 	}	
 
 	private void repeatItem(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException{
-		String selector = getSelector(r);
+		String selector = getSelector(r,context);
 		JSONArray arr = new JSONArray();
 		for(Integer i=0;i<repeatnum;i++){
 			repeataffix = i.toString()+" - ";
@@ -438,15 +452,15 @@ public class DataGenerator  extends UISpec {
 		}
 		else{
 			//get authority
-			Object data = generateAuthorityField(f);
+			Object data = generateAuthorityField(f,context);
 			out.put(getSelector(f,context),data);
 		}
 	}
 	
-	protected Object generateAuthorityField(Field f) throws JSONException {
+	protected Object generateAuthorityField(Field f,UISpecRunContext context) throws JSONException {
 
 		String shortId="";
-		JSONObject namedata = getAuthdata(f);
+		JSONObject namedata = getAuthdata(f,context);
 		if(namedata.has("refid") && !namedata.getString("refid").equals("")){
 			shortId = namedata.getString("refid");
 		}
@@ -464,7 +478,7 @@ public class DataGenerator  extends UISpec {
 		
 	}
 	
-	private JSONObject getAuthdata(Field f) throws JSONException {
+	private JSONObject getAuthdata(Field f,UISpecRunContext context) throws JSONException {
 		JSONObject dataitem= new JSONObject();
 
 		JSONObject allnames = new JSONObject();
@@ -498,9 +512,9 @@ public class DataGenerator  extends UISpec {
 		dataitem = getallnames.getJSONObject(pick);
 		return dataitem;
 	}
-	protected Object generateENUMField(Field f) throws JSONException {
+	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
 		String shortId="";
-		JSONObject namedata = getAuthdata(f);
+		JSONObject namedata = getAuthdata(f,context);
 		if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
 			shortId = namedata.getString("shortIdentifier");
 		}
@@ -512,7 +526,7 @@ public class DataGenerator  extends UISpec {
 		return shortId;
 	}
 	
-	protected Object generateOptionField(Field f) throws JSONException {
+	protected Object generateOptionField(Field f,UISpecRunContext context) throws JSONException {
 		
 		Random optrandom = new Random();
 		Integer pickopt = optrandom.nextInt(f.getAllOptions().length);
