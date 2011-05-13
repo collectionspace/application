@@ -271,6 +271,7 @@
         ".csc-blobs-length": "${fields.blobs.0.length}",
         ".csc-media-dimensionSummary": "${fields.dimensionSummary}",
         ".csc-media-uri": "${fields.uri}",
+        ".csc-media-imgThumb": "${fields.imgThumb}",
         ".csc-media-publisher": {
             "decorators": [{
                 "func": "cspace.autocomplete",
