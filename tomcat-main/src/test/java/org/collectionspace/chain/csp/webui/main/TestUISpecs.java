@@ -144,20 +144,14 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/loanin/uispec", "loanin.uispec");
 		uispec(jetty, "/loanout/uispec", "loanout.uispec");
 		uispec(jetty, "/movement/uispec", "movement.uispec");
-		uispec(jetty, "/media/uispec", "media.uispec");
 		uispec(jetty, "/objectexit/uispec", "objectexit.uispec");
 		uispec(jetty, "/media/uispec", "media.uispec");
 /*
  * 		These can probably be renabled, but will need specs updating from nightly.
  * 		I don't have the time or energy to do them at the moment. -- dan
  * 		
-		uispec(jetty, "/users/uispec", "users.uispec");
-		uispec(jetty, "/role/uispec", "roles.uispec");
-		uispec(jetty, "/permission/uispec", "permissions.uispec");
-		uispec(jetty, "/permrole/uispec", "permroles.uispec");
 		
 
-		uispec(jetty, "/person/uispec", "person.uispec");
 		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
 		uispec(jetty, "/location/uispec", "objectexit.uispec");
 		
