@@ -20,6 +20,8 @@
             "controlledBy": "fields.role"
         },
         ".csc-users-createdAt": "${fields.createdAt}",
+        ".csc-users-updatedAt": "${fields.updatedAt}",
+        ".csc-users-tenantID": "${fields.tenantID}",
         ".csc-user-userID": "${fields.userId}",
         ".csc-user-password": "${fields.password}",
         ".csc-user-email": "${fields.email}"

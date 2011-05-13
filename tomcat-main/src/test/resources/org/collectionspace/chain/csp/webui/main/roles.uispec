@@ -5,7 +5,6 @@
             "repeatID": ".csc-permissions-record-row:",
             "tree": {
                 "expander": {
-                    "type": "fluid.renderer.condition",
                     "condition": {
                         "funcName": "cspace.adminRoles.assertDisplay",
                         "args": "{rowValue}.display"
@@ -15,46 +14,35 @@
                         "expander": {
                             "inputID": ".csc-role-permission-input",
                             "tree": {
-                            "default": "3",
-                                "optionnames": [
-                                    "none",
-                                    "read",
-                                    "write",
-                                    "delete" 
-                                ],
-                                "optionlist": [
-                                    "none",
-                                    "read",
-                                    "write",
-                                    "delete" 
-                                ],
-                                "selection": "${{row}.permission}" 
+                                "default": "3",
+                                "optionnames": ["delete", "none", "read", "write"],
+                                "optionlist": ["delete", "none", "read", "write"],
+                                "selection": "${{row}.permission}"
                             },
                             "rowID": ".csc-role-permission-row:",
-                            "selectID": "permission",
+                            "type": "fluid.renderer.selection.inputs",
                             "labelID": ".csc-role-permission-label",
-                            "type": "fluid.renderer.selection.inputs" 
-                        } 
-                    }
+                            "selectID": "permission"
+                        }
+                    },
+                    "type": "fluid.renderer.condition"
                 }
             },
             "type": "fluid.renderer.repeat",
             "pathAs": "row",
-            "valueAs": "rowValue",
-            "controlledBy": "fields.permissions" 
+            "controlledBy": "fields.permissions",
+            "valueAs": "rowValue"
         },
         ".csc-role-name": "${fields.displayName}",
-        ".csc-role-description": "${fields.description}",
-        ".csc-role-group": "${fields.roleGroup}" 
+        ".csc-role-group": "${fields.roleGroup}",
+        ".csc-role-description": "${fields.description}"
     },
     "list": {
         ".csc-recordList-row:": {
-            "children": [
-                {
-                    ".csc-user-roleList-name": "${items.0.number}",
-                    ".csc-user-roleList-csid": "${items.0.csid}" 
-                } 
-            ] 
-        } 
+            "children": [{
+                ".csc-user-roleList-csid": "${items.0.csid}",
+                ".csc-user-roleList-name": "${items.0.number}"
+            }]
+        }
     }
 }

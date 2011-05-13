@@ -9,7 +9,20 @@
                 "options": {
                     "elPath": "fields.action",
                     "protoTree": {
-                        ".csc-permission-name": "${fields.action.0.name}"
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-permission-name": "${{row}.name}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.action"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
                     }
                 }
             }]

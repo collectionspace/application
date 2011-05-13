@@ -1,8 +1,8 @@
 {
     "details": {
         ".csc-permrole-role": {
-            ".csc-permrole-roleId": "${fields.role.0.roleId}",
-            ".csc-permrole-roleName": "${fields.role.0.roleName}"
+            ".csc-permrole-roleId": "${{row}.roleId}",
+            ".csc-permrole-roleName": "${{row}.roleName}"
         },
         ".csc-permrole-permission": {
             "decorators": [{
@@ -11,9 +11,22 @@
                 "options": {
                     "elPath": "fields.permission",
                     "protoTree": {
-                        ".csc-permrole-permissionId": "${fields.permission.0.permissionId}",
-                        ".csc-permrole-resourceName": "${fields.permission.0.resourceName}",
-                        ".csc-permrole-actionGroup": "${fields.permission.0.actionGroup}"
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-permrole-permissionId": "${{row}.permissionId}",
+                                        ".csc-permrole-resourceName": "${{row}.resourceName}",
+                                        ".csc-permrole-actionGroup": "${{row}.actionGroup}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.permission"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
                     }
                 }
             }]

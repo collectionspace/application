@@ -120,15 +120,24 @@ public class TestUISpecs extends TestBase {
 	public void testUISpec() throws Exception {
 		ServletTester jetty = setupJetty();
 
-		// uispec(jetty,"/movement/generator?quantity=10","acquisition.uispec");
+
+		//		 uispec(jetty,"/location/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
 		// uispec(jetty,"/person/generator?quantity=10","acquisition.uispec");
 
 //	uispec(jetty, "/cataloging/uispec", "hierarchy.uispec");
 //		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
-		uispec(jetty, "/person/uispec", "person.uispec");
+		
+
+		uispec(jetty, "/users/uispec", "users.uispec");
+		uispec(jetty, "/role/uispec", "roles.uispec");
+		uispec(jetty, "/permission/uispec", "permissions.uispec");
+		uispec(jetty, "/permrole/uispec", "permroles.uispec");
+		
 		
 		uispec(jetty, "/cataloging/uispec", "collection-object.uispec");
+		uispec(jetty, "/person/uispec", "person.uispec");
+		
 		
 		uispec(jetty, "/acquisition/uispec", "acquisition.uispec");
 		uispec(jetty, "/intake/uispec", "intake.uispec");
@@ -137,6 +146,7 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/movement/uispec", "movement.uispec");
 		uispec(jetty, "/media/uispec", "media.uispec");
 		uispec(jetty, "/objectexit/uispec", "objectexit.uispec");
+		uispec(jetty, "/media/uispec", "media.uispec");
 /*
  * 		These can probably be renabled, but will need specs updating from nightly.
  * 		I don't have the time or energy to do them at the moment. -- dan

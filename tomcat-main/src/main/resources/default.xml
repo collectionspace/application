@@ -1988,7 +1988,7 @@
                         <selector>role-description</selector>
                     </field>
                     <repeat id="permissions" exists-in-services="false" as-expander="true" as-conditional-expander="true" has-primary="false">
-                        <selector>permissions-record-row:</selector>
+                        <selector>permissions-record-row</selector>
                         <field id="permission" ui-type="radio" as-expander="true">
                             <options>
                                 <option id="none">none</option>
@@ -2214,7 +2214,7 @@
                         </options>
                     </field>
                     <repeat id="role" exists-in-services="false" as-expander="true" has-primary="false">
-                        <selector>accountrole-roles-row:</selector>
+                        <selector>accountrole-roles-row</selector>
                         <field id="roleName"></field>
                         <field id="roleGroup"></field>
                         <field id="roleId"></field>
