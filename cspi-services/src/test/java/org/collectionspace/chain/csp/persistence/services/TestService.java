@@ -82,8 +82,8 @@ public class TestService extends ServicesBaseClass {
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
 		testXMLJSON(spec, "media", "media.xml", "mediaJSON.json");
-	//	testXMLJSON(spec, "collection-object", "objectsXMLJSON.xml",
-	//			"objectsJSON.json");
+		testXMLJSON(spec, "collection-object", "objectsXMLJSON.xml",
+				"objectsJSON.json");
 
 		testXMLJSON(spec, "acquisition", "acquisitionXMLJSON.xml",
 				"acquisitionJSON.json");
@@ -125,8 +125,8 @@ public class TestService extends ServicesBaseClass {
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
 		testJSONXML(spec, "media", "media.xml", "mediaJSON.json");
-//		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
-//		 		"objectsJSON.json");
+		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
+		 		"objectsJSON.json");
 		
 		testJSONXML(spec, "acquisition", "acquisitionXMLJSON.xml",
 		 		"acquisitionJSON.json");
@@ -709,6 +709,7 @@ public class TestService extends ServicesBaseClass {
 		// TODO Add everything from CSPACE-1876 and more
 		// testPostGetDelete("collectionobjects/", "collectionobjects_common",
 		// "objectCreate.xml", "collectionobjects_common/objectNumber", "2");
+		
 
 		testPostGetDelete("media/", "media_common", "media.xml",
 				"media_common/title", "EX2011.5");
