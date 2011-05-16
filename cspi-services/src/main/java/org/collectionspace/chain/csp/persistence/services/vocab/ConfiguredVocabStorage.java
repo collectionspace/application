@@ -224,7 +224,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					body.put("relations-common-list",out);
 				}
 				else{
-					body.put("relations-common-list",null);
+					Document out=XmlJsonConversion.getXMLRelationship(null);
+					body.put("relations-common-list",out);
 				}
 			}
 			
@@ -893,7 +894,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 				else{
 
-					body.put("relations-common-list",null);
+					Document out=XmlJsonConversion.getXMLRelationship(null);
+					body.put("relations-common-list",out);
 				}
 				//probably should put empty array in if no data
 			}
@@ -902,8 +904,9 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			String url = generateURL(vocab,filePath.split("/")[1],"");
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,url,body,creds,cache);
-			if(out.getStatus()>299)
+			if(out.getStatus()>299){
 				throw new UnderlyingStorageException("Could not create vocabulary",out.getStatus(),url);
+			}
 			cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);
 			cache.setCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]},refname);
 			
