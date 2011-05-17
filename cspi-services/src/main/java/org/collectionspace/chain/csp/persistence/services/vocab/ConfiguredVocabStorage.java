@@ -203,7 +203,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 								for(int i=0; i<temp.length();i++){
 									String argh = rel.getChildName();
 									JSONObject brgh = temp.getJSONObject(i);
-									if(brgh.has(argh)){
+									if(brgh.has(argh) && !brgh.getString(argh).equals("")){
 										String uri = brgh.getString(argh);
 										Element bit = createRelationship(newrel,uri,null,r.getServicesURL(),null, inverse);
 										if(bit != null){
@@ -872,7 +872,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 								for(int i=0; i<temp.length();i++){
 									String argh = rel.getChildName();
 									JSONObject brgh = temp.getJSONObject(i);
-									if(brgh.has(argh)){
+									if(brgh.has(argh) && !brgh.getString(argh).equals("")){
 										String uri = brgh.getString(argh);
 										Element bit = createRelationship(newrel,uri,csid,r.getServicesURL(),refname, inverse);
 										if(bit != null){

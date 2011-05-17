@@ -10,8 +10,8 @@
 				<subject>n</subject>
 				<object>1</object>
                 <directional>false</directional>
-                <sourceTypes>location,personauthorities,person,organization</sourceTypes>
-                <destinationTypes>location,personauthorities,person,organization</destinationTypes>
+                <sourceTypes>location,locationauthorities,personauthorities,person,organization,</sourceTypes>
+                <destinationTypes>location,locationauthorities,personauthorities,person,organization,</destinationTypes>
 			</relation>
 			<relation id="narrowerContexts">
 				<inverseOf>broaderContext</inverseOf>
@@ -21,8 +21,8 @@
 				<object>n</object>
 				<childname>narrowerContext</childname>
                 <directional>false</directional>
-                <sourceTypes>location,personauthorities,person,organization</sourceTypes>
-                <destinationTypes>location,personauthorities,person,organization</destinationTypes>
+                <sourceTypes>location,locationauthorities,personauthorities,person,organization,</sourceTypes>
+                <destinationTypes>location,locationauthorities,personauthorities,person,organization,</destinationTypes>
 			</relation>
             <relation id="broader">
                 <displayName>has broader term</displayName>
@@ -2384,7 +2384,7 @@
                 </section>
                 <section id="locationMovementInformation">
                     <!--  Object Location Information Group -->
-                    <field id="currentLocation" in-title="yes" mini="summary,search,list,relate,terms">
+                    <field id="currentLocation" in-title="yes" mini="summary,search,list,relate,terms" autocomplete="location-location">
                         <title-selector>titleBar-currentLocation</title-selector>
                     </field>
                     <field id="currentLocationFitness">
@@ -2400,7 +2400,7 @@
                     <field id="locationDate" in-title="yes" ui-type="date">
                         <selector>movement-locationDate</selector>
                     </field>
-                    <field id="normalLocation"></field>
+                    <field id="normalLocation" autocomplete="location-location"></field>
                 </section>
                 <section id="movementControlInformation">
                     <!--  Movement Information Group -->
@@ -2503,9 +2503,9 @@
                 </structures>
 				
             	<section>
-            		<field id="broaderContext"  autocomplete="person-person,organization-organization"></field>
+            		<field id="broaderContext"  autocomplete="person-person,location-location"></field>
             		<repeat id="narrowerContexts">
-            			<field id="narrowerContext" autocomplete="person-person,organization-organization">
+            			<field id="narrowerContext" autocomplete="person-person,location-location">
             				<autocomplete-options>
             					<strings>
             						narrowerChange|Warning: %narrower currently has broader term %broader. Change broader term?
