@@ -1,0 +1,22 @@
+{
+    "fields": {
+        "taxonYear": "1758",
+        "taxonCurrency": "current",
+        "taxonomicStatus": "valid",
+        "shortIdentifier": "CheloniamydasLinnaeus1758",
+        "taxonCitationList": [
+        {
+            "_primary": true,
+            "taxonCitation": "Systema Naturae, 10th ed."
+        }
+        ],
+        "taxonIsNamedHybrid": "false",
+        "termStatus": "accepted",
+        "taxonFullName": "Chelonia mydas Linnaeus 1758",
+        "displayName": "Chelonia mydas Linnaeus 1758",
+        "refid":
+        "urn:cspace:org.collectionspace.demo:taxonomyauthority:name(taxonomy):taxon:name(CheloniamydasLinnaeus1758)'Chelonia mydas Linnaeus 1758'",
+        "recordtype": "taxonomy",
+        "taxonRank": "species"
+    }
+}

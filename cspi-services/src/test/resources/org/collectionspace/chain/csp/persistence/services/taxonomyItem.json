@@ -1,0 +1,20 @@
+{
+    "taxonYear": "1832",
+    "taxonCurrency": "current",
+    "taxonomicStatus": "valid",
+    "shortIdentifier": "CentauruspleurexanthemusGreen1832",
+    "taxonCitationList": [
+        {
+            "_primary": true,
+            "taxonCitation": "A Monograph of the Trilobites of North America"
+        }
+    ],
+    "taxonIsNamedHybrid": "false",
+    "termStatus": "accepted",
+    "taxonFullName": "Centaurus pleurexanthemus Green 1832",
+    "displayName": "Centaurus pleurexanthemus Green 1832",
+    "refid":
+        "urn:cspace:org.collectionspace.demo:taxonomyauthority:name(demotaxonomy):taxon:name(CentauruspleurexanthemusGreen1832)'Centaurus pleurexanthemus Green 1832'",
+    "recordtype": "taxonomy",
+    "taxonRank": "species"
+}

@@ -91,6 +91,16 @@
             "permission": "delete"
         },
         {
+            "display": "none",
+            "resourceName": "taxonomy",
+            "permission": "delete"
+        },
+        {
+            "display": "none",
+            "resourceName": "taxon",
+            "permission": "delete"
+        },
+        {
             "display": "show",
             "resourceName": "acquisition",
             "permission": "read"

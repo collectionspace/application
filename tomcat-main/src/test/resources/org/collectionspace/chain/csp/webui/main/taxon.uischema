@@ -1,0 +1,65 @@
+{
+    "location": {
+        "properties": {
+            "relations": {
+                "default": {
+                    
+                },
+                "type": "object"
+            },
+            "termsUsed": {
+                "default": [
+                    
+                ],
+                "type": "array"
+            },
+            "csid": {
+                "type": "string"
+            },
+            "fields": {
+                "properties": {
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "accessNote": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "securityNote": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    },
+                    "termStatus": {
+                        "type": "string"
+                    },
+                    "conditionGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "type": "boolean"
+                                },
+                                "conditionNote": {
+                                    "type": "string"
+                                },
+                                "conditionNoteDate": {
+                                    "type": "date"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "type": "object"
+    }
+}

@@ -3,32 +3,31 @@
     <version>10</version>
     <include src="local-settings.xml,settings.xml" strip-root="yes"/>
     <spec>
-    	<relationships>
-			<relation id="broaderContext">
+        <relationships>
+            <relation id="broaderContext">
                 <displayName>has broader term</displayName>
-				<predicate>hasBroader</predicate>
-				<subject>n</subject>
-				<object>1</object>
+                <predicate>hasBroader</predicate>
+                <subject>n</subject>
+                <object>1</object>
                 <directional>false</directional>
-                <sourceTypes>location,personauthorities,person,organization</sourceTypes>
-                <destinationTypes>location,personauthorities,person,organization</destinationTypes>
-			</relation>
-			<relation id="narrowerContexts">
-				<inverseOf>broaderContext</inverseOf>
+                <sourceTypes>location,personauthorities,person,organization,taxon</sourceTypes>
+                <destinationTypes>location,personauthorities,person,organization,taxon</destinationTypes>
+            </relation>
+            <relation id="narrowerContexts">
+                <inverseOf>broaderContext</inverseOf>
                 <displayName>has narrower term</displayName>
-				<predicate>hasNarrower</predicate>
-				<subject>1</subject>
-				<object>n</object>
-				<childname>narrowerContext</childname>
+                <predicate>hasNarrower</predicate>
+                <subject>1</subject>
+                <object>n</object>
+                <childname>narrowerContext</childname>
                 <directional>false</directional>
-                <sourceTypes>location,personauthorities,person,organization</sourceTypes>
-                <destinationTypes>location,personauthorities,person,organization</destinationTypes>
-			</relation>
+                <sourceTypes>location,personauthorities,person,organization,taxon</sourceTypes>
+                <destinationTypes>location,personauthorities,person,organization,taxon</destinationTypes>
+            </relation>
             <relation id="broader">
                 <displayName>has broader term</displayName>
                 <directional>true</directional>
-				<type>hierarchical</type>
-				
+                <type>hierarchical</type>	
                 <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</sourceTypes>
                 <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</destinationTypes>
             </relation>
@@ -58,7 +57,7 @@
                 <number-selector>.csc-entry-number</number-selector>
                 <row-selector>.csc-recordList-row:</row-selector>
                 <list-key>cataloging</list-key>
-				<hassoftdelete>true</hassoftdelete>
+                <hassoftdelete>true</hassoftdelete>
                 <structures>
                     <structure id="screen">
                         <view>
@@ -409,7 +408,7 @@
                         <field id="dimension" seperate_ui_container="true">
                             <selector>object-description-dimension</selector>
                             <options>
-                            	<option id="">Please select a value</option>
+                                <option id="">Please select a value</option>
                                 <option id="area">area</option>
                                 <option id="base">base</option>
                                 <option id="circumference">circumference</option>
@@ -428,7 +427,7 @@
                         <field id="measuredPart" seperate_ui_container="true">
                             <selector>object-description-dimension-part</selector>
                             <options>
-                            	<option id="">Please select a value</option>
+                                <option id="">Please select a value</option>
                                 <option id="base">base</option>
                                 <option id="frame">frame</option>
                                 <option id="framed">framed</option>
@@ -442,7 +441,7 @@
                         <field id="measurementUnit" seperate_ui_container="true">
                             <selector>object-description-dimension-unit</selector>
                             <options>
-                            	<option id="">Please select a value</option>
+                                <option id="">Please select a value</option>
                                 <option id="carats">carats</option>
                                 <option id="centimeters">centimeters</option>
                                 <option id="cubic-centimeters">cubic centimeters</option>
@@ -708,10 +707,10 @@
                 </section>
                 <section id="objectProductionInformation">
                 	
-                       	<field id="objectProductionDate"   ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
-                            <services-tag>objectProductionDateGroup</services-tag>
-							<selector>object-production-date</selector>
-                        </field>
+                    <field id="objectProductionDate"   ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
+                        <services-tag>objectProductionDateGroup</services-tag>
+                        <selector>object-production-date</selector>
+                    </field>
                 	
                     <repeat id="techniqueGroupList/techniqueGroup">
                         <!-- selector>csc-collection-object-techniqueGroup</selector -->
@@ -1003,7 +1002,7 @@
                 <services-record-path>loansin_common:http://collectionspace.org/services/loanin,loansin_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
-				<structures>
+                <structures>
                     <structure id="screen">
                         <view>
                             <titlebar show="false"></titlebar>
@@ -1119,7 +1118,7 @@
                 <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
-				<structures>
+                <structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -1292,7 +1291,7 @@
                 <services-record-path>acquisitions_common:http://collectionspace.org/services/acquisition,acquisitions_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
-				<structures>
+                <structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -1565,11 +1564,11 @@
                 <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
                 <vocab-syntax>urn:cspace:name</vocab-syntax>
                 <hassoftdelete>true</hassoftdelete>
-				<structures>
+                <structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
-							<hierarchy-section show="true"></hierarchy-section>
+                            <hierarchy-section show="true"></hierarchy-section>
                         </view>
                     </structure>
                 </structures>
@@ -1731,12 +1730,11 @@
                 <authorization-view>false</authorization-view>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:locationauthority:{vocab}:location:{entry}'{display}'</urn-syntax>
                 <hassoftdelete>true</hassoftdelete>
-				
-				<structures>
+                <structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
-							<hierarchy-section show="true"></hierarchy-section>
+                            <hierarchy-section show="true"></hierarchy-section>
                         </view>
                     </structure>
                 </structures>
@@ -1767,28 +1765,26 @@
                             <option id="rejected">Rejected</option>
                         </options>
                     </field>
-					<repeat id="conditionGroup">
-                    	<field id="conditionNote"></field>
-                    	<field id="conditionNoteDate" ui-type="date"></field>
-					</repeat>
+                    <repeat id="conditionGroup">
+                        <field id="conditionNote"></field>
+                        <field id="conditionNoteDate" ui-type="date"></field>
+                    </repeat>
                     <field id="securityNote"></field>
                     <field id="accessNote"></field>
                     <field id="address"></field>
-					<field id="type" autocomplete="vocab-locationtype" ui-type="enum">
-                		<enum>
-							<blank-value>Please select a value</blank-value>
-						</enum>
+                    <field id="type" autocomplete="vocab-locationtype" ui-type="enum">
+                        <enum>
+                            <blank-value>Please select a value</blank-value>
+                        </enum>
                     </field>
                 </section>
-				
-					
             </record>
 
-            <record id="taxonomy"  type="authority,compute-displayname" in-recordlist="no" in-findedit="no">
+            <record id="taxon"  type="authority,compute-displayname" in-recordlist="no" in-findedit="no">
                 <!-- No Terms Used yet as the only authority autocomplete field currently present in this record type -->
                 <!-- is within a nested complexType and can't be retrieved -->
                 <terms-used>false</terms-used>
-                <web-url>taxonomy</web-url>
+                <web-url>taxon</web-url>
                 <!-- singular names are used throughout except for this authority's service URL path component, per CSPACE-3322 -->
                 <services-tenant-plural>Taxonomyauthority</services-tenant-plural>
                 <services-tenant-singular>Taxonomyauthority</services-tenant-singular>
@@ -1904,7 +1900,7 @@
                 <authority-vocab-type>OrgAuthority</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
                 <hassoftdelete>true</hassoftdelete>
-				<structures>
+                <structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -2025,12 +2021,12 @@
                     <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section>
-                	<field id="addressType" autocomplete="vocab-addresstype" ui-type="enum">
-                		<enum>
-							<blank-value>Please select a value</blank-value>
-						</enum>
-						<selector>contactAuthority-addressType</selector>
-                      </field>
+                    <field id="addressType" autocomplete="vocab-addresstype" ui-type="enum">
+                        <enum>
+                            <blank-value>Please select a value</blank-value>
+                        </enum>
+                        <selector>contactAuthority-addressType</selector>
+                    </field>
                     <field id="addressPlace">
                         <selector>contactAuthority-addressPlace</selector>
                     </field>
@@ -2337,7 +2333,7 @@
                 <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
-				<structures>
+                <structures>
                     <structure id="screen">
                         <view>
                             <titlebar show="false"></titlebar>
@@ -2459,7 +2455,7 @@
                 <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
-				<structures>
+                <structures>
                     <structure id="screen">
                         <label-section id="messagekeys" show="true"></label-section>
                     </structure>
@@ -2549,50 +2545,104 @@
 
 					
             <record id="structureddate" in-recordlist="no" separate-record="false">
-            	<section>
-                <field id="dateNote"><selector>dateNote</selector><preselector></preselector></field>
-                <field id="dateAssociation"><selector>dateAssociation</selector><preselector></preselector></field>
-                <field id="datePeriod"><selector>datePeriod</selector><preselector></preselector></field>
-				<field id="dateDisplayDate"><selector>dateDisplayDate</selector><preselector></preselector></field>
+                <section>
+                    <field id="dateNote">
+                        <selector>dateNote</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateAssociation">
+                        <selector>dateAssociation</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="datePeriod">
+                        <selector>datePeriod</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateDisplayDate">
+                        <selector>dateDisplayDate</selector>
+                        <preselector></preselector>
+                    </field>
 				
-				<field id="dateEarliestSingleYear"><selector>dateEarliestSingleYear</selector><preselector></preselector></field>
-				<field id="dateEarliestSingleMonth"><selector>dateEarliestSingleMonth</selector><preselector></preselector></field>
-				<field id="dateEarliestSingleDay"><selector>dateEarliestSingleDay</selector><preselector></preselector></field>
-				<field id="dateEarliestSingleEra" autocomplete="vocab-dateera" ui-type="enum"><selector>dateEarliestSingleEra</selector><preselector></preselector></field>
+                    <field id="dateEarliestSingleYear">
+                        <selector>dateEarliestSingleYear</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleMonth">
+                        <selector>dateEarliestSingleMonth</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleDay">
+                        <selector>dateEarliestSingleDay</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleEra" autocomplete="vocab-dateera" ui-type="enum">
+                        <selector>dateEarliestSingleEra</selector>
+                        <preselector></preselector>
+                    </field>
 				
-				<field id="dateEarliestSingleCertainty" autocomplete="vocab-dateCertainty" ui-type="enum"><selector>dateEarliestSingleCertainty</selector><preselector></preselector></field>
-				<field id="dateEarliestSingleQualifier">
-					<options>
-						<option id="+/-">+/-</option>
-						<option id="+">+</option>
-						<option id="-">-</option>
-					</options>
-					<selector>dateEarliestSingleQualifier</selector>
-					<preselector></preselector>
-				</field>
-				<field id="dateEarliestSingleQualifierValue"><selector>dateEarliestSingleQualifierValue</selector><preselector></preselector></field>
-				<field id="dateEarliestSingleQualifierUnit" autocomplete="vocab-datequalifier" ui-type="enum" ><selector>dateEarliestSingleQualifierUnit</selector><preselector></preselector></field>
+                    <field id="dateEarliestSingleCertainty" autocomplete="vocab-dateCertainty" ui-type="enum">
+                        <selector>dateEarliestSingleCertainty</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleQualifier">
+                        <options>
+                            <option id="+/-">+/-</option>
+                            <option id="+">+</option>
+                            <option id="-">-</option>
+                        </options>
+                        <selector>dateEarliestSingleQualifier</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleQualifierValue">
+                        <selector>dateEarliestSingleQualifierValue</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleQualifierUnit" autocomplete="vocab-datequalifier" ui-type="enum" >
+                        <selector>dateEarliestSingleQualifierUnit</selector>
+                        <preselector></preselector>
+                    </field>
 				
 				
-				<field id="dateLatestYear"><selector>dateLatestYear</selector><preselector></preselector></field>
-				<field id="dateLatestMonth"><selector>dateLatestMonth</selector><preselector></preselector></field>
-				<field id="dateLatestDay"><selector>dateLatestDay</selector><preselector></preselector></field>
-				<field id="dateLatestEra" autocomplete="vocab-dateera" ui-type="enum"><selector>dateLatestEra</selector><preselector></preselector></field>
+                    <field id="dateLatestYear">
+                        <selector>dateLatestYear</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestMonth">
+                        <selector>dateLatestMonth</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestDay">
+                        <selector>dateLatestDay</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestEra" autocomplete="vocab-dateera" ui-type="enum">
+                        <selector>dateLatestEra</selector>
+                        <preselector></preselector>
+                    </field>
 				
-				<field id="dateLatestCertainty" autocomplete="vocab-dateCertainty" ui-type="enum"><selector>dateLatestCertainty</selector><preselector></preselector></field>
-				<field id="dateLatestQualifier">
-					<options>
-						<option id="+/-">+/-</option>
-						<option id="+">+</option>
-						<option id="-">-</option>
-					</options>
-					<selector>dateLatestQualifier</selector>
-					<preselector></preselector>
-				</field>
-				<field id="dateLatestQualifierValue"><selector>dateLatestQualifierValue</selector><preselector></preselector></field>
-				<field id="dateLatestQualifierUnit" autocomplete="vocab-datequalifier" ui-type="enum" ><selector>dateLatestQualifierUnit</selector><preselector></preselector></field>
+                    <field id="dateLatestCertainty" autocomplete="vocab-dateCertainty" ui-type="enum">
+                        <selector>dateLatestCertainty</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestQualifier">
+                        <options>
+                            <option id="+/-">+/-</option>
+                            <option id="+">+</option>
+                            <option id="-">-</option>
+                        </options>
+                        <selector>dateLatestQualifier</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestQualifierValue">
+                        <selector>dateLatestQualifierValue</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestQualifierUnit" autocomplete="vocab-datequalifier" ui-type="enum" >
+                        <selector>dateLatestQualifierUnit</selector>
+                        <preselector></preselector>
+                    </field>
 				
-				</section>
+                </section>
             </record>
 			
             <record id="hierarchy" in-recordlist="no">
@@ -2608,32 +2658,32 @@
                     </structure>
                 </structures>
 				
-            	<section>
-            		<field id="broaderContext"  autocomplete="person-person,organization-organization"></field>
-            		<repeat id="narrowerContexts">
-            			<field id="narrowerContext" autocomplete="person-person,organization-organization">
-            				<autocomplete-options>
-            					<strings>
+                <section>
+                    <field id="broaderContext"  autocomplete="person-person,organization-organization"></field>
+                    <repeat id="narrowerContexts">
+                        <field id="narrowerContext" autocomplete="person-person,organization-organization">
+                            <autocomplete-options>
+                                <strings>
             						narrowerChange|Warning: %narrower currently has broader term %broader. Change broader term?
-								</strings>
-								<funcName>selectMatch|cspace.autocomplete.selectMatchConfirm</funcName>
-            				</autocomplete-options>
-            			</field>
-            		</repeat>
-            		<repeat id="relatedTerms">
-            			<field id="relatedTerm" autocomplete="relatedTerm"></field>
-            		</repeat>
-            	</section>
-				<section>
-					<repeat id="equivalentContexts" as-expander="true">
-						<field id="equivalentContext" ui-type="hierarchy" attributes="GET"></field>
-					</repeat>
-				</section>
+                                </strings>
+                                <funcName>selectMatch|cspace.autocomplete.selectMatchConfirm</funcName>
+                            </autocomplete-options>
+                        </field>
+                    </repeat>
+                    <repeat id="relatedTerms">
+                        <field id="relatedTerm" autocomplete="relatedTerm"></field>
+                    </repeat>
+                </section>
+                <section>
+                    <repeat id="equivalentContexts" as-expander="true">
+                        <field id="equivalentContext" ui-type="hierarchy" attributes="GET"></field>
+                    </repeat>
+                </section>
             </record>
 
             <record id="dimension" in-recordlist="no">
                 <hassoftdelete>true</hassoftdelete>
-				<section>
+                <section>
                     <field id="dimension">
                         <options>
                             <option id="" default="yes">Please select a value</option>
@@ -2705,10 +2755,10 @@
                 <services-url>blobs</services-url>
                 <terms-used>false</terms-used>
                 <refobj-used>false</refobj-used>
-            	<services-record-path>blobs_common://collectionspace.org/services/blob,blobs_common</services-record-path>
+                <services-record-path>blobs_common://collectionspace.org/services/blob,blobs_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-				<services-list-path>abstract-common-list/list-item</services-list-path>
-				<hassoftdelete>true</hassoftdelete>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
+                <hassoftdelete>true</hassoftdelete>
 				
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
@@ -2725,33 +2775,33 @@
                     <field id="uri"></field>
                     <field id="id"></field>
                     <repeat id="dimensionGroupList/dimensionGroup" as-expander="true" attributes="GET">
-                   		<field id="dimension"></field>
-                    	<field id="measuredBy"></field>
-                    	<field id="measurementUnit"></field>
-                   		<field id="measurementMethod"></field>
-                    	<field id="value"></field>
-                    	<field id="valueQualifier"></field>
-                    	<field id="valueDate"></field>
+                        <field id="dimension"></field>
+                        <field id="measuredBy"></field>
+                        <field id="measurementUnit"></field>
+                        <field id="measurementMethod"></field>
+                        <field id="value"></field>
+                        <field id="valueQualifier"></field>
+                        <field id="valueDate"></field>
                     </repeat>
-					<field id="imgThumb" attributes="GET" mini="search,list,relate">
-						<use-csid>ims;download/;/Thumbnail</use-csid>
-					</field>
-					<field id="imgMedium" attributes="GET">
-						<use-csid>ims;download/;/Medium</use-csid>
-					</field>
-					<field id="imgOrig" attributes="GET">
-						<use-csid>ims;download/;/Original</use-csid>
-					</field>
+                    <field id="imgThumb" attributes="GET" mini="search,list,relate">
+                        <use-csid>ims;download/;/Thumbnail</use-csid>
+                    </field>
+                    <field id="imgMedium" attributes="GET">
+                        <use-csid>ims;download/;/Medium</use-csid>
+                    </field>
+                    <field id="imgOrig" attributes="GET">
+                        <use-csid>ims;download/;/Original</use-csid>
+                    </field>
                 </section>
             </record>
 
             <record id="media" in-findedit="yes" type="procedure,record">
-				<services-record-path>media_common:http://collectionspace.org/services/media,media_common</services-record-path>
+                <services-record-path>media_common:http://collectionspace.org/services/media,media_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-				<services-list-path>abstract-common-list/list-item</services-list-path>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
 
                 <hassoftdelete>true</hassoftdelete>
-				<structures>
+                <structures>
                     <structure id="screen"></structure>
                     <structure id="tab">
                         <view>
@@ -2783,80 +2833,80 @@
                     <field id="format"></field>
                     <field id="dateCreated"></field>
                     <field id="dateModified"></field>
-					<field id="externalMediaUrl"></field>
+                    <field id="externalMediaUrl"></field>
                     <field id="dimensionSummary"></field>
                     <repeat id="dimensionGroupList/dimensionGroup">
-                   		<field id="dimension">
-                        	<options>
-                            	<option id="" default="yes">Please select a value</option>
-                            	<option id="area">Area</option>
-                            	<option id="base">Base</option>
-                            	<option id="circumference">Circumference</option>
-                            	<option id="count">Count</option>
-                            	<option id="depth">Depth</option>
-                            	<option id="diameter">Diameter</option>
-                            	<option id="height">Height</option>
-                            	<option id="length">Length</option>
-                            	<option id="running_time">Running Time</option>
-                            	<option id="target">Target</option>
-                            	<option id="volume">Volume</option>
-                            	<option id="weight">Weight</option>
-                            	<option id="width" >Width</option>
-                        	</options>
-                    	</field>
-                    <field id="measuredBy" autocomplete="person-person,organization-organization"></field>
-                    <field id="measurementUnit">
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="carats">Carats</option>
-                            <option id="centimeters">Centimeters</option>
-                            <option id="cubic_centimeters">Cubic Centimeters</option>
-                            <option id="feet">Feet</option>
-                            <option id="inches">Inches</option>
-                            <option id="kilograms">Kilograms</option>
-                            <option id="liters">Liters</option>
-                            <option id="millimeters">Millimeters</option>
-                            <option id="meters">Meters</option>
-                            <option id="minutes">Minutes</option>
-                            <option id="pixels">Pixels</option>
-                            <option id="square_feet">Square Feet</option>
-                            <option id="stories">Stories</option>
-                        </options>
-                    </field>
-                    <field id="measurementMethod">
-                        <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="microscopy_reticule">Microscopy (reticule)</option>
-                            <option id="standard_mesh_screen">Standard Mesh/Screen</option>
-                            <option id="sliding_calipers">Sliding Calipers</option>
-                            <option id="spreading_calipers">Spreading Calipers</option>
-                            <option id="measuring_tape_cloth">Measuring Tape (cloth)</option>
-                            <option id="measuring_tape_metal">Measuring Tape (metal)</option>
-                            <option id="osteometric_board">Osteometric Board</option>
-                            <option id="ruler">Ruler</option>
-                            <option id="pacing_pedometer">Pacing Pedometer</option>
-                            <option id="odometer">Odometer</option>
-                            <option id="taping_chaining">Taping/Thaining</option>
-                            <option id="stadia_transit">Stadia/Transit</option>
-                            <option id="optical_range_finder">Optical Range Finder</option>
-                            <option id="electronic_distance_measurement">Electronic Distance Measurement</option>
-                            <option id="protractor">Protractor</option>
-                            <option id="goniometer">Goniometer</option>
-                            <option id="theodolite_total_station">Theodolite/Total Station</option>
-                            <option id="balance_beam_scale">Balance/Beam Scale</option>
-                            <option id="spring_scale">Spring Scale</option>
-                            <option id="hydraulic_or_pneumatic_scale">Hydraulic or Pneumatic Scale</option>
-                        </options>
-                    </field>
-                    <field id="value"></field>
-                    <field id="valueQualifier"></field>
-                    <field id="valueDate" ui-type="date"></field>
+                        <field id="dimension">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="area">Area</option>
+                                <option id="base">Base</option>
+                                <option id="circumference">Circumference</option>
+                                <option id="count">Count</option>
+                                <option id="depth">Depth</option>
+                                <option id="diameter">Diameter</option>
+                                <option id="height">Height</option>
+                                <option id="length">Length</option>
+                                <option id="running_time">Running Time</option>
+                                <option id="target">Target</option>
+                                <option id="volume">Volume</option>
+                                <option id="weight">Weight</option>
+                                <option id="width" >Width</option>
+                            </options>
+                        </field>
+                        <field id="measuredBy" autocomplete="person-person,organization-organization"></field>
+                        <field id="measurementUnit">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="carats">Carats</option>
+                                <option id="centimeters">Centimeters</option>
+                                <option id="cubic_centimeters">Cubic Centimeters</option>
+                                <option id="feet">Feet</option>
+                                <option id="inches">Inches</option>
+                                <option id="kilograms">Kilograms</option>
+                                <option id="liters">Liters</option>
+                                <option id="millimeters">Millimeters</option>
+                                <option id="meters">Meters</option>
+                                <option id="minutes">Minutes</option>
+                                <option id="pixels">Pixels</option>
+                                <option id="square_feet">Square Feet</option>
+                                <option id="stories">Stories</option>
+                            </options>
+                        </field>
+                        <field id="measurementMethod">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="microscopy_reticule">Microscopy (reticule)</option>
+                                <option id="standard_mesh_screen">Standard Mesh/Screen</option>
+                                <option id="sliding_calipers">Sliding Calipers</option>
+                                <option id="spreading_calipers">Spreading Calipers</option>
+                                <option id="measuring_tape_cloth">Measuring Tape (cloth)</option>
+                                <option id="measuring_tape_metal">Measuring Tape (metal)</option>
+                                <option id="osteometric_board">Osteometric Board</option>
+                                <option id="ruler">Ruler</option>
+                                <option id="pacing_pedometer">Pacing Pedometer</option>
+                                <option id="odometer">Odometer</option>
+                                <option id="taping_chaining">Taping/Thaining</option>
+                                <option id="stadia_transit">Stadia/Transit</option>
+                                <option id="optical_range_finder">Optical Range Finder</option>
+                                <option id="electronic_distance_measurement">Electronic Distance Measurement</option>
+                                <option id="protractor">Protractor</option>
+                                <option id="goniometer">Goniometer</option>
+                                <option id="theodolite_total_station">Theodolite/Total Station</option>
+                                <option id="balance_beam_scale">Balance/Beam Scale</option>
+                                <option id="spring_scale">Spring Scale</option>
+                                <option id="hydraulic_or_pneumatic_scale">Hydraulic or Pneumatic Scale</option>
+                            </options>
+                        </field>
+                        <field id="value"></field>
+                        <field id="valueQualifier"></field>
+                        <field id="valueDate" ui-type="date"></field>
                     </repeat>
                     <field id="title" mini="summary,search,list,relate"></field>
                     <field id="contributor" autocomplete="person-person,organization-organization"></field>
                     <field id="creator" autocomplete="person-person,organization-organization"></field>
                     <repeat id="languages">
-                    	<services-tag>languageList</services-tag>
+                        <services-tag>languageList</services-tag>
                         <field id="language" autocomplete="vocab-languages" ui-type="enum"></field>
                         <enum>
                             <default>eng</default>
@@ -2864,7 +2914,7 @@
                     </repeat>
                     <field id="publisher" autocomplete="person-person,organization-organization"></field>
                     <repeat id="relations">
-                    	<services-tag>relationList</services-tag>
+                        <services-tag>relationList</services-tag>
                         <field id="relation"></field>
                     </repeat>
                     <field id="copyrightStatement"></field>
@@ -2874,7 +2924,7 @@
                         </options>
                     </field>
                     <repeat id="types">
-                    	<services-tag>typeList</services-tag>
+                        <services-tag>typeList</services-tag>
                         <field id="type">
                             <options>
                                 <option id="" default="yes">Please select a value</option>
@@ -2888,12 +2938,12 @@
                     </repeat>
                     <field id="coverage"></field>
                     <repeat id="dates">
-                    	<services-tag>dateList</services-tag>
+                        <services-tag>dateList</services-tag>
                         <field id="date" ui-type="date"></field>
                     </repeat>
                     <field id="source"></field>
                     <repeat id="subjects">
-                    	<services-tag>subjectList</services-tag>
+                        <services-tag>subjectList</services-tag>
                         <field id="subject"></field>
                     </repeat>
                     <field id="rightsHolder" autocomplete="person-person,organization-organization"></field>
@@ -2902,12 +2952,12 @@
                 <!-- not used in ui yet -->
                 <section>
                     <field id="uri"></field>
-					<field id="srcUri"></field>
+                    <field id="srcUri"></field>
                     <field id="blobCsid"></field>
 					
-					<field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false">
-						<use-csid id="blobCsid">ims;download/;/Thumbnail</use-csid>
-					</field>
+                    <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false">
+                        <use-csid id="blobCsid">ims;download/;/Thumbnail</use-csid>
+                    </field>
                     <group id="blobs" ui-type="uploader" userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs" with-csid="blobCsid"/>
                 </section>
             </record>
@@ -2922,7 +2972,7 @@
                 <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
-                  <structures>
+                <structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -2998,7 +3048,7 @@
                 <services-record-path>groups_common:http://collectionspace.org/services/group,groups_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
-                  <structures>
+                <structures>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -3031,51 +3081,80 @@
                 </section>
                 <section id="groupInformation">
                     <!--  Object Exit Information Group -->
-										<field id="title" in-title="yes" mini="number,search,list,relate,terms" >
-											<selector>group-title</selector>
-										</field>
+                    <field id="title" in-title="yes" mini="number,search,list,relate,terms" >
+                        <selector>group-title</selector>
+                    </field>
                     <field id="scopeNote"></field>
-										<field id="responsibleDepartment" seperate_ui_container="true">
-											<selector>group-responsibleDepartment</selector>
-											<options>
-												<option id="">Please select a value</option>
-												<option id="antiquities">Antiquities</option>
-												<option id="architecture-design">Architecture and Design</option>
-												<option id="decorative-arts">Decorative Arts</option>
-												<option id="ethnography">Ethnography</option>
-												<option id="herpetology">Herpetology</option>
-												<option id="media-performance-art">Media and Performance Art</option>
-												<option id="paintings-sculpture">Paintings and Sculpture</option>
-												<option id="paleobotany">Paleobotany</option>
-												<option id="photographs">Photographs</option>
-												<option id="prints-drawings">Prints and Drawings</option>
-											</options>
-										</field>
+                    <field id="responsibleDepartment" seperate_ui_container="true">
+                        <selector>group-responsibleDepartment</selector>
+                        <options>
+                            <option id="">Please select a value</option>
+                            <option id="antiquities">Antiquities</option>
+                            <option id="architecture-design">Architecture and Design</option>
+                            <option id="decorative-arts">Decorative Arts</option>
+                            <option id="ethnography">Ethnography</option>
+                            <option id="herpetology">Herpetology</option>
+                            <option id="media-performance-art">Media and Performance Art</option>
+                            <option id="paintings-sculpture">Paintings and Sculpture</option>
+                            <option id="paleobotany">Paleobotany</option>
+                            <option id="photographs">Photographs</option>
+                            <option id="prints-drawings">Prints and Drawings</option>
+                        </options>
+                    </field>
                     <field id="owner" autocomplete="person-person"
-                           mini="summary,list" in-title="yes"></field>
+                           mini="summary,list" in-title="yes">
+                    </field>
                 </section>
-							</record> <!-- close GROUPS record -->
+            </record> <!-- close GROUPS record -->
 
             <record id="id" type="id">
                 <services-tenant-plural>id</services-tenant-plural>
                 <services-tenant-singular>id</services-tenant-singular>
                 <authorization-view>false</authorization-view>
                 <section>
-                    <field id="accession"><selector>9dd92952-c384-44dc-a736-95e435c1759c</selector></field>
-                    <field id="archive"><selector>70586d30-9dca-4a07-a3a2-1976fe898028</selector></field>
-                    <field id="evaluation"><selector>d2d80822-25c7-4c7c-a105-fc40cdb0c50f</selector></field>
-                    <field id="intake"><selector>8088cfa5-c743-4824-bb4d-fb11b12847f7</selector></field>
-                    <field id="library"><selector>80fedaf6-1647-4f30-9f53-a75a3cac2ffd</selector></field>
-                    <field id="loanin"><selector>ed87e7c6-0678-4f42-9d33-f671835586ef</selector></field>
-                    <field id="loanout"><selector>4b984865-f93d-4481-b874-3dba863ec589</selector></field>
-                    <field id="study"><selector>0518132e-dd8c-4773-8fa9-07c9af4444ee</selector></field>
-                    <field id="movement"><selector>49ca9d8d-7136-47ff-a70e-4a47b9038b70</selector></field>
-                    <field id="objectexit"><selector>d4eea707-d473-4367-853a-728fbcd9be17</selector></field>
-                    <field id="media"><selector>cd91d8b8-f346-4925-a425-93e02bd1c5c9</selector></field>
+                    <field id="accession">
+                        <selector>9dd92952-c384-44dc-a736-95e435c1759c</selector>
+                    </field>
+                    <field id="archive">
+                        <selector>70586d30-9dca-4a07-a3a2-1976fe898028</selector>
+                    </field>
+                    <field id="evaluation">
+                        <selector>d2d80822-25c7-4c7c-a105-fc40cdb0c50f</selector>
+                    </field>
+                    <field id="intake">
+                        <selector>8088cfa5-c743-4824-bb4d-fb11b12847f7</selector>
+                    </field>
+                    <field id="library">
+                        <selector>80fedaf6-1647-4f30-9f53-a75a3cac2ffd</selector>
+                    </field>
+                    <field id="loanin">
+                        <selector>ed87e7c6-0678-4f42-9d33-f671835586ef</selector>
+                    </field>
+                    <field id="loanout">
+                        <selector>4b984865-f93d-4481-b874-3dba863ec589</selector>
+                    </field>
+                    <field id="study">
+                        <selector>0518132e-dd8c-4773-8fa9-07c9af4444ee</selector>
+                    </field>
+                    <field id="movement">
+                        <selector>49ca9d8d-7136-47ff-a70e-4a47b9038b70</selector>
+                    </field>
+                    <field id="objectexit">
+                        <selector>d4eea707-d473-4367-853a-728fbcd9be17</selector>
+                    </field>
+                    <field id="media">
+                        <selector>cd91d8b8-f346-4925-a425-93e02bd1c5c9</selector>
+                    </field>
                     <!-- not obviously used -->
-                    <field id="accession-activity"><selector>1a67470b-19b1-4ae3-88d4-2a0aa936270e</selector></field>
-                    <field id="intake-object"><selector>a91db555-5c53-4996-9918-6712351397a0</selector></field>
-                    <field id="uuid"><selector>1fa40353-05b8-4ae6-82a6-44a18b4f3c12</selector></field>
+                    <field id="accession-activity">
+                        <selector>1a67470b-19b1-4ae3-88d4-2a0aa936270e</selector>
+                    </field>
+                    <field id="intake-object">
+                        <selector>a91db555-5c53-4996-9918-6712351397a0</selector>
+                    </field>
+                    <field id="uuid">
+                        <selector>1fa40353-05b8-4ae6-82a6-44a18b4f3c12</selector>
+                    </field>
                     <!--
                         This is the type for id generators - if you add a new record type that has an id_generator you need to:
                         log into cspace db and look at table id_generators and find the csid for the record type
@@ -3107,7 +3186,7 @@
                 <authority-vocab-type>enum</authority-vocab-type>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:vocabulary:{vocab}:item:{entry}'{display}'</urn-syntax>
                 <hassoftdelete>true</hassoftdelete>
-				<structures>
+                <structures>
                     <structure id="screen"></structure>
                 </structures>
                 <instances>
@@ -3278,7 +3357,7 @@
                         <title-ref>datecertainty</title-ref>
                         <title>Date Certainty</title>
                         <options>
-                        	<option id="after">After</option>
+                            <option id="after">After</option>
                             <option id="approximate">Approximate</option>
                             <option id="before">Before</option>
                             <option id="circa">Circa</option>

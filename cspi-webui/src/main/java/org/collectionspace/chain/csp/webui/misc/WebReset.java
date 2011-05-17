@@ -63,7 +63,7 @@ public class WebReset implements WebMethod {
 					log.info(dir);
 					// XXX yuck!
 					// ignore authorities
-					if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "location".equals(dir) || "person".equals(dir) || "organization".equals(dir)){
+					if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "location".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "taxon".equals(dir)){
 						continue;
 					}
 					

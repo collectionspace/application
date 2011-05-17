@@ -1,0 +1,6 @@
+<ns2:taxonomyauthority_common xmlns:ns2="http://collectionspace.org/services/taxonomy">
+    <displayName>Demo Scientific Taxonomy Authority</displayName>
+    <vocabType>TaxonomyAuthority</vocabType>
+    <shortIdentifier>demotaxonomy</shortIdentifier>
+    <refName>urn:cspace:org.collectionspace.demo:taxonomyauthority:name(taxonomy)</refName>
+</ns2:taxonomyauthority_common>
