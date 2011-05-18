@@ -308,6 +308,8 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 							JSONObject hdata = new JSONObject();
 							hdata.put("subjecturi", node.selectSingleNode("subject").selectSingleNode("uri").getText());
 							hdata.put("objecturi", node.selectSingleNode("object").selectSingleNode("uri").getText());
+							hdata.put("subjectcsid", node.selectSingleNode("subject").selectSingleNode("csid").getText());
+							hdata.put("objectcsid", node.selectSingleNode("object").selectSingleNode("csid").getText());
 							if(node.selectSingleNode("subject").selectSingleNode("name") !=null){
 								hdata.put("subjectname", node.selectSingleNode("subject").selectSingleNode("name").getText());
 							}
