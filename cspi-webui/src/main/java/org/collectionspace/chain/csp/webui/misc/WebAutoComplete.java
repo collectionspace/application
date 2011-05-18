@@ -7,14 +7,18 @@
 package org.collectionspace.chain.csp.webui.misc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
+import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.schema.Structure;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
@@ -41,13 +45,38 @@ public class WebAutoComplete implements WebMethod {
 	private JSONArray doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,String start, String pageSize, String pageNum) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		FieldSet fs=r.getRepeatField(fieldname);
 		JSONArray out = new JSONArray();
-		//List<String> out=new ArrayList<String>();
-		
-		if(!(fs instanceof Field))
-			return out; // Cannot autocomplete on groups
+		Instance[] allInstances = null;
+		if(fs == null || !(fs instanceof Field)){
+			if(r.hasHierarchyUsed("screen")){
+				Structure s = r.getStructure("screen");
+				if(s.hasOption(fieldname)){
+					Option a = s.getOption(fieldname);
+					String[] data = a.getName().split(",");
+
+					Map<String, Instance> tempinstances = new HashMap<String, Instance>();
+					for(String ins : data){
+						tempinstances.put(ins, r.getSpec().getInstance(ins));
+						allInstances = tempinstances.values().toArray(new Instance[0]);
+					}
+					
+				}
+				else{
+					fs = r.getSpec().getRecord("hierarchy").getRepeatField(fieldname);
+					if(fs instanceof Field){ 	
+						allInstances = ((Field)fs).getAllAutocompleteInstances();
+					}
+				}
+			}
+		}
+		else{
+			allInstances = ((Field)fs).getAllAutocompleteInstances();
+		}
+		if(allInstances == null){
+			return out; // Cannot autocomplete
+		}
 		
 		//support multiassign of autocomplete instances
-		for(Instance n : ((Field)fs).getAllAutocompleteInstances()) {
+		for(Instance n : allInstances) {
 			if(n==null){
 				// Field has no autocomplete
 			}

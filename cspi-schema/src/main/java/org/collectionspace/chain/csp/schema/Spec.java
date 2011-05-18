@@ -210,6 +210,18 @@ public class Spec implements CSP, Configurable {
 				((Structure)parent).addSideBar(r);
 				return r;
 			}
+		});		
+		//
+		/* FIELD/options/option -> OPTION */
+		rules.addRule(SECTION_PREFIX+"structure",new String[]{"view","hierarchy-section", "options", "option"},SECTION_PREFIX+"option",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Structure n=(Structure)parent;
+				boolean dfault=false;
+				String value=(String)section.getValue("/@default");
+				dfault=(value!=null && ("yes".equals(value.toLowerCase()) || "1".equals(value.toLowerCase())));
+				n.addOption((String)section.getValue("/@id"),(String)section.getValue(""),(String)section.getValue("/@sample"),dfault);
+				return n;
+			}
 		});
 
 

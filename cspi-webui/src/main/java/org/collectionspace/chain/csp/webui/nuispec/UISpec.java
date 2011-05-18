@@ -496,8 +496,13 @@ public class UISpec implements WebMethod {
 		String extra="";
 		if(f.getRecord().isType("authority"))
 			extra="vocabularies/";
-		options.put("queryUrl","../../chain/"+extra+f.getRecord().getWebURL()+"/autocomplete/"+f.getID());
-		options.put("vocabUrl","../../chain/"+extra+f.getRecord().getWebURL()+"/source-vocab/"+f.getID());
+		String[] contextdata = context.getUIRecordUrl();
+		String autocompleteurl = extra + f.getRecord().getWebURL();
+		if(contextdata.length>0){
+			autocompleteurl = contextdata[0];
+		}
+		options.put("queryUrl","../../chain/"+autocompleteurl+"/autocomplete/"+f.getID());
+		options.put("vocabUrl","../../chain/"+autocompleteurl+"/source-vocab/"+f.getID());
 
 		if(!f.getAutocompleteFuncName().equals("")){
 			JSONObject invokers = new JSONObject();
@@ -614,6 +619,11 @@ public class UISpec implements WebMethod {
 	protected JSONObject generateHierarchySection(UISpecRunContext affix, Boolean addMessages) throws JSONException{
 		JSONObject out = new JSONObject();
 		Record subf = record.getSpec().getRecord("hierarchy");
+
+		String extra = "";
+		if(record.getRecord().isType("authority"))
+			extra ="vocabularies/";
+		affix.setUIRecordUrl(extra + record.getWebURL());
 		generateSubRecord(subf, out, false, affix);
 		
 		if(addMessages){

@@ -6,8 +6,11 @@
  */
 package org.collectionspace.chain.csp.schema;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
@@ -62,6 +65,9 @@ public class Structure  implements FieldParent  {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.structure.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 
+	private Set<String> option_default;
+	private Map<String,Option> options=new HashMap<String,Option>();
+	private List<Option> options_list=new ArrayList<Option>();
 
 	private Map<String,FieldSet> fields=new HashMap<String,FieldSet>();
 	private Map<String,FieldSet> repeatfields=new HashMap<String,FieldSet>();
@@ -150,6 +156,20 @@ public class Structure  implements FieldParent  {
 	public boolean isExpander() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	//add hierarchical options
+	public Option getOption(String id) { return options.get(id); }
+	public Boolean hasOption(String id) { if(options.containsKey(id)){return true; }else{ return false;} }
+	public Option[] getAllOptions() { return options_list.toArray(new Option[0]); }
+	public void addOption(String id,String name,String sample,boolean dfault) {
+		Option opt=new Option(id,name,sample);
+		if(dfault){
+			opt.setDefault();
+			option_default.add(name);
+		}
+		options.put(id,opt);
+		options_list.add(opt);
 	}
 	
 
