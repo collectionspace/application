@@ -308,8 +308,18 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 							JSONObject hdata = new JSONObject();
 							hdata.put("subjecturi", node.selectSingleNode("subject").selectSingleNode("uri").getText());
 							hdata.put("objecturi", node.selectSingleNode("object").selectSingleNode("uri").getText());
-							hdata.put("subjectname", node.selectSingleNode("subject").selectSingleNode("name").getText());
-							hdata.put("objectname", node.selectSingleNode("object").selectSingleNode("name").getText());
+							if(node.selectSingleNode("subject").selectSingleNode("name") !=null){
+								hdata.put("subjectname", node.selectSingleNode("subject").selectSingleNode("name").getText());
+							}
+							else{
+								hdata.put("subjectname","MISSING DATA");
+							}
+							if(node.selectSingleNode("object").selectSingleNode("name")!=null){
+								hdata.put("objectname", node.selectSingleNode("object").selectSingleNode("name").getText());
+							}
+							else{
+								hdata.put("objectname","MISSING DATA");
+							}
 							hdata.put("type", node.selectSingleNode("predicate").getText());
 							hdata.put("csid", node.selectSingleNode("csid").getText());
 							moredata.put(node.selectSingleNode("csid").getText(), hdata);
@@ -356,8 +366,16 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String[] parts=extractPaths(filePath,new String[]{"main"},1);
-			log.info("RETRIEVE"+parts[0]);
+			Boolean isHierarchical = false;
+			String[] parts = null;
+			if(isPathType(filePath,new String[]{"main"},1)){
+				parts=extractPaths(filePath,new String[]{"main"},1);
+			}
+			else if (isPathType(filePath,new String[]{"hierarchical"},1)){
+				parts=extractPaths(filePath,new String[]{"hierarchical"},1);
+				isHierarchical = true;
+			}
+			
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.GET,"/relations/"+parts[0],null,creds,cache);
 			if(out.getStatus()==404)
 				throw new UnderlyingStorageException("Could not retrieve relation",out.getStatus(),"/relations/"+parts[0]);

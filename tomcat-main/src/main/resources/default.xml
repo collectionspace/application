@@ -9,6 +9,7 @@
 				<predicate>hasBroader</predicate>
 				<subject>n</subject>
 				<object>1</object>
+                <showsiblings>equivalentContexts:equivalentContext</showsiblings>
                 <directional>false</directional>
                 <sourceTypes>location,locationauthorities,personauthorities,person,organization,</sourceTypes>
                 <destinationTypes>location,locationauthorities,personauthorities,person,organization,</destinationTypes>

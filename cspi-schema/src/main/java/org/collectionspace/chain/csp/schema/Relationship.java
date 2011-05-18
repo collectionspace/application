@@ -31,6 +31,7 @@ public class Relationship {
 		this.initStrings(section,"childname",getString("@id"));
 		this.initStrings(section,"displayName",getString("@id"));
 		this.initStrings(section,"predicate",getString("@id"));
+		this.initStrings(section,"showsiblings","");
 		this.initStrings(section,"subject","n");
 		this.initStrings(section,"object","n");
 		this.initStrings(section,"inverseOf","");
@@ -50,6 +51,11 @@ public class Relationship {
 	public String getInverse() { return getString("inverseOf"); }
 	public Boolean hasInverse() { if(getString("inverseOf").equals("")){ return false; } else { return true; } }
 	public Boolean isDirectional() { return getBoolean("directional"); }
+	public Boolean showSiblings() { if(getString("showsiblings").equals("")){ return false; } else { return true; } }
+
+	public String getSiblingParent() { return getString("showsiblings").split(":")[0]; }
+	public String getSiblingChild() { return getString("showsiblings").split(":")[1]; }
+	
 	
 	public String[] getAllSource(){
 		return getSet("sourceTypes").toArray(new String[0]);
