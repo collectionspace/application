@@ -205,7 +205,7 @@ public class VocabulariesRead implements WebMethod {
 							JSONObject mored = reldata.getJSONObject("moredata").getJSONObject(hcsid);
 							//it's name is
 							JSONObject siblings = new JSONObject();
-							if(!fields.getString("csid").equals(mored.getString("csid"))){
+							if(!fields.getString("csid").equals(mored.getString("subjectcsid"))){
 								siblings.put(child,mored.getString("subjectname"));
 								children.put(siblings);
 							}
