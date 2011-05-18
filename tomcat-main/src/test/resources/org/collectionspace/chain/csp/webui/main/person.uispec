@@ -5,8 +5,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/hierarchy/autocomplete/broaderContext",
-                    "vocabUrl": "../../chain/hierarchy/source-vocab/broaderContext"
+                    "queryUrl": "../../chain/person/autocomplete/broaderContext",
+                    "vocabUrl": "../../chain/person/source-vocab/broaderContext"
                 }
             }],
             "value": "${fields.broaderContext}"
@@ -28,8 +28,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../chain/hierarchy/autocomplete/narrowerContext",
-                                                    "vocabUrl": "../../chain/hierarchy/source-vocab/narrowerContext",
+                                                    "queryUrl": "../../chain/person/autocomplete/narrowerContext",
+                                                    "vocabUrl": "../../chain/person/source-vocab/narrowerContext",
                                                     "invokers": {
                                                         "selectMatch": {
                                                             "funcName": "cspace.autocomplete.selectMatchConfirm"
@@ -114,8 +114,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../chain/hierarchy/autocomplete/relatedTerm",
-                                                    "vocabUrl": "../../chain/hierarchy/source-vocab/relatedTerm"
+                                                    "queryUrl": "../../chain/person/autocomplete/relatedTerm",
+                                                    "vocabUrl": "../../chain/person/source-vocab/relatedTerm"
                                                 }
                                             }],
                                             "value": "${{row}.relatedTerm}"
