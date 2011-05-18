@@ -737,15 +737,25 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						String subjCSID = node.selectSingleNode("subjectCsid").getText();
 						String objCSID = node.selectSingleNode("objectCsid").getText();
 						String suri="";
+						String scsid="";
+						String sser="";
 						if(node.selectSingleNode("subject/uri")!=null){
 							suri=node.selectSingleNode("subject/uri").getText();
+							scsid=node.selectSingleNode("subject/csid").getText();
+							sser=node.selectSingleNode("subject/service").getText();
 						}
 						String ouri="";
+						String oser="";
+						String ocsid="";
 						if(node.selectSingleNode("object/uri")!=null){
 							ouri=node.selectSingleNode("object/uri").getText();
+							ocsid=node.selectSingleNode("object/csid").getText();
+							oser=node.selectSingleNode("object/service").getText();
 						}
 
 						String relateduri = ouri;
+						String relatedcsid = ocsid;
+						String relatedser = oser;
 						
 						if(r.getSpec().hasRelationshipByPredicate(relationshipType)){
 							Relationship rel = r.getSpec().getRelationshipByPredicate(relationshipType);
@@ -756,6 +766,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 								if(r.getSpec().hasRelationshipInverse(rel.getID())){
 									newrel = r.getSpec().getInverseRelationship(rel.getID());
 									relateduri = suri;
+									relatedcsid = scsid;
+									relatedser = sser;
 								}
 							}
 							
@@ -774,12 +786,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 							}
 							else{//string
 								out.put(newrel.getID(), relateduri);
+								if(newrel.showSiblings()){
+									out.put(newrel.getSiblingChild(), relatedser+"/"+relatedcsid);
+								}
 							}
-							
 						}
 					}
 				}
-				
 			}
 			
 

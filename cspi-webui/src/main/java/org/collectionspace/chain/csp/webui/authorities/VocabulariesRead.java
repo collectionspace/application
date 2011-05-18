@@ -13,6 +13,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
@@ -180,13 +181,50 @@ public class VocabulariesRead implements WebMethod {
 		return recordtypes;
 	}
 	
+	private JSONObject getHierarchy(Storage storage, JSONObject fields) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+		JSONObject out=new JSONObject();
+		for(Relationship r: n.getRecord().getSpec().getAllRelations()){
+			if(r.showSiblings()){
+				if(fields.has(r.getID())){
+					String broadterm = fields.getString(r.getID());
+					String child = r.getSiblingChild();
+					if(fields.has(child)){
+						String broader = fields.getString(child);
+						
+						JSONObject restrict=new JSONObject();
+						restrict.put("dst",broader);	
+						restrict.put("type","hasBroader");	
+						JSONObject reldata = storage.getPathsJSON("relations/hierarchical",restrict);
+						
+						fields.remove(child);
+						JSONArray children = new JSONArray();
+						for(int i=0;i<reldata.getJSONObject("moredata").length();i++){
+
+							String[] reld = (String[])reldata.get("listItems");
+							String hcsid = reld[0];
+							JSONObject mored = reldata.getJSONObject("moredata").getJSONObject(hcsid);
+							//it's name is
+							JSONObject siblings = new JSONObject();
+							siblings.put(child,mored.getString("subjectname"));
+							children.put(siblings);
+						}
+						fields.put(r.getSiblingParent(), children);
+					}
+				}
+			}
+		}
+		return fields;
+	}
+	
 	/* Wrapper exists to decomplexify exceptions: also used inCreateUpdate, hence not private */
 	JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		try {
 			String refPath = n.getRecord().getID()+"/"+n.getTitleRef()+"/";
 			JSONObject fields=storage.retrieveJSON(refPath+csid, new JSONObject());
+			//add in equivalent hierarchy if relevant
 			csid = fields.getString("csid");
+			fields = getHierarchy(storage,fields);
 			//fields.put("csid",csid);
 			//JSONObject relations=createRelations(storage,csid);
 			out.put("csid",csid);
