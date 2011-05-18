@@ -1570,7 +1570,12 @@
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
-							<hierarchy-section show="true"></hierarchy-section>
+							<hierarchy-section show="true">
+                        		<options>
+                            		<option id="narrowerContext">person-person</option>
+                            		<option id="broaderContext">person-person</option>
+								</options>
+							</hierarchy-section>
                         </view>
                     </structure>
                 </structures>
@@ -1737,7 +1742,12 @@
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
-							<hierarchy-section show="true"></hierarchy-section>
+							<hierarchy-section show="true">
+                        		<options>
+                            		<option id="narrowerContext">location-location</option>
+                            		<option id="broaderContext">location-location</option>
+								</options>
+							</hierarchy-section>
                         </view>
                     </structure>
                 </structures>
