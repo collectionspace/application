@@ -193,9 +193,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						//does this record have the data in the json
 						if(jsonObject.has(rel.getID())){
 							if(rel.getObject().equals("1")){
-								Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),null,r.getServicesURL(),null, inverse);
-								if(bit != null){
-									alleles.add(bit);
+								if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
+									Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),null,r.getServicesURL(),null, inverse);
+									if(bit != null){
+										alleles.add(bit);
+									}
 								}
 							}
 							else if(rel.getObject().equals("n")){
@@ -874,9 +876,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						//does this record have the data in the json
 						if(jsonObject.has(rel.getID())){
 							if(rel.getObject().equals("1")){
-								Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),csid,r.getServicesURL(),refname, inverse);
-								if(bit != null){
-									alleles.add(bit);
+								if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
+									Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),csid,r.getServicesURL(),refname, inverse);
+									if(bit != null){
+										alleles.add(bit);
+									}
 								}
 							}
 							else if(rel.getObject().equals("n")){
