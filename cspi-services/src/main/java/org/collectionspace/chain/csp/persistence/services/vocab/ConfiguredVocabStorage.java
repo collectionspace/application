@@ -193,9 +193,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						//does this record have the data in the json
 						if(jsonObject.has(rel.getID())){
 							if(rel.getObject().equals("1")){
-								Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),null,r.getServicesURL(),null, inverse);
-								if(bit != null){
-									alleles.add(bit);
+								if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
+									Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),null,r.getServicesURL(),null, inverse);
+									if(bit != null){
+										alleles.add(bit);
+									}
 								}
 							}
 							else if(rel.getObject().equals("n")){
@@ -875,9 +877,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						//does this record have the data in the json
 						if(jsonObject.has(rel.getID())){
 							if(rel.getObject().equals("1")){
-								Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),csid,r.getServicesURL(),refname, inverse);
-								if(bit != null){
-									alleles.add(bit);
+								if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
+									Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),csid,r.getServicesURL(),refname, inverse);
+									if(bit != null){
+										alleles.add(bit);
+									}
 								}
 							}
 							else if(rel.getObject().equals("n")){
@@ -918,7 +922,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String url = generateURL(vocab,filePath.split("/")[1],"");
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,url,body,creds,cache);
 			if(out.getStatus()>299){
-				throw new UnderlyingStorageException("Could not create vocabulary",out.getStatus(),url);
+				throw new UnderlyingStorageException("Could not update vocabulary",out.getStatus(),url);
 			}
 			cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);
 			cache.setCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]},refname);
