@@ -1778,7 +1778,7 @@
                             <option id="rejected">Rejected</option>
                         </options>
                     </field>
-					<repeat id="conditionGroup">
+					<repeat id="conditionGroupList/conditionGroup">
                     	<field id="conditionNote"></field>
                     	<field id="conditionNoteDate" ui-type="date"></field>
 					</repeat>
@@ -2526,7 +2526,7 @@
             			</field>
             		</repeat>
             		<repeat id="relatedTerms">
-            			<field id="relatedTerm" autocomplete="relatedTerm"></field>
+            			<field id="relatedTerm" autocomplete="person-person,location-location"></field>
             		</repeat>
             	</section>
 				<section>
