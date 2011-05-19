@@ -5,8 +5,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/location/autocomplete/broaderContext",
-                    "vocabUrl": "../../chain/location/source-vocab/broaderContext"
+                    "queryUrl": "../../chain/vocabularies/location/autocomplete/broaderContext",
+                    "vocabUrl": "../../chain/vocabularies/location/source-vocab/broaderContext"
                 }
             }],
             "value": "${fields.broaderContext}"
@@ -28,8 +28,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../chain/location/autocomplete/narrowerContext",
-                                                    "vocabUrl": "../../chain/location/source-vocab/narrowerContext",
+                                                    "queryUrl": "../../chain/vocabularies/location/autocomplete/narrowerContext",
+                                                    "vocabUrl": "../../chain/vocabularies/location/source-vocab/narrowerContext",
                                                     "invokers": {
                                                         "selectMatch": {
                                                             "funcName": "cspace.autocomplete.selectMatchConfirm"
@@ -114,8 +114,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../chain/location/autocomplete/relatedTerm",
-                                                    "vocabUrl": "../../chain/location/source-vocab/relatedTerm"
+                                                    "queryUrl": "../../chain/vocabularies/location/autocomplete/relatedTerm",
+                                                    "vocabUrl": "../../chain/vocabularies/location/source-vocab/relatedTerm"
                                                 }
                                             }],
                                             "value": "${{row}.relatedTerm}"

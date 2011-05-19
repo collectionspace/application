@@ -5,8 +5,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/person/autocomplete/broaderContext",
-                    "vocabUrl": "../../chain/person/source-vocab/broaderContext"
+                    "queryUrl": "../../chain/vocabularies/person/autocomplete/broaderContext",
+                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/broaderContext"
                 }
             }],
             "value": "${fields.broaderContext}"
@@ -28,8 +28,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../chain/person/autocomplete/narrowerContext",
-                                                    "vocabUrl": "../../chain/person/source-vocab/narrowerContext",
+                                                    "queryUrl": "../../chain/vocabularies/person/autocomplete/narrowerContext",
+                                                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/narrowerContext",
                                                     "invokers": {
                                                         "selectMatch": {
                                                             "funcName": "cspace.autocomplete.selectMatchConfirm"
@@ -114,8 +114,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../chain/person/autocomplete/relatedTerm",
-                                                    "vocabUrl": "../../chain/person/source-vocab/relatedTerm"
+                                                    "queryUrl": "../../chain/vocabularies/person/autocomplete/relatedTerm",
+                                                    "vocabUrl": "../../chain/vocabularies/person/source-vocab/relatedTerm"
                                                 }
                                             }],
                                             "value": "${{row}.relatedTerm}"
