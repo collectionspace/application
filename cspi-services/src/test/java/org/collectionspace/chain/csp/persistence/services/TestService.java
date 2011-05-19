@@ -81,6 +81,7 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
+		testXMLJSON(spec, "location", "location.xml", "location.json");
 		testXMLJSON(spec, "media", "media.xml", "mediaJSON.json");
 		testXMLJSON(spec, "collection-object", "objectsXMLJSON.xml",
 				"objectsJSON.json");
@@ -124,6 +125,7 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
+		testJSONXML(spec, "location", "location.xml", "location.json");
 		testJSONXML(spec, "media", "media.xml", "mediaJSON.json");
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
 		 		"objectsJSON.json");
@@ -710,7 +712,6 @@ public class TestService extends ServicesBaseClass {
 		// testPostGetDelete("collectionobjects/", "collectionobjects_common",
 		// "objectCreate.xml", "collectionobjects_common/objectNumber", "2");
 		
-
 		testPostGetDelete("media/", "media_common", "media.xml",
 				"media_common/title", "EX2011.5");
 		testCRUD("collectionobjects/", "collectionobjects_common",
