@@ -1791,7 +1791,7 @@
                 </section>
             </record>
 
-            <record id="taxon"  type="authority,compute-displayname" in-recordlist="no" in-findedit="no">
+            <record id="taxon"  type="authority,compute-displayname" in-recordlist="yes" in-findedit="yes">
                 <!-- No Terms Used yet as the only authority autocomplete field currently present in this record type -->
                 <!-- is within a nested complexType and can't be retrieved -->
                 <terms-used>false</terms-used>
@@ -1819,9 +1819,9 @@
                     </structure>
                 </structures>
                 <instances>
-                    <instance id="taxonomy-taxonomy">
-                        <web-url>taxonomy</web-url>
-                        <title-ref>taxonomy</title-ref>
+                    <instance id="taxon-taxon">
+                        <web-url>taxon</web-url>
+                        <title-ref>taxon</title-ref>
                         <title>Default Scientific Taxonomy Authority</title>
                     </instance>
                 </instances>
