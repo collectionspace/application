@@ -1813,7 +1813,6 @@
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
-                            <!-- Leave false until this record type is added to broader, narrow terms lists above -->
                             <hierarchy-section show="false"></hierarchy-section>
                         </view>
                     </structure>
@@ -1860,17 +1859,17 @@
                     </field>
                     <field id="taxonCurrency" seperate_ui_container="true">
                         <options>
-                            <option id="" default="yes">Please select a value</option>
+                            <option id="" default="no">Please select a value</option>
                             <option id="current">current</option>
                             <option id="obsolete">obsolete</option>
                             <option id="archaic">archaic</option>
                         </options>
                     </field>
-                    <repeat id="taxonAuthorGroup" has-primary="yes">
+                    <repeat id="taxonAuthorGroupList/taxonAuthorGroup" has-primary="yes">
                         <field id="taxonAuthor" autocomplete="person-person"></field>
                         <field id="taxonAuthorType" seperate_ui_container="true">
                             <options>
-                                <option id="" default="yes">Please select a value</option>
+                                <option id="" default="no">Please select a value</option>
                                 <option id="ascribed">ascribed</option>
                                 <option id="parenthetical">parenthetical</option>
                             </options>
@@ -1882,7 +1881,7 @@
                     </repeat>
                     <field id="taxonomicStatus" seperate_ui_container="true">
                         <options>
-                            <option id="" default="yes">Please select a value</option>
+                            <option id="" default="no">Please select a value</option>
                             <option id="valid">current</option>
                             <option id="invalid">obsolete</option>
                         </options>
@@ -1892,8 +1891,16 @@
                     <field id="taxonNameSourceCode"></field>
                     <field id="taxonGUID"></field>
                     <field id="taxonNote"></field>
-                    <!-- Verify how this boolean field is to be represented -->
-                    <field id="taxonIsNamedHybrid"></field>
+                    <!-- Verify how this field is to be represented here if/when converted to xs:boolean in services schema -->
+                    <field id="taxonIsNamedHybrid">seperate_ui_container="true">
+                        <options>
+                            <!-- For now, this simple binary vocabulary might be referenced, rather than placed inline, -->
+                            <!-- when it is first used in multiple places -->
+                            <option id="" default="no">Please select a value</option>
+                            <option id="true">true</option>
+                            <option id="false">false</option>
+                        </options>
+                    </field>
                 </section>
             </record>
 
