@@ -15,5 +15,5 @@
         "conditionNote": "aaa",
         "conditionNoteDate": "2011-05-25"
     }],
-    "type": "building"
+    "locationType": "building"
 }

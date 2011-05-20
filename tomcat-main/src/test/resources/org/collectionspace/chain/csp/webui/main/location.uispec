@@ -148,7 +148,7 @@
         ".csc-location-type": {
             "optionnames": ["Building", "Drawer", "Please select a value", "Room", "Shelf", "Tray", "Unit"],
             "optionlist": ["", "building", "drawer", "room", "shelf", "tray", "unit"],
-            "selection": "${fields.type}"
+            "selection": "${fields.locationType}"
         },
         ".csc-location-conditionGroup-label": {
             "messagekey": "location-conditionGroupLabel"
@@ -210,8 +210,8 @@
         ".csc-location-createdAt-label": {
             "messagekey": "location-createdAtLabel"
         },
-        ".csc-location-type-label": {
-            "messagekey": "location-typeLabel"
+        ".csc-location-locationType-label": {
+            "messagekey": "location-locationTypeLabel"
         },
         ".csc-location-name-label": {
             "messagekey": "location-nameLabel"

@@ -16,6 +16,6 @@
             <conditionNoteDate>2011-05-25</conditionNoteDate>
         </conditionGroup>
     </conditionGroupList>
-    <type>building</type>
+    <locationType>building</locationType>
     <displayName>person narro</displayName>
 </ns2:locations_common>
