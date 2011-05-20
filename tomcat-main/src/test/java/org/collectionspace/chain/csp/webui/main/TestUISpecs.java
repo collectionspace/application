@@ -138,6 +138,7 @@ public class TestUISpecs extends TestBase {
 		
 		uispec(jetty, "/cataloging/uispec", "collection-object.uispec");
 		uispec(jetty, "/person/uispec", "person.uispec");
+//		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
 		
 		
 		uispec(jetty, "/acquisition/uispec", "acquisition.uispec");
@@ -154,7 +155,6 @@ public class TestUISpecs extends TestBase {
 		
 
 		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
-		uispec(jetty, "/location/uispec", "objectexit.uispec");
 		
 
 		uispec(jetty, "/cataloging-tab/uispec", "cataloging-tab.uispec");
