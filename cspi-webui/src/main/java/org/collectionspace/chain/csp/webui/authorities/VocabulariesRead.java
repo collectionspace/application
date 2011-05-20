@@ -185,6 +185,8 @@ public class VocabulariesRead implements WebMethod {
 		JSONObject out=new JSONObject();
 		for(Relationship r: n.getRecord().getSpec().getAllRelations()){
 			if(r.showSiblings()){
+				JSONArray children = new JSONArray();
+				fields.put(r.getSiblingParent(), children);
 				if(fields.has(r.getID())){
 					String broadterm = fields.getString(r.getID());
 					String child = r.getSiblingChild();
@@ -197,11 +199,10 @@ public class VocabulariesRead implements WebMethod {
 						JSONObject reldata = storage.getPathsJSON("relations/hierarchical",restrict);
 						
 						fields.remove(child);
-						JSONArray children = new JSONArray();
 						for(int i=0;i<reldata.getJSONObject("moredata").length();i++){
 
 							String[] reld = (String[])reldata.get("listItems");
-							String hcsid = reld[0];
+							String hcsid = reld[i];
 							JSONObject mored = reldata.getJSONObject("moredata").getJSONObject(hcsid);
 							//it's name is
 							JSONObject siblings = new JSONObject();
