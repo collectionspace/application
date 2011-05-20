@@ -1785,7 +1785,8 @@
                     <field id="securityNote"></field>
                     <field id="accessNote"></field>
                     <field id="address"></field>
-					<field id="type" autocomplete="vocab-locationtype" ui-type="enum">
+                    <field id="locationType" autocomplete="vocab-locationtype" ui-type="enum">
+                    	<selector>location-type</selector>
                 		<enum>
 							<blank-value>Please select a value</blank-value>
 						</enum>
