@@ -108,7 +108,7 @@
                         </options>
                     </field>
                     <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="collectionspace_naturalhistory">
-                      <field id="taxon" section="collectionspace_naturalhistory" autocomplete="taxonomy-taxonomy">
+                      <field id="taxon" section="collectionspace_naturalhistory" autocomplete="taxon-taxon">
                         <selector>taxonomic-identification-taxon</selector>
                       </field>
                       <field id="qualifier" section="collectionspace_naturalhistory" seperate_ui_container="true">
