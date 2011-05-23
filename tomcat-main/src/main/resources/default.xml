@@ -53,6 +53,7 @@
                 <services-list-path>collectionobjects-common-list/collection-object-list-item</services-list-path>
                 <services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-record-path id="collectionspace_naturalhistory">collectionspace_naturalhistory:http://collectionspace.org/collectionspace_naturalhistory/,collectionspace_naturalhistory</services-record-path>
                 <web-url>cataloging</web-url>
                 <tab-url>cataloging-tab</tab-url>
                 <number-selector>.csc-entry-number</number-selector>
@@ -106,6 +107,50 @@
                             <option id="loanin" sample="LI2009.1.1">Loans In</option>
                         </options>
                     </field>
+                    <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="collectionspace_naturalhistory">
+                      <field id="taxon" section="collectionspace_naturalhistory" autocomplete="taxonomy-taxonomy">
+                        <selector>taxonomic-identification-taxon</selector>
+                      </field>
+                      <field id="qualifier" section="collectionspace_naturalhistory" seperate_ui_container="true">
+                        <selector>taxonomic-identification-qualifier</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="aff">aff.</option>
+                                <option id="cf">cf.</option>
+                                <option id="forsan">forsan</option>
+                                <option id="sensu_latu">sensu latu</option>
+                                <option id="questionable">questionable</option>
+                            </options>
+                      </field>
+                      <field id="identBy" section="collectionspace_naturalhistory" autocomplete="person-person,organization-organization">
+                        <selector>taxonomic-identification-ident-by</selector>
+                      </field>
+                      <field id="identDate" section="collectionspace_naturalhistory" ui-type="date">
+                          <selector>taxonomic-identification-ident-date</selector>
+                      </field>
+                      <field id="institution" section="collectionspace_naturalhistory" autocomplete="organization-organization">
+                        <selector>taxonomic-identification-institution</selector>
+                      </field>
+                      <field id="identKind" section="collectionspace_naturalhistory" seperate_ui_container="true">
+                        <selector>taxonomic-identification-ident-kind</selector>
+                            <options>
+                                <option id="">Please select a value</option>
+                                <option id="original_label_determination">original label determination</option>
+                                <option id="fide">fide</option>
+                                <option id="nomenclatural_change">nomenclatural change</option>
+                                <option id="taxonomic_change">taxonomic change </option>
+                            </options>
+                      </field>
+                      <field id="reference" section="collectionspace_naturalhistory">
+                        <selector>taxonomic-identification-reference</selector>
+                      </field>
+                      <field id="refPage" section="collectionspace_naturalhistory">
+                        <selector>taxonomic-identification-reference-page</selector>
+                      </field>
+                      <field id="notes" section="collectionspace_naturalhistory">
+                        <selector>taxonomic-identification-notes</selector>
+                      </field>
+                    </repeat>
                     <field id="numberOfObjects">
                         <selector>object-identification-number-objects</selector>
                     </field>
@@ -1776,14 +1821,15 @@
                             <option id="rejected">Rejected</option>
                         </options>
                     </field>
-                    <repeat id="conditionGroup">
+					<repeat id="conditionGroupList/conditionGroup">
                         <field id="conditionNote"></field>
                         <field id="conditionNoteDate" ui-type="date"></field>
                     </repeat>
                     <field id="securityNote"></field>
                     <field id="accessNote"></field>
                     <field id="address"></field>
-                    <field id="type" autocomplete="vocab-locationtype" ui-type="enum">
+                    <field id="locationType" autocomplete="vocab-locationtype" ui-type="enum">
+                    	<selector>location-type</selector>
                         <enum>
                             <blank-value>Please select a value</blank-value>
                         </enum>
@@ -1791,7 +1837,7 @@
                 </section>
             </record>
 
-            <record id="taxon"  type="authority,compute-displayname" in-recordlist="yes" in-findedit="yes">
+            <record id="taxon"  type="authority,compute-displayname" in-recordlist="no" in-findedit="no">
                 <!-- No Terms Used yet as the only authority autocomplete field currently present in this record type -->
                 <!-- is within a nested complexType and can't be retrieved -->
                 <terms-used>false</terms-used>
@@ -1813,19 +1859,15 @@
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
-                            <hierarchy-section show="true">
-                        		<options>
-                            		<option id="narrowerContext">taxon-taxon</option>
-                            		<option id="broaderContext">taxon-taxon</option>
-								</options>
-                            </hierarchy-section>
+                            <!-- Leave false until this record type is added to broader, narrow terms lists above -->
+                            <hierarchy-section show="false"></hierarchy-section>
                         </view>
                     </structure>
                 </structures>
                 <instances>
-                    <instance id="taxon-taxon">
-                        <web-url>taxon</web-url>
-                        <title-ref>taxon</title-ref>
+                    <instance id="taxonomy-taxonomy">
+                        <web-url>taxonomy</web-url>
+                        <title-ref>taxonomy</title-ref>
                         <title>Default Scientific Taxonomy Authority</title>
                     </instance>
                 </instances>
@@ -1864,17 +1906,17 @@
                     </field>
                     <field id="taxonCurrency" seperate_ui_container="true">
                         <options>
-                            <option id="" default="no">Please select a value</option>
+                            <option id="" default="yes">Please select a value</option>
                             <option id="current">current</option>
                             <option id="obsolete">obsolete</option>
                             <option id="archaic">archaic</option>
                         </options>
                     </field>
-                    <repeat id="taxonAuthorGroupList/taxonAuthorGroup" has-primary="yes">
+                    <repeat id="taxonAuthorGroup" has-primary="yes">
                         <field id="taxonAuthor" autocomplete="person-person"></field>
                         <field id="taxonAuthorType" seperate_ui_container="true">
                             <options>
-                                <option id="" default="no">Please select a value</option>
+                                <option id="" default="yes">Please select a value</option>
                                 <option id="ascribed">ascribed</option>
                                 <option id="parenthetical">parenthetical</option>
                             </options>
@@ -1886,7 +1928,7 @@
                     </repeat>
                     <field id="taxonomicStatus" seperate_ui_container="true">
                         <options>
-                            <option id="" default="no">Please select a value</option>
+                            <option id="" default="yes">Please select a value</option>
                             <option id="valid">current</option>
                             <option id="invalid">obsolete</option>
                         </options>
@@ -1896,16 +1938,8 @@
                     <field id="taxonNameSourceCode"></field>
                     <field id="taxonGUID"></field>
                     <field id="taxonNote"></field>
-                    <!-- Verify how this field is to be represented here if/when converted to xs:boolean in services schema -->
-                    <field id="taxonIsNamedHybrid">seperate_ui_container="true">
-                        <options>
-                            <!-- For now, this simple binary vocabulary might be referenced, rather than placed inline, -->
-                            <!-- when it is first used in multiple places -->
-                            <option id="" default="no">Please select a value</option>
-                            <option id="true">true</option>
-                            <option id="false">false</option>
-                        </options>
-                    </field>
+                    <!-- Verify how this boolean field is to be represented -->
+                    <field id="taxonIsNamedHybrid"></field>
                 </section>
             </record>
 
@@ -2694,7 +2728,7 @@
                         </field>
                     </repeat>
                     <repeat id="relatedTerms">
-                        <field id="relatedTerm" autocomplete="relatedTerm"></field>
+                        <field id="relatedTerm" autocomplete="person-person"></field>
                     </repeat>
                 </section>
                 <section>
