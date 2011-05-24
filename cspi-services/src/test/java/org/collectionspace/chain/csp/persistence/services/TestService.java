@@ -245,11 +245,6 @@ public class TestService extends ServicesBaseClass {
 					null, creds, cache);
 			status = rdocs.getStatus();
 			doc = rdocs.getDocument(partname);
-		} else {
-			rdoc = conn.getXMLDocument(RequestMethod.GET, authUrl, null, creds,
-					cache);
-			status = rdoc.getStatus();
-			doc = rdoc.getDocument();
 		}
 		assertEquals(200, status);
 		assertNotNull(doc);
@@ -267,13 +262,10 @@ public class TestService extends ServicesBaseClass {
 		if (partname != null) {
 			parts = new HashMap<String, Document>();
 			parts.put(partname, getDocument(filename));
-			parts.put(partname1, getDocument(filename1));
+	//		parts.put(partname1, getDocument(filename1));
 			url = conn.getMultipartURL(RequestMethod.POST, serviceurl
 					.toString(), parts, creds, cache);
-		} else {
-			url = conn.getURL(RequestMethod.POST, serviceurl.toString(),
-					getDocument(filename), creds, cache);
-		}
+		} 
 		assertEquals(201, url.getStatus());
 		String itemUrl = url.getURL();
 		String itemId = url.getURLTail();
@@ -283,12 +275,7 @@ public class TestService extends ServicesBaseClass {
 					null, creds, cache);
 			status = rdocs.getStatus();
 			doc = rdocs.getDocument(partname);
-		} else {
-			rdoc = conn.getXMLDocument(RequestMethod.GET, itemUrl, null, creds,
-					cache);
-			status = rdoc.getStatus();
-			doc = rdoc.getDocument();
-		}
+		} 
 		assertEquals(200, status);
 		assertNotNull(doc);
 
@@ -346,12 +333,7 @@ public class TestService extends ServicesBaseClass {
 					null, creds, cache);
 			status = rdocs.getStatus();
 			doc = rdocs.getDocument(partname);
-		} else {
-			rdoc = conn.getXMLDocument(RequestMethod.GET, itemUrl, null, creds,
-					cache);
-			status = rdoc.getStatus();
-			doc = rdoc.getDocument();
-		}
+		} 
 		assertEquals(404, status); // ensures CSPACE-209 hasn't regressed
 		assertNull(doc);
 		log.info("DELETED PERSON");
@@ -370,12 +352,7 @@ public class TestService extends ServicesBaseClass {
 					null, creds, cache);
 			status = rdocs.getStatus();
 			doc = rdocs.getDocument(partname);
-		} else {
-			rdoc = conn.getXMLDocument(RequestMethod.GET, authUrl, null, creds,
-					cache);
-			status = rdoc.getStatus();
-			doc = rdoc.getDocument();
-		}
+		} 
 		assertEquals(404, status); // ensures CSPACE-209 hasn't regressed
 		assertNull(doc);
 		log.info("DELETED PERSON AUTHORITY");
