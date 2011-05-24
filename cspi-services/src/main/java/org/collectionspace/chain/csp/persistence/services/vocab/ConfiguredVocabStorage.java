@@ -742,17 +742,23 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						String scsid="";
 						String sser="";
 						if(node.selectSingleNode("subject/uri")!=null){
-							suri=node.selectSingleNode("subject/uri").getText();
+							String surl = node.selectSingleNode("subject/uri").getText();
 							scsid=node.selectSingleNode("subject/csid").getText();
-							sser=node.selectSingleNode("subject/service").getText();
+							String sname=node.selectSingleNode("subject/name").getText();
+							sser=node.selectSingleNode("subject/documentType").getText();
+							String[] urnbits = surl.split("/");
+							suri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],sname);
 						}
 						String ouri="";
 						String oser="";
 						String ocsid="";
 						if(node.selectSingleNode("object/uri")!=null){
-							ouri=node.selectSingleNode("object/uri").getText();
+							String ourl=node.selectSingleNode("object/uri").getText();
 							ocsid=node.selectSingleNode("object/csid").getText();
-							oser=node.selectSingleNode("object/service").getText();
+							String oname=node.selectSingleNode("object/name").getText();
+							oser=node.selectSingleNode("object/documentType").getText();
+							String[] urnbits = ourl.split("/");
+							ouri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],oname);
 						}
 
 						String relateduri = ouri;
