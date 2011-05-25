@@ -89,11 +89,12 @@
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
-                    <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
+                    <field id="nametitle" exists-in-services="false">
                         <selector>object-identification-object-nametitle</selector>
                         <merges>
-                            <merge id="title" rank="1" />
-                            <merge id="objectName" rank="2" />
+                            <merge id="taxon" rank="1" />
+                            <merge id="title" rank="2" />
+                            <merge id="objectName" rank="3" />
                         </merges>
                     </field>
                 </section>
@@ -108,8 +109,9 @@
                         </options>
                     </field>
                     <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
-                      <field id="taxon" section="naturalhistory" autocomplete="taxon-taxon">
+                      <field id="taxon" in-title="yes" mini="summary,search,list,relate" section="naturalhistory" autocomplete="taxon-taxon">
                         <selector>taxonomic-identification-taxon</selector>
+                        <title-selector>titleBar-taxonomic-identification-taxon</title-selector>
                       </field>
                       <field id="qualifier" section="naturalhistory" seperate_ui_container="true">
                         <selector>taxonomic-identification-qualifier</selector>
@@ -225,8 +227,7 @@
                     </repeat>
                     <repeat id="titleGroupList/titleGroup">
                         <!-- selector>collection-object-titleGroup</selector -->
-                        <field id="title" in-title="yes" mini="search">
-                            <title-selector>titleBar-object-identification-object-title</title-selector>
+                        <field id="title" mini="search">
                             <selector>object-identification-object-title</selector>
                         </field>
                         <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
