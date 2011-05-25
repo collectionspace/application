@@ -991,6 +991,19 @@
                     <repeat id="fieldCollectionMethods">
                         <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
                     </repeat>
+                   <field id="labelHeader" section="naturalhistory"></field>
+                   <field id="labelFooter" section="naturalhistory"></field>
+                   <field id="fieldLocVerbatim" section="naturalhistory"></field>
+                    <field id="fieldLocLatDecimal" section="naturalhistory"></field>
+                    <field id="fieldLocLongDecimal" section="naturalhistory"></field>
+                    <field id="fieldLocGeodeticDatum" section="naturalhistory"></field>
+                    <field id="fieldLocCoordinateSystem" section="naturalhistory"></field>
+                   <field id="fieldLocCounty" section="naturalhistory"></field>
+                    <field id="fieldLocState" section="naturalhistory"></field>
+                    <field id="fieldLocCountry" section="naturalhistory"></field>
+                    <field id="fieldLocElevation" section="naturalhistory"></field>
+                    <field id="fieldLocHigherGeography" section="naturalhistory"></field>
+
                     <field id="fieldCollectionNote"></field>
                     <field id="fieldCollectionNumber"></field>
                     <field id="fieldCollectionPlace"></field>
