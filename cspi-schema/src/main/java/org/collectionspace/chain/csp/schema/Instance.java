@@ -109,6 +109,9 @@ public class Instance {
 	public String getUIURL() { return getString("ui-url"); }
 
 	public void addOption(String id,String name,String sample,boolean dfault) {
+		if(id==null){
+			id = name.replaceAll("\\W", "").toLowerCase();
+		}
 		Option opt=new Option(id,name,sample);
 		if(dfault){
 			opt.setDefault();
@@ -122,13 +125,16 @@ public class Instance {
 	}
 	
 	public void deleteOption(String id,String name,String sample,boolean dfault) {
-		Option opt=new Option(id,name,sample);
+		if(id==null){
+			id = name.replaceAll("\\W", "").toLowerCase();
+		}
+		Option opt=options.get(id);
 		if(dfault){
-			opt.setDefault();
+			//opt.setDefault();
 			option_default.remove(name);
 		}
-		options.remove(id);
 		options_list.remove(opt);
+		options.remove(id);
 	}
 	public Option getOption(String id) { return options.get(id); }
 	public Option[] getAllOptions() { return options_list.toArray(new Option[0]); }

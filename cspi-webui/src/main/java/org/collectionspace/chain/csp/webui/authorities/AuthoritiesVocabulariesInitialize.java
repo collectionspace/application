@@ -145,12 +145,18 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			
 			//add from path
 			String value = request.getRequestArgument("datapath");
-			log.info("getting data from path: "+value);
+			//log.info("getting data from path: "+value);
 			try{
 				String names = getResource(value);
 				for (String line : names.split("\n")) {
 					line = line.trim();
-					instance.addOption(null, line, null, false);
+					String bits[] = line.split("\\|");
+					if(bits.length>1){
+						instance.addOption(bits[0], bits[1], null, false);
+					}
+					else{
+						instance.addOption(null, line, null, false);
+					}
 				}
 			} catch (IOException e) {
 				throw new UIException("IOException",e);
@@ -201,7 +207,8 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 							shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
 						}
 						data.put("shortIdentifier", shortIdentifier);
-						storage.autocreateJSON(r.getID()+"/"+instance.getTitleRef(),data);
+						String url = r.getID()+"/"+instance.getTitleRef();
+						storage.autocreateJSON(url,data);
 						results.remove(name);
 					}
 					else{

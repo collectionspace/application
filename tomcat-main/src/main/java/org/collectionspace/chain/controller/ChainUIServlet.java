@@ -93,7 +93,7 @@ public class ChainUIServlet extends ChainServlet {
 
 					ByteArrayOutputStream dump = new ByteArrayOutputStream();
 					xmlfile = reader.read(new TeeInputStream(is, dump));
-					log.info(dump.toString("UTF-8"));
+				//	log.info(dump.toString("UTF-8"));
 
 					for (String metafield : validmap.getAllMetaConfigs()) {
 						String xPath = "//html/head/" + metafield;
