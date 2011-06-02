@@ -1793,7 +1793,7 @@
             </record>
 
             <record id="taxon"  type="authority,compute-displayname" in-recordlist="no" in-findedit="no">
-                <!-- No Terms Used yet as the only authority autocomplete field currently present in this record type -->
+                <!-- No terms-used yet as the only authority autocomplete field currently present in this record type -->
                 <!-- is within a nested complexType and can't be retrieved -->
                 <terms-used>false</terms-used>
                 <web-url>taxon</web-url>
