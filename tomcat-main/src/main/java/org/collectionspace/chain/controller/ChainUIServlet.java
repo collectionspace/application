@@ -54,10 +54,17 @@ public class ChainUIServlet extends ChainServlet {
 			IOException {
 
 		try {
+
+			String pathinfo = servlet_request.getPathInfo();
+
+			if (pathinfo.equals("/html") || pathinfo.equals("/html/")) {
+				servlet_response
+						.sendRedirect("/collectionspace/ui/html/index.html");
+			}
+
 			if (!inited)
 				setup();
 
-			String pathinfo = servlet_request.getPathInfo();
 			// should we redirect this url or just do the normal stuff
 
 			// Setup our request object
@@ -67,11 +74,6 @@ public class ChainUIServlet extends ChainServlet {
 
 			ConfigRoot root = cspm.getConfigRoot();
 			Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
-
-			if (pathinfo.equals("/html") || pathinfo.equals("/html/")) {
-				servlet_response
-						.sendRedirect("/collectionspace/ui/html/index.html");
-			}
 
 			ServletContext sc = null;
 			sc = getServletContext().getContext("/cspace-ui");

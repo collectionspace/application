@@ -73,7 +73,7 @@ public class ChainServlet extends HttpServlet  {
 	protected void load_config(ServletContext ctx) throws CSPDependencyException {
 		try {
 			ConfigFinder cfg=new ConfigFinder(ctx);
-			InputSource cfg_stream=cfg.resolveEntity("-//CSPACE//ROOT","cspace-config.xml");
+			InputSource cfg_stream = cfg.resolveEntity("-//CSPACE//ROOT","cspace-config.xml");
 			if(cfg_stream==null) {
 				locked_down="Cannot find cspace config xml file";
 			} else {
@@ -201,8 +201,30 @@ public class ChainServlet extends HttpServlet  {
 				//servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
 				return;
 			}
+			
+			//reinit if url = /chain/init
+			if(pathbits[0].equals("init")){
+				cspm=new CSPManagerImpl();
+				inited = false;
+				setup();
+
+				
+				ConfigFinder cfg=new ConfigFinder(getServletContext());
+				try {
+					InputSource cfg_stream=cfg.resolveEntity("-//CSPACE//ROOT","cspace-config.xml");
+					String test = IOUtils.toString(cfg_stream.getByteStream());
+					servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loaded"+test);
+				} catch (SAXException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				return;
+			}
 			if(!inited)
 				setup();
+			
 			if(locked_down!=null) {
 				//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else
 
