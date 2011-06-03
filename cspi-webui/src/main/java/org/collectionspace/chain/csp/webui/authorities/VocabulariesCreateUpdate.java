@@ -81,7 +81,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 			if(quickie){
 				JSONObject newdata = new JSONObject();
 				newdata.put("urn", refid);
-				newdata.put("label",data.getString(this.n.getRecord().getDisplayNameField().getID()));
+				newdata.put("label",data.getJSONObject("fields").getString(this.n.getRecord().getDisplayNameField().getID()));
 				data = newdata;
 			}
 			
