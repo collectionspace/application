@@ -67,7 +67,8 @@
          "value":"${fields.currentOwner}"
       },
       ".csc-objectexit-updatedAt":"${fields.updatedAt}",
-      ".csc-objectexit-exitDate-container":{
+      ".csc-objectexit-exitDate":{
+      	"value":"${fields.exitDate}",
          "decorators":[
             {
                "func":"cspace.datePicker",
@@ -133,7 +134,6 @@
       ".csc-objectexit-depositor-label":{
          "messagekey":"objectexit-depositorLabel"
       },
-      ".csc-objectexit-exitDate":"${fields.exitDate}",
       ".csc-objectexit-exitReason":{
          "default":"0",
          "optionnames":[

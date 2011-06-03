@@ -1,17 +1,6 @@
 {
     "recordEditor": {
-        ".csc-media-creator": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../chain/media/autocomplete/creator",
-                    "vocabUrl": "../../chain/media/source-vocab/creator"
-                }
-            }],
-            "value": "${fields.creator}"
-        },
-        ".csc-media-dates": {
+        ".csc-media-date": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
@@ -23,12 +12,12 @@
                                 "expander": {
                                     "repeatID": "repeat:",
                                     "tree": {
-                                        ".csc-media-date": "${{row}.date}",
-                                        ".csc-media-date-container": {
+                                        ".csc-media-date": {
                                             "decorators": [{
                                                 "func": "cspace.datePicker",
                                                 "type": "fluid"
-                                            }]
+                                            }],
+                                            "value": "${{row}.date}"
                                         }
                                     },
                                     "type": "fluid.renderer.repeat",
@@ -41,6 +30,17 @@
                     }
                 }
             }]
+        },
+        ".csc-media-creator": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../chain/media/autocomplete/creator",
+                    "vocabUrl": "../../chain/media/source-vocab/creator"
+                }
+            }],
+            "value": "${fields.creator}"
         },
         ".csc-media-coverage": "${fields.coverage}",
         ".csc-blobs-uri": "${fields.blobs.0.uri}",
@@ -214,12 +214,6 @@
                                             "optionlist": ["", "area", "base", "circumference", "count", "depth", "diameter", "height", "length", "running_time", "target", "volume", "weight", "width"],
                                             "selection": "${{row}.dimension}"
                                         },
-                                        ".csc-media-valueDate-container": {
-                                            "decorators": [{
-                                                "func": "cspace.datePicker",
-                                                "type": "fluid"
-                                            }]
-                                        },
                                         ".csc-media-measurementUnit": {
                                             "default": "0",
                                             "optionnames": ["Carats", "Centimeters", "Cubic Centimeters", "Feet", "Inches", "Kilograms", "Liters", "Meters", "Millimeters", "Minutes", "Pixels", "Please select a value", "Square Feet", "Stories"],
@@ -245,7 +239,13 @@
                                         },
                                         ".csc-media-value": "${{row}.value}",
                                         ".csc-media-valueQualifier": "${{row}.valueQualifier}",
-                                        ".csc-media-valueDate": "${{row}.valueDate}"
+                                        ".csc-media-valueDate": {
+                                            "decorators": [{
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }],
+                                            "value": "${{row}.valueDate}"
+                                        }
                                     },
                                     "type": "fluid.renderer.repeat",
                                     "pathAs": "row",

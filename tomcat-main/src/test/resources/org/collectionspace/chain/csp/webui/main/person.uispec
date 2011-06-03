@@ -163,7 +163,7 @@
         },
         ".csc-person-updatedAt": "${fields.updatedAt}",
         ".csc-personAuthority-name": "${fields.name}",
-        ".csc-contactAuthority-web": "${fields..0.web}",
+        ".csc-contactAuthority-web": "${fields.web}",
         ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
         ".csc-personAuthority-gender": {
             "default": "0",
@@ -200,19 +200,19 @@
                 }
             }]
         },
-        ".csc-contactAuthority-faxNumber": "${fields..0.faxNumber}",
-        ".csc-contact-tenantID": "${fields..0.tenantID}",
+        ".csc-contactAuthority-faxNumber": "${fields.faxNumber}",
+        ".csc-contact-tenantID": "${fields.tenantID}",
         ".csc-person-deathDate-label": {
             "messagekey": "person-deathDateLabel"
         },
         ".csc-person-nameNote-label": {
             "messagekey": "person-nameNoteLabel"
         },
-        ".csc-contact-createdAt": "${fields..0.createdAt}",
+        ".csc-contact-createdAt": "${fields.createdAt}",
         ".csc-person-birthDate-label": {
             "messagekey": "person-birthDateLabel"
         },
-        ".csc-contactAuthority-telephoneNumber": "${fields..0.telephoneNumber}",
+        ".csc-contactAuthority-telephoneNumber": "${fields.telephoneNumber}",
         ".csc-person-bioNote-label": {
             "messagekey": "person-bioNoteLabel"
         },
@@ -260,7 +260,7 @@
         ".csc-person-surName-label": {
             "messagekey": "person-surNameLabel"
         },
-        ".csc-contactAuthority-email": "${fields..0.email}",
+        ".csc-contactAuthority-email": "${fields.email}",
         ".csc-person-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-person-updatedAt-label": {
             "messagekey": "person-updatedAtLabel"
@@ -302,7 +302,7 @@
         ".csc-contactAuthority-addressType": {
             "optionnames": ["Alternative", "Mailing", "Please select a value", "Previous", "Street"],
             "optionlist": ["", "alternative", "mailing", "previous", "street"],
-            "selection": "${fields..0.addressType}"
+            "selection": "${fields.addressType}"
         },
         ".csc-personAuthority-middleName": "${fields.middleName}",
         ".csc-person-birthPlace-label": {
@@ -348,8 +348,8 @@
             "messagekey": "person-displayNameLabel"
         },
         ".csc-personAuthority-initials": "${fields.initials}",
-        ".csc-contactAuthority-addressPlace": "${fields..0.addressPlace}",
-        ".csc-contact-updatedAt": "${fields..0.updatedAt}",
+        ".csc-contactAuthority-addressPlace": "${fields.addressPlace}",
+        ".csc-contact-updatedAt": "${fields.updatedAt}",
         ".csc-person-title-label": {
             "messagekey": "person-titleLabel"
         },

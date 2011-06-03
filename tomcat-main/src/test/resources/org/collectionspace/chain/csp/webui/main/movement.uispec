@@ -1,6 +1,7 @@
 {
     "recordEditor": {
-        ".csc-movement-plannedRemovalDate-container": {
+        ".csc-movement-plannedRemovalDate": {
+        	"value": "${fields.plannedRemovalDate}",
             "decorators": [{
                 "func": "cspace.datePicker",
                 "type": "fluid"
@@ -24,7 +25,6 @@
             }]
         },
         ".csc-movement-tenantID": "${fields.tenantID}",
-        ".csc-movement-plannedRemovalDate": "${fields.plannedRemovalDate}",
         ".csc-movement-currentLocation": {
             "decorators": [{
                 "func": "cspace.autocomplete",
@@ -47,13 +47,13 @@
             }],
             "value": "${fields.movementContact}"
         },
-        ".csc-movement-removalDate-container": {
+        ".csc-movement-removalDate": {
+        	"value": "${fields.removalDate}",
             "decorators": [{
                 "func": "cspace.datePicker",
                 "type": "fluid"
             }]
         },
-        ".csc-movement-locationDate": "${fields.locationDate}",
         ".csc-movement-currentLocationFitness": {
             "default": "0",
             "optionnames": ["Dangerous", "Please select a value", "Suitable", "Temporary", "Unsuitable"],
@@ -103,7 +103,8 @@
         },
         ".csc-movement-currentLocationNote": "${fields.currentLocationNote}",
         ".csc-movement-createdAt": "${fields.createdAt}",
-        ".csc-movement-locationDate-container": {
+        ".csc-movement-locationDate": {
+        	"value": "${fields.locationDate}",
             "decorators": [{
                 "func": "cspace.datePicker",
                 "type": "fluid"
@@ -116,7 +117,6 @@
             "optionlist": ["", "conservation", "exhibition", "inventory", "loan", "newstoragelocation", "photography", "research"],
             "selection": "${fields.reasonForMove}"
         },
-        ".csc-movement-updatedAt": "${fields.updatedAt}",
-        ".csc-movement-removalDate": "${fields.removalDate}"
+        ".csc-movement-updatedAt": "${fields.updatedAt}"
     }
 }
