@@ -1,6 +1,12 @@
 {
     "recordEditor": {
-        ".csc-intake-condition-check-date": "${fields.conditionCheckDate}",
+        ".csc-intake-condition-check-date": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.conditionCheckDate}"
+        },
         ".csc-intake-current-owner": {
             "decorators": [{
                 "func": "cspace.autocomplete",
@@ -45,12 +51,6 @@
                         }
                     }
                 }
-            }]
-        },
-        ".csc-intake-entry-date-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
             }]
         },
         ".csc-intake-currentLocationGroup": {
@@ -98,13 +98,19 @@
         ".csc-intake-fieldCollectionMethods-label": {
             "messagekey": "intake-fieldCollectionMethodsLabel"
         },
-        ".csc-intake-valuationInformation-label": {
-            "messagekey": "intake-valuationInformationLabel"
-        },
         ".csc-intake-entryMethods-label": {
             "messagekey": "intake-entryMethodsLabel"
         },
-        ".csc-intake-fieldCollectionDate": "${fields.fieldCollectionDate}",
+        ".csc-intake-fieldCollectionDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.fieldCollectionDate}"
+        },
+        ".csc-intake-valuationInformation-label": {
+            "messagekey": "intake-valuationInformationLabel"
+        },
         ".csc-intake-conditionCheckReasons-label": {
             "messagekey": "intake-conditionCheckReasonsLabel"
         },
@@ -170,24 +176,12 @@
             }]
         },
         ".csc-intake-insurance-note": "${fields.insuranceNote}",
-        ".csc-intake-location-date-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
         ".csc-intake-entryNote-label": {
             "messagekey": "intake-entryNoteLabel"
         },
         ".csc-intake-fieldCollectionNote": "${fields.fieldCollectionNote}",
         ".csc-intake-fieldCollectionNumber-label": {
             "messagekey": "intake-fieldCollectionNumberLabel"
-        },
-        ".csc-intake-insurance-renewal-date-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
         },
         ".csc-intake-insurance-reference-number": "${fields.insuranceReferenceNumber}",
         ".csc-intake-entry-number-container": {
@@ -213,12 +207,12 @@
             "messagekey": "intake-returnDateLabel"
         },
         ".csc-intake-depositor-requirements": "${fields.depositorsRequirements}",
-        ".csc-intake-insurance-renewal-date": "${fields.insuranceRenewalDate}",
-        ".csc-intake-fieldCollectionDate-container": {
+        ".csc-intake-insurance-renewal-date": {
             "decorators": [{
                 "func": "cspace.datePicker",
                 "type": "fluid"
-            }]
+            }],
+            "value": "${fields.insuranceRenewalDate}"
         },
         ".csc-intake-tenantID": "${fields.tenantID}",
         ".csc-intake-entry-number": "${fields.entryNumber}",
@@ -303,22 +297,16 @@
         ".csc-intake-entryReason-label": {
             "messagekey": "intake-entryReasonLabel"
         },
+        ".csc-intake-valuation-reference-number": "${fields.valuationReferenceNumber}",
         ".csc-intake-locationInformation-label": {
             "messagekey": "intake-locationInformationLabel"
         },
-        ".csc-intake-valuation-reference-number": "${fields.valuationReferenceNumber}",
         ".csc-intake-fieldCollectionEventNames-label": {
             "messagekey": "intake-fieldCollectionEventNamesLabel"
         },
         ".csc-intake-updatedAt": "${fields.updatedAt}",
         ".csc-intake-condition-check-reference-number": "${fields.conditionCheckReferenceNumber}",
         ".csc-intake-fieldCollectionPlace": "${fields.fieldCollectionPlace}",
-        ".csc-intake-returnDate-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
         ".csc-intake-fieldCollectionSource": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -371,11 +359,11 @@
             }],
             "value": "${fields.depositor}"
         },
-        ".csc-intake-fieldCollectionNote-label": {
-            "messagekey": "intake-fieldCollectionNoteLabel"
-        },
         ".csc-intake-fieldCollectionDate-label": {
             "messagekey": "intake-fieldCollectionDateLabel"
+        },
+        ".csc-intake-fieldCollectionNote-label": {
+            "messagekey": "intake-fieldCollectionNoteLabel"
         },
         ".csc-intake-condition-check-note": "${fields.conditionCheckNote}",
         ".csc-intake-currentOwner-label": {
@@ -440,7 +428,13 @@
         ".csc-intake-conditionCheckDate-label": {
             "messagekey": "intake-conditionCheckDateLabel"
         },
-        ".csc-intake-returnDate": "${fields.returnDate}",
+        ".csc-intake-returnDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.returnDate}"
+        },
         ".csc-intake-packingNote-label": {
             "messagekey": "intake-packingNoteLabel"
         },
@@ -458,7 +452,13 @@
             }],
             "value": "${fields.valuer}"
         },
-        ".csc-intake-entry-date": "${fields.entryDate}",
+        ".csc-intake-entry-date": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.entryDate}"
+        },
         ".csc-intake-conditionCheckNote-label": {
             "messagekey": "intake-conditionCheckNoteLabel"
         },
@@ -539,19 +539,19 @@
                 }
             }]
         },
-        ".csc-intake-condition-check-date-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
         ".csc-intake-objectCollectionInformation-label": {
             "messagekey": "intake-objectCollectionInformationLabel"
         },
         ".csc-intake-createdAt-label": {
             "messagekey": "intake-createdAtLabel"
         },
-        ".csc-intake-location-date": "${fields.locationDate}",
+        ".csc-intake-location-date": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.locationDate}"
+        },
         ".csc-intake-conditionCheckersOrAssessors-label": {
             "messagekey": "intake-conditionCheckersOrAssessorsLabel"
         }

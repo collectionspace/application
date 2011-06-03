@@ -583,14 +583,12 @@ public class UISpec implements WebMethod {
 		JSONObject decorator=getDecorator("fluid",null,"cspace.datePicker",null);
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
-				decorator.put("container",getContainerSelector(f,context));
+				decorator.put("container",getSelector(f,context));
 			}
 		}
 		decorators.put(decorator);
 		out.put("decorators",decorators);
-		if(f.isRefactored()){
-			out.put("valuebinding", generateDataEntryField(f,context));
-		}
+		out.put("value", generateDataEntryField(f,context));
 		return out;
 	}
 
@@ -780,10 +778,6 @@ public class UISpec implements WebMethod {
 				child = (Group)r.getChildren("")[0];
 				selector = getSelector(child,context);
 			}
-			//XXX CSPACE-2706 hack
-			if(child.getUIType().equals("date")){
-				selector = getSelector(r,context);
-			}
 		}
 		if(fs.isExpander()){
 			selector="expander";
@@ -940,7 +934,7 @@ public class UISpec implements WebMethod {
 			out.put(getContainerSelector(f,context),generateChooser(f,context));
 		}
 		if("date".equals(f.getUIType())) {
-			out.put(getContainerSelector(f,context),generateDate(f,context));
+			out.put(getSelector(f,context),generateDate(f,context));
 		}
 	}
 

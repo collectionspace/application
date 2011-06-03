@@ -123,7 +123,13 @@
                 }
             }]
         },
-        ".csc-acquisition-accession-date": "${fields.accessionDate}",
+        ".csc-acquisition-accession-date": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.accessionDate}"
+        },
         ".csc-acquisition-group-purchase-price-currency": {
             "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
             "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
@@ -146,15 +152,15 @@
         ".csc-acquisition-acquisitionDates-label": {
             "messagekey": "acquisition-acquisitionDatesLabel"
         },
-        ".csc-acquisition-acquisitionAuthorizerDate": "${fields.acquisitionAuthorizerDate}",
-        ".csc-acquisition-fieldCollectionEventNames-label": {
-            "messagekey": "acquisition-fieldCollectionEventNamesLabel"
-        },
-        ".csc-acquisition-accession-date-container": {
+        ".csc-acquisition-acquisitionAuthorizerDate": {
             "decorators": [{
                 "func": "cspace.datePicker",
                 "type": "fluid"
-            }]
+            }],
+            "value": "${fields.acquisitionAuthorizerDate}"
+        },
+        ".csc-acquisition-fieldCollectionEventNames-label": {
+            "messagekey": "acquisition-fieldCollectionEventNamesLabel"
         },
         ".csc-acquisition-object-purchase-offer-price-value": "${fields.objectPurchaseOfferPriceValue}",
         ".csc-object-acquisition-ownersource": "${fields.ownersource}",
@@ -173,12 +179,6 @@
         ".csc-acquisition-original-object-purchase-price-value": "${fields.originalObjectPurchasePriceValue}",
         ".csc-acquisition-objectPurchasePriceValue-label": {
             "messagekey": "acquisition-objectPurchasePriceValueLabel"
-        },
-        ".csc-acquisition-acquisitionAuthorizerDate-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
         },
         ".csc-acquisition-objectPurchaseOfferPriceCurrency-label": {
             "messagekey": "acquisition-objectPurchaseOfferPriceCurrencyLabel"
@@ -213,9 +213,6 @@
             "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
             "selection": "${fields.objectPurchaseOfferPriceCurrency}"
         },
-        ".csc-acquisition-groupPurchasePriceCurrency-label": {
-            "messagekey": "acquisition-groupPurchasePriceCurrencyLabel"
-        },
         ".csc-acquisition-fieldCollectionEventName": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -240,6 +237,9 @@
                     }
                 }
             }]
+        },
+        ".csc-acquisition-groupPurchasePriceCurrency-label": {
+            "messagekey": "acquisition-groupPurchasePriceCurrencyLabel"
         },
         ".csc-acquisition-original-object-purchase-price-currency": {
             "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
@@ -309,15 +309,7 @@
                 }
             }]
         },
-        ".csc-acquisition-acquisition-note": "${fields.acquisitionNote}",
-        ".csc-acquisition-transfer-of-title-number": "${fields.transferOfTitleNumber}",
-        ".csc-acquisition-acquisitionAuthorizerDate-label": {
-            "messagekey": "acquisition-acquisitionAuthorizerDateLabel"
-        },
-        ".csc-acquisition-objectOfferPriceCurrency-label": {
-            "messagekey": "acquisition-objectOfferPriceCurrencyLabel"
-        },
-        ".csc-acquisition-acquisitionDates": {
+        ".csc-acquisition-date": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
@@ -329,12 +321,12 @@
                                 "expander": {
                                     "repeatID": "repeat:",
                                     "tree": {
-                                        ".csc-acquisition-date": "${{row}.acquisitionDate}",
-                                        ".csc-acquisition-acquisition-date-container": {
+                                        ".csc-acquisition-date": {
                                             "decorators": [{
                                                 "func": "cspace.datePicker",
                                                 "type": "fluid"
-                                            }]
+                                            }],
+                                            "value": "${{row}.acquisitionDate}"
                                         }
                                     },
                                     "type": "fluid.renderer.repeat",
@@ -347,6 +339,14 @@
                     }
                 }
             }]
+        },
+        ".csc-acquisition-acquisition-note": "${fields.acquisitionNote}",
+        ".csc-acquisition-transfer-of-title-number": "${fields.transferOfTitleNumber}",
+        ".csc-acquisition-acquisitionAuthorizerDate-label": {
+            "messagekey": "acquisition-acquisitionAuthorizerDateLabel"
+        },
+        ".csc-acquisition-objectOfferPriceCurrency-label": {
+            "messagekey": "acquisition-objectOfferPriceCurrencyLabel"
         }
     }
 }

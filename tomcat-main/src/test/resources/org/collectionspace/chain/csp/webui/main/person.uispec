@@ -154,7 +154,13 @@
             "optionlist": ["accepted", "provisional", "rejected", "under review"],
             "selection": "${fields.termStatus}"
         },
-        ".csc-personAuthority-birthDate": "${fields.birthDate}",
+        ".csc-personAuthority-birthDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.birthDate}"
+        },
         ".csc-person-updatedAt": "${fields.updatedAt}",
         ".csc-personAuthority-name": "${fields.name}",
         ".csc-contactAuthority-web": "${fields..0.web}",
@@ -231,19 +237,19 @@
         ".csc-person-salutation-label": {
             "messagekey": "person-salutationLabel"
         },
-        ".csc-personAuthority-birthDate-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
         ".csc-person-tenantID-label": {
             "messagekey": "person-tenantIDLabel"
         },
         ".csc-contact-updatedAt-label": {
             "messagekey": "contact-updatedAtLabel"
         },
-        ".csc-personAuthority-deathDate": "${fields.deathDate}",
+        ".csc-personAuthority-deathDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.deathDate}"
+        },
         ".csc-contact-web-label": {
             "messagekey": "contact-webLabel"
         },
@@ -256,12 +262,6 @@
         },
         ".csc-contactAuthority-email": "${fields..0.email}",
         ".csc-person-shortIdentifier": "${fields.shortIdentifier}",
-        ".csc-personAuthority-deathDate-container": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
         ".csc-person-updatedAt-label": {
             "messagekey": "person-updatedAtLabel"
         },

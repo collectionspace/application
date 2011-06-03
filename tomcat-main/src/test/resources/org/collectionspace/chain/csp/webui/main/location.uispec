@@ -173,13 +173,13 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-location-conditionNote": "${{row}.conditionNote}",
-                                        ".csc-location-conditionNoteDate-container": {
+                                        ".csc-location-conditionNoteDate": {
+                                        	"value": "${{row}.conditionNoteDate}",
                                             "decorators": [{
                                                 "func": "cspace.datePicker",
                                                 "type": "fluid"
                                             }]
                                         },
-                                        ".csc-location-conditionNoteDate": "${{row}.conditionNoteDate}"
                                     },
                                     "type": "fluid.renderer.repeat",
                                     "pathAs": "row",
