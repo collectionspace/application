@@ -386,7 +386,7 @@
             "messagekey": "intake-insuranceReferenceNumberLabel"
         },
         ".csc-intake-entry-reason": {
-            "default": "0",
+            "default": "",
             "optionnames": ["Commission", "Consideration", "Enquiry", "Loan", "Please select a value"],
             "optionlist": ["", "commission", "consideration", "enquiry", "loan"],
             "selection": "${fields.entryReason}"

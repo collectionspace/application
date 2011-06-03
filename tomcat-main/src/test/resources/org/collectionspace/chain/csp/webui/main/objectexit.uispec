@@ -103,7 +103,7 @@
                               "repeatID":"repeat:",
                               "tree":{
                                  ".csc-objectexit-exitMethods":{
-                                    "default":"0",
+                                    "default":"",
                                     "optionnames":[
                                        "Please select a value",
                                        "Courier",
@@ -135,7 +135,7 @@
          "messagekey":"objectexit-depositorLabel"
       },
       ".csc-objectexit-exitReason":{
-         "default":"0",
+         "default":"",
          "optionnames":[
             "Please select a value",
             "Deaccession",

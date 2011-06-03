@@ -1,7 +1,7 @@
 {
     "details": {
         ".csc-user-status": {
-            "default": "0",
+            "default": "active",
             "optionnames": ["Active", "Inactive"],
             "optionlist": ["active", "inactive"],
             "selection": "${fields.status}"

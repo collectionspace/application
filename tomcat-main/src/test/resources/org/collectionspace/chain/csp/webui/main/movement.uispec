@@ -55,7 +55,7 @@
             }]
         },
         ".csc-movement-currentLocationFitness": {
-            "default": "0",
+            "default": "",
             "optionnames": ["Dangerous", "Please select a value", "Suitable", "Temporary", "Unsuitable"],
             "optionlist": ["", "dangerous", "suitable", "temporary", "unsuitable"],
             "selection": "${fields.currentLocationFitness}"
@@ -84,7 +84,7 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-movement-movementMethods": {
-                                            "default": "0",
+                                            "default": "",
                                             "optionnames": ["Forklift", "Handcarried", "Please select a value", "Trolley"],
                                             "optionlist": ["", "forklift", "handcarried", "trolley"],
                                             "selection": "${{row}.movementMethod}"
@@ -112,7 +112,7 @@
         },
         ".csc-movement-movementReferenceNumber": "${fields.movementReferenceNumber}",
         ".csc-movement-reasonForMove": {
-            "default": "0",
+            "default": "",
             "optionnames": ["Conservation", "Exhibition", "Inventory", "Loan", "New Storage Location", "Photography", "Please select a value", "Research"],
             "optionlist": ["", "conservation", "exhibition", "inventory", "loan", "newstoragelocation", "photography", "research"],
             "selection": "${fields.reasonForMove}"

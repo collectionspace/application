@@ -225,6 +225,7 @@
                         <field id="objectNameLevel" seperate_ui_container="true">
                             <selector>object-identification-object-level</selector>
                             <options>
+                                <option id="" default="yes">Please select a value</option>
                                 <option id="group">Group</option>
                                 <option id="subgroup">Subgroup</option>
                             </options>
@@ -813,7 +814,7 @@
                     </field>
                     <field id="ownershipExchangePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>USD</default>
+                            <default>usd</default>
                         </enum>
                         <selector>object-history-association-denomination</selector>
                     </field>
@@ -1381,7 +1382,7 @@
                     <field id="creditLine"></field>
                     <field id="groupPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>USD</default>
+                            <default>usd</default>
                         </enum>
                         <selector>acquisition-group-purchase-price-currency</selector>
                     </field>
@@ -1390,7 +1391,7 @@
                     </field>
                     <field id="objectOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>USD</default>
+                            <default>usd</default>
                         </enum>
                         <selector>acquisition-object-offer-price-currency</selector>
                     </field>
@@ -1399,7 +1400,7 @@
                     </field>
                     <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>USD</default>
+                            <default>usd</default>
                         </enum>
                         <selector>acquisition-purchaser-price-denomination</selector>
                     </field>
@@ -1408,7 +1409,7 @@
                     </field>
                     <field id="objectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>USD</default>
+                            <default>usd</default>
                         </enum>
                         <selector>acquisition-object-purchase-price-currency</selector>
                     </field>
@@ -1417,7 +1418,7 @@
                     </field>
                     <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>USD</default>
+                            <default>usd</default>
                         </enum>
                         <selector>acquisition-object-purchase-offer-price-currency</selector>
                     </field>
@@ -1426,7 +1427,7 @@
                     </field>
                     <field id="originalObjectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>USD</default>
+                            <default>usd</default>
                         </enum>
                         <selector>acquisition-original-object-purchase-price-currency</selector>
                     </field>
@@ -1445,7 +1446,7 @@
                     <repeat id="acquisitionFundingList/acquisitionFunding">
                         <field id="acquisitionFundingCurrency" autocomplete="vocab-currency" ui-type="enum">
                             <enum>
-                                <default>USD</default>
+                                <default>usd</default>
                             </enum>
                         </field>
                         <field id="acquisitionFundingValue"></field>
@@ -1769,8 +1770,8 @@
                     <field id="name" mini="summary,list,search,relate,terms"></field>
                     <field id="termStatus" seperate_ui_container="true">
                         <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="provisional">Provisional</option>
+                            <option id="">Please select a value</option>
+                            <option id="provisional" default="yes">Provisional</option>
                             <option id="under review">Under Review</option>
                             <option id="accepted">Accepted</option>
                             <option id="rejected">Rejected</option>
@@ -1939,8 +1940,8 @@
                     <field id="termStatus" seperate_ui_container="true">
                         <selector>organizationAuthority-status</selector>
                         <options>
-                            <option id="" default="yes">Please select a value</option>
-                            <option id="provisional">Provisional</option>
+                            <option id="">Please select a value</option>
+                            <option id="provisional" default="yes">Provisional</option>
                             <option id="under review">Under Review</option>
                             <option id="accepted">Accepted</option>
                             <option id="rejected">Rejected</option>
@@ -2919,10 +2920,11 @@
                     <field id="creator" autocomplete="person-person,organization-organization"></field>
                     <repeat id="languages">
                         <services-tag>languageList</services-tag>
-                        <field id="language" autocomplete="vocab-languages" ui-type="enum"></field>
+                        <field id="language" autocomplete="vocab-languages" ui-type="enum">
                         <enum>
                             <default>eng</default>
                         </enum>
+						</field>
                     </repeat>
                     <field id="publisher" autocomplete="person-person,organization-organization"></field>
                     <repeat id="relations">

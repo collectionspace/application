@@ -83,7 +83,7 @@
             "messagekey": "acquisition-tenantIDLabel"
         },
         ".csc-acquisition-acquisition-method": {
-            "default": "0",
+            "default": "gift",
             "optionnames": ["Exchange", "Gift", "Purchase", "Transfer", "Treasure"],
             "optionlist": ["exchange", "gift", "purchase", "transfer", "treasure"],
             "selection": "${fields.acquisitionMethod}"

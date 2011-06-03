@@ -149,7 +149,7 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-media-type": {
-                                            "default": "0",
+                                            "default": "",
                                             "optionnames": ["Dataset", "Document", "Moving Image", "Please select a value", "Sound", "Still Image"],
                                             "optionlist": ["", "dataset", "document", "moving_image", "sound", "still_image"],
                                             "selection": "${{row}.type}"
@@ -209,13 +209,13 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-media-dimension": {
-                                            "default": "0",
+                                            "default": "",
                                             "optionnames": ["Area", "Base", "Circumference", "Count", "Depth", "Diameter", "Height", "Length", "Please select a value", "Running Time", "Target", "Volume", "Weight", "Width"],
                                             "optionlist": ["", "area", "base", "circumference", "count", "depth", "diameter", "height", "length", "running_time", "target", "volume", "weight", "width"],
                                             "selection": "${{row}.dimension}"
                                         },
                                         ".csc-media-measurementUnit": {
-                                            "default": "0",
+                                            "default": "",
                                             "optionnames": ["Carats", "Centimeters", "Cubic Centimeters", "Feet", "Inches", "Kilograms", "Liters", "Meters", "Millimeters", "Minutes", "Pixels", "Please select a value", "Square Feet", "Stories"],
                                             "optionlist": ["", "carats", "centimeters", "cubic_centimeters", "feet", "inches", "kilograms", "liters", "meters", "millimeters", "minutes", "pixels", "square_feet", "stories"],
                                             "selection": "${{row}.measurementUnit}"
@@ -232,7 +232,7 @@
                                             "value": "${{row}.measuredBy}"
                                         },
                                         ".csc-media-measurementMethod": {
-                                            "default": "0",
+                                            "default": "",
                                             "optionnames": ["Balance/Beam Scale", "Electronic Distance Measurement", "Goniometer", "Hydraulic or Pneumatic Scale", "Measuring Tape (cloth)", "Measuring Tape (metal)", "Microscopy (reticule)", "Odometer", "Optical Range Finder", "Osteometric Board", "Pacing Pedometer", "Please select a value", "Protractor", "Ruler", "Sliding Calipers", "Spreading Calipers", "Spring Scale", "Stadia/Transit", "Standard Mesh/Screen", "Taping/Thaining", "Theodolite/Total Station"],
                                             "optionlist": ["", "balance_beam_scale", "electronic_distance_measurement", "goniometer", "hydraulic_or_pneumatic_scale", "measuring_tape_cloth", "measuring_tape_metal", "microscopy_reticule", "odometer", "optical_range_finder", "osteometric_board", "pacing_pedometer", "protractor", "ruler", "sliding_calipers", "spreading_calipers", "spring_scale", "stadia_transit", "standard_mesh_screen", "taping_chaining", "theodolite_total_station"],
                                             "selection": "${{row}.measurementMethod}"

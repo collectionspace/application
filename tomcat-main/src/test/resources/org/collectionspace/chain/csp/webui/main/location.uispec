@@ -154,7 +154,7 @@
             "messagekey": "location-conditionGroupLabel"
         },
         ".csc-location-termStatus": {
-            "default": "0",
+            "default": "provisional",
             "optionnames": ["Accepted", "Please select a value", "Provisional", "Rejected", "Under Review"],
             "optionlist": ["", "accepted", "provisional", "rejected", "under review"],
             "selection": "${fields.termStatus}"
@@ -174,12 +174,12 @@
                                     "tree": {
                                         ".csc-location-conditionNote": "${{row}.conditionNote}",
                                         ".csc-location-conditionNoteDate": {
-                                        	"value": "${{row}.conditionNoteDate}",
                                             "decorators": [{
                                                 "func": "cspace.datePicker",
                                                 "type": "fluid"
-                                            }]
-                                        },
+                                            }],
+                                            "value": "${{row}.conditionNoteDate}"
+                                        }
                                     },
                                     "type": "fluid.renderer.repeat",
                                     "pathAs": "row",
@@ -210,14 +210,14 @@
         ".csc-location-createdAt-label": {
             "messagekey": "location-createdAtLabel"
         },
-        ".csc-location-locationType-label": {
-            "messagekey": "location-locationTypeLabel"
-        },
         ".csc-location-name-label": {
             "messagekey": "location-nameLabel"
         },
         ".csc-location-tenantID-label": {
             "messagekey": "location-tenantIDLabel"
+        },
+        ".csc-location-locationType-label": {
+            "messagekey": "location-locationTypeLabel"
         },
         ".csc-location-displayName": "${fields.displayName}",
         ".csc-location-shortIdentifier": "${fields.shortIdentifier}",

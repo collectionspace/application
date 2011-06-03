@@ -149,7 +149,7 @@
         },
         ".csc-personAuthority-deathPlace": "${fields.deathPlace}",
         ".csc-personAuthority-status": {
-            "default": "0",
+            "default": "provisional",
             "optionnames": ["Accepted", "Provisional", "Rejected", "Under Review"],
             "optionlist": ["accepted", "provisional", "rejected", "under review"],
             "selection": "${fields.termStatus}"
@@ -166,7 +166,7 @@
         ".csc-contactAuthority-web": "${fields.web}",
         ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
         ".csc-personAuthority-gender": {
-            "default": "0",
+            "default": "",
             "optionnames": ["Female", "Male", "Please select a value"],
             "optionlist": ["", "female", "male"],
             "selection": "${fields.gender}"
@@ -217,7 +217,7 @@
             "messagekey": "person-bioNoteLabel"
         },
         ".csc-personAuthority-salutation": {
-            "default": "0",
+            "default": "dear",
             "optionnames": ["Dear", "Hello", "To"],
             "optionlist": ["dear", "hello", "to"],
             "selection": "${fields.salutation}"
@@ -226,7 +226,7 @@
             "messagekey": "person-initialsLabel"
         },
         ".csc-personAuthority-title": {
-            "default": "0",
+            "default": "",
             "optionnames": ["Baron", "Baroness", "Dame", "Dr", "Lady", "Lord", "Miss", "Mr", "Mrs", "Ms", "Please select a value", "Professor", "Sir"],
             "optionlist": ["", "Baron", "Baroness", "Dame", "Dr", "Lady", "Lord", "Miss", "Mr", "Mrs", "Ms", "Professor", "Sir"],
             "selection": "${fields.title}"

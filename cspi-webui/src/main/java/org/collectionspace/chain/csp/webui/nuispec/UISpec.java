@@ -165,16 +165,17 @@ public class UISpec implements WebMethod {
 		}
 		JSONArray ids=new JSONArray();
 		JSONArray names=new JSONArray();
-		int idx=0,dfault=-1;
+		int idx=0;
+		String dfault=null;
 		for(Option opt : f.getAllOptions()) {
 			ids.put(opt.getID());
 			names.put(opt.getName());
 			if(opt.isDefault())
-				dfault=idx;
+				dfault=opt.getID();
 			idx++;
 		}
 		//currently only supports single select dropdowns and not multiselect
-		if(dfault!=-1)
+		if(dfault!=null)
 			out.put("default",dfault+"");
 		out.put("optionlist",ids);
 		out.put("optionnames",names);			
