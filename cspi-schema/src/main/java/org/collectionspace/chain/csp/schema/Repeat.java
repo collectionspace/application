@@ -89,6 +89,7 @@ public class Repeat implements FieldSet, FieldParent {
 		this.initStrings(section,"@userecord","");
 		this.initStrings(section,"@onlyifexists","");
 		this.initStrings(section,"@ui-spec-prefix","");
+		this.initBoolean(section,"@ui-spec-inherit",false);
 		this.initStrings(section,"@with-csid",null);
 		// used by uispec to create new structure
 		this.initBoolean(section,"@as-expander",false);
@@ -214,6 +215,9 @@ public class Repeat implements FieldSet, FieldParent {
 
 	public String getUISpecPrefix() {
 		return getString("@ui-spec-prefix");
+	}
+	public Boolean getUISpecInherit() {
+		return getBoolean("@ui-spec-inherit");
 	}
 	
 	public boolean hasServicesParent() {

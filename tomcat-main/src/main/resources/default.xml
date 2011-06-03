@@ -1709,7 +1709,7 @@
                     </field>
                 </section>
                 <section id="contactInformation">
-                    <group id="contact" userecord="contact" exists-in-services="false"></group>
+                    <group id="contact" userecord="contact" ui-spec-inherit="true" exists-in-services="false"></group>
                 </section>
                 <!-- not used in UI -->
                 <section >

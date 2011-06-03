@@ -694,19 +694,24 @@ public class UISpec implements WebMethod {
 			generateHierarchyEntry(out,fs,context);
 		}
 		if(fs.usesRecord()){
-			UISpecRunContext sub = context.createChild();
-			if(!getSelectorAffix(fs).equals("")){
-				if(!context.equals("")){
-					sub.setUIAffix(getSelectorAffix(fs));
+			if(!fs.getUISpecInherit()){
+				UISpecRunContext sub = context.createChild();
+				if(!getSelectorAffix(fs).equals("")){
+					if(!context.equals("")){
+						sub.setUIAffix(getSelectorAffix(fs));
+					}
+					else{
+						sub.setUIAffix(getSelectorAffix(fs));
+					}
 				}
-				else{
-					sub.setUIAffix(getSelectorAffix(fs));
-				}
+				String sp=fs.getUISpecPrefix();
+				if(sp!=null)
+					sub.setUIPrefix(sp);
+				generateSubRecord(out, fs,sub);
 			}
-			String sp=fs.getUISpecPrefix();
-			if(sp!=null)
-				sub.setUIPrefix(sp);
-			generateSubRecord(out, fs,sub);
+			else{
+				generateSubRecord(out, fs,context);
+			}
 		}
 		else{
 			
