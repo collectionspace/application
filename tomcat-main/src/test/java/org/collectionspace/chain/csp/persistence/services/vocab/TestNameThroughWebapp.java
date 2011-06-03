@@ -310,7 +310,7 @@ public class TestNameThroughWebapp extends TestBase{
 			ServletTester jetty=setupJetty();
 			// Create
 			log.info("NAME: NamesCreateUpdateDelete: CREATE");
-			JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTFred Bloggs', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
+			JSONObject data=new JSONObject("{'csid':'','fields':{'displayName':'XXXTESTFred Bloggs', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
 			HttpTester out = POSTData("/vocabularies/person/",data,jetty);
 			String url=out.getHeader("Location");
 			log.info(out.getContent());
