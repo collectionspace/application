@@ -56,7 +56,11 @@ public class VocabulariesCreateUpdate implements WebMethod {
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject data=request.getJSONBody();
+			Boolean quickie = false;//full update or quickie from autocomplete
 			if(create) {
+				if(!data.has("csid")){//need a better check for autocomplete add's
+					quickie = true;
+				}
 				path=sendJSON(storage,null,data);
 				// JIRA CSPACE-1173 - is there a better way to do this? Should be used cached data at least
 				String path1=n.getRecord().getID()+"/"+n.getTitleRef();
@@ -73,6 +77,14 @@ public class VocabulariesCreateUpdate implements WebMethod {
 			data.put("urn", refid);
 			data.getJSONObject("fields").put("urn", refid);
 			data.put("csid",data.getJSONObject("fields").getString("csid"));
+			
+			if(quickie){
+				JSONObject newdata = new JSONObject();
+				newdata.put("urn", refid);
+				newdata.put("label",data.getString(this.n.getRecord().getDisplayNameField().getID()));
+				data = newdata;
+			}
+			
 			
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
