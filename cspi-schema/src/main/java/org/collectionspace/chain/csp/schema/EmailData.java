@@ -7,6 +7,8 @@
 package org.collectionspace.chain.csp.schema;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * 
@@ -76,5 +78,15 @@ public class EmailData {
 	public String getSMTPAuthUsername() { if(smtpauth){ return smtpuser;} else {return null;} }
 	
 	public EmailData getEmailData() { return this; }
-	
+
+	void dumpJson(JSONObject out) throws JSONException {
+		JSONObject record = new JSONObject();
+		record.put("baseurl", baseurl);
+		record.put("getFromAddress", fromaddress);
+		record.put("getToAddress", toaddress);
+		record.put("getPasswordResetMessage", pswdmsg);
+		record.put("getPasswordResetSubject", pswdsubj);
+		record.put("getTokenValidForLength", tokenvalid);
+		out.put("EmailData", record);
+	}
 }

@@ -7,6 +7,9 @@
 package org.collectionspace.chain.csp.schema;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * all admin specific data from the cspace-config.xml file that is parsed when
@@ -49,5 +52,13 @@ public class AdminData {
 
 	public AdminData getAdminData() {
 		return this;
+	}
+	
+
+	void dumpJson(JSONObject out) throws JSONException {
+		JSONObject record = new JSONObject();
+		record.put("cookieLife", lifeInMinsOfCookie);
+		record.put("admin_username", username);
+		out.put("AdminData", record);
 	}
 }

@@ -13,6 +13,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -727,6 +730,41 @@ public class Record implements FieldParent {
 			out.append(",Default,"+ this.allDefaultSets.get(s));
 			out.append("\n");
 		}
+	}
+
+	void dumpJson(JSONObject out) throws JSONException {
+		JSONObject record = new JSONObject();
+		record.put("id", this.getID());
+		record.put("web_url", getWebURL());
+		record.put("type", getSet("@type"));
+		JSONArray fields = new JSONArray();
+		
+		for(String s: this.getAllString()){
+			JSONObject data = new JSONObject();
+			data.put("type", "String");
+			data.put("name", s);
+			data.put("value", this.allStrings.get(s));
+			data.put("default",  this.allDefaultStrings.get(s));
+			fields.put(data);
+		}
+		for(String s: this.getAllBoolean()){
+			JSONObject data = new JSONObject();
+			data.put("type", "Boolean");
+			data.put("name", s);
+			data.put("value", this.allBooleans.get(s));
+			data.put("default",  this.allDefaultBooleans.get(s));
+			fields.put(data);
+		}
+		for(String s: this.getAllSets()){
+			JSONObject data = new JSONObject();
+			data.put("type", "Set");
+			data.put("name", s);
+			data.put("value", this.allSets.get(s));
+			data.put("default",  this.allDefaultSets.get(s));
+			fields.put(data);
+		}
+		record.put("fields", fields);
+		out.put(this.getID(), record);
 	}
 
 	public Record getRecord() {

@@ -17,6 +17,8 @@ import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -395,5 +397,17 @@ public class Spec implements CSP, Configurable {
 		for(Record r : records.values())
 			r.dump(out);
 		return out.toString();
+	}
+	
+
+	public JSONObject dumpJson() throws JSONException {
+
+		JSONObject out=new JSONObject();
+		ed.dumpJson(out);
+		adminData.dumpJson(out);
+		//for(Record r : records.values())
+		//	r.dumpJson(out);
+		return out;
+	
 	}
 }
