@@ -1770,7 +1770,6 @@
                     <field id="name" mini="summary,list,search,relate,terms"></field>
                     <field id="termStatus" seperate_ui_container="true">
                         <options>
-                            <option id="">Please select a value</option>
                             <option id="provisional" default="yes">Provisional</option>
                             <option id="under review">Under Review</option>
                             <option id="accepted">Accepted</option>
@@ -1940,7 +1939,6 @@
                     <field id="termStatus" seperate_ui_container="true">
                         <selector>organizationAuthority-status</selector>
                         <options>
-                            <option id="">Please select a value</option>
                             <option id="provisional" default="yes">Provisional</option>
                             <option id="under review">Under Review</option>
                             <option id="accepted">Accepted</option>
