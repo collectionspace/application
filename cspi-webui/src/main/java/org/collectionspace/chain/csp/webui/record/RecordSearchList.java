@@ -193,9 +193,11 @@ public class RecordSearchList implements WebMethod {
 							FieldSet fs = null;
 							if(fieldname.equals("number")){
 								fs = r.getMiniNumber();
+								fieldname = fs.getID();
 							}
 							else if(fieldname.equals("summary")){
 								fs = r.getMiniSummary();
+								fieldname = fs.getID();
 							}
 							else{
 								//convert sortKey
@@ -203,7 +205,7 @@ public class RecordSearchList implements WebMethod {
 							}
 
 							String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
-							String newvalue = tablebase+":"+bits[1];
+							String newvalue = tablebase+":"+fieldname;
 							restriction.put(restrict,newvalue);
 						}
 						else if(restrict.equals("query")){
