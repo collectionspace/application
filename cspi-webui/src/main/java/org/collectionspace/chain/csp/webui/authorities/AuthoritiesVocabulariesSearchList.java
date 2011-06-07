@@ -90,7 +90,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 							//convert sortKey
 							fs = r.getField(fieldname);
 						}
-						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
+						String tablebase = n.getRecord().getServicesRecordPath(fs.getSection()).split(":",2)[0];
 						String newvalue = tablebase+":"+bits[1];
 						restriction.put(restrict,newvalue);
 					}
