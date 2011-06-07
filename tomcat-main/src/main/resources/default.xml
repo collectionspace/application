@@ -1376,7 +1376,7 @@
                             <selector>acquisition-owner</selector>
                         </field>
                     </repeat>
-                    <field id="transferOfTitleNumber">
+                    <field id="transferOfTitleNumber" datatype="largetext">
                         <selector>acquisition-transfer-of-title-number</selector>
                     </field>
                     <field id="creditLine"></field>
