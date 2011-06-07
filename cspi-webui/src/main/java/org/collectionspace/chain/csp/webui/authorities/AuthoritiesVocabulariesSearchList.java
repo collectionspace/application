@@ -75,10 +75,21 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 						restriction.put(restrict,value);
 					}
 					else if(restrict.equals("sortKey")){////"summarylist.updatedAt"//movements_common:locationDate
-						String[] bits = value.split("\\.");
-						//convert sortKey
-						FieldSet fs = n.getRecord().getField(bits[1]);
-
+						String[] bits = value.split("\\.");						String fieldname = value;
+						if(bits.length>1){
+							fieldname = bits[1];
+						}
+						FieldSet fs = null;
+						if(fieldname.equals("number")){
+							fs = r.getMiniNumber();
+						}
+						else if(fieldname.equals("summary")){
+							fs = r.getMiniSummary();
+						}
+						else{
+							//convert sortKey
+							fs = r.getField(fieldname);
+						}
 						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
 						String newvalue = tablebase+":"+bits[1];
 						restriction.put(restrict,newvalue);
