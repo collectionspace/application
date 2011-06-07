@@ -216,7 +216,7 @@ public class ChainServlet extends HttpServlet  {
 					servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loaded"+test);
 				} catch (SAXException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loadedfailed");
 				}
 				
 				
