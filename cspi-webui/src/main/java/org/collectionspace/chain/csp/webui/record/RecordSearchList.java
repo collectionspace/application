@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -179,6 +180,18 @@ public class RecordSearchList implements WebMethod {
 						}
 						if(restrict.equals("pageSize")||restrict.equals("pageNum")||restrict.equals("keywords")){
 							restriction.put(restrict,value);
+						}
+						else if(restrict.equals("sortDir")){
+							restriction.put(restrict,value);
+						}
+						else if(restrict.equals("sortKey")){////"summarylist.updatedAt"//movements_common:locationDate
+							String[] bits = value.split("\\.");
+							//convert sortKey
+							FieldSet fs = r.getField(bits[1]);
+
+							String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
+							String newvalue = tablebase+":"+bits[1];
+							restriction.put(restrict,newvalue);
 						}
 						else if(restrict.equals("query")){
 							//ignore - someone was doing something odd

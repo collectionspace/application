@@ -8,7 +8,10 @@ package org.collectionspace.chain.csp.webui.authorities;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -59,9 +62,31 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	
 	
 	
-	private void search_or_list_vocab(JSONObject out,Instance n,Storage storage,UIRequest ui,String param, String pageSize, String pageNum, JSONObject temp ) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private void search_or_list_vocab(JSONObject out,Instance n,Storage storage,UIRequest ui,String param, String pageSize, String pageNum, JSONObject temp ) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
 		JSONObject restriction=new JSONObject();
 		String resultstring = "results";
+		
+		Set<String> args = ui.getAllRequestArgument();
+		for(String restrict : args){
+			if(!restrict.equals("_")){
+				if(ui.getRequestArgument(restrict)!=null){
+					String value = ui.getRequestArgument(restrict);
+					if(restrict.equals("sortDir")){
+						restriction.put(restrict,value);
+					}
+					else if(restrict.equals("sortKey")){////"summarylist.updatedAt"//movements_common:locationDate
+						String[] bits = value.split("\\.");
+						//convert sortKey
+						FieldSet fs = n.getRecord().getField(bits[1]);
+
+						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
+						String newvalue = tablebase+":"+bits[1];
+						restriction.put(restrict,newvalue);
+					}
+				}
+			}
+		}
+		
 		
 		if(param!=null && !param.equals("")){
 			restriction.put("queryTerm", "kw");

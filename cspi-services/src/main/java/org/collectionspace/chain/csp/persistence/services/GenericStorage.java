@@ -1174,6 +1174,18 @@ public class GenericStorage  implements ContextualisedStorage {
 				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
 				postfix += keywordparam+"="+data+"&";
 			} 
+			if(restrictions.has("sortKey")){//"summarylist.updatedAt"//movements_common:locationDate
+				postfix += "sortBy="+restrictions.getString("sortKey");
+				if(restrictions.has("sortDir")){//1" - ascending, "-1" - descending
+					if(restrictions.getString("sortDir").equals("-1")){
+						postfix += "+DESC";
+					}
+					else{
+						postfix += "+ASC";
+					}
+				}
+				postfix += "&";
+			}
 			if(restrictions.has("pageSize")){
 				postfix += "pgSz="+restrictions.getString("pageSize")+"&";
 			}
@@ -1199,6 +1211,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		postfix = postfix.substring(0, postfix.length()-1);
 		if(postfix.length() == 0){postfix +="/";}
 		
+		log.info(postfix);
 		String path = basepath+postfix;
 		return path;
 	}
