@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ns2:acquisitions_common xmlns:ns2="http://collectionspace.org/services/acquisition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/acquisition http://services.collectionspace.org/acquisition/acquisitions_common.xsd">
+    <acquisitionNote>This is a LONGTEXT field in MySQL.  Before first EOL
+Before second EOL
+Before third EOL with trailing horizontal space 
+Before fourth EOL
+Before fifth EOL; closing tag follows immediately thereafter
+</acquisitionNote> 
+    <transferOfTitleNumber>This is a VARCHAR(500) field in MySQL.  Before first EOL
+		Before second EOL
+		Before third EOL with trailing horizontal space 
+		Before fourth EOL
+		Before fifth EOL; closing tag follows immediately thereafter
+</transferOfTitleNumber> 
+    <owners><owner>This is a VARCHAR(500) field in MySQL, a repeatable scalar specified in a complexType in the XSD schema.  Before first EOL
+Before second EOL
+Before third EOL with trailing horizontal space 
+Before fourth EOL
+Before fifth EOL; closing tag follows immediately thereafter
+</owner></owners> 
+    <acquisitionReferenceNumber>9999</acquisitionReferenceNumber> 
+
     <acquisitionFundingList>
         <acquisitionFunding>
             <acquisitionFundingSourceProvisos>funding source provisos-1</acquisitionFundingSourceProvisos>

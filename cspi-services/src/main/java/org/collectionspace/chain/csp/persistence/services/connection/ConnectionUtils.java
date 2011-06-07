@@ -11,17 +11,25 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.TeeInputStream;
 import org.dom4j.Document;
 import org.dom4j.io.OutputFormat;
+import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConnectionUtils {
+	private static final Logger log=LoggerFactory.getLogger(ConnectionUtils.class);
 	static InputStream serializetoXML(Document doc) throws IOException {
 		return new ByteArrayInputStream(serializeToBytes(doc));
 	}
 
 	static byte[] serializeToBytes(Document doc) throws IOException {
+
+		//what is the implications of changing this?
+		//ok assuming all our xml comes from our shiny XmlJsonConversion then we can ignore the whole indent thing.
+		/*
 		ByteArrayOutputStream out=new ByteArrayOutputStream();
 		OutputFormat outformat = OutputFormat.createPrettyPrint();
 		outformat.setEncoding("UTF-8");
@@ -29,10 +37,14 @@ public class ConnectionUtils {
 		outformat.setNewlines(false);
 		outformat.setIndent(false);
 		XMLWriter writer = new XMLWriter(out, outformat);
+		
 		writer.write(doc);
 		writer.flush();
 		out.close();
-		return out.toByteArray();
+*/
+return doc.asXML().getBytes();
+
+//		return out.toByteArray();
 	}
 	
 	static InputStream documentToStream(Document in) throws ConnectionException {
