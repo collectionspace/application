@@ -155,8 +155,8 @@
         },
         ".csc-location-termStatus": {
             "default": "provisional",
-            "optionnames": ["Accepted", "Please select a value", "Provisional", "Rejected", "Under Review"],
-            "optionlist": ["", "accepted", "provisional", "rejected", "under review"],
+            "optionnames": ["Accepted", "Provisional", "Rejected", "Under Review"],
+            "optionlist": ["accepted", "provisional", "rejected", "under review"],
             "selection": "${fields.termStatus}"
         },
         ".csc-location-name": "${fields.name}",
