@@ -1,60 +1,144 @@
 {
-    "location": {
+    "taxon": {
         "properties": {
             "relations": {
-                "default": {
-                    
-                },
+                "default": {},
                 "type": "object"
-            },
-            "termsUsed": {
-                "default": [
-                    
-                ],
-                "type": "array"
             },
             "csid": {
                 "type": "string"
             },
             "fields": {
                 "properties": {
-                    "displayName": {
+                    "taxonYear": {
                         "type": "string"
                     },
-                    "name": {
+                    "tenantID": {
                         "type": "string"
                     },
-                    "accessNote": {
-                        "type": "string"
-                    },
-                    "address": {
-                        "type": "string"
-                    },
-                    "securityNote": {
-                        "type": "string"
-                    },
-                    "type": {
-                        "type": "string"
-                    },
-                    "termStatus": {
-                        "type": "string"
-                    },
-                    "conditionGroup": {
+                    "relatedTerms": {
                         "items": {
                             "properties": {
                                 "_primary": {
                                     "type": "boolean"
                                 },
-                                "conditionNote": {
+                                "relatedTerm": {
                                     "type": "string"
-                                },
-                                "conditionNoteDate": {
-                                    "type": "date"
                                 }
                             },
                             "type": "object"
                         },
                         "type": "array"
+                    },
+                    "taxonCurrency": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "taxonNameSource": {
+                        "type": "string"
+                    },
+                    "taxonGUID": {
+                        "type": "string"
+                    },
+                    "taxonomicStatus": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "taxonAuthorGroup": {
+                        "items": {
+                            "properties": {
+                                "taxonAuthor": {
+                                    "type": "string"
+                                },
+                                "_primary": {
+                                    "type": "boolean"
+                                },
+                                "taxonAuthorType": {
+                                    "default": "",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "updatedAt": {
+                        "type": "string"
+                    },
+                    "shortIdentifier": {
+                        "type": "string"
+                    },
+                    "taxonCitationList": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "type": "boolean"
+                                },
+                                "taxonCitation": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "taxonIsNamedHybrid": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "broaderContext": {
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "type": "string"
+                    },
+                    "termStatus": {
+                        "default": "provisional",
+                        "type": "string"
+                    },
+                    "taxonFullName": {
+                        "type": "string"
+                    },
+                    "taxonNameSourceCode": {
+                        "type": "string"
+                    },
+                    "taxonNote": {
+                        "type": "string"
+                    },
+                    "equivalentContexts": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "type": "boolean"
+                                },
+                                "equivalentContext": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "narrowerContexts": {
+                        "items": {
+                            "properties": {
+                                "narrowerContext": {
+                                    "type": "string"
+                                },
+                                "_primary": {
+                                    "type": "boolean"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "taxonRank": {
+                        "default": "",
+                        "type": "string"
                     }
                 },
                 "type": "object"
@@ -63,3 +147,4 @@
         "type": "object"
     }
 }
+

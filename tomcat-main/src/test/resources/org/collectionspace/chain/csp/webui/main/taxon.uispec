@@ -1,0 +1,387 @@
+{
+    "hierarchy": {
+        ".csc-hierarchy-broaderContext-label": {
+            "messagekey": "hierarchy-broaderContextLabel"
+        },
+        ".csc-hierarchy-narrowerContext": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "elPath": "fields.narrowerContexts",
+                        "protoTree": {
+                            "expander": {
+                                "tree": {
+                                    "expander": {
+                                        "repeatID": "repeat:",
+                                        "tree": {
+                                            ".csc-hierarchy-narrowerContext": {
+                                                "decorators": [
+                                                    {
+                                                        "func": "cspace.autocomplete",
+                                                        "type": "fluid",
+                                                        "options": {
+                                                            "queryUrl": "../../chain/vocabularies/taxon/autocomplete/narrowerContext",
+                                                            "vocabUrl": "../../chain/vocabularies/taxon/source-vocab/narrowerContext",
+                                                            "invokers": {
+                                                                "selectMatch": {
+                                                                    "funcName": "cspace.autocomplete.selectMatchConfirm"
+                                                                }
+                                                            },
+                                                            "strings": {
+                                                                "narrowerChange": "Warning: %narrower currently has broader term %broader. Change broader term?"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "value": "${{row}.narrowerContext}"
+                                            }
+                                        },
+                                        "type": "fluid.renderer.repeat",
+                                        "pathAs": "row",
+                                        "controlledBy": "fields.narrowerContexts"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        ".csc-hierarchy-broaderContext": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../chain/vocabularies/taxon/autocomplete/broaderContext",
+                        "vocabUrl": "../../chain/vocabularies/taxon/source-vocab/broaderContext"
+                    }
+                }
+            ],
+            "value": "${fields.broaderContext}"
+        },
+        "expander": [
+            {
+                "trueTree": {
+                    ".csc-hierarchy-equivalentContext-label": {
+                        "messagekey": "hierarchy-equivalentContextLabel"
+                    }
+                },
+                "condition": {
+                    "funcName": "cspace.hierarchy.assertEquivalentContexts",
+                    "args": {
+                        "equivalentContexts": "${fields.equivalentContexts}"
+                    }
+                },
+                "type": "fluid.renderer.condition",
+                "falseTree": {
+                    ".csc-hierarchy-equivalentContext-label": {
+                        "decorators": {
+                            "classes": "hidden",
+                            "type": "addClass"
+                        }
+                    }
+                }
+            },
+            {
+                "repeatID": ".csc-hierarchy-equivalentContext:",
+                "tree": {
+                    "decorators": {
+                        "classes": "cs-hierarchy-equivalentContext",
+                        "type": "addClass"
+                    },
+                    "value": "${{row}.equivalentContext}"
+                },
+                "type": "fluid.renderer.repeat",
+                "pathAs": "row",
+                "controlledBy": "fields.equivalentContexts"
+            }
+        ],
+        ".csc-hierarchy-relatedTerms-label": {
+            "messagekey": "hierarchy-relatedTermsLabel"
+        },
+        ".csc-hierarchy-narrowerContexts-label": {
+            "messagekey": "hierarchy-narrowerContextsLabel"
+        },
+        ".csc-hierarchy-relatedTerm": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "elPath": "fields.relatedTerms",
+                        "protoTree": {
+                            "expander": {
+                                "tree": {
+                                    "expander": {
+                                        "repeatID": "repeat:",
+                                        "tree": {
+                                            ".csc-hierarchy-relatedTerm": {
+                                                "decorators": [
+                                                    {
+                                                        "func": "cspace.autocomplete",
+                                                        "type": "fluid",
+                                                        "options": {
+                                                            "queryUrl": "../../chain/vocabularies/taxon/autocomplete/relatedTerm",
+                                                            "vocabUrl": "../../chain/vocabularies/taxon/source-vocab/relatedTerm"
+                                                        }
+                                                    }
+                                                ],
+                                                "value": "${{row}.relatedTerm}"
+                                            }
+                                        },
+                                        "type": "fluid.renderer.repeat",
+                                        "pathAs": "row",
+                                        "controlledBy": "fields.relatedTerms"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        ".csc-hierarchy-equivalentContexts-label": {
+            "messagekey": "hierarchy-equivalentContextsLabel"
+        }
+    },
+    "recordEditor": {
+        ".csc-taxon-createdAt-label": {
+            "messagekey": "taxon-createdAtLabel"
+        },
+        ".csc-taxon-taxonRank-label": {
+            "messagekey": "taxon-taxonRankLabel"
+        },
+        ".csc-taxon-taxonFullName-label": {
+            "messagekey": "taxon-taxonFullNameLabel"
+        },
+        ".csc-taxon-shortIdentifier-label": {
+            "messagekey": "taxon-shortIdentifierLabel"
+        },
+        ".csc-taxon-taxonNote-label": {
+            "messagekey": "taxon-taxonNoteLabel"
+        },
+        ".csc-taxon-tenantID-label": {
+            "messagekey": "taxon-tenantIDLabel"
+        },
+        ".csc-taxon-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-taxon-taxonNameSource-label": {
+            "messagekey": "taxon-taxonNameSourceLabel"
+        },
+        ".csc-taxon-taxonCitationList-label": {
+            "messagekey": "taxon-taxonCitationListLabel"
+        },
+        ".csc-taxon-taxonCurrency": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "current",
+                "obsolete",
+                "archaic"
+            ],
+            "optionlist": [
+                "",
+                "current",
+                "obsolete",
+                "archaic"
+            ],
+            "selection": "${fields.taxonCurrency}"
+        },
+        ".csc-taxon-displayName": "${fields.displayName}",
+        ".csc-taxon-updatedAt": "${fields.updatedAt}",
+        ".csc-taxon-createdAt": "${fields.createdAt}",
+        ".csc-taxon-taxonCitation": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "elPath": "fields.taxonCitationList",
+                        "protoTree": {
+                            "expander": {
+                                "tree": {
+                                    "expander": {
+                                        "repeatID": "repeat:",
+                                        "tree": {
+                                            ".csc-taxon-taxonCitation": "${{row}.taxonCitation}"
+                                        },
+                                        "type": "fluid.renderer.repeat",
+                                        "pathAs": "row",
+                                        "controlledBy": "fields.taxonCitationList"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        ".csc-taxon-taxonIsNamedHybrid-label": {
+            "messagekey": "taxon-taxonIsNamedHybridLabel"
+        },
+        ".csc-taxon-taxonIsNamedHybrid": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "true",
+                "false"
+            ],
+            "optionlist": [
+                "",
+                "true",
+                "false"
+            ],
+            "selection": "${fields.taxonIsNamedHybrid}"
+        },
+        ".csc-taxon-taxonNameSourceCode": "${fields.taxonNameSourceCode}",
+        ".csc-taxon-taxonAuthorGroup": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "elPath": "fields.taxonAuthorGroup",
+                        "protoTree": {
+                            "expander": {
+                                "tree": {
+                                    "expander": {
+                                        "repeatID": "repeat:",
+                                        "tree": {
+                                            ".csc-taxon-taxonAuthor": {
+                                                "decorators": [
+                                                    {
+                                                        "func": "cspace.autocomplete",
+                                                        "type": "fluid",
+                                                        "options": {
+                                                            "queryUrl": "../../chain/vocabularies/taxon/autocomplete/taxonAuthor",
+                                                            "vocabUrl": "../../chain/vocabularies/taxon/source-vocab/taxonAuthor"
+                                                        }
+                                                    }
+                                                ],
+                                                "value": "${{row}.taxonAuthor}"
+                                            },
+                                            ".csc-taxon-taxonAuthorType": {
+                                                "default": "",
+                                                "optionnames": [
+                                                    "Please select a value",
+                                                    "ascribed",
+                                                    "parenthetical"
+                                                ],
+                                                "optionlist": [
+                                                    "",
+                                                    "ascribed",
+                                                    "parenthetical"
+                                                ],
+                                                "selection": "${{row}.taxonAuthorType}"
+                                            }
+                                        },
+                                        "type": "fluid.renderer.repeat",
+                                        "pathAs": "row",
+                                        "controlledBy": "fields.taxonAuthorGroup"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        ".csc-taxon-taxonomicStatus": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "current",
+                "obsolete"
+            ],
+            "optionlist": [
+                "",
+                "valid",
+                "invalid"
+            ],
+            "selection": "${fields.taxonomicStatus}"
+        },
+        ".csc-taxon-taxonCurrency-label": {
+            "messagekey": "taxon-taxonCurrencyLabel"
+        },
+        ".csc-taxon-displayName-label": {
+            "messagekey": "taxon-displayNameLabel"
+        },
+        ".csc-taxon-taxonYear": "${fields.taxonYear}",
+        ".csc-taxon-termStatus": {
+            "default": "provisional",
+            "optionnames": [
+                "Provisional",
+                "Under Review",
+                "Accepted",
+                "Rejected"
+            ],
+            "optionlist": [
+                "provisional",
+                "under review",
+                "accepted",
+                "rejected"
+            ],
+            "selection": "${fields.termStatus}"
+        },
+        ".csc-taxon-taxonNameSourceCode-label": {
+            "messagekey": "taxon-taxonNameSourceCodeLabel"
+        },
+        ".csc-taxon-termStatus-label": {
+            "messagekey": "taxon-termStatusLabel"
+        },
+        ".csc-taxon-tenantID": "${fields.tenantID}",
+        ".csc-taxon-taxonNameSource": "${fields.taxonNameSource}",
+        ".csc-taxon-taxonRank": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "domain",
+                "kingdom",
+                "phylum",
+                "division",
+                "family",
+                "class",
+                "order",
+                "genus",
+                "species"
+            ],
+            "optionlist": [
+                "",
+                "domain",
+                "kingdom",
+                "phylum",
+                "division",
+                "family",
+                "class",
+                "order",
+                "genus",
+                "species"
+            ],
+            "selection": "${fields.taxonRank}"
+        },
+        ".csc-taxon-taxonomicStatus-label": {
+            "messagekey": "taxon-taxonomicStatusLabel"
+        },
+        ".csc-taxon-taxonAuthorGroup-label": {
+            "messagekey": "taxon-taxonAuthorGroupLabel"
+        },
+        ".csc-taxon-updatedAt-label": {
+            "messagekey": "taxon-updatedAtLabel"
+        },
+        ".csc-taxon-taxonGUID-label": {
+            "messagekey": "taxon-taxonGUIDLabel"
+        },
+        ".csc-taxon-taxonFullName": "${fields.taxonFullName}",
+        ".csc-taxon-taxonNote": "${fields.taxonNote}",
+        ".csc-taxon-taxonGUID": "${fields.taxonGUID}",
+        ".csc-taxon-taxonYear-label": {
+            "messagekey": "taxon-taxonYearLabel"
+        }
+    }
+}
