@@ -31,8 +31,14 @@ public class RelateSearchList implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(RelateSearchList.class);
 	private Map<String,String> url_to_typeid=new HashMap<String,String>();
 	private boolean search;
+	private String searchPath = "main";
 
-	public RelateSearchList(boolean in) { search=in; }
+	public RelateSearchList(boolean in) { search=in; searchPath="main"; }
+
+	public RelateSearchList(boolean in, String string) {
+		search=in;
+		searchPath = string;
+	}
 
 	private void addRestriction(JSONObject restrictions,String key,String value,boolean map) throws JSONException {
 		if(StringUtils.isBlank(value))
@@ -51,13 +57,29 @@ public class RelateSearchList implements WebMethod {
 			addRestriction(restrictions,"dst",target,true);
 			addRestriction(restrictions,"type",type,false);
 			// XXX CSPACE-1834 need to support pagination
-			JSONObject results = storage.getPathsJSON("relations/main",restrictions);
+			JSONObject results = storage.getPathsJSON("relations/"+searchPath,restrictions);
 			String[] relations = (String[]) results.get("listItems");
 			JSONObject out=new JSONObject();
 			JSONArray data=new JSONArray();
-			for(String r : relations)
-				data.put(r);
-			out.put("items",data);
+			if(searchPath.equals("main")){
+				for(String r : relations)
+					data.put(r);
+				out.put("items",data);
+			}
+			else{
+				if(results.has("listItems")){
+					if(results.getJSONObject("moredata").length() >0){
+						//there is a relationship
+						String[] reld = (String[])results.get("listItems");
+						String hcsid = reld[0];
+						JSONObject mored = results.getJSONObject("moredata").getJSONObject(hcsid);
+						//it's name is
+						JSONObject broaderthan = new JSONObject();
+						broaderthan.put("label", mored.getString("objectname"));
+						out.put("broader", broaderthan);
+					}
+				}
+			}
 			request.sendJSONResponse(out);
 		} catch (JSONException x) {
 			throw new UIException("Failed to parse json: ",x);

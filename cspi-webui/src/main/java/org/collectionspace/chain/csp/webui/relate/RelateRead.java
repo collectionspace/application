@@ -26,7 +26,15 @@ import org.json.JSONObject;
 
 public class RelateRead implements WebMethod {
 	private Map<String,String> type_to_url=new HashMap<String,String>();
-	
+	private String searchPath = "main";
+
+	public RelateRead(String string) {
+		searchPath = string;
+	}
+	public RelateRead() {
+		searchPath = "main";
+	}
+
 	private JSONObject createMiniRecord(Storage storage,String type,String csid) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out=storage.retrieveJSON(type+"/"+csid+"/view", new JSONObject());
 		out.put("csid",csid);
@@ -48,7 +56,7 @@ public class RelateRead implements WebMethod {
 	
 	private void relate_get(Storage storage,UIRequest request,String path) throws UIException {
 		try {
-			JSONObject relation=convertPayload(storage,storage.retrieveJSON("/relations/main/"+path, new JSONObject()),path);
+			JSONObject relation=convertPayload(storage,storage.retrieveJSON("/relations/"+searchPath+"/"+path, new JSONObject()),path);
 			request.sendJSONResponse(relation);
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found ",e);

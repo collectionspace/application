@@ -98,6 +98,8 @@ public class WebAutoComplete implements WebMethod {
 					JSONObject entry=new JSONObject();
 					entry.put("urn",data.get("refid"));
 					entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));
+					entry.put("csid",data.getString("csid"));
+					entry.put("type",n.getRecord().getWebURL());
 					
 					//find out broaderContext
 					if(fieldname.equals("narrowerContext")){

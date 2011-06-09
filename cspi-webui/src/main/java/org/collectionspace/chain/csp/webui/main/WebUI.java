@@ -277,9 +277,12 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.CREATE,new String[]{"relationships"},0,new RelateCreateUpdate(true));
 		addMethod(Operation.UPDATE,new String[]{"relationships"},1,new RelateCreateUpdate(false));
 		addMethod(Operation.READ,new String[]{"relationships"},1,new RelateRead());
+		addMethod(Operation.READ,new String[]{"relationships","hierarchical"},1,new RelateRead("hierarchical"));
 		addMethod(Operation.DELETE,new String[]{"relationships"},1,new RelateDelete(false));
 		addMethod(Operation.DELETE,new String[]{"relationships","one-way"},1,new RelateDelete(true));
 		addMethod(Operation.READ,new String[]{"relationships","search"},0,new RelateSearchList(true));
+		addMethod(Operation.READ,new String[]{"relationships","hierarchical","search"},0,new RelateSearchList(true,"hierarchical"));
+		addMethod(Operation.READ,new String[]{"relationships","hierarchical"},0,new RelateSearchList(false,"hierarchical"));
 		addMethod(Operation.READ,new String[]{"relationships"},0,new RelateSearchList(false));
 
 	}
