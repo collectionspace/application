@@ -1,5 +1,8 @@
 {
     "hierarchy": {
+        ".csc-hierarchy-narrowerContext-label": {
+            "messagekey": "hierarchy-narrowerContextLabel"
+        },
         ".csc-hierarchy-broaderContext": {
             "decorators": [{
                 "func": "cspace.autocomplete",
@@ -56,6 +59,9 @@
         },
         ".csc-hierarchy-broaderContext-label": {
             "messagekey": "hierarchy-broaderContextLabel"
+        },
+        ".csc-hierarchy-equivalentContext-label": {
+            "messagekey": "hierarchy-equivalentContextLabel"
         },
         "expander": [{
             "condition": {
@@ -134,30 +140,17 @@
         },
         ".csc-hierarchy-equivalentContexts-label": {
             "messagekey": "hierarchy-equivalentContextsLabel"
+        },
+        ".csc-hierarchy-relatedTerm-label": {
+            "messagekey": "hierarchy-relatedTermLabel"
         }
     },
     "recordEditor": {
-        ".csc-location-accessNote-label": {
-            "messagekey": "location-accessNoteLabel"
-        },
-        ".csc-location-accessNote": "${fields.accessNote}",
-        ".csc-location-createdAt": "${fields.createdAt}",
         ".csc-location-address-label": {
             "messagekey": "location-addressLabel"
         },
-        ".csc-location-type": {
-            "optionnames": ["Building", "Drawer", "Please select a value", "Room", "Shelf", "Tray", "Unit"],
-            "optionlist": ["", "building", "drawer", "room", "shelf", "tray", "unit"],
-            "selection": "${fields.locationType}"
-        },
         ".csc-location-conditionGroup-label": {
             "messagekey": "location-conditionGroupLabel"
-        },
-        ".csc-location-termStatus": {
-            "default": "provisional",
-            "optionnames": ["Accepted", "Provisional", "Rejected", "Under Review"],
-            "optionlist": ["accepted", "provisional", "rejected", "under review"],
-            "selection": "${fields.termStatus}"
         },
         ".csc-location-name": "${fields.name}",
         ".csc-location-conditionGroup": {
@@ -195,33 +188,55 @@
         ".csc-location-displayName-label": {
             "messagekey": "location-displayNameLabel"
         },
-        ".csc-location-updatedAt-label": {
-            "messagekey": "location-updatedAtLabel"
-        },
         ".csc-location-address": "${fields.address}",
-        ".csc-location-shortIdentifier-label": {
-            "messagekey": "location-shortIdentifierLabel"
-        },
-        ".csc-location-securityNote": "${fields.securityNote}",
         ".csc-location-tenantID": "${fields.tenantID}",
         ".csc-location-termStatus-label": {
             "messagekey": "location-termStatusLabel"
         },
-        ".csc-location-createdAt-label": {
-            "messagekey": "location-createdAtLabel"
-        },
-        ".csc-location-name-label": {
-            "messagekey": "location-nameLabel"
+        ".csc-location-locationType-label": {
+            "messagekey": "location-locationTypeLabel"
         },
         ".csc-location-tenantID-label": {
             "messagekey": "location-tenantIDLabel"
         },
-        ".csc-location-locationType-label": {
-            "messagekey": "location-locationTypeLabel"
+        ".csc-location-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-location-accessNote-label": {
+            "messagekey": "location-accessNoteLabel"
+        },
+        ".csc-location-createdAt": "${fields.createdAt}",
+        ".csc-location-accessNote": "${fields.accessNote}",
+        ".csc-location-type": {
+            "optionnames": ["Building", "Drawer", "Please select a value", "Room", "Shelf", "Tray", "Unit"],
+            "optionlist": ["", "building", "drawer", "room", "shelf", "tray", "unit"],
+            "selection": "${fields.locationType}"
+        },
+        ".csc-location-termStatus": {
+            "default": "provisional",
+            "optionnames": ["Accepted", "Provisional", "Rejected", "Under Review"],
+            "optionlist": ["accepted", "provisional", "rejected", "under review"],
+            "selection": "${fields.termStatus}"
+        },
+        ".csc-location-updatedAt-label": {
+            "messagekey": "location-updatedAtLabel"
+        },
+        ".csc-location-shortIdentifier-label": {
+            "messagekey": "location-shortIdentifierLabel"
+        },
+        ".csc-location-securityNote": "${fields.securityNote}",
+        ".csc-location-createdAt-label": {
+            "messagekey": "location-createdAtLabel"
+        },
+        ".csc-location-conditionNote-label": {
+            "messagekey": "location-conditionNoteLabel"
+        },
+        ".csc-location-name-label": {
+            "messagekey": "location-nameLabel"
         },
         ".csc-location-displayName": "${fields.displayName}",
-        ".csc-location-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-location-updatedAt": "${fields.updatedAt}",
+        ".csc-location-conditionNoteDate-label": {
+            "messagekey": "location-conditionNoteDateLabel"
+        },
         ".csc-location-securityNote-label": {
             "messagekey": "location-securityNoteLabel"
         }

@@ -1,8 +1,21 @@
 {
     "recordEditor": {
+        ".csc-loanout-summary-label": {
+            "messagekey": "loanout-summaryLabel"
+        },
         ".csc-loanout-tenantID": "${fields.tenantID}",
+        ".csc-loanOut-lendersAuthorizationDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.lendersAuthorizationDate}"
+        },
         ".csc-loanout-updatedAt-label": {
             "messagekey": "loanout-updatedAtLabel"
+        },
+        ".csc-loanout-loanedObjectStatusDate-label": {
+            "messagekey": "loanout-loanedObjectStatusDateLabel"
         },
         ".csc-loanout-borrower-label": {
             "messagekey": "loanout-borrowerLabel"
@@ -10,14 +23,21 @@
         ".csc-loanout-loanRenewalApplicationDate-label": {
             "messagekey": "loanout-loanRenewalApplicationDateLabel"
         },
+        ".csc-loanOut-loanOutDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.loanOutDate}"
+        },
+        ".csc-loanout-recordtype-label": {
+            "messagekey": "loanout-recordtypeLabel"
+        },
         ".csc-loanout-createdAt-label": {
             "messagekey": "loanout-createdAtLabel"
         },
         ".csc-loanout-loanOutNumber-label": {
             "messagekey": "loanout-loanOutNumberLabel"
-        },
-        ".csc-loanout-lendersAuthorizer-label": {
-            "messagekey": "loanout-lendersAuthorizerLabel"
         },
         ".csc-loanOut-loanOutNumber-patternChooserContainer": {
             "decorators": [{
@@ -36,12 +56,8 @@
             }]
         },
         ".csc-loanOut-loanOutConditions": "${fields.specialConditionsOfLoan}",
-        ".csc-loanOut-loanOutDate": {
-       		"value": "${fields.loanOutDate}",
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
+        ".csc-loanout-lendersAuthorizer-label": {
+            "messagekey": "loanout-lendersAuthorizerLabel"
         },
         ".csc-loanout-loanPurpose-label": {
             "messagekey": "loanout-loanPurposeLabel"
@@ -65,12 +81,12 @@
                                         },
                                         ".csc-loanOut-loanedObjectStatusNote": "${{row}.loanedObjectStatusNote}",
                                         ".csc-loanOut-loanedObjectStatusDate": {
-                                        	"value": "${{row}.loanedObjectStatusDate}",
                                             "decorators": [{
                                                 "func": "cspace.datePicker",
                                                 "type": "fluid"
-                                            }]
-                                        },
+                                            }],
+                                            "value": "${{row}.loanedObjectStatusDate}"
+                                        }
                                     },
                                     "type": "fluid.renderer.repeat",
                                     "pathAs": "row",
@@ -101,16 +117,8 @@
         ".csc-loanout-loanoutInformation-label": {
             "messagekey": "loanout-loanoutInformationLabel"
         },
-        ".csc-loanOut-lendersContact": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../chain/loanout/autocomplete/lendersContact",
-                    "vocabUrl": "../../chain/loanout/source-vocab/lendersContact"
-                }
-            }],
-            "value": "${fields.lendersContact}"
+        ".csc-loanout-loanedObjectStatus-label": {
+            "messagekey": "loanout-loanedObjectStatusLabel"
         },
         ".csc-loanOut-borrowersContact": {
             "decorators": [{
@@ -123,6 +131,20 @@
             }],
             "value": "${fields.borrowersContact}"
         },
+        ".csc-loanOut-lendersContact": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../chain/loanout/autocomplete/lendersContact",
+                    "vocabUrl": "../../chain/loanout/source-vocab/lendersContact"
+                }
+            }],
+            "value": "${fields.lendersContact}"
+        },
+        ".csc-loanout-linktext-label": {
+            "messagekey": "loanout-linktextLabel"
+        },
         ".csc-loanOut-borrower": {
             "decorators": [{
                 "func": "cspace.autocomplete",
@@ -134,6 +156,13 @@
             }],
             "value": "${fields.borrower}"
         },
+        ".csc-loanOut-loanReturnDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.loanReturnDate}"
+        },
         ".csc-loanOut-loanPurpose": {
             "default": "",
             "optionnames": ["Analysis", "Conservation or other requested services", "Exhibition", "Long-term collections management and storage", "Photography", "Please select a value", "Research", "Scientific or exhibit preparation"],
@@ -141,19 +170,8 @@
             "selection": "${fields.loanPurpose}"
         },
         ".csc-loanout-createdAt": "${fields.createdAt}",
-        ".csc-loanOut-loanReturnDate": {
-        	"value": "${fields.loanReturnDate}",
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
-        ".csc-loanOut-loanRenewalApplicationDate": {
-        	"value": "${fields.loanRenewalApplicationDate}",
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
+        ".csc-loanout-number-label": {
+            "messagekey": "loanout-numberLabel"
         },
         ".csc-loanout-updatedAt": "${fields.updatedAt}",
         ".csc-loanout-borrowersContact-label": {
@@ -162,22 +180,28 @@
         ".csc-loanout-lendersAuthorizationDate-label": {
             "messagekey": "loanout-lendersAuthorizationDateLabel"
         },
+        ".csc-loanout-loanedObjectStatusNote-label": {
+            "messagekey": "loanout-loanedObjectStatusNoteLabel"
+        },
         ".csc-loanout-lendersContact-label": {
             "messagekey": "loanout-lendersContactLabel"
-        },
-        ".csc-loanOut-lendersAuthorizationDate": {
-        	"value": "${fields.lendersAuthorizationDate}",
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
         },
         ".csc-loanOut-loanOutNumber": "${fields.loanOutNumber}",
         ".csc-loanout-loanReturnDate-label": {
             "messagekey": "loanout-loanReturnDateLabel"
         },
+        ".csc-loanOut-loanRenewalApplicationDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.loanRenewalApplicationDate}"
+        },
         ".csc-loanout-specialConditionsOfLoan-label": {
             "messagekey": "loanout-specialConditionsOfLoanLabel"
+        },
+        ".csc-loanout-sourceFieldName-label": {
+            "messagekey": "loanout-sourceFieldNameLabel"
         },
         ".csc-loanout-loanedObjectStatusGroup-label": {
             "messagekey": "loanout-loanedObjectStatusGroupLabel"

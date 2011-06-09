@@ -114,6 +114,9 @@
         ".csc-intake-conditionCheckReasons-label": {
             "messagekey": "intake-conditionCheckReasonsLabel"
         },
+        ".csc-intake-conditionCheckReason-label": {
+            "messagekey": "intake-conditionCheckReasonLabel"
+        },
         ".csc-intake-conditionCheckMethod": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -142,6 +145,9 @@
                     }
                 }
             }]
+        },
+        ".csc-intake-fieldCollectionEventName-label": {
+            "messagekey": "intake-fieldCollectionEventNameLabel"
         },
         ".csc-intake-normalLocation-label": {
             "messagekey": "intake-normalLocationLabel"
@@ -176,6 +182,9 @@
             }]
         },
         ".csc-intake-insurance-note": "${fields.insuranceNote}",
+        ".csc-intake-insurer-label": {
+            "messagekey": "intake-insurerLabel"
+        },
         ".csc-intake-entryNote-label": {
             "messagekey": "intake-entryNoteLabel"
         },
@@ -203,6 +212,9 @@
         ".csc-intake-insurers-label": {
             "messagekey": "intake-insurersLabel"
         },
+        ".csc-intake-currentLocationFitness-label": {
+            "messagekey": "intake-currentLocationFitnessLabel"
+        },
         ".csc-intake-returnDate-label": {
             "messagekey": "intake-returnDateLabel"
         },
@@ -218,6 +230,9 @@
         ".csc-intake-entry-number": "${fields.entryNumber}",
         ".csc-intake-conditionInformation-label": {
             "messagekey": "intake-conditionInformationLabel"
+        },
+        ".csc-intake-fieldCollectionMethod-label": {
+            "messagekey": "intake-fieldCollectionMethodLabel"
         },
         ".csc-intake-objectEntryInformation-label": {
             "messagekey": "intake-objectEntryInformationLabel"
@@ -307,6 +322,9 @@
         ".csc-intake-updatedAt": "${fields.updatedAt}",
         ".csc-intake-condition-check-reference-number": "${fields.conditionCheckReferenceNumber}",
         ".csc-intake-fieldCollectionPlace": "${fields.fieldCollectionPlace}",
+        ".csc-intake-depositorsRequirements-label": {
+            "messagekey": "intake-depositorsRequirementsLabel"
+        },
         ".csc-intake-fieldCollectionSource": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -342,11 +360,11 @@
                 }
             }]
         },
-        ".csc-intake-depositorsRequirements-label": {
-            "messagekey": "intake-depositorsRequirementsLabel"
-        },
         ".csc-intake-depositor-label": {
             "messagekey": "intake-depositorLabel"
+        },
+        ".csc-intake-fieldCollectionSource-label": {
+            "messagekey": "intake-fieldCollectionSourceLabel"
         },
         ".csc-intake-depositor": {
             "decorators": [{
@@ -359,13 +377,16 @@
             }],
             "value": "${fields.depositor}"
         },
-        ".csc-intake-fieldCollectionDate-label": {
-            "messagekey": "intake-fieldCollectionDateLabel"
-        },
         ".csc-intake-fieldCollectionNote-label": {
             "messagekey": "intake-fieldCollectionNoteLabel"
         },
+        ".csc-intake-fieldCollectionDate-label": {
+            "messagekey": "intake-fieldCollectionDateLabel"
+        },
         ".csc-intake-condition-check-note": "${fields.conditionCheckNote}",
+        ".csc-intake-conditionCheckerOrAssessor-label": {
+            "messagekey": "intake-conditionCheckerOrAssessorLabel"
+        },
         ".csc-intake-currentOwner-label": {
             "messagekey": "intake-currentOwnerLabel"
         },
@@ -381,9 +402,18 @@
         ".csc-intake-valuationReferenceNumber-label": {
             "messagekey": "intake-valuationReferenceNumberLabel"
         },
-        ".csc-intake-packing-note": "${fields.packingNote}",
+        ".csc-intake-summary-label": {
+            "messagekey": "intake-summaryLabel"
+        },
         ".csc-intake-insuranceReferenceNumber-label": {
             "messagekey": "intake-insuranceReferenceNumberLabel"
+        },
+        ".csc-intake-packing-note": "${fields.packingNote}",
+        ".csc-intake-number-label": {
+            "messagekey": "intake-numberLabel"
+        },
+        ".csc-intake-entryMethod-label": {
+            "messagekey": "intake-entryMethodLabel"
         },
         ".csc-intake-entry-reason": {
             "default": "",
@@ -434,6 +464,9 @@
                 "type": "fluid"
             }],
             "value": "${fields.returnDate}"
+        },
+        ".csc-intake-conditionCheckMethod-label": {
+            "messagekey": "intake-conditionCheckMethodLabel"
         },
         ".csc-intake-packingNote-label": {
             "messagekey": "intake-packingNoteLabel"
@@ -495,14 +528,23 @@
             }]
         },
         ".csc-intake-entry-note": "${fields.entryNote}",
+        ".csc-intake-fieldCollector-label": {
+            "messagekey": "intake-fieldCollectorLabel"
+        },
         ".csc-intake-conditionCheckReferenceNumber-label": {
             "messagekey": "intake-conditionCheckReferenceNumberLabel"
+        },
+        ".csc-intake-currentLocation-label": {
+            "messagekey": "intake-currentLocationLabel"
         },
         ".csc-intake-insurancePolicyNumber-label": {
             "messagekey": "intake-insurancePolicyNumberLabel"
         },
         ".csc-intake-fieldCollectors-label": {
             "messagekey": "intake-fieldCollectorsLabel"
+        },
+        ".csc-intake-currentLocationNote-label": {
+            "messagekey": "intake-currentLocationNoteLabel"
         },
         ".csc-intake-insurer": {
             "decorators": [{

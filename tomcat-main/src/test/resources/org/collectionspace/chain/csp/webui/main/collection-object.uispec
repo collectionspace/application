@@ -33,6 +33,12 @@
             "optionlist": ["", "bequest", "exchange", "gift", "purchase", "transfer", "treasure"],
             "selection": "${fields.ownershipExchangeMethod}"
         },
+        ".csc-collection-object-technicalAttributeMeasurement-label": {
+            "messagekey": "collection-object-technicalAttributeMeasurementLabel"
+        },
+        ".csc-collection-object-contentOtherType-label": {
+            "messagekey": "collection-object-contentOtherTypeLabel"
+        },
         ".csc-collection-object-fieldCollectionPlace-label": {
             "messagekey": "collection-object-fieldCollectionPlaceLabel"
         },
@@ -71,13 +77,13 @@
         ".csc-collection-object-inscriptionContentDate-label": {
             "messagekey": "collection-object-inscriptionContentDateLabel"
         },
+        ".csc-collection-object-ageQualifier-label": {
+            "messagekey": "collection-object-ageQualifierLabel"
+        },
         ".csc-object-description-inscription-content-position": {
             "optionnames": ["Please select a value", "back", "base", "bottom", "front", "inside", "left", "outside", "recto", "right", "rim", "top", "verso"],
             "optionlist": ["", "back", "base", "bottom", "front", "inside", "left", "outside", "recto", "right", "rim", "top", "verso"],
             "selection": "${fields.inscriptionContentPosition}"
-        },
-        ".csc-collection-object-ageQualifier-label": {
-            "messagekey": "collection-object-ageQualifierLabel"
         },
         ".csc-object-description-content-activity": {
             "decorators": [{
@@ -105,6 +111,15 @@
             }]
         },
         ".csc-collection-object-fieldCollectionPlace": "${fields.fieldCollectionPlace}",
+        ".csc-collection-object-contentLanguage-label": {
+            "messagekey": "collection-object-contentLanguageLabel"
+        },
+        ".csc-collection-object-contentPosition-label": {
+            "messagekey": "collection-object-contentPositionLabel"
+        },
+        ".csc-collection-object-valueDate-label": {
+            "messagekey": "collection-object-valueDateLabel"
+        },
         ".csc-collection-object-ownershipCategory-label": {
             "messagekey": "collection-object-ownershipCategoryLabel"
         },
@@ -151,24 +166,27 @@
         ".csc-collection-object-phase-label": {
             "messagekey": "collection-object-phaseLabel"
         },
-        ".csc-collection-object-contentActivities-label": {
-            "messagekey": "collection-object-contentActivitiesLabel"
+        ".csc-collection-object-contentPeople-label": {
+            "messagekey": "collection-object-contentPeopleLabel"
         },
         ".csc-collection-object-titleGroup-label": {
             "messagekey": "collection-object-titleGroupLabel"
+        },
+        ".csc-collection-object-contentActivities-label": {
+            "messagekey": "collection-object-contentActivitiesLabel"
         },
         ".csc-object-description-sex": {
             "optionnames": ["Please select a value", "female", "male"],
             "optionlist": ["", "female", "male"],
             "selection": "${fields.sex}"
         },
-        ".csc-collection-object-dateLatestQualifier-label": {
-            "messagekey": "collection-object-dateLatestQualifierLabel"
-        },
+        ".csc-object-description-inscription-description": "${fields.inscriptionDescription}",
         ".csc-collection-object-associationInformation-label": {
             "messagekey": "collection-object-associationInformationLabel"
         },
-        ".csc-object-description-inscription-description": "${fields.inscriptionDescription}",
+        ".csc-collection-object-dateLatestQualifier-label": {
+            "messagekey": "collection-object-dateLatestQualifierLabel"
+        },
         ".csc-collection-object-titleGroup": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -210,10 +228,19 @@
                 }
             }]
         },
+        ".csc-collection-object-style-label": {
+            "messagekey": "collection-object-styleLabel"
+        },
         ".csc-collection-object-owners-label": {
             "messagekey": "collection-object-ownersLabel"
         },
+        ".csc-collection-object-assocConceptNote-label": {
+            "messagekey": "collection-object-assocConceptNoteLabel"
+        },
         ".csc-object-history-association-ownership-place": "${fields.ownershipPlace}",
+        ".csc-collection-object-objectStatus-label": {
+            "messagekey": "collection-object-objectStatusLabel"
+        },
         ".csc-object-history-association-owner": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -281,6 +308,12 @@
         ".csc-collection-object-identificationInformation-label": {
             "messagekey": "collection-object-identificationInformationLabel"
         },
+        ".csc-collection-object-form-label": {
+            "messagekey": "collection-object-formLabel"
+        },
+        ".csc-collection-object-assocEventPerson-label": {
+            "messagekey": "collection-object-assocEventPersonLabel"
+        },
         ".csc-collection-object-usageGroup": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -306,6 +339,9 @@
                     }
                 }
             }]
+        },
+        ".csc-collection-object-assocDate-label": {
+            "messagekey": "collection-object-assocDateLabel"
         },
         ".csc-collection-object-numberOfObjects-label": {
             "messagekey": "collection-object-numberOfObjectsLabel"
@@ -344,17 +380,19 @@
         ".csc-collection-object-contentDescription-label": {
             "messagekey": "collection-object-contentDescriptionLabel"
         },
-        ".csc-object-owner-response": "${fields.ownersPersonalResponse}",
-        ".csc-collection-object-updatedAt-label": {
-            "messagekey": "collection-object-updatedAtLabel"
+        ".csc-collection-object-assocEventPlace-label": {
+            "messagekey": "collection-object-assocEventPlaceLabel"
         },
+        ".csc-object-owner-response": "${fields.ownersPersonalResponse}",
         ".csc-collection-object-contentOrganizations-label": {
             "messagekey": "collection-object-contentOrganizationsLabel"
+        },
+        ".csc-collection-object-updatedAt-label": {
+            "messagekey": "collection-object-updatedAtLabel"
         },
         ".csc-collection-object-objectNumber-label": {
             "messagekey": "collection-object-objectNumberLabel"
         },
-        ".csc-collection-object-assocEventNote": "${fields.assocEventNote}",
         ".csc-object-production-reason": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -380,21 +418,40 @@
                 }
             }]
         },
+        ".csc-collection-object-assocEventNote": "${fields.assocEventNote}",
+        ".csc-collection-object-contentScript-label": {
+            "messagekey": "collection-object-contentScriptLabel"
+        },
         ".csc-collection-object-createdAt-label": {
             "messagekey": "collection-object-createdAtLabel"
         },
         ".csc-collection-object-fieldCollectionMethods-label": {
             "messagekey": "collection-object-fieldCollectionMethodsLabel"
         },
-        ".csc-date-information-date-earliest-single-qualifier": "${fields.dateEarliestSingleQualifier}",
-        ".csc-object-identification-distinguishing-features": "${fields.distinguishingFeatures}",
+        ".csc-collection-object-usageNote-label": {
+            "messagekey": "collection-object-usageNoteLabel"
+        },
         ".csc-collection-object-objectProductionPlaceGroup-label": {
             "messagekey": "collection-object-objectProductionPlaceGroupLabel"
+        },
+        ".csc-object-identification-distinguishing-features": "${fields.distinguishingFeatures}",
+        ".csc-date-information-date-earliest-single-qualifier": "${fields.dateEarliestSingleQualifier}",
+        ".csc-collection-object-assocCulturalContextNote-label": {
+            "messagekey": "collection-object-assocCulturalContextNoteLabel"
+        },
+        ".csc-collection-object-value-label": {
+            "messagekey": "collection-object-valueLabel"
+        },
+        ".csc-collection-object-assocPlaceNote-label": {
+            "messagekey": "collection-object-assocPlaceNoteLabel"
         },
         ".csc-collection-object-fieldCollectionNumber-label": {
             "messagekey": "collection-object-fieldCollectionNumberLabel"
         },
         ".csc-collection-object-tenantID": "${fields.tenantID}",
+        ".csc-collection-object-titleTranslation-label": {
+            "messagekey": "collection-object-titleTranslationLabel"
+        },
         ".csc-collection-object-inscriptionContentInscriber-label": {
             "messagekey": "collection-object-inscriptionContentInscriberLabel"
         },
@@ -405,6 +462,9 @@
             "optionnames": ["Days", "Months", "Please select a value", "Weeks", "Years"],
             "optionlist": ["", "days", "months", "weeks", "years"],
             "selection": "${fields.ageUnit}"
+        },
+        ".csc-collection-object-contentActivity-label": {
+            "messagekey": "collection-object-contentActivityLabel"
         },
         ".csc-collection-object-dateText-label": {
             "messagekey": "collection-object-dateTextLabel"
@@ -438,11 +498,17 @@
                 }
             }]
         },
+        ".csc-collection-object-inscriptionDescriptionPosition-label": {
+            "messagekey": "collection-object-inscriptionDescriptionPositionLabel"
+        },
+        ".csc-collection-object-assocPerson-label": {
+            "messagekey": "collection-object-assocPersonLabel"
+        },
         ".csc-collection-object-ownersPersonalResponse-label": {
             "messagekey": "collection-object-ownersPersonalResponseLabel"
         },
-        ".csc-collection-object-inscriptionDescriptionPosition-label": {
-            "messagekey": "collection-object-inscriptionDescriptionPositionLabel"
+        ".csc-collection-object-assocPeopleNote-label": {
+            "messagekey": "collection-object-assocPeopleNoteLabel"
         },
         ".csc-collection-object-techniqueGroup": {
             "decorators": [{
@@ -480,11 +546,14 @@
         ".csc-collection-object-contentEventNameGroup-label": {
             "messagekey": "collection-object-contentEventNameGroupLabel"
         },
-        ".csc-collection-object-objectHistoryNote-label": {
-            "messagekey": "collection-object-objectHistoryNoteLabel"
+        ".csc-collection-object-referenceNote-label": {
+            "messagekey": "collection-object-referenceNoteLabel"
         },
         ".csc-collection-object-objectProductionInformation-label": {
             "messagekey": "collection-object-objectProductionInformationLabel"
+        },
+        ".csc-collection-object-objectHistoryNote-label": {
+            "messagekey": "collection-object-objectHistoryNoteLabel"
         },
         ".csc-collection-object-fieldCollectionNote-label": {
             "messagekey": "collection-object-fieldCollectionNoteLabel"
@@ -558,11 +627,11 @@
                 }
             }]
         },
+        ".csc-collection-object-objectComponentName-label": {
+            "messagekey": "collection-object-objectComponentNameLabel"
+        },
         ".csc-collection-object-assocEventPeoples-label": {
             "messagekey": "collection-object-assocEventPeoplesLabel"
-        },
-        ".csc-collection-object-ownersContributionNote-label": {
-            "messagekey": "collection-object-ownersContributionNoteLabel"
         },
         ".csc-collection-object-contentOtherGroup": {
             "decorators": [{
@@ -590,6 +659,9 @@
                 }
             }]
         },
+        ".csc-collection-object-ownersContributionNote-label": {
+            "messagekey": "collection-object-ownersContributionNoteLabel"
+        },
         ".csc-collection-object-contentLanguages-label": {
             "messagekey": "collection-object-contentLanguagesLabel"
         },
@@ -598,19 +670,19 @@
             "optionlist": ["", "ancientgreek", "arabic", "chinese", "eng", "french", "german", "hebrew", "italian", "japanese", "korean", "latin", "middleenglish", "oldenglish", "portuguese", "russian", "spn", "swahili"],
             "selection": "${fields.inscriptionContentLanguage}"
         },
-        ".csc-object-production-note": "${fields.objectProductionNote}",
         ".csc-collection-object-materialGroup-label": {
             "messagekey": "collection-object-materialGroupLabel"
         },
+        ".csc-object-production-note": "${fields.objectProductionNote}",
         ".csc-collection-object-inscriptionContent-label": {
             "messagekey": "collection-object-inscriptionContentLabel"
         },
         ".csc-object-owner-contribution-note": "${fields.ownersContributionNote}",
-        ".csc-collection-object-ownershipExchangePriceValue-label": {
-            "messagekey": "collection-object-ownershipExchangePriceValueLabel"
-        },
         ".csc-collection-object-assocCulturalContextGroup-label": {
             "messagekey": "collection-object-assocCulturalContextGroupLabel"
+        },
+        ".csc-collection-object-ownershipExchangePriceValue-label": {
+            "messagekey": "collection-object-ownershipExchangePriceValueLabel"
         },
         ".csc-date-information-date-earliest-single-date": {
             "decorators": [{
@@ -645,26 +717,48 @@
                 }
             }]
         },
+        ".csc-collection-object-objectProductionPlace-label": {
+            "messagekey": "collection-object-objectProductionPlaceLabel"
+        },
         ".csc-collection-object-collection-label": {
             "messagekey": "collection-object-collectionLabel"
+        },
+        ".csc-collection-object-objectNameType-label": {
+            "messagekey": "collection-object-objectNameTypeLabel"
         },
         ".csc-collection-object-responsibleDepartments-label": {
             "messagekey": "collection-object-responsibleDepartmentsLabel"
         },
+        ".csc-collection-object-assocConcept-label": {
+            "messagekey": "collection-object-assocConceptLabel"
+        },
+        ".csc-collection-object-usage-label": {
+            "messagekey": "collection-object-usageLabel"
+        },
         ".csc-date-information-date-text": "${fields.dateText}",
+        ".csc-collection-object-viewersContributionNote-label": {
+            "messagekey": "collection-object-viewersContributionNoteLabel"
+        },
+        ".csc-collection-object-contentPlace-label": {
+            "messagekey": "collection-object-contentPlaceLabel"
+        },
         ".csc-object-identification-collection": {
             "optionnames": ["Library collection", "Permanent collection", "Please select a value", "Study collection", "Teaching collection"],
             "optionlist": ["", "library-collection", "permanent-collection", "study-collection", "teaching-collection"],
             "selection": "${fields.collection}"
         },
-        ".csc-collection-object-viewersContributionNote-label": {
-            "messagekey": "collection-object-viewersContributionNoteLabel"
-        },
         ".csc-collection-object-contentPositions-label": {
             "messagekey": "collection-object-contentPositionsLabel"
         },
-        ".csc-collection-object-dateEarliestSingle-label": {
-            "messagekey": "collection-object-dateEarliestSingleLabel"
+        ".csc-collection-object-ownersReferences-label": {
+            "messagekey": "collection-object-ownersReferencesLabel"
+        },
+        ".csc-collection-object-fieldCollectionDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.fieldCollectionDate}"
         },
         ".csc-collection-object-assocPersonGroup": {
             "decorators": [{
@@ -703,15 +797,8 @@
                 }
             }]
         },
-        ".csc-collection-object-fieldCollectionDate": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
-            "value": "${fields.fieldCollectionDate}"
-        },
-        ".csc-collection-object-ownersReferences-label": {
-            "messagekey": "collection-object-ownersReferencesLabel"
+        ".csc-collection-object-dateEarliestSingle-label": {
+            "messagekey": "collection-object-dateEarliestSingleLabel"
         },
         ".csc-collection-object-assocConceptGroup": {
             "decorators": [{
@@ -742,6 +829,12 @@
         },
         ".csc-collection-object-inscriptionDescription-label": {
             "messagekey": "collection-object-inscriptionDescriptionLabel"
+        },
+        ".csc-collection-object-techniqueType-label": {
+            "messagekey": "collection-object-techniqueTypeLabel"
+        },
+        ".csc-collection-object-technicalAttribute-label": {
+            "messagekey": "collection-object-technicalAttributeLabel"
         },
         ".csc-collection-object-contentPlaces-label": {
             "messagekey": "collection-object-contentPlacesLabel"
@@ -790,8 +883,23 @@
         ".csc-collection-object-dateLatest-label": {
             "messagekey": "collection-object-dateLatestLabel"
         },
+        ".csc-collection-object-objectProductionReason-label": {
+            "messagekey": "collection-object-objectProductionReasonLabel"
+        },
         ".csc-collection-object-contentInformation-label": {
             "messagekey": "collection-object-contentInformationLabel"
+        },
+        ".csc-collection-object-titleType-label": {
+            "messagekey": "collection-object-titleTypeLabel"
+        },
+        ".csc-collection-object-responsibleDepartment-label": {
+            "messagekey": "collection-object-responsibleDepartmentLabel"
+        },
+        ".csc-collection-object-assocPersonNote-label": {
+            "messagekey": "collection-object-assocPersonNoteLabel"
+        },
+        ".csc-collection-object-assocCulturalContextType-label": {
+            "messagekey": "collection-object-assocCulturalContextTypeLabel"
         },
         ".csc-collection-object-objectHistoryAssociationInformation-label": {
             "messagekey": "collection-object-objectHistoryAssociationInformationLabel"
@@ -799,9 +907,30 @@
         ".csc-collection-object-technicalAttributeGroup-label": {
             "messagekey": "collection-object-technicalAttributeGroupLabel"
         },
+        ".csc-collection-object-assocActivityNote-label": {
+            "messagekey": "collection-object-assocActivityNoteLabel"
+        },
         ".csc-object-description-inscription-content-transliteration": "${fields.inscriptionContentTransliteration}",
+        ".csc-collection-object-assocEventPeople-label": {
+            "messagekey": "collection-object-assocEventPeopleLabel"
+        },
+        ".csc-collection-object-objectProductionPerson-label": {
+            "messagekey": "collection-object-objectProductionPersonLabel"
+        },
+        ".csc-collection-object-objectProductionPeopleRole-label": {
+            "messagekey": "collection-object-objectProductionPeopleRoleLabel"
+        },
+        ".csc-collection-object-assocConceptType-label": {
+            "messagekey": "collection-object-assocConceptTypeLabel"
+        },
         ".csc-collection-object-colors-label": {
             "messagekey": "collection-object-colorsLabel"
+        },
+        ".csc-collection-object-objectProductionPeople-label": {
+            "messagekey": "collection-object-objectProductionPeopleLabel"
+        },
+        ".csc-collection-object-fieldCollector-label": {
+            "messagekey": "collection-object-fieldCollectorLabel"
         },
         ".csc-collection-object-objectComponentGroup": {
             "decorators": [{
@@ -869,6 +998,18 @@
                     }
                 }
             }]
+        },
+        ".csc-collection-object-material-label": {
+            "messagekey": "collection-object-materialLabel"
+        },
+        ".csc-collection-object-fieldColEventName-label": {
+            "messagekey": "collection-object-fieldColEventNameLabel"
+        },
+        ".csc-collection-object-assocPlaceType-label": {
+            "messagekey": "collection-object-assocPlaceTypeLabel"
+        },
+        ".csc-collection-object-assocOrganizationNote-label": {
+            "messagekey": "collection-object-assocOrganizationNoteLabel"
         },
         ".csc-collection-object-contentOtherGroup-label": {
             "messagekey": "collection-object-contentOtherGroupLabel"
@@ -950,12 +1091,21 @@
         ".csc-collection-object-viewersReferences-label": {
             "messagekey": "collection-object-viewersReferencesLabel"
         },
+        ".csc-collection-object-reference-label": {
+            "messagekey": "collection-object-referenceLabel"
+        },
         ".csc-collection-object-inscriptionContentLanguage-label": {
             "messagekey": "collection-object-inscriptionContentLanguageLabel"
         },
         ".csc-object-description-inscription-content": "${fields.inscriptionContent}",
+        ".csc-collection-object-assocDateType-label": {
+            "messagekey": "collection-object-assocDateTypeLabel"
+        },
         ".csc-collection-object-textualInscriptionInformation-label": {
             "messagekey": "collection-object-textualInscriptionInformationLabel"
+        },
+        ".csc-collection-object-objectName-label": {
+            "messagekey": "collection-object-objectNameLabel"
         },
         ".csc-object-description-content-position": {
             "decorators": [{
@@ -985,6 +1135,12 @@
                     }
                 }
             }]
+        },
+        ".csc-collection-object-assocActivity-label": {
+            "messagekey": "collection-object-assocActivityLabel"
+        },
+        ".csc-collection-object-objectProductionOrganization-label": {
+            "messagekey": "collection-object-objectProductionOrganizationLabel"
         },
         ".csc-collection-object-ownershipAccess-label": {
             "messagekey": "collection-object-ownershipAccessLabel"
@@ -1020,8 +1176,14 @@
                 }
             }]
         },
+        ".csc-collection-object-titleTranslationLanguage-label": {
+            "messagekey": "collection-object-titleTranslationLanguageLabel"
+        },
         ".csc-collection-object-inscriptionContentTranslation-label": {
             "messagekey": "collection-object-inscriptionContentTranslationLabel"
+        },
+        ".csc-collection-object-objectNameLevel-label": {
+            "messagekey": "collection-object-objectNameLevelLabel"
         },
         ".csc-collection-object-createdAt": "${fields.createdAt}",
         ".csc-object-history-association-event-people": {
@@ -1048,6 +1210,9 @@
                     }
                 }
             }]
+        },
+        ".csc-collection-object-contentEventNameType-label": {
+            "messagekey": "collection-object-contentEventNameTypeLabel"
         },
         ".csc-collection-object-fieldCollectors-label": {
             "messagekey": "collection-object-fieldCollectorsLabel"
@@ -1083,6 +1248,9 @@
             }]
         },
         ".csc-date-information-date-latest-qualifier": "${fields.dateLatestQualifier}",
+        ".csc-collection-object-technique-label": {
+            "messagekey": "collection-object-techniqueLabel"
+        },
         ".csc-object-viewer-response": "${fields.viewersPersonalResponse}",
         ".csc-date-information-date-earliest-single-certainty": "${fields.dateEarliestSingleCertainty}",
         ".csc-collection-object-contentNote-label": {
@@ -1095,8 +1263,17 @@
             }],
             "value": "${fields.dateLatest}"
         },
+        ".csc-collection-object-comment-label": {
+            "messagekey": "collection-object-commentLabel"
+        },
         ".csc-collection-object-objectProductionPersonGroup-label": {
             "messagekey": "collection-object-objectProductionPersonGroupLabel"
+        },
+        ".csc-collection-object-ownersReference-label": {
+            "messagekey": "collection-object-ownersReferenceLabel"
+        },
+        ".csc-collection-object-assocObjectType-label": {
+            "messagekey": "collection-object-assocObjectTypeLabel"
         },
         ".csc-object-description-inscription-content-inscriber": {
             "decorators": [{
@@ -1108,6 +1285,9 @@
                 }
             }],
             "value": "${fields.inscriptionContentInscriber}"
+        },
+        ".csc-collection-object-technicalAttributeMeasurementUnit-label": {
+            "messagekey": "collection-object-technicalAttributeMeasurementUnitLabel"
         },
         ".csc-object-description-content-place": {
             "decorators": [{
@@ -1142,9 +1322,6 @@
             "messagekey": "collection-object-inscriptionDescriptionDateLabel"
         },
         ".csc-object-description-inscription-content-method": "${fields.inscriptionContentMethod}",
-        ".csc-collection-object-objectProductionPeopleGroup-label": {
-            "messagekey": "collection-object-objectProductionPeopleGroupLabel"
-        },
         ".csc-object-history-association-event-person": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -1180,10 +1357,19 @@
                 }
             }]
         },
+        ".csc-collection-object-objectProductionPeopleGroup-label": {
+            "messagekey": "collection-object-objectProductionPeopleGroupLabel"
+        },
         ".csc-collection-object-ownershipPlace-label": {
             "messagekey": "collection-object-ownershipPlaceLabel"
         },
         ".csc-object-viewer-experience": "${fields.viewersPersonalExperience}",
+        ".csc-collection-object-objectProductionPersonRole-label": {
+            "messagekey": "collection-object-objectProductionPersonRoleLabel"
+        },
+        ".csc-collection-object-titleLanguage-label": {
+            "messagekey": "collection-object-titleLanguageLabel"
+        },
         ".csc-collection-object-styles-label": {
             "messagekey": "collection-object-stylesLabel"
         },
@@ -1216,7 +1402,25 @@
                 }
             }]
         },
+        ".csc-collection-object-assocPeople-label": {
+            "messagekey": "collection-object-assocPeopleLabel"
+        },
+        ".csc-collection-object-briefDescription-label": {
+            "messagekey": "collection-object-briefDescriptionLabel"
+        },
+        ".csc-collection-object-assocPersonType-label": {
+            "messagekey": "collection-object-assocPersonTypeLabel"
+        },
+        ".csc-collection-object-assocObjectNote-label": {
+            "messagekey": "collection-object-assocObjectNoteLabel"
+        },
         ".csc-object-owner-experience": "${fields.ownersPersonalExperience}",
+        ".csc-collection-object-assocEventOrganization-label": {
+            "messagekey": "collection-object-assocEventOrganizationLabel"
+        },
+        ".csc-collection-object-owner-label": {
+            "messagekey": "collection-object-ownerLabel"
+        },
         ".csc-collection-object-physicalDescription-label": {
             "messagekey": "collection-object-physicalDescriptionLabel"
         },
@@ -1249,6 +1453,9 @@
                     }
                 }
             }]
+        },
+        ".csc-collection-object-color-label": {
+            "messagekey": "collection-object-colorLabel"
         },
         ".csc-object-production-date": {
             "decorators": [{
@@ -1319,14 +1526,17 @@
             }],
             "value": "${fields.objectProductionDate.dateDisplayDate}"
         },
-        ".csc-collection-object-age-label": {
-            "messagekey": "collection-object-ageLabel"
+        ".csc-collection-object-dimension-label": {
+            "messagekey": "collection-object-dimensionLabel"
         },
         ".csc-collection-object-inscriptionContentInterpretation-label": {
             "messagekey": "collection-object-inscriptionContentInterpretationLabel"
         },
         ".csc-collection-object-usageGroup-label": {
             "messagekey": "collection-object-usageGroupLabel"
+        },
+        ".csc-collection-object-age-label": {
+            "messagekey": "collection-object-ageLabel"
         },
         ".csc-collection-object-referenceGroup": {
             "decorators": [{
@@ -1440,8 +1650,14 @@
             }]
         },
         ".csc-object-description-age": "${fields.age}",
+        ".csc-collection-object-numberType-label": {
+            "messagekey": "collection-object-numberTypeLabel"
+        },
         ".csc-collection-object-assocOrganizationGroup-label": {
             "messagekey": "collection-object-assocOrganizationGroupLabel"
+        },
+        ".csc-collection-object-measurementUnit-label": {
+            "messagekey": "collection-object-measurementUnitLabel"
         },
         ".csc-object-history-association-ownershipDates": {
             "decorators": [{
@@ -1461,11 +1677,20 @@
             }],
             "value": "${fields.inscriptionDescriptionInscriber}"
         },
+        ".csc-collection-object-valueQualifier-label": {
+            "messagekey": "collection-object-valueQualifierLabel"
+        },
+        ".csc-collection-object-assocActivityType-label": {
+            "messagekey": "collection-object-assocActivityTypeLabel"
+        },
         ".csc-collection-object-briefDescriptions-label": {
             "messagekey": "collection-object-briefDescriptionsLabel"
         },
         ".csc-collection-object-ageUnit-label": {
             "messagekey": "collection-object-ageUnitLabel"
+        },
+        ".csc-collection-object-objectProductionOrganizationRole-label": {
+            "messagekey": "collection-object-objectProductionOrganizationRoleLabel"
         },
         ".csc-collection-object-viewersPersonalResponse-label": {
             "messagekey": "collection-object-viewersPersonalResponseLabel"
@@ -1503,21 +1728,33 @@
                 }
             }]
         },
+        ".csc-collection-object-measuredPart-label": {
+            "messagekey": "collection-object-measuredPartLabel"
+        },
+        ".csc-collection-object-number-label": {
+            "messagekey": "collection-object-numberLabel"
+        },
         ".csc-object-identification-record-status": {
             "default": "new",
             "optionnames": ["Approved", "In process", "New", "Temporary"],
             "optionlist": ["approved", "in-process", "new", "temporary"],
             "selection": "${fields.recordStatus}"
         },
+        ".csc-collection-object-objectNameLanguage-label": {
+            "messagekey": "collection-object-objectNameLanguageLabel"
+        },
+        ".csc-collection-object-objectNameCurrency-label": {
+            "messagekey": "collection-object-objectNameCurrencyLabel"
+        },
         ".csc-collection-object-fieldCollectionNote": "${fields.fieldCollectionNote}",
+        ".csc-collection-object-assocCulturalContext-label": {
+            "messagekey": "collection-object-assocCulturalContextLabel"
+        },
         ".csc-collection-object-nametitle-label": {
             "messagekey": "collection-object-nametitleLabel"
         },
         ".csc-collection-object-assocObjectGroup-label": {
             "messagekey": "collection-object-assocObjectGroupLabel"
-        },
-        ".csc-collection-object-assocEventOrganizations-label": {
-            "messagekey": "collection-object-assocEventOrganizationsLabel"
         },
         ".csc-object-description-inscription-content-date": {
             "decorators": [{
@@ -1526,11 +1763,17 @@
             }],
             "value": "${fields.inscriptionContentDate}"
         },
-        ".csc-collection-object-distinguishingFeatures-label": {
-            "messagekey": "collection-object-distinguishingFeaturesLabel"
+        ".csc-collection-object-assocOrganizationType-label": {
+            "messagekey": "collection-object-assocOrganizationTypeLabel"
+        },
+        ".csc-collection-object-assocEventOrganizations-label": {
+            "messagekey": "collection-object-assocEventOrganizationsLabel"
         },
         ".csc-collection-object-inscriptionContentPosition-label": {
             "messagekey": "collection-object-inscriptionContentPositionLabel"
+        },
+        ".csc-collection-object-distinguishingFeatures-label": {
+            "messagekey": "collection-object-distinguishingFeaturesLabel"
         },
         ".csc-collection-object-assocOrganizationGroup": {
             "decorators": [{
@@ -1565,25 +1808,6 @@
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
-                }
-            }]
-        },
-        ".csc-collection-object-ownershipExchangeNote-label": {
-            "messagekey": "collection-object-ownershipExchangeNoteLabel"
-        },
-        ".csc-object-identification-object-number-container": {
-            "decorators": [{
-                "func": "cspace.numberPatternChooser",
-                "type": "fluid",
-                "options": {
-                    "model": {
-                        "names": ["Accession", "Intake", "Loans In"],
-                        "list": ["accession", "intake", "loanin"],
-                        "samples": ["2009.1.1", "IN2009.1.1", "LI2009.1.1"]
-                    },
-                    "selectors": {
-                        "numberField": ".csc-object-identification-object-number"
                     }
                 }
             }]
@@ -1623,19 +1847,45 @@
                 }
             }]
         },
+        ".csc-object-identification-object-number-container": {
+            "decorators": [{
+                "func": "cspace.numberPatternChooser",
+                "type": "fluid",
+                "options": {
+                    "model": {
+                        "names": ["Accession", "Intake", "Loans In"],
+                        "list": ["accession", "intake", "loanin"],
+                        "samples": ["2009.1.1", "IN2009.1.1", "LI2009.1.1"]
+                    },
+                    "selectors": {
+                        "numberField": ".csc-object-identification-object-number"
+                    }
+                }
+            }]
+        },
+        ".csc-collection-object-ownershipExchangeNote-label": {
+            "messagekey": "collection-object-ownershipExchangeNoteLabel"
+        },
         ".csc-collection-object-assocEventNameType": "${fields.assocEventNameType}",
+        ".csc-collection-object-objectProductionPlaceRole-label": {
+            "messagekey": "collection-object-objectProductionPlaceRoleLabel"
+        },
+        ".csc-collection-object-contentObject-label": {
+            "messagekey": "collection-object-contentObjectLabel"
+        },
+        ".csc-collection-object-objectComponentInformation-label": {
+            "messagekey": "collection-object-objectComponentInformationLabel"
+        },
         ".csc-collection-object-objectComponentGroup-label": {
             "messagekey": "collection-object-objectComponentGroupLabel"
+        },
+        ".csc-collection-object-materialComponent-label": {
+            "messagekey": "collection-object-materialComponentLabel"
         },
         ".csc-collection-object-assocConceptGroup-label": {
             "messagekey": "collection-object-assocConceptGroupLabel"
         },
         ".csc-collection-object-fieldCollectionNumber": "${fields.fieldCollectionNumber}",
-        ".csc-object-description-inscription-content-type": {
-            "optionnames": ["Please select a value", "brand", "decoration", "estate stamp", "graffiti", "label", "maker's mark"],
-            "optionlist": ["", "brand", "decoration", "estate-stamp", "graffiti", "label", "maker's-mark"],
-            "selection": "${fields.inscriptionContentType}"
-        },
         ".csc-object-description-content-people": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -1661,8 +1911,19 @@
                 }
             }]
         },
+        ".csc-object-description-inscription-content-type": {
+            "optionnames": ["Please select a value", "brand", "decoration", "estate stamp", "graffiti", "label", "maker's mark"],
+            "optionlist": ["", "brand", "decoration", "estate-stamp", "graffiti", "label", "maker's-mark"],
+            "selection": "${fields.inscriptionContentType}"
+        },
+        ".csc-collection-object-summary-label": {
+            "messagekey": "collection-object-summaryLabel"
+        },
         ".csc-collection-object-otherNumber-label": {
             "messagekey": "collection-object-otherNumberLabel"
+        },
+        ".csc-collection-object-assocPeopleType-label": {
+            "messagekey": "collection-object-assocPeopleTypeLabel"
         },
         ".csc-object-history-association-event-organization": {
             "decorators": [{
@@ -1699,8 +1960,8 @@
                 }
             }]
         },
-        ".csc-collection-object-assocDateGroup-label": {
-            "messagekey": "collection-object-assocDateGroupLabel"
+        ".csc-collection-object-descriptionInformation-label": {
+            "messagekey": "collection-object-descriptionInformationLabel"
         },
         ".csc-object-description-content-organization": {
             "decorators": [{
@@ -1737,8 +1998,14 @@
                 }
             }]
         },
-        ".csc-collection-object-descriptionInformation-label": {
-            "messagekey": "collection-object-descriptionInformationLabel"
+        ".csc-collection-object-assocDateGroup-label": {
+            "messagekey": "collection-object-assocDateGroupLabel"
+        },
+        ".csc-collection-object-contentOrganization-label": {
+            "messagekey": "collection-object-contentOrganizationLabel"
+        },
+        ".csc-collection-object-contentPerson-label": {
+            "messagekey": "collection-object-contentPersonLabel"
         },
         ".csc-object-identification-otherNumbers": {
             "decorators": [{
@@ -1770,6 +2037,9 @@
                 }
             }]
         },
+        ".csc-collection-object-title-label": {
+            "messagekey": "collection-object-titleLabel"
+        },
         ".csc-collection-object-objectProductionNote-label": {
             "messagekey": "collection-object-objectProductionNoteLabel"
         },
@@ -1798,6 +2068,9 @@
                     }
                 }
             }]
+        },
+        ".csc-collection-object-viewersReference-label": {
+            "messagekey": "collection-object-viewersReferenceLabel"
         },
         ".csc-collection-object-tenantID-label": {
             "messagekey": "collection-object-tenantIDLabel"
@@ -1831,15 +2104,15 @@
                 }
             }]
         },
-        ".csc-collection-object-assocEventNameType-label": {
-            "messagekey": "collection-object-assocEventNameTypeLabel"
-        },
         ".csc-object-description-content-date": {
             "decorators": [{
                 "func": "cspace.datePicker",
                 "type": "fluid"
             }],
             "value": "${fields.contentDate}"
+        },
+        ".csc-collection-object-assocEventNameType-label": {
+            "messagekey": "collection-object-assocEventNameTypeLabel"
         },
         ".csc-collection-object-fieldCollectionDate-label": {
             "messagekey": "collection-object-fieldCollectionDateLabel"
@@ -1890,6 +2163,12 @@
         ".csc-collection-object-nonTextualInscriptionInformation-label": {
             "messagekey": "collection-object-nonTextualInscriptionInformationLabel"
         },
+        ".csc-collection-object-assocObject-label": {
+            "messagekey": "collection-object-assocObjectLabel"
+        },
+        ".csc-collection-object-assocDateNote-label": {
+            "messagekey": "collection-object-assocDateNoteLabel"
+        },
         ".csc-collection-object-dateEarliestSingleQualifier-label": {
             "messagekey": "collection-object-dateEarliestSingleQualifierLabel"
         },
@@ -1899,6 +2178,9 @@
         ".csc-collection-object-dateAssociation-label": {
             "messagekey": "collection-object-dateAssociationLabel"
         },
+        ".csc-collection-object-fieldCollectionMethod-label": {
+            "messagekey": "collection-object-fieldCollectionMethodLabel"
+        },
         ".csc-collection-object-viewersPersonalExperience-label": {
             "messagekey": "collection-object-viewersPersonalExperienceLabel"
         },
@@ -1906,6 +2188,9 @@
             "messagekey": "collection-object-inscriptionDescriptionInscriberLabel"
         },
         ".csc-collection-object-dimensionSummary": "${fields.dimensionSummary}",
+        ".csc-collection-object-contentObjectType-label": {
+            "messagekey": "collection-object-contentObjectTypeLabel"
+        },
         ".csc-object-history-association-denomination": {
             "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
             "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
@@ -1945,6 +2230,9 @@
         },
         ".csc-collection-object-comments-label": {
             "messagekey": "collection-object-commentsLabel"
+        },
+        ".csc-collection-object-contentConcept-label": {
+            "messagekey": "collection-object-contentConceptLabel"
         },
         ".csc-object-history-association-access": {
             "optionnames": ["Please select a value", "limited", "open", "restricted"],
@@ -1987,6 +2275,12 @@
         ".csc-collection-object-contentConcepts-label": {
             "messagekey": "collection-object-contentConceptsLabel"
         },
+        ".csc-collection-object-assocOrganization-label": {
+            "messagekey": "collection-object-assocOrganizationLabel"
+        },
+        ".csc-collection-object-materialComponentNote-label": {
+            "messagekey": "collection-object-materialComponentNoteLabel"
+        },
         ".csc-object-description-inscription-description-position": {
             "optionnames": ["Please select a value", "back", "base", "bottom", "front", "inside", "left", "outside", "recto", "right", "rim", "top", "verso"],
             "optionlist": ["", "back", "base", "bottom", "front", "inside", "left", "outside", "recto", "right", "rim", "top", "verso"],
@@ -1998,14 +2292,14 @@
         ".csc-collection-object-inscriptionContentTransliteration-label": {
             "messagekey": "collection-object-inscriptionContentTransliterationLabel"
         },
-        ".csc-collection-object-objectStatusList-label": {
-            "messagekey": "collection-object-objectStatusListLabel"
-        },
         ".csc-collection-object-assocPlaceGroup-label": {
             "messagekey": "collection-object-assocPlaceGroupLabel"
         },
         ".csc-collection-object-contentObjectGroup-label": {
             "messagekey": "collection-object-contentObjectGroupLabel"
+        },
+        ".csc-collection-object-objectStatusList-label": {
+            "messagekey": "collection-object-objectStatusListLabel"
         },
         ".csc-collection-object-assocPersonGroup-label": {
             "messagekey": "collection-object-assocPersonGroupLabel"
@@ -2151,8 +2445,20 @@
                 }
             }]
         },
+        ".csc-collection-object-contentOther-label": {
+            "messagekey": "collection-object-contentOtherLabel"
+        },
+        ".csc-collection-object-fieldCollectionSource-label": {
+            "messagekey": "collection-object-fieldCollectionSourceLabel"
+        },
+        ".csc-collection-object-objectNameNote-label": {
+            "messagekey": "collection-object-objectNameNoteLabel"
+        },
         ".csc-collection-object-assocEventPlaces-label": {
             "messagekey": "collection-object-assocEventPlacesLabel"
+        },
+        ".csc-collection-object-numberValue-label": {
+            "messagekey": "collection-object-numberValueLabel"
         },
         ".csc-collection-object-techniqueGroup-label": {
             "messagekey": "collection-object-techniqueGroupLabel"
@@ -2252,13 +2558,22 @@
                 }
             }]
         },
+        ".csc-collection-object-materialSource-label": {
+            "messagekey": "collection-object-materialSourceLabel"
+        },
         ".csc-object-history-association-category": {
             "optionnames": ["Please select a value", "company", "private", "public"],
             "optionlist": ["", "company", "private", "public"],
             "selection": "${fields.ownershipCategory}"
         },
+        ".csc-collection-object-materialName-label": {
+            "messagekey": "collection-object-materialNameLabel"
+        },
         ".csc-collection-object-viewersRole-label": {
             "messagekey": "collection-object-viewersRoleLabel"
+        },
+        ".csc-collection-object-objectNameSystem-label": {
+            "messagekey": "collection-object-objectNameSystemLabel"
         },
         ".csc-object-description-physical-description": "${fields.physicalDescription}",
         ".csc-collection-object-objectOwnerContributionInformation-label": {
@@ -2280,19 +2595,25 @@
         ".csc-collection-object-inscriptionDescriptionType-label": {
             "messagekey": "collection-object-inscriptionDescriptionTypeLabel"
         },
-        ".csc-collection-object-referenceGroup-label": {
-            "messagekey": "collection-object-referenceGroupLabel"
-        },
         ".csc-object-description-phase": {
             "optionnames": ["Please select a value", "adult", "imago", "larva", "nymph", "pupa"],
             "optionlist": ["", "adult", "imago", "larva", "nymph", "pupa"],
             "selection": "${fields.phase}"
+        },
+        ".csc-collection-object-referenceGroup-label": {
+            "messagekey": "collection-object-referenceGroupLabel"
         },
         ".csc-collection-object-dateLatestCertainty-label": {
             "messagekey": "collection-object-dateLatestCertaintyLabel"
         },
         ".csc-collection-object-assocEventPersons-label": {
             "messagekey": "collection-object-assocEventPersonsLabel"
+        },
+        ".csc-collection-object-assocPlace-label": {
+            "messagekey": "collection-object-assocPlaceLabel"
+        },
+        ".csc-collection-object-contentEventName-label": {
+            "messagekey": "collection-object-contentEventNameLabel"
         },
         ".csc-collection-object-assocPlaceGroup": {
             "decorators": [{

@@ -1,5 +1,8 @@
 {
     "hierarchy": {
+        ".csc-hierarchy-narrowerContext-label": {
+            "messagekey": "hierarchy-narrowerContextLabel"
+        },
         ".csc-hierarchy-broaderContext": {
             "decorators": [{
                 "func": "cspace.autocomplete",
@@ -56,6 +59,9 @@
         },
         ".csc-hierarchy-broaderContext-label": {
             "messagekey": "hierarchy-broaderContextLabel"
+        },
+        ".csc-hierarchy-equivalentContext-label": {
+            "messagekey": "hierarchy-equivalentContextLabel"
         },
         "expander": [{
             "condition": {
@@ -134,6 +140,9 @@
         },
         ".csc-hierarchy-equivalentContexts-label": {
             "messagekey": "hierarchy-equivalentContextsLabel"
+        },
+        ".csc-hierarchy-relatedTerm-label": {
+            "messagekey": "hierarchy-relatedTermLabel"
         }
     },
     "recordEditor": {
@@ -231,6 +240,9 @@
             "optionlist": ["", "Baron", "Baroness", "Dame", "Dr", "Lady", "Lord", "Miss", "Mr", "Mrs", "Ms", "Professor", "Sir"],
             "selection": "${fields.title}"
         },
+        ".csc-person-nationality-label": {
+            "messagekey": "person-nationalityLabel"
+        },
         ".csc-contact-faxNumber-label": {
             "messagekey": "contact-faxNumberLabel"
         },
@@ -293,6 +305,9 @@
         ".csc-contact-email-label": {
             "messagekey": "contact-emailLabel"
         },
+        ".csc-person-occupation-label": {
+            "messagekey": "person-occupationLabel"
+        },
         ".csc-contact-addressType-label": {
             "messagekey": "contact-addressTypeLabel"
         },
@@ -309,6 +324,9 @@
             "messagekey": "person-birthPlaceLabel"
         },
         ".csc-personAuthority-surName": "${fields.surName}",
+        ".csc-person-schoolOrStyle-label": {
+            "messagekey": "person-schoolOrStyleLabel"
+        },
         ".csc-personAuthority-schoolOrStyle": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -337,6 +355,9 @@
         ".csc-personAuthority-displayName": "${fields.displayName}",
         ".csc-person-contact-label": {
             "messagekey": "person-contactLabel"
+        },
+        ".csc-person-group-label": {
+            "messagekey": "person-groupLabel"
         },
         ".csc-person-nameAdditions-label": {
             "messagekey": "person-nameAdditionsLabel"

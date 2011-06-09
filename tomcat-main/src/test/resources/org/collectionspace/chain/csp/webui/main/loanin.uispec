@@ -21,13 +21,6 @@
                                 "expander": {
                                     "repeatID": "repeat:",
                                     "tree": {
-                                        ".csc-loanIn-lendersAuthorizerDate": {
-                                        	"value": "${{row}.lendersAuthorizationDate}",
-                                            "decorators": [{
-                                                "func": "cspace.datePicker",
-                                                "type": "fluid"
-                                            }]
-                                        },
                                         ".csc-loanIn-lender": {
                                             "decorators": [{
                                                 "func": "cspace.autocomplete",
@@ -49,6 +42,13 @@
                                                 }
                                             }],
                                             "value": "${{row}.lendersContact}"
+                                        },
+                                        ".csc-loanIn-lendersAuthorizerDate": {
+                                            "decorators": [{
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }],
+                                            "value": "${{row}.lendersAuthorizationDate}"
                                         },
                                         ".csc-loanIn-lendersAuthorizer": {
                                             "decorators": [{
@@ -84,6 +84,9 @@
             }],
             "value": "${fields.loanInContact}"
         },
+        ".csc-loanin-recordtype-label": {
+            "messagekey": "loanin-recordtypeLabel"
+        },
         ".csc-loanIn-loanInNumber-patternChooserContainer": {
             "decorators": [{
                 "func": "cspace.numberPatternChooser",
@@ -103,21 +106,27 @@
         ".csc-loanin-tenantID-label": {
             "messagekey": "loanin-tenantIDLabel"
         },
-        ".csc-loanIn-loanReturnDate": {
-        	"value": "${fields.loanReturnDate}",
+        ".csc-loanin-summary-label": {
+            "messagekey": "loanin-summaryLabel"
+        },
+        ".csc-loanIn-loanInDate": {
             "decorators": [{
                 "func": "cspace.datePicker",
                 "type": "fluid"
-            }]
+            }],
+            "value": "${fields.loanInDate}"
+        },
+        ".csc-loanin-lender-label": {
+            "messagekey": "loanin-lenderLabel"
         },
         ".csc-loanIn-loanInConditions": "${fields.loanInConditions}",
         ".csc-loanin-borrowersAuthorizer-label": {
             "messagekey": "loanin-borrowersAuthorizerLabel"
         },
+        ".csc-loanin-createdAt": "${fields.createdAt}",
         ".csc-loanin-loanInNote-label": {
             "messagekey": "loanin-loanInNoteLabel"
         },
-        ".csc-loanin-createdAt": "${fields.createdAt}",
         ".csc-loanin-loaninInformation-label": {
             "messagekey": "loanin-loaninInformationLabel"
         },
@@ -142,24 +151,29 @@
             }],
             "value": "${fields.borrowersAuthorizer}"
         },
+        ".csc-loanin-sourceFieldName-label": {
+            "messagekey": "loanin-sourceFieldNameLabel"
+        },
+        ".csc-loanin-lendersContact-label": {
+            "messagekey": "loanin-lendersContactLabel"
+        },
+        ".csc-loanin-number-label": {
+            "messagekey": "loanin-numberLabel"
+        },
         ".csc-loanin-loanRenewalApplicationDate-label": {
             "messagekey": "loanin-loanRenewalApplicationDateLabel"
         },
-        ".csc-loanIn-loanRenewalApplicationDate": {
-        	"value": "${fields.loanRenewalApplicationDate}",
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
-        },
-        ".csc-loanIn-loanInDate": {
-       		"value": "${fields.loanInDate}",
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }]
+        ".csc-loanin-lendersAuthorizationDate-label": {
+            "messagekey": "loanin-lendersAuthorizationDateLabel"
         },
         ".csc-loanIn-loanInNote": "${fields.loanInNote}",
+        ".csc-loanIn-loanReturnDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.loanReturnDate}"
+        },
         ".csc-loanin-loanInDate-label": {
             "messagekey": "loanin-loanInDateLabel"
         },
@@ -173,6 +187,19 @@
             "messagekey": "loanin-updatedAtLabel"
         },
         ".csc-loanIn-loanInNumber": "${fields.loanInNumber}",
+        ".csc-loanin-lendersAuthorizer-label": {
+            "messagekey": "loanin-lendersAuthorizerLabel"
+        },
+        ".csc-loanIn-loanRenewalApplicationDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.loanRenewalApplicationDate}"
+        },
+        ".csc-loanin-linktext-label": {
+            "messagekey": "loanin-linktextLabel"
+        },
         ".csc-loanin-tenantID": "${fields.tenantID}",
         ".csc-loanin-lenderGroup-label": {
             "messagekey": "loanin-lenderGroupLabel"
