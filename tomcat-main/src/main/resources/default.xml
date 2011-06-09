@@ -2958,7 +2958,7 @@
             </record>
 
             <record id="taxon"  type="authority,compute-displayname" in-recordlist="yes" in-findedit="yes">
-                <!-- No Terms Used yet as the only authority autocomplete field currently present in this record type -->
+                <!-- No terms-used yet as the only authority autocomplete field currently present in this record type -->
                 <!-- is within a nested complexType and can't be retrieved -->
                 <terms-used>false</terms-used>
                 <web-url>taxon</web-url>
@@ -3016,7 +3016,7 @@
                     <field id="taxonFullName" mini="summary,list,search,relate,terms"></field>
                     <field id="taxonRank" seperate_ui_container="true">
                         <options>
-                            <option id="" default="yes">No value selected</option>
+                            <option id="" default="yes">Please select a value</option>
                             <option id="domain">domain</option>
                             <option id="kingdom">kingdom</option>
                             <option id="phylum">phylum</option>
@@ -3030,7 +3030,7 @@
                     </field>
                     <field id="taxonCurrency" seperate_ui_container="true">
                         <options>
-                            <option id="" default="yes">No value selected</option>
+                            <option id="" default="yes">Please select a value</option>
                             <option id="current">current</option>
                             <option id="obsolete">obsolete</option>
                             <option id="archaic">archaic</option>
@@ -3040,7 +3040,7 @@
                         <field id="taxonAuthor" autocomplete="person-person"></field>
                         <field id="taxonAuthorType" seperate_ui_container="true">
                             <options>
-                                <option id="" default="yes">No value selected</option>
+                                <option id="" default="yes">Please select a value</option>
                                 <option id="ascribed">ascribed</option>
                                 <option id="parenthetical">parenthetical</option>
                             </options>
@@ -3052,7 +3052,7 @@
                     </repeat>
                     <field id="taxonomicStatus" seperate_ui_container="true">
                         <options>
-                            <option id="" default="yes">No value selected</option>
+                            <option id="" default="yes">Please select a value</option>
                             <option id="valid">current</option>
                             <option id="invalid">obsolete</option>
                         </options>
@@ -3067,7 +3067,7 @@
  	 	                <options>
  	 	                <!-- For now, this simple binary vocabulary might be referenced, rather than placed inline, -->
  	 	                <!-- when it is first used in multiple places -->
- 	 	                    <option id="" default="yes">No value selected</option>
+ 	 	                    <option id="" default="yes">Please select a value</option>
                             <option id="true">true</option>
                             <option id="false">false</option>
                         </options>
