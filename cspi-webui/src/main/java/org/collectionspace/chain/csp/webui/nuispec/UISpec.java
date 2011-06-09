@@ -600,7 +600,7 @@ public class UISpec implements WebMethod {
 			}
 		}
 		
-		for(FieldSet fs : r.getAllFields("")) {
+		for(FieldSet fs : r.getAllRepeatFields("")) { //include children of repeats as well as top level
 			if(fs.getID()!=null){
 				generateMessageKey(temp, r.getUILabelSelector(fs.getID()), fs.getLabel());
 			}
