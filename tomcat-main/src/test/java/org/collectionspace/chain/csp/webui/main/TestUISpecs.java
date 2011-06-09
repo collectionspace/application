@@ -92,6 +92,8 @@ public class TestUISpecs extends TestBase {
 		xxxfixOptions(comparison);
 		
 		// You can use these, Chris, to write stuff out if the spec has changed to alter the test file -- dan
+		//hendecasyllabic:tmp csm22$ cat gschema.out | pbcopy
+		
 		//IOUtils.write(generated.toString(),new FileOutputStream("/tmp/gschema.out"));
 		//IOUtils.write(comparison.toString(),new FileOutputStream("/tmp/bschema.out"));
 		
@@ -129,7 +131,7 @@ public class TestUISpecs extends TestBase {
 
 //	uispec(jetty, "/cataloging/uispec", "hierarchy.uispec");
 //		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
-
+		
 		uispec(jetty, "/location/uispec", "location.uispec");
 		
 		uispec(jetty, "/users/uispec", "users.uispec");
