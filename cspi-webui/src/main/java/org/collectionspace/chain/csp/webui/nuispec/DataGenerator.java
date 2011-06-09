@@ -461,17 +461,19 @@ public class DataGenerator  extends UISpec {
 
 		String shortId="";
 		JSONObject namedata = getAuthdata(f,context);
-		if(namedata.has("refid") && !namedata.getString("refid").equals("")){
-			shortId = namedata.getString("refid");
-		}
-		else if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
-			shortId = namedata.getString("shortIdentifier");
-			shortId.toLowerCase();
-		}
-		else{
-			String name = namedata.getString("displayName");
-			shortId = name.replaceAll("\\W","");	
-			shortId.toLowerCase();				
+		if(namedata.length() != 0){
+			if(namedata.has("refid") && !namedata.getString("refid").equals("")){
+				shortId = namedata.getString("refid");
+			}
+			else if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
+				shortId = namedata.getString("shortIdentifier");
+				shortId.toLowerCase();
+			}
+			else{
+				String name = namedata.getString("displayName");
+				shortId = name.replaceAll("\\W","");	
+				shortId.toLowerCase();				
+			}
 		}
 		return shortId;
 		
@@ -508,8 +510,10 @@ public class DataGenerator  extends UISpec {
 		
 		//use random number to choose which item to use
 		Random arrayrandom = new Random();
-		int pick = arrayrandom.nextInt(getallnames.length());
-		dataitem = getallnames.getJSONObject(pick);
+		if(getallnames.length() > 0){
+			int pick = arrayrandom.nextInt(getallnames.length());
+			dataitem = getallnames.getJSONObject(pick);
+		}
 		return dataitem;
 	}
 	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {

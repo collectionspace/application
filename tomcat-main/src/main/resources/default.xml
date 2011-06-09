@@ -2480,7 +2480,9 @@
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
                     <structure id="screen">
-                        <label-section id="messagekeys" show="true"></label-section>
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
                     </structure>
                     <structure id="tab">
                         <view>
@@ -2825,7 +2827,11 @@
 
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
-                    <structure id="screen"></structure>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+					</structure>
                     <structure id="tab">
                         <view>
                             <titlebar show="false"></titlebar>

@@ -31,19 +31,27 @@
                 }
             }]
         },
-        ".csc-media-creator": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../chain/media/autocomplete/creator",
-                    "vocabUrl": "../../chain/media/source-vocab/creator"
-                }
-            }],
-            "value": "${fields.creator}"
+        ".csc-media-filename-label": {
+            "messagekey": "media-filenameLabel"
         },
-        ".csc-media-coverage": "${fields.coverage}",
-        ".csc-blobs-uri": "${fields.blobs.0.uri}",
+        ".csc-media-measurementUnit-label": {
+            "messagekey": "media-measurementUnitLabel"
+        },
+        ".csc-media-relation-label": {
+            "messagekey": "media-relationLabel"
+        },
+        ".csc-media-srcUri-label": {
+            "messagekey": "media-srcUriLabel"
+        },
+        ".csc-media-location-label": {
+            "messagekey": "media-locationLabel"
+        },
+        ".csc-media-blobs-label": {
+            "messagekey": "media-blobsLabel"
+        },
+        ".csc-media-languages-label": {
+            "messagekey": "media-languagesLabel"
+        },
         ".csc-media-relation": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -69,8 +77,202 @@
                 }
             }]
         },
-        ".csc-media-srcUri": "${fields.srcUri}",
+        ".csc-media-language-label": {
+            "messagekey": "media-languageLabel"
+        },
         ".csc-media-format": "${fields.format}",
+        ".csc-blobs-digest": "${fields.blobs.0.digest}",
+        ".csc-media-subjects-label": {
+            "messagekey": "media-subjectsLabel"
+        },
+        ".csc-media-dateCreated": "${fields.dateCreated}",
+        ".csc-media-dateModified": "${fields.dateModified}",
+        ".csc-blobs-name": "${fields.blobs.0.name}",
+        ".csc-media-updatedAt": "${fields.updatedAt}",
+        ".csc-media-location": "${fields.location}",
+        ".csc-media-coverage-label": {
+            "messagekey": "media-coverageLabel"
+        },
+        ".csc-media-rightsHolder": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../chain/media/autocomplete/rightsHolder",
+                    "vocabUrl": "../../chain/media/source-vocab/rightsHolder"
+                }
+            }],
+            "value": "${fields.rightsHolder}"
+        },
+        ".csc-media-date-label": {
+            "messagekey": "media-dateLabel"
+        },
+        ".csc-media-dimension-label": {
+            "messagekey": "media-dimensionLabel"
+        },
+        ".csc-blobs-imgOrig": "${fields.blobs.0.imgOrig}",
+        ".csc-media-valueQualifier-label": {
+            "messagekey": "media-valueQualifierLabel"
+        },
+        ".csc-media-source": "${fields.source}",
+        ".csc-media-externalMediaUrl": "${fields.externalMediaUrl}",
+        ".csc-media-relations-label": {
+            "messagekey": "media-relationsLabel"
+        },
+        ".csc-media-value-label": {
+            "messagekey": "media-valueLabel"
+        },
+        ".csc-media-subject": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.subjects",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-media-subject": "${{row}.subject}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.subjects"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-blobs-createdAt": "${fields.blobs.0.createdAt}",
+        ".csc-media-creator-label": {
+            "messagekey": "media-creatorLabel"
+        },
+        ".csc-media-copyrightStatement-label": {
+            "messagekey": "media-copyrightStatementLabel"
+        },
+        ".csc-media-source-label": {
+            "messagekey": "media-sourceLabel"
+        },
+        ".csc-blobs-data": "${fields.blobs.0.data}",
+        ".csc-media-valueDate-label": {
+            "messagekey": "media-valueDateLabel"
+        },
+        ".csc-media-contributor-label": {
+            "messagekey": "media-contributorLabel"
+        },
+        ".csc-media-identificationNumber": "${fields.identificationNumber}",
+        ".csc-media-dates-label": {
+            "messagekey": "media-datesLabel"
+        },
+        ".csc-media-filename": "${fields.filename}",
+        ".csc-media-externalMediaUrl-label": {
+            "messagekey": "media-externalMediaUrlLabel"
+        },
+        ".csc-media-uri-label": {
+            "messagekey": "media-uriLabel"
+        },
+        ".csc-media-tenantID-label": {
+            "messagekey": "media-tenantIDLabel"
+        },
+        ".csc-media-dateCreated-label": {
+            "messagekey": "media-dateCreatedLabel"
+        },
+        ".csc-media-rightsHolder-label": {
+            "messagekey": "media-rightsHolderLabel"
+        },
+        ".csc-media-subject-label": {
+            "messagekey": "media-subjectLabel"
+        },
+        ".csc-media-updatedAt-label": {
+            "messagekey": "media-updatedAtLabel"
+        },
+        ".csc-media-format-label": {
+            "messagekey": "media-formatLabel"
+        },
+        ".csc-blobs-length": "${fields.blobs.0.length}",
+        ".csc-media-dateModified-label": {
+            "messagekey": "media-dateModifiedLabel"
+        },
+        ".csc-media-imgThumb": "${fields.imgThumb}",
+        ".csc-media-mediaInformation-label": {
+            "messagekey": "media-mediaInformationLabel"
+        },
+        ".csc-media-language": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.languages",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-media-language": {
+                                            "optionnames": ["Ancient Greek", "Arabic", "Chinese", "English", "French", "German", "Hebrew", "Italian", "Japanese", "Korean", "Latin", "Middle English", "Old English", "Please select a value", "Portuguese", "Russian", "Spanish", "Swahili"],
+                                            "optionlist": ["", "ancientgreek", "arabic", "chinese", "eng", "french", "german", "hebrew", "italian", "japanese", "korean", "latin", "middleenglish", "oldenglish", "portuguese", "russian", "spn", "swahili"],
+                                            "selection": "${{row}.language}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.languages"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-media-publisher": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../chain/media/autocomplete/publisher",
+                    "vocabUrl": "../../chain/media/source-vocab/publisher"
+                }
+            }],
+            "value": "${fields.publisher}"
+        },
+        ".csc-media-description-label": {
+            "messagekey": "media-descriptionLabel"
+        },
+        ".csc-media-measurementMethod-label": {
+            "messagekey": "media-measurementMethodLabel"
+        },
+        ".csc-media-creator": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../chain/media/autocomplete/creator",
+                    "vocabUrl": "../../chain/media/source-vocab/creator"
+                }
+            }],
+            "value": "${fields.creator}"
+        },
+        ".csc-media-createdAt-label": {
+            "messagekey": "media-createdAtLabel"
+        },
+        ".csc-media-blobCsid-label": {
+            "messagekey": "media-blobCsidLabel"
+        },
+        ".csc-blobs-uri": "${fields.blobs.0.uri}",
+        ".csc-media-coverage": "${fields.coverage}",
+        ".csc-media-types-label": {
+            "messagekey": "media-typesLabel"
+        },
+        ".csc-media-srcUri": "${fields.srcUri}",
+        ".csc-media-identificationNumber-label": {
+            "messagekey": "media-identificationNumberLabel"
+        },
         ".csc-media-contributor": {
             "decorators": [{
                 "func": "cspace.autocomplete",
@@ -82,12 +284,8 @@
             }],
             "value": "${fields.contributor}"
         },
-        ".csc-blobs-digest": "${fields.blobs.0.digest}",
-        ".csc-media-dateModified": "${fields.dateModified}",
-        ".csc-media-dateCreated": "${fields.dateCreated}",
         ".csc-blobs-mimeType": "${fields.blobs.0.mimeType}",
         ".csc-blobs-imgThumb": "${fields.blobs.0.imgThumb}",
-        ".csc-blobs-name": "${fields.blobs.0.name}",
         "expander": [{
             "repeatID": ".csc-blobs-dimensionGroup:",
             "tree": {
@@ -120,21 +318,10 @@
                 }
             }
         }],
-        ".csc-media-updatedAt": "${fields.updatedAt}",
-        ".csc-media-location": "${fields.location}",
-        ".csc-media-rightsHolder": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../chain/media/autocomplete/rightsHolder",
-                    "vocabUrl": "../../chain/media/source-vocab/rightsHolder"
-                }
-            }],
-            "value": "${fields.rightsHolder}"
-        },
         ".csc-media-tenantID": "${fields.tenantID}",
-        ".csc-blobs-imgOrig": "${fields.blobs.0.imgOrig}",
+        ".csc-media-type-label": {
+            "messagekey": "media-typeLabel"
+        },
         ".csc-media-copyrightStatement": "${fields.copyrightStatement}",
         ".csc-media-type": {
             "decorators": [{
@@ -166,36 +353,15 @@
                 }
             }]
         },
-        ".csc-media-source": "${fields.source}",
-        ".csc-blobs-updatedAt": "${fields.blobs.0.updatedAt}",
-        ".csc-media-externalMediaUrl": "${fields.externalMediaUrl}",
-        ".csc-media-subject": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.subjects",
-                    "protoTree": {
-                        "expander": {
-                            "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-media-subject": "${{row}.subject}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.subjects"
-                                }
-                            },
-                            "type": "fluid.noexpand"
-                        }
-                    }
-                }
-            }]
+        ".csc-media-number-label": {
+            "messagekey": "media-numberLabel"
         },
+        ".csc-blobs-updatedAt": "${fields.blobs.0.updatedAt}",
         ".csc-blobs-encoding": "${fields.blobs.0.encoding}",
-        ".csc-blobs-createdAt": "${fields.blobs.0.createdAt}",
+        ".csc-media-dimensionGroup-label": {
+            "messagekey": "media-dimensionGroupLabel"
+        },
+        ".csc-blobs-id": "${fields.blobs.0.id}",
         ".csc-media-dimensionGroup": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -258,60 +424,32 @@
                 }
             }]
         },
-        ".csc-blobs-id": "${fields.blobs.0.id}",
         ".csc-media-blobCsid": "${fields.blobCsid}",
         ".csc-media-title": "${fields.title}",
         ".csc-blobs-tenantID": "${fields.blobs.0.tenantID}",
-        ".csc-blobs-data": "${fields.blobs.0.data}",
-        ".csc-media-identificationNumber": "${fields.identificationNumber}",
-        ".csc-media-filename": "${fields.filename}",
         ".csc-blobs-imgMedium": "${fields.blobs.0.imgMedium}",
         ".csc-media-description": "${fields.description}",
+        ".csc-media-imgThumb-label": {
+            "messagekey": "media-imgThumbLabel"
+        },
+        ".csc-media-measuredBy-label": {
+            "messagekey": "media-measuredByLabel"
+        },
+        ".csc-media-summary-label": {
+            "messagekey": "media-summaryLabel"
+        },
+        ".csc-media-publisher-label": {
+            "messagekey": "media-publisherLabel"
+        },
+        ".csc-media-dimensionSummary-label": {
+            "messagekey": "media-dimensionSummaryLabel"
+        },
         ".csc-media-createdAt": "${fields.createdAt}",
-        ".csc-blobs-length": "${fields.blobs.0.length}",
+        ".csc-media-title-label": {
+            "messagekey": "media-titleLabel"
+        },
         ".csc-media-dimensionSummary": "${fields.dimensionSummary}",
         ".csc-media-uri": "${fields.uri}",
-        ".csc-media-imgThumb": "${fields.imgThumb}",
-        ".csc-media-publisher": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../chain/media/autocomplete/publisher",
-                    "vocabUrl": "../../chain/media/source-vocab/publisher"
-                }
-            }],
-            "value": "${fields.publisher}"
-        },
-        ".csc-media-language": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.languages",
-                    "protoTree": {
-                        "expander": {
-                            "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-media-language": {
-                                            "optionnames": ["Ancient Greek", "Arabic", "Chinese", "English", "French", "German", "Hebrew", "Italian", "Japanese", "Korean", "Latin", "Middle English", "Old English", "Please select a value", "Portuguese", "Russian", "Spanish", "Swahili"],
-                                            "optionlist": ["", "ancientgreek", "arabic", "chinese", "eng", "french", "german", "hebrew", "italian", "japanese", "korean", "latin", "middleenglish", "oldenglish", "portuguese", "russian", "spn", "swahili"],
-                                            "selection": "${{row}.language}"
-                                        }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.languages"
-                                }
-                            },
-                            "type": "fluid.noexpand"
-                        }
-                    }
-                }
-            }]
-        },
         ".csc-media-identificationNumber-container": {
             "decorators": [{
                 "func": "cspace.numberPatternChooser",
