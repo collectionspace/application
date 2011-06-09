@@ -553,11 +553,12 @@ public class XmlJsonConversion {
 								repeatitem.put("_primary",true);
 							}
 							Element child = (Element)arrvalue.get(j);
-							addExtraToJson(repeatitem,child, (Field)fs, tempSon);
 							if(f.asSibling()){
+								addExtraToJson(siblingitem,child, (Field)fs, tempSon);
 								siblingitem.put(fs.getID(), child.getText());
 							}
 							else{
+								addExtraToJson(repeatitem,child, (Field)fs, tempSon);
 								repeatitem.put(fs.getID(), child.getText());
 								node.put(repeatitem);
 							}

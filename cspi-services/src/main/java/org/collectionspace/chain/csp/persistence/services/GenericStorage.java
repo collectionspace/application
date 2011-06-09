@@ -1211,7 +1211,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		postfix = postfix.substring(0, postfix.length()-1);
 		if(postfix.length() == 0){postfix +="/";}
 		
-		log.info(postfix);
+		//log.info(postfix);
 		String path = basepath+postfix;
 		return path;
 	}
