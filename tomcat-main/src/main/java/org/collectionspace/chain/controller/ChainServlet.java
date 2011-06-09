@@ -213,7 +213,8 @@ public class ChainServlet extends HttpServlet  {
 				try {
 					InputSource cfg_stream=cfg.resolveEntity("-//CSPACE//ROOT","cspace-config.xml");
 					String test = IOUtils.toString(cfg_stream.getByteStream());
-					servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loaded"+test);
+					//servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loaded"+test);
+					servlet_response.getWriter().append("cspace-config re-loaded"+test);
 				} catch (SAXException e) {
 					// TODO Auto-generated catch block
 					servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loadedfailed");
