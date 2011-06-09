@@ -1814,15 +1814,19 @@
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
-                            <!-- Leave false until this record type is added to broader, narrow terms lists above -->
-                            <hierarchy-section show="false"></hierarchy-section>
+                            <hierarchy-section show="true">
+                        		<options>
+                            		<option id="narrowerContext">taxon-taxon</option>
+                            		<option id="broaderContext">taxon-taxon</option>
+								</options>
+                            </hierarchy-section>
                         </view>
                     </structure>
                 </structures>
                 <instances>
-                    <instance id="taxonomy-taxonomy">
-                        <web-url>taxonomy</web-url>
-                        <title-ref>taxonomy</title-ref>
+                    <instance id="taxon-taxon">
+                        <web-url>taxon</web-url>
+                        <title-ref>taxon</title-ref>
                         <title>Default Scientific Taxonomy Authority</title>
                     </instance>
                 </instances>
@@ -1867,7 +1871,7 @@
                             <option id="archaic">archaic</option>
                         </options>
                     </field>
-                    <repeat id="taxonAuthorGroup" has-primary="yes">
+                    <repeat id="taxonAuthorGroupList/taxonAuthorGroup" has-primary="yes">
                         <field id="taxonAuthor" autocomplete="person-person"></field>
                         <field id="taxonAuthorType" seperate_ui_container="true">
                             <options>
@@ -1893,11 +1897,19 @@
                     <field id="taxonNameSourceCode"></field>
                     <field id="taxonGUID"></field>
                     <field id="taxonNote"></field>
-                    <!-- Verify how this boolean field is to be represented -->
-                    <field id="taxonIsNamedHybrid"></field>
+                    <!-- Verify how this field is to be represented here if/when converted to xs:boolean in services schema -->
+ 	 	            <field id="taxonIsNamedHybrid">seperate_ui_container="true">
+ 	 	                <options>
+ 	 	                <!-- For now, this simple binary vocabulary might be referenced, rather than placed inline, -->
+ 	 	                <!-- when it is first used in multiple places -->
+ 	 	                    <option id="" default="yes">Please select a value</option>
+                            <option id="true">true</option>
+                            <option id="false">false</option>
+                        </options>
+                    </field>
                 </section>
             </record>
-
+            
             <record id="organization" type="authority,compute-displayname">
                 <web-url>organization</web-url>
                 <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
