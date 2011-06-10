@@ -194,14 +194,14 @@ public class ServicesXsd implements WebMethod {
 		root.addAttribute("jaxb:version", "1.0");
 		root.addAttribute("elementFormDefault", "unqualified");
 
-		Element ele = root.addElement(new QName("element", ns));
-		ele.addAttribute("name", rootel[1]);
-		Element cele = ele.addElement(new QName("complexType", ns));
+//		Element ele = root.addElement(new QName("element", ns));
+//		ele.addAttribute("name", rootel[1]);
+//		Element cele = ele.addElement(new QName("complexType", ns));
 
 		// add toplevel items
 
 		for (FieldSet fs : record.getAllFields("")) {
-			generateDataEntry(cele, fs, ns, root, false);
+			generateDataEntry(root, fs, ns, root, false);
 		}
 
 		generateSearchList(root, ns);
