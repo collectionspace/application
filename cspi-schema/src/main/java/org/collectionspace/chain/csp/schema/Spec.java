@@ -116,11 +116,23 @@ public class Spec implements CSP, Configurable {
 		
 
 		/* SPEC/records -> RECORDS */
-		rules.addRule(SECTION_PREFIX+"spec",new String[]{"records"},SECTION_PREFIX+"records",null,null);
+		rules.addRule(SECTION_PREFIX+"spec",new String[]{"records"},SECTION_PREFIX+"records",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Map<String,String> recordsdata=new HashMap<String,String>();
+				String blanks = "Default String";
+				if((String)section.getValue("/enum-blank") != null || (String)section.getValue("/enum-blank") != ""){
+					blanks=(String)section.getValue("/enum-blank");
+				}
+				recordsdata.put("blank", blanks);
+
+				return recordsdata;
+			}
+		});			
 		/* RECORDS/record -> RECORD(@id) */
 		rules.addRule(SECTION_PREFIX+"records",new String[]{"record"},SECTION_PREFIX+"record",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
-				Record r=new Record(Spec.this,section);
+				Map<String,String>data = (Map<String,String>)parent;
+				Record r=new Record(Spec.this,section,data);
 				records.put(r.getID(),r);
 				records_by_web_url.put(r.getWebURL(),r);
 				records_by_services_url.put(r.getServicesURL(),r);

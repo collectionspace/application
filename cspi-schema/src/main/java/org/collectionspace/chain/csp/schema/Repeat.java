@@ -61,11 +61,7 @@ public class Repeat implements FieldSet, FieldParent {
 		this.initialiseVariables(section);
 	}
 
-	public Repeat(Subrecord subrecord, ReadOnlySection section) {
-		this.parent = subrecord;
-		allStrings.put("parentID", subrecord.getID());
-		this.initialiseVariables(section);
-	}
+
 
 	/**
 	 * all constructors get variables initialised in the same way

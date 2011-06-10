@@ -63,7 +63,8 @@ public class Record implements FieldParent {
 	private Map<String, Field> services_filter_param = new HashMap<String, Field>();
 
 	// XXX utility methods
-	Record(Spec parent, ReadOnlySection section) {
+	Record(Spec parent, ReadOnlySection section, Map<String,String> data) {
+		//Map<String,String>data = (Map<String,String>)parent;
 		/* parameters */
 		// this is what the service layer id defaults to if not specified later
 		// standard = singular form of the concept
@@ -115,6 +116,7 @@ public class Record implements FieldParent {
 		// ui layer path
 		this.initStrings(section,"tab-url", getString("web-url") + "-tab");
 
+		this.initStrings(section,"enum-blank", data.get("blank"));
 		/* Service layer helpers */
 
 		// path that the service layer uses to access this record
@@ -150,6 +152,7 @@ public class Record implements FieldParent {
 		this.initStrings(section,"primaryfield", "");
 		this.initBoolean(section,"hasdeletemethod",false);
 		this.initBoolean(section,"hassoftdelete",false);
+
 
 		this.initStrings(section,"services-tenant-singular", getString("services-url"));
 		this.initStrings(section,"services-tenant-plural", getString("services-tenant-singular")+"s");
@@ -324,6 +327,9 @@ public class Record implements FieldParent {
 		return new FieldSet[0];
 	}
 
+	public String enumBlankValue(){
+		return getString("enum-blank");
+	}
 	/*
 	 * includes all the fields that are children of repeats as well as top level
 	 * fields.

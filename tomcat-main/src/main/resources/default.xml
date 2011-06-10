@@ -45,8 +45,10 @@
             <schema id="recordtypes"></schema>
         </schemas>
 
-        <records>
-
+        <records >
+            <enum-blank>Please select a value</enum-blank>
+			
+			
             <record id="collection-object" in-findedit="yes">
                 <services-url>collectionobjects</services-url>
                 <services-tenant-singular>CollectionObject</services-tenant-singular>
@@ -187,7 +189,6 @@
                         <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
                             <enum>
                                 <default>eng</default>
-                                <blank-value>Please select a value</blank-value>
                             </enum>
                             <selector>object-identification-object-title-language</selector>
                         </field>
@@ -1344,11 +1345,13 @@
                     <field id="accessionDate" ui-type="date">
                         <selector>acquisition-accession-date</selector>
                     </field>
+				<!--	<group id="acquisitionAuthorizerHeader" exists-in-services="false"> -->
                     <field id="acquisitionAuthorizer" autocomplete="person-person"></field>
                     <field id="acquisitionAuthorizerDate" ui-type="date">
                         <selector>acquisition-acquisitionAuthorizerDate</selector>
                         <container-selector>acquisition-acquisitionAuthorizerDate-container</container-selector>
                     </field>
+				<!--	</group> -->
                     <repeat id="acquisitionDates">
                         <field id="acquisitionDate" ui-type="date">
                             <selector>acquisition-date</selector>
@@ -1785,9 +1788,6 @@
                     <field id="address"></field>
                     <field id="locationType" autocomplete="vocab-locationtype" ui-type="enum">
                     	<selector>location-type</selector>
-                        <enum>
-                            <blank-value>Please select a value</blank-value>
-                        </enum>
                     </field>
                 </section>
             </record>

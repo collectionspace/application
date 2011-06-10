@@ -127,8 +127,7 @@ public class Field implements FieldSet {
 		
 		this.initSet(section,"enum/default",new String[] { "" });		
 		this.initBoolean(section,"enum/@has-blank",true);
-		this.initStrings(section,"enum/blank-value", "Please select a value");
-		
+		this.initStrings(section,"enum/blank-value", record.enumBlankValue());
 		this.initSet(section,"@default",new String[] { "" });
 		this.initStrings(section,"@section", "common");
 		this.initStrings(section,"services-filter-param", null);
