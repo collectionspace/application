@@ -191,8 +191,8 @@ public class ServicesXsd implements WebMethod {
 		String[] rootel = parts[1].split(",");
 		Element root = doc.addElement(new QName("schema", new Namespace("xs",
 				"http://www.w3.org/2001/XMLSchema")));
-		root.addAttribute("xnlns:ns", rootel[0]);
-		root.addAttribute("xnlns", rootel[0]);
+		root.addAttribute("xmlns:ns", rootel[0]);
+		root.addAttribute("xmlns", rootel[0]);
 		root.addAttribute("targetNamespace", rootel[0]);
 		root.addAttribute("version", "0.1");
 
