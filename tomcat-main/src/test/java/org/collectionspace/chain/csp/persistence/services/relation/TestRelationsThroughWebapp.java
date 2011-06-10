@@ -478,6 +478,15 @@ public class TestRelationsThroughWebapp extends TestBase {
 		DELETEData(id2, jetty);
 
 	}
+	@Test 
+	public void testHierarchical() throws Exception{
+		ServletTester jetty = setupJetty();
+		// Check list is empty;
+		
+		String st = "/relationships/hierarchical/search?source=person/a93233e6-ca44-477d-97a0&type=hasBroader";
+		HttpTester out = GETData(st, jetty);
+		log.info(out.getContent());
+	}
 
 	@Test
 	public void testSearchList() throws Exception {

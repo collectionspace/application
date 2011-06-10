@@ -40,6 +40,9 @@ public class TestVocabThroughWebapp extends TestBase {
 
 		// update and remove fields not in each list within an authority
 		// out = GETData("/authorities/vocab/refresh",jetty);
+		
+		// get data to init from a file
+		// /chain/vocabularies/"+vocabtype+"/initialize?datapath=/Users/csm22/Documents/collectionspace/svcapp/cspi-webui/src/main/resources/org/collectionspace/chain/csp/webui/misc/names.txt
 			log.info(out.getContent());
 
 	}
