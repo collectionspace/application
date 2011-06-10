@@ -119,9 +119,10 @@ public class Spec implements CSP, Configurable {
 		rules.addRule(SECTION_PREFIX+"spec",new String[]{"records"},SECTION_PREFIX+"records",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Map<String,String> recordsdata=new HashMap<String,String>();
-				String blanks = "Default String";
-				if((String)section.getValue("/enum-blank") != null || (String)section.getValue("/enum-blank") != ""){
-					blanks=(String)section.getValue("/enum-blank");
+				String blanks = "";
+				blanks=(String)section.getValue("/enum-blank");
+				if(blanks == null){
+					blanks = "Default String";
 				}
 				recordsdata.put("blank", blanks);
 
