@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.webui.nuispec;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
@@ -179,7 +180,10 @@ public class ServicesXsd implements WebMethod {
 		stfld2.addAttribute("minOccurs", "1");
 	}
 
-	private String serviceschema(Storage s) throws UIException {
+	private String serviceschema(Storage s, String path) throws UIException {
+		if(path != null){
+			section = path;
+		}
 
 		Document doc = DocumentFactory.getInstance().createDocument();
 		Namespace ns = new Namespace("xs", "http://www.w3.org/2001/XMLSchema");
@@ -187,12 +191,10 @@ public class ServicesXsd implements WebMethod {
 		String[] rootel = parts[1].split(",");
 		Element root = doc.addElement(new QName("schema", new Namespace("xs",
 				"http://www.w3.org/2001/XMLSchema")));
-		root.addAttribute("targetNamespace", rootel[0]);
-		root.addAttribute("xnlns", rootel[0]);
 		root.addAttribute("xnlns:ns", rootel[0]);
-		root.addAttribute("xnlns:jaxb", "http://java.sun.com/xml/ns/jaxb");
-		root.addAttribute("jaxb:version", "1.0");
-		root.addAttribute("elementFormDefault", "unqualified");
+		root.addAttribute("xnlns", rootel[0]);
+		root.addAttribute("targetNamespace", rootel[0]);
+		root.addAttribute("version", "0.1");
 
 //		Element ele = root.addElement(new QName("element", ns));
 //		ele.addAttribute("name", rootel[1]);
@@ -221,7 +223,7 @@ public class ServicesXsd implements WebMethod {
 	@Override
 	public void run(Object in, String[] tail) throws UIException {
 		Request q = (Request) in;
-		String out = serviceschema(q.getStorage());
+		String out = serviceschema(q.getStorage(),StringUtils.join(tail,"/"));
 		q.getUIRequest().sendXMLResponse(out);
 
 	}
