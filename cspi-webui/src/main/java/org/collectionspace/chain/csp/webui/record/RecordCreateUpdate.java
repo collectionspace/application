@@ -235,6 +235,7 @@ public class RecordCreateUpdate implements WebMethod {
 		JSONObject fields=data.optJSONObject("fields");
 		
 		JSONArray permdata = new JSONArray();
+		JSONObject permcheck = new JSONObject();
 		if(fields.has("permissions")){
 			JSONArray permissions = fields.getJSONArray("permissions");
 			for(int i=0;i<permissions.length();i++){
@@ -245,12 +246,22 @@ public class RecordCreateUpdate implements WebMethod {
 					if(r!=null && r.hasSoftDeleteMethod()){
 						JSONObject permitem = getPerm(storage,perm.getString("resourceName"),perm.getString("permission"),true);
 						if(permitem.has("permissionId")){
-							permdata.put(permitem);
+							if(permcheck.has(permitem.getString("resourceName"))){
+								//ignore as we have duplicate name - eek
+							}else{
+								permcheck.put(permitem.getString("resourceName"), permitem);
+								permdata.put(permitem);
+							}
 						}
 					}
 					JSONObject permitem = getPerm(storage,perm.getString("resourceName"),perm.getString("permission"),false);
 					if(permitem.has("permissionId")){
-						permdata.put(permitem);
+						if(permcheck.has(permitem.getString("resourceName"))){
+							//ignore as we have duplicate name - eek
+						}else{
+							permcheck.put(permitem.getString("resourceName"), permitem);
+							permdata.put(permitem);
+						}
 					}
 				//}
 			}
