@@ -26,13 +26,14 @@ import org.slf4j.LoggerFactory;
 
 public class WebLogin implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(WebLogin.class);
-	private String login_dest,login_failed_dest;
+	private String login_dest,login_failed_dest,tenantid;
 	private Spec spec;
 	private WebUI ui;
 	
 	public WebLogin(WebUI ui,Spec spec) {
 		this.spec=spec;
 		this.ui=ui;
+		this.tenantid = spec.getAdminData().getTenant();
 	}
 	
 	private boolean testSuccess(Storage storage, String tenant) {
@@ -67,7 +68,7 @@ public class WebLogin implements WebMethod {
 		UIRequest request=in.getUIRequest();
 		String username=request.getRequestArgument("userid");
 		String password=request.getRequestArgument("password");
-		String tenantId=request.getRequestArgument("tenant");
+		String tenantId=tenantid;
 	
 		if(request.getRequestArgument("userid") ==  null){
 			JSONObject data = new JSONObject();
@@ -82,11 +83,12 @@ public class WebLogin implements WebMethod {
 				try {
 					username=data.getString("userid");
 					password=data.getString("password");
-					tenantId=data.getString("tenant");
+					if(data.has("tenant")){
+						tenantId=data.getString("tenant");
+					}
 				} catch (JSONException e) {
 					username=request.getRequestArgument("userid");
 					password=request.getRequestArgument("password");
-					tenantId=request.getRequestArgument("tenant");
 				}
 			}
 		}
