@@ -44,7 +44,49 @@ public class TestComposite extends TestBase {
 		out.put("method","DELETE");
 		return out;
 	}
-	
+	@Test public void testConfigComposite() throws Exception {
+		ServletTester jetty=setupJetty();
+		JSONObject ppp=new JSONObject();
+		
+		JSONObject recordlist=new JSONObject();
+		recordlist.put("path","/recordlist/uischema");
+		recordlist.put("method","GET");
+
+		ppp.put("recordlist", recordlist);
+		
+		JSONObject recordtypes=new JSONObject();
+		recordtypes.put("path","/recordtypes/uischema");
+		recordtypes.put("method","GET");
+		recordtypes.put("dataType","json");
+		ppp.put("recordtypes", recordtypes);
+
+		JSONObject objectexit=new JSONObject();
+		objectexit.put("path","/objectexit/uischema");
+		objectexit.put("method","GET");
+		objectexit.put("dataType","json");
+		ppp.put("objectexit", objectexit);
+
+		JSONObject objectexitspec=new JSONObject();
+		objectexitspec.put("path","/objectexit/uispec");
+		objectexitspec.put("method","GET");
+		objectexitspec.put("dataType","json");
+		ppp.put("uispec", objectexitspec);
+		
+		JSONObject record=new JSONObject();
+		record.put("path","/objectexit/5ad847df-904e-4eaf-a01e");
+		record.put("method","GET");
+		record.put("dataType","json");
+		ppp.put("record", record);
+		
+
+		log.info(ppp.toString());
+		HttpTester out3 = GETData("/composite",ppp.toString(),jetty);
+		JSONObject jout3=new JSONObject(out3.getContent());
+		log.info(jout3.toString());
+		
+
+		
+	}
 	@Test public void testCompositeBasic() throws Exception {
 		ServletTester jetty=setupJetty();
 		// Three POSTs give us some data to play with
@@ -58,6 +100,7 @@ public class TestComposite extends TestBase {
 		log.info("p="+p);
 		HttpTester out = POSTData("/composite",p.toString(),jetty);
 		JSONObject jout=new JSONObject(out.getContent());
+		log.info("POST="+jout);
 		JSONObject q1=jout.getJSONObject("p1");
 		JSONObject q2=jout.getJSONObject("p2");
 		JSONObject q3=jout.getJSONObject("p3");
@@ -82,6 +125,7 @@ public class TestComposite extends TestBase {
 		log.info("pp="+pp);
 		HttpTester out2 = PUTData("/composite",pp.toString(),jetty);
 		JSONObject jout2=new JSONObject(out2.getContent());
+		log.info("PUT="+jout2);
 		JSONObject q4=jout2.getJSONObject("p4");
 		JSONObject q5=jout2.getJSONObject("p5");
 		assertEquals("200",q4.getString("status"));
@@ -91,6 +135,7 @@ public class TestComposite extends TestBase {
 		ppp.put("p6",createCompositeGETPartJSON(id1));
 		ppp.put("p7",createCompositeGETPartJSON(id2));
 		ppp.put("p8",createCompositeGETPartJSON(id3));
+		log.info("+==============================");
 		log.info("ppp="+ppp);
 		HttpTester out3 = GETData("/composite",ppp.toString(),jetty);
 		JSONObject jout3=new JSONObject(out3.getContent());
