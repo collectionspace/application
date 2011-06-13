@@ -276,11 +276,13 @@ public class TestServiceThroughWebapp extends TestBase{
 		Spec spec = TestData.getSpec(jetty);
 		String pwd = spec.getAdminData().getAuthPass();
 		String username = spec.getAdminData().getAuthUser();
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/login","userid="+username+"&password="+pwd);	
+		String tenant = spec.getAdminData().getTenant();
+		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/chain/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
 		assertEquals(303,out.getStatus());
 		assertEquals("/collectionspace/ui/html/myCollectionSpace.html",out.getHeader("Location"));
-		out=jettyDoUTF8(jetty,"POST","/chain/login?userid="+username+"&password="+pwd,null);
+		out=jettyDoUTF8(jetty,"POST","/chain/login?userid="+username+"&password="+pwd+"&tenant="+tenant,null);
 		assertEquals(303,out.getStatus());
+		log.info(out.getHeader("Location"));
 		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
 		out=jettyDoUTF8(jetty,"POST","/chain/login?userid=guest&password=toast",null);	
 		assertEquals(303,out.getStatus());

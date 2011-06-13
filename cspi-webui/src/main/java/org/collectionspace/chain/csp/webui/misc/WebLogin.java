@@ -67,7 +67,7 @@ public class WebLogin implements WebMethod {
 		UIRequest request=in.getUIRequest();
 		String username=request.getRequestArgument("userid");
 		String password=request.getRequestArgument("password");
-		String tenantId = "0";
+		String tenantId=request.getRequestArgument("tenant");
 	
 		if(request.getRequestArgument("userid") ==  null){
 			JSONObject data = new JSONObject();
