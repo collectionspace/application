@@ -41,6 +41,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 	private Operation op_req,op_res=Operation.READ;
 	private ByteArrayOutputStream body_out=new ByteArrayOutputStream();
 	private String body_in; // XXX what if it's binary?
+	private String dataType;
 	private String mime_type_out="";
 	private boolean failure=false;
 	private Exception exception;
@@ -61,6 +62,7 @@ public class CompositeWebUIRequestPart implements UIRequest {
 		this.params=JSON.stringObjectToMap(params);
 		op_req=getRequestedOperation(query.getString("method"));
 		body_in=query.optString("body");
+		dataType=query.optString("dataType");
 	}
 	
 	private int set_status() {
@@ -111,6 +113,11 @@ public class CompositeWebUIRequestPart implements UIRequest {
 				}
 			}
 			out.put("body",body_out.toString("UTF-8"));
+			if(dataType != null){
+				if(dataType.equals("json")){
+					out.put("body",new JSONObject(body_out.toString("UTF-8")));
+				}
+			}
 			if(body_out!=null)
 				body_out.close();
 			out.put("mime",mime_type_out);
