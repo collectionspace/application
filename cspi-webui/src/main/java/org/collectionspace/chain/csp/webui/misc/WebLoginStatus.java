@@ -48,6 +48,7 @@ public class WebLoginStatus  implements WebMethod {
 			JSONObject account = activePermissions.getJSONObject("account");
 			String csid = account.getString("accountId");
 			String userId = account.getString("userId");
+			String tenantId = account.getString("tenantId");
 			String screenName = userId;
 			if(account.has("screenName")){
 				screenName = account.getString("screenName");
@@ -55,6 +56,7 @@ public class WebLoginStatus  implements WebMethod {
 			data.put("csid",csid);
 			data.put("screenName",screenName);
 			data.put("userId",userId);
+			data.put("tenant",tenantId);
 		}
 		if(activePermissions.has("permission"))
 		{

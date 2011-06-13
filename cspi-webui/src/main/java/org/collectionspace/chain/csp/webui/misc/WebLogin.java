@@ -35,17 +35,28 @@ public class WebLogin implements WebMethod {
 		this.ui=ui;
 	}
 	
-	private boolean testSuccess(Storage storage) {
+	private boolean testSuccess(Storage storage, String tenant) {
 
 		try {
 			String base = spec.getRecordByWebUrl("userperm").getID();
 			JSONObject activePermissions = storage.retrieveJSON(base + "/0/", new JSONObject());
+			
 			if(activePermissions.has("isError")){
 				if(activePermissions.getBoolean("isError")== false){
 					return false;
 				}
 			}
-			return true;
+
+			//check tenant
+			if(activePermissions.has("account")){
+				JSONObject acc = activePermissions.getJSONObject("account");
+				if(acc.has("tenantId")){
+					if(acc.getString("tenantId").equals(tenant)){
+						return true;
+					}
+				}
+			}
+			return false;
 		} catch (Exception e) {
 			return false;
 		}
@@ -56,6 +67,7 @@ public class WebLogin implements WebMethod {
 		UIRequest request=in.getUIRequest();
 		String username=request.getRequestArgument("userid");
 		String password=request.getRequestArgument("password");
+		String tenantId = "0";
 	
 		if(request.getRequestArgument("userid") ==  null){
 			JSONObject data = new JSONObject();
@@ -70,18 +82,24 @@ public class WebLogin implements WebMethod {
 				try {
 					username=data.getString("userid");
 					password=data.getString("password");
+					tenantId=data.getString("tenant");
 				} catch (JSONException e) {
 					username=request.getRequestArgument("userid");
 					password=request.getRequestArgument("password");
+					tenantId=request.getRequestArgument("tenant");
 				}
 			}
 		}
 		request.getSession().setValue(UISession.USERID,username);
 		request.getSession().setValue(UISession.PASSWORD,password);
+		request.getSession().setValue(UISession.TENANT,tenantId);
 		in.reset();
-		if(testSuccess(in.getStorage())) {
+		if(testSuccess(in.getStorage(), tenantId)) {
 			request.setRedirectPath(login_dest.split("/"));
 		} else {
+			request.getSession().setValue(UISession.USERID,"");
+			request.getSession().setValue(UISession.PASSWORD,"");
+			request.getSession().setValue(UISession.TENANT,"");
 			request.setRedirectPath(login_failed_dest.split("/"));
 			request.setRedirectArgument("result","fail");
 		}

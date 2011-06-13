@@ -2227,6 +2227,8 @@
                         </field>
                         <field id="userId">
                         </field>
+                        <field id="tenantId">
+                        </field>
                     </group>
                     <repeat id="permissions/permission" has-primary="false" xxx-hack-authorization="true">
                         <field id="permissionId">
