@@ -212,6 +212,7 @@ public class RecordCreateUpdate implements WebMethod {
 					
 			JSONObject permission_add = new JSONObject();
 			permission_add.put("effect", "PERMIT");
+			permission_add.put("description", "created because we couldn't find a match");
 			permission_add.put("resourceName", name);
 			permission_add.put("actionGroup", queryString);
 			permission_add.put("action", actions);
@@ -255,7 +256,7 @@ public class RecordCreateUpdate implements WebMethod {
 			}
 		}
 
-		log.info("permdata"+permdata.toString());
+		//log.info("permdata"+permdata.toString());
 		JSONObject roledata = new JSONObject();
 		roledata.put("roleName", fields.getString("roleName"));
 
@@ -269,7 +270,7 @@ public class RecordCreateUpdate implements WebMethod {
 		arfields.put("role", roledata);
 		arfields.put("permission", permdata);
 		accountrole.put("fields", arfields);
-		log.info("WAAA"+arfields.toString());
+		//log.info("WAAA"+arfields.toString());
 		if(fields!=null)
 			path=storage.autocreateJSON(spec.getRecordByWebUrl("permrole").getID(),arfields);
 	}
