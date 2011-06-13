@@ -103,10 +103,12 @@ public class TestData {
 		Spec spec = getSpec(tester);
 		String username = spec.getAdminData().getAuthUser();
 		String pass = spec.getAdminData().getAuthPass();
+		String tenant = spec.getAdminData().getTenant();
 		JSONObject user = new JSONObject();
 		try {
 			user.put("userid", username);
 			user.put("password", pass);
+			user.put("tenant", tenant);
 			return user;
 		} catch (JSONException e) {
 			errored(e);
