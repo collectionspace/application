@@ -7,20 +7,24 @@
   <display-name>collectionspace chain</display-name>
 
   <servlet>
-    <servlet-name>ChainServlet</servlet-name>
-    <servlet-class>org.collectionspace.chain.controller.ChainServlet</servlet-class>
+    <servlet-name>TenantServlet</servlet-name>
+    <servlet-class>org.collectionspace.chain.controller.TenantServlet</servlet-class>
   </servlet>
   <servlet>
-    <servlet-name>ChainUIServlet</servlet-name>
-    <servlet-class>org.collectionspace.chain.controller.ChainUIServlet</servlet-class>
+    <servlet-name>TenantUIServlet</servlet-name>
+    <servlet-class>org.collectionspace.chain.controller.TenantUIServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
-    <servlet-name>ChainUIServlet</servlet-name>
+    <servlet-name>TenantUIServlet</servlet-name>
     <url-pattern>/ui/*</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-    <servlet-name>ChainServlet</servlet-name>
+    <servlet-name>TenantServlet</servlet-name>
+    <url-pattern>/tenant/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TenantServlet</servlet-name>
     <url-pattern>/chain/*</url-pattern>
   </servlet-mapping>
   
