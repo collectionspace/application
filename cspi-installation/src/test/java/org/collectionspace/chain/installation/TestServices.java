@@ -62,7 +62,7 @@ public class TestServices {
 	}
 	@Test public void testServices(){
 
-		String filename = "tenant1.xml";
+		String filename = "default.xml";
 		CSPManager cspm=getServiceManager(filename);
 		//tenant specific
 		Services tenantbob = new Services(getSpec(filename,cspm), getTenantData(filename,cspm),false);
