@@ -85,7 +85,7 @@ public class TestUISpecs extends TestBase {
 
 		response = GETData(url, jetty);
 
-		//log.info("GENERATED" + response.getContent());
+		log.info("GENERATED" + response.getContent());
 		generated = new JSONObject(response.getContent());
 		comparison = new JSONObject(getResourceString(uijson));
 		xxxfixOptions(generated);
@@ -117,7 +117,7 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/recordtypes/uischema", "recordtypes.uischema");
 		
 		//serviceschema
-		//uispec(jetty, "/cataloging/serviceschema", "collection-object.uischema");
+//		uispec(jetty, "/cataloging/serviceschema/collectionspace_core", "collection-object.uischema");
 	}
 
 	@Test

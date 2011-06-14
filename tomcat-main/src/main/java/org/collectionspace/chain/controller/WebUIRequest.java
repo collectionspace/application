@@ -74,7 +74,7 @@ public class WebUIRequest implements UIRequest {
 	private WebUISession session;
 	private boolean solidified=false;
 
-	private void initRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response) throws IOException, UIException{
+	private void initRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response, List<String> p) throws IOException, UIException{
 		this.request=request;
 		this.response=response;
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
@@ -118,13 +118,7 @@ public class WebUIRequest implements UIRequest {
 		else{
 			body=IOUtils.toString(request.getInputStream(),"UTF-8");
 		}
-		List<String> p=new ArrayList<String>();
-		for(String part : request.getPathInfo().split("/")) {
-			if("".equals(part))
-				continue;
-			p.add(part);
-		}		
-	
+		
 		this.ppath=p.toArray(new String[0]);
 		if(!(umbrella instanceof WebUIUmbrella))
 			throw new UIException("Bad umbrella");
@@ -138,12 +132,34 @@ public class WebUIRequest implements UIRequest {
 	
 	public WebUIRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response, Integer cookieLife) throws IOException, UIException {
 		this.lifeInMins = cookieLife;
-		initRequest(umbrella,request,response);
+
+		List<String> p=new ArrayList<String>();
+		for(String part : request.getPathInfo().split("/")) {
+			if("".equals(part))
+				continue;
+			p.add(part);
+		}		
+		initRequest(umbrella,request,response,p);
 	}
 
 	public WebUIRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response) throws IOException, UIException {
 		this.lifeInMins = 15;
-		initRequest(umbrella,request,response);
+
+		List<String> p=new ArrayList<String>();
+		for(String part : request.getPathInfo().split("/")) {
+			if("".equals(part))
+				continue;
+			p.add(part);
+		}		
+		initRequest(umbrella,request,response,p);
+	}
+	public WebUIRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response, Integer cookieLife, List<String> p) throws IOException, UIException {
+		this.lifeInMins = cookieLife;
+		initRequest(umbrella,request,response,p);
+	}
+	public WebUIRequest(UIUmbrella umbrella,HttpServletRequest request,HttpServletResponse response, List<String> p) throws IOException, UIException {
+		this.lifeInMins = 15;
+		initRequest(umbrella,request,response,p);
 	}
 
 	private WebUISession calculateSessionId() throws UIException {

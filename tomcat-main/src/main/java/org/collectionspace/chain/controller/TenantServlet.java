@@ -6,12 +6,15 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,10 +42,11 @@ import org.xml.sax.SAXException;
 
 public class TenantServlet extends HttpServlet {
 	private static final Logger log=LoggerFactory.getLogger(TenantServlet.class);
+	protected static final String COOKIENAME="CSPACESESSID";
 	private static final long serialVersionUID = -4343156244448081917L;
 	protected Map<String, CSPManagerImpl> tenantCSPM = new HashMap<String, CSPManagerImpl>();
 	protected Map<String, Boolean> tenantInit = new HashMap<String, Boolean>();
-	private Map<String, UIUmbrella> tenantUmbrella = new HashMap<String, UIUmbrella>();
+	protected Map<String, UIUmbrella> tenantUmbrella = new HashMap<String, UIUmbrella>();
 
 	protected String locked_down=null;
 	
@@ -51,6 +55,9 @@ public class TenantServlet extends HttpServlet {
 	 */
 
 	protected void register_csps(String tenantId) throws IOException, DocumentException {
+		if(!tenantCSPM.containsKey(tenantId)){
+			tenantCSPM.put(tenantId, new CSPManagerImpl());
+		}
 		tenantCSPM.get(tenantId).register(new CoreConfig());
 		tenantCSPM.get(tenantId).register(new FileStorage());
 		tenantCSPM.get(tenantId).register(new ServicesStorageGenerator());
@@ -58,6 +65,26 @@ public class TenantServlet extends HttpServlet {
 		tenantCSPM.get(tenantId).register(new Spec());
 	}
 	
+	protected String getTenantByCookie(HttpServletRequest servlet_request){
+		Cookie[] cookies = servlet_request.getCookies();
+		if(cookies==null)
+			cookies=new Cookie[0];
+		for(Cookie cookie : cookies) {
+			if(!COOKIENAME.equals(cookie.getName()))
+				continue;
+			
+			//loop over all umbrellas and find the one we have the session for
+			for(Map.Entry<String, UIUmbrella> entry: tenantUmbrella.entrySet()){
+				String name = entry.getKey();
+				UIUmbrella umb = entry.getValue();
+
+				WebUISession session=((WebUIUmbrella) umb).getSession(cookie.getValue());
+				if(session!=null)
+					return name;
+			}
+		}
+		return "";
+	}
 	protected void load_config(ServletContext ctx, String tenantId) throws CSPDependencyException {
 		try {
 			ConfigFinder cfg=new ConfigFinder(ctx);
@@ -77,7 +104,7 @@ public class TenantServlet extends HttpServlet {
 	}
 	
 	protected synchronized void setup(String tenantId) throws BadRequestException {
-		if(tenantInit.get(tenantId))
+		if(tenantInit.containsKey(tenantId) && tenantInit.get(tenantId))
 			return;
 		try {
 			// Register csps
@@ -94,81 +121,114 @@ public class TenantServlet extends HttpServlet {
 		tenantInit.put(tenantId,true);
 	}
 	
+	protected void serviceWTenant(String tenantid, List<String> pathparts, String initcheck, HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException, BadRequestException {
+		
+
+		if(locked_down!=null) {
+			//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else
+
+			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Servlet is locked down in a hard fail because of fatal error: "+locked_down);
+			//servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
+			return;
+		}
+		
+		//reinit if url = /chain/init
+		
+		if(initcheck.equals("init")){
+			tenantCSPM.put(tenantid, new CSPManagerImpl());
+			tenantInit.put(tenantid, false);
+			setup(tenantid);
+
+			
+			ConfigFinder cfg=new ConfigFinder(getServletContext());
+			try {
+				InputSource cfg_stream=cfg.resolveEntity("-//CSPACE//ROOT","cspace-config-"+tenantid+".xml");
+				String test = IOUtils.toString(cfg_stream.getByteStream());
+				//servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loaded"+test);
+				servlet_response.getWriter().append("cspace-config re-loaded"+test);
+			} catch (SAXException e) {
+				// TODO Auto-generated catch block
+				servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loadedfailed");
+			}
+			
+			
+			return;
+		}
+		
+		if(!tenantInit.containsKey(tenantid) || !tenantInit.get(tenantid))
+			setup(tenantid);
+		
+		if(locked_down!=null) {
+			//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else
+
+			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Servlet is locked down in a hard fail because of fatal error: "+locked_down);
+			//servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
+			return;
+		}
+		if(perhapsServeFixedContent(servlet_request,servlet_response))
+			return;
+		// Setup our request object
+		UI web=tenantCSPM.get(tenantid).getUI("web");
+		if(!tenantUmbrella.containsKey(tenantid)){
+			synchronized(getClass()) {
+				if(!tenantUmbrella.containsKey(tenantid)) {
+					tenantUmbrella.put(tenantid, new WebUIUmbrella((WebUI)web));
+				}
+			}
+		}
+		try {
+			ConfigRoot root=tenantCSPM.get(tenantid).getConfigRoot();
+			Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+			WebUIRequest req=new WebUIRequest(tenantUmbrella.get(tenantid),servlet_request,servlet_response,spec.getAdminData().getCookieLife(),pathparts);
+			if(is_composite(req)) {
+				serve_composite(web,req);
+			} else {
+				web.serviceRequest(req);
+				req.solidify(true);
+			}
+		} catch (UIException e) {
+			throw new BadRequestException("UIException",e);
+		}
+		
+	}
 	public void service(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		try {
-
 			String pathinfo = servlet_request.getPathInfo();
 			String[] pathbits = pathinfo.substring(1).split("/");
-			if (pathbits[0].equals("tenant")) {
-				servlet_response.sendRedirect(pathinfo);
-				return;
-			}
-			
-			String tenantid = pathbits[0];
-			
-			if(locked_down!=null) {
-				//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else
+			String test = servlet_request.getServletPath();
+			String tenant = ""; 
+			String checkinit = "";
 
-				servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Servlet is locked down in a hard fail because of fatal error: "+locked_down);
-				//servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
-				return;
-			}
-			
-			//reinit if url = /chain/init
-			if(pathbits[1].equals("init")){
-				tenantCSPM.put(tenantid, new CSPManagerImpl());
-				tenantInit.put(tenantid, false);
-				setup(tenantid);
-
-				
-				ConfigFinder cfg=new ConfigFinder(getServletContext());
-				try {
-					InputSource cfg_stream=cfg.resolveEntity("-//CSPACE//ROOT","cspace-config.xml");
-					String test = IOUtils.toString(cfg_stream.getByteStream());
-					//servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loaded"+test);
-					servlet_response.getWriter().append("cspace-config re-loaded"+test);
-				} catch (SAXException e) {
-					// TODO Auto-generated catch block
-					servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "cspace-config re-loadedfailed");
+			List<String> p=new ArrayList<String>();
+			for(String part : servlet_request.getPathInfo().split("/")) {
+				if("".equals(part))
+					continue;
+				p.add(part);
+			}		
+		
+			if(test.equals("/chain")){
+				if (pathbits[0].equals("chain")) {
+					servlet_response.sendRedirect(pathinfo);
+					return;
 				}
-				
-				
-				return;
-			}
-			if(!tenantInit.get(tenantid))
-				setup(tenantid);
-			
-			if(locked_down!=null) {
-				//this ended up with a status 200 hmmmm not great so changed it to return a 400... hopefully that wont break anythign else
-
-				servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Servlet is locked down in a hard fail because of fatal error: "+locked_down);
-				//servlet_response.getWriter().append("Servlet is locked down in a hard fail because of fatal error: "+locked_down);
-				return;
-			}
-			if(perhapsServeFixedContent(servlet_request,servlet_response))
-				return;
-			// Setup our request object
-			UI web=tenantCSPM.get(tenantid).getUI("web");
-			if(!tenantUmbrella.containsKey(tenantid)){
-				synchronized(getClass()) {
-					if(!tenantUmbrella.containsKey(tenantid)) {
-						tenantUmbrella.put(tenantid, new WebUIUmbrella((WebUI)web));
-					}
+				tenant = getTenantByCookie(servlet_request);
+				checkinit = pathbits[0];
+				if(tenant.equals("")){
+					servlet_response.getWriter().append("Servlet is locked down in a hard fail because no tenant specified: ");
 				}
 			}
-			try {
-				ConfigRoot root=tenantCSPM.get(tenantid).getConfigRoot();
-				Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
-				WebUIRequest req=new WebUIRequest(tenantUmbrella.get(tenantid),servlet_request,servlet_response,spec.getAdminData().getCookieLife());
-				if(is_composite(req)) {
-					serve_composite(web,req);
-				} else {
-					web.serviceRequest(req);
-					req.solidify(true);
+			else{
+				if (pathbits[0].equals("tenant")) {
+					servlet_response.sendRedirect(pathinfo);
+					return;
 				}
-			} catch (UIException e) {
-				throw new BadRequestException("UIException",e);
+				p.remove(0);
+				tenant = pathbits[0];
+				checkinit = pathbits[1];
 			}
+			
+			serviceWTenant(tenant, p, checkinit, servlet_request, servlet_response);
+			
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST, getStackTrace(x));
 		}
@@ -226,7 +286,7 @@ public class TenantServlet extends HttpServlet {
 		String[] path=req.getPrincipalPath();
 		if(path.length!=1)
 			return false;
-		return "composite".equals(path[1]);
+		return "composite".equals(path[0]);
 	}
 	
 	public static String getStackTrace(Throwable aThrowable) {

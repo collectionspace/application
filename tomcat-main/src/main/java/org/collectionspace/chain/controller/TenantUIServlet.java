@@ -43,6 +43,87 @@ public class TenantUIServlet extends TenantServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	protected void serviceUIWTenant(String tenant, HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws BadRequestException,ConnectionException,DocumentException, IOException{
+
+		String pathinfo = servlet_request.getPathInfo();
+		String[] pathbits = pathinfo.substring(1).split("/");
+		String urlredirect = "/collectionspace/ui/"+tenant+"/index.html";
+		
+		if (pathinfo.equals("/html") || pathinfo.equals("/html/")) {
+			servlet_response.sendRedirect(urlredirect);
+		}
+		else if (pathinfo.equals("/"+tenant) || pathinfo.equals("/"+tenant+"/")) {
+			servlet_response.sendRedirect(urlredirect);
+		}
+
+		ServletContext sc = null;
+		sc = getServletContext().getContext("/cspace-ui");
+		if(sc==null){
+			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,"missing servlet context cspace-ui");
+		}
+		
+		if(pathbits[0].equals("css") || pathbits[0].equals("js") || pathbits[0].equals("lib") || pathbits[0].equals("bundle") || pathbits[0].equals("images") || pathbits[0].equals("config")){
+			if (serverFixedExternalContent(servlet_request, servlet_response,
+					sc, pathinfo)) {
+				return;
+			}
+		}
+
+		if(!tenantInit.containsKey(tenant) || !tenantInit.get(tenant))
+			setup(tenant);
+
+		// should we redirect this url or just do the normal stuff
+
+		// Setup our request object
+		UI web = tenantCSPM.get(tenant).getUI("web");
+		WebUI webui = (WebUI) web;
+		UIMapping[] allmappings = webui.getAllMappings();
+
+		ConfigRoot root = tenantCSPM.get(tenant).getConfigRoot();
+		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
+
+
+		Boolean doMetaConfig = false;
+		String path = pathinfo;
+		UIMapping validmap = doMapping(pathinfo, allmappings, spec);
+		if (null != validmap) {
+			path = validmap.getFile();
+			if (validmap.hasMetaConfig() && doMetaConfig) {
+				InputStream is = sc.getResourceAsStream(path);
+				
+				SAXReader reader = new SAXReader();
+				reader.setEntityResolver(new NullResolver());
+				Document xmlfile = null;
+
+				ByteArrayOutputStream dump = new ByteArrayOutputStream();
+				xmlfile = reader.read(new TeeInputStream(is, dump));
+			//	log.info(dump.toString("UTF-8"));
+
+				for (String metafield : validmap.getAllMetaConfigs()) {
+					String xPath = "//html/head/" + metafield;
+					List<Node> nodes = xmlfile.selectNodes(xPath);
+
+					if (!nodes.isEmpty()) {
+						String fieldval = validmap.getMetaConfig(metafield)
+								.getValue();
+						nodes.get(0).setText(fieldval);
+					}
+				}
+				InputStream source = documentToStream(xmlfile);
+				serveContent(servlet_response, source);
+
+				is.close();
+				return;
+			}
+		}
+
+		if (serverFixedExternalContent(servlet_request, servlet_response,
+				sc, path)) {
+			return;
+		}
+
+	}
+	
 	public void service(HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response) throws ServletException,
 			IOException {
@@ -52,75 +133,8 @@ public class TenantUIServlet extends TenantServlet {
 			String pathinfo = servlet_request.getPathInfo();
 			String[] pathbits = pathinfo.substring(1).split("/");
 			String tenant = pathbits[0];
+			serviceUIWTenant(tenant,servlet_request, servlet_response);
 			
-			if (pathinfo.equals("/html") || pathinfo.equals("/html/")) {
-				servlet_response
-						.sendRedirect("/collectionspace/ui/"+tenant+"/index.html");
-			}
-
-			if (pathinfo.equals("/"+tenant) || pathinfo.equals("/"+tenant+"/")) {
-				servlet_response
-						.sendRedirect("/collectionspace/ui/"+tenant+"/index.html");
-			}
-
-			if(!tenantInit.get(tenant))
-				setup(tenant);
-
-			// should we redirect this url or just do the normal stuff
-
-			// Setup our request object
-			UI web = tenantCSPM.get(tenant).getUI("web");
-			WebUI webui = (WebUI) web;
-			UIMapping[] allmappings = webui.getAllMappings();
-
-			ConfigRoot root = tenantCSPM.get(tenant).getConfigRoot();
-			Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
-
-			ServletContext sc = null;
-			sc = getServletContext().getContext("/cspace-ui");
-			if(sc==null){
-				servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,"missing servlet context cspace-ui");
-			}
-
-			Boolean doMetaConfig = false;
-			String path = pathinfo;
-			UIMapping validmap = doMapping(pathinfo, allmappings, spec);
-			if (null != validmap) {
-				path = validmap.getFile();
-				if (validmap.hasMetaConfig() && doMetaConfig) {
-					InputStream is = sc.getResourceAsStream(path);
-					
-					SAXReader reader = new SAXReader();
-					reader.setEntityResolver(new NullResolver());
-					Document xmlfile = null;
-
-					ByteArrayOutputStream dump = new ByteArrayOutputStream();
-					xmlfile = reader.read(new TeeInputStream(is, dump));
-				//	log.info(dump.toString("UTF-8"));
-
-					for (String metafield : validmap.getAllMetaConfigs()) {
-						String xPath = "//html/head/" + metafield;
-						List<Node> nodes = xmlfile.selectNodes(xPath);
-
-						if (!nodes.isEmpty()) {
-							String fieldval = validmap.getMetaConfig(metafield)
-									.getValue();
-							nodes.get(0).setText(fieldval);
-						}
-					}
-					InputStream source = documentToStream(xmlfile);
-					serveContent(servlet_response, source);
-
-					is.close();
-					return;
-				}
-			}
-
-			if (serverFixedExternalContent(servlet_request, servlet_response,
-					sc, path)) {
-				return;
-			}
-
 		} catch (BadRequestException x) {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,
 					getStackTrace(x));
