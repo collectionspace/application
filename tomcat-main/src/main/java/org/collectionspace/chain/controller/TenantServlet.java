@@ -112,11 +112,11 @@ public class TenantServlet extends HttpServlet {
 			tenantCSPM.get(tenantId).go(); // Start up CSPs
 			load_config(getServletContext(),tenantId);
 		} catch (IOException e) {
-			throw new BadRequestException("Cannot load config"+e,e);
+			throw new BadRequestException("Cannot load config "+e,e);
 		} catch (DocumentException e) {
-			throw new BadRequestException("Cannot load backend"+e,e);
+			throw new BadRequestException("Cannot load backend "+e,e);
 		} catch (CSPDependencyException e) {
-			throw new BadRequestException("Cannot initialise CSPs"+e,e);
+			throw new BadRequestException("Cannot initialise CSPs "+e,e);
 		}
 		tenantInit.put(tenantId,true);
 	}
@@ -275,7 +275,26 @@ public class TenantServlet extends HttpServlet {
 		IOUtils.copy(is,servlet_response.getOutputStream());
 		return true;
 	}
-	
+
+	protected InputStream getFixedContent(ServletContext sc,String path, String tenant){
+
+        InputStream is=sc.getResourceAsStream("/"+tenant+path);
+        if(is == null){
+        	is=sc.getResourceAsStream(path);
+        	//try this
+        	if(is == null){
+        		if(path.startsWith("/"+tenant+"/")){
+    				String testpath = path.replace("/"+tenant+"/", "/html/");
+    				is=sc.getResourceAsStream(testpath);
+    			}
+        	}
+        }
+        return is;
+	}
+	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path, String tenant) throws IOException{
+		InputStream is = getFixedContent( sc, path,  tenant);
+        return serveContent(servlet_response,is);
+	}
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path) throws IOException{
 
         InputStream is=sc.getResourceAsStream(path);

@@ -61,10 +61,11 @@ public class TenantUIServlet extends TenantServlet {
 		if(sc==null){
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,"missing servlet context cspace-ui");
 		}
-		
+
 		if(pathbits[0].equals("css") || pathbits[0].equals("js") || pathbits[0].equals("lib") || pathbits[0].equals("bundle") || pathbits[0].equals("images") || pathbits[0].equals("config")){
+			String tenantposs = getTenantByCookie(servlet_request);
 			if (serverFixedExternalContent(servlet_request, servlet_response,
-					sc, pathinfo)) {
+					sc, pathinfo, tenantposs)) {
 				return;
 			}
 		}
@@ -89,7 +90,8 @@ public class TenantUIServlet extends TenantServlet {
 		if (null != validmap) {
 			path = validmap.getFile();
 			if (validmap.hasMetaConfig() && doMetaConfig) {
-				InputStream is = sc.getResourceAsStream(path);
+				
+				InputStream is = getFixedContent( sc, path,  tenant);
 				
 				SAXReader reader = new SAXReader();
 				reader.setEntityResolver(new NullResolver());
@@ -118,7 +120,7 @@ public class TenantUIServlet extends TenantServlet {
 		}
 
 		if (serverFixedExternalContent(servlet_request, servlet_response,
-				sc, path)) {
+				sc, path, tenant)) {
 			return;
 		}
 
