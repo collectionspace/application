@@ -21,7 +21,14 @@
     <module>cspi-services</module>
 
     <module>tomcat-main</module>
+    <module>war-entry</module>
   </modules>
+  
+  	<properties>
+		<maven.tomcat.home>/tmp</maven.tomcat.home>
+	</properties>
+  
+  
   <build>
     <testResources>
   	  <!-- default -->

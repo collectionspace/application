@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Built-By: dan
+Build-Jdk: 1.6.0_24
+Main-Class: org.collectionspace.chain.controller.CommandLine
+Class-Path: WEB-INF/lib/tomcat-main-1.0-SNAPSHOT.jar WEB-INF/classes
