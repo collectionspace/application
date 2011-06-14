@@ -17,8 +17,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/objectexit/autocomplete/depositor",
-                    "vocabUrl": "../../chain/objectexit/source-vocab/depositor"
+                    "queryUrl": "../../tenant/html/objectexit/autocomplete/depositor",
+                    "vocabUrl": "../../tenant/html/objectexit/source-vocab/depositor"
                 }
             }],
             "value": "${fields.depositor}"
@@ -52,8 +52,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/objectexit/autocomplete/currentOwner",
-                    "vocabUrl": "../../chain/objectexit/source-vocab/currentOwner"
+                    "queryUrl": "../../tenant/html/objectexit/autocomplete/currentOwner",
+                    "vocabUrl": "../../tenant/html/objectexit/source-vocab/currentOwner"
                 }
             }],
             "value": "${fields.currentOwner}"

@@ -24,8 +24,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../chain/acquisition/autocomplete/acquisitionFundingSource",
-                                                    "vocabUrl": "../../chain/acquisition/source-vocab/acquisitionFundingSource"
+                                                    "queryUrl": "../../tenant/html/acquisition/autocomplete/acquisitionFundingSource",
+                                                    "vocabUrl": "../../tenant/html/acquisition/source-vocab/acquisitionFundingSource"
                                                 }
                                             }],
                                             "value": "${{row}.acquisitionFundingSource}"
@@ -60,8 +60,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/acquisition/autocomplete/acquisitionAuthorizer",
-                    "vocabUrl": "../../chain/acquisition/source-vocab/acquisitionAuthorizer"
+                    "queryUrl": "../../tenant/html/acquisition/autocomplete/acquisitionAuthorizer",
+                    "vocabUrl": "../../tenant/html/acquisition/source-vocab/acquisitionAuthorizer"
                 }
             }],
             "value": "${fields.acquisitionAuthorizer}"
@@ -111,8 +111,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../chain/acquisition/autocomplete/owner",
-                                                    "vocabUrl": "../../chain/acquisition/source-vocab/owner"
+                                                    "queryUrl": "../../tenant/html/acquisition/autocomplete/owner",
+                                                    "vocabUrl": "../../tenant/html/acquisition/source-vocab/owner"
                                                 }
                                             }],
                                             "value": "${{row}.owner}"
@@ -302,8 +302,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../chain/acquisition/autocomplete/acquisitionSource",
-                                                    "vocabUrl": "../../chain/acquisition/source-vocab/acquisitionSource"
+                                                    "queryUrl": "../../tenant/html/acquisition/autocomplete/acquisitionSource",
+                                                    "vocabUrl": "../../tenant/html/acquisition/source-vocab/acquisitionSource"
                                                 }
                                             }],
                                             "value": "${{row}.acquisitionSource}"

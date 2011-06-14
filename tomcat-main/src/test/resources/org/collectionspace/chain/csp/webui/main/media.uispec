@@ -98,8 +98,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/media/autocomplete/rightsHolder",
-                    "vocabUrl": "../../chain/media/source-vocab/rightsHolder"
+                    "queryUrl": "../../tenant/html/media/autocomplete/rightsHolder",
+                    "vocabUrl": "../../tenant/html/media/source-vocab/rightsHolder"
                 }
             }],
             "value": "${fields.rightsHolder}"
@@ -238,8 +238,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/media/autocomplete/publisher",
-                    "vocabUrl": "../../chain/media/source-vocab/publisher"
+                    "queryUrl": "../../tenant/html/media/autocomplete/publisher",
+                    "vocabUrl": "../../tenant/html/media/source-vocab/publisher"
                 }
             }],
             "value": "${fields.publisher}"
@@ -255,8 +255,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/media/autocomplete/creator",
-                    "vocabUrl": "../../chain/media/source-vocab/creator"
+                    "queryUrl": "../../tenant/html/media/autocomplete/creator",
+                    "vocabUrl": "../../tenant/html/media/source-vocab/creator"
                 }
             }],
             "value": "${fields.creator}"
@@ -281,8 +281,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/media/autocomplete/contributor",
-                    "vocabUrl": "../../chain/media/source-vocab/contributor"
+                    "queryUrl": "../../tenant/html/media/autocomplete/contributor",
+                    "vocabUrl": "../../tenant/html/media/source-vocab/contributor"
                 }
             }],
             "value": "${fields.contributor}"
@@ -394,8 +394,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../chain/media/autocomplete/measuredBy",
-                                                    "vocabUrl": "../../chain/media/source-vocab/measuredBy"
+                                                    "queryUrl": "../../tenant/html/media/autocomplete/measuredBy",
+                                                    "vocabUrl": "../../tenant/html/media/source-vocab/measuredBy"
                                                 }
                                             }],
                                             "value": "${{row}.measuredBy}"

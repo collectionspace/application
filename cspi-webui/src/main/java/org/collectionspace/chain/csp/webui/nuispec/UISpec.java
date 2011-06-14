@@ -42,6 +42,8 @@ public class UISpec implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(UISpec.class);
 	protected Record record;
 	protected Storage storage;
+	protected Spec spec;
+	protected String tenantname = "html";
 	protected JSONObject controlledCache;
 	protected String structureview;
 
@@ -59,6 +61,7 @@ public class UISpec implements WebMethod {
 	
 	public UISpec(Record record, String structureview) {
 		this.record=record;
+		this.spec = record.getSpec();
 		this.structureview = structureview;
 		this.controlledCache = new JSONObject();
 	}
@@ -502,8 +505,9 @@ public class UISpec implements WebMethod {
 		if(contextdata.length>0){
 			autocompleteurl = contextdata[0];
 		}
-		options.put("queryUrl","../../chain/"+autocompleteurl+"/autocomplete/"+f.getID());
-		options.put("vocabUrl","../../chain/"+autocompleteurl+"/source-vocab/"+f.getID());
+		
+		options.put("queryUrl","../../tenant/"+tenantname+"/"+autocompleteurl+"/autocomplete/"+f.getID());
+		options.put("vocabUrl","../../tenant/"+tenantname+"/"+autocompleteurl+"/source-vocab/"+f.getID());
 
 		if(!f.getAutocompleteFuncName().equals("")){
 			JSONObject invokers = new JSONObject();
@@ -1027,6 +1031,10 @@ public class UISpec implements WebMethod {
 
 	protected JSONObject uispec(Storage storage) throws UIException {
 		this.storage = storage;
+		this.tenantname = this.spec.getAdminData().getTenantName();
+		if(this.tenantname == null || this.tenantname.equals("")){
+			this.tenantname = "html";
+		}
 		UISpecRunContext context = new UISpecRunContext();
 		try {
 			JSONObject out=new JSONObject();

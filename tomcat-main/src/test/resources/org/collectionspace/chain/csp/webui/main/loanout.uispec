@@ -105,8 +105,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/loanout/autocomplete/lendersAuthorizer",
-                    "vocabUrl": "../../chain/loanout/source-vocab/lendersAuthorizer"
+                    "queryUrl": "../../tenant/html/loanout/autocomplete/lendersAuthorizer",
+                    "vocabUrl": "../../tenant/html/loanout/source-vocab/lendersAuthorizer"
                 }
             }],
             "value": "${fields.lendersAuthorizer}"
@@ -125,8 +125,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/loanout/autocomplete/borrowersContact",
-                    "vocabUrl": "../../chain/loanout/source-vocab/borrowersContact"
+                    "queryUrl": "../../tenant/html/loanout/autocomplete/borrowersContact",
+                    "vocabUrl": "../../tenant/html/loanout/source-vocab/borrowersContact"
                 }
             }],
             "value": "${fields.borrowersContact}"
@@ -136,8 +136,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/loanout/autocomplete/lendersContact",
-                    "vocabUrl": "../../chain/loanout/source-vocab/lendersContact"
+                    "queryUrl": "../../tenant/html/loanout/autocomplete/lendersContact",
+                    "vocabUrl": "../../tenant/html/loanout/source-vocab/lendersContact"
                 }
             }],
             "value": "${fields.lendersContact}"
@@ -150,8 +150,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../chain/loanout/autocomplete/borrower",
-                    "vocabUrl": "../../chain/loanout/source-vocab/borrower"
+                    "queryUrl": "../../tenant/html/loanout/autocomplete/borrower",
+                    "vocabUrl": "../../tenant/html/loanout/source-vocab/borrower"
                 }
             }],
             "value": "${fields.borrower}"

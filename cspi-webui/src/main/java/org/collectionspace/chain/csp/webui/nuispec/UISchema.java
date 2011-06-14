@@ -276,6 +276,10 @@ public class UISchema extends UISpec {
 		UISpecRunContext context = new UISpecRunContext();
 		this.storage = storage;
 		this.record = record;
+		this.tenantname = this.record.getSpec().getAdminData().getTenantName();
+		if(this.tenantname.equals("")){
+			this.tenantname = "html";
+		}
 		try {
 			JSONObject out = new JSONObject();
 			JSONObject details = new JSONObject();

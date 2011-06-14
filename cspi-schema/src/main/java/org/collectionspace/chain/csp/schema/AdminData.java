@@ -21,13 +21,14 @@ import org.json.JSONObject;
  * 
  */
 public class AdminData {
-	String username, password, tenant;
+	String username, password, tenant, tenantname;
 	Integer lifeInMinsOfCookie;
 
 	public AdminData(Spec spec, ReadOnlySection section) {
 		username = (String) section.getValue("/username");
 		password = (String) section.getValue("/password");
 		tenant = (String) section.getValue("/tenant");
+		tenantname = (String) section.getValue("/tenantname");
 		String stringMinutes = (String) section.getValue("/cookievalidformins");
 		if (stringMinutes.equals("")) {
 			stringMinutes = "30";
@@ -45,6 +46,9 @@ public class AdminData {
 
 	public String getTenant() {
 		return tenant;
+	}
+	public String getTenantName() {
+		return tenantname;
 	}
 
 	public String getAuthPass() {

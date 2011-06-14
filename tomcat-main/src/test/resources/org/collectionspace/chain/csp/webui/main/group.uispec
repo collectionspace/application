@@ -9,8 +9,8 @@
                     "func": "cspace.autocomplete",
                     "type": "fluid",
                     "options": {
-                        "queryUrl": "../../chain/group/autocomplete/owner",
-                        "vocabUrl": "../../chain/group/source-vocab/owner"
+                        "queryUrl": "../../tenant/html/group/autocomplete/owner",
+                        "vocabUrl": "../../tenant/html/group/source-vocab/owner"
                     }
                 }
             ],
