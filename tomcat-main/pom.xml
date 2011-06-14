@@ -204,24 +204,41 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<outputDirectory>${maven.tomcat.home}</outputDirectory>
-				    <archive>
-						<manifest>
-				    	<mainClass>org.collectionspace.chain.controller.CommandLine</mainClass>
-				    	</manifest>
-    				</archive>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
 				<configuration>
 					<contextPath>collectionspace</contextPath>
 				</configuration>
 			</plugin>
+			
+			            <plugin>
+                <groupId>org.dstovall</groupId>
+                <artifactId>onejar-maven-plugin</artifactId>
+                <version>1.4.4</version>
+                <executions>
+                    <execution>
+                        <configuration>
+                            <mainClass>org.collectionspace.chain.controller.CommandLine</mainClass>
+                            <attachToBuild>true</attachToBuild>
+                            <classifier>onejar</classifier>
+                        </configuration>
+                        <goals>
+                            <goal>one-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+			
+			
 		</plugins>
 	</build>
+	
+	 <pluginRepositories>
+        <pluginRepository>
+            <id>onejar-maven-plugin.googlecode.com</id>
+            <url>http://onejar-maven-plugin.googlecode.com/svn/mavenrepo</url>
+        </pluginRepository>
+    </pluginRepositories>
+	
+	
 </project>
