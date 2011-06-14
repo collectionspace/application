@@ -3,6 +3,7 @@
         <username>admin@collectionspace.org</username>
         <password>Administrator</password>
         <tenant>1</tenant>
+        <tenantname>html</tenantname>
         <cookievalidformins>60</cookievalidformins>
     </admin>
     <email>
