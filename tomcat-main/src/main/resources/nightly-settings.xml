@@ -31,8 +31,22 @@
     <persistence>
         <service>
             <url>http://nightly.collectionspace.org:8180/cspace-services</url>
-			<config-tenant></config-tenant>
-			<config-bindings></config-bindings>
+			<tenant>
+				<name>hearstmuseum.berkeley.edu</name>
+				<version>0.1</version>
+				<display-name>Phoebe A. Hearst Museum of Anthropology</display-name>
+			</tenant>
+			<repository>
+				<domain>pahma-domain</domain>
+				<client>nuxeo-java</client>
+				<dateformats>
+					<pattern>MM/dd/yyyy</pattern>
+					<pattern>dd.MM.yyyy</pattern>
+				</dateformats>
+				<languages>
+					<language>en</language>
+				</languages>
+			</repository>
 			<ims-url>http://nightly.collectionspace.org:8180/collectionspace/tenant/html/</ims-url> <!-- XXX should be in separate IMS section -->
         </service>
     </persistence>

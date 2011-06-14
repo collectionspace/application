@@ -188,12 +188,12 @@ public class TenantUIServlet extends TenantServlet {
 					if (r.isType(map.getType())) {
 						if(r.isType("authority")){
 							for(Instance ins: r.getAllInstances()){
-								if (pathinfo.equals("/"+ spec.getAdminData().getTenant() +"/" + ins.getUIURL())) {
+								if (pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/" + ins.getUIURL())) {
 									return map;
 								}
 							}
 						}
-						if (pathinfo.equals("/"+spec.getAdminData().getTenant()+"/" + r.getUIURL())) {
+						if (pathinfo.equals("/"+spec.getAdminData().getTenantName()+"/" + r.getUIURL())) {
 							return map;
 						}
 					}

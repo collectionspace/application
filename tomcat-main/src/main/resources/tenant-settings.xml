@@ -3,6 +3,7 @@
         <username>admin@hearstmuseum.berkeley.edu</username>
         <password>Administrator</password>
         <tenant>2</tenant>
+        <tenantname>pamha</tenantname>
         <cookievalidformins>60</cookievalidformins>
     </admin>
     <email>

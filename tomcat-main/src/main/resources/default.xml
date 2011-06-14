@@ -168,7 +168,7 @@
                     </field>
                     <repeat id="briefDescriptions" has-primary="yes">
                         <selector>object-identification-brief-description</selector>
-                        <field id="briefDescription">
+                        <field id="briefDescription" datatype="largetext">
                             <selector>object-identification-brief-description</selector>
                         </field>
                     </repeat>
@@ -176,7 +176,7 @@
                         <selector>object-identification-distinguishing-features</selector>
                     </field>
                     <repeat id="comments">
-                        <field id="comment">
+                        <field id="comment" datatype="largetext">
                             <selector>object-identification-comments</selector>
                         </field>
                     </repeat>
@@ -732,7 +732,7 @@
                         <field id="objectProductionPlaceRole"></field>
                     </repeat>
                     <repeat id="objectProductionReasons">
-                        <field id="objectProductionReason">
+                        <field id="objectProductionReason" datatype="largetext">
                             <selector>object-production-reason</selector>
                         </field>
                     </repeat>
@@ -908,7 +908,7 @@
                         <selector>object-owner-response</selector>
                     </field>
                     <repeat id="ownersReferences">
-                        <field id="ownersReference">
+                        <field id="ownersReference" datatype="largetext">
                             <selector>object-owner-reference</selector>
                         </field>
                     </repeat>
@@ -927,7 +927,7 @@
                         <selector>object-viewer-response</selector>
                     </field>
                     <repeat id="viewersReferences">
-                        <field id="viewersReference">
+                        <field id="viewersReference" datatype="largetext">
                             <selector>object-viewer-reference</selector>
                         </field>
                     </repeat>
