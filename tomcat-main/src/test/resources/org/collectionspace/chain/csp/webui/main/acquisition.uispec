@@ -223,6 +223,9 @@
         ".csc-acquisition-acquisitionInformation-label": {
             "messagekey": "acquisition-acquisitionInformationLabel"
         },
+        ".csc-acquisition-acquisitionAuthorizerHeader-label": {
+            "messagekey": "acquisition-acquisitionAuthorizerHeaderLabel"
+        },
         ".csc-acquisition-tenantID": "${fields.tenantID}",
         ".csc-acquisition-object-offer-price-currency": {
             "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],

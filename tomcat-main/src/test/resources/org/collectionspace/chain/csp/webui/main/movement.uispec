@@ -149,6 +149,9 @@
         ".csc-movement-locationMovementInformation-label": {
             "messagekey": "movement-locationMovementInformationLabel"
         },
+        ".csc-movement-currentLocationHeader-label": {
+            "messagekey": "movement-currentLocationHeaderLabel"
+        },
         ".csc-movement-currentLocationFitness": {
             "default": "",
             "optionnames": ["Dangerous", "Please select a value", "Suitable", "Temporary", "Unsuitable"],
