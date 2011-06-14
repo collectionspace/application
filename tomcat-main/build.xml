@@ -9,8 +9,10 @@
 	  <copy todir="${config_destination}">
         <fileset dir="${app_trunk}/tomcat-main/src/main/resources/" includes="*.xml"/>
       </copy>
-      <copy file="${app_trunk}/tomcat-main/src/main/resources/default.xml" tofile="${config_destination}/cspace-config-html.xml" />
-      <copy file="${app_trunk}/tomcat-main/src/main/resources/nightly-settings.xml" tofile="${app_trunk}/tomcat-main/src/main/resources/local-settings.xml"/>
+	      <copy file="${app_trunk}/tomcat-main/src/main/resources/default.xml" tofile="${config_destination}/cspace-config-html.xml" />
+	      <copy file="${app_trunk}/tomcat-main/src/main/resources/tenant1.xml" tofile="${config_destination}/cspace-config-pamha.xml" />
+	      <copy file="${app_trunk}/tomcat-main/src/main/resources/tenant-settings.xml" tofile="${app_trunk}/tomcat-main/src/main/resources/tenant-settings.xml"/>
+	      <copy file="${app_trunk}/tomcat-main/src/main/resources/nightly-settings.xml" tofile="${app_trunk}/tomcat-main/src/main/resources/local-settings.xml"/>
 	</target>
 
 </project>
