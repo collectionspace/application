@@ -2861,6 +2861,7 @@
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
+                <section id="fileInformationHeaderLabel"></section> <!-- temp until better way to do group headers -->
                 <section id="fileInformation"></section> <!-- temp until better way to do group headers -->
                 <section id="mediaInformation">
                     <field id="filename"></field>
