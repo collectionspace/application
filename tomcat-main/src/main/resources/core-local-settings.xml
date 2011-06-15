@@ -61,16 +61,16 @@
 			<mappings>
 				<map>
 					<recordtype>record</recordtype>
-					<file>/html/record.html</file>
+					<file>/core/record.html</file>
 				</map>
 				<map>
 					<recordtype>authority</recordtype>
-					<file>/html/record.html</file>
+					<file>/core/record.html</file>
 				</map>
 				<map>
 					<url></url>
 					<recordtype>procedure</recordtype>
-					<file>/html/record.html</file>
+					<file>/core/record.html</file>
 					<configure>
 						<meta id="title">Core CollectionSpace - {record/web-url}</meta>
 					</configure>

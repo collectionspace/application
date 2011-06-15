@@ -224,6 +224,9 @@ public class TenantServlet extends HttpServlet {
 				}
 				p.remove(0);
 				tenant = pathbits[0];
+				if(tenant.equals("html")){
+					tenant = getTenantByCookie(servlet_request);
+				}
 				checkinit = pathbits[1];
 			}
 			

@@ -84,7 +84,7 @@ public class TenantUIServlet extends TenantServlet {
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
 
-		Boolean doMetaConfig = false;
+		Boolean doMetaConfig = false;// this doesn't seem to work yet
 		String path = pathinfo;
 		UIMapping validmap = doMapping(pathinfo, allmappings, spec);
 		if (null != validmap) {
@@ -100,6 +100,7 @@ public class TenantUIServlet extends TenantServlet {
 				ByteArrayOutputStream dump = new ByteArrayOutputStream();
 				xmlfile = reader.read(new TeeInputStream(is, dump));
 			//	log.info(dump.toString("UTF-8"));
+				log.info(xmlfile.asXML());
 
 				for (String metafield : validmap.getAllMetaConfigs()) {
 					String xPath = "//html/head/" + metafield;
@@ -195,7 +196,8 @@ public class TenantUIServlet extends TenantServlet {
 								}
 							}
 						}
-						if (pathinfo.equals("/"+spec.getAdminData().getTenantName()+"/" + r.getUIURL())) {
+						String test = "/"+spec.getAdminData().getTenantName()+"/" + r.getUIURL();
+						if (pathinfo.equals(test)) {
 							return map;
 						}
 					}
