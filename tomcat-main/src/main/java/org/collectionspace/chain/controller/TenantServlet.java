@@ -277,23 +277,23 @@ public class TenantServlet extends HttpServlet {
 	}
 
 	protected InputStream getFixedContent(ServletContext sc,String path, String tenant){
-
-        InputStream is=sc.getResourceAsStream("/"+tenant+path);
-        if(is == null){
-        	is=sc.getResourceAsStream(path);
-        	//try this
-        	if(is == null){
-        		if(path.startsWith("/"+tenant+"/")){
-    				String testpath1 = path.replace("/"+tenant+"/", "/tenants/"+tenant+"/html/");
-    				String testpath2 = path.replace("/"+tenant+"/", "/html/");
-    				is=sc.getResourceAsStream(testpath1);
-    				if(is == null){
-        				is=sc.getResourceAsStream(testpath2);
-    				}
-    			}
-        	}
-        }
+		List<String> testpaths =new ArrayList<String>();
+		testpaths.add("/"+tenant+path);
+		testpaths.add(path);
+		
+		if(path.startsWith("/"+tenant+"/")){
+			path = path.replace("/"+tenant+"/", "/");
+		}
+		testpaths.add("/tenants/"+tenant+"/html"+path);
+		testpaths.add("/tenants/"+tenant+""+path);
+		testpaths.add("/defaults/html"+path);
+		testpaths.add("/defaults"+path);
+		InputStream is = null;
+		while( is == null && testpaths.size()> 0){
+			is=sc.getResourceAsStream(testpaths.remove(0));
+		}
         return is;
+		
 	}
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path, String tenant) throws IOException{
 		InputStream is = getFixedContent( sc, path,  tenant);
