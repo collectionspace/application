@@ -204,6 +204,9 @@
         ".csc-media-fileInformation-label": {
             "messagekey": "media-fileInformationLabel"
         },
+        ".csc-media-fileInformationHeader-label": {
+            "messagekey": "media-fileInformationHeaderLabel"
+        },
         ".csc-media-language": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
