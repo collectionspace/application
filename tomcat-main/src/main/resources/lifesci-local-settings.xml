@@ -1,14 +1,14 @@
 <settings>
     <admin>
-        <username>admin@hearstmuseum.berkeley.edu</username>
+        <username>admin@lifesci.collectionspace.org</username>
         <password>Administrator</password>
         <tenant>2</tenant>
-        <tenantname>pamha</tenantname>
+        <tenantname>lifesci</tenantname>
         <cookievalidformins>60</cookievalidformins>
     </admin>
     <email>
         <baseurl>http://nightly.collectionspace.org:8180</baseurl>
-        <from>admin@collectionspace.org</from>
+        <from>admin@lifesci.collectionspace.org</from>
         <to></to>
         <!-- if specified then all emails will send to this address - used for debugging -->
         <smtp>
@@ -32,33 +32,47 @@
     <persistence>
         <service>
             <url>http://nightly.collectionspace.org:8180/cspace-services</url>
-			<config-tenant></config-tenant>
-			<config-bindings></config-bindings>
-			<ims-url>http://nightly.collectionspace.org:8180/collectionspace/tenant/pamha/</ims-url> <!-- XXX should be in separate IMS section -->
+			<tenant>
+				<name>lifesci.collectionspace.org</name>
+				<version>0.1</version>
+				<display-name>Default tenant Lifesci</display-name>
+			</tenant>
+			<repository>
+				<domain>lifesci-domain</domain>
+				<client>nuxeo-java</client>
+				<dateformats>
+					<pattern>MM/dd/yyyy</pattern>
+					<pattern>dd.MM.yyyy</pattern>
+				</dateformats>
+				<languages>
+					<language>en</language>
+				</languages>
+			</repository>
+			<ims-url>http://nightly.collectionspace.org:8180/collectionspace/tenant/lifesci/</ims-url> <!-- XXX should be in separate IMS section -->
         </service>
     </persistence>
     <ui>
         <web>
-            <login-dest>/collectionspace/ui/pamha/myCollectionSpace.html</login-dest>
-            <login-failed-dest>/collectionspace/ui/pamha/index.html</login-failed-dest>
-            <front-page>/collectionspace/ui/pamha/index.html</front-page>
+            <login-dest>/collectionspace/ui/lifesci/myCollectionSpace.html</login-dest>
+            <login-failed-dest>/collectionspace/ui/lifesci/index.html</login-failed-dest>
+            <front-page>/collectionspace/ui/lifesci/index.html</front-page>
             <find-page>myCollectionSpace</find-page>
             <tmp-schema-path />
 			<mappings>
 				<map>
 					<recordtype>record</recordtype>
-					<file>/pamha/record.html</file>
+					<file>/html/record.html</file>
 				</map>
 				<map>
 					<recordtype>authority</recordtype>
-					<file>/pamha/record.html</file>
+					<file>/html/record.html</file>
 				</map>
 				<map>
 					<url></url>
 					<recordtype>procedure</recordtype>
-					<file>/pamha/record.html</file>
+					<file>/html/record.html</file>
 					<configure>
-						<meta id="title">CollectionSpace - {record/web-url}</meta>
+						<meta id="title">LifeSci CollectionSpace - {record/web-url}</meta>
 					</configure>
 				</map>
 			</mappings>

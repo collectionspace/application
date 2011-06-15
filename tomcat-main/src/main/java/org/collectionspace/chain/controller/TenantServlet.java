@@ -284,8 +284,12 @@ public class TenantServlet extends HttpServlet {
         	//try this
         	if(is == null){
         		if(path.startsWith("/"+tenant+"/")){
-    				String testpath = path.replace("/"+tenant+"/", "/html/");
-    				is=sc.getResourceAsStream(testpath);
+    				String testpath1 = path.replace("/"+tenant+"/", "/tenants/"+tenant+"/html/");
+    				String testpath2 = path.replace("/"+tenant+"/", "/html/");
+    				is=sc.getResourceAsStream(testpath1);
+    				if(is == null){
+        				is=sc.getResourceAsStream(testpath2);
+    				}
     			}
         	}
         }
