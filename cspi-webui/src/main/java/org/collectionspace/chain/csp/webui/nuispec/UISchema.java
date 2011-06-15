@@ -248,7 +248,9 @@ public class UISchema extends UISpec {
 						if (rc.isType("procedure")) {
 							precrds.put(rc.getWebURL());
 						} else if (rc.isType("authority")) {
-							arecrds.put(rc.getWebURL());
+							for(Instance ins : rc.getAllInstances()){
+								arecrds.put(ins.getWebURL());
+							}
 						} else if (rc.isType("record")) {
 							crecrds.put(rc.getWebURL());
 						}
