@@ -194,9 +194,12 @@ public class TenantUIServlet extends TenantServlet {
 								if (pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/" + ins.getUIURL())) {
 									return map;
 								}
+								if (pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/html/" + ins.getUIURL())) {
+									return map;
+								}
 							}
 						}
-						String test = "/"+spec.getAdminData().getTenantName()+"/" + r.getUIURL();
+						String test = "/"+spec.getAdminData().getTenantName()+"/html/" + r.getUIURL();
 						if (pathinfo.equals(test)) {
 							return map;
 						}
