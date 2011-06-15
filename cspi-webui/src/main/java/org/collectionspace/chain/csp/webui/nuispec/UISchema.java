@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Schemas;
@@ -209,7 +210,14 @@ public class UISchema extends UISpec {
 				JSONObject schema = new JSONObject();
 				JSONArray recrds = new JSONArray();
 				for(Record rc : this.spec.getAllRecords()){
-					if(rc.isType("record")||rc.isType("authority")||rc.isType("procedure")){
+					if(rc.isType("authority")){
+						if(rc.isInRecordList()){
+							for(Instance ins : rc.getAllInstances()){
+								recrds.put(ins.getWebURL());
+							}
+						}
+					}
+					else if(rc.isType("record")||rc.isType("procedure")){
 						if(rc.isInRecordList()){
 							recrds.put(rc.getWebURL());
 						}
