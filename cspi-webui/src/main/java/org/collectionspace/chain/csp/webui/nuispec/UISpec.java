@@ -506,8 +506,8 @@ public class UISpec implements WebMethod {
 			autocompleteurl = contextdata[0];
 		}
 		
-		options.put("queryUrl","../../tenant/"+tenantname+"/"+autocompleteurl+"/autocomplete/"+f.getID());
-		options.put("vocabUrl","../../tenant/"+tenantname+"/"+autocompleteurl+"/source-vocab/"+f.getID());
+		options.put("queryUrl","../../../tenant/"+tenantname+"/"+autocompleteurl+"/autocomplete/"+f.getID());
+		options.put("vocabUrl","../../../tenant/"+tenantname+"/"+autocompleteurl+"/source-vocab/"+f.getID());
 
 		if(!f.getAutocompleteFuncName().equals("")){
 			JSONObject invokers = new JSONObject();
