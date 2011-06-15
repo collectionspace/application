@@ -53,24 +53,24 @@
     </persistence>
     <ui>
         <web>
-            <login-dest>/collectionspace/ui/lifesci/myCollectionSpace.html</login-dest>
-            <login-failed-dest>/collectionspace/ui/lifesci/index.html</login-failed-dest>
-            <front-page>/collectionspace/ui/lifesci/index.html</front-page>
+            <login-dest>/collectionspace/ui/lifesci/html/myCollectionSpace.html</login-dest>
+            <login-failed-dest>/collectionspace/ui/lifesci/html/index.html</login-failed-dest>
+            <front-page>/collectionspace/ui/lifesci/html/index.html</front-page>
             <find-page>myCollectionSpace</find-page>
             <tmp-schema-path />
 			<mappings>
 				<map>
 					<recordtype>record</recordtype>
-					<file>/lifesci/record.html</file>
+					<file>/lifesci/html/record.html</file>
 				</map>
 				<map>
 					<recordtype>authority</recordtype>
-					<file>/lifesci/record.html</file>
+					<file>/lifesci/html/record.html</file>
 				</map>
 				<map>
 					<url></url>
 					<recordtype>procedure</recordtype>
-					<file>/lifesci/record.html</file>
+					<file>/lifesci/html/record.html</file>
 					<configure>
 						<meta id="title">LifeSci CollectionSpace - {record/web-url}</meta>
 					</configure>
