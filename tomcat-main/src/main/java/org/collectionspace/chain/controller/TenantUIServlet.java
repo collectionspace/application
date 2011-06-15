@@ -52,7 +52,10 @@ public class TenantUIServlet extends TenantServlet {
 		if (pathinfo.equals("/html") || pathinfo.equals("/html/")) {
 			servlet_response.sendRedirect(urlredirect);
 		}
-		else if (pathinfo.equals("/"+tenant) || pathinfo.equals("/"+tenant+"/")) {
+		else if (pathinfo.equals("/"+tenant) || pathinfo.equals("/"+tenant+"/html/")) {
+			servlet_response.sendRedirect(urlredirect);
+		}
+		else if (pathinfo.equals("/"+tenant+"/html") || pathinfo.equals("/"+tenant+"/html/")) {
 			servlet_response.sendRedirect(urlredirect);
 		}
 
