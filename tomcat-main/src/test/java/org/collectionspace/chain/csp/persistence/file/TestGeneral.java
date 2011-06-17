@@ -663,7 +663,7 @@ public class TestGeneral extends TestBase {
 		assertTrue(response.optString("csid")!=null);
 		assertNotSame("",response.optString("csid"));
 		// Actual resource
-		String read_url = response.getString("file").replaceAll("^.*?/blobs/","/download/")+"/OriginalJpeg";
+		String read_url = response.getString("file").replaceAll("^.*?/blobs/","/download/")+"/Original";
 		UTF8SafeHttpTester out2=GETBinaryData(read_url,jetty,200);
 		assertEquals("image/jpeg",out2.getHeader("Content-Type"));
 		byte[] img = out2.getBinaryContent();
@@ -701,7 +701,7 @@ public class TestGeneral extends TestBase {
 		JSONObject content=new JSONObject(out.getContent());
 		log.info(out.getContent());
 		// Check the hairy image URLs are present
-		assertTrue(content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgOrig").endsWith("/download/"+blob_id+"/OriginalJpeg"));
+		assertTrue(content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgOrig").endsWith("/download/"+blob_id+"/Original"));
 		assertTrue(content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgThumb").endsWith("/download/"+blob_id+"/Thumbnail"));
 		assertTrue(content.getJSONObject("fields").getJSONArray("blobs").getJSONObject(0).getString("imgMedium").endsWith("/download/"+blob_id+"/Medium"));
 		// Get derivatives
