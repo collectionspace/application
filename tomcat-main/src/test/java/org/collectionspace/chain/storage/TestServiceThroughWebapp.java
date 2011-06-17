@@ -277,17 +277,17 @@ public class TestServiceThroughWebapp extends TestBase{
 		String pwd = spec.getAdminData().getAuthPass();
 		String username = spec.getAdminData().getAuthUser();
 		String tenant = spec.getAdminData().getTenant();
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/html/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
+		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
 		assertEquals(303,out.getStatus());
-		assertEquals("/collectionspace/ui/html/myCollectionSpace.html",out.getHeader("Location"));
-		out=jettyDoUTF8(jetty,"POST","/tenant/html/login?userid="+username+"&password="+pwd+"&tenant="+tenant,null);
+		assertEquals("/collectionspace/ui/core/html/myCollectionSpace.html",out.getHeader("Location"));
+		out=jettyDoUTF8(jetty,"POST","/tenant/core/login?userid="+username+"&password="+pwd+"&tenant="+tenant,null);
 		assertEquals(303,out.getStatus());
 		log.info(out.getHeader("Location"));
 		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
-		out=jettyDoUTF8(jetty,"POST","/tenant/html/login?userid=guest&password=toast",null);	
+		out=jettyDoUTF8(jetty,"POST","/tenant/core/login?userid=guest&password=toast",null);	
 		assertEquals(303,out.getStatus());
 		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
-		out=jettyDoUTF8(jetty,"POST","/tenant/html/login?userid=bob&password=bob",null);	
+		out=jettyDoUTF8(jetty,"POST","/tenant/core/login?userid=bob&password=bob",null);	
 		assertEquals(303,out.getStatus());
 		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
 		
