@@ -227,6 +227,51 @@ public class UISchema extends UISpec {
 				schema.put("default", recrds);
 				out.put(sectionname, schema);
 			}
+			else if(sectionid.toLowerCase().equals("namespaces")){
+				JSONObject namespaces = new JSONObject();
+				JSONObject properties = new JSONObject();
+
+				for (Record rc : this.spec.getAllRecords()) {
+					if (rc.isInRecordList()) {
+						if (rc.isType("authority")) {
+							JSONArray insta = new JSONArray();
+							for(Instance ins : rc.getAllInstances()){
+								insta.put(ins.getWebURL());
+							}
+							JSONObject insd = new JSONObject();
+							insd.put("default", insta);
+							insd.put("type", "array");
+							properties.put(rc.getWebURL(), insd);
+						}
+					}
+				}
+				namespaces.put("type", "object");
+				namespaces.put("properties", properties);
+				out.put("namespaces", namespaces);
+				/**
+				 * {
+    "namespaces": {
+        "type": "object",
+        "properties": {
+            "person": {
+                "default": [
+                    "persontest1",
+                    "persontest2"
+                ],
+                "type": "array"
+            },
+            "organization": {
+                "default": [
+                    "organizationtest1",
+                    "organizationtest2"
+                ],
+                "type": "array"
+            }
+        }
+    }
+}
+				 */
+			}
 			else if(sectionid.toLowerCase().equals("recordtypes")){
 
 				
