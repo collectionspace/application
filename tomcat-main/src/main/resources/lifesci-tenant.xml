@@ -2819,9 +2819,8 @@
                     <field id="imgMedium" attributes="GET">
                         <use-csid>ims;download/;/Medium</use-csid>
                     </field>
-                    <!-- Temporarily use OriginalJpeg rather than Original per CSPACE-4050 -->
                     <field id="imgOrig" attributes="GET">
-                        <use-csid>ims;download/;/OriginalJpeg</use-csid>
+                        <use-csid>ims;download/;/Original</use-csid>
                     </field>
                 </section>
             </record>
