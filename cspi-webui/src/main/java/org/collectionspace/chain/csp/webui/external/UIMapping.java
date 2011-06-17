@@ -24,15 +24,16 @@ import org.collectionspace.chain.csp.webui.main.WebUI;
  */
 public class UIMapping {
 
-	private String url, type, file;
+	private String url, type, file, configfile, recordfile;
 	private Map<String, UIMeta> uimetaConfigs = new HashMap<String, UIMeta>();
 
 	public UIMapping(WebUI webui, ReadOnlySection section) {
 
 		url = Util.getStringOrDefault(section, "/url", "");
 		type = Util.getStringOrDefault(section, "/recordtype", "");
-		file = Util.getStringOrDefault(section, "/file", "");
-
+		recordfile = Util.getStringOrDefault(section, "/file", "");
+		configfile = Util.getStringOrDefault(section, "/configfile", "");
+		
 	}
 	
 	public void addMetaConfig(UIMeta metaconfig){
@@ -94,6 +95,18 @@ public class UIMapping {
 
 	public String getFile() {
 		return file;
+	}
+	public void setFile(String filed) {
+		this.recordfile = filed;
+	}
+	public void setConfigFile(String filed) {
+		this.configfile = filed;
+	}
+	public void setAsConfig(){
+		this.file = this.configfile;
+	}
+	public void setAsRecord(){
+		this.file = this.recordfile;
 	}
 
 	public String getUrl() {

@@ -65,7 +65,7 @@ public class TenantUIServlet extends TenantServlet {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,"missing servlet context cspace-ui");
 		}
 
-		if(pathbits[0].equals("css") || pathbits[0].equals("js") || pathbits[0].equals("lib") || pathbits[0].equals("bundle") || pathbits[0].equals("images") || pathbits[0].equals("config")){
+		if(pathbits[0].equals("css") || pathbits[0].equals("js") || pathbits[0].equals("lib") || pathbits[0].equals("bundle") || pathbits[0].equals("images") ){
 			String tenantposs = getTenantByCookie(servlet_request);
 			if (serverFixedExternalContent(servlet_request, servlet_response,
 					sc, pathinfo, tenantposs)) {
@@ -194,16 +194,27 @@ public class TenantUIServlet extends TenantServlet {
 					if (r.isType(map.getType())) {
 						if(r.isType("authority")){
 							for(Instance ins: r.getAllInstances()){
+								//config
+								if(pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/" + ins.getWebURL()+ ".json")){
+									map.setConfigFile("/"+ spec.getAdminData().getTenantName() +"/" + r.getWebURL()+ ".json");
+									map.setAsConfig();
+									return map;
+								}
+								
+								//record
 								if (pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/" + ins.getUIURL())) {
+									map.setAsRecord();
 									return map;
 								}
 								if (pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/html/" + ins.getUIURL())) {
+									map.setAsRecord();
 									return map;
 								}
 							}
 						}
 						String test = "/"+spec.getAdminData().getTenantName()+"/html/" + r.getUIURL();
 						if (pathinfo.equals(test)) {
+							map.setAsRecord();
 							return map;
 						}
 					}
