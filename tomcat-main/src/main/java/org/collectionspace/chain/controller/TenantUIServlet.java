@@ -76,6 +76,10 @@ public class TenantUIServlet extends TenantServlet {
 			}
 		}
 
+		if(pathbits[0].equals("config")){
+			tenant = getTenantByCookie(servlet_request);
+		}
+		
 		if(!tenantInit.containsKey(tenant) || !tenantInit.get(tenant))
 			setup(tenant);
 
@@ -198,8 +202,14 @@ public class TenantUIServlet extends TenantServlet {
 						if(r.isType("authority")){
 							for(Instance ins: r.getAllInstances()){
 								//config
-								if(pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/" + ins.getWebURL()+ ".json")){
-									map.setConfigFile("/"+ spec.getAdminData().getTenantName() +"/" + r.getWebURL()+ ".json");
+								String test2 = "/"+ spec.getAdminData().getTenantName() +"/config/" + ins.getWebURL()+ ".json";
+								if(pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/config/" + ins.getWebURL()+ ".json")){
+									map.setConfigFile("/"+ spec.getAdminData().getTenantName() +"/config/" + r.getWebURL()+ ".json");
+									map.setAsConfig();
+									return map;
+								}
+								else if(pathinfo.equals("/config/" + ins.getWebURL()+ ".json")){
+									map.setConfigFile("/"+ spec.getAdminData().getTenantName() +"/config/" + r.getWebURL()+ ".json");
 									map.setAsConfig();
 									return map;
 								}
