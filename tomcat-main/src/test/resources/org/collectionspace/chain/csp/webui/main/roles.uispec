@@ -1,6 +1,26 @@
 {
     "details": {
+        ".csc-role-csid-label": {
+            "messagekey": "role-csidLabel"
+        },
         ".csc-role-oldname": "${fields.roleName}",
+        ".csc-role-resourceName-label": {
+            "messagekey": "role-resourceNameLabel"
+        },
+        ".csc-role-roleGroup-label": {
+            "messagekey": "role-roleGroupLabel"
+        },
+        ".csc-role-description-label": {
+            "messagekey": "role-descriptionLabel"
+        },
+        ".csc-role-permissions-label": {
+            "messagekey": "role-permissionsLabel"
+        },
+        ".csc-role-displayName-label": {
+            "messagekey": "role-displayNameLabel"
+        },
+        ".csc-role-group": "${fields.roleGroup}",
+        ".csc-role-description": "${fields.description}",
         "expander": {
             "repeatID": ".csc-permissions-record-row:",
             "tree": {
@@ -34,8 +54,15 @@
             "valueAs": "rowValue"
         },
         ".csc-role-name": "${fields.displayName}",
-        ".csc-role-group": "${fields.roleGroup}",
-        ".csc-role-description": "${fields.description}"
+        ".csc-role-permission-label": {
+            "messagekey": "role-permissionLabel"
+        },
+        ".csc-role-roleName-label": {
+            "messagekey": "role-roleNameLabel"
+        },
+        ".csc-role-number-label": {
+            "messagekey": "role-numberLabel"
+        }
     },
     "list": {
         ".csc-recordList-row:": {

@@ -22,8 +22,8 @@
                                                         "func": "cspace.autocomplete",
                                                         "type": "fluid",
                                                         "options": {
-                                                            "queryUrl": "../../tenant/html/vocabularies/taxon/autocomplete/narrowerContext",
-                                                            "vocabUrl": "../../tenant/html/vocabularies/taxon/source-vocab/narrowerContext",
+                                                            "queryUrl": "../../../tenant/html/vocabularies/taxon/autocomplete/narrowerContext",
+                                                            "vocabUrl": "../../../tenant/html/vocabularies/taxon/source-vocab/narrowerContext",
                                                             "invokers": {
                                                                 "selectMatch": {
                                                                     "funcName": "cspace.autocomplete.selectMatchConfirm"
@@ -56,8 +56,8 @@
                     "func": "cspace.autocomplete",
                     "type": "fluid",
                     "options": {
-                        "queryUrl": "../../tenant/html/vocabularies/taxon/autocomplete/broaderContext",
-                        "vocabUrl": "../../tenant/html/vocabularies/taxon/source-vocab/broaderContext"
+                        "queryUrl": "../../../tenant/html/vocabularies/taxon/autocomplete/broaderContext",
+                        "vocabUrl": "../../../tenant/html/vocabularies/taxon/source-vocab/broaderContext"
                     }
                 }
             ],
@@ -125,8 +125,8 @@
                                                         "func": "cspace.autocomplete",
                                                         "type": "fluid",
                                                         "options": {
-                                                            "queryUrl": "../../tenant/html/vocabularies/taxon/autocomplete/relatedTerm",
-                                                            "vocabUrl": "../../tenant/html/vocabularies/taxon/source-vocab/relatedTerm"
+                                                            "queryUrl": "../../../tenant/html/vocabularies/taxon/autocomplete/relatedTerm",
+                                                            "vocabUrl": "../../../tenant/html/vocabularies/taxon/source-vocab/relatedTerm"
                                                         }
                                                     }
                                                 ],
@@ -258,8 +258,8 @@
                                                         "func": "cspace.autocomplete",
                                                         "type": "fluid",
                                                         "options": {
-                                                            "queryUrl": "../../tenant/html/vocabularies/taxon/autocomplete/taxonAuthor",
-                                                            "vocabUrl": "../../tenant/html/vocabularies/taxon/source-vocab/taxonAuthor"
+                                                            "queryUrl": "../../../tenant/html/vocabularies/taxon/autocomplete/taxonAuthor",
+                                                            "vocabUrl": "../../../tenant/html/vocabularies/taxon/source-vocab/taxonAuthor"
                                                         }
                                                     }
                                                 ],

@@ -111,6 +111,8 @@ public class TestUISpecs extends TestBase {
 
 		//uispec(jetty, "/location/uischema", "location.uischema");
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
+		uispec(jetty, "/namespaces/uischema", "namespaces.uischema");
+
 		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
 		uispec(jetty, "/media/uischema", "media.uischema");
 		uispec(jetty, "/acquisition/uischema", "acquisition.uischema");
@@ -131,7 +133,7 @@ public class TestUISpecs extends TestBase {
 
 //	uispec(jetty, "/cataloging/uispec", "hierarchy.uispec");
 //		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
-/*	need to fix the autocompleteurls	
+
 		uispec(jetty, "/location/uispec", "location.uispec");
 		
 		uispec(jetty, "/users/uispec", "users.uispec");
@@ -153,7 +155,7 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/objectexit/uispec", "objectexit.uispec");
 		uispec(jetty, "/media/uispec", "media.uispec");
 		
-		*/
+		
 /*
  * 		These can probably be renabled, but will need specs updating from nightly.
  * 		I don't have the time or energy to do them at the moment. -- dan

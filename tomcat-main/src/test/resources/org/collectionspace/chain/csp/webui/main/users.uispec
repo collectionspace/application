@@ -1,5 +1,32 @@
 {
     "details": {
+        ".csc-users-roleGroup-label": {
+            "messagekey": "users-roleGroupLabel"
+        },
+        ".csc-users-tenantID-label": {
+            "messagekey": "users-tenantIDLabel"
+        },
+        ".csc-users-userId-label": {
+            "messagekey": "users-userIdLabel"
+        },
+        ".csc-users-role-label": {
+            "messagekey": "users-roleLabel"
+        },
+        ".csc-users-status-label": {
+            "messagekey": "users-statusLabel"
+        },
+        ".csc-users-roleSelected-label": {
+            "messagekey": "users-roleSelectedLabel"
+        },
+        ".csc-users-tenantID": "${fields.tenantID}",
+        ".csc-users-email-label": {
+            "messagekey": "users-emailLabel"
+        },
+        ".csc-user-userID": "${fields.userId}",
+        ".csc-user-password": "${fields.password}",
+        ".csc-users-createdAt-label": {
+            "messagekey": "users-createdAtLabel"
+        },
         ".csc-user-status": {
             "default": "active",
             "optionnames": ["Active", "Inactive"],
@@ -20,11 +47,26 @@
             "controlledBy": "fields.role"
         },
         ".csc-users-createdAt": "${fields.createdAt}",
+        ".csc-users-password-label": {
+            "messagekey": "users-passwordLabel"
+        },
         ".csc-users-updatedAt": "${fields.updatedAt}",
-        ".csc-users-tenantID": "${fields.tenantID}",
-        ".csc-user-userID": "${fields.userId}",
-        ".csc-user-password": "${fields.password}",
-        ".csc-user-email": "${fields.email}"
+        ".csc-users-roleId-label": {
+            "messagekey": "users-roleIdLabel"
+        },
+        ".csc-users-roleName-label": {
+            "messagekey": "users-roleNameLabel"
+        },
+        ".csc-user-email": "${fields.email}",
+        ".csc-users-screenName-label": {
+            "messagekey": "users-screenNameLabel"
+        },
+        ".csc-users-csid-label": {
+            "messagekey": "users-csidLabel"
+        },
+        ".csc-users-updatedAt-label": {
+            "messagekey": "users-updatedAtLabel"
+        }
     },
     "list": {
         ".csc-recordList-row:": {

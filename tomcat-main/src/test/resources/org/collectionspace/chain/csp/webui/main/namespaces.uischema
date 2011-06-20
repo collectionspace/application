@@ -1,0 +1,19 @@
+{
+    "namespaces": {
+        "properties": {
+            "person": {
+                "default": ["person", "persontest1", "persontest2"],
+                "type": "array"
+            },
+            "organization": {
+                "default": ["organization"],
+                "type": "array"
+            },
+            "location": {
+                "default": ["location"],
+                "type": "array"
+            }
+        },
+        "type": "object"
+    }
+}

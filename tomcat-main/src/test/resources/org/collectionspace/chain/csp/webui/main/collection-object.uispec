@@ -142,8 +142,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/fieldCollectionSource",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/fieldCollectionSource"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/fieldCollectionSource",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/fieldCollectionSource"
                                                 }
                                             }],
                                             "value": "${{row}.fieldCollectionSource}"
@@ -258,8 +258,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/owner",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/owner"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/owner",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/owner"
                                                 }
                                             }],
                                             "value": "${{row}.owner}"
@@ -608,8 +608,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/objectProductionOrganization",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/objectProductionOrganization"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/objectProductionOrganization",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/objectProductionOrganization"
                                                 }
                                             }],
                                             "value": "${{row}.objectProductionOrganization}"
@@ -778,8 +778,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/assocPerson",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/assocPerson"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/assocPerson",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/assocPerson"
                                                 }
                                             }],
                                             "value": "${{row}.assocPerson}"
@@ -980,8 +980,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/objectProductionPerson",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/objectProductionPerson"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/objectProductionPerson",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/objectProductionPerson"
                                                 }
                                             }],
                                             "value": "${{row}.objectProductionPerson}"
@@ -1280,8 +1280,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../tenant/html/cataloging/autocomplete/inscriptionContentInscriber",
-                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/inscriptionContentInscriber"
+                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/inscriptionContentInscriber",
+                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/inscriptionContentInscriber"
                 }
             }],
             "value": "${fields.inscriptionContentInscriber}"
@@ -1339,8 +1339,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/assocEventPerson",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/assocEventPerson"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/assocEventPerson",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/assocEventPerson"
                                                 }
                                             }],
                                             "value": "${{row}.assocEventPerson}"
@@ -1671,8 +1671,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../tenant/html/cataloging/autocomplete/inscriptionDescriptionInscriber",
-                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/inscriptionDescriptionInscriber"
+                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/inscriptionDescriptionInscriber",
+                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/inscriptionDescriptionInscriber"
                 }
             }],
             "value": "${fields.inscriptionDescriptionInscriber}"
@@ -1794,8 +1794,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/assocOrganization",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/assocOrganization"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/assocOrganization",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/assocOrganization"
                                                 }
                                             }],
                                             "value": "${{row}.assocOrganization}"
@@ -1829,8 +1829,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/fieldCollector",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/fieldCollector"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/fieldCollector",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/fieldCollector"
                                                 }
                                             }],
                                             "value": "${{row}.fieldCollector}"
@@ -1942,8 +1942,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/assocEventOrganization",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/assocEventOrganization"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/assocEventOrganization",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/assocEventOrganization"
                                                 }
                                             }],
                                             "value": "${{row}.assocEventOrganization}"
@@ -1980,8 +1980,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/contentOrganization",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/contentOrganization"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/contentOrganization",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/contentOrganization"
                                                 }
                                             }],
                                             "value": "${{row}.contentOrganization}"
@@ -2427,8 +2427,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/cataloging/autocomplete/contentPerson",
-                                                    "vocabUrl": "../../tenant/html/cataloging/source-vocab/contentPerson"
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/contentPerson",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/contentPerson"
                                                 }
                                             }],
                                             "value": "${{row}.contentPerson}"

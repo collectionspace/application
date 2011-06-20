@@ -8,8 +8,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../tenant/html/vocabularies/person/autocomplete/broaderContext",
-                    "vocabUrl": "../../tenant/html/vocabularies/person/source-vocab/broaderContext"
+                    "queryUrl": "../../../tenant/core/vocabularies/person/autocomplete/broaderContext",
+                    "vocabUrl": "../../../tenant/core/vocabularies/person/source-vocab/broaderContext"
                 }
             }],
             "value": "${fields.broaderContext}"
@@ -31,8 +31,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/vocabularies/person/autocomplete/narrowerContext",
-                                                    "vocabUrl": "../../tenant/html/vocabularies/person/source-vocab/narrowerContext",
+                                                    "queryUrl": "../../../tenant/core/vocabularies/person/autocomplete/narrowerContext",
+                                                    "vocabUrl": "../../../tenant/core/vocabularies/person/source-vocab/narrowerContext",
                                                     "invokers": {
                                                         "selectMatch": {
                                                             "funcName": "cspace.autocomplete.selectMatchConfirm"
@@ -120,8 +120,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/vocabularies/person/autocomplete/relatedTerm",
-                                                    "vocabUrl": "../../tenant/html/vocabularies/person/source-vocab/relatedTerm"
+                                                    "queryUrl": "../../../tenant/core/vocabularies/person/autocomplete/relatedTerm",
+                                                    "vocabUrl": "../../../tenant/core/vocabularies/person/source-vocab/relatedTerm"
                                                 }
                                             }],
                                             "value": "${{row}.relatedTerm}"

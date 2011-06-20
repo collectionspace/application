@@ -26,8 +26,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/loanin/autocomplete/lender",
-                                                    "vocabUrl": "../../tenant/html/loanin/source-vocab/lender"
+                                                    "queryUrl": "../../../tenant/core/loanin/autocomplete/lender",
+                                                    "vocabUrl": "../../../tenant/core/loanin/source-vocab/lender"
                                                 }
                                             }],
                                             "value": "${{row}.lender}"
@@ -37,8 +37,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/loanin/autocomplete/lendersContact",
-                                                    "vocabUrl": "../../tenant/html/loanin/source-vocab/lendersContact"
+                                                    "queryUrl": "../../../tenant/core/loanin/autocomplete/lendersContact",
+                                                    "vocabUrl": "../../../tenant/core/loanin/source-vocab/lendersContact"
                                                 }
                                             }],
                                             "value": "${{row}.lendersContact}"
@@ -55,8 +55,8 @@
                                                 "func": "cspace.autocomplete",
                                                 "type": "fluid",
                                                 "options": {
-                                                    "queryUrl": "../../tenant/html/loanin/autocomplete/lendersAuthorizer",
-                                                    "vocabUrl": "../../tenant/html/loanin/source-vocab/lendersAuthorizer"
+                                                    "queryUrl": "../../../tenant/core/loanin/autocomplete/lendersAuthorizer",
+                                                    "vocabUrl": "../../../tenant/core/loanin/source-vocab/lendersAuthorizer"
                                                 }
                                             }],
                                             "value": "${{row}.lendersAuthorizer}"
@@ -78,8 +78,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../tenant/html/loanin/autocomplete/loanInContact",
-                    "vocabUrl": "../../tenant/html/loanin/source-vocab/loanInContact"
+                    "queryUrl": "../../../tenant/core/loanin/autocomplete/loanInContact",
+                    "vocabUrl": "../../../tenant/core/loanin/source-vocab/loanInContact"
                 }
             }],
             "value": "${fields.loanInContact}"
@@ -145,8 +145,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../tenant/html/loanin/autocomplete/borrowersAuthorizer",
-                    "vocabUrl": "../../tenant/html/loanin/source-vocab/borrowersAuthorizer"
+                    "queryUrl": "../../../tenant/core/loanin/autocomplete/borrowersAuthorizer",
+                    "vocabUrl": "../../../tenant/core/loanin/source-vocab/borrowersAuthorizer"
                 }
             }],
             "value": "${fields.borrowersAuthorizer}"

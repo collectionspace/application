@@ -42,8 +42,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../tenant/html/movement/autocomplete/movementContact",
-                    "vocabUrl": "../../tenant/html/movement/source-vocab/movementContact"
+                    "queryUrl": "../../../tenant/core/movement/autocomplete/movementContact",
+                    "vocabUrl": "../../../tenant/core/movement/source-vocab/movementContact"
                 }
             }],
             "value": "${fields.movementContact}"
@@ -59,8 +59,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../tenant/html/movement/autocomplete/normalLocation",
-                    "vocabUrl": "../../tenant/html/movement/source-vocab/normalLocation"
+                    "queryUrl": "../../../tenant/core/movement/autocomplete/normalLocation",
+                    "vocabUrl": "../../../tenant/core/movement/source-vocab/normalLocation"
                 }
             }],
             "value": "${fields.normalLocation}"
@@ -127,8 +127,8 @@
                 "func": "cspace.autocomplete",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../tenant/html/movement/autocomplete/currentLocation",
-                    "vocabUrl": "../../tenant/html/movement/source-vocab/currentLocation"
+                    "queryUrl": "../../../tenant/core/movement/autocomplete/currentLocation",
+                    "vocabUrl": "../../../tenant/core/movement/source-vocab/currentLocation"
                 }
             }],
             "value": "${fields.currentLocation}"
