@@ -66,6 +66,9 @@
 				<map>
 					<recordtype>authority</recordtype>
 					<file>/lifesci/html/record.html</file>
+					<configure>
+						<meta id="recordType">{instance/web-url}</meta>
+					</configure>
 				</map>
 				<map>
 					<url></url>

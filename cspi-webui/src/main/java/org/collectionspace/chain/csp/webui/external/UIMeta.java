@@ -1,6 +1,8 @@
 package org.collectionspace.chain.csp.webui.external;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.schema.Instance;
+import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 
 /**
@@ -31,11 +33,16 @@ public class UIMeta {
 	 * e.g.CollectionSpace - {record/web-url}
 	 * @return
 	 */
-	private String parseValue(Spec spec, String recordId){
+	public String parseValue(Record r, Instance ins){
 		String testvalue = value;
-		//loop over curly bits
+		if(testvalue.contains("{record/web-url}")){
+			testvalue = testvalue.replace("{record/web-url}", r.getWebURL());
+		}
+		if(testvalue.contains("{instance/web-url}")){
+			testvalue = testvalue.replace("{instance/web-url}", ins.getWebURL());
+		}
 		
-		return "";
+		return testvalue;
 	}
 
 	public UIMeta getMetaConfig() {

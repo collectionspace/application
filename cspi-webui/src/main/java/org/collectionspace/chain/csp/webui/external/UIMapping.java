@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.collectionspace.chain.csp.schema.Instance;
+import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Util;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 
@@ -14,7 +16,7 @@ import org.collectionspace.chain.csp.webui.main.WebUI;
  * 			<recordtype>procedure</recordtype> 
  * 			<file>/cspace-ui/html/record.html</file>
  * 			<configure> 
- * 				<title>CollectionSpace - {record/web-url}</title> 
+ *				<meta id="recordType">{record/web-url}</meta>
  * 			</configure>
  * 		</map> 
  * 	</mappings>
@@ -26,6 +28,8 @@ public class UIMapping {
 
 	private String url, type, file, configfile, recordfile;
 	private Map<String, UIMeta> uimetaConfigs = new HashMap<String, UIMeta>();
+	private Record r;
+	private Instance ins;
 
 	public UIMapping(WebUI webui, ReadOnlySection section) {
 
@@ -107,6 +111,18 @@ public class UIMapping {
 	}
 	public void setAsRecord(){
 		this.file = this.recordfile;
+	}
+	public void setRecord(Record r){
+		this.r = r;
+	}
+	public Record getRecord(){
+		return this.r;
+	}
+	public void setInstance(Instance ins){
+		this.ins = ins;
+	}
+	public Instance getInstance(){
+		return this.ins;
 	}
 
 	public String getUrl() {

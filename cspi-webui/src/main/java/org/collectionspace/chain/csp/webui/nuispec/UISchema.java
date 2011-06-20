@@ -277,10 +277,12 @@ public class UISchema extends UISpec {
 				
 				JSONObject pschema = new JSONObject();
 				JSONObject aschema = new JSONObject();
+				JSONObject adschema = new JSONObject();
 				JSONObject cschema = new JSONObject();
 
 				JSONArray precrds = new JSONArray();
 				JSONArray arecrds = new JSONArray();
+				JSONArray adrecrds = new JSONArray();
 				JSONArray crecrds = new JSONArray();
 				/**
 				 * { "procedures": { "type": "array", "default": ["loanout",
@@ -298,6 +300,8 @@ public class UISchema extends UISpec {
 							}
 						} else if (rc.isType("record")) {
 							crecrds.put(rc.getWebURL());
+						} else if(rc.isType("authorizationdata") || rc.isType("userdata")){
+							adrecrds.put(rc.getWebURL());
 						}
 					}
 				}
@@ -306,6 +310,8 @@ public class UISchema extends UISpec {
 				pschema.put("default", precrds);
 				aschema.put("type", "array");
 				aschema.put("default", arecrds);
+				adschema.put("type", "array");
+				adschema.put("default", adrecrds);
 				cschema.put("type", "array");
 				cschema.put("default", crecrds);
 
@@ -315,6 +321,7 @@ public class UISchema extends UISpec {
 				ptypes.put("procedures", pschema);
 				ptypes.put("vocabularies", aschema);
 				ptypes.put("cataloging", cschema);
+				ptypes.put("administration", adschema);
 				rtypes.put("type","object");
 				rtypes.put("properties",ptypes);
 

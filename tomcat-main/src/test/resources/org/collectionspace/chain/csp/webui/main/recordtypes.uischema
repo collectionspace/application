@@ -12,6 +12,10 @@
             "cataloging": {
                 "default": ["cataloging"],
                 "type": "array"
+            },
+            "administration": {
+                "default": ["role", "users"],
+                "type": "array"
             }
         },
         "type": "object"

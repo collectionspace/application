@@ -5,13 +5,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.util.List;
+import java.io.StringWriter;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
-import org.dom4j.Node;
 import org.dom4j.io.OutputFormat;
-import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +22,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.input.TeeInputStream;
+import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -76,8 +74,8 @@ public class TenantUIServlet extends TenantServlet {
 			}
 		}
 
-		if(pathbits[0].equals("config")){
-			tenant = getTenantByCookie(servlet_request);
+		if(pathbits[0].equals("config")||pathbits[1].equals("config")){
+//			tenant = getTenantByCookie(servlet_request);
 		}
 		
 		if(!tenantInit.containsKey(tenant) || !tenantInit.get(tenant))
@@ -94,7 +92,7 @@ public class TenantUIServlet extends TenantServlet {
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
 
-		Boolean doMetaConfig = false;// this doesn't seem to work yet
+		Boolean doMetaConfig = true;// this doesn't seem to work yet
 		String path = pathinfo;
 		UIMapping validmap = doMapping(pathinfo, allmappings, spec);
 		if (null != validmap) {
@@ -103,6 +101,13 @@ public class TenantUIServlet extends TenantServlet {
 				
 				InputStream is = getFixedContent( sc, path,  tenant);
 				
+
+				StringWriter writer = new StringWriter();
+				IOUtils.copy(is, writer, "UTF-8");
+				String theString = writer.toString();
+				
+				
+				/*
 				SAXReader reader = new SAXReader();
 				reader.setEntityResolver(new NullResolver());
 				Document xmlfile = null;
@@ -110,21 +115,26 @@ public class TenantUIServlet extends TenantServlet {
 				ByteArrayOutputStream dump = new ByteArrayOutputStream();
 				xmlfile = reader.read(new TeeInputStream(is, dump));
 			//	log.info(dump.toString("UTF-8"));
-				log.info(xmlfile.asXML());
-
+			//	log.info(xmlfile.asXML());<tr></tr<.>
+*/
 				for (String metafield : validmap.getAllMetaConfigs()) {
-					String xPath = "//html/head/" + metafield;
-					List<Node> nodes = xmlfile.selectNodes(xPath);
+					
+					String rtext = validmap.getMetaConfig(metafield).parseValue(validmap.getRecord(), validmap.getInstance());
+					//try as json
+					String regex = "\""+metafield+"\": \"[^\"]*\"";
+					String replacement = "\""+metafield+"\": \""+rtext+"\"";
 
-					if (!nodes.isEmpty()) {
-						String fieldval = validmap.getMetaConfig(metafield)
-								.getValue();
-						nodes.get(0).setText(fieldval);
-					}
+					theString = theString.replaceFirst(regex, replacement);
+					//try as xml
+					String regex2 = "<"+metafield+">[^<]*</"+metafield+">";
+					String replacement2 = "<"+metafield+">"+rtext+"</"+metafield+">";
+
+					theString = theString.replaceFirst(regex2, replacement2);
+					
 				}
-				InputStream source = documentToStream(xmlfile);
-				serveContent(servlet_response, source);
 
+				InputStream is2 = new ByteArrayInputStream(theString.getBytes("UTF-8"));
+				serveContent(servlet_response, is2);
 				is.close();
 				return;
 			}
@@ -198,18 +208,21 @@ public class TenantUIServlet extends TenantServlet {
 				}
 			} else if (map.hasType()) {
 				for (Record r : spec.getAllRecords()) {
+					map.setRecord(r);
 					if (r.isType(map.getType())) {
 						if(r.isType("authority")){
 							for(Instance ins: r.getAllInstances()){
+								map.setInstance(ins);
 								//config
-								String test2 = "/"+ spec.getAdminData().getTenantName() +"/config/" + ins.getWebURL()+ ".json";
-								if(pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/config/" + ins.getWebURL()+ ".json")){
-									map.setConfigFile("/"+ spec.getAdminData().getTenantName() +"/config/" + r.getWebURL()+ ".json");
+								String tenantInstanceconfig = "/"+ spec.getAdminData().getTenantName() +"/config/" + ins.getWebURL()+ ".json";
+								String tenantAuthconfig = "/"+ spec.getAdminData().getTenantName() +"/config/" + r.getWebURL()+ ".json";
+								if(pathinfo.equals(tenantInstanceconfig)){
+									map.setConfigFile(tenantAuthconfig);
 									map.setAsConfig();
 									return map;
 								}
 								else if(pathinfo.equals("/config/" + ins.getWebURL()+ ".json")){
-									map.setConfigFile("/"+ spec.getAdminData().getTenantName() +"/config/" + r.getWebURL()+ ".json");
+									map.setConfigFile(tenantAuthconfig);
 									map.setAsConfig();
 									return map;
 								}
