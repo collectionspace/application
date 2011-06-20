@@ -2090,6 +2090,7 @@
                             <sidebar show="false"></sidebar>
                             <edit-section id="details" show="true"></edit-section>
                             <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="list" asSibling="true">
                             <selector>recordList-row:</selector>
@@ -2299,6 +2300,7 @@
                             <sidebar show="false"></sidebar>
                             <edit-section id="details" show="true"></edit-section>
                             <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                         <repeat id="list" asSibling="true">
                             <selector>recordList-row:</selector>
