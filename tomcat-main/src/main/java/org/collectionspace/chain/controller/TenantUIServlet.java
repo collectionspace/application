@@ -47,12 +47,15 @@ public class TenantUIServlet extends TenantServlet {
 
 		String pathinfo = servlet_request.getPathInfo();
 		String[] pathbits = pathinfo.substring(1).split("/");
-		String urlredirect = "/collectionspace/ui/"+tenant+"/index.html";
+		String urlredirect = "/collectionspace/ui/"+tenant+"/html/index.html";
 		
 		if (pathinfo.equals("/html") || pathinfo.equals("/html/")) {
 			servlet_response.sendRedirect(urlredirect);
 		}
-		else if (pathinfo.equals("/"+tenant) || pathinfo.equals("/"+tenant+"/html/")) {
+		else if (pathinfo.equals("/"+tenant) || pathinfo.equals("/"+tenant+"/html") || pathinfo.equals("/"+tenant+"/")) {
+			servlet_response.sendRedirect(urlredirect);
+		}
+		else if (pathinfo.equals("/"+tenant+"/index.html") || pathinfo.equals("/"+tenant+"/html/")) {
 			servlet_response.sendRedirect(urlredirect);
 		}
 		else if (pathinfo.equals("/"+tenant+"/html") || pathinfo.equals("/"+tenant+"/html/")) {
