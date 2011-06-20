@@ -232,6 +232,7 @@ public class VocabulariesRead implements WebMethod {
 			//JSONObject relations=createRelations(storage,csid);
 			out.put("csid",csid);
 			out.put("fields",fields);
+			out.put("namespace",n.getWebURL());
 			out.put("relations",new JSONArray());
 			//out.put("relations",relations);
 			out.put("termsUsed",getTermsUsed(storage,refPath+csid));
