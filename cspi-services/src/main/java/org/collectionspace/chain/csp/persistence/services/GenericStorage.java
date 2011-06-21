@@ -623,7 +623,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					String[] parts=filePath.split("/");
 					String recordurl = parts[0];
 					Record thisr = r.getSpec().getRecordByServicesUrl(recordurl);
-					resetGlean(thisr,reset_good,reset_map,reset_deurn,reset_merge, false);// what glean info required for this one..
+					resetGlean(thisr,reset_good,reset_map,reset_deurn,reset_merge, true);// what glean info required for this one..
 					String csid = parts[parts.length-1];
 					JSONObject dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", r.getServicesURL()+"/"+uri, thisr);
 					dataitem.getJSONObject("summarylist").put("uri",filePath);
