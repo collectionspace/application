@@ -2823,7 +2823,7 @@
                         <use-csid>ims;download/;/Medium</use-csid>
                     </field>
                     <field id="imgOrig" attributes="GET">
-                        <use-csid>ims;download/;/Original</use-csid>
+                        <use-csid>ims;download/;/OriginalJpeg</use-csid>
                     </field>
                 </section>
             </record>
