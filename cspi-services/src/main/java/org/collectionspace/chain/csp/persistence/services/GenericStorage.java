@@ -69,12 +69,14 @@ public class GenericStorage  implements ContextualisedStorage {
 		view_merge = new HashMap<String, List<String>>();
 		initializeGlean(r);
 	}
-	protected void resetGlean(Record r,Map<String,String> reset_good, Map<String,String>  reset_map, Set<String>  reset_deurn, Map<String,List<String>>  reset_merge){
+	protected void resetGlean(Record r,Map<String,String> reset_good, Map<String,String>  reset_map, Set<String>  reset_deurn, Map<String,List<String>>  reset_merge, Boolean init){
 		view_good=reset_good;
 		view_map=reset_map;
 		xxx_view_deurn=reset_deurn;
 		view_merge = reset_merge;
-		initializeGlean(r);
+		if(init){
+			initializeGlean(r);
+		}
 	}
 	
 	protected void initializeGlean(Record r){
@@ -612,9 +614,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				JSONArray recs = data.getJSONArray("listItems");
 				//String[] filepaths = (String[]) data.get("listItems");
 				for (int i = 0; i < recs.length(); ++i) {
-				//}
-				//if(true == false){
-				//for(String uri : filepaths) {
+
 					String uri = recs.getJSONObject(i).getString("csid");
 					String filePath = recs.getJSONObject(i).getString("csid");
 					if(filePath!=null && filePath.startsWith("/"))
@@ -623,7 +623,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					String[] parts=filePath.split("/");
 					String recordurl = parts[0];
 					Record thisr = r.getSpec().getRecordByServicesUrl(recordurl);
-					resetGlean(thisr,reset_good,reset_map,reset_deurn,reset_merge);// what glean info required for this one..
+					resetGlean(thisr,reset_good,reset_map,reset_deurn,reset_merge, false);// what glean info required for this one..
 					String csid = parts[parts.length-1];
 					JSONObject dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", r.getServicesURL()+"/"+uri, thisr);
 					dataitem.getJSONObject("summarylist").put("uri",filePath);
