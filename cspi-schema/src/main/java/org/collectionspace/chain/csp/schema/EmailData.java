@@ -19,7 +19,7 @@ import org.json.JSONObject;
  */
 public class EmailData {
 
-	String baseurl,fromaddress,toaddress ;
+	String baseurl,fromaddress,toaddress,loginurl ;
 	String smtphost,smtpport,smtppass,smtpuser;
 	Boolean smtpdebug,smtpauth;
 	String pswdmsg, pswdsubj, tokenvalid;
@@ -57,10 +57,12 @@ public class EmailData {
 		smtpuser = (String)section.getValue("/smtp/auth/username");
 		pswdmsg = (String)section.getValue("/passwordreset/message");
 		pswdsubj = (String)section.getValue("/passwordreset/subject");
+		loginurl = (String)section.getValue("/loginpage");
 		tokenvalid = Util.getStringOrDefault(section, "/passwordreset/token/daysvalid", "7");
 	}
 	
 
+	public String getLoginUrl() {return loginurl; }
 	public String getBaseURL() { return baseurl; }
 	public String getFromAddress() { return fromaddress; }
 	public String getToAddress() { return toaddress; }
