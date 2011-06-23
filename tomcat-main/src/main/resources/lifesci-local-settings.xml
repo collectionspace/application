@@ -27,7 +27,7 @@
             </token>
             <loginpage>/collectionspace/ui/lifesci/html/index.html</loginpage>
             <subject>CollectionSpace Password reset request</subject>
-            <message>Hello {{greeting}},<br/>You've started the process to reset your CollectionSpace account password. To finish resetting your password, go to the Reset Password page {{link}} on CollectionSpace.<br/><br/>If clicking the link doesn't work, copy and paste the following link into your browser address bar and click Go.<br/><br/>{{link}}<br/> Thanks,<br/><br/> CollectionSpace Administrator<br/><br/>Please do not reply to this email. This mailbox is not monitored and you will not receive a response. For assistance, contact your CollectionSpace Administrator directly.</message>
+            <message>Hello {{greeting}},\nYou've started the process to reset your CollectionSpace account password. To finish resetting your password, go to the Reset Password page {{link}} on CollectionSpace.\nIf clicking the link doesn't work, copy and paste the following link into your browser address bar and click Go.\n{{link}}\n Thanks,\n\n CollectionSpace Administrator\n\nPlease do not reply to this email. This mailbox is not monitored and you will not receive a response. For assistance, contact your CollectionSpace Administrator directly.</message>
 		</passwordreset>
     </email>
     <persistence>
