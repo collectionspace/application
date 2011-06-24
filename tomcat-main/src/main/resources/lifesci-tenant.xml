@@ -49,13 +49,13 @@
         <records >
             <enum-blank>Please select a value</enum-blank>
 			
-			
             <record id="collection-object" in-findedit="yes">
                 <services-url>collectionobjects</services-url>
                 <services-tenant-singular>CollectionObject</services-tenant-singular>
                 <services-list-path>collectionobjects-common-list/collection-object-list-item</services-list-path>
                 <services-record-path id="common">collectionobjects_common:http://collectionspace.org/services/collectionobject,collectionobjects_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
                 <web-url>cataloging</web-url>
                 <tab-url>cataloging-tab</tab-url>
                 <number-selector>.csc-entry-number</number-selector>
@@ -109,6 +109,51 @@
                             <option id="loanin" sample="LI2009.1.1">Loans In</option>
                         </options>
                     </field>
+                    <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
+                      <field id="taxon" in-title="yes" mini="summary,search,list,relate" section="naturalhistory" autocomplete="taxon-taxon">
+                        <selector>taxonomic-identification-taxon</selector>
+                        <title-selector>titleBar-taxonomic-identification-taxon</title-selector>
+                      </field>
+                      <field id="qualifier" section="naturalhistory" seperate_ui_container="true">
+                        <selector>taxonomic-identification-qualifier</selector>
+                            <options>
+                                <option id="">No value selected</option>
+                                <option id="aff">aff.</option>
+                                <option id="cf">cf.</option>
+                                <option id="forsan">forsan</option>
+                                <option id="sensu_latu">sensu latu</option>
+                                <option id="questionable">questionable</option>
+                            </options>
+                      </field>
+                      <field id="identBy" section="naturalhistory" autocomplete="person-person,organization-organization">
+                        <selector>taxonomic-identification-ident-by</selector>
+                      </field>
+                      <field id="identDate" section="naturalhistory" ui-type="date">
+                          <selector>taxonomic-identification-ident-date</selector>
+                      </field>
+                      <field id="institution" section="naturalhistory" autocomplete="organization-organization">
+                        <selector>taxonomic-identification-institution</selector>
+                      </field>
+                      <field id="identKind" section="naturalhistory" seperate_ui_container="true">
+                        <selector>taxonomic-identification-ident-kind</selector>
+                            <options>
+                                <option id="">No value selected</option>
+                                <option id="original_label_determination">original label determination</option>
+                                <option id="fide">fide</option>
+                                <option id="nomenclatural_change">nomenclatural change</option>
+                                <option id="taxonomic_change">taxonomic change </option>
+                            </options>
+                      </field>
+                      <field id="reference" section="naturalhistory">
+                        <selector>taxonomic-identification-reference</selector>
+                      </field>
+                      <field id="refPage" section="naturalhistory">
+                        <selector>taxonomic-identification-reference-page</selector>
+                      </field>
+                      <field id="notes" section="naturalhistory">
+                        <selector>taxonomic-identification-notes</selector>
+                      </field>
+                    </repeat>
                     <field id="numberOfObjects">
                         <selector>object-identification-number-objects</selector>
                     </field>
@@ -1795,14 +1840,16 @@
                 </section>
             </record>
 
-            <record id="taxon"  type="authority,compute-displayname" in-recordlist="no" in-findedit="no">
+            <record id="taxon"  type="authority,compute-displayname" in-recordlist="yes" in-findedit="yes">
                 <!-- No terms-used yet as the only authority autocomplete field currently present in this record type -->
                 <!-- is within a nested complexType and can't be retrieved -->
                 <terms-used>false</terms-used>
                 <web-url>taxon</web-url>
                 <!-- singular names are used throughout except for this authority's service URL path component, per CSPACE-3322 -->
-                <services-tenant-plural>Taxonomyauthority</services-tenant-plural>
-                <services-tenant-singular>Taxonomyauthority</services-tenant-singular>
+                <services-tenant-auth-singular>Taxonomyauthority</services-tenant-auth-singular>
+                <services-tenant-auth-plural>Taxonomyauthorities</services-tenant-auth-plural>
+                <services-tenant-singular>Taxon</services-tenant-singular>
+                <services-tenant-plural>Taxon</services-tenant-plural>
                 <services-instances-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,taxonomyauthority-common-list/taxonomyauthority-list-item</services-instances-path>
                 <services-single-instance-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,taxonomyauthority_common</services-single-instance-path>
                 <services-list-path>http://collectionspace.org/services/taxonomy,taxon-common-list/taxon_list_item</services-list-path>
@@ -1812,6 +1859,7 @@
                 <authority-vocab-type>TaxonomyAuthority</authority-vocab-type>
                 <authorization-view>false</authorization-view>
                 <urn-syntax>urn:cspace:org.collectionspace.demo:taxonomyauthority:{vocab}:taxon:{entry}'{display}'</urn-syntax>
+                <vocab-syntax>urn:cspace:name</vocab-syntax>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
                     <structure id="screen">
