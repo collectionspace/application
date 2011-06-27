@@ -80,6 +80,8 @@ public class UserDetailsReset implements WebMethod {
 		String message = messagebase.replaceAll("\\{\\{link\\}\\}", link);
 		String greeting = userdetails.getJSONObject("fields").getString("screenName");
 		message = message.replaceAll("\\{\\{greeting\\}\\}", greeting);
+		message = message.replaceAll("\\\\n", "\\\n");
+		message = message.replaceAll("\\\\r", "\\\r");
 		
 	    String SMTP_HOST_NAME = ed.getSMTPHost();
 	    String SMTP_PORT = ed.getSMTPPort();
@@ -120,7 +122,7 @@ public class UserDetailsReset implements WebMethod {
 			// Setting the Subject and Content Type
 			msg.setSubject(subject);
 			msg.setText(message);
-            msg.setContent(message, "text/plain");
+          //  msg.setContent(message, "text/plain");
 
 			Transport.send(msg);
 		} catch (AddressException e) {
