@@ -57,7 +57,7 @@ public class EmailData {
 		smtpuser = (String)section.getValue("/smtp/auth/username");
 		pswdmsg = (String)section.getValue("/passwordreset/message");
 		pswdsubj = (String)section.getValue("/passwordreset/subject");
-		loginurl = (String)section.getValue("/loginpage");
+		loginurl = (String)section.getValue("/passwordreset/loginpage");
 		tokenvalid = Util.getStringOrDefault(section, "/passwordreset/token/daysvalid", "7");
 	}
 	
