@@ -692,7 +692,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,softurl,null,creds,cache);
 			if(doc.getStatus()==404)
-				throw new ExistException("Does not exist");
+				throw new ExistException("Does not exist "+softurl);
 			if(doc.getStatus()>299)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
 			String name = null;
