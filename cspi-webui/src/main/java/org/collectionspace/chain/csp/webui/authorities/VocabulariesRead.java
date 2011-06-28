@@ -238,9 +238,11 @@ public class VocabulariesRead implements WebMethod {
 			out.put("termsUsed",getTermsUsed(storage,refPath+csid));
 			out.put("refobjs",getRefObj(storage,refPath+csid));
 		} catch (ExistException e) {
-			throw new UIException("JSON Not found "+e,e);
+			UIException uiexception =  new UIException(e.getMessage(),e);
+			return uiexception.getJSON();
 		} catch (UnimplementedException e) {
-			throw new UIException("Unimplemented",e);
+			UIException uiexception =  new UIException(e.getMessage(),e);
+			return uiexception.getJSON();
 		} catch (UnderlyingStorageException x) {
 			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
 			return uiexception.getJSON();

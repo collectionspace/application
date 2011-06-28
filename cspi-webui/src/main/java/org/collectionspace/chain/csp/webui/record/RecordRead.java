@@ -200,18 +200,20 @@ public class RecordRead implements WebMethod {
 				out=storage.retrieveJSON(base+"/"+csid,restrictions);
 			}
 		} catch (ExistException e) {
-			throw new UIException("JSON Not found ",e);
+			UIException uiexception =  new UIException(e.getMessage(),e);
+			return uiexception.getJSON();
 		} catch (UnimplementedException e) {
-			throw new UIException("Unimplemented",e);
+			UIException uiexception =  new UIException(e.getMessage(),e);
+			return uiexception.getJSON();
 		} catch (UnderlyingStorageException x) {
-			// XXX dan to fix exception handling during Nov 2010
 			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
 			return uiexception.getJSON();
 		} catch (JSONException e) {
 			throw new UIException("Could not create JSON",e);
 		}
 		if (out == null) {
-			throw new UIException("No JSON Found");
+			UIException uiexception =  new UIException("No JSON Found");
+			return uiexception.getJSON();
 		}
 		return out;
 	}
