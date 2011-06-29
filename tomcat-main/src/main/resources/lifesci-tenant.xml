@@ -1163,7 +1163,7 @@
             <record id="intake" in-findedit="yes" type="record,procedure">
                 <services-url>intakes</services-url>
                 <services-tenant-singular>Intake</services-tenant-singular>
-                <services-list-path>intakes-common-list/intake-list-item</services-list-path>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
