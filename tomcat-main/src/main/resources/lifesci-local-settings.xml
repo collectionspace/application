@@ -54,7 +54,7 @@
     </persistence>
     <ui>
         <web>
-            <login-dest>/collectionspace/ui/lifesci/html/myCollectionSpace.html</login-dest>
+            <login-dest>/collectionspace/ui/lifesci/html/findedit.html</login-dest>
             <login-failed-dest>/collectionspace/ui/lifesci/html/index.html</login-failed-dest>
             <front-page>/collectionspace/ui/lifesci/html/index.html</front-page>
             <find-page>myCollectionSpace</find-page>
