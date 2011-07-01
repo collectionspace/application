@@ -53,7 +53,7 @@
     </persistence>
     <ui>
         <web>
-            <login-dest>/collectionspace/ui/html/myCollectionSpace.html</login-dest>
+            <login-dest>/collectionspace/ui/html/findedit.html</login-dest>
             <login-failed-dest>/collectionspace/ui/html/index.html</login-failed-dest>
             <front-page>/collectionspace/ui/html/index.html</front-page>
             <find-page>myCollectionSpace</find-page>
