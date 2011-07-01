@@ -279,7 +279,7 @@ public class TestServiceThroughWebapp extends TestBase{
 		String tenant = spec.getAdminData().getTenant();
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
 		assertEquals(303,out.getStatus());
-		assertEquals("/collectionspace/ui/core/html/myCollectionSpace.html",out.getHeader("Location"));
+		assertEquals("/collectionspace/ui/core/html/findedit.html",out.getHeader("Location"));
 		out=jettyDoUTF8(jetty,"POST","/tenant/core/login?userid="+username+"&password="+pwd+"&tenant="+tenant,null);
 		assertEquals(303,out.getStatus());
 		log.info(out.getHeader("Location"));
