@@ -152,9 +152,12 @@ public class UISpec implements WebMethod {
 	protected String getTitleSelector(FieldSet fs,  UISpecRunContext context){
 		return makeSelector(fs.getPreTitleSelector(),context,fs.getTitleSelector());
 	}
-	
+
 	protected String getSelector(FieldSet fs, UISpecRunContext context){
 		return makeSelector(fs.getPreSelector(),context,fs.getSelector());
+	}
+	protected String getDecoratorSelector(FieldSet fs, UISpecRunContext context){
+		return makeSelector(fs.getDecoratorSelector(),context,fs.getSelector());
 	}
 	
 	protected Object generateOptionField(Field f,UISpecRunContext context) throws JSONException {
@@ -383,7 +386,17 @@ public class UISpec implements WebMethod {
 					generateHierarchyEntry(siblingexpander, child,  context);
 					expanders.put(siblingexpander.getJSONObject("expander"));
 					if(child instanceof Field){
-						String classes = "cs-hierarchy-equivalentContext";
+						String classes = getDecoratorSelector(child,context);
+						JSONObject decorator = getDecorator("addClass",classes,null,null);
+						tree.put("value", generateDataEntryField((Field)child,context));
+						tree.put("decorators", decorator);
+					}
+				}
+				else if(child.getUIType().equals("decorated")){
+
+					expander.put("repeatID", getSelector(child,context)+":");
+					if(child instanceof Field){
+						String classes = getDecoratorSelector(child,context);
 						JSONObject decorator = getDecorator("addClass",classes,null,null);
 						tree.put("value", generateDataEntryField((Field)child,context));
 						tree.put("decorators", decorator);

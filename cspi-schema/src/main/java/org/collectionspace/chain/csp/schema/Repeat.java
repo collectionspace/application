@@ -111,6 +111,7 @@ public class Repeat implements FieldSet, FieldParent {
 		}
 		this.initStrings(section,"selector", getString("parentID") + "-" +  getString("@id"));
 		this.initStrings(section,"preselector", ".csc-" );
+		this.initStrings(section,"decoratorselector", "cs-" );
 
 		this.initStrings(section,"container-selector", getString("selector") + "-container");
 		this.initStrings(section,"precontainer-selector", getString("preselector"));
@@ -264,6 +265,9 @@ public class Repeat implements FieldSet, FieldParent {
 	}
 	public String getPreSelector() {
 		return getString("preselector");
+	}
+	public String getDecoratorSelector() {
+		return getString("decoratorselector");
 	}
 	public String getSelector() {
 		return getString("selector");

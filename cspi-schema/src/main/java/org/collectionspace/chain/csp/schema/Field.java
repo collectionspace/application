@@ -57,6 +57,8 @@ public class Field implements FieldSet {
 		this.initStrings(section,"selectorID", getString("parentID"));
 		this.initStrings(section,"selector", getString("selectorID") + "-" +  getString("@id"));
 		this.initStrings(section,"preselector", ".csc-" );
+		this.initStrings(section,"decoratorselector", "cs-" );
+		
 		this.initStrings(section, "@primarykey", getString("selector"));
 		//this.initStrings(section,"label", "" + getString("selector") + "Label");
 		//this should be overwritten by selector but currently the UI has inconsistencies which means teh labels are always defined correctly inspite of the selector
@@ -216,6 +218,9 @@ public class Field implements FieldSet {
 	}
 	public String getPreSelector() {
 		return getString("preselector");
+	}
+	public String getDecoratorSelector() {
+		return getString("decoratorselector");
 	}
 	public String getLabel() {
 		return getString("label");

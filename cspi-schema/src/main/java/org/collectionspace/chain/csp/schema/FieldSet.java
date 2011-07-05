@@ -29,6 +29,7 @@ public interface FieldSet {
 	public Boolean getUISpecInherit();
 	public String getLabelAffix();
 	public String getContainerSelector();
+	public String getDecoratorSelector();
 	public String getPreContainerSelector();
 	public String getTitleSelector();
 	public String getPreTitleSelector();

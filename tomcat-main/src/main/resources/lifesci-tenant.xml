@@ -2292,6 +2292,40 @@
                 </section>
             </record>
 
+            <record id="termlist" in-recordlist="no" type="authorizationdata">
+            	
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                        </view>
+                    </structure>
+                </structures>
+                <section>
+                	<field id="name"></field>
+                	<field id="source"></field>
+                	<field id="description"></field>
+					<repeat id="terms">
+						<field id="termName"></field>
+						<field id="termDescription"></field>
+						<field id="termSource"></field>
+						<field id="termSourcePage"></field>
+						<field id="termStatus" >
+                        <options>
+                            <option id="active" default="yes">Active</option>
+                            <option id="inactive">Inactive</option>
+                        </options>
+						</field>
+					</repeat>
+	            <repeat id="usedBys" as-expander="true">
+	                <field id="usedBy" ui-type="decorated"></field>
+	            </repeat>
+                </section>
+				
+            </record>
             <record id="permrole" in-recordlist="no" type="authorizationdata">
                 <is-multipart>false</is-multipart>
                 <services-tenant-plural>authorization/permissions/permroles</services-tenant-plural>
