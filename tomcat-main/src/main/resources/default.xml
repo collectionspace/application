@@ -1,7 +1,7 @@
 <!--  XXX autocomplete needs renaming to something like authority -->
 <collection-space>
     <version>10</version>
-    <include src="local-settings.xml,settings.xml" strip-root="yes"/>
+    <include src="ourtenant-local-settings.xml,settings.xml" strip-root="yes"/>
     <spec>
         <relationships>
             <relation id="broaderContext">
