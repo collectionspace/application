@@ -38,12 +38,14 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 	private SAXParserFactory factory;
 	private ContentHandler delegated,up;
 	private String delegated_root;
+	private String tenantname;
 	private int delegated_depth=-1,depth=0;
 	private SAXTransformerFactory transfactory;
 	private boolean outer,strip;
 	private AssemblingParser parser;
 	private Map<String,XSLTTag> xslt_tags=new HashMap<String,XSLTTag>();
 	private Map<String,IncludeTag> include_tags=new HashMap<String,IncludeTag>();
+	
 	
 	AssemblingContentHandler(AssemblingParser parser,ContentHandler r) throws ConfigException { this(parser,r,true,false,null); }
 	
@@ -58,6 +60,9 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		this.outer=outer;
 		this.strip=strip;
 		this.resolve_parent=rp;
+		if(rp!=null){
+			this.tenantname=rp.tenantname;
+		}
 		this.parser=parser;
 	}
 
@@ -95,6 +100,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		}
 	}
 	
+	
 	XSLTTag resolveXSLTTag(String name) {
 		XSLTTag out=xslt_tags.get(name);
 		if(out!=null)
@@ -103,7 +109,6 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 			return resolve_parent.resolveXSLTTag(name);
 		return null;
 	}
-	
 	IncludeTag resolveIncludeTag(String name) {
 		IncludeTag out=include_tags.get(name);
 		if(out!=null)
@@ -127,6 +132,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		}
 	}
 	
+	
 	private IncludeTag isIncludeTag(String localName,Attributes attributes) throws SAXException {
 		IncludeTag out=resolveIncludeTag(localName);
 		if(out!=null)
@@ -148,7 +154,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		}
 		return false;
 	}
-	
+
 	private void processXSLTDefine(Attributes attr) throws SAXException {
 		XSLTTag tag=new XSLTTag();
 		tag.src=attr.getValue("src");
@@ -189,6 +195,17 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		SAXException e=null;
 		for(String src : all.split(",")) {
 			try {
+				String test = this.tenantname;
+				InputSource out=resolveEntity(null,"tenants/"+this.tenantname+"/"+src);
+				if(out!=null)
+					return out;
+			} catch(SAXException x) { e=x; }
+			try {
+				InputSource out=resolveEntity(null,"defaults/"+src);
+				if(out!=null)
+					return out;
+			} catch(SAXException x) { e=x; }
+			try {
 				InputSource out=resolveEntity(null,src);
 				if(out!=null)
 					return out;
@@ -211,9 +228,13 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 					return;
 				XSLTTag xslt=isXSLTTag(localName,attributes);
 				IncludeTag include=isIncludeTag(localName,attributes);
+				if(localName.equals("collection-space")){
+					this.tenantname = attributes.getValue("tenantname");
+					String a = "s";
+				}
 				if(xslt!=null) {
 					apply_xslt(resolveEntity(null,xslt.src),xslt.root);
-				} else if(include!=null) {
+				}  else if(include!=null) {
 					if("@".equals(include.src))
 						apply_include(parser.getMain(),include.strip);
 					else
