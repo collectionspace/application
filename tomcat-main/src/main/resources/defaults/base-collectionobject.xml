@@ -36,6 +36,10 @@
                         </repeat>
                     </structure>
                 </structures>
+				
+				<include src="domain-collectionobject.xml" />
+				
+				
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
@@ -938,11 +942,6 @@
                     </field>
                     <field id="datePeriod">
                         <selector>date-information-date-period</selector>
-                    </field>
-                    <!--  natural history -->
-                    <!--  ID's probably can't use -'s , :( XXX -->
-                    <field id="nhString" section="naturalhistory">
-                        <services-tag>nh-string</services-tag>
                     </field>
                 </section>
             </record>

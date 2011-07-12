@@ -17,6 +17,9 @@
                         </view>
                     </structure>
                 </structures>
+				
+				<include src="domain-authz-userrole.xml" />
+				
                 <section>
                     <group id="account">
                         <selector>accountrole-account-row:</selector>

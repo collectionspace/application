@@ -12,6 +12,9 @@
                     </structure>
                 </structures>
 				
+				<include src="domain-other-hierarchy.xml" />
+				
+				
             	<section>
             		<field id="broaderContext"  autocomplete="person-person,location-location"></field>
             		<repeat id="narrowerContexts">

@@ -18,6 +18,9 @@
                         </view>
                     </structure>
                 </structures>
+				
+				<include src="domain-authz-userperm.xml" />
+				
                 <section>
                     <group id="account">
                         <field id="accountId">

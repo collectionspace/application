@@ -18,6 +18,9 @@
                         </view>
                     </structure>
                 </structures>
+				
+				<include src="domain-authz-permission.xml" />
+				
                 <terms-used>false</terms-used>
                 <section>
                     <repeat id="actions/action" has-primary="false" xxx-hack-authorization="true">

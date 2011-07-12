@@ -27,6 +27,9 @@
             </view>
         </structure>
     </structures>
+				
+				<include src="domain-authority-location.xml" />
+				
     <instances>
         <instance id="location-location">
             <web-url>location</web-url>

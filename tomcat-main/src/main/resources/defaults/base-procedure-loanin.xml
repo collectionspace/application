@@ -51,6 +51,9 @@
                         </repeat>
                     </structure>
                 </structures>
+				
+				<include src="domain-procedure-loanin.xml" />
+				
                 <row-selector>.csc-recordList-row:</row-selector>
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>

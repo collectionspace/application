@@ -12,6 +12,9 @@
                         </view>
                     </structure>
                 </structures>
+				
+				<include src="domain-other-termlist.xml" />
+				
                 <section>
                 	<field id="name"></field>
                 	<field id="source"></field>

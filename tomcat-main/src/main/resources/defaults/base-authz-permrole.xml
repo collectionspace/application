@@ -20,6 +20,9 @@
                         </view>
                     </structure>
                 </structures>
+				
+				<include src="domain-authz-permrole.xml" />
+				
                 <section>
                     <group id="role">
                         <field id="roleId">

@@ -31,6 +31,9 @@
                         </repeat>
                     </structure>
                 </structures>
+				
+				<include src="domain-authz-role.xml" />
+				
                 <section>
                     <field id="roleName">
                         <selector>role-oldname</selector>

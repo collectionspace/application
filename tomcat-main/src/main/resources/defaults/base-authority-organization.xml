@@ -21,6 +21,9 @@
                         </view>
                     </structure>
                 </structures>
+				
+				<include src="domain-authority-organization.xml" />
+				
                 <instances>
                     <instance id="organization-organization">
                         <web-url>organization</web-url>

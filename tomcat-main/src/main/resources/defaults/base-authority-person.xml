@@ -30,6 +30,9 @@
                         </view>
                     </structure>
                 </structures>
+				
+				<include src="domain-authority-person.xml" />
+				
                 <instances>
                     <instance id="person-person">
                         <web-url>person</web-url>

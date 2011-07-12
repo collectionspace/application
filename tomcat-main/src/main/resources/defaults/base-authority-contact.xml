@@ -17,6 +17,9 @@
                         </view>
                     </structure>
                 </structures>
+				
+				<include src="domain-authority-contact.xml" />
+				
                 <instances>
                     <instance id="contact-primary">
                         <web-url>contact</web-url>

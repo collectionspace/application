@@ -30,6 +30,9 @@
                         </view>
                     </structure>
                 </structures>
+				
+				<include src="domain-authority-taxon.xml" />
+				
                 <instances>
                     <instance id="taxon-taxon">
                         <web-url>taxon</web-url>
