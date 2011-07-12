@@ -230,7 +230,6 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 				IncludeTag include=isIncludeTag(localName,attributes);
 				if(localName.equals("cspace-config")){
 					this.tenantname = attributes.getValue("tenantname");
-					String a = "s";
 				}
 				if(xslt!=null) {
 					apply_xslt(resolveEntity(null,xslt.src),xslt.root);
