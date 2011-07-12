@@ -1,5 +1,8 @@
 {
     "recordEditor": {
+        ".csc-intake-domaindata-label": {
+            "messagekey": "intake-domaindataLabel"
+        },
         ".csc-intake-condition-check-date": {
             "decorators": [{
                 "func": "cspace.datePicker",

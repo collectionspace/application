@@ -1,5 +1,8 @@
 {
     "recordEditor": {
+        ".csc-group-domaindata-label": {
+            "messagekey": "group-domaindataLabel"
+        },
         ".csc-group-title-label": {
             "messagekey": "group-titleLabel"
         },

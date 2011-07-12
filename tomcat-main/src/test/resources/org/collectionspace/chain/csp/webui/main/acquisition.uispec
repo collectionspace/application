@@ -1,5 +1,8 @@
 {
     "recordEditor": {
+        ".csc-acquisition-domaindata-label": {
+            "messagekey": "acquisition-domaindataLabel"
+        },
         ".csc-acquisition-object-purchase-price-currency": {
             "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
             "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],

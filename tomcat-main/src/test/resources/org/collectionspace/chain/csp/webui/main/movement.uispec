@@ -1,5 +1,8 @@
 {
     "recordEditor": {
+        ".csc-movement-domaindata-label": {
+            "messagekey": "movement-domaindataLabel"
+        },
         ".csc-movement-movementReferenceNumber-label": {
             "messagekey": "movement-movementReferenceNumberLabel"
         },

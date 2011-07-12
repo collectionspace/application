@@ -1,5 +1,8 @@
 {
     "recordEditor": {
+        ".csc-loanin-domaindata-label": {
+            "messagekey": "loanin-domaindataLabel"
+        },
         ".csc-loanin-loanInNumber-label": {
             "messagekey": "loanin-loanInNumberLabel"
         },

@@ -97,6 +97,9 @@
             "pathAs": "row",
             "controlledBy": "fields.equivalentContexts"
         }],
+        ".csc-hierarchy-domaindata-label": {
+            "messagekey": "hierarchy-domaindataLabel"
+        },
         ".csc-hierarchy-relatedTerms-label": {
             "messagekey": "hierarchy-relatedTermsLabel"
         },
@@ -269,6 +272,9 @@
         ".csc-contact-createdAt-label": {
             "messagekey": "contact-createdAtLabel"
         },
+        ".csc-person-domaindata-label": {
+            "messagekey": "person-domaindataLabel"
+        },
         ".csc-person-surName-label": {
             "messagekey": "person-surNameLabel"
         },
@@ -320,6 +326,9 @@
             "selection": "${fields.addressType}"
         },
         ".csc-personAuthority-middleName": "${fields.middleName}",
+        ".csc-contact-domaindata-label": {
+            "messagekey": "contact-domaindataLabel"
+        },
         ".csc-person-birthPlace-label": {
             "messagekey": "person-birthPlaceLabel"
         },

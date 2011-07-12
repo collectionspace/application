@@ -1,5 +1,8 @@
 {
     "recordEditor": {
+        ".csc-media-domaindata-label": {
+            "messagekey": "media-domaindataLabel"
+        },
         ".csc-media-date": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",

@@ -150,6 +150,9 @@
         }
     },
     "recordEditor": {
+        ".csc-taxon-domaindata-label": {
+            "messagekey": "taxon-domaindataLabel"
+        },
         ".csc-taxon-createdAt-label": {
             "messagekey": "taxon-createdAtLabel"
         },

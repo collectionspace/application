@@ -1,5 +1,8 @@
 {
     "details": {
+        ".csc-users-domaindata-label": {
+            "messagekey": "users-domaindataLabel"
+        },
         ".csc-users-roleGroup-label": {
             "messagekey": "users-roleGroupLabel"
         },

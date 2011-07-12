@@ -1,5 +1,8 @@
 {
     "recordEditor": {
+        ".csc-loanout-domaindata-label": {
+            "messagekey": "loanout-domaindataLabel"
+        },
         ".csc-loanout-summary-label": {
             "messagekey": "loanout-summaryLabel"
         },

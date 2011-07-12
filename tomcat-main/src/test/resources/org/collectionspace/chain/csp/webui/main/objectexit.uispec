@@ -1,5 +1,8 @@
 {
     "recordEditor": {
+        ".csc-objectexit-domaindata-label": {
+            "messagekey": "objectexit-domaindataLabel"
+        },
         ".csc-objectexit-updatedAt-label": {
             "messagekey": "objectexit-updatedAtLabel"
         },

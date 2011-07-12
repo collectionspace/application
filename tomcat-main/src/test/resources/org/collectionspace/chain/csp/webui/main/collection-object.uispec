@@ -1,5 +1,8 @@
 {
     "recordEditor": {
+        ".csc-collection-object-domaindata-label": {
+            "messagekey": "collection-object-domaindataLabel"
+        },
         ".csc-collection-object-assocPeopleGroup-label": {
             "messagekey": "collection-object-assocPeopleGroupLabel"
         },

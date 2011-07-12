@@ -1,5 +1,8 @@
 {
     "details": {
+        ".csc-role-domaindata-label": {
+            "messagekey": "role-domaindataLabel"
+        },
         ".csc-role-csid-label": {
             "messagekey": "role-csidLabel"
         },

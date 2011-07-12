@@ -97,6 +97,9 @@
             "pathAs": "row",
             "controlledBy": "fields.equivalentContexts"
         }],
+        ".csc-hierarchy-domaindata-label": {
+            "messagekey": "hierarchy-domaindataLabel"
+        },
         ".csc-hierarchy-relatedTerms-label": {
             "messagekey": "hierarchy-relatedTermsLabel"
         },
@@ -228,6 +231,9 @@
         },
         ".csc-location-conditionNote-label": {
             "messagekey": "location-conditionNoteLabel"
+        },
+        ".csc-location-domaindata-label": {
+            "messagekey": "location-domaindataLabel"
         },
         ".csc-location-name-label": {
             "messagekey": "location-nameLabel"
