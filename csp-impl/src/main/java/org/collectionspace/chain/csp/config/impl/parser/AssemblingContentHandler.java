@@ -228,7 +228,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 					return;
 				XSLTTag xslt=isXSLTTag(localName,attributes);
 				IncludeTag include=isIncludeTag(localName,attributes);
-				if(localName.equals("collection-space")){
+				if(localName.equals("cspace-config")){
 					this.tenantname = attributes.getValue("tenantname");
 					String a = "s";
 				}

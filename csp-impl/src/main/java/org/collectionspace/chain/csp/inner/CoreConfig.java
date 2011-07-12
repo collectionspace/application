@@ -20,6 +20,7 @@ import org.collectionspace.csp.api.core.CSPContext;
 // XXX call order DependencyNotSatisfiedException
 public class CoreConfig implements CSP, Configurable, ConfigRoot {
 	private Map<String,Object> roots=new HashMap<String,Object>();
+	public static String SECTIONED="org.collectionspace.app.config.spec";
 	
 	public void go(CSPContext ctx) { 
 		ctx.addConfigRules(this);
@@ -30,12 +31,19 @@ public class CoreConfig implements CSP, Configurable, ConfigRoot {
 	public String getName() { return "config.core"; }
 
 	public void configure(Rules rules) {
-		/* ROOT/collection-space -> MAIN */
+
 		rules.addRule("ROOT",new String[]{"collection-space"},"org.collectionspace.app.cfg.main",null,new Target() {
 			public Object populate(Object parent, ReadOnlySection milestone) {
-				return CoreConfig.this;
+				return this;
 			}			
 		});
+		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"cspace-config"},SECTIONED,null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				return CoreConfig.this;
+			}
+		});
+		/* ROOT/collection-space -> MAIN */
+		
 	}
 	
 	public void setRoot(String key,Object value) { roots.put(key,value); }

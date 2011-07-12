@@ -1,5 +1,5 @@
 <!-- this is the bootstrap file to incldue the core. Don't add core tags here, add them to core.xml -->
 <collection-space>
   <include src="core.xml"/>
-  <include src="@" strip-root="yes"/>
+  <include src="@" />
 </collection-space>

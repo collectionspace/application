@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 
 public class ServicesStorageGenerator extends SplittingStorage implements ContextualisedStorage, StorageGenerator, CSP, Configurable {
 	private static final Logger log=LoggerFactory.getLogger(ServicesStorageGenerator.class);
+	public static String SECTIONED="org.collectionspace.app.config.spec";
 	public static String SECTION_PREFIX="org.collectionspace.app.config.persistence.service.";
 	public static String SERVICE_ROOT=SECTION_PREFIX+"service";
 	private String base_url,ims_url;
@@ -82,7 +83,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 
 	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/persistence/service -> SERVICE */
-		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"persistence","service"},SECTION_PREFIX+"service",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"persistence","service"},SECTION_PREFIX+"service",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				((ConfigRoot)parent).setRoot(SERVICE_ROOT,ServicesStorageGenerator.this);
 				base_url=(String)milestone.getValue("/url");

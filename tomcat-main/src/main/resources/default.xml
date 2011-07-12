@@ -1,6 +1,6 @@
-<collection-space tenantname="core" >
+<cspace-config tenantname="core" >
 	
-    <version>10</version>
+    <version>11</version>
     <include src="local-settings.xml,settings.xml" strip-root="yes"/>
 	
     <spec>
@@ -138,4 +138,4 @@
         </records>
 
     </spec>
-</collection-space>
+</cspace-config>

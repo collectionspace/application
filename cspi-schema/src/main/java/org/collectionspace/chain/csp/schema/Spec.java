@@ -30,10 +30,11 @@ import org.slf4j.LoggerFactory;
  */
 public class Spec implements CSP, Configurable {
 	private static final Logger log=LoggerFactory.getLogger(Spec.class);
+	public static String SECTIONED="org.collectionspace.app.config.spec";
 	public static String SECTION_PREFIX="org.collectionspace.app.config.spec.";
 	public static String SPEC_ROOT=SECTION_PREFIX+"spec";
 
-	private static final String required_version="10";
+	private static final String required_version="11";
 
 	private Map<String,Record> records=new HashMap<String,Record>();
 	private Map<String,Relationship> relationships=new HashMap<String,Relationship>();
@@ -56,8 +57,11 @@ public class Spec implements CSP, Configurable {
 	}
 
 	public void configure(Rules rules) {
+
+		
+		
 		/* MAIN/version -> string */
-		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"version"},SECTION_PREFIX+"version",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"version"},SECTION_PREFIX+"version",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				version=(String)section.getValue("");
 				return this;
@@ -65,14 +69,14 @@ public class Spec implements CSP, Configurable {
 		});
 
 		/* MAIN/email -> EmailData */
-		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"email"},SECTION_PREFIX+"email",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"email"},SECTION_PREFIX+"email",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				ed = new EmailData(Spec.this,section);
 				return this;
 			}
 		});
 		/* MAIN/admin -> AdminData */
-		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"admin"},SECTION_PREFIX+"admin",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"admin"},SECTION_PREFIX+"admin",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				adminData = new AdminData(Spec.this,section);
 				return this;
@@ -80,7 +84,7 @@ public class Spec implements CSP, Configurable {
 		});
 		
 		/* MAIN/spec -> SPEC */
-		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"spec"},SECTION_PREFIX+"spec",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"spec"},SECTION_PREFIX+"spec",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				((CoreConfig)parent).setRoot(SPEC_ROOT,Spec.this);
 				return Spec.this;

@@ -28,6 +28,7 @@ import org.collectionspace.csp.helper.persistence.ProxyStorage;
  */
 public class FileStorage extends ProxyStorage implements Storage, CSP, Configurable, StorageGenerator {
 	public static String SECTION_PREFIX="org.collectionspace.app.config.persistence.file.";
+	public static String SECTIONED="org.collectionspace.app.config.spec";
 	public static String FILE_ROOT=SECTION_PREFIX+"spec";
 	
 	private String root;
@@ -64,7 +65,7 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 
 	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/persistence/file -> FILE */
-		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"persistence","file"},SECTION_PREFIX+"file",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"persistence","file"},SECTION_PREFIX+"file",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection milestone) {
 				((ConfigRoot)parent).setRoot(FILE_ROOT,FileStorage.this);
 				((ConfigRoot)parent).setRoot(CSPContext.XXX_SERVICE_NAME,"file"); // XXX should be path-selectable

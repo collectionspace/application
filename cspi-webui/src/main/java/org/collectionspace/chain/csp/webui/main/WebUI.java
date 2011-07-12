@@ -79,6 +79,7 @@ import org.slf4j.LoggerFactory;
 public class WebUI implements CSP, UI, Configurable {
 	private static final Logger log=LoggerFactory.getLogger(WebUI.class);
 	public static String SECTION_PREFIX="org.collectionspace.app.config.ui.web.";
+	public static String SECTIONED="org.collectionspace.app.config.spec";
 	public static String WEBUI_ROOT=SECTION_PREFIX+"web";
 	
 	private UIMapping uiMapping;
@@ -127,7 +128,7 @@ public class WebUI implements CSP, UI, Configurable {
 
 	public void configure(Rules rules) throws CSPDependencyException {
 		/* MAIN/ui/web -> UI */
-		rules.addRule("org.collectionspace.app.cfg.main",new String[]{"ui","web"},SECTION_PREFIX+"web",null,new Target(){
+		rules.addRule(SECTIONED,new String[]{"ui","web"},SECTION_PREFIX+"web",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				((CoreConfig)parent).setRoot(WEBUI_ROOT,WebUI.this);
 				if(section.getValue("/tmp-schema-path")!=null) {
