@@ -7,7 +7,7 @@
         <cookievalidformins>60</cookievalidformins>
     </admin>
     <email>
-        <baseurl>http://nightly.collectionspace.org:8180</baseurl>
+        <baseurl>http://localhost:8180</baseurl>
         <from>admin@lifesci.collectionspace.org</from>
         <to></to>
         <!-- if specified then all emails will send to this address - used for debugging -->
@@ -32,7 +32,7 @@
     </email>
     <persistence>
         <service>
-            <url>http://nightly.collectionspace.org:8180/cspace-services</url>
+            <url>http://localhost:8180/cspace-services</url>
 			<tenant>
 				<name>lifesci.collectionspace.org</name>
 				<version>0.1</version>
@@ -49,7 +49,8 @@
 					<language>en</language>
 				</languages>
 			</repository>
-			<ims-url>http://nightly.collectionspace.org:8180/collectionspace/tenant/lifesci/</ims-url> <!-- XXX should be in separate IMS section -->
+			<ims-url>http://localhost:8180/collectionspace/tenant/lifesci/</ims-url> 
+			<!-- XXX should be in separate IMS section -->
         </service>
     </persistence>
     <ui>
