@@ -1,4 +1,4 @@
-<collection-space tenantname="tenant" >
+<cspace-config tenantname="tenant" >
 	
     <version>11</version>
     <include src="local-settings.xml,settings.xml" strip-root="yes"/>
@@ -42,100 +42,8 @@
     		<include src="base-other-idgenerator.xml"/>
     		<include src="base-other-structureddate.xml"/>
     		<include src="base-other-termlist.xml"/>
-            
-
-
-            <!-- XXX best guess for placeauthority - awaiting feedback from service layer and ui layer -->
-            <!--
-                <record id="place" type="authority,compute-displayname">
-                  <web-url>place</web-url>
-                  <services-instances-path>placeauthorities_common:http://collectionspace.org/services/place,placeauthorities-common-list/placeauthority-list-item</services-instances-path>
-                  <services-single-instance-path>placeauthorities_common:http://collectionspace.org/services/place,personauthorities_common</services-single-instance-path>
-                  <services-list-path>http://collectionspace.org/services/place,places-common-list/place_list_item</services-list-path>
-                  <services-record-path>places_common:http://collectionspace.org/services/place,places_common</services-record-path>
-                  <services-url>placeauthorities</services-url>
-                  <urn-syntax>urn:cspace:org.collectionspace.demo:placeauthority:{vocab}:place:{entry}'{display}'</urn-syntax>
-                  <structures>
-                        <structure id="screen">
-                        </structure>
-                  </structures>
-                  <instances>
-                    <instance id="place-place">
-                      <web-url>place</web-url>
-                      <title-ref>place</title-ref>
-                      <title>Default Place Authority</title>
-                    </instance>
-                  </instances>
-
-                  <field id="displayName" in-title="yes" display-name="yes">
-                    <selector>placeAuthority-displayName</selector>
-                    <title-selector>titleBar-displayName</title-selector>
-                  </field>
-
-                  <field id="name">
-                    <selector>placeAuthority-name</selector>
-                  </field>
-
-                  <field id="nameType">
-                    <selector>placeAuthority-nameType</selector>
-                  </field>
-                  <field id="nameStatus">
-                    <selector>placeAuthority-nameStatus</selector>
-                    <options>
-                      <option id="current">Current</option>
-                      <option id="dialect">Dialect</option>
-                      <option id="historical">Historical</option>
-                        </options>
-                  </field>
-                  <field id="placeCoordinates">
-                    <selector>placeAuthority-placeCoordinates</selector>
-                  </field>
-                  <field id="placeCoordinatesQualifier">
-                    <selector>placeAuthority-placeCoordinatesQualifier</selector>
-                  </field>
-                  <field id="coordinatesType">
-                    <selector>placeAuthority-coordinatesType</selector>
-                    <options>
-                      <option id="altitudedepth">Altitude Depth</option>
-                      <option id="latitudeandlongitude">Latitude and longitude</option>
-                      <option id="nationalgridreference">National Grid reference</option>
-                      <option id="universaltransversemercator">Universal Transverse Mercator</option>
-                        </options>
-                  </field>
-                  <field id="placeStatus">
-                    <selector>placeAuthority-placeStatus</selector>
-                    <options>
-                         <option id="nationalbattlefield">National battlefield site</option>
-                         <option id="nationalmemorial">National memorial</option>
-                         <option id="nationalmonument">National monument</option>
-                         <option id="nationalpark">National park</option>
-                         <option id="nationalregisterofhistoricalplaces">National register of historic places</option>
-                    </options>
-                  </field>
-                  <field id="note">
-                    <selector>placeAuthority-note</selector>
-                  </field>
-                  <field id="owner" autocompete="person-person">
-                    <selector>placeAuthority-owner</selector>
-                  </field>
-                  <field id="termStatus">
-                    <selector>placeAuthority-termStatus</selector>
-                    <options>
-                      <option id="provisional">Provisional</option>
-                      <option id="under review">Under Review</option>
-                      <option id="accepted">Accepted</option>
-                      <option id="rejected">Rejected</option>
-                    </options>
-                  </field>
-
-                </record>
--->
-
-
-
-
 
         </records>
 
     </spec>
-</collection-space>
+</cspace-config>
