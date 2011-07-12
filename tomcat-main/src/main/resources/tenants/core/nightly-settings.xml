@@ -49,7 +49,7 @@
 					<language>en</language>
 				</languages>
 			</repository>
-			<ims-url>http://nightly.collectionspace.org:8180/collectionspace/tenant/html/</ims-url> <!-- XXX should be in separate IMS section -->
+			<ims-url>http://nightly.collectionspace.org:8180/collectionspace/tenant/core/</ims-url> <!-- XXX should be in separate IMS section -->
         </service>
     </persistence>
     <ui>

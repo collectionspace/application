@@ -376,7 +376,8 @@ public class TestGeneral extends TestBase {
 	 * Tests a static page
 	 * @throws Exception
 	 */
-	@Test public void testServeStatic() throws Exception {
+	//@Test 
+	public void testServeStatic() throws Exception {
 
 		HttpTester out = GETData("/chain.properties",setupJetty());
 		assertTrue(out.getContent().contains("cspace.chain.store.dir"));
@@ -393,9 +394,9 @@ public class TestGeneral extends TestBase {
 		ServletTester jetty=setupJetty();
 		//ServletTester jetty=setupJetty(false,"tenant2.xml");
 		
-		String csid = "/permission/search?actGrp=CRUDL&_=1307961176046";
+		String csid = "/loanin/search?query=LI2011.1.2%20-%20Justine%20Johnstone&pageSize=10";
 		//http://nightly.collectionspace.org/collectionspace/chain/vocabularies/location/source-vocab/relatedTerm
-		String test = "{    \"termsUsed\": [],   \"relations\": {},    \"csid\": \"\",    \"fields\": {        \"normalLocation\": \"\",        \"de-urned-currentLocation\": \"some location\",        \"movementReferenceNumber\": \"\",        \"csid\": \"8f68e088-5a8d-4ee0-8930\",        \"movementMethods\": [{            \"_primary\": true,            \"movementMethod\": \"\"        }],        \"reasonForMove\": \"\",        \"currentLocation\": \"urn:cspace:org.collectionspace.demo:locationauthority:id(4dd4728d-dbb3-48b6-b2cf):location:id(60e7cf26-5bb2-4f1a-9708)'some+location'\",        \"movementContact\": \"\",        \"currentLocationFitness\": \"\",        \"removalDate\": \"2011-06-01T00:00:00Z\",        \"plannedRemovalDate\": \"2011-06-03T00:00:00Z\",        \"movementNote\": \"sdf sdf\\n sdf sd\\000a nf sdfsdf\\000a n\\000a nsdf\",        \"currentLocationNote\": \"sdf\"    }}";
+		String test = "{\"relations\":{},\"fields\":{\"relatedTerms\":[{\"_primary\":true}],\"nationalities\":[{\"_primary\":true}],\"schoolsOrStyles\":[{\"_primary\":true}],\"title\":\"\",\"termStatus\":\"provisional\",\"gender\":\"\",\"narrowerContexts\":[{\"_primary\":true}],\"groups\":[{\"_primary\":true}],\"occupations\":[{\"_primary\":true}],\"addressType\":\"\",\"salutation\":\"dear\",\"equivalentContexts\":[{}],\"displayName\":\"bob2\"},\"namespace\":\"persontest1\",\"csid\":\"\"}"; 
 		
 		HttpTester out;
 		out = GETData(csid, jetty);
