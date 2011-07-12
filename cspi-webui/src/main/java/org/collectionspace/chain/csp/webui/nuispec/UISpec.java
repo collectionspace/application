@@ -412,7 +412,7 @@ public class UISpec implements WebMethod {
 				JSONObject texpander = new JSONObject();
 				cexpander.put("type", "fluid.renderer.condition");
 				JSONObject condpander = new JSONObject();
-				condpander.put("funcName", "cspace.adminRoles.assertDisplay");
+				condpander.put("funcName", "cspace.admin.assertRoleDisplay");
 				condpander.put("args", "{rowValue}.display");
 
 				cexpander.put("condition", condpander);
