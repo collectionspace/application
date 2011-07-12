@@ -1,6 +1,6 @@
 <collection-space tenantname="tenant" >
 	
-    <version>10</version>
+    <version>11</version>
     <include src="local-settings.xml,settings.xml" strip-root="yes"/>
 	
     <spec>
