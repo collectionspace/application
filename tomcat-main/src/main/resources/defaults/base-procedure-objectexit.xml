@@ -1,0 +1,78 @@
+
+			
+            <!-- CSPACE-3209 added objectexit record. -->
+            <record id="objectexit" in-findedit="yes" type="record,procedure">
+                <!-- Added this tag because services path is currently singular for Object Exit. -->
+                <services-url>objectexit</services-url>
+                <services-tenant-plural>ObjectExit</services-tenant-plural>
+                <services-tenant-singular>ObjectExit</services-tenant-singular>
+                <services-list-path>objectexit-common-list/objectexit-list-item</services-list-path>
+                <services-record-path>objectexit_common:http://collectionspace.org/services/objectexit,objectexit_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <hassoftdelete>true</hassoftdelete>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="false"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <row-selector>.csc-recordList-row:</row-selector>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                </section>
+                <section id="objectexitInformation">
+                    <!--  Object Exit Information Group -->
+                    <field id="exitNumber" chooser="yes" in-title="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                        <options>
+                            <option id="objectexit" sample="EX2010.1">Object Exit</option>
+                        </options>
+                    </field>
+                    <field id="currentOwner" autocomplete="person-person,organization-organization"
+                           mini="summary,list" in-title="yes">
+                    </field>
+                    <field id="depositor" autocomplete="person-person,organization-organization"></field>
+                    <field id="exitDate" ui-type="date"></field>
+                    <repeat id="exitMethods">
+                        <field id="exitMethod">
+                            <selector>objectexit-exitMethods</selector>
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="courier">Courier</option>
+                                <option id="inperson">In Person</option>
+                                <option id="post">Post</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <field id="exitNote"></field>
+                    <field id="exitReason">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="deaccession">Deaccession</option>
+                            <option id="disposal">Disposal</option>
+                            <option id="returnofloan">Return of Loan</option>
+                        </options>
+                    </field>
+                    <field id="packingNote"></field>
+                </section>
+            </record>

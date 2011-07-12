@@ -1,0 +1,172 @@
+<record id="intake" in-findedit="yes" type="record,procedure">
+                <services-url>intakes</services-url>
+                <services-tenant-singular>Intake</services-tenant-singular>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
+                <services-record-path>intakes_common:http://collectionspace.org/services/intake,intakes_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <hassoftdelete>true</hassoftdelete>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="false"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <row-selector>.csc-recordList-row:</row-selector>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                </section>
+                <section id="objectEntryInformation">
+                    <field id="entryNumber" chooser="yes" in-title="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
+                        <selector>intake-entry-number</selector>
+                        <title-selector>titleBar-intake-entry-number</title-selector>
+                        <options>
+                            <option id="intake" sample="IN2009.1">Intake</option>
+                            <option id="study" sample="ST2009.1">Study</option>
+                            <option id="evaluation" sample="EV2009.1">Evaluation</option>
+                        </options>
+                    </field>
+                    <field id="entryDate" ui-type="date">
+                        <selector>intake-entry-date</selector>
+                    </field>
+                    <field id="entryReason" seperate_ui_container="true">
+                        <selector>intake-entry-reason</selector>
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="enquiry">Enquiry</option>
+                            <option id="consideration">Consideration</option>
+                            <option id="commission">Commission</option>
+                            <option id="loan">Loan</option>
+                        </options>
+                    </field>
+                    <repeat id="entryMethods">
+                        <selector>intake-entryMethod</selector>
+                        <field id="entryMethod" autocomplete="vocab-entrymethod" ui-type="enum"></field>
+                    </repeat>
+                    <field id="returnDate" ui-type="date">
+                        <container-selector>intake-returnDate-container</container-selector>
+                    </field>
+                    <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" autocomplete="person-person,organization-organization">
+                        <selector>intake-current-owner</selector>
+                    </field>
+                    <field id="depositor" autocomplete="person-person,organization-organization">
+                        <selector>intake-depositor</selector>
+                    </field>
+                    <field id="depositorsRequirements">
+                        <selector>intake-depositor-requirements</selector>
+                    </field>
+                    <field id="entryNote">
+                        <selector>intake-entry-note</selector>
+                    </field>
+                    <field id="packingNote">
+                        <selector>intake-packing-note</selector>
+                    </field>
+                </section>
+                <section id="objectCollectionInformation">
+                    <field id="fieldCollectionDate" ui-type="date">
+                        <container-selector>intake-fieldCollectionDate-container</container-selector>
+                    </field>
+                    <repeat id="fieldCollectionMethods">
+                        <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
+                    </repeat>
+                    <field id="fieldCollectionNote"></field>
+                    <field id="fieldCollectionNumber"></field>
+                    <field id="fieldCollectionPlace"></field>
+                    <repeat id="fieldCollectionSources">
+                        <field id="fieldCollectionSource" autocomplete="person-person"></field>
+                    </repeat>
+                    <repeat id="fieldCollectors">
+                        <field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
+                    </repeat>
+                    <repeat id="fieldCollectionEventNames">
+                        <field id="fieldCollectionEventName">
+                            <selector>intake-field-collection-event-name</selector>
+                        </field>
+                    </repeat>
+                </section>
+                <section id="valuationInformation">
+                    <field id="valuer" autocomplete="person-person,organization-organization"></field>
+                    <field id="valuationReferenceNumber">
+                        <selector>intake-valuation-reference-number</selector>
+                    </field>
+                </section>
+                <section id="insuranceInformation">
+                    <repeat id="insurers">
+                        <selector>intake-insurer</selector>
+                        <field id="insurer" autocomplete="person-person,organization-organization"></field>
+                    </repeat>
+                    <field id="insurancePolicyNumber">
+                        <selector>intake-insurance-policy-number</selector>
+                    </field>
+                    <field id="insuranceRenewalDate" ui-type="date">
+                        <selector>intake-insurance-renewal-date</selector>
+                    </field>
+                    <field id="insuranceReferenceNumber">
+                        <selector>intake-insurance-reference-number</selector>
+                    </field>
+                    <field id="insuranceNote">
+                        <selector>intake-insurance-note</selector>
+                    </field>
+                </section>
+                <section id="locationInformation">
+                    <repeat id="currentLocationGroupList/currentLocationGroup">
+                        <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
+                        <field id="currentLocation">
+                            <selector>intake-current-location</selector>
+                        </field>
+                        <field id="currentLocationFitness" autocomplete="vocab-conditionfitness" ui-type="enum">
+                            <selector>intake-current-location-fitness</selector>
+                        </field>
+                        <field id="currentLocationNote">
+                            <selector>intake-current-location-note</selector>
+                        </field>
+                    </repeat>
+                    <field id="locationDate" ui-type="date">
+                        <selector>intake-location-date</selector>
+                    </field>
+                    <!--  <field id="normalLocation" autocomplete="location-location, place-place"> -->
+                    <field id="normalLocation">
+                        <selector>intake-normal-location</selector>
+                    </field>
+                </section>
+                <section id="conditionInformation">
+                    <repeat id="conditionCheckMethods">
+                        <field id="conditionCheckMethod" autocomplete="vocab-conditioncheckmethod" ui-type="enum"></field>
+                    </repeat>
+                    <repeat id="conditionCheckReasons">
+                        <field id="conditionCheckReason" autocomplete="vocab-conditioncheckreason" ui-type="enum"></field>
+                    </repeat>
+                    <repeat id="conditionCheckersOrAssessors">
+                        <field id="conditionCheckerOrAssessor" autocomplete="person-person,organization-organization"></field>
+                    </repeat>
+                    <field id="conditionCheckNote">
+                        <selector>intake-condition-check-note</selector>
+                    </field>
+                    <field id="conditionCheckDate" ui-type="date">
+                        <selector>intake-condition-check-date</selector>
+                    </field>
+                    <field id="conditionCheckReferenceNumber">
+                        <selector>intake-condition-check-reference-number</selector>
+                    </field>
+                </section>
+            </record>

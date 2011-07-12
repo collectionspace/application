@@ -1,0 +1,71 @@
+
+            <record id="users" type="userdata">
+                <is-multipart>false</is-multipart>
+                <web-url>users</web-url>
+                <services-tenant-singular>Account</services-tenant-singular>
+                <services-url>accounts</services-url>
+                <services-record-path>:http://collectionspace.org/services/account,accounts_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-list-path>accounts-common-list/account-list-item</services-list-path>
+                <structures>
+                    <structure id="screen">
+                        <!-- screen|print|blackberry etc -->
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="true"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>recordList-row:</selector>
+                            <field id="screenName" ui-type="list">
+                                <selector>user-userList-name</selector>
+                            </field>
+                            <field id="status" ui-type="list">
+                                <selector>user-userList-status</selector>
+                            </field>
+                            <field id="csid" ui-type="list">
+                                <selector>user-userList-csid</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                </section>
+                <section>
+                    <field id="userId">
+                        <services-filter-param>uid</services-filter-param>
+                        <selector>user-userID</selector>
+                    </field>
+                    <field id="screenName">
+                        <services-filter-param>sn</services-filter-param>
+                        <selector>user-userName</selector>
+                    </field>
+                    <field id="password">
+                        <selector>user-password</selector>
+                    </field>
+                    <field id="email">
+                        <services-filter-param>email</services-filter-param>
+                        <selector>user-email</selector>
+                    </field>
+                    <field id="createdAt" />
+                    <field id="status" seperate_ui_container="true">
+                        <selector>user-status</selector>
+                        <options>
+                            <option id="active" default="yes">Active</option>
+                            <option id="inactive">Inactive</option>
+                        </options>
+                    </field>
+                    <repeat id="role" exists-in-services="false" as-expander="true" has-primary="false">
+                        <selector>accountrole-roles-row</selector>
+                        <field id="roleName"></field>
+                        <field id="roleGroup"></field>
+                        <field id="roleId"></field>
+                        <field id="roleSelected"></field>
+                    </repeat>
+                </section>
+            </record>

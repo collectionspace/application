@@ -1,0 +1,55 @@
+
+            <record id="contact" in-recordlist="no" type="authority,compute-displayname">
+                <web-url>contact</web-url>
+                <services-tenant-singular>Contact</services-tenant-singular>
+                <services-instances-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities-common-list/contactauthority-list-item</services-instances-path>
+                <services-single-instance-path>contactauthorities_common:http://collectionspace.org/services/contact,contactauthorities_common</services-single-instance-path>
+                <services-list-path>contacts-common-list/contact-list-item</services-list-path>
+                <services-record-path>contacts_common:http://collectionspace.org/services/contact,contacts_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-url>contacts</services-url>
+                <authority-vocab-type>ContactAuthority</authority-vocab-type>
+                <urn-syntax>urn:cspace:org.collectionspace.demo:contactauthority:{vocab}:contact:{entry}'{display}'</urn-syntax>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                </structures>
+                <instances>
+                    <instance id="contact-primary">
+                        <web-url>contact</web-url>
+                        <title-ref>contact</title-ref>
+                        <title>Default Contact Authority</title>
+                    </instance>
+                </instances>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                </section>
+                <section>
+                    <field id="addressType" autocomplete="vocab-addresstype" ui-type="enum">
+                        <enum>
+                            <blank-value>Please select a value</blank-value>
+                        </enum>
+                        <selector>contactAuthority-addressType</selector>
+                    </field>
+                    <field id="addressPlace">
+                        <selector>contactAuthority-addressPlace</selector>
+                    </field>
+                    <field id="web">
+                        <selector>contactAuthority-web</selector>
+                    </field>
+                    <field id="email">
+                        <selector>contactAuthority-email</selector>
+                    </field>
+                    <field id="telephoneNumber">
+                        <selector>contactAuthority-telephoneNumber</selector>
+                    </field>
+                    <field id="faxNumber">
+                        <selector>contactAuthority-faxNumber</selector>
+                    </field>
+                </section>
+            </record>

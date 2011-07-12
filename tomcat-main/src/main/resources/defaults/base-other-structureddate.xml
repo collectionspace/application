@@ -1,0 +1,102 @@
+
+
+            <record id="structureddate" in-recordlist="no" separate-record="false">
+                <section>
+                    <field id="dateNote">
+                        <selector>dateNote</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateAssociation">
+                        <selector>dateAssociation</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="datePeriod">
+                        <selector>datePeriod</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateDisplayDate">
+                        <selector>dateDisplayDate</selector>
+                        <preselector></preselector>
+                    </field>
+				
+                    <field id="dateEarliestSingleYear">
+                        <selector>dateEarliestSingleYear</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleMonth">
+                        <selector>dateEarliestSingleMonth</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleDay">
+                        <selector>dateEarliestSingleDay</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleEra" autocomplete="vocab-dateera" ui-type="enum">
+                        <selector>dateEarliestSingleEra</selector>
+                        <preselector></preselector>
+                    </field>
+				
+                    <field id="dateEarliestSingleCertainty" autocomplete="vocab-dateCertainty" ui-type="enum">
+                        <selector>dateEarliestSingleCertainty</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleQualifier">
+                        <options>
+                            <option id="+/-">+/-</option>
+                            <option id="+">+</option>
+                            <option id="-">-</option>
+                        </options>
+                        <selector>dateEarliestSingleQualifier</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleQualifierValue">
+                        <selector>dateEarliestSingleQualifierValue</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateEarliestSingleQualifierUnit" autocomplete="vocab-datequalifier" ui-type="enum" >
+                        <selector>dateEarliestSingleQualifierUnit</selector>
+                        <preselector></preselector>
+                    </field>
+				
+				
+                    <field id="dateLatestYear">
+                        <selector>dateLatestYear</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestMonth">
+                        <selector>dateLatestMonth</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestDay">
+                        <selector>dateLatestDay</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestEra" autocomplete="vocab-dateera" ui-type="enum">
+                        <selector>dateLatestEra</selector>
+                        <preselector></preselector>
+                    </field>
+				
+                    <field id="dateLatestCertainty" autocomplete="vocab-dateCertainty" ui-type="enum">
+                        <selector>dateLatestCertainty</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestQualifier">
+                        <options>
+                            <option id="+/-">+/-</option>
+                            <option id="+">+</option>
+                            <option id="-">-</option>
+                        </options>
+                        <selector>dateLatestQualifier</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestQualifierValue">
+                        <selector>dateLatestQualifierValue</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestQualifierUnit" autocomplete="vocab-datequalifier" ui-type="enum" >
+                        <selector>dateLatestQualifierUnit</selector>
+                        <preselector></preselector>
+                    </field>
+				
+                </section>
+            </record>

@@ -1,0 +1,36 @@
+
+            <record id="hierarchy" in-recordlist="no">
+            	
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="hierarchy" show="true"></edit-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
+                </structures>
+				
+            	<section>
+            		<field id="broaderContext"  autocomplete="person-person,location-location"></field>
+            		<repeat id="narrowerContexts">
+            			<field id="narrowerContext" autocomplete="person-person,location-location">
+            				<autocomplete-options>
+            					<strings>
+            						narrowerChange|Warning: %narrower currently has broader term %broader. Change broader term?
+                                </strings>
+                                <funcName>selectMatch|cspace.autocomplete.selectMatchConfirm</funcName>
+                            </autocomplete-options>
+                        </field>
+                    </repeat>
+                    <repeat id="relatedTerms">
+                        <field id="relatedTerm" autocomplete="person-person"></field>
+                    </repeat>
+                </section>
+                <section>
+                    <repeat id="equivalentContexts" as-expander="true">
+                        <field id="equivalentContext" ui-type="hierarchy" attributes="GET"></field>
+                    </repeat>
+                </section>
+            </record>

@@ -1,0 +1,44 @@
+
+            <record id="blobs" in-recordlist="no" type="blob">
+                <services-url>blobs</services-url>
+                <terms-used>false</terms-used>
+                <refobj-used>false</refobj-used>
+                <services-record-path>blobs_common://collectionspace.org/services/blob,blobs_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
+                <hassoftdelete>true</hassoftdelete>
+				
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                </section>
+                <section>
+                    <field id="encoding" attributes="GET"></field>
+                    <field id="mimeType" attributes="GET"></field>
+                    <field id="data" attributes="GET"></field>
+                    <field id="name"></field>
+                    <field id="length" attributes="GET"></field>
+                    <field id="digest"></field>
+                    <field id="uri"></field>
+                    <field id="id"></field>
+                    <repeat id="dimensionGroupList/dimensionGroup" as-expander="true" attributes="GET">
+                        <field id="dimension"></field>
+                        <field id="measuredBy"></field>
+                        <field id="measurementUnit"></field>
+                        <field id="measurementMethod"></field>
+                        <field id="value"></field>
+                        <field id="valueQualifier"></field>
+                        <field id="valueDate"></field>
+                    </repeat>
+                    <field id="imgThumb" attributes="GET" mini="search,list,relate">
+                        <use-csid>ims;download/;/Thumbnail</use-csid>
+                    </field>
+                    <field id="imgMedium" attributes="GET">
+                        <use-csid>ims;download/;/Medium</use-csid>
+                    </field>
+                    <field id="imgOrig" attributes="GET">
+                        <use-csid>ims;download/;/Original</use-csid>
+                    </field>
+                </section>
+            </record>

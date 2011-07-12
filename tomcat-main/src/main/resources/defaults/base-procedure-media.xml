@@ -1,0 +1,175 @@
+
+
+            <record id="media" in-findedit="yes" type="procedure,record">
+                <services-record-path>media_common:http://collectionspace.org/services/media,media_common</services-record-path>
+                <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
+
+                <hassoftdelete>true</hassoftdelete>
+                <structures>
+                    <structure id="screen">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+					</structure>
+                    <structure id="tab">
+                        <view>
+                            <titlebar show="false"></titlebar>
+                            <sidebar show="false"></sidebar>
+                            <edit-section id="details" show="true"></edit-section>
+                            <list-section id="list" show="false"></list-section>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                        <repeat id="list" asSibling="true">
+                            <selector>recordList-row:</selector>
+                            <field id="summary" ui-type="list">
+                                <selector>related-summary</selector>
+                            </field>
+                            <field id="number" ui-type="list">
+                                <selector>related-number</selector>
+                            </field>
+                        </repeat>
+                    </structure>
+                </structures>
+                <section>
+                    <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                </section>
+                <section id="fileInformationHeader"></section> <!-- temp until better way to do group headers -->
+                <section id="fileInformation"></section> <!-- temp until better way to do group headers -->
+                <section id="mediaInformation">
+                    <field id="filename"></field>
+                    <field id="location"></field>
+                    <field id="format"></field>
+                    <field id="dateCreated"></field>
+                    <field id="dateModified"></field>
+                    <field id="externalMediaUrl"></field>
+                    <field id="dimensionSummary"></field>
+                    <repeat id="dimensionGroupList/dimensionGroup">
+                        <field id="dimension">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="area">Area</option>
+                                <option id="base">Base</option>
+                                <option id="circumference">Circumference</option>
+                                <option id="count">Count</option>
+                                <option id="depth">Depth</option>
+                                <option id="diameter">Diameter</option>
+                                <option id="height">Height</option>
+                                <option id="length">Length</option>
+                                <option id="running_time">Running Time</option>
+                                <option id="target">Target</option>
+                                <option id="volume">Volume</option>
+                                <option id="weight">Weight</option>
+                                <option id="width" >Width</option>
+                            </options>
+                        </field>
+                        <field id="measuredBy" autocomplete="person-person,organization-organization"></field>
+                        <field id="measurementUnit">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="carats">Carats</option>
+                                <option id="centimeters">Centimeters</option>
+                                <option id="cubic_centimeters">Cubic Centimeters</option>
+                                <option id="feet">Feet</option>
+                                <option id="inches">Inches</option>
+                                <option id="kilograms">Kilograms</option>
+                                <option id="liters">Liters</option>
+                                <option id="millimeters">Millimeters</option>
+                                <option id="meters">Meters</option>
+                                <option id="minutes">Minutes</option>
+                                <option id="pixels">Pixels</option>
+                                <option id="square_feet">Square Feet</option>
+                                <option id="stories">Stories</option>
+                            </options>
+                        </field>
+                        <field id="measurementMethod">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="microscopy_reticule">Microscopy (reticule)</option>
+                                <option id="standard_mesh_screen">Standard Mesh/Screen</option>
+                                <option id="sliding_calipers">Sliding Calipers</option>
+                                <option id="spreading_calipers">Spreading Calipers</option>
+                                <option id="measuring_tape_cloth">Measuring Tape (cloth)</option>
+                                <option id="measuring_tape_metal">Measuring Tape (metal)</option>
+                                <option id="osteometric_board">Osteometric Board</option>
+                                <option id="ruler">Ruler</option>
+                                <option id="pacing_pedometer">Pacing Pedometer</option>
+                                <option id="odometer">Odometer</option>
+                                <option id="taping_chaining">Taping/Thaining</option>
+                                <option id="stadia_transit">Stadia/Transit</option>
+                                <option id="optical_range_finder">Optical Range Finder</option>
+                                <option id="electronic_distance_measurement">Electronic Distance Measurement</option>
+                                <option id="protractor">Protractor</option>
+                                <option id="goniometer">Goniometer</option>
+                                <option id="theodolite_total_station">Theodolite/Total Station</option>
+                                <option id="balance_beam_scale">Balance/Beam Scale</option>
+                                <option id="spring_scale">Spring Scale</option>
+                                <option id="hydraulic_or_pneumatic_scale">Hydraulic or Pneumatic Scale</option>
+                            </options>
+                        </field>
+                        <field id="value"></field>
+                        <field id="valueQualifier"></field>
+                        <field id="valueDate" ui-type="date"></field>
+                    </repeat>
+                    <field id="title" mini="summary,search,list,relate"></field>
+                    <field id="contributor" autocomplete="person-person,organization-organization"></field>
+                    <field id="creator" autocomplete="person-person,organization-organization"></field>
+                    <repeat id="languages">
+                        <services-tag>languageList</services-tag>
+                        <field id="language" autocomplete="vocab-languages" ui-type="enum">
+                        <enum>
+                            <default>eng</default>
+                        </enum>
+						</field>
+                    </repeat>
+                    <field id="publisher" autocomplete="person-person,organization-organization"></field>
+                    <repeat id="relations">
+                        <services-tag>relationList</services-tag>
+                        <field id="relation"></field>
+                    </repeat>
+                    <field id="copyrightStatement"></field>
+                    <field id="identificationNumber" chooser="yes" in-title="yes" mini="number,search,list,relate" seperate_ui_container="true">
+                        <options>
+                            <option id="media" sample="MR2011.1.1">Media Resource</option>
+                        </options>
+                    </field>
+                    <repeat id="types">
+                        <services-tag>typeList</services-tag>
+                        <field id="type">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="dataset" >Dataset</option>
+                                <option id="document" >Document</option>
+                                <option id="moving_image" >Moving Image</option>
+                                <option id="still_image" >Still Image</option>
+                                <option id="sound" >Sound</option>
+                            </options>
+                        </field>
+                    </repeat>
+                    <field id="coverage"></field>
+                    <repeat id="dates">
+                        <services-tag>dateList</services-tag>
+                        <field id="date" ui-type="date"></field>
+                    </repeat>
+                    <field id="source"></field>
+                    <repeat id="subjects">
+                        <services-tag>subjectList</services-tag>
+                        <field id="subject"></field>
+                    </repeat>
+                    <field id="rightsHolder" autocomplete="person-person,organization-organization"></field>
+                    <field id="description"></field>
+                </section>
+                <!-- not used in ui yet -->
+                <section>
+                    <field id="uri"></field>
+                    <field id="srcUri"></field>
+                    <field id="blobCsid"></field>
+					
+                    <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false">
+                        <use-csid id="blobCsid">ims;download/;/Thumbnail</use-csid>
+                    </field>
+                    <group id="blobs" ui-type="uploader" userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs" with-csid="blobCsid"/>
+                </section>
+            </record>
