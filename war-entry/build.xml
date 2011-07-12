@@ -11,14 +11,18 @@
 	</target>
 
 	<target name="deploy_cspace_config" description="Copies the war and xml file to their locations">
-		  <copy todir="${config_destination}/tenants">
-	        <fileset dir="${app_trunk}/tomcat-main/src/main/resources/tenants/" includes="**"/>
-	      </copy>
-		  <copy todir="${config_destination}/defaults">
-	        <fileset dir="${app_trunk}/tomcat-main/src/main/resources/defaults/" includes="**"/>
-	      </copy>
-      <copy file="${app_trunk}/tomcat-main/src/main/resources/core-tenant.xml" tofile="${config_destination}/cspace-config-core.xml" />
-      <copy file="${app_trunk}/tomcat-main/src/main/resources/lifesci-tenant.xml" tofile="${config_destination}/cspace-config-lifesci.xml" />
+		<copy todir="${config_destination}/tenants">
+			<fileset dir="${app_trunk}/tomcat-main/src/main/resources/tenants/" includes="**"/>
+		</copy>
+		<copy todir="${config_destination}/defaults">
+			<fileset dir="${app_trunk}/tomcat-main/src/main/resources/defaults/" includes="**"/>
+		</copy>
+
+		<copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/core/nightly-settings.xml" tofile="${config_destination}/tenants/core/local-settings.xml" />
+		<copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/lifesci/nightly-settings.xml" tofile="${config_destination}/tenants/lifesci/local-settings.xml" />
+	      
+		<copy file="${app_trunk}/tomcat-main/src/main/resources/core-tenant.xml" tofile="${config_destination}/cspace-config-core.xml" />
+		<copy file="${app_trunk}/tomcat-main/src/main/resources/lifesci-tenant.xml" tofile="${config_destination}/cspace-config-lifesci.xml" />
 	</target>
 
 	<target name="retrieve_jar" description="Retrieves the JAR for command-line use">
