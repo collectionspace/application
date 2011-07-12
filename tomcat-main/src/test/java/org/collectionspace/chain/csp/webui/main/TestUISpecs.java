@@ -112,6 +112,7 @@ public class TestUISpecs extends TestBase {
 		//uispec(jetty, "/location/uischema", "location.uischema");
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
 		uispec(jetty, "/namespaces/uischema", "namespaces.uischema");
+		uispec(jetty, "/termlist/uischema", "termlist.uischema");
 
 		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
 		uispec(jetty, "/media/uischema", "media.uischema");
@@ -134,7 +135,8 @@ public class TestUISpecs extends TestBase {
 //	uispec(jetty, "/cataloging/uispec", "hierarchy.uispec");
 //		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
 
-		uispec(jetty, "/location/uispec", "location.uispec");
+//		uispec(jetty, "/termlist/uispec", "location.uispec");
+		uispec(jetty, "/role/uispec", "roles.uispec");
 		
 		uispec(jetty, "/users/uispec", "users.uispec");
 		uispec(jetty, "/role/uispec", "roles.uispec");
@@ -144,6 +146,7 @@ public class TestUISpecs extends TestBase {
 		
 		uispec(jetty, "/cataloging/uispec", "collection-object.uispec");
 		uispec(jetty, "/person/uispec", "person.uispec");
+		uispec(jetty, "/location/uispec", "location.uispec");
 //		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
 		
 		
@@ -154,7 +157,8 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/movement/uispec", "movement.uispec");
 		uispec(jetty, "/objectexit/uispec", "objectexit.uispec");
 		uispec(jetty, "/media/uispec", "media.uispec");
-		
+
+//		uispec(jetty, "/termlist/uispec", "termlist.uispec");
 		
 /*
  * 		These can probably be renabled, but will need specs updating from nightly.

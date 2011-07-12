@@ -29,19 +29,19 @@
                                 "_primary": {
                                     "type": "boolean"
                                 },
-                                "name": {
+                                "termName": {
                                     "type": "string"
                                 },
-                                "description": {
+                                "termDescription": {
                                     "type": "string"
                                 },
-                                "source": {
+                                "termSource": {
                                     "type": "string"
                                 },
-                                "sourcePage": {
+                                "termSourcePage": {
                                     "type": "string"
                                 },
-                                "status": {
+                                "termStatus": {
                                     "type": "string",
                                     "default": "active"
                                 }
@@ -50,9 +50,12 @@
                         },
                         "type": "array"
                     },
-                    "usedBy": {
+                    "usedBys": {
                         "items": {
                             "properties": {
+                                "_primary": {
+                                    "type": "boolean"
+                                },
                                 "usedBy": {
                                     "type": "string"
                                 }
