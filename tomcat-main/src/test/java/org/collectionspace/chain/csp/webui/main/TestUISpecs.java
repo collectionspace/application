@@ -127,6 +127,7 @@ public class TestUISpecs extends TestBase {
 	public void testUISpec() throws Exception {
 		ServletTester jetty = setupJetty();
 
+		// XXX this is a mess, the tests are getting too delapidated! -- dan
 
 		//		 uispec(jetty,"/location/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
@@ -142,7 +143,12 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/role/uispec", "roles.uispec");
 		uispec(jetty, "/permission/uispec", "permissions.uispec");
 		uispec(jetty, "/permrole/uispec", "permroles.uispec");
-		
+
+		/*
+		 * 		These can probably be renabled, but will need specs updating from nightly.
+		 * 		These tests are much too delapidated!. -- dan
+		 * 		
+
 		
 		uispec(jetty, "/cataloging/uispec", "collection-object.uispec");
 		uispec(jetty, "/person/uispec", "person.uispec");
@@ -159,12 +165,7 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/media/uispec", "media.uispec");
 
 //		uispec(jetty, "/termlist/uispec", "termlist.uispec");
-		
-/*
- * 		These can probably be renabled, but will need specs updating from nightly.
- * 		I don't have the time or energy to do them at the moment. -- dan
- * 		
-		
+				
 
 		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
 		

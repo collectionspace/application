@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.codec.binary.Base64;
 import org.collectionspace.chain.csp.persistence.services.GenericStorage;
 import org.collectionspace.chain.csp.persistence.services.XmlJsonConversion;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
@@ -45,8 +46,6 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
-
 /**
  * Implements user service connection over service layer. Generally simply a
  * much simpler version of regular record storage, but also uses non-multiparts.
@@ -71,7 +70,7 @@ public class UserStorage extends GenericStorage {
 			if (in.has("password")) {
 				String password = in.getString("password");
 				in.remove("password");
-				password = Base64.encode(password.getBytes("UTF-8"));
+				password = new String(Base64.encodeBase64(password.getBytes("UTF-8")),"UTF-8");
 				while (password.endsWith("\n") || password.endsWith("\r"))
 					password = password.substring(0, password.length() - 1);
 				in.put("password", password);
