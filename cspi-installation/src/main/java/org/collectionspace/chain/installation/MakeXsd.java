@@ -140,7 +140,7 @@ public class MakeXsd {
 			if (minis != null && !minis.equals("")) {
 				for (FieldSet flds : record.getMiniDataSetByName(minis)) {
 					searchflds.add(flds.getServicesTag());
-					log.info(flds.getServicesTag());
+					//log.info(flds.getServicesTag());
 				}
 			}
 		}
