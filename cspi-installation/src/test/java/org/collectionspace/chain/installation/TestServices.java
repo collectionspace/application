@@ -8,9 +8,11 @@ import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
 import org.collectionspace.chain.csp.persistence.services.TenantSpec;
+import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.container.CSPManager;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
@@ -31,14 +33,14 @@ public class TestServices {
 		}
 	}
 	
-	private Spec getSpec(String filename, CSPManager cspm){
+	private Spec getSpec(CSPManager cspm){
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
 		return spec;
 	}
 
-	private TenantSpec getTenantData(String filename, CSPManager cspm) {
+	private TenantSpec getTenantData(CSPManager cspm) {
 		
 		ServicesStorageGenerator gen=(ServicesStorageGenerator)cspm.getStorage("service");
 		TenantSpec td = gen.getTenantData();
@@ -62,17 +64,28 @@ public class TestServices {
 	}
 	@Test public void testServices(){
 
-		String filename = "default.xml";
-		CSPManager cspm=getServiceManager(filename);
-		//tenant specific
-		Services tenantbob = new Services(getSpec(filename,cspm), getTenantData(filename,cspm),false);
-		
-		//common file
-		Services commonbob = new Services(getSpec(filename,cspm), getTenantData(filename,cspm),true);
+		String configfile = "default.xml";
+		String recordtype = "collectionobjects"; //these are service names for the record/procedure
+		String domain = "collectionspace_core"; // this is either domain or collectionspace_core
+		String maketype = "core"; // this is either delta or core
 
-		log.info("tenant1");
-		tenantbob.doit();
-		log.info("common");
-		commonbob.doit();
+		log.info("new system");
+		try {
+			XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype);
+			log.info(s.getFile());
+		} catch (UIException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		maketype = "delta"; //this might not be delta - but it will be one day
+		try {
+			XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype);
+			log.info(s.getFile());
+		} catch (UIException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 	}
 }
