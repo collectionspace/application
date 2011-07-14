@@ -14,7 +14,7 @@
                 "type": "array"
             },
             "administration": {
-                "default": ["role", "users"],
+                "default": ["role","termlist", "users"],
                 "type": "array"
             }
         },

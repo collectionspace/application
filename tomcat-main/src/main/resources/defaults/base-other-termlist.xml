@@ -1,6 +1,6 @@
 
 			
-            <record id="termlist" in-recordlist="no" type="authorizationdata">
+            <record id="termlist" type="authorizationdata">
             	
                 <structures>
                     <structure id="screen">
