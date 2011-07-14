@@ -68,10 +68,13 @@ public class WebReset implements WebMethod {
 					}
 					
 					// ignore authorization
-					if("termlist".equals(dir) ||"rolePermission".equals(dir) || "accountrole".equals(dir)  || "userperm".equals(dir)|| "permrole".equals(dir) || "permission".equals(dir) || "role".equals(dir)|| "userrole".equals(dir) || "users".equals(dir) ){
+					if("rolePermission".equals(dir) || "accountrole".equals(dir)  || "userperm".equals(dir)|| "permrole".equals(dir) || "permission".equals(dir) || "role".equals(dir)|| "userrole".equals(dir) || "users".equals(dir) ){
 						continue;
 					}
-					
+
+					// ignore other - tho we do need to clean these up
+					if("termlist".equals(dir) || "reporting".equals(dir)  )
+						continue;
 					// ignore other - tho we do need to clean these up
 					if("hierarchy".equals(dir) || "dimension".equals(dir) ||"structureddate".equals(dir)  ||"blobs".equals(dir) ||"relations".equals(dir) || "direct".equals(dir) || "id".equals(dir) )
 						continue;
