@@ -161,7 +161,7 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/objectexit/uispec", "objectexit.uispec");
 		uispec(jetty, "/media/uispec", "media.uispec");
 
-//		uispec(jetty, "/termlist/uispec", "termlist.uispec");
+		uispec(jetty, "/termlist/uispec", "termlist.uispec");
 				
 
 //		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
