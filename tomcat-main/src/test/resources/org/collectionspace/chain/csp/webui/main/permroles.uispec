@@ -1,8 +1,29 @@
 {
     "details": {
+        ".csc-permrole-actionGroup-label": {
+            "messagekey": "permrole-actionGroupLabel"
+        },
+        ".csc-permrole-roleId-label": {
+            "messagekey": "permrole-roleIdLabel"
+        },
+        ".csc-permrole-permissionId-label": {
+            "messagekey": "permrole-permissionIdLabel"
+        },
+        ".csc-permrole-role-label": {
+            "messagekey": "permrole-roleLabel"
+        },
+        ".csc-permrole-roleName-label": {
+            "messagekey": "permrole-roleNameLabel"
+        },
+        ".csc-permrole-resourceName-label": {
+            "messagekey": "permrole-resourceNameLabel"
+        },
         ".csc-permrole-role": {
             ".csc-permrole-roleId": "${{row}.roleId}",
             ".csc-permrole-roleName": "${{row}.roleName}"
+        },
+        ".csc-permrole-domaindata-label": {
+            "messagekey": "permrole-domaindataLabel"
         },
         ".csc-permrole-permission": {
             "decorators": [{
@@ -30,6 +51,9 @@
                     }
                 }
             }]
+        },
+        ".csc-permrole-permission-label": {
+            "messagekey": "permrole-permissionLabel"
         }
     },
     "list": {}

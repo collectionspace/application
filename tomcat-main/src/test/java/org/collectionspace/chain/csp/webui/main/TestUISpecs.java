@@ -110,6 +110,7 @@ public class TestUISpecs extends TestBase {
 		//ServletTester jetty=setupJetty(false,"tenant1.xml");
 
 		//uispec(jetty, "/location/uischema", "location.uischema");
+		//uispec(jetty, "/reporting/uischema", "recordlist.uischema");
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
 		uispec(jetty, "/namespaces/uischema", "namespaces.uischema");
 		uispec(jetty, "/termlist/uischema", "termlist.uischema");
@@ -144,10 +145,6 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/permission/uispec", "permissions.uispec");
 		uispec(jetty, "/permrole/uispec", "permroles.uispec");
 
-		/*
-		 * 		These can probably be renabled, but will need specs updating from nightly.
-		 * 		These tests are much too delapidated!. -- dan
-		 * 		
 
 		
 		uispec(jetty, "/cataloging/uispec", "collection-object.uispec");
@@ -167,13 +164,13 @@ public class TestUISpecs extends TestBase {
 //		uispec(jetty, "/termlist/uispec", "termlist.uispec");
 				
 
-		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
+//		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
 		
 
-		uispec(jetty, "/cataloging-tab/uispec", "cataloging-tab.uispec");
-		uispec(jetty, "/movement-tab/uispec", "movement-tab.uispec");
-		//		
-*/
+//		uispec(jetty, "/cataloging-tab/uispec", "cataloging-tab.uispec");
+//		uispec(jetty, "/movement-tab/uispec", "movement-tab.uispec");
+			
+
 		uispec(jetty, "/myCollectionSpace/uispec", "find-edit.uispec");
 
 	}
