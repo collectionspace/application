@@ -43,8 +43,8 @@ public class Services {
 		this.domainsection = "common";
 	}
 
-	public void doit() {
-		doServiceBindingsCommon();
+	public String  doit() {
+		return doServiceBindingsCommon();
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class Services {
 	 * 
 	 * @return
 	 */
-	private void doServiceBindingsCommon() {
+	private String doServiceBindingsCommon() {
 		
 		
 		Document doc = DocumentFactory.getInstance().createDocument();
@@ -68,9 +68,9 @@ public class Services {
 
 		Element root = doc.addElement(new QName("TenantBindingConfig", this.nstenant));
 		root.addAttribute("xsi:schemaLocation", this.schemaloc);
-		root.add(this.nsservices);
+//		root.add(this.nsservices);
 		root.add(this.nsxsi);
-		root.add(this.nstypes);
+//		root.add(this.nstypes);
 		
 
 
@@ -139,8 +139,7 @@ public class Services {
 		//addExtras();
 		
 		
-		log.info(doc.asXML());
-		return ;
+		return doc.asXML();
 	}
 
 	/**
