@@ -1,0 +1,27 @@
+
+
+<record id="reporting" in-recordlist="no" type="authorizationdata">
+	
+    <structures>
+        <structure id="screen">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+
+                <titlebar show="false"></titlebar>
+                <sidebar show="false"></sidebar>
+                <edit-section id="details" show="false"></edit-section>
+                <list-section id="list" show="true"></list-section>
+            </view>
+        </structure>
+    </structures>
+	
+	<include src="domain-other-reporting.xml" />
+	
+    <section>
+    	<field id="name"></field>
+    	<field id="source"></field>
+    	<field id="description"></field>
+    </section>
+	
+</record>
+

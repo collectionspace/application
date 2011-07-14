@@ -14,6 +14,7 @@
                         <view>
                             <titlebar show="false"></titlebar>
                             <sidebar show="false"></sidebar>
+                            <label-section id="messagekeys" show="true"></label-section>
                         </view>
                     </structure>
                 </structures>
