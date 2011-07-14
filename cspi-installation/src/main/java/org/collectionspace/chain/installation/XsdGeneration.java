@@ -1,7 +1,5 @@
 package org.collectionspace.chain.installation;
 
-import static org.junit.Assert.assertNotNull;
-
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.ServicesStorageGenerator;
@@ -59,7 +57,6 @@ public class XsdGeneration {
 	private Spec getSpec(CSPManager cspm){
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
-		assertNotNull(spec);
 		return spec;
 	}
 

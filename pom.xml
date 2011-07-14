@@ -19,6 +19,7 @@
     <module>cspi-webui</module>
     <module>cspi-file</module>
     <module>cspi-services</module>
+    <module>cspi-installation</module>
 
     <module>tomcat-main</module>
     <module>war-entry</module>
