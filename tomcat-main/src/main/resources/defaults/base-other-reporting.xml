@@ -1,7 +1,8 @@
 
 
-<record id="reporting" in-recordlist="no" type="authorizationdata">
-	
+<record id="reports" in-recordlist="no" type="authorizationdata">
+	<web-url>reporting</web-url>
+                
     <structures>
         <structure id="screen">
             <view>
