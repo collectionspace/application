@@ -73,6 +73,7 @@ public class Record implements FieldParent {
 		// record,authority,compute-displayname can have multiple types using
 		// commas
 		this.initSet(section,"@type",new String[] { "record" });
+		this.initStrings(section,"showin","");
 
 		// specified that it is included in the findedit uispec
 		this.initBoolean(section,"@in-findedit",false);
@@ -237,6 +238,14 @@ public class Record implements FieldParent {
 		return getString("tab-url");
 	}
 
+	public boolean isShowType(String k){
+		if(getString("showin").equals("")){
+			return getSet("@type").contains(k);
+		}
+		else{
+			return getString("showin").equals(k);
+		}
+	}
 	public boolean isType(String k) {
 		return getSet("@type").contains(k);
 	}

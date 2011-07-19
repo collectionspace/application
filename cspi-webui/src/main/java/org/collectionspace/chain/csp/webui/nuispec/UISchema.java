@@ -210,14 +210,14 @@ public class UISchema extends UISpec {
 				JSONObject schema = new JSONObject();
 				JSONArray recrds = new JSONArray();
 				for(Record rc : this.spec.getAllRecords()){
-					if(rc.isType("authority")){
+					if(rc.isShowType("authority")){
 						if(rc.isInRecordList()){
 							for(Instance ins : rc.getAllInstances()){
 								recrds.put(ins.getWebURL());
 							}
 						}
 					}
-					else if(rc.isType("record")||rc.isType("procedure")){
+					else if(rc.isShowType("record")||rc.isShowType("procedure")){
 						if(rc.isInRecordList()){
 							recrds.put(rc.getWebURL());
 						}
@@ -233,7 +233,7 @@ public class UISchema extends UISpec {
 
 				for (Record rc : this.spec.getAllRecords()) {
 					if (rc.isInRecordList()) {
-						if (rc.isType("authority")) {
+						if (rc.isShowType("authority")) {
 							JSONArray insta = new JSONArray();
 							for(Instance ins : rc.getAllInstances()){
 								insta.put(ins.getWebURL());
@@ -292,15 +292,15 @@ public class UISchema extends UISpec {
 				 */
 				for (Record rc : this.spec.getAllRecords()) {
 					if (rc.isInRecordList()) {
-						if (rc.isType("procedure")) {
+						if (rc.isShowType("procedure")) {
 							precrds.put(rc.getWebURL());
-						} else if (rc.isType("authority")) {
+						} else if (rc.isShowType("authority")) {
 							for(Instance ins : rc.getAllInstances()){
 								arecrds.put(ins.getWebURL());
 							}
-						} else if (rc.isType("record")) {
+						} else if (rc.isShowType("record")) {
 							crecrds.put(rc.getWebURL());
-						} else if(rc.isType("authorizationdata") || rc.isType("userdata")){
+						} else if(rc.isShowType("authorizationdata") || rc.isShowType("userdata")){
 							adrecrds.put(rc.getWebURL());
 						}
 					}
