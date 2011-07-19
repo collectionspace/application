@@ -1,54 +1,21 @@
 {
     "termlist": {
         "properties": {
-            "relations": {
-                "default": {},
-                "type": "object"
-            },
             "termsUsed": {
                 "default": [],
                 "type": "array"
+            },
+            "relations": {
+                "default": {},
+                "type": "object"
             },
             "csid": {
                 "type": "string"
             },
             "fields": {
                 "properties": {
-                    "name": {
+                    "shortIdentifier": {
                         "type": "string"
-                    },
-                    "source": {
-                        "type": "string"
-                    },
-                    "description": {
-                        "type": "string"
-                    },
-                    "terms": {
-                        "items": {
-                            "properties": {
-                                "_primary": {
-                                    "type": "boolean"
-                                },
-                                "termName": {
-                                    "type": "string"
-                                },
-                                "termDescription": {
-                                    "type": "string"
-                                },
-                                "termSource": {
-                                    "type": "string"
-                                },
-                                "termSourcePage": {
-                                    "type": "string"
-                                },
-                                "termStatus": {
-                                    "type": "string",
-                                    "default": "active"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "type": "array"
                     },
                     "usedBys": {
                         "items": {
@@ -63,6 +30,45 @@
                             "type": "object"
                         },
                         "type": "array"
+                    },
+                    "source": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "terms": {
+                        "items": {
+                            "properties": {
+                                "termName": {
+                                    "type": "string"
+                                },
+                                "_primary": {
+                                    "type": "boolean"
+                                },
+                                "termSourcePage": {
+                                    "type": "string"
+                                },
+                                "termSource": {
+                                    "type": "string"
+                                },
+                                "termStatus": {
+                                    "default": "active",
+                                    "type": "string"
+                                },
+                                "termDescription": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "displayName": {
+                        "type": "string"
                     }
                 },
                 "type": "object"

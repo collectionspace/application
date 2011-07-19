@@ -1,42 +1,62 @@
+<record id="termlist" in-recordlist="no" type="record,procedure">
+    <web-url>termlist</web-url>
+    <services-url>vocabularies</services-url>
+    <services-tenant-plural>Vocabularies</services-tenant-plural>
+    <services-tenant-singular>Vocabulary</services-tenant-singular>
+	<services-list-path>vocabularies-common-list/vocabulary-list-item</services-list-path>
+    <services-record-path id="common">vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-record-path>
+                
+   	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+                
+	
+    <structures>
+        <structure id="screen">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
 
-			
-            <record id="termlist" type="authorizationdata">
-            	
-                <structures>
-                    <structure id="screen">
-                        <view>
-                            <label-section id="messagekeys" show="true"></label-section>
-
-                            <titlebar show="false"></titlebar>
-                            <sidebar show="false"></sidebar>
-                            <edit-section id="details" show="true"></edit-section>
-                            <list-section id="list" show="true"></list-section>
-                        </view>
-                    </structure>
-                </structures>
-				
-				<include src="domain-other-termlist.xml" />
-				
-                <section>
-                	<field id="name"></field>
-                	<field id="source"></field>
-                	<field id="description"></field>
-					<repeat id="terms">
-						<field id="termName"></field>
-						<field id="termDescription"></field>
-						<field id="termSource"></field>
-						<field id="termSourcePage"></field>
-						<field id="termStatus" >
-                        <options>
-                            <option id="active" default="yes">Active</option>
-                            <option id="inactive">Inactive</option>
-                        </options>
-						</field>
-					</repeat>
-	            <repeat id="usedBys" as-expander="true">
-	                <field id="usedBy" ui-type="decorated"></field>
-	            </repeat>
-                </section>
-				
-            </record>
+                <titlebar show="false"></titlebar>
+                <sidebar show="false"></sidebar>
+                <edit-section id="details" show="true"></edit-section>
+                <list-section id="list" show="true"></list-section>
+            </view>
+            <repeat id="list" asSibling="true">
+                <selector>recordList-row:</selector>
+                <field id="number" ui-type="list">
+                    <selector>user-roleList-name</selector>
+                </field>
+                <field id="csid" ui-type="list">
+                    <selector>user-roleList-csid</selector>
+                </field>
+            </repeat>
+        </structure>
+    </structures>
+	
+	<include src="domain-other-termlist.xml" />
+	
+    <section>
+    	
+    	<field id="displayName" mini="summary"></field>
+    	<field id="shortIdentifier" mini="number"></field>
+		
+    	<field id="name"></field>
+    	<field id="source"></field>
+    	<field id="description"></field>
+		<repeat id="terms" exists-in-services="false" >
+			<field id="termName"></field>
+			<field id="termDescription"></field>
+			<field id="termSource"></field>
+			<field id="termSourcePage"></field>
+			<field id="termStatus" >
+            <options>
+                <option id="active" default="yes">Active</option>
+                <option id="inactive">Inactive</option>
+            </options>
+			</field>
+		</repeat>
+    <repeat id="usedBys" as-expander="true">
+        <field id="usedBy" ui-type="decorated"></field>
+    </repeat>
+    </section>
+	
+</record>
 

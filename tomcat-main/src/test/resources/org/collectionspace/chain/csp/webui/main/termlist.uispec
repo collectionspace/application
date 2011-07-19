@@ -1,11 +1,17 @@
 {
     "details": {
-        ".csc-termlist-name": "${fields.name}",
-        ".csc-termlist-termSourcePage-label": {
-            "messagekey": "termlist-termSourcePageLabel"
+        ".csc-termlist-csid-label": {
+            "messagekey": "termlist-csidLabel"
         },
         ".csc-termlist-termStatus-label": {
             "messagekey": "termlist-termStatusLabel"
+        },
+        ".csc-termlist-termSourcePage-label": {
+            "messagekey": "termlist-termSourcePageLabel"
+        },
+        ".csc-termlist-name": "${fields.name}",
+        ".csc-termlist-displayName-label": {
+            "messagekey": "termlist-displayNameLabel"
         },
         ".csc-termlist-domaindata-label": {
             "messagekey": "termlist-domaindataLabel"
@@ -21,6 +27,10 @@
         },
         ".csc-termlist-description-label": {
             "messagekey": "termlist-descriptionLabel"
+        },
+        ".csc-termlist-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-termlist-number-label": {
+            "messagekey": "termlist-numberLabel"
         },
         ".csc-termlist-terms": {
             "decorators": [{
@@ -56,6 +66,7 @@
                 }
             }]
         },
+        ".csc-termlist-displayName": "${fields.displayName}",
         ".csc-termlist-termSource-label": {
             "messagekey": "termlist-termSourceLabel"
         },
@@ -74,6 +85,9 @@
             "pathAs": "row",
             "controlledBy": "fields.usedBys"
         },
+        ".csc-termlist-shortIdentifier-label": {
+            "messagekey": "termlist-shortIdentifierLabel"
+        },
         ".csc-termlist-termName-label": {
             "messagekey": "termlist-termNameLabel"
         },
@@ -87,5 +101,12 @@
             "messagekey": "termlist-nameLabel"
         }
     },
-    "list": {}
+    "list": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-user-roleList-csid": "${items.0.csid}",
+                ".csc-user-roleList-name": "${items.0.number}"
+            }]
+        }
+    }
 }
