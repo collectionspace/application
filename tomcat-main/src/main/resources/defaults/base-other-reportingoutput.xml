@@ -1,0 +1,30 @@
+
+
+<record id="output" in-recordlist="no" type="authorizationdata">
+    <web-url>invokereport</web-url>
+    <services-url>reports/*/output</services-url>
+    <services-record-path>invocationContext:http://collectionspace.org/services/common/invocable,invocationContext</services-record-path>
+    <structures>
+        <structure id="screen">
+            <view>
+                <titlebar show="false"></titlebar>
+                <sidebar show="false"></sidebar>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+    </structures>
+	
+	<include src="domain-other-reportingoutput.xml" />
+	
+    <section>
+    
+        <field id="docType"></field>
+        <field id="mode"></field>
+        <field id="singleCSID"></field>
+        <field id="groupCSID"></field>
+		<repeat id="listCSIDs">
+			<field id="csid"></field>
+		</repeat>
+    </section>
+</record>
+			
