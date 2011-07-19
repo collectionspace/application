@@ -1,0 +1,44 @@
+{
+    "details": {
+        ".csc-reports-supportsSingleDoc-label": {
+            "messagekey": "reports-supportsSingleDocLabel"
+        },
+        ".csc-reports-supportsDocList": "${fields.supportsDocList}",
+        ".csc-reports-outputMIME-label": {
+            "messagekey": "reports-outputMIMELabel"
+        },
+        ".csc-reports-filename-label": {
+            "messagekey": "reports-filenameLabel"
+        },
+        ".csc-reports-outputMIME": "${fields.outputMIME}",
+        ".csc-reports-supportsSingleDoc": "${fields.supportsSingleDoc}",
+        ".csc-reports-notes": "${fields.notes}",
+        ".csc-reports-name": "${fields.name}",
+        ".csc-reports-forDocType": "${fields.forDocType}",
+        ".csc-reports-filename": "${fields.filename}",
+        ".csc-reports-domaindata-label": {
+            "messagekey": "reports-domaindataLabel"
+        },
+        ".csc-reports-supportsNoContext-label": {
+            "messagekey": "reports-supportsNoContextLabel"
+        },
+        ".csc-reports-supportsNoContext": "${fields.supportsNoContext}",
+        ".csc-reports-supportsDocList-label": {
+            "messagekey": "reports-supportsDocListLabel"
+        },
+        ".csc-reports-supportsGroup": "${fields.supportsGroup}",
+        ".csc-reports-supportsGroup-label": {
+            "messagekey": "reports-supportsGroupLabel"
+        },
+        ".csc-reports-name-label": {
+            "messagekey": "reports-nameLabel"
+        },
+        ".csc-reports-forDocType-label": {
+            "messagekey": "reports-forDocTypeLabel"
+        },
+        ".csc-reports-notes-label": {
+            "messagekey": "reports-notesLabel"
+        }
+    },
+    "list": {}
+}

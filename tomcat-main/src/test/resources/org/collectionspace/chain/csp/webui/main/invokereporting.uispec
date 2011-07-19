@@ -1,0 +1,54 @@
+{
+    "recordEditor": {
+        ".csc-output-mode-label": {
+            "messagekey": "output-modeLabel"
+        },
+        ".csc-output-csid": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.listCSIDs",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-output-csid": "${{row}.csid}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.listCSIDs"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-output-singleCSID": "${fields.singleCSID}",
+        ".csc-output-listCSIDs-label": {
+            "messagekey": "output-listCSIDsLabel"
+        },
+        ".csc-output-domaindata-label": {
+            "messagekey": "output-domaindataLabel"
+        },
+        ".csc-output-groupCSID-label": {
+            "messagekey": "output-groupCSIDLabel"
+        },
+        ".csc-output-csid-label": {
+            "messagekey": "output-csidLabel"
+        },
+        ".csc-output-docType": "${fields.docType}",
+        ".csc-output-groupCSID": "${fields.groupCSID}",
+        ".csc-output-mode": "${fields.mode}",
+        ".csc-output-docType-label": {
+            "messagekey": "output-docTypeLabel"
+        },
+        ".csc-output-singleCSID-label": {
+            "messagekey": "output-singleCSIDLabel"
+        }
+    }
+}
