@@ -30,6 +30,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
@@ -125,6 +126,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	}
 	
 	private void resetvocabdata(Storage storage,UIRequest request, Instance instance) throws UIException {
+		TTYOutputter tty=request.getTTYOutputter();
+
+		tty.line("Initializing Vocab "+instance.getID());
 		//Where do we get the list from?
 		//from Spec
 		Option[] allOpts = instance.getAllOptions();
@@ -132,8 +136,10 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		//but first check: do we have a path?
 		Set<String> args = request.getAllRequestArgument();
 		if(args.contains("datapath")){
+			tty.line("Using Datapath ");
 			//remove all opts from instance as we have a path
 			if(allOpts != null && allOpts.length > 0){
+				tty.line("Removing all opts from instance as we have a path");
 				for(Option opt : allOpts){
 					String name = opt.getName();
 					String shortIdentifier = opt.getID();
@@ -147,6 +153,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			String value = request.getRequestArgument("datapath");
 			//log.info("getting data from path: "+value);
 			try{
+				tty.line("Getting data from path: "+value);
 				String names = getResource(value);
 				for (String line : names.split("\n")) {
 					line = line.trim();
@@ -167,6 +174,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		//step away if we have nothing
 		if(allOpts != null && allOpts.length > 0){
 
+			tty.line("get list from Service layer");
 			//get list from Service layer
 			JSONObject results = new JSONObject();
 			try {
@@ -195,10 +203,12 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 				results= fulldata.getJSONObject("displayName");
 
 				//only add if term is not already present
+				tty.line("only add if term is not already present");
 				for(Option opt : allOpts){
 					String name = opt.getName();
 					String shortIdentifier = opt.getID();
 					if(!results.has(name)){
+						tty.line("adding term "+name);
 						log.info("adding term "+name);
 						//create it if term is not already present
 						JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
@@ -212,6 +222,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 						results.remove(name);
 					}
 					else{
+						tty.line("removing term "+name);
 						//remove from results so can delete everything else if necessary in next stage
 						//tho has issues with duplicates
 						results.remove(name);
@@ -225,6 +236,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 						String csid = results.getString(key);
 						storage.deleteJSON(r.getID()+"/"+instance.getTitleRef()+"/"+csid);
 						log.info("deleting term "+key);
+						tty.line("deleting term "+key);
 					}
 				}
 
