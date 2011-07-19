@@ -1,6 +1,8 @@
 <record id="termlist" type="record,procedure">
     <web-url>termlist</web-url>
 	<showin>authorizationdata</showin>
+	<terms-used>false</terms-used>
+	<refobj-used>false</refobj-used>
     <services-url>vocabularies</services-url>
     <services-tenant-plural>Vocabularies</services-tenant-plural>
     <services-tenant-singular>Vocabulary</services-tenant-singular>
