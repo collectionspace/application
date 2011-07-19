@@ -12,10 +12,9 @@
         <structure id="screen">
             <view>
                 <label-section id="messagekeys" show="true"></label-section>
-
                 <titlebar show="false"></titlebar>
                 <sidebar show="false"></sidebar>
-                <edit-section id="details" show="false"></edit-section>
+                <edit-section id="details" show="true"></edit-section>
                 <list-section id="list" show="true"></list-section>
             </view>
         </structure>

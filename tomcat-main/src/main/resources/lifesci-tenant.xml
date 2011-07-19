@@ -43,6 +43,7 @@
     		<include src="base-other-structureddate.xml"/>
     		<include src="base-other-termlist.xml"/>
     		<include src="base-other-reporting.xml"/>
+    		<include src="base-other-reportingoutput.xml"/>
   
         </records>
 
