@@ -108,7 +108,7 @@ public class TestUISpecs extends TestBase {
 	public void testUISchema() throws Exception {
 		ServletTester jetty = setupJetty();
 		//ServletTester jetty=setupJetty(false,"tenant1.xml");
-
+//		uispec(jetty, "/cataloging/serviceschema/collectionspace_core", "collection-object.uischema");
 		//uispec(jetty, "/location/uischema", "location.uischema");
 		//uispec(jetty, "/reporting/uischema", "recordlist.uischema");
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
@@ -127,7 +127,7 @@ public class TestUISpecs extends TestBase {
 	@Test
 	public void testUISpec() throws Exception {
 		ServletTester jetty = setupJetty();
-
+		
 		// XXX this is a mess, the tests are getting too delapidated! -- dan
 
 		//		 uispec(jetty,"/location/generator?quantity=10","acquisition.uispec");
@@ -162,7 +162,8 @@ public class TestUISpecs extends TestBase {
 		uispec(jetty, "/media/uispec", "media.uispec");
 
 		uispec(jetty, "/termlist/uispec", "termlist.uispec");
-				
+		uispec(jetty, "/reporting/uispec", "reporting.uispec");
+		uispec(jetty, "/invokereport/uispec", "invokereporting.uispec");
 
 //		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
 		
