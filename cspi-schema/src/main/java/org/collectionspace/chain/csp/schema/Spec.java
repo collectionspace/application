@@ -6,8 +6,11 @@
  */
 package org.collectionspace.chain.csp.schema;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.collectionspace.chain.csp.config.Configurable;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
@@ -45,6 +48,7 @@ public class Spec implements CSP, Configurable {
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
+	private Map<String, Set<Field>> termlist = new HashMap<String, Set<Field>>();
 	private Map<String, Structure> structure=new HashMap<String,Structure>();
 	private String version;
 	private EmailData ed;
@@ -272,6 +276,7 @@ public class Spec implements CSP, Configurable {
 				f.getRecord().addAllField(f);
 				f.getRecord().addField(f,false);
 				((Repeat)parent).addChild(f);
+				
 				return f;
 			}
 		});
@@ -383,6 +388,16 @@ public class Spec implements CSP, Configurable {
 	public Record getRecordByServicesUrl(String url) { return records_by_services_url.get(url); }
 	public Record[] getAllRecords() { return records.values().toArray(new Record[0]); }
 	
+	public void addTermlist(String instanceid, Field fs){
+		if(termlist.containsKey(instanceid)){
+			Set<Field> temp = termlist.get(instanceid);
+			temp.add(fs);
+			termlist.put(instanceid,temp);
+		}
+		else{
+			termlist.put(instanceid,new HashSet<Field>(Arrays.asList(fs)));
+		}
+	}
 	public void addInstance(Instance n) {
 		instances.put(n.getID(),n);
 	}
@@ -390,6 +405,8 @@ public class Spec implements CSP, Configurable {
 		structure.put(s.getID(),s);
 	}
 
+	public Boolean hasTermlist(String id){ if(termlist.containsKey(id)){return true;} else return false;}
+	public Field[] getTermlist(String id) { return termlist.get(id).toArray(new Field[0]);}
 	public Instance getInstance(String id) { return instances.get(id); }
 	public Structure getStructure(String id) { return structure.get(id); }
 	
@@ -427,4 +444,5 @@ public class Spec implements CSP, Configurable {
 		return out;
 	
 	}
+	
 }

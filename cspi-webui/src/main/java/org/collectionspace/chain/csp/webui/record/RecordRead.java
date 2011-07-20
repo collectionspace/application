@@ -14,6 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
@@ -75,6 +76,17 @@ public class RecordRead implements WebMethod {
 	}
 	
 
+	private JSONArray getUsedBy(String id){
+		String instanceid = "vocab-"+id;
+		JSONArray usedByNames = new JSONArray();
+		if(spec.hasTermlist(instanceid)){
+			Field[] fs = spec.getTermlist(instanceid);
+			for(Field f : fs){
+				usedByNames.put(f.getRecord().getWebURL() + ":"+ f.getSelector());
+			}
+		}
+		return usedByNames;
+	}
 
 	private JSONArray getTerms(Storage storage, String vocabtype,String Record, Integer limit) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
 		
@@ -129,13 +141,11 @@ public class RecordRead implements WebMethod {
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view", new JSONObject());
 		return out;
 	}
-
-	
 	private JSONArray getPermissions(Storage storage,JSONObject activePermissions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException{
 		JSONArray set = new JSONArray();
 		JSONObject testset = new JSONObject();
 		
-		log.info(activePermissions.toString());
+		//log.info(activePermissions.toString());
 		//we are ignoring pagination so this will return the first 40 roles only
 		//UI doesn't know what it wants to do about pagination etc
 		//mark active roles
@@ -248,6 +258,8 @@ public class RecordRead implements WebMethod {
 					String url = "vocab/"+shortname;
 					JSONArray allterms = getTerms(storage,shortname, "vocab",0);
 					fields.put("terms", allterms);
+					JSONArray allUsed = getUsedBy(shortname);
+					fields.put("usedBy", allUsed);
 				}
 				else{
 					JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());

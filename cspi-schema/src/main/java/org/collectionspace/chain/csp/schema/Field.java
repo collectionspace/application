@@ -139,6 +139,16 @@ public class Field implements FieldSet {
 		this.initStrings(section,"@datatype", "");
 		
 		this.initSet(section,"@attributes",new String[] {"GET","PUT","POST","DELETE"});
+		
+		
+		if (getSet("@autocomplete").size() > 0) {
+			for (String autocomplete_instance_id : getSet("@autocomplete")) {
+				autocomplete_instance_id = autocomplete_instance_id.trim();
+				Record r = record.getRecord();
+				r.getSpec().addTermlist(autocomplete_instance_id, this);
+			}
+		}
+		
 	}
 
 
