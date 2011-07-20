@@ -1,14 +1,6 @@
 {
     "termlist": {
         "properties": {
-            "termsUsed": {
-                "default": [],
-                "type": "array"
-            },
-            "relations": {
-                "default": {},
-                "type": "object"
-            },
             "csid": {
                 "type": "string"
             },
