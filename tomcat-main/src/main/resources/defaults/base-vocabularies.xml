@@ -213,5 +213,6 @@
                     <field id="shortIdentifier">
                         <selector>vocabulary-shortIdentifier</selector>
                     </field>
+    				<field id="description"></field>
                 </section>
             </record>
