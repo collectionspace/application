@@ -108,9 +108,9 @@ public class TestUISpecs extends TestBase {
 	public void testUISchema() throws Exception {
 		ServletTester jetty = setupJetty();
 		//ServletTester jetty=setupJetty(false,"tenant1.xml");
-//		uispec(jetty, "/cataloging/serviceschema/collectionspace_core", "collection-object.uischema");
+//		uispec(jetty, "/reporting/serviceschema/collectionspace_core", "collection-object.uischema");
 		//uispec(jetty, "/location/uischema", "location.uischema");
-		//uispec(jetty, "/reporting/uischema", "recordlist.uischema");
+//		uispec(jetty, "/reporting/uischema", "recordlist.uischema");
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
 		uispec(jetty, "/namespaces/uischema", "namespaces.uischema");
 		uispec(jetty, "/termlist/uischema", "termlist.uischema");
@@ -132,12 +132,12 @@ public class TestUISpecs extends TestBase {
 
 		//		 uispec(jetty,"/location/generator?quantity=10","acquisition.uispec");
 		// uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
-		// uispec(jetty,"/person/generator?quantity=10","acquisition.uispec");
+//		 uispec(jetty,"/reporting/generator?quantity=10","acquisition.uispec");
 
 //	uispec(jetty, "/cataloging/uispec", "hierarchy.uispec");
 //		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
 
-//		uispec(jetty, "/termlist/uispec", "location.uispec");
+//		uispec(jetty, "/termlist/uispec", "termlist.uispec");
 		uispec(jetty, "/role/uispec", "roles.uispec");
 		
 		uispec(jetty, "/users/uispec", "users.uispec");

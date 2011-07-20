@@ -45,10 +45,10 @@
     	<field id="source"></field>
     	<field id="description"></field>
 		<repeat id="terms" exists-in-services="false" >
-			<field id="termName"></field>
-			<field id="termDescription"></field>
-			<field id="termSource"></field>
-			<field id="termSourcePage"></field>
+			<field id="displayName"><selector>termlist-termName</selector></field>
+			<field id="shortIdentifier"></field>
+			<field id="description"><selector>termlist-termDescription</selector></field>
+			<field id="refid"></field>
 			<field id="termStatus" >
             <options>
                 <option id="active" default="yes">Active</option>

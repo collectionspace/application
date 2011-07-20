@@ -3,15 +3,15 @@
         ".csc-termlist-csid-label": {
             "messagekey": "termlist-csidLabel"
         },
+        ".csc-termlist-name": "${fields.name}",
         ".csc-termlist-termStatus-label": {
             "messagekey": "termlist-termStatusLabel"
         },
-        ".csc-termlist-termSourcePage-label": {
-            "messagekey": "termlist-termSourcePageLabel"
-        },
-        ".csc-termlist-name": "${fields.name}",
         ".csc-termlist-displayName-label": {
             "messagekey": "termlist-displayNameLabel"
+        },
+        ".csc-termlist-refid-label": {
+            "messagekey": "termlist-refidLabel"
         },
         ".csc-termlist-domaindata-label": {
             "messagekey": "termlist-domaindataLabel"
@@ -19,16 +19,13 @@
         ".csc-termlist-source-label": {
             "messagekey": "termlist-sourceLabel"
         },
-        ".csc-termlist-termDescription-label": {
-            "messagekey": "termlist-termDescriptionLabel"
-        },
         ".csc-termlist-usedBy-label": {
             "messagekey": "termlist-usedByLabel"
         },
+        ".csc-termlist-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-termlist-description-label": {
             "messagekey": "termlist-descriptionLabel"
         },
-        ".csc-termlist-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-termlist-number-label": {
             "messagekey": "termlist-numberLabel"
         },
@@ -50,10 +47,10 @@
                                             "optionlist": ["active", "inactive"],
                                             "selection": "${{row}.termStatus}"
                                         },
-                                        ".csc-termlist-termSourcePage": "${{row}.termSourcePage}",
-                                        ".csc-termlist-termName": "${{row}.termName}",
-                                        ".csc-termlist-termDescription": "${{row}.termDescription}",
-                                        ".csc-termlist-termSource": "${{row}.termSource}"
+                                        ".csc-termlist-termName": "${{row}.displayName}",
+                                        ".csc-termlist-termDescription": "${{row}.description}",
+                                        ".csc-termlist-shortIdentifier": "${{row}.shortIdentifier}",
+                                        ".csc-termlist-refid": "${{row}.refid}"
                                     },
                                     "type": "fluid.renderer.repeat",
                                     "pathAs": "row",
@@ -67,9 +64,6 @@
             }]
         },
         ".csc-termlist-displayName": "${fields.displayName}",
-        ".csc-termlist-termSource-label": {
-            "messagekey": "termlist-termSourceLabel"
-        },
         ".csc-termlist-description": "${fields.description}",
         ".csc-termlist-source": "${fields.source}",
         "expander": {
@@ -87,9 +81,6 @@
         },
         ".csc-termlist-shortIdentifier-label": {
             "messagekey": "termlist-shortIdentifierLabel"
-        },
-        ".csc-termlist-termName-label": {
-            "messagekey": "termlist-termNameLabel"
         },
         ".csc-termlist-usedBys-label": {
             "messagekey": "termlist-usedBysLabel"
