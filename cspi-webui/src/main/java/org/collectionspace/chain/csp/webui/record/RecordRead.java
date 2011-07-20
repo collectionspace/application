@@ -76,13 +76,15 @@ public class RecordRead implements WebMethod {
 	}
 	
 
-	private JSONArray getUsedBy(String id){
+	private JSONArray getUsedBy(String id) throws JSONException{
 		String instanceid = "vocab-"+id;
 		JSONArray usedByNames = new JSONArray();
 		if(spec.hasTermlist(instanceid)){
 			Field[] fs = spec.getTermlist(instanceid);
 			for(Field f : fs){
-				usedByNames.put(f.getRecord().getWebURL() + ":"+ f.getSelector());
+				JSONObject jo = new JSONObject();
+				jo.put("usedBy", f.getRecord().getWebURL() + ":"+ f.getSelector());
+				usedByNames.put(jo);
 			}
 		}
 		return usedByNames;
@@ -259,7 +261,7 @@ public class RecordRead implements WebMethod {
 					JSONArray allterms = getTerms(storage,shortname, "vocab",0);
 					fields.put("terms", allterms);
 					JSONArray allUsed = getUsedBy(shortname);
-					fields.put("usedBy", allUsed);
+					fields.put("usedBys", allUsed);
 				}
 				else{
 					JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
