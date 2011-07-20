@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -75,7 +76,60 @@ public class RecordRead implements WebMethod {
 	
 
 
-	
+	private JSONArray getTerms(Storage storage, String vocabtype,String Record, Integer limit) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+		
+
+		JSONArray displayNames = new JSONArray();
+	    // Get List
+		int resultsize =1;
+		int pagenum = 0;
+		int pagesize = 200;
+		if(limit !=0 && limit < pagesize){
+			pagesize = limit;
+		}
+		while(resultsize >0){
+			JSONObject restriction=new JSONObject();
+			restriction.put("pageNum", pagenum);
+			restriction.put("pageSize", pagesize);
+			
+			String url = Record+"/"+vocabtype;
+			JSONObject data = storage.getPathsJSON(url,restriction);
+			if(data.has("listItems")){
+				String[] results = (String[]) data.get("listItems");
+				/* Get a view of each */
+				for(String result : results) {
+					//change csid into displayName
+					JSONObject namedata = getDisplayNameList(storage,Record,vocabtype,result);
+					displayNames.put(namedata);
+				}
+
+				Integer total = data.getJSONObject("pagination").getInt("totalItems");
+				pagesize = data.getJSONObject("pagination").getInt("pageSize");
+				//Integer itemsInPage = data.getJSONObject("pagination").getInt("itemsInPage");
+				pagenum = data.getJSONObject("pagination").getInt("pageNum");
+				pagenum++;
+				//are there more results
+				if(total <= (pagesize * (pagenum))){
+					break;
+				}
+				//have we got enough results?
+				if(limit !=0 && limit <= (pagesize * (pagenum)) ){
+					break;
+				}
+			}
+			else{
+				resultsize=0;
+			}
+		}
+		return displayNames;
+		
+	}
+	private JSONObject getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		//should be using cached results from the previous query.
+		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view", new JSONObject());
+		return out;
+	}
+
 	
 	private JSONArray getPermissions(Storage storage,JSONObject activePermissions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException{
 		JSONArray set = new JSONArray();
@@ -188,6 +242,12 @@ public class RecordRead implements WebMethod {
 						JSONArray allperms = getPermissions(storage,permissions);
 						fields.put("permissions",allperms);
 					}
+				}
+				else if(base.equals("termlist")){
+					String shortname = fields.getString("shortIdentifier");
+					String url = "vocab/"+shortname;
+					JSONArray allterms = getTerms(storage,shortname, "vocab",0);
+					fields.put("terms", allterms);
 				}
 				else{
 					JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
