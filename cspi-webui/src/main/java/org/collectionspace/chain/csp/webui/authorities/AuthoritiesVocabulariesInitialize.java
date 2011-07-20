@@ -72,7 +72,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		
 	
 	
-	private JSONObject list_vocab(JSONObject displayNames,Instance n,Storage storage,UIRequest ui,String param, Integer pageSize, Integer pageNum) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private JSONObject list_vocab(JSONObject displayNames,Instance n,Storage storage,String param, Integer pageSize, Integer pageNum, Record thisr) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject restriction=new JSONObject();
 		if(param!=null){
 			restriction.put(n.getRecord().getDisplayNameField().getID(),param);
@@ -83,12 +83,12 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		if(pageSize!=null){
 			restriction.put("pageSize",pageSize);
 		}
-		JSONObject data = storage.getPathsJSON(r.getID()+"/"+n.getTitleRef(),restriction);
+		JSONObject data = storage.getPathsJSON(thisr.getID()+"/"+n.getTitleRef(),restriction);
 		String[] results = (String[]) data.get("listItems");
 		/* Get a view of each */
 		for(String result : results) {
 			//change csid into displayName
-			JSONObject datanames = getDisplayNameList(storage,r.getID(),n.getTitleRef(),result);
+			JSONObject datanames = getDisplayNameList(storage,thisr.getID(),n.getTitleRef(),result);
 			
 			displayNames.put(datanames.getString("displayName"),result);
 		}
@@ -123,6 +123,36 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		String data=IOUtils.toString(stream);
 		stream.close();		
 		return data;
+	}
+	
+	
+	public void doreset(Storage storage, Instance ins,JSONArray terms ) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException{
+
+		Option[] allOpts = ins.getAllOptions();
+
+		//remove all opts from instance
+		if(allOpts != null && allOpts.length > 0){
+			for(Option opt : allOpts){
+				String name = opt.getName();
+				String shortIdentifier = opt.getID();
+				String sample = opt.getSample();
+				Boolean dfault = opt.isDefault();
+				ins.deleteOption(shortIdentifier, name, sample, dfault);
+			}
+		}
+
+		for(int i=0;i<terms.length();i++){
+			JSONObject element = terms.getJSONObject(i);
+			if(element.has("description"))
+				ins.addOption(element.getString("shortIdentifier"), element.getString("termName"), null, false, element.getString("description"));
+			else
+				ins.addOption(element.getString("shortIdentifier"), element.getString("termName"), null, false);
+				
+		}
+		
+
+		allOpts = ins.getAllOptions();
+		createVocab(storage, ins.getRecord(), ins, null, allOpts, false);
 	}
 	
 	private void resetvocabdata(Storage storage,UIRequest request, Instance instance) throws UIException {
@@ -171,16 +201,35 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			allOpts = instance.getAllOptions();
 		}
 
+		try {
+			createVocab(storage, r, instance, tty, allOpts, this.append);
+
+		} catch (JSONException e) {
+			throw new UIException("Cannot generate JSON",e);
+		} catch (ExistException e) {
+			throw new UIException("Exist exception",e);
+		} catch (UnimplementedException e) {
+			throw new UIException("Unimplemented exception",e);
+		} catch (UnderlyingStorageException x) {
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			request.sendJSONResponse(uiexception.getJSON());
+		}
+	}
+	
+	private void createVocab(Storage storage, Record thisr,
+			Instance instance, TTYOutputter tty, Option[] allOpts, Boolean appendit)
+			throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		//step away if we have nothing
 		if(allOpts != null && allOpts.length > 0){
 
-			tty.line("get list from Service layer");
+			if(tty!= null){
+				tty.line("get list from Service layer");
+			}
 			//get list from Service layer
 			JSONObject results = new JSONObject();
-			try {
 				Integer pageNum = 0;
 				Integer pageSize = 100;
-				JSONObject fulldata= list_vocab(results,instance,storage,request,null, pageSize,pageNum);
+				JSONObject fulldata= list_vocab(results,instance,storage,null, pageSize,pageNum, thisr);
 
 				while(!fulldata.isNull("pagination")){
 					Integer total = fulldata.getJSONObject("pagination").getInt("totalItems");
@@ -192,7 +241,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					pageNum++;
 					//are there more results
 					if(total > (pageSize * (pageNum))){
-						fulldata= list_vocab(results, instance, storage, request, null, pageSize, pageNum);
+						fulldata= list_vocab(results, instance, storage, null, pageSize, pageNum, thisr);
 					}
 					else{
 						break;
@@ -203,53 +252,54 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 				results= fulldata.getJSONObject("displayName");
 
 				//only add if term is not already present
-				tty.line("only add if term is not already present");
+				if(tty!= null){
+					tty.line("only add if term is not already present");
+				}
 				for(Option opt : allOpts){
 					String name = opt.getName();
 					String shortIdentifier = opt.getID();
 					if(!results.has(name)){
-						tty.line("adding term "+name);
-						log.info("adding term "+name);
+						if(tty!= null){
+							tty.line("adding term "+name);
+							log.info("adding term "+name);
+						}
 						//create it if term is not already present
 						JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
 						if(opt.getID() == null){
 							//XXX here until the service layer does this
 							shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
 						}
+						if(opt.getDesc() == null){
+							data.put("description", opt.getDesc());
+						}
 						data.put("shortIdentifier", shortIdentifier);
-						String url = r.getID()+"/"+instance.getTitleRef();
+						String url = thisr.getID()+"/"+instance.getTitleRef();
 						storage.autocreateJSON(url,data);
 						results.remove(name);
 					}
 					else{
-						tty.line("removing term "+name);
+						if(tty!= null){
+							tty.line("removing term "+name);
+						}
 						//remove from results so can delete everything else if necessary in next stage
 						//tho has issues with duplicates
 						results.remove(name);
 					}
 				}
-				if(!this.append){
+				if(!appendit){
 					//delete everything that is not in options
 					Iterator<String> rit=results.keys();
 					while(rit.hasNext()) {
 						String key=rit.next();
 						String csid = results.getString(key);
-						storage.deleteJSON(r.getID()+"/"+instance.getTitleRef()+"/"+csid);
-						log.info("deleting term "+key);
-						tty.line("deleting term "+key);
+						storage.deleteJSON(thisr.getID()+"/"+instance.getTitleRef()+"/"+csid);
+						if(tty!= null){
+							log.info("deleting term "+key);
+							tty.line("deleting term "+key);
+						}
 					}
 				}
 
-			} catch (JSONException e) {
-				throw new UIException("Cannot generate JSON",e);
-			} catch (ExistException e) {
-				throw new UIException("Exist exception",e);
-			} catch (UnimplementedException e) {
-				throw new UIException("Unimplemented exception",e);
-			} catch (UnderlyingStorageException x) {
-				UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
-				request.sendJSONResponse(uiexception.getJSON());
-			}
 		}
 	}
 	

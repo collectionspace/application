@@ -41,6 +41,7 @@ public class Instance {
 		this.record=record;
 		this.initStrings(section,"@id",null);
 		this.initStrings(section,"title", getString("@id"));
+		this.initStrings(section,"description", "");
 		this.initStrings(section,"title-ref", getString("@id"));
 		this.initStrings(section,"web-url", getString("@id"));
 		this.initStrings(section,"ui-url", getString("web-url") + ".html");
@@ -104,6 +105,7 @@ public class Instance {
 	public Record getRecord() { return record; }
 	public String getID() { return getString("@id"); }
 	public String getTitle() { return getString("title"); }
+	public String getDesc() { return getString("description"); }
 	public String getTitleRef() { return getString("title-ref"); }
 	public String getWebURL() { return getString("web-url"); }
 	public String getUIURL() { return getString("ui-url"); }
@@ -113,6 +115,22 @@ public class Instance {
 			id = name.replaceAll("\\W", "").toLowerCase();
 		}
 		Option opt=new Option(id,name,sample);
+		if(dfault){
+			opt.setDefault();
+			option_default.add(name);
+		}
+		options.put(id,opt);
+		options_list.add(opt);
+		if("plain".equals(getString("@ui-type"))){
+			allStrings.put("@ui-type", "dropdown");
+		}
+	}
+
+	public void addOption(String id,String name,String sample,boolean dfault, String desc) {
+		if(id==null){
+			id = name.replaceAll("\\W", "").toLowerCase();
+		}
+		Option opt=new Option(id,name,sample,desc);
 		if(dfault){
 			opt.setDefault();
 			option_default.add(name);

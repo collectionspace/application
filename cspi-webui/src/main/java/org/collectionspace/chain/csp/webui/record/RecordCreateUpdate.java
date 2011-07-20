@@ -8,8 +8,10 @@ package org.collectionspace.chain.csp.webui.record;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesInitialize;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
@@ -32,6 +34,7 @@ public class RecordCreateUpdate implements WebMethod {
 	protected String url_base,base;
 	protected boolean create;
 	protected Record record;
+	protected AuthoritiesVocabulariesInitialize avi;
 	protected Spec spec;
 	protected RecordRead reader;
 	protected RecordSearchList searcher;
@@ -43,6 +46,7 @@ public class RecordCreateUpdate implements WebMethod {
 		this.base=r.getID();
 		this.create=create;
 		this.reader=new RecordRead(r);
+		this.avi = new AuthoritiesVocabulariesInitialize(r,false);
 		this.reader.configure(spec);
 		this.searcher = new RecordSearchList(r,false);
 	}
@@ -230,10 +234,25 @@ public class RecordCreateUpdate implements WebMethod {
 
 	}
 	
-	
-	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
+
+	private void assignTerms(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject fields=data.optJSONObject("fields");
 		
+		if(fields.has("terms")){
+			//delete everything
+			//and add in the new terms
+			Record thisr = spec.getRecord("vocab");
+			String sid = fields.getString("shortIdentifier");
+			Instance ins = spec.getInstance("vocab-"+sid);
+			avi.doreset(storage, ins, fields.getJSONArray("terms") );
+		}
+		
+		
+	}
+
+	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
+		JSONObject fields=data.optJSONObject("fields");
+			
 		JSONArray permdata = new JSONArray();
 		JSONObject permcheck = new JSONObject();
 		if(fields.has("permissions")){
@@ -323,6 +342,7 @@ public class RecordCreateUpdate implements WebMethod {
 					data.put("fields", fields);
 				}
 			}
+
 			
 			if(create) {
 				path=sendJSON(storage,null,data);
@@ -335,6 +355,9 @@ public class RecordCreateUpdate implements WebMethod {
 
 			if(this.base.equals("role")){
 				assignPermissions(storage,path,data);
+			}
+			if(this.base.equals("termlist")){
+				assignTerms(storage,path,data);
 			}
 			
 			data=reader.getJSON(storage,path);
