@@ -393,11 +393,11 @@ public class TestGeneral extends TestBase {
 		
 		ServletTester jetty=setupJetty();
 		//ServletTester jetty=setupJetty(false,"tenant2.xml");
-		
-		String csid = "/loanin/search?query=LI2011.1.2%20-%20Justine%20Johnstone&pageSize=10";
+
+		String csid = "/termlist/99cf26b7-9f4f-445e-8c66";
+		//String csid = "/vocab/languages";
 		//http://nightly.collectionspace.org/collectionspace/chain/vocabularies/location/source-vocab/relatedTerm
-		String test = "{\"relations\":{},\"fields\":{\"relatedTerms\":[{\"_primary\":true}],\"nationalities\":[{\"_primary\":true}],\"schoolsOrStyles\":[{\"_primary\":true}],\"title\":\"\",\"termStatus\":\"provisional\",\"gender\":\"\",\"narrowerContexts\":[{\"_primary\":true}],\"groups\":[{\"_primary\":true}],\"occupations\":[{\"_primary\":true}],\"addressType\":\"\",\"salutation\":\"dear\",\"equivalentContexts\":[{}],\"displayName\":\"bob2\"},\"namespace\":\"persontest1\",\"csid\":\"\"}"; 
-		
+		String test = "{\"csid\":\"99cf26b7-9f4f-445e-8c66\",\"fields\":{\"shortIdentifier\":\"addresstype\",\"terms\":[{\"shortIdentifier\":\"previous\",\"csid\":\"1970ae48-d9e1-4a7e-92a4\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Previous\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(1970ae48-d9e1-4a7e-92a4)'Previous'\",\"recordtype\":\"vocab\",\"termName\":\"wer\",\"termSource\":\"r\",\"termStatus\":\"inactive\"},{\"shortIdentifier\":\"street\",\"csid\":\"4ae1d2a1-095b-4dcc-be98\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Street\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(4ae1d2a1-095b-4dcc-be98)'Street'\",\"recordtype\":\"vocab\",\"termName\":\"werwe\",\"termDescription\":\"rrr\",\"termSourcePage\":\"r\"},{\"shortIdentifier\":\"alternative\",\"csid\":\"75103d23-00c4-42ff-baf2\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Alternative\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(75103d23-00c4-42ff-baf2)'Alternative'\",\"recordtype\":\"vocab\",\"termName\":\"rrrr\"},{\"shortIdentifier\":\"mailing\",\"csid\":\"84d59f3a-d48f-44df-b2d5\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Mailing\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(84d59f3a-d48f-44df-b2d5)'Mailing'\",\"recordtype\":\"vocab\",\"termSource\":\"wer\",\"termDescription\":\"www\",\"termName\":\"wer32\"}],\"csid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Contact Address Type\",\"description\":\"dfgdfgdfgfddesc\"}}";
 		HttpTester out;
 		out = GETData(csid, jetty);
 		
