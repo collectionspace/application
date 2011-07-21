@@ -3,7 +3,7 @@
 <record id="reports" in-recordlist="no" type="authorizationdata">
 	<services-url>reports</services-url>
     <services-tenant-singular>Reports</services-tenant-singular>
-    <services-list-path>reports-common-list/report-list-item</services-list-path>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
     <services-record-path>reports_common:http://collectionspace.org/services/report,reports_common</services-record-path>
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 
@@ -29,14 +29,14 @@
         <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
     </section>
     <section id="reporting">
-    	<field id="name" ></field>
+    	<field id="name" mini="number,search,list,relate"></field>
     	<field id="notes" ></field>
-    	<repeat id="forDocTypes" >
+    	<repeat id="forDocTypes">
     		<field id="forDocType"></field>
     	</repeat>
-    	<field id="supportsNoContext"></field>
-    	<field id="supportsSingleDoc"></field>
-    	<field id="supportsDocList" ></field>
+    	<field id="supportsNoContext" mini="search,list,relate"></field>
+    	<field id="supportsSingleDoc" mini="search,list,relate"></field>
+    	<field id="supportsDocList"  mini="search,list,relate"></field>
     	<field id="supportsGroup"></field>
     	<field id="filename"></field>
     	<field id="outputMIME"></field>
