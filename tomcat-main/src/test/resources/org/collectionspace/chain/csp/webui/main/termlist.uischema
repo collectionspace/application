@@ -32,23 +32,23 @@
                     "terms": {
                         "items": {
                             "properties": {
-                                "termName": {
+                                "shortIdentifier": {
                                     "type": "string"
                                 },
                                 "_primary": {
                                     "type": "boolean"
                                 },
-                                "termSourcePage": {
-                                    "type": "string"
-                                },
-                                "termSource": {
+                                "description": {
                                     "type": "string"
                                 },
                                 "termStatus": {
                                     "default": "active",
                                     "type": "string"
                                 },
-                                "termDescription": {
+                                "displayName": {
+                                    "type": "string"
+                                },
+                                "refid": {
                                     "type": "string"
                                 }
                             },

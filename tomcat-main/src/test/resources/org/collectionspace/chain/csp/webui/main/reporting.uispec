@@ -10,34 +10,79 @@
         ".csc-reports-filename-label": {
             "messagekey": "reports-filenameLabel"
         },
-        ".csc-reports-outputMIME": "${fields.outputMIME}",
-        ".csc-reports-supportsSingleDoc": "${fields.supportsSingleDoc}",
-        ".csc-reports-notes": "${fields.notes}",
-        ".csc-reports-name": "${fields.name}",
-        ".csc-reports-forDocType": "${fields.forDocType}",
-        ".csc-reports-filename": "${fields.filename}",
-        ".csc-reports-domaindata-label": {
-            "messagekey": "reports-domaindataLabel"
+        ".csc-reports-createdAt": "${fields.createdAt}",
+        ".csc-reports-forDocTypes-label": {
+            "messagekey": "reports-forDocTypesLabel"
         },
-        ".csc-reports-supportsNoContext-label": {
-            "messagekey": "reports-supportsNoContextLabel"
+        ".csc-reports-tenantID": "${fields.tenantID}",
+        ".csc-reports-tenantID-label": {
+            "messagekey": "reports-tenantIDLabel"
+        },
+        ".csc-reports-forDocType": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.forDocTypes",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-reports-forDocType": "${{row}.forDocType}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.forDocTypes"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-reports-filename": "${fields.filename}",
+        ".csc-reports-createdAt-label": {
+            "messagekey": "reports-createdAtLabel"
+        },
+        ".csc-reports-updatedAt": "${fields.updatedAt}",
+        ".csc-reports-coreinfo-label": {
+            "messagekey": "reports-coreinfoLabel"
         },
         ".csc-reports-supportsNoContext": "${fields.supportsNoContext}",
+        ".csc-reports-updatedAt-label": {
+            "messagekey": "reports-updatedAtLabel"
+        },
         ".csc-reports-supportsDocList-label": {
             "messagekey": "reports-supportsDocListLabel"
         },
-        ".csc-reports-supportsGroup": "${fields.supportsGroup}",
         ".csc-reports-supportsGroup-label": {
             "messagekey": "reports-supportsGroupLabel"
-        },
-        ".csc-reports-name-label": {
-            "messagekey": "reports-nameLabel"
         },
         ".csc-reports-forDocType-label": {
             "messagekey": "reports-forDocTypeLabel"
         },
         ".csc-reports-notes-label": {
             "messagekey": "reports-notesLabel"
+        },
+        ".csc-reports-outputMIME": "${fields.outputMIME}",
+        ".csc-reports-supportsSingleDoc": "${fields.supportsSingleDoc}",
+        ".csc-reports-notes": "${fields.notes}",
+        ".csc-reports-name": "${fields.name}",
+        ".csc-reports-domaindata-label": {
+            "messagekey": "reports-domaindataLabel"
+        },
+        ".csc-reports-supportsNoContext-label": {
+            "messagekey": "reports-supportsNoContextLabel"
+        },
+        ".csc-reports-supportsGroup": "${fields.supportsGroup}",
+        ".csc-reports-name-label": {
+            "messagekey": "reports-nameLabel"
+        },
+        ".csc-reports-reporting-label": {
+            "messagekey": "reports-reportingLabel"
         }
     },
     "list": {}
