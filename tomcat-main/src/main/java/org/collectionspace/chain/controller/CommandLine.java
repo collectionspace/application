@@ -16,6 +16,6 @@ public class CommandLine {
 		String configfile = args[3];
 		XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype);
 		String xsdschema = s.getFile();
-		System.err.println(xsdschema);
+		System.out.println(xsdschema);
 	}
 }
