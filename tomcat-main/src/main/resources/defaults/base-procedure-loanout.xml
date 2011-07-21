@@ -4,7 +4,7 @@
                 <services-url>loansout</services-url>
                 <services-tenant-plural>Loansout</services-tenant-plural>
                 <services-tenant-singular>Loanout</services-tenant-singular>
-                <services-list-path>loansout-common-list/loanout-list-item</services-list-path>
+                <services-list-path>abstract-common-list/list-item</services-list-path>
                 <services-record-path>loansout_common:http://collectionspace.org/services/loanout,loansout_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
