@@ -34,9 +34,9 @@
     	<repeat id="forDocTypes">
     		<field id="forDocType"></field>
     	</repeat>
-    	<field id="supportsNoContext" mini="search,list,relate"></field>
-    	<field id="supportsSingleDoc" mini="search,list,relate"></field>
-    	<field id="supportsDocList"  mini="search,list,relate"></field>
+    	<field id="supportsNoContext" ></field>
+    	<field id="supportsSingleDoc" ></field>
+    	<field id="supportsDocList"></field>
     	<field id="supportsGroup"></field>
     	<field id="filename"></field>
     	<field id="outputMIME"></field>

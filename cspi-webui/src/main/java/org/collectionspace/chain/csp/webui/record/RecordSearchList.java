@@ -34,11 +34,13 @@ public class RecordSearchList implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(RecordSearchList.class);
 	private boolean search;
 	private String base;
+	private Spec spec;
 	private Record r;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public RecordSearchList(Record r,boolean search) {
 		this.r = r;
+		this.spec=r.getSpec();
 		this.base=r.getID();
 		this.search=search;
 	}
@@ -62,6 +64,9 @@ public class RecordSearchList implements WebMethod {
 		JSONObject restrictions = new JSONObject();
 		JSONObject out = new JSONObject();
 		try {
+			if(csid == null || csid.equals("")){
+				return out;
+			}
 			out = storage.retrieveJSON(type+"/"+csid+"/view/"+postfix,restrictions);
 			out.put("csid",csid);
 			out.put("recordtype",type_to_url.get(type));
@@ -245,6 +250,29 @@ public class RecordSearchList implements WebMethod {
 					returndata.put(key, newitems);
 				}
 			}
+			else if(r.getID().equals("reports")){
+				String type= "";
+				if(restriction.has("queryTerm") && restriction.getString("queryTerm").equals("doctype")){
+					type = restriction.getString("queryString");
+					returndata = getJSON(storage,restriction,key,base);
+					returndata = showReports(returndata, type, key);
+				}
+				else{
+					JSONObject reporting = new JSONObject();
+					for(Record r2 : spec.getAllRecords()) {
+						if(r2.isInRecordList()){
+							type = r2.getServicesTenantSg();
+							restriction.put("queryTerm","doctype");
+							restriction.put("queryString",type);
+						
+							JSONObject rdata = getJSON(storage,restriction,key,base);
+							JSONObject procedurereports = showReports(rdata, type, key);
+							reporting.put(r2.getWebURL(), procedurereports);
+						}
+					}
+					returndata.put("reporting", reporting);
+				}
+			}				
 			else{
 				returndata = getJSON(storage,restriction,key,base);
 			}
@@ -261,6 +289,29 @@ public class RecordSearchList implements WebMethod {
 			ui.sendJSONResponse(uiexception.getJSON());
 		}			
 	}
+	
+
+	private JSONObject showReports(JSONObject data, String type, String key) throws JSONException{
+		JSONObject results = new JSONObject();
+		JSONArray list = new JSONArray();
+		JSONArray names = new JSONArray();
+		
+		if(data.has(key)){
+			JSONArray ja = data.getJSONArray(key);
+	
+			for(int j=0;j<ja.length();j++){
+				list.put(ja.getJSONObject(j).getString("csid"));
+				names.put(ja.getJSONObject(j).getString("number"));
+			}
+			results.put("reportlist", list);
+			results.put("reportnames", names);
+		}
+		return results;
+	}				
+	
+	
+	
+	
 	
 
 	/* Wrapper exists to be used inRead, hence not private */
