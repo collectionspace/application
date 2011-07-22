@@ -33,14 +33,39 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	@Before public void checkServicesRunning() throws ConnectionException {
 		setup();
 	}
-	
+	@Test public void testReports() throws Exception {
+		
+		//create acquisition
+		String objtype = "acquisition/";
+		JSONObject jsoncreate = getJSON("acquisitionJSON.json");
+		JSONObject jsonupdate = getJSON("acquisitionJSON.json");
+		
+		Storage ss=makeServicesStorage();
+		//create
+		String path = doCreate(ss, objtype, jsoncreate);
+		
+		//run report
+		/*
+		<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+		<ns2:invocationContext xmlns:ns2="http://collectionspace.org/services/common/invocable"
+		  <mode>single</mode>
+		  <docType>Intake</docType>
+		  <singleCSID>605e9252-598d-4459-8380</singleCSID>
+		</ns2:invocationContext>
+		
+		POST to /cspace-services/reports/{id}
+		*/
+		
+		
+
+		doDelete(ss, objtype, path);
+	}
 
 	//XXX add more tests for other record types
 	@Test public void testGetPostDelete() throws Exception {
 
-            	getPostDelete("collection-object/","objectsJSON.json","objectsJSON.json","distinguishingFeatures");
-
-                getPostDelete("acquisition/","acquisitionJSON.json","acquisitionJSON.json","acquisitionReason");
+    	getPostDelete("collection-object/","objectsJSON.json","objectsJSON.json","distinguishingFeatures");
+        getPostDelete("acquisition/","acquisitionJSON.json","acquisitionJSON.json","acquisitionReason");
 		getPostDelete("loanin/","LoaninJSON.json","LoaninJSON.json","loanInNumber");
 		getPostDelete("movement/","movement.json","movement.json","movementReferenceNumber");
 		getPostDelete("objectexit/","objectexit.json","objectexit.json","exitNote");
@@ -56,20 +81,33 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	}
 	
 	private void getPostDelete(String objtype,String jsoncreate,String jsonupdate,String testfield) throws Exception {
-		getPostDelete(objtype,getJSON(jsoncreate),getJSON(jsonupdate),testfield);		
+		getPostDelete(objtype,getJSON(jsoncreate),getJSON(jsonupdate),testfield, true);		
 	}
 	
-	private void getPostDelete(String objtype,JSONObject jsoncreate,JSONObject jsonupdate,String testfield) throws Exception {
+	private void getPostDelete(String objtype,JSONObject jsoncreate,JSONObject jsonupdate,String testfield, Boolean testDelete) throws Exception {
 		Storage ss=makeServicesStorage();
 		//create
-		String path=ss.autocreateJSON(objtype,jsoncreate);
+		String path = doCreate(ss, objtype, jsoncreate);
 		//GET and test
-		JSONObject jsc=ss.retrieveJSON(objtype+path, new JSONObject());
+		JSONObject jsc=doRetrieve(ss, objtype, path);
+		
 		assertEquals(jsc.get(testfield),jsoncreate.get(testfield));
 		//UPDATE & Test
 		ss.updateJSON(objtype+path,jsonupdate);
 		JSONObject js=ss.retrieveJSON(objtype+path, new JSONObject());
 		assertEquals(js.get(testfield),jsonupdate.get(testfield));
+		if(testDelete){
+			doDelete(ss, objtype, path);
+		}
+	}
+	private JSONObject doRetrieve(Storage ss, String objtype, String path) throws Exception {
+		return ss.retrieveJSON(objtype+path, new JSONObject());
+	}
+	private String doCreate(Storage ss, String objtype, JSONObject jsoncreate) throws Exception {
+		return ss.autocreateJSON(objtype,jsoncreate);
+	}
+	private void doDelete(Storage ss, String objtype, String path) throws Exception {
+
 		//DELETE & Test
 		ss.deleteJSON(objtype+path);
 		try {

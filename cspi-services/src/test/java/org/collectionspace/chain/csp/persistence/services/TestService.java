@@ -33,6 +33,7 @@ import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
+import org.collectionspace.chain.csp.persistence.services.connection.ReturnUnknown;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
@@ -681,6 +682,97 @@ public class TestService extends ServicesBaseClass {
 		assertNull(doc);
 	}
 
+	@Test public void testReporting() throws Exception {
+
+		ReturnedURL url;
+		int getStatus;
+		Document doc;
+		String serviceurl = "acquisitions/";
+		String partname = "acquisitions_common";
+		String filename = "acquisitionXMLJSON.xml";
+		String xpath = "acquisitions_common/accessionDate";
+		String expected = "April 1, 2010";
+
+		// POST (Create Acquisition Record)
+		if (partname != null) {
+			Map<String, Document> parts = new HashMap<String, Document>();
+			parts.put(partname, getDocument(filename));
+			url = conn.getMultipartURL(RequestMethod.POST, serviceurl, parts,
+					creds, cache);
+		} else {
+			url = conn.getURL(RequestMethod.POST, serviceurl,
+					getDocument(filename), creds, cache);
+		}
+
+		assertEquals("Failed to receive 201 status code on create", 201, url
+				.getStatus());
+		
+		//find report
+
+		ReturnedDocument doc3 = conn.getXMLDocument(RequestMethod.GET,
+				"reports?doctype=Acquisition", null, creds, cache);
+		assertEquals(200, doc3.getStatus());
+		Set<String> csids = new HashSet<String>();
+		String reportcsid = "";
+		for (Node n : (List<Node>) doc3.getDocument().selectNodes("abstract-common-list/list-item/csid")) {
+			reportcsid = n.getText();
+		}
+		assertFalse("No Acquisition report to test with", reportcsid.equals(""));
+		if(!reportcsid.equals("")){
+//only runs if there is a report to run
+			String reportsurl = "reports/"+reportcsid;
+
+			String csid = url.getURLTail();
+			Document report = getDocument("reportrun.xml");
+			report.selectSingleNode("invocationContext/singleCSID").setText(csid);
+
+			Map<String, Document> rparts = new HashMap<String, Document>();
+			rparts.put(partname, report);
+			
+
+			//DO REPORT
+			//run report
+			ReturnUnknown doc2 = conn.getReportDocument(RequestMethod.POST, reportsurl,report, creds, cache);
+			JSONObject out = new JSONObject();
+			out.put("getByteBody", doc2.getBytes());
+			out.put("contenttype", doc2.getContentType());
+			
+
+			assertEquals("Failed to receive 200 status code on create", 200, doc2
+					.getStatus());
+		}
+		
+		
+		// DELETE (Delete Acquisition)
+		int status = conn.getNone(RequestMethod.DELETE, url.getURL(), null,
+				creds, cache);
+		assertEquals("Failed to receive expected 200 status code on delete",
+				200, status);
+		// Now try to delete non-existent (make sure CSPACE-73 hasn't regressed)
+		status = conn.getNone(RequestMethod.DELETE, url.getURL(), null, creds,
+				cache);
+		assertEquals(
+				"Failed to receive expected 404 status code on repeated delete of same record",
+				404, status);
+
+		log.info("DELETE");
+		// GET once more to make sure it isn't there
+		if (partname != null) {
+			ReturnedMultipartDocument rdocs = conn.getMultipartXMLDocument(
+					RequestMethod.GET, url.getURL(), null, creds, cache);
+			getStatus = rdocs.getStatus();
+			doc = rdocs.getDocument(partname);
+		} else {
+			ReturnedDocument rdoc = conn.getXMLDocument(RequestMethod.GET, url
+					.getURL(), null, creds, cache);
+			getStatus = rdoc.getStatus();
+			doc = rdoc.getDocument();
+		}
+		assertEquals(
+				"Failed to receive expected 404 status code on repeated delete of same record",
+				404, getStatus); // ensures CSPACE-209 hasn't regressed
+		assertNull("Contents of deleted record were unexpectedly not null", doc);
+	}
 	@Test
 	public void testAllPostGetDelete() throws Exception {
 		// TODO Add vocab (the previous testVocabPost method was just an exact
