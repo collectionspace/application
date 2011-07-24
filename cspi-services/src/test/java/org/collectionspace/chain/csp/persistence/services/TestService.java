@@ -1168,7 +1168,7 @@ public class TestService extends ServicesBaseClass {
 		for (Node n : (List<Node>) doc
 				.getDocument()
 				.selectNodes(
-						"collectionobjects-common-list/collection-object-list-item/csid")) {
+						"abstract-common-list/list-item/csid")) {
 			csids.add(n.getText());
 		}
 
