@@ -354,20 +354,17 @@ public class RecordCreateUpdate implements WebMethod {
 					payload.put("mode", fields.getString("mode"));
 				}
 				if(fields.has("docType")){
-					payload.put("docType", fields.getString("docType"));
-				}
-				else if(fields.has("type")){
 					String type = spec.getRecordByWebUrl(fields.getString("docType")).getServicesTenantSg();
 					payload.put("docType", type);
 				}
 				if(fields.has("singleCSID")){
 					payload.put("singleCSID", fields.getString("singleCSID"));
 				}
-				else if(fields.has("csid")){
+				else if(fields.has("groupCSID")){
 					payload.put("singleCSID", fields.getString("csid"));
 				}
 				
-				JSONObject out=storage.retrieveJSON(base+"/"+path,fields);
+				JSONObject out=storage.retrieveJSON(base+"/"+path,payload);
 
 				byte[] data_array = (byte[])out.get("getByteBody");
 				request.sendUnknown(data_array,out.getString("contenttype"));

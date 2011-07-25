@@ -394,7 +394,9 @@ public class TestGeneral extends TestBase {
 		ServletTester jetty=setupJetty();
 		//ServletTester jetty=setupJetty(false,"tenant2.xml");
 
-		String csid = "/reporting/search";
+	//	String csid = "/reporting/search?doctype=Acquisition";
+		String csid = "/reporting/search/intake";
+		//String csid = "/reporting";
 		//String csid = "/vocab/languages";
 		//http://nightly.collectionspace.org/collectionspace/chain/vocabularies/location/source-vocab/relatedTerm
 		String test = "{\"csid\":\"99cf26b7-9f4f-445e-8c66\",\"fields\":{\"shortIdentifier\":\"addresstype\",\"terms\":[{\"shortIdentifier\":\"previous\",\"csid\":\"1970ae48-d9e1-4a7e-92a4\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Previous\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(1970ae48-d9e1-4a7e-92a4)'Previous'\",\"recordtype\":\"vocab\",\"termName\":\"wer\",\"termSource\":\"r\",\"termStatus\":\"inactive\"},{\"shortIdentifier\":\"street\",\"csid\":\"4ae1d2a1-095b-4dcc-be98\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Street\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(4ae1d2a1-095b-4dcc-be98)'Street'\",\"recordtype\":\"vocab\",\"termName\":\"werwe\",\"termDescription\":\"rrr\",\"termSourcePage\":\"r\"},{\"shortIdentifier\":\"alternative\",\"csid\":\"75103d23-00c4-42ff-baf2\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Alternative\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(75103d23-00c4-42ff-baf2)'Alternative'\",\"recordtype\":\"vocab\",\"termName\":\"rrrr\"},{\"shortIdentifier\":\"mailing\",\"csid\":\"84d59f3a-d48f-44df-b2d5\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Mailing\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(84d59f3a-d48f-44df-b2d5)'Mailing'\",\"recordtype\":\"vocab\",\"termSource\":\"wer\",\"termDescription\":\"www\",\"termName\":\"wer32\"}],\"csid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Contact Address Type\",\"description\":\"dfgdfgdfgfddesc\"}}";
@@ -669,7 +671,7 @@ public class TestGeneral extends TestBase {
 		assertEquals("image/jpeg",out2.getHeader("Content-Type"));
 		byte[] img = out2.getBinaryContent();
 		assertArrayEquals(img,data);
-		System.err.println(response.getString("file"));
+	//	System.err.println(response.getString("file"));
 	}
 	
 	@Test public void testReports() throws Exception {
@@ -682,23 +684,30 @@ public class TestGeneral extends TestBase {
 		String id = out.getHeader("Location");
 		// Retrieve
 		out = jettyDo(jetty, "GET", "/tenant/core" + id, null);
+		
+		HttpTester out3 = jettyDo(jetty, "GET", "/tenant/core/reporting/search/acquisition", null);
+		log.info(out3.getContent());
 
 		JSONObject one = new JSONObject(out.getContent());
+		JSONObject list = new JSONObject(out3.getContent());
 
+		String reportcsid = list.getJSONArray("reportlist").getString(0);
 		String path = one.getString("csid");
 
 		JSONObject report = new JSONObject();
-		report.put("mode", "single");
-		report.put("docType", "Acquisition");
+		report.put("docType", "acquisition");
 		report.put("singleCSID", path);
+		report.put("mode", "single");
 		JSONObject fields = new JSONObject();
 		fields.put("fields", report);
 		
-		String url = "/invokereport/df3debcd-91a9-4e1b-b76d";
+		String url = "/invokereport/"+reportcsid;
 
 		HttpTester out2 = POSTData(url,fields.toString(),jetty,"GET");
 		log.info(out2.getContent());
+		assertEquals(200,out2.getStatus());
 		log.info(Integer.toString(out2.getStatus()));
+		assertEquals("application/pdf",out2.getHeader("Content-Type"));
 		log.info(out2.getHeader("Content-Type"));
 		
 		// Delete
