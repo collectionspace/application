@@ -1,8 +1,8 @@
 
 
-<record id="output" in-recordlist="no" type="authorizationdata">
+<record id="output" in-recordlist="no" type="authorizationdata,report">
     <web-url>invokereport</web-url>
-    <services-url>reports/*/output</services-url>
+    <services-url>reports</services-url>
     <services-record-path>invocationContext:http://collectionspace.org/services/common/invocable,invocationContext</services-record-path>
     <structures>
         <structure id="screen">
