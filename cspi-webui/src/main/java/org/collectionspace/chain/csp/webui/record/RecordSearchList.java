@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -169,7 +170,7 @@ public class RecordSearchList implements WebMethod {
 	 * @param {String} pageNum The amount of pages requested.
 	 * @throws UIException
 	 */
-	private void search_or_list(Storage storage,UIRequest ui) throws UIException {
+	private void search_or_list(Storage storage,UIRequest ui,String path) throws UIException {
 		try {
 			JSONObject restriction=new JSONObject();
 			String key="items";
@@ -252,6 +253,11 @@ public class RecordSearchList implements WebMethod {
 			}
 			else if(r.getID().equals("reports")){
 				String type= "";
+				if(path!=null && !path.equals("")){
+					restriction.put("queryTerm", "doctype");
+					restriction.put("queryString", spec.getRecordByWebUrl(path).getServicesTenantSg());
+				}
+				
 				if(restriction.has("queryTerm") && restriction.getString("queryTerm").equals("doctype")){
 					type = restriction.getString("queryString");
 					returndata = getJSON(storage,restriction,key,base);
@@ -335,7 +341,7 @@ public class RecordSearchList implements WebMethod {
 	
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
-		search_or_list(q.getStorage(),q.getUIRequest());
+		search_or_list(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 
 	public void configure(WebUI ui,Spec spec) {
