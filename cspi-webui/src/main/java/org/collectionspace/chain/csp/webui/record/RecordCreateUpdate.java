@@ -344,9 +344,29 @@ public class RecordCreateUpdate implements WebMethod {
 			}
 
 			if(this.record.getID().equals("output")){
-				//do a read instead of a create
+				//do a read instead of a create as reports are special and evil
 
 				JSONObject fields=data.optJSONObject("fields");
+				JSONObject payload = new JSONObject();
+				payload.put("mode", "single");
+
+				if(fields.has("mode")){
+					payload.put("mode", fields.getString("mode"));
+				}
+				if(fields.has("docType")){
+					payload.put("docType", fields.getString("docType"));
+				}
+				else if(fields.has("type")){
+					String type = spec.getRecordByWebUrl(fields.getString("docType")).getServicesTenantSg();
+					payload.put("docType", type);
+				}
+				if(fields.has("singleCSID")){
+					payload.put("singleCSID", fields.getString("singleCSID"));
+				}
+				else if(fields.has("csid")){
+					payload.put("singleCSID", fields.getString("csid"));
+				}
+				
 				JSONObject out=storage.retrieveJSON(base+"/"+path,fields);
 
 				byte[] data_array = (byte[])out.get("getByteBody");
