@@ -314,6 +314,14 @@ public class TestBase extends TestData {
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/core"+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
 		return out;
 	}
+	
+	protected HttpTester POSTData(String url, String data, ServletTester jetty, String statusTest) throws IOException, Exception{
+		HttpTester out = jettyDo(jetty,"POST","/tenant/core"+url,data);
+		assertEquals(out.getMethod(),null);
+		Integer status = getStatus(out.getContent(),  out.getStatus());
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/core"+url+" with data: "+data +"/n"+out.getContent(),testStatus(statusTest,status));
+		return out;
+	}
 
 	protected UTF8SafeHttpTester POSTBinaryData(String url, byte[] data, ServletTester jetty) throws IOException, Exception{
 		UTF8SafeHttpTester out = jettyDoData(jetty,"POST","/tenant/core"+url,"1.jpeg","image/jpeg",data);

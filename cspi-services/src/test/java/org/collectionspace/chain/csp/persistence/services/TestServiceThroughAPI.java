@@ -44,6 +44,15 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		//create
 		String path = doCreate(ss, objtype, jsoncreate);
 		
+		JSONObject report = new JSONObject();
+		report.put("mode", "single");
+		report.put("docType", "Acquisition");
+		report.put("singleCSID", path);
+		
+
+		JSONObject path2 = ss.retrieveJSON("output/df3debcd-91a9-4e1b-b76d",report);
+		String path3 = "";
+		path3 = "bob";
 		//run report
 		/*
 		<?xml version="1.0" encoding="utf-8" standalone="yes"?>

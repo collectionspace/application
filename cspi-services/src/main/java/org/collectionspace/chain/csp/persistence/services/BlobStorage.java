@@ -2,6 +2,9 @@ package org.collectionspace.chain.csp.persistence.services;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.dom4j.Document;
 
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
@@ -74,24 +77,52 @@ public class BlobStorage extends GenericStorage {
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject restrictions) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
-			String[] parts=filePath.split("/");
-			if(parts.length>=2) {
-				String extra = "";
-				if(parts.length==3){
-					extra = parts[2];
+			if(r.isType("report")){
+				Document doc = null;
+				Map<String,Document> parts=new HashMap<String,Document>();
+				for(String section : r.getServicesRecordPaths()) {
+					String path=r.getServicesRecordPath(section);
+					String[] record_path=path.split(":",2);
+					doc=XmlJsonConversion.convertToXml(r,restrictions,section,"POST");
+					if(doc!=null){
+						parts.put(record_path[0],doc);
+					}
 				}
-				return viewRetrieveImg(root,creds,cache,parts[0],parts[1],extra, restrictions);
-			} else
-				return simpleRetrieveJSON(creds,cache,filePath);
+				//some records are accepted as multipart in the service layers, others arent, that's why we split up here
+				ReturnUnknown doc2 = conn.getReportDocument(RequestMethod.POST, "reports/"+filePath, doc, creds, cache);
+				
+				if(doc2.getStatus()>299 || doc2.getStatus()<200)
+					throw new UnderlyingStorageException("Bad response ", doc2.getStatus(), r.getServicesURL()+"/");
+				
+				JSONObject out = new JSONObject();
+				out.put("getByteBody", doc2.getBytes());
+				out.put("contenttype", doc2.getContentType());
+				return out;
+			}
+			else{
+				String[] parts=filePath.split("/");
+				if(parts.length>=2) {
+					String extra = "";
+					if(parts.length==3){
+						extra = parts[2];
+					}
+					return viewRetrieveImg(root,creds,cache,parts[0],parts[1],extra, restrictions);
+				} else
+					return simpleRetrieveJSON(creds,cache,filePath);
+			}
+			
+			
 		} catch(JSONException x) {
 			throw new UnderlyingStorageException("Error building JSON",x);
 		} catch (UnsupportedEncodingException x) {
 			throw new UnderlyingStorageException("Error UnsupportedEncodingException JSON",x);
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	
+	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		
-
 		ReturnedURL url = null;
 		try {
 		byte[] bitten = (byte[]) jsonObject.get("getbyteBody");

@@ -343,28 +343,41 @@ public class RecordCreateUpdate implements WebMethod {
 				}
 			}
 
-			
-			if(create) {
-				path=sendJSON(storage,null,data);
-				data.put("csid",path);
-				data.getJSONObject("fields").put("csid",path);
-			} else
-				path=sendJSON(storage,path,data);
-			if(path==null)
-				throw new UIException("Insufficient data for create (no fields?)");
+			if(this.record.getID().equals("output")){
+				//do a read instead of a create
 
-			if(this.base.equals("role")){
-				assignPermissions(storage,path,data);
+				JSONObject fields=data.optJSONObject("fields");
+				JSONObject out=storage.retrieveJSON(base+"/"+path,fields);
+
+				byte[] data_array = (byte[])out.get("getByteBody");
+				request.sendUnknown(data_array,out.getString("contenttype"));
+				
+				//request.sendJSONResponse(out);
+				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 			}
-			if(this.base.equals("termlist")){
-				assignTerms(storage,path,data);
+			else{
+				if(create) {
+					path=sendJSON(storage,null,data);
+					data.put("csid",path);
+					data.getJSONObject("fields").put("csid",path);
+				} else
+					path=sendJSON(storage,path,data);
+				if(path==null)
+					throw new UIException("Insufficient data for create (no fields?)");
+
+				if(this.base.equals("role")){
+					assignPermissions(storage,path,data);
+				}
+				if(this.base.equals("termlist")){
+					assignTerms(storage,path,data);
+				}
+				
+				data=reader.getJSON(storage,path);
+				request.sendJSONResponse(data);
+				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
+				if(create)
+					request.setSecondaryRedirectPath(new String[]{url_base,path});
 			}
-			
-			data=reader.getJSON(storage,path);
-			request.sendJSONResponse(data);
-			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
-			if(create)
-				request.setSecondaryRedirectPath(new String[]{url_base,path});
 		} catch (JSONException x) {
 			throw new UIException("Failed to parse json: "+x,x);
 		} catch (ExistException x) {

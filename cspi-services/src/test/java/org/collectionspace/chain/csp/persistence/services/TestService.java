@@ -726,13 +726,9 @@ public class TestService extends ServicesBaseClass {
 			Document report = getDocument("reportrun.xml");
 			report.selectSingleNode("invocationContext/singleCSID").setText(csid);
 
-			Map<String, Document> rparts = new HashMap<String, Document>();
-			rparts.put(partname, report);
-			
-
 			//DO REPORT
 			//run report
-			ReturnUnknown doc2 = conn.getReportDocument(RequestMethod.POST, reportsurl,report, creds, cache);
+			ReturnUnknown doc2 = conn.getReportDocument(RequestMethod.POST, reportsurl, report, creds, cache);
 			JSONObject out = new JSONObject();
 			out.put("getByteBody", doc2.getBytes());
 			out.put("contenttype", doc2.getContentType());
