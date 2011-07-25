@@ -110,7 +110,6 @@ public class TestUISpecs extends TestBase {
 		//ServletTester jetty=setupJetty(false,"tenant1.xml");
 //		uispec(jetty, "/reporting/serviceschema/collectionspace_core", "collection-object.uischema");
 		//uispec(jetty, "/location/uischema", "location.uischema");
-//		uispec(jetty, "/reporting/uischema", "recordlist.uischema");
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
 		uispec(jetty, "/namespaces/uischema", "namespaces.uischema");
 		uispec(jetty, "/termlist/uischema", "termlist.uischema");
