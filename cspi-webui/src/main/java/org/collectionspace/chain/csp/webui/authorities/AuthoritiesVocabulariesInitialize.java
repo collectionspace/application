@@ -144,9 +144,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		for(int i=0;i<terms.length();i++){
 			JSONObject element = terms.getJSONObject(i);
 			if(element.has("description"))
-				ins.addOption(element.getString("shortIdentifier"), element.getString("termName"), null, false, element.getString("description"));
+				ins.addOption(element.getString("shortIdentifier"), element.getString("displayName"), null, false, element.getString("description"));
 			else
-				ins.addOption(element.getString("shortIdentifier"), element.getString("termName"), null, false);
+				ins.addOption(element.getString("shortIdentifier"), element.getString("displayName"), null, false);
 				
 		}
 		
