@@ -33,42 +33,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	@Before public void checkServicesRunning() throws ConnectionException {
 		setup();
 	}
-	@Test public void testReports() throws Exception {
-		
-		//create acquisition
-		String objtype = "acquisition/";
-		JSONObject jsoncreate = getJSON("acquisitionJSON.json");
-		JSONObject jsonupdate = getJSON("acquisitionJSON.json");
-		
-		Storage ss=makeServicesStorage();
-		//create
-		String path = doCreate(ss, objtype, jsoncreate);
-		
-		JSONObject report = new JSONObject();
-		report.put("mode", "single");
-		report.put("docType", "Acquisition");
-		report.put("singleCSID", path);
-		
-
-		JSONObject path2 = ss.retrieveJSON("output/df3debcd-91a9-4e1b-b76d",report);
-		String path3 = "";
-		path3 = "bob";
-		//run report
-		/*
-		<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-		<ns2:invocationContext xmlns:ns2="http://collectionspace.org/services/common/invocable"
-		  <mode>single</mode>
-		  <docType>Intake</docType>
-		  <singleCSID>605e9252-598d-4459-8380</singleCSID>
-		</ns2:invocationContext>
-		
-		POST to /cspace-services/reports/{id}
-		*/
-		
-		
-
-		doDelete(ss, objtype, path);
-	}
+	
 
 	//XXX add more tests for other record types
 	@Test public void testGetPostDelete() throws Exception {
