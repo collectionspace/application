@@ -93,7 +93,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 							//convert sortKey
 							fs = r.getField(fieldname);
 						}
-						log.info(fs.getSection());
+						//log.info(fs.getSection());
 						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
 						String newvalue = tablebase+":"+fieldname;
 						restriction.put(restrict,newvalue);
