@@ -57,7 +57,10 @@ public class Generic {
 		try{
 			Record test = null;
 			//can we do a simple match
-			if(spec.hasRecordByServicesUrl(servicename)){
+			if(spec.hasRecord(servicename)){
+				test = spec.getRecord(servicename);
+			}
+			else if(spec.hasRecordByServicesUrl(servicename)){
 				test = spec.getRecordByServicesUrl(servicename);
 			}
 			else{
