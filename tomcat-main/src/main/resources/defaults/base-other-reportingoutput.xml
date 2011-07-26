@@ -4,7 +4,10 @@
     <web-url>invokereport</web-url>
     <services-url>reports</services-url>
     <services-record-path>invocationContext:http://collectionspace.org/services/common/invocable,invocationContext</services-record-path>
-    <structures>
+    
+	<terms-used>false</terms-used>
+	<refobj-used>false</refobj-used>
+	<structures>
         <structure id="screen">
             <view>
                 <titlebar show="false"></titlebar>
