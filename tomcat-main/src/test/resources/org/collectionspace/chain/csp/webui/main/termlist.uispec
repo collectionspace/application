@@ -3,10 +3,10 @@
         ".csc-termlist-csid-label": {
             "messagekey": "termlist-csidLabel"
         },
-        ".csc-termlist-name": "${fields.name}",
         ".csc-termlist-termStatus-label": {
             "messagekey": "termlist-termStatusLabel"
         },
+        ".csc-termlist-name": "${fields.name}",
         ".csc-termlist-displayName-label": {
             "messagekey": "termlist-displayNameLabel"
         },
@@ -22,13 +22,10 @@
         ".csc-termlist-usedBy-label": {
             "messagekey": "termlist-usedByLabel"
         },
-        ".csc-termlist-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-termlist-description-label": {
             "messagekey": "termlist-descriptionLabel"
         },
-        ".csc-termlist-number-label": {
-            "messagekey": "termlist-numberLabel"
-        },
+        ".csc-termlist-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-termlist-terms": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -47,9 +44,9 @@
                                             "optionlist": ["active", "inactive"],
                                             "selection": "${{row}.termStatus}"
                                         },
-                                        ".csc-termlist-termName": "${{row}.displayName}",
+                                        ".csc-termlist-termName": "${{row}.termName}",
                                         ".csc-termlist-termDescription": "${{row}.description}",
-                                        ".csc-termlist-shortIdentifier": "${{row}.shortIdentifier}",
+                                        ".csc-termlist-shortID": "${{row}.shortID}",
                                         ".csc-termlist-refid": "${{row}.refid}"
                                     },
                                     "type": "fluid.renderer.repeat",
@@ -64,6 +61,12 @@
             }]
         },
         ".csc-termlist-displayName": "${fields.displayName}",
+        ".csc-termlist-number-label": {
+            "messagekey": "termlist-numberLabel"
+        },
+        ".csc-termlist-shortID-label": {
+            "messagekey": "termlist-shortIDLabel"
+        },
         ".csc-termlist-description": "${fields.description}",
         ".csc-termlist-source": "${fields.source}",
         "expander": {
@@ -81,6 +84,9 @@
         },
         ".csc-termlist-shortIdentifier-label": {
             "messagekey": "termlist-shortIdentifierLabel"
+        },
+        ".csc-termlist-termName-label": {
+            "messagekey": "termlist-termNameLabel"
         },
         ".csc-termlist-usedBys-label": {
             "messagekey": "termlist-usedBysLabel"

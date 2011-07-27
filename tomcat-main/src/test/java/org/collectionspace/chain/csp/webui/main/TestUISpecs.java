@@ -136,7 +136,9 @@ public class TestUISpecs extends TestBase {
 //	uispec(jetty, "/cataloging/uispec", "hierarchy.uispec");
 //		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
 
-//		uispec(jetty, "/termlist/uispec", "termlist.uispec");
+		uispec(jetty, "/termlist/uispec", "termlist.uispec");
+		
+		
 		uispec(jetty, "/role/uispec", "roles.uispec");
 		
 		uispec(jetty, "/users/uispec", "users.uispec");
