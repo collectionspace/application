@@ -10,9 +10,6 @@
         ".csc-termlist-displayName-label": {
             "messagekey": "termlist-displayNameLabel"
         },
-        ".csc-termlist-refid-label": {
-            "messagekey": "termlist-refidLabel"
-        },
         ".csc-termlist-domaindata-label": {
             "messagekey": "termlist-domaindataLabel"
         },
@@ -46,8 +43,7 @@
                                         },
                                         ".csc-termlist-termName": "${{row}.termName}",
                                         ".csc-termlist-termDescription": "${{row}.description}",
-                                        ".csc-termlist-shortID": "${{row}.shortID}",
-                                        ".csc-termlist-refid": "${{row}.refid}"
+                                        ".csc-termlist-shortID": "${{row}.shortID}"
                                     },
                                     "type": "fluid.renderer.repeat",
                                     "pathAs": "row",
