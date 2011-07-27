@@ -112,7 +112,7 @@ public class TestUISpecs extends TestBase {
 		//uispec(jetty, "/location/uischema", "location.uischema");
 		uispec(jetty, "/recordlist/uischema", "recordlist.uischema");
 		uispec(jetty, "/namespaces/uischema", "namespaces.uischema");
-		uispec(jetty, "/termlist/uischema", "termlist.uischema");
+	//	uispec(jetty, "/termlist/uischema", "termlist.uischema");
 
 		uispec(jetty, "/cataloging/uischema", "collection-object.uischema");
 		uispec(jetty, "/media/uischema", "media.uischema");

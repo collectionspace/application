@@ -88,9 +88,15 @@ public class BlobStorage extends GenericStorage {
 						parts.put(record_path[0],doc);
 					}
 				}
-				//some records are accepted as multipart in the service layers, others arent, that's why we split up here
-				ReturnUnknown doc2 = conn.getReportDocument(RequestMethod.POST, "reports/"+filePath, doc, creds, cache);
-				
+				ReturnUnknown doc2 = null;
+				if(filePath.contains("/output")){
+					doc2 = conn.getReportDocument(RequestMethod.GET, "reports/"+filePath, null, creds, cache);
+					
+				}
+				else{
+					doc2 = conn.getReportDocument(RequestMethod.POST, "reports/"+filePath, doc, creds, cache);
+					
+				}
 				if(doc2.getStatus()>299 || doc2.getStatus()<200)
 					throw new UnderlyingStorageException("Bad response ", doc2.getStatus(), r.getServicesURL()+"/");
 				

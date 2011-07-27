@@ -24,6 +24,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
@@ -294,21 +295,39 @@ public class RecordRead implements WebMethod {
 	
 	private void store_get(Storage storage,UIRequest request,String path) throws UIException {
 		// Get the data
-		JSONObject outputJSON = getJSON(storage,path);
 		try {
 			if(record.isType("blob")){
+				JSONObject outputJSON = getJSON(storage,path);
 				String content = outputJSON.getString("contenttype");
 				byte[] bob = (byte[])outputJSON.get("getByteBody"); 
 				String getByteBody = bob.toString();
 				request.sendUnknown(getByteBody, content);
 			}
+			else if(record.getID().equals("output")){
+
+				JSONObject out=storage.retrieveJSON(base+"/"+path,new JSONObject());
+
+				byte[] data_array = (byte[])out.get("getByteBody");
+				request.sendUnknown(data_array,out.getString("contenttype"));
+				
+			}
 			else{
+				JSONObject outputJSON = getJSON(storage,path);
 				outputJSON.put("csid",path);
 				// Write the requested JSON out
 				request.sendJSONResponse(outputJSON);
 			}
 		} catch (JSONException e1) {
 			throw new UIException("Cannot add csid",e1);
+		} catch (ExistException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnimplementedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnderlyingStorageException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
