@@ -4,9 +4,9 @@
     <web-url>location</web-url>
     <services-tenant-plural>Locationauthorities</services-tenant-plural>
     <services-tenant-singular>Locationauthority</services-tenant-singular>
-    <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities-common-list/locationauthority-list-item</services-instances-path>
+    <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,abstract-common-list/list-item</services-instances-path>
     <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities_common</services-single-instance-path>
-    <services-list-path>http://collectionspace.org/services/location,locations-common-list/location_list_item</services-list-path>
+    <services-list-path>http://collectionspace.org/services/location,abstract-common-list/list-item</services-list-path>
     <services-record-path>locations_common:http://collectionspace.org/services/location,locations_common</services-record-path>
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <services-url>locationauthorities</services-url>

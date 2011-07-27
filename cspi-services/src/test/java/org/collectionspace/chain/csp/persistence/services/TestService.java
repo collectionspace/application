@@ -296,7 +296,7 @@ public class TestService extends ServicesBaseClass {
 		assertNotNull(text);
 		log.info("Value of XPath expression '" + xpath + "' = " + text);
 		assert (!text.trim().equals("0"));
-		xpath = "//person_list_item/csid";
+		xpath = "//list-item/csid";
 		List<Node> nodes = doc.selectNodes(xpath);
 		assertNotNull(nodes);
 		assert (nodes.size() > 0);
@@ -470,7 +470,7 @@ public class TestService extends ServicesBaseClass {
 		assertNotNull(text);
 		log.info("Value of XPath expression '" + xpath + "' = " + text);
 		assert (!text.trim().equals("0"));
-		xpath = "//person_list_item/csid";
+		xpath = "//list-item/csid";
 		List<Node> nodes = doc.selectNodes(xpath);
 		assertNotNull(nodes);
 		assert (nodes.size() > 0);
