@@ -304,8 +304,20 @@ public class RecordRead implements WebMethod {
 				request.sendUnknown(getByteBody, content);
 			}
 			else if(record.getID().equals("output")){
+				String[] bits = path.split("/");
+				JSONObject payload = new JSONObject();
+				if(bits.length > 1 && !bits[1].equals("output")){
 
-				JSONObject out=storage.retrieveJSON(base+"/"+path,new JSONObject());
+					payload.put("mode", "single");
+
+					String type = spec.getRecordByWebUrl(bits[1]).getServicesTenantSg();
+					payload.put("docType", type);
+					
+					payload.put("singleCSID", bits[2]);
+					path = bits[0];
+				}
+
+				JSONObject out=storage.retrieveJSON(base+"/"+path,payload);
 
 				byte[] data_array = (byte[])out.get("getByteBody");
 				request.sendUnknown(data_array,out.getString("contenttype"));
