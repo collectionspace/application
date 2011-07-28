@@ -1,4 +1,3 @@
-
 <!-- <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject,collectionobjects_naturalhistory</services-record-path>
 -->
 <section id="domaindata">
@@ -6,5 +5,50 @@
     <field id="nhString" section="naturalhistory">
         <services-tag>nh-string</services-tag>
     </field>
+    
+    <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
+      <field id="taxon" section="naturalhistory" autocomplete="taxon-taxon">
+        <selector>taxonomic-identification-taxon</selector>
+      </field>
+      <field id="qualifier" section="naturalhistory" seperate_ui_container="true">
+        <selector>taxonomic-identification-qualifier</selector>
+            <options>
+                <option id="">Please select a value</option>
+                <option id="aff">aff.</option>
+                <option id="cf">cf.</option>
+                <option id="forsan">forsan</option>
+                <option id="sensu_latu">sensu latu</option>
+                <option id="questionable">questionable</option>
+            </options>
+      </field>
+      <field id="identBy" section="naturalhistory" autocomplete="person-person,organization-organization">
+        <selector>taxonomic-identification-ident-by</selector>
+      </field>
+      <field id="identDate" section="naturalhistory" ui-type="date">
+          <selector>taxonomic-identification-ident-date</selector>
+      </field>
+      <field id="institution" section="naturalhistory" autocomplete="organization-organization">
+        <selector>taxonomic-identification-institution</selector>
+      </field>
+      <field id="identKind" section="naturalhistory" seperate_ui_container="true">
+        <selector>taxonomic-identification-ident-kind</selector>
+            <options>
+                <option id="">Please select a value</option>
+                <option id="original_label_determination">original label determination</option>
+                <option id="fide">fide</option>
+                <option id="nomenclatural_change">nomenclatural change</option>
+                <option id="taxonomic_change">taxonomic change </option>
+            </options>
+      </field>
+      <field id="reference" section="naturalhistory">
+        <selector>taxonomic-identification-reference</selector>
+      </field>
+      <field id="refPage" section="naturalhistory">
+        <selector>taxonomic-identification-reference-page</selector>
+      </field>
+      <field id="notes" section="naturalhistory">
+        <selector>taxonomic-identification-notes</selector>
+      </field>
+    </repeat>
 
 </section>
