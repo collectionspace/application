@@ -16,6 +16,9 @@
         ".csc-termlist-source-label": {
             "messagekey": "termlist-sourceLabel"
         },
+        ".csc-termlist-sourcePage-label": {
+            "messagekey": "termlist-sourcePageLabel"
+        },
         ".csc-termlist-usedBy-label": {
             "messagekey": "termlist-usedByLabel"
         },
@@ -62,6 +65,7 @@
         ".csc-termlist-displayName": "${fields.displayName}",
         ".csc-termlist-description": "${fields.description}",
         ".csc-termlist-source": "${fields.source}",
+        ".csc-termlist-sourcePage": "${fields.sourcePage}",
         "expander": {
             "repeatID": ".csc-termlist-usedBy:",
             "tree": {

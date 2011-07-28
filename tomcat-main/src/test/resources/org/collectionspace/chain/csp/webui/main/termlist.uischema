@@ -26,6 +26,9 @@
                     "source": {
                         "type": "string"
                     },
+                    "sourcePage": {
+                         "type": "string"
+                    }
                     "description": {
                         "type": "string"
                     },
@@ -50,7 +53,10 @@
                                 },
                                 "refid": {
                                     "type": "string"
-                                }
+                                },
+                                "source": {
+                                    "type": "string"
+                                },
                             },
                             "type": "object"
                         },
