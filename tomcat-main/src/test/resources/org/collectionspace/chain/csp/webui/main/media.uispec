@@ -1,1346 +1,479 @@
 {
-
-   "recordEditor":{
-
-      ".csc-media-date":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.makeRepeatable",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "elPath":"fields.dates",
-
-                  "protoTree":{
-
-                     "expander":{
-
-                        "tree":{
-
-                           "expander":{
-
-                              "repeatID":"repeat:",
-
-                              "tree":{
-
-                                 ".csc-media-date":{
-
-                                    "decorators":[
-
-                                       {
-
-                                          "func":"cspace.datePicker",
-
-                                          "type":"fluid"
-
-                                       }
-
-                                    ],
-
-                                    "value":"${{row}.date}"
-
-                                 }
-
-                              },
-
-                              "type":"fluid.renderer.repeat",
-
-                              "pathAs":"row",
-
-                              "controlledBy":"fields.dates"
-
-                           }
-
-                        },
-
-                        "type":"fluid.noexpand"
-
-                     }
-
-                  }
-
-               }
-
-            }
-
-         ]
-
-      },
-
-      ".csc-media-filename-label":{
-
-         "messagekey":"media-filenameLabel"
-
-      },
-
-      ".csc-media-measurementUnit-label":{
-
-         "messagekey":"media-measurementUnitLabel"
-
-      },
-
-      ".csc-media-relation-label":{
-
-         "messagekey":"media-relationLabel"
-
-      },
-
-      ".csc-media-srcUri-label":{
-
-         "messagekey":"media-srcUriLabel"
-
-      },
-
-      ".csc-media-location-label":{
-
-         "messagekey":"media-locationLabel"
-
-      },
-
-      ".csc-media-blobs-label":{
-
-         "messagekey":"media-blobsLabel"
-
-      },
-
-      ".csc-media-languages-label":{
-
-         "messagekey":"media-languagesLabel"
-
-      },
-
-      ".csc-media-relation":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.makeRepeatable",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "elPath":"fields.relations",
-
-                  "protoTree":{
-
-                     "expander":{
-
-                        "tree":{
-
-                           "expander":{
-
-                              "repeatID":"repeat:",
-
-                              "tree":{
-
-                                 ".csc-media-relation":"${{row}.relation}"
-
-                              },
-
-                              "type":"fluid.renderer.repeat",
-
-                              "pathAs":"row",
-
-                              "controlledBy":"fields.relations"
-
-                           }
-
-                        },
-
-                        "type":"fluid.noexpand"
-
-                     }
-
-                  }
-
-               }
-
-            }
-
-         ]
-
-      },
-
-      ".csc-media-language-label":{
-
-         "messagekey":"media-languageLabel"
-
-      },
-
-      ".csc-media-format":"${fields.format}",
-
-      ".csc-blobs-digest":"${fields.blobs.0.digest}",
-
-      ".csc-media-subjects-label":{
-
-         "messagekey":"media-subjectsLabel"
-
-      },
-
-      ".csc-media-dateCreated":"${fields.dateCreated}",
-
-      ".csc-media-dateModified":"${fields.dateModified}",
-
-      ".csc-blobs-name":"${fields.blobs.0.name}",
-
-      ".csc-media-updatedAt":"${fields.updatedAt}",
-
-      ".csc-media-location":"${fields.location}",
-
-      ".csc-media-coverage-label":{
-
-         "messagekey":"media-coverageLabel"
-
-      },
-
-      ".csc-media-rightsHolder":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.autocomplete",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "queryUrl":"../../../tenant/html/media/autocomplete/rightsHolder",
-
-                  "vocabUrl":"../../../tenant/html/media/source-vocab/rightsHolder"
-
-               }
-
-            }
-
-         ],
-
-         "value":"${fields.rightsHolder}"
-
-      },
-
-      ".csc-media-date-label":{
-
-         "messagekey":"media-dateLabel"
-
-      },
-
-      ".csc-media-dimension-label":{
-
-         "messagekey":"media-dimensionLabel"
-
-      },
-
-      ".csc-blobs-imgOrig":"${fields.blobs.0.imgOrig}",
-
-      ".csc-media-valueQualifier-label":{
-
-         "messagekey":"media-valueQualifierLabel"
-
-      },
-
-      ".csc-media-source":"${fields.source}",
-
-      ".csc-media-externalMediaUrl":"${fields.externalMediaUrl}",
-
-      ".csc-media-relations-label":{
-
-         "messagekey":"media-relationsLabel"
-
-      },
-
-      ".csc-media-value-label":{
-
-         "messagekey":"media-valueLabel"
-
-      },
-
-      ".csc-media-subject":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.makeRepeatable",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "elPath":"fields.subjects",
-
-                  "protoTree":{
-
-                     "expander":{
-
-                        "tree":{
-
-                           "expander":{
-
-                              "repeatID":"repeat:",
-
-                              "tree":{
-
-                                 ".csc-media-subject":"${{row}.subject}"
-
-                              },
-
-                              "type":"fluid.renderer.repeat",
-
-                              "pathAs":"row",
-
-                              "controlledBy":"fields.subjects"
-
-                           }
-
-                        },
-
-                        "type":"fluid.noexpand"
-
-                     }
-
-                  }
-
-               }
-
-            }
-
-         ]
-
-      },
-
-      ".csc-blobs-createdAt":"${fields.blobs.0.createdAt}",
-
-      ".csc-media-creator-label":{
-
-         "messagekey":"media-creatorLabel"
-
-      },
-
-      ".csc-media-copyrightStatement-label":{
-
-         "messagekey":"media-copyrightStatementLabel"
-
-      },
-
-      ".csc-media-source-label":{
-
-         "messagekey":"media-sourceLabel"
-
-      },
-
-      ".csc-blobs-data":"${fields.blobs.0.data}",
-
-      ".csc-media-valueDate-label":{
-
-         "messagekey":"media-valueDateLabel"
-
-      },
-
-      ".csc-media-contributor-label":{
-
-         "messagekey":"media-contributorLabel"
-
-      },
-
-      ".csc-media-identificationNumber":"${fields.identificationNumber}",
-
-      ".csc-media-dates-label":{
-
-         "messagekey":"media-datesLabel"
-
-      },
-
-      ".csc-media-filename":"${fields.filename}",
-
-      ".csc-media-externalMediaUrl-label":{
-
-         "messagekey":"media-externalMediaUrlLabel"
-
-      },
-
-      ".csc-media-uri-label":{
-
-         "messagekey":"media-uriLabel"
-
-      },
-
-      ".csc-media-tenantID-label":{
-
-         "messagekey":"media-tenantIDLabel"
-
-      },
-
-      ".csc-media-dateCreated-label":{
-
-         "messagekey":"media-dateCreatedLabel"
-
-      },
-
-      ".csc-media-rightsHolder-label":{
-
-         "messagekey":"media-rightsHolderLabel"
-
-      },
-
-      ".csc-media-subject-label":{
-
-         "messagekey":"media-subjectLabel"
-
-      },
-
-      ".csc-media-updatedAt-label":{
-
-         "messagekey":"media-updatedAtLabel"
-
-      },
-
-      ".csc-media-format-label":{
-
-         "messagekey":"media-formatLabel"
-
-      },
-
-      ".csc-blobs-length":"${fields.blobs.0.length}",
-
-      ".csc-media-imgThumb":"${fields.imgThumb}",
-
-      ".csc-media-dateModified-label":{
-
-         "messagekey":"media-dateModifiedLabel"
-
-      },
-
-      ".csc-media-mediaInformation-label":{
-
-         "messagekey":"media-mediaInformationLabel"
-
-      },
-
-      ".csc-media-language":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.makeRepeatable",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "elPath":"fields.languages",
-
-                  "protoTree":{
-
-                     "expander":{
-
-                        "tree":{
-
-                           "expander":{
-
-                              "repeatID":"repeat:",
-
-                              "tree":{
-
-                                 ".csc-media-language":{
-
-                                    "optionnames":[
-
-                                       "Ancient Greek",
-
-                                       "Arabic",
-
-                                       "Chinese",
-
-                                       "English",
-
-                                       "French",
-
-                                       "German",
-
-                                       "Hebrew",
-
-                                       "Italian",
-
-                                       "Japanese",
-
-                                       "Korean",
-
-                                       "Latin",
-
-                                       "Middle English",
-
-                                       "Old English",
-
-                                       "Please select a value",
-
-                                       "Portuguese",
-
-                                       "Russian",
-
-                                       "Spanish",
-
-                                       "Swahili"
-
-                                    ],
-
-                                    "optionlist":[
-
-                                       "",
-
-                                       "ancientgreek",
-
-                                       "arabic",
-
-                                       "chinese",
-
-                                       "eng",
-
-                                       "french",
-
-                                       "german",
-
-                                       "hebrew",
-
-                                       "italian",
-
-                                       "japanese",
-
-                                       "korean",
-
-                                       "latin",
-
-                                       "middleenglish",
-
-                                       "oldenglish",
-
-                                       "portuguese",
-
-                                       "russian",
-
-                                       "spn",
-
-                                       "swahili"
-
-                                    ],
-
-                                    "selection":"${{row}.language}"
-
-                                 }
-
-                              },
-
-                              "type":"fluid.renderer.repeat",
-
-                              "pathAs":"row",
-
-                              "controlledBy":"fields.languages"
-
-                           }
-
-                        },
-
-                        "type":"fluid.noexpand"
-
-                     }
-
-                  }
-
-               }
-
-            }
-
-         ]
-
-      },
-
-      ".csc-media-publisher":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.autocomplete",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "queryUrl":"../../../tenant/html/media/autocomplete/publisher",
-
-                  "vocabUrl":"../../../tenant/html/media/source-vocab/publisher"
-
-               }
-
-            }
-
-         ],
-
-         "value":"${fields.publisher}"
-
-      },
-
-      ".csc-media-description-label":{
-
-         "messagekey":"media-descriptionLabel"
-
-      },
-
-      ".csc-media-measurementMethod-label":{
-
-         "messagekey":"media-measurementMethodLabel"
-
-      },
-
-      ".csc-media-creator":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.autocomplete",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "queryUrl":"../../../tenant/html/media/autocomplete/creator",
-
-                  "vocabUrl":"../../../tenant/html/media/source-vocab/creator"
-
-               }
-
-            }
-
-         ],
-
-         "value":"${fields.creator}"
-
-      },
-
-      ".csc-media-createdAt-label":{
-
-         "messagekey":"media-createdAtLabel"
-
-      },
-
-      ".csc-media-blobCsid-label":{
-
-         "messagekey":"media-blobCsidLabel"
-
-      },
-
-      ".csc-media-fileInformation-label":{
-
-         "messagekey":"media-fileInformationLabel"
-
-      },
-
-      ".csc-blobs-uri":"${fields.blobs.0.uri}",
-
-      ".csc-media-coverage":"${fields.coverage}",
-
-      ".csc-media-types-label":{
-
-         "messagekey":"media-typesLabel"
-
-      },
-
-      ".csc-media-srcUri":"${fields.srcUri}",
-
-      ".csc-media-identificationNumber-label":{
-
-         "messagekey":"media-identificationNumberLabel"
-
-      },
-
-      ".csc-media-contributor":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.autocomplete",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "queryUrl":"../../../tenant/html/media/autocomplete/contributor",
-
-                  "vocabUrl":"../../../tenant/html/media/source-vocab/contributor"
-
-               }
-
-            }
-
-         ],
-
-         "value":"${fields.contributor}"
-
-      },
-
-      ".csc-blobs-mimeType":"${fields.blobs.0.mimeType}",
-
-      ".csc-blobs-imgThumb":"${fields.blobs.0.imgThumb}",
-
-      "expander":[
-
-         {
-
-            "repeatID":".csc-blobs-dimensionGroup:",
-
-            "tree":{
-
-               ".csc-blobs-measurementMethod":"${{row}.measurementMethod}",
-
-               ".csc-blobs-value":"${{row}.value}",
-
-               ".csc-blobs-measuredBy":"${{row}.measuredBy}",
-
-               ".csc-blobs-valueQualifier":"${{row}.valueQualifier}",
-
-               ".csc-blobs-valueDate":"${{row}.valueDate}",
-
-               ".csc-blobs-dimension":"${{row}.dimension}",
-
-               ".csc-blobs-measurementUnit":"${{row}.measurementUnit}"
-
+    "recordEditor": {
+        ".csc-media-domaindata-label": {
+            "messagekey": "media-domaindataLabel"
+        },
+        ".csc-media-date": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.dates",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-media-date": {
+                                            "decorators": [{
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }],
+                                            "value": "${{row}.date}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.dates"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-media-filename-label": {
+            "messagekey": "media-filenameLabel"
+        },
+        ".csc-media-measurementUnit-label": {
+            "messagekey": "media-measurementUnitLabel"
+        },
+        ".csc-media-relation-label": {
+            "messagekey": "media-relationLabel"
+        },
+        ".csc-media-srcUri-label": {
+            "messagekey": "media-srcUriLabel"
+        },
+        ".csc-media-location-label": {
+            "messagekey": "media-locationLabel"
+        },
+        ".csc-media-blobs-label": {
+            "messagekey": "media-blobsLabel"
+        },
+        ".csc-media-languages-label": {
+            "messagekey": "media-languagesLabel"
+        },
+        ".csc-media-relation": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.relations",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-media-relation": "${{row}.relation}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.relations"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-media-language-label": {
+            "messagekey": "media-languageLabel"
+        },
+        ".csc-media-format": "${fields.format}",
+        ".csc-blobs-digest": "${fields.blobs.0.digest}",
+        ".csc-media-subjects-label": {
+            "messagekey": "media-subjectsLabel"
+        },
+        ".csc-media-dateCreated": "${fields.dateCreated}",
+        ".csc-media-dateModified": "${fields.dateModified}",
+        ".csc-blobs-name": "${fields.blobs.0.name}",
+        ".csc-media-updatedAt": "${fields.updatedAt}",
+        ".csc-media-location": "${fields.location}",
+        ".csc-media-coverage-label": {
+            "messagekey": "media-coverageLabel"
+        },
+        ".csc-media-rightsHolder": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../../tenant/core/media/autocomplete/rightsHolder",
+                    "vocabUrl": "../../../tenant/core/media/source-vocab/rightsHolder"
+                }
+            }],
+            "value": "${fields.rightsHolder}"
+        },
+        ".csc-media-date-label": {
+            "messagekey": "media-dateLabel"
+        },
+        ".csc-media-dimension-label": {
+            "messagekey": "media-dimensionLabel"
+        },
+        ".csc-blobs-imgOrig": "${fields.blobs.0.imgOrig}",
+        ".csc-media-valueQualifier-label": {
+            "messagekey": "media-valueQualifierLabel"
+        },
+        ".csc-media-source": "${fields.source}",
+        ".csc-media-externalMediaUrl": "${fields.externalMediaUrl}",
+        ".csc-media-relations-label": {
+            "messagekey": "media-relationsLabel"
+        },
+        ".csc-media-value-label": {
+            "messagekey": "media-valueLabel"
+        },
+        ".csc-media-subject": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.subjects",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-media-subject": "${{row}.subject}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.subjects"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-blobs-createdAt": "${fields.blobs.0.createdAt}",
+        ".csc-media-creator-label": {
+            "messagekey": "media-creatorLabel"
+        },
+        ".csc-media-copyrightStatement-label": {
+            "messagekey": "media-copyrightStatementLabel"
+        },
+        ".csc-media-source-label": {
+            "messagekey": "media-sourceLabel"
+        },
+        ".csc-blobs-data": "${fields.blobs.0.data}",
+        ".csc-media-valueDate-label": {
+            "messagekey": "media-valueDateLabel"
+        },
+        ".csc-media-contributor-label": {
+            "messagekey": "media-contributorLabel"
+        },
+        ".csc-media-identificationNumber": "${fields.identificationNumber}",
+        ".csc-media-dates-label": {
+            "messagekey": "media-datesLabel"
+        },
+        ".csc-media-filename": "${fields.filename}",
+        ".csc-media-externalMediaUrl-label": {
+            "messagekey": "media-externalMediaUrlLabel"
+        },
+        ".csc-media-uri-label": {
+            "messagekey": "media-uriLabel"
+        },
+        ".csc-media-tenantID-label": {
+            "messagekey": "media-tenantIDLabel"
+        },
+        ".csc-media-dateCreated-label": {
+            "messagekey": "media-dateCreatedLabel"
+        },
+        ".csc-media-rightsHolder-label": {
+            "messagekey": "media-rightsHolderLabel"
+        },
+        ".csc-media-subject-label": {
+            "messagekey": "media-subjectLabel"
+        },
+        ".csc-media-updatedAt-label": {
+            "messagekey": "media-updatedAtLabel"
+        },
+        ".csc-media-format-label": {
+            "messagekey": "media-formatLabel"
+        },
+        ".csc-blobs-length": "${fields.blobs.0.length}",
+        ".csc-media-dateModified-label": {
+            "messagekey": "media-dateModifiedLabel"
+        },
+        ".csc-media-imgThumb": "${fields.imgThumb}",
+        ".csc-media-mediaInformation-label": {
+            "messagekey": "media-mediaInformationLabel"
+        },
+        ".csc-media-fileInformation-label": {
+            "messagekey": "media-fileInformationLabel"
+        },
+        ".csc-media-fileInformationHeader-label": {
+            "messagekey": "media-fileInformationHeaderLabel"
+        },
+        ".csc-media-language": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.languages",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-media-language": {
+                                            "optionnames": ["Ancient Greek", "Arabic", "Chinese", "English", "French", "German", "Hebrew", "Italian", "Japanese", "Korean", "Latin", "Middle English", "Old English", "Please select a value", "Portuguese", "Russian", "Spanish", "Swahili"],
+                                            "optionlist": ["", "ancientgreek", "arabic", "chinese", "eng", "french", "german", "hebrew", "italian", "japanese", "korean", "latin", "middleenglish", "oldenglish", "portuguese", "russian", "spn", "swahili"],
+                                            "selection": "${{row}.language}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.languages"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-media-publisher": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../../tenant/core/media/autocomplete/publisher",
+                    "vocabUrl": "../../../tenant/core/media/source-vocab/publisher"
+                }
+            }],
+            "value": "${fields.publisher}"
+        },
+        ".csc-media-description-label": {
+            "messagekey": "media-descriptionLabel"
+        },
+        ".csc-media-measurementMethod-label": {
+            "messagekey": "media-measurementMethodLabel"
+        },
+        ".csc-media-creator": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../../tenant/core/media/autocomplete/creator",
+                    "vocabUrl": "../../../tenant/core/media/source-vocab/creator"
+                }
+            }],
+            "value": "${fields.creator}"
+        },
+        ".csc-media-createdAt-label": {
+            "messagekey": "media-createdAtLabel"
+        },
+        ".csc-media-blobCsid-label": {
+            "messagekey": "media-blobCsidLabel"
+        },
+        ".csc-blobs-uri": "${fields.blobs.0.uri}",
+        ".csc-media-coverage": "${fields.coverage}",
+        ".csc-media-types-label": {
+            "messagekey": "media-typesLabel"
+        },
+        ".csc-media-srcUri": "${fields.srcUri}",
+        ".csc-media-identificationNumber-label": {
+            "messagekey": "media-identificationNumberLabel"
+        },
+        ".csc-media-contributor": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../../tenant/core/media/autocomplete/contributor",
+                    "vocabUrl": "../../../tenant/core/media/source-vocab/contributor"
+                }
+            }],
+            "value": "${fields.contributor}"
+        },
+        ".csc-blobs-mimeType": "${fields.blobs.0.mimeType}",
+        ".csc-blobs-imgThumb": "${fields.blobs.0.imgThumb}",
+        "expander": [{
+            "repeatID": ".csc-blobs-dimensionGroup:",
+            "tree": {
+                ".csc-blobs-measurementMethod": "${{row}.measurementMethod}",
+                ".csc-blobs-value": "${{row}.value}",
+                ".csc-blobs-measuredBy": "${{row}.measuredBy}",
+                ".csc-blobs-valueQualifier": "${{row}.valueQualifier}",
+                ".csc-blobs-valueDate": "${{row}.valueDate}",
+                ".csc-blobs-dimension": "${{row}.dimension}",
+                ".csc-blobs-measurementUnit": "${{row}.measurementUnit}"
             },
-
-            "type":"fluid.renderer.repeat",
-
-            "pathAs":"row",
-
-            "controlledBy":"fields.blobs.0.dimensionGroup"
-
-         },
-
-         {
-
-            "condition":{
-
-               "funcName":"cspace.mediaUploader.assertBlob",
-
-               "args":"${fields.blobCsid}"
-
+            "type": "fluid.renderer.repeat",
+            "pathAs": "row",
+            "controlledBy": "fields.blobs.0.dimensionGroup"
+        }, {
+            "condition": {
+                "funcName": "cspace.mediaUploader.assertBlob",
+                "args": "${fields.blobCsid}"
             },
-
-            "trueTree":{
-
-               ".csc-media-blobs":{
-
-
-               }
-
+            "trueTree": {
+                ".csc-media-blobs": {}
             },
-
-            "type":"fluid.renderer.condition",
-
-            "falseTree":{
-
-               ".csc-media-blobs":{
-
-                  "decorators":{
-
-                     "classes":"hidden",
-
-                     "type":"addClass"
-
-                  }
-
-               }
-
+            "type": "fluid.renderer.condition",
+            "falseTree": {
+                ".csc-media-blobs": {
+                    "decorators": {
+                        "classes": "hidden",
+                        "type": "addClass"
+                    }
+                }
             }
-
-         }
-
-      ],
-
-      ".csc-media-tenantID":"${fields.tenantID}",
-
-      ".csc-media-type-label":{
-
-         "messagekey":"media-typeLabel"
-
-      },
-
-      ".csc-media-copyrightStatement":"${fields.copyrightStatement}",
-
-      ".csc-media-type":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.makeRepeatable",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "elPath":"fields.types",
-
-                  "protoTree":{
-
-                     "expander":{
-
-                        "tree":{
-
-                           "expander":{
-
-                              "repeatID":"repeat:",
-
-                              "tree":{
-
-                                 ".csc-media-type":{
-
-                                    "default":"",
-
-                                    "optionnames":[
-
-                                       "Dataset",
-
-                                       "Document",
-
-                                       "Moving Image",
-
-                                       "Please select a value",
-
-                                       "Sound",
-
-                                       "Still Image"
-
-                                    ],
-
-                                    "optionlist":[
-
-                                       "",
-
-                                       "dataset",
-
-                                       "document",
-
-                                       "moving_image",
-
-                                       "sound",
-
-                                       "still_image"
-
-                                    ],
-
-                                    "selection":"${{row}.type}"
-
-                                 }
-
-                              },
-
-                              "type":"fluid.renderer.repeat",
-
-                              "pathAs":"row",
-
-                              "controlledBy":"fields.types"
-
-                           }
-
-                        },
-
-                        "type":"fluid.noexpand"
-
-                     }
-
-                  }
-
-               }
-
-            }
-
-         ]
-
-      },
-
-      ".csc-media-number-label":{
-
-         "messagekey":"media-numberLabel"
-
-      },
-
-      ".csc-blobs-updatedAt":"${fields.blobs.0.updatedAt}",
-
-      ".csc-media-fileInformationHeader-label":{
-
-         "messagekey":"media-fileInformationHeaderLabel"
-
-      },
-
-      ".csc-media-domaindata-label":{
-
-         "messagekey":"media-domaindataLabel"
-
-      },
-
-      ".csc-blobs-encoding":"${fields.blobs.0.encoding}",
-
-      ".csc-media-dimensionGroup-label":{
-
-         "messagekey":"media-dimensionGroupLabel"
-
-      },
-
-      ".csc-blobs-id":"${fields.blobs.0.id}",
-
-      ".csc-media-dimensionGroup":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.makeRepeatable",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "elPath":"fields.dimensionGroup",
-
-                  "protoTree":{
-
-                     "expander":{
-
-                        "tree":{
-
-                           "expander":{
-
-                              "repeatID":"repeat:",
-
-                              "tree":{
-
-                                 ".csc-media-dimension":{
-
-                                    "default":"",
-
-                                    "optionnames":[
-
-                                       "Area",
-
-                                       "Base",
-
-                                       "Circumference",
-
-                                       "Count",
-
-                                       "Depth",
-
-                                       "Diameter",
-
-                                       "Height",
-
-                                       "Length",
-
-                                       "Please select a value",
-
-                                       "Running Time",
-
-                                       "Target",
-
-                                       "Volume",
-
-                                       "Weight",
-
-                                       "Width"
-
-                                    ],
-
-                                    "optionlist":[
-
-                                       "",
-
-                                       "area",
-
-                                       "base",
-
-                                       "circumference",
-
-                                       "count",
-
-                                       "depth",
-
-                                       "diameter",
-
-                                       "height",
-
-                                       "length",
-
-                                       "running_time",
-
-                                       "target",
-
-                                       "volume",
-
-                                       "weight",
-
-                                       "width"
-
-                                    ],
-
-                                    "selection":"${{row}.dimension}"
-
-                                 },
-
-                                 ".csc-media-measurementUnit":{
-
-                                    "default":"",
-
-                                    "optionnames":[
-
-                                       "Carats",
-
-                                       "Centimeters",
-
-                                       "Cubic Centimeters",
-
-                                       "Feet",
-
-                                       "Inches",
-
-                                       "Kilograms",
-
-                                       "Liters",
-
-                                       "Meters",
-
-                                       "Millimeters",
-
-                                       "Minutes",
-
-                                       "Pixels",
-
-                                       "Please select a value",
-
-                                       "Square Feet",
-
-                                       "Stories"
-
-                                    ],
-
-                                    "optionlist":[
-
-                                       "",
-
-                                       "carats",
-
-                                       "centimeters",
-
-                                       "cubic_centimeters",
-
-                                       "feet",
-
-                                       "inches",
-
-                                       "kilograms",
-
-                                       "liters",
-
-                                       "meters",
-
-                                       "millimeters",
-
-                                       "minutes",
-
-                                       "pixels",
-
-                                       "square_feet",
-
-                                       "stories"
-
-                                    ],
-
-                                    "selection":"${{row}.measurementUnit}"
-
-                                 },
-
-                                 ".csc-media-measuredBy":{
-
-                                    "decorators":[
-
-                                       {
-
-                                          "func":"cspace.autocomplete",
-
-                                          "type":"fluid",
-
-                                          "options":{
-
-                                             "queryUrl":"../../../tenant/html/media/autocomplete/measuredBy",
-
-                                             "vocabUrl":"../../../tenant/html/media/source-vocab/measuredBy"
-
-                                          }
-
-                                       }
-
-                                    ],
-
-                                    "value":"${{row}.measuredBy}"
-
-                                 },
-
-                                 ".csc-media-measurementMethod":{
-
-                                    "default":"",
-
-                                    "optionnames":[
-
-                                       "Balance/Beam Scale",
-
-                                       "Electronic Distance Measurement",
-
-                                       "Goniometer",
-
-                                       "Hydraulic or Pneumatic Scale",
-
-                                       "Measuring Tape (cloth)",
-
-                                       "Measuring Tape (metal)",
-
-                                       "Microscopy (reticule)",
-
-                                       "Odometer",
-
-                                       "Optical Range Finder",
-
-                                       "Osteometric Board",
-
-                                       "Pacing Pedometer",
-
-                                       "Please select a value",
-
-                                       "Protractor",
-
-                                       "Ruler",
-
-                                       "Sliding Calipers",
-
-                                       "Spreading Calipers",
-
-                                       "Spring Scale",
-
-                                       "Stadia/Transit",
-
-                                       "Standard Mesh/Screen",
-
-                                       "Taping/Thaining",
-
-                                       "Theodolite/Total Station"
-
-                                    ],
-
-                                    "optionlist":[
-
-                                       "",
-
-                                       "balance_beam_scale",
-
-                                       "electronic_distance_measurement",
-
-                                       "goniometer",
-
-                                       "hydraulic_or_pneumatic_scale",
-
-                                       "measuring_tape_cloth",
-
-                                       "measuring_tape_metal",
-
-                                       "microscopy_reticule",
-
-                                       "odometer",
-
-                                       "optical_range_finder",
-
-                                       "osteometric_board",
-
-                                       "pacing_pedometer",
-
-                                       "protractor",
-
-                                       "ruler",
-
-                                       "sliding_calipers",
-
-                                       "spreading_calipers",
-
-                                       "spring_scale",
-
-                                       "stadia_transit",
-
-                                       "standard_mesh_screen",
-
-                                       "taping_chaining",
-
-                                       "theodolite_total_station"
-
-                                    ],
-
-                                    "selection":"${{row}.measurementMethod}"
-
-                                 },
-
-                                 ".csc-media-value":"${{row}.value}",
-
-                                 ".csc-media-valueQualifier":"${{row}.valueQualifier}",
-
-                                 ".csc-media-valueDate":{
-
-                                    "decorators":[
-
-                                       {
-
-                                          "func":"cspace.datePicker",
-
-                                          "type":"fluid"
-
-                                       }
-
-                                    ],
-
-                                    "value":"${{row}.valueDate}"
-
-                                 }
-
-                              },
-
-                              "type":"fluid.renderer.repeat",
-
-                              "pathAs":"row",
-
-                              "controlledBy":"fields.dimensionGroup"
-
-                           }
-
-                        },
-
-                        "type":"fluid.noexpand"
-
-                     }
-
-                  }
-
-               }
-
-            }
-
-         ]
-
-      },
-
-      ".csc-media-blobCsid":"${fields.blobCsid}",
-
-      ".csc-media-title":"${fields.title}",
-
-      ".csc-blobs-tenantID":"${fields.blobs.0.tenantID}",
-
-      ".csc-blobs-imgMedium":"${fields.blobs.0.imgMedium}",
-
-      ".csc-media-description":"${fields.description}",
-
-      ".csc-media-imgThumb-label":{
-
-         "messagekey":"media-imgThumbLabel"
-
-      },
-
-      ".csc-media-measuredBy-label":{
-
-         "messagekey":"media-measuredByLabel"
-
-      },
-
-      ".csc-media-summary-label":{
-
-         "messagekey":"media-summaryLabel"
-
-      },
-
-      ".csc-media-publisher-label":{
-
-         "messagekey":"media-publisherLabel"
-
-      },
-
-      ".csc-media-dimensionSummary-label":{
-
-         "messagekey":"media-dimensionSummaryLabel"
-
-      },
-
-      ".csc-media-createdAt":"${fields.createdAt}",
-
-      ".csc-media-title-label":{
-
-         "messagekey":"media-titleLabel"
-
-      },
-
-      ".csc-media-dimensionSummary":"${fields.dimensionSummary}",
-
-      ".csc-media-uri":"${fields.uri}",
-
-      ".csc-media-identificationNumber-container":{
-
-         "decorators":[
-
-            {
-
-               "func":"cspace.numberPatternChooser",
-
-               "type":"fluid",
-
-               "options":{
-
-                  "model":{
-
-                     "names":[
-
-                        "Media Resource"
-
-                     ],
-
-                     "list":[
-
-                        "media"
-
-                     ],
-
-                     "samples":[
-
-                        "MR2011.1.1"
-
-                     ]
-
-                  },
-
-                  "selectors":{
-
-                     "numberField":".csc-media-identificationNumber"
-
-                  }
-
-               }
-
-            }
-
-         ]
-
-      }
-
-   }
-
+        }],
+        ".csc-media-tenantID": "${fields.tenantID}",
+        ".csc-media-type-label": {
+            "messagekey": "media-typeLabel"
+        },
+        ".csc-media-copyrightStatement": "${fields.copyrightStatement}",
+        ".csc-media-type": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.types",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-media-type": {
+                                            "default": "",
+                                            "optionnames": ["Dataset", "Document", "Moving Image", "Please select a value", "Sound", "Still Image"],
+                                            "optionlist": ["", "dataset", "document", "moving_image", "sound", "still_image"],
+                                            "selection": "${{row}.type}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.types"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-media-number-label": {
+            "messagekey": "media-numberLabel"
+        },
+        ".csc-blobs-updatedAt": "${fields.blobs.0.updatedAt}",
+        ".csc-blobs-encoding": "${fields.blobs.0.encoding}",
+        ".csc-media-dimensionGroup-label": {
+            "messagekey": "media-dimensionGroupLabel"
+        },
+        ".csc-blobs-id": "${fields.blobs.0.id}",
+        ".csc-media-dimensionGroup": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.dimensionGroup",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-media-dimension": {
+                                            "default": "",
+                                            "optionnames": ["Area", "Base", "Circumference", "Count", "Depth", "Diameter", "Height", "Length", "Please select a value", "Running Time", "Target", "Volume", "Weight", "Width"],
+                                            "optionlist": ["", "area", "base", "circumference", "count", "depth", "diameter", "height", "length", "running_time", "target", "volume", "weight", "width"],
+                                            "selection": "${{row}.dimension}"
+                                        },
+                                        ".csc-media-measurementUnit": {
+                                            "default": "",
+                                            "optionnames": ["Carats", "Centimeters", "Cubic Centimeters", "Feet", "Inches", "Kilograms", "Liters", "Meters", "Millimeters", "Minutes", "Pixels", "Please select a value", "Square Feet", "Stories"],
+                                            "optionlist": ["", "carats", "centimeters", "cubic_centimeters", "feet", "inches", "kilograms", "liters", "meters", "millimeters", "minutes", "pixels", "square_feet", "stories"],
+                                            "selection": "${{row}.measurementUnit}"
+                                        },
+                                        ".csc-media-measuredBy": {
+                                            "decorators": [{
+                                                "func": "cspace.autocomplete",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "queryUrl": "../../../tenant/core/media/autocomplete/measuredBy",
+                                                    "vocabUrl": "../../../tenant/core/media/source-vocab/measuredBy"
+                                                }
+                                            }],
+                                            "value": "${{row}.measuredBy}"
+                                        },
+                                        ".csc-media-measurementMethod": {
+                                            "default": "",
+                                            "optionnames": ["Balance/Beam Scale", "Electronic Distance Measurement", "Goniometer", "Hydraulic or Pneumatic Scale", "Measuring Tape (cloth)", "Measuring Tape (metal)", "Microscopy (reticule)", "Odometer", "Optical Range Finder", "Osteometric Board", "Pacing Pedometer", "Please select a value", "Protractor", "Ruler", "Sliding Calipers", "Spreading Calipers", "Spring Scale", "Stadia/Transit", "Standard Mesh/Screen", "Taping/Thaining", "Theodolite/Total Station"],
+                                            "optionlist": ["", "balance_beam_scale", "electronic_distance_measurement", "goniometer", "hydraulic_or_pneumatic_scale", "measuring_tape_cloth", "measuring_tape_metal", "microscopy_reticule", "odometer", "optical_range_finder", "osteometric_board", "pacing_pedometer", "protractor", "ruler", "sliding_calipers", "spreading_calipers", "spring_scale", "stadia_transit", "standard_mesh_screen", "taping_chaining", "theodolite_total_station"],
+                                            "selection": "${{row}.measurementMethod}"
+                                        },
+                                        ".csc-media-value": "${{row}.value}",
+                                        ".csc-media-valueQualifier": "${{row}.valueQualifier}",
+                                        ".csc-media-valueDate": {
+                                            "decorators": [{
+                                                "func": "cspace.datePicker",
+                                                "type": "fluid"
+                                            }],
+                                            "value": "${{row}.valueDate}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fields.dimensionGroup"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
+        },
+        ".csc-media-blobCsid": "${fields.blobCsid}",
+        ".csc-media-title": "${fields.title}",
+        ".csc-blobs-tenantID": "${fields.blobs.0.tenantID}",
+        ".csc-blobs-imgMedium": "${fields.blobs.0.imgMedium}",
+        ".csc-media-description": "${fields.description}",
+        ".csc-media-imgThumb-label": {
+            "messagekey": "media-imgThumbLabel"
+        },
+        ".csc-media-measuredBy-label": {
+            "messagekey": "media-measuredByLabel"
+        },
+        ".csc-media-summary-label": {
+            "messagekey": "media-summaryLabel"
+        },
+        ".csc-media-publisher-label": {
+            "messagekey": "media-publisherLabel"
+        },
+        ".csc-media-dimensionSummary-label": {
+            "messagekey": "media-dimensionSummaryLabel"
+        },
+        ".csc-media-createdAt": "${fields.createdAt}",
+        ".csc-media-title-label": {
+            "messagekey": "media-titleLabel"
+        },
+        ".csc-media-dimensionSummary": "${fields.dimensionSummary}",
+        ".csc-media-uri": "${fields.uri}",
+        ".csc-media-identificationNumber-container": {
+            "decorators": [{
+                "func": "cspace.numberPatternChooser",
+                "type": "fluid",
+                "options": {
+                    "model": {
+                        "names": ["Media Resource"],
+                        "list": ["media"],
+                        "samples": ["MR2011.1.1"]
+                    },
+                    "selectors": {
+                        "numberField": ".csc-media-identificationNumber"
+                    }
+                }
+            }]
+        }
+    }
 }
