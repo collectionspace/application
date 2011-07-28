@@ -1,103 +1,126 @@
 {
-    "details": {
-        ".csc-termlist-csid-label": {
-            "messagekey": "termlist-csidLabel"
-        },
-        ".csc-termlist-name": "${fields.name}",
-        ".csc-termlist-termStatus-label": {
-            "messagekey": "termlist-termStatusLabel"
-        },
-        ".csc-termlist-displayName-label": {
-            "messagekey": "termlist-displayNameLabel"
-        },
-        ".csc-termlist-domaindata-label": {
-            "messagekey": "termlist-domaindataLabel"
-        },
-        ".csc-termlist-source-label": {
-            "messagekey": "termlist-sourceLabel"
-        },
-        ".csc-termlist-sourcePage-label": {
-            "messagekey": "termlist-sourcePageLabel"
-        },
-        ".csc-termlist-usedBy-label": {
-            "messagekey": "termlist-usedByLabel"
-        },
-        ".csc-termlist-shortIdentifier": "${fields.shortIdentifier}",
-        ".csc-termlist-description-label": {
-            "messagekey": "termlist-descriptionLabel"
-        },
-        ".csc-termlist-number-label": {
-            "messagekey": "termlist-numberLabel"
-        },
-        ".csc-termlist-terms": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.terms",
-                    "protoTree": {
-                        "expander": {
-                            "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-termlist-termStatus": {
-                                            "default": "active",
-                                            "optionnames": ["Active", "Inactive"],
-                                            "optionlist": ["active", "inactive"],
-                                            "selection": "${{row}.termStatus}"
-                                        },
-                                        ".csc-termlist-termName": "${{row}.displayName}",
-                                        ".csc-termlist-termDescription": "${{row}.description}",
-                                        ".csc-termlist-shortIdentifier": "${{row}.shortIdentifier}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.terms"
-                                }
-                            },
-                            "type": "fluid.noexpand"
-                        }
-                    }
-                }
-            }]
-        },
-        ".csc-termlist-displayName": "${fields.displayName}",
-        ".csc-termlist-description": "${fields.description}",
-        ".csc-termlist-source": "${fields.source}",
-        ".csc-termlist-sourcePage": "${fields.sourcePage}",
-        "expander": {
-            "repeatID": ".csc-termlist-usedBy:",
-            "tree": {
-                "decorators": {
-                    "classes": "cs-termlist-usedBy",
-                    "type": "addClass"
-                },
-                "value": "${{row}.usedBy}"
+   "details":{
+      ".csc-termlist-csid-label":{
+         "messagekey":"termlist-csidLabel"
+      },
+      ".csc-termlist-termStatus-label":{
+         "messagekey":"termlist-termStatusLabel"
+      },
+      ".csc-termlist-name":"${fields.name}",
+      ".csc-termlist-termSourcePage-label":{
+         "messagekey":"termlist-termSourcePageLabel"
+      },
+      ".csc-termlist-displayName-label":{
+         "messagekey":"termlist-displayNameLabel"
+      },
+      ".csc-termlist-domaindata-label":{
+         "messagekey":"termlist-domaindataLabel"
+      },
+      ".csc-termlist-source-label":{
+         "messagekey":"termlist-sourceLabel"
+      },
+      ".csc-termlist-termDescription-label":{
+         "messagekey":"termlist-termDescriptionLabel"
+      },
+      ".csc-termlist-usedBy-label":{
+         "messagekey":"termlist-usedByLabel"
+      },
+      ".csc-termlist-description-label":{
+         "messagekey":"termlist-descriptionLabel"
+      },
+      ".csc-termlist-shortIdentifier":"${fields.shortIdentifier}",
+      ".csc-termlist-displayName":"${fields.displayName}",
+      ".csc-termlist-number-label":{
+         "messagekey":"termlist-numberLabel"
+      },
+      ".csc-termlist-terms":{
+         "decorators":[
+            {
+               "func":"cspace.makeRepeatable",
+               "type":"fluid",
+               "options":{
+                  "elPath":"fields.terms",
+                  "protoTree":{
+                     "expander":{
+                        "tree":{
+                           "expander":{
+                              "repeatID":"repeat:",
+                              "tree":{
+                                 ".csc-termlist-termStatus":{
+                                    "default":"active",
+                                    "optionnames":[
+                                       "Active",
+                                       "Inactive"
+                                    ],
+                                    "optionlist":[
+                                       "active",
+                                       "inactive"
+                                    ],
+                                    "selection":"${{row}.termStatus}"
+                                 },
+                                 ".csc-termlist-termSourcePage":"${{row}.sourcePage}",
+                                 ".csc-termlist-termName":"${{row}.displayName}",
+                                 ".csc-termlist-termDescription":"${{row}.description}",
+                                 ".csc-termlist-termSource":"${{row}.source}",
+                                 ".csc-termlist-shortIdentifier":"${{row}.shortIdentifier}"
+                              },
+                              "type":"fluid.renderer.repeat",
+                              "pathAs":"row",
+                              "controlledBy":"fields.terms"
+                           }
+                        },
+                        "type":"fluid.noexpand"
+                     }
+                  }
+               }
+            }
+         ]
+      },
+      ".csc-termlist-termSource-label":{
+         "messagekey":"termlist-termSourceLabel"
+      },
+      ".csc-termlist-description":"${fields.description}",
+      ".csc-termlist-source":"${fields.source}",
+      "expander":{
+         "repeatID":".csc-termlist-usedBy:",
+         "tree":{
+            "decorators":{
+               "classes":"cs-termlist-usedBy",
+               "type":"addClass"
             },
-            "type": "fluid.renderer.repeat",
-            "pathAs": "row",
-            "controlledBy": "fields.usedBys"
-        },
-        ".csc-termlist-shortIdentifier-label": {
-            "messagekey": "termlist-shortIdentifierLabel"
-        },
-        ".csc-termlist-usedBys-label": {
-            "messagekey": "termlist-usedBysLabel"
-        },
-        ".csc-termlist-terms-label": {
-            "messagekey": "termlist-termsLabel"
-        },
-        ".csc-termlist-name-label": {
-            "messagekey": "termlist-nameLabel"
-        }
-    },
-    "list": {
-        ".csc-recordList-row:": {
-            "children": [{
-                ".csc-user-roleList-csid": "${items.0.csid}",
-                ".csc-user-roleList-name": "${items.0.number}"
-            }]
-        }
-    }
+            "value":"${{row}.usedBy}"
+         },
+         "type":"fluid.renderer.repeat",
+         "pathAs":"row",
+         "controlledBy":"fields.usedBys"
+      },
+      ".csc-termlist-shortIdentifier-label":{
+         "messagekey":"termlist-shortIdentifierLabel"
+      },
+      ".csc-termlist-termName-label":{
+         "messagekey":"termlist-termNameLabel"
+      },
+      ".csc-termlist-usedBys-label":{
+         "messagekey":"termlist-usedBysLabel"
+      },
+      ".csc-termlist-sourcePage-label":{
+         "messagekey":"termlist-sourcePageLabel"
+      },
+      ".csc-termlist-terms-label":{
+         "messagekey":"termlist-termsLabel"
+      },
+      ".csc-termlist-name-label":{
+         "messagekey":"termlist-nameLabel"
+      }
+   },
+   "list":{
+      ".csc-recordList-row:":{
+         "children":[
+            {
+               ".csc-user-roleList-csid":"${items.0.csid}",
+               ".csc-user-roleList-name":"${items.0.number}"
+            }
+         ]
+      }
+   }
 }
