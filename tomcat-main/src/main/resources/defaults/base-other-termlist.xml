@@ -35,11 +35,6 @@
 	
 	<include src="domain-other-termlist.xml" />
 	
-    <!-- THIS IS A HACK TO ADD MISSING LABELS, CHRIS WILL BE VERY ANGRY. -->
-    <section id="termName"></section>
-	<section id="termDescription"></section>
-	<section id="termSource"></section>
-	<section id="termSourcePage"></section>
 
     <section>
     	
@@ -49,23 +44,17 @@
     	<field id="name"></field>
     	<field id="source"></field>
     	<field id="description"></field>
-		<repeat id="terms" exists-in-services="false" >
-			<field id="displayName"><selector>termlist-termName</selector></field>
-			<field id="source"><selector>termlist-termSource</selector></field>
-			<field id="sourcePage"><selector>termlist-termSourcePage</selector></field>
-			<field id="shortIdentifier"></field>
-			<field id="description"><selector>termlist-termDescription</selector></field>
-			<field id="termStatus">
-                <options>
-                    <option id="active" default="yes">Active</option>
-                    <option id="inactive">Inactive</option>
-                </options>
-			</field>
-		</repeat>
+		
+		
     <repeat id="usedBys" as-expander="true">
         <field id="usedBy" ui-type="decorated"></field>
     </repeat>
     </section>
+	<section id="contactInformation">
+		<repeat id="terms">
+	    <group id="termslist" userecord="termlistitem"  ui-spec-prefix="termlist" ui-spec-inherit="true"></group>
+		</repeat>
+	</section>
 	
 </record>
 

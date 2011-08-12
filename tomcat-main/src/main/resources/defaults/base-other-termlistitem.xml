@@ -1,0 +1,33 @@
+<record id="termlistitem" in-recordlist="no" type="record,procedure">
+	<terms-used>false</terms-used>
+	<refobj-used>false</refobj-used>
+	<structures>
+        <structure id="screen">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+                <titlebar show="false"></titlebar>
+                <sidebar show="false"></sidebar>
+                <edit-section id="details" show="true"></edit-section>
+                <list-section id="list" show="true"></list-section>
+            </view>
+        </structure>
+    </structures>
+	<include src="domain-other-termlistitem.xml" />
+	
+
+    <section>
+		<field id="displayName"></field>
+		<field id="source"></field>
+		<field id="sourcePage"></field>
+		<field id="shortIdentifier"></field>
+		<field id="description"></field>
+		<field id="termStatus">
+            <options>
+                <option id="active" default="yes">Active</option>
+                <option id="inactive">Inactive</option>
+            </options>
+		</field>
+	</section>
+	
+</record>
+
