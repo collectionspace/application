@@ -64,6 +64,9 @@
                     },
                     "displayName": {
                         "type": "string"
+                    },
+                    "sourcePage": {
+                        "type": "string"
                     }
                 },
                 "type": "object"
