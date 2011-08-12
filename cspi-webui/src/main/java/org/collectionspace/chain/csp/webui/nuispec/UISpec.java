@@ -679,7 +679,7 @@ public class UISpec implements WebMethod {
 		
 		return out;
 	}
-	private void generateSubRecord(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException {
+	protected void generateSubRecord(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException {
 		Record subrecord = fs.usesRecordId();
 		Boolean repeated = false;
 		if(fs.getParent() instanceof Repeat){
@@ -688,7 +688,7 @@ public class UISpec implements WebMethod {
 		generateSubRecord(subrecord, out,  repeated,  context);
 		
 	}
-	private void generateSubRecord(Record subr, JSONObject out, Boolean repeated, UISpecRunContext context) throws JSONException {
+	protected void generateSubRecord(Record subr, JSONObject out, Boolean repeated, UISpecRunContext context) throws JSONException {
 		for(FieldSet fs2 : subr.getAllFields("")) {
 			if(repeated){
 				fs2.setRepeatSubRecord(true);

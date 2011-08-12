@@ -57,6 +57,9 @@ public class UISchema extends UISpec {
 	}
 	protected void generateHierarchyEntry(JSONObject out, FieldSet f, UISpecRunContext affix) throws JSONException{
 	}
+	protected JSONObject generateMessageKeys(UISpecRunContext affix, JSONObject temp, Record r) throws JSONException {
+		return temp;
+	}
 	
 
 	private JSONObject generateRelations() throws JSONException {

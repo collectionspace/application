@@ -26,9 +26,6 @@
                     "source": {
                         "type": "string"
                     },
-                    "sourcePage": {
-                         "type": "string"
-                    }
                     "description": {
                         "type": "string"
                     },
@@ -41,6 +38,9 @@
                                 "_primary": {
                                     "type": "boolean"
                                 },
+                                "source": {
+                                    "type": "string"
+                                },
                                 "description": {
                                     "type": "string"
                                 },
@@ -51,12 +51,9 @@
                                 "displayName": {
                                     "type": "string"
                                 },
-                                "refid": {
+                                "sourcePage": {
                                     "type": "string"
-                                },
-                                "source": {
-                                    "type": "string"
-                                },
+                                }
                             },
                             "type": "object"
                         },
