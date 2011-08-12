@@ -36,6 +36,17 @@ public class Instance {
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
 
+	public Instance(Record record, Map<String,String> data){
+		this.record=record;
+		this.initStrings(data.get("id"),"@id",null);
+		this.initStrings(data.get("title"),"title", getString("@id"));
+		this.initStrings(data.get("description"),"description", "");
+		this.initStrings(data.get("title-ref"),"title-ref", getString("@id"));
+		this.initStrings(data.get("web-url"),"web-url", getString("@id"));
+		this.initStrings(data.get("ui-url"),"ui-url", getString("web-url") + ".html");
+		this.initStrings(data.get("ui-type"),"@ui-type","plain");
+		option_default = Util.getSetOrDefault(data.get("default"), "/@default", new String[]{""});
+	}
 	
 	public Instance(Record record,ReadOnlySection section) {
 		this.record=record;
@@ -54,18 +65,30 @@ public class Instance {
 	/** start generic functions **/
 	protected Set<String> initSet(ReadOnlySection section, String name, String[] defaultval){
 		Set<String> vard = Util.getSetOrDefault(section, "/"+name, defaultval);
+		initSet(vard, name, defaultval);
+		return vard;
+	}
+	protected Set<String> initSet(Set<String> vard, String name, String[] defaultval){
 		allDefaultSets.put(name,new HashSet<String>(Arrays.asList(defaultval)));
 		allSets.put(name,vard);
 		return vard;
 	}
 	protected String initStrings(ReadOnlySection section, String name, String defaultval){
 		String vard = Util.getStringOrDefault(section, "/"+name, defaultval);
+		return initStrings(vard, name, defaultval);
+	}
+	protected String initStrings(String vard, String name, String defaultval){
 		allDefaultStrings.put(name,defaultval);
 		allStrings.put(name,vard);
 		return vard;
+		
 	}
 	protected Boolean initBoolean(ReadOnlySection section, String name, Boolean defaultval){
 		Boolean vard = Util.getBooleanOrDefault(section, "/"+name, defaultval);
+		initBoolean(vard, name, defaultval);
+		return vard;
+	}
+	protected Boolean initBoolean(Boolean vard, String name, Boolean defaultval){
 		allDefaultBooleans.put(name,defaultval);
 		allBooleans.put(name,vard);
 		return vard;

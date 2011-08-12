@@ -26,9 +26,12 @@ public class Util {
 			return dfault;
 		return "1".equals(out) || "yes".equals(out.toLowerCase()) || "true".equals(out.toLowerCase());
 	}
-	
+
 	public static Set<String> getSetOrDefault(ReadOnlySection section,String path,String[] dfault) {
 		String values=(String)section.getValue(path);
+		return getSetOrDefault(values, path, dfault);
+	}
+	public static Set<String> getSetOrDefault(String values,String path,String[] dfault) {
 		String[] data=dfault;
 		if(values!=null)
 			data=values.split(",");
