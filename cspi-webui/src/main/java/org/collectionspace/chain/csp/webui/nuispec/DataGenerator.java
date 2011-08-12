@@ -190,6 +190,9 @@ public class DataGenerator  extends UISpec {
 				else if (r.getID().equals("structureddate") ||r.getID().equals("media") ||r.getID().equals("hierarchy") ||r.getID().equals("blobs") || r.getID().equals("dimension")|| r.getID().equals("contacts")){
 					//and ignore these
 				}
+				else if (r.getID().equals("termlist") ||r.getID().equals("termlistitem")){
+					//and ignore these
+				}
 				else{
 					this.record = r;
 					this.structureview="screen";
