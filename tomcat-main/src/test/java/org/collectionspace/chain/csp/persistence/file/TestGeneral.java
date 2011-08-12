@@ -318,25 +318,6 @@ public class TestGeneral extends TestBase {
 		DELETEData(id,jetty);
 		DELETEData("/vocabularies/"+person_id,jetty);
 	}
-
-	@Test public void testUpload() throws Exception {
-		ServletTester jetty = setupJetty();
-		String filename = getClass().getPackage().getName().replaceAll("\\.","/")+"/darwin-beard-hat.jpg";
-		byte[] data = IOUtils.toByteArray(Thread.currentThread().getContextClassLoader().getResourceAsStream(filename));
-		UTF8SafeHttpTester out=POSTBinaryData("/uploads",data,jetty);
-		log.info(out.getContent());
-		JSONObject response = new JSONObject(out.getContent());
-		assertTrue(response.getString("file").contains("/blobs/"));
-		assertTrue(response.optString("csid")!=null);
-		assertNotSame("",response.optString("csid"));
-		// Actual resource
-		String read_url = response.getString("file").replaceAll("^.*?/blobs/","/download/")+"/Original";
-		UTF8SafeHttpTester out2=GETBinaryData(read_url,jetty,200);
-		assertEquals("image/jpeg",out2.getHeader("Content-Type"));
-		byte[] img = out2.getBinaryContent();
-		assertArrayEquals(img,data);
-	//	System.err.println(response.getString("file"));
-	}
 	
 	@Test public void testReports() throws Exception {
 		ServletTester jetty = setupJetty();
