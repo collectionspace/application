@@ -1,14 +1,7 @@
 {
-    "acquisitionReason": "acquisitionReason",
-    "acquisitionReferenceNumber": "acquisitionReferenceNumber",
-    "acquisitionMethod": "acquisitionMethod",
-    "owners": [{
-        "owner": "urn:cspace:org.collectionspace.demo:orgauthority:id(4bf0090c-7d67-4d92-9370):organization:id(b09db2c1-a849-43b5-8ad1)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'"
-    }],
-    "acquisitionSources": [{
-        "acquisitionSource": "11111"
-    },
-    {
-        "acquisitionSource": "22222"
-    }]
+    "title": "This is my group",
+    "owner": "urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(jimnabors)'Jim+Nabors'",
+		"de-urned-owner":"Jim Nabors",
+    "scopeNote": "This is just for testing",
+    "responsibleDepartment": "jokes"
 }

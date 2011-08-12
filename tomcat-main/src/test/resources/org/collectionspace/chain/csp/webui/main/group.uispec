@@ -7,16 +7,14 @@
             "messagekey": "group-titleLabel"
         },
         ".csc-group-owner": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../../tenant/core/group/autocomplete/owner",
-                        "vocabUrl": "../../../tenant/core/group/source-vocab/owner"
-                    }
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../../tenant/core/group/autocomplete/owner",
+                    "vocabUrl": "../../../tenant/core/group/source-vocab/owner"
                 }
-            ],
+            }],
             "value": "${fields.owner}"
         },
         ".csc-group-responsibleDepartment-label": {
@@ -24,80 +22,37 @@
         },
         ".csc-group-createdAt": "${fields.createdAt}",
         ".csc-group-tenantID": "${fields.tenantID}",
-        ".csc-group-responsibleDepartment": {
-            "optionnames": [
-                "Please select a value",
-                "Antiquities",
-                "Architecture and Design",
-                "Decorative Arts",
-                "Ethnography",
-                "Herpetology",
-                "Media and Performance Art",
-                "Paintings and Sculpture",
-                "Paleobotany",
-                "Photographs",
-                "Prints and Drawings"
-            ],
-            "optionlist": [
-                "",
-                "antiquities",
-                "architecture-design",
-                "decorative-arts",
-                "ethnography",
-                "herpetology",
-                "media-performance-art",
-                "paintings-sculpture",
-                "paleobotany",
-                "photographs",
-                "prints-drawings"
-            ],
-            "selection": "${fields.responsibleDepartment}"
+        ".csc-group-summary-label": {
+            "messagekey": "group-summaryLabel"
         },
         ".csc-group-createdAt-label": {
             "messagekey": "group-createdAtLabel"
+        },
+        ".csc-group-responsibleDepartment": {
+            "optionnames": ["Antiquities", "Architecture and Design", "Decorative Arts", "Ethnography", "Herpetology", "Media and Performance Art", "Paintings and Sculpture", "Paleobotany", "Photographs", "Please select a value", "Prints and Drawings"],
+            "optionlist": ["", "antiquities", "architecture-design", "decorative-arts", "ethnography", "herpetology", "media-performance-art", "paintings-sculpture", "paleobotany", "photographs", "prints-drawings"],
+            "selection": "${fields.responsibleDepartment}"
+        },
+        ".csc-group-number-label": {
+            "messagekey": "group-numberLabel"
         },
         ".csc-group-updatedAt": "${fields.updatedAt}",
         ".csc-group-scopeNote-label": {
             "messagekey": "group-scopeNoteLabel"
         },
-        ".csc-group-title": {
-            "valuebinding": "${fields.title}",
-            "decorators": [
-                {
-                    "func": "cspace.numberPatternChooser",
-                    "type": "fluid",
-                    "options": {
-                        "model": {
-                            "names": [
-                                
-                            ],
-                            "list": [
-                                
-                            ],
-                            "samples": [
-                                
-                            ]
-                        },
-                        "selectors": {
-                            "numberField": ".csc-group-title"
-                        }
-                    }
-                }
-            ]
-        },
+        ".csc-group-title": "${fields.title}",
         ".csc-group-updatedAt-label": {
             "messagekey": "group-updatedAtLabel"
         },
         ".csc-group-scopeNote": "${fields.scopeNote}",
-        ".csc-group-owner-label": {
-            "messagekey": "group-ownerLabel"
+        ".csc-group-tenantID-label": {
+            "messagekey": "group-tenantIDLabel"
         },
         ".csc-group-groupInformation-label": {
             "messagekey": "group-groupInformationLabel"
         },
-        ".csc-group-tenantID-label": {
-            "messagekey": "group-tenantIDLabel"
+        ".csc-group-owner-label": {
+            "messagekey": "group-ownerLabel"
         }
     }
 }
-

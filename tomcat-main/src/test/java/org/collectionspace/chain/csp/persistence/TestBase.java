@@ -12,14 +12,17 @@ import static org.junit.Assert.assertTrue;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.TenantServlet;
 import org.collectionspace.chain.storage.UTF8SafeHttpTester;
+import org.collectionspace.chain.util.json.JSONUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -553,7 +556,84 @@ public class TestBase extends TestData {
 		DELETEData(id, jetty);
 
 	}
+	//UI specs
+	protected void testUIspec(ServletTester jetty, String url, String uijson) throws Exception {
+	
+		HttpTester response;
+		JSONObject generated;
+		JSONObject comparison;
+		
+		response = GETData(url, jetty);
+		
+		log.info("GENERATED" + response.getContent());
+		generated = new JSONObject(response.getContent());
+		comparison = new JSONObject(getResourceString(uijson));
+		xxxfixOptions(generated);
+		xxxfixOptions(comparison);
+		
+		// You can use these, Chris, to write stuff out if the spec has changed to alter the test file -- dan
+		//hendecasyllabic:tmp csm22$ cat gschema.out | pbcopy
+		
+		//IOUtils.write(generated.toString(),new FileOutputStream("/tmp/gschema.out"));
+		//IOUtils.write(comparison.toString(),new FileOutputStream("/tmp/bschema.out"));
+		
+		log.info("BASELINE" + comparison.toString());
+		log.info("GENERATED" + generated.toString());
+		assertTrue("Failed to create correct uispec for " + url, JSONUtils
+				.checkJSONEquivOrEmptyStringKey(generated, comparison));
+	
+	}
+	
 
+	private JSONArray xxxsorted(JSONArray in) throws Exception {
+		JSONArray out=new JSONArray();
+		Object[] v=new Object[in.length()];
+		for(int i=0;i<v.length;i++)
+			v[i]=in.get(i);
+		try{
+			Arrays.sort(v);
+		}
+		catch(Exception ex){
+			log.info("well that was weird, let pretend nothing happened");
+		}
+		for(int i=0;i<v.length;i++)
+			out.put(v[i]);
+		return out;
+	}
+	/* XXX at the moment options are returned unsorted from the service layer, so we need to sort them
+	 */
+	private void xxxfixOptions_a(JSONArray v) throws Exception {
+		for(int i=0;i<v.length();i++) {
+			Object x=v.get(i);
+			if(x instanceof JSONObject)
+				xxxfixOptions((JSONObject)x);
+			else if(x instanceof JSONArray){
+				v.put(i,xxxsorted((JSONArray)x));
+				xxxfixOptions_a((JSONArray)x);
+			}
+		}
+	}
+	
+	private void xxxfixOptions(JSONObject in) throws Exception {
+		if(in.has("optionnames"))
+			in.put("optionnames",xxxsorted(in.getJSONArray("optionnames")));
+		if(in.has("optionlist"))
+			in.put("optionlist",xxxsorted(in.getJSONArray("optionlist")));
+		Iterator t = in.keys();
+		while(t.hasNext()) {
+			String k = (String)t.next();
+			Object v = in.get(k);
+			if(v!= null) {
+				if(v instanceof JSONObject)
+					xxxfixOptions((JSONObject)v);
+				else if(v instanceof JSONArray) {
+					in.put(k,xxxsorted((JSONArray)v));
+					xxxfixOptions_a((JSONArray)v);
+				}
+			}
+		}
+	}
+	
 	// generic Lists
 	protected void testLists(ServletTester jetty, String objtype, String data,
 			String itemmarker) throws Exception {

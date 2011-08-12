@@ -35,7 +35,7 @@ public class TestData {
 
 	// Set up test data strings 
 
-        protected final String objectCreate = addData("objectCreate.json").toString();
+    protected final String objectCreate = addData("objectCreate.json").toString();
 
 	protected final String acquisitionCreate = addData("acquisitionCreate.json").toString();
 	protected final String intakeCreate = addData("intakeCreate.json").toString();
