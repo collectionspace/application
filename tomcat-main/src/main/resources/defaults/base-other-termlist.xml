@@ -43,6 +43,7 @@
 		
     	<field id="name"></field>
     	<field id="source"></field>
+		<field id="sourcePage"></field>
     	<field id="description"></field>
 		
 		
