@@ -16,13 +16,16 @@ public class TestGenerateAuthorities extends TestBase {
 	.getLogger(TestGenerateAuthorities.class);
 	
 
-	/*
+	
 	@Test
 	public void testSetUp() throws Exception {
 		HttpTester out;
 		log.info("initialize authorities");
 
 		ServletTester jetty = setupJetty();
+		//String urltest = "/vocabularies/currency/refresh?datapath=/Users/csm22/Documents/collectionspace/test.txt";
+		//out = GETData(urltest, jetty);
+
 		
 		// repopulate the authorities with dummy data
 		//DONOT RUN THIS TEST LOCALLY 
@@ -44,7 +47,7 @@ public class TestGenerateAuthorities extends TestBase {
 		// /chain/vocabularies/person/initialize?datapath=/Users/csm22/Documents/collectionspace/svcapp/cspi-webui/src/main/resources/org/collectionspace/chain/csp/webui/misc/names.txt
 
 	}
-	*/
+	
 	
 	
 }
