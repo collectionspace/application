@@ -70,7 +70,7 @@ public class TestAccount extends ServicesBaseClass {
 	@Test public void testAccountCreate() throws Exception {
 		Storage ss=makeServicesStorage();
 		/* delete user so we can create it later - will return 404 if user doesn't exist */
-		JSONObject data = ss.getPathsJSON("users/",new JSONObject("{\"userId\":\"test3@collectionspace.org\"}"));
+		JSONObject data = ss.getPathsJSON("users/",new JSONObject("{\"userId\":\"test31@collectionspace.org\"}"));
 		String[] paths= (String[])data.get("listItems");
 		if(paths.length>0)
 			ss.deleteJSON("users/"+paths[0]);
@@ -86,17 +86,17 @@ public class TestAccount extends ServicesBaseClass {
 		assertNotNull(u3);
 		// Check output
 		assertEquals("Test Mccollectionspace.org",u3.getString("screenName"));
-		assertEquals("test3@collectionspace.org",u3.getString("userId"));
-		assertEquals("test3@collectionspace.org",u3.getString("email"));
+		assertEquals("test31@collectionspace.org",u3.getString("userId"));
+		assertEquals("test31@collectionspace.org",u3.getString("email"));
 		assertEquals("active",u3.getString("status"));
 		// Check the method we're about to use to check if login works works
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test3@collectionspace.org");
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test31@collectionspace.org");
 		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"blahblah");
 		cache.reset();
 		ReturnedDocument out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds,cache);
 		assertFalse(out.getStatus()==200);		
 		// Check login works
-		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test3@collectionspace.org");
+		creds.setCredential(ServicesStorageGenerator.CRED_USERID,"test31@collectionspace.org");
 		creds.setCredential(ServicesStorageGenerator.CRED_PASSWORD,"testtestt");
 		cache.reset();
 		out=conn.getXMLDocument(RequestMethod.GET,"collectionobjects",null,creds,cache);
