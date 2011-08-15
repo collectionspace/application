@@ -278,7 +278,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					}
 					else{
 						//update term
-						storage.updateJSON(url, data);
+						storage.updateJSON(url+"/"+results.get(name), data);
 						
 						if(tty!= null){
 							tty.line("removing term "+name);
