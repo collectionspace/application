@@ -265,8 +265,6 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 						shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
 					}
 					data.put("description", opt.getDesc());
-					data.put("page", opt.getPage());
-					data.put("termSource", opt.getSource());
 					data.put("shortIdentifier", shortIdentifier);
 					String url = thisr.getID()+"/"+instance.getTitleRef();
 					

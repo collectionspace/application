@@ -7,7 +7,8 @@
 package org.collectionspace.chain.csp.schema;
 
 public class Option {
-	private String id,name,sample,description; 
+	private String id,name,sample;
+	private String description="";
 	private boolean dfault=false;
 
 	Option(String id,String name) { this.id=id; this.name=name; }
