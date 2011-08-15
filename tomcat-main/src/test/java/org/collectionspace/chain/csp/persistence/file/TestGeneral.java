@@ -99,8 +99,8 @@ public class TestGeneral extends TestBase {
 	//	http://nightly.collectionspace.org/collectionspace/tenant/core/invokereport/88b3bdb5-a7fd-4e39-aaa1
 	//	String csid = "/reporting/search?doctype=Acquisition";
 		//uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
-		String csid = "/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related";
-		//String csid = "/reporting";
+	//	String csid = "/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related";
+		String csid = "/reporting";
 		//String csid = "/vocab/languages";
 		//http://nightly.collectionspace.org/collectionspace/chain/vocabularies/location/source-vocab/relatedTerm
 		String test = "{\"csid\":\"0a63110d-0383-41bb-bdcd\",\"fields\":{\"shortIdentifier\":\"dateera\",\"usedBys\":[{\"usedBy\":\"structureddate:dateLatestEra\"},{\"usedBy\":\"structureddate:dateEarliestSingleEra\"}],\"source\":\"\",\"description\":\"\",\"terms\":[{\"shortIdentifier\":\"bced\",\"csid\":\"4115010a-8a5b-4c73-b9de\",\"authorityid\":\"0a63110d-0383-41bb-bdcd\",\"displayName\":\"BCED\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(0a63110d-0383-41bb-bdcd):item:id(4115010a-8a5b-4c73-b9de)'BCE'\",\"recordtype\":\"vocab\",\"description\":\"dfg\",\"source\":\"dfg\",\"sourcePage\":\"dfg\"},{\"shortIdentifier\":\"ce\",\"csid\":\"eeb4b1ad-ed81-4d05-ad98\",\"authorityid\":\"0a63110d-0383-41bb-bdcd\",\"displayName\":\"CE\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(0a63110d-0383-41bb-bdcd):item:id(eeb4b1ad-ed81-4d05-ad98)'CE'\",\"recordtype\":\"vocab\"}],\"csid\":\"0a63110d-0383-41bb-bdcd\",\"displayName\":\"Date Era\"}}";// +
