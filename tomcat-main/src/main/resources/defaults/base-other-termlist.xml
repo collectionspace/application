@@ -10,7 +10,8 @@
     <services-record-path id="common">vocabularies_common:http://collectionspace.org/services/vocabulary,vocabularies_common</services-record-path>
                 
    	<services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
-                	
+    <hassoftdelete>true</hassoftdelete>
+	           	
     <structures>
         <structure id="screen">
             <view>
@@ -51,10 +52,8 @@
         <field id="usedBy" ui-type="decorated"></field>
     </repeat>
     </section>
-	<section id="contactInformation">
-		<repeat id="terms">
-	    <group id="termslist" userecord="termlistitem"  ui-spec-prefix="termlist" ui-spec-inherit="true"></group>
-		</repeat>
+	<section id="termlistitem">
+	    <repeat id="terms" userecord="termlistitem"  ui-spec-prefix="termlist" ui-spec-inherit="true"></repeat>
 	</section>
 	
 </record>

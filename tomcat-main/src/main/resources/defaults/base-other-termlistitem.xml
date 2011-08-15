@@ -1,6 +1,12 @@
 <record id="termlistitem" in-recordlist="no" type="record,procedure">
 	<terms-used>false</terms-used>
 	<refobj-used>false</refobj-used>
+    <services-url>items</services-url>
+	<services-record-path>vocabularyitems_common:http://collectionspace.org/services/vocabulary,vocabularyitems_common</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+    <hassoftdelete>true</hassoftdelete>
+	<services-list-path>abstract-common-list/list-item</services-list-path>
+	
 	<structures>
         <structure id="screen">
             <view>
@@ -16,6 +22,7 @@
 	
 
     <section>
+    	<field id="_subrecordcsid"></field>
 		<field id="displayName"></field>
 		<field id="source"></field>
 		<field id="sourcePage"></field>
