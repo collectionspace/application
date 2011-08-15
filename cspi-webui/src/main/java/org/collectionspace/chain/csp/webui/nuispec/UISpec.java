@@ -459,9 +459,10 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 	
-	protected JSONObject generateRepeatEntry(Repeat r, UISpecRunContext context) throws JSONException {
+	protected JSONObject generateRepeatEntry(Repeat r, UISpecRunContext context, JSONObject outer) throws JSONException {
 
 		JSONObject out = new JSONObject();
+		
 		if(r.isExpander()){
 			JSONArray expanders= generateRepeatExpanderEntry(r,context);
 			out.put("expanders", expanders);
@@ -472,8 +473,31 @@ public class UISpec implements WebMethod {
 			
 			JSONObject options=new JSONObject();
 			JSONObject preProtoTree=new JSONObject();
-			for(FieldSet child : r.getChildren("")) {
-				generateDataEntry(preProtoTree,child, context);
+
+			if(r.usesRecord() ){
+				if(!r.getUISpecInherit()){
+					UISpecRunContext sub = context.createChild();
+					if(!getSelectorAffix(r).equals("")){
+						if(!context.equals("")){
+							sub.setUIAffix(getSelectorAffix(r));
+						}
+						else{
+							sub.setUIAffix(getSelectorAffix(r));
+						}
+					}
+					String sp=r.getUISpecPrefix();
+					if(sp!=null)
+						sub.setUIPrefix(sp);
+					generateSubRecord(preProtoTree, r,sub, outer);
+				}
+				else{
+					generateSubRecord(preProtoTree, r,context, outer);
+				}
+			}
+			else{
+				for(FieldSet child : r.getChildren("")) {
+					generateDataEntry(preProtoTree,child, context);
+				}
 			}
 			JSONObject subexpander = new JSONObject();
 			subexpander.put("type", "fluid.renderer.repeat");
@@ -679,13 +703,16 @@ public class UISpec implements WebMethod {
 		
 		return out;
 	}
-	protected void generateSubRecord(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException {
+	protected void generateSubRecord(JSONObject out, FieldSet fs, UISpecRunContext context, JSONObject parent) throws JSONException {
 		Record subrecord = fs.usesRecordId();
 		Boolean repeated = false;
-		if(fs.getParent() instanceof Repeat){
+		if(fs.getParent() instanceof Repeat ||( fs instanceof Repeat && !(fs instanceof Group))){
 			repeated = true;
 		}
-		generateSubRecord(subrecord, out,  repeated,  context);
+		if( parent == null){
+			parent = out;
+		}
+		generateSubRecord(subrecord, out,  repeated,  context, parent);
 		
 	}
 	protected void generateSubRecord(Record subr, JSONObject out, Boolean repeated, UISpecRunContext context) throws JSONException {
@@ -702,6 +729,20 @@ public class UISpec implements WebMethod {
 		}
 		
 	}
+	protected void generateSubRecord(Record subr, JSONObject out, Boolean repeated, UISpecRunContext context, JSONObject parent) throws JSONException {
+		for(FieldSet fs2 : subr.getAllFields("")) {
+			if(repeated){
+				fs2.setRepeatSubRecord(true);
+			}
+			generateDataEntry(out,fs2, context);
+			fs2.setRepeatSubRecord(false);
+		}
+		Structure s = subr.getStructure(this.structureview);
+		if(s.showMessageKey()){
+			parent = generateMessageKeys(context,parent, subr);
+		}
+		
+	}
 	
 	protected void generateDataEntry(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException {
 
@@ -711,7 +752,7 @@ public class UISpec implements WebMethod {
 		if("hierarchy".equals(fs.getUIType())) {
 			generateHierarchyEntry(out,fs,context);
 		}
-		if(fs.usesRecord()){
+		if(fs.usesRecord() && !(fs instanceof Repeat && !(fs instanceof Group))){
 			if(!fs.getUISpecInherit()){
 				UISpecRunContext sub = context.createChild();
 				if(!getSelectorAffix(fs).equals("")){
@@ -725,10 +766,10 @@ public class UISpec implements WebMethod {
 				String sp=fs.getUISpecPrefix();
 				if(sp!=null)
 					sub.setUIPrefix(sp);
-				generateSubRecord(out, fs,sub);
+				generateSubRecord(out, fs,sub, null);
 			}
 			else{
-				generateSubRecord(out, fs,context);
+				generateSubRecord(out, fs,context, null);
 			}
 		}
 		else{
@@ -788,7 +829,7 @@ public class UISpec implements WebMethod {
 
 	protected void repeatNonSibling(JSONObject out, FieldSet fs, UISpecRunContext context,
 			Repeat r) throws JSONException {
-		JSONObject contents=generateRepeatEntry(r, context);
+		JSONObject contents=generateRepeatEntry(r, context,out);
 		String selector = getSelector(r,context);
 		//CSPACE-2619 scalar repeatables are different from group repeats
 		if(r.getChildren("").length==1){

@@ -6,11 +6,16 @@
  */
 package org.collectionspace.chain.csp.webui.record;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Instance;
+import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.schema.Structure;
 import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesInitialize;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
@@ -238,16 +243,22 @@ public class RecordCreateUpdate implements WebMethod {
 	private void assignTerms(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject fields=data.optJSONObject("fields");
 		
+		
 		if(fields.has("terms")){
-			//delete everything
-			//and add in the new terms
 			Record thisr = spec.getRecord("vocab");
 			String sid = fields.getString("shortIdentifier");
-			Instance ins = spec.getInstance("vocab-"+sid);
-			avi.doreset(storage, ins, fields.getJSONArray("terms") );
+			String name = fields.getString("displayName");
+			if(create){
+				Map<String,String> options=new HashMap<String,String>();
+				options.put("id", "vocab-"+sid);
+				options.put("title", name);
+				options.put("web-url", sid);
+				options.put("title-ref", sid);
+
+				Instance ins=new Instance(thisr, options);
+				spec.addInstance(ins);
+			}
 		}
-		
-		
 	}
 
 	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{

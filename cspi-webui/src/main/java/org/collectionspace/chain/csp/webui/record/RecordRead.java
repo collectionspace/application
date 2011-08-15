@@ -258,9 +258,6 @@ public class RecordRead implements WebMethod {
 				}
 				else if(base.equals("termlist")){
 					String shortname = fields.getString("shortIdentifier");
-					String url = "vocab/"+shortname;
-					JSONArray allterms = getTerms(storage,shortname, "vocab",0);
-					fields.put("terms", allterms);
 					JSONArray allUsed = getUsedBy(shortname);
 					fields.put("usedBys", allUsed);
 				}

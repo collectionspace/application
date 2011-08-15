@@ -139,8 +139,30 @@ public class UISchema extends UISpec {
 
 		String selector = getSelector(r,context);
 		JSONObject protoTree = new JSONObject();
-		for (FieldSet child : r.getChildren("")) {
-			generateDataEntry(protoTree, child, context);
+		if(r.usesRecord() ){
+			if(!r.getUISpecInherit()){
+				UISpecRunContext sub = context.createChild();
+				if(!getSelectorAffix(r).equals("")){
+					if(!context.equals("")){
+						sub.setUIAffix(getSelectorAffix(r));
+					}
+					else{
+						sub.setUIAffix(getSelectorAffix(r));
+					}
+				}
+				String sp=r.getUISpecPrefix();
+				if(sp!=null)
+					sub.setUIPrefix(sp);
+				generateSubRecord(protoTree, r,sub, null);
+			}
+			else{
+				generateSubRecord(protoTree, r,context, null);
+			}
+		}
+		else{
+			for (FieldSet child : r.getChildren("")) {
+				generateDataEntry(protoTree, child, context);
+			}
 		}
 		if (r.hasPrimary()) {
 			protoTree.put("_primary", generateSchemaObject("boolean", null,

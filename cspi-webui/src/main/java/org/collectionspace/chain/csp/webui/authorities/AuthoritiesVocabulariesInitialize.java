@@ -126,7 +126,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	}
 	
 	
-	public void doreset(Storage storage, Instance ins,JSONArray terms ) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException{
+	public void doreset(Storage storage, Instance ins, JSONArray terms ) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException{
 
 		Option[] allOpts = ins.getAllOptions();
 
@@ -258,26 +258,30 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 				for(Option opt : allOpts){
 					String name = opt.getName();
 					String shortIdentifier = opt.getID();
+					//create it if term is not already present
+					JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
+					if(opt.getID() == null || opt.getID().equals("")){
+						//XXX here until the service layer does this
+						shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
+					}
+					data.put("description", opt.getDesc());
+					data.put("page", opt.getPage());
+					data.put("termSource", opt.getSource());
+					data.put("shortIdentifier", shortIdentifier);
+					String url = thisr.getID()+"/"+instance.getTitleRef();
+					
 					if(!results.has(name)){
 						if(tty!= null){
 							tty.line("adding term "+name);
 							log.info("adding term "+name);
 						}
-						//create it if term is not already present
-						JSONObject data=new JSONObject("{'displayName':'"+name+"'}");
-						if(opt.getID() == null){
-							//XXX here until the service layer does this
-							shortIdentifier = name.replaceAll("\\W", "").toLowerCase();
-						}
-						if(opt.getDesc() == null){
-							data.put("description", opt.getDesc());
-						}
-						data.put("shortIdentifier", shortIdentifier);
-						String url = thisr.getID()+"/"+instance.getTitleRef();
 						storage.autocreateJSON(url,data);
 						results.remove(name);
 					}
 					else{
+						//update term
+						storage.updateJSON(url, data);
+						
 						if(tty!= null){
 							tty.line("removing term "+name);
 						}
