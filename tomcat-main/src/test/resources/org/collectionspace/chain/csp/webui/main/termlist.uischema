@@ -41,6 +41,9 @@
                                 "source": {
                                     "type": "string"
                                 },
+                                "_subrecordcsid": {
+                                    "type": "string"
+                                },
                                 "description": {
                                     "type": "string"
                                 },

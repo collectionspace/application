@@ -4,7 +4,17 @@
             "messagekey": "termlist-csidLabel"
         },
         ".csc-termlist-name": "${fields.name}",
-        ".csc-terms-termslist": {
+        ".csc-termlistitem-description-label": {
+            "messagekey": "termlistitem-descriptionLabel"
+        },
+        ".csc-termlistitem-source-label": {
+            "messagekey": "termlistitem-sourceLabel"
+        },
+        ".csc-termlist-usedBy-label": {
+            "messagekey": "termlist-usedByLabel"
+        },
+        ".csc-termlist-displayName": "${fields.displayName}",
+        ".csc-termlist-terms": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
@@ -16,38 +26,18 @@
                                 "expander": {
                                     "repeatID": "repeat:",
                                     "tree": {
-                                        ".csc-termlistitem-description-label": {
-                                            "messagekey": "termlistitem-descriptionLabel"
-                                        },
-                                        ".csc-termlistitem-displayName-label": {
-                                            "messagekey": "termlistitem-displayNameLabel"
-                                        },
+                                        ".csc-termlistitem-displayName": "${{row}.displayName}",
                                         ".csc-termlistitem-description": "${{row}.description}",
-                                        ".csc-termlistitem-source-label": {
-                                            "messagekey": "termlistitem-sourceLabel"
-                                        },
+                                        ".csc-termlistitem-sourcePage": "${{row}.sourcePage}",
+                                        ".csc-termlistitem-source": "${{row}.source}",
+                                        ".csc-termlistitem-_subrecordcsid": "${{row}._subrecordcsid}",
+                                        ".csc-termlistitem-shortIdentifier": "${{row}.shortIdentifier}",
                                         ".csc-termlistitem-termStatus": {
                                             "default": "active",
                                             "optionnames": ["Active", "Inactive"],
                                             "optionlist": ["active", "inactive"],
                                             "selection": "${{row}.termStatus}"
-                                        },
-                                        ".csc-termlistitem-domaindata-label": {
-                                            "messagekey": "termlistitem-domaindataLabel"
-                                        },
-                                        ".csc-termlistitem-displayName": "${{row}.displayName}",
-                                        ".csc-termlistitem-shortIdentifier-label": {
-                                            "messagekey": "termlistitem-shortIdentifierLabel"
-                                        },
-                                        ".csc-termlistitem-sourcePage": "${{row}.sourcePage}",
-                                        ".csc-termlistitem-termStatus-label": {
-                                            "messagekey": "termlistitem-termStatusLabel"
-                                        },
-                                        ".csc-termlistitem-source": "${{row}.source}",
-                                        ".csc-termlistitem-sourcePage-label": {
-                                            "messagekey": "termlistitem-sourcePageLabel"
-                                        },
-                                        ".csc-termlistitem-shortIdentifier": "${{row}.shortIdentifier}"
+                                        }
                                     },
                                     "type": "fluid.renderer.repeat",
                                     "pathAs": "row",
@@ -60,32 +50,9 @@
                 }
             }]
         },
-        ".csc-termlist-displayName-label": {
-            "messagekey": "termlist-displayNameLabel"
+        ".csc-termlistitem-domaindata-label": {
+            "messagekey": "termlistitem-domaindataLabel"
         },
-        ".csc-termlist-domaindata-label": {
-            "messagekey": "termlist-domaindataLabel"
-        },
-        ".csc-termlist-sourcePage": "${fields.sourcePage}",
-        ".csc-termlist-source-label": {
-            "messagekey": "termlist-sourceLabel"
-        },
-        ".csc-termlist-contactInformation-label": {
-            "messagekey": "termlist-contactInformationLabel"
-        },
-        ".csc-termlist-usedBy-label": {
-            "messagekey": "termlist-usedByLabel"
-        },
-        ".csc-termlist-description-label": {
-            "messagekey": "termlist-descriptionLabel"
-        },
-        ".csc-termlist-shortIdentifier": "${fields.shortIdentifier}",
-        ".csc-termlist-number-label": {
-            "messagekey": "termlist-numberLabel"
-        },
-        ".csc-termlist-displayName": "${fields.displayName}",
-        ".csc-termlist-description": "${fields.description}",
-        ".csc-termlist-source": "${fields.source}",
         "expander": {
             "repeatID": ".csc-termlist-usedBy:",
             "tree": {
@@ -99,17 +66,54 @@
             "pathAs": "row",
             "controlledBy": "fields.usedBys"
         },
-        ".csc-termlist-shortIdentifier-label": {
-            "messagekey": "termlist-shortIdentifierLabel"
-        },
         ".csc-termlist-usedBys-label": {
             "messagekey": "termlist-usedBysLabel"
+        },
+        ".csc-termlistitem-sourcePage-label": {
+            "messagekey": "termlistitem-sourcePageLabel"
         },
         ".csc-termlist-sourcePage-label": {
             "messagekey": "termlist-sourcePageLabel"
         },
         ".csc-termlist-terms-label": {
             "messagekey": "termlist-termsLabel"
+        },
+        ".csc-termlist-displayName-label": {
+            "messagekey": "termlist-displayNameLabel"
+        },
+        ".csc-termlistitem-displayName-label": {
+            "messagekey": "termlistitem-displayNameLabel"
+        },
+        ".csc-termlist-domaindata-label": {
+            "messagekey": "termlist-domaindataLabel"
+        },
+        ".csc-termlistitem-_subrecordcsid-label": {
+            "messagekey": "termlistitem-_subrecordcsidLabel"
+        },
+        ".csc-termlist-sourcePage": "${fields.sourcePage}",
+        ".csc-termlist-source-label": {
+            "messagekey": "termlist-sourceLabel"
+        },
+        ".csc-termlist-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-termlist-description-label": {
+            "messagekey": "termlist-descriptionLabel"
+        },
+        ".csc-termlist-number-label": {
+            "messagekey": "termlist-numberLabel"
+        },
+        ".csc-termlist-description": "${fields.description}",
+        ".csc-termlist-source": "${fields.source}",
+        ".csc-termlistitem-shortIdentifier-label": {
+            "messagekey": "termlistitem-shortIdentifierLabel"
+        },
+        ".csc-termlist-shortIdentifier-label": {
+            "messagekey": "termlist-shortIdentifierLabel"
+        },
+        ".csc-termlist-termlistitem-label": {
+            "messagekey": "termlist-termlistitemLabel"
+        },
+        ".csc-termlistitem-termStatus-label": {
+            "messagekey": "termlistitem-termStatusLabel"
         },
         ".csc-termlist-name-label": {
             "messagekey": "termlist-nameLabel"
