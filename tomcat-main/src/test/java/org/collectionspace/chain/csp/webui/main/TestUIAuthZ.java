@@ -152,6 +152,7 @@ public class TestUIAuthZ extends TestBase {
 		JSONObject userdata = createUserWithRoles(jetty,user88Create,roleCreate);
 		JSONObject userdata2 = createUserWithRoles(jetty,user88Create,role2Create);
 //create user with roles in payload
+		log.info("POST USER");
 		HttpTester out = POSTData("/users/",makeRequest(userdata),jetty);
 		String userid = out.getHeader("Location");
 		log.info("2::"+userid);

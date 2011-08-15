@@ -498,6 +498,7 @@ public class TestBase extends TestData {
 	protected JSONObject createUserWithRolesById(ServletTester jetty,
 			String user, String roleId) throws Exception {
 		// create role
+		log.info("createUserWithRolesById "+user+":"+roleId);
 		HttpTester out = GETData(roleId, jetty);
 		JSONObject role = new JSONObject(out.getContent())
 				.getJSONObject("fields");
