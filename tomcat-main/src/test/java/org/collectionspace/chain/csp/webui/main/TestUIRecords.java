@@ -208,10 +208,13 @@ public class TestUIRecords extends TestBase {
 	/**
 	 * Test Vocabulary / TermList CRUDL
 	 */
-	@Test public void testTermLists() throws Exception {
+	@Test public void testVocabularyTermLists() throws Exception {
 		ServletTester jetty=setupJetty();
+		testPostGetDelete(jetty, "/termlist/", termlistCreate, "description");
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/termlist/uispec", "termlist.uispec");
+		log.info("Testing UISCHEMA");
+		testUIspec(jetty, "/termlist/uischema", "termlist.uischema");
 
 	}
 

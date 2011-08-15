@@ -535,10 +535,11 @@ public class TestBase extends TestData {
 		HttpTester out;
 		// Create
 		out = POSTData(uipath, makeSimpleRequest(data),jetty);
+		log.info(out.getContent());
 		String id = out.getHeader("Location");
 		// Retrieve
 		out = jettyDo(jetty, "GET", "/tenant/core" + id, null);
-
+log.info(out.getContent());
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(data);
 		assertEquals(one.get(testfield).toString(), two.get(testfield)
@@ -547,6 +548,8 @@ public class TestBase extends TestData {
 		// change
 		if (!uipath.contains("permission")) {
 			two.put(testfield, "newvalue");
+			log.info(id);
+			log.info(makeRequest(two).toString());
 			out = PUTData(id, makeRequest(two), jetty);
 			JSONObject oneA = new JSONObject(getFields(out.getContent()));
 			assertEquals(oneA.get(testfield).toString(), "newvalue");
