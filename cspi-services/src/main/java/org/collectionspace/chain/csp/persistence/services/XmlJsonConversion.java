@@ -263,8 +263,8 @@ public class XmlJsonConversion {
 			for(FieldSet f : r.getAllServiceFields(permtype,section)) {
 				addFieldSetToXml(root,f,in,section,permtype);
 			}
-			String test = doc.asXML();
-			//log.debug(doc.asXML());
+			//String test = doc.asXML();
+			//log.info(doc.asXML());
 			return doc;
 		}
 		return null;

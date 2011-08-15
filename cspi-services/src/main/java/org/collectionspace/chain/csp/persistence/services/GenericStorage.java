@@ -396,6 +396,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
 				convertToJson(out,doc.getDocument(), thisr, "GET", "common",csid);
 			}
+			
 
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
@@ -424,14 +425,51 @@ public class GenericStorage  implements ContextualisedStorage {
 					if(fs.getWithCSID()!=null) {
 						getPath = getPath + "/" + out.getString(fs.getWithCSID());
 					}
-					JSONObject outer = simpleRetrieveJSON(creds,cache,getPath,"",sr);
 					
 					//seems to work for media blob
 					//need to get update and delete working? tho not going to be used for media as handling blob seperately
 					if(fs instanceof Group){
+						JSONObject outer = simpleRetrieveJSON(creds,cache,getPath,"",sr);
 						JSONArray group = new JSONArray();
 						group.put(outer);
 						out.put(fs.getID(), group);
+					}
+					if(fs instanceof Repeat){
+						//NEED TO GET A LIST OF ALL THE THINGS
+						JSONArray repeat = new JSONArray();
+						String path = getPath;
+						String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
+						
+						while(!path.equals("")){
+							JSONObject data = getListView(creds,cache,path,node,"/"+sr.getServicesListPath(),"csid",false,r);
+							if(data.has("listItems")){
+								String[] results = (String[]) data.get("listItems");
+
+								for(String result : results) {
+									JSONObject rout=simpleRetrieveJSON( creds, cache,getPath+"/"+result, "", sr);
+									rout.put("_subrecordcsid", result);//add in csid so I can do update with a modicum of confidence
+									repeat.put(rout);
+								}
+							}
+							if(data.has("pagination")){
+								Integer ps = Integer.valueOf(data.getJSONObject("pagination").getString("pageSize"));
+								Integer pn = Integer.valueOf(data.getJSONObject("pagination").getString("pageNum"));
+								Integer ti = Integer.valueOf(data.getJSONObject("pagination").getString("totalItems"));
+								if(ti > (ps * (pn +1))){
+									JSONObject restrictions = new JSONObject();
+									restrictions.put("pageSize", Integer.toString(ps));
+									restrictions.put("pageNum", Integer.toString(pn + 1));
+
+									path = getRestrictedPath(getPath, restrictions, sr.getServicesSearchKeyword(), "", false, "");
+									//need more values
+								}
+								else{
+									path = "";
+								}
+							}
+						}
+						//group.put(outer);
+						out.put(fs.getID(), repeat);
 					}
 				}
 			}
@@ -722,7 +760,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			//XXX Completely untested subrecord update
 			for(FieldSet fs : r.getAllSubRecords("PUT")){
 				Record sr = fs.usesRecordId();
-				if(sr.isRealRecord()){//only deal with ones which are seperate Records in the services
+				if(sr.isRealRecord()){//only deal with ones which are separate Records in the services
 
 					//get list of existing subrecords
 					JSONObject existingcsid = new JSONObject();
@@ -730,7 +768,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					JSONArray createcsid = new JSONArray();
 					String getPath = serviceurl+filePath + "/" + sr.getServicesURL();
 					String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
-					JSONObject data = getListView(root,creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
+					JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
 					
 
 					String[] filepaths = (String[]) data.get("listItems");
@@ -801,21 +839,21 @@ public class GenericStorage  implements ContextualisedStorage {
 
 									for(int i=0;i<subarray.length();i++) {
 										JSONObject subrecord = subarray.getJSONObject(i);
-										if(((JSONObject) subdata).has("_subrecordcsid")){
-											String thiscsid = ((JSONObject) subdata).getString("_subrecordcsid");
+										if(((JSONObject) subrecord).has("_subrecordcsid")){
+											String thiscsid = ((JSONObject) subrecord).getString("_subrecordcsid");
 											//update
 											if(existingcsid.has(thiscsid)){
-												updatecsid.put(thiscsid, (JSONObject) subdata);
+												updatecsid.put(thiscsid, (JSONObject) subrecord);
 												existingcsid.remove(thiscsid);
 											}
 											else{
 												//something has gone wrong... best just create it from scratch
-												createcsid.put(subdata);
+												createcsid.put(subrecord);
 											}
 										}
 										else{
 											//create
-											createcsid.put(subdata);
+											createcsid.put(subrecord);
 										}
 									}
 								}
@@ -910,7 +948,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 			}
 			else{
-				url = autoCreateSub(creds, cache, jsonObject, doc);
+				url = autoCreateSub(creds, cache, jsonObject, doc, savePrefix, myr);
 			}
 			
 			
@@ -982,7 +1020,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 			}
 			else{
-				url = autoCreateSub(creds, cache, jsonObject, doc);
+				url = autoCreateSub(creds, cache, jsonObject, doc, r.getServicesURL(), r);
 			}
 			
 
@@ -995,7 +1033,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					//need to use code from configuredVocabStorage
 				}
 				else{
-					String savePath = url.getURLTail() + "/" + sr.getServicesURL();
+					String savePath =  url.getURL() + "/" + sr.getServicesURL();
 					if(fs instanceof Field){//get the fields form inline XXX untested - might not work...
 						JSONObject subdata = new JSONObject();
 						//loop thr jsonObject and find the fields I need
@@ -1043,26 +1081,29 @@ public class GenericStorage  implements ContextualisedStorage {
 	}
 
 	protected ReturnedURL autoCreateSub(CSPRequestCredentials creds,
-			CSPRequestCache cache, JSONObject jsonObject, Document doc)
+			CSPRequestCache cache, JSONObject jsonObject, Document doc, String savePrefix, Record r)
 			throws JSONException, UnderlyingStorageException,
 			ConnectionException {
 		ReturnedURL url;
 		Map<String,Document> parts=new HashMap<String,Document>();
+		Document doc2 = doc;
 		for(String section : r.getServicesRecordPaths()) {
 			String path=r.getServicesRecordPath(section);
 			String[] record_path=path.split(":",2);
-			doc=XmlJsonConversion.convertToXml(r,jsonObject,section,"POST");
-			if(doc!=null){
-				parts.put(record_path[0],doc);
+			doc2=XmlJsonConversion.convertToXml(r,jsonObject,section,"POST");
+			if(doc2!=null){
+				doc = doc2;
+				parts.put(record_path[0],doc2);
+				//log.info(doc.asXML());
 			}
 		}
 		//some records are accepted as multipart in the service layers, others arent, that's why we split up here
 		if(r.isMultipart())
-			url = conn.getMultipartURL(RequestMethod.POST,r.getServicesURL()+"/",parts,creds,cache);
+			url = conn.getMultipartURL(RequestMethod.POST,savePrefix,parts,creds,cache);
 		else
-			url = conn.getURL(RequestMethod.POST, r.getServicesURL()+"/", doc, creds, cache);
+			url = conn.getURL(RequestMethod.POST, savePrefix, doc, creds, cache);
 		if(url.getStatus()>299 || url.getStatus()<200)
-			throw new UnderlyingStorageException("Bad response ",url.getStatus(),r.getServicesURL()+"/");
+			throw new UnderlyingStorageException("Bad response ",url.getStatus(),savePrefix);
 		return url;
 	}
 	
@@ -1224,7 +1265,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");
 			
 			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
-			JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
+			JSONObject data = getListView(creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
 			
 			return data;
 			
@@ -1253,15 +1294,15 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 	}
 
-	protected JSONObject getListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
+	protected JSONObject getListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
 		if(r.hasHierarchyUsed("screen")){
 			path = hierarchicalpath(path);
 		}
 		if(r.hasSoftDeleteMethod()){
-			return getSoftListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+			return getSoftListView(creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
 		}
 		else{
-			return getHardListView(root,creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
+			return getHardListView(creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
 		}
 	}
 	protected String softpath(String path){
@@ -1296,10 +1337,10 @@ public class GenericStorage  implements ContextualisedStorage {
 		
 		return getRepeatableHardListView(root,creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid);
 	}
-	protected JSONObject getSoftListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	protected JSONObject getSoftListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
 		String softdeletepath = softpath(path);
 		
-		return getHardListView(root,creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid);
+		return getHardListView(creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid);
 	}
 	
 	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
@@ -1386,7 +1427,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		return out;
 	}
 	
-	protected JSONObject getHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
+	protected JSONObject getHardListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
 		JSONObject out = new JSONObject();
 		JSONObject pagination = new JSONObject();
 		Document list=null;

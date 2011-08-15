@@ -154,7 +154,7 @@ public class AuthorizationStorage extends GenericStorage {
 				String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");
 				
 				String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
-				JSONObject data = getListView(root,creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
+				JSONObject data = getListView(creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
 				
 				return data;
 			}

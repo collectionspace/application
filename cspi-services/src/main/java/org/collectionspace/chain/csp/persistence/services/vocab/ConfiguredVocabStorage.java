@@ -650,7 +650,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 //get list view
 
 		String node = "/"+thisr.getServicesListPath().split("/")[0]+"/*";
-		JSONObject data = getListView(storage,creds,cache,filePath,node,"/"+thisr.getServicesListPath(),"csid",false, thisr);
+		JSONObject data = getListView(creds,cache,filePath,node,"/"+thisr.getServicesListPath(),"csid",false, thisr);
 		
 
 		String[] filepaths = (String[]) data.get("listItems");
@@ -944,7 +944,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				JSONArray createcsid = new JSONArray();
 				String getPath = url + "/" + sr.getServicesURL();
 				String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
-				JSONObject data = getListView(root,creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
+				JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
 				
 
 				String[] filepaths = (String[]) data.get("listItems");
