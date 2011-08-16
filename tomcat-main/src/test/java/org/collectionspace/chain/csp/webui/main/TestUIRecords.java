@@ -76,6 +76,10 @@ public class TestUIRecords extends TestBase {
 		testLists(jetty, "intake", intakeCreate, "items");
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/intake/uispec", "intake.uispec");
+		log.info("Testing Search UISPEC");
+		testUIspec(jetty, "/intake-search/uispec", "intake-search.uispec");
+		log.info("Testing Search UISCHEMA");
+		testUIspec(jetty, "/intake-search/uischema", "intake-search.uischema");
 	}
 
 
@@ -117,6 +121,8 @@ public class TestUIRecords extends TestBase {
 		testUIspec(jetty, "/acquisition/uischema", "acquisition.uischema");
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/acquisition/uispec", "acquisition.uispec");
+		log.info("Testing Search UISPEC");
+		testUIspec(jetty, "/acquisition-search/uispec", "acquisition-search.uispec");
 	}
 
 

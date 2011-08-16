@@ -157,7 +157,13 @@
         ".csc-acquisition-acquisitionAuthorizer-label": {
             "messagekey": "acquisition-acquisitionAuthorizerLabel"
         },
-        ".csc-acquisition-updatedAt": "${fields.updatedAt}",
+        ".csc-acquisition-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
         ".csc-acquisition-acquisitionDates-label": {
             "messagekey": "acquisition-acquisitionDatesLabel"
         },
