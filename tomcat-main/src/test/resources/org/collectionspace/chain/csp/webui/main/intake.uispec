@@ -322,7 +322,13 @@
         ".csc-intake-fieldCollectionEventNames-label": {
             "messagekey": "intake-fieldCollectionEventNamesLabel"
         },
-        ".csc-intake-updatedAt": "${fields.updatedAt}",
+        ".csc-intake-updatedAt": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${fields.updatedAt}"
+        },
         ".csc-intake-condition-check-reference-number": "${fields.conditionCheckReferenceNumber}",
         ".csc-intake-fieldCollectionPlace": "${fields.fieldCollectionPlace}",
         ".csc-intake-depositorsRequirements-label": {
