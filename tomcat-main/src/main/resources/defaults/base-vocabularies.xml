@@ -19,6 +19,9 @@
                 <structures>
                     <structure id="screen"></structure>
                 </structures>
+				
+				<include src="domain-vocabularies.xml" />
+				
                 <instances>
                     <instance id="vocab-xxx">
                         <web-url>xxx</web-url>
