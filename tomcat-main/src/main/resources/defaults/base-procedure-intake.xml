@@ -6,6 +6,11 @@
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
+                    <structure id="search">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -37,10 +42,10 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="objectEntryInformation">
-                    <field id="entryNumber" chooser="yes" in-title="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
+                    <field id="entryNumber" chooser="yes" in-title="yes" ui-search="repeatable" mini="number,search,list,terms,relate" seperate_ui_container="true">
                         <selector>intake-entry-number</selector>
                         <title-selector>titleBar-intake-entry-number</title-selector>
                         <options>
@@ -49,10 +54,10 @@
                             <option id="evaluation" sample="EV2009.1">Evaluation</option>
                         </options>
                     </field>
-                    <field id="entryDate" ui-type="date">
+                    <field id="entryDate" ui-search="range" ui-type="date">
                         <selector>intake-entry-date</selector>
                     </field>
-                    <field id="entryReason" seperate_ui_container="true">
+                    <field id="entryReason" ui-search="repeatable" seperate_ui_container="true">
                         <selector>intake-entry-reason</selector>
                         <options>
                             <option id="" default="yes">Please select a value</option>
@@ -64,15 +69,15 @@
                     </field>
                     <repeat id="entryMethods">
                         <selector>intake-entryMethod</selector>
-                        <field id="entryMethod" autocomplete="vocab-entrymethod" ui-type="enum"></field>
+                        <field id="entryMethod" ui-search="repeatable" autocomplete="vocab-entrymethod" ui-type="enum"></field>
                     </repeat>
-                    <field id="returnDate" ui-type="date">
+                    <field id="returnDate" ui-search="range" ui-type="date">
                         <container-selector>intake-returnDate-container</container-selector>
                     </field>
-                    <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" autocomplete="person-person,organization-organization">
+                    <field id="currentOwner" in-title="yes" mini="summary,search,list,relate" ui-search="repeatable" autocomplete="person-person,organization-organization">
                         <selector>intake-current-owner</selector>
                     </field>
-                    <field id="depositor" autocomplete="person-person,organization-organization">
+                    <field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization">
                         <selector>intake-depositor</selector>
                     </field>
                     <field id="depositorsRequirements">
@@ -102,7 +107,7 @@
                         <field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
                     </repeat>
                     <repeat id="fieldCollectionEventNames">
-                        <field id="fieldCollectionEventName">
+                        <field id="fieldCollectionEventName" ui-search="repeatable" >
                             <selector>intake-field-collection-event-name</selector>
                         </field>
                     </repeat>
@@ -134,7 +139,7 @@
                 <section id="locationInformation">
                     <repeat id="currentLocationGroupList/currentLocationGroup">
                         <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
-                        <field id="currentLocation">
+                        <field id="currentLocation" ui-search="repeatable" >
                             <selector>intake-current-location</selector>
                         </field>
                         <field id="currentLocationFitness" autocomplete="vocab-conditionfitness" ui-type="enum">

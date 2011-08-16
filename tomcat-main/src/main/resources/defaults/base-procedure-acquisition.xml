@@ -12,6 +12,11 @@
                             <label-section id="messagekeys" show="true"></label-section>
                         </view>
                     </structure>
+                    <structure id="search">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
                     <structure id="tab">
                         <view>
                             <titlebar show="false"></titlebar>
@@ -37,7 +42,7 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                     <field id="ownersource" mini="summary,search,list,relate"  in-title="yes" exists-in-services="false">
                         <selector>object-acquisition-ownersource</selector>
                         <merges>
@@ -49,7 +54,7 @@
                 <section id="acquisitionAuthorizerHeader"></section><!-- here until I can think of a better way of doing it -->
                 
                 <section id="acquisitionInformation">
-                    <field id="acquisitionReferenceNumber" in-title="yes" chooser="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                    <field id="acquisitionReferenceNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
                         <selector>acquisition-numberPatternChooser-reference-number</selector>
                         <title-selector>titleBar-acquisition-reference-number</title-selector>
                         <container-selector>acquisition-reference-number-patternChooserContainer</container-selector>
@@ -59,7 +64,7 @@
                             <option id="library" sample="LIB2009.1">Library</option>
                         </options>
                     </field>
-                    <field id="accessionDate" ui-type="date">
+                    <field id="accessionDate" ui-search="range" ui-type="date">
                         <selector>acquisition-accession-date</selector>
                     </field>
 				<!--	<group id="acquisitionAuthorizerHeader" exists-in-services="false"> -->
@@ -70,12 +75,12 @@
                     </field>
 				<!--	</group> -->
                     <repeat id="acquisitionDates">
-                        <field id="acquisitionDate" ui-type="date">
+                        <field id="acquisitionDate" ui-search="range" ui-type="date">
                             <selector>acquisition-date</selector>
                             <container-selector>acquisition-acquisition-date-container</container-selector>
                         </field>
                     </repeat>
-                    <field id="acquisitionMethod" seperate_ui_container="true">
+                    <field id="acquisitionMethod" ui-search="repeatable" seperate_ui_container="true">
                         <selector>acquisition-acquisition-method</selector>
                         <options>
                             <option id="gift" default="yes">Gift</option>
@@ -86,7 +91,7 @@
                         </options>
                     </field>
                     <repeat id="acquisitionSources">
-                        <field id="acquisitionSource" autocomplete="person-person,organization-organization">
+                        <field id="acquisitionSource" ui-search="repeatable" autocomplete="person-person,organization-organization">
                             <selector>acquisition-acquisitionSource</selector>
                         </field>
                     </repeat>
@@ -99,7 +104,7 @@
                     <field id="transferOfTitleNumber" datatype="largetext">
                         <selector>acquisition-transfer-of-title-number</selector>
                     </field>
-                    <field id="creditLine"></field>
+                    <field id="creditLine" ui-search="repeatable"></field>
                     <field id="groupPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
                             <default>usd</default>
@@ -170,14 +175,14 @@
                             </enum>
                         </field>
                         <field id="acquisitionFundingValue"></field>
-                        <field id="acquisitionFundingSource" autocomplete="person-person,organization-organization"></field>
+                        <field id="acquisitionFundingSource" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
                         <field id="acquisitionFundingSourceProvisos"></field>
                     </repeat>
                 </section>
                 <section id="objectCollectionInformation">
                     <repeat id="fieldCollectionEventNames">
                         <selector>acquisition-fieldCollectionEventName</selector>
-                        <field id="fieldCollectionEventName"></field>
+                        <field id="fieldCollectionEventName" ui-search="repeatable"></field>
                     </repeat>
                 </section>
             </record>
