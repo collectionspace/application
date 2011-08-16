@@ -653,34 +653,6 @@ public class Record implements FieldParent {
 			genpermfields.get("").put(f.getID(), f);
 		} 
 
-		//is this a search field?
-		if(!(f.getSearchType().equals(""))){
-			if(f.getSearchType().equals("repeatable")){
-				//need to makeup a repeatable field
-				Repeat r = new Repeat(f.getRecord(),f.getID()+"s");
-				r.setSearchType("repeator");
-				searchfields.put(r.getID(),r);
-
-				f.setParent(r);
-				r.addChild(f);
-				
-			}
-			else if(f.getSearchType().equals("range")){
-
-				Field fst = new Field(f.getRecord(),f.getID()+"Start");
-				Field fed = new Field(f.getRecord(),f.getID()+"End");
-
-				fst.setSearchType("range");
-				fed.setSearchType("range");
-				fed.setType(f.getUIType());
-				fst.setType(f.getUIType());
-				searchfields.put(fst.getID(),fst);
-				searchfields.put(fed.getID(),fed);
-			}
-			else{
-				searchfields.put(f.getID(),f);
-			}
-		}
 		
 		for (String perm : f.getAllFieldPerms()) {
 			if (!allgenpermfields.containsKey(perm)) {
@@ -692,6 +664,43 @@ public class Record implements FieldParent {
 			allgenpermfields.put("", new HashMap<String, FieldSet>());
 		}
 		allgenpermfields.get("").put(f.getID(), f);
+		
+
+		//is this a search field?
+		if(!(f.getSearchType().equals(""))){
+			FieldSet searchf = f;
+			if(searchf.getSearchType().equals("repeatable")){
+				//need to makeup a repeatable field
+				if(f.getParent() instanceof Repeat){
+					Repeat rs = (Repeat)f.getParent();
+					rs.setSearchType("repeatored");
+				}
+				else{
+					Repeat r = new Repeat(searchf.getRecord(),searchf.getID()+"s");
+					r.setSearchType("repeator");
+					searchfields.put(r.getID(),r);
+	
+					searchf.setParent(r);
+					r.addChild(searchf);
+				}
+				
+			}
+			else if(searchf.getSearchType().equals("range")){
+
+				Field fst = new Field(searchf.getRecord(),searchf.getID()+"Start");
+				Field fed = new Field(searchf.getRecord(),searchf.getID()+"End");
+
+				fst.setSearchType("range");
+				fed.setSearchType("range");
+				fed.setType(searchf.getUIType());
+				fst.setType(searchf.getUIType());
+				searchfields.put(fst.getID(),fst);
+				searchfields.put(fed.getID(),fed);
+			}
+			else{
+				searchfields.put(searchf.getID(),searchf);
+			}
+		}
 	}
 	public void addField(FieldSet f) {
 		addField(f,true);

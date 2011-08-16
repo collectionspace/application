@@ -456,7 +456,7 @@ public class Field implements FieldSet {
 	}
 
 	public String[] getIDPath() {
-		if (parent instanceof Repeat) {
+		if (parent instanceof Repeat && !((Repeat) parent).getSearchType().equals("repeator")) {
 			String[] pre = ((Repeat) parent).getIDPath();
 			String[] out = new String[pre.length + 1];
 			System.arraycopy(pre, 0, out, 0, pre.length);
