@@ -121,7 +121,7 @@
                         "type": "string"
                     },
                     "updatedAt": {
-                        "type": "string"
+                        "type": "date"
                     },
                     "acquisitionReason": {
                         "type": "string"
