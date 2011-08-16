@@ -674,6 +674,7 @@ public class Record implements FieldParent {
 				if(f.getParent() instanceof Repeat){
 					Repeat rs = (Repeat)f.getParent();
 					rs.setSearchType("repeatored");
+					searchfields.put(rs.getID(),rs);
 				}
 				else{
 					Repeat r = new Repeat(searchf.getRecord(),searchf.getID()+"s");

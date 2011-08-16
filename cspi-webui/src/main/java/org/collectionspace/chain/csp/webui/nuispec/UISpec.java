@@ -74,7 +74,7 @@ public class UISpec implements WebMethod {
 	// XXX make common
 	protected String veryplainWithoutEnclosure(FieldSet f,UISpecRunContext context) {
 
-		if(!f.getSearchType().equals("")){
+		if(!f.getSearchType().equals("") && this.spectype.equals("search")){
 			return f.getID();
 		}
 		List<String> path=new ArrayList<String>();
@@ -103,8 +103,14 @@ public class UISpec implements WebMethod {
 
 	// XXX make common
 	protected String plain(Field f,UISpecRunContext context) {
-		if(f.getParent().isExpander() || f.getParent() instanceof Repeat|| f.isRepeatSubRecord()){
+		if(f.getParent().isExpander() ||  f.isRepeatSubRecord()){
 			return radio(f);
+		}
+		if(f.getParent() instanceof Repeat){
+			Repeat rp = (Repeat)f.getParent();//remove bogus repeats used in search
+			if(!rp.getSearchType().equals("repeator")){
+				return radio(f);
+			}
 		}
 		return veryplain(f,context);
 	}
@@ -529,7 +535,7 @@ public class UISpec implements WebMethod {
 			
 			options.put("protoTree", protoTree);
 			options.put("elPath",veryplainWithoutEnclosure(r,context));
-			if(r.getSearchType().equals("repeator")){
+			if(r.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
 				options.put("hidePrimary", true);
 			}
 			
@@ -652,7 +658,7 @@ public class UISpec implements WebMethod {
 		if(this.spectype.equals("search")){
 			for(FieldSet fs : r.getAllFields(this.spectype)) {
 				if(fs.getID()!=null){
-					if(fs.getSearchType().equals("repeator")){
+					if(fs.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
 						Repeat rp = (Repeat)fs;
 
 						for(FieldSet child : rp.getChildren("")) {

@@ -358,15 +358,29 @@ public class UISchema extends UISpec {
 		}
 		return out;
 	}
-	
+	private JSONObject uisearchschema(Storage storage, Record record) throws UIException {
+		UISpecRunContext context = new UISpecRunContext();
+		this.storage = storage;
+		this.record = record;
+		this.tenantname = this.record.getSpec().getAdminData().getTenantName();
+
+		try {
+			JSONObject out = new JSONObject();
+
+			JSONObject fields = generateFields(context);
+			JSONObject prop = fields.getJSONObject("properties");
+			fields.put("properties", prop);
+			out.put(record.getWebURL(), fields);
+			return out;
+		} catch (JSONException e) {
+			throw new UIException("Cannot generate UISpec due to JSONException", e);
+		}
+	}
 	private JSONObject uirecordschema(Storage storage,Record record) throws UIException {
 		UISpecRunContext context = new UISpecRunContext();
 		this.storage = storage;
 		this.record = record;
 		this.tenantname = this.record.getSpec().getAdminData().getTenantName();
-		if(this.tenantname.equals("")){
-			this.tenantname = "html";
-		}
 		try {
 			JSONObject out = new JSONObject();
 			JSONObject details = new JSONObject();
@@ -418,7 +432,12 @@ public class UISchema extends UISpec {
 		Request q = (Request) in;
 		JSONObject out;
 		if(this.record != null){
-			out = uirecordschema(q.getStorage(),this.record);
+			if(this.spectype.equals("search")){
+				out = uisearchschema(q.getStorage(),this.record);
+			}
+			else{
+				out = uirecordschema(q.getStorage(),this.record);
+			}
 		}
 		else{
 			out = uiotherschema(q.getStorage(),StringUtils.join(tail,"/"));
