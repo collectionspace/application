@@ -37,28 +37,34 @@ public class Repeat implements FieldSet, FieldParent {
 
 	/* Services */
 
+	public Repeat(Record record, String id) {
+		this.parent = record;
+		allStrings.put("parentID", record.getID());
+		this.initialiseVariables(null,id);
+	}
+
 	public Repeat(Record record, ReadOnlySection section) {
 		this.parent = record;
 		allStrings.put("parentID", record.getID());
-		this.initialiseVariables(section);
+		this.initialiseVariables(section, null);
 	}
 
 	public Repeat(Structure structure, ReadOnlySection section) {
 		this.parent = structure;
 		allStrings.put("parentID", structure.getID());
-		this.initialiseVariables(section);
+		this.initialiseVariables(section, null);
 	}
 
 	public Repeat(Group group, ReadOnlySection section) {
 		this.parent = group;
 		allStrings.put("parentID", group.getID());
-		this.initialiseVariables(section);
+		this.initialiseVariables(section, null);
 	}
 
 	public Repeat(Repeat repeat, ReadOnlySection section) {
 		this.parent = repeat;
 		allStrings.put("parentID", repeat.getID());
-		this.initialiseVariables(section);
+		this.initialiseVariables(section, null);
 	}
 
 
@@ -68,8 +74,8 @@ public class Repeat implements FieldSet, FieldParent {
 	 * 
 	 * @param section
 	 */
-	protected void initialiseVariables(ReadOnlySection section) {
-		this.initStrings(section,"@id",null);
+	protected void initialiseVariables(ReadOnlySection section, String tempid) {
+		this.initStrings(section,"@id",tempid);
 		this.setRepeatSubRecord(false);
 		allStrings.put("fullid",getString("@id"));
 		this.initStrings(section,"@label-affix", "-label");
@@ -141,8 +147,9 @@ public class Repeat implements FieldSet, FieldParent {
 		for (String s : minis) {
 			this.parent.getRecord().addMiniDataSet(this, s);
 		}
-		
+
 		this.initStrings(section,"@ui-type", "plain");
+		this.initStrings(section,"@ui-search", "");
 
 		if(this.parent instanceof Record){
 			this.initStrings(section,"label", ((Record) this.parent).getUILabel(getString("@id")));
@@ -252,6 +259,10 @@ public class Repeat implements FieldSet, FieldParent {
 	public FieldParent getParent() {
 		return this.parent;
 	}
+	public void setParent(FieldParent fp) {
+		this.parent = fp;
+	}
+
 
 	public Record getRecord() {
 		return parent.getRecord();
@@ -287,6 +298,12 @@ public class Repeat implements FieldSet, FieldParent {
 		return getString("@ui-type");
 	}
 
+	public String getSearchType() {
+		return getString("@ui-search");
+	}
+	public void setSearchType(String val) {
+		allStrings.put("@ui-search",val);
+	}
 	public String getServicesTag() {
 		return getString("services-tag");
 	}

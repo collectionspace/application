@@ -1,0 +1,353 @@
+{
+    ".csc-acquisition-accessionDate-label": {
+        "messagekey": "acquisition-accessionDateLabel"
+    },
+    ".csc-acquisition-accessionDateStart-label": {
+        "messagekey": "acquisition-accessionDateStart"
+    },    
+    ".csc-acquisition-accessionDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${accessionDateStart}"
+    },
+    ".csc-acquisition-accessionDateEnd-label": {
+        "messagekey": "acquisition-accessionDateEnd"
+    },    
+    ".csc-acquisition-accessionDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${accessionDateEnd}"
+    },        
+    ".csc-acquisition-acquisitionDate-label": {
+        "messagekey": "acquisition-acquisitionDateLabel"
+    },    
+    ".csc-acquisition-acquisitionDateStart-label": {
+        "messagekey": "acquisition-acquisitionDateStart"
+    },    
+    ".csc-acquisition-acquisitionDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${acquisitionDateStart}"
+    },
+    ".csc-acquisition-acquisitionDateEnd-label": {
+        "messagekey": "acquisition-acquisitionDateEnd"
+    },    
+    ".csc-acquisition-acquisitionDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${acquisitionDateEnd}"
+    },    
+    ".csc-acquisition-acquisitionFundingSource-label": {
+        "messagekey": "acquisition-acquisitionFundingSourceLabel"
+    },
+    ".csc-acquisition-acquisitionFundingSource": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "acquisitionFunding",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-acquisition-acquisitionFundingSource": {
+                                            "decorators": [
+                                                {
+                                                    "func": "cspace.autocomplete",
+                                                    "type": "fluid",
+                                                    "options": {
+                                                        "queryUrl": "../../tenant/html/acquisition/autocomplete/acquisitionFundingSource",
+                                                        "vocabUrl": "../../tenant/html/acquisition/source-vocab/acquisitionFundingSource"
+                                                    }
+                                                }
+                                            ],
+                                            "value": "${{row}.acquisitionFundingSource}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "acquisitionFunding"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]
+    },    
+    ".csc-acquisition-acquisitionMethod-label": {
+        "messagekey": "acquisition-acquisitionMethodLabel"
+    },
+    ".csc-acquisition-acquisition-method": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "acquisitionMethods",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-acquisition-acquisitionMethod": {
+                                            "default": "gift",
+                                            "optionnames": [
+                                                "Gift",
+                                                "Purchase",
+                                                "Exchange",
+                                                "Transfer",
+                                                "Treasure"
+                                            ],
+                                            "optionlist": [
+                                                "gift",
+                                                "purchase",
+                                                "exchange",
+                                                "transfer",
+                                                "treasure"
+                                            ],
+                                            "selection": "${{row}.acquisitionMethod}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "acquisitionMethods"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]    
+    },    
+    ".csc-acquisition-acquisitionReferenceNumber-label": {
+        "messagekey": "acquisition-acquisitionReferenceNumberLabel"
+    },    
+    ".csc-acquisition-numberPatternChooser-reference-number": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "acquisitionReferenceNumbers",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-acquisition-numberPatternChooser-reference-number": "${{row}.acquisitionReferenceNumber}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "acquisitionReferenceNumbers"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]        
+    },
+    ".csc-acquisition-acquisitionSource-label": {
+        "messagekey": "acquisition-acquisitionSourceLabel"
+    },
+    ".csc-acquisition-acquisitionSource": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "acquisitionSources",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-acquisition-acquisitionSource": {
+                                            "decorators": [
+                                                {
+                                                    "func": "cspace.autocomplete",
+                                                    "type": "fluid",
+                                                    "options": {
+                                                        "queryUrl": "../../tenant/html/acquisition/autocomplete/acquisitionSource",
+                                                        "vocabUrl": "../../tenant/html/acquisition/source-vocab/acquisitionSource"
+                                                    }
+                                                }
+                                            ],
+                                            "value": "${{row}.acquisitionSource}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "acquisitionSources"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    ".csc-acquisition-creditLine-label": {
+        "messagekey": "acquisition-creditLineLabel"
+    },    
+    ".csc-acquisition-creditLine": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "creditLines",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-acquisition-creditLine": "${{row}.creditLine}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "creditLines"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]            
+    },
+    ".csc-acquisition-fieldCollectionEventName-label": {
+        "messagekey": "acquisition-fieldCollectionEventNamesLabel"
+    },    
+    ".csc-acquisition-fieldCollectionEventName": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "fieldCollectionEventNames",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-acquisition-fieldCollectionEventName": "${{row}.fieldCollectionEventName}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fieldCollectionEventNames"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    ".csc-acquisition-editUsername-label": {
+        "messagekey": "acquisition-editNameLabel"
+    },
+    ".csc-acquisition-editUsername": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "editUsernames",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-acquisition-editUsername": {
+                                            "decorators": [
+                                                {
+                                                    "func": "cspace.autocomplete",
+                                                    "type": "fluid",
+                                                    "options": {
+                                                        "queryUrl": "../../../tenant/core/acquisition/autocomplete/editUsername",
+                                                        "vocabUrl": "../../../tenant/core/acquisition/source-vocab/editUsername"
+                                                    }
+                                                }
+                                            ],
+                                            "value": "${{row}.editUsername}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "editUsernames"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    ".csc-acquisition-updatedAt-label": {
+        "messagekey": "acquisition-editDateLabel"
+    },    
+    ".csc-acquisition-updatedAtStart-label": {
+        "messagekey": "acquisition-editDateStartLabel"
+    },
+    ".csc-acquisition-updatedAtStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-acquisition-updatedAtEnd-label": {
+        "messagekey": "acquisition-editDateEndLabel"
+    },
+    ".csc-acquisition-updatedAtEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtEnd}"
+    }        
+}

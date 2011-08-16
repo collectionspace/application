@@ -43,11 +43,21 @@ public class Field implements FieldSet {
 
 	/* Services */
 
-	public Field(FieldParent record, ReadOnlySection section) {
-
+	public Field(FieldParent record, String id) {
+		this.parent = record;
 		allStrings.put("parentID", record.getRecord().getID());
+		this.initialiseVariables(null,id);
+	}
+	public Field(FieldParent record, ReadOnlySection section) {
+		this.parent = record;
+		allStrings.put("parentID", record.getRecord().getID());
+		this.initialiseVariables(section,null);
+	}
+
+	protected void initialiseVariables(ReadOnlySection section, String tempid) {
+
 		this.setRepeatSubRecord(false);
-		this.initStrings(section,"@id",null);
+		this.initStrings(section,"@id",tempid);
 		
 		this.initSet(section,"@autocomplete",new String[] { "" });
 		this.initBoolean(section,"@container",false);
@@ -78,6 +88,7 @@ public class Field implements FieldSet {
 
 		this.initStrings(section,"@ui-func", "");
 		this.initStrings(section,"@ui-type", "plain");
+		this.initStrings(section,"@ui-search", "");
 		if (getString("@ui-type").equals("date")) {
 			seperate_default = true;
 		}
@@ -108,33 +119,32 @@ public class Field implements FieldSet {
 		Set<String> minis = Util.getSetOrDefault(section, "/@mini",
 				new String[] { "" });
 		if (minis.contains("number")) {
-			record.getRecord().setMiniNumber(this);
+			this.parent.getRecord().setMiniNumber(this);
 		}
 		if (minis.contains("summary")) {
-			record.getRecord().setMiniSummary(this);
+			this.parent.getRecord().setMiniSummary(this);
 		}
 		if (minis.contains("list")) {
-			record.getRecord().addMiniSummaryList(this);
+			this.parent.getRecord().addMiniSummaryList(this);
 		}
 		for (String s : minis) {
-			record.getRecord().addMiniDataSet(this, s);
+			this.parent.getRecord().addMiniDataSet(this, s);
 		}
 
 		this.initBoolean(section,"@display-name",false);
 		if (getBoolean("@display-name"))
-			record.getRecord().setDisplayName(this);
-		this.parent = record;
+			this.parent.getRecord().setDisplayName(this);
 		
 		this.initBoolean(section,"@exists-in-services",true);
 		
 		this.initSet(section,"enum/default",new String[] { "" });		
 		this.initBoolean(section,"enum/@has-blank",true);
-		this.initStrings(section,"enum/blank-value", record.enumBlankValue());
+		this.initStrings(section,"enum/blank-value", this.parent.enumBlankValue());
 		this.initSet(section,"@default",new String[] { "" });
 		this.initStrings(section,"@section", "common");
 		this.initStrings(section,"services-filter-param", null);
 		if (getString("services-filter-param") != null)
-			record.getRecord().setServicesFilterParam(getString("services-filter-param"),this);
+			this.parent.getRecord().setServicesFilterParam(getString("services-filter-param"),this);
 		
 		this.initStrings(section,"@datatype", "");
 		
@@ -144,7 +154,7 @@ public class Field implements FieldSet {
 		if (getSet("@autocomplete").size() > 0) {
 			for (String autocomplete_instance_id : getSet("@autocomplete")) {
 				autocomplete_instance_id = autocomplete_instance_id.trim();
-				Record r = record.getRecord();
+				Record r = this.parent.getRecord();
 				r.getSpec().addTermlist(autocomplete_instance_id, this);
 			}
 		}
@@ -246,6 +256,12 @@ public class Field implements FieldSet {
 
 	public String getUIType() {
 		return getString("@ui-type");
+	}
+	public String getSearchType() {
+		return getString("@ui-search");
+	}
+	public void setSearchType(String val) {
+		allStrings.put("@ui-search",val);
 	}
 	
 	public String getUIFunc() {
@@ -430,6 +446,9 @@ public class Field implements FieldSet {
 
 	public FieldParent getParent() {
 		return this.parent;
+	}
+	public void setParent(FieldParent fp) {
+		this.parent = fp;
 	}
 
 	public Record getRecord() {

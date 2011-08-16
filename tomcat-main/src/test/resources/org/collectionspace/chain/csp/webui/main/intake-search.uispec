@@ -1,0 +1,398 @@
+{
+    ".csc-intake-currentOwner-label": {
+        "messagekey": "intake-currentOwnerLabel"
+    },    
+    ".csc-intake-current-owner": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "currentOwners",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-intake-current-owner": {
+                                            "decorators": [
+                                                {
+                                                    "func": "cspace.autocomplete",
+                                                    "type": "fluid",
+                                                    "options": {
+                                                        "queryUrl": "../../../tenant/core/intake/autocomplete/currentOwner",
+                                                        "vocabUrl": "../../../tenant/core/intake/source-vocab/currentOwner"
+                                                    }
+                                                }
+                                            ],
+                                            "value": "${{row}.currentOwner}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "currentOwners"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    ".csc-intake-depositor-label": {
+        "messagekey": "intake-depositorLabel"
+    },
+    ".csc-intake-depositor": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "depositors",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-intake-depositor": {
+                                            "decorators": [
+                                                {
+                                                    "func": "cspace.autocomplete",
+                                                    "type": "fluid",
+                                                    "options": {
+                                                        "queryUrl": "../../../tenant/core/intake/autocomplete/depositor",
+                                                        "vocabUrl": "../../../tenant/core/intake/source-vocab/depositor"
+                                                    }
+                                                }
+                                            ],
+                                            "value": "${{row}.depositor}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "depositors"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]
+    },    
+    ".csc-intake-entryDate-label": {
+        "messagekey": "intake-entryDateLabel"
+    },
+    ".csc-intake-entryDateStart-label": {
+        "messagekey": "intake-entryDateStartLabel"
+    },
+    ".csc-intake-entryDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${entryDateStart}"
+    },
+    ".csc-intake-entryDateEnd-label": {
+        "messagekey": "intake-entryDateEndLabel"
+    },
+    ".csc-intake-entryDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${entryDateEnd}"
+    },
+    ".csc-intake-entryMethod-label": {
+        "messagekey": "intake-entryMethodLabel"
+    },    
+    ".csc-intake-entryMethod": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "entryMethods",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-intake-entryMethod": {
+                                            "optionnames": [
+                                                "Please select a value",
+                                                "Found on doorstep",
+                                                "Post",
+                                                "In person"
+                                            ],
+                                            "optionlist": [
+                                                "",
+                                                "foundondoorstep",
+                                                "post",
+                                                "inperson"
+                                            ],
+                                            "selection": "${{row}.entryMethod}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "entryMethods"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]
+    },
+    ".csc-intake-entryNumber-label": {
+        "messagekey": "intake-entryNumberLabel"
+    },
+    ".csc-intake-entry-number": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "entryNumbers",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-intake-entry-number": "${{row}.entryNumber}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "entryNumbers"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]    
+    },
+
+    ".csc-intake-entryReason-label": {
+        "messagekey": "intake-entryReasonLabel"
+    },
+    ".csc-intake-entry-reason": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "entryReasons",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-intake-entry-reason": {
+                                            "optionnames": [
+                                                "Please select a value",
+                                                "Unsuitable",
+                                                "Reasonable",
+                                                "Suitable",
+                                                "Dangerous"
+                                            ],
+                                            "optionlist": [
+                                                "",
+                                                "unsuitable",
+                                                "reasonable",
+                                                "suitable",
+                                                "dangerous"
+                                            ],
+                                            "selection": "${{row}.entryReason}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "entryReasons"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]    
+    },
+    ".csc-intake-returnDate-label": {
+        "messagekey": "intake-returnDateLabel"
+    },
+    ".csc-intake-returnDateStart-label": {
+        "messagekey": "intake-returnDateStartLabel"
+    },
+    ".csc-intake-returnDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${returnDateStart}"
+    },
+    ".csc-intake-returnDateEnd-label": {
+        "messagekey": "intake-returnDateEndLabel"
+    },
+    ".csc-intake-returnDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${returnDateEnd}"
+    },
+    ".csc-intake-fieldCollectionEventName-label": {
+        "messagekey": "intake-fieldCollectionEventNamesLabel"
+    },
+    ".csc-intake-field-collection-event-name": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "fieldCollectionEventNames",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-intake-field-collection-event-name": "${{row}.fieldCollectionEventName}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "fieldCollectionEventNames"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]
+    },    
+    ".csc-intake-currentLocation-label": {
+        "messagekey": "intake-currentLocationLabel"
+    },
+    ".csc-intake-current-location": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "currentLocationGroup",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-intake-current-location": "${{row}.currentLocation}"
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "currentLocationGroup"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]
+    },    
+    ".csc-intake-editDate-label": {
+        "messagekey": "intake-editDate"
+    },
+    ".csc-intake-editDateStart-label": {
+        "messagekey": "intake-editDateStart"
+    },
+    ".csc-intake-editDateEnd-label": {
+        "messagekey": "intake-editDateEnd"
+    },
+    ".csc-intake-editDateStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${editDateStart}"
+    },
+    ".csc-intake-editDateEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${editDateEnd}"
+    },
+    ".csc-intake-editUsername-label": {
+        "messagekey": "intake-editUsernameLabel"
+    },
+    ".csc-intake-editUsername": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "hidePrimary": true,
+                    "elPath": "editUsernames",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "expander": {
+                                    "repeatID": "repeat:",
+                                    "tree": {
+                                        ".csc-intake-editUsername": {
+                                            "decorators": [
+                                                {
+                                                    "func": "cspace.autocomplete",
+                                                    "type": "fluid",
+                                                    "options": {
+                                                        "queryUrl": "../../../tenant/core/intake/autocomplete/editUsername",
+                                                        "vocabUrl": "../../../tenant/core/intake/source-vocab/editUsername"
+                                                    }
+                                                }
+                                            ],
+                                            "value": "${{row}.editUsername}"
+                                        }
+                                    },
+                                    "type": "fluid.renderer.repeat",
+                                    "pathAs": "row",
+                                    "controlledBy": "editUsernames"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }
+        ]
+    } 
+}

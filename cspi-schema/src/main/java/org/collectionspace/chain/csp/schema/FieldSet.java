@@ -13,6 +13,7 @@ public interface FieldSet {
 	public String[] getIDPath();
 
 	public FieldParent getParent();
+	public void setParent(FieldParent fp);
 	public Record getRecord();
 	public String getServicesTag();
 	public String getServicesUrl();
@@ -51,4 +52,5 @@ public interface FieldSet {
 	public void setRepeatSubRecord(Boolean var);
 	public String getUIType();
 	public String getWithCSID();
+	public String getSearchType();
 }

@@ -48,6 +48,7 @@ public class Record implements FieldParent {
 	private Map<String, Map<String, FieldSet>> allgenpermfields = new HashMap<String, Map<String, FieldSet>>();
 	private Map<String, Map<String, FieldSet>> mergedpermfields = new HashMap<String, Map<String, FieldSet>>();
 	private Map<String, Map<String, FieldSet>> repeatpermfields = new HashMap<String, Map<String, FieldSet>>();
+	private Map<String,FieldSet> searchfields = new HashMap<String, FieldSet>();
 	
 	
 	private Map<String, FieldSet> repeatfields = new HashMap<String, FieldSet>();
@@ -116,6 +117,7 @@ public class Record implements FieldParent {
 
 		// ui layer path
 		this.initStrings(section,"tab-url", getString("web-url") + "-tab");
+		this.initStrings(section,"search-url", getString("web-url") + "-search");
 
 		this.initStrings(section,"enum-blank", data.get("blank"));
 		/* Service layer helpers */
@@ -238,6 +240,10 @@ public class Record implements FieldParent {
 		return getString("tab-url");
 	}
 
+	public String getSearchURL() {
+		return getString("search-url");
+	}
+
 	public boolean isShowType(String k){
 		if(getString("showin").equals("")){
 			return getSet("@type").contains(k);
@@ -310,7 +316,10 @@ public class Record implements FieldParent {
 		if(perm.equals("")){
 			return fields.values().toArray(new FieldSet[0]);
 		}
-		if(genpermfields.containsKey(perm)){
+		if(perm.equals("search")){
+			return searchfields.values().toArray(new FieldSet[0]);
+		}
+		else if(genpermfields.containsKey(perm)){
 			return genpermfields.get(perm).values().toArray(new FieldSet[0]);
 		}
 		return new FieldSet[0];
@@ -644,6 +653,35 @@ public class Record implements FieldParent {
 			genpermfields.get("").put(f.getID(), f);
 		} 
 
+		//is this a search field?
+		if(!(f.getSearchType().equals(""))){
+			if(f.getSearchType().equals("repeatable")){
+				//need to makeup a repeatable field
+				Repeat r = new Repeat(f.getRecord(),f.getID()+"s");
+				r.setSearchType("repeator");
+				searchfields.put(r.getID(),r);
+
+				f.setParent(r);
+				r.addChild(f);
+				
+			}
+			else if(f.getSearchType().equals("range")){
+
+				Field fst = new Field(f.getRecord(),f.getID()+"Start");
+				Field fed = new Field(f.getRecord(),f.getID()+"End");
+
+				fst.setSearchType("range");
+				fed.setSearchType("range");
+				fed.setType(f.getUIType());
+				fst.setType(f.getUIType());
+				searchfields.put(fst.getID(),fst);
+				searchfields.put(fed.getID(),fed);
+			}
+			else{
+				searchfields.put(f.getID(),f);
+			}
+		}
+		
 		for (String perm : f.getAllFieldPerms()) {
 			if (!allgenpermfields.containsKey(perm)) {
 				allgenpermfields.put(perm, new HashMap<String, FieldSet>());

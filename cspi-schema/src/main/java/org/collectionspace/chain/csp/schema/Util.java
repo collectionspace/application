@@ -14,22 +14,31 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 public class Util {
 	public static String getStringOrDefault(ReadOnlySection section,String path,String dfault) {
-		String out=(String)section.getValue(path);
+		String out = null;
+		if(section != null){
+			out=(String)section.getValue(path);
+		}
 		if(out==null)
 			return dfault;
 		return out;
 	}
 
 	public static boolean getBooleanOrDefault(ReadOnlySection section,String path,boolean dfault) {
-		String out=(String)section.getValue(path);
+		String out = null;
+		if(section != null){
+			out=(String)section.getValue(path);
+		}
 		if(out==null)
 			return dfault;
 		return "1".equals(out) || "yes".equals(out.toLowerCase()) || "true".equals(out.toLowerCase());
 	}
 
 	public static Set<String> getSetOrDefault(ReadOnlySection section,String path,String[] dfault) {
-		String values=(String)section.getValue(path);
-		return getSetOrDefault(values, path, dfault);
+		String out = null;
+		if(section != null){
+			out=(String)section.getValue(path);
+		}
+		return getSetOrDefault(out, path, dfault);
 	}
 	public static Set<String> getSetOrDefault(String values,String path,String[] dfault) {
 		String[] data=dfault;

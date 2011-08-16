@@ -46,6 +46,7 @@ public class UISpec implements WebMethod {
 	protected String tenantname = "html";
 	protected JSONObject controlledCache;
 	protected String structureview;
+	protected String spectype = "";
 
 	public UISpec() {
 		this.controlledCache = new JSONObject();
@@ -63,12 +64,19 @@ public class UISpec implements WebMethod {
 		this.record=record;
 		this.spec = record.getSpec();
 		this.structureview = structureview;
+		this.spectype = "";
+		if(structureview.equals("search")){
+			this.spectype = "search";
+		}
 		this.controlledCache = new JSONObject();
 	}
 
 	// XXX make common
 	protected String veryplainWithoutEnclosure(FieldSet f,UISpecRunContext context) {
 
+		if(!f.getSearchType().equals("")){
+			return f.getID();
+		}
 		List<String> path=new ArrayList<String>();
 		String pad="fields";
 		path.add(pad);
@@ -244,6 +252,8 @@ public class UISpec implements WebMethod {
 		protoTree.put("expander", expander);
 		
 		options.put("protoTree", protoTree);
+		options.put("elPath", "fields."+f.getPrimaryKey());
+		
 		options.put("elPath", "fields."+f.getPrimaryKey());
 		JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options);
 		decorators.put(decorator);
@@ -519,6 +529,10 @@ public class UISpec implements WebMethod {
 			
 			options.put("protoTree", protoTree);
 			options.put("elPath",veryplainWithoutEnclosure(r,context));
+			if(r.getSearchType().equals("repeator")){
+				options.put("hidePrimary", true);
+			}
+			
 
 			JSONObject decorator = getDecorator("fluid",null,"cspace.makeRepeatable",options);
 			decorators.put(decorator);
@@ -635,15 +649,33 @@ public class UISpec implements WebMethod {
 	}
 
 	protected JSONObject generateMessageKeys(UISpecRunContext affix, JSONObject temp, Record r) throws JSONException {
-		for(String st: r.getAllUISections()){
-			if(st!=null){
-				generateMessageKey(temp, r.getUILabelSelector(st),r.getUILabel(st));
+		if(this.spectype.equals("search")){
+			for(FieldSet fs : r.getAllFields(this.spectype)) {
+				if(fs.getID()!=null){
+					if(fs.getSearchType().equals("repeator")){
+						Repeat rp = (Repeat)fs;
+
+						for(FieldSet child : rp.getChildren("")) {
+							generateMessageKey(temp, r.getUILabelSelector(child.getID()), child.getLabel());
+						}
+					}
+					else{
+						generateMessageKey(temp, r.getUILabelSelector(fs.getID()), fs.getLabel());
+					}
+				}
 			}
 		}
-		
-		for(FieldSet fs : r.getAllRepeatFields("")) { //include children of repeats as well as top level
-			if(fs.getID()!=null){
-				generateMessageKey(temp, r.getUILabelSelector(fs.getID()), fs.getLabel());
+		else{
+			for(String st: r.getAllUISections()){
+				if(st!=null){
+					generateMessageKey(temp, r.getUILabelSelector(st),r.getUILabel(st));
+				}
+			}
+			
+			for(FieldSet fs : r.getAllRepeatFields("")) { //include children of repeats as well as top level
+				if(fs.getID()!=null){
+					generateMessageKey(temp, r.getUILabelSelector(fs.getID()), fs.getLabel());
+				}
 			}
 		}
 		return temp;
@@ -687,7 +719,7 @@ public class UISpec implements WebMethod {
 	
 	protected JSONObject generateDataEntrySection(UISpecRunContext context, Record r) throws JSONException {
 		JSONObject out=new JSONObject();
-		for(FieldSet fs : r.getAllFields("")) {
+		for(FieldSet fs : r.getAllFields(this.spectype)) {
 			generateDataEntry(out,fs,context);
 		}
 		return out;
@@ -961,7 +993,7 @@ public class UISpec implements WebMethod {
 		if(f.hasAutocompleteInstance()) {
 			makeAuthorities(out, context, f);
 		}
-		else if("chooser".equals(f.getUIType())) {
+		else if("chooser".equals(f.getUIType()) && !this.spectype.equals("search")) {
 			out.put(getSelector(f,context),generateChooser(f,context));
 		}
 		else if("date".equals(f.getUIType())) {
@@ -994,7 +1026,7 @@ public class UISpec implements WebMethod {
 		if(f.hasAutocompleteInstance()) {
 			makeAuthorities(out, context, f);
 		}
-		if("chooser".equals(f.getUIType())) {
+		if("chooser".equals(f.getUIType()) && !this.spectype.equals("search")) {
 			out.put(getContainerSelector(f,context),generateChooser(f,context));
 		}
 		if("date".equals(f.getUIType())) {
@@ -1093,21 +1125,27 @@ public class UISpec implements WebMethod {
 		try {
 			JSONObject out=new JSONObject();
 			Structure s = record.getStructure(this.structureview);
-			if(s.showListSection()){
-				out.put(s.getListSectionName(),generateListSection(s,context));
+			if(this.structureview.equals("search")){
+				out = generateRecordEditor(context, s.showMessageKey());
 			}
-			if(s.showEditSection()){
-				out.put(s.getEditSectionName(),generateRecordEditor(context, s.showMessageKey()));
-			}
-			if(s.showHierarchySection()){
-				out.put(s.getHierarchySectionName(),generateHierarchySection(context, s.showMessageKey()));
-			}
-			if(s.showTitleBar()){
-				out.put("titleBar",generateTitleSection(context));
-			}
-			
-			if(s.showSideBar()){
-				out.put("sidebar",generateSidebarSection(s, context));
+			else{
+
+				if(s.showListSection()){
+					out.put(s.getListSectionName(),generateListSection(s,context));
+				}
+				if(s.showEditSection()){
+					out.put(s.getEditSectionName(),generateRecordEditor(context, s.showMessageKey()));
+				}
+				if(s.showHierarchySection()){
+					out.put(s.getHierarchySectionName(),generateHierarchySection(context, s.showMessageKey()));
+				}
+				if(s.showTitleBar()){
+					out.put("titleBar",generateTitleSection(context));
+				}
+				
+				if(s.showSideBar()){
+					out.put("sidebar",generateSidebarSection(s, context));
+				}
 			}
 			return out;
 		} catch (JSONException e) {
