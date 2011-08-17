@@ -106,7 +106,7 @@ public class UserStorage extends GenericStorage {
 
 
 	protected ReturnedURL autoCreateSub(CSPRequestCredentials creds,
-			CSPRequestCache cache, JSONObject jsonObject, Document doc)
+			CSPRequestCache cache, JSONObject jsonObject, Document doc, String savePrefix, Record r)
 			throws JSONException, UnderlyingStorageException,
 			ConnectionException {
 		ReturnedURL url;

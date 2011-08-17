@@ -1095,6 +1095,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				doc = doc2;
 				parts.put(record_path[0],doc2);
 				//log.info(doc.asXML());
+				//log.info(savePrefix);
 			}
 		}
 		//some records are accepted as multipart in the service layers, others arent, that's why we split up here
