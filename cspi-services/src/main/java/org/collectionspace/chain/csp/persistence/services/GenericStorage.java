@@ -758,7 +758,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			
 
 			//XXX Completely untested subrecord update
-			for(FieldSet fs : r.getAllSubRecords("PUT")){
+			for(FieldSet fs : thisr.getAllSubRecords("PUT")){
 				Record sr = fs.usesRecordId();
 				if(sr.isRealRecord()){//only deal with ones which are separate Records in the services
 
