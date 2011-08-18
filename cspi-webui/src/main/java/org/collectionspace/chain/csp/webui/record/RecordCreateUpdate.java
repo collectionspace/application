@@ -21,6 +21,8 @@ import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.misc.Generic;
+import org.collectionspace.chain.csp.webui.nuispec.CacheTermList;
+import org.collectionspace.chain.csp.webui.nuispec.UISpec;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -39,6 +41,7 @@ public class RecordCreateUpdate implements WebMethod {
 	protected String url_base,base;
 	protected boolean create;
 	protected Record record;
+	protected CacheTermList ctl;
 	protected AuthoritiesVocabulariesInitialize avi;
 	protected Spec spec;
 	protected RecordRead reader;
@@ -51,6 +54,7 @@ public class RecordCreateUpdate implements WebMethod {
 		this.base=r.getID();
 		this.create=create;
 		this.reader=new RecordRead(r);
+		this.ctl=new CacheTermList();
 		this.avi = new AuthoritiesVocabulariesInitialize(r,false);
 		this.reader.configure(spec);
 		this.searcher = new RecordSearchList(r,false);
@@ -242,23 +246,28 @@ public class RecordCreateUpdate implements WebMethod {
 
 	private void assignTerms(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject fields=data.optJSONObject("fields");
-		
+		String insId = "";
+		Record vr = this.spec.getRecord("vocab");
 		
 		if(fields.has("terms")){
 			Record thisr = spec.getRecord("vocab");
 			String sid = fields.getString("shortIdentifier");
 			String name = fields.getString("displayName");
+			insId =  "vocab-"+sid;
 			if(create){
 				Map<String,String> options=new HashMap<String,String>();
-				options.put("id", "vocab-"+sid);
+				options.put("id", insId);
 				options.put("title", name);
 				options.put("web-url", sid);
 				options.put("title-ref", sid);
 
 				Instance ins=new Instance(thisr, options);
-				spec.addInstance(ins);
+				vr.addInstance(ins);
 			}
 		}
+
+		JSONArray getallnames = ctl.controlledLists(storage, insId,vr,0);
+		ctl.controlledCache.put(insId, getallnames);
 	}
 
 	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{

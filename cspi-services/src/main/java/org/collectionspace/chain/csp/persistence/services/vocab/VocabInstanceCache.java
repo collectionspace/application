@@ -9,6 +9,7 @@ package org.collectionspace.chain.csp.persistence.services.vocab;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.collectionspace.chain.csp.persistence.services.GenericStorage;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
@@ -16,6 +17,7 @@ import org.collectionspace.chain.csp.persistence.services.connection.RequestMeth
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
@@ -109,6 +111,11 @@ public class VocabInstanceCache {
 	}
 	
 	String getVocabularyId(CSPRequestCredentials creds,CSPRequestCache cache,String id) throws ConnectionException, UnderlyingStorageException, ExistException {
+//must allow for the dynamic creation of instances when the system is working
+		vocabs=new ConcurrentHashMap<String,String>();
+		for(Instance n : r.getAllInstances()) {
+			vocabs.put(n.getTitleRef(),n.getTitle());
+		}
 		if(csids.containsKey(id))
 			return csids.get(id);
 		synchronized(getClass()) {
