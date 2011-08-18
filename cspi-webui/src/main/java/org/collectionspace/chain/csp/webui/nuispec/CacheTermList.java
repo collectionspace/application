@@ -26,7 +26,7 @@ public class CacheTermList {
 		return out;
 	}
 	
-	public JSONArray controlledLists(Storage storage, String vocabtype,Record vr, Integer limit) throws JSONException{
+	public JSONArray controlledLists(Storage storage, String vocabname,Record vr, Integer limit) throws JSONException{
 		JSONArray displayNames = new JSONArray();
 		try {
 		    // Get List
@@ -40,17 +40,15 @@ public class CacheTermList {
 				JSONObject restriction=new JSONObject();
 				restriction.put("pageNum", pagenum);
 				restriction.put("pageSize", pagesize);
-				Instance n = vr.getInstance(vocabtype);
-				if(n !=null){
 
-					String url = vr.getID()+"/"+n.getTitleRef();
+					String url = vr.getID()+"/"+vocabname;
 					JSONObject data = storage.getPathsJSON(url,restriction);
 					if(data.has("listItems")){
 						String[] results = (String[]) data.get("listItems");
 						/* Get a view of each */
 						for(String result : results) {
 							//change csid into displayName
-							JSONObject namedata = getDisplayNameList(storage,vr.getID(),n.getTitleRef(),result);
+							JSONObject namedata = getDisplayNameList(storage,vr.getID(),vocabname,result);
 							displayNames.put(namedata);
 						}
 
@@ -71,14 +69,13 @@ public class CacheTermList {
 					else{
 						resultsize=0;
 					}
-				}
 			}
 		} catch (ExistException e) {
 			throw new JSONException("Exist exception");
 		} catch (UnimplementedException e) {
 			throw new JSONException("Unimplemented exception");
 		} catch (UnderlyingStorageException e) {
-			throw new JSONException("Underlying storage exception"+vocabtype + e);
+			throw new JSONException("Underlying storage exception"+vocabname + e);
 		}
 		return displayNames;
 	}

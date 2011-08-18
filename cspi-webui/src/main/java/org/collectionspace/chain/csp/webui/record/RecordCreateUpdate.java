@@ -247,9 +247,9 @@ public class RecordCreateUpdate implements WebMethod {
 	private void assignTerms(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject fields=data.optJSONObject("fields");
 		String insId = "";
-		Record vr = this.spec.getRecord("vocab");
 		
 		if(fields.has("terms")){
+			Record vr = this.spec.getRecord("vocab");
 			Record thisr = spec.getRecord("vocab");
 			String sid = fields.getString("shortIdentifier");
 			String name = fields.getString("displayName");
@@ -264,10 +264,10 @@ public class RecordCreateUpdate implements WebMethod {
 				Instance ins=new Instance(thisr, options);
 				vr.addInstance(ins);
 			}
+			JSONArray getallnames = ctl.controlledLists(storage, sid,vr,0);
+			ctl.controlledCache.put(insId, getallnames);
 		}
 
-		JSONArray getallnames = ctl.controlledLists(storage, insId,vr,0);
-		ctl.controlledCache.put(insId, getallnames);
 	}
 
 	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{

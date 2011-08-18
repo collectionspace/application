@@ -58,9 +58,6 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		this.conn=conn;
 		urn_processor=new URNProcessor(r.getURNSyntax());
 		Map<String,String> vocabs=new ConcurrentHashMap<String,String>();
-		for(Instance n : r.getAllInstances()) {
-			vocabs.put(n.getTitleRef(),n.getTitle());
-		}
 		vocab_cache=new VocabInstanceCache(r,conn,vocabs);
 		this.r=r;
 	}

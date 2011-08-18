@@ -104,8 +104,9 @@ public class VocabInstanceCache {
 			String base=object.selectSingleNode("shortIdentifier").getText();			
 			if(base==null)
 				continue;
-			if(!vocabs.containsKey(base))
-				continue;
+			if(!vocabs.containsKey(base)){
+				vocabs.put(base, name);
+			}
 			csids.put(base,object.selectSingleNode("csid").getText());
 		}
 	}
