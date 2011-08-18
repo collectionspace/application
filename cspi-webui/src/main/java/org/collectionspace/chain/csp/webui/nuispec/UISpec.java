@@ -276,7 +276,7 @@ public class UISpec implements WebMethod {
 		//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
 		//XXX they shouldn't really be in the uispec but they are here until the UI and App decide how to communicate about them
 		if(!ctl.controlledCache.has(f.getAutocompleteInstance().getID())){
-			JSONArray getallnames = ctl.controlledLists(this.storage, f.getAutocompleteInstance().getID(),this.record);
+			JSONArray getallnames = ctl.controlledLists(this.storage, f.getAutocompleteInstance().getTitleRef(),this.record);
 			ctl.controlledCache.put(f.getAutocompleteInstance().getID(), getallnames);
 		}
 
