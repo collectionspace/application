@@ -41,34 +41,36 @@ public class CacheTermList {
 				restriction.put("pageNum", pagenum);
 				restriction.put("pageSize", pagesize);
 				Instance n = vr.getInstance(vocabtype);
-				
-				String url = vr.getID()+"/"+n.getTitleRef();
-				JSONObject data = storage.getPathsJSON(url,restriction);
-				if(data.has("listItems")){
-					String[] results = (String[]) data.get("listItems");
-					/* Get a view of each */
-					for(String result : results) {
-						//change csid into displayName
-						JSONObject namedata = getDisplayNameList(storage,vr.getID(),n.getTitleRef(),result);
-						displayNames.put(namedata);
-					}
+				if(n !=null){
 
-					Integer total = data.getJSONObject("pagination").getInt("totalItems");
-					pagesize = data.getJSONObject("pagination").getInt("pageSize");
-					//Integer itemsInPage = data.getJSONObject("pagination").getInt("itemsInPage");
-					pagenum = data.getJSONObject("pagination").getInt("pageNum");
-					pagenum++;
-					//are there more results
-					if(total <= (pagesize * (pagenum))){
-						break;
+					String url = vr.getID()+"/"+n.getTitleRef();
+					JSONObject data = storage.getPathsJSON(url,restriction);
+					if(data.has("listItems")){
+						String[] results = (String[]) data.get("listItems");
+						/* Get a view of each */
+						for(String result : results) {
+							//change csid into displayName
+							JSONObject namedata = getDisplayNameList(storage,vr.getID(),n.getTitleRef(),result);
+							displayNames.put(namedata);
+						}
+
+						Integer total = data.getJSONObject("pagination").getInt("totalItems");
+						pagesize = data.getJSONObject("pagination").getInt("pageSize");
+						//Integer itemsInPage = data.getJSONObject("pagination").getInt("itemsInPage");
+						pagenum = data.getJSONObject("pagination").getInt("pageNum");
+						pagenum++;
+						//are there more results
+						if(total <= (pagesize * (pagenum))){
+							break;
+						}
+						//have we got enough results?
+						if(limit !=0 && limit <= (pagesize * (pagenum)) ){
+							break;
+						}
 					}
-					//have we got enough results?
-					if(limit !=0 && limit <= (pagesize * (pagenum)) ){
-						break;
+					else{
+						resultsize=0;
 					}
-				}
-				else{
-					resultsize=0;
 				}
 			}
 		} catch (ExistException e) {
