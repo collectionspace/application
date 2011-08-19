@@ -73,7 +73,7 @@ public class DataGenerator  extends UISpec {
 
 
 	public DataGenerator(Spec spec) {
-		super();
+		super(spec);
 		this.doall = true;
 		this.spec = spec;
 	}
@@ -489,18 +489,18 @@ public class DataGenerator  extends UISpec {
 		JSONObject allnames = new JSONObject();
 		Integer i =0;
 		for(Instance type : f.getAllAutocompleteInstances()){
-			if(!ctl.controlledCache.has(type.getID())){
+			if(!spec.ctl.controlledCache.has(type.getID())){
 				log.info("generating authority: "+type.getID()+":"+type.getRecord());
 				try {
 					tty.line("generating authority: "+type.getID()+":"+type.getRecord());
 				} catch (UIException e) {
 				}
-				JSONArray thesenames = ctl.controlledLists(this.storage,type.getID(),type.getRecord(),authoritylimit);
-				ctl.controlledCache.put(type.getID(), thesenames);
+				JSONArray thesenames = spec.ctl.controlledLists(this.storage,type.getID(),type.getRecord(),authoritylimit);
+				spec.ctl.controlledCache.put(type.getID(), thesenames);
 				allnames.put(i.toString(), thesenames);
 			}
 			else{
-				JSONArray othernames = ctl.controlledCache.getJSONArray(f.getAutocompleteInstance().getID());
+				JSONArray othernames = spec.ctl.controlledCache.getJSONArray(f.getAutocompleteInstance().getID());
 				allnames.put(i.toString(), othernames);
 			}
 			i++;

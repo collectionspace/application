@@ -38,13 +38,13 @@ public class UISchema extends UISpec {
 	public UISchema(Record record, String structureview) {
 		super(record, structureview);
 	}
-	public UISchema(Spec spec) {
-		super();
+	public UISchema(Spec spec, CacheTermList ctl) {
+		super(spec);
 		this.spec = spec;
 		this.record = null;
 	}
 	public UISchema(Spec spec, Schemas s) {
-		super();
+		super(spec);
 		this.schema = s;
 		this.spec = spec;
 		this.record = null;

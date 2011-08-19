@@ -39,6 +39,7 @@ import org.collectionspace.chain.csp.webui.misc.WebLogin;
 import org.collectionspace.chain.csp.webui.misc.WebLoginStatus;
 import org.collectionspace.chain.csp.webui.misc.WebLogout;
 import org.collectionspace.chain.csp.webui.misc.WebReset;
+import org.collectionspace.chain.csp.webui.nuispec.CacheTermList;
 import org.collectionspace.chain.csp.webui.nuispec.DataGenerator;
 import org.collectionspace.chain.csp.webui.nuispec.ServicesXsd;
 import org.collectionspace.chain.csp.webui.nuispec.UISchema;
@@ -89,6 +90,7 @@ public class WebUI implements CSP, UI, Configurable {
 	private Map<Operation,Trie> tries=new HashMap<Operation,Trie>();
 	private List<WebMethod> all_methods=new ArrayList<WebMethod>();
 	private CSPContext ctx;
+	private CacheTermList ctl;
 	private StorageGenerator xxx_storage;
 	private String uispec_path;
 	private String login_dest,login_failed_dest,front_page,find_page;

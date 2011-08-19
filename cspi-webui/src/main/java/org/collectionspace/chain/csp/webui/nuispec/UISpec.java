@@ -44,12 +44,11 @@ public class UISpec implements WebMethod {
 	protected Storage storage;
 	protected Spec spec;
 	protected String tenantname = "html";
-	protected CacheTermList ctl;
 	protected String structureview;
 	protected String spectype = "";
 
-	public UISpec() {
-		this.ctl=new CacheTermList();
+	public UISpec(Spec spec) {
+		this.spec = spec;
 	}
 
 	// XXX should be moved into fs.getIDPath itself, but refactoring would take too long for 1.7 -- dan
@@ -69,7 +68,6 @@ public class UISpec implements WebMethod {
 			this.spectype = "search";
 		}
 
-		this.ctl=new CacheTermList();
 	}
 
 	// XXX make common
@@ -275,12 +273,12 @@ public class UISpec implements WebMethod {
 	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
 		//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
 		//XXX they shouldn't really be in the uispec but they are here until the UI and App decide how to communicate about them
-		if(!ctl.controlledCache.has(f.getAutocompleteInstance().getID())){
-			JSONArray getallnames = ctl.controlledLists(this.storage, f.getAutocompleteInstance().getTitleRef(),this.record);
-			ctl.controlledCache.put(f.getAutocompleteInstance().getID(), getallnames);
+		if(!spec.ctl.controlledCache.has(f.getAutocompleteInstance().getID())){
+			JSONArray getallnames = spec.ctl.controlledLists(this.storage, f.getAutocompleteInstance().getTitleRef(),this.record);
+			spec.ctl.controlledCache.put(f.getAutocompleteInstance().getID(), getallnames);
 		}
 
-		JSONArray allnames = ctl.controlledCache.getJSONArray(f.getAutocompleteInstance().getID());
+		JSONArray allnames = spec.ctl.controlledCache.getJSONArray(f.getAutocompleteInstance().getID());
 		JSONArray ids=new JSONArray();
 		JSONArray names=new JSONArray();
 		int dfault = -1;

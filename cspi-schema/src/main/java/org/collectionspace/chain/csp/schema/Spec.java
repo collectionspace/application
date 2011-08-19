@@ -17,6 +17,7 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.collectionspace.chain.csp.config.Rules;
 import org.collectionspace.chain.csp.config.Target;
 import org.collectionspace.chain.csp.inner.CoreConfig;
+import org.collectionspace.chain.csp.webui.nuispec.CacheTermList;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
@@ -53,6 +54,7 @@ public class Spec implements CSP, Configurable {
 	private String version;
 	private EmailData ed;
 	private AdminData adminData;
+	public CacheTermList ctl = new CacheTermList();
 	
 	public String getName() { return "schema"; }
 

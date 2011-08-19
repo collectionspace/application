@@ -41,7 +41,6 @@ public class RecordCreateUpdate implements WebMethod {
 	protected String url_base,base;
 	protected boolean create;
 	protected Record record;
-	protected CacheTermList ctl;
 	protected AuthoritiesVocabulariesInitialize avi;
 	protected Spec spec;
 	protected RecordRead reader;
@@ -54,7 +53,6 @@ public class RecordCreateUpdate implements WebMethod {
 		this.base=r.getID();
 		this.create=create;
 		this.reader=new RecordRead(r);
-		this.ctl=new CacheTermList();
 		this.avi = new AuthoritiesVocabulariesInitialize(r,false);
 		this.reader.configure(spec);
 		this.searcher = new RecordSearchList(r,false);
@@ -264,8 +262,8 @@ public class RecordCreateUpdate implements WebMethod {
 				Instance ins=new Instance(thisr, options);
 				vr.addInstance(ins);
 			}
-			JSONArray getallnames = ctl.controlledLists(storage, sid,vr,0);
-			ctl.controlledCache.put(insId, getallnames);
+			JSONArray getallnames = spec.ctl.controlledLists(storage, sid,vr,0);
+			spec.ctl.controlledCache.put(insId, getallnames);
 		}
 
 	}

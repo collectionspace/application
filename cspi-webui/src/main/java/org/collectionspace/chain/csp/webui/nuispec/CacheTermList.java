@@ -11,13 +11,23 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+/**
+ * Caching termlists isn't the best thing to do but with termlists being used 
+ * in UIspecs which are called every page request then there is a need to cache
+ * 
+ * The hope is that standard calls thr the system to update the termlists will refresh the cache
+ * We can't use the vocab cache as we have modelled termlists more like records and procedures.
+ * And VocabInstanceCache doesn't cache all the vocab items as authorities are too large for that to be a sensible approach
+ * 
+ * @author csm22
+ *
+ */
 public class CacheTermList {
 	private static final Logger log=LoggerFactory.getLogger(CacheTermList.class);
-	public JSONObject controlledCache;
+	public JSONObject controlledCache = new JSONObject();
 	
 	public CacheTermList(){
-		this.controlledCache = new JSONObject();
+		//this.controlledCache = new JSONObject();
 	}
 
 	private JSONObject getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
@@ -25,6 +35,7 @@ public class CacheTermList {
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view", new JSONObject());
 		return out;
 	}
+	
 	
 	public JSONArray controlledLists(Storage storage, String vocabname,Record vr, Integer limit) throws JSONException{
 		JSONArray displayNames = new JSONArray();
