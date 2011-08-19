@@ -45,6 +45,7 @@ public class RecordCreateUpdate implements WebMethod {
 	protected Spec spec;
 	protected RecordRead reader;
 	protected RecordSearchList searcher;
+	protected CacheTermList ctl;
 	
 	public RecordCreateUpdate(Record r,boolean create) { 
 		this.spec=r.getSpec();
@@ -262,8 +263,7 @@ public class RecordCreateUpdate implements WebMethod {
 				Instance ins=new Instance(thisr, options);
 				vr.addInstance(ins);
 			}
-			JSONArray getallnames = spec.ctl.controlledLists(storage, sid,vr,0);
-			spec.ctl.controlledCache.put(insId, getallnames);
+			JSONArray getallnames = ctl.get(storage, sid,vr,0);
 		}
 
 	}
@@ -430,6 +430,7 @@ public class RecordCreateUpdate implements WebMethod {
 	
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
+		ctl = new CacheTermList(q.getCache());
 		store_set(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 

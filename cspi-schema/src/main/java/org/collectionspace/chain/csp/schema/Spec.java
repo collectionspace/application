@@ -54,7 +54,6 @@ public class Spec implements CSP, Configurable {
 	private String version;
 	private EmailData ed;
 	private AdminData adminData;
-	public CacheTermList ctl = new CacheTermList();
 	
 	public String getName() { return "schema"; }
 

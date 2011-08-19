@@ -90,8 +90,8 @@ public class WebUI implements CSP, UI, Configurable {
 	private Map<Operation,Trie> tries=new HashMap<Operation,Trie>();
 	private List<WebMethod> all_methods=new ArrayList<WebMethod>();
 	private CSPContext ctx;
-	private CacheTermList ctl;
 	private StorageGenerator xxx_storage;
+	public CacheTermList xxx_ctl;
 	private String uispec_path;
 	private String login_dest,login_failed_dest,front_page,find_page;
 

@@ -27,6 +27,7 @@ import org.collectionspace.chain.csp.schema.UISpecRunContext;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -46,6 +47,7 @@ public class UISpec implements WebMethod {
 	protected String tenantname = "html";
 	protected String structureview;
 	protected String spectype = "";
+	protected CacheTermList ctl;
 
 	public UISpec(Spec spec) {
 		this.spec = spec;
@@ -273,12 +275,8 @@ public class UISpec implements WebMethod {
 	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
 		//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
 		//XXX they shouldn't really be in the uispec but they are here until the UI and App decide how to communicate about them
-		if(!spec.ctl.controlledCache.has(f.getAutocompleteInstance().getID())){
-			JSONArray getallnames = spec.ctl.controlledLists(this.storage, f.getAutocompleteInstance().getTitleRef(),this.record);
-			spec.ctl.controlledCache.put(f.getAutocompleteInstance().getID(), getallnames);
-		}
-
-		JSONArray allnames = spec.ctl.controlledCache.getJSONArray(f.getAutocompleteInstance().getID());
+		
+		JSONArray getallnames = ctl.get(this.storage, f.getAutocompleteInstance().getTitleRef(),this.spec.getRecord("vocab"));
 		JSONArray ids=new JSONArray();
 		JSONArray names=new JSONArray();
 		int dfault = -1;
@@ -289,8 +287,8 @@ public class UISpec implements WebMethod {
 			spacer = 1;
 		}
 		
-		for(int i=0;i<allnames.length();i++) {
-			JSONObject namedata = allnames.getJSONObject(i);
+		for(int i=0;i<getallnames.length();i++) {
+			JSONObject namedata = getallnames.getJSONObject(i);
 			String name = namedata.getString("displayName");
 			String shortId="";
 			if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
@@ -1100,6 +1098,7 @@ public class UISpec implements WebMethod {
 
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
+		ctl = new CacheTermList(q.getCache());
 		JSONObject out=uispec(q.getStorage());
 		q.getUIRequest().sendJSONResponse(out);
 	}

@@ -2,6 +2,7 @@ package org.collectionspace.chain.csp.webui.nuispec;
 
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -24,18 +25,41 @@ import org.slf4j.LoggerFactory;
  */
 public class CacheTermList {
 	private static final Logger log=LoggerFactory.getLogger(CacheTermList.class);
-	public JSONObject controlledCache = new JSONObject();
+	private CSPRequestCache cache;
 	
-	public CacheTermList(){
-		//this.controlledCache = new JSONObject();
+	public CacheTermList(CSPRequestCache cache){
+		this.cache = cache;
 	}
 
+	public JSONArray get(Storage storage, String name, Record r, Integer limit) throws JSONException{
+		JSONArray data = getCached(cache, name+":LIMIT"+limit);
+		if(data !=null){
+			return data;
+		}
+		JSONArray getallnames = controlledLists(storage, name,r, limit);
+		
+		setCached(cache,name+":LIMIT"+limit,getallnames);
+		return getallnames;
+	}
+	public JSONArray get(Storage storage, String name, Record r) throws JSONException{
+		return get(storage, name, r, 0);
+	}
 	private JSONObject getDisplayNameList(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		//should be using cached results from the previous query.
 		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view", new JSONObject());
 		return out;
 	}
 	
+
+	private void setCached(CSPRequestCache cache, String name, Object obj){
+		cache.setCached(getClass(),new String[]{"termlist",name},obj);
+	}
+	private JSONArray  getCached(CSPRequestCache cache, String name){
+		return (JSONArray)cache.getCached(getClass(),new String[]{"termlist",name});
+	}
+	private void removeCached(CSPRequestCache cache, String name){
+		cache.removeCached(getClass(),new String[]{"termlist",name});
+	}
 	
 	public JSONArray controlledLists(Storage storage, String vocabname,Record vr, Integer limit) throws JSONException{
 		JSONArray displayNames = new JSONArray();
