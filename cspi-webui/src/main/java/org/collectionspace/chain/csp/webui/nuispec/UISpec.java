@@ -109,7 +109,10 @@ public class UISpec implements WebMethod {
 		}
 		if(f.getParent() instanceof Repeat){
 			Repeat rp = (Repeat)f.getParent();//remove bogus repeats used in search
-			if(!rp.getSearchType().equals("repeator")){
+			if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
+				return radio(f);
+			}
+			if(this.spectype.equals("search")){
 				return radio(f);
 			}
 		}
@@ -331,30 +334,33 @@ public class UISpec implements WebMethod {
 		if(r.getChildren("").length>0){
 			JSONObject tree = new JSONObject();
 			for(FieldSet child : r.getChildren("")) {
-				if(child.getUIType().equals("hierarchy")){
+				if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
 
-					expander.put("repeatID", getSelector(child,context)+":");
-					generateHierarchyEntry(siblingexpander, child,  context);
-					expanders.put(siblingexpander.getJSONObject("expander"));
-					if(child instanceof Field){
-						String classes = getDecoratorSelector(child,context);
-						JSONObject decorator = getDecorator("addClass",classes,null,null);
-						tree.put("value", generateDataEntryField((Field)child,context));
-						tree.put("decorators", decorator);
-					}
-				}
-				else if(child.getUIType().equals("decorated")){
+					if(child.getUIType().equals("hierarchy")){
 
-					expander.put("repeatID", getSelector(child,context)+":");
-					if(child instanceof Field){
-						String classes = getDecoratorSelector(child,context);
-						JSONObject decorator = getDecorator("addClass",classes,null,null);
-						tree.put("value", generateDataEntryField((Field)child,context));
-						tree.put("decorators", decorator);
+						expander.put("repeatID", getSelector(child,context)+":");
+						generateHierarchyEntry(siblingexpander, child,  context);
+						expanders.put(siblingexpander.getJSONObject("expander"));
+						if(child instanceof Field){
+							String classes = getDecoratorSelector(child,context);
+							JSONObject decorator = getDecorator("addClass",classes,null,null);
+							tree.put("value", generateDataEntryField((Field)child,context));
+							tree.put("decorators", decorator);
+						}
 					}
-				}
-				else{
-					generateDataEntry(tree,child, context);
+					else if(child.getUIType().equals("decorated")){
+
+						expander.put("repeatID", getSelector(child,context)+":");
+						if(child instanceof Field){
+							String classes = getDecoratorSelector(child,context);
+							JSONObject decorator = getDecorator("addClass",classes,null,null);
+							tree.put("value", generateDataEntryField((Field)child,context));
+							tree.put("decorators", decorator);
+						}
+					}
+					else{
+						generateDataEntry(tree,child, context);
+					}
 				}
 			}
 			if(r.isConditionExpander()){
@@ -447,7 +453,9 @@ public class UISpec implements WebMethod {
 			}
 			else{
 				for(FieldSet child : r.getChildren("")) {
-					generateDataEntry(preProtoTree,child, context);
+					if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
+						generateDataEntry(preProtoTree,child, context);
+					}
 				}
 			}
 			JSONObject subexpander = new JSONObject();
@@ -795,12 +803,12 @@ public class UISpec implements WebMethod {
 				repeatSibling(out, affix, r, row, children);
 			}
 			else{
-				repeatNonSibling(out, fs, affix, r);
+				repeatNonSibling(out, affix, r);
 			}
 		}
 	}
 
-	protected void repeatNonSibling(JSONObject out, FieldSet fs, UISpecRunContext context,
+	protected void repeatNonSibling(JSONObject out,  UISpecRunContext context,
 			Repeat r) throws JSONException {
 		JSONObject contents=generateRepeatEntry(r, context,out);
 		String selector = getSelector(r,context);
@@ -816,7 +824,7 @@ public class UISpec implements WebMethod {
 				selector = getSelector(child,context);
 			}
 		}
-		if(fs.isExpander()){
+		if(r.isExpander()){
 			selector="expander";
 			JSONArray expanders = contents.getJSONArray("expanders");
 			if(out.has("expander")){

@@ -173,7 +173,7 @@ public class UISchema extends UISpec {
 		out.put(selector, generateSchemaObject("array", null, null, items));
 	}
 
-	protected void repeatNonSibling(JSONObject out, FieldSet fs, UISpecRunContext context,
+	protected void repeatNonSibling(JSONObject out,  UISpecRunContext context,
 			Repeat r) throws JSONException {
 		repeatItem(out, r, context);
 	}

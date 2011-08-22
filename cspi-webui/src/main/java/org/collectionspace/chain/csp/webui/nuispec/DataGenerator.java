@@ -439,7 +439,7 @@ public class DataGenerator  extends UISpec {
 		}
 		out.put(selector,arr);
 	}
-	protected void repeatNonSibling(JSONObject out, FieldSet fs, UISpecRunContext context,
+	protected void repeatNonSibling(JSONObject out, UISpecRunContext context,
 			Repeat r) throws JSONException {
 		repeatItem(out, r, context);
 	}
