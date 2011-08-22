@@ -161,7 +161,9 @@ public class UISchema extends UISpec {
 		}
 		else{
 			for (FieldSet child : r.getChildren("")) {
-				generateDataEntry(protoTree, child, context);
+				if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
+					generateDataEntry(protoTree, child, context);
+				}
 			}
 		}
 		if (r.hasPrimary()) {

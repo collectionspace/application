@@ -1,19 +1,22 @@
 {
-    "intake": {
+    "acquisition": {
         "properties": {
-            "entryDateEnd": {
+            "accessionDateEnd": {
                 "type": "date"
             },
-            "returnDateEnd": {
+            "acquisitionDateEnd": {
                 "type": "date"
             },
-            "depositors": {
+            "acquisitionDateStart": {
+                "type": "date"
+            },
+            "acquisitionSources": {
                 "items": {
                     "properties": {
                         "_primary": {
                             "type": "boolean"
                         },
-                        "depositor": {
+                        "acquisitionSource": {
                             "type": "string"
                         }
                     },
@@ -21,13 +24,16 @@
                 },
                 "type": "array"
             },
-            "currentLocationGroup": {
+            "accessionDateStart": {
+                "type": "date"
+            },
+            "creditLines": {
                 "items": {
                     "properties": {
                         "_primary": {
                             "type": "boolean"
                         },
-                        "currentLocation": {
+                        "creditLine": {
                             "type": "string"
                         }
                     },
@@ -35,17 +41,14 @@
                 },
                 "type": "array"
             },
-            "returnDateStart": {
-                "type": "date"
-            },
-            "entryReasons": {
+            "acquisitionMethods": {
                 "items": {
                     "properties": {
                         "_primary": {
                             "type": "boolean"
                         },
-                        "entryReason": {
-                            "default": "",
+                        "acquisitionMethod": {
+                            "default": "gift",
                             "type": "string"
                         }
                     },
@@ -56,13 +59,13 @@
             "updatedAtEnd": {
                 "type": "date"
             },
-            "entryNumbers": {
+            "acquisitionFunding": {
                 "items": {
                     "properties": {
                         "_primary": {
                             "type": "boolean"
                         },
-                        "entryNumber": {
+                        "acquisitionFundingSource": {
                             "type": "string"
                         }
                     },
@@ -70,13 +73,10 @@
                 },
                 "type": "array"
             },
-            "updatedAtStart": {
-                "type": "date"
-            },
-            "currentOwners": {
+            "acquisitionReferenceNumbers": {
                 "items": {
                     "properties": {
-                        "currentOwner": {
+                        "acquisitionReferenceNumber": {
                             "type": "string"
                         },
                         "_primary": {
@@ -86,24 +86,6 @@
                     "type": "object"
                 },
                 "type": "array"
-            },
-            "entryMethods": {
-                "items": {
-                    "properties": {
-                        "_primary": {
-                            "type": "boolean"
-                        },
-                        "entryMethod": {
-                            "default": "",
-                            "type": "string"
-                        }
-                    },
-                    "type": "object"
-                },
-                "type": "array"
-            },
-            "entryDateStart": {
-                "type": "date"
             },
             "fieldCollectionEventNames": {
                 "items": {
@@ -118,6 +100,9 @@
                     "type": "object"
                 },
                 "type": "array"
+            },
+            "updatedAtStart": {
+                "type": "date"
             }
         },
         "type": "object"
