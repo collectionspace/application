@@ -36,7 +36,7 @@ public class Record implements FieldParent {
 	private Map<String, Set<String>> allDefaultSets = new HashMap<String, Set<String>>();
 	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
-	private Map<String, String> uisection = new HashMap<String, String>();
+	private Map<String, Map<String, String>> uisection = new HashMap<String, Map<String, String>>();
 	private Map<String, FieldSet> subrecords = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> subrecordsperm = new HashMap<String, Map<String, FieldSet>>();
 	private Map<String, FieldSet> fields = new HashMap<String, FieldSet>();
@@ -305,11 +305,19 @@ public class Record implements FieldParent {
 	public String getUILabelSelector(String id){
 		return getUIprefix() +  id + "-label";
 	}
-	public String[] getAllUISections(){
-		return uisection.values().toArray(new String[0]);
+	public String[] getAllUISections(String section){
+		if(section.equals("")){section = "base";}
+		if(uisection.containsKey(section)){
+			return uisection.get(section).values().toArray(new String[0]);
+		}
+		return null;
 	}
-	public String getUISections(String id){
-		return uisection.get(id);
+	public String getUISections(String section, String id){
+		if(section.equals("")){section = "base";}
+		if(uisection.containsKey(section)){
+			return uisection.get(section).get(id);
+		}
+		return null;
 	}
 
 	public FieldSet[] getAllFields(String perm) {
@@ -687,7 +695,8 @@ public class Record implements FieldParent {
 				
 			}
 			else if(searchf.getSearchType().equals("range")){
-
+				searchf.getRecord().addUISection("search", searchf.getID());
+//need to add label for main bit as well...
 				Field fst = new Field(searchf.getRecord(),searchf.getID()+"Start");
 				Field fed = new Field(searchf.getRecord(),searchf.getID()+"End");
 
@@ -717,9 +726,14 @@ public class Record implements FieldParent {
 		}
 	}
 
-	public void addUISection(String id){
-		uisection.put(id,id);
+	public void addUISection(String section, String id){
+		if(section.equals("")){section = "base";}
+		if(!uisection.containsKey(section)){
+			uisection.put(section, new HashMap<String, String>());
+		}
+		uisection.get(section).put(id, id);
 	}
+	
 	public void addStructure(Structure s) {
 		structure.put(s.getID(), s);
 	}

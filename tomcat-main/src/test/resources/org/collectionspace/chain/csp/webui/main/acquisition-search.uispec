@@ -1,4 +1,14 @@
 {
+   
+    ".csc-acquisition-updatedAt-label": {
+        "messagekey": "acquisition-updatedAtLabel"
+    },   
+    ".csc-acquisition-acquisitionDate-label": {
+        "messagekey": "acquisition-acquisitionDateLabel"
+    },   
+    ".csc-acquisition-accessionDate-label": {
+        "messagekey": "acquisition-accessionDateLabel"
+    },   
     ".csc-acquisition-acquisitionDateEnd": {
         "decorators": [{
             "func": "cspace.datePicker",

@@ -599,6 +599,11 @@ public class UISpec implements WebMethod {
 
 	protected JSONObject generateMessageKeys(UISpecRunContext affix, JSONObject temp, Record r) throws JSONException {
 		if(this.spectype.equals("search")){
+			for(String st: r.getAllUISections("search")){
+				if(st!=null){
+					generateMessageKey(temp, r.getUILabelSelector(st),r.getUILabel(st));
+				}
+			}
 			for(FieldSet fs : r.getAllFields(this.spectype)) {
 				if(fs.getID()!=null){
 					if(fs.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
@@ -615,7 +620,7 @@ public class UISpec implements WebMethod {
 			}
 		}
 		else{
-			for(String st: r.getAllUISections()){
+			for(String st: r.getAllUISections("")){
 				if(st!=null){
 					generateMessageKey(temp, r.getUILabelSelector(st),r.getUILabel(st));
 				}

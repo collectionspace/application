@@ -153,7 +153,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				String id=(String)section.getValue("/@id");
 				Record r=(Record)parent;
-				r.addUISection(id);
+				r.addUISection("base",id);
 				
 				return r;
 			}
@@ -164,7 +164,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				String id=(String)section.getValue("/@id");
 				Record r=(Record)parent;
-				r.addUISection(id);
+				r.addUISection("base",id);
 				
 				return r;
 			}
