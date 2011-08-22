@@ -189,7 +189,7 @@ public class RecordRead implements WebMethod {
 					}
 					String resource = resourcename1.split("\\/\\*\\/workflow\\/")[0]; 
 					String tempres = Generic.ResourceNameUI(spec, resource);
-					if(testset.has(resourcename)){
+					if(testset.has(resourcename1)){
 						permlevel = Generic.PermissionLevelString(testset.getJSONObject(resourcename1).getString("actionGroup"));
 					
 						if(permlevel.equals("delete")){
