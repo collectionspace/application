@@ -374,6 +374,7 @@ public class DataGenerator  extends UISpec {
 	public void run(Object in, String[] tail) throws UIException {
 		initvariables();
 		Request q=(Request)in;
+		ctl = new CacheTermList(q.getCache());
 		JSONObject out = new JSONObject();
 		tty=q.getUIRequest().getTTYOutputter();
 		if(doall){
@@ -489,8 +490,10 @@ public class DataGenerator  extends UISpec {
 		JSONObject allnames = new JSONObject();
 		Integer i =0;
 		for(Instance type : f.getAllAutocompleteInstances()){
+			String iid = type.getTitleRef();
+			Record ir = type.getRecord();
 
-			JSONArray thesenames = ctl.get(this.storage, type.getID(),type.getRecord(),authoritylimit);
+			JSONArray thesenames = ctl.get(this.storage, iid,ir,authoritylimit);
 			log.info("getting authority: "+type.getID()+":"+type.getRecord());
 			try {
 				tty.line("getting authority: "+type.getID()+":"+type.getRecord());
