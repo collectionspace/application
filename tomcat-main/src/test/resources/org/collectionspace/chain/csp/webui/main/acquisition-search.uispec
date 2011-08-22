@@ -43,7 +43,7 @@
                             "expander": {
                                 "repeatID": "repeat:",
                                 "tree": {
-                                    ".csc-acquisition-creditLine": "${creditLine}"
+                                    ".csc-acquisition-creditLine": "${{row}.creditLine}"
                                 },
                                 "type": "fluid.renderer.repeat",
                                 "pathAs": "row",
@@ -69,7 +69,6 @@
                             "expander": {
                                 "repeatID": "repeat:",
                                 "tree": {
-                                    ".csc-acquisition-acquisitionFundingSourceProvisos": "${{row}.acquisitionFundingSourceProvisos}",
                                     ".csc-acquisition-acquisitionFundingSource": {
                                         "decorators": [{
                                             "func": "cspace.autocomplete",
@@ -80,12 +79,6 @@
                                             }
                                         }],
                                         "value": "${{row}.acquisitionFundingSource}"
-                                    },
-                                    ".csc-acquisition-acquisitionFundingValue": "${{row}.acquisitionFundingValue}",
-                                    ".csc-acquisition-acquisitionFundingCurrency": {
-                                        "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
-                                        "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
-                                        "selection": "${{row}.acquisitionFundingCurrency}"
                                     }
                                 },
                                 "type": "fluid.renderer.repeat",
@@ -122,7 +115,7 @@
                             "expander": {
                                 "repeatID": "repeat:",
                                 "tree": {
-                                    ".csc-acquisition-numberPatternChooser-reference-number": "${acquisitionReferenceNumber}"
+                                    ".csc-acquisition-numberPatternChooser-reference-number": "${{row}.acquisitionReferenceNumber}"
                                 },
                                 "type": "fluid.renderer.repeat",
                                 "pathAs": "row",
@@ -184,7 +177,7 @@
                                         "default": "gift",
                                         "optionnames": ["Exchange", "Gift", "Purchase", "Transfer", "Treasure"],
                                         "optionlist": ["exchange", "gift", "purchase", "transfer", "treasure"],
-                                        "selection": "${acquisitionMethod}"
+                                        "selection": "${{row}.acquisitionMethod}"
                                     }
                                 },
                                 "type": "fluid.renderer.repeat",

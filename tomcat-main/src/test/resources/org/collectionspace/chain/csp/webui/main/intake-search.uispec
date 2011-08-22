@@ -23,7 +23,7 @@
                                                 "vocabUrl": "../../../tenant/core/intake/source-vocab/currentOwner"
                                             }
                                         }],
-                                        "value": "${currentOwner}"
+                                        "value": "${{row}.currentOwner}"
                                     }
                                 },
                                 "type": "fluid.renderer.repeat",
@@ -59,7 +59,7 @@
                                                 "vocabUrl": "../../../tenant/core/intake/source-vocab/depositor"
                                             }
                                         }],
-                                        "value": "${depositor}"
+                                        "value": "${{row}.depositor}"
                                     }
                                 },
                                 "type": "fluid.renderer.repeat",
@@ -99,13 +99,7 @@
                             "expander": {
                                 "repeatID": "repeat:",
                                 "tree": {
-                                    ".csc-intake-current-location": "${{row}.currentLocation}",
-                                    ".csc-intake-current-location-fitness": {
-                                        "optionnames": ["Dangerous", "Please select a value", "Reasonable", "Suitable", "Unsuitable"],
-                                        "optionlist": ["", "dangerous", "reasonable", "suitable", "unsuitable"],
-                                        "selection": "${{row}.currentLocationFitness}"
-                                    },
-                                    ".csc-intake-current-location-note": "${{row}.currentLocationNote}"
+                                    ".csc-intake-current-location": "${{row}.currentLocation}"
                                 },
                                 "type": "fluid.renderer.repeat",
                                 "pathAs": "row",
@@ -161,7 +155,7 @@
                                         "default": "",
                                         "optionnames": ["Commission", "Consideration", "Enquiry", "Loan", "Please select a value"],
                                         "optionlist": ["", "commission", "consideration", "enquiry", "loan"],
-                                        "selection": "${entryReason}"
+                                        "selection": "${{row}.entryReason}"
                                     }
                                 },
                                 "type": "fluid.renderer.repeat",
@@ -237,7 +231,7 @@
                             "expander": {
                                 "repeatID": "repeat:",
                                 "tree": {
-                                    ".csc-intake-entry-number": "${entryNumber}"
+                                    ".csc-intake-entry-number": "${{row}.entryNumber}"
                                 },
                                 "type": "fluid.renderer.repeat",
                                 "pathAs": "row",
