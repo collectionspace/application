@@ -339,6 +339,12 @@ public class Record implements FieldParent {
 	public FieldSet getField(String id) {
 		return fields.get(id);
 	}
+	public Boolean hasSearchField(String id) {
+		return searchfields.containsKey(id);
+	}
+	public FieldSet getSearchField(String id) {
+		return searchfields.get(id);
+	}
 
 	//public FieldSet[] getAllRepeatFields() {
 	//	return repeatfields.values().toArray(new FieldSet[0]);

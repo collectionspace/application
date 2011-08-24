@@ -1216,6 +1216,11 @@ public class GenericStorage  implements ContextualisedStorage {
 				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
 				postfix += keywordparam+"="+data+"&";
 			} 
+			else if(restrictions.has("advancedsearch")) {
+				/* Advanced search */
+				String data=URLEncoder.encode(restrictions.getString("advancedsearch"),"UTF-8");
+				postfix += "as="+data+"&";
+			} 
 			if(restrictions.has("sortKey")){//"summarylist.updatedAt"//movements_common:locationDate
 				postfix += "sortBy="+restrictions.getString("sortKey");
 				if(restrictions.has("sortDir")){//1" - ascending, "-1" - descending

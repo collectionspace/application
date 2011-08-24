@@ -7,13 +7,17 @@
 package org.collectionspace.chain.csp.webui.record;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
@@ -158,7 +162,67 @@ public class RecordSearchList implements WebMethod {
 		return out;
 	}
 	
-	
+	private JSONObject setRestricted(UIRequest ui) throws UIException, JSONException{
+
+		JSONObject returndata = new JSONObject();
+
+		JSONObject restriction=new JSONObject();
+		String key="items";
+		
+		Set<String> args = ui.getAllRequestArgument();
+		for(String restrict : args){
+			if(!restrict.equals("_")){
+				if(ui.getRequestArgument(restrict)!=null){
+					String value = ui.getRequestArgument(restrict);
+					if(restrict.equals("query") && search){
+						restrict = "keywords";
+						key="results";
+					}
+					if(restrict.equals("pageSize")||restrict.equals("pageNum")||restrict.equals("keywords")){
+						restriction.put(restrict,value);
+					}
+					else if(restrict.equals("sortDir")){
+						restriction.put(restrict,value);
+					}
+					else if(restrict.equals("sortKey")){////"summarylist.updatedAt"//movements_common:locationDate
+						String[] bits = value.split("\\.");
+						String fieldname = value;
+						if(bits.length>1){
+							fieldname = bits[1];
+						}
+						FieldSet fs = null;
+						if(fieldname.equals("number")){
+							fs = r.getMiniNumber();
+							fieldname = fs.getID();
+						}
+						else if(fieldname.equals("summary")){
+							fs = r.getMiniSummary();
+							fieldname = fs.getID();
+						}
+						else{
+							//convert sortKey
+							fs = r.getField(fieldname);
+						}
+
+						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
+						String newvalue = tablebase+":"+fieldname;
+						restriction.put(restrict,newvalue);
+					}
+					else if(restrict.equals("query")){
+						//ignore - someone was doing something odd
+					}
+					else{
+						//XXX I would so prefer not to restrict and just pass stuff up but I know it will cause issues later
+						restriction.put("queryTerm",restrict);
+						restriction.put("queryString",value);
+					}
+				}
+			}
+		}
+		returndata.put("key", key);
+		returndata.put("restriction", restriction);
+		return returndata;
+	}
 	
 	/**
 	 * This function is the general function that calls the correct funtions to get all the data that the UI requested and get it in the 
@@ -172,59 +236,9 @@ public class RecordSearchList implements WebMethod {
 	 */
 	private void search_or_list(Storage storage,UIRequest ui,String path) throws UIException {
 		try {
-			JSONObject restriction=new JSONObject();
-			String key="items";
-			
-			Set<String> args = ui.getAllRequestArgument();
-			for(String restrict : args){
-				if(!restrict.equals("_")){
-					if(ui.getRequestArgument(restrict)!=null){
-						String value = ui.getRequestArgument(restrict);
-						if(restrict.equals("query") && search){
-							restrict = "keywords";
-							key="results";
-						}
-						if(restrict.equals("pageSize")||restrict.equals("pageNum")||restrict.equals("keywords")){
-							restriction.put(restrict,value);
-						}
-						else if(restrict.equals("sortDir")){
-							restriction.put(restrict,value);
-						}
-						else if(restrict.equals("sortKey")){////"summarylist.updatedAt"//movements_common:locationDate
-							String[] bits = value.split("\\.");
-							String fieldname = value;
-							if(bits.length>1){
-								fieldname = bits[1];
-							}
-							FieldSet fs = null;
-							if(fieldname.equals("number")){
-								fs = r.getMiniNumber();
-								fieldname = fs.getID();
-							}
-							else if(fieldname.equals("summary")){
-								fs = r.getMiniSummary();
-								fieldname = fs.getID();
-							}
-							else{
-								//convert sortKey
-								fs = r.getField(fieldname);
-							}
-
-							String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
-							String newvalue = tablebase+":"+fieldname;
-							restriction.put(restrict,newvalue);
-						}
-						else if(restrict.equals("query")){
-							//ignore - someone was doing something odd
-						}
-						else{
-							//XXX I would so prefer not to restrict and just pass stuff up but I know it will cause issues later
-							restriction.put("queryTerm",restrict);
-							restriction.put("queryString",value);
-						}
-					}
-				}
-			}
+			JSONObject restrictedkey = setRestricted(ui);
+			JSONObject restriction = restrictedkey.getJSONObject("restriction");
+			String key = restrictedkey.getString("key");
 			
 			JSONObject returndata = new JSONObject();
 
@@ -314,9 +328,106 @@ public class RecordSearchList implements WebMethod {
 		}
 		return results;
 	}				
-	
-	
-	
+	private void advancedSearch(Storage storage,UIRequest ui,String path, JSONObject params) throws UIException{
+		
+		try {
+
+			JSONObject returndata = new JSONObject();
+			JSONObject restrictedkey = setRestricted(ui);
+			JSONObject restriction = restrictedkey.getJSONObject("restriction");
+			String key = restrictedkey.getString("key");
+			
+			String operation = params.getString("operation").toUpperCase();
+			JSONObject fields = params.getJSONObject("fields");
+
+			String asq = ""; 
+			Iterator rit=fields.keys();
+			while(rit.hasNext()) {
+				String fieldname=(String)rit.next();
+				Object item = fields.get(fieldname);
+
+				String value = "";
+				
+				if(item instanceof JSONArray){ // this is a repeatable
+					JSONArray itemarray = (JSONArray)item;
+					for(int j=0;j<itemarray.length();j++){
+						JSONObject jo = itemarray.getJSONObject(j);
+						Iterator jit=jo.keys();
+						while(jit.hasNext()){
+
+							String jname=(String)jit.next();
+							if(!jname.equals("_primary")){
+								value = jo.getString(jname);
+								asq += getAdvancedSearch(jname,value,operation);
+							}
+							
+						}
+					}
+					
+				}
+				else if(item instanceof JSONObject){ // no idea what this is
+					
+				}
+				else if(item instanceof String){
+					value = (String)item;
+					asq += getAdvancedSearch(fieldname,value,operation);
+				}
+				
+			}
+			if(!asq.equals("")){
+				asq = asq.substring(0, asq.length()-(operation.length() + 2));
+			}
+			String asquery = "( "+asq+" )";
+			key="results";
+			restriction.put("advancedsearch", asquery);
+
+			returndata = getJSON(storage,restriction,key,base);
+			ui.sendJSONResponse(returndata);
+		} catch (JSONException e) {
+			throw new UIException("JSONException during advancedSearch "+e.getMessage(),e);
+		} catch (ExistException e) {
+			throw new UIException("ExistException during search_or_list",e);
+		} catch (UnimplementedException e) {
+			throw new UIException("UnimplementedException during search_or_list",e);
+		} catch (UnderlyingStorageException x) {
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			ui.sendJSONResponse(uiexception.getJSON());
+		}			
+		
+		
+	}
+
+	private String getAdvancedSearch(String fieldname, String value, String operator){
+		if(!value.equals("")){
+			try{
+				String section = this.r.getRepeatField(fieldname).getSection();
+				String spath=this.r.getServicesRecordPath(section);
+				String[] parts=spath.split(":",2);
+				String join = "=";
+				if(value.contains("*")){
+					value.replace("*", "%");
+					join = " ilike ";
+				}
+				//backslash quotes??
+				
+				return parts[0]+":"+fieldname+join+"\""+value +"\""+ " " + operator+ " ";
+			}
+			catch(Exception e){
+				return "";
+			}
+		}
+		return "";
+	}
+	public void searchtype(Storage storage,UIRequest ui,String path) throws UIException{
+
+		if(ui.getBody() == null || StringUtils.isBlank(ui.getBody())){
+			search_or_list(storage,ui,path);
+		}
+		else{
+			//advanced search
+			advancedSearch(storage,ui,path, ui.getJSONBody());
+		}
+	}
 	
 	
 
@@ -341,7 +452,7 @@ public class RecordSearchList implements WebMethod {
 	
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
-		search_or_list(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		searchtype(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 	}
 
 	public void configure(WebUI ui,Spec spec) {
