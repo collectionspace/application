@@ -123,6 +123,8 @@ public class TestUIRecords extends TestBase {
 		testUIspec(jetty, "/acquisition/uispec", "acquisition.uispec");
 		log.info("Testing Search UISPEC");
 		testUIspec(jetty, "/acquisition-search/uispec", "acquisition-search.uispec");
+		log.info("Testing Search UISCHEMA");
+		testUIspec(jetty, "/acquisition-search/uischema", "acquisition-search.uischema");
 	}
 
 
@@ -209,7 +211,6 @@ public class TestUIRecords extends TestBase {
 		assertEquals("image/jpeg",out2.getHeader("Content-Type"));
 		byte[] img = out2.getBinaryContent();
 		assertArrayEquals(img,data);
-	//	System.err.println(response.getString("file"));
 	}
 	/**
 	 * Test Vocabulary / TermList CRUDL
@@ -229,6 +230,7 @@ public class TestUIRecords extends TestBase {
 	 */
 	@Test public void testMisc() throws Exception {
 		ServletTester jetty=setupJetty();
+		//testUIspec(jetty,"/generator?quantity=10&maxrelationships=3&startvalue=0&extraprefix=Related","recordlist.uischema");
 		
 		log.info("Testing UISCHEMA");
 		testUIspec(jetty, "/recordlist/uischema", "recordlist.uischema");
