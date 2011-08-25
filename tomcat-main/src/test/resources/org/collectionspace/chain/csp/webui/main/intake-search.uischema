@@ -7,6 +7,20 @@
             "returnDateEnd": {
                 "type": "date"
             },
+            "createdBys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "type": "boolean"
+                        },
+                        "createdBy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
+            },
             "depositors": {
                 "items": {
                     "properties": {
@@ -102,8 +116,19 @@
                 },
                 "type": "array"
             },
-            "entryDateStart": {
-                "type": "date"
+            "updatedBys": {
+                "items": {
+                    "properties": {
+                        "_primary": {
+                            "type": "boolean"
+                        },
+                        "updatedBy": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": "array"
             },
             "fieldCollectionEventNames": {
                 "items": {
@@ -118,6 +143,9 @@
                     "type": "object"
                 },
                 "type": "array"
+            },
+            "entryDateStart": {
+                "type": "date"
             }
         },
         "type": "object"

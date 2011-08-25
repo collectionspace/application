@@ -183,6 +183,14 @@
         },
         ".csc-movement-movementMethods-label": {
             "messagekey": "movement-movementMethodsLabel"
-        }
+        },
+        ".csc-movement-createdBy": "${fields.createdBy}",
+        ".csc-movement-createdBy-label": {
+            "messagekey": "movement-createdByLabel"
+        },
+        ".csc-movement-updatedBy-label": {
+            "messagekey": "movement-updatedByLabel"
+        },
+        ".csc-movement-updatedBy": "${fields.updatedBy}"
     }
 }

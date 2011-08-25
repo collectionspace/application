@@ -62,6 +62,9 @@
                     "acquisitionAuthorizerDate": {
                         "type": "date"
                     },
+                    "updatedBy": {
+                        "type": "string"
+                    },
                     "groupPurchasePriceCurrency": {
                         "default": "usd",
                         "type": "string"
@@ -120,23 +123,26 @@
                         "default": "usd",
                         "type": "string"
                     },
-                    "updatedAt": {
-                        "type": "date"
-                    },
                     "acquisitionReason": {
                         "type": "string"
                     },
+                    "updatedAt": {
+                        "type": "date"
+                    },
                     "acquisitionNote": {
+                        "type": "string"
+                    },
+                    "createdBy": {
                         "type": "string"
                     },
                     "objectOfferPriceValue": {
                         "type": "string"
                     },
-                    "acquisitionMethod": {
-                        "default": "gift",
+                    "originalObjectPurchasePriceValue": {
                         "type": "string"
                     },
-                    "originalObjectPurchasePriceValue": {
+                    "acquisitionMethod": {
+                        "default": "gift",
                         "type": "string"
                     },
                     "objectPurchaseOfferPriceCurrency": {

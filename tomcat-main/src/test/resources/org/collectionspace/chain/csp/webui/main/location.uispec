@@ -152,10 +152,10 @@
         ".csc-location-address-label": {
             "messagekey": "location-addressLabel"
         },
+        ".csc-location-name": "${fields.name}",
         ".csc-location-conditionGroup-label": {
             "messagekey": "location-conditionGroupLabel"
         },
-        ".csc-location-name": "${fields.name}",
         ".csc-location-conditionGroup": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -196,13 +196,15 @@
         ".csc-location-termStatus-label": {
             "messagekey": "location-termStatusLabel"
         },
-        ".csc-location-locationType-label": {
-            "messagekey": "location-locationTypeLabel"
-        },
         ".csc-location-tenantID-label": {
             "messagekey": "location-tenantIDLabel"
         },
+        ".csc-location-locationType-label": {
+            "messagekey": "location-locationTypeLabel"
+        },
         ".csc-location-shortIdentifier": "${fields.shortIdentifier}",
+        ".csc-location-updatedBy": "${fields.updatedBy}",
+        ".csc-location-createdBy": "${fields.createdBy}",
         ".csc-location-accessNote-label": {
             "messagekey": "location-accessNoteLabel"
         },
@@ -218,6 +220,9 @@
             "optionnames": ["Accepted", "Provisional", "Rejected", "Under Review"],
             "optionlist": ["accepted", "provisional", "rejected", "under review"],
             "selection": "${fields.termStatus}"
+        },
+        ".csc-location-createdBy-label": {
+            "messagekey": "location-createdByLabel"
         },
         ".csc-location-updatedAt-label": {
             "messagekey": "location-updatedAtLabel"
@@ -245,6 +250,9 @@
         },
         ".csc-location-securityNote-label": {
             "messagekey": "location-securityNoteLabel"
+        },
+        ".csc-location-updatedBy-label": {
+            "messagekey": "location-updatedByLabel"
         }
     }
 }

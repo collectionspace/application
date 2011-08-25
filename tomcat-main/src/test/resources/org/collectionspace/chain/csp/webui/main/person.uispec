@@ -156,10 +156,16 @@
         ".csc-person-middleName-label": {
             "messagekey": "person-middleNameLabel"
         },
+        ".csc-person-updatedBy-label": {
+            "messagekey": "person-updatedByLabel"
+        },
         ".csc-person-createdAt-label": {
             "messagekey": "person-createdAtLabel"
         },
         ".csc-personAuthority-deathPlace": "${fields.deathPlace}",
+        ".csc-contact-createdBy-label": {
+            "messagekey": "contact-createdByLabel"
+        },
         ".csc-personAuthority-status": {
             "default": "provisional",
             "optionnames": ["Accepted", "Provisional", "Rejected", "Under Review"],
@@ -173,10 +179,11 @@
             }],
             "value": "${fields.birthDate}"
         },
+        ".csc-contact-createdBy": "${fields.createdBy}",
         ".csc-person-updatedAt": "${fields.updatedAt}",
         ".csc-personAuthority-name": "${fields.name}",
-        ".csc-contactAuthority-web": "${fields.web}",
         ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
+        ".csc-contactAuthority-web": "${fields.web}",
         ".csc-personAuthority-gender": {
             "default": "",
             "optionnames": ["Female", "Male", "Please select a value"],
@@ -255,6 +262,7 @@
         ".csc-person-tenantID-label": {
             "messagekey": "person-tenantIDLabel"
         },
+        ".csc-person-createdBy": "${fields.createdBy}",
         ".csc-contact-updatedAt-label": {
             "messagekey": "contact-updatedAtLabel"
         },
@@ -265,18 +273,18 @@
             }],
             "value": "${fields.deathDate}"
         },
+        ".csc-personAuthority-birthPlace": "${fields.birthPlace}",
         ".csc-contact-web-label": {
             "messagekey": "contact-webLabel"
         },
-        ".csc-personAuthority-birthPlace": "${fields.birthPlace}",
-        ".csc-contact-createdAt-label": {
-            "messagekey": "contact-createdAtLabel"
+        ".csc-person-surName-label": {
+            "messagekey": "person-surNameLabel"
         },
         ".csc-person-domaindata-label": {
             "messagekey": "person-domaindataLabel"
         },
-        ".csc-person-surName-label": {
-            "messagekey": "person-surNameLabel"
+        ".csc-contact-createdAt-label": {
+            "messagekey": "contact-createdAtLabel"
         },
         ".csc-contactAuthority-email": "${fields.email}",
         ".csc-person-shortIdentifier": "${fields.shortIdentifier}",
@@ -285,6 +293,9 @@
         },
         ".csc-contact-telephoneNumber-label": {
             "messagekey": "contact-telephoneNumberLabel"
+        },
+        ".csc-person-createdBy-label": {
+            "messagekey": "person-createdByLabel"
         },
         ".csc-person-personNameAuthorityInformation-label": {
             "messagekey": "person-personNameAuthorityInformationLabel"
@@ -311,23 +322,28 @@
         ".csc-contact-email-label": {
             "messagekey": "contact-emailLabel"
         },
+        ".csc-person-updatedBy": "${fields.updatedBy}",
+        ".csc-contact-updatedBy": "${fields.updatedBy}",
         ".csc-person-occupation-label": {
             "messagekey": "person-occupationLabel"
         },
         ".csc-contact-addressType-label": {
             "messagekey": "contact-addressTypeLabel"
         },
-        ".csc-person-contactInformation-label": {
-            "messagekey": "person-contactInformationLabel"
-        },
         ".csc-contactAuthority-addressType": {
             "optionnames": ["Alternative", "Mailing", "Please select a value", "Previous", "Street"],
             "optionlist": ["", "alternative", "mailing", "previous", "street"],
             "selection": "${fields.addressType}"
         },
+        ".csc-person-contactInformation-label": {
+            "messagekey": "person-contactInformationLabel"
+        },
         ".csc-personAuthority-middleName": "${fields.middleName}",
         ".csc-contact-domaindata-label": {
             "messagekey": "contact-domaindataLabel"
+        },
+        ".csc-contact-updatedBy-label": {
+            "messagekey": "contact-updatedByLabel"
         },
         ".csc-person-birthPlace-label": {
             "messagekey": "person-birthPlaceLabel"

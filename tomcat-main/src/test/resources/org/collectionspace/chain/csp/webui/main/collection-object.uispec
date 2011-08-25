@@ -1,8 +1,5 @@
 {
     "recordEditor": {
-        ".csc-collection-object-domaindata-label": {
-            "messagekey": "collection-object-domaindataLabel"
-        },
         ".csc-collection-object-assocPeopleGroup-label": {
             "messagekey": "collection-object-assocPeopleGroupLabel"
         },
@@ -630,6 +627,7 @@
                 }
             }]
         },
+        ".csc-collection-object-createdBy": "${fields.createdBy}",
         ".csc-collection-object-objectComponentName-label": {
             "messagekey": "collection-object-objectComponentNameLabel"
         },
@@ -756,6 +754,9 @@
         ".csc-collection-object-ownersReferences-label": {
             "messagekey": "collection-object-ownersReferencesLabel"
         },
+        ".csc-collection-object-dateEarliestSingle-label": {
+            "messagekey": "collection-object-dateEarliestSingleLabel"
+        },
         ".csc-collection-object-fieldCollectionDate": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -799,9 +800,6 @@
                     }
                 }
             }]
-        },
-        ".csc-collection-object-dateEarliestSingle-label": {
-            "messagekey": "collection-object-dateEarliestSingleLabel"
         },
         ".csc-collection-object-assocConceptGroup": {
             "decorators": [{
@@ -2274,6 +2272,9 @@
         ".csc-collection-object-assocActivityGroup-label": {
             "messagekey": "collection-object-assocActivityGroupLabel"
         },
+        ".csc-collection-object-createdBy-label": {
+            "messagekey": "collection-object-createdByLabel"
+        },
         ".csc-date-information-date-latest-certainty": "${fields.dateLatestCertainty}",
         ".csc-collection-object-contentConcepts-label": {
             "messagekey": "collection-object-contentConceptsLabel"
@@ -2350,6 +2351,7 @@
         ".csc-collection-object-ownershipExchangeMethod-label": {
             "messagekey": "collection-object-ownershipExchangeMethodLabel"
         },
+        ".csc-collection-object-updatedBy": "${fields.updatedBy}",
         ".csc-object-history-association-exchange-note": "${fields.ownershipExchangeNote}",
         ".csc-collection-object-fieldColEventName": {
             "decorators": [{
@@ -2563,6 +2565,12 @@
         },
         ".csc-collection-object-materialSource-label": {
             "messagekey": "collection-object-materialSourceLabel"
+        },
+        ".csc-collection-object-updatedBy-label": {
+            "messagekey": "collection-object-updatedByLabel"
+        },
+        ".csc-collection-object-domaindata-label": {
+            "messagekey": "collection-object-domaindataLabel"
         },
         ".csc-object-history-association-category": {
             "optionnames": ["Please select a value", "company", "private", "public"],

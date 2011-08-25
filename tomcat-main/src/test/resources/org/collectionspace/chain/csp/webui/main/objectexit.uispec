@@ -1,8 +1,5 @@
 {
     "recordEditor": {
-        ".csc-objectexit-domaindata-label": {
-            "messagekey": "objectexit-domaindataLabel"
-        },
         ".csc-objectexit-updatedAt-label": {
             "messagekey": "objectexit-updatedAtLabel"
         },
@@ -10,6 +7,10 @@
             "messagekey": "objectexit-exitDateLabel"
         },
         ".csc-objectexit-packingNote": "${fields.packingNote}",
+        ".csc-objectexit-updatedBy": "${fields.updatedBy}",
+        ".csc-objectexit-updatedBy-label": {
+            "messagekey": "objectexit-updatedByLabel"
+        },
         ".csc-objectexit-packingNote-label": {
             "messagekey": "objectexit-packingNoteLabel"
         },
@@ -48,8 +49,13 @@
         ".csc-objectexit-summary-label": {
             "messagekey": "objectexit-summaryLabel"
         },
+        ".csc-objectexit-createdBy-label": {
+            "messagekey": "objectexit-createdByLabel"
+        },
         ".csc-objectexit-tenantID": "${fields.tenantID}",
-        ".csc-objectexit-updatedAt": "${fields.updatedAt}",
+        ".csc-objectexit-domaindata-label": {
+            "messagekey": "objectexit-domaindataLabel"
+        },
         ".csc-objectexit-currentOwner": {
             "decorators": [{
                 "func": "cspace.autocomplete",
@@ -61,14 +67,15 @@
             }],
             "value": "${fields.currentOwner}"
         },
+        ".csc-objectexit-updatedAt": "${fields.updatedAt}",
         ".csc-objectexit-exitReason-label": {
             "messagekey": "objectexit-exitReasonLabel"
         },
-        ".csc-objectexit-currentOwner-label": {
-            "messagekey": "objectexit-currentOwnerLabel"
-        },
         ".csc-objectexit-createdAt-label": {
             "messagekey": "objectexit-createdAtLabel"
+        },
+        ".csc-objectexit-currentOwner-label": {
+            "messagekey": "objectexit-currentOwnerLabel"
         },
         ".csc-objectexit-exitNumber": "${fields.exitNumber}",
         ".csc-objectexit-objectexitInformation-label": {
@@ -126,6 +133,7 @@
             "optionlist": ["", "deaccession", "disposal", "returnofloan"],
             "selection": "${fields.exitReason}"
         },
+        ".csc-objectexit-createdBy": "${fields.createdBy}",
         ".csc-objectexit-exitNumber-label": {
             "messagekey": "objectexit-exitNumberLabel"
         },
@@ -137,3 +145,4 @@
         }
     }
 }
+ß

@@ -170,6 +170,9 @@
                         },
                         "type": "array"
                     },
+                    "createdBy": {
+                        "type": "string"
+                    },
                     "objectProductionNote": {
                         "type": "string"
                     },
@@ -304,11 +307,11 @@
                         },
                         "type": "array"
                     },
-                    "inscriptionContent": {
-                        "type": "string"
-                    },
                     "collection": {
                         "default": "",
+                        "type": "string"
+                    },
+                    "inscriptionContent": {
                         "type": "string"
                     },
                     "contentDate": {
@@ -1057,6 +1060,9 @@
                         "type": "string"
                     },
                     "numberOfObjects": {
+                        "type": "string"
+                    },
+                    "updatedBy": {
                         "type": "string"
                     },
                     "technicalAttributeGroup": {

@@ -214,6 +214,14 @@
         },
         ".csc-loanout-loanOutNote-label": {
             "messagekey": "loanout-loanOutNoteLabel"
-        }
+        },
+        ".csc-loanout-createdBy": "${fields.createdBy}",
+        ".csc-loanout-createdBy-label": {
+            "messagekey": "loanout-createdByLabel"
+        },
+        ".csc-loanout-updatedBy-label": {
+            "messagekey": "loanout-updatedByLabel"
+        },
+        ".csc-loanout-updatedBy": "${fields.updatedBy}"
     }
 }

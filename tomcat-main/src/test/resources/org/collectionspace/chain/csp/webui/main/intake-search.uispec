@@ -1,13 +1,4 @@
 {
-    ".csc-intake-updatedAt-label": {
-        "messagekey": "intake-updatedAtLabel"
-    },  
-    ".csc-intake-returnDate-label": {
-        "messagekey": "intake-returnDateLabel"
-    },  
-    ".csc-intake-entryDate-label": {
-        "messagekey": "intake-entryDateLabel"
-    },  
     ".csc-intake-depositor-label": {
         "messagekey": "intake-depositorLabel"
     },
@@ -83,9 +74,6 @@
             }
         }]
     },
-    ".csc-intake-updatedAtEnd-label": {
-        "messagekey": "intake-updatedAtEndLabel"
-    },
     ".csc-intake-entryDateEnd-label": {
         "messagekey": "intake-entryDateEndLabel"
     },
@@ -95,6 +83,9 @@
             "type": "fluid"
         }],
         "value": "${entryDateStart}"
+    },
+    ".csc-intake-updatedAtEnd-label": {
+        "messagekey": "intake-updatedAtEndLabel"
     },
     ".csc-intake-currentLocationGroup": {
         "decorators": [{
@@ -125,6 +116,9 @@
     ".csc-intake-currentOwner-label": {
         "messagekey": "intake-currentOwnerLabel"
     },
+    ".csc-intake-updatedAt-label": {
+        "messagekey": "intake-updatedAtLabel"
+    },
     ".csc-intake-returnDateStart": {
         "decorators": [{
             "func": "cspace.datePicker",
@@ -135,8 +129,66 @@
     ".csc-intake-updatedAtStart-label": {
         "messagekey": "intake-updatedAtStartLabel"
     },
+    ".csc-intake-updatedBy": {
+        "decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "elPath": "updatedBys",
+                "protoTree": {
+                    "expander": {
+                        "tree": {
+                            "expander": {
+                                "repeatID": "repeat:",
+                                "tree": {
+                                    ".csc-intake-updatedBy": "${{row}.updatedBy}"
+                                },
+                                "type": "fluid.renderer.repeat",
+                                "pathAs": "row",
+                                "controlledBy": "updatedBys"
+                            }
+                        },
+                        "type": "fluid.noexpand"
+                    }
+                },
+                "hidePrimary": true
+            }
+        }]
+    },
+    ".csc-intake-createdBy": {
+        "decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "elPath": "createdBys",
+                "protoTree": {
+                    "expander": {
+                        "tree": {
+                            "expander": {
+                                "repeatID": "repeat:",
+                                "tree": {
+                                    ".csc-intake-createdBy": "${{row}.createdBy}"
+                                },
+                                "type": "fluid.renderer.repeat",
+                                "pathAs": "row",
+                                "controlledBy": "createdBys"
+                            }
+                        },
+                        "type": "fluid.noexpand"
+                    }
+                },
+                "hidePrimary": true
+            }
+        }]
+    },
     ".csc-intake-fieldCollectionEventName-label": {
         "messagekey": "intake-fieldCollectionEventNameLabel"
+    },
+    ".csc-intake-updatedBy-label": {
+        "messagekey": "intake-updatedByLabel"
+    },
+    ".csc-intake-entryMethod-label": {
+        "messagekey": "intake-entryMethodLabel"
     },
     ".csc-intake-returnDateEnd": {
         "decorators": [{
@@ -144,9 +196,6 @@
             "type": "fluid"
         }],
         "value": "${returnDateEnd}"
-    },
-    ".csc-intake-entryMethod-label": {
-        "messagekey": "intake-entryMethodLabel"
     },
     ".csc-intake-entry-reason": {
         "decorators": [{
@@ -208,12 +257,18 @@
     ".csc-intake-entryNumber-label": {
         "messagekey": "intake-entryNumberLabel"
     },
+    ".csc-intake-createdBy-label": {
+        "messagekey": "intake-createdByLabel"
+    },
     ".csc-intake-updatedAtEnd": {
         "decorators": [{
             "func": "cspace.datePicker",
             "type": "fluid"
         }],
         "value": "${updatedAtEnd}"
+    },
+    ".csc-intake-returnDateStart-label": {
+        "messagekey": "intake-returnDateStartLabel"
     },
     ".csc-intake-updatedAtStart": {
         "decorators": [{
@@ -222,11 +277,11 @@
         }],
         "value": "${updatedAtStart}"
     },
-    ".csc-intake-returnDateStart-label": {
-        "messagekey": "intake-returnDateStartLabel"
-    },
     ".csc-intake-currentLocationFitness-label": {
         "messagekey": "intake-currentLocationFitnessLabel"
+    },
+    ".csc-intake-returnDate-label": {
+        "messagekey": "intake-returnDateLabel"
     },
     ".csc-intake-entry-number": {
         "decorators": [{
@@ -253,6 +308,9 @@
                 "hidePrimary": true
             }
         }]
+    },
+    ".csc-intake-entryDate-label": {
+        "messagekey": "intake-entryDateLabel"
     },
     ".csc-intake-entryMethod": {
         "decorators": [{

@@ -1,8 +1,5 @@
 {
     "recordEditor": {
-        ".csc-acquisition-domaindata-label": {
-            "messagekey": "acquisition-domaindataLabel"
-        },
         ".csc-acquisition-object-purchase-price-currency": {
             "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
             "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
@@ -85,6 +82,7 @@
         ".csc-acquisition-objectCollectionInformation-label": {
             "messagekey": "acquisition-objectCollectionInformationLabel"
         },
+        ".csc-acquisition-updatedBy": "${fields.updatedBy}",
         ".csc-acquisition-summary-label": {
             "messagekey": "acquisition-summaryLabel"
         },
@@ -167,6 +165,9 @@
         ".csc-acquisition-acquisitionDates-label": {
             "messagekey": "acquisition-acquisitionDatesLabel"
         },
+        ".csc-acquisition-fieldCollectionEventNames-label": {
+            "messagekey": "acquisition-fieldCollectionEventNamesLabel"
+        },
         ".csc-acquisition-acquisitionAuthorizerDate": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -174,8 +175,8 @@
             }],
             "value": "${fields.acquisitionAuthorizerDate}"
         },
-        ".csc-acquisition-fieldCollectionEventNames-label": {
-            "messagekey": "acquisition-fieldCollectionEventNamesLabel"
+        ".csc-acquisition-createdBy-label": {
+            "messagekey": "acquisition-createdByLabel"
         },
         ".csc-acquisition-object-purchase-offer-price-value": "${fields.objectPurchaseOfferPriceValue}",
         ".csc-object-acquisition-ownersource": "${fields.ownersource}",
@@ -200,12 +201,15 @@
         ".csc-acquisition-acquisitionSource-label": {
             "messagekey": "acquisition-acquisitionSourceLabel"
         },
-        ".csc-acquisition-original-object-purchase-price-value": "${fields.originalObjectPurchasePriceValue}",
         ".csc-acquisition-objectPurchasePriceValue-label": {
             "messagekey": "acquisition-objectPurchasePriceValueLabel"
         },
+        ".csc-acquisition-original-object-purchase-price-value": "${fields.originalObjectPurchasePriceValue}",
         ".csc-acquisition-objectPurchaseOfferPriceCurrency-label": {
             "messagekey": "acquisition-objectPurchaseOfferPriceCurrencyLabel"
+        },
+        ".csc-acquisition-domaindata-label": {
+            "messagekey": "acquisition-domaindataLabel"
         },
         ".csc-acquisition-object-purchase-price-value": "${fields.objectPurchasePriceValue}",
         ".csc-acquisition-acquisition-provisos": "${fields.acquisitionProvisos}",
@@ -219,21 +223,21 @@
         ".csc-acquisition-objectOfferPriceValue-label": {
             "messagekey": "acquisition-objectOfferPriceValueLabel"
         },
-        ".csc-acquisition-owner-label": {
-            "messagekey": "acquisition-ownerLabel"
-        },
         ".csc-acquisition-acquisitionReason-label": {
             "messagekey": "acquisition-acquisitionReasonLabel"
+        },
+        ".csc-acquisition-owner-label": {
+            "messagekey": "acquisition-ownerLabel"
         },
         ".csc-acquisition-numberPatternChooser-reference-number": "${fields.acquisitionReferenceNumber}",
         ".csc-acquisition-acquisitionFundingValue-label": {
             "messagekey": "acquisition-acquisitionFundingValueLabel"
         },
-        ".csc-acquisition-acquisitionInformation-label": {
-            "messagekey": "acquisition-acquisitionInformationLabel"
-        },
         ".csc-acquisition-acquisitionAuthorizerHeader-label": {
             "messagekey": "acquisition-acquisitionAuthorizerHeaderLabel"
+        },
+        ".csc-acquisition-acquisitionInformation-label": {
+            "messagekey": "acquisition-acquisitionInformationLabel"
         },
         ".csc-acquisition-tenantID": "${fields.tenantID}",
         ".csc-acquisition-object-offer-price-currency": {
@@ -243,6 +247,9 @@
         },
         ".csc-acquisition-originalObjectPurchasePriceCurrency-label": {
             "messagekey": "acquisition-originalObjectPurchasePriceCurrencyLabel"
+        },
+        ".csc-acquisition-updatedBy-label": {
+            "messagekey": "acquisition-updatedByLabel"
         },
         ".csc-acquisition-object-purchase-offer-price-currency": {
             "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
@@ -383,6 +390,7 @@
             }]
         },
         ".csc-acquisition-acquisition-note": "${fields.acquisitionNote}",
+        ".csc-acquisition-createdBy": "${fields.createdBy}",
         ".csc-acquisition-transfer-of-title-number": "${fields.transferOfTitleNumber}",
         ".csc-acquisition-acquisitionAuthorizerDate-label": {
             "messagekey": "acquisition-acquisitionAuthorizerDateLabel"

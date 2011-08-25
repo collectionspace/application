@@ -44,10 +44,11 @@
             }]
         },
         ".csc-reports-filename": "${fields.filename}",
+        ".csc-reports-updatedAt": "${fields.updatedAt}",
         ".csc-reports-createdAt-label": {
             "messagekey": "reports-createdAtLabel"
         },
-        ".csc-reports-updatedAt": "${fields.updatedAt}",
+        ".csc-reports-createdBy": "${fields.createdBy}",
         ".csc-reports-coreinfo-label": {
             "messagekey": "reports-coreinfoLabel"
         },
@@ -67,8 +68,12 @@
         ".csc-reports-notes-label": {
             "messagekey": "reports-notesLabel"
         },
+        ".csc-reports-createdBy-label": {
+            "messagekey": "reports-createdByLabel"
+        },
         ".csc-reports-outputMIME": "${fields.outputMIME}",
         ".csc-reports-supportsSingleDoc": "${fields.supportsSingleDoc}",
+        ".csc-reports-updatedBy": "${fields.updatedBy}",
         ".csc-reports-notes": "${fields.notes}",
         ".csc-reports-name": "${fields.name}",
         ".csc-reports-domaindata-label": {
@@ -78,11 +83,14 @@
             "messagekey": "reports-supportsNoContextLabel"
         },
         ".csc-reports-supportsGroup": "${fields.supportsGroup}",
+        ".csc-reports-reporting-label": {
+            "messagekey": "reports-reportingLabel"
+        },
         ".csc-reports-name-label": {
             "messagekey": "reports-nameLabel"
         },
-        ".csc-reports-reporting-label": {
-            "messagekey": "reports-reportingLabel"
+        ".csc-reports-updatedBy-label": {
+            "messagekey": "reports-updatedByLabel"
         }
     },
     "list": {}

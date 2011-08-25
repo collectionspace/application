@@ -6,6 +6,7 @@
         ".csc-group-title-label": {
             "messagekey": "group-titleLabel"
         },
+        ".csc-group-createdBy": "${fields.createdBy}",
         ".csc-group-owner": {
             "decorators": [{
                 "func": "cspace.autocomplete",
@@ -16,6 +17,9 @@
                 }
             }],
             "value": "${fields.owner}"
+        },
+        ".csc-group-createdBy-label": {
+            "messagekey": "group-createdByLabel"
         },
         ".csc-group-responsibleDepartment-label": {
             "messagekey": "group-responsibleDepartmentLabel"
@@ -37,19 +41,23 @@
             "messagekey": "group-numberLabel"
         },
         ".csc-group-updatedAt": "${fields.updatedAt}",
+        ".csc-group-updatedBy": "${fields.updatedBy}",
         ".csc-group-scopeNote-label": {
             "messagekey": "group-scopeNoteLabel"
         },
         ".csc-group-title": "${fields.title}",
+        ".csc-group-updatedBy-label": {
+            "messagekey": "group-updatedByLabel"
+        },
         ".csc-group-updatedAt-label": {
             "messagekey": "group-updatedAtLabel"
         },
         ".csc-group-scopeNote": "${fields.scopeNote}",
-        ".csc-group-tenantID-label": {
-            "messagekey": "group-tenantIDLabel"
-        },
         ".csc-group-groupInformation-label": {
             "messagekey": "group-groupInformationLabel"
+        },
+        ".csc-group-tenantID-label": {
+            "messagekey": "group-tenantIDLabel"
         },
         ".csc-group-owner-label": {
             "messagekey": "group-ownerLabel"

@@ -1,8 +1,5 @@
 {
     "recordEditor": {
-        ".csc-loanin-domaindata-label": {
-            "messagekey": "loanin-domaindataLabel"
-        },
         ".csc-loanin-loanInNumber-label": {
             "messagekey": "loanin-loanInNumberLabel"
         },
@@ -112,6 +109,7 @@
         ".csc-loanin-summary-label": {
             "messagekey": "loanin-summaryLabel"
         },
+        ".csc-loanin-updatedBy": "${fields.updatedBy}",
         ".csc-loanIn-loanInDate": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -122,6 +120,9 @@
         ".csc-loanin-lender-label": {
             "messagekey": "loanin-lenderLabel"
         },
+        ".csc-loanin-domaindata-label": {
+            "messagekey": "loanin-domaindataLabel"
+        },
         ".csc-loanIn-loanInConditions": "${fields.loanInConditions}",
         ".csc-loanin-borrowersAuthorizer-label": {
             "messagekey": "loanin-borrowersAuthorizerLabel"
@@ -129,6 +130,9 @@
         ".csc-loanin-createdAt": "${fields.createdAt}",
         ".csc-loanin-loanInNote-label": {
             "messagekey": "loanin-loanInNoteLabel"
+        },
+        ".csc-loanin-createdBy-label": {
+            "messagekey": "loanin-createdByLabel"
         },
         ".csc-loanin-loaninInformation-label": {
             "messagekey": "loanin-loaninInformationLabel"
@@ -156,6 +160,9 @@
         },
         ".csc-loanin-sourceFieldName-label": {
             "messagekey": "loanin-sourceFieldNameLabel"
+        },
+        ".csc-loanin-updatedBy-label": {
+            "messagekey": "loanin-updatedByLabel"
         },
         ".csc-loanin-lendersContact-label": {
             "messagekey": "loanin-lendersContactLabel"
@@ -204,6 +211,7 @@
             "messagekey": "loanin-linktextLabel"
         },
         ".csc-loanin-tenantID": "${fields.tenantID}",
+        ".csc-loanin-createdBy": "${fields.createdBy}",
         ".csc-loanin-lenderGroup-label": {
             "messagekey": "loanin-lenderGroupLabel"
         }
