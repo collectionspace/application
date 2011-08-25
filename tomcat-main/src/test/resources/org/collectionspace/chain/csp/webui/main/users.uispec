@@ -1,31 +1,15 @@
 {
     "details": {
-        ".csc-users-domaindata-label": {
-            "messagekey": "users-domaindataLabel"
-        },
-        ".csc-users-roleGroup-label": {
-            "messagekey": "users-roleGroupLabel"
-        },
-        ".csc-users-tenantID-label": {
-            "messagekey": "users-tenantIDLabel"
-        },
-        ".csc-users-userId-label": {
-            "messagekey": "users-userIdLabel"
+        ".csc-users-status-label": {
+            "messagekey": "users-statusLabel"
         },
         ".csc-users-role-label": {
             "messagekey": "users-roleLabel"
         },
-        ".csc-users-status-label": {
-            "messagekey": "users-statusLabel"
-        },
-        ".csc-users-roleSelected-label": {
-            "messagekey": "users-roleSelectedLabel"
+        ".csc-users-createdBy-label": {
+            "messagekey": "users-createdByLabel"
         },
         ".csc-users-tenantID": "${fields.tenantID}",
-        ".csc-users-email-label": {
-            "messagekey": "users-emailLabel"
-        },
-        ".csc-user-userID": "${fields.userId}",
         ".csc-user-password": "${fields.password}",
         ".csc-users-createdAt-label": {
             "messagekey": "users-createdAtLabel"
@@ -49,6 +33,39 @@
             "pathAs": "row",
             "controlledBy": "fields.role"
         },
+        ".csc-users-createdBy": "${fields.createdBy}",
+        ".csc-users-updatedBy": "${fields.updatedBy}",
+        ".csc-users-csid-label": {
+            "messagekey": "users-csidLabel"
+        },
+        ".csc-users-screenName-label": {
+            "messagekey": "users-screenNameLabel"
+        },
+        ".csc-users-updatedAt-label": {
+            "messagekey": "users-updatedAtLabel"
+        },
+        ".csc-users-tenantID-label": {
+            "messagekey": "users-tenantIDLabel"
+        },
+        ".csc-users-roleGroup-label": {
+            "messagekey": "users-roleGroupLabel"
+        },
+        ".csc-users-userId-label": {
+            "messagekey": "users-userIdLabel"
+        },
+        ".csc-users-roleSelected-label": {
+            "messagekey": "users-roleSelectedLabel"
+        },
+        ".csc-users-email-label": {
+            "messagekey": "users-emailLabel"
+        },
+        ".csc-user-userID": "${fields.userId}",
+        ".csc-users-updatedBy-label": {
+            "messagekey": "users-updatedByLabel"
+        },
+        ".csc-users-domaindata-label": {
+            "messagekey": "users-domaindataLabel"
+        },
         ".csc-users-createdAt": "${fields.createdAt}",
         ".csc-users-password-label": {
             "messagekey": "users-passwordLabel"
@@ -60,16 +77,7 @@
         ".csc-users-roleName-label": {
             "messagekey": "users-roleNameLabel"
         },
-        ".csc-user-email": "${fields.email}",
-        ".csc-users-screenName-label": {
-            "messagekey": "users-screenNameLabel"
-        },
-        ".csc-users-csid-label": {
-            "messagekey": "users-csidLabel"
-        },
-        ".csc-users-updatedAt-label": {
-            "messagekey": "users-updatedAtLabel"
-        }
+        ".csc-user-email": "${fields.email}"
     },
     "list": {
         ".csc-recordList-row:": {
