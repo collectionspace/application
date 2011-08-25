@@ -139,6 +139,37 @@ public class TestNameThroughWebapp extends TestBase{
 	}
 	*/
 
+	//DISABLED UNTIL I work out what it wrong with the query @Test 
+	public void testNamesAdvSearch() throws Exception {
+		log.info("NAME: NamesSearch: test_start");
+		ServletTester jetty=setupJetty();
+		//GETData("/quick-reset",jetty);
+		// Create the entry we are going to check for
+		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTRaul Castro'}}");
+		HttpTester out = POSTData("/vocabularies/person/",data,jetty);	
+		String url=out.getHeader("Location");
+		JSONObject payload = new JSONObject();
+		JSONObject searchfields = new JSONObject();
+		
+		searchfields.put("displayName", "XXXTestR*");
+		
+		payload.put("operation", "or");
+		payload.put("fields", searchfields);
+		
+		out=POSTData("/vocabularies/person/search",payload,jetty,"GET");
+
+		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
+		for(int i=0;i<results.length();i++) {
+			JSONObject entry=results.getJSONObject(i);
+			assertTrue(entry.getString("displayName").toLowerCase().contains("xxxtestraul castro"));
+			assertEquals(entry.getString("number"),entry.getString("displayName"));
+			assertTrue(entry.has("refid"));
+		}
+		
+		// Delete the entry from the database
+		DELETEData("/vocabularies/"+url,jetty);
+		log.info("NAME: NamesSearch: test_start");
+	}
 	@Test public void testNamesSearch() throws Exception {
 		log.info("NAME: NamesSearch: test_start");
 		ServletTester jetty=setupJetty();

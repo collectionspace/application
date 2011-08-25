@@ -322,7 +322,7 @@ public class TestBase extends TestData {
 		HttpTester out = jettyDo(jetty,"POST","/tenant/core"+url,data);
 		assertEquals(out.getMethod(),null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/core"+url+" with data: "+data +"/n"+out.getContent(),testStatus(statusTest,status));
+		assertTrue("Status "+Integer.toString(status)+":"+statusTest+" was wrong for a POST url: /tenant/core"+url+" with data: "+data +"/n"+out.getContent(),testStatus(statusTest,status));
 		return out;
 	}
 
@@ -344,6 +344,11 @@ public class TestBase extends TestData {
 	protected HttpTester POSTData(String url, JSONObject json, ServletTester jetty) throws IOException, Exception{
 		return POSTData(url,json.toString(),jetty);
 	}
+	protected HttpTester POSTData(String url, JSONObject json, ServletTester jetty, String testStatus) throws IOException, Exception{
+		return POSTData(url,json.toString(),jetty,testStatus);
+	}
+	
+	
 	/**
 	 * package with default status tests for success
 	 * @param url
@@ -361,6 +366,7 @@ public class TestBase extends TestData {
 		return out;
 	
 	}
+	
 	protected HttpTester GETData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
 		HttpTester out=jettyDo(jetty,"GET","/tenant/core"+url,null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());

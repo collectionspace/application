@@ -7,9 +7,11 @@
 package org.collectionspace.chain.csp.webui.authorities;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -60,11 +62,12 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		return out;		
 	}
 	
-	
-	
-	private void search_or_list_vocab(JSONObject out,Instance n,Storage storage,UIRequest ui,String param, String pageSize, String pageNum, JSONObject temp ) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
+	private JSONObject setRestricted(UIRequest ui, String param, String pageNum, String pageSize) throws UIException, JSONException{
+
+		JSONObject returndata = new JSONObject();
+
 		JSONObject restriction=new JSONObject();
-		String resultstring = "results";
+		String key="results";
 		
 		Set<String> args = ui.getAllRequestArgument();
 		for(String restrict : args){
@@ -82,18 +85,18 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 						}
 						FieldSet fs = null;
 						if(fieldname.equals("number")){
-							fs = r.getDisplayNameField();
+							fs = r.getMiniNumber();
 							fieldname = fs.getID();
 						}
 						else if(fieldname.equals("summary")){
-							fs = r.getDisplayNameField();
+							fs = r.getMiniSummary();
 							fieldname = fs.getID();
 						}
 						else{
 							//convert sortKey
 							fs = r.getField(fieldname);
 						}
-						//log.info(fs.getSection());
+
 						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
 						String newvalue = tablebase+":"+fieldname;
 						restriction.put(restrict,newvalue);
@@ -101,7 +104,6 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 				}
 			}
 		}
-		
 		
 		if(param!=null && !param.equals("")){
 			restriction.put("queryTerm", "kw");
@@ -114,11 +116,91 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		if(pageSize!=null){
 			restriction.put("pageSize",pageSize);
 		}
+		if(param==null){
+			key = "items";
+		}
+		returndata.put("key", key);
+		returndata.put("restriction", restriction);
+		return returndata;
+	}
+	
+	private void advancedSearch(Storage storage,UIRequest ui,JSONObject restriction, String resultstring, JSONObject params) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
+		
+			JSONObject returndata = new JSONObject();
+			
+			String operation = params.getString("operation").toUpperCase();
+			JSONObject fields = params.getJSONObject("fields");
+
+			String asq = ""; 
+			Iterator rit=fields.keys();
+			while(rit.hasNext()) {
+				String fieldname=(String)rit.next();
+				Object item = fields.get(fieldname);
+
+				String value = "";
+				
+				if(item instanceof JSONArray){ // this is a repeatable
+					JSONArray itemarray = (JSONArray)item;
+					for(int j=0;j<itemarray.length();j++){
+						JSONObject jo = itemarray.getJSONObject(j);
+						Iterator jit=jo.keys();
+						while(jit.hasNext()){
+
+							String jname=(String)jit.next();
+							if(!jname.equals("_primary")){
+								value = jo.getString(jname);
+								asq += getAdvancedSearch(jname,value,operation);
+							}
+							
+						}
+					}
+					
+				}
+				else if(item instanceof JSONObject){ // no idea what this is
+					
+				}
+				else if(item instanceof String){
+					value = (String)item;
+					asq += getAdvancedSearch(fieldname,value,operation);
+				}
+				
+			}
+			if(!asq.equals("")){
+				asq = asq.substring(0, asq.length()-(operation.length() + 2));
+			}
+			String asquery = "( "+asq+" )";
+			resultstring="results";
+			restriction.put("advancedsearch", asquery);
+
+			search_or_list(storage,ui,restriction,resultstring);
+		
+	}
+
+	private String getAdvancedSearch(String fieldname, String value, String operator){
+		if(!value.equals("")){
+			try{
+				String section = this.r.getRepeatField(fieldname).getSection();
+				String spath=this.r.getServicesRecordPath(section);
+				String[] parts=spath.split(":",2);
+				String join = "=";
+				if(value.contains("*")){
+					value.replace("*", "%");
+					join = " ilike ";
+				}
+				//backslash quotes??
+				
+				return parts[0]+":"+fieldname+join+"\""+value +"\""+ " " + operator+ " ";
+			}
+			catch(Exception e){
+				return "";
+			}
+		}
+		return "";
+	}
+	private void search_or_list_vocab(JSONObject out,Instance n,Storage storage,UIRequest ui,JSONObject restriction, String resultstring, JSONObject temp ) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
+		
 		JSONObject data = storage.getPathsJSON(r.getID()+"/"+n.getTitleRef(),restriction);
 
-		if(param==null){
-			resultstring = "items";
-		}
 		
 		String[] paths = (String[]) data.get("listItems");
 		JSONObject pagination = new JSONObject();
@@ -167,19 +249,38 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		log.debug(restriction.toString());
 	}
 	
-	private void search_or_list(Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws UIException {
-		try {
+	private void search_or_list(Storage storage,UIRequest ui,JSONObject restriction, String resultstring) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+			
 			JSONObject results=new JSONObject();
 			if(n==null) {
 				for(Instance n : r.getAllInstances()) {
 					JSONObject results2=new JSONObject();
-					search_or_list_vocab(results2,n,storage,ui,param,pageSize,pageNum,results);
+					search_or_list_vocab(results2,n,storage,ui,restriction,resultstring,results);
 					results = results2;
 				}
 			} else {
-				search_or_list_vocab(results,n,storage,ui,param,pageSize,pageNum,new JSONObject());				
+				search_or_list_vocab(results,n,storage,ui,restriction,resultstring,new JSONObject());				
 			}
 			ui.sendJSONResponse(results);
+	}
+
+	public void searchtype(Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws UIException{
+
+		try {
+
+			JSONObject restrictedkey = setRestricted(ui,param,pageSize,pageNum);
+			JSONObject restriction;
+				restriction = restrictedkey.getJSONObject("restriction");
+			String resultstring = restrictedkey.getString("key");
+			
+			if(ui.getBody() == null || StringUtils.isBlank(ui.getBody())){
+				search_or_list(storage,ui,restriction,resultstring);
+			}
+			else{
+				//advanced search
+				advancedSearch(storage,ui,restriction,resultstring, ui.getJSONBody());
+			}
+
 		} catch (JSONException e) {
 			throw new UIException("Cannot generate JSON",e);
 		} catch (ExistException e) {
@@ -195,9 +296,10 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
 		if(search)
-			search_or_list(q.getStorage(),q.getUIRequest(),q.getUIRequest().getRequestArgument("query"),q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
+			searchtype(q.getStorage(),q.getUIRequest(),q.getUIRequest().getRequestArgument("query"),q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
 		else
-			search_or_list(q.getStorage(),q.getUIRequest(),null,q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
+			searchtype(q.getStorage(),q.getUIRequest(),null,q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
+		
 	}
 
 	public void configure(WebUI ui,Spec spec) {
