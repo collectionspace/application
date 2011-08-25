@@ -12,6 +12,11 @@
                 <list-key>cataloging</list-key>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
+                    <structure id="search">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -43,7 +48,9 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
                         <selector>object-identification-object-nametitle</selector>
                         <merges>
@@ -53,7 +60,7 @@
                     </field>
                 </section>
                 <section id="identificationInformation">
-                    <field id="objectNumber" chooser="yes" in-title="yes" in-tab="yes" mini="number,search,list,relate" seperate_ui_container="true">
+                    <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes" mini="number,search,list,relate" seperate_ui_container="true">
                         <selector>object-identification-object-number</selector>
                         <title-selector>titleBar-object-identification-object-number</title-selector>
                         <options>
@@ -84,7 +91,7 @@
                     </repeat>
                     <repeat id="responsibleDepartments" has-primary="yes">
                         <selector>object-identification-responsible-department</selector>
-                        <field id="responsibleDepartment" mini="search" seperate_ui_container="true">
+                        <field id="responsibleDepartment" ui-search="repeatable" mini="search" seperate_ui_container="true">
                             <selector>object-identification-responsible-department</selector>
                             <options>
                                 <option id="">Please select a value</option>
@@ -101,7 +108,7 @@
                             </options>
                         </field>
                     </repeat>
-                    <field id="collection" seperate_ui_container="true">
+                    <field id="collection" ui-search="repeatable" seperate_ui_container="true">
                         <selector>object-identification-collection</selector>
                         <options>
                             <option id="">Please select a value</option>
@@ -111,7 +118,7 @@
                             <option id="teaching-collection">Teaching collection</option>
                         </options>
                     </field>
-                    <field id="recordStatus" seperate_ui_container="true">
+                    <field id="recordStatus" ui-search="repeatable" seperate_ui_container="true">
                         <selector>object-identification-record-status</selector>
                         <options>
                             <option id="approved">Approved</option>
@@ -136,7 +143,7 @@
                     </repeat>
                     <repeat id="titleGroupList/titleGroup">
                         <!-- selector>collection-object-titleGroup</selector -->
-                        <field id="title" in-title="yes" mini="search">
+                        <field id="title" ui-search="repeatable" in-title="yes" mini="search">
                             <title-selector>titleBar-object-identification-object-title</title-selector>
                             <selector>object-identification-object-title</selector>
                         </field>
@@ -214,17 +221,17 @@
                         <field id="objectNameNote">
                             <selector>object-identification-object-note</selector>
                         </field>
-                        <field id="objectName" mini="search">
+                        <field id="objectName" ui-search="repeatable" mini="search">
                             <selector>object-identification-object-name</selector>
                         </field>
                     </repeat>
                 </section>
                 <section id="descriptionInformation">
-                    <field id="copyNumber">
+                    <field id="copyNumber" ui-search="repeatable">
                         <selector>object-description-copy-number</selector>
                     </field>
                     <repeat id="objectStatusList">
-                        <field id="objectStatus" seperate_ui_container="true">
+                        <field id="objectStatus"  ui-search="repeatable" seperate_ui_container="true">
                             <selector>object-description-object-status</selector>
                             <options>
                                 <option id="">Please select a value</option>
@@ -237,7 +244,7 @@
                             </options>
                         </field>
                     </repeat>
-                    <field id="sex" seperate_ui_container="true">
+                    <field id="sex" ui-search="repeatable" seperate_ui_container="true">
                         <selector>object-description-sex</selector>
                         <options>
                             <option id="">Please select a value</option>
@@ -245,7 +252,7 @@
                             <option id="female">female</option>
                         </options>
                     </field>
-                    <field id="phase" seperate_ui_container="true">
+                    <field id="phase" ui-search="repeatable" seperate_ui_container="true">
                         <selector>object-description-phase</selector>
                         <options>
                             <option id="">Please select a value</option>
@@ -257,7 +264,7 @@
                         </options>
                     </field>
                     <repeat id="forms">
-                        <field id="form" seperate_ui_container="true">
+                        <field id="form" ui-search="repeatable" seperate_ui_container="true">
                             <selector>object-description-form</selector>
                             <options>
                                 <option id="">Please select a value</option>
@@ -268,7 +275,7 @@
                             </options>
                         </field>
                     </repeat>
-                    <field id="editionNumber">
+                    <field id="editionNumber" ui-search="repeatable">
                         <selector>object-description-edition-number</selector>
                     </field>
                     <field id="age">
@@ -288,7 +295,7 @@
                         </options>
                     </field>
                     <repeat id="styles">
-                        <field id="style">
+                        <field id="style" ui-search="repeatable">
                             <selector>object-description-style</selector>
                         </field>
                     </repeat>
@@ -299,7 +306,7 @@
                     </repeat>
                     <repeat id="materialGroupList/materialGroup">
                         <!-- selector>collection-object-materialGroup</selector -->
-                        <field id="material">
+                        <field id="material" ui-search="repeatable">
                             <selector>object-description-material</selector>
                         </field>
                         <field id="materialComponent">
@@ -320,7 +327,7 @@
                     </field>
                     <repeat id="objectComponentGroupList/objectComponentGroup">
                         <!-- selector>collection-object-objectComponentGroup</selector -->
-                        <field id="objectComponentName" seperate_ui_container="true">
+                        <field id="objectComponentName" ui-search="repeatable" seperate_ui_container="true">
                             <selector>object-description-object-component-name</selector>
                             <options>
                                 <option id="">Please select a value</option>
@@ -336,7 +343,7 @@
                     </repeat>
                     <repeat id="technicalAttributeGroupList/technicalAttributeGroup">
                         <!-- selector>collection-object-technicalAttributeGroup</selector -->
-                        <field id="technicalAttribute" seperate_ui_container="true">
+                        <field id="technicalAttribute" ui-search="repeatable" seperate_ui_container="true">
                             <selector>object-description-technical-attribute</selector>
                             <options>
                                 <option id="">Please select a value</option>
@@ -618,7 +625,7 @@
                         <field id="inscriptionDescription">
                             <selector>object-description-inscription-description</selector>
                         </field>
-                        <field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization">
+                        <field id="inscriptionDescriptionInscriber" ui-search="repeatable" autocomplete="person-person,organization-organization">
                             <selector>object-description-inscription-description-inscriber</selector>
                         </field>
                         <field id="inscriptionDescriptionDate" ui-type="date">
@@ -654,7 +661,7 @@
                                 <option id="maker's-mark">maker's mark</option>
                             </options>
                         </field>
-                        <field id="inscriptionDescriptionMethod">
+                        <field id="inscriptionDescriptionMethod" ui-search="repeatable">
                             <selector>object-description-inscription-description-method</selector>
                         </field>
                         <field id="inscriptionDescriptionInterpretation">
@@ -664,14 +671,14 @@
                 </section>
                 <section id="objectProductionInformation">
                 	
-                    <field id="objectProductionDate"   ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
+                    <field id="objectProductionDate" ui-search="repeatable" ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
                         <services-tag>objectProductionDateGroup</services-tag>
                         <selector>object-production-date</selector>
                     </field>
                 	
                     <repeat id="techniqueGroupList/techniqueGroup">
                         <!-- selector>csc-collection-object-techniqueGroup</selector -->
-                        <field id="technique">
+                        <field id="technique" ui-search="repeatable">
                             <selector>object-production-technique</selector>
                         </field>
                         <field id="techniqueType">
@@ -680,7 +687,7 @@
                     </repeat>
                     <repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
                         <!-- selector>collection-object-objectProductionPlaceGroup</selector -->
-                        <field id="objectProductionPlace">
+                        <field id="objectProductionPlace" ui-search="repeatable">
                             <selector>object-production-place</selector>
                         </field>
                         <field id="objectProductionPlaceRole"></field>
@@ -692,21 +699,21 @@
                     </repeat>
                     <repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
                         <!-- selector>object-production-objectProductionPeopleGroup</selector -->
-                        <field id="objectProductionPeople">
+                        <field id="objectProductionPeople" ui-search="repeatable">
                             <selector>object-production-people</selector>
                         </field>
                         <field id="objectProductionPeopleRole"></field>
                     </repeat>
                     <repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
                         <!-- selector>object-production-objectProductionPersonGroup</selector -->
-                        <field id="objectProductionPerson" autocomplete="person-person">
+                        <field id="objectProductionPerson" ui-search="repeatable" autocomplete="person-person">
                             <selector>object-production-person</selector>
                         </field>
                         <field id="objectProductionPersonRole"></field>
                     </repeat>
                     <repeat id="objectProductionOrganizationGroupList/objectProductionOrganizationGroup">
                         <!-- selector>collection-object-objectProductionOrganizationGroup</selector -->
-                        <field id="objectProductionOrganization" autocomplete="organization-organization">
+                        <field id="objectProductionOrganization" ui-search="repeatable" autocomplete="organization-organization">
                             <selector>object-production-organization</selector>
                         </field>
                         <field id="objectProductionOrganizationRole"></field>
@@ -911,7 +918,7 @@
                         <field id="fieldCollector" autocomplete="person-person,organization-organization"></field>
                     </repeat>
                     <repeat id="fieldColEventNames">
-                        <field id="fieldColEventName"></field>
+                        <field id="fieldColEventName" ui-search="repeatable"></field>
                     </repeat>
                 </section>
                 <!-- ununsed -->

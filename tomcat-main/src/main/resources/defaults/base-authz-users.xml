@@ -36,6 +36,8 @@
 				
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+			        <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
+			        <field id="updatedBy" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>

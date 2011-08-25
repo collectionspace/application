@@ -14,6 +14,11 @@
     <urn-syntax>urn:cspace:org.collectionspace.demo:locationauthority:{vocab}:location:{entry}'{display}'</urn-syntax>
     <hassoftdelete>true</hassoftdelete>
     <structures>
+        <structure id="search">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
         <structure id="screen">
             <view>
                 <label-section id="messagekeys" show="true"></label-section>
@@ -27,7 +32,7 @@
         </structure>
     </structures>
 				
-				<include src="domain-authority-location.xml" />
+	<include src="domain-authority-location.xml" />
 				
     <instances>
         <instance id="location-location">
@@ -38,16 +43,18 @@
     </instances>
     <section>
         <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
         <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-        <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+        <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
     </section>
     <section>
-        <field id="displayName" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
+        <field id="displayName" ui-search="repeatable" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
             <title-selector>titleBar-displayName</title-selector>
         </field>
         <field id="shortIdentifier"></field>
         <field id="name" mini="summary,list,search,relate,terms"></field>
-        <field id="termStatus" seperate_ui_container="true">
+        <field id="termStatus" ui-search="repeatable" seperate_ui_container="true">
             <options>
                 <option id="provisional" default="yes">Provisional</option>
                 <option id="under review">Under Review</option>
@@ -56,13 +63,13 @@
             </options>
         </field>
 		<repeat id="conditionGroupList/conditionGroup">
-            <field id="conditionNote"></field>
+            <field id="conditionNote" ui-search="repeatable"></field>
             <field id="conditionNoteDate" ui-type="date"></field>
         </repeat>
-        <field id="securityNote"></field>
-        <field id="accessNote"></field>
-        <field id="address"></field>
-        <field id="locationType" autocomplete="vocab-locationtype" ui-type="enum">
+        <field id="securityNote" ui-search="repeatable"></field>
+        <field id="accessNote" ui-search="repeatable"></field>
+        <field id="address" ui-search="repeatable"></field>
+        <field id="locationType" ui-search="repeatable" autocomplete="vocab-locationtype" ui-type="enum">
         	<selector>location-type</selector>
         </field>
     </section>

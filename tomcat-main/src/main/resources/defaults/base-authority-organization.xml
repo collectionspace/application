@@ -15,6 +15,11 @@
                 <urn-syntax>urn:cspace:org.collectionspace.demo:orgauthority:{vocab}:organization:{entry}'{display}'</urn-syntax>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
+                    <structure id="search">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -33,15 +38,17 @@
                 </instances>
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+			        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+			        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="organizationNameAuthorityInformation">
-                    <field id="displayName" in-title="yes" display-name="yes" mini="summary,list,search,relate,terms">
+                    <field id="displayName" ui-search="repeatable" in-title="yes" display-name="yes" mini="summary,list,search,relate,terms">
                         <selector>organizationAuthority-displayName</selector>
                         <title-selector>titleBar-displayName</title-selector>
                     </field>
-                    <field id="termStatus" seperate_ui_container="true">
+                    <field id="termStatus" ui-search="repeatable" seperate_ui_container="true">
                         <selector>organizationAuthority-status</selector>
                         <options>
                             <option id="provisional" default="yes">Provisional</option>
@@ -61,14 +68,14 @@
                             <selector>organizationAuthority-nameAdditions</selector>
                         </field>
                     </repeat>
-                    <field id="foundingDate" ui-type="date" in-title="yes" >
+                    <field id="foundingDate" ui-search="range" ui-type="date" in-title="yes" >
                         <selector>organizationAuthority-foundingDate</selector>
                         <title-selector>titleBar-foundationDate</title-selector>
                     </field>
-                    <field id="foundingPlace">
+                    <field id="foundingPlace" ui-search="repeatable">
                         <selector>organizationAuthority-foundingPlace</selector>
                     </field>
-                    <field id="dissolutionDate" ui-type="date" in-title="yes" >
+                    <field id="dissolutionDate" ui-search="range" ui-type="date" in-title="yes" >
                         <selector>organizationAuthority-dissolutionDate</selector>
                         <title-selector>titleBar-dissolutionDate</title-selector>
                     </field>
@@ -83,12 +90,12 @@
                         </field>
                     </repeat>
                     <repeat id="groups">
-                        <field id="group" >
+                        <field id="group" ui-search="repeatable" >
                             <selector>organizationAuthority-group</selector>
                         </field>
                     </repeat>
                     <repeat id="functions">
-                        <field id="function">
+                        <field id="function" ui-search="repeatable">
                             <selector>organizationAuthority-function</selector>
                         </field>
                     </repeat>

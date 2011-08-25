@@ -11,6 +11,11 @@
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
+                    <structure id="search">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -42,23 +47,25 @@
                 <row-selector>.csc-recordList-row:</row-selector>
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="objectexitInformation">
                     <!--  Object Exit Information Group -->
-                    <field id="exitNumber" chooser="yes" in-title="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                    <field id="exitNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
                         <options>
                             <option id="objectexit" sample="EX2010.1">Object Exit</option>
                         </options>
                     </field>
-                    <field id="currentOwner" autocomplete="person-person,organization-organization"
+                    <field id="currentOwner" ui-search="repeatable" autocomplete="person-person,organization-organization"
                            mini="summary,list" in-title="yes">
                     </field>
-                    <field id="depositor" autocomplete="person-person,organization-organization"></field>
-                    <field id="exitDate" ui-type="date"></field>
+                    <field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
+                    <field id="exitDate" ui-search="range" ui-type="date"></field>
                     <repeat id="exitMethods">
-                        <field id="exitMethod">
+                        <field id="exitMethod" ui-search="repeatable">
                             <selector>objectexit-exitMethods</selector>
                             <options>
                                 <option id="" default="yes">Please select a value</option>
@@ -69,7 +76,7 @@
                         </field>
                     </repeat>
                     <field id="exitNote"></field>
-                    <field id="exitReason">
+                    <field id="exitReason" ui-search="repeatable">
                         <options>
                             <option id="" default="yes">Please select a value</option>
                             <option id="deaccession">Deaccession</option>

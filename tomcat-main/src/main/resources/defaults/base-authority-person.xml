@@ -18,6 +18,11 @@
                 <vocab-syntax>urn:cspace:name</vocab-syntax>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
+                    <structure id="search">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -52,15 +57,17 @@
                 </instances>
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+			        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+			        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="personNameAuthorityInformation">
-                    <field id="displayName" in-title="yes" display-name="yes">
+                    <field id="displayName" ui-search="repeatable" in-title="yes" display-name="yes">
                         <selector>personAuthority-displayName</selector>
                         <title-selector>titleBar-displayName</title-selector>
                     </field>
-                    <field id="termStatus" seperate_ui_container="true">
+                    <field id="termStatus" ui-search="repeatable" seperate_ui_container="true">
                         <selector>personAuthority-status</selector>
                         <options>
                             <option id="provisional" default="yes">Provisional</option>
@@ -110,7 +117,7 @@
                     <field id="initials">
                         <selector>personAuthority-initials</selector>
                     </field>
-                    <field id="gender" seperate_ui_container="true">
+                    <field id="gender" ui-search="repeatable" seperate_ui_container="true">
                         <selector>personAuthority-gender</selector>
                         <options>
                             <option id="" default="yes">Please select a value</option>
@@ -120,39 +127,39 @@
                     </field>
                     <repeat id="occupations">
                         <selector>personAuthority-occupation</selector>
-                        <field id="occupation">
+                        <field id="occupation" ui-search="repeatable">
                             <selector>personAuthority-occupation</selector>
                         </field>
                     </repeat>
                     <repeat id="schoolsOrStyles">
                         <selector>personAuthority-schoolOrStyle</selector>
-                        <field id="schoolOrStyle">
+                        <field id="schoolOrStyle" ui-search="repeatable">
                             <selector>personAuthority-schoolOrStyle</selector>
                         </field>
                     </repeat>
                     <repeat id="groups">
                         <selector>personAuthority-group</selector>
-                        <field id="group">
+                        <field id="group" ui-search="repeatable">
                             <selector>personAuthority-group</selector>
                         </field>
                     </repeat>
                     <repeat id="nationalities">
                         <selector>personAuthority-nationality</selector>
-                        <field id="nationality">
+                        <field id="nationality" ui-search="repeatable">
                             <selector>personAuthority-nationality</selector>
                         </field>
                     </repeat>
                     <field id="nameNote">
                         <selector>personAuthority-nameNote</selector>
                     </field>
-                    <field id="birthDate" in-title="yes" ui-type="date">
+                    <field id="birthDate" ui-search="range" in-title="yes" ui-type="date">
                         <selector>personAuthority-birthDate</selector>
                         <title-selector>titleBar-birthDate</title-selector>
                     </field>
                     <field id="birthPlace">
                         <selector>personAuthority-birthPlace</selector>
                     </field>
-                    <field id="deathDate" in-title="yes" ui-type="date">
+                    <field id="deathDate" ui-search="range" in-title="yes" ui-type="date">
                         <selector>personAuthority-deathDate</selector>
                         <title-selector>titleBar-deathDate</title-selector>
                     </field>

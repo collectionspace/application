@@ -7,6 +7,11 @@
 
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
+                    <structure id="search">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -36,15 +41,17 @@
 				
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="fileInformationHeader"></section> <!-- temp until better way to do group headers -->
                 <section id="fileInformation"></section> <!-- temp until better way to do group headers -->
                 <section id="mediaInformation">
-                    <field id="filename"></field>
+                    <field id="filename" ui-search="repeatable"></field>
                     <field id="location"></field>
-                    <field id="format"></field>
+                    <field id="format" ui-search="repeatable"></field>
                     <field id="dateCreated"></field>
                     <field id="dateModified"></field>
                     <field id="externalMediaUrl"></field>
@@ -116,31 +123,31 @@
                         <field id="valueQualifier"></field>
                         <field id="valueDate" ui-type="date"></field>
                     </repeat>
-                    <field id="title" mini="summary,search,list,relate"></field>
+                    <field id="title" ui-search="repeatable" mini="summary,search,list,relate"></field>
                     <field id="contributor" autocomplete="person-person,organization-organization"></field>
-                    <field id="creator" autocomplete="person-person,organization-organization"></field>
+                    <field id="creator" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
                     <repeat id="languages">
                         <services-tag>languageList</services-tag>
-                        <field id="language" autocomplete="vocab-languages" ui-type="enum">
+                        <field id="language" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
                         <enum>
                             <default>eng</default>
                         </enum>
 						</field>
                     </repeat>
-                    <field id="publisher" autocomplete="person-person,organization-organization"></field>
+                    <field id="publisher" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
                     <repeat id="relations">
                         <services-tag>relationList</services-tag>
                         <field id="relation"></field>
                     </repeat>
                     <field id="copyrightStatement"></field>
-                    <field id="identificationNumber" chooser="yes" in-title="yes" mini="number,search,list,relate" seperate_ui_container="true">
+                    <field id="identificationNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate" seperate_ui_container="true">
                         <options>
                             <option id="media" sample="MR2011.1.1">Media Resource</option>
                         </options>
                     </field>
                     <repeat id="types">
                         <services-tag>typeList</services-tag>
-                        <field id="type">
+                        <field id="type" ui-search="repeatable">
                             <options>
                                 <option id="" default="yes">Please select a value</option>
                                 <option id="dataset" >Dataset</option>
@@ -154,14 +161,14 @@
                     <field id="coverage"></field>
                     <repeat id="dates">
                         <services-tag>dateList</services-tag>
-                        <field id="date" ui-type="date"></field>
+                        <field id="date" ui-search="range" ui-type="date"></field>
                     </repeat>
-                    <field id="source"></field>
+                    <field id="source" ui-search="repeatable"></field>
                     <repeat id="subjects">
                         <services-tag>subjectList</services-tag>
-                        <field id="subject"></field>
+                        <field id="subject" ui-search="repeatable"></field>
                     </repeat>
-                    <field id="rightsHolder" autocomplete="person-person,organization-organization"></field>
+                    <field id="rightsHolder" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
                     <field id="description"></field>
                 </section>
                 <!-- not used in ui yet -->

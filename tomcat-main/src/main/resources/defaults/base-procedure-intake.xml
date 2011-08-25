@@ -41,6 +41,8 @@
                 <row-selector>.csc-recordList-row:</row-selector>
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+                    <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+                    <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
