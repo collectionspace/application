@@ -163,7 +163,7 @@ public class TestUIRecords extends TestBase {
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/person/uispec", "person.uispec");
 		testUIspec(jetty, "/location/uispec", "location.uispec");
-//		uispec(jetty, "/organization/uispec", "organization-authority.uispec");
+		testUIspec(jetty, "/organization/uispec", "organization-authority.uispec");
 		
 	}
 	
