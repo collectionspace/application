@@ -176,7 +176,13 @@
         ".csc-loanout-number-label": {
             "messagekey": "loanout-numberLabel"
         },
-        ".csc-loanout-updatedAt": "${fields.updatedAt}",
+        ".csc-loanout-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
         ".csc-loanout-borrowersContact-label": {
             "messagekey": "loanout-borrowersContactLabel"
         },

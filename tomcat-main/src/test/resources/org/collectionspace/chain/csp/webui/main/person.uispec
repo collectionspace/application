@@ -180,7 +180,13 @@
             "value": "${fields.birthDate}"
         },
         ".csc-contact-createdBy": "${fields.createdBy}",
-        ".csc-person-updatedAt": "${fields.updatedAt}",
+        ".csc-person-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
         ".csc-personAuthority-name": "${fields.name}",
         ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
         ".csc-contactAuthority-web": "${fields.web}",

@@ -75,7 +75,13 @@
         ".csc-media-dateModified": "${fields.dateModified}",
         ".csc-media-dateCreated": "${fields.dateCreated}",
         ".csc-blobs-name": "${fields.blobs.0.name}",
-        ".csc-media-updatedAt": "${fields.updatedAt}",
+        ".csc-media-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
         ".csc-media-coverage-label": {
             "messagekey": "media-coverageLabel"
         },

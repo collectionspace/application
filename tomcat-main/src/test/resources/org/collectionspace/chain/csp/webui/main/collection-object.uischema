@@ -1235,7 +1235,7 @@
                         "type": "string"
                     },
                     "updatedAt": {
-                        "type": "string"
+                        "type": "date"
                     },
                     "ownershipExchangeNote": {
                         "type": "string"

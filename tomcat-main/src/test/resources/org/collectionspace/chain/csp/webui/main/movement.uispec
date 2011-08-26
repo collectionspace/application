@@ -1,8 +1,5 @@
 {
     "recordEditor": {
-        ".csc-movement-domaindata-label": {
-            "messagekey": "movement-domaindataLabel"
-        },
         ".csc-movement-movementReferenceNumber-label": {
             "messagekey": "movement-movementReferenceNumberLabel"
         },
@@ -40,6 +37,9 @@
         ".csc-movement-locationDate-label": {
             "messagekey": "movement-locationDateLabel"
         },
+        ".csc-movement-currentLocationHeader-label": {
+            "messagekey": "movement-currentLocationHeaderLabel"
+        },
         ".csc-movement-movementContact": {
             "decorators": [{
                 "func": "cspace.autocomplete",
@@ -51,22 +51,17 @@
             }],
             "value": "${fields.movementContact}"
         },
+        ".csc-movement-createdBy-label": {
+            "messagekey": "movement-createdByLabel"
+        },
         ".csc-movement-summary-label": {
             "messagekey": "movement-summaryLabel"
         },
         ".csc-movement-reasonForMove-label": {
             "messagekey": "movement-reasonForMoveLabel"
         },
-        ".csc-movement-normalLocation": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../../tenant/core/movement/autocomplete/normalLocation",
-                    "vocabUrl": "../../../tenant/core/movement/source-vocab/normalLocation"
-                }
-            }],
-            "value": "${fields.normalLocation}"
+        ".csc-movement-number-label": {
+            "messagekey": "movement-numberLabel"
         },
         ".csc-movement-movementMethods": {
             "decorators": [{
@@ -98,14 +93,29 @@
                 }
             }]
         },
-        ".csc-movement-number-label": {
-            "messagekey": "movement-numberLabel"
+        ".csc-movement-normalLocation": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../../tenant/core/movement/autocomplete/normalLocation",
+                    "vocabUrl": "../../../tenant/core/movement/source-vocab/normalLocation"
+                }
+            }],
+            "value": "${fields.normalLocation}"
         },
         ".csc-movement-currentLocationNote": "${fields.currentLocationNote}",
+        ".csc-movement-createdBy": "${fields.createdBy}",
         ".csc-movement-currentLocation-label": {
             "messagekey": "movement-currentLocationLabel"
         },
-        ".csc-movement-updatedAt": "${fields.updatedAt}",
+        ".csc-movement-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
         ".csc-movement-currentLocationFitness-label": {
             "messagekey": "movement-currentLocationFitnessLabel"
         },
@@ -124,6 +134,9 @@
         },
         ".csc-movement-movementNote-label": {
             "messagekey": "movement-movementNoteLabel"
+        },
+        ".csc-movement-domaindata-label": {
+            "messagekey": "movement-domaindataLabel"
         },
         ".csc-movement-currentLocation": {
             "decorators": [{
@@ -152,14 +165,14 @@
         ".csc-movement-locationMovementInformation-label": {
             "messagekey": "movement-locationMovementInformationLabel"
         },
-        ".csc-movement-currentLocationHeader-label": {
-            "messagekey": "movement-currentLocationHeaderLabel"
-        },
         ".csc-movement-currentLocationFitness": {
             "default": "",
             "optionnames": ["Dangerous", "Please select a value", "Suitable", "Temporary", "Unsuitable"],
             "optionlist": ["", "dangerous", "suitable", "temporary", "unsuitable"],
             "selection": "${fields.currentLocationFitness}"
+        },
+        ".csc-movement-updatedBy-label": {
+            "messagekey": "movement-updatedByLabel"
         },
         ".csc-movement-updatedAt-label": {
             "messagekey": "movement-updatedAtLabel"
@@ -183,13 +196,6 @@
         },
         ".csc-movement-movementMethods-label": {
             "messagekey": "movement-movementMethodsLabel"
-        },
-        ".csc-movement-createdBy": "${fields.createdBy}",
-        ".csc-movement-createdBy-label": {
-            "messagekey": "movement-createdByLabel"
-        },
-        ".csc-movement-updatedBy-label": {
-            "messagekey": "movement-updatedByLabel"
         },
         ".csc-movement-updatedBy": "${fields.updatedBy}"
     }

@@ -2599,7 +2599,13 @@
         ".csc-collection-object-referenceInformation-label": {
             "messagekey": "collection-object-referenceInformationLabel"
         },
-        ".csc-collection-object-updatedAt": "${fields.updatedAt}",
+        ".csc-collection-object-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
         ".csc-collection-object-dateEarliestSingleCertainty-label": {
             "messagekey": "collection-object-dateEarliestSingleCertaintyLabel"
         },

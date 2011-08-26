@@ -146,7 +146,13 @@
             "optionlist": ["", "analysis", "conservationotherrequestedservices", "exhibition", "longtermcollectionsmanagementandstorage", "photography", "research", "scientificorexhibitpreparation"],
             "selection": "${fields.loanPurpose}"
         },
-        ".csc-loanin-updatedAt": "${fields.updatedAt}",
+        ".csc-loanin-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
         ".csc-loanin-borrowersAuthorizer": {
             "decorators": [{
                 "func": "cspace.autocomplete",

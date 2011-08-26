@@ -67,7 +67,13 @@
             }],
             "value": "${fields.currentOwner}"
         },
-        ".csc-objectexit-updatedAt": "${fields.updatedAt}",
+        ".csc-objectexit-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
         ".csc-objectexit-exitReason-label": {
             "messagekey": "objectexit-exitReasonLabel"
         },

@@ -40,7 +40,13 @@
         ".csc-group-number-label": {
             "messagekey": "group-numberLabel"
         },
-        ".csc-group-updatedAt": "${fields.updatedAt}",
+        ".csc-group-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
         ".csc-group-updatedBy": "${fields.updatedBy}",
         ".csc-group-scopeNote-label": {
             "messagekey": "group-scopeNoteLabel"
