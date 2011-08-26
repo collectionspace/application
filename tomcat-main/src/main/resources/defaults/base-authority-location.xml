@@ -53,7 +53,7 @@
             <title-selector>titleBar-displayName</title-selector>
         </field>
         <field id="shortIdentifier"></field>
-        <field id="name" mini="summary,list,search,relate,terms"></field>
+        <field id="name" ui-search="repeatable" mini="summary,list,search,relate,terms"></field>
         <field id="termStatus" ui-search="repeatable" seperate_ui_container="true">
             <options>
                 <option id="provisional" default="yes">Provisional</option>
