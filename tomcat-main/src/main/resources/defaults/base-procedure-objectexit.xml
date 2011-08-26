@@ -75,7 +75,7 @@
                             </options>
                         </field>
                     </repeat>
-                    <field id="exitNote"></field>
+                    <field id="exitNote" ui-search="repeatable"></field>
                     <field id="exitReason" ui-search="repeatable">
                         <options>
                             <option id="" default="yes">Please select a value</option>
