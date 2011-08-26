@@ -47,7 +47,7 @@
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="currentLocationHeader"></section> <!-- temp until better way to do group headers -->
                 <section id="locationMovementInformation">

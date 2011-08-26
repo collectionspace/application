@@ -38,10 +38,10 @@
                 </instances>
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-			        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+			        <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
 			        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="organizationNameAuthorityInformation">
                     <field id="displayName" ui-search="repeatable" in-title="yes" display-name="yes" mini="summary,list,search,relate,terms">
