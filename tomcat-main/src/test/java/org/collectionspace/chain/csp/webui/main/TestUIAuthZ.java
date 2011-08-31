@@ -129,7 +129,7 @@ public class TestUIAuthZ extends TestBase {
 	@Test public void testAuthZ() throws Exception {
 		ServletTester jetty=setupJetty();
 		testPostGetDelete(jetty, "/role/", roleCreate, "description");
-		testLists(jetty, "role", roleCreate, "items");
+		testLists(jetty, "/role/", roleCreate, "items");
 		//testPostGetDelete(jetty, "/permission/", permissionRead, "resourceName");
 		//testPostGetDelete(jetty, "/permrole/", permroleCreate, "");
 		

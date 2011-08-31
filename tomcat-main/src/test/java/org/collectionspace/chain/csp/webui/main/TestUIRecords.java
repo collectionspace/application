@@ -45,7 +45,7 @@ public class TestUIRecords extends TestBase {
 		log.info("Testing CRUDL");
 		testPostGetDelete(jetty, "/cataloging/", objectCreate, "distinguishingFeatures");
 		log.info("Testing List");
-		testLists(jetty, "cataloging",objectCreate, "items");
+		testLists(jetty, "/cataloging/",objectCreate, "items");
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/cataloging/uispec", "collection-object.uispec");
 		log.info("Testing UISCHEMA");
@@ -60,7 +60,7 @@ public class TestUIRecords extends TestBase {
 		ServletTester jetty=setupJetty();
 		log.info("Testing movement Procedure");
 		testPostGetDelete(jetty, "/movement/", movementCreate, "movementReferenceNumber");
-		testLists(jetty, "movement", movementCreate, "items");
+		testLists(jetty, "/movement/", movementCreate, "items");
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/movement/uispec", "movement.uispec");
 	}
@@ -73,7 +73,7 @@ public class TestUIRecords extends TestBase {
 		ServletTester jetty=setupJetty();
 		log.info("Testing intake Procedure");
 		testPostGetDelete(jetty, "/intake/", intakeCreate, "entryReason");
-		testLists(jetty, "intake", intakeCreate, "items");
+		testLists(jetty, "/intake/", intakeCreate, "items");
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/intake/uispec", "intake.uispec");
 		log.info("Testing Search UISPEC");
@@ -90,7 +90,7 @@ public class TestUIRecords extends TestBase {
 		ServletTester jetty=setupJetty();
 		log.info("Testing loanout Procedure");
 		testPostGetDelete(jetty, "/loanout/", loanoutCreate, "loanOutNote");
-		testLists(jetty, "loanout", loanoutCreate, "items");
+		testLists(jetty, "/loanout/", loanoutCreate, "items");
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/loanout/uispec", "loanout.uispec");
 	}
@@ -103,7 +103,7 @@ public class TestUIRecords extends TestBase {
 		ServletTester jetty=setupJetty();
 		log.info("Testing loanin Procedure");
 		testPostGetDelete(jetty, "/loanin/", loaninCreate, "loanInNote");
-		testLists(jetty, "loanin", loaninCreate, "items");
+		testLists(jetty, "/loanin/", loaninCreate, "items");
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/loanin/uispec", "loanin.uispec");
 	}
@@ -116,7 +116,7 @@ public class TestUIRecords extends TestBase {
 		ServletTester jetty=setupJetty();
 		log.info("Testing acquisition Procedure");
 		testPostGetDelete(jetty, "/acquisition/", acquisitionCreate, "acquisitionReason");
-		testLists(jetty, "acquisition", acquisitionCreate, "items");
+		testLists(jetty, "/acquisition/", acquisitionCreate, "items");
 		log.info("Testing UISCHEMA");
 		testUIspec(jetty, "/acquisition/uischema", "acquisition.uischema");
 		log.info("Testing UISPEC");
@@ -135,7 +135,7 @@ public class TestUIRecords extends TestBase {
 		ServletTester jetty=setupJetty();
 		log.info("Testing group Procedure");
 		testPostGetDelete(jetty, "/group/", groupCreate, "title");
-		testLists(jetty, "group", groupCreate, "items");
+		testLists(jetty, "/group/", groupCreate, "items");
 
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/group/uispec", "group.uispec");
@@ -147,7 +147,7 @@ public class TestUIRecords extends TestBase {
 		ServletTester jetty=setupJetty();
 		log.info("Testing objectexit Procedure");
 		testPostGetDelete(jetty, "/objectexit/", objectexitCreate, "exitNumber");
-		testLists(jetty, "objectexit", objectexitCreate, "items");
+		testLists(jetty, "/objectexit/", objectexitCreate, "items");
 
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/objectexit/uispec", "objectexit.uispec");
@@ -174,7 +174,7 @@ public class TestUIRecords extends TestBase {
 	@Test public void testProcedureMedia() throws Exception {
 		ServletTester jetty=setupJetty();
 		testPostGetDelete(jetty, "/media/", mediaCreate, "identificationNumber");
-		testLists(jetty, "media", mediaCreate, "items");
+		testLists(jetty, "/media/", mediaCreate, "items");
 		log.info("Testing UISPEC");
 		testUIspec(jetty, "/media/uispec", "media.uispec");
 

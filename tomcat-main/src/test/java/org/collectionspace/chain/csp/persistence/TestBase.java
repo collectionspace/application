@@ -648,7 +648,7 @@ log.info(out.getContent());
 	protected void testLists(ServletTester jetty, String objtype, String data,
 			String itemmarker) throws Exception {
 
-		HttpTester out1 = POSTData("/" + objtype + "/",makeSimpleRequest(data), jetty);
+		HttpTester out1 = POSTData(objtype,makeSimpleRequest(data), jetty);
 
 		/* get all objects */
 		// pagination?
@@ -659,8 +659,8 @@ log.info(out.getContent());
 		boolean end = false;
 		// Page through looking for this id
 		do {
-			out = GETData("/" + objtype
-					+ "/search?pageNum=" + pgNum + "&pageSize=" + pgSz, jetty);
+			out = GETData(objtype
+					+ "search?pageNum=" + pgNum + "&pageSize=" + pgSz, jetty);
 			assertEquals(200, out.getStatus());
 
 			/* create list of files */
@@ -670,8 +670,7 @@ log.info(out.getContent());
 			Set<String> files = new HashSet<String>();
 			if (items.length() > 0) {
 				for (int i = 0; i < items.length(); i++) {
-					files.add("/" + objtype + "/"
-							+ items.getJSONObject(i).getString("csid"));
+					files.add( objtype + items.getJSONObject(i).getString("csid"));
 				}
 			} else {
 				end = true;
