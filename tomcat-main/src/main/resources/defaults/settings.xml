@@ -1,14 +1,14 @@
 <settings>
     <admin>
-        <username>admin@core.collectionspace.org</username>
+        <username>admin@CHANGEME</username>
         <password>Administrator</password>
-        <tenant>1</tenant>
-        <tenantname>core</tenantname>
+        <tenant>CHANGEME</tenant>
+        <tenantname>CHANGEME</tenantname>
         <cookievalidformins>60</cookievalidformins>
     </admin>
     <email>
         <baseurl>http://localhost:8180</baseurl>
-        <from>admin@core.collectionspace.org</from>
+        <from>admin@CHANGEME</from>
         <to></to>
         <!-- if specified then all emails will send to this address - used for debugging -->
         <smtp>
@@ -39,24 +39,24 @@
     </persistence>
     <ui>
         <web>
-            <login-dest>/collectionspace/ui/core/html/findedit.html</login-dest>
-            <login-failed-dest>/collectionspace/ui/core/html/index.html</login-failed-dest>
-            <front-page>/collectionspace/ui/core/html/index.html</front-page>
+            <login-dest>/collectionspace/ui/CHANGEME/html/findedit.html</login-dest>
+            <login-failed-dest>/collectionspace/ui/CHANGEME/html/index.html</login-failed-dest>
+            <front-page>/collectionspace/ui/CHANGEME/html/index.html</front-page>
             <find-page>myCollectionSpace</find-page>
             <tmp-schema-path />
 			<mappings>
 				<map>
 					<recordtype>record</recordtype>
-					<file>/core/record.html</file>
+					<file>/CHANGEME/record.html</file>
 				</map>
 				<map>
 					<recordtype>authority</recordtype>
-					<file>/core/record.html</file>
+					<file>/CHANGEME/record.html</file>
 				</map>
 				<map>
 					<url></url>
 					<recordtype>procedure</recordtype>
-					<file>/core/record.html</file>
+					<file>/CHANGEME/record.html</file>
 					<configure>
 						<meta id="title">CollectionSpace - {record/web-url}</meta>
 					</configure>

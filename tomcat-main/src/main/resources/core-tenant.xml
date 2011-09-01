@@ -1,4 +1,4 @@
-<cspace-config tenantname="core" >
+<cspace-config tenantname="CHANGEME" >
 	
     <version>11</version>
     <include src="local-settings.xml,settings.xml" strip-root="yes"/>
