@@ -113,6 +113,9 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		if(pageNum!=null){
 			restriction.put("pageNum",pageNum);
 		}
+		else{
+			restriction.put("pageNum","0");
+		}
 		if(pageSize!=null){
 			restriction.put("pageSize",pageSize);
 		}
