@@ -190,6 +190,11 @@ public class UISchema extends UISpec {
 		return generateSchemaObject(type, null, null, null);
 	}
 
+	protected JSONObject generateDataTypeValidator(Field f, UISpecRunContext context) throws JSONException{
+		String datatype = f.getDataType();
+		if(datatype.equals("")){datatype="string";}
+		return generateSchemaObject(datatype, null, null, null);
+	}
 	protected Object generateDataEntryField(Field f,UISpecRunContext context) throws JSONException {
 		if ("plain".equals(f.getUIType())) {
 			return generateSchemaObject("string", null, null, null);
@@ -204,8 +209,11 @@ public class UISchema extends UISpec {
 		} else if(f.getUIType().startsWith("groupfield")) {
 			return generateGroupField(f,context);
 		}
+		String datatype = f.getDataType();
+		if(datatype.equals("")){datatype="string";}
+		
 		//ignore ui-type uploader
-		return generateSchemaObject("string", null, null, null);
+		return generateSchemaObject(datatype, null, null, null);
 	}
 
 	private JSONObject generateSchemaObject(String type, Object defaultobj,

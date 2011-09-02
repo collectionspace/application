@@ -2160,7 +2160,16 @@
                 }
             }]
         },
-        ".csc-object-identification-number-objects": "${fields.numberOfObjects}",
+        ".csc-object-identification-number-objects": {
+		    "value": "${fields.numberOfObjects}",
+		    "decorators": [{
+		        "type": "fluid",
+		        "func": "cspace.inputValidator",
+		        "options": {
+		            "type": "integer"
+		        }
+		    }]
+		},
         ".csc-collection-object-nonTextualInscriptionInformation-label": {
             "messagekey": "collection-object-nonTextualInscriptionInformationLabel"
         },

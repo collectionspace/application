@@ -1060,7 +1060,7 @@
                         "type": "string"
                     },
                     "numberOfObjects": {
-                        "type": "string"
+                        "type": "integer"
                     },
                     "updatedBy": {
                         "type": "string"

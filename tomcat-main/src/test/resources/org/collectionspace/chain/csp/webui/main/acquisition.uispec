@@ -211,7 +211,8 @@
         ".csc-acquisition-domaindata-label": {
             "messagekey": "acquisition-domaindataLabel"
         },
-        ".csc-acquisition-object-purchase-price-value": "${fields.objectPurchasePriceValue}",
+        
+        ".csc-acquisition-object-purchase-price-value": {"decorators":[{"func":"cspace.inputValidator","type":"fluid","options":{"type":"float"}}],"value":"${fields.objectPurchasePriceValue}"},
         ".csc-acquisition-acquisition-provisos": "${fields.acquisitionProvisos}",
         ".csc-acquisition-object-offer-price-value": "${fields.objectOfferPriceValue}",
         ".csc-acquisition-updatedAt-label": {

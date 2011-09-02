@@ -97,7 +97,7 @@
                         "type": "array"
                     },
                     "objectPurchasePriceValue": {
-                        "type": "string"
+                        "type": "float"
                     },
                     "tenantID": {
                         "type": "string"

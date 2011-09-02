@@ -581,7 +581,41 @@ public class UISpec implements WebMethod {
 		}
 		return out;
 	}
+	
+	/**
+	 * This is a bit of JSON needed by the UI so they can validate data types like integer,float etc
+	 * CSPACE-4330
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected JSONObject generateDataTypeValidator(Field f, UISpecRunContext context) throws JSONException {
+		JSONObject out=new JSONObject();
+		JSONArray decorators=new JSONArray();
+		JSONObject options = new JSONObject();
+		String type = f.getDataType();
+		if(type.equals("")){type = "string";}
+		options.put("type",type);
+		JSONObject decorator=getDecorator("fluid",null,"cspace.inputValidator",options);
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",getSelector(f,context));
+			}
+		}
+		decorators.put(decorator);
+		out.put("decorators",decorators);
+		out.put("value", generateDataEntryField(f,context));
+		return out;
+	}
 
+	/**
+	 * This is a bit of JSON needed by the UI so they display dates
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
 	protected JSONObject generateDate(Field f,UISpecRunContext context) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
@@ -953,6 +987,9 @@ public class UISpec implements WebMethod {
 		else if("date".equals(f.getUIType())) {
 			out.put(getSelector(f,context),generateDate(f,context));
 		}
+		else if("validated".equals(f.getUIType())){
+			out.put(getSelector(f,context),generateDataTypeValidator(f,context));
+		}
 		else if("sidebar".equals(f.getUIType())) {
 			//Won't work now if uncommented
 			//out.put(getSelector(f)+affix,generateSideBar(f));
@@ -985,6 +1022,9 @@ public class UISpec implements WebMethod {
 		}
 		if("date".equals(f.getUIType())) {
 			out.put(getSelector(f,context),generateDate(f,context));
+		}
+		if("validated".equals(f.getUIType())){
+			out.put(getSelector(f,context),generateDataTypeValidator(f,context));
 		}
 	}
 
