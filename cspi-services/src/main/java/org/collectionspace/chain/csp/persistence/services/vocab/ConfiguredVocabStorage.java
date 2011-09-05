@@ -55,6 +55,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 
 	public ConfiguredVocabStorage(Record r,ServicesConnection conn) throws  DocumentException, IOException {
 		super(r,conn);
+		initializeGlean(r);
 		this.conn=conn;
 		urn_processor=new URNProcessor(r.getURNSyntax());
 		Map<String,String> vocabs=new ConcurrentHashMap<String,String>();
@@ -457,6 +458,34 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					}
 					cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refName);
 					cache.setCached(getClass(),new String[]{"shortId",vocab,csid},shortIdentifier);
+
+					List<Node> fields=node.selectNodes("*");
+					for(Node field : fields) {
+						String json_name=view_map.get(field.getName());
+						if(json_name!=null) {
+							String value=field.getText();
+							// XXX hack to cope with multi values		
+							if(value==null || "".equals(value)) {
+								List<Node> inners=field.selectNodes("*");
+								for(Node n : inners) {
+									value+=n.getText();
+								}
+							}
+							setGleanedValue(cache,vocab+"/"+csid,json_name,value);
+						}
+					}
+					/* this hopefully will reduce fan out - needs more testing */
+					if(doc.selectSingleNode(r.getServicesFieldsPath())!=null){
+						String myfields = doc.selectSingleNode(r.getServicesFieldsPath()).getText();
+						String[] allfields = myfields.split("\\|");
+						for(String s : allfields){
+							String gleaned = getGleanedValue(cache,vocab+"/"+csid,s);
+							if(gleaned==null){
+								setGleanedValue(cache,vocab+"/"+csid,s,"");
+							}
+						}
+					}
+					
 				}else{
 					pagination.put(node.getName(), node.getText());
 				}
@@ -583,7 +612,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
 		try{
 			if(view.equals("view")){
-				return miniViewRetrieveJSON(storage, cache,creds,vocab, csid);
+				return miniViewRetrieveJSON(storage, cache,creds,vocab,extra, csid);
 			}
 			else if("authorityrefs".equals(view)){
 				String path = generateURL(vocab,csid,"/authorityrefs");
@@ -601,9 +630,12 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	}
 	
 	
-	public JSONObject miniViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCache cache,CSPRequestCredentials creds,String vocab,String csid) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
+	public JSONObject miniViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCache cache,CSPRequestCredentials creds,String vocab,String extra,String csid) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		try {
-			JSONObject out=new JSONObject();
+
+			String filepath = vocab+"/items/"+csid;
+			JSONObject out = miniViewRetrieveJSON(cache,creds,filepath,extra,vocab+"/"+csid,this.r);
+			
 			//actually use cache			
 			String name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
 			String refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
@@ -623,7 +655,17 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				out.put("recordtype",r.getWebURL());
 			}
 			else{
-				return simpleRetrieveJSON(storage, creds,cache,vocab,csid);
+				JSONObject cached =  simpleRetrieveJSON(storage, creds,cache,vocab,csid);
+				name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
+				refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
+				shortId=(String)cache.getCached(getClass(),new String[]{"shortId",vocab,csid});
+				testcsid=(String)cache.getCached(getClass(),new String[]{"csidfor",vocab,csid}); 
+				out.put(getDisplayNameKey(), cached);
+				out.put("refid", refid);
+				out.put("csid",csid);
+				out.put("authorityid", vocab);
+				out.put("shortIdentifier", shortId);
+				out.put("recordtype",r.getWebURL());
 			}
 			return out;
 		} catch (ConnectionException e) {
