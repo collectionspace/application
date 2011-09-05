@@ -621,6 +621,10 @@ public class GenericStorage  implements ContextualisedStorage {
 
 			Map<String,String> reset_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
 			Map<String,String> reset_map=new HashMap<String,String>(); // map of csid to service name of field
+			Map<String,String> old_good=view_good;// map of servicenames of fields to descriptors
+			Map<String,String> old_map=view_map; // map of csid to service name of field
+			Set<String> old_deurn=xxx_view_deurn;
+			Map<String,List<String>>old_merge =view_merge;
 			Set<String> reset_deurn=new HashSet<String>();
 			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
 			
@@ -689,33 +693,12 @@ public class GenericStorage  implements ContextualisedStorage {
 					
 					out.put(key,dataitem);
 				}
-			/*	
-				ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
-				String test = all.getDocument().asXML();
-				if(all.getStatus()!=200)
-					throw new ConnectionException("Bad request during identifier cache map update: status not 200");
-				Document list=all.getDocument();
-				for(Object node : list.selectNodes("authority-ref-doc-list/authority-ref-doc-item")) {
-					if(!(node instanceof Element))
-						continue;
-					String key=((Element)node).selectSingleNode("sourceField").getText();
-					String uri=((Element)node).selectSingleNode("uri").getText();
-					String docid=((Element)node).selectSingleNode("docId").getText();
-					String doctype=((Element)node).selectSingleNode("docType").getText();
-					String fieldName = key.split(":")[1];
-					//Field fieldinstance = (Field)r.getRepeatField(fieldName);
-					
-					if(uri!=null && uri.startsWith("/"))
-						uri=uri.substring(1);
-					JSONObject data = new JSONObject();//=miniForURI(storage,creds,cache,refname,uri);
-					data.put("csid", docid);
-//					data.put("sourceFieldselector", fieldinstance.getSelector());
-					data.put("sourceFieldName", fieldName);
-					data.put("sourceFieldType", doctype);
-					out.put(key,data);
-				}
-				*/
 			}
+
+			view_good = old_good;
+			view_map = old_map;
+			xxx_view_deurn = old_deurn;
+			view_merge = old_merge;
 			return out;
 		} catch (ConnectionException e) {
 			log.error("failed to retrieve refObjs for "+path);

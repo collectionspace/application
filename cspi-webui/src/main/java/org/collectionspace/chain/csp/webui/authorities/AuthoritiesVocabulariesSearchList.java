@@ -306,8 +306,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		try {
 
 			JSONObject restrictedkey = setRestricted(ui,param,pageNum,pageSize);
-			JSONObject restriction;
-				restriction = restrictedkey.getJSONObject("restriction");
+			JSONObject restriction = restrictedkey.getJSONObject("restriction");
 			String resultstring = restrictedkey.getString("key");
 			
 			if(ui.getBody() == null || StringUtils.isBlank(ui.getBody())){
