@@ -44,7 +44,7 @@
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="organizationNameAuthorityInformation">
-                    <field id="displayName" ui-search="repeatable" in-title="yes" display-name="yes" mini="summary,list,search,relate,terms">
+                    <field id="displayName" ui-search="repeatable" in-title="yes" display-name="yes" mini="summary,number,list,search,relate,terms">
                         <selector>organizationAuthority-displayName</selector>
                         <title-selector>titleBar-displayName</title-selector>
                     </field>

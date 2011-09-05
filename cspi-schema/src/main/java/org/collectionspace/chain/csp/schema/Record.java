@@ -570,19 +570,11 @@ public class Record implements FieldParent {
 		mergedfields.put(f.getID(), f);
 	}
 	
-	void setMiniNumber(Field f) {
+	void setMiniNumber(FieldSet f) {
 		mini_number = f;
 	}
 
-	void setMiniSummary(Field f) {
-		mini_summary = f;
-	}
-
-	void setMiniNumber(Repeat f) {
-		mini_number = f;
-	}
-
-	void setMiniSummary(Repeat f) {
+	void setMiniSummary(FieldSet f) {
 		mini_summary = f;
 	}
 

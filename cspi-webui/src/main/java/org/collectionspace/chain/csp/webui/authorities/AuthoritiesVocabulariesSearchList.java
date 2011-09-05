@@ -53,17 +53,46 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		this.search=search;
 	}
 	
-	private JSONObject generateMiniRecord(Storage storage,String auth_type,String inst_type,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	private JSONObject generateMiniRecord(Storage storage,String auth_type,String inst_type,String csid) throws JSONException {
 
-		String postfix = "list";
-		if(this.search){
-			postfix = "search";
+		JSONObject out = new JSONObject();
+		try{
+			String postfix = "list";
+			if(this.search){
+				postfix = "search";
+			}
+			out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view/"+postfix, new JSONObject());
+			out.put("csid",csid);
+			out.put("recordtype",inst_type);
 		}
-		JSONObject out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view/"+postfix, new JSONObject());
-		out.put("csid",csid);
-		out.put("recordtype",inst_type);
-		out.put("number",out.get(r.getDisplayNameField().getID()));
-		out.put("summary",out.get(r.getDisplayNameField().getID())); // XXX proper summary!?
+		catch (ExistException e) {
+			out.put("csid",csid);
+			out.put("isError", true);
+			JSONObject msg = new JSONObject();
+			msg.put("severity", "error");
+			msg.put("message", "Exist Exception:"+e.getMessage());
+			JSONArray msgs = new JSONArray();
+			msgs.put(msg);
+			out.put("messages", msgs);
+		} catch (UnimplementedException e) {
+			out.put("csid",csid);
+			out.put("isError", true);
+			JSONObject msg = new JSONObject();
+			msg.put("severity", "error");
+			msg.put("message", "Unimplemented  Exception:"+e.getMessage());
+			JSONArray msgs = new JSONArray();
+			msgs.put(msg);
+			out.put("messages", msgs);
+		} catch (UnderlyingStorageException e) {
+			out.put("csid",csid);
+			out.put("isError", true);
+			JSONObject msg = new JSONObject();
+			msg.put("severity", "error");
+			msg.put("message", "UnderlyingStorage Exception:"+e.getMessage());
+			JSONArray msgs = new JSONArray();
+			msgs.put(msg);
+			out.put("messages", msgs);
+		} 
 		return out;		
 	}
 	
