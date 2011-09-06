@@ -36,7 +36,7 @@ public class TestVocabThroughWebapp extends TestBase {
 		out = GETData("/authorities/vocab/initialize", jetty);
 
 		// update and remove fields not in list
-//		 out = GETData("/vocabularies/"+vocabtype+"/refresh",jetty);
+		// out = GETData("/vocabularies/"+vocabtype+"/refresh",jetty);
 
 		// update and remove fields not in each list within an authority
 		// out = GETData("/authorities/vocab/refresh",jetty);
@@ -49,7 +49,7 @@ public class TestVocabThroughWebapp extends TestBase {
 
 	@Test
 	public void testCRUDitem() throws Exception {
-		String displayname = "XXXStuff";
+		String displayname = "XXXStuff1";
 		String displaynameUpdate = "XXXLessStuff";
 		String vocabtype = "languages";
 		String testfield = "displayName";
@@ -82,7 +82,7 @@ public class TestVocabThroughWebapp extends TestBase {
 
 	@Test
 	public void testList() throws Exception {
-		String displayname = "XXXStuff";
+		String displayname = "XXXStuff2";
 		String vocabtype = "languages";
 		String testfield = "displayName";
 		ServletTester jetty = setupJetty();
@@ -131,7 +131,7 @@ public class TestVocabThroughWebapp extends TestBase {
 
 	@Test
 	public void testSearch() throws Exception {
-		String displayname = "XXXStuff";
+		String displayname = "XXXStuff3";
 		String vocabtype = "languages";
 		String testfield = "displayName";
 
@@ -147,6 +147,10 @@ public class TestVocabThroughWebapp extends TestBase {
 				+ displayname, jetty);
 		JSONArray results = new JSONObject(out.getContent())
 				.getJSONArray("results");
+
+		// Delete the entry from the database
+		DELETEData("/vocabularies/" + url, jetty);
+		
 		for (int i = 0; i < results.length(); i++) {
 			JSONObject entry = results.getJSONObject(i);
 			assertTrue(entry.getString(testfield).toLowerCase().contains(
@@ -155,8 +159,6 @@ public class TestVocabThroughWebapp extends TestBase {
 			assertTrue(entry.has("refid"));
 		}
 
-		// Delete the entry from the database
-		DELETEData("/vocabularies/" + url, jetty);
 
 	}
 
