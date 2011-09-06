@@ -200,7 +200,7 @@
                     </instance>
                 </instances>
                 <section>
-                    <field id="displayName" in-title="yes" display-name="yes">
+                    <field id="displayName" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
                         <selector>vocabulary-displayName</selector>
                         <title-selector>titleBar-displayName</title-selector>
                     </field>
