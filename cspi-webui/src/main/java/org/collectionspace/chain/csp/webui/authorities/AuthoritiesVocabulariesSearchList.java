@@ -163,14 +163,15 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	
 	private void advancedSearch(Storage storage,UIRequest ui,JSONObject restriction, String resultstring, JSONObject params) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
 		
-			JSONObject returndata = new JSONObject();
+			Map<String, String> dates = new HashMap<String, String>();
 			
 			String operation = params.getString("operation").toUpperCase();
 			JSONObject fields = params.getJSONObject("fields");
-
+			
 			String asq = ""; 
 			Iterator rit=fields.keys();
 			while(rit.hasNext()) {
+				String join = "=";
 				String fieldname=(String)rit.next();
 				Object item = fields.get(fieldname);
 
@@ -186,7 +187,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 							String jname=(String)jit.next();
 							if(!jname.equals("_primary")){
 								value = jo.getString(jname);
-								asq += getAdvancedSearch(jname,value,operation);
+								asq += getAdvancedSearch(jname,value,operation,"=");
 							}
 							
 						}
@@ -198,10 +199,39 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 				}
 				else if(item instanceof String){
 					value = (String)item;
-					asq += getAdvancedSearch(fieldname,value,operation);
+					String fieldid = fieldname;
+					if(this.r.hasSearchField(fieldname) && this.r.getSearchField(fieldname).getUIType().equals("date")){
+						if(fieldname.endsWith("Start")){
+							fieldid = fieldname.substring(0, (fieldname.length() - 5));
+							join = ">=";
+						}
+						else if(fieldname.endsWith("End")){
+							fieldid = fieldname.substring(0, (fieldname.length() - 3));
+							join = "<=";
+						}
+
+						if(dates.containsKey(fieldid)){
+							String temp = getAdvancedSearch(fieldid,value,"AND",join);
+							String get = dates.get(fieldid);
+							dates.put(fieldid, temp + get);
+						}
+						else{
+							String temp = getAdvancedSearch(fieldid,value,"",join);
+							dates.put(fieldid, temp);
+						}
+					}
+					else{
+						asq += getAdvancedSearch(fieldname,value,operation,join);
+					}
 				}
-				
 			}
+			
+			if(!dates.isEmpty()){
+				for (String key : dates.keySet()) {
+					asq += " ( "+dates.get(key)+" )  "+ operation;				
+				}
+			}
+			
 			if(!asq.equals("")){
 				asq = asq.substring(0, asq.length()-(operation.length() + 2));
 			}
@@ -213,13 +243,12 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		
 	}
 
-	private String getAdvancedSearch(String fieldname, String value, String operator){
+	private String getAdvancedSearch(String fieldname, String value, String operator, String join){
 		if(!value.equals("")){
 			try{
 				String section = this.r.getRepeatField(fieldname).getSection();
 				String spath=this.r.getServicesRecordPath(section);
 				String[] parts=spath.split(":",2);
-				String join = "=";
 				if(value.contains("*")){
 					value.replace("*", "%");
 					join = " ilike ";

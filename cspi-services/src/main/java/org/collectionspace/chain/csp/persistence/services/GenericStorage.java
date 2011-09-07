@@ -1194,12 +1194,12 @@ public class GenericStorage  implements ContextualisedStorage {
 			if(isVocab && restrictions.has(displayName)){
 				prefix=restrictions.getString(displayName); 
 			}
-			else if(restrictions.has("keywords")) {
+			if(restrictions.has("keywords")) {
 				/* Keyword search */
 				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
 				postfix += keywordparam+"="+data+"&";
 			} 
-			else if(restrictions.has("advancedsearch")) {
+			if(restrictions.has("advancedsearch")) {
 				/* Advanced search */
 				String data=URLEncoder.encode(restrictions.getString("advancedsearch"),"UTF-8");
 				postfix += "as="+data+"&";
