@@ -53,7 +53,7 @@
                             <option id="ruler">Ruler</option>
                             <option id="pacing_pedometer">Pacing Pedometer</option>
                             <option id="odometer">Odometer</option>
-                            <option id="taping_chaining">Taping/Thaining</option>
+                            <option id="taping_chaining">Taping/Chaining</option>
                             <option id="stadia_transit">Stadia/Transit</option>
                             <option id="optical_range_finder">Optical Range Finder</option>
                             <option id="electronic_distance_measurement">Electronic Distance Measurement</option>
