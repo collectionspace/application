@@ -435,7 +435,7 @@ public class RecordSearchList implements WebMethod {
 				String spath=this.r.getServicesRecordPath(section);
 				String[] parts=spath.split(":",2);
 				if(value.contains("*")){
-					value.replace("*", "%");
+					value = value.replace("*", "%");
 					join = " ilike ";
 				}
 				//backslash quotes??
