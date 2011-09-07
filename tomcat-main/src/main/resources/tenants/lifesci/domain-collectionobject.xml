@@ -5,7 +5,8 @@
     <field id="nhString" section="naturalhistory">
         <services-tag>nh-string</services-tag>
     </field>
-    
+    <field id="fieldLocVerbatim" section="naturalhistory" ui-search="repeatable">
+    </field>
     <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
       <field id="taxon" section="naturalhistory" autocomplete="taxon-taxon">
         <selector>taxonomic-identification-taxon</selector>
