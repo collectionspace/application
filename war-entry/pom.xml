@@ -38,14 +38,7 @@
 		</profile>
 	</profiles>
 
-	<repositories>
-		<repository>
-			<id>Version99</id>
-			<name>Version 99 Does Not Exist Maven repository</name>
-			<layout>default</layout>
-			<url>http://no-commons-logging.zapto.org/mvn2</url>
-		</repository>
-	</repositories>
+
 	<dependencies>
 
 		<dependency>

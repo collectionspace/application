@@ -15,16 +15,9 @@
 	</parent>
 
 
-	<repositories>
-		<repository>
-			<id>Version99</id>
-			<name>Version 99 Does Not Exist Maven repository</name>
-			<layout>default</layout>
-			<url>http://no-commons-logging.zapto.org/mvn2</url>
-		</repository>
-	</repositories>
-	<dependencies>
 
+
+	<dependencies>
 		<dependency>
 			<groupId>org.collectionspace</groupId>
 			<artifactId>csp-api</artifactId>
@@ -138,6 +131,12 @@
 			<groupId>commons-httpclient</groupId>
 			<artifactId>commons-httpclient</artifactId>
 			<version>3.1</version>
+		</dependency>
+		<dependency>
+		  <groupId>commons-logging</groupId>
+		  <artifactId>commons-logging</artifactId>
+		  <version>1.1.1</version>
+		  <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
