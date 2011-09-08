@@ -203,11 +203,11 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 					if(this.r.hasSearchField(fieldname) && this.r.getSearchField(fieldname).getUIType().equals("date")){
 						if(fieldname.endsWith("Start")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 5));
-							join = ">=";
+							join = ">= DATE ";
 						}
 						else if(fieldname.endsWith("End")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 3));
-							join = "<=";
+							join = "<= DATE ";
 						}
 
 						if(dates.containsKey(fieldid)){
