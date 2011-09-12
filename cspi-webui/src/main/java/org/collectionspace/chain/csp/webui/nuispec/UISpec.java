@@ -297,7 +297,7 @@ public class UISpec implements WebMethod {
 		JSONArray names=new JSONArray();
 		int dfault = -1;
 		int spacer =0;
-		if(f.hasEnumBlank()){
+		if(f.hasEnumBlank() || (this.spectype.equals("search") && !f.getSearchType().equals(""))){
 			ids.put("");
 			names.put(f.enumBlankValue());
 			spacer = 1;
@@ -324,6 +324,9 @@ public class UISpec implements WebMethod {
 		JSONObject out=new JSONObject();
 		out.put("selection",plain(f,context));
 
+		if(this.spectype.equals("search") && !f.getSearchType().equals("")){
+			dfault=-1;
+		}
 		if(dfault!=-1)
 			out.put("default",dfault+"");
 		out.put("optionlist",ids);
