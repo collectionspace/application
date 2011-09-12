@@ -96,7 +96,7 @@
                             "type": "boolean"
                         },
                         "acquisitionMethod": {
-                            "default": "gift",
+                            "default": "",
                             "type": "string"
                         }
                     },

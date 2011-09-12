@@ -209,9 +209,9 @@
                                 "repeatID": "repeat:",
                                 "tree": {
                                     ".csc-acquisition-acquisition-method": {
-                                        "default": "gift",
-                                        "optionnames": ["Exchange", "Gift", "Purchase", "Transfer", "Treasure"],
-                                        "optionlist": ["exchange", "gift", "purchase", "transfer", "treasure"],
+                                        "default": "",
+                                        "optionnames": ["Exchange", "Gift", "Please select a value", "Purchase", "Transfer", "Treasure"],
+                                        "optionlist": ["", "exchange", "gift", "purchase", "transfer", "treasure"],
                                         "selection": "${{row}.acquisitionMethod}"
                                     }
                                 },
