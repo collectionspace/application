@@ -62,7 +62,7 @@ public class DataGenerator  extends UISpec {
 	private BigDecimal minValue = new BigDecimal("0");
 	private BigDecimal maxValue = new BigDecimal("1423453127");
 	Random random = new Random();
-	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMMM dd, yyyy");
+	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	private RecordCreateUpdate writer;
 	private RelateCreateUpdate relater;
 	private Spec spec;
@@ -86,8 +86,8 @@ public class DataGenerator  extends UISpec {
 	
 	private JSONObject datagenerator(Storage storage,UIRequest ui) throws UIException {
 		this.storage = storage;
-		maxValue = new BigDecimal(dateToLong("January 01, 2010"));
-		minValue = new BigDecimal(dateToLong("January 01, 1970"));
+		maxValue = new BigDecimal(dateToLong("2030-01-01"));
+		minValue = new BigDecimal(dateToLong("1970-01-01"));
 		log.info("initialize params");
 		tty.line("initialize params");
 		JSONObject out=new JSONObject();
