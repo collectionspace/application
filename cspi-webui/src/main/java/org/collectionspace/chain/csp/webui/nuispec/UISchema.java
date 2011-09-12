@@ -83,6 +83,9 @@ public class UISchema extends UISpec {
 	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
 		String type = "string";
 		String defaultval = f.getEnumDefault();
+		if( (this.spectype.equals("search") && !f.getSearchType().equals(""))){
+			defaultval = "";
+		}
 		return generateSchemaObject(type, defaultval, null, null);
 	}
 	
@@ -112,6 +115,9 @@ public class UISchema extends UISpec {
 	protected Object generateOptionField(Field f,UISpecRunContext context) throws JSONException {
 		String type = "string";
 		String defaultval = f.getOptionDefault();
+		if( (this.spectype.equals("search") && !f.getSearchType().equals(""))){
+			defaultval = "";
+		}
 		return generateSchemaObject(type, defaultval, null, null);
 	}
 
