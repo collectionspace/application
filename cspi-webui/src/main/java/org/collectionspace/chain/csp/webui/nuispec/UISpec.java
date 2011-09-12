@@ -297,12 +297,11 @@ public class UISpec implements WebMethod {
 		JSONArray names=new JSONArray();
 		int dfault = -1;
 		int spacer =0;
-		if(f.hasEnumBlank()){
+		if(f.hasEnumBlank() || (this.spectype.equals("search") && !f.getSearchType().equals(""))){
 			ids.put("");
 			names.put(f.enumBlankValue());
 			spacer = 1;
 		}
-		
 		for(int i=0;i<getallnames.length();i++) {
 			JSONObject namedata = getallnames.getJSONObject(i);
 			String name = namedata.getString("displayName");
@@ -323,6 +322,11 @@ public class UISpec implements WebMethod {
 		// Dropdown entry pulled from service layer data
 		JSONObject out=new JSONObject();
 		out.put("selection",plain(f,context));
+
+
+		if(this.spectype.equals("search") && !f.getSearchType().equals("")){
+			dfault=-1;
+		}
 
 		if(dfault!=-1)
 			out.put("default",dfault+"");
