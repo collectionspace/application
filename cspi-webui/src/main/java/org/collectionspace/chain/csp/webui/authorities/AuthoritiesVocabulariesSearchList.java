@@ -199,36 +199,41 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 				}
 				else if(item instanceof String){
 					value = (String)item;
-					String fieldid = fieldname;
-					if(this.r.hasSearchField(fieldname) && this.r.getSearchField(fieldname).getUIType().equals("date")){
-						if(fieldname.endsWith("Start")){
-							fieldid = fieldname.substring(0, (fieldname.length() - 5));
-							join = ">= DATE ";
-						}
-						else if(fieldname.endsWith("End")){
-							fieldid = fieldname.substring(0, (fieldname.length() - 3));
-							join = "<= DATE ";
-						}
+					if(!value.equals("")){
+						String fieldid = fieldname;
+						if(this.r.hasSearchField(fieldname) && this.r.getSearchField(fieldname).getUIType().equals("date")){
+							if(fieldname.endsWith("Start")){
+								fieldid = fieldname.substring(0, (fieldname.length() - 5));
+								join = ">= DATE ";
+							}
+							else if(fieldname.endsWith("End")){
+								fieldid = fieldname.substring(0, (fieldname.length() - 3));
+								join = "<= DATE ";
+							}
 
-						if(dates.containsKey(fieldid)){
-							String temp = getAdvancedSearch(fieldid,value,"AND",join);
-							String get = dates.get(fieldid);
-							dates.put(fieldid, temp + get);
+							if(dates.containsKey(fieldid)){
+								String temp = getAdvancedSearch(fieldid,value,"AND",join);
+								String get = dates.get(fieldid);
+								dates.put(fieldid, temp + get);
+							}
+							else{
+								String temp = getAdvancedSearch(fieldid,value,"",join);
+								dates.put(fieldid, temp);
+							}
 						}
 						else{
-							String temp = getAdvancedSearch(fieldid,value,"",join);
-							dates.put(fieldid, temp);
+							asq += getAdvancedSearch(fieldname,value,operation,join);
 						}
-					}
-					else{
-						asq += getAdvancedSearch(fieldname,value,operation,join);
 					}
 				}
 			}
 			
+
 			if(!dates.isEmpty()){
-				for (String key : dates.keySet()) {
-					asq += " ( "+dates.get(key)+" )  "+ operation;				
+				for (String keyed : dates.keySet()) {
+					if(!dates.get(keyed).equals("")){
+						asq += " ( "+dates.get(keyed)+" )  "+ operation;	
+					}
 				}
 			}
 			
