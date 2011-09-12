@@ -190,19 +190,32 @@ public class UISpec implements WebMethod {
 		JSONArray ids=new JSONArray();
 		JSONArray names=new JSONArray();
 		int idx=0;
+		boolean hasdefault = false;
 		String dfault=null;
 		for(Option opt : f.getAllOptions()) {
+			if(opt.getID().equals("")){ hasdefault = true;}
 			ids.put(opt.getID());
 			names.put(opt.getName());
 			if(opt.isDefault())
 				dfault=opt.getID();
 			idx++;
 		}
-		//currently only supports single select dropdowns and not multiselect
-		if(dfault!=null)
-			out.put("default",dfault+"");
-		out.put("optionlist",ids);
-		out.put("optionnames",names);			
+		
+		//need to make sure there is always a blank on search and default is ""
+		if(this.spectype.equals("search") && !f.getSearchType().equals("")){
+			out.put("default","");
+			if(!hasdefault){ids.put("");names.put(f.enumBlankValue());}
+			out.put("optionlist",ids);
+			out.put("optionnames",names);	
+		}
+		else{
+
+			//currently only supports single select dropdowns and not multiselect
+			if(dfault!=null)
+				out.put("default",dfault+"");
+			out.put("optionlist",ids);
+			out.put("optionnames",names);	
+		}
 		return out;
 	}
 	// XXX factor
