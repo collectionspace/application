@@ -190,8 +190,10 @@ public class UISpec implements WebMethod {
 		JSONArray ids=new JSONArray();
 		JSONArray names=new JSONArray();
 		int idx=0;
+		boolean hasdefault = false;
 		String dfault=null;
 		for(Option opt : f.getAllOptions()) {
+			if(opt.getID().equals("")){ hasdefault = true;}
 			ids.put(opt.getID());
 			names.put(opt.getName());
 			if(opt.isDefault())
