@@ -183,13 +183,13 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 						JSONObject jo = itemarray.getJSONObject(j);
 						Iterator jit=jo.keys();
 						while(jit.hasNext()){
-
 							String jname=(String)jit.next();
 							if(!jname.equals("_primary")){
-								value = jo.getString(jname);
-								asq += getAdvancedSearch(jname,value,operation,"=");
+								if(jo.get(jname) instanceof String || jo.get(jname) instanceof Boolean ){
+									value = jo.getString(jname);
+									asq += getAdvancedSearch(jname,value,operation,"=");
+								}
 							}
-							
 						}
 					}
 					
