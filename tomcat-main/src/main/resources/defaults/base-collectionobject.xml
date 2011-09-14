@@ -281,7 +281,10 @@
                     <field id="age" ui-type="validated" datatype="integer">
                         <selector>object-description-age</selector>
                     </field>
-                    <field id="ageQualifier">
+                    <field id="ageQualifier" autocomplete="vocab-agequalifier" ui-type="enum">
+                        <enum>
+                            <blank-value>Please select a value</blank-value>
+                        </enum>
                         <selector>object-description-age-qualifier</selector>
                     </field>
                     <field id="ageUnit" seperate_ui_container="true">
