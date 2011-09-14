@@ -843,7 +843,11 @@
         ".csc-collection-object-contentPersons-label": {
             "messagekey": "collection-object-contentPersonsLabel"
         },
-        ".csc-object-description-age-qualifier": "${fields.ageQualifier}",
+        ".csc-object-description-age-qualifier": {
+            "optionnames": ["Please select a value", "approximately"],
+            "optionlist": ["", "approximately"],
+            "selection": "${fields.ageQualifier}"
+        },
         ".csc-object-description-inscription-content-script": {
             "optionnames": ["Carolingian miniscule", "Gothic script", "Palmer method", "Please select a value", "Roman cursive", "Spencerian method", "rustic capitals", "square capitals"],
             "optionlist": ["", "carolingian-miniscule", "gothic-script", "palmer-method", "roman-cursive", "rustic-capitals", "spencerian-method", "square-capitals"],
