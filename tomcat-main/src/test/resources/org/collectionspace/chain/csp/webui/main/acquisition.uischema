@@ -48,7 +48,7 @@
                                     "type": "string"
                                 },
                                 "acquisitionFundingValue": {
-                                    "type": "string"
+                                    "type": "float"
                                 }
                             },
                             "type": "object"
@@ -103,7 +103,7 @@
                         "type": "string"
                     },
                     "groupPurchasePriceValue": {
-                        "type": "string"
+                        "type": "float"
                     },
                     "acquisitionSources": {
                         "items": {
@@ -139,7 +139,7 @@
                         "type": "string"
                     },
                     "originalObjectPurchasePriceValue": {
-                        "type": "string"
+                        "type": "float"
                     },
                     "acquisitionMethod": {
                         "default": "gift",
@@ -176,7 +176,7 @@
                         "type": "array"
                     },
                     "objectPurchaseOfferPriceValue": {
-                        "type": "string"
+                        "type": "float"
                     }
                 },
                 "type": "object"

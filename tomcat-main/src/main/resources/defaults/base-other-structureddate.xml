@@ -19,15 +19,15 @@
                         <preselector></preselector>
                     </field>
 				
-                    <field id="dateEarliestSingleYear">
+                    <field id="dateEarliestSingleYear" ui-type="validated" datatype="integer">
                         <selector>dateEarliestSingleYear</selector>
                         <preselector></preselector>
                     </field>
-                    <field id="dateEarliestSingleMonth">
+                    <field id="dateEarliestSingleMonth" ui-type="validated" datatype="integer">
                         <selector>dateEarliestSingleMonth</selector>
                         <preselector></preselector>
                     </field>
-                    <field id="dateEarliestSingleDay">
+                    <field id="dateEarliestSingleDay" ui-type="validated" datatype="integer">
                         <selector>dateEarliestSingleDay</selector>
                         <preselector></preselector>
                     </field>
@@ -49,7 +49,7 @@
                         <selector>dateEarliestSingleQualifier</selector>
                         <preselector></preselector>
                     </field>
-                    <field id="dateEarliestSingleQualifierValue">
+                    <field id="dateEarliestSingleQualifierValue" ui-type="validated" datatype="integer">
                         <selector>dateEarliestSingleQualifierValue</selector>
                         <preselector></preselector>
                     </field>
@@ -59,15 +59,15 @@
                     </field>
 				
 				
-                    <field id="dateLatestYear">
+                    <field id="dateLatestYear" ui-type="validated" datatype="integer">
                         <selector>dateLatestYear</selector>
                         <preselector></preselector>
                     </field>
-                    <field id="dateLatestMonth">
+                    <field id="dateLatestMonth" ui-type="validated" datatype="integer">
                         <selector>dateLatestMonth</selector>
                         <preselector></preselector>
                     </field>
-                    <field id="dateLatestDay">
+                    <field id="dateLatestDay" ui-type="validated" datatype="integer">
                         <selector>dateLatestDay</selector>
                         <preselector></preselector>
                     </field>
@@ -89,7 +89,7 @@
                         <selector>dateLatestQualifier</selector>
                         <preselector></preselector>
                     </field>
-                    <field id="dateLatestQualifierValue">
+                    <field id="dateLatestQualifierValue" ui-type="validated" datatype="integer">
                         <selector>dateLatestQualifierValue</selector>
                         <preselector></preselector>
                     </field>

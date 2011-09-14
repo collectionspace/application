@@ -113,7 +113,7 @@
                         </enum>
                         <selector>acquisition-group-purchase-price-currency</selector>
                     </field>
-                    <field id="groupPurchasePriceValue">
+                    <field id="groupPurchasePriceValue" ui-type="validated" datatype="float">
                         <selector>acquisition-group-purchase-price-value</selector>
                     </field>
                     <field id="objectOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
@@ -149,7 +149,7 @@
                         </enum>
                         <selector>acquisition-object-purchase-offer-price-currency</selector>
                     </field>
-                    <field id="objectPurchaseOfferPriceValue" datatype="float">
+                    <field id="objectPurchaseOfferPriceValue" ui-type="validated" datatype="float">
                         <selector>acquisition-object-purchase-offer-price-value</selector>
                     </field>
                     <field id="originalObjectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
@@ -158,7 +158,7 @@
                         </enum>
                         <selector>acquisition-original-object-purchase-price-currency</selector>
                     </field>
-                    <field id="originalObjectPurchasePriceValue">
+                    <field id="originalObjectPurchasePriceValue" ui-type="validated" datatype="float">
                         <selector>acquisition-original-object-purchase-price-value</selector>
                     </field>
                     <field id="acquisitionReason">
@@ -176,7 +176,7 @@
                                 <default>usd</default>
                             </enum>
                         </field>
-                        <field id="acquisitionFundingValue"></field>
+                        <field id="acquisitionFundingValue" ui-type="validated" datatype="float"></field>
                         <field id="acquisitionFundingSource" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
                         <field id="acquisitionFundingSourceProvisos"></field>
                     </repeat>

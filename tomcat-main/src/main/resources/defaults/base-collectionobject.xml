@@ -278,7 +278,7 @@
                     <field id="editionNumber" ui-search="repeatable">
                         <selector>object-description-edition-number</selector>
                     </field>
-                    <field id="age">
+                    <field id="age" ui-type="validated" datatype="integer">
                         <selector>object-description-age</selector>
                     </field>
                     <field id="ageQualifier">
@@ -421,7 +421,7 @@
                                 <option id="stories">stories</option>
                             </options>
                         </field>
-                        <field id="value">
+                        <field id="value" ui-type="validated" datatype="float">
                             <selector>object-description-dimension-value</selector>
                         </field>
                         <field id="valueDate" ui-type="date">
@@ -780,7 +780,7 @@
                         </enum>
                         <selector>object-history-association-denomination</selector>
                     </field>
-                    <field id="ownershipExchangePriceValue">
+                    <field id="ownershipExchangePriceValue" ui-type="validated" datatype="float">
                         <selector>object-history-association-exchange-price-value</selector>
                     </field>
                     <section id="associationInformation">

@@ -1076,7 +1076,16 @@
                                             }],
                                             "value": "${{row}.valueDate}"
                                         },
-                                        ".csc-object-description-dimension-value": "${{row}.value}"
+                                        ".csc-object-description-dimension-value": {
+                                            "decorators": [{
+                                                "func": "cspace.inputValidator",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "type": "float"
+                                                }
+                                            }],
+                                            "value": "${{row}.value}"
+                                        }
                                     },
                                     "type": "fluid.renderer.repeat",
                                     "pathAs": "row",
@@ -1472,8 +1481,26 @@
                                     "optionlist": ["+", "+/-", "-"],
                                     "selection": "${fields.objectProductionDate.dateEarliestSingleQualifier}"
                                 },
-                                "dateLatestDay": "${fields.objectProductionDate.dateLatestDay}",
-                                "dateLatestYear": "${fields.objectProductionDate.dateLatestYear}",
+                                "dateLatestDay": {
+                                    "decorators": [{
+                                        "func": "cspace.inputValidator",
+                                        "type": "fluid",
+                                        "options": {
+                                            "type": "integer"
+                                        }
+                                    }],
+                                    "value": "${fields.objectProductionDate.dateLatestDay}"
+                                },
+                                "dateLatestYear": {
+                                    "decorators": [{
+                                        "func": "cspace.inputValidator",
+                                        "type": "fluid",
+                                        "options": {
+                                            "type": "integer"
+                                        }
+                                    }],
+                                    "value": "${fields.objectProductionDate.dateLatestYear}"
+                                },
                                 "dateAssociation": "${fields.objectProductionDate.dateAssociation}",
                                 "dateEarliestSingleEra": {
                                     "optionnames": ["BCE", "CE", "Please select a value"],
@@ -1491,34 +1518,88 @@
                                     "optionlist": ["", "bce", "ce"],
                                     "selection": "${fields.objectProductionDate.dateLatestEra}"
                                 },
-                                "dateEarliestSingleQualifierValue": "${fields.objectProductionDate.dateEarliestSingleQualifierValue}",
+                                "dateEarliestSingleQualifierValue": {
+                                    "decorators": [{
+                                        "func": "cspace.inputValidator",
+                                        "type": "fluid",
+                                        "options": {
+                                            "type": "integer"
+                                        }
+                                    }],
+                                    "value": "${fields.objectProductionDate.dateEarliestSingleQualifierValue}"
+                                },
                                 "dateLatestCertainty": {
                                     "optionnames": ["After", "Approximate", "Before", "Circa", "Please select a value", "Possibly", "Probably"],
                                     "optionlist": ["", "after", "approximate", "before", "circa", "possibly", "probably"],
                                     "selection": "${fields.objectProductionDate.dateLatestCertainty}"
                                 },
-                                "dateEarliestSingleYear": "${fields.objectProductionDate.dateEarliestSingleYear}",
+                                "dateEarliestSingleYear": {
+                                    "decorators": [{
+                                        "func": "cspace.inputValidator",
+                                        "type": "fluid",
+                                        "options": {
+                                            "type": "integer"
+                                        }
+                                    }],
+                                    "value": "${fields.objectProductionDate.dateEarliestSingleYear}"
+                                },
                                 "dateLatestQualifier": {
                                     "optionnames": ["+", "+/-", "-"],
                                     "optionlist": ["+", "+/-", "-"],
                                     "selection": "${fields.objectProductionDate.dateLatestQualifier}"
                                 },
-                                "dateLatestQualifierValue": "${fields.objectProductionDate.dateLatestQualifierValue}",
+                                "dateLatestQualifierValue": {
+                                    "decorators": [{
+                                        "func": "cspace.inputValidator",
+                                        "type": "fluid",
+                                        "options": {
+                                            "type": "integer"
+                                        }
+                                    }],
+                                    "value": "${fields.objectProductionDate.dateLatestQualifierValue}"
+                                },
                                 "dateEarliestSingleQualifierUnit": {
                                     "optionnames": ["Day(s)", "Month(s)", "Please select a value", "Year(s)"],
                                     "optionlist": ["", "days", "month", "years"],
                                     "selection": "${fields.objectProductionDate.dateEarliestSingleQualifierUnit}"
                                 },
                                 "datePeriod": "${fields.objectProductionDate.datePeriod}",
-                                "dateLatestMonth": "${fields.objectProductionDate.dateLatestMonth}",
+                                "dateLatestMonth": {
+                                    "decorators": [{
+                                        "func": "cspace.inputValidator",
+                                        "type": "fluid",
+                                        "options": {
+                                            "type": "integer"
+                                        }
+                                    }],
+                                    "value": "${fields.objectProductionDate.dateLatestMonth}"
+                                },
                                 "dateNote": "${fields.objectProductionDate.dateNote}",
                                 "dateLatestQualifierUnit": {
                                     "optionnames": ["Day(s)", "Month(s)", "Please select a value", "Year(s)"],
                                     "optionlist": ["", "days", "month", "years"],
                                     "selection": "${fields.objectProductionDate.dateLatestQualifierUnit}"
                                 },
-                                "dateEarliestSingleDay": "${fields.objectProductionDate.dateEarliestSingleDay}",
-                                "dateEarliestSingleMonth": "${fields.objectProductionDate.dateEarliestSingleMonth}"
+                                "dateEarliestSingleDay": {
+                                    "decorators": [{
+                                        "func": "cspace.inputValidator",
+                                        "type": "fluid",
+                                        "options": {
+                                            "type": "integer"
+                                        }
+                                    }],
+                                    "value": "${fields.objectProductionDate.dateEarliestSingleDay}"
+                                },
+                                "dateEarliestSingleMonth": {
+                                    "decorators": [{
+                                        "func": "cspace.inputValidator",
+                                        "type": "fluid",
+                                        "options": {
+                                            "type": "integer"
+                                        }
+                                    }],
+                                    "value": "${fields.objectProductionDate.dateEarliestSingleMonth}"
+                                }
                             },
                             "type": "fluid.noexpand"
                         }
@@ -1650,7 +1731,16 @@
                 }
             }]
         },
-        ".csc-object-description-age": "${fields.age}",
+        ".csc-object-description-age": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "type": "integer"
+                }
+            }],
+            "value": "${fields.age}"
+        },
         ".csc-collection-object-numberType-label": {
             "messagekey": "collection-object-numberTypeLabel"
         },
@@ -2161,15 +2251,15 @@
             }]
         },
         ".csc-object-identification-number-objects": {
-		    "value": "${fields.numberOfObjects}",
-		    "decorators": [{
-		        "type": "fluid",
-		        "func": "cspace.inputValidator",
-		        "options": {
-		            "type": "integer"
-		        }
-		    }]
-		},
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "type": "integer"
+                }
+            }],
+            "value": "${fields.numberOfObjects}"
+        },
         ".csc-collection-object-nonTextualInscriptionInformation-label": {
             "messagekey": "collection-object-nonTextualInscriptionInformationLabel"
         },
@@ -2317,7 +2407,16 @@
         ".csc-collection-object-assocPersonGroup-label": {
             "messagekey": "collection-object-assocPersonGroupLabel"
         },
-        ".csc-object-history-association-exchange-price-value": "${fields.ownershipExchangePriceValue}",
+        ".csc-object-history-association-exchange-price-value": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.ownershipExchangePriceValue}"
+        },
         ".csc-collection-object-inscriptionContentType-label": {
             "messagekey": "collection-object-inscriptionContentTypeLabel"
         },

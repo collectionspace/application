@@ -30,7 +30,16 @@
                                             }],
                                             "value": "${{row}.acquisitionFundingSource}"
                                         },
-                                        ".csc-acquisition-acquisitionFundingValue": "${{row}.acquisitionFundingValue}",
+                                        ".csc-acquisition-acquisitionFundingValue": {
+                                            "decorators": [{
+                                                "func": "cspace.inputValidator",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "type": "float"
+                                                }
+                                            }],
+                                            "value": "${{row}.acquisitionFundingValue}"
+                                        },
                                         ".csc-acquisition-acquisitionFundingCurrency": {
                                             "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
                                             "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
@@ -148,7 +157,16 @@
         ".csc-acquisition-objectPurchasePriceCurrency-label": {
             "messagekey": "acquisition-objectPurchasePriceCurrencyLabel"
         },
-        ".csc-acquisition-group-purchase-price-value": "${fields.groupPurchasePriceValue}",
+        ".csc-acquisition-group-purchase-price-value": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.groupPurchasePriceValue}"
+        },
         ".csc-acquisition-groupPurchasePriceValue-label": {
             "messagekey": "acquisition-groupPurchasePriceValueLabel"
         },
@@ -178,7 +196,16 @@
         ".csc-acquisition-createdBy-label": {
             "messagekey": "acquisition-createdByLabel"
         },
-        ".csc-acquisition-object-purchase-offer-price-value": "${fields.objectPurchaseOfferPriceValue}",
+        ".csc-acquisition-object-purchase-offer-price-value": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.objectPurchaseOfferPriceValue}"
+        },
         ".csc-object-acquisition-ownersource": "${fields.ownersource}",
         ".csc-acquisition-acquisitionFundingSourceProvisos-label": {
             "messagekey": "acquisition-acquisitionFundingSourceProvisosLabel"
@@ -204,15 +231,32 @@
         ".csc-acquisition-objectPurchasePriceValue-label": {
             "messagekey": "acquisition-objectPurchasePriceValueLabel"
         },
-        ".csc-acquisition-original-object-purchase-price-value": "${fields.originalObjectPurchasePriceValue}",
+        ".csc-acquisition-original-object-purchase-price-value": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.originalObjectPurchasePriceValue}"
+        },
         ".csc-acquisition-objectPurchaseOfferPriceCurrency-label": {
             "messagekey": "acquisition-objectPurchaseOfferPriceCurrencyLabel"
         },
         ".csc-acquisition-domaindata-label": {
             "messagekey": "acquisition-domaindataLabel"
         },
-        
-        ".csc-acquisition-object-purchase-price-value": {"decorators":[{"func":"cspace.inputValidator","type":"fluid","options":{"type":"float"}}],"value":"${fields.objectPurchasePriceValue}"},
+        ".csc-acquisition-object-purchase-price-value": {
+            "decorators": [{
+                "func": "cspace.inputValidator",
+                "type": "fluid",
+                "options": {
+                    "type": "float"
+                }
+            }],
+            "value": "${fields.objectPurchasePriceValue}"
+        },
         ".csc-acquisition-acquisition-provisos": "${fields.acquisitionProvisos}",
         ".csc-acquisition-object-offer-price-value": "${fields.objectOfferPriceValue}",
         ".csc-acquisition-updatedAt-label": {
