@@ -66,7 +66,7 @@ public class TenantUIServlet extends TenantServlet {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,"missing servlet context cspace-ui");
 		}
 
-		if(pathbits[0].equals("css") || pathbits[0].equals("js") || pathbits[0].equals("bundle") || pathbits[0].equals("lib") || pathbits[0].equals("bundle") || pathbits[0].equals("images") ){
+		if(pathbits[0].equals("css") || pathbits[0].equals("js") || pathbits[0].equals("lib") || pathbits[0].equals("bundle") || pathbits[0].equals("images") ){
 			String tenantposs = getTenantByCookie(servlet_request);
 			if (serverFixedExternalContent(servlet_request, servlet_response,
 					sc, pathinfo, tenantposs)) {
