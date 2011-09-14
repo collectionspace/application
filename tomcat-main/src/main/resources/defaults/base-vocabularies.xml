@@ -33,23 +33,30 @@
                         <title-ref>languages</title-ref>
                         <title>Languages</title>
                         <options>
-                            <option id="eng">English</option>
-                            <option id="spn">Spanish</option>
-                            <option>French</option>
-                            <option>Italian</option>
-                            <option>Portuguese</option>
-                            <option>German</option>
-                            <option>Russian</option>
-                            <option>Arabic</option>
-                            <option>Chinese</option>
-                            <option>Hebrew</option>
-                            <option>Japanese</option>
-                            <option>Korean</option>
-                            <option>Swahili</option>
-                            <option>Ancient Greek</option>
-                            <option>Latin</option>
-                            <option>Old English</option>
-                            <option>Middle English</option>
+                    		<option id="ara">Arabic</option>
+						<option id="hye">Armenian</option>
+							<option id="zho">Chinese</option>
+							<option id="eng">English</option>
+							<option id="fra">French</option>
+							<option id="deu">German</option>
+							<option id="grc">Ancient Greek</option>
+							<option id="heb">Hebrew</option>
+						<option id="ind">Indonesian</option>
+							<option id="ita">Italian</option>
+							<option id="jpn">Japanese</option>
+							<option id="kor">Korean</option>
+							<option id="lat">Latin</option>
+						<option id="mal">Malaysian</option>
+							<option id="enm">Middle English</option>
+							<option id="ang">Old English</option>
+							<option id="por">Portuguese</option>
+						<option id="ron">Romanian</option>
+							<option id="rus">Russian</option>
+							<option id="spa">Spanish</option>
+							<option id="swa">Swahili</option>
+						<option id="swe">Swedish</option>
+						<option id="tgl">Tagalog</option>
+						<option id="yor">Yoruba</option>
                         </options>
                     </instance>
                     <instance id="vocab-lostatus">
