@@ -236,7 +236,7 @@
                         "type": "array"
                     },
                     "ownershipExchangePriceValue": {
-                        "type": "string"
+                        "type": "float"
                     },
                     "ownersContributionNote": {
                         "type": "string"
@@ -384,6 +384,7 @@
                         "type": "string"
                     },
                     "ageQualifier": {
+                        "default": "",
                         "type": "string"
                     },
                     "contentEventNameGroup": {
@@ -528,10 +529,10 @@
                                 "type": "string"
                             },
                             "dateLatestDay": {
-                                "type": "string"
+                                "type": "integer"
                             },
                             "dateLatestYear": {
-                                "type": "string"
+                                "type": "integer"
                             },
                             "dateAssociation": {
                                 "type": "string"
@@ -552,21 +553,21 @@
                                 "type": "string"
                             },
                             "dateEarliestSingleQualifierValue": {
-                                "type": "string"
+                                "type": "integer"
                             },
                             "dateLatestCertainty": {
                                 "default": "",
                                 "type": "string"
                             },
                             "dateEarliestSingleYear": {
-                                "type": "string"
+                                "type": "integer"
                             },
                             "dateLatestQualifier": {
                                 "default": "",
                                 "type": "string"
                             },
                             "dateLatestQualifierValue": {
-                                "type": "string"
+                                "type": "integer"
                             },
                             "dateEarliestSingleQualifierUnit": {
                                 "default": "",
@@ -579,7 +580,7 @@
                                 "type": "boolean"
                             },
                             "dateLatestMonth": {
-                                "type": "string"
+                                "type": "integer"
                             },
                             "dateNote": {
                                 "type": "string"
@@ -589,10 +590,10 @@
                                 "type": "string"
                             },
                             "dateEarliestSingleDay": {
-                                "type": "string"
+                                "type": "integer"
                             },
                             "dateEarliestSingleMonth": {
-                                "type": "string"
+                                "type": "integer"
                             }
                         },
                         "type": "object"
@@ -619,7 +620,7 @@
                                     "type": "string"
                                 },
                                 "value": {
-                                    "type": "string"
+                                    "type": "float"
                                 },
                                 "valueQualifier": {
                                     "type": "string"
@@ -785,7 +786,7 @@
                         "type": "array"
                     },
                     "age": {
-                        "type": "string"
+                        "type": "integer"
                     },
                     "contentOtherGroup": {
                         "items": {
