@@ -32,7 +32,7 @@
                         <field id="measuredBy"></field>
                         <field id="measurementUnit"></field>
                         <field id="measurementMethod"></field>
-                        <field id="value"></field>
+                        <field id="value" ui-type="validated" datatype="float"></field>
                         <field id="valueQualifier"></field>
                         <field id="valueDate"></field>
                     </repeat>

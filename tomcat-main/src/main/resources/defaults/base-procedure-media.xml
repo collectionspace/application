@@ -119,7 +119,7 @@
                                 <option id="hydraulic_or_pneumatic_scale">Hydraulic or Pneumatic Scale</option>
                             </options>
                         </field>
-                        <field id="value"></field>
+                        <field id="value" ui-type="validated" datatype="float"></field>
                         <field id="valueQualifier"></field>
                         <field id="valueDate" ui-type="date"></field>
                     </repeat>
