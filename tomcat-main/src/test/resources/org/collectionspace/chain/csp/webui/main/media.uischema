@@ -1,13 +1,13 @@
 {
     "media": {
         "properties": {
-            "termsUsed": {
-                "default": [],
-                "type": "array"
-            },
             "relations": {
                 "default": {},
                 "type": "object"
+            },
+            "termsUsed": {
+                "default": [],
+                "type": "array"
             },
             "csid": {
                 "type": "string"
@@ -17,10 +17,10 @@
                     "dateModified": {
                         "type": "string"
                     },
-                    "externalMediaUrl": {
+                    "copyrightStatement": {
                         "type": "string"
                     },
-                    "copyrightStatement": {
+                    "externalMediaUrl": {
                         "type": "string"
                     },
                     "location": {
@@ -43,23 +43,17 @@
                     "data": {
                         "type": "string"
                     },
-                    "imgThumb": {
-                        "type": "string"
-                    },
-                    "blobCsid": {
-                        "type": "string"
-                    },
                     "dimensionGroup": {
                         "items": {
                             "properties": {
-                                "dimension": {
-                                    "type": "string"
+                                "_primary": {
+                                    "type": "boolean"
                                 },
                                 "measuredBy": {
                                     "type": "string"
                                 },
-                                "_primary": {
-                                    "type": "boolean"
+                                "dimension": {
+                                    "type": "string"
                                 },
                                 "valueDate": {
                                     "type": "string"
@@ -68,7 +62,7 @@
                                     "type": "string"
                                 },
                                 "value": {
-                                    "type": "float"
+                                    "type": "string"
                                 },
                                 "valueQualifier": {
                                     "type": "string"
@@ -81,16 +75,25 @@
                         },
                         "type": "array"
                     },
-                    "rightsHolder": {
+                    "blobCsid": {
+                        "type": "string"
+                    },
+                    "imgThumb": {
                         "type": "string"
                     },
                     "digest": {
                         "type": "string"
                     },
-                    "creator": {
+                    "rightsHolder": {
                         "type": "string"
                     },
                     "publisher": {
+                        "type": "string"
+                    },
+                    "creator": {
+                        "type": "string"
+                    },
+                    "updatedBy": {
                         "type": "string"
                     },
                     "id": {
@@ -111,10 +114,10 @@
                         },
                         "type": "array"
                     },
-                    "title": {
+                    "dimensionSummary": {
                         "type": "string"
                     },
-                    "dimensionSummary": {
+                    "title": {
                         "type": "string"
                     },
                     "dates": {
@@ -134,10 +137,10 @@
                     "description": {
                         "type": "string"
                     },
-                    "contributor": {
+                    "createdAt": {
                         "type": "string"
                     },
-                    "createdAt": {
+                    "contributor": {
                         "type": "string"
                     },
                     "name": {
@@ -182,13 +185,19 @@
                     "updatedAt": {
                         "type": "string"
                     },
-                    "srcUri": {
-                        "type": "string"
-                    },
                     "imgOrig": {
                         "type": "string"
                     },
+                    "srcUri": {
+                        "type": "string"
+                    },
                     "source": {
+                        "type": "string"
+                    },
+                    "createdBy": {
+                        "type": "string"
+                    },
+                    "coverage": {
                         "type": "string"
                     },
                     "relations": {
@@ -205,13 +214,10 @@
                         },
                         "type": "array"
                     },
-                    "coverage": {
+                    "filename": {
                         "type": "string"
                     },
                     "dateCreated": {
-                        "type": "string"
-                    },
-                    "filename": {
                         "type": "string"
                     },
                     "identificationNumber": {
@@ -224,3 +230,4 @@
         "type": "object"
     }
 }
+
