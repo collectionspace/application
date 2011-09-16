@@ -171,7 +171,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			String asq = ""; 
 			Iterator rit=fields.keys();
 			while(rit.hasNext()) {
-				String join = "=";
+				String join = "ILIKE"; //using ilike so we can have case insensitive searches
 				String fieldname=(String)rit.next();
 				Object item = fields.get(fieldname);
 
