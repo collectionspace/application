@@ -239,9 +239,12 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			if(!asq.equals("")){
 				asq = asq.substring(0, asq.length()-(operation.length() + 2));
 			}
-			String asquery = "( "+asq+" )";
+			asq = asq.trim();
+			if(!asq.equals("")){
+				String asquery = "( "+asq+" )";
+				restriction.put("advancedsearch", asquery);
+			}
 			resultstring="results";
-			restriction.put("advancedsearch", asquery);
 
 			search_or_list(storage,ui,restriction,resultstring);
 		

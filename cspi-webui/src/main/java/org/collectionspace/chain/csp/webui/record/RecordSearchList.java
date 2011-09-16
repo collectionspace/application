@@ -412,6 +412,7 @@ public class RecordSearchList implements WebMethod {
 			if(!asq.equals("")){
 				asq = asq.substring(0, asq.length()-(operation.length() + 2));
 			}
+			asq = asq.trim();
 			if(!asq.equals("")){
 				String asquery = "( "+asq+" )";
 				restriction.put("advancedsearch", asquery);
