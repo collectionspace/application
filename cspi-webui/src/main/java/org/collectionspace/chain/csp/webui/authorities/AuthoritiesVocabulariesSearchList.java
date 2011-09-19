@@ -187,7 +187,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 							if(!jname.equals("_primary")){
 								if(jo.get(jname) instanceof String || jo.get(jname) instanceof Boolean ){
 									value = jo.getString(jname);
-									asq += getAdvancedSearch(jname,value,operation,"=");
+									asq += getAdvancedSearch(jname,value,operation,join);
 								}
 							}
 						}
