@@ -279,7 +279,7 @@ public class TenantServlet extends HttpServlet {
 		return true;
 	}
 
-	protected InputStream getFixedContent(ServletContext sc,String path, String tenant){
+	protected InputStream getFixedContent(ServletContext sc,String path, String tenant, HttpServletResponse servlet_response){
 		List<String> testpaths =new ArrayList<String>();
 		testpaths.add("/"+tenant+path);
 		testpaths.add(path);
@@ -294,12 +294,14 @@ public class TenantServlet extends HttpServlet {
 		InputStream is = null;
 		while( is == null && testpaths.size()> 0){
 			is=sc.getResourceAsStream(testpaths.remove(0));
+			String mimetype = sc.getMimeType(testpaths.remove(0));
+			servlet_response.setContentType(mimetype);
 		}
         return is;
 		
 	}
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path, String tenant) throws IOException{
-		InputStream is = getFixedContent( sc, path,  tenant);
+		InputStream is = getFixedContent( sc, path,  tenant, servlet_response);
         return serveContent(servlet_response,is);
 	}
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path) throws IOException{

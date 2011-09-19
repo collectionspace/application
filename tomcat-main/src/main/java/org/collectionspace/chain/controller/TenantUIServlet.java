@@ -99,7 +99,7 @@ public class TenantUIServlet extends TenantServlet {
 			path = validmap.getFile();
 			if (validmap.hasMetaConfig() && doMetaConfig) {
 				
-				InputStream is = getFixedContent( sc, path,  tenant);
+				InputStream is = getFixedContent( sc, path,  tenant, servlet_response);
 				
 
 				StringWriter writer = new StringWriter();
