@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -292,15 +293,18 @@ public class TenantServlet extends HttpServlet {
 		testpaths.add("/defaults/html"+path);
 		testpaths.add("/defaults"+path);
 		InputStream is = null;
+		InputStream output = null;
 		while( is == null && testpaths.size()> 0){
-			is=sc.getResourceAsStream(testpaths.remove(0));
-		//	String mimetype = sc.getMimeType(testpaths.remove(0));
-		//	servlet_response.setContentType(mimetype);
+			String path2 = testpaths.remove(0);
+			is=sc.getResourceAsStream(path2);
+			String mimetype = sc.getMimeType(path2);
+			servlet_response.setContentType(mimetype);
 		}
 		if(is==null)
 			return false; // Not for us
-
-		IOUtils.copy(is,servlet_response.getOutputStream());
+		
+		ServletOutputStream out = servlet_response.getOutputStream();
+		IOUtils.copy(is,out);
 		return true;
 	}
 
