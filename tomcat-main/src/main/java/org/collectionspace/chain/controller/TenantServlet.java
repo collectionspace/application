@@ -278,8 +278,8 @@ public class TenantServlet extends HttpServlet {
 		IOUtils.copy(is,servlet_response.getOutputStream());
 		return true;
 	}
-
-	protected InputStream getFixedContent(ServletContext sc,String path, String tenant, HttpServletResponse servlet_response){
+	
+	protected boolean serveFixedContent(ServletContext sc,String path, String tenant, HttpServletResponse servlet_response) throws IOException{
 		List<String> testpaths =new ArrayList<String>();
 		testpaths.add("/"+tenant+path);
 		testpaths.add(path);
@@ -297,12 +297,35 @@ public class TenantServlet extends HttpServlet {
 			String mimetype = sc.getMimeType(testpaths.remove(0));
 			servlet_response.setContentType(mimetype);
 		}
+		if(is==null)
+			return false; // Not for us
+
+		IOUtils.copy(is,servlet_response.getOutputStream());
+		return true;
+	}
+
+	protected InputStream getFixedContent(ServletContext sc,String path, String tenant){
+		List<String> testpaths =new ArrayList<String>();
+		testpaths.add("/"+tenant+path);
+		testpaths.add(path);
+		
+		if(path.startsWith("/"+tenant+"/")){
+			path = path.replace("/"+tenant+"/", "/");
+		}
+		testpaths.add("/tenants/"+tenant+"/html"+path);
+		testpaths.add("/tenants/"+tenant+""+path);
+		testpaths.add("/defaults/html"+path);
+		testpaths.add("/defaults"+path);
+		InputStream is = null;
+		while( is == null && testpaths.size()> 0){
+			is=sc.getResourceAsStream(testpaths.remove(0));
+		}
         return is;
 		
 	}
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path, String tenant) throws IOException{
-		InputStream is = getFixedContent( sc, path,  tenant, servlet_response);
-        return serveContent(servlet_response,is);
+		//InputStream is = getFixedContent( sc, path,  tenant, servlet_response);
+        return serveFixedContent(sc, path,  tenant, servlet_response);
 	}
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path) throws IOException{
 
