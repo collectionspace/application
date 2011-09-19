@@ -294,8 +294,8 @@ public class TenantServlet extends HttpServlet {
 		InputStream is = null;
 		while( is == null && testpaths.size()> 0){
 			is=sc.getResourceAsStream(testpaths.remove(0));
-			String mimetype = sc.getMimeType(testpaths.remove(0));
-			servlet_response.setContentType(mimetype);
+		//	String mimetype = sc.getMimeType(testpaths.remove(0));
+		//	servlet_response.setContentType(mimetype);
 		}
 		if(is==null)
 			return false; // Not for us
