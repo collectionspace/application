@@ -14,6 +14,7 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -278,7 +279,35 @@ public class TenantServlet extends HttpServlet {
 		IOUtils.copy(is,servlet_response.getOutputStream());
 		return true;
 	}
-
+	
+	protected boolean serveFixedContent(ServletContext sc,String path, String tenant, HttpServletResponse servlet_response) throws IOException{
+		List<String> testpaths =new ArrayList<String>();
+		testpaths.add("/"+tenant+path);
+		testpaths.add(path);
+		
+		if(path.startsWith("/"+tenant+"/")){
+			path = path.replace("/"+tenant+"/", "/");
+		}
+		testpaths.add("/tenants/"+tenant+"/html"+path);
+		testpaths.add("/tenants/"+tenant+""+path);
+		testpaths.add("/defaults/html"+path);
+		testpaths.add("/defaults"+path);
+		InputStream is = null;
+		InputStream output = null;
+		while( is == null && testpaths.size()> 0){
+			String path2 = testpaths.remove(0);
+			is=sc.getResourceAsStream(path2);
+			String mimetype = sc.getMimeType(path2);
+			servlet_response.setContentType(mimetype);
+		}
+		if(is==null)
+			return false; // Not for us
+		
+		ServletOutputStream out = servlet_response.getOutputStream();
+		IOUtils.copy(is,out);
+		return true;
+	}
+	
 	protected InputStream getFixedContent(ServletContext sc,String path, String tenant){
 		List<String> testpaths =new ArrayList<String>();
 		testpaths.add("/"+tenant+path);
@@ -299,8 +328,7 @@ public class TenantServlet extends HttpServlet {
 		
 	}
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path, String tenant) throws IOException{
-		InputStream is = getFixedContent( sc, path,  tenant);
-        return serveContent(servlet_response,is);
+		return serveFixedContent(sc, path, tenant, servlet_response);
 	}
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path) throws IOException{
 
