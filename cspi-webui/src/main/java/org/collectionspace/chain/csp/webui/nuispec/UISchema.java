@@ -80,6 +80,19 @@ public class UISchema extends UISpec {
 		return fs.getID();
 	}
 
+	protected Object generateBooleanField(Field f, UISpecRunContext context) throws JSONException {
+		String type = "boolean";
+		String defaultval = f.getDefault();
+		Boolean defval = false;
+		if("1".equals(defaultval) || "yes".equals(defaultval.toLowerCase()) || "true".equals(defaultval.toLowerCase())){
+			defval = true;
+		}
+		if( (this.spectype.equals("search") && !f.getSearchType().equals(""))){
+			defval = null;
+		}
+		return generateSchemaObject(type, defval, null, null);
+	}
+	
 	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
 		String type = "string";
 		String defaultval = f.getEnumDefault();
@@ -203,7 +216,12 @@ public class UISchema extends UISpec {
 	}
 	protected Object generateDataEntryField(Field f,UISpecRunContext context) throws JSONException {
 		if ("plain".equals(f.getUIType())) {
-			return generateSchemaObject("string", null, null, null);
+			if("boolean".equals(f.getDataType())){
+				return generateBooleanField(f,context);
+			}
+			else{
+				return generateSchemaObject("string", null, null, null);
+			}
 		} else if ("list".equals(f.getUIType())) {
 			return generateSchemaObject("object", new JSONObject(), null, null);
 		} else if ("linktext".equals(f.getUIType())) {
@@ -216,7 +234,8 @@ public class UISchema extends UISpec {
 			return generateGroupField(f,context);
 		}
 		String datatype = f.getDataType();
-		if(datatype.equals("")){datatype="string";}
+		if(datatype.equals("")){	datatype="string";	}
+		if(datatype.equals("boolean")){	return generateBooleanField(f,context);	}
 		
 		//ignore ui-type uploader
 		return generateSchemaObject(datatype, null, null, null);

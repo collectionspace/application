@@ -136,7 +136,8 @@ public class Field implements FieldSet {
 			this.parent.getRecord().setDisplayName(this);
 		
 		this.initBoolean(section,"@exists-in-services",true);
-		
+
+		this.initSet(section,"default",new String[] { "" });
 		this.initSet(section,"enum/default",new String[] { "" });		
 		this.initBoolean(section,"enum/@has-blank",true);
 		this.initStrings(section,"enum/blank-value", this.parent.enumBlankValue());
@@ -507,7 +508,22 @@ public class Field implements FieldSet {
 	public String getEnumDefault() {
 		return StringUtils.join(getSet("enum/default"), ",");
 	}
+	public String getDefault() {
+		return StringUtils.join(getSet("default"), ",");
+	}
 
+	public boolean hasDefault() {
+		if (getSet("default").isEmpty() || ( getSet("default").size()==1 && getSet("default").contains(""))) {
+			return false;
+		}
+		return true;
+	}
+	public boolean isDefault(String name) {
+		if (getSet("default").contains(name)) {
+			return true;
+		}
+		return false;
+	}
 	public boolean isEnumDefault(String name) {
 		if (getSet("enum/default").contains(name)) {
 			return true;
