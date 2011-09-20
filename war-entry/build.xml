@@ -5,29 +5,49 @@
     <property name="config_destination" value="${env.JBOSS_HOME}/server/cspace/conf" />
 	<property name="app_trunk" location=".." />
 
-	<target name="post_build_tasks" description="Various post-build tasks">
-	  <antcall target="deploy_cspace_config"/>
-	  <antcall target="retrieve_jar"/>
+	<property name="app_resources_dir" location="${app_trunk}/tomcat-main/src/main/resources"/>
+	<target name="post_build_tasks" description="Various post-build tasks" depends="deploy_cspace_config, deploy_nightly_config, retrieve_jar"></target>
+	<target name="deploy_cspace_config" description="Copies application layer config files to their deployed locations">
+	<!--
+	Copy defaults and tenants folders and all of their contents
+	-->
+	<copy todir="${config_destination}/defaults" overwrite="true">
+	<fileset dir="${app_resources_dir}/defaults" includes="*/**"/>
+	</copy>
+	<copy todir="${config_destination}/tenants" overwrite="true">
+	<fileset dir="${app_resources_dir}/tenants" includes="*/**"/>
+	</copy>
+	<!-- Copy cspace-config files -->
+	<copy todir="${config_destination}" overwrite="true">
+	<fileset dir="${app_resources_dir}"/>
+	<globmapper from="*-tenant.xml" to="cspace-config-*.xml"/>
+	</copy>
 	</target>
-
-	<target name="deploy_cspace_config" description="Copies the war and xml file to their locations">
-		<copy todir="${config_destination}/tenants">
-			<fileset dir="${app_trunk}/tomcat-main/src/main/resources/tenants/" includes="**"/>
-		</copy>
-		<copy todir="${config_destination}/defaults">
-			<fileset dir="${app_trunk}/tomcat-main/src/main/resources/defaults/" includes="**"/>
-		</copy>
-
-		<copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/core/nightly-settings.xml" tofile="${config_destination}/tenants/core/local-settings.xml" />
-		<copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/lifesci/nightly-settings.xml" tofile="${config_destination}/tenants/lifesci/local-settings.xml" />
-	      
-		<copy file="${app_trunk}/tomcat-main/src/main/resources/core-tenant.xml" tofile="${config_destination}/cspace-config-core.xml" />
-		<copy file="${app_trunk}/tomcat-main/src/main/resources/lifesci-tenant.xml" tofile="${config_destination}/cspace-config-lifesci.xml" />
+	<target name="deploy_nightly_config" description="Copies host-specific settings files for the CollectionSpace project's Nightly host" depends="localhost_is_nightly" if="${is.nightly}">
+	<copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/core/nightly-settings.xml" tofile="${config_destination}/tenants/core/local-settings.xml"/>
+	<copy file="${app_trunk}/tomcat-main/src/main/resources/tenants/lifesci/nightly-settings.xml" tofile="${config_destination}/tenants/lifesci/local-settings.xml"/>
 	</target>
-
+	<target name="localhost_is_nightly" description="Identifies whether this build is running on the CollectionSpace project's Nightly host">
+	<!-- Get host settings for the Nightly host via DNS -->
+	<hostinfo prefix="nightly.host" host="nightly.collectionspace.org"/>
+	<!-- Get host settings for the local host -->
+	<hostinfo prefix="local.host"/>
+	<!-- Uncomment for debugging -->
+	<!-- echo message="${nightly.host.ADDR4}" / -->
+	<!-- echo message="${local.host.ADDR4}" / -->
+	<!--
+	Compare the IPv4 addresses of the Nightly host and of the local host
+	-->
+	<!-- If they match, we're running on Nightly -->
+	<condition property="is.nightly">
+	<equals arg1="${nightly.host.ADDR4}" arg2="${local.host.ADDR4}"/>
+	</condition>
+	<!-- Uncomment for debugging -->
+	<!-- echo message="is.nightly=${is.nightly}" / -->
+	</target>
 	<target name="retrieve_jar" description="Retrieves the JAR for command-line use">
-		<copy file="${app_trunk}/tomcat-main/target/tomcat-main.one-jar.jar" tofile="${config_destination}/cspace.jar" />
+	<copy file="${app_trunk}/tomcat-main/target/tomcat-main.one-jar.jar" tofile="${config_destination}/cspace.jar"/>
 	</target>
-
 </project>
+
 
