@@ -46,7 +46,7 @@
         <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
         <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
         <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-        <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
     </section>
     <section>
         <field id="displayName" ui-search="repeatable" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
