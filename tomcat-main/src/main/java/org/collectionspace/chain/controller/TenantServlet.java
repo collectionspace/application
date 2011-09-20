@@ -1,5 +1,8 @@
 package org.collectionspace.chain.controller;
 
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -280,7 +283,7 @@ public class TenantServlet extends HttpServlet {
 		return true;
 	}
 	
-	protected boolean serveFixedContent(ServletContext sc,String path, String tenant, HttpServletResponse servlet_response) throws IOException{
+	protected List<String> possiblepaths(String path, String tenant, Boolean withdefaults){
 		List<String> testpaths =new ArrayList<String>();
 		testpaths.add("/"+tenant+path);
 		testpaths.add(path);
@@ -290,10 +293,16 @@ public class TenantServlet extends HttpServlet {
 		}
 		testpaths.add("/tenants/"+tenant+"/html"+path);
 		testpaths.add("/tenants/"+tenant+""+path);
-		testpaths.add("/defaults/html"+path);
-		testpaths.add("/defaults"+path);
+		if(withdefaults){
+			testpaths.add("/defaults/html"+path);
+			testpaths.add("/defaults"+path);
+		}
+		return testpaths;
+	}
+	
+	protected boolean serveFixedContent(ServletContext sc,String path, String tenant, HttpServletResponse servlet_response) throws IOException{
+		List<String> testpaths =possiblepaths(path, tenant, true);
 		InputStream is = null;
-		InputStream output = null;
 		while( is == null && testpaths.size()> 0){
 			String path2 = testpaths.remove(0);
 			is=sc.getResourceAsStream(path2);
@@ -309,17 +318,7 @@ public class TenantServlet extends HttpServlet {
 	}
 
 	protected InputStream getFixedContent(ServletContext sc,String path, String tenant){
-		List<String> testpaths =new ArrayList<String>();
-		testpaths.add("/"+tenant+path);
-		testpaths.add(path);
-		
-		if(path.startsWith("/"+tenant+"/")){
-			path = path.replace("/"+tenant+"/", "/");
-		}
-		testpaths.add("/tenants/"+tenant+"/html"+path);
-		testpaths.add("/tenants/"+tenant+""+path);
-		testpaths.add("/defaults/html"+path);
-		testpaths.add("/defaults"+path);
+		List<String> testpaths =possiblepaths(path, tenant, true);
 		InputStream is = null;
 		while( is == null && testpaths.size()> 0){
 			is=sc.getResourceAsStream(testpaths.remove(0));
@@ -327,8 +326,128 @@ public class TenantServlet extends HttpServlet {
         return is;
 		
 	}
+	/**
+	 * do a key value merge and write file to tenant so it is there for next time
+	 * @param servlet_request
+	 * @param servlet_response
+	 * @param sc
+	 * @param path
+	 * @param tenant
+	 * @return
+	 */
+
+	protected boolean serverCreateMergedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path, String tenant) throws IOException{
+		//is there a tenant specific file instead of an overlay
+		String origfile = path;
+		List<String> testpaths_orig =possiblepaths(origfile, tenant, false);
+		InputStream is_default = null;
+		InputStream is = null;
+		String path2 = "";
+		String mimetype = "";
+		while( is == null && testpaths_orig.size()> 0){
+			path2 = testpaths_orig.remove(0);
+			is=sc.getResourceAsStream(path2);
+		}
+		if(is != null){
+			mimetype = sc.getMimeType(path2);
+			servlet_response.setContentType(mimetype);
+			ServletOutputStream out = servlet_response.getOutputStream();
+			IOUtils.copy(is,out);
+			return true;
+		}
+		//no tenant specific - so lets look for an overlay file
+		String defaultfile = path;
+		String overlayext = "-overlay";
+		path = path + overlayext;
+		List<String> testpaths =possiblepaths(path, tenant, false);
+		List<String> testpathswdefault =possiblepaths(defaultfile, tenant, true);
+		String tenantpath = "";
+		while( is == null && testpaths.size()> 0){
+			tenantpath = testpaths.remove(0);
+			is=sc.getResourceAsStream(tenantpath);
+		}
+		
+
+		while( is_default == null && testpathswdefault.size()> 0){
+			String pt = testpathswdefault.remove(0);
+			is_default=sc.getResourceAsStream(pt);
+			mimetype = sc.getMimeType(pt);
+		}
+		if(is_default == null)
+			return false; //no file to use at all
+		
+		if(is!=null){
+			//file to be written
+			tenantpath = tenantpath.substring(0, tenantpath.length() - overlayext.length());
+			
+			Map<String, String> allStrings = new HashMap<String, String>();
+			StringWriter writer2 = new StringWriter();
+			IOUtils.copy(is_default, writer2, "UTF-8");
+			String theString2 = writer2.toString();
+
+			String[] temp = theString2.split("\n");
+			for(int i =0; i < temp.length ; i++){
+				String[] temp2 = temp[i].split(":");
+				if(temp2.length ==2){
+					allStrings.put(temp2[0], temp2[1]);
+				}
+				else if(temp2.length ==1){
+					allStrings.put(temp[i], "");
+				}
+				else{
+					allStrings.put(temp[i], "");
+				}
+			}
+
+			StringWriter writer = new StringWriter();
+			IOUtils.copy(is, writer, "UTF-8");
+			String theString = writer.toString();
+			
+	
+			String[] temp3 = theString.split("\n");
+			for(int i =0; i < temp3.length ; i++){
+				String[] temp2 = temp3[i].split(":");
+				if(temp2.length ==2){
+					allStrings.put(temp2[0], temp2[1]);
+				}
+				else if(temp2.length ==1){
+					allStrings.put(temp3[i], "");
+				}
+				else{
+					allStrings.put(temp3[i], "");
+				}
+			}
+			
+
+			String theStringNew = "";
+			for (String key : allStrings.keySet()) {
+				theStringNew += key;
+				if(!allStrings.get(key).equals("")){
+					theStringNew += ":"+allStrings.get(key);
+				}
+				theStringNew += "\n";
+			}
+			is_default = new ByteArrayInputStream(theStringNew.getBytes("UTF-8"));
+			String test = sc.getRealPath(tenantpath);
+			FileWriter fstream = new FileWriter(test);
+			BufferedWriter outer = new BufferedWriter(fstream);
+			outer.write(theStringNew);
+			//Close the output stream
+			outer.close();
+		}
+
+		ServletOutputStream out = servlet_response.getOutputStream();
+		servlet_response.setContentType(mimetype);
+		IOUtils.copy(is_default,out);
+		if(is_default==null)
+			return false; // Not for us
+		
+			
+		return true;
+	}
+	
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path, String tenant) throws IOException{
-		//InputStream is = getFixedContent( sc, path,  tenant, servlet_response);
+		//InputStream is = getFixedContent( sc, path,  tenant);
         return serveFixedContent(sc, path,  tenant, servlet_response);
 	}
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path) throws IOException{

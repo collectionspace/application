@@ -47,6 +47,7 @@ public class TenantUIServlet extends TenantServlet {
 		String[] pathbits = pathinfo.substring(1).split("/");
 		String urlredirect = "/collectionspace/ui/"+tenant+"/html/index.html";
 		
+		//clean up bad links
 		if (pathinfo.equals("/html") || pathinfo.equals("/html/")) {
 			servlet_response.sendRedirect(urlredirect);
 		}
@@ -66,10 +67,17 @@ public class TenantUIServlet extends TenantServlet {
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,"missing servlet context cspace-ui");
 		}
 
-		if(pathbits[0].equals("css") || pathbits[0].equals("js") || pathbits[0].equals("lib") || pathbits[0].equals("bundle") || pathbits[0].equals("images") ){
+		if(pathbits[0].equals("css") || pathbits[0].equals("js") || pathbits[0].equals("lib") || pathbits[0].equals("images") ){
 			String tenantposs = getTenantByCookie(servlet_request);
 			if (serverFixedExternalContent(servlet_request, servlet_response,
 					sc, pathinfo, tenantposs)) {
+				return;
+			}
+		}
+		if(pathbits[0].equals("bundle")){
+			String tenantposs = getTenantByCookie(servlet_request);
+			if(serverCreateMergedExternalContent(servlet_request, servlet_response,
+					sc, pathinfo, tenantposs)){
 				return;
 			}
 		}
@@ -140,6 +148,12 @@ public class TenantUIServlet extends TenantServlet {
 			}
 		}
 
+		if(pathbits[1].equals("bundle")){
+			if(serverCreateMergedExternalContent(servlet_request, servlet_response,
+					sc, pathinfo, tenant)){
+				return;
+			}
+		}
 		if (serverFixedExternalContent(servlet_request, servlet_response,
 				sc, path, tenant)) {
 			return;
