@@ -244,7 +244,13 @@
             "messagekey": "location-nameLabel"
         },
         ".csc-location-displayName": "${fields.displayName}",
-        ".csc-location-updatedAt": "${fields.updatedAt}",
+        ".csc-location-updatedAt": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.updatedAt}"
+        },
         ".csc-location-conditionNoteDate-label": {
             "messagekey": "location-conditionNoteDateLabel"
         },
