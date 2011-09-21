@@ -336,13 +336,13 @@ public class TestNameThroughWebapp extends TestBase{
 		log.info("NAME: NamesCreateUpdateDelete: test_end");
 		}
 		
-		//@Test 
-		public void testNamesCreateUpdateDelete() throws Exception {
+	@Test 
+	public void testNamesCreateUpdateDelete() throws Exception {
 			log.info("NAME: NamesCreateUpdateDelete: test_start");
 			ServletTester jetty=setupJetty();
 			// Create
 			log.info("NAME: NamesCreateUpdateDelete: CREATE");
-			JSONObject data=new JSONObject("{'csid':'','fields':{'displayName':'XXXTESTFred Bloggs', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
+			JSONObject data=new JSONObject("{'csid': '','fields': {'displayName': 'XXXTESTFred Bloggs','contact': {'emailGroup': [{'email': 'test@example.com','emailType': 'home' }],'addressGroup': [{'addressPlace1': 'addressPlace1','addressPlace2': 'addressPlace2','addressMunicipality': 'addressMunicipality','addressStateOrProvince': 'addressStateOrProvince', 'addressPostCode': 'addressPostCode','addressCountry': 'addressCountry' }, {'addressPlace1': 'SECOND_addressPlace1','addressPlace2': 'SECOND_addressPlace2','addressMunicipality': 'SECOND_addressMunicipality','addressStateOrProvince': 'SECOND_addressStateOrProvince','addressPostCode': 'SECOND_addressPostCode', 'addressCountry': 'SECOND_addressCountry'}]} }}");
 			HttpTester out = POSTData("/vocabularies/person/",data,jetty);
 			String url=out.getHeader("Location");
 			log.info(out.getContent());
@@ -357,7 +357,7 @@ public class TestNameThroughWebapp extends TestBase{
 		// Update
 		log.info("NAME: NamesCreateUpdateDelete: UPDATE"+updatefields.toString());
 		updatefields.put("displayName", "XXXTESTOwain Glyndwr");
-		updatefields.getJSONObject("contact").put("addressPlace", "addressPlace");
+		updatefields.getJSONObject("contact").getJSONArray("emailGroup").getJSONObject(0).put("emailType", "newtype");
 		data = new JSONObject();
 		data.put("fields", updatefields);
 		//data=new JSONObject("{'fields':{'displayName':'XXXTESTOwain Glyndwr', 'contact': {'addressType': 'DDD',  'faxNumber': 'ADDDDAA'}}}");
@@ -370,6 +370,7 @@ public class TestNameThroughWebapp extends TestBase{
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
 		assertEquals("XXXTESTOwain Glyndwr",data.getString("displayName"));
+		assertEquals("newtype",data.getJSONObject("contact").getJSONArray("emailGroup").getJSONObject(0).getString("emailType"));
 		// Delete
 		log.info("NAME: NamesCreateUpdateDelete: DELETE");
 		DELETEData("/vocabularies/"+url,jetty);
