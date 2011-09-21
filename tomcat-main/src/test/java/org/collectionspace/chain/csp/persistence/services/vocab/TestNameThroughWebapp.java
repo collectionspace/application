@@ -336,7 +336,8 @@ public class TestNameThroughWebapp extends TestBase{
 		log.info("NAME: NamesCreateUpdateDelete: test_end");
 		}
 		
-		@Test public void testNamesCreateUpdateDelete() throws Exception {
+		//@Test 
+		public void testNamesCreateUpdateDelete() throws Exception {
 			log.info("NAME: NamesCreateUpdateDelete: test_start");
 			ServletTester jetty=setupJetty();
 			// Create
