@@ -1,70 +1,69 @@
 {
     "acquisition": {
         ".csc-recordList-row:": {
-            "children": [
-                {
-                    ".csc-summary": "${items.0.summary}",
-                    ".csc-entry-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "acquisition.html?csid=${items.0.csid}"
-                    }
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "acquisition.html?csid=${items.0.csid}"
                 }
-            ]
+            }]
         }
     },
     "intake": {
         ".csc-recordList-row:": {
-            "children": [
-                {
-                    ".csc-summary": "${items.0.summary}",
-                    ".csc-entry-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "intake.html?csid=${items.0.csid}"
-                    }
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "intake.html?csid=${items.0.csid}"
                 }
-            ]
+            }]
         }
     },
     "movement": {
         ".csc-recordList-row:": {
-            "children": [
-                {
-                    ".csc-summary": "${items.0.summary}",
-                    ".csc-entry-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "movement.html?csid=${items.0.csid}"
-                    }
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "movement.html?csid=${items.0.csid}"
                 }
-            ]
+            }]
         }
     },
-    "authorityTerms": {
-
-    },
+    "authorityTerms": {},
     "loanin": {
         ".csc-recordList-row:": {
-            "children": [
-                {
-                    ".csc-summary": "${items.0.summary}",
-                    ".csc-entry-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "loanin.html?csid=${items.0.csid}"
-                    }
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "loanin.html?csid=${items.0.csid}"
                 }
-            ]
+            }]
         }
     },
     "loanout": {
         ".csc-recordList-row:": {
-            "children": [
-                {
-                    ".csc-summary": "${items.0.summary}",
-                    ".csc-entry-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "loanout.html?csid=${items.0.csid}"
-                    }
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "loanout.html?csid=${items.0.csid}"
                 }
-            ]
+            }]
+        }
+    },
+    "group": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "group.html?csid=${items.0.csid}"
+                }
+            }]
         }
     },
     "media": {
@@ -80,41 +79,35 @@
     },
     "cataloging": {
         ".csc-recordList-row:": {
-            "children": [
-                {
-                    ".csc-entry-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "cataloging.html?csid=${items.0.csid}"
-                    },
-                    ".csc-summary": "${items.0.summary}"
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "cataloging.html?csid=${items.0.csid}"
                 }
-            ]
+            }]
+        }
+    },
+    "taxon": {
+        ".csc-recordList-row:": {
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "taxon.html?csid=${items.0.csid}"
+                }
+            }]
         }
     },
     "objectexit": {
         ".csc-recordList-row:": {
-            "children": [
-                {
-                    ".csc-summary": "${items.0.summary}",
-                    ".csc-entry-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "objectexit.html?csid=${items.0.csid}"
-                    }
+            "children": [{
+                ".csc-summary": "${items.0.summary}",
+                ".csc-entry-number": {
+                    "linktext": "${items.0.number}",
+                    "target": "objectexit.html?csid=${items.0.csid}"
                 }
-            ]
-        }
-    },
-    "group": {
-        ".csc-recordList-row:": {
-            "children": [
-                {
-                    ".csc-summary": "${items.0.summary}",
-                    ".csc-entry-number": {
-                        "linktext": "${items.0.number}",
-                        "target": "group.html?csid=${items.0.csid}"
-                    }
-                }
-            ]
+            }]
         }
     }
 }

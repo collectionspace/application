@@ -12,6 +12,10 @@
             "location": {
                 "default": ["location"],
                 "type": "array"
+            },
+            "taxon": {
+                "default": ["taxon"],
+                "type": "array"
             }
         },
         "type": "object"
