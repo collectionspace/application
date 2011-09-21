@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ns2:contacts_common xmlns:ns2="http://collectionspace.org/services/contact">
-  <email>email@example.com</email>
-  <addressPlace>Anytown, USA</addressPlace>
+<ns2:contacts_common xmlns:ns2="http://collectionspace.org/services/contact" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<inAuthority>foo</inAuthority>
+<emailGroupList>
+<emailGroup>
+<emailType>home</emailType>
+<email>test@example.com</email>
+</emailGroup>
+</emailGroupList>
 </ns2:contacts_common>
 

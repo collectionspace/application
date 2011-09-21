@@ -214,7 +214,7 @@ public class TestService extends ServicesBaseClass {
 
 	}
 
-	//@Test 
+	@Test 
 	public void testPersonContactPostViaCSIDs() throws Exception {
 		String filename = "";
 		String partname = "";
@@ -318,8 +318,7 @@ public class TestService extends ServicesBaseClass {
 		filename = "personItemContact.xml";
 		log.info("ADDING CONTACT USING THIS URL " + serviceurl);
 		testPostGetDelete(serviceurl.toString(), partname, filename,
-				"contacts_common/email", "email@example.com");
-
+				"contacts_common/emailGroupList/emailGroup/email", "test@example.com");
 		// DELETE (Delete) the person item within the person authority
 		status = conn
 				.getNone(RequestMethod.DELETE, itemUrl, null, creds, cache);
@@ -360,7 +359,7 @@ public class TestService extends ServicesBaseClass {
 
 	}
 
-	//@Test	
+	@Test	
 	public void testPersonContactPostViaShortId() throws Exception {
 		String filename = "";
 		String partname = "";
@@ -492,7 +491,7 @@ public class TestService extends ServicesBaseClass {
 		filename = "personItemContact.xml";
 		log.info("ADDING CONTACT USING THIS URL " + serviceurl);
 		testPostGetDelete(serviceurl.toString(), partname, filename,
-				"contacts_common/email", "email@example.com");
+				"contacts_common/emailGroupList/emailGroup/email", "test@example.com");
 
 		// DELETE (Delete) the person item within the person authority
 		status = conn
