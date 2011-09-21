@@ -115,7 +115,7 @@ public class UISchema extends UISpec {
 		for(FieldSet fs2 : subitems.getAllFields("")) {
 			generateDataEntry(protoTree, fs2,context);
 		}
-		protoTree.put("_primary", generateSchemaObject("boolean", null,
+		protoTree.put("_primary", generateSchemaObject("boolean", true,
 					null, null));
 		
 		items = generateSchemaObject("object", null, protoTree, null);
@@ -186,7 +186,7 @@ public class UISchema extends UISpec {
 			}
 		}
 		if (r.hasPrimary()) {
-			protoTree.put("_primary", generateSchemaObject("boolean", null,
+			protoTree.put("_primary", generateSchemaObject("boolean", true,
 					null, null));
 		}
 		items = generateSchemaObject("object", null, protoTree, null);
