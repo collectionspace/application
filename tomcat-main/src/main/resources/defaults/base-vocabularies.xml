@@ -191,8 +191,8 @@
                         <title>Age Qualifier</title>
                         <options>
                             <option id="approximately">approximately</option>
-                            <option id="older-than">older than</option>
-                            <option id="younger-than">younger than</option>
+                            <option id="olderthan">older than</option>
+                            <option id="youngerthan">younger than</option>
                         </options>
                     </instance>
                     <instance id="vocab-dateCertainty">
