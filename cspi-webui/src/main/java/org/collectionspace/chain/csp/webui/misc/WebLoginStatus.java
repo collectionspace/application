@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.webui.misc;
 
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
@@ -65,6 +66,27 @@ public class WebLoginStatus  implements WebMethod {
 				String resourceName = Generic.ResourceNameUI(spec,active.getJSONObject(j).getString("resourceName"));
 				JSONArray permissions = Generic.PermissionLevelArray(active.getJSONObject(j).getString("actionGroup"));
 				perms.put(resourceName, permissions);
+			}
+			//currently you can' assign authority vocabulary permissions uniquely so they are munged here for the UI 
+			//eventually you will need to pivot from /personauthorities/{csid} to the vocab instance
+			//this currently sets the perms of the instance to that of the auth
+			for (Record r: spec.getAllRecords()){
+				if(r.isType("authority")){
+					for(Instance ins: r.getAllInstances()){
+						JSONArray permsdata = new JSONArray();
+						if(r.getWebURL().equals("vocab")){
+							if(perms.has("vocabularyitems")){
+								permsdata = perms.getJSONArray("vocabularyitems");
+							}
+						}
+						else{
+							if(perms.has(r.getWebURL())){
+								permsdata = perms.getJSONArray(r.getWebURL());
+							}
+						}
+						perms.put(ins.getID(), permsdata);
+					}
+				}
 			}
 		}
 		else{
