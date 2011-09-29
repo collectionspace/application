@@ -614,6 +614,7 @@ public class UISpec implements WebMethod {
 		String type = f.getDataType();
 		if(type.equals("")){type = "string";}
 		options.put("type",type);
+		options.put("label",f.getLabel());
 		JSONObject decorator=getDecorator("fluid",null,"cspace.inputValidator",options);
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
