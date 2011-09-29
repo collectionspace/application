@@ -374,6 +374,7 @@ public class TestService extends ServicesBaseClass {
 		String xpath = "";
 		String authShortId = null;
 		final String NAME_FORM = "name(";
+		final String NAME_FORMEND = ")";
 		final String ID_FORM = "id(";
 
 		// POST (Create) a person authority
@@ -413,7 +414,7 @@ public class TestService extends ServicesBaseClass {
 		log.info("Value of XPath expression '" + xpath + "' = " + text);
 		assert (text.contains("urn:cspace:"));
 		if (text.contains(NAME_FORM)) {
-			authShortId = text.substring(text.indexOf(NAME_FORM));
+			authShortId = "urn:cspace:" + text.substring(text.indexOf(NAME_FORM),text.indexOf(NAME_FORMEND)) + ")";
 		} else if (text.contains(ID_FORM)) {
 			authShortId = text.substring(text.indexOf(ID_FORM));
 		}
@@ -435,6 +436,7 @@ public class TestService extends ServicesBaseClass {
 			url = conn.getURL(RequestMethod.POST, serviceurl.toString(),
 					getDocument(filename), creds, cache);
 		}
+		//http://localhost:8180/cspace-services/personauthorities/urn:cspace:name(CSPACE3739PersonAuthority)/items/
 		assertEquals(201, url.getStatus());
 		String itemUrl = url.getURL();
 		String itemId = url.getURLTail();

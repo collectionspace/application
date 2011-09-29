@@ -2,10 +2,6 @@
   <ns2:persons_common xmlns:ns2="http://collectionspace.org/services/person">
   <displayName>John Wayne May 26, 1907-June 11, 1979</displayName>
   <displayNameComputed>true</displayNameComputed>
-  <refName>
-    urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(john)'John Wayne May 26, 1907-June 11, 1979'
-  </refName>
-  <shortIdentifier>johnwayne</shortIdentifier>
   <foreName>John</foreName>
   <middleName></middleName>
   <surName>Wayne</surName>
