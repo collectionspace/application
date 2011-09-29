@@ -35,6 +35,7 @@
                                                 "func": "cspace.inputValidator",
                                                 "type": "fluid",
                                                 "options": {
+                                                    "label": "acquisition-acquisitionFundingValueLabel",
                                                     "type": "float"
                                                 }
                                             }],
@@ -162,6 +163,7 @@
                 "func": "cspace.inputValidator",
                 "type": "fluid",
                 "options": {
+                    "label": "acquisition-groupPurchasePriceValueLabel",
                     "type": "float"
                 }
             }],
@@ -201,6 +203,7 @@
                 "func": "cspace.inputValidator",
                 "type": "fluid",
                 "options": {
+                    "label": "acquisition-objectPurchaseOfferPriceValueLabel",
                     "type": "float"
                 }
             }],
@@ -236,6 +239,7 @@
                 "func": "cspace.inputValidator",
                 "type": "fluid",
                 "options": {
+                    "label": "acquisition-originalObjectPurchasePriceValueLabel",
                     "type": "float"
                 }
             }],
@@ -252,6 +256,7 @@
                 "func": "cspace.inputValidator",
                 "type": "fluid",
                 "options": {
+                    "label": "acquisition-objectPurchasePriceValueLabel",
                     "type": "float"
                 }
             }],
