@@ -211,9 +211,15 @@
         ".csc-location-createdAt": "${fields.createdAt}",
         ".csc-location-accessNote": "${fields.accessNote}",
         ".csc-location-type": {
-            "optionnames": ["Building", "Drawer", "Please select a value", "Room", "Shelf", "Tray", "Unit"],
-            "optionlist": ["", "building", "drawer", "room", "shelf", "tray", "unit"],
-            "selection": "${fields.locationType}"
+            "decorators": [{
+                "func": "cspace.termList",
+                "type": "fluid",
+                "options": {
+                    "root": "{row}",
+                    "elPath": "locationType",
+                    "termListType": "locationType"
+                }
+            }]
         },
         ".csc-location-termStatus": {
             "default": "provisional",

@@ -76,9 +76,15 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-intake-fieldCollectionMethod": {
-                                            "optionnames": ["Please select a value", "borehole", "commissioned", "exchanged", "found dead", "metal detector", "netted", "photographed", "purchased", "salvaged", "shot", "trapped"],
-                                            "optionlist": ["", "borehole", "commissioned", "exchanged", "founddead", "metaldetector", "netted", "photographed", "purchased", "salvaged", "shot", "trapped"],
-                                            "selection": "${{row}.fieldCollectionMethod}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "fieldCollectionMethod",
+                                                    "termListType": "fieldCollectionMethod"
+                                                }
+                                            }]
                                         }
                                     },
                                     "type": "fluid.renderer.repeat",
@@ -374,9 +380,15 @@
                                     "tree": {
                                         ".csc-intake-current-location": "${{row}.currentLocation}",
                                         ".csc-intake-current-location-fitness": {
-                                            "optionnames": ["Dangerous", "Please select a value", "Reasonable", "Suitable", "Unsuitable"],
-                                            "optionlist": ["", "dangerous", "reasonable", "suitable", "unsuitable"],
-                                            "selection": "${{row}.currentLocationFitness}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "currentLocationFitness",
+                                                    "termListType": "currentLocationFitness"
+                                                }
+                                            }]
                                         },
                                         ".csc-intake-current-location-note": "${{row}.currentLocationNote}"
                                     },
@@ -410,9 +422,15 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-intake-conditionCheckMethod": {
-                                            "optionnames": ["Observed", "Please select a value", "X-Rayed"],
-                                            "optionlist": ["", "observed", "xrayed"],
-                                            "selection": "${{row}.conditionCheckMethod}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "conditionCheckMethod",
+                                                    "termListType": "conditionCheckMethod"
+                                                }
+                                            }]
                                         }
                                     },
                                     "type": "fluid.renderer.repeat",
@@ -442,9 +460,15 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-intake-conditionCheckReason": {
-                                            "optionnames": ["Conservation", "Consideration", "Damaged in transit", "Enquiry", "Loan in", "Please select a value"],
-                                            "optionlist": ["", "conservation", "consideration", "damagedintransit", "enquiry", "loanin"],
-                                            "selection": "${{row}.conditionCheckReason}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "conditionCheckReason",
+                                                    "termListType": "conditionCheckReason"
+                                                }
+                                            }]
                                         }
                                     },
                                     "type": "fluid.renderer.repeat",
@@ -592,9 +616,15 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-intake-entryMethod": {
-                                            "optionnames": ["Found on doorstep", "In person", "Please select a value", "Post"],
-                                            "optionlist": ["", "foundondoorstep", "inperson", "post"],
-                                            "selection": "${{row}.entryMethod}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "entryMethod",
+                                                    "termListType": "entryMethod"
+                                                }
+                                            }]
                                         }
                                     },
                                     "type": "fluid.renderer.repeat",

@@ -289,49 +289,21 @@ public class UISpec implements WebMethod {
 	}
 
 	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
-		//XXX cache the controlled list as they shouldn't be changing if they are hard coded into the uispec
-		//XXX they shouldn't really be in the uispec but they are here until the UI and App decide how to communicate about them
-		
-		JSONArray getallnames = ctl.get(this.storage, f.getAutocompleteInstance().getTitleRef(),this.spec.getRecord("vocab"));
-		JSONArray ids=new JSONArray();
-		JSONArray names=new JSONArray();
-		int dfault = -1;
-		int spacer =0;
-		if(f.hasEnumBlank() || (this.spectype.equals("search") && !f.getSearchType().equals(""))){
-			ids.put("");
-			names.put(f.enumBlankValue());
-			spacer = 1;
+		JSONObject out = new JSONObject();
+		JSONArray decorator = new JSONArray();
+		JSONObject options = new JSONObject();
+		if(f.getParent() instanceof Repeat){
+			options.put("elPath", f.getID());
+			options.put("root", "{row}");
 		}
-		for(int i=0;i<getallnames.length();i++) {
-			JSONObject namedata = getallnames.getJSONObject(i);
-			String name = namedata.getString("displayName");
-			String shortId="";
-			if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
-				shortId = namedata.getString("shortIdentifier");
-			}
-			else{
-				shortId = name.replaceAll("\\W","");					
-			}
-			//currently only supports single select dropdowns and not multiselect
-			if(f.isEnumDefault(name)){
-				dfault = i + spacer;
-			}
-			ids.put(shortId.toLowerCase());
-			names.put(name);
+		else{
+			options.put("elPath", veryplainWithoutEnclosure(f,context));
 		}
-		// Dropdown entry pulled from service layer data
-		JSONObject out=new JSONObject();
-		out.put("selection",plain(f,context));
-
-
-		if(this.spectype.equals("search") && !f.getSearchType().equals("")){
-			dfault=-1;
-		}
-
-		if(dfault!=-1)
-			out.put("default",dfault+"");
-		out.put("optionlist",ids);
-		out.put("optionnames",names);	
+		options.put("termListType", f.getID());
+		JSONObject decdata = getDecorator("fluid", null, "cspace.termList", options);
+		decorator.put(decdata);
+		out.put("decorators", decorator);
+	
 		return out;
 	}
 	

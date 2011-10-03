@@ -35,6 +35,7 @@ import org.collectionspace.chain.csp.webui.mediablob.BlobRead;
 import org.collectionspace.chain.csp.webui.misc.VocabRedirector;
 import org.collectionspace.chain.csp.webui.misc.WebAuto;
 import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
+import org.collectionspace.chain.csp.webui.misc.WebTermList;
 import org.collectionspace.chain.csp.webui.misc.WebLogin;
 import org.collectionspace.chain.csp.webui.misc.WebLoginStatus;
 import org.collectionspace.chain.csp.webui.misc.WebLogout;
@@ -210,6 +211,7 @@ public class WebUI implements CSP, UI, Configurable {
 			addMethod(Operation.READ,new String[]{r.getWebURL(),"uispec"},0,new UISpec(r,"screen"));
 			addMethod(Operation.READ,new String[]{r.getTabURL(),"uispec"},0,new UISpec(r,"tab"));
 			addMethod(Operation.READ,new String[]{r.getSearchURL(),"uispec"},0,new UISpec(r,"search"));
+			addMethod(Operation.READ,new String[]{r.getWebURL(),"termList"},1,new WebTermList(r));
 			
 			if(r.isType("authority")){
 				//urls like record urls to make life easier for the UI CSPACE-1139

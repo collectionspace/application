@@ -325,9 +325,15 @@
                                 "repeatID": "repeat:",
                                 "tree": {
                                     ".csc-intake-entryMethod": {
-                                        "optionnames": ["Found on doorstep", "In person", "Please select a value", "Post"],
-                                        "optionlist": ["", "foundondoorstep", "inperson", "post"],
-                                        "selection": "${{row}.entryMethod}"
+                                        "decorators": [{
+                                            "func": "cspace.termList",
+                                            "type": "fluid",
+                                            "options": {
+                                                "root": "{row}",
+                                                "elPath": "entryMethod",
+                                                "termListType": "entryMethod"
+                                            }
+                                        }]
                                     }
                                 },
                                 "type": "fluid.renderer.repeat",
@@ -365,3 +371,4 @@
         "messagekey": "intake-currentLocationNoteLabel"
     }
 }
+

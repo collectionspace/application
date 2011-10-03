@@ -1,9 +1,14 @@
 {
     "recordEditor": {
         ".csc-acquisition-object-purchase-price-currency": {
-            "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
-            "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
-            "selection": "${fields.objectPurchasePriceCurrency}"
+            "decorators": [{
+                "func": "cspace.termList",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.objectPurchasePriceCurrency",
+                    "termListType": "objectPurchasePriceCurrency"
+                }
+            }]
         },
         ".csc-acquisition-creditLine": "${fields.creditLine}",
         ".csc-acquisition-acquisitionFunding": {
@@ -42,9 +47,15 @@
                                             "value": "${{row}.acquisitionFundingValue}"
                                         },
                                         ".csc-acquisition-acquisitionFundingCurrency": {
-                                            "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
-                                            "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
-                                            "selection": "${{row}.acquisitionFundingCurrency}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "acquisitionFundingCurrency",
+                                                    "termListType": "acquisitionFundingCurrency"
+                                                }
+                                            }]
                                         }
                                     },
                                     "type": "fluid.renderer.repeat",
@@ -148,9 +159,14 @@
             "value": "${fields.accessionDate}"
         },
         ".csc-acquisition-group-purchase-price-currency": {
-            "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
-            "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
-            "selection": "${fields.groupPurchasePriceCurrency}"
+            "decorators": [{
+                "func": "cspace.termList",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.groupPurchasePriceCurrency",
+                    "termListType": "groupPurchasePriceCurrency"
+                }
+            }]
         },
         ".csc-acquisition-acquisitionProvisos-label": {
             "messagekey": "acquisition-acquisitionProvisosLabel"
@@ -291,9 +307,14 @@
         },
         ".csc-acquisition-tenantID": "${fields.tenantID}",
         ".csc-acquisition-object-offer-price-currency": {
-            "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
-            "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
-            "selection": "${fields.objectOfferPriceCurrency}"
+            "decorators": [{
+                "func": "cspace.termList",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.objectOfferPriceCurrency",
+                    "termListType": "objectOfferPriceCurrency"
+                }
+            }]
         },
         ".csc-acquisition-originalObjectPurchasePriceCurrency-label": {
             "messagekey": "acquisition-originalObjectPurchasePriceCurrencyLabel"
@@ -302,9 +323,14 @@
             "messagekey": "acquisition-updatedByLabel"
         },
         ".csc-acquisition-object-purchase-offer-price-currency": {
-            "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
-            "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
-            "selection": "${fields.objectPurchaseOfferPriceCurrency}"
+            "decorators": [{
+                "func": "cspace.termList",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.objectPurchaseOfferPriceCurrency",
+                    "termListType": "objectPurchaseOfferPriceCurrency"
+                }
+            }]
         },
         ".csc-acquisition-groupPurchasePriceCurrency-label": {
             "messagekey": "acquisition-groupPurchasePriceCurrencyLabel"
@@ -335,9 +361,14 @@
             }]
         },
         ".csc-acquisition-original-object-purchase-price-currency": {
-            "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
-            "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
-            "selection": "${fields.originalObjectPurchasePriceCurrency}"
+            "decorators": [{
+                "func": "cspace.termList",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.originalObjectPurchasePriceCurrency",
+                    "termListType": "originalObjectPurchasePriceCurrency"
+                }
+            }]
         },
         ".csc-acquisition-acquisitionDate-label": {
             "messagekey": "acquisition-acquisitionDateLabel"

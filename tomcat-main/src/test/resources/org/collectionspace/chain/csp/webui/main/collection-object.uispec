@@ -200,16 +200,28 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-collection-object-titleTranslationLanguage": {
-                                            "optionnames": ["Ancient Greek", "Arabic", "Armenian", "Chinese", "English", "French", "German", "Hebrew", "Indonesian", "Italian", "Japanese", "Korean", "Latin", "Malaysian", "Middle English", "Old English", "Please select a value", "Portuguese", "Romanian", "Russian", "Spanish", "Swahili", "Swedish", "Tagalog", "Yoruba"],
-                                            "optionlist": ["", "ang", "ara", "deu", "eng", "enm", "fra", "grc", "heb", "hye", "ind", "ita", "jpn", "kor", "lat", "mal", "por", "ron", "rus", "spa", "swa", "swe", "tgl", "yor", "zho"],
-                                            "selection": "${{row}.titleTranslationLanguage}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "titleTranslationLanguage",
+                                                    "termListType": "titleTranslationLanguage"
+                                                }
+                                            }]
                                         },
                                         ".csc-object-identification-object-title-translation": "${{row}.titleTranslation}",
                                         ".csc-object-identification-object-title": "${{row}.title}",
                                         ".csc-object-identification-object-title-language": {
-                                            "optionnames": ["Ancient Greek", "Arabic", "Armenian", "Chinese", "English", "French", "German", "Hebrew", "Indonesian", "Italian", "Japanese", "Korean", "Latin", "Malaysian", "Middle English", "Old English", "Please select a value", "Portuguese", "Romanian", "Russian", "Spanish", "Swahili", "Swedish", "Tagalog", "Yoruba"],
-                                            "optionlist": ["", "ang", "ara", "deu", "eng", "enm", "fra", "grc", "heb", "hye", "ind", "ita", "jpn", "kor", "lat", "mal", "por", "ron", "rus", "spa", "swa", "swe", "tgl", "yor", "zho"],
-                                            "selection": "${{row}.titleLanguage}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "titleLanguage",
+                                                    "termListType": "titleLanguage"
+                                                }
+                                            }]
                                         },
                                         ".csc-object-identification-object-title-type": {
                                             "optionnames": ["Assigned by Artist", "Collection", "Generic", "Please select a value", "Popular", "Series", "Trade"],
@@ -667,9 +679,14 @@
             "messagekey": "collection-object-contentLanguagesLabel"
         },
         ".csc-object-description-inscription-content-language": {
-            "optionnames": ["Ancient Greek", "Arabic", "Armenian", "Chinese", "English", "French", "German", "Hebrew", "Indonesian", "Italian", "Japanese", "Korean", "Latin", "Malaysian", "Middle English", "Old English", "Please select a value", "Portuguese", "Romanian", "Russian", "Spanish", "Swahili", "Swedish", "Tagalog", "Yoruba"],
-            "optionlist": ["", "ang", "ara", "deu", "eng", "enm", "fra", "grc", "heb", "hye", "ind", "ita", "jpn", "kor", "lat", "mal", "por", "ron", "rus", "spa", "swa", "swe", "tgl", "yor", "zho"],
-            "selection": "${fields.inscriptionContentLanguage}"
+            "decorators": [{
+                "func": "cspace.termList",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.inscriptionContentLanguage",
+                    "termListType": "inscriptionContentLanguage"
+                }
+            }]
         },
         ".csc-collection-object-materialGroup-label": {
             "messagekey": "collection-object-materialGroupLabel"
@@ -844,9 +861,14 @@
             "messagekey": "collection-object-contentPersonsLabel"
         },
         ".csc-object-description-age-qualifier": {
-            "optionnames": ["Please select a value", "approximately", "older than", "younger than"],
-            "optionlist": ["", "approximately", "olderthan", "youngerthan"],
-            "selection": "${fields.ageQualifier}"
+            "decorators": [{
+                "func": "cspace.termList",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.ageQualifier",
+                    "termListType": "ageQualifier"
+                }
+            }]
         },
         ".csc-object-description-inscription-content-script": {
             "optionnames": ["Carolingian miniscule", "Gothic script", "Palmer method", "Please select a value", "Roman cursive", "Spencerian method", "rustic capitals", "square capitals"],
@@ -1510,20 +1532,35 @@
                                 },
                                 "dateAssociation": "${fields.objectProductionDate.dateAssociation}",
                                 "dateEarliestSingleEra": {
-                                    "optionnames": ["BCE", "CE", "Please select a value"],
-                                    "optionlist": ["", "bce", "ce"],
-                                    "selection": "${fields.objectProductionDate.dateEarliestSingleEra}"
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "elPath": "fields.objectProductionDate.dateEarliestSingleEra",
+                                            "termListType": "dateEarliestSingleEra"
+                                        }
+                                    }]
                                 },
                                 "dateDisplayDate": "${fields.objectProductionDate.dateDisplayDate}",
                                 "dateEarliestSingleCertainty": {
-                                    "optionnames": ["After", "Approximate", "Before", "Circa", "Please select a value", "Possibly", "Probably"],
-                                    "optionlist": ["", "after", "approximate", "before", "circa", "possibly", "probably"],
-                                    "selection": "${fields.objectProductionDate.dateEarliestSingleCertainty}"
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "elPath": "fields.objectProductionDate.dateEarliestSingleCertainty",
+                                            "termListType": "dateEarliestSingleCertainty"
+                                        }
+                                    }]
                                 },
                                 "dateLatestEra": {
-                                    "optionnames": ["BCE", "CE", "Please select a value"],
-                                    "optionlist": ["", "bce", "ce"],
-                                    "selection": "${fields.objectProductionDate.dateLatestEra}"
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "elPath": "fields.objectProductionDate.dateLatestEra",
+                                            "termListType": "dateLatestEra"
+                                        }
+                                    }]
                                 },
                                 "dateEarliestSingleQualifierValue": {
                                     "decorators": [{
@@ -1537,9 +1574,14 @@
                                     "value": "${fields.objectProductionDate.dateEarliestSingleQualifierValue}"
                                 },
                                 "dateLatestCertainty": {
-                                    "optionnames": ["After", "Approximate", "Before", "Circa", "Please select a value", "Possibly", "Probably"],
-                                    "optionlist": ["", "after", "approximate", "before", "circa", "possibly", "probably"],
-                                    "selection": "${fields.objectProductionDate.dateLatestCertainty}"
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "elPath": "fields.objectProductionDate.dateLatestCertainty",
+                                            "termListType": "dateLatestCertainty"
+                                        }
+                                    }]
                                 },
                                 "dateEarliestSingleYear": {
                                     "decorators": [{
@@ -1569,9 +1611,14 @@
                                     "value": "${fields.objectProductionDate.dateLatestQualifierValue}"
                                 },
                                 "dateEarliestSingleQualifierUnit": {
-                                    "optionnames": ["Day(s)", "Month(s)", "Please select a value", "Year(s)"],
-                                    "optionlist": ["", "days", "month", "years"],
-                                    "selection": "${fields.objectProductionDate.dateEarliestSingleQualifierUnit}"
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "elPath": "fields.objectProductionDate.dateEarliestSingleQualifierUnit",
+                                            "termListType": "dateEarliestSingleQualifierUnit"
+                                        }
+                                    }]
                                 },
                                 "datePeriod": "${fields.objectProductionDate.datePeriod}",
                                 "dateLatestMonth": {
@@ -1587,9 +1634,14 @@
                                 },
                                 "dateNote": "${fields.objectProductionDate.dateNote}",
                                 "dateLatestQualifierUnit": {
-                                    "optionnames": ["Day(s)", "Month(s)", "Please select a value", "Year(s)"],
-                                    "optionlist": ["", "days", "month", "years"],
-                                    "selection": "${fields.objectProductionDate.dateLatestQualifierUnit}"
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "elPath": "fields.objectProductionDate.dateLatestQualifierUnit",
+                                            "termListType": "dateLatestQualifierUnit"
+                                        }
+                                    }]
                                 },
                                 "dateEarliestSingleDay": {
                                     "decorators": [{
@@ -1710,9 +1762,15 @@
                                             "selection": "${{row}.objectNameType}"
                                         },
                                         ".csc-object-identification-object-language": {
-                                            "optionnames": ["Ancient Greek", "Arabic", "Armenian", "Chinese", "English", "French", "German", "Hebrew", "Indonesian", "Italian", "Japanese", "Korean", "Latin", "Malaysian", "Middle English", "Old English", "Please select a value", "Portuguese", "Romanian", "Russian", "Spanish", "Swahili", "Swedish", "Tagalog", "Yoruba"],
-                                            "optionlist": ["", "ang", "ara", "deu", "eng", "enm", "fra", "grc", "heb", "hye", "ind", "ita", "jpn", "kor", "lat", "mal", "por", "ron", "rus", "spa", "swa", "swe", "tgl", "yor", "zho"],
-                                            "selection": "${{row}.objectNameLanguage}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "objectNameLanguage",
+                                                    "termListType": "objectNameLanguage"
+                                                }
+                                            }]
                                         },
                                         ".csc-object-identification-object-level": {
                                             "default": "",
@@ -2193,9 +2251,15 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-object-description-content-language": {
-                                            "optionnames": ["Ancient Greek", "Arabic", "Armenian", "Chinese", "English", "French", "German", "Hebrew", "Indonesian", "Italian", "Japanese", "Korean", "Latin", "Malaysian", "Middle English", "Old English", "Please select a value", "Portuguese", "Romanian", "Russian", "Spanish", "Swahili", "Swedish", "Tagalog", "Yoruba"],
-                                            "optionlist": ["", "ang", "ara", "deu", "eng", "enm", "fra", "grc", "heb", "hye", "ind", "ita", "jpn", "kor", "lat", "mal", "por", "ron", "rus", "spa", "swa", "swe", "tgl", "yor", "zho"],
-                                            "selection": "${{row}.contentLanguage}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "contentLanguage",
+                                                    "termListType": "contentLanguage"
+                                                }
+                                            }]
                                         }
                                     },
                                     "type": "fluid.renderer.repeat",
@@ -2307,9 +2371,14 @@
             "messagekey": "collection-object-contentObjectTypeLabel"
         },
         ".csc-object-history-association-denomination": {
-            "optionnames": ["Canadian Dollar", "Danish Krone", "Euro", "Please select a value", "Pound Sterling", "Swedish Krona", "Swiss Franc", "US Dollar"],
-            "optionlist": ["", "canadiandollar", "danishkrone", "eur", "gbp", "swedishkrona", "swissfranc", "usd"],
-            "selection": "${fields.ownershipExchangePriceCurrency}"
+            "decorators": [{
+                "func": "cspace.termList",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.ownershipExchangePriceCurrency",
+                    "termListType": "ownershipExchangePriceCurrency"
+                }
+            }]
         },
         ".csc-collection-object-objectProductionPlaceGroup": {
             "decorators": [{
@@ -2453,9 +2522,15 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-collection-object-fieldCollectionMethod": {
-                                            "optionnames": ["Please select a value", "borehole", "commissioned", "exchanged", "found dead", "metal detector", "netted", "photographed", "purchased", "salvaged", "shot", "trapped"],
-                                            "optionlist": ["", "borehole", "commissioned", "exchanged", "founddead", "metaldetector", "netted", "photographed", "purchased", "salvaged", "shot", "trapped"],
-                                            "selection": "${{row}.fieldCollectionMethod}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "fieldCollectionMethod",
+                                                    "termListType": "fieldCollectionMethod"
+                                                }
+                                            }]
                                         }
                                     },
                                     "type": "fluid.renderer.repeat",
@@ -2785,3 +2860,4 @@
         }
     }
 }
+

@@ -387,9 +387,15 @@
                                     "repeatID": "repeat:",
                                     "tree": {
                                         ".csc-media-language": {
-                                            "optionnames": ["Ancient Greek", "Arabic", "Armenian", "Chinese", "English", "French", "German", "Hebrew", "Indonesian", "Italian", "Japanese", "Korean", "Latin", "Malaysian", "Middle English", "Old English", "Please select a value", "Portuguese", "Romanian", "Russian", "Spanish", "Swahili", "Swedish", "Tagalog", "Yoruba"],
-                                            "optionlist": ["", "ang", "ara", "deu", "eng", "enm", "fra", "grc", "heb", "hye", "ind", "ita", "jpn", "kor", "lat", "mal", "por", "ron", "rus", "spa", "swa", "swe", "tgl", "yor", "zho"],
-                                            "selection": "${{row}.language}"
+                                            "decorators": [{
+                                                "func": "cspace.termList",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "language",
+                                                    "termListType": "language"
+                                                }
+                                            }]
                                         }
                                     },
                                     "type": "fluid.renderer.repeat",
