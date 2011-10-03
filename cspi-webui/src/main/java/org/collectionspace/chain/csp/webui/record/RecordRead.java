@@ -329,14 +329,11 @@ public class RecordRead implements WebMethod {
 		} catch (JSONException e1) {
 			throw new UIException("Cannot add csid",e1);
 		} catch (ExistException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new UIException("Cannot add csid",e);
 		} catch (UnimplementedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new UIException("Cannot add csid",e);
 		} catch (UnderlyingStorageException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new UIException("Cannot add csid",e);
 		}
 	}
 	
