@@ -614,10 +614,10 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws JSONException
 	 * @throws UnimplementedException 
 	 */
-	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path) throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
+	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path, Record vr) throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
 
 		JSONObject out=new JSONObject();
-		try{
+			try{
 
 			Map<String,String> reset_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
 			Map<String,String> reset_map=new HashMap<String,String>(); // map of csid to service name of field
@@ -627,8 +627,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			Map<String,List<String>>old_merge =view_merge;
 			Set<String> reset_deurn=new HashSet<String>();
 			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
-			
-			if(r.hasRefObjUsed()){
+			if(vr.hasRefObjUsed()){
 				//XXX need a way to append the data needed from the field whcih we don't know until after we have got the information...
 				reset_map.put("docType", "docType");
 				reset_map.put("docId", "docId");
@@ -664,10 +663,10 @@ public class GenericStorage  implements ContextualisedStorage {
 					
 					String[] parts=filePath.split("/");
 					String recordurl = parts[0];
-					Record thisr = r.getSpec().getRecordByServicesUrl(recordurl);
+					Record thisr = vr.getSpec().getRecordByServicesUrl(recordurl);
 					resetGlean(thisr,reset_good,reset_map,reset_deurn,reset_merge, true);// what glean info required for this one..
 					String csid = parts[parts.length-1];
-					JSONObject dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", r.getServicesURL()+"/"+uri, thisr);
+					JSONObject dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", vr.getServicesURL()+"/"+uri, thisr);
 					dataitem.getJSONObject("summarylist").put("uri",filePath);
 					
 					
@@ -714,6 +713,22 @@ public class GenericStorage  implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Connection problem"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		}
 	}
+	/**
+	 * get data needed for list of objects related to a termUsed
+	 * @param storage
+	 * @param creds
+	 * @param cache
+	 * @param path
+	 * @return
+	 * @throws ExistException
+	 * @throws UnderlyingStorageException
+	 * @throws JSONException
+	 * @throws UnimplementedException 
+	 */
+	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path) throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
+		return refObjViewRetrieveJSON(storage,creds, cache,path, this.r);
+	}
+	
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr, String serviceurl)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -850,6 +865,15 @@ public class GenericStorage  implements ContextualisedStorage {
 						Iterator<String> rit=existingcsid.keys();
 						while(rit.hasNext()) {
 							String key=rit.next();
+							//should we delete or do we need to check that it is used? e.g. termlists
+							if(sr.getID().equals("termlistitem")){
+								//
+								String subpath = savePath+key+"/refObjs";
+								JSONObject test =  refObjViewRetrieveJSON(root,creds,cache,subpath, sr);
+								if(test.length() > 0){
+									throw new ExistException("Term List in use - can not delete: "+key);
+								}
+							}
 							deleteJSON(root,creds,cache,key,savePath,sr);
 						}
 						
