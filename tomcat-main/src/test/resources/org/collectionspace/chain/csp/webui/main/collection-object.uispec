@@ -1,5 +1,5 @@
 {
-    "recordEditor": {
+"recordEditor": {
         ".csc-collection-object-assocPeopleGroup-label": {
             "messagekey": "collection-object-assocPeopleGroupLabel"
         },
@@ -1500,174 +1500,27 @@
                 "type": "fluid",
                 "options": {
                     "elPath": "fields.objectProductionDate.dateDisplayDate",
-                    "protoTree": {
-                        "expander": {
-                            "tree": {
-                                "dateEarliestSingleQualifier": {
-                                    "optionnames": ["+", "+/-", "-"],
-                                    "optionlist": ["+", "+/-", "-"],
-                                    "selection": "${fields.objectProductionDate.dateEarliestSingleQualifier}"
-                                },
-                                "dateLatestDay": {
-                                    "decorators": [{
-                                        "func": "cspace.inputValidator",
-                                        "type": "fluid",
-                                        "options": {
-                                            "label": "structureddate-dateLatestDayLabel",
-                                            "type": "integer"
-                                        }
-                                    }],
-                                    "value": "${fields.objectProductionDate.dateLatestDay}"
-                                },
-                                "dateLatestYear": {
-                                    "decorators": [{
-                                        "func": "cspace.inputValidator",
-                                        "type": "fluid",
-                                        "options": {
-                                            "label": "structureddate-dateLatestYearLabel",
-                                            "type": "integer"
-                                        }
-                                    }],
-                                    "value": "${fields.objectProductionDate.dateLatestYear}"
-                                },
-                                "dateAssociation": "${fields.objectProductionDate.dateAssociation}",
-                                "dateEarliestSingleEra": {
-                                    "decorators": [{
-                                        "func": "cspace.termList",
-                                        "type": "fluid",
-                                        "options": {
-                                            "elPath": "fields.objectProductionDate.dateEarliestSingleEra",
-                                            "termListType": "dateEarliestSingleEra"
-                                        }
-                                    }]
-                                },
-                                "dateDisplayDate": "${fields.objectProductionDate.dateDisplayDate}",
-                                "dateEarliestSingleCertainty": {
-                                    "decorators": [{
-                                        "func": "cspace.termList",
-                                        "type": "fluid",
-                                        "options": {
-                                            "elPath": "fields.objectProductionDate.dateEarliestSingleCertainty",
-                                            "termListType": "dateEarliestSingleCertainty"
-                                        }
-                                    }]
-                                },
-                                "dateLatestEra": {
-                                    "decorators": [{
-                                        "func": "cspace.termList",
-                                        "type": "fluid",
-                                        "options": {
-                                            "elPath": "fields.objectProductionDate.dateLatestEra",
-                                            "termListType": "dateLatestEra"
-                                        }
-                                    }]
-                                },
-                                "dateEarliestSingleQualifierValue": {
-                                    "decorators": [{
-                                        "func": "cspace.inputValidator",
-                                        "type": "fluid",
-                                        "options": {
-                                            "label": "structureddate-dateEarliestSingleQualifierValueLabel",
-                                            "type": "integer"
-                                        }
-                                    }],
-                                    "value": "${fields.objectProductionDate.dateEarliestSingleQualifierValue}"
-                                },
-                                "dateLatestCertainty": {
-                                    "decorators": [{
-                                        "func": "cspace.termList",
-                                        "type": "fluid",
-                                        "options": {
-                                            "elPath": "fields.objectProductionDate.dateLatestCertainty",
-                                            "termListType": "dateLatestCertainty"
-                                        }
-                                    }]
-                                },
-                                "dateEarliestSingleYear": {
-                                    "decorators": [{
-                                        "func": "cspace.inputValidator",
-                                        "type": "fluid",
-                                        "options": {
-                                            "label": "structureddate-dateEarliestSingleYearLabel",
-                                            "type": "integer"
-                                        }
-                                    }],
-                                    "value": "${fields.objectProductionDate.dateEarliestSingleYear}"
-                                },
-                                "dateLatestQualifier": {
-                                    "optionnames": ["+", "+/-", "-"],
-                                    "optionlist": ["+", "+/-", "-"],
-                                    "selection": "${fields.objectProductionDate.dateLatestQualifier}"
-                                },
-                                "dateLatestQualifierValue": {
-                                    "decorators": [{
-                                        "func": "cspace.inputValidator",
-                                        "type": "fluid",
-                                        "options": {
-                                            "label": "structureddate-dateLatestQualifierValueLabel",
-                                            "type": "integer"
-                                        }
-                                    }],
-                                    "value": "${fields.objectProductionDate.dateLatestQualifierValue}"
-                                },
-                                "dateEarliestSingleQualifierUnit": {
-                                    "decorators": [{
-                                        "func": "cspace.termList",
-                                        "type": "fluid",
-                                        "options": {
-                                            "elPath": "fields.objectProductionDate.dateEarliestSingleQualifierUnit",
-                                            "termListType": "dateEarliestSingleQualifierUnit"
-                                        }
-                                    }]
-                                },
-                                "datePeriod": "${fields.objectProductionDate.datePeriod}",
-                                "dateLatestMonth": {
-                                    "decorators": [{
-                                        "func": "cspace.inputValidator",
-                                        "type": "fluid",
-                                        "options": {
-                                            "label": "structureddate-dateLatestMonthLabel",
-                                            "type": "integer"
-                                        }
-                                    }],
-                                    "value": "${fields.objectProductionDate.dateLatestMonth}"
-                                },
-                                "dateNote": "${fields.objectProductionDate.dateNote}",
-                                "dateLatestQualifierUnit": {
-                                    "decorators": [{
-                                        "func": "cspace.termList",
-                                        "type": "fluid",
-                                        "options": {
-                                            "elPath": "fields.objectProductionDate.dateLatestQualifierUnit",
-                                            "termListType": "dateLatestQualifierUnit"
-                                        }
-                                    }]
-                                },
-                                "dateEarliestSingleDay": {
-                                    "decorators": [{
-                                        "func": "cspace.inputValidator",
-                                        "type": "fluid",
-                                        "options": {
-                                            "label": "structureddate-dateEarliestSingleDayLabel",
-                                            "type": "integer"
-                                        }
-                                    }],
-                                    "value": "${fields.objectProductionDate.dateEarliestSingleDay}"
-                                },
-                                "dateEarliestSingleMonth": {
-                                    "decorators": [{
-                                        "func": "cspace.inputValidator",
-                                        "type": "fluid",
-                                        "options": {
-                                            "label": "structureddate-dateEarliestSingleMonthLabel",
-                                            "type": "integer"
-                                        }
-                                    }],
-                                    "value": "${fields.objectProductionDate.dateEarliestSingleMonth}"
-                                }
-                            },
-                            "type": "fluid.noexpand"
-                        }
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.objectProductionDate.dateEarliestSingleQualifier",
+                        "dateLatestDay": "fields.objectProductionDate.dateLatestDay",
+                        "dateLatestYear": "fields.objectProductionDate.dateLatestYear",
+                        "dateAssociation": "fields.objectProductionDate.dateAssociation",
+                        "dateEarliestSingleEra": "fields.objectProductionDate.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.objectProductionDate.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.objectProductionDate.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.objectProductionDate.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.objectProductionDate.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.objectProductionDate.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.objectProductionDate.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.objectProductionDate.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.objectProductionDate.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.objectProductionDate.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.objectProductionDate.datePeriod",
+                        "dateLatestMonth": "fields.objectProductionDate.dateLatestMonth",
+                        "dateNote": "fields.objectProductionDate.dateNote",
+                        "dateLatestQualifierUnit": "fields.objectProductionDate.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.objectProductionDate.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.objectProductionDate.dateEarliestSingleMonth"
                     }
                 }
             }],
@@ -2860,4 +2713,3 @@
         }
     }
 }
-

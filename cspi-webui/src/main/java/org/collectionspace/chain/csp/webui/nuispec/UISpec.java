@@ -248,40 +248,51 @@ public class UISpec implements WebMethod {
 		if(fs instanceof Field){
 			Field f = (Field)fs;
 		
-		JSONArray decorators=new JSONArray();
-		JSONObject options=new JSONObject();
-		UISpecRunContext sub = context.createChild();
-		sub.setUIPrefix(f.getID());
-		sub.setPad(false);
-		//context.appendAffix("objectProductionDates-");
-		String parts[] = f.getUIType().split("/");
-		JSONObject subexpander = new JSONObject();
-		Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-		//subexpander.put("subexpander",subitems.getID());
-		for(FieldSet fs2 : subitems.getAllFields("")) {
+			JSONArray decorators=new JSONArray();
+			JSONObject options=new JSONObject();
+			UISpecRunContext sub = context.createChild();
+			sub.setUIPrefix(f.getID());
+			sub.setPad(false);
+			//context.appendAffix("objectProductionDates-");
+			String parts[] = f.getUIType().split("/");
+			JSONObject subexpander = new JSONObject();
+			Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+			
+			if(parts[1].equals("structureddate")){
+				for(FieldSet fs2 : subitems.getAllFields("")) {	
+					subexpander.put(getSelector(fs2,sub), veryplainWithoutEnclosure(fs2,sub));
+				}
+			}
+			else{
 
-			generateDataEntry(subexpander,fs2, sub);
-		}
-		
-
-		sub.setUIAffix(f.getID()+"-");
-		
-		JSONObject expander = new JSONObject();
-		expander.put("type", "fluid.noexpand");
-		expander.put("tree", subexpander);
-		
-		
-		JSONObject protoTree = new JSONObject();
-		protoTree.put("expander", expander);
-		
-		options.put("protoTree", protoTree);
-		options.put("elPath", "fields."+f.getPrimaryKey());
-		
-		options.put("elPath", "fields."+f.getPrimaryKey());
-		JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options);
-		decorators.put(decorator);
-		out.put("decorators",decorators);
-		out.put("value",veryplain("fields."+f.getPrimaryKey()));
+				for(FieldSet fs2 : subitems.getAllFields("")) {		
+					generateDataEntry(subexpander,fs2, sub);
+				}
+			}
+			
+	
+			sub.setUIAffix(f.getID()+"-");
+			
+			JSONObject expander = new JSONObject();
+			expander.put("type", "fluid.noexpand");
+			expander.put("tree", subexpander);
+			
+			
+			JSONObject protoTree = new JSONObject();
+			protoTree.put("expander", expander);
+			
+			if(parts[1].equals("structureddate")){
+				options.put("elPaths", subexpander);
+			}
+			else{	
+				options.put("protoTree", protoTree);			
+			}
+			
+			options.put("elPath", "fields."+f.getPrimaryKey());
+			JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options);
+			decorators.put(decorator);
+			out.put("decorators",decorators);
+			out.put("value",veryplain("fields."+f.getPrimaryKey()));
 
 		}
 		
