@@ -15,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -257,42 +258,56 @@ public class UISpec implements WebMethod {
 			String parts[] = f.getUIType().split("/");
 			JSONObject subexpander = new JSONObject();
 			Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+
+			options.put("elPath", "fields."+f.getPrimaryKey());
+			out.put("value",veryplain("fields."+f.getPrimaryKey()));
 			
 			if(parts[1].equals("structureddate")){
-				for(FieldSet fs2 : subitems.getAllFields("")) {	
-					subexpander.put(getSelector(fs2,sub), veryplainWithoutEnclosure(fs2,sub));
+				Boolean truerepeat = false;
+				FieldParent fsp = f.getParent();
+				if(fsp instanceof Repeat && !(fsp instanceof Group)){
+					Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
+					if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
+						truerepeat = true;
+						for(FieldSet fs2 : subitems.getAllFields("")) {	
+							subexpander.put(getSelector(fs2,sub), fs2.getID());
+						}
+						options.put("elPath", f.getID());
+						options.put("root", "{row}");
+						out.put("value",veryplain("{row}."+f.getID()));
+					}
 				}
+				if(!truerepeat){
+					for(FieldSet fs2 : subitems.getAllFields("")) {	
+						subexpander.put(getSelector(fs2,sub), veryplainWithoutEnclosure(fs2,sub));
+					}
+				}
+
+				options.put("elPaths", subexpander);
 			}
 			else{
-
 				for(FieldSet fs2 : subitems.getAllFields("")) {		
 					generateDataEntry(subexpander,fs2, sub);
 				}
+
+				JSONObject expander = new JSONObject();
+				expander.put("type", "fluid.noexpand");
+				expander.put("tree", subexpander);
+				
+				JSONObject protoTree = new JSONObject();
+				protoTree.put("expander", expander);
+
+				options.put("protoTree", protoTree);
+				
 			}
 			
-	
 			sub.setUIAffix(f.getID()+"-");
 			
-			JSONObject expander = new JSONObject();
-			expander.put("type", "fluid.noexpand");
-			expander.put("tree", subexpander);
 			
 			
-			JSONObject protoTree = new JSONObject();
-			protoTree.put("expander", expander);
-			
-			if(parts[1].equals("structureddate")){
-				options.put("elPaths", subexpander);
-			}
-			else{	
-				options.put("protoTree", protoTree);			
-			}
-			
-			options.put("elPath", "fields."+f.getPrimaryKey());
 			JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options);
 			decorators.put(decorator);
 			out.put("decorators",decorators);
-			out.put("value",veryplain("fields."+f.getPrimaryKey()));
 
 		}
 		
