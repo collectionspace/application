@@ -22,9 +22,8 @@
 				
 				<include src="domain-vocabularies.xml" />
 				
-                <instances>
-					<include src="base-instance-vocabularies.xml" />
-                </instances>
+				<include src="base-instance-vocabularies.xml" />
+                
                 <section>
                     <field id="displayName" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
                         <selector>vocabulary-displayName</selector>
