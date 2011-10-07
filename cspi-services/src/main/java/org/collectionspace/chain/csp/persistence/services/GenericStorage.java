@@ -268,7 +268,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 		// Do a full request only if values in list of fields returned != list from cspace-config
 		if(to_get.size()>0) {
-			JSONObject data=simpleRetrieveJSON(creds,cache,filePath,thisr);
+			JSONObject data=simpleRetrieveJSON(creds,cache,filePath,cachelistitem,thisr);
 			for(String fieldname : to_get) {
 				String good = view_good.get(fieldname);
 				String value = null;
@@ -362,6 +362,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String servicesurl, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		String csid="";
+		if(filePath ==null){filePath="";}
 		String[] path_parts = filePath.split("/");
 		if(path_parts.length>1)
 			csid = path_parts[1];
@@ -497,21 +498,30 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnsupportedEncodingException 
 	 * @throws ConnectionException 
 	 */
-	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
+	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view, String extra, JSONObject restrictions, String servicepath) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
 		if(view.equals("view")){
 			//get a view of a specific item e.g. for search results
-			return miniViewRetrieveJSON(cache,creds,filePath, extra, null,r);
+			JSONObject temp = miniViewRetrieveJSON(cache,creds,filePath, extra, servicepath,r);
+			return miniViewAbstract(storage, creds, cache, temp, servicepath, filePath);
 		}
 		else if("refs".equals(view)){
-			String path = r.getServicesURL()+"/"+filePath+"/authorityrefs";
+			String path = servicepath+"/authorityrefs";
 			return refViewRetrieveJSON(storage,creds,cache,path,restrictions);
 		}
 		else if("refObjs".equals(view)){
-			String path = r.getServicesURL()+"/"+filePath+"/refObjs";
+			String path = servicepath+"/refObjs";
 			return refObjViewRetrieveJSON(storage,creds,cache,path);
 		}
 		else
 			return new JSONObject();
+	}
+	// bad I know but exists so it can be extended in vocabStorage
+	protected JSONObject miniViewAbstract(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,JSONObject data, String servicepath, String filePath) throws UnderlyingStorageException{
+		return data;
+	}
+	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
+		String servicepath =  r.getServicesURL()+"/"+filePath;
+		return viewRetrieveJSON(storage,creds,cache,filePath,view,extra,restrictions,servicepath);
 	}
 
 	// XXX support URNs for reference

@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Stack;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.persistence.services.vocab.URNProcessor;
+import org.collectionspace.chain.csp.persistence.services.vocab.RefName;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
@@ -384,15 +384,10 @@ public class XmlJsonConversion {
 		//support multiassign of autocomplete instances
 		for ( Instance ins : f.getAllAutocompleteInstances() ){
 			if(ins !=null){ // this authority hasn't been implemented yet
-				String urnsyntax = ins.getRecord().getURNSyntax();
-				URNProcessor urnp = new URNProcessor(urnsyntax);
-				try {
-					return urnp.deconstructURN(urn,false)[5];
-				} catch (ExistException e) {
-					continue;
-				} catch (UnderlyingStorageException e) {
-					continue;
-				}
+		        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(urn);
+		        if(itemParsed!=null){
+	return itemParsed.displayName;
+		        }
 			}
 			
 		}

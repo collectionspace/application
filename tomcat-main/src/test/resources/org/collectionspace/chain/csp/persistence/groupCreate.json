@@ -1,7 +1,5 @@
 {
     "title": "This is my group",
-    "owner": "urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(jimnabors)'Jim+Nabors'",
-		"de-urned-owner":"Jim Nabors",
     "scopeNote": "This is just for testing",
     "responsibleDepartment": "jokes"
 }

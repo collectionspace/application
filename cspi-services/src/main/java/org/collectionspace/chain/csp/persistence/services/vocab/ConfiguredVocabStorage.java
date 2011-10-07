@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.persistence.services.vocab;
 
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -13,7 +14,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.collectionspace.chain.csp.persistence.services.GenericStorage;
 import org.collectionspace.chain.csp.persistence.services.XmlJsonConversion;
@@ -26,7 +26,6 @@ import org.collectionspace.chain.csp.persistence.services.connection.ServicesCon
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
-import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -35,8 +34,8 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
-import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Node;
@@ -49,20 +48,21 @@ import org.slf4j.LoggerFactory;
 public class ConfiguredVocabStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(ConfiguredVocabStorage.class);
 	private ServicesConnection conn;
-	private VocabInstanceCache vocab_cache;
-	private URNProcessor urn_processor;
 	private Record r;
 
 	public ConfiguredVocabStorage(Record r,ServicesConnection conn) throws  DocumentException, IOException {
 		super(r,conn);
 		initializeGlean(r);
 		this.conn=conn;
-		urn_processor=new URNProcessor(r.getURNSyntax());
-		Map<String,String> vocabs=new ConcurrentHashMap<String,String>();
-		vocab_cache=new VocabInstanceCache(r,conn,vocabs);
 		this.r=r;
 	}
-
+	
+	private String getDisplayNameKey() throws UnderlyingStorageException {
+		Field dnf=(Field)r.getDisplayNameField();
+		if(dnf==null)
+			throw new UnderlyingStorageException("no display-name='yes' field");
+		return dnf.getID();
+	}
 	private Document createEntry(String section,String namespace,String root_tag,JSONObject data,String vocab,String refname, Record r) throws UnderlyingStorageException, ConnectionException, ExistException, JSONException {
 		Document out=XmlJsonConversion.convertToXml(r,data,section,"POST");
 		if(out!=null){
@@ -71,98 +71,25 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			if(vocab!=null){
 				vocabtag.addText(vocab);
 			}
-			Element refnametag=root.addElement("refName");
-			if(refname!=null)
+			if(refname!=null){
+				Element refnametag=root.addElement("refName");
 				refnametag.addText(refname);
+			}
 			if(r.isType("compute-displayname")) {
 				Element dnc=root.addElement("displayNameComputed");
 				dnc.addText("false");
 			}
-			log.debug("create Configured Vocab Entry"+out.asXML());
+			//log.info("create Configured Vocab Entry"+out.asXML());
 		}
 		return out;
-	}
-
-	private String getDisplayNameKey() throws UnderlyingStorageException {
-		Field dnf=(Field)r.getDisplayNameField();
-		if(dnf==null)
-			throw new UnderlyingStorageException("no display-name='yes' field");
-		return dnf.getID();
-	}
-
-	protected Element createRelationship(Relationship rel, Object data, String csid, String subjtype, String subjuri, Boolean reverseIt) throws ExistException, UnderlyingStorageException{
-
-		Document doc=DocumentFactory.getInstance().createDocument();
-		Element subroot = doc.addElement("relation-list-item");
-
-		Element predicate=subroot.addElement("predicate");
-		predicate.addText(rel.getPredicate());
-		String subjectName = "subject";
-		String objectName = "object";
-		if(reverseIt){
-			subjectName = "object";
-			objectName = "subject";
-		}
-		Element subject=subroot.addElement(subjectName);
-		Element subjcsid = subject.addElement("csid");
-		Element subjdtype = subject.addElement("documentType");
-		if(csid != null){
-			subjcsid.addText(csid);
-			Element sbjutype = subject.addElement("uri");
-			sbjutype.addText(subjuri);
-		}
-		else{
-			subjcsid.addText("${itemCSID}");
-		}
-		subjdtype.addText(subjtype);
-		
-		//find out record type from urn - need to loop thr all authorities type
-		Record associatedRecord = this.r;
-		String associatedcsid ="";
-		String associateduri =null;
-		String associatedtest = (String)data;
-		for(Record myr : this.r.getSpec().getAllRecords()){
-			if(myr.isType("authority")){
-				URNProcessor temp_processor;
-				temp_processor=new URNProcessor(myr.getURNSyntax());
-				if(temp_processor.validUrn(associatedtest, false)){
-					associatedRecord = myr;
-					String[] b = temp_processor.deconstructURN(associatedtest, false);
-					associatedcsid = b[4];
-					associateduri = associatedtest;
-				}
-			}
-			else{
-				//not implemented yet - but I bet I will have to - assume /chain/intake/csid
-				if(associatedtest.startsWith(myr.getWebURL())){
-					associatedRecord = myr;
-					String[] bits = associatedtest.split("/");
-					associatedcsid = bits[bits.length -1 ];
-				}
-			}
-		}
-		
-		
-		Element object=subroot.addElement(objectName);
-		Element objcsid = object.addElement("csid");
-		objcsid.addText(associatedcsid);
-		Element objdtype = object.addElement("documentType");
-		objdtype.addText(associatedRecord.getServicesURL());
-		if(associateduri!=null){
-
-			Element objutype = object.addElement("uri");
-			objutype.addText(associateduri);
-		}
-		
-		
-		return subroot;
 	}
 	
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String name=jsonObject.getString(getDisplayNameKey());
-			String vocab=vocab_cache.getVocabularyId(creds,cache,filePath);
+			//String name=jsonObject.getString(getDisplayNameKey()); cache?
+			String vocab = RefName.shortIdToPath(filePath);
+			
 			Map<String,Document> body=new HashMap<String,Document>();
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
@@ -175,7 +102,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 
 			}	
-			
+
 			if(r.hasHierarchyUsed("screen")){
 				ArrayList<Element> alleles = new ArrayList<Element>();
 				for(Relationship rel : r.getSpec().getAllRelations()){
@@ -228,35 +155,15 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					body.put("relations-common-list",out);
 				}
 			}
-			
-			// First send without refid (don't know csid)	
-			String pathurl ="/"+r.getServicesURL()+"/"+vocab+"/items"; 
+
+			String pathurl ="/"+r.getServicesURL()+"/"+vocab+"/items";
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,pathurl,body,creds,cache);		
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary",out.getStatus(),pathurl);
-			
-			
-			// This time with refid
+
+
 			String csid=out.getURLTail();
-			String refname=urn_processor.constructURN("id",vocab,"id",out.getURLTail(),name);
-			body=new HashMap<String,Document>();
-			for(String section : r.getServicesRecordPaths()) {
-				String path=r.getServicesRecordPath(section);
-				String[] record_path=path.split(":",2);
-				String[] tag_path=record_path[1].split(",",2);
-				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname,r);
-				if(temp!=null){
-					body.put(record_path[0],temp);
-				}
-			}
-			ReturnedMultipartDocument out2=conn.getMultipartXMLDocument(RequestMethod.PUT,pathurl+"/"+csid,body,creds,cache);
-			if(out2.getStatus()>299)
-				throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
-			//id
-			cache.setCached(getClass(),new String[]{"namefor",vocab,out.getURLTail()},name);
-			cache.setCached(getClass(),new String[]{"reffor",vocab,out.getURLTail()},refname);
-			cache.setCached(getClass(),new String[]{"csidfor",vocab,out.getURLTail()},out.getURLTail());
-			
+			//CACHE????? should we cache things?
 			
 			// create related sub records?
 			for(FieldSet fs : r.getAllSubRecords("POST")){
@@ -300,63 +207,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					}
 				}
 			}
-			
-			return out.getURLTail();
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Cannot parse surrounding JSON"+e.getLocalizedMessage(),e);
-		}
-	}
-	
-	public String subautocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,Record myr,JSONObject jsonObject, String savePrefix)
-	throws ExistException, UnimplementedException, UnderlyingStorageException{
-		try {
-			Map<String,Document> body=new HashMap<String,Document>();
-			for(String section : myr.getServicesRecordPaths()) {
-				String path=myr.getServicesRecordPath(section);
-				String[] record_path=path.split(":",2);
-				String[] tag_path=record_path[1].split(",",2);
-
-				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,null,null,myr);
-				if(temp!=null){
-					body.put(record_path[0],temp);
-				}
-				
-			}	
-				
-			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,savePrefix,body,creds,cache);		
-			if(out.getStatus()>299)
-				throw new UnderlyingStorageException("Could not create vocabulary",out.getStatus(),savePrefix);
-			
-			
-			// create related sub records?
-			for(FieldSet allfs : myr.getAllSubRecords("POST")){
-				Record sr = allfs.usesRecordId();
-				//sr.getID()
-				if(sr.isType("authority")){
-					String savePath = out.getURL() + "/" + sr.getServicesURL();
-					if(jsonObject.has(sr.getID())){
-						Object subdata = jsonObject.get(sr.getID());
-
-						if(subdata instanceof JSONArray){
-							JSONArray subarray = (JSONArray)subdata;
-
-							for(int i=0;i<subarray.length();i++) {
-								JSONObject subrecord = subarray.getJSONObject(i);
-								subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
-							}
-							
-						}
-						else if(subdata instanceof JSONObject){
-							JSONObject subrecord = (JSONObject)subdata;
-							subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
-						}
-					}
-				}
-			}
-			
-			return out.getURLTail();
+			return csid;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
@@ -364,212 +215,6 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}
 	}
 
-
-	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath)
-	throws ExistException, UnimplementedException, UnderlyingStorageException {
-		try {			
-			String vocab=vocab_cache.getVocabularyId(creds,cache,filePath.split("/")[0]);
-			String url = generateURL(vocab,filePath.split("/")[1],"");
-
-			if(r.hasSoftDeleteMethod()){
-				int status = 0;
-				Document doc = null;
-				doc=XmlJsonConversion.getXMLSoftDelete();
-				String workflow = "/workflow";
-				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, url+workflow, doc, creds, cache);
-				status = docm.getStatus();
-				if(status>299 || status<200)
-					throw new UnderlyingStorageException("Bad response ",status,url);
-			}
-			else{
-				int status=conn.getNone(RequestMethod.DELETE,url,null,creds,cache);
-				if(status>299)
-					throw new UnderlyingStorageException("Could not retrieve vocabulary",status,url);
-			}
-			cache.removeCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]});
-			cache.removeCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]});
-			cache.removeCached(getClass(),new String[]{"shortId",vocab,filePath.split("/")[1]});
-			cache.removeCached(getClass(),new String[]{"csidfor",vocab,filePath.split("/")[1]});
-			//delete name and id versions from teh cache?
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		}	
-	}
-
-	/**
-	 * Returns JSON containing pagenumber, pagesize, itemsinpage, totalitems and the list of items itself 
-	 */
-	@SuppressWarnings("unchecked")
-	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
-	throws ExistException, UnimplementedException, UnderlyingStorageException {
-		try {
-			JSONObject out = new JSONObject();
-			List<String> list=new ArrayList<String>();	
-			String vocab=vocab_cache.getVocabularyId(creds,cache,rootPath);
-			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
-				
-
-			String prefix=null;
-
-			if(restrictions!=null){
-				if(restrictions.has(getDisplayNameKey())){
-					prefix=restrictions.getString(getDisplayNameKey()); 
-				}
-			}
-
-			String path = getRestrictedPath(url, restrictions, r.getServicesSearchKeyword(), "", true, getDisplayNameKey() );
-			
-
-			if(r.hasSoftDeleteMethod()){
-				path = softpath(path);
-			}
-			if(r.hasHierarchyUsed("screen")){
-				path = hierarchicalpath(path);
-			}
-			
-			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
-			Document doc=data.getDocument();
-			//log.info(doc.asXML());
-			if(doc==null)
-				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,path);
-			String[] tag_parts=r.getServicesListPath().split(",",2);
-			
-			JSONObject pagination = new JSONObject();
-			List<Node> nodes = doc.selectNodes("/"+tag_parts[1].split("/")[0]+"/*");
-			for(Node node : nodes){
-				if(node.matches("/"+tag_parts[1])){
-					String name=node.selectSingleNode("displayName").getText();
-					String csid=node.selectSingleNode("csid").getText();
-					String refName=null;
-					if(node.selectSingleNode("refName")!=null){
-						refName=node.selectSingleNode("refName").getText();
-					}
-					String shortIdentifier=null;
-					if(node.selectSingleNode("shortIdentifier")!=null){
-						shortIdentifier=node.selectSingleNode("shortIdentifier").getText();
-					}
-					if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase())){
-						list.add(csid);
-					}
-					cache.setCached(getClass(),new String[]{"namefor",vocab,csid},name);
-					//why don't we use the one we are given?
-					if(refName!=null){
-						refName=urn_processor.constructURN("id",vocab,"id",csid,name);
-					}
-					cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refName);
-					cache.setCached(getClass(),new String[]{"shortId",vocab,csid},shortIdentifier);
-
-					List<Node> fields=node.selectNodes("*");
-					for(Node field : fields) {
-						String json_name=view_map.get(field.getName());
-						if(json_name!=null) {
-							String value=field.getText();
-							// XXX hack to cope with multi values		
-							if(value==null || "".equals(value)) {
-								List<Node> inners=field.selectNodes("*");
-								for(Node n : inners) {
-									value+=n.getText();
-								}
-							}
-							setGleanedValue(cache,vocab+"/"+csid,json_name,value);
-						}
-					}
-					/* this hopefully will reduce fan out - needs more testing */
-					if(doc.selectSingleNode(r.getServicesFieldsPath())!=null){
-						String myfields = doc.selectSingleNode(r.getServicesFieldsPath()).getText();
-						String[] allfields = myfields.split("\\|");
-						for(String s : allfields){
-							String gleaned = getGleanedValue(cache,vocab+"/"+csid,s);
-							if(gleaned==null){
-								setGleanedValue(cache,vocab+"/"+csid,s,"");
-							}
-						}
-					}
-					
-				}else{
-					pagination.put(node.getName(), node.getText());
-				}
-			}
-			
-			out.put("pagination", pagination);
-			out.put("listItems", list.toArray(new String[0]));
-			return out;
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("UTF-8 not supported!?"+e.getLocalizedMessage());
-		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Error parsing JSON"+e.getLocalizedMessage());
-		}
-	}
-
-	
-	/**
-	 * Returns a list of items
-	 */
-	@SuppressWarnings("unchecked")
-	public String[] getPaths(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
-	throws ExistException, UnimplementedException, UnderlyingStorageException {
-		try {
-			List<String> out=new ArrayList<String>();
-			String vocab=vocab_cache.getVocabularyId(creds,cache,rootPath);
-			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
-
-			String prefix=null;
-
-			if(restrictions!=null){
-				if(restrictions.has(getDisplayNameKey())){
-					prefix=restrictions.getString(getDisplayNameKey()); 
-				}
-			}
-
-			String path = getRestrictedPath(url, restrictions, r.getServicesSearchKeyword(), "", true, getDisplayNameKey() );
-			
-			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
-			Document doc=data.getDocument();
-			if(doc==null)
-				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,path);
-			String[] tag_parts=r.getServicesListPath().split(",",2);
-			List<Node> objects=doc.getDocument().selectNodes(tag_parts[1]);
-			
-			for(Node object : objects) {
-				String name=object.selectSingleNode("displayName").getText();
-				String csid=object.selectSingleNode("csid").getText();
-				if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase()))
-					out.add(csid);
-				cache.setCached(getClass(),new String[]{"namefor",vocab,csid},name);
-				//why don't we just use refName that is sent in the payload?
-				String refname=urn_processor.constructURN("id",vocab,"id",csid,name);
-				cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refname);
-			}
-			return out.toArray(new String[0]);
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("UTF-8 not supported!?"+e.getLocalizedMessage());
-		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Error parsing JSON"+e.getLocalizedMessage());
-		}
-	}
-
-	private String generateURL(String vocab,String path,String extrapath,Record myr) throws ExistException, ConnectionException, UnderlyingStorageException {
-		String url = myr.getServicesURL()+"/"+vocab+"/items/"+path+extrapath;
-		return url;
-	}
-	private String generateURL(String vocab,String path,String extrapath) throws ExistException, ConnectionException, UnderlyingStorageException {
-		String url = r.getServicesURL()+"/"+vocab+"/items/"+path+extrapath;
-		return url;
-	}
-
-	private JSONObject urnGet(String vocab,String entry,String refname) throws JSONException, ExistException, UnderlyingStorageException {
-		JSONObject out=new JSONObject();
-		//use cache?
-		out.put("recordtype",r.getWebURL());
-		out.put("refid",refname);
-		out.put("csid",entry);
-		out.put("displayName",urn_processor.deconstructURN(refname,false)[5]);
-		return out;
-	}
 	
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -577,19 +222,19 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String[] parts=filePath.split("/");
 			//deal with different url structures
 			String vocab,csid;
-			if("_direct".equals(parts[0])) {
-				if("urn".equals(parts[1])) {
-					//this isn't simple pattern matching
-					return urnGet(parts[2],parts[3],parts[4]);
-				}
-				vocab=parts[2];
-				csid=parts[3];
-				num=4;
-			} else {
-				vocab=vocab_cache.getVocabularyId(creds,cache,parts[0]);
+//			if("_direct".equals(parts[0])) { // is this ever used?
+//				if("urn".equals(parts[1])) {
+//					//this isn't simple pattern matching
+//					return urnGet(parts[2],parts[3],parts[4]);
+//				}
+//				vocab=parts[2];
+//				csid=parts[3];
+//				num=4;
+//			} else {
+				vocab = RefName.shortIdToPath(parts[0]);
 				csid=parts[1];	
 				num = 2;
-			}		
+//			}		
 			
 			if(parts.length>num) {
 				String extra = "";
@@ -597,7 +242,9 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				if(parts.length>extradata){
 					extra = parts[extradata];
 				}
-				return viewRetrieveJSON(root,creds,cache,vocab,csid,parts[num],extra, restrictions);
+				String servicepath = generateURL(vocab,csid,"",this.r);
+				
+				return viewRetrieveJSON(root,creds,cache,null,parts[num], extra, restrictions, servicepath);
 			} else
 				return simpleRetrieveJSON(root,creds,cache,vocab,csid);
 		} catch (ConnectionException e) {
@@ -609,116 +256,30 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}
 		
 	}
-	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
-		try{
-			if(view.equals("view")){
-				return miniViewRetrieveJSON(storage, cache,creds,vocab,extra, csid);
-			}
-			else if("authorityrefs".equals(view)){
-				String path = generateURL(vocab,csid,"/authorityrefs");
-				return refViewRetrieveJSON(storage,creds,cache,path,restrictions);
-			}
-			else if("refObjs".equals(view)){
-				String path = generateURL(vocab,csid,"/refObjs");
-				return refObjViewRetrieveJSON(storage,creds,cache,path);			
-			}
-			else
-				return new JSONObject();
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		}
+	private String generateURL(String vocab,String path,String extrapath,Record myr) throws ExistException, ConnectionException, UnderlyingStorageException {
+		String url = myr.getServicesURL()+"/"+vocab+"/items/"+path+extrapath;
+		return url;
 	}
-	
-	
-	public JSONObject miniViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCache cache,CSPRequestCredentials creds,String vocab,String extra,String csid) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
-		try {
-
-			String filepath = vocab+"/items/"+csid;
-			JSONObject out = miniViewRetrieveJSON(cache,creds,filepath,extra,vocab+"/"+csid,this.r);
-			
-			//actually use cache			
-			String name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
-			String refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
-			String shortId=(String)cache.getCached(getClass(),new String[]{"shortId",vocab,csid});
-			String testcsid=(String)cache.getCached(getClass(),new String[]{"csidfor",vocab,csid}); 
-			//incase using nameurn
-			if(testcsid!=null && testcsid.equals("") && !testcsid.equals(csid))
-			{
-				csid = testcsid;
-			}
-			if(name != null && refid != null && name.length() >0 && refid.length()>0 && shortId !=null){
-				out.put(getDisplayNameKey(), name);
-				out.put("refid", refid);
-				out.put("csid",csid);
-				out.put("authorityid", vocab);
-				out.put("shortIdentifier", shortId);
-				out.put("recordtype",r.getWebURL());
-			}
-			else{
-				JSONObject cached =  simpleRetrieveJSON(storage, creds,cache,vocab,csid);
-				name=(String)cache.getCached(getClass(),new String[]{"namefor",vocab,csid});
-				refid=(String)cache.getCached(getClass(),new String[]{"reffor",vocab,csid});
-				shortId=(String)cache.getCached(getClass(),new String[]{"shortId",vocab,csid});
-				testcsid=(String)cache.getCached(getClass(),new String[]{"csidfor",vocab,csid}); 
-				out.put(getDisplayNameKey(), cached);
-				out.put("refid", refid);
-				out.put("csid",csid);
-				out.put("authorityid", vocab);
-				out.put("shortIdentifier", shortId);
-				out.put("recordtype",r.getWebURL());
-			}
-			return out;
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		}
-	}
-	
 	
 	public JSONObject simpleRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException{
 		JSONObject out=new JSONObject();
 		out=get(storage, creds,cache,vocab,csid,conn.getIMSBase());
-		cache.setCached(getClass(),new String[]{"csidfor",vocab,csid},out.get("csid"));//cos csid might be a refname at this point..
-		cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
-		cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
-		cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
+		//cache.setCached(getClass(),new String[]{"csidfor",vocab,csid},out.get("csid"));//cos csid might be a refname at this point..
+		//cache.setCached(getClass(),new String[]{"namefor",vocab,csid},out.get(getDisplayNameKey()));
+		//cache.setCached(getClass(),new String[]{"reffor",vocab,csid},out.get("refid"));
+		//cache.setCached(getClass(),new String[]{"shortId",vocab,csid},out.get("shortIdentifier"));
 		return out;
 	}
 	
-	private JSONArray get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid,String filePath, Record thisr) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
-		JSONArray itemarray = new JSONArray();
-//get list view
-
-		String node = "/"+thisr.getServicesListPath().split("/")[0]+"/*";
-		JSONObject data = getListView(creds,cache,filePath,node,"/"+thisr.getServicesListPath(),"csid",false, thisr);
-		
-
-		String[] filepaths = (String[]) data.get("listItems");
-		for(String uri : filepaths) {
-			String path = uri;
-			if(path!=null && path.startsWith("/"))
-				path=path.substring(1);
-			
-			String[] parts=path.split("/");
-			String recordurl = parts[0];
-			String mycsid = parts[parts.length-1];
-			
-			try {
-				JSONObject itemdata= simpleRetrieveJSON( creds, cache, filePath+"/"+mycsid,"",  thisr);
-				itemdata.put("_subrecordcsid", mycsid);//add in csid so I can do update with a modicum of confidence
-				itemarray.put(itemdata);
-			} catch (UnimplementedException e) {
-				throw new UnderlyingStorageException(e.getMessage());
-			}
-		}
-		return itemarray;
-		
-	}
-	
 	private JSONObject get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid,String ims_url) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
+		String url = generateURL(vocab,csid,"",this.r);
+		return get(storage,creds,cache,url,ims_url);
+	}
+	private JSONObject get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String url,String ims_url) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
 		int status=0;
+		String csid = "";
 		JSONObject out = new JSONObject();
 			// XXX pagination support
-			String url = generateURL(vocab,csid,"");
 
 			String softurl = url;
 			if(r.hasSoftDeleteMethod()){
@@ -736,6 +297,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
 			String name = null;
 			String refid = null;
+			String parentcsid = null;
 			String shortIdentifier = "";
 			
 			for(String section : r.getServicesRecordPaths()) {
@@ -751,17 +313,22 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
 					}
 					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
+					csid=result.selectSingleNode(tag_path[1]+"/csid").getText();
+					parentcsid = result.selectSingleNode(tag_path[1]+"/inAuthority").getText();
 					XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);	
 				}
 				else{
 					XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);
 				}
 			}
-
-			//deurn url incase we were sent name not id as csid
-			String[] urned = urn_processor.deconstructURN(refid,false);
 			
-			String thiscsid = urned[4];
+
+	        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(refid);
+	        String thisShortid = itemParsed.getShortIdentifier();
+	        String thiscsid = csid;
+	        String thisparent = itemParsed.getParentShortIdentifier();
+
+			
 			if(r.hasHierarchyUsed("screen")){
 				//lets do relationship stuff...
 				Document list = doc.getDocument("relations-common-list");
@@ -786,7 +353,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 							String sname=node.selectSingleNode("subject/name").getText();
 							sser=node.selectSingleNode("subject/documentType").getText();
 							String[] urnbits = surl.split("/");
-							suri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],sname);
+					//		suri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],sname);
+					//		RefName.Authority authority2 = RefName.Authority.parse(RefName.AUTHORITY_EXAMPLE2);
+					//        RefName.AuthorityItem item3 = RefName.buildAuthorityItem(authority2,
+					//                                                                RefName.EX_itemShortIdentifier,
+					//                                                                RefName.EX_itemDisplayName);
 						}
 						String ouri="";
 						String oser="";
@@ -797,7 +368,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 							String oname=node.selectSingleNode("object/name").getText();
 							oser=node.selectSingleNode("object/documentType").getText();
 							String[] urnbits = ourl.split("/");
-							ouri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],oname);
+					//		ouri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],oname);
 						}
 
 						String relateduri = ouri;
@@ -849,7 +420,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				//sr.getID()
 				if(sr.isType("authority")){
 					String getPath = url + "/" + sr.getServicesURL();
-					JSONArray subout = get(storage, creds,cache,vocab,csid,getPath,sr);
+					JSONArray subout = get(storage, creds,cache,url,getPath,sr);
 					if(fs instanceof Field){
 						JSONObject fielddata = subout.getJSONObject(0);
 
@@ -873,47 +444,189 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			//csid = urn_processor.deconstructURN(refid,false)[4];
 			
 			out.put(getDisplayNameKey(),name);
-			out.put("csid",urned[4]);
+			out.put("csid",csid);
 			out.put("refid",refid);
 			out.put("shortIdentifier", shortIdentifier);
-			out.put("authorityid", vocab);
+			out.put("authorityid", parentcsid);
 			out.put("recordtype",r.getWebURL());
 			return out;
 	}
 	
-	
 
-	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
+	/**
+	 * Returns JSON containing pagenumber, pagesize, itemsinpage, totalitems and the list of items itself 
+	 */
+	@SuppressWarnings("unchecked")
+	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String name=jsonObject.getString(getDisplayNameKey());
-			String vocab=vocab_cache.getVocabularyId(creds,cache,filePath.split("/")[0]);
-			String csid = filePath.split("/")[1];
-			String refname=urn_processor.constructURN("id",vocab,"id",csid,name);
-			if(csid.startsWith(r.getURNVocab())){
-				String shortid = csid.substring(r.getURNVocab().length() + 1, csid.length()-1);
-				refname=urn_processor.constructURN("id",vocab,r.getURNVocab(),shortid,name);
+			JSONObject out = new JSONObject();
+			List<String> list=new ArrayList<String>();	
+			String vocab = RefName.shortIdToPath(rootPath);
+			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
+				
+
+			String prefix=null;
+
+			if(restrictions!=null){
+				if(restrictions.has(getDisplayNameKey())){
+					prefix=restrictions.getString(getDisplayNameKey()); 
+				}
 			}
+
+			String path = getRestrictedPath(url, restrictions, r.getServicesSearchKeyword(), "", true, getDisplayNameKey() );
+			
+
+			if(r.hasSoftDeleteMethod()){
+				path = softpath(path);
+			}
+			if(r.hasHierarchyUsed("screen")){
+				path = hierarchicalpath(path);
+			}
+			
+			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
+			Document doc=data.getDocument();
+			//log.info(doc.asXML());
+			if(doc==null)
+				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,path);
+			String[] tag_parts=r.getServicesListPath().split(",",2);
+			
+			JSONObject pagination = new JSONObject();
+			List<Node> nodes = doc.selectNodes("/"+tag_parts[1].split("/")[0]+"/*");
+			for(Node node : nodes){
+				if(node.matches("/"+tag_parts[1])){
+					String name=node.selectSingleNode("displayName").getText();
+					String csid=node.selectSingleNode("csid").getText();
+					/*
+					String refName=null;
+					if(node.selectSingleNode("refName")!=null){
+						refName=node.selectSingleNode("refName").getText();
+					}
+					String shortIdentifier=null;
+					if(node.selectSingleNode("shortIdentifier")!=null){
+						shortIdentifier=node.selectSingleNode("shortIdentifier").getText();
+					}
+					*/
+					if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase())){
+						list.add(csid);
+					}
+					//cache.setCached(getClass(),new String[]{"namefor",vocab,csid},name);
+					//cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refName);
+					//cache.setCached(getClass(),new String[]{"shortId",vocab,csid},shortIdentifier);
+
+					List<Node> fields=node.selectNodes("*");
+					for(Node field : fields) {
+						String json_name=view_map.get(field.getName());
+						if(json_name!=null) {
+							String value=field.getText();
+							// XXX hack to cope with multi values		
+							if(value==null || "".equals(value)) {
+								List<Node> inners=field.selectNodes("*");
+								for(Node n : inners) {
+									value+=n.getText();
+								}
+							}
+							setGleanedValue(cache,vocab+"/"+csid,json_name,value);
+						}
+					}
+					/* this hopefully will reduce fan out - needs more testing */
+					if(doc.selectSingleNode(r.getServicesFieldsPath())!=null){
+						String myfields = doc.selectSingleNode(r.getServicesFieldsPath()).getText();
+						String[] allfields = myfields.split("\\|");
+						for(String s : allfields){
+							String gleaned = getGleanedValue(cache,vocab+"/"+csid,s);
+							if(gleaned==null){
+								setGleanedValue(cache,vocab+"/"+csid,s,"");
+							}
+						}
+					}
+					
+				}else{
+					pagination.put(node.getName(), node.getText());
+				}
+			}
+			
+			out.put("pagination", pagination);
+			out.put("listItems", list.toArray(new String[0]));
+			return out;
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (UnsupportedEncodingException e) {
+			throw new UnderlyingStorageException("UTF-8 not supported!?"+e.getLocalizedMessage());
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("Error parsing JSON"+e.getLocalizedMessage());
+		}
+	}
+	
+	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath)
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
+		try {			
+			String vocab = RefName.shortIdToPath(filePath.split("/")[0]);
+			String url = generateURL(vocab,filePath.split("/")[1],"",this.r);
+
+			if(r.hasSoftDeleteMethod()){
+				int status = 0;
+				Document doc = null;
+				doc=XmlJsonConversion.getXMLSoftDelete();
+				String workflow = "/workflow";
+				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, url+workflow, doc, creds, cache);
+				status = docm.getStatus();
+				if(status>299 || status<200)
+					throw new UnderlyingStorageException("Bad response ",status,url);
+			}
+			else{
+				int status=conn.getNone(RequestMethod.DELETE,url,null,creds,cache);
+				if(status>299)
+					throw new UnderlyingStorageException("Could not retrieve vocabulary",status,url);
+			}
+			//cache.removeCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]});
+			//cache.removeCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]});
+			//cache.removeCached(getClass(),new String[]{"shortId",vocab,filePath.split("/")[1]});
+			//cache.removeCached(getClass(),new String[]{"csidfor",vocab,filePath.split("/")[1]});
+			//delete name and id versions from teh cache?
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		}	
+	}
+	
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr, String serviceurl)
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
+		String vocab = RefName.shortIdToPath(filePath.split("/")[0]);
+		String csid = filePath.split("/")[1];
+		String savePath;
+		try {
+			savePath = generateURL(vocab,csid,"",thisr);
+			updateJSON(root,creds,cache,jsonObject, thisr, savePath);
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception "+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		}
+	}
+	
+	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, JSONObject jsonObject,Record thisr, String savePath)
+	throws ExistException, UnimplementedException, UnderlyingStorageException {
+		try {
+			
 			Map<String,Document> body=new HashMap<String,Document>();
 			for(String section : r.getServicesRecordPaths()) {
 				String path=r.getServicesRecordPath(section);
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
 
-				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,refname,r);
+				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,null,null,thisr);
 				if(temp!=null){
 					body.put(record_path[0],temp);
+					//log.info(temp.asXML());
 				}
 				
 			}
 
-			if(r.hasHierarchyUsed("screen")){
+			if(thisr.hasHierarchyUsed("screen")){
 				ArrayList<Element> alleles = new ArrayList<Element>();
 				for(Relationship rel : r.getSpec().getAllRelations()){
 					Relationship newrel=rel;
 					Boolean inverse = false;
 					if(rel.hasInverse()){
-						newrel = r.getSpec().getRelation(rel.getInverse());
+						newrel = thisr.getSpec().getRelation(rel.getInverse());
 						inverse = true;
 					}
 					//does this relationship apply to this record
@@ -923,10 +636,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						if(jsonObject.has(rel.getID())){
 							if(rel.getObject().equals("1")){
 								if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
-									Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),csid,r.getServicesURL(),refname, inverse);
-									if(bit != null){
-										alleles.add(bit);
-									}
+								//	Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),csid,r.getServicesURL(),refname, inverse);
+								//	if(bit != null){
+								//		alleles.add(bit);
+								//	}
 								}
 							}
 							else if(rel.getObject().equals("n")){
@@ -937,10 +650,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 									JSONObject brgh = temp.getJSONObject(i);
 									if(brgh.has(argh) && !brgh.getString(argh).equals("")){
 										String uri = brgh.getString(argh);
-										Element bit = createRelationship(newrel,uri,csid,r.getServicesURL(),refname, inverse);
-										if(bit != null){
-											alleles.add(bit);
-										}
+									//	Element bit = createRelationship(newrel,uri,csid,r.getServicesURL(),refname, inverse);
+									//	if(bit != null){
+									//		alleles.add(bit);
+									//	}
 									}
 								}
 								
@@ -964,24 +677,23 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			
 			
-			String url = generateURL(vocab,filePath.split("/")[1],"");
-			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,url,body,creds,cache);
+			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,savePath,body,creds,cache);
 			if(out.getStatus()>299){
-				throw new UnderlyingStorageException("Could not update vocabulary",out.getStatus(),url);
+				throw new UnderlyingStorageException("Could not update vocabulary",out.getStatus(),savePath);
 			}
-			cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);
-			cache.setCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]},refname);
+			//cache.setCached(getClass(),new String[]{"namefor",vocab,filePath.split("/")[1]},name);
+			//cache.setCached(getClass(),new String[]{"reffor",vocab,filePath.split("/")[1]},refname);
 			
 			
 			//subrecord update
-			for(FieldSet fs : r.getAllSubRecords("PUT")){
+			for(FieldSet fs : thisr.getAllSubRecords("PUT")){
 				Record sr = fs.usesRecordId();
 				
 				//get list of existing subrecords
 				JSONObject existingcsid = new JSONObject();
 				JSONObject updatecsid = new JSONObject();
 				JSONArray createcsid = new JSONArray();
-				String getPath = url + "/" + sr.getServicesURL();
+				String getPath = savePath + "/" + sr.getServicesURL();
 				String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
 				JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
 				
@@ -1073,13 +785,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					}
 					
 
-					String savePath = url + "/" + sr.getServicesURL()+"/";
+					String savePathSr = savePath + "/" + sr.getServicesURL()+"/";
 					
 					//do delete JSONObject existingcsid = new JSONObject();
 					Iterator<String> rit=existingcsid.keys();
 					while(rit.hasNext()) {
 						String key=rit.next();
-						deleteJSON(root,creds,cache,key,savePath,sr);
+						deleteJSON(root,creds,cache,key,savePathSr,sr);
 					}
 					
 					//do update JSONObject updatecsid = new JSONObject();
@@ -1087,14 +799,17 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					while(keys.hasNext()) {
 						String key=keys.next();
 						JSONObject value = updatecsid.getJSONObject(key);
-						updateJSON( root, creds, cache, key,  value, sr, savePath);
+						String thissave = savePathSr + key;
+
+						updateJSON(root,creds,cache,value, sr, thissave);
+						//updateJSON( root, creds, cache, key,  value, sr, savePathSr);
 					}
 					
 					
 					//do create JSONArray createcsid = new JSONArray();
 					for(int i=0;i<createcsid.length();i++){
 						JSONObject value = createcsid.getJSONObject(i);
-						subautocreateJSON(root,creds,cache,sr,value,savePath);
+						subautocreateJSON(root,creds,cache,sr,value,savePathSr);
 					}
 				}
 			}
@@ -1103,9 +818,158 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			//XXX dont currently update the shortID???
 			//cache.setCached(getClass(),new String[]{"shortId",vocab,filePath.split("/")[1]},shortId);
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+			throw new UnderlyingStorageException("Connection exception "+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
-			throw new UnderlyingStorageException("Cannot parse surrounding JSON"+e.getLocalizedMessage(),e);
+			throw new UnderlyingStorageException("Cannot parse surrounding JSON "+e.getLocalizedMessage(),e);
 		}
+	}
+	
+	private JSONArray get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab,String csid,String filePath, Record thisr) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
+		String url = generateURL(vocab,csid,"",this.r);
+		return get(storage,creds,cache,url,filePath,thisr);
+	}
+	private JSONArray get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String url,String filePath, Record thisr) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
+		JSONArray itemarray = new JSONArray();
+//get list view
+
+		String node = "/"+thisr.getServicesListPath().split("/")[0]+"/*";
+		JSONObject data = getListView(creds,cache,filePath,node,"/"+thisr.getServicesListPath(),"csid",false, thisr);
+		
+
+		String[] filepaths = (String[]) data.get("listItems");
+		for(String uri : filepaths) {
+			String path = uri;
+			if(path!=null && path.startsWith("/"))
+				path=path.substring(1);
+			
+			String[] parts=path.split("/");
+			String recordurl = parts[0];
+			String mycsid = parts[parts.length-1];
+			
+			try {
+				JSONObject itemdata= simpleRetrieveJSON( creds, cache, filePath+"/"+mycsid,"",  thisr);
+				itemdata.put("_subrecordcsid", mycsid);//add in csid so I can do update with a modicum of confidence
+				itemarray.put(itemdata);
+			} catch (UnimplementedException e) {
+				throw new UnderlyingStorageException(e.getMessage());
+			}
+		}
+		return itemarray;
+		
+	}
+	
+
+	protected JSONObject miniViewAbstract(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,JSONObject out, String servicepath, String filePath) throws UnderlyingStorageException{
+		try{
+			//actually use cache
+		//CACHE?
+			
+			JSONObject cached =  get(storage, creds,cache,servicepath,filePath);
+		
+			out.put(getDisplayNameKey(), cached.get("displayName"));
+			out.put("refid", cached.get("refid"));
+			out.put("csid", cached.get("csid"));
+			out.put("authorityid", cached.get("authorityid"));
+			out.put("shortIdentifier", cached.get("shortIdentifier"));
+			out.put("recordtype",r.getWebURL());
+			
+			return out;
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (ExistException e) {
+			throw new UnderlyingStorageException("ExistException exception"+e.getLocalizedMessage(),e);
+		} catch (JSONException e) {
+			throw new UnderlyingStorageException("JSONException exception"+e.getLocalizedMessage(),e);
+		}
+	}
+	/*
+	 * 	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
+		String servicepath = "generateURL(vocab,csid";
+		try{
+			if(view.equals("view")){
+				return miniViewRetrieveJSON(storage, cache,creds,vocab,extra, csid);
+			}
+			else if("authorityrefs".equals(view)){
+				String path = generateURL(vocab,csid,"/authorityrefs");
+				return refViewRetrieveJSON(storage,creds,cache,path,restrictions);
+			}
+			else if("refObjs".equals(view)){
+				String path = generateURL(vocab,csid,"/refObjs");
+				return refObjViewRetrieveJSON(storage,creds,cache,path);			
+			}
+			else
+				return new JSONObject();
+		} catch (ConnectionException e) {
+			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		}
+	}
+	*/
+	protected Element createRelationship(Relationship rel, Object data, String csid, String subjtype, String subjuri, Boolean reverseIt) throws ExistException, UnderlyingStorageException{
+
+		Document doc=DocumentFactory.getInstance().createDocument();
+		Element subroot = doc.addElement("relation-list-item");
+
+		Element predicate=subroot.addElement("predicate");
+		predicate.addText(rel.getPredicate());
+		String subjectName = "subject";
+		String objectName = "object";
+		if(reverseIt){
+			subjectName = "object";
+			objectName = "subject";
+		}
+		Element subject=subroot.addElement(subjectName);
+		Element subjcsid = subject.addElement("csid");
+		Element subjdtype = subject.addElement("documentType");
+		if(csid != null){
+			subjcsid.addText(csid);
+			Element sbjutype = subject.addElement("uri");
+			sbjutype.addText(subjuri);
+		}
+		else{
+			subjcsid.addText("${itemCSID}");
+		}
+		subjdtype.addText(subjtype);
+		
+		//find out record type from urn - need to loop thr all authorities type
+		Record associatedRecord = this.r;
+		String associatedcsid ="";
+		String associateduri =null;
+		String associatedtest = (String)data;
+		for(Record myr : this.r.getSpec().getAllRecords()){
+			if(myr.isType("authority")){
+			//	URNProcessor temp_processor;
+			//	temp_processor=new URNProcessor(myr.getURNSyntax());
+			//	if(temp_processor.validUrn(associatedtest, false)){
+					associatedRecord = myr;
+			//		String[] b = temp_processor.deconstructURN(associatedtest, false);
+					String[] bits = associatedtest.split("/");
+					associatedcsid = bits[4];//b[4]; I KNOW THIS IS PROBABLY WRONG BUT I AM NOT SURE HOW IT IS SUPPOSED TO BE
+					associateduri = associatedtest;
+			//	}
+			}
+			else{
+				//not implemented yet - but I bet I will have to - assume /chain/intake/csid
+				if(associatedtest.startsWith(myr.getWebURL())){
+					associatedRecord = myr;
+					String[] bits = associatedtest.split("/");
+					associatedcsid = bits[bits.length -1 ];
+				}
+			}
+		}
+		
+		
+		Element object=subroot.addElement(objectName);
+		Element objcsid = object.addElement("csid");
+		objcsid.addText(associatedcsid);
+		Element objdtype = object.addElement("documentType");
+		objdtype.addText(associatedRecord.getServicesURL());
+		if(associateduri!=null){
+
+			Element objutype = object.addElement("uri");
+			objutype.addText(associateduri);
+		}
+		
+		
+		return subroot;
 	}
 }
