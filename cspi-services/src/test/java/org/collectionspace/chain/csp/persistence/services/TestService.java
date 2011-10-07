@@ -358,6 +358,33 @@ public class TestService extends ServicesBaseClass {
 		log.info("DELETED PERSON AUTHORITY");
 
 	}
+	
+	@Test
+	public void testNewPersonAuthority() throws Exception {
+		String personAuthFile = "personAuth.xml";
+		String personAuthItemFile = "personAuthItem.xml";
+		String personAuthpartname = "personauthorities_common";
+		String personAuthServiceUrl = "personauthorities/";
+		Map<String, Document> parts = new HashMap<String, Document>();
+		parts.put(personAuthpartname, getDocument(personAuthFile));
+
+		log.info("Testing create at " + personAuthServiceUrl + " with " + personAuthFile
+				+ " and partname=" + personAuthpartname);
+
+		ReturnedURL url = conn.getMultipartURL(RequestMethod.POST, personAuthServiceUrl,
+				parts, creds, cache);
+		
+		log.info(url.getURL());
+
+		String personAuthUrl = url.getURL();
+		// Test creation with a GET
+
+		ReturnedMultipartDocument rdocs = conn.getMultipartXMLDocument(RequestMethod.GET, personAuthUrl,
+					null, creds, cache);
+		int status = rdocs.getStatus();
+		Document doc = rdocs.getDocument(personAuthpartname);
+		log.info(doc.asXML());
+	}
 
 	@Test	
 	public void testPersonContactPostViaShortId() throws Exception {
@@ -401,6 +428,7 @@ public class TestService extends ServicesBaseClass {
 			status = rdoc.getStatus();
 			doc = rdoc.getDocument();
 		}
+		log.info(doc.asXML());
 		assertEquals(200, status);
 		assertNotNull(doc);
 
