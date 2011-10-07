@@ -2,7 +2,7 @@
 <ns2:groups_common
     xmlns:ns2="http://collectionspace.org/services/group" >
 		<title>This is my group</title>
-    <owner>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(jimnabors)'Jim+Nabors'</owner>
+    <owner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</owner>
 		<scopeNote>This is just for testing</scopeNote>
 		<responsibleDepartment>jokes</responsibleDepartment>
 </ns2:groups_common>

@@ -36,7 +36,7 @@ public class TestVocab extends ServicesBaseClass {
 		log.info("testAuthorities:person");
 
 		//XXX disable until soft delete works better everywhere
-		//testAllAuthorities(ss,"/person/person","displayName");
+		testAllAuthorities(ss,"/person/person","displayName");
 		log.info("testAuthorities:vocab");
 		//testAllAuthorities(ss,"/vocab/xxx","displayName");
 		log.info("testAuthorities:organization");
@@ -50,15 +50,15 @@ public class TestVocab extends ServicesBaseClass {
 		// Create
 		log.info("testAuthorities_"+path+"_create");
 		JSONObject data=new JSONObject();
-		data.put("shortIdentifier","TEST");
-		data.put(testField,"TEST");
+		data.put("shortIdentifier","TEST3");
+		data.put(testField,"TEST3");
 
 		data.put("termStatus","Provisional");
 		String id=ss.autocreateJSON(path,data);
 		// Read
 		log.info("testAuthorities_"+path+"_read");
 		JSONObject out=ss.retrieveJSON(path+"/"+id, new JSONObject());
-		assertEquals("TEST",out.getString(testField));
+		assertEquals("TEST3",out.getString(testField));
 		assertEquals("Provisional",out.getString("termStatus"));
 		// Update
 		log.info("testAuthorities_"+path+"_update");
@@ -73,10 +73,11 @@ public class TestVocab extends ServicesBaseClass {
 		// List
 		log.info("testAuthorities_"+path+"_list");
 		data.remove(testField);
-		data.put(testField,"TEST3");
+		data.put(testField,"TEST4");
+		data.put("shortIdentifier","TEST4");
 		String id2=ss.autocreateJSON(path,data);
 		out=ss.retrieveJSON(path + "/"+id2, new JSONObject());
-		assertEquals("TEST3",out.getString(testField));		
+		assertEquals("TEST4",out.getString(testField));		
 		boolean found1=false,found2=false;
 		JSONObject myjs = new JSONObject();
 		myjs.put("pageSize", "100");

@@ -8,11 +8,11 @@
     }, {
         "subject": "asdf"
     }],
-    "de-urned-creator": "Playtime Products Inc.",
+    "de-urned-creator": "TEST4",
     "blobCsid": "",
     "rightsHolder": "rightsHolder",
     "format": "format",
-    "creator": "urn:cspace:org.collectionspace.demo:orgauthority:id(4cc1991b-cee2-48b8-80f8):organization:id(ae637175-ec37-416e-8909)'Playtime+Products+Inc.'",
+    "creator": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
     "publisher": "publisher",
     "languages": [{
         "_primary": true,

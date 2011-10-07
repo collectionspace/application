@@ -5,14 +5,14 @@
         "_primary": true,
         "lendersAuthorizer": "",
         "lendersContact": "",
-        "de-urned-lender": "Bing Crosby Ice Cream Sales, Inc.",
+        "de-urned-lender": "TEST4",
         "lendersAuthorizationDate": "October 29, 2009",
-        "lender": "urn:cspace:org.collectionspace.demo:orgauthority:id(2a6dcf2e-2ec6-47ca-a460):organization:id(b53b23c9-81bf-447b-838f)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'"
+        "lender": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'"
     }, {
         "lendersAuthorizer": "",
         "lendersContact": "",
-         "de-urned-lender": "Bing Crosby Ice Cream Sales, Inc.",
-        "lender": "urn:cspace:org.collectionspace.demo:orgauthority:id(2a6dcf2e-2ec6-47ca-a460):organization:id(b53b23c9-81bf-447b-838f)'Bing+Crosby+Ice+Cream+Sales%2C+Inc.'",
+         "de-urned-lender": "TEST4",
+        "lender": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
         "lendersAuthorizationDate": "October 30, 2009"
     }],
     "loanInConditions": "Loan in conditions.",

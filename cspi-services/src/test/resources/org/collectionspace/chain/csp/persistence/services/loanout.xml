@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:loansout_common xmlns:ns2="http://collectionspace.org/services/loanout">
     <loanOutNumber>LO2010.117</loanOutNumber>
-    <borrower>urn:cspace:org.collectionspace.demo:orgauthority:name(TestOrgAuth):organization:name(NorthernClimesMuseum)'Northern Climes Museum'</borrower>
-    <borrowersContact>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(ChrisContact)'Chris Contact'</borrowersContact>
+    <borrower>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</borrower>
+    <borrowersContact>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</borrowersContact>
     <loanReturnDate>January 29, 2012</loanReturnDate>
     <loanPurpose>Allow people in cold climes to share the magic of Surfboards of the 1960s, via planned exhibition beginning 2 March 2011.</loanPurpose>
     <loanedObjectStatusGroupList>

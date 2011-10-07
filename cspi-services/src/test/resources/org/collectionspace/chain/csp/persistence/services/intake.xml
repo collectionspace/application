@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:intakes_common xmlns:ns2="http://collectionspace.org/services/intake">
     <entryNumber>IN2010.337</entryNumber>
-    <depositor>urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(Alfred L. Kroeber)'Alfred L. Kroeber'</depositor>
+    <depositor>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</depositor>
     <currentLocationGroupList>
         <currentLocationGroup>
             <currentLocation>upstairs</currentLocation>

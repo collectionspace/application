@@ -10,7 +10,7 @@
     <blobCsid></blobCsid>
     <dimensionGroupList/>
     <rightsHolder>rightsHolder</rightsHolder>
-    <creator>urn:cspace:org.collectionspace.demo:orgauthority:id(4cc1991b-cee2-48b8-80f8):organization:id(ae637175-ec37-416e-8909)'Playtime+Products+Inc.'</creator>
+    <creator>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</creator>
     <publisher>publisher</publisher>
     <languageList>
         <language>language</language>

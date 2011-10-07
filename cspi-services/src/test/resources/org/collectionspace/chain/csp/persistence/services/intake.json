@@ -1,7 +1,7 @@
 {
   "entryNumber": "IN2010.337",
-  "depositor": "urn:cspace:org.collectionspace.demo:personauthority:name(TestPersonAuth):person:name(Alfred L. Kroeber)'Alfred L. Kroeber'",
-  "de-urned-depositor":"Alfred L. Kroeber",
+  "depositor": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
+  "de-urned-depositor":"TEST4",
   "currentLocationGroup": [
         {
             "_primary": true,
