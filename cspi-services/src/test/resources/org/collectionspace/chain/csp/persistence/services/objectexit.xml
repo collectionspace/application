@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:objectexit_common
     xmlns:ns2="http://collectionspace.org/services/objectexit">
-    <currentOwner>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(jimnabors)'Jim+Nabors'</currentOwner>
-    <depositor>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(zsazsagabor)'Zsa+Zsa+Gabor'</depositor>
+    <currentOwner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</currentOwner>
+    <depositor>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</depositor>
     <exitDate>July 1, 2010</exitDate>
     <exitMethods>
         <exitMethod>courier</exitMethod>
