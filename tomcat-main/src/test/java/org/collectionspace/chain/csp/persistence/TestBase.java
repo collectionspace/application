@@ -64,34 +64,50 @@ public class TestBase extends TestData {
                 int year = cal.get(Calendar.YEAR);
 		return Integer.toString(year);
 	}
+	protected static void login(String tenant, ServletTester tester) throws IOException,
+			Exception {
+		JSONObject user = getDefaultUser(tester);
+		login(tenant, tester, user, false);
+	}
+
+	protected static void login(String tenant, ServletTester tester, Boolean isUTF8)
+			throws IOException, Exception {
+		JSONObject user = getDefaultUser(tester);
+		login(tenant, tester, user, isUTF8);
+	}
+
+	protected static void login(String tenant, ServletTester tester, JSONObject user)
+			throws IOException, Exception {
+		login(tenant, tester, user, false);
+	}
     
 	protected static void login(ServletTester tester) throws IOException,
 			Exception {
 		JSONObject user = getDefaultUser(tester);
-		login(tester, user, false);
+		login("core", tester, user, false);
 	}
 
 	protected static void login(ServletTester tester, Boolean isUTF8)
 			throws IOException, Exception {
 		JSONObject user = getDefaultUser(tester);
-		login(tester, user, isUTF8);
+		login("core", tester, user, isUTF8);
 	}
 
 	protected static void login(ServletTester tester, JSONObject user)
 			throws IOException, Exception {
-		login(tester, user, false);
+		login("core", tester, user, false);
 	}
 
-	protected static void login(ServletTester tester, JSONObject user,
+	protected static void login(String tenant, ServletTester tester, JSONObject user,
 			Boolean isUTF8) throws IOException, Exception {
 		String test = user.toString();
 		if (isUTF8) {
 			UTF8SafeHttpTester out = jettyDoUTF8(tester, "POST",
-					"/tenant/core/login/", test);
+					"/tenant/"+tenant+"/login/", test);
 			assertEquals(303, out.getStatus());
 			cookie = out.getHeader("Set-Cookie");
 		} else {
-			HttpTester out = jettyDo(tester, "POST", "/tenant/core/login/", test);
+			HttpTester out = jettyDo(tester, "POST", "/tenant/"+tenant+"/login/", test);
 			log.info(out.getContent());
 			assertEquals(303, out.getStatus());
 			cookie = out.getHeader("Set-Cookie");
@@ -102,33 +118,35 @@ public class TestBase extends TestData {
 	}
 
 	protected static ServletTester setupJetty() throws Exception {
-		return setupJetty( null, false);
+		return setupJetty("core", null, false);
 	}
 
-	protected static ServletTester setupJetty(Boolean isUTF8, String configfile) throws Exception {
-		return setupJetty( null, isUTF8, configfile);
+	//protected static ServletTester setupJetty(String tenant, Boolean isUTF8, String configfile) throws Exception {
+	//	return setupJetty( tenant, isUTF8, configfile,null);
+	//}
+
+	protected static ServletTester setupJetty(String tenant, JSONObject user, String configfile) throws Exception {
+		return setupJetty( tenant, user, false, configfile);
 	}
 
-	protected static ServletTester setupJetty(JSONObject user, String configfile) throws Exception {
-		return setupJetty( user, false, configfile);
+	protected static ServletTester setupJetty(String tenant, JSONObject user) throws Exception {
+		return setupJetty(tenant, user, false);
 	}
-
 	protected static ServletTester setupJetty(JSONObject user) throws Exception {
-		return setupJetty( user, false);
+		return setupJetty(null, user, false);
 	}
 
-	protected static ServletTester setupJetty(Boolean isUTF8)
+	protected static ServletTester setupJetty(String tenant, Boolean isUTF8)
 			throws Exception {
-		return setupJetty(null, isUTF8);
+		return setupJetty( tenant, null, isUTF8);
 	}
 
 
 	// controller: "test-config-loader2.xml"
-	protected static ServletTester setupJetty(
-			JSONObject user, Boolean isUTF8) throws Exception {
-		return setupJetty(user,isUTF8,"default.xml");
+	protected static ServletTester setupJetty(String tenant, JSONObject user, Boolean isUTF8) throws Exception {
+		return setupJetty(tenant, user,isUTF8,"default.xml");
 	}
-	protected static ServletTester setupJetty(JSONObject user, Boolean isUTF8, String configfile) throws Exception {
+	protected static ServletTester setupJetty(String tenant, JSONObject user, Boolean isUTF8, String configfile) throws Exception {
 		String base = "";
 				
 		ServletTester tester = new ServletTester();
@@ -138,9 +156,9 @@ public class TestBase extends TestData {
 		tester.setAttribute("config-filename", configfile);
 		tester.start();
 		if (user != null) {
-			login(tester, user, isUTF8);
+			login(tenant, tester, user, isUTF8);
 		} else {
-			login(tester, isUTF8);
+			login(tenant, tester, isUTF8);
 		}
 
 		return tester;
