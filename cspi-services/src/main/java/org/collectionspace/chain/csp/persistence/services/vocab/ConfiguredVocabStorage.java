@@ -620,6 +620,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, JSONObject jsonObject,Record thisr, String savePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
+			String csid = savePath.split("/")[3];
 			
 			Map<String,Document> body=new HashMap<String,Document>();
 			for(String section : r.getServicesRecordPaths()) {
@@ -651,10 +652,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						if(jsonObject.has(rel.getID())){
 							if(rel.getObject().equals("1")){
 								if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
-								//	Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),csid,r.getServicesURL(),refname, inverse);
-								//	if(bit != null){
-								//		alleles.add(bit);
-								//	}
+									Element bit = createRelationship(newrel,jsonObject.get(rel.getID()),csid,r.getServicesURL(),savePath, inverse);
+									if(bit != null){
+										alleles.add(bit);
+									}
 								}
 							}
 							else if(rel.getObject().equals("n")){
@@ -665,10 +666,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 									JSONObject brgh = temp.getJSONObject(i);
 									if(brgh.has(argh) && !brgh.getString(argh).equals("")){
 										String uri = brgh.getString(argh);
-									//	Element bit = createRelationship(newrel,uri,csid,r.getServicesURL(),refname, inverse);
-									//	if(bit != null){
-									//		alleles.add(bit);
-									//	}
+										Element bit = createRelationship(newrel,uri,csid,r.getServicesURL(),savePath, inverse);
+										if(bit != null){
+											alleles.add(bit);
+										}
 									}
 								}
 								
@@ -681,15 +682,16 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					Element[] array = (Element[])alleles.toArray(new Element[0]);
 					Document out=XmlJsonConversion.getXMLRelationship(array);
 					body.put("relations-common-list",out);
+					log.info(out.asXML());
 				}
 				else{
 
 					Document out=XmlJsonConversion.getXMLRelationship(null);
 					body.put("relations-common-list",out);
+					log.info(out.asXML());
 				}
 				//probably should put empty array in if no data
 			}
-			
 			
 			
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,savePath,body,creds,cache);
@@ -919,6 +921,22 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}
 	}
 	*/
+	/**
+	 *     <relation-list-item>
+                <predicate>hasBroader</predicate>
+                <subject>
+                  <csid>${itemCSID}</csid>
+                  <documentType>Location</documentType>
+                </subject>
+                <object>
+                  <csid>2a5f119a-acd0-4b89-a535</csid>
+                  <uri>/cspace-services/locationauthorities/urn:cspace:name(CSPACE3739LocationAuthority)/items/2a5f119a-acd0-4b89-a535</uri>
+                  <documentType>Location</documentType>
+                </object>
+        </relation-list-item>
+
+
+	 */
 	protected Element createRelationship(Relationship rel, Object data, String csid, String subjtype, String subjuri, Boolean reverseIt) throws ExistException, UnderlyingStorageException{
 
 		Document doc=DocumentFactory.getInstance().createDocument();
@@ -950,27 +968,30 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		String associatedcsid ="";
 		String associateduri =null;
 		String associatedtest = (String)data;
-		for(Record myr : this.r.getSpec().getAllRecords()){
-			if(myr.isType("authority")){
-			//	URNProcessor temp_processor;
-			//	temp_processor=new URNProcessor(myr.getURNSyntax());
-			//	if(temp_processor.validUrn(associatedtest, false)){
-					associatedRecord = myr;
-			//		String[] b = temp_processor.deconstructURN(associatedtest, false);
-					String[] bits = associatedtest.split("/");
-					associatedcsid = bits[4];//b[4]; I KNOW THIS IS PROBABLY WRONG BUT I AM NOT SURE HOW IT IS SUPPOSED TO BE
-					associateduri = associatedtest;
-			//	}
+		
+
+        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(associatedtest);
+        String thisShortid = itemParsed.getShortIdentifier();
+        String thisparent = itemParsed.getParentShortIdentifier();
+        String serviceurl = itemParsed.inAuthority.resource;
+		Record myr = this.r.getSpec().getRecordByServicesUrl(serviceurl);
+        if(myr.isType("authority")){
+
+			String vocab = RefName.shortIdToPath(thisparent);
+			String assoccsid = RefName.shortIdToPath(thisShortid);
+			associatedRecord = myr;
+			associatedcsid = assoccsid;//should work .... maybe
+			associateduri = associatedtest;
+        }
+        else{
+
+			//not implemented yet - but I bet I will have to - assume /chain/intake/csid
+			if(associatedtest.startsWith(myr.getWebURL())){
+				associatedRecord = myr;
+				String[] bits = associatedtest.split("/");
+				associatedcsid = bits[bits.length -1 ];
 			}
-			else{
-				//not implemented yet - but I bet I will have to - assume /chain/intake/csid
-				if(associatedtest.startsWith(myr.getWebURL())){
-					associatedRecord = myr;
-					String[] bits = associatedtest.split("/");
-					associatedcsid = bits[bits.length -1 ];
-				}
-			}
-		}
+        }
 		
 		
 		Element object=subroot.addElement(objectName);
@@ -984,7 +1005,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			objutype.addText(associateduri);
 		}
 		
-		
+		//log.info(subroot.asXML());
 		return subroot;
 	}
 }

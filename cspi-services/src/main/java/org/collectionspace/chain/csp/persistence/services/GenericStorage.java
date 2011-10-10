@@ -654,7 +654,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				view_merge = reset_merge;
 				
 				String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
-				JSONObject data = getRepeatableListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, r);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
+				JSONObject data = getRepeatableListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, vr);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
 
 				reset_good = view_good;
 				reset_map = view_map;
@@ -675,7 +675,14 @@ public class GenericStorage  implements ContextualisedStorage {
 					Record thisr = vr.getSpec().getRecordByServicesUrl(recordurl);
 					resetGlean(thisr,reset_good,reset_map,reset_deurn,reset_merge, true);// what glean info required for this one..
 					String csid = parts[parts.length-1];
-					JSONObject dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", vr.getServicesURL()+"/"+uri, thisr);
+					JSONObject dataitem = null;
+					if(thisr.isType("authority")){
+						dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", thisr.getServicesURL()+"/"+uri, thisr);
+					}
+					else{
+						dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
+					}
+					//JSONObject 
 					dataitem.getJSONObject("summarylist").put("uri",filePath);
 					
 					
