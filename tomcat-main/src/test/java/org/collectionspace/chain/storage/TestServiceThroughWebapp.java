@@ -31,7 +31,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	
 	
 	@Test public void testCollectionObjectBasic() throws Exception {
-		ServletTester jetty=setupJetty(true);
+		ServletTester jetty=setupJetty("core",true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",makeSimpleRequest(getResourceString("obj3.json")));	
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
@@ -61,7 +61,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 
 	@Test public void testIntake() throws Exception {
-		ServletTester jetty=setupJetty(true);
+		ServletTester jetty=setupJetty("core",true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/intake/",makeSimpleRequest(getResourceString("int3.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
@@ -89,7 +89,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 
 	@Test public void testAcquisition() throws Exception {
-		ServletTester jetty=setupJetty(true);
+		ServletTester jetty=setupJetty("core",true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/acquisition/",makeSimpleRequest(getResourceString("create_acquistion.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
@@ -115,7 +115,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 
 	@Test public void testIDGenerate() throws Exception {
-		ServletTester jetty=setupJetty(true);
+		ServletTester jetty=setupJetty("core",true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/tenant/core/id/intake",null);
 		JSONObject jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("IN" + getCurrentYear() + "."));
@@ -157,7 +157,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 
 	@Test public void testTermsUsed() throws Exception {
-		ServletTester jetty=setupJetty(true);
+		ServletTester jetty=setupJetty("core",true);
 		
 		JSONObject data=new JSONObject("{'csid':'','fields':{'displayName':'David Bowie'}}");
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/vocabularies/person",data.toString());
@@ -170,6 +170,7 @@ public class TestServiceThroughWebapp extends TestBase{
 		data.remove("valuer");
 		data.put("valuer",p_refid);
 		out=jettyDoUTF8(jetty,"POST","/tenant/core/intake/",makeSimpleRequest(data.toString()));
+		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
 		jo=new JSONObject(out.getContent());
 		//log.info(jo.toString());
@@ -182,7 +183,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 		
 	@Test public void testAutoGet() throws Exception {
-		ServletTester jetty=setupJetty(true);
+		ServletTester jetty=setupJetty("core",true);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/tenant/core/cataloging/__auto",null);
 		assertEquals(200,out.getStatus());
 		// XXX this is correct currently, whilst __auto is stubbed.
@@ -190,7 +191,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 	
 	@Test public void testList() throws Exception {
-		ServletTester jetty=setupJetty(true);
+		ServletTester jetty=setupJetty("core",true);
 		// do not delete all
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/tenant/core/cataloging",null);
 		assertEquals(200,out.getStatus());
@@ -241,7 +242,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 	
 	@Test public void testSearch() throws Exception {
-		ServletTester jetty=setupJetty(true);
+		ServletTester jetty=setupJetty("core",true);
 		// one aardvark, one non-aardvark
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",makeSimpleRequest(getResourceString("obj3-search.json")));	
 		assertEquals(201,out.getStatus());
@@ -272,7 +273,7 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 	
 	@Test public void testLogin() throws Exception {
-		ServletTester jetty=setupJetty(true);
+		ServletTester jetty=setupJetty("core",true);
 		Spec spec = TestData.getSpec(jetty);
 		String pwd = spec.getAdminData().getAuthPass();
 		String username = spec.getAdminData().getAuthUser();
