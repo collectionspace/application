@@ -47,12 +47,12 @@
                     <instance id="person-test1">
                         <web-url>persontest1</web-url>
                         <title-ref>persontest1</title-ref>
-                        <title>Test Person Authority</title>
+                        <title>Test Person Authority 1</title>
                     </instance>
                     <instance id="person-test2">
                         <web-url>persontest2</web-url>
                         <title-ref>persontest2</title-ref>
-                        <title>Test Person Authority</title>
+                        <title>Test Person Authority 2</title>
                     </instance>
                 </instances>
                 <section>
