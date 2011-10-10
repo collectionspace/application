@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.persistence.services;
 
+import org.collectionspace.chain.csp.persistence.services.vocab.RefName;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -58,9 +59,18 @@ public class DirectRedirector implements ContextualisedStorage {
 		throws ExistException, UnimplementedException, UnderlyingStorageException {
 		/* Find relevant controller, and call */
 		String[] url=path.split("/");
-		Record r=spec.getRecordByServicesUrl(url[1]);
+        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(url[2]);
+        String thisShortid = itemParsed.getShortIdentifier();
+        String thisparent = itemParsed.getParentShortIdentifier();
+        String displayName = itemParsed.displayName;
+        String test = itemParsed.inAuthority.resource;
+
+		String vocab = RefName.shortIdToPath(thisparent);
+		String csid = RefName.shortIdToPath(thisShortid);
+		
+		Record r=spec.getRecordByServicesUrl(itemParsed.inAuthority.resource);
 		if(!r.isType("authority"))
 			throw new UnimplementedException("Only authorities supported at direct at the moment");
-		return root.retrieveJSON(root,creds,cache,r.getID()+"/_direct/"+url[0]+"/"+url[2]+"/"+url[4]+"/"+url[5], restrictions);
+		return root.retrieveJSON(root,creds,cache,r.getID()+"/_direct/"+url[0]+"/"+vocab+"/"+csid, restrictions);
 	}
 }
