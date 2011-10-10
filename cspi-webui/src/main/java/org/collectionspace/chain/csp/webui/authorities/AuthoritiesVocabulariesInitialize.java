@@ -10,12 +10,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Properties;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -83,7 +79,34 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		if(pageSize!=null){
 			restriction.put("pageSize",pageSize);
 		}
-		JSONObject data = storage.getPathsJSON(thisr.getID()+"/"+n.getTitleRef(),restriction);
+		String url = thisr.getID()+"/"+n.getTitleRef();
+		JSONObject data = null;
+		try{
+			data = storage.getPathsJSON(url,restriction);
+		}
+		catch (UnderlyingStorageException x) {
+
+			JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+			String base=thisr.getID();
+			storage.autocreateJSON(base,fields);
+			data = storage.getPathsJSON(url,restriction);
+		}
+		//if(data.has("isError")&& data.getBoolean("isError")){
+			/*
+			 *                     <instance id="vocab-languages">
+                        <web-url>languages</web-url>
+                        <title-ref>languages</title-ref>
+                        <title>Languages</title>
+                       */
+			//create the vocab
+				//create the vocab
+		//	JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+
+		//	String base=thisr.getID();
+		//	storage.autocreateJSON(base,fields);
+		//	
+		//}
+		
 		String[] results = (String[]) data.get("listItems");
 		/* Get a view of each */
 		for(String result : results) {
