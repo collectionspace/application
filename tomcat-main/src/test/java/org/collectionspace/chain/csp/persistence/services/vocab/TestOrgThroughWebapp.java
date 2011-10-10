@@ -20,6 +20,7 @@ import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.HttpHeaders;
@@ -33,6 +34,45 @@ public class TestOrgThroughWebapp extends TestBase {
 	private static final Logger log = LoggerFactory
 			.getLogger(TestOrgThroughWebapp.class);
 
+	//need a begin function that creates the default person if it is missing?
+		@Before public void testCreateAuth() throws Exception {
+			ServletTester jetty=setupJetty();
+			HttpTester out = GETData("/vocabularies/person/",jetty);
+			log.info(out.getContent());
+			JSONObject test = new JSONObject(out.getContent());
+			if(test.has("isError") && test.getBoolean("isError")){
+				//create the person authority
+				JSONObject data=new JSONObject("{'fields':{'displayName':'Default Person Authority','shortIdentifier':'person','vocabType':'PersonAuthority'}}");
+				out = POSTData("/authorities/person/",data,jetty);	
+			}
+
+			out = GETData("/vocabularies/persontest1/",jetty);
+			log.info(out.getContent());
+			test = new JSONObject(out.getContent());
+			if(test.has("isError") && test.getBoolean("isError")){
+				//create the person authority
+				JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 1','shortIdentifier':'persontest1','vocabType':'PersonAuthority'}}");
+				out = POSTData("/authorities/person/",data,jetty);	
+			}
+			
+			out = GETData("/vocabularies/persontest2/",jetty);
+			log.info(out.getContent());
+			test = new JSONObject(out.getContent());
+			if(test.has("isError") && test.getBoolean("isError")){
+				//create the person authority
+				JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 2','shortIdentifier':'persontest2','vocabType':'PersonAuthority'}}");
+				out = POSTData("/authorities/person/",data,jetty);	
+			}
+			
+			out = GETData("/vocabularies/organization/",jetty);
+			log.info(out.getContent());
+			JSONObject test2 = new JSONObject(out.getContent());
+			if(test2.has("isError") && test2.getBoolean("isError")){
+				//create the person authority
+				JSONObject data=new JSONObject("{'fields':{'displayName':'Default Organization Authority','shortIdentifier':'organization','vocabType':'OrgAuthority'}}");
+				out = POSTData("/authorities/organization/",data,jetty);	
+			}
+		}
 	/**
 	 * Tests that an authority search includes the expected item difference
 	 * between an authority search and a vocabulary search is: auth search

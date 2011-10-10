@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
@@ -21,7 +22,45 @@ import org.slf4j.LoggerFactory;
 public class TestNameThroughWebapp extends TestBase{
 	private static final Logger log=LoggerFactory.getLogger(TestNameThroughWebapp.class);
 	
+//need a begin function that creates the default person if it is missing?
+	@Before public void testCreateAuth() throws Exception {
+		ServletTester jetty=setupJetty();
+		HttpTester out = GETData("/vocabularies/person/",jetty);
+		log.info(out.getContent());
+		JSONObject test = new JSONObject(out.getContent());
+		if(test.has("isError") && test.getBoolean("isError")){
+			//create the person authority
+			JSONObject data=new JSONObject("{'fields':{'displayName':'Default Person Authority','shortIdentifier':'person','vocabType':'PersonAuthority'}}");
+			out = POSTData("/authorities/person/",data,jetty);	
+		}
 
+		out = GETData("/vocabularies/persontest1/",jetty);
+		log.info(out.getContent());
+		test = new JSONObject(out.getContent());
+		if(test.has("isError") && test.getBoolean("isError")){
+			//create the person authority
+			JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 1','shortIdentifier':'persontest1','vocabType':'PersonAuthority'}}");
+			out = POSTData("/authorities/person/",data,jetty);	
+		}
+		
+		out = GETData("/vocabularies/persontest2/",jetty);
+		log.info(out.getContent());
+		test = new JSONObject(out.getContent());
+		if(test.has("isError") && test.getBoolean("isError")){
+			//create the person authority
+			JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 2','shortIdentifier':'persontest2','vocabType':'PersonAuthority'}}");
+			out = POSTData("/authorities/person/",data,jetty);	
+		}
+		
+		out = GETData("/vocabularies/organization/",jetty);
+		log.info(out.getContent());
+		JSONObject test2 = new JSONObject(out.getContent());
+		if(test2.has("isError") && test2.getBoolean("isError")){
+			//create the person authority
+			JSONObject data=new JSONObject("{'fields':{'displayName':'Default Organization Authority','shortIdentifier':'organization','vocabType':'OrgAuthority'}}");
+			out = POSTData("/authorities/organization/",data,jetty);	
+		}
+	}
 	
 	//XXX change so creates person and then tests person exists
 	@Test public  void testAutocomplete() throws Exception {
@@ -105,10 +144,13 @@ public class TestNameThroughWebapp extends TestBase{
 		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTJacob Zuma'}}");
 		HttpTester out = POSTData("/vocabularies/person/",data,jetty);	
 
+		log.info(out.getContent());
 		String url=out.getHeader("Location");
 
 		out = GETData("/authorities/person/search?query=XXXTESTJacob+Zuma",jetty);
 
+		log.info(out.getContent());
+		
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
