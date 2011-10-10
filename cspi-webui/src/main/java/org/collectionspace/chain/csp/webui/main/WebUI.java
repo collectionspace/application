@@ -222,6 +222,7 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL()},0,new AuthoritiesVocabulariesSearchList(r,false));
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(r,true));
 				addMethod(Operation.CREATE,new String[]{"authorities",r.getWebURL(),"search"},0,new AuthoritiesVocabulariesSearchList(r,true));
+				addMethod(Operation.CREATE,new String[]{"authorities",r.getWebURL()},0,new VocabulariesCreateUpdate(r,true));
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"initialize"},0,new AuthoritiesVocabulariesInitialize(r,true));
 				addMethod(Operation.READ,new String[]{"authorities",r.getWebURL(),"refresh"},0,new AuthoritiesVocabulariesInitialize(r,false));
 				for(Instance n : r.getAllInstances()) {

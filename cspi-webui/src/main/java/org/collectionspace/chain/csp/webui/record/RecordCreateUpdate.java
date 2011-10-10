@@ -202,7 +202,6 @@ public class RecordCreateUpdate implements WebMethod {
 		JSONArray items = data.getJSONArray("items");
 		for(int i=0;i<items.length();i++){
 			JSONObject item = items.getJSONObject(i);
-			JSONObject permission = new JSONObject();
 			String resourcename = item.getString("summary");
 			String actionGroup = item.getString("number");
 			//need to do a double check as the query is an inexact match
@@ -263,7 +262,7 @@ public class RecordCreateUpdate implements WebMethod {
 				Instance ins=new Instance(thisr, options);
 				vr.addInstance(ins);
 			}
-			JSONArray getallnames = ctl.get(storage, sid,vr,0);
+			ctl.get(storage, sid,vr,0);
 		}
 
 	}
