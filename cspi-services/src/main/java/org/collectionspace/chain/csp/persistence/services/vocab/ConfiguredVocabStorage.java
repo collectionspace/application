@@ -232,7 +232,24 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			throw new UnderlyingStorageException("Cannot parse surrounding JSON"+e.getLocalizedMessage(),e);
 		}
 	}
+	
+	private JSONObject urnGet(String refname) throws JSONException, ExistException, UnderlyingStorageException {
+		JSONObject out=new JSONObject();
 
+        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(refname);
+        String thisShortid = itemParsed.getShortIdentifier();
+        String thisparent = itemParsed.getParentShortIdentifier();
+        String displayName = itemParsed.displayName;
+
+		String vocab = RefName.shortIdToPath(thisparent);
+		String csid = RefName.shortIdToPath(thisShortid);
+		//use cache?
+		out.put("recordtype",r.getWebURL());
+		out.put("refid",refname);
+		out.put("csid",csid);
+		out.put("displayName",displayName);
+		return out;
+	}
 	
 	public JSONObject retrieveJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -240,19 +257,19 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String[] parts=filePath.split("/");
 			//deal with different url structures
 			String vocab,csid;
-//			if("_direct".equals(parts[0])) { // is this ever used?
-//				if("urn".equals(parts[1])) {
+			if("_direct".equals(parts[0])) { 
+				if("urn".equals(parts[1])) {
 //					//this isn't simple pattern matching
-//					return urnGet(parts[2],parts[3],parts[4]);
-//				}
-//				vocab=parts[2];
-//				csid=parts[3];
-//				num=4;
-//			} else {
+					return urnGet(parts[3]);
+				}
+				vocab=parts[2];
+				csid=parts[3];
+				num=4;
+			} else {
 				vocab = RefName.shortIdToPath(parts[0]);
 				csid=parts[1];	
 				num = 2;
-//			}		
+			}		
 			
 			if(parts.length>num) {
 				String extra = "";

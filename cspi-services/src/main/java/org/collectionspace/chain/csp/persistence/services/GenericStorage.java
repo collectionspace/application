@@ -564,7 +564,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					if(((Element) node).hasContent()){
 
 						String key=((Element)node).selectSingleNode("sourceField").getText();
-						String uri=((Element)node).selectSingleNode("uri").getText();
+						//String uri=((Element)node).selectSingleNode("uri").getText(); = no longer has a URI - don't know why
 						String refname=((Element)node).selectSingleNode("refName").getText();
 
 						String fieldName = key;
@@ -586,10 +586,8 @@ public class GenericStorage  implements ContextualisedStorage {
 						}
 						
 						if(fieldinstance != null){
-						
-							if(uri!=null && uri.startsWith("/"))
-								uri=uri.substring(1);
-							JSONObject data=miniForURI(storage,creds,cache,refname,uri,restrictions);
+
+							JSONObject data=miniForURI(storage,creds,cache,refname,null,restrictions);
 							data.put("sourceFieldselector", fieldinstance.getSelector());
 							data.put("sourceFieldName", fieldName);
 							data.put("sourceFieldType", r.getID());
