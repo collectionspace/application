@@ -44,12 +44,12 @@
                         <title-ref>person</title-ref>
                         <title>Default Person Authority</title>
                     </instance>
-                    <instance id="person-test1">
+                    <instance id="person-persontest1">
                         <web-url>persontest1</web-url>
                         <title-ref>persontest1</title-ref>
                         <title>Test Person Authority 1</title>
                     </instance>
-                    <instance id="person-test2">
+                    <instance id="person-persontest2">
                         <web-url>persontest2</web-url>
                         <title-ref>persontest2</title-ref>
                         <title>Test Person Authority 2</title>
