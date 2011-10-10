@@ -271,8 +271,10 @@ public class XmlJsonConversion {
 		element.addText(in.getString("displayName"));
 		Element element2=root.addElement("shortIdentifier");
 		element2.addText(in.getString("shortIdentifier"));
-		Element element3=root.addElement("vocabType");
-		element3.addText(in.getString("vocabType"));
+		if(in.has("vocabType")){
+			Element element3=root.addElement("vocabType");
+			element3.addText(in.getString("vocabType"));
+		}
 		
 		return doc;
 //yes I know hardcode is bad - but I need this out of the door today
