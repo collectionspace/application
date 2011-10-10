@@ -254,6 +254,38 @@ public class XmlJsonConversion {
 		return doc;
 		
 	}
+	public static Document convertToXml(Record r,JSONObject in,String section, String permtype, Boolean useInstance) throws JSONException, UnderlyingStorageException {
+		if(!useInstance){
+			return convertToXml( r, in, section,  permtype);
+		}
+		
+		Document doc=DocumentFactory.getInstance().createDocument();
+		String[] parts=r.getServicesRecordPath(section).split(":",2);
+		if(useInstance){
+			parts =r.getServicesInstancesPath(section).split(":",2);
+		}
+		String[] rootel=parts[1].split(",");
+		Element root=doc.addElement(new QName(rootel[1],new Namespace("ns2",rootel[0])));
+
+		Element element=root.addElement("displayName");
+		element.addText(in.getString("displayName"));
+		Element element2=root.addElement("shortIdentifier");
+		element2.addText(in.getString("shortIdentifier"));
+		Element element3=root.addElement("vocabType");
+		element3.addText(in.getString("vocabType"));
+		
+		return doc;
+//yes I know hardcode is bad - but I need this out of the door today
+		/*
+		<ns2:personauthorities_common xmlns:ns2="http://collectionspace.org/services/person">
+		<displayName>PAHMA Person Authority</displayName>
+		<vocabType>PersonAuthority</vocabType>
+		<shortIdentifier>pamha</shortIdentifier>
+		</ns2:personauthorities_common>
+		 */
+		
+	}
+	
 	public static Document convertToXml(Record r,JSONObject in,String section, String permtype) throws JSONException, UnderlyingStorageException {
 		Document doc=DocumentFactory.getInstance().createDocument();
 		String[] parts=r.getServicesRecordPath(section).split(":",2);
@@ -263,7 +295,6 @@ public class XmlJsonConversion {
 			for(FieldSet f : r.getAllServiceFields(permtype,section)) {
 				addFieldSetToXml(root,f,in,section,permtype);
 			}
-			//String test = doc.asXML();
 			//log.info(doc.asXML());
 			return doc;
 		}
@@ -386,7 +417,7 @@ public class XmlJsonConversion {
 			if(ins !=null){ // this authority hasn't been implemented yet
 		        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(urn);
 		        if(itemParsed!=null){
-	return itemParsed.displayName;
+		        	return itemParsed.displayName;
 		        }
 			}
 			

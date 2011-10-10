@@ -63,8 +63,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			throw new UnderlyingStorageException("no display-name='yes' field");
 		return dnf.getID();
 	}
-	private Document createEntry(String section,String namespace,String root_tag,JSONObject data,String vocab,String refname, Record r) throws UnderlyingStorageException, ConnectionException, ExistException, JSONException {
-		Document out=XmlJsonConversion.convertToXml(r,data,section,"POST");
+	private Document createEntry(String section,String namespace,String root_tag,JSONObject data,String vocab,String refname, Record r, Boolean isAuth) throws UnderlyingStorageException, ConnectionException, ExistException, JSONException {
+		Document out=XmlJsonConversion.convertToXml(r,data,section,"POST",isAuth);
 		if(out!=null){
 			Element root=out.getRootElement();
 			Element vocabtag=root.addElement(r.getInTag());
@@ -87,21 +87,40 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			//String name=jsonObject.getString(getDisplayNameKey()); cache?
-			String vocab = RefName.shortIdToPath(filePath);
-			
 			Map<String,Document> body=new HashMap<String,Document>();
-			for(String section : r.getServicesRecordPaths()) {
-				String path=r.getServicesRecordPath(section);
-				String[] record_path=path.split(":",2);
-				String[] tag_path=record_path[1].split(",",2);
-				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null,r);
-				if(temp!=null){
-					body.put(record_path[0],temp);
-					//log.info(temp.asXML());
-				}
+			String vocab = null;
 
-			}	
+			String pathurl ="/"+r.getServicesURL()+"/";
+			if(filePath.equals("")){ //this creating an authority instance not an item 
+
+				for(String section : r.getServicesInstancesPaths()) {
+					String path=r.getServicesInstancesPath(section);
+					String[] record_path=path.split(":",2);
+					String[] tag_path=record_path[1].split(",",2);
+					Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null,r,true);
+					if(temp!=null){
+						body.put(record_path[0],temp);
+						//log.info(temp.asXML());
+					}
+
+				}
+			}
+			else{
+				vocab = RefName.shortIdToPath(filePath);
+				pathurl ="/"+r.getServicesURL()+"/"+vocab+"/items";
+				for(String section : r.getServicesRecordPaths()) {
+					String path=r.getServicesRecordPath(section);
+					String[] record_path=path.split(":",2);
+					String[] tag_path=record_path[1].split(",",2);
+					Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,vocab,null,r, false);
+					if(temp!=null){
+						body.put(record_path[0],temp);
+						//log.info(temp.asXML());
+					}
+
+				}
+			}
+	
 
 			if(r.hasHierarchyUsed("screen")){
 				ArrayList<Element> alleles = new ArrayList<Element>();
@@ -156,7 +175,6 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 			}
 
-			String pathurl ="/"+r.getServicesURL()+"/"+vocab+"/items";
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,pathurl,body,creds,cache);		
 			if(out.getStatus()>299)
 				throw new UnderlyingStorageException("Could not create vocabulary",out.getStatus(),pathurl);
@@ -612,7 +630,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				String[] record_path=path.split(":",2);
 				String[] tag_path=record_path[1].split(",",2);
 
-				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,null,null,thisr);
+				Document temp = createEntry(section,tag_path[0],tag_path[1],jsonObject,null,null,thisr, false);
 				if(temp!=null){
 					body.put(record_path[0],temp);
 					//log.info(temp.asXML());

@@ -268,7 +268,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 		// Do a full request only if values in list of fields returned != list from cspace-config
 		if(to_get.size()>0) {
-			JSONObject data=simpleRetrieveJSON(creds,cache,filePath,cachelistitem,thisr);
+			JSONObject data=simpleRetrieveJSON(creds,cache,null,cachelistitem,thisr);
 			for(String fieldname : to_get) {
 				String good = view_good.get(fieldname);
 				String value = null;
