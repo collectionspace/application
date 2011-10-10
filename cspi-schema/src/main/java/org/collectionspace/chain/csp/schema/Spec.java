@@ -170,6 +170,17 @@ public class Spec implements CSP, Configurable {
 			}
 		});
 		
+		/* RECORD/services-instances-path -> RECORDPATH */
+		rules.addRule(SECTION_PREFIX+"record",new String[]{"services-single-instance-path"},SECTION_PREFIX+"instance-path",null,new Target(){
+			public Object populate(Object parent, ReadOnlySection section) {
+				Record r=(Record)parent;
+				String id=(String)section.getValue("/@id");
+				if(id==null)
+					id="common";
+				r.setServicesInstancePath(id,(String)section.getValue(""));
+				return r;
+			}
+		});		
 		/* RECORD/services-record-path -> RECORDPATH */
 		rules.addRule(SECTION_PREFIX+"record",new String[]{"services-record-path"},SECTION_PREFIX+"record-path",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {

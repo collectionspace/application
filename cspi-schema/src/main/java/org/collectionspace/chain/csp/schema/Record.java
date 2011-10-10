@@ -61,6 +61,7 @@ public class Record implements FieldParent {
 
 	/* Service stuff */
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
+	private Map<String, String> services_instances_paths = new HashMap<String, String>();
 	private Map<String, Field> services_filter_param = new HashMap<String, Field>();
 
 	// XXX utility methods
@@ -556,12 +557,27 @@ public class Record implements FieldParent {
 	public String[] getServicesRecordPaths() {
 		return services_record_paths.keySet().toArray(new String[0]);
 	}
+	
+	public String[] getServicesInstancesPaths(){
+		return services_instances_paths.keySet().toArray(new String[0]);
+	}
 
 	public String getServicesRecordPath(String name) {
 		return services_record_paths.get(name);
 	}
+	
 	public Boolean hasServicesRecordPath(String name) {
 		if(services_record_paths.containsKey(name)){
+			return true;
+		}
+		return false;
+	}
+	public String getServicesInstancesPath(String name) {
+		return services_instances_paths.get(name);
+	}
+	
+	public Boolean hasServicesInstancesPath(String name) {
+		if(services_instances_paths.containsKey(name)){
 			return true;
 		}
 		return false;
@@ -584,6 +600,9 @@ public class Record implements FieldParent {
 
 	void setServicesRecordPath(String section, String path) {
 		services_record_paths.put(section, path);
+	}
+	void setServicesInstancePath(String section, String path){
+		services_instances_paths.put(section, path);
 	}
 
 	void setServicesFilterParam(String param, Field field) {
