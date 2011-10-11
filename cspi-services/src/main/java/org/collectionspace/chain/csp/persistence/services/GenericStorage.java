@@ -161,8 +161,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param {Document} in The XML document that has to be converted
 	 * @throws JSONException
 	 */
-	protected void convertToJson(JSONObject out,Document in, String permlevel, String section,String csid,String ims_base) throws JSONException {
-		XmlJsonConversion.convertToJson(out,r,in,permlevel,section,csid,ims_base);
+	protected void convertToJson(JSONObject out,Document in, Record thisr, String permlevel, String section,String csid,String ims_base) throws JSONException {
+		XmlJsonConversion.convertToJson(out,thisr,in,permlevel,section,csid,ims_base);
 	}
 	/**
 	 * Convert an XML file into a JSON string
@@ -171,8 +171,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param r
 	 * @throws JSONException
 	 */
-	protected void convertToJson(JSONObject out,Document in, Record r, String permlevel, String section, String csid) throws JSONException {
-		XmlJsonConversion.convertToJson(out,r,in,permlevel,section,csid,conn.getIMSBase());
+	protected void convertToJson(JSONObject out,Document in, Record thisr, String permlevel, String section, String csid) throws JSONException {
+		XmlJsonConversion.convertToJson(out,thisr,in,permlevel,section,csid,conn.getIMSBase());
 	}
 	
 	protected void getGleaned(){

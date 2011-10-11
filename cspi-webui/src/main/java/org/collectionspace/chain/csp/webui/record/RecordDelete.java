@@ -18,6 +18,8 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
 public class RecordDelete implements WebMethod {
@@ -30,18 +32,27 @@ public class RecordDelete implements WebMethod {
 			if(base.equals("role")){
 				//business logic. Only delete role if no active users exists who have this role set
 				//CSPACE-3283
+
+				String url = base+"/"+path+"/"+"accountroles/";
+				JSONObject accounts = storage.retrieveJSON(url, new JSONObject());
+				if(accounts.has("account") && accounts.getJSONArray("account").length() >0){
+					//refuse to delete as has roles attached
+					UIException uiexception =  new UIException("This Role has Accounts associated with it");
+					request.sendJSONResponse(uiexception.getJSON());
+					return;
+				}
 				
-				//get all users with this role
-				//awaiting on CSPACE-3442
 			}
 			storage.deleteJSON(base+"/"+path);
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found "+e,e);
 		} catch (UnimplementedException e) {
-			throw new UIException("Unimplemented",e);
+			throw new UIException("Unimplemented ",e);
 		} catch (UnderlyingStorageException x) {
 			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
 			request.sendJSONResponse(uiexception.getJSON());
+		} catch (JSONException e) {
+			throw new UIException("JSONException ",e);
 		}
 	}
 	

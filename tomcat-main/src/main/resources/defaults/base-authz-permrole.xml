@@ -1,6 +1,5 @@
 
             <record id="permrole" in-recordlist="no" type="authorizationdata">
-                <is-multipart>false</is-multipart>
                 <services-tenant-plural>authorization/permissions/permroles</services-tenant-plural>
                 <services-tenant-singular>PermissionRole</services-tenant-singular>
                 <services-url>authorization/roles/*/permroles</services-url>

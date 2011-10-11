@@ -254,6 +254,13 @@ public class RecordRead implements WebMethod {
 						JSONObject permissions = storage.retrieveJSON(base+"/"+csid+"/"+"permroles/",restrictions);
 						JSONArray allperms = getPermissions(storage,permissions);
 						fields.put("permissions",allperms);
+						String url = base+"/"+csid+"/"+"accountroles/";
+						JSONObject accounts = storage.retrieveJSON(url, restrictions);
+						JSONArray usedby = new JSONArray();
+						if(accounts.has("account")){
+							usedby = accounts.getJSONArray("account");
+						}
+						fields.put("usedBy",usedby);
 					}
 				}
 				else if(base.equals("termlist")){

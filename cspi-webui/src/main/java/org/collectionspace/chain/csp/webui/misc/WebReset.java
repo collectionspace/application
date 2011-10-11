@@ -140,8 +140,8 @@ public class WebReset implements WebMethod {
 				i++;
 				JSONObject name=new JSONObject();
 				name.put("displayName",line);
-				String shortID = line.replaceAll("\\W", "").toLowerCase();
-				name.put("shortIdentifier",shortID);
+				//String shortID = line.replaceAll("\\W", "").toLowerCase();
+				//name.put("shortIdentifier",shortID);
 				storage.autocreateJSON("/person/person",name);
 				tty.line("Created Person "+name);
 				log.info("Created Person "+name);
@@ -156,8 +156,8 @@ public class WebReset implements WebMethod {
 				i++;
 				JSONObject name=new JSONObject();
 				name.put("displayName",line);
-				String shortID = line.replaceAll("\\W", "").toLowerCase();
-				name.put("shortIdentifier",shortID);
+				//String shortID = line.replaceAll("\\W", "").toLowerCase();
+				//name.put("shortIdentifier",shortID);
 				storage.autocreateJSON("/organization/organization",name);
 				tty.line("Created Organisation "+line);
 				log.info("Created Organisation "+line);
@@ -217,9 +217,8 @@ public class WebReset implements WebMethod {
 					tty.line(msg+urn);
 					log.info(msg+urn);
 				} catch(Exception e) { 
-					String bob="";
 					/* Sometimes records are wdged */ 
-					}
+				}
 				tty.flush();
 				
 			}

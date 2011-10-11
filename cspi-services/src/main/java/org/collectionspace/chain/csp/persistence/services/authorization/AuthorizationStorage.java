@@ -418,6 +418,10 @@ public class AuthorizationStorage extends GenericStorage {
 			Record thisr = r.getSpec().getRecord("permrole");
 			return simpleRetrieveJSONFullPath( creds, cache, filePath, thisr);
 		}
+		if(filePath.endsWith("/accountroles/")){
+			Record thisr = r.getSpec().getRecord("accountroles");
+			return simpleRetrieveJSONFullPath( creds, cache, filePath, thisr);
+		}
 		return simpleRetrieveJSONFullPath( creds, cache, filePath, r);
 	}
 	
@@ -425,14 +429,14 @@ public class AuthorizationStorage extends GenericStorage {
 			UnimplementedException, UnderlyingStorageException {
 		try {
 			JSONObject out=new JSONObject();
-			if(r.isMultipart()){
+			if(thisr.isMultipart()){
 				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,filePath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),filePath);
-				for(String section : r.getServicesRecordPaths()) {
-					String path=r.getServicesRecordPath(section);
+				for(String section : thisr.getServicesRecordPaths()) {
+					String path=thisr.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
-					convertToJson(out,doc.getDocument(parts[0]),"GET",section,"","");
+					convertToJson(out,doc.getDocument(parts[0]),thisr,"GET",section,"","");
 				}
 			}else{
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, filePath,null, creds, cache);

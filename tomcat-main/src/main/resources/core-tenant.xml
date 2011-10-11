@@ -31,6 +31,7 @@
 			
     		<include src="base-vocabularies.xml"/>
 			
+    		<include src="base-authz-accountrole.xml"/>
     		<include src="base-authz-permission.xml"/>
     		<include src="base-authz-permrole.xml"/>
     		<include src="base-authz-role.xml"/>
