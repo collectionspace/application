@@ -103,7 +103,7 @@ public class WebLoginStatus  implements WebMethod {
 		}
 		
 		//make termlist permissions match vocabularyItems permissions
-		perms.put("termlist", perms.get("vocabularyitems"));
+		//perms.put("termlist", perms.get("vocab"));
 		
 		data.put("permissions",perms);
 		return data;
