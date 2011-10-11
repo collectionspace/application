@@ -1,5 +1,5 @@
-
-<!-- <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject,collectionobjects_naturalhistory</services-record-path>
+<root>
+<!-- <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
 -->
 <section id="domaindata">
 	
@@ -8,3 +8,4 @@
     </field>
 
 </section>
+</root>
