@@ -37,7 +37,16 @@ public class TestOrgThroughWebapp extends TestBase {
 	//need a begin function that creates the default person if it is missing?
 		@Before public void testCreateAuth() throws Exception {
 			ServletTester jetty=setupJetty();
-			HttpTester out = GETData("/vocabularies/person/",jetty);
+			HttpTester out = GETData("/vocabularies/organization/",jetty);
+			log.info(out.getContent());
+			JSONObject test2 = new JSONObject(out.getContent());
+			if(test2.has("isError") && test2.getBoolean("isError")){
+				//create the person authority
+				JSONObject data=new JSONObject("{'fields':{'displayName':'Default Organization Authority','shortIdentifier':'organization','vocabType':'OrgAuthority'}}");
+				out = POSTData("/authorities/organization/",data,jetty);	
+			}
+			
+			out = GETData("/vocabularies/person/",jetty);
 			log.info(out.getContent());
 			JSONObject test = new JSONObject(out.getContent());
 			if(test.has("isError") && test.getBoolean("isError")){
@@ -64,14 +73,6 @@ public class TestOrgThroughWebapp extends TestBase {
 				out = POSTData("/authorities/person/",data,jetty);	
 			}
 			
-			out = GETData("/vocabularies/organization/",jetty);
-			log.info(out.getContent());
-			JSONObject test2 = new JSONObject(out.getContent());
-			if(test2.has("isError") && test2.getBoolean("isError")){
-				//create the person authority
-				JSONObject data=new JSONObject("{'fields':{'displayName':'Default Organization Authority','shortIdentifier':'organization','vocabType':'OrgAuthority'}}");
-				out = POSTData("/authorities/organization/",data,jetty);	
-			}
 		}
 	/**
 	 * Tests that an authority search includes the expected item difference
