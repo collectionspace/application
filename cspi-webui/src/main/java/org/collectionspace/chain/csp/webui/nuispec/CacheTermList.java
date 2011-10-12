@@ -77,7 +77,17 @@ public class CacheTermList {
 				restriction.put("pageSize", pagesize);
 
 					String url = vr.getID()+"/"+vocabname;
-					JSONObject data = storage.getPathsJSON(url,restriction);
+					JSONObject data = null;
+					try{
+						data = storage.getPathsJSON(url,restriction);
+					}
+					catch(UnderlyingStorageException e){
+						// need to initialise this vocab
+						Instance n  = vr.getInstance(vr.getID()+"-"+vocabname);
+						JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+						storage.autocreateJSON(vr.getID(),fields);
+						data = storage.getPathsJSON(url,restriction);
+					}
 					if(data.has("listItems")){
 						String[] results = (String[]) data.get("listItems");
 						/* Get a view of each */
