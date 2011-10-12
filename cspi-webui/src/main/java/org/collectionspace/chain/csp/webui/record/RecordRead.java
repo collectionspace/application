@@ -215,25 +215,34 @@ public class RecordRead implements WebMethod {
 					permission.put("permission", permlevel);
 					temp.put(Generic.ResourceNameUI(spec, resourcename), permission);
 				}
-				
 			}
-			
 			
 			pageNum++;
 			permrestrictions.put("pageNum", Integer.toString(pageNum));
 			returndata = searcher.getJSON(storage,permrestrictions,"items",permbase);
 			
 		}
-
-		
 		
 		//change soft workflow to main Delete
+
+
+		//now put the permissions in order...
+		String[] recordsweburl = spec.getAllRecordsOrdered();
+		
+		for(String weburl : recordsweburl){
+			if(temp.has(weburl)){
+				Object value = temp.get(weburl);
+				set.put(value);
+			}
+		}
 		Iterator rit=temp.keys();
 		while(rit.hasNext()) {
 			String key=(String)rit.next();
 			Object value = temp.get(key);
 
-			set.put(value);
+			if(!spec.hasRecordByWebUrl(key)){
+				set.put(value);
+			}
 		}
 		
 		return set;

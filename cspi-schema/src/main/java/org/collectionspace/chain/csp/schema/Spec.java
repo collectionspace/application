@@ -6,9 +6,12 @@
  */
 package org.collectionspace.chain.csp.schema;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,6 +23,7 @@ import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.csp.api.core.CSP;
 import org.collectionspace.csp.api.core.CSPContext;
 import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -398,6 +402,48 @@ public class Spec implements CSP, Configurable {
 	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
 	public Record getRecordByServicesUrl(String url) { return records_by_services_url.get(url); }
 	public Record[] getAllRecords() { return records.values().toArray(new Record[0]); }
+	public String[] getAllRecordsOrdered() {
+
+		List<String> precrds = new ArrayList<String>();
+		List<String> arecrds = new ArrayList<String>();
+		List<String> vrecrds = new ArrayList<String>();
+		List<String> adrecrds = new ArrayList<String>();
+		List<String> crecrds = new ArrayList<String>();
+		for (Record rc : this.getAllRecords()) {
+			if (rc.isInRecordList()) {
+				if (rc.isShowType("procedure")) {
+					precrds.add(rc.getWebURL());
+				} else if (rc.isShowType("authority")) {
+					vrecrds.add(rc.getWebURL());
+					for(Instance ins : rc.getAllInstances()){
+						arecrds.add(ins.getWebURL());
+					}
+				} else if (rc.isShowType("record")) {
+					crecrds.add(rc.getWebURL());
+				} else if(rc.isShowType("authorizationdata") || rc.isShowType("userdata")){
+					adrecrds.add(rc.getWebURL());
+				}
+			}
+		}
+		//order: 
+		/*
+		 * Cataloging
+		 * Procedures in alpha order
+		 * Vocabularies in alpha order
+		 * Admin in alpha order
+		 */
+		Collections.sort(crecrds);
+		Collections.sort(precrds);
+		Collections.sort(vrecrds);
+		Collections.sort(arecrds);
+		Collections.sort(adrecrds);
+		
+		crecrds.addAll(precrds);
+		crecrds.addAll(vrecrds);
+		crecrds.addAll(adrecrds);
+		crecrds.addAll(arecrds);
+		return crecrds.toArray(new String[0]);
+	}
 	
 	public void addTermlist(String instanceid, Field fs){
 		if(termlist.containsKey(instanceid)){
