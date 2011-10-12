@@ -141,7 +141,7 @@
                 <section id="locationInformation">
                     <repeat id="currentLocationGroupList/currentLocationGroup">
                         <!-- <field id="currentLocation" autocomplete="location-location, place-place"> -->
-                        <field id="currentLocation" ui-search="repeatable" >
+                        <field id="currentLocation" ui-search="repeatable" autocomplete="location-location">
                             <selector>intake-current-location</selector>
                         </field>
                         <field id="currentLocationFitness" autocomplete="vocab-conditionfitness" ui-type="enum">
@@ -155,7 +155,7 @@
                         <selector>intake-location-date</selector>
                     </field>
                     <!--  <field id="normalLocation" autocomplete="location-location, place-place"> -->
-                    <field id="normalLocation">
+                    <field id="normalLocation" autocomplete="location-location">
                         <selector>intake-normal-location</selector>
                     </field>
                 </section>
