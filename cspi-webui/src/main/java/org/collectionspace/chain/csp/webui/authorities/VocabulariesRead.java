@@ -60,7 +60,7 @@ public class VocabulariesRead implements WebMethod {
 	 */
 	@SuppressWarnings("unchecked")
 	private JSONArray getTermsUsed(Storage storage,String path) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
-		JSONObject mini=storage.retrieveJSON(path+"/authorityrefs", new JSONObject());
+		JSONObject mini=storage.retrieveJSON(path+"/refs", new JSONObject());
 		JSONArray out=new JSONArray();
 		Iterator t=mini.keys();
 		while(t.hasNext()) {
