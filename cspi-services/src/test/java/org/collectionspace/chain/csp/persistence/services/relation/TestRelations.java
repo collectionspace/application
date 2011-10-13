@@ -86,8 +86,8 @@ public class TestRelations extends ServicesBaseClass {
 		
 		// get
 		JSONObject data3=ss.retrieveJSON("relations/main/"+path, new JSONObject());
-		assertTrue(JSONUtils.checkJSONEquiv("collection-object/"+obj1,data3.getString("src")));
-		assertTrue(JSONUtils.checkJSONEquiv("collection-object/"+obj3,data3.getString("dst")));
+		assertTrue(JSONUtils.checkJSONEquiv("CollectionObject/"+obj1,data3.getString("src")));
+		assertTrue(JSONUtils.checkJSONEquiv("CollectionObject/"+obj3,data3.getString("dst")));
 		assertTrue(JSONUtils.checkJSONEquiv("affects",data3.getString("type")));
 		
 		//get list
