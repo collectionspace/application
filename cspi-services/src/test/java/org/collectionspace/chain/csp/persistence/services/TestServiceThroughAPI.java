@@ -215,7 +215,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	
 	@Test public void testMini() throws Exception {
 		Storage ss=makeServicesStorage();
-		String p1=ss.autocreateJSON("intake/",getJSON("int4.json"));
+		String p1=ss.autocreateJSON("intake/",getJSON("intake.json"));
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/view", new JSONObject());
 		assertEquals("currentOwnerX",mini.getString("summary"));
 		assertEquals("entryNumberX",mini.getString("number"));	

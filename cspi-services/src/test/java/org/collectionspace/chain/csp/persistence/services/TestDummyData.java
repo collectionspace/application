@@ -44,7 +44,7 @@ public class TestDummyData extends ServicesBaseClass  {
 			
 			String objectUrl = create("collectionobjects/", "collectionobjects_common", "dummydata-object1.xml","collection-object");
 
-                        String acquisitionUrl = create("acquisitions/", "acquisitions_common", "dummydata-acquisition.xml","acquisition");
+            String acquisitionUrl = create("acquisitions/", "acquisitions_common", "dummydata-acquisition.xml","acquisition");
 			String intakeUrl = create("intakes/", "intakes_common", "dummydata-intake.xml","intake");
 			String loaninUrl = create("loansin/", "loansin_common", "dummydata-loanin.xml","loanin");
 			String loanoutUrl = create("loansout/", "loansout_common", "dummydata-loanout.xml","loanout");

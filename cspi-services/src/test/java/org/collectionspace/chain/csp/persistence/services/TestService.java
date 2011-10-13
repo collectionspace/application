@@ -649,8 +649,6 @@ public class TestService extends ServicesBaseClass {
 		// testPostGetDelete("relations/", "relations_common",
 		// "relationship.xml", "relations_common/relationshipType", "affects");
 
-		// testPostGetDelete("accounts/", null, "account.xml",
-		// "accounts_common/userId", "barney");
 
 		// TODO make roleName dynamically vary otherwise POST fails if already
 		// exists (something like buildObject)
