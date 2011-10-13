@@ -952,58 +952,32 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		}
 		Element subject=subroot.addElement(subjectName);
 		Element subjcsid = subject.addElement("csid");
-		Element subjdtype = subject.addElement("documentType");
 		if(csid != null){
 			subjcsid.addText(csid);
-			Element sbjutype = subject.addElement("uri");
-			sbjutype.addText(subjuri);
 		}
 		else{
 			subjcsid.addText("${itemCSID}");
 		}
-		subjdtype.addText(subjtype);
 		
-		//find out record type from urn - need to loop thr all authorities type
-		Record associatedRecord = this.r;
-		String associatedcsid ="";
-		String associateduri =null;
+		//find out record type from urn 
 		String associatedtest = (String)data;
-		
+		Element object=subroot.addElement(objectName);
 
         RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(associatedtest);
-        String thisShortid = itemParsed.getShortIdentifier();
-        String thisparent = itemParsed.getParentShortIdentifier();
         String serviceurl = itemParsed.inAuthority.resource;
 		Record myr = this.r.getSpec().getRecordByServicesUrl(serviceurl);
         if(myr.isType("authority")){
 
-			String vocab = RefName.shortIdToPath(thisparent);
-			String assoccsid = RefName.shortIdToPath(thisShortid);
-			associatedRecord = myr;
-			associatedcsid = assoccsid;//should work .... maybe
-			associateduri = associatedtest;
+    		Element objcsid = object.addElement("refName");
+    		objcsid.addText(associatedtest);
         }
         else{
 
 			//not implemented yet - but I bet I will have to - assume /chain/intake/csid
-			if(associatedtest.startsWith(myr.getWebURL())){
-				associatedRecord = myr;
-				String[] bits = associatedtest.split("/");
-				associatedcsid = bits[bits.length -1 ];
-			}
+    		Element objcsid = object.addElement("csid");
+    		objcsid.addText(associatedtest);
         }
 		
-		
-		Element object=subroot.addElement(objectName);
-		Element objcsid = object.addElement("csid");
-		objcsid.addText(associatedcsid);
-		Element objdtype = object.addElement("documentType");
-		objdtype.addText(associatedRecord.getServicesURL());
-		if(associateduri!=null){
-
-			Element objutype = object.addElement("uri");
-			objutype.addText(associateduri);
-		}
 		
 		//log.info(subroot.asXML());
 		return subroot;
