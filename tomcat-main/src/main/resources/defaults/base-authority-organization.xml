@@ -34,6 +34,11 @@
                         <title-ref>organization</title-ref>
                         <title>Default Organization Authority</title>
                     </instance>
+                    <instance id="organization-test">
+                        <web-url>test</web-url>
+                        <title-ref>organizationtest</title-ref>
+                        <title>Default Test Organization Authority</title>
+                    </instance>
                 </instances>
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
