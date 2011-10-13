@@ -899,44 +899,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			throw new UnderlyingStorageException("JSONException exception"+e.getLocalizedMessage(),e);
 		}
 	}
-	/*
-	 * 	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String vocab, String csid,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
-		String servicepath = "generateURL(vocab,csid";
-		try{
-			if(view.equals("view")){
-				return miniViewRetrieveJSON(storage, cache,creds,vocab,extra, csid);
-			}
-			else if("authorityrefs".equals(view)){
-				String path = generateURL(vocab,csid,"/authorityrefs");
-				return refViewRetrieveJSON(storage,creds,cache,path,restrictions);
-			}
-			else if("refObjs".equals(view)){
-				String path = generateURL(vocab,csid,"/refObjs");
-				return refObjViewRetrieveJSON(storage,creds,cache,path);			
-			}
-			else
-				return new JSONObject();
-		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException("Connection exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		}
-	}
-	*/
-	/**
-	 *     <relation-list-item>
-                <predicate>hasBroader</predicate>
-                <subject>
-                  <csid>${itemCSID}</csid>
-                  <documentType>Location</documentType>
-                </subject>
-                <object>
-                  <csid>2a5f119a-acd0-4b89-a535</csid>
-                  <uri>/cspace-services/locationauthorities/urn:cspace:name(CSPACE3739LocationAuthority)/items/2a5f119a-acd0-4b89-a535</uri>
-                  <documentType>Location</documentType>
-                </object>
-        </relation-list-item>
 
-
-	 */
 	protected Element createRelationship(Relationship rel, Object data, String csid, String subjtype, String subjuri, Boolean reverseIt) throws ExistException, UnderlyingStorageException{
 
 		Document doc=DocumentFactory.getInstance().createDocument();
