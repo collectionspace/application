@@ -15,7 +15,6 @@
                 <services-url>taxonomyauthority</services-url>
                 <authority-vocab-type>TaxonomyAuthority</authority-vocab-type>
                 <authorization-view>false</authorization-view>
-                <urn-syntax>urn:cspace:org.collectionspace.demo:taxonomyauthority:{vocab}:taxon:{entry}'{display}'</urn-syntax>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
                     <structure id="screen">

@@ -14,8 +14,6 @@
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <services-url>personauthorities</services-url>
                 <authority-vocab-type>PersonAuthority</authority-vocab-type>
-                <urn-syntax>urn:cspace:org.collectionspace.demo:personauthority:{vocab}:person:{entry}'{display}'</urn-syntax>
-                <vocab-syntax>urn:cspace:name</vocab-syntax>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
                     <structure id="search">

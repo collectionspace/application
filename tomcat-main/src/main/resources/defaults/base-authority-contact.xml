@@ -9,7 +9,6 @@
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <services-url>contacts</services-url>
                 <authority-vocab-type>ContactAuthority</authority-vocab-type>
-                <urn-syntax>urn:cspace:org.collectionspace.demo:contactauthority:{vocab}:contact:{entry}'{display}'</urn-syntax>
                 <structures>
                     <structure id="screen">
                         <view>

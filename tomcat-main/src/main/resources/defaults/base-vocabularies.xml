@@ -14,7 +14,6 @@
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <services-url>vocabularies</services-url>
                 <authority-vocab-type>enum</authority-vocab-type>
-                <urn-syntax>urn:cspace:org.collectionspace.demo:vocabulary:{vocab}:item:{entry}'{display}'</urn-syntax>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
                     <structure id="screen"></structure>
