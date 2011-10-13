@@ -61,11 +61,13 @@ public class TestRelationsThroughWebapp extends TestBase {
 		// 3->2
 		out = POSTData("/relationships", createRelation(path3[1], path3[2],
 				"affects", path1[1], path1[2], false), jetty);
+		log.info(out.getContent());
 		String relid1 = out.getHeader("Location");
 		String csid1 = new JSONObject(out.getContent()).getString("csid");
 
 		out = POSTData("/relationships", createRelation(path3[1], path3[2],
 				"affects", path2[1], path2[2], true), jetty);
+		log.info(out.getContent());
 		String relid2 = out.getHeader("Location");
 		String csid2 = new JSONObject(out.getContent()).getString("csid");
 
@@ -73,6 +75,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		out = GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
 		// that the destination is 3
+		log.info(out.getContent());
 		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray(
 				"cataloging");
 		assertNotNull(rel1);
@@ -285,13 +288,15 @@ public class TestRelationsThroughWebapp extends TestBase {
 				"affects", path1[1], path1[2], true), jetty);
 		// Get csid
 		JSONObject data = new JSONObject(out.getContent());
+		log.info(out.getContent());
 		String csid1 = data.getString("csid");
 		
 		assertNotNull(csid1);
 		// Update it to 2 -> 1
 		out = PUTData("/relationships/" + csid1, createRelation(path2[1],
 				path2[2], "affects", path1[1], path1[2], true), jetty);
-		
+
+		log.info(out.getContent());
 		// Check it
 		
 		out = GETData(id1, jetty);
@@ -300,6 +305,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		
 		out = GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
+		log.info(out.getContent());
 		JSONArray rel2 = data2.getJSONObject("relations").getJSONArray(
 				"cataloging");
 		
