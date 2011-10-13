@@ -1,7 +1,1 @@
-{
-    "recordlist": {
-        "default": 
-        ["acquisition","cataloging","group","intake","loanin","loanout","location","media","movement","objectexit","organization","person","persontest1","persontest2","taxon","organizationtest"]
-        "type": "array"
-    }
-}
+{"recordlist":{"default":["persontest1","persontest2","person","location","loanin","loanout","acquisition","organization","organizationtest","cataloging","movement","taxon","objectexit","intake","group","media"],"type":"array"}}
