@@ -45,6 +45,15 @@ public class TestOrgThroughWebapp extends TestBase {
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Default Organization Authority','shortIdentifier':'organization','vocabType':'OrgAuthority'}}");
 				out = POSTData("/authorities/organization/",data,jetty);	
 			}
+
+			out = GETData("/vocabularies/organizationtest/",jetty);
+			log.info(out.getContent());
+			test2 = new JSONObject(out.getContent());
+			if(test2.has("isError") && test2.getBoolean("isError")){
+				//create the person authority
+				JSONObject data=new JSONObject("{'fields':{'displayName':'Test Organization Authority','shortIdentifier':'organizationtest','vocabType':'OrgAuthority'}}");
+				out = POSTData("/authorities/organization/",data,jetty);	
+			}
 			
 			out = GETData("/vocabularies/person/",jetty);
 			log.info(out.getContent());
@@ -93,6 +102,7 @@ public class TestOrgThroughWebapp extends TestBase {
 		out = GETData(
 				"/authorities/organization/search?query=Test+My+Authority1",
 				jetty);
+		log.info(out.getContent());
 		JSONArray results = new JSONObject(out.getContent())
 				.getJSONArray("results");
 		assertTrue(results.length() > 0);
