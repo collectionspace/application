@@ -58,6 +58,7 @@ public class Record implements FieldParent {
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
 	private Spec spec;
 	private FieldSet mini_summary, mini_number, display_name;
+	private String whoamI = "";
 
 	/* Service stuff */
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
@@ -71,20 +72,22 @@ public class Record implements FieldParent {
 		// this is what the service layer id defaults to if not specified later
 		// standard = singular form of the concept
 		this.initStrings(section,"@id",null);
-
+		whoamI = getString("@id");
 		// record,authority,compute-displayname can have multiple types using
 		// commas
 		this.initSet(section,"@type",new String[] { "record" });
 		this.initStrings(section,"showin","");
 
-		// specified that it is included in the findedit uispec
+		// specified that it is included in the findedit uispec - probably not useful any more?
 		this.initBoolean(section,"@in-findedit",false);
 
 		this.initBoolean(section,"@in-recordlist",true);
+		
+		//Record differentiates between things like structureddates and procedures
 		this.initBoolean(section,"@separate-record",true);
 		
 		
-		// config whether service layer needs call as multipart or not
+		// config whether service layer needs call as multipart or not - authorization is not currently multipart
 		this.initBoolean(section,"is-multipart",true);
 
 		// config whether record type has termsUsed or not (returns empty array
@@ -139,9 +142,6 @@ public class Record implements FieldParent {
 						+ "-common-list/fieldsReturned");
 
 		// used by service layer to construct authority names
-		this.initStrings(section,"urn-syntax","urn:cspace.org.collectionspace.demo." + getString("@id") + ":name({vocab}):"
-						+ getString("@id") + ":name({entry})'{display}'");
-		this.initStrings(section,"vocab-syntax","urn:cspace:name");
 		this.initStrings(section,"authority-vocab-type","PersonAuthority");
 		//
 		this.initStrings(section,"services-instances-path", getString("services-url")
@@ -477,14 +477,6 @@ public class Record implements FieldParent {
 
 	public String getInTag() {
 		return getString("membership-tag");
-	}
-
-	public String getURNSyntax() {
-		return getString("urn-syntax");
-	}
-
-	public String getURNVocab() {
-		return getString("vocab-syntax");
 	}
 
 	public String getVocabType() {
