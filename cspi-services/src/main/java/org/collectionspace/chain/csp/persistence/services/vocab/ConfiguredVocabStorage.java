@@ -942,7 +942,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
         }
 		
 		
-		//log.info(subroot.asXML());
+		log.info(subroot.asXML());
 		return subroot;
 	}
 }

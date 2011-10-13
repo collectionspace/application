@@ -30,7 +30,7 @@ class Relation {
 		this.factory=factory;
 		this.id=id;
 	}
-	
+
 	public Document toDocument() {
 		XTmplDocument doc=factory.getTemplate().makeDocument();
 		doc.setText("src-type",src_type);

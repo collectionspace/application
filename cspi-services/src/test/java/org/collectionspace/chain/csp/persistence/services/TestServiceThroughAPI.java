@@ -217,8 +217,8 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		Storage ss=makeServicesStorage();
 		String p1=ss.autocreateJSON("intake/",getJSON("intake.json"));
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/view", new JSONObject());
-		assertEquals("currentOwnerX",mini.getString("summary"));
-		assertEquals("entryNumberX",mini.getString("number"));	
+		assertEquals("TEST4",mini.getString("summary"));
+		assertEquals("IN2010.337",mini.getString("number"));	
 		ss.deleteJSON("intake/"+p1);
 		try {
 			ss.retrieveJSON("intake/"+p1, new JSONObject());	
