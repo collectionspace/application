@@ -24,7 +24,6 @@ import org.slf4j.LoggerFactory;
 
 public class TestVocab extends ServicesBaseClass {
 	private static final Logger log=LoggerFactory.getLogger(TestVocab.class);
-	private static Pattern vocab_urn=Pattern.compile("urn:cspace:org.collectionspace.demo:vocabulary\\((.*?)\\):item\\((.*?)\\)'(.*?)'");
 		
 	@Before public void checkServicesRunning() throws ConnectionException {
 		setup();
