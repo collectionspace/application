@@ -3,6 +3,7 @@
   "depositor": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
   "currentOwner": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
   "de-urned-depositor":"TEST4",
+  "de-urned-currentOwner":"TEST4",
   "currentLocationGroup": [
         {
             "_primary": true,
