@@ -682,13 +682,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					Element[] array = (Element[])alleles.toArray(new Element[0]);
 					Document out=XmlJsonConversion.getXMLRelationship(array);
 					body.put("relations-common-list",out);
-					log.info(out.asXML());
+					//log.info(out.asXML());
 				}
 				else{
 
 					Document out=XmlJsonConversion.getXMLRelationship(null);
 					body.put("relations-common-list",out);
-					log.info(out.asXML());
+					//log.info(out.asXML());
 				}
 				//probably should put empty array in if no data
 			}
@@ -941,8 +941,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
     		objcsid.addText(associatedtest);
         }
 		
-		
-		log.info(subroot.asXML());
+		//log.info(subroot.asXML());
 		return subroot;
 	}
 }
