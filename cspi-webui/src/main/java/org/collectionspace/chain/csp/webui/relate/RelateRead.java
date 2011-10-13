@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 public class RelateRead implements WebMethod {
 	private Map<String,String> type_to_url=new HashMap<String,String>();
+	private Map<String,String> servicename_to_serviceid=new HashMap<String,String>();
 	private String searchPath = "main";
 
 	public RelateRead(String string) {
@@ -47,8 +48,8 @@ public class RelateRead implements WebMethod {
 		JSONObject out=new JSONObject();
 		String[] src=in.getString("src").split("/");
 		String[] dst=in.getString("dst").split("/");
-		out.put("source",createMiniRecord(storage,src[0],src[1]));
-		out.put("target",createMiniRecord(storage,dst[0],dst[1]));
+		out.put("source",createMiniRecord(storage,servicename_to_serviceid.get(src[0]),src[1]));
+		out.put("target",createMiniRecord(storage,servicename_to_serviceid.get(dst[0]),dst[1]));
 		out.put("type",in.get("type"));
 		out.put("csid",path);
 		return out;
@@ -78,6 +79,7 @@ public class RelateRead implements WebMethod {
 	public void configure(WebUI ui,Spec spec) {
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());
+			servicename_to_serviceid.put(r.getServicesTenantSg(), r.getID());
 		}
 	}
 }

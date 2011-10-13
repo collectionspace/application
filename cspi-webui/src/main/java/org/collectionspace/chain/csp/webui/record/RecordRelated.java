@@ -29,6 +29,7 @@ public class RecordRelated implements WebMethod {
 	private Record record;
 	private Record relatedrecord;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
+	private Map<String,String> servicename_to_serviceid=new HashMap<String,String>();
 
 	public RecordRelated(Record r, Record r2) {
 		this.record = r;
@@ -39,11 +40,13 @@ public class RecordRelated implements WebMethod {
 	public void configure(WebUI ui,Spec spec) {
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());
+			servicename_to_serviceid.put(r.getServicesTenantSg(), r.getID());
 		}
 	}
 	public void configure(Spec spec) {
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());
+			servicename_to_serviceid.put(r.getServicesTenantSg(), r.getID());
 		}
 	}
 	
@@ -62,7 +65,8 @@ public class RecordRelated implements WebMethod {
 		JSONObject in=storage.retrieveJSON("relations/main/"+csid,restrictions);
 		String[] dstid=in.getString("dst").split("/");
 		String type=in.getString("type");
-		JSONObject mini=generateMiniRecord(storage,dstid[0],dstid[1]);
+		
+		JSONObject mini=generateMiniRecord(storage,servicename_to_serviceid.get(dstid[0]),dstid[1]);
 		mini.put("relationshiptype",type);
 		mini.put("relid",in.getString("csid"));
 		return mini;
@@ -71,7 +75,7 @@ public class RecordRelated implements WebMethod {
 	protected JSONObject getRelations(Storage storage, JSONObject restriction,  JSONObject recordtypes ) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
 
 		JSONObject myres = restriction;
-		myres.put("dstType", this.relatedrecord.getServicesURL());
+		myres.put("dstType", this.relatedrecord.getServicesTenantSg());
 		// XXX needs pagination support CSPACE-1819
 		JSONObject data = storage.getPathsJSON("relations/main",myres);
 		String[] relations = (String[]) data.get("listItems");

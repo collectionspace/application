@@ -176,7 +176,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			extractPaths(filePath,new String[]{"main"},0);
 			Map<String,Document> in=new HashMap<String,Document>();
 			Document datapath = dataToRelation(cache,null,data).toDocument();
-		//	log.info("AUTOCREATE"+datapath.asXML());
+			//log.info("AUTOCREATE"+datapath.asXML());
 			in.put("relations_common",datapath);
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/relations/",in,creds,cache);
 			if(out.getStatus()>299)
@@ -399,7 +399,9 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);
 			Map<String,Document> in=new HashMap<String,Document>();
-			in.put("relations_common",dataToRelation(cache,parts[0],data).toDocument());
+			Document datapath = dataToRelation(cache,parts[0],data).toDocument();
+			in.put("relations_common",datapath);
+			//log.info("UPDATE"+datapath.asXML());
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,"/relations/"+parts[0],in,creds,cache);
 			if(out.getStatus()==404)
 				throw new ExistException("Not found");
