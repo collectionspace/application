@@ -402,6 +402,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			Document datapath = dataToRelation(cache,parts[0],data).toDocument();
 			in.put("relations_common",datapath);
 			//log.info("UPDATE"+datapath.asXML());
+			//log.info("UPDATE"+"/relations/"+parts[0]);
 			ReturnedMultipartDocument out=conn.getMultipartXMLDocument(RequestMethod.PUT,"/relations/"+parts[0],in,creds,cache);
 			if(out.getStatus()==404)
 				throw new ExistException("Not found");
