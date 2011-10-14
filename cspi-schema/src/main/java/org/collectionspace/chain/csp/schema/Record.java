@@ -82,9 +82,10 @@ public class Record implements FieldParent {
 		this.initBoolean(section,"@in-findedit",false);
 
 		this.initBoolean(section,"@in-recordlist",true);
-		
+
 		//Record differentiates between things like structureddates and procedures
 		this.initBoolean(section,"@separate-record",true);
+		
 		
 		
 		// config whether service layer needs call as multipart or not - authorization is not currently multipart

@@ -88,6 +88,8 @@ public class Repeat implements FieldSet, FieldParent {
 		this.initBoolean(section,"@exists-in-services",true);
 		// should this field allow a primary flag
 		this.initBoolean(section,"@has-primary",true);
+		// used when want to override default grouped behaviour e.g. blobs in media
+		this.initBoolean(section, "@showgrouped", true);
 		this.initStrings(section,"@userecord","");
 		this.initStrings(section,"@onlyifexists","");
 		this.initStrings(section,"@ui-spec-prefix","");
@@ -220,6 +222,7 @@ public class Repeat implements FieldSet, FieldParent {
 	public String getUISpecPrefix() {
 		return getString("@ui-spec-prefix");
 	}
+	//this affects the depth of nesting in the things like the elPaths e.g. false: "elPath": "fields..0.telephoneNumberGroup" vs true: "elPath": "fields.telephoneNumberGroup"
 	public Boolean getUISpecInherit() {
 		return getBoolean("@ui-spec-inherit");
 	}
@@ -363,6 +366,9 @@ public class Repeat implements FieldSet, FieldParent {
 	}
 	public String getSelectorAffix() {
 		return getString("@selector-affix");
+	}
+	public Boolean isGrouped(){
+		return getBoolean("@showgrouped");
 	}
 
 	public Boolean usesRecord() {

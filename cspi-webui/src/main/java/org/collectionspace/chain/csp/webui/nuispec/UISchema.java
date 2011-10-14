@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
@@ -256,7 +257,32 @@ public class UISchema extends UISpec {
 		}
 		return out;
 	}
+	
+	protected void generateSubRecord(JSONObject out, FieldSet fs, UISpecRunContext context, JSONObject parent) throws JSONException {
+		Record subrecord = fs.usesRecordId();
+		Boolean repeated = false;
+		if(fs.getParent() instanceof Repeat ||( fs instanceof Repeat && !(fs instanceof Group))){
+			repeated = true;
+		}
+		if( parent == null){
+			parent = out;
+		}
+		if(fs instanceof Group){
+			Group gp = (Group)fs;
+			if(gp.isGrouped()){
+				JSONObject schemaprop = new JSONObject();
+				generateSubRecord(subrecord, schemaprop,  repeated,  context, parent);
 
+				JSONObject schemaadd = new JSONObject();
+				schemaadd.put("type", "object");
+				schemaadd.put("properties", schemaprop);
+				out.put(gp.getID(), schemaadd);
+				return;
+			}
+		}
+		generateSubRecord(subrecord, out,  repeated,  context, parent);
+		
+	}
 	private JSONObject uiotherschema(Storage storage, String params) throws UIException {
 		JSONObject out = new JSONObject();
 		String sectionname = "";

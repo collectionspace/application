@@ -790,6 +790,7 @@ public class UISpec implements WebMethod {
 		}
 		if(fs.usesRecord() && !(fs instanceof Repeat && !(fs instanceof Group))){
 			if(!fs.getUISpecInherit()){
+				//default behaviour do group or field as expected
 				UISpecRunContext sub = context.createChild();
 				if(!getSelectorAffix(fs).equals("")){
 					if(!context.equals("")){
@@ -805,6 +806,7 @@ public class UISpec implements WebMethod {
 				generateSubRecord(out, fs,sub, null);
 			}
 			else{
+				//create group item or field at the same level as parent fields - do not nest
 				generateSubRecord(out, fs,context, null);
 			}
 		}

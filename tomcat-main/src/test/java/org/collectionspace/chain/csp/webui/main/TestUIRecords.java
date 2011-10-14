@@ -161,6 +161,7 @@ public class TestUIRecords extends TestBase {
 
 		ServletTester jetty=setupJetty();
 		log.info("Testing UISPEC");
+		testUIspec(jetty, "/person/uischema", "person.uischema");
 		testUIspec(jetty, "/person/uispec", "person.uispec");
 		testUIspec(jetty, "/location/uispec", "location.uispec");
 		testUIspec(jetty, "/organization/uispec", "organization-authority.uispec");
