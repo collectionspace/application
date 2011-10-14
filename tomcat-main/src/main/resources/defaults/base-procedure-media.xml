@@ -180,6 +180,6 @@
                     <field id="imgThumb" attributes="GET" mini="search,list,relate" exists-in-services="false">
                         <use-csid id="blobCsid">ims;download/;/Thumbnail</use-csid>
                     </field>
-                    <group id="blobs" ui-type="uploader" userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs" with-csid="blobCsid"/>
+                    <group id="blobs" ui-type="uploader" showgrouped="false" userecord="blobs" serviceurl="blobs" onlyifexists="blobCsid" attributes="GET" ui-spec-prefix="blobs" with-csid="blobCsid"/>
                 </section>
             </record>
