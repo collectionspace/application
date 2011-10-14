@@ -1,7 +1,7 @@
 <ns2:relations_common xmlns:ns2="http://collectionspace.org/services/relation" xmlns:xtmpl="http://www.collectionspace.org/xtmpl">
-  <documentType1 xtmpl:point="src-type"/>
-  <documentType2 xtmpl:point="dst-type"/>
+  <subjectDocumentType xtmpl:point="src-type"/>
+  <objectDocumentType xtmpl:point="dst-type"/>
   <relationshipType xtmpl:point="type"/>
-  <documentId1 xtmpl:point="src"/>
-  <documentId2 xtmpl:point="dst"/>
+  <subjectCsid xtmpl:point="src"/>
+  <objectCsid xtmpl:point="dst"/>
 </ns2:relations_common>

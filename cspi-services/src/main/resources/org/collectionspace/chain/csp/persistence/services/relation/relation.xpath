@@ -1,5 +1,5 @@
-src-type=relations_common/documentType1
-dst-type=relations_common/documentType2
-src=relations_common/documentId1
-dst=relations_common/documentId2
+src-type=relations_common/subjectDocumentType
+dst-type=relations_common/objectDocumentType
+src=relations_common/subjectCsid
+dst=relations_common/objectCsid
 type=relations_common/relationshipType
