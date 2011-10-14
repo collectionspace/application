@@ -124,6 +124,7 @@ public class WebReset implements WebMethod {
 			log.info("Delete existing vocab entries");
 			tty.line("Delete existing vocab entries");
 			
+			
 			data = deletall("/person/person","Deleting Person ", storage, data, tty, myjs);
 			data = deletall("/person/persontest1","Deleting Person ", storage, data, tty, myjs);
 			data = deletall("/person/persontest2","Deleting Person ", storage, data, tty, myjs);
@@ -199,7 +200,9 @@ public class WebReset implements WebMethod {
 			//check++;
 			//don't increment page num as need to call page 0 as 
 			//once you delete a page worth the next page is now the current page
+			try{
 			data = storage.getPathsJSON(path,myjs);
+
 			String[] res = (String[]) data.get("listItems");
 
 			if(res.length==0 || checkpagination.equals(res[0])){
@@ -220,6 +223,10 @@ public class WebReset implements WebMethod {
 					/* Sometimes records are wdged */ 
 				}
 				tty.flush();
+				
+			}
+			}
+			catch(Exception ex){
 				
 			}
 		}
