@@ -12,6 +12,8 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.Instance;
+import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
@@ -31,6 +33,7 @@ import org.slf4j.LoggerFactory;
 public class WebReset implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(WebReset.class);
 	private boolean quick;
+	private Spec spec;
 
 	public WebReset(boolean in) { quick=in; }	
 
@@ -200,9 +203,21 @@ public class WebReset implements WebMethod {
 			//check++;
 			//don't increment page num as need to call page 0 as 
 			//once you delete a page worth the next page is now the current page
+			//String url = thisr.getID()+"/"+n.getTitleRef();
+			String[] bits = path.split("/");
+			Record thisr = this.spec.getRecordByWebUrl(bits[1]);
+			Instance n = thisr.getInstance(bits[1]+"-"+bits[2]);
+			
 			try{
-			data = storage.getPathsJSON(path,myjs);
+				data = storage.getPathsJSON(path,myjs);
+			}
+			catch (UnderlyingStorageException x) {
 
+				JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+				String base=thisr.getID();
+				storage.autocreateJSON(base,fields);
+				//data = storage.getPathsJSON(url,restriction);
+			}
 			String[] res = (String[]) data.get("listItems");
 
 			if(res.length==0 || checkpagination.equals(res[0])){
@@ -225,10 +240,6 @@ public class WebReset implements WebMethod {
 				tty.flush();
 				
 			}
-			}
-			catch(Exception ex){
-				
-			}
 		}
 		return data;
 	}
@@ -239,5 +250,7 @@ public class WebReset implements WebMethod {
 	}
 
 	public void configure() throws ConfigException {}
-	public void configure(WebUI ui,Spec spec) {}
+	public void configure(WebUI ui,Spec spec) {
+		this.spec = spec;
+	}
 }
