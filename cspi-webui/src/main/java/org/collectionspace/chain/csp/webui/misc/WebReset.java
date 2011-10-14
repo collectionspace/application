@@ -132,6 +132,7 @@ public class WebReset implements WebMethod {
 			data = deletall("/person/persontest1","Deleting Person ", storage, data, tty, myjs);
 			data = deletall("/person/persontest2","Deleting Person ", storage, data, tty, myjs);
 			data = deletall("/organization/organization","Deleting Organization ", storage, data, tty, myjs);
+			data = deletall("/organization/organizationtest","Deleting Organization ", storage, data, tty, myjs);
 			
 			
 			tty.line("Creating");
