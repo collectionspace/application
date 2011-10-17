@@ -32,7 +32,7 @@ public class TestNameThroughWebapp{
 		}
 	}
 	
-	@AfterClass public void testStop() throws Exception {
+	@AfterClass public static void testStop() throws Exception {
 		tester.stopJetty(jetty);
 	}
 //need a begin function that creates the default person if it is missing?
@@ -384,11 +384,15 @@ public class TestNameThroughWebapp{
 			log.info("NAME: NamesCreateUpdateDelete: test_start");
 			// Create
 			log.info("NAME: NamesCreateUpdateDelete: CREATE");
-			JSONObject data=new JSONObject("{'csid': '','fields': {'displayName': 'XXXTESTFred Bloggs','contact': {'emailGroup': [{'email': 'test@example.com','emailType': 'home' }],'addressGroup': [{'addressPlace1': 'addressPlace1','addressPlace2': 'addressPlace2','addressMunicipality': 'addressMunicipality','addressStateOrProvince': 'addressStateOrProvince', 'addressPostCode': 'addressPostCode','addressCountry': 'addressCountry' }, {'addressPlace1': 'SECOND_addressPlace1','addressPlace2': 'SECOND_addressPlace2','addressMunicipality': 'SECOND_addressMunicipality','addressStateOrProvince': 'SECOND_addressStateOrProvince','addressPostCode': 'SECOND_addressPostCode', 'addressCountry': 'SECOND_addressCountry'}]} }}");
+			JSONObject data=new JSONObject("{'csid': '', 'fields': {'displayName': 'XXXTESTFred Bloggs','contact': {'emailGroup': [{'email': 'test@example.com','emailType': 'home' }],'addressGroup': [{'addressPlace1': 'addressPlace1','addressPlace2': 'addressPlace2','addressMunicipality': 'addressMunicipality','addressStateOrProvince': 'addressStateOrProvince', 'addressPostCode': 'addressPostCode','addressCountry': 'addressCountry' }, {'addressPlace1': 'SECOND_addressPlace1','addressPlace2': 'SECOND_addressPlace2','addressMunicipality': 'SECOND_addressMunicipality','addressStateOrProvince': 'SECOND_addressStateOrProvince','addressPostCode': 'SECOND_addressPostCode', 'addressCountry': 'SECOND_addressCountry'}]} }}");
 			HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);
 			String url=out.getHeader("Location");
 			log.info(out.getContent());
-			JSONObject updatefields = new JSONObject(out.getContent()).getJSONObject("fields");
+			JSONObject datad = new JSONObject(out.getContent());
+			JSONObject updatefields = datad;
+			if(datad.has("fields")){
+				updatefields = new JSONObject(out.getContent()).getJSONObject("fields");
+			}
 			// Read
 		log.info("NAME: NamesCreateUpdateDelete: READ");
 		out = tester.GETData("/vocabularies"+url,jetty);

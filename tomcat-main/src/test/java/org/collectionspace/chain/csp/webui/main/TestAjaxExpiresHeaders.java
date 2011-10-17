@@ -34,7 +34,7 @@ public class TestAjaxExpiresHeaders {
 		}
 	}
 	
-	@AfterClass public void testStop() throws Exception {
+	@AfterClass public static  void testStop() throws Exception {
 		tester.stopJetty(jetty);
 	}
 
