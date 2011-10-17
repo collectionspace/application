@@ -8,9 +8,6 @@ package org.collectionspace.chain.csp.persistence.services.vocab;
 
 import static org.junit.Assert.*;
 
-import java.io.InputStream;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.collectionspace.chain.csp.persistence.services.ServicesBaseClass;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
