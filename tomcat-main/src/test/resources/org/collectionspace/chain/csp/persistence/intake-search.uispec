@@ -99,7 +99,17 @@
                             "expander": {
                                 "repeatID": "repeat:",
                                 "tree": {
-                                    ".csc-intake-current-location": "${{row}.currentLocation}"
+                                    ".csc-intake-current-location": {
+                                        "decorators": [{
+                                            "func": "cspace.autocomplete",
+                                            "type": "fluid",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/intake/autocomplete/currentLocation",
+                                                "vocabUrl": "../../../tenant/core/intake/source-vocab/currentLocation"
+                                            }
+                                        }],
+                                        "value": "${{row}.currentLocation}"
+                                    }
                                 },
                                 "type": "fluid.renderer.repeat",
                                 "pathAs": "row",
@@ -371,4 +381,3 @@
         "messagekey": "intake-currentLocationNoteLabel"
     }
 }
-

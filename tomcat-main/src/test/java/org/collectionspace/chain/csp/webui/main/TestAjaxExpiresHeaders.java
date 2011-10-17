@@ -24,16 +24,17 @@ import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestAjaxExpiresHeaders extends TestBase  {
+public class TestAjaxExpiresHeaders {
 	private static final Logger log=LoggerFactory.getLogger(TestAjaxExpiresHeaders.class);
 	private static String cookie;
+	private TestBase tester = new TestBase();
 
 	
 	@SuppressWarnings("unchecked")
 	@Test public void testNoCacheHeaders() throws Exception {
-		ServletTester jetty=setupJetty();
+		ServletTester jetty=tester.setupJetty();
 
-		HttpTester out = GETData("/myCollectionSpace/uispec",jetty);
+		HttpTester out = tester.GETData("/myCollectionSpace/uispec",jetty);
 		assertEquals("no-cache",out.getHeader("pragma"));
 		String last_modified=out.getHeader("Last-Modified");
 		assertNotNull(last_modified);

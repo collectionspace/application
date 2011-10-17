@@ -13,10 +13,16 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.controller.TenantServlet;
+import org.collectionspace.chain.csp.config.ConfigRoot;
+import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.collectionspace.chain.csp.persistence.TestData;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
+import org.collectionspace.csp.api.container.CSPManager;
+import org.collectionspace.csp.api.core.CSPDependencyException;
+import org.collectionspace.csp.container.impl.CSPManagerImpl;
+import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -26,150 +32,151 @@ import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestServiceThroughWebapp extends TestBase{
+public class TestServiceThroughWebapp {
 	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughWebapp.class);
+	private TestBase tester = new TestBase();
 	
 	
 	@Test public void testCollectionObjectBasic() throws Exception {
-		ServletTester jetty=setupJetty("core",true);
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",makeSimpleRequest(getResourceString("obj3.json")));	
+		ServletTester jetty=tester.setupJetty("core",true);
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",tester.makeSimpleRequest(tester.getResourceString("obj3.json")));	
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
-		out=jettyDoUTF8(jetty,"GET","/tenant/core"+id,null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core"+id,null);
 		JSONObject content=new JSONObject(out.getContent());
-		content=getFields(content);
-		JSONObject one = new JSONObject(getResourceString("obj3.json"));
+		content=tester.getFields(content);
+		JSONObject one = new JSONObject(tester.getResourceString("obj3.json"));
 		//log.info(one.toString());
 		//log.info(content.toString());
                 // Haven't yet identified whether JSONObject can use dot-delimited path notation - Aron
 		//assertEquals(one.get("titleGroup.0.titleLanguage"),content.get("titleGroup.0.titleLanguage"));
                 assertEquals(one.get("distinguishingFeatures"),content.get("distinguishingFeatures"));
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj3.json")),content));
-		out=jettyDoUTF8(jetty,"PUT","/tenant/core"+id,makeSimpleRequest(getResourceString("obj4.json")));
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(tester.getResourceString("obj3.json")),content));
+		out=tester.jettyDoUTF8(jetty,"PUT","/tenant/core"+id,tester.makeSimpleRequest(tester.getResourceString("obj4.json")));
 		assertEquals(200,out.getStatus());
-		out=jettyDoUTF8(jetty,"GET","/tenant/core"+id,null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core"+id,null);
 		content=new JSONObject(out.getContent());
-		content=getFields(content);
-		JSONObject oneb = new JSONObject(getResourceString("obj4.json"));
+		content=tester.getFields(content);
+		JSONObject oneb = new JSONObject(tester.getResourceString("obj4.json"));
 		// assertEquals(oneb.get("titleGroup.0.titleLanguage"),content.get("titleGroup.0.titleLanguage"));
                 assertEquals(oneb.get("distinguishingFeatures"),content.get("distinguishingFeatures"));
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("obj4.json")),content));		
-		out=jettyDoUTF8(jetty,"DELETE","/tenant/core"+id,null);
-		out=jettyDoUTF8(jetty,"GET","/tenant/core"+id,null);
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(tester.getResourceString("obj4.json")),content));		
+		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+id,null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core"+id,null);
 		JSONObject bob = new JSONObject(out.getContent());
 		assertTrue(bob.getBoolean("isError"));
 	}
 
 	@Test public void testIntake() throws Exception {
-		ServletTester jetty=setupJetty("core",true);
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/intake/",makeSimpleRequest(getResourceString("int3.json")));	
+		ServletTester jetty=tester.setupJetty("core",true);
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/intake/",tester.makeSimpleRequest(tester.getResourceString("int3.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
-		out=jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
 		//log.info(out.getContent());
 		JSONObject content=new JSONObject(out.getContent());
-		content=getFields(content);
-		JSONObject one = new JSONObject(getResourceString("int3.json"));
+		content=tester.getFields(content);
+		JSONObject one = new JSONObject(tester.getResourceString("int3.json"));
 		//XXX we have a utf8 issue so lets not test this
 		//assertEquals(one.get("packingNote"),content.get("packingNote"));
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int3.json")),content));
-		out=jettyDoUTF8(jetty,"PUT","/tenant/core"+path,makeSimpleRequest(getResourceString("int4.json")));
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(tester.getResourceString("int3.json")),content));
+		out=tester.jettyDoUTF8(jetty,"PUT","/tenant/core"+path,tester.makeSimpleRequest(tester.getResourceString("int4.json")));
 		assertEquals(200,out.getStatus());
-		out=jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
 		content=new JSONObject(out.getContent());
-		content=getFields(content);
-		JSONObject oneb = new JSONObject(getResourceString("int4.json"));
+		content=tester.getFields(content);
+		JSONObject oneb = new JSONObject(tester.getResourceString("int4.json"));
 		//XXX we have a utf8 issue so lets not test this
 		//assertEquals(oneb.get("packingNote"),content.get("packingNote"));
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int4.json")),content));		
-		out=jettyDoUTF8(jetty,"DELETE","/tenant/core"+path,null);
-		out=jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(tester.getResourceString("int4.json")),content));		
+		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+path,null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
 		JSONObject bob = new JSONObject(out.getContent());
 		assertTrue(bob.getBoolean("isError"));
 	}
 
 	@Test public void testAcquisition() throws Exception {
-		ServletTester jetty=setupJetty("core",true);
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/acquisition/",makeSimpleRequest(getResourceString("create_acquistion.json")));	
+		ServletTester jetty=tester.setupJetty("core",true);
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/acquisition/",tester.makeSimpleRequest(tester.getResourceString("create_acquistion.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
-		out=jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
 		JSONObject content=new JSONObject(out.getContent());
-		content=getFields(content);
+		content=tester.getFields(content);
 		log.info(content.toString());
-		JSONObject one = new JSONObject(getResourceString("create_acquistion.json"));
+		JSONObject one = new JSONObject(tester.getResourceString("create_acquistion.json"));
 		assertEquals(one.get("acquisitionProvisos"),content.get("acquisitionProvisos"));
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int5.json")),content));
-		out=jettyDoUTF8(jetty,"PUT","/tenant/core"+path,makeSimpleRequest(getResourceString("update_acquistion.json")));
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(tester.getResourceString("int5.json")),content));
+		out=tester.jettyDoUTF8(jetty,"PUT","/tenant/core"+path,tester.makeSimpleRequest(tester.getResourceString("update_acquistion.json")));
 		assertEquals(200,out.getStatus());
-		out=jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
 		content=new JSONObject(out.getContent());
-		content=getFields(content);
-		JSONObject oneb = new JSONObject(getResourceString("update_acquistion.json"));
+		content=tester.getFields(content);
+		JSONObject oneb = new JSONObject(tester.getResourceString("update_acquistion.json"));
 		assertEquals(oneb.get("acquisitionProvisos"),content.get("acquisitionProvisos"));
-		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(getResourceString("int6.json")),content));		
-		out=jettyDoUTF8(jetty,"DELETE","/tenant/core"+path,null);
-		out=jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
+		//assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(tester.getResourceString("int6.json")),content));		
+		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+path,null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core"+path,null);
 		JSONObject bob = new JSONObject(out.getContent());
 		assertTrue(bob.getBoolean("isError"));	
 	}
 
 	@Test public void testIDGenerate() throws Exception {
-		ServletTester jetty=setupJetty("core",true);
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/tenant/core/id/intake",null);
+		ServletTester jetty=tester.setupJetty("core",true);
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/intake",null);
 		JSONObject jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("IN" + getCurrentYear() + "."));
+		assertTrue(jo.getString("next").startsWith("IN" + tester.getCurrentYear() + "."));
 		//test the accessions generated id
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/id/accession",null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/accession",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("" + getCurrentYear() + ".1."));
+		assertTrue(jo.getString("next").startsWith("" + tester.getCurrentYear() + ".1."));
 
 		//test the loans-in generated id
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/id/loanin",null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/loanin",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("LI" + getCurrentYear() + "."));
+		assertTrue(jo.getString("next").startsWith("LI" + tester.getCurrentYear() + "."));
 
 		//test the loans-out generated id
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/id/loanout",null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/loanout",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("LO" + getCurrentYear() + "."));
+		assertTrue(jo.getString("next").startsWith("LO" + tester.getCurrentYear() + "."));
 
 		//test the study generated id
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/id/study",null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/study",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("ST" + getCurrentYear() + "."));
+		assertTrue(jo.getString("next").startsWith("ST" + tester.getCurrentYear() + "."));
 
 		//test the evaluation generated id
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/id/evaluation",null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/evaluation",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("EV" + getCurrentYear() + "."));
+		assertTrue(jo.getString("next").startsWith("EV" + tester.getCurrentYear() + "."));
 
 		//test the library generated id
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/id/library",null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/library",null);
 		jo=new JSONObject(out.getContent());
-		assertTrue(jo.getString("next").startsWith("LIB" + getCurrentYear() + "."));
+		assertTrue(jo.getString("next").startsWith("LIB" + tester.getCurrentYear() + "."));
 
 		//test the archives generated id
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/id/archive",null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/archive",null);
 		jo=new JSONObject(out.getContent());
 		log.info(out.getContent());
-		assertTrue(jo.getString("next").startsWith("AR" + getCurrentYear() + "."));
+		assertTrue(jo.getString("next").startsWith("AR" + tester.getCurrentYear() + "."));
 	}
 
 	@Test public void testTermsUsed() throws Exception {
-		ServletTester jetty=setupJetty("core",true);
+		ServletTester jetty=tester.setupJetty("core",true);
 		
 		JSONObject data=new JSONObject("{'csid':'','fields':{'displayName':'David Bowie'}}");
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/vocabularies/person",data.toString());
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/vocabularies/person",data.toString());
 		assertEquals(201,out.getStatus());		
 		JSONObject jo=new JSONObject(out.getContent());
 		String p_csid=jo.getString("csid");
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/vocabularies/person/"+p_csid,data.toString());
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/vocabularies/person/"+p_csid,data.toString());
 		String p_refid=new JSONObject(out.getContent()).getJSONObject("fields").getString("refid");
-		data=new JSONObject(getResourceString("int4.json"));
+		data=new JSONObject(tester.getResourceString("int4.json"));
 		data.remove("valuer");
 		data.put("valuer",p_refid);
-		out=jettyDoUTF8(jetty,"POST","/tenant/core/intake/",makeSimpleRequest(data.toString()));
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/intake/",tester.makeSimpleRequest(data.toString()));
 		log.info(out.getContent());
 		assertEquals(201,out.getStatus());
 		jo=new JSONObject(out.getContent());
@@ -183,35 +190,35 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 		
 	@Test public void testAutoGet() throws Exception {
-		ServletTester jetty=setupJetty("core",true);
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/tenant/core/cataloging/__auto",null);
+		ServletTester jetty=tester.setupJetty("core",true);
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/cataloging/__auto",null);
 		assertEquals(200,out.getStatus());
 		// XXX this is correct currently, whilst __auto is stubbed.
 		assertTrue(JSONUtils.checkJSONEquivOrEmptyStringKey(new JSONObject(),new JSONObject(out.getContent())));
 	}
 	
 	@Test public void testList() throws Exception {
-		ServletTester jetty=setupJetty("core",true);
+		ServletTester jetty=tester.setupJetty("core",true);
 		// do not delete all
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET","/tenant/core/cataloging",null);
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/cataloging",null);
 		assertEquals(200,out.getStatus());
 		JSONObject in=new JSONObject(out.getContent());
 		JSONArray items=in.getJSONArray("items");
 		// empty
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/cataloging",null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/cataloging",null);
 		assertEquals(200,out.getStatus());
 		in=new JSONObject(out.getContent());
 		items=in.getJSONArray("items");
 		Integer offset = items.length();
 		// put a couple in
-		out=jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",makeSimpleRequest(getResourceString("obj3.json")));	
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",tester.makeSimpleRequest(tester.getResourceString("obj3.json")));	
 		String id1=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
-		out=jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",makeSimpleRequest(getResourceString("obj3.json")));	
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",tester.makeSimpleRequest(tester.getResourceString("obj3.json")));	
 		String id2=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
 		// size 2, right ones, put them in the right place
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/cataloging",null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/cataloging",null);
 		assertEquals(200,out.getStatus());
 		in=new JSONObject(out.getContent());
 		items=in.getJSONArray("items");
@@ -226,8 +233,8 @@ public class TestServiceThroughWebapp extends TestBase{
 		}	
 		*/	
 		/* clean up */
-		out=jettyDoUTF8(jetty,"DELETE","/tenant/core"+id1,null);		
-		out=jettyDoUTF8(jetty,"DELETE","/tenant/core"+id2,null);
+		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+id1,null);		
+		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+id2,null);
 		// check
 		/*
 		assertEquals(id1.split("/")[2],obj1.getString("csid"));
@@ -242,18 +249,18 @@ public class TestServiceThroughWebapp extends TestBase{
 	}
 	
 	@Test public void testSearch() throws Exception {
-		ServletTester jetty=setupJetty("core",true);
+		ServletTester jetty=tester.setupJetty("core",true);
 		// one aardvark, one non-aardvark
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",makeSimpleRequest(getResourceString("obj3-search.json")));	
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",tester.makeSimpleRequest(tester.getResourceString("obj3-search.json")));	
 		assertEquals(201,out.getStatus());
 		String id1=out.getHeader("Location");
 		String good=id1.split("/")[2];
-		out=jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",makeSimpleRequest(getResourceString("obj3.json")));
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",tester.makeSimpleRequest(tester.getResourceString("obj3.json")));
 		String id2=out.getHeader("Location");
 		String bad=id2.split("/")[2];
 		assertEquals(201,out.getStatus());
 		// search
-		out=jettyDoUTF8(jetty,"GET","/tenant/core/cataloging/search?query=aardvark",null);
+		out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/cataloging/search?query=aardvark",null);
 		assertEquals(200,out.getStatus());
 		log.info(out.getContent());
 		// check
@@ -268,27 +275,27 @@ public class TestServiceThroughWebapp extends TestBase{
 		}
 		assertTrue(found);
 		/* clean up */
-		out=jettyDoUTF8(jetty,"DELETE","/tenant/core"+id1,null);		
-		out=jettyDoUTF8(jetty,"DELETE","/tenant/core"+id2,null);
+		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+id1,null);		
+		out=tester.jettyDoUTF8(jetty,"DELETE","/tenant/core"+id2,null);
 	}
 	
 	@Test public void testLogin() throws Exception {
-		ServletTester jetty=setupJetty("core",true);
-		Spec spec = TestData.getSpec(jetty);
+		ServletTester jetty=tester.setupJetty("core",true);
+		Spec spec = tester.getSpec(jetty);
 		String pwd = spec.getAdminData().getAuthPass();
 		String username = spec.getAdminData().getAuthUser();
 		String tenant = spec.getAdminData().getTenant();
-		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"POST","/tenant/core/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
+		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login","userid="+username+"&password="+pwd+"&tenant="+tenant);	
 		assertEquals(303,out.getStatus());
 		assertEquals("/collectionspace/ui/core/html/findedit.html",out.getHeader("Location"));
-		out=jettyDoUTF8(jetty,"POST","/tenant/core/login?userid="+username+"&password="+pwd+"&tenant="+tenant,null);
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid="+username+"&password="+pwd+"&tenant="+tenant,null);
 		assertEquals(303,out.getStatus());
 		log.info(out.getHeader("Location"));
 		assertFalse(out.getHeader("Location").endsWith("?result=fail"));
-		out=jettyDoUTF8(jetty,"POST","/tenant/core/login?userid=guest&password=toast",null);	
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid=guest&password=toast",null);	
 		assertEquals(303,out.getStatus());
 		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
-		out=jettyDoUTF8(jetty,"POST","/tenant/core/login?userid=bob&password=bob",null);	
+		out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/login?userid=bob&password=bob",null);	
 		assertEquals(303,out.getStatus());
 		assertTrue(out.getHeader("Location").endsWith("?result=fail"));
 		

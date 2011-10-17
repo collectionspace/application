@@ -18,9 +18,10 @@ import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestRelationsThroughWebapp extends TestBase {
+public class TestRelationsThroughWebapp {
 	private static final Logger log = LoggerFactory
 			.getLogger(TestRelationsThroughWebapp.class);
+	private TestBase tester = new TestBase();
 
 	private JSONObject createMini(String type, String id) throws JSONException {
 		JSONObject out = new JSONObject();
@@ -43,36 +44,36 @@ public class TestRelationsThroughWebapp extends TestBase {
 
 	@Test
 	public void testRelationsCreate() throws Exception {
-		ServletTester jetty = setupJetty();
-		// First create a couple of cataloging
-		HttpTester out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		ServletTester jetty = tester.setupJetty();
+		// First create atester. couple of cataloging
+		HttpTester out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out =tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
 		String[] path2 = id2.split("/");
 		String[] path3 = id3.split("/");
 		// Now create a pair of relations in: 3<->1, 3->2: a. 1->3, b. 3->1, c.
 		// 3->2
-		out = POSTData("/relationships", createRelation(path3[1], path3[2],
+		out = tester.POSTData("/relationships", createRelation(path3[1], path3[2],
 				"affects", path1[1], path1[2], false), jetty);
 		log.info(out.getContent());
 		String relid1 = out.getHeader("Location");
 		String csid1 = new JSONObject(out.getContent()).getString("csid");
 
-		out = POSTData("/relationships", createRelation(path3[1], path3[2],
+		out = tester.POSTData("/relationships", createRelation(path3[1], path3[2],
 				"affects", path2[1], path2[2], true), jetty);
 		log.info(out.getContent());
 		String relid2 = out.getHeader("Location");
 		String csid2 = new JSONObject(out.getContent()).getString("csid");
 
 		// Check 1 has relation to 3
-		out = GETData(id1, jetty);
+		out = tester.GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
 		// that the destination is 3
 		log.info(out.getContent());
@@ -86,7 +87,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		String rida = mini1.getString("relid");
 
 		// pull the relation itself, and check it
-		out = GETData("/relationships/" + rida, jetty);
+		out = tester.GETData("/relationships/" + rida, jetty);
 		JSONObject rd1 = new JSONObject(out.getContent());
 		assertEquals("affects", rd1.getString("type"));
 		assertEquals(rida, rd1.getString("csid"));
@@ -98,14 +99,14 @@ public class TestRelationsThroughWebapp extends TestBase {
 		assertEquals(path3[2], dst1.get("csid"));
 
 		// Check that 2 has no relations at all
-		out = GETData(id2, jetty);
+		out = tester.GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
 		// that the destination is 3
 		JSONObject rel2 = data2.getJSONObject("relations");
 		assertNotNull(rel2);
 		assertEquals(0, rel2.length());
 		// Check that 3 has relations to 1 and 2
-		out = GETData(id3, jetty);
+		out = tester.GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
 		// untangle them
 		JSONArray rel3 = data3.getJSONObject("relations").getJSONArray(
@@ -131,7 +132,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		String rid32 = rel32.getString("relid");
 		// check actual records
 		// 3 -> 1
-		out = GETData("/relationships/" + rid31, jetty);
+		out = tester.GETData("/relationships/" + rid31, jetty);
 		JSONObject rd31 = new JSONObject(out.getContent());
 		assertEquals("affects", rd31.getString("type"));
 		assertEquals(rid31, rd31.getString("csid"));
@@ -142,7 +143,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		assertEquals("cataloging", dst31.getString("recordtype"));
 		assertEquals(path1[2], dst31.get("csid"));
 		// 3 -> 2
-		out = GETData("/relationships/" + rid32, jetty);
+		out = tester.GETData("/relationships/" + rid32, jetty);
 		JSONObject rd32 = new JSONObject(out.getContent());
 		assertEquals("affects", rd32.getString("type"));
 		assertEquals(rid32, rd32.getString("csid"));
@@ -154,25 +155,25 @@ public class TestRelationsThroughWebapp extends TestBase {
 		assertEquals(path2[2], dst32.get("csid"));
 
 		/* clean up */
-		DELETEData("/relationships/" + csid1, jetty);
-		DELETEData("/relationships/" + csid2, jetty);
-		DELETEData(id1, jetty);
-		DELETEData(id2, jetty);
-		DELETEData(id3, jetty);
+		tester.DELETEData("/relationships/" + csid1, jetty);
+		tester.DELETEData("/relationships/" + csid2, jetty);
+		tester.DELETEData(id1, jetty);
+		tester.DELETEData(id2, jetty);
+		tester.DELETEData(id3, jetty);
 	}
 
 	@Test
 	public void testLoginTest() throws Exception {
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		// initially set up with logged in user
-		HttpTester out = GETData("/loginstatus", jetty);
+		HttpTester out = tester.GETData("/loginstatus", jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
 		Boolean rel3 = data3.getBoolean("login");
 		assertTrue(rel3);
 		// logout the user
-		out = GETData("/logout", jetty, 303);
+		out = tester.GETData("/logout", jetty, 303);
 		// should get false
-		out = GETData("/loginstatus", jetty);
+		out = tester.GETData("/loginstatus", jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
 		Boolean rel2 = data2.getBoolean("login");
 		assertFalse(rel2);
@@ -181,36 +182,36 @@ public class TestRelationsThroughWebapp extends TestBase {
 	// XXX factor out creation
 	@Test
 	public void testRelationsMissingOneWay() throws Exception {
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		// First create a couple of cataloging
-		HttpTester out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		HttpTester out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 
 		String id1 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
 		String[] path3 = id3.split("/");
 		JSONObject data = createRelation(path3[1], path3[2], "affects",
 				path1[1], path1[2], false);
 		data.remove("one-way");
-		out = POSTData("/relationships", data, jetty);
+		out = tester.POSTData("/relationships", data, jetty);
 		// Get csid
 		JSONObject datacs = new JSONObject(out.getContent());
 		String csid1 = datacs.getString("csid");
 		// Just heck they have length 1 (other stuff will be tested by main
 		// test)
-		out = GETData(id3, jetty);
+		out = tester.GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
 		JSONArray rel3 = data3.getJSONObject("relations").getJSONArray(
 				"cataloging");
 		assertNotNull(rel3);
 		assertEquals(1, rel3.length());
-		out = GETData(id1, jetty);
+		out = tester.GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
 		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray(
 				"cataloging");
@@ -218,24 +219,24 @@ public class TestRelationsThroughWebapp extends TestBase {
 		assertEquals(1, rel1.length());
 
 		// clean up after
-		DELETEData("/relationships/" + csid1, jetty);
-		DELETEData(id1, jetty);
-		DELETEData(id2, jetty);
-		DELETEData(id3, jetty);
+		tester.DELETEData("/relationships/" + csid1, jetty);
+		tester.DELETEData(id1, jetty);
+		tester.DELETEData(id2, jetty);
+		tester.DELETEData(id3, jetty);
 	}
 
 	@Test
 	public void testMultipleCreate() throws Exception {
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		// Create test cataloging
-		HttpTester out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		HttpTester out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
 		String[] path2 = id2.split("/");
@@ -250,41 +251,41 @@ public class TestRelationsThroughWebapp extends TestBase {
 		datas.put(data2);
 		JSONObject data = new JSONObject();
 		data.put("items", datas);
-		out = POSTData("/relationships", data, jetty);
+		out = tester.POSTData("/relationships", data, jetty);
 		// Check it
-		out = GETData(id3, jetty);
+		out = tester.GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
 		JSONArray rel3 = data3.getJSONObject("relations").getJSONArray(
 				"cataloging");
 		assertNotNull(rel3);
 		assertEquals(2, rel3.length());
 
-		DELETEData(id1, jetty);
-		DELETEData(id2, jetty);
-		DELETEData(id3, jetty);
+		tester.DELETEData(id1, jetty);
+		tester.DELETEData(id2, jetty);
+		tester.DELETEData(id3, jetty);
 	}
 
 	// XXX update of two-way relations
 	// XXX update of one-wayness
 	@Test
 	public void testUpdate() throws Exception {
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		// Create test cataloging
-		HttpTester out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		HttpTester out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
 		String[] path2 = id2.split("/");
 		String[] path3 = id3.split("/");
 		
 		// Create a relation 3 -> 1
-		out = POSTData("/relationships", createRelation(path3[1], path3[2],
+		out = tester.POSTData("/relationships", createRelation(path3[1], path3[2],
 				"affects", path1[1], path1[2], true), jetty);
 		// Get csid
 		JSONObject data = new JSONObject(out.getContent());
@@ -293,32 +294,32 @@ public class TestRelationsThroughWebapp extends TestBase {
 		
 		assertNotNull(csid1);
 		// Update it to 2 -> 1
-		out = PUTData("/relationships/" + csid1, createRelation(path2[1],
+		out = tester.PUTData("/relationships/" + csid1, createRelation(path2[1],
 				path2[2], "affects", path1[1], path1[2], true), jetty);
 
 		log.info(out.getContent());
 		// Check it
 		
-		out = GETData(id1, jetty);
+		out = tester.GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
 		JSONObject rel1 = data1.getJSONObject("relations");
 		
-		out = GETData(id2, jetty);
+		out = tester.GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
 		log.info(out.getContent());
 		JSONArray rel2 = data2.getJSONObject("relations").getJSONArray(
 				"cataloging");
 		
-		out = GETData(id3, jetty);
+		out = tester.GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
 		JSONObject rel3 = data3.getJSONObject("relations");
 		
 		// clean up after
-		DELETEData("/relationships/" + csid1, jetty);
+		tester.DELETEData("/relationships/" + csid1, jetty);
 
-		DELETEData(id1, jetty);
-		DELETEData(id2, jetty);
-		DELETEData(id3, jetty);
+		tester.DELETEData(id1, jetty);
+		tester.DELETEData(id2, jetty);
+		tester.DELETEData(id3, jetty);
 		
 //test
 		assertNotNull(rel1);
@@ -331,21 +332,21 @@ public class TestRelationsThroughWebapp extends TestBase {
 
 	@Test
 	public void testOneWayWorksInUpdate() throws Exception {
-		ServletTester jetty = setupJetty();
-		HttpTester out = POSTData("/intake/",
-				makeSimpleRequest(getResourceString("2007.4-a.json")), jetty);
+		ServletTester jetty = tester.setupJetty();
+		HttpTester out = tester.POSTData("/intake/",
+				tester.makeSimpleRequest(tester.getResourceString("2007.4-a.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/acquisition/",
-				makeSimpleRequest(getResourceString("2005.017.json")), jetty);
+		out = tester.POSTData("/acquisition/",
+				tester.makeSimpleRequest(tester.getResourceString("2005.017.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
 		String[] path2 = id2.split("/");
 		String[] path3 = id3.split("/");
 		// Create a relation 3 <-> 1
-		out = POSTData("/relationships", createRelation(path3[1], path3[2],
+		out = tester.POSTData("/relationships", createRelation(path3[1], path3[2],
 				"affects", path1[1], path1[2], false), jetty);
 		// Get csid
 		JSONObject data = new JSONObject(out.getContent());
@@ -353,115 +354,115 @@ public class TestRelationsThroughWebapp extends TestBase {
 
 		assertNotNull(csid1);
 		// Update to 2 <-> 1 keeping one-way false
-		out = PUTData("/relationships/" + csid1, createRelation(path2[1],
+		out = tester.PUTData("/relationships/" + csid1, createRelation(path2[1],
 				path2[2], "affects", path1[1], path1[2], false), jetty);
 
 		// Check it
-		out = GETData(id1, jetty);
+		out = tester.GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
 		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray(
 				"cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
-		out = GETData(id2, jetty);
+		out = tester.GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
 		JSONArray rel2 = data2.getJSONObject("relations")
 				.getJSONArray("intake");
 		assertNotNull(rel2);
 		assertEquals(1, rel2.length());
-		out = GETData(id3, jetty);
+		out = tester.GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
 		JSONObject rel3 = data3.getJSONObject("relations");
 		assertNotNull(rel3);
 		assertEquals(0, rel3.length());
 		// Update to 1 -> 3, making one-way true
 		String csid2 = rel1.getJSONObject(0).getString("relid");
-		out = PUTData("/relationships/" + csid2, createRelation(path1[1],
+		out = tester.PUTData("/relationships/" + csid2, createRelation(path1[1],
 				path1[2], "affects", path3[1], path3[2], true), jetty);
 
 		// Check it
-		out = GETData(id1, jetty);
+		out = tester.GETData(id1, jetty);
 		data1 = new JSONObject(out.getContent());
 		rel1 = data1.getJSONObject("relations").getJSONArray("acquisition");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
-		out = GETData(id2, jetty);
+		out = tester.GETData(id2, jetty);
 		data2 = new JSONObject(out.getContent());
 		JSONObject rel2a = data2.getJSONObject("relations");
 		assertNotNull(rel2a);
 		assertEquals(0, rel2a.length());
-		out = GETData(id3, jetty);
+		out = tester.GETData(id3, jetty);
 		data3 = new JSONObject(out.getContent());
 		rel3 = data3.getJSONObject("relations");
 		assertNotNull(rel3);
 		assertEquals(0, rel3.length());
 		// Update to 3 -> 1, keeping one way true
-		out = PUTData("/relationships/" + csid2, createRelation(path3[1],
+		out = tester.PUTData("/relationships/" + csid2, createRelation(path3[1],
 				path3[2], "affects", path1[1], path1[2], true), jetty);
 
 		// Check it
-		out = GETData(id1, jetty);
+		out = tester.GETData(id1, jetty);
 		data1 = new JSONObject(out.getContent());
 		JSONObject rel1a = data1.getJSONObject("relations");
 		assertNotNull(rel1a);
 		assertEquals(0, rel1a.length());
-		out = GETData(id2, jetty);
+		out = tester.GETData(id2, jetty);
 		data2 = new JSONObject(out.getContent());
 		rel2a = data2.getJSONObject("relations");
 		assertNotNull(rel2a);
 		assertEquals(0, rel2a.length());
-		out = GETData(id3, jetty);
+		out = tester.GETData(id3, jetty);
 		data3 = new JSONObject(out.getContent());
 		JSONArray rel3a = data3.getJSONObject("relations").getJSONArray(
 				"intake");
 		assertNotNull(rel3a);
 		assertEquals(1, rel3a.length());
 		// Update to 1 <-> 2, making one way false
-		out = PUTData("/relationships/" + csid2, createRelation(path1[1],
+		out = tester.PUTData("/relationships/" + csid2, createRelation(path1[1],
 				path1[2], "affects", path2[1], path2[2], false), jetty);
 
 		// Check it
-		out = GETData(id1, jetty);
+		out = tester.GETData(id1, jetty);
 		data1 = new JSONObject(out.getContent());
 		rel1 = data1.getJSONObject("relations").getJSONArray("cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
-		out = GETData(id2, jetty);
+		out = tester.GETData(id2, jetty);
 		data2 = new JSONObject(out.getContent());
 		rel2 = data2.getJSONObject("relations").getJSONArray("intake");
 		assertNotNull(rel2);
 		assertEquals(1, rel2.length());
-		out = GETData(id3, jetty);
+		out = tester.GETData(id3, jetty);
 		data3 = new JSONObject(out.getContent());
 		rel3 = data3.getJSONObject("relations");
 		assertNotNull(rel3);
 		assertEquals(0, rel3.length());
 
 		// clean up after
-		DELETEData(id1, jetty);
-		DELETEData(id2, jetty);
-		DELETEData(id3, jetty);
+		tester.DELETEData(id1, jetty);
+		tester.DELETEData(id2, jetty);
+		tester.DELETEData(id3, jetty);
 
 	}
 
 	@Test
 	public void testRelationshipType() throws Exception {
 		// Create test cataloging
-		ServletTester jetty = setupJetty();
-		HttpTester out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		ServletTester jetty = tester.setupJetty();
+		HttpTester out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/intake/",
-				makeSimpleRequest(getResourceString("2007.4-a.json")), jetty);
+		out = tester.POSTData("/intake/",
+				tester.makeSimpleRequest(tester.getResourceString("2007.4-a.json")), jetty);
 		String id2 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
 		String[] path2 = id2.split("/");
 		// Relate them
-		out = POSTData("/relationships/", createRelation(path2[1], path2[2],
+		out = tester.POSTData("/relationships/", createRelation(path2[1], path2[2],
 				"affects", path1[1], path1[2], false), jetty);
 		String csid = new JSONObject(out.getContent()).getString("csid");
 		// Check types
-		out = GETData(id1, jetty);
+		out = tester.GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
 		JSONArray rels1 = data1.getJSONObject("relations").getJSONArray(
 				"intake");
@@ -469,7 +470,7 @@ public class TestRelationsThroughWebapp extends TestBase {
 		assertEquals(1, rels1.length());
 		JSONObject rel1 = rels1.getJSONObject(0);
 		assertEquals(rel1.getString("recordtype"), "intake");
-		out = GETData(id2, jetty);
+		out = tester.GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
 		JSONArray rels2 = data2.getJSONObject("relations").getJSONArray(
 				"cataloging");
@@ -479,57 +480,57 @@ public class TestRelationsThroughWebapp extends TestBase {
 		assertEquals(rel2.getString("recordtype"), "cataloging");
 
 		// clean up after
-		DELETEData("/relationships/" + csid, jetty);
-		DELETEData(id1, jetty);
-		DELETEData(id2, jetty);
+		tester.DELETEData("/relationships/" + csid, jetty);
+		tester.DELETEData(id1, jetty);
+		tester.DELETEData(id2, jetty);
 
 	}
 	@Test 
 	public void testHierarchical() throws Exception{
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		// Check list is empty;
 		
 		String st = "/relationships/hierarchical/search?source=person/a93233e6-ca44-477d-97a0&type=hasBroader";
-		HttpTester out = GETData(st, jetty);
+		HttpTester out = tester.GETData(st, jetty);
 		log.info(out.getContent());
 	}
 
 	@Test
 	public void testSearchList() throws Exception {
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		// Check list is empty
-		HttpTester out = GETData("/relationships/", jetty);
+		HttpTester out = tester.GETData("/relationships/", jetty);
 		JSONArray items = new JSONObject(out.getContent())
 				.getJSONArray("items");
 		Integer offset = items.length();
 		// assertEquals(0,items.length());
 		// Create some cataloging
-		out = POSTData("/intake/",
-				makeSimpleRequest(getResourceString("2007.4-a.json")), jetty);
+		out = tester.POSTData("/intake/",
+				tester.makeSimpleRequest(tester.getResourceString("2007.4-a.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/acquisition/",
-				makeSimpleRequest(getResourceString("2005.017.json")), jetty);
+		out = tester.POSTData("/acquisition/",
+				tester.makeSimpleRequest(tester.getResourceString("2005.017.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
 		String[] path2 = id2.split("/");
 		String[] path3 = id3.split("/");
 		// Add a relation rel1: 2 -> 1
-		out = POSTData("/relationships/", createRelation(path2[1], path2[2],
+		out = tester.POSTData("/relationships/", createRelation(path2[1], path2[2],
 				"affects", path1[1], path1[2], true), jetty);
 		String csid1 = new JSONObject(out.getContent()).getString("csid");
 
-		out = GETData("/relationships/" + csid1, jetty);
+		out = tester.GETData("/relationships/" + csid1, jetty);
 		JSONObject rel1 = new JSONObject(out.getContent());
 		assertEquals(path2[2], rel1.getJSONObject("source").getString("csid"));
 		assertEquals(path1[2], rel1.getJSONObject("target").getString("csid"));
 		// Add some more relations: rel2: 2 -> 3 ; rel 3: 3 -> 1 (new type)
-		out = POSTData("/relationships/", createRelation(path2[1], path2[2],
+		out = tester.POSTData("/relationships/", createRelation(path2[1], path2[2],
 				"affects", path3[1], path3[2], true), jetty);
 		String csid2 = new JSONObject(out.getContent()).getString("csid");
-		out = POSTData("/relationships/", createRelation(path3[1], path3[2],
+		out = tester.POSTData("/relationships/", createRelation(path3[1], path3[2],
 				"broader", path1[1], path1[2], true), jetty);
 		String csid3 = new JSONObject(out.getContent()).getString("csid");
 		// Total length should be 3 XXX pagination & offset
@@ -537,29 +538,29 @@ public class TestRelationsThroughWebapp extends TestBase {
 		// items=new JSONObject(out.getContent()).getJSONArray("items");
 		// assertEquals(3,items.length());
 		// Should be two starting at 2
-		out = GETData("/relationships/search?source=" + path2[1] + "/"
+		out = tester.GETData("/relationships/search?source=" + path2[1] + "/"
 				+ path2[2], jetty);
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(2, items.length());
 		// Should be one staring at 3, none at 1
-		out = GETData("/relationships/search?source=" + path3[1] + "/"
+		out = tester.GETData("/relationships/search?source=" + path3[1] + "/"
 				+ path3[2], jetty);
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(1, items.length());
-		out = GETData("/relationships/search?source=" + path1[1] + "/"
+		out = tester.GETData("/relationships/search?source=" + path1[1] + "/"
 				+ path1[2], jetty);
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(0, items.length());
 		// Targets: two at 1, none at 2, one at 3
-		out = GETData("/relationships/search?target=" + path1[1] + "/"
+		out = tester.GETData("/relationships/search?target=" + path1[1] + "/"
 				+ path1[2], jetty);
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(2, items.length());
-		out = GETData("/relationships/search?target=" + path2[1] + "/"
+		out = tester.GETData("/relationships/search?target=" + path2[1] + "/"
 				+ path2[2], jetty);
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(0, items.length());
-		out = GETData("/relationships/search?target=" + path3[1] + "/"
+		out = tester.GETData("/relationships/search?target=" + path3[1] + "/"
 				+ path3[2], jetty);
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(1, items.length());
@@ -568,65 +569,65 @@ public class TestRelationsThroughWebapp extends TestBase {
 		// items=new JSONObject(out.getContent()).getJSONArray("items");
 		// assertEquals(1,items.length());
 		// Combination: target = 1, type = affects; just one
-		out = GETData("/relationships/search?type=affects&target=" + path1[1]
+		out = tester.GETData("/relationships/search?type=affects&target=" + path1[1]
 				+ "/" + path1[2], jetty);
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(1, items.length());
 		// Combination: source = 2, target = 3; just one
-		out = GETData("/relationships/search?source=" + path2[1] + "/"
+		out = tester.GETData("/relationships/search?source=" + path2[1] + "/"
 				+ path2[2] + "&target=" + path3[1] + "/" + path3[2], jetty);
 		items = new JSONObject(out.getContent()).getJSONArray("items");
 		assertEquals(1, items.length());
 
 		// clean up after
-		DELETEData("/relationships/" + csid1, jetty);
-		DELETEData("/relationships/" + csid2, jetty);
-		DELETEData("/relationships/" + csid3, jetty);
-		DELETEData(id1, jetty);
-		DELETEData(id2, jetty);
-		DELETEData(id3, jetty);
+		tester.DELETEData("/relationships/" + csid1, jetty);
+		tester.DELETEData("/relationships/" + csid2, jetty);
+		tester.DELETEData("/relationships/" + csid3, jetty);
+		tester.DELETEData(id1, jetty);
+		tester.DELETEData(id2, jetty);
+		tester.DELETEData(id3, jetty);
 	}
 
 	@Test
 	public void testDelete() throws Exception {
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		// Check size of initial is empty
-		HttpTester out = GETData("/relationships/", jetty);
+		HttpTester out = tester.GETData("/relationships/", jetty);
 		JSONArray itemsall = new JSONObject(out.getContent())
 				.getJSONArray("items");
 		Integer offset = itemsall.length();
 
 		// Create some cataloging
-		out = POSTData("/intake/",
-				makeSimpleRequest(getResourceString("2007.4-a.json")), jetty);
+		out = tester.POSTData("/intake/",
+				tester.makeSimpleRequest(tester.getResourceString("2007.4-a.json")), jetty);
 		String id1 = out.getHeader("Location");
-		out = POSTData("/cataloging/",
-				makeSimpleRequest(getResourceString("obj3.json")), jetty);
+		out = tester.POSTData("/cataloging/",
+				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id2 = out.getHeader("Location");
-		out = POSTData("/acquisition/",
-				makeSimpleRequest(getResourceString("2005.017.json")), jetty);
+		out = tester.POSTData("/acquisition/",
+				tester.makeSimpleRequest(tester.getResourceString("2005.017.json")), jetty);
 		String id3 = out.getHeader("Location");
 		String[] path1 = id1.split("/");
 		String[] path2 = id2.split("/");
 		String[] path3 = id3.split("/");
 		// Create three relationships, one two way
-		out = POSTData("/relationships/", createRelation(path2[1], path2[2],
+		out = tester.POSTData("/relationships/", createRelation(path2[1], path2[2],
 				"affects", path1[1], path1[2], true), jetty);
 		String csid2 = new JSONObject(out.getContent()).getString("csid");
-		out = POSTData("/relationships/", createRelation(path3[1], path3[2],
+		out = tester.POSTData("/relationships/", createRelation(path3[1], path3[2],
 				"affects", path1[1], path1[2], false), jetty);
 		String csid = new JSONObject(out.getContent()).getString("csid");
 
-		out = POSTData("/relationships/", createRelation(path3[1], path3[2],
+		out = tester.POSTData("/relationships/", createRelation(path3[1], path3[2],
 				"affects", path2[1], path2[2], false), jetty);
 		String csid3 = new JSONObject(out.getContent()).getString("csid");
 		
 		//delete first relationship
-		DELETEData("/relationships/" + csid2, jetty);
+		tester.DELETEData("/relationships/" + csid2, jetty);
 		
 		//delete second relationship
 		String path = "/relationships/0?source="+id3+"&target="+id1+"&type=affects";
-		DELETEData(path, jetty);
+		tester.DELETEData(path, jetty);
 		
 		//delete third relationship
 		JSONObject delrel = new JSONObject();
@@ -640,13 +641,13 @@ public class TestRelationsThroughWebapp extends TestBase {
 		delrel.put("target", target);
 		delrel.put("type", "affects");
 		delrel.put("one-way", "false");
-		DELETEData("/relationships/0", jetty, delrel.toString());
+		tester.DELETEData("/relationships/0", jetty, delrel.toString());
 		
 		
 		
-		DELETEData(id1, jetty);
-		DELETEData(id2, jetty);
-		DELETEData(id3, jetty);
+		tester.DELETEData(id1, jetty);
+		tester.DELETEData(id2, jetty);
+		tester.DELETEData(id3, jetty);
 	}
 	// XXX DELETE RELATIONS WHEN RECORD IS DELETED: NOT FOR 0.5
 }

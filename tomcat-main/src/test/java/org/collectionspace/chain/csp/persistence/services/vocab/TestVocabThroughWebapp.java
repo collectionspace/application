@@ -19,27 +19,28 @@ import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestVocabThroughWebapp extends TestBase {
+public class TestVocabThroughWebapp  {
 	private static final Logger log = LoggerFactory
 			.getLogger(TestVocabThroughWebapp.class);
+	private TestBase tester = new TestBase();
 
 	@Test
 	public void testInitialise() throws Exception {
-		String vocabtype = "languages";
+		String vocabtype = "currency";
 		HttpTester out;
 		// String vocabtype="loanoutstatus";
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		// Create a single vocab
-		// out = GETData("/vocabularies/"+vocabtype+"/initialize",jetty);
+		// out = tester.GETData("/vocabularies/"+vocabtype+"/initialize",jetty);
 
 		// create all vocabularies in <record id="vocab"
-		out = GETData("/authorities/vocab/initialize", jetty);
+		out = tester.GETData("/authorities/vocab/initialize", jetty);
 
 		// update and remove fields not in list
-		// out = GETData("/vocabularies/"+vocabtype+"/refresh",jetty);
+		// out = tester.GETData("/vocabularies/"+vocabtype+"/refresh",jetty);
 
 		// update and remove fields not in each list within an authority
-		// out = GETData("/authorities/vocab/refresh",jetty);
+		// out = tester.GETData("/authorities/vocab/refresh",jetty);
 		
 		// get data to init from a file
 		// /chain/vocabularies/"+vocabtype+"/initialize?datapath=/Users/csm22/Documents/collectionspace/svcapp/cspi-webui/src/main/resources/org/collectionspace/chain/csp/webui/misc/names.txt
@@ -54,29 +55,29 @@ public class TestVocabThroughWebapp extends TestBase {
 		String vocabtype = "languages";
 		String testfield = "displayName";
 
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		// Create
 		JSONObject data = new JSONObject("{'fields':{'" + testfield + "':'"
 				+ displayname + "'}}");
-		HttpTester out = POSTData("/vocabularies/" + vocabtype + "/", data,
+		HttpTester out = tester.POSTData("/vocabularies/" + vocabtype + "/", data,
 				jetty);
 		String url = out.getHeader("Location");
 		// Read
-		out = GETData("/vocabularies" + url, jetty);
+		out = tester.GETData("/vocabularies" + url, jetty);
 		data = new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"), url.split("/")[2]);
 		assertEquals(displayname, data.getString(testfield));
 		// Update
 		data = new JSONObject("{'fields':{'" + testfield + "':'"
 				+ displaynameUpdate + "'}}");
-		out = PUTData("/vocabularies" + url, data, jetty);
+		out = tester.PUTData("/vocabularies" + url, data, jetty);
 		// Read
-		out = GETData("/vocabularies" + url, jetty);
+		out = tester.GETData("/vocabularies" + url, jetty);
 		data = new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"), url.split("/")[2]);
 		assertEquals(displaynameUpdate, data.getString(testfield));
 		// Delete
-		DELETEData("/vocabularies/" + url, jetty);
+		tester.DELETEData("/vocabularies/" + url, jetty);
 
 	}
 
@@ -85,12 +86,12 @@ public class TestVocabThroughWebapp extends TestBase {
 		String displayname = "XXXStuff2";
 		String vocabtype = "languages";
 		String testfield = "displayName";
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 
 		// Create
 		JSONObject data = new JSONObject("{'fields':{'" + testfield + "':'"
 				+ displayname + "'}}");
-		HttpTester out = POSTData("/vocabularies/" + vocabtype + "/", data,
+		HttpTester out = tester.POSTData("/vocabularies/" + vocabtype + "/", data,
 				jetty);
 		String url = out.getHeader("Location");
 		// Get List
@@ -99,7 +100,7 @@ public class TestVocabThroughWebapp extends TestBase {
 		String checkpagination = "";
 		boolean found = false;
 		while (resultsize > 0) {
-			out = GETData("/vocabularies/" + vocabtype
+			out = tester.GETData("/vocabularies/" + vocabtype
 					+ "?pageSize=200&pageNum=" + pagenum, jetty);
 			pagenum++;
 			JSONArray results = new JSONObject(out.getContent())
@@ -126,7 +127,7 @@ public class TestVocabThroughWebapp extends TestBase {
 		}
 		assertTrue(found);
 		// Delete
-		DELETEData("/vocabularies/" + url, jetty);
+		tester.DELETEData("/vocabularies/" + url, jetty);
 	}
 
 	@Test
@@ -135,21 +136,21 @@ public class TestVocabThroughWebapp extends TestBase {
 		String vocabtype = "languages";
 		String testfield = "displayName";
 
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		// Create the entry we are going to check for
 		JSONObject data = new JSONObject("{'fields':{'" + testfield + "':'"
 				+ displayname + "'}}");
-		HttpTester out = POSTData("/vocabularies/" + vocabtype + "/", data,
+		HttpTester out = tester.POSTData("/vocabularies/" + vocabtype + "/", data,
 				jetty);
 		String url = out.getHeader("Location");
 
-		out = GETData("/vocabularies/" + vocabtype + "/search?query="
+		out = tester.GETData("/vocabularies/" + vocabtype + "/search?query="
 				+ displayname, jetty);
 		JSONArray results = new JSONObject(out.getContent())
 				.getJSONArray("results");
 
 		// Delete the entry from the database
-		DELETEData("/vocabularies/" + url, jetty);
+		tester.DELETEData("/vocabularies/" + url, jetty);
 		
 		for (int i = 0; i < results.length(); i++) {
 			JSONObject entry = results.getJSONObject(i);
@@ -165,9 +166,9 @@ public class TestVocabThroughWebapp extends TestBase {
 	// Tests that a redirect goes to the expected place
 	@Test
 	public void testAutocompleteRedirect() throws Exception {
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 
-		HttpTester out = GETData(
+		HttpTester out = tester.GETData(
 				"/cataloging/source-vocab/inscriptionContentLanguage", jetty);
 
 		JSONArray data = new JSONArray(out.getContent());

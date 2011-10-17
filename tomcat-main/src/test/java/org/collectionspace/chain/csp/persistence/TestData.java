@@ -35,43 +35,41 @@ public class TestData {
 
 	// Set up test data strings 
 
-    protected final String objectCreate = addData("objectCreate.json").toString();
+    public final String objectCreate(){ return addData("objectCreate.json").toString(); };
 
-	protected final String acquisitionCreate = addData("acquisitionCreate.json").toString();
-	protected final String intakeCreate = addData("intakeCreate.json").toString();
-	protected final String loaninCreate = addData("loaninCreate.json").toString();
-	protected final String loanoutCreate = addData("loanoutCreate.json").toString();
-	protected final String movementCreate = addData("movementCreate.json").toString();
-	protected final String mediaCreate = addData("mediaCreate.json").toString();
- 	protected final String objectexitCreate = addData("objectexitCreate.json").toString();
- 	protected final String termlistCreate = addData("termlistCreate.json").toString();
- 	protected final String groupCreate = addData("groupCreate.json").toString();
+	public final String acquisitionCreate(){ return addData("acquisitionCreate.json").toString(); };
+	public final String intakeCreate(){ return addData("intakeCreate.json").toString(); };
+	public final String loaninCreate(){ return addData("loaninCreate.json").toString(); };
+	public final String loanoutCreate(){ return addData("loanoutCreate.json").toString(); };
+	public final String movementCreate(){ return addData("movementCreate.json").toString(); };
+	public final String mediaCreate(){ return addData("mediaCreate.json").toString(); };
+ 	public final String objectexitCreate(){ return addData("objectexitCreate.json").toString(); };
+ 	public final String termlistCreate(){ return addData("termlistCreate.json").toString(); };
+ 	public final String groupCreate(){ return addData("groupCreate.json").toString(); };
 
-	protected final String roleCreate = addData("roleCreate.json","displayName").toString();
-	protected final String role2Create = addData("role2Create.json","displayName").toString();
-	protected final String personCreate = addData("personCreate.json").toString();
+	public final String roleCreate(){ return addData("roleCreate.json","displayName").toString(); };
+	public final String role2Create(){ return addData("role2Create.json","displayName").toString(); };
+	public final String personCreate(){ return addData("personCreate.json").toString(); };
 
-	protected final String roleRead =  addData("role_read.json").toString();
-	protected final String roleWrite =  addData("role_write.json").toString();
-	protected final String roleNone =  addData("role_none.json").toString();
-	protected final String roleNone1 =  addData("role_none1.json").toString();
-	protected final String roleNone2 =  addData("role_none2.json").toString();
+	public final String roleRead(){ return  addData("role_read.json").toString(); };
+	public final String roleWrite(){ return addData("role_write.json").toString(); };
+	public final String roleNone(){ return  addData("role_none.json").toString(); };
+	public final String roleNone1(){ return  addData("role_none1.json").toString(); };
+	public final String roleNone2(){ return  addData("role_none2.json").toString(); };
 	
-	protected final String userRead =  addData("userRead.json").toString();
-	protected final String userWrite =  addData("userWrite.json").toString();
-	protected final String userNone =  addData("userNone.json").toString();
-	protected final String userNone1 =  addData("userNone1.json").toString();
-	protected final String userNone2 =  addData("userNone2.json").toString();
+	public final String userRead(){ return addData("userRead.json").toString(); };
+	public final String userWrite(){ return addData("userWrite.json").toString(); };
+	public final String userNone(){ return addData("userNone.json").toString(); };
+	public final String userNone1(){ return  addData("userNone1.json").toString(); };
+	public final String userNone2(){ return addData("userNone2.json").toString(); };
 
-	protected final String user2Create =  addData("user2Create.json").toString();
-	protected final String user2Update = addData("userUpdate.json").toString();
-	protected final String user2Email = addData("userEmail.json").toString();
+	public final String user2Create(){ return addData("user2Create.json").toString(); };
+	public final String user2Update(){ return addData("userUpdate.json").toString(); };
+	public final String user2Email(){ return addData("userEmail.json").toString(); };
 	
-	protected final static String urnTestJoe = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"inscriptionContentInscriber\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
-	
-	protected final String user88Create  = addData("userCreate.json", "userId").toString();
+	public final String user88Create (){ return addData("userCreate.json", "userId").toString(); };
 
-	private static InputSource getSource(String fallbackFile) {
+	private  InputSource getSource(String fallbackFile) {
         TestData demo = new TestData();
 		try {
 			return TestConfigFinder.getConfigStream();
@@ -80,7 +78,7 @@ public class TestData {
 			return new InputSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
 		}
 	}
-	protected static Spec getSpec(ServletTester tester){
+	public final Spec getSpec(ServletTester tester){
 		CSPManager cspm=new CSPManagerImpl();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
@@ -100,7 +98,7 @@ public class TestData {
 		return spec;
 	}
 
-	protected static JSONObject getDefaultUser(ServletTester tester){
+	public  JSONObject getDefaultUser(ServletTester tester){
 		Spec spec = getSpec(tester);
 		String username = spec.getAdminData().getAuthUser();
 		String pass = spec.getAdminData().getAuthPass();
@@ -136,7 +134,7 @@ public class TestData {
 		return userObj;
 	}
 
-	protected static void errored(Exception e){
+	public  void errored(Exception e){
 		log.error("ERROR occured"+e.getMessage());
 		org.junit.Assert.fail("ERROR occured"+e.getMessage());
 	}
@@ -159,7 +157,4 @@ public class TestData {
 		return null;
 	}
 
-	@Test public void test(){
-		assertTrue(true);
-	}
 }

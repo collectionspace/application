@@ -11,9 +11,10 @@ import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestGenerateAuthorities extends TestBase {
+public class TestGenerateAuthorities {
 	private static final Logger log = LoggerFactory
 	.getLogger(TestGenerateAuthorities.class);
+	private TestBase tester = new TestBase();
 	
 
 	
@@ -22,24 +23,24 @@ public class TestGenerateAuthorities extends TestBase {
 		HttpTester out;
 		log.info("initialize authorities");
 
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		//String urltest = "/vocabularies/currency/refresh?datapath=/Users/csm22/Documents/collectionspace/test.txt";
-		//out = GETData(urltest, jetty);
+		//out = tester.GETData(urltest, jetty);
 
 		
 		// repopulate the authorities with dummy data
 		//DONOT RUN THIS TEST LOCALLY 
-		out = GETData("/reset/", jetty);
+		out = tester.GETData("/reset/", jetty);
 		
 
 		//do we have any records
-		out = GETData("/authorities/organization/?pageSize=1", jetty);
+		out = tester.GETData("/authorities/organization/?pageSize=1", jetty);
 		JSONArray results = new JSONObject(out.getContent()).getJSONArray("items");
 		assertTrue(results.length() > 0);
 		
 
 		//do we have any records
-		out = GETData("/authorities/person/?pageSize=1", jetty);
+		out = tester.GETData("/authorities/person/?pageSize=1", jetty);
 		JSONArray results2 = new JSONObject(out.getContent()).getJSONArray("items");
 		assertTrue(results2.length() > 0);
                 

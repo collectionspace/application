@@ -60,9 +60,9 @@ import org.slf4j.LoggerFactory;
  * @author 
  *
  */
-public class TestGeneral extends TestBase {
-
+public class TestGeneral  {
 	private static final Logger log=LoggerFactory.getLogger(TestGeneral.class);
+	private TestBase tester = new TestBase();
 	
 	// Set up test data strings 
 	private final static String testStr = "{\"items\":[{\"value\":\"This is an experimental widget being tested. It will not do what you expect.\"," +
@@ -91,28 +91,54 @@ public class TestGeneral extends TestBase {
 	@Test public void test2() throws Exception{
 		
 		JSONObject user = new JSONObject();
-			user.put("userid", "tester@cs.org");
-			user.put("password", "testtest");
-		
-		ServletTester jetty=setupJetty();
+			user.put("userid", "admin@lifesci.collectionspace.org");
+			user.put("password", "Administrator");
+
+		//ServletTester jetty=setupJetty("lifesci", user);
+			ServletTester jetty=tester.setupJetty();
 		//ServletTester jetty=setupJetty(false,"tenant2.xml");
 	//	http://nightly.collectionspace.org/collectionspace/tenant/core/invokereport/88b3bdb5-a7fd-4e39-aaa1
 	//	String csid = "/reporting/search?doctype=Acquisition";
 		//uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
 	//	String csid = "/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related";
-		String csid = "/reporting";
-		//String csid = "/vocab/languages";
+	//	String csid = "/cataloging/termList/dateEarliestSingleEra";
+//		String csid = "/role/08a84ce3-9236-468b-b8c2-66d07706b273";
+		String csid = "/vocabularies/person";
 		//http://nightly.collectionspace.org/collectionspace/chain/vocabularies/location/source-vocab/relatedTerm
-		String test = "{\"csid\":\"0a63110d-0383-41bb-bdcd\",\"fields\":{\"shortIdentifier\":\"dateera\",\"usedBys\":[{\"usedBy\":\"structureddate:dateLatestEra\"},{\"usedBy\":\"structureddate:dateEarliestSingleEra\"}],\"source\":\"\",\"description\":\"\",\"terms\":[{\"shortIdentifier\":\"bced\",\"csid\":\"4115010a-8a5b-4c73-b9de\",\"authorityid\":\"0a63110d-0383-41bb-bdcd\",\"displayName\":\"BCED\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(0a63110d-0383-41bb-bdcd):item:id(4115010a-8a5b-4c73-b9de)'BCE'\",\"recordtype\":\"vocab\",\"description\":\"dfg\",\"source\":\"dfg\",\"sourcePage\":\"dfg\"},{\"shortIdentifier\":\"ce\",\"csid\":\"eeb4b1ad-ed81-4d05-ad98\",\"authorityid\":\"0a63110d-0383-41bb-bdcd\",\"displayName\":\"CE\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(0a63110d-0383-41bb-bdcd):item:id(eeb4b1ad-ed81-4d05-ad98)'CE'\",\"recordtype\":\"vocab\"}],\"csid\":\"0a63110d-0383-41bb-bdcd\",\"displayName\":\"Date Era\"}}";// +
-			//	"{\"csid\":\"99cf26b7-9f4f-445e-8c66\",\"fields\":{\"shortIdentifier\":\"addresstype\",\"terms\":[{\"shortIdentifier\":\"previous\",\"csid\":\"1970ae48-d9e1-4a7e-92a4\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Previous\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(1970ae48-d9e1-4a7e-92a4)'Previous'\",\"recordtype\":\"vocab\",\"termName\":\"wer\",\"termSource\":\"r\",\"termStatus\":\"inactive\"},{\"shortIdentifier\":\"street\",\"csid\":\"4ae1d2a1-095b-4dcc-be98\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Street\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(4ae1d2a1-095b-4dcc-be98)'Street'\",\"recordtype\":\"vocab\",\"termName\":\"werwe\",\"termDescription\":\"rrr\",\"termSourcePage\":\"r\"},{\"shortIdentifier\":\"alternative\",\"csid\":\"75103d23-00c4-42ff-baf2\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Alternative\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(75103d23-00c4-42ff-baf2)'Alternative'\",\"recordtype\":\"vocab\",\"termName\":\"rrrr\"},{\"shortIdentifier\":\"mailing\",\"csid\":\"84d59f3a-d48f-44df-b2d5\",\"authorityid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Mailing\",\"refid\":\"urn:cspace:org.collectionspace.demo:vocabulary:id(99cf26b7-9f4f-445e-8c66):item:id(84d59f3a-d48f-44df-b2d5)'Mailing'\",\"recordtype\":\"vocab\",\"termSource\":\"wer\",\"termDescription\":\"www\",\"termName\":\"wer32\"}],\"csid\":\"99cf26b7-9f4f-445e-8c66\",\"displayName\":\"Contact Address Type\",\"description\":\"dfgdfgdfgfddesc\"}}";
+//		String test = "{\"fields\":{\"lenderGroup\":[{\"_primary\":true}],\"loanPurposes\":[{\"loanPurpose\":\"\",\"_primary\":true}],\"updatedBys\":[{\"_primary\":true}],\"loanInNumbers\":[{\"_primary\":true}],\"updatedAtStart\":\"2011-09-05\"},\"operation\":\"or\"}";
+		String test = "{\"termsUsed\":[],\"relations\":[],\"csid\":\"\",\"refobjs\":[],\"namespace\":\"person\"," +
+				"\"fields\":{\"surName\":\"\",\"birthPlace\":\"\",\"deathDate\":\"\",\"updatedBy\":\"admin@core.collectionspace.org\"," +
+				"\"nationalities\":[{\"_primary\":true,\"nationality\":\"\"}],\"shortIdentifier\":\"bobclampett\"," +
+				"\"schoolsOrStyles\":[{\"_primary\":true,\"schoolOrStyle\":\"\"}],\"title\":\"\",\"initials\":\"\"," +
+				"\"createdAt\":\"2011-10-10T13:46:44Z\",\"nameNote\":\"save something\",\"termStatus\":\"\",\"gender\":\"\",\"birthDate\":\"\",\"foreName\":\"\"," +
+				"\"groups\":[{\"_primary\":true,\"group\":\"\"}],\"recordtype\":\"person\",\"nameAdditions\":\"\"," +
+				"\"occupations\":[{\"occupation\":\"\",\"_primary\":true}],\"middleName\":\"\",\"bioNote\":\"\"," +
+				"\"csid\":\"79a356bd-17ab-47cf-8174\",\"deathPlace\":\"\",\"updatedAt\":\"2011-10-10T14:20:28Z\"," +
+				"\"createdBy\":\"admin@core.collectionspace.org\",\"equivalentContexts\":[],\"authorityid\":\"34d85e61-7d0f-4b37-a6c4\"," +
+				"\"displayName\":\"Bob Clampett\",\"salutation\":\"\"," +
+				"\"refid\":\"urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(bobclampett)'Bob Clampett'\"," +
+				"\"telephoneNumberGroup\":[{\"_primary\":true,\"telephoneNumberType\":\"\"}],\"emailGroup\":[{\"emailType\":\"\",\"_primary\":true}]," +
+				"\"faxNumberGroup\":[{\"_primary\":true,\"faxNumberType\":\"\"}],\"webAddressGroup\":[{\"_primary\":true,\"webAddressType\":\"\"}]," +
+				"\"addressGroup\":[{\"_primary\":true,\"addressType\":\"\"}]," +
+				"\"narrowerContexts\":[{\"_primary\":true,\"narrowerContext\":\"urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(tommix)'Tom Mix'\"}]," +
+				"\"relatedTerms\":[{\"_primary\":true}]," +
+				"\"broaderContext\":\"urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(georgebancroft)'George Bancroft'\"}}";
 		HttpTester out;
-		out = GETData(csid,  jetty);
+		//loanedObjectStatus
+
+		//out = jettyDo(jetty, "GET", "/tenant/lifesci/authorities/vocab/initialize", null);
+
+		//out = jettyDo(jetty, "GET", "/tenant/lifesci/cataloging/uispec", null);
+
+		//out = GETData(csid,  jetty);
+		out = tester.POSTData(csid, test, jetty);
 		
 //		DELETEData("/users/c990a163-ef62-4f06-95ae-c362d3fac9ff",jetty);
 		//JSONObject fields=new JSONObject(out.getContent()).getJSONObject("fields");
 		 //cspace-services/personauthorities/5c642112-f75a-43b4-aff8/items/0e07e795-fb9d-4f39-a848/
 		//HttpTester out2=jettyDo(jetty,"POST","/chain/upload",null);
-		log.info(out.getContent());
+		//
+	log.info(out.getContent());
 		
 	}
 	
@@ -124,17 +150,17 @@ public class TestGeneral extends TestBase {
 	 * and checks each object is found
 	 */
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
-		ServletTester jetty=setupJetty();
+		ServletTester jetty=tester.setupJetty();
 		
 		// clear (avoid paging)
 		JSONArray items=null;
 
 		
-		HttpTester out1 = POSTData("/cataloging",makeSimpleRequest(testStr2),jetty);
-		HttpTester out2 = POSTData("/cataloging",makeSimpleRequest(testStr2),jetty);
-		HttpTester out3 = POSTData("/cataloging",makeSimpleRequest(testStr2),jetty);
+		HttpTester out1 = tester.POSTData("/cataloging",tester.makeSimpleRequest(testStr2),jetty);
+		HttpTester out2 = tester.POSTData("/cataloging",tester.makeSimpleRequest(testStr2),jetty);
+		HttpTester out3 = tester.POSTData("/cataloging",tester.makeSimpleRequest(testStr2),jetty);
 		// Read with a trailing slash
-		HttpTester out = GETData("/cataloging/",jetty);
+		HttpTester out = tester.GETData("/cataloging/",jetty);
 		
 		// Build up a list of items returned
 		JSONObject result=new JSONObject(out.getContent());
@@ -149,7 +175,7 @@ public class TestGeneral extends TestBase {
 		boolean end = false;
 		// Page through 
 		do {
-			out = GETData("/" + objtype + "/?pageNum=" + pgNum + "&pageSize=" + pgSz, jetty);
+			out = tester.GETData("/" + objtype + "/?pageNum=" + pgNum + "&pageSize=" + pgSz, jetty);
 			assertEquals(200, out.getStatus());
 
 			/* create list of files */
@@ -169,9 +195,9 @@ public class TestGeneral extends TestBase {
 			pgNum++;
 		} while (!end && !exists);
 		/* clean up */
-		DELETEData(out1.getHeader("Location"),jetty);
-		DELETEData(out2.getHeader("Location"),jetty);
-		DELETEData(out3.getHeader("Location"),jetty);
+		tester.DELETEData(out1.getHeader("Location"),jetty);
+		tester.DELETEData(out2.getHeader("Location"),jetty);
+		tester.DELETEData(out3.getHeader("Location"),jetty);
 
 		// Check each object is  in the list
 		assertTrue(files.contains(out1.getHeader("Location")));
@@ -249,12 +275,12 @@ public class TestGeneral extends TestBase {
 	 */
 	@Test public void testDeURNedField() throws Exception {
 		
-		ServletTester jetty=setupJetty();
+		ServletTester jetty=tester.setupJetty();
 
 		//create person authority to use
 		String personStr = "{\"shortIdentifier\":\"mytestperson\",\"displayName\":\"TEST my test person\"}";
 
-		HttpTester out = POSTData("/vocabularies/person/",makeSimpleRequest(personStr),jetty);
+		HttpTester out = tester.POSTData("/vocabularies/person/",tester.makeSimpleRequest(personStr),jetty);
 		String person_id=out.getHeader("Location");
 		JSONObject persondata = new JSONObject(out.getContent());
 		String urn = persondata.getString("urn");
@@ -264,20 +290,20 @@ public class TestGeneral extends TestBase {
 		testdata.getJSONObject("fields").put("inscriptionContentInscriber",urn);
 		
 		//create object
-		out = POSTData("/cataloging/",testdata,jetty);
+		out = tester.POSTData("/cataloging/",testdata,jetty);
 		assertEquals(out.getMethod(),null);
 		String id=out.getHeader("Location");
 		//read and check
-		out = GETData(id,jetty);
-		JSONObject one = new JSONObject(getFields(out.getContent()));
+		out = tester.GETData(id,jetty);
+		JSONObject one = new JSONObject(tester.getFields(out.getContent()));
 		log.info(one.toString());
 		assertEquals(one.get("inscriptionContentInscriber"), urn);
 		assertEquals(one.get("de-urned-inscriptionContentInscriber"), "TEST my test person");
 
 		//clean up
-		DELETEData(id,jetty);
+		tester.DELETEData(id,jetty);
 
-		DELETEData("/vocabularies/"+person_id,jetty);
+		tester.DELETEData("/vocabularies/"+person_id,jetty);
 		
 	}
 	/**
@@ -285,10 +311,10 @@ public class TestGeneral extends TestBase {
 	 * @throws Exception
 	 */
 	@Test public void testTermsUsedVocab() throws Exception {
-		ServletTester jetty=setupJetty();
+		ServletTester jetty=tester.setupJetty();
 		//create person authority to use
 		String personStr = "{\"displayName\":\"TEST my test person2\"}";
-		HttpTester out = POSTData("/vocabularies/person/",makeSimpleRequest(personStr),jetty);
+		HttpTester out = tester.POSTData("/vocabularies/person/",tester.makeSimpleRequest(personStr),jetty);
 		String person_id=out.getHeader("Location");
 		
 
@@ -300,10 +326,10 @@ public class TestGeneral extends TestBase {
 		testdata.getJSONObject("fields").put("contentPeople",urn);
 		
 		//create object
-		out = POSTData("/cataloging/",testdata,jetty);
+		out = tester.POSTData("/cataloging/",testdata,jetty);
 		String id=out.getHeader("Location");
 		
-		out = GETData(id,jetty);
+		out = tester.GETData(id,jetty);
 		
 		// I believe the items below where copied from test above and are not needed
 		//JSONObject one = new JSONObject(getFields(out.getContent()));
@@ -313,25 +339,25 @@ public class TestGeneral extends TestBase {
 
 		//get the cataloging linked to the vocab item
 
-		out = GETData("/vocabularies"+person_id,jetty);
+		out = tester.GETData("/vocabularies"+person_id,jetty);
 		
 		//clean up
-		DELETEData(id,jetty);
-		DELETEData("/vocabularies/"+person_id,jetty);
+		tester.DELETEData(id,jetty);
+		tester.DELETEData("/vocabularies/"+person_id,jetty);
 	}
 	
 	@Test public void testReports() throws Exception {
-		ServletTester jetty = setupJetty();
+		ServletTester jetty = tester.setupJetty();
 		String uipath = "/acquisition/";
-		String data = acquisitionCreate;
+		String data = tester.acquisitionCreate();
 		HttpTester out;
 		// Create
-		out = POSTData(uipath, makeSimpleRequest(data),jetty);
+		out = tester.POSTData(uipath, tester.makeSimpleRequest(data),jetty);
 		String id = out.getHeader("Location");
 		// Retrieve
-		out = jettyDo(jetty, "GET", "/tenant/core" + id, null);
+		out = tester.jettyDo(jetty, "GET", "/tenant/core" + id, null);
 		
-		HttpTester out3 = jettyDo(jetty, "GET", "/tenant/core/reporting/search/acquisition", null);
+		HttpTester out3 = tester.jettyDo(jetty, "GET", "/tenant/core/reporting/search/acquisition", null);
 		log.info(out3.getContent());
 
 		JSONObject one = new JSONObject(out.getContent());
@@ -349,7 +375,7 @@ public class TestGeneral extends TestBase {
 		
 		String url = "/invokereport/"+reportcsid;
 
-		HttpTester out2 = POSTData(url,fields.toString(),jetty,"GET");
+		HttpTester out2 = tester.POSTData(url,fields.toString(),jetty,"GET");
 		log.info(out2.getContent());
 		assertEquals(200,out2.getStatus());
 		log.info(Integer.toString(out2.getStatus()));
@@ -357,7 +383,7 @@ public class TestGeneral extends TestBase {
 		log.info(out2.getHeader("Content-Type"));
 		
 		// Delete
-		DELETEData(id, jetty);
+		tester.DELETEData(id, jetty);
 
 		
 	}

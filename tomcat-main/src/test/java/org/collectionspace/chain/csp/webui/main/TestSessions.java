@@ -23,23 +23,24 @@ import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TestSessions extends TestBase{
+public class TestSessions{
 	private static final Logger log=LoggerFactory.getLogger(TestSessions.class);
+	private TestBase tester = new TestBase();
 	
 	@Test public void testSessions() throws Exception {
-		ServletTester jetty=setupJetty();
+		ServletTester jetty=tester.setupJetty();
 		// Get a cookie
-		HttpTester response=GETData("/intake/uispec",jetty);
+		HttpTester response=tester.GETData("/intake/uispec",jetty);
 		//cookie=response.getHeader("Set-Cookie");
-		assertNotNull(cookie);
-		assertTrue(cookie.startsWith("CSPACESESSID="));
-		log.info(cookie);
+		assertNotNull(tester.cookie);
+		assertTrue(tester.cookie.startsWith("CSPACESESSID="));
+		log.info(tester.cookie);
 		// Check we don't get a second "set"
-		response=GETData("/intake/uispec",jetty);
+		response=tester.GETData("/intake/uispec",jetty);
 		assertEquals(200,response.getStatus());
 		String cookie2=response.getHeader("Set-Cookie");
 		log.info(cookie2);
-		log.info(cookie);
+		log.info(tester.cookie);
 		//assertNull(cookie);
 	}
 }

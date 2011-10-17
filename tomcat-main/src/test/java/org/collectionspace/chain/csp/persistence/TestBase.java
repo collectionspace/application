@@ -9,7 +9,6 @@ package org.collectionspace.chain.csp.persistence;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -37,68 +36,49 @@ import org.slf4j.LoggerFactory;
 public class TestBase extends TestData {
 	private static final Logger log = LoggerFactory.getLogger(TestBase.class);
 
-	protected static String cookie;
+	public  String cookie;
 
-	@BeforeClass
-	public static void reset() throws Exception {
-		/*
-		 * no longer initialise here -need to explicitly call TestGenerateAuthorities
-		log.info("initialize authorities");
-		ServletTester jetty = setupJetty();
-		// test if need to reset data - only reset it org auth are null
-		HttpTester out = jettyDo(jetty, "GET",
-				"/chain/authorities/organization/?pageSize=1", null);
-		if (out.getStatus() <= 299) {
-			JSONArray results = new JSONObject(out.getContent())
-					.getJSONArray("items");
-			if (results.length() == 0) {
-				jettyDo(jetty, "GET", "/chain/reset/nodelete", null);
-			}
-		}
-		log.info("initialize finished");
-		*/
-	}
 	
-	protected static String getCurrentYear() {
+	public  String getCurrentYear() {
 		Calendar cal = GregorianCalendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
 		return Integer.toString(year);
 	}
-	protected static void login(String tenant, ServletTester tester) throws IOException,
+	public  void login(String tenant, ServletTester tester) throws IOException,
 			Exception {
 		JSONObject user = getDefaultUser(tester);
 		login(tenant, tester, user, false);
 	}
 
-	protected static void login(String tenant, ServletTester tester, Boolean isUTF8)
+	public  void login(String tenant, ServletTester tester, Boolean isUTF8)
 			throws IOException, Exception {
 		JSONObject user = getDefaultUser(tester);
 		login(tenant, tester, user, isUTF8);
 	}
 
-	protected static void login(String tenant, ServletTester tester, JSONObject user)
+	public  void login(String tenant, ServletTester tester, JSONObject user)
 			throws IOException, Exception {
 		login(tenant, tester, user, false);
 	}
     
-	protected static void login(ServletTester tester) throws IOException,
+	public  void login(ServletTester tester) throws IOException,
 			Exception {
 		JSONObject user = getDefaultUser(tester);
 		login("core", tester, user, false);
 	}
 
-	protected static void login(ServletTester tester, Boolean isUTF8)
+	public  void login(ServletTester tester, Boolean isUTF8)
 			throws IOException, Exception {
 		JSONObject user = getDefaultUser(tester);
 		login("core", tester, user, isUTF8);
 	}
 
-	protected static void login(ServletTester tester, JSONObject user)
+	public  void login(ServletTester tester, JSONObject user)
 			throws IOException, Exception {
 		login("core", tester, user, false);
 	}
 
-	protected static void login(String tenant, ServletTester tester, JSONObject user,
+	public  void login(String tenant, ServletTester tester, JSONObject user,
 			Boolean isUTF8) throws IOException, Exception {
 		String test = user.toString();
 		if (isUTF8) {
@@ -117,36 +97,36 @@ public class TestBase extends TestData {
 		cookie=cookie.replaceAll(";.*$","");
 	}
 
-	protected static ServletTester setupJetty() throws Exception {
+	public  ServletTester setupJetty() throws Exception {
 		return setupJetty("core", null, false);
 	}
 
-	//protected static ServletTester setupJetty(String tenant, Boolean isUTF8, String configfile) throws Exception {
+	//public static ServletTester setupJetty(String tenant, Boolean isUTF8, String configfile) throws Exception {
 	//	return setupJetty( tenant, isUTF8, configfile,null);
 	//}
 
-	protected static ServletTester setupJetty(String tenant, JSONObject user, String configfile) throws Exception {
+	public  ServletTester setupJetty(String tenant, JSONObject user, String configfile) throws Exception {
 		return setupJetty( tenant, user, false, configfile);
 	}
 
-	protected static ServletTester setupJetty(String tenant, JSONObject user) throws Exception {
+	public  ServletTester setupJetty(String tenant, JSONObject user) throws Exception {
 		return setupJetty(tenant, user, false);
 	}
-	protected static ServletTester setupJetty(JSONObject user) throws Exception {
+	public  ServletTester setupJetty(JSONObject user) throws Exception {
 		return setupJetty(null, user, false);
 	}
 
-	protected static ServletTester setupJetty(String tenant, Boolean isUTF8)
+	public  ServletTester setupJetty(String tenant, Boolean isUTF8)
 			throws Exception {
 		return setupJetty( tenant, null, isUTF8);
 	}
 
 
 	// controller: "test-config-loader2.xml"
-	protected static ServletTester setupJetty(String tenant, JSONObject user, Boolean isUTF8) throws Exception {
+	public  ServletTester setupJetty(String tenant, JSONObject user, Boolean isUTF8) throws Exception {
 		return setupJetty(tenant, user,isUTF8,"default.xml");
 	}
-	protected static ServletTester setupJetty(String tenant, JSONObject user, Boolean isUTF8, String configfile) throws Exception {
+	public  ServletTester setupJetty(String tenant, JSONObject user, Boolean isUTF8, String configfile) throws Exception {
 		String base = "";
 				
 		ServletTester tester = new ServletTester();
@@ -164,19 +144,20 @@ public class TestBase extends TestData {
 		return tester;
 	}
 
-	protected InputStream getLocalResource(String name) {
+	public InputStream getLocalResource(String name) {
 		String path = getClass().getPackage().getName().replaceAll("\\.", "/")
 				+ "/" + name;
+		
 		return Thread.currentThread().getContextClassLoader()
 				.getResourceAsStream(path);
 	}
 	
-	protected String getResourceString(String name) throws IOException {
+	public String getResourceString(String name) throws IOException {
 		InputStream in = getLocalResource(name);
 		return IOUtils.toString(in);
 	}
 
-	protected static UTF8SafeHttpTester jettyDoUTF8(ServletTester tester,
+	public  UTF8SafeHttpTester jettyDoUTF8(ServletTester tester,
 			String method, String path, String data_str) throws IOException,
 			Exception {
 		UTF8SafeHttpTester out = new UTF8SafeHttpTester();
@@ -184,7 +165,7 @@ public class TestBase extends TestData {
 		return out;
 	}
 
-	protected static UTF8SafeHttpTester jettyDoData(ServletTester tester,
+	public  UTF8SafeHttpTester jettyDoData(ServletTester tester,
 			String method, String path, String filename, String content_type,byte[] data) throws IOException,
 			Exception {
 		UTF8SafeHttpTester out = new UTF8SafeHttpTester();
@@ -199,7 +180,7 @@ public class TestBase extends TestData {
 		return out;
 	}
 	
-	protected static HttpTester jettyDo(ServletTester tester, String method,
+	public  HttpTester jettyDo(ServletTester tester, String method,
 			String path, String data) throws IOException, Exception {
 		HttpTester request = new HttpTester();
 		HttpTester response = new HttpTester();
@@ -215,13 +196,13 @@ public class TestBase extends TestData {
 		return response;
 	}
 
-	protected JSONObject makeRequest(JSONObject fields) throws JSONException {
+	public JSONObject makeRequest(JSONObject fields) throws JSONException {
 		JSONObject out = new JSONObject();
 		out.put("fields", fields);
 		return out;
 	}
 
-	protected JSONObject makeRequest(JSONObject fields, JSONObject[] relations)
+	public JSONObject makeRequest(JSONObject fields, JSONObject[] relations)
 			throws JSONException {
 		JSONObject out = new JSONObject();
 		out.put("fields", fields);
@@ -234,21 +215,21 @@ public class TestBase extends TestData {
 		return out;
 	}
 
-	protected String makeSimpleRequest(String in) throws JSONException {
+	public String makeSimpleRequest(String in) throws JSONException {
 		return makeRequest(new JSONObject(in)).toString();
 	}
 
-	protected String getFields(String in) throws JSONException {
+	public String getFields(String in) throws JSONException {
 		return getFields(new JSONObject(in)).toString();
 	}
 
-	protected JSONObject getFields(JSONObject in) throws JSONException {
+	public JSONObject getFields(JSONObject in) throws JSONException {
 		in = in.getJSONObject("fields");
 		in.remove("csid");
 		return in;
 	}
 
-	protected Boolean testStatus(String type, Integer status) {
+	public Boolean testStatus(String type, Integer status) {
 		if (type.equals("GET")) {
 			return (status == 200);
 		} else if (type.equals("POST")) {
@@ -269,7 +250,7 @@ public class TestBase extends TestData {
 	 * @param testValue
 	 * @return
 	 */
-	protected Boolean testStatus(String type, Integer status, Integer testValue) {
+	public Boolean testStatus(String type, Integer status, Integer testValue) {
 		if (type.equals("GET")) {
 			return (status == testValue);
 		} else if (type.equals("POST")) {
@@ -291,7 +272,7 @@ public class TestBase extends TestData {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	protected void DELETEData(String id, ServletTester jetty) throws IOException, Exception {
+	public void DELETEData(String id, ServletTester jetty) throws IOException, Exception {
 
 		HttpTester out=jettyDo(jetty,"DELETE","/tenant/core"+id,null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
@@ -308,7 +289,7 @@ public class TestBase extends TestData {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	protected void DELETEData(String id, ServletTester jetty, String data) throws IOException, Exception {
+	public void DELETEData(String id, ServletTester jetty, String data) throws IOException, Exception {
 
 		HttpTester out=jettyDo(jetty,"DELETE","/tenant/core"+id,data);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
@@ -328,7 +309,7 @@ public class TestBase extends TestData {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	protected HttpTester POSTData(String url, String data, ServletTester jetty) throws IOException, Exception{
+	public HttpTester POSTData(String url, String data, ServletTester jetty) throws IOException, Exception{
 		HttpTester out = jettyDo(jetty,"POST","/tenant/core"+url,data);
 		assertEquals(out.getMethod(),null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
@@ -336,7 +317,7 @@ public class TestBase extends TestData {
 		return out;
 	}
 	
-	protected HttpTester POSTData(String url, String data, ServletTester jetty, String statusTest) throws IOException, Exception{
+	public HttpTester POSTData(String url, String data, ServletTester jetty, String statusTest) throws IOException, Exception{
 		HttpTester out = jettyDo(jetty,"POST","/tenant/core"+url,data);
 		assertEquals(out.getMethod(),null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
@@ -344,7 +325,7 @@ public class TestBase extends TestData {
 		return out;
 	}
 
-	protected UTF8SafeHttpTester POSTBinaryData(String url, byte[] data, ServletTester jetty) throws IOException, Exception{
+	public UTF8SafeHttpTester POSTBinaryData(String url, byte[] data, ServletTester jetty) throws IOException, Exception{
 		UTF8SafeHttpTester out = jettyDoData(jetty,"POST","/tenant/core"+url,"1.jpeg","image/jpeg",data);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/core"+url+" with data: "+data +"/n"+out.getContent(),testStatus("PUT",status));
@@ -359,10 +340,10 @@ public class TestBase extends TestData {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	protected HttpTester POSTData(String url, JSONObject json, ServletTester jetty) throws IOException, Exception{
+	public HttpTester POSTData(String url, JSONObject json, ServletTester jetty) throws IOException, Exception{
 		return POSTData(url,json.toString(),jetty);
 	}
-	protected HttpTester POSTData(String url, JSONObject json, ServletTester jetty, String testStatus) throws IOException, Exception{
+	public HttpTester POSTData(String url, JSONObject json, ServletTester jetty, String testStatus) throws IOException, Exception{
 		return POSTData(url,json.toString(),jetty,testStatus);
 	}
 	
@@ -375,7 +356,7 @@ public class TestBase extends TestData {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	protected HttpTester GETData(String url, ServletTester jetty) throws IOException, Exception{
+	public HttpTester GETData(String url, ServletTester jetty) throws IOException, Exception{
 	//	return GETData(url,null,jetty);
 		HttpTester out=jettyDo(jetty,"GET","/tenant/core"+url,null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
@@ -385,7 +366,7 @@ public class TestBase extends TestData {
 	
 	}
 	
-	protected HttpTester GETData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
+	public HttpTester GETData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
 		HttpTester out=jettyDo(jetty,"GET","/tenant/core"+url,null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET where we were expecting "+ Integer.toString(testStatus)+" url : /tenant/html"+url+" /n"+out.getContent(),(Integer.toString(testStatus).equals(Integer.toString(status))));
@@ -393,7 +374,7 @@ public class TestBase extends TestData {
 		return out;
 	}
 
-	protected UTF8SafeHttpTester GETBinaryData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
+	public UTF8SafeHttpTester GETBinaryData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
 		url = url.replace("/chain/", "/tenant/core/");
 		if(url.contains("/tenant/core/"))
 			url = url.substring(url.indexOf("/tenant/core/"));
@@ -420,7 +401,7 @@ public class TestBase extends TestData {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	protected HttpTester GETData(String url, String params, ServletTester jetty) throws IOException, Exception{
+	public HttpTester GETData(String url, String params, ServletTester jetty) throws IOException, Exception{
 		HttpTester out=jettyDo(jetty,"GET","/tenant/core"+url,params);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
 		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET url: /tenant/html"+url+" "+params +"/n"+out.getContent(),testStatus("GET",status));
@@ -437,7 +418,7 @@ public class TestBase extends TestData {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	protected HttpTester PUTData(String url, String data, ServletTester jetty ) throws IOException, Exception{
+	public HttpTester PUTData(String url, String data, ServletTester jetty ) throws IOException, Exception{
 
 		HttpTester out=jettyDo(jetty,"PUT","/tenant/core"+url,data);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
@@ -446,7 +427,7 @@ public class TestBase extends TestData {
 		return out;
 	}
 	
-	private Integer getStatus(String content, Integer status){
+	public Integer getStatus(String content, Integer status){
 
 		if (status <= 400) {
 			try{
@@ -470,13 +451,13 @@ public class TestBase extends TestData {
 	 * @throws IOException
 	 * @throws Exception
 	 */
-	protected HttpTester PUTData(String url, JSONObject json, ServletTester jetty ) throws IOException, Exception{
+	public HttpTester PUTData(String url, JSONObject json, ServletTester jetty ) throws IOException, Exception{
 		return PUTData(url,json.toString(),jetty);
 	}
 	
 	
 	
-	protected JSONObject createRoleWithPermission(String role, String permname,
+	public JSONObject createRoleWithPermission(String role, String permname,
 			String permname2) throws Exception {
 
 		/*
@@ -519,7 +500,7 @@ public class TestBase extends TestData {
 		return roleJSON;
 	}
 
-	protected JSONObject createUserWithRolesById(ServletTester jetty,
+	public JSONObject createUserWithRolesById(ServletTester jetty,
 			String user, String roleId) throws Exception {
 		// create role
 		log.info("createUserWithRolesById "+user+":"+roleId);
@@ -541,7 +522,7 @@ public class TestBase extends TestData {
 
 	}
 
-	protected JSONObject createUserWithRoles(ServletTester jetty, String user,
+	public JSONObject createUserWithRoles(ServletTester jetty, String user,
 			String roleJSON) throws Exception {
 		// create role
 		HttpTester out = POSTData("/role/",
@@ -555,7 +536,7 @@ public class TestBase extends TestData {
 	}
 
 	// generic test post/get/put delete
-	protected void testPostGetDelete(ServletTester jetty, String uipath,
+	public void testPostGetDelete(ServletTester jetty, String uipath,
 			String data, String testfield) throws Exception {
 		HttpTester out;
 		// Create
@@ -585,7 +566,7 @@ log.info(out.getContent());
 
 	}
 	//UI specs
-	protected void testUIspec(ServletTester jetty, String url, String uijson) throws Exception {
+	public void testUIspec(ServletTester jetty, String url, String uijson) throws Exception {
 	
 		HttpTester response;
 		JSONObject generated;
@@ -613,7 +594,7 @@ log.info(out.getContent());
 	}
 	
 
-	private JSONArray xxxsorted(JSONArray in) throws Exception {
+	public JSONArray xxxsorted(JSONArray in) throws Exception {
 		JSONArray out=new JSONArray();
 		Object[] v=new Object[in.length()];
 		for(int i=0;i<v.length;i++)
@@ -630,7 +611,7 @@ log.info(out.getContent());
 	}
 	/* XXX at the moment options are returned unsorted from the service layer, so we need to sort them
 	 */
-	private void xxxfixOptions_a(JSONArray v) throws Exception {
+	public void xxxfixOptions_a(JSONArray v) throws Exception {
 		for(int i=0;i<v.length();i++) {
 			Object x=v.get(i);
 			if(x instanceof JSONObject)
@@ -642,7 +623,7 @@ log.info(out.getContent());
 		}
 	}
 	
-	private void xxxfixOptions(JSONObject in) throws Exception {
+	public void xxxfixOptions(JSONObject in) throws Exception {
 		if(in.has("optionnames"))
 			in.put("optionnames",xxxsorted(in.getJSONArray("optionnames")));
 		if(in.has("optionlist"))
@@ -663,7 +644,7 @@ log.info(out.getContent());
 	}
 	
 	// generic Lists
-	protected void testLists(ServletTester jetty, String objtype, String data,
+	public void testLists(ServletTester jetty, String objtype, String data,
 			String itemmarker) throws Exception {
 
 		HttpTester out1 = POSTData(objtype,makeSimpleRequest(data), jetty);
@@ -703,7 +684,7 @@ log.info(out.getContent());
 		/* clean up */
 		DELETEData(out1.getHeader("Location"),jetty);
 	}
-	protected HttpTester createUser(ServletTester jetty, String JSONfile) throws IOException, JSONException, Exception{
+	public HttpTester createUser(ServletTester jetty, String JSONfile) throws IOException, JSONException, Exception{
 
 		HttpTester out;
 		JSONObject u1=new JSONObject(JSONfile);
@@ -731,10 +712,6 @@ log.info(out.getContent());
 		// Create a User
 		out = POSTData("/users/",makeSimpleRequest(JSONfile),jetty);
 		return out;
-	}
-	@Test
-	public void test() {
-		assertTrue(true);
 	}
 
 }

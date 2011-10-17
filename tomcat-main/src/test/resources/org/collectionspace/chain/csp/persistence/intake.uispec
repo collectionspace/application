@@ -137,7 +137,17 @@
                 }
             }]
         },
-        ".csc-intake-normal-location": "${fields.normalLocation}",
+        ".csc-intake-normal-location": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../../tenant/core/intake/autocomplete/normalLocation",
+                    "vocabUrl": "../../../tenant/core/intake/source-vocab/normalLocation"
+                }
+            }],
+            "value": "${fields.normalLocation}"
+        },
         ".csc-intake-tenantID-label": {
             "messagekey": "intake-tenantIDLabel"
         },
@@ -378,7 +388,17 @@
                                 "expander": {
                                     "repeatID": "repeat:",
                                     "tree": {
-                                        ".csc-intake-current-location": "${{row}.currentLocation}",
+                                        ".csc-intake-current-location": {
+                                            "decorators": [{
+                                                "func": "cspace.autocomplete",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "queryUrl": "../../../tenant/core/intake/autocomplete/currentLocation",
+                                                    "vocabUrl": "../../../tenant/core/intake/source-vocab/currentLocation"
+                                                }
+                                            }],
+                                            "value": "${{row}.currentLocation}"
+                                        },
                                         ".csc-intake-current-location-fitness": {
                                             "decorators": [{
                                                 "func": "cspace.termList",
