@@ -164,7 +164,7 @@ public class TestUIAuthZ {
 		userdata2.remove("userName");
 		userdata2.put("screenName", screenname);
 		
-		
+		userdata2.put("userId", userdata.getString("userId"));
 		out = tester.PUTData(userid,tester.makeRequest(userdata2),jetty);
 
 		out = tester.GETData(userid,jetty);
