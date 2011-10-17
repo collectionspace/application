@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,11 +22,22 @@ import org.slf4j.LoggerFactory;
 
 public class TestNameThroughWebapp{
 	private static final Logger log=LoggerFactory.getLogger(TestNameThroughWebapp.class);
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
 	
+	@After public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
 //need a begin function that creates the default person if it is missing?
 	@Before public void testCreateAuth() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		HttpTester out = tester.GETData("/vocabularies/person/",jetty);
 		log.info(out.getContent());
 		JSONObject test = new JSONObject(out.getContent());
@@ -66,7 +78,6 @@ public class TestNameThroughWebapp{
 	//XXX change so creates person and then tests person exists
 	@Test public  void testAutocomplete() throws Exception {
 		log.info("NAME: Autocomplete: test_start");
-			ServletTester jetty=tester.setupJetty();
 			// Create the entry we are going to check for
 			JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTNursultan Nazarbayev'}}");
 			HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
@@ -88,7 +99,7 @@ public class TestNameThroughWebapp{
 
 	@Test public void testAutocompleteRedirect() throws Exception {
 		log.info("NAME: AutocompleteRedirect: test_start");
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 
 		HttpTester out = tester.GETData("/acquisition/source-vocab/acquisitionAuthorizer",jetty);
 		
@@ -121,7 +132,7 @@ public class TestNameThroughWebapp{
 	//this isn't the right test... what is the right test?
 	@Test public void testAutocompleteVocabRedirect() throws Exception {
 		log.info("NAME: AutocompleteVocabRedirect: test_start");
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		HttpTester out = tester.GETData("/acquisition/source-vocab/acquisitionAuthorizer",jetty);
 		
 
@@ -140,7 +151,7 @@ public class TestNameThroughWebapp{
 	
 	@Test public void testAuthoritiesSearch() throws Exception {
 		log.info("NAME: AuthoritiesSearch: test_start");
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		// Create the entry we are going to check for
 		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTJacob Zuma'}}");
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
@@ -168,7 +179,7 @@ public class TestNameThroughWebapp{
 	// XXX failing due to pagination - reinsert when pagination works
 	/*
 	@Test public void testAuthoritiesList() throws Exception {
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		HttpTester out=tester.GETData("/authorities/person",jetty);
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("items");
 		boolean found=false;
@@ -185,7 +196,7 @@ public class TestNameThroughWebapp{
 	//DISABLED UNTIL I work out what it wrong with the query @Test 
 	public void testNamesAdvSearch() throws Exception {
 		log.info("NAME: NamesSearch: test_start");
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		//tester.GETData("/quick-reset",jetty);
 		// Create the entry we are going to check for
 		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTRaul Castro'}}");
@@ -215,7 +226,7 @@ public class TestNameThroughWebapp{
 	}
 	@Test public void testNamesSearch() throws Exception {
 		log.info("NAME: NamesSearch: test_start");
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		//tester.GETData("/quick-reset",jetty);
 		// Create the entry we are going to check for
 		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTRaul Castro'}}");
@@ -240,7 +251,7 @@ public class TestNameThroughWebapp{
 	// XXX failing due to pagination - reinsert when pagination works
 	/*
 	@Test public void testNamesList() throws Exception {
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		HttpTester 
 		out = tester.GETData("/vocabularies/person",jetty);
 
@@ -262,7 +273,7 @@ public class TestNameThroughWebapp{
 
 		setName(testName);
 		// Carry out the test
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		HttpTester out = tester.GETData("/vocabularies/person/search?query=" + testName.replace(' ','+'),jetty);
 		// Find candidate
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
@@ -281,7 +292,7 @@ public class TestNameThroughWebapp{
 	
 	@Test public void testPersonWithContactAuthorityCRUD() throws Exception {
 		log.info("NAME: PersonWithContactAuthorityCRUD: test_start");
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		JSONObject data=new JSONObject("{'csid': '', 'fields': {'salutation': 'Your Majaesty','termStatus': 'under review','title': 'Miss', 'gender': 'female','displayName': 'bob','nameNote': 'sdf','bioNote': 'sdfsdf', 'foreName': 'sdf', 'middleName': 'sdf', 'surName': 'sdf', 'nameAdditions': 'sdf', 'initials': 'sdf', 'contact': [{'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}, {'addressType': 'BBB','addressPlace': 'BVV','web': 'VVV', 'email': 'VVV','telephoneNumber': 'VV','faxNumber': 'VV' }]}}}");
 
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
@@ -293,7 +304,7 @@ public class TestNameThroughWebapp{
 	//XXX disable until soft delete works better everywhere @Test 
 	public void testNames2vocabsCreateSearchDelete() throws Exception {
 		log.info("NAME: NamesCreateUpdateDelete: test_start");
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		JSONObject data=new JSONObject();
 		HttpTester out ;
 		// Create
@@ -382,7 +393,7 @@ public class TestNameThroughWebapp{
 	@Test 
 	public void testNamesCreateUpdateDelete() throws Exception {
 			log.info("NAME: NamesCreateUpdateDelete: test_start");
-			ServletTester jetty=tester.setupJetty();
+			//ServletTester jetty=tester.setupJetty();
 			// Create
 			log.info("NAME: NamesCreateUpdateDelete: CREATE");
 			JSONObject data=new JSONObject("{'csid': '','fields': {'displayName': 'XXXTESTFred Bloggs','contact': {'emailGroup': [{'email': 'test@example.com','emailType': 'home' }],'addressGroup': [{'addressPlace1': 'addressPlace1','addressPlace2': 'addressPlace2','addressMunicipality': 'addressMunicipality','addressStateOrProvince': 'addressStateOrProvince', 'addressPostCode': 'addressPostCode','addressCountry': 'addressCountry' }, {'addressPlace1': 'SECOND_addressPlace1','addressPlace2': 'SECOND_addressPlace2','addressMunicipality': 'SECOND_addressMunicipality','addressStateOrProvince': 'SECOND_addressStateOrProvince','addressPostCode': 'SECOND_addressPostCode', 'addressCountry': 'SECOND_addressCountry'}]} }}");
@@ -422,7 +433,7 @@ public class TestNameThroughWebapp{
 	
 	private String getName(String name) throws Exception
 	{
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		// Create
 		JSONObject data=new JSONObject("{'fields':{'displayName':'" + name + "'}}");
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
@@ -437,7 +448,7 @@ public class TestNameThroughWebapp{
 	
 	private void setName(String name) throws Exception
 	{
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		// Update
 		JSONObject data=new JSONObject("{'fields':{'displayName':'" + name + "'}}");
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);		
@@ -447,7 +458,7 @@ public class TestNameThroughWebapp{
 	
 	private void deleteName(String name) throws Exception
 	{
-		ServletTester jetty=tester.setupJetty();
+		//ServletTester jetty=tester.setupJetty();
 		// Delete
 		JSONObject data=new JSONObject("{'fields':{'displayName':'" + name + "'}}");
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);		

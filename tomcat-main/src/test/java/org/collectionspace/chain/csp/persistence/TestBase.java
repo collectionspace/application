@@ -138,6 +138,9 @@ public class TestBase extends TestData {
 
 		return tester;
 	}
+	public void stopJetty(ServletTester bob) throws Exception{
+		bob.stop();
+	}
 
 	public InputStream getLocalResource(String name) {
 		String path = getClass().getPackage().getName().replaceAll("\\.", "/")
