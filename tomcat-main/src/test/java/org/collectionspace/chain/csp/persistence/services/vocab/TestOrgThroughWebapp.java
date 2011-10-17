@@ -9,21 +9,13 @@ package org.collectionspace.chain.csp.persistence.services.vocab;
 // test comment
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.controller.TenantServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
@@ -33,11 +25,24 @@ import org.slf4j.LoggerFactory;
 public class TestOrgThroughWebapp  {
 	private static final Logger log = LoggerFactory
 			.getLogger(TestOrgThroughWebapp.class);
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
 
 	//need a begin function that creates the default person if it is missing?
 		@Before public void testCreateAuth() throws Exception {
-			ServletTester jetty=tester.setupJetty();
+			//ServletTester jetty=tester.setupJetty();
 			HttpTester out = tester.GETData("/vocabularies/organization/",jetty);
 			log.info(out.getContent());
 			JSONObject test2 = new JSONObject(out.getContent());
@@ -93,7 +98,6 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testAuthoritiesSearch() throws Exception {
 		log.info("ORG : AuthoritiesSearch : test_start");
-		ServletTester jetty = tester.setupJetty();
 		// Create
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Test My Authority1'}}");
@@ -133,7 +137,6 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testAuthoritiesList() throws Exception {
 		log.info("ORG : AuthoritiesList : test_start");
-		ServletTester jetty = tester.setupJetty();
 		// Create
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Test My Authority2'}}");
@@ -188,7 +191,6 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testOrganizationSearch() throws Exception {
 		log.info("ORG : OrganizationSearch : test_start");
-		ServletTester jetty = tester.setupJetty();
 		// Create
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Test Organization XXX'}}");
@@ -231,8 +233,6 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testOrganizationList() throws Exception {
 		log.info("ORG : OrganizationList : test_start");
-
-		ServletTester jetty = tester.setupJetty();
 		// Create
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Test my Org XXX1'}}");
@@ -280,7 +280,6 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testOrganizationGet() throws Exception {
 		log.info("ORG : OrganizationGet : test_start");
-		ServletTester jetty = tester.setupJetty();
 		// Create
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'TestmyOrgXXX2'}}");
@@ -313,7 +312,6 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testOrganizationCreateUpdateDelete() throws Exception {
 		log.info("ORG : OrganizationCreateUpdateDelete : test_start");
-		ServletTester jetty = tester.setupJetty();
 		// Create
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Test my Org XXX4'}}");
@@ -348,7 +346,6 @@ public class TestOrgThroughWebapp  {
 	 */
 	public void testNamesMultiAssign() throws Exception {
 		log.info("ORG : NamesMultiAssign : test_start");
-		ServletTester jetty = tester.setupJetty();
 		// Create in single assign list:
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Custom Data'}}");
@@ -369,10 +366,8 @@ public class TestOrgThroughWebapp  {
 
 		out = tester.GETData("/intake/autocomplete/currentOwner?q=Custom&limit=150",
 				jetty);
-		String one = out.getContent();
 		out = tester.GETData("/intake/autocomplete/depositor?q=Custom&limit=150",
 				jetty);
-		String two = out.getContent();
 
 		// Delete
 		tester.DELETEData("/vocabularies/" + url, jetty);
@@ -388,7 +383,6 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testAutocompletesForOrganization() throws Exception {
 		log.info("ORG : AutocompletesForOrganization : test_start");
-		ServletTester jetty = tester.setupJetty();
 		// Create
 		log.info("ORG : AutocompletesForOrganization : CREATE");
 		JSONObject org = new JSONObject(
@@ -446,7 +440,6 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testAutocompleteRedirect() throws Exception {
 		log.info("ORG : AutocompleteRedirect : test_start");
-		ServletTester jetty = tester.setupJetty();
 
 		HttpTester out = tester.GETData("/cataloging/source-vocab/contentOrganization",
 				jetty);

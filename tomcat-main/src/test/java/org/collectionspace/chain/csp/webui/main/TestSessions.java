@@ -7,17 +7,10 @@
 package org.collectionspace.chain.csp.webui.main;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.controller.TenantServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
-import org.collectionspace.chain.storage.UTF8SafeHttpTester;
+import org.junit.AfterClass;
 import org.junit.Test;
-import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
@@ -25,10 +18,22 @@ import org.slf4j.LoggerFactory;
 
 public class TestSessions{
 	private static final Logger log=LoggerFactory.getLogger(TestSessions.class);
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
 	
 	@Test public void testSessions() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		// Get a cookie
 		HttpTester response=tester.GETData("/intake/uispec",jetty);
 		//cookie=response.getHeader("Set-Cookie");

@@ -7,7 +7,6 @@
 package org.collectionspace.chain.csp.persistence;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,7 +23,6 @@ import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Test;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

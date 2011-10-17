@@ -12,6 +12,7 @@ import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -21,7 +22,21 @@ import org.slf4j.LoggerFactory;
 public class TestRelationsThroughWebapp {
 	private static final Logger log = LoggerFactory
 			.getLogger(TestRelationsThroughWebapp.class);
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
+
 
 	private JSONObject createMini(String type, String id) throws JSONException {
 		JSONObject out = new JSONObject();
@@ -44,7 +59,6 @@ public class TestRelationsThroughWebapp {
 
 	@Test
 	public void testRelationsCreate() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		// First create atester. couple of cataloging
 		HttpTester out = tester.POSTData("/cataloging/",
 				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
@@ -164,7 +178,6 @@ public class TestRelationsThroughWebapp {
 
 	@Test
 	public void testLoginTest() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		// initially set up with logged in user
 		HttpTester out = tester.GETData("/loginstatus", jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
@@ -182,7 +195,6 @@ public class TestRelationsThroughWebapp {
 	// XXX factor out creation
 	@Test
 	public void testRelationsMissingOneWay() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		// First create a couple of cataloging
 		HttpTester out = tester.POSTData("/cataloging/",
 				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
@@ -227,7 +239,6 @@ public class TestRelationsThroughWebapp {
 
 	@Test
 	public void testMultipleCreate() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		// Create test cataloging
 		HttpTester out = tester.POSTData("/cataloging/",
 				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
@@ -269,7 +280,6 @@ public class TestRelationsThroughWebapp {
 	// XXX update of one-wayness
 	@Test
 	public void testUpdate() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		// Create test cataloging
 		HttpTester out = tester.POSTData("/cataloging/",
 				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
@@ -332,7 +342,6 @@ public class TestRelationsThroughWebapp {
 
 	@Test
 	public void testOneWayWorksInUpdate() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.POSTData("/intake/",
 				tester.makeSimpleRequest(tester.getResourceString("2007.4-a.json")), jetty);
 		String id1 = out.getHeader("Location");
@@ -448,7 +457,6 @@ public class TestRelationsThroughWebapp {
 	@Test
 	public void testRelationshipType() throws Exception {
 		// Create test cataloging
-		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.POSTData("/cataloging/",
 				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
@@ -487,7 +495,6 @@ public class TestRelationsThroughWebapp {
 	}
 	@Test 
 	public void testHierarchical() throws Exception{
-		ServletTester jetty = tester.setupJetty();
 		// Check list is empty;
 		
 		String st = "/relationships/hierarchical/search?source=person/a93233e6-ca44-477d-97a0&type=hasBroader";
@@ -497,7 +504,6 @@ public class TestRelationsThroughWebapp {
 
 	@Test
 	public void testSearchList() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		// Check list is empty
 		HttpTester out = tester.GETData("/relationships/", jetty);
 		JSONArray items = new JSONObject(out.getContent())
@@ -590,7 +596,6 @@ public class TestRelationsThroughWebapp {
 
 	@Test
 	public void testDelete() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		// Check size of initial is empty
 		HttpTester out = tester.GETData("/relationships/", jetty);
 		JSONArray itemsall = new JSONObject(out.getContent())

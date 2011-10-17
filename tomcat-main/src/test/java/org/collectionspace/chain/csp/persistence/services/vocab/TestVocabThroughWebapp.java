@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import org.junit.Test;
 
 import org.mortbay.jetty.testing.HttpTester;
@@ -22,14 +22,26 @@ import org.slf4j.LoggerFactory;
 public class TestVocabThroughWebapp  {
 	private static final Logger log = LoggerFactory
 			.getLogger(TestVocabThroughWebapp.class);
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
 
 	@Test
 	public void testInitialise() throws Exception {
 		String vocabtype = "currency";
 		HttpTester out;
 		// String vocabtype="loanoutstatus";
-		ServletTester jetty = tester.setupJetty();
 		// Create a single vocab
 		// out = tester.GETData("/vocabularies/"+vocabtype+"/initialize",jetty);
 
@@ -55,7 +67,6 @@ public class TestVocabThroughWebapp  {
 		String vocabtype = "languages";
 		String testfield = "displayName";
 
-		ServletTester jetty = tester.setupJetty();
 		// Create
 		JSONObject data = new JSONObject("{'fields':{'" + testfield + "':'"
 				+ displayname + "'}}");
@@ -86,7 +97,6 @@ public class TestVocabThroughWebapp  {
 		String displayname = "XXXStuff2";
 		String vocabtype = "languages";
 		String testfield = "displayName";
-		ServletTester jetty = tester.setupJetty();
 
 		// Create
 		JSONObject data = new JSONObject("{'fields':{'" + testfield + "':'"
@@ -136,7 +146,6 @@ public class TestVocabThroughWebapp  {
 		String vocabtype = "languages";
 		String testfield = "displayName";
 
-		ServletTester jetty = tester.setupJetty();
 		// Create the entry we are going to check for
 		JSONObject data = new JSONObject("{'fields':{'" + testfield + "':'"
 				+ displayname + "'}}");
@@ -166,8 +175,6 @@ public class TestVocabThroughWebapp  {
 	// Tests that a redirect goes to the expected place
 	@Test
 	public void testAutocompleteRedirect() throws Exception {
-		ServletTester jetty = tester.setupJetty();
-
 		HttpTester out = tester.GETData(
 				"/cataloging/source-vocab/inscriptionContentLanguage", jetty);
 

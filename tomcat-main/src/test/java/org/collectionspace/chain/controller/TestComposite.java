@@ -3,9 +3,9 @@ package org.collectionspace.chain.controller;
 import static org.junit.Assert.*;
 
 import org.collectionspace.chain.csp.persistence.TestBase;
-import org.collectionspace.chain.util.json.JSONUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -14,7 +14,21 @@ import org.slf4j.LoggerFactory;
 
 public class TestComposite {
 	private static final Logger log=LoggerFactory.getLogger(TestComposite.class);
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
+
 	
 	private JSONObject createCompositePOSTPartJSON(String payload) throws JSONException {
 		JSONObject out=new JSONObject();
@@ -46,7 +60,6 @@ public class TestComposite {
 		return out;
 	}
 	@Test public void testConfigComposite() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		JSONObject ppp=new JSONObject();
 		
 		JSONObject recordlist=new JSONObject();
@@ -90,7 +103,6 @@ public class TestComposite {
 	}	
 	
 	@Test public void testConfigCompositeComplex() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		JSONObject ppp=new JSONObject();
 		String path = "/termlist/efc6415c-6a4b-4edc-98fe";
 		
@@ -122,7 +134,6 @@ public class TestComposite {
 		
 	}
 	@Test public void testCompositeBasic() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		// Three POSTs give us some data to play with
 		JSONObject p1=createCompositePOSTPartJSON(tester.makeSimpleRequest(tester.getResourceString("obj8.json")));
 		JSONObject p2=createCompositePOSTPartJSON(tester.makeSimpleRequest(tester.getResourceString("obj8.json")));

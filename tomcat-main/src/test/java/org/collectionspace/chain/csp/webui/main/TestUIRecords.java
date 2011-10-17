@@ -7,6 +7,8 @@ import org.collectionspace.chain.csp.persistence.TestBase;
 import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -15,7 +17,20 @@ import org.slf4j.LoggerFactory;
 
 public class TestUIRecords {
 	private static final Logger log=LoggerFactory.getLogger(TestUIRecords.class);
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
 	
 
 	/**
@@ -28,7 +43,6 @@ public class TestUIRecords {
 	 * Test Login Status
 	 */
 	@Test public void testLoginStatus() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		HttpTester out = tester.GETData("/loginstatus/",  jetty);
 		JSONObject content=new JSONObject(out.getContent());
 		log.info("Testing Login true");
@@ -42,7 +56,6 @@ public class TestUIRecords {
 	 */
 	@Test public void testCollectionObject() throws Exception {
 		log.info("Testing CollectionObject Record");
-		ServletTester jetty=tester.setupJetty();
 		log.info("Testing CRUDL");
 		tester.testPostGetDelete(jetty, "/cataloging/", tester.objectCreate(), "distinguishingFeatures");
 		log.info("Testing List");
@@ -58,7 +71,6 @@ public class TestUIRecords {
 	 * Test Procedure CRUDL
 	 */
 	@Test public void testProcedureMovement() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		log.info("Testing movement Procedure");
 		tester.testPostGetDelete(jetty, "/movement/", tester.movementCreate(), "movementReferenceNumber");
 		tester.testLists(jetty, "/movement/", tester.movementCreate(), "items");
@@ -71,7 +83,6 @@ public class TestUIRecords {
 	 * Test Intake Procedure CRUDL
 	 */
 	@Test public void testProcedureIntake() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		log.info("Testing intake Procedure");
 		tester.testPostGetDelete(jetty, "/intake/", tester.intakeCreate(), "entryReason");
 		tester.testLists(jetty, "/intake/", tester.intakeCreate(), "items");
@@ -88,7 +99,6 @@ public class TestUIRecords {
 	 * Test Loanout Procedure CRUDL
 	 */
 	@Test public void testProcedureLoanout() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		log.info("Testing loanout Procedure");
 		tester.testPostGetDelete(jetty, "/loanout/", tester.loanoutCreate(), "loanOutNote");
 		tester.testLists(jetty, "/loanout/", tester.loanoutCreate(), "items");
@@ -101,7 +111,6 @@ public class TestUIRecords {
 	 * Test Loanin Procedure CRUDL
 	 */
 	@Test public void testProcedureLoanin() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		log.info("Testing loanin Procedure");
 		tester.testPostGetDelete(jetty, "/loanin/", tester.loaninCreate(), "loanInNote");
 		tester.testLists(jetty, "/loanin/", tester.loaninCreate(), "items");
@@ -114,7 +123,6 @@ public class TestUIRecords {
 	 * Test Acquisition Procedure CRUDL
 	 */
 	@Test public void testProcedureAcquisition() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		log.info("Testing acquisition Procedure");
 		tester.testPostGetDelete(jetty, "/acquisition/", tester.acquisitionCreate(), "acquisitionReason");
 		tester.testLists(jetty, "/acquisition/", tester.acquisitionCreate(), "items");
@@ -133,7 +141,6 @@ public class TestUIRecords {
 	 * Test Group Procedure CRUDL
 	 */
 	@Test public void testProcedureGroup() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		log.info("Testing group Procedure");
 		tester.testPostGetDelete(jetty, "/group/", tester.groupCreate(), "title");
 		tester.testLists(jetty, "/group/", tester.groupCreate(), "items");
@@ -145,7 +152,6 @@ public class TestUIRecords {
 	 * Test ObjectExit Procedure CRUDL
 	 */
 	@Test public void testProcedureObjectexit() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		log.info("Testing objectexit Procedure");
 		tester.testPostGetDelete(jetty, "/objectexit/", tester.objectexitCreate(), "exitNumber");
 		tester.testLists(jetty, "/objectexit/", tester.objectexitCreate(), "items");
@@ -159,14 +165,11 @@ public class TestUIRecords {
 	 * Test Authorities
 	 */
 	@Test public void testAuthorities() throws Exception {
-
-		ServletTester jetty=tester.setupJetty();
 		log.info("Testing UISPEC");
 		tester.testUIspec(jetty, "/person/uischema", "person.uischema");
 		tester.testUIspec(jetty, "/person/uispec", "person.uispec");
 		tester.testUIspec(jetty, "/location/uispec", "location.uispec");
 		tester.testUIspec(jetty, "/organization/uispec", "organization-authority.uispec");
-		
 	}
 	
 
@@ -174,7 +177,6 @@ public class TestUIRecords {
 	 * Test Media CRUDL
 	 */
 	@Test public void testProcedureMedia() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		tester.testPostGetDelete(jetty, "/media/", tester.mediaCreate(), "identificationNumber");
 		tester.testLists(jetty, "/media/",tester. mediaCreate(), "items");
 		log.info("Testing UISPEC");
@@ -193,14 +195,11 @@ public class TestUIRecords {
 	//killed as it fails a lot
 	//@Test
 	public void testProcedureMediaBlob() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		mediaWithBlob();
- 
 	}
 
 
 	@Test public void testUpload() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		String filename = getClass().getPackage().getName().replaceAll("\\.","/")+"/darwin-beard-hat.jpg";
 		byte[] data = IOUtils.toByteArray(Thread.currentThread().getContextClassLoader().getResourceAsStream(filename));
 		UTF8SafeHttpTester out=tester.POSTBinaryData("/uploads",data,jetty);
@@ -220,7 +219,6 @@ public class TestUIRecords {
 	 * Test Vocabulary / TermList CRUDL
 	 */
 	@Test public void testVocabularyTermLists() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		tester.testPostGetDelete(jetty, "/termlist/", tester.termlistCreate(), "description");
 		log.info("Testing UISPEC");
 		tester.testUIspec(jetty, "/termlist/uispec", "termlist.uispec");
@@ -233,7 +231,6 @@ public class TestUIRecords {
 	 * Test Other Bits
 	 */
 	@Test public void testMisc() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		//testUIspec(jetty,"/generator?quantity=10&maxrelationships=3&startvalue=0&extraprefix=Related","recordlist.uischema");
 		
 		log.info("Testing UISCHEMA");
@@ -251,18 +248,7 @@ public class TestUIRecords {
 		//		uispec(jetty,"/reporting/generator?quantity=10","acquisition.uispec");
 	}
 	
-	/**
-	 * 
-	 */
-
-	
-	
-	
-	
-	
-	
 	private void mediaWithBlob() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		// Create a blob
 		String filename = getClass().getPackage().getName().replaceAll("\\.","/")+"/darwin-beard-hat.jpg";
 		byte[] data = IOUtils.toByteArray(Thread.currentThread().getContextClassLoader().getResourceAsStream(filename));

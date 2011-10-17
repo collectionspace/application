@@ -6,6 +6,7 @@ import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -18,7 +19,20 @@ import org.slf4j.LoggerFactory;
 public class TestUIAuthZ {
 	private static final Logger log=LoggerFactory.getLogger(TestUIAuthZ.class);
 	private ArrayList<String> deleteme = new ArrayList<String>(); 
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
 	
 	protected JSONObject getRestrictedUser(String type) throws JSONException{
 
@@ -39,7 +53,6 @@ public class TestUIAuthZ {
 
 		log.info("Delete test users for restricted tests");
 		//log in as default user who has delete privileges
-		ServletTester jetty = tester.setupJetty();
 		if(role_id!=null){
 			//delete role
 			tester.DELETEData(role_id,jetty);
@@ -57,10 +70,7 @@ public class TestUIAuthZ {
 	**/
 	
 	@Before public void createUsers() throws Exception{
-
-		
 		log.info("Create test users for restricted tests");
-		ServletTester jetty = tester.setupJetty();
 		HttpTester out;
 		
 
@@ -128,7 +138,6 @@ public class TestUIAuthZ {
 	 * Test Roles & Permissions CRUDL & UIspecs
 	 */
 	@Test public void testAuthZ() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		tester.testPostGetDelete(jetty, "/role/", tester.roleCreate(), "description");
 		tester.testLists(jetty, "/role/", tester.roleCreate(), "items");
 		//testPostGetDelete(jetty, "/permission/", permissionRead, "resourceName");
@@ -149,7 +158,6 @@ public class TestUIAuthZ {
 	 * Test User roles
 	 */
 	@Test public void testUserRolesUI() throws Exception{
-		ServletTester jetty = tester.setupJetty();
 		JSONObject userdata = tester.createUserWithRoles(jetty,tester.user88Create(),tester.roleCreate());
 		JSONObject userdata2 = tester.createUserWithRoles(jetty,tester.user88Create(),tester.role2Create());
 //create user with roles in payload
@@ -203,7 +211,6 @@ public class TestUIAuthZ {
 	 */
 	@Test public void testRolesPermsUI() throws Exception {
 
-		ServletTester jetty = tester.setupJetty();
 //		create role with permissions
 		JSONObject rolepermsdata = tester.createRoleWithPermission(tester.roleCreate(),"loanin", "loanout"); 
 		JSONObject roleperms2data =tester.createRoleWithPermission(tester.roleCreate(),"acquisition", "intake"); 
@@ -282,7 +289,6 @@ public class TestUIAuthZ {
 	 * @throws Exception
 	 */
 		@Test public void testUserProfilesWithReset() throws Exception {
-			ServletTester jetty=tester.setupJetty();
 			HttpTester out;
 			//delete user if already exists 
 			out = tester.createUser(jetty,tester.user2Create());
@@ -332,9 +338,5 @@ public class TestUIAuthZ {
 			
 			// Delete
 			tester.DELETEData(id,jetty);
-			
-			
 		}
-		
-	
 }

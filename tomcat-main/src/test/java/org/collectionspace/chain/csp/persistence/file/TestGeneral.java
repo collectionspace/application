@@ -8,16 +8,8 @@ package org.collectionspace.chain.csp.persistence.file;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -31,25 +23,12 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.controller.TenantServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
-import org.collectionspace.chain.csp.persistence.file.FileStorage;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsReset;
-import org.collectionspace.chain.storage.UTF8SafeHttpTester;
-import org.collectionspace.chain.uispec.SchemaStore;
-import org.collectionspace.chain.uispec.StubSchemaStore;
-import org.collectionspace.chain.util.json.JSONUtils;
-import org.collectionspace.csp.api.core.CSPDependencyException;
-import org.collectionspace.csp.api.persistence.ExistException;
-import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
-import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Before;
+import org.junit.AfterClass;
 import org.junit.Test;
-import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
@@ -62,31 +41,26 @@ import org.slf4j.LoggerFactory;
  */
 public class TestGeneral  {
 	private static final Logger log=LoggerFactory.getLogger(TestGeneral.class);
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
 	
-	// Set up test data strings 
-	private final static String testStr = "{\"items\":[{\"value\":\"This is an experimental widget being tested. It will not do what you expect.\"," +
-	"\"title\":\"\",\"type\":\"caption\"},{\"title\":\"Your file\",\"type\":\"resource\",\"param\":\"file\"}," +
-	"{\"title\":\"Author\",\"type\":\"text\",\"param\":\"author\"},{\"title\":\"Title\",\"type\":\"text\"," +
-	"\"param\":\"title\"},{\"title\":\"Type\",\"type\":\"dropdown\",\"values\":[{\"value\":\"1\",\"text\":" +
-	"\"thesis\"},{\"value\":\"2\",\"text\":\"paper\"},{\"value\":\"3\",\"text\":\"excel-controlled\"}]," +
-	"\"param\":\"type\"}]}";
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
 
+	
 	private final static String testStr2 = "{\"accessionNumber\":\"OBJNUM\",\"description\":\"DESCRIPTION\",\"descInscriptionInscriber\":\"INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"TITLE\",\"comments\":\"COMMENTS\",\"distinguishingFeatures\":\"DISTFEATURES\",\"responsibleDepartment\":\"DEPT\",\"objectName\":\"OBJNAME\"}";
-	private final static String testStr2a = "{\"accessionNumber\":\"new OBJNUM\",\"description\":\"new DESCRIPTION\",\"descInscriptionInscriber\":\"new INSCRIBER\",\"objectNumber\":\"1\",\"objectTitle\":\"new TITLE\",\"comments\":\"new COMMENTS\",\"distinguishingFeatures\":\"new DISTFEATURES\",\"responsibleDepartment\":\"new DEPT\",\"objectName\":\"new OBJNAME\"}";
 	private final static Date d = new Date();
-	private final static String testStr10 = "{\"roleName\": \"ROLE_USERS_TEST_" + d.toString() + "\", \"description\": \"this role is for test users\"}";
 	private final static String urnTestJoe = "{\"fields\":{\"responsibleDepartment\":\"\",\"dimensionMeasurementUnit\":\"\",\"objectNumber\":\"TestObject\",\"title\":\"Test Title for urn test object\",\"objectName\":\"Test Object for urn test object\",\"inscriptionContentInscriber\":\"urn:cspace:org.collectionspace.demo:personauthority:id(de0d959d-2923-4123-830d):person:id(8a6bf9d8-6dc4-4c78-84e9)'Joe+Adamson'\"},\"csid\":\"\"}";
 	
-	
-	private UserDetailsReset udreset;
-
-
-
-
-
-	
-
 	
 	//@Test 
 	public void test2() throws Exception{
@@ -96,7 +70,6 @@ public class TestGeneral  {
 			user.put("password", "Administrator");
 
 		//ServletTester jetty=setupJetty("lifesci", user);
-			ServletTester jetty=tester.setupJetty();
 		//ServletTester jetty=setupJetty(false,"tenant2.xml");
 	//	http://nightly.collectionspace.org/collectionspace/tenant/core/invokereport/88b3bdb5-a7fd-4e39-aaa1
 	//	String csid = "/reporting/search?doctype=Acquisition";
@@ -151,7 +124,6 @@ public class TestGeneral  {
 	 * and checks each object is found
 	 */
 	@Test public void testTrailingSlashOkayOnList() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		
 		// clear (avoid paging)
 		JSONArray items=null;
@@ -276,8 +248,6 @@ public class TestGeneral  {
 	 */
 	@Test public void testDeURNedField() throws Exception {
 		
-		ServletTester jetty=tester.setupJetty();
-
 		//create person authority to use
 		String personStr = "{\"shortIdentifier\":\"mytestperson\",\"displayName\":\"TEST my test person\"}";
 
@@ -312,7 +282,6 @@ public class TestGeneral  {
 	 * @throws Exception
 	 */
 	@Test public void testTermsUsedVocab() throws Exception {
-		ServletTester jetty=tester.setupJetty();
 		//create person authority to use
 		String personStr = "{\"displayName\":\"TEST my test person2\"}";
 		HttpTester out = tester.POSTData("/vocabularies/person/",tester.makeSimpleRequest(personStr),jetty);
@@ -349,7 +318,6 @@ public class TestGeneral  {
 	
 	//@Test - no guarentee that the service layer created this report and put it where I could find it
 	public void testReports() throws Exception {
-		ServletTester jetty = tester.setupJetty();
 		String uipath = "/acquisition/";
 		String data = tester.acquisitionCreate();
 		HttpTester out;

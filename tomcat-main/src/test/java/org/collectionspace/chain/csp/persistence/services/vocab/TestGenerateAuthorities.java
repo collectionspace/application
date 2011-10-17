@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -14,16 +15,28 @@ import org.slf4j.LoggerFactory;
 public class TestGenerateAuthorities {
 	private static final Logger log = LoggerFactory
 	.getLogger(TestGenerateAuthorities.class);
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
 	
 
 	
-	@Test
+	//@Test
 	public void testSetUp() throws Exception {
 		HttpTester out;
 		log.info("initialize authorities");
 
-		ServletTester jetty = tester.setupJetty();
 		//String urltest = "/vocabularies/currency/refresh?datapath=/Users/csm22/Documents/collectionspace/test.txt";
 		//out = tester.GETData(urltest, jetty);
 

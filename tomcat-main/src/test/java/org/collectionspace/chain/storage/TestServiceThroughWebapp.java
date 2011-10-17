@@ -8,37 +8,36 @@ package org.collectionspace.chain.storage;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.controller.TenantServlet;
-import org.collectionspace.chain.csp.config.ConfigRoot;
-import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.chain.csp.persistence.TestBase;
-import org.collectionspace.chain.csp.persistence.TestData;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
-import org.collectionspace.csp.api.container.CSPManager;
-import org.collectionspace.csp.api.core.CSPDependencyException;
-import org.collectionspace.csp.container.impl.CSPManagerImpl;
-import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.AfterClass;
 import org.junit.Test;
-import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TestServiceThroughWebapp {
 	private static final Logger log=LoggerFactory.getLogger(TestServiceThroughWebapp.class);
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty("core",true);
+			}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
 	
 	
 	@Test public void testCollectionObjectBasic() throws Exception {
-		ServletTester jetty=tester.setupJetty("core",true);
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",tester.makeSimpleRequest(tester.getResourceString("obj3.json")));	
 		String id=out.getHeader("Location");
 		assertEquals(201,out.getStatus());
@@ -68,7 +67,6 @@ public class TestServiceThroughWebapp {
 	}
 
 	@Test public void testIntake() throws Exception {
-		ServletTester jetty=tester.setupJetty("core",true);
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/intake/",tester.makeSimpleRequest(tester.getResourceString("int3.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
@@ -96,7 +94,6 @@ public class TestServiceThroughWebapp {
 	}
 
 	@Test public void testAcquisition() throws Exception {
-		ServletTester jetty=tester.setupJetty("core",true);
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/acquisition/",tester.makeSimpleRequest(tester.getResourceString("create_acquistion.json")));	
 		assertEquals(201,out.getStatus());
 		String path=out.getHeader("Location");
@@ -122,7 +119,6 @@ public class TestServiceThroughWebapp {
 	}
 
 	@Test public void testIDGenerate() throws Exception {
-		ServletTester jetty=tester.setupJetty("core",true);
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/id/intake",null);
 		JSONObject jo=new JSONObject(out.getContent());
 		assertTrue(jo.getString("next").startsWith("IN" + tester.getCurrentYear() + "."));
@@ -164,8 +160,6 @@ public class TestServiceThroughWebapp {
 	}
 
 	@Test public void testTermsUsed() throws Exception {
-		ServletTester jetty=tester.setupJetty("core",true);
-		
 		JSONObject data=new JSONObject("{'csid':'','fields':{'displayName':'David Bowie'}}");
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/vocabularies/person",data.toString());
 		assertEquals(201,out.getStatus());		
@@ -190,7 +184,6 @@ public class TestServiceThroughWebapp {
 	}
 		
 	@Test public void testAutoGet() throws Exception {
-		ServletTester jetty=tester.setupJetty("core",true);
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/cataloging/__auto",null);
 		assertEquals(200,out.getStatus());
 		// XXX this is correct currently, whilst __auto is stubbed.
@@ -198,7 +191,6 @@ public class TestServiceThroughWebapp {
 	}
 	
 	@Test public void testList() throws Exception {
-		ServletTester jetty=tester.setupJetty("core",true);
 		// do not delete all
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"GET","/tenant/core/cataloging",null);
 		assertEquals(200,out.getStatus());
@@ -249,7 +241,6 @@ public class TestServiceThroughWebapp {
 	}
 	
 	@Test public void testSearch() throws Exception {
-		ServletTester jetty=tester.setupJetty("core",true);
 		// one aardvark, one non-aardvark
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/cataloging/",tester.makeSimpleRequest(tester.getResourceString("obj3-search.json")));	
 		assertEquals(201,out.getStatus());
@@ -280,7 +271,6 @@ public class TestServiceThroughWebapp {
 	}
 	
 	@Test public void testLogin() throws Exception {
-		ServletTester jetty=tester.setupJetty("core",true);
 		Spec spec = tester.getSpec(jetty);
 		String pwd = spec.getAdminData().getAuthPass();
 		String username = spec.getAdminData().getAuthUser();

@@ -8,17 +8,13 @@ package org.collectionspace.chain.csp.webui.main;
 
 import static org.junit.Assert.*;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Enumeration;
 
-import org.apache.commons.io.IOUtils;
-import org.collectionspace.chain.controller.TenantServlet;
 import org.collectionspace.chain.csp.persistence.TestBase;
+import org.junit.AfterClass;
 import org.junit.Test;
-import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
@@ -27,13 +23,24 @@ import org.slf4j.LoggerFactory;
 public class TestAjaxExpiresHeaders {
 	private static final Logger log=LoggerFactory.getLogger(TestAjaxExpiresHeaders.class);
 	private static String cookie;
-	private TestBase tester = new TestBase();
+	private static TestBase tester = new TestBase();
+	static ServletTester jetty;
+	static {
+		try{
+			jetty=tester.setupJetty();
+			}
+		catch(Exception ex){
+			
+		}
+	}
+	
+	@AfterClass public void testStop() throws Exception {
+		tester.stopJetty(jetty);
+	}
 
 	
 	@SuppressWarnings("unchecked")
 	@Test public void testNoCacheHeaders() throws Exception {
-		ServletTester jetty=tester.setupJetty();
-
 		HttpTester out = tester.GETData("/myCollectionSpace/uispec",jetty);
 		assertEquals("no-cache",out.getHeader("pragma"));
 		String last_modified=out.getHeader("Last-Modified");
