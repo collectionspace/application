@@ -32,7 +32,7 @@ public class TestGenerateAuthorities {
 	
 
 	
-	//@Test
+	@Test
 	public void testSetUp() throws Exception {
 		HttpTester out;
 		log.info("initialize authorities");
