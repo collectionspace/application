@@ -23,20 +23,7 @@ public class TestRelationsThroughWebapp {
 	private static final Logger log = LoggerFactory
 			.getLogger(TestRelationsThroughWebapp.class);
 	private static TestBase tester = new TestBase();
-	static ServletTester jetty;
-	static {
-		try{
-			jetty=tester.setupJetty();
-			}
-		catch(Exception ex){
-			
-		}
-	}
 	
-	@AfterClass public static  void testStop() throws Exception {
-		tester.stopJetty(jetty);
-	}
-
 
 	private JSONObject createMini(String type, String id) throws JSONException {
 		JSONObject out = new JSONObject();
@@ -60,6 +47,7 @@ public class TestRelationsThroughWebapp {
 	@Test
 	public void testRelationsCreate() throws Exception {
 		// First create atester. couple of cataloging
+		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.POSTData("/cataloging/",
 				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
@@ -174,11 +162,13 @@ public class TestRelationsThroughWebapp {
 		tester.DELETEData(id1, jetty);
 		tester.DELETEData(id2, jetty);
 		tester.DELETEData(id3, jetty);
+		tester.stopJetty(jetty);
 	}
 
 	@Test
 	public void testLoginTest() throws Exception {
 		// initially set up with logged in user
+		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.GETData("/loginstatus", jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
 		Boolean rel3 = data3.getBoolean("login");
@@ -190,12 +180,14 @@ public class TestRelationsThroughWebapp {
 		JSONObject data2 = new JSONObject(out.getContent());
 		Boolean rel2 = data2.getBoolean("login");
 		assertFalse(rel2);
+		tester.stopJetty(jetty);
 	}
 
 	// XXX factor out creation
 	@Test
 	public void testRelationsMissingOneWay() throws Exception {
 		// First create a couple of cataloging
+		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.POSTData("/cataloging/",
 				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 
@@ -235,11 +227,13 @@ public class TestRelationsThroughWebapp {
 		tester.DELETEData(id1, jetty);
 		tester.DELETEData(id2, jetty);
 		tester.DELETEData(id3, jetty);
+		tester.stopJetty(jetty);
 	}
 
 	@Test
 	public void testMultipleCreate() throws Exception {
 		// Create test cataloging
+		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.POSTData("/cataloging/",
 				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
@@ -274,6 +268,7 @@ public class TestRelationsThroughWebapp {
 		tester.DELETEData(id1, jetty);
 		tester.DELETEData(id2, jetty);
 		tester.DELETEData(id3, jetty);
+		tester.stopJetty(jetty);
 	}
 
 	// XXX update of two-way relations
@@ -281,6 +276,7 @@ public class TestRelationsThroughWebapp {
 	@Test
 	public void testUpdate() throws Exception {
 		// Create test cataloging
+		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.POSTData("/cataloging/",
 				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
@@ -338,10 +334,12 @@ public class TestRelationsThroughWebapp {
 		assertEquals(1, rel2.length());
 		assertNotNull(rel3);
 		assertEquals(0, rel3.length());
+		tester.stopJetty(jetty);
 	}
 
 	@Test
 	public void testOneWayWorksInUpdate() throws Exception {
+		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.POSTData("/intake/",
 				tester.makeSimpleRequest(tester.getResourceString("2007.4-a.json")), jetty);
 		String id1 = out.getHeader("Location");
@@ -452,11 +450,13 @@ public class TestRelationsThroughWebapp {
 		tester.DELETEData(id2, jetty);
 		tester.DELETEData(id3, jetty);
 
+		tester.stopJetty(jetty);
 	}
 
 	@Test
 	public void testRelationshipType() throws Exception {
 		// Create test cataloging
+		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.POSTData("/cataloging/",
 				tester.makeSimpleRequest(tester.getResourceString("obj3.json")), jetty);
 		String id1 = out.getHeader("Location");
@@ -491,20 +491,24 @@ public class TestRelationsThroughWebapp {
 		tester.DELETEData("/relationships/" + csid, jetty);
 		tester.DELETEData(id1, jetty);
 		tester.DELETEData(id2, jetty);
+		tester.stopJetty(jetty);
 
 	}
 	@Test 
 	public void testHierarchical() throws Exception{
 		// Check list is empty;
-		
+
+		ServletTester jetty = tester.setupJetty();
 		String st = "/relationships/hierarchical/search?source=person/a93233e6-ca44-477d-97a0&type=hasBroader";
 		HttpTester out = tester.GETData(st, jetty);
 		log.info(out.getContent());
+		tester.stopJetty(jetty);
 	}
 
 	@Test
 	public void testSearchList() throws Exception {
 		// Check list is empty
+		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.GETData("/relationships/", jetty);
 		JSONArray items = new JSONObject(out.getContent())
 				.getJSONArray("items");
@@ -592,11 +596,13 @@ public class TestRelationsThroughWebapp {
 		tester.DELETEData(id1, jetty);
 		tester.DELETEData(id2, jetty);
 		tester.DELETEData(id3, jetty);
+		tester.stopJetty(jetty);
 	}
 
 	@Test
 	public void testDelete() throws Exception {
 		// Check size of initial is empty
+		ServletTester jetty = tester.setupJetty();
 		HttpTester out = tester.GETData("/relationships/", jetty);
 		JSONArray itemsall = new JSONObject(out.getContent())
 				.getJSONArray("items");
@@ -653,6 +659,7 @@ public class TestRelationsThroughWebapp {
 		tester.DELETEData(id1, jetty);
 		tester.DELETEData(id2, jetty);
 		tester.DELETEData(id3, jetty);
+		tester.stopJetty(jetty);
 	}
 	// XXX DELETE RELATIONS WHEN RECORD IS DELETED: NOT FOR 0.5
 }

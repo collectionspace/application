@@ -276,37 +276,6 @@ public class TestOrgThroughWebapp  {
 		log.info("ORG : OrganizationList : test_end");
 	}
 
-	// Tests a READ for an organization
-	@Test
-	public void testOrganizationGet() throws Exception {
-		log.info("ORG : OrganizationGet : test_start");
-		// Create
-		JSONObject data = new JSONObject(
-				"{'fields':{'displayName':'TestmyOrgXXX2'}}");
-		HttpTester out = tester.POSTData("/vocabularies/organization/", data, jetty);
-		String url = out.getHeader("Location");
-		// Search
-		out = tester.GETData("/vocabularies/organization/search?query=TestmyOrgXXX2",
-				jetty);
-
-		// Find candidate
-		JSONArray results = new JSONObject(out.getContent())
-				.getJSONArray("results");
-		log.info(Integer.toString(results.length()));
-
-		assertTrue(results.length() > 0);
-		JSONObject entry = results.getJSONObject(0);
-		String csid = entry.getString("csid");
-		out = tester.GETData("/vocabularies/organization/" + csid, jetty);
-		JSONObject fields = new JSONObject(out.getContent())
-				.getJSONObject("fields");
-		assertEquals(csid, fields.getString("csid"));
-		assertEquals("TestmyOrgXXX2", fields.getString("displayName"));
-
-		// Delete
-		tester.DELETEData("/vocabularies/" + url, jetty);
-		log.info("ORG : OrganizationGet : test_end");
-	}
 
 	// Tests an Update for an Organization
 	@Test
