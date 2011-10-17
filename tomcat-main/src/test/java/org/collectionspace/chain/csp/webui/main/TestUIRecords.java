@@ -36,9 +36,9 @@ public class TestUIRecords {
 	/**
 	 * Test Jetty
 	 */
-	@Test public void testJettyStartupWorks() throws Exception {
-		tester.setupJetty();
-	}
+	//@Test public void testJettyStartupWorks() throws Exception {
+	//	tester.setupJetty();
+	//}
 	/**
 	 * Test Login Status
 	 */
