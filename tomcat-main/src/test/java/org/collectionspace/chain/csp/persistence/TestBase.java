@@ -25,6 +25,7 @@ import org.collectionspace.chain.util.json.JSONUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Test;
 import org.mortbay.jetty.HttpHeaders;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -710,6 +711,10 @@ log.info(out.getContent());
 		// Create a User
 		out = POSTData("/users/",makeSimpleRequest(JSONfile),jetty);
 		return out;
+	}
+
+	@Test public void test(){
+		assertTrue(true);
 	}
 
 }

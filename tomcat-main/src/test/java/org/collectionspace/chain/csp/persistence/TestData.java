@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.persistence;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.junit.Test;
 import org.mortbay.jetty.testing.ServletTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -136,7 +138,10 @@ public class TestData {
 		log.error("ERROR occured"+e.getMessage());
 		org.junit.Assert.fail("ERROR occured"+e.getMessage());
 	}
-	
+
+	@Test public void test(){
+		assertTrue(true);
+	}
 	private JSONObject getJSON(String in) {
 		try {
 			String path=TestData.class.getPackage().getName().replaceAll("\\.","/");
