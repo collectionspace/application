@@ -198,7 +198,7 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
 			String[] parts=extractPaths(filePath,new String[]{"main"},1);
-			log.info("DELETE"+parts[0]);
+			//log.info("DELETE"+parts[0]);
 			int status=conn.getNone(RequestMethod.DELETE,"/relations/"+parts[0],null,creds,cache);
 			if(status>299)
 				throw new UnderlyingStorageException("Could not delete relation, status="+status,status,"/relations/"+parts[0]);

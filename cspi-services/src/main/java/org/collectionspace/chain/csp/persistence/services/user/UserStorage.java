@@ -339,7 +339,7 @@ public class UserStorage extends GenericStorage {
 					"common","PUT");
 			// Document
 			// in=XmlJsonConversion.convertToXml(r,xxx_cspace1458_fix(filePath,jsonObject,creds,cache),"common");
-			log.info("Sending: " + in.asXML());
+			//log.info("Sending: " + in.asXML());
 			ReturnedDocument doc = conn.getXMLDocument(RequestMethod.PUT, r
 					.getServicesURL()
 					+ "/" + filePath, in, creds, cache);
