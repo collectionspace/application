@@ -6,7 +6,7 @@
                 "type": "array"
             },
             "organization": {
-                "default": ["organization"],
+                "default": ["organization","organizationtest"],
                 "type": "array"
             },
             "location": {
