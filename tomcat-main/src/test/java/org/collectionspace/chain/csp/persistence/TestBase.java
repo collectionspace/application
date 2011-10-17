@@ -99,9 +99,6 @@ public class TestBase extends TestData {
 		return setupJetty("core", null, false);
 	}
 
-	//public static ServletTester setupJetty(String tenant, Boolean isUTF8, String configfile) throws Exception {
-	//	return setupJetty( tenant, isUTF8, configfile,null);
-	//}
 
 	public  ServletTester setupJetty(String tenant, JSONObject user, String configfile) throws Exception {
 		return setupJetty( tenant, user, false, configfile);
