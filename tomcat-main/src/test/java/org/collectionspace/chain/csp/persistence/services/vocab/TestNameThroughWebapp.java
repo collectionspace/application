@@ -51,13 +51,21 @@ public class TestNameThroughWebapp{
 			JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 2','shortIdentifier':'persontest2','vocabType':'PersonAuthority'}}");
 			out = tester.POSTData("/authorities/person/",data,jetty);	
 		}
-		
+
 		out = tester.GETData("/vocabularies/organization/",jetty);
 		log.info(out.getContent());
 		JSONObject test2 = new JSONObject(out.getContent());
 		if(test2.has("isError") && test2.getBoolean("isError")){
 			//create the person authority
 			JSONObject data=new JSONObject("{'fields':{'displayName':'Default Organization Authority','shortIdentifier':'organization','vocabType':'OrgAuthority'}}");
+			out = tester.POSTData("/authorities/organization/",data,jetty);	
+		}
+		out = tester.GETData("/vocabularies/organizationtest/",jetty);
+		log.info(out.getContent());
+		test2 = new JSONObject(out.getContent());
+		if(test2.has("isError") && test2.getBoolean("isError")){
+			//create the person authority
+			JSONObject data=new JSONObject("{'fields':{'displayName':'Test Organization Authority','shortIdentifier':'organizationtest','vocabType':'OrgAuthority'}}");
 			out = tester.POSTData("/authorities/organization/",data,jetty);	
 		}
 	}
