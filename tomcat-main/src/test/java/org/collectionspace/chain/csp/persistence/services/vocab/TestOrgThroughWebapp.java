@@ -42,8 +42,7 @@ public class TestOrgThroughWebapp  {
 	}
 
 	//need a begin function that creates the default person if it is missing?
-		@BeforeClass public void testCreateAuth() throws Exception {
-			ServletTester jetty=tester.setupJetty();
+		@Before public  void testCreateAuth() throws Exception {
 			HttpTester out = tester.GETData("/vocabularies/organization/",jetty);
 			log.info(out.getContent());
 			JSONObject test2 = new JSONObject(out.getContent());
@@ -88,7 +87,6 @@ public class TestOrgThroughWebapp  {
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 2','shortIdentifier':'persontest2','vocabType':'PersonAuthority'}}");
 				out = tester.POSTData("/authorities/person/",data,jetty);	
 			}
-			tester.stopJetty(jetty);
 		}
 	/**
 	 * Tests that an authority search includes the expected item difference
