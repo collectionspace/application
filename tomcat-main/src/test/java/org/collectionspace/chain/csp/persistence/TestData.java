@@ -34,6 +34,7 @@ public class TestData {
 	private static final Logger log=LoggerFactory.getLogger(TestData.class);
 
 	// Set up test data strings 
+	private Spec spec = null;
 
     public final String objectCreate(){ return addData("objectCreate.json").toString(); };
 
@@ -79,6 +80,7 @@ public class TestData {
 		}
 	}
 	public final Spec getSpec(ServletTester tester){
+		if(this.spec != null){
 		CSPManager cspm=new CSPManagerImpl();
 		cspm.register(new CoreConfig());
 		cspm.register(new Spec());
@@ -95,10 +97,13 @@ public class TestData {
 
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
-		return spec;
+		this.spec = spec;
+		}
+		return this.spec;
+		
 	}
 
-	public  JSONObject getDefaultUser(ServletTester tester){
+	public JSONObject getDefaultUser(ServletTester tester){
 		Spec spec = getSpec(tester);
 		String username = spec.getAdminData().getAuthUser();
 		String pass = spec.getAdminData().getAuthPass();
