@@ -26,11 +26,11 @@ import org.slf4j.LoggerFactory;
 public class TestOrgThroughWebapp  {
 	private static final Logger log = LoggerFactory
 			.getLogger(TestOrgThroughWebapp.class);
-	private static TestBase tester = new TestBase();
+	private static TestBase testbase = new TestBase();
 	static ServletTester jetty;
 	static {
 		try{
-			jetty=tester.setupJetty();
+			jetty=testbase.setupJetty();
 			}
 		catch(Exception ex){
 			
@@ -38,54 +38,54 @@ public class TestOrgThroughWebapp  {
 	}
 	
 	@AfterClass public static  void testStop() throws Exception {
-		tester.stopJetty(jetty);
+		testbase.stopJetty(jetty);
 	}
 
 	//need a begin function that creates the default person if it is missing?
-		@Before public  void testCreateAuth() throws Exception {
-			HttpTester out = tester.GETData("/vocabularies/organization/",jetty);
+	@Before public  void testCreateAuth() throws Exception {
+			HttpTester out = testbase.GETData("/vocabularies/organization/",jetty);
 			log.info(out.getContent());
 			JSONObject test2 = new JSONObject(out.getContent());
 			if(test2.has("isError") && test2.getBoolean("isError")){
 				//create the person authority
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Default Organization Authority','shortIdentifier':'organization','vocabType':'OrgAuthority'}}");
-				out = tester.POSTData("/authorities/organization/",data,jetty);	
+				out = testbase.POSTData("/authorities/organization/",data,jetty);	
 			}
 
-			out = tester.GETData("/vocabularies/organizationtest/",jetty);
+			out = testbase.GETData("/vocabularies/organizationtest/",jetty);
 			log.info(out.getContent());
 			test2 = new JSONObject(out.getContent());
 			if(test2.has("isError") && test2.getBoolean("isError")){
 				//create the person authority
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Test Organization Authority','shortIdentifier':'organizationtest','vocabType':'OrgAuthority'}}");
-				out = tester.POSTData("/authorities/organization/",data,jetty);	
+				out = testbase.POSTData("/authorities/organization/",data,jetty);	
 			}
 			
-			out = tester.GETData("/vocabularies/person/",jetty);
+			out = testbase.GETData("/vocabularies/person/",jetty);
 			log.info(out.getContent());
 			JSONObject test = new JSONObject(out.getContent());
 			if(test.has("isError") && test.getBoolean("isError")){
 				//create the person authority
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Default Person Authority','shortIdentifier':'person','vocabType':'PersonAuthority'}}");
-				out = tester.POSTData("/authorities/person/",data,jetty);	
+				out = testbase.POSTData("/authorities/person/",data,jetty);	
 			}
 
-			out = tester.GETData("/vocabularies/persontest1/",jetty);
+			out = testbase.GETData("/vocabularies/persontest1/",jetty);
 			log.info(out.getContent());
 			test = new JSONObject(out.getContent());
 			if(test.has("isError") && test.getBoolean("isError")){
 				//create the person authority
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 1','shortIdentifier':'persontest1','vocabType':'PersonAuthority'}}");
-				out = tester.POSTData("/authorities/person/",data,jetty);	
+				out = testbase.POSTData("/authorities/person/",data,jetty);	
 			}
 			
-			out = tester.GETData("/vocabularies/persontest2/",jetty);
+			out = testbase.GETData("/vocabularies/persontest2/",jetty);
 			log.info(out.getContent());
 			test = new JSONObject(out.getContent());
 			if(test.has("isError") && test.getBoolean("isError")){
 				//create the person authority
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 2','shortIdentifier':'persontest2','vocabType':'PersonAuthority'}}");
-				out = tester.POSTData("/authorities/person/",data,jetty);	
+				out = testbase.POSTData("/authorities/person/",data,jetty);	
 			}
 		}
 	
@@ -100,7 +100,7 @@ public class TestOrgThroughWebapp  {
 		// Create
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Test My Authority2'}}");
-		HttpTester out = tester.POSTData("/vocabularies/organization/", data, jetty);
+		HttpTester out = testbase.POSTData("/vocabularies/organization/", data, jetty);
 		String url = out.getHeader("Location");
 		// Get List
 		int resultsize = 1;
@@ -109,7 +109,7 @@ public class TestOrgThroughWebapp  {
 		boolean found = false;
 		while (resultsize > 0) {
 			log.info("ORG : AuthoritiesList : Get Page: " + pagenum);
-			out = tester.GETData("/authorities/organization?pageSize=40&pageNum="
+			out = testbase.GETData("/authorities/organization?pageSize=40&pageNum="
 					+ pagenum, jetty);
 			pagenum++;
 			String content=out.getContent();
@@ -138,7 +138,7 @@ public class TestOrgThroughWebapp  {
 		}
 		assertTrue(found);
 		// Delete
-		tester.DELETEData("/vocabularies/" + url, jetty);
+		testbase.DELETEData("/vocabularies/" + url, jetty);
 		log.info("ORG : AuthoritiesList : test_end");
 	//}
 		/**
@@ -153,10 +153,10 @@ public class TestOrgThroughWebapp  {
 			// Create
 			 data = new JSONObject(
 					"{'fields':{'displayName':'Test My Authority1'}}");
-			 out = tester.POSTData("/vocabularies/organization/", data, jetty);
+			 out = testbase.POSTData("/vocabularies/organization/", data, jetty);
 			 url = out.getHeader("Location");
 			// Search
-			out = tester.GETData(
+			out = testbase.GETData(
 					"/authorities/organization/search?query=Test+My+Authority1",
 					jetty);
 			log.info(out.getContent());
@@ -177,7 +177,7 @@ public class TestOrgThroughWebapp  {
 			}
 			assertTrue(test);
 			// Delete
-			tester.DELETEData("/vocabularies/" + url, jetty);
+			testbase.DELETEData("/vocabularies/" + url, jetty);
 			log.info("ORG : AuthoritiesSearch : test_end");
 		}
 
@@ -193,12 +193,12 @@ public class TestOrgThroughWebapp  {
 		// Create
 		JSONObject datad = new JSONObject(
 				"{'fields':{'displayName':'Test Organization XXX'}}");
-		HttpTester outd = tester.POSTData("/vocabularies/organization/", datad, jetty);
+		HttpTester outd = testbase.POSTData("/vocabularies/organization/", datad, jetty);
 		String urdl = outd.getHeader("Location");
 		// Search
 		//Nuxeos rebuild borks this test - lost partial matching
 		//out = tester.GETData("/vocabularies/organization/search?query=Test+Organ", jetty);
-		outd = tester.GETData("/vocabularies/organization/search?query=Test+Organization", jetty);
+		outd = testbase.GETData("/vocabularies/organization/search?query=Test+Organization", jetty);
 
 		JSONArray results = new JSONObject(outd.getContent())
 				.getJSONArray("results");
@@ -218,7 +218,7 @@ public class TestOrgThroughWebapp  {
 		assertTrue(test);
 
 		// Delete
-		tester.DELETEData("/vocabularies/" + urdl, jetty);
+		testbase.DELETEData("/vocabularies/" + urdl, jetty);
 
 		log.info("ORG : OrganizationSearch : test_end");
 	//}
@@ -235,7 +235,7 @@ public class TestOrgThroughWebapp  {
 		// Create
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Test my Org XXX1'}}");
-		HttpTester out = tester.POSTData("/vocabularies/organization/", data, jetty);
+		HttpTester out = testbase.POSTData("/vocabularies/organization/", data, jetty);
 		String url = out.getHeader("Location");
 
 		int resultsize = 1;
@@ -244,7 +244,7 @@ public class TestOrgThroughWebapp  {
 		boolean found = false;
 		while (resultsize > 0) {
 			log.info("ORG : OrganizationList : GET page:" + pagenum);
-			out = tester.GETData("/vocabularies/organization?pageSize=40&pageNum="
+			out = testbase.GETData("/vocabularies/organization?pageSize=40&pageNum="
 					+ pagenum, jetty);
 			pagenum++;
 			 results = new JSONObject(out.getContent())
@@ -270,7 +270,7 @@ public class TestOrgThroughWebapp  {
 		assertTrue(found);
 
 		// Delete
-		tester.DELETEData("/vocabularies/" + url, jetty);
+		testbase.DELETEData("/vocabularies/" + url, jetty);
 
 		log.info("ORG : OrganizationList : test_end");
 	//}
@@ -283,23 +283,23 @@ public class TestOrgThroughWebapp  {
 		// Create
 		 data = new JSONObject(
 				"{'fields':{'displayName':'Test my Org XXX4'}}");
-		 out = tester.POSTData("/vocabularies/organization/", data, jetty);
+		 out = testbase.POSTData("/vocabularies/organization/", data, jetty);
 		 url = out.getHeader("Location");
 		// Read
-		out = tester.GETData("/vocabularies" + url, jetty);
+		out = testbase.GETData("/vocabularies" + url, jetty);
 		data = new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"), url.split("/")[2]);
 		assertEquals("Test my Org XXX4", data.getString("displayName"));
 		// Update
 		data = new JSONObject("{'fields':{'displayName':'A New Test Org'}}");
-		out = tester.PUTData("/vocabularies" + url, data, jetty);
+		out = testbase.PUTData("/vocabularies" + url, data, jetty);
 		// Read
-		out = tester.GETData("/vocabularies" + url, jetty);
+		out = testbase.GETData("/vocabularies" + url, jetty);
 		data = new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"), url.split("/")[2]);
 		assertEquals("A New Test Org", data.getString("displayName"));
 		// Delete
-		tester.DELETEData("/vocabularies/" + url, jetty);
+		testbase.DELETEData("/vocabularies/" + url, jetty);
 		log.info("ORG : OrganizationCreateUpdateDelete : test_end");
 
 	}
@@ -317,32 +317,32 @@ public class TestOrgThroughWebapp  {
 		// Create in single assign list:
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Custom Data'}}");
-		HttpTester out = tester.POSTData("/vocabularies/pcustom/", data, jetty);
+		HttpTester out = testbase.POSTData("/vocabularies/pcustom/", data, jetty);
 		String url = out.getHeader("Location");
 		data = new JSONObject("{'fields':{'displayName':'Custom Data 3'}}");
-		out = tester.POSTData("/vocabularies/pcustom/", data, jetty);
+		out = testbase.POSTData("/vocabularies/pcustom/", data, jetty);
 		String url3 = out.getHeader("Location");
 		// Create in second single assign list:
 		data = new JSONObject("{'fields':{'displayName':'Custom Data 2'}}");
-		out = tester.POSTData("/vocabularies/person/", data, jetty);
+		out = testbase.POSTData("/vocabularies/person/", data, jetty);
 		String url2 = out.getHeader("Location");
 		// Read
-		out = tester.GETData("/vocabularies" + url, jetty);
+		out = testbase.GETData("/vocabularies" + url, jetty);
 		data = new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"), url.split("/")[2]);
 		assertEquals("Custom Data", data.getString("displayName"));
 
-		out = tester.GETData("/intake/autocomplete/currentOwner?q=Custom&limit=150",
+		out = testbase.GETData("/intake/autocomplete/currentOwner?q=Custom&limit=150",
 				jetty);
-		out = tester.GETData("/intake/autocomplete/depositor?q=Custom&limit=150",
+		out = testbase.GETData("/intake/autocomplete/depositor?q=Custom&limit=150",
 				jetty);
 
 		// Delete
-		tester.DELETEData("/vocabularies/" + url, jetty);
+		testbase.DELETEData("/vocabularies/" + url, jetty);
 		// Delete
-		tester.DELETEData("/vocabularies/" + url3, jetty);
+		testbase.DELETEData("/vocabularies/" + url3, jetty);
 		// Delete
-		tester.DELETEData("/vocabularies/" + url2, jetty);
+		testbase.DELETEData("/vocabularies/" + url2, jetty);
 
 		log.info("ORG : NamesMultiAssign : test_end");
 	}
@@ -355,25 +355,25 @@ public class TestOrgThroughWebapp  {
 		log.info("ORG : AutocompletesForOrganization : CREATE");
 		JSONObject org = new JSONObject(
 				"{'fields':{'displayName':'Test my Org XXX5'}}");
-		HttpTester out = tester.POSTData("/vocabularies/organization/", org, jetty);
+		HttpTester out = testbase.POSTData("/vocabularies/organization/", org, jetty);
 		String url1 = out.getHeader("Location");
 		// Add a person
 		log.info("ORG : AutocompletesForOrganization : ADD Person");
 		JSONObject person = new JSONObject(
 				"{'fields':{'displayName':'Test Auto Person'}}");
-		out = tester.POSTData("/vocabularies/person/", person, jetty);
+		out = testbase.POSTData("/vocabularies/person/", person, jetty);
 		String url2 = out.getHeader("Location");
 		// A second organization
 		log.info("ORG : AutocompletesForOrganization : Add org");
 		JSONObject org2 = new JSONObject(
 				"{'fields':{'displayName':'Test another Org'}}");
-		out = tester.POSTData("/vocabularies/organization/", org2, jetty);
+		out = testbase.POSTData("/vocabularies/organization/", org2, jetty);
 		String url3 = out.getHeader("Location");
 
 		// Test Autocomplete contactName
 		log
 				.info("ORG : AutocompletesForOrganization : test against contact Name");
-		out = tester.GETData(
+		out = testbase.GETData(
 				"/vocabularies/organization/autocomplete/contactName?q=Test+Auto&limit=150",
 				jetty);
 		JSONArray data = new JSONArray(out.getContent());
@@ -385,7 +385,7 @@ public class TestOrgThroughWebapp  {
 		}
 		// Test Autocomplete subBody
 		log.info("ORG : AutocompletesForOrganization : test against subBody");
-		out = tester.GETData(
+		out = testbase.GETData(
 				"/vocabularies/organization/autocomplete/subBody?q=Test+another&limit=150",
 				jetty);
 		data = new JSONArray(out.getContent());
@@ -398,9 +398,9 @@ public class TestOrgThroughWebapp  {
 		}
 		// Delete
 		log.info("ORG : AutocompletesForOrganization : DELETE");
-		tester.DELETEData("/vocabularies/" + url1, jetty);
-		tester.DELETEData("/vocabularies/" + url2, jetty);
-		tester.DELETEData("/vocabularies/" + url3, jetty);
+		testbase.DELETEData("/vocabularies/" + url1, jetty);
+		testbase.DELETEData("/vocabularies/" + url2, jetty);
+		testbase.DELETEData("/vocabularies/" + url3, jetty);
 		log.info("ORG : AutocompletesForOrganization : test_end");
 	}
 
@@ -408,8 +408,8 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testAutocompleteRedirect() throws Exception {
 		log.info("ORG : AutocompleteRedirect : test_start");
-		ServletTester jetty2=tester.setupJetty();
-		HttpTester out = tester.GETData("/cataloging/source-vocab/contentOrganization",
+		ServletTester jetty2=testbase.setupJetty();
+		HttpTester out = testbase.GETData("/cataloging/source-vocab/contentOrganization",
 				jetty2);
 		JSONArray data = new JSONArray(out.getContent());
 		boolean test = false;
@@ -421,6 +421,6 @@ public class TestOrgThroughWebapp  {
 		}
 		assertTrue("correct vocab not found", test);
 		log.info("ORG : AutocompleteRedirect : test_end");
-		tester.stopJetty(jetty2);
+		testbase.stopJetty(jetty2);
 	}
 }
