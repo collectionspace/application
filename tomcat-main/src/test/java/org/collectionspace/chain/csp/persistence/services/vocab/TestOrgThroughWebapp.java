@@ -88,53 +88,14 @@ public class TestOrgThroughWebapp  {
 				out = tester.POSTData("/authorities/person/",data,jetty);	
 			}
 		}
-	/**
-	 * Tests that an authority search includes the expected item difference
-	 * between an authority search and a vocabulary search is: auth search
-	 * searches all the vocabularies within an auth vocab search just searches
-	 * the one vocabulary *
-	 */
-	@Test
-	public void testAuthoritiesSearch() throws Exception {
-		log.info("ORG : AuthoritiesSearch : test_start");
-		// Create
-		JSONObject data = new JSONObject(
-				"{'fields':{'displayName':'Test My Authority1'}}");
-		HttpTester out = tester.POSTData("/vocabularies/organization/", data, jetty);
-		String url = out.getHeader("Location");
-		// Search
-		out = tester.GETData(
-				"/authorities/organization/search?query=Test+My+Authority1",
-				jetty);
-		log.info(out.getContent());
-		JSONArray results = new JSONObject(out.getContent())
-				.getJSONArray("results");
-		assertTrue(results.length() > 0);
-		Boolean test = false;
-		for (int i = 0; i < results.length(); i++) {
-			JSONObject entry = results.getJSONObject(i);
-			log.info(entry.toString());
-			if (entry.getString("displayName").toLowerCase().contains(
-					"test my authority1")) {
-				test = true;
-			}
-			assertEquals(entry.getString("number"), entry
-					.getString("displayName"));
-			assertTrue(entry.has("refid"));
-		}
-		assertTrue(test);
-		// Delete
-		tester.DELETEData("/vocabularies/" + url, jetty);
-		log.info("ORG : AuthoritiesSearch : test_end");
-	}
-
+	
 	/**
 	 * Tests that an authority list includes the expected item difference
 	 * between an authority list and a vocabulary list is: auth list lists all
 	 * the vocabularies within an auth vocab list just list the one vocabulary *
 	 */
 	@Test
-	public void testAuthoritiesList() throws Exception {
+	public void testAuthoritiesSearchList() throws Exception {
 		log.info("ORG : AuthoritiesList : test_start");
 		// Create
 		JSONObject data = new JSONObject(
@@ -179,7 +140,46 @@ public class TestOrgThroughWebapp  {
 		// Delete
 		tester.DELETEData("/vocabularies/" + url, jetty);
 		log.info("ORG : AuthoritiesList : test_end");
-	}
+	//}
+		/**
+		 * Tests that an authority search includes the expected item difference
+		 * between an authority search and a vocabulary search is: auth search
+		 * searches all the vocabularies within an auth vocab search just searches
+		 * the one vocabulary *
+		 */
+		//@Test
+		//public void testAuthoritiesSearch() throws Exception {
+			log.info("ORG : AuthoritiesSearch : test_start");
+			// Create
+			 data = new JSONObject(
+					"{'fields':{'displayName':'Test My Authority1'}}");
+			 out = tester.POSTData("/vocabularies/organization/", data, jetty);
+			 url = out.getHeader("Location");
+			// Search
+			out = tester.GETData(
+					"/authorities/organization/search?query=Test+My+Authority1",
+					jetty);
+			log.info(out.getContent());
+			JSONArray results = new JSONObject(out.getContent())
+					.getJSONArray("results");
+			assertTrue(results.length() > 0);
+			Boolean test = false;
+			for (int i = 0; i < results.length(); i++) {
+				JSONObject entry = results.getJSONObject(i);
+				log.info(entry.toString());
+				if (entry.getString("displayName").toLowerCase().contains(
+						"test my authority1")) {
+					test = true;
+				}
+				assertEquals(entry.getString("number"), entry
+						.getString("displayName"));
+				assertTrue(entry.has("refid"));
+			}
+			assertTrue(test);
+			// Delete
+			tester.DELETEData("/vocabularies/" + url, jetty);
+			log.info("ORG : AuthoritiesSearch : test_end");
+		}
 
 	/**
 	 * Tests that an vocabulary search includes the expected item difference
@@ -188,19 +188,19 @@ public class TestOrgThroughWebapp  {
 	 * the one vocabulary *
 	 */
 	@Test
-	public void testOrganizationSearch() throws Exception {
+	public void testOrganizationSearchList() throws Exception {
 		log.info("ORG : OrganizationSearch : test_start");
 		// Create
-		JSONObject data = new JSONObject(
+		JSONObject datad = new JSONObject(
 				"{'fields':{'displayName':'Test Organization XXX'}}");
-		HttpTester out = tester.POSTData("/vocabularies/organization/", data, jetty);
-		String url = out.getHeader("Location");
+		HttpTester outd = tester.POSTData("/vocabularies/organization/", datad, jetty);
+		String urdl = outd.getHeader("Location");
 		// Search
 		//Nuxeos rebuild borks this test - lost partial matching
 		//out = tester.GETData("/vocabularies/organization/search?query=Test+Organ", jetty);
-		out = tester.GETData("/vocabularies/organization/search?query=Test+Organization", jetty);
+		outd = tester.GETData("/vocabularies/organization/search?query=Test+Organization", jetty);
 
-		JSONArray results = new JSONObject(out.getContent())
+		JSONArray results = new JSONObject(outd.getContent())
 				.getJSONArray("results");
 
 		Boolean test = false;
@@ -218,10 +218,10 @@ public class TestOrgThroughWebapp  {
 		assertTrue(test);
 
 		// Delete
-		tester.DELETEData("/vocabularies/" + url, jetty);
+		tester.DELETEData("/vocabularies/" + urdl, jetty);
 
 		log.info("ORG : OrganizationSearch : test_end");
-	}
+	//}
 
 	/**
 	 * Tests that a vocabularies organization list includes the expected item
@@ -229,8 +229,8 @@ public class TestOrgThroughWebapp  {
 	 * lists all the vocabularies within an auth vocab list just list the one
 	 * vocabulary *
 	 */
-	@Test
-	public void testOrganizationList() throws Exception {
+	//@Test
+	//public void testOrganizationList() throws Exception {
 		log.info("ORG : OrganizationList : test_start");
 		// Create
 		JSONObject data = new JSONObject(
@@ -247,7 +247,7 @@ public class TestOrgThroughWebapp  {
 			out = tester.GETData("/vocabularies/organization?pageSize=40&pageNum="
 					+ pagenum, jetty);
 			pagenum++;
-			JSONArray results = new JSONObject(out.getContent())
+			 results = new JSONObject(out.getContent())
 					.getJSONArray("items");
 
 			if (results.length() == 0
@@ -273,18 +273,18 @@ public class TestOrgThroughWebapp  {
 		tester.DELETEData("/vocabularies/" + url, jetty);
 
 		log.info("ORG : OrganizationList : test_end");
-	}
+	//}
 
 
 	// Tests an Update for an Organization
-	@Test
-	public void testOrganizationCreateUpdateDelete() throws Exception {
+	//@Test
+	//public void testOrganizationCreateUpdateDelete() throws Exception {
 		log.info("ORG : OrganizationCreateUpdateDelete : test_start");
 		// Create
-		JSONObject data = new JSONObject(
+		 data = new JSONObject(
 				"{'fields':{'displayName':'Test my Org XXX4'}}");
-		HttpTester out = tester.POSTData("/vocabularies/organization/", data, jetty);
-		String url = out.getHeader("Location");
+		 out = tester.POSTData("/vocabularies/organization/", data, jetty);
+		 url = out.getHeader("Location");
 		// Read
 		out = tester.GETData("/vocabularies" + url, jetty);
 		data = new JSONObject(out.getContent()).getJSONObject("fields");
@@ -304,7 +304,7 @@ public class TestOrgThroughWebapp  {
 
 	}
 
-	/*
+	/**
 	 * this test will only work if you have field set up in default xml with two
 	 * authorities assigned. Therefore only until default needs that behaviour
 	 * this test will have to manually run don't forget to add in the instances
@@ -408,9 +408,9 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testAutocompleteRedirect() throws Exception {
 		log.info("ORG : AutocompleteRedirect : test_start");
-
+		ServletTester jetty2=tester.setupJetty();
 		HttpTester out = tester.GETData("/cataloging/source-vocab/contentOrganization",
-				jetty);
+				jetty2);
 		JSONArray data = new JSONArray(out.getContent());
 		boolean test = false;
 		for (int i = 0; i < data.length(); i++) {
@@ -421,6 +421,6 @@ public class TestOrgThroughWebapp  {
 		}
 		assertTrue("correct vocab not found", test);
 		log.info("ORG : AutocompleteRedirect : test_end");
-
+		tester.stopJetty(jetty2);
 	}
 }
