@@ -159,14 +159,14 @@ public class TestOrgThroughWebapp  {
 			out = testbase.GETData(
 					"/authorities/organization/search?query=Test+My+Authority1",
 					jetty);
-			log.info(out.getContent());
+			//log.info(out.getContent());
 			JSONArray results = new JSONObject(out.getContent())
 					.getJSONArray("results");
 			assertTrue(results.length() > 0);
 			Boolean test = false;
 			for (int i = 0; i < results.length(); i++) {
 				JSONObject entry = results.getJSONObject(i);
-				log.info(entry.toString());
+				//log.info(entry.toString());
 				if (entry.getString("displayName").toLowerCase().contains(
 						"test my authority1")) {
 					test = true;
@@ -193,12 +193,12 @@ public class TestOrgThroughWebapp  {
 		// Create
 		JSONObject datad = new JSONObject(
 				"{'fields':{'displayName':'Test Organization XXX'}}");
-		HttpTester outd = testbase.POSTData("/vocabularies/organization/", datad, jetty);
+		HttpTester outd = testbase.POSTData("/vocabularies/organizationtest/", datad, jetty);
 		String urdl = outd.getHeader("Location");
 		// Search
 		//Nuxeos rebuild borks this test - lost partial matching
 		//out = tester.GETData("/vocabularies/organization/search?query=Test+Organ", jetty);
-		outd = testbase.GETData("/vocabularies/organization/search?query=Test+Organization", jetty);
+		outd = testbase.GETData("/vocabularies/organizationtest/search?query=Test+Organization", jetty);
 
 		JSONArray results = new JSONObject(outd.getContent())
 				.getJSONArray("results");
@@ -235,7 +235,7 @@ public class TestOrgThroughWebapp  {
 		// Create
 		JSONObject data = new JSONObject(
 				"{'fields':{'displayName':'Test my Org XXX1'}}");
-		HttpTester out = testbase.POSTData("/vocabularies/organization/", data, jetty);
+		HttpTester out = testbase.POSTData("/vocabularies/organizationtest/", data, jetty);
 		String url = out.getHeader("Location");
 
 		int resultsize = 1;
@@ -244,7 +244,7 @@ public class TestOrgThroughWebapp  {
 		boolean found = false;
 		while (resultsize > 0) {
 			log.info("ORG : OrganizationList : GET page:" + pagenum);
-			out = testbase.GETData("/vocabularies/organization?pageSize=40&pageNum="
+			out = testbase.GETData("/vocabularies/organizationtest?pageSize=40&pageNum="
 					+ pagenum, jetty);
 			pagenum++;
 			 results = new JSONObject(out.getContent())

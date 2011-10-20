@@ -80,27 +80,25 @@ public class TestData {
 		}
 	}
 	public final Spec getSpec(ServletTester tester){
-		if(this.spec != null){
-		CSPManager cspm=new CSPManagerImpl();
-		cspm.register(new CoreConfig());
-		cspm.register(new Spec());
-		try {
-			cspm.go();
-			tester.getAttribute("config-filename");
-			String filename=(String)tester.getAttribute("config-filename");
-			cspm.configure(getSource(filename),new ConfigFinder(null));
-		} catch (CSPDependencyException e) {
-			log.error("CSPManagerImpl failed");
-			log.error(e.getLocalizedMessage() );
-		}
-		
-
-		ConfigRoot root=cspm.getConfigRoot();
-		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
-		this.spec = spec;
+		if(this.spec == null){
+			CSPManager cspm=new CSPManagerImpl();
+			cspm.register(new CoreConfig());
+			cspm.register(new Spec());
+			try {
+				cspm.go();
+				tester.getAttribute("config-filename");
+				String filename=(String)tester.getAttribute("config-filename");
+				cspm.configure(getSource(filename),new ConfigFinder(null));
+			} catch (CSPDependencyException e) {
+				log.info("CSPManagerImpl failed");
+				log.info(e.getLocalizedMessage() );
+			}
+	
+			ConfigRoot root=cspm.getConfigRoot();
+			Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+			this.spec = spec;
 		}
 		return this.spec;
-		
 	}
 
 	public JSONObject getDefaultUser(ServletTester tester){
@@ -119,9 +117,7 @@ public class TestData {
 		}
 		return user;
 	}
-	
-	
-	
+
 	private JSONObject addData(String jsonfile){
 		JSONObject userObj = getJSON(jsonfile);
 		return userObj;
