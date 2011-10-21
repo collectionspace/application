@@ -43,6 +43,7 @@ public class TestOrgThroughWebapp  {
 
 	//need a begin function that creates the default person if it is missing?
 	@Before public  void testCreateAuth() throws Exception {
+		log.info("org_before");
 			HttpTester out = testbase.GETData("/vocabularies/organization/",jetty);
 			log.info(out.getContent());
 			JSONObject test2 = new JSONObject(out.getContent());
@@ -408,9 +409,8 @@ public class TestOrgThroughWebapp  {
 	@Test
 	public void testAutocompleteRedirect() throws Exception {
 		log.info("ORG : AutocompleteRedirect : test_start");
-		ServletTester jetty2=testbase.setupJetty();
 		HttpTester out = testbase.GETData("/cataloging/source-vocab/contentOrganization",
-				jetty2);
+				jetty);
 		JSONArray data = new JSONArray(out.getContent());
 		boolean test = false;
 		for (int i = 0; i < data.length(); i++) {
@@ -421,6 +421,5 @@ public class TestOrgThroughWebapp  {
 		}
 		assertTrue("correct vocab not found", test);
 		log.info("ORG : AutocompleteRedirect : test_end");
-		testbase.stopJetty(jetty2);
 	}
 }
