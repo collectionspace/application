@@ -20,7 +20,8 @@ public class TestConfigFinder {
 	public static InputSource getConfigStream(String filename) throws CSPDependencyException {
 		try {
 			ConfigFinder cfg=new ConfigFinder(null);
-			InputSource out=cfg.resolveEntity("-//CSPACE//ROOT",filename);
+			//InputSource out=cfg.resolveEntity("-//CSPACE//ROOT",filename);
+			InputSource out=cfg.resolveEntity("-//CSPACE//TESTROOT",filename);
 			if(out!=null)
 				return out;		
 			throw new CSPDependencyException("No config file found by any method");

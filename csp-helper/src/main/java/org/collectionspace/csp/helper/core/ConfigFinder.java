@@ -142,6 +142,8 @@ public class ConfigFinder implements EntityResolver {
 			if(out!=null)
 				return new InputSource(out);
 			if(ctx!=null && "-//CSPACE//ROOT".equals(publicId)) {
+				if(out!=null)
+					return new InputSource(out);		
 				out=getDataFromAttribute();
 				if(out!=null)
 					return new InputSource(out);
@@ -151,6 +153,13 @@ public class ConfigFinder implements EntityResolver {
 				out=getDataFromName();
 				if(out!=null)
 					return new InputSource(out);
+			
+			}
+//use config from tomcat-main/src/main/resources if this is a test run by mvn
+			if("-//CSPACE//TESTROOT".equals(publicId)){
+				out=getConfigStreamViaClassLoader(systemId);
+				if(out!=null)
+					return new InputSource(out);		
 			}
 			out=getDataFromJBossPath(systemId);
 			if(out!=null)
