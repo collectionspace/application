@@ -73,10 +73,14 @@ public class TestData {
 	private  InputSource getSource(String fallbackFile) {
         TestData demo = new TestData();
 		try {
-			return TestConfigFinder.getConfigStream();
-		} catch (CSPDependencyException e) {
-			String name=demo.getClass().getPackage().getName().replaceAll("\\.","/")+"/"+fallbackFile;
-			return new InputSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
+			return TestConfigFinder.getConfigStream(fallbackFile);
+		} catch(Exception ce){	
+			try{
+				return TestConfigFinder.getConfigStream();
+			} catch (CSPDependencyException e) {
+				String name=demo.getClass().getPackage().getName().replaceAll("\\.","/")+"/"+fallbackFile;
+				return new InputSource(Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
+			}
 		}
 	}
 	public final Spec getSpec(ServletTester tester){
@@ -91,6 +95,7 @@ public class TestData {
 				cspm.configure(getSource(filename),new ConfigFinder(null));
 			} catch (CSPDependencyException e) {
 				log.info("CSPManagerImpl failed");
+				log.info(tester.getAttribute("config-filename").toString());
 				log.info(e.getLocalizedMessage() );
 			}
 	
