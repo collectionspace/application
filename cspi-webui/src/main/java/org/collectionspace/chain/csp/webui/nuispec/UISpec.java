@@ -318,7 +318,7 @@ public class UISpec implements WebMethod {
 		JSONObject out = new JSONObject();
 		JSONArray decorator = new JSONArray();
 		JSONObject options = new JSONObject();
-		if(f.getParent() instanceof Repeat){
+		if(f.getParent() instanceof Repeat && !(((Repeat)f.getParent()).getSearchType().equals("repeator" ) && !this.spectype.equals("search")) ){
 			options.put("elPath", f.getID());
 			options.put("root", "{row}");
 		}

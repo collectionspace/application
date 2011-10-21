@@ -210,13 +210,12 @@
         },
         ".csc-location-createdAt": "${fields.createdAt}",
         ".csc-location-accessNote": "${fields.accessNote}",
-        ".csc-location-type": {
+		".csc-location-type": {
             "decorators": [{
                 "func": "cspace.termList",
                 "type": "fluid",
                 "options": {
-                    "root": "{row}",
-                    "elPath": "locationType",
+                    "elPath": "fields.locationType",
                     "termListType": "locationType"
                 }
             }]
