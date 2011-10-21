@@ -215,8 +215,7 @@
                 "func": "cspace.termList",
                 "type": "fluid",
                 "options": {
-                    "root": "{row}",
-                    "elPath": "locationType",
+                    "elPath": "fields.locationType",
                     "termListType": "locationType"
                 }
             }]
