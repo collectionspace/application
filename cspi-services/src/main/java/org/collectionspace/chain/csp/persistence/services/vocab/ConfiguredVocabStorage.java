@@ -23,6 +23,8 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDoc
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
+import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
+import org.collectionspace.chain.csp.persistence.services.vocab.RefName;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
@@ -367,7 +369,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 							scsid=node.selectSingleNode("subject/csid").getText();
 							String sname=node.selectSingleNode("subject/name").getText();
 							sser=node.selectSingleNode("subject/documentType").getText();
-							String[] urnbits = surl.split("/");
+							suri = node.selectSingleNode("subject/refName").getText();
 					//		suri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],sname);
 					//		RefName.Authority authority2 = RefName.Authority.parse(RefName.AUTHORITY_EXAMPLE2);
 					//        RefName.AuthorityItem item3 = RefName.buildAuthorityItem(authority2,
@@ -383,6 +385,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 							String oname=node.selectSingleNode("object/name").getText();
 							oser=node.selectSingleNode("object/documentType").getText();
 							String[] urnbits = ourl.split("/");
+							ouri = node.selectSingleNode("object/refName").getText();
 					//		ouri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],oname);
 						}
 
@@ -421,6 +424,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 								out.put(newrel.getID(), relateduri);
 								if(newrel.showSiblings()){
 									out.put(newrel.getSiblingChild(), relatedser+"/"+relatedcsid);
+									//out.put(newrel.getSiblingChild(), relateduri);
 								}
 							}
 						}
