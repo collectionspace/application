@@ -49,37 +49,49 @@ public class TestOrgThroughWebapp  {
 			JSONObject test2 = new JSONObject(out.getContent());
 			if(test2.has("isError") && test2.getBoolean("isError")){
 				//create the person authority
+				log.info("create organization");
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Default Organization Authority','shortIdentifier':'organization','vocabType':'OrgAuthority'}}");
 				out = testbase.POSTData("/authorities/organization/",data,jetty);	
+				log.info(out.getContent());
 			}
 
+			log.info("org_before1");
 			out = testbase.GETData("/vocabularies/organizationtest/",jetty);
 			log.info(out.getContent());
 			test2 = new JSONObject(out.getContent());
 			if(test2.has("isError") && test2.getBoolean("isError")){
 				//create the person authority
+				log.info("create organizationtest");
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Test Organization Authority','shortIdentifier':'organizationtest','vocabType':'OrgAuthority'}}");
-				out = testbase.POSTData("/authorities/organization/",data,jetty);	
+				out = testbase.POSTData("/authorities/organization/",data,jetty);
+				log.info(out.getContent());	
 			}
-			
+
+			log.info("org_before2");
 			out = testbase.GETData("/vocabularies/person/",jetty);
 			log.info(out.getContent());
 			JSONObject test = new JSONObject(out.getContent());
 			if(test.has("isError") && test.getBoolean("isError")){
 				//create the person authority
+				log.info("create person");
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Default Person Authority','shortIdentifier':'person','vocabType':'PersonAuthority'}}");
 				out = testbase.POSTData("/authorities/person/",data,jetty);	
+				log.info(out.getContent());
 			}
 
+			log.info("org_before3");
 			out = testbase.GETData("/vocabularies/persontest1/",jetty);
 			log.info(out.getContent());
 			test = new JSONObject(out.getContent());
 			if(test.has("isError") && test.getBoolean("isError")){
 				//create the person authority
+				log.info("create persontest1");
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 1','shortIdentifier':'persontest1','vocabType':'PersonAuthority'}}");
 				out = testbase.POSTData("/authorities/person/",data,jetty);	
+				log.info(out.getContent());
 			}
-			
+
+			log.info("org_before4");
 			out = testbase.GETData("/vocabularies/persontest2/",jetty);
 			log.info(out.getContent());
 			test = new JSONObject(out.getContent());
@@ -87,7 +99,9 @@ public class TestOrgThroughWebapp  {
 				//create the person authority
 				JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 2','shortIdentifier':'persontest2','vocabType':'PersonAuthority'}}");
 				out = testbase.POSTData("/authorities/person/",data,jetty);	
+				log.info(out.getContent());
 			}
+			log.info("org_after");
 		}
 	
 	/**
