@@ -104,6 +104,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			JSONObject data=request.getJSONBody();
+			String redirectpath = "";
 
 			//is this an instance or an item?
 			if(this.r == null && this.n != null){
@@ -120,15 +121,18 @@ public class VocabulariesCreateUpdate implements WebMethod {
 					newdata.put("label",data.getJSONObject("fields").getString(this.n.getRecord().getDisplayNameField().getID()));
 					data = newdata;
 				}
+				redirectpath = n.getWebURL();
 			}
 			if(this.r != null && this.n == null){
 				path = createInstance(storage,request,path,data);
+				redirectpath = data.getJSONObject("fields").getString("shortIdentifier");
 			}
 			
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 			if(create)
-				request.setSecondaryRedirectPath(new String[]{n.getWebURL(),path});
+				request.setSecondaryRedirectPath(new String[]{redirectpath,path});
+				//request.setSecondaryRedirectPath(new String[]{n.getWebURL(),path});
 		} catch (JSONException x) {
 			throw new UIException("Failed to parse json: ",x);
 		} catch (ExistException x) {
