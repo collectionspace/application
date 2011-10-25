@@ -372,6 +372,7 @@
                     </repeat>
                     <field id="dimensionSummary"></field>
                     <repeat id="dimensions/dimensionGroup">
+                    	<field id="measuredBy"  autocomplete="person-person,organization-organization"></field>
                         <field id="dimension" seperate_ui_container="true">
                             <selector>object-description-dimension</selector>
                             <options>

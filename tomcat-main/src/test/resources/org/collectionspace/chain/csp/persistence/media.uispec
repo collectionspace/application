@@ -113,14 +113,14 @@
         ".csc-media-tenantID-label": {
             "messagekey": "media-tenantIDLabel"
         },
-        ".csc-media-dateCreated-label": {
-            "messagekey": "media-dateCreatedLabel"
-        },
         ".csc-media-rightsHolder-label": {
             "messagekey": "media-rightsHolderLabel"
         },
         ".csc-media-subject-label": {
             "messagekey": "media-subjectLabel"
+        },
+        ".csc-media-dateCreated-label": {
+            "messagekey": "media-dateCreatedLabel"
         },
         ".csc-media-updatedAt-label": {
             "messagekey": "media-updatedAtLabel"
@@ -198,7 +198,18 @@
                     }],
                     "value": "${{row}.value}"
                 },
-                ".csc-blobs-measuredBy": "${{row}.measuredBy}",
+                ".csc-blobs-measuredBy": {
+                    "decorators": [{
+                        "func": "cspace.autocomplete",
+                        "type": "fluid",
+                        "options": {
+                            "queryUrl": "../../../tenant/core/blobs/autocomplete/measuredBy",
+                            "vocabUrl": "../../../tenant/core/blobs/source-vocab/measuredBy"
+                        }
+                    }],
+                    "value": "${{row}.measuredBy}"
+                },
+                ".csc-blobs-measuredPart": "${{row}.measuredPart}",
                 ".csc-blobs-valueQualifier": "${{row}.valueQualifier}",
                 ".csc-blobs-valueDate": "${{row}.valueDate}",
                 ".csc-blobs-dimension": "${{row}.dimension}",
@@ -422,6 +433,9 @@
         ".csc-media-identificationNumber-label": {
             "messagekey": "media-identificationNumberLabel"
         },
+        ".csc-media-measuredPart-label": {
+            "messagekey": "media-measuredPartLabel"
+        },
         ".csc-blobs-mimeType": "${fields.blobs.0.mimeType}",
         ".csc-media-createdBy": "${fields.createdBy}",
         ".csc-media-updatedBy": "${fields.updatedBy}",
@@ -457,6 +471,11 @@
                                             "optionnames": ["Carats", "Centimeters", "Cubic Centimeters", "Feet", "Inches", "Kilograms", "Liters", "Meters", "Millimeters", "Minutes", "Pixels", "Please select a value", "Square Feet", "Stories"],
                                             "optionlist": ["", "carats", "centimeters", "cubic_centimeters", "feet", "inches", "kilograms", "liters", "meters", "millimeters", "minutes", "pixels", "square_feet", "stories"],
                                             "selection": "${{row}.measurementUnit}"
+                                        },
+                                        ".csc-media-measuredPart": {
+                                            "optionnames": ["Please select a value", "base", "frame", "framed", "image size", "mount", "paper size", "plate size", "unframed"],
+                                            "optionlist": ["", "base", "frame", "framed", "image-size", "mount", "paper-size", "plate-size", "unframed"],
+                                            "selection": "${{row}.measuredPart}"
                                         },
                                         ".csc-media-measuredBy": {
                                             "decorators": [{
@@ -519,3 +538,4 @@
         ".csc-media-dimensionSummary": "${fields.dimensionSummary}"
     }
 }
+

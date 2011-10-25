@@ -29,7 +29,8 @@
                     <field id="id"></field>
                     <repeat id="dimensionGroupList/dimensionGroup" as-expander="true" attributes="GET">
                         <field id="dimension"></field>
-                        <field id="measuredBy"></field>
+                        <field id="measuredBy" autocomplete="person-person,organization-organization"></field>
+                        <field id="measuredPart"></field>
                         <field id="measurementUnit"></field>
                         <field id="measurementMethod"></field>
                         <field id="value" ui-type="validated" datatype="float"></field>

@@ -1,5 +1,5 @@
 {
-"recordEditor": {
+    "recordEditor": {
         ".csc-collection-object-assocPeopleGroup-label": {
             "messagekey": "collection-object-assocPeopleGroupLabel"
         },
@@ -548,6 +548,9 @@
                 }
             }]
         },
+        ".csc-collection-object-measuredBy-label": {
+            "messagekey": "collection-object-measuredByLabel"
+        },
         ".csc-object-description-inscription-description-date": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -646,6 +649,9 @@
         ".csc-collection-object-assocEventPeoples-label": {
             "messagekey": "collection-object-assocEventPeoplesLabel"
         },
+        ".csc-collection-object-ownersContributionNote-label": {
+            "messagekey": "collection-object-ownersContributionNoteLabel"
+        },
         ".csc-collection-object-contentOtherGroup": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -671,9 +677,6 @@
                     }
                 }
             }]
-        },
-        ".csc-collection-object-ownersContributionNote-label": {
-            "messagekey": "collection-object-ownersContributionNoteLabel"
         },
         ".csc-collection-object-contentLanguages-label": {
             "messagekey": "collection-object-contentLanguagesLabel"
@@ -1102,6 +1105,17 @@
                                             }],
                                             "value": "${{row}.valueDate}"
                                         },
+                                        ".csc-collection-object-measuredBy": {
+                                            "decorators": [{
+                                                "func": "cspace.autocomplete",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/measuredBy",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/measuredBy"
+                                                }
+                                            }],
+                                            "value": "${{row}.measuredBy}"
+                                        },
                                         ".csc-object-description-dimension-value": {
                                             "decorators": [{
                                                 "func": "cspace.inputValidator",
@@ -1303,11 +1317,11 @@
         ".csc-collection-object-comment-label": {
             "messagekey": "collection-object-commentLabel"
         },
-        ".csc-collection-object-objectProductionPersonGroup-label": {
-            "messagekey": "collection-object-objectProductionPersonGroupLabel"
-        },
         ".csc-collection-object-ownersReference-label": {
             "messagekey": "collection-object-ownersReferenceLabel"
+        },
+        ".csc-collection-object-objectProductionPersonGroup-label": {
+            "messagekey": "collection-object-objectProductionPersonGroupLabel"
         },
         ".csc-collection-object-assocObjectType-label": {
             "messagekey": "collection-object-assocObjectTypeLabel"
@@ -2713,3 +2727,4 @@
         }
     }
 }
+

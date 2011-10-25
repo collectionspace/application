@@ -624,6 +624,9 @@
                     "dimensionGroup": {
                         "items": {
                             "properties": {
+                                "measuredBy": {
+                                    "type": "string"
+                                },
                                 "dimension": {
                                     "default": "",
                                     "type": "string"
