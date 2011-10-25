@@ -34,11 +34,12 @@ public class UIException extends Exception {
 		String parent_msg = super.getMessage();
 		String msg = "";
 		if(this.url!=null){
+			//don't show url at the moment
 			msg += " URL:"+this.url+":";
 		}
 		if(this.status!=null){
-
-			msg += " STATUS:"+Integer.toString(this.status)+":";
+//don't show status at the moment
+			//msg += " STATUS:"+Integer.toString(this.status)+":";
 		}
 		msg += parent_msg;
 		return msg;
