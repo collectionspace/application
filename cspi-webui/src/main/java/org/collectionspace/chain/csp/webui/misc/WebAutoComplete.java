@@ -77,32 +77,43 @@ public class WebAutoComplete implements WebMethod {
 		
 		//support multiassign of autocomplete instances
 		for(Instance n : allInstances) {
-			if(n==null){
-				// Field has no autocomplete
+			try{
+				if(n==null){
+					// Field has no autocomplete
+				}
+				else{
+					String path=n.getRecord().getID()+"/"+n.getTitleRef();
+					JSONObject restriction=new JSONObject();
+					if(pageSize!=null) {
+						restriction.put("pageSize",pageSize);
+					}
+					if(pageNum!=null) {
+						restriction.put("pageNum",pageNum);
+					}
+					restriction.put(n.getRecord().getDisplayNameField().getID(),start); // May be something other than display name
+					
+					JSONObject results = storage.getPathsJSON(path,restriction);
+					String[] paths = (String[]) results.get("listItems");
+					for(String csid : paths) {
+						JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view", new JSONObject());
+						JSONObject entry=new JSONObject();
+						entry.put("urn",data.get("refid"));
+						entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));
+						entry.put("csid",data.getString("csid"));
+						entry.put("type",n.getRecord().getWebURL());
+						out.put(entry);
+					}
+				}
 			}
-			else{
-				String path=n.getRecord().getID()+"/"+n.getTitleRef();
-				JSONObject restriction=new JSONObject();
-				if(pageSize!=null) {
-					restriction.put("pageSize",pageSize);
+			catch(UnderlyingStorageException x){
+				if(x.getStatus() == 403){ 
+					//permission error - keep calm and carry on
 				}
-				if(pageNum!=null) {
-					restriction.put("pageNum",pageNum);
-				}
-				restriction.put(n.getRecord().getDisplayNameField().getID(),start); // May be something other than display name
-				
-				JSONObject results = storage.getPathsJSON(path,restriction);
-				String[] paths = (String[]) results.get("listItems");
-				for(String csid : paths) {
-					JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view", new JSONObject());
-					JSONObject entry=new JSONObject();
-					entry.put("urn",data.get("refid"));
-					entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));
-					entry.put("csid",data.getString("csid"));
-					entry.put("type",n.getRecord().getWebURL());
-					out.put(entry);
+				else{
+					throw x;
 				}
 			}
+			
 		}
 		
 		//Instance n=((Field)fs).getAutocompleteInstance();

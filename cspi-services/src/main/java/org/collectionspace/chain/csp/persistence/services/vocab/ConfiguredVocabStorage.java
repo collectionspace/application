@@ -503,9 +503,9 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			Document doc=data.getDocument();
-			//log.info(doc.asXML());
+
 			if(doc==null)
-				throw new UnderlyingStorageException("Could not retrieve vocabularies",500,path);
+				throw new UnderlyingStorageException("Could not retrieve vocabularies",data.getStatus(),path);
 			String[] tag_parts=r.getServicesListPath().split(",",2);
 			
 			JSONObject pagination = new JSONObject();
