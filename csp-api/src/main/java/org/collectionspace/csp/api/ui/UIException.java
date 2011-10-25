@@ -35,7 +35,7 @@ public class UIException extends Exception {
 		String msg = "";
 		if(this.url!=null){
 			//don't show url at the moment
-			msg += " URL:"+this.url+":";
+			//msg += " URL:"+this.url+":";
 		}
 		if(this.status!=null){
 //don't show status at the moment
