@@ -75,9 +75,12 @@ public class VocabulariesCreateUpdate implements WebMethod {
 			}
 		}
 		if(create) {
-			//if(!data.has("csid")){//need a better check for autocomplete add's
-			//	this.quickie = true;
-			//}
+			if(data.has("_view") && data.getString("_view").equals("autocomplete")){//need a better check for autocomplete add's
+				this.quickie = true;
+			}
+			else{
+				this.quickie = false;
+			}
 			path=sendJSON(storage,null,data);
 		} else
 			path=sendJSON(storage,path,data);
