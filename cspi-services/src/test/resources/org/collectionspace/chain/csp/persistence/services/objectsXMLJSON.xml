@@ -156,10 +156,11 @@
 </contentScripts>
 <copyNumber>copyNumber</copyNumber>
 <!-- Object Description - Dimension Information -->
+<!-- 
 <dimensions>
 	<dimensionGroup>
 		<dimension>dimension</dimension>
-		<measuredBy>measuredBy</measuredBy>
+		<measuredBy></measuredBy>
 		<measuredPart>measuredPart</measuredPart>
 		<measurementUnit>measurementUnit</measurementUnit>
 		<value>value</value>
@@ -167,6 +168,7 @@
 		<valueQualifier>valueQualifier</valueQualifier>
 	</dimensionGroup>
 </dimensions>
+-->
 <editionNumber></editionNumber>
 <forms>
     <form></form>
