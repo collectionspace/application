@@ -64,8 +64,28 @@ public class WebReset implements WebMethod {
 				String[] paths = (String[]) data.get("listItems");
 				for(String dir : paths) {
 					log.info(dir);
-					// XXX yuck!
-					// ignore authorities
+					Record r = this.spec.getRecord(dir);
+					if(r.isType("procedure")){
+						if("termlistitem".equals(dir) ||"termlist".equals(dir))
+							continue;
+					}
+					else if(r.isType("authority")){
+						continue;
+					}
+					else if(r.isType("record")){
+						log.info("S");
+					}
+					else if(r.isType("authorizationdata")){
+						continue;
+					}
+					else if(r.isType("userdata")){
+						continue;
+					}
+					else{
+						//ignore - have no idea what it is
+						continue;
+					}
+					
 					if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "location".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "taxon".equals(dir)){
 						continue;
 					}
