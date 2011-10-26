@@ -214,8 +214,12 @@ public class GenericStorage  implements ContextualisedStorage {
 	 */
 	public JSONObject miniViewRetrieveJSON(CSPRequestCache cache,CSPRequestCredentials creds,String filePath,String extra, String cachelistitem, Record thisr) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException {
 		if(cachelistitem==null){
-			cachelistitem = thisr.getServicesURL()+"/"+filePath;
+			cachelistitem = "/"+thisr.getServicesURL()+"/"+filePath;
 		}
+
+		if(!cachelistitem.startsWith("/")){
+			cachelistitem = "/"+cachelistitem;
+		
 		JSONObject out=new JSONObject();
 		JSONObject summarylist=new JSONObject();
 		String summarylistname = "summarylist_";

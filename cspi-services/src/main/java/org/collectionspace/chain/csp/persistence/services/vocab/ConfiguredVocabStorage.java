@@ -545,7 +545,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 									value+=n.getText();
 								}
 							}
-							setGleanedValue(cache,vocab+"/"+csid,json_name,value);
+							setGleanedValue(cache,url+"/"+csid,json_name,value);
 						}
 					}
 					/* this hopefully will reduce fan out - needs more testing */
@@ -555,7 +555,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						for(String s : allfields){
 							String gleaned = getGleanedValue(cache,vocab+"/"+csid,s);
 							if(gleaned==null){
-								setGleanedValue(cache,vocab+"/"+csid,s,"");
+								setGleanedValue(cache,url+"/"+csid,s,"");
 							}
 						}
 					}
