@@ -8,6 +8,7 @@
     <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 
 	<web-url>reporting</web-url>
+    <authorization-view>false</authorization-view>
             
 	<terms-used>false</terms-used>
 	<refobj-used>false</refobj-used>    
