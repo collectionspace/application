@@ -903,7 +903,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				g4 = cached.getString("csid");
 				
 			}
-			out.put(getDisplayNameKey(), g2);
+			out.put(getDisplayNameKey(), g3);
 			out.put("refid", g1);
 			out.put("csid", g4);
 			//out.put("authorityid", cached.get("authorityid"));
