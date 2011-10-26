@@ -164,6 +164,7 @@
     },
     "dimensionGroup": [{
         "_primary": true,
+		"measuredBy":"measuredBy",
         "dimension": "dimension",
         "valueDate": "valueDate",
         "measuredPart": "measuredPart",

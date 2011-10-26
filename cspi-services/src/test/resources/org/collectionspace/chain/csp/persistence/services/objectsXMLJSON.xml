@@ -159,6 +159,7 @@
 <dimensions>
 	<dimensionGroup>
 		<dimension>dimension</dimension>
+		<measuredBy>measuredBy</measuredBy>
 		<measuredPart>measuredPart</measuredPart>
 		<measurementUnit>measurementUnit</measurementUnit>
 		<value>value</value>
