@@ -32,6 +32,7 @@ import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.mortbay.jetty.testing.HttpTester;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -122,15 +123,40 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 	}
 	
 	private void initializeVocab(Storage storage,UIRequest request,String path) throws UIException {
+		try{
+			if(n==null) {
+				// For now simply loop thr all the instances one after the other.
+				for(Instance n : r.getAllInstances()) {
+					log.info(n.getID());
+					//does instance exist?
+	
+					String url = r.getID()+"/"+n.getTitleRef();
+					try{
+						storage.getPathsJSON(url,new JSONObject()).toString();
+						log.info("Instance " + n.getID()+ " Exists");
+					}
+					catch (UnderlyingStorageException x) {
 
-		if(n==null) {
-			// For now simply loop thr all the instances one after the other.
-			for(Instance n : r.getAllInstances()) {
+						log.info("need to create Instance " + n.getID());
+						JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+						String base=r.getID();
+						storage.autocreateJSON(base,fields);
+					}
+					resetvocabdata(storage, request, n);
+				}
+			} else {
 				log.info(n.getID());
-				resetvocabdata(storage, request, n);
+				resetvocabdata(storage, request, this.n);
 			}
-		} else {
-			resetvocabdata(storage, request, this.n);
+		} catch (JSONException e) {
+			throw new UIException("Cannot generate JSON",e);
+		} catch (ExistException e) {
+			throw new UIException("Exist exception",e);
+		} catch (UnimplementedException e) {
+			throw new UIException("Unimplemented exception",e);
+		} catch (UnderlyingStorageException x) {
+			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
+			request.sendJSONResponse(uiexception.getJSON());
 		}
 	}
 	
@@ -178,7 +204,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		createVocab(storage, ins.getRecord(), ins, null, allOpts, false);
 	}
 	
-	private void resetvocabdata(Storage storage,UIRequest request, Instance instance) throws UIException {
+	private void resetvocabdata(Storage storage,UIRequest request, Instance instance) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		TTYOutputter tty=request.getTTYOutputter();
 
 		tty.line("Initializing Vocab "+instance.getID());
@@ -224,19 +250,8 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			allOpts = instance.getAllOptions();
 		}
 
-		try {
-			createVocab(storage, r, instance, tty, allOpts, this.append);
+		createVocab(storage, r, instance, tty, allOpts, this.append);
 
-		} catch (JSONException e) {
-			throw new UIException("Cannot generate JSON",e);
-		} catch (ExistException e) {
-			throw new UIException("Exist exception",e);
-		} catch (UnimplementedException e) {
-			throw new UIException("Unimplemented exception",e);
-		} catch (UnderlyingStorageException x) {
-			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
-			request.sendJSONResponse(uiexception.getJSON());
-		}
 	}
 	
 	private void createVocab(Storage storage, Record thisr,
