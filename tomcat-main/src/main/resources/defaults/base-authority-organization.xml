@@ -113,6 +113,9 @@
                 </section>
                 <!-- not used in UI -->
                 <section>
-                    <field id="shortIdentifier"></field>
+                    <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
+                    <field id="csid" mini="search,list,relate" attributes="GET"></field>
+                    <field id="refName" mini="search,list,relate" attributes="GET"></field>
+                    <field id="uri" mini="search,list,relate" attributes="GET"></field>
                 </section>
             </record>
