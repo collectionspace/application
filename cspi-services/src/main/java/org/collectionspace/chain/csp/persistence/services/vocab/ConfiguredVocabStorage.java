@@ -543,7 +543,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 									value+=n.getText();
 								}
 							}
-							setGleanedValue(cache,vocab+"/"+csid,json_name,value);
+							setGleanedValue(cache,url+"/"+csid,json_name,value);
 						}
 					}
 					/* this hopefully will reduce fan out - needs more testing */
@@ -553,7 +553,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						for(String s : allfields){
 							String gleaned = getGleanedValue(cache,vocab+"/"+csid,s);
 							if(gleaned==null){
-								setGleanedValue(cache,vocab+"/"+csid,s,"");
+								setGleanedValue(cache,url+"/"+csid,s,"");
 							}
 						}
 					}
@@ -881,15 +881,31 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	protected JSONObject miniViewAbstract(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,JSONObject out, String servicepath, String filePath) throws UnderlyingStorageException{
 		try{
 			//actually use cache
-		//CACHE?
-			
-			JSONObject cached =  get(storage, creds,cache,servicepath,filePath);
-		
-			out.put(getDisplayNameKey(), cached.get("displayName"));
-			out.put("refid", cached.get("refid"));
-			out.put("csid", cached.get("csid"));
-			out.put("authorityid", cached.get("authorityid"));
-			out.put("shortIdentifier", cached.get("shortIdentifier"));
+			String cachelistitem = "/"+servicepath;
+			if(filePath !=null){
+				cachelistitem = cachelistitem+"/"+filePath;
+			}
+
+			if(!cachelistitem.startsWith("/")){
+				cachelistitem = "/"+cachelistitem;
+			}
+			String g1=getGleanedValue(cache,cachelistitem,"refName");
+			String g2=getGleanedValue(cache,cachelistitem,"shortIdentifier");
+			String g3=getGleanedValue(cache,cachelistitem,"displayName");
+			String g4=getGleanedValue(cache,cachelistitem,"csid");
+			if(g1==null|| g2==null||g3==null||g4==null){
+				JSONObject cached =  get(storage, creds,cache,servicepath,filePath);
+				g1 = cached.getString("refid");
+				g2 = cached.getString("shortIdentifier");
+				g3 = cached.getString("displayName");
+				g4 = cached.getString("csid");
+				
+			}
+			out.put(getDisplayNameKey(), g2);
+			out.put("refid", g1);
+			out.put("csid", g4);
+			//out.put("authorityid", cached.get("authorityid"));
+			out.put("shortIdentifier", g2);
 			out.put("recordtype",r.getWebURL());
 			
 			return out;
