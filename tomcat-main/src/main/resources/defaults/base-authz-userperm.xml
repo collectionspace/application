@@ -8,6 +8,7 @@
                 <primaryfield>account/accountId</primaryfield>
                 <hasdeletemethod>true</hasdeletemethod>
                 <is-multipart>false</is-multipart>
+				<authorization-view>false</authorization-view>
                 <structures>
                     <structure id="screen">
                         <view>
