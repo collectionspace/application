@@ -219,7 +219,7 @@ public class GenericStorage  implements ContextualisedStorage {
 
 		if(!cachelistitem.startsWith("/")){
 			cachelistitem = "/"+cachelistitem;
-		
+		}
 		JSONObject out=new JSONObject();
 		JSONObject summarylist=new JSONObject();
 		String summarylistname = "summarylist_";
