@@ -119,5 +119,13 @@
                         </options>
                     </field>
                 </section>
+				
+                <!-- not used in UI except in autocompletes -->
+                <section>
+                    <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
+                    <field id="csid" mini="search,list,relate" attributes="GET"></field>
+                    <field id="refName" mini="search,list,relate" attributes="GET"></field>
+                    <field id="uri" mini="search,list,relate" attributes="GET"></field>
+                </section>
             </record>
             

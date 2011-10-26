@@ -111,7 +111,7 @@
                 </section>
                 <section id="contactInformation">
                 </section>
-                <!-- not used in UI -->
+                <!-- not used in UI except in autocompletes -->
                 <section>
                     <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
                     <field id="csid" mini="search,list,relate" attributes="GET"></field>

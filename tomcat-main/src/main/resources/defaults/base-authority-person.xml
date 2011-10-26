@@ -171,7 +171,7 @@
                 <section id="contactInformation">
                     <group id="contact" userecord="contact" ui-spec-inherit="false"  ui-spec-prefix="contact"  exists-in-services="false"></group>
                 </section>
-                <!-- not used in UI -->
+                <!-- not used in UI except in autocompletes -->
                 <section >
                     <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
                     <field id="csid" mini="search,list,relate" attributes="GET"></field>
