@@ -748,6 +748,13 @@ public class UISpec implements WebMethod {
 		if( parent == null){
 			parent = out;
 		}
+		if(fs instanceof Group){
+			Group gp = (Group)fs;
+			if(gp.isGrouped()){
+				JSONObject schemaprop = new JSONObject();
+				context.setPad(false);
+			}
+		}
 		generateSubRecord(subrecord, out,  repeated,  context, parent);
 		
 	}
