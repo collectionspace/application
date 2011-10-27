@@ -122,7 +122,7 @@
                         </enum>
                         <selector>acquisition-object-offer-price-currency</selector>
                     </field>
-                    <field id="objectOfferPriceValue">
+                    <field id="objectOfferPriceValue" ui-type="validated" datatype="float">
                         <selector>acquisition-object-offer-price-value</selector>
                     </field>
                     <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
