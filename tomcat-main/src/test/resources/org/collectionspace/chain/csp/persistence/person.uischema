@@ -287,6 +287,12 @@
                     "tenantID": {
                         "type": "string"
                     },
+                    "csid": {
+                        "type": "string"
+                    },
+                    "uri": {
+                        "type": "string"
+                    },
                     "deathPlace": {
                         "type": "string"
                     },
@@ -297,6 +303,9 @@
                         "type": "string"
                     },
                     "broaderContext": {
+                        "type": "string"
+                    },
+                    "refName": {
                         "type": "string"
                     },
                     "salutation": {

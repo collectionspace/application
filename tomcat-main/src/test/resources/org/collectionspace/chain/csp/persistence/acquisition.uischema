@@ -140,7 +140,7 @@
                         "type": "string"
                     },
                     "objectOfferPriceValue": {
-                        "type": "string"
+                        "type": "float"
                     },
                     "originalObjectPurchasePriceValue": {
                         "type": "float"
@@ -190,3 +190,4 @@
         "type": "object"
     }
 }
+

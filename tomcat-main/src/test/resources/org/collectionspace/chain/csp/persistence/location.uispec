@@ -205,6 +205,7 @@
         ".csc-location-shortIdentifier": "${fields.shortIdentifier}",
         ".csc-location-updatedBy": "${fields.updatedBy}",
         ".csc-location-createdBy": "${fields.createdBy}",
+        ".csc-location-uri": "${fields.uri}",
         ".csc-location-accessNote-label": {
             "messagekey": "location-accessNoteLabel"
         },
@@ -220,6 +221,7 @@
                 }
             }]
         },
+        ".csc-location-csid": "${fields.csid}",
         ".csc-location-termStatus": {
             "default": "provisional",
             "optionnames": ["Accepted", "Provisional", "Rejected", "Under Review"],
@@ -228,6 +230,9 @@
         },
         ".csc-location-createdBy-label": {
             "messagekey": "location-createdByLabel"
+        },
+        ".csc-location-uri-label": {
+            "messagekey": "location-uriLabel"
         },
         ".csc-location-updatedAt-label": {
             "messagekey": "location-updatedAtLabel"
@@ -239,6 +244,9 @@
         ".csc-location-createdAt-label": {
             "messagekey": "location-createdAtLabel"
         },
+        ".csc-location-refName-label": {
+            "messagekey": "location-refNameLabel"
+        },
         ".csc-location-conditionNote-label": {
             "messagekey": "location-conditionNoteLabel"
         },
@@ -249,6 +257,10 @@
             "messagekey": "location-nameLabel"
         },
         ".csc-location-displayName": "${fields.displayName}",
+        ".csc-location-csid-label": {
+            "messagekey": "location-csidLabel"
+        },
+        ".csc-location-refName": "${fields.refName}",
         ".csc-location-updatedAt": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -259,11 +271,11 @@
         ".csc-location-conditionNoteDate-label": {
             "messagekey": "location-conditionNoteDateLabel"
         },
-        ".csc-location-securityNote-label": {
-            "messagekey": "location-securityNoteLabel"
-        },
         ".csc-location-updatedBy-label": {
             "messagekey": "location-updatedByLabel"
+        },
+        ".csc-location-securityNote-label": {
+            "messagekey": "location-securityNoteLabel"
         }
     }
 }

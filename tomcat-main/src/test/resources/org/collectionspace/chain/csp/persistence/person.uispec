@@ -308,11 +308,11 @@
             "messagekey": "person-surNameLabel"
         },
         ".csc-person-shortIdentifier": "${fields.shortIdentifier}",
-        ".csc-person-updatedAt-label": {
-            "messagekey": "person-updatedAtLabel"
-        },
         ".csc-contact-telephoneNumber-label": {
             "messagekey": "contact-telephoneNumberLabel"
+        },
+        ".csc-person-updatedAt-label": {
+            "messagekey": "person-updatedAtLabel"
         },
         ".csc-person-shortIdentifier-label": {
             "messagekey": "person-shortIdentifierLabel"
@@ -320,6 +320,7 @@
         ".csc-person-gender-label": {
             "messagekey": "person-genderLabel"
         },
+        ".csc-person-uri": "${fields.uri}",
         ".csc-contact-webAddressGroup-label": {
             "messagekey": "contact-webAddressGroupLabel"
         },
@@ -376,6 +377,7 @@
         ".csc-contact-updatedBy-label": {
             "messagekey": "contact-updatedByLabel"
         },
+        ".csc-person-csid": "${fields.csid}",
         ".csc-contact-addressMunicipality-label": {
             "messagekey": "contact-addressMunicipalityLabel"
         },
@@ -408,9 +410,13 @@
         ".csc-person-foreName-label": {
             "messagekey": "person-foreNameLabel"
         },
+        ".csc-person-refName-label": {
+            "messagekey": "person-refNameLabel"
+        },
         ".csc-person-deathPlace-label": {
             "messagekey": "person-deathPlaceLabel"
         },
+        ".csc-person-refName": "${fields.refName}",
         ".csc-contact-addressStateOrProvince-label": {
             "messagekey": "contact-addressStateOrProvinceLabel"
         },
@@ -454,6 +460,9 @@
                     }
                 }
             }]
+        },
+        ".csc-person-uri-label": {
+            "messagekey": "person-uriLabel"
         },
         ".csc-personAuthority-name": "${fields.name}",
         ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
@@ -511,11 +520,11 @@
             "optionlist": ["", "Baron", "Baroness", "Dame", "Dr", "Lady", "Lord", "Miss", "Mr", "Mrs", "Ms", "Professor", "Sir"],
             "selection": "${fields.title}"
         },
-        ".csc-contact-faxNumber-label": {
-            "messagekey": "contact-faxNumberLabel"
-        },
         ".csc-person-nationality-label": {
             "messagekey": "person-nationalityLabel"
+        },
+        ".csc-contact-faxNumber-label": {
+            "messagekey": "contact-faxNumberLabel"
         },
         ".csc-person-createdBy": "${fields.createdBy}",
         ".csc-person-tenantID-label": {
@@ -527,11 +536,14 @@
         ".csc-contact-createdAt-label": {
             "messagekey": "contact-createdAtLabel"
         },
+        ".csc-person-createdBy-label": {
+            "messagekey": "person-createdByLabel"
+        },
         ".csc-person-personNameAuthorityInformation-label": {
             "messagekey": "person-personNameAuthorityInformationLabel"
         },
-        ".csc-person-createdBy-label": {
-            "messagekey": "person-createdByLabel"
+        ".csc-person-csid-label": {
+            "messagekey": "person-csidLabel"
         },
         ".csc-person-schoolsOrStyles-label": {
             "messagekey": "person-schoolsOrStylesLabel"
@@ -595,11 +607,10 @@
         ".csc-person-occupations-label": {
             "messagekey": "person-occupationsLabel"
         },
-        ".csc-contact-updatedAt": "${fields.contact.updatedAt}",
         ".csc-person-title-label": {
             "messagekey": "person-titleLabel"
         },
-        ".csc-personAuthority-foreName": "${fields.foreName}",
+        ".csc-contact-updatedAt": "${fields.contact.updatedAt}",
         ".csc-personAuthority-group": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -625,6 +636,7 @@
                 }
             }]
         },
+        ".csc-personAuthority-foreName": "${fields.foreName}",
         ".csc-person-termStatus-label": {
             "messagekey": "person-termStatusLabel"
         },
