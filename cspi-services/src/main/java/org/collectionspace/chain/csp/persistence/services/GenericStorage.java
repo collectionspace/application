@@ -1101,7 +1101,11 @@ public class GenericStorage  implements ContextualisedStorage {
 			
 			return url.getURLTail();
 		} catch (ConnectionException e) {
-			throw new UnderlyingStorageException(e.getMessage(),e.getStatus(), e.getUrl(),e);
+			String msg = e.getMessage();
+			if(e.getStatus() == 403){ //permissions error
+				msg += " permissions error";
+			}
+			throw new UnderlyingStorageException(msg,e.getStatus(), e.getUrl(),e);
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);
 		}
