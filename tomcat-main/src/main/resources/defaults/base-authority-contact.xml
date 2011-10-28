@@ -20,13 +20,7 @@
 				
 				<include src="domain-authority-contact.xml" />
 				
-                <instances>
-                    <instance id="contact-primary">
-                        <web-url>contact</web-url>
-                        <title-ref>contact</title-ref>
-                        <title>Default Contact Authority</title>
-                    </instance>
-                </instances>
+
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
 			        <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
