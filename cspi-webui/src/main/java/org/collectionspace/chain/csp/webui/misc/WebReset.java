@@ -33,9 +33,10 @@ import org.slf4j.LoggerFactory;
 public class WebReset implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(WebReset.class);
 	private boolean quick;
+	private boolean populate;
 	private Spec spec;
 
-	public WebReset(boolean in) { quick=in; }	
+	public WebReset(boolean in, boolean populate) { quick=in; this.populate = populate; }	
 
 	// XXX refactor
 	private JSONObject getJSONResource(String in) throws IOException, JSONException {	
@@ -52,12 +53,77 @@ public class WebReset implements WebMethod {
 		return data;
 	}
 
+	private void initialiseAll(Storage storage,UIRequest request,String path) throws UIException { 
+		TTYOutputter tty=request.getTTYOutputter();
+		try{
+			log.info("Initialise vocab/auth entries");
+			tty.line("Initialise vocab/auth entries");
+			// Delete existing vocab entries
+			JSONObject myjs = new JSONObject();
+			myjs.put("pageSize", "10");
+			myjs.put("pageNum", "0");
+			JSONObject data = storage.getPathsJSON("/",null);
+			String[] paths = (String[]) data.get("listItems");
+			for(String dir : paths) {
+				try{
+					if(this.spec.hasRecord(dir)){
+						Record r = this.spec.getRecord(dir);
+						if(r.isType("authority")){
+							log.info("testing Authority " +dir);
+							tty.line("testing Authority  " + dir);
+							for(Instance n : r.getAllInstances()) {
+								String url = r.getID()+"/"+n.getTitleRef();
+								try{
+									storage.getPathsJSON(url,new JSONObject()).toString();
+									log.info("Instance " + n.getID()+ " Exists");
+									tty.line("Instance " + n.getID()+ " Exists");
+								}
+								catch (UnderlyingStorageException x) {
+		
+									log.info("need to create Instance " + n.getID());
+									tty.line("need to create Instance " + n.getID());
+									JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+									String base=r.getID();
+									storage.autocreateJSON(base,fields);
+									log.info("Instance " + n.getID() + " Created");
+									tty.line("Instance " + n.getID() + " Created");
+								}							
+							}
+						}
+					}
+				}
+				catch(Exception e){
+					tty.line("that was weird but probably not a problem " + e.getMessage());
+					log.info("that was weird but probably not a problem " + e.getMessage());
+				}
+			}
+		
+		} catch (ExistException e) {
+			log.info("ExistException "+ e.getLocalizedMessage());
+			tty.line("ExistException "+ e.getLocalizedMessage());
+			throw new UIException("Existence problem",e);
+		} catch (UnimplementedException e) {
+			log.info("UnimplementedException "+ e.getLocalizedMessage());
+			tty.line("UnimplementedException "+ e.getLocalizedMessage());
+			throw new UIException("Unimplemented ",e);
+		} catch (UnderlyingStorageException x) {
+			log.info("UnderlyingStorageException "+ x.getLocalizedMessage());
+			tty.line("UnderlyingStorageException "+ x.getLocalizedMessage());
+			throw new UIException("Problem storing"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
+		} catch (JSONException e) {
+			log.info("JSONException "+ e.getLocalizedMessage());
+			tty.line("JSONException "+ e.getLocalizedMessage());
+			throw new UIException("Invalid JSON",e);
+		} 
+		
+		
+	}
 	private void reset(Storage storage,UIRequest request,String path) throws UIException { 
 		//remember to log into the fornt end before trying to run this
 		JSONObject data = new JSONObject();
+		TTYOutputter tty=request.getTTYOutputter();
 		// Temporary hack to reset db
 		try {
-			TTYOutputter tty=request.getTTYOutputter();
 			data = storage.getPathsJSON("/",null);
 			String[] paths = (String[]) data.get("listItems");
 			if(!path.equals("nodelete")){
@@ -132,6 +198,7 @@ public class WebReset implements WebMethod {
 					}					
 				}
 			}
+			
 			log.info("Creating records and procedures: this might take some time, go get a cup of tea and be patient");
 			tty.line("Creating records and procedures: this might take some time, go get a cup of tea and be patient");
 			// Create records anew
@@ -151,44 +218,42 @@ public class WebReset implements WebMethod {
 			tty.line("Delete existing vocab/auth entries");
 			// Delete existing vocab entries
 			JSONObject myjs = new JSONObject();
-			myjs.put("pageSize", "100");
+			myjs.put("pageSize", "10");
 			myjs.put("pageNum", "0");
-			int resultsize=1;
-			int check = 0;
-			String checkpagination = "";
 			for(String dir : paths) {
 				try{
-					Record r = this.spec.getRecord(dir);
-					if(r.isType("authority")){
-						for(Instance n : r.getAllInstances()) {
-							String url = r.getID()+"/"+n.getTitleRef();
-							try{
-								storage.getPathsJSON(url,new JSONObject()).toString();
-								log.info("Instance " + n.getID()+ " Exists");
-								tty.line("Instance " + n.getID()+ " Exists");
+					if(this.spec.hasRecord(dir)){
+						Record r = this.spec.getRecord(dir);
+						if(r.isType("authority")){
+							for(Instance n : r.getAllInstances()) {
+								String url = r.getID()+"/"+n.getTitleRef();
+								try{
+									storage.getPathsJSON(url,new JSONObject()).toString();
+								}
+								catch (UnderlyingStorageException x) {
+	
+									log.info("need to create Instance " + n.getID());
+									tty.line("need to create Instance " + n.getID());
+									JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+									String base=r.getID();
+									storage.autocreateJSON(base,fields);
+									log.info("Instance " + n.getID() + " Created");
+									tty.line("Instance " + n.getID() + " Created");
+								}
+	
+								deletall(n,r,url,"Deleting "+ url, storage, data, tty, myjs);
+								
 							}
-							catch (UnderlyingStorageException x) {
-
-								log.info("need to create Instance " + n.getID());
-								tty.line("need to create Instance " + n.getID());
-								JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
-								String base=r.getID();
-								storage.autocreateJSON(base,fields);
-								log.info("Instance " + n.getID() + " Created");
-								tty.line("Instance " + n.getID() + " Created");
-							}
-
-							deletall(n,r,url,"Deleting "+ url, storage, data, tty, myjs);
-							
 						}
 					}
 				}
 				catch(Exception e){
-					log.info("that was weird" + e.getMessage());
+					log.info("that was weird but probably not an issue " + e.getMessage());
 				}
 			}
-			log.info("Creating");
-			tty.line("Creating");
+			
+			log.info("Creating Dummy data");
+			tty.line("Creating Dummy data");
 			tty.flush();
 			// Create vocab entries
 			
@@ -225,14 +290,24 @@ public class WebReset implements WebMethod {
 			tty.line("done");
 			log.info("done");
 		} catch (ExistException e) {
+			log.info("ExistException "+ e.getLocalizedMessage());
+			tty.line("ExistException "+ e.getLocalizedMessage());
 			throw new UIException("Existence problem",e);
 		} catch (UnimplementedException e) {
+			log.info("UnimplementedException "+ e.getLocalizedMessage());
+			tty.line("UnimplementedException "+ e.getLocalizedMessage());
 			throw new UIException("Unimplemented ",e);
 		} catch (UnderlyingStorageException x) {
+			log.info("UnderlyingStorageException "+ x.getLocalizedMessage());
+			tty.line("UnderlyingStorageException "+ x.getLocalizedMessage());
 			throw new UIException("Problem storing"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
 		} catch (JSONException e) {
+			log.info("JSONException "+ e.getLocalizedMessage());
+			tty.line("JSONException "+ e.getLocalizedMessage());
 			throw new UIException("Invalid JSON",e);
 		} catch (IOException e) {
+			log.info("IOException "+ e.getLocalizedMessage());
+			tty.line("IOException "+ e.getLocalizedMessage());
 			throw new UIException("IOException",e);
 		}
 	}
@@ -297,7 +372,10 @@ public class WebReset implements WebMethod {
 
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
-		reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		initialiseAll(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		if(this.populate){
+			reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		}
 	}
 
 	public void configure() throws ConfigException {}
