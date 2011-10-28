@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 public class TestBase extends TestData {
 	private static final Logger log = LoggerFactory.getLogger(TestBase.class);
 
+	private String defaulttenant="core";
 	public  String cookie;
 
 	
@@ -63,18 +64,18 @@ public class TestBase extends TestData {
 	public  void login(ServletTester tester) throws IOException,
 			Exception {
 		JSONObject user = getDefaultUser(tester);
-		login("core", tester, user, false);
+		login(defaulttenant, tester, user, false);
 	}
 
 	public  void login(ServletTester tester, Boolean isUTF8)
 			throws IOException, Exception {
 		JSONObject user = getDefaultUser(tester);
-		login("core", tester, user, isUTF8);
+		login(defaulttenant, tester, user, isUTF8);
 	}
 
 	public  void login(ServletTester tester, JSONObject user)
 			throws IOException, Exception {
-		login("core", tester, user, false);
+		login(defaulttenant, tester, user, false);
 	}
 
 	public  void login(String tenant, ServletTester tester, JSONObject user,
@@ -97,7 +98,7 @@ public class TestBase extends TestData {
 	}
 
 	public  ServletTester setupJetty() throws Exception {
-		return setupJetty("core", null, false);
+		return setupJetty(defaulttenant, null, false);
 	}
 
 
@@ -273,9 +274,9 @@ public class TestBase extends TestData {
 	 */
 	public void DELETEData(String id, ServletTester jetty) throws IOException, Exception {
 
-		HttpTester out=jettyDo(jetty,"DELETE","/tenant/core"+id,null);
+		HttpTester out=jettyDo(jetty,"DELETE","/tenant/"+defaulttenant+id,null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a DELETE url: /tenant/core"+id +"/n"+out.getContent(),testStatus("DELETE",status));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a DELETE url: /tenant/"+defaulttenant+id +"/n"+out.getContent(),testStatus("DELETE",status));
 		log.debug(id+":"+out.getContent());
 		
 		//out=jettyDo(jetty,"GET","/tenant/html"+id,null);
@@ -290,9 +291,9 @@ public class TestBase extends TestData {
 	 */
 	public void DELETEData(String id, ServletTester jetty, String data) throws IOException, Exception {
 
-		HttpTester out=jettyDo(jetty,"DELETE","/tenant/core"+id,data);
+		HttpTester out=jettyDo(jetty,"DELETE","/tenant/"+defaulttenant+id,data);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a DELETE url: /tenant/core"+id +"/n"+out.getContent()+" with data "+data,testStatus("DELETE",status));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a DELETE url: /tenant/"+defaulttenant+id +"/n"+out.getContent()+" with data "+data,testStatus("DELETE",status));
 		log.debug(id+":"+out.getContent());
 		
 		//out=jettyDo(jetty,"GET","/tenant/html"+id,null);
@@ -309,25 +310,25 @@ public class TestBase extends TestData {
 	 * @throws Exception
 	 */
 	public HttpTester POSTData(String url, String data, ServletTester jetty) throws IOException, Exception{
-		HttpTester out = jettyDo(jetty,"POST","/tenant/core"+url,data);
+		HttpTester out = jettyDo(jetty,"POST","/tenant/"+defaulttenant+url,data);
 		assertEquals(out.getMethod(),null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/core"+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/"+defaulttenant+url+" with data: "+data +"/n"+out.getContent(),testStatus("POST",status));
 		return out;
 	}
 	
 	public HttpTester POSTData(String url, String data, ServletTester jetty, String statusTest) throws IOException, Exception{
-		HttpTester out = jettyDo(jetty,"POST","/tenant/core"+url,data);
+		HttpTester out = jettyDo(jetty,"POST","/tenant/"+defaulttenant+url,data);
 		assertEquals(out.getMethod(),null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+":"+statusTest+" was wrong for a POST url: /tenant/core"+url+" with data: "+data +"/n"+out.getContent(),testStatus(statusTest,status));
+		assertTrue("Status "+Integer.toString(status)+":"+statusTest+" was wrong for a POST url: /tenant/"+defaulttenant+url+" with data: "+data +"/n"+out.getContent(),testStatus(statusTest,status));
 		return out;
 	}
 
 	public UTF8SafeHttpTester POSTBinaryData(String url, byte[] data, ServletTester jetty) throws IOException, Exception{
-		UTF8SafeHttpTester out = jettyDoData(jetty,"POST","/tenant/core"+url,"1.jpeg","image/jpeg",data);
+		UTF8SafeHttpTester out = jettyDoData(jetty,"POST","/tenant/"+defaulttenant+url,"1.jpeg","image/jpeg",data);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/core"+url+" with data: "+data +"/n"+out.getContent(),testStatus("PUT",status));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a POST url: /tenant/"+defaulttenant+url+" with data: "+data +"/n"+out.getContent(),testStatus("PUT",status));
 		return out;
 	}
 	/**
@@ -357,30 +358,30 @@ public class TestBase extends TestData {
 	 */
 	public HttpTester GETData(String url, ServletTester jetty) throws IOException, Exception{
 	//	return GETData(url,null,jetty);
-		HttpTester out=jettyDo(jetty,"GET","/tenant/core"+url,null);
+		HttpTester out=jettyDo(jetty,"GET","/tenant/"+defaulttenant+url,null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET url: /tenant/core"+url+" /n"+out.getContent(),testStatus("GET",status));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET url: /tenant/"+defaulttenant+url+" /n"+out.getContent(),testStatus("GET",status));
 		log.debug(url+":"+out.getContent());
 		return out;
 	
 	}
 	
 	public HttpTester GETData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
-		HttpTester out=jettyDo(jetty,"GET","/tenant/core"+url,null);
+		HttpTester out=jettyDo(jetty,"GET","/tenant/"+defaulttenant+url,null);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET where we were expecting "+ Integer.toString(testStatus)+" url : /tenant/html"+url+" /n"+out.getContent(),(Integer.toString(testStatus).equals(Integer.toString(status))));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET where we were expecting "+ Integer.toString(testStatus)+" url : /tenant/"+defaulttenant+url+" /n"+out.getContent(),(Integer.toString(testStatus).equals(Integer.toString(status))));
 		log.debug(url+":"+out.getContent());
 		return out;
 	}
 
 	public UTF8SafeHttpTester GETBinaryData(String url, ServletTester jetty, Integer testStatus) throws IOException, Exception{
-		url = url.replace("/chain/", "/tenant/core/");
-		if(url.contains("/tenant/core/"))
-			url = url.substring(url.indexOf("/tenant/core/"));
+		url = url.replace("/chain/", "/tenant/"+defaulttenant+"/");
+		if(url.contains("/tenant/"+defaulttenant+"/"))
+			url = url.substring(url.indexOf("/tenant/"+defaulttenant+"/"));
 		else if(url.contains("http"))
 			url = url;
 		else
-			url = "/tenant/core" + url;
+			url = "/tenant/"+defaulttenant+"" + url;
 		
 		log.info(url);
 		UTF8SafeHttpTester out=jettyDoUTF8(jetty,"GET",url,null);
@@ -401,9 +402,9 @@ public class TestBase extends TestData {
 	 * @throws Exception
 	 */
 	public HttpTester GETData(String url, String params, ServletTester jetty) throws IOException, Exception{
-		HttpTester out=jettyDo(jetty,"GET","/tenant/core"+url,params);
+		HttpTester out=jettyDo(jetty,"GET","/tenant/"+defaulttenant+""+url,params);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET url: /tenant/html"+url+" "+params +"/n"+out.getContent(),testStatus("GET",status));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a GET url: /tenant/"+defaulttenant+""+url+" "+params +"/n"+out.getContent(),testStatus("GET",status));
 		log.debug(url+":"+out.getContent());
 		return out;
 	}
@@ -419,9 +420,9 @@ public class TestBase extends TestData {
 	 */
 	public HttpTester PUTData(String url, String data, ServletTester jetty ) throws IOException, Exception{
 
-		HttpTester out=jettyDo(jetty,"PUT","/tenant/core"+url,data);
+		HttpTester out=jettyDo(jetty,"PUT","/tenant/"+defaulttenant+""+url,data);
 		Integer status = getStatus(out.getContent(),  out.getStatus());
-		assertTrue("Status "+Integer.toString(status)+" was wrong for a PUT url: /tenant/core"+url+" "+data +"/n"+out.getContent(),testStatus("PUT",status));
+		assertTrue("Status "+Integer.toString(status)+" was wrong for a PUT url: /tenant/"+defaulttenant+""+url+" "+data +"/n"+out.getContent(),testStatus("PUT",status));
 		log.debug(url+":"+out.getContent());
 		return out;
 	}
@@ -543,7 +544,7 @@ public class TestBase extends TestData {
 		log.info(out.getContent());
 		String id = out.getHeader("Location");
 		// Retrieve
-		out = jettyDo(jetty, "GET", "/tenant/core" + id, null);
+		out = jettyDo(jetty, "GET", "/tenant/"+defaulttenant+"" + id, null);
 log.info(out.getContent());
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(data);
