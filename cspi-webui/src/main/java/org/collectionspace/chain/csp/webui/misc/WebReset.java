@@ -18,6 +18,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.csp.webui.misc.WebReset;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -33,9 +34,10 @@ import org.slf4j.LoggerFactory;
 public class WebReset implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(WebReset.class);
 	private boolean quick;
+	private boolean populate;
 	private Spec spec;
 
-	public WebReset(boolean in) { quick=in; }	
+	public WebReset(boolean in, boolean populate) { quick=in; this.populate = populate; }	
 
 	// XXX refactor
 	private JSONObject getJSONResource(String in) throws IOException, JSONException {	
@@ -52,44 +54,140 @@ public class WebReset implements WebMethod {
 		return data;
 	}
 
+	private void initialiseAll(Storage storage,UIRequest request,String path) throws UIException { 
+		TTYOutputter tty=request.getTTYOutputter();
+		try{
+			log.info("Initialise vocab/auth entries");
+			tty.line("Initialise vocab/auth entries");
+			// Delete existing vocab entries
+			JSONObject myjs = new JSONObject();
+			myjs.put("pageSize", "10");
+			myjs.put("pageNum", "0");
+			JSONObject data = storage.getPathsJSON("/",null);
+			String[] paths = (String[]) data.get("listItems");
+			for(String dir : paths) {
+				try{
+					if(this.spec.hasRecord(dir)){
+						Record r = this.spec.getRecord(dir);
+						if(r.isType("authority")){
+							log.info("testing Authority " +dir);
+							tty.line("testing Authority  " + dir);
+							for(Instance n : r.getAllInstances()) {
+								String url = r.getID()+"/"+n.getTitleRef();
+								try{
+									storage.getPathsJSON(url,new JSONObject()).toString();
+									log.info("Instance " + n.getID()+ " Exists");
+									tty.line("Instance " + n.getID()+ " Exists");
+								}
+								catch (UnderlyingStorageException x) {
+		
+									log.info("need to create Instance " + n.getID());
+									tty.line("need to create Instance " + n.getID());
+									JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+									String base=r.getID();
+									storage.autocreateJSON(base,fields);
+									log.info("Instance " + n.getID() + " Created");
+									tty.line("Instance " + n.getID() + " Created");
+								}							
+							}
+						}
+					}
+				}
+				catch(Exception e){
+					tty.line("that was weird but probably not a problem " + e.getMessage());
+					log.info("that was weird but probably not a problem " + e.getMessage());
+				}
+			}
+		
+		} catch (ExistException e) {
+			log.info("ExistException "+ e.getLocalizedMessage());
+			tty.line("ExistException "+ e.getLocalizedMessage());
+			throw new UIException("Existence problem",e);
+		} catch (UnimplementedException e) {
+			log.info("UnimplementedException "+ e.getLocalizedMessage());
+			tty.line("UnimplementedException "+ e.getLocalizedMessage());
+			throw new UIException("Unimplemented ",e);
+		} catch (UnderlyingStorageException x) {
+			log.info("UnderlyingStorageException "+ x.getLocalizedMessage());
+			tty.line("UnderlyingStorageException "+ x.getLocalizedMessage());
+			throw new UIException("Problem storing"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
+		} catch (JSONException e) {
+			log.info("JSONException "+ e.getLocalizedMessage());
+			tty.line("JSONException "+ e.getLocalizedMessage());
+			throw new UIException("Invalid JSON",e);
+		} 
+		
+		
+	}
 	private void reset(Storage storage,UIRequest request,String path) throws UIException { 
 		//remember to log into the fornt end before trying to run this
 		JSONObject data = new JSONObject();
+		TTYOutputter tty=request.getTTYOutputter();
 		// Temporary hack to reset db
 		try {
-			TTYOutputter tty=request.getTTYOutputter();
+			data = storage.getPathsJSON("/",null);
+			String[] paths = (String[]) data.get("listItems");
 			if(!path.equals("nodelete")){
 				// Delete existing records
-				data = storage.getPathsJSON("/",null);
-				String[] paths = (String[]) data.get("listItems");
 				for(String dir : paths) {
+					Record r = null;
 					log.info(dir);
-					// XXX yuck!
-					// ignore authorities
-					if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "location".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "taxon".equals(dir)){
+					if("direct".equals(dir)||"relations".equals(dir))
+						continue;
+					try{
+						r = this.spec.getRecord(dir);
+					}
+					catch(Exception e){
 						continue;
 					}
+					if(r.isType("procedure")){
+						if("termlistitem".equals(dir) ||"termlist".equals(dir))
+							continue;
+					}
+					else if(r.isType("authority")){
+						continue;
+					}
+					else if(r.isType("record")){
+						if("hierarchy".equals(dir) || "dimension".equals(dir) || "structureddate".equals(dir))
+							continue;
+						log.info("S");
+					}
+					else if(r.isType("authorizationdata")){
+						continue;
+					}
+					else if(r.isType("userdata")){
+						continue;
+					}
+					else{
+						//ignore - have no idea what it is
+						continue;
+					}
+					
+					//if("place".equals(dir) || "vocab".equals(dir) || "contact".equals(dir) || "location".equals(dir) || "person".equals(dir) || "organization".equals(dir) || "taxon".equals(dir)){
+					//	continue;
+					//}
 					
 					// ignore authorization
-					if("rolePermission".equals(dir) || "accountrole".equals(dir) || "accountroles".equals(dir)  || "userperm".equals(dir)|| "permrole".equals(dir) || "permission".equals(dir) || "role".equals(dir)|| "userrole".equals(dir) || "users".equals(dir) ){
-						continue;
-					}
+					//if("rolePermission".equals(dir) || "accountrole".equals(dir) || "accountroles".equals(dir)  || "userperm".equals(dir)|| "permrole".equals(dir) || "permission".equals(dir) || "role".equals(dir)|| "userrole".equals(dir) || "users".equals(dir) ){
+					//	continue;
+					//}
 
 					// ignore other - tho we do need to clean these up
-					if("termlistitem".equals(dir) ||"termlist".equals(dir) || "reports".equals(dir) || "reporting".equals(dir) || "output".equals(dir)  )
-						continue;
-					// ignore other - tho we do need to clean these up
-					if("hierarchy".equals(dir) || "dimension".equals(dir) ||"structureddate".equals(dir)  ||"blobs".equals(dir) ||"relations".equals(dir) || "direct".equals(dir) || "id".equals(dir) )
-						continue;
+					//if("termlistitem".equals(dir) ||"termlist".equals(dir) || "reports".equals(dir) || "reporting".equals(dir) || "output".equals(dir)  )
+					//	continue;
+					//// ignore other - tho we do need to clean these up
+					//if("hierarchy".equals(dir) || "dimension".equals(dir) ||"structureddate".equals(dir)  ||"blobs".equals(dir) ||"relations".equals(dir) || "direct".equals(dir) || "id".equals(dir) )
+					//	continue;
 					
-					
-					tty.line("dir : "+dir);
-					data = storage.getPathsJSON(dir,null);
-					paths = (String[]) data.get("listItems");
-					for(int i=0;i<paths.length;i++) {
-						tty.line("path : "+dir+"/"+paths[i]);
+
+					log.info("Deleteing data associated with : "+dir);
+					tty.line("Deleteing data associated with : "+dir);
+					JSONObject data2 = storage.getPathsJSON(dir,null);
+					String[] paths2 = (String[]) data2.get("listItems");
+					for(int i=0;i<paths2.length;i++) {
+						tty.line("path : "+dir+"/"+paths2[i]);
 						try {
-							storage.deleteJSON(dir+"/"+paths[i]);
+							storage.deleteJSON(dir+"/"+paths2[i]);
 						} catch (UnimplementedException e) {
 							tty.line("UnimplementedException"+e);
 							tty.line("ux");
@@ -101,8 +199,9 @@ public class WebReset implements WebMethod {
 					}					
 				}
 			}
-			log.info("this might take some time, go get a cup of tea and be patient");
-			tty.line("this might take some time, go get a cup of tea and be patient");
+			
+			log.info("Creating records and procedures: this might take some time, go get a cup of tea and be patient");
+			tty.line("Creating records and procedures: this might take some time, go get a cup of tea and be patient");
 			// Create records anew
 			tty.line("Create records anew");
 			String schedule=getResource("reset.txt");
@@ -115,27 +214,47 @@ public class WebReset implements WebMethod {
 					tty.flush();
 				}
 			}
+
+			log.info("Delete existing vocab/auth entries");
+			tty.line("Delete existing vocab/auth entries");
 			// Delete existing vocab entries
-
 			JSONObject myjs = new JSONObject();
-			myjs.put("pageSize", "100");
+			myjs.put("pageSize", "10");
 			myjs.put("pageNum", "0");
-			int resultsize=1;
-			int check = 0;
-			String checkpagination = "";
-
-			log.info("Delete existing vocab entries");
-			tty.line("Delete existing vocab entries");
+			for(String dir : paths) {
+				try{
+					if(this.spec.hasRecord(dir)){
+						Record r = this.spec.getRecord(dir);
+						if(r.isType("authority")){
+							for(Instance n : r.getAllInstances()) {
+								String url = r.getID()+"/"+n.getTitleRef();
+								try{
+									storage.getPathsJSON(url,new JSONObject()).toString();
+								}
+								catch (UnderlyingStorageException x) {
+	
+									log.info("need to create Instance " + n.getID());
+									tty.line("need to create Instance " + n.getID());
+									JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+									String base=r.getID();
+									storage.autocreateJSON(base,fields);
+									log.info("Instance " + n.getID() + " Created");
+									tty.line("Instance " + n.getID() + " Created");
+								}
+	
+								deletall(n,r,url,"Deleting "+ url, storage, data, tty, myjs);
+								
+							}
+						}
+					}
+				}
+				catch(Exception e){
+					log.info("that was weird but probably not an issue " + e.getMessage());
+				}
+			}
 			
-			
-			data = deletall("/person/person","Deleting Person ", storage, data, tty, myjs);
-			data = deletall("/person/persontest1","Deleting Person ", storage, data, tty, myjs);
-			data = deletall("/person/persontest2","Deleting Person ", storage, data, tty, myjs);
-			data = deletall("/organization/organization","Deleting Organization ", storage, data, tty, myjs);
-			data = deletall("/organization/organizationtest","Deleting Organization ", storage, data, tty, myjs);
-			
-			
-			tty.line("Creating");
+			log.info("Creating Dummy data");
+			tty.line("Creating Dummy data");
 			tty.flush();
 			// Create vocab entries
 			
@@ -145,8 +264,6 @@ public class WebReset implements WebMethod {
 				i++;
 				JSONObject name=new JSONObject();
 				name.put("displayName",line);
-				//String shortID = line.replaceAll("\\W", "").toLowerCase();
-				//name.put("shortIdentifier",shortID);
 				storage.autocreateJSON("/person/person",name);
 				tty.line("Created Person "+name);
 				log.info("Created Person "+name);
@@ -161,8 +278,6 @@ public class WebReset implements WebMethod {
 				i++;
 				JSONObject name=new JSONObject();
 				name.put("displayName",line);
-				//String shortID = line.replaceAll("\\W", "").toLowerCase();
-				//name.put("shortIdentifier",shortID);
 				storage.autocreateJSON("/organization/organization",name);
 				tty.line("Created Organisation "+line);
 				log.info("Created Organisation "+line);
@@ -176,19 +291,29 @@ public class WebReset implements WebMethod {
 			tty.line("done");
 			log.info("done");
 		} catch (ExistException e) {
+			log.info("ExistException "+ e.getLocalizedMessage());
+			tty.line("ExistException "+ e.getLocalizedMessage());
 			throw new UIException("Existence problem",e);
 		} catch (UnimplementedException e) {
+			log.info("UnimplementedException "+ e.getLocalizedMessage());
+			tty.line("UnimplementedException "+ e.getLocalizedMessage());
 			throw new UIException("Unimplemented ",e);
 		} catch (UnderlyingStorageException x) {
+			log.info("UnderlyingStorageException "+ x.getLocalizedMessage());
+			tty.line("UnderlyingStorageException "+ x.getLocalizedMessage());
 			throw new UIException("Problem storing"+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
 		} catch (JSONException e) {
+			log.info("JSONException "+ e.getLocalizedMessage());
+			tty.line("JSONException "+ e.getLocalizedMessage());
 			throw new UIException("Invalid JSON",e);
 		} catch (IOException e) {
+			log.info("IOException "+ e.getLocalizedMessage());
+			tty.line("IOException "+ e.getLocalizedMessage());
 			throw new UIException("IOException",e);
 		}
 	}
 
-	private JSONObject deletall(String path, String msg, Storage storage, JSONObject data,
+	private JSONObject deletall(Instance n,Record thisr,  String path, String msg, Storage storage, JSONObject data,
 			TTYOutputter tty, JSONObject myjs) throws JSONException,
 			ExistException, UnimplementedException, UnderlyingStorageException,
 			UIException {
@@ -205,10 +330,11 @@ public class WebReset implements WebMethod {
 			//don't increment page num as need to call page 0 as 
 			//once you delete a page worth the next page is now the current page
 			//String url = thisr.getID()+"/"+n.getTitleRef();
-			String[] bits = path.split("/");
-			Record thisr = this.spec.getRecordByWebUrl(bits[1]);
-			Instance n = thisr.getInstance(bits[1]+"-"+bits[2]);
-			
+			if(thisr== null || n==null){
+				String[] bits = path.split("/");
+				thisr = this.spec.getRecordByWebUrl(bits[1]);
+				n = thisr.getInstance(bits[1]+"-"+bits[2]);
+			}
 			try{
 				data = storage.getPathsJSON(path,myjs);
 			}
@@ -247,7 +373,10 @@ public class WebReset implements WebMethod {
 
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
-		reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		initialiseAll(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		if(this.populate){
+			reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+		}
 	}
 
 	public void configure() throws ConfigException {}
