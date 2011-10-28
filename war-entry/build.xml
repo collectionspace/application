@@ -19,7 +19,6 @@
         <copy todir="${config_destination}/defaults">
             <fileset dir="${app_resources_dir}/defaults" includes="*/**"/>
         </copy>
-        <delete dir="${config_destination}/tenants"/>
         <copy todir="${config_destination}/tenants">
             <fileset dir="${app_resources_dir}/tenants" includes="*/**"/>
         </copy>
