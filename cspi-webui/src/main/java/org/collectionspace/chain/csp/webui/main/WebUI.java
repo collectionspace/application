@@ -193,8 +193,8 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"logout"},0,new WebLogout());
 		addMethod(Operation.READ,new String[]{"loginstatus"},0, new WebLoginStatus(spec));
 		addMethod(Operation.READ,new String[]{"authorities","initialise"},0,new WebReset(false,false));
-		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false));
-		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true));
+		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false,true));
+		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true,true));
 		addMethod(Operation.READ,new String[]{find_page,"uispec"},0,new FindEditUISpec(spec.getAllRecords()));
 		addMethod(Operation.CREATE,new String[]{"passwordreset"},0,new UserDetailsReset(false,spec));
 		addMethod(Operation.CREATE,new String[]{"resetpassword"},0,new UserDetailsReset(true,spec));
