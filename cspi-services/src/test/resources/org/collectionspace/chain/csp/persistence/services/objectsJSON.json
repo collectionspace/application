@@ -162,14 +162,16 @@
         "dateEarliestSingleDay": "3",
         "dateEarliestSingleMonth": "2"
     },
-//    "dimensionGroup": [{
-//        "_primary": true,
-//        "dimension": "dimension",
-//        "valueDate": "valueDate",
-//        "measurementUnit": "measurementUnit",
-//        "value": "value",
- //       "valueQualifier": "valueQualifier"
- //   }],
+    "dimensionGroup": [{
+        "_primary": true,
+        "measuredBy": "",
+        "measuredPart": "measuredPart",
+        "dimension": "dimension",
+        "valueDate": "valueDate",
+        "measurementUnit": "measurementUnit",
+        "value": "value",
+        "valueQualifier": "valueQualifier"
+	}],
 	
     "viewersRole": "",
     "ownersPersonalExperience": "",

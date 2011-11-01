@@ -156,7 +156,7 @@
 </contentScripts>
 <copyNumber>copyNumber</copyNumber>
 <!-- Object Description - Dimension Information -->
-<!-- 
+
 <dimensions>
 	<dimensionGroup>
 		<dimension>dimension</dimension>
@@ -168,7 +168,7 @@
 		<valueQualifier>valueQualifier</valueQualifier>
 	</dimensionGroup>
 </dimensions>
--->
+
 <editionNumber></editionNumber>
 <forms>
     <form></form>
