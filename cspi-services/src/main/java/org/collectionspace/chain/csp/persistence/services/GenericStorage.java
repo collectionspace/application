@@ -710,7 +710,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					dataitem.put("sourceFieldName", fieldName);
 					dataitem.put("sourceFieldType", dataitem.getJSONObject("summarylist").getString("docType"));
 					
-					out.put(key,dataitem);
+					out.put(csid+":"+key,dataitem);
 				}
 			}
 
