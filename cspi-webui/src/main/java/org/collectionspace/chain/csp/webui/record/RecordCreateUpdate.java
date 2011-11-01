@@ -412,7 +412,8 @@ public class RecordCreateUpdate implements WebMethod {
 		} catch (JSONException x) {
 			throw new UIException("Failed to parse json: "+x,x);
 		} catch (ExistException x) {
-			throw new UIException("Existence exception: "+x,x);
+			UIException uiexception =  new UIException(x.getMessage(),400,"",x);
+			request.sendJSONResponse(uiexception.getJSON());
 		} catch (UnimplementedException x) {
 			throw new UIException("Unimplemented exception: "+x,x);
 		} catch (UnderlyingStorageException x) {
