@@ -473,25 +473,16 @@ public class UISpec implements WebMethod {
 					}
 				}
 			}
-			JSONObject subexpander = new JSONObject();
-			subexpander.put("type", "fluid.renderer.repeat");
-            subexpander.put("pathAs", "row");
-            subexpander.put( "controlledBy", veryplainWithoutEnclosure(r,context));
-            subexpander.put("repeatID", "repeat:");
-            subexpander.put("tree", preProtoTree);
-			
-			JSONObject supertree = new JSONObject();
-			supertree.put("expander", subexpander);
 			
 			JSONObject expander = new JSONObject();
 			expander.put("type", "fluid.noexpand");
-			expander.put("tree", supertree);
+			expander.put("tree", preProtoTree);
 			
 			
-			JSONObject protoTree = new JSONObject();
-			protoTree.put("expander", expander);
+			JSONObject repeatTree = new JSONObject();
+			repeatTree.put("expander", expander);
 			
-			options.put("protoTree", protoTree);
+			options.put("repeatTree", repeatTree);
 			options.put("elPath",veryplainWithoutEnclosure(r,context));
 			if(r.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
 				options.put("hidePrimary", true);
