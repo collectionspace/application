@@ -68,28 +68,20 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.movementMethods",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-movement-movementMethods": {
-                                            "default": "",
-                                            "optionnames": ["Forklift", "Handcarried", "Please select a value", "Trolley"],
-                                            "optionlist": ["", "forklift", "handcarried", "trolley"],
-                                            "selection": "${{row}.movementMethod}"
-                                        }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.movementMethods"
+                                ".csc-movement-movementMethods": {
+                                    "default": "",
+                                    "optionnames": ["Forklift", "Handcarried", "Please select a value", "Trolley"],
+                                    "optionlist": ["", "forklift", "handcarried", "trolley"],
+                                    "selection": "${{row}.movementMethod}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.movementMethods"
                 }
             }]
         },

@@ -16,56 +16,48 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.acquisitionFunding",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-acquisition-acquisitionFundingSourceProvisos": "${{row}.acquisitionFundingSourceProvisos}",
-                                        ".csc-acquisition-acquisitionFundingSource": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/acquisition/autocomplete/acquisitionFundingSource",
-                                                    "vocabUrl": "../../../tenant/core/acquisition/source-vocab/acquisitionFundingSource"
-                                                }
-                                            }],
-                                            "value": "${{row}.acquisitionFundingSource}"
-                                        },
-                                        ".csc-acquisition-acquisitionFundingValue": {
-                                            "decorators": [{
-                                                "func": "cspace.inputValidator",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "label": "acquisition-acquisitionFundingValueLabel",
-                                                    "type": "float"
-                                                }
-                                            }],
-                                            "value": "${{row}.acquisitionFundingValue}"
-                                        },
-                                        ".csc-acquisition-acquisitionFundingCurrency": {
-                                            "decorators": [{
-                                                "func": "cspace.termList",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "root": "{row}",
-                                                    "elPath": "acquisitionFundingCurrency",
-                                                    "termListType": "acquisitionFundingCurrency"
-                                                }
-                                            }]
+                                ".csc-acquisition-acquisitionFundingSourceProvisos": "${{row}.acquisitionFundingSourceProvisos}",
+                                ".csc-acquisition-acquisitionFundingSource": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/acquisition/autocomplete/acquisitionFundingSource",
+                                            "vocabUrl": "../../../tenant/core/acquisition/source-vocab/acquisitionFundingSource"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.acquisitionFunding"
+                                    }],
+                                    "value": "${{row}.acquisitionFundingSource}"
+                                },
+                                ".csc-acquisition-acquisitionFundingValue": {
+                                    "decorators": [{
+                                        "func": "cspace.inputValidator",
+                                        "type": "fluid",
+                                        "options": {
+                                            "label": "acquisition-acquisitionFundingValueLabel",
+                                            "type": "float"
+                                        }
+                                    }],
+                                    "value": "${{row}.acquisitionFundingValue}"
+                                },
+                                ".csc-acquisition-acquisitionFundingCurrency": {
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "acquisitionFundingCurrency",
+                                            "termListType": "acquisitionFundingCurrency"
+                                        }
+                                    }]
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.acquisitionFunding"
                 }
             }]
         },
@@ -121,33 +113,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.owners",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-acquisition-owner": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/acquisition/autocomplete/owner",
-                                                    "vocabUrl": "../../../tenant/core/acquisition/source-vocab/owner"
-                                                }
-                                            }],
-                                            "value": "${{row}.owner}"
+                                ".csc-acquisition-owner": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/acquisition/autocomplete/owner",
+                                            "vocabUrl": "../../../tenant/core/acquisition/source-vocab/owner"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.owners"
+                                    }],
+                                    "value": "${{row}.owner}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.owners"
                 }
             }]
         },
@@ -350,23 +334,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.fieldCollectionEventNames",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-acquisition-fieldCollectionEventName": "${{row}.fieldCollectionEventName}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.fieldCollectionEventNames"
-                                }
+                                ".csc-acquisition-fieldCollectionEventName": "${{row}.fieldCollectionEventName}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.fieldCollectionEventNames"
                 }
             }]
         },
@@ -397,33 +373,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.acquisitionSources",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-acquisition-acquisitionSource": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/acquisition/autocomplete/acquisitionSource",
-                                                    "vocabUrl": "../../../tenant/core/acquisition/source-vocab/acquisitionSource"
-                                                }
-                                            }],
-                                            "value": "${{row}.acquisitionSource}"
+                                ".csc-acquisition-acquisitionSource": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/acquisition/autocomplete/acquisitionSource",
+                                            "vocabUrl": "../../../tenant/core/acquisition/source-vocab/acquisitionSource"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.acquisitionSources"
+                                    }],
+                                    "value": "${{row}.acquisitionSource}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.acquisitionSources"
                 }
             }]
         },
@@ -454,29 +422,21 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.acquisitionDates",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-acquisition-date": {
-                                            "decorators": [{
-                                                "func": "cspace.datePicker",
-                                                "type": "fluid"
-                                            }],
-                                            "value": "${{row}.acquisitionDate}"
-                                        }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.acquisitionDates"
+                                ".csc-acquisition-date": {
+                                    "decorators": [{
+                                        "func": "cspace.datePicker",
+                                        "type": "fluid"
+                                    }],
+                                    "value": "${{row}.acquisitionDate}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.acquisitionDates"
                 }
             }]
         },
@@ -491,3 +451,4 @@
         }
     }
 }
+

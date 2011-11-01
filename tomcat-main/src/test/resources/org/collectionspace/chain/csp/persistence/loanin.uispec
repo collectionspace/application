@@ -14,62 +14,54 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.lenderGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-loanIn-lender": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/loanin/autocomplete/lender",
-                                                    "vocabUrl": "../../../tenant/core/loanin/source-vocab/lender"
-                                                }
-                                            }],
-                                            "value": "${{row}.lender}"
-                                        },
-                                        ".csc-loanIn-lendersContact": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/loanin/autocomplete/lendersContact",
-                                                    "vocabUrl": "../../../tenant/core/loanin/source-vocab/lendersContact"
-                                                }
-                                            }],
-                                            "value": "${{row}.lendersContact}"
-                                        },
-                                        ".csc-loanIn-lendersAuthorizerDate": {
-                                            "decorators": [{
-                                                "func": "cspace.datePicker",
-                                                "type": "fluid"
-                                            }],
-                                            "value": "${{row}.lendersAuthorizationDate}"
-                                        },
-                                        ".csc-loanIn-lendersAuthorizer": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/loanin/autocomplete/lendersAuthorizer",
-                                                    "vocabUrl": "../../../tenant/core/loanin/source-vocab/lendersAuthorizer"
-                                                }
-                                            }],
-                                            "value": "${{row}.lendersAuthorizer}"
+                                ".csc-loanIn-lender": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/loanin/autocomplete/lender",
+                                            "vocabUrl": "../../../tenant/core/loanin/source-vocab/lender"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.lenderGroup"
+                                    }],
+                                    "value": "${{row}.lender}"
+                                },
+                                ".csc-loanIn-lendersContact": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/loanin/autocomplete/lendersContact",
+                                            "vocabUrl": "../../../tenant/core/loanin/source-vocab/lendersContact"
+                                        }
+                                    }],
+                                    "value": "${{row}.lendersContact}"
+                                },
+                                ".csc-loanIn-lendersAuthorizerDate": {
+                                    "decorators": [{
+                                        "func": "cspace.datePicker",
+                                        "type": "fluid"
+                                    }],
+                                    "value": "${{row}.lendersAuthorizationDate}"
+                                },
+                                ".csc-loanIn-lendersAuthorizer": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/loanin/autocomplete/lendersAuthorizer",
+                                            "vocabUrl": "../../../tenant/core/loanin/source-vocab/lendersAuthorizer"
+                                        }
+                                    }],
+                                    "value": "${{row}.lendersAuthorizer}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.lenderGroup"
                 }
             }]
         },
@@ -223,3 +215,4 @@
         }
     }
 }
+

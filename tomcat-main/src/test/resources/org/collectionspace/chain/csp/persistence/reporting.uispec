@@ -23,23 +23,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.forDocTypes",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-reports-forDocType": "${{row}.forDocType}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.forDocTypes"
-                                }
+                                ".csc-reports-forDocType": "${{row}.forDocType}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.forDocTypes"
                 }
             }]
         },
@@ -95,3 +87,4 @@
     },
     "list": {}
 }
+

@@ -23,25 +23,17 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.mainBodyGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-organizationAuthority-nameAdditions": "${{row}.nameAdditions}",
-                                        ".csc-organizationAuthority-longName": "${{row}.longName}",
-                                        ".csc-organizationAuthority-shortName": "${{row}.shortName}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.mainBodyGroup"
-                                }
+                                ".csc-organizationAuthority-nameAdditions": "${{row}.nameAdditions}",
+                                ".csc-organizationAuthority-longName": "${{row}.longName}",
+                                ".csc-organizationAuthority-shortName": "${{row}.shortName}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.mainBodyGroup"
                 }
             }]
         },
@@ -60,23 +52,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.groups",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-organizationAuthority-group": "${{row}.group}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.groups"
-                                }
+                                ".csc-organizationAuthority-group": "${{row}.group}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.groups"
                 }
             }]
         },
@@ -98,33 +82,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.subBodies",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-organizationAuthority-subBodyName": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/subBody",
-                                                    "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/subBody"
-                                                }
-                                            }],
-                                            "value": "${{row}.subBody}"
+                                ".csc-organizationAuthority-subBodyName": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/subBody",
+                                            "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/subBody"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.subBodies"
+                                    }],
+                                    "value": "${{row}.subBody}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.subBodies"
                 }
             }]
         },
@@ -156,23 +132,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.functions",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-organizationAuthority-function": "${{row}.function}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.functions"
-                                }
+                                ".csc-organizationAuthority-function": "${{row}.function}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.functions"
                 }
             }]
         },
@@ -219,23 +187,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.historyNotes",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-organizationAuthority-history": "${{row}.historyNote}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.historyNotes"
-                                }
+                                ".csc-organizationAuthority-history": "${{row}.historyNote}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.historyNotes"
                 }
             }]
         },
@@ -250,33 +210,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.contactNames",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-organizationAuthority-contactName": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/contactName",
-                                                    "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/contactName"
-                                                }
-                                            }],
-                                            "value": "${{row}.contactName}"
+                                ".csc-organizationAuthority-contactName": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/contactName",
+                                            "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/contactName"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.contactNames"
+                                    }],
+                                    "value": "${{row}.contactName}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.contactNames"
                 }
             }]
         },

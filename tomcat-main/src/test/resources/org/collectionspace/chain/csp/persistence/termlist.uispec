@@ -19,34 +19,26 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.terms",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-termlistitem-displayName": "${{row}.displayName}",
-                                        ".csc-termlistitem-description": "${{row}.description}",
-                                        ".csc-termlistitem-sourcePage": "${{row}.sourcePage}",
-                                        ".csc-termlistitem-source": "${{row}.source}",
-                                        ".csc-termlistitem-_subrecordcsid": "${{row}._subrecordcsid}",
-                                        ".csc-termlistitem-shortIdentifier": "${{row}.shortIdentifier}",
-                                        ".csc-termlistitem-termStatus": {
-                                            "default": "active",
-                                            "optionnames": ["Active", "Inactive"],
-                                            "optionlist": ["active", "inactive"],
-                                            "selection": "${{row}.termStatus}"
-                                        }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.terms"
+                                ".csc-termlistitem-displayName": "${{row}.displayName}",
+                                ".csc-termlistitem-description": "${{row}.description}",
+                                ".csc-termlistitem-sourcePage": "${{row}.sourcePage}",
+                                ".csc-termlistitem-source": "${{row}.source}",
+                                ".csc-termlistitem-_subrecordcsid": "${{row}._subrecordcsid}",
+                                ".csc-termlistitem-shortIdentifier": "${{row}.shortIdentifier}",
+                                ".csc-termlistitem-termStatus": {
+                                    "default": "active",
+                                    "optionnames": ["Active", "Inactive"],
+                                    "optionlist": ["active", "inactive"],
+                                    "selection": "${{row}.termStatus}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.terms"
                 }
             }]
         },
@@ -127,4 +119,4 @@
             }]
         }
     }
-}
+}

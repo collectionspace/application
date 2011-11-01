@@ -19,41 +19,33 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.narrowerContexts",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-hierarchy-narrowerContext": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/vocabularies/person/autocomplete/narrowerContext",
-                                                    "vocabUrl": "../../../tenant/core/vocabularies/person/source-vocab/narrowerContext",
-                                                    "invokers": {
-                                                        "selectMatch": {
-                                                            "funcName": "cspace.autocomplete.selectMatchConfirm"
-                                                        }
-                                                    },
-                                                    "strings": {
-                                                        "narrowerChange": "Warning: %narrower currently has broader term %broader. Change broader term?"
-                                                    }
+                                ".csc-hierarchy-narrowerContext": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/vocabularies/person/autocomplete/narrowerContext",
+                                            "vocabUrl": "../../../tenant/core/vocabularies/person/source-vocab/narrowerContext",
+                                            "invokers": {
+                                                "selectMatch": {
+                                                    "funcName": "cspace.autocomplete.selectMatchConfirm"
                                                 }
-                                            }],
-                                            "value": "${{row}.narrowerContext}"
+                                            },
+                                            "strings": {
+                                                "narrowerChange": "Warning: %narrower currently has broader term %broader. Change broader term?"
+                                            }
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.narrowerContexts"
+                                    }],
+                                    "value": "${{row}.narrowerContext}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.narrowerContexts"
                 }
             }]
         },
@@ -111,33 +103,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.relatedTerms",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-hierarchy-relatedTerm": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/vocabularies/person/autocomplete/relatedTerm",
-                                                    "vocabUrl": "../../../tenant/core/vocabularies/person/source-vocab/relatedTerm"
-                                                }
-                                            }],
-                                            "value": "${{row}.relatedTerm}"
+                                ".csc-hierarchy-relatedTerm": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/vocabularies/person/autocomplete/relatedTerm",
+                                            "vocabUrl": "../../../tenant/core/vocabularies/person/source-vocab/relatedTerm"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.relatedTerms"
+                                    }],
+                                    "value": "${{row}.relatedTerm}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.relatedTerms"
                 }
             }]
         },
@@ -183,28 +167,20 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.contact.telephoneNumberGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-contact-telephoneNumberType": {
-                                            "optionnames": ["Please select a value", "business", "home", "mobile", "other"],
-                                            "optionlist": ["", "business", "home", "mobile", "other"],
-                                            "selection": "${{row}.telephoneNumberType}"
-                                        },
-                                        ".csc-contact-telephoneNumber": "${{row}.telephoneNumber}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.contact.telephoneNumberGroup"
-                                }
+                                ".csc-contact-telephoneNumberType": {
+                                    "optionnames": ["Please select a value", "business", "home", "mobile", "other"],
+                                    "optionlist": ["", "business", "home", "mobile", "other"],
+                                    "selection": "${{row}.telephoneNumberType}"
+                                },
+                                ".csc-contact-telephoneNumber": "${{row}.telephoneNumber}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.contact.telephoneNumberGroup"
                 }
             }]
         },
@@ -222,28 +198,20 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.contact.faxNumberGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-contact-faxNumberType": {
-                                            "optionnames": ["Please select a value", "business", "home", "other"],
-                                            "optionlist": ["", "business", "home", "other"],
-                                            "selection": "${{row}.faxNumberType}"
-                                        },
-                                        ".csc-contact-faxNumber": "${{row}.faxNumber}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.contact.faxNumberGroup"
-                                }
+                                ".csc-contact-faxNumberType": {
+                                    "optionnames": ["Please select a value", "business", "home", "other"],
+                                    "optionlist": ["", "business", "home", "other"],
+                                    "selection": "${{row}.faxNumberType}"
+                                },
+                                ".csc-contact-faxNumber": "${{row}.faxNumber}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.contact.faxNumberGroup"
                 }
             }]
         },
@@ -259,28 +227,20 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.contact.emailGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-contact-email": "${{row}.email}",
-                                        ".csc-contact-emailType": {
-                                            "optionnames": ["Please select a value", "business", "other", "personal"],
-                                            "optionlist": ["", "business", "other", "personal"],
-                                            "selection": "${{row}.emailType}"
-                                        }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.contact.emailGroup"
+                                ".csc-contact-email": "${{row}.email}",
+                                ".csc-contact-emailType": {
+                                    "optionnames": ["Please select a value", "business", "other", "personal"],
+                                    "optionlist": ["", "business", "other", "personal"],
+                                    "selection": "${{row}.emailType}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.contact.emailGroup"
                 }
             }]
         },
@@ -342,28 +302,20 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.contact.webAddressGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-contact-webAddressType": {
-                                            "optionnames": ["Please select a value", "business", "other", "personal"],
-                                            "optionlist": ["", "business", "other", "personal"],
-                                            "selection": "${{row}.webAddressType}"
-                                        },
-                                        ".csc-contact-webAddress": "${{row}.webAddress}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.contact.webAddressGroup"
-                                }
+                                ".csc-contact-webAddressType": {
+                                    "optionnames": ["Please select a value", "business", "other", "personal"],
+                                    "optionlist": ["", "business", "other", "personal"],
+                                    "selection": "${{row}.webAddressType}"
+                                },
+                                ".csc-contact-webAddress": "${{row}.webAddress}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.contact.webAddressGroup"
                 }
             }]
         },
@@ -431,33 +383,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.contact.addressGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-contact-addressMunicipality": "${{row}.addressMunicipality}",
-                                        ".csc-contact-addressCountry": "${{row}.addressCountry}",
-                                        ".csc-contact-addressType": {
-                                            "optionnames": ["Please select a value", "business", "home", "other"],
-                                            "optionlist": ["", "business", "home", "other"],
-                                            "selection": "${{row}.addressType}"
-                                        },
-                                        ".csc-contact-addressPlace2": "${{row}.addressPlace2}",
-                                        ".csc-contact-addressStateOrProvince": "${{row}.addressStateOrProvince}",
-                                        ".csc-contact-addressPlace1": "${{row}.addressPlace1}",
-                                        ".csc-contact-addressPostCode": "${{row}.addressPostCode}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.contact.addressGroup"
-                                }
+                                ".csc-contact-addressMunicipality": "${{row}.addressMunicipality}",
+                                ".csc-contact-addressCountry": "${{row}.addressCountry}",
+                                ".csc-contact-addressType": {
+                                    "optionnames": ["Please select a value", "business", "home", "other"],
+                                    "optionlist": ["", "business", "home", "other"],
+                                    "selection": "${{row}.addressType}"
+                                },
+                                ".csc-contact-addressPlace2": "${{row}.addressPlace2}",
+                                ".csc-contact-addressStateOrProvince": "${{row}.addressStateOrProvince}",
+                                ".csc-contact-addressPlace1": "${{row}.addressPlace1}",
+                                ".csc-contact-addressPostCode": "${{row}.addressPostCode}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.contact.addressGroup"
                 }
             }]
         },
@@ -479,23 +423,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.occupations",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-personAuthority-occupation": "${{row}.occupation}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.occupations"
-                                }
+                                ".csc-personAuthority-occupation": "${{row}.occupation}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.occupations"
                 }
             }]
         },
@@ -580,23 +516,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.schoolsOrStyles",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-personAuthority-schoolOrStyle": "${{row}.schoolOrStyle}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.schoolsOrStyles"
-                                }
+                                ".csc-personAuthority-schoolOrStyle": "${{row}.schoolOrStyle}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.schoolsOrStyles"
                 }
             }]
         },
@@ -616,23 +544,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.groups",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-personAuthority-group": "${{row}.group}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.groups"
-                                }
+                                ".csc-personAuthority-group": "${{row}.group}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.groups"
                 }
             }]
         },
@@ -645,23 +565,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.nationalities",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-personAuthority-nationality": "${{row}.nationality}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.nationalities"
-                                }
+                                ".csc-personAuthority-nationality": "${{row}.nationality}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.nationalities"
                 }
             }]
         }

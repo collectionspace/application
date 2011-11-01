@@ -7,33 +7,25 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "currentOwners",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-intake-current-owner": {
-                                        "decorators": [{
-                                            "func": "cspace.autocomplete",
-                                            "type": "fluid",
-                                            "options": {
-                                                "queryUrl": "../../../tenant/core/intake/autocomplete/currentOwner",
-                                                "vocabUrl": "../../../tenant/core/intake/source-vocab/currentOwner"
-                                            }
-                                        }],
-                                        "value": "${{row}.currentOwner}"
+                            ".csc-intake-current-owner": {
+                                "decorators": [{
+                                    "func": "cspace.autocomplete",
+                                    "type": "fluid",
+                                    "options": {
+                                        "queryUrl": "../../../tenant/core/intake/autocomplete/currentOwner",
+                                        "vocabUrl": "../../../tenant/core/intake/source-vocab/currentOwner"
                                     }
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "currentOwners"
+                                }],
+                                "value": "${{row}.currentOwner}"
                             }
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "currentOwners",
                 "hidePrimary": true
             }
         }]
@@ -43,33 +35,25 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "depositors",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-intake-depositor": {
-                                        "decorators": [{
-                                            "func": "cspace.autocomplete",
-                                            "type": "fluid",
-                                            "options": {
-                                                "queryUrl": "../../../tenant/core/intake/autocomplete/depositor",
-                                                "vocabUrl": "../../../tenant/core/intake/source-vocab/depositor"
-                                            }
-                                        }],
-                                        "value": "${{row}.depositor}"
+                            ".csc-intake-depositor": {
+                                "decorators": [{
+                                    "func": "cspace.autocomplete",
+                                    "type": "fluid",
+                                    "options": {
+                                        "queryUrl": "../../../tenant/core/intake/autocomplete/depositor",
+                                        "vocabUrl": "../../../tenant/core/intake/source-vocab/depositor"
                                     }
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "depositors"
+                                }],
+                                "value": "${{row}.depositor}"
                             }
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "depositors",
                 "hidePrimary": true
             }
         }]
@@ -92,33 +76,25 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "currentLocationGroup",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-intake-current-location": {
-                                        "decorators": [{
-                                            "func": "cspace.autocomplete",
-                                            "type": "fluid",
-                                            "options": {
-                                                "queryUrl": "../../../tenant/core/intake/autocomplete/currentLocation",
-                                                "vocabUrl": "../../../tenant/core/intake/source-vocab/currentLocation"
-                                            }
-                                        }],
-                                        "value": "${{row}.currentLocation}"
+                            ".csc-intake-current-location": {
+                                "decorators": [{
+                                    "func": "cspace.autocomplete",
+                                    "type": "fluid",
+                                    "options": {
+                                        "queryUrl": "../../../tenant/core/intake/autocomplete/currentLocation",
+                                        "vocabUrl": "../../../tenant/core/intake/source-vocab/currentLocation"
                                     }
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "currentLocationGroup"
+                                }],
+                                "value": "${{row}.currentLocation}"
                             }
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "currentLocationGroup",
                 "hidePrimary": true
             }
         }]
@@ -144,23 +120,15 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "updatedBys",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-intake-updatedBy": "${{row}.updatedBy}"
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "updatedBys"
-                            }
+                            ".csc-intake-updatedBy": "${{row}.updatedBy}"
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "updatedBys",
                 "hidePrimary": true
             }
         }]
@@ -170,23 +138,15 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "createdBys",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-intake-createdBy": "${{row}.createdBy}"
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "createdBys"
-                            }
+                            ".csc-intake-createdBy": "${{row}.createdBy}"
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "createdBys",
                 "hidePrimary": true
             }
         }]
@@ -212,28 +172,20 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "entryReasons",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-intake-entry-reason": {
-                                        "default": "",
-                                        "optionnames": ["Commission", "Consideration", "Enquiry", "Loan", "Please select a value"],
-                                        "optionlist": ["", "commission", "consideration", "enquiry", "loan"],
-                                        "selection": "${{row}.entryReason}"
-                                    }
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "entryReasons"
+                            ".csc-intake-entry-reason": {
+                                "default": "",
+                                "optionnames": ["Commission", "Consideration", "Enquiry", "Loan", "Please select a value"],
+                                "optionlist": ["", "commission", "consideration", "enquiry", "loan"],
+                                "selection": "${{row}.entryReason}"
                             }
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "entryReasons",
                 "hidePrimary": true
             }
         }]
@@ -243,23 +195,15 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "fieldCollectionEventNames",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-intake-field-collection-event-name": "${{row}.fieldCollectionEventName}"
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "fieldCollectionEventNames"
-                            }
+                            ".csc-intake-field-collection-event-name": "${{row}.fieldCollectionEventName}"
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "fieldCollectionEventNames",
                 "hidePrimary": true
             }
         }]
@@ -298,23 +242,15 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "entryNumbers",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-intake-entry-number": "${{row}.entryNumber}"
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "entryNumbers"
-                            }
+                            ".csc-intake-entry-number": "${{row}.entryNumber}"
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "entryNumbers",
                 "hidePrimary": true
             }
         }]
@@ -327,33 +263,25 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "entryMethods",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-intake-entryMethod": {
-                                        "decorators": [{
-                                            "func": "cspace.termList",
-                                            "type": "fluid",
-                                            "options": {
-                                                "root": "{row}",
-                                                "elPath": "entryMethod",
-                                                "termListType": "entryMethod"
-                                            }
-                                        }]
+                            ".csc-intake-entryMethod": {
+                                "decorators": [{
+                                    "func": "cspace.termList",
+                                    "type": "fluid",
+                                    "options": {
+                                        "root": "{row}",
+                                        "elPath": "entryMethod",
+                                        "termListType": "entryMethod"
                                     }
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "entryMethods"
+                                }]
                             }
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "entryMethods",
                 "hidePrimary": true
             }
         }]

@@ -71,41 +71,33 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.loanedObjectStatusGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-loanOut-loanedObjectStatus": {
-                                            "decorators": [{
-                                                "func": "cspace.termList",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "root": "{row}",
-                                                    "elPath": "loanedObjectStatus",
-                                                    "termListType": "loanedObjectStatus"
-                                                }
-                                            }]
-                                        },
-                                        ".csc-loanOut-loanedObjectStatusNote": "${{row}.loanedObjectStatusNote}",
-                                        ".csc-loanOut-loanedObjectStatusDate": {
-                                            "decorators": [{
-                                                "func": "cspace.datePicker",
-                                                "type": "fluid"
-                                            }],
-                                            "value": "${{row}.loanedObjectStatusDate}"
+                                ".csc-loanOut-loanedObjectStatus": {
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "loanedObjectStatus",
+                                            "termListType": "loanedObjectStatus"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.loanedObjectStatusGroup"
+                                    }]
+                                },
+                                ".csc-loanOut-loanedObjectStatusNote": "${{row}.loanedObjectStatusNote}",
+                                ".csc-loanOut-loanedObjectStatusDate": {
+                                    "decorators": [{
+                                        "func": "cspace.datePicker",
+                                        "type": "fluid"
+                                    }],
+                                    "value": "${{row}.loanedObjectStatusDate}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.loanedObjectStatusGroup"
                 }
             }]
         },
@@ -236,4 +228,4 @@
             "messagekey": "loanout-loanOutNoteLabel"
         }
     }
-}      
+}

@@ -92,28 +92,20 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.exitMethods",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-objectexit-exitMethods": {
-                                            "default": "",
-                                            "optionnames": ["Courier", "In Person", "Please select a value", "Post"],
-                                            "optionlist": ["", "courier", "inperson", "post"],
-                                            "selection": "${{row}.exitMethod}"
-                                        }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.exitMethods"
+                                ".csc-objectexit-exitMethods": {
+                                    "default": "",
+                                    "optionnames": ["Courier", "In Person", "Please select a value", "Post"],
+                                    "optionlist": ["", "courier", "inperson", "post"],
+                                    "selection": "${{row}.exitMethod}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.exitMethods"
                 }
             }]
         },
@@ -151,4 +143,3 @@
         }
     }
 }
-ß

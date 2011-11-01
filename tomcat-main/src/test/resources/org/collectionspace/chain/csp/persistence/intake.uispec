@@ -68,33 +68,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.fieldCollectionMethods",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-intake-fieldCollectionMethod": {
-                                            "decorators": [{
-                                                "func": "cspace.termList",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "root": "{row}",
-                                                    "elPath": "fieldCollectionMethod",
-                                                    "termListType": "fieldCollectionMethod"
-                                                }
-                                            }]
+                                ".csc-intake-fieldCollectionMethod": {
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "fieldCollectionMethod",
+                                            "termListType": "fieldCollectionMethod"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.fieldCollectionMethods"
+                                    }]
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.fieldCollectionMethods"
                 }
             }]
         },
@@ -107,33 +99,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.fieldCollectors",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-intake-fieldCollector": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/intake/autocomplete/fieldCollector",
-                                                    "vocabUrl": "../../../tenant/core/intake/source-vocab/fieldCollector"
-                                                }
-                                            }],
-                                            "value": "${{row}.fieldCollector}"
+                                ".csc-intake-fieldCollector": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/intake/autocomplete/fieldCollector",
+                                            "vocabUrl": "../../../tenant/core/intake/source-vocab/fieldCollector"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.fieldCollectors"
+                                    }],
+                                    "value": "${{row}.fieldCollector}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.fieldCollectors"
                 }
             }]
         },
@@ -165,33 +149,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.fieldCollectionSources",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-intake-fieldCollectionSource": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/intake/autocomplete/fieldCollectionSource",
-                                                    "vocabUrl": "../../../tenant/core/intake/source-vocab/fieldCollectionSource"
-                                                }
-                                            }],
-                                            "value": "${{row}.fieldCollectionSource}"
+                                ".csc-intake-fieldCollectionSource": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/intake/autocomplete/fieldCollectionSource",
+                                            "vocabUrl": "../../../tenant/core/intake/source-vocab/fieldCollectionSource"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.fieldCollectionSources"
+                                    }],
+                                    "value": "${{row}.fieldCollectionSource}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.fieldCollectionSources"
                 }
             }]
         },
@@ -227,23 +203,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.fieldCollectionEventNames",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-intake-field-collection-event-name": "${{row}.fieldCollectionEventName}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.fieldCollectionEventNames"
-                                }
+                                ".csc-intake-field-collection-event-name": "${{row}.fieldCollectionEventName}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.fieldCollectionEventNames"
                 }
             }]
         },
@@ -280,33 +248,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.insurers",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-intake-insurer": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/intake/autocomplete/insurer",
-                                                    "vocabUrl": "../../../tenant/core/intake/source-vocab/insurer"
-                                                }
-                                            }],
-                                            "value": "${{row}.insurer}"
+                                ".csc-intake-insurer": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/intake/autocomplete/insurer",
+                                            "vocabUrl": "../../../tenant/core/intake/source-vocab/insurer"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.insurers"
+                                    }],
+                                    "value": "${{row}.insurer}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.insurers"
                 }
             }]
         },
@@ -346,33 +306,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.conditionCheckersOrAssessors",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-intake-conditionCheckerOrAssessor": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/intake/autocomplete/conditionCheckerOrAssessor",
-                                                    "vocabUrl": "../../../tenant/core/intake/source-vocab/conditionCheckerOrAssessor"
-                                                }
-                                            }],
-                                            "value": "${{row}.conditionCheckerOrAssessor}"
+                                ".csc-intake-conditionCheckerOrAssessor": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/intake/autocomplete/conditionCheckerOrAssessor",
+                                            "vocabUrl": "../../../tenant/core/intake/source-vocab/conditionCheckerOrAssessor"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.conditionCheckersOrAssessors"
+                                    }],
+                                    "value": "${{row}.conditionCheckerOrAssessor}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.conditionCheckersOrAssessors"
                 }
             }]
         },
@@ -381,45 +333,37 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.currentLocationGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-intake-current-location": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/intake/autocomplete/currentLocation",
-                                                    "vocabUrl": "../../../tenant/core/intake/source-vocab/currentLocation"
-                                                }
-                                            }],
-                                            "value": "${{row}.currentLocation}"
-                                        },
-                                        ".csc-intake-current-location-fitness": {
-                                            "decorators": [{
-                                                "func": "cspace.termList",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "root": "{row}",
-                                                    "elPath": "currentLocationFitness",
-                                                    "termListType": "currentLocationFitness"
-                                                }
-                                            }]
-                                        },
-                                        ".csc-intake-current-location-note": "${{row}.currentLocationNote}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.currentLocationGroup"
-                                }
+                                ".csc-intake-current-location": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/intake/autocomplete/currentLocation",
+                                            "vocabUrl": "../../../tenant/core/intake/source-vocab/currentLocation"
+                                        }
+                                    }],
+                                    "value": "${{row}.currentLocation}"
+                                },
+                                ".csc-intake-current-location-fitness": {
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "currentLocationFitness",
+                                            "termListType": "currentLocationFitness"
+                                        }
+                                    }]
+                                },
+                                ".csc-intake-current-location-note": "${{row}.currentLocationNote}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.currentLocationGroup"
                 }
             }]
         },
@@ -434,33 +378,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.conditionCheckMethods",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-intake-conditionCheckMethod": {
-                                            "decorators": [{
-                                                "func": "cspace.termList",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "root": "{row}",
-                                                    "elPath": "conditionCheckMethod",
-                                                    "termListType": "conditionCheckMethod"
-                                                }
-                                            }]
+                                ".csc-intake-conditionCheckMethod": {
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "conditionCheckMethod",
+                                            "termListType": "conditionCheckMethod"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.conditionCheckMethods"
+                                    }]
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.conditionCheckMethods"
                 }
             }]
         },
@@ -472,33 +408,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.conditionCheckReasons",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-intake-conditionCheckReason": {
-                                            "decorators": [{
-                                                "func": "cspace.termList",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "root": "{row}",
-                                                    "elPath": "conditionCheckReason",
-                                                    "termListType": "conditionCheckReason"
-                                                }
-                                            }]
+                                ".csc-intake-conditionCheckReason": {
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "conditionCheckReason",
+                                            "termListType": "conditionCheckReason"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.conditionCheckReasons"
+                                    }]
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.conditionCheckReasons"
                 }
             }]
         },
@@ -628,33 +556,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.entryMethods",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-intake-entryMethod": {
-                                            "decorators": [{
-                                                "func": "cspace.termList",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "root": "{row}",
-                                                    "elPath": "entryMethod",
-                                                    "termListType": "entryMethod"
-                                                }
-                                            }]
+                                ".csc-intake-entryMethod": {
+                                    "decorators": [{
+                                        "func": "cspace.termList",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "entryMethod",
+                                            "termListType": "entryMethod"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.entryMethods"
+                                    }]
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.entryMethods"
                 }
             }]
         },

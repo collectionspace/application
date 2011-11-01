@@ -19,41 +19,33 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.narrowerContexts",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-hierarchy-narrowerContext": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/vocabularies/location/autocomplete/narrowerContext",
-                                                    "vocabUrl": "../../../tenant/core/vocabularies/location/source-vocab/narrowerContext",
-                                                    "invokers": {
-                                                        "selectMatch": {
-                                                            "funcName": "cspace.autocomplete.selectMatchConfirm"
-                                                        }
-                                                    },
-                                                    "strings": {
-                                                        "narrowerChange": "Warning: %narrower currently has broader term %broader. Change broader term?"
-                                                    }
+                                ".csc-hierarchy-narrowerContext": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/vocabularies/location/autocomplete/narrowerContext",
+                                            "vocabUrl": "../../../tenant/core/vocabularies/location/source-vocab/narrowerContext",
+                                            "invokers": {
+                                                "selectMatch": {
+                                                    "funcName": "cspace.autocomplete.selectMatchConfirm"
                                                 }
-                                            }],
-                                            "value": "${{row}.narrowerContext}"
+                                            },
+                                            "strings": {
+                                                "narrowerChange": "Warning: %narrower currently has broader term %broader. Change broader term?"
+                                            }
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.narrowerContexts"
+                                    }],
+                                    "value": "${{row}.narrowerContext}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.narrowerContexts"
                 }
             }]
         },
@@ -111,33 +103,25 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.relatedTerms",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-hierarchy-relatedTerm": {
-                                            "decorators": [{
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/vocabularies/location/autocomplete/relatedTerm",
-                                                    "vocabUrl": "../../../tenant/core/vocabularies/location/source-vocab/relatedTerm"
-                                                }
-                                            }],
-                                            "value": "${{row}.relatedTerm}"
+                                ".csc-hierarchy-relatedTerm": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/vocabularies/location/autocomplete/relatedTerm",
+                                            "vocabUrl": "../../../tenant/core/vocabularies/location/source-vocab/relatedTerm"
                                         }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.relatedTerms"
+                                    }],
+                                    "value": "${{row}.relatedTerm}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.relatedTerms"
                 }
             }]
         },
@@ -161,30 +145,22 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.conditionGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-location-conditionNote": "${{row}.conditionNote}",
-                                        ".csc-location-conditionNoteDate": {
-                                            "decorators": [{
-                                                "func": "cspace.datePicker",
-                                                "type": "fluid"
-                                            }],
-                                            "value": "${{row}.conditionNoteDate}"
-                                        }
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.conditionGroup"
+                                ".csc-location-conditionNote": "${{row}.conditionNote}",
+                                ".csc-location-conditionNoteDate": {
+                                    "decorators": [{
+                                        "func": "cspace.datePicker",
+                                        "type": "fluid"
+                                    }],
+                                    "value": "${{row}.conditionNoteDate}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.conditionGroup"
                 }
             }]
         },

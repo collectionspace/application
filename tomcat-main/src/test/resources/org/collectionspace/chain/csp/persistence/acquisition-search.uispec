@@ -36,23 +36,15 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "creditLines",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-acquisition-creditLine": "${{row}.creditLine}"
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "creditLines"
-                            }
+                            ".csc-acquisition-creditLine": "${{row}.creditLine}"
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "creditLines",
                 "hidePrimary": true
             }
         }]
@@ -62,33 +54,25 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "acquisitionFunding",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-acquisition-acquisitionFundingSource": {
-                                        "decorators": [{
-                                            "func": "cspace.autocomplete",
-                                            "type": "fluid",
-                                            "options": {
-                                                "queryUrl": "../../../tenant/core/acquisition/autocomplete/acquisitionFundingSource",
-                                                "vocabUrl": "../../../tenant/core/acquisition/source-vocab/acquisitionFundingSource"
-                                            }
-                                        }],
-                                        "value": "${{row}.acquisitionFundingSource}"
+                            ".csc-acquisition-acquisitionFundingSource": {
+                                "decorators": [{
+                                    "func": "cspace.autocomplete",
+                                    "type": "fluid",
+                                    "options": {
+                                        "queryUrl": "../../../tenant/core/acquisition/autocomplete/acquisitionFundingSource",
+                                        "vocabUrl": "../../../tenant/core/acquisition/source-vocab/acquisitionFundingSource"
                                     }
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "acquisitionFunding"
+                                }],
+                                "value": "${{row}.acquisitionFundingSource}"
                             }
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "acquisitionFunding",
                 "hidePrimary": true
             }
         }]
@@ -111,23 +95,15 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "acquisitionReferenceNumbers",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-acquisition-numberPatternChooser-reference-number": "${{row}.acquisitionReferenceNumber}"
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "acquisitionReferenceNumbers"
-                            }
+                            ".csc-acquisition-numberPatternChooser-reference-number": "${{row}.acquisitionReferenceNumber}"
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "acquisitionReferenceNumbers",
                 "hidePrimary": true
             }
         }]
@@ -137,23 +113,15 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "updatedBys",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-acquisition-updatedBy": "${{row}.updatedBy}"
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "updatedBys"
-                            }
+                            ".csc-acquisition-updatedBy": "${{row}.updatedBy}"
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "updatedBys",
                 "hidePrimary": true
             }
         }]
@@ -172,23 +140,15 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "fieldCollectionEventNames",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-acquisition-fieldCollectionEventName": "${{row}.fieldCollectionEventName}"
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "fieldCollectionEventNames"
-                            }
+                            ".csc-acquisition-fieldCollectionEventName": "${{row}.fieldCollectionEventName}"
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "fieldCollectionEventNames",
                 "hidePrimary": true
             }
         }]
@@ -201,28 +161,20 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "acquisitionMethods",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-acquisition-acquisition-method": {
-                                        "default": "",
-                                        "optionnames": ["Exchange", "Gift", "Please select a value", "Purchase", "Transfer", "Treasure"],
-                                        "optionlist": ["", "exchange", "gift", "purchase", "transfer", "treasure"],
-                                        "selection": "${{row}.acquisitionMethod}"
-                                    }
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "acquisitionMethods"
+                            ".csc-acquisition-acquisition-method": {
+                                "default": "",
+                                "optionnames": ["Exchange", "Gift", "Please select a value", "Purchase", "Transfer", "Treasure"],
+                                "optionlist": ["", "exchange", "gift", "purchase", "transfer", "treasure"],
+                                "selection": "${{row}.acquisitionMethod}"
                             }
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "acquisitionMethods",
                 "hidePrimary": true
             }
         }]
@@ -254,33 +206,25 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "acquisitionSources",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-acquisition-acquisitionSource": {
-                                        "decorators": [{
-                                            "func": "cspace.autocomplete",
-                                            "type": "fluid",
-                                            "options": {
-                                                "queryUrl": "../../../tenant/core/acquisition/autocomplete/acquisitionSource",
-                                                "vocabUrl": "../../../tenant/core/acquisition/source-vocab/acquisitionSource"
-                                            }
-                                        }],
-                                        "value": "${{row}.acquisitionSource}"
+                            ".csc-acquisition-acquisitionSource": {
+                                "decorators": [{
+                                    "func": "cspace.autocomplete",
+                                    "type": "fluid",
+                                    "options": {
+                                        "queryUrl": "../../../tenant/core/acquisition/autocomplete/acquisitionSource",
+                                        "vocabUrl": "../../../tenant/core/acquisition/source-vocab/acquisitionSource"
                                     }
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "acquisitionSources"
+                                }],
+                                "value": "${{row}.acquisitionSource}"
                             }
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "acquisitionSources",
                 "hidePrimary": true
             }
         }]
@@ -293,23 +237,15 @@
             "func": "cspace.makeRepeatable",
             "type": "fluid",
             "options": {
-                "elPath": "createdBys",
-                "protoTree": {
+                "repeatTree": {
                     "expander": {
                         "tree": {
-                            "expander": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-acquisition-createdBy": "${{row}.createdBy}"
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "createdBys"
-                            }
+                            ".csc-acquisition-createdBy": "${{row}.createdBy}"
                         },
                         "type": "fluid.noexpand"
                     }
                 },
+                "elPath": "createdBys",
                 "hidePrimary": true
             }
         }]
@@ -335,3 +271,4 @@
         "messagekey": "acquisition-accessionDateStartLabel"
     }
 }
+
