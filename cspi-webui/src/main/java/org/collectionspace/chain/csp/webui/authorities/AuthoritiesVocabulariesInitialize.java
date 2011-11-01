@@ -121,6 +121,32 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		return alldata;
 	}
 	
+	public void createIfMissingAuthority(Storage storage, TTYOutputter tty, Record r1, Instance n1) throws ExistException, UnimplementedException, UIException, JSONException, UnderlyingStorageException{
+		
+		String url = r1.getID()+"/"+n1.getTitleRef();
+		try{
+			storage.getPathsJSON(url,new JSONObject()).toString();
+			if(tty != null){
+				log.info("Instance " + n1.getID()+ " Exists");
+				tty.line("Instance " + n1.getID()+ " Exists");
+			}
+		}
+		catch (UnderlyingStorageException x) {
+			if(tty != null){
+				log.info("need to create Instance " + n.getID());
+				tty.line("need to create Instance " + n.getID());
+			}
+			JSONObject fields=new JSONObject("{'displayName':'"+n1.getTitle()+"','shortIdentifier':'"+n1.getWebURL()+"'}");
+			String base=r1.getID();
+			storage.autocreateJSON(base,fields);
+			if(tty != null){
+				log.info("Instance " + n1.getID() + " Created");
+				tty.line("Instance " + n1.getID() + " Created");
+			}
+		}	
+				
+	}
+	
 	private void initializeVocab(Storage storage,UIRequest request,String path) throws UIException {
 		try{
 			if(n==null) {
@@ -128,19 +154,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 				for(Instance n : r.getAllInstances()) {
 					log.info(n.getID());
 					//does instance exist?
-	
-					String url = r.getID()+"/"+n.getTitleRef();
-					try{
-						storage.getPathsJSON(url,new JSONObject()).toString();
-						log.info("Instance " + n.getID()+ " Exists");
-					}
-					catch (UnderlyingStorageException x) {
-
-						log.info("need to create Instance " + n.getID());
-						JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
-						String base=r.getID();
-						storage.autocreateJSON(base,fields);
-					}
+					createIfMissingAuthority(storage,null, this.r, this.n);
 					resetvocabdata(storage, request, n);
 				}
 			} else {
@@ -200,7 +214,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		
 
 		allOpts = ins.getAllOptions();
-		createVocab(storage, ins.getRecord(), ins, null, allOpts, false);
+		fillVocab(storage, ins.getRecord(), ins, null, allOpts, false);
 	}
 	
 	private void resetvocabdata(Storage storage,UIRequest request, Instance instance) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
@@ -249,11 +263,11 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			allOpts = instance.getAllOptions();
 		}
 
-		createVocab(storage, r, instance, tty, allOpts, this.append);
+		fillVocab(storage, r, instance, tty, allOpts, this.append);
 
 	}
 	
-	private void createVocab(Storage storage, Record thisr,
+	public void fillVocab(Storage storage, Record thisr,
 			Instance instance, TTYOutputter tty, Option[] allOpts, Boolean appendit)
 			throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		//step away if we have nothing

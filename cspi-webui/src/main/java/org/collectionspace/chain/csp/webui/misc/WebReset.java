@@ -13,8 +13,11 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Instance;
+import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.authorities.AuthoritiesVocabulariesInitialize;
+import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
@@ -35,6 +38,7 @@ public class WebReset implements WebMethod {
 	private boolean quick;
 	private boolean populate;
 	private Spec spec;
+	private  AuthoritiesVocabulariesInitialize avi;
 
 	public WebReset(boolean in, boolean populate) { quick=in; this.populate = populate; }	
 
@@ -72,6 +76,16 @@ public class WebReset implements WebMethod {
 							log.info("testing Authority " +dir);
 							tty.line("testing Authority  " + dir);
 							for(Instance n : r.getAllInstances()) {
+
+								avi = new AuthoritiesVocabulariesInitialize(n, populate);
+								Option[] allOpts = n.getAllOptions();
+
+								avi.createIfMissingAuthority(storage,tty, r, n);
+								avi.fillVocab(storage, r, n, tty, allOpts, true);
+								//avi.initializeVocab(storage,request,path);
+								
+								
+								/*
 								String url = r.getID()+"/"+n.getTitleRef();
 								try{
 									storage.getPathsJSON(url,new JSONObject()).toString();
@@ -87,7 +101,8 @@ public class WebReset implements WebMethod {
 									storage.autocreateJSON(base,fields);
 									log.info("Instance " + n.getID() + " Created");
 									tty.line("Instance " + n.getID() + " Created");
-								}							
+								}	
+								*/						
 							}
 						}
 					}
@@ -97,6 +112,7 @@ public class WebReset implements WebMethod {
 					log.info("that was weird but probably not a problem " + e.getMessage());
 				}
 			}
+
 		
 		} catch (ExistException e) {
 			log.info("ExistException "+ e.getLocalizedMessage());
@@ -373,6 +389,7 @@ public class WebReset implements WebMethod {
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
 		initialiseAll(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
+
 		if(this.populate){
 			reset(q.getStorage(),q.getUIRequest(),StringUtils.join(tail,"/"));
 		}
