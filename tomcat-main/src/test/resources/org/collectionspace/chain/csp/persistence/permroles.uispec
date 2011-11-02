@@ -30,25 +30,17 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.permission",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-permrole-permissionId": "${{row}.permissionId}",
-                                        ".csc-permrole-resourceName": "${{row}.resourceName}",
-                                        ".csc-permrole-actionGroup": "${{row}.actionGroup}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.permission"
-                                }
+                                ".csc-permrole-permissionId": "${{row}.permissionId}",
+                                ".csc-permrole-resourceName": "${{row}.resourceName}",
+                                ".csc-permrole-actionGroup": "${{row}.actionGroup}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.permission"
                 }
             }]
         },

@@ -7,23 +7,15 @@
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "elPath": "fields.action",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "expander": {
-                                    "repeatID": "repeat:",
-                                    "tree": {
-                                        ".csc-permission-name": "${{row}.name}"
-                                    },
-                                    "type": "fluid.renderer.repeat",
-                                    "pathAs": "row",
-                                    "controlledBy": "fields.action"
-                                }
+                                ".csc-permission-name": "${{row}.name}"
                             },
                             "type": "fluid.noexpand"
                         }
-                    }
+                    },
+                    "elPath": "fields.action"
                 }
             }]
         },
