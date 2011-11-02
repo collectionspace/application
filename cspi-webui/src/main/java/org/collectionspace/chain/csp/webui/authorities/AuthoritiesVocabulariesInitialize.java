@@ -151,11 +151,11 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		try{
 			if(n==null) {
 				// For now simply loop thr all the instances one after the other.
-				for(Instance n : r.getAllInstances()) {
-					log.info(n.getID());
+				for(Instance n2 : r.getAllInstances()) {
+					log.info(n2.getID());
 					//does instance exist?
-					createIfMissingAuthority(storage,null, this.r, this.n);
-					resetvocabdata(storage, request, n);
+					createIfMissingAuthority(storage,null, this.r, n2);
+					resetvocabdata(storage, request, n2);
 				}
 			} else {
 				log.info(n.getID());
