@@ -129,12 +129,16 @@ public class VocabulariesRead implements WebMethod {
 			}
 		}
 		catch(JSONException ex){
+			log.debug("JSONException"+ex.getLocalizedMessage());
 			//wordlessly eat the errors at the moment as they might be permission errors
 		} catch (ExistException e) {
+			log.debug("ExistException"+e.getLocalizedMessage());
 			//wordlessly eat the errors at the moment as they might be permission errors
 		} catch (UnimplementedException e) {
+			log.debug("UnimplementedException"+e.getLocalizedMessage());
 			//wordlessly eat the errors at the moment as they might be permission errors
 		} catch (UnderlyingStorageException e) {
+			log.debug("UnderlyingStorageException"+e.getLocalizedMessage());
 			//wordlessly eat the errors at the moment as they might be permission errors
 		}
 		
