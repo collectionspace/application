@@ -30,20 +30,17 @@ public class VocabulariesCreateUpdate implements WebMethod {
 	private Instance n;
 	private Record r;
 
-	private Boolean quickie = false;//full update or quickie from autocomplete
 	private  VocabulariesRead reader;
 
 	public VocabulariesCreateUpdate(Instance n,boolean create) {
 		this.create=create;
 		this.n=n;
-		this.quickie = false;
 		reader=new VocabulariesRead(n);
 	}
 
 	public VocabulariesCreateUpdate(Record r,boolean create) {
 		this.create=create;
 		this.r=r;
-		this.quickie = false;
 		this.base=r.getID();
 	}
 	
@@ -75,12 +72,6 @@ public class VocabulariesCreateUpdate implements WebMethod {
 			}
 		}
 		if(create) {
-			if(data.has("_view") && data.getString("_view").equals("autocomplete")){//need a better check for autocomplete add's
-				this.quickie = true;
-			}
-			else{
-				this.quickie = false;
-			}
 			path=sendJSON(storage,null,data);
 		} else
 			path=sendJSON(storage,path,data);
@@ -111,6 +102,11 @@ public class VocabulariesCreateUpdate implements WebMethod {
 
 			//is this an instance or an item?
 			if(this.r == null && this.n != null){
+				boolean quickie = false;
+				if(create) {
+					quickie = 
+						(data.has("_view") && data.getString("_view").equals("autocomplete"));
+				}
 				path = createItem(storage,request,path,data);
 				data=reader.getJSON(storage,path);
 				String refid = data.getJSONObject("fields").getString("refid");
