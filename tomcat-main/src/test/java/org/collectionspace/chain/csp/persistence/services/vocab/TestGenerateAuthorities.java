@@ -56,7 +56,9 @@ public class TestGenerateAuthorities {
 		out = tester.GETData("/authorities/person/?pageSize=1", jetty);
 		JSONArray results2 = new JSONObject(out.getContent()).getJSONArray("items");
 		assertTrue(results2.length() > 0);
-                
+
+		//make sure all the vocabs are initialized
+		out = tester.GETData("/authorities/vocab/initialize", jetty);
 		// update and remove fields not in each list within an authority
 		// /chain/vocabularies/person/initialize?datapath=/Users/csm22/Documents/collectionspace/svcapp/cspi-webui/src/main/resources/org/collectionspace/chain/csp/webui/misc/names.txt
 
