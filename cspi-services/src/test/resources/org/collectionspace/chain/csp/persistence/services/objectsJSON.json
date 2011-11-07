@@ -34,7 +34,7 @@
         "_primary": true,
         "style": ""
     }],
-    "nametitle": "title",
+    "nametitle": "Der Ring des Nibelungen",
     "ownershipExchangeMethod": "",
     "objectNameGroup": [{
         "objectNameCurrency": "objectNameCurrency",
@@ -257,7 +257,7 @@
         "_primary": true,
         "assocEventPlace": ""
     }],
-     "titleGroup": [{
+	"titleGroup": [{
         "_primary": true,
         "title": "Der Ring des Nibelungen",
         "titleTranslationSubGroup": [{
