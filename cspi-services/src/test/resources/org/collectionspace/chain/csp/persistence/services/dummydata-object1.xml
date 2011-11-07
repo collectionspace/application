@@ -40,11 +40,30 @@ http://services.collectionspace.org/collectionobject/collectionobjects_common.xs
 <collection>study-collection</collection>
 <titleGroupList>
     <titleGroup>
-        <title>Petrified Ogre</title>
-        <titleLanguage>swahili</titleLanguage>
-        <titleTranslation>waka waka</titleTranslation>
-        <titleTranslationLanguage>klingon</titleTranslationLanguage>
-        <titleType>generic</titleType>
+        <title>Der Ring des Nibelungen</title>
+        <titleLanguage>deu</titleLanguage>
+        <titleTranslationSubGroupList>
+            <titleTranslationSubGroup>
+                <titleTranslation>The Ring Cycle</titleTranslation>
+                <titleTranslationLanguage>eng</titleTranslationLanguage>
+            </titleTranslationSubGroup>
+            <titleTranslationSubGroup>
+                <titleTranslation>Ringling Bros. / Barnum and Bailey's epic times</titleTranslation>
+                <titleTranslationLanguage>ang</titleTranslationLanguage>
+            </titleTranslationSubGroup>
+        </titleTranslationSubGroupList>
+        <titleType>assigned-by-artist</titleType>
+    </titleGroup>
+    <titleGroup>
+        <title>Das Rheingold - Die Valküre - Siegfried - Götterdämmerung</title>
+        <titleLanguage>German</titleLanguage>
+        <titleTranslationSubGroupList>
+            <titleTranslationSubGroup>
+                <titleTranslation>The Rhein Gold - The Valkyrie - Siegfried - Twilight of the Gods</titleTranslation>
+                <titleTranslationLanguage>eng</titleTranslationLanguage>
+            </titleTranslationSubGroup>
+        </titleTranslationSubGroupList>
+        <titleType>collection</titleType>
     </titleGroup>
 </titleGroupList>
 <recordStatus>in-process</recordStatus>
