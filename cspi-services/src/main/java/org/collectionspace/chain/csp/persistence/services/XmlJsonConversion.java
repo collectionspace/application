@@ -489,7 +489,12 @@ public class XmlJsonConversion {
 		
 		if(f instanceof Repeat){
 			for(FieldSet a : ((Repeat)f).getChildren(permlevel)){
-				children.add(a.getID());
+				if(a instanceof Repeat && ((Repeat)a).hasServicesParent()){
+					children.add(((Repeat)a).getServicesParent()[0]);
+				}
+				else{
+					children.add(a.getID());
+				}
 			}
 		}
 		if(f instanceof Group){
@@ -544,7 +549,7 @@ public class XmlJsonConversion {
 		return newout;
 	}
 	
-	private static JSONObject addtemp(JSONObject temp, String id, String text) throws JSONException{
+	private static JSONObject addtemp(JSONObject temp, String id, Object text) throws JSONException{
 		if(!temp.has(id)){
 			temp.put(id,text);
 		}
@@ -566,12 +571,22 @@ public class XmlJsonConversion {
 				Iterator rit=element.keys();
 				while(rit.hasNext()) {
 					String key=(String)rit.next();
+					JSONArray arrvalue = new JSONArray();
 
-					if(!fs.getID().equals(key)){
-						continue;
+					if(fs instanceof Repeat && ((Repeat)fs).hasServicesParent()){
+						if(!((Repeat)fs).getServicesParent()[0].equals(key)){
+							continue;
+						}
+						Object value = element.get(key);
+						arrvalue = (JSONArray)value;
 					}
-					Object value = element.get(key);
-					JSONArray arrvalue = (JSONArray)value;
+					else{
+						if(!fs.getID().equals(key)){
+							continue;
+						}
+						Object value = element.get(key);
+						arrvalue = (JSONArray)value;
+					}
 
 					if(fs instanceof Field) {
 						for(int j=0;j<arrvalue.length();j++){
@@ -595,20 +610,22 @@ public class XmlJsonConversion {
 						}
 					}
 					else if(fs instanceof Repeat){
-						for(int j=0;j<arrvalue.length();j++){
-							Object repeatcontainer = arrvalue.get(j);
-							Element rpcontainer=(Element)repeatcontainer;
-							JSONObject repeatitem = new JSONObject();
-							JSONArray repeatdata = addRepeatedNodeToJson(rpcontainer,(Repeat)fs, permlevel, tempSon);
-							
-							if(f.asSibling()){
-								siblingitem.put(fs.getID(), repeatdata);
-							}
-							else{
-								repeatitem.put(fs.getID(), repeatdata);
-								node.put(repeatitem);
-							}
+						JSONObject tout = new JSONObject();
+						JSONObject tempSon2 = new JSONObject();
+						Repeat rp = (Repeat)fs;
+						addRepeatToJson(tout, container, rp, permlevel, tempSon2, "", "") ;
+
+						if(f.asSibling()){
+							siblingitem.put(fs.getID(), tout.getJSONArray(rp.getID()));
 						}
+						else{
+							JSONObject repeatitem = new JSONObject();
+							repeatitem.put(fs.getID(), tout.getJSONArray(rp.getID()));
+							node.put(repeatitem);
+						}
+
+						tempSon = addtemp(tempSon, rp.getID(), tout.getJSONArray(rp.getID()));
+						//log.info(f.getID()+":"+rp.getID()+":"+tempSon.toString());
 					}
 				}
 			}
@@ -648,7 +665,7 @@ public class XmlJsonConversion {
 	}
 	@SuppressWarnings("unchecked")
 	private static void addRepeatToJson(JSONObject out,Element root,Repeat f,String permlevel, JSONObject tempSon,String csid,String ims_url) throws JSONException {
-		if(f.getXxxServicesNoRepeat()) {
+		if(f.getXxxServicesNoRepeat()) { //not a repeat in services yet but is a repeat in UI
 			FieldSet[] fields=f.getChildren(permlevel);
 			if(fields.length==0)
 				return;
