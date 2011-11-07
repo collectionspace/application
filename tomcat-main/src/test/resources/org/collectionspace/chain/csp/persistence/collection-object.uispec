@@ -163,18 +163,34 @@
                     "repeatTree": {
                         "expander": {
                             "tree": {
-                                ".csc-collection-object-titleTranslationLanguage": {
+                                ".csc-titleGroup-titleTranslationSubGroup": {
                                     "decorators": [{
-                                        "func": "cspace.termList",
+                                        "func": "cspace.makeRepeatable",
                                         "type": "fluid",
                                         "options": {
-                                            "root": "{row}",
-                                            "elPath": "titleTranslationLanguage",
-                                            "termListType": "titleTranslationLanguage"
+                                            "repeatTree": {
+                                                "expander": {
+                                                    "tree": {
+                                                        ".csc-collection-object-titleTranslationLanguage": {
+                                                            "decorators": [{
+                                                                "func": "cspace.termList",
+                                                                "type": "fluid",
+                                                                "options": {
+                                                                    "root": "{row}",
+                                                                    "elPath": "titleTranslationLanguage",
+                                                                    "termListType": "titleTranslationLanguage"
+                                                                }
+                                                            }]
+                                                        },
+                                                        ".csc-object-identification-object-title-translation": "${{row}.titleTranslation}"
+                                                    },
+                                                    "type": "fluid.noexpand"
+                                                }
+                                            },
+                                            "elPath": "fields.titleGroup.0.titleTranslationSubGroup"
                                         }
                                     }]
                                 },
-                                ".csc-object-identification-object-title-translation": "${{row}.titleTranslation}",
                                 ".csc-object-identification-object-title": "${{row}.title}",
                                 ".csc-object-identification-object-title-language": {
                                     "decorators": [{
