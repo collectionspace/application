@@ -62,7 +62,7 @@ public class WebUIRequest implements UIRequest {
 	private Operation operation_performed=Operation.READ;
 	private Map<String,String> rargs=new HashMap<String,String>();
 	private PrintWriter out=null;
-	private OutputStream out_stream=null;
+	private OutputStream out_stream=null;//XXX make inputstream output method for blobs
 	private String out_data=null; // We store to allow late changes to headers
 	private byte[] out_binary_data=null;
 	private String body; // XXX what if it's binary?
