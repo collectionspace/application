@@ -1,4 +1,4 @@
-{
+D {
     "cataloging": {
         "properties": {
             "termsUsed": {
@@ -988,12 +988,24 @@
                                     "default": true,
                                     "type": "boolean"
                                 },
-                                "titleTranslationLanguage": {
-                                    "default": "eng",
-                                    "type": "string"
-                                },
-                                "titleTranslation": {
-                                    "type": "string"
+                                "titleTranslationSubGroup": {
+                                    "items": {
+                                        "properties": {
+                                            "_primary": {
+                                                "default": true,
+                                                "type": "boolean"
+                                            },
+                                            "titleTranslationLanguage": {
+                                                "default": "eng",
+                                                "type": "string"
+                                            },
+                                            "titleTranslation": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": "array"
                                 },
                                 "titleType": {
                                     "default": "",
