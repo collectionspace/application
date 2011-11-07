@@ -153,15 +153,19 @@
                             </enum>
                             <selector>object-identification-object-title-language</selector>
                         </field>
-                        <field id="titleTranslation">
-                            <selector>object-identification-object-title-translation</selector>
-                        </field>
-                        <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
-                            <enum>
-                                <default>eng</default>
-                                <blank-value>Please select a value</blank-value>
-                            </enum>
-                        </field>
+						
+	                    <repeat id="titleTranslationSubGroupList/titleTranslationSubGroup">
+	                    	<field id="titleTranslation">
+	                            <selector>object-identification-object-title-translation</selector>
+	                        </field>
+	                        <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
+	                            <enum>
+	                                <default>eng</default>
+	                                <blank-value>Please select a value</blank-value>
+	                            </enum>
+	                        </field>
+						</repeat>
+						
                         <field id="titleType" seperate_ui_container="true">
                             <selector>object-identification-object-title-type</selector>
                             <options>
