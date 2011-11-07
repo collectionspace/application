@@ -257,13 +257,28 @@
         "_primary": true,
         "assocEventPlace": ""
     }],
-    "titleGroup": [{
+     "titleGroup": [{
         "_primary": true,
-        "title": "title",
-        "titleTranslationLanguage": "titleTranslationLanguage",
-        "titleType": "titleType",
-        "titleTranslation": "titleTranslation",
-        "titleLanguage": "titleLanguage"
+        "title": "Der Ring des Nibelungen",
+        "titleTranslationSubGroup": [{
+            "_primary": true,
+            "titleTranslationLanguage": "eng",
+            "titleTranslation": "The Ring Cycle"
+        }, {
+            "titleTranslationLanguage": "ang",
+            "titleTranslation": "Ringling Bros. / Barnum and Bailey's epic times"
+        }],
+        "titleType": "assigned-by-artist",
+        "titleLanguage": "deu"
+    }, {
+        "title": "Das Rheingold - Die Valküre - Siegfried - Götterdämmerung",
+        "titleTranslationSubGroup": [{
+            "_primary": true,
+            "titleTranslationLanguage": "eng",
+            "titleTranslation": "The Rhein Gold - The Valkyrie - Siegfried - Twilight of the Gods"
+        }],
+        "titleType": "collection",
+        "titleLanguage": "German"
     }],
     "inscriptionDescriptionInscriber": "",
     "contentPlaces": [{

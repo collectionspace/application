@@ -90,8 +90,7 @@
         "_primary": true,
         "title": "title",
         "titleType": "titleType",
-        "titleTranslation": "titleTranslation",
-        "titleTranslationLanguage": "titleTranslationLanguage",
+        "titleTranslation": "titleTranslation"
     }],
     "objectNameLanguage": "objectNameLanguage",
     "inscriptionDescriptionType": "",

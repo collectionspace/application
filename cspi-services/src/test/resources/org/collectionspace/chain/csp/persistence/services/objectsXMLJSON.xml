@@ -73,11 +73,30 @@
 <collection>collection</collection>
 <titleGroupList>
     <titleGroup>
-        <title>title</title>
-        <titleLanguage>titleLanguage</titleLanguage>
-        <titleTranslationLanguage>titleTranslationLanguage</titleTranslationLanguage>
-        <titleTranslation>titleTranslation</titleTranslation>
-        <titleType>titleType</titleType>
+        <title>Der Ring des Nibelungen</title>
+        <titleLanguage>deu</titleLanguage>
+        <titleTranslationSubGroupList>
+            <titleTranslationSubGroup>
+                <titleTranslation>The Ring Cycle</titleTranslation>
+                <titleTranslationLanguage>eng</titleTranslationLanguage>
+            </titleTranslationSubGroup>
+            <titleTranslationSubGroup>
+                <titleTranslation>Ringling Bros. / Barnum and Bailey's epic times</titleTranslation>
+                <titleTranslationLanguage>ang</titleTranslationLanguage>
+            </titleTranslationSubGroup>
+        </titleTranslationSubGroupList>
+        <titleType>assigned-by-artist</titleType>
+    </titleGroup>
+    <titleGroup>
+        <title>Das Rheingold - Die Valküre - Siegfried - Götterdämmerung</title>
+        <titleLanguage>German</titleLanguage>
+        <titleTranslationSubGroupList>
+            <titleTranslationSubGroup>
+                <titleTranslation>The Rhein Gold - The Valkyrie - Siegfried - Twilight of the Gods</titleTranslation>
+                <titleTranslationLanguage>eng</titleTranslationLanguage>
+            </titleTranslationSubGroup>
+        </titleTranslationSubGroupList>
+        <titleType>collection</titleType>
     </titleGroup>
 </titleGroupList>
 <recordStatus>recordStatus</recordStatus>
