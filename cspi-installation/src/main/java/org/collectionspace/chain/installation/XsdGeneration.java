@@ -27,10 +27,10 @@ public class XsdGeneration {
 		CSPManager cspm=getServiceManager(configfile);
 		Spec spec = getSpec(cspm);
 		//valid recordtype?
-		log.info("record:"+record);
+		//log.info("record:"+record);
 		if(spec.hasRecordByServicesUrl(record)){
 			Record tryme = spec.getRecordByServicesUrl(record);
-			log.info("TYPE"+type);
+			//log.info("TYPE"+type);
 			if(type.equals("core")){
 				MakeXsd catlog = new MakeXsd( getTenantData(cspm), domain);
 				file = catlog.serviceschema(domain, tryme);
