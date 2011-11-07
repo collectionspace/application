@@ -481,9 +481,16 @@ public class UISpec implements WebMethod {
 			
 			JSONObject repeatTree = new JSONObject();
 			repeatTree.put("expander", expander);
-			
+			if(r.getParent() instanceof Record){
+				options.put("elPath",veryplainWithoutEnclosure(r,context));
+			}
+			else{
+				options.put("elPath", r.getID());
+				options.put("root", "{row}");
+			}
 			options.put("repeatTree", repeatTree);
-			options.put("elPath",veryplainWithoutEnclosure(r,context));
+			//is this a nested repeat or a top level repeat...
+			//is this a uispec for search - if so no primary tags wanted
 			if(r.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
 				options.put("hidePrimary", true);
 			}
@@ -787,6 +794,7 @@ public class UISpec implements WebMethod {
 		if("hierarchy".equals(fs.getUIType())) {
 			generateHierarchyEntry(out,fs,context);
 		}
+		//this is a subrecord bit that is surrounded by a group tag in the parent obj
 		if(fs.usesRecord() && !(fs instanceof Repeat && !(fs instanceof Group))){
 			if(!fs.getUISpecInherit()){
 				//default behaviour do group or field as expected
@@ -847,7 +855,7 @@ public class UISpec implements WebMethod {
 			UISpecRunContext affix) throws JSONException {
 		// Container
 		Repeat r=(Repeat)fs;
-		if(r.getXxxUiNoRepeat()) {
+		if(r.getXxxUiNoRepeat()) { //this is not a repeat in the UI only repeats in the service layer
 			FieldSet[] children=r.getChildren("");
 			if(children.length!=0){
 				generateDataEntry(out,children[0], affix);
@@ -855,10 +863,10 @@ public class UISpec implements WebMethod {
 		} else {
 			JSONObject row=new JSONObject();
 			JSONArray children=new JSONArray();
-			if(r.asSibling() && !r.hasServicesParent()){ // allow for row [{'','',''}]
+			if(r.asSibling() && !r.hasServicesParent()){ // allow for row [{'','',''}] e.g. roles and permissions
 				repeatSibling(out, affix, r, row, children);
 			}
-			else{
+			else{//this should be most repeats
 				repeatNonSibling(out, affix, r);
 			}
 		}
@@ -866,7 +874,7 @@ public class UISpec implements WebMethod {
 
 	protected void repeatNonSibling(JSONObject out,  UISpecRunContext context,
 			Repeat r) throws JSONException {
-		JSONObject contents=generateRepeatEntry(r, context,out);
+		JSONObject contents=generateRepeatEntry(r, context,out); //gather all standard repeatable bits
 		String selector = getSelector(r,context);
 		//CSPACE-2619 scalar repeatables are different from group repeats
 		if(r.getChildren("").length==1){

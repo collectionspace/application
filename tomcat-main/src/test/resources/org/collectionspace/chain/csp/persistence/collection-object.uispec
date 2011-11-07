@@ -168,6 +168,8 @@
                                         "func": "cspace.makeRepeatable",
                                         "type": "fluid",
                                         "options": {
+                                            "elPath": "titleTranslationSubGroup",
+                                        	"root": "{row}",
                                             "repeatTree": {
                                                 "expander": {
                                                     "tree": {
@@ -186,8 +188,7 @@
                                                     },
                                                     "type": "fluid.noexpand"
                                                 }
-                                            },
-                                            "elPath": "fields.titleGroup.0.titleTranslationSubGroup"
+                                            }
                                         }
                                     }]
                                 },
