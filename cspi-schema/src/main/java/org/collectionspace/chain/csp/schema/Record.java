@@ -39,20 +39,32 @@ public class Record implements FieldParent {
 	private Map<String, Map<String, String>> uisection = new HashMap<String, Map<String, String>>();
 	private Map<String, FieldSet> subrecords = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> subrecordsperm = new HashMap<String, Map<String, FieldSet>>();
-	private Map<String, FieldSet> fields = new HashMap<String, FieldSet>();
-	private Map<String, FieldSet> servicefields = new HashMap<String, FieldSet>();
-	private Map<String, FieldSet> mergedfields = new HashMap<String, FieldSet>();
 	
-	private Map<String, Map<String, Map<String, FieldSet>>> servicepermfields = new HashMap<String, Map<String,Map<String, FieldSet>>>();
-	private Map<String, Map<String, FieldSet>> genpermfields = new HashMap<String, Map<String, FieldSet>>();
-	private Map<String, Map<String, FieldSet>> allgenpermfields = new HashMap<String, Map<String, FieldSet>>();
-	private Map<String, Map<String, FieldSet>> mergedpermfields = new HashMap<String, Map<String, FieldSet>>();
-	private Map<String, Map<String, FieldSet>> repeatpermfields = new HashMap<String, Map<String, FieldSet>>();
-	private Map<String,FieldSet> searchfields = new HashMap<String, FieldSet>();
-	
-	
-	private Map<String, FieldSet> repeatfields = new HashMap<String, FieldSet>();
+	//operation - GET POST PUT SEARCH - as some fields are not available for all operations	
+	//genpermfields becomes (servicefieldsbyoperation) - topfieldsbyoperation
+	private Map<String, Map<String, FieldSet>> topfieldsbyoperation = new HashMap<String, Map<String, FieldSet>>();
+	//allgenpermfields becomes allfieldsbyoperation includes fields that don't existing the service layer
+	private Map<String, Map<String, FieldSet>> allfieldsbyoperation = new HashMap<String, Map<String, FieldSet>>();
+	//servicepermfields becomes servicefieldsbyoperation
+	private Map<String, Map<String, Map<String, FieldSet>>> servicefieldsbyoperation = new HashMap<String, Map<String,Map<String, FieldSet>>>();
+	// don't thinkg this is used
+	// private Map<String, Map<String, FieldSet>> mergedpermfields = new HashMap<String, Map<String, FieldSet>>();
+	//servicefields becomes serviceFieldTopLevel
+	private Map<String, FieldSet> serviceFieldTopLevel = new HashMap<String, FieldSet>();
+	//fields become fieldTopLevel
+	private Map<String, FieldSet> fieldTopLevel = new HashMap<String, FieldSet>();
 
+	//this is actually a list of all fields flattened out rather than hierarchical so includes all children
+	//repeatfields become (messageKeyFields) becomes fieldFullList
+	private Map<String, FieldSet> fieldFullList = new HashMap<String, FieldSet>();
+	//serviceFieldFullList: not sure if this is needed - but is all fields in the service layer
+	private Map<String, FieldSet> serviceFieldFullList = new HashMap<String, FieldSet>(); 
+	//searchFieldFullList: all fields used in the advanced search UI
+	private Map<String, FieldSet> searchFieldFullList = new HashMap<String, FieldSet>(); 
+
+	//merged fields are fields in the UI that take multiple service layer fields
+	private Map<String, FieldSet> mergedfields = new HashMap<String, FieldSet>(); 
+	
 	private Map<String, Instance> instances = new HashMap<String, Instance>();
 	private Map<String, FieldSet> summarylist = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
@@ -226,6 +238,179 @@ public class Record implements FieldParent {
 	}
 	/** end generic functions **/
 	
+	/** field functions **/
+	//getPerm is now hasFieldByOperation(fieldId,operation)
+	//tests if a specific field exists for a certain operation
+	public Boolean hasFieldByOperation(String fieldId, String operation){
+		if(allfieldsbyoperation.containsKey(operation)){
+			if(allfieldsbyoperation.get(operation).containsKey(fieldId)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void addSearchField(FieldSet f){
+		
+		if(!(f.getSearchType().equals(""))){
+			FieldSet searchf = f;
+			if(searchf.getSearchType().equals("repeatable")){
+				//need to makeup a repeatable field
+				if(f.getParent() instanceof Repeat){
+					Repeat rs = (Repeat)f.getParent();
+					//XXX this name is terrible - should be a better way
+					rs.setSearchType("repeatored"); //need to set the type of repeat this is e.g. is it just for search or is is also for edit
+					searchFieldFullList.put(rs.getID(),rs);
+				}
+				else{
+					Repeat r = new Repeat(searchf.getRecord(),searchf.getID()+"s"); //UI wants 'plurals' for the fake repeat parents
+					//XXX this name is terrible - should be a better way
+					r.setSearchType("repeator");
+					searchFieldFullList.put(r.getID(),r);
+	
+					searchf.setParent(r);
+					r.addChild(searchf); // this is causing confusing later on... can we separate this some how?
+				}
+				
+			}
+			else if(searchf.getSearchType().equals("range")){
+				searchf.getRecord().addUISection("search", searchf.getID());
+//need to add label for main bit as well...
+				Field fst = new Field(searchf.getRecord(),searchf.getID()+"Start");
+				Field fed = new Field(searchf.getRecord(),searchf.getID()+"End");
+
+				fst.setSearchType("range");
+				fed.setSearchType("range");
+				fed.setType(searchf.getUIType());
+				fst.setType(searchf.getUIType());
+				searchFieldFullList.put(fst.getID(),fst);
+				searchFieldFullList.put(fed.getID(),fed);
+			}
+			else{
+				searchFieldFullList.put(searchf.getID(),searchf);
+			}
+		}
+	}
+	
+
+	public void addField(FieldSet f){
+		String parentType = f.getParent().getClass().getSimpleName();
+		fieldFullList.put(f.getID(),f);
+		if(f.isInServices()){
+			serviceFieldFullList.put(f.getID(),f);
+		}
+		
+		//is this a search field?
+		addSearchField(f);
+			
+		if(parentType.equals("Record")){ //toplevel field
+			fieldTopLevel.put(f.getID(),f);
+			if(f.isInServices()){
+				serviceFieldTopLevel.put(f.getID(),f);
+				//list fields by the operations they support
+				for (String oper : f.getAllFieldOperations()) {
+					hashutil(servicefieldsbyoperation, oper,f.getSection(), f); 
+					//subdivide section and then by GET POST PUT etc
+				}
+			}
+			//list fields by the operations they support
+			for (String oper : f.getAllFieldOperations()) {
+				hashutil(topfieldsbyoperation, oper, f); //subdivide by GET POST PUT etc
+			}
+			hashutil(topfieldsbyoperation, "", f); //ALL function
+		}
+		//list fields by the operations they support
+		for (String oper : f.getAllFieldOperations()) {
+			hashutil(allfieldsbyoperation, oper, f); //subdivide by GET POST PUT etc
+		}
+		hashutil(allfieldsbyoperation, "", f); //ALL function
+	}
+		
+	public FieldSet[] getAllServiceFieldTopLevel(String operation, String section) {
+		if(operation.equals("")){//return everything
+			return serviceFieldTopLevel.values().toArray(new FieldSet[0]);
+		}
+		if(servicefieldsbyoperation.containsKey(operation)){
+			if(servicefieldsbyoperation.get(operation).containsKey(section)){
+				return servicefieldsbyoperation.get(operation).get(section).values().toArray(new FieldSet[0]);
+			}
+		}
+		return new FieldSet[0];
+	}
+	public FieldSet[] getAllFieldFullList(String operation) {
+		if(allfieldsbyoperation.containsKey(operation)){
+			return allfieldsbyoperation.get(operation).values().toArray(new FieldSet[0]);
+		}
+		return new FieldSet[0];
+	}
+	
+	public FieldSet[] getAllFieldTopLevel(String operation) {
+		if(operation.equals("")){ //return all fields
+			return fieldTopLevel.values().toArray(new FieldSet[0]);
+		}
+		if(operation.equals("search")){
+			return searchFieldFullList.values().toArray(new FieldSet[0]);
+		}
+		else if(topfieldsbyoperation.containsKey(operation)){
+			return topfieldsbyoperation.get(operation).values().toArray(new FieldSet[0]);
+		}
+		return new FieldSet[0];
+	}
+	//merged fields are fields in the UI that take multiple service layer fields
+	public FieldSet[]  getAllMergedFields(){
+		FieldSet[] merged = mergedfields.values().toArray(new FieldSet[0]);
+		return merged;
+	}
+	
+	public FieldSet getFieldTopLevel(String id) {
+		return fieldTopLevel.get(id);
+	}
+	public FieldSet getFieldFullList(String id) {
+		return fieldFullList.get(id);
+	}
+	public FieldSet getServiceFieldFullList(String id) {
+		return serviceFieldFullList.get(id);
+	}
+	public FieldSet getSearchFieldFullList(String id) {
+		return searchFieldFullList.get(id);
+	}
+	public Boolean hasSearchField(String id) {
+		return searchFieldFullList.containsKey(id);
+	}
+	public void setMerged(Field f){
+		mergedfields.put(f.getID(), f);
+	}
+	public Boolean hasMerged() {
+		if (mergedfields.isEmpty())
+			return false;
+
+		return true;
+	}
+	//generic function to simplify adding to hashmaps
+	private void hashutil(Map<String, Map<String, Map<String, FieldSet>>> testfields, String level1, String level2, FieldSet fs){
+		if (!testfields.containsKey(level1)) {
+			testfields.put(level1, new HashMap<String, Map<String, FieldSet>>());
+		}
+		if (!testfields.get(level1).containsKey(level2)) {
+			testfields.get(level1).put(level2,new HashMap<String, FieldSet>());
+		}
+		testfields.get(level1).get(level2).put(fs.getID(), fs);
+	}
+	//generic function to simplify adding to hashmaps
+	private void hashutil(Map<String, Map<String, FieldSet>> testfields, String level1, FieldSet fs){
+		if (!testfields.containsKey(level1)) {
+			testfields.put(level1, new HashMap<String, FieldSet>());
+		}
+		testfields.get(level1).put(fs.getID(), fs);
+		
+	}
+	/** end field functions **/
+	
+	
+	
+	
+	
+	
 	public String getID() {
 		return getString("@id");
 	}
@@ -262,38 +447,6 @@ public class Record implements FieldParent {
 		return spec;
 	}
 
-	public FieldSet[]  getAllMergedFields(){
-		FieldSet[] merged = mergedfields.values().toArray(new FieldSet[0]);
-		return merged;
-	}
-	public FieldSet[]  getAllGenFields(String perm){
-		if(allgenpermfields.containsKey(perm)){
-			return allgenpermfields.get(perm).values().toArray(new FieldSet[0]);
-		}
-		return new FieldSet[0];
-	}
-	
-	public Boolean getPerm(String fieldId, String perm){
-		if(allgenpermfields.containsKey(perm)){
-			if(allgenpermfields.get(perm).containsKey(fieldId)){
-				return true;
-			}
-		}
-		return false;
-	}
-	
-	
-	public FieldSet[] getAllServiceFields(String perm, String section) {
-		if(perm.equals("")){//return everything
-			return servicefields.values().toArray(new FieldSet[0]);
-		}
-		if(servicepermfields.containsKey(perm)){
-			if(servicepermfields.get(perm).containsKey(section)){
-				return servicepermfields.get(perm).get(section).values().toArray(new FieldSet[0]);
-			}
-		}
-		return new FieldSet[0];
-	}
 	
 //	public FieldSet[] getAllServiceFields() {
 //		return servicefields.values().toArray(new FieldSet[0]);
@@ -322,54 +475,10 @@ public class Record implements FieldParent {
 		return null;
 	}
 
-	public FieldSet[] getAllFields(String perm) {
-		if(perm.equals("")){
-			return fields.values().toArray(new FieldSet[0]);
-		}
-		if(perm.equals("search")){
-			return searchfields.values().toArray(new FieldSet[0]);
-		}
-		else if(genpermfields.containsKey(perm)){
-			return genpermfields.get(perm).values().toArray(new FieldSet[0]);
-		}
-		return new FieldSet[0];
-	}
-//	public FieldSet[] getAllFields() {
-//		return fields.values().toArray(new FieldSet[0]);
-//	}
 
-	public FieldSet getField(String id) {
-		return fields.get(id);
-	}
-	public Boolean hasSearchField(String id) {
-		return searchfields.containsKey(id);
-	}
-	public FieldSet getSearchField(String id) {
-		return searchfields.get(id);
-	}
-
-	//public FieldSet[] getAllRepeatFields() {
-	//	return repeatfields.values().toArray(new FieldSet[0]);
-	//}
-	public FieldSet[] getAllRepeatFields(String perm) {
-		if(perm.equals("")){
-			return repeatfields.values().toArray(new FieldSet[0]);
-		}
-		if(repeatpermfields.containsKey(perm)){
-			return repeatpermfields.get(perm).values().toArray(new FieldSet[0]);
-		}
-		return new FieldSet[0];
-	}
 
 	public String enumBlankValue(){
 		return getString("enum-blank");
-	}
-	/*
-	 * includes all the fields that are children of repeats as well as top level
-	 * fields.
-	 */
-	public FieldSet getRepeatField(String id) {
-		return repeatfields.get(id);
 	}
 
 	public Structure getStructure(String id) {
@@ -388,7 +497,7 @@ public class Record implements FieldParent {
 	public FieldSet[] getAllSubRecords(String perm) {
 		if(!subrecordsperm.containsKey(perm)){
 			subrecordsperm.put(perm, new HashMap<String, FieldSet>());
-			for (FieldSet fs : this.getAllRepeatFields(perm)) {
+			for (FieldSet fs : this.getAllFieldFullList(perm)) {
 				if (fs.usesRecord()) {
 					this.addSubRecord(fs,perm);
 				}
@@ -396,18 +505,7 @@ public class Record implements FieldParent {
 		}
 		return subrecordsperm.get(perm).values().toArray(new FieldSet[0]);
 	}	
-	/*
-	public FieldSet[] getAllSubRecords() {
-		if (subrecords.values().isEmpty()) {
-			for (FieldSet fs : this.getAllRepeatFields("")) {
-				if (fs.usesRecord()) {
-					this.addSubRecord(fs);
-				}
-			}
-		}
-		return subrecords.values().toArray(new FieldSet[0]);
-	}
-	*/
+
 
 	public String getPrimaryField() {
 		return getString("primaryfield");
@@ -421,12 +519,6 @@ public class Record implements FieldParent {
 		}
 	}
 
-	public Boolean hasMergeData() {
-		if (mergedfields.isEmpty())
-			return false;
-
-		return true;
-	}
 	public String getTermsUsedURL() {
 		return getString("terms-used-url");
 	}
@@ -575,9 +667,7 @@ public class Record implements FieldParent {
 		}
 		return false;
 	}
-	void setMerged(Field f){
-		mergedfields.put(f.getID(), f);
-	}
+
 	
 	void setMiniNumber(FieldSet f) {
 		mini_number = f;
@@ -622,9 +712,7 @@ public class Record implements FieldParent {
 		return display_name;
 	}
 
-	public Field getFieldByServicesFilterParam(String param) {
-		return services_filter_param.get(param);
-	}
+
 
 	// authorization
 	public Boolean getAuthorizationView() {
@@ -640,101 +728,6 @@ public class Record implements FieldParent {
 		return getAuthorizationType().contains(name);
 	}
 
-	public void addField(FieldSet f , Boolean plusServices){
-		if (plusServices) {
-			fields.put(f.getID(), f);
-			if (f.isInServices()) {
-				servicefields.put(f.getID(), f);
-				for (String perm : f.getAllFieldPerms()) {
-					if (!servicepermfields.containsKey(perm)) {
-						servicepermfields.put(perm,
-								new HashMap<String, Map<String, FieldSet>>());
-					}
-					if (!servicepermfields.get(perm)
-							.containsKey(f.getSection())) {
-						servicepermfields.get(perm).put(f.getSection(),
-								new HashMap<String, FieldSet>());
-					}
-					servicepermfields.get(perm).get(f.getSection()).put(
-							f.getID(), f);
-				}
-			}
-			for (String perm : f.getAllFieldPerms()) {
-				if (!genpermfields.containsKey(perm)) {
-					genpermfields.put(perm, new HashMap<String, FieldSet>());
-				}
-				genpermfields.get(perm).put(f.getID(), f);
-			}
-			if (!genpermfields.containsKey("")) {
-				genpermfields.put("", new HashMap<String, FieldSet>());
-			}
-			genpermfields.get("").put(f.getID(), f);
-		} 
-
-		
-		for (String perm : f.getAllFieldPerms()) {
-			if (!allgenpermfields.containsKey(perm)) {
-				allgenpermfields.put(perm, new HashMap<String, FieldSet>());
-			}
-			allgenpermfields.get(perm).put(f.getID(), f);
-		}
-		if (!allgenpermfields.containsKey("")) {
-			allgenpermfields.put("", new HashMap<String, FieldSet>());
-		}
-		allgenpermfields.get("").put(f.getID(), f);
-		
-
-		//is this a search field?
-		if(!(f.getSearchType().equals(""))){
-			FieldSet searchf = f;
-			if(searchf.getSearchType().equals("repeatable")){
-				//need to makeup a repeatable field
-				if(f.getParent() instanceof Repeat){
-					Repeat rs = (Repeat)f.getParent();
-					rs.setSearchType("repeatored");
-					searchfields.put(rs.getID(),rs);
-				}
-				else{
-					Repeat r = new Repeat(searchf.getRecord(),searchf.getID()+"s");
-					r.setSearchType("repeator");
-					searchfields.put(r.getID(),r);
-	
-					searchf.setParent(r);
-					r.addChild(searchf);
-				}
-				
-			}
-			else if(searchf.getSearchType().equals("range")){
-				searchf.getRecord().addUISection("search", searchf.getID());
-//need to add label for main bit as well...
-				Field fst = new Field(searchf.getRecord(),searchf.getID()+"Start");
-				Field fed = new Field(searchf.getRecord(),searchf.getID()+"End");
-
-				fst.setSearchType("range");
-				fed.setSearchType("range");
-				fed.setType(searchf.getUIType());
-				fst.setType(searchf.getUIType());
-				searchfields.put(fst.getID(),fst);
-				searchfields.put(fed.getID(),fed);
-			}
-			else{
-				searchfields.put(searchf.getID(),searchf);
-			}
-		}
-	}
-	public void addField(FieldSet f) {
-		addField(f,true);
-	}
-
-	public void addAllField(FieldSet f) {
-		repeatfields.put(f.getID(), f);
-		for(String perm : f.getAllFieldPerms()){
-			if(!repeatpermfields.containsKey(perm)){
-				repeatpermfields.put(perm, new HashMap<String, FieldSet>());
-			}
-			repeatpermfields.get(perm).put(f.getID(), f);
-		}
-	}
 
 	public void addUISection(String section, String id){
 		if(section.equals("")){section = "base";}
@@ -861,7 +854,7 @@ public class Record implements FieldParent {
 	public void config_finish(Spec spec) {
 		for (Instance n : instances.values())
 			n.config_finish(spec);
-		for (FieldSet fs : fields.values())
+		for (FieldSet fs : fieldTopLevel.values())
 			fs.config_finish(spec);
 	}
 

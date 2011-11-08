@@ -432,7 +432,8 @@ public class Field implements FieldSet {
 		return options_list.toArray(new Option[0]);
 	}
 	
-	public String[] getAllFieldPerms(){
+	//getAllFieldPerms now getAllFieldOperations
+	public String[] getAllFieldOperations(){
 		return getSet("@attributes").toArray(new String[0]);
 	}
 

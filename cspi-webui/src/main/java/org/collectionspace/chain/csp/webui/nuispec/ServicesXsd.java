@@ -202,7 +202,7 @@ public class ServicesXsd implements WebMethod {
 
 		// add toplevel items
 
-		for (FieldSet fs : record.getAllFields("")) {
+		for (FieldSet fs : record.getAllFieldTopLevel("")) {
 			generateDataEntry(root, fs, ns, root, false);
 		}
 

@@ -20,7 +20,7 @@ public interface FieldSet {
 	public String getSection();
 	public Boolean isInServices();
 	public boolean hasFieldPerm(String k);
-	public String[] getAllFieldPerms();
+	public String[] getAllFieldOperations();
 
 	public void config_finish(Spec spec);
 	

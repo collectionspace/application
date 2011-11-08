@@ -50,13 +50,13 @@ public class XmlJsonConversion {
 		}
 	}
 	
-	private static void addSubRecordToXml(Element root,Field field,JSONObject in, String permlevel) throws JSONException, UnderlyingStorageException{
+	private static void addSubRecordToXml(Element root,Field field,JSONObject in, String operation) throws JSONException, UnderlyingStorageException{
 		String parts[] = field.getUIType().split("/");
 		Record subitems = field.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 
-		if(subitems.getAllServiceFields(permlevel,"common").length >0){
-			for(FieldSet f : subitems.getAllServiceFields(permlevel,"common")) {
-				addFieldSetToXml(root,f,in,"common",permlevel);
+		if(subitems.getAllServiceFieldTopLevel(operation,"common").length >0){
+			for(FieldSet f : subitems.getAllServiceFieldTopLevel(operation,"common")) {
+				addFieldSetToXml(root,f,in,"common",operation);
 			}
 			String test = root.asXML();
 			log.debug(root.asXML());
@@ -288,16 +288,15 @@ public class XmlJsonConversion {
 		
 	}
 	
-	public static Document convertToXml(Record r,JSONObject in,String section, String permtype) throws JSONException, UnderlyingStorageException {
+	public static Document convertToXml(Record r,JSONObject in,String section, String operation) throws JSONException, UnderlyingStorageException {
 		Document doc=DocumentFactory.getInstance().createDocument();
 		String[] parts=r.getServicesRecordPath(section).split(":",2);
 		String[] rootel=parts[1].split(",");
 		Element root=doc.addElement(new QName(rootel[1],new Namespace("ns2",rootel[0])));
-		if(r.getAllServiceFields(permtype,section).length >0){
-			for(FieldSet f : r.getAllServiceFields(permtype,section)) {
-				addFieldSetToXml(root,f,in,section,permtype);
+		if(r.getAllServiceFieldTopLevel(operation,section).length >0){
+			for(FieldSet f : r.getAllServiceFieldTopLevel(operation,section)) {
+				addFieldSetToXml(root,f,in,section,operation);
 			}
-			//log.info(doc.asXML());
 			return doc;
 		}
 		return null;
@@ -365,7 +364,7 @@ public class XmlJsonConversion {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private static void addFieldToJson(JSONObject out,Element root,Field f, String permlevel, JSONObject tempSon,String csid,String ims_url) throws JSONException {
+	private static void addFieldToJson(JSONObject out,Element root,Field f, String operation, JSONObject tempSon,String csid,String ims_url) throws JSONException {
 		String use_csid=f.useCsid();
 		if(use_csid!=null) {
 			if(f.useCsidField()!=null){
@@ -384,8 +383,8 @@ public class XmlJsonConversion {
 				Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 
 				JSONObject temp = new JSONObject();
-				for(FieldSet fs : subitems.getAllServiceFields(permlevel,"common")) {
-					addFieldSetToJson(temp,el,fs,permlevel, tempSon,csid,ims_url);
+				for(FieldSet fs : subitems.getAllServiceFieldTopLevel(operation,"common")) {
+					addFieldSetToJson(temp,el,fs,operation, tempSon,csid,ims_url);
 				}
 
 				out.put(f.getID(),temp);
@@ -727,18 +726,18 @@ public class XmlJsonConversion {
 			addRepeatToJson(out,root,(Repeat)fs,permlevel, tempSon,csid,ims_url);
 	}
 	
-	public static void convertToJson(JSONObject out,Record r,Document doc, String permlevel, String section,String csid,String ims_url) throws JSONException {
+	public static void convertToJson(JSONObject out,Record r,Document doc, String operation, String section,String csid,String ims_url) throws JSONException {
 		Element root=doc.getRootElement();
 		JSONObject tempSon = new JSONObject();
-		for(FieldSet f : r.getAllServiceFields(permlevel,section)) {
-			addFieldSetToJson(out,root,f,permlevel, tempSon,csid,ims_url);
+		for(FieldSet f : r.getAllServiceFieldTopLevel(operation,section)) {
+			addFieldSetToJson(out,root,f,operation, tempSon,csid,ims_url);
 		}
 		
-		if(r.hasMergeData()){
+		if(r.hasMerged()){
 			for(FieldSet f : r.getAllMergedFields()){
 				for(String fm : f.getAllMerge()){
 					if (fm != null) {
-						if (r.getPerm(fm, permlevel)) {
+						if (r.hasFieldByOperation(fm, operation)) {
 							if (tempSon.has(fm)) {
 								String data = tempSon.getString(fm);
 								if (data != null && !data.equals("")

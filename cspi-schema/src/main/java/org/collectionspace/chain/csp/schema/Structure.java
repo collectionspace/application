@@ -128,8 +128,8 @@ public class Structure  implements FieldParent  {
 		mainarea_sections.put(f.getID(),f);
 	}
 
-	public FieldSet[] getAllFields() { return fields.values().toArray(new FieldSet[0]); }
-	public FieldSet getField(String id) { return fields.get(id); }
+	public FieldSet[] getAllFieldTopLevel() { return fields.values().toArray(new FieldSet[0]); }
+	public FieldSet getFieldTopLevel(String id) { return fields.get(id); }
 	public FieldSet[] getAllRepeatFields() { return repeatfields.values().toArray(new FieldSet[0]); }
 	public FieldSet getRepeatField(String id) { return repeatfields.get(id); }
 	public FieldSet getSideBarItems(String id) { return sidebar_sections.get(id); }

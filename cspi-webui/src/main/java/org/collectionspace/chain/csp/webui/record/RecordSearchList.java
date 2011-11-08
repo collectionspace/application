@@ -201,7 +201,7 @@ public class RecordSearchList implements WebMethod {
 						}
 						else{
 							//convert sortKey
-							fs = r.getField(fieldname);
+							fs = r.getFieldTopLevel(fieldname);
 						}
 
 						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
@@ -374,7 +374,7 @@ public class RecordSearchList implements WebMethod {
 					value = (String)item;
 					if(!value.equals("")){
 						String fieldid = fieldname;
-						if(this.r.hasSearchField(fieldname) && this.r.getSearchField(fieldname).getUIType().equals("date")){
+						if(this.r.hasSearchField(fieldname) && this.r.getSearchFieldFullList(fieldname).getUIType().equals("date")){
 							if(fieldname.endsWith("Start")){
 								fieldid = fieldname.substring(0, (fieldname.length() - 5));
 								join = ">= DATE ";
@@ -438,7 +438,7 @@ public class RecordSearchList implements WebMethod {
 	private String getAdvancedSearch(String fieldname, String value, String operator, String join){
 		if(!value.equals("")){
 			try{
-				String section = this.r.getRepeatField(fieldname).getSection();
+				String section = this.r.getFieldFullList(fieldname).getSection(); 
 				String spath=this.r.getServicesRecordPath(section);
 				String[] parts=spath.split(":",2);
 				if(value.contains("*")){

@@ -116,7 +116,7 @@ public class GenericStorage  implements ContextualisedStorage {
 								view_merge.put(prefix+"_"+f.getID(),f.getAllMerge());
 								for(String fm : f.getAllMerge()){
 									if(fm!=null){
-										if(r.getRepeatField(fm).hasAutocompleteInstance()){
+										if(r.getFieldFullList(fm).hasAutocompleteInstance()){
 											xxx_view_deurn.add(f.getID());
 										}
 									}
@@ -578,8 +578,8 @@ public class GenericStorage  implements ContextualisedStorage {
 						}
 						
 						Field fieldinstance= null;
-						if(r.getRepeatField(fieldName) instanceof Repeat){
-							Repeat rp = (Repeat)r.getRepeatField(fieldName);
+						if(r.getFieldFullList(fieldName) instanceof Repeat){
+							Repeat rp = (Repeat)r.getFieldFullList(fieldName);
 							for(FieldSet a : rp.getChildren("GET")){
 								if(a instanceof Field && a.hasAutocompleteInstance()){
 									fieldinstance = (Field)a;
@@ -587,7 +587,7 @@ public class GenericStorage  implements ContextualisedStorage {
 							}
 						}
 						else{
-							fieldinstance = (Field)r.getRepeatField(fieldName);
+							fieldinstance = (Field)r.getFieldFullList(fieldName);
 						}
 						
 						if(fieldinstance != null){
@@ -698,10 +698,10 @@ public class GenericStorage  implements ContextualisedStorage {
 						fieldName = key.split(":")[1];
 						//XXX fixCSPACE-2909 would be nice if they gave us the actual field rather than the parent
 						//XXX CSPACE-2586
-						while(thisr.getRepeatField(fieldName) instanceof Repeat || thisr.getRepeatField(fieldName) instanceof Group ){
-							fieldName = ((Repeat)thisr.getRepeatField(fieldName)).getChildren("GET")[0].getID();
+						while(thisr.getFieldFullList(fieldName) instanceof Repeat || thisr.getFieldFullList(fieldName) instanceof Group ){
+							fieldName = ((Repeat)thisr.getFieldFullList(fieldName)).getChildren("GET")[0].getID();
 						}
-						Field fieldinstance = (Field)thisr.getRepeatField(fieldName);
+						Field fieldinstance = (Field)thisr.getFieldFullList(fieldName);
 						fieldSelector = fieldinstance.getSelector();
 					}
 
@@ -805,7 +805,7 @@ public class GenericStorage  implements ContextualisedStorage {
 						if(fs instanceof Field){
 							JSONObject subdata = new JSONObject();
 							//loop thr jsonObject and find the fields I need
-							for(FieldSet subfs: sr.getAllFields("PUT")){
+							for(FieldSet subfs: sr.getAllFieldTopLevel("PUT")){
 								String key = subfs.getID();
 								if(jsonObject.has(key)){
 									subdata.put(key, jsonObject.get(key));
@@ -1064,7 +1064,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					if(fs instanceof Field){//get the fields form inline XXX untested - might not work...
 						JSONObject subdata = new JSONObject();
 						//loop thr jsonObject and find the fields I need
-						for(FieldSet subfs: sr.getAllFields("POST")){
+						for(FieldSet subfs: sr.getAllFieldTopLevel("POST")){
 							String key = subfs.getID();
 							if(jsonObject.has(key)){
 								subdata.put(key, jsonObject.get(key));

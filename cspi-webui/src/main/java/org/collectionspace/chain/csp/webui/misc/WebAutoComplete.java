@@ -43,7 +43,7 @@ public class WebAutoComplete implements WebMethod {
 	public WebAutoComplete(Record r) { this.r=r; }
 	
 	private JSONArray doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,String start, String pageSize, String pageNum) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
-		FieldSet fs=r.getRepeatField(fieldname);
+		FieldSet fs=r.getFieldFullList(fieldname);
 		JSONArray out = new JSONArray();
 		Instance[] allInstances = null;
 		if(fs == null || !(fs instanceof Field)){
@@ -61,7 +61,7 @@ public class WebAutoComplete implements WebMethod {
 					
 				}
 				else{
-					fs = r.getSpec().getRecord("hierarchy").getRepeatField(fieldname);
+					fs = r.getSpec().getRecord("hierarchy").getFieldFullList(fieldname);
 					if(fs instanceof Field){ 	
 						allInstances = ((Field)fs).getAllAutocompleteInstances();
 					}

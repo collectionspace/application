@@ -269,7 +269,7 @@ public class UISpec implements WebMethod {
 					Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
 					if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
 						truerepeat = true;
-						for(FieldSet fs2 : subitems.getAllFields("")) {	
+						for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
 							subexpander.put(getSelector(fs2,sub), fs2.getID());
 						}
 						options.put("elPath", f.getID());
@@ -278,7 +278,7 @@ public class UISpec implements WebMethod {
 					}
 				}
 				if(!truerepeat){
-					for(FieldSet fs2 : subitems.getAllFields("")) {	
+					for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
 						subexpander.put(getSelector(fs2,sub), veryplainWithoutEnclosure(fs2,sub));
 					}
 				}
@@ -286,7 +286,7 @@ public class UISpec implements WebMethod {
 				options.put("elPaths", subexpander);
 			}
 			else{
-				for(FieldSet fs2 : subitems.getAllFields("")) {		
+				for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {		
 					generateDataEntry(subexpander,fs2, sub);
 				}
 
@@ -646,13 +646,13 @@ public class UISpec implements WebMethod {
 	}
 
 	protected JSONObject generateMessageKeys(UISpecRunContext affix, JSONObject temp, Record r) throws JSONException {
-		if(this.spectype.equals("search")){
+		if(this.spectype.equals("search")){ //is this a search uispec
 			for(String st: r.getAllUISections("search")){
 				if(st!=null){
 					generateMessageKey(temp, r.getUILabelSelector(st),r.getUILabel(st));
 				}
 			}
-			for(FieldSet fs : r.getAllFields(this.spectype)) {
+			for(FieldSet fs : r.getAllFieldTopLevel(this.spectype)) {
 				if(fs.getID()!=null){
 					if(fs.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
 						Repeat rp = (Repeat)fs;
@@ -674,7 +674,7 @@ public class UISpec implements WebMethod {
 				}
 			}
 			
-			for(FieldSet fs : r.getAllRepeatFields("")) { //include children of repeats as well as top level
+			for(FieldSet fs : r.getAllFieldFullList("")) { //include children of repeats as well as top level
 				if(fs.getID()!=null){
 					generateMessageKey(temp, r.getUILabelSelector(fs.getID()), fs.getLabel());
 				}
@@ -721,7 +721,7 @@ public class UISpec implements WebMethod {
 	
 	protected JSONObject generateDataEntrySection(UISpecRunContext context, Record r) throws JSONException {
 		JSONObject out=new JSONObject();
-		for(FieldSet fs : r.getAllFields(this.spectype)) {
+		for(FieldSet fs : r.getAllFieldTopLevel(this.spectype)) {
 			generateDataEntry(out,fs,context);
 		}
 		return out;
@@ -730,8 +730,8 @@ public class UISpec implements WebMethod {
 	protected JSONObject generateListSection(Structure s, UISpecRunContext context) throws JSONException {
 		JSONObject out=new JSONObject();
 		String id = s.getListSectionName();
-		if(s.getField(id) != null){
-			FieldSet fs = s.getField(id);
+		if(s.getFieldTopLevel(id) != null){
+			FieldSet fs = s.getFieldTopLevel(id);
 			generateDataEntry(out,fs, context);
 		}
 		
@@ -758,7 +758,7 @@ public class UISpec implements WebMethod {
 		
 	}
 	protected void generateSubRecord(Record subr, JSONObject out, Boolean repeated, UISpecRunContext context) throws JSONException {
-		for(FieldSet fs2 : subr.getAllFields("")) {
+		for(FieldSet fs2 : subr.getAllFieldTopLevel("")) {
 			if(repeated){
 				fs2.setRepeatSubRecord(true);
 			}
@@ -772,7 +772,7 @@ public class UISpec implements WebMethod {
 		
 	}
 	protected void generateSubRecord(Record subr, JSONObject out, Boolean repeated, UISpecRunContext context, JSONObject parent) throws JSONException {
-		for(FieldSet fs2 : subr.getAllFields("")) {
+		for(FieldSet fs2 : subr.getAllFieldTopLevel("")) {
 			if(repeated){
 				fs2.setRepeatSubRecord(true);
 			}
@@ -934,7 +934,7 @@ public class UISpec implements WebMethod {
 		if(f instanceof Group){
 			Group gp = (Group)f;
 			String test = gp.usesRecordValidator();
-			FieldSet tester = record.getField(test);
+			FieldSet tester = record.getFieldTopLevel(test);
 			if(tester instanceof Field){
 				cond.put("args",plain((Field)tester,context));
 			}
@@ -1067,7 +1067,7 @@ public class UISpec implements WebMethod {
 
 	protected JSONObject generateTitleSection(UISpecRunContext context) throws JSONException {
 		JSONObject out=new JSONObject();
-		for(FieldSet f : record.getAllFields("")) {
+		for(FieldSet f : record.getAllFieldTopLevel("")) {
 			generateTitleSectionEntry(out,f, context);
 		}
 		return out;
@@ -1112,8 +1112,8 @@ public class UISpec implements WebMethod {
 		}
 		else if(fs instanceof Repeat){
 			if(((Repeat)fs).isVisible()){
-				if(s.getField(fs.getID()) != null){
-					generateSideDataEntry(out,s.getField(fs.getID()), context);
+				if(s.getFieldTopLevel(fs.getID()) != null){
+					generateSideDataEntry(out,s.getFieldTopLevel(fs.getID()), context);
 				}
 				else{
 					out.put(fieldName,generateSidebarPart(url_frag,include_type,include_summary,include_sourcefield));

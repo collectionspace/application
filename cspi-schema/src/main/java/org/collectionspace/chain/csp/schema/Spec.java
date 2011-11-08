@@ -221,7 +221,6 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Record)parent,section);
 				((Record)parent).addField(f);
-				((Record)parent).addAllField(f);
 				
 				String is_chooser=(String)section.getValue("/@chooser");
 				if(is_chooser!=null && ("1".equals(is_chooser) || "yes".equals(is_chooser.toLowerCase())))
@@ -277,7 +276,6 @@ public class Spec implements CSP, Configurable {
 		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"repeat"},SECTION_PREFIX+"repeat",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Record)parent,section);
-				((Record)parent).addAllField(r);
 				((Record)parent).addField(r);
 				return r;
 			}
@@ -288,8 +286,7 @@ public class Spec implements CSP, Configurable {
 		rules.addRule(SECTION_PREFIX+"repeat",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Repeat)parent,section);
-				f.getRecord().addAllField(f);
-				f.getRecord().addField(f,false);
+				f.getRecord().addField(f);
 				((Repeat)parent).addChild(f);
 				
 				return f;
@@ -301,7 +298,6 @@ public class Spec implements CSP, Configurable {
 		rules.addRule(SECTION_PREFIX+"uisection",new String[]{"group"},SECTION_PREFIX+"group",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Group r=new Group((Record)parent,section);
-				((Record)parent).addAllField(r);
 				((Record)parent).addField(r);
 				return r;
 			}
@@ -310,8 +306,7 @@ public class Spec implements CSP, Configurable {
 		rules.addRule(SECTION_PREFIX+"group",new String[]{"field"},SECTION_PREFIX+"field",null,new Target(){
 			public Object populate(Object parent, ReadOnlySection section) {
 				Field f=new Field((Group)parent,section);
-				f.getRecord().addAllField(f);
-				f.getRecord().addField(f,false);
+				f.getRecord().addField(f);
 				((Group)parent).addChild(f);
 				return f;
 			}
@@ -321,6 +316,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Group r=new Group((Group)parent,section);
 				((Group)parent).addChild(r);
+				r.getRecord().addField(r);
 				return r;
 			}
 		});
@@ -329,6 +325,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Group r=new Group((Repeat)parent,section);
 				((Repeat)parent).addChild(r);
+				r.getRecord().addField(r);
 				return r;
 			}
 		});
@@ -337,6 +334,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Repeat)parent,section);
 				((Group)parent).addChild(r);
+				r.getRecord().addField(r);
 				return r;
 			}
 		});
@@ -347,6 +345,7 @@ public class Spec implements CSP, Configurable {
 			public Object populate(Object parent, ReadOnlySection section) {
 				Repeat r=new Repeat((Repeat)parent,section);
 				((Repeat)parent).addChild(r);
+				r.getRecord().addField(r);
 				return r;
 			}
 		});

@@ -159,7 +159,7 @@ public class UserStorage extends GenericStorage {
 			StringBuffer args = new StringBuffer();
 			while (rit.hasNext()) {
 				String key = (String) rit.next();
-				FieldSet fs = r.getField(key);
+				FieldSet fs = r.getFieldTopLevel(key);
 				if (!(fs instanceof Field))
 					continue;
 				String filter = ((Field) fs).getServicesFilterParam();
@@ -213,7 +213,7 @@ public class UserStorage extends GenericStorage {
 			StringBuffer args = new StringBuffer();
 			while (rit.hasNext()) {
 				String key = (String) rit.next();
-				FieldSet fs = r.getField(key);
+				FieldSet fs = r.getFieldTopLevel(key);
 				if (!(fs instanceof Field))
 					continue;
 				String filter = ((Field) fs).getServicesFilterParam();

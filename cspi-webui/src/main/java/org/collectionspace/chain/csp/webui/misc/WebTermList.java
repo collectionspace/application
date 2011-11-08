@@ -34,9 +34,9 @@ public class WebTermList implements WebMethod {
 			//as blanks etc are on a field basis not a vocab basis
 			String[] bits = path.split("/");
 			Record vb = this.spec.getRecord("vocab");
-			Field f = (Field)r.getField(bits[0]);
+			Field f = (Field)r.getFieldTopLevel(bits[0]);
 			if(f == null){
-				f = (Field)r.getRepeatField(bits[0]);
+				f = (Field)r.getFieldFullList(bits[0]);
 			}
 			JSONArray result = new JSONArray();
 			for(Instance ins : f.getAllAutocompleteInstances()){

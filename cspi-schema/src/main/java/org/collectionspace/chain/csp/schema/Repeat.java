@@ -238,7 +238,7 @@ public class Repeat implements FieldSet, FieldParent {
 	void addChild(FieldSet f) {
 		children.add(f);
 
-		for(String perm : f.getAllFieldPerms()){
+		for(String perm : f.getAllFieldOperations()){
 			if(!childrenperm.containsKey(perm)){
 				childrenperm.put(perm, new ArrayList<FieldSet>());
 			}
@@ -424,7 +424,8 @@ public class Repeat implements FieldSet, FieldParent {
 		return merged;
 	}
 
-	public String[] getAllFieldPerms(){
+	//getAllFieldPerms now getAllFieldOperations
+	public String[] getAllFieldOperations(){
 		return getSet("@attributes").toArray(new String[0]);
 	}
 

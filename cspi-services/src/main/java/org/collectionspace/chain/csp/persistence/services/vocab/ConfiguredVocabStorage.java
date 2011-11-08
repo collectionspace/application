@@ -192,7 +192,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					if(fs instanceof Field){//get the fields form inline XXX untested - might not work...
 						JSONObject subdata = new JSONObject();
 						//loop thr jsonObject and find the fields I need
-						for(FieldSet subfs: sr.getAllFields("POST")){
+						for(FieldSet subfs: sr.getAllFieldTopLevel("POST")){
 							String key = subfs.getID();
 							if(jsonObject.has(key)){
 								subdata.put(key, jsonObject.get(key));
@@ -730,7 +730,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					if(fs instanceof Field){
 						JSONObject subdata = new JSONObject();
 						//loop thr jsonObject and find the fields I need
-						for(FieldSet subfs: sr.getAllFields("PUT")){
+						for(FieldSet subfs: sr.getAllFieldTopLevel("PUT")){
 							String key = subfs.getID();
 							if(jsonObject.has(key)){
 								subdata.put(key, jsonObject.get(key));

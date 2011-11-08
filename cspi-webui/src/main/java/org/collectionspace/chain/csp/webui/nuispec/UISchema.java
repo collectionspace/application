@@ -113,7 +113,7 @@ public class UISchema extends UISpec {
 
 		String selector = getSelector(f,context);
 		JSONObject protoTree = new JSONObject();
-		for(FieldSet fs2 : subitems.getAllFields("")) {
+		for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {
 			generateDataEntry(protoTree, fs2,context);
 		}
 		protoTree.put("_primary", generateSchemaObject("boolean", true,

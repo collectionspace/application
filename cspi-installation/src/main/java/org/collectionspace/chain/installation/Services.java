@@ -245,7 +245,7 @@ public class Services {
 			Element pele = dhele.addElement(new QName("params", thisns));
 			
 			//loop over all fields to find out is they have a defined datatype
-			for(FieldSet f: r.getAllGenFields("")){
+			for(FieldSet f: r.getAllFieldFullList("")){
 				if(f instanceof Field){
 					Field fd = (Field)f;
 					if(fd.getSection().equals(section)){
@@ -542,7 +542,7 @@ public class Services {
 							<types:value>currentOwner</types:value>
 						</types:item>
 		 */
-		for (FieldSet in : r.getAllGenFields("")) {
+		for (FieldSet in : r.getAllFieldFullList("")) {
 			if (in.getSection().equals(section)) {
 				if (in.hasAutocompleteInstance()) {
 					Boolean typecheck = false;

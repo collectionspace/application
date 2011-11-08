@@ -39,7 +39,7 @@ public class VocabRedirector implements WebMethod {
 
 	//old style
 	private String pathFor(String in) {
-		Field fd = (Field) r.getRepeatField(in);
+		Field fd = (Field) r.getFieldFullList(in);
 		String weburl = fd.getAutocompleteInstance().getWebURL();
 		
 		return "/vocabularies/"+weburl; 
@@ -48,7 +48,7 @@ public class VocabRedirector implements WebMethod {
 	private JSONArray pathForAll(String fieldname) throws JSONException{
 		JSONArray out = new JSONArray();
 
-		FieldSet fd = r.getRepeatField(fieldname);
+		FieldSet fd = r.getFieldFullList(fieldname);
 
 		Instance[] allInstances = null;
 		if(fd == null || !(fd instanceof Field)){
@@ -66,7 +66,7 @@ public class VocabRedirector implements WebMethod {
 					
 				}
 				else{
-					FieldSet fs = r.getSpec().getRecord("hierarchy").getRepeatField(fieldname);
+					FieldSet fs = r.getSpec().getRecord("hierarchy").getFieldFullList(fieldname);
 					if(fs instanceof Field){ 	
 						allInstances = ((Field)fs).getAllAutocompleteInstances();
 					}
