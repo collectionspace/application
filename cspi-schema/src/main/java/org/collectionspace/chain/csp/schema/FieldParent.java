@@ -10,4 +10,6 @@ public interface FieldParent {
 	public Record getRecord();
 	public boolean isExpander();
 	public String enumBlankValue();
+	public String getID();
+	public FieldParent getParent();
 }

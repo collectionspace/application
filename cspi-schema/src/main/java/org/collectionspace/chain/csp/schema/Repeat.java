@@ -17,18 +17,11 @@ import java.util.Stack;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+import org.mortbay.log.Log;
 
-// XXX only one level of repetition at the moment. Should only be a matter of type furtling.
-public class Repeat implements FieldSet, FieldParent {
-	private Map<String, String> allStrings = new HashMap<String, String>();
-	protected Map<String, Boolean> allBooleans = new HashMap<String, Boolean>();
-	private Map<String, Set<String>> allSets = new HashMap<String, Set<String>>();
-	/* just used for documentation to retrieve defaults */
-	private Map<String, String> allDefaultStrings = new HashMap<String, String>();
-	private Map<String, Boolean> allDefaultBooleans = new HashMap<String, Boolean>();
-	private Map<String, Set<String>> allDefaultSets = new HashMap<String, Set<String>>();
+public class Repeat implements FieldSet, FieldParent  {
 	
-	
+	protected SchemaUtils utils = new SchemaUtils();
 	protected String[] services_parent;
 	protected FieldParent parent;
 	protected Stack<String> merged = new Stack<String>();
@@ -39,31 +32,36 @@ public class Repeat implements FieldSet, FieldParent {
 
 	public Repeat(Record record, String id) {
 		this.parent = record;
-		allStrings.put("parentID", record.getID());
+		utils.setString("parentID", record.getID());
 		this.initialiseVariables(null,id);
 	}
 
 	public Repeat(Record record, ReadOnlySection section) {
 		this.parent = record;
-		allStrings.put("parentID", record.getID());
+		utils.setString("parentID", record.getID());
 		this.initialiseVariables(section, null);
 	}
 
 	public Repeat(Structure structure, ReadOnlySection section) {
 		this.parent = structure;
-		allStrings.put("parentID", structure.getID());
+		utils.setString("parentID", structure.getID());
 		this.initialiseVariables(section, null);
 	}
 
 	public Repeat(Group group, ReadOnlySection section) {
 		this.parent = group;
-		allStrings.put("parentID", group.getID());
+		utils.setString("parentID", group.getID());
 		this.initialiseVariables(section, null);
 	}
 
 	public Repeat(Repeat repeat, ReadOnlySection section) {
 		this.parent = repeat;
-		allStrings.put("parentID", repeat.getID());
+		String parentid = repeat.getID();
+		if (repeat.getSearchType().equals("repeator")) {
+			parentid = parent.getParent().getID();
+			this.parent = parent.getParent();
+		}
+		utils.setString("parentID", parentid);
 		this.initialiseVariables(section, null);
 	}
 
@@ -75,64 +73,71 @@ public class Repeat implements FieldSet, FieldParent {
 	 * @param section
 	 */
 	protected void initialiseVariables(ReadOnlySection section, String tempid) {
-		this.initStrings(section,"@id",tempid);
+		utils.initStrings(section,"@id",tempid);
 		this.setRepeatSubRecord(false);
-		allStrings.put("fullid",getString("@id"));
-		this.initStrings(section,"@label-affix", "-label");
+		utils.setString("fullid",utils.getString("@id"));
+		utils.initStrings(section,"@label-affix", "-label");
 
-		this.initBoolean(section,"@show",true);
-		this.initBoolean(section,"@xxx-services-no-repeat",false);
-		this.initBoolean(section,"@xxx-ui-no-repeat",false);
-		this.initBoolean(section,"@asSibling",false);
-		this.initStrings(section,"@section","common");
-		this.initBoolean(section,"@exists-in-services",true);
-		// should this field allow a primary flag
-		this.initBoolean(section,"@has-primary",true);
+		utils.initBoolean(section,"@show",true);
+		utils.initBoolean(section,"@xxx-services-no-repeat",false); //Mismatch between Services and UI - repeat in UI not in Services
+		utils.initBoolean(section,"@xxx-ui-no-repeat",false); //Mismatch between Services and UI - repeat in Services not in UI
+		utils.initBoolean(section,"@asSibling",false); //show repeatables as siblings rather than proper repeat - used in roles and permissions
+		utils.initStrings(section,"@section","common"); //Service section that this field exists in
+		utils.initBoolean(section,"@exists-in-services",true); //in case you want to totally hide something from the services
+		// should this field allow a primary flag in the UI repeat spec and schema
+		utils.initBoolean(section,"@has-primary",true);
 		// used when want to override default grouped behaviour e.g. blobs in media
-		this.initBoolean(section, "@showgrouped", true);
-		this.initStrings(section,"@userecord","");
-		this.initStrings(section,"@onlyifexists","");
-		this.initStrings(section,"@ui-spec-prefix","");
-		this.initBoolean(section,"@ui-spec-inherit",false);
-		this.initStrings(section,"@with-csid",null);
+		utils.initBoolean(section, "@showgrouped", true);
+		utils.initStrings(section,"@userecord",""); //this is a mark of a subrecord e.g contact in person, blob in media
+		utils.initStrings(section,"@onlyifexists",""); //
+		utils.initStrings(section,"@ui-spec-prefix","");
+		utils.initBoolean(section,"@ui-spec-inherit",false);
+		utils.initStrings(section,"@with-csid",null);
 		// used by uispec to create new structure
-		this.initBoolean(section,"@as-expander",false);
-		this.initBoolean(section,"@as-conditional-expander",false);
+		utils.initBoolean(section,"@as-expander",false);
+		utils.initBoolean(section,"@as-conditional-expander",false);
 		
-		this.initBoolean(section,"@xxx-hack-authorization",false);
-		this.initStrings(section,"@serviceurl", null);
-		allBooleans.put("has_services_parent",false);
+		utils.initBoolean(section,"@xxx-hack-authorization",false); //authorization is weird in the Service layer - one day it might be less weird
+		utils.initStrings(section,"@serviceurl", null); //Url that the service layer uses for this thing.
+		
+		//this is all about repeatable groups and how there is one level in the UI but 2 in teh services
+		//tho in roles and permissions the groups are only single level in the services
+		utils.setBoolean("has_services_parent",false);
 
-		String[] idparts = getString("@id").split("/");
+		String[] idparts = utils.getString("@id").split("/");
 		if (idparts.length > 1) {
 			int len = idparts.length - 1;
-			allBooleans.put("has_services_parent",true);
+			utils.setBoolean("has_services_parent",true);
 
-			allStrings.put("@id",idparts[len]);
+			utils.setString("@id",idparts[len]);
 			idparts[len] = null;
-			if (!getBoolean("@xxx-hack-authorization")) {
+			if (!utils.getBoolean("@xxx-hack-authorization")) {
 				this.services_parent = idparts;
 			} else {
 				this.services_parent = new String[0];
 			}
-			allBooleans.put("@asSibling",true);
+			utils.setBoolean("@asSibling",true);
 		}
-		this.initStrings(section,"selector", getString("parentID") + "-" +  getString("@id"));
-		this.initStrings(section,"preselector", ".csc-" );
-		this.initStrings(section,"decoratorselector", "cs-" );
-
-		this.initStrings(section,"container-selector", getString("selector") + "-container");
-		this.initStrings(section,"precontainer-selector", getString("preselector"));
-		this.initStrings(section,"pretitle-selector", getString("preselector"));
-		this.initStrings(section,"title-selector", getString("selector") + "-titlebar");
-		this.initStrings(section, "@primarykey", getString("selector"));
 		
-		this.initStrings(section,"@selector-affix","");
+		
+		utils.initStrings(section,"selectorID", utils.getString("parentID"));
+		utils.initStrings(section,"selector", utils.getString("selectorID") + "-" +  utils.getString("@id"));
+		utils.initStrings(section,"preselector", ".csc-" );
+		utils.initStrings(section,"decoratorselector", "cs-" );
+
+		utils.initStrings(section,"container-selector", utils.getString("selector") + "-container");
+		utils.initStrings(section,"precontainer-selector", utils.getString("preselector"));
+		utils.initStrings(section,"pretitle-selector", utils.getString("preselector"));
+		utils.initStrings(section,"title-selector", utils.getString("selector") + "-titlebar");
+		
+		utils.initStrings(section, "@primarykey", utils.getString("selector"));
+		
+		utils.initStrings(section,"@selector-affix","");
 
 
-		this.initSet(section,"enum/default",new String[] { "" });		
-		this.initBoolean(section,"enum/@has-blank",true);
-		this.initStrings(section,"enum/blank-value", "Please select a value");
+		utils.initSet(section,"enum/default",new String[] { "" });		
+		utils.initBoolean(section,"enum/@has-blank",true);
+		utils.initStrings(section,"enum/blank-value", "Please select a value");
 		
 
 		Set<String> minis = Util.getSetOrDefault(section, "/@mini",
@@ -150,85 +155,37 @@ public class Repeat implements FieldSet, FieldParent {
 			this.parent.getRecord().addMiniDataSet(this, s);
 		}
 
-		this.initStrings(section,"@ui-type", "plain");
-		this.initStrings(section,"@ui-search", "");
-
-		if(this.parent instanceof Record){
-			this.initStrings(section,"label", ((Record) this.parent).getUILabel(getString("@id")));
-		}
-		this.initStrings(section,"services-tag",getString("@id"));
-		this.initSet(section, "@attributes", new String[] {"GET","PUT","POST","DELETE"});
+		utils.initStrings(section,"@ui-type", "plain");
+		utils.initStrings(section,"@ui-search", "");
+		utils.initStrings(section,"label", "" + utils.getString("selectorID") + "-" +  utils.getString("@id") + "Label");
+		
+		utils.initStrings(section,"services-tag",utils.getString("@id"));
+		
+		//define the operations that the Service layer allows for this item
+		utils.initSet(section, "@attributes", new String[] {"GET","PUT","POST","DELETE"});
 	}
-
-	/** start generic functions **/
-	protected Set<String> initSet(ReadOnlySection section, String name, String[] defaultval){
-		Set<String> vard = Util.getSetOrDefault(section, "/"+name, defaultval);
-		allDefaultSets.put(name,new HashSet<String>(Arrays.asList(defaultval)));
-		allSets.put(name,vard);
-		return vard;
-	}
-	protected String initStrings(ReadOnlySection section, String name, String defaultval){
-		String vard = Util.getStringOrDefault(section, "/"+name, defaultval);
-		allDefaultStrings.put(name,defaultval);
-		allStrings.put(name,vard);
-		return vard;
-	}
-	protected Boolean initBoolean(ReadOnlySection section, String name, Boolean defaultval){
-		Boolean vard = Util.getBooleanOrDefault(section, "/"+name, defaultval);
-		allDefaultBooleans.put(name,defaultval);
-		allBooleans.put(name,vard);
-		return vard;
-	}
-	protected String[] getAllString(){
-		return allStrings.keySet().toArray(new String[0]);
-	}
-	protected String getString(String name){
-		if(allStrings.containsKey(name)){
-			return allStrings.get(name);
-		}
-		return null;
-	}
-
-	protected String[] getAllBoolean(){
-		return allBooleans.keySet().toArray(new String[0]);
-	}
-	protected Boolean getBoolean(String name){
-		if(allBooleans.containsKey(name)){
-			return allBooleans.get(name);
-		}
-		return null;
-	}
-
-	protected String[] getAllSets(){
-		return allSets.keySet().toArray(new String[0]);
-	}
-	
-	protected Set<String> getSet(String name){
-		if(allSets.containsKey(name)){
-			return allSets.get(name);
-		}
-		return null;
-	}
-	/** end generic functions **/
 
 	public String getID() {
-		return getString("@id");
+		return utils.getString("@id");
+	}
+	public SchemaUtils getUtils() {
+		return utils;
 	}
 
 	public String getfullID() {
-		return getString("fullid");
+		return utils.getString("fullid");
 	}
 
 	public String getUISpecPrefix() {
-		return getString("@ui-spec-prefix");
+		return utils.getString("@ui-spec-prefix");
 	}
 	//this affects the depth of nesting in the things like the elPaths e.g. false: "elPath": "fields..0.telephoneNumberGroup" vs true: "elPath": "fields.telephoneNumberGroup"
 	public Boolean getUISpecInherit() {
-		return getBoolean("@ui-spec-inherit");
+		return utils.getBoolean("@ui-spec-inherit");
 	}
 	
 	public boolean hasServicesParent() {
-		return getBoolean("has_services_parent");
+		return utils.getBoolean("has_services_parent");
 	}
 
 	public String[] getServicesParent() {
@@ -272,128 +229,142 @@ public class Repeat implements FieldSet, FieldParent {
 	}
 
 	public String getContainerSelector() {
-		return getString("container-selector");
+		return utils.getString("container-selector");
 	}
 	public String getPreContainerSelector() {
-		return getString("precontainer-selector");
+		return utils.getString("precontainer-selector");
 	}
 	public String getPreSelector() {
-		return getString("preselector");
+		return utils.getString("preselector");
 	}
 	public String getDecoratorSelector() {
-		return getString("decoratorselector");
+		return utils.getString("decoratorselector");
 	}
 	public String getSelector() {
-		return getString("selector");
+		return utils.getString("selector");
 	}
 	public String getTitleSelector() {
-		return getString("title-selector");
+		return utils.getString("title-selector");
 	}
 	
 	public String getPreTitleSelector() {
-		return getString("pretitle-selector");
+		return utils.getString("pretitle-selector");
 	}
+
 	public String getLabel() {
-		return getString("label");
+		return utils.getString("label");
+	}
+	public String getUIprefix(){
+		return getPreSelector() + utils.getString("parentID") + "-";
+	}
+	public String getUILabelSelector(String id){
+		return getUIprefix() +  id + "-label";
+	}
+	public String getUILabelSelector() {
+		return getUIprefix() +  utils.getString("@id") + "-label";
+	}
+
+	public String getUILabel(String id){
+		return utils.getString("@id") + "-" + id + "Label";
 	}
 
 	public String getUIType() {
-		return getString("@ui-type");
+		return utils.getString("@ui-type");
 	}
 
 	public String getSearchType() {
-		return getString("@ui-search");
+		return utils.getString("@ui-search");
 	}
 	public void setSearchType(String val) {
-		allStrings.put("@ui-search",val);
+		utils.setString("@ui-search",val);
 	}
 	public String getServicesTag() {
-		return getString("services-tag");
+		return utils.getString("services-tag");
 	}
 	
 	public String getServicesUrl(){
-		return getString("@serviceurl");
+		return utils.getString("@serviceurl");
 	}
 
 	public Boolean isInServices() {
-		return getBoolean("@exists-in-services");
+		return utils.getBoolean("@exists-in-services");
 	}
 
 	public Boolean getXxxServicesNoRepeat() {
-		return getBoolean("@xxx-services-no-repeat");
+		return utils.getBoolean("@xxx-services-no-repeat");
 	}
 
 	public Boolean getXxxUiNoRepeat() {
-		return getBoolean("@xxx-ui-no-repeat");
+		return utils.getBoolean("@xxx-ui-no-repeat");
 	}
 
 	public Boolean isVisible() {
-		return getBoolean("@show");
+		return utils.getBoolean("@show");
 	}
 
 	public Boolean asSibling() {
-		return getBoolean("@asSibling");
+		return utils.getBoolean("@asSibling");
 	}
 	public String getPrimaryKey() {
-		return getString("@primarykey");
+		return utils.getString("@primarykey");
 	}
 
 	public Boolean hasPrimary() {
-		return getBoolean("@has-primary");
+		return utils.getBoolean("@has-primary");
 	}
 
 	public boolean isExpander() {
-		return getBoolean("@as-expander");
+		return utils.getBoolean("@as-expander");
 	}
 	
 	public boolean isConditionExpander(){
-		return getBoolean("@as-conditional-expander");
+		return utils.getBoolean("@as-conditional-expander");
 	}
 
 	public boolean isRepeatSubRecord() {
-		return getBoolean("@is-subrecord");
+		return utils.getBoolean("@is-subrecord");
 	}
 	
 	public void setRepeatSubRecord(Boolean var) {
-		allBooleans.put("@is-subrecord",var);
+		utils.setBoolean("@is-subrecord",var);
 	}
 	
 	public String getSection() {
-		return getString("@section");
+		return utils.getString("@section");
 	}
 	public String getLabelAffix() {
-		return getString("@label-affix");
+		return utils.getString("@label-affix");
 	}
 	public String getSelectorAffix() {
-		return getString("@selector-affix");
+		return utils.getString("@selector-affix");
 	}
 	public Boolean isGrouped(){
-		return getBoolean("@showgrouped");
+		return utils.getBoolean("@showgrouped");
 	}
 
 	public Boolean usesRecord() {
-		if (getString("@userecord") != null && !getString("@userecord").equals("")) {
+		if (utils.getString("@userecord") != null && !utils.getString("@userecord").equals("")) {
 			return true;
 		}
 		return false;
 	}
 	
 	public String usesRecordValidator() {
-		if(getString("@onlyifexists") !=null && !getString("@onlyifexists").equals("")){
-			return getString("@onlyifexists");
+		if(utils.getString("@onlyifexists") !=null && !utils.getString("@onlyifexists").equals("")){
+			return utils.getString("@onlyifexists");
 		}
 		return null;
 	}
 
 	public Record usesRecordId() {
 		if (usesRecord()) {
-			return this.getRecord().getSpec().getRecord(getString("@userecord"));
+			return this.getRecord().getSpec().getRecord(utils.getString("@userecord"));
 		}
 		return null;
 	}
 
 	public String[] getIDPath() {
-		if (getBoolean("@xxx-ui-no-repeat")) {
+		if (utils.getBoolean("@xxx-ui-no-repeat")) {
 			if (parent instanceof Repeat) {
 				return ((Repeat) parent).getIDPath();
 			} else {
@@ -404,10 +375,10 @@ public class Repeat implements FieldSet, FieldParent {
 				String[] pre = ((Repeat) parent).getIDPath();
 				String[] out = new String[pre.length + 1];
 				System.arraycopy(pre, 0, out, 0, pre.length);
-				out[pre.length] = getString("@id");
+				out[pre.length] = utils.getString("@id");
 				return out;
 			} else {
-				return new String[] { getString("@id") };
+				return new String[] { utils.getString("@id") };
 			}
 		}
 	}
@@ -426,32 +397,32 @@ public class Repeat implements FieldSet, FieldParent {
 
 	//getAllFieldPerms now getAllFieldOperations
 	public String[] getAllFieldOperations(){
-		return getSet("@attributes").toArray(new String[0]);
+		return utils.getSet("@attributes").toArray(new String[0]);
 	}
 
 	public boolean hasFieldPerm(String perm){
-		return getSet("@attributes").contains(perm);
+		return utils.getSet("@attributes").contains(perm);
 	}
 
 
 	public boolean hasEnumBlank() {
-		return getBoolean("enum/@has-blank");
+		return utils.getBoolean("enum/@has-blank");
 	}
 
 	public String enumBlankValue() {
-		return getString("enum/blank-value");
+		return utils.getString("enum/blank-value");
 	}
 
 	public String getWithCSID() {
-		return getString("@with-csid");
+		return utils.getString("@with-csid");
 	}
 	
 	public String getEnumDefault() {
-		return StringUtils.join(getSet("enum/default"), ",");
+		return StringUtils.join(utils.getSet("enum/default"), ",");
 	}
 
 	public Boolean isEnumDefault(String name) {
-		if (getSet("enum/default").contains(name)) {
+		if (utils.getSet("enum/default").contains(name)) {
 			return true;
 		}
 		return false;
@@ -462,27 +433,10 @@ public class Repeat implements FieldSet, FieldParent {
 			child.config_finish(spec);
 	}
 	
+
 	void dump(StringBuffer out) {
 		out.append("  id=" + this.getID() + "\n");
-		out.append("    type=" + getSet("@type") + "\n");
-
-		for(String s: this.getAllString()){
-			out.append("String,"+ s);
-			out.append(",Value,"+ this.allStrings.get(s));
-			out.append(",Default,"+ this.allDefaultStrings.get(s));
-			out.append("\n");
-		}
-		for(String s: this.getAllBoolean()){
-			out.append("Boolean,"+ s);
-			out.append(",Value,"+ this.allBooleans.get(s));
-			out.append(",Default,"+ this.allDefaultBooleans.get(s));
-			out.append("\n");
-		}
-		for(String s: this.getAllSets()){
-			out.append("Set,"+ s);
-			out.append(",Value,"+ this.allSets.get(s));
-			out.append(",Default,"+ this.allDefaultSets.get(s));
-			out.append("\n");
-		}
+		out.append("    type=" + utils.getSet("@type") + "\n");
+		utils.dump(out);
 	}
 }

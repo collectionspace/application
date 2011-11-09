@@ -27,13 +27,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Record implements FieldParent {
 	private static final Logger log = LoggerFactory.getLogger(Record.class);
-	private Map<String, String> allStrings = new HashMap<String, String>();
-	private Map<String, Boolean> allBooleans = new HashMap<String, Boolean>();
-	private Map<String, Set<String>> allSets = new HashMap<String, Set<String>>();
-	/* just used for documentation to retrieve defaults */
-	private Map<String, String> allDefaultStrings = new HashMap<String, String>();
-	private Map<String, Boolean> allDefaultBooleans = new HashMap<String, Boolean>();
-	private Map<String, Set<String>> allDefaultSets = new HashMap<String, Set<String>>();
+	protected SchemaUtils utils = new SchemaUtils();
 	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
 	private Map<String, Map<String, String>> uisection = new HashMap<String, Map<String, String>>();
@@ -83,160 +77,114 @@ public class Record implements FieldParent {
 		/* parameters */
 		// this is what the service layer id defaults to if not specified later
 		// standard = singular form of the concept
-		this.initStrings(section,"@id",null);
-		whoamI = getString("@id");
+		utils.initStrings(section,"@id",null);
+		whoamI = utils.getString("@id");
 		// record,authority,compute-displayname can have multiple types using
 		// commas
-		this.initSet(section,"@type",new String[] { "record" });
-		this.initStrings(section,"showin","");
+		utils.initSet(section,"@type",new String[] { "record" });
+		utils.initStrings(section,"showin","");
 
 		// specified that it is included in the findedit uispec - probably not useful any more?
-		this.initBoolean(section,"@in-findedit",false);
+//		utils.initBoolean(section,"@in-findedit",false);
 
-		this.initBoolean(section,"@in-recordlist",true);
+		utils.initBoolean(section,"@in-recordlist",true);
 
 		//Record differentiates between things like structureddates and procedures
-		this.initBoolean(section,"@separate-record",true);
+		utils.initBoolean(section,"@separate-record",true);
 		
 		
 		
 		// config whether service layer needs call as multipart or not - authorization is not currently multipart
-		this.initBoolean(section,"is-multipart",true);
+		utils.initBoolean(section,"is-multipart",true);
 
 		// config whether record type has termsUsed or not (returns empty array
 		// in Json if = false )
-		this.initBoolean(section,"terms-used",true);
+		utils.initBoolean(section,"terms-used",true);
 		// config whether record type has relatedObj/procs or not (returns empty
 		// array in Json if = false )
-		this.initBoolean(section,"refobj-used",true);
+		utils.initBoolean(section,"refobj-used",true);
 		
 		// config the keyword to use for searching
-		this.initStrings(section,"services-search-keyword","kw");
+		utils.initStrings(section,"services-search-keyword","kw");
 
 		// Used to differentiate between authority and vocabulary on create
-		this.initStrings(section,"membership-tag","inAuthority");
+		//utils.initStrings(section,"membership-tag","inAuthority");
 
 		/* UI Layer helpers */
 		// ui layer path
-		this.initStrings(section,"web-url", getString("@id"));
+		utils.initStrings(section,"web-url", utils.getString("@id"));
 
 		// specify url if not nameAuthority
-		this.initStrings(section,"terms-used-url", "nameAuthority");
+		//utils.initStrings(section,"terms-used-url", "nameAuthority");
 
+		utils.initStrings(section,"preselector", ".csc-" );
+		utils.initStrings(section,"decoratorselector", "cs-" );
+		
 		// ui layer json row
-		this.initStrings(section,"number-selector", ".csc-entry-number");
+		utils.initStrings(section,"number-selector", utils.getString("preselector")+"entry-number");
 
+		
 		// ui layer json used in list views
-		this.initStrings(section,"row-selector",".csc-recordList-row:");
+		utils.initStrings(section,"row-selector",utils.getString("preselector")+"recordList-row:");
 
 		// ui layer path: defaults to web_url if not specified
-		this.initStrings(section,"ui-url", getString("web-url") + ".html");
+		utils.initStrings(section,"ui-url", utils.getString("web-url") + ".html");
 
 		// ui layer path
-		this.initStrings(section,"tab-url", getString("web-url") + "-tab");
-		this.initStrings(section,"search-url", getString("web-url") + "-search");
+		utils.initStrings(section,"tab-url", utils.getString("web-url") + "-tab");
+		utils.initStrings(section,"search-url", utils.getString("web-url") + "-search");
 
-		this.initStrings(section,"enum-blank", data.get("blank"));
+		utils.initStrings(section,"enum-blank", data.get("blank"));
 		/* Service layer helpers */
 
 		// path that the service layer uses to access this record
-		this.initStrings(section,"services-url", getString("@id"));
+		utils.initStrings(section,"services-url", utils.getString("@id"));
 
 		// authorization 
-		this.initStrings(section,"authorization-includes", getString("services-url"));
+		utils.initStrings(section,"authorization-includes", utils.getString("services-url"));
 
-		this.initBoolean(section,"authorization-view",true);
+		utils.initBoolean(section,"authorization-view",true);
 
 		// service layer paths to list data for this record type
-		this.initStrings(section,"services-list-path", getString("services-url") + "-common-list/"
-				+ getString("services-url") + "-list-item");
+		utils.initStrings(section,"services-list-path", utils.getString("services-url") + "-common-list/"
+				+ utils.getString("services-url") + "-list-item");
 
-		this.initStrings(section,"services-fields-path", getString("services-url")
+		utils.initStrings(section,"services-fields-path", utils.getString("services-url")
 						+ "-common-list/fieldsReturned");
 
 		// used by service layer to construct authority names
-		this.initStrings(section,"authority-vocab-type","PersonAuthority");
+		utils.initStrings(section,"authority-vocab-type","");
 		//
-		this.initStrings(section,"services-instances-path", getString("services-url")
+		utils.initStrings(section,"services-instances-path", utils.getString("services-url")
 						+ "_common:http://collectionspace.org/services/"
-						+ getString("services-url") + "," + getString("services-url") + "-common-list/"
-						+ getString("services-url") + "-list-item");
+						+ utils.getString("services-url") + "," + utils.getString("services-url") + "-common-list/"
+						+ utils.getString("services-url") + "-list-item");
 
 		//
-		this.initStrings(section,"services-single-instance-path", getString("services-url")
+		utils.initStrings(section,"services-single-instance-path", utils.getString("services-url")
 						+ "_common:http://collectionspace.org/services/"
-						+ getString("services-url") + "," + getString("services-url") + "-common");
-		this.initStrings(section,"primaryfield", "");
-		this.initBoolean(section,"hasdeletemethod",false);
-		this.initBoolean(section,"hassoftdelete",false);
+						+ utils.getString("services-url") + "," + utils.getString("services-url") + "-common");
+		utils.initStrings(section,"primaryfield", "");
+		utils.initBoolean(section,"hasdeletemethod",false);
+		utils.initBoolean(section,"hassoftdelete",false);
 
 
-		this.initStrings(section,"services-tenant-singular", getString("services-url"));
-		this.initStrings(section,"services-tenant-plural", getString("services-tenant-singular")+"s");
-		this.initStrings(section,"services-tenant-auth-singular", getString("services-url"));
-		this.initStrings(section,"services-tenant-auth-plural", getString("services-tenant-singular")+"s");
+		utils.initStrings(section,"services-tenant-singular", utils.getString("services-url"));
+		utils.initStrings(section,"services-tenant-plural", utils.getString("services-tenant-singular")+"s");
+		utils.initStrings(section,"services-tenant-auth-singular", utils.getString("services-url"));
+		utils.initStrings(section,"services-tenant-auth-plural", utils.getString("services-tenant-singular")+"s");
 
-		this.initStrings(section,"services-schemalocation", "http://services.collectionspace.org");
+		utils.initStrings(section,"services-schemalocation", "http://services.collectionspace.org");
 		
-		this.initStrings(section,"services-dochandler","org.collectionspace.services."+ getString("services-tenant-singular").toLowerCase() +".nuxeo."+ getString("services-tenant-singular")+"DocumentModelHandler");
-		this.initStrings(section,"services-abstract","org.collectionspace.services."+getString("services-tenant-singular").toLowerCase()+"."+ getString("services-tenant-plural") +"CommonList");
-		this.initStrings(section,"services-common", getString("services-abstract") + "$"+getString("services-tenant-singular")+"ListItem");
-		this.initStrings(section,"services-validator","org.collectionspace.services."+ getString("services-tenant-singular").toLowerCase() +".nuxeo."+ getString("services-tenant-singular")+"ValidatorHandler");
+		utils.initStrings(section,"services-dochandler","org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"DocumentModelHandler");
+		utils.initStrings(section,"services-abstract","org.collectionspace.services."+utils.getString("services-tenant-singular").toLowerCase()+"."+ utils.getString("services-tenant-plural") +"CommonList");
+		utils.initStrings(section,"services-common", utils.getString("services-abstract") + "$"+utils.getString("services-tenant-singular")+"ListItem");
+		utils.initStrings(section,"services-validator","org.collectionspace.services."+ utils.getString("services-tenant-singular").toLowerCase() +".nuxeo."+ utils.getString("services-tenant-singular")+"ValidatorHandler");
 
 		spec = parent;
 	}
 
 
-	/** start generic functions **/
-	protected Set<String> initSet(ReadOnlySection section, String name, String[] defaultval){
-		Set<String> vard = Util.getSetOrDefault(section, "/"+name, defaultval);
-		allDefaultSets.put(name,new HashSet<String>(Arrays.asList(defaultval)));
-		allSets.put(name,vard);
-		return vard;
-	}
-	protected String initStrings(ReadOnlySection section, String name, String defaultval){
-		String vard = Util.getStringOrDefault(section, "/"+name, defaultval);
-		allDefaultStrings.put(name,defaultval);
-		allStrings.put(name,vard);
-		return vard;
-	}
-	protected Boolean initBoolean(ReadOnlySection section, String name, Boolean defaultval){
-		Boolean vard = Util.getBooleanOrDefault(section, "/"+name, defaultval);
-		allDefaultBooleans.put(name,defaultval);
-		allBooleans.put(name,vard);
-		return vard;
-	}
-	protected String[] getAllString(){
-		return allStrings.keySet().toArray(new String[0]);
-	}
-	protected String getString(String name){
-		if(allStrings.containsKey(name)){
-			return allStrings.get(name);
-		}
-		return null;
-	}
-
-	protected String[] getAllBoolean(){
-		return allBooleans.keySet().toArray(new String[0]);
-	}
-	protected Boolean getBoolean(String name){
-		if(allBooleans.containsKey(name)){
-			return allBooleans.get(name);
-		}
-		return null;
-	}
-
-	protected String[] getAllSets(){
-		return allSets.keySet().toArray(new String[0]);
-	}
-	
-	protected Set<String> getSet(String name){
-		if(allSets.containsKey(name)){
-			return allSets.get(name);
-		}
-		return null;
-	}
-	/** end generic functions **/
 	
 	/** field functions **/
 	//getPerm is now hasFieldByOperation(fieldId,operation)
@@ -271,7 +219,6 @@ public class Record implements FieldParent {
 					searchf.setParent(r);
 					r.addChild(searchf); // this is causing confusing later on... can we separate this some how?
 				}
-				
 			}
 			else if(searchf.getSearchType().equals("range")){
 				searchf.getRecord().addUISection("search", searchf.getID());
@@ -412,54 +359,62 @@ public class Record implements FieldParent {
 	
 	
 	public String getID() {
-		return getString("@id");
+		return utils.getString("@id");
 	}
 
 	public String getWebURL() {
-		return getString("web-url");
+		return utils.getString("web-url");
 	}
-
+//used in tenantUIServlet for overlaying stuff and testing if I am showing the right page
 	public String getUIURL() {
-		return getString("ui-url");
+		return utils.getString("ui-url");
 	}
 
 	public String getTabURL() {
-		return getString("tab-url");
+		return utils.getString("tab-url");
 	}
 
 	public String getSearchURL() {
-		return getString("search-url");
+		return utils.getString("search-url");
 	}
 
 	public boolean isShowType(String k){
-		if(getString("showin").equals("")){
-			return getSet("@type").contains(k);
+		if(utils.getString("showin").equals("")){
+			return utils.getSet("@type").contains(k);
 		}
 		else{
-			return getString("showin").equals(k);
+			return utils.getString("showin").equals(k);
 		}
 	}
 	public boolean isType(String k) {
-		return getSet("@type").contains(k);
+		return utils.getSet("@type").contains(k);
 	}
 
 	public Spec getSpec() {
 		return spec;
 	}
-
-	
-//	public FieldSet[] getAllServiceFields() {
-//		return servicefields.values().toArray(new FieldSet[0]);
-//	}
+	public FieldParent getParent() {
+		return null;
+	}
+	public String getPreSelector() {
+		return utils.getString("preselector");
+	}
+	public String getDecoratorSelector() {
+		return utils.getString("decoratorselector");
+	}
 	public String getUIprefix(){
-		return ".csc-" + getString("@id") + "-";
+		return getPreSelector()  + "";
 	}
 	public String getUILabel(String id){
-		return getString("@id") + "-" + id + "Label";
+		return utils.getString("@id") + "-" + id + "Label";
 	}
 	public String getUILabelSelector(String id){
-		return getUIprefix() +  id + "-label";
+		return getPreSelector()  + utils.getString("@id") + "-" +  id + "-label";
 	}
+	public String getUILabelSelector() {
+		return getUIprefix() +  utils.getString("@id") + "-label";
+	}
+
 	public String[] getAllUISections(String section){
 		if(section.equals("")){section = "base";}
 		if(uisection.containsKey(section)){
@@ -478,7 +433,7 @@ public class Record implements FieldParent {
 
 
 	public String enumBlankValue(){
-		return getString("enum-blank");
+		return utils.getString("enum-blank");
 	}
 
 	public Structure getStructure(String id) {
@@ -508,7 +463,7 @@ public class Record implements FieldParent {
 
 
 	public String getPrimaryField() {
-		return getString("primaryfield");
+		return utils.getString("primaryfield");
 	};
 
 	public Boolean hasPrimaryField() {
@@ -519,61 +474,50 @@ public class Record implements FieldParent {
 		}
 	}
 
-	public String getTermsUsedURL() {
-		return getString("terms-used-url");
-	}
-
 	public String getNumberSelector() {
-		return getString("number-selector");
+		return utils.getString("number-selector");
 	}
 
 	public String getRowSelector() {
-		return getString("row-selector");
+		return utils.getString("row-selector");
 	}
 
-	public boolean isInFindEdit() {
-		return getBoolean("@in-findedit");
-	}
 	public boolean isInRecordList() {
-		return getBoolean("@in-recordlist");
+		return utils.getBoolean("@in-recordlist");
 	}
 	public boolean isRealRecord() {
-		return getBoolean("@separate-record");
+		return utils.getBoolean("@separate-record");
 	}
 	
 	public boolean isMultipart() {
-		return getBoolean("is-multipart");
+		return utils.getBoolean("is-multipart");
 	}
 
 	public boolean hasTermsUsed() {
-		return getBoolean("terms-used");
+		return utils.getBoolean("terms-used");
 	}
 
 	public boolean hasRefObjUsed() {
-		return getBoolean("refobj-used");
+		return utils.getBoolean("refobj-used");
 	}
 	public boolean hasHierarchyUsed(String type) {
 		return this.getStructure(type).showHierarchySection();
 	}
 
 	public boolean hasDeleteMethod() {
-		return getBoolean("hasdeletemethod");
+		return utils.getBoolean("hasdeletemethod");
 	}
 
 	public boolean hasSoftDeleteMethod() {
-		return getBoolean("hassoftdelete");
+		return utils.getBoolean("hassoftdelete");
 	}
 	
 	public String getServicesSearchKeyword() {
-		return getString("services-search-keyword");
-	}
-
-	public String getInTag() {
-		return getString("membership-tag");
+		return utils.getString("services-search-keyword");
 	}
 
 	public String getVocabType() {
-		return getString("authority-vocab-type");
+		return utils.getString("authority-vocab-type");
 	}
 
 	public Instance[] getAllInstances() {
@@ -585,58 +529,58 @@ public class Record implements FieldParent {
 	}
 
 	public String getServicesURL() {
-		return getString("services-url");
+		return utils.getString("services-url");
 	}
 
 	public String getServicesTenantSg() {
-		return getString("services-tenant-singular");
+		return utils.getString("services-tenant-singular");
 	}
 
 	public String getServicesTenantPl() {
-		return getString("services-tenant-plural");
+		return utils.getString("services-tenant-plural");
 	}
 
 	public String getServicesTenantAuthSg() {
-		return getString("services-tenant-auth-singular");
+		return utils.getString("services-tenant-auth-singular");
 	}
 
 	public String getServicesTenantAuthPl() {
-		return getString("services-tenant-auth-plural");
+		return utils.getString("services-tenant-auth-plural");
 	}
 	
 	public String getServicesAbstractCommonList(){
-		return getString("services-abstract");
+		return utils.getString("services-abstract");
 	}
 	public String getServicesValidatorHandler(){
-		return getString("services-validator");
+		return utils.getString("services-validator");
 		
 	}
 	public String getServicesCommonList(){
-		return getString("services-common");
+		return utils.getString("services-common");
 	}
 
 	public String getServicesSchemaBaseLocation(){
-		return getString("schema-location");
+		return utils.getString("schema-location");
 	}
 	
 	public String getServicesDocHandler(){
-		return getString("services-dochandler");
+		return utils.getString("services-dochandler");
 	}
 	
 	public String getServicesListPath() {
-		return getString("services-list-path");
+		return utils.getString("services-list-path");
 	}
 
 	public String getServicesFieldsPath() {
-		return getString("services-fields-path");
+		return utils.getString("services-fields-path");
 	}
 
 	public String getServicesInstancesPath() {
-		return getString("services-instances-path");
+		return utils.getString("services-instances-path");
 	}
 
 	public String getServicesSingleInstancePath() {
-		return getString("services-single-instance-path");
+		return utils.getString("services-single-instance-path");
 	}
 
 	public String[] getServicesRecordPaths() {
@@ -716,12 +660,12 @@ public class Record implements FieldParent {
 
 	// authorization
 	public Boolean getAuthorizationView() {
-		return getBoolean("authorization-view");
+		return utils.getBoolean("authorization-view");
 	}
 
 
 	public String getAuthorizationType() {
-		return getString("authorization-includes");
+		return utils.getString("authorization-includes");
 	}
 
 	public Boolean isAuthorizationType(String name) {
@@ -790,60 +734,68 @@ public class Record implements FieldParent {
 	void dump(StringBuffer out) {
 		out.append("  record id=" + this.getID() + "\n");
 		out.append("    web_url=" + getWebURL() + "\n");
-		out.append("    type=" + getSet("@type") + "\n");
-
-		for(String s: this.getAllString()){
-			out.append("String,"+ s);
-			out.append(",Value,"+ this.allStrings.get(s));
-			out.append(",Default,"+ this.allDefaultStrings.get(s));
-			out.append("\n");
-		}
-		for(String s: this.getAllBoolean()){
-			out.append("Boolean,"+ s);
-			out.append(",Value,"+ this.allBooleans.get(s));
-			out.append(",Default,"+ this.allDefaultBooleans.get(s));
-			out.append("\n");
-		}
-		for(String s: this.getAllSets()){
-			out.append("Set,"+ s);
-			out.append(",Value,"+ this.allSets.get(s));
-			out.append(",Default,"+ this.allDefaultSets.get(s));
-			out.append("\n");
-		}
+		out.append("    type=" + utils.getSet("@type") + "\n");
+		utils.dump(out);
 	}
 
 	void dumpJson(JSONObject out) throws JSONException {
 		JSONObject record = new JSONObject();
+		utils.dumpJson(record, "attributes");
 		record.put("id", this.getID());
 		record.put("web_url", getWebURL());
-		record.put("type", getSet("@type"));
-		JSONArray fields = new JSONArray();
-		
-		for(String s: this.getAllString()){
-			JSONObject data = new JSONObject();
-			data.put("type", "String");
-			data.put("name", s);
-			data.put("value", this.allStrings.get(s));
-			data.put("default",  this.allDefaultStrings.get(s));
-			fields.put(data);
+		record.put("type", utils.getSet("@type"));
+		out.put(this.getID(), record);
+	}
+	
+	void dumpJsonFields(JSONObject out) throws JSONException {
+		JSONObject record = new JSONObject();
+		String[] allStrings = null;
+		String[] allBooleans = null;
+		String[] allSets = null;
+		JSONObject RecordTable=new JSONObject();
+		for(FieldSet fs : this.getAllFieldFullList("")){
+			if(allStrings == null){
+				allStrings = fs.getUtils().getAllString();
+				allBooleans = fs.getUtils().getAllBoolean();
+				allSets = fs.getUtils().getAllSets();
+
+				for(String s: allStrings){
+					JSONObject data = new JSONObject();
+					data.put("default",  fs.getUtils().getDefaultString(s));
+					RecordTable.put("String:"+s, data);
+				}
+				for(String s: allBooleans){
+					JSONObject data = new JSONObject();
+					data.put("default",  fs.getUtils().getDefaultBoolean(s));
+					RecordTable.put("Boolean:"+s,data);
+				}
+				for(String s:allSets){
+					JSONObject data = new JSONObject();
+					data.put("default",  fs.getUtils().getDefaultSet(s));
+					RecordTable.put("Set:"+s,data);
+				}
+			}
+			else{
+
+				for(String s: allStrings){
+					JSONObject data = RecordTable.getJSONObject("String:"+s);
+					data.put(fs.getID(), fs.getUtils().getString(s));
+					RecordTable.put("String:"+s, data);
+				}
+				for(String s: allBooleans){
+					JSONObject data = RecordTable.getJSONObject("Boolean:"+s);
+					data.put(fs.getID(), fs.getUtils().getBoolean(s));
+					RecordTable.put("Boolean:"+s,data);
+				}
+				for(String s:allSets){
+					JSONObject data = RecordTable.getJSONObject("Set:"+s);
+					data.put(fs.getID(), fs.getUtils().getSet(s));
+					RecordTable.put("Set:"+s,data);
+				}
+			}
 		}
-		for(String s: this.getAllBoolean()){
-			JSONObject data = new JSONObject();
-			data.put("type", "Boolean");
-			data.put("name", s);
-			data.put("value", this.allBooleans.get(s));
-			data.put("default",  this.allDefaultBooleans.get(s));
-			fields.put(data);
-		}
-		for(String s: this.getAllSets()){
-			JSONObject data = new JSONObject();
-			data.put("type", "Set");
-			data.put("name", s);
-			data.put("value", this.allSets.get(s));
-			data.put("default",  this.allDefaultSets.get(s));
-			fields.put(data);
-		}
-		record.put("fields", fields);
+
+		out.put("allfields", RecordTable);
 		out.put(this.getID(), record);
 	}
 

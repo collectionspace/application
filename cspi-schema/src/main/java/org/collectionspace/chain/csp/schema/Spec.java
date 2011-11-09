@@ -288,7 +288,6 @@ public class Spec implements CSP, Configurable {
 				Field f=new Field((Repeat)parent,section);
 				f.getRecord().addField(f);
 				((Repeat)parent).addChild(f);
-				
 				return f;
 			}
 		});
@@ -484,8 +483,51 @@ public class Spec implements CSP, Configurable {
 	
 	public String dump() {
 		StringBuffer out=new StringBuffer();
-		for(Record r : records.values())
-			r.dump(out);
+		String[] allStrings = null;
+		String[] allBooleans = null;
+		String[] allSets = null;
+		Map <String, StringBuffer> rout = new HashMap<String, StringBuffer>();
+		for(Record r : records.values()){
+
+			if(allStrings == null){
+				allStrings = r.utils.getAllString();
+				allBooleans = r.utils.getAllBoolean();
+				allSets = r.utils.getAllSets();
+
+				for(String s: allStrings){
+					rout.put("String:"+s, new StringBuffer());
+					rout.get("String:"+s).append(r.utils.getDefaultString(s) + ",");
+				}
+				for(String s: allBooleans){
+					rout.put("Boolean:"+s, new StringBuffer());
+					rout.get("Boolean:"+s).append(r.utils.getDefaultBoolean(s) + ",");
+				}
+				for(String s:allSets){
+					rout.put("Set:"+s, new StringBuffer());
+					rout.get("Set:"+s).append("\"" + r.utils.allDefaultSets.get(s) + "\"" + ",");
+				}
+				out.append("Field Name,Default Value,");
+			}
+			for(String s: allStrings){
+				rout.get("String:"+s).append(r.utils.getString(s) + ",");
+			}
+			for(String s: allBooleans){
+				rout.get("Boolean:"+s).append(r.utils.getBoolean(s) + ",");
+			}
+			for(String s:allSets){
+				rout.get("Set:"+s).append("\""+ r.utils.allSets.get(s) + "\"" + ",");
+			}
+//might want to pivot the view to have records down and fields across to make it wasier to see patterns
+			out.append(r.getID() + ",");
+		}
+		for (Map.Entry<String, StringBuffer> entry : rout.entrySet()) {
+		    String key = entry.getKey();
+		    StringBuffer value = entry.getValue();
+		    out.append("\n");
+		    out.append(key+",");
+		    out.append(value);
+		    // ...
+		}
 		return out.toString();
 	}
 	
@@ -495,7 +537,58 @@ public class Spec implements CSP, Configurable {
 		JSONObject out=new JSONObject();
 		ed.dumpJson(out);
 		adminData.dumpJson(out);
-		//for(Record r : records.values())
+		String[] allStrings = null;
+		String[] allBooleans = null;
+		String[] allSets = null;
+		JSONObject RecordTable=new JSONObject();
+		for(Record r : records.values()){
+			if(allStrings == null){
+				allStrings = r.utils.getAllString();
+				allBooleans = r.utils.getAllBoolean();
+				allSets = r.utils.getAllSets();
+
+				for(String s: allStrings){
+					JSONObject data = new JSONObject();
+					//data.put("type", "String");
+					//data.put("name", s);
+					data.put("default",  r.utils.getDefaultString(s));
+					RecordTable.put("String:"+s, data);
+				}
+				for(String s: allBooleans){
+					JSONObject data = new JSONObject();
+					//data.put("type", "Boolean");
+					//data.put("name", s);
+					data.put("default",  r.utils.getDefaultBoolean(s));
+					RecordTable.put("Boolean:"+s,data);
+				}
+				for(String s:allSets){
+					JSONObject data = new JSONObject();
+					//data.put("type", "Set");
+					//data.put("name", s);
+					data.put("default",  r.utils.getDefaultSet(s));
+					RecordTable.put("Set:"+s,data);
+				}
+			}
+			else{
+
+				for(String s: allStrings){
+					JSONObject data = RecordTable.getJSONObject("String:"+s);
+					data.put(r.getID(), r.utils.getString(s));
+					RecordTable.put("String:"+s, data);
+				}
+				for(String s: allBooleans){
+					JSONObject data = RecordTable.getJSONObject("Boolean:"+s);
+					data.put(r.getID(), r.utils.getBoolean(s));
+					RecordTable.put("Boolean:"+s,data);
+				}
+				for(String s:allSets){
+					JSONObject data = RecordTable.getJSONObject("Set:"+s);
+					data.put(r.getID(), r.utils.getSet(s));
+					RecordTable.put("Set:"+s,data);
+				}
+			}
+		}
+		out.put("allrecords", RecordTable);
 		//	r.dumpJson(out);
 		return out;
 	

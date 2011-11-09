@@ -163,6 +163,9 @@ public class Structure  implements FieldParent  {
 		return false;
 	}
 
+	public FieldParent getParent() {
+		return null;
+	}
 	//add hierarchical options
 	public Option getOption(String id) { return options.get(id); }
 	public Boolean hasOption(String id) { if(options.containsKey(id)){return true; }else{ return false;} }

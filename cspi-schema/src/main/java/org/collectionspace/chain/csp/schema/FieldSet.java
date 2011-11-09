@@ -12,6 +12,7 @@ public interface FieldSet {
 	public String getID();
 	public String[] getIDPath();
 
+	public SchemaUtils getUtils();
 	public FieldParent getParent();
 	public void setParent(FieldParent fp);
 	public Record getRecord();
@@ -28,6 +29,7 @@ public interface FieldSet {
 	public String getSelectorAffix();
 	public String getUISpecPrefix();
 	public Boolean getUISpecInherit();
+	public String getUILabelSelector();
 	public String getLabelAffix();
 	public String getContainerSelector();
 	public String getDecoratorSelector();

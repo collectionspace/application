@@ -16,111 +16,54 @@ import org.collectionspace.chain.csp.config.ReadOnlySection;
 
 public class Relationship {
 
-	private Map<String, String> allStrings = new HashMap<String, String>();
-	private Map<String, Boolean> allBooleans = new HashMap<String, Boolean>();
-	private Map<String, Set<String>> allSets = new HashMap<String, Set<String>>();
-	/* just used for documentation to retrieve defaults */
-	private Map<String, String> allDefaultStrings = new HashMap<String, String>();
-	private Map<String, Boolean> allDefaultBooleans = new HashMap<String, Boolean>();
-	private Map<String, Set<String>> allDefaultSets = new HashMap<String, Set<String>>();
+	protected SchemaUtils utils = new SchemaUtils();
 	
 
 	Relationship(Spec spec,ReadOnlySection section) { 
 
-		this.initStrings(section,"@id",null);
-		this.initStrings(section,"childname",getString("@id"));
-		this.initStrings(section,"displayName",getString("@id"));
-		this.initStrings(section,"predicate",getString("@id"));
-		this.initStrings(section,"showsiblings","");
-		this.initStrings(section,"subject","n");
-		this.initStrings(section,"object","n");
-		this.initStrings(section,"inverseOf","");
+		utils.initStrings(section,"@id",null);
+		utils.initStrings(section,"childname",utils.getString("@id"));
+		utils.initStrings(section,"displayName",utils.getString("@id"));
+		utils.initStrings(section,"predicate",utils.getString("@id"));
+		utils.initStrings(section,"showsiblings","");
+		utils.initStrings(section,"subject","n");
+		utils.initStrings(section,"object","n");
+		utils.initStrings(section,"inverseOf","");
 		
-		this.initBoolean(section,"directional",true);
-		this.initSet(section,"sourceTypes",new String[] { "" });	
-		this.initSet(section,"destinationTypes",new String[] { "" });	
+		utils.initBoolean(section,"directional",true);
+		utils.initSet(section,"sourceTypes",new String[] { "" });	
+		utils.initSet(section,"destinationTypes",new String[] { "" });	
 		
 	}
 
-	public String getID() {	return  getString("@id");	}
-	public String getChildName() { return getString("childname"); }
-	public String getDisplayName() { return getString("displayName"); }
-	public String getSubject() { return getString("subject"); }
-	public String getObject() { return getString("object"); }
-	public String getPredicate() { return getString("predicate"); }
-	public String getInverse() { return getString("inverseOf"); }
-	public Boolean hasInverse() { if(getString("inverseOf").equals("")){ return false; } else { return true; } }
-	public Boolean isDirectional() { return getBoolean("directional"); }
-	public Boolean showSiblings() { if(getString("showsiblings").equals("")){ return false; } else { return true; } }
+	public String getID() {	return  utils.getString("@id");	}
+	public String getChildName() { return utils.getString("childname"); }
+	public String getDisplayName() { return utils.getString("displayName"); }
+	public String getSubject() { return utils.getString("subject"); }
+	public String getObject() { return utils.getString("object"); }
+	public String getPredicate() { return utils.getString("predicate"); }
+	public String getInverse() { return utils.getString("inverseOf"); }
+	public Boolean hasInverse() { if(utils.getString("inverseOf").equals("")){ return false; } else { return true; } }
+	public Boolean isDirectional() { return utils.getBoolean("directional"); }
+	public Boolean showSiblings() { if(utils.getString("showsiblings").equals("")){ return false; } else { return true; } }
 
-	public String getSiblingParent() { return getString("showsiblings").split(":")[0]; }
-	public String getSiblingChild() { return getString("showsiblings").split(":")[1]; }
+	public String getSiblingParent() { return utils.getString("showsiblings").split(":")[0]; }
+	public String getSiblingChild() { return utils.getString("showsiblings").split(":")[1]; }
 	
 	public String[] getAllSource(){
-		return getSet("sourceTypes").toArray(new String[0]);
+		return utils.getSet("sourceTypes").toArray(new String[0]);
 	}
 	
 	public String[] getAllDestination(){
-		return getSet("destinationTypes").toArray(new String[0]);
+		return utils.getSet("destinationTypes").toArray(new String[0]);
 	}
 	
 	public Boolean hasSourceType(String name){
-		return getSet("sourceTypes").contains(name);
+		return utils.getSet("sourceTypes").contains(name);
 	}
 	
 	public Boolean hasDestinationType(String name){
-		return getSet("destinationTypes").contains(name);
+		return utils.getSet("destinationTypes").contains(name);
 	}
 	
-	
-	/** start generic functions **/
-	protected Set<String> initSet(ReadOnlySection section, String name, String[] defaultval){
-		Set<String> vard = Util.getSetOrDefault(section, "/"+name, defaultval);
-		allDefaultSets.put(name,new HashSet<String>(Arrays.asList(defaultval)));
-		allSets.put(name,vard);
-		return vard;
-	}
-	protected String initStrings(ReadOnlySection section, String name, String defaultval){
-		String vard = Util.getStringOrDefault(section, "/"+name, defaultval);
-		allDefaultStrings.put(name,defaultval);
-		allStrings.put(name,vard);
-		return vard;
-	}
-	protected Boolean initBoolean(ReadOnlySection section, String name, Boolean defaultval){
-		Boolean vard = Util.getBooleanOrDefault(section, "/"+name, defaultval);
-		allDefaultBooleans.put(name,defaultval);
-		allBooleans.put(name,vard);
-		return vard;
-	}
-	protected String[] getAllString(){
-		return allStrings.keySet().toArray(new String[0]);
-	}
-	protected String getString(String name){
-		if(allStrings.containsKey(name)){
-			return allStrings.get(name);
-		}
-		return null;
-	}
-
-	protected String[] getAllBoolean(){
-		return allBooleans.keySet().toArray(new String[0]);
-	}
-	protected Boolean getBoolean(String name){
-		if(allBooleans.containsKey(name)){
-			return allBooleans.get(name);
-		}
-		return null;
-	}
-
-	protected String[] getAllSets(){
-		return allSets.keySet().toArray(new String[0]);
-	}
-	
-	protected Set<String> getSet(String name){
-		if(allSets.containsKey(name)){
-			return allSets.get(name);
-		}
-		return null;
-	}
-	/** end generic functions **/
 }
