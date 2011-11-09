@@ -494,6 +494,7 @@ public class TestRelationsThroughWebapp {
 		tester.stopJetty(jetty);
 
 	}
+	/* this is not testing anything - make it test something
 	@Test 
 	public void testHierarchical() throws Exception{
 		// Check list is empty;
@@ -504,6 +505,7 @@ public class TestRelationsThroughWebapp {
 		log.info(out.getContent());
 		tester.stopJetty(jetty);
 	}
+	*/
 
 	@Test
 	public void testSearchList() throws Exception {
