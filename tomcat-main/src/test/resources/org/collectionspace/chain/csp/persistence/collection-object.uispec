@@ -1939,7 +1939,9 @@
          ".csc-collection-object-comments-label": {
              "messagekey": "collection-object-commentsLabel"
          },
-         ".csc-collection-object-titleTranslationSubGroup-label": {},
+         ".csc-titleGroup-titleTranslationSubGroup-label": {
+             "messagekey": "titleGroup-titleTranslationSubGroupLabel"
+         },
          ".csc-collection-object-contentConcept-label": {
              "messagekey": "collection-object-contentConceptLabel"
          },
