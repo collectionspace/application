@@ -45,7 +45,6 @@ import org.collectionspace.chain.csp.webui.nuispec.DataGenerator;
 import org.collectionspace.chain.csp.webui.nuispec.ServicesXsd;
 import org.collectionspace.chain.csp.webui.nuispec.UISchema;
 import org.collectionspace.chain.csp.webui.nuispec.UISpec;
-import org.collectionspace.chain.csp.webui.nuispec.FindEditUISpec;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsCreateUpdate;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsDelete;
 import org.collectionspace.chain.csp.webui.userdetails.UserDetailsRead;
@@ -195,7 +194,7 @@ public class WebUI implements CSP, UI, Configurable {
 		addMethod(Operation.READ,new String[]{"authorities","initialise"},0,new WebReset(false,false));
 		addMethod(Operation.READ,new String[]{"reset"},0,new WebReset(false,true));
 		addMethod(Operation.READ,new String[]{"quick-reset"},0,new WebReset(true,true));
-		addMethod(Operation.READ,new String[]{find_page,"uispec"},0,new FindEditUISpec(spec.getAllRecords()));
+		//addMethod(Operation.READ,new String[]{find_page,"uispec"},0,new FindEditUISpec(spec.getAllRecords()));//removed as I don't think anyone uses it
 		addMethod(Operation.CREATE,new String[]{"passwordreset"},0,new UserDetailsReset(false,spec));
 		addMethod(Operation.CREATE,new String[]{"resetpassword"},0,new UserDetailsReset(true,spec));
 

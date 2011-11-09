@@ -67,7 +67,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		Document out=XmlJsonConversion.convertToXml(r,data,section,"POST",isAuth);
 		if(out!=null){
 			Element root=out.getRootElement();
-			Element vocabtag=root.addElement(r.getInTag());
+			Element vocabtag=root.addElement("inAuthority");
 			if(vocab!=null){
 				vocabtag.addText(vocab);
 			}

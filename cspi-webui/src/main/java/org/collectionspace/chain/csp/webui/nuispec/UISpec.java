@@ -676,12 +676,12 @@ public class UISpec implements WebMethod {
 			
 			for(FieldSet fs : r.getAllFieldFullList("")) { //include children of repeats as well as top level
 				if(fs.getID()!=null){
-					generateMessageKey(temp, r.getUILabelSelector(fs.getID()), fs.getLabel());
+					String test = fs.getUILabelSelector();
+					generateMessageKey(temp, fs.getUILabelSelector(), fs.getLabel());
 				}
 			}
 		}
 		return temp;
-		
 	}
 	
 	private void generateMessageKey(JSONObject temp, String labelSelector, String label) throws JSONException {
