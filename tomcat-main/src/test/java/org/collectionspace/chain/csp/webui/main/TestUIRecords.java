@@ -241,7 +241,7 @@ public class TestUIRecords {
 		log.info("Testing UISPEC");
 		tester.testUIspec(jetty, "/reporting/uispec", "reporting.uispec");
 		tester.testUIspec(jetty, "/invokereport/uispec", "invokereporting.uispec");
-		tester.testUIspec(jetty, "/myCollectionSpace/uispec", "find-edit.uispec");
+		//tester.testUIspec(jetty, "/myCollectionSpace/uispec", "find-edit.uispec");
 
 		//		uispec(jetty,"/location/generator?quantity=10","acquisition.uispec");
 		// 		uispec(jetty,"/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related","acquisition.uispec");
