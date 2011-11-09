@@ -41,7 +41,7 @@ public class TestAjaxExpiresHeaders {
 	
 	@SuppressWarnings("unchecked")
 	@Test public void testNoCacheHeaders() throws Exception {
-		HttpTester out = tester.GETData("/myCollectionSpace/uispec",jetty);
+		HttpTester out = tester.GETData("/intake/uispec",jetty);
 		assertEquals("no-cache",out.getHeader("pragma"));
 		String last_modified=out.getHeader("Last-Modified");
 		assertNotNull(last_modified);
