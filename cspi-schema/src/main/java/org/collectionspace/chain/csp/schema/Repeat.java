@@ -302,6 +302,7 @@ public class Repeat implements FieldSet, FieldParent  {
 	public Boolean asSibling() {
 		return utils.getBoolean("@asSibling");
 	}
+	//used in generateGroupField in uispec for elpaths
 	public String getPrimaryKey() {
 		return utils.getString("@primarykey");
 	}

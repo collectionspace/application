@@ -39,6 +39,7 @@ public interface FieldSet {
 	public String getSelector();
 	public String getPreSelector();
 	public String getLabel();
+	//used in generateGroupField in uispec for elpaths
 	public String getPrimaryKey();
 	public Boolean usesRecord();
 	public String usesRecordValidator();

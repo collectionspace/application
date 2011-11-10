@@ -106,10 +106,6 @@ public class Field implements FieldSet {
 		utils.initStrings(section,"@ui-spec-prefix","");
 		utils.initBoolean(section,"@ui-spec-inherit",false);
 		utils.initStrings(section,"@with-csid","");
-		
-		utils.initStrings(section,"linktext", "${items.0.number}");
-		
-		utils.initStrings(section,"linktext-target", "${items.0.recordtype}.html?csid=${items.0.csid}");
 
 		utils.initStrings(section,"@ui-func", "");
 		utils.initStrings(section,"@ui-type", "plain");
@@ -224,14 +220,6 @@ public class Field implements FieldSet {
 	public String getLabel() {
 		return utils.getString("label");
 	}
-
-	public String getLinkTextTarget() {
-		return utils.getString("linktext-target");
-	}
-
-	public String getLinkText() {
-		return utils.getString("linktext");
-	}
 	public String getUIprefix(){
 		return getPreSelector() + this.getRecord().getID() + "-";
 	}
@@ -303,6 +291,8 @@ public class Field implements FieldSet {
 	public String getPreTitleSelector() {
 		return utils.getString("pretitle-selector");
 	}
+	
+	//used in generateGroupField in uispec for elpaths
 	public String getPrimaryKey() {
 		return utils.getString("@primarykey");
 	}

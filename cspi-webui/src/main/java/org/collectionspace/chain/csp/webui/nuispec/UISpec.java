@@ -18,7 +18,6 @@ import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
-import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
@@ -28,11 +27,7 @@ import org.collectionspace.chain.csp.schema.UISpecRunContext;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
-import org.collectionspace.csp.api.core.CSPRequestCache;
-import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
-import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
-import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -142,12 +137,12 @@ public class UISpec implements WebMethod {
 		return "${"+StringUtils.join(path,'.')+"}";		
 	}
 
-	protected JSONObject linktext(Field f) throws JSONException  {
-		JSONObject number=new JSONObject();
-		number.put("linktext",f.getLinkText());
-		number.put("target",f.getLinkTextTarget());
-		return number;	
-	}
+//	protected JSONObject linktext(Field f) throws JSONException  {
+//		JSONObject number=new JSONObject();
+//		number.put("linktext",f.getLinkText());
+//		number.put("target",f.getLinkTextTarget());
+//		return number;	
+//	}
 
 	private String makeSelector(String pre, UISpecRunContext context, String post){
 		List<String> affixes = Arrays.asList(context.getUIAffix());
@@ -227,9 +222,6 @@ public class UISpec implements WebMethod {
 		} 
 		else if("list".equals(f.getUIType())){
 			return plainlist(f);
-		}
-		else if("linktext".equals(f.getUIType())){
-			return linktext(f);
 		}
 		else if("dropdown".equals(f.getUIType())) {
 			return generateOptionField(f,context);
@@ -676,7 +668,6 @@ public class UISpec implements WebMethod {
 			
 			for(FieldSet fs : r.getAllFieldFullList("")) { //include children of repeats as well as top level
 				if(fs.getID()!=null){
-					String test = fs.getUILabelSelector();
 					generateMessageKey(temp, fs.getUILabelSelector(), fs.getLabel());
 				}
 			}
@@ -749,7 +740,6 @@ public class UISpec implements WebMethod {
 		 if(fs instanceof Group){
 			Group gp = (Group)fs;
 			if(gp.isGrouped()){
-				JSONObject schemaprop = new JSONObject();
 				context.setPad(false);
 			}
 		}
