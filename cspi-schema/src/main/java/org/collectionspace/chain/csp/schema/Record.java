@@ -746,7 +746,7 @@ public class Record implements FieldParent {
 		record.put("type", utils.getSet("@type"));
 		out.put(this.getID(), record);
 	}
-	
+
 	void dumpJsonFields(JSONObject out) throws JSONException {
 		JSONObject record = new JSONObject();
 		String[] allStrings = null;
@@ -797,6 +797,59 @@ public class Record implements FieldParent {
 
 		out.put("allfields", RecordTable);
 		out.put(this.getID(), record);
+	}
+	
+	String dumpFields() throws JSONException {
+		StringBuffer out=new StringBuffer();
+		String[] allStrings = null;
+		String[] allBooleans = null;
+		String[] allSets = null;
+		Map <String, StringBuffer> rout = new HashMap<String, StringBuffer>();
+		
+
+		allStrings = this.getAllFieldFullList("")[0].getUtils().getAllString();
+		allBooleans = this.getAllFieldFullList("")[0].getUtils().getAllBoolean();
+		allSets = this.getAllFieldFullList("")[0].getUtils().getAllSets();
+
+		out.append("field" + ",");
+		rout.put("default", new StringBuffer());
+		for(FieldSet fs : this.getAllFieldFullList("")){
+			rout.put(fs.getID(), new StringBuffer());
+		}
+
+		for(String s: allStrings){
+			out.append(s + ",");
+			rout.get("default").append(this.getAllFieldFullList("")[0].getUtils().getDefaultString(s) + ",");
+			for(FieldSet fs : this.getAllFieldFullList("")){
+				rout.get(fs.getID()).append(fs.getUtils().getString(s) + ",");
+			}
+		}
+		for(String s: allBooleans){
+			out.append(s + ",");
+			rout.get("default").append(this.getAllFieldFullList("")[0].getUtils().getDefaultBoolean(s) + ",");
+			for(FieldSet fs : this.getAllFieldFullList("")){
+				rout.get(fs.getID()).append(fs.getUtils().getBoolean(s) + ",");
+			}
+		}
+		for(String s: allSets){
+			out.append(s + ",");
+			rout.get("default").append("\"" + this.getAllFieldFullList("")[0].getUtils().allDefaultSets.get(s) + "\"" + ",");
+			for(FieldSet fs : this.getAllFieldFullList("")){
+				rout.get(fs.getID()).append("\"" + fs.getUtils().allSets.get(s) + "\"" + ",");
+			}
+		}
+
+		for (Map.Entry<String, StringBuffer> entry : rout.entrySet()) {
+		    String key = entry.getKey();
+		    StringBuffer value = entry.getValue();
+		    out.append("\n");
+		    out.append(key+",");
+		    out.append(value);
+		    // ...
+		}
+		return out.toString();
+		//out.put("allfields", RecordTable);
+		//out.put(this.getID(), record);
 	}
 
 	public Record getRecord() {

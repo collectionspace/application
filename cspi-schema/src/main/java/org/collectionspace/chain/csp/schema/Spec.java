@@ -549,22 +549,16 @@ public class Spec implements CSP, Configurable {
 
 				for(String s: allStrings){
 					JSONObject data = new JSONObject();
-					//data.put("type", "String");
-					//data.put("name", s);
 					data.put("default",  r.utils.getDefaultString(s));
 					RecordTable.put("String:"+s, data);
 				}
 				for(String s: allBooleans){
 					JSONObject data = new JSONObject();
-					//data.put("type", "Boolean");
-					//data.put("name", s);
 					data.put("default",  r.utils.getDefaultBoolean(s));
 					RecordTable.put("Boolean:"+s,data);
 				}
 				for(String s:allSets){
 					JSONObject data = new JSONObject();
-					//data.put("type", "Set");
-					//data.put("name", s);
 					data.put("default",  r.utils.getDefaultSet(s));
 					RecordTable.put("Set:"+s,data);
 				}
