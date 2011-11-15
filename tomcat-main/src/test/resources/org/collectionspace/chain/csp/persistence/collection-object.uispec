@@ -1,4 +1,4 @@
-{
+{{
     "recordEditor": {
         ".csc-collection-object-assocPeopleGroup-label": {
             "messagekey": "collection-object-assocPeopleGroupLabel"
@@ -638,10 +638,7 @@
                                 ".csc-dimension-measuredBy-label": {
                                     "messagekey": "dimension-measuredByLabel"
                                 },
-                                ".csc-dimensionGroup-dimensionSubGroup-label": {
-                                    "messagekey": "dimensionGroup-dimensionSubGroupLabel"
-                                },
-                                ".csc-dimension-dimensionGroup": {
+                                ".csc-dimension-measuredPartGroup": {
                                     "decorators": [{
                                         "func": "cspace.makeRepeatable",
                                         "type": "fluid",
@@ -649,7 +646,7 @@
                                             "repeatTree": {
                                                 "expander": {
                                                     "tree": {
-                                                        ".csc-dimensionGroup-dimensionSubGroup": {
+                                                        ".csc-measuredPartGroup-dimensionSubGroup": {
                                                             "decorators": [{
                                                                 "func": "cspace.makeRepeatable",
                                                                 "type": "fluid",
@@ -691,6 +688,12 @@
                                                                                     "selection": "${{row}.dimension}"
                                                                                 },
                                                                                 ".csc-dimension-valueQualifier": "${{row}.valueQualifier}",
+                                                                                ".csc-dimension-measurementMethod": {
+                                                                                    "default": "",
+                                                                                    "optionnames": ["Balance/Beam Scale", "Electronic Distance Measurement", "Goniometer", "Hydraulic or Pneumatic Scale", "Measuring Tape (cloth)", "Measuring Tape (metal)", "Microscopy (reticule)", "Odometer", "Optical Range Finder", "Osteometric Board", "Pacing Pedometer", "Please select a value", "Protractor", "Ruler", "Sliding Calipers", "Spreading Calipers", "Spring Scale", "Stadia/Transit", "Standard Mesh/Screen", "Taping/Chaining", "Theodolite/Total Station"],
+                                                                                    "optionlist": ["", "balance_beam_scale", "electronic_distance_measurement", "goniometer", "hydraulic_or_pneumatic_scale", "measuring_tape_cloth", "measuring_tape_metal", "microscopy_reticule", "odometer", "optical_range_finder", "osteometric_board", "pacing_pedometer", "protractor", "ruler", "sliding_calipers", "spreading_calipers", "spring_scale", "stadia_transit", "standard_mesh_screen", "taping_chaining", "theodolite_total_station"],
+                                                                                    "selection": "${{row}.measurementMethod}"
+                                                                                },
                                                                                 ".csc-dimension-valueDate": {
                                                                                     "decorators": [{
                                                                                         "func": "cspace.datePicker",
@@ -716,15 +719,21 @@
                                                     "type": "fluid.noexpand"
                                                 }
                                             },
-                                            "elPath": "fields.dimensionGroup"
+                                            "elPath": "fields.measuredPartGroup"
                                         }
                                     }]
                                 },
-                                ".csc-dimension-dimensionGroup-label": {
-                                    "messagekey": "dimension-dimensionGroupLabel"
+                                ".csc-dimension-measurementMethod-label": {
+                                    "messagekey": "dimension-measurementMethodLabel"
+                                },
+                                ".csc-dimension-measuredPartGroup-label": {
+                                    "messagekey": "dimension-measuredPartGroupLabel"
                                 },
                                 ".csc-dimension-dimension-label": {
                                     "messagekey": "dimension-dimensionLabel"
+                                },
+                                ".csc-measuredPartGroup-dimensionSubGroup-label": {
+                                    "messagekey": "measuredPartGroup-dimensionSubGroupLabel"
                                 },
                                 ".csc-dimension-measurementUnit-label": {
                                     "messagekey": "dimension-measurementUnitLabel"
