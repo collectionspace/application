@@ -38,8 +38,14 @@ public class XmlJsonConversion {
 	private static final Logger log=LoggerFactory.getLogger(XmlJsonConversion.class);
 	private static void addFieldToXml(Element root,Field field,JSONObject in, String permlevel) throws JSONException, UnderlyingStorageException {
 		
+		Element element=root;
+		if(field.getUIType().startsWith("groupfield") && field.getUIType().contains("selfrenderer")){
+//ignore the top level if this is a self renderer as the UI needs it but the services doesn't
+		}
+		else{
+			element=root.addElement(field.getServicesTag());
+		}
 		String value=in.optString(field.getID());
-		Element element=root.addElement(field.getServicesTag());
 		if(field.getUIType().startsWith("groupfield")){
 			if(in.has(field.getID())){
 				addSubRecordToXml(element,field,in.getJSONObject(field.getID()), permlevel);
@@ -54,6 +60,7 @@ public class XmlJsonConversion {
 		String parts[] = field.getUIType().split("/");
 		Record subitems = field.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 
+		//hard coding the section here can not be a good thing....
 		if(subitems.getAllServiceFieldTopLevel(operation,"common").length >0){
 			for(FieldSet f : subitems.getAllServiceFieldTopLevel(operation,"common")) {
 				addFieldSetToXml(root,f,in,"common",operation);
@@ -372,7 +379,23 @@ public class XmlJsonConversion {
 			}
 			out.put(f.getID(),csid_value(csid,f.useCsid(),ims_url));			
 		} else {
-			Element el=getFieldNodeEl(root,f);
+			Element el = root;
+			if(f.getUIType().startsWith("groupfield") && f.getUIType().contains("selfrenderer")){
+
+				String parts[] = f.getUIType().split("/");
+				Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+
+				JSONObject temp = new JSONObject();
+				for(FieldSet fs : subitems.getAllServiceFieldTopLevel(operation,"common")) {
+					addFieldSetToJson(temp,el,fs,operation, tempSon,csid,ims_url);
+				}
+
+				out.put(f.getID(),temp);
+				return;
+			}
+			
+			el=getFieldNodeEl(root,f);
+			
 			if(el == null){
 				return;
 			}
@@ -730,6 +753,9 @@ public class XmlJsonConversion {
 		Element root=doc.getRootElement();
 		JSONObject tempSon = new JSONObject();
 		for(FieldSet f : r.getAllServiceFieldTopLevel(operation,section)) {
+			if(f.getID().equals("dimension")){
+				log.info(f.getID());
+			}
 			addFieldSetToJson(out,root,f,operation, tempSon,csid,ims_url);
 		}
 		

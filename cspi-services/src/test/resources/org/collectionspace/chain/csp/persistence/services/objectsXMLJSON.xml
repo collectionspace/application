@@ -176,17 +176,47 @@
 <copyNumber>copyNumber</copyNumber>
 <!-- Object Description - Dimension Information -->
 
-<dimensions>
-	<dimensionGroup>
-		<dimension>dimension</dimension>
-		<measuredBy></measuredBy>
-		<measuredPart>measuredPart</measuredPart>
-		<measurementUnit>measurementUnit</measurementUnit>
-		<value>value</value>
-		<valueDate>valueDate</valueDate>
-		<valueQualifier>valueQualifier</valueQualifier>
-	</dimensionGroup>
-</dimensions>
+<measuredPartGroupList>
+<measuredPartGroup>
+<measuredPart>arm</measuredPart>
+<dimensionSummary/>
+<dimensionSubGroupList>
+<dimensionSubGroup>
+<dimension>diameter</dimension>
+<measuredBy>rj</measuredBy>
+<measurementUnit>cm</measurementUnit>
+<measurementMethod>eyeball</measurementMethod>
+<value>10</value>
+<valueDate>2011-11-08</valueDate>
+<valueQualifier>approx.</valueQualifier>
+</dimensionSubGroup>
+<dimensionSubGroup>
+<dimension>length</dimension>
+<measuredBy>rj</measuredBy>
+<measurementUnit>cm</measurementUnit>
+<measurementMethod>eyeball</measurementMethod>
+<value>75</value>
+<valueDate>2011-11-08</valueDate>
+<valueQualifier>approx.</valueQualifier>
+</dimensionSubGroup>
+</dimensionSubGroupList>
+</measuredPartGroup>
+<measuredPartGroup>
+<measuredPart>other arm</measuredPart>
+<dimensionSummary/>
+<dimensionSubGroupList>
+<dimensionSubGroup>
+<dimension>length</dimension>
+<measuredBy>rj</measuredBy>
+<measurementUnit>cm</measurementUnit>
+<measurementMethod>eyeball</measurementMethod>
+<value>80</value>
+<valueDate>2011-11-08</valueDate>
+<valueQualifier>close enough for govt work</valueQualifier>
+</dimensionSubGroup>
+</dimensionSubGroupList>
+</measuredPartGroup>
+</measuredPartGroupList>
 
 <editionNumber></editionNumber>
 <forms>
