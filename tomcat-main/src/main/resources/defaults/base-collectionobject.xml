@@ -374,72 +374,9 @@
                             </options>
                         </field>
                     </repeat>
-                    <field id="dimensionSummary"></field>
-                    <repeat id="dimensions/dimensionGroup">
-                    	<field id="measuredBy"  autocomplete="person-person,organization-organization"></field>
-                        <field id="dimension" seperate_ui_container="true">
-                            <selector>object-description-dimension</selector>
-                            <options>
-                                <option id="">Please select a value</option>
-                                <option id="area">area</option>
-                                <option id="base">base</option>
-                                <option id="circumference">circumference</option>
-                                <option id="count">count</option>
-                                <option id="depth">depth</option>
-                                <option id="diameter">diameter</option>
-                                <option id="height">height</option>
-                                <option id="length">length</option>
-                                <option id="running-time">running time</option>
-                                <option id="target">target</option>
-                                <option id="volume">volume</option>
-                                <option id="weight">weight</option>
-                                <option id="width">width</option>
-                            </options>
-                        </field>
-                        <field id="measuredPart" seperate_ui_container="true">
-                            <selector>object-description-dimension-part</selector>
-                            <options>
-                                <option id="">Please select a value</option>
-                                <option id="base">base</option>
-                                <option id="frame">frame</option>
-                                <option id="framed">framed</option>
-                                <option id="image-size">image size</option>
-                                <option id="mount">mount</option>
-                                <option id="paper-size">paper size</option>
-                                <option id="plate-size">plate size</option>
-                                <option id="unframed">unframed</option>
-                            </options>
-                        </field>
-                        <field id="measurementUnit" seperate_ui_container="true">
-                            <selector>object-description-dimension-unit</selector>
-                            <options>
-                                <option id="">Please select a value</option>
-                                <option id="carats">carats</option>
-                                <option id="centimeters">centimeters</option>
-                                <option id="cubic-centimeters">cubic centimeters</option>
-                                <option id="feet">feet</option>
-                                <option id="inches">inches</option>
-                                <option id="kilograms">kilograms</option>
-                                <option id="liters">liters</option>
-                                <option id="millimeters">millimeters</option>
-                                <option id="meters">meters</option>
-                                <option id="minutes">minutes</option>
-                                <option id="pixels">pixels</option>
-                                <option id="square-feet">square feet</option>
-                                <option id="stories">stories</option>
-                            </options>
-                        </field>
-                        <field id="value" ui-type="validated" datatype="float">
-                            <selector>object-description-dimension-value</selector>
-                        </field>
-                        <field id="valueDate" ui-type="date">
-                            <selector>object-description-dimension-value-date</selector>
-                        </field>
-                        <field id="valueQualifier">
-                            <selector>object-description-dimension-value-qualifier</selector>
-                        </field>
-                    </repeat>
-                    <section id="contentInformation">
+					<field id="dimension" ui-search="repeatable" ui-type="groupfield/dimension/selfrenderer"  ui-func="cspace.dimension"  ></field>
+                    
+					<section id="contentInformation">
                         <field id="contentDescription">
                             <selector>object-description-content-description</selector>
                         </field>
