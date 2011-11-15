@@ -36,7 +36,7 @@
                         <field id="measurementMethod"></field>
                         <field id="value" ui-type="validated" datatype="float"></field>
                         <field id="valueQualifier"></field>
-                        <field id="valueDate"></field>
+                        <field id="valueDate" ui-type="date"></field>
                     </repeat>
                     <field id="imgThumb" attributes="GET" mini="search,list,relate">
                         <use-csid>ims;download/;/Thumbnail</use-csid>
