@@ -250,7 +250,6 @@ public class UISpec implements WebMethod {
 			String parts[] = f.getUIType().split("/");
 			JSONObject subexpander = new JSONObject();
 			Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-
 			options.put("elPath", "fields."+f.getPrimaryKey());
 			out.put("value",veryplain("fields."+f.getPrimaryKey()));
 			
@@ -276,6 +275,32 @@ public class UISpec implements WebMethod {
 				}
 
 				options.put("elPaths", subexpander);
+			}
+			else if(parts[2].equals("selfrenderer")){
+				Boolean truerepeat = false;
+				FieldParent fsp = f.getParent();
+				if(fsp instanceof Repeat && !(fsp instanceof Group)){
+					Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
+					if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
+						truerepeat = true;
+						for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
+							generateDataEntry(subexpander,fs2, context);
+						}
+						JSONObject renderedcontents=new JSONObject();
+						generateMessageKeys(context, subexpander, subitems);
+						generateSelfRenderedEntry(renderedcontents,fs,context, subexpander);
+						options = renderedcontents;
+					}
+				}
+				if(!truerepeat){
+					for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
+						generateDataEntry(subexpander,fs2, context);
+					}
+					JSONObject renderedcontents=new JSONObject();
+					generateMessageKeys(context, subexpander, subitems);
+					generateSelfRenderedEntry(renderedcontents,fs,context, subexpander);
+					options = renderedcontents;
+				}
 			}
 			else{
 				for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {		
@@ -637,6 +662,35 @@ public class UISpec implements WebMethod {
 		return out;
 	}
 
+	protected void generateMessageKeys(UISpecRunContext affix, JSONObject temp, FieldSet fs) throws JSONException {
+		Record r = fs.getRecord();
+		if(this.spectype.equals("search")){ //is this a search uispec
+			if(fs.getID()!=null){
+				if(fs.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
+					Repeat rp = (Repeat)fs;
+
+					for(FieldSet child : rp.getChildren("")) {
+						generateMessageKey(temp, r.getUILabelSelector(child.getID()), child.getLabel());
+					}
+				}
+				else{
+					generateMessageKey(temp, r.getUILabelSelector(fs.getID()), fs.getLabel());
+				}
+			}
+		}
+		else{
+			if(fs.getID()!=null){
+				generateMessageKey(temp, fs.getUILabelSelector(), fs.getLabel());
+			}
+			if(fs instanceof Repeat){
+				Repeat rp = (Repeat)fs;
+				for(FieldSet child : rp.getChildren("")) {
+					generateMessageKeys(affix,temp,child);
+				}
+			}
+		}
+	}
+
 	protected JSONObject generateMessageKeys(UISpecRunContext affix, JSONObject temp, Record r) throws JSONException {
 		if(this.spectype.equals("search")){ //is this a search uispec
 			for(String st: r.getAllUISections("search")){
@@ -808,7 +862,6 @@ public class UISpec implements WebMethod {
 			}
 		}
 		else{
-			
 			if(fs instanceof Field) {
 				// Single field
 				Field f=(Field)fs;
@@ -829,6 +882,7 @@ public class UISpec implements WebMethod {
 			else if(fs instanceof Repeat) {
 				generateRepeatDataEntry(out, fs, context);
 			}
+
 		}
 
 	}
@@ -910,9 +964,15 @@ public class UISpec implements WebMethod {
 	protected void generateGroupDataEntry(JSONObject out, FieldSet fs,
 			UISpecRunContext context) throws JSONException {
 		Group g = (Group)fs;
+
 		JSONObject contents=new JSONObject();
 		for(FieldSet child : g.getChildren("")) {
 			generateDataEntry(contents,child, context);
+		}		//UI specific marking: YURA said: these are renderer decorators that do their own rendering so need some sub nesting
+		if("selfrenderer".equals(fs.getUIType())) {
+			JSONObject renderedcontents=new JSONObject();
+			generateSelfRenderedEntry(renderedcontents,fs,context, contents);
+			contents = renderedcontents;
 		}
 		out.put(getSelector(g,context),contents);
 	}
@@ -946,6 +1006,33 @@ public class UISpec implements WebMethod {
 		
 		out.put("expander",cexpander);
 		
+	}
+	/*
+	 * [10:57] <yura> csm22: because the markup for dimensions is delivered separately from the
+	 *  rest of the record editor's markup, and thus dimensions decorator itself will render those. this is all similar to higherarchies
+	 *  [10:58] <yura> csm22: there are basically 2 types of decorators
+	 *  renderer decorators that do their own rendering: e.g. structuredate, heirarchical, dimensions
+	 *  and ones like date picker and autocomplete
+	 * generateSelfRenderedEntry
+	 * ".csc-collection-object-dimension": {
+            "decorators": [{
+                "func": "cspace.dimension",
+                "type": "fluid",
+                "options": {
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+	 * */
+
+	protected void generateSelfRenderedEntry(JSONObject out, FieldSet f, UISpecRunContext context, JSONObject tree) throws JSONException{
+		JSONObject expander = new JSONObject();
+		expander.put("type", "fluid.noexpand");
+		expander.put("tree", tree);
+	
+		JSONObject protoTree = new JSONObject();
+		protoTree.put("expander", expander);
+		out.put("protoTree", protoTree);
+	
 	}
 	protected void generateHierarchyEntry(JSONObject out, FieldSet f, UISpecRunContext context) throws JSONException{
 		String condition =  "cspace.hierarchy.assertEquivalentContexts";

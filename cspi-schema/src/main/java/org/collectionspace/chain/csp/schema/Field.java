@@ -221,7 +221,7 @@ public class Field implements FieldSet {
 		return utils.getString("label");
 	}
 	public String getUIprefix(){
-		return getPreSelector() + this.getRecord().getID() + "-";
+		return getPreSelector() + utils.getString("parentID") + "-";
 	}
 	public String getUILabelSelector(String id){
 		return getUIprefix() +  id + "-label";
