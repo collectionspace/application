@@ -107,6 +107,8 @@
                         <selector>loanIn-loanInContact</selector>
                     </field>
                     <field id="borrowersAuthorizer" autocomplete="person-person"></field>
+                    <field id="borrowersContact" autocomplete="person-person"></field>
+                    <field id="borrowersAuthorizationDate"  ui-type="date"></field>
                     <field id="loanInConditions">
                         <selector>loanIn-loanInConditions</selector>
                     </field>
@@ -122,5 +124,10 @@
                     <field id="loanRenewalApplicationDate" ui-search="range" ui-type="date" >
                         <selector>loanIn-loanRenewalApplicationDate</selector>
                     </field>
+                    <repeat id="loanStatusGroupList/loanStatusGroup">
+                        <field id="loanStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum"></field>
+                        <field id="loanStatusDate" ui-type="date"></field>
+                        <field id="loanStatusNote"></field>
+                    </repeat>
                 </section>
             </record>
