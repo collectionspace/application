@@ -77,6 +77,8 @@
                     <field id="borrower" ui-search="repeatable" autocomplete="person-person,organization-organization" mini="summary,list" in-title="yes">
                         <selector>loanOut-borrower</selector>
                     </field>
+                    <field id="borrowersAuthorizer" autocomplete="person-person"></field>
+                    <field id="borrowersAuthorizationDate"  ui-type="date"></field>
                     <field id="borrowersContact" autocomplete="person-person">
                         <selector>loanOut-borrowersContact</selector>
                     </field>
@@ -108,14 +110,14 @@
                     <field id="loanOutNote">
                         <selector>loanOut-loanOutNote</selector>
                     </field>
-                    <repeat id="loanedObjectStatusGroupList/loanedObjectStatusGroup">
-                        <field id="loanedObjectStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum">
+                    <repeat id="loanStatusGroupList/loanStatusGroup">
+                        <field id="loanStatus" ui-search="repeatable" autocomplete="vocab-lostatus" ui-type="enum">
                             <selector>loanOut-loanedObjectStatus</selector>
                         </field>
-                        <field id="loanedObjectStatusDate" ui-type="date">
+                        <field id="loanStatusDate" ui-type="date">
                             <selector>loanOut-loanedObjectStatusDate</selector>
                         </field>
-                        <field id="loanedObjectStatusNote">
+                        <field id="loanStatusNote">
                             <selector>loanOut-loanedObjectStatusNote</selector>
                         </field>
                     </repeat>
