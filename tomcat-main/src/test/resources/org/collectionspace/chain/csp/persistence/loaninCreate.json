@@ -7,7 +7,6 @@
     "loanInConditions": "loanInConditions",
     "loanInDate": "loanInDate",
     "loanReturnDate": "loanReturnDate",
-    "loanRenewalApplicationDate": "loanRenewalApplicationDate",
     "loanInNote": "loanInNote",
     "loanPurpose": "loanPurpose"
 }
