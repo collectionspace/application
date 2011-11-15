@@ -1436,7 +1436,11 @@ public class GenericStorage  implements ContextualisedStorage {
 										value+=n.getText();
 									}
 								}
-								setGleanedValue(cache,r.getServicesURL()+"/"+csid,json_name,value);
+								String gleanname = r.getServicesURL()+"/"+csid;
+								if(csidfield.equals("uri")){
+									gleanname = csid;
+								}
+								setGleanedValue(cache,gleanname,json_name,value);
 								test.put(json_name, value);
 							}
 						}
