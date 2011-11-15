@@ -374,7 +374,7 @@
                             </options>
                         </field>
                     </repeat>
-					<field id="dimension" ui-search="repeatable" ui-type="groupfield/dimension/selfrenderer"  ui-func="cspace.dimension"  ></field>
+					<field id="dimension" ui-type="groupfield/dimension/selfrenderer"  ui-func="cspace.dimension"  ></field>
                     
 					<section id="contentInformation">
                         <field id="contentDescription">
