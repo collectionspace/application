@@ -195,7 +195,13 @@
                 },
                 ".csc-blobs-measuredPart": "${{row}.measuredPart}",
                 ".csc-blobs-valueQualifier": "${{row}.valueQualifier}",
-                ".csc-blobs-valueDate": "${{row}.valueDate}",
+                ".csc-blobs-valueDate": {
+                    "decorators": [{
+                        "func": "cspace.datePicker",
+                        "type": "fluid"
+                    }],
+                    "value": "${{row}.valueDate}"
+                },
                 ".csc-blobs-dimension": "${{row}.dimension}",
                 ".csc-blobs-measurementUnit": "${{row}.measurementUnit}"
             },
