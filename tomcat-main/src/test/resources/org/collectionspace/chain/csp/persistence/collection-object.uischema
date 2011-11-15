@@ -621,41 +621,65 @@
                         },
                         "type": "object"
                     },
-                    "dimensionGroup": {
-                        "items": {
-                            "properties": {
-                                "measuredBy": {
-                                    "type": "string"
-                                },
-                                "dimension": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
-                                },
-                                "valueDate": {
-                                    "type": "date"
-                                },
-                                "measuredPart": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "measurementUnit": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "value": {
-                                    "type": "float"
-                                },
-                                "valueQualifier": {
-                                    "type": "string"
-                                }
+                    "dimension": {
+                        "properties": {
+                            "_primary": {
+                                "default": true,
+                                "type": "boolean"
                             },
-                            "type": "object"
+                            "dimensionGroup": {
+                                "items": {
+                                    "properties": {
+                                        "dimensionSummary": {
+                                            "type": "string"
+                                        },
+                                        "_primary": {
+                                            "default": true,
+                                            "type": "boolean"
+                                        },
+                                        "measuredPart": {
+                                            "default": "",
+                                            "type": "string"
+                                        },
+                                        "dimensionSubGroup": {
+                                            "items": {
+                                                "properties": {
+                                                    "measuredBy": {
+                                                        "type": "string"
+                                                    },
+                                                    "dimension": {
+                                                        "default": "",
+                                                        "type": "string"
+                                                    },
+                                                    "_primary": {
+                                                        "default": true,
+                                                        "type": "boolean"
+                                                    },
+                                                    "valueDate": {
+                                                        "type": "date"
+                                                    },
+                                                    "measurementUnit": {
+                                                        "default": "",
+                                                        "type": "string"
+                                                    },
+                                                    "value": {
+                                                        "type": "float"
+                                                    },
+                                                    "valueQualifier": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            }
                         },
-                        "type": "array"
+                        "type": "object"
                     },
                     "viewersRole": {
                         "type": "string"
@@ -771,9 +795,6 @@
                     },
                     "ownershipCategory": {
                         "default": "",
-                        "type": "string"
-                    },
-                    "dimensionSummary": {
                         "type": "string"
                     },
                     "copyNumber": {
