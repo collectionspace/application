@@ -2,7 +2,6 @@
     "exitNumber": "EX2011.5",
     "exitNote": "exitNote",
     "currentOwner": "currentOwner",
-    "exitDate": "exitDate",
     "exitMethods": [
         {
             "exitMethod": "exitMethod"
