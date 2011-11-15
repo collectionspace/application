@@ -45,7 +45,6 @@
 					"technicalAttribute": "technicalAttribute",
 					"technicalAttributeMeasurement": "technicalAttributeMeasurement",
 					"technicalAttributeMeasurementUnit": "technicalAttributeMeasurementUnit",
-					"dimension": "dimension",
 					"dimensionMeasuredPart": "dimensionMeasuredPart",
 					"dimensionValue": "dimensionValue",
 					"dimensionValueQualifier": "dimensionValueQualifier",

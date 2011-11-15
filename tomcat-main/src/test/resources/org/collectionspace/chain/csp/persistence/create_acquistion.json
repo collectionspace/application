@@ -1,8 +1,5 @@
 {
-			  "accessionDate": "accessionDate",
 			  "acquisitionAuthorizer": "acquisitionAuthorizer",
-			  "acquisitionAuthorizerDate": "acquisitionAuthorizerDate",
-			  "acquisitionDates": [{"acquisitionDate": "acquisitionDate"},{"acquisitionDate": "acquisitionDate"}],
 			  "acquisitionFundingList":[ {"acquisitionFunding" : [
 			  {"acquisitionFundingCurrency": "acquisitionFundingCurrency",
 			  "acquisitionFundingValue": "acquisitionFundingValue",
