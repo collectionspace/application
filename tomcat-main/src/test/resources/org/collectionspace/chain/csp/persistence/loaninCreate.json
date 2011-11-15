@@ -5,8 +5,6 @@
     "lendersContact": "lendersContact",
     "loanInContact": "loanInContact",
     "loanInConditions": "loanInConditions",
-    "loanInDate": "loanInDate",
-    "loanReturnDate": "loanReturnDate",
     "loanInNote": "loanInNote",
     "loanPurpose": "loanPurpose"
 }
