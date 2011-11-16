@@ -229,8 +229,7 @@
                         }
                     }
                 }
-            }],
-            "value": "${fields.blobs-dimension}"
+            }]
         },
         ".csc-media-source": "${fields.source}",
         ".csc-media-externalMediaUrl": "${fields.externalMediaUrl}",
@@ -525,8 +524,7 @@
                         }
                     }
                 }
-            }],
-            "value": "${fields.media-dimension}"
+            }]
         },
         ".csc-blobs-mimeType": "${fields.blobs.0.mimeType}",
         ".csc-media-createdBy": "${fields.createdBy}",
