@@ -18,8 +18,46 @@
         "_primary": true,
         "language": "language"
     }],
+	
+    "dimension": {
+        "measuredPartGroup": [{
+            "_primary": true,
+            "dimensionSummary": "",
+            "measuredPart": "arm",
+            "dimensionSubGroup": [{
+                "_primary": true,
+                "measuredBy": "rj",
+                "dimension": "diameter",
+                "valueDate": "2011-11-08",
+                "measurementUnit": "cm",
+                "value": "10",
+                "valueQualifier": "approx.",
+                "measurementMethod": "eyeball"
+            }, {
+                "measuredBy": "rj",
+                "dimension": "length",
+                "valueDate": "2011-11-08",
+                "measurementUnit": "cm",
+                "value": "75",
+                "valueQualifier": "approx.",
+                "measurementMethod": "eyeball"
+            }]
+        }, {
+            "dimensionSummary": "",
+            "measuredPart": "other arm",
+            "dimensionSubGroup": [{
+                "_primary": true,
+                "measuredBy": "rj",
+                "dimension": "length",
+                "valueDate": "2011-11-08",
+                "measurementUnit": "cm",
+                "value": "80",
+                "valueQualifier": "close enough for govt work",
+                "measurementMethod": "eyeball"
+            }]
+        }]
+    },
     "title": "EX2011.5",
-    "dimensionSummary": "sdf",
     "source": "source",
     "coverage": "coverage",
     "relations": [{
