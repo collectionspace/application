@@ -72,8 +72,9 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				vocabtag.addText(vocab);
 			}
 			if(refname!=null){
-				Element refnametag=root.addElement("refName");
-				refnametag.addText(refname);
+			//	CSPACE-4460
+			//	Element refnametag=root.addElement("refName");
+			//	refnametag.addText(refname);
 			}
 			if(r.isType("compute-displayname")) {
 				Element dnc=root.addElement("displayNameComputed");
