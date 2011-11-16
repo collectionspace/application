@@ -35,6 +35,7 @@ public class VocabulariesRead implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(VocabulariesRead.class);
 	private Instance n;
 	private String base;
+	private Spec spec;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
 	public VocabulariesRead(Instance n) {
@@ -43,6 +44,7 @@ public class VocabulariesRead implements WebMethod {
 	}
 	
 	public void configure(WebUI ui,Spec spec) {
+		this.spec = spec;
 		for(Record r : spec.getAllRecords()) {
 			type_to_url.put(r.getID(),r.getWebURL());
 		}
@@ -117,6 +119,12 @@ public class VocabulariesRead implements WebMethod {
 				while(t.hasNext()) {
 					String field=(String)t.next();
 					JSONObject in=mini.getJSONObject(field);
+					String rt = in.getString("sourceFieldType");
+					String uiname = rt;
+					if(this.spec.hasRecordByServicesDocType(rt)){
+						uiname = this.spec.getRecordByServicesDocType(rt).getWebURL();
+					}
+					in.put("recordtype", uiname);
 					/*
 					JSONObject entry=new JSONObject();
 					entry.put("csid",in.getString("csid"));

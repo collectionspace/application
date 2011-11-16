@@ -51,6 +51,7 @@ public class Spec implements CSP, Configurable {
 	
 	private Map<String,Record> records_by_web_url=new HashMap<String,Record>();
 	private Map<String,Record> records_by_services_url=new HashMap<String,Record>();
+	private Map<String,Record> records_by_services_docType=new HashMap<String,Record>();
 	private Map<String,Instance> instances=new HashMap<String,Instance>();
 	private Map<String, Set<Field>> termlist = new HashMap<String, Set<Field>>();
 	private Map<String, Structure> structure=new HashMap<String,Structure>();
@@ -149,6 +150,7 @@ public class Spec implements CSP, Configurable {
 				records.put(r.getID(),r);
 				records_by_web_url.put(r.getWebURL(),r);
 				records_by_services_url.put(r.getServicesURL(),r);
+				records_by_services_docType.put(r.getServicesTenantSg(),r);
 				return r;
 			}
 		});
@@ -395,10 +397,13 @@ public class Spec implements CSP, Configurable {
 	
 	public Boolean hasRecord(String id){ if(records.containsKey(id)){return true;} else return false;}
 	public Boolean hasRecordByServicesUrl(String url) { return records_by_services_url.containsKey(url); }
+	public Boolean hasRecordByServicesDocType(String docType) { return records_by_services_docType.containsKey(docType); }
+	
 	public Boolean hasRecordByWebUrl(String url){ return records_by_web_url.containsKey(url);}
 	public Record getRecord(String id) { return records.get(id); }
 	public Record getRecordByWebUrl(String url) { return records_by_web_url.get(url); }
 	public Record getRecordByServicesUrl(String url) { return records_by_services_url.get(url); }
+	public Record getRecordByServicesDocType(String docType) { return records_by_services_docType.get(docType); }
 	public Record[] getAllRecords() { return records.values().toArray(new Record[0]); }
 	public String[] getAllRecordsOrdered() {
 
