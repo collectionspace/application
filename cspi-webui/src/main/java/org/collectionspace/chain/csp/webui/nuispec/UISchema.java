@@ -105,10 +105,10 @@ public class UISchema extends UISpec {
 	
 	protected Object generateGroupField(FieldSet f,UISpecRunContext context)
 			throws JSONException {
-		//JSONObject out = new JSONObject();
+		String parts[] = f.getUIType().split("/");
+
 		JSONObject items = new JSONObject();
 
-		String parts[] = f.getUIType().split("/");
 		Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 
 		String selector = getSelector(f,context);
@@ -116,6 +116,11 @@ public class UISchema extends UISpec {
 		for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {
 			generateDataEntry(protoTree, fs2,context);
 		}
+		
+		if(parts.length>=3 && parts[2].equals("selfrenderer")){
+			return protoTree;
+		}
+		
 		protoTree.put("_primary", generateSchemaObject("boolean", true,
 					null, null));
 		
@@ -138,6 +143,46 @@ public class UISchema extends UISpec {
 	protected void generateFieldDataEntry_notrefactored(JSONObject out,
 			UISpecRunContext affix, Field f) throws JSONException {
 		generateFieldDataEntry_refactored(out, affix, f);
+	}
+	
+	protected void generateFieldDataEntry_refactored(JSONObject out, UISpecRunContext context, Field f)
+	throws JSONException {
+		if(f.hasAutocompleteInstance()) {
+			makeAuthorities(out, context, f);
+		}
+		else if("chooser".equals(f.getUIType()) && !this.spectype.equals("search")) {
+			out.put(getSelector(f,context),generateChooser(f,context));
+		}
+		else if("date".equals(f.getUIType())) {
+			out.put(getSelector(f,context),generateDate(f,context));
+		}
+		else if("validated".equals(f.getUIType())){
+			out.put(getSelector(f,context),generateDataTypeValidator(f,context));
+		}
+		else if("sidebar".equals(f.getUIType())) {
+			//Won't work now if uncommented
+			//out.put(getSelector(f)+affix,generateSideBar(f));
+		}
+		else if(f.getUIType().contains("selfrenderer")){
+			Object temp = generateDataEntryField(f,context);
+			if(temp instanceof JSONObject){
+				JSONObject tempo = (JSONObject)temp;
+
+				Iterator rit=tempo.keys();
+				while(rit.hasNext()) {
+					String key=(String)rit.next();
+					out.put(key, tempo.get(key));
+				}
+				
+			}
+			else{
+				out.put(getSelector(f,context),generateDataEntryField(f,context));
+			}
+				
+		}
+		else{
+			out.put(getSelector(f,context),generateDataEntryField(f,context));	
+		}
 	}
 
 	protected void generateExpanderDataEntry(JSONObject out, UISpecRunContext context,

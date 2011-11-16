@@ -758,8 +758,7 @@
                         }
                     }
                 }
-            }],
-            "value": "${fields.collection-object-dimension}"
+            }]
         },
         ".csc-collection-object-assocConcept-label": {
             "messagekey": "collection-object-assocConceptLabel"

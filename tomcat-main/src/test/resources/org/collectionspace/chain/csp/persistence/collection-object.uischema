@@ -1268,12 +1268,6 @@
                     "updatedAt": {
                         "type": "date"
                     },
-                    "dimension": {
-                        "properties": {
-                            "_primary": {
-                                "default": true,
-                                "type": "boolean"
-                            },
                             "measuredPartGroup": {
                                 "items": {
                                     "properties": {
@@ -1328,10 +1322,7 @@
                                     "type": "object"
                                 },
                                 "type": "array"
-                            }
-                        },
-                        "type": "object"
-                    },
+                            },
                     "ownershipExchangeNote": {
                         "type": "string"
                     },

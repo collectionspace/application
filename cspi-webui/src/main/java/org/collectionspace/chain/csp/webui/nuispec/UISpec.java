@@ -251,9 +251,9 @@ public class UISpec implements WebMethod {
 			JSONObject subexpander = new JSONObject();
 			Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 			options.put("elPath", "fields."+f.getPrimaryKey());
-			out.put("value",veryplain("fields."+f.getPrimaryKey()));
 			
 			if(parts[1].equals("structureddate")){
+				out.put("value",veryplain("fields."+f.getPrimaryKey()));
 				Boolean truerepeat = false;
 				FieldParent fsp = f.getParent();
 				if(fsp instanceof Repeat && !(fsp instanceof Group)){
@@ -276,7 +276,7 @@ public class UISpec implements WebMethod {
 
 				options.put("elPaths", subexpander);
 			}
-			else if(parts[2].equals("selfrenderer")){
+			else if(parts.length>=3 && parts[2].equals("selfrenderer")){
 				Boolean truerepeat = false;
 				FieldParent fsp = f.getParent();
 				if(fsp instanceof Repeat && !(fsp instanceof Group)){
@@ -303,6 +303,7 @@ public class UISpec implements WebMethod {
 				}
 			}
 			else{
+				out.put("value",veryplain("fields."+f.getPrimaryKey()));
 				for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {		
 					generateDataEntry(subexpander,fs2, sub);
 				}
