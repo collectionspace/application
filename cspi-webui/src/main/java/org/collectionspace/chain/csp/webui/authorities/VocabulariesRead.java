@@ -223,9 +223,9 @@ public class VocabulariesRead implements WebMethod {
 								children.put(siblings);
 							}
 						}
-						fields.put(r.getSiblingParent(), children);
 					}
 				}
+				fields.put(r.getSiblingParent(), children);
 			}
 		}
 		return fields;
