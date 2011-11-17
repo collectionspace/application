@@ -1,5 +1,4 @@
 {
-    "loanInDate": "",
     "loanInNumber": "LI2010.1.21",
     "lenderGroup": [{
         "_primary": true,
@@ -11,14 +10,24 @@
     }, {
         "lendersAuthorizer": "",
         "lendersContact": "",
-         "de-urned-lender": "TEST4",
-        "lender": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
-        "lendersAuthorizationDate": "October 30, 2009"
+        "de-urned-lender": "TEST4",
+        "lendersAuthorizationDate": "October 30, 2009",
+        "lender": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'"
     }],
-    "loanInConditions": "Loan in conditions.",
-    "loanInContact": "",
     "loanInNote": "",
-    "loanReturnDate": "",
     "loanPurpose": "",
-    "loanRenewalApplicationDate": ""
+    "loanStatusGroup": [{
+        "_primary": true,
+        "loanStatusNote": "",
+        "loanStatus": "",
+        "loanStatusDate": ""
+    }],
+    "loanRenewalApplicationDate": "",
+    "borrowersAuthorizer": "",
+    "loanInDate": "",
+    "loanInContact": "",
+    "loanInConditions": "Loan in conditions.",
+    "loanReturnDate": "",
+    "borrowersContact": "",
+    "borrowersAuthorizationDate": ""
 }

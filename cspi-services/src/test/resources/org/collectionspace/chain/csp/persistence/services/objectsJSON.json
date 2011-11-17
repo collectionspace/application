@@ -3,8 +3,8 @@
     "inscriptionContentMethod": "",
     "inscriptionDescriptionPosition": "",
     "objectHistoryNote": "",
-    "inscriptionContentInscriber": "",
     "viewersPersonalResponse": "",
+    "inscriptionContentInscriber": "",
     "fieldCollectionMethods": [{
         "_primary": true,
         "fieldCollectionMethod": ""
@@ -14,6 +14,7 @@
         "assocEventPeople": ""
     }],
     "ownershipPlace": "",
+    "assocEventNote": "",
     "responsibleDepartments": [{
         "_primary": true,
         "responsibleDepartment": "ethnography1"
@@ -23,11 +24,11 @@
         "responsibleDepartment": "ethnography"
     }],
     "ownershipAccess": "",
-    "inscriptionContentPosition": "",
     "contentPositions": [{
         "_primary": true,
         "contentPosition": "contentPosition"
     }],
+    "inscriptionContentPosition": "",
     "inscriptionContentTransliteration": "",
     "dateLatestQualifier": "",
     "styles": [{
@@ -59,13 +60,18 @@
     }],
     "inscriptionDescriptionDate": "",
     "inscriptionDescriptionInterpretation": "",
+    "objectProductionPlaceGroup": [{
+        "_primary": true,
+        "objectProductionPlace": "",
+        "objectProductionPlaceRole": ""
+    }],
     "ownershipExchangePriceValue": "",
-    "ownersContributionNote": "",
     "referenceGroup": [{
         "referenceNote": "referenceNote",
         "_primary": true,
         "reference": "reference"
     }],
+    "ownersContributionNote": "",
     "objectProductionReasons": [],
     "contentLanguages": [{
         "contentLanguage": "English",
@@ -81,16 +87,16 @@
         "assocPlaceNote": "",
         "assocPlaceType": ""
     }],
-    "collection": "collection",
     "inscriptionContent": "",
+    "collection": "collection",
     "contentDate": "contentDate",
+    "inscriptionDescriptionType": "",
     "assocConceptGroup": [{
         "assocConcept": "",
         "_primary": true,
         "assocConceptNote": "",
         "assocConceptType": ""
     }],
-    "inscriptionDescriptionType": "",
     "assocPersonGroup": [{
         "_primary": true,
         "assocPersonType": "",
@@ -102,12 +108,12 @@
     "dateEarliestSingle": "",
     "inscriptionContentScript": "",
     "ownersPersonalResponse": "",
-    "ageQualifier": "ageQualifier",
     "contentEventNameGroup": [{
         "_primary": true,
         "contentEventNameType": "contentEventNameType",
         "contentEventName": "contentEventName"
     }],
+    "ageQualifier": "ageQualifier",
     "fieldCollectionNote": "",
     "objectStatusList": [{
         "_primary": true,
@@ -115,6 +121,11 @@
     }],
     "viewersReferences": [],
     "assocEventNameType": "",
+    "techniqueGroup": [{
+        "technique": "",
+        "techniqueType": "",
+        "_primary": true
+    }],
     "fieldCollectionNumber": "",
     "inscriptionDescription": "",
     "assocEventPersons": [{
@@ -162,47 +173,34 @@
         "dateEarliestSingleDay": "3",
         "dateEarliestSingleMonth": "2"
     },
-    "dimension": {
-        "measuredPartGroup": [{
-            "_primary": true,
-            "dimensionSummary": "",
-            "measuredPart": "arm",
-            "dimensionSubGroup": [{
-                "_primary": true,
-                "measuredBy": "rj",
-                "dimension": "diameter",
-                "valueDate": "2011-11-08",
-                "measurementUnit": "cm",
-                "value": "10",
-                "valueQualifier": "approx.",
-                "measurementMethod": "eyeball"
-            }, {
-                "measuredBy": "rj",
-                "dimension": "length",
-                "valueDate": "2011-11-08",
-                "measurementUnit": "cm",
-                "value": "75",
-                "valueQualifier": "approx.",
-                "measurementMethod": "eyeball"
-            }]
-        }, {
-            "dimensionSummary": "",
-            "measuredPart": "other arm",
-            "dimensionSubGroup": [{
-                "_primary": true,
-                "measuredBy": "rj",
-                "dimension": "length",
-                "valueDate": "2011-11-08",
-                "measurementUnit": "cm",
-                "value": "80",
-                "valueQualifier": "close enough for govt work",
-                "measurementMethod": "eyeball"
-            }]
-        }]
-    },
     "viewersRole": "",
+    "materialGroup": [{
+        "materialSource": "",
+        "materialName": "",
+        "_primary": true,
+        "materialComponent": "",
+        "materialComponentNote": "",
+        "material": ""
+    }],
     "ownersPersonalExperience": "",
+    "usageGroup": [{
+        "usageNote": "",
+        "_primary": true,
+        "usage": ""
+    }],
+    "assocActivityGroup": [{
+        "_primary": true,
+        "assocActivityNote": "",
+        "assocActivity": "",
+        "assocActivityType": ""
+    }],
     "ageUnit": "ageUnit",
+    "assocCulturalContextGroup": [{
+        "_primary": true,
+        "assocCulturalContextType": "",
+        "assocCulturalContext": "",
+        "assocCulturalContextNote": ""
+    }],
     "contentOrganizations": [{
         "_primary": true,
         "contentOrganization": "contentOrganization a"
@@ -247,6 +245,11 @@
     }, {
         "contentPerson": "contentPerson 4"
     }],
+    "objectComponentGroup": [{
+        "_primary": true,
+        "objectComponentInformation": "",
+        "objectComponentName": ""
+    }],
     "contentScripts": [{
         "_primary": true,
         "contentScript": "contentScript 1"
@@ -284,7 +287,7 @@
         "_primary": true,
         "assocEventPlace": ""
     }],
-	"titleGroup": [{
+    "titleGroup": [{
         "_primary": true,
         "title": "Der Ring des Nibelungen",
         "titleTranslationSubGroup": [{
@@ -316,9 +319,15 @@
     }, {
         "contentPlace": "contentPlace 3"
     }],
-    "inscriptionContentLanguage": "",
     "phase": "",
+    "inscriptionContentLanguage": "",
     "contentNote": "contentNote",
+    "assocPeopleGroup": [{
+        "_primary": true,
+        "assocPeople": "",
+        "assocPeopleNote": "",
+        "assocPeopleType": ""
+    }],
     "dateEarliestSingleQualifier": "",
     "contentPeoples": [{
         "_primary": true,
@@ -330,8 +339,25 @@
     }],
     "sex": "",
     "inscriptionDescriptionMethod": "",
+    "assocDateGroup": [{
+        "_primary": true,
+        "assocDateNote": "",
+        "assocDateType": "",
+        "assocDate": ""
+    }],
     "recordStatus": "recordStatus",
     "numberOfObjects": "numberOfObjects",
+    "technicalAttributeGroup": [{
+        "technicalAttributeMeasurement": "",
+        "technicalAttribute": "",
+        "_primary": true,
+        "technicalAttributeMeasurementUnit": ""
+    }],
+    "objectProductionOrganizationGroup": [{
+        "_primary": true,
+        "objectProductionOrganizationRole": "",
+        "objectProductionOrganization": ""
+    }],
     "fieldCollectionSources": [{
         "_primary": true,
         "fieldCollectionSource": ""
@@ -344,16 +370,76 @@
     "editionNumber": "",
     "distinguishingFeatures": "distinguishingFeatures",
     "dateAssociation": "",
+    "objectProductionPersonGroup": [{
+        "_primary": true,
+        "objectProductionPersonRole": "",
+        "objectProductionPerson": ""
+    }],
     "dateEarliestSingleCertainty": "",
     "fieldCollectors": [{
         "_primary": true,
         "fieldCollector": ""
+    }],
+    "assocOrganizationGroup": [{
+        "assocOrganizationNote": "",
+        "_primary": true,
+        "assocOrganizationType": "",
+        "assocOrganization": ""
+    }],
+    "objectProductionPeopleGroup": [{
+        "_primary": true,
+        "objectProductionPeople": "",
+        "objectProductionPeopleRole": ""
     }],
     "assocEventOrganizations": [{
         "assocEventOrganization": "",
         "_primary": true
     }],
     "datePeriod": "",
+    "dimension": {
+        "measuredPartGroup": [{
+            "_primary": true,
+            "dimensionSummary": "",
+            "measuredPart": "arm",
+            "dimensionSubGroup": [{
+                "_primary": true,
+                "dimension": "diameter",
+                "measuredBy": "rj",
+                "valueDate": "2011-11-08",
+                "measurementUnit": "cm",
+                "value": "10",
+                "valueQualifier": "approx.",
+                "measurementMethod": "eyeball"
+            }, {
+                "dimension": "length",
+                "measuredBy": "rj",
+                "valueDate": "2011-11-08",
+                "measurementUnit": "cm",
+                "value": "75",
+                "valueQualifier": "approx.",
+                "measurementMethod": "eyeball"
+            }]
+        }, {
+            "dimensionSummary": "",
+            "measuredPart": "other arm",
+            "dimensionSubGroup": [{
+                "_primary": true,
+                "dimension": "length",
+                "measuredBy": "rj",
+                "valueDate": "2011-11-08",
+                "measurementUnit": "cm",
+                "value": "80",
+                "valueQualifier": "close enough for govt work",
+                "measurementMethod": "eyeball"
+            }]
+        }]
+    },
     "ownershipExchangeNote": "",
-    "inscriptionContentDate": ""
+    "inscriptionContentDate": "",
+    "assocObjectGroup": [{
+        "_primary": true,
+        "assocObjectType": "",
+        "assocObjectNote": "",
+        "assocObject": ""
+    }]
 }

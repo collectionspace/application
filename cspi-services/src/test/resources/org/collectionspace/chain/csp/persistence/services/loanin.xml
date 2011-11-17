@@ -22,6 +22,14 @@
     <loanPurpose></loanPurpose>
     <loanReturnDate></loanReturnDate>
     <loanRenewalApplicationDate></loanRenewalApplicationDate>
+	<loanStatusGroupList>
+		
+	<loanStatusGroup>
+		<loanStatusDate></loanStatusDate>
+		<loanStatus></loanStatus>
+		<loanStatusNote></loanStatusNote>
+	</loanStatusGroup>
+	</loanStatusGroupList>
 </ns2:loansin_common>
 
 

@@ -243,11 +243,15 @@
 <inscriptionDescriptionPosition></inscriptionDescriptionPosition>
 <inscriptionDescriptionType></inscriptionDescriptionType>
 <!-- Object Description Material Information -->
+<materialGroupList>
+	<materialGroup>
 <material></material>
 <materialComponent></materialComponent>
 <materialComponentNote></materialComponentNote>
 <materialName></materialName>
 <materialSource></materialSource>
+		</materialGroup>
+</materialGroupList>
 <!-- Misc Object Description Information -->
 <objectStatusList>
 	<objectStatus>objectStatus</objectStatus>
@@ -258,35 +262,60 @@
 <styles>
     <style></style>
 </styles>
-<technicalAttribute></technicalAttribute>
-<technicalAttributeMeasurement></technicalAttributeMeasurement>
-<technicalAttributeMeasurementUnit></technicalAttributeMeasurementUnit>
-<objectComponentName></objectComponentName>
-<objectComponentInformation></objectComponentInformation>
-<!-- Object Production Information -->cd .
+<technicalAttributeGroupList><technicalAttributeGroup>
+	<technicalAttribute></technicalAttribute>
+	<technicalAttributeMeasurement></technicalAttributeMeasurement>
+	<technicalAttributeMeasurementUnit></technicalAttributeMeasurementUnit>
+</technicalAttributeGroup></technicalAttributeGroupList>
+<objectComponentGroupList><objectComponentGroup>
+	<objectComponentName></objectComponentName>
+	<objectComponentInformation></objectComponentInformation>
+</objectComponentGroup></objectComponentGroupList>
+<!-- Object Production Information -->
 <objectProductionDate></objectProductionDate>
 <objectProductionNote></objectProductionNote>
-<objectProductionOrganization></objectProductionOrganization>
-<objectProductionOrganizationRole></objectProductionOrganizationRole>
-<objectProductionPeople></objectProductionPeople>
-<objectProductionPeopleRole></objectProductionPeopleRole>
-<objectProductionPerson></objectProductionPerson>
-<objectProductionPersonRole></objectProductionPersonRole>
-<objectProductionPlace></objectProductionPlace>
-<objectProductionPlaceRole></objectProductionPlaceRole>
+<objectProductionOrganizationGroupList><objectProductionOrganizationGroup>
+	<objectProductionOrganization></objectProductionOrganization>
+	<objectProductionOrganizationRole></objectProductionOrganizationRole>
+</objectProductionOrganizationGroup></objectProductionOrganizationGroupList>
+
+<objectProductionPeopleGroupList><objectProductionPeopleGroup>
+	<objectProductionPeople></objectProductionPeople>
+	<objectProductionPeopleRole></objectProductionPeopleRole>
+</objectProductionPeopleGroup></objectProductionPeopleGroupList>
+	
+<objectProductionPersonGroupList><objectProductionPersonGroup>
+	<objectProductionPerson></objectProductionPerson>
+	<objectProductionPersonRole></objectProductionPersonRole>
+</objectProductionPersonGroup></objectProductionPersonGroupList>
+<objectProductionPlaceGroupList><objectProductionPlaceGroup>
+	<objectProductionPlace></objectProductionPlace>
+	<objectProductionPlaceRole></objectProductionPlaceRole>
+</objectProductionPlaceGroup></objectProductionPlaceGroupList>
 <objectProductionReason></objectProductionReason>
+<techniqueGroupList><techniqueGroup>
 <technique></technique>
 <techniqueType></techniqueType>
+</techniqueGroup></techniqueGroupList>
 <!-- Object History and Association Information - Association -->
 <!-- In the following field names, "assoc" is an abbreviation for "association". -->
 <!-- See the comments to CSPACE-2501 for a discussion of the database identifier -->
 <!-- length limit that made this abbreviation necessary. -->
+<assocActivityGroupList><assocActivityGroup>
 <assocActivity></assocActivity>
 <assocActivityNote></assocActivityNote>
-<assocCulturalContexts>
+<assocActivityType></assocActivityType>
+</assocActivityGroup></assocActivityGroupList>
+<assocCulturalContextGroupList><assocCulturalContextGroup>
+    <assocCulturalContextType></assocCulturalContextType>
     <assocCulturalContext></assocCulturalContext>
-</assocCulturalContexts>
+    <assocCulturalContextNote></assocCulturalContextNote>
+</assocCulturalContextGroup></assocCulturalContextGroupList>
+<assocDateGroupList><assocDateGroup>
+<assocDateNote></assocDateNote>
 <assocDate></assocDate>
+<assocDateType></assocDateType>
+</assocDateGroup></assocDateGroupList>
 <assocEventName></assocEventName>
 <assocEventNameType></assocEventNameType>
 <assocEventOrganizations>
@@ -301,11 +330,16 @@
 <assocEventPlaces>
     <assocEventPlace></assocEventPlace>
 </assocEventPlaces>
+<assocObjectGroupList><assocObjectGroup>
 <assocObject></assocObject>
 <assocObjectType></assocObjectType>
-<assocOrganizations>
+<assocObjectNote></assocObjectNote>
+</assocObjectGroup></assocObjectGroupList>
+<assocOrganizationGroupList><assocOrganizationGroup>
     <assocOrganization></assocOrganization>
-</assocOrganizations>
+    <assocOrganizationNote></assocOrganizationNote>
+    <assocOrganizationType></assocOrganizationType>
+</assocOrganizationGroup></assocOrganizationGroupList>
 <assocPersonGroupList>
     <assocPersonGroup>
         <assocPerson></assocPerson>
@@ -313,7 +347,7 @@
         <assocPersonNote></assocPersonNote>
     </assocPersonGroup>
 </assocPersonGroupList>
-<!--
+
 <assocPeopleGroupList>
     <assocPeopleGroup>
         <assocPeople></assocPeople>
@@ -321,7 +355,7 @@
         <assocPeopleNote></assocPeopleNote>
     </assocPeopleGroup>
 </assocPeopleGroupList>
--->
+
 <assocConceptGroupList>
     <assocConceptGroup>
         <assocConcept></assocConcept>
@@ -351,8 +385,10 @@
 <ownershipExchangePriceCurrency></ownershipExchangePriceCurrency>
 <ownershipExchangePriceValue></ownershipExchangePriceValue>
 <ownershipPlace></ownershipPlace>
+<usageGroupList><usageGroup>
 <usage></usage>
 <usageNote></usageNote>
+</usageGroup></usageGroupList>
 <!-- Object Owner's Contribution Information -->
 <ownersPersonalExperience></ownersPersonalExperience>
 <ownersPersonalResponse></ownersPersonalResponse>
