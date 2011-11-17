@@ -713,6 +713,10 @@ public class XmlJsonConversion {
 				if(f.hasPrimary()){
 					repeated.put("_primary",true);
 				}
+				if(!out.has(f.getID())){
+					JSONArray temp = new JSONArray();
+					out.put(f.getID(), temp);
+				}
 				out.getJSONArray(f.getID()).put(repeated);
 			}
 			else{

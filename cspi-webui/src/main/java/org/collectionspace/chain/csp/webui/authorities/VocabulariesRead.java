@@ -228,7 +228,7 @@ public class VocabulariesRead implements WebMethod {
 			}
 			//add empty array if necessary
 			if(!fields.has(r.getID()) && r.mustExistInSpec()){
-				if(r.getObject().equals('n')){
+				if(r.getObject().equals("n")){
 					fields.put(r.getID(),new JSONArray());
 				}
 				else{
