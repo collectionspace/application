@@ -104,6 +104,7 @@ public class Field implements FieldSet {
 		utils.initStrings(section,"@label-affix", "-label");
 		utils.initStrings(section,"@serviceurl", null);
 		utils.initStrings(section,"@ui-spec-prefix","");
+		utils.initBoolean(section, "@ui-readonly", false);
 		utils.initBoolean(section,"@ui-spec-inherit",false);
 		utils.initStrings(section,"@with-csid","");
 
@@ -263,6 +264,9 @@ public class Field implements FieldSet {
 	
 	public boolean isConditionExpander(){
 		return utils.getBoolean("@as-conditional-expander");
+	}
+	public boolean isReadOnly(){
+		return utils.getBoolean("@ui-readonly");
 	}
 	
 	public boolean isRepeatSubRecord() {

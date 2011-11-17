@@ -52,6 +52,7 @@ public interface FieldSet {
 	public boolean isExpander();
 	public boolean isConditionExpander();
 	public boolean isRepeatSubRecord();
+	public boolean isReadOnly();
 	public void setRepeatSubRecord(Boolean var);
 	public String getUIType();
 	public String getUIFunc();

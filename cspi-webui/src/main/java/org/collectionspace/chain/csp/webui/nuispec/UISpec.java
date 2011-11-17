@@ -322,8 +322,7 @@ public class UISpec implements WebMethod {
 			sub.setUIAffix(f.getID()+"-");
 			
 			
-			
-			JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options);
+			JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options,f.isReadOnly());
 			decorators.put(decorator);
 			out.put("decorators",decorators);
 
@@ -344,7 +343,7 @@ public class UISpec implements WebMethod {
 			options.put("elPath", veryplainWithoutEnclosure(f,context));
 		}
 		options.put("termListType", f.getID());
-		JSONObject decdata = getDecorator("fluid", null, "cspace.termList", options);
+		JSONObject decdata = getDecorator("fluid", null, "cspace.termList", options,f.isReadOnly());
 		decorator.put(decdata);
 		out.put("decorators", decorator);
 	
@@ -376,7 +375,7 @@ public class UISpec implements WebMethod {
 						expanders.put(siblingexpander.getJSONObject("expander"));
 						if(child instanceof Field){
 							String classes = getDecoratorSelector(child,context);
-							JSONObject decorator = getDecorator("addClass",classes,null,null);
+							JSONObject decorator = getDecorator("addClass",classes,null,null,child.isReadOnly());
 							tree.put("value", generateDataEntryField((Field)child,context));
 							tree.put("decorators", decorator);
 						}
@@ -386,7 +385,7 @@ public class UISpec implements WebMethod {
 						expander.put("repeatID", getSelector(child,context)+":");
 						if(child instanceof Field){
 							String classes = getDecoratorSelector(child,context);
-							JSONObject decorator = getDecorator("addClass",classes,null,null);
+							JSONObject decorator = getDecorator("addClass",classes,null,null,child.isReadOnly());
 							tree.put("value", generateDataEntryField((Field)child,context));
 							tree.put("decorators", decorator);
 						}
@@ -514,7 +513,7 @@ public class UISpec implements WebMethod {
 			}
 			
 
-			JSONObject decorator = getDecorator("fluid",null,"cspace.makeRepeatable",options);
+			JSONObject decorator = getDecorator("fluid",null,"cspace.makeRepeatable",options,r.isReadOnly());
 			decorators.put(decorator);
 			out.put("decorators",decorators);
 		}
@@ -563,7 +562,7 @@ public class UISpec implements WebMethod {
 			options.put("strings", strings);
 		}
 
-		JSONObject decorator=getDecorator("fluid",null,"cspace.autocomplete",options);
+		JSONObject decorator=getDecorator("fluid",null,"cspace.autocomplete",options,f.isReadOnly());
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
 				decorator.put("container",getSelector(f,context));
@@ -599,7 +598,7 @@ public class UISpec implements WebMethod {
 		model.put("names",names);
 		options.put("model",model);
 		
-		JSONObject decorator=getDecorator("fluid",null,"cspace.numberPatternChooser",options);
+		JSONObject decorator=getDecorator("fluid",null,"cspace.numberPatternChooser",options,f.isReadOnly());
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
 				decorator.put("container",getContainerSelector(f,context));
@@ -629,7 +628,7 @@ public class UISpec implements WebMethod {
 		if(type.equals("")){type = "string";}
 		options.put("type",type);
 		options.put("label",f.getLabel());
-		JSONObject decorator=getDecorator("fluid",null,"cspace.inputValidator",options);
+		JSONObject decorator=getDecorator("fluid",null,"cspace.inputValidator",options,f.isReadOnly());
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
 				decorator.put("container",getSelector(f,context));
@@ -651,7 +650,7 @@ public class UISpec implements WebMethod {
 	protected JSONObject generateDate(Field f,UISpecRunContext context) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
-		JSONObject decorator=getDecorator("fluid",null,"cspace.datePicker",null);
+		JSONObject decorator=getDecorator("fluid",null,"cspace.datePicker",null,f.isReadOnly());
 		if(!f.isRefactored()){
 			if(f.hasContainer()){
 				decorator.put("container",getSelector(f,context));
@@ -993,7 +992,7 @@ public class UISpec implements WebMethod {
 		}
 		JSONObject ttree = new JSONObject();
 		ttree.put(getSelector(f,context),new JSONObject());
-		JSONObject decorator = getDecorator("addClass","hidden",null,null);
+		JSONObject decorator = getDecorator("addClass","hidden",null,null,f.isReadOnly());
 		JSONObject decorators = new JSONObject();
 		decorators.put("decorators", decorator);
 		JSONObject ftree = new JSONObject();
@@ -1049,7 +1048,7 @@ public class UISpec implements WebMethod {
 		JSONObject ttree = new JSONObject();
 		generateMessageKey(ttree, thisr.getUILabelSelector(f.getID()), f.getLabel());
 		
-		JSONObject decorator = getDecorator("addClass","hidden",null,null);
+		JSONObject decorator = getDecorator("addClass","hidden",null,null,f.isReadOnly());
 		JSONObject decorators = new JSONObject();
 		decorators.put("decorators", decorator);
 		JSONObject ftree = new JSONObject();
@@ -1064,7 +1063,7 @@ public class UISpec implements WebMethod {
 		out.put("expander",cexpander);
 	}
 	
-	protected JSONObject getDecorator(String type, String className, String func, JSONObject options) throws JSONException{
+	protected JSONObject getDecorator(String type, String className, String func, JSONObject options, Boolean readOnly) throws JSONException{
 		JSONObject decorator = new JSONObject();
 		decorator.put("type",type);
 		if(className != null){
@@ -1075,6 +1074,9 @@ public class UISpec implements WebMethod {
 		}
 		if(options != null){
 			decorator.put("options",options);
+		}
+		if(readOnly){
+			decorator.put("readOnly",true);
 		}
 		return decorator;
 	}

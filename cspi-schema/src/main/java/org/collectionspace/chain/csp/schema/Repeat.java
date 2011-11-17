@@ -89,6 +89,7 @@ public class Repeat implements FieldSet, FieldParent  {
 		utils.initStrings(section,"@onlyifexists",""); //
 		utils.initStrings(section,"@ui-spec-prefix","");
 		utils.initBoolean(section,"@ui-spec-inherit",false);
+		utils.initBoolean(section, "@ui-readonly", false);
 		utils.initStrings(section,"@with-csid",null);
 		// used by uispec to create new structure
 		utils.initBoolean(section,"@as-expander",false);
@@ -340,6 +341,9 @@ public class Repeat implements FieldSet, FieldParent  {
 	}
 	public String getSelectorAffix() {
 		return utils.getString("@selector-affix");
+	}
+	public boolean isReadOnly(){
+		return utils.getBoolean("@ui-readonly");
 	}
 	public Boolean isGrouped(){
 		return utils.getBoolean("@showgrouped");

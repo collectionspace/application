@@ -102,6 +102,7 @@
             "decorators": [{
                 "func": "cspace.dimension",
                 "type": "fluid",
+                "readOnly": true,
                 "options": {
                     "protoTree": {
                         "expander": {
