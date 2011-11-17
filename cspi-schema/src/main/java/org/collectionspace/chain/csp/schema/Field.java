@@ -130,6 +130,7 @@ public class Field implements FieldSet {
 		// used by uispec to create new structure
 		utils.initBoolean(section,"@as-expander",false);
 		utils.initBoolean(section,"@as-conditional-expander",false);
+		utils.initBoolean(section,"@in-trueTree", false);
 		
 		
 		utils.initBoolean(section,"@in-title",false);
@@ -261,7 +262,9 @@ public class Field implements FieldSet {
 	public boolean isExpander() {
 		return utils.getBoolean("@as-expander");
 	}
-	
+	public boolean isInTrueTree(){
+		return utils.getBoolean("@in-trueTree");
+	}
 	public boolean isConditionExpander(){
 		return utils.getBoolean("@as-conditional-expander");
 	}

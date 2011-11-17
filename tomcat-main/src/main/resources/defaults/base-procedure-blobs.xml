@@ -28,7 +28,7 @@
                     <field id="digest"></field>
                     <field id="uri"></field>
                     <field id="id"></field>
-					<field id="dimension" ui-type="groupfield/dimension/selfrenderer" ui-readonly="true"  ui-func="cspace.dimension"  ></field>
+					<field id="dimension" ui-type="groupfield/dimension/selfrenderer" in-trueTree="true" ui-readonly="true"  ui-func="cspace.dimension"  ></field>
                     <field id="imgThumb" attributes="GET" mini="search,list,relate">
                         <use-csid>ims;download/;/Thumbnail</use-csid>
                     </field>

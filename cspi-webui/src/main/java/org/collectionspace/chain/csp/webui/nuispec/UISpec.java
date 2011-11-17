@@ -9,6 +9,7 @@ package org.collectionspace.chain.csp.webui.nuispec;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -406,7 +407,8 @@ public class UISpec implements WebMethod {
 
 				cexpander.put("condition", condpander);
 				cexpander.put("trueTree", tree);
-				texpander.put("expander", cexpander);
+
+				generateTrueTree(texpander, cexpander);
 				expander.put("tree", texpander);
 			}
 			else{
@@ -868,6 +870,20 @@ public class UISpec implements WebMethod {
 				if(f.isExpander()){
 					generateExpanderDataEntry(out, context, f);
 				}
+				else if(f.isInTrueTree()){
+					JSONObject tout = new JSONObject();
+					if(!f.isRefactored()){
+						generateFieldDataEntry_notrefactored(tout, context, f);
+					}
+					else{
+						generateFieldDataEntry_refactored(tout, context, f);
+					}
+
+					JSONObject cexpander = new JSONObject();
+					cexpander.put("trueTree", tout);
+
+					generateTrueTree(out, cexpander);
+				}
 				//XXX when all uispecs have moved across we can delete most of this
 				else if(!f.isRefactored()){
 					generateFieldDataEntry_notrefactored(out, context, f);
@@ -1002,9 +1018,7 @@ public class UISpec implements WebMethod {
 		cexpander.put("condition", cond);
 		cexpander.put("trueTree", ttree);
 		cexpander.put("falseTree", ftree);
-
-		
-		out.put("expander",cexpander);
+		generateTrueTree(out,cexpander);
 		
 	}
 	/*
@@ -1053,14 +1067,45 @@ public class UISpec implements WebMethod {
 		decorators.put("decorators", decorator);
 		JSONObject ftree = new JSONObject();
 		ftree.put(thisr.getUILabelSelector(f.getID()),decorators);
+		
+		
 		JSONObject cexpander = new JSONObject();
 		cexpander.put("type", "fluid.renderer.condition");
 		cexpander.put("condition", cond);
 		cexpander.put("trueTree", ttree);
 		cexpander.put("falseTree", ftree);
 
+		generateTrueTree(out, cexpander);
 		
-		out.put("expander",cexpander);
+	}
+	
+	protected void generateTrueTree(JSONObject out, JSONObject trueTreeBits) throws JSONException{
+		if(!out.has("expander")){
+			out.put("expander",trueTreeBits);
+		}
+		else{
+			JSONObject exp = out.getJSONObject("expander");
+			Iterator rit=trueTreeBits.keys();
+			while(rit.hasNext()) {
+				String key=(String)rit.next();
+				if(exp.has(key)){
+					//can only amalgamte if they are objs
+					if(exp.get(key) instanceof JSONObject){
+						JSONObject merged = exp.getJSONObject(key);
+						for(String keyd : JSONObject.getNames(trueTreeBits.getJSONObject(key)))
+						{
+							merged.put(keyd, trueTreeBits.getJSONObject(key).get(keyd));
+						}
+						exp.put(key,merged);
+					}
+				}
+				else{
+					exp.put(key, trueTreeBits.get(key));
+				}
+			}
+			out.put("expander",exp);
+		}
+		
 	}
 	
 	protected JSONObject getDecorator(String type, String className, String func, JSONObject options, Boolean readOnly) throws JSONException{
