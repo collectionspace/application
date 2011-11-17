@@ -173,11 +173,14 @@ public class Generic {
 		{
 			JSONArray active = activeRoles.getJSONArray("role");
 			for(int j=0;j<active.length();j++){
-				active.getJSONObject(j).put("roleSelected", "true");
-				String roleId = active.getJSONObject(j).getString("roleId");
+				if(active.getJSONObject(j).length()!=0){
 
-				String[] ids=roleId.split("/");
-				active.getJSONObject(j).put("roleId", ids[ids.length - 1]);
+					active.getJSONObject(j).put("roleSelected", "true");
+					String roleId = active.getJSONObject(j).getString("roleId");
+
+					String[] ids=roleId.split("/");
+					active.getJSONObject(j).put("roleId", ids[ids.length - 1]);
+				}
 	//			testset.put(active.getJSONObject(j).getString("roleId"),active.getJSONObject(j));
 			}
 			roles = active;
