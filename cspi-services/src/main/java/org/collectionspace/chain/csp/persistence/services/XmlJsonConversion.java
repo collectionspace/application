@@ -707,8 +707,20 @@ public class XmlJsonConversion {
 			}
 		}
 		List nodes=root.selectNodes(nodeName);
-		if(nodes.size()==0)
+		if(nodes.size()==0){
+			if(f.asSibling()){
+				JSONObject repeated = new JSONObject();
+				if(f.hasPrimary()){
+					repeated.put("_primary",true);
+				}
+				out.getJSONArray(f.getID()).put(repeated);
+			}
+			else{
+				JSONArray repeatitem = new JSONArray();
+				out.put(f.getID(), repeatitem);
+			}
 			return;
+		}
 		
 		
 		JSONArray node = new JSONArray();
@@ -753,9 +765,6 @@ public class XmlJsonConversion {
 		Element root=doc.getRootElement();
 		JSONObject tempSon = new JSONObject();
 		for(FieldSet f : r.getAllServiceFieldTopLevel(operation,section)) {
-			if(f.getID().equals("dimension")){
-				log.info(f.getID());
-			}
 			addFieldSetToJson(out,root,f,operation, tempSon,csid,ims_url);
 		}
 		
