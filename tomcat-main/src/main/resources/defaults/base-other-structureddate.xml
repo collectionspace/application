@@ -97,6 +97,23 @@
                         <selector>dateLatestQualifierUnit</selector>
                         <preselector></preselector>
                     </field>
-				
+                    
+                    <field id="dateEarliestScalarValue" ui-type="date">
+                        <selector>dateEarliestScalarValue</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="dateLatestScalarValue" ui-type="date">
+                        <selector>dateLatestScalarValue</selector>
+                        <preselector></preselector>
+                    </field>
+                    <field id="scalarValuesComputed" ui-type="date">
+                        <options>
+                            <option id="true" default="yes">true</option>
+                            <option id="false">false</option>
+                        </options>
+                        <selector>scalarValuesComputed</selector>
+                        <preselector></preselector>
+                    </field>  
+	
                 </section>
             </record>
