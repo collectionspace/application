@@ -29,7 +29,8 @@ public class Relationship {
 		utils.initStrings(section,"subject","n");
 		utils.initStrings(section,"object","n");
 		utils.initStrings(section,"inverseOf","");
-		
+
+		utils.initBoolean(section,"showinui",false);
 		utils.initBoolean(section,"directional",true);
 		utils.initSet(section,"sourceTypes",new String[] { "" });	
 		utils.initSet(section,"destinationTypes",new String[] { "" });	
@@ -46,6 +47,7 @@ public class Relationship {
 	public Boolean hasInverse() { if(utils.getString("inverseOf").equals("")){ return false; } else { return true; } }
 	public Boolean isDirectional() { return utils.getBoolean("directional"); }
 	public Boolean showSiblings() { if(utils.getString("showsiblings").equals("")){ return false; } else { return true; } }
+	public Boolean mustExistInSpec() { return utils.getBoolean("showinui"); }
 
 	public String getSiblingParent() { return utils.getString("showsiblings").split(":")[0]; }
 	public String getSiblingChild() { return utils.getString("showsiblings").split(":")[1]; }

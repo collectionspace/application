@@ -9,6 +9,7 @@
         <directional>false</directional>
         <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority</sourceTypes>
         <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority</destinationTypes>
+		<showinui>true</showinui>
 	</relation>
 	<relation id="narrowerContexts">
 		<inverseOf>broaderContext</inverseOf>
@@ -20,6 +21,7 @@
         <directional>false</directional>
         <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority</sourceTypes>
         <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority</destinationTypes>
+		<showinui>true</showinui>
 	</relation>
     <relation id="broader">
         <displayName>has broader term</displayName>
