@@ -50,13 +50,14 @@ public class UISchema extends UISpec {
 		this.spec = spec;
 		this.record = null;
 	}
-
 	protected JSONObject generateTermsUsed(UISpecRunContext affix) throws JSONException {
 		return generateSchemaObject("array", new JSONArray(), null, null);
 	}
 	protected void generateUploaderEntry(JSONObject out, FieldSet f, UISpecRunContext affix) throws JSONException{
 	}
 	protected void generateHierarchyEntry(JSONObject out, FieldSet f, UISpecRunContext affix) throws JSONException{
+	}
+	protected void generateTrueTree(JSONObject out, JSONObject trueTreeBits) throws JSONException{
 	}
 	protected JSONObject generateMessageKeys(UISpecRunContext affix, JSONObject temp, Record r) throws JSONException {
 		return temp;
@@ -224,6 +225,11 @@ public class UISchema extends UISpec {
 				generateSubRecord(protoTree, r,context, null);
 			}
 		}
+		//else if(r.getUIType().startsWith("groupfield")) {
+		//	Object tout = generateGroupField(r,context);
+		//	JSONObject selfrenderer = generateSchemaObject("array", null, null, (JSONObject)tout);
+		//	protoTree.put("",selfrenderer);
+		//}
 		else{
 			for (FieldSet child : r.getChildren("")) {
 				if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){

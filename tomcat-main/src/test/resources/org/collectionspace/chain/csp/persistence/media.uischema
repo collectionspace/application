@@ -1,13 +1,13 @@
 {
     "media": {
         "properties": {
-            "relations": {
-                "default": {},
-                "type": "object"
-            },
             "termsUsed": {
                 "default": [],
                 "type": "array"
+            },
+            "relations": {
+                "default": {},
+                "type": "object"
             },
             "csid": {
                 "type": "string"
@@ -17,10 +17,10 @@
                     "dateModified": {
                         "type": "string"
                     },
-                    "copyrightStatement": {
+                    "externalMediaUrl": {
                         "type": "string"
                     },
-                    "externalMediaUrl": {
+                    "copyrightStatement": {
                         "type": "string"
                     },
                     "location": {
@@ -30,6 +30,7 @@
                         "items": {
                             "properties": {
                                 "_primary": {
+                                    "default": true,
                                     "type": "boolean"
                                 },
                                 "subject": {
@@ -43,57 +44,25 @@
                     "data": {
                         "type": "string"
                     },
-                    "dimensionGroup": {
-                        "items": {
-                            "properties": {
-                                "_primary": {
-                                    "type": "boolean"
-                                },
-                                "measuredBy": {
-                                    "type": "string"
-                                },
-                                "dimension": {
-                                    "type": "string"
-                                },
-                                "valueDate": {
-                                    "type": "string"
-                                },
-                                "measurementUnit": {
-                                    "type": "string"
-                                },
-                                "value": {
-                                    "type": "float"
-                                },
-                                "valueQualifier": {
-                                    "type": "string"
-                                },
-                                "measurementMethod": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "type": "array"
-                    },
-                    "blobCsid": {
-                        "type": "string"
-                    },
                     "imgThumb": {
                         "type": "string"
                     },
-                    "digest": {
+                    "blobCsid": {
                         "type": "string"
                     },
                     "rightsHolder": {
                         "type": "string"
                     },
-                    "publisher": {
+                    "digest": {
+                        "type": "string"
+                    },
+                    "updatedBy": {
                         "type": "string"
                     },
                     "creator": {
                         "type": "string"
                     },
-                    "updatedBy": {
+                    "publisher": {
                         "type": "string"
                     },
                     "id": {
@@ -103,6 +72,7 @@
                         "items": {
                             "properties": {
                                 "_primary": {
+                                    "default": true,
                                     "type": "boolean"
                                 },
                                 "language": {
@@ -114,9 +84,6 @@
                         },
                         "type": "array"
                     },
-                    "dimensionSummary": {
-                        "type": "string"
-                    },
                     "title": {
                         "type": "string"
                     },
@@ -124,6 +91,7 @@
                         "items": {
                             "properties": {
                                 "_primary": {
+                                    "default": true,
                                     "type": "boolean"
                                 },
                                 "date": {
@@ -156,6 +124,7 @@
                         "items": {
                             "properties": {
                                 "_primary": {
+                                    "default": true,
                                     "type": "boolean"
                                 },
                                 "type": {
@@ -185,25 +154,23 @@
                     "updatedAt": {
                         "type": "string"
                     },
-                    "imgOrig": {
-                        "type": "string"
-                    },
                     "srcUri": {
                         "type": "string"
                     },
-                    "source": {
+                    "imgOrig": {
                         "type": "string"
                     },
                     "createdBy": {
                         "type": "string"
                     },
-                    "coverage": {
+                    "source": {
                         "type": "string"
                     },
                     "relations": {
                         "items": {
                             "properties": {
                                 "_primary": {
+                                    "default": true,
                                     "type": "boolean"
                                 },
                                 "relation": {
@@ -214,11 +181,69 @@
                         },
                         "type": "array"
                     },
-                    "filename": {
+                    "coverage": {
                         "type": "string"
                     },
                     "dateCreated": {
                         "type": "string"
+                    },
+                    "filename": {
+                        "type": "string"
+                    },
+                    "measuredPartGroup": {
+                        "items": {
+                            "properties": {
+                                "dimensionSummary": {
+                                    "type": "string"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "measuredPart": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "dimensionSubGroup": {
+                                    "items": {
+                                        "properties": {
+                                            "measuredBy": {
+                                                "type": "string"
+                                            },
+                                            "dimension": {
+                                                "default": "",
+                                                "type": "string"
+                                            },
+                                            "_primary": {
+                                                "default": true,
+                                                "type": "boolean"
+                                            },
+                                            "valueDate": {
+                                                "type": "date"
+                                            },
+                                            "measurementUnit": {
+                                                "default": "",
+                                                "type": "string"
+                                            },
+                                            "value": {
+                                                "type": "float"
+                                            },
+                                            "valueQualifier": {
+                                                "type": "string"
+                                            },
+                                            "measurementMethod": {
+                                                "default": "",
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
                     },
                     "identificationNumber": {
                         "type": "string"
