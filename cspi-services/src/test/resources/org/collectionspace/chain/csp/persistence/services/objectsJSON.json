@@ -153,6 +153,7 @@
     }],
     "objectProductionDate": {
         "dateEarliestSingleQualifier": "-",
+        "scalarValuesComputed": "false",
         "dateLatestDay": "22",
         "dateLatestYear": "5",
         "dateAssociation": "sdf",
@@ -167,8 +168,10 @@
         "dateLatestQualifierValue": "2",
         "dateEarliestSingleQualifierUnit": "days",
         "datePeriod": "sdf",
+        "dateEarliestScalarValue": "",
         "dateLatestMonth": "11",
         "dateNote": "sdf",
+        "dateLatestScalarValue": "",
         "dateLatestQualifierUnit": "month",
         "dateEarliestSingleDay": "3",
         "dateEarliestSingleMonth": "2"
