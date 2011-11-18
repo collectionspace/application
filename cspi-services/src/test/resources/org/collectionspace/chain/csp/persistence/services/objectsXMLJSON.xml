@@ -39,6 +39,9 @@
         <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
         <dateEarliestSingleDay>3</dateEarliestSingleDay>
         <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
+        <scalarValuesComputed>false</scalarValuesComputed>
+        <dateEarliestScalarValue></dateEarliestScalarValue>
+        <dateLatestScalarValue></dateLatestScalarValue>
         </objectProductionDateGroup>
 <ownersReferences/>
 <objectProductionReasons/>
