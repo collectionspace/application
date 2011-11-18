@@ -110,6 +110,7 @@
                     </repeat>
                 </section>
                 <section id="contactInformation">
+					<group id="contact" userecord="contact" ui-spec-inherit="false"  ui-spec-prefix="contact"  exists-in-services="false"></group>
                 </section>
                 <!-- not used in UI except in autocompletes -->
                 <section>
