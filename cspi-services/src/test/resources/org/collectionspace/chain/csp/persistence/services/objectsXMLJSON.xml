@@ -126,7 +126,9 @@
     <contentConcept>contentConcept b</contentConcept>
     <contentConcept>contentConcept c</contentConcept>
 </contentConcepts>
-<contentDate>contentDate</contentDate>
+<contentDateGroup>
+    <dateEarliestSingleYear>1901</dateEarliestSingleYear>
+</contentDateGroup>
 <contentDescription>contentDescription</contentDescription>
 <contentEventNameGroupList>
 	<contentEventNameGroup>
