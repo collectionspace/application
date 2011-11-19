@@ -399,8 +399,9 @@
                                 <selector>object-description-content-concept</selector>
                             </field>
                         </repeat>
-                        <field id="contentDate" ui-type="date" >
-                            <selector>object-description-content-date</selector>
+                        <field id="contentDate" ui-search="repeatable" ui-type="groupfield/structureddate" primarykey="contentDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
+                            <services-tag>contentDateGroup</services-tag>
+                            <selector>csc-object-description-content-date</selector>
                         </field>
                         <repeat id="contentPositions">
                             <field id="contentPosition" seperate_ui_container="true">

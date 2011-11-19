@@ -25,7 +25,8 @@
 <briefDescription></briefDescription>
 <briefDescription>bob2</briefDescription>
 </briefDescriptions>
-<objectProductionDateGroup>
+<objectProductionDateGroupList>
+    <objectProductionDateGroup>
 	<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
         <dateLatestDay>22</dateLatestDay>
         <dateLatestYear>5</dateLatestYear>
@@ -46,7 +47,7 @@
         <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
         <dateEarliestSingleDay>3</dateEarliestSingleDay>
         <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
-
-        </objectProductionDateGroup>
+    </objectProductionDateGroup>
+</objectProductionDateGroupList>
 </ns2:collectionobjects_common>
 

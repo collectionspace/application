@@ -188,7 +188,7 @@ http://services.collectionspace.org/collectionobject/collectionobjects_common.xs
     </objectComponentGroup>
 </objectComponentGroupList>
 <!-- Object Production Information -->
-<objectProductionDate></objectProductionDate>
+<objectProductionDateGroupList/>
 <objectProductionNote>.. But it wasn't</objectProductionNote>
 <objectProductionOrganizationGroupList>
     <objectProductionOrganizationGroup>

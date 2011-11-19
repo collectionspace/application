@@ -18,8 +18,9 @@
 		<referenceNote>referenceNote</referenceNote>
 	</referenceGroup>
 </referenceGroupList>
-<objectProductionDateGroup>
-		<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+<objectProductionDateGroupList>
+    <objectProductionDateGroup>
+	<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
         <dateLatestDay>22</dateLatestDay>
         <dateLatestYear>5</dateLatestYear>
         <dateAssociation>sdf</dateAssociation>
@@ -43,6 +44,8 @@
         <dateEarliestScalarValue></dateEarliestScalarValue>
         <dateLatestScalarValue></dateLatestScalarValue>
         </objectProductionDateGroup>
+    </objectProductionDateGroup>
+</objectProductionDateGroupList>
 <ownersReferences/>
 <objectProductionReasons/>
 <viewersReferences/>
