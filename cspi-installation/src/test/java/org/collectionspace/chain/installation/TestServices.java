@@ -62,7 +62,8 @@ public class TestServices {
 		return cspm;
 		
 	}
-	@Test public void testServices(){
+	//@Test 
+	public void testServices(){
 
 		String configfile = "lifesci-tenant.xml";
 		String recordtype = "collectionobjects"; //these are service names for the record/procedure
@@ -70,14 +71,14 @@ public class TestServices {
 		String maketype = "core"; // this is either delta or core
 
 		log.info("new system");
-		try {
-			XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype);
-			log.info(s.getFile());
-		} catch (UIException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+//		try {
+//			XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype);
+//			log.info(s.getFile());
+//		} catch (UIException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
 		maketype = "delta"; //this might not be delta - but it will be one day
 		try {
 			XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype);
