@@ -47,8 +47,13 @@ public class XmlJsonConversion {
 		}
 		String value=in.optString(field.getID());
 		if(field.getUIType().startsWith("groupfield")){
-			if(in.has(field.getID())){
-				addSubRecordToXml(element,field,in.getJSONObject(field.getID()), permlevel);
+			if(field.getUIType().contains("selfrenderer")){
+				addSubRecordToXml(element, field, in, permlevel);
+			}
+			else{
+				if(in.has(field.getID())){
+					addSubRecordToXml(element, field, in.getJSONObject(field.getID()), permlevel);
+				}
 			}
 		}
 		else{
@@ -389,10 +394,10 @@ public class XmlJsonConversion {
 
 				JSONObject temp = new JSONObject();
 				for(FieldSet fs : subitems.getAllServiceFieldTopLevel(operation,"common")) {
-					addFieldSetToJson(temp,el,fs,operation, tempSon,csid,ims_url);
+					addFieldSetToJson(out,el,fs,operation, tempSon,csid,ims_url);
 				}
 
-				out.put(f.getID(),temp);
+				//out.put(f.getID(),temp);
 				return;
 			}
 			

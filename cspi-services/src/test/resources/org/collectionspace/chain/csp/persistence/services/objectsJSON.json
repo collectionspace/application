@@ -448,7 +448,7 @@
         "_primary": true
     }],
     "datePeriod": "",
-    "dimension": {
+	
         "measuredPartGroup": [{
             "_primary": true,
             "dimensionSummary": "",
@@ -484,8 +484,7 @@
                 "valueQualifier": "close enough for govt work",
                 "measurementMethod": "eyeball"
             }]
-        }]
-    },
+        }],
     "ownershipExchangeNote": "",
     "assocObjectGroup": [{
         "_primary": true,

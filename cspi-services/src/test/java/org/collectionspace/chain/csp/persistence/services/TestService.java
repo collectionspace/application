@@ -182,7 +182,7 @@ public class TestService extends ServicesBaseClass {
 		// convert json -> xml and back to json and see if it still looks the
 		// same..
 		assertTrue("JSON->XML->JSON round-trip doesn't match original JSON",
-				JSONUtils.checkJSONEquivOrEmptyStringKey(testjson, j));
+				JSONUtils.checkJSONEquivOrEmptyStringKey(j,testjson));
 
 	}
 
