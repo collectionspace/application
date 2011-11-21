@@ -202,6 +202,8 @@ public class UISchema extends UISpec {
 	private void repeatItem(JSONObject out, Repeat r, UISpecRunContext context)
 			throws JSONException {
 		JSONObject items = new JSONObject();
+		Boolean isASelfrendererStructuredDate = false;
+		JSONObject structuredate = new JSONObject();
 
 		String selector = getSelector(r,context);
 		JSONObject protoTree = new JSONObject();
@@ -225,15 +227,20 @@ public class UISchema extends UISpec {
 				generateSubRecord(protoTree, r,context, null);
 			}
 		}
-		//else if(r.getUIType().startsWith("groupfield")) {
-		//	Object tout = generateGroupField(r,context);
-		//	JSONObject selfrenderer = generateSchemaObject("array", null, null, (JSONObject)tout);
-		//	protoTree.put("",selfrenderer);
-		//}
 		else{
 			for (FieldSet child : r.getChildren("")) {
 				if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
 					generateDataEntry(protoTree, child, context);
+				}
+				if(child.getUIType().startsWith("groupfield") && child.getUIType().contains("structureddate")){
+					structuredate = protoTree.getJSONObject(getSelector(child,context)).getJSONObject("properties");
+					protoTree.remove(getSelector(child,context));
+
+					Iterator rit=structuredate.keys();
+					while(rit.hasNext()) {
+						String key=(String)rit.next();
+						protoTree.put(key, structuredate.get(key));
+					}
 				}
 			}
 		}

@@ -624,13 +624,13 @@
                 <section id="objectProductionInformation">
                 	
                 	<!--
-                    <field id="objectProductionDate" ui-search="repeatable" ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
+                    <field id="object " ui-search="repeatable" ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
                         <services-tag>objectProductionDateGroup</services-tag>
                         <selector>object-production-date</selector>
                     </field>
                 	-->
                     <repeat id="objectProductionDateGroupList/objectProductionDateGroup">
-                    <group id="objectProductionDate" showgrouped="false" ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
+                    <group id="objectProductionDate" ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
                     </group>
 					</repeat>
                     <repeat id="techniqueGroupList/techniqueGroup">

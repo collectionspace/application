@@ -1032,6 +1032,9 @@
                 }
             }]
         },
+        ".csc-collection-object-objectProductionDateGroup-label": {
+            "messagekey": "collection-object-objectProductionDateGroupLabel"
+        },
         ".csc-collection-object-viewersReferences-label": {
             "messagekey": "collection-object-viewersReferencesLabel"
         },
@@ -1187,9 +1190,6 @@
         ".csc-collection-object-assocObjectType-label": {
             "messagekey": "collection-object-assocObjectTypeLabel"
         },
-        ".csc-collection-object-technicalAttributeMeasurementUnit-label": {
-            "messagekey": "collection-object-technicalAttributeMeasurementUnitLabel"
-        },
         ".csc-object-description-inscription-content-inscriber": {
             "decorators": [{
                 "func": "cspace.autocomplete",
@@ -1200,6 +1200,9 @@
                 }
             }],
             "value": "${fields.inscriptionContentInscriber}"
+        },
+        ".csc-collection-object-technicalAttributeMeasurementUnit-label": {
+            "messagekey": "collection-object-technicalAttributeMeasurementUnitLabel"
         },
         ".csc-object-description-content-place": {
             "decorators": [{
@@ -1219,9 +1222,6 @@
             }]
         },
         ".csc-object-description-content-note": "${fields.contentNote}",
-        ".csc-collection-object-objectProductionDate-label": {
-            "messagekey": "collection-object-objectProductionDateLabel"
-        },
         ".csc-collection-object-inscriptionDescriptionDate-label": {
             "messagekey": "collection-object-inscriptionDescriptionDateLabel"
         },
@@ -1337,38 +1337,6 @@
         ".csc-collection-object-color-label": {
             "messagekey": "collection-object-colorLabel"
         },
-        ".csc-object-production-date": {
-            "decorators": [{
-                "func": "cspace.structuredDate",
-                "type": "fluid",
-                "options": {
-                    "elPath": "fields.objectProductionDate.dateDisplayDate",
-                    "elPaths": {
-                        "dateEarliestSingleQualifier": "fields.objectProductionDate.dateEarliestSingleQualifier",
-                        "dateLatestDay": "fields.objectProductionDate.dateLatestDay",
-                        "dateLatestYear": "fields.objectProductionDate.dateLatestYear",
-                        "dateAssociation": "fields.objectProductionDate.dateAssociation",
-                        "dateEarliestSingleEra": "fields.objectProductionDate.dateEarliestSingleEra",
-                        "dateDisplayDate": "fields.objectProductionDate.dateDisplayDate",
-                        "dateEarliestSingleCertainty": "fields.objectProductionDate.dateEarliestSingleCertainty",
-                        "dateLatestEra": "fields.objectProductionDate.dateLatestEra",
-                        "dateEarliestSingleQualifierValue": "fields.objectProductionDate.dateEarliestSingleQualifierValue",
-                        "dateLatestCertainty": "fields.objectProductionDate.dateLatestCertainty",
-                        "dateEarliestSingleYear": "fields.objectProductionDate.dateEarliestSingleYear",
-                        "dateLatestQualifier": "fields.objectProductionDate.dateLatestQualifier",
-                        "dateLatestQualifierValue": "fields.objectProductionDate.dateLatestQualifierValue",
-                        "dateEarliestSingleQualifierUnit": "fields.objectProductionDate.dateEarliestSingleQualifierUnit",
-                        "datePeriod": "fields.objectProductionDate.datePeriod",
-                        "dateLatestMonth": "fields.objectProductionDate.dateLatestMonth",
-                        "dateNote": "fields.objectProductionDate.dateNote",
-                        "dateLatestQualifierUnit": "fields.objectProductionDate.dateLatestQualifierUnit",
-                        "dateEarliestSingleDay": "fields.objectProductionDate.dateEarliestSingleDay",
-                        "dateEarliestSingleMonth": "fields.objectProductionDate.dateEarliestSingleMonth"
-                    }
-                }
-            }],
-            "value": "${fields.objectProductionDate.dateDisplayDate}"
-        },
         ".csc-collection-object-dimension-label": {
             "messagekey": "collection-object-dimensionLabel"
         },
@@ -1404,6 +1372,41 @@
         },
         ".csc-collection-object-contentDate-label": {
             "messagekey": "collection-object-contentDateLabel"
+        },
+        ".csc-csc-object-description-content-date": {
+            "decorators": [{
+                "func": "cspace.structuredDate",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.contentDate.dateDisplayDate",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.contentDate.dateEarliestSingleQualifier",
+                        "scalarValuesComputed": "fields.contentDate.scalarValuesComputed",
+                        "dateLatestDay": "fields.contentDate.dateLatestDay",
+                        "dateLatestYear": "fields.contentDate.dateLatestYear",
+                        "dateAssociation": "fields.contentDate.dateAssociation",
+                        "dateEarliestSingleEra": "fields.contentDate.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.contentDate.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.contentDate.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.contentDate.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.contentDate.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.contentDate.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.contentDate.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.contentDate.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.contentDate.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.contentDate.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.contentDate.datePeriod",
+                        "dateEarliestScalarValue": "fields.contentDate.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.contentDate.dateLatestMonth",
+                        "dateNote": "fields.contentDate.dateNote",
+                        "dateLatestScalarValue": "fields.contentDate.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.contentDate.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.contentDate.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.contentDate.dateEarliestSingleMonth"
+                    }
+                }
+            }],
+            "value": "${fields.contentDate.dateDisplayDate}"
         },
         ".csc-collection-object-assocObjectGroup": {
             "decorators": [{
@@ -1867,13 +1870,6 @@
                 }
             }]
         },
-        ".csc-object-description-content-date": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
-            "value": "${fields.contentDate}"
-        },
         ".csc-collection-object-assocEventNameType-label": {
             "messagekey": "collection-object-assocEventNameTypeLabel"
         },
@@ -1994,6 +1990,9 @@
         },
         ".csc-collection-object-contentConcept-label": {
             "messagekey": "collection-object-contentConceptLabel"
+        },
+        ".csc-objectProductionDateGroup-objectProductionDate-label": {
+            "messagekey": "objectProductionDateGroup-objectProductionDateLabel"
         },
         ".csc-object-history-association-access": {
             "optionnames": ["Please select a value", "limited", "open", "restricted"],
@@ -2288,6 +2287,64 @@
         },
         ".csc-collection-object-materialName-label": {
             "messagekey": "collection-object-materialNameLabel"
+        },
+        ".csc-objectProductionDateGroup-objectProductionDate": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.objectProductionDateGroup",
+                    "protoTree": {
+                        "expander": {
+                            "tree": {
+                                "repeatID": "repeat:",
+                                "tree": {
+                                    ".csc-objectProductionDateGroup-objectProductionDate": {
+                                        "decorators": [{
+                                            "func": "cspace.structuredDate",
+                                            "type": "fluid",
+                                            "options": {
+                                                "root": "{row}",
+                                                "elPath": "objectProductionDate",
+                                                "elPaths": {
+                                                    "dateEarliestSingleQualifier": "dateEarliestSingleQualifier",
+                                                    "scalarValuesComputed": "scalarValuesComputed",
+                                                    "dateLatestDay": "dateLatestDay",
+                                                    "dateLatestYear": "dateLatestYear",
+                                                    "dateAssociation": "dateAssociation",
+                                                    "dateEarliestSingleEra": "dateEarliestSingleEra",
+                                                    "dateDisplayDate": "dateDisplayDate",
+                                                    "dateEarliestSingleCertainty": "dateEarliestSingleCertainty",
+                                                    "dateLatestEra": "dateLatestEra",
+                                                    "dateEarliestSingleQualifierValue": "dateEarliestSingleQualifierValue",
+                                                    "dateLatestCertainty": "dateLatestCertainty",
+                                                    "dateEarliestSingleYear": "dateEarliestSingleYear",
+                                                    "dateLatestQualifier": "dateLatestQualifier",
+                                                    "dateLatestQualifierValue": "dateLatestQualifierValue",
+                                                    "dateEarliestSingleQualifierUnit": "dateEarliestSingleQualifierUnit",
+                                                    "datePeriod": "datePeriod",
+                                                    "dateEarliestScalarValue": "dateEarliestScalarValue",
+                                                    "dateLatestMonth": "dateLatestMonth",
+                                                    "dateNote": "dateNote",
+                                                    "dateLatestScalarValue": "dateLatestScalarValue",
+                                                    "dateLatestQualifierUnit": "dateLatestQualifierUnit",
+                                                    "dateEarliestSingleDay": "dateEarliestSingleDay",
+                                                    "dateEarliestSingleMonth": "dateEarliestSingleMonth"
+                                                }
+                                            }
+                                        }],
+                                        "value": "${{row}.objectProductionDate}"
+                                    }
+                                },
+                                "type": "fluid.renderer.repeat",
+                                "pathAs": "row",
+                                "controlledBy": "fields.objectProductionDateGroup"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    }
+                }
+            }]
         },
         ".csc-collection-object-viewersRole-label": {
             "messagekey": "collection-object-viewersRoleLabel"

@@ -288,7 +288,7 @@ public class UISpec implements WebMethod {
 						}
 						JSONObject renderedcontents=new JSONObject();
 						generateMessageKeys(context, subexpander, subitems);
-						generateSelfRenderedEntry(renderedcontents,fs,context, subexpander);
+						generateSelfRenderedEntry(renderedcontents, subexpander);
 						options = renderedcontents;
 					}
 				}
@@ -298,7 +298,7 @@ public class UISpec implements WebMethod {
 					}
 					JSONObject renderedcontents=new JSONObject();
 					generateMessageKeys(context, subexpander, subitems);
-					generateSelfRenderedEntry(renderedcontents,fs,context, subexpander);
+					generateSelfRenderedEntry(renderedcontents,subexpander);
 					options = renderedcontents;
 				}
 			}
@@ -460,7 +460,7 @@ public class UISpec implements WebMethod {
 		else{
 			JSONArray decorators=new JSONArray();
 
-			
+			Boolean isASelfRenderer = false;
 			JSONObject options=new JSONObject();
 			JSONObject preProtoTree=new JSONObject();
 
@@ -484,39 +484,49 @@ public class UISpec implements WebMethod {
 					generateSubRecord(preProtoTree, r,context, outer);
 				}
 			}
-			//else if(r.getUIType().startsWith("groupfield")) {
-			//	Object tout = generateGroupField(r,context);
-			//	preProtoTree = (JSONObject)tout;
-			//}
 			else{
-				for(FieldSet child : r.getChildren("")) {
+				for(FieldSet child :r.getChildren("")) {
+					if(child.getUIType().startsWith("groupfield")){
+						isASelfRenderer = true;
+					}
 					if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
 						generateDataEntry(preProtoTree,child, context);
 					}
 				}
 			}
 			
-			JSONObject expander = new JSONObject();
-			expander.put("type", "fluid.noexpand");
-			expander.put("tree", preProtoTree);
-			
-			
-			JSONObject repeatTree = new JSONObject();
-			repeatTree.put("expander", expander);
-			if(r.getParent() instanceof Record){
+			if(isASelfRenderer){
 				options.put("elPath",veryplainWithoutEnclosure(r,context));
+				JSONObject expander = new JSONObject();
+				expander.put("type", "fluid.renderer.repeat");
+				expander.put("controlledBy", veryplainWithoutEnclosure(r,context));//"fields."+r.getID());
+				expander.put("pathAs", "row");
+				expander.put("repeatID", "repeat:");
+				expander.put("tree",preProtoTree);
+				generateSelfRenderedEntry(options, expander);
 			}
 			else{
-				options.put("elPath", r.getID());
-				options.put("root", "{row}");
+				JSONObject expander = new JSONObject();
+				expander.put("type", "fluid.noexpand");
+				expander.put("tree", preProtoTree);
+				
+				
+				JSONObject repeatTree = new JSONObject();
+				repeatTree.put("expander", expander);
+				if(r.getParent() instanceof Record){
+					options.put("elPath",veryplainWithoutEnclosure(r,context));
+				}
+				else{
+					options.put("elPath", r.getID());
+					options.put("root", "{row}");
+				}
+				options.put("repeatTree", repeatTree);
+				//is this a nested repeat or a top level repeat...
+				//is this a uispec for search - if so no primary tags wanted
+				if(r.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
+					options.put("hidePrimary", true);
+				}
 			}
-			options.put("repeatTree", repeatTree);
-			//is this a nested repeat or a top level repeat...
-			//is this a uispec for search - if so no primary tags wanted
-			if(r.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
-				options.put("hidePrimary", true);
-			}
-			
 
 			JSONObject decorator = getDecorator("fluid",null,"cspace.makeRepeatable",options,r.isReadOnly());
 			decorators.put(decorator);
@@ -524,8 +534,27 @@ public class UISpec implements WebMethod {
 		}
 		return out;
 	}
-	
-	
+
+	//get all children as well as pseudo sub records like groupfields
+	private static List<FieldSet> getChildrenWithGroupFields(Repeat parent, String operation){
+		List<FieldSet> children = new ArrayList<FieldSet>();
+		
+		for(FieldSet fs : parent.getChildren(operation)) {
+
+			if(fs.getUIType().startsWith("groupfield")){
+				String parts[] = fs.getUIType().split("/");
+				Record subitems = fs.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+
+				for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+					children.add(fd); //what about nested groupfields?
+				}
+			}
+			else{
+				children.add(fs);
+			}
+		}
+		return children;
+	}
 	protected JSONObject generateAutocomplete(Field f,UISpecRunContext context) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
@@ -985,14 +1014,19 @@ public class UISpec implements WebMethod {
 			UISpecRunContext context) throws JSONException {
 		Group g = (Group)fs;
 
+
 		JSONObject contents=new JSONObject();
 		for(FieldSet child : g.getChildren("")) {
 			generateDataEntry(contents,child, context);
 		}		//UI specific marking: YURA said: these are renderer decorators that do their own rendering so need some sub nesting
 		if("selfrenderer".equals(fs.getUIType())) {
 			JSONObject renderedcontents=new JSONObject();
-			generateSelfRenderedEntry(renderedcontents,fs,context, contents);
+			generateSelfRenderedEntry(renderedcontents, contents);
 			contents = renderedcontents;
+		}
+		else if(g.getUIType().startsWith("groupfield")) { //structured dates are being a little different
+			out.put(getSelector(g,context),generateGroupField(g,context));
+			return;
 		}
 		out.put(getSelector(g,context),contents);
 	}
@@ -1042,7 +1076,7 @@ public class UISpec implements WebMethod {
                             "tree": {
 	 * */
 
-	protected void generateSelfRenderedEntry(JSONObject out, FieldSet f, UISpecRunContext context, JSONObject tree) throws JSONException{
+	protected void generateSelfRenderedEntry(JSONObject out, JSONObject tree) throws JSONException{
 		JSONObject expander = new JSONObject();
 		expander.put("type", "fluid.noexpand");
 		expander.put("tree", tree);
