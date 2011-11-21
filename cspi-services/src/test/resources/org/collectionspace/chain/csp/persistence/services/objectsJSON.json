@@ -3,8 +3,8 @@
     "inscriptionContentMethod": "",
     "inscriptionDescriptionPosition": "",
     "objectHistoryNote": "",
-    "viewersPersonalResponse": "",
     "inscriptionContentInscriber": "",
+    "viewersPersonalResponse": "",
     "fieldCollectionMethods": [{
         "_primary": true,
         "fieldCollectionMethod": ""
@@ -14,7 +14,6 @@
         "assocEventPeople": ""
     }],
     "ownershipPlace": "",
-    "assocEventNote": "",
     "responsibleDepartments": [{
         "_primary": true,
         "responsibleDepartment": "ethnography1"
@@ -24,11 +23,11 @@
         "responsibleDepartment": "ethnography"
     }],
     "ownershipAccess": "",
+    "inscriptionContentPosition": "",
     "contentPositions": [{
         "_primary": true,
         "contentPosition": "contentPosition"
     }],
-    "inscriptionContentPosition": "",
     "inscriptionContentTransliteration": "",
     "dateLatestQualifier": "",
     "styles": [{
@@ -66,12 +65,12 @@
         "objectProductionPlaceRole": ""
     }],
     "ownershipExchangePriceValue": "",
+    "ownersContributionNote": "",
     "referenceGroup": [{
         "referenceNote": "referenceNote",
         "_primary": true,
         "reference": "reference"
     }],
-    "ownersContributionNote": "",
     "objectProductionReasons": [],
     "contentLanguages": [{
         "contentLanguage": "English",
@@ -87,16 +86,41 @@
         "assocPlaceNote": "",
         "assocPlaceType": ""
     }],
-    "inscriptionContent": "",
     "collection": "collection",
-    "contentDate": "contentDate",
-    "inscriptionDescriptionType": "",
+    "inscriptionContent": "",
+    
+    "contentDate": {
+        "dateEarliestSingleQualifier": "",
+        "scalarValuesComputed": "",
+        "dateLatestDay": "",
+        "dateLatestYear": "",
+        "dateAssociation": "",
+        "dateEarliestSingleEra": "",
+        "dateDisplayDate": "",
+        "dateEarliestSingleCertainty": "",
+        "dateLatestEra": "",
+        "dateEarliestSingleQualifierValue": "",
+        "dateLatestCertainty": "",
+        "dateEarliestSingleYear": "1901",
+        "dateLatestQualifier": "",
+        "dateLatestQualifierValue": "",
+        "dateEarliestSingleQualifierUnit": "",
+        "datePeriod": "",
+        "dateEarliestScalarValue": "",
+        "dateLatestMonth": "",
+        "dateNote": "",
+        "dateLatestScalarValue": "",
+        "dateLatestQualifierUnit": "",
+        "dateEarliestSingleDay": "",
+        "dateEarliestSingleMonth": ""
+    },
     "assocConceptGroup": [{
         "assocConcept": "",
         "_primary": true,
         "assocConceptNote": "",
         "assocConceptType": ""
     }],
+    "inscriptionDescriptionType": "",
     "assocPersonGroup": [{
         "_primary": true,
         "assocPersonType": "",
@@ -108,12 +132,12 @@
     "dateEarliestSingle": "",
     "inscriptionContentScript": "",
     "ownersPersonalResponse": "",
+    "ageQualifier": "ageQualifier",
     "contentEventNameGroup": [{
         "_primary": true,
         "contentEventNameType": "contentEventNameType",
         "contentEventName": "contentEventName"
     }],
-    "ageQualifier": "ageQualifier",
     "fieldCollectionNote": "",
     "objectStatusList": [{
         "_primary": true,
@@ -151,31 +175,6 @@
     }, {
         "briefDescription": "george"
     }],
-    "objectProductionDate": {
-        "dateEarliestSingleQualifier": "-",
-        "scalarValuesComputed": "false",
-        "dateLatestDay": "22",
-        "dateLatestYear": "5",
-        "dateAssociation": "sdf",
-        "dateEarliestSingleEra": "bce",
-        "dateDisplayDate": "sdf",
-        "dateEarliestSingleCertainty": "about",
-        "dateLatestEra": "bce",
-        "dateEarliestSingleQualifierValue": "4",
-        "dateLatestCertainty": "approximate",
-        "dateEarliestSingleYear": "1",
-        "dateLatestQualifier": "+",
-        "dateLatestQualifierValue": "2",
-        "dateEarliestSingleQualifierUnit": "days",
-        "datePeriod": "sdf",
-        "dateEarliestScalarValue": "",
-        "dateLatestMonth": "11",
-        "dateNote": "sdf",
-        "dateLatestScalarValue": "",
-        "dateLatestQualifierUnit": "month",
-        "dateEarliestSingleDay": "3",
-        "dateEarliestSingleMonth": "2"
-    },
     "viewersRole": "",
     "materialGroup": [{
         "materialSource": "",
@@ -273,6 +272,56 @@
     "ownersReferences": [],
     "dateLatestCertainty": "",
     "physicalDescription": "",
+    "objectProductionDateGroup": [{
+        "dateEarliestSingleQualifier": "-",
+        "scalarValuesComputed": "false",
+        "dateLatestDay": "22",
+        "dateLatestYear": "5",
+        "dateAssociation": "sdf",
+        "dateEarliestSingleEra": "bce",
+        "dateDisplayDate": "sdf",
+        "dateEarliestSingleCertainty": "about",
+        "dateLatestEra": "bce",
+        "dateEarliestSingleQualifierValue": "4",
+        "dateLatestCertainty": "approximate",
+        "dateEarliestSingleYear": "1",
+        "dateLatestQualifier": "+",
+        "dateLatestQualifierValue": "2",
+        "dateEarliestSingleQualifierUnit": "days",
+        "datePeriod": "sdf",
+        "dateEarliestScalarValue": "",
+        "_primary": true,
+        "dateLatestMonth": "11",
+        "dateNote": "sdf",
+        "dateLatestScalarValue": "",
+        "dateLatestQualifierUnit": "month",
+        "dateEarliestSingleDay": "3",
+        "dateEarliestSingleMonth": "2"
+    }, {
+        "dateEarliestSingleQualifier": "-",
+        "scalarValuesComputed": "false",
+        "dateLatestDay": "20",
+        "dateLatestYear": "1",
+        "dateAssociation": "wer",
+        "dateEarliestSingleEra": "bce",
+        "dateDisplayDate": "wer",
+        "dateEarliestSingleCertainty": "about",
+        "dateLatestEra": "bce",
+        "dateEarliestSingleQualifierValue": "4",
+        "dateLatestCertainty": "approximate",
+        "dateEarliestSingleYear": "1",
+        "dateLatestQualifier": "+",
+        "dateLatestQualifierValue": "2",
+        "dateEarliestSingleQualifierUnit": "days",
+        "datePeriod": "werwerwer",
+        "dateEarliestScalarValue": "",
+        "dateLatestMonth": "11",
+        "dateNote": "werwer",
+        "dateLatestScalarValue": "",
+        "dateLatestQualifierUnit": "month",
+        "dateEarliestSingleDay": "21",
+        "dateEarliestSingleMonth": "7"
+    }],
     "contentConcepts": [{
         "_primary": true,
         "contentConcept": "contentConcept a"
@@ -325,13 +374,13 @@
     "phase": "",
     "inscriptionContentLanguage": "",
     "contentNote": "contentNote",
+    "dateEarliestSingleQualifier": "",
     "assocPeopleGroup": [{
         "_primary": true,
         "assocPeople": "",
         "assocPeopleNote": "",
         "assocPeopleType": ""
     }],
-    "dateEarliestSingleQualifier": "",
     "contentPeoples": [{
         "_primary": true,
         "contentPeople": "contentPeople s"
@@ -340,16 +389,16 @@
     }, {
         "contentPeople": "contentPeople b"
     }],
-    "sex": "",
     "inscriptionDescriptionMethod": "",
+    "sex": "",
     "assocDateGroup": [{
         "_primary": true,
         "assocDateNote": "",
         "assocDateType": "",
         "assocDate": ""
     }],
-    "recordStatus": "recordStatus",
     "numberOfObjects": "numberOfObjects",
+    "recordStatus": "recordStatus",
     "technicalAttributeGroup": [{
         "technicalAttributeMeasurement": "",
         "technicalAttribute": "",
@@ -365,11 +414,11 @@
         "_primary": true,
         "fieldCollectionSource": ""
     }],
-    "viewersContributionNote": "",
     "forms": [{
         "_primary": true,
         "form": ""
     }],
+    "viewersContributionNote": "",
     "editionNumber": "",
     "distinguishingFeatures": "distinguishingFeatures",
     "dateAssociation": "",
@@ -406,16 +455,16 @@
             "measuredPart": "arm",
             "dimensionSubGroup": [{
                 "_primary": true,
-                "dimension": "diameter",
                 "measuredBy": "rj",
+                "dimension": "diameter",
                 "valueDate": "2011-11-08",
                 "measurementUnit": "cm",
                 "value": "10",
                 "valueQualifier": "approx.",
                 "measurementMethod": "eyeball"
             }, {
-                "dimension": "length",
                 "measuredBy": "rj",
+                "dimension": "length",
                 "valueDate": "2011-11-08",
                 "measurementUnit": "cm",
                 "value": "75",
@@ -427,8 +476,8 @@
             "measuredPart": "other arm",
             "dimensionSubGroup": [{
                 "_primary": true,
-                "dimension": "length",
                 "measuredBy": "rj",
+                "dimension": "length",
                 "valueDate": "2011-11-08",
                 "measurementUnit": "cm",
                 "value": "80",
@@ -438,11 +487,11 @@
         }]
     },
     "ownershipExchangeNote": "",
-    "inscriptionContentDate": "",
     "assocObjectGroup": [{
         "_primary": true,
         "assocObjectType": "",
         "assocObjectNote": "",
         "assocObject": ""
-    }]
+    }],
+    "inscriptionContentDate": ""
 }

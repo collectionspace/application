@@ -83,7 +83,6 @@ public class TestService extends ServicesBaseClass {
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
 //		testXMLJSON(spec, "location", "location.xml", "location.json");
-		testXMLJSON(spec, "media", "media.xml", "mediaJSON.json");
 		testXMLJSON(spec, "collection-object", "objectsXMLJSON.xml",
 				"objectsJSON.json");
 
@@ -95,6 +94,7 @@ public class TestService extends ServicesBaseClass {
 		testXMLJSON(spec, "movement", "movement.xml", "movement.json");
 		testXMLJSON(spec, "objectexit", "objectexit.xml", "objectexit.json");
 		testXMLJSON(spec, "group", "group.xml", "group.json");
+		testXMLJSON(spec, "media", "media.xml", "mediaJSON.json");
 
 		testXMLJSON(spec, "role", "role.xml", "role.json");
 		testXMLJSON(spec, "permrole", "rolepermissions.xml",
@@ -126,14 +126,14 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
-		testJSONXML(spec, "location", "location.xml", "location.json");
-		testJSONXML(spec, "media", "media.xml", "mediaJSON.json");
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
 		 		"objectsJSON.json");
 		
 		testJSONXML(spec, "acquisition", "acquisitionXMLJSON.xml",
 		 		"acquisitionJSON.json");
-		
+
+		testJSONXML(spec, "location", "location.xml", "location.json");
+		testJSONXML(spec, "media", "media.xml", "mediaJSON.json");
 		testJSONXML(spec, "loanin", "loanin.xml", "loanin.json");
 		testJSONXML(spec, "loanout", "loanout.xml", "loanout.json");
 		testJSONXML(spec, "intake", "intake.xml", "intake.json");
@@ -723,7 +723,6 @@ public class TestService extends ServicesBaseClass {
 		assertNotNull(n);
 		String text = n.getText();
 		assertEquals(expected, text);
-
 		// Update
 		if (partname != null) {
 			Map<String, Document> parts = new HashMap<String, Document>();
@@ -750,7 +749,7 @@ public class TestService extends ServicesBaseClass {
 		text = n.getText();
 		assertEquals(expected, text);
 
-		log.info(doc.asXML());
+		//log.info(doc.asXML());
 		// Get
 
 		// DELETE (Delete)

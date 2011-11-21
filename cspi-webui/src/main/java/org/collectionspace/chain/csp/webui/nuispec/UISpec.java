@@ -239,24 +239,23 @@ public class UISpec implements WebMethod {
 
 	protected Object generateGroupField(FieldSet fs,UISpecRunContext context) throws JSONException {
 		JSONObject out=new JSONObject();
-		if(fs instanceof Field){
-			Field f = (Field)fs;
+		if(fs instanceof Field || fs instanceof Repeat){
 		
 			JSONArray decorators=new JSONArray();
 			JSONObject options=new JSONObject();
 			UISpecRunContext sub = context.createChild();
-			sub.setUIPrefix(f.getID());
+			sub.setUIPrefix(fs.getID());
 			sub.setPad(false);
 			//context.appendAffix("objectProductionDates-");
-			String parts[] = f.getUIType().split("/");
+			String parts[] = fs.getUIType().split("/");
 			JSONObject subexpander = new JSONObject();
-			Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-			options.put("elPath", "fields."+f.getPrimaryKey());
+			Record subitems = fs.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+			options.put("elPath", "fields."+fs.getPrimaryKey());
 			
 			if(parts[1].equals("structureddate")){
-				out.put("value",veryplain("fields."+f.getPrimaryKey()));
+				out.put("value",veryplain("fields."+fs.getPrimaryKey()));
 				Boolean truerepeat = false;
-				FieldParent fsp = f.getParent();
+				FieldParent fsp = fs.getParent();
 				if(fsp instanceof Repeat && !(fsp instanceof Group)){
 					Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
 					if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
@@ -264,9 +263,9 @@ public class UISpec implements WebMethod {
 						for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
 							subexpander.put(getSelector(fs2,sub), fs2.getID());
 						}
-						options.put("elPath", f.getID());
+						options.put("elPath", fs.getID());
 						options.put("root", "{row}");
-						out.put("value",veryplain("{row}."+f.getID()));
+						out.put("value",veryplain("{row}."+fs.getID()));
 					}
 				}
 				if(!truerepeat){
@@ -279,7 +278,7 @@ public class UISpec implements WebMethod {
 			}
 			else if(parts.length>=3 && parts[2].equals("selfrenderer")){
 				Boolean truerepeat = false;
-				FieldParent fsp = f.getParent();
+				FieldParent fsp = fs.getParent();
 				if(fsp instanceof Repeat && !(fsp instanceof Group)){
 					Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
 					if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
@@ -304,7 +303,7 @@ public class UISpec implements WebMethod {
 				}
 			}
 			else{
-				out.put("value",veryplain("fields."+f.getPrimaryKey()));
+				out.put("value",veryplain("fields."+fs.getPrimaryKey()));
 				for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {		
 					generateDataEntry(subexpander,fs2, sub);
 				}
@@ -320,10 +319,10 @@ public class UISpec implements WebMethod {
 				
 			}
 			
-			sub.setUIAffix(f.getID()+"-");
+			sub.setUIAffix(fs.getID()+"-");
 			
 			
-			JSONObject decorator=getDecorator("fluid",null,f.getUIFunc(),options,f.isReadOnly());
+			JSONObject decorator=getDecorator("fluid",null,fs.getUIFunc(),options,fs.isReadOnly());
 			decorators.put(decorator);
 			out.put("decorators",decorators);
 
@@ -485,6 +484,10 @@ public class UISpec implements WebMethod {
 					generateSubRecord(preProtoTree, r,context, outer);
 				}
 			}
+			//else if(r.getUIType().startsWith("groupfield")) {
+			//	Object tout = generateGroupField(r,context);
+			//	preProtoTree = (JSONObject)tout;
+			//}
 			else{
 				for(FieldSet child : r.getChildren("")) {
 					if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
@@ -871,6 +874,7 @@ public class UISpec implements WebMethod {
 					generateExpanderDataEntry(out, context, f);
 				}
 				else if(f.isInTrueTree()){
+					//used when true tree magic is needed?
 					JSONObject tout = new JSONObject();
 					if(!f.isRefactored()){
 						generateFieldDataEntry_notrefactored(tout, context, f);

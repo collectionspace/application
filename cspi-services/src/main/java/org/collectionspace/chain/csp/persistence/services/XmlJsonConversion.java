@@ -139,7 +139,7 @@ public class XmlJsonConversion {
 			element=root.addElement(repeat.getServicesTag());
 		}
 		Object value=null;
-		if(repeat.getXxxUiNoRepeat()) { // and sometimes the app ahead of the services
+		if(repeat.getXxxUiNoRepeat()) { // and sometimes the Servcies ahead of teh UI
 			FieldSet[] children=repeat.getChildren(permlevel);
 			if(children.length==0)
 				return;
@@ -159,6 +159,7 @@ public class XmlJsonConversion {
 		if(!(value instanceof JSONArray))
 			throw new UnderlyingStorageException("Bad JSON in repeated field: must be string or array for repeatable field"+repeat.getID());
 		JSONArray array=(JSONArray)value;
+
 		
 		//reorder the list if it has a primary
 		//XXX this will be changed when service layer accepts non-initial values as primary
@@ -201,7 +202,8 @@ public class XmlJsonConversion {
 				d1.put(fs[0].getID(),one_value);
 				addFieldSetToXml(repeatelement,fs[0],d1,section,permlevel);
 			} else if(one_value instanceof JSONObject) {
-				for(FieldSet fs : repeat.getChildren(permlevel))
+				List<FieldSet> children =getChildrenWithGroupFields(repeat,permlevel);
+				for(FieldSet fs : children)
 					addFieldSetToXml(repeatelement,fs,(JSONObject)one_value,section,permlevel);
 			}
 		}
@@ -506,13 +508,26 @@ public class XmlJsonConversion {
 	}
 	
 
-	private static List<String> FieldListFROMConfig(FieldSet f, String permlevel) {
+	private static List<String> FieldListFROMConfig(FieldSet f, String operation) {
 		List<String> children = new ArrayList<String>();
 		
 		if(f instanceof Repeat){
-			for(FieldSet a : ((Repeat)f).getChildren(permlevel)){
+			for(FieldSet a : ((Repeat)f).getChildren(operation)){
 				if(a instanceof Repeat && ((Repeat)a).hasServicesParent()){
 					children.add(((Repeat)a).getServicesParent()[0]);
+				}
+				else if(a.getUIType().startsWith("groupfield")){
+					//structuredates etc
+					String parts[] = a.getUIType().split("/");
+					Record subitems = a.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+					for(FieldSet fs : subitems.getAllFieldTopLevel(operation)) {
+						if(fs instanceof Repeat && ((Repeat)fs).hasServicesParent()){
+							children.add(((Repeat)fs).getServicesParent()[0]);
+						}
+						else{
+							children.add(fs.getID());
+						}
+					}
 				}
 				else{
 					children.add(a.getID());
@@ -520,7 +535,7 @@ public class XmlJsonConversion {
 			}
 		}
 		if(f instanceof Group){
-			for(FieldSet a : ((Group)f).getChildren(permlevel)){
+			for(FieldSet a : ((Group)f).getChildren(operation)){
 				children.add(a.getID());
 			}
 		}
@@ -577,11 +592,31 @@ public class XmlJsonConversion {
 		}
 		return temp;
 	}
+	//merges in the pseudo sub records 'groupfields' with the normal fields
+	private static List<FieldSet> getChildrenWithGroupFields(Repeat parent, String operation){
+		List<FieldSet> children = new ArrayList<FieldSet>();
+		
+		for(FieldSet fs : parent.getChildren(operation)) {
+
+			if(fs.getUIType().startsWith("groupfield")){
+				String parts[] = fs.getUIType().split("/");
+				Record subitems = fs.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+
+				for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+					children.add(fd); //what about nested groupfields?
+				}
+			}
+			else{
+				children.add(fs);
+			}
+		}
+		return children;
+	}
 	
 	@SuppressWarnings("unchecked")
 	private static JSONArray addRepeatedNodeToJson(Element container,Repeat f, String permlevel, JSONObject tempSon) throws JSONException {
 		JSONArray node = new JSONArray();
-
+		List<FieldSet> children =getChildrenWithGroupFields(f, permlevel);
 		JSONArray elementlist=extractRepeatData(container,f,permlevel);
 
 		JSONObject siblingitem = new JSONObject();
@@ -589,11 +624,11 @@ public class XmlJsonConversion {
 			JSONObject element = elementlist.getJSONObject(i);
 
 
-			for(FieldSet fs : f.getChildren(permlevel)) {
-				Iterator rit=element.keys();
-				while(rit.hasNext()) {
-					String key=(String)rit.next();
-					JSONArray arrvalue = new JSONArray();
+			Iterator rit=element.keys();
+			while(rit.hasNext()) {
+				String key=(String)rit.next();
+				JSONArray arrvalue = new JSONArray();
+				for(FieldSet fs : children) {
 
 					if(fs instanceof Repeat && ((Repeat)fs).hasServicesParent()){
 						if(!((Repeat)fs).getServicesParent()[0].equals(key)){
@@ -608,7 +643,7 @@ public class XmlJsonConversion {
 						}
 						Object value = element.get(key);
 						arrvalue = (JSONArray)value;
-					}
+					} 
 
 					if(fs instanceof Field) {
 						for(int j=0;j<arrvalue.length();j++){
@@ -659,7 +694,7 @@ public class XmlJsonConversion {
 		return node;
 	}
 	
-	private static void addGroupToJson(JSONObject out, Element root, Group f,String permlevel, JSONObject tempSon) throws JSONException{
+	private static void addGroupToJson(JSONObject out, Element root, Group f,String operation, JSONObject tempSon,String csid,String ims_url) throws JSONException{
 		String nodeName = f.getServicesTag();
 		if(f.hasServicesParent()){
 			nodeName = f.getfullID();
@@ -668,20 +703,50 @@ public class XmlJsonConversion {
 				nodeName = f.getID();
 			}
 		}
-		List nodes=root.selectNodes(nodeName);
-		if(nodes.size()==0)
-			return;
-		
-		
-		JSONArray node = new JSONArray();
-		// Only first element is important in group container
-		int pos = 0;
-		for(Object repeatcontainer : nodes){
-			pos++;
-			Element container=(Element)repeatcontainer;
-			JSONArray repeatitem = addRepeatedNodeToJson(container,f,permlevel,tempSon);
-			JSONObject repeated = repeatitem.getJSONObject(0);
-			out.put(f.getID(), repeated);
+		if(!f.isGrouped()){
+			Element el = root;
+			if(f.getUIType().startsWith("groupfield") && f.getUIType().contains("selfrenderer")){
+
+				String parts[] = f.getUIType().split("/");
+				Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+
+				JSONObject temp = new JSONObject();
+				for(FieldSet fs : subitems.getAllServiceFieldTopLevel(operation,"common")) {
+					addFieldSetToJson(temp,el,fs,operation, tempSon,csid,ims_url);
+				}
+
+				out.put(f.getID(),temp);
+				return;
+			}
+			
+			if(f.getUIType().startsWith("groupfield")){
+				String parts[] = f.getUIType().split("/");
+				Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+
+				JSONObject temp = new JSONObject();
+				for(FieldSet fs : subitems.getAllServiceFieldTopLevel(operation,"common")) {
+					addFieldSetToJson(temp,el,fs,operation, tempSon,csid,ims_url);
+				}
+
+				out.put(f.getID(),temp);
+			}
+		}
+		else{
+			List nodes=root.selectNodes(nodeName);
+			if(nodes.size()==0)
+				return;
+			
+			
+			JSONArray node = new JSONArray();
+			// Only first element is important in group container
+			int pos = 0;
+			for(Object repeatcontainer : nodes){
+				pos++;
+				Element container=(Element)repeatcontainer;
+				JSONArray repeatitem = addRepeatedNodeToJson(container,f,operation,tempSon);
+				JSONObject repeated = repeatitem.getJSONObject(0);
+				out.put(f.getID(), repeated);
+			}
 		}
 		
 	}
@@ -707,7 +772,7 @@ public class XmlJsonConversion {
 			}
 		}
 		List nodes=root.selectNodes(nodeName);
-		if(nodes.size()==0){
+		if(nodes.size()==0){// add in empty primary tags and arrays etc to help UI
 			if(f.asSibling()){
 				JSONObject repeated = new JSONObject();
 				if(f.hasPrimary()){
@@ -760,7 +825,7 @@ public class XmlJsonConversion {
 		if(fs instanceof Field)
 			addFieldToJson(out,root,(Field)fs,permlevel, tempSon,csid,ims_url);
 		else if(fs instanceof Group)
-			addGroupToJson(out,root,(Group)fs,permlevel,tempSon);
+			addGroupToJson(out,root,(Group)fs,permlevel,tempSon,csid,ims_url);
 		else if(fs instanceof Repeat)
 			addRepeatToJson(out,root,(Repeat)fs,permlevel, tempSon,csid,ims_url);
 	}

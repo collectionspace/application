@@ -399,10 +399,16 @@
                                 <selector>object-description-content-concept</selector>
                             </field>
                         </repeat>
+
                         <field id="contentDate" ui-search="repeatable" ui-type="groupfield/structureddate" primarykey="contentDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
                             <services-tag>contentDateGroup</services-tag>
                             <selector>csc-object-description-content-date</selector>
                         </field>
+					<!--	
+                    <field id="objectContentDate" ui-search="repeatable" ui-type="groupfield/structureddate" primarykey="objectContentDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
+                    	<services-tag>objectContentDateGroup</services-tag>
+                    </field>
+						-->
                         <repeat id="contentPositions">
                             <field id="contentPosition" seperate_ui_container="true">
                                 <selector>object-description-content-position</selector>
@@ -617,11 +623,16 @@
                 </section>
                 <section id="objectProductionInformation">
                 	
+                	<!--
                     <field id="objectProductionDate" ui-search="repeatable" ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
                         <services-tag>objectProductionDateGroup</services-tag>
                         <selector>object-production-date</selector>
                     </field>
-                	
+                	-->
+                    <repeat id="objectProductionDateGroupList/objectProductionDateGroup">
+                    <group id="objectProductionDate" showgrouped="false" ui-type="groupfield/structureddate" primarykey="objectProductionDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
+                    </group>
+					</repeat>
                     <repeat id="techniqueGroupList/techniqueGroup">
                         <!-- selector>csc-collection-object-techniqueGroup</selector -->
                         <field id="technique" ui-search="repeatable">
