@@ -62,7 +62,7 @@ public class TestServices {
 		return cspm;
 		
 	}
-	//@Test 
+	@Test 
 	public void testServices(){
 
 		String configfile = "lifesci-tenant.xml";
@@ -80,13 +80,13 @@ public class TestServices {
 //		}
 //		
 		maketype = "delta"; //this might not be delta - but it will be one day
-		try {
-			XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype);
-			log.info(s.getFile());
-		} catch (UIException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+//		try {
+//			XsdGeneration s = new XsdGeneration(configfile, recordtype, domain, maketype);
+//			log.info(s.getFile());
+//		} catch (UIException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
 		
 	}
 }
