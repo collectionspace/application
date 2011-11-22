@@ -265,7 +265,7 @@ public class UISpec implements WebMethod {
 						}
 						options.put("elPath", fs.getID());
 						options.put("root", "{row}");
-						out.put("value",veryplain("{row}."+fs.getID()));
+						out.put("value",veryplain("{row}."+fs.getPrimaryKey()));
 					}
 				}
 				if(!truerepeat){
@@ -460,7 +460,6 @@ public class UISpec implements WebMethod {
 		else{
 			JSONArray decorators=new JSONArray();
 
-			Boolean isASelfRenderer = false;
 			JSONObject options=new JSONObject();
 			JSONObject preProtoTree=new JSONObject();
 
@@ -486,47 +485,33 @@ public class UISpec implements WebMethod {
 			}
 			else{
 				for(FieldSet child :r.getChildren("")) {
-					if(child.getUIType().startsWith("groupfield")){
-						isASelfRenderer = true;
-					}
 					if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
 						generateDataEntry(preProtoTree,child, context);
 					}
 				}
 			}
 			
-			if(isASelfRenderer){
+			JSONObject expander = new JSONObject();
+			expander.put("type", "fluid.noexpand");
+			expander.put("tree", preProtoTree);
+			
+			
+			JSONObject repeatTree = new JSONObject();
+			repeatTree.put("expander", expander);
+			if(r.getParent() instanceof Record){
 				options.put("elPath",veryplainWithoutEnclosure(r,context));
-				JSONObject expander = new JSONObject();
-				expander.put("type", "fluid.renderer.repeat");
-				expander.put("controlledBy", veryplainWithoutEnclosure(r,context));//"fields."+r.getID());
-				expander.put("pathAs", "row");
-				expander.put("repeatID", "repeat:");
-				expander.put("tree",preProtoTree);
-				generateSelfRenderedEntry(options, expander);
 			}
 			else{
-				JSONObject expander = new JSONObject();
-				expander.put("type", "fluid.noexpand");
-				expander.put("tree", preProtoTree);
-				
-				
-				JSONObject repeatTree = new JSONObject();
-				repeatTree.put("expander", expander);
-				if(r.getParent() instanceof Record){
-					options.put("elPath",veryplainWithoutEnclosure(r,context));
-				}
-				else{
-					options.put("elPath", r.getID());
-					options.put("root", "{row}");
-				}
-				options.put("repeatTree", repeatTree);
-				//is this a nested repeat or a top level repeat...
-				//is this a uispec for search - if so no primary tags wanted
-				if(r.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
-					options.put("hidePrimary", true);
-				}
+				options.put("elPath", r.getID());
+				options.put("root", "{row}");
 			}
+			options.put("repeatTree", repeatTree);
+			//is this a nested repeat or a top level repeat...
+			//is this a uispec for search - if so no primary tags wanted
+			if(r.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
+				options.put("hidePrimary", true);
+			}
+			
 
 			JSONObject decorator = getDecorator("fluid",null,"cspace.makeRepeatable",options,r.isReadOnly());
 			decorators.put(decorator);

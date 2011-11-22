@@ -2289,18 +2289,18 @@
             "messagekey": "collection-object-materialNameLabel"
         },
         ".csc-objectProductionDateGroup-objectProductionDate": {
-            "decorators": [{
+        "decorators": [
+            {
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
                     "elPath": "fields.objectProductionDateGroup",
-                    "protoTree": {
+                    "repeatTree": {
                         "expander": {
                             "tree": {
-                                "repeatID": "repeat:",
-                                "tree": {
-                                    ".csc-objectProductionDateGroup-objectProductionDate": {
-                                        "decorators": [{
+                                ".csc-objectProductionDateGroup-objectProductionDate": {
+                                    "decorators": [
+                                        {
                                             "func": "cspace.structuredDate",
                                             "type": "fluid",
                                             "options": {
@@ -2332,20 +2332,18 @@
                                                     "dateEarliestSingleMonth": "dateEarliestSingleMonth"
                                                 }
                                             }
-                                        }],
-                                        "value": "${{row}.objectProductionDate}"
-                                    }
-                                },
-                                "type": "fluid.renderer.repeat",
-                                "pathAs": "row",
-                                "controlledBy": "fields.objectProductionDateGroup"
+                                        }
+                                    ],
+                                    "value": "${{row}.objectProductionDate.dateDisplayDate}"
+                                }
                             },
                             "type": "fluid.noexpand"
                         }
                     }
                 }
-            }]
-        },
+            }
+        ]
+    },
         ".csc-collection-object-viewersRole-label": {
             "messagekey": "collection-object-viewersRoleLabel"
         },
