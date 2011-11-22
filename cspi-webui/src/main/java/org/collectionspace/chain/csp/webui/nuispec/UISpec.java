@@ -1156,10 +1156,15 @@ public class UISpec implements WebMethod {
 			decorator.put("func",func);
 		}
 		if(options != null){
+			if(readOnly){
+				options.put("readOnly",true);
+			}
 			decorator.put("options",options);
 		}
-		if(readOnly){
-			decorator.put("readOnly",true);
+		else if(readOnly){
+			options = new JSONObject();
+			options.put("readOnly",true);
+			decorator.put("options",options);
 		}
 		return decorator;
 	}

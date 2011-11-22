@@ -405,10 +405,10 @@
                 ".csc-media-blobs": {},
                 ".csc-blobs-dimension": {
                     "decorators": [{
-                        "readOnly": true,
                         "func": "cspace.dimension",
                         "type": "fluid",
                         "options": {
+                        	"readOnly": true,
                             "protoTree": {
                                 "expander": {
                                     "tree": {
