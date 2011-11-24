@@ -2305,7 +2305,7 @@
                                             "type": "fluid",
                                             "options": {
                                                 "root": "{row}",
-                                                "elPath": "objectProductionDate",
+                                                "elPath": "dateDisplayDate",
                                                 "elPaths": {
                                                     "dateEarliestSingleQualifier": "dateEarliestSingleQualifier",
                                                     "scalarValuesComputed": "scalarValuesComputed",

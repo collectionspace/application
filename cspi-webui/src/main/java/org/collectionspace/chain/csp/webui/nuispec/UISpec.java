@@ -263,7 +263,7 @@ public class UISpec implements WebMethod {
 						for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
 							subexpander.put(getSelector(fs2,sub), fs2.getID());
 						}
-						options.put("elPath", fs.getID());
+						options.put("elPath", fs.getPrimaryKey());
 						options.put("root", "{row}");
 						out.put("value",veryplain("{row}."+fs.getPrimaryKey()));
 					}
