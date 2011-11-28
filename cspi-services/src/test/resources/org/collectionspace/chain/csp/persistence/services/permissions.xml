@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns2:permission xmlns:ns2="http://collectionspace.org/services/authorization">
+<ns2:permission xmlns:ns2="http://collectionspace.org/services/authorization/perms">
         <resourceName>testthing</resourceName>
         <action><name>CREATE</name></action>
         <action><name>READ</name></action>
