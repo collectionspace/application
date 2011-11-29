@@ -181,6 +181,7 @@ public class TestUIRecords {
 		tester.testLists(jetty, "/media/",tester. mediaCreate(), "items");
 		log.info("Testing UISPEC");
 		tester.testUIspec(jetty, "/media/uispec", "media.uispec");
+		tester.testUIspec(jetty, "/media/uischema", "media.uischema");
 
 		log.info("Testing UISPEC for content");
 		HttpTester out = tester.GETData("/media/uispec",jetty);
@@ -199,7 +200,8 @@ public class TestUIRecords {
 	}
 
 
-	@Test public void testUpload() throws Exception {
+	//@Test 
+	public void testUpload() throws Exception {
 		String filename = getClass().getPackage().getName().replaceAll("\\.","/")+"/darwin-beard-hat.jpg";
 		byte[] data = IOUtils.toByteArray(Thread.currentThread().getContextClassLoader().getResourceAsStream(filename));
 		UTF8SafeHttpTester out=tester.POSTBinaryData("/uploads",data,jetty);
