@@ -1373,7 +1373,7 @@
         ".csc-collection-object-contentDate-label": {
             "messagekey": "collection-object-contentDateLabel"
         },
-        ".csc-csc-object-description-content-date": {
+        ".csc-object-description-content-date": {
             "decorators": [{
                 "func": "cspace.structuredDate",
                 "type": "fluid",
