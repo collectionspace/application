@@ -1,4 +1,137 @@
 {
+    "hierarchy": {
+        ".csc-hierarchy-narrowerContext-label": {
+            "messagekey": "hierarchy-narrowerContextLabel"
+        },
+        ".csc-hierarchy-broaderContext": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/broaderContext",
+                    "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/broaderContext"
+                }
+            }],
+            "value": "${fields.broaderContext}"
+        },
+        ".csc-hierarchy-narrowerContext": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-hierarchy-narrowerContext": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/narrowerContext",
+                                            "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/narrowerContext",
+                                            "invokers": {
+                                                "selectMatch": {
+                                                    "funcName": "cspace.autocomplete.selectMatchConfirm"
+                                                }
+                                            },
+                                            "strings": {
+                                                "narrowerChange": "Warning: %narrower currently has broader term %broader. Change broader term?"
+                                            }
+                                        }
+                                    }],
+                                    "value": "${{row}.narrowerContext}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "fields.narrowerContexts"
+                }
+            }]
+        },
+        ".csc-hierarchy-broaderContext-label": {
+            "messagekey": "hierarchy-broaderContextLabel"
+        },
+        ".csc-hierarchy-equivalentContext-label": {
+            "messagekey": "hierarchy-equivalentContextLabel"
+        },
+        "expander": [{
+            "condition": {
+                "funcName": "cspace.hierarchy.assertEquivalentContexts",
+                "args": {
+                    "equivalentContexts": "${fields.equivalentContexts}"
+                }
+            },
+            "trueTree": {
+                ".csc-hierarchy-equivalentContext-label": {
+                    "messagekey": "hierarchy-equivalentContextLabel"
+                }
+            },
+            "type": "fluid.renderer.condition",
+            "falseTree": {
+                ".csc-hierarchy-equivalentContext-label": {
+                    "decorators": {
+                        "classes": "hidden",
+                        "type": "addClass"
+                    }
+                }
+            }
+        }, {
+            "repeatID": ".csc-hierarchy-equivalentContext:",
+            "tree": {
+                "decorators": {
+                    "classes": "cs-hierarchy-equivalentContext",
+                    "type": "addClass"
+                },
+                "value": "${{row}.equivalentContext}"
+            },
+            "type": "fluid.renderer.repeat",
+            "pathAs": "row",
+            "controlledBy": "fields.equivalentContexts"
+        }],
+        ".csc-hierarchy-domaindata-label": {
+            "messagekey": "hierarchy-domaindataLabel"
+        },
+        ".csc-hierarchy-relatedTerms-label": {
+            "messagekey": "hierarchy-relatedTermsLabel"
+        },
+        ".csc-hierarchy-narrowerContexts-label": {
+            "messagekey": "hierarchy-narrowerContextsLabel"
+        },
+        ".csc-hierarchy-relatedTerm": {
+            "decorators": [{
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-hierarchy-relatedTerm": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/vocabularies/organization/autocomplete/relatedTerm",
+                                            "vocabUrl": "../../../tenant/core/vocabularies/organization/source-vocab/relatedTerm"
+                                        }
+                                    }],
+                                    "value": "${{row}.relatedTerm}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "fields.relatedTerms"
+                }
+            }]
+        },
+        ".csc-hierarchy-equivalentContexts-label": {
+            "messagekey": "hierarchy-equivalentContextsLabel"
+        },
+        ".csc-hierarchy-relatedTerm-label": {
+            "messagekey": "hierarchy-relatedTermLabel"
+        }
+    },
     "recordEditor": {
         ".csc-contact-addressStateOrProvince-label": {
             "messagekey": "contact-addressStateOrProvinceLabel"
