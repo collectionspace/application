@@ -243,6 +243,13 @@ public class VocabulariesRead implements WebMethod {
 				}
 			}
 		}
+		if(!fields.has("relatedTerms")){
+			JSONObject temp = new JSONObject();
+			temp.put("_primary", true);
+			JSONArray at = new JSONArray();
+			at.put(temp);
+			fields.put("relatedTerms",at);
+		}
 		return fields;
 	}
 	
