@@ -165,7 +165,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 				//add relationships section
 				if(!alleles.isEmpty()){
-					Element[] array = (Element[])alleles.toArray(new Element[0]);
+					Element[] array = alleles.toArray(new Element[0]);
 					Document out=XmlJsonConversion.getXMLRelationship(array);
 
 					body.put("relations-common-list",out);
@@ -292,7 +292,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		return get(storage,creds,cache,url,ims_url);
 	}
 	private JSONObject get(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String url,String ims_url) throws ConnectionException, ExistException, UnderlyingStorageException, JSONException {
-		int status=0;
+		//int status=0;
 		String csid = "";
 		JSONObject out = new JSONObject();
 			// XXX pagination support
@@ -339,10 +339,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			}
 			
 
-	        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(refid);
-	        String thisShortid = itemParsed.getShortIdentifier();
+	        //RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(refid);
+	        //String thisShortid = itemParsed.getShortIdentifier();
 	        String thiscsid = csid;
-	        String thisparent = itemParsed.getParentShortIdentifier();
+	        //String thisparent = itemParsed.getParentShortIdentifier();
 
 			
 			if(r.hasHierarchyUsed("screen")){
@@ -350,23 +350,23 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				Document list = doc.getDocument("relations-common-list");
 				//loop over all the relationship types
 
-				List<String> listitems=new ArrayList<String>();
+				//List<String> listitems=new ArrayList<String>();
 //persons-common-list/person_list_item
 				List<Node> nodes=list.selectNodes("/relations-common-list/*");
 
 				for(Node node : nodes) {
 					if(node.matches("/relations-common-list/relation-list-item")){
-						String test = node.asXML();
+						//String test = node.asXML();
 						String relationshipType = node.selectSingleNode("relationshipType").getText();
-						String subjCSID = node.selectSingleNode("subjectCsid").getText();
+						//String subjCSID = node.selectSingleNode("subjectCsid").getText();
 						String objCSID = node.selectSingleNode("objectCsid").getText();
 						String suri="";
 						String scsid="";
 						String sser="";
 						if(node.selectSingleNode("subject/uri")!=null){
-							String surl = node.selectSingleNode("subject/uri").getText();
+							//String surl = node.selectSingleNode("subject/uri").getText();
 							scsid=node.selectSingleNode("subject/csid").getText();
-							String sname=node.selectSingleNode("subject/name").getText();
+							//String sname=node.selectSingleNode("subject/name").getText();
 							sser=node.selectSingleNode("subject/documentType").getText();
 							suri = node.selectSingleNode("subject/refName").getText();
 					//		suri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],sname);
@@ -379,11 +379,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						String oser="";
 						String ocsid="";
 						if(node.selectSingleNode("object/uri")!=null){
-							String ourl=node.selectSingleNode("object/uri").getText();
+							//String ourl=node.selectSingleNode("object/uri").getText();
 							ocsid=node.selectSingleNode("object/csid").getText();
-							String oname=node.selectSingleNode("object/name").getText();
+							//String oname=node.selectSingleNode("object/name").getText();
 							oser=node.selectSingleNode("object/documentType").getText();
-							String[] urnbits = ourl.split("/");
+							//String[] urnbits = ourl.split("/");
 							ouri = node.selectSingleNode("object/refName").getText();
 					//		ouri=urn_processor.constructURN("id",urnbits[2],"id",urnbits[4],oname);
 						}
@@ -682,7 +682,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				}
 				//add relationships section
 				if(!alleles.isEmpty()){
-					Element[] array = (Element[])alleles.toArray(new Element[0]);
+					Element[] array = alleles.toArray(new Element[0]);
 					Document out=XmlJsonConversion.getXMLRelationship(array);
 					body.put("relations-common-list",out);
 					//log.info(out.asXML());
@@ -783,8 +783,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 
 								for(int i=0;i<subarray.length();i++) {
 									JSONObject subrecord = subarray.getJSONObject(i);
-									if(((JSONObject) subdata).has("_subrecordcsid")){
-										String thiscsid = ((JSONObject) subdata).getString("_subrecordcsid");
+									if(subrecord.has("_subrecordcsid")){
+										String thiscsid = subrecord.getString("_subrecordcsid");
 										//update
 										if(existingcsid.has(thiscsid)){
 											updatecsid.put(thiscsid, (JSONObject) subdata);
