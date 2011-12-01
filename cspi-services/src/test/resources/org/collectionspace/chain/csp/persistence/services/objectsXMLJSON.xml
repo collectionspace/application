@@ -277,25 +277,35 @@
     <form></form>
 </forms>
 <!-- Object description Inscription - Content Information -->
-<inscriptionContent></inscriptionContent>
-<inscriptionContentInscriber></inscriptionContentInscriber>
-<inscriptionContentDate></inscriptionContentDate>
-<inscriptionContentInterpretation></inscriptionContentInterpretation>
-<inscriptionContentLanguage></inscriptionContentLanguage>
-<inscriptionContentMethod></inscriptionContentMethod>
-<inscriptionContentPosition></inscriptionContentPosition>
-<inscriptionContentScript></inscriptionContentScript>
-<inscriptionContentTranslation></inscriptionContentTranslation>
-<inscriptionContentTransliteration></inscriptionContentTransliteration>
-<inscriptionContentType></inscriptionContentType>
+    <!-- Made repeatable in v1.13 -->
+<textualInscriptionGroupList>
+    <textualInscriptionGroup>
+        <inscriptionContent></inscriptionContent>
+        <inscriptionContentInscriber></inscriptionContentInscriber>
+        <inscriptionContentDate></inscriptionContentDate>
+        <inscriptionContentInterpretation></inscriptionContentInterpretation>
+        <inscriptionContentLanguage></inscriptionContentLanguage>
+        <inscriptionContentMethod></inscriptionContentMethod>
+        <inscriptionContentPosition></inscriptionContentPosition>
+        <inscriptionContentScript></inscriptionContentScript>
+        <inscriptionContentTranslation></inscriptionContentTranslation>
+        <inscriptionContentTransliteration></inscriptionContentTransliteration>
+        <inscriptionContentType></inscriptionContentType>
+    </textualInscriptionGroup>
+</textualInscriptionGroupList>
 <!-- Object Description Inscription - Description Information -->
-<inscriptionDescription></inscriptionDescription>
-<inscriptionDescriptionInscriber></inscriptionDescriptionInscriber>
-<inscriptionDescriptionDate></inscriptionDescriptionDate>
-<inscriptionDescriptionInterpretation></inscriptionDescriptionInterpretation>
-<inscriptionDescriptionMethod></inscriptionDescriptionMethod>
-<inscriptionDescriptionPosition></inscriptionDescriptionPosition>
-<inscriptionDescriptionType></inscriptionDescriptionType>
+    <!-- Made repeatable in v1.13 -->
+<nonTextualInscriptionGroupList>
+    <nonTextualInscriptionGroup>
+        <inscriptionDescription></inscriptionDescription>
+        <inscriptionDescriptionInscriber></inscriptionDescriptionInscriber>
+        <inscriptionDescriptionDate></inscriptionDescriptionDate>
+        <inscriptionDescriptionInterpretation></inscriptionDescriptionInterpretation>
+        <inscriptionDescriptionMethod></inscriptionDescriptionMethod>
+        <inscriptionDescriptionPosition></inscriptionDescriptionPosition>
+        <inscriptionDescriptionType></inscriptionDescriptionType>
+    </nonTextualInscriptionGroup>
+</nonTextualInscriptionGroupList>
 <!-- Object Description Material Information -->
 <materialGroupList>
 	<materialGroup>

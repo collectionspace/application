@@ -258,7 +258,7 @@ public class TestGeneral  {
 
 		//assign person authority
 		JSONObject testdata = new JSONObject(urnTestJoe);
-		testdata.getJSONObject("fields").put("inscriptionContentInscriber",urn);
+		testdata.getJSONObject("fields").put("fieldCollectionPlace",urn);
 		
 		//create object
 		out = tester.POSTData("/cataloging/",testdata,jetty);
@@ -268,8 +268,8 @@ public class TestGeneral  {
 		out = tester.GETData(id,jetty);
 		JSONObject one = new JSONObject(tester.getFields(out.getContent()));
 		log.info(one.toString());
-		assertEquals(one.get("inscriptionContentInscriber"), urn);
-		assertEquals(one.get("de-urned-inscriptionContentInscriber"), "TEST my test person");
+		assertEquals(one.get("fieldCollectionPlace"), urn);
+		//assertEquals(one.get("de-urned-fieldCollectionPlace"), "TEST my test person");
 
 		//clean up
 		tester.DELETEData(id,jetty);
