@@ -15,6 +15,7 @@ import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Spec;
+import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
@@ -242,6 +243,13 @@ public class VocabulariesRead implements WebMethod {
 					fields.put(r.getID(),"");
 				}
 			}
+		}
+		if(!fields.has("relatedTerms")){
+			JSONObject temp = new JSONObject();
+			temp.put("_primary", true);
+			JSONArray at = new JSONArray();
+			at.put(temp);
+			fields.put("relatedTerms",at);
 		}
 		return fields;
 	}
