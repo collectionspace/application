@@ -36,10 +36,12 @@ public class RecordDelete implements WebMethod {
 				String url = base+"/"+path+"/"+"accountroles/";
 				JSONObject accounts = storage.retrieveJSON(url, new JSONObject());
 				if(accounts.has("account") && accounts.getJSONArray("account").length() >0){
-					//refuse to delete as has roles attached
-					UIException uiexception =  new UIException("This Role has Accounts associated with it");
-					request.sendJSONResponse(uiexception.getJSON());
-					return;
+					if(accounts.getJSONArray("account").getJSONObject(0).length() >0 ){
+						//refuse to delete as has roles attached
+						UIException uiexception =  new UIException("This Role has Accounts associated with it");
+						request.sendJSONResponse(uiexception.getJSON());
+						return;
+					}
 				}
 				
 			}
