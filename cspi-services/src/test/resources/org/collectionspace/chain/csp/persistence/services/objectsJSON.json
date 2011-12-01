@@ -1,9 +1,29 @@
 {
-    "inscriptionContentTranslation": "",
-    "inscriptionContentMethod": "",
-    "inscriptionDescriptionPosition": "",
+    "textualInscriptionGroup": [{
+        "_primary": true,
+        "inscriptionContent": "",
+        "inscriptionContentDate": "",
+        "inscriptionContentInscriber": "",
+        "inscriptionContentInterpretation": "",
+        "inscriptionContentLanguage": "",
+        "inscriptionContentMethod": "",
+        "inscriptionContentPosition": "",
+        "inscriptionContentScript": "",
+        "inscriptionContentTranslation": "",
+        "inscriptionContentTransliteration": "",
+        "inscriptionContentType": ""
+     }],
+    "nonTextualInscriptionGroup": [{
+        "_primary": true,
+        "inscriptionDescription": "",
+        "inscriptionDescriptionDate": "",
+        "inscriptionDescriptionInscriber": "",
+        "inscriptionDescriptionInterpretation": "",
+        "inscriptionDescriptionMethod": "",
+        "inscriptionDescriptionPosition": "",
+        "inscriptionDescriptionType": ""
+    }],
     "objectHistoryNote": "",
-    "inscriptionContentInscriber": "",
     "viewersPersonalResponse": "",
     "fieldCollectionMethods": [{
         "_primary": true,
@@ -23,12 +43,10 @@
         "responsibleDepartment": "ethnography"
     }],
     "ownershipAccess": "",
-    "inscriptionContentPosition": "",
     "contentPositions": [{
         "_primary": true,
         "contentPosition": "contentPosition"
     }],
-    "inscriptionContentTransliteration": "",
     "dateLatestQualifier": "",
     "styles": [{
         "_primary": true,
@@ -57,8 +75,6 @@
         "_primary": true,
         "owner": ""
     }],
-    "inscriptionDescriptionDate": "",
-    "inscriptionDescriptionInterpretation": "",
     "objectProductionPlaceGroup": [{
         "_primary": true,
         "objectProductionPlace": "",
@@ -87,7 +103,6 @@
         "assocPlaceType": ""
     }],
     "collection": "collection",
-    "inscriptionContent": "",
     
     "contentDate": {
         "dateEarliestSingleQualifier": "",
@@ -120,7 +135,6 @@
         "assocConceptNote": "",
         "assocConceptType": ""
     }],
-    "inscriptionDescriptionType": "",
     "assocPersonGroup": [{
         "_primary": true,
         "assocPersonType": "",
@@ -130,7 +144,6 @@
     "dateText": "",
     "viewersPersonalExperience": "",
     "dateEarliestSingle": "",
-    "inscriptionContentScript": "",
     "ownersPersonalResponse": "",
     "ageQualifier": "ageQualifier",
     "contentEventNameGroup": [{
@@ -151,7 +164,6 @@
         "_primary": true
     }],
     "fieldCollectionNumber": "",
-    "inscriptionDescription": "",
     "assocEventPersons": [{
         "_primary": true,
         "assocEventPerson": ""
@@ -216,7 +228,6 @@
     "ownershipCategory": "",
     "copyNumber": "copyNumber",
     "ownershipDates": "",
-    "inscriptionContentInterpretation": "",
     "contentActivities": [{
         "_primary": true,
         "contentActivity": "contentActivity a"
@@ -334,7 +345,6 @@
         "_primary": true,
         "fieldColEventName": "fieldCollectionEventName"
     }],
-    "inscriptionContentType": "",
     "assocEventPlaces": [{
         "_primary": true,
         "assocEventPlace": ""
@@ -362,7 +372,6 @@
         "titleType": "collection",
         "titleLanguage": "German"
     }],
-    "inscriptionDescriptionInscriber": "",
     "contentPlaces": [{
         "contentPlace": "contentPlace 1",
         "_primary": true
@@ -372,7 +381,6 @@
         "contentPlace": "contentPlace 3"
     }],
     "phase": "",
-    "inscriptionContentLanguage": "",
     "contentNote": "contentNote",
     "dateEarliestSingleQualifier": "",
     "assocPeopleGroup": [{
@@ -389,7 +397,6 @@
     }, {
         "contentPeople": "contentPeople b"
     }],
-    "inscriptionDescriptionMethod": "",
     "sex": "",
     "assocDateGroup": [{
         "_primary": true,
@@ -491,6 +498,5 @@
         "assocObjectType": "",
         "assocObjectNote": "",
         "assocObject": ""
-    }],
-    "inscriptionContentDate": ""
+    }]
 }

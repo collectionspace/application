@@ -629,9 +629,9 @@ public class TestService extends ServicesBaseClass {
 				"objectCreate.xml", "objectsXMLJSON.xml",
 				"collectionobjects_common/objectNumber", "2010.1.9");
 
-		testPostGetDelete("acquisitions/", "acquisitions_common",
-				"acquisitionXMLJSON.xml", "acquisitions_common/accessionDate",
-				"2010-04-01T04:00:00Z");
+		//testPostGetDelete("acquisitions/", "acquisitions_common",
+		//		"acquisitionXMLJSON.xml", "acquisitions_common/accessionDate",
+		//		"2010-04-01T04:00:00Z");
 		testPostGetDelete("intakes/", "intakes_common", "intake.xml",
 				"intakes_common/entryNumber", "IN2010.337");
 		testPostGetDelete("loansin/", "loansin_common", "loanin.xml",

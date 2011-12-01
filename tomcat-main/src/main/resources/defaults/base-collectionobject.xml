@@ -501,124 +501,128 @@
                         </field>
                     </section>
                     <section id="textualInscriptionInformation">
-                        <field id="inscriptionContent">
-                            <selector>object-description-inscription-content</selector>
-                        </field>
-                        <field id="inscriptionContentInscriber" autocomplete="person-person,organization-organization">
-                            <selector>object-description-inscription-content-inscriber</selector>
-                        </field>
-                        <field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
-                            <enum>
-                                <default>eng</default>
-                                <blank-value>Please select a value</blank-value>
-                            </enum>
-                            <selector>object-description-inscription-content-language</selector>
-                        </field>
-                        <field id="inscriptionContentDate" ui-type="date">
-                            <selector>object-description-inscription-content-date</selector>
-                        </field>
-                        <field id="inscriptionContentPosition" seperate_ui_container="true">
-                            <selector>object-description-inscription-content-position</selector>
-                            <options>
-                                <option id="">Please select a value</option>
-                                <option id="back">back</option>
-                                <option id="base">base</option>
-                                <option id="bottom">bottom</option>
-                                <option id="front">front</option>
-                                <option id="inside">inside</option>
-                                <option id="left">left</option>
-                                <option id="outside">outside</option>
-                                <option id="recto">recto</option>
-                                <option id="right">right</option>
-                                <option id="rim">rim</option>
-                                <option id="top">top</option>
-                                <option id="verso">verso</option>
-                            </options>
-                        </field>
-                        <field id="inscriptionContentScript" seperate_ui_container="true">
-                            <selector>object-description-inscription-content-script</selector>
-                            <options>
-                                <option id="">Please select a value</option>
-                                <option id="carolingian-miniscule">Carolingian miniscule</option>
-                                <option id="gothic-script">Gothic script</option>
-                                <option id="palmer-method">Palmer method</option>
-                                <option id="roman-cursive">Roman cursive</option>
-                                <option id="rustic-capitals">rustic capitals</option>
-                                <option id="spencerian-method">Spencerian method</option>
-                                <option id="square-capitals">square capitals</option>
-                            </options>
-                        </field>
-                        <field id="inscriptionContentType" seperate_ui_container="true">
-                            <selector>object-description-inscription-content-type</selector>
-                            <options>
-                                <option id="">Please select a value</option>
-                                <option id="brand">brand</option>
-                                <option id="decoration">decoration</option>
-                                <option id="estate-stamp">estate stamp</option>
-                                <option id="graffiti">graffiti</option>
-                                <option id="label">label</option>
-                                <option id="maker's-mark">maker's mark</option>
-                            </options>
-                        </field>
-                        <field id="inscriptionContentMethod">
-                            <selector>object-description-inscription-content-method</selector>
-                        </field>
-                        <field id="inscriptionContentInterpretation">
-                            <selector>object-description-inscription-content-interpretation</selector>
-                        </field>
-                        <field id="inscriptionContentTranslation">
-                            <selector>object-description-inscription-content-translation</selector>
-                        </field>
-                        <field id="inscriptionContentTransliteration">
-                            <selector>object-description-inscription-content-transliteration</selector>
-                        </field>
+                        <repeat id="textualInscriptionGroupList/textualInscriptionGroup">
+                            <field id="inscriptionContent">
+                                <selector>object-description-inscription-content</selector>
+                            </field>
+                            <field id="inscriptionContentInscriber" autocomplete="person-person,organization-organization">
+                                <selector>object-description-inscription-content-inscriber</selector>
+                            </field>
+                            <field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
+                                <enum>
+                                    <default>eng</default>
+                                    <blank-value>Please select a value</blank-value>
+                                </enum>
+                                <selector>object-description-inscription-content-language</selector>
+                            </field>
+                            <field id="inscriptionContentDate" ui-type="date">
+                                <selector>object-description-inscription-content-date</selector>
+                            </field>
+                            <field id="inscriptionContentPosition" seperate_ui_container="true">
+                                <selector>object-description-inscription-content-position</selector>
+                                <options>
+                                    <option id="">Please select a value</option>
+                                    <option id="back">back</option>
+                                    <option id="base">base</option>
+                                    <option id="bottom">bottom</option>
+                                    <option id="front">front</option>
+                                    <option id="inside">inside</option>
+                                    <option id="left">left</option>
+                                    <option id="outside">outside</option>
+                                    <option id="recto">recto</option>
+                                    <option id="right">right</option>
+                                    <option id="rim">rim</option>
+                                    <option id="top">top</option>
+                                    <option id="verso">verso</option>
+                                </options>
+                            </field>
+                            <field id="inscriptionContentScript" seperate_ui_container="true">
+                                <selector>object-description-inscription-content-script</selector>
+                                <options>
+                                    <option id="">Please select a value</option>
+                                    <option id="carolingian-miniscule">Carolingian miniscule</option>
+                                    <option id="gothic-script">Gothic script</option>
+                                    <option id="palmer-method">Palmer method</option>
+                                    <option id="roman-cursive">Roman cursive</option>
+                                    <option id="rustic-capitals">rustic capitals</option>
+                                    <option id="spencerian-method">Spencerian method</option>
+                                    <option id="square-capitals">square capitals</option>
+                                </options>
+                            </field>
+                            <field id="inscriptionContentType" seperate_ui_container="true">
+                                <selector>object-description-inscription-content-type</selector>
+                                <options>
+                                    <option id="">Please select a value</option>
+                                    <option id="brand">brand</option>
+                                    <option id="decoration">decoration</option>
+                                    <option id="estate-stamp">estate stamp</option>
+                                    <option id="graffiti">graffiti</option>
+                                    <option id="label">label</option>
+                                    <option id="maker's-mark">maker's mark</option>
+                                </options>
+                            </field>
+                            <field id="inscriptionContentMethod">
+                                <selector>object-description-inscription-content-method</selector>
+                            </field>
+                            <field id="inscriptionContentInterpretation">
+                                <selector>object-description-inscription-content-interpretation</selector>
+                            </field>
+                            <field id="inscriptionContentTranslation">
+                                <selector>object-description-inscription-content-translation</selector>
+                            </field>
+                            <field id="inscriptionContentTransliteration">
+                                <selector>object-description-inscription-content-transliteration</selector>
+                            </field>
+                        </repeat>
                     </section>
                     <section id="nonTextualInscriptionInformation">
-                        <field id="inscriptionDescription">
-                            <selector>object-description-inscription-description</selector>
-                        </field>
-                        <field id="inscriptionDescriptionInscriber" ui-search="repeatable" autocomplete="person-person,organization-organization">
-                            <selector>object-description-inscription-description-inscriber</selector>
-                        </field>
-                        <field id="inscriptionDescriptionDate" ui-type="date">
-                            <selector>object-description-inscription-description-date</selector>
-                        </field>
-                        <field id="inscriptionDescriptionPosition" seperate_ui_container="true">
-                            <selector>object-description-inscription-description-position</selector>
-                            <options>
-                                <option id="">Please select a value</option>
-                                <option id="back">back</option>
-                                <option id="base">base</option>
-                                <option id="bottom">bottom</option>
-                                <option id="front">front</option>
-                                <option id="inside">inside</option>
-                                <option id="left">left</option>
-                                <option id="outside">outside</option>
-                                <option id="recto">recto</option>
-                                <option id="right">right</option>
-                                <option id="rim">rim</option>
-                                <option id="top">top</option>
-                                <option id="verso">verso</option>
-                            </options>
-                        </field>
-                        <field id="inscriptionDescriptionType" seperate_ui_container="true">
-                            <selector>object-description-inscription-description-type</selector>
-                            <options>
-                                <option id="">Please select a value</option>
-                                <option id="brand">brand</option>
-                                <option id="decoration">decoration</option>
-                                <option id="estate-stamp">estate stamp</option>
-                                <option id="graffiti">graffiti</option>
-                                <option id="label">label</option>
-                                <option id="maker's-mark">maker's mark</option>
-                            </options>
-                        </field>
-                        <field id="inscriptionDescriptionMethod" ui-search="repeatable">
-                            <selector>object-description-inscription-description-method</selector>
-                        </field>
-                        <field id="inscriptionDescriptionInterpretation">
-                            <selector>object-description-inscription-description-interpretation</selector>
-                        </field>
+                        <repeat id="nonTextualInscriptionGroupList/nonTextualInscriptionGroup">
+                            <field id="inscriptionDescription">
+                                <selector>object-description-inscription-description</selector>
+                            </field>
+                            <field id="inscriptionDescriptionInscriber" ui-search="repeatable" autocomplete="person-person,organization-organization">
+                                <selector>object-description-inscription-description-inscriber</selector>
+                            </field>
+                            <field id="inscriptionDescriptionDate" ui-type="date">
+                                <selector>object-description-inscription-description-date</selector>
+                            </field>
+                            <field id="inscriptionDescriptionPosition" seperate_ui_container="true">
+                                <selector>object-description-inscription-description-position</selector>
+                                <options>
+                                    <option id="">Please select a value</option>
+                                    <option id="back">back</option>
+                                    <option id="base">base</option>
+                                    <option id="bottom">bottom</option>
+                                    <option id="front">front</option>
+                                    <option id="inside">inside</option>
+                                    <option id="left">left</option>
+                                    <option id="outside">outside</option>
+                                    <option id="recto">recto</option>
+                                    <option id="right">right</option>
+                                    <option id="rim">rim</option>
+                                    <option id="top">top</option>
+                                    <option id="verso">verso</option>
+                                </options>
+                            </field>
+                            <field id="inscriptionDescriptionType" seperate_ui_container="true">
+                                <selector>object-description-inscription-description-type</selector>
+                                <options>
+                                    <option id="">Please select a value</option>
+                                    <option id="brand">brand</option>
+                                    <option id="decoration">decoration</option>
+                                    <option id="estate-stamp">estate stamp</option>
+                                    <option id="graffiti">graffiti</option>
+                                    <option id="label">label</option>
+                                    <option id="maker's-mark">maker's mark</option>
+                                </options>
+                            </field>
+                            <field id="inscriptionDescriptionMethod" ui-search="repeatable">
+                                <selector>object-description-inscription-description-method</selector>
+                            </field>
+                            <field id="inscriptionDescriptionInterpretation">
+                                <selector>object-description-inscription-description-interpretation</selector>
+                            </field>
+                        </repeat>
                     </section>
                 </section>
                 <section id="objectProductionInformation">
