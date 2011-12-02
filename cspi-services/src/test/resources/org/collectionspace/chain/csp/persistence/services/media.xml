@@ -8,47 +8,47 @@
         <subject>asdf</subject>
     </subjectList>
     <blobCsid></blobCsid>
-<measuredPartGroupList>
-<measuredPartGroup>
-<measuredPart>arm</measuredPart>
-<dimensionSummary/>
-<dimensionSubGroupList>
-<dimensionSubGroup>
-<dimension>diameter</dimension>
-<measuredBy>rj</measuredBy>
-<measurementUnit>cm</measurementUnit>
-<measurementMethod>eyeball</measurementMethod>
-<value>10</value>
-<valueDate>2011-11-08</valueDate>
-<valueQualifier>approx.</valueQualifier>
-</dimensionSubGroup>
-<dimensionSubGroup>
-<dimension>length</dimension>
-<measuredBy>rj</measuredBy>
-<measurementUnit>cm</measurementUnit>
-<measurementMethod>eyeball</measurementMethod>
-<value>75</value>
-<valueDate>2011-11-08</valueDate>
-<valueQualifier>approx.</valueQualifier>
-</dimensionSubGroup>
-</dimensionSubGroupList>
-</measuredPartGroup>
-<measuredPartGroup>
-<measuredPart>other arm</measuredPart>
-<dimensionSummary/>
-<dimensionSubGroupList>
-<dimensionSubGroup>
-<dimension>length</dimension>
-<measuredBy>rj</measuredBy>
-<measurementUnit>cm</measurementUnit>
-<measurementMethod>eyeball</measurementMethod>
-<value>80</value>
-<valueDate>2011-11-08</valueDate>
-<valueQualifier>close enough for govt work</valueQualifier>
-</dimensionSubGroup>
-</dimensionSubGroupList>
-</measuredPartGroup>
-</measuredPartGroupList>
+    <measuredPartGroupList>
+    <measuredPartGroup>
+    <measuredPart>arm</measuredPart>
+    <dimensionSummary/>
+    <dimensionSubGroupList>
+    <dimensionSubGroup>
+    <dimension>diameter</dimension>
+    <measuredBy>rj</measuredBy>
+    <measurementUnit>cm</measurementUnit>
+    <measurementMethod>eyeball</measurementMethod>
+    <value>10</value>
+    <valueDate>2011-11-08</valueDate>
+    <valueQualifier>approx.</valueQualifier>
+    </dimensionSubGroup>
+    <dimensionSubGroup>
+    <dimension>length</dimension>
+    <measuredBy>rj</measuredBy>
+    <measurementUnit>cm</measurementUnit>
+    <measurementMethod>eyeball</measurementMethod>
+    <value>75</value>
+    <valueDate>2011-11-08</valueDate>
+    <valueQualifier>approx.</valueQualifier>
+    </dimensionSubGroup>
+    </dimensionSubGroupList>
+    </measuredPartGroup>
+    <measuredPartGroup>
+    <measuredPart>other arm</measuredPart>
+    <dimensionSummary/>
+    <dimensionSubGroupList>
+    <dimensionSubGroup>
+    <dimension>length</dimension>
+    <measuredBy>rj</measuredBy>
+    <measurementUnit>cm</measurementUnit>
+    <measurementMethod>eyeball</measurementMethod>
+    <value>80</value>
+    <valueDate>2011-11-08</valueDate>
+    <valueQualifier>close enough for govt work</valueQualifier>
+    </dimensionSubGroup>
+    </dimensionSubGroupList>
+    </measuredPartGroup>
+    </measuredPartGroupList>
     <rightsHolder>rightsHolder</rightsHolder>
     <creator>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</creator>
     <publisher>publisher</publisher>
@@ -56,9 +56,58 @@
         <language>language</language>
     </languageList>
     <title>EX2011.5</title>
-    <dateList>
-        <date>dated</date>
-    </dateList>
+    <dateGroupList>
+        <dateGroup>
+            <dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+            <dateLatestDay>22</dateLatestDay>
+            <dateLatestYear>5</dateLatestYear>
+            <dateAssociation>sdf</dateAssociation>
+            <dateEarliestSingleEra>bce</dateEarliestSingleEra>
+            <dateDisplayDate>sdf</dateDisplayDate>
+            <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+            <dateLatestEra>bce</dateLatestEra>
+            <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+            <dateLatestCertainty>approximate</dateLatestCertainty>
+            <dateEarliestSingleYear>1</dateEarliestSingleYear>
+            <dateLatestQualifier>+</dateLatestQualifier>
+            <dateLatestQualifierValue>2</dateLatestQualifierValue>
+            <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+            <datePeriod>sdf</datePeriod>
+            <dateLatestMonth>11</dateLatestMonth>
+            <dateNote>sdf</dateNote>
+            <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+            <dateEarliestSingleDay>3</dateEarliestSingleDay>
+            <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
+            <scalarValuesComputed>false</scalarValuesComputed>
+            <dateEarliestScalarValue></dateEarliestScalarValue>
+            <dateLatestScalarValue></dateLatestScalarValue>
+        </dateGroup>
+        <dateGroup>
+            <dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+            <dateLatestDay>20</dateLatestDay>
+            <dateLatestYear>1</dateLatestYear>
+            <dateAssociation>wer</dateAssociation>
+            <dateEarliestSingleEra>bce</dateEarliestSingleEra>
+            <dateDisplayDate>wer</dateDisplayDate>
+            <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+            <dateLatestEra>bce</dateLatestEra>
+            <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+            <dateLatestCertainty>approximate</dateLatestCertainty>
+            <dateEarliestSingleYear>1</dateEarliestSingleYear>
+            <dateLatestQualifier>+</dateLatestQualifier>
+            <dateLatestQualifierValue>2</dateLatestQualifierValue>
+            <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+            <datePeriod>werwerwer</datePeriod>
+            <dateLatestMonth>11</dateLatestMonth>
+            <dateNote>werwer</dateNote>
+            <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+            <dateEarliestSingleDay>21</dateEarliestSingleDay>
+            <dateEarliestSingleMonth>7</dateEarliestSingleMonth>
+            <scalarValuesComputed>false</scalarValuesComputed>
+            <dateEarliestScalarValue></dateEarliestScalarValue>
+            <dateLatestScalarValue></dateLatestScalarValue>
+        </dateGroup>
+    </dateGroupList>
     <contributor>
     </contributor>
     <description>asdf adfsasdf</description>

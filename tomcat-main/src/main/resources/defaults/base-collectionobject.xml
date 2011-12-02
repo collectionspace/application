@@ -628,8 +628,7 @@
                 <section id="objectProductionInformation">
                 	
                     <repeat id="objectProductionDateGroupList/objectProductionDateGroup">
-                    <group id="objectProductionDate" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"  >
-                    </group>
+                        <group id="objectProductionDate" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
 					</repeat>
                     <repeat id="techniqueGroupList/techniqueGroup">
                         <!-- selector>csc-collection-object-techniqueGroup</selector -->
@@ -690,9 +689,10 @@
                             <selector>object-history-association-owner</selector>
                         </field>
                     </repeat>
-                    <field id="ownershipDates" ui-type="date">
-                        <selector>object-history-association-ownershipDates</selector>
-                    </field>
+                    <repeat id="ownershipDateGroupList/ownershipDateGroup">
+                        <group id="ownershipDate" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"  ></group>
+                    </repeat>
+
                     <field id="ownershipAccess" seperate_ui_container="true">
                         <selector>object-history-association-access</selector>
                         <options>

@@ -114,6 +114,9 @@
             "messagekey": "collection-object-ownershipCategoryLabel"
         },
         ".csc-collection-object-nhString": "${fields.nhString}",
+        ".csc-ownershipDateGroup-ownershipDate-label": {
+            "messagekey": "ownershipDateGroup-ownershipDateLabel"
+        },
         ".csc-collection-object-fieldCollectionSource": {
             "decorators": [
                 {
@@ -400,9 +403,6 @@
         },
         ".csc-collection-object-sex-label": {
             "messagekey": "collection-object-sexLabel"
-        },
-        ".csc-collection-object-ownershipDates-label": {
-            "messagekey": "collection-object-ownershipDatesLabel"
         },
         ".csc-collection-object-contentDescription-label": {
             "messagekey": "collection-object-contentDescriptionLabel"
@@ -1167,11 +1167,23 @@
             ],
             "selection": "${fields.collection}"
         },
+        ".csc-collection-object-ownershipDateGroup-label": {
+            "messagekey": "collection-object-ownershipDateGroupLabel"
+        },
         ".csc-collection-object-contentPositions-label": {
             "messagekey": "collection-object-contentPositionsLabel"
         },
         ".csc-collection-object-ownersReferences-label": {
             "messagekey": "collection-object-ownersReferencesLabel"
+        },
+        ".csc-collection-object-fieldCollectionDate": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
+            "value": "${fields.fieldCollectionDate}"
         },
         ".csc-collection-object-assocPersonGroup": {
             "decorators": [
@@ -1205,15 +1217,6 @@
                     }
                 }
             ]
-        },
-        ".csc-collection-object-fieldCollectionDate": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ],
-            "value": "${fields.fieldCollectionDate}"
         },
         ".csc-collection-object-dateEarliestSingle-label": {
             "messagekey": "collection-object-dateEarliestSingleLabel"
@@ -2004,15 +2007,6 @@
         ".csc-collection-object-assocOrganizationGroup-label": {
             "messagekey": "collection-object-assocOrganizationGroupLabel"
         },
-        ".csc-object-history-association-ownershipDates": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ],
-            "value": "${fields.ownershipDates}"
-        },
         ".csc-collection-object-assocActivityType-label": {
             "messagekey": "collection-object-assocActivityTypeLabel"
         },
@@ -2707,6 +2701,62 @@
         ".csc-collection-object-inscriptionContentType-label": {
             "messagekey": "collection-object-inscriptionContentTypeLabel"
         },
+        ".csc-ownershipDateGroup-ownershipDate": {
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-ownershipDateGroup-ownershipDate": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.structuredDate",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "dateDisplayDate",
+                                                    "elPaths": {
+                                                        "dateEarliestSingleQualifier": "dateEarliestSingleQualifier",
+                                                        "scalarValuesComputed": "scalarValuesComputed",
+                                                        "dateLatestDay": "dateLatestDay",
+                                                        "dateLatestYear": "dateLatestYear",
+                                                        "dateAssociation": "dateAssociation",
+                                                        "dateEarliestSingleEra": "dateEarliestSingleEra",
+                                                        "dateDisplayDate": "dateDisplayDate",
+                                                        "dateEarliestSingleCertainty": "dateEarliestSingleCertainty",
+                                                        "dateLatestEra": "dateLatestEra",
+                                                        "dateEarliestSingleQualifierValue": "dateEarliestSingleQualifierValue",
+                                                        "dateLatestCertainty": "dateLatestCertainty",
+                                                        "dateEarliestSingleYear": "dateEarliestSingleYear",
+                                                        "dateLatestQualifier": "dateLatestQualifier",
+                                                        "dateLatestQualifierValue": "dateLatestQualifierValue",
+                                                        "dateEarliestSingleQualifierUnit": "dateEarliestSingleQualifierUnit",
+                                                        "datePeriod": "datePeriod",
+                                                        "dateEarliestScalarValue": "dateEarliestScalarValue",
+                                                        "dateLatestMonth": "dateLatestMonth",
+                                                        "dateNote": "dateNote",
+                                                        "dateLatestScalarValue": "dateLatestScalarValue",
+                                                        "dateLatestQualifierUnit": "dateLatestQualifierUnit",
+                                                        "dateEarliestSingleDay": "dateEarliestSingleDay",
+                                                        "dateEarliestSingleMonth": "dateEarliestSingleMonth"
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "value": "${{row}.dateDisplayDate}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.ownershipDateGroup"
+                    }
+                }
+            ]
+        },
         ".csc-object-viewer-contribution-note": "${fields.viewersContributionNote}",
         ".csc-collection-object-objectProductionReasons-label": {
             "messagekey": "collection-object-objectProductionReasonsLabel"
@@ -3190,3 +3240,4 @@
         }
     }
 }
+
