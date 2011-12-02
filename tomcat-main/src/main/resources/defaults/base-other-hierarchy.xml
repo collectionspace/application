@@ -16,9 +16,9 @@
 				
 				
             	<section>
-            		<field id="broaderContext"  autocomplete="person-person,location-location"></field>
+            		<field id="broaderContext"  autocomplete="person-person,organization-organization,taxon-taxon,location-location"></field>
             		<repeat id="narrowerContexts">
-            			<field id="narrowerContext" autocomplete="person-person,location-location">
+            			<field id="narrowerContext" autocomplete="person-person,organization-organization,taxon-taxon,location-location">
             				<autocomplete-options>
             					<strings>
             						narrowerChange|Warning: %narrower currently has broader term %broader. Change broader term?
@@ -28,7 +28,7 @@
                         </field>
                     </repeat>
                     <repeat id="relatedTerms">
-                        <field id="relatedTerm" autocomplete="person-person"></field>
+                        <field id="relatedTerm" autocomplete="person-person,organization-organization,taxon-taxon,"></field>
                     </repeat>
                 </section>
                 <section>

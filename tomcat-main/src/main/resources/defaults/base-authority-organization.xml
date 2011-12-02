@@ -22,6 +22,12 @@
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
+                            <hierarchy-section show="true">
+                        		<options>
+                            		<option id="narrowerContext">organization-organization</option>
+                            		<option id="broaderContext">organization-organization</option>
+								</options>
+							</hierarchy-section>
                         </view>
                     </structure>
                 </structures>
