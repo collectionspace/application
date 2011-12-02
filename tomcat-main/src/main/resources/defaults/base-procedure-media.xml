@@ -94,10 +94,9 @@
                         </field>
                     </repeat>
                     <field id="coverage"></field>
-                    <repeat id="dates">
-                        <services-tag>dateList</services-tag>
-                        <field id="date" ui-search="range" ui-type="date"></field>
-                    </repeat>
+                    <repeat id="dateGroupList/dateGroup">
+                        <group id="date" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
+					</repeat>
                     <field id="source" ui-search="repeatable"></field>
                     <repeat id="subjects">
                         <services-tag>subjectList</services-tag>
