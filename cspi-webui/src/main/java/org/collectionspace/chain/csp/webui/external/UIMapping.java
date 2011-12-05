@@ -98,7 +98,7 @@ public class UIMapping {
 	}
 
 	public String getFile() {
-		return file;
+		return recordfile;
 	}
 	public void setFile(String filed) {
 		this.recordfile = filed;
