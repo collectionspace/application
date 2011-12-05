@@ -25,6 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.collectionspace.chain.controller.BadRequestException;
+import org.collectionspace.chain.controller.TenantServlet;
+import org.collectionspace.chain.controller.TenantUIServlet;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.schema.Instance;
