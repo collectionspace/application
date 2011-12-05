@@ -315,6 +315,12 @@ public class Field implements FieldSet {
 	public String getServicesUrl(){
 		return utils.getString("@serviceurl");
 	}
+	public boolean hasServicesParent(){
+		return false;
+	}
+	public String[] getServicesParent() {
+		return new String[0];
+	}
 	
 	//XXX could be used for validation at the app layer
 	public String getDataType(){

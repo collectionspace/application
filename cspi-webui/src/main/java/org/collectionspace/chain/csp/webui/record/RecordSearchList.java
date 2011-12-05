@@ -190,20 +190,24 @@ public class RecordSearchList implements WebMethod {
 						if(bits.length>1){
 							fieldname = bits[1];
 						}
+
 						FieldSet fs = null;
 						if(fieldname.equals("number")){
 							fs = r.getMiniNumber();
-							fieldname = fs.getID();
 						}
 						else if(fieldname.equals("summary")){
 							fs = r.getMiniSummary();
-							fieldname = fs.getID();
 						}
 						else{
 							//convert sortKey
-							fs = r.getFieldTopLevel(fieldname);
+							fs = r.getFieldFullList(fieldname);
 						}
-
+						fieldname = fs.getID();
+						FieldSet tmp = fs;
+						while(!(tmp.getParent() instanceof Record)){
+							tmp = (FieldSet)tmp.getParent();
+							fieldname = tmp.getServicesParent()[0] +"/*/"+fieldname;
+						}
 						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
 						String newvalue = tablebase+":"+fieldname;
 						restriction.put(restrict,newvalue);
