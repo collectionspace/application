@@ -18,6 +18,8 @@ public interface FieldSet {
 	public Record getRecord();
 	public String getServicesTag();
 	public String getServicesUrl();
+	public String[] getServicesParent();
+	public boolean hasServicesParent();
 	public String getSection();
 	public Boolean isInServices();
 	public boolean hasFieldPerm(String k);

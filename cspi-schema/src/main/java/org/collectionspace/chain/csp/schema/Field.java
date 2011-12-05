@@ -433,6 +433,13 @@ public class Field implements FieldSet {
 	public FieldParent getParent() {
 		return this.parent;
 	}
+
+	public boolean hasServicesParent(){
+		return false;
+	}
+	public String[] getServicesParent() {
+		return new String[0];
+	}
 	public void setParent(FieldParent fp) {
 		this.parent = fp;
 	}
