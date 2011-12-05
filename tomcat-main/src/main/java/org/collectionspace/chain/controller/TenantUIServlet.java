@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -109,10 +111,10 @@ public class TenantUIServlet extends TenantServlet {
 
 		Boolean doMetaConfig = true;// this doesn't seem to work yet
 		String path = pathinfo;
-		UIMapping validmap = doMapping(pathinfo, allmappings, spec);
+		Map<String,Object> validmap = doMapping(pathinfo, allmappings, spec);
 		if (null != validmap) {
-			path = validmap.getFile();
-			if (validmap.hasMetaConfig() && doMetaConfig) {
+			path = (String)validmap.get("File");
+			if (((UIMapping)validmap.get("map")).hasMetaConfig() && doMetaConfig) {
 				
 				InputStream is = getFixedContent( sc, path,  tenant);
 				
@@ -132,9 +134,9 @@ public class TenantUIServlet extends TenantServlet {
 			//	log.info(dump.toString("UTF-8"));
 			//	log.info(xmlfile.asXML());<tr></tr<.>
 */
-				for (String metafield : validmap.getAllMetaConfigs()) {
+				for (String metafield : ((UIMapping)validmap.get("map")).getAllMetaConfigs()) {
 					
-					String rtext = validmap.getMetaConfig(metafield).parseValue(validmap.getRecord(), validmap.getInstance());
+					String rtext = ((UIMapping)validmap.get("map")).getMetaConfig(metafield).parseValue((Record)validmap.get("record"), (Instance)validmap.get("instance"));
 					//try as json
 					String regex = "\""+metafield+"\": \"[^\"]*\"";
 					String replacement = "\""+metafield+"\": \""+rtext+"\"";
@@ -219,50 +221,73 @@ public class TenantUIServlet extends TenantServlet {
 		return null;
 	}
 
-	private UIMapping doMapping(String pathinfo, UIMapping[] allmappings,
+	private Map<String,Object> doMapping(String pathinfo, UIMapping[] allmappings,
 			Spec spec) {
+		
+
+		Map<String,Object> out=new HashMap<String,Object>();
 		for (UIMapping map : allmappings) {
+			out.put("map", map);
+			out.put("isConfig", false);
+			out.put("isRecord", false);
+			out.put("instance", null);
+			out.put("record", null);
+			out.put("RecordFile", map.getFile());
+			out.put("ConfigFile", "");
+			out.put("File", "");
 
 			if (map.hasUrl()) {
 				if (map.getUrl().equals(pathinfo)) {
-					return map;
+					return out;
 				}
 			} else if (map.hasType()) {
 				for (Record r : spec.getAllRecords()) {
-					map.setRecord(r);
 					if (r.isType(map.getType())) {
 						if(r.isType("authority")){
 							for(Instance ins: r.getAllInstances()){
-								map.setInstance(ins);
 								//config
 								String tenantInstanceconfig = "/"+ spec.getAdminData().getTenantName() +"/config/" + ins.getWebURL()+ ".json";
 								String tenantAuthconfig = "/"+ spec.getAdminData().getTenantName() +"/config/" + r.getWebURL()+ ".json";
 								if(pathinfo.equals(tenantInstanceconfig)){
-									map.setConfigFile(tenantAuthconfig);
-									map.setAsConfig();
-									return map;
+									out.put("instance", ins);
+									out.put("record", r);
+									out.put("isConfig", true);
+									out.put("ConfigFile", tenantAuthconfig);
+									out.put("File", tenantAuthconfig);
+									return out;
 								}
 								else if(pathinfo.equals("/config/" + ins.getWebURL()+ ".json")){
-									map.setConfigFile(tenantAuthconfig);
-									map.setAsConfig();
-									return map;
+									out.put("instance", ins);
+									out.put("record", r);
+									out.put("isConfig", true);
+									out.put("ConfigFile", tenantAuthconfig);
+									out.put("File", tenantAuthconfig);
+									return out;
 								}
 								
 								//record
 								if (pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/" + ins.getUIURL())) {
-									map.setAsRecord();
-									return map;
+									out.put("record", r);
+									out.put("isRecord", true);
+									out.put("instance", ins);
+									out.put("File", map.getFile());
+									return out;
 								}
 								if (pathinfo.equals("/"+ spec.getAdminData().getTenantName() +"/html/" + ins.getUIURL())) {
-									map.setAsRecord();
-									return map;
+									out.put("record", r);
+									out.put("isRecord", true);
+									out.put("instance", ins);
+									out.put("File", map.getFile());
+									return out;
 								}
 							}
 						}
 						String test = "/"+spec.getAdminData().getTenantName()+"/html/" + r.getUIURL();
 						if (pathinfo.equals(test)) {
-							map.setAsRecord();
-							return map;
+							out.put("record", r);
+							out.put("isRecord", true);
+							out.put("File", map.getFile());
+							return out;
 						}
 					}
 				}
