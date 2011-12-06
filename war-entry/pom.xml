@@ -17,9 +17,6 @@
 	<profiles>
 		<profile>
 			<id>jboss</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 			<properties>
 				<!-- using the jboss 4.2.x container -->
 				<cargo.container>jboss42x</cargo.container>
@@ -29,6 +26,9 @@
 		</profile>
 		<profile>
 			<id>tomcat</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 			<properties>
 				<!-- using the tomcat 6.x container -->
 				<cargo.container>tomcat6x</cargo.container>
