@@ -56,16 +56,20 @@ public class WebTermList implements WebMethod {
 	protected JSONObject generateENUMField(Storage storage, Field f, JSONArray getallnames, Boolean showshortID) throws JSONException {
 		JSONArray ids=new JSONArray();
 		JSONArray names=new JSONArray();
+		JSONArray activestatus = new JSONArray();
 		int dfault = -1;
 		int spacer =0;
 		if(f.hasEnumBlank()){
 			ids.put("");
+			activestatus.put("");
 			names.put(f.enumBlankValue());
 			spacer = 1;
 		}
 		for(int i=0;i<getallnames.length();i++) {
 			JSONObject namedata = getallnames.getJSONObject(i);
 			String name = namedata.getString("displayName");
+			String status = namedata.getString("termStatus");
+			activestatus.put(status);
 			String shortId="";
 			String refname=namedata.getString("refid");
 			if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
@@ -95,6 +99,7 @@ public class WebTermList implements WebMethod {
 			out.put("default",dfault+"");
 		out.put("optionlist",ids);
 		out.put("optionnames",names);	
+		out.put("activestatus",activestatus);	
 		return out;
 	}
 	
@@ -118,6 +123,7 @@ public class WebTermList implements WebMethod {
 	 * {
 	 * "optionnames": ["Please select a value", "Value 1", "Value 2"],
 	 * "optionlist": ["", "/vocabularies/{csid}/items/{csid}", "value2"]
+	 * "activestatus": ["", "inactive", "active"]
 	 * }
 	 */
 }

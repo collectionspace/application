@@ -1,5 +1,6 @@
 package org.collectionspace.chain.csp.webui.nuispec;
 
+import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.csp.api.core.CSPRequestCache;
@@ -85,6 +86,9 @@ public class CacheTermList {
 						// need to initialise this vocab
 						Instance n  = vr.getInstance(vr.getID()+"-"+vocabname);
 						JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+						if(vr.getFieldFullList("termStatus") instanceof Field){
+							fields.put("termStatus", ((Field)vr.getFieldFullList("termStatus")).getOptionDefault());
+						}
 						storage.autocreateJSON(vr.getID(),fields);
 						data = storage.getPathsJSON(url,restriction);
 					}

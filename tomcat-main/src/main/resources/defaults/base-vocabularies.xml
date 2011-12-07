@@ -28,13 +28,11 @@
                         <selector>vocabulary-displayName</selector>
                         <title-selector>titleBar-displayName</title-selector>
                     </field>
-                    <field id="termStatus" seperate_ui_container="true">
+                    <field id="termStatus" mini="search,list,relate" seperate_ui_container="true">
                         <selector>vocabulary-status</selector>
                         <options>
-                            <option id="provisional" default="yes">Provisional</option>
-                            <option id="under-review">Under Review</option>
-                            <option id="accepted">Accepted</option>
-                            <option id="rejected">Rejected</option>
+			                <option id="active" default="yes">Active</option>
+			                <option id="inactive">Inactive</option>
                         </options>
                     </field>
                     <field id="shortIdentifier">

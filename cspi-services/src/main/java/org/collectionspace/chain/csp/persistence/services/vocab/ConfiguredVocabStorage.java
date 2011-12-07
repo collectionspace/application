@@ -313,6 +313,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
 			String name = null;
 			String refid = null;
+			String termStatus = null;
 			String parentcsid = null;
 			String shortIdentifier = "";
 			
@@ -329,6 +330,12 @@ public class ConfiguredVocabStorage extends GenericStorage {
 						shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
 					}
 					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
+					if(result.selectSingleNode(tag_path[1]+"/termStatus") != null){
+					termStatus=result.selectSingleNode(tag_path[1]+"/termStatus").getText();
+					}
+					else{
+						termStatus = "";
+					}
 					csid=result.selectSingleNode(tag_path[1]+"/csid").getText();
 					parentcsid = result.selectSingleNode(tag_path[1]+"/inAuthority").getText();
 					XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);	
@@ -465,6 +472,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			out.put("csid",csid);
 			out.put("refid",refid);
 			out.put("shortIdentifier", shortIdentifier);
+			out.put("termStatus", termStatus);
 			out.put("authorityid", parentcsid);
 			out.put("recordtype",r.getWebURL());
 			return out;
@@ -894,17 +902,20 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String g2=getGleanedValue(cache,cachelistitem,"shortIdentifier");
 			String g3=getGleanedValue(cache,cachelistitem,"displayName");
 			String g4=getGleanedValue(cache,cachelistitem,"csid");
-			if(g1==null|| g2==null||g3==null||g4==null){
+			String g5=getGleanedValue(cache,cachelistitem,"termStatus");
+			if(g1==null|| g2==null||g3==null||g4==null||g5==null){
 				JSONObject cached =  get(storage, creds,cache,servicepath,filePath);
 				g1 = cached.getString("refid");
 				g2 = cached.getString("shortIdentifier");
 				g3 = cached.getString("displayName");
 				g4 = cached.getString("csid");
+				g5 = cached.getString("termStatus");
 				
 			}
 			out.put(getDisplayNameKey(), g3);
 			out.put("refid", g1);
 			out.put("csid", g4);
+			out.put("termStatus", g5);
 			//out.put("authorityid", cached.get("authorityid"));
 			out.put("shortIdentifier", g2);
 			out.put("recordtype",r.getWebURL());
