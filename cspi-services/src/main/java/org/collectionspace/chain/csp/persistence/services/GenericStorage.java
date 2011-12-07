@@ -141,6 +141,9 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param value The value for the node in the json file
 	 */
 	protected void setGleanedValue(CSPRequestCache cache,String path,String key,String value) {
+		if(!path.startsWith("/")){
+			path = "/"+path;
+		}	
 		cache.setCached(getClass(),new String[]{"glean",path,key},value);
 	}
 
@@ -152,6 +155,9 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @return {String} The csid that was stored 
 	 */
 	protected String getGleanedValue(CSPRequestCache cache,String path,String key) {
+		if(!path.startsWith("/")){
+			path = "/"+path;
+		}	
 		return (String)cache.getCached(getClass(),new String[]{"glean",path,key});
 	}
 
