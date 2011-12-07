@@ -85,6 +85,9 @@ public class CacheTermList {
 						// need to initialise this vocab
 						Instance n  = vr.getInstance(vr.getID()+"-"+vocabname);
 						JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+						if(vr.getFieldFullList("termStatus") instanceof Field){
+							fields.put("termStatus", ((Field)vr.getFieldFullList("termStatus")).getOptionDefault());
+						}
 						storage.autocreateJSON(vr.getID(),fields);
 						data = storage.getPathsJSON(url,restriction);
 					}

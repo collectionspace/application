@@ -28,7 +28,7 @@
 		<field id="sourcePage"></field>
 		<field id="shortIdentifier"></field>
 		<field id="description"></field>
-		<field id="termStatus">
+		<field id="termStatus" mini="search,list,relate">
             <options>
                 <option id="active" default="yes">Active</option>
                 <option id="inactive">Inactive</option>
