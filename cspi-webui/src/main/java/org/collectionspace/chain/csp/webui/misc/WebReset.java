@@ -12,6 +12,7 @@ import java.io.InputStream;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
@@ -356,6 +357,10 @@ public class WebReset implements WebMethod {
 			catch (UnderlyingStorageException x) {
 
 				JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+				if(thisr.getFieldFullList("termStatus") instanceof Field){
+					fields.put("termStatus", ((Field)thisr.getFieldFullList("termStatus")).getOptionDefault());
+				}
+				
 				String base=thisr.getID();
 				storage.autocreateJSON(base,fields);
 				//data = storage.getPathsJSON(url,restriction);
