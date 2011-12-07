@@ -1,5 +1,6 @@
 package org.collectionspace.chain.csp.webui.nuispec;
 
+import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.csp.api.core.CSPRequestCache;
