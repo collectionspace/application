@@ -15,6 +15,7 @@ import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Option;
 import org.collectionspace.chain.csp.schema.Record;
@@ -87,6 +88,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 		catch (UnderlyingStorageException x) {
 
 			JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
+			if(thisr.getFieldFullList("termStatus") instanceof Field){
+				fields.put("termStatus", ((Field)thisr.getFieldFullList("termStatus")).getOptionDefault());
+			}
 			String base=thisr.getID();
 			storage.autocreateJSON(base,fields);
 			data = storage.getPathsJSON(url,restriction);
@@ -317,6 +321,9 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 					}
 					data.put("description", opt.getDesc());
 					data.put("shortIdentifier", shortIdentifier);
+					if(thisr.getFieldFullList("termStatus") instanceof Field){
+						data.put("termStatus", ((Field)thisr.getFieldFullList("termStatus")).getOptionDefault());
+					}
 					String url = thisr.getID()+"/"+instance.getTitleRef();
 					
 					if(!results.has(name)){
