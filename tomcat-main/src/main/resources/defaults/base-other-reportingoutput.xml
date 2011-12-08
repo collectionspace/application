@@ -5,6 +5,7 @@
     <services-url>reports</services-url>
     <services-record-path>invocationContext:http://collectionspace.org/services/common/invocable,invocationContext</services-record-path>
     
+    <authorization-view>false</authorization-view>
 	<terms-used>false</terms-used>
 	<refobj-used>false</refobj-used>
 	<structures>
