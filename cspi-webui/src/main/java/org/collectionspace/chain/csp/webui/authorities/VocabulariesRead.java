@@ -15,7 +15,6 @@ import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Spec;
-import org.collectionspace.chain.csp.webui.authorities.VocabulariesRead;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;

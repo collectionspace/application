@@ -98,7 +98,8 @@ public class WebTermList implements WebMethod {
 		if(dfault!=-1)
 			out.put("default",dfault+"");
 		out.put("optionlist",ids);
-		out.put("optionnames",names);	
+		out.put("optionnames",names);
+		out.put("activestatus",activestatus);	
 		return out;
 	}
 	

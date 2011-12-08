@@ -23,8 +23,6 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDoc
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMultipartDocument;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
-import org.collectionspace.chain.csp.persistence.services.vocab.ConfiguredVocabStorage;
-import org.collectionspace.chain.csp.persistence.services.vocab.RefName;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
@@ -331,13 +329,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 					if(result.selectSingleNode(tag_path[1]+"/shortIdentifier")!=null){
 						shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
 					}
+					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
 					if(result.selectSingleNode(tag_path[1]+"/termStatus") != null){
 					termStatus=result.selectSingleNode(tag_path[1]+"/termStatus").getText();
 					}
 					else{
 						termStatus = "";
 					}
-					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
 					csid=result.selectSingleNode(tag_path[1]+"/csid").getText();
 					parentcsid = result.selectSingleNode(tag_path[1]+"/inAuthority").getText();
 					XmlJsonConversion.convertToJson(out,r,result,"GET",section,csid,ims_url);	
@@ -474,6 +472,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			out.put("csid",csid);
 			out.put("refid",refid);
 			out.put("shortIdentifier", shortIdentifier);
+			out.put("termStatus", termStatus);
 			out.put("authorityid", parentcsid);
 			out.put("recordtype",r.getWebURL());
 			return out;
