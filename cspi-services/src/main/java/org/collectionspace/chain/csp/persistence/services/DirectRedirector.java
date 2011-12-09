@@ -68,9 +68,15 @@ public class DirectRedirector implements ContextualisedStorage {
 		String vocab = RefName.shortIdToPath(thisparent);
 		String csid = RefName.shortIdToPath(thisShortid);
 		
-		Record r=spec.getRecordByServicesUrl(itemParsed.inAuthority.resource);
-		if(!r.isType("authority"))
-			throw new UnimplementedException("Only authorities supported at direct at the moment");
-		return root.retrieveJSON(root,creds,cache,r.getID()+"/_direct/"+url[0]+"/"+vocab+"/"+csid, restrictions);
+		Record r=spec.getRecordByServicesUrl(itemParsed.inAuthority.resource);	
+		String storageID = r.getID();
+		
+		if(r.isType("vocabulary")){
+			url[0] = r.getServicesURL();
+			storageID = "vocab";
+		}
+		if(!r.isType("authority") && !r.isType("vocabulary"))
+			throw new UnimplementedException("Only authorities and vocabularies supported at direct at the moment");
+		return root.retrieveJSON(root,creds,cache,storageID+"/_direct/"+url[0]+"/"+vocab+"/"+csid, restrictions);
 	}
 }
