@@ -1,4 +1,4 @@
-<record id="termlistitem" in-recordlist="no" type="record,procedure">
+<record id="termlistitem" in-recordlist="no" type="record,procedure,vocabulary">
 	<terms-used>false</terms-used>
 	<refobj-used>true</refobj-used>
     <services-url>items</services-url>
