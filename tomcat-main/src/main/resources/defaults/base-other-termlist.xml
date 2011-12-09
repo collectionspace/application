@@ -1,4 +1,4 @@
-<record id="termlist" type="record,procedure">
+<record id="termlist" type="record,procedure,vocabulary">
     <web-url>termlist</web-url>
 	<showin>authorizationdata</showin>
 	<terms-used>false</terms-used>

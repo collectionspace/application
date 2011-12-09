@@ -1,6 +1,6 @@
 
 
-            <record id="vocab" in-recordlist="no" type="authority">
+            <record id="vocab" in-recordlist="no" type="authority,vocabulary">
                 <terms-used>false</terms-used>
                 <refobj-used>false</refobj-used>
                 <web-url>vocab</web-url>
