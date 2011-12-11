@@ -977,4 +977,3 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		return subroot;
 	}
 }
-

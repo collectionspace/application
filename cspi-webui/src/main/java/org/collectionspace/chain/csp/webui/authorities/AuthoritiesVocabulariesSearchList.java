@@ -117,7 +117,6 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 						if(bits.length>1){
 							fieldname = bits[1];
 						}
-
 						FieldSet fs = null;
 						if(fieldname.equals("number")){
 							fs = r.getMiniNumber();
@@ -135,6 +134,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 							tmp = (FieldSet)tmp.getParent();
 							fieldname = tmp.getServicesParent()[0] +"/*/"+fieldname;
 						}
+
 						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
 						String newvalue = tablebase+":"+fieldname;
 						restriction.put(restrict,newvalue);

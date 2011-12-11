@@ -308,7 +308,7 @@ public class TenantServlet extends HttpServlet {
 			is=sc.getResourceAsStream(path2);
 			String mimetype = sc.getMimeType(path2);
 			if(mimetype == null && path2.endsWith(".appcache")){
-				mimetype = "text/cache-manifest"; //CSPACE-4600
+				mimetype = "text/cache-manifest";
 			}
 			servlet_response.setContentType(mimetype);
 		}

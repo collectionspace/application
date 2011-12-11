@@ -360,6 +360,7 @@ public class WebReset implements WebMethod {
 				if(thisr.getFieldFullList("termStatus") instanceof Field){
 					fields.put("termStatus", ((Field)thisr.getFieldFullList("termStatus")).getOptionDefault());
 				}
+				
 				String base=thisr.getID();
 				storage.autocreateJSON(base,fields);
 				//data = storage.getPathsJSON(url,restriction);

@@ -61,16 +61,16 @@ public class WebTermList implements WebMethod {
 		int spacer =0;
 		if(f.hasEnumBlank()){
 			ids.put("");
-			names.put(f.enumBlankValue());
 			activestatus.put("");
+			names.put(f.enumBlankValue());
 			spacer = 1;
 		}
 		for(int i=0;i<getallnames.length();i++) {
 			JSONObject namedata = getallnames.getJSONObject(i);
 			String name = namedata.getString("displayName");
-			String shortId="";
 			String status = namedata.getString("termStatus");
 			activestatus.put(status);
+			String shortId="";
 			String refname=namedata.getString("refid");
 			if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
 				shortId = namedata.getString("shortIdentifier");
@@ -98,7 +98,7 @@ public class WebTermList implements WebMethod {
 		if(dfault!=-1)
 			out.put("default",dfault+"");
 		out.put("optionlist",ids);
-		out.put("optionnames",names);
+		out.put("optionnames",names);	
 		out.put("activestatus",activestatus);	
 		return out;
 	}

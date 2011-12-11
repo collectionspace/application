@@ -68,7 +68,7 @@ public class DirectRedirector implements ContextualisedStorage {
 		String vocab = RefName.shortIdToPath(thisparent);
 		String csid = RefName.shortIdToPath(thisShortid);
 		
-		Record r=spec.getRecordByServicesUrl(itemParsed.inAuthority.resource);	
+		Record r=spec.getRecordByServicesUrl(itemParsed.inAuthority.resource);
 		String storageID = r.getID();
 		
 		if(r.isType("vocabulary")){

@@ -315,12 +315,6 @@ public class Field implements FieldSet {
 	public String getServicesUrl(){
 		return utils.getString("@serviceurl");
 	}
-	public boolean hasServicesParent(){
-		return false;
-	}
-	public String[] getServicesParent() {
-		return new String[0];
-	}
 	
 	//XXX could be used for validation at the app layer
 	public String getDataType(){
@@ -438,6 +432,13 @@ public class Field implements FieldSet {
 
 	public FieldParent getParent() {
 		return this.parent;
+	}
+
+	public boolean hasServicesParent(){
+		return false;
+	}
+	public String[] getServicesParent() {
+		return new String[0];
 	}
 	public void setParent(FieldParent fp) {
 		this.parent = fp;
