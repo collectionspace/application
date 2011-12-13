@@ -311,6 +311,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			ReturnedMultipartDocument doc=conn.getMultipartXMLDocument(RequestMethod.GET,softurl,null,creds,cache);
 			if(doc.getStatus()==404)
 				throw new ExistException("Does not exist "+softurl);
+			if(doc.getStatus()==403){
+				//permission error - keep calm and carry on with what we can glean
+				out.put("displayName",getDisplayNameKey());
+				out.put("csid",csid);
+				out.put("recordtype",r.getWebURL());
+				return out;
+			}
 			if(doc.getStatus()>299)
 				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
 			String name = null;
