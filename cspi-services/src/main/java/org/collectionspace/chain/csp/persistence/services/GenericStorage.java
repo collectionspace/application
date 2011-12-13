@@ -598,6 +598,16 @@ public class GenericStorage  implements ContextualisedStorage {
 						if(fieldinstance != null){
 
 							JSONObject data=miniForURI(storage,creds,cache,refname,null,restrictions);
+
+							if(!data.has("refid")){//incase of permissions errors try our best
+								data.put("refid",refname);
+								if(data.has("displayName")){
+									String itemDisplayName=((Element)node).selectSingleNode("itemDisplayName").getText();
+									String temp = data.getString("displayName");
+									data.remove("displayName");
+									data.put(temp, itemDisplayName);
+								}
+							}
 							data.put("sourceFieldselector", fieldinstance.getSelector());
 							data.put("sourceFieldName", fieldName);
 							data.put("sourceFieldType", r.getID());
