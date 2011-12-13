@@ -206,7 +206,7 @@ public class RecordSearchList implements WebMethod {
 						FieldSet tmp = fs;
 						while(!(tmp.getParent() instanceof Record)){
 							tmp = (FieldSet)tmp.getParent();
-							fieldname = tmp.getServicesParent()[0] +"/*/"+fieldname;
+							fieldname = tmp.getServicesParent()[0] +"/0/"+fieldname;
 						}
 						
 						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
