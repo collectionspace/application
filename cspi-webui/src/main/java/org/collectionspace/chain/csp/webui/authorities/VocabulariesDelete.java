@@ -18,6 +18,7 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +34,13 @@ public class VocabulariesDelete implements WebMethod {
 
 	private void store_delete(Storage storage,UIRequest request,String path) throws UIException {
 		try {
+			String url = n.getRecord().getID()+"/"+n.getTitleRef()+"/"+path;
+			JSONObject mini = storage.retrieveJSON(url+"/refObjs", new JSONObject());
+			if(mini.length()>=1){
+				UIException uiexception =  new UIException("This Vocabulary Item has Procedures associated with it");
+				request.sendJSONResponse(uiexception.getJSON());
+				return;
+			}
 			storage.deleteJSON(n.getRecord().getID()+"/"+n.getTitleRef()+"/"+path);
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found "+e,e);
