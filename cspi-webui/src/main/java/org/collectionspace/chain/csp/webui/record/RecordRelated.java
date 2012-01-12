@@ -14,6 +14,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
+import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
 import org.json.JSONArray;
@@ -34,6 +35,12 @@ public class RecordRelated implements WebMethod {
 	public RecordRelated(Record r, Record r2) {
 		this.record = r;
 		this.relatedrecord = r2;
+		this.base = r.getID();
+	}
+	//if not second parameter is supplied then return everything
+	public RecordRelated(Record r) {
+		this.record = r;
+		this.relatedrecord = null;
 		this.base = r.getID();
 	}
 
@@ -72,11 +79,7 @@ public class RecordRelated implements WebMethod {
 		return mini;
 	}
 	
-	protected JSONObject getRelations(Storage storage, JSONObject restriction,  JSONObject recordtypes ) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
-
-		JSONObject myres = restriction;
-		myres.put("dstType", this.relatedrecord.getServicesTenantSg());
-		// XXX needs pagination support CSPACE-1819
+	private JSONObject getRelation(Storage storage, JSONObject myres, JSONObject recordtypes) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
 		JSONObject data = storage.getPathsJSON("relations/main",myres);
 		String[] relations = (String[]) data.get("listItems");
 		
@@ -94,6 +97,26 @@ public class RecordRelated implements WebMethod {
 			}
 		}
 		return recordtypes;
+	}
+	
+	protected JSONObject getRelations(Storage storage, JSONObject restriction,  JSONObject recordtypes ) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+
+		JSONObject myres = restriction;
+		if(this.relatedrecord ==null){ //return all of the procedures etc
+			for(Record r2 : this.record.getSpec().getAllRecords()) {
+				if(r2.isType("procedure")){
+					myres.put("dstType", r2.getServicesTenantSg());
+					getRelation(storage,myres,recordtypes);
+				}
+			}
+		}
+		else{
+			myres.put("dstType", this.relatedrecord.getServicesTenantSg());
+			getRelation(storage,myres,recordtypes);
+		}
+		// XXX needs pagination support CSPACE-1819
+		return recordtypes;
+		
 	}
 	
 	private void store_get(Storage storage, UIRequest ui, String path)

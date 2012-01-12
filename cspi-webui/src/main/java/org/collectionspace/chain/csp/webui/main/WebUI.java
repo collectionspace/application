@@ -252,6 +252,8 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"authorities"},1,new RecordAuthorities(r));
 
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"procedure"},1,new RecordRelated(r)); 
+				
 				for(Record r2 : spec.getAllRecords()) {
 					 if(r.isType("record")){
 						 addMethod(Operation.READ,new String[]{r.getWebURL(),r2.getWebURL()},1,new RecordRelated(r,r2)); 
