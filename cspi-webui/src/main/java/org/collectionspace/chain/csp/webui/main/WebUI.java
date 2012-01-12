@@ -232,7 +232,7 @@ public class WebUI implements CSP, UI, Configurable {
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"initialize"},0,new AuthoritiesVocabulariesInitialize(n,true));				
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"refresh"},0,new AuthoritiesVocabulariesInitialize(n,false));				
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesRead(n));				
-					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"simple"},1,new VocabulariesRead(n,true));
+					addMethod(Operation.READ,new String[]{"vocabularies","basic",n.getWebURL()},1,new VocabulariesRead(n,true));
 					addMethod(Operation.READ,new String[]{"vocabularies",n.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord(r.getID())));
 					addMethod(Operation.CREATE,new String[]{"vocabularies",n.getWebURL()},0,new VocabulariesCreateUpdate(n,true));
 					addMethod(Operation.UPDATE,new String[]{"vocabularies",n.getWebURL()},1,new VocabulariesCreateUpdate(n,false));
@@ -247,7 +247,7 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.CREATE,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
-				addMethod(Operation.READ,new String[]{r.getWebURL(),"simple"},1,new RecordRead(r,true));
+				addMethod(Operation.READ,new String[]{"basic",r.getWebURL()},1,new RecordRead(r,true));
 				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
 				addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new RecordCreateUpdate(r,true));
 				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
