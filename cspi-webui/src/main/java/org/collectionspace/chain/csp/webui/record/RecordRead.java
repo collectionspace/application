@@ -43,6 +43,7 @@ public class RecordRead implements WebMethod {
 	private RecordRelated relatedobj;
 	private Spec spec;
 	private boolean record_type;
+	private boolean showbasicinfoonly;
 	private boolean authorization_type;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 	
@@ -50,6 +51,17 @@ public class RecordRead implements WebMethod {
 		this.base=r.getID();
 		this.spec=r.getSpec();
 		this.record = r;
+		this.showbasicinfoonly = false;
+		this.searcher = new RecordSearchList(r,false);
+		this.termsused = new RecordAuthorities(r);
+		record_type=r.isType("record");
+		authorization_type=r.isType("authorizationdata");
+	}
+	public RecordRead(Record r, Boolean showbasicinfoonly) { 
+		this.base=r.getID();
+		this.spec=r.getSpec();
+		this.record = r;
+		this.showbasicinfoonly = showbasicinfoonly;
 		this.searcher = new RecordSearchList(r,false);
 		this.termsused = new RecordAuthorities(r);
 		record_type=r.isType("record");
@@ -254,6 +266,7 @@ public class RecordRead implements WebMethod {
 	public JSONObject getJSON(Storage storage,String csid) throws UIException {
 		JSONObject out=new JSONObject();
 		JSONObject restrictions=new JSONObject();
+
 		try {
 			if(record_type || authorization_type) {
 				JSONObject fields=storage.retrieveJSON(base+"/"+csid,restrictions);
@@ -280,10 +293,12 @@ public class RecordRead implements WebMethod {
 					fields.put("usedBys", allUsed);
 				}
 				else{
-					JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
-					JSONObject relations=createRelations(storage,csid);
-					out.put("relations",relations);
-					out.put("termsUsed",tusd);
+					if(!showbasicinfoonly){
+						JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
+						JSONObject relations=createRelations(storage,csid);
+						out.put("relations",relations);
+						out.put("termsUsed",tusd);
+					}
 				}
 				
 			} else {
