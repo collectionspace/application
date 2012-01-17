@@ -22,7 +22,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-authz-permrole.xml" />
+				<include src="domain-authz-permrole.xml" strip-root="yes"/>
 				
                 <section>
                     <group id="role">

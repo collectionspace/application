@@ -20,7 +20,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-authz-userperm.xml" />
+				<include src="domain-authz-userperm.xml" strip-root="yes"/>
 				
                 <section>
                     <group id="account">

@@ -1,5 +1,5 @@
 <instances>
-					<include src="domain-instance-vocabularies.xml" />
+					<include src="domain-instance-vocabularies.xml" strip-root="yes"/>
                     <instance id="vocab-xxx">
                         <web-url>xxx</web-url>
                         <title-ref>xxx</title-ref>

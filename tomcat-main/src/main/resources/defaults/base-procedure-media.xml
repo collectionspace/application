@@ -38,7 +38,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-procedure-media.xml" />
+				<include src="domain-procedure-media.xml" strip-root="yes"/>
 				
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>

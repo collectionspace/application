@@ -19,7 +19,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-authz-permission.xml" />
+				<include src="domain-authz-permission.xml" strip-root="yes"/>
 				
                 <terms-used>false</terms-used>
                 <section>

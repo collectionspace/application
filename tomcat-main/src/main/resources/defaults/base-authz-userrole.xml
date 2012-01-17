@@ -20,7 +20,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-authz-userrole.xml" />
+				<include src="domain-authz-userrole.xml" strip-root="yes"/>
 				
                 <section>
                     <group id="account">

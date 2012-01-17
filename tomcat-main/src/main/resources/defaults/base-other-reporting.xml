@@ -24,7 +24,7 @@
         </structure>
     </structures>
 	
-	<include src="domain-other-reporting.xml" />
+	<include src="domain-other-reporting.xml" strip-root="yes"/>
 	
     <section id="coreinfo">
         <field id="tenantID" section="collectionspace_core" attributes="GET"></field>

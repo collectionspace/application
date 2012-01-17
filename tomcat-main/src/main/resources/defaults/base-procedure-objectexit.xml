@@ -42,7 +42,7 @@
                 </structures>
 				
 				
-				<include src="domain-procedure-objectexit.xml" />
+				<include src="domain-procedure-objectexit.xml"  strip-root="yes" />
 				
                 <row-selector>.csc-recordList-row:</row-selector>
                 <section>

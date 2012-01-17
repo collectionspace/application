@@ -19,7 +19,7 @@
                     <structure id="screen"></structure>
                 </structures>
 				
-				<include src="domain-vocabularies.xml" />
+				<include src="domain-vocabularies.xml" strip-root="yes"/>
 				
 				<include src="base-instance-vocabularies.xml" />
                 

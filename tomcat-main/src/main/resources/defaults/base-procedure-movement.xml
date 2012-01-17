@@ -39,7 +39,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-procedure-movement.xml" />
+				<include src="domain-procedure-movement.xml" strip-root="yes"/>
 				
                 <row-selector>.csc-recordList-row:</row-selector>
                 <section>

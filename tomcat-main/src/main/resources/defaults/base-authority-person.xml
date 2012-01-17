@@ -34,7 +34,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-authority-person.xml" />
+				<include src="domain-authority-person.xml"  strip-root="yes" />
 				
                 <instances>
                     <instance id="person-person">

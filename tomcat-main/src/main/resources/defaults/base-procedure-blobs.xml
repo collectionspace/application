@@ -10,7 +10,7 @@
                 <authorization-view>false</authorization-view>
 				
 				
-				<include src="domain-procedure-blobs.xml" />
+				<include src="domain-procedure-blobs.xml" strip-root="yes"/>
 				
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>

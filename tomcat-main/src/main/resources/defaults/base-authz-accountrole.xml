@@ -21,7 +21,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-authz-accountrole.xml" />
+				<include src="domain-authz-accountrole.xml" strip-root="yes"/>
 				
                 <section>
                     <group id="role">

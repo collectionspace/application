@@ -32,7 +32,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-authority-organization.xml" />
+				<include src="domain-authority-organization.xml" strip-root="yes"/>
 				
                 <instances>
                     <instance id="organization-organization">

@@ -32,7 +32,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-authz-users.xml" />
+				<include src="domain-authz-users.xml" strip-root="yes"/>
 				
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>

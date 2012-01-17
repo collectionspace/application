@@ -30,7 +30,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-authority-taxon.xml" />
+				<include src="domain-authority-taxon.xml" strip-root="yes"/>
 				
                 <instances>
                     <instance id="taxon-taxon">

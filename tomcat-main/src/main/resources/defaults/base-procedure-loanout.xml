@@ -55,7 +55,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-procedure-loanout.xml" />
+				<include src="domain-procedure-loanout.xml" strip-root="yes"/>
 				
                 <row-selector>.csc-recordList-row:</row-selector>
                 <section>

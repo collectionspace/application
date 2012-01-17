@@ -12,7 +12,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-other-hierarchy.xml" />
+				<include src="domain-other-hierarchy.xml" strip-root="yes"/>
 				
 				
             	<section>

@@ -34,7 +34,7 @@
         </structure>
     </structures>
 	
-	<include src="domain-other-termlist.xml" />
+	<include src="domain-other-termlist.xml" strip-root="yes"/>
 	
 
     <section>

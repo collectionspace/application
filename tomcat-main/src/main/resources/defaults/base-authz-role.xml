@@ -32,7 +32,7 @@
                     </structure>
                 </structures>
 				
-				<include src="domain-authz-role.xml" />
+				<include src="domain-authz-role.xml" strip-root="yes"/>
 				
                 <section>
                     <field id="roleName">
