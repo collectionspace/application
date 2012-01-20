@@ -48,12 +48,21 @@ public class UserDetailsSearchList implements WebMethod {
 		return generateMiniRecord(storage,base,member);
 	}
 	
-	private JSONObject pathsToJSON(Storage storage,String base,String[] paths,String key) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+	private JSONObject pathsToJSON(Storage storage,String base,String[] paths,String key, JSONObject pagination) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject out=new JSONObject();
 		JSONArray members=new JSONArray();
-		for(String p : paths)
-			members.put(generateEntry(storage,base,p));
+		for(String p : paths){
+			JSONObject temp = generateEntry(storage,base,p);
+			if(temp !=null){
+				members.put(temp);
+			}
+		}
 		out.put(key,members);
+
+		
+		if(pagination!=null){
+			out.put("pagination",pagination);
+		}
 		return out;
 	}
 	
@@ -73,12 +82,15 @@ public class UserDetailsSearchList implements WebMethod {
 			}
 			JSONObject data = storage.getPathsJSON(base,restriction);
 			String[] paths = (String[]) data.get("listItems");
-			for(int i=0;i<paths.length;i++) {
-				if(paths[i].startsWith(base+"/"))
-					paths[i]=paths[i].substring((base+"/").length());
+			
+
+			JSONObject pagination = new JSONObject();
+			if(data.has("pagination")){
+				pagination = data.getJSONObject("pagination");
 			}
+			
 			JSONObject resultsObject=new JSONObject();
-			resultsObject = pathsToJSON(storage,base,paths,key);
+			resultsObject = pathsToJSON(storage,base,paths,key,pagination);
 			ui.sendJSONResponse(resultsObject);
 		} catch (JSONException e) {
 			throw new UIException("JSONException during autocompletion",e);
