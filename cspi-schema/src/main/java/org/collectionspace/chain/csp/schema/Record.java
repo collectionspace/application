@@ -59,6 +59,9 @@ public class Record implements FieldParent {
 	//merged fields are fields in the UI that take multiple service layer fields
 	private Map<String, FieldSet> mergedfields = new HashMap<String, FieldSet>(); 
 	
+	//list of all 'record' e.g. structuredDates, dimensions etc that are included
+	private Map<String, String> nestedFieldList = new HashMap<String, String>();
+	
 	private Map<String, Instance> instances = new HashMap<String, Instance>();
 	private Map<String, FieldSet> summarylist = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> minidataset = new HashMap<String, Map<String, FieldSet>>();
@@ -242,6 +245,10 @@ public class Record implements FieldParent {
 	}
 	
 
+	public void addNestedFieldList(String r){
+		nestedFieldList.put(r,r);
+	}
+	
 	public void addField(FieldSet f){
 		String parentType = f.getParent().getClass().getSimpleName();
 		fieldFullList.put(f.getID(),f);
@@ -315,7 +322,18 @@ public class Record implements FieldParent {
 		return fieldTopLevel.get(id);
 	}
 	public FieldSet getFieldFullList(String id) {
-		return fieldFullList.get(id);
+		if(fieldFullList.get(id)!=null){
+			return fieldFullList.get(id);
+		}
+		for(String r: nestedFieldList.values().toArray(new String[0])){
+			Record subitems = this.getSpec().getRecordByServicesUrl(r);
+			if(subitems!=null){
+				if(subitems.getFieldFullList(id)!=null){
+					return subitems.getFieldFullList(id);
+				}
+			}
+		}
+		return null;
 	}
 	public FieldSet getServiceFieldFullList(String id) {
 		return serviceFieldFullList.get(id);

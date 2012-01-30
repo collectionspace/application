@@ -114,6 +114,10 @@ public class Field implements FieldSet {
 		if (utils.getString("@ui-type").equals("date")) {
 			seperate_default = true;
 		}
+		if(utils.getString("@ui-type").startsWith("groupfield")){
+			String parts[] = utils.getString("@ui-type").split("/");
+			this.parent.getRecord().addNestedFieldList(parts[1]);
+		}
 		
 		utils.initBoolean(section,"@seperate_ui_container",seperate_default);
 		utils.initStrings(section,"use-csid",null);
