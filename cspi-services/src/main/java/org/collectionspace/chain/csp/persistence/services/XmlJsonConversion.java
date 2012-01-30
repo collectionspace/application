@@ -21,7 +21,6 @@ import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
-import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.dom4j.Document;
 import org.dom4j.DocumentFactory;
@@ -70,8 +69,7 @@ public class XmlJsonConversion {
 			for(FieldSet f : subitems.getAllServiceFieldTopLevel(operation,"common")) {
 				addFieldSetToXml(root,f,in,"common",operation);
 			}
-			String test = root.asXML();
-			log.debug(root.asXML());
+			//log.debug(root.asXML());
 			//return doc;
 		}
 		
@@ -240,7 +238,6 @@ public class XmlJsonConversion {
 		Element element2=root.addElement("currentLifeCycleState");
 		element2.addText("deleted");
 
-		String test = doc.asXML();
 		log.debug(doc.asXML());
 		return doc;
 		/**<document name="workflows">
@@ -323,8 +320,8 @@ public class XmlJsonConversion {
 		return "";
 	}
 	
-	private static List getComplexNodes(Element root,String context,String condition,String value,String extract) {
-		List out=new ArrayList();
+	private static List<Object> getComplexNodes(Element root,String context,String condition,String value,String extract) {
+		List<Object> out=new ArrayList<Object>();
 		for(Object n : root.selectNodes(context)) {
 			if(!(n instanceof Element))
 				continue;
@@ -347,7 +344,7 @@ public class XmlJsonConversion {
 		return out;
 	}
 	
-	private static List getNodes(Element root,String spec) {
+	private static List<?> getNodes(Element root,String spec) {
 		if(spec!=null && spec.length()>0 && spec.charAt(0)==';') {
 			String[] parts=spec.split(";");
 			return getComplexNodes(root,parts[1],parts[2],parts[3],parts[4]);
@@ -356,7 +353,7 @@ public class XmlJsonConversion {
 	}
 	
 	private static Element getFieldNodeEl(Element root,Field f){
-		List nodes=getNodes(root,f.getServicesTag());
+		List<?> nodes=getNodes(root,f.getServicesTag());
 		if(nodes.size()==0)
 			return null;
 		// XXX just add first
@@ -371,13 +368,11 @@ public class XmlJsonConversion {
 		if(parts.length<3)
 			parts = new String[]{null,parts[0],parts[1]};
 		String prefix1="";
-		String prefix2="";
 		if("ims".equals(parts[0]) && ims_url!=null)
 			prefix1=ims_url;
 		return prefix1+parts[1]+csid+parts[2];
 	}
 	
-	@SuppressWarnings("unchecked")
 	private static void addFieldToJson(JSONObject out,Element root,Field f, String operation, JSONObject tempSon,String csid,String ims_url) throws JSONException {
 		String use_csid=f.useCsid();
 		if(use_csid!=null) {
@@ -392,12 +387,10 @@ public class XmlJsonConversion {
 				String parts[] = f.getUIType().split("/");
 				Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 
-				JSONObject temp = new JSONObject();
 				for(FieldSet fs : subitems.getAllServiceFieldTopLevel(operation,"common")) {
 					addFieldSetToJson(out,el,fs,operation, tempSon,csid,ims_url);
 				}
 
-				//out.put(f.getID(),temp);
 				return;
 			}
 			
@@ -516,6 +509,14 @@ public class XmlJsonConversion {
 	private static List<String> FieldListFROMConfig(FieldSet f, String operation) {
 		List<String> children = new ArrayList<String>();
 		
+		if(f.getUIType().startsWith("groupfield")){
+			String parts[] = f.getUIType().split("/");
+			Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+			for(FieldSet fs : subitems.getAllFieldTopLevel(operation)) {
+				children.add(fs.getID());
+			}
+		}
+		
 		if(f instanceof Repeat){
 			for(FieldSet a : ((Repeat)f).getChildren(operation)){
 				if(a instanceof Repeat && ((Repeat)a).hasServicesParent()){
@@ -525,12 +526,20 @@ public class XmlJsonConversion {
 					//structuredates etc
 					String parts[] = a.getUIType().split("/");
 					Record subitems = a.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-					for(FieldSet fs : subitems.getAllFieldTopLevel(operation)) {
-						if(fs instanceof Repeat && ((Repeat)fs).hasServicesParent()){
-							children.add(((Repeat)fs).getServicesParent()[0]);
+
+					if(a instanceof Group){
+						if(((Group)a).getXxxServicesNoRepeat()){
+							for(FieldSet fs : subitems.getAllFieldTopLevel(operation)) {
+								if(fs instanceof Repeat && ((Repeat)fs).hasServicesParent()){
+									children.add(((Repeat)fs).getServicesParent()[0]);
+								}
+								else{
+									children.add(fs.getID());
+								}
+							}
 						}
 						else{
-							children.add(fs.getID());
+							children.add(a.getID());
 						}
 					}
 				}
@@ -552,8 +561,6 @@ public class XmlJsonConversion {
 	
 	/* Repeat syntax is challenging for dom4j */
 	private static JSONArray extractRepeatData(Element container,FieldSet f, String permlevel) throws JSONException {
-		
-		List<Map<String,List<Element>>> out=new ArrayList<Map<String,List<Element>>>();
 		JSONArray newout = new JSONArray();
 		// Build index so that we can see when we return to the start
 		List<String> fields = FieldListFROMConfig(f,permlevel);
@@ -597,18 +604,40 @@ public class XmlJsonConversion {
 		}
 		return temp;
 	}
-	//merges in the pseudo sub records 'groupfields' with the normal fields
+	//merges in the pseudo sub records 'groupfields' with the normal fields unless they need to be nested
 	private static List<FieldSet> getChildrenWithGroupFields(Repeat parent, String operation){
 		List<FieldSet> children = new ArrayList<FieldSet>();
+
+		if(parent.getUIType().startsWith("groupfield")){
+			String parts[] = parent.getUIType().split("/");
+			Record subitems = parent.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+			for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+				children.add(fd);
+			}
+		}
+		
 		
 		for(FieldSet fs : parent.getChildren(operation)) {
 
 			if(fs.getUIType().startsWith("groupfield")){
 				String parts[] = fs.getUIType().split("/");
 				Record subitems = fs.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-
-				for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
-					children.add(fd); //what about nested groupfields?
+				
+				if(fs instanceof Group){
+					if(((Group)fs).getXxxServicesNoRepeat()){
+						for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+							children.add(fd); //non-nested groupfields?
+						}
+					}
+					else{
+						//this one should be nested
+						children.add(fs);
+					}
+				}
+				else{
+					for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
+						children.add(fd); //what about nested groupfields?
+					}
 				}
 			}
 			else{
@@ -618,7 +647,6 @@ public class XmlJsonConversion {
 		return children;
 	}
 	
-	@SuppressWarnings("unchecked")
 	private static JSONArray addRepeatedNodeToJson(Element container,Repeat f, String permlevel, JSONObject tempSon) throws JSONException {
 		JSONArray node = new JSONArray();
 		List<FieldSet> children =getChildrenWithGroupFields(f, permlevel);
@@ -629,7 +657,7 @@ public class XmlJsonConversion {
 			JSONObject element = elementlist.getJSONObject(i);
 
 
-			Iterator rit=element.keys();
+			Iterator<?> rit=element.keys();
 			while(rit.hasNext()) {
 				String key=(String)rit.next();
 				JSONArray arrvalue = new JSONArray();
@@ -737,16 +765,12 @@ public class XmlJsonConversion {
 			}
 		}
 		else{
-			List nodes=root.selectNodes(nodeName);
+			List<?> nodes=root.selectNodes(nodeName);
 			if(nodes.size()==0)
 				return;
 			
-			
-			JSONArray node = new JSONArray();
 			// Only first element is important in group container
-			int pos = 0;
 			for(Object repeatcontainer : nodes){
-				pos++;
 				Element container=(Element)repeatcontainer;
 				JSONArray repeatitem = addRepeatedNodeToJson(container,f,operation,tempSon);
 				JSONObject repeated = repeatitem.getJSONObject(0);
@@ -755,7 +779,7 @@ public class XmlJsonConversion {
 		}
 		
 	}
-	@SuppressWarnings("unchecked")
+	
 	private static void addRepeatToJson(JSONObject out,Element root,Repeat f,String permlevel, JSONObject tempSon,String csid,String ims_url) throws JSONException {
 		if(f.getXxxServicesNoRepeat()) { //not a repeat in services yet but is a repeat in UI
 			FieldSet[] fields=f.getChildren(permlevel);
@@ -776,7 +800,7 @@ public class XmlJsonConversion {
 				nodeName = f.getID();
 			}
 		}
-		List nodes=root.selectNodes(nodeName);
+		List<?> nodes=root.selectNodes(nodeName);
 		if(nodes.size()==0){// add in empty primary tags and arrays etc to help UI
 			if(f.asSibling()){
 				JSONObject repeated = new JSONObject();
@@ -797,7 +821,6 @@ public class XmlJsonConversion {
 		}
 		
 		
-		JSONArray node = new JSONArray();
 		// Only first element is important in container
 		//except when we have repeating items
 		int pos = 0;
