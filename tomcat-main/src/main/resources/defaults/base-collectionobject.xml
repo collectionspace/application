@@ -515,9 +515,9 @@
                                 </enum>
                                 <selector>object-description-inscription-content-language</selector>
                             </field>
-                            <field id="inscriptionContentDate" ui-type="date">
-                                <selector>object-description-inscription-content-date</selector>
-                            </field>
+	                        <group id="inscriptionContentDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                                <selector>object-description-inscription-content-date</selector>	                        	
+	                        </group>
                             <field id="inscriptionContentPosition" seperate_ui_container="true">
                                 <selector>object-description-inscription-content-position</selector>
                                 <options>
@@ -583,9 +583,9 @@
                             <field id="inscriptionDescriptionInscriber" ui-search="repeatable" autocomplete="person-person,organization-organization">
                                 <selector>object-description-inscription-description-inscriber</selector>
                             </field>
-                            <field id="inscriptionDescriptionDate" ui-type="date">
-                                <selector>object-description-inscription-description-date</selector>
-                            </field>
+	                        <group id="inscriptionDescriptionDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                                <selector>object-description-inscription-description-date</selector>	                        	
+	                        </group>
                             <field id="inscriptionDescriptionPosition" seperate_ui_container="true">
                                 <selector>object-description-inscription-description-position</selector>
                                 <options>
@@ -807,10 +807,9 @@
                         <field id="assocEventNote"></field>
                         <repeat id="assocDateGroupList/assocDateGroup">
                             <selector>object-history-association-assocDateGroup</selector>
-                            <field id="assocDate" ui-type="date">
-                                <!-- Experimenting with explicitly naming the selector to get container behavior working -->
-                                <selector>object-history-association-assocDate</selector>
-                            </field>
+	                        <group id="assocDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                                <selector>object-history-association-assocDate</selector>	                        	
+	                        </group>
                             <field id="assocDateType"></field>
                             <field id="assocDateNote"></field>
                         </repeat>
@@ -859,7 +858,10 @@
                     </repeat>
                 </section>
                 <section id="objectCollectionInformation">
-                    <field id="fieldCollectionDate" ui-type="date"></field>
+                    <field id="fieldCollectionDate" ui-search="repeatable" ui-type="groupfield/structureddate" primarykey="fieldCollectionDate.dateDisplayDate" ui-func="cspace.structuredDate">
+                        <services-tag>fieldCollectionDateGroup</services-tag>
+                        <selector>collection-object-fieldCollectionDate</selector>
+                    </field>
                     <repeat id="fieldCollectionMethods">
                         <field id="fieldCollectionMethod" autocomplete="vocab-collectionmethod" ui-type="enum"></field>
                     </repeat>
