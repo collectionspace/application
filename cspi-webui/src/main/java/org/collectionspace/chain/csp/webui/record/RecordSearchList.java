@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
@@ -347,6 +348,7 @@ public class RecordSearchList implements WebMethod {
 
 			String operation = params.getString("operation").toUpperCase();
 			JSONObject fields = params.getJSONObject("fields");
+			log.debug("Advanced Search on fields: "+fields.toString());
 
 			String asq = ""; 
 			Iterator rit=fields.keys();
@@ -445,23 +447,93 @@ public class RecordSearchList implements WebMethod {
 	private String getAdvancedSearch(String fieldname, String value, String operator, String join){
 		if(!value.equals("")){
 			try{
-				String section = this.r.getFieldFullList(fieldname).getSection(); 
+				FieldSet fieldSet = this.r.getFieldFullList(fieldname);
+				String section = fieldSet.getSection(); 	// Get the payload part
 				String spath=this.r.getServicesRecordPath(section);
 				String[] parts=spath.split(":",2);
+				// Replace user wildcards with service-legal wildcards
 				if(value.contains("*")){
 					value = value.replace("*", "%");
 					join = " ilike ";
 				}
-				//backslash quotes??
+				String fieldSpecifier = getSearchSpecifierForField(fieldname, fieldSet);
+				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
 				
-				return parts[0]+":"+fieldname+join+"\""+value +"\""+ " " + operator+ " ";
+				return parts[0]+":"+fieldSpecifier+join+"\""+value +"\""+ " " + operator+ " ";
 			}
 			catch(Exception e){
+				log.error("Problem creating advanced search specifier for field: "+fieldname);
+				log.error(e.getLocalizedMessage());
 				return "";
 			}
 		}
 		return "";
 	}
+
+
+	/**
+	 * Returns an NXQL-conformant string that specifies the full (X)path to this field.
+	 * May recurse to handle nested fields.
+	 * This should probably live in Field.java, not here.
+	 * 
+	 * @param fieldname the name of the field
+	 * @param fieldSet the containing fieldSet
+	 * @return NXQL conformant specifier.
+	 **/
+	private String getSearchSpecifierForField(String fieldname, FieldSet fieldSet ) {
+		String specifier = fieldname;	// default is just the simple field name
+		
+		// Check for a composite (fooGroupList/fooGroup). For these, the name is the 
+		// leaf, and the first part is held in the "services parent"
+		if(fieldSet.hasServicesParent()) {
+			// Prepend the services parent field, and make the child a wildcard
+			String [] svcsParent = fieldSet.getServicesParent();
+			if(svcsParent[0] != null && !svcsParent[0].isEmpty()) {
+				specifier = svcsParent[0] +"/*"; 
+			}
+		}
+		
+		FieldParent parent = fieldSet.getParent();
+
+		boolean isRootLevelField = false;			// Assume we are recursing until we see otherwise
+		if(parent instanceof Record) {	// A simple reference to base field.
+			isRootLevelField = true;
+			log.debug("Specifier for root-level field: " + fieldname + " is: "+specifier);
+		} else {
+			FieldSet parentFieldSet = (FieldSet)parent;
+			// "repeator" marks things for some expansion - not handled here (?)
+			if(parentFieldSet.getSearchType().equals("repeator")) {
+				isRootLevelField = true;
+			} else {
+				// Otherwise, we're dealing with some amount of nesting.
+				// First, recurse to get the fully qualified path to the parent.
+				String parentID = parentFieldSet.getID();
+				log.debug("Recursing for parent: " + parentID );
+				specifier = getSearchSpecifierForField(parentID, parentFieldSet);
+							
+				// Is parent a scalar list or a complex list?
+				Repeat rp = (Repeat)parentFieldSet;
+				FieldSet[] children = rp.getChildren("");
+				int size = children.length;
+				// HACK - we should really mark a repeating scalar as such, 
+				// or a complex schema from which only 1 field is used, will break this.
+				if(size > 1){
+					// The parent is a complex schema, not just a scalar repeat
+					// Append the field name to build an XPath-like specifier.
+					specifier += "/"+fieldname;
+				} else{
+					// Leave specifier as is. We just search on the parent name,
+					// as the backend is smart about scalar lists. 
+				}
+			}
+			log.debug("Specifier for non-leaf field: " + fieldname + " is: "+specifier);
+		}
+		if(isRootLevelField) {
+			// TODO - map leaf names like "titleGroupList/titleGroup" to "titleGroupList/*"
+		}
+		return specifier;
+	}
+
 	public void searchtype(Storage storage,UIRequest ui,String path) throws UIException{
 
 		if(ui.getBody() == null || StringUtils.isBlank(ui.getBody())){

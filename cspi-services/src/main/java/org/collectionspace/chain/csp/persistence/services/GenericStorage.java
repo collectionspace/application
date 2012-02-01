@@ -276,6 +276,30 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 			to_get.remove(fieldname);
 		}
+
+		//check summary and number against docNumber docName
+		if(to_get.contains("summary")){
+			String gleaned=getGleanedValue(cache,cachelistitem,"docName");
+			if(gleaned!=null){
+			String good = view_good.get("summary");
+			if(xxx_view_deurn.contains(good))
+				gleaned=xxx_deurn(gleaned);
+				out.put("summary",gleaned);
+				to_get.remove("summary");
+			}
+		}
+		//check summary and number against docNumber docName
+		if(to_get.contains("number")){
+			String gleaned=getGleanedValue(cache,cachelistitem,"docNumber");
+			if(gleaned!=null){
+			String good = view_good.get("number");
+			if(xxx_view_deurn.contains(good))
+				gleaned=xxx_deurn(gleaned);
+				out.put("number",gleaned);
+				to_get.remove("number");
+			}
+		}
+		
 		// Do a full request only if values in list of fields returned != list from cspace-config
 		if(to_get.size()>0) {
 			JSONObject data=simpleRetrieveJSON(creds,cache,null,cachelistitem,thisr);
@@ -574,9 +598,13 @@ public class GenericStorage  implements ContextualisedStorage {
 					if(((Element) node).hasContent()){
 
 						String key=((Element)node).selectSingleNode("sourceField").getText();
-						//String uri=((Element)node).selectSingleNode("uri").getText(); = no longer has a URI - don't know why
 						String refname=((Element)node).selectSingleNode("refName").getText();
-
+						String itemDisplayName=((Element)node).selectSingleNode("itemDisplayName").getText();
+						String uri = "";
+						if(null!=((Element)node).selectSingleNode("uri")){ //seems to be missing sometimes
+							uri=((Element)node).selectSingleNode("uri").getText();
+						}
+						
 						String fieldName = key;
 						if(key.split(":").length>1){
 							fieldName = key.split(":")[1];
@@ -597,8 +625,13 @@ public class GenericStorage  implements ContextualisedStorage {
 						
 						if(fieldinstance != null){
 
-							JSONObject data=miniForURI(storage,creds,cache,refname,null,restrictions);
-
+							JSONObject data = new JSONObject();
+							data.put("sourceField", key);
+							data.put("itemDisplayName", itemDisplayName);
+							data.put("refname", refname);
+							data.put("uri", uri);
+							//JSONObject data=miniForURI(storage,creds,cache,refname,null,restrictions);
+							/*
 							if(!data.has("refid")){//incase of permissions errors try our best
 								data.put("refid",refname);
 								if(data.has("displayName")){
@@ -608,6 +641,7 @@ public class GenericStorage  implements ContextualisedStorage {
 									data.put(temp, itemDisplayName);
 								}
 							}
+							*/
 							data.put("sourceFieldselector", fieldinstance.getSelector());
 							data.put("sourceFieldName", fieldName);
 							data.put("sourceFieldType", r.getID());

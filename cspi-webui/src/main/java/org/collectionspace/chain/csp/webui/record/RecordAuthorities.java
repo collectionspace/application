@@ -2,6 +2,8 @@ package org.collectionspace.chain.csp.webui.record;
 
 import java.util.Iterator;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.schema.Record;
@@ -72,14 +74,28 @@ public class RecordAuthorities implements WebMethod {
 
 	private JSONObject getTermsUsedData(JSONObject in) throws JSONException {
 		JSONObject entry = new JSONObject();
-		entry.put("csid", in.getString("csid"));
-		entry.put("recordtype", in.getString("recordtype"));
+		if(in.has("csid")){
+			entry.put("csid", in.getString("csid"));
+			entry.put("recordtype", in.getString("recordtype"));
+		}
+		else{
+			String uri = in.getString("uri");
+			////personauthorities/urn:cspace:name(person)/items/urn:cspace:name(BobClampett1328099425416)
+			String[] uribits = uri.split("/");
+
+			entry.put("csid", uribits[4]);
+			String instance = uribits[2].replaceAll("urn:cspace:name\\((.*)\\)", "$1"); //might need the authority type as well..
+			String auth = uribits[1];
+			String parentauth = this.record.getSpec().getRecordByServicesUrl(auth).getWebURL();
+			entry.put("recordinstance", instance);
+			entry.put("recordtype", parentauth);
+		}
 		// entry.put("sourceFieldName",field);
 		entry.put("sourceFieldselector", in.getString("sourceFieldselector"));
 		entry.put("sourceFieldName", in.getString("sourceFieldName"));
 		entry.put("sourceFieldType", in.getString("sourceFieldType"));
 
-		entry.put("number", in.getString("displayName"));
+		entry.put("number", in.getString("itemDisplayName"));
 		return entry;
 	}
 

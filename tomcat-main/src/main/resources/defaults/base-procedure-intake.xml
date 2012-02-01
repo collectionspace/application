@@ -47,7 +47,7 @@
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="objectEntryInformation">
-                    <field id="entryNumber" chooser="yes" in-title="yes" ui-search="repeatable" mini="number,search,list,terms,relate" seperate_ui_container="true">
+                    <field id="entryNumber" chooser="yes" in-title="yes" ui-search="repeatable" mini="number,search,list,relate" seperate_ui_container="true">
                         <selector>intake-entry-number</selector>
                         <title-selector>titleBar-intake-entry-number</title-selector>
                         <options>
