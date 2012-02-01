@@ -1,1 +1,3 @@
 */target/
+tomcat-main/src/main/resources/tenants/core/local-settings.xml
+tomcat-main/src/main/resources/tenants/lifesci/local-settings.xml
