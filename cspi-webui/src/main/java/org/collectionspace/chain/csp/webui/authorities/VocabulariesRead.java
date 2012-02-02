@@ -43,11 +43,23 @@ public class VocabulariesRead implements WebMethod {
 		this.showbasicinfoonly = false;
 		this.base=n.getID();
 		this.n=n;
+		if(this.spec == null){
+			this.spec = n.getRecord().getSpec();
+			for(Record r : spec.getAllRecords()) {
+				type_to_url.put(r.getID(),r.getWebURL());
+			}
+		}
 	}
 	public VocabulariesRead(Instance n, Boolean showbasicinfoonly) {
 		this.showbasicinfoonly = showbasicinfoonly;
 		this.base=n.getID();
 		this.n=n;
+		if(this.spec == null){
+			this.spec = n.getRecord().getSpec();
+			for(Record r : spec.getAllRecords()) {
+				type_to_url.put(r.getID(),r.getWebURL());
+			}
+		}
 	}
 	
 	public void configure(WebUI ui,Spec spec) {
