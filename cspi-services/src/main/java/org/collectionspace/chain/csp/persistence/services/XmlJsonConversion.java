@@ -413,14 +413,11 @@ public class XmlJsonConversion {
 				out.put(f.getID(),temp);
 			}
 			else{
-				String val = el.getText();
+				Object val = el.getText();
 				if(f.getDataType().equals("boolean")){
-					Boolean bval = Boolean.parseBoolean(val);
-					out.put(f.getID(),bval);
+					val = Boolean.parseBoolean((String)val);
 				}
-				else{
-					out.put(f.getID(),val);
-				}
+				out.put(f.getID(),val);
 			}
 	
 			tempSon = addtemp(tempSon, f.getID(), el.getText());
