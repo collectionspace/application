@@ -1683,8 +1683,8 @@
             ]
         },
         ".csc-object-description-content-note": "${fields.contentNote}",
-        ".csc-collection-object-inscriptionDescriptionDate-label": {
-            "messagekey": "collection-object-inscriptionDescriptionDateLabel"
+        ".csc-nonTextualInscriptionGroup-inscriptionDescriptionDate-label": {
+            "messagekey": "nonTextualInscriptionGroup-inscriptionDescriptionDateLabel"
         },
         ".csc-collection-object-objectProductionPeopleGroup-label": {
             "messagekey": "collection-object-objectProductionPeopleGroupLabel"
@@ -3043,11 +3043,40 @@
                                     ".csc-object-description-inscription-description-date": {
                                         "decorators": [
                                             {
-                                                "func": "cspace.datePicker",
-                                                "type": "fluid"
+                                                "func": "cspace.structuredDate",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "root": "{row}",
+                                                    "elPath": "inscriptionDescriptionDate.dateDisplayDate",
+                                                    "elPaths": {
+                                                        "dateEarliestSingleQualifier": "inscriptionDescriptionDate.dateEarliestSingleQualifier",
+                                                        "scalarValuesComputed": "inscriptionDescriptionDate.scalarValuesComputed",
+                                                        "dateLatestDay": "inscriptionDescriptionDate.dateLatestDay",
+                                                        "dateLatestYear": "inscriptionDescriptionDate.dateLatestYear",
+                                                        "dateAssociation": "inscriptionDescriptionDate.dateAssociation",
+                                                        "dateEarliestSingleEra": "inscriptionDescriptionDate.dateEarliestSingleEra",
+                                                        "dateDisplayDate": "inscriptionDescriptionDate.dateDisplayDate",
+                                                        "dateEarliestSingleCertainty": "inscriptionDescriptionDate.dateEarliestSingleCertainty",
+                                                        "dateLatestEra": "inscriptionDescriptionDate.dateLatestEra",
+                                                        "dateEarliestSingleQualifierValue": "inscriptionDescriptionDate.dateEarliestSingleQualifierValue",
+                                                        "dateLatestCertainty": "inscriptionDescriptionDate.dateLatestCertainty",
+                                                        "dateEarliestSingleYear": "inscriptionDescriptionDate.dateEarliestSingleYear",
+                                                        "dateLatestQualifier": "inscriptionDescriptionDate.dateLatestQualifier",
+                                                        "dateLatestQualifierValue": "inscriptionDescriptionDate.dateLatestQualifierValue",
+                                                        "dateEarliestSingleQualifierUnit": "inscriptionDescriptionDate.dateEarliestSingleQualifierUnit",
+                                                        "datePeriod": "inscriptionDescriptionDate.datePeriod",
+                                                        "dateEarliestScalarValue": "inscriptionDescriptionDate.dateEarliestScalarValue",
+                                                        "dateLatestMonth": "inscriptionDescriptionDate.dateLatestMonth",
+                                                        "dateNote": "inscriptionDescriptionDate.dateNote",
+                                                        "dateLatestScalarValue": "inscriptionDescriptionDate.dateLatestScalarValue",
+                                                        "dateLatestQualifierUnit": "inscriptionDescriptionDate.dateLatestQualifierUnit",
+                                                        "dateEarliestSingleDay": "inscriptionDescriptionDate.dateEarliestSingleDay",
+                                                        "dateEarliestSingleMonth": "inscriptionDescriptionDate.dateEarliestSingleMonth"
+                                                    }
+                                                }
                                             }
                                         ],
-                                        "value": "${{row}.inscriptionDescriptionDate}"
+                                        "value": "${{row}.inscriptionDescriptionDate.dateDisplayDate}"
                                     },
                                     ".csc-object-description-inscription-description": "${{row}.inscriptionDescription}",
                                     ".csc-object-description-inscription-description-inscriber": {

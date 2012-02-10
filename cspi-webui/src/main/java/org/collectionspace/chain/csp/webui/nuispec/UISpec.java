@@ -259,13 +259,27 @@ public class UISpec implements WebMethod {
 				if(fsp instanceof Repeat && !(fsp instanceof Group)){
 					Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
 					if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
+						String prefix = "";
+						if(fs instanceof Group && !((Group) fs).getXxxServicesNoRepeat()){
+							//XXX refacetor with some idea of UIContext.
+							//add a prefix for nested non repeatables
+							prefix = fs.getID()+".";
+						}
 						truerepeat = true;
 						for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
-							subexpander.put(getSelector(fs2,sub), fs2.getID());
+							subexpander.put(getSelector(fs2,sub), prefix+fs2.getID());
 						}
-						options.put("elPath", fs.getPrimaryKey());
-						options.put("root", "{row}");
-						out.put("value",veryplain("{row}."+fs.getPrimaryKey()));
+						if(fs instanceof Group && !((Group) fs).getXxxServicesNoRepeat()){
+							options.put("elPath", prefix+fs.getPrimaryKey());
+							options.put("root", "{row}");
+							out.put("value",veryplain("{row}."+prefix+fs.getPrimaryKey()));
+						}
+						else if(fs instanceof Repeat){
+
+							options.put("elPath", fs.getPrimaryKey());
+							options.put("root", "{row}");
+							out.put("value",veryplain("{row}."+fs.getPrimaryKey()));
+						}
 					}
 				}
 				if(!truerepeat){

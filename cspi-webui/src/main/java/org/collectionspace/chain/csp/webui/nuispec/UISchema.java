@@ -11,6 +11,7 @@ import java.util.Iterator;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -107,9 +108,7 @@ public class UISchema extends UISpec {
 	protected Object generateGroupField(FieldSet f,UISpecRunContext context)
 			throws JSONException {
 		String parts[] = f.getUIType().split("/");
-
 		JSONObject items = new JSONObject();
-
 		Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 
 		String selector = getSelector(f,context);
@@ -117,7 +116,7 @@ public class UISchema extends UISpec {
 		for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {
 			generateDataEntry(protoTree, fs2,context);
 		}
-		
+
 		if(parts.length>=3 && parts[2].equals("selfrenderer")){
 			return protoTree;
 		}
@@ -233,13 +232,28 @@ public class UISchema extends UISpec {
 					generateDataEntry(protoTree, child, context);
 				}
 				if(child.getUIType().startsWith("groupfield") && child.getUIType().contains("structureddate")){
-					structuredate = protoTree.getJSONObject(getSelector(child,context)).getJSONObject("properties");
-					protoTree.remove(getSelector(child,context));
+					FieldParent fsp = child.getParent();
 
-					Iterator rit=structuredate.keys();
-					while(rit.hasNext()) {
-						String key=(String)rit.next();
-						protoTree.put(key, structuredate.get(key));
+					Boolean truerepeat = false;
+					//should we use structured dates in line rather than nested
+					
+					if(fsp instanceof Repeat && !(fsp instanceof Group)){
+						Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
+						if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
+							if((child instanceof Group || child instanceof Repeat) && !((Repeat) child).getXxxServicesNoRepeat()){
+								truerepeat = true;
+							}
+						}
+					}
+					
+					if(!truerepeat){
+						structuredate = protoTree.getJSONObject(getSelector(child,context)).getJSONObject("properties");
+						protoTree.remove(getSelector(child,context));
+						Iterator rit=structuredate.keys();
+						while(rit.hasNext()) {
+							String key=(String)rit.next();
+							protoTree.put(key, structuredate.get(key));
+						}
 					}
 				}
 			}
