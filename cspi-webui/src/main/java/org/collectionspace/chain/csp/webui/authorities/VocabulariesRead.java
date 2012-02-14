@@ -38,6 +38,7 @@ public class VocabulariesRead implements WebMethod {
 	private String base;
 	private Spec spec;
 	private boolean showbasicinfoonly;
+	private RecordAuthorities termsused;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 
 	public VocabulariesRead(Instance n) {
