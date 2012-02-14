@@ -18,6 +18,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.csp.webui.record.RecordAuthorities;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -36,6 +37,7 @@ public class VocabulariesRead implements WebMethod {
 	private Instance n;
 	private String base;
 	private Spec spec;
+	private RecordAuthorities termsused;
 	private boolean showbasicinfoonly;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
 
@@ -49,6 +51,8 @@ public class VocabulariesRead implements WebMethod {
 				type_to_url.put(r.getID(),r.getWebURL());
 			}
 		}
+		Record r =n.getRecord();
+		this.termsused = new RecordAuthorities(r);
 	}
 	public VocabulariesRead(Instance n, Boolean showbasicinfoonly) {
 		this.showbasicinfoonly = showbasicinfoonly;
@@ -60,6 +64,8 @@ public class VocabulariesRead implements WebMethod {
 				type_to_url.put(r.getID(),r.getWebURL());
 			}
 		}
+		Record r =n.getRecord();
+		this.termsused = new RecordAuthorities(r);
 	}
 	
 	public void configure(WebUI ui,Spec spec) {
@@ -290,7 +296,9 @@ public class VocabulariesRead implements WebMethod {
 			if(!showbasicinfoonly){
 				out.put("relations",new JSONArray());
 				//out.put("relations",relations);
-				out.put("termsUsed",getTermsUsed(storage,refPath+csid));
+				JSONArray tusd = this.termsused.getTermsUsed(storage, refPath+csid, new JSONObject());
+				out.put("termsUsed",tusd);
+				//getTermsUsed(storage,refPath+csid));
 				out.put("refobjs",getRefObj(storage,refPath+csid));
 			}
 		} catch (ExistException e) {

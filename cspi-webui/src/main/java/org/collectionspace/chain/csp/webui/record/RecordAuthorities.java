@@ -41,7 +41,7 @@ public class RecordAuthorities implements WebMethod {
 	}
 
 	@SuppressWarnings("unchecked")
-	protected JSONArray getTermsUsed(Storage storage, String path, JSONObject restrictions)
+	public JSONArray getTermsUsed(Storage storage, String path, JSONObject restrictions)
 			throws ExistException, UnimplementedException,
 			UnderlyingStorageException, JSONException {
 
