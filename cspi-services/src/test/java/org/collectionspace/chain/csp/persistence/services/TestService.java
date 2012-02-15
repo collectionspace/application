@@ -82,7 +82,7 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
-//		testXMLJSON(spec, "location", "location.xml", "location.json");
+		testXMLJSON(spec, "location", "location.xml", "location.json");
 		testXMLJSON(spec, "collection-object", "objectsXMLJSON.xml",
 				"objectsJSON.json");
 
@@ -126,13 +126,13 @@ public class TestService extends ServicesBaseClass {
 		ConfigRoot root = cspm.getConfigRoot();
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
+		testJSONXML(spec, "location", "location.xml", "location.json");
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
 		 		"objectsJSON.json");
 		
 		testJSONXML(spec, "acquisition", "acquisitionXMLJSON.xml",
 		 		"acquisitionJSON.json");
 
-		testJSONXML(spec, "location", "location.xml", "location.json");
 		testJSONXML(spec, "media", "media.xml", "mediaJSON.json");
 		testJSONXML(spec, "loanin", "loanin.xml", "loanin.json");
 		testJSONXML(spec, "loanout", "loanout.xml", "loanout.json");

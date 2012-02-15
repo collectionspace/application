@@ -583,9 +583,9 @@
                             <field id="inscriptionDescriptionInscriber" ui-search="repeatable" autocomplete="person-person,organization-organization">
                                 <selector>object-description-inscription-description-inscriber</selector>
                             </field>
-                            <group id="inscriptionDescriptionDate" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                            <field id="inscriptionDescriptionDate">
                                 <selector>object-description-inscription-description-date</selector>
-                            </group>
+                            </field>
                             <field id="inscriptionDescriptionPosition" seperate_ui_container="true">
                                 <selector>object-description-inscription-description-position</selector>
                                 <options>
