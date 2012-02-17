@@ -1,4 +1,3 @@
-
             <record id="collection-object" in-findedit="yes">
                 <services-url>collectionobjects</services-url>
                 <services-tenant-singular>CollectionObject</services-tenant-singular>
@@ -400,7 +399,7 @@
                             </field>
                         </repeat>
 
-                        <field id="contentDate" ui-search="repeatable" ui-type="groupfield/structureddate" primarykey="contentDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
+                        <field id="contentDate" ui-type="groupfield/structureddate" primarykey="contentDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
                             <services-tag>contentDateGroup</services-tag>
                             <selector>object-description-content-date</selector>
                         </field>
