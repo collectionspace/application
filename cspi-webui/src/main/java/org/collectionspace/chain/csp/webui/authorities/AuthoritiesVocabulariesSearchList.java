@@ -344,7 +344,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			//cache for record traverser
 			if(results.has("pagination") && results.getJSONObject("pagination").has("separatelists")){
 				String vhash = Generic.createHash(results.getJSONObject("pagination").getJSONArray("separatelists").toString());
-				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,results.getJSONObject("pagination").getJSONArray("separatelists"));
+				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,results.getJSONArray(resultstring));
 				results.getJSONObject("pagination").put("traverser", vhash);
 			}
 			ui.sendJSONResponse(results);

@@ -305,7 +305,7 @@ public class RecordSearchList implements WebMethod {
 			//cache for record traverser
 			if(returndata.has("pagination") && returndata.getJSONObject("pagination").has("separatelists")){
 				String vhash = Generic.createHash(returndata.getJSONObject("pagination").getJSONArray("separatelists").toString());
-				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,returndata.getJSONObject("pagination").getJSONArray("separatelists"));
+				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,returndata.getJSONArray(key));
 				returndata.getJSONObject("pagination").put("traverser", vhash);
 			}
 			ui.sendJSONResponse(returndata);
