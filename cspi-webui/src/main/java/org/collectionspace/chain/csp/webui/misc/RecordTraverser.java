@@ -60,8 +60,11 @@ public class RecordTraverser implements WebMethod  {
 				outputJSON.put("index",indexvalue.toString());
 				outputJSON.put("token", token);
 			}
+			else{
+				outputJSON.put("error", "Cannot find the traverser token");
+			}
 		} catch (JSONException e) {
-			throw new UIException("Cannot find the traverser data",e);
+			throw new UIException("Error with the traverser data",e);
 		}
 		request.sendJSONResponse(outputJSON);
 	}
