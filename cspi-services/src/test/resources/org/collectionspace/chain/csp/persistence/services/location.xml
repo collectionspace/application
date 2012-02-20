@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <ns2:locations_common xmlns:ns2="http://collectionspace.org/services/location">
     <shortIdentifier>bob</shortIdentifier>
-    <accessNote>access</accessNote>
+    <accessNote>accessNote</accessNote>
     <address>address</address>
     <securityNote>securityNote</securityNote>
     <termStatus>termStatus</termStatus>
