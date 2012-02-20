@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
@@ -20,12 +19,14 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.csp.webui.misc.Generic;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -340,8 +341,15 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			} else {
 				search_or_list_vocab(results,n,storage,ui,restriction,resultstring,new JSONObject());				
 			}
+			//cache for record traverser
+			if(results.has("pagination") && results.getJSONObject("pagination").has("separatelists")){
+				String vhash = Generic.createHash(results.getJSONObject("pagination").getJSONArray("separatelists").toString());
+				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,results.getJSONObject("pagination").getJSONArray("separatelists"));
+				results.getJSONObject("pagination").put("traverser", vhash);
+			}
 			ui.sendJSONResponse(results);
 	}
+	
 
 	public void searchtype(Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws UIException{
 

@@ -6,11 +6,8 @@
  */
 package org.collectionspace.chain.csp.webui.record;
 
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -30,6 +27,7 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -304,7 +302,12 @@ public class RecordSearchList implements WebMethod {
 			else{
 				returndata = getJSON(storage,restriction,key,base);
 			}
-			
+			//cache for record traverser
+			if(returndata.has("pagination") && returndata.getJSONObject("pagination").has("separatelists")){
+				String vhash = Generic.createHash(returndata.getJSONObject("pagination").getJSONArray("separatelists").toString());
+				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,returndata.getJSONObject("pagination").getJSONArray("separatelists"));
+				returndata.getJSONObject("pagination").put("traverser", vhash);
+			}
 			ui.sendJSONResponse(returndata);
 		} catch (JSONException e) {
 			throw new UIException("JSONException during search_or_list",e);
@@ -429,6 +432,13 @@ public class RecordSearchList implements WebMethod {
 			key="results";
 
 			returndata = getJSON(storage,restriction,key,base);
+
+			//cache for record traverser
+			if(returndata.has("pagination") && returndata.getJSONObject("pagination").has("separatelists")){
+				String vhash = Generic.createHash(returndata.getJSONObject("pagination").getJSONArray("separatelists").toString());
+				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,returndata.getJSONObject("pagination").getJSONArray("separatelists"));
+				returndata.getJSONObject("pagination").put("traverser", vhash);
+			}
 			ui.sendJSONResponse(returndata);
 		} catch (JSONException e) {
 			throw new UIException("JSONException during advancedSearch "+e.getMessage(),e);
@@ -559,8 +569,9 @@ public class RecordSearchList implements WebMethod {
 		}
 		
 		for(int i=0;i<paths.length;i++) {
-			if(paths[i].startsWith(mybase+"/"))
+			if(paths[i].startsWith(mybase+"/")){
 				paths[i]=paths[i].substring((mybase+"/").length());
+			}
 		}
 		out = pathsToJSON(storage,mybase,paths,key,pagination);
 		return out;
