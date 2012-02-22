@@ -284,7 +284,9 @@ public class UISpec implements WebMethod {
 				}
 				if(!truerepeat){
 					for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
-						subexpander.put(getSelector(fs2,sub), veryplainWithoutEnclosure(fs2,sub));
+						if(!fs2.getSearchType().equals("false") || !this.spectype.equals("search")){ //only hide if this is a search uispec - need to extend to all uispec stuff
+							subexpander.put(getSelector(fs2,sub), veryplainWithoutEnclosure(fs2,sub));
+						}
 					}
 				}
 

@@ -1438,7 +1438,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 		if(all.getStatus()!=200){
 			//throw new StatusException(all.getStatus(),path,"Bad request during identifier cache map update: status not 200");
-			throw new ConnectionException("Bad request during identifier cache map update: status not 200"+Integer.toString(all.getStatus()),all.getStatus(),path);
+			throw new ConnectionException("Bad request during identifier cache map update: status not 200 is "+Integer.toString(all.getStatus()),all.getStatus(),path);
 		}
 		list=all.getDocument();
 		
@@ -1526,7 +1526,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		ReturnedDocument all = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 		if(all.getStatus()!=200){
 			//throw new StatusException(all.getStatus(),path,"Bad request during identifier cache map update: status not 200");
-			throw new ConnectionException("Bad request during identifier cache map update: status not 200"+Integer.toString(all.getStatus()),all.getStatus(),path);
+			throw new ConnectionException("Bad request during identifier cache map update: status not 200 is "+Integer.toString(all.getStatus()),all.getStatus(),path);
 		}
 		list=all.getDocument();
 		

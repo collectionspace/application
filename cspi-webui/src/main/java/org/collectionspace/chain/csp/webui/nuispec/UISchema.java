@@ -150,6 +150,9 @@ public class UISchema extends UISpec {
 		if(f.hasAutocompleteInstance()) {
 			makeAuthorities(out, context, f);
 		}
+		else if(this.spectype.equals("search") && f.getSearchType().equals("false")){
+			//do nothing - this field is not required
+		}
 		else if("chooser".equals(f.getUIType()) && !this.spectype.equals("search")) {
 			out.put(getSelector(f,context),generateChooser(f,context));
 		}
@@ -228,7 +231,7 @@ public class UISchema extends UISpec {
 		}
 		else{
 			for (FieldSet child : r.getChildren("")) {
-				if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
+				if(!this.spectype.equals("search") || (this.spectype.equals("search") && (!child.getSearchType().equals("") && !child.getSearchType().equals("false") ) )){
 					generateDataEntry(protoTree, child, context);
 				}
 				if(child.getUIType().startsWith("groupfield") && child.getUIType().contains("structureddate")){
