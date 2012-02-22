@@ -21,6 +21,7 @@ import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.misc.Generic;
+import org.collectionspace.chain.csp.webui.misc.GenericSearch;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -161,74 +162,6 @@ public class RecordSearchList implements WebMethod {
 		return out;
 	}
 	
-	private JSONObject setRestricted(UIRequest ui) throws UIException, JSONException{
-
-		JSONObject returndata = new JSONObject();
-
-		JSONObject restriction=new JSONObject();
-		String key="items";
-		
-		Set<String> args = ui.getAllRequestArgument();
-		for(String restrict : args){
-			if(!restrict.equals("_")){
-				if(ui.getRequestArgument(restrict)!=null){
-					String value = ui.getRequestArgument(restrict);
-					if(restrict.equals("query") && search){
-						restrict = "keywords";
-						key="results";
-					}
-					if(restrict.equals("pageSize")||restrict.equals("pageNum")||restrict.equals("keywords")){
-						restriction.put(restrict,value);
-					}
-					else if(restrict.equals("sortDir")){
-						restriction.put(restrict,value);
-					}
-					else if(restrict.equals("sortKey")){////"summarylist.updatedAt"//movements_common:locationDate
-						String[] bits = value.split("\\.");
-						String fieldname = value;
-						if(bits.length>1){
-							fieldname = bits[1];
-						}
-						FieldSet fs = null;
-						if(fieldname.equals("number")){
-							fs = r.getMiniNumber();
-						}
-						else if(fieldname.equals("summary")){
-							fs = r.getMiniSummary();
-						}
-						else{
-							//convert sortKey
-							fs = r.getFieldFullList(fieldname);
-						}
-
-						fieldname = fs.getID();
-						FieldSet tmp = fs;
-						while(!(tmp.getParent() instanceof Record)){
-							tmp = (FieldSet)tmp.getParent();
-							if(!tmp.getSearchType().equals("repeator")){
-								fieldname = tmp.getServicesParent()[0] +"/0/"+fieldname;
-							}
-						}
-						
-						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
-						String newvalue = tablebase+":"+fieldname;
-						restriction.put(restrict,newvalue);
-					}
-					else if(restrict.equals("query")){
-						//ignore - someone was doing something odd
-					}
-					else{
-						//XXX I would so prefer not to restrict and just pass stuff up but I know it will cause issues later
-						restriction.put("queryTerm",restrict);
-						restriction.put("queryString",value);
-					}
-				}
-			}
-		}
-		returndata.put("key", key);
-		returndata.put("restriction", restriction);
-		return returndata;
-	}
 	
 	/**
 	 * This function is the general function that calls the correct funtions to get all the data that the UI requested and get it in the 
@@ -242,7 +175,7 @@ public class RecordSearchList implements WebMethod {
 	 */
 	private void search_or_list(Storage storage,UIRequest ui,String path) throws UIException {
 		try {
-			JSONObject restrictedkey = setRestricted(ui);
+			JSONObject restrictedkey = GenericSearch.setRestricted(ui,null,null,null,search,this.r);
 			JSONObject restriction = restrictedkey.getJSONObject("restriction");
 			String key = restrictedkey.getString("key");
 			
@@ -340,95 +273,15 @@ public class RecordSearchList implements WebMethod {
 		return results;
 	}				
 	private void advancedSearch(Storage storage,UIRequest ui,String path, JSONObject params) throws UIException{
-		
+
 		try {
 
-			Map<String, String> dates = new HashMap<String, String>();
 			JSONObject returndata = new JSONObject();
-			JSONObject restrictedkey = setRestricted(ui);
+			JSONObject restrictedkey = GenericSearch.setRestricted(ui,null,null,null,search,this.r);
 			JSONObject restriction = restrictedkey.getJSONObject("restriction");
 			String key = restrictedkey.getString("key");
-
-			String operation = params.getString("operation").toUpperCase();
-			JSONObject fields = params.getJSONObject("fields");
-			log.debug("Advanced Search on fields: "+fields.toString());
-
-			String asq = ""; 
-			Iterator rit=fields.keys();
-			while(rit.hasNext()) {
-				String join = " ILIKE "; //using ilike so we can have case insensitive searches
-				String fieldname=(String)rit.next();
-				Object item = fields.get(fieldname);
-
-				String value = "";
-				
-				if(item instanceof JSONArray){ // this is a repeatable
-					JSONArray itemarray = (JSONArray)item;
-					for(int j=0;j<itemarray.length();j++){
-						JSONObject jo = itemarray.getJSONObject(j);
-						Iterator jit=jo.keys();
-						while(jit.hasNext()){
-							String jname=(String)jit.next();
-							if(!jname.equals("_primary")){
-								if(jo.get(jname) instanceof String || jo.get(jname) instanceof Boolean ){
-									value = jo.getString(jname);
-									asq += getAdvancedSearch(jname,value,operation,join);
-								}
-							}
-						}
-					}
-					
-				}
-				else if(item instanceof JSONObject){ // no idea what this is
-					
-				}
-				else if(item instanceof String){
-					value = (String)item;
-					if(!value.equals("")){
-						String fieldid = fieldname;
-						if(this.r.hasSearchField(fieldname) && this.r.getSearchFieldFullList(fieldname).getUIType().equals("date")){
-							if(fieldname.endsWith("Start")){
-								fieldid = fieldname.substring(0, (fieldname.length() - 5));
-								join = ">= DATE ";
-							}
-							else if(fieldname.endsWith("End")){
-								fieldid = fieldname.substring(0, (fieldname.length() - 3));
-								join = "<= DATE ";
-							}
-
-							if(dates.containsKey(fieldid)){
-								String temp = getAdvancedSearch(fieldid,value,"AND",join);
-								String get = dates.get(fieldid);
-								dates.put(fieldid, temp + get);
-							}
-							else{
-								String temp = getAdvancedSearch(fieldid,value,"",join);
-								dates.put(fieldid, temp);
-							}
-						}
-						else{
-							asq += getAdvancedSearch(fieldname,value,operation,join);
-						}
-					}
-				}
-				
-			}
-			if(!dates.isEmpty()){
-				for (String keyed : dates.keySet()) {
-					if(!dates.get(keyed).equals("")){
-						asq += " ( "+dates.get(keyed)+" )  "+ operation;	
-					}
-				}
-			}
+			GenericSearch.buildQuery(this.r,params, restriction);
 			
-			if(!asq.equals("")){
-				asq = asq.substring(0, asq.length()-(operation.length() + 2));
-			}
-			asq = asq.trim();
-			if(!asq.equals("")){
-				String asquery = "( "+asq+" )";
-				restriction.put("advancedsearch", asquery);
-			}
 			key="results";
 
 			returndata = getJSON(storage,restriction,key,base);
@@ -449,100 +302,9 @@ public class RecordSearchList implements WebMethod {
 		} catch (UnderlyingStorageException x) {
 			UIException uiexception =  new UIException(x.getMessage(),x.getStatus(),x.getUrl(),x);
 			ui.sendJSONResponse(uiexception.getJSON());
-		}			
-		
-		
+		}	
 	}
 
-	private String getAdvancedSearch(String fieldname, String value, String operator, String join){
-		if(!value.equals("")){
-			try{
-				FieldSet fieldSet = this.r.getFieldFullList(fieldname);
-				String section = fieldSet.getSection(); 	// Get the payload part
-				String spath=this.r.getServicesRecordPath(section);
-				String[] parts=spath.split(":",2);
-				// Replace user wildcards with service-legal wildcards
-				if(value.contains("*")){
-					value = value.replace("*", "%");
-					join = " ilike ";
-				}
-				String fieldSpecifier = getSearchSpecifierForField(fieldname, fieldSet);
-				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
-				
-				return parts[0]+":"+fieldSpecifier+join+"\""+value +"\""+ " " + operator+ " ";
-			}
-			catch(Exception e){
-				log.error("Problem creating advanced search specifier for field: "+fieldname);
-				log.error(e.getLocalizedMessage());
-				return "";
-			}
-		}
-		return "";
-	}
-
-
-	/**
-	 * Returns an NXQL-conformant string that specifies the full (X)path to this field.
-	 * May recurse to handle nested fields.
-	 * This should probably live in Field.java, not here.
-	 * 
-	 * @param fieldname the name of the field
-	 * @param fieldSet the containing fieldSet
-	 * @return NXQL conformant specifier.
-	 **/
-	private String getSearchSpecifierForField(String fieldname, FieldSet fieldSet ) {
-		String specifier = fieldname;	// default is just the simple field name
-		
-		// Check for a composite (fooGroupList/fooGroup). For these, the name is the 
-		// leaf, and the first part is held in the "services parent"
-		if(fieldSet.hasServicesParent()) {
-			// Prepend the services parent field, and make the child a wildcard
-			String [] svcsParent = fieldSet.getServicesParent();
-			if(svcsParent[0] != null && !svcsParent[0].isEmpty()) {
-				specifier = svcsParent[0] +"/*"; 
-			}
-		}
-		
-		FieldParent parent = fieldSet.getParent();
-
-		boolean isRootLevelField = false;			// Assume we are recursing until we see otherwise
-		if(parent instanceof Record) {	// A simple reference to base field.
-			isRootLevelField = true;
-			log.debug("Specifier for root-level field: " + fieldname + " is: "+specifier);
-		} else {
-			FieldSet parentFieldSet = (FieldSet)parent;
-			// "repeator" marks things for some expansion - not handled here (?)
-			if(parentFieldSet.getSearchType().equals("repeator")) {
-				isRootLevelField = true;
-			} else {
-				// Otherwise, we're dealing with some amount of nesting.
-				// First, recurse to get the fully qualified path to the parent.
-				String parentID = parentFieldSet.getID();
-				log.debug("Recursing for parent: " + parentID );
-				specifier = getSearchSpecifierForField(parentID, parentFieldSet);
-							
-				// Is parent a scalar list or a complex list?
-				Repeat rp = (Repeat)parentFieldSet;
-				FieldSet[] children = rp.getChildren("");
-				int size = children.length;
-				// HACK - we should really mark a repeating scalar as such, 
-				// or a complex schema from which only 1 field is used, will break this.
-				if(size > 1){
-					// The parent is a complex schema, not just a scalar repeat
-					// Append the field name to build an XPath-like specifier.
-					specifier += "/"+fieldname;
-				} else{
-					// Leave specifier as is. We just search on the parent name,
-					// as the backend is smart about scalar lists. 
-				}
-			}
-			log.debug("Specifier for non-leaf field: " + fieldname + " is: "+specifier);
-		}
-		if(isRootLevelField) {
-			// TODO - map leaf names like "titleGroupList/titleGroup" to "titleGroupList/*"
-		}
-		return specifier;
-	}
 
 	public void searchtype(Storage storage,UIRequest ui,String path) throws UIException{
 
