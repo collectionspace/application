@@ -46,7 +46,7 @@ public class RecordTraverser implements WebMethod  {
 		try {
 			String[] bits = path.split("/");
 			String token = bits[0];
-			Integer indexvalue = Integer.getInteger(bits[1]);
+			Integer indexvalue = Integer.valueOf(bits[1]);
 			String key = UISession.SEARCHTRAVERSER+""+token;
 			if(request.getSession().getValue(key) instanceof JSONArray){
 				JSONArray data = (JSONArray)request.getSession().getValue(key);
