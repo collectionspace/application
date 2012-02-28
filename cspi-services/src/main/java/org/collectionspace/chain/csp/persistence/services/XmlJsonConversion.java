@@ -16,6 +16,7 @@ import java.util.Stack;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.persistence.services.vocab.RefName;
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -122,7 +123,8 @@ public class XmlJsonConversion {
 					addFieldSetToXml(groupelement,fs[0],d1,section,permlevel);
 				}
 			} else if(one_value instanceof JSONObject) {
-				for(FieldSet fs : group.getChildren(permlevel))
+				List<FieldSet> children =getChildrenWithGroupFields(group,permlevel);
+				for(FieldSet fs : children)
 					addFieldSetToXml(groupelement,fs,(JSONObject)one_value,section,permlevel);
 			}
 		element=groupelement;
@@ -400,6 +402,7 @@ public class XmlJsonConversion {
 				return;
 			}
 			addExtraToJson(out, el, f, tempSon);
+			Object val = el.getText();
 
 			if(f.getUIType().startsWith("groupfield")){
 				String parts[] = f.getUIType().split("/");
@@ -413,10 +416,13 @@ public class XmlJsonConversion {
 				out.put(f.getID(),temp);
 			}
 			else{
-				out.put(f.getID(),el.getText());
+				if(f.getDataType().equals("boolean")){
+					val = Boolean.parseBoolean((String)val);
+				}
+				out.put(f.getID(),val);
 			}
 	
-			tempSon = addtemp(tempSon, f.getID(), el.getText());
+			tempSon = addtemp(tempSon, f.getID(), val);
 		}
 	}
 	
@@ -526,7 +532,7 @@ public class XmlJsonConversion {
 					//structuredates etc
 					String parts[] = a.getUIType().split("/");
 					Record subitems = a.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-
+					
 					if(a instanceof Group){
 						if(((Group)a).getXxxServicesNoRepeat()){
 							for(FieldSet fs : subitems.getAllFieldTopLevel(operation)) {
@@ -549,8 +555,8 @@ public class XmlJsonConversion {
 			}
 		}
 		if(f instanceof Group){
-			for(FieldSet a : ((Group)f).getChildren(operation)){
-				children.add(a.getID());
+			for(FieldSet ab : ((Group)f).getChildren(operation)){
+				children.add(ab.getID());
 			}
 		}
 		if(f instanceof Field){
@@ -698,6 +704,26 @@ public class XmlJsonConversion {
 
 							tempSon = addtemp(tempSon, fs.getID(), child.getText());
 						}
+					}
+					else if(fs instanceof Group){
+						JSONObject tout = new JSONObject();
+						JSONObject tempSon2 = new JSONObject();
+						Group rp = (Group)fs;
+						addRepeatToJson(tout, container, rp, permlevel, tempSon2, "", "") ;
+
+						if(f.asSibling()){
+							JSONArray a1 = tout.getJSONArray(rp.getID());
+							JSONObject o1 = a1.getJSONObject(0);
+							siblingitem.put(fs.getID(), o1);
+						}
+						else{
+							JSONObject repeatitem = new JSONObject();
+							repeatitem.put(fs.getID(), tout.getJSONArray(rp.getID()));
+							node.put(repeatitem);
+						}
+
+						tempSon = addtemp(tempSon, rp.getID(), tout.getJSONArray(rp.getID()));
+						//log.info(f.getID()+":"+rp.getID()+":"+tempSon.toString());
 					}
 					else if(fs instanceof Repeat){
 						JSONObject tout = new JSONObject();

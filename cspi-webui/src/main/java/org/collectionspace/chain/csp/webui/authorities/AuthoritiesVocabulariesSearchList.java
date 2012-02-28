@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
-import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
@@ -20,12 +19,15 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.csp.webui.misc.Generic;
+import org.collectionspace.chain.csp.webui.misc.GenericSearch;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -96,186 +98,14 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		return out;		
 	}
 	
-	private JSONObject setRestricted(UIRequest ui, String param, String pageNum, String pageSize) throws UIException, JSONException{
-
-		JSONObject returndata = new JSONObject();
-
-		JSONObject restriction=new JSONObject();
-		String key="results";
-		
-		Set<String> args = ui.getAllRequestArgument();
-		for(String restrict : args){
-			if(!restrict.equals("_")){
-				if(ui.getRequestArgument(restrict)!=null){
-					String value = ui.getRequestArgument(restrict);
-					if(restrict.equals("sortDir")){
-						restriction.put(restrict,value);
-					}
-					else if(restrict.equals("sortKey")){////"summarylist.updatedAt"//movements_common:locationDate
-						String[] bits = value.split("\\.");
-						String fieldname = value;
-						if(bits.length>1){
-							fieldname = bits[1];
-						}
-						FieldSet fs = null;
-						if(fieldname.equals("number")){
-							fs = r.getMiniNumber();
-						}
-						else if(fieldname.equals("summary")){
-							fs = r.getMiniSummary();
-						}
-						else{
-							//convert sortKey
-							fs = r.getFieldFullList(fieldname);
-						}
-						fieldname = fs.getID();
-						FieldSet tmp = fs;
-						while(!(tmp.getParent() instanceof Record)){
-							tmp = (FieldSet)tmp.getParent();
-							if(!tmp.getSearchType().equals("repeator")){
-								fieldname = tmp.getServicesParent()[0] +"/0/"+fieldname;
-							}
-						}
-
-						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
-						String newvalue = tablebase+":"+fieldname;
-						restriction.put(restrict,newvalue);
-					}
-				}
-			}
-		}
-		
-		if(param!=null && !param.equals("")){
-			restriction.put("queryTerm", "kw");
-			restriction.put("queryString",param);
-			//restriction.put(r.getDisplayNameField().getID(),param);
-		}
-		if(pageNum!=null){
-			restriction.put("pageNum",pageNum);
-		}
-		else{
-			restriction.put("pageNum","0");
-		}
-		if(pageSize!=null){
-			restriction.put("pageSize",pageSize);
-		}
-		if(param==null){
-			key = "items";
-		}
-		returndata.put("key", key);
-		returndata.put("restriction", restriction);
-		return returndata;
-	}
 	
 	private void advancedSearch(Storage storage,UIRequest ui,JSONObject restriction, String resultstring, JSONObject params) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
-		
-			Map<String, String> dates = new HashMap<String, String>();
-			
-			String operation = params.getString("operation").toUpperCase();
-			JSONObject fields = params.getJSONObject("fields");
-			
-			String asq = ""; 
-			Iterator rit=fields.keys();
-			while(rit.hasNext()) {
-				String join = " ILIKE "; //using ilike so we can have case insensitive searches
-				String fieldname=(String)rit.next();
-				Object item = fields.get(fieldname);
-
-				String value = "";
-				
-				if(item instanceof JSONArray){ // this is a repeatable
-					JSONArray itemarray = (JSONArray)item;
-					for(int j=0;j<itemarray.length();j++){
-						JSONObject jo = itemarray.getJSONObject(j);
-						Iterator jit=jo.keys();
-						while(jit.hasNext()){
-							String jname=(String)jit.next();
-							if(!jname.equals("_primary")){
-								if(jo.get(jname) instanceof String || jo.get(jname) instanceof Boolean ){
-									value = jo.getString(jname);
-									asq += getAdvancedSearch(jname,value,operation,join);
-								}
-							}
-						}
-					}
-					
-				}
-				else if(item instanceof JSONObject){ // no idea what this is
-					
-				}
-				else if(item instanceof String){
-					value = (String)item;
-					if(!value.equals("")){
-						String fieldid = fieldname;
-						if(this.r.hasSearchField(fieldname) && this.r.getSearchFieldFullList(fieldname).getUIType().equals("date")){
-							if(fieldname.endsWith("Start")){
-								fieldid = fieldname.substring(0, (fieldname.length() - 5));
-								join = ">= DATE ";
-							}
-							else if(fieldname.endsWith("End")){
-								fieldid = fieldname.substring(0, (fieldname.length() - 3));
-								join = "<= DATE ";
-							}
-
-							if(dates.containsKey(fieldid)){
-								String temp = getAdvancedSearch(fieldid,value,"AND",join);
-								String get = dates.get(fieldid);
-								dates.put(fieldid, temp + get);
-							}
-							else{
-								String temp = getAdvancedSearch(fieldid,value,"",join);
-								dates.put(fieldid, temp);
-							}
-						}
-						else{
-							asq += getAdvancedSearch(fieldname,value,operation,join);
-						}
-					}
-				}
-			}
-
-			if(!dates.isEmpty()){
-				for (String keyed : dates.keySet()) {
-					if(!dates.get(keyed).equals("")){
-						asq += " ( "+dates.get(keyed)+" )  "+ operation;	
-					}
-				}
-			}
-			
-			if(!asq.equals("")){
-				asq = asq.substring(0, asq.length()-(operation.length() + 2));
-			}
-			asq = asq.trim();
-			if(!asq.equals("")){
-				String asquery = "( "+asq+" )";
-				restriction.put("advancedsearch", asquery);
-			}
+			GenericSearch.buildQuery(this.r,params, restriction);
 			resultstring="results";
-
 			search_or_list(storage,ui,restriction,resultstring);
-		
 	}
 
-	private String getAdvancedSearch(String fieldname, String value, String operator, String join){
-		if(!value.equals("")){
-			try{
-				String section = this.r.getFieldFullList(fieldname).getSection();
-				String spath=this.r.getServicesRecordPath(section);
-				String[] parts=spath.split(":",2);
-				if(value.contains("*")){
-					value = value.replace("*", "%");
-					join = " ilike ";
-				}
-				//backslash quotes??
-				
-				return parts[0]+":"+fieldname+join+"\""+value +"\""+ " " + operator+ " ";
-			}
-			catch(Exception e){
-				return "";
-			}
-		}
-		return "";
-	}
+	
 	private void search_or_list_vocab(JSONObject out,Instance n,Storage storage,UIRequest ui,JSONObject restriction, String resultstring, JSONObject temp ) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
 		
 		JSONObject data = storage.getPathsJSON(r.getID()+"/"+n.getTitleRef(),restriction);
@@ -340,14 +170,21 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			} else {
 				search_or_list_vocab(results,n,storage,ui,restriction,resultstring,new JSONObject());				
 			}
+			//cache for record traverser
+			if(results.has("pagination") && results.getJSONObject("pagination").has("separatelists")){
+				String vhash = Generic.createHash(results.getJSONObject("pagination").getJSONArray("separatelists").toString());
+				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,results.getJSONArray(resultstring));
+				results.getJSONObject("pagination").put("traverser", vhash);
+			}
 			ui.sendJSONResponse(results);
 	}
+	
 
 	public void searchtype(Storage storage,UIRequest ui,String param, String pageSize, String pageNum) throws UIException{
 
 		try {
 
-			JSONObject restrictedkey = setRestricted(ui,param,pageNum,pageSize);
+			JSONObject restrictedkey = GenericSearch.setRestricted(ui,param,pageNum,pageSize,search, this.r);
 			JSONObject restriction = restrictedkey.getJSONObject("restriction");
 			String resultstring = restrictedkey.getString("key");
 			

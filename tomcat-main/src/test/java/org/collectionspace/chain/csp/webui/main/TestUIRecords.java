@@ -233,7 +233,7 @@ public class TestUIRecords {
 	 * Test Other Bits
 	 */
 	@Test public void testMisc() throws Exception {
-		//testUIspec(jetty,"/generator?quantity=10&maxrelationships=3&startvalue=0&extraprefix=Related","recordlist.uischema");
+		//tester.testUIspec(jetty,"/generator?quantity=10&maxrelationships=3&startvalue=0&extraprefix=Fixed","recordlist.uischema");
 		
 		log.info("Testing UISCHEMA");
 		tester.testUIspec(jetty, "/recordlist/uischema", "recordlist.uischema");

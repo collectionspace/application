@@ -1,18 +1,26 @@
 package org.collectionspace.chain.controller;
 
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.EntityResolver;
@@ -21,10 +29,13 @@ import org.xml.sax.SAXException;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.io.input.TeeInputStream;
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -33,6 +44,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.external.UIMapping;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.ui.UI;
+import org.collectionspace.csp.api.ui.UIException;
 
 public class TenantUIServlet extends TenantServlet {
 	private static final Logger log = LoggerFactory
@@ -68,14 +80,6 @@ public class TenantUIServlet extends TenantServlet {
 		if(sc==null){
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,"missing servlet context cspace-ui");
 		}
-		
-		if("composite".equals(pathbits[0])) {
-		//	serve_composite(web,req);
-		} else {
-			
-		}
-		
-
 		if(pathbits[0].equals("css") || pathbits[0].equals("js") || pathbits[0].equals("lib") || pathbits[0].equals("images") ){
 			String tenantposs = getTenantByCookie(servlet_request);
 			if (serverFixedExternalContent(servlet_request, servlet_response,
@@ -97,6 +101,301 @@ public class TenantUIServlet extends TenantServlet {
 		
 		if(!tenantInit.containsKey(tenant) || !tenantInit.get(tenant))
 			setup(tenant);
+		
+		if(is_composite(pathinfo)) {
+			List<String> p=new ArrayList<String>();
+			for(String part : servlet_request.getPathInfo().split("/")) {
+				if("".equals(part))
+					continue;
+				p.add(part);
+			}		
+			p.remove(0);
+			ConfigRoot root=tenantCSPM.get(tenant).getConfigRoot();
+			Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
+			WebUIRequest req;
+			
+			UI web=tenantCSPM.get(tenant).getUI("web");
+			if(!tenantUmbrella.containsKey(tenant)){
+				synchronized(getClass()) {
+					if(!tenantUmbrella.containsKey(tenant)) {
+						tenantUmbrella.put(tenant, new WebUIUmbrella((WebUI)web));
+					}
+				}
+			}
+			
+			try {
+				req = new WebUIRequest(tenantUmbrella.get(tenant),servlet_request,servlet_response,spec.getAdminData().getCookieLife(),p);
+				serveComposite(tenant, req, sc);
+			} catch (UIException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		} else {
+			serveSingle(tenant, servlet_request, servlet_response, pathinfo,
+					pathbits, sc);
+		}
+		
+	}
+
+	private boolean is_composite(String pathinfo){
+		String[] path = pathinfo.substring(1).split("/");
+		if(path.length!=2)
+			return false;
+		return "composite".equals(path[1]);
+		
+	}
+	
+	/* We do all this very sequentially rather than in one big loop to avoid the fear of weird races and to fail early on parse errors */
+	private void serveComposite(String tenant, WebUIRequest req, ServletContext sc) throws UIException, IOException{
+		
+		try {
+			// Extract JSON request payload
+			JSONObject in=req.getJSONBody();
+			// Build composite object for each subrequest
+			Map <String,CompositeWebUIRequestPart> subrequests=new HashMap<String,CompositeWebUIRequestPart>();
+			Iterator<?> ki=in.keys();
+			while(ki.hasNext()) {
+				String key=(String)ki.next();
+				JSONObject value=in.getJSONObject(key);
+				//need to add tenant into path
+				String path = value.getString("path");
+				if(path.startsWith("./")){
+					path = path.replace("./", "/"+tenant+"/");
+				}
+				value.put("path", path);
+				CompositeWebUIRequestPart sub=new CompositeWebUIRequestPart(req,value);
+				subrequests.put(key,sub);
+			}
+			// Build a place for results
+			JSONObject out=new JSONObject();
+			// Execute each composite object
+			for(String key : subrequests.keySet()) {
+				CompositeWebUIRequestPart sub=subrequests.get(key);
+				serveSingle(tenant, sub, sc); //NEED TO TEST IF IT WORKS
+				JSONObject value=sub.solidify();
+				out.put(key,value);
+			}
+			// Send result
+			req.sendJSONResponse(out);
+			req.setOperationPerformed(req.getRequestedOperation());
+			req.solidify(true);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void serveSingle(String tenant, CompositeWebUIRequestPart sub, ServletContext sc) throws UIException, IOException{// Setup our request object
+		UI web = tenantCSPM.get(tenant).getUI("web");
+		WebUI webui = (WebUI) web;
+		UIMapping[] allmappings = webui.getAllMappings();
+
+		ConfigRoot root = tenantCSPM.get(tenant).getConfigRoot();
+		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
+
+
+		Boolean doMetaConfig = true;// this doesn't seem to work yet
+		String[] pathbits = sub.getPrincipalPath();
+		String pathinfo = StringUtils.join(pathbits,"/");
+		String path = pathinfo;
+		Map<String,Object> validmap = doMapping(pathinfo, allmappings, spec);
+		if (null != validmap) {
+			path = (String)validmap.get("File");
+			if (((UIMapping)validmap.get("map")).hasMetaConfig() && doMetaConfig) {
+				
+				InputStream is = getFixedContent( sc, path,  tenant);
+				
+
+				StringWriter writer = new StringWriter();
+				IOUtils.copy(is, writer, "UTF-8");
+				String theString = writer.toString();
+				
+				
+				/*
+				SAXReader reader = new SAXReader();
+				reader.setEntityResolver(new NullResolver());
+				Document xmlfile = null;
+
+				ByteArrayOutputStream dump = new ByteArrayOutputStream();
+				xmlfile = reader.read(new TeeInputStream(is, dump));
+			//	log.info(dump.toString("UTF-8"));
+			//	log.info(xmlfile.asXML());<tr></tr<.>
+*/
+				for (String metafield : ((UIMapping)validmap.get("map")).getAllMetaConfigs()) {
+					
+					String rtext = ((UIMapping)validmap.get("map")).getMetaConfig(metafield).parseValue((Record)validmap.get("record"), (Instance)validmap.get("instance"));
+					//try as json
+					String regex = "\""+metafield+"\": \"[^\"]*\"";
+					String replacement = "\""+metafield+"\": \""+rtext+"\"";
+
+					theString = theString.replaceFirst(regex, replacement);
+					//try as xml
+					String regex2 = "<"+metafield+">[^<]*</"+metafield+">";
+					String replacement2 = "<"+metafield+">"+rtext+"</"+metafield+">";
+
+					theString = theString.replaceFirst(regex2, replacement2);
+					
+				}
+
+				InputStream is2 = new ByteArrayInputStream(theString.getBytes("UTF-8"));
+				serveExternalContent(sub, sc, is2, path);
+				is.close();
+				return;
+			}
+		}
+
+		if(pathbits[1].equals("bundle")){
+
+			if(serverCreateMergedExternalContent(sub, sc, pathinfo, tenant)){
+				return;
+			}
+		}
+		if (serverFixedExternalContent(sub, sc)) {
+			return;
+		}
+	}
+
+	private boolean serveExternalContent(CompositeWebUIRequestPart sub, ServletContext sc, InputStream is, String path) throws UIException, IOException{
+
+		if(is==null)
+			return false; // Not for us
+
+		byte[] bytebody;
+        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+        IOUtils.copy(is,byteOut);
+        new TeeInputStream(is,byteOut);
+        bytebody = byteOut.toByteArray();
+        
+		String mimetype = sc.getMimeType(path);
+		if(mimetype == null && path.endsWith(".appcache")){
+			mimetype = "text/cache-manifest";
+		}
+        
+        sub.sendUnknown(bytebody, mimetype);
+		if(bytebody==null)
+			return false; // Not for us
+		
+        
+		return true;
+	
+	}
+	protected boolean serverCreateMergedExternalContent(CompositeWebUIRequestPart sub, ServletContext sc, String path, String tenant) throws IOException, UIException{
+		//is there a tenant specific file instead of an overlay
+		String origfile = path;
+		List<String> testpaths_orig =possiblepaths(origfile, tenant, false);
+		InputStream is_default = null;
+		InputStream is = null;
+		String path2 = "";
+		String mimetype = "";
+		while( is == null && testpaths_orig.size()> 0){
+			path2 = testpaths_orig.remove(0);
+			is=sc.getResourceAsStream(path2);
+		}
+		if(is != null){
+			serveExternalContent(sub, sc, is, path2);
+			return true;
+		}
+		//no tenant specific - so lets look for an overlay file
+		String defaultfile = path;
+		String overlayext = "-overlay";
+		path = path + overlayext;
+		List<String> testpaths =possiblepaths(path, tenant, false);
+		List<String> testpathswdefault =possiblepaths(defaultfile, tenant, true);
+		String tenantpath = "";
+		while( is == null && testpaths.size()> 0){
+			tenantpath = testpaths.remove(0);
+			is=sc.getResourceAsStream(tenantpath);
+		}
+		
+
+		while( is_default == null && testpathswdefault.size()> 0){
+			String pt = testpathswdefault.remove(0);
+			is_default=sc.getResourceAsStream(pt);
+			mimetype = sc.getMimeType(pt);
+		}
+		if(is_default == null)
+			return false; //no file to use at all
+		
+		if(is!=null){
+			//file to be written
+			tenantpath = tenantpath.substring(0, tenantpath.length() - overlayext.length());
+			
+			Map<String, String> allStrings = new HashMap<String, String>();
+			StringWriter writer2 = new StringWriter();
+			IOUtils.copy(is_default, writer2, "UTF-8");
+			String theString2 = writer2.toString();
+
+			String[] temp = theString2.split("\n");
+			for(int i =0; i < temp.length ; i++){
+				String[] temp2 = temp[i].split(":");
+				if(temp2.length ==2){
+					allStrings.put(temp2[0], temp2[1]);
+				}
+				else if(temp2.length ==1){
+					allStrings.put(temp[i], "");
+				}
+				else{
+					allStrings.put(temp[i], "");
+				}
+			}
+
+			StringWriter writer = new StringWriter();
+			IOUtils.copy(is, writer, "UTF-8");
+			String theString = writer.toString();
+			
+	
+			String[] temp3 = theString.split("\n");
+			for(int i =0; i < temp3.length ; i++){
+				String[] temp2 = temp3[i].split(":");
+				if(temp2.length ==2){
+					allStrings.put(temp2[0], temp2[1]);
+				}
+				else if(temp2.length ==1){
+					allStrings.put(temp3[i], "");
+				}
+				else{
+					allStrings.put(temp3[i], "");
+				}
+			}
+			
+
+			String theStringNew = "";
+			for (String key : allStrings.keySet()) {
+				theStringNew += key;
+				if(!allStrings.get(key).equals("")){
+					theStringNew += ":"+allStrings.get(key);
+				}
+				theStringNew += "\n";
+			}
+			is_default = new ByteArrayInputStream(theStringNew.getBytes("UTF-8"));
+			String test = sc.getRealPath(tenantpath);
+			FileWriter fstream = new FileWriter(test);
+			BufferedWriter outer = new BufferedWriter(fstream);
+			outer.write(theStringNew);
+			//Close the output stream
+			outer.close();
+		}
+
+		return serveExternalContent(sub, sc, is_default, path);
+		
+	}
+	
+	
+	
+	private boolean serverFixedExternalContent(CompositeWebUIRequestPart sub, ServletContext sc) throws UIException, IOException{
+		//
+		//sub.getPrincipalPath()
+		String path = StringUtils.join(sub.getPrincipalPath(),"/");
+        InputStream is=sc.getResourceAsStream(path);
+        return serveExternalContent( sub,  sc,  is, path);
+		
+	}
+	
+	private void serveSingle(String tenant, HttpServletRequest servlet_request,
+			HttpServletResponse servlet_response, String pathinfo,
+			String[] pathbits, ServletContext sc) throws IOException,
+			BadRequestException, UnsupportedEncodingException {
+		
 
 		// should we redirect this url or just do the normal stuff
 
@@ -167,7 +466,6 @@ public class TenantUIServlet extends TenantServlet {
 				sc, path, tenant)) {
 			return;
 		}
-
 	}
 	
 	public void service(HttpServletRequest servlet_request,
@@ -175,10 +473,10 @@ public class TenantUIServlet extends TenantServlet {
 			IOException {
 
 		try {
-
 			String pathinfo = servlet_request.getPathInfo();
 			String[] pathbits = pathinfo.substring(1).split("/");
 			String tenant = pathbits[0];
+			
 			serviceUIWTenant(tenant,servlet_request, servlet_response);
 			
 		} catch (BadRequestException x) {

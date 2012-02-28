@@ -452,7 +452,13 @@ public class DataGenerator  extends UISpec {
 	protected void makeAuthorities(JSONObject out, UISpecRunContext context, Field f)
 	throws JSONException {
 		if("enum".equals(f.getUIType())){
-			out.put(getSelector(f,context),generateDataEntryField(f,context));
+			if(f.hasAutocompleteInstance()){
+				Object data = generateAuthorityField(f,context);
+				out.put(getSelector(f,context),data);
+			}
+			else{
+				out.put(getSelector(f,context),generateDataEntryField(f,context));
+			}
 		}
 		else{
 			//get authority

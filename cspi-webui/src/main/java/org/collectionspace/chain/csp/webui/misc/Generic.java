@@ -6,6 +6,9 @@
  */
 package org.collectionspace.chain.csp.webui.misc;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -19,6 +22,39 @@ import org.json.JSONObject;
 
 public class Generic {
 
+	private static String tokensalt = "74102328Generic";
+/**
+ * Function to create a hash for the record traverser functionality
+ * @param csid
+ * @return
+ * @throws UIException 
+ */
+	public static String createHash(String csid) throws UIException  {
+		try {
+			byte[] buffer = csid.getBytes();
+			byte[] result = null;
+			StringBuffer buf = null;
+			MessageDigest md5 = MessageDigest.getInstance("MD5");
+			result = new byte[md5.getDigestLength()];
+			md5.reset();
+			md5.update(buffer);
+			result = md5.digest(tokensalt.getBytes());
+	
+			//create hex string from the 16-byte hash 
+			buf = new StringBuffer(result.length * 2);
+				for (int i = 0; i < result.length; i++) {
+					int intVal = result[i] & 0xff;
+					if (intVal < 0x10) {
+						buf.append("0");
+					}
+				buf.append(Integer.toHexString(intVal).toUpperCase());
+			}
+			return buf.toString().substring(0,32);
+		} catch (NoSuchAlgorithmException e) {
+			throw new UIException("There were problems with the algorithum");
+		}
+	}
+	
 	
 	public static String getPermissionView(Spec spec, String servicename){
 		try{

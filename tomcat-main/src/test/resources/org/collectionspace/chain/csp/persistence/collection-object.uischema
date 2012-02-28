@@ -1,13 +1,13 @@
 {
     "cataloging": {
         "properties": {
-            "relations": {
-                "default": {},
-                "type": "object"
-            },
             "termsUsed": {
                 "default": [],
                 "type": "array"
+            },
+            "relations": {
+                "default": {},
+                "type": "object"
             },
             "csid": {
                 "type": "string"
@@ -93,6 +93,9 @@
                         },
                         "type": "array"
                     },
+                    "dateLatestQualifier": {
+                        "type": "string"
+                    },
                     "styles": {
                         "items": {
                             "properties": {
@@ -108,14 +111,11 @@
                         },
                         "type": "array"
                     },
-                    "dateLatestQualifier": {
+                    "nametitle": {
                         "type": "string"
                     },
                     "ownershipExchangeMethod": {
                         "default": "",
-                        "type": "string"
-                    },
-                    "nametitle": {
                         "type": "string"
                     },
                     "objectNameGroup": {
@@ -169,13 +169,13 @@
                     "contentObjectGroup": {
                         "items": {
                             "properties": {
-                                "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
-                                },
                                 "contentObjectType": {
                                     "default": "",
                                     "type": "string"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
                                 },
                                 "contentObject": {
                                     "type": "string"
@@ -188,12 +188,12 @@
                     "measuredPartGroup": {
                         "items": {
                             "properties": {
+                                "dimensionSummary": {
+                                    "type": "string"
+                                },
                                 "_primary": {
                                     "default": true,
                                     "type": "boolean"
-                                },
-                                "dimensionSummary": {
-                                    "type": "string"
                                 },
                                 "measuredPart": {
                                     "default": "",
@@ -202,16 +202,16 @@
                                 "dimensionSubGroup": {
                                     "items": {
                                         "properties": {
-                                            "_primary": {
-                                                "default": true,
-                                                "type": "boolean"
+                                            "measuredBy": {
+                                                "type": "string"
                                             },
                                             "dimension": {
                                                 "default": "",
                                                 "type": "string"
                                             },
-                                            "measuredBy": {
-                                                "type": "string"
+                                            "_primary": {
+                                                "default": true,
+                                                "type": "boolean"
                                             },
                                             "valueDate": {
                                                 "type": "date"
@@ -315,13 +315,13 @@
                     "contentLanguages": {
                         "items": {
                             "properties": {
-                                "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
-                                },
                                 "contentLanguage": {
                                     "default": "eng",
                                     "type": "string"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
                                 }
                             },
                             "type": "object"
@@ -414,12 +414,12 @@
                             "dateEarliestScalarValue": {
                                 "type": "date"
                             },
+                            "dateLatestMonth": {
+                                "type": "integer"
+                            },
                             "_primary": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "dateLatestMonth": {
-                                "type": "integer"
                             },
                             "dateNote": {
                                 "type": "string"
@@ -502,12 +502,12 @@
                                 "dateEarliestScalarValue": {
                                     "type": "date"
                                 },
-                                "dateLatestMonth": {
-                                    "type": "integer"
-                                },
                                 "_primary": {
                                     "default": true,
                                     "type": "boolean"
+                                },
+                                "dateLatestMonth": {
+                                    "type": "integer"
                                 },
                                 "dateNote": {
                                     "type": "string"
@@ -581,21 +581,21 @@
                     "viewersPersonalExperience": {
                         "type": "string"
                     },
-                    "tenantID": {
-                        "type": "string"
-                    },
                     "dateEarliestSingle": {
                         "type": "date"
+                    },
+                    "tenantID": {
+                        "type": "string"
                     },
                     "nonTextualInscriptionGroup": {
                         "items": {
                             "properties": {
+                                "inscriptionDescriptionMethod": {
+                                    "type": "string"
+                                },
                                 "_primary": {
                                     "default": true,
                                     "type": "boolean"
-                                },
-                                "inscriptionDescriptionMethod": {
-                                    "type": "string"
                                 },
                                 "inscriptionDescriptionPosition": {
                                     "default": "",
@@ -612,7 +612,7 @@
                                     "type": "string"
                                 },
                                 "inscriptionDescriptionDate": {
-                                    "type": "date"
+                                    "type": "string"
                                 },
                                 "inscriptionDescriptionInterpretation": {
                                     "type": "string"
@@ -623,10 +623,6 @@
                         "type": "array"
                     },
                     "ownersPersonalResponse": {
-                        "type": "string"
-                    },
-                    "ageQualifier": {
-                        "default": "",
                         "type": "string"
                     },
                     "contentEventNameGroup": {
@@ -646,6 +642,10 @@
                             "type": "object"
                         },
                         "type": "array"
+                    },
+                    "ageQualifier": {
+                        "default": "",
+                        "type": "string"
                     },
                     "fieldCollectionNote": {
                         "type": "string"
@@ -784,10 +784,10 @@
                                 "materialComponent": {
                                     "type": "string"
                                 },
-                                "materialComponentNote": {
+                                "material": {
                                     "type": "string"
                                 },
-                                "material": {
+                                "materialComponentNote": {
                                     "type": "string"
                                 }
                             },
@@ -822,12 +822,12 @@
                     "assocActivityGroup": {
                         "items": {
                             "properties": {
+                                "assocActivityNote": {
+                                    "type": "string"
+                                },
                                 "_primary": {
                                     "default": true,
                                     "type": "boolean"
-                                },
-                                "assocActivityNote": {
-                                    "type": "string"
                                 },
                                 "assocActivity": {
                                     "type": "string"
@@ -1093,12 +1093,12 @@
                                 "dateEarliestScalarValue": {
                                     "type": "date"
                                 },
-                                "dateLatestMonth": {
-                                    "type": "integer"
-                                },
                                 "_primary": {
                                     "default": true,
                                     "type": "boolean"
+                                },
+                                "dateLatestMonth": {
+                                    "type": "integer"
                                 },
                                 "dateNote": {
                                     "type": "string"
@@ -1169,12 +1169,12 @@
                     "titleGroup": {
                         "items": {
                             "properties": {
+                                "title": {
+                                    "type": "string"
+                                },
                                 "_primary": {
                                     "default": true,
                                     "type": "boolean"
-                                },
-                                "title": {
-                                    "type": "string"
                                 },
                                 "titleTranslationSubGroup": {
                                     "items": {
@@ -1243,10 +1243,10 @@
                                 "assocPeople": {
                                     "type": "string"
                                 },
-                                "assocPeopleNote": {
+                                "assocPeopleType": {
                                     "type": "string"
                                 },
-                                "assocPeopleType": {
+                                "assocPeopleNote": {
                                     "type": "string"
                                 }
                             },
@@ -1283,11 +1283,11 @@
                                 "assocDateNote": {
                                     "type": "string"
                                 },
-                                "assocDateType": {
-                                    "type": "string"
-                                },
                                 "assocDate": {
                                     "type": "date"
+                                },
+                                "assocDateType": {
+                                    "type": "string"
                                 }
                             },
                             "type": "object"
@@ -1361,9 +1361,6 @@
                         },
                         "type": "array"
                     },
-                    "viewersContributionNote": {
-                        "type": "string"
-                    },
                     "forms": {
                         "items": {
                             "properties": {
@@ -1379,6 +1376,9 @@
                             "type": "object"
                         },
                         "type": "array"
+                    },
+                    "viewersContributionNote": {
+                        "type": "string"
                     },
                     "editionNumber": {
                         "type": "string"
@@ -1425,6 +1425,55 @@
                         },
                         "type": "array"
                     },
+                    "textualInscriptionGroup": {
+                        "items": {
+                            "properties": {
+                                "inscriptionContentTranslation": {
+                                    "type": "string"
+                                },
+                                "inscriptionContentPosition": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "inscriptionContentMethod": {
+                                    "type": "string"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "inscriptionContentScript": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "inscriptionContentType": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "inscriptionContentTransliteration": {
+                                    "type": "string"
+                                },
+                                "inscriptionContentInterpretation": {
+                                    "type": "string"
+                                },
+                                "inscriptionContentInscriber": {
+                                    "type": "string"
+                                },
+                                "inscriptionContent": {
+                                    "type": "string"
+                                },
+                                "inscriptionContentLanguage": {
+                                    "default": "eng",
+                                    "type": "string"
+                                },
+                                "inscriptionContentDate": {
+                                    "type": "date"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
                     "assocOrganizationGroup": {
                         "items": {
                             "properties": {
@@ -1439,55 +1488,6 @@
                                     "type": "string"
                                 },
                                 "assocOrganization": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "type": "array"
-                    },
-                    "textualInscriptionGroup": {
-                        "items": {
-                            "properties": {
-                                "inscriptionContentTranslation": {
-                                    "type": "string"
-                                },
-                                "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
-                                },
-                                "inscriptionContentMethod": {
-                                    "type": "string"
-                                },
-                                "inscriptionContentPosition": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "inscriptionContentTransliteration": {
-                                    "type": "string"
-                                },
-                                "inscriptionContentType": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "inscriptionContentScript": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "inscriptionContentInterpretation": {
-                                    "type": "string"
-                                },
-                                "inscriptionContentInscriber": {
-                                    "type": "string"
-                                },
-                                "inscriptionContent": {
-                                    "type": "string"
-                                },
-                                "inscriptionContentDate": {
-                                    "type": "date"
-                                },
-                                "inscriptionContentLanguage": {
-                                    "default": "eng",
                                     "type": "string"
                                 }
                             },
@@ -1540,12 +1540,12 @@
                     "assocObjectGroup": {
                         "items": {
                             "properties": {
+                                "assocObjectType": {
+                                    "type": "string"
+                                },
                                 "_primary": {
                                     "default": true,
                                     "type": "boolean"
-                                },
-                                "assocObjectType": {
-                                    "type": "string"
                                 },
                                 "assocObjectNote": {
                                     "type": "string"

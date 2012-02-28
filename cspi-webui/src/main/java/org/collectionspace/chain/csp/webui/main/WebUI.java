@@ -32,6 +32,7 @@ import org.collectionspace.chain.csp.webui.external.UIMapping;
 import org.collectionspace.chain.csp.webui.external.UIMeta;
 import org.collectionspace.chain.csp.webui.mediablob.BlobCreateUpdate;
 import org.collectionspace.chain.csp.webui.mediablob.BlobRead;
+import org.collectionspace.chain.csp.webui.misc.RecordTraverser;
 import org.collectionspace.chain.csp.webui.misc.VocabRedirector;
 import org.collectionspace.chain.csp.webui.misc.WebAuto;
 import org.collectionspace.chain.csp.webui.misc.WebAutoComplete;
@@ -197,6 +198,8 @@ public class WebUI implements CSP, UI, Configurable {
 		//addMethod(Operation.READ,new String[]{find_page,"uispec"},0,new FindEditUISpec(spec.getAllRecords()));//removed as I don't think anyone uses it
 		addMethod(Operation.CREATE,new String[]{"passwordreset"},0,new UserDetailsReset(false,spec));
 		addMethod(Operation.CREATE,new String[]{"resetpassword"},0,new UserDetailsReset(true,spec));
+		addMethod(Operation.READ,new String[]{"adjacentRecords"},2,new RecordTraverser(spec));
+		
 
 		for(Schemas s : spec.getAllSchemas()){
 			addMethod(Operation.READ,new String[]{s.getWebURL(), "uischema" },0,new UISchema(spec,s));
