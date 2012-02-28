@@ -807,7 +807,7 @@
                         <field id="assocEventNote"></field>
                         <repeat id="assocDateGroupList/assocDateGroup">
                             <selector>object-history-association-assocDateGroup</selector>
-	                        <group id="assocDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+	                        <group id="assocStructuredDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
                                 <selector>object-history-association-assocDate</selector>	                        	
 	                        </group>
                             <field id="assocDateType"></field>
