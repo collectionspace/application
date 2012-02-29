@@ -173,7 +173,11 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			JSONObject results = getJSON(storage, restriction, resultstring);
 			//cache for record traverser
 			if(results.has("pagination") && results.getJSONObject("pagination").has("separatelists")){
-				GenericSearch.createTraverser(ui, this.r.getID(), this.n.getID(), results, restriction, resultstring, Integer.valueOf(results.getJSONObject("pagination").getString("numInstances")));
+				String nid = "";
+				if(this.n !=null){
+					nid = this.n.getID();
+				}
+				GenericSearch.createTraverser(ui, this.r.getID(), nid, results, restriction, resultstring, Integer.valueOf(results.getJSONObject("pagination").getString("numInstances")));
 			}
 			ui.sendJSONResponse(results);
 	}
