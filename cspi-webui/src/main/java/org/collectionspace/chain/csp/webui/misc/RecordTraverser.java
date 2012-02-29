@@ -221,7 +221,9 @@ public class RecordTraverser implements WebMethod  {
 			else{
 				this.avsearcher = new AuthoritiesVocabulariesSearchList(myr,true);
 			}
-			 results = this.avsearcher.getJSON(storage, restriction, key);
+			if(this.avsearcher != null){
+				results = this.avsearcher.getJSON(storage, restriction, key);
+			}
 		}
 		
 		//cache for record traverser
