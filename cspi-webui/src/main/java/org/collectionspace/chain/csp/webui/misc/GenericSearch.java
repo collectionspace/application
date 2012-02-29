@@ -271,22 +271,28 @@ public class GenericSearch {
 	 * @throws UIException
 	 */
 	public static void createTraverser(UIRequest ui, String recordID, String instanceID, JSONObject results,
-			JSONObject restriction, String key, Integer numInstances) throws JSONException,
+			JSONObject restriction, String key, Integer numInstances) throws 
 			UIException {
-		JSONObject traverser = new JSONObject();
-		traverser.put("restriction", restriction);
-		traverser.put("record", recordID);
-		traverser.put("instance", instanceID);//not auth so no instance info
-		traverser.put("total", Integer.valueOf(results.getJSONObject("pagination").getString("totalItems")));
-		traverser.put("pageNum", Integer.valueOf(results.getJSONObject("pagination").getString("pageNum")));
-		traverser.put("pageSize", Integer.valueOf(results.getJSONObject("pagination").getString("pageSize")));
-		traverser.put("itemsInPage", Integer.valueOf(results.getJSONObject("pagination").getString("itemsInPage")));
-		traverser.put("numInstances", numInstances);
-		traverser.put("results", results.getJSONArray(key));
-		
-		String vhash = Generic.createHash(results.getJSONObject("pagination").getJSONArray("separatelists").toString() + restriction.toString());
-		ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,traverser);
-		results.getJSONObject("pagination").put("traverser", vhash);
+		try{
+			JSONObject traverser = new JSONObject();
+			traverser.put("restriction", restriction);
+			traverser.put("record", recordID);
+			traverser.put("instance", instanceID);//not auth so no instance info
+			traverser.put("total", Integer.valueOf(results.getJSONObject("pagination").getString("totalItems")));
+			traverser.put("pageNum", Integer.valueOf(results.getJSONObject("pagination").getString("pageNum")));
+			traverser.put("pageSize", Integer.valueOf(results.getJSONObject("pagination").getString("pageSize")));
+			traverser.put("itemsInPage", Integer.valueOf(results.getJSONObject("pagination").getString("itemsInPage")));
+			
+			traverser.put("numInstances", numInstances);
+			traverser.put("results", results.getJSONArray(key));
+			
+			String vhash = Generic.createHash(results.getJSONObject("pagination").getJSONArray("separatelists").toString() + restriction.toString());
+			ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,traverser);
+			results.getJSONObject("pagination").put("traverser", vhash);
+		}
+		catch(JSONException ex){
+			//can't do traversal as something is wrong e..g pagination data missing
+		}
 	}
 
 	/**
