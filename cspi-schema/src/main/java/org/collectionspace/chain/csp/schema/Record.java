@@ -547,6 +547,9 @@ public class Record implements FieldParent {
 	public Instance getInstance(String key) {
 		return instances.get(key);
 	}
+	public Boolean hasInstance(String key) {
+		return instances.containsKey(key);
+	}
 
 	public String getServicesURL() {
 		return utils.getString("services-url");

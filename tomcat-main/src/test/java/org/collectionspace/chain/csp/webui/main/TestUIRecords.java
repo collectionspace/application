@@ -1,6 +1,9 @@
 package org.collectionspace.chain.csp.webui.main;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.csp.persistence.TestBase;
@@ -66,6 +69,108 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/cataloging/uischema", "collection-object.uischema");
 	}
 
+	/**
+	 * Test the Record Traverser functionality
+	 * will only really highlight big fubars as I can't rely on data numbers in returns for testing
+	 * @throws Exception
+	 */
+	@Test public void testTraverser() throws Exception{
+
+		ArrayList<String> deleteme = new ArrayList<String>(); 
+		//create 10 records
+		String uipath = "/loanin/";
+		String data = tester.loaninCreate();
+		String testfield = "loanInNumber";
+		Integer count = 0;
+		HttpTester out;
+		
+		while(count < 10){
+			JSONObject two = new JSONObject(data);
+			two.put(testfield, "loanInNumber"+count);
+			if(count < 6){
+				two.put("loanInNote", "loanInNote");
+				two.put("loanPurpose", "exhibition"); //advsearchfield
+			}
+			else{
+				two.put("loanInNote", "OtherAnswer");
+				two.put("loanPurpose", "analysis");
+			}
+			if(count%2 >0){
+				two.put("loanPurpose", "photography");
+			}
+			// Create
+			out = tester.POSTData(uipath, tester.makeRequest(two),jetty);
+			String id = out.getHeader("Location");
+			deleteme.add(id);
+			
+			count++;
+		}
+		
+		
+		//search with a pageSize of 3 so we ensure pagination issues (should be 6 results)
+		String pgNum = "0";
+		String pgSz = "3";
+		out = tester.GETData(uipath + "search?query=loanInNote&pageNum=" + pgNum + "&pageSize=" + pgSz, jetty);
+		//log.info(out.getContent());
+		JSONObject output = new JSONObject(out.getContent());
+		String token = output.getJSONObject("pagination").getString("traverser");
+
+		String path = "/adjacentRecords/"+token+"/0";
+		out = tester.GETData(path,  jetty);
+		//if this doesn't error then I am relatively happy.... it is difficult to do a real test as I don't know the order things will be returned
+		//log.info(out.getContent());
+		JSONObject outtest = new JSONObject(out.getContent());
+		//test next exists but previous doesn't
+		assertTrue(outtest.has("next"));
+		assertFalse(outtest.has("previous"));
+		//outtest.has("next")
+		Integer max = outtest.getInt("total") -1;
+		assertTrue(max>4);
+		
+		String path2 = "/adjacentRecords/"+token+"/"+max;
+		out = tester.GETData(path2,  jetty);
+		//if this doesn't error then I am relatively happy.... it is difficult to do a real test as I don't know the order things will be returned
+		//log.info(out.getContent());
+		JSONObject outtest2 = new JSONObject(out.getContent());
+		//test previous exists but next doesn't
+		assertTrue(outtest2.has("previous"));
+		assertFalse(outtest2.has("next"));
+		
+		//need to test with adv search as well
+		JSONObject advsearch = new JSONObject();
+		JSONObject bit = new JSONObject();
+		bit.put("loanPurpose", "exhibition");
+		JSONObject bit2 = new JSONObject();
+		bit2.put("loanPurpose", "analysis");
+		JSONArray datar = new JSONArray();
+		datar.put(bit);
+		datar.put(bit2);
+		JSONObject fields = new JSONObject();
+		fields.put("loanPurposes", datar);
+		advsearch.put("operation", "or");
+		advsearch.put("fields", fields);
+		out = tester.POSTData(uipath + "search?query=&pageNum=" + pgNum + "&pageSize=" + pgSz, advsearch.toString(), jetty,"GET");
+		//log.info(out.getContent());
+		String advtoken = new JSONObject(out.getContent()).getJSONObject("pagination").getString("traverser");
+
+		String path3 = "/adjacentRecords/"+advtoken+"/0";
+		out = tester.GETData(path,  jetty);
+		//if this doesn't error then I am relatively happy.... it is difficult to do a real test as I don't know the order things will be returned
+		//log.info(out.getContent());
+		JSONObject outtest3 = new JSONObject(out.getContent());
+		//test next exists but previous doesn't
+		assertTrue(outtest3.has("next"));
+		assertFalse(outtest3.has("previous"));
+
+		assertTrue(outtest3.getInt("total")>4);
+
+		// Delete
+		if(deleteme.size()>0){
+			for(String item: deleteme){
+				tester.DELETEData(item,jetty);
+			}
+		}
+	}
 
 	/**
 	 * Test Procedure CRUDL

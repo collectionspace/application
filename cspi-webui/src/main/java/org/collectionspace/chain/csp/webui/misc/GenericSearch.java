@@ -7,10 +7,12 @@ import java.util.Set;
 
 import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
+import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -253,6 +255,38 @@ public class GenericSearch {
 			String asquery = "( "+asq+" )";
 			restriction.put("advancedsearch", asquery);
 		}
+	}
+
+	/**
+	 * Abstract the process for creating the traverser record
+	 * There should be enough information here to repeat the search and get the next/previous set of results.
+	 * @param ui
+	 * @param recordID
+	 * @param instanceID
+	 * @param results
+	 * @param restriction
+	 * @param key
+	 * @param numInstances
+	 * @throws JSONException
+	 * @throws UIException
+	 */
+	public static void createTraverser(UIRequest ui, String recordID, String instanceID, JSONObject results,
+			JSONObject restriction, String key, Integer numInstances) throws JSONException,
+			UIException {
+		JSONObject traverser = new JSONObject();
+		traverser.put("restriction", restriction);
+		traverser.put("record", recordID);
+		traverser.put("instance", instanceID);//not auth so no instance info
+		traverser.put("total", Integer.valueOf(results.getJSONObject("pagination").getString("totalItems")));
+		traverser.put("pageNum", Integer.valueOf(results.getJSONObject("pagination").getString("pageNum")));
+		traverser.put("pageSize", Integer.valueOf(results.getJSONObject("pagination").getString("pageSize")));
+		traverser.put("itemsInPage", Integer.valueOf(results.getJSONObject("pagination").getString("itemsInPage")));
+		traverser.put("numInstances", numInstances);
+		traverser.put("results", results.getJSONArray(key));
+		
+		String vhash = Generic.createHash(results.getJSONObject("pagination").getJSONArray("separatelists").toString() + restriction.toString());
+		ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,traverser);
+		results.getJSONObject("pagination").put("traverser", vhash);
 	}
 
 	/**
