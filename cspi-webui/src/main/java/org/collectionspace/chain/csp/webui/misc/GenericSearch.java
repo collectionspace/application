@@ -29,6 +29,10 @@ import org.slf4j.LoggerFactory;
  */
 public class GenericSearch {
 	private static final Logger log=LoggerFactory.getLogger(GenericSearch.class);
+        
+        private static final String MIDNIGHT_UTC_TIMESTAMP = "00:00:00Z";
+        private static final String END_OF_DAY_UTC_TIMESTAMP = "23:59:59.999Z";
+        private static final String ISO8601_DATE_REGEX = "^\\d{2,4}?-\\d{2}?-\\d{2}?$";
 	
 	/**
 	 * Returns the per field search structure needed by the service layer
@@ -216,11 +220,13 @@ public class GenericSearch {
 					if(r.hasSearchField(fieldname) && r.getSearchFieldFullList(fieldname).getUIType().equals("date")){
 						if(fieldname.endsWith("Start")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 5));
-							join = ">= DATE ";
+							join = ">= TIMESTAMP ";
+                                                        value = beginningOfDay(value);
 						}
 						else if(fieldname.endsWith("End")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 3));
-							join = "<= DATE ";
+							join = "<= TIMESTAMP ";
+							value = endOfDay(value);
 						}
 
 						if(dates.containsKey(fieldid)){
@@ -357,5 +363,40 @@ public class GenericSearch {
 		}
 		return specifier;
 	}
+        
+    private static String beginningOfDay(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return value;
+        }
+        String beginningOfDayValue = value;
+        try {
+            if (value.trim().matches(ISO8601_DATE_REGEX)) {
+                beginningOfDayValue = value.trim() + "T" + MIDNIGHT_UTC_TIMESTAMP;
+            }
+        } catch (Exception e) {
+            log.warn("Error converting date value to beginning-of-day value: " + e.getMessage());
+        } finally {
+            return beginningOfDayValue;
+        }
+    }
+
+
+    private static String endOfDay(String value) {
+        if (value == null || value.trim().isEmpty()) {
+            return value;
+        }
+        String endOfDayValue = value;
+        try {
+            if (value.trim().endsWith(MIDNIGHT_UTC_TIMESTAMP)) {
+                endOfDayValue = value.trim().replace(MIDNIGHT_UTC_TIMESTAMP,END_OF_DAY_UTC_TIMESTAMP);
+            } else if (value.trim().matches(ISO8601_DATE_REGEX)) {
+                endOfDayValue = value.trim() + "T" + END_OF_DAY_UTC_TIMESTAMP;
+            }
+        } catch (Exception e) {
+            log.warn("Error converting date value to end-of-day value: " + e.getMessage());
+        } finally {
+            return endOfDayValue;
+        }
+    }
 
 }
