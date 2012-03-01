@@ -103,18 +103,24 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			GenericSearch.buildQuery(this.r,params, restriction);
 			resultstring="results";
 			search_or_list(storage,ui,restriction,resultstring);
+}
+
+	
+	private void search_or_list_vocab(JSONObject out, Instance n,Storage storage, JSONObject restriction, String resultstring, JSONObject temp ) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
+		search_or_list_vocab( out, this.r,  n, storage,  restriction,  resultstring,  temp );
 	}
 
 	
-	private void search_or_list_vocab(JSONObject out,Instance n,Storage storage,UIRequest ui,JSONObject restriction, String resultstring, JSONObject temp ) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
+	private void search_or_list_vocab(JSONObject out,Record rd,Instance n,Storage storage,JSONObject restriction, String resultstring, JSONObject temp ) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
 		
-		JSONObject data = storage.getPathsJSON(r.getID()+"/"+n.getTitleRef(),restriction);
+		JSONObject data = storage.getPathsJSON(rd.getID()+"/"+n.getTitleRef(),restriction);
 
 		
 		String[] paths = (String[]) data.get("listItems");
 		JSONObject pagination = new JSONObject();
 		if(data.has("pagination")){
 			pagination = data.getJSONObject("pagination");
+			pagination.put("numInstances", "1" );
 		}
 		
 		JSONArray members = new JSONArray();
@@ -125,11 +131,11 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		for(String result : paths) {
 			
 			if(temp.has(resultstring)){
-				temp.getJSONArray(resultstring).put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));
+				temp.getJSONArray(resultstring).put(generateMiniRecord(storage,rd.getID(),n.getTitleRef(),result));
 				members = temp.getJSONArray(resultstring);
 			}
 			else{
-				members.put(generateMiniRecord(storage,r.getID(),n.getTitleRef(),result));
+				members.put(generateMiniRecord(storage,rd.getID(),n.getTitleRef(),result));
 			}
 		}
 
@@ -141,42 +147,57 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 				String itemsInPage = pag2.getString("itemsInPage");
 				String pagSize = pag2.getString("pageSize");
 				String totalItems = pag2.getString("totalItems");
+				String numInstances = pag2.getString("numInstances");
 				
 				String itemsInPage1 = pagination.getString("itemsInPage");
 				String pagSize1 = pagination.getString("pageSize");
 				String totalItems1 = pagination.getString("totalItems");
+				Integer numInstances1 = Integer.parseInt(numInstances);
 				int iip = Integer.parseInt(itemsInPage) +Integer.parseInt(itemsInPage1);
 				int ps = Integer.parseInt(pagSize) +Integer.parseInt(pagSize1);
 				int ti = Integer.parseInt(totalItems) +Integer.parseInt(totalItems1);
+				
 				pagination.put("itemsInPage", Integer.toString(iip) );
 				pagination.put("pageSize", Integer.toString(ps) );
 				pagination.put("totalItems", Integer.toString(ti) );
+				pagination.put("numInstances", Integer.toString(numInstances1++) );
 				
 			}
 			out.put("pagination",pagination);
 		}
 		log.debug(restriction.toString());
 	}
-	
+
 	private void search_or_list(Storage storage,UIRequest ui,JSONObject restriction, String resultstring) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 			
-			JSONObject results=new JSONObject();
-			if(n==null) {
-				for(Instance n : r.getAllInstances()) {
-					JSONObject results2=new JSONObject();
-					search_or_list_vocab(results2,n,storage,ui,restriction,resultstring,results);
-					results = results2;
-				}
-			} else {
-				search_or_list_vocab(results,n,storage,ui,restriction,resultstring,new JSONObject());				
-			}
+			JSONObject results = getJSON(storage, restriction, resultstring);
 			//cache for record traverser
 			if(results.has("pagination") && results.getJSONObject("pagination").has("separatelists")){
-				String vhash = Generic.createHash(results.getJSONObject("pagination").getJSONArray("separatelists").toString());
-				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,results.getJSONArray(resultstring));
-				results.getJSONObject("pagination").put("traverser", vhash);
+				String nid = "";
+				if(this.n !=null){
+					nid = this.n.getID();
+				}
+				GenericSearch.createTraverser(ui, this.r.getID(), nid, results, restriction, resultstring, Integer.valueOf(results.getJSONObject("pagination").getString("numInstances")));
 			}
 			ui.sendJSONResponse(results);
+	}
+
+	/* Wrapper exists to be used inRead, hence not private */
+	public JSONObject getJSON(Storage storage, JSONObject restriction,
+			String resultstring) throws ExistException,
+			UnimplementedException, UnderlyingStorageException, JSONException,
+			UIException {
+		JSONObject results = new JSONObject();
+		if(this.n==null) {
+			for(Instance n : this.r.getAllInstances()) {
+				JSONObject results2=new JSONObject();
+				search_or_list_vocab(results2,n,storage,restriction,resultstring,results);
+				results = results2;
+			}
+		} else {
+			search_or_list_vocab(results,this.n,storage,restriction,resultstring,new JSONObject());				
+		}
+		return results;
 	}
 	
 

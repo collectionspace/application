@@ -179,29 +179,29 @@ public class RecordSearchList implements WebMethod {
 			JSONObject restriction = restrictedkey.getJSONObject("restriction");
 			String key = restrictedkey.getString("key");
 			
-			JSONObject returndata = new JSONObject();
+			JSONObject results = new JSONObject();
 
 			if(this.r.getID().equals("permission")){
 				//pagination isn't properly implemented in permissions so just keep looping til we get everything
 				int pgnum = 0;
 				if(restriction.has("pageNum")){ //just get teh page specified
-					returndata = getJSON(storage,restriction,key,base);
+					results = getJSON(storage,restriction,key,base);
 				}
 				else{ // if not specified page then loop over them all.
 					JSONArray newitems =new JSONArray();
-					returndata = getJSON(storage,restriction,key,base);
-					while(returndata.has(key) && returndata.getJSONArray(key).length()>0){
+					results = getJSON(storage,restriction,key,base);
+					while(results.has(key) && results.getJSONArray(key).length()>0){
 
-						JSONArray items = returndata.getJSONArray(key);
+						JSONArray items = results.getJSONArray(key);
 						for(int i=0;i<items.length();i++){
 							newitems.put(items.get(i));
 						}
 						pgnum++;
 						restriction.put("pageNum", Integer.toString(pgnum));
 						
-						returndata = getJSON(storage,restriction,key,base);
+						results = getJSON(storage,restriction,key,base);
 					}
-					returndata.put(key, newitems);
+					results.put(key, newitems);
 				}
 			}
 			else if(r.getID().equals("reports")){
@@ -213,8 +213,8 @@ public class RecordSearchList implements WebMethod {
 				
 				if(restriction.has("queryTerm") && restriction.getString("queryTerm").equals("doctype")){
 					type = restriction.getString("queryString");
-					returndata = getJSON(storage,restriction,key,base);
-					returndata = showReports(returndata, type, key);
+					results = getJSON(storage,restriction,key,base);
+					results = showReports(results, type, key);
 				}
 				else{
 					JSONObject reporting = new JSONObject();
@@ -229,19 +229,17 @@ public class RecordSearchList implements WebMethod {
 							reporting.put(r2.getWebURL(), procedurereports);
 						}
 					}
-					returndata.put("reporting", reporting);
+					results.put("reporting", reporting);
 				}
 			}				
 			else{
-				returndata = getJSON(storage,restriction,key,base);
+				results = getJSON(storage,restriction,key,base);
 			}
 			//cache for record traverser
-			if(returndata.has("pagination") && returndata.getJSONObject("pagination").has("separatelists")){
-				String vhash = Generic.createHash(returndata.getJSONObject("pagination").getJSONArray("separatelists").toString());
-				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,returndata.getJSONArray(key));
-				returndata.getJSONObject("pagination").put("traverser", vhash);
+			if(results.has("pagination") && results.getJSONObject("pagination").has("separatelists")){
+				GenericSearch.createTraverser(ui, this.r.getID(), "", results, restriction, key, 1);
 			}
-			ui.sendJSONResponse(returndata);
+			ui.sendJSONResponse(results);
 		} catch (JSONException e) {
 			throw new UIException("JSONException during search_or_list",e);
 		} catch (ExistException e) {
@@ -276,7 +274,7 @@ public class RecordSearchList implements WebMethod {
 
 		try {
 
-			JSONObject returndata = new JSONObject();
+			JSONObject results = new JSONObject();
 			JSONObject restrictedkey = GenericSearch.setRestricted(ui,null,null,null,search,this.r);
 			JSONObject restriction = restrictedkey.getJSONObject("restriction");
 			String key = restrictedkey.getString("key");
@@ -284,15 +282,13 @@ public class RecordSearchList implements WebMethod {
 			
 			key="results";
 
-			returndata = getJSON(storage,restriction,key,base);
+			results = getJSON(storage,restriction,key,base);
 
 			//cache for record traverser
-			if(returndata.has("pagination") && returndata.getJSONObject("pagination").has("separatelists")){
-				String vhash = Generic.createHash(returndata.getJSONObject("pagination").getJSONArray("separatelists").toString());
-				ui.getSession().setValue(UISession.SEARCHTRAVERSER+""+vhash,returndata.getJSONObject("pagination").getJSONArray("separatelists"));
-				returndata.getJSONObject("pagination").put("traverser", vhash);
+			if(results.has("pagination") && results.getJSONObject("pagination").has("separatelists")){
+				GenericSearch.createTraverser(ui, this.r.getID(), "", results, restriction, key, 1);
 			}
-			ui.sendJSONResponse(returndata);
+			ui.sendJSONResponse(results);
 		} catch (JSONException e) {
 			throw new UIException("JSONException during advancedSearch "+e.getMessage(),e);
 		} catch (ExistException e) {
@@ -304,6 +300,7 @@ public class RecordSearchList implements WebMethod {
 			ui.sendJSONResponse(uiexception.getJSON());
 		}	
 	}
+
 
 
 	public void searchtype(Storage storage,UIRequest ui,String path) throws UIException{
