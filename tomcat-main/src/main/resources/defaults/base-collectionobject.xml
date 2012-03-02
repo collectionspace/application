@@ -580,7 +580,9 @@
                             <field id="inscriptionDescription">
                                 <selector>object-description-inscription-description</selector>
                             </field>
-                            <field id="inscriptionDescriptionInscriber" ui-search="repeatable" autocomplete="person-person,organization-organization">
+                            <!-- CSPACE-4775: Removing ui-search="repeatable" from inscriptionDescriptionInscriber to work around CSPACE-4894. -->
+                            <!--              Replace when CSPACE-4894 is fixed. -->
+                            <field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization">
                                 <selector>object-description-inscription-description-inscriber</selector>
                             </field>
                             <group id="inscriptionDescriptionDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
@@ -616,7 +618,9 @@
                                     <option id="maker's-mark">maker's mark</option>
                                 </options>
                             </field>
-                            <field id="inscriptionDescriptionMethod" ui-search="repeatable">
+                            <!-- CSPACE-4775: Removing ui-search="repeatable" from inscriptionDescriptionMethod to work around CSPACE-4894. -->
+                            <!--              Replace when CSPACE-4894 is fixed. -->
+                            <field id="inscriptionDescriptionMethod">
                                 <selector>object-description-inscription-description-method</selector>
                             </field>
                             <field id="inscriptionDescriptionInterpretation">
