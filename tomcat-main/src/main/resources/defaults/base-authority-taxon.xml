@@ -49,7 +49,7 @@
 			        <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
 			        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" ui-search="range" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section>
                     <field id="shortIdentifier"></field>
@@ -88,7 +88,7 @@
                         </options>
                     </field>
                     <repeat id="taxonAuthorGroupList/taxonAuthorGroup" has-primary="yes">
-                        <field id="taxonAuthor" autocomplete="person-person"></field>
+                        <field id="taxonAuthor" ui-search="repeatable" autocomplete="person-person"></field>
                         <field id="taxonAuthorType" seperate_ui_container="true">
                             <options>
                                 <option id="" default="yes">Please select a value</option>
@@ -99,9 +99,9 @@
                     </repeat>
                     <field id="taxonYear" ui-search="repeatable"></field>
                     <repeat id="taxonCitationList" has-primary="yes">
-                        <field id="taxonCitation"></field>
+                        <field id="taxonCitation" ui-search="repeatable"></field>
                     </repeat>
-                    <field id="taxonomicStatus" seperate_ui_container="true">
+                    <field id="taxonomicStatus" ui-search="repeatable" seperate_ui_container="true">
                         <options>
                             <option id="" default="yes">Please select a value</option>
                             <option id="valid">current</option>
@@ -114,7 +114,7 @@
                     <field id="taxonGUID"></field>
                     <field id="taxonNote"></field>
                     <!-- Verify how this field is to be represented here if/when converted to xs:boolean in services schema -->
- 	 	            <field id="taxonIsNamedHybrid">seperate_ui_container="true">
+ 	 	            <field id="taxonIsNamedHybrid" ui-search="repeatable" seperate_ui_container="true">
  	 	                <options>
  	 	                <!-- For now, this simple binary vocabulary might be referenced, rather than placed inline, -->
  	 	                <!-- when it is first used in multiple places -->
