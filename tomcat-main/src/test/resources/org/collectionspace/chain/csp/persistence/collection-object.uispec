@@ -58,8 +58,8 @@
             "messagekey": "collection-object-contentScriptsLabel"
         },
         ".csc-date-information-date-association": "${fields.dateAssociation}",
-        ".csc-collection-object-inscriptionContentDate-label": {
-            "messagekey": "collection-object-inscriptionContentDateLabel"
+        ".csc-textualInscriptionGroup-inscriptionContentDateGroup-label": {
+            "messagekey": "textualInscriptionGroup-inscriptionContentDateGroupLabel"
         },
         ".csc-collection-object-ageQualifier-label": {
             "messagekey": "collection-object-ageQualifierLabel"
@@ -298,9 +298,6 @@
                 }
             }]
         },
-        ".csc-collection-object-assocDate-label": {
-            "messagekey": "collection-object-assocDateLabel"
-        },
         ".csc-collection-object-numberOfObjects-label": {
             "messagekey": "collection-object-numberOfObjectsLabel"
         },
@@ -422,10 +419,39 @@
                                 ".csc-object-description-inscription-content": "${{row}.inscriptionContent}",
                                 ".csc-object-description-inscription-content-date": {
                                     "decorators": [{
-                                        "func": "cspace.datePicker",
-                                        "type": "fluid"
+                                        "func": "cspace.structuredDate",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "inscriptionContentDateGroup.dateDisplayDate",
+                                            "elPaths": {
+                                                "dateEarliestSingleQualifier": "inscriptionContentDateGroup.dateEarliestSingleQualifier",
+                                                "scalarValuesComputed": "inscriptionContentDateGroup.scalarValuesComputed",
+                                                "dateLatestDay": "inscriptionContentDateGroup.dateLatestDay",
+                                                "dateLatestYear": "inscriptionContentDateGroup.dateLatestYear",
+                                                "dateAssociation": "inscriptionContentDateGroup.dateAssociation",
+                                                "dateEarliestSingleEra": "inscriptionContentDateGroup.dateEarliestSingleEra",
+                                                "dateDisplayDate": "inscriptionContentDateGroup.dateDisplayDate",
+                                                "dateEarliestSingleCertainty": "inscriptionContentDateGroup.dateEarliestSingleCertainty",
+                                                "dateLatestEra": "inscriptionContentDateGroup.dateLatestEra",
+                                                "dateEarliestSingleQualifierValue": "inscriptionContentDateGroup.dateEarliestSingleQualifierValue",
+                                                "dateLatestCertainty": "inscriptionContentDateGroup.dateLatestCertainty",
+                                                "dateEarliestSingleYear": "inscriptionContentDateGroup.dateEarliestSingleYear",
+                                                "dateLatestQualifier": "inscriptionContentDateGroup.dateLatestQualifier",
+                                                "dateLatestQualifierValue": "inscriptionContentDateGroup.dateLatestQualifierValue",
+                                                "dateEarliestSingleQualifierUnit": "inscriptionContentDateGroup.dateEarliestSingleQualifierUnit",
+                                                "datePeriod": "inscriptionContentDateGroup.datePeriod",
+                                                "dateEarliestScalarValue": "inscriptionContentDateGroup.dateEarliestScalarValue",
+                                                "dateLatestMonth": "inscriptionContentDateGroup.dateLatestMonth",
+                                                "dateNote": "inscriptionContentDateGroup.dateNote",
+                                                "dateLatestScalarValue": "inscriptionContentDateGroup.dateLatestScalarValue",
+                                                "dateLatestQualifierUnit": "inscriptionContentDateGroup.dateLatestQualifierUnit",
+                                                "dateEarliestSingleDay": "inscriptionContentDateGroup.dateEarliestSingleDay",
+                                                "dateEarliestSingleMonth": "inscriptionContentDateGroup.dateEarliestSingleMonth"
+                                            }
+                                        }
                                     }],
-                                    "value": "${{row}.inscriptionContentDate}"
+                                    "value": "${{row}.inscriptionContentDateGroup.dateDisplayDate}"
                                 },
                                 ".csc-object-description-inscription-content-type": {
                                     "optionnames": ["Please select a value", "brand", "decoration", "estate stamp", "graffiti", "label", "maker's mark"],
@@ -832,10 +858,38 @@
         },
         ".csc-collection-object-fieldCollectionDate": {
             "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
+                "func": "cspace.structuredDate",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.fieldCollectionDate.dateDisplayDate",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.fieldCollectionDate.dateEarliestSingleQualifier",
+                        "scalarValuesComputed": "fields.fieldCollectionDate.scalarValuesComputed",
+                        "dateLatestDay": "fields.fieldCollectionDate.dateLatestDay",
+                        "dateLatestYear": "fields.fieldCollectionDate.dateLatestYear",
+                        "dateAssociation": "fields.fieldCollectionDate.dateAssociation",
+                        "dateEarliestSingleEra": "fields.fieldCollectionDate.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.fieldCollectionDate.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.fieldCollectionDate.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.fieldCollectionDate.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.fieldCollectionDate.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.fieldCollectionDate.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.fieldCollectionDate.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.fieldCollectionDate.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.fieldCollectionDate.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.fieldCollectionDate.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.fieldCollectionDate.datePeriod",
+                        "dateEarliestScalarValue": "fields.fieldCollectionDate.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.fieldCollectionDate.dateLatestMonth",
+                        "dateNote": "fields.fieldCollectionDate.dateNote",
+                        "dateLatestScalarValue": "fields.fieldCollectionDate.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.fieldCollectionDate.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.fieldCollectionDate.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.fieldCollectionDate.dateEarliestSingleMonth"
+                    }
+                }
             }],
-            "value": "${fields.fieldCollectionDate}"
+            "value": "${fields.fieldCollectionDate.dateDisplayDate}"
         },
         ".csc-collection-object-assocPersonGroup": {
             "decorators": [{
@@ -1249,8 +1303,8 @@
             }]
         },
         ".csc-object-description-content-note": "${fields.contentNote}",
-        ".csc-collection-object-inscriptionDescriptionDate-label": {
-            "messagekey": "collection-object-inscriptionDescriptionDateLabel"
+        ".csc-nonTextualInscriptionGroup-inscriptionDescriptionDateGroup-label": {
+            "messagekey": "nonTextualInscriptionGroup-inscriptionDescriptionDateGroupLabel"
         },
         ".csc-collection-object-objectProductionPeopleGroup-label": {
             "messagekey": "collection-object-objectProductionPeopleGroupLabel"
@@ -1324,6 +1378,9 @@
         },
         ".csc-collection-object-assocPersonType-label": {
             "messagekey": "collection-object-assocPersonTypeLabel"
+        },
+        ".csc-assocDateGroup-assocStructuredDateGroup-label": {
+            "messagekey": "assocDateGroup-assocStructuredDateGroupLabel"
         },
         ".csc-collection-object-assocObjectNote-label": {
             "messagekey": "collection-object-assocObjectNoteLabel"
@@ -2312,7 +2369,42 @@
                                     "optionlist": ["", "brand", "decoration", "estate-stamp", "graffiti", "label", "maker's-mark"],
                                     "selection": "${{row}.inscriptionDescriptionType}"
                                 },
-                                ".csc-object-description-inscription-description-date": "${{row}.inscriptionDescriptionDate}",
+                                ".csc-object-description-inscription-description-date": {
+                                    "decorators": [{
+                                        "func": "cspace.structuredDate",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "inscriptionDescriptionDateGroup.dateDisplayDate",
+                                            "elPaths": {
+                                                "dateEarliestSingleQualifier": "inscriptionDescriptionDateGroup.dateEarliestSingleQualifier",
+                                                "scalarValuesComputed": "inscriptionDescriptionDateGroup.scalarValuesComputed",
+                                                "dateLatestDay": "inscriptionDescriptionDateGroup.dateLatestDay",
+                                                "dateLatestYear": "inscriptionDescriptionDateGroup.dateLatestYear",
+                                                "dateAssociation": "inscriptionDescriptionDateGroup.dateAssociation",
+                                                "dateEarliestSingleEra": "inscriptionDescriptionDateGroup.dateEarliestSingleEra",
+                                                "dateDisplayDate": "inscriptionDescriptionDateGroup.dateDisplayDate",
+                                                "dateEarliestSingleCertainty": "inscriptionDescriptionDateGroup.dateEarliestSingleCertainty",
+                                                "dateLatestEra": "inscriptionDescriptionDateGroup.dateLatestEra",
+                                                "dateEarliestSingleQualifierValue": "inscriptionDescriptionDateGroup.dateEarliestSingleQualifierValue",
+                                                "dateLatestCertainty": "inscriptionDescriptionDateGroup.dateLatestCertainty",
+                                                "dateEarliestSingleYear": "inscriptionDescriptionDateGroup.dateEarliestSingleYear",
+                                                "dateLatestQualifier": "inscriptionDescriptionDateGroup.dateLatestQualifier",
+                                                "dateLatestQualifierValue": "inscriptionDescriptionDateGroup.dateLatestQualifierValue",
+                                                "dateEarliestSingleQualifierUnit": "inscriptionDescriptionDateGroup.dateEarliestSingleQualifierUnit",
+                                                "datePeriod": "inscriptionDescriptionDateGroup.datePeriod",
+                                                "dateEarliestScalarValue": "inscriptionDescriptionDateGroup.dateEarliestScalarValue",
+                                                "dateLatestMonth": "inscriptionDescriptionDateGroup.dateLatestMonth",
+                                                "dateNote": "inscriptionDescriptionDateGroup.dateNote",
+                                                "dateLatestScalarValue": "inscriptionDescriptionDateGroup.dateLatestScalarValue",
+                                                "dateLatestQualifierUnit": "inscriptionDescriptionDateGroup.dateLatestQualifierUnit",
+                                                "dateEarliestSingleDay": "inscriptionDescriptionDateGroup.dateEarliestSingleDay",
+                                                "dateEarliestSingleMonth": "inscriptionDescriptionDateGroup.dateEarliestSingleMonth"
+                                            }
+                                        }
+                                    }],
+                                    "value": "${{row}.inscriptionDescriptionDateGroup.dateDisplayDate}"
+                                },
                                 ".csc-object-description-inscription-description": "${{row}.inscriptionDescription}",
                                 ".csc-object-description-inscription-description-inscriber": {
                                     "decorators": [{
@@ -2344,10 +2436,39 @@
                                 ".csc-collection-object-assocDateNote": "${{row}.assocDateNote}",
                                 ".csc-object-history-association-assocDate": {
                                     "decorators": [{
-                                        "func": "cspace.datePicker",
-                                        "type": "fluid"
+                                        "func": "cspace.structuredDate",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "assocStructuredDateGroup.dateDisplayDate",
+                                            "elPaths": {
+                                                "dateEarliestSingleQualifier": "assocStructuredDateGroup.dateEarliestSingleQualifier",
+                                                "scalarValuesComputed": "assocStructuredDateGroup.scalarValuesComputed",
+                                                "dateLatestDay": "assocStructuredDateGroup.dateLatestDay",
+                                                "dateLatestYear": "assocStructuredDateGroup.dateLatestYear",
+                                                "dateAssociation": "assocStructuredDateGroup.dateAssociation",
+                                                "dateEarliestSingleEra": "assocStructuredDateGroup.dateEarliestSingleEra",
+                                                "dateDisplayDate": "assocStructuredDateGroup.dateDisplayDate",
+                                                "dateEarliestSingleCertainty": "assocStructuredDateGroup.dateEarliestSingleCertainty",
+                                                "dateLatestEra": "assocStructuredDateGroup.dateLatestEra",
+                                                "dateEarliestSingleQualifierValue": "assocStructuredDateGroup.dateEarliestSingleQualifierValue",
+                                                "dateLatestCertainty": "assocStructuredDateGroup.dateLatestCertainty",
+                                                "dateEarliestSingleYear": "assocStructuredDateGroup.dateEarliestSingleYear",
+                                                "dateLatestQualifier": "assocStructuredDateGroup.dateLatestQualifier",
+                                                "dateLatestQualifierValue": "assocStructuredDateGroup.dateLatestQualifierValue",
+                                                "dateEarliestSingleQualifierUnit": "assocStructuredDateGroup.dateEarliestSingleQualifierUnit",
+                                                "datePeriod": "assocStructuredDateGroup.datePeriod",
+                                                "dateEarliestScalarValue": "assocStructuredDateGroup.dateEarliestScalarValue",
+                                                "dateLatestMonth": "assocStructuredDateGroup.dateLatestMonth",
+                                                "dateNote": "assocStructuredDateGroup.dateNote",
+                                                "dateLatestScalarValue": "assocStructuredDateGroup.dateLatestScalarValue",
+                                                "dateLatestQualifierUnit": "assocStructuredDateGroup.dateLatestQualifierUnit",
+                                                "dateEarliestSingleDay": "assocStructuredDateGroup.dateEarliestSingleDay",
+                                                "dateEarliestSingleMonth": "assocStructuredDateGroup.dateEarliestSingleMonth"
+                                            }
+                                        }
                                     }],
-                                    "value": "${{row}.assocDate}"
+                                    "value": "${{row}.assocStructuredDateGroup.dateDisplayDate}"
                                 },
                                 ".csc-collection-object-assocDateType": "${{row}.assocDateType}"
                             },

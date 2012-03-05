@@ -282,7 +282,31 @@
     <textualInscriptionGroup>
         <inscriptionContent></inscriptionContent>
         <inscriptionContentInscriber></inscriptionContentInscriber>
-        <inscriptionContentDate></inscriptionContentDate>
+        <inscriptionContentDateGroup>
+            <dateDisplayDate>2012</dateDisplayDate>
+            <dateAssociation></dateAssociation>
+            <dateEarliestSingleYear>2012</dateEarliestSingleYear>
+            <dateEarliestSingleMonth></dateEarliestSingleMonth>
+            <dateEarliestSingleDay></dateEarliestSingleDay>
+            <dateEarliestSingleEra></dateEarliestSingleEra>
+            <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
+            <dateEarliestSingleQualifier></dateEarliestSingleQualifier>
+            <dateEarliestSingleQualifierValue></dateEarliestSingleQualifierValue>
+            <dateEarliestSingleQualifierUnit></dateEarliestSingleQualifierUnit>
+            <dateLatestYear></dateLatestYear>
+            <dateLatestMonth></dateLatestMonth>
+            <dateLatestDay></dateLatestDay>
+            <dateLatestEra></dateLatestEra>
+            <dateLatestCertainty></dateLatestCertainty>
+            <dateLatestQualifier></dateLatestQualifier>
+            <dateLatestQualifierValue></dateLatestQualifierValue>
+            <dateLatestQualifierUnit></dateLatestQualifierUnit>
+            <datePeriod></datePeriod>
+            <dateNote></dateNote>
+            <dateEarliestScalarValue></dateEarliestScalarValue>
+            <dateLatestScalarValue></dateLatestScalarValue>
+            <scalarValuesComputed></scalarValuesComputed>
+        </inscriptionContentDateGroup>
         <inscriptionContentInterpretation></inscriptionContentInterpretation>
         <inscriptionContentLanguage></inscriptionContentLanguage>
         <inscriptionContentMethod></inscriptionContentMethod>
@@ -299,7 +323,31 @@
     <nonTextualInscriptionGroup>
         <inscriptionDescription></inscriptionDescription>
         <inscriptionDescriptionInscriber></inscriptionDescriptionInscriber>
-        <inscriptionDescriptionDate></inscriptionDescriptionDate>
+        <inscriptionDescriptionDateGroup>
+            <dateDisplayDate>2012</dateDisplayDate>
+            <dateAssociation></dateAssociation>
+            <dateEarliestSingleYear>2012</dateEarliestSingleYear>
+            <dateEarliestSingleMonth></dateEarliestSingleMonth>
+            <dateEarliestSingleDay></dateEarliestSingleDay>
+            <dateEarliestSingleEra></dateEarliestSingleEra>
+            <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
+            <dateEarliestSingleQualifier></dateEarliestSingleQualifier>
+            <dateEarliestSingleQualifierValue></dateEarliestSingleQualifierValue>
+            <dateEarliestSingleQualifierUnit></dateEarliestSingleQualifierUnit>
+            <dateLatestYear></dateLatestYear>
+            <dateLatestMonth></dateLatestMonth>
+            <dateLatestDay></dateLatestDay>
+            <dateLatestEra></dateLatestEra>
+            <dateLatestCertainty></dateLatestCertainty>
+            <dateLatestQualifier></dateLatestQualifier>
+            <dateLatestQualifierValue></dateLatestQualifierValue>
+            <dateLatestQualifierUnit></dateLatestQualifierUnit>
+            <datePeriod></datePeriod>
+            <dateNote></dateNote>
+            <dateEarliestScalarValue></dateEarliestScalarValue>
+            <dateLatestScalarValue></dateLatestScalarValue>
+            <scalarValuesComputed></scalarValuesComputed>
+        </inscriptionDescriptionDateGroup>
         <inscriptionDescriptionInterpretation></inscriptionDescriptionInterpretation>
         <inscriptionDescriptionMethod></inscriptionDescriptionMethod>
         <inscriptionDescriptionPosition></inscriptionDescriptionPosition>
@@ -377,7 +425,31 @@
 </assocCulturalContextGroup></assocCulturalContextGroupList>
 <assocDateGroupList><assocDateGroup>
 <assocDateNote></assocDateNote>
-<assocDate></assocDate>
+<assocStructuredDateGroup>
+    <dateDisplayDate>2012</dateDisplayDate>
+    <dateAssociation></dateAssociation>
+    <dateEarliestSingleYear>2012</dateEarliestSingleYear>
+    <dateEarliestSingleMonth></dateEarliestSingleMonth>
+    <dateEarliestSingleDay></dateEarliestSingleDay>
+    <dateEarliestSingleEra></dateEarliestSingleEra>
+    <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
+    <dateEarliestSingleQualifier></dateEarliestSingleQualifier>
+    <dateEarliestSingleQualifierValue></dateEarliestSingleQualifierValue>
+    <dateEarliestSingleQualifierUnit></dateEarliestSingleQualifierUnit>
+    <dateLatestYear></dateLatestYear>
+    <dateLatestMonth></dateLatestMonth>
+    <dateLatestDay></dateLatestDay>
+    <dateLatestEra></dateLatestEra>
+    <dateLatestCertainty></dateLatestCertainty>
+    <dateLatestQualifier></dateLatestQualifier>
+    <dateLatestQualifierValue></dateLatestQualifierValue>
+    <dateLatestQualifierUnit></dateLatestQualifierUnit>
+    <datePeriod></datePeriod>
+    <dateNote></dateNote>
+    <dateEarliestScalarValue></dateEarliestScalarValue>
+    <dateLatestScalarValue></dateLatestScalarValue>
+    <scalarValuesComputed></scalarValuesComputed>
+</assocStructuredDateGroup>
 <assocDateType></assocDateType>
 </assocDateGroup></assocDateGroupList>
 <assocEventName></assocEventName>
@@ -519,7 +591,31 @@
 <reference></reference>
 <catalogNumber></catalogNumber>
 <!--  Object Collection Information Group -->
-<fieldCollectionDate></fieldCollectionDate>
+<fieldCollectionDateGroup>
+    <dateDisplayDate>2012</dateDisplayDate>
+    <dateAssociation></dateAssociation>
+    <dateEarliestSingleYear>2012</dateEarliestSingleYear>
+    <dateEarliestSingleMonth></dateEarliestSingleMonth>
+    <dateEarliestSingleDay></dateEarliestSingleDay>
+    <dateEarliestSingleEra></dateEarliestSingleEra>
+    <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
+    <dateEarliestSingleQualifier></dateEarliestSingleQualifier>
+    <dateEarliestSingleQualifierValue></dateEarliestSingleQualifierValue>
+    <dateEarliestSingleQualifierUnit></dateEarliestSingleQualifierUnit>
+    <dateLatestYear></dateLatestYear>
+    <dateLatestMonth></dateLatestMonth>
+    <dateLatestDay></dateLatestDay>
+    <dateLatestEra></dateLatestEra>
+    <dateLatestCertainty></dateLatestCertainty>
+    <dateLatestQualifier></dateLatestQualifier>
+    <dateLatestQualifierValue></dateLatestQualifierValue>
+    <dateLatestQualifierUnit></dateLatestQualifierUnit>
+    <datePeriod></datePeriod>
+    <dateNote></dateNote>
+    <dateEarliestScalarValue></dateEarliestScalarValue>
+    <dateLatestScalarValue></dateLatestScalarValue>
+    <scalarValuesComputed></scalarValuesComputed>
+</fieldCollectionDateGroup>
 <fieldCollectionMethods>
     <fieldCollectionMethod></fieldCollectionMethod>
 </fieldCollectionMethods>
