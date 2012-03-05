@@ -53,7 +53,7 @@ public class GenericSearch {
 					value = value.replace("*", "%");
 					join = " ilike ";
 				}
-				String fieldSpecifier = getSearchSpecifierForField(fieldname, fieldSet);
+				String fieldSpecifier = getSearchSpecifierForField(fieldSet);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
 				
 				return parts[0]+":"+fieldSpecifier+join+"\""+value +"\""+ " " + operator+ " ";
@@ -304,8 +304,10 @@ public class GenericSearch {
 	 * @param fieldSet the containing fieldSet
 	 * @return NXQL conformant specifier.
 	 **/
-	public static String getSearchSpecifierForField(String fieldname, FieldSet fieldSet ) {
-		String specifier = fieldname;	// default is just the simple field name
+	public static String getSearchSpecifierForField(FieldSet fieldSet ) {
+		//String specifier = fieldname;	// default is just the simple field name
+		String specifier = fieldSet.getServicesTag();
+		//this should be service tag not ID
 		
 		// Check for a composite (fooGroupList/fooGroup). For these, the name is the 
 		// leaf, and the first part is held in the "services parent"
@@ -322,7 +324,7 @@ public class GenericSearch {
 		boolean isRootLevelField = false;			// Assume we are recursing until we see otherwise
 		if(parent instanceof Record) {	// A simple reference to base field.
 			isRootLevelField = true;
-			log.debug("Specifier for root-level field: " + fieldname + " is: "+specifier);
+			log.debug("Specifier for root-level field: " + specifier + " is: "+specifier);
 		} else {
 			FieldSet parentFieldSet = (FieldSet)parent;
 			// "repeator" marks things for some expansion - not handled here (?)
@@ -333,7 +335,7 @@ public class GenericSearch {
 				// First, recurse to get the fully qualified path to the parent.
 				String parentID = parentFieldSet.getID();
 				log.debug("Recursing for parent: " + parentID );
-				specifier = getSearchSpecifierForField(parentID, parentFieldSet);
+				specifier = getSearchSpecifierForField(parentFieldSet);
 							
 				// Is parent a scalar list or a complex list?
 				Repeat rp = (Repeat)parentFieldSet;
@@ -344,13 +346,13 @@ public class GenericSearch {
 				if(size > 1){
 					// The parent is a complex schema, not just a scalar repeat
 					// Append the field name to build an XPath-like specifier.
-					specifier += "/"+fieldname;
+					specifier += "/"+fieldSet.getServicesTag();
 				} else{
 					// Leave specifier as is. We just search on the parent name,
 					// as the backend is smart about scalar lists. 
 				}
 			}
-			log.debug("Specifier for non-leaf field: " + fieldname + " is: "+specifier);
+			log.debug("Specifier for non-leaf field: " + fieldSet.getServicesTag() + " is: "+specifier);
 		}
 		if(isRootLevelField) {
 			// TODO - map leaf names like "titleGroupList/titleGroup" to "titleGroupList/*"
