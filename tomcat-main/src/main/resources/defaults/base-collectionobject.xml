@@ -580,12 +580,11 @@
                             <field id="inscriptionDescription">
                                 <selector>object-description-inscription-description</selector>
                             </field>
-                            <!-- CSPACE-4775: Removing ui-search="repeatable" from inscriptionDescriptionInscriber to work around CSPACE-4894. -->
-                            <!--              Replace when CSPACE-4894 is fixed. -->
-                            <field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization">
+                            <field id="inscriptionDescriptionInscriber" ui-search="repeatable" autocomplete="person-person,organization-organization">
                                 <selector>object-description-inscription-description-inscriber</selector>
                             </field>
-                            <group id="inscriptionDescriptionDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                            <!-- CSPACE-4894: inscriptionDescriptionDateGroup isn't actually searchable, but need ui-search="range" to prevent uispec generation from erroring. -->
+                            <group id="inscriptionDescriptionDateGroup" ui-search="range" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
                                 <selector>object-description-inscription-description-date</selector>    
                             </group>
                             <field id="inscriptionDescriptionPosition" seperate_ui_container="true">
@@ -618,9 +617,7 @@
                                     <option id="maker's-mark">maker's mark</option>
                                 </options>
                             </field>
-                            <!-- CSPACE-4775: Removing ui-search="repeatable" from inscriptionDescriptionMethod to work around CSPACE-4894. -->
-                            <!--              Replace when CSPACE-4894 is fixed. -->
-                            <field id="inscriptionDescriptionMethod">
+                            <field id="inscriptionDescriptionMethod" ui-search="repeatable">
                                 <selector>object-description-inscription-description-method</selector>
                             </field>
                             <field id="inscriptionDescriptionInterpretation">
