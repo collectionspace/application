@@ -214,14 +214,17 @@ public class GenericSearch {
 				if(!value.equals("")){
 					String fieldid = fieldname;
 					if(r.hasSearchField(fieldname) && r.getSearchFieldFullList(fieldname).getUIType().equals("date")){
+						String timestampAffix = "T00:00:00";
 						if(fieldname.endsWith("Start")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 5));
-							join = ">= DATE ";
+							join = ">= TIMESTAMP ";
 						}
 						else if(fieldname.endsWith("End")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 3));
-							join = "<= DATE ";
+							join = "<= TIMESTAMP ";
+							timestampAffix = "T23:59:59.999Z";
 						}
+						value += timestampAffix;
 
 						if(dates.containsKey(fieldid)){
 							String temp = getAdvancedSearch(r,fieldid,value,"AND",join);
