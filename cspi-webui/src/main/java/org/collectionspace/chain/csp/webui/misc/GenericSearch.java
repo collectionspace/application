@@ -100,7 +100,12 @@ public class GenericSearch {
 						restrict = "keywords";
 						key="results";
 					}
-					if(restrict.equals("pageSize")||restrict.equals("pageNum")||restrict.equals("keywords")){
+					if(restrict.equals("pageSize")||restrict.equals("pageNum")){
+						restriction.put(restrict,value);
+					}
+					else if(restrict.equals("keywords")){
+						//swap " for % CSPACE-4547
+						value = value.replace('"', '%');
 						restriction.put(restrict,value);
 					}
 					else if(restrict.equals("sortDir")){
@@ -150,6 +155,8 @@ public class GenericSearch {
 		
 		if(param!=null && !param.equals("")){
 			restriction.put("queryTerm", "kw");
+			//swap " for % CSPACE-4547
+			param = param.replace('"', '%');
 			restriction.put("queryString",param);
 			//restriction.put(r.getDisplayNameField().getID(),param);
 		}
