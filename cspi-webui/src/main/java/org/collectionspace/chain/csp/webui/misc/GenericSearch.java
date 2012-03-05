@@ -29,10 +29,6 @@ import org.slf4j.LoggerFactory;
  */
 public class GenericSearch {
 	private static final Logger log=LoggerFactory.getLogger(GenericSearch.class);
-        
-        private static final String MIDNIGHT_UTC_TIMESTAMP = "00:00:00Z";
-        private static final String END_OF_DAY_UTC_TIMESTAMP = "23:59:59.999Z";
-        private static final String ISO8601_DATE_REGEX = "^\\d{2,4}?-\\d{2}?-\\d{2}?$";
 	
 	/**
 	 * Returns the per field search structure needed by the service layer
@@ -57,7 +53,7 @@ public class GenericSearch {
 					value = value.replace("*", "%");
 					join = " ilike ";
 				}
-				String fieldSpecifier = getSearchSpecifierForField(fieldname, fieldSet);
+				String fieldSpecifier = getSearchSpecifierForField(fieldSet);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
 				
 				return parts[0]+":"+fieldSpecifier+join+"\""+value +"\""+ " " + operator+ " ";
@@ -218,16 +214,17 @@ public class GenericSearch {
 				if(!value.equals("")){
 					String fieldid = fieldname;
 					if(r.hasSearchField(fieldname) && r.getSearchFieldFullList(fieldname).getUIType().equals("date")){
+						String timestampAffix = "T00:00:00";
 						if(fieldname.endsWith("Start")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 5));
 							join = ">= TIMESTAMP ";
-                                                        value = beginningOfDay(value);
 						}
 						else if(fieldname.endsWith("End")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 3));
 							join = "<= TIMESTAMP ";
-							value = endOfDay(value);
+							timestampAffix = "T23:59:59.999Z";
 						}
+						value += timestampAffix;
 
 						if(dates.containsKey(fieldid)){
 							String temp = getAdvancedSearch(r,fieldid,value,"AND",join);
@@ -310,8 +307,10 @@ public class GenericSearch {
 	 * @param fieldSet the containing fieldSet
 	 * @return NXQL conformant specifier.
 	 **/
-	public static String getSearchSpecifierForField(String fieldname, FieldSet fieldSet ) {
-		String specifier = fieldname;	// default is just the simple field name
+	public static String getSearchSpecifierForField(FieldSet fieldSet ) {
+		//String specifier = fieldname;	// default is just the simple field name
+		String specifier = fieldSet.getServicesTag();
+		//this should be service tag not ID
 		
 		// Check for a composite (fooGroupList/fooGroup). For these, the name is the 
 		// leaf, and the first part is held in the "services parent"
@@ -328,7 +327,7 @@ public class GenericSearch {
 		boolean isRootLevelField = false;			// Assume we are recursing until we see otherwise
 		if(parent instanceof Record) {	// A simple reference to base field.
 			isRootLevelField = true;
-			log.debug("Specifier for root-level field: " + fieldname + " is: "+specifier);
+			log.debug("Specifier for root-level field: " + specifier + " is: "+specifier);
 		} else {
 			FieldSet parentFieldSet = (FieldSet)parent;
 			// "repeator" marks things for some expansion - not handled here (?)
@@ -339,7 +338,7 @@ public class GenericSearch {
 				// First, recurse to get the fully qualified path to the parent.
 				String parentID = parentFieldSet.getID();
 				log.debug("Recursing for parent: " + parentID );
-				specifier = getSearchSpecifierForField(parentID, parentFieldSet);
+				specifier = getSearchSpecifierForField(parentFieldSet);
 							
 				// Is parent a scalar list or a complex list?
 				Repeat rp = (Repeat)parentFieldSet;
@@ -350,53 +349,18 @@ public class GenericSearch {
 				if(size > 1){
 					// The parent is a complex schema, not just a scalar repeat
 					// Append the field name to build an XPath-like specifier.
-					specifier += "/"+fieldname;
+					specifier += "/"+fieldSet.getServicesTag();
 				} else{
 					// Leave specifier as is. We just search on the parent name,
 					// as the backend is smart about scalar lists. 
 				}
 			}
-			log.debug("Specifier for non-leaf field: " + fieldname + " is: "+specifier);
+			log.debug("Specifier for non-leaf field: " + fieldSet.getServicesTag() + " is: "+specifier);
 		}
 		if(isRootLevelField) {
 			// TODO - map leaf names like "titleGroupList/titleGroup" to "titleGroupList/*"
 		}
 		return specifier;
 	}
-        
-    private static String beginningOfDay(String value) {
-        if (value == null || value.trim().isEmpty()) {
-            return value;
-        }
-        String beginningOfDayValue = value;
-        try {
-            if (value.trim().matches(ISO8601_DATE_REGEX)) {
-                beginningOfDayValue = value.trim() + "T" + MIDNIGHT_UTC_TIMESTAMP;
-            }
-        } catch (Exception e) {
-            log.warn("Error converting date value to beginning-of-day value: " + e.getMessage());
-        } finally {
-            return beginningOfDayValue;
-        }
-    }
-
-
-    private static String endOfDay(String value) {
-        if (value == null || value.trim().isEmpty()) {
-            return value;
-        }
-        String endOfDayValue = value;
-        try {
-            if (value.trim().endsWith(MIDNIGHT_UTC_TIMESTAMP)) {
-                endOfDayValue = value.trim().replace(MIDNIGHT_UTC_TIMESTAMP,END_OF_DAY_UTC_TIMESTAMP);
-            } else if (value.trim().matches(ISO8601_DATE_REGEX)) {
-                endOfDayValue = value.trim() + "T" + END_OF_DAY_UTC_TIMESTAMP;
-            }
-        } catch (Exception e) {
-            log.warn("Error converting date value to end-of-day value: " + e.getMessage());
-        } finally {
-            return endOfDayValue;
-        }
-    }
 
 }

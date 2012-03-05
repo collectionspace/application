@@ -17,6 +17,11 @@
                 <authorization-view>false</authorization-view>
                 <hassoftdelete>true</hassoftdelete>
                 <structures>
+                    <structure id="search">
+                        <view>
+                            <label-section id="messagekeys" show="true"></label-section>
+                        </view>
+                    </structure>
                     <structure id="screen">
                         <view>
                             <label-section id="messagekeys" show="true"></label-section>
@@ -42,16 +47,16 @@
                 <section>
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
 			        <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
-			        <field id="updatedBy" section="collectionspace_core" attributes="GET"></field>
+			        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-                    <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+                    <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section>
                     <field id="shortIdentifier"></field>
-                    <field id="displayName" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
+                    <field id="displayName" ui-search="repeatable" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
                         <title-selector>.csc-titleBar-displayName</title-selector>
                     </field>
-                    <field id="termStatus" seperate_ui_container="true">
+                    <field id="termStatus" ui-search="repeatable" seperate_ui_container="true">
                         <options>
                             <option id="provisional" default="yes">Provisional</option>
                             <option id="under review">Under Review</option>
@@ -59,8 +64,8 @@
                             <option id="rejected">Rejected</option>
                         </options>
                     </field>
-                    <field id="taxonFullName" mini="summary,list,search,relate,terms"></field>
-                    <field id="taxonRank" seperate_ui_container="true">
+                    <field id="taxonFullName" ui-search="repeatable" mini="summary,list,search,relate,terms"></field>
+                    <field id="taxonRank" ui-search="repeatable" seperate_ui_container="true">
                         <options>
                             <option id="" default="yes">Please select a value</option>
                             <option id="domain">domain</option>
@@ -74,7 +79,7 @@
                             <option id="species">species</option>
                         </options>
                     </field>
-                    <field id="taxonCurrency" seperate_ui_container="true">
+                    <field id="taxonCurrency" ui-search="repeatable" seperate_ui_container="true">
                         <options>
                             <option id="" default="yes">Please select a value</option>
                             <option id="current">current</option>
@@ -83,7 +88,7 @@
                         </options>
                     </field>
                     <repeat id="taxonAuthorGroupList/taxonAuthorGroup" has-primary="yes">
-                        <field id="taxonAuthor" autocomplete="person-person"></field>
+                        <field id="taxonAuthor" ui-search="repeatable" autocomplete="person-person"></field>
                         <field id="taxonAuthorType" seperate_ui_container="true">
                             <options>
                                 <option id="" default="yes">Please select a value</option>
@@ -92,11 +97,11 @@
                             </options>
                         </field>
                     </repeat>
-                    <field id="taxonYear"></field>
+                    <field id="taxonYear" ui-search="repeatable"></field>
                     <repeat id="taxonCitationList" has-primary="yes">
-                        <field id="taxonCitation"></field>
+                        <field id="taxonCitation" ui-search="repeatable"></field>
                     </repeat>
-                    <field id="taxonomicStatus" seperate_ui_container="true">
+                    <field id="taxonomicStatus" ui-search="repeatable" seperate_ui_container="true">
                         <options>
                             <option id="" default="yes">Please select a value</option>
                             <option id="valid">current</option>
@@ -109,7 +114,7 @@
                     <field id="taxonGUID"></field>
                     <field id="taxonNote"></field>
                     <!-- Verify how this field is to be represented here if/when converted to xs:boolean in services schema -->
- 	 	            <field id="taxonIsNamedHybrid">seperate_ui_container="true">
+ 	 	            <field id="taxonIsNamedHybrid" ui-search="repeatable" seperate_ui_container="true">
  	 	                <options>
  	 	                <!-- For now, this simple binary vocabulary might be referenced, rather than placed inline, -->
  	 	                <!-- when it is first used in multiple places -->
