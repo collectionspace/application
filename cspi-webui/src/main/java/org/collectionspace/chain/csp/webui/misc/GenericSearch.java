@@ -55,38 +55,16 @@ public class GenericSearch {
                                 
                                 // Escape un-escaped backslashes, double quotes
                                 // and percent signs
-                                StringBuffer sb = new StringBuffer("");
-                                // final String BACKSLASH = "\u0005C";
                                 
-                                // See http://stackoverflow.com/a/5937852
-                                // and http://docs.oracle.com/javase/6/docs/api/java/util/regex/Matcher.html
-                                // #quoteReplacement%28java.lang.String%29
-                                final String DOUBLE_QUOTE_PATTERN_REGEX = "(?<!\\\\)([\\\"])";
-                                try {
-                                    final Pattern pattern = Pattern.compile(DOUBLE_QUOTE_PATTERN_REGEX);
-                                    final Matcher matcher = pattern.matcher(value);
-                                    while (matcher.find()) {
-                                        // matcher.appendReplacement(sb, matcher.group(1).replace("\"","FOOBAR"));
-                                        matcher.appendReplacement(sb, matcher.group(1).replace("\"",Matcher.quoteReplacement("\\\"")));
-                                    }
-                                    matcher.appendTail(sb);
-                                    value = sb.toString();
-                                } catch (PatternSyntaxException pse) {
-                                    log.warn("Invalid regular expression pattern " + DOUBLE_QUOTE_PATTERN_REGEX + ": " + pse.getMessage());
-                                }
+                                final String UNESCAPED_BACKSLASH_PATTERN = "(?<!\\\\)([\\\"])";
+                                value = replaceWithinSearchString(value, UNESCAPED_BACKSLASH_PATTERN, "\"", "\\\"");
                                 
-                                /*
-                                if(value.contains("\\")){
-                                    value = value.replace("\\", "\\\\");
-                                }
-                                if(value.contains("\"")){
-                                    value = value.replaceAll("([^\\u005C])\"", "\1\\\"");
-                                }
-                                if(value.contains("%")){
-                                    value = value.replaceAll("[^\\u005C]%", "\1\\%");
-                                }
-                                * 
-                                */
+                                final String UNESCAPED_DOUBLE_QUOTE_PATTERN = "(?<!\\\\)([\\\"])";
+                                value = replaceWithinSearchString(value, UNESCAPED_DOUBLE_QUOTE_PATTERN, "\"", "\\\"");
+                                
+                                final String UNESCAPED_PERCENT_SIGN_PATTERN = "(?<!\\\\)([\\%])";
+                                value = replaceWithinSearchString(value, UNESCAPED_PERCENT_SIGN_PATTERN, "%", "\\%");
+                                
                                 // Replace user wildcards with service-legal wildcards
                                 if(value.contains("*")){
                                     value = value.replace("*", "%");
@@ -107,6 +85,32 @@ public class GenericSearch {
 		return "";
 		
 	}
+        
+       /**
+        * See http://stackoverflow.com/a/5937852 and
+        * http://docs.oracle.com/javase/6/docs/api/java/util/regex/Matcher.html#quoteReplacement%28java.lang.String%29
+        * 
+        * @param value         the value in which 
+        * @param matchPattern
+        * @param findStr
+        * @param replaceStr
+        * @return 
+        */
+
+        private static String replaceWithinSearchString(String value, String matchPattern, String findStr, String replaceStr) {
+            StringBuffer sb = new StringBuffer("");
+            try {
+                final Pattern pattern = Pattern.compile(matchPattern);
+                final Matcher matcher = pattern.matcher(value);
+                while (matcher.find()) {
+                    matcher.appendReplacement(sb, matcher.group(1).replace(findStr,Matcher.quoteReplacement(replaceStr)));
+                }
+                matcher.appendTail(sb);
+            } catch (PatternSyntaxException pse) {
+                log.warn("Invalid regular expression pattern " + matchPattern + ": " + pse.getMessage());
+            }
+            return sb.toString();
+        }
 
 	/**
 	 * Pivots from the UI restriction concept to what the services needs. Initialises valriables if needed
