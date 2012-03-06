@@ -1,5 +1,9 @@
 package org.collectionspace.chain.csp.webui.misc;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -48,18 +52,54 @@ public class GenericSearch {
 				String section = fieldSet.getSection(); 	// Get the payload part
 				String spath=r.getServicesRecordPath(section);
 				String[] parts=spath.split(":",2);
-				// Replace user wildcards with service-legal wildcards
-				if(value.contains("*")){
-					value = value.replace("*", "%");
-					join = " ilike ";
-				}
+                                
+                                // Escape un-escaped backslashes, double quotes
+                                // and percent signs
+                                StringBuffer sb = new StringBuffer("");
+                                // final String BACKSLASH = "\u0005C";
+                                
+                                // See http://stackoverflow.com/a/5937852
+                                // and http://docs.oracle.com/javase/6/docs/api/java/util/regex/Matcher.html
+                                // #quoteReplacement%28java.lang.String%29
+                                final String DOUBLE_QUOTE_PATTERN_REGEX = "(?<!\\\\)([\\\"])";
+                                try {
+                                    final Pattern pattern = Pattern.compile(DOUBLE_QUOTE_PATTERN_REGEX);
+                                    final Matcher matcher = pattern.matcher(value);
+                                    while (matcher.find()) {
+                                        // matcher.appendReplacement(sb, matcher.group(1).replace("\"","FOOBAR"));
+                                        matcher.appendReplacement(sb, matcher.group(1).replace("\"",Matcher.quoteReplacement("\\\"")));
+                                    }
+                                    matcher.appendTail(sb);
+                                    value = sb.toString();
+                                } catch (PatternSyntaxException pse) {
+                                    log.warn("Invalid regular expression pattern " + DOUBLE_QUOTE_PATTERN_REGEX + ": " + pse.getMessage());
+                                }
+                                
+                                /*
+                                if(value.contains("\\")){
+                                    value = value.replace("\\", "\\\\");
+                                }
+                                if(value.contains("\"")){
+                                    value = value.replaceAll("([^\\u005C])\"", "\1\\\"");
+                                }
+                                if(value.contains("%")){
+                                    value = value.replaceAll("[^\\u005C]%", "\1\\%");
+                                }
+                                * 
+                                */
+                                // Replace user wildcards with service-legal wildcards
+                                if(value.contains("*")){
+                                    value = value.replace("*", "%");
+                                    join = " ilike ";
+                                }
 				String fieldSpecifier = getSearchSpecifierForField(fieldSet);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
 				
 				return parts[0]+":"+fieldSpecifier+join+"\""+value +"\""+ " " + operator+ " ";
 			}
 			catch(Exception e){
-				log.error("Problem creating advanced search specifier for field: "+fieldname);
+
+                            log.error("Problem creating advanced search specifier for field: "+fieldname);
 				log.error(e.getLocalizedMessage());
 				return "";
 			}
