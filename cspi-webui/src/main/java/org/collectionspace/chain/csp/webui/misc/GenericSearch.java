@@ -35,7 +35,6 @@ public class GenericSearch {
 	private static final Logger log=LoggerFactory.getLogger(GenericSearch.class);
         
         final static String UNESCAPED_PREVIOUS_CHAR_PATTERN = "(?<!\\\\)";
-        final static String BACKSLASH_PATTERN = "([\\\"])";
         final static String DOUBLE_QUOTE_PATTERN = "([\\\"])";
         final static String PERCENT_SIGN_PATTERN = "([\\%])";
 	
@@ -59,7 +58,6 @@ public class GenericSearch {
 				String[] parts=spath.split(":",2);
                                 
                                 // Escape various unescaped characters in the advanced search string
-                                value = escapeUnescapedChars(value, BACKSLASH_PATTERN, "\\", "\\\\");
                                 value = escapeUnescapedChars(value, DOUBLE_QUOTE_PATTERN, "\"", "\\\"");
                                 value = escapeUnescapedChars(value, PERCENT_SIGN_PATTERN, "%", "\\%");
                                 
