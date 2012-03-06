@@ -33,6 +33,11 @@ import org.slf4j.LoggerFactory;
  */
 public class GenericSearch {
 	private static final Logger log=LoggerFactory.getLogger(GenericSearch.class);
+        
+        final static String UNESCAPED_PREVIOUS_CHAR_PATTERN = "(?<!\\\\)";
+        final static String BACKSLASH_PATTERN = "([\\\"])";
+        final static String DOUBLE_QUOTE_PATTERN = "([\\\"])";
+        final static String PERCENT_SIGN_PATTERN = "([\\%])";
 	
 	/**
 	 * Returns the per field search structure needed by the service layer
@@ -53,17 +58,10 @@ public class GenericSearch {
 				String spath=r.getServicesRecordPath(section);
 				String[] parts=spath.split(":",2);
                                 
-                                // Escape un-escaped backslashes, double quotes
-                                // and percent signs
-                                
-                                final String UNESCAPED_BACKSLASH_PATTERN = "(?<!\\\\)([\\\"])";
-                                value = replaceWithinSearchString(value, UNESCAPED_BACKSLASH_PATTERN, "\"", "\\\"");
-                                
-                                final String UNESCAPED_DOUBLE_QUOTE_PATTERN = "(?<!\\\\)([\\\"])";
-                                value = replaceWithinSearchString(value, UNESCAPED_DOUBLE_QUOTE_PATTERN, "\"", "\\\"");
-                                
-                                final String UNESCAPED_PERCENT_SIGN_PATTERN = "(?<!\\\\)([\\%])";
-                                value = replaceWithinSearchString(value, UNESCAPED_PERCENT_SIGN_PATTERN, "%", "\\%");
+                                // Escape various unescaped characters in the advanced search string
+                                value = escapeUnescapedChars(value, BACKSLASH_PATTERN, "\\", "\\\\");
+                                value = escapeUnescapedChars(value, DOUBLE_QUOTE_PATTERN, "\"", "\\\"");
+                                value = escapeUnescapedChars(value, PERCENT_SIGN_PATTERN, "%", "\\%");
                                 
                                 // Replace user wildcards with service-legal wildcards
                                 if(value.contains("*")){
@@ -87,23 +85,37 @@ public class GenericSearch {
 	}
         
        /**
-        * See http://stackoverflow.com/a/5937852 and
+        * Escapes unescaped characters within the text of a services advanced search string.
+        * 
+        * For the match patterns and replacement algorithm, see;
+        * http://stackoverflow.com/a/5937852 and
         * http://docs.oracle.com/javase/6/docs/api/java/util/regex/Matcher.html#quoteReplacement%28java.lang.String%29
         * 
-        * @param value         the value in which 
-        * @param matchPattern
-        * @param findStr
-        * @param replaceStr
-        * @return 
+        * @param value         the original text of the search string.
+        * @param matchPattern  a regex pattern to be matched.  This pattern MUST contain exactly
+        *                      one matching group; text will be found and replaced within that group.
+        * @param findText      some text to find within the matching group of the search string.
+        * @param replaceText   the replacement text for the text found, if any, in that group.
+        * @return  the text of the search string, with any character escaping performed.
         */
-
-        private static String replaceWithinSearchString(String value, String matchPattern, String findStr, String replaceStr) {
+        private static String escapeUnescapedChars(String value, String matchPattern, String findText, String replaceText) {
+            if (value == null || value.isEmpty()) {
+                return value;
+            }
             StringBuffer sb = new StringBuffer("");
             try {
-                final Pattern pattern = Pattern.compile(matchPattern);
+                final Pattern pattern = Pattern.compile(UNESCAPED_PREVIOUS_CHAR_PATTERN + matchPattern);
                 final Matcher matcher = pattern.matcher(value);
+                int groupCount = matcher.groupCount();
+                if (groupCount != 1) {
+                    log.warn("Match pattern must contain exactly one matching group. Pattern " + matchPattern
+                            + " contains " + groupCount + " matching groups.");
+                    return value;
+                }
                 while (matcher.find()) {
-                    matcher.appendReplacement(sb, matcher.group(1).replace(findStr,Matcher.quoteReplacement(replaceStr)));
+                    if (matcher.groupCount() >= 1) {
+                      matcher.appendReplacement(sb, matcher.group(1).replace(findText,Matcher.quoteReplacement(replaceText)));
+                    }
                 }
                 matcher.appendTail(sb);
             } catch (PatternSyntaxException pse) {
