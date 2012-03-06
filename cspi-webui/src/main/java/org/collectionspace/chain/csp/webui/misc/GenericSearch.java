@@ -49,7 +49,7 @@ public class GenericSearch {
 	 * @param join
 	 * @return
 	 */
-	public static String getAdvancedSearch(Record r, String fieldname, String value, String operator, String join){
+	public static String getAdvancedSearch(Record r, String fieldname, String value, String operator, String join, String affix){
 		if(!value.equals("")){
 			try{
 				FieldSet fieldSet = r.getFieldFullList(fieldname);
@@ -69,7 +69,7 @@ public class GenericSearch {
 				String fieldSpecifier = getSearchSpecifierForField(fieldSet);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
 				
-				return parts[0]+":"+fieldSpecifier+join+"\""+value +"\""+ " " + operator+ " ";
+				return parts[0]+":"+fieldSpecifier+affix+join+"\""+value +"\""+ " " + operator+ " ";
 			}
 			catch(Exception e){
 
@@ -154,7 +154,12 @@ public class GenericSearch {
 						restrict = "keywords";
 						key="results";
 					}
-					if(restrict.equals("pageSize")||restrict.equals("pageNum")||restrict.equals("keywords")){
+					if(restrict.equals("pageSize")||restrict.equals("pageNum")){
+						restriction.put(restrict,value);
+					}
+					else if(restrict.equals("keywords")){
+						//swap " for % CSPACE-4547
+						value = value.replace('"', '%');
 						restriction.put(restrict,value);
 					}
 					else if(restrict.equals("sortDir")){
@@ -204,6 +209,8 @@ public class GenericSearch {
 		
 		if(param!=null && !param.equals("")){
 			restriction.put("queryTerm", "kw");
+			//swap " for % CSPACE-4547
+			param = param.replace('"', '%');
 			restriction.put("queryString",param);
 			//restriction.put(r.getDisplayNameField().getID(),param);
 		}
@@ -253,7 +260,7 @@ public class GenericSearch {
 						if(!jname.equals("_primary")){
 							if(jo.get(jname) instanceof String || jo.get(jname) instanceof Boolean ){
 								value = jo.getString(jname);
-								asq += getAdvancedSearch(r,jname,value,operation,join);
+								asq += getAdvancedSearch(r,jname,value,operation,join,"");
 							}
 						}
 					}
@@ -265,33 +272,40 @@ public class GenericSearch {
 			}
 			else if(item instanceof String){
 				value = (String)item;
+				String affix = "";
 				if(!value.equals("")){
 					String fieldid = fieldname;
-					if(r.hasSearchField(fieldname) && r.getSearchFieldFullList(fieldname).getUIType().equals("date")){
+					if(r.hasSearchField(fieldname) && (r.getSearchFieldFullList(fieldname).getUIType().equals("date") || r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate"))){
 						String timestampAffix = "T00:00:00";
 						if(fieldname.endsWith("Start")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 5));
 							join = ">= TIMESTAMP ";
+							if(r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate") && r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate")){
+								affix = "/dateEarliestScalarValue";
+							}
 						}
 						else if(fieldname.endsWith("End")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 3));
 							join = "<= TIMESTAMP ";
 							timestampAffix = "T23:59:59.999Z";
+							if(r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate") && r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate")){
+								affix = "/dateLatestScalarValue";
+							}
 						}
 						value += timestampAffix;
 
 						if(dates.containsKey(fieldid)){
-							String temp = getAdvancedSearch(r,fieldid,value,"AND",join);
+							String temp = getAdvancedSearch(r,fieldid,value,"AND",join, affix);
 							String get = dates.get(fieldid);
 							dates.put(fieldid, temp + get);
 						}
 						else{
-							String temp = getAdvancedSearch(r,fieldid,value,"",join);
+							String temp = getAdvancedSearch(r,fieldid,value,"",join,affix);
 							dates.put(fieldid, temp);
 						}
 					}
 					else{
-						asq += getAdvancedSearch(r,fieldname,value,operation,join);
+						asq += getAdvancedSearch(r,fieldname,value,operation,join,affix);
 					}
 				}
 			}				

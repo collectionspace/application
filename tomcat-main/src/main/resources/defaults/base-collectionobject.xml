@@ -400,7 +400,7 @@
                             </field>
                         </repeat>
 
-                        <field id="contentDate" ui-search="repeatable" ui-type="groupfield/structureddate" primarykey="contentDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
+                        <field id="contentDate" ui-search="range" ui-type="groupfield/structureddate" primarykey="contentDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
                             <services-tag>contentDateGroup</services-tag>
                             <selector>object-description-content-date</selector>
                         </field>
