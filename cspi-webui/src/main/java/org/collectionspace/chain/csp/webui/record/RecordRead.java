@@ -73,19 +73,18 @@ public class RecordRead implements WebMethod {
 	private JSONObject createRelations(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		JSONObject recordtypes=new JSONObject();
 		JSONObject restrictions=new JSONObject();
+		JSONObject out=new JSONObject();
+		JSONArray paginations = new JSONArray();
 		restrictions.put("src",base+"/"+csid);
 		//loop over all procedure/recordtypes
 		for(Record thisr : spec.getAllRecords()) {
 			if(thisr.isType("record")||thisr.isType("procedure")){
-
 				this.relatedobj = new RecordRelated(this.record,thisr);
 				this.relatedobj.configure(spec);
-				recordtypes = this.relatedobj.getRelations(storage, restrictions,recordtypes);
-				
+				out = this.relatedobj.getRelations(storage, restrictions, recordtypes, paginations);
 			}
 		}
-		
-		return recordtypes;
+		return out;
 	}
 	
 
@@ -294,7 +293,7 @@ public class RecordRead implements WebMethod {
 				}
 				else{
 					if(!showbasicinfoonly){
-						JSONArray tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
+						JSONObject tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
 						JSONObject relations=createRelations(storage,csid);
 						out.put("relations",relations);
 						out.put("termsUsed",tusd);

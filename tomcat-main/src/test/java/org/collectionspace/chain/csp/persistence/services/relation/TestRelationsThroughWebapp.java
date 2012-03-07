@@ -79,7 +79,7 @@ public class TestRelationsThroughWebapp {
 		JSONObject data1 = new JSONObject(out.getContent());
 		// that the destination is 3
 		log.info(out.getContent());
-		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray(
+		JSONArray rel1 = data1.getJSONObject("relations").getJSONObject("results").getJSONArray(
 				"cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
@@ -104,14 +104,14 @@ public class TestRelationsThroughWebapp {
 		out = tester.GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
 		// that the destination is 3
-		JSONObject rel2 = data2.getJSONObject("relations");
+		JSONObject rel2 = data2.getJSONObject("relations").getJSONObject("results");
 		assertNotNull(rel2);
 		assertEquals(0, rel2.length());
 		// Check that 3 has relations to 1 and 2
 		out = tester.GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
 		// untangle them
-		JSONArray rel3 = data3.getJSONObject("relations").getJSONArray(
+		JSONArray rel3 = data3.getJSONObject("relations").getJSONObject("results").getJSONArray(
 				"cataloging");
 		assertNotNull(rel3);
 		assertEquals(2, rel3.length());
@@ -211,13 +211,13 @@ public class TestRelationsThroughWebapp {
 		// test)
 		out = tester.GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
-		JSONArray rel3 = data3.getJSONObject("relations").getJSONArray(
+		JSONArray rel3 = data3.getJSONObject("relations").getJSONObject("results").getJSONArray(
 				"cataloging");
 		assertNotNull(rel3);
 		assertEquals(1, rel3.length());
 		out = tester.GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
-		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray(
+		JSONArray rel1 = data1.getJSONObject("relations").getJSONObject("results").getJSONArray(
 				"cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
@@ -260,7 +260,7 @@ public class TestRelationsThroughWebapp {
 		// Check it
 		out = tester.GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
-		JSONArray rel3 = data3.getJSONObject("relations").getJSONArray(
+		JSONArray rel3 = data3.getJSONObject("relations").getJSONObject("results").getJSONArray(
 				"cataloging");
 		assertNotNull(rel3);
 		assertEquals(2, rel3.length());
@@ -308,17 +308,17 @@ public class TestRelationsThroughWebapp {
 		
 		out = tester.GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
-		JSONObject rel1 = data1.getJSONObject("relations");
+		JSONObject rel1 = data1.getJSONObject("relations").getJSONObject("results");
 		
 		out = tester.GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
 		log.info(out.getContent());
-		JSONArray rel2 = data2.getJSONObject("relations").getJSONArray(
+		JSONArray rel2 = data2.getJSONObject("relations").getJSONObject("results").getJSONArray(
 				"cataloging");
 		
 		out = tester.GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
-		JSONObject rel3 = data3.getJSONObject("relations");
+		JSONObject rel3 = data3.getJSONObject("relations").getJSONObject("results");
 		
 		// clean up after
 		tester.DELETEData("/relationships/" + csid1, jetty);
@@ -367,19 +367,19 @@ public class TestRelationsThroughWebapp {
 		// Check it
 		out = tester.GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
-		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray(
+		JSONArray rel1 = data1.getJSONObject("relations").getJSONObject("results").getJSONArray(
 				"cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
 		out = tester.GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
-		JSONArray rel2 = data2.getJSONObject("relations")
-				.getJSONArray("intake");
+		JSONArray rel2 = data2.getJSONObject("relations").getJSONObject("results").getJSONArray("intake");
+
 		assertNotNull(rel2);
 		assertEquals(1, rel2.length());
 		out = tester.GETData(id3, jetty);
 		JSONObject data3 = new JSONObject(out.getContent());
-		JSONObject rel3 = data3.getJSONObject("relations");
+		JSONObject rel3 = data3.getJSONObject("relations").getJSONObject("results");
 		assertNotNull(rel3);
 		assertEquals(0, rel3.length());
 		// Update to 1 -> 3, making one-way true
@@ -390,17 +390,17 @@ public class TestRelationsThroughWebapp {
 		// Check it
 		out = tester.GETData(id1, jetty);
 		data1 = new JSONObject(out.getContent());
-		rel1 = data1.getJSONObject("relations").getJSONArray("acquisition");
+		rel1 = data1.getJSONObject("relations").getJSONObject("results").getJSONArray("acquisition");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
 		out = tester.GETData(id2, jetty);
 		data2 = new JSONObject(out.getContent());
-		JSONObject rel2a = data2.getJSONObject("relations");
+		JSONObject rel2a = data2.getJSONObject("relations").getJSONObject("results");
 		assertNotNull(rel2a);
 		assertEquals(0, rel2a.length());
 		out = tester.GETData(id3, jetty);
 		data3 = new JSONObject(out.getContent());
-		rel3 = data3.getJSONObject("relations");
+		rel3 = data3.getJSONObject("relations").getJSONObject("results");
 		assertNotNull(rel3);
 		assertEquals(0, rel3.length());
 		// Update to 3 -> 1, keeping one way true
@@ -410,17 +410,17 @@ public class TestRelationsThroughWebapp {
 		// Check it
 		out = tester.GETData(id1, jetty);
 		data1 = new JSONObject(out.getContent());
-		JSONObject rel1a = data1.getJSONObject("relations");
+		JSONObject rel1a = data1.getJSONObject("relations").getJSONObject("results");
 		assertNotNull(rel1a);
 		assertEquals(0, rel1a.length());
 		out = tester.GETData(id2, jetty);
 		data2 = new JSONObject(out.getContent());
-		rel2a = data2.getJSONObject("relations");
+		rel2a = data2.getJSONObject("relations").getJSONObject("results");
 		assertNotNull(rel2a);
 		assertEquals(0, rel2a.length());
 		out = tester.GETData(id3, jetty);
 		data3 = new JSONObject(out.getContent());
-		JSONArray rel3a = data3.getJSONObject("relations").getJSONArray(
+		JSONArray rel3a = data3.getJSONObject("relations").getJSONObject("results").getJSONArray(
 				"intake");
 		assertNotNull(rel3a);
 		assertEquals(1, rel3a.length());
@@ -431,17 +431,17 @@ public class TestRelationsThroughWebapp {
 		// Check it
 		out = tester.GETData(id1, jetty);
 		data1 = new JSONObject(out.getContent());
-		rel1 = data1.getJSONObject("relations").getJSONArray("cataloging");
+		rel1 = data1.getJSONObject("relations").getJSONObject("results").getJSONArray("cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
 		out = tester.GETData(id2, jetty);
 		data2 = new JSONObject(out.getContent());
-		rel2 = data2.getJSONObject("relations").getJSONArray("intake");
+		rel2 = data2.getJSONObject("relations").getJSONObject("results").getJSONArray("intake");
 		assertNotNull(rel2);
 		assertEquals(1, rel2.length());
 		out = tester.GETData(id3, jetty);
 		data3 = new JSONObject(out.getContent());
-		rel3 = data3.getJSONObject("relations");
+		rel3 = data3.getJSONObject("relations").getJSONObject("results");
 		assertNotNull(rel3);
 		assertEquals(0, rel3.length());
 
@@ -472,7 +472,7 @@ public class TestRelationsThroughWebapp {
 		// Check types
 		out = tester.GETData(id1, jetty);
 		JSONObject data1 = new JSONObject(out.getContent());
-		JSONArray rels1 = data1.getJSONObject("relations").getJSONArray(
+		JSONArray rels1 = data1.getJSONObject("relations").getJSONObject("results").getJSONArray(
 				"intake");
 		assertNotNull(rels1);
 		assertEquals(1, rels1.length());
@@ -480,7 +480,7 @@ public class TestRelationsThroughWebapp {
 		assertEquals(rel1.getString("recordtype"), "intake");
 		out = tester.GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
-		JSONArray rels2 = data2.getJSONObject("relations").getJSONArray(
+		JSONArray rels2 = data2.getJSONObject("relations").getJSONObject("results").getJSONArray(
 				"cataloging");
 		assertNotNull(rels2);
 		assertEquals(1, rels2.length());

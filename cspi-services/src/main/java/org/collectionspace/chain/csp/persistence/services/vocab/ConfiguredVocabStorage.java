@@ -732,16 +732,42 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				JSONArray createcsid = new JSONArray();
 				String getPath = savePath + "/" + sr.getServicesURL();
 				String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
-				JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
-				
+				Integer subcount = 0;
+				String firstfile = "";
 
-				String[] filepaths = (String[]) data.get("listItems");
-				for(String uri : filepaths) {
-					String path = uri;
-					if(path!=null && path.startsWith("/"))
-						path=path.substring(1);
-					existingcsid.put(path,"original");
+				while(!getPath.equals("")){
+					JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
+					String[] filepaths = (String[]) data.get("listItems");
+					subcount +=filepaths.length;
+					if(firstfile.equals("")){
+						firstfile = filepaths[0];
+					}
+					for(String uri : filepaths) {
+						String path = uri;
+						if(path!=null && path.startsWith("/"))
+							path=path.substring(1);
+						existingcsid.put(path,"original");
+					}
+
+					if(data.has("pagination")){
+						Integer ps = Integer.valueOf(data.getJSONObject("pagination").getString("pageSize"));
+						Integer pn = Integer.valueOf(data.getJSONObject("pagination").getString("pageNum"));
+						Integer ti = Integer.valueOf(data.getJSONObject("pagination").getString("totalItems"));
+						if(ti > (ps * (pn +1))){
+							JSONObject restrictions = new JSONObject();
+							restrictions.put("pageSize", Integer.toString(ps));
+							restrictions.put("pageNum", Integer.toString(pn + 1));
+
+							getPath = getRestrictedPath(getPath, restrictions, sr.getServicesSearchKeyword(), "", false, "");
+							//need more values
+						}
+						else{
+							getPath = "";
+						}
+					}
 				}
+
+
 				
 				//how does that compare to what we need
 				if(sr.isType("authority")){
@@ -755,13 +781,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 							}
 						}
 
-						if(filepaths.length ==0){
+						if(subcount ==0){
 							//create
 							createcsid.put(subdata);
 						}
 						else{
 							//update - there should only be one
-							String firstcsid = filepaths[0];
+							String firstcsid = firstfile;
 							updatecsid.put(firstcsid, subdata);
 							existingcsid.remove(firstcsid);
 						}
@@ -858,6 +884,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			throw new UnderlyingStorageException("Connection exception "+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
 			throw new UnderlyingStorageException("Cannot parse surrounding JSON "+e.getLocalizedMessage(),e);
+		} catch (UnsupportedEncodingException e) {
+			throw new UnimplementedException("UnsupportedEncodingException"+e.getLocalizedMessage(),e);
 		}
 	}
 	
