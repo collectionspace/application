@@ -1,5 +1,10 @@
 package org.collectionspace.chain.csp.webui.misc;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -37,6 +42,10 @@ public class GenericSearch {
         final static String UNESCAPED_PREVIOUS_CHAR_PATTERN = "(?<!\\\\)";
         final static String DOUBLE_QUOTE_PATTERN = "([\\\"])";
         final static String PERCENT_SIGN_PATTERN = "([\\%])";
+        
+        final static String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+        final static String ISO_8601_FORMAT_WITH_MILLIS = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+        final static String SERVICES_TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 	
 	/**
 	 * Returns the per field search structure needed by the service layer
@@ -272,7 +281,7 @@ public class GenericSearch {
 				if(!value.equals("")){
 					String fieldid = fieldname;
 					if(r.hasSearchField(fieldname) && (r.getSearchFieldFullList(fieldname).getUIType().equals("date") || r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate"))){
-						String timestampAffix = "T00:00:00";
+						String timestampAffix = "T00:00:00Z";
 						if(fieldname.endsWith("Start")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 5));
 							join = ">= TIMESTAMP ";
@@ -289,6 +298,7 @@ public class GenericSearch {
 							}
 						}
 						value += timestampAffix;
+                                                value = utcToLocalTZ(value);
 
 						if(dates.containsKey(fieldid)){
 							String temp = getAdvancedSearch(r,fieldid,value,"AND",join, affix);
@@ -323,6 +333,63 @@ public class GenericSearch {
 			restriction.put("advancedsearch", asquery);
 		}
 	}
+        
+       /**
+        * Converts a timestamp in UTC to a timestamp in the system local time zone.
+        * 
+        * @param utcTimestamp  a timestamp in UTC.
+        * @return the timestamp converted to the system local time zone.
+        */
+        private static String utcToLocalTZ(String utcTimestamp) {
+            if (utcTimestamp == null || utcTimestamp.isEmpty()) {
+                return utcTimestamp;
+            }
+            
+            // Some of the following can be statically initialized or cached.
+            // Note thread-safe considerations related to SimpleDateFormat, as described in:
+            // http://www.codefutures.com/weblog/andygrove/2007/10/simpledateformat-and-thread-safety.html
+
+            // Create date formatters
+            SimpleDateFormat iso8601Format;
+            SimpleDateFormat iso8601FormatWithMillis;
+            SimpleDateFormat servicesFormat;
+            try {
+                iso8601Format = new SimpleDateFormat(ISO_8601_FORMAT);
+                iso8601FormatWithMillis = new SimpleDateFormat(ISO_8601_FORMAT_WITH_MILLIS);
+                servicesFormat = new SimpleDateFormat(SERVICES_TIMESTAMP_FORMAT);
+            } catch (Exception e) {
+                log.warn("Invalid or null date format pattern: " + e.getLocalizedMessage());
+                return utcTimestamp;
+            }
+            
+            String localTimestamp = utcTimestamp;
+            
+            final String UTC_TIMEZONE_ID = "Etc/UTC";
+            TimeZone utcTz = TimeZone.getTimeZone(UTC_TIMEZONE_ID);
+            iso8601Format.setTimeZone(utcTz);
+            iso8601FormatWithMillis.setTimeZone(utcTz);
+             // Get system local time zone and set the output formatter to use it
+            TimeZone localTz = Calendar.getInstance().getTimeZone();
+            servicesFormat.setTimeZone(localTz);
+             
+            try {
+                Date utcDate = iso8601Format.parse(utcTimestamp);
+                if (utcDate != null) {
+                    localTimestamp = servicesFormat.format(utcDate);
+                } else {
+                     utcDate = iso8601FormatWithMillis.parse(utcTimestamp);
+                     if (utcDate != null) {
+                        localTimestamp = servicesFormat.format(utcDate);
+                     }
+                }
+            } catch (Exception e) {
+                log.warn("Error parsing UTC timestamp or formatting timestamp in local time zone: " + e.getLocalizedMessage());
+                return utcTimestamp;
+            }
+            
+            return localTimestamp;
+            
+        }
 
 	/**
 	 * Abstract the process for creating the traverser record
