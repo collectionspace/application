@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -128,12 +129,25 @@ public class GenericSearch {
 							//convert sortKey
 							fs = r.getFieldFullList(fieldname);
 						}
+						if(fs.hasMergeData()){ //if this field is made up of multi merged fields in the UI then just pick the first field to sort on as services doesn't search on merged fields.
+							Field f = (Field)fs;
+							for(String fm : f.getAllMerge()){
+								if(fm!=null){
+									fs = r.getFieldFullList(fm);
+									break;
+								}
+							}
+						}
 						fieldname = fs.getID();
 						FieldSet tmp = fs;
 						while(!(tmp.getParent() instanceof Record)){
 							tmp = (FieldSet)tmp.getParent();
 							if(!tmp.getSearchType().equals("repeator")){
-								fieldname = tmp.getServicesParent()[0] +"/0/"+fieldname;
+								String sparent = tmp.getServicesTag();
+								if(tmp.hasServicesParent()){
+									sparent = tmp.getServicesParent()[0];
+								}
+								fieldname = sparent +"/0/"+fieldname;
 							}
 						}
 
