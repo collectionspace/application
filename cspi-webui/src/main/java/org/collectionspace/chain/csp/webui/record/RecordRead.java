@@ -295,8 +295,8 @@ public class RecordRead implements WebMethod {
 					if(!showbasicinfoonly){
 						JSONObject tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
 						JSONObject relations=createRelations(storage,csid);
-						out.put("relations",relations);
-						out.put("termsUsed",tusd);
+						out.put("relations",relations.getJSONObject("results"));
+						out.put("termsUsed",tusd.getJSONArray("results"));
 					}
 				}
 				

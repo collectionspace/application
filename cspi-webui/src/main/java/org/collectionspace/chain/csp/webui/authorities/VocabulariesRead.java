@@ -297,7 +297,7 @@ public class VocabulariesRead implements WebMethod {
 				out.put("relations",new JSONArray());
 				//out.put("relations",relations);
 				JSONObject tusd = this.termsused.getTermsUsed(storage, refPath+csid, new JSONObject());
-				out.put("termsUsed",tusd);
+				out.put("termsUsed",tusd.getJSONArray("results"));
 				//getTermsUsed(storage,refPath+csid));
 				out.put("refobjs",getRefObj(storage,refPath+csid));
 			}
