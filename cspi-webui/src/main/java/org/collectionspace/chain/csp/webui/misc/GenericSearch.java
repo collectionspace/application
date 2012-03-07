@@ -58,23 +58,22 @@ public class GenericSearch {
 				String spath=r.getServicesRecordPath(section);
 				String[] parts=spath.split(":",2);
                                 
-                                // Escape various unescaped characters in the advanced search string
-                                value = escapeUnescapedChars(value, DOUBLE_QUOTE_PATTERN, "\"", "\\\"");
-                                value = escapeUnescapedChars(value, PERCENT_SIGN_PATTERN, "%", "\\%");
-                                
-                                // Replace user wildcards with service-legal wildcards
-                                if(value.contains("*")){
-                                    value = value.replace("*", "%");
-                                    join = " ilike ";
-                                }
-				String fieldSpecifier = getSearchSpecifierForField(fieldSet);
+				// Escape various unescaped characters in the advanced search string
+				value = escapeUnescapedChars(value, DOUBLE_QUOTE_PATTERN, "\"", "\\\"");
+				value = escapeUnescapedChars(value, PERCENT_SIGN_PATTERN, "%", "\\%");
+				
+				// Replace user wildcards with service-legal wildcards
+				if(value.contains("*")){
+					value = value.replace("*", "%");
+					join = " ilike ";
+				}
+				String fieldSpecifier = getSearchSpecifierForField(fieldSet, false);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
 				
 				return parts[0]+":"+fieldSpecifier+affix+join+"\""+value +"\""+ " " + operator+ " ";
 			}
 			catch(Exception e){
-
-                            log.error("Problem creating advanced search specifier for field: "+fieldname);
+				log.error("Problem creating advanced search specifier for field: "+fieldname);
 				log.error(e.getLocalizedMessage());
 				return "";
 			}
@@ -192,16 +191,8 @@ public class GenericSearch {
 						}
 						fieldname = fs.getID();
 						FieldSet tmp = fs;
-						while(!(tmp.getParent() instanceof Record)){
-							tmp = (FieldSet)tmp.getParent();
-							if(!tmp.getSearchType().equals("repeator")){
-								String sparent = tmp.getServicesTag();
-								if(tmp.hasServicesParent()){
-									sparent = tmp.getServicesParent()[0];
-								}
-								fieldname = sparent +"/0/"+fieldname;
-							}
-						}
+						fieldname = getSearchSpecifierForField(fs, true);
+						
 
 						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
 						String newvalue = tablebase+":"+fieldname;
@@ -385,7 +376,7 @@ public class GenericSearch {
 	 * @param fieldSet the containing fieldSet
 	 * @return NXQL conformant specifier.
 	 **/
-	public static String getSearchSpecifierForField(FieldSet fieldSet ) {
+	public static String getSearchSpecifierForField(FieldSet fieldSet, Boolean isOrderNotSearch) {
 		//String specifier = fieldname;	// default is just the simple field name
 		String specifier = fieldSet.getServicesTag();
 		//this should be service tag not ID
@@ -396,7 +387,7 @@ public class GenericSearch {
 			// Prepend the services parent field, and make the child a wildcard
 			String [] svcsParent = fieldSet.getServicesParent();
 			if(svcsParent[0] != null && !svcsParent[0].isEmpty()) {
-				specifier = svcsParent[0] +"/*"; 
+				specifier = svcsParent[0] + (isOrderNotSearch?"/0":"/*");
 			}
 		}
 		
@@ -416,7 +407,7 @@ public class GenericSearch {
 				// First, recurse to get the fully qualified path to the parent.
 				String parentID = parentFieldSet.getID();
 				log.debug("Recursing for parent: " + parentID );
-				specifier = getSearchSpecifierForField(parentFieldSet);
+				specifier = getSearchSpecifierForField(parentFieldSet,isOrderNotSearch);
 							
 				// Is parent a scalar list or a complex list?
 				Repeat rp = (Repeat)parentFieldSet;
@@ -428,6 +419,9 @@ public class GenericSearch {
 					// The parent is a complex schema, not just a scalar repeat
 					// Append the field name to build an XPath-like specifier.
 					specifier += "/"+fieldSet.getServicesTag();
+				}
+				else if(isOrderNotSearch) {
+					  specifier += "/0";
 				} else{
 					// Leave specifier as is. We just search on the parent name,
 					// as the backend is smart about scalar lists. 

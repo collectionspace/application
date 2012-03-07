@@ -856,7 +856,7 @@ public class GenericStorage  implements ContextualisedStorage {
 						JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
 						String[] filepaths = (String[]) data.get("listItems");
 						subcount +=filepaths.length;
-						if(firstfile.equals("")){
+						if(firstfile.equals("") && subcount !=0){
 							firstfile = filepaths[0];
 						}
 						//need to paginate

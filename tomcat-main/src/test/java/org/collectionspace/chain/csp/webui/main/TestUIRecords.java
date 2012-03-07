@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import org.apache.commons.io.IOUtils;
 import org.collectionspace.chain.csp.persistence.TestBase;
+import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
 import org.collectionspace.chain.storage.UTF8SafeHttpTester;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -334,6 +336,26 @@ public class TestUIRecords {
 
 	}
 
+	/**
+	 * Test that search ordered by summary doesn't fail
+	 * CSPACE-4314
+	 * @throws Exception
+	 */
+	@Test public void testSearch() throws Exception {
+		log.info("Testing Search ordering");
+		String[] allRecords = {"acquisition","loanin","loanout","cataloging","objectexit","intake","group","location"};
+		
+		for(String r : allRecords) {
+			log.info("Testing Search ordering: "+r);
+			String url = "/"+r+"/search?query=&pageSize=10&sortDir=1&sortKey=summary";
+			HttpTester out = tester.GETData(url,  jetty);
+			JSONObject test = new JSONObject(out.getContent());
+			if(test.has("isError")){
+				assertFalse(test.getBoolean("isError"));
+			}
+		}
+		
+	}
 	/**
 	 * Test Other Bits
 	 */
