@@ -44,7 +44,6 @@ public class GenericSearch {
         final static String PERCENT_SIGN_PATTERN = "([\\%])";
         
         final static String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-        final static String ISO_8601_FORMAT_WITH_MILLIS = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
         final static String SERVICES_TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 	
 	/**
@@ -292,7 +291,7 @@ public class GenericSearch {
 						else if(fieldname.endsWith("End")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 3));
 							join = "<= TIMESTAMP ";
-							timestampAffix = "T23:59:59.999Z";
+							timestampAffix = "T23:59:59Z";
 							if(r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate") && r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate")){
 								affix = "/dateLatestScalarValue";
 							}
@@ -355,7 +354,6 @@ public class GenericSearch {
             SimpleDateFormat servicesFormat;
             try {
                 iso8601Format = new SimpleDateFormat(ISO_8601_FORMAT);
-                iso8601FormatWithMillis = new SimpleDateFormat(ISO_8601_FORMAT_WITH_MILLIS);
                 servicesFormat = new SimpleDateFormat(SERVICES_TIMESTAMP_FORMAT);
             } catch (Exception e) {
                 log.warn("Invalid or null date format pattern: " + e.getLocalizedMessage());
@@ -367,7 +365,6 @@ public class GenericSearch {
             final String UTC_TIMEZONE_ID = "Etc/UTC";
             TimeZone utcTz = TimeZone.getTimeZone(UTC_TIMEZONE_ID);
             iso8601Format.setTimeZone(utcTz);
-            iso8601FormatWithMillis.setTimeZone(utcTz);
              // Get system local time zone and set the output formatter to use it
             TimeZone localTz = Calendar.getInstance().getTimeZone();
             servicesFormat.setTimeZone(localTz);
@@ -376,11 +373,6 @@ public class GenericSearch {
                 Date utcDate = iso8601Format.parse(utcTimestamp);
                 if (utcDate != null) {
                     localTimestamp = servicesFormat.format(utcDate);
-                } else {
-                     utcDate = iso8601FormatWithMillis.parse(utcTimestamp);
-                     if (utcDate != null) {
-                        localTimestamp = servicesFormat.format(utcDate);
-                     }
                 }
             } catch (Exception e) {
                 log.warn("Error parsing UTC timestamp or formatting timestamp in local time zone: " + e.getLocalizedMessage());
