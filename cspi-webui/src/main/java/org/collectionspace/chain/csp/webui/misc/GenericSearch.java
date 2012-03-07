@@ -1,5 +1,9 @@
 package org.collectionspace.chain.csp.webui.misc;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -29,6 +33,10 @@ import org.slf4j.LoggerFactory;
  */
 public class GenericSearch {
 	private static final Logger log=LoggerFactory.getLogger(GenericSearch.class);
+        
+        final static String UNESCAPED_PREVIOUS_CHAR_PATTERN = "(?<!\\\\)";
+        final static String DOUBLE_QUOTE_PATTERN = "([\\\"])";
+        final static String PERCENT_SIGN_PATTERN = "([\\%])";
 	
 	/**
 	 * Returns the per field search structure needed by the service layer
@@ -41,25 +49,31 @@ public class GenericSearch {
 	 * @param join
 	 * @return
 	 */
-	public static String getAdvancedSearch(Record r, String fieldname, String value, String operator, String join){
+	public static String getAdvancedSearch(Record r, String fieldname, String value, String operator, String join, String affix){
 		if(!value.equals("")){
 			try{
 				FieldSet fieldSet = r.getFieldFullList(fieldname);
 				String section = fieldSet.getSection(); 	// Get the payload part
 				String spath=r.getServicesRecordPath(section);
 				String[] parts=spath.split(":",2);
-				// Replace user wildcards with service-legal wildcards
-				if(value.contains("*")){
-					value = value.replace("*", "%");
-					join = " ilike ";
-				}
+                                
+                                // Escape various unescaped characters in the advanced search string
+                                value = escapeUnescapedChars(value, DOUBLE_QUOTE_PATTERN, "\"", "\\\"");
+                                value = escapeUnescapedChars(value, PERCENT_SIGN_PATTERN, "%", "\\%");
+                                
+                                // Replace user wildcards with service-legal wildcards
+                                if(value.contains("*")){
+                                    value = value.replace("*", "%");
+                                    join = " ilike ";
+                                }
 				String fieldSpecifier = getSearchSpecifierForField(fieldSet);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
 				
-				return parts[0]+":"+fieldSpecifier+join+"\""+value +"\""+ " " + operator+ " ";
+				return parts[0]+":"+fieldSpecifier+affix+join+"\""+value +"\""+ " " + operator+ " ";
 			}
 			catch(Exception e){
-				log.error("Problem creating advanced search specifier for field: "+fieldname);
+
+                            log.error("Problem creating advanced search specifier for field: "+fieldname);
 				log.error(e.getLocalizedMessage());
 				return "";
 			}
@@ -67,6 +81,46 @@ public class GenericSearch {
 		return "";
 		
 	}
+        
+       /**
+        * Escapes unescaped characters within the text of a services advanced search string.
+        * 
+        * For the match patterns and replacement algorithm, see;
+        * http://stackoverflow.com/a/5937852 and
+        * http://docs.oracle.com/javase/6/docs/api/java/util/regex/Matcher.html#quoteReplacement%28java.lang.String%29
+        * 
+        * @param value         the original text of the search string.
+        * @param matchPattern  a regex pattern to be matched.  This pattern MUST contain exactly
+        *                      one matching group; text will be found and replaced within that group.
+        * @param findText      some text to find within the matching group of the search string.
+        * @param replaceText   the replacement text for the text found, if any, in that group.
+        * @return  the text of the search string, with any character escaping performed.
+        */
+        private static String escapeUnescapedChars(String value, String matchPattern, String findText, String replaceText) {
+            if (value == null || value.isEmpty()) {
+                return value;
+            }
+            StringBuffer sb = new StringBuffer("");
+            try {
+                final Pattern pattern = Pattern.compile(UNESCAPED_PREVIOUS_CHAR_PATTERN + matchPattern);
+                final Matcher matcher = pattern.matcher(value);
+                int groupCount = matcher.groupCount();
+                if (groupCount != 1) {
+                    log.warn("Match pattern must contain exactly one matching group. Pattern " + matchPattern
+                            + " contains " + groupCount + " matching groups.");
+                    return value;
+                }
+                while (matcher.find()) {
+                    if (matcher.groupCount() >= 1) {
+                      matcher.appendReplacement(sb, matcher.group(1).replace(findText,Matcher.quoteReplacement(replaceText)));
+                    }
+                }
+                matcher.appendTail(sb);
+            } catch (PatternSyntaxException pse) {
+                log.warn("Invalid regular expression pattern " + matchPattern + ": " + pse.getMessage());
+            }
+            return sb.toString();
+        }
 
 	/**
 	 * Pivots from the UI restriction concept to what the services needs. Initialises valriables if needed
@@ -100,7 +154,10 @@ public class GenericSearch {
 						restrict = "keywords";
 						key="results";
 					}
-					if(restrict.equals("pageSize")||restrict.equals("pageNum")||restrict.equals("keywords")){
+					if(restrict.equals("pageSize")||restrict.equals("pageNum")){
+						restriction.put(restrict,value);
+					}
+					else if(restrict.equals("keywords")){
 						restriction.put(restrict,value);
 					}
 					else if(restrict.equals("sortDir")){
@@ -199,7 +256,7 @@ public class GenericSearch {
 						if(!jname.equals("_primary")){
 							if(jo.get(jname) instanceof String || jo.get(jname) instanceof Boolean ){
 								value = jo.getString(jname);
-								asq += getAdvancedSearch(r,jname,value,operation,join);
+								asq += getAdvancedSearch(r,jname,value,operation,join,"");
 							}
 						}
 					}
@@ -211,33 +268,40 @@ public class GenericSearch {
 			}
 			else if(item instanceof String){
 				value = (String)item;
+				String affix = "";
 				if(!value.equals("")){
 					String fieldid = fieldname;
-					if(r.hasSearchField(fieldname) && r.getSearchFieldFullList(fieldname).getUIType().equals("date")){
+					if(r.hasSearchField(fieldname) && (r.getSearchFieldFullList(fieldname).getUIType().equals("date") || r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate"))){
 						String timestampAffix = "T00:00:00";
 						if(fieldname.endsWith("Start")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 5));
 							join = ">= TIMESTAMP ";
+							if(r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate") && r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate")){
+								affix = "/dateEarliestScalarValue";
+							}
 						}
 						else if(fieldname.endsWith("End")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 3));
 							join = "<= TIMESTAMP ";
 							timestampAffix = "T23:59:59.999Z";
+							if(r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate") && r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate")){
+								affix = "/dateLatestScalarValue";
+							}
 						}
 						value += timestampAffix;
 
 						if(dates.containsKey(fieldid)){
-							String temp = getAdvancedSearch(r,fieldid,value,"AND",join);
+							String temp = getAdvancedSearch(r,fieldid,value,"AND",join, affix);
 							String get = dates.get(fieldid);
 							dates.put(fieldid, temp + get);
 						}
 						else{
-							String temp = getAdvancedSearch(r,fieldid,value,"",join);
+							String temp = getAdvancedSearch(r,fieldid,value,"",join,affix);
 							dates.put(fieldid, temp);
 						}
 					}
 					else{
-						asq += getAdvancedSearch(r,fieldname,value,operation,join);
+						asq += getAdvancedSearch(r,fieldname,value,operation,join,affix);
 					}
 				}
 			}				
