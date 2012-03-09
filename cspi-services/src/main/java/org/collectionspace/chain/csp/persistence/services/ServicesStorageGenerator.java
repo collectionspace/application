@@ -59,7 +59,7 @@ public class ServicesStorageGenerator extends SplittingStorage implements Contex
 					addChild(r.getID(),new BlobStorage(spec.getRecord(r.getID()),conn));
 				else if(r.isType("userdata"))
 					addChild(r.getID(),new UserStorage(spec.getRecord(r.getID()),conn));
-				else if(r.isType("record"))
+				else if(r.isType("record") || r.isType("searchall"))
 					addChild(r.getID(),new RecordStorage(spec.getRecord(r.getID()),conn));
 				else if(r.isType("authority"))
 					addChild(r.getID(),new ConfiguredVocabStorage(spec.getRecord(r.getID()),conn));

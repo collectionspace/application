@@ -136,7 +136,7 @@ public class WebReset implements WebMethod {
 		
 	}
 	private void reset(Storage storage,UIRequest request,String path) throws UIException { 
-		//remember to log into the fornt end before trying to run this
+		//remember to log into the front end before trying to run this
 		JSONObject data = new JSONObject();
 		TTYOutputter tty=request.getTTYOutputter();
 		// Temporary hack to reset db
@@ -159,6 +159,10 @@ public class WebReset implements WebMethod {
 					if(r.isType("procedure")){
 						if("termlistitem".equals(dir) ||"termlist".equals(dir))
 							continue;
+						// Nothing to do for the pseudo-records
+						if(r.isType("searchall")) {
+							continue;
+						}
 					}
 					else if(r.isType("authority")){
 						continue;
