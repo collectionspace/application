@@ -54,11 +54,15 @@ public class TestSchema {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
-		Record r_obj=spec.getRecord("collection-object");
+		Record r_obj=spec.getRecord("collection-object"); //spec.dump()
 
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("cataloging",r_obj.getWebURL());
+		
+		StringBuffer dumpBuffer = new StringBuffer(1000);
+		r_obj.dump(dumpBuffer);
+		System.out.println(dumpBuffer.toString());
 	
 		
 		/* RECORD/field -> FIELD(type) */
