@@ -589,6 +589,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	public JSONObject refViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
 		try {
 			JSONObject out=new JSONObject();
+			JSONObject pagination=new JSONObject();
+			JSONObject listitems = new JSONObject();
 			//not all the records need a reference, look in cspace-config.xml for which that don't
 			if(r.hasTermsUsed()){
 				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
@@ -602,72 +604,82 @@ public class GenericStorage  implements ContextualisedStorage {
 				if(all.getStatus()!=200)
 					throw new ConnectionException("Bad request during identifier cache map update: status not 200",all.getStatus(),path);
 				Document list=all.getDocument();
-				for(Object node : list.selectNodes("authority-ref-list/authority-ref-item")) {
-					if(!(node instanceof Element))
-						continue;
-					if(((Element) node).hasContent()){
 
-						String key=((Element)node).selectSingleNode("sourceField").getText();
-						String refname=((Element)node).selectSingleNode("refName").getText();
-						String itemDisplayName=((Element)node).selectSingleNode("itemDisplayName").getText();
-						String uri = "";
-						if(null!=((Element)node).selectSingleNode("uri")){ //seems to be missing sometimes
-							uri=((Element)node).selectSingleNode("uri").getText();
-						}
-						
-						String fieldName = key;
-						if(key.split(":").length>1){
-							fieldName = key.split(":")[1];
-						}
-						
-						Field fieldinstance= null;
-						if(r.getFieldFullList(fieldName) instanceof Repeat){
-							Repeat rp = (Repeat)r.getFieldFullList(fieldName);
-							for(FieldSet a : rp.getChildren("GET")){
-								if(a instanceof Field && a.hasAutocompleteInstance()){
-									fieldinstance = (Field)a;
-								}
+				List<Node> nodes=list.selectNodes("authority-ref-list/*");
+				for(Node node : nodes) {
+					if(node.getName().equals("authority-ref-item")){
+						if(!(node instanceof Element))
+							continue;
+						if(((Element) node).hasContent()){
+	
+							String key=((Element)node).selectSingleNode("sourceField").getText();
+							String refname=((Element)node).selectSingleNode("refName").getText();
+							String itemDisplayName=((Element)node).selectSingleNode("itemDisplayName").getText();
+							String uri = "";
+							if(null!=((Element)node).selectSingleNode("uri")){ //seems to be missing sometimes
+								uri=((Element)node).selectSingleNode("uri").getText();
 							}
-						}
-						else{
-							fieldinstance = (Field)r.getFieldFullList(fieldName);
-						}
-						
-						if(fieldinstance != null){
-
-							JSONObject data = new JSONObject();
-							data.put("sourceField", key);
-							data.put("itemDisplayName", itemDisplayName);
-							data.put("refname", refname);
-							data.put("uri", uri);
-							//JSONObject data=miniForURI(storage,creds,cache,refname,null,restrictions);
-							/*
-							if(!data.has("refid")){//incase of permissions errors try our best
-								data.put("refid",refname);
-								if(data.has("displayName")){
-									String itemDisplayName=((Element)node).selectSingleNode("itemDisplayName").getText();
-									String temp = data.getString("displayName");
-									data.remove("displayName");
-									data.put(temp, itemDisplayName);
-								}
+							
+							String fieldName = key;
+							if(key.split(":").length>1){
+								fieldName = key.split(":")[1];
 							}
-							*/
-							data.put("sourceFieldselector", fieldinstance.getSelector());
-							data.put("sourceFieldName", fieldName);
-							data.put("sourceFieldType", r.getID());
-							if(out.has(key)){
-								JSONArray temp = out.getJSONArray(key).put(data);
-								out.put(key,temp);
+							
+							Field fieldinstance= null;
+							if(r.getFieldFullList(fieldName) instanceof Repeat){
+								Repeat rp = (Repeat)r.getFieldFullList(fieldName);
+								for(FieldSet a : rp.getChildren("GET")){
+									if(a instanceof Field && a.hasAutocompleteInstance()){
+										fieldinstance = (Field)a;
+									}
+								}
 							}
 							else{
-								JSONArray temp = new JSONArray();
-								temp.put(data);
-								out.put(key,temp);
+								fieldinstance = (Field)r.getFieldFullList(fieldName);
+							}
+							
+							if(fieldinstance != null){
+	
+								JSONObject data = new JSONObject();
+								data.put("sourceField", key);
+								data.put("itemDisplayName", itemDisplayName);
+								data.put("refname", refname);
+								data.put("uri", uri);
+								//JSONObject data=miniForURI(storage,creds,cache,refname,null,restrictions);
+								/*
+								if(!data.has("refid")){//incase of permissions errors try our best
+									data.put("refid",refname);
+									if(data.has("displayName")){
+										String itemDisplayName=((Element)node).selectSingleNode("itemDisplayName").getText();
+										String temp = data.getString("displayName");
+										data.remove("displayName");
+										data.put(temp, itemDisplayName);
+									}
+								}
+								*/
+								data.put("sourceFieldselector", fieldinstance.getSelector());
+								data.put("sourceFieldName", fieldName);
+								data.put("sourceFieldType", r.getID());
+								if(listitems.has(key)){
+									JSONArray temp = listitems.getJSONArray(key).put(data);
+									listitems.put(key,temp);
+								}
+								else{
+									JSONArray temp = new JSONArray();
+									temp.put(data);
+									listitems.put(key,temp);
+								}
 							}
 						}
+
+					}
+					else{
+						pagination.put(node.getName(), node.getText());
 					}
 				}
 			}
+			out.put("pagination", pagination);
+			out.put("listItems", listitems);
 			return out;
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Connection problem"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
@@ -846,16 +858,42 @@ public class GenericStorage  implements ContextualisedStorage {
 					JSONArray createcsid = new JSONArray();
 					String getPath = serviceurl+filePath + "/" + sr.getServicesURL();
 					String node = "/"+sr.getServicesListPath().split("/")[0]+"/*";
-					JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
 					
+					Integer subcount = 0;
+					String firstfile = "";
 
-					String[] filepaths = (String[]) data.get("listItems");
-					for(String uri : filepaths) {
-						String path = uri;
-						if(path!=null && path.startsWith("/"))
-							path=path.substring(1);
-						existingcsid.put(path,"original");
+					while(!getPath.equals("")){
+						JSONObject data = getListView(creds,cache,getPath,node,"/"+sr.getServicesListPath(),"csid",false, sr);
+						String[] filepaths = (String[]) data.get("listItems");
+						subcount +=filepaths.length;
+						if(firstfile.equals("") && subcount !=0){
+							firstfile = filepaths[0];
+						}
+						//need to paginate
+						for(String uri : filepaths) {
+							String path = uri;
+							if(path!=null && path.startsWith("/"))
+								path=path.substring(1);
+							existingcsid.put(path,"original");
+						}
+						if(data.has("pagination")){
+							Integer ps = Integer.valueOf(data.getJSONObject("pagination").getString("pageSize"));
+							Integer pn = Integer.valueOf(data.getJSONObject("pagination").getString("pageNum"));
+							Integer ti = Integer.valueOf(data.getJSONObject("pagination").getString("totalItems"));
+							if(ti > (ps * (pn +1))){
+								JSONObject restrictions = new JSONObject();
+								restrictions.put("pageSize", Integer.toString(ps));
+								restrictions.put("pageNum", Integer.toString(pn + 1));
+
+								getPath = getRestrictedPath(getPath, restrictions, sr.getServicesSearchKeyword(), "", false, "");
+								//need more values
+							}
+							else{
+								getPath = "";
+							}
+						}
 					}
+
 					
 					//how does that compare to what we need
 					if(sr.isType("authority")){
@@ -872,13 +910,13 @@ public class GenericStorage  implements ContextualisedStorage {
 								}
 							}
 
-							if(filepaths.length ==0){
+							if(subcount ==0){
 								//create
 								createcsid.put(subdata);
 							}
 							else{
 								//update - there should only be one
-								String firstcsid = filepaths[0];
+								String firstcsid = firstfile;
 								updatecsid.put(firstcsid, subdata);
 								existingcsid.remove(firstcsid);
 							}
@@ -988,6 +1026,8 @@ public class GenericStorage  implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
 			throw new UnimplementedException("JSONException",e);
+		} catch (UnsupportedEncodingException e) {
+			throw new UnimplementedException("UnsupportedEncodingException",e);
 		}
 	}
 	

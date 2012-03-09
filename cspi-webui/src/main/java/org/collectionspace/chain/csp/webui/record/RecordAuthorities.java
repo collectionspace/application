@@ -41,35 +41,45 @@ public class RecordAuthorities implements WebMethod {
 	}
 
 	@SuppressWarnings("unchecked")
-	public JSONArray getTermsUsed(Storage storage, String path, JSONObject restrictions)
+	public JSONObject getTermsUsed(Storage storage, String path, JSONObject restrictions)
 			throws ExistException, UnimplementedException,
 			UnderlyingStorageException, JSONException {
 
+		JSONObject paginated = new JSONObject();
 		JSONArray out = new JSONArray();
+		JSONObject pagination = new JSONObject();
 		if (record.hasTermsUsed()) {
 
 			JSONObject mini = storage.retrieveJSON(path + "/refs",restrictions);
-
-			if (mini.length() > 0) {
-				Iterator t = mini.keys();
+			JSONObject items = mini;
+			if(mini.has("listItems")){
+				items = mini.getJSONObject("listItems");
+			}
+			if(mini.has("pagination")){
+				pagination = mini.getJSONObject("pagination");
+			}
+			if(items.length() > 0) {
+				Iterator t = items.keys();
 				while (t.hasNext()) {
 					String field = (String) t.next();
-					if (mini.get(field) instanceof JSONArray) {
-						JSONArray array = (JSONArray) mini.get(field);
+					if (items.get(field) instanceof JSONArray) {
+						JSONArray array = (JSONArray) items.get(field);
 						for (int i = 0; i < array.length(); i++) {
 							JSONObject in = array.getJSONObject(i);
 							JSONObject entry = getTermsUsedData(in);
 							out.put(entry);
 						}
 					} else {
-						JSONObject in = mini.getJSONObject(field);
+						JSONObject in = items.getJSONObject(field);
 						JSONObject entry = getTermsUsedData(in);
 						out.put(entry);
 					}
 				}
 			}
 		}
-		return out;
+		paginated.put("results", out);
+		paginated.put("pagination", pagination);
+		return paginated;
 	}
 
 	private JSONObject getTermsUsedData(JSONObject in) throws JSONException {

@@ -79,14 +79,16 @@ public class RecordRelated implements WebMethod {
 		return mini;
 	}
 	
-	private JSONObject getRelation(Storage storage, JSONObject myres, JSONObject recordtypes) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
+	private JSONObject getRelation(Storage storage, JSONObject myres, JSONObject recordtypes, JSONArray paginated) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
 		JSONObject data = storage.getPathsJSON("relations/main",myres);
 		String[] relations = (String[]) data.get("listItems");
-		
+		JSONObject pagination = data.getJSONObject("pagination");
+		JSONObject typelist = new JSONObject(); //get a list of what is paginated
 		for(String r : relations) {
 			try {
 				JSONObject relateitem = generateRelationEntry(storage,r);
 				String type = relateitem.getString("recordtype");
+				typelist.put(type, "1");
 				if(!recordtypes.has(type)){
 					recordtypes.put(type, new JSONArray());
 				}
@@ -96,26 +98,32 @@ public class RecordRelated implements WebMethod {
 				//Probably should do something with the errors... could be a permissions issue
 			}
 		}
+		pagination.put("recordtypes", typelist.names());
+		if(!pagination.getString("totalItems").equals("0")){
+			paginated.put(pagination);
+		}
 		return recordtypes;
 	}
 	
-	protected JSONObject getRelations(Storage storage, JSONObject restriction,  JSONObject recordtypes ) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
+	protected JSONObject getRelations(Storage storage, JSONObject restriction,  JSONObject recordtypes,  JSONArray paginated ) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException{
 
 		JSONObject myres = restriction;
 		if(this.relatedrecord ==null){ //return all of the procedures etc
 			for(Record r2 : this.record.getSpec().getAllRecords()) {
 				if(r2.isType("procedure")){
 					myres.put("dstType", r2.getServicesTenantSg());
-					getRelation(storage,myres,recordtypes);
+					getRelation(storage,myres,recordtypes,paginated);
 				}
 			}
 		}
 		else{
 			myres.put("dstType", this.relatedrecord.getServicesTenantSg());
-			getRelation(storage,myres,recordtypes);
+			getRelation(storage,myres,recordtypes,paginated);
 		}
-		// XXX needs pagination support CSPACE-1819
-		return recordtypes;
+		JSONObject out = new JSONObject();
+		out.put("results", recordtypes);
+		out.put("pagination", paginated);
+		return out;
 		
 	}
 	
@@ -152,7 +160,7 @@ public class RecordRelated implements WebMethod {
 
 			// Get the data
 			JSONObject outputJSON = new JSONObject();
-			JSONObject recordtypes = getRelations(storage, restriction, new JSONObject());
+			JSONObject recordtypes = getRelations(storage, restriction, new JSONObject(), new JSONArray());
 			outputJSON.put("relations", recordtypes);
 
 			try {
