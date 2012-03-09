@@ -335,6 +335,31 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/termlist/uischema", "termlist.uischema");
 
 	}
+	
+	/**
+	 * Test SearchAll
+	 */
+	@Test public void testSearchAll() throws Exception {
+		log.info("Testing SearchAll with pageSize 10");
+		HttpTester out = tester.GETData(
+				"/all/search?&pageNum=0&pageSize=10", jetty);
+		assertEquals(200, out.getStatus());
+		//log.info(out.getContent());
+		JSONObject result = new JSONObject(out.getContent());
+		JSONArray items = result.getJSONArray("items");
+		log.info(items.length() + " items returned");
+		for (int i = 0; i < items.length(); i++) {
+			JSONObject item = items.getJSONObject(i);
+			log.info("Item "+ i 
+					+ " number: [" + item.getString("number")
+					+ "] summary: [" + item.getString("summary")
+					+ "] recordtype: [" + item.getString("recordtype") + "]");
+		}
+
+		log.info("Testing UISPEC");
+		tester.testUIspec(jetty, "/all/uispec", "searchall.uispec");
+	}
+
 
 	/**
 	 * Test that search ordered by summary doesn't fail

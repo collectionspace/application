@@ -74,7 +74,21 @@ public class RecordSearchList implements WebMethod {
 			}
 			out = storage.retrieveJSON(type+"/"+csid+"/view/"+postfix,restrictions);
 			out.put("csid",csid);
-			out.put("recordtype",type_to_url.get(type));
+			String recordtype = null;
+			if(!r.isType("searchall")) {
+				recordtype = type_to_url.get(type);
+			} else {
+				JSONObject summarylist = out.getJSONObject("summarylist");
+				String uri = summarylist.getString("uri");
+				if(uri!=null && uri.startsWith("/"))
+					uri=uri.substring(1);
+				
+				String[] parts=uri.split("/");
+				String recordurl = parts[0];
+				Record itemr = r.getSpec().getRecordByServicesUrl(recordurl);
+				recordtype = type_to_url.get(itemr.getID());
+			}
+			out.put("recordtype", recordtype);
 			// CSPACE-2894
 			if(this.r.getID().equals("permission")){
 				String summary = out.getString("summary");
