@@ -343,7 +343,7 @@ public class TestUIRecords {
 	 */
 	@Test public void testSearch() throws Exception {
 		log.info("Testing Search ordering");
-		String[] allRecords = {"acquisition","loanin","loanout","cataloging","objectexit","intake","group","location"};
+		String[] allRecords = {"acquisition","loanin","loanout","cataloging","objectexit","intake","group","movement"};
 		
 		for(String r : allRecords) {
 			log.info("Testing Search ordering: "+r);
