@@ -87,7 +87,12 @@ public class GenericStorage  implements ContextualisedStorage {
 			if(r.getMiniNumber().hasMergeData()){
 				view_merge.put("number",r.getMiniNumber().getAllMerge());				
 			}
-			if(r.getMiniNumber().hasAutocompleteInstance())
+			if(r.getMiniNumber().hasAutocompleteInstance()
+					// Cannot know for searchall records, so just de-urn the 
+					// number and summary.
+					// Why not just de-urn them all? It is quiet about ignoring
+					// values that do not start with urn:
+					|| r.isType("searchall"))
 				xxx_view_deurn.add(r.getMiniNumber().getID());
 		}
 		// Summary
@@ -97,7 +102,12 @@ public class GenericStorage  implements ContextualisedStorage {
 			if(r.getMiniSummary().hasMergeData()){
 				view_merge.put("summary",r.getMiniSummary().getAllMerge());				
 			}
-			if(r.getMiniSummary().hasAutocompleteInstance())
+			if(r.getMiniSummary().hasAutocompleteInstance()
+					// Cannot know for searchall records, so just de-urn the 
+					// number and summary.
+					// Why not just de-urn them all? It is quiet about ignoring
+					// values that do not start with urn:
+					|| r.isType("searchall"))
 				xxx_view_deurn.add(r.getMiniSummary().getID());
 		}
 		//complex summary list

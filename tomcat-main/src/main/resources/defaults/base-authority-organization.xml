@@ -58,7 +58,7 @@
                         <selector>organizationAuthority-displayName</selector>
                         <title-selector>titleBar-displayName</title-selector>
                     </field>
-                    <field id="termStatus" ui-search="repeatable" seperate_ui_container="true">
+                    <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
                         <selector>organizationAuthority-status</selector>
                         <options>
                             <option id="provisional" default="yes">Provisional</option>
