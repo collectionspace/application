@@ -74,8 +74,8 @@
                     <!--  Movement Information Group -->
                     <field id="movementReferenceNumber" ui-search="repeatable" chooser="yes" in-title="no" mini="number,search,list,relate,terms" seperate_ui_container="true">
                         <options>
-                            <option id="inventory" sample="INV2010.1">Movement</option>
-                            <option id="location" sample="LOC2010.1">Movement</option>
+                            <option id="inventory" sample="INV2010.1">Inventory</option>
+                            <option id="location" sample="LOC2010.1">Location</option>
                             <option id="movement" sample="MV2010.1">Movement</option>
                         </options>
                     </field>
