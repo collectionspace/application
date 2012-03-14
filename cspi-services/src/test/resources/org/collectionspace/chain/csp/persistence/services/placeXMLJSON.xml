@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:places_common xmlns:ns2="http://collectionspace.org/services/place">
+<vLongitude>123456</vLongitude>
+<maxDepthInMeters>234567.0</maxDepthInMeters>
+<vSpatialReferenceSystem>epsg4269-nad83</vSpatialReferenceSystem>
+<minElevationInMeters>123456.0</minElevationInMeters>
+<placeNameGroupList>
+    <placeNameGroup>
+        <nameAdminStatus>provisional</nameAdminStatus>
+        <nameSource>123456</nameSource>
+        <nameDateGroup>
+            <dateEarliestSingleQualifier/>
+            <scalarValuesComputed>true</scalarValuesComputed>
+            <dateLatestYear>1956</dateLatestYear>
+            <dateLatestDay>30</dateLatestDay>
+            <dateAssociation>Eisenhower</dateAssociation>
+            <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+            <dateDisplayDate>3456</dateDisplayDate>
+            <dateEarliestSingleCertainty>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(circa)'Circa'</dateEarliestSingleCertainty>
+            <dateLatestEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra>
+            <dateEarliestSingleQualifierValue/>
+            <dateLatestCertainty>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(probably)'Probably'</dateLatestCertainty>
+            <dateEarliestSingleYear>1956</dateEarliestSingleYear>
+            <dateLatestQualifier/>
+            <dateLatestQualifierValue/>
+            <dateEarliestSingleQualifierUnit/>
+            <datePeriod>Postwar</datePeriod>
+            <dateEarliestScalarValue>1956-03-04T00:00:00Z</dateEarliestScalarValue>
+            <dateLatestMonth>6</dateLatestMonth>
+            <dateNote>jibberish</dateNote>
+            <dateLatestScalarValue>1956-06-30T00:00:00Z</dateLatestScalarValue>
+            <dateLatestQualifierUnit/>
+            <dateEarliestSingleDay>4</dateEarliestSingleDay>
+            <dateEarliestSingleMonth>3</dateEarliestSingleMonth>
+        </nameDateGroup>
+        <nameAbbrev>123</nameAbbrev>
+        <nameStatus>current</nameStatus>
+        <name>123456</name>
+        <nameNote>12</nameNote>
+        <nameSourceDetail>123456</nameSourceDetail>
+        <nameSourceRefId>123456</nameSourceRefId>
+        <nameQualifiedName>123456</nameQualifiedName>
+        <nameLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(ara)'Arabic'</nameLanguage>
+        <nameType>technical-scientific</nameType>
+    </placeNameGroup>
+</placeNameGroupList>
+<minDistanceAboveSurfaceInMeters>123456.0</minDistanceAboveSurfaceInMeters>
+<vDepth>123456</vDepth>
+<shortIdentifier>march7735pm1331177716612</shortIdentifier>
+<maxDistanceAboveSurfaceInMeters>234567.0</maxDistanceAboveSurfaceInMeters>
+<vCoordSource>123456</vCoordSource>
+<maxElevationInMeters>234567.0</maxElevationInMeters>
+<termStatus>under-review</termStatus>
+<vDistanceAboveSurface>123456</vDistanceAboveSurface>
+<vCoordSourceRefId>123456</vCoordSourceRefId>
+<placeType>municipality</placeType>
+<note>123456</note>
+<placeIdentifier>123456</placeIdentifier>
+<placeOwnerGroupList>
+    <placeOwnerGroup>
+        <ownershipDateGroup>
+            <dateEarliestSingleQualifier/>
+            <scalarValuesComputed>true</scalarValuesComputed>
+            <dateLatestYear>1950</dateLatestYear>
+            <dateLatestDay/>
+            <dateAssociation/>
+            <dateEarliestSingleEra/>
+            <dateDisplayDate>1930-1950</dateDisplayDate>
+            <dateEarliestSingleCertainty>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(approximate)'Approximate'</dateEarliestSingleCertainty>
+            <dateLatestEra/>
+            <dateEarliestSingleQualifierValue/>
+            <dateLatestCertainty>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(before)'Before'</dateLatestCertainty>
+            <dateEarliestSingleYear>1930</dateEarliestSingleYear>
+            <dateLatestQualifier/>
+            <dateLatestQualifierValue/>
+            <dateEarliestSingleQualifierUnit/>
+            <datePeriod>a generation earlier</datePeriod>
+            <dateEarliestScalarValue>1930-01-01T00:00:00Z</dateEarliestScalarValue>
+            <dateLatestMonth/>
+            <dateNote/>
+            <dateLatestScalarValue>1950-12-31T00:00:00Z</dateLatestScalarValue>
+            <dateLatestQualifierUnit/>
+            <dateEarliestSingleDay/>
+            <dateEarliestSingleMonth/>
+        </ownershipDateGroup>
+        <ownershipNote/>
+        <owner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(firstowner1331179504916)'first owner'</owner>
+    </placeOwnerGroup>
+    <placeOwnerGroup>
+        <ownershipDateGroup>
+            <dateEarliestSingleQualifier/>
+            <scalarValuesComputed>true</scalarValuesComputed>
+            <dateLatestYear/>
+            <dateLatestDay/>
+            <dateAssociation>123456</dateAssociation>
+            <dateEarliestSingleEra/>
+            <dateDisplayDate>1950-</dateDisplayDate>
+            <dateEarliestSingleCertainty>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(after)'After'</dateEarliestSingleCertainty>
+            <dateLatestEra/>
+            <dateEarliestSingleQualifierValue/>
+            <dateLatestCertainty/>
+            <dateEarliestSingleYear>1949</dateEarliestSingleYear>
+            <dateLatestQualifier/>
+            <dateLatestQualifierValue/>
+            <dateEarliestSingleQualifierUnit/>
+            <datePeriod>Postwar until current day</datePeriod>
+            <dateEarliestScalarValue>1949-01-01T00:00:00Z</dateEarliestScalarValue>
+            <dateLatestMonth/>
+            <dateNote>more jibberish</dateNote>
+            <dateLatestScalarValue>1949-12-31T00:00:00Z</dateLatestScalarValue>
+            <dateLatestQualifierUnit/>
+            <dateEarliestSingleDay/>
+            <dateEarliestSingleMonth/>
+        </ownershipDateGroup>
+        <ownershipNote>An org</ownershipNote>
+        <owner>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(secondowner1331179608345)'second owner'</owner>
+    </placeOwnerGroup>
+</placeOwnerGroupList>
+<vCoordinates>123456</vCoordinates>
+<vLatitude>123456</vLatitude>
+<vUnitofMeasure>meters</vUnitofMeasure>
+<csid>47299e96-ec1a-4d33-a33a</csid>
+<inAuthority>c10941cf-3806-4287-bd48</inAuthority>
+<vCoordSys>national-grid-reference</vCoordSys>
+<placeGeoRefGroupList>
+    <placeGeoRefGroup>
+        <geoReferencedBy>123456</geoReferencedBy>
+        <footprintWKT>123456</footprintWKT>
+        <coordUncertaintyInMeters>123456</coordUncertaintyInMeters>
+        <coordPrecision>123456</coordPrecision>
+        <geoRefVerificationStatus>unverified</geoRefVerificationStatus>
+        <footprintSpatialFit>123456</footprintSpatialFit>
+        <geoRefPlaceName>march 7</geoRefPlaceName>
+        <geoRefRemarks>all useless data</geoRefRemarks>
+        <decimalLatitude>123456.0</decimalLatitude>
+        <geodeticDatum>epsg4326-wgs84</geodeticDatum>
+        <geoRefSource>123456</geoRefSource>
+        <decimalLongitude>123456.0</decimalLongitude>
+        <geoRefProtocol>georeferencing-dummies</geoRefProtocol>
+        <footprintSRS>123456</footprintSRS>
+        <geoRefDateGroup>
+            <dateEarliestSingleQualifier/>
+            <scalarValuesComputed>true</scalarValuesComputed>
+            <dateLatestYear/>
+            <dateLatestDay/>
+            <dateAssociation>none</dateAssociation>
+            <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+            <dateDisplayDate>yesterday</dateDisplayDate>
+            <dateEarliestSingleCertainty/>
+            <dateLatestEra/>
+            <dateEarliestSingleQualifierValue/>
+            <dateLatestCertainty/>
+            <dateEarliestSingleYear>2012</dateEarliestSingleYear>
+            <dateLatestQualifier/>
+            <dateLatestQualifierValue/>
+            <dateEarliestSingleQualifierUnit/>
+            <datePeriod>present</datePeriod>
+            <dateEarliestScalarValue>2012-03-06T00:00:00Z</dateEarliestScalarValue>
+            <dateLatestMonth/>
+            <dateNote>no notes</dateNote>
+            <dateLatestScalarValue>2012-03-06T00:00:00Z</dateLatestScalarValue>
+            <dateLatestQualifierUnit/>
+            <dateEarliestSingleDay>6</dateEarliestSingleDay>
+            <dateEarliestSingleMonth>3</dateEarliestSingleMonth>
+        </geoRefDateGroup>
+        <pointRadiusSpatialFit>123456</pointRadiusSpatialFit>
+    </placeGeoRefGroup>
+</placeGeoRefGroupList>
+<source>123456</source>
+<vElevation>123456</vElevation>
+<minDepthInMeters>123456.0</minDepthInMeters>
+<refName>urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(march7735pm1331177716612)'march 7 7-35pm'</refName>
+<displayName>march 7 7-35pm</displayName>
+</ns2:places_common>
+
