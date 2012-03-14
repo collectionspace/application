@@ -17,10 +17,10 @@
         <structure id="screen">
             <view>
                 <label-section id="messagekeys" show="true"/>
-                <titlebar show="true"/>
+                <titlebar show="false"/>
                 <sidebar show="false"/>
                 <edit-section id="details" show="true"/>
-                <list-section id="list" show="true"/>
+                <list-section id="list" show="false"/>
             </view>
         </structure>
         <structure id="search">

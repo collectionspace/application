@@ -28,8 +28,6 @@
         ".csc-all-uri-label": {
             "messagekey": "all-uriLabel"
         }
-    },
-    "list": {},
-    "titleBar": {}
+    }
 }
 
