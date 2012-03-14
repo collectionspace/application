@@ -277,6 +277,9 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/person/uispec", "person.uispec");
 		tester.testUIspec(jetty, "/location/uispec", "location.uispec");
 		tester.testUIspec(jetty, "/organization/uispec", "organization-authority.uispec");
+        tester.testUIspec(jetty, "/place/uispec", "place.uispec");
+        log.info("Testing UISCHEMA");
+        tester.testUIspec(jetty, "/place/uischema", "place.uischema");
 	}
 	
 
