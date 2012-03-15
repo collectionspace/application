@@ -14,12 +14,12 @@
             <dateLatestYear>1956</dateLatestYear>
             <dateLatestDay>30</dateLatestDay>
             <dateAssociation>Eisenhower</dateAssociation>
-            <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+            <dateEarliestSingleEra></dateEarliestSingleEra>
             <dateDisplayDate>3456</dateDisplayDate>
-            <dateEarliestSingleCertainty>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(circa)'Circa'</dateEarliestSingleCertainty>
-            <dateLatestEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateLatestEra>
+            <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
+            <dateLatestEra></dateLatestEra>
             <dateEarliestSingleQualifierValue/>
-            <dateLatestCertainty>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(probably)'Probably'</dateLatestCertainty>
+            <dateLatestCertainty></dateLatestCertainty>
             <dateEarliestSingleYear>1956</dateEarliestSingleYear>
             <dateLatestQualifier/>
             <dateLatestQualifierValue/>
@@ -40,7 +40,7 @@
         <nameSourceDetail>123456</nameSourceDetail>
         <nameSourceRefId>123456</nameSourceRefId>
         <nameQualifiedName>123456</nameQualifiedName>
-        <nameLanguage>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(ara)'Arabic'</nameLanguage>
+        <nameLanguage></nameLanguage>
         <nameType>technical-scientific</nameType>
     </placeNameGroup>
 </placeNameGroupList>
@@ -66,10 +66,10 @@
             <dateAssociation/>
             <dateEarliestSingleEra/>
             <dateDisplayDate>1930-1950</dateDisplayDate>
-            <dateEarliestSingleCertainty>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(approximate)'Approximate'</dateEarliestSingleCertainty>
+            <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
             <dateLatestEra/>
             <dateEarliestSingleQualifierValue/>
-            <dateLatestCertainty>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(before)'Before'</dateLatestCertainty>
+            <dateLatestCertainty></dateLatestCertainty>
             <dateEarliestSingleYear>1930</dateEarliestSingleYear>
             <dateLatestQualifier/>
             <dateLatestQualifierValue/>
@@ -84,7 +84,7 @@
             <dateEarliestSingleMonth/>
         </ownershipDateGroup>
         <ownershipNote/>
-        <owner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(firstowner1331179504916)'first owner'</owner>
+        <owner></owner>
     </placeOwnerGroup>
     <placeOwnerGroup>
         <ownershipDateGroup>
@@ -95,7 +95,7 @@
             <dateAssociation>123456</dateAssociation>
             <dateEarliestSingleEra/>
             <dateDisplayDate>1950-</dateDisplayDate>
-            <dateEarliestSingleCertainty>urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(after)'After'</dateEarliestSingleCertainty>
+            <dateEarliestSingleCertainty></dateEarliestSingleCertainty>
             <dateLatestEra/>
             <dateEarliestSingleQualifierValue/>
             <dateLatestCertainty/>
@@ -113,14 +113,13 @@
             <dateEarliestSingleMonth/>
         </ownershipDateGroup>
         <ownershipNote>An org</ownershipNote>
-        <owner>urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(secondowner1331179608345)'second owner'</owner>
+        <owner></owner>
     </placeOwnerGroup>
 </placeOwnerGroupList>
 <vCoordinates>123456</vCoordinates>
 <vLatitude>123456</vLatitude>
 <vUnitofMeasure>meters</vUnitofMeasure>
 <csid>47299e96-ec1a-4d33-a33a</csid>
-<inAuthority>c10941cf-3806-4287-bd48</inAuthority>
 <vCoordSys>national-grid-reference</vCoordSys>
 <placeGeoRefGroupList>
     <placeGeoRefGroup>
@@ -144,7 +143,7 @@
             <dateLatestYear/>
             <dateLatestDay/>
             <dateAssociation>none</dateAssociation>
-            <dateEarliestSingleEra>urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'</dateEarliestSingleEra>
+            <dateEarliestSingleEra></dateEarliestSingleEra>
             <dateDisplayDate>yesterday</dateDisplayDate>
             <dateEarliestSingleCertainty/>
             <dateLatestEra/>

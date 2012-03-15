@@ -22,8 +22,8 @@
 				"dateEarliestSingleEra": "",
 				"dateAssociation": "",
 				"dateDisplayDate": "1930-1950",
-				"dateEarliestSingleCertainty": "urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(approximate)'Approximate'",
-				"dateLatestCertainty": "urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(before)'Before'",
+				"dateEarliestSingleCertainty": "",
+				"dateLatestCertainty": "",
 				"dateEarliestSingleYear": "1930",
 				"dateLatestQualifier": "",
 				"datePeriod": "a generation earlier",
@@ -33,7 +33,7 @@
 				"dateLatestQualifierUnit": "",
 				"dateEarliestSingleDay": ""
 			},
-			"owner": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(firstowner1331179504916)'first owner'"
+			"owner": ""
 		},
 		{
 			"ownershipNote": "An org",
@@ -52,7 +52,7 @@
 				"dateEarliestSingleEra": "",
 				"dateAssociation": "123456",
 				"dateDisplayDate": "1950-",
-				"dateEarliestSingleCertainty": "urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(after)'After'",
+				"dateEarliestSingleCertainty": "",
 				"dateEarliestSingleYear": "1949",
 				"dateLatestCertainty": "",
 				"dateLatestQualifier": "",
@@ -63,7 +63,7 @@
 				"dateLatestQualifierUnit": "",
 				"dateEarliestSingleDay": ""
 			},
-			"owner": "urn:cspace:core.collectionspace.org:orgauthorities:name(organization):item:name(secondowner1331179608345)'second owner'"
+			"owner": ""
 		}
 	],
 	"minDistanceAboveSurfaceInMeters": "123456.0",
@@ -84,7 +84,7 @@
 			"nameAdminStatus": "provisional",
 			"nameStatus": "current",
 			"nameSourceRefId": "123456",
-			"nameLanguage": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(ara)'Arabic'",
+			"nameLanguage": "",
 			"nameType": "technical-scientific",
 			"_primary": true,
 			"nameSource": "123456",
@@ -93,18 +93,18 @@
 				"dateLatestYear": "1956",
 				"scalarValuesComputed": "true",
 				"dateEarliestSingleQualifierValue": "",
-				"dateLatestEra": "urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'",
+				"dateLatestEra": "",
 				"dateLatestQualifierValue": "",
 				"dateEarliestSingleQualifierUnit": "",
 				"dateEarliestScalarValue": "1956-03-04T00:00:00Z",
 				"dateNote": "jibberish",
 				"dateEarliestSingleMonth": "3",
 				"dateLatestDay": "30",
-				"dateEarliestSingleEra": "urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'",
+				"dateEarliestSingleEra": "",
 				"dateAssociation": "Eisenhower",
 				"dateDisplayDate": "3456",
-				"dateEarliestSingleCertainty": "urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(circa)'Circa'",
-				"dateLatestCertainty": "urn:cspace:core.collectionspace.org:vocabularies:name(datecertainty):item:name(probably)'Probably'",
+				"dateEarliestSingleCertainty": "",
+				"dateLatestCertainty": "",
 				"dateEarliestSingleYear": "1956",
 				"dateLatestQualifier": "",
 				"datePeriod": "Postwar",
@@ -152,7 +152,7 @@
 				"dateNote": "no notes",
 				"dateEarliestSingleMonth": "3",
 				"dateLatestDay": "",
-				"dateEarliestSingleEra": "urn:cspace:core.collectionspace.org:vocabularies:name(dateera):item:name(ce)'CE'",
+				"dateEarliestSingleEra": "",
 				"dateAssociation": "none",
 				"dateDisplayDate": "yesterday",
 				"dateEarliestSingleCertainty": "",
@@ -175,6 +175,5 @@
 	"vElevation": "123456",
 	"minDepthInMeters": "123456.0",
 	"refName": "urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(march7735pm1331177716612)'march 7 7-35pm'",
-	"inAuthority": "c10941cf-3806-4287-bd48",
 	"displayName": "march 7 7-35pm"
 }
