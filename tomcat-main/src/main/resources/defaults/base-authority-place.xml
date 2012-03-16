@@ -35,7 +35,7 @@
         </structure>
     </structures>
 				
-    <include src="domain-authority-place.xml" />
+    <include src="domain-authority-place.xml" strip-root="yes"/>
 				
     <instances>
         <instance id="place-place">
