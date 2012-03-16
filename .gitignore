@@ -1,4 +1,4 @@
-target/
+
 tomcat-main/src/main/resources/tenants/core/local-settings.xml
 tomcat-main/src/main/resources/tenants/lifesci/local-settings.xml
 .settings/org.eclipse.m2e.core.prefs
