@@ -1,4 +1,4 @@
-/* Copyright 2010 University of Cambridge
+/* Copyright 2010 University of Cambridge and UC Berkeley
  * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
  * compliance with this License.
  *
@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.SectionGenerator;
 import org.collectionspace.chain.csp.config.Target;
@@ -157,13 +159,16 @@ public class TreeNode {
 		}
 	}
 	
-	private static String DUMPED_TREES_DIRNAME = "dumpedTrees";
+	//
+	// For debugging purposes, this method dumps the configuration tree to
+	//
+	private static String DUMPED_TREES_DIRNAME = "cspace-app-dumpedTrees";
 	void dumpTreeToFile(String treeString) throws Exception {
-		File dumpedTreeFilesDir = new File(DUMPED_TREES_DIRNAME);
+		File dumpedTreeFilesDir = new File(FileUtils.getTempDirectoryPath() + "/" + DUMPED_TREES_DIRNAME);
 		if (dumpedTreeFilesDir.exists() == false) {
 			dumpedTreeFilesDir.mkdir();
 		}
-		File dumpTreeFile = new File(DUMPED_TREES_DIRNAME + "/dumpTree-" + System.currentTimeMillis());
+		File dumpTreeFile = new File(dumpedTreeFilesDir.getAbsolutePath() + "/dumpTree-" + UUID.randomUUID().toString() + ".xml");
 		dumpTreeFile.createNewFile();
 		this.setContents(dumpTreeFile, treeString);
 		log.debug("Config XML tree dumped to: " + dumpTreeFile.getAbsolutePath());
@@ -171,27 +176,24 @@ public class TreeNode {
 	
 	public void dump()
 	{
-		StringBuffer strBuf = new StringBuffer();
-		dumpNode(strBuf);
-		try {
-			dumpTreeToFile(strBuf.toString());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (log.isDebugEnabled() == true) {
+			StringBuffer strBuf = new StringBuffer();
+			dumpNode(strBuf);
+			try {
+				dumpTreeToFile(strBuf.toString());
+			} catch (Exception e) {
+				log.debug("Could not dump configuration tree to debug log file.", e);
+			}
 		}
-		log.debug(strBuf.toString());
 	}
 	
 	private void dumpNode(StringBuffer output) {
 		if (is_text) {
-			log.debug("\""+text+"\"");
 			output.append("\""+text+"\"");
 		} else {
-			log.debug("<"+text+">");
 			output.append("<"+text+">");
 			for(TreeNode child : children)
 				child.dumpNode(output);
-			log.debug("</"+text+">");
 			output.append("</"+text+">");
 		}
 	}
