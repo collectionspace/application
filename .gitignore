@@ -46,11 +46,12 @@ cspi-file/.classpath
 cspi-file/.project
 cspi-services/.classpath
 cspi-services/.project
-cspi-webui/target/maven-archiver/pom.properties
 jxutils/.classpath
 jxutils/.project
 tomcat-main/.classpath
 tomcat-main/.project
 tomcat-main/.settings/org.eclipse.jdt.core.prefs
+*.bak
+
 
 
