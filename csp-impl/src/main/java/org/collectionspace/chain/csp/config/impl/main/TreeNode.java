@@ -6,6 +6,12 @@
  */
 package org.collectionspace.chain.csp.config.impl.main;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -124,14 +130,69 @@ public class TreeNode {
 		}
 	}
 		
-	public void dump() {
-		if(is_text)
+	void setContents(File aFile, String aContents)
+			throws FileNotFoundException, IOException {
+		if (aFile == null) {
+			throw new IllegalArgumentException("File should not be null.");
+		}
+		if (!aFile.exists()) {
+			throw new FileNotFoundException("File does not exist: " + aFile);
+		}
+		if (!aFile.isFile()) {
+			throw new IllegalArgumentException("Should not be a directory: "
+					+ aFile);
+		}
+		if (!aFile.canWrite()) {
+			throw new IllegalArgumentException("File cannot be written: "
+					+ aFile);
+		}
+
+		// use buffering
+		Writer output = new BufferedWriter(new FileWriter(aFile));
+		try {
+			// FileWriter always assumes default encoding is OK!
+			output.write(aContents);
+		} finally {
+			output.close();
+		}
+	}
+	
+	private static String DUMPED_TREES_DIRNAME = "dumpedTrees";
+	void dumpTreeToFile(String treeString) throws Exception {
+		File dumpedTreeFilesDir = new File(DUMPED_TREES_DIRNAME);
+		if (dumpedTreeFilesDir.exists() == false) {
+			dumpedTreeFilesDir.mkdir();
+		}
+		File dumpTreeFile = new File(DUMPED_TREES_DIRNAME + "/dumpTree-" + System.currentTimeMillis());
+		dumpTreeFile.createNewFile();
+		this.setContents(dumpTreeFile, treeString);
+		log.debug("Config XML tree dumped to: " + dumpTreeFile.getAbsolutePath());
+	}
+	
+	public void dump()
+	{
+		StringBuffer strBuf = new StringBuffer();
+		dumpNode(strBuf);
+		try {
+			dumpTreeToFile(strBuf.toString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		log.debug(strBuf.toString());
+	}
+	
+	private void dumpNode(StringBuffer output) {
+		if (is_text) {
 			log.debug("\""+text+"\"");
-		else {
+			output.append("\""+text+"\"");
+		} else {
 			log.debug("<"+text+">");
+			output.append("<"+text+">");
 			for(TreeNode child : children)
-				child.dump();
+				child.dumpNode(output);
 			log.debug("</"+text+">");
+			output.append("</"+text+">");
 		}
 	}
 }

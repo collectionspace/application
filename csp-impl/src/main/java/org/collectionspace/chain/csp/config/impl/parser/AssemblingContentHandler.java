@@ -1,7 +1,10 @@
 package org.collectionspace.chain.csp.config.impl.parser;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +19,8 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.io.FileUtils;
+
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -25,6 +30,12 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.DefaultHandler;
 
+import ch.elca.el4j.services.xmlmerge.AbstractXmlMergeException;
+import ch.elca.el4j.services.xmlmerge.ConfigurationException;
+import ch.elca.el4j.services.xmlmerge.Configurer;
+import ch.elca.el4j.services.xmlmerge.config.ConfigurableXmlMerge;
+import ch.elca.el4j.services.xmlmerge.config.PropertyXPathConfigurer;
+
 // XXX namespaces in XSLT
 public class AssemblingContentHandler extends DefaultHandler implements ContentHandler {
 	private static final String XSLT_TAG="xslt";
@@ -32,7 +43,11 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 	private static final String DEFINE_TAG="define";
 	
 	private static final class XSLTTag { private String src,root; }
-	private static final class IncludeTag { private String src; private boolean strip; }
+	private static final class IncludeTag {
+		private String src;
+		private boolean merge;
+		private boolean strip;
+	}
 	
 	private AssemblingContentHandler resolve_parent;
 	private SAXParserFactory factory;
@@ -99,7 +114,64 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 			throw new SAXException("Could not create inner parser",e);
 		}
 	}
+		
+	private InputStream merge(InputStream a, InputStream b) throws AbstractXmlMergeException {
+		InputStream result = null;		
+		//
+		// Configure XMLMerge to merge the two streams using the ID matcher -use default values for action and mapper
+		//
+		Configurer configurer = new	PropertyXPathConfigurer("matcher.default=ID\n");
+		InputStream[] inputStreamArray = {a, b};
+		result = new ConfigurableXmlMerge(configurer).merge(inputStreamArray);
+		
+		/*
+		 * Save the merge result for debugging purposes.
+		 */
+		File mergedOutFile = new File("./target/merged.xml");
+		try {
+			FileUtils.copyInputStreamToFile(result, mergedOutFile);
+			result.reset();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		return result;
+	}
 	
+	private InputSource apply_merge(IncludeTag includeTag) throws SAXException, IOException {
+		InputSource result = null;
+		
+		ArrayList<InputSource> inputSources = this.find_all_entities(includeTag.src);
+		if (inputSources.size() == 2) {
+			InputStream mergedStream = null;
+			try {
+				mergedStream = merge(inputSources.get(0).getByteStream(), inputSources.get(1).getByteStream());
+			} catch (AbstractXmlMergeException e) {
+				e.printStackTrace();
+				throw new IOException("Could not merge the include files: " + includeTag.src, e);
+			}
+			result = new InputSource(mergedStream);
+		} else if (inputSources.size() == 1) {
+			result = inputSources.get(0);
+		} else {
+			throw new IOException("Can't currently support merging more than 2 files.");
+		}
+		
+		return result;
+	}
+	
+	private void apply_include(IncludeTag includeTag) throws SAXException, IOException {
+		InputSource includeSrc = null;
+		
+		if (includeTag.merge == false) {
+			includeSrc = find_first_entity(includeTag.src);
+		} else {
+			includeSrc = apply_merge(includeTag);
+		}
+		
+		apply_include(includeSrc, includeTag.strip);
+	}
 	
 	XSLTTag resolveXSLTTag(String name) {
 		XSLTTag out=xslt_tags.get(name);
@@ -140,6 +212,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		if(INCLUDE_TAG.equals(localName)) {
 			out=new IncludeTag();
 			out.src=attributes.getValue("src");
+			out.merge=stringToBoolean(attributes.getValue("merge"));
 			out.strip=stringToBoolean(attributes.getValue("strip-root"));
 			return out;
 		} else {
@@ -191,28 +264,64 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		return true;
 	}
 	
-	public InputSource find_entity(String all) throws SAXException,IOException {
-		SAXException e=null;
-		for(String src : all.split(",")) {
-			try {
-				String test = this.tenantname;
-				InputSource out=resolveEntity(null,"tenants/"+this.tenantname+"/"+src);
-				if(out!=null)
-					return out;
-			} catch(SAXException x) { e=x; }
-			try {
-				InputSource out=resolveEntity(null,"defaults/"+src);
-				if(out!=null)
-					return out;
-			} catch(SAXException x) { e=x; }
-			try {
-				InputSource out=resolveEntity(null,src);
-				if(out!=null)
-					return out;
-			} catch(SAXException x) { e=x; }
+	private InputSource find_entity(String src) throws SAXException,
+			IOException { // this method returns when it finds the first item in
+							// the "all" list
+		try {
+			InputSource out = resolveEntity(null, "tenants/" + this.tenantname
+					+ "/" + src);
+			if (out != null)
+				return out;
+		} catch (SAXException x) {
+			// Quietly consume the exception
 		}
-		throw new SAXException(all+" file(s) not found",e);
+		try {
+			InputSource out = resolveEntity(null, "defaults/" + src);
+			if (out != null)
+				return out;
+		} catch (SAXException x) {
+			// Quietly consume the exception
+		}
+		try {
+			InputSource out = resolveEntity(null, src);
+			if (out != null)
+				return out;
+		} catch (SAXException x) {
+			// Quietly consume the exception
+		}
+		
+		return null;
 	}
+	
+	private InputSource find_first_entity(String all) throws SAXException,IOException { // this method returns when it finds the first item in the "all" list
+		InputSource result = null;
+		for(String src : all.split(",")) {
+			result = find_entity(src);
+			if (result != null) {
+				return result;
+			}
+		}
+		
+		throw new SAXException(all+" file(s) not found.");
+	}
+	
+	private ArrayList<InputSource> find_all_entities(String all) throws SAXException,IOException {
+		ArrayList<InputSource> result = new ArrayList<InputSource>();
+		InputSource inputSource = null;
+		for(String src : all.split(",")) {
+			inputSource = find_entity(src);
+			if (inputSource != null) {
+				result.add(inputSource);
+			}
+		}
+		
+		if (result.isEmpty() == true) {
+			throw new SAXException(all+" file(s) not found.");
+		}
+		
+		return result;
+	}
+
 	
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		depth++;
@@ -237,7 +346,8 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 					if("@".equals(include.src))
 						apply_include(parser.getMain(),include.strip);
 					else
-						apply_include(find_entity(include.src),include.strip);
+						//apply_include(find_entity(include.src),include.strip); //put merge code here when "merge" REM
+						apply_include(include);
 				} else {
 					up.startElement(uri, localName, qName, attributes);
 				}

@@ -19,6 +19,7 @@ import org.collectionspace.csp.api.core.CSPDependencyException;
 import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
+import org.json.JSONException;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 import org.slf4j.Logger;
@@ -43,8 +44,8 @@ public class TestSchema {
 		cspm.register(new Spec());
 		try {
 			cspm.go();
-			InputSource configsource = getSource("config.xml");
-			cspm.configure(configsource,new ConfigFinder(null));
+			InputSource configsource = getSource("config.xml"); //finds "src/main/resources/default.xml" when running tests
+			cspm.configure(configsource,new ConfigFinder(null));//pieces together the set of config/settings files for parsing
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );
@@ -55,6 +56,14 @@ public class TestSchema {
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
 		Record r_obj=spec.getRecord("collection-object");
+		
+		String recordDump;
+		try {
+			System.out.println(recordDump = r_obj.dumpFields());
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
