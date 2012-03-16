@@ -1,9 +1,11 @@
 <record id="loanin">
 	<section id="loaninInformation">
 		<repeat id="lenderGroupList/lenderGroup">
+			<!-- 
 			<field id="lendersLanguage" section="loansin_domain">
 				<selector>loanIn-lendersLanguage</selector>
 			</field>
+			 -->
 		</repeat>
 	</section>
 </record>
