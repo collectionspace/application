@@ -51,18 +51,19 @@ public class TestSchema {
 			log.error(e.getLocalizedMessage() );
 		}
 		
-
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
 		Record r_obj=spec.getRecord("collection-object");
 		
-		String recordDump;
-		try {
-			System.out.println(recordDump = r_obj.dumpFields());
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (log.isTraceEnabled()) {	
+			try {
+				String recordDump = r_obj.dumpFields();
+				log.trace(recordDump);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				log.trace("JSONException encountered trying to log debugging information", e);
+			}
 		}
 
 		assertNotNull(r_obj);

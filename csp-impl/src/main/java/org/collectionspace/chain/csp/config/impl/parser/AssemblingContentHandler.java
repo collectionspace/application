@@ -1,12 +1,17 @@
 package org.collectionspace.chain.csp.config.impl.parser;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringBufferInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
+import java.util.UUID;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -20,8 +25,11 @@ import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.math.RandomUtils;
 
 import org.collectionspace.chain.csp.config.ConfigException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.EntityResolver;
@@ -38,6 +46,9 @@ import ch.elca.el4j.services.xmlmerge.config.PropertyXPathConfigurer;
 
 // XXX namespaces in XSLT
 public class AssemblingContentHandler extends DefaultHandler implements ContentHandler {
+	private static final Logger logger=LoggerFactory.getLogger(AssemblingContentHandler.class);
+
+	private static final String XMLMERGE_DEFAULT_PROPS_STR="matcher.default=ID\n";
 	private static final String XSLT_TAG="xslt";
 	private static final String INCLUDE_TAG="include";	
 	private static final String DEFINE_TAG="define";
@@ -45,7 +56,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 	private static final class XSLTTag { private String src,root; }
 	private static final class IncludeTag {
 		private String src;
-		private boolean merge;
+		private String merge;
 		private boolean strip;
 	}
 	
@@ -115,59 +126,113 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		}
 	}
 		
-	private InputStream merge(InputStream a, InputStream b) throws AbstractXmlMergeException {
+	private InputStream merge(Properties xmlmergeProps, InputStream[] inputStreams) throws AbstractXmlMergeException {
 		InputStream result = null;		
 		//
-		// Configure XMLMerge to merge the two streams using the ID matcher -use default values for action and mapper
+		// If we have an XMLMerge properties file then use it -otherwise, use a default set of props.
 		//
-		Configurer configurer = new	PropertyXPathConfigurer("matcher.default=ID\n");
-		InputStream[] inputStreamArray = {a, b};
-		result = new ConfigurableXmlMerge(configurer).merge(inputStreamArray);
+		Configurer configurer = null;
+		if (xmlmergeProps != null) {
+			configurer = new PropertyXPathConfigurer(xmlmergeProps);
+		} else {
+			configurer = new PropertyXPathConfigurer(XMLMERGE_DEFAULT_PROPS_STR);
+		}
+		result = new ConfigurableXmlMerge(configurer).merge(inputStreams);
 		
 		/*
-		 * Save the merge result for debugging purposes.
+		 * Save the merge results for debugging purposes.
 		 */
-		File mergedOutFile = new File("./target/merged.xml");
-		try {
-			FileUtils.copyInputStreamToFile(result, mergedOutFile);
-			result.reset();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (logger.isDebugEnabled() == true) {
+			try {
+			String outputFileNamePrefix = "/merged-" + UUID.randomUUID().toString();
+			if (xmlmergeProps != null) { 
+				File mergePropertiesFile = new File(FileUtils.getTempDirectoryPath() + outputFileNamePrefix + ".properties"); //make a copy of the XMLMerge properties used for the merge
+				ByteArrayInputStream propertiesStream = new ByteArrayInputStream(xmlmergeProps.toString().getBytes());
+				FileUtils.copyInputStreamToFile(propertiesStream, mergePropertiesFile);
+			}			
+			File mergedOutFile = new File(FileUtils.getTempDirectoryPath() + outputFileNamePrefix + ".xml"); //make a copy of the merge results
+				FileUtils.copyInputStreamToFile(result, mergedOutFile);
+				result.reset();
+				logger.debug("XMLMerge result output to: " + mergedOutFile.getAbsolutePath());
+			} catch (IOException e) {
+				logger.debug("Could not output the XMLMerge result.", e);
+			}
 		}
-				
+
 		return result;
+	}
+	
+	//
+	// Use our standard method for finding resources to get the named XMLMerge properties file
+	//
+	private Properties getXMLMergeProperties(String resourceName) {
+		Properties result = null;
+		
+		try {
+			InputSource inputSource = this.find_entity(resourceName);
+			if (inputSource != null && inputSource.getByteStream() != null) {
+				result = new Properties();
+				result.load(inputSource.getByteStream());
+			}
+		} catch (Exception e) {
+			logger.debug("Could not find the XMLMerge properties file named: " + resourceName);
+		}
+		
+		return result;
+	}
+	
+	//
+	// XMLMerge needs an InputStream[].  This method converts our ArrayList<InputSource> to an InputStream[] array.
+	// This method also filters out any empty/blank InputSources
+	//
+	private InputStream[] toArray(ArrayList<InputSource> inputSources) {		
+		for (InputSource inputSource : inputSources) {
+			try {
+				if (inputSource.getByteStream().available() == 0) { //filter out any and all the empty streams
+					inputSources.remove(inputSource);
+				}
+			} catch (IOException e) {
+				logger.warn("Encountered an exception while converting InputSource array to InputStream array", e);
+			}
+		}
+		InputStream[] inputStreams = new InputStream[inputSources.size()]; //now create the InputStream[] array for XMLMerge
+		for (int i = 0; i < inputSources.size(); i++) {
+			inputStreams[i] = inputSources.get(i).getByteStream();
+		}
+		
+		return inputStreams;
 	}
 	
 	private InputSource apply_merge(IncludeTag includeTag) throws SAXException, IOException {
 		InputSource result = null;
 		
-		ArrayList<InputSource> inputSources = this.find_all_entities(includeTag.src);
-		if (inputSources.size() == 2) {
+		ArrayList<InputSource> inputSources = this.find_all_entities(includeTag.src); // try to find all the files that are part of the "src" attribute
+		if (inputSources != null && inputSources.isEmpty() == false) {		
 			InputStream mergedStream = null;
 			try {
-				mergedStream = merge(inputSources.get(0).getByteStream(), inputSources.get(1).getByteStream());
+				Properties xmlmergeProps = getXMLMergeProperties(includeTag.merge); //the "merge" attribute contains the name of the XMLMerge properties file
+				mergedStream = merge(xmlmergeProps, toArray(inputSources));
 			} catch (AbstractXmlMergeException e) {
-				e.printStackTrace();
-				throw new IOException("Could not merge the include files: " + includeTag.src, e);
+				String msg = "Could not merge the include files: " + includeTag.src;
+				logger.warn(msg);
+				throw new IOException(msg, e);
 			}
 			result = new InputSource(mergedStream);
-		} else if (inputSources.size() == 1) {
-			result = inputSources.get(0);
-		} else {
-			throw new IOException("Can't currently support merging more than 2 files.");
 		}
 		
 		return result;
 	}
 	
+	/*
+	 * "Includes" can be either a merge of all the "src" files or just an inline include of the first-found "src" file.
+	 */
 	private void apply_include(IncludeTag includeTag) throws SAXException, IOException {
 		InputSource includeSrc = null;
 		
-		if (includeTag.merge == false) {
-			includeSrc = find_first_entity(includeTag.src);
+		if (includeTag.merge != null && !includeTag.merge.isEmpty()) {
+			includeSrc = apply_merge(includeTag); //merges all the "src" files
 		} else {
-			includeSrc = apply_merge(includeTag);
+			includeSrc = find_first_entity(includeTag.src); //returns the first found "src" file
 		}
 		
 		apply_include(includeSrc, includeTag.strip);
@@ -212,7 +277,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		if(INCLUDE_TAG.equals(localName)) {
 			out=new IncludeTag();
 			out.src=attributes.getValue("src");
-			out.merge=stringToBoolean(attributes.getValue("merge"));
+			out.merge=attributes.getValue("merge");
 			out.strip=stringToBoolean(attributes.getValue("strip-root"));
 			return out;
 		} else {
@@ -289,7 +354,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		} catch (SAXException x) {
 			// Quietly consume the exception
 		}
-		
+				
 		return null;
 	}
 	
@@ -312,11 +377,13 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 			inputSource = find_entity(src);
 			if (inputSource != null) {
 				result.add(inputSource);
+			} else {
+				logger.warn("Source file for \"Include\" tag could not be found: " + src);
 			}
 		}
 		
 		if (result.isEmpty() == true) {
-			throw new SAXException(all+" file(s) not found.");
+			logger.warn("All source files for \"Include\" tag could not be found: " + all);
 		}
 		
 		return result;
