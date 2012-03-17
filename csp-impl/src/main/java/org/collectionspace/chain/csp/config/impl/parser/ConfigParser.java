@@ -60,7 +60,7 @@ public class ConfigParser {
 			ContentHandler content_handler=new MainConfigHandler(handler);
 			AssemblingParser p=new AssemblingParser(new Resolver(),src);
 			p.parse(new SAXResult(content_handler));
-			TreeNode tree=handler.getTree();
+			TreeNode tree=handler.getTree(); //at this point, we have pieced together the set of config/settings files for "target" building -i.e., creates our internal data model of the App configuration
 			TreeNode tree_root=TreeNode.create_tag("ROOT");
 			tree_root.addChild(tree);
 			tree_root.claim(rules,"ROOT",null,null);

@@ -1,4 +1,5 @@
-/* Copyright 2010 University of Cambridge
+/* Copyright 2010 University of Cambridge and UC Berkeley
+ * Richard Millet
  * Licensed under the Educational Community License (ECL), Version 2.0. You may not use this file except in 
  * compliance with this License.
  *
@@ -6,11 +7,19 @@
  */
 package org.collectionspace.chain.csp.config.impl.main;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.SectionGenerator;
 import org.collectionspace.chain.csp.config.Target;
@@ -124,14 +133,69 @@ public class TreeNode {
 		}
 	}
 		
-	public void dump() {
-		if(is_text)
-			log.debug("\""+text+"\"");
-		else {
-			log.debug("<"+text+">");
+	void setContents(File aFile, String aContents)
+			throws FileNotFoundException, IOException {
+		if (aFile == null) {
+			throw new IllegalArgumentException("File should not be null.");
+		}
+		if (!aFile.exists()) {
+			throw new FileNotFoundException("File does not exist: " + aFile);
+		}
+		if (!aFile.isFile()) {
+			throw new IllegalArgumentException("Should not be a directory: "
+					+ aFile);
+		}
+		if (!aFile.canWrite()) {
+			throw new IllegalArgumentException("File cannot be written: "
+					+ aFile);
+		}
+
+		// use buffering
+		Writer output = new BufferedWriter(new FileWriter(aFile));
+		try {
+			// FileWriter always assumes default encoding is OK!
+			output.write(aContents);
+		} finally {
+			output.close();
+		}
+	}
+	
+	//
+	// For debugging purposes, this method dumps the configuration tree to
+	//
+	private static String DUMPED_TREES_DIRNAME = "cspace-app-dumpedTrees";
+	void dumpTreeToFile(String treeString) throws Exception {
+		File dumpedTreeFilesDir = new File(FileUtils.getTempDirectoryPath() + "/" + DUMPED_TREES_DIRNAME);
+		if (dumpedTreeFilesDir.exists() == false) {
+			dumpedTreeFilesDir.mkdir();
+		}
+		File dumpTreeFile = new File(dumpedTreeFilesDir.getAbsolutePath() + "/dumpTree-" + UUID.randomUUID().toString() + ".xml");
+		dumpTreeFile.createNewFile();
+		this.setContents(dumpTreeFile, treeString);
+		log.debug("Config XML tree dumped to: " + dumpTreeFile.getAbsolutePath());
+	}
+	
+	public void dump()
+	{
+		if (log.isDebugEnabled() == true) {
+			StringBuffer strBuf = new StringBuffer();
+			dumpNode(strBuf);
+			try {
+				dumpTreeToFile(strBuf.toString());
+			} catch (Exception e) {
+				log.debug("Could not dump configuration tree to debug log file.", e);
+			}
+		}
+	}
+	
+	private void dumpNode(StringBuffer output) {
+		if (is_text) {
+			output.append("\""+text+"\"");
+		} else {
+			output.append("<"+text+">");
 			for(TreeNode child : children)
-				child.dump();
-			log.debug("</"+text+">");
+				child.dumpNode(output);
+			output.append("</"+text+">");
 		}
 	}
 }

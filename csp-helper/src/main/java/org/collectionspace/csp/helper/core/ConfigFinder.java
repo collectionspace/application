@@ -164,7 +164,7 @@ public class ConfigFinder implements EntityResolver {
 			out=getDataFromJBossPath(systemId);
 			if(out!=null)
 				return new InputSource(out);
-			out=getDataFromClasspath(systemId);
+			out=getDataFromClasspath(systemId); // running tests find the resource/entity here
 			if(out!=null)
 				return new InputSource(out);
 			out=getConfigStreamViaClassLoader(systemId);

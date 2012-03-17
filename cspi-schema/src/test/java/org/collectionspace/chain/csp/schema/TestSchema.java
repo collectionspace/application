@@ -41,18 +41,27 @@ public class TestSchema {
 		cspm.register(new Spec());
 		try {
 			cspm.go();
-			InputSource configsource = getSource("config.xml");
-			cspm.configure(configsource,new ConfigFinder(null));
+			InputSource configsource = getSource("config.xml"); //finds "src/main/resources/default.xml" when running tests
+			cspm.configure(configsource,new ConfigFinder(null));//pieces together the set of config/settings files for parsing
 		} catch (CSPDependencyException e) {
 			log.error("CSPManagerImpl failed");
 			log.error(e.getLocalizedMessage() );
 		}
 		
-
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
 		Record r_obj=spec.getRecord("collection-object");
+
+		if (log.isTraceEnabled()) {	
+			try {
+				String recordDump = r_obj.dumpFields();
+				log.trace(recordDump);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				log.trace("JSONException encountered trying to log debugging information", e);
+			}
+		}
 
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
