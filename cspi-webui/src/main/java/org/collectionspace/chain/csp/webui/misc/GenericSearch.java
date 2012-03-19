@@ -1,10 +1,20 @@
 package org.collectionspace.chain.csp.webui.misc;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
@@ -29,6 +39,13 @@ import org.slf4j.LoggerFactory;
  */
 public class GenericSearch {
 	private static final Logger log=LoggerFactory.getLogger(GenericSearch.class);
+        
+        final static String UNESCAPED_PREVIOUS_CHAR_PATTERN = "(?<!\\\\)";
+        final static String DOUBLE_QUOTE_PATTERN = "([\\\"])";
+        final static String PERCENT_SIGN_PATTERN = "([\\%])";
+        
+        final static String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+        final static String SERVICES_TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 	
 	/**
 	 * Returns the per field search structure needed by the service layer
@@ -48,12 +65,17 @@ public class GenericSearch {
 				String section = fieldSet.getSection(); 	// Get the payload part
 				String spath=r.getServicesRecordPath(section);
 				String[] parts=spath.split(":",2);
+                                
+				// Escape various unescaped characters in the advanced search string
+				value = escapeUnescapedChars(value, DOUBLE_QUOTE_PATTERN, "\"", "\\\"");
+				value = escapeUnescapedChars(value, PERCENT_SIGN_PATTERN, "%", "\\%");
+				
 				// Replace user wildcards with service-legal wildcards
 				if(value.contains("*")){
 					value = value.replace("*", "%");
 					join = " ilike ";
 				}
-				String fieldSpecifier = getSearchSpecifierForField(fieldSet);
+				String fieldSpecifier = getSearchSpecifierForField(fieldSet, false);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
 				
 				return parts[0]+":"+fieldSpecifier+affix+join+"\""+value +"\""+ " " + operator+ " ";
@@ -67,6 +89,46 @@ public class GenericSearch {
 		return "";
 		
 	}
+        
+       /**
+        * Escapes unescaped characters within the text of a services advanced search string.
+        * 
+        * For the match patterns and replacement algorithm, see;
+        * http://stackoverflow.com/a/5937852 and
+        * http://docs.oracle.com/javase/6/docs/api/java/util/regex/Matcher.html#quoteReplacement%28java.lang.String%29
+        * 
+        * @param value         the original text of the search string.
+        * @param matchPattern  a regex pattern to be matched.  This pattern MUST contain exactly
+        *                      one matching group; text will be found and replaced within that group.
+        * @param findText      some text to find within the matching group of the search string.
+        * @param replaceText   the replacement text for the text found, if any, in that group.
+        * @return  the text of the search string, with any character escaping performed.
+        */
+        private static String escapeUnescapedChars(String value, String matchPattern, String findText, String replaceText) {
+            if (value == null || value.isEmpty()) {
+                return value;
+            }
+            StringBuffer sb = new StringBuffer("");
+            try {
+                final Pattern pattern = Pattern.compile(UNESCAPED_PREVIOUS_CHAR_PATTERN + matchPattern);
+                final Matcher matcher = pattern.matcher(value);
+                int groupCount = matcher.groupCount();
+                if (groupCount != 1) {
+                    log.warn("Match pattern must contain exactly one matching group. Pattern " + matchPattern
+                            + " contains " + groupCount + " matching groups.");
+                    return value;
+                }
+                while (matcher.find()) {
+                    if (matcher.groupCount() >= 1) {
+                      matcher.appendReplacement(sb, matcher.group(1).replace(findText,Matcher.quoteReplacement(replaceText)));
+                    }
+                }
+                matcher.appendTail(sb);
+            } catch (PatternSyntaxException pse) {
+                log.warn("Invalid regular expression pattern " + matchPattern + ": " + pse.getMessage());
+            }
+            return sb.toString();
+        }
 
 	/**
 	 * Pivots from the UI restriction concept to what the services needs. Initialises valriables if needed
@@ -104,8 +166,6 @@ public class GenericSearch {
 						restriction.put(restrict,value);
 					}
 					else if(restrict.equals("keywords")){
-						//swap " for % CSPACE-4547
-						value = value.replace('"', '%');
 						restriction.put(restrict,value);
 					}
 					else if(restrict.equals("sortDir")){
@@ -128,14 +188,19 @@ public class GenericSearch {
 							//convert sortKey
 							fs = r.getFieldFullList(fieldname);
 						}
-						fieldname = fs.getID();
-						FieldSet tmp = fs;
-						while(!(tmp.getParent() instanceof Record)){
-							tmp = (FieldSet)tmp.getParent();
-							if(!tmp.getSearchType().equals("repeator")){
-								fieldname = tmp.getServicesParent()[0] +"/0/"+fieldname;
+						if(fs.hasMergeData()){ //if this field is made up of multi merged fields in the UI then just pick the first field to sort on as services doesn't search on merged fields.
+							Field f = (Field)fs;
+							for(String fm : f.getAllMerge()){
+								if(fm!=null){
+									fs = r.getFieldFullList(fm);
+									break;
+								}
 							}
 						}
+						fieldname = fs.getID();
+						FieldSet tmp = fs;
+						fieldname = getSearchSpecifierForField(fs, true);
+						
 
 						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
 						String newvalue = tablebase+":"+fieldname;
@@ -155,8 +220,6 @@ public class GenericSearch {
 		
 		if(param!=null && !param.equals("")){
 			restriction.put("queryTerm", "kw");
-			//swap " for % CSPACE-4547
-			param = param.replace('"', '%');
 			restriction.put("queryString",param);
 			//restriction.put(r.getDisplayNameField().getID(),param);
 		}
@@ -222,7 +285,7 @@ public class GenericSearch {
 				if(!value.equals("")){
 					String fieldid = fieldname;
 					if(r.hasSearchField(fieldname) && (r.getSearchFieldFullList(fieldname).getUIType().equals("date") || r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate"))){
-						String timestampAffix = "T00:00:00";
+						String timestampAffix = "T00:00:00Z";
 						if(fieldname.endsWith("Start")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 5));
 							join = ">= TIMESTAMP ";
@@ -233,12 +296,13 @@ public class GenericSearch {
 						else if(fieldname.endsWith("End")){
 							fieldid = fieldname.substring(0, (fieldname.length() - 3));
 							join = "<= TIMESTAMP ";
-							timestampAffix = "T23:59:59.999Z";
+							timestampAffix = "T23:59:59Z";
 							if(r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate") && r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate")){
 								affix = "/dateLatestScalarValue";
 							}
 						}
 						value += timestampAffix;
+                                                value = utcToLocalTZ(value);
 
 						if(dates.containsKey(fieldid)){
 							String temp = getAdvancedSearch(r,fieldid,value,"AND",join, affix);
@@ -273,6 +337,56 @@ public class GenericSearch {
 			restriction.put("advancedsearch", asquery);
 		}
 	}
+        
+       /**
+        * Converts a timestamp in UTC to a timestamp in the system local time zone.
+        * 
+        * @param utcTimestamp  a timestamp in UTC.
+        * @return the timestamp converted to the system local time zone.
+        */
+        private static String utcToLocalTZ(String utcTimestamp) {
+            if (utcTimestamp == null || utcTimestamp.isEmpty()) {
+                return utcTimestamp;
+            }
+            
+            // Some of the following can be statically initialized or cached.
+            // Note thread-safe considerations related to SimpleDateFormat, as described in:
+            // http://www.codefutures.com/weblog/andygrove/2007/10/simpledateformat-and-thread-safety.html
+
+            // Create date formatters
+            SimpleDateFormat iso8601Format;
+            SimpleDateFormat iso8601FormatWithMillis;
+            SimpleDateFormat servicesFormat;
+            try {
+                iso8601Format = new SimpleDateFormat(ISO_8601_FORMAT);
+                servicesFormat = new SimpleDateFormat(SERVICES_TIMESTAMP_FORMAT);
+            } catch (Exception e) {
+                log.warn("Invalid or null date format pattern: " + e.getLocalizedMessage());
+                return utcTimestamp;
+            }
+            
+            String localTimestamp = utcTimestamp;
+            
+            final String UTC_TIMEZONE_ID = "Etc/UTC";
+            TimeZone utcTz = TimeZone.getTimeZone(UTC_TIMEZONE_ID);
+            iso8601Format.setTimeZone(utcTz);
+             // Get system local time zone and set the output formatter to use it
+            TimeZone localTz = Calendar.getInstance().getTimeZone();
+            servicesFormat.setTimeZone(localTz);
+             
+            try {
+                Date utcDate = iso8601Format.parse(utcTimestamp);
+                if (utcDate != null) {
+                    localTimestamp = servicesFormat.format(utcDate);
+                }
+            } catch (Exception e) {
+                log.warn("Error parsing UTC timestamp or formatting timestamp in local time zone: " + e.getLocalizedMessage());
+                return utcTimestamp;
+            }
+            
+            return localTimestamp;
+            
+        }
 
 	/**
 	 * Abstract the process for creating the traverser record
@@ -321,7 +435,7 @@ public class GenericSearch {
 	 * @param fieldSet the containing fieldSet
 	 * @return NXQL conformant specifier.
 	 **/
-	public static String getSearchSpecifierForField(FieldSet fieldSet ) {
+	public static String getSearchSpecifierForField(FieldSet fieldSet, Boolean isOrderNotSearch) {
 		//String specifier = fieldname;	// default is just the simple field name
 		String specifier = fieldSet.getServicesTag();
 		//this should be service tag not ID
@@ -332,7 +446,7 @@ public class GenericSearch {
 			// Prepend the services parent field, and make the child a wildcard
 			String [] svcsParent = fieldSet.getServicesParent();
 			if(svcsParent[0] != null && !svcsParent[0].isEmpty()) {
-				specifier = svcsParent[0] +"/*"; 
+				specifier = svcsParent[0] + (isOrderNotSearch?"/0":"/*");
 			}
 		}
 		
@@ -352,7 +466,7 @@ public class GenericSearch {
 				// First, recurse to get the fully qualified path to the parent.
 				String parentID = parentFieldSet.getID();
 				log.debug("Recursing for parent: " + parentID );
-				specifier = getSearchSpecifierForField(parentFieldSet);
+				specifier = getSearchSpecifierForField(parentFieldSet,isOrderNotSearch);
 							
 				// Is parent a scalar list or a complex list?
 				Repeat rp = (Repeat)parentFieldSet;
@@ -364,6 +478,9 @@ public class GenericSearch {
 					// The parent is a complex schema, not just a scalar repeat
 					// Append the field name to build an XPath-like specifier.
 					specifier += "/"+fieldSet.getServicesTag();
+				}
+				else if(isOrderNotSearch) {
+					  specifier += "/0";
 				} else{
 					// Leave specifier as is. We just search on the parent name,
 					// as the backend is smart about scalar lists. 

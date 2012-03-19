@@ -10,9 +10,9 @@
                 "type": "fluid",
                 "options": {
                     "model": {
-                        "names": ["Movement"],
-                        "list": ["movement"],
-                        "samples": ["MV2010.001"]
+                        "names": ["Inventory","Location","Movement"],
+                        "list": ["inventory","location","movement"],
+                        "samples": ["INV2010.1","LOC2010.1","MV2010.1"]
                     },
                     "selectors": {
                         "numberField": ".csc-movement-movementReferenceNumber"

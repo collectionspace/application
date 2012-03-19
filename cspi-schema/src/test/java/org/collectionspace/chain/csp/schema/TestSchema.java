@@ -8,10 +8,6 @@ package org.collectionspace.chain.csp.schema;
 
 import static org.junit.Assert.*;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.collectionspace.chain.csp.config.ConfigRoot;
 import org.collectionspace.chain.csp.inner.CoreConfig;
 import org.collectionspace.csp.api.container.CSPManager;
@@ -20,6 +16,7 @@ import org.collectionspace.csp.container.impl.CSPManagerImpl;
 import org.collectionspace.csp.helper.core.ConfigFinder;
 import org.collectionspace.csp.helper.test.TestConfigFinder;
 import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 import org.slf4j.Logger;
@@ -70,6 +67,26 @@ public class TestSchema {
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("cataloging",r_obj.getWebURL());
 	
+			//log.info(spec.dump());
+		
+		JSONObject out = new JSONObject();
+		Boolean ignore = false;
+		String t = "";
+		for(Record r: spec.getAllRecords()){
+			//log.info(r.getID());
+			if(r.getID().equals("termlist")){
+				ignore = true;
+			}
+			if(!ignore){
+		try {
+			t = spec.getRecord(r.getID()).dumpFields();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//log.info(t.toString());
+			}
+		}
 		
 		/* RECORD/field -> FIELD(type) */
 		/*

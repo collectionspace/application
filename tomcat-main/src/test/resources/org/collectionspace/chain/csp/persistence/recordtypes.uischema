@@ -9,6 +9,10 @@
                 "default": ["intake", "loanin", "loanout", "acquisition", "movement", "media", "objectexit", "group"],
                 "type": "array"
             },
+            "all": {
+                "default": [ "all" ],
+                "type": "array"
+            },
             "cataloging": {
                 "default": ["cataloging"],
                 "type": "array"

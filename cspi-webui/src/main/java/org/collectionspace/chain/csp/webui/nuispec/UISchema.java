@@ -436,15 +436,17 @@ public class UISchema extends UISpec {
 			else if(sectionid.toLowerCase().equals("recordtypes")){
 
 				
-				JSONObject pschema = new JSONObject();
-				JSONObject aschema = new JSONObject();
-				JSONObject adschema = new JSONObject();
-				JSONObject cschema = new JSONObject();
+				JSONObject procedures_schema = new JSONObject();
+				JSONObject authorities_schema = new JSONObject();
+				JSONObject admin_schema = new JSONObject();
+				JSONObject cataloging_schema = new JSONObject();
+				JSONObject searchAll_schema = new JSONObject();
 
-				JSONArray precrds = new JSONArray();
-				JSONArray arecrds = new JSONArray();
-				JSONArray adrecrds = new JSONArray();
-				JSONArray crecrds = new JSONArray();
+				JSONArray procedures_records = new JSONArray();
+				JSONArray authorities_records = new JSONArray();
+				JSONArray admin_records = new JSONArray();
+				JSONArray cataloging_records = new JSONArray();
+				JSONArray searchAll_records = new JSONArray();
 				/**
 				 * { "procedures": { "type": "array", "default": ["loanout",
 				 * "movement", ...] }, "vocabularies": { "type": "array",
@@ -454,39 +456,47 @@ public class UISchema extends UISpec {
 				for (Record rc : this.spec.getAllRecords()) {
 					if (rc.isInRecordList()) {
 						if (rc.isShowType("procedure")) {
-							precrds.put(rc.getWebURL());
+							procedures_records.put(rc.getWebURL());
 						} else if (rc.isShowType("authority")) {
 							for(Instance ins : rc.getAllInstances()){
-								arecrds.put(ins.getWebURL());
+								authorities_records.put(ins.getWebURL());
 							}
 						} else if (rc.isShowType("record")) {
-							crecrds.put(rc.getWebURL());
+							// FIXME Assumes that "records" are either 
+							// procedures, authorities, or cataloging.
+							// Should instead have a type "cataloging"
+							cataloging_records.put(rc.getWebURL());
+						} else if (rc.isShowType("searchall")) {
+								searchAll_records.put(rc.getWebURL());
 						} else if(rc.isShowType("authorizationdata") || rc.isShowType("userdata")){
-							adrecrds.put(rc.getWebURL());
+							admin_records.put(rc.getWebURL());
 						}
 					}
 				}
 
-				pschema.put("type", "array");
-				pschema.put("default", precrds);
-				aschema.put("type", "array");
-				aschema.put("default", arecrds);
-				adschema.put("type", "array");
-				adschema.put("default", adrecrds);
-				cschema.put("type", "array");
-				cschema.put("default", crecrds);
+				procedures_schema.put("type", "array");
+				procedures_schema.put("default", procedures_records);
+				authorities_schema.put("type", "array");
+				authorities_schema.put("default", authorities_records);
+				admin_schema.put("type", "array");
+				admin_schema.put("default", admin_records);
+				cataloging_schema.put("type", "array");
+				cataloging_schema.put("default", cataloging_records);
+				searchAll_schema.put("type", "array");
+				searchAll_schema.put("default", searchAll_records);
 
-				JSONObject rtypes = new JSONObject();
-				JSONObject ptypes = new JSONObject();
+				JSONObject record_types = new JSONObject();
+				JSONObject types_list = new JSONObject();
 
-				ptypes.put("procedures", pschema);
-				ptypes.put("vocabularies", aschema);
-				ptypes.put("cataloging", cschema);
-				ptypes.put("administration", adschema);
-				rtypes.put("type","object");
-				rtypes.put("properties",ptypes);
+				types_list.put("procedures", procedures_schema);
+				types_list.put("vocabularies", authorities_schema);
+				types_list.put("cataloging", cataloging_schema);
+				types_list.put("all", searchAll_schema);
+				types_list.put("administration", admin_schema);
+				record_types.put("type","object");
+				record_types.put("properties",types_list);
 
-				out.put("recordtypes", rtypes);
+				out.put("recordtypes", record_types);
 				
 			}
 		} catch (JSONException e) {

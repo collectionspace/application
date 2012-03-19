@@ -16,6 +16,9 @@
                     <field id="intake">
                         <selector>8088cfa5-c743-4824-bb4d-fb11b12847f7</selector>
                     </field>
+                    <field id="inventory">
+                        <selector>6d472be6-2534-47f3-a3f1-3f160e7a9303</selector>
+                    </field>
                     <field id="library">
                         <selector>80fedaf6-1647-4f30-9f53-a75a3cac2ffd</selector>
                     </field>
@@ -24,6 +27,12 @@
                     </field>
                     <field id="loanout">
                         <selector>4b984865-f93d-4481-b874-3dba863ec589</selector>
+                    </field>
+                    <!-- 'location' below pertains to 'generic locations' stored -->
+                    <!-- in Location/Movement/Inventory records, rather than to -->
+                    <!-- Storage Location authority term records -->
+                    <field id="location">
+                        <selector>1fc5e383-0786-4126-9a3c-ec7df4517ee3</selector>
                     </field>
                     <field id="study">
                         <selector>0518132e-dd8c-4773-8fa9-07c9af4444ee</selector>
@@ -37,7 +46,7 @@
                     <field id="media">
                         <selector>cd91d8b8-f346-4925-a425-93e02bd1c5c9</selector>
                     </field>
-                    <!-- not obviously used -->
+                    <!-- The following ID generators are not obviously used -->
                     <field id="accession-activity">
                         <selector>1a67470b-19b1-4ae3-88d4-2a0aa936270e</selector>
                     </field>
