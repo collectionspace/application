@@ -7,5 +7,7 @@
 			</field>
 			 -->
 		</repeat>
+	</section>	
+	<section id="domaindata">
 	</section>
 </record>
