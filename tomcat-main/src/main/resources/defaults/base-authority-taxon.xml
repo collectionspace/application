@@ -56,7 +56,7 @@
                     <field id="displayName" ui-search="repeatable" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
                         <title-selector>.csc-titleBar-displayName</title-selector>
                     </field>
-                    <field id="termStatus" ui-search="repeatable" seperate_ui_container="true">
+                    <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
                         <options>
                             <option id="provisional" default="yes">Provisional</option>
                             <option id="under review">Under Review</option>

@@ -1,86 +1,122 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <!--  -->
-  <groupId>org.collectionspace</groupId>
-  <artifactId>csp-impl</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
-  <name>CSP: Impl</name>
-  
-    <parent>
-    <groupId>org.collectionspace</groupId>
-    <artifactId>svcapp</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
-  
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<parent>
+		<groupId>org.collectionspace</groupId>
+		<artifactId>svcapp</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
 
-  
-  <dependencies>
-<!-- 
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20080701</version>
-    </dependency>  
--->
-    <dependency>
-      <groupId>org.collectionspace</groupId>
-      <artifactId>csp-api</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>jar</type>
-    </dependency>  
-        <dependency>
-      <groupId>commons-lang</groupId>
-      <artifactId>commons-lang</artifactId>
-      <version>2.4</version>
-      <type>jar</type>
-    </dependency>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>csp-impl</artifactId>
+	<packaging>jar</packaging>
+	<name>CSP: Impl</name>
+
+	<dependencies>
+		<!--
 		<dependency>
-		  <groupId>commons-logging</groupId>
-		  <artifactId>commons-logging</artifactId>
-		  <version>1.1.1</version>
-		  <scope>provided</scope>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId> 
+			<version>20080701</version>
 		</dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-      <version>1.5.6</version>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>1.5.6</version>
-    </dependency>
-    
+		-->
+		<!-- EL4J core module. -->
+		<dependency>
+			<groupId>ch.elca.el4j.modules</groupId>
+			<artifactId>module-core</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<!-- EL4J jmx support -->
+		<dependency>
+			<groupId>ch.elca.el4j.modules</groupId>
+			<artifactId>module-jmx</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<!-- EL4J XML merge utils -->
+		<dependency>
+			<groupId>ch.elca.el4j.modules</groupId>
+			<artifactId>module-xml_merge-common</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<!-- Apache Commons utilities -->
         <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.5</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  
-  <build>
-    <finalName>csp-helper</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <optimize>true</optimize>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.mortbay.jetty</groupId>
-        <artifactId>maven-jetty-plugin</artifactId>
-        <configuration>
-	  <contextPath>chain</contextPath>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+		<dependency>
+			<groupId>org.collectionspace</groupId>
+			<artifactId>csp-api</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.4</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.1.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.5.6</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.5</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>csp-helper</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+					<optimize>true</optimize>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<configuration>
+					<contextPath>chain</contextPath>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<repositories>
+		<!-- Repository for EL4J modules. -->
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<id>el4jReleaseRepositoryExternal</id>
+			<name>External release repository of the EL4J project</name>
+			<url>http://public-el4.elca-services.ch/el4j/maven2repository</url>
+		</repository>
+	</repositories>	
+
 </project>

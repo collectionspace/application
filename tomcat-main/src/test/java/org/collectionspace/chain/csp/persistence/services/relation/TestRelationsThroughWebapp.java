@@ -79,8 +79,7 @@ public class TestRelationsThroughWebapp {
 		JSONObject data1 = new JSONObject(out.getContent());
 		// that the destination is 3
 		log.info(out.getContent());
-		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray(
-				"cataloging");
+		JSONArray rel1 = data1.getJSONObject("relations").getJSONArray("cataloging");
 		assertNotNull(rel1);
 		assertEquals(1, rel1.length());
 		JSONObject mini1 = rel1.getJSONObject(0);
@@ -373,8 +372,8 @@ public class TestRelationsThroughWebapp {
 		assertEquals(1, rel1.length());
 		out = tester.GETData(id2, jetty);
 		JSONObject data2 = new JSONObject(out.getContent());
-		JSONArray rel2 = data2.getJSONObject("relations")
-				.getJSONArray("intake");
+		JSONArray rel2 = data2.getJSONObject("relations").getJSONArray("intake");
+
 		assertNotNull(rel2);
 		assertEquals(1, rel2.length());
 		out = tester.GETData(id3, jetty);

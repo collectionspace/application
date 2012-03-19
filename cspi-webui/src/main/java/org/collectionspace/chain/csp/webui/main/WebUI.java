@@ -290,6 +290,9 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.UPDATE,new String[]{r.getWebURL()},1,new RecordCreateUpdate(r,false));
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 			}
+			else if(r.isType("searchall")){
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
+			}
 			
 		}
 
