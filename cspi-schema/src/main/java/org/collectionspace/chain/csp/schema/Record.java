@@ -282,7 +282,7 @@ public class Record implements FieldParent {
 		hashutil(allfieldsbyoperation, "", f); //ALL function
 	}
 		
-	public FieldSet[] getAllServiceFieldTopLevel(String operation, String section) {
+	public FieldSet[] getAllServiceFieldTopLevel(String operation, String section) { //section should be an array?
 		if(operation.equals("")){//return everything
 			return serviceFieldTopLevel.values().toArray(new FieldSet[0]);
 		}

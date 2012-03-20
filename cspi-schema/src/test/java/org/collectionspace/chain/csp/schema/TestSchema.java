@@ -51,8 +51,8 @@ public class TestSchema {
 		ConfigRoot root=cspm.getConfigRoot();
 		Spec spec=(Spec)root.getRoot(Spec.SPEC_ROOT);
 		assertNotNull(spec);
-		Record r_obj=spec.getRecord("collection-object");
-		
+		Record r_obj=spec.getRecord("collection-object"); //spec.dump()
+
 		if (log.isTraceEnabled()) {	
 			try {
 				String recordDump = r_obj.dumpFields();
@@ -66,6 +66,10 @@ public class TestSchema {
 		assertNotNull(r_obj);
 		assertEquals("collection-object",r_obj.getID());
 		assertEquals("cataloging",r_obj.getWebURL());
+		
+		StringBuffer dumpBuffer = new StringBuffer(1000);
+		r_obj.dump(dumpBuffer);
+		System.out.println(dumpBuffer.toString());
 	
 			//log.info(spec.dump());
 		
