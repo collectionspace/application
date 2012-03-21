@@ -30,6 +30,7 @@
     		<include src="base-authority-organization.xml"/>
     		<include src="base-authority-person.xml"/>
     		<include src="base-authority-taxon.xml"/>
+    		<include src="base-authority-concept.xml"/>
 			
     		<include src="base-vocabularies.xml"/>
 			
