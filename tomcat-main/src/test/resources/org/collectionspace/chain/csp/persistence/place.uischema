@@ -5,10 +5,6 @@
                 "default": {},
                 "type": "object"
             },
-            "termsUsed": {
-                "default": [],
-                "type": "array"
-            },
             "csid": {
                 "type": "string"
             },

@@ -115,7 +115,7 @@
             </options>
         </field>
         <repeat id="placeNameGroupList/placeNameGroup">
-            <field id="name"/>
+            <field id="name" ui-search="repeatable"/>
             <field id="nameQualifiedName"/>
             <field id="nameLanguage" autocomplete="vocab-languages" ui-type="enum">
                 <enum>
@@ -149,7 +149,7 @@
             <field id="nameSourceDetail"/>
             <field id="nameSourceRefId"/>
             <field id="nameNote"/>
-            <group id="nameDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
+            <group id="nameDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range"></group>
             <field id="nameAdminStatus">
                 <options>
                     <option id="provisional" default="yes">Provisional</option>
@@ -162,8 +162,8 @@
         <field id="source"/>
         <field id="note"/>
         <repeat id ="placeOwnerGroupList/placeOwnerGroup">
-            <field id="owner" autocomplete="person-person,organization-organization"/>
-            <group id="ownershipDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
+            <field id="owner" autocomplete="person-person,organization-organization" ui-search="repeatable"/>
+            <group id="ownershipDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range"></group>
             <field id="ownershipNote"/>
         </repeat>
     </section>
