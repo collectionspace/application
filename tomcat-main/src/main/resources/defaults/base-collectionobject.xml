@@ -313,7 +313,7 @@
                     </repeat>
                     <repeat id="materialGroupList/materialGroup">
                         <!-- selector>collection-object-materialGroup</selector -->
-                        <field id="material" ui-search="repeatable">
+                        <field id="material" ui-search="repeatable" autocomplete="concept-material">
                             <selector>object-description-material</selector>
                         </field>
                         <field id="materialComponent">
@@ -390,12 +390,12 @@
                             </field>
                         </repeat>
                         <repeat id="contentActivities">
-                            <field id="contentActivity">
+                            <field id="contentActivity" autocomplete="concept-activity">
                                 <selector>object-description-content-activity</selector>
                             </field>
                         </repeat>
                         <repeat id="contentConcepts">
-                            <field id="contentConcept">
+                            <field id="contentConcept" autocomplete="concept-associatedconcept">
                                 <selector>object-description-content-concept</selector>
                             </field>
                         </repeat>
