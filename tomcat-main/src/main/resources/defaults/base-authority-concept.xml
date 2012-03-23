@@ -37,7 +37,7 @@
         <instance id="concept-concept">
             <web-url>concept</web-url>
             <title-ref>concept</title-ref>
-            <title>Default Concept Authority</title>
+            <title>Concept Authority</title>
         </instance>
         <instance id="concept-object">
             <web-url>object</web-url>
@@ -68,11 +68,6 @@
             <web-url>physicalattribute</web-url>
             <title-ref>physicalattribute</title-ref>
             <title>Physical Attribute Authority</title>
-        </instance>
-        <instance id="concept-associatedconcept">
-            <web-url>associatedconcept</web-url>
-            <title-ref>associatedconcept</title-ref>
-            <title>Associated Concept Authority</title>
         </instance>
     </instances>
     <section>
