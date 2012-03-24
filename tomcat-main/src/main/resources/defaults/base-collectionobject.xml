@@ -395,7 +395,7 @@
                             </field>
                         </repeat>
                         <repeat id="contentConcepts">
-                            <field id="contentConcept" autocomplete="concept-concept">
+                            <field id="contentConcept" autocomplete="concept">
                                 <selector>object-description-content-concept</selector>
                             </field>
                         </repeat>
