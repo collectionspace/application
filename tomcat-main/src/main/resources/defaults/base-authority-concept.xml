@@ -1,6 +1,5 @@
 <record id="concept" type="authority,compute-displayname">
     <terms-used>false</terms-used>
-    <!-- XXX servcie layer doesn't currently support  terms but it does on  organisations - go figure -->
     <web-url>concept</web-url>
     <services-tenant-plural>Conceptauthorities</services-tenant-plural>
     <services-tenant-singular>Conceptauthority</services-tenant-singular>
