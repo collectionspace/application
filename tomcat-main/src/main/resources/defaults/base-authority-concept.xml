@@ -23,8 +23,8 @@
                 <label-section id="messagekeys" show="true"></label-section>
                 <hierarchy-section show="true">
                     <options>
-                        <option id="narrowerContext">concept,concept-object,concept-material,concept-activity,concept-agent,concept-styleperiodculture,concept-physicalattribute</option>
-                        <option id="broaderContext">concept,concept-object,concept-material,concept-activity,concept-agent,concept-styleperiodculture,concept-physicalattribute</option>
+                        <option id="narrowerContext">concept-concept,concept-object,concept-material,concept-activity,concept-agent,concept-styleperiodculture,concept-physicalattribute</option>
+                        <option id="broaderContext">concept-concept,concept-object,concept-material,concept-activity,concept-agent,concept-styleperiodculture,concept-physicalattribute</option>
                     </options>
                 </hierarchy-section>
             </view>
@@ -34,39 +34,39 @@
     <include src="domain-authority-concept.xml" strip-root="yes"/>
                 
     <instances>
-        <instance id="concept">
+        <instance id="concept-concept">
             <web-url>concept</web-url>
             <title-ref>concept</title-ref>
-            <title>Concept Authority</title>
+            <title>Default Concept Authority</title>
         </instance>
         <instance id="concept-object">
-            <web-url>concept-object</web-url>
-            <title-ref>concept-object</title-ref>
+            <web-url>object</web-url>
+            <title-ref>object</title-ref>
             <title>Object Authority</title>
         </instance>
         <instance id="concept-material">
-            <web-url>concept-material</web-url>
-            <title-ref>concept-material</title-ref>
+            <web-url>material</web-url>
+            <title-ref>material</title-ref>
             <title>Material Authority</title>
         </instance>
         <instance id="concept-activity">
-            <web-url>concept-activity</web-url>
-            <title-ref>concept-activity</title-ref>
+            <web-url>activity</web-url>
+            <title-ref>activity</title-ref>
             <title>Activity Authority</title>
         </instance>
         <instance id="concept-agent">
-            <web-url>concept-agent</web-url>
-            <title-ref>concept-agent</title-ref>
+            <web-url>agent</web-url>
+            <title-ref>agent</title-ref>
             <title>Agent Authority</title>
         </instance>
         <instance id="concept-styleperiodculture">
-            <web-url>concept-styleperiodculture</web-url>
-            <title-ref>concept-styleperiodculture</title-ref>
+            <web-url>styleperiodculture</web-url>
+            <title-ref>styleperiodculture</title-ref>
             <title>Style, Period, and Culture Authority</title>
         </instance>
         <instance id="concept-physicalattribute">
-            <web-url>concept-physicalattribute</web-url>
-            <title-ref>concept-physicalattribute</title-ref>
+            <web-url>physicalattribute</web-url>
+            <title-ref>physicalattribute</title-ref>
             <title>Physical Attribute Authority</title>
         </instance>
     </instances>
@@ -77,9 +77,20 @@
         <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
         <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
     </section>
-    <section>
+    <section id="conceptAuthorityInformation">
         <field id="displayName" ui-search="repeatable" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
             <title-selector>titleBar-displayName</title-selector>
+        </field>
+        <field id="qualifier" ui-search="repeatable"></field>
+        <field id="shortDisplayName" ui-search="repeatable"></field>
+        <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum"></field>
+        <field id="termType" ui-search="repeatable">
+            <options>
+                <option id="">Please select a value</option>
+                <option id="descriptor">descriptor</option>
+                <option id="alternate descriptor">alternate descriptor</option>
+                <option id="used for term">used for term</option>
+            </options>
         </field>
     </section>
     <!-- not used in UI except in autocompletes -->
