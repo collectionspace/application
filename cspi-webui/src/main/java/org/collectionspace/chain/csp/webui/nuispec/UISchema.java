@@ -21,6 +21,7 @@ import org.collectionspace.chain.csp.schema.Schemas;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.schema.UISpecRunContext;
 import org.collectionspace.chain.csp.webui.main.Request;
+import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.ui.UIException;
@@ -30,60 +31,339 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UISchema extends UISpec {
+public class UISchema extends SchemaStructure implements WebMethod {
 	private static final Logger log = LoggerFactory.getLogger(UISchema.class);
-	protected JSONObject controlledCache;
-	private Spec spec;
+	protected CacheTermList ctl;
+	protected Record record;
+	protected Storage storage;
 	private Schemas schema;
 
-
-	public UISchema(Record record, String structureview) {
-		super(record, structureview);
+	public UISchema(Record r, String sview) {
+		super(r, sview);
+		this.record = r;
 	}
-	public UISchema(Spec spec, CacheTermList ctl) {
-		super(spec);
-		this.spec = spec;
-		this.record = null;
+	public UISchema(Spec spec, String sview, String stype) {
+		super(spec, sview, stype);
 	}
 	public UISchema(Spec spec, Schemas s) {
-		super(spec);
+		super(spec,"screen");
 		this.schema = s;
 		this.spec = spec;
 		this.record = null;
 	}
-	protected JSONObject generateTermsUsed(UISpecRunContext affix) throws JSONException {
-		return generateSchemaObject("array", new JSONArray(), null, null);
+	
+	
+	@Override
+	public void configure(WebUI ui, Spec spec) {
+		// TODO Auto-generated method stub
 	}
-	protected void generateUploaderEntry(JSONObject out, FieldSet f, UISpecRunContext affix) throws JSONException{
+
+	@Override
+	public void run(Object in, String[] tail) throws UIException {
+		Request q = (Request) in;
+		JSONObject out;
+		if(this.record != null){
+			if(this.spectype.equals("search")){
+				out = uisearchschema(q.getStorage(),this.record);
+			}
+			else{
+				out = uirecordschema(q.getStorage(),this.record);
+			}
+		}
+		else{
+			out = uiotherschema(q.getStorage(),StringUtils.join(tail,"/"));
+		}
+		q.getUIRequest().sendJSONResponse(out);
 	}
-	protected void generateHierarchyEntry(JSONObject out, FieldSet f, UISpecRunContext affix) throws JSONException{
+
+	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String datatype = ((Field)fs).getDataType();
+		if(datatype.equals("")){datatype="string";}
+		JSONObject validator = new JSONObject();
+		actualSchemaObject(datatype, null, null, null, validator);
+		out.put(getSelector(fs,context),validator);
 	}
-	protected void generateTrueTree(JSONObject out, JSONObject trueTreeBits) throws JSONException{
+	protected void actualSubRecordField(JSONObject out, FieldSet fs, UISpecRunContext context, Record subr, Boolean repeated, JSONObject parent) throws JSONException{
+
+		if(fs instanceof Group){
+			Group gp = (Group)fs;
+			if(!gp.isGrouped()){
+				makeASubRecord(subr, out,  repeated,  context, parent);
+				return;
+			}
+		}
+		
+		
+		JSONObject insidebit = new JSONObject();
+		makeASubRecord(subr, insidebit,  repeated,  context, parent);
+
+		JSONObject chooser = new JSONObject();
+		actualSchemaObject("object", null, insidebit, null, chooser);
+		out.put(getSelector(fs,context),chooser);
 	}
-	protected JSONObject generateMessageKeys(UISpecRunContext affix, JSONObject temp, Record r) throws JSONException {
-		return temp;
+	protected void actualChooserField(JSONObject out, FieldSet fs, UISpecRunContext context, Boolean useContainer) throws JSONException{
+		JSONObject chooser = new JSONObject();
+		actualSchemaObject("string", null, null, null, chooser);
+		out.put(getSelector(fs,context),chooser);
+	}
+
+	protected void actualDateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		String type = "date";
+		JSONObject datefield = new JSONObject();
+		actualSchemaObject(type, null, null, null, datefield);
+		out.put(getSelector(fs,context),datefield);
+	}
+
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param context
+	 * @param f
+	 * @throws JSONException
+	 */
+	protected void actualAuthorities(JSONObject out, FieldSet fs, UISpecRunContext context)
+			throws JSONException {
+		if("enum".equals(fs.getUIType())){
+			out.put(getSelector(fs,context),actualFieldEntry(fs,context));
+		}
+		else{
+			out.put(getSelector(fs,context),actualAutocomplete(fs,context));
+		}
+	}
+	
+	/**
+	 * 
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected JSONObject actualAutocomplete(FieldSet fs,UISpecRunContext context) throws JSONException {
+		JSONObject out = new JSONObject();
+		actualSchemaObject("string", null, null, null, out);
+		return out;
+	}
+
+	/**
+	 * Do the same in UISchema with refactored and not refactored fields
+	 * @param out
+	 * @param affix
+	 * @param f
+	 * @throws JSONException
+	 */
+	protected void actualFieldNotRefactored(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException{
+		actualFieldRefactored(out, fs, context);
+	}
+	protected void 	actualGroupEntry(FieldSet fs, JSONObject out, UISpecRunContext context, JSONObject contents) throws JSONException{
+		if(contents.has("type")){
+			out.put("type", contents.get("type"));// array|object|string
+		}
+		if (contents.has("default")) {
+			out.put("default", contents.get("default"));
+		}
+		if (contents.has("properties")) {
+			out.put("properties", contents.get("properties"));
+		}
+		if (contents.has("items")) {
+			out.put("items", contents.get("items"));
+		}
+	}
+	
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected Object actualOptionField(Field f,UISpecRunContext context) throws JSONException {
+		String type = "string";
+		String defaultval = f.getOptionDefault();
+		if( (this.spectype.equals("search") && !f.getSearchType().equals(""))){
+			defaultval = "";
+		}
+		JSONObject out = new JSONObject();
+		actualSchemaObject(type, defaultval, null, null, out);
+		return out;
 	}
 	
 
-	private JSONObject generateRelations() throws JSONException {
-		return generateSchemaObject("object", new JSONObject(), null, null);
+	/**
+	 * specific UISchema realization of this item
+	 */
+	protected void actualSelfRendererField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		Object temp = actualFieldEntry(fs,context);
+		if(temp instanceof JSONObject){
+			JSONObject tempo = (JSONObject)temp;
+
+			Iterator rit=tempo.keys();
+			while(rit.hasNext()) {
+				String key=(String)rit.next();
+				out.put(key, tempo.get(key));
+			}
+			
+		}
+		else{
+			out.put(getSelector(fs,context),actualFieldEntry(fs,context));
+		}
+	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param context
+	 * @param f
+	 * @throws JSONException
+	 */
+	protected void actualFieldExpanderEntry(JSONObject out, UISpecRunContext context,
+			Field f) throws JSONException {
+		out.put(getSelector(f,context), actualOptionField(f,context));
 	}
 	
-	private JSONObject generateFields(Record r,UISpecRunContext context) throws JSONException {
-		return generateSchemaObject("object", null,
-				generateDataEntrySection(context,r), null);
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		out.put(getSelector(fs,context),actualFieldEntry(fs,context));
 	}
 
-	private JSONObject generateFields(UISpecRunContext context) throws JSONException {
-		return generateSchemaObject("object", null,
-				generateDataEntrySection(context), null);
+	protected Object displayAsplain(Field f,UISpecRunContext context) throws JSONException {
+		JSONObject output = new JSONObject();
+		actualSchemaObject("string", null, null, null, output);
+		return output;
 	}
 
-	protected String getSelector(FieldSet fs, UISpecRunContext context) {
-		return fs.getID();
+	protected Object displayAsplainlist(Field f) throws JSONException {
+		JSONObject output = new JSONObject();
+		actualSchemaObject("object", new JSONObject(), null, null, output);
+		return output;
 	}
+	
+	protected void makeAStructureDate(FieldSet fs, JSONObject out,
+			JSONObject subexpander, JSONObject options, Record subitems,
+			UISpecRunContext sub) throws JSONException {
+		makeAOtherGroup(fs,out,subexpander, options, subitems, sub);
+	}	
+	
+	protected void makeAOtherGroup(FieldSet fs, JSONObject out,
+			JSONObject subexpander, JSONObject options, Record subitems,
+			UISpecRunContext sub) throws JSONException {
+		JSONObject protoTree = new JSONObject();
+		for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {
+			whatIsThisFieldSet(protoTree, fs2, sub);
+		}
+		JSONObject output = new JSONObject();
+		actualSchemaObject("boolean", true, null, null, output);
+		protoTree.put("_primary",output);
+	
+		actualSchemaObject("object", null, protoTree, null, out);
+	}
+	
+	/**
+	 * return the affix for this selector
+	 * @param fs
+	 * @return
+	 */
+	protected String getSelectorAffix(FieldSet fs){
+		return fs.getSelectorAffix();
+	}
+	/**
+	 * UISchema specific idea of a repeatable item
+	 * @param out
+	 * @param r
+	 * @param context
+	 * @throws JSONException
+	 */
+	private void UISchemaRepeatItem(JSONObject out, Repeat r, UISpecRunContext context)
+			throws JSONException {
+		JSONObject items = new JSONObject();
+		JSONObject structuredate = new JSONObject();
 
-	protected Object generateBooleanField(Field f, UISpecRunContext context) throws JSONException {
+		String selector = getSelector(r,context);
+		JSONObject preProtoTree = new JSONObject();
+
+		if(isARepeatingSubRecord(r)){
+			makeASubRecordEntry(preProtoTree, r, context, out);
+			preProtoTree = preProtoTree.getJSONObject(selector).getJSONObject("properties");
+		}
+		else{
+			Integer numChild = r.getChildren("").length;
+			for(FieldSet child :r.getChildren("")) {
+				whatIsThisFieldSet(preProtoTree, child, context);
+				if(isAStructureDate(child)){
+					Boolean truerepeat = isATrueRepeat(r);
+					//should we use structured dates in line rather than nested
+					
+					if(!truerepeat){
+						structuredate = preProtoTree.getJSONObject(getSelector(child,context)).getJSONObject("properties");
+						preProtoTree.remove(getSelector(child,context));
+						Iterator rit=structuredate.keys();
+						while(rit.hasNext()) {
+							String key=(String)rit.next();
+							preProtoTree.put(key, structuredate.get(key));
+						}
+					}
+					else if(numChild != 1 && preProtoTree.has("properties")){
+
+						structuredate.put("properties",preProtoTree.getJSONObject("properties"));
+						if(preProtoTree.has("type")){
+							structuredate.put("type",preProtoTree.getString("type"));
+							preProtoTree.remove("type");
+						}
+						else{
+							structuredate.put("type","object");
+						}
+						preProtoTree.remove("properties");
+						preProtoTree.put(getSelector(child,context), structuredate);
+					}
+				}
+			}
+		}
+		//actualRepeatNonSiblingEntry(out, r, context, preProtoTree);//XXX ??? do I need this?
+		if(preProtoTree.has("properties")){
+			preProtoTree = preProtoTree.getJSONObject("properties");
+		}
+		if (r.hasPrimary()) {
+			JSONObject output = new JSONObject();
+			actualSchemaObject("boolean", true, null, null, output);
+			preProtoTree.put("_primary", output);
+		}
+		actualSchemaObject("object", null, preProtoTree, null, items);
+		JSONObject output = new JSONObject();
+		actualSchemaObject("array", null, null, items, output);
+		out.put(selector, output);
+	}
+	
+	
+	protected void makeARepeatSiblingEntry(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException {
+		UISchemaRepeatItem(out, r, context);
+	}
+	protected void makeARepeatNonSiblingEntry(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException{
+		makeARepeatSiblingEntry(out, r, context);
+	}
+	protected void makeASelfRenderer(FieldSet fs, UISpecRunContext context,
+			JSONObject out, JSONObject subexpander, JSONObject options,
+			Record subitems, UISpecRunContext sub) throws JSONException {
+		for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {
+			whatIsThisFieldSet(out, fs2, context);
+		}
+	}
+	
+	protected Object actualENUMField(Field f,UISpecRunContext context) throws JSONException {
+		String type = "string";
+		String defaultval = f.getEnumDefault();
+		if( (this.spectype.equals("search") && !f.getSearchType().equals(""))){
+			defaultval = "";
+		}
+		JSONObject output = new JSONObject();
+		actualSchemaObject(type, defaultval, null, null, output);
+		return output;
+	}
+	
+	protected Object actualBooleanField(Field f,UISpecRunContext context) throws JSONException {
 		String type = "boolean";
 		String defaultval = f.getDefault();
 		Boolean defval = false;
@@ -93,233 +373,68 @@ public class UISchema extends UISpec {
 		if( (this.spectype.equals("search") && !f.getSearchType().equals(""))){
 			defval = null;
 		}
-		return generateSchemaObject(type, defval, null, null);
+		JSONObject output = new JSONObject();
+		actualSchemaObject(type, defval, null, null, output);
+		return output;
+	}
+	/**
+	 * Selector is just the ID in the UISchema
+	 * @param fs
+	 * @param context
+	 * @return
+	 */
+	protected String getSelector(FieldSet fs, UISpecRunContext context) {
+		return fs.getID();
 	}
 	
-	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
-		String type = "string";
-		String defaultval = f.getEnumDefault();
-		if( (this.spectype.equals("search") && !f.getSearchType().equals(""))){
-			defaultval = "";
-		}
-		return generateSchemaObject(type, defaultval, null, null);
+	
+	/**
+	 * Abstraction for creating the UISchema structure for items
+	 * @param r
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	private JSONObject actualSchemaFields(Record r,UISpecRunContext context) throws JSONException {
+		JSONObject out = generateDataEntrySection(context, r, this.spectype);
+		JSONObject output = new JSONObject();
+		actualSchemaObject("object", null, out, null, output);
+		return output;
+	}
+	/**
+	 * Generate the UISpec Relations bit
+	 * @return
+	 * @throws JSONException
+	 */
+	private JSONObject actualSchemaRelations() throws JSONException {
+		JSONObject output = new JSONObject();
+		actualSchemaObject("object", new JSONObject(), null, null, output);
+		return output;
+	}
+	/**
+	 * Generate the UISchema Termsused section
+	 * @param affix
+	 * @return
+	 * @throws JSONException
+	 */
+	private JSONObject actualSchemaTermsUsed(UISpecRunContext affix) throws JSONException {
+		JSONObject output = new JSONObject();
+		actualSchemaObject("array", new JSONArray(), null, null, output);
+		return output;
 	}
 	
-	protected Object generateGroupField(FieldSet f,UISpecRunContext context)
-			throws JSONException {
-		String parts[] = f.getUIType().split("/");
-		JSONObject items = new JSONObject();
-		Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-
-		String selector = getSelector(f,context);
-		JSONObject protoTree = new JSONObject();
-		for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {
-			generateDataEntry(protoTree, fs2,context);
-		}
-
-		if(parts.length>=3 && parts[2].equals("selfrenderer")){
-			return protoTree;
-		}
-		
-		protoTree.put("_primary", generateSchemaObject("boolean", true,
-					null, null));
-		
-		items = generateSchemaObject("object", null, protoTree, null);
-
-		//out.put(selector, items);
-		return items;
-	}
-	
-
-	protected Object generateOptionField(Field f,UISpecRunContext context) throws JSONException {
-		String type = "string";
-		String defaultval = f.getOptionDefault();
-		if( (this.spectype.equals("search") && !f.getSearchType().equals(""))){
-			defaultval = "";
-		}
-		return generateSchemaObject(type, defaultval, null, null);
-	}
-
-	protected void generateFieldDataEntry_notrefactored(JSONObject out,
-			UISpecRunContext affix, Field f) throws JSONException {
-		generateFieldDataEntry_refactored(out, affix, f);
-	}
-	
-	protected void generateFieldDataEntry_refactored(JSONObject out, UISpecRunContext context, Field f)
-	throws JSONException {
-		if(f.hasAutocompleteInstance()) {
-			makeAuthorities(out, context, f);
-		}
-		else if(this.spectype.equals("search") && f.getSearchType().equals("false")){
-			//do nothing - this field is not required
-		}
-		else if("chooser".equals(f.getUIType()) && !this.spectype.equals("search")) {
-			out.put(getSelector(f,context),generateChooser(f,context));
-		}
-		else if("date".equals(f.getUIType())) {
-			out.put(getSelector(f,context),generateDate(f,context));
-		}
-		else if("validated".equals(f.getUIType())){
-			out.put(getSelector(f,context),generateDataTypeValidator(f,context));
-		}
-		else if("sidebar".equals(f.getUIType())) {
-			//Won't work now if uncommented
-			//out.put(getSelector(f)+affix,generateSideBar(f));
-		}
-		else if(f.getUIType().contains("selfrenderer")){
-			Object temp = generateDataEntryField(f,context);
-			if(temp instanceof JSONObject){
-				JSONObject tempo = (JSONObject)temp;
-
-				Iterator rit=tempo.keys();
-				while(rit.hasNext()) {
-					String key=(String)rit.next();
-					out.put(key, tempo.get(key));
-				}
-				
-			}
-			else{
-				out.put(getSelector(f,context),generateDataEntryField(f,context));
-			}
-				
-		}
-		else{
-			out.put(getSelector(f,context),generateDataEntryField(f,context));	
-		}
-	}
-
-	protected void generateExpanderDataEntry(JSONObject out, UISpecRunContext context,
-			Field f) throws JSONException {
-		out.put(getSelector(f,context), generateOptionField(f,context));
-	}
-
-	protected JSONObject generateChooser(Field f,UISpecRunContext context) throws JSONException {
-		return generateSchemaObject("string", null, null, null);
-	}
-
-	protected JSONObject generateAutocomplete(Field f,UISpecRunContext context) throws JSONException {
-		return generateSchemaObject("string", null, null, null);
-	}
-
-	private void repeatItem(JSONObject out, Repeat r, UISpecRunContext context)
-			throws JSONException {
-		JSONObject items = new JSONObject();
-		Boolean isASelfrendererStructuredDate = false;
-		JSONObject structuredate = new JSONObject();
-
-		String selector = getSelector(r,context);
-		JSONObject protoTree = new JSONObject();
-		if(r.usesRecord() ){
-			if(!r.getUISpecInherit()){
-				UISpecRunContext sub = context.createChild();
-				if(!getSelectorAffix(r).equals("")){
-					if(!context.equals("")){
-						sub.setUIAffix(getSelectorAffix(r));
-					}
-					else{
-						sub.setUIAffix(getSelectorAffix(r));
-					}
-				}
-				String sp=r.getUISpecPrefix();
-				if(sp!=null)
-					sub.setUIPrefix(sp);
-				generateSubRecord(protoTree, r,sub, null);
-			}
-			else{
-				generateSubRecord(protoTree, r,context, null);
-			}
-		}
-		else{
-			for (FieldSet child : r.getChildren("")) {
-				if(!this.spectype.equals("search") || (this.spectype.equals("search") && (!child.getSearchType().equals("") && !child.getSearchType().equals("false") ) )){
-					generateDataEntry(protoTree, child, context);
-				}
-				if(child.getUIType().startsWith("groupfield") && child.getUIType().contains("structureddate")){
-					FieldParent fsp = child.getParent();
-
-					Boolean truerepeat = false;
-					//should we use structured dates in line rather than nested
-					
-					if(fsp instanceof Repeat && !(fsp instanceof Group)){
-						Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
-						if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
-							if((child instanceof Group || child instanceof Repeat) && !((Repeat) child).getXxxServicesNoRepeat()){
-								truerepeat = true;
-							}
-						}
-					}
-					
-					if(!truerepeat){
-						structuredate = protoTree.getJSONObject(getSelector(child,context)).getJSONObject("properties");
-						protoTree.remove(getSelector(child,context));
-						Iterator rit=structuredate.keys();
-						while(rit.hasNext()) {
-							String key=(String)rit.next();
-							protoTree.put(key, structuredate.get(key));
-						}
-					}
-				}
-			}
-		}
-		if (r.hasPrimary()) {
-			protoTree.put("_primary", generateSchemaObject("boolean", true,
-					null, null));
-		}
-		items = generateSchemaObject("object", null, protoTree, null);
-
-		out.put(selector, generateSchemaObject("array", null, null, items));
-	}
-
-	protected void repeatNonSibling(JSONObject out,  UISpecRunContext context,
-			Repeat r) throws JSONException {
-		repeatItem(out, r, context);
-	}
-
-	protected void repeatSibling(JSONObject out, UISpecRunContext context, Repeat r,
-			JSONObject row, JSONArray children) throws JSONException {
-		repeatItem(out, r, context);
-	}
-
-	protected JSONObject generateDate(Field f,UISpecRunContext context) throws JSONException {
-		String type = "date";
-		return generateSchemaObject(type, null, null, null);
-	}
-
-	protected JSONObject generateDataTypeValidator(Field f, UISpecRunContext context) throws JSONException{
-		String datatype = f.getDataType();
-		if(datatype.equals("")){datatype="string";}
-		return generateSchemaObject(datatype, null, null, null);
-	}
-	protected Object generateDataEntryField(Field f,UISpecRunContext context) throws JSONException {
-		if ("plain".equals(f.getUIType())) {
-			if("boolean".equals(f.getDataType())){
-				return generateBooleanField(f,context);
-			}
-			else{
-				return generateSchemaObject("string", null, null, null);
-			}
-		} else if ("list".equals(f.getUIType())) {
-			return generateSchemaObject("object", new JSONObject(), null, null);
-		} else if ("linktext".equals(f.getUIType())) {
-			return generateSchemaObject("object", new JSONObject(), null, null);
-		} else if ("dropdown".equals(f.getUIType())) {
-			return generateOptionField(f,context);
-		} else if ("enum".equals(f.getUIType())) {
-			return generateENUMField(f,context);
-		} else if(f.getUIType().startsWith("groupfield")) {
-			return generateGroupField(f,context);
-		}
-		String datatype = f.getDataType();
-		if(datatype.equals("")){	datatype="string";	}
-		if(datatype.equals("boolean")){	return generateBooleanField(f,context);	}
-		
-		//ignore ui-type uploader
-		return generateSchemaObject(datatype, null, null, null);
-	}
-
-	private JSONObject generateSchemaObject(String type, Object defaultobj,
-			JSONObject properties, JSONObject items) throws JSONException {
-		JSONObject out = new JSONObject();
+	/**
+	 * Nuts and bolts of the UISchema obj structure
+	 * @param type
+	 * @param defaultobj
+	 * @param properties
+	 * @param items
+	 * @return 
+	 * @return
+	 * @throws JSONException
+	 */
+	private void actualSchemaObject(String type, Object defaultobj,
+			JSONObject properties, JSONObject items, JSONObject out) throws JSONException {
 		out.put("type", type);// array|object|string
 		if (defaultobj != null) {
 			out.put("default", defaultobj);
@@ -330,34 +445,14 @@ public class UISchema extends UISpec {
 		if (items != null) {
 			out.put("items", items);
 		}
-		return out;
 	}
-	
-	protected void generateSubRecord(JSONObject out, FieldSet fs, UISpecRunContext context, JSONObject parent) throws JSONException {
-		Record subrecord = fs.usesRecordId();
-		Boolean repeated = false;
-		if(fs.getParent() instanceof Repeat ||( fs instanceof Repeat && !(fs instanceof Group))){
-			repeated = true;
-		}
-		if( parent == null){
-			parent = out;
-		}
-		if(fs instanceof Group){
-			Group gp = (Group)fs;
-			if(gp.isGrouped()){
-				JSONObject schemaprop = new JSONObject();
-				generateSubRecord(subrecord, schemaprop,  repeated,  context, parent);
-
-				JSONObject schemaadd = new JSONObject();
-				schemaadd.put("type", "object");
-				schemaadd.put("properties", schemaprop);
-				out.put(gp.getID(), schemaadd);
-				return;
-			}
-		}
-		generateSubRecord(subrecord, out,  repeated,  context, parent);
-		
-	}
+	/**
+	 * Create all the other weird schemas that the UI wants
+	 * @param storage
+	 * @param params
+	 * @return
+	 * @throws UIException
+	 */
 	private JSONObject uiotherschema(Storage storage, String params) throws UIException {
 		JSONObject out = new JSONObject();
 		String sectionname = "";
@@ -504,6 +599,13 @@ public class UISchema extends UISpec {
 		}
 		return out;
 	}
+	/**
+	 * Create the search uischemas
+	 * @param storage
+	 * @param record
+	 * @return
+	 * @throws UIException
+	 */
 	private JSONObject uisearchschema(Storage storage, Record record) throws UIException {
 		UISpecRunContext context = new UISpecRunContext();
 		this.storage = storage;
@@ -513,7 +615,7 @@ public class UISchema extends UISpec {
 		try {
 			JSONObject out = new JSONObject();
 
-			JSONObject fields = generateFields(context);
+			JSONObject fields = actualSchemaFields(record, context);
 			JSONObject prop = fields.getJSONObject("properties");
 			fields.put("properties", prop);
 			out.put(record.getWebURL(), fields);
@@ -522,6 +624,14 @@ public class UISchema extends UISpec {
 			throw new UIException("Cannot generate UISpec due to JSONException", e);
 		}
 	}
+	
+	/**
+	 * Create the generic UI record schemas
+	 * @param storage
+	 * @param record
+	 * @return
+	 * @throws UIException
+	 */
 	private JSONObject uirecordschema(Storage storage,Record record) throws UIException {
 		UISpecRunContext context = new UISpecRunContext();
 		this.storage = storage;
@@ -533,17 +643,16 @@ public class UISchema extends UISpec {
 			JSONObject properties = new JSONObject();
 
 			if (record.hasTermsUsed()) {
-				properties.put("termsUsed", generateTermsUsed(context));
+				properties.put("termsUsed", actualSchemaTermsUsed(context));
 			}
 			if (record.hasRefObjUsed()) {
-				properties.put("relations", generateRelations());
+				properties.put("relations", actualSchemaRelations());
 			}
-			JSONObject fields = generateFields(context);
+			JSONObject fields = actualSchemaFields(record, context);
 			JSONObject prop = fields.getJSONObject("properties");
 			
-
 			if(record.hasHierarchyUsed("screen")){
-				JSONObject temp = generateFields(record.getSpec().getRecord("hierarchy"),context);
+				JSONObject temp = actualSchemaFields(record.getSpec().getRecord("hierarchy"),context);
 				JSONObject prop2 = temp.getJSONObject("properties");
 
 				Iterator rit=prop2.keys();
@@ -555,10 +664,11 @@ public class UISchema extends UISpec {
 			}
 			fields.put("properties", prop);
 			properties.put("fields", fields);
-			
-			properties.put("csid", generateSchemaObject("string", null, null,
-					null));
-			details = generateSchemaObject("object", null, properties, null);
+
+			JSONObject output = new JSONObject();
+			actualSchemaObject("string", null, null, null, output);
+			properties.put("csid", output);
+			actualSchemaObject("object", null, properties, null, details);
 
 			out.put(record.getWebURL(), details);
 			/*
@@ -569,28 +679,5 @@ public class UISchema extends UISpec {
 		} catch (JSONException e) {
 			throw new UIException("Cannot generate UISpec due to JSONException", e);
 		}
-	}
-
-	public void configure() throws ConfigException {
-	}
-
-	public void run(Object in, String[] tail) throws UIException {
-		Request q = (Request) in;
-		JSONObject out;
-		if(this.record != null){
-			if(this.spectype.equals("search")){
-				out = uisearchschema(q.getStorage(),this.record);
-			}
-			else{
-				out = uirecordschema(q.getStorage(),this.record);
-			}
-		}
-		else{
-			out = uiotherschema(q.getStorage(),StringUtils.join(tail,"/"));
-		}
-		q.getUIRequest().sendJSONResponse(out);
-	}
-
-	public void configure(WebUI ui, Spec spec) {
 	}
 }

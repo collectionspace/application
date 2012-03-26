@@ -36,529 +36,126 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UISpec implements WebMethod {
+public class UISpec extends SchemaStructure implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(UISpec.class);
+	protected CacheTermList ctl;
 	protected Record record;
 	protected Storage storage;
-	protected Spec spec;
-	protected String tenantname = "html";
-	protected String structureview;
-	protected String spectype = "";
-	protected CacheTermList ctl;
 
-	public UISpec(Spec spec) {
-		this.spec = spec;
+	public UISpec(Spec spec, String sview, String stype) {
+		super(spec, sview, stype);
+	}
+	public UISpec(Record r, String sview){
+		super(r, sview);
+		this.record = r;
 	}
 
-	// XXX should be moved into fs.getIDPath itself, but refactoring would take too long for 1.7 -- dan
-	private String[] getFullIDPath(FieldSet fs,UISpecRunContext context) {
-		List<String> out = new ArrayList<String>();
-		out.addAll(Arrays.asList(context.getUIPrefix()));
-		out.addAll(Arrays.asList(fs.getIDPath()));		
-		return out.toArray(new String[0]);
+	@Override
+	public void configure(WebUI ui, Spec spec) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void run(Object in, String[] tail) throws UIException {
+		Request q=(Request)in;
+		ctl = new CacheTermList(q.getCache());
+		JSONObject out=uispec(q.getStorage());
+		q.getUIRequest().sendJSONResponse(out);
 	}
 	
-	public UISpec(Record record, String structureview) {
-		this.record=record;
-		this.spec = record.getSpec();
-		this.structureview = structureview;
-		this.spectype = "";
-		if(structureview.equals("search")){
-			this.spectype = "search";
-		}
-
-	}
-
-	// XXX make common
-	protected String veryplainWithoutEnclosure(FieldSet f,UISpecRunContext context) {
-
-		if(!f.getSearchType().equals("") && this.spectype.equals("search")){
-			return f.getID();
-		}
-		List<String> path=new ArrayList<String>();
-		String pad="fields";
-		path.add(pad);
-		for(String part : getFullIDPath(f,context)) {
-			if(pad.equals("0")){
-				if(context.hasPad()){
-					path.add(pad);
-				}
-				pad="";
+	/**
+	 * create the UISpec and return the JSONObject 
+	 * @param storage
+	 * @return
+	 * @throws UIException
+	 */
+	protected JSONObject uispec(Storage storage) throws UIException {
+		this.storage = storage;
+		UISpecRunContext context = new UISpecRunContext();
+		try {
+			JSONObject out=new JSONObject();
+			Structure s = record.getStructure(this.structureview);
+			if(this.structureview.equals("search")){
+				out = generateUISpecRecordEditor(context, s.showMessageKey());
 			}
 			else{
-				pad="0";
-			}
-			path.add(part);
-		}
-		return StringUtils.join(path,'.');		
-	}
-	protected String veryplain(FieldSet f,UISpecRunContext context) {
-		return "${"+veryplainWithoutEnclosure(f,context)+"}";		
-	}
-	protected String veryplain(String f) {
-		return "${"+f+"}";		
-	}
 
-	// XXX make common
-	protected String plain(Field f,UISpecRunContext context) {
-		if(f.getParent().isExpander() ||  f.isRepeatSubRecord()){
-			return radio(f);
-		}
-		if(f.getParent() instanceof Repeat){
-			Repeat rp = (Repeat)f.getParent();//remove bogus repeats used in search
-			if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
-				return radio(f);
+				if(s.showListSection()){ /* used in termlist, reports, all */
+					out.put(s.getListSectionName(),generateUISpecListSection(s,context));
+				}
+				if(s.showEditSection()){
+					out.put(s.getEditSectionName(),generateUISpecRecordEditor(context, s.showMessageKey()));
+				}
+				if(s.showHierarchySection()){
+					out.put(s.getHierarchySectionName(),generateUISpecHierarchySection(context, s.showMessageKey()));
+				}
 			}
-			if(this.spectype.equals("search")){
-				return radio(f);
-			}
+			return out;
+		} catch (JSONException e) {
+			throw new UIException("Cannot generate UISpec due to JSONException",e);
 		}
-		return veryplain(f,context);
-	}
-	// XXX make common
-	protected String radio(Field f) {
-		List<String> path=new ArrayList<String>();
-		String pad="{row}";
-		path.add(pad);
-		
-		String[] paths = f.getIDPath();
-		path.add(paths[paths.length - 1]);
-		return "${"+StringUtils.join(path,'.')+"}";		
-	}
-	// XXX make common
-	// ${items.0.name}
-	protected String plainlist(Field f) {
-		List<String> path=new ArrayList<String>();
-		String name="items";
-		path.add(name);
-			String pad="0";
-			path.add(pad);
-			path.add(f.getID());
-		
-		return "${"+StringUtils.join(path,'.')+"}";		
-	}
-
-//	protected JSONObject linktext(Field f) throws JSONException  {
-//		JSONObject number=new JSONObject();
-//		number.put("linktext",f.getLinkText());
-//		number.put("target",f.getLinkTextTarget());
-//		return number;	
-//	}
-
-	private String makeSelector(String pre, UISpecRunContext context, String post){
-		List<String> affixes = Arrays.asList(context.getUIAffix());
-		String selector = pre;
-		for(String part : affixes) {
-			if(part != null && part !=""){
-				selector += part;
-			}
-		}
-		selector += post;
-		
-		return selector;
 	}
 	
-	protected String getSelectorAffix(FieldSet fs){
-		return fs.getSelectorAffix();
-	}
-	protected String getContainerSelector(FieldSet fs,  UISpecRunContext context){
-		return makeSelector(fs.getPreContainerSelector(),context,fs.getContainerSelector());
-	}
-	protected String getTitleSelector(FieldSet fs,  UISpecRunContext context){
-		return makeSelector(fs.getPreTitleSelector(),context,fs.getTitleSelector());
-	}
-
-	protected String getSelector(FieldSet fs, UISpecRunContext context){
-		return makeSelector(fs.getPreSelector(),context,fs.getSelector());
-	}
-	protected String getDecoratorSelector(FieldSet fs, UISpecRunContext context){
-		return makeSelector(fs.getDecoratorSelector(),context,fs.getSelector());
+	/**
+	 * Return all the message keys and the run off and get the data
+	 * @param context
+	 * @param addMessages
+	 * @return
+	 * @throws JSONException
+	 */
+	protected JSONObject generateUISpecRecordEditor(UISpecRunContext context, Boolean addMessages) throws JSONException{
+		JSONObject out = generateDataEntrySection(context, this.record, this.spectype);
+		if(addMessages){
+			makeAllRecordMessageKey(context, out, this.record);
+		}
+		return out;
 	}
 	
-	protected Object generateOptionField(Field f,UISpecRunContext context) throws JSONException {
-		// Dropdown entry
+	protected JSONObject generateUISpecListSection(Structure s, UISpecRunContext context) throws JSONException {
 		JSONObject out=new JSONObject();
-		if("radio".equals(f.getUIType())) {
-			out.put("selection",radio(f));
-		}
-		else{
-			out.put("selection",plain(f,context));
-		}
-		JSONArray ids=new JSONArray();
-		JSONArray names=new JSONArray();
-		int idx=0;
-		boolean hasdefault = false;
-		String dfault=null;
-		for(Option opt : f.getAllOptions()) {
-			if(opt.getID().equals("")){ hasdefault = true;}
-			ids.put(opt.getID());
-			names.put(opt.getName());
-			if(opt.isDefault())
-				dfault=opt.getID();
-			idx++;
-		}
-		
-		//need to make sure there is always a blank on search and default is ""
-		if(this.spectype.equals("search") && !f.getSearchType().equals("")){
-			out.put("default","");
-			if(!hasdefault){ids.put("");names.put(f.enumBlankValue());}
-			out.put("optionlist",ids);
-			out.put("optionnames",names);	
-		}
-		else{
-
-			//currently only supports single select dropdowns and not multiselect
-			if(dfault!=null)
-				out.put("default",dfault+"");
-			out.put("optionlist",ids);
-			out.put("optionnames",names);	
+		String id = s.getListSectionName();
+		if(s.getFieldTopLevel(id) != null){
+			FieldSet fs = s.getFieldTopLevel(id);
+			whatIsThisFieldSet(out,fs, context);
 		}
 		return out;
 	}
-	// XXX factor
-	protected Object generateDataEntryField(Field f,UISpecRunContext context) throws JSONException {
-		if("plain".equals(f.getUIType())) {
-			// Plain entry
-			return plain(f,context);
-		} 
-		else if("list".equals(f.getUIType())){
-			return plainlist(f);
-		}
-		else if("dropdown".equals(f.getUIType())) {
-			return generateOptionField(f,context);
-		}
-		else if("enum".equals(f.getUIType())) {
-			return generateENUMField(f,context);
-		}
-		else if(f.getUIType().startsWith("groupfield")) {
-			return generateGroupField(f,context);
-		}
-		//ignore ui-type uploader
-		return plain(f,context);	
-	}
-
-	protected Object generateGroupField(FieldSet fs,UISpecRunContext context) throws JSONException {
-		JSONObject out=new JSONObject();
-		if(fs instanceof Field || fs instanceof Repeat){
-		
-			JSONArray decorators=new JSONArray();
-			JSONObject options=new JSONObject();
-			UISpecRunContext sub = context.createChild();
-			sub.setUIPrefix(fs.getID());
-			sub.setPad(false);
-			//context.appendAffix("objectProductionDates-");
-			String parts[] = fs.getUIType().split("/");
-			JSONObject subexpander = new JSONObject();
-			Record subitems = fs.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-			options.put("elPath", "fields."+fs.getPrimaryKey());
-			
-			if(parts[1].equals("structureddate")){
-				out.put("value",veryplain("fields."+fs.getPrimaryKey()));
-				Boolean truerepeat = false;
-				FieldParent fsp = fs.getParent();
-				if(fsp instanceof Repeat && !(fsp instanceof Group)){
-					Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
-					if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
-						String prefix = "";
-						if(fs instanceof Group && !((Group) fs).getXxxServicesNoRepeat()){
-							//XXX refacetor with some idea of UIContext.
-							//add a prefix for nested non repeatables
-							prefix = fs.getID()+".";
-						}
-						truerepeat = true;
-						for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
-							subexpander.put(getSelector(fs2,sub), prefix+fs2.getID());
-						}
-						if(fs instanceof Group && !((Group) fs).getXxxServicesNoRepeat()){
-							options.put("elPath", prefix+fs.getPrimaryKey());
-							options.put("root", "{row}");
-							out.put("value",veryplain("{row}."+prefix+fs.getPrimaryKey()));
-						}
-						else if(fs instanceof Repeat){
-
-							options.put("elPath", fs.getPrimaryKey());
-							options.put("root", "{row}");
-							out.put("value",veryplain("{row}."+fs.getPrimaryKey()));
-						}
-					}
-				}
-				if(!truerepeat){
-					for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
-						if(!fs2.getSearchType().equals("false") || !this.spectype.equals("search")){ //only hide if this is a search uispec - need to extend to all uispec stuff
-							subexpander.put(getSelector(fs2,sub), veryplainWithoutEnclosure(fs2,sub));
-						}
-					}
-				}
-
-				options.put("elPaths", subexpander);
-			}
-			else if(parts.length>=3 && parts[2].equals("selfrenderer")){
-				Boolean truerepeat = false;
-				FieldParent fsp = fs.getParent();
-				if(fsp instanceof Repeat && !(fsp instanceof Group)){
-					Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
-					if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
-						truerepeat = true;
-						for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
-							generateDataEntry(subexpander,fs2, context);
-						}
-						JSONObject renderedcontents=new JSONObject();
-						generateMessageKeys(context, subexpander, subitems);
-						generateSelfRenderedEntry(renderedcontents, subexpander);
-						options = renderedcontents;
-					}
-				}
-				if(!truerepeat){
-					for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
-						generateDataEntry(subexpander,fs2, context);
-					}
-					JSONObject renderedcontents=new JSONObject();
-					generateMessageKeys(context, subexpander, subitems);
-					generateSelfRenderedEntry(renderedcontents,subexpander);
-					options = renderedcontents;
-				}
-			}
-			else{
-				out.put("value",veryplain("fields."+fs.getPrimaryKey()));
-				for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {		
-					generateDataEntry(subexpander,fs2, sub);
-				}
-
-				JSONObject expander = new JSONObject();
-				expander.put("type", "fluid.noexpand");
-				expander.put("tree", subexpander);
-				
-				JSONObject protoTree = new JSONObject();
-				protoTree.put("expander", expander);
-
-				options.put("protoTree", protoTree);
-				
-			}
-			
-			sub.setUIAffix(fs.getID()+"-");
-			
-			
-			JSONObject decorator=getDecorator("fluid",null,fs.getUIFunc(),options,fs.isReadOnly());
-			decorators.put(decorator);
-			out.put("decorators",decorators);
-
-		}
-		
-		return out;
-	}
-
-	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
+	
+	/**
+	 * Create hierarchy section for the uispec
+	 * @param affix
+	 * @param addMessages
+	 * @return
+	 * @throws JSONException
+	 */
+	protected JSONObject generateUISpecHierarchySection(UISpecRunContext affix, Boolean addMessages) throws JSONException{
 		JSONObject out = new JSONObject();
-		JSONArray decorator = new JSONArray();
-		JSONObject options = new JSONObject();
-		if(f.getParent() instanceof Repeat && !(((Repeat)f.getParent()).getSearchType().equals("repeator" ) && !this.spectype.equals("search")) ){
-			options.put("elPath", f.getID());
-			options.put("root", "{row}");
-		}
-		else{
-			options.put("elPath", veryplainWithoutEnclosure(f,context));
-		}
-		options.put("termListType", f.getID());
-		JSONObject decdata = getDecorator("fluid", null, "cspace.termList", options,f.isReadOnly());
-		decorator.put(decdata);
-		out.put("decorators", decorator);
-	
-		return out;
-	}
-	
+		Record subf = this.spec.getRecord("hierarchy");
 
+		String extra = "";
+		if(this.record.getRecord().isType("authority"))
+			extra ="vocabularies/";
+		affix.setUIRecordUrl(extra + record.getWebURL());
 
-	
-	
-	protected JSONArray generateRepeatExpanderEntry(Repeat r, UISpecRunContext context) throws JSONException {
-		JSONArray expanders = new JSONArray();
-		JSONObject siblingexpander = new JSONObject();
-		JSONObject expander = new JSONObject();
-		expander.put("type", "fluid.renderer.repeat");
-		expander.put("controlledBy", veryplainWithoutEnclosure(r,context));//"fields."+r.getID());
-		expander.put("pathAs", "row");
-		expander.put("repeatID", getSelector(r,context)+":");
-
-		if(r.getChildren("").length>0){
-			JSONObject tree = new JSONObject();
-			for(FieldSet child : r.getChildren("")) {
-				if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
-
-					if(child.getUIType().equals("hierarchy")){
-
-						expander.put("repeatID", getSelector(child,context)+":");
-						generateHierarchyEntry(siblingexpander, child,  context);
-						expanders.put(siblingexpander.getJSONObject("expander"));
-						if(child instanceof Field){
-							String classes = getDecoratorSelector(child,context);
-							JSONObject decorator = getDecorator("addClass",classes,null,null,child.isReadOnly());
-							tree.put("value", generateDataEntryField((Field)child,context));
-							tree.put("decorators", decorator);
-						}
-					}
-					else if(child.getUIType().equals("decorated")){
-
-						expander.put("repeatID", getSelector(child,context)+":");
-						if(child instanceof Field){
-							String classes = getDecoratorSelector(child,context);
-							JSONObject decorator = getDecorator("addClass",classes,null,null,child.isReadOnly());
-							tree.put("value", generateDataEntryField((Field)child,context));
-							tree.put("decorators", decorator);
-						}
-					}
-					else{
-						generateDataEntry(tree,child, context);
-					}
-				}
-			}
-			if(r.isConditionExpander()){
-				expander.put("valueAs", "rowValue");
-				JSONObject cexpander = new JSONObject();
-				JSONObject texpander = new JSONObject();
-				cexpander.put("type", "fluid.renderer.condition");
-				JSONObject condpander = new JSONObject();
-				condpander.put("funcName", "cspace.admin.assertRoleDisplay");
-				condpander.put("args", "{rowValue}.display");
-
-				cexpander.put("condition", condpander);
-				cexpander.put("trueTree", tree);
-
-				generateTrueTree(texpander, cexpander);
-				expander.put("tree", texpander);
-			}
-			else{
-				expander.put("tree", tree);
-			}
-		}
-		expanders.put(expander);
-		return expanders;
-	}
-	
-	protected JSONObject generateSelectionExpanderEntry(Field f, UISpecRunContext context) throws JSONException {
-		JSONObject expander = new JSONObject();
-		expander.put("type", "fluid.renderer.selection.inputs");
-		expander.put("rowID", getSelector(f,context)+"-row:");
-		expander.put("labelID", getSelector(f,context)+"-label");
-		expander.put("inputID", getSelector(f,context)+"-input");
-		expander.put("selectID", f.getID());
-
-		JSONObject tree = new JSONObject();
-		tree = (JSONObject)generateOptionField(f,context);
-		expander.put("tree", tree);
-		return expander;
-	}
-
-	// Unused. Delete it? If not comment here. May 2011.
-	private JSONObject generateNonExpanderEntry(Repeat r, UISpecRunContext context) throws JSONException {
-		JSONObject out = new JSONObject();
-		JSONObject expander = new JSONObject();
-		expander.put("type", "fluid.renderer.noexpand");
-
-		if(r.getChildren("").length>0){
-			JSONObject tree = new JSONObject();
-			for(FieldSet child : r.getChildren("")) {
-				generateDataEntry(tree,child, context);
-			}
-			expander.put("tree", tree);
-		}
-		out.put("expander", expander);
-		return out;
-	}
-	
-	protected JSONObject generateRepeatEntry(Repeat r, UISpecRunContext context, JSONObject outer) throws JSONException {
-
-		JSONObject out = new JSONObject();
+		makeASubRecord(subf, out,  false,  affix, out);
 		
-		if(r.isExpander()){
-			JSONArray expanders= generateRepeatExpanderEntry(r,context);
-			out.put("expanders", expanders);
-		}
-		else{
-			JSONArray decorators=new JSONArray();
-
-			JSONObject options=new JSONObject();
-			JSONObject preProtoTree=new JSONObject();
-
-			if(r.usesRecord() ){
-				if(!r.getUISpecInherit()){
-					UISpecRunContext sub = context.createChild();
-					if(!getSelectorAffix(r).equals("")){
-						if(!context.equals("")){
-							sub.setUIAffix(getSelectorAffix(r));
-						}
-						else{
-							sub.setUIAffix(getSelectorAffix(r));
-						}
-					}
-					String sp=r.getUISpecPrefix();
-					if(sp!=null)
-						sub.setUIPrefix(sp);
-					generateSubRecord(preProtoTree, r,sub, outer);
-				}
-				else{
-					generateSubRecord(preProtoTree, r,context, outer);
-				}
-			}
-			else{
-				for(FieldSet child :r.getChildren("")) {
-					if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
-						generateDataEntry(preProtoTree,child, context);
-					}
-				}
-			}
-			
-			JSONObject expander = new JSONObject();
-			expander.put("type", "fluid.noexpand");
-			expander.put("tree", preProtoTree);
-			
-			
-			JSONObject repeatTree = new JSONObject();
-			repeatTree.put("expander", expander);
-			if(r.getParent() instanceof Record){
-				options.put("elPath",veryplainWithoutEnclosure(r,context));
-			}
-			else{
-				options.put("elPath", r.getID());
-				options.put("root", "{row}");
-			}
-			options.put("repeatTree", repeatTree);
-			//is this a nested repeat or a top level repeat...
-			//is this a uispec for search - if so no primary tags wanted
-			if(r.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
-				options.put("hidePrimary", true);
-			}
-			
-
-			JSONObject decorator = getDecorator("fluid",null,"cspace.makeRepeatable",options,r.isReadOnly());
-			decorators.put(decorator);
-			out.put("decorators",decorators);
+		if(addMessages){
+			makeAllRecordMessageKey(affix,out, subf);
 		}
 		return out;
 	}
-
-	//get all children as well as pseudo sub records like groupfields
-	private static List<FieldSet> getChildrenWithGroupFields(Repeat parent, String operation){
-		List<FieldSet> children = new ArrayList<FieldSet>();
-		
-		for(FieldSet fs : parent.getChildren(operation)) {
-
-			if(fs.getUIType().startsWith("groupfield")){
-				String parts[] = fs.getUIType().split("/");
-				Record subitems = fs.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
-
-				for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
-					children.add(fd); //what about nested groupfields?
-				}
-			}
-			else{
-				children.add(fs);
-			}
-		}
-		return children;
-	}
-	protected JSONObject generateAutocomplete(Field f,UISpecRunContext context) throws JSONException {
+	/**
+	 * display the autocomplete markup for the uispec
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected JSONObject actualAutocomplete(FieldSet fs,UISpecRunContext context) throws JSONException {
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
+		Field f = (Field)fs;
 
 		
 		JSONObject options=new JSONObject();
@@ -606,12 +203,56 @@ public class UISpec implements WebMethod {
 		decorators.put(decorator);
 		out.put("decorators",decorators);
 		if(f.isRefactored()){
-			out.put("value", generateDataEntryField(f,context));
+			out.put("value", actualFieldEntry(f,context));
 		}
 		return out;
 	}
 
-	protected JSONObject generateChooser(Field f,UISpecRunContext context) throws JSONException {
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param context
+	 * @param f
+	 * @throws JSONException
+	 */
+	protected void actualAuthorities(JSONObject out, FieldSet fs, UISpecRunContext context)
+			throws JSONException {
+		if("enum".equals(fs.getUIType())){
+			out.put(getSelector(fs,context),actualFieldEntry(fs,context));
+		}
+		else{
+			out.put(getSelector(fs,context),actualAutocomplete(fs,context));
+		}
+	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @param useContainer
+	 * @throws JSONException 
+	 */
+	protected void actualChooserField(JSONObject out, FieldSet fs, UISpecRunContext context, Boolean useContainer) throws JSONException{
+		if(useContainer){
+			out.put(getContainerSelector(fs,context),actualChooser(fs,context));}
+		else{
+			out.put(getSelector(fs,context),actualChooser(fs,context));
+		}
+	}
+
+	protected Object actualBooleanField(Field f,UISpecRunContext context) throws JSONException {
+		return displayAsplain(f,context);
+	}
+	
+	/**
+	 * The UISpec mark up for Chooser elements
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected JSONObject actualChooser(FieldSet fs,UISpecRunContext context) throws JSONException {
+		Field f = (Field)fs;
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
 
@@ -642,11 +283,42 @@ public class UISpec implements WebMethod {
 		decorators.put(decorator);
 		out.put("decorators",decorators);
 		if(f.isRefactored()){
-			out.put("valuebinding", generateDataEntryField(f,context));
+			out.put("valuebinding", actualFieldEntry(f,context));
 		}
 		return out;
 	}
-	
+	/**
+	 * This is a bit of JSON needed by the UI so they display dates in the UIspec
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected JSONObject actualDate(FieldSet fs,UISpecRunContext context) throws JSONException {
+		JSONObject out=new JSONObject();
+		JSONArray decorators=new JSONArray();
+		Field f = (Field)fs;
+		JSONObject decorator=getDecorator("fluid",null,"cspace.datePicker",null,f.isReadOnly());
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",getSelector(f,context));
+			}
+		}
+		decorators.put(decorator);
+		out.put("decorators",decorators);
+		out.put("value", actualFieldEntry(f,context));
+		return out;
+	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualDateField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		out.put(getSelector(fs,context),actualDate(fs,context));
+	}
 	/**
 	 * This is a bit of JSON needed by the UI so they can validate data types like integer,float etc
 	 * CSPACE-4330
@@ -655,7 +327,8 @@ public class UISpec implements WebMethod {
 	 * @return
 	 * @throws JSONException
 	 */
-	protected JSONObject generateDataTypeValidator(Field f, UISpecRunContext context) throws JSONException {
+	protected JSONObject generateDataTypeValidator(FieldSet fs, UISpecRunContext context) throws JSONException {
+		Field f = (Field)fs;
 		JSONObject out=new JSONObject();
 		JSONArray decorators=new JSONArray();
 		JSONObject options = new JSONObject();
@@ -671,435 +344,69 @@ public class UISpec implements WebMethod {
 		}
 		decorators.put(decorator);
 		out.put("decorators",decorators);
-		out.put("value", generateDataEntryField(f,context));
+		out.put("value", actualFieldEntry(f,context));
 		return out;
 	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		out.put(getSelector(fs,context),generateDataTypeValidator(fs,context));
+	}
+	
 
 	/**
-	 * This is a bit of JSON needed by the UI so they display dates
+	 * treat just the same as a normal field - only need the distinction in UISchema
+	 */
+	protected void actualSelfRendererField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		actualField(out, fs, context);
+	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		out.put(getSelector(fs,context),actualFieldEntry(fs,context));
+	}
+	
+	
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param fs
+	 * @param out
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualGroupEntry(FieldSet fs, JSONObject out, UISpecRunContext context, JSONObject contents) throws JSONException{
+		out.put(getSelector(fs,context),contents);
+	}
+	/**
+	 * Create hierarchy specific output for uispec
+	 * @param out
 	 * @param f
 	 * @param context
-	 * @return
 	 * @throws JSONException
 	 */
-	protected JSONObject generateDate(Field f,UISpecRunContext context) throws JSONException {
-		JSONObject out=new JSONObject();
-		JSONArray decorators=new JSONArray();
-		JSONObject decorator=getDecorator("fluid",null,"cspace.datePicker",null,f.isReadOnly());
-		if(!f.isRefactored()){
-			if(f.hasContainer()){
-				decorator.put("container",getSelector(f,context));
-			}
-		}
-		decorators.put(decorator);
-		out.put("decorators",decorators);
-		out.put("value", generateDataEntryField(f,context));
-		return out;
-	}
-
-	protected void generateMessageKeys(UISpecRunContext affix, JSONObject temp, FieldSet fs) throws JSONException {
-		Record r = fs.getRecord();
-		if(this.spectype.equals("search")){ //is this a search uispec
-			if(fs.getID()!=null){
-				if(fs.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
-					Repeat rp = (Repeat)fs;
-
-					for(FieldSet child : rp.getChildren("")) {
-						generateMessageKey(temp, r.getUILabelSelector(child.getID()), child.getLabel());
-					}
-				}
-				else{
-					generateMessageKey(temp, r.getUILabelSelector(fs.getID()), fs.getLabel());
-				}
-			}
-		}
-		else{
-			if(fs.getID()!=null){
-				generateMessageKey(temp, fs.getUILabelSelector(), fs.getLabel());
-			}
-			if(fs instanceof Repeat){
-				Repeat rp = (Repeat)fs;
-				for(FieldSet child : rp.getChildren("")) {
-					generateMessageKeys(affix,temp,child);
-				}
-			}
-		}
-	}
-
-	protected JSONObject generateMessageKeys(UISpecRunContext affix, JSONObject temp, Record r) throws JSONException {
-		if(this.spectype.equals("search")){ //is this a search uispec
-			for(String st: r.getAllUISections("search")){
-				if(st!=null){
-					generateMessageKey(temp, r.getUILabelSelector(st),r.getUILabel(st));
-				}
-			}
-			for(FieldSet fs : r.getAllFieldTopLevel(this.spectype)) {
-				if(fs.getID()!=null){
-					if(fs.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
-						Repeat rp = (Repeat)fs;
-
-						for(FieldSet child : rp.getChildren("")) {
-							generateMessageKey(temp, r.getUILabelSelector(child.getID()), child.getLabel());
-						}
-					}
-					else{
-						generateMessageKey(temp, r.getUILabelSelector(fs.getID()), fs.getLabel());
-					}
-				}
-			}
-		}
-		else{
-			for(String st: r.getAllUISections("")){
-				if(st!=null){
-					generateMessageKey(temp, r.getUILabelSelector(st),r.getUILabel(st));
-				}
-			}
-			
-			for(FieldSet fs : r.getAllFieldFullList("")) { //include children of repeats as well as top level
-				if(fs.getID()!=null){
-					generateMessageKey(temp, fs.getUILabelSelector(), fs.getLabel());
-				}
-			}
-		}
-		return temp;
-	}
-	
-	private void generateMessageKey(JSONObject temp, String labelSelector, String label) throws JSONException {
-		JSONObject msg = new JSONObject();
-		msg.put("messagekey", label);
-		temp.put(labelSelector, msg);
-	}
-
-	protected JSONObject generateHierarchySection(UISpecRunContext affix, Boolean addMessages) throws JSONException{
-		JSONObject out = new JSONObject();
-		Record subf = record.getSpec().getRecord("hierarchy");
-
-		String extra = "";
-		if(record.getRecord().isType("authority"))
-			extra ="vocabularies/";
-		affix.setUIRecordUrl(extra + record.getWebURL());
-		generateSubRecord(subf, out, false, affix);
-		
-		if(addMessages){
-			out = generateMessageKeys(affix,out, subf);
-		}
-		return out;
-	}
-	
-	
-	protected JSONObject generateRecordEditor(UISpecRunContext context, Boolean addMessages) throws JSONException{
-		JSONObject out = generateDataEntrySection(context);
-		if(addMessages){
-			out = generateMessageKeys(context,out, record);
-		}
-		return out;
-	}
-	
-	protected JSONObject generateDataEntrySection(UISpecRunContext affix) throws JSONException {
-		return generateDataEntrySection(affix,record);
-	}
-	
-	protected JSONObject generateDataEntrySection(UISpecRunContext context, Record r) throws JSONException {
-		JSONObject out=new JSONObject();
-		for(FieldSet fs : r.getAllFieldTopLevel(this.spectype)) {
-			generateDataEntry(out,fs,context);
-		}
-		return out;
-	}
-	
-	protected JSONObject generateListSection(Structure s, UISpecRunContext context) throws JSONException {
-		JSONObject out=new JSONObject();
-		String id = s.getListSectionName();
-		if(s.getFieldTopLevel(id) != null){
-			FieldSet fs = s.getFieldTopLevel(id);
-			generateDataEntry(out,fs, context);
-		}
-		
-		return out;
-	}
-	protected void generateSubRecord(JSONObject out, FieldSet fs, UISpecRunContext context, JSONObject parent) throws JSONException {
-		Record subrecord = fs.usesRecordId();
-		Boolean repeated = false;
-		if(fs.getParent() instanceof Repeat ||( fs instanceof Repeat && !(fs instanceof Group))){
-			repeated = true;
-		}
-		if( parent == null){
-			parent = out;
-		}
-		 if(fs instanceof Group){
-			Group gp = (Group)fs;
-			if(gp.isGrouped()){
-				context.setPad(false);
-			}
-		}
-		
-		generateSubRecord(subrecord, out,  repeated,  context, parent);
-		
-	}
-	protected void generateSubRecord(Record subr, JSONObject out, Boolean repeated, UISpecRunContext context) throws JSONException {
-		for(FieldSet fs2 : subr.getAllFieldTopLevel("")) {
-			if(repeated){
-				fs2.setRepeatSubRecord(true);
-			}
-			generateDataEntry(out,fs2, context);
-			fs2.setRepeatSubRecord(false);
-		}
-		Structure s = subr.getStructure(this.structureview);
-		if(s.showMessageKey()){
-			out = generateMessageKeys(context,out, subr);
-		}
-		
-	}
-	protected void generateSubRecord(Record subr, JSONObject out, Boolean repeated, UISpecRunContext context, JSONObject parent) throws JSONException {
-		for(FieldSet fs2 : subr.getAllFieldTopLevel("")) {
-			if(repeated){
-				fs2.setRepeatSubRecord(true);
-			}
-			generateDataEntry(out,fs2, context);
-			fs2.setRepeatSubRecord(false);
-		}
-		Structure s = subr.getStructure(this.structureview);
-		if(s.showMessageKey()){
-			parent = generateMessageKeys(context,parent, subr);
-		}
-		
-	}
-	
-	protected void generateDataEntry(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException {
-
-		if("uploader".equals(fs.getUIType())) {
-			generateUploaderEntry(out,fs,context);
-		}
-		if("hierarchy".equals(fs.getUIType())) {
-			generateHierarchyEntry(out,fs,context);
-		}
-		//this is a subrecord bit that is surrounded by a group tag in the parent obj
-		if(fs.usesRecord() && !(fs instanceof Repeat && !(fs instanceof Group))){
-			if(!fs.getUISpecInherit()){
-				//default behaviour do group or field as expected
-				UISpecRunContext sub = context.createChild();
-				if(!getSelectorAffix(fs).equals("")){
-					if(!context.equals("")){
-						sub.setUIAffix(getSelectorAffix(fs));
-					}
-					else{
-						sub.setUIAffix(getSelectorAffix(fs));
-					}
-				}
-				String sp=fs.getUISpecPrefix();
-				if(sp!=null)
-					sub.setUIPrefix(sp);
-				generateSubRecord(out, fs,sub, null);
-			}
-			else{
-				//create group item or field at the same level as parent fields - do not nest
-				generateSubRecord(out, fs,context, null);
-			}
-		}
-		else{
-			if(fs instanceof Field) {
-				// Single field
-				Field f=(Field)fs;
-				if(f.isExpander()){
-					generateExpanderDataEntry(out, context, f);
-				}
-				else if(f.isInTrueTree()){
-					//used when true tree magic is needed?
-					JSONObject tout = new JSONObject();
-					if(!f.isRefactored()){
-						generateFieldDataEntry_notrefactored(tout, context, f);
-					}
-					else{
-						generateFieldDataEntry_refactored(tout, context, f);
-					}
-
-					JSONObject cexpander = new JSONObject();
-					cexpander.put("trueTree", tout);
-
-					generateTrueTree(out, cexpander);
-				}
-				//XXX when all uispecs have moved across we can delete most of this
-				else if(!f.isRefactored()){
-					generateFieldDataEntry_notrefactored(out, context, f);
-				}
-				else{
-					generateFieldDataEntry_refactored(out, context, f);
-				}
-			} 
-			else if(fs instanceof Group) {
-				generateGroupDataEntry(out, fs, context);
-			} 
-			else if(fs instanceof Repeat) {
-				generateRepeatDataEntry(out, fs, context);
-			}
-
-		}
-
-	}
-
-	protected void generateExpanderDataEntry(JSONObject out, UISpecRunContext affix, Field f)
-			throws JSONException {
-		if("radio".equals(f.getUIType())){
-			JSONObject obj = generateSelectionExpanderEntry(f,affix);
-			out.put("expander",obj);
-		}
-	}
-
-	protected void generateRepeatDataEntry(JSONObject out, FieldSet fs,
-			UISpecRunContext affix) throws JSONException {
-		// Container
-		Repeat r=(Repeat)fs;
-		if(r.getXxxUiNoRepeat()) { //this is not a repeat in the UI only repeats in the service layer
-			FieldSet[] children=r.getChildren("");
-			if(children.length!=0){
-				generateDataEntry(out,children[0], affix);
-			}
-		} else {
-			JSONObject row=new JSONObject();
-			JSONArray children=new JSONArray();
-			if(r.asSibling() && !r.hasServicesParent()){ // allow for row [{'','',''}] e.g. roles and permissions
-				repeatSibling(out, affix, r, row, children);
-			}
-			else{//this should be most repeats
-				repeatNonSibling(out, affix, r);
-			}
-		}
-	}
-
-	protected void repeatNonSibling(JSONObject out,  UISpecRunContext context,
-			Repeat r) throws JSONException {
-		JSONObject contents=generateRepeatEntry(r, context,out); //gather all standard repeatable bits
-		String selector = getSelector(r,context);
-		//CSPACE-2619 scalar repeatables are different from group repeats
-		if(r.getChildren("").length==1){
-			FieldSet child = null;
-			if(r.getChildren("")[0] instanceof Field){
-				child = (Field)r.getChildren("")[0];
-				selector = getSelector(child,context);
-			}
-			else if(r.getChildren("")[0] instanceof Group){
-				child = (Group)r.getChildren("")[0];
-				selector = getSelector(child,context);
-			}
-		}
-		if(r.isExpander()){
-			selector="expander";
-			JSONArray expanders = contents.getJSONArray("expanders");
-			if(out.has("expander")){
-				expanders.put(out.get("expander"));
-			}
-			if(expanders.length() == 1){
-				out.put(selector,expanders.getJSONObject(0));
-			}
-			else{
-				out.put(selector,expanders);
-			}
-		}
-		else{
-			out.put(selector,contents);
-		}
-	}
-
-	protected void repeatSibling(JSONObject out, UISpecRunContext context, Repeat r,
-			JSONObject row, JSONArray children) throws JSONException {
-		JSONObject contents=new JSONObject();
-		for(FieldSet child : r.getChildren("")) {
-			generateDataEntry(contents,child, context);
-		}
-		children.put(contents);
-		row.put("children",children);
-		out.put(getSelector(r,context),row);
-	}
-
-	protected void generateGroupDataEntry(JSONObject out, FieldSet fs,
-			UISpecRunContext context) throws JSONException {
-		Group g = (Group)fs;
-
-
-		JSONObject contents=new JSONObject();
-		for(FieldSet child : g.getChildren("")) {
-			generateDataEntry(contents,child, context);
-		}		//UI specific marking: YURA said: these are renderer decorators that do their own rendering so need some sub nesting
-		if("selfrenderer".equals(fs.getUIType())) {
-			JSONObject renderedcontents=new JSONObject();
-			generateSelfRenderedEntry(renderedcontents, contents);
-			contents = renderedcontents;
-		}
-		else if(g.getUIType().startsWith("groupfield")) { //structured dates are being a little different
-			out.put(getSelector(g,context),generateGroupField(g,context));
-			return;
-		}
-		out.put(getSelector(g,context),contents);
-	}
-
-	protected void generateUploaderEntry(JSONObject out, FieldSet f, UISpecRunContext context) throws JSONException{
-		String condition =  "cspace.mediaUploader.assertBlob";
-
-		JSONObject cond = new JSONObject();
-		if(f instanceof Group){
-			Group gp = (Group)f;
-			String test = gp.usesRecordValidator();
-			FieldSet tester = record.getFieldTopLevel(test);
-			if(tester instanceof Field){
-				cond.put("args",plain((Field)tester,context));
-			}
-			cond.put("funcName", condition);
-		}
-		JSONObject ttree = new JSONObject();
-		ttree.put(getSelector(f,context),new JSONObject());
-		JSONObject decorator = getDecorator("addClass","hidden",null,null,f.isReadOnly());
-		JSONObject decorators = new JSONObject();
-		decorators.put("decorators", decorator);
-		JSONObject ftree = new JSONObject();
-		ftree.put(getSelector(f,context),decorators);
-		JSONObject cexpander = new JSONObject();
-		cexpander.put("type", "fluid.renderer.condition");
-		cexpander.put("condition", cond);
-		cexpander.put("trueTree", ttree);
-		cexpander.put("falseTree", ftree);
-		generateTrueTree(out,cexpander);
-		
-	}
-	/*
-	 * [10:57] <yura> csm22: because the markup for dimensions is delivered separately from the
-	 *  rest of the record editor's markup, and thus dimensions decorator itself will render those. this is all similar to higherarchies
-	 *  [10:58] <yura> csm22: there are basically 2 types of decorators
-	 *  renderer decorators that do their own rendering: e.g. structuredate, heirarchical, dimensions
-	 *  and ones like date picker and autocomplete
-	 * generateSelfRenderedEntry
-	 * ".csc-collection-object-dimension": {
-            "decorators": [{
-                "func": "cspace.dimension",
-                "type": "fluid",
-                "options": {
-                    "protoTree": {
-                        "expander": {
-                            "tree": {
-	 * */
-
-	protected void generateSelfRenderedEntry(JSONObject out, JSONObject tree) throws JSONException{
-		JSONObject expander = new JSONObject();
-		expander.put("type", "fluid.noexpand");
-		expander.put("tree", tree);
-	
-		JSONObject protoTree = new JSONObject();
-		protoTree.put("expander", expander);
-		out.put("protoTree", protoTree);
-	
-	}
-	protected void generateHierarchyEntry(JSONObject out, FieldSet f, UISpecRunContext context) throws JSONException{
+	protected void actualHierarchyEntry(JSONObject out, FieldSet f, UISpecRunContext context) throws JSONException{
 		String condition =  "cspace.hierarchy.assertEquivalentContexts";
 		Record thisr = f.getRecord();
 		JSONObject cond = new JSONObject();
 		if(f instanceof Field){
 			FieldSet fs = (FieldSet)f.getParent();
 			JSONObject args = new JSONObject();
-			args.put(fs.getID(), veryplain(fs,context));
+			args.put(fs.getID(), displayAsveryplain(fs,context));
 			cond.put("args",args);
 			cond.put("funcName", condition);
 		}
 		JSONObject ttree = new JSONObject();
-		generateMessageKey(ttree, thisr.getUILabelSelector(f.getID()), f.getLabel());
+		actualMessageKey(ttree, thisr.getUILabelSelector(f.getID()), f.getLabel());
 		
 		JSONObject decorator = getDecorator("addClass","hidden",null,null,f.isReadOnly());
 		JSONObject decorators = new JSONObject();
@@ -1114,39 +421,541 @@ public class UISpec implements WebMethod {
 		cexpander.put("trueTree", ttree);
 		cexpander.put("falseTree", ftree);
 
-		generateTrueTree(out, cexpander);
+		actualTrueTreeSub(out, cexpander);
 		
 	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param temp
+	 * @param labelSelector
+	 * @param label
+	 * @throws JSONException
+	 */
+	protected void actualMessageKey(JSONObject temp, String labelSelector, String label) throws JSONException {
+		JSONObject msg = new JSONObject();
+		msg.put("messagekey", label);
+		temp.put(labelSelector, msg);
+	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualFieldExpanderEntry(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException{
+		if("radio".equals(fs.getUIType())){
+			JSONObject expander = new JSONObject();
+			expander.put("type", "fluid.renderer.selection.inputs");
+			expander.put("rowID", getSelector(fs,context)+"-row:");
+			expander.put("labelID", getSelector(fs,context)+"-label");
+			expander.put("inputID", getSelector(fs,context)+"-input");
+			expander.put("selectID", fs.getID());
+
+			JSONObject tree = new JSONObject();
+			Field f = (Field)fs;
+			tree = (JSONObject)actualOptionField(f,context);
+			expander.put("tree", tree);
+			out.put("expander",expander);
+		}
+	}	
+
+
 	
-	protected void generateTrueTree(JSONObject out, JSONObject trueTreeBits) throws JSONException{
+	/**
+	 * output the ENUM markup for the UISpec
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected Object actualENUMField(Field f,UISpecRunContext context) throws JSONException {
+		JSONObject out = new JSONObject();
+		JSONArray decorator = new JSONArray();
+		JSONObject options = new JSONObject();
+		if(f.getParent() instanceof Repeat && (isATrueRepeat((Repeat)f.getParent()))){
+			options.put("elPath", f.getID());
+			options.put("root", "{row}");
+		}
+		else{
+			options.put("elPath", displayAsveryplainWithoutEnclosure(f,context));
+		}
+		options.put("termListType", f.getID());
+		JSONObject decdata = getDecorator("fluid", null, "cspace.termList", options,f.isReadOnly());
+		decorator.put(decdata);
+		out.put("decorators", decorator);
+	
+		return out;
+	}
+	/**
+	 * output the option field markup for UISpecs
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected Object actualOptionField(Field f,UISpecRunContext context) throws JSONException {
+		// Dropdown entry
+		JSONObject out=new JSONObject();
+		if("radio".equals(f.getUIType())) {
+			out.put("selection",displayAsradio(f));
+		}
+		else{
+			out.put("selection",displayAsplain(f,context));
+		}
+		JSONArray ids=new JSONArray();
+		JSONArray names=new JSONArray();
+		boolean hasdefault = false;
+		String dfault=null;
+		for(Option opt : f.getAllOptions()) {
+			if(opt.getID().equals("")){ hasdefault = true;}
+			ids.put(opt.getID());
+			names.put(opt.getName());
+			if(opt.isDefault())
+				dfault=opt.getID();
+		}
+		
+		//need to make sure there is always a blank on search and default is ""
+		if(this.spectype.equals("search") && !f.getSearchType().equals("")){
+			out.put("default","");
+			if(!hasdefault){ids.put("");names.put(f.enumBlankValue());}
+			out.put("optionlist",ids);
+			out.put("optionnames",names);	
+		}
+		else{
+
+			//currently only supports single select dropdowns and not multiselect
+			if(dfault!=null)
+				out.put("default",dfault+"");
+			out.put("optionlist",ids);
+			out.put("optionnames",names);	
+		}
+		return out;
+	}
+	
+	protected void actualAddDecorator(FieldSet fs, JSONObject out, UISpecRunContext sub,  JSONObject options) throws JSONException{
+		sub.setUIAffix(fs.getID()+"-");
+		JSONArray decorators=new JSONArray();
+		JSONObject decorator=getDecorator("fluid",null,fs.getUIFunc(),options,fs.isReadOnly());
+		decorators.put(decorator);
+		out.put("decorators",decorators);
+	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param tree
+	 * @throws JSONException
+	 */
+	protected void actualSelfRenderer(JSONObject out, JSONObject tree) throws JSONException{
+		JSONObject expander = new JSONObject();
+		expander.put("type", "fluid.noexpand");
+		expander.put("tree", tree);
+	
+		JSONObject protoTree = new JSONObject();
+		protoTree.put("expander", expander);
+		out.put("protoTree", protoTree);
+	}
+	
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param fs
+	 * @param out
+	 * @param sub
+	 * @param subitems
+	 * @throws JSONException
+	 */
+	protected void actualOtherGroup(FieldSet fs, JSONObject out, UISpecRunContext sub,  Record subitems) throws JSONException{
+		out.put("value",displayAsveryplain("fields."+fs.getPrimaryKey()));
+		for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {		
+			whatIsThisFieldSet(out,fs2, sub);
+		}
+	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param fs
+	 * @param out
+	 * @param sub
+	 * @param subexpander
+	 * @param subitems
+	 * @param options
+	 * @throws JSONException 
+	 */
+	protected void actualStructuredDate(FieldSet fs, JSONObject out, UISpecRunContext sub, JSONObject subexpander, Record subitems, JSONObject options) throws JSONException{
+		out.put("value",displayAsveryplain("fields."+fs.getPrimaryKey()));
+		Boolean truerepeat = false;
+		FieldParent fsp = fs.getParent();
+		if(fsp instanceof Repeat && !(fsp instanceof Group)){
+			Repeat rp = (Repeat)fsp;//remove bogus repeats used in search
+			if(isATrueRepeat(rp)){
+				String prefix = "";
+				if(fs instanceof Group && !((Group) fs).getXxxServicesNoRepeat()){
+					//XXX refacetor with some idea of UIContext.
+					//add a prefix for nested non repeatables
+					prefix = fs.getID()+".";
+				}
+				truerepeat = true;
+				for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
+					subexpander.put(getSelector(fs2,sub), prefix+fs2.getID());
+				}
+				if(fs instanceof Group && !((Group) fs).getXxxServicesNoRepeat()){
+					options.put("elPath", prefix+fs.getPrimaryKey());
+					options.put("root", "{row}");
+					out.put("value",displayAsveryplain("{row}."+prefix+fs.getPrimaryKey()));
+				}
+				else if(fs instanceof Repeat){
+					options.put("elPath", fs.getPrimaryKey());
+					options.put("root", "{row}");
+					out.put("value",displayAsveryplain("{row}."+fs.getPrimaryKey()));
+				}
+			}
+		}
+		if(!truerepeat){
+			options.put("elPath", "fields."+fs.getPrimaryKey());
+			for(FieldSet fs2 : subitems.getAllFieldTopLevel("")) {	
+				if(!fs2.getSearchType().equals("false") || !this.spectype.equals("search")){ //only hide if this is a search uispec - need to extend to all uispec stuff
+					subexpander.put(getSelector(fs2,sub), displayAsveryplainWithoutEnclosure(fs2,sub));
+				}
+			}
+		}
+		options.put("elPaths", subexpander);
+	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualTrueTreeEntry(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException{
+
+		JSONObject tout = new JSONObject();
+		if(isRefactored(fs)){
+			actualFieldRefactored(tout,fs, context);
+		}
+		else{
+			actualFieldNotRefactored(tout, fs, context);
+		}
+
+		JSONObject cexpander = new JSONObject();
+		cexpander.put("trueTree", tout);
+
+		actualTrueTreeSub(out, cexpander);
+	}
+	protected void actualTrueTreeSub(JSONObject out, JSONObject cexpander)
+			throws JSONException {
 		if(!out.has("expander")){
-			out.put("expander",trueTreeBits);
+			out.put("expander",cexpander);
 		}
 		else{
 			JSONObject exp = out.getJSONObject("expander");
-			Iterator rit=trueTreeBits.keys();
+			Iterator<?> rit= cexpander.keys();
 			while(rit.hasNext()) {
 				String key=(String)rit.next();
 				if(exp.has(key)){
 					//can only amalgamte if they are objs
 					if(exp.get(key) instanceof JSONObject){
 						JSONObject merged = exp.getJSONObject(key);
-						for(String keyd : JSONObject.getNames(trueTreeBits.getJSONObject(key)))
-						{
-							merged.put(keyd, trueTreeBits.getJSONObject(key).get(keyd));
+						if(cexpander.getJSONObject(key).length()!=0){
+							for(String keyd : JSONObject.getNames(cexpander.getJSONObject(key)))
+							{
+								merged.put(keyd, cexpander.getJSONObject(key).get(keyd));
+							}
 						}
 						exp.put(key,merged);
 					}
 				}
 				else{
-					exp.put(key, trueTreeBits.get(key));
+					exp.put(key, cexpander.get(key));
 				}
 			}
 			out.put("expander",exp);
 		}
-		
 	}
 	
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param r
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualRepeatExpanderEntry(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException{
+		JSONArray expanders = new JSONArray();
+		JSONObject siblingexpander = new JSONObject();
+		JSONObject expander = new JSONObject();
+		expander.put("type", "fluid.renderer.repeat");
+		expander.put("controlledBy", displayAsveryplainWithoutEnclosure(r,context));//"fields."+r.getID());
+		expander.put("pathAs", "row");
+		expander.put("repeatID", getSelector(r,context)+":");
+
+		if(r.getChildren("").length>0){
+			JSONObject tree = new JSONObject();
+			for(FieldSet child : r.getChildren("")) {
+				if(!this.spectype.equals("search") || (this.spectype.equals("search") && !child.getSearchType().equals(""))){
+
+					if(child.getUIType().equals("hierarchy")){
+
+						expander.put("repeatID", getSelector(child,context)+":");
+						actualHierarchyEntry(siblingexpander, child,  context);
+						expanders.put(siblingexpander.getJSONObject("expander"));
+						if(child instanceof Field){
+							String classes = getDecoratorSelector(child,context);
+							JSONObject decorator = getDecorator("addClass",classes,null,null,child.isReadOnly());
+							tree.put("value", actualFieldEntry((Field)child,context));
+							tree.put("decorators", decorator);
+						}
+					}
+					else if(child.getUIType().equals("decorated")){
+
+						expander.put("repeatID", getSelector(child,context)+":");
+						if(child instanceof Field){
+							String classes = getDecoratorSelector(child,context);
+							JSONObject decorator = getDecorator("addClass",classes,null,null,child.isReadOnly());
+							tree.put("value", actualFieldEntry((Field)child,context));
+							tree.put("decorators", decorator);
+						}
+					}
+					else{
+						whatIsThisFieldSet(tree,child, context);
+					}
+				}
+			}
+			if(r.isConditionExpander()){
+				expander.put("valueAs", "rowValue");
+				JSONObject cexpander = new JSONObject();
+				JSONObject texpander = new JSONObject();
+				cexpander.put("type", "fluid.renderer.condition");
+				JSONObject condpander = new JSONObject();
+				condpander.put("funcName", "cspace.admin.assertRoleDisplay");
+				condpander.put("args", "{rowValue}.display");
+
+				cexpander.put("condition", condpander);
+				cexpander.put("trueTree", tree);
+
+				actualTrueTreeSub(texpander, cexpander);
+				expander.put("tree", texpander);
+			}
+			else{
+				expander.put("tree", tree);
+			}
+		}
+		expanders.put(expander);
+		makeExpander(out, expanders);
+	}
+	/**
+	 * Overwrite with the output you need for the thing you are doing.
+	 * @param out
+	 * @param r
+	 * @param context
+	 * @param contents
+	 */
+	protected void actualRepeatNonSiblingEntry(JSONObject out, Repeat r, UISpecRunContext context, JSONObject preProtoTree) throws JSONException{
+
+		JSONArray decorators=new JSONArray();
+		JSONObject content=new JSONObject();
+		JSONObject options=new JSONObject();
+		JSONObject expander = new JSONObject();
+		expander.put("type", "fluid.noexpand");
+		expander.put("tree", preProtoTree);
+		
+		
+		JSONObject repeatTree = new JSONObject();
+		repeatTree.put("expander", expander);
+		if(r.getParent() instanceof Record){
+			options.put("elPath",displayAsveryplainWithoutEnclosure(r,context));
+		}
+		else{
+			options.put("elPath", r.getID());
+			options.put("root", "{row}");
+		}
+		options.put("repeatTree", repeatTree);
+		//is this a nested repeat or a top level repeat...
+		//is this a uispec for search - if so no primary tags wanted
+		if(r.getSearchType().startsWith("repeator") && this.spectype.equals("search")){
+			options.put("hidePrimary", true);
+		}
+		
+
+		JSONObject decorator = getDecorator("fluid",null,"cspace.makeRepeatable",options,r.isReadOnly());
+		decorators.put(decorator);
+		content.put("decorators",decorators);
+
+		String selector = getSelector(r,context);
+		//CSPACE-2619 scalar repeatables are different from group repeats
+		if(r.getChildren("").length==1){
+			FieldSet child = getFirstChild(r);
+			if(child instanceof Field || child instanceof Group){
+				selector = getSelector(child,context);
+			}
+		}
+		if(r.isExpander()){
+			JSONArray expanders = out.getJSONArray("expander");
+			makeExpander(out, expanders);
+		}
+		else{
+			out.put(selector,content);
+		}
+	}
+	/**
+	 * Overwrite with the output you need for the thing you are doing.
+	 * @param out
+	 * @param r
+	 * @param context
+	 * @param children
+	 * @throws JSONException 
+	 */
+	protected void actualRepeatSiblingEntry(JSONObject out, Repeat r, UISpecRunContext context, JSONArray children) throws JSONException{
+		JSONObject row=new JSONObject();
+		row.put("children",children);
+		out.put(getSelector(r,context),row);
+	}
+	/**
+	 * Overwrite with the output you need for the thing you are doing.
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualUploaderEntry(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException{
+		String condition =  "cspace.mediaUploader.assertBlob";
+
+		JSONObject cond = new JSONObject();
+		if(fs instanceof Group){
+			Group gp = (Group)fs;
+			String test = gp.usesRecordValidator();
+			FieldSet tester = record.getFieldTopLevel(test);
+			if(tester instanceof Field){
+				cond.put("args", displayAsplain((Field)tester,context));
+			}
+			cond.put("funcName", condition);
+		}
+		JSONObject ttree = new JSONObject();
+		ttree.put(getSelector(fs,context),new JSONObject());
+		JSONObject decorator = getDecorator("addClass","hidden",null,null,fs.isReadOnly());
+		JSONObject decorators = new JSONObject();
+		decorators.put("decorators", decorator);
+		JSONObject ftree = new JSONObject();
+		ftree.put(getSelector(fs,context),decorators);
+		JSONObject cexpander = new JSONObject();
+		cexpander.put("type", "fluid.renderer.condition");
+		cexpander.put("condition", cond);
+		cexpander.put("trueTree", ttree);
+		cexpander.put("falseTree", ftree);
+		actualTrueTreeSub(out,cexpander);
+	}
+
+	// XXX make common
+	protected Object displayAsplain(Field f,UISpecRunContext context) {
+		if(f.getParent().isExpander() ||  f.isRepeatSubRecord()){
+			return displayAsradio(f);
+		}
+		if(f.getParent() instanceof Repeat){
+			Repeat rp = (Repeat)f.getParent();//remove bogus repeats used in search
+			if(!rp.getSearchType().equals("repeator") && !this.spectype.equals("search")){
+				return displayAsradio(f);
+			}
+			if(this.spectype.equals("search")){
+				return displayAsradio(f);
+			}
+		}
+		return displayAsveryplain(f,context);
+	}
+	// XXX make common
+	protected String displayAsradio(Field f) {
+		List<String> path=new ArrayList<String>();
+		String pad="{row}";
+		path.add(pad);
+		
+		String[] paths = f.getIDPath();
+		path.add(paths[paths.length - 1]);
+		return "${"+StringUtils.join(path,'.')+"}";		
+	}
+	protected String displayAsveryplain(FieldSet f,UISpecRunContext context) {
+		return "${"+displayAsveryplainWithoutEnclosure(f,context)+"}";		
+	}
+	protected String displayAsveryplain(String f) {
+		return "${"+f+"}";		
+	}
+	protected String displayAsveryplainWithoutEnclosure(FieldSet f,UISpecRunContext context) {
+
+		if(!f.getSearchType().equals("") && this.spectype.equals("search")){
+			return f.getID();
+		}
+		List<String> path=new ArrayList<String>();
+		String pad="fields";
+		path.add(pad);
+		for(String part : getFullIDPath(f,context)) {
+			if(pad.equals("0")){
+				if(context.hasPad()){
+					path.add(pad);
+				}
+				pad="";
+			}
+			else{
+				pad="0";
+			}
+			path.add(part);
+		}
+		return StringUtils.join(path,'.');		
+	}
+	/**
+	 * ${items.0.name}
+	 * @param f
+	 * @return
+	 */
+	protected Object displayAsplainlist(Field f) throws JSONException {
+		List<String> path=new ArrayList<String>();
+		String name="items";
+		path.add(name);
+			String pad="0";
+			path.add(pad);
+			path.add(f.getID());
+		
+		return "${"+StringUtils.join(path,'.')+"}";		
+	}
+	/**
+	 * should be moved into fs.getIDPath itself, but refactoring would take too long for 1.7 -- dan
+	 * @param fs
+	 * @param context
+	 * @return
+	 */
+	private String[] getFullIDPath(FieldSet fs,UISpecRunContext context) {
+		List<String> out = new ArrayList<String>();
+		out.addAll(Arrays.asList(context.getUIPrefix()));
+		out.addAll(Arrays.asList(fs.getIDPath()));		
+		return out.toArray(new String[0]);
+	}
+	
+
+	/**
+	 * Get the container Selector
+	 * @param fs
+	 * @param context
+	 * @return
+	 */
+	protected String getContainerSelector(FieldSet fs,  UISpecRunContext context){
+		return makeSelector(fs.getPreContainerSelector(),context,fs.getContainerSelector());
+	}
+	/**
+	 * Get the generic selector
+	 * @param fs
+	 * @param context
+	 * @return
+	 */
+	protected String getSelector(FieldSet fs, UISpecRunContext context){
+		return makeSelector(fs.getPreSelector(),context,fs.getSelector());
+	}
+	
+	/**
+	 * add the UI decorator element
+	 * @param type
+	 * @param className
+	 * @param func
+	 * @param options
+	 * @param readOnly
+	 * @return
+	 * @throws JSONException
+	 */
 	protected JSONObject getDecorator(String type, String className, String func, JSONObject options, Boolean readOnly) throws JSONException{
 		JSONObject decorator = new JSONObject();
 		decorator.put("type",type);
@@ -1169,186 +978,103 @@ public class UISpec implements WebMethod {
 		}
 		return decorator;
 	}
-	
-	protected void generateFieldDataEntry_refactored(JSONObject out, UISpecRunContext context, Field f)
-			throws JSONException {
-		if(f.hasAutocompleteInstance()) {
-			makeAuthorities(out, context, f);
-		}
-		else if("chooser".equals(f.getUIType()) && !this.spectype.equals("search")) {
-			out.put(getSelector(f,context),generateChooser(f,context));
-		}
-		else if("date".equals(f.getUIType())) {
-			out.put(getSelector(f,context),generateDate(f,context));
-		}
-		else if("validated".equals(f.getUIType())){
-			out.put(getSelector(f,context),generateDataTypeValidator(f,context));
-		}
-		else if("sidebar".equals(f.getUIType())) {
-			//Won't work now if uncommented
-			//out.put(getSelector(f)+affix,generateSideBar(f));
-		}
-		else{
-			out.put(getSelector(f,context),generateDataEntryField(f,context));	
-		}
-	}
-
-	protected void makeAuthorities(JSONObject out, UISpecRunContext context, Field f)
-			throws JSONException {
-		if("enum".equals(f.getUIType())){
-			out.put(getSelector(f,context),generateDataEntryField(f,context));
-		}
-		else{
-			out.put(getSelector(f,context),generateAutocomplete(f,context));
-		}
-	}
-
-	protected void generateFieldDataEntry_notrefactored(JSONObject out, UISpecRunContext context, Field f)
-			throws JSONException {
-		// Single field
-		out.put(getSelector(f,context),generateDataEntryField(f,context));	
-		
-		if(f.hasAutocompleteInstance()) {
-			makeAuthorities(out, context, f);
-		}
-		if("chooser".equals(f.getUIType()) && !this.spectype.equals("search")) {
-			out.put(getContainerSelector(f,context),generateChooser(f,context));
-		}
-		if("date".equals(f.getUIType())) {
-			out.put(getSelector(f,context),generateDate(f,context));
-		}
-		if("validated".equals(f.getUIType())){
-			out.put(getSelector(f,context),generateDataTypeValidator(f,context));
-		}
-	}
-
-	private void generateTitleSectionEntry(JSONObject out,FieldSet fs, UISpecRunContext context) throws JSONException {
-		if(fs instanceof Field) {
-			Field f=(Field)fs;
-			if(!f.isInTitle())
-				return;
-			out.put(getTitleSelector(f,context),veryplain(f,context));
-		} else if(fs instanceof Repeat) {
-			for(FieldSet child : ((Repeat)fs).getChildren(""))
-				generateTitleSectionEntry(out,child, context);
-		}
-	}
-
-	protected JSONObject generateTitleSection(UISpecRunContext context) throws JSONException {
-		JSONObject out=new JSONObject();
-		for(FieldSet f : record.getAllFieldTopLevel("")) {
-			generateTitleSectionEntry(out,f, context);
-		}
-		return out;
-	}
-
-	// XXX refactor
-	static JSONObject generateSidebarPart(String url_frag,boolean include_type,boolean include_summary,boolean include_sourcefield) throws JSONException {
-		JSONObject out=new JSONObject();
-		JSONObject row=new JSONObject();
-		JSONArray children=new JSONArray();
-		JSONObject child=new JSONObject();
-		JSONObject number=new JSONObject();
-		number.put("linktext","${items.0.number}");
-		number.put("target",url_frag+"?csid=${items.0.csid}");
-		child.put(".csc-related-number",number);
-		if(include_type)
-			child.put(".csc-related-recordtype","${items.0.recordtype}");
-		if(include_summary)
-			child.put(".csc-related-summary","${items.0.summary}");
-		if(include_sourcefield)
-			child.put(".csc-related-field","${items.0.sourceFieldName}");
-		children.put(child);
-		row.put("children",children);
-		out.put(".csc-recordList-row:",row);
-		return out;
-	}
-
-	// XXX refactor
-	private JSONObject generateSideDataEntry(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException {
-		Repeat f=(Repeat)fs;
-		JSONObject listrow=new JSONObject();
-		generateDataEntry(listrow,fs, context);
-		out.put(f.getID(),listrow);
-		return out;
+	/**
+	 * Get the decorator selector
+	 * @param fs
+	 * @param context
+	 * @return
+	 */
+	protected String getDecoratorSelector(FieldSet fs, UISpecRunContext context){
+		return makeSelector(fs.getDecoratorSelector(),context,fs.getSelector());
 	}
 	
-	private JSONObject generateSideDataEntry(Structure s, JSONObject out, String fieldName,String url_frag,boolean include_type,boolean include_summary,boolean include_sourcefield, UISpecRunContext context )throws JSONException {
-		FieldSet fs = s.getSideBarItems(fieldName);
-		if(fs == null){
-			//XXX default to show if not specified
-			out.put(fieldName,generateSidebarPart(url_frag,include_type,include_summary,include_sourcefield));
-		}
-		else if(fs instanceof Repeat){
-			if(((Repeat)fs).isVisible()){
-				if(s.getFieldTopLevel(fs.getID()) != null){
-					generateSideDataEntry(out,s.getFieldTopLevel(fs.getID()), context);
-				}
-				else{
-					out.put(fieldName,generateSidebarPart(url_frag,include_type,include_summary,include_sourcefield));
-				}
+	/**
+	 * logic to put together the selectors needed
+	 * @param pre
+	 * @param context
+	 * @param post
+	 * @return
+	 */
+	private String makeSelector(String pre, UISpecRunContext context, String post){
+		List<String> affixes = Arrays.asList(context.getUIAffix());
+		String selector = pre;
+		for(String part : affixes) {
+			if(part != null && part !=""){
+				selector += part;
 			}
 		}
+		selector += post;
 		
-		return out;
+		return selector;
 	}
-
-	// XXX sidebar is partially fixed for now
-	//need to clean up this code - reduce duplication
-	protected JSONObject generateSidebarSection(Structure s, UISpecRunContext context) throws JSONException {
-		JSONObject out=new JSONObject();
-		generateSideDataEntry(s, out,"termsUsed","${items.0.recordtype}.html",true,false,true, context);
-		generateSideDataEntry(s, out,"relatedProcedures","${items.0.recordtype}.html",true,true,false, context);
-		generateSideDataEntry(s, out,"relatedCataloging","${items.0.recordtype}.html",false,true,false, context);
-		return out;
-	}
-
-	protected JSONObject uispec(Storage storage) throws UIException {
-		this.storage = storage;
-		this.tenantname = this.spec.getAdminData().getTenantName();
-		if(this.tenantname == null || this.tenantname.equals("")){
-			this.tenantname = "html";
+	/**
+	 * Abstraction to remove model and markup
+	 * @param out
+	 * @param expanders
+	 * @throws JSONException
+	 */
+	protected void makeExpander(JSONObject out, JSONArray expanders) throws JSONException{
+		String selector="expander";
+		if(out.has("expander")){
+			expanders.put(out.get("expander"));
 		}
-		UISpecRunContext context = new UISpecRunContext();
-		try {
-			JSONObject out=new JSONObject();
-			Structure s = record.getStructure(this.structureview);
-			if(this.structureview.equals("search")){
-				out = generateRecordEditor(context, s.showMessageKey());
-			}
-			else{
-
-				if(s.showListSection()){
-					out.put(s.getListSectionName(),generateListSection(s,context));
-				}
-				if(s.showEditSection()){
-					out.put(s.getEditSectionName(),generateRecordEditor(context, s.showMessageKey()));
-				}
-				if(s.showHierarchySection()){
-					out.put(s.getHierarchySectionName(),generateHierarchySection(context, s.showMessageKey()));
-				}
-				if(s.showTitleBar()){
-					out.put("titleBar",generateTitleSection(context));
-				}
-				
-				if(s.showSideBar()){
-					out.put("sidebar",generateSidebarSection(s, context));
-				}
-			}
-			return out;
-		} catch (JSONException e) {
-			throw new UIException("Cannot generate UISpec due to JSONException",e);
+		if(expanders.length() == 1){
+			out.put(selector,expanders.getJSONObject(0));
+		}
+		else{
+			out.put(selector,expanders);
 		}
 	}
 
-	public void configure() throws ConfigException {}
-
-	public void run(Object in, String[] tail) throws UIException {
-		Request q=(Request)in;
-		ctl = new CacheTermList(q.getCache());
-		JSONObject out=uispec(q.getStorage());
-		q.getUIRequest().sendJSONResponse(out);
+	/**
+	 * 
+	 * @param fs
+	 * @param out
+	 * @param subexpander
+	 * @param options
+	 * @param subitems
+	 * @param sub
+	 * @throws JSONException
+	 */
+	protected void makeAStructureDate(FieldSet fs, JSONObject out,
+			JSONObject subexpander, JSONObject options, Record subitems,
+			UISpecRunContext sub) throws JSONException {
+		actualStructuredDate(fs, out, sub, subexpander, subitems, options);
+		actualAddDecorator(fs, out, sub, options);
 	}
-
-	public void configure(WebUI ui,Spec spec) {}
+	/**
+	 * 
+	 * @param fs
+	 * @param out
+	 * @param subexpander
+	 * @param options
+	 * @param subitems
+	 * @param sub
+	 * @throws JSONException
+	 */
+	protected void makeAOtherGroup(FieldSet fs, JSONObject out,
+			JSONObject subexpander, JSONObject options, Record subitems,
+			UISpecRunContext sub) throws JSONException {
+		actualOtherGroup(fs, subexpander, sub, subitems);
+		actualSelfRenderer(options, subexpander);
+		actualAddDecorator(fs, out, sub, options);
+	}
+	/**
+	 * 
+	 * @param fs
+	 * @param context
+	 * @param out
+	 * @param subexpander
+	 * @param options
+	 * @param subitems
+	 * @param sub
+	 * @throws JSONException
+	 */
+	protected void makeASelfRenderer(FieldSet fs, UISpecRunContext context,
+			JSONObject out, JSONObject subexpander, JSONObject options,
+			Record subitems, UISpecRunContext sub) throws JSONException {
+		actualSelfRenderer(fs, context, subexpander, subitems );
+		actualSelfRenderer(options, subexpander);
+		actualAddDecorator(fs, out, sub, options);
+	}
 }

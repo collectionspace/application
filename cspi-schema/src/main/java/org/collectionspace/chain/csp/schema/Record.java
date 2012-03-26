@@ -203,6 +203,13 @@ public class Record implements FieldParent {
 		return false;
 	}
 	
+	/**
+	 * mark up the different types of repeats
+	 * repeator are adv search only repeats
+	 * repeatored are adv search and edit/view repeats
+	 * repeatable are just edit/view repeats
+	 * @param f
+	 */
 	public void addSearchField(FieldSet f){
 		
 		if(!(f.getSearchType().equals(""))){
