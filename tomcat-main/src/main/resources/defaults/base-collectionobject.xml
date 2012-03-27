@@ -315,7 +315,7 @@
                     </repeat>
                     <repeat id="materialGroupList/materialGroup">
                         <!-- selector>collection-object-materialGroup</selector -->
-                        <field id="material" ui-search="repeatable" autocomplete="concept-material">
+                        <field id="material" ui-search="repeatable">
                             <selector>object-description-material</selector>
                         </field>
                         <field id="materialComponent">
@@ -392,7 +392,7 @@
                             </field>
                         </repeat>
                         <repeat id="contentActivities">
-                            <field id="contentActivity" autocomplete="concept-activity">
+                            <field id="contentActivity">
                                 <selector>object-description-content-activity</selector>
                             </field>
                         </repeat>
@@ -754,7 +754,7 @@
                             <field id="assocObjectNote"></field>
                         </repeat>
                         <repeat id="assocConceptGroupList/assocConceptGroup">
-                            <field id="assocConcept"></field>
+                            <field id="assocConcept" autocomplete="concept-concept"></field>
                             <field id="assocConceptType"></field>
                             <field id="assocConceptNote"></field>
                         </repeat>
