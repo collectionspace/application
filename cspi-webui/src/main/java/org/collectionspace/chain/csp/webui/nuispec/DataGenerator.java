@@ -25,6 +25,7 @@ import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.schema.Structure;
 import org.collectionspace.chain.csp.schema.UISpecRunContext;
 import org.collectionspace.chain.csp.webui.main.Request;
+import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.chain.csp.webui.record.RecordCreateUpdate;
 import org.collectionspace.chain.csp.webui.relate.RelateCreateUpdate;
@@ -47,8 +48,9 @@ import org.slf4j.LoggerFactory;
  * @author csm22
  *
  */
-public class DataGenerator  extends UISpec {
+public class DataGenerator extends SchemaStructure implements WebMethod {
 	private static final Logger log=LoggerFactory.getLogger(DataGenerator.class);
+	private TTYOutputter tty;
 	private String dataprefix;
 	private String repeataffix = "";
 	private String extraprefix="";
@@ -65,25 +67,288 @@ public class DataGenerator  extends UISpec {
 	public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 	private RecordCreateUpdate writer;
 	private RelateCreateUpdate relater;
-	private Spec spec;
 	private Boolean doall  = false;
+	protected CacheTermList ctl;
+	protected Record record;
+	protected Storage storage;
 	
-
-	private TTYOutputter tty;
-
-
-	public DataGenerator(Spec spec) {
-		super(spec);
-		this.doall = true;
-		this.spec = spec;
-	}
-
-	public DataGenerator(Record record, String structureview) {
-		super(record, structureview);
+	
+	public DataGenerator(Record r, String sview) {
+		super(r, sview);
 		this.doall = false;
-		this.writer=new RecordCreateUpdate(record,true);
+		this.record = r;
+		this.writer = new RecordCreateUpdate(r,true);
+	}
+
+	public DataGenerator(Spec spec2) {
+		super(spec2,"screen");
+		this.doall = true;
+	}
+
+
+	/**
+	 * initialise the defaults for everything
+	 */
+	private void initvariables(){
+		random = new Random();
+		
+		dataprefix = "";
+		repeataffix = "";
+		extraprefix="";
+		repeatnum = 3;
+		quant = 1;
+		startvalue = 0;
+		maxrecords = 20; //how many records will we set relations on
+		
+		authoritylimit = 50; // 0 = nolimit return all authority items for each authority
+
+		minValue = new BigDecimal("0");
+		maxValue = new BigDecimal("1423453127");
 	}
 	
+
+	/**
+	 * pick a random valid date between the defaults defined
+	 * @return
+	 */
+	private Date randomDate(){
+		BigDecimal retValue = null;
+		BigDecimal length = maxValue.subtract(minValue);
+		BigDecimal factor = new BigDecimal(random.nextDouble());
+		retValue = length.multiply(factor).add(minValue);
+		return new Date(retValue.toBigInteger().longValue());
+	}  
+	/**
+	 * create teh date format needed
+	 * @param dateStr
+	 * @return
+	 */
+	private long dateToLong(String dateStr) {
+		java.util.Date d;
+		try {
+			d = DATE_FORMAT.parse(dateStr);
+		} catch (ParseException e) {
+			d = new java.util.Date();
+		}
+		return d.getTime();
+	}
+	/**
+	 * Return appropriate authority for the field in question
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	private JSONObject getAuthdata(FieldSet fs,UISpecRunContext context) throws JSONException {
+		JSONObject dataitem= new JSONObject();
+
+		JSONObject allnames = new JSONObject();
+		Integer i =0;
+		if(fs instanceof Field){
+			for(Instance type : ((Field)fs).getAllAutocompleteInstances()){
+				String iid = type.getTitleRef();
+				Record ir = type.getRecord();
+	
+				JSONArray thesenames = ctl.get(this.storage, iid,ir,authoritylimit);
+				log.info("getting authority: "+type.getID()+":"+type.getRecord());
+				try {
+					tty.line("getting authority: "+type.getID()+":"+type.getRecord());
+				} catch (UIException e) {
+				}
+				
+				allnames.put(i.toString(), thesenames);
+				i++;
+			}
+		}
+
+		Random objrandom = new Random();
+		Integer pickobj = objrandom.nextInt(allnames.length());
+		
+		JSONArray getallnames = allnames.getJSONArray(pickobj.toString());
+		
+		//use random number to choose which item to use
+		Random arrayrandom = new Random();
+		if(getallnames.length() > 0){
+			int pick = arrayrandom.nextInt(getallnames.length());
+			dataitem = getallnames.getJSONObject(pick);
+		}
+		return dataitem;
+	}
+
+	// XXX make common
+	protected Object displayAsplain(Field f,UISpecRunContext context) {
+
+		if(f.getUIType().equals("date")){
+			Date test = randomDate();
+			return DATE_FORMAT.format(test);
+		}
+		if(f.getParent().isExpander()){
+			return displayAsradio(f);
+		}
+
+		return this.dataprefix+" - " + repeataffix +f.getID();	
+	}
+	
+	protected String displayAsradio(Field f) {
+		return this.dataprefix+" - " + repeataffix +f.getID();	
+	}
+	protected String displayAsveryplain(FieldSet f,UISpecRunContext context) {
+		return this.dataprefix+" - " + repeataffix +f.getID();	
+	}
+	protected String displayAsveryplain(String f) {
+		return f;	
+	}
+	protected String displayAsveryplainWithoutEnclosure(FieldSet f,UISpecRunContext context) {
+		return this.dataprefix+" - " + repeataffix +f.getID();	
+	}	
+	
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		out.put(getSelector(fs,context),actualFieldEntry(fs,context));
+	}
+	/**
+	 * output the option field markup for UISpecs
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected Object actualOptionField(Field f,UISpecRunContext context) throws JSONException {
+		Random optrandom = new Random();
+		Integer pickopt = optrandom.nextInt(f.getAllOptions().length);
+		return f.getAllOptions()[pickopt].getID();
+	}
+	protected void actualRepeatNonSiblingEntry(JSONObject out, Repeat r, UISpecRunContext context, JSONObject contents) throws JSONException{
+		repeatItem(out, r, context);
+	}	
+	protected void actualRepeatSiblingEntry(JSONObject out, Repeat r, UISpecRunContext context, JSONArray children) throws JSONException{
+		repeatItem(out, r, context);
+	}
+	/**
+	 * Data generator specific code for repeats
+	 * @param out
+	 * @param r
+	 * @param context
+	 * @throws JSONException
+	 */
+	private void repeatItem(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException{
+		String selector = getSelector(r,context);
+		JSONArray arr = new JSONArray();
+		for(Integer i=0;i<repeatnum;i++){
+			repeataffix = i.toString()+" - ";
+			JSONObject protoTree=new JSONObject();
+			for(FieldSet child : r.getChildren("POST")) {
+				whatIsThisFieldSet(protoTree, child, context);
+			}
+			arr.put(protoTree);
+			repeataffix = "";
+		}
+		out.put(selector,arr);
+	}
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param context
+	 * @param f
+	 * @throws JSONException
+	 */
+	protected void actualAuthorities(JSONObject out, FieldSet fs, UISpecRunContext context)
+			throws JSONException {
+		if("enum".equals(fs.getUIType())){
+			out.put(getSelector(fs,context),actualFieldEntry(fs,context));
+		}
+		else{
+			out.put(getSelector(fs,context),actualAutocomplete(fs,context));
+		}
+	}
+	protected Object actualAutocomplete(FieldSet fs,UISpecRunContext context) throws JSONException {
+		String shortId="";
+		JSONObject namedata = getAuthdata(fs,context);
+		if(namedata.length() != 0){
+			if(namedata.has("refid") && !namedata.getString("refid").equals("")){
+				shortId = namedata.getString("refid");
+			}
+			else if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
+				shortId = namedata.getString("shortIdentifier");
+				shortId.toLowerCase();
+			}
+			else{
+				String name = namedata.getString("displayName");
+				shortId = name.replaceAll("\\W","");	
+				shortId.toLowerCase();				
+			}
+		}
+		return shortId;
+	}
+	/**
+	 * output the ENUM markup for the UISpec
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected Object actualENUMField(Field f,UISpecRunContext context) throws JSONException {
+		String shortId="";
+		JSONObject namedata = getAuthdata(f,context);
+		if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
+			shortId = namedata.getString("shortIdentifier");
+		}
+		else{
+			String name = namedata.getString("displayName");
+			shortId = name.replaceAll("\\W","");					
+		}
+		shortId.toLowerCase();
+		return shortId;
+	}
+	
+	/**
+	 * return the affix for this selector - always blank
+	 * @param fs
+	 * @return
+	 */
+	protected String getSelectorAffix(FieldSet fs){
+		return "";
+	}
+	/**
+	 * Selector is just the ID in the dataGenerator
+	 * @param fs
+	 * @param context
+	 * @return
+	 */
+	protected String getSelector(FieldSet fs, UISpecRunContext context) {
+		return fs.getID();
+	}
+
+	/**
+	 * drop into the SchemaStructure calls to get the structure of the data we wish to create
+	 * @param num
+	 * @return
+	 * @throws JSONException
+	 */
+	private JSONObject makedata(Integer num) throws JSONException{
+
+		UISpecRunContext context= new UISpecRunContext();
+		num = num + this.startvalue;
+		
+		this.dataprefix = this.extraprefix + num.toString();
+		JSONObject out = generateDataEntrySection(context, this.record, this.spectype);
+		return out;
+	}
+	
+	
+	/**
+	 * Guts of creating the data
+	 * @param storage
+	 * @param ui
+	 * @return
+	 * @throws UIException
+	 */
 	private JSONObject datagenerator(Storage storage,UIRequest ui) throws UIException {
 		this.storage = storage;
 		maxValue = new BigDecimal(dateToLong("2030-01-01"));
@@ -146,85 +411,16 @@ public class DataGenerator  extends UISpec {
 		
 		return out;
 	}
-
-	private JSONObject makedata(Integer num) throws JSONException{
-
-		UISpecRunContext context= new UISpecRunContext();
-		num = num + this.startvalue;
-		
-		this.dataprefix = this.extraprefix + num.toString();
-		JSONObject out=new JSONObject();
-		out = generateDataEntrySection(context);
-		return out;
-	}
-	
-	private Date randomDate(){
-		BigDecimal retValue = null;
-		BigDecimal length = maxValue.subtract(minValue);
-		BigDecimal factor = new BigDecimal(random.nextDouble());
-		retValue = length.multiply(factor).add(minValue);
-		
-		return new Date(retValue.toBigInteger().longValue());
-		
-	}   
-	private long dateToLong(String dateStr) {
-		java.util.Date d;
-		try {
-			d = DATE_FORMAT.parse(dateStr);
-		} catch (ParseException e) {
-			d = new java.util.Date();
-		}
-		return d.getTime();
-	}
-	protected JSONObject createAllRecords(Storage storage,UIRequest ui) throws UIException {
-
-		log.info("Lets make some records");
-		tty.line("Lets make some records");
-		tty.flush();
-		JSONObject returnData = new JSONObject();
-		try{
-			for(Record r : spec.getAllRecords()) {
-				if(r.isType("authority") || r.isType("authorizationdata") 
-						|| r.isType("id") || r.isType("userdata")){
-					//don't do these yet (if ever)
-				}
-				else if (r.getID().equals("structureddate") || r.getID().equals("media") 
-						|| r.getID().equals("hierarchy") || r.getID().equals("blobs") 
-						|| r.getID().equals("dimension") || r.getID().equals("contacts")
-						|| r.isType("searchall")){
-					//and ignore these
-				}
-				else if (r.getID().equals("termlist") ||r.getID().equals("termlistitem")){
-					//and ignore these
-				}
-				else{
-					this.record = r;
-					this.structureview="screen";
-					this.writer=new RecordCreateUpdate(r,true);
-					JSONObject items = createRecords(storage,ui);
-					returnData.put(r.getID(), items.getJSONObject(r.getID()));
-				}
-			}
-			
-		//lets create some relationships
-			log.info("Initializing relationships");
-			tty.line("Initializing relationships");
-		tty.flush();
-		createDataSetRelationships(returnData);
-		
-		} catch (JSONException x) {
-			throw new UIException("Failed to parse json: ",x);
-		} catch (ExistException x) {
-			throw new UIException("Existence exception: ",x);
-		} catch (UnimplementedException x) {
-			throw new UIException("Unimplemented exception: ",x);
-		} catch (UnderlyingStorageException x) {
-			throw new UIException("Problem storing: "+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
-		}
-		
-		return returnData;
-	}
-	//lets create some relationships
+	/**
+	 * interrelate the records
+	 * @param dataset
+	 * @return
+	 * @throws JSONException
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 * @throws UIException
+	 */
 	protected JSONObject createDataSetRelationships(JSONObject dataset) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject out = new JSONObject();
 		this.relater = new RelateCreateUpdate(true);
@@ -281,18 +477,22 @@ public class DataGenerator  extends UISpec {
 				}
 			}
 		}
-		
-	
-		
 		return out;
 	}
 	
-	private JSONObject createMini(String type,String id) throws JSONException {
-		JSONObject out=new JSONObject();
-		out.put("csid",id);
-		out.put("recordtype",type);
-		return out;
-	}
+
+	/**
+	 * nasty hard coded markup for creating relations
+	 *  - don't like it needs to be made better
+	 * @param src_type
+	 * @param src
+	 * @param type
+	 * @param dst_type
+	 * @param dst
+	 * @param one_way
+	 * @return
+	 * @throws JSONException
+	 */
 	private JSONObject createRelation(String src_type,String src,String type,String dst_type,String dst,boolean one_way) throws JSONException {
 		JSONObject out=new JSONObject();
 		out.put("source",createMini(src_type,src));
@@ -301,7 +501,82 @@ public class DataGenerator  extends UISpec {
 		out.put("one-way",one_way);
 		return out;
 	}
-	
+
+	/** 
+	 * more hard coded stuff to make relations - this will cause headaches in the long run...
+	 * @param type
+	 * @param id
+	 * @return
+	 * @throws JSONException
+	 */
+	private JSONObject createMini(String type,String id) throws JSONException {
+		JSONObject out=new JSONObject();
+		out.put("csid",id);
+		out.put("recordtype",type);
+		return out;
+	}
+	/**
+	 * Create all record types (that make sense)
+	 * @param storage
+	 * @param ui
+	 * @return
+	 * @throws UIException
+	 */
+	protected JSONObject createAllRecords(Storage storage,UIRequest ui) throws UIException {
+
+		log.info("Lets make some records");
+		tty.line("Lets make some records");
+		tty.flush();
+		JSONObject returnData = new JSONObject();
+		try{
+			for(Record r : spec.getAllRecords()) {
+				if(r.isType("authority") || r.isType("authorizationdata") 
+						|| r.isType("id") || r.isType("userdata")){
+					//don't do these yet (if ever)
+				}
+				else if (r.getID().equals("structureddate") || r.getID().equals("media") 
+						|| r.getID().equals("hierarchy") || r.getID().equals("blobs") 
+						|| r.getID().equals("dimension") || r.getID().equals("contacts")
+						|| r.isType("searchall")){
+					//and ignore these
+				}
+				else if (r.getID().equals("termlist") ||r.getID().equals("termlistitem")){
+					//and ignore these
+				}
+				else{
+					this.record = r;
+					this.structureview="screen";
+					this.writer=new RecordCreateUpdate(r,true);
+					JSONObject items = createRecords(storage,ui);
+					returnData.put(r.getID(), items.getJSONObject(r.getID()));
+				}
+			}
+			
+		//lets create some relationships
+			log.info("Initializing relationships");
+			tty.line("Initializing relationships");
+		tty.flush();
+		createDataSetRelationships(returnData);
+		
+		} catch (JSONException x) {
+			throw new UIException("Failed to parse json: ",x);
+		} catch (ExistException x) {
+			throw new UIException("Existence exception: ",x);
+		} catch (UnimplementedException x) {
+			throw new UIException("Unimplemented exception: ",x);
+		} catch (UnderlyingStorageException x) {
+			throw new UIException("Problem storing: "+x.getLocalizedMessage(),x.getStatus(),x.getUrl(),x);
+		}
+		
+		return returnData;
+	}
+	/**
+	 * generate records of a specific type
+	 * @param storage
+	 * @param ui
+	 * @return
+	 * @throws UIException
+	 */
 	protected JSONObject createRecords(Storage storage,UIRequest ui) throws UIException {
 
 		log.info("Making "+this.record.getID());
@@ -352,28 +627,13 @@ public class DataGenerator  extends UISpec {
 		//return something to screen
 		return returnData;
 	}
-	
+
 	@Override
 	public void configure(WebUI ui, Spec spec) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	private void initvariables(){
-		random = new Random();
-		
-		dataprefix = "";
-		repeataffix = "";
-		extraprefix="";
-		repeatnum = 3;
-		quant = 1;
-		startvalue = 0;
-		maxrecords = 20; //how many records will we set relations on
-		
-		authoritylimit = 50; // 0 = nolimit return all authority items for each authority
-
-		minValue = new BigDecimal("0");
-		maxValue = new BigDecimal("1423453127");
-	}
-	
 	@Override
 	public void run(Object in, String[] tail) throws UIException {
 		initvariables();
@@ -389,162 +649,8 @@ public class DataGenerator  extends UISpec {
 			
 		}
 		q.getUIRequest().sendJSONResponse(out);
-	}
-	
-
-
-	/* overrides UISpec */
-
-	protected String getSelectorAffix(FieldSet fs){
-		return "";
-	}
-
-	protected String getSelector(FieldSet fs, UISpecRunContext context){
-		return fs.getID();
-	}
-
-	protected String veryplain(FieldSet f,UISpecRunContext context) {
-		return this.dataprefix+" - " + repeataffix +f.getID();	
-	}
-	protected String veryplain(String f) {
-		return f;	
-	}
-	protected String veryplainWithoutEnclosure(FieldSet f,UISpecRunContext context) {
-		return this.dataprefix+" - " + repeataffix +f.getID();	
-	}
-	
-	protected String plain(Field f, UISpecRunContext context) {
-		if(f.getUIType().equals("date")){
-			Date test = randomDate();
-			return DATE_FORMAT.format(test);
-		}
-		if(f.getParent().isExpander()){
-			return radio(f);
-		}
-
-		return this.dataprefix+" - " + repeataffix +f.getID();		
-	}
-	protected void generateFieldDataEntry_notrefactored(JSONObject out, UISpecRunContext context, Field f)
-	throws JSONException {
-		// Single field
-		out.put(getSelector(f,context),generateDataEntryField(f,context));	
-	}	
-
-	private void repeatItem(JSONObject out, Repeat r, UISpecRunContext context) throws JSONException{
-		String selector = getSelector(r,context);
-		JSONArray arr = new JSONArray();
-		for(Integer i=0;i<repeatnum;i++){
-			repeataffix = i.toString()+" - ";
-			JSONObject protoTree=new JSONObject();
-			for(FieldSet child : r.getChildren("POST")) {
-				generateDataEntry(protoTree,child, context);
-			}
-			arr.put(protoTree);
-			repeataffix = "";
-		}
-		out.put(selector,arr);
-	}
-	protected void repeatNonSibling(JSONObject out, UISpecRunContext context,
-			Repeat r) throws JSONException {
-		repeatItem(out, r, context);
-	}
-	protected void repeatSibling(JSONObject out, UISpecRunContext context, Repeat r,
-			JSONObject row, JSONArray children) throws JSONException {
-		repeatItem(out, r, context);
-	}
-	
-	protected void makeAuthorities(JSONObject out, UISpecRunContext context, Field f)
-	throws JSONException {
-		if("enum".equals(f.getUIType())){
-			if(f.hasAutocompleteInstance()){
-				Object data = generateAuthorityField(f,context);
-				out.put(getSelector(f,context),data);
-			}
-			else{
-				out.put(getSelector(f,context),generateDataEntryField(f,context));
-			}
-		}
-		else{
-			//get authority
-			Object data = generateAuthorityField(f,context);
-			out.put(getSelector(f,context),data);
-		}
-	}
-	
-	protected Object generateAuthorityField(Field f,UISpecRunContext context) throws JSONException {
-
-		String shortId="";
-		JSONObject namedata = getAuthdata(f,context);
-		if(namedata.length() != 0){
-			if(namedata.has("refid") && !namedata.getString("refid").equals("")){
-				shortId = namedata.getString("refid");
-			}
-			else if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
-				shortId = namedata.getString("shortIdentifier");
-				shortId.toLowerCase();
-			}
-			else{
-				String name = namedata.getString("displayName");
-				shortId = name.replaceAll("\\W","");	
-				shortId.toLowerCase();				
-			}
-		}
-		return shortId;
-		
 		
 	}
 	
-	private JSONObject getAuthdata(Field f,UISpecRunContext context) throws JSONException {
-		JSONObject dataitem= new JSONObject();
 
-		JSONObject allnames = new JSONObject();
-		Integer i =0;
-		for(Instance type : f.getAllAutocompleteInstances()){
-			String iid = type.getTitleRef();
-			Record ir = type.getRecord();
-
-			JSONArray thesenames = ctl.get(this.storage, iid,ir,authoritylimit);
-			log.info("getting authority: "+type.getID()+":"+type.getRecord());
-			try {
-				tty.line("getting authority: "+type.getID()+":"+type.getRecord());
-			} catch (UIException e) {
-			}
-			
-			allnames.put(i.toString(), thesenames);
-			i++;
-		}
-
-		Random objrandom = new Random();
-		Integer pickobj = objrandom.nextInt(allnames.length());
-		
-		JSONArray getallnames = allnames.getJSONArray(pickobj.toString());
-		
-		//use random number to choose which item to use
-		Random arrayrandom = new Random();
-		if(getallnames.length() > 0){
-			int pick = arrayrandom.nextInt(getallnames.length());
-			dataitem = getallnames.getJSONObject(pick);
-		}
-		return dataitem;
-	}
-	protected Object generateENUMField(Field f,UISpecRunContext context) throws JSONException {
-		String shortId="";
-		JSONObject namedata = getAuthdata(f,context);
-		if(namedata.has("shortIdentifier") && !namedata.getString("shortIdentifier").equals("")){
-			shortId = namedata.getString("shortIdentifier");
-		}
-		else{
-			String name = namedata.getString("displayName");
-			shortId = name.replaceAll("\\W","");					
-		}
-		shortId.toLowerCase();
-		return shortId;
-	}
-	
-	protected Object generateOptionField(Field f,UISpecRunContext context) throws JSONException {
-		
-		Random optrandom = new Random();
-		Integer pickopt = optrandom.nextInt(f.getAllOptions().length);
-		return f.getAllOptions()[pickopt].getID();
-	}
 }

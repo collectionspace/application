@@ -586,7 +586,7 @@
                                 <selector>object-description-inscription-description-inscriber</selector>
                             </field>
                             <!-- CSPACE-4894: inscriptionDescriptionDateGroup isn't actually searchable, but need ui-search="range" to prevent uispec generation from erroring. -->
-                            <group id="inscriptionDescriptionDateGroup" ui-search="range" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                            <group id="inscriptionDescriptionDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
                                 <selector>object-description-inscription-description-date</selector>    
                             </group>
                             <field id="inscriptionDescriptionPosition" seperate_ui_container="true">
