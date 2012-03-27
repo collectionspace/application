@@ -3,9 +3,6 @@
 -->
 <section id="domaindata">
 	
-    <field id="nhString" section="naturalhistory">
-        <services-tag>nh-string</services-tag>
-    </field>
 
 </section>
 </root>

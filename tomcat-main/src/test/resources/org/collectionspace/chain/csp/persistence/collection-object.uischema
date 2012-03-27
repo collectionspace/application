@@ -915,9 +915,6 @@
                     "contentDescription": {
                         "type": "string"
                     },
-                    "nhString": {
-                        "type": "string"
-                    },
                     "assocEventName": {
                         "type": "string"
                     },
