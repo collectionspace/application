@@ -42,9 +42,6 @@
                     </structure>
                 </structures>
                 
-								<!--
-                <include src="domain-collectionobject.xml"  strip-root="yes"/>
-								-->
                 
                 
                 <section>
