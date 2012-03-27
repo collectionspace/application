@@ -83,7 +83,7 @@
         <field id="qualifier" ui-search="repeatable"></field>
         <field id="shortDisplayName" ui-search="repeatable"></field>
         <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum"></field>
-        <field id="termType" ui-search="repeatable">
+        <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
             <options>
                 <option id="">Please select a value</option>
                 <option id="descriptor">descriptor</option>
@@ -98,5 +98,6 @@
         <field id="csid" mini="search,list,relate" attributes="GET"></field>
         <field id="refName" mini="search,list,relate" attributes="GET"></field>
         <field id="uri" mini="search,list,relate" attributes="GET"></field>
+        <field id="termStatus" mini="search,list,relate"></field>
     </section>
 </record>
