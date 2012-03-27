@@ -38,11 +38,6 @@
             <title-ref>concept</title-ref>
             <title>Default Concept Authority</title>
         </instance>
-        <instance id="concept-object">
-            <web-url>object</web-url>
-            <title-ref>object</title-ref>
-            <title>Object Authority</title>
-        </instance>
         <instance id="concept-material">
             <web-url>material</web-url>
             <title-ref>material</title-ref>
@@ -52,21 +47,6 @@
             <web-url>activity</web-url>
             <title-ref>activity</title-ref>
             <title>Activity Authority</title>
-        </instance>
-        <instance id="concept-agent">
-            <web-url>agent</web-url>
-            <title-ref>agent</title-ref>
-            <title>Agent Authority</title>
-        </instance>
-        <instance id="concept-styleperiodculture">
-            <web-url>styleperiodculture</web-url>
-            <title-ref>styleperiodculture</title-ref>
-            <title>Style, Period, and Culture Authority</title>
-        </instance>
-        <instance id="concept-physicalattribute">
-            <web-url>physicalattribute</web-url>
-            <title-ref>physicalattribute</title-ref>
-            <title>Physical Attribute Authority</title>
         </instance>
     </instances>
     <section>
