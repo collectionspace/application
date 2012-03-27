@@ -105,6 +105,22 @@
 	</build>
 	
 	<repositories>
+		<repository>
+			<id>collectionspace-remote-repos</id>
+			<name>collectionspace-remote-repos</name>
+			<url>http://source.collectionspace.org:8081/artifactory/remote-repos</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>libs-releases-local</id>
+			<name>libs-releases-local</name>
+			<url>http://source.collectionspace.org:8081/artifactory/libs-releases-local</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
 		<!-- Repository for EL4J modules. -->
 		<repository>
 			<snapshots>
@@ -117,22 +133,6 @@
 			<name>External release repository of the EL4J project</name>
 			<url>http://public-el4.elca-services.ch/el4j/maven2repository</url>
 		</repository>
-        <repository>
-            <id>collectionspace-remote-repos</id>
-            <name>collectionspace-remote-repos</name>
-            <url>http://source.collectionspace.org:8081/artifactory/remote-repos</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>libs-releases-local</id>
-            <name>libs-releases-local</name>
-            <url>http://source.collectionspace.org:8081/artifactory/libs-releases-local</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
 	</repositories>	
 
 </project>

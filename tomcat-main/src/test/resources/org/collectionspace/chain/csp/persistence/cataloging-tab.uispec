@@ -131,7 +131,6 @@
                 "type": "fluid"
             }]
         },
-        ".csc-collection-object-nhString": "${fields.nhString}",
         ".csc-object-description-inscription-description-interpretation": "${fields.inscriptionDescriptionInterpretation}",
         ".csc-object-identification-responsible-department": {
             "decorators": [{
