@@ -22,8 +22,8 @@
                 <label-section id="messagekeys" show="true"></label-section>
                 <hierarchy-section show="true">
                     <options>
-                        <option id="narrowerContext">concept-concept,concept-object,concept-material,concept-activity,concept-agent,concept-styleperiodculture,concept-physicalattribute</option>
-                        <option id="broaderContext">concept-concept,concept-object,concept-material,concept-activity,concept-agent,concept-styleperiodculture,concept-physicalattribute</option>
+                        <option id="narrowerContext">concept-concept,concept-material,concept-activity</option>
+                        <option id="broaderContext">concept-concept,concept-material,concept-activity</option>
                     </options>
                 </hierarchy-section>
             </view>
