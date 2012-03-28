@@ -63,9 +63,11 @@ public class WebLoginStatus  implements WebMethod {
 		{
 			JSONArray active = activePermissions.getJSONArray("permission");
 			for(int j=0;j<active.length();j++){
-				String resourceName = Generic.ResourceNameUI(spec,active.getJSONObject(j).getString("resourceName"));
-				JSONArray permissions = Generic.PermissionLevelArray(active.getJSONObject(j).getString("actionGroup"));
-				perms.put(resourceName, permissions);
+				if(active.getJSONObject(j).has("resourceName") && active.getJSONObject(j).has("actionGroup")){
+					String resourceName = Generic.ResourceNameUI(spec,active.getJSONObject(j).getString("resourceName"));
+					JSONArray permissions = Generic.PermissionLevelArray(active.getJSONObject(j).getString("actionGroup"));
+					perms.put(resourceName, permissions);
+				}
 			}
 			//currently you can' assign authority vocabulary permissions uniquely so they are munged here for the UI 
 			//eventually you will need to pivot from /personauthorities/{csid} to the vocab instance
