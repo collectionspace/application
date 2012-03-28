@@ -109,6 +109,17 @@
                     </repeat>
                     <field id="movementNote"></field>
                 </section>
+                <section id="inventory">
+                	<field id="inventoryDate" ui-type="date"></field>
+                	<field id="nextInventoryDate" ui-type="date"></field>
+                	<field id="inventoryNote"></field>
+                	<field id="inventoryActionRequired"></field>
+                	<field id="frequencyForInventory"></field>
+					<repeat id="inventoryContactList">
+                        <field id="inventoryContact" autocomplete="person-person">
+                        </field>
+					</repeat>
+                </section>
             </record>
 
 					

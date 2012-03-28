@@ -3,6 +3,9 @@
         ".csc-movement-movementReferenceNumber-label": {
             "messagekey": "movement-movementReferenceNumberLabel"
         },
+        ".csc-movement-inventoryContactList-label": {
+            "messagekey": "movement-inventoryContactListLabel"
+        },
         ".csc-movement-movementNote": "${fields.movementNote}",
         ".csc-movement-movementReferenceNumber-container": {
             "decorators": [{
@@ -10,9 +13,9 @@
                 "type": "fluid",
                 "options": {
                     "model": {
-                        "names": ["Inventory","Location","Movement"],
-                        "list": ["inventory","location","movement"],
-                        "samples": ["INV2010.1","LOC2010.1","MV2010.1"]
+                        "names": ["Inventory", "Location", "Movement"],
+                        "list": ["inventory", "location", "movement"],
+                        "samples": ["INV2010.1", "LOC2010.1", "MV2010.1"]
                     },
                     "selectors": {
                         "numberField": ".csc-movement-movementReferenceNumber"
@@ -20,13 +23,9 @@
                 }
             }]
         },
-        ".csc-movement-movementMethod-label": {
-            "messagekey": "movement-movementMethodLabel"
+        ".csc-movement-locationDate-label": {
+            "messagekey": "movement-locationDateLabel"
         },
-        ".csc-movement-plannedRemovalDate-label": {
-            "messagekey": "movement-plannedRemovalDateLabel"
-        },
-        ".csc-movement-tenantID": "${fields.tenantID}",
         ".csc-movement-plannedRemovalDate": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -34,34 +33,41 @@
             }],
             "value": "${fields.plannedRemovalDate}"
         },
-        ".csc-movement-locationDate-label": {
-            "messagekey": "movement-locationDateLabel"
+        ".csc-movement-inventoryDate-label": {
+            "messagekey": "movement-inventoryDateLabel"
         },
-        ".csc-movement-currentLocationHeader-label": {
-            "messagekey": "movement-currentLocationHeaderLabel"
-        },
-        ".csc-movement-movementContact": {
+        ".csc-movement-inventoryContact": {
             "decorators": [{
-                "func": "cspace.autocomplete",
+                "func": "cspace.makeRepeatable",
                 "type": "fluid",
                 "options": {
-                    "queryUrl": "../../../tenant/core/movement/autocomplete/movementContact",
-                    "vocabUrl": "../../../tenant/core/movement/source-vocab/movementContact"
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-movement-inventoryContact": {
+                                    "decorators": [{
+                                        "func": "cspace.autocomplete",
+                                        "type": "fluid",
+                                        "options": {
+                                            "queryUrl": "../../../tenant/core/movement/autocomplete/inventoryContact",
+                                            "vocabUrl": "../../../tenant/core/movement/source-vocab/inventoryContact"
+                                        }
+                                    }],
+                                    "value": "${{row}.inventoryContact}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "fields.inventoryContactList"
                 }
-            }],
-            "value": "${fields.movementContact}"
+            }]
         },
         ".csc-movement-createdBy-label": {
             "messagekey": "movement-createdByLabel"
         },
-        ".csc-movement-summary-label": {
-            "messagekey": "movement-summaryLabel"
-        },
         ".csc-movement-reasonForMove-label": {
             "messagekey": "movement-reasonForMoveLabel"
-        },
-        ".csc-movement-number-label": {
-            "messagekey": "movement-numberLabel"
         },
         ".csc-movement-movementMethods": {
             "decorators": [{
@@ -85,22 +91,17 @@
                 }
             }]
         },
-        ".csc-movement-normalLocation": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../../tenant/core/movement/autocomplete/normalLocation",
-                    "vocabUrl": "../../../tenant/core/movement/source-vocab/normalLocation"
-                }
-            }],
-            "value": "${fields.normalLocation}"
-        },
         ".csc-movement-currentLocationNote": "${fields.currentLocationNote}",
-        ".csc-movement-createdBy": "${fields.createdBy}",
-        ".csc-movement-currentLocation-label": {
-            "messagekey": "movement-currentLocationLabel"
+        ".csc-movement-frequencyForInventory": "${fields.frequencyForInventory}",
+        ".csc-movement-nextInventoryDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.nextInventoryDate}"
         },
+        ".csc-movement-createdBy": "${fields.createdBy}",
+        ".csc-movement-inventoryNote": "${fields.inventoryNote}",
         ".csc-movement-updatedAt": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -111,21 +112,24 @@
         ".csc-movement-currentLocationFitness-label": {
             "messagekey": "movement-currentLocationFitnessLabel"
         },
-        ".csc-movement-removalDate": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
-            "value": "${fields.removalDate}"
-        },
         ".csc-movement-createdAt-label": {
             "messagekey": "movement-createdAtLabel"
+        },
+        ".csc-movement-frequencyForInventory-label": {
+            "messagekey": "movement-frequencyForInventoryLabel"
         },
         ".csc-movement-tenantID-label": {
             "messagekey": "movement-tenantIDLabel"
         },
         ".csc-movement-movementNote-label": {
             "messagekey": "movement-movementNoteLabel"
+        },
+        ".csc-movement-inventoryDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.inventoryDate}"
         },
         ".csc-movement-domaindata-label": {
             "messagekey": "movement-domaindataLabel"
@@ -141,9 +145,6 @@
             }],
             "value": "${fields.currentLocation}"
         },
-        ".csc-movement-movementControlInformation-label": {
-            "messagekey": "movement-movementControlInformationLabel"
-        },
         ".csc-movement-locationDate": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -157,14 +158,84 @@
         ".csc-movement-locationMovementInformation-label": {
             "messagekey": "movement-locationMovementInformationLabel"
         },
+        ".csc-movement-updatedBy-label": {
+            "messagekey": "movement-updatedByLabel"
+        },
+        ".csc-movement-inventoryActionRequired": "${fields.inventoryActionRequired}",
+        ".csc-movement-movementContact-label": {
+            "messagekey": "movement-movementContactLabel"
+        },
+        ".csc-movement-nextInventoryDate-label": {
+            "messagekey": "movement-nextInventoryDateLabel"
+        },
+        ".csc-movement-plannedRemovalDate-label": {
+            "messagekey": "movement-plannedRemovalDateLabel"
+        },
+        ".csc-movement-movementMethod-label": {
+            "messagekey": "movement-movementMethodLabel"
+        },
+        ".csc-movement-tenantID": "${fields.tenantID}",
+        ".csc-movement-currentLocationHeader-label": {
+            "messagekey": "movement-currentLocationHeaderLabel"
+        },
+        ".csc-movement-movementContact": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../../tenant/core/movement/autocomplete/movementContact",
+                    "vocabUrl": "../../../tenant/core/movement/source-vocab/movementContact"
+                }
+            }],
+            "value": "${fields.movementContact}"
+        },
+        ".csc-movement-summary-label": {
+            "messagekey": "movement-summaryLabel"
+        },
+        ".csc-movement-inventoryContact-label": {
+            "messagekey": "movement-inventoryContactLabel"
+        },
+        ".csc-movement-normalLocation": {
+            "decorators": [{
+                "func": "cspace.autocomplete",
+                "type": "fluid",
+                "options": {
+                    "queryUrl": "../../../tenant/core/movement/autocomplete/normalLocation",
+                    "vocabUrl": "../../../tenant/core/movement/source-vocab/normalLocation"
+                }
+            }],
+            "value": "${fields.normalLocation}"
+        },
+        ".csc-movement-number-label": {
+            "messagekey": "movement-numberLabel"
+        },
+        ".csc-movement-currentLocation-label": {
+            "messagekey": "movement-currentLocationLabel"
+        },
+        ".csc-movement-inventoryActionRequired-label": {
+            "messagekey": "movement-inventoryActionRequiredLabel"
+        },
+        ".csc-movement-removalDate": {
+            "decorators": [{
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }],
+            "value": "${fields.removalDate}"
+        },
+        ".csc-movement-inventoryNote-label": {
+            "messagekey": "movement-inventoryNoteLabel"
+        },
+        ".csc-movement-inventory-label": {
+            "messagekey": "movement-inventoryLabel"
+        },
+        ".csc-movement-movementControlInformation-label": {
+            "messagekey": "movement-movementControlInformationLabel"
+        },
         ".csc-movement-currentLocationFitness": {
             "default": "",
             "optionnames": ["Dangerous", "Please select a value", "Suitable", "Temporary", "Unsuitable"],
             "optionlist": ["", "dangerous", "suitable", "temporary", "unsuitable"],
             "selection": "${fields.currentLocationFitness}"
-        },
-        ".csc-movement-updatedBy-label": {
-            "messagekey": "movement-updatedByLabel"
         },
         ".csc-movement-updatedAt-label": {
             "messagekey": "movement-updatedAtLabel"
@@ -176,9 +247,6 @@
             "optionnames": ["Conservation", "Exhibition", "Inventory", "Loan", "New Storage Location", "Photography", "Please select a value", "Research"],
             "optionlist": ["", "conservation", "exhibition", "inventory", "loan", "newstoragelocation", "photography", "research"],
             "selection": "${fields.reasonForMove}"
-        },
-        ".csc-movement-movementContact-label": {
-            "messagekey": "movement-movementContactLabel"
         },
         ".csc-movement-normalLocation-label": {
             "messagekey": "movement-normalLocationLabel"
