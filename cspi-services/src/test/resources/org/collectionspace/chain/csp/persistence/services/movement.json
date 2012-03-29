@@ -12,5 +12,16 @@
     "movementNote": "blah",
     "reasonForMove": "blah",
     "currentLocation": "blah",
+    "inventoryDate": "2012-04-29",
+    "nextInventoryDate": "2012-04-29",
+    "inventoryNote": "inventoryNote",
+    "inventoryActionRequired": "inventoryActionRequired",
+    "frequencyForInventory": "frequencyForInventory",
+    "inventoryContactList": [{"_primary":true,
+        "de-urned-inventoryContact": "TEST4",
+        "inventoryContact": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'"
+    }],
+    
     "currentLocationNote": "blah"
+   
 }

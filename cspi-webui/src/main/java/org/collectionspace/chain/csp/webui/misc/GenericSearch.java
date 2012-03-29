@@ -151,7 +151,7 @@ public class GenericSearch {
 			key = "items";
 		}
 
-		restriction.put("pageNum","0"); //initialise
+		//restriction.put("pageNum","0"); //initialise
 		
 		Set<String> args = ui.getAllRequestArgument();
 		for(String restrict : args){
