@@ -52,7 +52,7 @@
                 <section id="currentLocationHeader"></section> <!-- temp until better way to do group headers -->
                 <section id="locationMovementInformation">
                     <!--  Object Location Information Group -->
-                    <field id="currentLocation" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate,terms" autocomplete="location-location">
+                    <field id="currentLocation" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate,terms" autocomplete="location-location,organization-organization">
                         <title-selector>titleBar-currentLocation</title-selector>
                     </field>
                     <field id="currentLocationFitness">
@@ -108,6 +108,17 @@
                         </field>
                     </repeat>
                     <field id="movementNote"></field>
+                </section>
+                <section id="inventory">
+                	<field id="inventoryDate" ui-type="date"></field>
+                	<field id="nextInventoryDate" ui-type="date"></field>
+                	<field id="inventoryNote"></field>
+                	<field id="inventoryActionRequired"></field>
+                	<field id="frequencyForInventory"></field>
+					<repeat id="inventoryContactList">
+                        <field id="inventoryContact" autocomplete="person-person">
+                        </field>
+					</repeat>
                 </section>
             </record>
 
