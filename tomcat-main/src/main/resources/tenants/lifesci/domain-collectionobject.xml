@@ -1,6 +1,16 @@
 <record id="collection-object">
+
   <services-record-path id="naturalhistory"
     >collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
+
+	<section id="identificationInformation">
+		<repeat id="titleGroupList/titleGroup">
+			<services-tag>nh_titleGroupList/nh_titleGroup</services-tag>
+			<field id="titleNote" section="naturalhistory">
+					<selector>object-identification-object-title-note</selector>
+			</field>
+		</repeat>
+	</section>
 
   <section id="domaindata">
 
