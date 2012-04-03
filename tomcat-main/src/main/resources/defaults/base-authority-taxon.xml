@@ -1,8 +1,5 @@
 
             <record id="taxon"  type="authority,compute-displayname" in-recordlist="yes" in-findedit="yes">
-                <!-- No terms-used yet as the only authority autocomplete field currently present in this record type -->
-                <!-- is within a nested complexType and can't be retrieved -->
-								<!-- <terms-used>false</terms-used> -->
                 <web-url>taxon</web-url>
                 <!-- singular names are used throughout except for this authority's service URL path component, per CSPACE-3322 -->
                 <services-tenant-plural>Taxonomyauthority</services-tenant-plural>
