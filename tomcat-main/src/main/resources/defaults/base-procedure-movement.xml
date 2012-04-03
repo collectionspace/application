@@ -110,10 +110,10 @@
                     <field id="movementNote"></field>
                 </section>
                 <section id="inventory">
-                	<field id="inventoryDate" ui-type="date"></field>
-                	<field id="nextInventoryDate" ui-type="date"></field>
-                	<field id="inventoryNote"></field>
-                	<field id="inventoryActionRequired">
+                	<field id="inventoryDate" ui-search="range" ui-type="date"></field>
+                	<field id="nextInventoryDate" ui-search="range" ui-type="date"></field>
+                	<field id="inventoryNote" ui-search="repeatable"></field>
+                	<field id="inventoryActionRequired" ui-search="repeatable">
                             <options>
                                 <option id="" default="yes">Please select a value</option>
                                 <option id="conservation">Conservation</option>
@@ -121,7 +121,7 @@
                                 <option id="re-housing">Re-housing</option>
                             </options>
                     </field>
-                	<field id="frequencyForInventory">
+                	<field id="frequencyForInventory" ui-search="repeatable">
                         <options>
                             <option id="" default="yes">Please select a value</option>
                             <option id="daily">Daily</option>
@@ -132,7 +132,7 @@
                         </options>
                     </field>
 					<repeat id="inventoryContactList">
-                        <field id="inventoryContact" autocomplete="person-person">
+                        <field id="inventoryContact" autocomplete="person-person" ui-search="repeatable">
                         </field>
 					</repeat>
                 </section>
