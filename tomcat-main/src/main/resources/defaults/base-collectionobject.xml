@@ -868,7 +868,7 @@
                     </repeat>
                     <field id="fieldCollectionNote"></field>
                     <field id="fieldCollectionNumber"></field>
-                    <field id="fieldCollectionPlace"></field>
+                    <field id="fieldCollectionPlace" autocomplete="place-place"></field>
                     <repeat id="fieldCollectionSources">
                         <field id="fieldCollectionSource" autocomplete="person-person"></field>
                     </repeat>
