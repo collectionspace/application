@@ -113,8 +113,24 @@
                 	<field id="inventoryDate" ui-type="date"></field>
                 	<field id="nextInventoryDate" ui-type="date"></field>
                 	<field id="inventoryNote"></field>
-                	<field id="inventoryActionRequired"></field>
-                	<field id="frequencyForInventory"></field>
+                	<field id="inventoryActionRequired">
+                            <options>
+                                <option id="" default="yes">Please select a value</option>
+                                <option id="conservation">Conservation</option>
+                                <option id="preservation">Preservation</option>
+                                <option id="re-housing">Re-housing</option>
+                            </options>
+                    </field>
+                	<field id="frequencyForInventory">
+                        <options>
+                            <option id="" default="yes">Please select a value</option>
+                            <option id="daily">Daily</option>
+                            <option id="weekly">Weekly</option>
+                            <option id="monthly">Monthly</option>
+                            <option id="semi-annually">Semi-annually</option>
+                            <option id="annually">Annually</option>                            
+                        </options>
+                    </field>
 					<repeat id="inventoryContactList">
                         <field id="inventoryContact" autocomplete="person-person">
                         </field>
