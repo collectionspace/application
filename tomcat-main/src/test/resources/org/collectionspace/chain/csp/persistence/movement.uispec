@@ -8,60 +8,80 @@
         },
         ".csc-movement-movementNote": "${fields.movementNote}",
         ".csc-movement-movementReferenceNumber-container": {
-            "decorators": [{
-                "func": "cspace.numberPatternChooser",
-                "type": "fluid",
-                "options": {
-                    "model": {
-                        "names": ["Inventory", "Location", "Movement"],
-                        "list": ["inventory", "location", "movement"],
-                        "samples": ["INV2010.1", "LOC2010.1", "MV2010.1"]
-                    },
-                    "selectors": {
-                        "numberField": ".csc-movement-movementReferenceNumber"
+            "decorators": [
+                {
+                    "func": "cspace.numberPatternChooser",
+                    "type": "fluid",
+                    "options": {
+                        "model": {
+                            "names": [
+                                "Inventory",
+                                "Location",
+                                "Movement"
+                            ],
+                            "list": [
+                                "inventory",
+                                "location",
+                                "movement"
+                            ],
+                            "samples": [
+                                "INV2010.1",
+                                "LOC2010.1",
+                                "MV2010.1"
+                            ]
+                        },
+                        "selectors": {
+                            "numberField": ".csc-movement-movementReferenceNumber"
+                        }
                     }
                 }
-            }]
+            ]
         },
         ".csc-movement-locationDate-label": {
             "messagekey": "movement-locationDateLabel"
         },
         ".csc-movement-plannedRemovalDate": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
             "value": "${fields.plannedRemovalDate}"
         },
         ".csc-movement-inventoryDate-label": {
             "messagekey": "movement-inventoryDateLabel"
         },
         ".csc-movement-inventoryContact": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "repeatTree": {
-                        "expander": {
-                            "tree": {
-                                ".csc-movement-inventoryContact": {
-                                    "decorators": [{
-                                        "func": "cspace.autocomplete",
-                                        "type": "fluid",
-                                        "options": {
-                                            "queryUrl": "../../../tenant/core/movement/autocomplete/inventoryContact",
-                                            "vocabUrl": "../../../tenant/core/movement/source-vocab/inventoryContact"
-                                        }
-                                    }],
-                                    "value": "${{row}.inventoryContact}"
-                                }
-                            },
-                            "type": "fluid.noexpand"
-                        }
-                    },
-                    "elPath": "fields.inventoryContactList"
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-movement-inventoryContact": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.autocomplete",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "queryUrl": "../../../tenant/core/movement/autocomplete/inventoryContact",
+                                                    "vocabUrl": "../../../tenant/core/movement/source-vocab/inventoryContact"
+                                                }
+                                            }
+                                        ],
+                                        "value": "${{row}.inventoryContact}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.inventoryContactList"
+                    }
                 }
-            }]
+            ]
         },
         ".csc-movement-createdBy-label": {
             "messagekey": "movement-createdByLabel"
@@ -70,45 +90,80 @@
             "messagekey": "movement-reasonForMoveLabel"
         },
         ".csc-movement-movementMethods": {
-            "decorators": [{
-                "func": "cspace.makeRepeatable",
-                "type": "fluid",
-                "options": {
-                    "repeatTree": {
-                        "expander": {
-                            "tree": {
-                                ".csc-movement-movementMethods": {
-                                    "default": "",
-                                    "optionnames": ["Forklift", "Handcarried", "Please select a value", "Trolley"],
-                                    "optionlist": ["", "forklift", "handcarried", "trolley"],
-                                    "selection": "${{row}.movementMethod}"
-                                }
-                            },
-                            "type": "fluid.noexpand"
-                        }
-                    },
-                    "elPath": "fields.movementMethods"
+            "decorators": [
+                {
+                    "func": "cspace.makeRepeatable",
+                    "type": "fluid",
+                    "options": {
+                        "repeatTree": {
+                            "expander": {
+                                "tree": {
+                                    ".csc-movement-movementMethods": {
+                                        "default": "",
+                                        "optionnames": [
+                                            "Please select a value",
+                                            "Forklift",
+                                            "Handcarried",
+                                            "Trolley"
+                                        ],
+                                        "optionlist": [
+                                            "",
+                                            "forklift",
+                                            "handcarried",
+                                            "trolley"
+                                        ],
+                                        "selection": "${{row}.movementMethod}"
+                                    }
+                                },
+                                "type": "fluid.noexpand"
+                            }
+                        },
+                        "elPath": "fields.movementMethods"
+                    }
                 }
-            }]
+            ]
         },
         ".csc-movement-currentLocationNote": "${fields.currentLocationNote}",
-        ".csc-movement-frequencyForInventory": "${fields.frequencyForInventory}",
+        ".csc-movement-frequencyForInventory": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Daily",
+                "Weekly",
+                "Monthly",
+                "Semi-annually",
+                "Annually"
+            ],
+            "optionlist": [
+                "",
+                "daily",
+                "weekly",
+                "monthly",
+                "semi-annually",
+                "annually"
+            ],
+            "selection": "${fields.frequencyForInventory}"
+        },
         ".csc-movement-nextInventoryDate": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
             "value": "${fields.nextInventoryDate}"
         },
         ".csc-movement-createdBy": "${fields.createdBy}",
-        ".csc-movement-inventoryNote": "${fields.inventoryNote}",
         ".csc-movement-updatedAt": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
             "value": "${fields.updatedAt}"
         },
+        ".csc-movement-inventoryNote": "${fields.inventoryNote}",
         ".csc-movement-currentLocationFitness-label": {
             "messagekey": "movement-currentLocationFitnessLabel"
         },
@@ -124,32 +179,38 @@
         ".csc-movement-movementNote-label": {
             "messagekey": "movement-movementNoteLabel"
         },
-        ".csc-movement-inventoryDate": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
-            "value": "${fields.inventoryDate}"
-        },
         ".csc-movement-domaindata-label": {
             "messagekey": "movement-domaindataLabel"
         },
-        ".csc-movement-currentLocation": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../../tenant/core/movement/autocomplete/currentLocation",
-                    "vocabUrl": "../../../tenant/core/movement/source-vocab/currentLocation"
+        ".csc-movement-inventoryDate": {
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
                 }
-            }],
+            ],
+            "value": "${fields.inventoryDate}"
+        },
+        ".csc-movement-currentLocation": {
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../../tenant/core/movement/autocomplete/currentLocation",
+                        "vocabUrl": "../../../tenant/core/movement/source-vocab/currentLocation"
+                    }
+                }
+            ],
             "value": "${fields.currentLocation}"
         },
         ".csc-movement-locationDate": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
             "value": "${fields.locationDate}"
         },
         ".csc-movement-removalDate-label": {
@@ -161,7 +222,22 @@
         ".csc-movement-updatedBy-label": {
             "messagekey": "movement-updatedByLabel"
         },
-        ".csc-movement-inventoryActionRequired": "${fields.inventoryActionRequired}",
+        ".csc-movement-inventoryActionRequired": {
+            "default": "",
+            "optionnames": [
+                "Please select a value",
+                "Conservation",
+                "Preservation",
+                "Re-housing"
+            ],
+            "optionlist": [
+                "",
+                "conservation",
+                "preservation",
+                "re-housing"
+            ],
+            "selection": "${fields.inventoryActionRequired}"
+        },
         ".csc-movement-movementContact-label": {
             "messagekey": "movement-movementContactLabel"
         },
@@ -179,14 +255,16 @@
             "messagekey": "movement-currentLocationHeaderLabel"
         },
         ".csc-movement-movementContact": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../../tenant/core/movement/autocomplete/movementContact",
-                    "vocabUrl": "../../../tenant/core/movement/source-vocab/movementContact"
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../../tenant/core/movement/autocomplete/movementContact",
+                        "vocabUrl": "../../../tenant/core/movement/source-vocab/movementContact"
+                    }
                 }
-            }],
+            ],
             "value": "${fields.movementContact}"
         },
         ".csc-movement-summary-label": {
@@ -196,14 +274,16 @@
             "messagekey": "movement-inventoryContactLabel"
         },
         ".csc-movement-normalLocation": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../../tenant/core/movement/autocomplete/normalLocation",
-                    "vocabUrl": "../../../tenant/core/movement/source-vocab/normalLocation"
+            "decorators": [
+                {
+                    "func": "cspace.autocomplete",
+                    "type": "fluid",
+                    "options": {
+                        "queryUrl": "../../../tenant/core/movement/autocomplete/normalLocation",
+                        "vocabUrl": "../../../tenant/core/movement/source-vocab/normalLocation"
+                    }
                 }
-            }],
+            ],
             "value": "${fields.normalLocation}"
         },
         ".csc-movement-number-label": {
@@ -216,10 +296,12 @@
             "messagekey": "movement-inventoryActionRequiredLabel"
         },
         ".csc-movement-removalDate": {
-            "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
-            }],
+            "decorators": [
+                {
+                    "func": "cspace.datePicker",
+                    "type": "fluid"
+                }
+            ],
             "value": "${fields.removalDate}"
         },
         ".csc-movement-inventoryNote-label": {
@@ -233,8 +315,20 @@
         },
         ".csc-movement-currentLocationFitness": {
             "default": "",
-            "optionnames": ["Dangerous", "Please select a value", "Suitable", "Temporary", "Unsuitable"],
-            "optionlist": ["", "dangerous", "suitable", "temporary", "unsuitable"],
+            "optionnames": [
+                "Please select a value",
+                "Dangerous",
+                "Suitable",
+                "Temporary",
+                "Unsuitable"
+            ],
+            "optionlist": [
+                "",
+                "dangerous",
+                "suitable",
+                "temporary",
+                "unsuitable"
+            ],
             "selection": "${fields.currentLocationFitness}"
         },
         ".csc-movement-updatedAt-label": {
@@ -244,8 +338,26 @@
         ".csc-movement-movementReferenceNumber": "${fields.movementReferenceNumber}",
         ".csc-movement-reasonForMove": {
             "default": "",
-            "optionnames": ["Conservation", "Exhibition", "Inventory", "Loan", "New Storage Location", "Photography", "Please select a value", "Research"],
-            "optionlist": ["", "conservation", "exhibition", "inventory", "loan", "newstoragelocation", "photography", "research"],
+            "optionnames": [
+                "Please select a value",
+                "Conservation",
+                "Exhibition",
+                "Inventory",
+                "Loan",
+                "New Storage Location",
+                "Photography",
+                "Research"
+            ],
+            "optionlist": [
+                "",
+                "conservation",
+                "exhibition",
+                "inventory",
+                "loan",
+                "newstoragelocation",
+                "photography",
+                "research"
+            ],
             "selection": "${fields.reasonForMove}"
         },
         ".csc-movement-normalLocation-label": {
