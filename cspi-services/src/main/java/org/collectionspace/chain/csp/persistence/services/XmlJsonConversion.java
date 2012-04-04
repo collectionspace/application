@@ -300,7 +300,9 @@ public class XmlJsonConversion {
 		 */
 		
 	}
-	
+	//
+	//section should be an array
+	//
 	public static Document convertToXml(Record r,JSONObject in,String section, String operation) throws JSONException, UnderlyingStorageException {
 		Document doc=DocumentFactory.getInstance().createDocument();
 		String[] parts=r.getServicesRecordPath(section).split(":",2);

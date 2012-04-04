@@ -60,6 +60,8 @@ public class TestUIRecords {
 	 * Test Record CRUDL 
 	 */
 	@Test public void testCollectionObject() throws Exception {
+		
+		//tester.testUIspec(jetty, "/cataloging-search/uischema", "collection-object.uischema");
 		log.info("Testing CollectionObject Record");
 		log.info("Testing CRUDL");
 		tester.testPostGetDelete(jetty, "/cataloging/", tester.objectCreate(), "distinguishingFeatures");
@@ -201,6 +203,34 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/intake-search/uischema", "intake-search.uischema");
 	}
 
+	@Test public void testAllUISpecs() throws Exception {
+		tester.testUIspec(jetty, "/cataloging-search/uischema", "collection-object-search.uischema");
+		tester.testUIspec(jetty, "/cataloging-search/uispec", "collection-object-search.uispec");
+		tester.testUIspec(jetty, "/media/uischema", "media.uischema");
+		tester.testUIspec(jetty, "/termlist/uischema", "termlist.uischema");
+		
+		
+		tester.testUIspec(jetty, "/person/uispec", "person.uispec");
+		tester.testUIspec(jetty, "/person/uischema", "person.uischema");
+
+		tester.testUIspec(jetty, "/recordlist/uischema", "recordlist.uischema");
+		tester.testUIspec(jetty, "/namespaces/uischema", "namespaces.uischema");
+		tester.testUIspec(jetty, "/recordtypes/uischema", "recordtypes.uischema");
+		
+		tester.testUIspec(jetty, "/acquisition-search/uischema", "acquisition-search.uischema");
+		tester.testUIspec(jetty, "/intake-search/uischema", "intake-search.uischema");
+		
+		tester.testUIspec(jetty, "/cataloging/uischema", "collection-object.uischema");
+		tester.testUIspec(jetty, "/acquisition/uischema", "acquisition.uischema");
+		
+		tester.testUIspec(jetty, "/cataloging/uispec", "collection-object.uispec");
+		tester.testUIspec(jetty, "/intake/uispec", "intake.uispec");
+		tester.testUIspec(jetty, "/loanout/uispec", "loanout.uispec");
+		tester.testUIspec(jetty, "/loanin/uispec", "loanin.uispec");
+		tester.testUIspec(jetty, "/acquisition/uispec", "acquisition.uispec");
+		tester.testUIspec(jetty, "/acquisition-search/uispec", "acquisition-search.uispec");
+
+	}
 
 	/**
 	 * Test Loanout Procedure CRUDL

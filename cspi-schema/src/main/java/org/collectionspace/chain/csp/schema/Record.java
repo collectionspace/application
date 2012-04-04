@@ -203,6 +203,13 @@ public class Record implements FieldParent {
 		return false;
 	}
 	
+	/**
+	 * mark up the different types of repeats
+	 * repeator are adv search only repeats
+	 * repeatored are adv search and edit/view repeats
+	 * repeatable are just edit/view repeats
+	 * @param f
+	 */
 	public void addSearchField(FieldSet f){
 		
 		if(!(f.getSearchType().equals(""))){
@@ -282,7 +289,7 @@ public class Record implements FieldParent {
 		hashutil(allfieldsbyoperation, "", f); //ALL function
 	}
 		
-	public FieldSet[] getAllServiceFieldTopLevel(String operation, String section) {
+	public FieldSet[] getAllServiceFieldTopLevel(String operation, String section) { //section should be an array?
 		if(operation.equals("")){//return everything
 			return serviceFieldTopLevel.values().toArray(new FieldSet[0]);
 		}

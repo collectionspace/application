@@ -91,7 +91,6 @@
         ".csc-collection-object-ownershipCategory-label": {
             "messagekey": "collection-object-ownershipCategoryLabel"
         },
-        ".csc-collection-object-nhString": "${fields.nhString}",
         ".csc-collection-object-fieldCollectionSource": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -1450,9 +1449,6 @@
                 }
             }]
         },
-        ".csc-collection-object-nhString-label": {
-            "messagekey": "collection-object-nhStringLabel"
-        },
         ".csc-collection-object-contentDate-label": {
             "messagekey": "collection-object-contentDateLabel"
         },
@@ -2484,9 +2480,6 @@
         },
         ".csc-collection-object-updatedBy-label": {
             "messagekey": "collection-object-updatedByLabel"
-        },
-        ".csc-collection-object-domaindata-label": {
-            "messagekey": "collection-object-domaindataLabel"
         },
         ".csc-object-history-association-category": {
             "optionnames": ["Please select a value", "company", "private", "public"],

@@ -2,8 +2,6 @@
 <ns2:movements_common xmlns:ns2="http://collectionspace.org/services/movement">
     <movementReferenceNumber>MV2010.99</movementReferenceNumber>
     <locationDate>2012-01-29</locationDate>
-
-
     <currentLocation>blah</currentLocation>
     <currentLocationFitness>blah</currentLocationFitness>
     <currentLocationNote>blah</currentLocationNote>
@@ -13,12 +11,15 @@
     <plannedRemovalDate>2012-03-29</plannedRemovalDate>
     <removalDate>2012-04-29</removalDate>
     <reasonForMove>blah</reasonForMove>
-
-
-
     <movementMethods>
         <movementMethod>blah</movementMethod>
     </movementMethods>
-
-
+    <inventoryDate>2012-04-29</inventoryDate>
+    <nextInventoryDate>2012-04-29</nextInventoryDate>
+    <inventoryNote>inventoryNote</inventoryNote>
+    <inventoryActionRequired>inventoryActionRequired</inventoryActionRequired>
+    <frequencyForInventory>frequencyForInventory</frequencyForInventory>
+    <inventoryContactList>
+        <inventoryContact>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</inventoryContact>
+    </inventoryContactList>
 </ns2:movements_common>
