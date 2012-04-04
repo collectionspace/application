@@ -116,7 +116,7 @@
         <repeat id="placeNameGroupList/placeNameGroup">
             <field id="name" ui-search="repeatable"/>
             <field id="nameQualifiedName"/>
-            <field id="nameLanguage" autocomplete="vocab-languages" ui-type="enum">
+            <field id="nameLanguage" autocomplete="vocab-languages" ui-type="enum" ui-search="repeatable">
                 <enum>
                     <default>eng</default>
                 </enum>
