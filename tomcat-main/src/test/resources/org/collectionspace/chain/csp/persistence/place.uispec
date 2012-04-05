@@ -337,7 +337,7 @@
                                     },
                                     ".csc-place-nameSource": "${{row}.nameSource}",
                                     ".csc-place-nameSourceDetail": "${{row}.nameSourceDetail}",
-                                    ".csc-place-name": "${{row}.name}",
+                                    ".csc-place-placeName": "${{row}.placeName}",
                                     ".csc-place-nameNote": "${{row}.nameNote}",
                                     ".csc-place-nameType": {
                                         "optionnames": [
@@ -679,8 +679,8 @@
         ".csc-place-geoRefSource-label": {
             "messagekey": "place-geoRefSourceLabel"
         },
-        ".csc-place-name-label": {
-            "messagekey": "place-nameLabel"
+        ".csc-place-placeName-label": {
+            "messagekey": "place-placeNameLabel"
         },
         ".csc-place-placeType": {
             "default": "",
@@ -769,6 +769,9 @@
         },
         ".csc-place-uri-label": {
             "messagekey": "place-uriLabel"
+        },
+        ".csc-place-name-label": {
+            "messagekey": "place-nameLabel"
         },
         ".csc-place-displayName": "${fields.displayName}",
         ".csc-place-vUnitofMeasure-label": {

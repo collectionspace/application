@@ -334,7 +334,7 @@
                                 "nameAbbrev": {
                                     "type": "string"
                                 },
-                                "name": {
+                                "placeName": {
                                     "type": "string"
                                 },
                                 "nameNote": {
