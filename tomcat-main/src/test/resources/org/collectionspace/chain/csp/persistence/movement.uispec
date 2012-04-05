@@ -102,6 +102,7 @@
         },
         ".csc-movement-createdBy": "${fields.createdBy}",
         ".csc-movement-inventoryNote": "${fields.inventoryNote}",
+        ".csc-movement-workflow": "${fields.workflow}",
         ".csc-movement-updatedAt": {
             "decorators": [{
                 "func": "cspace.datePicker",
@@ -123,6 +124,9 @@
         },
         ".csc-movement-movementNote-label": {
             "messagekey": "movement-movementNoteLabel"
+        },
+        ".csc-movement-workflow-label": {
+            "messagekey": "movement-workflowLabel"
         },
         ".csc-movement-inventoryDate": {
             "decorators": [{

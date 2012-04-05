@@ -603,8 +603,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				int status = 0;
 				Document doc = null;
 				doc=XmlJsonConversion.getXMLSoftDelete();
-				String workflow = "/workflow";
-				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, url+workflow, doc, creds, cache);
+				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, url+WORKFLOW_SUBRESOURCE, doc, creds, cache);
 				status = docm.getStatus();
 				if(status>299 || status<200)
 					throw new UnderlyingStorageException("Bad response ",status,url);
