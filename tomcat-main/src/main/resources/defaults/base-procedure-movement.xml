@@ -8,6 +8,7 @@
                 <services-record-path>movements_common:http://collectionspace.org/services/movement,movements_common</services-record-path>
                 <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
                 <hassoftdelete>true</hassoftdelete>
+                <supportslocking>true</supportslocking>
                 <structures>
                     <structure id="search">
                         <view>
@@ -48,6 +49,10 @@
                     <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+										<field id="workflow" section="collectionspace_core" attributes="GET" 
+														mini="search,list">
+											<services-tag>workflowState</services-tag>
+										</field>
                 </section>
                 <section id="currentLocationHeader"></section> <!-- temp until better way to do group headers -->
                 <section id="locationMovementInformation">

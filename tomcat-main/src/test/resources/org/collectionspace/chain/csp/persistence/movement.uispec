@@ -154,6 +154,7 @@
             "value": "${fields.nextInventoryDate}"
         },
         ".csc-movement-createdBy": "${fields.createdBy}",
+        ".csc-movement-workflow": "${fields.workflow}",
         ".csc-movement-updatedAt": {
             "decorators": [
                 {
@@ -178,6 +179,9 @@
         },
         ".csc-movement-movementNote-label": {
             "messagekey": "movement-movementNoteLabel"
+        },
+        ".csc-movement-workflow-label": {
+            "messagekey": "movement-workflowLabel"
         },
         ".csc-movement-domaindata-label": {
             "messagekey": "movement-domaindataLabel"
