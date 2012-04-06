@@ -1,0 +1,7 @@
+<record id="collection-object">
+	<services-tenant-singular>CollectionObjectTenant20</services-tenant-singular>
+	
+	<section id="testing">
+		<field id="foobar"></field>
+	</section>
+</record>
