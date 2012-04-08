@@ -105,6 +105,18 @@
 	</build>
 	
 	<repositories>
+		<!-- Repository for EL4J modules. -->
+		<repository>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<id>el4jReleaseRepositoryExternal</id>
+			<name>External release repository of the EL4J project</name>
+			<url>http://public-el4.elca-services.ch/el4j/maven2repository</url>
+		</repository>
 		<repository>
 			<id>collectionspace-remote-repos</id>
 			<name>collectionspace-remote-repos</name>
@@ -120,18 +132,6 @@
 			<snapshots>
 				<enabled>false</enabled>
 			</snapshots>
-		</repository>
-		<!-- Repository for EL4J modules. -->
-		<repository>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<id>el4jReleaseRepositoryExternal</id>
-			<name>External release repository of the EL4J project</name>
-			<url>http://public-el4.elca-services.ch/el4j/maven2repository</url>
 		</repository>
 	</repositories>	
 

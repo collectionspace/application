@@ -26,6 +26,9 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class Record implements FieldParent {
+	
+	public static final String SUPPORTS_LOCKING = "supportslocking";
+	
 	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	protected SchemaUtils utils = new SchemaUtils();
 	
@@ -170,6 +173,7 @@ public class Record implements FieldParent {
 		utils.initStrings(section,"primaryfield", "");
 		utils.initBoolean(section,"hasdeletemethod",false);
 		utils.initBoolean(section,"hassoftdelete",false);
+		utils.initBoolean(section,SUPPORTS_LOCKING,false);
 		
 //(17:06) The services singular tag should probably be "ServicesDocumentType"
 
@@ -537,6 +541,10 @@ public class Record implements FieldParent {
 
 	public boolean hasSoftDeleteMethod() {
 		return utils.getBoolean("hassoftdelete");
+	}
+	
+	public boolean supportsLocking() {
+		return utils.getBoolean(SUPPORTS_LOCKING);
 	}
 	
 	public String getServicesSearchKeyword() {
