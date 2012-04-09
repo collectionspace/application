@@ -1,4 +1,1371 @@
 <record id="collection-object">
 	<services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
 
+	<section id="identificationInformation">
+		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
+			<field id="taxon" in-title="yes" ui-search="repeatable" mini="summary,search,list,relate" section="naturalhistory" autocomplete="taxon-taxon">
+				<selector>taxonomic-identification-taxon</selector>
+				<title-selector>titleBar-taxonomic-identification-taxon</title-selector>
+			</field>
+			<field id="qualifier" section="naturalhistory" seperate_ui_container="true">
+				<selector>taxonomic-identification-qualifier</selector>
+				<options>
+					<option id="" default="yes">Unknown</option>
+					<option id="fide">fide</option>
+					<option id="forsan">forsan</option>
+					<option id="hybrid (X)">hybrid (X)</option>
+					<option id="sensu">sensu</option>
+					<option id="sensu lato">sensu lato</option>
+					<option id="sensu stricto">sensu stricto</option>
+					<option id="vide">vide</option>
+					<option id="intermediate">intermediate</option>
+					<option id="?">?</option>
+				</options>
+			</field>
+			<field id="identBy" section="naturalhistory" autocomplete="person-person,organization-organization">
+				<selector>taxonomic-identification-ident-by</selector>
+			</field>
+			<field id="identDate" section="naturalhistory" ui-type="date">
+				<selector>taxonomic-identification-ident-date</selector>
+			</field>
+			<field id="institution" section="naturalhistory" autocomplete="organization-organization">
+				<selector>taxonomic-identification-institution</selector>
+			</field>
+			<field id="identKind" section="naturalhistory" seperate_ui_container="true">
+				<selector>taxonomic-identification-ident-kind</selector>
+				<options>
+					<option id="">Please select a value</option>
+					<option id="original label determination">original label determination</option>
+					<option id="fide">fide</option>
+					<option id="nomenclatural change">nomenclatural change</option>
+					<option id="taxonomic change">taxonomic change</option>
+					<option id="annotation as filed">annotation as filed</option>
+					<option id="identification or reidentification">identification or reidentification</option>
+				</options>
+			</field>
+			<field id="reference" section="naturalhistory">
+				<selector>taxonomic-identification-reference</selector>
+			</field>
+			<field id="refPage" section="naturalhistory">
+				<selector>taxonomic-identification-reference-page</selector>
+			</field>
+			<field id="notes" section="naturalhistory">
+				<selector>taxonomic-identification-notes</selector>
+			</field>
+		</repeat>
+		<field id="labelHeader" section="naturalhistory"/>
+		<field id="labelFooter" section="naturalhistory"/>
+
+		<field id="typeSpecimenKind" ui-search="repeatable" section="naturalhistory" mini="search" seperate_ui_container="true">
+			<selector>object-identification-object-typeSpecimenKind</selector>
+			<options>
+				<option id="">Unspecified type</option>
+				<option id="Allotype">Allotype</option>
+				<option id="Cotype">Cotype</option>
+				<option id="Epitype">Epitype</option>
+				<option id="Fragment">Fragment</option>
+				<option id="Holosyntype">Holosyntype</option>
+				<option id="Holotype">Holotype</option>
+				<option id="Isocotype">Isocotype</option>
+				<option id="Isolectoparatype">Isolectoparatype</option>
+				<option id="Isolectotype">Isolectotype</option>
+				<option id="Isoneotype">Isoneotype</option>
+				<option id="Isoparatype">Isoparatype</option>
+				<option id="Isosyntype">Isosyntype</option>
+				<option id="Isotype">Isotype</option>
+				<option id="Lectoparatype">Lectoparatype</option>
+				<option id="Lectotype">Lectotype</option>
+				<option id="Neotype">Neotype</option>
+				<option id="Non-type">Non-type</option>
+				<option id="Non-visum Isotype">Non-visum Isotype</option>
+				<option id="Paralectotype">Paralectotype</option>
+				<option id="Paratype">Paratype</option>
+				<option id="Pictotype">Pictotype</option>
+				<option id="Possible Type">Possible Type</option>
+				<option id="Standard">Standard</option>
+				<option id="Syntype">Syntype</option>
+				<option id="Topotype">Topotype</option>
+				<option id="Type">Type</option>
+				<option id="Visum Isotype">Visum Isotype</option>
+			</options>
+		</field>
+		<field id="typeSpecimenReference" section="naturalhistory">
+			<selector>object-identification-object-typeSpecimenReference</selector>
+		</field>
+		<field id="typeSpecimenRefPage" section="naturalhistory">
+			<selector>object-identification-object-typeSpecimenRefPage</selector>
+		</field>
+		<field id="typeSpecimenNotes" section="naturalhistory">
+			<selector>object-identification-object-typeSpecimenNotes</selector>
+		</field>
+	</section>
+
+	<section id="descriptionInformation">
+		<repeat id="annotationGroupList/annotationGroup" section="naturalhistory">
+			<field id="annotationType" section="naturalhistory">
+				<selector>collection-object-annotationType</selector>
+				<options>
+					<option id="">Unknown</option>
+					<option id="anatomy ">anatomy</option>
+					<option id="annotation history">annotation history</option>
+					<option id="associated species">associated species</option>
+					<option id="biotic environment -inactive 7/93">biotic environment -inactive 7/93</option>
+					<option id="biotic interactions">biotic interactions</option>
+					<option id="bryoflorulae">bryoflorulae</option>
+					<option id="color">color</option>
+					<option id="common name">common name</option>
+					<option id="cytology">cytology</option>
+					<option id="data in packet">data in packet</option>
+					<option id="deaccession">deaccession</option>
+					<option id="embryology">embryology</option>
+					<option id="ethnobotany">ethnobotany</option>
+					<option id="Expedition">Expedition</option>
+					<option id="fruit removal">fruit removal</option>
+					<option id="genbank code">genbank code</option>
+					<option id="habitat">habitat</option>
+					<option id="horticulture">horticulture</option>
+					<option id="illustration">illustration</option>
+					<option id="image made">image made</option>
+					<option id="Insect damage">Insect damage</option>
+					<option id="macromorphology">macromorphology</option>
+					<option id="map">map</option>
+					<option id="material removed">material removed</option>
+					<option id="micromorphology">micromorphology</option>
+					<option id="nomenclature">nomenclature</option>
+					<option id="none">none</option>
+					<option id="nucleic acids">nucleic acids</option>
+					<option id="number collision">number collision</option>
+					<option id="odor">odor</option>
+					<option id="other">other</option>
+					<option id="other label numbers">other label numbers</option>
+					<option id="phenology">phenology</option>
+					<option id="photograph">photograph</option>
+					<option id="physical enviroment">physical enviroment</option>
+					<option id="physical environment">physical environment</option>
+					<option id="physical environment -inactive 7/93">physical environment -inactive 7/93</option>
+					<option id="population biology">population biology</option>
+					<option id="Primary Label Header">Primary Label Header</option>
+					<option id="publication">publication</option>
+					<option id="reference used for determination">reference used for determination</option>
+					<option id="reproductive biology">reproductive biology</option>
+					<option id="Secondary Label Header">Secondary Label Header</option>
+					<option id="secondary product chemistry">secondary product chemistry</option>
+					<option id="SEM (Scanning Electron Micrograph)">SEM (Scanning Electron Micrograph)</option>
+					<option id="type">type</option>
+					<option id="U.C. Botanical Garden">U.C. Botanical Garden</option>
+					<option id="Vegetation Type Map Project">Vegetation Type Map Project</option>
+				</options>
+			</field>
+			<field id="annotationNote" section="naturalhistory">
+				<selector>collection-object-annotationNote</selector>
+			</field>
+			<field id="annotationDate" section="naturalhistory" ui-type="date">
+				<selector>collection-object-annotationDate</selector>
+			</field>
+			<field id="annotationAuthor" section="naturalhistory" autocomplete="person-person">
+				<selector>collection-object-annotationAuthor</selector>
+			</field>
+		</repeat>
+	</section>
+
+	<section id="objectCollectionInformation">
+		<repeat id="associatedTaxaGroupList/associatedTaxaGroup" section="naturalhistory">
+			<field id="associatedTaxon" section="naturalhistory" autocomplete="taxon-taxon">
+				<services-tag>taxon</services-tag>
+				<selector>collection-object-associatedTaxaTaxon</selector>
+			</field>
+			<field id="commonName" section="naturalhistory">
+				<selector>collection-object-associatedTaxaCommonName</selector>
+			</field>
+			<field id="interaction" section="naturalhistory">
+				<selector>collection-object-associatedTaxaInteraction</selector>
+				<options>
+					<option id="lives/grows with" default="yes">lives/grows with</option>
+					<option id="lives on">lives on</option>
+					<option id="is physically supported by">is physically supported by</option>
+					<option id="is epiphytic on">is epiphytic on</option>
+				</options>
+			</field>
+		</repeat>
+	
+		<field id="fieldLocVerbatim" ui-search="repeatable" section="naturalhistory"/>
+		<field id="fieldLocLatDecimal" section="naturalhistory"/>
+		<field id="fieldLocLongDecimal" section="naturalhistory"/>
+		<field id="fieldLocGeodeticDatum" section="naturalhistory" seperate_ui_container="true">
+			<selector>collection-object-fieldLocGeodeticDatum</selector>
+			<options>
+				<option id="" default="yes">Not Recorded</option>
+				<option id="ADG66">ADG66</option>
+				<option id="NAD27">NAD27</option>
+				<option id="NAD83">NAD83</option>
+				<option id="NAD83&amp;WGS84">NAD83&amp;WGS84</option>
+				<option id="WGS84">WGS84</option>
+			</options>
+		</field>
+		<field id="fieldLocCoordinateSystem" section="naturalhistory" separate_ui_container="true">
+			<selector>collection-object-fieldLocCoordinateSystem</selector>
+			<options>
+				<option id="" default="yes">Unknown</option>
+				<option id="None">None</option>
+				<option id="Degrees">Degrees</option>
+				<option id="Decimal Degrees">Decimal Degrees</option>
+				<option id="Degrees Decimal Minutes">Degrees Decimal Minutes</option>
+				<option id="Degrees Minutes Seconds">Degrees Minutes Seconds</option>
+				<option id="Township Range Section">Township Range Section</option>
+				<option id="Township Range Section / Degrees">Township Range Section / Degrees</option>
+				<option id="Universal Transverse Mercator">Universal Transverse Mercator</option>
+			</options>
+		</field>
+		<field id="fieldLocCounty" ui-search="repeatable" section="naturalhistory" seperate_ui_container="true">
+			<selector>collection-object-fieldLocCounty</selector>
+			<options>
+				<option id="" default="yes">Unknown</option>
+				<option id="Acadia">Acadia</option>
+				<option id="Acaponeta">Acaponeta</option>
+				<option id="Ada">Ada</option>
+				<option id="ADAMS">ADAMS</option>
+				<option id="Addison">Addison</option>
+				<option id="Agusan del Norte">Agusan del Norte</option>
+				<option id="Ahuacatlan">Ahuacatlan</option>
+				<option id="Alameda">Alameda</option>
+				<option id="Albany">Albany</option>
+				<option id="Allen">Allen</option>
+				<option id="Alpine">Alpine</option>
+				<option id="Amador">Amador</option>
+				<option id="Amazonas">Amazonas</option>
+				<option id="Antonina">Antonina</option>
+				<option id="Aransas">Aransas</option>
+				<option id="Archer">Archer</option>
+				<option id="Aroostook">Aroostook</option>
+				<option id="Arran, Island of">Arran, Island of</option>
+				<option id="Ashland">Ashland</option>
+				<option id="Asotin">Asotin</option>
+				<option id="Athens">Athens</option>
+				<option id="Atlantic">Atlantic</option>
+				<option id="Austin">Austin</option>
+				<option id="Ayopaya">Ayopaya</option>
+				<option id="Ba">Ba</option>
+				<option id="Bagua">Bagua</option>
+				<option id="Baker">Baker</option>
+				<option id="Baltimore">Baltimore</option>
+				<option id="Barnstable">Barnstable</option>
+				<option id="Barreiras">Barreiras</option>
+				<option id="Barton">Barton</option>
+				<option id="Beauregard">Beauregard</option>
+				<option id="Beaver">Beaver</option>
+				<option id="Bell">Bell</option>
+				<option id="Bennington">Bennington</option>
+				<option id="Benton">Benton</option>
+				<option id="Berks">Berks</option>
+				<option id="Berkshire">Berkshire</option>
+				<option id="Bernalillo">Bernalillo</option>
+				<option id="Bibb">Bibb</option>
+				<option id="Bienville">Bienville</option>
+				<option id="BLAINE">BLAINE</option>
+				<option id="BOISE">BOISE</option>
+				<option id="Bonaventure">Bonaventure</option>
+				<option id="Bongara">Bongara</option>
+				<option id="Bothwell Municipality">Bothwell Municipality</option>
+				<option id="Boulder">Boulder</option>
+				<option id="Boundary">Boundary</option>
+				<option id="Box Elder">Box Elder</option>
+				<option id="Brazos">Brazos</option>
+				<option id="Brevard">Brevard</option>
+				<option id="Brewster">Brewster</option>
+				<option id="Brooks">Brooks</option>
+				<option id="Brown">Brown</option>
+				<option id="Bucks">Bucks</option>
+				<option id="Burlington">Burlington</option>
+				<option id="Burnie Municipality">Burnie Municipality</option>
+				<option id="Butler">Butler</option>
+				<option id="Butte">Butte</option>
+				<option id="Cache">Cache</option>
+				<option id="Caddo">Caddo</option>
+				<option id="Cajamarca">Cajamarca</option>
+				<option id="Calaveras">Calaveras</option>
+				<option id="Caldwell">Caldwell</option>
+				<option id="Caledonia">Caledonia</option>
+				<option id="CAMAS">CAMAS</option>
+				<option id="Camden">Camden</option>
+				<option id="Cameron">Cameron</option>
+				<option id="Candelaria">Candelaria</option>
+				<option id="Canyon">Canyon</option>
+				<option id="Cape May">Cape May</option>
+				<option id="Capiz">Capiz</option>
+				<option id="Carangola">Carangola</option>
+				<option id="Carbon">Carbon</option>
+				<option id="Carson City">Carson City</option>
+				<option id="Casey">Casey</option>
+				<option id="Cass">Cass</option>
+				<option id="Castrovirreina">Castrovirreina</option>
+				<option id="Catahoula">Catahoula</option>
+				<option id="Cautin">Cautin</option>
+				<option id="Celendin">Celendin</option>
+				<option id="Chachapoyas">Chachapoyas</option>
+				<option id="Champaign">Champaign</option>
+				<option id="Charles">Charles</option>
+				<option id="Chautauqua">Chautauqua</option>
+				<option id="Cheboygan">Cheboygan</option>
+				<option id="Chelan">Chelan</option>
+				<option id="Chester">Chester</option>
+				<option id="Chiang Mai, Changwat">Chiang Mai, Changwat</option>
+				<option id="Chicligasta">Chicligasta</option>
+				<option id="Chittenden">Chittenden</option>
+				<option id="Churchill">Churchill</option>
+				<option id="Cimarron">Cimarron</option>
+				<option id="Clackamas">Clackamas</option>
+				<option id="Claiborne">Claiborne</option>
+				<option id="Clallam">Clallam</option>
+				<option id="Clark">Clark</option>
+				<option id="Clatsop">Clatsop</option>
+				<option id="Clear Creek">Clear Creek</option>
+				<option id="Cleburne">Cleburne</option>
+				<option id="Cleveland">Cleveland</option>
+				<option id="Clinton">Clinton</option>
+				<option id="Cochise">Cochise</option>
+				<option id="Cocke">Cocke</option>
+				<option id="Coconino">Coconino</option>
+				<option id="Colfax">Colfax</option>
+				<option id="Collier">Collier</option>
+				<option id="Columbia">Columbia</option>
+				<option id="Colusa">Colusa</option>
+				<option id="COMAL">COMAL</option>
+				<option id="Comanche">Comanche</option>
+				<option id="Compostela">Compostela</option>
+				<option id="Conejos">Conejos</option>
+				<option id="Contra Costa">Contra Costa</option>
+				<option id="Cook">Cook</option>
+				<option id="Coos">Coos</option>
+				<option id="Copiah">Copiah</option>
+				<option id="Corumba">Corumba</option>
+				<option id="Costilla">Costilla</option>
+				<option id="Crockett">Crockett</option>
+				<option id="Cumberland">Cumberland</option>
+				<option id="Curry">Curry</option>
+				<option id="CUSTER">CUSTER</option>
+				<option id="Cuyahoga">Cuyahoga</option>
+				<option id="Dane">Dane</option>
+				<option id="De Kalb">De Kalb</option>
+				<option id="De Witt">De Witt</option>
+				<option id="Del Norte">Del Norte</option>
+				<option id="Delaware">Delaware</option>
+				<option id="Deloraine Municipality">Deloraine Municipality</option>
+				<option id="Deschutes">Deschutes</option>
+				<option id="Diamantina">Diamantina</option>
+				<option id="Dodge">Dodge</option>
+				<option id="Dona Ana">Dona Ana</option>
+				<option id="DOUGLAS">DOUGLAS</option>
+				<option id="Du Page">Du Page</option>
+				<option id="Duchesne">Duchesne</option>
+				<option id="Durham">Durham</option>
+				<option id="Duval">Duval</option>
+				<option id="Eddy">Eddy</option>
+				<option id="El Dorado">El Dorado</option>
+				<option id="El Paso">El Paso</option>
+				<option id="Elko">Elko</option>
+				<option id="ELMORE">ELMORE</option>
+				<option id="Emery">Emery</option>
+				<option id="Erie">Erie</option>
+				<option id="ESMERALDA">ESMERALDA</option>
+				<option id="Esmeraldas">Esmeraldas</option>
+				<option id="Esperance Municipality">Esperance Municipality</option>
+				<option id="Essex (MA)">Essex (MA)</option>
+				<option id="Eureka">Eureka</option>
+				<option id="Fairfax">Fairfax</option>
+				<option id="Fairfield">Fairfield</option>
+				<option id="Fall River">Fall River</option>
+				<option id="Fayette">Fayette</option>
+				<option id="Ferry">Ferry</option>
+				<option id="Fingal Municipality">Fingal Municipality</option>
+				<option id="Flathead">Flathead</option>
+				<option id="Florida">Florida</option>
+				<option id="Fond Du Lac">Fond Du Lac</option>
+				<option id="Fountain">Fountain</option>
+				<option id="Franklin">Franklin</option>
+				<option id="Frederick">Frederick</option>
+				<option id="Fremont">Fremont</option>
+				<option id="Fresno">Fresno</option>
+				<option id="Fulton">Fulton</option>
+				<option id="Galapagos">Galapagos</option>
+				<option id="Gallatin">Gallatin</option>
+				<option id="Garfield">Garfield</option>
+				<option id="Garrett">Garrett</option>
+				<option id="Gem">Gem</option>
+				<option id="Gila">Gila</option>
+				<option id="Glamorgan Municipality">Glamorgan Municipality</option>
+				<option id="Glenn">Glenn</option>
+				<option id="Glenorchy Municipality">Glenorchy Municipality</option>
+				<option id="Gloucester">Gloucester</option>
+				<option id="Gonzales">Gonzales</option>
+				<option id="Gormanston Municipality">Gormanston Municipality</option>
+				<option id="Gouveia">Gouveia</option>
+				<option id="Grady">Grady</option>
+				<option id="Graham">Graham</option>
+				<option id="Granite">Granite</option>
+				<option id="Grant">Grant</option>
+				<option id="Grays Harbor">Grays Harbor</option>
+				<option id="Greene">Greene</option>
+				<option id="Greenlee">Greenlee</option>
+				<option id="Gregg">Gregg</option>
+				<option id="Guaraquecaba">Guaraquecaba</option>
+				<option id="Guaratuba">Guaratuba</option>
+				<option id="Gunnison">Gunnison</option>
+				<option id="Habersham">Habersham</option>
+				<option id="Hamilton Municipality">Hamilton Municipality</option>
+				<option id="Hancock">Hancock</option>
+				<option id="Harney">Harney</option>
+				<option id="Harrison">Harrison</option>
+				<option id="Hemphill">Hemphill</option>
+				<option id="Henry">Henry</option>
+				<option id="Hidalgo">Hidalgo</option>
+				<option id="Highlands">Highlands</option>
+				<option id="Hobart Municipality">Hobart Municipality</option>
+				<option id="Holt">Holt</option>
+				<option id="Hood River">Hood River</option>
+				<option id="Howard">Howard</option>
+				<option id="Huancabamba">Huancabamba</option>
+				<option id="Huanuco">Huanuco</option>
+				<option id="HUMBOLDT">HUMBOLDT</option>
+				<option id="Hunterdon">Hunterdon</option>
+				<option id="Huron">Huron</option>
+				<option id="IDAHO">IDAHO</option>
+				<option id="Imperial">Imperial</option>
+				<option id="Independence">Independence</option>
+				<option id="Inyo">Inyo</option>
+				<option id="IRON">IRON</option>
+				<option id="Itasca">Itasca</option>
+				<option id="Ixtlan">Ixtlan</option>
+				<option id="Izard">Izard</option>
+				<option id="JACKSON">JACKSON</option>
+				<option id="Jaguariaiya">Jaguariaiya</option>
+				<option id="Jalisco">Jalisco</option>
+				<option id="Jasper">Jasper</option>
+				<option id="Jeff Davis">Jeff Davis</option>
+				<option id="Jefferson">Jefferson</option>
+				<option id="Jersey">Jersey</option>
+				<option id="Johnson">Johnson</option>
+				<option id="Jolo Group">Jolo Group</option>
+				<option id="Josephine">Josephine</option>
+				<option id="Juab">Juab</option>
+				<option id="Juquila">Juquila</option>
+				<option id="Kandavu">Kandavu</option>
+				<option id="Kane">Kane</option>
+				<option id="Kankakee">Kankakee</option>
+				<option id="Kauai">Kauai</option>
+				<option id="Kearney">Kearney</option>
+				<option id="Kennebec">Kennebec</option>
+				<option id="Kenosha">Kenosha</option>
+				<option id="Kentish Municipality">Kentish Municipality</option>
+				<option id="Kepulauan">Kepulauan</option>
+				<option id="Kepulauan Kangean Islands">Kepulauan Kangean Islands</option>
+				<option id="Kern">Kern</option>
+				<option id="Kerr">Kerr</option>
+				<option id="King">King</option>
+				<option id="Kingborough Municipality">Kingborough Municipality</option>
+				<option id="Kingfisher">Kingfisher</option>
+				<option id="Kings">Kings</option>
+				<option id="Kiowa">Kiowa</option>
+				<option id="Kitsap">Kitsap</option>
+				<option id="KITTITAS">KITTITAS</option>
+				<option id="Klamath">Klamath</option>
+				<option id="KLICKITAT">KLICKITAT</option>
+				<option id="Knox">Knox</option>
+				<option id="Kodiak Island">Kodiak Island</option>
+				<option id="Kootenai">Kootenai</option>
+				<option id="Korinthos">Korinthos</option>
+				<option id="Koro">Koro</option>
+				<option id="La Paz">La Paz</option>
+				<option id="La Plata">La Plata</option>
+				<option id="La Salle">La Salle</option>
+				<option id="Lake">Lake</option>
+				<option id="Lamas">Lamas</option>
+				<option id="Lamoille">Lamoille</option>
+				<option id="Lander">Lander</option>
+				<option id="Lane">Lane</option>
+				<option id="Larecaja">Larecaja</option>
+				<option id="Larimer">Larimer</option>
+				<option id="Lassen">Lassen</option>
+				<option id="Lauderdale">Lauderdale</option>
+				<option id="Launceston Municipality">Launceston Municipality</option>
+				<option id="Lawrence">Lawrence</option>
+				<option id="Lehigh">Lehigh</option>
+				<option id="LEMHI">LEMHI</option>
+				<option id="Leon">Leon</option>
+				<option id="Lewis">Lewis</option>
+				<option id="Licking">Licking</option>
+				<option id="Lilydale Municipality">Lilydale Municipality</option>
+				<option id="LINCOLN">LINCOLN</option>
+				<option id="Linn">Linn</option>
+				<option id="LLANO">LLANO</option>
+				<option id="Loja">Loja</option>
+				<option id="Longford Municipality">Longford Municipality</option>
+				<option id="Los Angeles">Los Angeles</option>
+				<option id="Loudoun">Loudoun</option>
+				<option id="Lucas">Lucas</option>
+				<option id="Lyon">Lyon</option>
+				<option id="Macon">Macon</option>
+				<option id="Madera">Madera</option>
+				<option id="Madison">Madison</option>
+				<option id="MALHEUR">MALHEUR</option>
+				<option id="Manabi">Manabi</option>
+				<option id="Maricopa">Maricopa</option>
+				<option id="Marin">Marin</option>
+				<option id="Marion">Marion</option>
+				<option id="Mariposa">Mariposa</option>
+				<option id="Marshall">Marshall</option>
+				<option id="Mason">Mason</option>
+				<option id="McCulloch">McCulloch</option>
+				<option id="McCurtain">McCurtain</option>
+				<option id="McDowell">McDowell</option>
+				<option id="McKinley">McKinley</option>
+				<option id="Meade">Meade</option>
+				<option id="Mendocino">Mendocino</option>
+				<option id="Merced">Merced</option>
+				<option id="Mercer">Mercer</option>
+				<option id="Merrimack">Merrimack</option>
+				<option id="Miahuatlan">Miahuatlan</option>
+				<option id="Miami">Miami</option>
+				<option id="Middlesex">Middlesex</option>
+				<option id="Millard">Millard</option>
+				<option id="Mineral">Mineral</option>
+				<option id="Missoula">Missoula</option>
+				<option id="Mizque">Mizque</option>
+				<option id="Modoc">Modoc</option>
+				<option id="Mohave">Mohave</option>
+				<option id="Monmouth">Monmouth</option>
+				<option id="Mono">Mono</option>
+				<option id="Monroe">Monroe</option>
+				<option id="Monterey">Monterey</option>
+				<option id="Montezuma">Montezuma</option>
+				<option id="Montgomery">Montgomery</option>
+				<option id="Morehouse">Morehouse</option>
+				<option id="Morgan">Morgan</option>
+				<option id="Morro do Chapeu">Morro do Chapeu</option>
+				<option id="Muscatine">Muscatine</option>
+				<option id="Muskingum">Muskingum</option>
+				<option id="Nakhon Ratchasima, Changwat">Nakhon Ratchasima, Changwat</option>
+				<option id="Napa">Napa</option>
+				<option id="Natrona">Natrona</option>
+				<option id="Navajo">Navajo</option>
+				<option id="Nevada">Nevada</option>
+				<option id="New Castle">New Castle</option>
+				<option id="New Haven">New Haven</option>
+				<option id="New Norfolk Municipality">New Norfolk Municipality</option>
+				<option id="Newton">Newton</option>
+				<option id="Nez Perc">Nez Perc</option>
+				<option id="Northampton">Northampton</option>
+				<option id="Nueces">Nueces</option>
+				<option id="Nueva Vizcaya">Nueva Vizcaya</option>
+				<option id="Nye">Nye</option>
+				<option id="Oatlands Municipality">Oatlands Municipality</option>
+				<option id="Ocean">Ocean</option>
+				<option id="Ogle">Ogle</option>
+				<option id="Okanogan">Okanogan</option>
+				<option id="Orange">Orange</option>
+				<option id="Osage">Osage</option>
+				<option id="Otero">Otero</option>
+				<option id="Ouachita">Ouachita</option>
+				<option id="Owyhee">Owyhee</option>
+				<option id="Ozaukee">Ozaukee</option>
+				<option id="Page">Page</option>
+				<option id="Palmeira">Palmeira</option>
+				<option id="Pampanga">Pampanga</option>
+				<option id="Pangasinan">Pangasinan</option>
+				<option id="Paranagua">Paranagua</option>
+				<option id="Park">Park</option>
+				<option id="Parke">Parke</option>
+				<option id="Pecos">Pecos</option>
+				<option id="Pender">Pender</option>
+				<option id="Penguin Municipality">Penguin Municipality</option>
+				<option id="Pennington">Pennington</option>
+				<option id="Peoria">Peoria</option>
+				<option id="Pershing">Pershing</option>
+				<option id="Pickaway">Pickaway</option>
+				<option id="Pierce">Pierce</option>
+				<option id="Pike">Pike</option>
+				<option id="Pima">Pima</option>
+				<option id="Pinal">Pinal</option>
+				<option id="Piura">Piura</option>
+				<option id="Placer">Placer</option>
+				<option id="Plumas">Plumas</option>
+				<option id="Pochutla">Pochutla</option>
+				<option id="Polk">Polk</option>
+				<option id="Pope">Pope</option>
+				<option id="Portland Municipality">Portland Municipality</option>
+				<option id="Powell">Powell</option>
+				<option id="Preble">Preble</option>
+				<option id="Presidio">Presidio</option>
+				<option id="Providence">Providence</option>
+				<option id="Pujili">Pujili</option>
+				<option id="Putnam">Putnam</option>
+				<option id="Quay">Quay</option>
+				<option id="Queen Elizabeth Islands">Queen Elizabeth Islands</option>
+				<option id="Quezon">Quezon</option>
+				<option id="Quito">Quito</option>
+				<option id="Rabun">Rabun</option>
+				<option id="Raiatea">Raiatea</option>
+				<option id="Randolph">Randolph</option>
+				<option id="Rappahannock">Rappahannock</option>
+				<option id="Rarotonga">Rarotonga</option>
+				<option id="Refugio">Refugio</option>
+				<option id="Rewa">Rewa</option>
+				<option id="Rich">Rich</option>
+				<option id="Richland">Richland</option>
+				<option id="Ringarooma Municipality">Ringarooma Municipality</option>
+				<option id="Rio Arriba">Rio Arriba</option>
+				<option id="Rio Branco">Rio Branco</option>
+				<option id="Rio Grande">Rio Grande</option>
+				<option id="Rio Verde">Rio Verde</option>
+				<option id="Ritchie">Ritchie</option>
+				<option id="Riverside">Riverside</option>
+				<option id="Rizal">Rizal</option>
+				<option id="Rock Island">Rock Island</option>
+				<option id="Rockland">Rockland</option>
+				<option id="Roger Mills">Roger Mills</option>
+				<option id="Ross">Ross</option>
+				<option id="Ross Municipality">Ross Municipality</option>
+				<option id="Russell Islands">Russell Islands</option>
+				<option id="Rutland">Rutland</option>
+				<option id="Sabah">Sabah</option>
+				<option id="Sabine">Sabine</option>
+				<option id="Sacramento">Sacramento</option>
+				<option id="Salem">Salem</option>
+				<option id="Salt Lake">Salt Lake</option>
+				<option id="San Benito">San Benito</option>
+				<option id="San Bernardino">San Bernardino</option>
+				<option id="San Blas">San Blas</option>
+				<option id="San Diego">San Diego</option>
+				<option id="San Francisco">San Francisco</option>
+				<option id="San Ignacio">San Ignacio</option>
+				<option id="San Joaquin">San Joaquin</option>
+				<option id="San Juan">San Juan</option>
+				<option id="San Luis Obispo">San Luis Obispo</option>
+				<option id="San Mateo">San Mateo</option>
+				<option id="San Miguel">San Miguel</option>
+				<option id="San Pedro Lagunillas">San Pedro Lagunillas</option>
+				<option id="San Pedro Lagunitas">San Pedro Lagunitas</option>
+				<option id="Sanders">Sanders</option>
+				<option id="Sandoval">Sandoval</option>
+				<option id="Santa Barbara">Santa Barbara</option>
+				<option id="Santa Clara">Santa Clara</option>
+				<option id="Santa Cruz">Santa Cruz</option>
+				<option id="Santa Maria del Oro">Santa Maria del Oro</option>
+				<option id="Santa Victoria">Santa Victoria</option>
+				<option id="Sarawak">Sarawak</option>
+				<option id="Sauk">Sauk</option>
+				<option id="Scottsdale Municipality">Scottsdale Municipality</option>
+				<option id="Sedgwick">Sedgwick</option>
+				<option id="Senyavin Islands">Senyavin Islands</option>
+				<option id="Sevier">Sevier</option>
+				<option id="Shasta">Shasta</option>
+				<option id="Sheffield Municipality">Sheffield Municipality</option>
+				<option id="Shelby">Shelby</option>
+				<option id="Shenandoah">Shenandoah</option>
+				<option id="Sherman">Sherman</option>
+				<option id="Shoshone">Shoshone</option>
+				<option id="Sierra">Sierra</option>
+				<option id="Silver Bow">Silver Bow</option>
+				<option id="Siskiyou">Siskiyou</option>
+				<option id="Skagit">Skagit</option>
+				<option id="Skamania">Skamania</option>
+				<option id="Snohomish">Snohomish</option>
+				<option id="Socorro">Socorro</option>
+				<option id="Sola de Vega">Sola de Vega</option>
+				<option id="Solano">Solano</option>
+				<option id="Sonoma">Sonoma</option>
+				<option id="Sorell Municipality">Sorell Municipality</option>
+				<option id="Spring Bay Municipality">Spring Bay Municipality</option>
+				<option id="St. Clair">St. Clair</option>
+				<option id="St. Leonards Municipality">St. Leonards Municipality</option>
+				<option id="St. Tammany">St. Tammany</option>
+				<option id="Stanislaus">Stanislaus</option>
+				<option id="Storey">Storey</option>
+				<option id="Story">Story</option>
+				<option id="Sublette">Sublette</option>
+				<option id="Sud Yungas">Sud Yungas</option>
+				<option id="Suffolk">Suffolk</option>
+				<option id="Summit">Summit</option>
+				<option id="Sussex">Sussex</option>
+				<option id="Sutter">Sutter</option>
+				<option id="Swain">Swain</option>
+				<option id="Tahiti">Tahiti</option>
+				<option id="Taltal">Taltal</option>
+				<option id="Taos">Taos</option>
+				<option id="Tarrant">Tarrant</option>
+				<option id="Tasman Municipality">Tasman Municipality</option>
+				<option id="Tattnall">Tattnall</option>
+				<option id="Taylor">Taylor</option>
+				<option id="Tazewell">Tazewell</option>
+				<option id="Tehama">Tehama</option>
+				<option id="Teller">Teller</option>
+				<option id="Tepic">Tepic</option>
+				<option id="Terrell">Terrell</option>
+				<option id="Teton">Teton</option>
+				<option id="Thurston">Thurston</option>
+				<option id="Tillamook">Tillamook</option>
+				<option id="Tooele">Tooele</option>
+				<option id="Torrance">Torrance</option>
+				<option id="Towns">Towns</option>
+				<option id="TRAVIS">TRAVIS</option>
+				<option id="Treutlen">Treutlen</option>
+				<option id="Trinity">Trinity</option>
+				<option id="Tulare">Tulare</option>
+				<option id="Tuolumne">Tuolumne</option>
+				<option id="Tyler">Tyler</option>
+				<option id="Uinta">Uinta</option>
+				<option id="Uintah">Uintah</option>
+				<option id="Ulster">Ulster</option>
+				<option id="Ulverstone Municipality">Ulverstone Municipality</option>
+				<option id="UMATILLA">UMATILLA</option>
+				<option id="Union">Union</option>
+				<option id="Upshur">Upshur</option>
+				<option id="Urubamba">Urubamba</option>
+				<option id="Utah">Utah</option>
+				<option id="Valencia">Valencia</option>
+				<option id="VALLEY">VALLEY</option>
+				<option id="Vanua Levu">Vanua Levu</option>
+				<option id="Ventura">Ventura</option>
+				<option id="Vermilion">Vermilion</option>
+				<option id="Viti Levu">Viti Levu</option>
+				<option id="Walla Walla">Walla Walla</option>
+				<option id="Waratah Municipality">Waratah Municipality</option>
+				<option id="WASCO">WASCO</option>
+				<option id="Washakie">Washakie</option>
+				<option id="Washington">Washington</option>
+				<option id="WASHOE">WASHOE</option>
+				<option id="Waukesha">Waukesha</option>
+				<option id="Waushara">Waushara</option>
+				<option id="Whatcom">Whatcom</option>
+				<option id="Wheeler">Wheeler</option>
+				<option id="White">White</option>
+				<option id="White Pine">White Pine</option>
+				<option id="Whitman">Whitman</option>
+				<option id="Windsor">Windsor</option>
+				<option id="Winn">Winn</option>
+				<option id="Wood">Wood</option>
+				<option id="Woods">Woods</option>
+				<option id="Worcester">Worcester</option>
+				<option id="Yakima">Yakima</option>
+				<option id="Yamhill">Yamhill</option>
+				<option id="Yavapai">Yavapai</option>
+				<option id="Yolo">Yolo</option>
+				<option id="Yuba">Yuba</option>
+				<option id="Yuma">Yuma</option>
+				<option id="Zambales">Zambales</option>
+				<option id="Zeehan Municipality">Zeehan Municipality</option>
+				<option id="Zhongdian">Zhongdian</option>
+			</options>
+		</field>
+		<field id="fieldLocState" ui-search="repeatable" section="naturalhistory" seperate_ui_container="true">
+			<selector>collection-object-fieldLocState</selector>
+			<options>
+				<option id="" default="yes">Unknown</option>
+				<option id="'Eua">'Eua</option>
+				<option id="Aamzonas">Aamzonas</option>
+				<option id="Acre">Acre</option>
+				<option id="AK">AK</option>
+				<option id="AL">AL</option>
+				<option id="Alajuela">Alajuela</option>
+				<option id="Alajuelo">Alajuelo</option>
+				<option id="ALB">ALB</option>
+				<option id="Alberta">Alberta</option>
+				<option id="Alger">Alger</option>
+				<option id="Alta Verapaz">Alta Verapaz</option>
+				<option id="Amazonas">Amazonas</option>
+				<option id="Ancash">Ancash</option>
+				<option id="Anhui">Anhui</option>
+				<option id="Antioquia">Antioquia</option>
+				<option id="Antofagasta">Antofagasta</option>
+				<option id="Apurimac">Apurimac</option>
+				<option id="AR">AR</option>
+				<option id="Aragua">Aragua</option>
+				<option id="Araucania">Araucania</option>
+				<option id="Arequipa">Arequipa</option>
+				<option id="ARIZ">ARIZ</option>
+				<option id="Artigas">Artigas</option>
+				<option id="Atacama">Atacama</option>
+				<option id="Atlantida">Atlantida</option>
+				<option id="Ayacucho">Ayacucho</option>
+				<option id="AZ">AZ</option>
+				<option id="AZ Territory">AZ Territory</option>
+				<option id="Azuay">Azuay</option>
+				<option id="B.C.">B.C.</option>
+				<option id="B.C.S.">B.C.S.</option>
+				<option id="Bac Phan">Bac Phan</option>
+				<option id="Bahia">Bahia</option>
+				<option id="Baja Cal">Baja Cal</option>
+				<option id="Baja Cali">Baja Cali</option>
+				<option id="Baja Calic">Baja Calic</option>
+				<option id="Baja Calif">Baja Calif</option>
+				<option id="Baja California">Baja California</option>
+				<option id="Baja California Sur">Baja California Sur</option>
+				<option id="Baja Verapaz">Baja Verapaz</option>
+				<option id="Baleares">Baleares</option>
+				<option id="Baluchistan">Baluchistan</option>
+				<option id="Banguey Island">Banguey Island</option>
+				<option id="Barinas">Barinas</option>
+				<option id="BC">BC</option>
+				<option id="BCS">BCS</option>
+				<option id="Benguet">Benguet</option>
+				<option id="Binh Tri Thien, Tinh">Binh Tri Thien, Tinh</option>
+				<option id="Biobio, Regio del">Biobio, Regio del</option>
+				<option id="Bismarck Archipelago">Bismarck Archipelago</option>
+				<option id="BN">BN</option>
+				<option id="Bohol">Bohol</option>
+				<option id="Bolivar">Bolivar</option>
+				<option id="Boyaca">Boyaca</option>
+				<option id="British Co">British Co</option>
+				<option id="British Columbia">British Columbia</option>
+				<option id="Brunei">Brunei</option>
+				<option id="Buenos Aires">Buenos Aires</option>
+				<option id="Bulacan">Bulacan</option>
+				<option id="CA">CA</option>
+				<option id="Cajamarca">Cajamarca</option>
+				<option id="Campeche">Campeche</option>
+				<option id="Canar">Canar</option>
+				<option id="Cape of Good Hope">Cape of Good Hope</option>
+				<option id="Cape Province">Cape Province</option>
+				<option id="Carchi">Carchi</option>
+				<option id="Caroline Islands">Caroline Islands</option>
+				<option id="Cartago">Cartago</option>
+				<option id="Cascajal">Cascajal</option>
+				<option id="Cataluna">Cataluna</option>
+				<option id="Cauca">Cauca</option>
+				<option id="Cebu">Cebu</option>
+				<option id="Central">Central</option>
+				<option id="Chalatenango">Chalatenango</option>
+				<option id="CHI">CHI</option>
+				<option id="Chia">Chia</option>
+				<option id="Chiang Mai, Changwat">Chiang Mai, Changwat</option>
+				<option id="Chiapas">Chiapas</option>
+				<option id="Chihuahua">Chihuahua</option>
+				<option id="Chimaltenango">Chimaltenango</option>
+				<option id="Chimborazo">Chimborazo</option>
+				<option id="Chinandega">Chinandega</option>
+				<option id="Chiriqui">Chiriqui</option>
+				<option id="Chontales">Chontales</option>
+				<option id="Chupadero">Chupadero</option>
+				<option id="Chuquisaca">Chuquisaca</option>
+				<option id="CO">CO</option>
+				<option id="CO Territory">CO Territory</option>
+				<option id="Coahuila">Coahuila</option>
+				<option id="COCA">COCA</option>
+				<option id="Cochabamba">Cochabamba</option>
+				<option id="Cocle">Cocle</option>
+				<option id="COL">COL</option>
+				<option id="Colima">Colima</option>
+				<option id="Comayagua">Comayagua</option>
+				<option id="Concepcion">Concepcion</option>
+				<option id="COP">COP</option>
+				<option id="Coquimbo">Coquimbo</option>
+				<option id="Cordoba">Cordoba</option>
+				<option id="Cortes">Cortes</option>
+				<option id="Costa">Costa</option>
+				<option id="Cotopaxi">Cotopaxi</option>
+				<option id="CT">CT</option>
+				<option id="Cundinamarca">Cundinamarca</option>
+				<option id="Cuzco">Cuzco</option>
+				<option id="Darien">Darien</option>
+				<option id="DE">DE</option>
+				<option id="Dept. La e">Dept. La e</option>
+				<option id="Dept. Mag">Dept. Mag</option>
+				<option id="Distrito Federal">Distrito Federal</option>
+				<option id="DUR">DUR</option>
+				<option id="Durango">Durango</option>
+				<option id="East Malaysia">East Malaysia</option>
+				<option id="East Sepik">East Sepik</option>
+				<option id="Eastern Division">Eastern Division</option>
+				<option id="Eastern Divsion">Eastern Divsion</option>
+				<option id="El Progreso">El Progreso</option>
+				<option id="Esmeraldas">Esmeraldas</option>
+				<option id="Esteli">Esteli</option>
+				<option id="FL">FL</option>
+				<option id="Florida">Florida</option>
+				<option id="Fujian">Fujian</option>
+				<option id="GA">GA</option>
+				<option id="Gansu">Gansu</option>
+				<option id="Goias">Goias</option>
+				<option id="Golestan">Golestan</option>
+				<option id="Granada">Granada</option>
+				<option id="GRO">GRO</option>
+				<option id="GUAM">GUAM</option>
+				<option id="Guanacaste">Guanacaste</option>
+				<option id="Guanajuato">Guanajuato</option>
+				<option id="Guangdong">Guangdong</option>
+				<option id="Guatemala">Guatemala</option>
+				<option id="Guayas">Guayas</option>
+				<option id="Guerrero">Guerrero</option>
+				<option id="Guizhou">Guizhou</option>
+				<option id="Ha Bach, Tinh">Ha Bach, Tinh</option>
+				<option id="Hainan">Hainan</option>
+				<option id="Hamadan">Hamadan</option>
+				<option id="Heidelberg">Heidelberg</option>
+				<option id="Heredia">Heredia</option>
+				<option id="HI">HI</option>
+				<option id="Hidalgo">Hidalgo</option>
+				<option id="Honshu">Honshu</option>
+				<option id="Huancabamba">Huancabamba</option>
+				<option id="Huancavelica">Huancavelica</option>
+				<option id="Huanuco">Huanuco</option>
+				<option id="Hubei">Hubei</option>
+				<option id="Huehuetena">Huehuetena</option>
+				<option id="Huehuetenango">Huehuetenango</option>
+				<option id="Humacao">Humacao</option>
+				<option id="IA">IA</option>
+				<option id="ID">ID</option>
+				<option id="Idaho">Idaho</option>
+				<option id="IL">IL</option>
+				<option id="IN">IN</option>
+				<option id="Insular">Insular</option>
+				<option id="Ipiros">Ipiros</option>
+				<option id="Iringa">Iringa</option>
+				<option id="Isabela">Isabela</option>
+				<option id="Izabel">Izabel</option>
+				<option id="JAL">JAL</option>
+				<option id="Jalisco">Jalisco</option>
+				<option id="Jalsico">Jalsico</option>
+				<option id="Jawa Timur">Jawa Timur</option>
+				<option id="Jiangsu">Jiangsu</option>
+				<option id="Jujuy">Jujuy</option>
+				<option id="Junin">Junin</option>
+				<option id="KA">KA</option>
+				<option id="Kangean">Kangean</option>
+				<option id="Khorasan Province">Khorasan Province</option>
+				<option id="KS">KS</option>
+				<option id="KwaZulu-Natal">KwaZulu-Natal</option>
+				<option id="KY">KY</option>
+				<option id="LA">LA</option>
+				<option id="La Habana">La Habana</option>
+				<option id="La Libertad">La Libertad</option>
+				<option id="La Paz">La Paz</option>
+				<option id="La Vega">La Vega</option>
+				<option id="Lambayeque">Lambayeque</option>
+				<option id="Las Villas">Las Villas</option>
+				<option id="LASAN">LASAN</option>
+				<option id="Leon">Leon</option>
+				<option id="Lima">Lima</option>
+				<option id="Limon">Limon</option>
+				<option id="Loja">Loja</option>
+				<option id="Loreto">Loreto</option>
+				<option id="Luzon">Luzon</option>
+				<option id="MA">MA</option>
+				<option id="Madre de Dios">Madre de Dios</option>
+				<option id="Magdalena">Magdalena</option>
+				<option id="Maldonado">Maldonado</option>
+				<option id="Manabi">Manabi</option>
+				<option id="Manitoba">Manitoba</option>
+				<option id="Mariana Islands">Mariana Islands</option>
+				<option id="Mato Grosso">Mato Grosso</option>
+				<option id="Matto Grosso">Matto Grosso</option>
+				<option id="Mayaguez">Mayaguez</option>
+				<option id="Mazandaran">Mazandaran</option>
+				<option id="MD">MD</option>
+				<option id="ME">ME</option>
+				<option id="Merida">Merida</option>
+				<option id="Meta">Meta</option>
+				<option id="Mexico">Mexico</option>
+				<option id="MI">MI</option>
+				<option id="MIC">MIC</option>
+				<option id="MICH">MICH</option>
+				<option id="Michoacan">Michoacan</option>
+				<option id="Minas Gerais">Minas Gerais</option>
+				<option id="Mindanao">Mindanao</option>
+				<option id="Misiones">Misiones</option>
+				<option id="MN">MN</option>
+				<option id="MO">MO</option>
+				<option id="MON">MON</option>
+				<option id="Montevideo">Montevideo</option>
+				<option id="Morazan">Morazan</option>
+				<option id="Morelos">Morelos</option>
+				<option id="MS">MS</option>
+				<option id="MT">MT</option>
+				<option id="MX">MX</option>
+				<option id="N. Segovia">N. Segovia</option>
+				<option id="Narino">Narino</option>
+				<option id="NAY">NAY</option>
+				<option id="Nayarit">Nayarit</option>
+				<option id="NC">NC</option>
+				<option id="ND">ND</option>
+				<option id="NE">NE</option>
+				<option id="Neuvo Leon">Neuvo Leon</option>
+				<option id="Nevada">Nevada</option>
+				<option id="New Brunswick">New Brunswick</option>
+				<option id="New South Wales">New South Wales</option>
+				<option id="Newfoundland">Newfoundland</option>
+				<option id="NH">NH</option>
+				<option id="NJ">NJ</option>
+				<option id="NL">NL</option>
+				<option id="NM">NM</option>
+				<option id="NM-TX">NM-TX</option>
+				<option id="Nord">Nord</option>
+				<option id="Norte">Norte</option>
+				<option id="Norte de Santander">Norte de Santander</option>
+				<option id="North Ayrshire">North Ayrshire</option>
+				<option id="Northeastern">Northeastern</option>
+				<option id="Northern">Northern</option>
+				<option id="Northern Division">Northern Division</option>
+				<option id="Northern Territory">Northern Territory</option>
+				<option id="Northwest Frontier">Northwest Frontier</option>
+				<option id="Northwest Territorie">Northwest Territorie</option>
+				<option id="Nuevo Leon">Nuevo Leon</option>
+				<option id="NV">NV</option>
+				<option id="NY">NY</option>
+				<option id="O">O</option>%
+				<option id="OA">OA</option>
+				<option id="OAX">OAX</option>
+				<option id="Oaxaca">Oaxaca</option>
+				<option id="OH">OH</option>
+				<option id="OK">OK</option>
+				<option id="Ontario">Ontario</option>
+				<option id="OR">OR</option>
+				<option id="OR (">OR (</option>?<option id=")">)</option>
+				<option id="OR or WA">OR or WA</option>
+				<option id="Oregon">Oregon</option>
+				<option id="Oriente">Oriente</option>
+				<option id="Otuzco">Otuzco</option>
+				<option id="PA">PA</option>
+				<option id="Palawan">Palawan</option>
+				<option id="Panama">Panama</option>
+				<option id="Panay">Panay</option>
+				<option id="Paraguari">Paraguari</option>
+				<option id="Parana">Parana</option>
+				<option id="Paris">Paris</option>
+				<option id="Pasco">Pasco</option>
+				<option id="Pataz">Pataz</option>
+				<option id="PE">PE</option>
+				<option id="Peloponnisos">Peloponnisos</option>
+				<option id="Peten">Peten</option>
+				<option id="Pichincha">Pichincha</option>
+				<option id="Piura">Piura</option>
+				<option id="PMG">PMG</option>
+				<option id="Pohnpei">Pohnpei</option>
+				<option id="Pomeroon-Supernaam">Pomeroon-Supernaam</option>
+				<option id="Portuguesa">Portuguesa</option>
+				<option id="Potosi">Potosi</option>
+				<option id="PRE">PRE</option>
+				<option id="Prince Edward Island">Prince Edward Island</option>
+				<option id="PUE">PUE</option>
+				<option id="Puebla">Puebla</option>
+				<option id="Puerto Rico">Puerto Rico</option>
+				<option id="Puno">Puno</option>
+				<option id="Puntarenas">Puntarenas</option>
+				<option id="Quang Ngai">Quang Ngai</option>
+				<option id="Quebec">Quebec</option>
+				<option id="Queensland">Queensland</option>
+				<option id="Quezaltenango">Quezaltenango</option>
+				<option id="Quezon">Quezon</option>
+				<option id="Quiche">Quiche</option>
+				<option id="RI">RI</option>
+				<option id="Rio de Janeiro">Rio de Janeiro</option>
+				<option id="Rizal">Rizal</option>
+				<option id="S Catarina">S Catarina</option>
+				<option id="S L Potosi">S L Potosi</option>
+				<option id="S.L. Potos">S.L. Potos</option>
+				<option id="Sabah">Sabah</option>
+				<option id="Salta">Salta</option>
+				<option id="Samar">Samar</option>
+				<option id="San Blas">San Blas</option>
+				<option id="San Jose">San Jose</option>
+				<option id="San Luis">San Luis</option>
+				<option id="San Luis a">San Luis a</option>
+				<option id="San Luis Potosi">San Luis Potosi</option>
+				<option id="San Martin">San Martin</option>
+				<option id="San Miguel">San Miguel</option>
+				<option id="San Pedro">San Pedro</option>
+				<option id="Santa Barbara">Santa Barbara</option>
+				<option id="Santa Catarina">Santa Catarina</option>
+				<option id="Santa Cruz">Santa Cruz</option>
+				<option id="Santander">Santander</option>
+				<option id="Santiago, Region Met">Santiago, Region Met</option>
+				<option id="Sao Paulo">Sao Paulo</option>
+				<option id="Sarawak">Sarawak</option>
+				<option id="Saskatchew">Saskatchew</option>
+				<option id="Saskatchewan">Saskatchewan</option>
+				<option id="Savaii Island">Savaii Island</option>
+				<option id="SC">SC</option>
+				<option id="Scotland">Scotland</option>
+				<option id="SD">SD</option>
+				<option id="Semnan">Semnan</option>
+				<option id="Seybo">Seybo</option>
+				<option id="Sichuan">Sichuan</option>
+				<option id="Sierra">Sierra</option>
+				<option id="SIN">SIN</option>
+				<option id="Sinaloa">Sinaloa</option>
+				<option id="SL Potosi">SL Potosi</option>
+				<option id="Societe, Iles de la">Societe, Iles de la</option>
+				<option id="Societe, Isles de la">Societe, Isles de la</option>
+				<option id="SON">SON</option>
+				<option id="Sonora">Sonora</option>
+				<option id="Sonsonate">Sonsonate</option>
+				<option id="South Australia">South Australia</option>
+				<option id="Southern Cook Island">Southern Cook Island</option>
+				<option id="St. Andrew">St. Andrew</option>
+				<option id="St. Croix">St. Croix</option>
+				<option id="Stann Creek">Stann Creek</option>
+				<option id="Sulu">Sulu</option>
+				<option id="Sumatera">Sumatera</option>
+				<option id="TAB">TAB</option>
+				<option id="Tabasco">Tabasco</option>
+				<option id="Tachira">Tachira</option>
+				<option id="Tacna">Tacna</option>
+				<option id="TAM">TAM</option>
+				<option id="Tamaulipas">Tamaulipas</option>
+				<option id="Tarija">Tarija</option>
+				<option id="Tarma">Tarma</option>
+				<option id="Tasmania">Tasmania</option>
+				<option id="Tehran">Tehran</option>
+				<option id="Tierra del Fuego">Tierra del Fuego</option>
+				<option id="Tlaxcala">Tlaxcala</option>
+				<option id="TN">TN</option>
+				<option id="Toledo">Toledo</option>
+				<option id="Tongatapu">Tongatapu</option>
+				<option id="Trelawny">Trelawny</option>
+				<option id="Trujillo">Trujillo</option>
+				<option id="Tuamotu, Archipel de">Tuamotu, Archipel de</option>
+				<option id="Tubuai, Iles">Tubuai, Iles</option>
+				<option id="Tucuman">Tucuman</option>
+				<option id="Tutuila Island">Tutuila Island</option>
+				<option id="TX">TX</option>
+				<option id="TX ">TX </option>?
+				<option id="TX-NM">TX-NM</option>
+				<option id="Upolu Island">Upolu Island</option>
+				<option id="UT">UT</option>
+				<option id="Utah">Utah</option>
+				<option id="VA">VA</option>
+				<option id="Valle">Valle</option>
+				<option id="Valparaiso">Valparaiso</option>
+				<option id="Vaupes">Vaupes</option>
+				<option id="Veracruz">Veracruz</option>
+				<option id="Verguas">Verguas</option>
+				<option id="Victoria">Victoria</option>
+				<option id="VT">VT</option>
+				<option id="w TX to NM">w TX to NM</option>
+				<option id="w. TX - El Paso, NM">w. TX - El Paso, NM</option>
+				<option id="w. TX - El Paso,NM">w. TX - El Paso,NM</option>
+				<option id="WA">WA</option>
+				<option id="WA Territory">WA Territory</option>
+				<option id="Wales">Wales</option>
+				<option id="WAS">WAS</option>
+				<option id="Western Australia">Western Australia</option>
+				<option id="Western Cape">Western Cape</option>
+				<option id="WI">WI</option>
+				<option id="WN">WN</option>
+				<option id="WV">WV</option>
+				<option id="WY">WY</option>
+				<option id="Wyoming">Wyoming</option>
+				<option id="Xizang">Xizang</option>
+				<option id="Yaracuy">Yaracuy</option>
+				<option id="Yoro">Yoro</option>
+				<option id="Yucatan">Yucatan</option>
+				<option id="Yukon Territory">Yukon Territory</option>
+				<option id="Yunnan">Yunnan</option>
+				<option id="Zacatecas">Zacatecas</option>
+				<option id="Zhejiang">Zhejiang</option>
+				<option id="Zulia">Zulia</option>
+			</options>
+		</field>
+		<field id="fieldLocCountry" ui-search="repeatable" section="naturalhistory" separate_ui_container="true">
+			<selector>collection-object-fieldLocCountry</selector>
+			<options>
+				<option id="" default="yes">Unknown</option>
+				<option id="Afghanistan">Afghanistan</option>
+				<option id="Algeria">Algeria</option>
+				<option id="American Samoa">American Samoa</option>
+				<option id="Antigua">Antigua</option>
+				<option id="Antigua and Barbuda">Antigua and Barbuda</option>
+				<option id="Argentina">Argentina</option>
+				<option id="Armenia">Armenia</option>
+				<option id="AUSTRALIA">AUSTRALIA</option>
+				<option id="Belize">Belize</option>
+				<option id="Bermuda">Bermuda</option>
+				<option id="Bolivia">Bolivia</option>
+				<option id="Borneo">Borneo</option>
+				<option id="Brazil">Brazil</option>
+				<option id="Brunei">Brunei</option>
+				<option id="Cambodia">Cambodia</option>
+				<option id="Cameroon">Cameroon</option>
+				<option id="CANADA">CANADA</option>
+				<option id="Chile">Chile</option>
+				<option id="Colombia">Colombia</option>
+				<option id="Cook Islands">Cook Islands</option>
+				<option id="Costa Rica">Costa Rica</option>
+				<option id="Cuba">Cuba</option>
+				<option id="D R Congo">D R Congo</option>
+				<option id="DENMARK">DENMARK</option>
+				<option id="Dominican Republic">Dominican Republic</option>
+				<option id="ECUADOR">ECUADOR</option>
+				<option id="El Salvador">El Salvador</option>
+				<option id="Ellas">Ellas</option>
+				<option id="Equatorial Guinea">Equatorial Guinea</option>
+				<option id="Espana">Espana</option>
+				<option id="Fiji">Fiji</option>
+				<option id="Finland">Finland</option>
+				<option id="France">France</option>
+				<option id="Germany">Germany</option>
+				<option id="Greenland">Greenland</option>
+				<option id="Guadeloupe">Guadeloupe</option>
+				<option id="Guatamala">Guatamala</option>
+				<option id="Guatemala">Guatemala</option>
+				<option id="Guyana">Guyana</option>
+				<option id="Haiti">Haiti</option>
+				<option id="Hispaniola">Hispaniola</option>
+				<option id="Honduras">Honduras</option>
+				<option id="India">India</option>
+				<option id="Indonesia">Indonesia</option>
+				<option id="Iran">Iran</option>
+				<option id="Ireland">Ireland</option>
+				<option id="Israel">Israel</option>
+				<option id="Italy">Italy</option>
+				<option id="JAMAICA">JAMAICA</option>
+				<option id="Japan">Japan</option>
+				<option id="Jordan">Jordan</option>
+				<option id="Kenya">Kenya</option>
+				<option id="Lebanon">Lebanon</option>
+				<option id="Madagascar">Madagascar</option>
+				<option id="Malawi">Malawi</option>
+				<option id="Malaysia">Malaysia</option>
+				<option id="MEXICO">MEXICO</option>
+				<option id="Micronesia">Micronesia</option>
+				<option id="Mongolia">Mongolia</option>
+				<option id="Morocco">Morocco</option>
+				<option id="Myanmar">Myanmar</option>
+				<option id="Namibia">Namibia</option>
+				<option id="Nepal">Nepal</option>
+				<option id="Netherlands Antilles">Netherlands Antilles</option>
+				<option id="New Caledonia">New Caledonia</option>
+				<option id="New Zealand">New Zealand</option>
+				<option id="Nicaragua">Nicaragua</option>
+				<option id="Nihon">Nihon</option>
+				<option id="Niue">Niue</option>
+				<option id="NORWAY">NORWAY</option>
+				<option id="Pakistan">Pakistan</option>
+				<option id="Panama">Panama</option>
+				<option id="Papua New Guinea">Papua New Guinea</option>
+				<option id="Paraguay">Paraguay</option>
+				<option id="PERU">PERU</option>
+				<option id="Philippines">Philippines</option>
+				<option id="Polynesia">Polynesia</option>
+				<option id="Polynesie francaise">Polynesie francaise</option>
+				<option id="Portugal">Portugal</option>
+				<option id="Prathet Thai">Prathet Thai</option>
+				<option id="Puerto Rico">Puerto Rico</option>
+				<option id="Republica Dominicana">Republica Dominicana</option>
+				<option id="Reunion">Reunion</option>
+				<option id="Russia">Russia</option>
+				<option id="SA">SA</option>
+				<option id="Saint Helena">Saint Helena</option>
+				<option id="Saint Lucia">Saint Lucia</option>
+				<option id="Samoa">Samoa</option>
+				<option id="Scotland">Scotland</option>
+				<option id="Seychelles">Seychelles</option>
+				<option id="Solomon Islands">Solomon Islands</option>
+				<option id="SOUTH AFRICA">SOUTH AFRICA</option>
+				<option id="South Korea">South Korea</option>
+				<option id="Sri Lanka">Sri Lanka</option>
+				<option id="Sudan">Sudan</option>
+				<option id="Suriname">Suriname</option>
+				<option id="Syria">Syria</option>
+				<option id="Taiwan">Taiwan</option>
+				<option id="Tanzania">Tanzania</option>
+				<option id="Tonga">Tonga</option>
+				<option id="Trinidad and Tobago">Trinidad and Tobago</option>
+				<option id="Turkey">Turkey</option>
+				<option id="Uganda">Uganda</option>
+				<option id="UK">UK</option>
+				<option id="United Kingdom">United Kingdom</option>
+				<option id="Uruguay">Uruguay</option>
+				<option id="USA">USA</option>
+				<option id="Vanuatu">Vanuatu</option>
+				<option id="Venezuela">Venezuela</option>
+				<option id="Viet Nam">Viet Nam</option>
+				<option id="Virgin Islands">Virgin Islands</option>
+				<option id="Western Samoa">Western Samoa</option>
+				<option id="Zhonghua">Zhonghua</option>
+			</options>
+		</field>
+		<field id="fieldLocHigherGeography" section="naturalhistory" seperate_ui_container="true">
+			<selector>collection-object-fieldLocHigherGeography</selector>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="pacificocean">Pacific Ocean</option>
+				<option id="North America">North America</option>
+			</options>
+		</field>
+		
+		<field id="elevationMin" section="naturalhistory">
+			<selector>collection-object-elevationMin</selector>
+		</field>
+		<field id="elevationMax" section="naturalhistory">
+			<selector>collection-object-elevationMax</selector>
+		</field>
+		<field id="elevationUnit" section="naturalhistory">
+			<selector>collection-object-elevationUnit</selector>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="meters">meters</option>
+				<option id="feet">feet</option>
+				<option id="uncertain">uncertain</option>
+			</options>
+		</field>
+		<field id="elevationQualifier" section="naturalhistory">
+			<selector>collection-object-elevationQualifier</selector>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="&lt;">&lt;</option>
+				<option id="&gt;">&gt;</option>
+				<option id="ca.">ca.</option>
+			</options>
+		</field>
+		<field id="elevationNote" section="naturalhistory">
+			<selector>collection-object-elevationNote</selector>
+		</field>
+
+		<field id="depthMin" section="naturalhistory">
+			<selector>collection-object-depthMin</selector>
+		</field>
+		<field id="depthMax" section="naturalhistory">
+			<selector>collection-object-depthMax</selector>
+		</field>
+		<field id="depthUnit" section="naturalhistory">
+			<selector>collection-object-depthUnit</selector>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="uncertain">uncertain</option>
+				<option id="centimeters">centimeters</option>
+				<option id="inches">inches</option>
+				<option id="fathoms">fathoms</option>
+				<option id="feet">feet</option>
+				<option id="furlongs">furlongs</option>
+				<option id="kilometers">kilometers</option>
+				<option id="meters">meters</option>
+				<option id="miles">miles</option>
+				<option id="rods">rods</option>
+			</options>
+		</field>
+		<field id="depthQualifier" section="naturalhistory">
+			<selector>collection-object-depthQualifier</selector>
+			<options>
+				<option id="" default="yes">Please select a value</option>
+				<option id="&lt;">&lt;</option>
+				<option id="&gt;">&gt;</option>
+				<option id="ca.">ca.</option>
+			</options>
+		</field>
+		<field id="depthNote" section="naturalhistory">
+			<selector>collection-object-depthNote</selector>
+		</field>
+	</section>
+
+	<section id="naturalhistoryGroupLabels">
+		<!-- These are only used to create labels for the groupings. -->
+		<field id="typeSpecimenGroup">
+			<selector>collection-object-typeSpecimenGroup</selector>
+		</field>
+		<field id="elevation">
+			<selector>collection-object-elevation</selector>
+		</field>
+		<field id="depth">
+			<selector>collection-object-depth</selector>
+		</field>
+	</section>
 </record>
