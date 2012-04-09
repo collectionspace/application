@@ -1,0 +1,32 @@
+<record id="media">
+	<services-tenant-singular>MediaTenant20</services-tenant-singular>
+	<services-record-path id="ucjeps">media_ucjeps:http://collectionspace.org/services/media/local/ucjeps,media_ucjeps</services-record-path>
+	
+	<section id="mediaInformation">
+		<field id="title" ui-search="repeatable" mini=""/>
+		<field id="handwritten" section="ucjeps" ui-search="single">
+			<options>
+				<option id="" default="yes">Unknown</option>
+				<option id="yes">Yes</option>
+				<option id="no">No</option>
+			</options>
+		</field>
+		<field id="postToPublic" section="ucjeps" ui-search="single">
+			<options>
+				<option id="no" default="yes">No</option>
+				<option id="yes">Yes</option>
+			</options>
+		</field>
+		<field id="scientificTaxonomy" in-title="yes" mini="summary,search,list,relate" section="ucjeps" autocomplete="taxon-taxon" ui-search="repeat">
+			<title-selector>titleBar-media-scientificTaxonomy</title-selector>
+		</field>
+	</section>
+	
+	<section id="other">
+		<field id="imgThumb" attributes="GET" mini="relate" exists-in-services="false"/>
+		<field id="imgOrig" attributes="GET" mini="relate" exists-in-services="false">
+			<use-csid id="blobCsid">ims;download/;/OriginalJpeg</use-csid>
+			<use-csid id="blobCsid">ims;download/;/Original</use-csid>
+		</field>
+	</section>
+</record>
