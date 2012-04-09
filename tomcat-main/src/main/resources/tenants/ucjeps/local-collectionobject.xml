@@ -58,15 +58,6 @@
 				</options>			
 			</field>
 		</repeat>
-	</section>
-	
-	<section id="objectCollectionInformation">
-		<repeat id="fieldCollectors">
-			<field id="fieldCollector" autocomplete="person-person,organization-organization" ui-search="repeatable"/>
-		</repeat>
-	</section>
-
-	<section id="descriptionInformationExtensions">
 		<field id="handwritten" section="ucjeps">
 			<options>
 				<option id="" default="yes">Unknown</option>
@@ -80,5 +71,11 @@
 				<option id="yes">Yes</option>
 			</options>
 		</field>
+	</section>
+	
+	<section id="objectCollectionInformation">
+		<repeat id="fieldCollectors">
+			<field id="fieldCollector" autocomplete="person-person,organization-organization" ui-search="repeatable"/>
+		</repeat>
 	</section>
 </record>
