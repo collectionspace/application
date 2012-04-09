@@ -1,0 +1,5 @@
+<record id="organization">
+	<section id="organizationNameAuthorityInformation">
+		<field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate"/>	
+	</section>
+</record>
