@@ -1,5 +1,6 @@
 <record id="collection-object">
 	<services-tenant-singular>CollectionObjectTenant20</services-tenant-singular>
+	<services-record-path id="ucjeps">collectionobjects_ucjeps:http://collectionspace.org/services/collectionobject/local/ucjeps,collectionobjects_ucjeps</services-record-path>
 	
 	<section id="identificationInformation">
 		<repeat id="otherNumberList/otherNumber">
@@ -63,5 +64,21 @@
 		<repeat id="fieldCollectors">
 			<field id="fieldCollector" autocomplete="person-person,organization-organization" ui-search="repeatable"/>
 		</repeat>
+	</section>
+
+	<section id="descriptionInformationExtensions">
+		<field id="handwritten" section="ucjeps">
+			<options>
+				<option id="" default="yes">Unknown</option>
+				<option id="yes">Yes</option>
+				<option id="no">No</option>
+			</options>
+		</field>
+		<field id="postToPublic" section="ucjeps">
+			<options>
+				<option id="no" default="yes">No</option>
+				<option id="yes">Yes</option>
+			</options>
+		</field>
 	</section>
 </record>

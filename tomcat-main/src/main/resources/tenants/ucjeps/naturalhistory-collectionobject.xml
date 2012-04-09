@@ -1,2 +1,4 @@
 <record id="collection-object">
+	<services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
+
 </record>
