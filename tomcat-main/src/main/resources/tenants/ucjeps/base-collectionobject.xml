@@ -53,13 +53,8 @@
       attributes="GET" mini="search,list,relate"/>
     <field id="createdBy" section="collectionspace_core" attributes="GET"/>
     <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
-    <!-- <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
-      <selector>object-identification-object-nametitle</selector>
-      <merges>
-        <merge id="title" rank="1"/>
-        <merge id="objectName" rank="2"/>
-      </merges>
-    </field> -->
+    <!-- Removed nametitle field. Since the enclosing section has no id, it's difficult to  -->
+    <!-- get xmlmerge to modify these fields in the patch file. So edit the base file for now. -->
   </section>
   <section id="identificationInformation">
     <field id="objectNumber" ui-search="repeatable" chooser="yes" in-title="yes" in-tab="yes"
