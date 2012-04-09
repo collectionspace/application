@@ -21,7 +21,7 @@
 			<!-- <include src="base-procedure-objectexit.xml"/> -->
 			<include src="base-authority-contact.xml"/>
 			<include src="base-authority-location.xml"/>
-			<include src="base-authority-organization.xml,local-authority-organization.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-organization.xml"/>
 			<include src="base-authority-person.xml"/>
 			<include src="base-authority-taxon.xml"/>
 			<include src="base-vocabularies.xml"/>
