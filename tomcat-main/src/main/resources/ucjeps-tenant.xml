@@ -13,7 +13,7 @@
 			<!-- <include src="base-procedure-acquisition.xml"/> -->
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-groups.xml"/>
-			<include src="base-procedure-intake.xml"/>
+			<include src="base-procedure-intake.xml,local-procedure-intake.xml" merge="xmlmerge-procedure-intake.properties"/>
 			<include src="base-procedure-loanin.xml" />
 			<include src="base-procedure-loanout.xml"/>
 			<include src="base-procedure-media.xml,local-procedure-media.xml" merge="xmlmerge.properties"/>
