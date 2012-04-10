@@ -44,7 +44,7 @@
     </structure>
   </structures>
 
-
+  <include src="domain-collectionobject.xml"  strip-root="yes"/>
 
   <section>
     <field id="tenantID" section="collectionspace_core" attributes="GET"/>
