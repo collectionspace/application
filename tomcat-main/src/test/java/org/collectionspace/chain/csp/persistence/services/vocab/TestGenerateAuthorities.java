@@ -57,6 +57,11 @@ public class TestGenerateAuthorities {
 		JSONArray results2 = new JSONObject(out.getContent()).getJSONArray("items");
 		assertTrue(results2.length() > 0);
 
+		//do we have any records
+		out = tester.GETData("/authorities/concept/?pageSize=1", jetty);
+		JSONArray results3 = new JSONObject(out.getContent()).getJSONArray("items");
+		assertTrue(results3.length() > 0);
+
 		//make sure all the vocabs are initialized
 		out = tester.GETData("/authorities/vocab/initialize", jetty);
 		// update and remove fields not in each list within an authority

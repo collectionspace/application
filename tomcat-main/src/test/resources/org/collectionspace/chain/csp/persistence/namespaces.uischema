@@ -9,6 +9,10 @@
                 "default": ["organization","organizationtest"],
                 "type": "array"
             },
+            "concept": {
+                "default": ["activity", "concept", "material"],
+                "type": "array"
+            },
             "location": {
                 "default": ["location"],
                 "type": "array"
