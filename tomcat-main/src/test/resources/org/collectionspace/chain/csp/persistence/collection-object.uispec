@@ -2481,6 +2481,9 @@
         ".csc-collection-object-updatedBy-label": {
             "messagekey": "collection-object-updatedByLabel"
         },
+        ".csc-collection-object-domaindata-label": {
+            "messagekey": "collection-object-domaindataLabel"
+        },
         ".csc-object-history-association-category": {
             "optionnames": ["Please select a value", "company", "private", "public"],
             "optionlist": ["", "company", "private", "public"],
