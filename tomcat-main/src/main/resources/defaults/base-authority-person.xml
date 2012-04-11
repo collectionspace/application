@@ -177,8 +177,5 @@
                     <field id="csid" mini="search,list,relate" attributes="GET"></field>
                     <field id="refName" mini="search,list,relate" attributes="GET"></field>
                     <field id="uri" mini="search,list,relate" attributes="GET"></field>
-                    <field id="name">
-                        <selector>personAuthority-name</selector>
-                    </field>
                 </section>
             </record>
