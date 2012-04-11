@@ -26,8 +26,8 @@
                             <label-section id="messagekeys" show="true"></label-section>
                             <hierarchy-section show="true">
                         		<options>
-                            		<option id="narrowerContext">person-person,person-persontest1</option>
-                            		<option id="broaderContext">person-person,person-persontest1</option>
+                            		<option id="narrowerContext">person-person</option>
+                            		<option id="broaderContext">person-person</option>
 								</options>
 							</hierarchy-section>
                         </view>
