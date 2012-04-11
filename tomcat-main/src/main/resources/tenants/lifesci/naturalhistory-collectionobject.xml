@@ -1,20 +1,7 @@
 <record id="collection-object">
+  <services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
 
-  <services-record-path id="naturalhistory"
-    >collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
-
-	<section id="identificationInformation">
-		<repeat id="titleGroupList/titleGroup">
-			<services-tag>nh_titleGroupList/nh_titleGroup</services-tag>
-			<field id="titleNote" section="naturalhistory">
-					<selector>object-identification-object-title-note</selector>
-			</field>
-		</repeat>
-	</section>
-
-  <section id="domaindata">
-
-    <field id="fieldLocVerbatim" section="naturalhistory" ui-search="repeatable"> </field>
+  <section id="identificationInformation">
     <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
       <field id="taxon" section="naturalhistory" autocomplete="taxon-taxon">
         <selector>taxonomic-identification-taxon</selector>
@@ -60,6 +47,15 @@
         <selector>taxonomic-identification-notes</selector>
       </field>
     </repeat>
+    <!-- <repeat id="titleGroupList/titleGroup">
+      <services-tag>nh_titleGroupList/nh_titleGroup</services-tag>
+      <field id="titleNote" section="naturalhistory">
+        <selector>object-identification-object-title-note</selector>
+      </field>
+    </repeat> -->
+  </section>
 
+  <section id="objectCollectionInformation">
+    <field id="fieldLocVerbatim" section="naturalhistory" ui-search="repeatable"></field>
   </section>
 </record>
