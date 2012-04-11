@@ -214,9 +214,6 @@
                         "default": "provisional",
                         "type": "string"
                     },
-                    "name": {
-                        "type": "string"
-                    },
                     "nameNote": {
                         "type": "string"
                     },
