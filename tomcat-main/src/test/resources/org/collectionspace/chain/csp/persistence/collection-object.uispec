@@ -3203,6 +3203,8 @@
         },
         ".csc-collection-object-materialName-label": {
             "messagekey": "collection-object-materialNameLabel"
+        ".csc-collection-object-domaindata-label": {
+            "messagekey": "collection-object-domaindataLabel"
         },
         ".csc-object-history-association-category": {
             "optionnames": [

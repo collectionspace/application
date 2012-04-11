@@ -408,7 +408,6 @@
         ".csc-person-uri-label": {
             "messagekey": "person-uriLabel"
         },
-        ".csc-personAuthority-name": "${fields.name}",
         ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
         ".csc-person-createdAt": "${fields.createdAt}",
         ".csc-contact-faxNumberType-label": {
@@ -487,9 +486,6 @@
         ".csc-person-tenantID": "${fields.tenantID}",
         ".csc-person-nationalities-label": {
             "messagekey": "person-nationalitiesLabel"
-        },
-        ".csc-person-name-label": {
-            "messagekey": "person-nameLabel"
         },
         ".csc-contact-webAddress-label": {
             "messagekey": "contact-webAddressLabel"

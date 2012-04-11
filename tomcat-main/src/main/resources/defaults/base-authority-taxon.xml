@@ -48,7 +48,7 @@
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
-                <section>
+                <section id="taxonNameAuthorityInformation">
                     <field id="shortIdentifier"></field>
                     <field id="displayName" ui-search="repeatable" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
                         <title-selector>.csc-titleBar-displayName</title-selector>

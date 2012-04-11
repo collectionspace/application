@@ -1,6 +1,0 @@
-<record id="loanin">
-	<section id="loaninInformation">
-		<repeat id="lenderGroupList/lenderGroup">
-		</repeat>
-	</section>
-</record>
