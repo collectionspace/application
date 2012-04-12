@@ -1290,7 +1290,6 @@
             "messagekey": "collection-object-dateEarliestSingleLabel"
         },
         ".csc-collection-object-assocConceptGroup": {
-<<<<<<< HEAD
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
@@ -1316,27 +1315,8 @@
                         }
                     },
                     "elPath": "fields.assocConceptGroup"
-=======
-            "decorators": [
-                {
-                    "func": "cspace.makeRepeatable",
-                    "type": "fluid",
-                    "options": {
-                        "repeatTree": {
-                            "expander": {
-                                "tree": {
-                                    ".csc-collection-object-assocConceptType": "${{row}.assocConceptType}",
-                                    ".csc-collection-object-assocConcept": "${{row}.assocConcept}",
-                                    ".csc-collection-object-assocConceptNote": "${{row}.assocConceptNote}"
-                                },
-                                "type": "fluid.noexpand"
-                            }
-                        },
-                        "elPath": "fields.assocConceptGroup"
-                    }
->>>>>>> upstream/master
                 }
-            ]
+            ]}
         },
         ".csc-collection-object-inscriptionDescription-label": {
             "messagekey": "collection-object-inscriptionDescriptionLabel"

@@ -5,38 +5,28 @@
         <predicate>hasBroader</predicate>
         <subject>n</subject>
         <object>1</object>
-		<showsiblings>equivalentContexts:equivalentContext</showsiblings>
+        <showsiblings>equivalentContexts:equivalentContext</showsiblings>
         <directional>false</directional>
-<<<<<<< HEAD
-        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities</sourceTypes>
-        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities</destinationTypes>
-=======
-        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,place,placeauthorities</sourceTypes>
-        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,place,placeauthorities</destinationTypes>
->>>>>>> upstream/master
-		<showinui>true</showinui>
-	</relation>
-	<relation id="narrowerContexts">
-		<inverseOf>broaderContext</inverseOf>
+        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities</sourceTypes>
+        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities</destinationTypes>
+        <showinui>true</showinui>
+    </relation>
+    <relation id="narrowerContexts">
+        <inverseOf>broaderContext</inverseOf>
         <displayName>has narrower term</displayName>
         <predicate>hasNarrower</predicate>
         <subject>1</subject>
         <object>n</object>
         <childname>narrowerContext</childname>
         <directional>false</directional>
-<<<<<<< HEAD
-        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities</sourceTypes>
-        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities</destinationTypes>
-=======
-        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,place,placeauthorities</sourceTypes>
-        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,place,placeauthorities</destinationTypes>
->>>>>>> upstream/master
-		<showinui>true</showinui>
-	</relation>
+        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities</sourceTypes>
+        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities,place,placeauthorities</destinationTypes>
+        <showinui>true</showinui>
+    </relation>
     <relation id="broader">
         <displayName>has broader term</displayName>
         <directional>true</directional>
-        <type>hierarchical</type>	
+        <type>hierarchical</type>    
         <sourceTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</sourceTypes>
         <destinationTypes>collectionobjects,intakes,acquisitions,loansin,loansout,movements,objectexit,media</destinationTypes>
     </relation>

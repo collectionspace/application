@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-{"recordlist":{"default":["persontest1","persontest2","person","activity","concept","material","location","loanin","loanout","acquisition","organization","organizationtest","cataloging","movement","taxon","objectexit","intake","group","media"],"type":"array"}}
-=======
 {
     "recordlist": {
         "default": [
@@ -16,6 +13,9 @@
             "cataloging",
             "movement",
             "taxon",
+            "activity",
+            "concept",
+            "material",
             "placetest1",
             "placetest2",
             "place",
@@ -27,4 +27,3 @@
         "type": "array"
     }
 }
->>>>>>> upstream/master
