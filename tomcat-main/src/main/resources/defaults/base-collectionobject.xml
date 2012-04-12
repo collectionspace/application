@@ -636,7 +636,6 @@
     </section>
   </section>
   <section id="objectProductionInformation">
-
     <repeat id="objectProductionDateGroupList/objectProductionDateGroup">
       <group id="objectProductionDate" xxx-services-no-repeat="true"
         ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
@@ -883,7 +882,7 @@
     </repeat>
     <field id="fieldCollectionNote"/>
     <field id="fieldCollectionNumber"/>
-    <field id="fieldCollectionPlace"/>
+    <field id="fieldCollectionPlace" autocomplete="place-place"/>
     <repeat id="fieldCollectionSources">
       <field id="fieldCollectionSource" autocomplete="person-person"/>
     </repeat>

@@ -1,20 +1,39 @@
 {
     "namespaces": {
         "properties": {
-            "person": {
-                "default": ["person", "persontest1", "persontest2"],
+            "organization": {
+                "default": [
+                    "organization",
+                    "organizationtest"
+                ],
                 "type": "array"
             },
-            "organization": {
-                "default": ["organization","organizationtest"],
+            "person": {
+                "default": [
+                    "persontest1",
+                    "persontest2",
+                    "person"
+                ],
                 "type": "array"
             },
             "location": {
-                "default": ["location"],
+                "default": [
+                    "location"
+                ],
+                "type": "array"
+            },
+            "place": {
+                "default": [
+                    "placetest1",
+                    "placetest2",
+                    "place"
+                ],
                 "type": "array"
             },
             "taxon": {
-                "default": ["taxon"],
+                "default": [
+                    "taxon"
+                ],
                 "type": "array"
             }
         },
