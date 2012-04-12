@@ -48,15 +48,24 @@ public class TestGenerateAuthorities {
 
 		//do we have any records
 		out = tester.GETData("/authorities/organization/?pageSize=1", jetty);
-		JSONArray results = new JSONObject(out.getContent()).getJSONArray("items");
-		assertTrue(results.length() > 0);
-		
+		JSONArray resultsOrg = new JSONObject(out.getContent()).getJSONArray("items");
+		assertTrue(resultsOrg.length() > 0);
 
 		//do we have any records
 		out = tester.GETData("/authorities/person/?pageSize=1", jetty);
-		JSONArray results2 = new JSONObject(out.getContent()).getJSONArray("items");
-		assertTrue(results2.length() > 0);
+		JSONArray resultsPerson = new JSONObject(out.getContent()).getJSONArray("items");
+		assertTrue(resultsPerson.length() > 0);
 
+		//do we have any records
+		out = tester.GETData("/authorities/concept/?pageSize=1", jetty);
+		JSONArray resultsConcept = new JSONObject(out.getContent()).getJSONArray("items");
+		assertTrue(resultsConcept.length() > 0);
+
+        //do we have any records
+		out = tester.GETData("/authorities/place/?pageSize=1", jetty);
+		JSONArray resultsPlace = new JSONObject(out.getContent()).getJSONArray("items");
+		assertTrue(resultsPlace.length() > 0);
+		
 		//make sure all the vocabs are initialized
 		out = tester.GETData("/authorities/vocab/initialize", jetty);
 		// update and remove fields not in each list within an authority

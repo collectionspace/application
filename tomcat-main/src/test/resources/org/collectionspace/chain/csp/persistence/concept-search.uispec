@@ -1,0 +1,187 @@
+{
+    ".csc-concept-updatedAtEnd": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${updatedAtEnd}"
+    },
+    ".csc-concept-shortDisplayName-label": {
+        "messagekey": "concept-shortDisplayNameLabel"
+    },
+    ".csc-concept-createdBy": {
+        "decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {
+                    "expander": {
+                        "tree": {
+                            ".csc-concept-createdBy": "${{row}.createdBy}"
+                        },
+                        "type": "fluid.noexpand"
+                    }
+                },
+                "elPath": "createdBys",
+                "hidePrimary": true
+            }
+        }]
+    },
+    ".csc-concept-updatedBy": {
+        "decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {
+                    "expander": {
+                        "tree": {
+                            ".csc-concept-updatedBy": "${{row}.updatedBy}"
+                        },
+                        "type": "fluid.noexpand"
+                    }
+                },
+                "elPath": "updatedBys",
+                "hidePrimary": true
+            }
+        }]
+    },
+    ".csc-concept-qualifier-label": {
+        "messagekey": "concept-qualifierLabel"
+    },
+    ".csc-concept-updatedAtEnd-label": {
+        "messagekey": "concept-updatedAtEndLabel"
+    },
+    ".csc-concept-termType-label": {
+        "messagekey": "concept-termTypeLabel"
+    },
+    ".csc-concept-displayName": {
+        "decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {
+                    "expander": {
+                        "tree": {
+                            ".csc-concept-displayName": "${{row}.displayName}"
+                        },
+                        "type": "fluid.noexpand"
+                    }
+                },
+                "elPath": "displayNames",
+                "hidePrimary": true
+            }
+        }]
+    },
+    ".csc-concept-termLanguage-label": {
+        "messagekey": "concept-termLanguageLabel"
+    },
+    ".csc-concept-updatedAt-label": {
+        "messagekey": "concept-updatedAtLabel"
+    },
+    ".csc-concept-termLanguage": {
+        "decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {
+                    "expander": {
+                        "tree": {
+                            ".csc-concept-termLanguage": {
+                                "decorators": [{
+                                    "func": "cspace.termList",
+                                    "type": "fluid",
+                                    "options": {
+                                        "root": "{row}",
+                                        "elPath": "termLanguage",
+                                        "termListType": "termLanguage"
+                                    }
+                                }]
+                            }
+                        },
+                        "type": "fluid.noexpand"
+                    }
+                },
+                "elPath": "termLanguages",
+                "hidePrimary": true
+            }
+        }]
+    },
+    ".csc-concept-createdBy-label": {
+        "messagekey": "concept-createdByLabel"
+    },
+    ".csc-concept-shortDisplayName": {
+        "decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {
+                    "expander": {
+                        "tree": {
+                            ".csc-concept-shortDisplayName": "${{row}.shortDisplayName}"
+                        },
+                        "type": "fluid.noexpand"
+                    }
+                },
+                "elPath": "shortDisplayNames",
+                "hidePrimary": true
+            }
+        }]
+    },
+    ".csc-concept-qualifier": {
+        "decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {
+                    "expander": {
+                        "tree": {
+                            ".csc-concept-qualifier": "${{row}.qualifier}"
+                        },
+                        "type": "fluid.noexpand"
+                    }
+                },
+                "elPath": "qualifiers",
+                "hidePrimary": true
+            }
+        }]
+    },
+    ".csc-concept-updatedBy-label": {
+        "messagekey": "concept-updatedByLabel"
+    },
+    ".csc-concept-displayName-label": {
+        "messagekey": "concept-displayNameLabel"
+    },
+    ".csc-concept-updatedAtStart": {
+        "decorators": [{
+            "func": "cspace.datePicker",
+            "type": "fluid"
+        }],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-concept-termType": {
+        "decorators": [{
+            "func": "cspace.makeRepeatable",
+            "type": "fluid",
+            "options": {
+                "repeatTree": {
+                    "expander": {
+                        "tree": {
+                            ".csc-concept-termType": {
+                                "default": "",
+                                "optionnames": ["Please select a value", "descriptor", "alternate descriptor", "used for term"],
+                                "optionlist": ["", "descriptor", "alternate descriptor", "used for term"],
+                                "selection": "${{row}.termType}"
+                            }
+                        },
+                        "type": "fluid.noexpand"
+                    }
+                },
+                "elPath": "termTypes",
+                "hidePrimary": true
+            }
+        }]
+    },
+    ".csc-concept-updatedAtStart-label": {
+        "messagekey": "concept-updatedAtStartLabel"
+    }
+}
