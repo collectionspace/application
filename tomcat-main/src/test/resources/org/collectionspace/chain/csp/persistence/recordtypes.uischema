@@ -2,7 +2,11 @@
     "recordtypes": {
         "properties": {
             "vocabularies": {
+<<<<<<< HEAD
                 "default": ["location","organization","organizationtest","person","persontest1","persontest2","activity", "concept", "material", "taxon"],
+=======
+                "default": ["location","organization","organizationtest","person","persontest1","persontest2","placetest1","placetest2","place","taxon"],
+>>>>>>> upstream/master
                 "type": "array"
             },
             "procedures": {

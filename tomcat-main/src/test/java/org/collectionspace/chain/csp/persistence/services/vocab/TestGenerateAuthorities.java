@@ -56,6 +56,11 @@ public class TestGenerateAuthorities {
 		out = tester.GETData("/authorities/person/?pageSize=1", jetty);
 		JSONArray results2 = new JSONObject(out.getContent()).getJSONArray("items");
 		assertTrue(results2.length() > 0);
+                
+                //do we have any records
+		out = tester.GETData("/authorities/place/?pageSize=1", jetty);
+		JSONArray results3 = new JSONObject(out.getContent()).getJSONArray("items");
+		assertTrue(results3.length() > 0);
 
 		//do we have any records
 		out = tester.GETData("/authorities/concept/?pageSize=1", jetty);

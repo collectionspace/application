@@ -7,8 +7,13 @@
         <object>1</object>
 		<showsiblings>equivalentContexts:equivalentContext</showsiblings>
         <directional>false</directional>
+<<<<<<< HEAD
         <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities</sourceTypes>
         <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities</destinationTypes>
+=======
+        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,place,placeauthorities</sourceTypes>
+        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,place,placeauthorities</destinationTypes>
+>>>>>>> upstream/master
 		<showinui>true</showinui>
 	</relation>
 	<relation id="narrowerContexts">
@@ -19,8 +24,13 @@
         <object>n</object>
         <childname>narrowerContext</childname>
         <directional>false</directional>
+<<<<<<< HEAD
         <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities</sourceTypes>
         <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,concept,conceptauthorities</destinationTypes>
+=======
+        <sourceTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,place,placeauthorities</sourceTypes>
+        <destinationTypes>location,locationauthorities,personauthorities,person,organization,taxon,taxonomyauthority,place,placeauthorities</destinationTypes>
+>>>>>>> upstream/master
 		<showinui>true</showinui>
 	</relation>
     <relation id="broader">
