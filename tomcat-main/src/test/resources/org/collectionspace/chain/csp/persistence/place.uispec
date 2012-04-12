@@ -520,7 +520,6 @@
         ".csc-place-placeGeoRefGroup-label": {
             "messagekey": "place-placeGeoRefGroupLabel"
         },
-        ".csc-placeAuthority-name": "${fields.name}",
         ".csc-place-geoRefRemarks-label": {
             "messagekey": "place-geoRefRemarksLabel"
         },
@@ -769,9 +768,6 @@
         },
         ".csc-place-uri-label": {
             "messagekey": "place-uriLabel"
-        },
-        ".csc-place-name-label": {
-            "messagekey": "place-nameLabel"
         },
         ".csc-place-displayName": "${fields.displayName}",
         ".csc-place-vUnitofMeasure-label": {
