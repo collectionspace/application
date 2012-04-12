@@ -16,6 +16,10 @@
                 ],
                 "type": "array"
             },
+            "concept": {
+                "default": ["activity", "concept", "material"],
+                "type": "array"
+            },
             "location": {
                 "default": [
                     "location"

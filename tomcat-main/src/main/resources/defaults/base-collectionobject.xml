@@ -399,7 +399,7 @@
         </field>
       </repeat>
       <repeat id="contentConcepts">
-        <field id="contentConcept">
+        <field id="contentConcept" autocomplete="concept-concept">
           <selector>object-description-content-concept</selector>
         </field>
       </repeat>
@@ -764,7 +764,7 @@
         <field id="assocObjectNote"/>
       </repeat>
       <repeat id="assocConceptGroupList/assocConceptGroup">
-        <field id="assocConcept"/>
+        <field id="assocConcept" autocomplete="concept-concept"/>
         <field id="assocConceptType"/>
         <field id="assocConceptNote"/>
       </repeat>

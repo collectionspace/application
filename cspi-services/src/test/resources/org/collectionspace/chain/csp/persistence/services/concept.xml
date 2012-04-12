@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns2:concepts_common xmlns:ns2="http://collectionspace.org/services/concept">
+    <shortIdentifier>concepttest1</shortIdentifier>
+    <displayName>Concept Test 1 (Qualified)</displayName>
+    <shortDisplayName>Concept Test 1</shortDisplayName>
+    <qualifier>Qualifier</qualifier>
+    <termType>Type</termType>
+    <termLanguage>English</termLanguage>
+</ns2:concepts_common>

@@ -1299,7 +1299,19 @@
                             "expander": {
                                 "tree": {
                                     ".csc-collection-object-assocConceptType": "${{row}.assocConceptType}",
-                                    ".csc-collection-object-assocConcept": "${{row}.assocConcept}",
+                                    ".csc-collection-object-assocConcept": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.autocomplete",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/assocConcept",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/assocConcept"
+                                                }
+                                            }
+                                        ],
+                                        "value": "${{row}.assocConcept}"
+                                    },
                                     ".csc-collection-object-assocConceptNote": "${{row}.assocConceptNote}"
                                 },
                                 "type": "fluid.noexpand"
@@ -2436,7 +2448,19 @@
                         "repeatTree": {
                             "expander": {
                                 "tree": {
-                                    ".csc-object-description-content-concept": "${{row}.contentConcept}"
+                                    ".csc-object-description-content-concept": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.autocomplete",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "queryUrl": "../../../tenant/core/cataloging/autocomplete/contentConcept",
+                                                    "vocabUrl": "../../../tenant/core/cataloging/source-vocab/contentConcept"
+                                                }
+                                            }
+                                        ],
+                                        "value": "${{row}.contentConcept}"
+                                    }
                                 },
                                 "type": "fluid.noexpand"
                             }
@@ -3201,11 +3225,11 @@
         ".csc-collection-object-updatedBy-label": {
             "messagekey": "collection-object-updatedByLabel"
         },
-        ".csc-collection-object-materialName-label": {
-            "messagekey": "collection-object-materialNameLabel"
-        },
         ".csc-collection-object-domaindata-label": {
             "messagekey": "collection-object-domaindataLabel"
+        },
+        ".csc-collection-object-materialName-label": {
+            "messagekey": "collection-object-materialNameLabel"
         },
         ".csc-object-history-association-category": {
             "optionnames": [
