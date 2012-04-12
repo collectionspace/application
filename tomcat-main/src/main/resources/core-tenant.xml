@@ -29,6 +29,7 @@
                 <include src="base-authority-place.xml"/>
                 <!-- Commented out to disable Taxon for the 'core' tenant per CSPACE-4466 -->
     		<!-- include src="base-authority-taxon.xml"/ -->
+    		<include src="base-authority-concept.xml"/>
 			
     		<include src="base-vocabularies.xml"/>
 			

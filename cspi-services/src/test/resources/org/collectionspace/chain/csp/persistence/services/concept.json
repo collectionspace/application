@@ -1,0 +1,8 @@
+{
+    "shortIdentifier": "concepttest1",
+    "displayName": "Concept Test 1 (Qualified)",
+    "shortDisplayName": "Concept Test 1",
+    "qualifier": "Qualifier",
+    "termType": "Type",
+    "termLanguage": "English"
+}

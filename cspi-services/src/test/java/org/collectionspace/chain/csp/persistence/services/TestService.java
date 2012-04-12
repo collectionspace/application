@@ -83,6 +83,7 @@ public class TestService extends ServicesBaseClass {
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
 		testXMLJSON(spec, "location", "location.xml", "location.json");
+		testXMLJSON(spec, "concept", "concept.xml", "concept.json");
         testXMLJSON(spec, "place", "placeXMLJSON.xml", "placeJSON.json");
 		testXMLJSON(spec, "collection-object", "objectsXMLJSON.xml",
 				"objectsJSON.json");
@@ -128,6 +129,7 @@ public class TestService extends ServicesBaseClass {
 		Spec spec = (Spec) root.getRoot(Spec.SPEC_ROOT);
 
 		testJSONXML(spec, "location", "location.xml", "location.json");
+		testJSONXML(spec, "concept", "concept.xml", "concept.json");
         testJSONXML(spec, "place", "placeXMLJSON.xml", "placeJSON.json");
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
 		 		"objectsJSON.json");
