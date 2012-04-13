@@ -248,6 +248,11 @@ public class RecordRead implements WebMethod {
 									activePermissions, mergedPermissions)) {
 					// Check method does the work
 				}
+				else if(resourceName.contains(WORKFLOW_SUB_RESOURCE)) {
+					// Filter these out - no need to model them, as we do not support them
+					// This is a performance improvement so we do not have to handle them on
+					// update.
+				}
 				else if(activePermissions.has(resourceName) && !mergedPermissions.has(resourceName)){
 					permlevel = Generic.PermissionLevelString(activePermissions.getJSONObject(resourceName).getString("actionGroup"));
 
