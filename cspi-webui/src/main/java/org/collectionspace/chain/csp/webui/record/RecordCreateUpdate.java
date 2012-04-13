@@ -107,12 +107,17 @@ public class RecordCreateUpdate implements WebMethod {
 		return perm;
 	}
 	
-	private JSONObject getPerm(Storage storage, String resourceName, String permlevel, Boolean isWorkflow) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
-
-		Record r = Generic.RecordNameServices(spec,resourceName);
+	private JSONObject getPerm(Storage storage, Record recordForPermResource,
+									String resourceName, String permLevel) 
+							throws JSONException, ExistException, UnimplementedException, 
+									UnderlyingStorageException, UIException {
 		JSONObject permitem = new JSONObject();
+
+		if(permLevel.equals("none")) {
+			return permitem;
+		}
+
 		JSONArray actions =  new JSONArray();
-		JSONArray wf_actions =  new JSONArray();
 		JSONObject permR = permJSON("READ");
 		JSONObject permC = permJSON("CREATE");
 		JSONObject permU = permJSON("UPDATE");
@@ -121,67 +126,82 @@ public class RecordCreateUpdate implements WebMethod {
 
 		///cspace-services/authorization/permissions?res=acquisition&actGrp=CRUDL
 		String queryString = "CRUDL";
-		String wf_querystring = "";
-
 		
-		if(permlevel.equals("none")){
-			queryString = "";
-			actions = new JSONArray();
-			return permitem;
-		}
-		if(permlevel.equals("read")){
+		if(permLevel.equals(Generic.READ_PERMISSION)) {
 			queryString = "RL";
 			actions.put(permR);
 			actions.put(permL);
-		}
-		if(permlevel.equals("write")){
+		} else if(permLevel.equals(Generic.WRITE_PERMISSION)) {
 			queryString = "CRUL";
 			actions.put(permC);
 			actions.put(permR);
 			actions.put(permU);
 			actions.put(permL);
-		}
-		if(permlevel.equals("delete")){
-			if(r!=null && r.hasSoftDeleteMethod()){
+		} else if(permLevel.equals(Generic.DELETE_PERMISSION) 
+				|| permLevel.equals(Generic.LOCK_PERMISSION)) {
+			actions.put(permC);
+			actions.put(permR);
+			actions.put(permU);
+			if(recordForPermResource!=null && recordForPermResource.hasSoftDeleteMethod()) {
+				// Delete is handled in the workflow perms
 				queryString = "CRUL";
-				actions.put(permC);
-				actions.put(permR);
-				actions.put(permU);
-				actions.put(permL);
-				wf_querystring = "CRUDL";
-				wf_actions.put(permC);
-				wf_actions.put(permR);
-				wf_actions.put(permU);
-				wf_actions.put(permD);
-				wf_actions.put(permL);
-			}
-			else{
+			} else {
 				queryString = "CRUDL";
-				actions.put(permC);
-				actions.put(permR);
-				actions.put(permU);
 				actions.put(permD);
-				actions.put(permL);
 			}
+			actions.put(permL);		// Keep this here to preserve CRUDL order of actions
+		} else {
+			log.warn("RecordCreateDelete.getPerm passed unknown permLevel: " + permLevel);
 		}
 
 		String permbase = spec.getRecordByWebUrl("permission").getID();
 		
-		if(isWorkflow){
+		permitem = getPermID(storage, Generic.ResourceNameServices(spec, resourceName), queryString, permbase, actions);
+		return permitem;
+	}
+	
+	private JSONObject getWorkflowPerm(Storage storage, Record recordForPermResource,
+					String resourceName, String permLevel, String workflowTransition) 
+							throws JSONException, ExistException, UnimplementedException, 
+									UnderlyingStorageException, UIException {
+		JSONObject permitem = new JSONObject();
 
-			if(r!=null && r.hasSoftDeleteMethod()){
-				if(wf_querystring.equals("")){
-					wf_querystring = "RL";
-					wf_actions.put(permR);
-					wf_actions.put(permL);
-				}
-				
-				permitem = getPermID(storage, Generic.ResourceNameServices(spec, resourceName)+"/*/workflow/", wf_querystring, permbase, wf_actions);
-			}
+		if(permLevel.equals("none")){
+			return permitem;
 		}
-		else{
-			permitem = getPermID(storage, Generic.ResourceNameServices(spec, resourceName), queryString, permbase, actions);
+		
+		JSONArray actions =  new JSONArray();
+		JSONObject permC = permJSON("CREATE");
+		JSONObject permR = permJSON("READ");
+		JSONObject permU = permJSON("UPDATE");
+		JSONObject permL = permJSON("SEARCH");
+		actions.put(permR);
+		actions.put(permL);
+
+		///cspace-services/authorization/permissions?res=acquisition&actGrp=CRUDL
+		String queryString = "RL";
+		String permbase = spec.getRecordByWebUrl("permission").getID();
+		boolean hasRights = false;
+		
+		if(workflowTransition.equals(DELETE_WORKFLOW_TRANSITION)) {
+			// permLevel delete or lock includes this
+			hasRights = permLevel.equals(Generic.DELETE_PERMISSION)
+						|| permLevel.equals(Generic.LOCK_PERMISSION);
+		} else if(workflowTransition.equals(LOCK_WORKFLOW_TRANSITION)) {
+			// permLevel lock includes this
+			hasRights = permLevel.equals(Generic.LOCK_PERMISSION);
+		} else {
+			log.warn("RecordCreateUpdate.getWorkflowPerm passed unknown workflowTransition: "
+						+workflowTransition);
 		}
+		if(hasRights) {
+			actions.put(permC);
+			actions.put(permU);
+			queryString = "CRUL";
+		}
+		permitem = getPermID(storage, 
+				Generic.ResourceNameServices(spec, resourceName)+WORKFLOW_SUB_RESOURCE+workflowTransition, 
+				queryString, permbase, actions);
 		return permitem;
 	}
 	
@@ -264,6 +284,9 @@ public class RecordCreateUpdate implements WebMethod {
 
 	}
 
+	private final static String DELETE_WORKFLOW_TRANSITION = Generic.DELETE_PERMISSION;
+	private final static String LOCK_WORKFLOW_TRANSITION = Generic.LOCK_PERMISSION;
+
 	private void assignPermissions(Storage storage, String path, JSONObject data) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException, UIException{
 		JSONObject fields=data.optJSONObject("fields");
 			
@@ -274,29 +297,50 @@ public class RecordCreateUpdate implements WebMethod {
 			for(int i=0;i<permissions.length();i++){
 				JSONObject perm = permissions.getJSONObject(i);
 
-				Record r = Generic.RecordNameServices(spec,perm.getString("resourceName"));
-				//if(r!=null){
-					if(r!=null && r.hasSoftDeleteMethod()){
-						JSONObject permitem = getPerm(storage,perm.getString("resourceName"),perm.getString("permission"),true);
+				Record recordForPermResource = Generic.RecordNameServices(spec,perm.getString("resourceName"));
+				if(recordForPermResource!=null ) {
+					if( recordForPermResource.hasSoftDeleteMethod()){
+						JSONObject permitem = getWorkflowPerm(storage, recordForPermResource, 
+													perm.getString("resourceName"), perm.getString("permission"),
+													DELETE_WORKFLOW_TRANSITION);
 						if(permitem.has("permissionId")){
 							if(permcheck.has(permitem.getString("resourceName"))){
 								//ignore as we have duplicate name - eek
+								log.warn("RecordCreateUpdate.assignPermissions got duplicate workflow/delete permission for: "
+											+ permitem.getString("resourceName"));
 							}else{
 								permcheck.put(permitem.getString("resourceName"), permitem);
 								permdata.put(permitem);
 							}
 						}
 					}
-					JSONObject permitem = getPerm(storage,perm.getString("resourceName"),perm.getString("permission"),false);
-					if(permitem.has("permissionId")){
-						if(permcheck.has(permitem.getString("resourceName"))){
-							//ignore as we have duplicate name - eek
-						}else{
-							permcheck.put(permitem.getString("resourceName"), permitem);
-							permdata.put(permitem);
+					if( recordForPermResource.supportsLocking() ){
+						JSONObject permitem = getWorkflowPerm(storage, recordForPermResource, 
+													perm.getString("resourceName"), perm.getString("permission"),
+													LOCK_WORKFLOW_TRANSITION);
+						if(permitem.has("permissionId")){
+							if(permcheck.has(permitem.getString("resourceName"))){
+								//ignore as we have duplicate name - eek
+								log.warn("RecordCreateUpdate.assignPermissions got duplicate workflow/lock permission for: "
+											+ permitem.getString("resourceName"));
+							}else{
+								permcheck.put(permitem.getString("resourceName"), permitem);
+								permdata.put(permitem);
+							}
 						}
 					}
-				//}
+				}
+				JSONObject permitem = getPerm(storage, recordForPermResource, perm.getString("resourceName"),perm.getString("permission"));
+				if(permitem.has("permissionId")){
+					if(permcheck.has(permitem.getString("resourceName"))){
+						//ignore as we have duplicate name - eek
+						log.warn("RecordCreateUpdate.assignPermissions got duplicate permission for: "
+								+ permitem.getString("resourceName"));
+					}else{
+						permcheck.put(permitem.getString("resourceName"), permitem);
+						permdata.put(permitem);
+					}
+				}
 			}
 		}
 

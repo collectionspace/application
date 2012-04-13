@@ -177,8 +177,19 @@ public class AuthorizationStorage extends GenericStorage {
 				if(node.matches("/"+r.getServicesListPath())){
 					String csid = node.valueOf( "@csid" );
 					listitems.add(csid);
+					String fullPath = r.getServicesURL()+"/"+csid;
 					if(view_map.get(node.getName())!=null) {
-						setGleanedValue(cache,r.getServicesURL()+"/"+csid,view_map.get(node.getName()),node.getText());
+						setGleanedValue(cache,fullPath,view_map.get(node.getName()),node.getText());
+					}
+					// Now glean the values we need from the child nodes
+					List<Node> fields=node.selectNodes("*");
+					for(Node field : fields) {
+						// Is this a field we want?
+						String json_name=view_map.get(field.getName());
+						if(json_name!=null) {
+							String value=field.getText();
+							setGleanedValue(cache,r.getServicesURL()+"/"+csid,json_name,value);
+						}
 					}
 				}
 				else{

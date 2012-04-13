@@ -48,6 +48,7 @@ import org.slf4j.LoggerFactory;
 
 public class GenericStorage  implements ContextualisedStorage {
 	public static final String WORKFLOW_TRANSITION_LOCK = "lock";
+	public static final String WORKFLOW_TRANSITION_DELETE = "delete";
 	public static final String WORKFLOW_TRANSITION = "workflowTransition";
 	public static final String WORKFLOW_SUBRESOURCE = "/workflow";
 
@@ -1294,27 +1295,6 @@ public class GenericStorage  implements ContextualisedStorage {
 		}		
 	}
 	
-	// Once soft delete in services follows the new model of PUT to a transition, then this should just call
-	// transitionWorkflowJSON with transition "delete"
-	public void softDeleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl) throws ExistException,
-	UnimplementedException, UnderlyingStorageException {
-		try {
-			int status = 0;
-			Document doc = null;
-			doc=XmlJsonConversion.getXMLSoftDelete();
-			ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, serviceurl+filePath+WORKFLOW_SUBRESOURCE, doc, creds, cache);
-			status = docm.getStatus();
-			if(status>299 || status<200)
-				throw new UnderlyingStorageException("Bad response ",status,serviceurl+filePath);
-		}
-		catch (ConnectionException e) {	
-			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		}
-		
-	}
-
-	// This should probably move to ContextualisedStorage once we figure out how far
-	// we're going with workflow.
 	public int transitionWorkflowJSON(ContextualisedStorage root,CSPRequestCredentials creds,
 			CSPRequestCache cache,String filePath, String serviceurl, String workflowTransition) 
 					throws UnderlyingStorageException {
@@ -1335,7 +1315,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	UnimplementedException, UnderlyingStorageException {
 		String serviceurl = thisr.getServicesURL()+"/";
 		if(thisr.hasSoftDeleteMethod()){
-			softDeleteJSON(root,creds,cache,filePath,serviceurl);
+			transitionWorkflowJSON(root, creds, cache, filePath, serviceurl, WORKFLOW_TRANSITION_DELETE);
 		}
 		else{
 			hardDeleteJSON(root,creds,cache,filePath,serviceurl);
@@ -1345,7 +1325,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		if(thisr.hasSoftDeleteMethod()){
-			softDeleteJSON(root,creds,cache,filePath,serviceurl);
+			transitionWorkflowJSON(root, creds, cache, filePath, serviceurl, WORKFLOW_TRANSITION_DELETE);
 		}
 		else{
 			hardDeleteJSON(root,creds,cache,filePath,serviceurl);
