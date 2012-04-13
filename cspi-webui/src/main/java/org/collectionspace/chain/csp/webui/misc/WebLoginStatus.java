@@ -35,6 +35,8 @@ public class WebLoginStatus  implements WebMethod {
 	}
 
 	private JSONObject getPermissions(Storage storage) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException {
+		final String WORKFLOW_DELETE_RESOURCE_TAIL = WORKFLOW_SUB_RESOURCE+"delete";
+		final String WORKFLOW_LOCK_RESOURCE_TAIL = WORKFLOW_SUB_RESOURCE+"lock";
 		JSONObject data = new JSONObject();
 		JSONObject perms = new JSONObject();
 
@@ -63,13 +65,70 @@ public class WebLoginStatus  implements WebMethod {
 		{
 			JSONArray active = activePermissions.getJSONArray("permission");
 			for(int j=0;j<active.length();j++){
-				if(active.getJSONObject(j).has("resourceName") && active.getJSONObject(j).has("actionGroup")){
-					String resourceName = Generic.ResourceNameUI(spec,active.getJSONObject(j).getString("resourceName"));
-					JSONArray permissions = Generic.PermissionLevelArray(active.getJSONObject(j).getString("actionGroup"));
-					perms.put(resourceName, permissions);
+				JSONObject perm = active.getJSONObject(j); 
+				if(perm.has("resourceName") && perm.has("actionGroup")){
+					JSONArray permissions = null;
+					String resourceName = perm.getString("resourceName");
+					String resourceNameUI = null;
+					// Check and filter the workflow resources
+					if(resourceName.endsWith(WORKFLOW_DELETE_RESOURCE_TAIL)) {
+						// Only consider if we can write the workflow transition
+						if(Generic.PermissionIncludesWritable(perm.getString("actionGroup"))) {
+							if(resourceName.startsWith("/")){
+								resourceName = resourceName.substring(1);
+							}
+							// Get the base resource that the workflow is related to
+							String baseResource = resourceName.substring(0,resourceName.length()
+														-WORKFLOW_DELETE_RESOURCE_TAIL.length()); 
+							resourceNameUI = Generic.ResourceNameUI(spec, baseResource);
+							// Workflow delete means we have CRUDL permissions
+							if(!perms.has(resourceNameUI)) {
+								permissions = Generic.PermissionLevelArray("CRUDL");
+							} else {
+								JSONArray prevPermissions = (JSONArray) perms.get(resourceNameUI);
+								permissions = Generic.PermissionLevelArrayEnsure(prevPermissions, Generic.DELETE_PERMISSION);
+							}
+						}
+					} else if(resourceName.endsWith(WORKFLOW_LOCK_RESOURCE_TAIL)) {
+						// Only consider if we can write the workflow transition
+						// TODO Should ignore this if record not configred to support locking.
+						if(Generic.PermissionIncludesWritable(perm.getString("actionGroup"))) {
+							if(resourceName.startsWith("/")){
+								resourceName = resourceName.substring(1);
+							}
+							// Get the base resource that the workflow is related to
+							String baseResource = resourceName.substring(0,resourceName.length()
+														-WORKFLOW_LOCK_RESOURCE_TAIL.length()); 
+							resourceNameUI = Generic.ResourceNameUI(spec, baseResource);
+							// Workflow lock means we have CRUDL permissions too
+							if(!perms.has(resourceNameUI)) {
+								permissions = Generic.PermissionLevelArray("CRUDLK");
+							} else {
+								JSONArray prevPermissions = (JSONArray) perms.get(resourceNameUI);
+								permissions = Generic.PermissionLevelArrayEnsure(prevPermissions, Generic.LOCK_PERMISSION);
+							}
+						}
+					} else if(resourceName.endsWith(WORKFLOW_SIMPLE_SUB_RESOURCE)) {
+						log.info("WebLoginStatus.getPerms: Ignoring resource for simple workflow subresource");
+					} else if(resourceName.contains(WORKFLOW_SUB_RESOURCE)) {
+						log.debug("WebLoginStatus.getPerms: Ignoring resource for unrecognized workflow transition: "
+								+ resourceName);
+					} else {
+						resourceNameUI = Generic.ResourceNameUI(spec,resourceName);
+						// If we already set perms entry for resource, it is a workflow and so
+						// subsumes any permissions on the actual resource
+						if(!perms.has(resourceNameUI)) {
+							// TODO - If the associated record is configured with soft-Delete, should we
+							// filter 'D' from the actionGroup here?
+							permissions = Generic.PermissionLevelArray(perm.getString("actionGroup"));
+						}
+					}
+					if(permissions!=null) {
+						perms.put(resourceNameUI, permissions);
+					}
 				}
 			}
-			//currently you can' assign authority vocabulary permissions uniquely so they are munged here for the UI 
+			//currently you can't assign authority vocabulary permissions uniquely so they are munged here for the UI 
 			//eventually you will need to pivot from /personauthorities/{csid} to the vocab instance
 			//this currently sets the perms of the instance to that of the auth
 			for (Record r: spec.getAllRecords()){

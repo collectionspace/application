@@ -227,30 +227,6 @@ public class XmlJsonConversion {
 			addRepeatToXml(root,(Repeat)fs,in,section,permlevel);
 		}
 	}
-	public static Document getXMLSoftDelete(){
-		Document doc=DocumentFactory.getInstance().createDocument();
-		Element subroot = doc.addElement("document");
-		subroot.addAttribute("name", "workflow");
-		Element root=subroot.addElement(new QName("workflow_common",new Namespace("ns2","http://collectionspace.org/services/workflow")));
-		root.addNamespace("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-		//<ns2:workflow_common xmlns:ns2="http://collectionspace.org/services/workflow" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
-		Element element=root.addElement("lifeCyclePolicy");
-		element.addText("default");
-		Element element2=root.addElement("currentLifeCycleState");
-		element2.addText("deleted");
-
-		log.debug(doc.asXML());
-		return doc;
-		/**<document name="workflows">
-		  <ns2:workflows_common>
-		     <lifeCyclePolicy>default</lifeCyclePolicy>
-		     <currentLifeCycleState>deleted</currentLifeCycleState>
-		  </ns2:workflows_common>
-		</document>
-		**/
-		
-	}
 	
 	public static Document getXMLRelationship(Element[] listItems){
 		Document doc=DocumentFactory.getInstance().createDocument();
