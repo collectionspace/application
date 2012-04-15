@@ -55,16 +55,6 @@ public class TestGenerateAuthorities {
 		out = tester.GETData("/authorities/person/?pageSize=1", jetty);
 		JSONArray resultsPerson = new JSONObject(out.getContent()).getJSONArray("items");
 		assertTrue(resultsPerson.length() > 0);
-
-		//do we have any records
-		out = tester.GETData("/authorities/concept/?pageSize=1", jetty);
-		JSONArray resultsConcept = new JSONObject(out.getContent()).getJSONArray("items");
-		assertTrue(resultsConcept.length() > 0);
-
-        //do we have any records
-		out = tester.GETData("/authorities/place/?pageSize=1", jetty);
-		JSONArray resultsPlace = new JSONObject(out.getContent()).getJSONArray("items");
-		assertTrue(resultsPlace.length() > 0);
 		
 		//make sure all the vocabs are initialized
 		out = tester.GETData("/authorities/vocab/initialize", jetty);

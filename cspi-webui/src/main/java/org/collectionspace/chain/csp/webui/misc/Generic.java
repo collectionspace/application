@@ -19,10 +19,14 @@ import org.collectionspace.csp.api.ui.UIException;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Generic {
 
 	private static String tokensalt = "74102328Generic";
+	
+	private static final Logger log=LoggerFactory.getLogger(Generic.class);
 /**
  * Function to create a hash for the record traverser functionality
  * @param csid
@@ -134,6 +138,14 @@ public class Generic {
 		}
 	}
 	
+	public static String LOCK_PERMISSION = "lock";
+	public static String DELETE_PERMISSION = "delete";
+	public static String WRITE_PERMISSION = "write";
+	public static String UPDATE_PERMISSION = "update";
+	public static String READ_PERMISSION = "read";
+	public static String LIST_PERMISSION = "list";
+	public static String CREATE_PERMISSION = "create";
+	public static String NONE_PERMISSION = "none";
 	
 	/**
 	 * CSPACE-2913
@@ -148,37 +160,60 @@ public class Generic {
 	public static JSONArray PermissionLevelArray(String actGrp){
 		JSONArray level = new JSONArray();
 		if(actGrp.contains("C")){
-			level.put("create");			
+			level.put(CREATE_PERMISSION);			
 		}
 		if(actGrp.contains("R")){
-			level.put("read");			
+			level.put(READ_PERMISSION);			
 		}
 		if(actGrp.contains("U")){
-			level.put("update");			
+			level.put(UPDATE_PERMISSION);			
 		}
 		if(actGrp.contains("D")){
-			level.put("delete");			
+			level.put(DELETE_PERMISSION);			
 		}
 		if(actGrp.contains("L")){
-			level.put("list");			
+			level.put(LIST_PERMISSION);			
+		}
+		if(actGrp.contains("K")){
+			level.put(LOCK_PERMISSION);			
 		}
 		
 		return level;
 	}
 	
+	public static JSONArray PermissionLevelArrayEnsure(JSONArray perms, String ensure){
+		for(int i=0; i<perms.length();i++) {
+			String toCheck;
+			try {
+				toCheck = perms.getString(i);
+				if(ensure.equals(toCheck))
+					return perms;
+			} catch (JSONException e) {
+				// Log and ignore - 
+				log.error("Problem checking PermissionLevelArray: "+e.getLocalizedMessage());
+			}
+		}
+		perms.put(ensure);
+		return perms;
+	}
+	
+	public static boolean PermissionIncludesWritable(String actGrp){
+		return actGrp.contains("U");
+	}
+	
+
 
 	public static String PermissionLevelString(String actGrp){
-		String level = "none";
+		String level = NONE_PERMISSION;
 		if(actGrp.equals("CRUDL")){
-			level="delete";
+			level = DELETE_PERMISSION;
 		}
 		else if(actGrp.equals("CRUL")){
-			level="write";
+			level = WRITE_PERMISSION;
 		}
 		else if(actGrp.equals("RL")){
-			level="read";
+			level = READ_PERMISSION;
 		}
-		
 		return level;
 	}
 	
