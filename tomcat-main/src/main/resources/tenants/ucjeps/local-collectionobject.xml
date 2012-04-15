@@ -1,5 +1,4 @@
 <record id="collection-object">
-	<services-tenant-singular>CollectionObjectTenant20</services-tenant-singular>
 	<services-record-path id="ucjeps">collectionobjects_ucjeps:http://collectionspace.org/services/collectionobject/local/ucjeps,collectionobjects_ucjeps</services-record-path>
 	
 	<section id="core">
