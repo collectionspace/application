@@ -1,5 +1,4 @@
-
-
+<!-- Modifying this file for ucjeps just to add an id to the last section. This shouldn't be necessary in 2.4. -->
             <record id="media" in-findedit="yes" type="procedure,record">
                 <services-tenant-singular>Media</services-tenant-singular>
                 <services-record-path>media_common:http://collectionspace.org/services/media,media_common</services-record-path>

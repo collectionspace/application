@@ -1,4 +1,4 @@
-
+<!-- Modifying this file for ucjeps just to add an id to the first section. This shouldn't be necessary in 2.4. -->
 <record id="collection-object" in-findedit="yes">
   <services-url>collectionobjects</services-url>
   <services-tenant-singular>CollectionObject</services-tenant-singular>
