@@ -1356,16 +1356,8 @@
 		</field>
 	</section>
 
-	<section id="naturalhistoryGroupLabels">
-		<!-- These are only used to create labels for the groupings. -->
-		<field id="typeSpecimenGroup">
-			<selector>collection-object-typeSpecimenGroup</selector>
-		</field>
-		<field id="elevation">
-			<selector>collection-object-elevation</selector>
-		</field>
-		<field id="depth">
-			<selector>collection-object-depth</selector>
-		</field>
-	</section>
+	<!-- These are only used to create labels for the groupings. -->
+	<section id="typeSpecimenGroup"/>
+	<section id="elevation"/>
+	<section id="depth"/>
 </record>
