@@ -1,5 +1,4 @@
 <record id="media">
-	<services-tenant-singular>MediaTenant20</services-tenant-singular>
 	<services-record-path id="ucjeps">media_ucjeps:http://collectionspace.org/services/media/local/ucjeps,media_ucjeps</services-record-path>
 	
 	<section id="mediaInformation">
