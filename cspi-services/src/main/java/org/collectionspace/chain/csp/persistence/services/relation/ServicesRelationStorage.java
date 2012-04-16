@@ -194,6 +194,11 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 		throw new UnimplementedException("Cannot create relations to path");
 	}
 
+	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, 
+			String filePath, String workflowTransition) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		throw new UnimplementedException("Workflow not supported on relations");
+	}
+	
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {

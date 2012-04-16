@@ -139,5 +139,9 @@ public class IdGenerator implements Storage {
 	public void updateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Invalid method for ids");
 	}
+	public void transitionWorkflowJSON(String filePath, String workflowTransition) 
+			throws ExistException, UnimplementedException, UnderlyingStorageException {
+		throw new UnimplementedException("Invalid method for ids");
+	}
 
 }

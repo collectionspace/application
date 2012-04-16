@@ -67,6 +67,11 @@ public class ServicesIDGenerator implements ContextualisedStorage {
 		return null;
 	}
 
+	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, 
+			String filePath, String workflowTransition) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		throw new UnimplementedException("Invalid method for ids");
+	}
+	
 	/**
 	 * This function generates a new id for the next inputted object.
 	 * The id in the static list on top is the primary key in the generators_id table on the service layer.

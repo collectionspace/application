@@ -147,6 +147,11 @@ public class StubJSONStore implements Storage {
 		set(filePath,jsonObject,false);
 	}
 
+	public void transitionWorkflowJSON(String filePath, String workflowTransition) 
+			throws ExistException, UnimplementedException, UnderlyingStorageException {
+		throw new UnderlyingStorageException("Workflow not supported on StubJSONStore");
+	}
+	
 	private synchronized void set(String filePath, JSONObject jsonObject,boolean create) throws ExistException, UnderlyingStorageException {
 		System.out.println("file path:" + filePath);
 		File jsonFile = fileFromPath(filePath);

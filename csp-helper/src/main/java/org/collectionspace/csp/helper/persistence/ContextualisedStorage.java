@@ -18,6 +18,8 @@ import org.json.JSONObject;
  * 
  */
 public interface ContextualisedStorage {
+	public static final String WORKFLOW_TRANSITION_DELETE = "delete";
+	public static final String WORKFLOW_SUBRESOURCE = "/workflow";
 
 	/**
 	 * Generates JSON string from a file storing the information
@@ -56,5 +58,9 @@ public interface ContextualisedStorage {
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath)
+		throws ExistException, UnimplementedException, UnderlyingStorageException;
+	
+	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, 
+							String filePath, String workflowTransition) 
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 }
