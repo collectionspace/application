@@ -189,8 +189,8 @@
 		</repeat>
 	
 		<field id="fieldLocVerbatim" ui-search="repeatable" section="naturalhistory"/>
-		<field id="fieldLocLatDecimal" section="naturalhistory"/>
-		<field id="fieldLocLongDecimal" section="naturalhistory"/>
+		<field id="fieldLocLat" section="naturalhistory"/>
+		<field id="fieldLocLong" section="naturalhistory"/>
 		<field id="fieldLocGeodeticDatum" section="naturalhistory" seperate_ui_container="true">
 			<selector>collection-object-fieldLocGeodeticDatum</selector>
 			<options>
