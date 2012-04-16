@@ -85,6 +85,9 @@ public class RecordCreateUpdate implements WebMethod {
 	}
 	
 	public String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+		final String WORKFLOW_TRANSITION = "workflowTransition";
+		final String WORKFLOW_TRANSITION_LOCK = "lock";
+		
 		JSONObject fields=data.optJSONObject("fields");
 		JSONArray relations=data.optJSONArray("relations");
 		if(path!=null) {
@@ -98,6 +101,11 @@ public class RecordCreateUpdate implements WebMethod {
 		}
 		if(relations!=null)
 			setRelations(storage,path,relations);
+		if(record.supportsLocking() && data.has(WORKFLOW_TRANSITION)
+				&& WORKFLOW_TRANSITION_LOCK.equalsIgnoreCase(data.getString(WORKFLOW_TRANSITION))) {
+			// If any problem, will throw exception.
+			storage.transitionWorkflowJSON(base+"/"+path, WORKFLOW_TRANSITION_LOCK);
+		}
 		return path;
 	}
 			
