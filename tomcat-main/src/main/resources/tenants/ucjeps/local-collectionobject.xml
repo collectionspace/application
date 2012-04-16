@@ -6,6 +6,7 @@
 	</section>
 	
 	<section id="identificationInformation">
+		<field id="sheetNumber" ui-type="validated" datatype="integer" section="ucjeps"/>
 		<repeat id="otherNumberList/otherNumber">
 			<field id="numberType">
 				<options>
