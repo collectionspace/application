@@ -93,7 +93,7 @@ public class RecordSearchList implements WebMethod {
 			if(this.r.getID().equals("permission")){
 				String summary = out.getString("summary");
 				String name = Generic.ResourceNameUI(this.r.getSpec(), summary);
-				if(name.endsWith("/*/workflow/")){
+				if(name.contains(WORKFLOW_SUB_RESOURCE)){
 					return null;
 				}
 				out.put("summary", name);

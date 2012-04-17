@@ -52,4 +52,6 @@ public interface Storage {
 	public void deleteJSON(String filePath)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
+	public void transitionWorkflowJSON(String filePath, String workflowTransition) 
+		throws ExistException, UnimplementedException, UnderlyingStorageException;
 }

@@ -156,35 +156,6 @@ public class RecordRead implements WebMethod {
 		return out;
 	}
 	
-	private boolean checkWorkflowPermission(String resourceName, String workflowResourceTail, 
-										String permLevel,
-										JSONObject activePermissions, JSONObject mergedPermissions) throws JSONException {
-		if(resourceName.endsWith(workflowResourceTail)){
-			if(resourceName.startsWith("/")){
-				resourceName = resourceName.substring(1);
-			}
-			// Get the base resource that the workflow is related to
-			String baseResource = resourceName.substring(0,resourceName.length()
-										-workflowResourceTail.length()); 
-			String baseResourceUI = Generic.ResourceNameUI(spec, baseResource);
-			if(activePermissions.has(resourceName)){
-				boolean writableWorkflow = Generic.PermissionIncludesWritable(
-									activePermissions.getJSONObject(resourceName).getString("actionGroup"));
-
-				// If we have write or delete perms on the workflow resource, set the permLevel
-				// on the base resource.
-				if(writableWorkflow){
-					JSONObject permission2 = new JSONObject();
-					permission2.put("resourceName", baseResourceUI);
-					permission2.put("permission", permLevel);
-					mergedPermissions.put(baseResourceUI, permission2);
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-	
 	private JSONArray getPermissions(Storage storage,JSONObject activePermissionInfo) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException{
 		final String WORKFLOW_DELETE_RESOURCE_TAIL = WORKFLOW_SUB_RESOURCE+"delete";
 		final String WORKFLOW_LOCK_RESOURCE_TAIL = WORKFLOW_SUB_RESOURCE+"lock";
@@ -213,12 +184,15 @@ public class RecordRead implements WebMethod {
 		JSONObject permrestrictions = new JSONObject();
 		permrestrictions.put("queryTerm", "actGrp");
 		permrestrictions.put("queryString", "CRUDL");
-		permrestrictions.put("pageNum", Integer.toString(pageNum));
+		// Passing page size 0 gets all the perms in one call.
+		permrestrictions.put("pageSize", Integer.toString(pageNum));
 		String permbase = spec.getRecordByWebUrl("permission").getID();
 		JSONObject returndata = searcher.getJSON(storage,permrestrictions,"items",permbase);
 
 		// While loop since perms do not return pagination info - must call till no more
-		while(returndata.has("items") && returndata.getJSONArray("items").length()>0){
+		//while(returndata.has("items") && returndata.getJSONArray("items").length()>0){
+		// Using pageSize=0, we get all perms in one call, so no need to loop
+		if(returndata.has("items") && returndata.getJSONArray("items").length()>0){
 
 			//merge active and nonactive
 			JSONArray items = returndata.getJSONArray("items");
@@ -226,50 +200,76 @@ public class RecordRead implements WebMethod {
 				JSONObject item = items.getJSONObject(i);
 				JSONObject permission = new JSONObject();
 				String resourceName = item.getString("summary");
-				String resourceNameUI = Generic.ResourceNameUI(spec, resourceName);
+				String resourceNameUI;
+				// Need to get baseResource for workflow perms
+				int startWorkflowSubResource = resourceName.indexOf(WORKFLOW_SUB_RESOURCE);
+				if(startWorkflowSubResource>0){	// Contains the workflow subresource	  
+					// Get the base resource that the workflow is related to
+					int start = (resourceName.startsWith("/"))?1:0;
+					String baseResource = resourceName.substring(start,startWorkflowSubResource);
+					resourceNameUI = Generic.ResourceNameUI(spec, baseResource);
+				} else {
+					resourceNameUI = Generic.ResourceNameUI(spec, resourceName);
+				}
 				permission.put("resourceName", resourceNameUI);
 				String permlevel = "none";
 				
 				Record recordForPermResource = Generic.RecordNameServices(spec,resourceNameUI);
 				
-				// Handle the lock workflow resource
-				if(recordForPermResource != null 
-						&& recordForPermResource.supportsLocking() 
-						&& checkWorkflowPermission(resourceName, 
-									WORKFLOW_LOCK_RESOURCE_TAIL, Generic.LOCK_PERMISSION,
-									activePermissions, mergedPermissions)) {
-					// Check method does the work
+				if((startWorkflowSubResource>0) 
+						&& (recordForPermResource != null)) {
+					// Handle the lock workflow resource
+					if(recordForPermResource.supportsLocking() 
+						&& resourceName.endsWith("lock")
+						&& activePermissions.has(resourceName)
+						&& Generic.PermissionIncludesWritable(
+							activePermissions.getJSONObject(resourceName).getString("actionGroup"))) {
+						// If we have write or delete perms on the workflow resource, set the permLevel
+						// on the base resource.
+						// Should be, but UI not ready: permission.put("permission", Generic.LOCK_PERMISSION);
+						if(!mergedPermissions.has(resourceNameUI)) {
+							// With no other knowledge, assume lock perm means writable
+							permission.put("permission", Generic.WRITE_PERMISSION);
+							mergedPermissions.put(resourceNameUI, permission);
+						} else {
+							// We could check it and make sure it makes sense, but we have to trust that the UI has
+							// done something reasonable by not combining lock perm with read-only or other silliness.
+						}
+					}
+					// Handle the delete workflow resource
+					else if(recordForPermResource.hasSoftDeleteMethod() 
+						&& resourceName.endsWith("delete")
+						&& activePermissions.has(resourceName)
+						&& Generic.PermissionIncludesWritable(
+							activePermissions.getJSONObject(resourceName).getString("actionGroup"))) {
+						// If we have write or delete perms on the workflow resource, set the permLevel
+						// on the base resource.
+						permission.put("permission", Generic.DELETE_PERMISSION);
+						mergedPermissions.put(resourceNameUI, permission);
+					}
+					else {
+						// Filter these out - no need to model them, as we do not support them
+						// This is a performance improvement so we do not have to handle them on
+						// update.
+					}
 				}
-				// Handle the delete workflow resource
-				else if(recordForPermResource != null 
-						&& recordForPermResource.hasDeleteMethod() 
-						&& checkWorkflowPermission(resourceName, 
-									WORKFLOW_DELETE_RESOURCE_TAIL, Generic.DELETE_PERMISSION,	
-									activePermissions, mergedPermissions)) {
-					// Check method does the work
-				}
-				else if(resourceName.contains(WORKFLOW_SUB_RESOURCE)) {
-					// Filter these out - no need to model them, as we do not support them
-					// This is a performance improvement so we do not have to handle them on
-					// update.
-				}
-				else if(activePermissions.has(resourceName) && !mergedPermissions.has(resourceName)){
+				else if(activePermissions.has(resourceName) && !mergedPermissions.has(resourceNameUI)){
 					permlevel = Generic.PermissionLevelString(activePermissions.getJSONObject(resourceName).getString("actionGroup"));
 
 					permission.put("permission", permlevel);
-					mergedPermissions.put(Generic.ResourceNameUI(spec, resourceName), permission);
+					mergedPermissions.put(resourceNameUI, permission);
 				}
-				else if(!mergedPermissions.has(resourceName)){
+				else if(!mergedPermissions.has(resourceNameUI)){
 					permlevel = "none";
 
 					permission.put("permission", permlevel);
-					mergedPermissions.put(Generic.ResourceNameUI(spec, resourceName), permission);
+					mergedPermissions.put(resourceNameUI, permission);
 				}
 			}
 			
-			pageNum++;
-			permrestrictions.put("pageNum", Integer.toString(pageNum));
-			returndata = searcher.getJSON(storage,permrestrictions,"items",permbase);
+			//pageNum++;
+			//permrestrictions.put("pageNum", Integer.toString(pageNum));
+			//returndata = searcher.getJSON(storage,permrestrictions,"items",permbase);
 		}
 		
 		//change soft workflow to main Delete

@@ -6,12 +6,13 @@
     <services-list-path>abstract-common-list/list-item</services-list-path>
     <!-- These are included for future use, if we decide to list the serice groups -->
     <services-record-path>servicegroups_common:http://collectionspace.org/services/servicegroup,servicegroups_common</services-record-path>
+    <authorization-includes>servicegroups</authorization-includes>
     <!-- No core section, as this is a synthetic object -->
 
     <web-url>all</web-url>
     <authorization-view>false</authorization-view>
 		<!-- Need to filter all soft-deleted records when searching -->
-    <hassoftdelete>true</hassoftdelete>
+    <hassoftdelete>false</hassoftdelete>
 
     <structures>
         <structure id="screen">
