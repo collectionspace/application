@@ -182,6 +182,7 @@ public class RecordCreateUpdate implements WebMethod {
 		JSONObject permC = permJSON("CREATE");
 		JSONObject permR = permJSON("READ");
 		JSONObject permU = permJSON("UPDATE");
+		JSONObject permD = permJSON("DELETE");
 		JSONObject permL = permJSON("SEARCH");
 		actions.put(permR);
 		actions.put(permL);
@@ -197,7 +198,12 @@ public class RecordCreateUpdate implements WebMethod {
 						|| permLevel.equals(Generic.LOCK_PERMISSION);
 		} else if(workflowTransition.equals(LOCK_WORKFLOW_TRANSITION)) {
 			// permLevel lock includes this
-			hasRights = permLevel.equals(Generic.LOCK_PERMISSION);
+			// UI does not yet support admin of the lock perm, so 
+			//hasRights = permLevel.equals(Generic.LOCK_PERMISSION);
+			// Assumes this is only called for records that actually support locking...
+			hasRights = permLevel.equals(Generic.DELETE_PERMISSION)
+					|| permLevel.equals(Generic.UPDATE_PERMISSION)
+					|| permLevel.equals(Generic.LOCK_PERMISSION);
 		} else {
 			log.warn("RecordCreateUpdate.getWorkflowPerm passed unknown workflowTransition: "
 						+workflowTransition);
@@ -205,11 +211,16 @@ public class RecordCreateUpdate implements WebMethod {
 		if(hasRights) {
 			actions.put(permC);
 			actions.put(permU);
-			queryString = "CRUL";
+			actions.put(permD);
+			// They do not really get DELETE rights on a workflow, but that is what the services models by
+			// default, so let's stick with that 
+			queryString = "CRUDL";
 		}
-		permitem = getPermID(storage, 
-				Generic.ResourceNameServices(spec, resourceName)+WORKFLOW_SUB_RESOURCE+workflowTransition, 
-				queryString, permbase, actions);
+		// Workflow resources all have leading slashes.
+		String resource = Generic.ResourceNameServices(spec, resourceName)+WORKFLOW_SUB_RESOURCE+workflowTransition;
+		if(!resource.startsWith("/"))
+			resource = "/"+resource;
+		permitem = getPermID(storage,resource,queryString, permbase, actions);
 		return permitem;
 	}
 	
@@ -217,11 +228,11 @@ public class RecordCreateUpdate implements WebMethod {
 	private JSONObject getPermID(Storage storage, String name, String queryString, String permbase, JSONArray actions) throws JSONException, UIException, ExistException, UnimplementedException, UnderlyingStorageException{
 
 		JSONObject permitem = new JSONObject();
-		JSONObject wf_permrestrictions = new JSONObject();
-		wf_permrestrictions.put("keywords", name);
-		wf_permrestrictions.put("queryTerm", "actGrp");
-		wf_permrestrictions.put("queryString", queryString);
-		JSONObject data = searcher.getJSON(storage,wf_permrestrictions,"items",permbase);
+		JSONObject permrestrictions = new JSONObject();
+		permrestrictions.put("keywords", name);
+		permrestrictions.put("queryTerm", "actGrp");
+		permrestrictions.put("queryString", queryString);
+		JSONObject data = searcher.getJSON(storage,permrestrictions,"items",permbase);
 
 		String permid = "";
 		JSONArray items = data.getJSONArray("items");
