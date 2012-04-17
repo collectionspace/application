@@ -23,7 +23,7 @@
 			<options>
 				<option id="" default="yes">Unknown</option>
 				<option id="Jepson Herbarium">Jepson Herbarium</option>
-				<option id="University of California Herbarium">University of California Herbarium</option>
+				<option id="University of California Herbarium">University Herbarium, University of California, Berkeley (UC)</option>
 				<option id="University of California">University of California</option>
 			</options>			
 		</field>
