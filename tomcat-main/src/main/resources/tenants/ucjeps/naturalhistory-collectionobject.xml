@@ -55,6 +55,7 @@
 		</repeat>
 		<field id="labelHeader" section="naturalhistory"/>
 		<field id="labelFooter" section="naturalhistory"/>
+		<field id="objectCountNumber" ui-type="validated" datatype="integer" section="naturalhistory"/>
 
 		<field id="typeSpecimenKind" ui-search="repeatable" section="naturalhistory" mini="search" seperate_ui_container="true">
 			<selector>object-identification-object-typeSpecimenKind</selector>
