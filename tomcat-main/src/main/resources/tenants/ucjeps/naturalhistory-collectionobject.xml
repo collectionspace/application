@@ -57,48 +57,50 @@
 		<field id="labelFooter" section="naturalhistory"/>
 		<field id="objectCountNumber" ui-type="validated" datatype="integer" section="naturalhistory"/>
 
-		<field id="typeSpecimenKind" ui-search="repeatable" section="naturalhistory" mini="search" seperate_ui_container="true">
-			<selector>object-identification-object-typeSpecimenKind</selector>
-			<options>
-				<option id="">Unspecified type</option>
-				<option id="Allotype">Allotype</option>
-				<option id="Cotype">Cotype</option>
-				<option id="Epitype">Epitype</option>
-				<option id="Fragment">Fragment</option>
-				<option id="Holosyntype">Holosyntype</option>
-				<option id="Holotype">Holotype</option>
-				<option id="Isocotype">Isocotype</option>
-				<option id="Isolectoparatype">Isolectoparatype</option>
-				<option id="Isolectotype">Isolectotype</option>
-				<option id="Isoneotype">Isoneotype</option>
-				<option id="Isoparatype">Isoparatype</option>
-				<option id="Isosyntype">Isosyntype</option>
-				<option id="Isotype">Isotype</option>
-				<option id="Lectoparatype">Lectoparatype</option>
-				<option id="Lectotype">Lectotype</option>
-				<option id="Neotype">Neotype</option>
-				<option id="Non-type">Non-type</option>
-				<option id="Non-visum Isotype">Non-visum Isotype</option>
-				<option id="Paralectotype">Paralectotype</option>
-				<option id="Paratype">Paratype</option>
-				<option id="Pictotype">Pictotype</option>
-				<option id="Possible Type">Possible Type</option>
-				<option id="Standard">Standard</option>
-				<option id="Syntype">Syntype</option>
-				<option id="Topotype">Topotype</option>
-				<option id="Type">Type</option>
-				<option id="Visum Isotype">Visum Isotype</option>
-			</options>
-		</field>
-		<field id="typeSpecimenReference" section="naturalhistory">
-			<selector>object-identification-object-typeSpecimenReference</selector>
-		</field>
-		<field id="typeSpecimenRefPage" section="naturalhistory">
-			<selector>object-identification-object-typeSpecimenRefPage</selector>
-		</field>
-		<field id="typeSpecimenNotes" section="naturalhistory">
-			<selector>object-identification-object-typeSpecimenNotes</selector>
-		</field>
+		<repeat id="typeSpecimenGroupList/typeSpecimenGroup" section="naturalhistory">
+			<field id="typeSpecimenKind" ui-search="repeatable" section="naturalhistory" mini="search" seperate_ui_container="true">
+				<selector>object-identification-object-typeSpecimenKind</selector>
+				<options>
+					<option id="">Unspecified type</option>
+					<option id="Allotype">Allotype</option>
+					<option id="Cotype">Cotype</option>
+					<option id="Epitype">Epitype</option>
+					<option id="Fragment">Fragment</option>
+					<option id="Holosyntype">Holosyntype</option>
+					<option id="Holotype">Holotype</option>
+					<option id="Isocotype">Isocotype</option>
+					<option id="Isolectoparatype">Isolectoparatype</option>
+					<option id="Isolectotype">Isolectotype</option>
+					<option id="Isoneotype">Isoneotype</option>
+					<option id="Isoparatype">Isoparatype</option>
+					<option id="Isosyntype">Isosyntype</option>
+					<option id="Isotype">Isotype</option>
+					<option id="Lectoparatype">Lectoparatype</option>
+					<option id="Lectotype">Lectotype</option>
+					<option id="Neotype">Neotype</option>
+					<option id="Non-type">Non-type</option>
+					<option id="Non-visum Isotype">Non-visum Isotype</option>
+					<option id="Paralectotype">Paralectotype</option>
+					<option id="Paratype">Paratype</option>
+					<option id="Pictotype">Pictotype</option>
+					<option id="Possible Type">Possible Type</option>
+					<option id="Standard">Standard</option>
+					<option id="Syntype">Syntype</option>
+					<option id="Topotype">Topotype</option>
+					<option id="Type">Type</option>
+					<option id="Visum Isotype">Visum Isotype</option>
+				</options>
+			</field>
+			<field id="typeSpecimenReference" section="naturalhistory">
+				<selector>object-identification-object-typeSpecimenReference</selector>
+			</field>
+			<field id="typeSpecimenRefPage" section="naturalhistory">
+				<selector>object-identification-object-typeSpecimenRefPage</selector>
+			</field>
+			<field id="typeSpecimenNotes" section="naturalhistory">
+				<selector>object-identification-object-typeSpecimenNotes</selector>
+			</field>
+		</repeat>
 	</section>
 
 	<section id="descriptionInformation">
@@ -1360,7 +1362,6 @@
 	</section>
 
 	<!-- These are only used to create labels for the groupings. -->
-	<section id="typeSpecimenGroup"/>
 	<section id="elevation"/>
 	<section id="depth"/>
 </record>
