@@ -102,6 +102,7 @@
 	</section>
 
 	<section id="descriptionInformation">
+		<field id="cultivated" datatype="boolean" section="naturalhistory"/>
 		<repeat id="annotationGroupList/annotationGroup" section="naturalhistory">
 			<field id="annotationType" section="naturalhistory">
 				<selector>collection-object-annotationType</selector>
