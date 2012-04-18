@@ -91,11 +91,17 @@
 					<option id="Visum Isotype">Visum Isotype</option>
 				</options>
 			</field>
+			<field id="typeSpecimenAssertionBy" section="naturalhistory" autocomplete="organization-organization">
+				<selector>object-identification-object-typeSpecimenAssertionBy</selector>
+			</field>
 			<field id="typeSpecimenReference" section="naturalhistory">
 				<selector>object-identification-object-typeSpecimenReference</selector>
 			</field>
 			<field id="typeSpecimenRefPage" section="naturalhistory">
 				<selector>object-identification-object-typeSpecimenRefPage</selector>
+			</field>
+			<field id="typeSpecimenBasionym" section="naturalhistory" autocomplete="taxon-taxon">
+				<selector>object-identification-object-typeSpecimenBasionym</selector>
 			</field>
 			<field id="typeSpecimenNotes" section="naturalhistory">
 				<selector>object-identification-object-typeSpecimenNotes</selector>
