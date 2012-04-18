@@ -173,4 +173,11 @@ public class SplittingStorage implements ContextualisedStorage {
 		String parts[]=split(filePath,false);
 		get(parts[0]).deleteJSON(root,creds,cache,parts[1]);		
 	}
+
+	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds, CSPRequestCache cache, 
+			String filePath, String workflowTransition) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		String parts[]=split(filePath,false);
+		get(parts[0]).transitionWorkflowJSON(root,creds,cache,parts[1],workflowTransition);
+	}
+	
 }

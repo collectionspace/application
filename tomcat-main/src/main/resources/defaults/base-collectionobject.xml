@@ -399,7 +399,7 @@
         </field>
       </repeat>
       <repeat id="contentConcepts">
-        <field id="contentConcept">
+        <field id="contentConcept" autocomplete="concept-concept">
           <selector>object-description-content-concept</selector>
         </field>
       </repeat>
@@ -636,7 +636,6 @@
     </section>
   </section>
   <section id="objectProductionInformation">
-
     <repeat id="objectProductionDateGroupList/objectProductionDateGroup">
       <group id="objectProductionDate" xxx-services-no-repeat="true"
         ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
@@ -765,7 +764,7 @@
         <field id="assocObjectNote"/>
       </repeat>
       <repeat id="assocConceptGroupList/assocConceptGroup">
-        <field id="assocConcept"/>
+        <field id="assocConcept" autocomplete="concept-concept"/>
         <field id="assocConceptType"/>
         <field id="assocConceptNote"/>
       </repeat>
@@ -883,7 +882,7 @@
     </repeat>
     <field id="fieldCollectionNote"/>
     <field id="fieldCollectionNumber"/>
-    <field id="fieldCollectionPlace"/>
+    <field id="fieldCollectionPlace" autocomplete="place-place"/>
     <repeat id="fieldCollectionSources">
       <field id="fieldCollectionSource" autocomplete="person-person"/>
     </repeat>

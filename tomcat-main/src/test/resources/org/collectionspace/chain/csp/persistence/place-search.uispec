@@ -1,0 +1,563 @@
+{
+    ".csc-place-termStatus": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-place-termStatus": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "Provisional",
+                                        "Under review",
+                                        "Accepted",
+                                        "Rejected",
+                                        "Please select a value"
+                                    ],
+                                    "optionlist": [
+                                        "provisional",
+                                        "under-review",
+                                        "accepted",
+                                        "rejected",
+                                        ""
+                                    ],
+                                    "selection": "${{row}.termStatus}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "termStatuss",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-place-ownershipDateGroupEnd-label": {
+        "messagekey": "place-ownershipDateGroupEndLabel"
+    },
+    ".csc-place-placeType": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-place-placeType": {
+                                    "default": "",
+                                    "optionnames": [
+                                        "Please select a value",
+                                        "Autonomous region",
+                                        "Borough",
+                                        "Collection site",
+                                        "Continent",
+                                        "Country",
+                                        "Country code",
+                                        "County",
+                                        "Dependent state",
+                                        "Deserted settlement",
+                                        "District (national)",
+                                        "General region",
+                                        "Governorate",
+                                        "Inhabited place",
+                                        "Island",
+                                        "Island group",
+                                        "Locality",
+                                        "Metropolitan area",
+                                        "Municipality",
+                                        "Nation",
+                                        "National division",
+                                        "Neighborhood",
+                                        "Occupied territory",
+                                        "Prefecture",
+                                        "Province",
+                                        "Region",
+                                        "State",
+                                        "State province",
+                                        "Territory",
+                                        "Union territory",
+                                        "Unitary authority",
+                                        "Urban prefecture",
+                                        "Water body"
+                                    ],
+                                    "optionlist": [
+                                        "",
+                                        "autonomous-region",
+                                        "borough",
+                                        "collection-site",
+                                        "continent",
+                                        "country",
+                                        "country-code",
+                                        "county",
+                                        "dependent-state",
+                                        "deserted-settlement",
+                                        "district-national",
+                                        "general-region",
+                                        "governorate",
+                                        "inhabited-place",
+                                        "island",
+                                        "island-group",
+                                        "locality",
+                                        "metropolitan-area",
+                                        "municipality",
+                                        "nation",
+                                        "national-division",
+                                        "neighborhood",
+                                        "occupied-territory",
+                                        "prefecture",
+                                        "province",
+                                        "region",
+                                        "state",
+                                        "state-province",
+                                        "territory",
+                                        "union-territory",
+                                        "unitary-authority",
+                                        "urban-prefecture",
+                                        "water-body"
+                                    ],
+                                    "selection": "${{row}.placeType}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "placeTypes",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-place-updatedBy-label": {
+        "messagekey": "place-updatedByLabel"
+    },
+    ".csc-place-displayName-label": {
+        "messagekey": "place-displayNameLabel"
+    },
+    ".csc-place-placeType-label": {
+        "messagekey": "place-placeTypeLabel"
+    },
+    ".csc-place-updatedAtStart-label": {
+        "messagekey": "place-updatedAtStartLabel"
+    },
+    ".csc-place-nameStatus-label": {
+        "messagekey": "place-nameStatusLabel"
+    },
+    ".csc-place-ownershipDateGroup-label": {
+        "messagekey": "place-ownershipDateGroupLabel"
+    },
+    ".csc-place-ownershipDateGroupEnd": {
+        "decorators": [
+            {
+                "func": "",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.place-ownershipDateGroupEnd",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.ownershipDateGroupEnd.dateEarliestSingleQualifier",
+                        "dateLatestDay": "fields.ownershipDateGroupEnd.dateLatestDay",
+                        "dateLatestYear": "fields.ownershipDateGroupEnd.dateLatestYear",
+                        "dateAssociation": "fields.ownershipDateGroupEnd.dateAssociation",
+                        "dateEarliestSingleEra": "fields.ownershipDateGroupEnd.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.ownershipDateGroupEnd.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.ownershipDateGroupEnd.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.ownershipDateGroupEnd.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.ownershipDateGroupEnd.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.ownershipDateGroupEnd.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.ownershipDateGroupEnd.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.ownershipDateGroupEnd.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.ownershipDateGroupEnd.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.ownershipDateGroupEnd.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.ownershipDateGroupEnd.datePeriod",
+                        "dateEarliestScalarValue": "fields.ownershipDateGroupEnd.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.ownershipDateGroupEnd.dateLatestMonth",
+                        "dateNote": "fields.ownershipDateGroupEnd.dateNote",
+                        "dateLatestScalarValue": "fields.ownershipDateGroupEnd.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.ownershipDateGroupEnd.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.ownershipDateGroupEnd.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.ownershipDateGroupEnd.dateEarliestSingleMonth"
+                    }
+                }
+            }
+        ],
+        "value": "${fields.place-ownershipDateGroupEnd}"
+    },
+    ".csc-place-placeName-label": {
+        "messagekey": "place-placeNameLabel"
+    },
+    ".csc-place-termStatus-label": {
+        "messagekey": "place-termStatusLabel"
+    },
+    ".csc-place-nameSourceRefId-label": {
+        "messagekey": "place-nameSourceRefIdLabel"
+    },
+    ".csc-place-nameType-label": {
+        "messagekey": "place-nameTypeLabel"
+    },
+    ".csc-place-ownershipDateGroupStart-label": {
+        "messagekey": "place-ownershipDateGroupStartLabel"
+    },
+    ".csc-place-nameQualifiedName-label": {
+        "messagekey": "place-nameQualifiedNameLabel"
+    },
+    ".csc-place-nameDateGroupStart-label": {
+        "messagekey": "place-nameDateGroupStartLabel"
+    },
+    ".csc-place-nameLanguage-label": {
+        "messagekey": "place-nameLanguageLabel"
+    },
+    ".csc-place-displayName": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-place-displayName": "${{row}.displayName}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "displayNames",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-place-updatedAtStart": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtStart}"
+    },
+    ".csc-place-ownershipDateGroupStart": {
+        "decorators": [
+            {
+                "func": "",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.place-ownershipDateGroupStart",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.ownershipDateGroupStart.dateEarliestSingleQualifier",
+                        "dateLatestDay": "fields.ownershipDateGroupStart.dateLatestDay",
+                        "dateLatestYear": "fields.ownershipDateGroupStart.dateLatestYear",
+                        "dateAssociation": "fields.ownershipDateGroupStart.dateAssociation",
+                        "dateEarliestSingleEra": "fields.ownershipDateGroupStart.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.ownershipDateGroupStart.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.ownershipDateGroupStart.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.ownershipDateGroupStart.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.ownershipDateGroupStart.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.ownershipDateGroupStart.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.ownershipDateGroupStart.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.ownershipDateGroupStart.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.ownershipDateGroupStart.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.ownershipDateGroupStart.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.ownershipDateGroupStart.datePeriod",
+                        "dateEarliestScalarValue": "fields.ownershipDateGroupStart.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.ownershipDateGroupStart.dateLatestMonth",
+                        "dateNote": "fields.ownershipDateGroupStart.dateNote",
+                        "dateLatestScalarValue": "fields.ownershipDateGroupStart.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.ownershipDateGroupStart.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.ownershipDateGroupStart.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.ownershipDateGroupStart.dateEarliestSingleMonth"
+                    }
+                }
+            }
+        ],
+        "value": "${fields.place-ownershipDateGroupStart}"
+    },
+    ".csc-place-placeOwnerGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-placeOwnerGroup-ownershipDateGroup": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.structuredDate",
+                                            "type": "fluid",
+                                            "options": {
+                                                "root": "{row}",
+                                                "elPath": "ownershipDateGroup.dateDisplayDate",
+                                                "elPaths": {
+                                                    "dateEarliestSingleQualifier": "ownershipDateGroup.dateEarliestSingleQualifier",
+                                                    "scalarValuesComputed": "ownershipDateGroup.scalarValuesComputed",
+                                                    "dateLatestDay": "ownershipDateGroup.dateLatestDay",
+                                                    "dateLatestYear": "ownershipDateGroup.dateLatestYear",
+                                                    "dateAssociation": "ownershipDateGroup.dateAssociation",
+                                                    "dateEarliestSingleEra": "ownershipDateGroup.dateEarliestSingleEra",
+                                                    "dateDisplayDate": "ownershipDateGroup.dateDisplayDate",
+                                                    "dateEarliestSingleCertainty": "ownershipDateGroup.dateEarliestSingleCertainty",
+                                                    "dateLatestEra": "ownershipDateGroup.dateLatestEra",
+                                                    "dateEarliestSingleQualifierValue": "ownershipDateGroup.dateEarliestSingleQualifierValue",
+                                                    "dateLatestCertainty": "ownershipDateGroup.dateLatestCertainty",
+                                                    "dateEarliestSingleYear": "ownershipDateGroup.dateEarliestSingleYear",
+                                                    "dateLatestQualifier": "ownershipDateGroup.dateLatestQualifier",
+                                                    "dateLatestQualifierValue": "ownershipDateGroup.dateLatestQualifierValue",
+                                                    "dateEarliestSingleQualifierUnit": "ownershipDateGroup.dateEarliestSingleQualifierUnit",
+                                                    "datePeriod": "ownershipDateGroup.datePeriod",
+                                                    "dateEarliestScalarValue": "ownershipDateGroup.dateEarliestScalarValue",
+                                                    "dateLatestMonth": "ownershipDateGroup.dateLatestMonth",
+                                                    "dateNote": "ownershipDateGroup.dateNote",
+                                                    "dateLatestScalarValue": "ownershipDateGroup.dateLatestScalarValue",
+                                                    "dateLatestQualifierUnit": "ownershipDateGroup.dateLatestQualifierUnit",
+                                                    "dateEarliestSingleDay": "ownershipDateGroup.dateEarliestSingleDay",
+                                                    "dateEarliestSingleMonth": "ownershipDateGroup.dateEarliestSingleMonth"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "value": "${{row}.ownershipDateGroup.dateDisplayDate}"
+                                },
+                                ".csc-place-owner": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.autocomplete",
+                                            "type": "fluid",
+                                            "options": {
+                                                "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/owner",
+                                                "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/owner"
+                                            }
+                                        }
+                                    ],
+                                    "value": "${{row}.owner}"
+                                }
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "placeOwnerGroup",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-place-nameNote-label": {
+        "messagekey": "place-nameNoteLabel"
+    },
+    ".csc-place-ownershipNote-label": {
+        "messagekey": "place-ownershipNoteLabel"
+    },
+    ".csc-place-owner-label": {
+        "messagekey": "place-ownerLabel"
+    },
+    ".csc-place-nameDateGroup-label": {
+        "messagekey": "place-nameDateGroupLabel"
+    },
+    ".csc-place-updatedBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-place-updatedBy": "${{row}.updatedBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "updatedBys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-place-createdBy-label": {
+        "messagekey": "place-createdByLabel"
+    },
+    ".csc-place-updatedAtEnd": {
+        "decorators": [
+            {
+                "func": "cspace.datePicker",
+                "type": "fluid"
+            }
+        ],
+        "value": "${updatedAtEnd}"
+    },
+    ".csc-place-nameDateGroupEnd-label": {
+        "messagekey": "place-nameDateGroupEndLabel"
+    },
+    ".csc-place-nameDateGroupStart": {
+        "decorators": [
+            {
+                "func": "",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.place-nameDateGroupStart",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.nameDateGroupStart.dateEarliestSingleQualifier",
+                        "dateLatestDay": "fields.nameDateGroupStart.dateLatestDay",
+                        "dateLatestYear": "fields.nameDateGroupStart.dateLatestYear",
+                        "dateAssociation": "fields.nameDateGroupStart.dateAssociation",
+                        "dateEarliestSingleEra": "fields.nameDateGroupStart.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.nameDateGroupStart.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.nameDateGroupStart.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.nameDateGroupStart.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.nameDateGroupStart.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.nameDateGroupStart.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.nameDateGroupStart.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.nameDateGroupStart.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.nameDateGroupStart.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.nameDateGroupStart.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.nameDateGroupStart.datePeriod",
+                        "dateEarliestScalarValue": "fields.nameDateGroupStart.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.nameDateGroupStart.dateLatestMonth",
+                        "dateNote": "fields.nameDateGroupStart.dateNote",
+                        "dateLatestScalarValue": "fields.nameDateGroupStart.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.nameDateGroupStart.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.nameDateGroupStart.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.nameDateGroupStart.dateEarliestSingleMonth"
+                    }
+                }
+            }
+        ],
+        "value": "${fields.place-nameDateGroupStart}"
+    },
+    ".csc-place-nameSourceDetail-label": {
+        "messagekey": "place-nameSourceDetailLabel"
+    },
+    ".csc-place-createdBy": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-place-createdBy": "${{row}.createdBy}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "createdBys",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-place-updatedAt-label": {
+        "messagekey": "place-updatedAtLabel"
+    },
+    ".csc-place-updatedAtEnd-label": {
+        "messagekey": "place-updatedAtEndLabel"
+    },
+    ".csc-place-placeNameGroup": {
+        "decorators": [
+            {
+                "func": "cspace.makeRepeatable",
+                "type": "fluid",
+                "options": {
+                    "repeatTree": {
+                        "expander": {
+                            "tree": {
+                                ".csc-placeNameGroup-nameDateGroup": {
+                                    "decorators": [
+                                        {
+                                            "func": "cspace.structuredDate",
+                                            "type": "fluid",
+                                            "options": {
+                                                "root": "{row}",
+                                                "elPath": "nameDateGroup.dateDisplayDate",
+                                                "elPaths": {
+                                                    "dateEarliestSingleQualifier": "nameDateGroup.dateEarliestSingleQualifier",
+                                                    "scalarValuesComputed": "nameDateGroup.scalarValuesComputed",
+                                                    "dateLatestDay": "nameDateGroup.dateLatestDay",
+                                                    "dateLatestYear": "nameDateGroup.dateLatestYear",
+                                                    "dateAssociation": "nameDateGroup.dateAssociation",
+                                                    "dateEarliestSingleEra": "nameDateGroup.dateEarliestSingleEra",
+                                                    "dateDisplayDate": "nameDateGroup.dateDisplayDate",
+                                                    "dateEarliestSingleCertainty": "nameDateGroup.dateEarliestSingleCertainty",
+                                                    "dateLatestEra": "nameDateGroup.dateLatestEra",
+                                                    "dateEarliestSingleQualifierValue": "nameDateGroup.dateEarliestSingleQualifierValue",
+                                                    "dateLatestCertainty": "nameDateGroup.dateLatestCertainty",
+                                                    "dateEarliestSingleYear": "nameDateGroup.dateEarliestSingleYear",
+                                                    "dateLatestQualifier": "nameDateGroup.dateLatestQualifier",
+                                                    "dateLatestQualifierValue": "nameDateGroup.dateLatestQualifierValue",
+                                                    "dateEarliestSingleQualifierUnit": "nameDateGroup.dateEarliestSingleQualifierUnit",
+                                                    "datePeriod": "nameDateGroup.datePeriod",
+                                                    "dateEarliestScalarValue": "nameDateGroup.dateEarliestScalarValue",
+                                                    "dateLatestMonth": "nameDateGroup.dateLatestMonth",
+                                                    "dateNote": "nameDateGroup.dateNote",
+                                                    "dateLatestScalarValue": "nameDateGroup.dateLatestScalarValue",
+                                                    "dateLatestQualifierUnit": "nameDateGroup.dateLatestQualifierUnit",
+                                                    "dateEarliestSingleDay": "nameDateGroup.dateEarliestSingleDay",
+                                                    "dateEarliestSingleMonth": "nameDateGroup.dateEarliestSingleMonth"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "value": "${{row}.nameDateGroup.dateDisplayDate}"
+                                },
+                                ".csc-place-placeName": "${{row}.placeName}"
+                            },
+                            "type": "fluid.noexpand"
+                        }
+                    },
+                    "elPath": "placeNameGroup",
+                    "hidePrimary": true
+                }
+            }
+        ]
+    },
+    ".csc-place-nameAbbrev-label": {
+        "messagekey": "place-nameAbbrevLabel"
+    },
+    ".csc-place-nameSource-label": {
+        "messagekey": "place-nameSourceLabel"
+    },
+    ".csc-place-nameAdminStatus-label": {
+        "messagekey": "place-nameAdminStatusLabel"
+    },
+    ".csc-place-nameDateGroupEnd": {
+        "decorators": [
+            {
+                "func": "",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.place-nameDateGroupEnd",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.nameDateGroupEnd.dateEarliestSingleQualifier",
+                        "dateLatestDay": "fields.nameDateGroupEnd.dateLatestDay",
+                        "dateLatestYear": "fields.nameDateGroupEnd.dateLatestYear",
+                        "dateAssociation": "fields.nameDateGroupEnd.dateAssociation",
+                        "dateEarliestSingleEra": "fields.nameDateGroupEnd.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.nameDateGroupEnd.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.nameDateGroupEnd.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.nameDateGroupEnd.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.nameDateGroupEnd.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.nameDateGroupEnd.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.nameDateGroupEnd.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.nameDateGroupEnd.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.nameDateGroupEnd.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.nameDateGroupEnd.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.nameDateGroupEnd.datePeriod",
+                        "dateEarliestScalarValue": "fields.nameDateGroupEnd.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.nameDateGroupEnd.dateLatestMonth",
+                        "dateNote": "fields.nameDateGroupEnd.dateNote",
+                        "dateLatestScalarValue": "fields.nameDateGroupEnd.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.nameDateGroupEnd.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.nameDateGroupEnd.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.nameDateGroupEnd.dateEarliestSingleMonth"
+                    }
+                }
+            }
+        ],
+        "value": "${fields.place-nameDateGroupEnd}"
+    }
+}

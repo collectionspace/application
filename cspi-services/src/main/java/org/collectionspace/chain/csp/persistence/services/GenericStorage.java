@@ -47,9 +47,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class GenericStorage  implements ContextualisedStorage {
-	public static final String WORKFLOW_TRANSITION_LOCK = "lock";
-	public static final String WORKFLOW_TRANSITION = "workflowTransition";
-	public static final String WORKFLOW_SUBRESOURCE = "/workflow";
 
 	private static final Logger log=LoggerFactory.getLogger(GenericStorage.class);
 	
@@ -1018,20 +1015,10 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 				
 			}
-			
-			
-			
-			
 			//if(status==404)
 			//	throw new ExistException("Not found: "+serviceurl+filePath);
 			if(status>299 || status<200)
 				throw new UnderlyingStorageException("Bad response ",status,serviceurl+filePath);
-			if(thisr.supportsLocking() && jsonObject.has(WORKFLOW_TRANSITION)
-					&& WORKFLOW_TRANSITION_LOCK.equalsIgnoreCase(jsonObject.getString(WORKFLOW_TRANSITION))) {
-				// If any problem, will throw exception.
-				transitionWorkflowJSON(root, creds, cache, filePath, serviceurl, WORKFLOW_TRANSITION_LOCK);
-			}
-
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
@@ -1247,13 +1234,6 @@ public class GenericStorage  implements ContextualisedStorage {
 
 		if(url.getStatus()>299 || url.getStatus()<200)
 			throw new UnderlyingStorageException("Bad response ",url.getStatus(),savePrefix);
-		// If Create (POST) worked, then we may have to lock it as well.
-		if(r.supportsLocking() && jsonObject.has(WORKFLOW_TRANSITION)
-				&& WORKFLOW_TRANSITION_LOCK.equalsIgnoreCase(jsonObject.getString(WORKFLOW_TRANSITION))) {
-			String itemId = url.getURLTail();
-			// If any problem, will throw exception.
-			transitionWorkflowJSON(null,creds, cache, savePrefix, itemId, WORKFLOW_TRANSITION_LOCK);
-		}
 		return url;
 	}
 	
@@ -1294,36 +1274,14 @@ public class GenericStorage  implements ContextualisedStorage {
 		}		
 	}
 	
-	// Once soft delete in services follows the new model of PUT to a transition, then this should just call
-	// transitionWorkflowJSON with transition "delete"
-	public void softDeleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl) throws ExistException,
-	UnimplementedException, UnderlyingStorageException {
-		try {
-			int status = 0;
-			Document doc = null;
-			doc=XmlJsonConversion.getXMLSoftDelete();
-			ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, serviceurl+filePath+WORKFLOW_SUBRESOURCE, doc, creds, cache);
-			status = docm.getStatus();
-			if(status>299 || status<200)
-				throw new UnderlyingStorageException("Bad response ",status,serviceurl+filePath);
-		}
-		catch (ConnectionException e) {	
-			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
-		}
-		
-	}
-
-	// This should probably move to ContextualisedStorage once we figure out how far
-	// we're going with workflow.
-	public int transitionWorkflowJSON(ContextualisedStorage root,CSPRequestCredentials creds,
-			CSPRequestCache cache,String filePath, String serviceurl, String workflowTransition) 
+	public void transitionWorkflowJSON(ContextualisedStorage root, CSPRequestCredentials creds,
+			CSPRequestCache cache, String filePath, String serviceurl, String workflowTransition) 
 					throws UnderlyingStorageException {
 		try {
 			String url = serviceurl+filePath+WORKFLOW_SUBRESOURCE+"/"+workflowTransition;
 			int status = conn.getNone(RequestMethod.PUT, url, null, creds, cache);
 			if(status>299 || status<200)
 				throw new UnderlyingStorageException("Bad response ",status,serviceurl+filePath);
-			return status;
 		}
 		catch (ConnectionException e) {	
 			throw new UnderlyingStorageException("Service layer exception (workflow transition)"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
@@ -1331,11 +1289,17 @@ public class GenericStorage  implements ContextualisedStorage {
 		
 	}
 
+	public void transitionWorkflowJSON(ContextualisedStorage root,CSPRequestCredentials creds,
+			CSPRequestCache cache,String filePath, String workflowTransition) 
+					throws UnderlyingStorageException {
+		transitionWorkflowJSON(root, creds, cache, filePath, r.getServicesURL()+"/", workflowTransition);
+	}
+
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		String serviceurl = thisr.getServicesURL()+"/";
 		if(thisr.hasSoftDeleteMethod()){
-			softDeleteJSON(root,creds,cache,filePath,serviceurl);
+			transitionWorkflowJSON(root, creds, cache, filePath, serviceurl, WORKFLOW_TRANSITION_DELETE);
 		}
 		else{
 			hardDeleteJSON(root,creds,cache,filePath,serviceurl);
@@ -1345,7 +1309,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		if(thisr.hasSoftDeleteMethod()){
-			softDeleteJSON(root,creds,cache,filePath,serviceurl);
+			transitionWorkflowJSON(root, creds, cache, filePath, serviceurl, WORKFLOW_TRANSITION_DELETE);
 		}
 		else{
 			hardDeleteJSON(root,creds,cache,filePath,serviceurl);

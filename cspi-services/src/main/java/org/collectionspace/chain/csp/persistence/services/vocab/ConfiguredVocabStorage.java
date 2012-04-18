@@ -600,13 +600,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String url = generateURL(vocab,filePath.split("/")[1],"",this.r);
 
 			if(r.hasSoftDeleteMethod()){
-				int status = 0;
-				Document doc = null;
-				doc=XmlJsonConversion.getXMLSoftDelete();
-				ReturnedDocument docm = conn.getXMLDocument(RequestMethod.PUT, url+WORKFLOW_SUBRESOURCE, doc, creds, cache);
-				status = docm.getStatus();
-				if(status>299 || status<200)
-					throw new UnderlyingStorageException("Bad response ",status,url);
+				// The url we compute already has the filepath built in, so just pass an empty
+				// filepath, and it will work out.
+				String emptyFilepath = "";
+				transitionWorkflowJSON(root, creds, cache, emptyFilepath, url, WORKFLOW_TRANSITION_DELETE);
 			}
 			else{
 				int status=conn.getNone(RequestMethod.DELETE,url,null,creds,cache);
