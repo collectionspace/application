@@ -1,0 +1,12 @@
+<record id="organization">
+	<instances>
+		<instance id="organization-organization">
+			<title>Collector Authority</title>
+		</instance>
+		<instance id="organization-institution">
+			<web-url>institution</web-url>
+			<title-ref>institution</title-ref>
+			<title>Institution Authority</title>
+		</instance>
+	</instances>
+</record>

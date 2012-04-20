@@ -26,6 +26,10 @@
 				<option id="University of California">University of California</option>
 			</options>			
 		</field>
+		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
+			<!-- Change autocomplete to institution authority -->
+			<field id="institution" autocomplete="organization-institution"/>
+		</repeat>
 	</section>
 	
 	<section id="descriptionInformation">
@@ -78,7 +82,8 @@
 	
 	<section id="objectCollectionInformation">
 		<repeat id="fieldCollectors">
-			<field id="fieldCollector" autocomplete="person-person,organization-organization" ui-search="repeatable"/>
+			<!-- Add ui-search, and add institution authority to autocomplete -->
+			<field id="fieldCollector" autocomplete="person-person,organization-organization,organization-institution" ui-search="repeatable"/>
 		</repeat>
 	</section>
 </record>
