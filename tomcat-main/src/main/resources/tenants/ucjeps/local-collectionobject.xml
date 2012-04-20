@@ -30,6 +30,9 @@
 			<!-- Change autocomplete to institution authority -->
 			<field id="institution" autocomplete="organization-institution"/>
 		</repeat>
+		<!-- Tie labelHeader and labelFooter to Concept Authority -->
+		<field id="labelHeader" autocomplete="concept-concept" section="naturalhistory" />
+		<field id="labelFooter" autocomplete="concept-concept" section="naturalhistory"/>
 	</section>
 	
 	<section id="descriptionInformation">
