@@ -2,6 +2,7 @@
 	<services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
 
 	<section id="identificationInformation">
+		<field id="basicStorageLocation" section="naturalhistory" autocomplete="taxon-taxon"/>
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
 			<field id="taxon" in-title="yes" ui-search="repeatable" mini="summary,search,list,relate" section="naturalhistory" autocomplete="taxon-taxon">
 				<selector>taxonomic-identification-taxon</selector>
