@@ -134,6 +134,11 @@
 				<selector>object-identification-object-typeSpecimenNotes</selector>
 			</field>
 		</repeat>
+		<field id="donor" section="naturalhistory" autocomplete="organization-organization"/>
+		<field id="donorDate" section="naturalhistory" ui-type="groupfield/structureddate" primarykey="donorDate.dateDisplayDate" ui-func="cspace.structuredDate">
+			<services-tag>donorDateGroup</services-tag>
+		</field>
+		<field id="donorNote" section="naturalhistory"/>
 	</section>
 
 	<section id="descriptionInformation">
@@ -1445,4 +1450,5 @@
 	
 	<!-- These are only used to create labels for the groupings. -->
 	<section id="geoRefDetail"/>
+	<section id="donorGroup"/>
 </record>
