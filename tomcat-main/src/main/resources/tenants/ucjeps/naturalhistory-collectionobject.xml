@@ -80,6 +80,26 @@
 				<selector>taxonomic-identification-notes</selector>
 			</field>
 		</repeat>
+
+		<repeat id="hybridParentGroupList/hybridParentGroup" section="naturalhistory">
+			<field id="hybridParent" section="naturalhistory" autocomplete="taxon-taxon"/>
+			<field id="hybridParentQualifier" section="naturalhistory" seperate_ui_container="true">
+				<options>
+					<option id="" default="yes">Unknown</option>
+					<option id="fide">fide</option>
+					<option id="forsan">forsan</option>
+					<option id="hybrid (X)">hybrid (X)</option>
+					<option id="sensu">sensu</option>
+					<option id="sensu lato">sensu lato</option>
+					<option id="sensu stricto">sensu stricto</option>
+					<option id="vide">vide</option>
+					<option id="intermediate">intermediate</option>
+					<option id="?">?</option>
+				</options>
+			</field>
+		</repeat>
+		<field id="hybridName" section="naturalhistory"/>
+		
 		<field id="labelHeader" section="naturalhistory"/>
 		<field id="labelFooter" section="naturalhistory"/>
 		<field id="objectCountNumber" ui-type="validated" datatype="integer" section="naturalhistory"/>
