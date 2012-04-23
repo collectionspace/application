@@ -27,8 +27,14 @@
 			</options>			
 		</field>
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
+			<!-- Add taxon-unverified to autocomplete -->
+			<field id="taxon" in-title="yes" ui-search="repeatable" mini="summary,search,list,relate" section="naturalhistory" autocomplete="taxon-taxon,taxon-unverified"/>
 			<!-- Change autocomplete to institution authority -->
 			<field id="institution" autocomplete="organization-institution"/>
+		</repeat>
+		<repeat id="hybridParentGroupList/hybridParentGroup">
+			<!-- Add taxon-unverified to autocomplete -->
+			<field id="hybridParent" section="naturalhistory" autocomplete="taxon-taxon,taxon-unverified"/>
 		</repeat>
 		<!-- Tie labelHeader and labelFooter to Concept Authority -->
 		<field id="labelHeader" autocomplete="concept-concept" section="naturalhistory" />
