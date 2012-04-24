@@ -17,7 +17,10 @@
 				<option id="Provisional">Provisional</option>
 			</options>
 		</field>
-		<field id="taxonRank">
+		<!-- Remove summary from mini -->
+		<field id="taxonFullName" ui-search="repeatable" mini="list,search,relate,terms"/>
+		<!-- Add mini="summary", and change options -->
+		<field id="taxonRank" ui-search="repeatable" seperate_ui_container="true" mini="summary">
 			<options>
 				<option id="" default="yes">Unknown</option>
 				<option id="class">class</option>
