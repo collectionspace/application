@@ -97,4 +97,12 @@
 			<field id="fieldCollector" autocomplete="person-person,organization-organization,organization-institution" ui-search="repeatable"/>
 		</repeat>
 	</section>
+
+	<section id="localityInformation">
+		<repeat id="localityGroupList/localityGroup">
+			<!-- Configure decimalLatitude and decimalLongitude to be computed -->
+			<field id="decimalLatitude" section="naturalhistory" ui-type="computed" ui-func="georefjs.dms2deg" ui-args="vLatitude" datatype="float"/>
+			<field id="decimalLongitude" section="naturalhistory" ui-type="computed" ui-func="georefjs.dms2deg" ui-args="vLongitude" datatype="float"/>
+		</repeat>
+	</section>
 </record>
