@@ -91,6 +91,19 @@
 		</field>
 	</section>
 	
+	<section id="objectHistoryAssociationInformation">
+		<section id="associationInformation">
+			<repeat id="assocOrganizationGroupList/assocOrganizationGroup">
+				<!-- Add institution authority to autocomplete -->
+				<field id="assocOrganization" autocomplete="organization-organization,organization-institution"/>
+			</repeat>
+			<repeat id="assocEventOrganizations">
+				<!-- Add institution authority to autocomplete -->
+				<field id="assocEventOrganization" autocomplete="organization-organization,organization-institution"/>
+			</repeat>
+		</section>
+	</section>
+	
 	<section id="objectCollectionInformation">
 		<repeat id="fieldCollectors">
 			<!-- Add ui-search, and add institution authority to autocomplete -->
