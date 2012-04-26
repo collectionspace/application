@@ -22,8 +22,8 @@
                 <label-section id="messagekeys" show="true"></label-section>
                 <hierarchy-section show="true">
                     <options>
-                        <option id="narrowerContext">concept-concept,concept-material,concept-activity</option>
-                        <option id="broaderContext">concept-concept,concept-material,concept-activity</option>
+                        <option id="narrowerContext">concept-concept</option>
+                        <option id="broaderContext">concept-concept</option>
                     </options>
                 </hierarchy-section>
             </view>
