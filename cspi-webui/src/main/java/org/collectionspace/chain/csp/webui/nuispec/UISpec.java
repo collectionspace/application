@@ -373,6 +373,7 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		if(type.equals("")){type = "string";}
 		options.put("type",type);
 		options.put("label",f.getLabel());
+		options.put("readOnly", f.isReadOnly());
 		
 		if (StringUtils.isNotEmpty(f.getUIFunc())) {
 			options.put("func",f.getUIFunc());
