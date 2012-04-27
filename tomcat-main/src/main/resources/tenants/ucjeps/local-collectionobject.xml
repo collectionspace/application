@@ -114,8 +114,8 @@
 	<section id="localityInformation">
 		<repeat id="localityGroupList/localityGroup">
 			<!-- Configure decimalLatitude and decimalLongitude to be computed -->
-			<field id="decimalLatitude" section="naturalhistory" ui-type="computed" ui-func="georefjs.dms2deg" ui-args="vLatitude" ui-readonly="true" datatype="float"/>
-			<field id="decimalLongitude" section="naturalhistory" ui-type="computed" ui-func="georefjs.dms2deg" ui-args="vLongitude" ui-readonly="true" datatype="float"/>
+			<field id="decimalLatitude" section="naturalhistory" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLatitude" ui-readonly="true" datatype="float"/>
+			<field id="decimalLongitude" section="naturalhistory" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLongitude" ui-readonly="true" datatype="float"/>
 		</repeat>
 	</section>
 </record>
