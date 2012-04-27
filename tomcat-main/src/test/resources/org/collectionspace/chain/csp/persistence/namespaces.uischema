@@ -8,8 +8,7 @@
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
                     },
@@ -18,12 +17,10 @@
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
-                    },
-                    "type": "object"
+                    }
                 },
                 "type": "object"
             },
@@ -34,19 +31,16 @@
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
                     },
-                    "type": "object",
                     "material": {
                         "properties": {
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
                     },
@@ -55,10 +49,9 @@
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
-                        "type": "object"
+												"type": "object"
                     }
                 },
                 "type": "object"
@@ -70,8 +63,7 @@
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
                     },
@@ -80,8 +72,7 @@
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
                     },
@@ -90,12 +81,10 @@
                             "nptAllowed": {
                                 "default": false,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
-                    },
-                    "type": "object"
+                    }
                 },
                 "type": "object"
             },
@@ -106,12 +95,10 @@
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
-                    },
-                    "type": "object"
+                    }
                 },
                 "type": "object"
             },
@@ -122,8 +109,7 @@
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
                     },
@@ -132,36 +118,30 @@
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
                     },
-                    "type": "object",
                     "placetest1": {
                         "properties": {
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
                     }
                 },
                 "type": "object"
             },
-            "type": "object",
             "taxon": {
                 "properties": {
-                    "type": "object",
                     "taxon": {
                         "properties": {
                             "nptAllowed": {
                                 "default": true,
                                 "type": "boolean"
-                            },
-                            "type": "object"
+                            }
                         },
                         "type": "object"
                     }
