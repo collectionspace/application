@@ -485,24 +485,20 @@ public class UISchema extends SchemaStructure implements WebMethod {
 			}
 			else if(sectionid.toLowerCase().equals("namespaces")){
 				JSONObject namespaces = new JSONObject();
-				namespaces.put("type", "object");
 				JSONObject namespacesProps = new JSONObject();
-				namespacesProps.put("type", "object");
 
 				for (Record rc : this.spec.getAllRecords()) {
 					if (rc.isInRecordList()) {
 						if (rc.isShowType("authority")) {
 							JSONObject authInfoProps = new JSONObject();
-							authInfoProps.put("type", "object");
 							for(Instance ins : rc.getAllInstances()){
 								JSONObject instanceInfo = new JSONObject();
-								instanceInfo.put("type", "object");
 								JSONObject instanceProps = new JSONObject();
-								instanceProps.put("type", "object");
 								JSONObject nptAllowed = new JSONObject();
 								nptAllowed.put("type", "boolean");
 								nptAllowed.put("default", ins.getNPTAllowed());
 								instanceProps.put("nptAllowed", nptAllowed);
+								instanceInfo.put("type", "object");
 								instanceInfo.put("properties", instanceProps);
 								authInfoProps.put(ins.getWebURL(), instanceInfo);
 							}
@@ -513,6 +509,7 @@ public class UISchema extends SchemaStructure implements WebMethod {
 						}
 					}
 				}
+				namespaces.put("type", "object");
 				namespaces.put("properties", namespacesProps);
 				out.put("namespaces", namespaces);
 				/**
@@ -521,11 +518,9 @@ public class UISchema extends SchemaStructure implements WebMethod {
     "namespaces": {
         "type": "object",
         "properties": {
-            "type": "object"
             "person": {
                 "type": "object"
                 "properties": {
-                    "type": "object"
                     "person" : {
                         "type": "object"
                         "properties": {
@@ -549,7 +544,6 @@ public class UISchema extends SchemaStructure implements WebMethod {
             "organization": {
                 "type": "object"
                 "properties": {
-                    "type": "object"
                     "organization" : {
                         "type": "object"
                         "properties": {
