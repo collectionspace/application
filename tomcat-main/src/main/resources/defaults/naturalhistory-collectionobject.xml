@@ -234,7 +234,6 @@
 		<field id="fieldCollectionNumberAssignor" section="naturalhistory" autocomplete="organization-organization"/>
 		<repeat id="associatedTaxaGroupList/associatedTaxaGroup" section="naturalhistory">
 			<field id="associatedTaxon" section="naturalhistory" autocomplete="taxon-taxon">
-				<services-tag>taxon</services-tag>
 				<selector>collection-object-associatedTaxaTaxon</selector>
 			</field>
 			<field id="commonName" section="naturalhistory">
