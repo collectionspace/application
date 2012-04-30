@@ -1,0 +1,15 @@
+<record id="loanout">
+	<section id="loanoutInformation">
+		<repeat id="taxonomyList">
+			<!-- Add taxon-unverified to autocomplete -->
+			<field id="taxonomy" section="naturalhistory" autocomplete="taxon-taxon,taxon-unverified"/>
+		</repeat>
+	</section>
+
+	<section id="transferInformation">
+		<repeat id="transferGroupList/transferGroup">
+			<!-- Change autocomplete to organization-institution -->
+			<field id="transferOrg" section="naturalhistory" autocomplete="organization-institution"/>
+		</repeat>
+	</section>
+</record>
