@@ -70,4 +70,7 @@
 			<field id="transferNotes" section="naturalhistory"/>
 		</repeat>
 	</section>
+	
+	<!-- This is just here so a message key will be generated. -->
+	<section id="manualCounts"/>
 </record>
