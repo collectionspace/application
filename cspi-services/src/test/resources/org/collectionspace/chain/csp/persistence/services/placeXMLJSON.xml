@@ -123,7 +123,7 @@
 <vCoordSys>national-grid-reference</vCoordSys>
 <placeGeoRefGroupList>
     <placeGeoRefGroup>
-        <geoReferencedBy>123456</geoReferencedBy>
+        <geoReferencedBy></geoReferencedBy>
         <footprintWKT>123456</footprintWKT>
         <coordUncertaintyInMeters>123456</coordUncertaintyInMeters>
         <coordPrecision>123456</coordPrecision>
