@@ -125,7 +125,7 @@
 	"vUnitofMeasure": "meters",
 	"placeGeoRefGroup": [
 		{
-			"geoReferencedBy": "123456",
+			"geoReferencedBy": "",
 			"footprintWKT": "123456",
 			"coordUncertaintyInMeters": "123456",
 			"coordPrecision": "123456",

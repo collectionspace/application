@@ -65,10 +65,15 @@
             <title-selector>titleBar-displayName</title-selector>
         </field>
         <field id="placeType" ui-search="repeatable">
+            <!-- SOURCE: http://www.getty.edu/research/tools/vocabularies/guidelines/tgn_4_6_appendix_f_place_types.html (this is a subset).
+            Seven additional values have been added: collection-site, country-code, general-region, locality,
+            national-division (in TGN as division-national), state-province and water-body (in TGN as "body of water").
+            Users can easily configure the values as they wish. -->
             <options>
                 <option id="" default="yes">Please select a value</option>
                 <option id="autonomous-region">Autonomous region</option>
                 <option id="borough">Borough</option>
+                <option id="city">City</option>
                 <option id="collection-site">Collection site</option>
                 <option id="continent">Continent</option>
                 <option id="country">Country</option>
@@ -177,14 +182,17 @@
                 <option id="latitude-longitude">Latitude and longitude</option>
                 <option id="national-grid-reference">National Grid reference</option>
                 <option id="utm">Universal Transverse Mercator (UTM)</option>
-                <!-- The following suggestions come from http://code.google.com/p/darwincore/wiki/Location#Verbatim_Coordinate_Terms -->
+                <!-- The following suggestions come from http://code.google.com/p/darwincore/wiki/Location#Verbatim_Coordinate_Terms;
+                Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#verbatimCoordinateSystem -->
                 <!--<option id="crtm">Costa Rica Transverse Mercator (CRTM)</option>
                 <option id="decimal-degrees">Decimal degrees</option>
                 <option id="degrees-decimal-minutes">Degrees decimal minutes</option>
                 <option id="degrees-minutes-seconds">Degrees minutes seconds</option>-->
             </options>
         </field>
-        <field id="vSpatialReferenceSystem"><!-- See http://code.google.com/p/darwincore/wiki/Location#verbatimSRS -->
+        <field id="vSpatialReferenceSystem">
+            <!-- See http://code.google.com/p/darwincore/wiki/Location#verbatimSRS;
+            Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#verbatimSRS -->
             <options>
                 <option id="" default="yes">Please select a value</option>
                 <option id="epsg4326-wgs84">EPSG:4326-WGS84</option>
@@ -195,7 +203,8 @@
         </field>
         <field id="vCoordSource"/>
         <field id="vCoordSourceRefId"/>
-        <field id="vUnitofMeasure"><!-- Copied from dimensions. Are these the right units for this purpose? (Most seem inappropriate.) -->
+        <field id="vUnitofMeasure">
+            <!-- Adapted from set of options in Dimensions group -->
             <options>
                 <option id="">Please select a value</option>
                 <option id="acres">acres</option>
@@ -227,7 +236,9 @@
         <repeat id="placeGeoRefGroupList/placeGeoRefGroup">
             <field id="decimalLatitude"/>
             <field id="decimalLongitude"/>
-            <field id="geodeticDatum"><!-- See http://code.google.com/p/darwincore/wiki/Location#geodeticDatum -->
+            <field id="geodeticDatum">
+                <!-- See http://code.google.com/p/darwincore/wiki/Location#geodeticDatum;
+                Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#geodeticDatum -->
                 <options>
                     <option id="" default="yes">Please select a value</option>
                     <option id="epsg4326-wgs84">EPSG:4326-WGS84</option>
@@ -242,9 +253,11 @@
             <field id="footprintWKT"/>
             <field id="footprintSRS"/>
             <field id="footprintSpatialFit"/>
-            <field id="geoReferencedBy"/>
+            <field id="geoReferencedBy" autocomplete="person-person,organization-organization"/>
             <group id="geoRefDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
-            <field id="geoRefProtocol"><!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceProtocol -->
+            <field id="geoRefProtocol">
+                <!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceProtocol;
+                Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#georeferenceProtocol -->
                 <options>
                     <option id="" default="yes">Please select a value</option>
                     <option id="chapman-wieczorek-2006-guide-best-practices-georeferencing">Chapman, Wieczorek 2006, Guide to Best Practices for Georeferencing</option>
@@ -254,7 +267,9 @@
                 </options>
             </field>
             <field id="geoRefSource"/>
-            <field id="geoRefVerificationStatus"><!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceVerificationStatus -->
+            <field id="geoRefVerificationStatus">
+                <!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceVerificationStatus;
+                Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#georeferenceVerificationStatus -->
                 <options>
                     <option id="" default="yes">Please select a value</option>
                     <option id="unverified">Unverified</option>
