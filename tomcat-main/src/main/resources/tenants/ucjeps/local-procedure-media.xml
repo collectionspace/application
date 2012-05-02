@@ -5,13 +5,15 @@
 		<field id="title" ui-search="repeatable" mini=""/>
 		<field id="handwritten" section="ucjeps" ui-search="single">
 			<options>
-				<option id="" default="yes">Unknown</option>
+				<option id="">Please select a value</option>
+				<option id="Unknown">Unknown</option>
 				<option id="yes">Yes</option>
 				<option id="no">No</option>
 			</options>
 		</field>
 		<field id="postToPublic" section="ucjeps" ui-search="single">
 			<options>
+				<option id="">Please select a value</option>
 				<option id="no" default="yes">No</option>
 				<option id="yes">Yes</option>
 			</options>

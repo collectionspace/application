@@ -9,7 +9,8 @@
 		<repeat id="otherNumberList/otherNumber">
 			<field id="numberType">
 				<options>
-					<option id="" default="yes">Unknown</option>
+					<option id="" default="yes">Please select a value</option>
+					<option id="Unknown">Unknown</option>
 					<option id="Collector Number">Collector Number</option>
 					<option id="GenBank Code">GenBank Code</option>
 					<option id="Old institution accession number">Old institution accession number</option>
@@ -20,7 +21,8 @@
 		</repeat>
 		<field id="collection">
 			<options>
-				<option id="" default="yes">Unknown</option>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Unknown">Unknown</option>
 				<option id="Jepson Herbarium">Jepson Herbarium</option>
 				<option id="University of California Herbarium">University Herbarium, University of California, Berkeley (UC)</option>
 				<option id="University of California">University of California</option>
@@ -46,7 +48,8 @@
 	<section id="descriptionInformation">
 		<field id="phase">
 			<options>
-				<option id="" default="yes">Unknown</option>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Unknown">Unknown</option>
 				<option id="Cone">Cone</option>
 				<option id="Flowering">Flowering</option>
 				<option id="Flowering/Fruiting">Flowering/Fruiting</option>
@@ -62,7 +65,8 @@
 		<repeat id="forms">
 			<field id="form">
 				<options>
-					<option id="" default="yes">Unknown</option>
+					<option id="" default="yes">Please select a value</option>
+					<option id="Unknown">Unknown</option>
 					<option id="Mounted on Paper">Mounted on Paper</option>
 					<option id="Stored in a Box or Bag">Stored in a Box or Bag</option>
 					<option id="Preserved in Liquid">Preserved in Liquid</option>
@@ -78,13 +82,15 @@
 		</repeat>
 		<field id="handwritten" section="ucjeps">
 			<options>
-				<option id="" default="yes">Unknown</option>
+				<option id="" default="yes">Please select a value</option>
+				<option id="Unknown">Unknown</option>
 				<option id="yes">Yes</option>
 				<option id="no">No</option>
 			</options>
 		</field>
 		<field id="postToPublic" section="ucjeps">
 			<options>
+				<option id="">Please select a value</option>
 				<option id="no" default="yes">No</option>
 				<option id="yes">Yes</option>
 			</options>
