@@ -1,8 +1,41 @@
 <record id="loanout">
 	<section id="loanoutInformation">
+		<field id="collection">
+			<!-- Customize the option list -->
+			<options>
+				<option id="">Please select a value</option>
+				<option id="UC">UC</option>
+				<option id="JEPS">JEPS</option>
+			</options>
+		</field>
+
+		<!-- Change autocomplete to organization-institution -->
+		<field id="borrower" ui-search="repeatable" autocomplete="organization-institution" mini="summary,list" in-title="yes"/>
+
 		<repeat id="taxonomyList">
 			<!-- Add taxon-unverified to autocomplete -->
 			<field id="taxonomy" section="naturalhistory" autocomplete="taxon-taxon,taxon-unverified"/>
+		</repeat>
+		
+		<repeat id="objKindList">
+			<field id="objKind">
+				<!-- Customize the option list -->
+				<options>
+					<option id="">Unknown</option>
+					<option id="Sheet">Sheet</option>
+					<option id="Specimens">Specimens</option>
+					<option id="Box">Box</option>
+					<option id="Bag">Bag</option>
+					<option id="Sealed Bag">Sealed Bag</option>
+					<option id="Jar">Jar</option>
+					<option id="Packet">Packet</option>
+					<option id="Slide">Slide</option>
+					<option id="Unmounted">Unmounted</option>
+					<option id="Photograph">Photograph</option>
+					<option id="Photocopy">Photocopy</option>
+					<option id="Illustration">Illustration</option>
+				</options>
+			</field>
 		</repeat>
 	</section>
 
