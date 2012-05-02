@@ -21,7 +21,8 @@
 			<field id="objKind">
 				<!-- Customize the option list -->
 				<options>
-					<option id="">Unknown</option>
+					<option id="">Please select a value</option>
+					<option id="Unknown">Unknown</option>
 					<option id="Sheet">Sheet</option>
 					<option id="Specimens">Specimens</option>
 					<option id="Box">Box</option>
