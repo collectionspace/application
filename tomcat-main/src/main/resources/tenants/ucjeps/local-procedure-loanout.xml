@@ -1,5 +1,8 @@
 <record id="loanout">
 	<section id="loanoutInformation">
+		<!-- Change autocomplete to organization-institution -->
+		<field id="borrower" ui-search="repeatable" autocomplete="organization-institution" mini="summary,list" in-title="yes"/>
+
 		<field id="collection">
 			<!-- Customize the option list -->
 			<options>
@@ -8,9 +11,6 @@
 				<option id="JEPS">JEPS</option>
 			</options>
 		</field>
-
-		<!-- Change autocomplete to organization-institution -->
-		<field id="borrower" ui-search="repeatable" autocomplete="organization-institution" mini="summary,list" in-title="yes"/>
 
 		<repeat id="taxonomyList">
 			<!-- Add taxon-unverified to autocomplete -->
