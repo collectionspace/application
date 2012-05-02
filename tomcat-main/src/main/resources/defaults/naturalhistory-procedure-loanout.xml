@@ -5,8 +5,6 @@
 		<field id="collection" section="naturalhistory">
 			<options>
 				<option id="">Please select a value</option>
-				<option id="UC">UC</option>
-				<option id="JEPS">JEPS</option>
 			</options>
 		</field>
 		<repeat id="geographyList" section="naturalhistory">
@@ -19,8 +17,8 @@
 			<field id="objKind" section="naturalhistory">
 				<options>
 					<option id="">Please select a value</option>
-					<option id="sheet">sheet</option>
-					<option id="jar">jar</option>
+					<option id="Sheet">Sheet</option>
+					<option id="Jar">Jar</option>
 				</options>
 			</field>
 		</repeat>
