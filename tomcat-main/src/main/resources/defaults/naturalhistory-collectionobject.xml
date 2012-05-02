@@ -11,7 +11,8 @@
 			<field id="qualifier" section="naturalhistory" seperate_ui_container="true">
 				<selector>taxonomic-identification-qualifier</selector>
 				<options>
-					<option id="" default="yes">Unknown</option>
+					<option id="">Please select a value</option>
+					<option id="unknown">unknown</option>
 					<option id="fide">fide</option>
 					<option id="forsan">forsan</option>
 					<option id="hybrid (X)">hybrid (X)</option>
@@ -85,7 +86,8 @@
 			<field id="hybridParent" section="naturalhistory" autocomplete="taxon-taxon"/>
 			<field id="hybridParentQualifier" section="naturalhistory" seperate_ui_container="true">
 				<options>
-					<option id="" default="yes">Unknown</option>
+					<option id="">Please select a value</option>
+					<option id="unknown">unknown</option>
 					<option id="fide">fide</option>
 					<option id="forsan">forsan</option>
 					<option id="hybrid (X)">hybrid (X)</option>
@@ -108,7 +110,8 @@
 			<field id="typeSpecimenKind" ui-search="repeatable" section="naturalhistory" mini="search" seperate_ui_container="true">
 				<selector>object-identification-object-typeSpecimenKind</selector>
 				<options>
-					<option id="">Unspecified type</option>
+					<option id="">Please select a value</option>
+					<option id="Unspecified type">Unspecified type</option>
 					<option id="Allotype">Allotype</option>
 					<option id="Cotype">Cotype</option>
 					<option id="Epitype">Epitype</option>
@@ -167,7 +170,8 @@
 			<field id="annotationType" section="naturalhistory">
 				<selector>collection-object-annotationType</selector>
 				<options>
-					<option id="">Unknown</option>
+					<option id="">Please select a value</option>
+					<option id="unknown">unknown</option>
 					<option id="anatomy ">anatomy</option>
 					<option id="annotation history">annotation history</option>
 					<option id="associated species">associated species</option>
@@ -242,7 +246,8 @@
 			<field id="interaction" section="naturalhistory">
 				<selector>collection-object-associatedTaxaInteraction</selector>
 				<options>
-					<option id="lives/grows with" default="yes">lives/grows with</option>
+					<option id="">Please select a value</option>
+					<option id="lives/grows with">lives/grows with</option>
 					<option id="lives on">lives on</option>
 					<option id="is physically supported by">is physically supported by</option>
 					<option id="is epiphytic on">is epiphytic on</option>
@@ -258,7 +263,8 @@
 			<field id="fieldLocPlace" autocomplete="place-place" section="naturalhistory"/>
 			<field id="fieldLocCounty" ui-search="repeatable" section="naturalhistory">
 				<options>
-					<option id="" default="yes">Unknown</option>
+					<option id="">Please select a value</option>
+					<option id="Unknown">Unknown</option>
 					<option id="Acadia">Acadia</option>
 					<option id="Acaponeta">Acaponeta</option>
 					<option id="Ada">Ada</option>
@@ -797,7 +803,8 @@
 			</field>
 			<field id="fieldLocState" ui-search="repeatable" section="naturalhistory">
 				<options>
-					<option id="" default="yes">Unknown</option>
+					<option id="">Please select a value</option>
+					<option id="Unknown">Unknown</option>
 					<option id="'Eua">'Eua</option>
 					<option id="Aamzonas">Aamzonas</option>
 					<option id="Acre">Acre</option>
@@ -1204,7 +1211,8 @@
 			</field>
 			<field id="fieldLocCountry" ui-search="repeatable" section="naturalhistory">
 				<options>
-					<option id="" default="yes">Unknown</option>
+					<option id="">Please select a value</option>
+					<option id="unknown">unknown</option>
 					<option id="Afghanistan">Afghanistan</option>
 					<option id="Algeria">Algeria</option>
 					<option id="American Samoa">American Samoa</option>
@@ -1333,7 +1341,8 @@
 			<field id="vLongitude" section="naturalhistory"/>
 			<field id="vCoordSys" section="naturalhistory">
 				<options>
-					<option id="" default="yes">Unknown</option>
+					<option id="">Please select a value</option>
+					<option id="Unknown">Unknown</option>
 					<option id="None">None</option>
 					<option id="Degrees">Degrees</option>
 					<option id="Decimal Degrees">Decimal Degrees</option>
@@ -1358,7 +1367,8 @@
 			<field id="decimalLongitude" section="naturalhistory" ui-type="validated" datatype="float"/>
 			<field id="geodeticDatum" section="naturalhistory">
 				<options>
-					<option id="" default="yes">Not Recorded</option>
+					<option id="">Please select a value</option>
+					<option id="Not Recorded">Not Recorded</option>
 					<option id="ADG66">ADG66</option>
 					<option id="NAD27">NAD27</option>
 					<option id="NAD83">NAD83</option>
