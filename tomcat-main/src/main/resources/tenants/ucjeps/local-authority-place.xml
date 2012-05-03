@@ -1,0 +1,8 @@
+<record id="place">
+	<section id="placeAuthorityInformation">
+		<repeat id ="placeOwnerGroupList/placeOwnerGroup">
+			<!-- Add organization-institution to autocomplete -->
+			<field id="owner" autocomplete="person-person,organization-organization,organization-institution" ui-search="repeatable"/>
+		</repeat>
+	</section>
+</record>

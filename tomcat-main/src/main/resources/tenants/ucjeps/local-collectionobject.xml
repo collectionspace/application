@@ -109,6 +109,11 @@
 	</section>
 	
 	<section id="objectHistoryAssociationInformation">
+		<repeat id="owners">
+			<!-- Add organization-institution to autocomplete -->
+			<field id="owner" autocomplete="person-person,organization-organization,organization-institution"/>
+		</repeat>
+		
 		<section id="associationInformation">
 			<repeat id="assocOrganizationGroupList/assocOrganizationGroup">
 				<!-- Add institution authority to autocomplete -->

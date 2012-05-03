@@ -1,0 +1,89 @@
+<!-- Modifying this file for ucjeps just to add an id to the first section. This shouldn't be necessary in 2.4. -->
+<record id="dimension" in-recordlist="no" separate-record="false">
+    <hassoftdelete>true</hassoftdelete>
+	<section id="dimensionInformation">
+		<repeat id="measuredPartGroupList/measuredPartGroup">
+            <field id="dimensionSummary"></field>
+			<field id="measuredPart" seperate_ui_container="true">
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="base">base</option>
+                    <option id="frame">frame</option>
+                    <option id="framed">framed</option>
+                    <option id="image-size">image size</option>
+                    <option id="mount">mount</option>
+                    <option id="paper-size">paper size</option>
+                    <option id="plate-size">plate size</option>
+                    <option id="unframed">unframed</option>
+                </options>
+            </field>
+            <repeat id="dimensionSubGroupList/dimensionSubGroup">
+            	<field id="measuredBy"  autocomplete="person-person,organization-organization"></field>
+                <field id="dimension" seperate_ui_container="true">
+                    <options>
+                        <option id="">Please select a value</option>
+                        <option id="area">area</option>
+                        <option id="base">base</option>
+                        <option id="circumference">circumference</option>
+                        <option id="count">count</option>
+                        <option id="depth">depth</option>
+                        <option id="diameter">diameter</option>
+                        <option id="height">height</option>
+                        <option id="length">length</option>
+                        <option id="running-time">running time</option>
+                        <option id="target">target</option>
+                        <option id="volume">volume</option>
+                        <option id="weight">weight</option>
+                        <option id="width">width</option>
+                    </options>
+                </field>
+                <field id="measurementUnit" seperate_ui_container="true">
+                    <options>
+                        <option id="">Please select a value</option>
+                        <option id="carats">carats</option>
+                        <option id="centimeters">centimeters</option>
+                        <option id="cubic-centimeters">cubic centimeters</option>
+                        <option id="feet">feet</option>
+                        <option id="inches">inches</option>
+                        <option id="kilograms">kilograms</option>
+                        <option id="liters">liters</option>
+                        <option id="millimeters">millimeters</option>
+                        <option id="meters">meters</option>
+                        <option id="minutes">minutes</option>
+                        <option id="pixels">pixels</option>
+                        <option id="square-feet">square feet</option>
+                        <option id="stories">stories</option>
+                    </options>
+                </field>
+                <field id="value" ui-type="validated" datatype="float"></field>
+                <field id="measurementMethod">
+                    <options>
+                        <option id="" default="yes">Please select a value</option>
+                        <option id="microscopy_reticule">Microscopy (reticule)</option>
+                        <option id="standard_mesh_screen">Standard Mesh/Screen</option>
+                        <option id="sliding_calipers">Sliding Calipers</option>
+                        <option id="spreading_calipers">Spreading Calipers</option>
+                        <option id="measuring_tape_cloth">Measuring Tape (cloth)</option>
+                        <option id="measuring_tape_metal">Measuring Tape (metal)</option>
+                        <option id="osteometric_board">Osteometric Board</option>
+                        <option id="ruler">Ruler</option>
+                        <option id="pacing_pedometer">Pacing Pedometer</option>
+                        <option id="odometer">Odometer</option>
+                        <option id="taping_chaining">Taping/Chaining</option>
+                        <option id="stadia_transit">Stadia/Transit</option>
+                        <option id="optical_range_finder">Optical Range Finder</option>
+                        <option id="electronic_distance_measurement">Electronic Distance Measurement</option>
+                        <option id="protractor">Protractor</option>
+                        <option id="goniometer">Goniometer</option>
+                        <option id="theodolite_total_station">Theodolite/Total Station</option>
+                        <option id="balance_beam_scale">Balance/Beam Scale</option>
+                        <option id="spring_scale">Spring Scale</option>
+                        <option id="hydraulic_or_pneumatic_scale">Hydraulic or Pneumatic Scale</option>
+                    </options>
+                </field>
+                <field id="valueDate" ui-type="date"></field>
+                <field id="valueQualifier"></field>
+            </repeat>
+        </repeat>
+    </section>
+</record>
