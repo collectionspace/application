@@ -13,7 +13,13 @@ import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIUmbrella;
 
-// XXX expiry. For now it will take an age for our sessions to impact on memory.
+/**
+ * Umbrella class for UI App interchange
+ * Holds a map of sessions 
+ * XXX TODO add in expiry. For now it will take an age for our sessions to impact on memory. - Dan
+ * @author csm22
+ *
+ */
 public class WebUIUmbrella implements UIUmbrella {
 	private Map<String,WebUISession> sessions=new HashMap<String,WebUISession>();
 	private WebUI ui;

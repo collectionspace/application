@@ -14,6 +14,12 @@ import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.ui.UIException;
 import org.json.JSONObject;
 
+/**
+ * probably obsolete class.
+ * can be called by /{record}/__auto 
+ * @author csm22
+ *
+ */
 public class WebAuto implements WebMethod {
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
