@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
 
+/**
+ * Helper functionality developed in the beginning to help vomit things straight to the screen for debug etc.
+ * Now only used in DataGenerator so it will vomit as it goes rather than wait until it has finsihed and return all the information
+ * @author csm22
+ *
+ */
 public class WebTTYOutputter implements TTYOutputter {
 	private PrintWriter pw;
 	
@@ -27,8 +33,18 @@ public class WebTTYOutputter implements TTYOutputter {
 		this.pw=pw;
 	}
 	
+	/**
+	 * Flush the print writer
+	 */
 	public void flush() throws UIException { pw.flush(); }
+	/**
+	 * push a line to the print writer
+	 */
 	public void line(String text) throws UIException { pw.println(text); }
 	
+	/**
+	 * return the print writer
+	 * @return
+	 */
 	public PrintWriter getWriter() { return pw; }
 }
