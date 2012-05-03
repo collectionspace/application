@@ -6,6 +6,17 @@
 	</section>
 	
 	<section id="identificationInformation">
+		<field id="objectNumber">
+			<options>
+				<!-- Add UC and JEPS id generators -->
+				<option id="uc-accession" sample="UC100000">UC Accession</option>
+				<option id="jeps-accession" sample="JEPS100000">Jepson Accession</option>
+				<option id="intake" sample="IN2009.1.1">Intake</option>
+				<option id="accession" sample="2009.1.1">Accession</option>
+				<option id="loanin" sample="LI2009.1.1">Loans In</option>
+			</options>
+		</field>
+		
 		<repeat id="otherNumberList/otherNumber">
 			<field id="numberType">
 				<options>
