@@ -1,3 +1,33 @@
 <record id="intake">
-	<section id="objectCollectionInformation"/>
+	<section id="objectEntryInformation">
+		<!-- Add organization-institution to autocomplete -->
+		<field id="currentOwner" in-title="yes" mini="summary,search,list,relate" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-institution"/>
+	</section>
+	
+	<section id="objectCollectionInformation">
+		<repeat id="fieldCollectors">
+			<!-- Add organization-institution to autocomplete -->
+			<field id="fieldCollector" autocomplete="person-person,organization-organization,organization-institution"/>
+		</repeat>
+	</section>
+	
+	<section id="valuationInformation">
+		<!-- Add organization-institution to autocomplete -->
+		<field id="valuer" autocomplete="person-person,organization-organization,organization-institution"/>
+	</section>
+	
+	<section id="insuranceInformation">
+		<repeat id="insurers">
+			<!-- Add organization-institution to autocomplete -->
+			<field id="insurer" autocomplete="person-person,organization-organization,organization-institution"/>
+		</repeat>
+	</section>
+	
+	<section id="conditionInformation">
+		<repeat id="conditionCheckersOrAssessors">
+			<!-- Add organization-institution to autocomplete -->
+			<field id="conditionCheckerOrAssessor" autocomplete="person-person,organization-organization,organization-institution"/>
+		</repeat>
+	</section>
 </record>

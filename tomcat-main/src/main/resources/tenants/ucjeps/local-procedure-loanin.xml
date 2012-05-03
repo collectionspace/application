@@ -1,0 +1,8 @@
+<record id="loanin">
+	<section id="loaninInformation">
+		<repeat id="lenderGroupList/lenderGroup">
+			<!-- Add organization-institution to autocomplete -->
+			<field id="lender" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-institution" in-title="yes" mini="summary,search,list"/>
+		</repeat>
+	</section>
+</record>
