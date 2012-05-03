@@ -485,44 +485,86 @@ public class UISchema extends SchemaStructure implements WebMethod {
 			}
 			else if(sectionid.toLowerCase().equals("namespaces")){
 				JSONObject namespaces = new JSONObject();
-				JSONObject properties = new JSONObject();
+				JSONObject namespacesProps = new JSONObject();
 
 				for (Record rc : this.spec.getAllRecords()) {
 					if (rc.isInRecordList()) {
 						if (rc.isShowType("authority")) {
-							JSONArray insta = new JSONArray();
+							JSONObject authInfoProps = new JSONObject();
 							for(Instance ins : rc.getAllInstances()){
-								insta.put(ins.getWebURL());
+								JSONObject instanceInfo = new JSONObject();
+								JSONObject instanceProps = new JSONObject();
+								JSONObject nptAllowed = new JSONObject();
+								nptAllowed.put("type", "boolean");
+								nptAllowed.put("default", ins.getNPTAllowed());
+								instanceProps.put("nptAllowed", nptAllowed);
+								instanceInfo.put("type", "object");
+								instanceInfo.put("properties", instanceProps);
+								authInfoProps.put(ins.getWebURL(), instanceInfo);
 							}
-							JSONObject insd = new JSONObject();
-							insd.put("default", insta);
-							insd.put("type", "array");
-							properties.put(rc.getWebURL(), insd);
+							JSONObject authorityInfo = new JSONObject();
+							authorityInfo.put("type", "object");
+							authorityInfo.put("properties", authInfoProps);
+							namespacesProps.put(rc.getWebURL(), authorityInfo);
 						}
 					}
 				}
 				namespaces.put("type", "object");
-				namespaces.put("properties", properties);
+				namespaces.put("properties", namespacesProps);
 				out.put("namespaces", namespaces);
 				/**
-				 * {
+				 *
+{
     "namespaces": {
         "type": "object",
         "properties": {
             "person": {
-                "default": [
-                    "persontest1",
-                    "persontest2"
-                ],
-                "type": "array"
+                "type": "object"
+                "properties": {
+                    "person" : {
+                        "type": "object"
+                        "properties": {
+                            "nptAllowed": {
+                                "type": "boolean",
+                                "default": true
+                            }
+                        }
+                    },
+                    "persontest" : {
+                        "type": "object"
+                        "properties": {
+                            "nptAllowed": {
+                                "type": "boolean",
+                                "default": true
+                            }
+                        }
+                    }
+                }
             },
             "organization": {
-                "default": [
-                    "organizationtest1",
-                    "organizationtest2"
-                ],
-                "type": "array"
-            }
+                "type": "object"
+                "properties": {
+                    "organization" : {
+                        "type": "object"
+                        "properties": {
+                            "nptAllowed": {
+                                "type": "boolean",
+                                "default": true
+                            }
+                        }
+                    },
+                    "organizationtest" : {
+                        "type": "object"
+                        "properties": {
+                            "nptAllowed": {
+                                "type": "boolean",
+                                "default": true
+                            }
+                        }
+                    }
+                }
+            },
+            ...
         }
     }
 }
