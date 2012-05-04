@@ -1380,9 +1380,11 @@
 			<field id="coordUncertaintyUnit" section="naturalhistory">
 				<options>
 					<option id="" default="yes">Please select a value</option>
-					<option id="meters">meters</option>
+					<option id="unknown">unknown</option>
 					<option id="feet">feet</option>
-					<option id="uncertain">uncertain</option>
+					<option id="kilometers">kilometers</option>
+					<option id="meters">meters</option>
+					<option id="miles">miles</option>
 				</options>
 			</field>
 			<field id="vDepth" section="naturalhistory"/>
