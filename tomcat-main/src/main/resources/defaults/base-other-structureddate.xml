@@ -1,7 +1,7 @@
 
 
             <record id="structureddate" in-recordlist="no" separate-record="false">
-                <section>
+                <section id="structuredDateInformation">
                     <field id="dateNote">
                         <selector>dateNote</selector>
                         <preselector></preselector>

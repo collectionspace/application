@@ -20,7 +20,7 @@
 	
 	<include src="domain-other-reportingoutput.xml" strip-root="yes"/>
 	
-    <section>
+    <section id="reportingOutputInformation">
     
         <field id="docType"></field>
         <field id="mode"></field>

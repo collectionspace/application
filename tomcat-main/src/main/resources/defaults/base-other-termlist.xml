@@ -37,7 +37,7 @@
 	<include src="domain-other-termlist.xml" strip-root="yes"/>
 	
 
-    <section>
+    <section id="termListInformation">
     	
     	<field id="displayName" mini="summary"></field>
     	<field id="shortIdentifier" mini="number"></field>
@@ -52,7 +52,7 @@
         <field id="usedBy" ui-type="decorated"></field>
     </repeat>
     </section>
-	<section id="termlistitem">
+	<section id="termListItems">
 	    <repeat id="terms" userecord="termlistitem"  ui-spec-prefix="termlist" ui-spec-inherit="true"></repeat>
 	</section>
 	

@@ -40,7 +40,7 @@
 				
 				<include src="domain-procedure-media.xml" strip-root="yes"/>
 				
-                <section>
+                <section id="coreInformation">
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
@@ -106,7 +106,7 @@
                     <field id="description"></field>
                 </section>
                 <!-- not used in ui yet -->
-                <section>
+                <section id="otherInformation">
                     <field id="uri"></field>
                     <field id="srcUri"></field>
                     <field id="blobCsid"></field>
