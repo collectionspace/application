@@ -1377,7 +1377,14 @@
 				</options>
 			</field>
 			<field id="coordUncertainty" section="naturalhistory" ui-type="validated" datatype="float"/>
-			<field id="coordUncertaintyUnit" section="naturalhistory"/>
+			<field id="coordUncertaintyUnit" section="naturalhistory">
+				<options>
+					<option id="" default="yes">Please select a value</option>
+					<option id="meters">meters</option>
+					<option id="feet">feet</option>
+					<option id="uncertain">uncertain</option>
+				</options>
+			</field>
 			<field id="vDepth" section="naturalhistory"/>
 			<field id="minDepth" section="naturalhistory" ui-type="validated" datatype="float"/>
 			<field id="maxDepth" section="naturalhistory" ui-type="validated" datatype="float"/>
