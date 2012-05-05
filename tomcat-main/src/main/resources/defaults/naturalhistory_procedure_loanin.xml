@@ -1,0 +1,56 @@
+<record id="loanin">
+	<services-record-path id="naturalhistory">loansin_naturalhistory:http://collectionspace.org/services/loanin/domain/naturalhistory,loansin_naturalhistory</services-record-path>
+
+	<section id="loaninInformation">
+		<field id="lenderLoanNumber" section="naturalhistory"/>
+		<repeat id="geographyList" section="naturalhistory">
+			<field id="geography" section="naturalhistory"/>
+		</repeat>
+		<repeat id="taxonomyList" section="naturalhistory">
+			<field id="taxonomy" section="naturalhistory" autocomplete="taxon-taxon"/>
+		</repeat>
+		<repeat id="objKindList" section="naturalhistory">
+			<field id="objKind" section="naturalhistory">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Sheet">Sheet</option>
+					<option id="Jar">Jar</option>
+				</options>
+			</field>
+		</repeat>		
+		<field id="loanInShipDate" section="naturalhistory" ui-type="date"/>
+		<field id="loanInDueDate" section="naturalhistory" ui-type="date"/>
+
+		<field id="transferInDate" section="naturalhistory" ui-type="date"/>
+		<field id="transferInOrg" section="naturalhistory"/>
+		<field id="transferInPrevBorrower" section="naturalhistory"/>
+		
+		<field id="numReceived" section="naturalhistory" ui-type="validated" datatype="integer"/>
+		<field id="numReturned" section="naturalhistory" ui-type="validated" datatype="integer"/>
+		<field id="numTransferredOut" section="naturalhistory" ui-type="validated" datatype="integer"/>
+		<field id="balance" section="naturalhistory" ui-type="validated" datatype="integer"/>
+		<field id="discrepancy" section="naturalhistory" ui-type="validated" datatype="integer"/>
+	</section>
+	
+	<section id="returnInformation">
+		<repeat id="returnGroupList/returnGroup" section="naturalhistory">
+			<field id="returnDate" section="naturalhistory" ui-type="date"/>
+			<field id="returnQuantity" section="naturalhistory" ui-type="validated" datatype="integer"/>
+			<field id="returnNotes" section="naturalhistory"/>
+		</repeat>
+	</section>
+
+	<section id="transferOutInformation">
+		<repeat id="transferOutGroupList/transferOutGroup" section="naturalhistory">
+			<field id="transferOutDate" section="naturalhistory" ui-type="date"/>
+			<field id="transferOutQuantity" section="naturalhistory" ui-type="validated" datatype="integer"/>
+			<field id="transferOutOrg" section="naturalhistory" autocomplete="organization-organization"/>
+			<field id="transferOutPerson" section="naturalhistory" autocomplete="person-person"/>
+			<field id="transferOutDirector" section="naturalhistory" autocomplete="person-person"/>
+			<field id="transferOutNotes" section="naturalhistory"/>
+			<field id="transferOutReturnDate" section="naturalhistory" ui-type="date"/>
+			<field id="transferOutReturnQuantity" section="naturalhistory" ui-type="validated" datatype="integer"/>
+			<field id="transferOutReturnNotes" section="naturalhistory"/>
+		</repeat>
+	</section>
+</record>
