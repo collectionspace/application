@@ -82,6 +82,16 @@
 			</field>
 		</repeat>
 
+		<repeat id="localNameGroupList/localNameGroup" section="naturalhistory">
+			<field id="localName" section="naturalhistory"/>
+			<field id="localNameLanguage" section="naturalhistory" autocomplete="vocab-languages" ui-type="enum">
+				<enum>
+					<default>eng</default>
+					<blank-value>Please select a value</blank-value>
+				</enum>
+			</field>
+		</repeat>
+		
 		<repeat id="hybridParentGroupList/hybridParentGroup" section="naturalhistory">
 			<field id="hybridParent" section="naturalhistory" autocomplete="taxon-taxon"/>
 			<field id="hybridParentQualifier" section="naturalhistory" seperate_ui_container="true">
