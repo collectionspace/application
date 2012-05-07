@@ -4,5 +4,15 @@
 			<!-- Add organization-institution to autocomplete -->
 			<field id="lender" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-institution" in-title="yes" mini="summary,search,list"/>
 		</repeat>
+		
+		<!-- Change autocomplete to organization-institution -->
+		<field id="transferInOrg" section="naturalhistory" autocomplete="organization-institution"/>
+	</section>
+	
+	<section id="transferOutInformation">
+		<repeat id="transferOutGroupList/transferOutGroup">
+			<!-- Change autocomplete to organization-institution -->
+			<field id="transferOutOrg" section="naturalhistory" autocomplete="organization-institution"/>
+		</repeat>
 	</section>
 </record>
