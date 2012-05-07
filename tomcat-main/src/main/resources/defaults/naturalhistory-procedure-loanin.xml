@@ -18,12 +18,12 @@
 				</options>
 			</field>
 		</repeat>		
-		<field id="loanInShipDate" section="naturalhistory" ui-type="date"/>
-		<field id="loanInDueDate" section="naturalhistory" ui-type="date"/>
+		<field id="shipDate" section="naturalhistory" ui-type="date"/>
+		<field id="dueDate" section="naturalhistory" ui-type="date"/>
 
 		<field id="transferInDate" section="naturalhistory" ui-type="date"/>
-		<field id="transferInOrg" section="naturalhistory"/>
-		<field id="transferInPrevBorrower" section="naturalhistory"/>
+		<field id="transferInOrg" section="naturalhistory" autocomplete="organization-organization"/>
+		<field id="transferInPerson" section="naturalhistory" autocomplete="person-person"/>
 		
 		<field id="numReceived" section="naturalhistory" ui-type="validated" datatype="integer"/>
 		<field id="numReturned" section="naturalhistory" ui-type="validated" datatype="integer"/>
@@ -53,4 +53,9 @@
 			<field id="transferOutReturnNotes" section="naturalhistory"/>
 		</repeat>
 	</section>
+
+	<!-- These are just here so message keys will be generated. -->
+	<section id="transferIn"/>
+	<section id="manualCounts"/>
+	<section id="transferOutReturn"/>
 </record>
