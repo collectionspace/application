@@ -19,7 +19,7 @@
 			<include src="base-procedure-media.xml,local-procedure-media.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-movement.xml,local-procedure-movement.xml" merge="xmlmerge.properties"/>
 			<!-- <include src="base-procedure-objectexit.xml"/> -->
-			<include src="base-authority-contact.xml"/>
+			<include src="base-authority-contact.xml,naturalhistory-authority-contact.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-location.xml"/>
 			<include src="base-authority-organization.xml,naturalhistory-authority-organization.xml,local-authority-organization.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-person.xml"/>
