@@ -78,17 +78,25 @@
                             <selector>organizationAuthority-nameAdditions</selector>
                         </field>
                     </repeat>
-                    <field id="foundingDate" ui-search="range" ui-type="date" in-title="yes" >
+                    <field id="foundingDate" ui-search="range" ui-type="groupfield/structureddate" primarykey="foundingDate.dateDisplayDate" ui-func="cspace.structuredDate">
+                        <services-tag>foundingDateGroup</services-tag>
+                        <selector>organizationAuthority-foundingDate</selector>
+                    </field>
+                    <!-- <field id="foundingDate" ui-search="range" ui-type="date" in-title="yes" >
                         <selector>organizationAuthority-foundingDate</selector>
                         <title-selector>titleBar-foundationDate</title-selector>
-                    </field>
+                    </field> -->
                     <field id="foundingPlace" ui-search="repeatable">
                         <selector>organizationAuthority-foundingPlace</selector>
                     </field>
-                    <field id="dissolutionDate" ui-search="range" ui-type="date" in-title="yes" >
+                    <field id="dissolutionDate" ui-search="range" ui-type="groupfield/structureddate" primarykey="dissolutionDate.dateDisplayDate" ui-func="cspace.structuredDate">
+                        <services-tag>dissolutionDateGroup</services-tag>
+                        <selector>organizationAuthority-dissolutionDate</selector>
+                    </field>
+                    <!-- <field id="dissolutionDate" ui-search="range" ui-type="date" in-title="yes" >
                         <selector>organizationAuthority-dissolutionDate</selector>
                         <title-selector>titleBar-dissolutionDate</title-selector>
-                    </field>
+                    </field> -->
                     <repeat id="contactNames">
                         <field id="contactName" autocomplete="person-person">
                             <selector>organizationAuthority-contactName</selector>

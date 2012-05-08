@@ -1,0 +1,4 @@
+<record id="contact">
+	<!-- Workaround for CSPACE-4636 -->
+	<services-record-path id="naturalhistory">organizations_naturalhistory:http://collectionspace.org/services/organization/domain/naturalhistory,organizations_naturalhistory</services-record-path>
+</record>
