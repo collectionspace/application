@@ -9,4 +9,16 @@
 			<title>Institution Authority</title>
 		</instance>
 	</instances>
+	
+	<section id="organizationNameAuthorityInformation">
+		<repeat id="associatedPersonGroupList/associatedPersonGroup">
+			<field id="associatedPersonRole">
+				<!-- Define options -->
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Collection Number Assignor" default="yes">Collection Number Assignor</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
 </record>
