@@ -480,6 +480,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			out.put(getDisplayNameKey(),name);
 			out.put("csid",csid);
 			out.put("refid",refid);
+			RefName.AuthorityItem item = RefName.AuthorityItem.parse(refid); 
+			out.put("namespace",item.getParentShortIdentifier());
 			out.put("shortIdentifier", shortIdentifier);
 			out.put("termStatus", termStatus);
 			out.put("authorityid", parentcsid);
@@ -952,6 +954,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			//out.put("authorityid", cached.get("authorityid"));
 			out.put("shortIdentifier", g2);
 			out.put("recordtype",r.getWebURL());
+			RefName.AuthorityItem item = RefName.AuthorityItem.parse(g1); 
+			out.put("namespace",item.getParentShortIdentifier());
 			
 			return out;
 		} catch (ConnectionException e) {
