@@ -46,6 +46,14 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Class exists to: house all the generic aspects to how we call and deal with data form the service layer
+ * Extended by :RecordStorage,  BlobStorage, ConfiguredVocabStorage etc
+ * implements; abstract Contextuali
+ * Future development: bring Vocab Storage more into the fold with other storage methodologies
+ * @author csm22
+ *
+ */
 public class GenericStorage  implements ContextualisedStorage {
 
 	private static final Logger log=LoggerFactory.getLogger(GenericStorage.class);
@@ -57,12 +65,24 @@ public class GenericStorage  implements ContextualisedStorage {
 	protected Set<String> xxx_view_deurn=new HashSet<String>();
 	protected Map<String,List<String>> view_merge = new HashMap<String, List<String>>();
 
-	
+	/**
+	 * Constructor
+	 * @param r
+	 * @param conn
+	 * @throws DocumentException
+	 * @throws IOException
+	 */
 	public GenericStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
 		this.conn=conn;
 		this.r=r;
 	}
 
+	/**
+	 * re intialises empty glean array
+	 * was a quick fix that needs to be looked at again
+	 * could be optimised better
+	 * @param r
+	 */
 	protected void resetGlean(Record r){
 		view_good=new HashMap<String,String>();
 		view_map=new HashMap<String,String>();
@@ -70,6 +90,18 @@ public class GenericStorage  implements ContextualisedStorage {
 		view_merge = new HashMap<String, List<String>>();
 		initializeGlean(r);
 	}
+	/**
+	 * reinitialises filled glean array
+	 * needed because things changes that we didn't initially anticipate
+	 * was a quick fix that needs to be looked at again
+	 * could be optimised better
+	 * @param r
+	 * @param reset_good
+	 * @param reset_map
+	 * @param reset_deurn
+	 * @param reset_merge
+	 * @param init
+	 */
 	protected void resetGlean(Record r,Map<String,String> reset_good, Map<String,String>  reset_map, Set<String>  reset_deurn, Map<String,List<String>>  reset_merge, Boolean init){
 		view_good=reset_good;
 		view_map=reset_map;
@@ -80,6 +112,16 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 	}
 	
+	/**
+	 * initialise the info for the glean array
+	 * view_good: map of servicenames of fields to descriptors
+	 * view_map: map of csid to service name of field
+	 * view_merge: map of fields needed if one field to the UI is really multiple fields in the services
+	 * 
+	 * view_good keys are prefixed by the values found in the mini tag in the config file 
+	 * to help simplify deciding what to find and reduce irrelevant fan out, 
+	 * @param r
+	 */
 	protected void initializeGlean(Record r){
 		// Number
 		if(r.getMiniNumber()!=null){
@@ -196,6 +238,13 @@ public class GenericStorage  implements ContextualisedStorage {
 	}
 
 
+	/**
+	 * get de urned value of a field
+	 * this function is called xxx_ as I don't believe that is is best that this happens in the App layer
+	 * @param in
+	 * @return
+	 * @throws UnderlyingStorageException
+	 */
 	protected String xxx_deurn(String in) throws UnderlyingStorageException {
 		if(!in.startsWith("urn:"))
 			return in;
@@ -365,7 +414,6 @@ public class GenericStorage  implements ContextualisedStorage {
 		return out;
 	}
 	
-
 	/**
 	 * return data just as the service layer gives it to the App layer
 	 * no extra columns required
@@ -404,7 +452,20 @@ public class GenericStorage  implements ContextualisedStorage {
 		return out;
 	}
 
-	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String servicesurl, Record thisr) throws ExistException,
+	/**
+	 * return data just as the service layer gives it to the App layer
+	 * no extra columns required
+	 * @param creds
+	 * @param cache
+	 * @param filePath
+	 * @param servicesurl
+	 * @param thisr
+	 * @return
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 */
+	public JSONObject simpleRetrieveJSON(CSPRequestCredentials creds, CSPRequestCache cache, String filePath, String servicesurl, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		String csid="";
 		if(filePath ==null){filePath="";}
@@ -413,6 +474,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			csid = path_parts[1];
 		else
 			csid = filePath;
+		
 		JSONObject out=new JSONObject();
 		try {
 			String softpath = filePath;
@@ -442,7 +504,6 @@ public class GenericStorage  implements ContextualisedStorage {
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
 				convertToJson(out,doc.getDocument(), thisr, "GET", "common",csid);
 			}
-			
 
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
@@ -450,6 +511,9 @@ public class GenericStorage  implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		}
 		
+		/*
+		 * Get data for any sub records that are part of this record e.g. contact in person, blob in media
+		 */
 		try{
 			for(FieldSet fs : thisr.getAllSubRecords("GET")){
 				Boolean validator = true;
@@ -521,20 +585,21 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 		}
 		catch (Exception e) {
-			//ignore exceptions for sub records at the moment - make it more intellegent later
+			//ignore exceptions for sub records at the moment - make it more intelligent later
 			//throw new UnderlyingStorageException("Service layer exception",e);
 		}
 		return out;
 	}
 	/**
 	 * Construct different data sets for different view needs
-	 * 
-	 * 
+	 * view returns mini view of item
+	 * refs does services authorityref call
+	 * refobjs does services refObjs call
 	 * @param storage
 	 * @param creds
 	 * @param cache
 	 * @param filePath
-	 * @param view - view|refs used to define what type of data is needed
+	 * @param view - view|refs|refObjs used to define what type of data is needed
 	 * @return
 	 * @throws ExistException
 	 * @throws UnimplementedException
@@ -560,16 +625,56 @@ public class GenericStorage  implements ContextualisedStorage {
 		else
 			return new JSONObject();
 	}
-	// bad I know but exists so it can be extended in vocabStorage
+	/**
+	 * only exists currently so it can be extended in vocabStorage
+	 * @param storage
+	 * @param creds
+	 * @param cache
+	 * @param data
+	 * @param servicepath
+	 * @param filePath
+	 * @return
+	 * @throws UnderlyingStorageException
+	 */
 	protected JSONObject miniViewAbstract(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,JSONObject data, String servicepath, String filePath) throws UnderlyingStorageException{
 		return data;
 	}
+	/**
+	 * finds path based on record type and calls viewRetrieveJSON with more parameters
+	 * @param storage
+	 * @param creds
+	 * @param cache
+	 * @param filePath
+	 * @param view
+	 * @param extra
+	 * @param restrictions
+	 * @return
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 * @throws JSONException
+	 * @throws UnsupportedEncodingException
+	 */
 	public JSONObject viewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
 		String servicepath =  r.getServicesURL()+"/"+filePath;
 		return viewRetrieveJSON(storage,creds,cache,filePath,view,extra,restrictions,servicepath);
 	}
 
-	// XXX support URNs for reference
+	/**
+	 * gets the authority item based on the refname rather than the csid
+	 * XXX need to support URNs for reference
+	 * @param storage
+	 * @param creds
+	 * @param cache
+	 * @param refname
+	 * @param uri
+	 * @param restrictions
+	 * @return
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 * @throws JSONException
+	 */
 	protected JSONObject miniForURI(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String refname,String uri, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		return storage.retrieveJSON(storage,creds,cache,"direct/urn/"+uri+"/"+refname, restrictions);
 	}
@@ -606,6 +711,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					throw new ConnectionException("Bad request during identifier cache map update: status not 200",all.getStatus(),path);
 				Document list=all.getDocument();
 
+				//assumes consistency in service layer payloads - possible could configure this rather than hard code?
 				List<Node> nodes=list.selectNodes("authority-ref-list/*");
 				for(Node node : nodes) {
 					if(node.getName().equals("authority-ref-item")){
@@ -822,6 +928,19 @@ public class GenericStorage  implements ContextualisedStorage {
 		return refObjViewRetrieveJSON(storage,creds, cache,path, this.r);
 	}
 	
+	/**
+	 * update the item
+	 * @param root
+	 * @param creds
+	 * @param cache
+	 * @param filePath
+	 * @param jsonObject
+	 * @param thisr
+	 * @param serviceurl
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 */
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr, String serviceurl)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
@@ -846,8 +965,6 @@ public class GenericStorage  implements ContextualisedStorage {
 				status = docm.getStatus();
 			}
 			
-			
-
 			//XXX Completely untested subrecord update
 			for(FieldSet fs : thisr.getAllSubRecords("PUT")){
 				Record sr = fs.usesRecordId();
@@ -895,10 +1012,9 @@ public class GenericStorage  implements ContextualisedStorage {
 						}
 					}
 
-					
 					//how does that compare to what we need
 					if(sr.isType("authority")){
-						//need to use configuredVocabStorage
+						//XXX need to use configuredVocabStorage
 					}
 					else{
 						if(fs instanceof Field){
@@ -1028,11 +1144,28 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 	}
 	
+	/**
+	 * guess service url based on record type and call the function with more parameters
+	 * @param root
+	 * @param creds
+	 * @param cache
+	 * @param filePath
+	 * @param jsonObject
+	 * @param thisr
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 */
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject,Record thisr)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		updateJSON( root, creds, cache, filePath,  jsonObject, thisr, thisr.getServicesURL()+"/");
 	}
 
+	/**
+	 * guess the record type based on how this storage was initialized
+	 * I allowed the specification of record types as sub records caused issues
+	 * possibly should rework to keep record purity and think of a better way of calling the sub record info
+	 */
 	public void updateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		updateJSON( root, creds, cache, filePath,  jsonObject, r);
@@ -1058,6 +1191,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			ReturnedURL url = null;
 			Document doc = null;
 			//used by userroles and permroles as they have complex urls
+			//XXX I would hope this might be removed if userroles etc ever get improved to be more like the rest
 			if(myr.hasPrimaryField()){
 				//XXX test if works: need to delete first before create/update
 			//	deleteJSON(root,creds,cache,filePath);
@@ -1075,16 +1209,12 @@ public class GenericStorage  implements ContextualisedStorage {
 				url = autoCreateSub(creds, cache, jsonObject, doc, savePrefix, myr);
 			}
 			
-			
-			
 			// create related sub records?
 			for(FieldSet allfs : myr.getAllSubRecords("POST")){
 				Record sr = allfs.usesRecordId();
-				//sr.getID()
 				if(sr.isType("authority")){
 				}
 				else{
-					
 					String savePath = url.getURL() + "/" + sr.getServicesURL();
 					if(jsonObject.has(sr.getID())){
 						Object subdata = jsonObject.get(sr.getID());
@@ -1113,6 +1243,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Cannot parse surrounding JSON"+e.getLocalizedMessage(),e);
 		}
 	}
+	
 	/**
 	 * Convert the JSON from the UI Layer into XML for the Service layer while using the XML structure from cspace-config.xml
 	 * Send the XML through to the Service Layer to store it in the database
@@ -1146,7 +1277,6 @@ public class GenericStorage  implements ContextualisedStorage {
 			else{
 				url = autoCreateSub(creds, cache, jsonObject, doc, r.getServicesURL(), r);
 			}
-			
 
 			// create related sub records?
 			//I am developing this.. it might not work...
@@ -1194,8 +1324,6 @@ public class GenericStorage  implements ContextualisedStorage {
 					}
 				}
 			}
-			
-			
 			return url.getURLTail();
 		} catch (ConnectionException e) {
 			String msg = e.getMessage();
@@ -1208,6 +1336,20 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 	}
 
+	/**
+	 * create sub records so can be connected to their parent record 
+	 * e.g. blob/media contact/person
+	 * @param creds
+	 * @param cache
+	 * @param jsonObject
+	 * @param doc
+	 * @param savePrefix
+	 * @param r
+	 * @return
+	 * @throws JSONException
+	 * @throws UnderlyingStorageException
+	 * @throws ConnectionException
+	 */
 	protected ReturnedURL autoCreateSub(CSPRequestCredentials creds,
 			CSPRequestCache cache, JSONObject jsonObject, Document doc, String savePrefix, Record r)
 			throws JSONException, UnderlyingStorageException,
@@ -1257,12 +1399,27 @@ public class GenericStorage  implements ContextualisedStorage {
 		return csid;
 	}
 
+	/**
+	 * purposefully unimplemented functionality
+	 */
 	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("Cannot post to full path");
 	}
 
-	//don't call direct as need to check if soft or hard delete first
+	/**
+	 * Split soft and hard delete into different functions
+	 * you should not call this directly as need to check if soft or hard delete first
+	 * use deleteJSON first
+	 * @param root
+	 * @param creds
+	 * @param cache
+	 * @param filePath
+	 * @param serviceurl
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 */
 	public void hardDeleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		try {
@@ -1295,17 +1452,38 @@ public class GenericStorage  implements ContextualisedStorage {
 		transitionWorkflowJSON(root, creds, cache, filePath, r.getServicesURL()+"/", workflowTransition);
 	}
 
+	/**
+	 * umbrella function for delete
+	 * also works out service url from record type passed
+	 * works out what kind of delete should be used
+	 * @param root
+	 * @param creds
+	 * @param cache
+	 * @param filePath
+	 * @param thisr
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 */
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		String serviceurl = thisr.getServicesURL()+"/";
-		if(thisr.hasSoftDeleteMethod()){
-			transitionWorkflowJSON(root, creds, cache, filePath, serviceurl, WORKFLOW_TRANSITION_DELETE);
-		}
-		else{
-			hardDeleteJSON(root,creds,cache,filePath,serviceurl);
-		}
+		deleteJSON(root,creds,cache,filePath,serviceurl,thisr );
 	}
 	
+	/**
+	 * umbrella function for delete
+	 * works out what kind of delete should be used
+	 * @param root
+	 * @param creds
+	 * @param cache
+	 * @param filePath
+	 * @param serviceurl
+	 * @param thisr
+	 * @throws ExistException
+	 * @throws UnimplementedException
+	 * @throws UnderlyingStorageException
+	 */
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, String serviceurl, Record thisr) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		if(thisr.hasSoftDeleteMethod()){
@@ -1315,6 +1493,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			hardDeleteJSON(root,creds,cache,filePath,serviceurl);
 		}
 	}
+	
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		deleteJSON(root,creds,cache,filePath,r);
@@ -1329,6 +1508,18 @@ public class GenericStorage  implements ContextualisedStorage {
 		return null;
 	}
 
+	/**
+	 * One stop shop to work out what the restricted path is that should be sent to the service layer
+	 * @param basepath
+	 * @param restrictions
+	 * @param keywordparam
+	 * @param tail
+	 * @param isVocab
+	 * @param displayName
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 * @throws JSONException
+	 */
 	protected String getRestrictedPath(String basepath, JSONObject restrictions, String keywordparam, String tail, Boolean isVocab, String displayName) throws UnsupportedEncodingException, JSONException{
 		
 		String postfix = "?";
@@ -1417,9 +1608,22 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 	}
 
+
 	/**
-	 * need to hack list view so it returns fuller data for those sets that might have repeating items that are varied e.g. refObjs
+	 * umbrella function to get repeatable lists 
+	 * sorts out whether you should be viewing a list that includeds soft deleted items or not
+	 * @param root
+	 * @param creds
+	 * @param cache
+	 * @param path
+	 * @param nodeName
+	 * @param matchlistitem
+	 * @param csidfield
+	 * @param fullcsid
+	 * @param r
 	 * @return
+	 * @throws ConnectionException
+	 * @throws JSONException
 	 */
 	protected JSONObject getRepeatableListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
 		if(r.hasHierarchyUsed("screen")){
@@ -1433,6 +1637,21 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 	}
 
+	/**
+	 * umbrella function to get lists 
+	 * sorts out whether you should be viewing a list that includeds soft deleted items or not
+	 * @param creds
+	 * @param cache
+	 * @param path
+	 * @param nodeName
+	 * @param matchlistitem
+	 * @param csidfield
+	 * @param fullcsid
+	 * @param r
+	 * @return
+	 * @throws ConnectionException
+	 * @throws JSONException
+	 */
 	protected JSONObject getListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid, Record r) throws ConnectionException, JSONException {
 		if(r.hasHierarchyUsed("screen")){
 			path = hierarchicalpath(path);
@@ -1444,6 +1663,12 @@ public class GenericStorage  implements ContextualisedStorage {
 			return getHardListView(creds,cache,path,nodeName, matchlistitem, csidfield, fullcsid);
 		}
 	}
+	
+	/**
+	 * logic to work out what the service url is needed for getting items not in soft delete
+	 * @param path
+	 * @return
+	 */
 	protected String softpath(String path){
 		String softdeletepath = path;
 		
@@ -1457,6 +1682,11 @@ public class GenericStorage  implements ContextualisedStorage {
 		softdeletepath += "wf_deleted=false";
 		return softdeletepath;
 	}
+	/**
+	 * logic to work out what the service url is needed to show hierarchical information
+	 * @param path
+	 * @return
+	 */
 	protected String hierarchicalpath(String path){
 		String hierarchicalpath = path;
 		
@@ -1482,6 +1712,20 @@ public class GenericStorage  implements ContextualisedStorage {
 		return getHardListView(creds,cache,softdeletepath,nodeName, matchlistitem, csidfield, fullcsid);
 	}
 	
+	/**
+	 * return list view of items including hard deleted
+	 * @param root
+	 * @param creds
+	 * @param cache
+	 * @param path
+	 * @param nodeName
+	 * @param matchlistitem
+	 * @param csidfield
+	 * @param fullcsid
+	 * @return
+	 * @throws ConnectionException
+	 * @throws JSONException
+	 */
 	protected JSONObject getRepeatableHardListView(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
 		JSONObject out = new JSONObject();
 		JSONObject pagination = new JSONObject();
@@ -1570,6 +1814,20 @@ public class GenericStorage  implements ContextualisedStorage {
 		return out;
 	}
 	
+	/**
+	 * return list view of items
+	 * TODO make getHardListView and getRepeatableHardListView to share more code as they aren't different enough to warrant the level of code repeat
+	 * @param creds
+	 * @param cache
+	 * @param path
+	 * @param nodeName
+	 * @param matchlistitem
+	 * @param csidfield
+	 * @param fullcsid
+	 * @return
+	 * @throws ConnectionException
+	 * @throws JSONException
+	 */
 	protected JSONObject getHardListView(CSPRequestCredentials creds,CSPRequestCache cache,String path, String nodeName, String matchlistitem, String csidfield, Boolean fullcsid) throws ConnectionException, JSONException {
 		JSONObject out = new JSONObject();
 		JSONObject pagination = new JSONObject();
@@ -1674,6 +1932,4 @@ public class GenericStorage  implements ContextualisedStorage {
 			throw new UnderlyingStorageException("Error UnsupportedEncodingException JSON",x);
 		}
 	}
-
-
 }
