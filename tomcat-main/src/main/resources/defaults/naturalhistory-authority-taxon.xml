@@ -1,0 +1,21 @@
+<record id="taxon">
+	<services-record-path id="naturalhistory">taxon_naturalhistory:http://collectionspace.org/services/taxon/domain/naturalhistory,taxon_naturalhistory</services-record-path>
+
+	<section id="taxonNameAuthorityInformation">
+		<field id="taxonBasionym" section="naturalhistory" autocomplete="taxon-taxon"/>
+		
+		<repeat id="commonNameGroupList/commonNameGroup" section="naturalhistory">
+			<field id="commonName" section="naturalhistory" autocomplete="taxon-common"/>
+			<field id="commonNameLanguage" section="naturalhistory" autocomplete="vocab-languages" ui-type="enum"/>
+			<field id="commonNameSource" section="naturalhistory"/>
+			<field id="commonNameSourceDetail" section="naturalhistory"/>
+		</repeat>
+
+		<repeat id="relatedTermGroupList/relatedTermGroup" section="naturalhistory">
+			<field id="relatedTerm" section="naturalhistory" autocomplete="taxon-taxon"/>
+			<field id="relatedTermType" section="naturalhistory"/>
+			<field id="relatedTermSource" section="naturalhistory"/>
+			<field id="relatedTermSourceDetail" section="naturalhistory"/>
+		</repeat>
+	</section>
+</record>
