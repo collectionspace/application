@@ -97,7 +97,7 @@ public class RecordAuthorities implements WebMethod {
 			String instance = uribits[2].replaceAll("urn:cspace:name\\((.*)\\)", "$1"); //might need the authority type as well..
 			String auth = uribits[1];
 			String parentauth = this.record.getSpec().getRecordByServicesUrl(auth).getWebURL();
-			entry.put("recordinstance", instance);
+			entry.put("namespace", instance);
 			entry.put("recordtype", parentauth);
 		}
 		// entry.put("sourceFieldName",field);
