@@ -62,16 +62,20 @@
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="personNameAuthorityInformation">
-                    <repeat id="preferred-personAuthority">
-                        <services-tag>personTermGroupList/personTermGroup</services-tag>
+                    <repeat id="personTermGroupList/personTermGroup">
+                        <selector>preferred-personAuthority</selector>
                         <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
-<!--                            <selector>personAuthority-displayName</selector>-->
+                            <selector>personAuthority-termDisplayName</selector>
                             <title-selector>titleBar-displayName</title-selector>
                         </field>
-                        <field id="termName"></field>
-                        <field id="termType" autocomplete="vocab-persontermtype" ui-type="enum"></field>
+                        <field id="termName">
+                            <selector>personAuthority-termName</selector>
+                        </field>
+                        <field id="termType" autocomplete="vocab-persontermtype" ui-type="enum">
+                            <selector>personAuthority-termType</selector>
+                        </field>
                         <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
-<!--                            <selector>personAuthority-status</selector>-->
+                            <selector>personAuthority-termStatus</selector>
                             <options>
                                 <option id="provisional" default="yes">Provisional</option>
                                 <option id="under review">Under Review</option>
@@ -79,19 +83,28 @@
                                 <option id="rejected">Rejected</option>
                             </options>
                         </field>
-                        <field id="termQualifier"></field>
+                        <field id="termQualifier">
+                            <selector>personAuthority-termQualifier</selector>
+                        </field>
                         <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+                            <selector>personAuthority-termLanguage</selector>
                             <enum>
                                 <default>eng</default>
                             </enum>
                         </field>
-                        <field id="termPrefForLang" datatype="boolean"></field>
-                        <field id="termSource"></field><!-- To be tied to citation authority eventually? -->
-                        <field id="termSourceDetail"></field>
+                        <field id="termPrefForLang" datatype="boolean">
+                            <selector>personAuthority-termPrefForLang</selector>
+                        </field>
+                        <field id="termSource"><!-- To be tied to citation authority eventually? -->
+                            <selector>personAuthority-termSource</selector>
+                        </field>
+                        <field id="termSourceDetail">
+                            <selector>personAuthority-termSourceDetail</selector>
+                        </field>
                         <field id="termSourceID"></field>
                         <field id="termSourceNote"></field>
                         <field id="salutation">
-<!--                            <selector>personAuthority-salutation</selector>-->
+                            <selector>personAuthority-salutation</selector>
                             <options>
                                 <option id="dear" default="yes">Dear</option>
                                 <option id="hello">Hello</option>
@@ -99,7 +112,7 @@
                             </options>
                         </field>
                         <field id="title">
-<!--                            <selector>personAuthority-title</selector>-->
+                            <selector>personAuthority-title</selector>
                             <options>
                                 <option id="" default="yes">Please select a value</option>
                                 <option id="Mr">Mr</option>
@@ -117,19 +130,19 @@
                             </options>
                         </field>
                         <field id="foreName" mini="list,search,relate,terms">
-<!--                            <selector>personAuthority-foreName</selector>-->
+                            <selector>personAuthority-foreName</selector>
                         </field>
                         <field id="middleName">
-<!--                            <selector>personAuthority-middleName</selector>-->
+                            <selector>personAuthority-middleName</selector>
                         </field>
                         <field id="surName" mini="list,search,relate,terms">
-<!--                            <selector>personAuthority-surName</selector>-->
+                            <selector>personAuthority-surName</selector>
                         </field>
                         <field id="nameAdditions">
-<!--                            <selector>personAuthority-nameAdditions</selector>-->
+                            <selector>personAuthority-nameAdditions</selector>
                         </field>
                         <field id="initials">
-<!--                            <selector>personAuthority-initials</selector>-->
+                            <selector>personAuthority-initials</selector>
                         </field>
                     </repeat>
                     <field id="gender" ui-search="repeatable" seperate_ui_container="true">
