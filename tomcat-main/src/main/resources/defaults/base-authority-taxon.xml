@@ -50,7 +50,7 @@
             attributes="GET" mini="search,list,relate"/>
     </section>
     <section id="taxonNameAuthorityInformation">
-        <!-- Is the shortIdentifier field needed here? It isn't present in other authority record configs - ADR 2012-05-10 -->
+        <!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
         <field id="shortIdentifier"/>
 
         <repeat id="taxonTermGroupList/taxonTermGroup">
