@@ -46,7 +46,7 @@
 
 
 
-  <section id="core">
+  <section id="coreInformation">
     <field id="tenantID" section="collectionspace_core" attributes="GET"/>
     <field id="createdAt" section="collectionspace_core" attributes="GET"/>
     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
