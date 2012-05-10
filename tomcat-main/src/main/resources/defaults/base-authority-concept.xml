@@ -57,17 +57,11 @@
         <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
     </section>
     <section id="conceptAuthorityInformation">
-        
         <repeat id="conceptTermGroupList/conceptTermGroup">
-            <!-- Note: selector below may change or, if it follows auto-generation conventions, go away entirely -->
-            <selector>preferred-conceptAuthority</selector>
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
-                <selector>conceptAuthority-termDisplayName</selector>
                 <title-selector>titleBar-displayName</title-selector>
             </field>
-            <field id="termName">
-                <selector>conceptAuthority-termName</selector>
-            </field>
+            <field id="termName"></field>
             <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
                 <options>
                     <option id="">Please select a value</option>
@@ -77,7 +71,6 @@
                 </options>
             </field>
             <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
-                <selector>conceptAuthority-termStatus</selector>
                 <options>
                     <option id="provisional" default="yes">Provisional</option>
                     <option id="under review">Under Review</option>
@@ -85,26 +78,16 @@
                     <option id="rejected">Rejected</option>
                 </options>
             </field>
-            <field id="termQualifier">
-                <selector>conceptAuthority-termQualifier</selector>
-            </field>
+            <field id="termQualifier"></field>
             <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
-                <selector>conceptAuthority-termLanguage</selector>
                 <enum>
                     <default>eng</default>
                 </enum>
             </field>
-            <field id="termPrefForLang" datatype="boolean">
-                <selector>conceptAuthority-termPrefForLang</selector>
-            </field>
+            <field id="termPrefForLang" datatype="boolean"></field>
             <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
-            <field id="termSource">
-                <selector>conceptAuthority-termSource</selector>
-            </field>
-            <field id="termSourceDetail">
-                <selector>conceptAuthority-termSourceDetail</selector>
-            </field>
-            <!-- Do the following fields need selectors? Do those above? -->
+            <field id="termSource"></field>
+            <field id="termSourceDetail"></field>
             <field id="termSourceID"></field>
             <field id="termSourceNote"></field>
             <field id="historicalStatus">
