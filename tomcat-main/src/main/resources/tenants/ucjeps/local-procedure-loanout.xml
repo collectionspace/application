@@ -1,7 +1,7 @@
 <record id="loanout">
 	<section id="loanoutInformation">
 		<!-- Add organization-institution to autocomplete -->
-		<field id="borrower" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-institution" mini="summary,list" in-title="yes"/>
+		<field id="borrower" autocomplete="person-person,organization-organization,organization-institution"/>
 
 		<field id="collection">
 			<!-- Customize the option list -->
@@ -14,7 +14,7 @@
 
 		<repeat id="taxonomyList">
 			<!-- Add taxon-unverified to autocomplete -->
-			<field id="taxonomy" section="naturalhistory" autocomplete="taxon-taxon,taxon-unverified"/>
+			<field id="taxonomy" autocomplete="taxon-taxon,taxon-unverified"/>
 		</repeat>
 		
 		<repeat id="objKindList">
@@ -43,7 +43,7 @@
 	<section id="transferInformation">
 		<repeat id="transferGroupList/transferGroup">
 			<!-- Change autocomplete to organization-institution -->
-			<field id="transferOrg" section="naturalhistory" autocomplete="organization-institution"/>
+			<field id="transferOrg" autocomplete="organization-institution"/>
 		</repeat>
 	</section>
 </record>

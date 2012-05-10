@@ -1,6 +1,6 @@
 <record id="movement">
 	<section id="locationMovementInformation">
-		<!-- Change organization-organiztion to organization-institution in autocomplete -->
-		<field id="currentLocation" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate,terms" autocomplete="location-location,organization-institution"/>
+		<!-- Change organization-organization to organization-institution in autocomplete -->
+		<field id="currentLocation" autocomplete="location-location,organization-institution"/>
 	</section>
 </record>

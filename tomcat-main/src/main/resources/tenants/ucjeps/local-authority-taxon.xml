@@ -23,9 +23,9 @@
 			</options>
 		</field>
 		<!-- Remove summary from mini -->
-		<field id="taxonFullName" ui-search="repeatable" mini="list,search,relate,terms"/>
-		<!-- Add mini="summary", and change options -->
-		<field id="taxonRank" ui-search="repeatable" seperate_ui_container="true" mini="summary">
+		<field id="taxonFullName" mini="list,search,relate,terms"/>
+		<!-- Add mini, and change options -->
+		<field id="taxonRank" mini="summary">
 			<options>
 				<option id="" default="yes">Please select a value</option>
 				<option id="unknown">unknown</option>
@@ -63,7 +63,7 @@
 		</field>
 		<repeat id="taxonAuthorGroupList/taxonAuthorGroup">
 			<!-- Change autocomplete to organization-nomenclature -->
-			<field id="taxonAuthor" ui-search="repeatable" autocomplete="organization-nomenclature"></field>
+			<field id="taxonAuthor" autocomplete="organization-nomenclature"></field>
 			<field id="taxonAuthorType">
 				<options>
 					<option id="" default="yes">Please select a value</option>
@@ -145,7 +145,7 @@
 		
 		<repeat id="commonNameGroupList/commonNameGroup" section="naturalhistory">
 			<!-- Change autocomplete to taxon-common -->
-			<field id="commonName" section="naturalhistory" autocomplete="taxon-common"/>
+			<field id="commonName" autocomplete="taxon-common"/>
 		</repeat>
 	</section>
 </record>
