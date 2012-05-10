@@ -128,7 +128,7 @@
             <!-- additionalSource will be a Citation Authority autocomplete field when that service is implemented -->
             <field id="additionalSource"></field>
             <field id="additionalSourceDetail"></field>
-            <field id="additionalSourceUID"></field>
+            <field id="additionalSourceID"></field>
             <field id="additionalSourceNote"></field>
         </repeat>
         <!-- Should this field be present? -->
