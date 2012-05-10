@@ -10,19 +10,20 @@
     <services-single-instance-path>placeauthorities_common:http://collectionspace.org/services/place,placeauthorities_common</services-single-instance-path>
     <services-list-path>http://collectionspace.org/services/place,abstract-common-list/list-item</services-list-path>
     <services-record-path>places_common:http://collectionspace.org/services/place,places_common</services-record-path>
-    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+    <services-record-path id="collectionspace_core"
+        >collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
     <services-url>placeauthorities</services-url>
     <authority-vocab-type>PlaceAuthority</authority-vocab-type>
     <hassoftdelete>true</hassoftdelete>
     <structures>
         <structure id="search">
             <view>
-                <label-section id="messagekeys" show="true"></label-section>
+                <label-section id="messagekeys" show="true"/>
             </view>
         </structure>
         <structure id="screen">
             <view>
-                <label-section id="messagekeys" show="true"></label-section>
+                <label-section id="messagekeys" show="true"/>
                 <hierarchy-section show="true">
                     <options>
                         <option id="narrowerContext">place-place</option>
@@ -32,9 +33,9 @@
             </view>
         </structure>
     </structures>
-				
+
     <include src="domain-authority-place.xml" strip-root="yes"/>
-				
+
     <instances>
         <instance id="place-place">
             <web-url>place</web-url>
@@ -53,17 +54,70 @@
         </instance>
     </instances>
     <section>
-        <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
-        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
-        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
-        <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
-        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+        <field id="tenantID" section="collectionspace_core" attributes="GET"/>
+        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
+        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
+        <field id="createdAt" section="collectionspace_core" attributes="GET"/>
+        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
+            attributes="GET" mini="search,list,relate"/>
     </section>
     <section id="placeAuthorityInformation">
-        <field id="placeIdentifier"/>
-        <field id="displayName" ui-search="repeatable" in-title="yes" display-name="yes" mini="summary,number,search,list,relate,terms"><!-- Computation code to be written. -->
-            <title-selector>titleBar-displayName</title-selector>
-        </field>
+        <repeat id="placeTermGroupList/placeTermGroup">
+            <!-- Note: selector below may change or, if it follows auto-generation conventions, go away entirely -->
+            <selector>preferred-placeAuthority</selector>
+            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
+                mini="summary,number,search,list,relate,terms">
+                <title-selector>titleBar-displayName</title-selector>
+            </field>
+            <field id="termName" ui-search="repeatable"></field>
+            <field id="termType">
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="common">Common name</option>
+                    <option id="technical-scientific">Technical or scientific name</option>
+                    <option id="native">Native name</option>
+                    <option id="non-native">Non-native name</option>
+                    <option id="local">Local name</option>
+                    <option id="descriptive">Descriptive name</option>
+                    <option id="spelling-variant">Spelling variant</option>
+                </options>
+            </field>
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
+                mini="search,list,relate">
+                <options>
+                    <option id="provisional" default="yes">Provisional</option>
+                    <option id="under review">Under Review</option>
+                    <option id="accepted">Accepted</option>
+                    <option id="rejected">Rejected</option>
+                </options>
+            </field>
+            <field id="termQualifier"></field>
+            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+                <enum>
+                    <default>eng</default>
+                </enum>
+            </field>
+            <field id="termPrefForLang" datatype="boolean"></field>
+            <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="termPrefForLang" datatype="boolean"></field>
+            <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="termSource"></field>
+            <field id="termSourceDetail"></field>
+            <field id="termSourceID"></field>
+            <field id="termSourceNote"></field>
+            <field id="historicalStatus">
+                <options>
+                    <option id="current" default="yes">Current</option>
+                    <option id="historical">Historical</option>
+                    <option id="both">Both</option>
+                </options>
+            </field>
+            <field id="nameAbbrev"></field>
+            <field id="nameNote"></field>
+            <group id="nameDateGroup" ui-type="groupfield/structureddate"
+                primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range"/>
+        </repeat>
+        <field id="placeID"></field>
         <field id="placeType" ui-search="repeatable">
             <options>
                 <option id="" default="yes">Please select a value</option>
@@ -101,68 +155,13 @@
                 <option id="water-body">Water body</option>
             </options>
         </field>
-        <!-- Next field developed for Admin status field in top row of wireframe, but then... -->
-        <!-- discarded in favor of Term status field common to all authorities -->
-        <!--<field id="placeRecordAdminStatus"/>-->
-        <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
-            <selector>place-termStatus</selector>
-            <options>
-                <option id="provisional">Provisional</option>
-                            <option id="under-review">Under review</option>
-                <option id="accepted" default="yes">Accepted</option>
-                <option id="rejected">Rejected</option>
-            </options>
-        </field>
-        <repeat id="placeNameGroupList/placeNameGroup">
-            <field id="placeName" ui-search="repeatable"/>
-            <field id="nameQualifiedName"/>
-            <field id="nameLanguage" autocomplete="vocab-languages" ui-type="enum">
-                <enum>
-                    <default>eng</default>
-                </enum>
-            </field>
-            <field id="nameAbbrev"/>
-            <field id="nameType">
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="common">Common name</option>
-                    <option id="technical-scientific">Technical or scientific name</option>
-                    <option id="native">Native name</option>
-                    <option id="non-native">Non-native name</option>
-                    <option id="local">Local name</option>
-                    <option id="descriptive">Descriptive name</option>
-                    <option id="spelling-variant">Spelling variant</option>
-                </options>
-            </field>
-            <field id="nameStatus">
-                <options>
-                    <option id="" default="yes">Please select a value</option>
-                    <option id="current">Current</option>
-                    <!--<option id="dialect">Dialect</option>-->
-                    <option id="historical">Historical</option>
-                    <option id="both">Both</option>
-                    <option id="unknown">Unknown</option>
-                </options>
-            </field>
-            <field id="nameSource"/>
-            <field id="nameSourceDetail"/>
-            <field id="nameSourceRefId"/>
-            <field id="nameNote"/>
-            <group id="nameDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range"></group>
-            <field id="nameAdminStatus">
-                <options>
-                    <option id="provisional" default="yes">Provisional</option>
-                    <option id="under-review">Under review</option>
-                    <option id="accepted">Accepted</option>
-                    <option id="rejected">Rejected</option>
-                </options>
-            </field>
-        </repeat>
-        <field id="source"/>
-        <field id="note"/>
-        <repeat id ="placeOwnerGroupList/placeOwnerGroup">
-            <field id="owner" autocomplete="person-person,organization-organization" ui-search="repeatable"/>
-            <group id="ownershipDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range"></group>
+        <field id="placeSource"></field>
+        <field id="placeNote"></field>
+        <repeat id="placeOwnerGroupList/placeOwnerGroup">
+            <field id="owner" autocomplete="person-person,organization-organization"
+                ui-search="repeatable"/>
+            <group id="ownershipDateGroup" ui-type="groupfield/structureddate"
+                primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range"/>
             <field id="ownershipNote"/>
         </repeat>
     </section>
@@ -184,7 +183,8 @@
                 <option id="degrees-minutes-seconds">Degrees minutes seconds</option>-->
             </options>
         </field>
-        <field id="vSpatialReferenceSystem"><!-- See http://code.google.com/p/darwincore/wiki/Location#verbatimSRS -->
+        <field id="vSpatialReferenceSystem">
+            <!-- See http://code.google.com/p/darwincore/wiki/Location#verbatimSRS -->
             <options>
                 <option id="" default="yes">Please select a value</option>
                 <option id="epsg4326-wgs84">EPSG:4326-WGS84</option>
@@ -195,7 +195,8 @@
         </field>
         <field id="vCoordSource"/>
         <field id="vCoordSourceRefId"/>
-        <field id="vUnitofMeasure"><!-- Copied from dimensions. Are these the right units for this purpose? (Most seem inappropriate.) -->
+        <field id="vUnitofMeasure">
+            <!-- Copied from dimensions. Are these the right units for this purpose? (Most seem inappropriate.) -->
             <options>
                 <option id="">Please select a value</option>
                 <option id="acres">acres</option>
@@ -227,7 +228,8 @@
         <repeat id="placeGeoRefGroupList/placeGeoRefGroup">
             <field id="decimalLatitude"/>
             <field id="decimalLongitude"/>
-            <field id="geodeticDatum"><!-- See http://code.google.com/p/darwincore/wiki/Location#geodeticDatum -->
+            <field id="geodeticDatum">
+                <!-- See http://code.google.com/p/darwincore/wiki/Location#geodeticDatum -->
                 <options>
                     <option id="" default="yes">Please select a value</option>
                     <option id="epsg4326-wgs84">EPSG:4326-WGS84</option>
@@ -243,18 +245,23 @@
             <field id="footprintSRS"/>
             <field id="footprintSpatialFit"/>
             <field id="geoReferencedBy"/>
-            <group id="geoRefDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate"></group>
-            <field id="geoRefProtocol"><!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceProtocol -->
+            <group id="geoRefDateGroup" ui-type="groupfield/structureddate"
+                primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
+            <field id="geoRefProtocol">
+                <!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceProtocol -->
                 <options>
                     <option id="" default="yes">Please select a value</option>
-                    <option id="chapman-wieczorek-2006-guide-best-practices-georeferencing">Chapman, Wieczorek 2006, Guide to Best Practices for Georeferencing</option>
-                    <option id="manis-herpnet-ornis-georeferencing-guidelines">MaNIS/HerpNet/ORNIS Georeferencing Guidelines</option>
+                    <option id="chapman-wieczorek-2006-guide-best-practices-georeferencing">Chapman,
+                        Wieczorek 2006, Guide to Best Practices for Georeferencing</option>
+                    <option id="manis-herpnet-ornis-georeferencing-guidelines">MaNIS/HerpNet/ORNIS
+                        Georeferencing Guidelines</option>
                     <option id="georeferencing-dummies">Georeferencing For Dummies</option>
                     <option id="biogeomancer">BioGeomancer</option>
                 </options>
             </field>
             <field id="geoRefSource"/>
-            <field id="geoRefVerificationStatus"><!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceVerificationStatus -->
+            <field id="geoRefVerificationStatus">
+                <!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceVerificationStatus -->
                 <options>
                     <option id="" default="yes">Please select a value</option>
                     <option id="unverified">Unverified</option>
@@ -268,9 +275,9 @@
     </section>
     <!-- not used in UI except in autocompletes -->
     <section>
-        <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
-        <field id="csid" mini="search,list,relate" attributes="GET"></field>
-        <field id="refName" mini="search,list,relate" attributes="GET"></field>
-        <field id="uri" mini="search,list,relate" attributes="GET"></field>
+        <field id="shortIdentifier" mini="search,list,relate" attributes="GET"/>
+        <field id="csid" mini="search,list,relate" attributes="GET"/>
+        <field id="refName" mini="search,list,relate" attributes="GET"/>
+        <field id="uri" mini="search,list,relate" attributes="GET"/>
     </section>
 </record>
