@@ -5,6 +5,11 @@
 			<title-ref>unverified</title-ref>
 			<title>Unverified Taxononomy Authority</title>
 		</instance>
+		<instance id="taxon-common">
+			<web-url>common</web-url>
+			<title-ref>common</title-ref>
+			<title>Common Taxononomy Authority</title>
+		</instance>
 	</instances>
 
 	<section id="taxonNameAuthorityInformation">
@@ -57,6 +62,8 @@
 			</options>
 		</field>
 		<repeat id="taxonAuthorGroupList/taxonAuthorGroup">
+			<!-- Change autocomplete to organization-nomenclature -->
+			<field id="taxonAuthor" ui-search="repeatable" autocomplete="organization-nomenclature"></field>
 			<field id="taxonAuthorType">
 				<options>
 					<option id="" default="yes">Please select a value</option>
@@ -135,5 +142,10 @@
 				<option id="USGS Geographic Names Information System">USGS Geographic Names Information System</option>
 			</options>
 		</field>
+		
+		<repeat id="commonNameGroupList/commonNameGroup" section="naturalhistory">
+			<!-- Change autocomplete to taxon-common -->
+			<field id="commonName" section="naturalhistory" autocomplete="taxon-common"/>
+		</repeat>
 	</section>
 </record>
