@@ -1,8 +1,8 @@
 <record id="intake">
 	<section id="objectEntryInformation">
 		<!-- Add organization-institution to autocomplete -->
-		<field id="currentOwner" in-title="yes" mini="summary,search,list,relate" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-institution"/>
-		<field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="currentOwner" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="depositor" autocomplete="person-person,organization-organization,organization-institution"/>
 	</section>
 	
 	<section id="objectCollectionInformation">

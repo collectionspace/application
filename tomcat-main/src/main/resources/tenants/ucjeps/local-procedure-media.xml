@@ -3,13 +3,13 @@
 	
 	<section id="mediaInformation">
 		<!-- Remove mini values -->
-		<field id="title" ui-search="repeatable" mini=""/>
+		<field id="title" mini=""/>
 
 		<!-- Add organization-institution to autocomplete -->
 		<field id="contributor" autocomplete="person-person,organization-organization,organization-institution"/>
-		<field id="creator" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-institution"/>
-		<field id="publisher" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-institution"/>
-		<field id="rightsHolder" ui-search="repeatable" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="creator" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="publisher" autocomplete="person-person,organization-organization,organization-institution"/>
+		<field id="rightsHolder" autocomplete="person-person,organization-organization,organization-institution"/>
 		
 		<!-- New fields -->
 		<field id="handwritten" section="ucjeps" ui-search="single">

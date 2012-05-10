@@ -2,7 +2,8 @@
 	<services-record-path id="ucjeps">collectionobjects_ucjeps:http://collectionspace.org/services/collectionobject/local/ucjeps,collectionobjects_ucjeps</services-record-path>
 	
 	<section id="core">
-		<field id="nametitle" mini="" exists-in-services="false"/>
+		<!-- Remove mini -->
+		<field id="nametitle" mini=""/>
 	</section>
 	
 	<section id="identificationInformation">
@@ -41,7 +42,7 @@
 		</field>
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
 			<!-- Add taxon-unverified to autocomplete -->
-			<field id="taxon" in-title="yes" ui-search="repeatable" mini="summary,search,list,relate" section="naturalhistory" autocomplete="taxon-taxon,taxon-unverified"/>
+			<field id="taxon" autocomplete="taxon-taxon,taxon-unverified"/>
 			<!-- Change autocomplete to organization-determination -->
 			<field id="identBy" autocomplete="organization-determination"/>
 			<!-- Change autocomplete to institution authority -->
@@ -49,11 +50,11 @@
 		</repeat>
 		<repeat id="hybridParentGroupList/hybridParentGroup">
 			<!-- Add taxon-unverified to autocomplete -->
-			<field id="hybridParent" section="naturalhistory" autocomplete="taxon-taxon,taxon-unverified"/>
+			<field id="hybridParent" autocomplete="taxon-taxon,taxon-unverified"/>
 		</repeat>
 		<!-- Tie labelHeader and labelFooter to Concept Authority -->
-		<field id="labelHeader" autocomplete="concept-concept" section="naturalhistory" />
-		<field id="labelFooter" autocomplete="concept-concept" section="naturalhistory"/>
+		<field id="labelHeader" autocomplete="concept-concept"/>
+		<field id="labelFooter" autocomplete="concept-concept"/>
 		
 		<repeat id="typeSpecimenGroupList/typeSpecimenGroup">
 			<!-- Change autocomplete to organization-determination -->
@@ -61,7 +62,7 @@
 		</repeat>
 		
 		<!-- Change autocomplete to institution authority -->
-		<field id="donor" section="naturalhistory" autocomplete="organization-institution"/>
+		<field id="donor" autocomplete="organization-institution"/>
 	</section>
 	
 	<section id="descriptionInformation">
@@ -144,8 +145,8 @@
 	<section id="localityInformation">
 		<repeat id="localityGroupList/localityGroup">
 			<!-- Configure decimalLatitude and decimalLongitude to be computed -->
-			<field id="decimalLatitude" section="naturalhistory" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLatitude" ui-readonly="true" datatype="float"/>
-			<field id="decimalLongitude" section="naturalhistory" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLongitude" ui-readonly="true" datatype="float"/>
+			<field id="decimalLatitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLatitude" ui-readonly="true"/>
+			<field id="decimalLongitude" ui-type="computed" ui-func="cspace.georef.dms2decimal" ui-args="vLongitude" ui-readonly="true"/>
 		</repeat>
 	</section>
 </record>
