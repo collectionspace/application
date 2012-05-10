@@ -105,7 +105,7 @@
                     <field id="description"></field>
                 </section>
                 <!-- not used in ui yet -->
-                <section id="other">
+                <section id="otherInformation">
                     <field id="uri"></field>
                     <field id="srcUri"></field>
                     <field id="blobCsid"></field>
