@@ -50,7 +50,9 @@
     <section>
         <!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
         <field id="shortIdentifier"></field>
+        <!-- List containing this item's preferred term and any non-preferred terms -->
         <repeat id="locTermGroupList/locTermGroup">
+            <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
                 mini="summary,number,search,list,relate,terms">
                 <title-selector>titleBar-termDisplayName</title-selector>
@@ -84,6 +86,8 @@
             <field id="termSourceDetail"></field>
             <field id="termSourceID"></field>
             <field id="termSourceNote"></field>
+            <!-- Fields specific to Location terms -->
+            <!-- (no such fields in current schema) -->
         </repeat>
         <field id="accessNote" ui-search="repeatable"></field>
         <field id="address" ui-search="repeatable"></field>

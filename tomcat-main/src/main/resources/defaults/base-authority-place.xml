@@ -62,9 +62,9 @@
             attributes="GET" mini="search,list,relate"/>
     </section>
     <section id="placeAuthorityInformation">
+        <!-- List containing this item's preferred term and any non-preferred terms -->
         <repeat id="placeTermGroupList/placeTermGroup">
-            <!-- Note: selector below may change or, if it follows auto-generation conventions, go away entirely -->
-            <selector>preferred-placeAuthority</selector>
+            <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
                 mini="summary,number,search,list,relate,terms">
                 <title-selector>titleBar-displayName</title-selector>
@@ -105,6 +105,7 @@
             <field id="termSourceDetail"></field>
             <field id="termSourceID"></field>
             <field id="termSourceNote"></field>
+            <!-- Fields specific to Place terms -->
             <field id="historicalStatus">
                 <options>
                     <option id="current" default="yes">Current</option>

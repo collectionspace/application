@@ -57,7 +57,9 @@
         <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
     </section>
     <section id="conceptAuthorityInformation">
+        <!-- List containing this item's preferred term and any non-preferred terms -->
         <repeat id="conceptTermGroupList/conceptTermGroup">
+            <!-- Fields common across all authority items -->
             <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
                 <title-selector>titleBar-displayName</title-selector>
             </field>
@@ -90,6 +92,7 @@
             <field id="termSourceDetail"></field>
             <field id="termSourceID"></field>
             <field id="termSourceNote"></field>
+            <!-- Fields specific to Concept terms -->
             <field id="historicalStatus">
                 <options>
                     <option id="current" default="yes">Current</option>
