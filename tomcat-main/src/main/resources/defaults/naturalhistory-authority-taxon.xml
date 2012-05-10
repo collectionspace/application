@@ -5,7 +5,7 @@
 		<field id="taxonBasionym" section="naturalhistory" autocomplete="taxon-taxon"/>
 		
 		<repeat id="commonNameGroupList/commonNameGroup" section="naturalhistory">
-			<field id="commonName" section="naturalhistory" autocomplete="taxon-common"/>
+			<field id="commonName" section="naturalhistory" autocomplete="taxon-taxon"/>
 			<field id="commonNameLanguage" section="naturalhistory" autocomplete="vocab-languages" ui-type="enum"/>
 			<field id="commonNameSource" section="naturalhistory"/>
 			<field id="commonNameSourceDetail" section="naturalhistory"/>
@@ -13,7 +13,14 @@
 
 		<repeat id="relatedTermGroupList/relatedTermGroup" section="naturalhistory">
 			<field id="relatedTerm" section="naturalhistory" autocomplete="taxon-taxon"/>
-			<field id="relatedTermType" section="naturalhistory"/>
+			<field id="relatedTermType" section="naturalhistory">
+				<options>
+					<option id="">Please select a value</option>
+					<option id="Synonym">Synonym</option>
+					<option id="Female Hybrid Parent">Female Hybrid Parent</option>
+					<option id="Male Hybrid Parent">Male Hybrid Parent</option>
+				</options>
+			</field>
 			<field id="relatedTermSource" section="naturalhistory"/>
 			<field id="relatedTermSourceDetail" section="naturalhistory"/>
 		</repeat>
