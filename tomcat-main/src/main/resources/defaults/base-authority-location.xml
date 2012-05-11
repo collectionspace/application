@@ -47,48 +47,13 @@
         <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
         <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
     </section>
-    <section>
+    <section id="locationTermInformation">
         <!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
         <field id="shortIdentifier"></field>
         <!-- List containing this item's preferred term and any non-preferred terms -->
-        <repeat id="locTermGroupList/locTermGroup">
-            <!-- Fields common across all authority items -->
-            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate,terms">
-                <title-selector>titleBar-termDisplayName</title-selector>
-            </field>
-            <field id="termName" ui-search="repeatable" mini="summary,list,search,relate,terms"></field>
-            <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="descriptor">descriptor</option>
-                    <option id="alternate descriptor">alternate descriptor</option>
-                    <option id="used for term">used for term</option>
-                </options>
-            </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
-                <options>
-                    <option id="provisional" default="yes">Provisional</option>
-                    <option id="under review">Under Review</option>
-                    <option id="accepted">Accepted</option>
-                    <option id="rejected">Rejected</option>
-                </options>
-            </field>
-            <field id="termQualifier"></field>
-            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
-                <enum>
-                    <default>eng</default>
-                </enum>
-            </field>
-            <field id="termPrefForLang" datatype="boolean"></field>
-            <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
-            <field id="termSource"></field>
-            <field id="termSourceDetail"></field>
-            <field id="termSourceID"></field>
-            <field id="termSourceNote"></field>
-            <!-- Fields specific to Location terms -->
-            <!-- (no such fields in current schema) -->
-        </repeat>
+        <field id="preferredLocation" ui-type="groupfield/preferredSLA/selfrenderer" ui-func="cspace.preferred">
+            <selector>preferred-locationAuthority</selector>
+        </field>
         <field id="accessNote" ui-search="repeatable"></field>
         <field id="address" ui-search="repeatable"></field>
 		<repeat id="conditionGroupList/conditionGroup">
