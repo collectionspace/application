@@ -6,9 +6,11 @@
  */
 package org.collectionspace.chain.csp.schema;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,6 +36,7 @@ public class Record implements FieldParent {
 	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
 	private Map<String, Map<String, String>> uisection = new HashMap<String, Map<String, String>>();
+	private List<FieldSet> selfRenderers = new ArrayList<FieldSet>();
 	private Map<String, FieldSet> subrecords = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> subrecordsperm = new HashMap<String, Map<String, FieldSet>>();
 	
@@ -265,6 +268,9 @@ public class Record implements FieldParent {
 		fieldFullList.put(f.getID(),f);
 		if(f.isInServices()){
 			serviceFieldFullList.put(f.getID(),f);
+		}
+		if(f.isASelfRenderer()) {
+			addSelfRenderer(f);
 		}
 		
 		//is this a search field?
@@ -691,7 +697,18 @@ public class Record implements FieldParent {
 	}
 
 	public FieldSet getDisplayNameField() {
-		return display_name;
+		if(display_name!=null)
+			return display_name;
+		// Try child expanders to see if the displayName is there.
+		// This handles case of displayName for terms in the "preferred" termList sub-record
+		for(FieldSet fs : selfRenderers) {
+			Record subrecord = fs.getSelfRendererRecord();
+			FieldSet displayNameFS = subrecord.getDisplayNameField();
+			if(displayNameFS != null) {
+				return displayNameFS;
+			}
+		}
+		return null;
 	}
 
 
@@ -725,6 +742,10 @@ public class Record implements FieldParent {
 
 	public void addSubRecord(FieldSet fs, String perm) {
 		subrecordsperm.get(perm).put(fs.getID(), fs);
+	}
+	
+	protected void addSelfRenderer(FieldSet fs) {
+		selfRenderers.add(fs);
 	}
 
 	public void addInstance(Instance n) {
