@@ -1,10 +1,12 @@
-
 <record id="preferredPA" in-recordlist="no" separate-record="false">
     <hassoftdelete>true</hassoftdelete>
     <section>
+        <!-- List containing this item's preferred term and any non-preferred terms -->
         <repeat id="personTermGroupList/personTermGroup">
-<!--            <selector>preferred-personAuthority</selector>-->
-            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
+            <!--            <selector>preferred-personAuthority</selector>-->
+            <!-- Fields common across all authority items -->
+            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
+                mini="summary,number,search,list,relate">
                 <selector>personAuthority-termDisplayName</selector>
                 <title-selector>titleBar-displayName</title-selector>
             </field>
@@ -14,7 +16,8 @@
             <field id="termType" autocomplete="vocab-persontermtype" ui-type="enum">
                 <selector>personAuthority-termType</selector>
             </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
+                mini="search,list,relate">
                 <selector>personAuthority-termStatus</selector>
                 <options>
                     <option id="provisional" default="yes">Provisional</option>
@@ -32,7 +35,8 @@
             <field id="termPrefForLang" datatype="boolean">
                 <selector>personAuthority-termPrefForLang</selector>
             </field>
-            <field id="termSource"><!-- To be tied to citation authority eventually? -->
+            <field id="termSource">
+                <!-- To be tied to citation authority eventually? -->
                 <selector>personAuthority-termSource</selector>
             </field>
             <field id="termSourceDetail">
@@ -44,6 +48,7 @@
             <field id="termSourceNote">
                 <selector>personAuthority-termSourceNote</selector>
             </field>
+            <!-- Fields specific to Person terms -->
             <field id="salutation">
                 <selector>personAuthority-salutation</selector>
                 <options>
