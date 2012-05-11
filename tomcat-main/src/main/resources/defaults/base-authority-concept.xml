@@ -57,20 +57,68 @@
         <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
     </section>
     <section id="conceptAuthorityInformation">
-        <field id="displayName" ui-search="repeatable" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
-            <title-selector>titleBar-displayName</title-selector>
-        </field>
-        <field id="qualifier" ui-search="repeatable"></field>
-        <field id="shortDisplayName" ui-search="repeatable"></field>
-        <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum"></field>
-        <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
-            <options>
-                <option id="">Please select a value</option>
-                <option id="descriptor">descriptor</option>
-                <option id="alternate descriptor">alternate descriptor</option>
-                <option id="used for term">used for term</option>
-            </options>
-        </field>
+        <!-- List containing this item's preferred term and any non-preferred terms -->
+        <repeat id="conceptTermGroupList/conceptTermGroup">
+            <!-- Fields common across all authority items -->
+            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
+                <title-selector>titleBar-displayName</title-selector>
+            </field>
+            <field id="termName"></field>
+            <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="descriptor">descriptor</option>
+                    <option id="alternate descriptor">alternate descriptor</option>
+                    <option id="used for term">used for term</option>
+                </options>
+            </field>
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
+                <options>
+                    <option id="provisional" default="yes">Provisional</option>
+                    <option id="under review">Under Review</option>
+                    <option id="accepted">Accepted</option>
+                    <option id="rejected">Rejected</option>
+                </options>
+            </field>
+            <field id="termQualifier"></field>
+            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+                <enum>
+                    <default>eng</default>
+                </enum>
+            </field>
+            <field id="termPrefForLang" datatype="boolean"></field>
+            <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="termSource"></field>
+            <field id="termSourceDetail"></field>
+            <field id="termSourceID"></field>
+            <field id="termSourceNote"></field>
+            <!-- Fields specific to Concept terms -->
+            <field id="historicalStatus">
+                <options>
+                    <option id="current" default="yes">Current</option>
+                    <option id="historical">Historical</option>
+                    <option id="both">Both</option>
+                </options>
+            </field>
+        </repeat>
+        <field id="recordType"></field>
+        <field id="scopeNote"></field>
+        <field id="scopeNoteSource"></field>
+        <field id="scopeNoteSourceDetail"></field>
+        <repeat id="citationGroupList/citationGroup">
+            <!-- citationSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="citationSource"></field>
+            <field id="citationSourceDetail"></field>
+        </repeat>
+        <repeat id="additionalSourceGroupList/additionalSourceGroup">
+            <!-- additionalSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="additionalSource"></field>
+            <field id="additionalSourceDetail"></field>
+            <field id="additionalSourceID"></field>
+            <field id="additionalSourceNote"></field>
+        </repeat>
+        <!-- Should this field be present? -->
+        <field id="description"></field>
     </section>
     <!-- not used in UI except in autocompletes -->
     <section>
