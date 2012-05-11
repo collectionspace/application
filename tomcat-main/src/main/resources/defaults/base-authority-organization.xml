@@ -54,75 +54,38 @@
             attributes="GET" mini="search,list,relate"/>
     </section>
     <section id="organizationNameAuthorityInformation">
-        <!-- List containing this item's preferred term and any non-preferred terms -->
-        <repeat id="orgTermGroupList/orgTermGroup">
-            <!-- Fields common across all authority items -->
-            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate,terms">
-                <title-selector>titleBar-termDisplayName</title-selector>
-            </field>
-            <field id="termName"/>
-            <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="descriptor">descriptor</option>
-                    <option id="alternate descriptor">alternate descriptor</option>
-                    <option id="used for term">used for term</option>
-                </options>
-            </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
-                <options>
-                    <option id="provisional" default="yes">Provisional</option>
-                    <option id="under review">Under Review</option>
-                    <option id="accepted">Accepted</option>
-                    <option id="rejected">Rejected</option>
-                </options>
-            </field>
-            <field id="termQualifier"></field>
-            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
-                <enum>
-                    <default>eng</default>
-                </enum>
-            </field>
-            <field id="termPrefForLang" datatype="boolean"></field>
-            <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
-            <field id="termSource"></field>
-            <field id="termSourceDetail"></field>
-            <field id="termSourceID"></field>
-            <field id="termSourceNote"></field>
-            <!-- Fields specific to Organization terms -->
-            <field id="mainBodyName"></field>
-            <field id="additionsToName"></field>
-        </repeat>
+        <field id="preferredOrganization" ui-type="groupfield/preferredOA/selfrenderer" ui-func="cspace.preferred">
+            <selector>preferred-orgAuthority</selector>
+        </field>
         <field id="foundingDate" ui-search="range" ui-type="date" in-title="yes">
-            <selector>organizationAuthority-foundingDate</selector>
+            <selector>orgAuthority-foundingDate</selector>
             <title-selector>titleBar-foundationDate</title-selector>
         </field>
         <field id="dissolutionDate" ui-search="range" ui-type="date" in-title="yes">
-            <selector>organizationAuthority-dissolutionDate</selector>
+            <selector>orgAuthority-dissolutionDate</selector>
             <title-selector>titleBar-dissolutionDate</title-selector>
         </field>
         <field id="foundingPlace" ui-search="repeatable">
-            <selector>organizationAuthority-foundingPlace</selector>
+            <selector>orgAuthority-foundingPlace</selector>
         </field>
         <repeat id="groups">
             <field id="group" ui-search="repeatable">
-                <selector>organizationAuthority-group</selector>
+                <selector>orgAuthority-group</selector>
             </field>
         </repeat>
         <repeat id="functions">
             <field id="function" ui-search="repeatable">
-                <selector>organizationAuthority-function</selector>
+                <selector>orgAuthority-function</selector>
             </field>
         </repeat>
         <repeat id="historyNotes">
             <field id="historyNote">
-                <selector>organizationAuthority-history</selector>
+                <selector>orgAuthority-history</selector>
             </field>
         </repeat>
         <repeat id="contactNames">
             <field id="contactName" autocomplete="person-person">
-                <selector>organizationAuthority-contactName</selector>
+                <selector>orgAuthority-contactName</selector>
             </field>
         </repeat>
     </section>
