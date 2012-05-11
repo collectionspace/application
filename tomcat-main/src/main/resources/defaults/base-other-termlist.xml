@@ -52,7 +52,7 @@
         <field id="usedBy" ui-type="decorated"></field>
     </repeat>
     </section>
-	<section id="termListItems">
+	<section id="termlistitem">
 	    <repeat id="terms" userecord="termlistitem"  ui-spec-prefix="termlist" ui-spec-inherit="true"></repeat>
 	</section>
 	
