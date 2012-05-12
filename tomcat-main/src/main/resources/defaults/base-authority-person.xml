@@ -50,6 +50,7 @@
                     <instance id="person-persontest2">
                         <web-url>persontest2</web-url>
                         <title-ref>persontest2</title-ref>
+                        <nptAllowed>false</nptAllowed>
                         <title>Test Person Authority 2</title>
                     </instance>
                 </instances>

@@ -46,22 +46,35 @@ import org.collectionspace.chain.csp.webui.main.WebUI;
 import org.collectionspace.csp.api.ui.UI;
 import org.collectionspace.csp.api.ui.UIException;
 
+/**
+ * TenantUIServlet extends TenantServlet as it just adds the extra functionality specific to rendering the UI pages
+ * 
+ * @author csm22
+ *
+ */
 public class TenantUIServlet extends TenantServlet {
-	private static final Logger log = LoggerFactory
-			.getLogger(TenantUIServlet.class);
+	private static final Logger log = LoggerFactory.getLogger(TenantUIServlet.class);
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * UI specific logic to work out the file needed from the server based on the url
+	 * fromthe cspace-ui servlet context 
+	 * @param tenant
+	 * @param servlet_request
+	 * @param servlet_response
+	 * @throws BadRequestException
+	 * @throws ConnectionException
+	 * @throws DocumentException
+	 * @throws IOException
+	 */
 	protected void serviceUIWTenant(String tenant, HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws BadRequestException,ConnectionException,DocumentException, IOException{
 
 		String pathinfo = servlet_request.getPathInfo();
 		String[] pathbits = pathinfo.substring(1).split("/");
 		String urlredirect = "/collectionspace/ui/"+tenant+"/html/index.html";
 		
-		//clean up bad links
+		//clean up bad links - hopefully these links are never found any more...
 		if (pathinfo.equals("/html") || pathinfo.equals("/html/")) {
 			servlet_response.sendRedirect(urlredirect);
 		}
@@ -80,6 +93,7 @@ public class TenantUIServlet extends TenantServlet {
 		if(sc==null){
 			servlet_response.sendError(HttpServletResponse.SC_BAD_REQUEST,"missing servlet context cspace-ui");
 		}
+		//work out what to do with the item based on it's type
 		if(pathbits[0].equals("css") || pathbits[0].equals("js") || pathbits[0].equals("lib") || pathbits[0].equals("images") ){
 			String tenantposs = getTenantByCookie(servlet_request);
 			if (serverFixedExternalContent(servlet_request, servlet_response,
@@ -101,7 +115,9 @@ public class TenantUIServlet extends TenantServlet {
 		
 		if(!tenantInit.containsKey(tenant) || !tenantInit.get(tenant))
 			setup(tenant);
-		
+		/**
+		 * Support composite requests in ui calls as well as app direct calls
+		 */
 		if(is_composite(pathinfo)) {
 			List<String> p=new ArrayList<String>();
 			for(String part : servlet_request.getPathInfo().split("/")) {
@@ -138,6 +154,13 @@ public class TenantUIServlet extends TenantServlet {
 		
 	}
 
+	/**
+	 * test if item is composite based only on the path info
+	 * Could be merged with is_composite in TenantSevlet with minimal work 
+	 * so only one call
+	 * @param pathinfo
+	 * @return
+	 */
 	private boolean is_composite(String pathinfo){
 		String[] path = pathinfo.substring(1).split("/");
 		if(path.length!=2)
@@ -146,7 +169,16 @@ public class TenantUIServlet extends TenantServlet {
 		
 	}
 	
-	/* We do all this very sequentially rather than in one big loop to avoid the fear of weird races and to fail early on parse errors */
+
+	/**
+	 * Iterate through a composite request sequentially.
+	 * We do all this very sequentially rather than in one big loop to avoid the fear of weird races and to fail early on parse errors
+	 * @param tenant
+	 * @param req
+	 * @param sc
+	 * @throws UIException
+	 * @throws IOException
+	 */
 	private void serveComposite(String tenant, WebUIRequest req, ServletContext sc) throws UIException, IOException{
 		
 		try {
@@ -185,6 +217,15 @@ public class TenantUIServlet extends TenantServlet {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Return a single request from the cspace-ui servlet context
+	 * @param tenant
+	 * @param sub
+	 * @param sc
+	 * @throws UIException
+	 * @throws IOException
+	 */
 	private void serveSingle(String tenant, CompositeWebUIRequestPart sub, ServletContext sc) throws UIException, IOException{// Setup our request object
 		UI web = tenantCSPM.get(tenant).getUI("web");
 		WebUI webui = (WebUI) web;
@@ -220,6 +261,9 @@ public class TenantUIServlet extends TenantServlet {
 				xmlfile = reader.read(new TeeInputStream(is, dump));
 			//	log.info(dump.toString("UTF-8"));
 			//	log.info(xmlfile.asXML());<tr></tr<.>
+			 
+			 TODO I want this to work... it just doesn't yet as I haven\'t had time to work on it
+			 this is all about replace items in the title etc of the universal files so they become more specific
 */
 				for (String metafield : ((UIMapping)validmap.get("map")).getAllMetaConfigs()) {
 					
@@ -255,6 +299,17 @@ public class TenantUIServlet extends TenantServlet {
 		}
 	}
 
+	/**
+	 * serve content with tweaking of mime types if important
+	 * 
+	 * @param sub
+	 * @param sc
+	 * @param is
+	 * @param path
+	 * @return
+	 * @throws UIException
+	 * @throws IOException
+	 */
 	private boolean serveExternalContent(CompositeWebUIRequestPart sub, ServletContext sc, InputStream is, String path) throws UIException, IOException{
 
 		if(is==null)
@@ -279,6 +334,17 @@ public class TenantUIServlet extends TenantServlet {
 		return true;
 	
 	}
+	/**
+	 * when given a tenant work out all the possible paths this resource might have
+	 *  and do some fall through to return the most relevant file
+	 * @param sub
+	 * @param sc
+	 * @param path
+	 * @param tenant
+	 * @return
+	 * @throws IOException
+	 * @throws UIException
+	 */
 	protected boolean serverCreateMergedExternalContent(CompositeWebUIRequestPart sub, ServletContext sc, String path, String tenant) throws IOException, UIException{
 		//is there a tenant specific file instead of an overlay
 		String origfile = path;
@@ -379,9 +445,16 @@ public class TenantUIServlet extends TenantServlet {
 		return serveExternalContent(sub, sc, is_default, path);
 		
 	}
-	
-	
-	
+		
+	/**
+	 * Wrapper function for serving fixed content from a composite request
+	 * where no tenant passed
+	 * @param sub
+	 * @param sc
+	 * @return
+	 * @throws UIException
+	 * @throws IOException
+	 */
 	private boolean serverFixedExternalContent(CompositeWebUIRequestPart sub, ServletContext sc) throws UIException, IOException{
 		//
 		//sub.getPrincipalPath()
@@ -391,6 +464,19 @@ public class TenantUIServlet extends TenantServlet {
 		
 	}
 	
+	/**
+	 * abstraction for returning a single item.
+	 * probably could be simplified with other serveSingle function
+	 * @param tenant
+	 * @param servlet_request
+	 * @param servlet_response
+	 * @param pathinfo
+	 * @param pathbits
+	 * @param sc
+	 * @throws IOException
+	 * @throws BadRequestException
+	 * @throws UnsupportedEncodingException
+	 */
 	private void serveSingle(String tenant, HttpServletRequest servlet_request,
 			HttpServletResponse servlet_response, String pathinfo,
 			String[] pathbits, ServletContext sc) throws IOException,
@@ -432,6 +518,8 @@ public class TenantUIServlet extends TenantServlet {
 				xmlfile = reader.read(new TeeInputStream(is, dump));
 			//	log.info(dump.toString("UTF-8"));
 			//	log.info(xmlfile.asXML());<tr></tr<.>
+			 TODO I want this to work... it just doesn't yet as I haven\'t had time to work on it
+			 this is all about replace items in the title etc of the universal files so they become more specific
 */
 				for (String metafield : ((UIMapping)validmap.get("map")).getAllMetaConfigs()) {
 					
@@ -490,11 +578,24 @@ public class TenantUIServlet extends TenantServlet {
 					getStackTrace(e));
 		}
 	}
-	/* borrowed from ContectionUtils and tweaked e.g. set newline = true*/
+
+	/**
+	 * Simple serialization helper
+	 * borrowed from ContectionUtils and tweaked e.g. set newline = true
+	 * @param doc
+	 * @return
+	 * @throws IOException
+	 */
 	static InputStream serializetoXML(Document doc) throws IOException {
 		return new ByteArrayInputStream(serializeToBytes(doc));
 	}
 
+	/**
+	 * Simple serializer helper
+	 * @param doc
+	 * @return
+	 * @throws IOException
+	 */
 	static byte[] serializeToBytes(Document doc) throws IOException {
 		ByteArrayOutputStream out=new ByteArrayOutputStream();
 		OutputFormat outformat = OutputFormat.createPrettyPrint();
@@ -508,6 +609,12 @@ public class TenantUIServlet extends TenantServlet {
 		return out.toByteArray();
 	}
 	
+	/**
+	 * Convert document to stream
+	 * @param in
+	 * @return
+	 * @throws ConnectionException
+	 */
 	public static InputStream documentToStream(Document in) throws ConnectionException {
 		if(in!=null) {
 			try {
@@ -519,6 +626,14 @@ public class TenantUIServlet extends TenantServlet {
 		return null;
 	}
 
+	/**
+	 * Some simple mappings to help with the unfinished functionality to 
+	 * allow changing of content on templates based on returned item type
+	 * @param pathinfo
+	 * @param allmappings
+	 * @param spec
+	 * @return
+	 */
 	private Map<String,Object> doMapping(String pathinfo, UIMapping[] allmappings,
 			Spec spec) {
 		
@@ -595,7 +710,11 @@ public class TenantUIServlet extends TenantServlet {
 	}
 
 }
-
+/**
+ * Null Resolver
+ * @author csm22
+ *
+ */
 class NullResolver implements EntityResolver {
 	public InputSource resolveEntity(String publicId, String systemId)
 			throws SAXException, IOException {

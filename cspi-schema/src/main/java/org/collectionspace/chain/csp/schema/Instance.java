@@ -29,6 +29,8 @@ public class Instance {
 	private Set<String> option_default;
 	private Map<String,Option> options=new HashMap<String,Option>();
 	private List<Option> options_list=new ArrayList<Option>();
+	
+	private final static String NPT_ALLOWED = "nptAllowed";
 
 	public Instance(Record record, Map<String,String> data){
 		this.record=record;
@@ -39,6 +41,9 @@ public class Instance {
 		utils.initStrings(data.get("web-url"),"web-url", utils.getString("@id"));
 		utils.initStrings(data.get("ui-url"),"ui-url", utils.getString("web-url") + ".html");
 		utils.initStrings(data.get("ui-type"),"@ui-type","plain");
+		String nptSpec = data.get(NPT_ALLOWED);
+		Boolean nptAllowed = (nptSpec==null) || Boolean.parseBoolean(nptSpec);
+		utils.initBoolean(nptAllowed,NPT_ALLOWED,true);
 		option_default = Util.getSetOrDefault(data.get("default"), "/@default", new String[]{""});
 	}
 	
@@ -51,6 +56,7 @@ public class Instance {
 		utils.initStrings(section,"web-url", utils.getString("@id"));
 		utils.initStrings(section,"ui-url", utils.getString("web-url") + ".html");
 		utils.initStrings(section,"@ui-type","plain");
+		utils.initBoolean(section,NPT_ALLOWED,true);
 		option_default = Util.getSetOrDefault(section, "/@default", new String[]{""});
 		
 		
@@ -64,6 +70,7 @@ public class Instance {
 	public String getTitleRef() { return utils.getString("title-ref"); }
 	public String getWebURL() { return utils.getString("web-url"); }
 	public String getUIURL() { return utils.getString("ui-url"); }
+	public boolean getNPTAllowed() { return utils.getBoolean(NPT_ALLOWED); }
 
 	public void addOption(String id,String name,String sample,boolean dfault) {
 		if(id==null){

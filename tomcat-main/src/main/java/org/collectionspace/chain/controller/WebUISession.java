@@ -15,6 +15,11 @@ import java.util.Random;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UISession;
 
+/**
+ * Session specific functionality in regards to the conversation between the UI and the App
+ * @author csm22
+ *
+ */
 public class WebUISession implements UISession {
 	private boolean old=false;
 	private String id;
@@ -44,6 +49,11 @@ public class WebUISession implements UISession {
 		}
 	}
 	
+	/**
+	 * Initialize id as a random id
+	 * @param umbrella
+	 * @throws UIException
+	 */
 	public WebUISession(WebUIUmbrella umbrella) throws UIException {
 		id=randomSession();
 	}
@@ -52,14 +62,23 @@ public class WebUISession implements UISession {
 	boolean isOld() { return old; }
 	String getID() { return id; }
 
+	/**
+	 * remove data from the session HashMap
+	 */
 	public void deleteValue(String key) {
 		data.remove(key);
 	}
 
+	/** 
+	 * retrieve data from the sessions HashMap
+	 */
 	public Object getValue(String key) {
 		return data.get(key);
 	}
 
+	/**
+	 * Set key value pair in the session HashMap
+	 */
 	public void setValue(String key, Object value) {
 		data.put(key,value);
 	}

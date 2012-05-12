@@ -97,10 +97,14 @@ public class WebAutoComplete implements WebMethod {
 					for(String csid : paths) {
 						JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view", new JSONObject());
 						JSONObject entry=new JSONObject();
-						entry.put("urn",data.get("refid"));
+						String refid = data.getString("refid");
+						entry.put("urn",refid);
 						entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));
 						entry.put("csid",data.getString("csid"));
 						entry.put("type",n.getRecord().getWebURL());
+						//RefName.AuthorityItem item = RefName.AuthorityItem.parse(refid); 
+						//entry.put("namespace",item.getParentShortIdentifier());
+						entry.put("namespace",data.getString("namespace"));
 						out.put(entry);
 					}
 				}

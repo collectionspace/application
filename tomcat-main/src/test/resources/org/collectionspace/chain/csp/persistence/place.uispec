@@ -433,7 +433,19 @@
                                         ],
                                         "value": "${{row}.geoRefDateGroup.dateDisplayDate}"
                                     },
-                                    ".csc-place-geoReferencedBy": "${{row}.geoReferencedBy}",
+                                    ".csc-place-geoReferencedBy": {
+                                        "decorators": [
+                                            {
+                                                "func": "cspace.autocomplete",
+                                                "type": "fluid",
+                                                "options": {
+                                                    "queryUrl": "../../../tenant/core/vocabularies/place/autocomplete/geoReferencedBy",
+                                                    "vocabUrl": "../../../tenant/core/vocabularies/place/source-vocab/geoReferencedBy"
+                                                }
+                                            }
+                                        ],
+                                        "value": "${{row}.geoReferencedBy}"
+                                    },
                                     ".csc-place-geoRefVerificationStatus": {
                                         "default": "",
                                         "optionnames": [
@@ -687,6 +699,7 @@
                 "Please select a value",
                 "Autonomous region",
                 "Borough",
+                "City",
                 "Collection site",
                 "Continent",
                 "Country",
@@ -722,6 +735,7 @@
                 "",
                 "autonomous-region",
                 "borough",
+                "city",
                 "collection-site",
                 "continent",
                 "country",
