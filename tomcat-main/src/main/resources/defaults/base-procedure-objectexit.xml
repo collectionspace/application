@@ -63,7 +63,7 @@
                            mini="summary,list" in-title="yes">
                     </field>
                     <field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
-                    <field id="exitDate" ui-search="range" ui-type="groupfield/structureddate" 
+                    <field id="exitDateGroup" ui-search="range" ui-type="groupfield/structureddate" 
                         primarykey="exitDate.dateDisplayDate" ui-func="cspace.structuredDate">
                     </field>
                     <repeat id="exitMethods">

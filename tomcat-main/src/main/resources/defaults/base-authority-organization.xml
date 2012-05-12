@@ -78,18 +78,19 @@
                             <selector>organizationAuthority-nameAdditions</selector>
                         </field>
                     </repeat>
-                    <field id="foundingDate" ui-search="range" ui-type="groupfield/structureddate" 
+                    <field id="foundingDateGroup" ui-search="range" in-title="yes" ui-type="groupfield/structureddate" 
                         primarykey="foundingDate.dateDisplayDate" ui-func="cspace.structuredDate">
-                        <services-tag>foundingDate</services-tag>
+                        <!-- <services-tag>foundingDate</services-tag> -->
                         <selector>organizationAuthority-foundingDate</selector>
                     </field>
                     <field id="foundingPlace" ui-search="repeatable">
                         <selector>organizationAuthority-foundingPlace</selector>
                     </field>
-                    <field id="dissolutionDate" ui-search="range" ui-type="groupfield/structureddate" 
+                    <field id="dissolutionDateGroup" ui-search="range" in-title="yes" ui-type="groupfield/structureddate" 
                         primarykey="dissolutionDate.dateDisplayDate" ui-func="cspace.structuredDate">
-                        <services-tag>dissolutionDate</services-tag>
+                        <!-- <services-tag>dissolutionDate</services-tag> -->
                         <selector>organizationAuthority-dissolutionDate</selector>
+                        <title-selector>titleBar-birthDate</title-selector>
                     </field>
                     <repeat id="contactNames">
                         <field id="contactName" autocomplete="person-person">

@@ -150,18 +150,20 @@
                     <field id="nameNote">
                         <selector>personAuthority-nameNote</selector>
                     </field>
-                    <field id="birthDate" ui-search="range" ui-type="groupfield/structureddate" 
+                    <field id="birthDate" ui-search="range" in-title="yes" ui-type="groupfield/structureddate" 
                         primarykey="birthDate.dateDisplayDate" ui-func="cspace.structuredDate">
-                        <services-tag>birthDate</services-tag>
+                        <!-- <services-tag>birthDate</services-tag> -->
                         <selector>personAuthority-birthDate</selector>
+                        <title-selecotr>titleBar-birthDate</title-selector>
                     </field>
                     <field id="birthPlace">
                         <selector>personAuthority-birthPlace</selector>
                     </field>
-                    <field id="deathDate" ui-search="range" ui-type="groupfield/structureddate" 
+                    <field id="deathDate" ui-search="range" in-title="yes" ui-type="groupfield/structureddate" 
                         primarykey="deathDate.dateDisplayDate" ui-func="cspace.structuredDate">
-                        <services-tag>deathDate</services-tag>
+                        <!-- <services-tag>deathDate</services-tag> -->
                         <selector>personAuthority-deathDate</selector>
+                        <title-selector>titleBar-deathDate</title-selector>
                     </field>
                     <field id="deathPlace">
                         <selector>personAuthority-deathPlace</selector>
