@@ -52,59 +52,9 @@
     <section id="taxonNameAuthorityInformation">
         <!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
         <field id="shortIdentifier"/>
-        <!-- List containing this item's preferred term and any non-preferred terms -->
-        <repeat id="taxonTermGroupList/taxonTermGroup">
-            <!-- Fields common across all authority items -->
-            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
-                mini="summary,number,search,list,relate,terms">
-                <title-selector>titleBar-displayName</title-selector>
-                <!-- title-selector>.csc-titleBar-displayName</title-selector -->
-            </field>
-            <field id="termName" ui-search="repeatable" mini="summary,list,search,relate,terms"></field>
-            <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
-                <options>
-                    <option id="">Please select a value</option>
-                    <option id="descriptor">descriptor</option>
-                    <option id="alternate descriptor">alternate descriptor</option>
-                    <option id="used for term">used for term</option>
-                </options>
-            </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
-                mini="search,list,relate">
-                <options>
-                    <option id="provisional" default="yes">Provisional</option>
-                    <option id="under review">Under Review</option>
-                    <option id="accepted">Accepted</option>
-                    <option id="rejected">Rejected</option>
-                </options>
-            </field>
-            <field id="termQualifier"></field>
-            <!-- Recommendation: Hide termLanguage in the UI because taxonomy has established -->
-            <!-- international nomenclature standards. -->
-            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
-                <enum>
-                    <default>eng</default>
-                </enum>
-            </field>
-            <!-- Recommendation: Hide termPrefForLang in the UI because taxonomy has established -->
-            <!-- international nomenclature standards. -->
-            <field id="termPrefForLang" datatype="boolean"></field>
-            <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
-            <field id="termSource"></field>
-            <field id="termSourceDetail"></field>
-            <field id="termSourceID"></field>
-            <field id="termSourceNote"></field>
-            <!-- Fields specific to Taxon terms -->
-            <field id="taxonomicStatus" ui-search="repeatable" seperate_ui_container="true">
-                <options>
-                    <option id="" default="yes">Please select a value</option>
-                    <option id="valid">valid</option>
-                    <option id="invalid">invalid</option>
-                    <option id="accepted">accepted</option>
-                    <option id="misapplied name">misapplied name</option>
-                </options>
-            </field>
-        </repeat>
+        <field id="preferredTaxon" ui-type="groupfield/preferredTA/selfrenderer" ui-func="cspace.preferred">
+            <selector>preferred-taxonAuthority</selector>
+        </field>
         <field id="taxonRank" ui-search="repeatable" seperate_ui_container="true">
             <options>
                 <option id="" default="yes">Please select a value</option>
