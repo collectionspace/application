@@ -1,4 +1,4 @@
-<record id="taxon" type="authority,compute-displayname" in-recordlist="yes" in-findedit="yes">
+<record id="taxon" type="authority" in-recordlist="yes" in-findedit="yes">
     <web-url>taxon</web-url>
     <!-- singular names are used throughout except for this authority's service URL path component, per CSPACE-3322 -->
     <services-tenant-plural>Taxonomyauthority</services-tenant-plural>

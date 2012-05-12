@@ -1,4 +1,4 @@
-<record id="location"  type="authority,compute-displayname">
+<record id="location"  type="authority">
     <terms-used>false</terms-used>
     <!-- XXX servcie layer doesn't currently support  terms but it does on  organisations - go figure -->
     <web-url>location</web-url>

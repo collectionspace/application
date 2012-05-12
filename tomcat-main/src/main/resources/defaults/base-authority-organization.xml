@@ -1,4 +1,4 @@
-<record id="organization" type="authority,compute-displayname">
+<record id="organization" type="authority">
     <web-url>organization</web-url>
     <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
     <services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>

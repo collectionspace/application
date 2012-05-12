@@ -1,4 +1,4 @@
-<record id="concept" type="authority,compute-displayname">
+<record id="concept" type="authority">
     <terms-used>false</terms-used>
     <web-url>concept</web-url>
     <services-tenant-plural>Conceptauthorities</services-tenant-plural>
