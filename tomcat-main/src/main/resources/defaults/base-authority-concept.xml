@@ -61,9 +61,6 @@
             <selector>preferred-conceptAuthority</selector>
         </field>
         <field id="recordType"></field>
-        <field id="scopeNote"></field>
-        <field id="scopeNoteSource"></field>
-        <field id="scopeNoteSourceDetail"></field>
         <repeat id="citationGroupList/citationGroup">
             <!-- citationSource will be a Citation Authority autocomplete field when that service is implemented -->
             <field id="citationSource"></field>
