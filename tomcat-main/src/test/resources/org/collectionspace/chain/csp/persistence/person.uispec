@@ -55,6 +55,9 @@
         ".csc-hierarchy-equivalentContext-label": {
             "messagekey": "hierarchy-equivalentContextLabel"
         },
+        ".csc-hierarchy-equivalentInformation-label": {
+            "messagekey": "hierarchy-equivalentInformationLabel"
+        },
         "expander": [{
             "condition": {
                 "funcName": "cspace.hierarchy.assertEquivalentContexts",
@@ -97,6 +100,9 @@
         },
         ".csc-hierarchy-narrowerContexts-label": {
             "messagekey": "hierarchy-narrowerContextsLabel"
+        },
+        ".csc-hierarchy-hierarchyInformation-label": {
+            "messagekey": "hierarchy-hierarchyInformationLabel"
         },
         ".csc-hierarchy-relatedTerm": {
             "decorators": [{
@@ -189,6 +195,9 @@
             "optionnames": ["Female", "Male", "Please select a value"],
             "optionlist": ["", "female", "male"],
             "selection": "${fields.gender}"
+        },
+        ".csc-contact-contactInformation-label": {
+            "messagekey": "contact-contactInformationLabel"
         },
         ".csc-contact-tenantID-label": {
             "messagekey": "contact-tenantIDLabel"
@@ -408,8 +417,14 @@
         ".csc-person-uri-label": {
             "messagekey": "person-uriLabel"
         },
+        ".csc-person-otherInformation-label": {
+            "messagekey": "person-otherInformationLabel"
+        },
         ".csc-personAuthority-nameAdditions": "${fields.nameAdditions}",
         ".csc-person-createdAt": "${fields.createdAt}",
+        ".csc-contact-coreInformation-label": {
+            "messagekey": "contact-coreInformationLabel"
+        },
         ".csc-contact-faxNumberType-label": {
             "messagekey": "contact-faxNumberTypeLabel"
         },
@@ -436,6 +451,9 @@
         },
         ".csc-person-nameNote-label": {
             "messagekey": "person-nameNoteLabel"
+        },
+        ".csc-person-coreInformation-label": {
+            "messagekey": "person-coreInformationLabel"
         },
         ".csc-person-bioNote-label": {
             "messagekey": "person-bioNoteLabel"

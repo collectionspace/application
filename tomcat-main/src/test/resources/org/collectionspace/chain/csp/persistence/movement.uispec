@@ -3,6 +3,9 @@
         ".csc-movement-movementReferenceNumber-label": {
             "messagekey": "movement-movementReferenceNumberLabel"
         },
+        ".csc-movement-coreInformation-label": {
+            "messagekey": "movement-coreInformationLabel"
+        },
         ".csc-movement-inventoryContactList-label": {
             "messagekey": "movement-inventoryContactListLabel"
         },

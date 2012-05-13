@@ -3,6 +3,9 @@
         ".csc-permrole-actionGroup-label": {
             "messagekey": "permrole-actionGroupLabel"
         },
+        ".csc-permrole-permissionRoleInformation-label": {
+            "messagekey": "permrole-permissionRoleInformationLabel"
+        },
         ".csc-permrole-roleId-label": {
             "messagekey": "permrole-roleIdLabel"
         },

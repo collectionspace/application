@@ -182,6 +182,9 @@
             }],
             "value": "${fields.updatedAt}"
         },
+        ".csc-acquisition-coreInformation-label": {
+            "messagekey": "acquisition-coreInformationLabel"
+        },
         ".csc-acquisition-acquisitionDates-label": {
             "messagekey": "acquisition-acquisitionDatesLabel"
         },

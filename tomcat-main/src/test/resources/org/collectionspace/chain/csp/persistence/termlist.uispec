@@ -7,6 +7,9 @@
         ".csc-termlistitem-description-label": {
             "messagekey": "termlistitem-descriptionLabel"
         },
+        ".csc-termlistitem-termListItemInformation-label": {
+            "messagekey": "termlistitem-termListItemInformationLabel"
+        },
         ".csc-termlistitem-source-label": {
             "messagekey": "termlistitem-sourceLabel"
         },
@@ -44,6 +47,9 @@
         },
         ".csc-termlistitem-domaindata-label": {
             "messagekey": "termlistitem-domaindataLabel"
+        },
+        ".csc-termlist-termListInformation-label": {
+            "messagekey": "termlist-termListInformationLabel"
         },
         "expander": {
             "repeatID": ".csc-termlist-usedBy:",

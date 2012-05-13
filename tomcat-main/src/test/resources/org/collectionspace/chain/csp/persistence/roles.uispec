@@ -24,6 +24,9 @@
         },
         ".csc-role-group": "${fields.roleGroup}",
         ".csc-role-description": "${fields.description}",
+        ".csc-role-roleInformation-label": {
+            "messagekey": "role-roleInformationLabel"
+        },
         "expander": {
             "repeatID": ".csc-permissions-record-row:",
             "tree": {
