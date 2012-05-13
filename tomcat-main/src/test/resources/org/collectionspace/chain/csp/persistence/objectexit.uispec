@@ -135,6 +135,9 @@
         ".csc-objectexit-exitNumber-label": {
             "messagekey": "objectexit-exitNumberLabel"
         },
+        ".csc-objectexit-coreInformation-label": {
+            "messagekey": "objectexit-coreInformationLabel"
+        },
         ".csc-objectexit-exitNote-label": {
             "messagekey": "objectexit-exitNoteLabel"
         },

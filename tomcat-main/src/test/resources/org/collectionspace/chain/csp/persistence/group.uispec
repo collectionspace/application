@@ -25,6 +25,9 @@
             "messagekey": "group-responsibleDepartmentLabel"
         },
         ".csc-group-createdAt": "${fields.createdAt}",
+        ".csc-group-coreInformation-label": {
+            "messagekey": "group-coreInformationLabel"
+        },
         ".csc-group-tenantID": "${fields.tenantID}",
         ".csc-group-summary-label": {
             "messagekey": "group-summaryLabel"

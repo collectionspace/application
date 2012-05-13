@@ -24,7 +24,7 @@
 				
 				<include src="domain-authz-permrole.xml" strip-root="yes"/>
 				
-                <section>
+                <section id="permissionRoleInformation">
                     <group id="role">
                         <field id="roleId">
                         </field>

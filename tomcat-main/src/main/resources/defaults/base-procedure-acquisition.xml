@@ -39,7 +39,7 @@
 				
 				<include src="domain-procedure-acquisition.xml" strip-root="yes"/>
 				
-                <section>
+                <section id="coreInformation">
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>

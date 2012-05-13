@@ -46,7 +46,7 @@
 
   <include src="domain-collectionobject.xml"  strip-root="yes"/>
 
-  <section>
+  <section id="coreInformation">
     <field id="tenantID" section="collectionspace_core" attributes="GET"/>
     <field id="createdAt" section="collectionspace_core" attributes="GET"/>
     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
@@ -894,7 +894,7 @@
     </repeat>
   </section>
   <!-- ununsed -->
-  <section>
+  <section id="otherInformation">
     <field id="dateAssociation">
       <selector>date-information-date-association</selector>
     </field>

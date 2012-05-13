@@ -22,7 +22,7 @@
 				<include src="domain-authz-permission.xml" strip-root="yes"/>
 				
                 <terms-used>false</terms-used>
-                <section>
+                <section id="permissionInformation">
                     <repeat id="actions/action" has-primary="false" xxx-hack-authorization="true">
                         <field id="name"></field>
                     </repeat>

@@ -81,6 +81,9 @@
             "messagekey": "loanout-lendersAuthorizerLabel"
         },
         ".csc-loanOut-loanOutNote": "${fields.loanOutNote}",
+        ".csc-loanout-coreInformation-label": {
+            "messagekey": "loanout-coreInformationLabel"
+        },
         ".csc-loanout-loanStatus-label": {
             "messagekey": "loanout-loanStatusLabel"
         },

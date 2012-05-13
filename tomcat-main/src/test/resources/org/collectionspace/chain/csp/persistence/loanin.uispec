@@ -205,6 +205,9 @@
         ".csc-loanin-tenantID-label": {
             "messagekey": "loanin-tenantIDLabel"
         },
+        ".csc-loanin-coreInformation-label": {
+            "messagekey": "loanin-coreInformationLabel"
+        },
         ".csc-loanIn-loanInDate": {
             "decorators": [{
                 "func": "cspace.datePicker",

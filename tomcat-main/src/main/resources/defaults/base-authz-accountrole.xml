@@ -23,7 +23,7 @@
 				
 				<include src="domain-authz-accountrole.xml" strip-root="yes"/>
 				
-                <section>
+                <section id="accountRoleInformation">
                     <group id="role">
                         <field id="roleId">
                         </field>

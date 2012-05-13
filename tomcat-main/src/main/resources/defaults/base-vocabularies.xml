@@ -23,7 +23,7 @@
 				
 				<include src="base-instance-vocabularies.xml" />
                 
-                <section>
+                <section id="vocabularyInformation">
                     <field id="displayName" in-title="yes" display-name="yes" mini="summary,number,search,list,relate">
                         <selector>vocabulary-displayName</selector>
                         <title-selector>titleBar-displayName</title-selector>
@@ -41,7 +41,7 @@
     				<field id="description"></field>
                 </section>
 				<!-- not used in UI except in autocompletes -->
-                <section >
+                <section id="otherInformation">
                     <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
                     <field id="csid" mini="search,list,relate" attributes="GET"></field>
                     <field id="refName" mini="search,list,relate" attributes="GET"></field>

@@ -1,7 +1,7 @@
 
             <record id="dimension" in-recordlist="no" separate-record="false">
                 <hassoftdelete>true</hassoftdelete>
-				<section>
+				<section id="dimensionInformation">
 					<repeat id="measuredPartGroupList/measuredPartGroup">
 	                    <field id="dimensionSummary"></field>
 						<field id="measuredPart" seperate_ui_container="true">
