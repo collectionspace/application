@@ -65,6 +65,15 @@
 	<build>
 		<finalName>collectionspace</finalName>
 
+		<!-- We need the logging info in the war's classes, so it gets picked up -->
+    <resources>
+      <resource>
+        <directory>${project.basedir}/../tomcat-main/src/main/resources</directory>
+        <includes>
+          <include>log4j.properties</include>
+        </includes>
+      </resource>
+    </resources>
 
 
 		<plugins>
