@@ -55,6 +55,9 @@
         ".csc-hierarchy-equivalentContext-label": {
             "messagekey": "hierarchy-equivalentContextLabel"
         },
+        ".csc-hierarchy-equivalentInformation-label": {
+            "messagekey": "hierarchy-equivalentInformationLabel"
+        },
         "expander": [{
             "condition": {
                 "funcName": "cspace.hierarchy.assertEquivalentContexts",
@@ -98,6 +101,9 @@
         ".csc-hierarchy-narrowerContexts-label": {
             "messagekey": "hierarchy-narrowerContextsLabel"
         },
+        ".csc-hierarchy-hierarchyInformation-label": {
+            "messagekey": "hierarchy-hierarchyInformationLabel"
+        },
         ".csc-hierarchy-relatedTerm": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -138,6 +144,9 @@
         },
         ".csc-organization-organizationNameAuthorityInformation-label": {
             "messagekey": "organization-organizationNameAuthorityInformationLabel"
+        },
+        ".csc-organization-otherInformation-label": {
+            "messagekey": "organization-otherInformationLabel"
         },
         ".csc-organization-domaindata-label": {
             "messagekey": "organization-domaindataLabel"
@@ -181,6 +190,12 @@
         },
         ".csc-organization-tenantID-label": {
             "messagekey": "organization-tenantIDLabel"
+        },
+        ".csc-contact-coreInformation-label": {
+            "messagekey": "contact-coreInformationLabel"
+        },
+        ".csc-contact-contactInformation-label": {
+            "messagekey": "contact-contactInformationLabel"
         },
         ".csc-organization-contactInformation-label": {
             "messagekey": "organization-contactInformationLabel"
@@ -298,6 +313,9 @@
         ".csc-contact-createdAt": "${fields.contact.createdAt}",
         ".csc-organization-shortName-label": {
             "messagekey": "organization-shortNameLabel"
+        },
+        ".csc-organization-coreInformation-label": {
+            "messagekey": "organization-coreInformationLabel"
         },
         ".csc-organization-displayName-label": {
             "messagekey": "organization-displayNameLabel"

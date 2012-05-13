@@ -12,14 +12,14 @@
 				
 				<include src="domain-procedure-blobs.xml" strip-root="yes"/>
 				
-                <section>
+                <section id="coreInformation">
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedBy" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedAt" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
-                <section>
+                <section id="blobInformation">
                     <field id="encoding" attributes="GET"></field>
                     <field id="mimeType" attributes="GET"></field>
                     <field id="data" attributes="GET"></field>

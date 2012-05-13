@@ -22,7 +22,7 @@
 				
 				<include src="domain-authz-userperm.xml" strip-root="yes"/>
 				
-                <section>
+                <section id="accountPermissionInformation">
                     <group id="account">
                         <field id="accountId">
                         </field>

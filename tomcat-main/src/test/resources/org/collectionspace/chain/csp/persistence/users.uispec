@@ -1,5 +1,8 @@
 {
     "details": {
+        ".csc-users-accountInformation-label": {
+            "messagekey": "users-accountInformationLabel"
+        },
         ".csc-users-status-label": {
             "messagekey": "users-statusLabel"
         },
@@ -52,6 +55,9 @@
         },
         ".csc-users-userId-label": {
             "messagekey": "users-userIdLabel"
+        },
+        ".csc-users-coreInformation-label": {
+            "messagekey": "users-coreInformationLabel"
         },
         ".csc-users-roleSelected-label": {
             "messagekey": "users-roleSelectedLabel"

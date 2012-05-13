@@ -20,6 +20,9 @@
                 }
             }]
         },
+        ".csc-output-reportingOutputInformation-label": {
+            "messagekey": "output-reportingOutputInformationLabel"
+        },
         ".csc-output-singleCSID": "${fields.singleCSID}",
         ".csc-output-listCSIDs-label": {
             "messagekey": "output-listCSIDsLabel"

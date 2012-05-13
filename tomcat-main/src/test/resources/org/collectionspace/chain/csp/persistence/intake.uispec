@@ -1,5 +1,8 @@
 {
     "recordEditor": {
+        ".csc-intake-coreInformation-label": {
+            "messagekey": "intake-coreInformationLabel"
+        },
         ".csc-intake-insuranceRenewalDate-label": {
             "messagekey": "intake-insuranceRenewalDateLabel"
         },

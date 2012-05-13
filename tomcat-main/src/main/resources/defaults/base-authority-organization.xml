@@ -46,7 +46,7 @@
                         <title>Default Test Organization Authority</title>
                     </instance>
                 </instances>
-                <section>
+                <section id="coreInformation">
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
 			        <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
 			        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
@@ -119,7 +119,7 @@
 					<group id="contact" userecord="contact" ui-spec-inherit="false"  ui-spec-prefix="contact"  exists-in-services="false"></group>
                 </section>
                 <!-- not used in UI except in autocompletes -->
-                <section>
+                <section id="otherInformation">
                     <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
                     <field id="csid" mini="search,list,relate" attributes="GET"></field>
                     <field id="refName" mini="search,list,relate" attributes="GET"></field>

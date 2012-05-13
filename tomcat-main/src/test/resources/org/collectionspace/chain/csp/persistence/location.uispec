@@ -55,6 +55,9 @@
         ".csc-hierarchy-equivalentContext-label": {
             "messagekey": "hierarchy-equivalentContextLabel"
         },
+        ".csc-hierarchy-equivalentInformation-label": {
+            "messagekey": "hierarchy-equivalentInformationLabel"
+        },
         "expander": [{
             "condition": {
                 "funcName": "cspace.hierarchy.assertEquivalentContexts",
@@ -97,6 +100,9 @@
         },
         ".csc-hierarchy-narrowerContexts-label": {
             "messagekey": "hierarchy-narrowerContextsLabel"
+        },
+        ".csc-hierarchy-hierarchyInformation-label": {
+            "messagekey": "hierarchy-hierarchyInformationLabel"
         },
         ".csc-hierarchy-relatedTerm": {
             "decorators": [{
@@ -169,6 +175,9 @@
         },
         ".csc-location-address": "${fields.address}",
         ".csc-location-tenantID": "${fields.tenantID}",
+        ".csc-location-otherInformation-label": {
+            "messagekey": "location-otherInformationLabel"
+        },
         ".csc-location-termStatus-label": {
             "messagekey": "location-termStatusLabel"
         },
@@ -198,6 +207,9 @@
             }]
         },
         ".csc-location-csid": "${fields.csid}",
+        ".csc-location-locationAuthorityInformation-label": {
+            "messagekey": "location-locationAuthorityInformationLabel"
+        },
         ".csc-location-termStatus": {
             "default": "provisional",
             "optionnames": ["Accepted", "Provisional", "Rejected", "Under Review"],
@@ -246,6 +258,9 @@
         },
         ".csc-location-conditionNoteDate-label": {
             "messagekey": "location-conditionNoteDateLabel"
+        },
+        ".csc-location-coreInformation-label": {
+            "messagekey": "location-coreInformationLabel"
         },
         ".csc-location-updatedBy-label": {
             "messagekey": "location-updatedByLabel"
