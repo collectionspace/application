@@ -45,7 +45,7 @@
             <title>Default Test Organization Authority</title>
         </instance>
     </instances>
-    <section>
+    <section id="coreInformation">
         <field id="tenantID" section="collectionspace_core" attributes="GET"/>
         <field id="createdBy" section="collectionspace_core" attributes="GET"/>
         <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
@@ -94,7 +94,7 @@
             exists-in-services="false"/>
     </section>
     <!-- not used in UI except in autocompletes -->
-    <section>
+    <section id="otherInformation">
         <field id="shortIdentifier" mini="search,list,relate" attributes="GET"/>
         <field id="csid" mini="search,list,relate" attributes="GET"/>
         <field id="refName" mini="search,list,relate" attributes="GET"/>

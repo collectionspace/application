@@ -18,6 +18,8 @@ import org.json.JSONObject;
 
 /** The direct implementation of storage; only an instance of SplittingStorage which at the moment only splits
  * into ServicesCollectionObjectStorage.
+ * Exists: because originally this would not have been the only one. 
+ * Future: because it is the only one, we could remove it and simplify - unless we feel that media services will be split off
  * 
  */
 public class ServicesStorage extends SplittingStorage implements Storage {

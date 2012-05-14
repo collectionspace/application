@@ -34,7 +34,7 @@
 				
 				<include src="domain-authz-role.xml" strip-root="yes"/>
 				
-                <section>
+                <section id="roleInformation">
                     <field id="roleName">
                         <selector>role-oldname</selector>
                     </field>

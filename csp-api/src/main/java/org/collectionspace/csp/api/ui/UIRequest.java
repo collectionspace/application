@@ -11,7 +11,17 @@ import java.util.Set;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+/**
+ * Interface for UI Requests
+ * @author csm22
+ *
+ */
 public interface UIRequest {	
+	/**
+	 * return the array of path parts for this request
+	 * @return
+	 * @throws UIException
+	 */
 	public String[] getPrincipalPath() throws UIException;
 	
 	public TTYOutputter getTTYOutputter() throws UIException;

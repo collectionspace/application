@@ -15,7 +15,7 @@
 				<include src="domain-other-hierarchy.xml" strip-root="yes"/>
 				
 				
-            	<section>
+            	<section id="hierarchyInformation">
             		<field id="broaderContext"  autocomplete="person-person,organization-organization,taxon-taxon,location-location"></field>
             		<repeat id="narrowerContexts">
             			<field id="narrowerContext" autocomplete="person-person,organization-organization,taxon-taxon,location-location">
@@ -31,7 +31,7 @@
                         <field id="relatedTerm" autocomplete="person-person,organization-organization,taxon-taxon,"></field>
                     </repeat>
                 </section>
-                <section>
+                <section id="equivalentInformation">
                     <repeat id="equivalentContexts" as-expander="true">
                         <field id="equivalentContext" ui-type="hierarchy" attributes="GET"></field>
                     </repeat>

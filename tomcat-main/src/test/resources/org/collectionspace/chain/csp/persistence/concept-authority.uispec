@@ -55,6 +55,9 @@
         ".csc-hierarchy-equivalentContext-label": {
             "messagekey": "hierarchy-equivalentContextLabel"
         },
+        ".csc-hierarchy-equivalentInformation-label": {
+            "messagekey": "hierarchy-equivalentInformationLabel"
+        },
         "expander": [{
             "trueTree": {
                 ".csc-hierarchy-equivalentContext-label": {
@@ -99,6 +102,9 @@
         ".csc-hierarchy-narrowerContexts-label": {
             "messagekey": "hierarchy-narrowerContextsLabel"
         },
+        ".csc-hierarchy-hierarchyInformation-label": {
+            "messagekey": "hierarchy-hierarchyInformationLabel"
+        },
         ".csc-hierarchy-relatedTerm": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -140,6 +146,9 @@
         ".csc-concept-shortDisplayName-label": {
             "messagekey": "concept-shortDisplayNameLabel"
         },
+        ".csc-concept-coreInformation-label": {
+            "messagekey": "concept-coreInformationLabel"
+        },
         ".csc-concept-createdBy": "${fields.createdBy}",
         ".csc-concept-updatedBy": "${fields.updatedBy}",
         ".csc-concept-termType-label": {
@@ -147,6 +156,9 @@
         },
         ".csc-concept-createdBy-label": {
             "messagekey": "concept-createdByLabel"
+        },
+        ".csc-concept-otherInformation-label": {
+            "messagekey": "concept-otherInformationLabel"
         },
         ".csc-concept-shortDisplayName": "${fields.shortDisplayName}",
         ".csc-concept-tenantID": "${fields.tenantID}",

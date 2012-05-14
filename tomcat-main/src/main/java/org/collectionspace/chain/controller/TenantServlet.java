@@ -44,6 +44,38 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * This is the servlet that all calls that should be directly handled by App code should go through
+ * This was separated from TenantUIServlet which deals with all the calls that used to go directly to the UI
+ * e.g. http://nightly.collectionspace.org/collectionspace/ui/core/html/components/footer.html
+ * vs. http://nightly.collectionspace.org/collectionspace/tenant/core/loginstatus
+ * 
+ * if /WEB-INF/web.xml you will find
+ *   <servlet>
+ *    <servlet-name>TenantServlet</servlet-name>
+ *    <servlet-class>org.collectionspace.chain.controller.TenantServlet</servlet-class>
+ *  </servlet>
+ *  <servlet>
+ *    <servlet-name>TenantUIServlet</servlet-name>
+ *    <servlet-class>org.collectionspace.chain.controller.TenantUIServlet</servlet-class>
+ *  </servlet>
+ *
+ *  <servlet-mapping>
+ *    <servlet-name>TenantUIServlet</servlet-name>
+ *    <url-pattern>/ui/*</url-pattern>
+ *  </servlet-mapping>
+ *  <servlet-mapping>
+ *    <servlet-name>TenantServlet</servlet-name>
+ *    <url-pattern>/tenant/*</url-pattern>
+ *  </servlet-mapping>
+ *  <servlet-mapping>
+ *    <servlet-name>TenantServlet</servlet-name>
+ *    <url-pattern>/chain/*</url-pattern>
+ *  </servlet-mapping>
+ *
+ * @author csm22
+ *
+ */
 public class TenantServlet extends HttpServlet {
 	private static final Logger log=LoggerFactory.getLogger(TenantServlet.class);
 	protected static final String COOKIENAME="CSPACESESSID";
@@ -69,6 +101,11 @@ public class TenantServlet extends HttpServlet {
 		tenantCSPM.get(tenantId).register(new Spec());
 	}
 	
+	/**
+	 * Guess the tenant by looking at a cookie set during login
+	 * @param servlet_request
+	 * @return
+	 */
 	protected String getTenantByCookie(HttpServletRequest servlet_request){
 		Cookie[] cookies = servlet_request.getCookies();
 		if(cookies==null)
@@ -89,6 +126,12 @@ public class TenantServlet extends HttpServlet {
 		}
 		return "";
 	}
+	/**
+	 * retrieve the correct config file based on the tenantId
+	 * @param ctx
+	 * @param tenantId
+	 * @throws CSPDependencyException
+	 */
 	protected void load_config(ServletContext ctx, String tenantId) throws CSPDependencyException {
 		try {
 			ConfigFinder cfg=new ConfigFinder(ctx);
@@ -107,6 +150,11 @@ public class TenantServlet extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * setup CSPManagerImpl, load config etc if required.
+	 * @param tenantId
+	 * @throws BadRequestException
+	 */
 	protected synchronized void setup(String tenantId) throws BadRequestException {
 		if(tenantInit.containsKey(tenantId) && tenantInit.get(tenantId))
 			return;
@@ -125,6 +173,19 @@ public class TenantServlet extends HttpServlet {
 		tenantInit.put(tenantId,true);
 	}
 	
+	/**
+	 * If you know the tenant id then
+	 * Check for global issues and if not run set up and then test if this is a init request, a composite request or a single request and 
+	 * do the right thing
+	 * @param tenantid
+	 * @param pathparts
+	 * @param initcheck
+	 * @param servlet_request
+	 * @param servlet_response
+	 * @throws ServletException
+	 * @throws IOException
+	 * @throws BadRequestException
+	 */
 	protected void serviceWTenant(String tenantid, List<String> pathparts, String initcheck, HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException, BadRequestException {
 		
 
@@ -195,6 +256,11 @@ public class TenantServlet extends HttpServlet {
 		}
 		
 	}
+	
+	/**
+	 * This is a entry point. 
+	 * First check is for the tenant Id
+	 */
 	public void service(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		try {
 			String pathinfo = servlet_request.getPathInfo();
@@ -210,6 +276,7 @@ public class TenantServlet extends HttpServlet {
 				p.add(part);
 			}		
 		
+			// /chain is now deprecated and should not appear in URLs - all urls should be tenant
 			if(test.equals("/chain")){
 				if (pathbits[0].equals("chain")) {
 					servlet_response.sendRedirect(pathinfo);
@@ -222,13 +289,13 @@ public class TenantServlet extends HttpServlet {
 				}
 			}
 			else{
-				if (pathbits[0].equals("tenant")) {
+				if (pathbits[0].equals("tenant")) { //somehow we have come across a url which isn't nested as we hoped and we need to remove the first item and re-analyze it 
 					servlet_response.sendRedirect(pathinfo);
 					return;
 				}
 				p.remove(0);
 				tenant = pathbits[0];
-				if(tenant.equals("html")){
+				if(tenant.equals("html")){ // this was a early mistake in urls where html was used instead of tenant - hopefully this code is never fired
 					tenant = getTenantByCookie(servlet_request);
 				}
 				checkinit = pathbits[1];
@@ -241,7 +308,14 @@ public class TenantServlet extends HttpServlet {
 		}
 	}
 	
-	/* We do all this very sequentially rather than in one big loop to avoid the fear of weird races and to fail early on parse errors */
+
+	/**
+	 * Iterate through a composite request sequentially.
+	 * We do all this very sequentially rather than in one big loop to avoid the fear of weird races and to fail early on parse errors
+	 * @param ui
+	 * @param req
+	 * @throws UIException
+	 */
 	protected void serve_composite(UI ui,WebUIRequest req) throws UIException {
 		try {
 			// Extract JSON request payload
@@ -274,6 +348,13 @@ public class TenantServlet extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * output the content to the user
+	 * @param servlet_response
+	 * @param is
+	 * @return
+	 * @throws IOException
+	 */
 	protected boolean serveContent(HttpServletResponse servlet_response,InputStream is) throws IOException{
 
 		if(is==null)
@@ -283,6 +364,14 @@ public class TenantServlet extends HttpServlet {
 		return true;
 	}
 	
+	/**
+	 * Helper function to create a list of all possible valid paths for a certain tenant/path combination
+	 * Used to help fall through
+	 * @param path
+	 * @param tenant
+	 * @param withdefaults
+	 * @return
+	 */
 	protected List<String> possiblepaths(String path, String tenant, Boolean withdefaults){
 		List<String> testpaths =new ArrayList<String>();
 		testpaths.add("/"+tenant+path);
@@ -300,6 +389,15 @@ public class TenantServlet extends HttpServlet {
 		return testpaths;
 	}
 	
+	/**
+	 * Output fixed content to the User
+	 * @param sc
+	 * @param path
+	 * @param tenant
+	 * @param servlet_response
+	 * @return
+	 * @throws IOException
+	 */
 	protected boolean serveFixedContent(ServletContext sc,String path, String tenant, HttpServletResponse servlet_response) throws IOException{
 		List<String> testpaths =possiblepaths(path, tenant, true);
 		InputStream is = null;
@@ -320,6 +418,14 @@ public class TenantServlet extends HttpServlet {
 		return true;
 	}
 
+	/**
+	 * loop through all possible paths for a tenant / path combo to find the resource
+	 * Has a fall through methodology
+	 * @param sc
+	 * @param path
+	 * @param tenant
+	 * @return
+	 */
 	protected InputStream getFixedContent(ServletContext sc,String path, String tenant){
 		List<String> testpaths =possiblepaths(path, tenant, true);
 		InputStream is = null;
@@ -329,16 +435,20 @@ public class TenantServlet extends HttpServlet {
         return is;
 		
 	}
+
+
 	/**
-	 * do a key value merge and write file to tenant so it is there for next time
+	 * naive function to simply aggregate language files that are simple key/values
+	 * and then write the file so it is cached
+	 * TODO have a flag to force recreation of the asset when required
 	 * @param servlet_request
 	 * @param servlet_response
 	 * @param sc
 	 * @param path
 	 * @param tenant
 	 * @return
+	 * @throws IOException
 	 */
-
 	protected boolean serverCreateMergedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path, String tenant) throws IOException{
 		//is there a tenant specific file instead of an overlay
 		String origfile = path;
@@ -449,16 +559,42 @@ public class TenantServlet extends HttpServlet {
 		return true;
 	}
 	
+	/**
+	 * Wrapper function for serving fixed content 
+	 * where tenant id provided
+	 * @param servlet_request
+	 * @param servlet_response
+	 * @param sc
+	 * @param path
+	 * @param tenant
+	 * @return
+	 * @throws IOException
+	 */
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path, String tenant) throws IOException{
 		//InputStream is = getFixedContent( sc, path,  tenant);
         return serveFixedContent(sc, path,  tenant, servlet_response);
 	}
+	/**
+	 * Wrapper function for fixed content where no tenant passed
+	 * @param servlet_request
+	 * @param servlet_response
+	 * @param sc
+	 * @param path
+	 * @return
+	 * @throws IOException
+	 */
 	protected boolean serverFixedExternalContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response,ServletContext sc,String path) throws IOException{
 
         InputStream is=sc.getResourceAsStream(path);
         return serveContent(servlet_response,is);
 	}
 	
+	/**
+	 * Test is request is a composite request or not
+	 * @param req
+	 * @return
+	 * @throws UIException
+	 */
 	protected boolean is_composite(WebUIRequest req) throws UIException {
 		String[] path=req.getPrincipalPath();
 		if(path.length!=1)
@@ -466,6 +602,11 @@ public class TenantServlet extends HttpServlet {
 		return "composite".equals(path[0]);
 	}
 	
+	/**
+	 * allow a stack trace to be returned
+	 * @param aThrowable
+	 * @return
+	 */
 	public static String getStackTrace(Throwable aThrowable) {
 		final Writer result = new StringWriter();
 		final PrintWriter printWriter = new PrintWriter(result);
@@ -473,6 +614,14 @@ public class TenantServlet extends HttpServlet {
 		return result.toString();
 	}
 	
+	/**
+	 * attempts to create the outputstream or returns false.
+	 * @param servlet_request
+	 * @param servlet_response
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
 	protected boolean perhapsServeFixedContent(HttpServletRequest servlet_request, HttpServletResponse servlet_response) throws ServletException, IOException {
 		String pathinfo=servlet_request.getPathInfo();
 		if(pathinfo.startsWith("/"))

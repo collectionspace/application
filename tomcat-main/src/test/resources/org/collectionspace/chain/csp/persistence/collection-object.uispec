@@ -1142,6 +1142,9 @@
                                     ".csc-dimension-measurementMethod-label": {
                                         "messagekey": "dimension-measurementMethodLabel"
                                     },
+                                    ".csc-dimension-dimensionInformation-label": {
+                                        "messagekey": "dimension-dimensionInformationLabel"
+                                    },
                                     ".csc-dimension-measuredPartGroup-label": {
                                         "messagekey": "dimension-measuredPartGroupLabel"
                                     },
@@ -1321,6 +1324,9 @@
                     }
                 }
             ]
+        },
+        ".csc-collection-object-coreInformation-label": {
+            "messagekey": "collection-object-coreInformationLabel"
         },
         ".csc-collection-object-inscriptionDescription-label": {
             "messagekey": "collection-object-inscriptionDescriptionLabel"
@@ -1763,6 +1769,9 @@
             ]
         },
         ".csc-object-description-content-note": "${fields.contentNote}",
+        ".csc-collection-object-otherInformation-label": {
+            "messagekey": "collection-object-otherInformationLabel"
+        },
         ".csc-collection-object-objectProductionPeopleGroup-label": {
             "messagekey": "collection-object-objectProductionPeopleGroupLabel"
         },
