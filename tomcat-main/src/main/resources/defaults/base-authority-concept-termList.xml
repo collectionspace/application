@@ -68,8 +68,8 @@
             <field id="termScopeNoteSource">
                 <selector>conceptAuthority-termScopeNoteSource</selector>
             </field>
-            <field id="termScopeNoteSourceDetail">
-                <selector>conceptAuthority-termScopeNoteSourceDetail</selector>
+            <field id="termScopeNoteDetail">
+                <selector>conceptAuthority-termScopeNoteDetail</selector>
             </field>
         </repeat>
     </section>
