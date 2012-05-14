@@ -202,6 +202,7 @@
             <field id="footprintSpatialFit"/>
             <field id="geoReferencedBy" autocomplete="person-person,organization-organization"/>
             <group id="geoRefDateGroup" ui-type="groupfield/structureddate"
+                primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
             <field id="geoRefProtocol">
                 <!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceProtocol;
                 Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#georeferenceProtocol -->
