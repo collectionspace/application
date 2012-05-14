@@ -21,7 +21,7 @@
 	<include src="domain-other-termlistitem.xml" strip-root="yes"/>
 	
 
-    <section>
+    <section id="termListItemInformation">
     	<field id="_subrecordcsid"></field>
 		<field id="displayName"></field>
 		<field id="source"></field>

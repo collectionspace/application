@@ -122,6 +122,9 @@
                 ".csc-media-contributor-label": {
                     "messagekey": "media-contributorLabel"
                 },
+                ".csc-media-otherInformation-label": {
+                    "messagekey": "media-otherInformationLabel"
+                },
                 ".csc-media-identificationNumber": "${fields.identificationNumber}",
                 ".csc-media-filename": "${fields.filename}",
                 ".csc-media-externalMediaUrl-label": {
@@ -251,6 +254,9 @@
                         }
                     ],
                     "value": "${fields.contributor}"
+                },
+                ".csc-media-coreInformation-label": {
+                    "messagekey": "media-coreInformationLabel"
                 },
                 ".csc-media-dimension": {
                     "decorators": [
@@ -485,6 +491,9 @@
                                             },
                                             ".csc-dimension-measurementMethod-label": {
                                                 "messagekey": "dimension-measurementMethodLabel"
+                                            },
+                                            ".csc-dimension-dimensionInformation-label": {
+                                                "messagekey": "dimension-dimensionInformationLabel"
                                             },
                                             ".csc-dimension-measuredPartGroup-label": {
                                                 "messagekey": "dimension-measuredPartGroupLabel"
@@ -765,6 +774,9 @@
                                                     },
                                                     ".csc-dimension-measurementMethod-label": {
                                                         "messagekey": "dimension-measurementMethodLabel"
+                                                    },
+                                                    ".csc-dimension-dimensionInformation-label": {
+                                                        "messagekey": "dimension-dimensionInformationLabel"
                                                     },
                                                     ".csc-dimension-measuredPartGroup-label": {
                                                         "messagekey": "dimension-measuredPartGroupLabel"

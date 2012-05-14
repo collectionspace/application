@@ -61,6 +61,9 @@
         ".csc-hierarchy-equivalentContext-label": {
             "messagekey": "hierarchy-equivalentContextLabel"
         },
+        ".csc-hierarchy-equivalentInformation-label": {
+            "messagekey": "hierarchy-equivalentInformationLabel"
+        },
         "expander": [
             {
                 "trueTree": {
@@ -106,6 +109,9 @@
         },
         ".csc-hierarchy-narrowerContexts-label": {
             "messagekey": "hierarchy-narrowerContextsLabel"
+        },
+        ".csc-hierarchy-hierarchyInformation-label": {
+            "messagekey": "hierarchy-hierarchyInformationLabel"
         },
         ".csc-hierarchy-relatedTerm": {
             "decorators": [
@@ -579,6 +585,9 @@
         ".csc-place-placeNameGroup-label": {
             "messagekey": "place-placeNameGroupLabel"
         },
+        ".csc-place-otherInformation-label": {
+            "messagekey": "place-otherInformationLabel"
+        },
         ".csc-place-geoRefPlaceName-label": {
             "messagekey": "place-geoRefPlaceNameLabel"
         },
@@ -642,6 +651,9 @@
             "messagekey": "place-placeIdentifierLabel"
         },
         ".csc-place-maxDistanceAboveSurfaceInMeters": "${fields.maxDistanceAboveSurfaceInMeters}",
+        ".csc-place-coreInformation-label": {
+            "messagekey": "place-coreInformationLabel"
+        },
         ".csc-place-source-label": {
             "messagekey": "place-sourceLabel"
         },

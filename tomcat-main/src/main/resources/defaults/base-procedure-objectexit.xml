@@ -45,7 +45,7 @@
 				<include src="domain-procedure-objectexit.xml"  strip-root="yes" />
 				
                 <row-selector>.csc-recordList-row:</row-selector>
-                <section>
+                <section id="coreInformation">
                     <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdBy" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
