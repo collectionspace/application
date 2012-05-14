@@ -62,15 +62,6 @@
                     <option id="both">Both</option>
                 </options>
             </field>
-            <field id="termScopeNote">
-                <selector>conceptAuthority-termScopeNote</selector>
-            </field>
-            <field id="termScopeNoteSource">
-                <selector>conceptAuthority-termScopeNoteSource</selector>
-            </field>
-            <field id="termScopeNoteDetail">
-                <selector>conceptAuthority-termScopeNoteDetail</selector>
-            </field>
         </repeat>
     </section>
 </record>

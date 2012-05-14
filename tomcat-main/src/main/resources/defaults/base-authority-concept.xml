@@ -60,6 +60,15 @@
         <field id="preferredConcept" ui-type="groupfield/preferredCA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-conceptAuthority</selector>
         </field>
+        <field id="termScopeNote">
+            <selector>conceptAuthority-termScopeNote</selector>
+        </field>
+        <field id="termScopeNoteSource">
+            <selector>conceptAuthority-termScopeNoteSource</selector>
+        </field>
+        <field id="termScopeNoteDetail">
+            <selector>conceptAuthority-termScopeNoteDetail</selector>
+        </field>
         <field id="recordType"></field>
         <repeat id="citationGroupList/citationGroup">
             <!-- citationSource will be a Citation Authority autocomplete field when that service is implemented -->
