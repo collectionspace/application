@@ -24,10 +24,12 @@ import org.collectionspace.chain.csp.persistence.services.connection.ReturnedMul
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedURL;
 import org.collectionspace.chain.csp.persistence.services.connection.ServicesConnection;
 import org.collectionspace.chain.csp.schema.Field;
+import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Relationship;
+import org.collectionspace.chain.csp.schema.Repeat;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -49,6 +51,9 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(ConfiguredVocabStorage.class);
 	private ServicesConnection conn;
 	private Record r;
+	
+	final static String XPATH_FIRST_EL = "[1]";
+	final static String XPATH_GENERIC_FIRST_EL = "*[1]";
 
 	public ConfiguredVocabStorage(Record r,ServicesConnection conn) throws  DocumentException, IOException {
 		super(r,conn);
@@ -63,6 +68,87 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			throw new UnderlyingStorageException("no display-name='yes' field");
 		return dnf.getID();
 	}
+	
+	private String getDisplayNameXPath() throws UnderlyingStorageException {
+		Field dnf=(Field)r.getDisplayNameField();
+		if(dnf==null)
+			throw new UnderlyingStorageException("no display-name='yes' field");
+		return getXPathForField(dnf);
+	}
+	/**
+	 * Returns an XPath-conformant string that specifies the full (X)path to this field.
+	 * May recurse to handle nested fields. Will choose primary, in lists (i.e, 1st element)
+	 * This should probably live in Field.java, not here (but needs to be in both Field.java 
+	 * and Repeat.java - do I hear "Base Class"?!?!) 
+	 * 
+	 * @param fieldSet the containing fieldSet
+	 * @return NXQL conformant specifier.
+	 **/
+	public static String getXPathForField(FieldSet fieldSet) {
+		String specifier = fieldSet.getServicesTag();
+		
+		// Check for a composite (fooGroupList/fooGroup). For these, the name is the 
+		// leaf, and the first part is held in the "services parent"
+		if(fieldSet.hasServicesParent()) {
+			// Prepend the services parent field, and make the child a wildcard
+			String [] svcsParent = fieldSet.getServicesParent();
+			if(svcsParent[0] != null && !svcsParent[0].isEmpty()) {
+				specifier = svcsParent[0] + "/";
+				// Note that we do not handle paths more the 2 in length - makes no sense
+				if(svcsParent.length < 2) {
+					specifier += XPATH_GENERIC_FIRST_EL;
+				} else if(svcsParent[1] == null) { // Work around ridiculous hack/nonsense in Repeat init
+					specifier += fieldSet.getServicesTag();
+				} else {
+					specifier += svcsParent[1];
+				}
+				specifier += XPATH_FIRST_EL;
+			}
+		}
+		
+		FieldParent parent = fieldSet.getParent();
+
+		boolean isRootLevelField = false;			// Assume we are recursing until we see otherwise
+		if(parent instanceof Record) {	// A simple reference to base field.
+			isRootLevelField = true;
+			log.debug("Specifier for root-level field: " + specifier + " is: "+specifier);
+		} else {
+			FieldSet parentFieldSet = (FieldSet)parent;
+			// "repeator" marks things for some expansion - not handled here (?)
+			if(parentFieldSet.getSearchType().equals("repeator")) {
+				isRootLevelField = true;
+			} else {
+				// Otherwise, we're dealing with some amount of nesting.
+				// First, recurse to get the fully qualified path to the parent.
+				if(log.isDebugEnabled()) {
+					String parentID = parentFieldSet.getID();
+					log.debug("Recursing for parent: " + parentID );
+				}
+				specifier = getXPathForField(parentFieldSet);
+							
+				// Is parent a scalar list or a complex list?
+				Repeat rp = (Repeat)parentFieldSet;
+				FieldSet[] children = rp.getChildren("");
+				int size = children.length;
+				// HACK - we should really mark a repeating scalar as such, 
+				// or a complex schema from which only 1 field is used, will break this.
+				if(size > 1){
+					// The parent is a complex schema, not just a scalar repeat
+					// Append the field name to build an XPath-like specifier.
+					specifier += "/"+fieldSet.getServicesTag();
+				} else{
+					// Leave specifier as is. We just search on the parent name,
+					// as the backend is smart about scalar lists. 
+				}
+			}
+			log.debug("Specifier for non-leaf field: " + fieldSet.getServicesTag() + " is: "+specifier);
+		}
+		if(isRootLevelField) {
+			// TODO - map leaf names like "titleGroupList/titleGroup" to "titleGroupList/*"
+		}
+		return specifier;
+	}
+
 	private Document createEntry(String section,String namespace,String root_tag,JSONObject data,String vocab,String refname, Record r, Boolean isAuth) throws UnderlyingStorageException, ConnectionException, ExistException, JSONException {
 		Document out=XmlJsonConversion.convertToXml(r,data,section,"POST",isAuth);
 		if(section.equals("common")){//XXX not great... but not sure how else to differentiate
@@ -334,11 +420,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 
 
 				if("common".equals(section)) { // XXX hardwired :(
-					name=result.selectSingleNode(tag_path[1]+"/displayName").getText();
+					String dnXPath = getDisplayNameXPath();
+					name=result.selectSingleNode(tag_path[1]+"/"+dnXPath).getText();
 					if(result.selectSingleNode(tag_path[1]+"/shortIdentifier")!=null){
 						shortIdentifier = result.selectSingleNode(tag_path[1]+"/shortIdentifier").getText();
 					}
 					refid=result.selectSingleNode(tag_path[1]+"/refName").getText();
+					// We need to replace this with the same model as for displayName
 					if(result.selectSingleNode(tag_path[1]+"/termStatus") != null){
 					termStatus=result.selectSingleNode(tag_path[1]+"/termStatus").getText();
 					}
@@ -502,7 +590,6 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String vocab = RefName.shortIdToPath(rootPath);
 			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
 				
-
 			String prefix=null;
 
 			if(restrictions!=null){
@@ -517,9 +604,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			if(r.hasSoftDeleteMethod()){
 				path = softpath(path);
 			}
+			/* No reason to get children when fetch a list - just extra cruft.
 			if(r.hasHierarchyUsed("screen")){
 				path = hierarchicalpath(path);
 			}
+			*/
 			
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			Document doc=data.getDocument();
@@ -532,7 +621,10 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			List<Node> nodes = doc.selectNodes("/"+tag_parts[1].split("/")[0]+"/*");
 			for(Node node : nodes){
 				if(node.matches("/"+tag_parts[1])){
-					String name=node.selectSingleNode("displayName").getText();
+					// Risky hack - assumes displayName must be at root. Really should
+					// understand that the list results are a different schema from record GET.
+					String dnName = getDisplayNameKey();
+					String name=node.selectSingleNode(dnName).getText();
 					String csid=node.selectSingleNode("csid").getText();
 					/*
 					String refName=null;
@@ -933,21 +1025,48 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			if(!cachelistitem.startsWith("/")){
 				cachelistitem = "/"+cachelistitem;
 			}
+			String dnName = getDisplayNameKey();
 			String g1=getGleanedValue(cache,cachelistitem,"refName");
 			String g2=getGleanedValue(cache,cachelistitem,"shortIdentifier");
-			String g3=getGleanedValue(cache,cachelistitem,"displayName");
+			String g3=getGleanedValue(cache,cachelistitem,dnName);
 			String g4=getGleanedValue(cache,cachelistitem,"csid");
 			String g5=getGleanedValue(cache,cachelistitem,"termStatus");
 			if(g1==null|| g2==null||g3==null||g4==null||g5==null){
+				if(log.isWarnEnabled()) {
+					StringBuilder sb = new StringBuilder();
+					sb.append("ConfiguredVocabStorage fanning out ");
+					if(g2!=null) {
+						sb.append("(shId:");
+						sb.append(g2);
+						sb.append(")");
+					}
+					if(g4!=null) {
+						sb.append("(csid:");
+						sb.append(g4);
+						sb.append(")");
+					}
+					sb.append(", as could not get: ");
+					if(g1==null)
+						sb.append("refName,");
+					if(g2==null)
+						sb.append("shortIdentifier,");
+					if(g3==null)
+						sb.append("dnName,");
+					if(g4==null)
+						sb.append("csid,");
+					if(g5==null)
+						sb.append("termStatus,");
+					log.warn(sb.toString());
+				}
 				JSONObject cached =  get(storage, creds,cache,servicepath,filePath);
 				g1 = cached.getString("refid");
 				g2 = cached.getString("shortIdentifier");
-				g3 = cached.getString("displayName");
+				g3 = cached.getString(dnName);
 				g4 = cached.getString("csid");
 				g5 = cached.getString("termStatus");
 				
 			}
-			out.put(getDisplayNameKey(), g3);
+			out.put(dnName, g3);
 			out.put("refid", g1);
 			out.put("csid", g4);
 			out.put("termStatus", g5);

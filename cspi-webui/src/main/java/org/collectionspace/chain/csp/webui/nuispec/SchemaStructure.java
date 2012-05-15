@@ -168,7 +168,7 @@ public class SchemaStructure {
 		else if("validated".equals(fs.getUIType())){
 			actualValidatedField(out, fs, context);
 		}
-		else if(isASelfRenderer(fs)){
+		else if(fs.isASelfRenderer()){
 			actualSelfRendererField(out, fs, context);
 		}
 		else{
@@ -576,7 +576,7 @@ public class SchemaStructure {
 			whatIsThisFieldSet(contents,child, context);
 		}
 		//make the item
-		if(isASelfRenderer(fs)){
+		if(fs.isASelfRenderer()){
 			JSONObject renderedcontents = new JSONObject();
 			actualSelfRenderer(renderedcontents, contents);
 			contents = renderedcontents;
@@ -607,7 +607,7 @@ public class SchemaStructure {
 			if(isAStructureDate(fs)){
 				makeAStructureDate(fs, out, subexpander, options, subitems, sub);
 			}
-			else if(isASelfRenderer(fs)){
+			else if(fs.isASelfRenderer()){
 				makeASelfRenderer(fs, context, out, subexpander, options,
 						subitems, sub);
 			}
@@ -792,15 +792,6 @@ public class SchemaStructure {
 			return children[0];
 		}
 		return null;
-	}
-	/**
-	 * UI specific marking: YURA said: 
-	 * these are renderer decorators that do their own rendering so need some sub nesting
-	 * @param fs
-	 * @return
-	 */
-	private Boolean isASelfRenderer(FieldSet fs){
-		return fs.getUIType().contains("selfrenderer");
 	}
 	/**
 	 * test whether this is one of those repeats which should be represented as [{'','',''}]

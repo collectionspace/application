@@ -22,7 +22,7 @@ public class TestGenerateAuthorities {
 			jetty=tester.setupJetty();
 			}
 		catch(Exception ex){
-			
+			log.error("TestGenerateAuthorities: Could not set up jetty! " + ex.getLocalizedMessage());
 		}
 	}
 	

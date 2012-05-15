@@ -7,6 +7,7 @@
 package org.collectionspace.chain.csp.webui.authorities;
 
 import org.apache.commons.lang.StringUtils;
+import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -102,10 +103,29 @@ public class VocabulariesCreateUpdate implements WebMethod {
 
 			//is this an instance or an item?
 			if(this.r == null && this.n != null){
+				FieldSet displayNameFS = n.getRecord().getDisplayNameField();
+				String displayNameFieldName = (displayNameFS!=null)?displayNameFS.getID():null;
 				boolean quickie = false;
+				String quickieDisplayName = null;
 				if(create) {
 					quickie = 
 						(data.has("_view") && data.getString("_view").equals("autocomplete"));
+					// Check to see if displayName field needs remapping from UI
+					if(quickie && !"displayName".equals(displayNameFieldName)) {
+						// Need to map the field for displayName, and put it into a proper structure
+						JSONObject fields = data.getJSONObject("fields");
+						quickieDisplayName = fields.getString("displayName");
+						if(quickieDisplayName != null) {
+							// displayNames are nested now, so must have a field parent
+							FieldSet parentTermGroup = (FieldSet)displayNameFS.getParent();
+							JSONArray parentTermInfoArray = new JSONArray();
+							JSONObject termInfo = new JSONObject();
+							termInfo.put(displayNameFieldName, quickieDisplayName);
+							parentTermInfoArray.put(termInfo);
+							fields.put(parentTermGroup.getID(), parentTermInfoArray);
+							fields.remove("displayName");
+						}
+					}
 				}
 				path = createItem(storage,request,path,data);
 				data=reader.getJSON(storage,path);
@@ -117,7 +137,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 				if(quickie){
 					JSONObject newdata = new JSONObject();
 					newdata.put("urn", refid);
-					newdata.put("label",data.getJSONObject("fields").getString(this.n.getRecord().getDisplayNameField().getID()));
+					newdata.put("displayName",quickieDisplayName);
 					data = newdata;
 				}
 				redirectpath = n.getWebURL();

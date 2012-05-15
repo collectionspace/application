@@ -1,0 +1,95 @@
+<record id="preferredPA" in-recordlist="no" separate-record="false">
+    <hassoftdelete>true</hassoftdelete>
+    <section>
+        <!-- List containing this item's preferred term and any non-preferred terms -->
+        <repeat id="personTermGroupList/personTermGroup">
+            <!--            <selector>preferred-personAuthority</selector>-->
+            <!-- Fields common across all authority items -->
+            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
+                mini="summary,number,search,list,relate">
+                <selector>personAuthority-termDisplayName</selector>
+                <title-selector>titleBar-displayName</title-selector>
+            </field>
+            <field id="termName">
+                <selector>personAuthority-termName</selector>
+            </field>
+            <field id="termType" autocomplete="vocab-persontermtype" ui-type="enum">
+                <selector>personAuthority-termType</selector>
+            </field>
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
+                mini="search,list,relate">
+                <selector>personAuthority-termStatus</selector>
+                <options>
+                    <option id="provisional" default="yes">Provisional</option>
+                    <option id="under review">Under Review</option>
+                    <option id="accepted">Accepted</option>
+                    <option id="rejected">Rejected</option>
+                </options>
+            </field>
+            <field id="termQualifier">
+                <selector>personAuthority-termQualifier</selector>
+            </field>
+            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+                <selector>personAuthority-termLanguage</selector>
+            </field>
+            <field id="termPrefForLang" datatype="boolean">
+                <selector>personAuthority-termPrefForLang</selector>
+            </field>
+            <field id="termSource">
+                <!-- To be tied to citation authority eventually? -->
+                <selector>personAuthority-termSource</selector>
+            </field>
+            <field id="termSourceDetail">
+                <selector>personAuthority-termSourceDetail</selector>
+            </field>
+            <field id="termSourceID">
+                <selector>personAuthority-termSourceID</selector>
+            </field>
+            <field id="termSourceNote">
+                <selector>personAuthority-termSourceNote</selector>
+            </field>
+            <!-- Fields specific to Person terms -->
+            <field id="salutation">
+                <selector>personAuthority-salutation</selector>
+                <options>
+                    <option id="dear" default="yes">Dear</option>
+                    <option id="hello">Hello</option>
+                    <option id="to">To</option>
+                </options>
+            </field>
+            <field id="title">
+                <selector>personAuthority-title</selector>
+                <options>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="Mr">Mr</option>
+                    <option id="Mrs">Mrs</option>
+                    <option id="Ms">Ms</option>
+                    <option id="Miss">Miss</option>
+                    <option id="Dr">Dr</option>
+                    <option id="Professor">Professor</option>
+                    <option id="Sir">Sir</option>
+                    <option id="Dame">Dame</option>
+                    <option id="Baron">Baron</option>
+                    <option id="Baroness">Baroness</option>
+                    <option id="Lord">Lord</option>
+                    <option id="Lady">Lady</option>
+                </options>
+            </field>
+            <field id="foreName" mini="list,search,relate,terms">
+                <selector>personAuthority-foreName</selector>
+            </field>
+            <field id="middleName">
+                <selector>personAuthority-middleName</selector>
+            </field>
+            <field id="surName" mini="list,search,relate,terms">
+                <selector>personAuthority-surName</selector>
+            </field>
+            <field id="nameAdditions">
+                <selector>personAuthority-nameAdditions</selector>
+            </field>
+            <field id="initials">
+                <selector>personAuthority-initials</selector>
+            </field>
+        </repeat>
+    </section>
+</record>

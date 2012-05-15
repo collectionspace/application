@@ -21,7 +21,7 @@ public class TestComposite {
 			jetty=tester.setupJetty();
 			}
 		catch(Exception ex){
-			
+			log.error("TestComposite: Could not set up jetty! " + ex.getLocalizedMessage());
 		}
 	}
 	
