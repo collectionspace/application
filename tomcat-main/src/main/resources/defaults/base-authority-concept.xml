@@ -61,13 +61,13 @@
             <selector>preferred-conceptAuthority</selector>
         </field>
         <field id="scopeNote">
-            <selector>conceptAuthority-termScopeNote</selector>
+            <selector>conceptAuthority-scopeNote</selector>
         </field>
         <field id="scopeNoteSource">
-            <selector>conceptAuthority-termScopeNoteSource</selector>
+            <selector>conceptAuthority-scopeNoteSource</selector>
         </field>
-        <field id="scopeNoteDetail">
-            <selector>conceptAuthority-termScopeNoteDetail</selector>
+        <field id="scopeNoteSourceDetail">
+            <selector>conceptAuthority-scopeNoteSourceDetail</selector>
         </field>
         <field id="recordType"></field>
         <repeat id="citationGroupList/citationGroup">
