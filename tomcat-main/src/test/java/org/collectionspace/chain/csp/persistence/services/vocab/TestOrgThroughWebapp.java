@@ -33,7 +33,7 @@ public class TestOrgThroughWebapp  {
 			jetty=testbase.setupJetty();
 			}
 		catch(Exception ex){
-			
+			log.error("TestOrgThroughWebapp: Could not set up jetty! " + ex.getLocalizedMessage());
 		}
 	}
 	

@@ -684,8 +684,38 @@ public class Record implements FieldParent {
 		return mini_number;
 	}
 
+	private void findMiniNumber() {
+		if(mini_number==null) {
+			// Try child expanders to see if the mini_number is there.
+			// This handles case of mini_number for terms in the "preferred" termList sub-record
+			for(FieldSet fs : selfRenderers) {
+				Record subrecord = fs.getSelfRendererRecord();
+				FieldSet miniNumberFS = subrecord.getMiniNumber();
+				if(miniNumberFS != null) {
+					mini_number = miniNumberFS;
+					return;
+				}
+			}
+		}
+	}
+
 	public FieldSet getMiniSummary() {
 		return mini_summary;
+	}
+
+	private void findMiniSummary() {
+		if(mini_summary==null) {
+			// Try child expanders to see if the mini_summary is there.
+			// This handles case of mini_summary for terms in the "preferred" termList sub-record
+			for(FieldSet fs : selfRenderers) {
+				Record subrecord = fs.getSelfRendererRecord();
+				FieldSet miniSummaryFS = subrecord.getMiniNumber();
+				if(miniSummaryFS != null) {
+					mini_summary = miniSummaryFS;
+					return;
+				}
+			}
+		}
 	}
 
 	public FieldSet[] getAllMiniSummaryList() {
@@ -696,19 +726,36 @@ public class Record implements FieldParent {
 		return summarylist.get(key);
 	}
 
-	public FieldSet getDisplayNameField() {
-		if(display_name!=null)
-			return display_name;
-		// Try child expanders to see if the displayName is there.
-		// This handles case of displayName for terms in the "preferred" termList sub-record
+	// obsolete?
+	public void addMiniSummaryList(FieldSet f) {
+		summarylist.put(f.getID(), f);
+	}
+
+	private void mergeNestedSummaryLists() {
 		for(FieldSet fs : selfRenderers) {
 			Record subrecord = fs.getSelfRendererRecord();
-			FieldSet displayNameFS = subrecord.getDisplayNameField();
-			if(displayNameFS != null) {
-				return displayNameFS;
+			if(!subrecord.summarylist.isEmpty())
+				summarylist.putAll(subrecord.summarylist);
+		}
+	}
+
+	public FieldSet getDisplayNameField() {
+		return display_name;
+	}
+
+	private void findDisplayNameField() {
+		if(display_name==null) {
+			// Try child expanders to see if the displayName is there.
+			// This handles case of displayName for terms in the "preferred" termList sub-record
+			for(FieldSet fs : selfRenderers) {
+				Record subrecord = fs.getSelfRendererRecord();
+				FieldSet displayNameFS = subrecord.getDisplayNameField();
+				if(displayNameFS != null) {
+					display_name = displayNameFS;
+					return;
+				}
 			}
 		}
-		return null;
 	}
 
 
@@ -753,11 +800,6 @@ public class Record implements FieldParent {
 		spec.addInstance(n);
 	}
 
-	// obsolete?
-	public void addMiniSummaryList(FieldSet f) {
-		summarylist.put(f.getID(), f);
-	}
-
 	public void addMiniDataSet(FieldSet f, String s) {
 		// s:{ name: field, name: field, name: field }
 		if (!minidataset.containsKey(s)) {
@@ -775,6 +817,7 @@ public class Record implements FieldParent {
 		}
 		minidataset.get(s).put(r.getID(), r);
 	}
+	
 
 	public FieldSet[] getMiniDataSetByName(String s) {
 		if (minidataset.containsKey(s)) {
@@ -788,6 +831,25 @@ public class Record implements FieldParent {
 			return new String[0];
 		}
 		return minidataset.keySet().toArray(new String[0]);
+	}
+	
+	private void mergeNestedMiniLists() {
+		for(FieldSet fs : selfRenderers) {
+			Record subrecord = fs.getSelfRendererRecord();
+			for(String listName:subrecord.minidataset.keySet()) {
+				Map<String, FieldSet> subRecordMiniList = subrecord.minidataset.get(listName);
+				if(!subRecordMiniList.isEmpty()) {
+					Map<String, FieldSet> fieldsForList;
+					if (!minidataset.containsKey(listName)) {
+						fieldsForList = new HashMap<String, FieldSet>();
+						minidataset.put(listName, fieldsForList);
+					} else {
+						fieldsForList = minidataset.get(listName);
+					}
+					fieldsForList.putAll(subRecordMiniList);
+				}
+			}
+		}
 	}
 
 	void dump(StringBuffer out) {
@@ -920,6 +982,13 @@ public class Record implements FieldParent {
 			n.config_finish(spec);
 		for (FieldSet fs : fieldTopLevel.values())
 			fs.config_finish(spec);
+		// Handle nested self-renderers, to harvest things from nested like displayName, 
+		// mini lists, etc. 
+		findDisplayNameField();
+		findMiniNumber();
+		findMiniSummary();
+		mergeNestedSummaryLists();
+		mergeNestedMiniLists();
 	}
 
 	@Override

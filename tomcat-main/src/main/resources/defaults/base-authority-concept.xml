@@ -57,20 +57,27 @@
         <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
     </section>
     <section id="conceptAuthorityInformation">
-        <field id="displayName" ui-search="repeatable" in-title="yes" mini="number,list,search,relate,terms" display-name="yes">
-            <title-selector>titleBar-displayName</title-selector>
+        <field id="preferredConcept" ui-type="groupfield/preferredCA/selfrenderer" ui-func="cspace.preferred">
+            <selector>preferred-conceptAuthority</selector>
         </field>
-        <field id="qualifier" ui-search="repeatable"></field>
-        <field id="shortDisplayName" ui-search="repeatable"></field>
-        <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum"></field>
-        <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
-            <options>
-                <option id="">Please select a value</option>
-                <option id="descriptor">descriptor</option>
-                <option id="alternate descriptor">alternate descriptor</option>
-                <option id="used for term">used for term</option>
-            </options>
-        </field>
+        <field id="recordType"></field>
+        <field id="scopeNote"></field>
+        <field id="scopeNoteSource"></field>
+        <field id="scopeNoteSourceDetail"></field>
+        <repeat id="citationGroupList/citationGroup">
+            <!-- citationSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="citationSource"></field>
+            <field id="citationSourceDetail"></field>
+        </repeat>
+        <repeat id="additionalSourceGroupList/additionalSourceGroup">
+            <!-- additionalSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="additionalSource"></field>
+            <field id="additionalSourceDetail"></field>
+            <field id="additionalSourceID"></field>
+            <field id="additionalSourceNote"></field>
+        </repeat>
+        <!-- Should this field be present? -->
+        <field id="description"></field>
     </section>
     <!-- not used in UI except in autocompletes -->
     <section>
