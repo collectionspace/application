@@ -1,0 +1,64 @@
+<record id="preferredOA" in-recordlist="no" separate-record="false">
+    <hassoftdelete>true</hassoftdelete>
+    <section>
+        <!-- List containing this item's preferred term and any non-preferred terms -->
+        <repeat id="orgTermGroupList/orgTermGroup">
+            <!-- Fields common across all authority items -->
+            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
+                mini="summary,number,search,list,relate,terms">
+                <selector>orgAuthority-termDisplayName</selector>
+                <title-selector>titleBar-termDisplayName</title-selector>
+            </field>
+            <field id="termName">
+                <selector>orgAuthority-termName</selector>
+            </field>
+            <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
+                <selector>orgAuthority-termType</selector>
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="descriptor">descriptor</option>
+                    <option id="alternate descriptor">alternate descriptor</option>
+                    <option id="used for term">used for term</option>
+                </options>
+            </field>
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
+                <selector>orgAuthority-termStatus</selector>
+                <options>
+                    <option id="provisional" default="yes">Provisional</option>
+                    <option id="under review">Under Review</option>
+                    <option id="accepted">Accepted</option>
+                    <option id="rejected">Rejected</option>
+                </options>
+            </field>
+            <field id="termQualifier">
+                <selector>orgAuthority-Qualifier</selector>
+            </field>
+            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+                <selector>orgAuthority-termLanguage</selector>
+            </field>
+            <field id="termPrefForLang" datatype="boolean">
+                <selector>orgAuthority-termPrefForLang</selector>
+            </field>
+            <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="termSource">
+                <selector>orgAuthority-termSource</selector>
+            </field>
+            <field id="termSourceDetail">
+                <selector>orgAuthority-termSourceDetail</selector>
+            </field>
+            <field id="termSourceID">
+                <selector>orgAuthority-termSourceID</selector>
+            </field>
+            <field id="termSourceNote">
+                <selector>orgAuthority-termSourceNote</selector>
+            </field>
+            <!-- Fields specific to Organization terms -->
+            <field id="mainBodyName">
+                <selector>orgAuthority-mainBodyName</selector>
+            </field>
+            <field id="additionsToName">
+                <selector>orgAuthority-additionsToName</selector>
+            </field>
+        </repeat>
+    </section>
+</record>

@@ -263,6 +263,24 @@ public class Field implements FieldSet {
 		return utils.getBoolean("@exists-in-services");
 	}
 
+	/**
+	 * UI specific marking: YURA said: 
+	 * these are renderer decorators that do their own rendering so need some sub nesting
+	 * @param fs
+	 * @return
+	 */
+	public boolean isASelfRenderer(){
+		return getUIType().contains(SELFRENDERER);
+	}
+	
+	public Record getSelfRendererRecord() {
+		String parts[] = getUIType().split("/");
+		if(parts.length!=3 || !SELFRENDERER.equals(parts[2]))
+			return null;
+		Record subrecord = getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+		return subrecord;
+	}
+	
 	public boolean isExpander() {
 		return utils.getBoolean("@as-expander");
 	}

@@ -97,11 +97,18 @@ public class WebAutoComplete implements WebMethod {
 					for(String csid : paths) {
 						JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view", new JSONObject());
 						JSONObject entry=new JSONObject();
+						// TODO - handle multiple name matches
+						String displayName = data.getString(n.getRecord().getDisplayNameField().getID()); 
 						String refid = data.getString("refid");
-						entry.put("urn",refid);
-						entry.put("label",data.getString(n.getRecord().getDisplayNameField().getID()));
+						// HACK - transition period with full instead of base URN value
+						if(refid.endsWith("'"+displayName+"'"))
+							refid = refid.substring(0,refid.length()-(displayName.length()+2));
+						entry.put("baseUrn",refid);
 						entry.put("csid",data.getString("csid"));
 						entry.put("type",n.getRecord().getWebURL());
+						JSONArray displayNames=new JSONArray();
+						displayNames.put(displayName);
+						entry.put("displayNames", displayNames);
 						//RefName.AuthorityItem item = RefName.AuthorityItem.parse(refid); 
 						//entry.put("namespace",item.getParentShortIdentifier());
 						entry.put("namespace",data.getString("namespace"));

@@ -48,7 +48,7 @@ public class TestGeneral  {
 			jetty=tester.setupJetty();
 			}
 		catch(Exception ex){
-			
+			log.error("TestGeneral: Could not set up jetty! " + ex.getLocalizedMessage());
 		}
 	}
 	

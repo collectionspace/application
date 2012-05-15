@@ -309,7 +309,9 @@ public class WebUI implements CSP, UI, Configurable {
 
 	}
 	
-	public void config_finish() throws CSPDependencyException {
+	public void config_finish() throws CSPDependencyException {}
+	
+	public void complete_init() throws CSPDependencyException {
 		Spec spec=(Spec)ctx.getConfigRoot().getRoot(Spec.SPEC_ROOT);
 		if(spec==null)
 			throw new CSPDependencyException("Could not load spec");
