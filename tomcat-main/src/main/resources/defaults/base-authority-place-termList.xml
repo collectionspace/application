@@ -1,0 +1,81 @@
+<record id="preferredPlace" in-recordlist="no" separate-record="false">
+    <hassoftdelete>true</hassoftdelete>
+    <section>
+        <!-- List containing this item's preferred term and any non-preferred terms -->
+        <repeat id="placeTermGroupList/placeTermGroup">
+            <!-- Fields common across all authority items -->
+            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
+                mini="summary,number,search,list,relate,terms">
+                <selector>placeAuthority-termDisplayName</selector>
+                <title-selector>titleBar-displayName</title-selector>
+            </field>
+            <field id="termName" ui-search="repeatable">
+                <selector>placeAuthority-termName</selector>
+            </field>
+            <field id="termType">
+                <selector>placeAuthority-termType</selector>
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="common">Common name</option>
+                    <option id="technical-scientific">Technical or scientific name</option>
+                    <option id="native">Native name</option>
+                    <option id="non-native">Non-native name</option>
+                    <option id="local">Local name</option>
+                    <option id="descriptive">Descriptive name</option>
+                    <option id="spelling-variant">Spelling variant</option>
+                </options>
+            </field>
+            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
+                mini="search,list,relate">
+                <selector>placeAuthority-termStatus</selector>
+                <options>
+                    <option id="provisional" default="yes">Provisional</option>
+                    <option id="under review">Under Review</option>
+                    <option id="accepted">Accepted</option>
+                    <option id="rejected">Rejected</option>
+                </options>
+            </field>
+            <field id="termQualifier">
+                <selector>placeAuthority-termQualifier</selector>
+            </field>
+            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+                <selector>placeAuthority-termLanguage</selector>
+            </field>
+            <field id="termPrefForLang" datatype="boolean">
+                <selector>placeAuthority-termPrefForLang</selector>
+            </field>
+            <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="termSource">
+                <selector>placeAuthority-termSource</selector>
+            </field>
+            <field id="termSourceDetail">
+                <selector>placeAuthority-termSourceDetail</selector>
+            </field>
+            <field id="termSourceID">
+                <selector>placeAuthority-termSourceID</selector>
+            </field>
+            <field id="termSourceNote">
+                <selector>placeAuthority-termSourceNote</selector>
+            </field>
+            <!-- Fields specific to Place terms -->
+            <field id="historicalStatus">
+                <selector>placeAuthority-historicalStatus</selector>
+                <options>
+                    <option id="current" default="yes">Current</option>
+                    <option id="historical">Historical</option>
+                    <option id="both">Both</option>
+                </options>
+            </field>
+            <field id="nameAbbrev">
+                <selector>placeAuthority-nameAbbrev</selector>
+            </field>
+            <field id="nameNote">
+                <selector>placeAuthority-nameNote</selector>
+            </field>
+            <group id="nameDateGroup" ui-type="groupfield/structureddate"
+                primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range">
+                <selector>placeAuthority-nameDateGroup</selector>
+            </group>
+        </repeat>
+    </section>
+</record>
