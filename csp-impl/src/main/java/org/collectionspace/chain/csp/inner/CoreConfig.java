@@ -50,4 +50,5 @@ public class CoreConfig implements CSP, Configurable, ConfigRoot {
 	public Object getRoot(String key) { return roots.get(key); }
 
 	public void config_finish() {}
+	public void complete_init() {}
 }
