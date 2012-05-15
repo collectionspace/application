@@ -168,6 +168,9 @@ public class SchemaStructure {
 		else if("validated".equals(fs.getUIType())){
 			actualValidatedField(out, fs, context);
 		}
+		else if("computed".equals(fs.getUIType())){
+			actualComputedField(out, fs, context);
+		}
 		else if(isASelfRenderer(fs)){
 			actualSelfRendererField(out, fs, context);
 		}
@@ -211,7 +214,15 @@ public class SchemaStructure {
 	 */
 	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 	}
-	
+	/**
+	 * Write the JSON structure for a computed field.
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualComputedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+	}	
 	/**
 	 * Overwrite with output you need for this thing you are doing
 	 * @param out

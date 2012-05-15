@@ -109,6 +109,7 @@ public class Field implements FieldSet {
 		utils.initStrings(section,"@with-csid","");
 
 		utils.initStrings(section,"@ui-func", "");
+		utils.initStrings(section,"@ui-args", "");
 		utils.initStrings(section,"@ui-type", "plain");
 		utils.initStrings(section,"@ui-search", "");
 		if (utils.getString("@ui-type").equals("date")) {
@@ -250,6 +251,10 @@ public class Field implements FieldSet {
 		return utils.getString("@ui-func");
 	}
 
+	public String getUIArgs() {
+		return utils.getString("@ui-args");
+	}
+	
 	public Boolean isInTitle() {
 		return utils.getBoolean("@in-title");
 	}
