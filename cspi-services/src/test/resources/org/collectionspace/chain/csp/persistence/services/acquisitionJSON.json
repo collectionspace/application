@@ -1,9 +1,31 @@
 {
     "acquisitionReason": "newvalue",
-	"acquisitionDates":[],
     "acquisitionReferenceNumber": "acquisitionReferenceNumber",
-	
-    "accessionDate": "April 1, 2010",
+    "accessionDateGroup": {
+        "dateEarliestSingleQualifier": "",
+        "scalarValuesComputed": "true",
+        "dateLatestYear": "",
+        "dateLatestDay": "",
+        "dateAssociation": "",
+        "dateEarliestSingleEra": "",
+        "dateDisplayDate": "April 1, 2010",
+        "dateEarliestSingleCertainty": "",
+        "dateLatestEra": "",
+        "dateEarliestSingleQualifierValue": "",
+        "dateLatestCertainty": "",
+        "dateEarliestSingleYear": "",
+        "dateLatestQualifier": "",
+        "dateLatestQualifierValue": "",
+        "dateEarliestSingleQualifierUnit": "",
+        "datePeriod": "",
+        "dateEarliestScalarValue": "",
+        "dateLatestMonth": "",
+        "dateNote": "",
+        "dateLatestScalarValue": "",
+        "dateLatestQualifierUnit": "",
+        "dateEarliestSingleDay": "",
+        "dateEarliestSingleMonth": ""
+    },
     "acquisitionSources": [{
         "_primary": true,
         "acquisitionSource": "11111"

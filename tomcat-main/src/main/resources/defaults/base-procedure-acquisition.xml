@@ -67,9 +67,7 @@
                         </options>
                     </field>
                     <field id="accessionDateGroup" ui-search="range" ui-type="groupfield/structureddate" 
-                        primarykey="accessionDate.dateDisplayDate" ui-func="cspace.structuredDate">
-                        <!-- <services-tag>accessionDate</services-tag>
-                        <selector>acquisition-accession-date</selector> -->
+                        primarykey="accessionDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
                     </field>
                     
 				<!--	<group id="acquisitionAuthorizerHeader" exists-in-services="false"> -->
@@ -82,8 +80,7 @@
                     <repeat id="acquisitionDateGroupList/acquisitionDateGroup">
                       <group id="acquisitionDateGroup" ui-search="range" xxx-services-no-repeat="true" 
                           ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
-                          <selector>acquisition-date</selector>
-                          <container-selector>acquisition-acquisition-date-container</container-selector>
+                      </group>
                     </repeat>
                     
                     <field id="acquisitionMethod" ui-search="repeatable" seperate_ui_container="true">

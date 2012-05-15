@@ -268,6 +268,7 @@ public class TestService extends ServicesBaseClass {
 			parts = new HashMap<String, Document>();
 			parts.put(partname, getDocument(filename));
 	//		parts.put(partname1, getDocument(filename1));
+	        log.info("ERROR: at serviceurl: " + serviceurl.toString() + " with parts: " + parts + " and creds " + creds + " and cache " + cache);
 			url = conn.getMultipartURL(RequestMethod.POST, serviceurl
 					.toString(), parts, creds, cache);
 		} 

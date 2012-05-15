@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ns2:acquisitions_common xmlns:ns2="http://collectionspace.org/services/acquisition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/acquisition http://services.collectionspace.org/acquisition/acquisitions_common.xsd">
 <acquisitionReferenceNumber>acquisitionReferenceNumber</acquisitionReferenceNumber>
-<acquisitionDates/>
+<!-- <acquisitionDateGroup/> -->
 <acquisitionSources>
 <acquisitionSource>11111</acquisitionSource>
 <acquisitionSource>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</acquisitionSource>
@@ -20,7 +20,31 @@
                 <acquisitionFundingSourceProvisos>Fq</acquisitionFundingSourceProvisos>
 	</acquisitionFunding>
 </acquisitionFundingList>
-<accessionDate>April 1, 2010</accessionDate>
+<accessionDateGroup>
+    <dateEarliestSingleQualifier/>
+    <scalarValuesComputed>true</scalarValuesComputed>
+    <dateLatestDay/>
+    <dateLatestYear/>
+    <dateAssociation/>
+    <dateEarliestSingleEra/>
+    <dateDisplayDate>April 1, 2010</dateDisplayDate>
+    <dateEarliestSingleCertainty/>
+    <dateLatestEra/>
+    <dateEarliestSingleQualifierValue/>
+    <dateLatestCertainty/>
+    <dateEarliestSingleYear/>
+    <dateLatestQualifier/>
+    <dateLatestQualifierValue/>
+    <dateEarliestSingleQualifierUnit/>
+    <datePeriod/>
+    <dateEarliestScalarValue/>
+    <dateLatestMonth/>
+    <dateNote/>
+    <dateLatestScalarValue/>
+    <dateLatestQualifierUnit/>
+    <dateEarliestSingleDay/>
+    <dateEarliestSingleMonth/>
+</accessionDateGroup>
 <fieldCollectionEventNames/>
 <acquisitionReason>newvalue</acquisitionReason>
 <acquisitionMethod>acquisitionMethod</acquisitionMethod>

@@ -64,7 +64,7 @@
                     </field>
                     <field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
                     <field id="exitDateGroup" ui-search="range" ui-type="groupfield/structureddate" 
-                        primarykey="exitDate.dateDisplayDate" ui-func="cspace.structuredDate">
+                        primarykey="exitDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
                     </field>
                     <repeat id="exitMethods">
                         <field id="exitMethod" ui-search="repeatable">
