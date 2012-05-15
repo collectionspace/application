@@ -74,7 +74,8 @@ public class FileStorage extends ProxyStorage implements Storage, CSP, Configura
 			}
 		});	
 	}
-	public void config_finish() throws CSPDependencyException {
+	public void config_finish() throws CSPDependencyException {}
+	public void complete_init() throws CSPDependencyException {
 		real_init();
 	}
 	public CSPRequestCredentials createCredentials() { return null; }

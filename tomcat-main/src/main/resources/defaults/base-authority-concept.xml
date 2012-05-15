@@ -60,13 +60,13 @@
         <field id="preferredConcept" ui-type="groupfield/preferredCA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-conceptAuthority</selector>
         </field>
-        <field id="termScopeNote">
+        <field id="scopeNote">
             <selector>conceptAuthority-termScopeNote</selector>
         </field>
-        <field id="termScopeNoteSource">
+        <field id="scopeNoteSource">
             <selector>conceptAuthority-termScopeNoteSource</selector>
         </field>
-        <field id="termScopeNoteDetail">
+        <field id="scopeNoteDetail">
             <selector>conceptAuthority-termScopeNoteDetail</selector>
         </field>
         <field id="recordType"></field>
