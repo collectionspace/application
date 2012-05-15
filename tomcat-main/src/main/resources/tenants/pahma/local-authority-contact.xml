@@ -1,0 +1,63 @@
+<record id="contact">
+	<section id="contactInformation">
+		<repeat id="emailGroupList/emailGroup">
+			<field id="emailType">
+				<!-- Change options -->
+				<options>
+					<option id="">(none selected)</option>
+					<option id="business">business</option>
+					<option id="personal">personal</option>
+					<option id="other">other</option>
+				</options>
+			</field>
+		</repeat>
+		
+		<repeat id="webAddressGroupList/webAddressGroup">
+			<field id="webAddressType">
+				<!-- Change options -->
+				<options>
+					<option id="">(none selected)</option>
+					<option id="business">business</option>
+					<option id="personal">personal</option>
+					<option id="other">other</option>
+				</options>
+			</field>
+		</repeat>
+		
+		<repeat id="telephoneNumberGroupList/telephoneNumberGroup">
+			<field id="telephoneNumberType">
+				<!-- Change options -->
+				<options>
+					<option id="">(none selected)</option>
+					<option id="business">business</option>
+					<option id="home">home</option>
+					<option id="mobile">mobile</option>
+					<option id="other">other</option>
+				</options>
+			</field>
+		</repeat>
+
+		<repeat id="faxNumberGroupList/faxNumberGroup">
+			<field id="faxNumberType">
+				<!-- Change options -->
+				<options>
+					<option id="">(none selected)</option>
+					<option id="business">business</option>
+					<option id="home">home</option>
+					<option id="other">other</option>
+				</options>
+			</field>
+		</repeat>
+		
+		<repeat id="addressGroupList/addressGroup">
+			<field id="addressType">
+				<!-- Change options -->
+				<options>
+					<option id="">(none selected)</option>
+					<option id="current">current</option>
+					<option id="previous">previous</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>
