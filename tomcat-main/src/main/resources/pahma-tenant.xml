@@ -23,7 +23,7 @@
 			<include src="base-authority-contact.xml,local-authority-contact.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-location.xml,local-authority-location.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-organization.xml,local-authority-organization.xml" merge="xmlmerge.properties"/>
-			<include src="base-authority-person.xml"/>
+			<include src="base-authority-person.xml,local-authority-person.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-place.xml"/>
 			<include src="base-authority-taxon.xml"/>
 			<include src="base-authority-concept.xml"/>
