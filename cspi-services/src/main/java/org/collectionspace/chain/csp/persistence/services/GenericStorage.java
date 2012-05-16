@@ -1755,20 +1755,26 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 		}
 		else{
+			String[] allfields = null;
+			String fieldsReturnedName = r.getServicesFieldsPath();
 			for(Node node : nodes) {
 				if(node.matches(matchlistitem)){
 					List<Node> fields=node.selectNodes("*");
 					String csid="";
+					String urlPlusCSID = null;
 					if(node.selectSingleNode(csidfield)!=null){
 						csid=node.selectSingleNode(csidfield).getText();
+						urlPlusCSID = r.getServicesURL()+"/"+csid;
 					}
 					JSONObject test = new JSONObject();
 					for(Node field : fields) {
 						if(csidfield.equals(field.getName())) {
 							if(!fullcsid){
 								int idx=csid.lastIndexOf("/");
-								if(idx!=-1)
+								if(idx!=-1) {
 									csid=csid.substring(idx+1);
+									urlPlusCSID = r.getServicesURL()+"/"+csid;
+								}
 							}
 							test.put("csid", csid);
 						} else {
@@ -1782,7 +1788,7 @@ public class GenericStorage  implements ContextualisedStorage {
 										value+=n.getText();
 									}
 								}
-								String gleanname = r.getServicesURL()+"/"+csid;
+								String gleanname = urlPlusCSID;
 								if(csidfield.equals("uri")){
 									gleanname = csid;
 								}
@@ -1792,17 +1798,20 @@ public class GenericStorage  implements ContextualisedStorage {
 						}
 					}
 					listitems.add(test);
-					/* this hopefully will reduce fan out - needs more testing */
-					if(list.selectSingleNode(r.getServicesFieldsPath())!=null){
-						String myfields = list.selectSingleNode(r.getServicesFieldsPath()).getText();
-						String[] allfields = myfields.split("\\|");
+					if(allfields==null || allfields.length==0) {
+						log.warn("Missing fieldsReturned value - may cause fan-out!");
+					} else {
+						// Mark all the fields not yet found as gleaned - 
 						for(String s : allfields){
-							String gleaned = getGleanedValue(cache,r.getServicesURL()+"/"+csid,s);
+							String gleaned = getGleanedValue(cache,urlPlusCSID,s);
 							if(gleaned==null){
-								setGleanedValue(cache,r.getServicesURL()+"/"+csid,s,"");
+								setGleanedValue(cache,urlPlusCSID,s,"");
 							}
 						}
 					}
+				} else if(fieldsReturnedName.equals(node.getName())){
+					String myfields = node.getText();
+					allfields = myfields.split("\\|");
 				}
 				else{
 					pagination.put(node.getName(), node.getText());
@@ -1855,19 +1864,25 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 		}
 		else{
+			String[] allfields = null;
+			String fieldsReturnedName = r.getServicesFieldsPath();
 			for(Node node : nodes) {
 				if(node.matches(matchlistitem)){
 					List<Node> fields=node.selectNodes("*");
 					String csid="";
+					String urlPlusCSID = null;
 					if(node.selectSingleNode(csidfield)!=null){
 						csid=node.selectSingleNode(csidfield).getText();
+						urlPlusCSID = r.getServicesURL()+"/"+csid;
 					}
 					for(Node field : fields) {
 						if(csidfield.equals(field.getName())) {
 							if(!fullcsid){
 								int idx=csid.lastIndexOf("/");
-								if(idx!=-1)
+								if(idx!=-1) {
 									csid=csid.substring(idx+1);
+									urlPlusCSID = r.getServicesURL()+"/"+csid;
+								}
 							}
 							listitems.add(csid);
 						} else {
@@ -1881,23 +1896,25 @@ public class GenericStorage  implements ContextualisedStorage {
 										value+=n.getText();
 									}
 								}
-								setGleanedValue(cache,r.getServicesURL()+"/"+csid,json_name,value);
+								setGleanedValue(cache,urlPlusCSID,json_name,value);
 							}
 						}
 					}
-					/* this hopefully will reduce fan out - needs more testing */
-					if(list.selectSingleNode(r.getServicesFieldsPath())!=null){
-						String myfields = list.selectSingleNode(r.getServicesFieldsPath()).getText();
-						String[] allfields = myfields.split("\\|");
+					if(allfields==null || allfields.length==0) {
+						log.warn("Missing fieldsReturned value - may cause fan-out!");
+					} else {
+						// Mark all the fields not yet found as gleaned - 
 						for(String s : allfields){
-							String gleaned = getGleanedValue(cache,r.getServicesURL()+"/"+csid,s);
+							String gleaned = getGleanedValue(cache,urlPlusCSID,s);
 							if(gleaned==null){
-								setGleanedValue(cache,r.getServicesURL()+"/"+csid,s,"");
+								setGleanedValue(cache,urlPlusCSID,s,"");
 							}
 						}
 					}
-				}
-				else{
+				} else if(fieldsReturnedName.equals(node.getName())){
+					String myfields = node.getText();
+					allfields = myfields.split("\\|");
+				} else {
 					pagination.put(node.getName(), node.getText());
 				}
 			}

@@ -22,6 +22,7 @@ import org.collectionspace.chain.csp.schema.Structure;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
+import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
@@ -98,16 +99,16 @@ public class WebAutoComplete implements WebMethod {
 						JSONObject data=storage.retrieveJSON(path+"/"+csid+"/view", new JSONObject());
 						JSONObject entry=new JSONObject();
 						// TODO - handle multiple name matches
-						String displayName = data.getString(n.getRecord().getDisplayNameField().getID()); 
+						String displayNameString = data.getString(n.getRecord().getDisplayNameField().getID());
+						JSONArray displayNames = JSONUtils.createJSONArrayFromSeparatedString(displayNameString);
+						String primaryDN = displayNames.getString(0);
 						String refid = data.getString("refid");
 						// HACK - transition period with full instead of base URN value
-						if(refid.endsWith("'"+displayName+"'"))
-							refid = refid.substring(0,refid.length()-(displayName.length()+2));
+						if(refid.endsWith("'"+primaryDN+"'"))
+							refid = refid.substring(0,refid.length()-(primaryDN.length()+2));
 						entry.put("baseUrn",refid);
 						entry.put("csid",data.getString("csid"));
 						entry.put("type",n.getRecord().getWebURL());
-						JSONArray displayNames=new JSONArray();
-						displayNames.put(displayName);
 						entry.put("displayNames", displayNames);
 						//RefName.AuthorityItem item = RefName.AuthorityItem.parse(refid); 
 						//entry.put("namespace",item.getParentShortIdentifier());
