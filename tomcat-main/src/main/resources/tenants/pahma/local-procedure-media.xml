@@ -1,0 +1,24 @@
+<record id="media">
+	<section id="mediaInformation">
+		<repeat id="languages">
+			<field id="language">
+				<enum>
+					<!-- Add blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+		<repeat id="types">
+			<field id="type">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="document">document</option>
+					<option id="image">image</option>
+					<option id="slide">slide</option>
+					<option id="video">video</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>
