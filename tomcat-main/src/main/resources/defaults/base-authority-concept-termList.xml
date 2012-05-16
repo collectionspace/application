@@ -60,6 +60,7 @@
                     <option id="current" default="yes">Current</option>
                     <option id="historical">Historical</option>
                     <option id="both">Both</option>
+                    <option id="unknown">Unknown</option>
                 </options>
             </field>
         </repeat>
