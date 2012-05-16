@@ -30,6 +30,7 @@ import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Repeat;
+import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
 import org.collectionspace.csp.api.persistence.ExistException;
@@ -590,60 +591,50 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			String vocab = RefName.shortIdToPath(rootPath);
 			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
 				
-			String prefix=null;
-
-			if(restrictions!=null){
-				if(restrictions.has(getDisplayNameKey())){
-					prefix=restrictions.getString(getDisplayNameKey()); 
-				}
-			}
-
 			String path = getRestrictedPath(url, restrictions, r.getServicesSearchKeyword(), "", true, getDisplayNameKey() );
-			
 
 			if(r.hasSoftDeleteMethod()){
 				path = softpath(path);
 			}
-			/* No reason to get children when fetch a list - just extra cruft.
-			if(r.hasHierarchyUsed("screen")){
-				path = hierarchicalpath(path);
-			}
-			*/
 			
 			ReturnedDocument data = conn.getXMLDocument(RequestMethod.GET,path,null,creds,cache);
 			Document doc=data.getDocument();
 
 			if(doc==null)
-				throw new UnderlyingStorageException("Could not retrieve vocabularies",data.getStatus(),path);
+				throw new UnderlyingStorageException("Could not retrieve vocabulary items",data.getStatus(),path);
 			String[] tag_parts=r.getServicesListPath().split(",",2);
 			
 			JSONObject pagination = new JSONObject();
+			String[] allfields = null;
+			String fieldsReturnedName = r.getServicesFieldsPath();
 			List<Node> nodes = doc.selectNodes("/"+tag_parts[1].split("/")[0]+"/*");
 			for(Node node : nodes){
 				if(node.matches("/"+tag_parts[1])){
 					// Risky hack - assumes displayName must be at root. Really should
 					// understand that the list results are a different schema from record GET.
 					String dnName = getDisplayNameKey();
-					String name=node.selectSingleNode(dnName).getText();
 					String csid=node.selectSingleNode("csid").getText();
-					/*
-					String refName=null;
-					if(node.selectSingleNode("refName")!=null){
-						refName=node.selectSingleNode("refName").getText();
+					list.add(csid);
+					String urlPlusCSID = url+"/"+csid;
+					
+					List<Node> nameNodes=node.selectNodes(dnName);
+					String nameListValue = null;
+					for(Node nameNode : nameNodes) {
+						String name=nameNode.getText();
+						if(nameListValue == null) {
+							nameListValue = name;
+						} else {
+							nameListValue = JSONUtils.appendWithArraySeparator(nameListValue, name); 
+						}
 					}
-					String shortIdentifier=null;
-					if(node.selectSingleNode("shortIdentifier")!=null){
-						shortIdentifier=node.selectSingleNode("shortIdentifier").getText();
+					if(nameListValue==null) {
+						throw new JSONException("No displayNames found!");
+					} else {
+						String json_name=view_map.get(dnName);
+						setGleanedValue(cache,urlPlusCSID,json_name,nameListValue);
 					}
-					*/
-					if(prefix==null || name.toLowerCase().contains(prefix.toLowerCase())){
-						list.add(csid);
-					}
-					//cache.setCached(getClass(),new String[]{"namefor",vocab,csid},name);
-					//cache.setCached(getClass(),new String[]{"reffor",vocab,csid},refName);
-					//cache.setCached(getClass(),new String[]{"shortId",vocab,csid},shortIdentifier);
 
-					List<Node> fields=node.selectNodes("*");
+					List<Node> fields=node.selectNodes("*[(name()!='"+dnName+"')]");
 					for(Node field : fields) {
 						String json_name=view_map.get(field.getName());
 						if(json_name!=null) {
@@ -655,22 +646,24 @@ public class ConfiguredVocabStorage extends GenericStorage {
 									value+=n.getText();
 								}
 							}
-							setGleanedValue(cache,url+"/"+csid,json_name,value);
+							setGleanedValue(cache,urlPlusCSID,json_name,value);
 						}
 					}
-					/* this hopefully will reduce fan out - needs more testing */
-					if(doc.selectSingleNode(r.getServicesFieldsPath())!=null){
-						String myfields = doc.selectSingleNode(r.getServicesFieldsPath()).getText();
-						String[] allfields = myfields.split("\\|");
+					if(allfields==null || allfields.length==0) {
+						log.warn("Missing fieldsReturned value - may cause fan-out!");
+					} else {
+						// Mark all the fields not yet found as gleaned - 
 						for(String s : allfields){
-							String gleaned = getGleanedValue(cache,vocab+"/"+csid,s);
+							String gleaned = getGleanedValue(cache,urlPlusCSID,s);
 							if(gleaned==null){
-								setGleanedValue(cache,url+"/"+csid,s,"");
+								setGleanedValue(cache,urlPlusCSID,s,"");
 							}
 						}
 					}
-					
-				}else{
+				} else if(fieldsReturnedName.equals(node.getName())){
+					String myfields = node.getText();
+					allfields = myfields.split("\\|");
+				} else {
 					pagination.put(node.getName(), node.getText());
 				}
 			}
