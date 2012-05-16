@@ -58,23 +58,23 @@
         <field id="taxonRank" ui-search="repeatable" seperate_ui_container="true">
             <options>
                 <option id="" default="yes">Please select a value</option>
-                <option id="domain">domain</option>
-                <option id="kingdom">kingdom</option>
-                <option id="phylum">phylum</option>
-                <option id="division">division</option>
-                <option id="family">family</option>
-                <option id="class">class</option>
-                <option id="order">order</option>
-                <option id="genus">genus</option>
-                <option id="species">species</option>
+                <option id="domain">Domain</option>
+                <option id="kingdom">Kingdom</option>
+                <option id="phylum">Phylum</option>
+                <option id="division">Division</option>
+                <option id="family">Family</option>
+                <option id="class">Class</option>
+                <option id="order">Order</option>
+                <option id="genus">Genus</option>
+                <option id="species">Species</option>
             </options>
         </field>
         <field id="taxonCurrency" ui-search="repeatable" seperate_ui_container="true">
             <options>
                 <option id="" default="yes">Please select a value</option>
-                <option id="current">current</option>
-                <option id="obsolete">obsolete</option>
-                <option id="archaic">archaic</option>
+                <option id="current">Current</option>
+                <option id="obsolete">Obsolete</option>
+                <option id="archaic">Archaic</option>
             </options>
         </field>
         <repeat id="taxonAuthorGroupList/taxonAuthorGroup" has-primary="yes">
@@ -82,8 +82,8 @@
             <field id="taxonAuthorType" seperate_ui_container="true">
                 <options>
                     <option id="" default="yes">Please select a value</option>
-                    <option id="ascribed">ascribed</option>
-                    <option id="parenthetical">parenthetical</option>
+                    <option id="ascribed">Ascribed</option>
+                    <option id="parenthetical">Parenthetical</option>
                 </options>
             </field>
         </repeat>
@@ -93,6 +93,12 @@
         </repeat>
         <field id="taxonNote"/>
         <field id="taxonIsNamedHybrid" datatype="boolean" ui-search="repeatable"></field>
+        <repeat id="commonNameGroupList/commonNameGroup" has-primary="yes">
+            <field id="commonName" ui-search="repeatable"/>
+            <field id="commonNameLanguage" autocomplete="vocab-languages" ui-type="enum"/>
+            <field id="commonNameSource"/>
+            <field id="commonNameSourceDetail"/>
+        </repeat>
     </section>
 
     <!-- not used in UI except in autocompletes -->
