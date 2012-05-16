@@ -808,18 +808,20 @@ public class GenericStorage  implements ContextualisedStorage {
 	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path, Record vr) throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
 
 		JSONObject out=new JSONObject();
-			try{
+		Map<String,String> old_good=view_good;// map of servicenames of fields to descriptors
+		Map<String,String> old_map=view_map; // map of csid to service name of field
+		Set<String> old_deurn=xxx_view_deurn;
+		Map<String,List<String>>old_merge =view_merge;
+
+		try{
 
 			Map<String,String> reset_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
 			Map<String,String> reset_map=new HashMap<String,String>(); // map of csid to service name of field
-			Map<String,String> old_good=view_good;// map of servicenames of fields to descriptors
-			Map<String,String> old_map=view_map; // map of csid to service name of field
-			Set<String> old_deurn=xxx_view_deurn;
-			Map<String,List<String>>old_merge =view_merge;
 			Set<String> reset_deurn=new HashSet<String>();
 			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
 			if(vr.hasRefObjUsed()){
-				//XXX need a way to append the data needed from the field whcih we don't know until after we have got the information...
+				//XXX need a way to append the data needed from the field,
+				// which we don't know until after we have got the information...
 				reset_map.put("docType", "docType");
 				reset_map.put("docId", "docId");
 				reset_map.put("docNumber", "docNumber");
@@ -835,7 +837,9 @@ public class GenericStorage  implements ContextualisedStorage {
 				xxx_view_deurn = reset_deurn;
 				view_merge = reset_merge;
 				
-				String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
+				//String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
+				// Need to pick up pagination, etc. 
+				String nodeName = "authority-ref-doc-list/*";
 				JSONObject data = getRepeatableListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, vr);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
 
 				reset_good = view_good;
@@ -893,10 +897,6 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 			}
 
-			view_good = old_good;
-			view_map = old_map;
-			xxx_view_deurn = old_deurn;
-			view_merge = old_merge;
 			return out;
 		} catch (ConnectionException e) {
 			log.error("failed to retrieve refObjs for "+path);
@@ -910,6 +910,12 @@ public class GenericStorage  implements ContextualisedStorage {
 			out.put("Functionality Failed",dataitem);
 			//return out;
 			throw new UnderlyingStorageException("Connection problem"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} finally {
+			// Ensure we restore the gleaning views even if we get a failure (CSPACE-4424)
+			view_good = old_good;
+			view_map = old_map;
+			xxx_view_deurn = old_deurn;
+			view_merge = old_merge;
 		}
 	}
 	/**
@@ -1799,7 +1805,10 @@ public class GenericStorage  implements ContextualisedStorage {
 					}
 					listitems.add(test);
 					if(allfields==null || allfields.length==0) {
-						log.warn("Missing fieldsReturned value - may cause fan-out!");
+						if(log.isWarnEnabled()) {
+							log.warn("getRepeatableHardListView(): Missing fieldsReturned value - may cause fan-out!\nRecord:"
+								+r.getID()+" request to: "+path);
+						}
 					} else {
 						// Mark all the fields not yet found as gleaned - 
 						for(String s : allfields){
@@ -1901,7 +1910,10 @@ public class GenericStorage  implements ContextualisedStorage {
 						}
 					}
 					if(allfields==null || allfields.length==0) {
-						log.warn("Missing fieldsReturned value - may cause fan-out!");
+						if(log.isWarnEnabled()) {
+							log.warn("getHardListView(): Missing fieldsReturned value - may cause fan-out!\nRecord:"
+								+r.getID()+" request to: "+path);
+						}
 					} else {
 						// Mark all the fields not yet found as gleaned - 
 						for(String s : allfields){
