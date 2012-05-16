@@ -1,0 +1,13 @@
+<record id="organization">
+	<section id="organizationNameAuthorityInformation">
+		<field id="termStatus">
+			<!-- Change options -->
+			<options>
+				<option id="provisional" default="yes">provisional</option>
+				<option id="underReview">under review</option>
+				<option id="accepted">accepted</option>
+				<option id="rejected">rejected</option>
+			</options>
+		</field>
+	</section>
+</record>
