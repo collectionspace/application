@@ -23,6 +23,7 @@
       <include src="base-procedure-objectexit.xml"/>
 
       <include src="base-authority-contact.xml"/>
+      <!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
       <include src="base-authority-location-termList.xml"/>
       <include src="base-authority-location.xml"/>
       <include src="base-authority-organization-termList.xml"/>
