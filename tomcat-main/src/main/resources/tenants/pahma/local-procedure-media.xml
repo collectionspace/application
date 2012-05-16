@@ -1,4 +1,6 @@
 <record id="media">
+	<services-record-path id="pahma">media_pahma:http://collectionspace.org/services/media/local/pahma,media_pahma</services-record-path>
+
 	<section id="mediaInformation">
 		<repeat id="languages">
 			<field id="language">
@@ -20,5 +22,19 @@
 				</options>
 			</field>
 		</repeat>
+		<field id="approvedForWeb" section="pahma">
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="no">No</option>
+				<option id="yes">Yes</option>
+			</options>
+		</field>
+		<field id="primaryDisplay" section="pahma">
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="no">No</option>
+				<option id="yes">Yes</option>
+			</options>
+		</field>
 	</section>
 </record>
