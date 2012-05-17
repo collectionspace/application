@@ -16,9 +16,9 @@
                 <selector>conceptAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>
-                    <option id="descriptor">descriptor</option>
-                    <option id="alternate descriptor">alternate descriptor</option>
-                    <option id="used for term">used for term</option>
+                    <option id="descriptor">Descriptor</option>
+                    <option id="alternate descriptor">Alternate Descriptor</option>
+                    <option id="used for term">Used for Term</option>
                 </options>
             </field>
             <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
@@ -60,6 +60,7 @@
                     <option id="current" default="yes">Current</option>
                     <option id="historical">Historical</option>
                     <option id="both">Both</option>
+                    <option id="unknown">Unknown</option>
                 </options>
             </field>
         </repeat>

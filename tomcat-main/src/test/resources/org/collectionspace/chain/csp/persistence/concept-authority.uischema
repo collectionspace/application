@@ -13,6 +13,24 @@
                     "tenantID": {
                         "type": "string"
                     },
+                    "citationGroup": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "citationSourceDetail": {
+                                    "type": "string"
+                                },
+                                "citationSource": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
                     "relatedTerms": {
                         "items": {
                             "properties": {
@@ -28,7 +46,7 @@
                         },
                         "type": "array"
                     },
-                    "qualifier": {
+                    "scopeNoteSourceDetail": {
                         "type": "string"
                     },
                     "csid": {
@@ -37,28 +55,73 @@
                     "uri": {
                         "type": "string"
                     },
-                    "termLanguage": {
-                        "default": "",
+                    "updatedBy": {
                         "type": "string"
                     },
-                    "updatedBy": {
+                    "shortIdentifier": {
                         "type": "string"
                     },
                     "updatedAt": {
                         "type": "date"
                     },
-                    "shortIdentifier": {
-                        "type": "string"
-                    },
-                    "shortDisplayName": {
-                        "type": "string"
-                    },
-                    "termType": {
-                        "default": "",
-                        "type": "string"
-                    },
                     "createdBy": {
                         "type": "string"
+                    },
+                    "scopeNote": {
+                        "type": "string"
+                    },
+                    "conceptTermGroup": {
+                        "items": {
+                            "properties": {
+                                "termName": {
+                                    "type": "string"
+                                },
+                                "termSource": {
+                                    "type": "string"
+                                },
+                                "termSourceID": {
+                                    "type": "string"
+                                },
+                                "termSourceNote": {
+                                    "type": "string"
+                                },
+                                "termLanguage": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "historicalStatus": {
+                                    "default": "current",
+                                    "type": "string"
+                                },
+                                "termPrefForLang": {
+                                    "default": false,
+                                    "type": "boolean"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "termDisplayName": {
+                                    "type": "string"
+                                },
+                                "termType": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "termStatus": {
+                                    "default": "provisional",
+                                    "type": "string"
+                                },
+                                "termQualifier": {
+                                    "type": "string"
+                                },
+                                "termSourceDetail": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
                     },
                     "broaderContext": {
                         "type": "string"
@@ -66,11 +129,38 @@
                     "createdAt": {
                         "type": "string"
                     },
+                    "description": {
+                        "type": "string"
+                    },
                     "termStatus": {
                         "type": "string"
                     },
                     "refName": {
                         "type": "string"
+                    },
+                    "additionalSourceGroup": {
+                        "items": {
+                            "properties": {
+                                "additionalSourceDetail": {
+                                    "type": "string"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "additionalSource": {
+                                    "type": "string"
+                                },
+                                "additionalSourceID": {
+                                    "type": "string"
+                                },
+                                "additionalSourceNote": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
                     },
                     "equivalentContexts": {
                         "items": {
@@ -102,7 +192,10 @@
                         },
                         "type": "array"
                     },
-                    "displayName": {
+                    "recordType": {
+                        "type": "string"
+                    },
+                    "scopeNoteSource": {
                         "type": "string"
                     }
                 },

@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -70,12 +71,30 @@ public class TestNameThroughWebapp{
 		}
 	}
 	
+	private static final String PERSON_TERMLIST_ELEMENT = "personTermGroup";
+	private static final String ORG_TERMLIST_ELEMENT = "orgTermGroup";
+	private static final String TERM_DISPLAYNAME_ELEMENT = "termDisplayName";
+	private static final String DISPLAY_NAMES = "displayNames";
+	private static final String DISPLAY_NAME = "displayName";
+
+	private static JSONObject createTrivialAuthItem(String termGroup, String name) throws JSONException {
+		JSONObject item=new JSONObject();
+		JSONArray termInfoArray = new JSONArray();
+		JSONObject termInfo = new JSONObject();
+		termInfo.put(TERM_DISPLAYNAME_ELEMENT, name);
+		termInfoArray.put(termInfo);
+		JSONObject fields = new JSONObject();
+		fields.put(termGroup, termInfoArray);
+		item.put("fields", fields);
+		return item;
+	}
+	
 	//XXX change so creates person and then tests person exists
 	@Test public  void testAutocomplete() throws Exception {
 		ServletTester jetty = tester.setupJetty();
 		log.info("NAME: Autocomplete: test_start");
 		// Create the entry we are going to check for
-		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTNursultan Nazarbayev'}}");
+		JSONObject data=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, "XXXTESTNursultan Nazarbayev");
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
 		String url=out.getHeader("Location");
 			
@@ -84,8 +103,9 @@ public class TestNameThroughWebapp{
 		JSONArray testdata = new JSONArray(out.getContent());
 		for(int i=0;i<testdata.length();i++) {
 			JSONObject entry=testdata.getJSONObject(i);
-			assertTrue(entry.getString("label").toLowerCase().contains("xxxtestnursultan nazarbayev"));
-			assertTrue(entry.has("urn"));
+			JSONArray displayNames = entry.getJSONArray(DISPLAY_NAMES);
+			assertTrue(displayNames.getString(0).toLowerCase().contains("xxxtestnursultan nazarbayev"));
+			assertTrue(entry.has("baseUrn"));
 		}
 		
 		// Delete the entry from the database
@@ -152,7 +172,7 @@ public class TestNameThroughWebapp{
 		ServletTester jetty = tester.setupJetty();
 		log.info("NAME: AuthoritiesSearch: test_start");
 		// Create the entry we are going to check for
-		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTJacob Zuma'}}");
+		JSONObject data=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, "XXXTESTJacob Zuma");
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
 
 		log.info(out.getContent());
@@ -165,8 +185,8 @@ public class TestNameThroughWebapp{
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			assertTrue(entry.getString("displayName").toLowerCase().contains("xxxtestjacob zuma"));
-			assertEquals(entry.getString("number"),entry.getString("displayName"));
+			assertTrue(entry.getString(TERM_DISPLAYNAME_ELEMENT).toLowerCase().contains("xxxtestjacob zuma"));
+			assertEquals(entry.getString("number"),entry.getString(TERM_DISPLAYNAME_ELEMENT));
 			assertTrue(entry.has("refid"));
 		}
 		
@@ -198,13 +218,13 @@ public class TestNameThroughWebapp{
 		log.info("NAME: NamesSearch: test_start");
 		//tester.GETData("/quick-reset",jetty);
 		// Create the entry we are going to check for
-		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTRaul Castro'}}");
+		JSONObject data=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, "XXXTESTRaul Castro");
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
 		String url=out.getHeader("Location");
 		JSONObject payload = new JSONObject();
 		JSONObject searchfields = new JSONObject();
 		
-		searchfields.put("displayName", "XXXTestR*");
+		searchfields.put(TERM_DISPLAYNAME_ELEMENT, "XXXTESTR*");
 		
 		payload.put("operation", "or");
 		payload.put("fields", searchfields);
@@ -214,8 +234,9 @@ public class TestNameThroughWebapp{
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			assertTrue(entry.getString("displayName").toLowerCase().contains("xxxtestraul castro"));
-			assertEquals(entry.getString("number"),entry.getString("displayName"));
+			JSONArray displayNames = entry.getJSONArray(DISPLAY_NAMES);
+			assertTrue(displayNames.getString(0).toLowerCase().contains("xxxtestraul castro"));
+			assertEquals(entry.getString("number"),entry.getString(TERM_DISPLAYNAME_ELEMENT));
 			assertTrue(entry.has("refid"));
 		}
 		
@@ -228,7 +249,7 @@ public class TestNameThroughWebapp{
 		log.info("NAME: NamesSearch: test_start");
 		//tester.GETData("/quick-reset",jetty);
 		// Create the entry we are going to check for
-		JSONObject data=new JSONObject("{'fields':{'displayName':'XXXTESTRaul Castro'}}");
+		JSONObject data=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, "XXXTESTRaul Castro");
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
 		String url=out.getHeader("Location");
 		
@@ -237,8 +258,8 @@ public class TestNameThroughWebapp{
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
 			JSONObject entry=results.getJSONObject(i);
-			assertTrue(entry.getString("displayName").toLowerCase().contains("xxxtestraul castro"));
-			assertEquals(entry.getString("number"),entry.getString("displayName"));
+			assertTrue(entry.getString(TERM_DISPLAYNAME_ELEMENT).toLowerCase().contains("xxxtestraul castro"));
+			assertEquals(entry.getString("number"),entry.getString(TERM_DISPLAYNAME_ELEMENT));
 			assertTrue(entry.has("refid"));
 		}
 		
@@ -264,10 +285,51 @@ public class TestNameThroughWebapp{
 		assertTrue(found);
 	}
 	*/
+	
+	private JSONObject simplePerson(String name) throws JSONException {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{'fields': {'");
+		sb.append(PERSON_TERMLIST_ELEMENT); 
+		sb.append("':[{'"); 
+		sb.append(TERM_DISPLAYNAME_ELEMENT);
+		sb.append("': '");
+		sb.append(name);
+		sb.append("'}]}}");
+		String full = sb.toString();
+		JSONObject data=new JSONObject(full);
+		return data;
+	}
+
+	private JSONObject personWithContact(String name, boolean fFull) throws JSONException {
+		StringBuilder sb = new StringBuilder();
+		sb.append("{'csid': '', 'fields':");
+		sb.append(" {'"+PERSON_TERMLIST_ELEMENT+"':[{'"); 
+		sb.append(TERM_DISPLAYNAME_ELEMENT+"': '"+name+"'");
+		if(fFull) {
+			sb.append(", 'salutation': 'Your Majaesty','termStatus': 'under review',");
+			sb.append("'title': 'Miss', 'foreName': 'sdf', 'middleName': 'sdf', ");
+			sb.append(" 'surName': 'sdf', 'nameAdditions': 'sdf', 'initials': 'sdf'}],");
+			sb.append(" 'gender': 'female', 'nameNote': 'sdf','bioNote': 'sdfsdf',");
+		} else {
+			sb.append("}],");
+		}
+		//'contact': {'emailGroup': [{'email': 'test@example.com','emailType': 'home' }],
+		//            'addressGroup': [{'addressPlace1': 'addressPlace1','addressPlace2': 'addressPlace2','addressMunicipality': 'addressMunicipality','addressStateOrProvince': 'addressStateOrProvince', 'addressPostCode': 'addressPostCode','addressCountry': 'addressCountry' },
+		//				               {'addressPlace1': 'SECOND_addressPlace1','addressPlace2': 'SECOND_addressPlace2','addressMunicipality': 'SECOND_addressMunicipality','addressStateOrProvince': 'SECOND_addressStateOrProvince','addressPostCode': 'SECOND_addressPostCode', 'addressCountry': 'SECOND_addressCountry'}
+		//                            ]}
+		sb.append(" 'contact': {'emailGroup': [{'email': 'test@example.com','emailType': 'home' }],");
+		sb.append("'addressGroup': [{'addressPlace1': 'addressPlace1','addressPlace2': 'addressPlace2','addressMunicipality': 'addressMunicipality','addressStateOrProvince': 'addressStateOrProvince', 'addressPostCode': 'addressPostCode','addressCountry': 'addressCountry' },");
+		sb.append("{'addressPlace1': 'SECOND_addressPlace1','addressPlace2': 'SECOND_addressPlace2','addressMunicipality': 'SECOND_addressMunicipality','addressStateOrProvince': 'SECOND_addressStateOrProvince','addressPostCode': 'SECOND_addressPostCode', 'addressCountry': 'SECOND_addressCountry'}");
+		sb.append("]}}}");
+		JSONObject data=new JSONObject(sb.toString());
+		return data;
+	}
+	
 	@Test public void testPersonWithContactAuthorityCRUD() throws Exception {
 		ServletTester jetty = tester.setupJetty();
 		log.info("NAME: PersonWithContactAuthorityCRUD: test_start");
-		JSONObject data=new JSONObject("{'csid': '', 'fields': {'salutation': 'Your Majaesty','termStatus': 'under review','title': 'Miss', 'gender': 'female','displayName': 'bob','nameNote': 'sdf','bioNote': 'sdfsdf', 'foreName': 'sdf', 'middleName': 'sdf', 'surName': 'sdf', 'nameAdditions': 'sdf', 'initials': 'sdf', 'contact': [{'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}, {'addressType': 'BBB','addressPlace': 'BVV','web': 'VVV', 'email': 'VVV','telephoneNumber': 'VV','faxNumber': 'VV' }]}}}");
+		
+		JSONObject data = personWithContact("bob", true);
 
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
 		String url=out.getHeader("Location");
@@ -285,13 +347,13 @@ public class TestNameThroughWebapp{
 		// Create
 		
 		log.info("NAME: NamesCreateUpdateDelete person test: CREATE");
-		data=new JSONObject("{'fields':{'displayName':'TESTTESTFred Bloggers', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
+		data = personWithContact("TESTTESTFred Bloggers", false);
 		out = tester.POSTData("/vocabularies/persontest1/",data,jetty);
 		String url=out.getHeader("Location");
 		log.info(out.getContent());
 		
 		log.info("NAME: NamesCreateUpdateDelete person default: CREATE");
-		data=new JSONObject("{'fields':{'displayName':'DDDDTESTFred Bloggers', 'contact': {'addressType': 'AAA', 'addressPlace': 'AAA', 'web': 'AAA', 'email': 'AAA','telephoneNumber': 'AAA', 'faxNumber': 'AAA'}}}");
+		data = personWithContact("DDDDTESTFred Bloggers", false);
 		out = tester.POSTData("/vocabularies/persontest2/",data,jetty);
 		String url2=out.getHeader("Location");
 		log.info(out.getContent());
@@ -368,28 +430,34 @@ public class TestNameThroughWebapp{
 	@Test 
 	public void testNamesCreateUpdateDelete() throws Exception {
 		ServletTester jetty = tester.setupJetty();
-			log.info("NAME: NamesCreateUpdateDelete: test_start");
-			// Create
-			log.info("NAME: NamesCreateUpdateDelete: CREATE");
-			JSONObject data=new JSONObject("{'csid': '', 'fields': {'displayName': 'XXXTESTFred Bloggs','contact': {'emailGroup': [{'email': 'test@example.com','emailType': 'home' }],'addressGroup': [{'addressPlace1': 'addressPlace1','addressPlace2': 'addressPlace2','addressMunicipality': 'addressMunicipality','addressStateOrProvince': 'addressStateOrProvince', 'addressPostCode': 'addressPostCode','addressCountry': 'addressCountry' }, {'addressPlace1': 'SECOND_addressPlace1','addressPlace2': 'SECOND_addressPlace2','addressMunicipality': 'SECOND_addressMunicipality','addressStateOrProvince': 'SECOND_addressStateOrProvince','addressPostCode': 'SECOND_addressPostCode', 'addressCountry': 'SECOND_addressCountry'}]} }}");
-			HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);
-			String url=out.getHeader("Location");
-			log.info(out.getContent());
-			JSONObject datad = new JSONObject(out.getContent());
-			JSONObject updatefields = datad;
-			if(datad.has("fields")){
-				updatefields = new JSONObject(out.getContent()).getJSONObject("fields");
-			}
-			// Read
+		log.info("NAME: NamesCreateUpdateDelete: test_start");
+		// Create
+		log.info("NAME: NamesCreateUpdateDelete: CREATE");
+		//JSONObject data=new JSONObject("{'csid': '', 'fields': {'displayName': 'XXXTESTFred Bloggs','contact': {'emailGroup': [{'email': 'test@example.com','emailType': 'home' }],'addressGroup': [{'addressPlace1': 'addressPlace1','addressPlace2': 'addressPlace2','addressMunicipality': 'addressMunicipality','addressStateOrProvince': 'addressStateOrProvince', 'addressPostCode': 'addressPostCode','addressCountry': 'addressCountry' }, {'addressPlace1': 'SECOND_addressPlace1','addressPlace2': 'SECOND_addressPlace2','addressMunicipality': 'SECOND_addressMunicipality','addressStateOrProvince': 'SECOND_addressStateOrProvince','addressPostCode': 'SECOND_addressPostCode', 'addressCountry': 'SECOND_addressCountry'}]} }}");
+		JSONObject data = personWithContact("XXXTESTFred Bloggs", true);
+		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);
+		String url=out.getHeader("Location");
+		log.info(out.getContent());
+		JSONObject datad = new JSONObject(out.getContent());
+		JSONObject updatefields = datad;
+		if(datad.has("fields")){
+			updatefields = new JSONObject(out.getContent()).getJSONObject("fields");
+		}
+		// Read
 		log.info("NAME: NamesCreateUpdateDelete: READ");
 		out = tester.GETData("/vocabularies"+url,jetty);
 		log.info(out.getContent());
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
-		assertEquals("XXXTESTFred Bloggs",data.getString("displayName"));
+		JSONArray termList = data.getJSONArray(PERSON_TERMLIST_ELEMENT);
+		assertEquals("XXXTESTFred Bloggs",
+				termList.getJSONObject(0).getString(TERM_DISPLAYNAME_ELEMENT));
 		// Update
 		log.info("NAME: NamesCreateUpdateDelete: UPDATE"+updatefields.toString());
-		updatefields.put("displayName", "XXXTESTOwain Glyndwr");
+		termList = updatefields.getJSONArray(PERSON_TERMLIST_ELEMENT);
+		termList.getJSONObject(0).put(TERM_DISPLAYNAME_ELEMENT,"XXXTESTOwain Glyndwr");
+		assertTrue("testNamesCreateUpdateDelete: Fetched person has no contact info!", 
+				updatefields.has("contact"));
 		updatefields.getJSONObject("contact").getJSONArray("emailGroup").getJSONObject(0).put("emailType", "newtype");
 		data = new JSONObject();
 		data.put("fields", updatefields);
@@ -402,7 +470,9 @@ public class TestNameThroughWebapp{
 
 		data=new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"),url.split("/")[2]);
-		assertEquals("XXXTESTOwain Glyndwr",data.getString("displayName"));
+		termList = data.getJSONArray(PERSON_TERMLIST_ELEMENT);
+		assertEquals("XXXTESTOwain Glyndwr",
+				termList.getJSONObject(0).getString(TERM_DISPLAYNAME_ELEMENT));
 		assertEquals("newtype",data.getJSONObject("contact").getJSONArray("emailGroup").getJSONObject(0).getString("emailType"));
 		// Delete
 		log.info("NAME: NamesCreateUpdateDelete: DELETE");
@@ -415,7 +485,7 @@ public class TestNameThroughWebapp{
 	{
 		ServletTester jetty = tester.setupJetty();
 		// Create
-		JSONObject data=new JSONObject("{'fields':{'displayName':'" + name + "'}}");
+		JSONObject data=simplePerson(name);
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
 		String url=out.getHeader("Location");
 		// Read
@@ -429,7 +499,7 @@ public class TestNameThroughWebapp{
 	private void setName(String name,ServletTester jetty) throws Exception
 	{
 		// Update
-		JSONObject data=new JSONObject("{'fields':{'displayName':'" + name + "'}}");
+		JSONObject data=simplePerson(name);
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);		
 		String url=out.getHeader("Location");
 		out=tester.PUTData("/vocabularies"+url,data,jetty);	
@@ -438,7 +508,7 @@ public class TestNameThroughWebapp{
 	private void deleteName(String name,ServletTester jetty) throws Exception
 	{
 		// Delete
-		JSONObject data=new JSONObject("{'fields':{'displayName':'" + name + "'}}");
+		JSONObject data=simplePerson(name);
 		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);		
 		String url=out.getHeader("Location");
 		tester.DELETEData("/vocabularies/"+url,jetty);

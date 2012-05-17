@@ -158,8 +158,8 @@ public class Record implements FieldParent {
 		utils.initStrings(section,"services-list-path", utils.getString("services-url") + "-common-list/"
 				+ utils.getString("services-url") + "-list-item");
 
-		utils.initStrings(section,"services-fields-path", utils.getString("services-url")
-						+ "-common-list/fieldsReturned");
+		// This is relative to the services-list-path, in usage.
+		utils.initStrings(section,"services-fields-path", "fieldsReturned");
 
 		// used by service layer to construct authority names
 		utils.initStrings(section,"authority-vocab-type","");

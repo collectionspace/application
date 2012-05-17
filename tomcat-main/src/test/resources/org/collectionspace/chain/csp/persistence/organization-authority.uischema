@@ -1,15 +1,37 @@
 {
-    "person": {
+    "organization": {
         "properties": {
             "relations": {
                 "default": {},
                 "type": "object"
+            },
+            "termsUsed": {
+                "default": [],
+                "type": "array"
             },
             "csid": {
                 "type": "string"
             },
             "fields": {
                 "properties": {
+                    "functions": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "function": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "tenantID": {
+                        "type": "string"
+                    },
                     "relatedTerms": {
                         "items": {
                             "properties": {
@@ -25,71 +47,14 @@
                         },
                         "type": "array"
                     },
-                    "personTermGroup": {
+                    "contactNames": {
                         "items": {
                             "properties": {
-                                "middleName": {
-                                    "type": "string"
-                                },
-                                "termName": {
-                                    "type": "string"
-                                },
-                                "termSource": {
-                                    "type": "string"
-                                },
-                                "surName": {
-                                    "type": "string"
-                                },
-                                "termSourceID": {
-                                    "type": "string"
-                                },
-                                "termSourceNote": {
-                                    "type": "string"
-                                },
-                                "termLanguage": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "termPrefForLang": {
-                                    "default": false,
-                                    "type": "boolean"
-                                },
                                 "_primary": {
                                     "default": true,
                                     "type": "boolean"
                                 },
-                                "title": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "termDisplayName": {
-                                    "type": "string"
-                                },
-                                "termType": {
-                                    "default": "",
-                                    "type": "string"
-                                },
-                                "initials": {
-                                    "type": "string"
-                                },
-                                "termStatus": {
-                                    "default": "provisional",
-                                    "type": "string"
-                                },
-                                "termQualifier": {
-                                    "type": "string"
-                                },
-                                "termSourceDetail": {
-                                    "type": "string"
-                                },
-                                "salutation": {
-                                    "default": "dear",
-                                    "type": "string"
-                                },
-                                "foreName": {
-                                    "type": "string"
-                                },
-                                "nameAdditions": {
+                                "contactName": {
                                     "type": "string"
                                 }
                             },
@@ -97,11 +62,14 @@
                         },
                         "type": "array"
                     },
-                    "birthPlace": {
+                    "foundingDate": {
+                        "type": "date"
+                    },
+                    "csid": {
                         "type": "string"
                     },
-                    "deathDate": {
-                        "type": "date"
+                    "uri": {
+                        "type": "string"
                     },
                     "contact": {
                         "properties": {
@@ -236,32 +204,72 @@
                     "updatedBy": {
                         "type": "string"
                     },
-                    "nationalities": {
-                        "items": {
-                            "properties": {
-                                "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
-                                },
-                                "nationality": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "type": "array"
-                    },
                     "shortIdentifier": {
                         "type": "string"
                     },
-                    "schoolsOrStyles": {
+                    "updatedAt": {
+                        "type": "date"
+                    },
+                    "dissolutionDate": {
+                        "type": "date"
+                    },
+                    "foundingPlace": {
+                        "type": "string"
+                    },
+                    "createdBy": {
+                        "type": "string"
+                    },
+                    "broaderContext": {
+                        "type": "string"
+                    },
+                    "orgTermGroup": {
                         "items": {
                             "properties": {
+                                "additionsToName": {
+                                    "type": "string"
+                                },
+                                "termName": {
+                                    "type": "string"
+                                },
+                                "termSource": {
+                                    "type": "string"
+                                },
+                                "termSourceID": {
+                                    "type": "string"
+                                },
+                                "termSourceNote": {
+                                    "type": "string"
+                                },
+                                "termLanguage": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "termPrefForLang": {
+                                    "default": false,
+                                    "type": "boolean"
+                                },
                                 "_primary": {
                                     "default": true,
                                     "type": "boolean"
                                 },
-                                "schoolOrStyle": {
+                                "termDisplayName": {
+                                    "type": "string"
+                                },
+                                "termType": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "mainBodyName": {
+                                    "type": "string"
+                                },
+                                "termStatus": {
+                                    "default": "provisional",
+                                    "type": "string"
+                                },
+                                "termQualifier": {
+                                    "type": "string"
+                                },
+                                "termSourceDetail": {
                                     "type": "string"
                                 }
                             },
@@ -272,15 +280,38 @@
                     "createdAt": {
                         "type": "string"
                     },
-                    "nameNote": {
+                    "refName": {
                         "type": "string"
                     },
-                    "gender": {
-                        "default": "",
-                        "type": "string"
+                    "historyNotes": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "historyNote": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
                     },
-                    "birthDate": {
-                        "type": "date"
+                    "equivalentContexts": {
+                        "items": {
+                            "properties": {
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "equivalentContext": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
                     },
                     "narrowerContexts": {
                         "items": {
@@ -305,63 +336,6 @@
                                     "type": "boolean"
                                 },
                                 "group": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "type": "array"
-                    },
-                    "occupations": {
-                        "items": {
-                            "properties": {
-                                "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
-                                },
-                                "occupation": {
-                                    "type": "string"
-                                }
-                            },
-                            "type": "object"
-                        },
-                        "type": "array"
-                    },
-                    "bioNote": {
-                        "type": "string"
-                    },
-                    "tenantID": {
-                        "type": "string"
-                    },
-                    "csid": {
-                        "type": "string"
-                    },
-                    "uri": {
-                        "type": "string"
-                    },
-                    "deathPlace": {
-                        "type": "string"
-                    },
-                    "updatedAt": {
-                        "type": "date"
-                    },
-                    "createdBy": {
-                        "type": "string"
-                    },
-                    "broaderContext": {
-                        "type": "string"
-                    },
-                    "refName": {
-                        "type": "string"
-                    },
-                    "equivalentContexts": {
-                        "items": {
-                            "properties": {
-                                "_primary": {
-                                    "default": true,
-                                    "type": "boolean"
-                                },
-                                "equivalentContext": {
                                     "type": "string"
                                 }
                             },
