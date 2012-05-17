@@ -1,0 +1,68 @@
+<record id="intake">
+	<section id="objectEntryInformation">
+		<field id="entryNumber">
+			<!-- Change options -->
+			<options>
+				<option id="intake" sample="IN2011.1">Entry</option>
+				<option id="study" sample="ST2011.1">Study</option>
+				<option id="evaluation" sample="EV2011.1">Evaluation</option>
+			</options>
+		</field>
+		<field id="entryReason">
+			<!-- Change options -->
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="enquiry">enquiry</option>
+				<option id="consideration">consideration</option>
+				<option id="commission">commission</option>
+				<option id="loan">loan</option>
+			</options>
+		</field>
+		<repeat id="entryMethods">
+			<field id="entryMethod">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+	</section>
+	<section id="objectCollectionInformation">
+		<repeat id="fieldCollectionMethods">
+			<field id="fieldCollectionMethod">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+	</section>
+	<section id="locationInformation">
+		<repeat id="currentLocationGroupList/currentLocationGroup">
+			<field id="currentLocationFitness">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+	</section>
+	<section id="conditionInformation">
+		<repeat id="conditionCheckMethods">
+			<field id="conditionCheckMethod">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+		<repeat id="conditionCheckReasons">
+			<field id="conditionCheckReason">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+	</section>
+</record>
