@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<record id="collection-object">
+	<section id="coreInformation">
+		<field id="nametitle">
+			<!-- Change merges -->
+			<!-- TODO: For some reason, this kills the xmlmerge. Leave it out for now, but figure out a way to fix it. -->
+			<!--
+			<merges>
+				<merge id="objectName" rank="1"/>
+				<merge id="title" rank="2"/>
+				<merge id="taxon" rank="3"/>
+			</merges>
+			-->
+		</field>
+	</section>
+	<section id="identificationInformation">
+		<field id="objectNumber">
+			<!-- Change options -->
+			<options>
+				<option id="intake" sample="IN2011.1.1">Object entry (Doorbook entry)</option>
+				<option id="accession" sample="2011.1.1">Cataloged object</option>
+				<option id="loanin" sample="LI2011.1.1">In-loan object (Borrowed object)</option>
+			</options>
+		</field>
+		<repeat id="responsibleDepartments">
+			<field id="responsibleDepartment">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="Natasha Johnson">Natasha Johnson</option>
+					<option id="Leslie Freund">Leslie Freund</option>
+					<option id="Victoria Bradshaw">Victoria Bradshaw</option>
+					<option id="Alicja Egbert">Alicja Egbert</option>
+					<option id="No collection manager (Registration)">No collection manager (Registration)</option>
+					<option id="uncertain">uncertain</option>
+				</options>
+			</field>
+		</repeat>
+		<field id="collection">
+			<!-- Change options -->
+			<options>
+				<option id="">(none selected)</option>
+				<option id="archaeology">archaeology</option>
+				<option id="ethnography">ethnography</option>
+				<option id="documentation">documentation</option>
+				<option id="sample">sample</option>
+				<option id="indeterminate">indeterminate</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+		<field id="recordStatus">
+			<!-- Change options -->
+			<options>
+				<option id="minimalInProgress" default="yes">minimal (in progress)</option>
+				<option id="minimal">minimal</option>
+				<option id="basicInProgess">basic (in progress)</option>
+				<option id="basic">basic</option>
+				<option id="fullInProgess">full/curatorial (in progress)</option>
+				<option id="full">full/curatorial</option>
+			</options>
+		</field>
+		<repeat id="titleGroupList/titleGroup">
+			<!-- Add mini values -->
+			<field id="title" mini="summary,search,list,relate"/>
+			<field id="titleLanguage">
+				<enum>
+					<!-- Change default and blank-value -->
+					<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</default>
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+			<repeat id="titleTranslationSubGroupList/titleTranslationSubGroup">
+				<field id="titleTranslationLanguage">
+					<enum>
+						<!-- Change default and blank-value -->
+						<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</default>
+						<blank-value>(none selected)</blank-value>
+					</enum>
+				</field>
+			</repeat>
+			<field id="titleType">
+				<!-- Change options -->
+				<options>
+					<option id="">(none selected)</option>
+					<option id="Artist's Label">Artist's Label</option>
+					<option id="Culture Groups on Tape">Culture Groups on Tape</option>
+					<option id="Inventory Name">Inventory Name</option>
+					<option id="Title">Title</option>
+					<option id="Title Subject">Title Subject</option>
+				</options>
+			</field>
+		</repeat>
+		
+	</section>
+</record>
