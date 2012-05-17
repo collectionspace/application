@@ -185,7 +185,7 @@ public class WebReset implements WebMethod {
 						continue;
 					}
 					else if(r.isType("record")){
-						if("hierarchy".equals(dir) || "dimension".equals(dir) || "structureddate".equals(dir))
+						if("hierarchy".equals(dir) || !r.isRealRecord())	// Filter out self-renderers, etc
 							continue;
 						log.info("S");
 					}
