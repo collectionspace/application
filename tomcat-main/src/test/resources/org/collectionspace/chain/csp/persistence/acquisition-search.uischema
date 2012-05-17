@@ -1,8 +1,18 @@
 {
     "acquisition": {
         "properties": {
-            "acquisitionDateEnd": {
-                "type": "date"
+            "acquisitionDateGroupEnd": {
+                "properties": {
+                    "scalarValuesComputed": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
             },
             "createdBys": {
                 "items": {
@@ -19,8 +29,18 @@
                 },
                 "type": "array"
             },
-            "accessionDateStart": {
-                "type": "date"
+            "accessionDateGroupStart": {
+                "properties": {
+                    "scalarValuesComputed": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
             },
             "acquisitionSources": {
                 "items": {
@@ -73,13 +93,32 @@
             "updatedAtStart": {
                 "type": "date"
             },
-            "accessionDateEnd": {
-                "type": "date"
+            "accessionDateGroupEnd": {
+                "properties": {
+                    "scalarValuesComputed": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
             },
-            "acquisitionDateStart": {
-                "type": "date"
-            },
-            "creditLines": {
+            "acquisitionDateGroupStart": {
+                "properties": {
+                    "scalarValuesComputed": {
+                        "default": "",
+                        "type": "string"
+                    },
+                    "_primary": {
+                        "default": true,
+                        "type": "boolean"
+                    }
+                },
+                "type": "object"
+            },            "creditLines": {
                 "items": {
                     "properties": {
                         "_primary": {

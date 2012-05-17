@@ -171,13 +171,39 @@
             "messagekey": "person-uriLabel"
         },
         ".csc-personAuthority-birthDate": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
+            "decorators": [{
+                "func": "cspace.structuredDate",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.birthDateGroup.dateDisplayDate",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.birthDateGroup.dateEarliestSingleQualifier",
+                        "scalarValuesComputed": "fields.birthDateGroup.scalarValuesComputed",
+                        "dateLatestDay": "fields.birthDateGroup.dateLatestDay",
+                        "dateLatestYear": "fields.birthDateGroup.dateLatestYear",
+                        "dateAssociation": "fields.birthDateGroup.dateAssociation",
+                        "dateEarliestSingleEra": "fields.birthDateGroup.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.birthDateGroup.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.birthDateGroup.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.birthDateGroup.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.birthDateGroup.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.birthDateGroup.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.birthDateGroup.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.birthDateGroup.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.birthDateGroup.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.birthDateGroup.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.birthDateGroup.datePeriod",
+                        "dateEarliestScalarValue": "fields.birthDateGroup.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.birthDateGroup.dateLatestMonth",
+                        "dateNote": "fields.birthDateGroup.dateNote",
+                        "dateLatestScalarValue": "fields.birthDateGroup.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.birthDateGroup.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.birthDateGroup.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.birthDateGroup.dateEarliestSingleMonth"
+                    }
                 }
-            ],
-            "value": "${fields.birthDate}"
+            }],
+            "value": "${fields.birthDateGroup.dateDisplayDate}"
         },
         ".csc-contact-addressGroup": {
             "decorators": [
@@ -357,14 +383,14 @@
         ".csc-person-nameNote-label": {
             "messagekey": "person-nameNoteLabel"
         },
-        ".csc-person-deathDate-label": {
-            "messagekey": "person-deathDateLabel"
+        ".csc-person-deathDateGroup-label": {
+            "messagekey": "person-deathDateGroupLabel"
         },
         ".csc-person-coreInformation-label": {
             "messagekey": "person-coreInformationLabel"
         },
-        ".csc-person-birthDate-label": {
-            "messagekey": "person-birthDateLabel"
+        ".csc-person-birthDateGroup-label": {
+            "messagekey": "person-birthDateGroupLabel"
         },
         ".csc-contact-createdAt": "${fields.contact.createdAt}",
         ".csc-person-bioNote-label": {
@@ -616,13 +642,39 @@
             "messagekey": "contact-updatedAtLabel"
         },
         ".csc-personAuthority-deathDate": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
+            "decorators": [{
+                "func": "cspace.structuredDate",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.deathDateGroup.dateDisplayDate",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.deathDateGroup.dateEarliestSingleQualifier",
+                        "scalarValuesComputed": "fields.deathDateGroup.scalarValuesComputed",
+                        "dateLatestDay": "fields.deathDateGroup.dateLatestDay",
+                        "dateLatestYear": "fields.deathDateGroup.dateLatestYear",
+                        "dateAssociation": "fields.deathDateGroup.dateAssociation",
+                        "dateEarliestSingleEra": "fields.deathDateGroup.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.deathDateGroup.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.deathDateGroup.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.deathDateGroup.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.deathDateGroup.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.deathDateGroup.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.deathDateGroup.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.deathDateGroup.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.deathDateGroup.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.deathDateGroup.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.deathDateGroup.datePeriod",
+                        "dateEarliestScalarValue": "fields.deathDateGroup.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.deathDateGroup.dateLatestMonth",
+                        "dateNote": "fields.deathDateGroup.dateNote",
+                        "dateLatestScalarValue": "fields.deathDateGroup.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.deathDateGroup.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.deathDateGroup.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.deathDateGroup.dateEarliestSingleMonth"
+                    }
                 }
-            ],
-            "value": "${fields.deathDate}"
+            }],
+            "value": "${fields.deathDateGroup.dateDisplayDate}"
         },
         ".csc-personAuthority-birthPlace": "${fields.birthPlace}",
         ".csc-person-domaindata-label": {

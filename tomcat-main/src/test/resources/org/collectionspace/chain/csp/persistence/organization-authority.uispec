@@ -463,8 +463,8 @@
         ".csc-contact-telephoneNumber-label": {
             "messagekey": "contact-telephoneNumberLabel"
         },
-        ".csc-organization-foundingDate-label": {
-            "messagekey": "organization-foundingDateLabel"
+        ".csc-organization-foundingDateGroup-label": {
+            "messagekey": "organization-foundingDateGroupLabel"
         },
         ".csc-organization-uri-label": {
             "messagekey": "organization-uriLabel"
@@ -699,8 +699,8 @@
         ".csc-contact-updatedBy-label": {
             "messagekey": "contact-updatedByLabel"
         },
-        ".csc-organization-dissolutionDate-label": {
-            "messagekey": "organization-dissolutionDateLabel"
+        ".csc-organization-dissolutionDateGroup-label": {
+            "messagekey": "organization-dissolutionDateGroupLabel"
         },
         ".csc-contact-telephoneNumberType-label": {
             "messagekey": "contact-telephoneNumberTypeLabel"
@@ -708,14 +708,40 @@
         ".csc-contact-emailType-label": {
             "messagekey": "contact-emailTypeLabel"
         },
-        ".csc-orgAuthority-dissolutionDate": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
+        ".csc-organizationAuthority-dissolutionDate": {
+            "decorators": [{
+                "func": "cspace.structuredDate",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.dissolutionDateGroup.dateDisplayDate",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.dissolutionDateGroup.dateEarliestSingleQualifier",
+                        "scalarValuesComputed": "fields.dissolutionDateGroup.scalarValuesComputed",
+                        "dateLatestDay": "fields.dissolutionDateGroup.dateLatestDay",
+                        "dateLatestYear": "fields.dissolutionDateGroup.dateLatestYear",
+                        "dateAssociation": "fields.dissolutionDateGroup.dateAssociation",
+                        "dateEarliestSingleEra": "fields.dissolutionDateGroup.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.dissolutionDateGroup.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.dissolutionDateGroup.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.dissolutionDateGroup.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.dissolutionDateGroup.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.dissolutionDateGroup.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.dissolutionDateGroup.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.dissolutionDateGroup.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.dissolutionDateGroup.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.dissolutionDateGroup.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.dissolutionDateGroup.datePeriod",
+                        "dateEarliestScalarValue": "fields.dissolutionDateGroup.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.dissolutionDateGroup.dateLatestMonth",
+                        "dateNote": "fields.dissolutionDateGroup.dateNote",
+                        "dateLatestScalarValue": "fields.dissolutionDateGroup.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.dissolutionDateGroup.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.dissolutionDateGroup.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.dissolutionDateGroup.dateEarliestSingleMonth"
+                    }
                 }
-            ],
-            "value": "${fields.dissolutionDate}"
+            }],
+            "value": "${fields.dissolutionDateGroup.dateDisplayDate}"
         },
         ".csc-organization-function-label": {
             "messagekey": "organization-functionLabel"
@@ -732,14 +758,40 @@
             "messagekey": "contact-webAddressTypeLabel"
         },
         ".csc-contact-updatedAt": "${fields.contact.updatedAt}",
-        ".csc-orgAuthority-foundingDate": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
+        ".csc-organizationAuthority-foundingDate": {
+            "decorators": [{
+                "func": "cspace.structuredDate",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.foundingDateGroup.dateDisplayDate",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.foundingDateGroup.dateEarliestSingleQualifier",
+                        "scalarValuesComputed": "fields.foundingDateGroup.scalarValuesComputed",
+                        "dateLatestDay": "fields.foundingDateGroup.dateLatestDay",
+                        "dateLatestYear": "fields.foundingDateGroup.dateLatestYear",
+                        "dateAssociation": "fields.foundingDateGroup.dateAssociation",
+                        "dateEarliestSingleEra": "fields.foundingDateGroup.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.foundingDateGroup.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.foundingDateGroup.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.foundingDateGroup.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.foundingDateGroup.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.foundingDateGroup.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.foundingDateGroup.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.foundingDateGroup.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.foundingDateGroup.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.foundingDateGroup.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.foundingDateGroup.datePeriod",
+                        "dateEarliestScalarValue": "fields.foundingDateGroup.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.foundingDateGroup.dateLatestMonth",
+                        "dateNote": "fields.foundingDateGroup.dateNote",
+                        "dateLatestScalarValue": "fields.foundingDateGroup.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.foundingDateGroup.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.foundingDateGroup.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.foundingDateGroup.dateEarliestSingleMonth"
+                    }
                 }
-            ],
-            "value": "${fields.foundingDate}"
+            }],
+            "value": "${fields.foundingDateGroup.dateDisplayDate}"
         },
         ".csc-organization-historyNotes-label": {
             "messagekey": "organization-historyNotesLabel"
