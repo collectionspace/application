@@ -3,29 +3,54 @@
     <acquisitionReferenceNumber>acquisitionReferenceNumber</acquisitionReferenceNumber>
     <acquisitionDateGroupList>
         <acquisitionDateGroup>
-            <dateEarliestSingleQualifier/>
-            <scalarValuesComputed>true</scalarValuesComputed>
-            <dateLatestYear/>
-            <dateLatestDay/>
-            <dateAssociation/>
-            <dateEarliestSingleEra/>
-            <dateDisplayDate/>
-            <dateEarliestSingleCertainty/>
-            <dateLatestEra/>
-            <dateEarliestSingleQualifierValue/>
-            <dateLatestCertainty/>
-            <dateEarliestSingleYear/>
-            <dateLatestQualifier/>
-            <dateLatestQualifierValue/>
-            <dateEarliestSingleQualifierUnit/>
-            <datePeriod/>
-            <dateEarliestScalarValue/>
-            <dateLatestMonth/>
-            <dateNote/>
-            <dateLatestScalarValue/>
-            <dateLatestQualifierUnit/>
-            <dateEarliestSingleDay/>
-            <dateEarliestSingleMonth/>
+    		<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+            <dateLatestDay>22</dateLatestDay>
+            <dateLatestYear>5</dateLatestYear>
+            <dateAssociation>sdf</dateAssociation>
+            <dateEarliestSingleEra>bce</dateEarliestSingleEra>
+            <dateDisplayDate>sdf</dateDisplayDate>
+            <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+            <dateLatestEra>bce</dateLatestEra>
+            <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+            <dateLatestCertainty>approximate</dateLatestCertainty>
+            <dateEarliestSingleYear>1</dateEarliestSingleYear>
+            <dateLatestQualifier>+</dateLatestQualifier>
+            <dateLatestQualifierValue>2</dateLatestQualifierValue>
+            <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+            <datePeriod>sdf</datePeriod>
+            <dateLatestMonth>11</dateLatestMonth>
+            <dateNote>sdf</dateNote>
+            <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+            <dateEarliestSingleDay>3</dateEarliestSingleDay>
+            <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
+            <scalarValuesComputed>false</scalarValuesComputed>
+            <dateEarliestScalarValue></dateEarliestScalarValue>
+            <dateLatestScalarValue></dateLatestScalarValue>
+        </acquisitionDateGroup>
+        <acquisitionDateGroup>
+    		<dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
+            <dateLatestDay>20</dateLatestDay>
+            <dateLatestYear>1</dateLatestYear>
+            <dateAssociation>wer</dateAssociation>
+            <dateEarliestSingleEra>bce</dateEarliestSingleEra>
+            <dateDisplayDate>wer</dateDisplayDate>
+            <dateEarliestSingleCertainty>about</dateEarliestSingleCertainty>
+            <dateLatestEra>bce</dateLatestEra>
+            <dateEarliestSingleQualifierValue>4</dateEarliestSingleQualifierValue>
+            <dateLatestCertainty>approximate</dateLatestCertainty>
+            <dateEarliestSingleYear>1</dateEarliestSingleYear>
+            <dateLatestQualifier>+</dateLatestQualifier>
+            <dateLatestQualifierValue>2</dateLatestQualifierValue>
+            <dateEarliestSingleQualifierUnit>days</dateEarliestSingleQualifierUnit>
+            <datePeriod>werwerwer</datePeriod>
+            <dateLatestMonth>11</dateLatestMonth>
+            <dateNote>werwer</dateNote>
+            <dateLatestQualifierUnit>month</dateLatestQualifierUnit>
+            <dateEarliestSingleDay>21</dateEarliestSingleDay>
+            <dateEarliestSingleMonth>7</dateEarliestSingleMonth>
+            <scalarValuesComputed>false</scalarValuesComputed>
+            <dateEarliestScalarValue></dateEarliestScalarValue>
+            <dateLatestScalarValue></dateLatestScalarValue>
         </acquisitionDateGroup>
     </acquisitionDateGroupList>
     <acquisitionSources>
