@@ -5,7 +5,8 @@
 		<repeat id="languages">
 			<field id="language">
 				<enum>
-					<!-- Add blank-value -->
+					<!-- Change default and blank-value -->
+					<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</default>
 					<blank-value>(none selected)</blank-value>
 				</enum>
 			</field>
