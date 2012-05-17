@@ -19,7 +19,7 @@
 			<include src="base-procedure-loanout.xml,local-procedure-loanout.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-media.xml,local-procedure-media.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-movement.xml,anthropology-procedure-movement.xml,local-procedure-movement.xml" merge="xmlmerge.properties"/>
-			<include src="base-procedure-objectexit.xml"/>
+			<include src="base-procedure-objectexit.xml,local-procedure-objectexit.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-contact.xml,local-authority-contact.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-location.xml,local-authority-location.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-organization.xml,local-authority-organization.xml" merge="xmlmerge.properties"/>
