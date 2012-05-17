@@ -5,6 +5,10 @@
                 "default": {},
                 "type": "object"
             },
+            "termsUsed": {
+                "default": [],
+                "type": "array"
+            },
             "csid": {
                 "type": "string"
             },
@@ -20,6 +24,7 @@
                         "items": {
                             "properties": {
                                 "_primary": {
+                                    "default": true,
                                     "type": "boolean"
                                 },
                                 "relatedTerm": {
@@ -34,14 +39,38 @@
                         "default": "",
                         "type": "string"
                     },
-                    "taxonNameSource": {
+                    "csid": {
                         "type": "string"
                     },
-                    "taxonGUID": {
+                    "uri": {
                         "type": "string"
                     },
-                    "taxonomicStatus": {
-                        "default": "",
+                    "commonNameGroup": {
+                        "items": {
+                            "properties": {
+                                "commonName": {
+                                    "type": "string"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "commonNameLanguage": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "commonNameSource": {
+                                    "type": "string"
+                                },
+                                "commonNameSourceDetail": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "updatedBy": {
                         "type": "string"
                     },
                     "taxonAuthorGroup": {
@@ -51,6 +80,7 @@
                                     "type": "string"
                                 },
                                 "_primary": {
+                                    "default": true,
                                     "type": "boolean"
                                 },
                                 "taxonAuthorType": {
@@ -63,7 +93,7 @@
                         "type": "array"
                     },
                     "updatedAt": {
-                        "type": "string"
+                        "type": "date"
                     },
                     "shortIdentifier": {
                         "type": "string"
@@ -72,6 +102,7 @@
                         "items": {
                             "properties": {
                                 "_primary": {
+                                    "default": true,
                                     "type": "boolean"
                                 },
                                 "taxonCitation": {
@@ -82,9 +113,65 @@
                         },
                         "type": "array"
                     },
-                    "taxonIsNamedHybrid": {
-                        "default": "",
+                    "taxonTermGroup": {
+                        "items": {
+                            "properties": {
+                                "termName": {
+                                    "type": "string"
+                                },
+                                "termSource": {
+                                    "type": "string"
+                                },
+                                "termSourceID": {
+                                    "type": "string"
+                                },
+                                "taxonomicStatus": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "termSourceNote": {
+                                    "type": "string"
+                                },
+                                "termLanguage": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "termPrefForLang": {
+                                    "default": false,
+                                    "type": "boolean"
+                                },
+                                "_primary": {
+                                    "default": true,
+                                    "type": "boolean"
+                                },
+                                "termDisplayName": {
+                                    "type": "string"
+                                },
+                                "termType": {
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "termStatus": {
+                                    "default": "provisional",
+                                    "type": "string"
+                                },
+                                "termQualifier": {
+                                    "type": "string"
+                                },
+                                "termSourceDetail": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    },
+                    "createdBy": {
                         "type": "string"
+                    },
+                    "taxonIsNamedHybrid": {
+                        "default": false,
+                        "type": "boolean"
                     },
                     "broaderContext": {
                         "type": "string"
@@ -92,14 +179,7 @@
                     "createdAt": {
                         "type": "string"
                     },
-                    "termStatus": {
-                        "default": "provisional",
-                        "type": "string"
-                    },
-                    "taxonFullName": {
-                        "type": "string"
-                    },
-                    "taxonNameSourceCode": {
+                    "refName": {
                         "type": "string"
                     },
                     "taxonNote": {
@@ -109,6 +189,7 @@
                         "items": {
                             "properties": {
                                 "_primary": {
+                                    "default": true,
                                     "type": "boolean"
                                 },
                                 "equivalentContext": {
@@ -126,15 +207,13 @@
                                     "type": "string"
                                 },
                                 "_primary": {
+                                    "default": true,
                                     "type": "boolean"
                                 }
                             },
                             "type": "object"
                         },
                         "type": "array"
-                    },
-                    "displayName": {
-                        "type": "string"
                     },
                     "taxonRank": {
                         "default": "",
@@ -147,4 +226,3 @@
         "type": "object"
     }
 }
-
