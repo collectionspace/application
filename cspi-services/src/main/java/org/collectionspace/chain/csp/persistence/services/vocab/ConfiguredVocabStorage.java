@@ -296,6 +296,11 @@ public class ConfiguredVocabStorage extends GenericStorage {
 							if(subdata instanceof JSONObject){
 								JSONObject subrecord = (JSONObject)subdata;
 								subautocreateJSON(root,creds,cache,sr,subrecord,savePath);
+							} else {
+								log.warn("autocreateJSON: Contact subrecord is malformed (not a JSONObject)!");
+								if(log.isDebugEnabled()) {
+									log.debug("autocreateJSON: Contact subrecord: "+subdata.toString());
+								}
 							}
 						}
 					}
