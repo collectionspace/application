@@ -135,12 +135,40 @@
                 }
             }]
         },
-        ".csc-acquisition-accession-date": {
+        ".csc-acquisition-accessionDateGroup": {
             "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
+                "func": "cspace.structuredDate",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.accessionDateGroup.dateDisplayDate",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.accessionDateGroup.dateEarliestSingleQualifier",
+                        "scalarValuesComputed": "fields.accessionDateGroup.scalarValuesComputed",
+                        "dateLatestDay": "fields.accessionDateGroup.dateLatestDay",
+                        "dateLatestYear": "fields.accessionDateGroup.dateLatestYear",
+                        "dateAssociation": "fields.accessionDateGroup.dateAssociation",
+                        "dateEarliestSingleEra": "fields.accessionDateGroup.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.accessionDateGroup.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.accessionDateGroup.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.accessionDateGroup.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.accessionDateGroup.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.accessionDateGroup.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.accessionDateGroup.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.accessionDateGroup.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.accessionDateGroup.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.accessionDateGroup.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.accessionDateGroup.datePeriod",
+                        "dateEarliestScalarValue": "fields.accessionDateGroup.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.accessionDateGroup.dateLatestMonth",
+                        "dateNote": "fields.accessionDateGroup.dateNote",
+                        "dateLatestScalarValue": "fields.accessionDateGroup.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.accessionDateGroup.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.accessionDateGroup.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.accessionDateGroup.dateEarliestSingleMonth"
+                    }
+                }
             }],
-            "value": "${fields.accessionDate}"
+            "value": "${fields.accessionDateGroup.dateDisplayDate}"
         },
         ".csc-acquisition-group-purchase-price-currency": {
             "decorators": [{
@@ -185,8 +213,8 @@
         ".csc-acquisition-coreInformation-label": {
             "messagekey": "acquisition-coreInformationLabel"
         },
-        ".csc-acquisition-acquisitionDates-label": {
-            "messagekey": "acquisition-acquisitionDatesLabel"
+        ".csc-acquisitionDateGroup-acquisitionDateGroup-label": {
+            "messagekey": "acquisitionDateGroup-acquisitionDateGroupLabel"
         },
         ".csc-acquisition-fieldCollectionEventNames-label": {
             "messagekey": "acquisition-fieldCollectionEventNamesLabel"
@@ -359,11 +387,8 @@
                 }
             }]
         },
-        ".csc-acquisition-acquisitionDate-label": {
-            "messagekey": "acquisition-acquisitionDateLabel"
-        },
-        ".csc-acquisition-accessionDate-label": {
-            "messagekey": "acquisition-accessionDateLabel"
+        ".csc-acquisition-accessionDateGroup-label": {
+            "messagekey": "acquisition-accessionDateGroupLabel"
         },
         ".csc-acquisition-acquisitionFundingSource-label": {
             "messagekey": "acquisition-acquisitionFundingSourceLabel"
@@ -420,7 +445,7 @@
                 }
             }]
         },
-        ".csc-acquisition-date": {
+        ".csc-acquisitionDateGroup-acquisitionDateGroup": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
                 "type": "fluid",
@@ -428,18 +453,47 @@
                     "repeatTree": {
                         "expander": {
                             "tree": {
-                                ".csc-acquisition-date": {
+                                ".csc-acquisitionDateGroup-acquisitionDateGroup": {
                                     "decorators": [{
-                                        "func": "cspace.datePicker",
-                                        "type": "fluid"
+                                        "func": "cspace.structuredDate",
+                                        "type": "fluid",
+                                        "options": {
+                                            "root": "{row}",
+                                            "elPath": "dateDisplayDate",
+                                            "elPaths": {
+                                                "dateEarliestSingleQualifier": "dateEarliestSingleQualifier",
+                                                "scalarValuesComputed": "scalarValuesComputed",
+                                                "dateLatestDay": "dateLatestDay",
+                                                "dateLatestYear": "dateLatestYear",
+                                                "dateAssociation": "dateAssociation",
+                                                "dateEarliestSingleEra": "dateEarliestSingleEra",
+                                                "dateDisplayDate": "dateDisplayDate",
+                                                "dateEarliestSingleCertainty": "dateEarliestSingleCertainty",
+                                                "dateLatestEra": "dateLatestEra",
+                                                "dateEarliestSingleQualifierValue": "dateEarliestSingleQualifierValue",
+                                                "dateLatestCertainty": "dateLatestCertainty",
+                                                "dateEarliestSingleYear": "dateEarliestSingleYear",
+                                                "dateLatestQualifier": "dateLatestQualifier",
+                                                "dateLatestQualifierValue": "dateLatestQualifierValue",
+                                                "dateEarliestSingleQualifierUnit": "dateEarliestSingleQualifierUnit",
+                                                "datePeriod": "datePeriod",
+                                                "dateEarliestScalarValue": "dateEarliestScalarValue",
+                                                "dateLatestMonth": "dateLatestMonth",
+                                                "dateNote": "dateNote",
+                                                "dateLatestScalarValue": "dateLatestScalarValue",
+                                                "dateLatestQualifierUnit": "dateLatestQualifierUnit",
+                                                "dateEarliestSingleDay": "dateEarliestSingleDay",
+                                                "dateEarliestSingleMonth": "dateEarliestSingleMonth"
+                                            }
+                                        }
                                     }],
-                                    "value": "${{row}.acquisitionDate}"
+                                    "value": "${{row}.dateDisplayDate}"
                                 }
                             },
                             "type": "fluid.noexpand"
                         }
                     },
-                    "elPath": "fields.acquisitionDates"
+                    "elPath": "fields.acquisitionDateGroup"
                 }
             }]
         },
