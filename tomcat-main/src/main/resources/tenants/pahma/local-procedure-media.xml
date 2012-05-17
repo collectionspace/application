@@ -23,6 +23,9 @@
 				</options>
 			</field>
 		</repeat>
+		
+		<!-- Local fields -->
+		
 		<field id="approvedForWeb" section="pahma">
 			<options>
 				<option id="" default="yes">(none selected)</option>
