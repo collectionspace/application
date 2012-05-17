@@ -82,6 +82,16 @@
 				<!-- Change options -->
 				<options>
 					<option id="">(none selected)</option>
+					<!--
+					<option id="assignedByArtist">artist</option>
+					<option id="assignedByAuthority">authority</option>
+					<option id="collection">collection</option>
+					<option id="descriptive">descriptive</option>
+					<option id="generic">generic</option>
+					<option id="popular">popular</option>
+					<option id="series">series</option>
+					<option id="trade">trade</option>
+					-->
 					<option id="Artist's Label">Artist's Label</option>
 					<option id="Culture Groups on Tape">Culture Groups on Tape</option>
 					<option id="Inventory Name">Inventory Name</option>
@@ -90,6 +100,750 @@
 				</options>
 			</field>
 		</repeat>
-		
+		<repeat id="objectNameList/objectNameGroup">
+			<field id="objectNameCurrency">
+				<!-- Change options -->
+				<options>
+					<option id="current" default="yes">current</option>
+					<option id="outOfDate">out of date</option>
+					<option id="unknown">unknown</option>
+				</options>
+			</field>
+			<field id="objectNameLevel">
+				<!-- Change options -->
+				<options>
+					<option id="wholeObject" default="yes">whole object</option>
+					<option id="damagedWhole">damaged whole</option>
+					<option id="incomplete">incomplete</option>
+					<option id="broken">broken</option>
+					<option id="partOfAnObject">part of an object</option>
+					<option id="fragment">fragment</option>
+					<option id="shardSherd">shard/sherd</option>
+					<option id="chip">chip</option>
+					<option id="dust">dust</option>
+					<option id="residue">residue</option>
+					<option id="unknown">unknown</option>
+				</options>
+			</field>
+			<field id="objectNameSystem">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="aaslhNomenclature">AASLH Nomenclature</option>
+					<option id="bennyhoffOlivellaBeads">Bennyhoff Olivella bead typology</option>
+					<option id="artAndArchitectureThesaurus">Getty Art &amp; Architecture Thesaurus</option>
+					<option id="giffordWorkedBone">Gifford worked bone typology</option>
+					<option id="giffordWorkedShell">Gifford worked shell typology</option>
+					<option id="heizerProjectilePoint">Heizer projectile point typology</option>
+					<option id="justiceProjectilePoint">Justice projectile point typology</option>
+					<option id="meighanHistoricGlass">Meighan historic glass bead typology</option>
+					<option id="pahmaObjectNames">PAHMA object names</option>
+					<option id="treganzaClayArtifact">Treganza clay artifact typology</option>
+					<option id="noSystem">no system</option>
+				</options>
+			</field>
+			<field id="objectNameType">
+				<!-- Change options -->
+				<options>
+					<option id="classificatory">classificatory</option>
+					<option id="denomination">denomination</option>
+					<option id="simple" default="yes">simple</option>
+					<option id="taxonomic">taxonomic</option>
+					<option id="typological">typological</option>
+				</options>
+			</field>
+			<field id="objectNameLanguage">
+				<enum>
+					<!-- Change default and blank-value -->
+					<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</default>
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+			<!-- Add in-title and mini values -->
+			<field id="objectName" in-title="yes" mini="summary,search,list,relate">
+				<!-- Add title-selector -->
+				<title-selector>titleBar-object-identification-object-name</title-selector>
+			</field>
+		</repeat>
+	</section>
+	<section id="descriptionInformation">
+		<repeat id="objectStatusList">
+			<field id="objectStatus">
+				<!-- Change options -->
+				<options>
+					<option id="">(none selected)</option>
+					<option id="copy">copy</option>
+					<option id="forgery">forgery</option>
+					<option id="holotype">holotype</option>
+					<option id="lectotype">lectotype</option>
+					<option id="paralectotype">paralectotype</option>
+					<option id="paratype">paratype</option>
+					<option id="type">type</option>
+				</options>
+			</field>
+		</repeat>
+		<field id="sex">
+			<!-- Change options -->
+			<options>
+				<option id="">(none selected)</option>
+				<option id="male">male</option>
+				<option id="probable-male">probable male</option>
+				<option id="possible-male">possible male</option>
+				<option id="female">female</option>
+				<option id="probable-female">probable female</option>
+				<option id="possible-female">possible female</option>
+				<option id="asexual">asexual</option>
+				<option id="hermaphrodite">hermaphrodite</option>
+				<option id="multiple">multiple</option>
+				<option id="indeterminate">indeterminate</option>
+				<option id="not-applicable">not applicable</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+		<field id="phase">
+			<!-- Change options -->
+			<options>
+				<option id="">(none selected)</option>
+				<option id="adult-mature">adult/mature</option>
+				<option id="subadult-immature">subadult/immature</option>
+				<option id="egg">egg</option>
+				<option id="larva">larva</option>
+				<option id="seed">seed</option>
+				<option id="indeterminate">indeterminate</option>
+				<option id="multiple">multiple</option>
+				<option id="unknown">unknown</option>
+			</options>
+		</field>
+		<repeat id="forms">
+			<field id="form">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="bagged">bagged</option>
+					<option id="bottled">bottled</option>
+					<option id="boxed">boxed</option>
+					<option id="in-can-or-tin">in can or tin</option>
+					<option id="in-drum">in drum</option>
+					<option id="dry">dry</option>
+					<option id="ground">ground</option>
+					<option id="mounted">mounted</option>
+					<option id="pinned">pinned</option>
+					<option id="thin-section">thin section</option>
+					<option id="wet">wet</option>
+					<option id="wrapped">wrapped</option>
+					<option id="unknown">unknown</option>
+				</options>
+			</field>
+		</repeat>
+		<!-- Remove autocomplete and ui-type attributes -->
+		<field id="ageQualifier" autocomplete="" ui-type="">
+			<!-- Delete the enum -->
+			<!-- TODO: Figure out how to delete the enum tag, so this works. -->
+			<enum/>
+			<!-- Add options -->
+			<options>
+				<option id="" default="yes">(none selected)</option>
+				<option id="approximately">approximately</option>
+				<option id="exactly">exactly</option>
+				<option id="olderThan">older than</option>
+				<option id="youngerThan">younger than</option>
+			</options>
+		</field>
+		<field id="ageUnit">
+			<!-- Change options -->
+			<options>
+				<option id="">(none selected)</option>
+				<option id="days">days</option>
+				<option id="months">months</option>
+				<option id="weeks">weeks</option>
+				<option id="years">years</option>
+			</options>
+		</field>
+		<repeat id="objectComponentGroupList/objectComponentGroup">
+			<field id="objectComponentName">
+				<!-- Delete the options -->
+				<!-- TODO: Figure out how to delete the options tag, so this works. -->
+				<options/>
+			</field>
+		</repeat>
+		<repeat id="technicalAttributeGroupList/technicalAttributeGroup">
+			<field id="technicalAttribute">
+				<!-- Change options -->
+				<options>
+					<option id="">(none selected)</option>
+					<!-- <option id="magneticTapeType">magnetic tape type</option> -->
+					<option id="recordSpeed">recording speed</option>
+				</options>
+			</field>
+			<field id="technicalAttributeMeasurement">
+				<!-- Change options -->
+				<options>
+					<option id="">(none selected)</option>
+					<!-- <option id="metal">metal</option> -->
+					<option id="33">33</option>
+					<option id="45">45</option>
+					<option id="78">78</option>
+				</options>
+			</field>
+			<field id="technicalAttributeMeasurementUnit">
+				<!-- Change options -->
+				<options>
+					<option id="">(none selected)</option>
+					<option id="rpm">rpm</option>
+				</options>
+			</field>
+		</repeat>
+		<section id="contentInformation">
+			<repeat id="contentLanguages">
+				<field id="contentLanguage">
+					<enum>
+						<!-- Change default and blank-value -->
+						<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</default>
+						<blank-value>(none selected)</blank-value>
+					</enum>
+				</field>
+			</repeat>
+			<repeat id="contentPositions">
+				<!-- Change options -->
+				<field id="contentPosition">
+					<options>
+						<option id="">(none selected)</option>
+						<option id="back">back</option>
+						<option id="base">base</option>
+						<option id="bottom">bottom</option>
+						<option id="front">front</option>
+						<option id="inside">inside</option>
+						<option id="left">left</option>
+						<option id="obverse">obverse</option>
+						<option id="outside">outside</option>
+						<option id="recto">recto</option>
+						<option id="reverse">reverse</option>
+						<option id="right">right</option>
+						<option id="rim">rim</option>
+						<option id="top">top</option>
+						<option id="verso">verso</option>
+					</options>
+				</field>
+			</repeat>
+			<repeat id="contentObjectGroupList/contentObjectGroup">
+				<field id="contentObjectType">
+					<!-- Change options -->
+					<options>
+						<option id="">(none selected)</option>
+						<option id="animal">animal</option>
+						<option id="artwork">artwork</option>
+						<option id="book">book</option>
+						<option id="bone">bone</option>
+						<option id="burial">burial</option>
+						<option id="building">building</option>
+						<option id="clothing">clothing</option>
+						<option id="container">container</option>
+						<option id="document">document</option>
+						<option id="furniture">furniture</option>
+						<option id="food">food</option>
+						<option id="game">game</option>
+						<option id="jewelry">jewelry</option>
+						<option id="musicalInstrument">musical instrument</option>
+						<option id="plant">plant</option>
+						<option id="rawMaterial">raw material</option>
+						<option id="regalia">regalia</option>
+						<option id="ritualObject">ritual object</option>
+						<option id="textile">textile</option>
+						<option id="tool">tool</option>
+						<option id="vehicle">vehicle</option>
+						<option id="watercraft">watercraft</option>
+						<option id="weapon">weapon</option>
+					</options>
+				</field>
+			</repeat>
+			<repeat id="contentScripts">
+				<field id="contentScript">
+					<!-- Change options -->
+					<options>
+						<option id="">(none selected)</option>
+						<option id="beneventanScript">Beneventan script</option>
+						<option id="blackletter">blackletter</option>
+						<option id="carolingianMiniscule">Carolingian miniscule</option>
+						<option id="chanceryHand">chancery hand</option>
+						<option id="courtHand">court hand</option>
+						<option id="germanicMiniscule">Germanic miniscule</option>
+						<option id="gothicScript">Gothic script</option>
+						<option id="unspecifiedHandwriting">handwriting (unspecified)</option>
+						<option id="humanistMiniscule">humanist miniscule</option>
+						<option id="insularScript">insular script</option>
+						<option id="libraryHand">library hand</option>
+						<option id="merovingianScript">Merovingian script</option>
+						<option id="palmerMethod">Palmer method</option>
+						<option id="romanCursive">Roman cursive</option>
+						<option id="roundHand">round hand</option>
+						<option id="uncialScript">uncial script</option>
+						<option id="secretaryHand">secretary hand</option>
+						<option id="rusticCapitals">rustic capitals</option>
+						<option id="spencerianMethod">Spencerian method</option>
+						<option id="squareCapitals">square capitals</option>
+						<option id="visigothicScript">Visigothic script</option>
+					</options>
+				</field>
+			</repeat>
+			<repeat id="contentEventNameGroupList/contentEventNameGroup">
+				<field id="contentEventNameType">
+					<!-- Add options -->
+					<options>
+						<option id="" default="yes">(none selected)</option>
+						<option id="ceremony">ceremony</option>
+						<option id="classVisit">class visit</option>
+						<!-- <option id="courtesyVisit">courtesy visit</option> --> <!-- WHAT IS THIS? -->
+						<option id="dance">dance</option>
+						<option id="exhibit">exhibit</option>
+						<option id="healingDoctoring">healing/doctoring</option>
+						<option id="lecture">lecture</option>
+						<option id="memberEvent">member event</option>
+						<option id="nagpraConsultation">NAGPRA consultation</option>
+						<option id="reception">reception</option>
+						<option id="researchVisit">research visit</option>
+						<option id="tour">tour</option>
+						<option id="tribalVisit">tribal visit</option>
+					</options>
+				</field>
+			</repeat>
+		</section>
+		<section id="textualInscriptionInformation">
+			<repeat id="textualInscriptionGroupList/textualInscriptionGroup">
+				<field id="inscriptionContentLanguage">
+					<enum>
+						<!-- Change default and blank-value -->
+						<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</default>
+						<blank-value>(none selected)</blank-value>
+					</enum>
+				</field>
+				<field id="inscriptionContentPosition">
+					<!-- Change options -->
+					<options>
+						<option id="">(none selected)</option>
+						<option id="back">back</option>
+						<option id="base">base</option>
+						<option id="bottom">bottom</option>
+						<option id="front">front</option>
+						<option id="inside">inside</option>
+						<option id="left">left</option>
+						<option id="obverse">obverse</option>
+						<option id="outside">outside</option>
+						<option id="recto">recto</option>
+						<option id="reverse">reverse</option>
+						<option id="right">right</option>
+						<option id="rim">rim</option>
+						<option id="top">top</option>
+						<option id="verso">verso</option>
+					</options>
+				</field>
+				<field id="inscriptionContentScript">
+					<!-- Change options -->
+					<options>
+						<option id="">(none selected)</option>
+						<option id="beneventanScript">Beneventan script</option>
+						<option id="blackletter">blackletter</option>
+						<option id="carolingianMiniscule">Carolingian miniscule</option>
+						<option id="chanceryHand">chancery hand</option>
+						<option id="courtHand">court hand</option>
+						<option id="germanicMiniscule">Germanic miniscule</option>
+						<option id="gothicScript">Gothic script</option>
+						<option id="unspecifiedHandwriting">handwriting (unspecified)</option>
+						<option id="humanistMiniscule">humanist miniscule</option>
+						<option id="insularScript">insular script</option>
+						<option id="libraryHand">library hand</option>
+						<option id="merovingianScript">Merovingian script</option>
+						<option id="palmerMethod">Palmer method</option>
+						<option id="romanCursive">Roman cursive</option>
+						<option id="roundHand">round hand</option>
+						<option id="uncialScript">uncial script</option>
+						<option id="secretaryHand">secretary hand</option>
+						<option id="rusticCapitals">rustic capitals</option>
+						<option id="spencerianMethod">Spencerian method</option>
+						<option id="squareCapitals">square capitals</option>
+						<option id="visigothicScript">Visigothic script</option>
+					</options>
+				</field>
+				<field id="inscriptionContentType">
+					<!-- Change options -->
+					<options>
+						<option id="">(none selected)</option>
+						<option id="abecedarium">abecedarium</option>
+						<option id="brand">brand</option>
+						<option id="decoration">decoration</option>
+						<!-- <option id="embossment">embossment</option> --> <!-- REPETITIVE, GIVEN EMBOSSING AS AN INSCRIPTION METHOD -->
+						<option id="epitaph">epitaph</option>
+						<option id="estateStamp">estate stamp</option>
+						<option id="exLibris">ex libris</option>
+						<option id="graffiti">graffiti</option>
+						<option id="inlaid">inlaid</option>
+						<option id="label">label</option>
+						<option id="makersMark">maker's mark</option>
+						<option id="mementoMori">memento mori</option>
+						<option id="monumentalInscription">monumental inscription</option>
+						<option id="ostracon">ostracon</option>
+						<option id="tattoo">tattoo</option>
+					</options>
+				</field>
+				<field id="inscriptionContentMethod">
+					<!-- Add options -->
+					<options>
+						<option id="">(none selected)</option>
+						<option id="panAndInk">pen and ink</option>
+						<option id="embossing">embossing</option>
+						<option id="engraving">engraving</option>
+						<option id="pyrography">pyrography</option>
+						<option id="painting">painting</option>
+					</options>
+				</field>
+			</repeat>
+		</section>
+		<section id="nonTextualInscriptionInformation">
+			<repeat id="nonTextualInscriptionGroupList/nonTextualInscriptionGroup">
+				<field id="inscriptionDescriptionPosition">
+					<!-- Change options -->
+					<options>
+						<option id="">(none selected)</option>
+						<option id="back">back</option>
+						<option id="base">base</option>
+						<option id="bottom">bottom</option>
+						<option id="front">front</option>
+						<option id="inside">inside</option>
+						<option id="left">left</option>
+						<option id="obverse">obverse</option>
+						<option id="outside">outside</option>
+						<option id="recto">recto</option>
+						<option id="reverse">reverse</option>
+						<option id="right">right</option>
+						<option id="rim">rim</option>
+						<option id="top">top</option>
+						<option id="verso">verso</option>
+					</options>
+				</field>
+				<field id="inscriptionDescriptionType">
+					<!-- Change options -->
+					<options>
+						<option id="">(none selected)</option>
+						<!--<option id="abecedarium">abecedarium</option>--> <!-- TEXTUAL, SO EXCLUDE -->
+						<option id="brand">brand</option>
+						<option id="decoration">decoration</option>
+						<!--<option id="embossment">embossment</option>--> <!-- REPETITIVE, GIVEN EMBOSSING AS AN INSCRIPTION METHOD -->
+						<option id="epitaph">epitaph</option>
+						<option id="estateStamp">estate stamp</option>
+						<option id="exLibris">ex libris</option>
+						<option id="graffiti">graffiti</option>
+						<option id="incisedMark">incised mark</option>
+						<option id="label">label</option>
+						<option id="makersMark">maker's mark</option>
+						<option id="mementoMori">memento mori</option>
+						<option id="monumentalInscription">monumental inscription</option>
+						<option id="ostracon">ostracon</option>
+						<option id="tattoo">tattoo</option>
+					</options>
+				</field>
+				<field id="inscriptionDescriptionMethod">
+					<!-- Add options -->
+					<options>
+						<option id="">(none selected)</option>
+						<option id="panAndInk">pen and ink</option>
+						<option id="embossing">embossing</option>
+						<option id="engraving">engraving</option>
+						<option id="pyrography">pyrography</option>
+						<option id="painting">painting</option>
+					</options>
+				</field>
+			</repeat>
+		</section>
+	</section>
+	<section id="objectProductionInformation">
+		<repeat id="techniqueGroupList/techniqueGroup">
+			<field id="techniqueType">
+				<!-- Add options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="automated">automated</option>
+					<option id="handCrafted">hand-crafted</option>
+				</options>
+			</field>
+		</repeat>
+		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+			<field id="objectProductionPlaceRole">
+				<!-- Add selector -->
+				<selector>object-production-place-role</selector>
+				<!-- Add options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="assembledAt">assembled at/in</option>
+					<option id="built">built at/in</option>
+					<option id="manufactured">manufactured at/in</option>
+					<option id="materialsFrom">material originated from</option>
+					<option id="minted">minted at/in</option>
+				</options>
+			</field>
+		</repeat>
+		<repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
+			<field id="objectProductionPeopleRole">
+				<!-- Add selector -->
+				<selector>object-production-people-role</selector>
+				<!-- Add options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="designedAfter">designed after</option>
+					<option id="traditionalMakers">traditional makers</option>
+				</options>
+			</field>
+		</repeat>
+		<repeat id="objectProductionPersonGroupList/objectProductionPersonGroup">
+			<field id="objectProductionPersonRole">
+				<!-- Add selector -->
+				<selector>collection-object-objectProductionPersonRole</selector>
+				<!-- Add options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="accompanist">accompanist</option>
+					<option id="artist">artist</option>
+					<option id="blesser">blesser</option>
+					<option id="carver">carver</option>
+					<option id="demonstrator">demonstrator</option>
+					<option id="designer">designer</option>
+					<option id="documenter">documenter</option>
+					<option id="illustrator">illustrator</option>
+					<option id="maker">maker</option>
+					<option id="materialSupplier">material supplier</option>
+					<option id="narrator">narrator</option>
+					<option id="painter">painter</option>
+					<option id="performer">performer</option>
+					<option id="photographer">photographer</option>
+					<option id="recorder">recorder</option>
+					<option id="ruler">ruler</option> <!-- For coins: who decreed that the coins would be minted? -->
+					<option id="scribe">scribe</option>
+					<option id="singer">singer</option>
+					<option id="translator">translator</option>
+					<option id="writer">writer</option>
+				</options>
+			</field>
+		</repeat>
+		<repeat id="objectProductionOrganizationGroupList/objectProductionOrganizationGroup">
+			<field id="objectProductionOrganizationRole">
+				<!-- Add selector -->
+				<selector>collection-object-objectProductionOrganizationRole</selector>
+				<!-- Add options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="maker">maker</option>
+					<option id="manufacturer">manufacturer</option>
+					<option id="performer">performer</option>
+					<option id="photographer">photographer</option>
+					<option id="supplier">supplier</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+	<section id="objectHistoryAssociationInformation">
+		<section id="associationInformation">
+			<repeat id="assocActivityGroupList/assocActivityGroup">
+				<field id="assocActivityType">
+					<!-- Add selector -->
+					<selector>collection-object-assocActivityType</selector>
+					<!-- Add options -->
+					<options>
+						<option id="" default="yes">(none selected)</option>
+						<option id="played">played</option>
+						<option id="recorded">recorded</option>
+						<option id="sung">sung</option>
+						<option id="used">used</option>
+						<option id="viewed">viewed</option>
+						<option id="worn">worn</option>
+						<option id="unknown">unknown</option>
+					</options>
+				</field>
+			</repeat>
+			<repeat id="assocObjectGroupList/assocObjectGroup">
+				<field id="assocObjectType">
+					<!-- Add selector -->
+					<selector>collection-object-assocObjectType</selector>
+					<!-- Add options -->
+					<options>
+						<option id="" default="yes">(none selected)</option>
+						<option id="adhering">adhering</option>
+						<option id="associatedWith">associated with</option>
+						<option id="embedded">embedded</option>
+						<option id="foundNear">found near</option>
+					</options>
+				</field>
+			</repeat>
+			<repeat id="assocConceptGroupList/assocConceptGroup">
+				<field id="assocConceptType">
+					<!-- Add selector -->
+					<selector>collection-object-assocConceptType</selector>
+					<!-- Add options -->
+					<options>
+						<option id="" default="yes">(none selected)</option>
+						<option id="causedBy">caused by</option>
+						<option id="dependsOn">depends on</option>
+						<option id="effectOf">effect of</option>
+						<option id="exampleOf">example of</option>
+						<option id="influencedBy">influenced by</option>
+						<option id="inspiredBy">inspired by</option>
+						<option id="partOf">part of</option>
+						<option id="relatedTo">related to</option>
+						<option id="reminiscentOf">reminiscent of</option>
+						<option id="sameAs">same as</option>
+						<option id="sameClassAs">same class as</option>
+						<option id="similarTo">similar to</option>
+					</options>
+				</field>
+			</repeat>
+			<repeat id="assocCulturalContextGroupList/assocCulturalContextGroup">
+				<field id="assocCulturalContextType">
+					<!-- Add selector -->
+					<selector>collection-object-assocCulturalContextType</selector>
+					<!-- Add options -->
+					<options>
+						<option id="" default="yes">(none selected)</option>
+						<option id="descendedFrom">descended from</option>
+						<option id="exampleOf">example of</option>
+						<option id="inspiredBy">inspired by</option>
+						<option id="relatedTo">related to</option>
+						<option id="similarTo">typologically similar to</option>
+						<option id="identicalTo">typologically identical to</option>
+						<option id="influencedBy">influenced by</option>
+						<option id="reminiscentOf">reminiscent of</option>
+					</options>
+				</field>
+			</repeat>
+			<repeat id="assocOrganizationGroupList/assocOrganizationGroup">
+				<field id="assocOrganizationType">
+					<!-- Add selector -->
+					<selector>collection-object-assocOrganizationType</selector>
+					<!-- Add options -->
+					<options>
+						<option id="" default="yes">(none selected)</option>
+						<option id="donor">donor</option>
+						<option id="endorser">endorser</option>
+						<option id="landowner">landowner</option>
+						<option id="seller">seller</option>
+						<option id="sponsor">sponsor</option>
+						<option id="user">user</option>
+					</options>
+				</field>
+			</repeat>
+			<repeat id="assocPeopleGroupList/assocPeopleGroup">
+				<field id="assocPeopleType">
+					<!-- Add selector -->
+					<selector>collection-object-assocPeopleType</selector>
+					<!-- Add options -->
+					<options>
+						<option id="" default="yes">(none selected)</option>
+						<option id="gatheredCollectedBy">gathered/collected by</option>
+						<option id="inspiredBy">inspired by</option>
+						<option id="nagpraCulturalAffiliation">NAGPRA cultural affiliation</option>
+						<option id="traditionalMakers">traditional makers</option>
+						<option id="inTheStyleOf">in the style of</option>
+						<option id="attributedMakers">made by (attributed)</option>
+						<option id="madeBy">made by</option>
+						<option id="traditionallyMadeBy">traditionally made by</option>
+						<option id="usedButNotMadeBy">used, but not made, by</option>
+						<option id="usedButNotMadeByAttributed">used, but not made, by (attributed)</option>
+					</options>
+				</field>
+			</repeat>
+			<repeat id="assocPersonGroupList/assocPersonGroup">
+				<field id="assocPersonType">
+					<!-- Add selector -->
+					<selector>collection-object-assocPersonType</selector>
+					<!-- Add options -->
+					<options>
+						<option id="" default="yes">(none selected)</option>
+						<option id="dealer">dealer</option>
+						<option id="donor">donor</option>
+						<option id="in memoriam">in memoriam</option>
+						<option id="in-urned">in-urned</option>
+						<option id="informant">informant</option>
+						<option id="inspector">inspector</option>
+						<option id="patron">patron</option>
+						<option id="photograph requestor">photograph requestor</option>
+						<option id="seller">seller</option>
+						<option id="transferree">transferree</option>
+						<option id="transferrer">transferrer</option>
+					</options>
+				</field>
+			</repeat>
+			<repeat id="assocPlaceGroupList/assocPlaceGroup">
+				<field id="assocPlaceType">
+					<!-- Add selector -->
+					<selector>collection-object-assocPlaceType</selector>
+					<!-- Add options -->
+					<options>
+						<option id="" default="yes">(none selected)</option>
+						<option id="auctioned">auctioned in/at</option>
+						<!--
+						<option id="blessingLocation">blessed at</option>
+						<option id="consecration">consecrated at</option>
+						-->
+						<option id="excavated">excavated at</option>
+						<option id="found">found at</option>
+						<option id="nativeTo">native to</option>
+						<option id="purchased">purchased in/at</option>
+						<option id="recovered">recovered from</option>
+						<option id="quarried">quarried from</option>
+						<option id="used">used in/at</option>
+					</options>
+				</field>
+			</repeat>
+			<field id="assocEventNameType">
+				<!-- Add selector -->
+				<selector>collection-object-assocEventNameType</selector>
+				<!-- Add options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="ceremony">ceremony</option>
+					<option id="classVisit">class visit</option>
+					<option id="courtesyVisit">courtesy visit</option>
+					<option id="dance">dance</option>
+					<option id="exhibit">exhibit</option>
+					<option id="lecture">lecture</option>
+					<option id="memberEvent">member event</option>
+					<option id="nagpraConsultation">NAGPRA consultation</option>
+					<option id="reception">reception</option>
+					<option id="researchVisit">research visit</option>
+					<option id="tour">tour</option>
+					<option id="tribalVisit">tribal visit</option>
+				</options>
+			</field>
+			<repeat id="assocDateGroupList/assocDateGroup">
+				<field id="assocDateType">
+					<!-- Add selector -->
+					<selector>collection-object-assocDateType</selector>
+					<!-- Add options -->
+					<options>
+						<option id="" default="yes">(none selected)</option>
+						<!-- 
+						<option id="discovered">discovered</option>
+						<option id="found">found</option>
+						<option id="demonstrated">demonstrated</option>
+						<option id="used">used</option>
+						<option id="worn">worn</option>
+						-->
+						<option id="conservation date">conservation date</option>
+						<option id="date missing">date missing</option>
+						<option id="date of analysis">date of analysis</option>
+						<option id="date photographed">date photographed</option>
+						<option id="date received">date received</option>
+						<option id="date used">date used</option>
+						<option id="deaccession date">deaccession date</option>
+						<option id="destruction date">destruction date</option>
+						<option id="immured">immured</option>
+						<option id="material date">material date</option>
+						<option id="minting">minting</option>
+						<option id="mounted">mounted</option>
+						<option id="partial deaccession/loss/destruc">partial deaccession/loss/destruc</option>
+						<option id="patent date">patent date</option>
+						<option id="published">published</option>
+						<option id="recatalogued date">recatalogued date</option>
+						<option id="ruler date">ruler date</option>
+					</options>
+				</field>
+			</repeat>
+		</section>
 	</section>
 </record>
