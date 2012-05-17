@@ -33,7 +33,7 @@
     <relation id="affects">
         <displayName>affects</displayName>
         <directional>false</directional>
-        <sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media</sourceTypes>
-        <destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media</destinationTypes>
+        <sourceTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,claims</sourceTypes>
+        <destinationTypes>collectionobjects,intakes,acquisitions,groups,loansin,loansout,movements,objectexit,media,claims</destinationTypes>
     </relation>
 </relationships>
