@@ -66,9 +66,10 @@
                             <option id="library" sample="LIB2009.1">Library</option>
                         </options>
                     </field>
-                    <field id="accessionDate" ui-search="range" ui-type="date">
-                        <selector>acquisition-accession-date</selector>
+                    <field id="accessionDateGroup" ui-search="range" ui-type="groupfield/structureddate" 
+                        primarykey="accessionDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
                     </field>
+                    
 				<!--	<group id="acquisitionAuthorizerHeader" exists-in-services="false"> -->
                     <field id="acquisitionAuthorizer" autocomplete="person-person"></field>
                     <field id="acquisitionAuthorizerDate" ui-type="date">
@@ -76,12 +77,12 @@
                         <container-selector>acquisition-acquisitionAuthorizerDate-container</container-selector>
                     </field>
 				<!--	</group> -->
-                    <repeat id="acquisitionDates">
-                        <field id="acquisitionDate" ui-search="range" ui-type="date">
-                            <selector>acquisition-date</selector>
-                            <container-selector>acquisition-acquisition-date-container</container-selector>
-                        </field>
+                    <repeat id="acquisitionDateGroupList/acquisitionDateGroup">
+                      <group id="acquisitionDateGroup" ui-search="range" ui-type="groupfield/structureddate"
+                          xxx-services-no-repeat="true" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                      </group>
                     </repeat>
+                    
                     <field id="acquisitionMethod" ui-search="repeatable" seperate_ui_container="true">
                         <selector>acquisition-acquisition-method</selector>
                         <options>
