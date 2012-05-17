@@ -1,0 +1,25 @@
+<record id="loanout">
+	<section id="loanoutInformation">
+		<field id="loanOutNumber">
+			<!-- Change options -->
+			<options>
+				<option id="loanout" sample="LO2011.1">Loan Out</option>
+			</options>
+		</field>
+		<!-- Change to be authority-controlled -->
+		<field id="loanPurpose" autocomplete="vocab-loanpurpose" ui-type="enum">
+			<enum>
+				<blank-value>(none selected)</blank-value>
+			</enum>
+			<options/>
+		</field>
+		<repeat id="loanStatusGroupList/loanStatusGroup">
+			<field id="loanStatus">
+				<enum>
+					<!-- Change blank-value -->
+					<blank-value>(none selected)</blank-value>
+				</enum>
+			</field>
+		</repeat>
+	</section>
+</record>
