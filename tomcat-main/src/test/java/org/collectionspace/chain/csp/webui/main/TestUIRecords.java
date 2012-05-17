@@ -307,9 +307,9 @@ public class TestUIRecords {
 		tester.testUIspec(jetty, "/location/uispec", "location.uispec");
 		tester.testUIspec(jetty, "/organization/uispec", "organization-authority.uispec");
 		tester.testUIspec(jetty, "/concept/uispec", "concept-authority.uispec");
-		// tester.testUIspec(jetty, "/concept-search/uispec", "concept-search.uispec");
+		tester.testUIspec(jetty, "/concept-search/uispec", "concept-search.uispec");
         tester.testUIspec(jetty, "/place/uispec", "place.uispec");
-        // tester.testUIspec(jetty, "/place-search/uispec", "place-search.uispec");
+        tester.testUIspec(jetty, "/place-search/uispec", "place-search.uispec");
 
 		log.info("Testing UISCHEMA");
 		tester.testUIspec(jetty, "/person/uischema", "person.uischema");
