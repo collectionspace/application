@@ -1,52 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ns2:acquisitions_common xmlns:ns2="http://collectionspace.org/services/acquisition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://collectionspace.org/services/acquisition http://services.collectionspace.org/acquisition/acquisitions_common.xsd">
-<acquisitionReferenceNumber>acquisitionReferenceNumber</acquisitionReferenceNumber>
-<!-- <acquisitionDateGroup/> -->
-<acquisitionSources>
-<acquisitionSource>11111</acquisitionSource>
-<acquisitionSource>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</acquisitionSource>
-</acquisitionSources>
-<acquisitionFundingList>
-	<acquisitionFunding>
-                <acquisitionFundingCurrency>A</acquisitionFundingCurrency>
-                <acquisitionFundingValue>S</acquisitionFundingValue>
-                <acquisitionFundingSource>D</acquisitionFundingSource>
-                <acquisitionFundingSourceProvisos>F</acquisitionFundingSourceProvisos>
-	</acquisitionFunding>
-	<acquisitionFunding>
-                <acquisitionFundingCurrency>Aq</acquisitionFundingCurrency>
-                <acquisitionFundingValue>Sq</acquisitionFundingValue>
-                <acquisitionFundingSource>Dq</acquisitionFundingSource>
-                <acquisitionFundingSourceProvisos>Fq</acquisitionFundingSourceProvisos>
-	</acquisitionFunding>
-</acquisitionFundingList>
-<accessionDateGroup>
-    <dateEarliestSingleQualifier/>
-    <scalarValuesComputed>true</scalarValuesComputed>
-    <dateLatestDay/>
-    <dateLatestYear/>
-    <dateAssociation/>
-    <dateEarliestSingleEra/>
-    <dateDisplayDate>April 1, 2010</dateDisplayDate>
-    <dateEarliestSingleCertainty/>
-    <dateLatestEra/>
-    <dateEarliestSingleQualifierValue/>
-    <dateLatestCertainty/>
-    <dateEarliestSingleYear/>
-    <dateLatestQualifier/>
-    <dateLatestQualifierValue/>
-    <dateEarliestSingleQualifierUnit/>
-    <datePeriod/>
-    <dateEarliestScalarValue/>
-    <dateLatestMonth/>
-    <dateNote/>
-    <dateLatestScalarValue/>
-    <dateLatestQualifierUnit/>
-    <dateEarliestSingleDay/>
-    <dateEarliestSingleMonth/>
-</accessionDateGroup>
-<fieldCollectionEventNames/>
-<acquisitionReason>newvalue</acquisitionReason>
-<acquisitionMethod>acquisitionMethod</acquisitionMethod>
-<owners><owner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</owner></owners>
+    <acquisitionReferenceNumber>acquisitionReferenceNumber</acquisitionReferenceNumber>
+    <acquisitionDateGroupList>
+        <acquisitionDateGroup>
+            <dateEarliestSingleQualifier/>
+            <scalarValuesComputed>true</scalarValuesComputed>
+            <dateLatestYear/>
+            <dateLatestDay/>
+            <dateAssociation/>
+            <dateEarliestSingleEra/>
+            <dateDisplayDate/>
+            <dateEarliestSingleCertainty/>
+            <dateLatestEra/>
+            <dateEarliestSingleQualifierValue/>
+            <dateLatestCertainty/>
+            <dateEarliestSingleYear/>
+            <dateLatestQualifier/>
+            <dateLatestQualifierValue/>
+            <dateEarliestSingleQualifierUnit/>
+            <datePeriod/>
+            <dateEarliestScalarValue/>
+            <dateLatestMonth/>
+            <dateNote/>
+            <dateLatestScalarValue/>
+            <dateLatestQualifierUnit/>
+            <dateEarliestSingleDay/>
+            <dateEarliestSingleMonth/>
+        </acquisitionDateGroup>
+    </acquisitionDateGroupList>
+    <acquisitionSources>
+        <acquisitionSource>11111</acquisitionSource>
+        <acquisitionSource>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</acquisitionSource>
+    </acquisitionSources>
+    <acquisitionFundingList>
+        <acquisitionFunding>
+            <acquisitionFundingCurrency>A</acquisitionFundingCurrency>
+            <acquisitionFundingValue>S</acquisitionFundingValue>
+            <acquisitionFundingSource>D</acquisitionFundingSource>
+            <acquisitionFundingSourceProvisos>F</acquisitionFundingSourceProvisos>
+        </acquisitionFunding>
+        <acquisitionFunding>
+            <acquisitionFundingCurrency>Aq</acquisitionFundingCurrency>
+            <acquisitionFundingValue>Sq</acquisitionFundingValue>
+            <acquisitionFundingSource>Dq</acquisitionFundingSource>
+            <acquisitionFundingSourceProvisos>Fq</acquisitionFundingSourceProvisos>
+        </acquisitionFunding>
+    </acquisitionFundingList>
+    <accessionDateGroup>
+        <dateEarliestSingleQualifier/>
+        <scalarValuesComputed>true</scalarValuesComputed>
+        <dateLatestDay/>
+        <dateLatestYear/>
+        <dateAssociation/>
+        <dateEarliestSingleEra/>
+        <dateDisplayDate>April 1, 2010</dateDisplayDate>
+        <dateEarliestSingleCertainty/>
+        <dateLatestEra/>
+        <dateEarliestSingleQualifierValue/>
+        <dateLatestCertainty/>
+        <dateEarliestSingleYear/>
+        <dateLatestQualifier/>
+        <dateLatestQualifierValue/>
+        <dateEarliestSingleQualifierUnit/>
+        <datePeriod/>
+        <dateEarliestScalarValue/>
+        <dateLatestMonth/>
+        <dateNote/>
+        <dateLatestScalarValue/>
+        <dateLatestQualifierUnit/>
+        <dateEarliestSingleDay/>
+        <dateEarliestSingleMonth/>
+    </accessionDateGroup>
+    <fieldCollectionEventNames/>
+    <acquisitionReason>newvalue</acquisitionReason>
+    <acquisitionMethod>acquisitionMethod</acquisitionMethod>
+    <owners>
+        <owner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</owner>
+    </owners>
 </ns2:acquisitions_common>

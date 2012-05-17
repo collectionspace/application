@@ -78,8 +78,8 @@
                     </field>
 				<!--	</group> -->
                     <repeat id="acquisitionDateGroupList/acquisitionDateGroup">
-                      <group id="acquisitionDateGroup" ui-search="range" xxx-services-no-repeat="true" 
-                          ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+                      <group id="acquisitionDateGroup" ui-search="range" ui-type="groupfield/structureddate"
+                          primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
                       </group>
                     </repeat>
                     

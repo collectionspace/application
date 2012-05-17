@@ -32,7 +32,6 @@
 
     <include src="domain-authority-organization.xml" strip-root="yes"/>
 
-<<<<<<< Updated upstream
     <instances>
         <instance id="organization-organization">
             <web-url>organization</web-url>

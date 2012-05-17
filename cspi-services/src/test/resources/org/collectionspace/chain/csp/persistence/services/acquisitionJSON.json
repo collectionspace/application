@@ -1,5 +1,8 @@
 {
     "acquisitionReason": "newvalue",
+	"acquisitionDateGroup":[{
+        "_primary": true,
+	}],
     "acquisitionReferenceNumber": "acquisitionReferenceNumber",
     "accessionDateGroup": {
         "dateEarliestSingleQualifier": "",
