@@ -41,9 +41,9 @@
             <title-ref>local_place</title-ref>
             <title>Local Place</title>
         </instance>
-        <instance id="place-tgn">
-            <web-url>tgn</web-url>
-            <title-ref>tgn</title-ref>
+        <instance id="place-tgn_place">
+            <web-url>tgn_place</web-url>
+            <title-ref>tgn_place</title-ref>
             <title>Thesaurus of Geographic Names</title>
         </instance>
         <instance id="place-place">

@@ -39,9 +39,9 @@
             <title-ref>local_sla</title-ref>
             <title>Local Storage Location</title>
         </instance>        
-        <instance id="location-offsite">
-            <web-url>offsite</web-url>
-            <title-ref>offsite</title-ref>
+        <instance id="location-offsite_sla">
+            <web-url>offsite_sla</web-url>
+            <title-ref>offsite_sla</title-ref>
             <title>Offsite Storage Location</title>
         </instance>
         <instance id="location-location">
