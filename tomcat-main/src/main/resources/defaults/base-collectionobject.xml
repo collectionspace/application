@@ -882,7 +882,7 @@
     </repeat>
     <field id="fieldCollectionNote"/>
     <field id="fieldCollectionNumber"/>
-    <field id="fieldCollectionPlace" autocomplete="place-local_place,place-tgn"/>
+    <field id="fieldCollectionPlace" autocomplete="place-local_place,place-tgn_place"/>
     <repeat id="fieldCollectionSources">
       <field id="fieldCollectionSource" autocomplete="person-person"/>
     </repeat>
