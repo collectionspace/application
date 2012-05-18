@@ -738,6 +738,20 @@ public class Record implements FieldParent {
 				summarylist.putAll(subrecord.summarylist);
 		}
 	}
+	
+	/**
+	 * For selfrenderer children, like the preferredTerm block in authorities, we need to gather
+	 * up all the declared search fields into this parent, so that when we generate a UISpec
+	 * or UISchema for search, we get those nested fields as well.
+	 */
+	private void mergeSearchLists() {
+		for(FieldSet fs : selfRenderers) {
+			Record subrecord = fs.getSelfRendererRecord();
+			if(!subrecord.searchFieldFullList.isEmpty())
+				searchFieldFullList.putAll(subrecord.searchFieldFullList);
+		}
+	}
+	
 
 	public FieldSet getDisplayNameField() {
 		return display_name;
@@ -989,6 +1003,7 @@ public class Record implements FieldParent {
 		findMiniSummary();
 		mergeNestedSummaryLists();
 		mergeNestedMiniLists();
+		mergeSearchLists();
 	}
 
 	@Override
