@@ -38,7 +38,7 @@
             <field id="termQualifier">
                 <selector>placeAuthority-termQualifier</selector>
             </field>
-            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum" ui-search="repeatable"  seperate_ui_container="true">
+            <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum" seperate_ui_container="true">
                 <selector>placeAuthority-termLanguage</selector>
             </field>
             <field id="termPrefForLang" datatype="boolean">

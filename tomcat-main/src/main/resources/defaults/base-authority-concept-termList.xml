@@ -9,7 +9,7 @@
                 <selector>conceptAuthority-termDisplayName</selector>
                 <title-selector>titleBar-displayName</title-selector>
             </field>
-            <field id="termName">
+            <field id="termName" ui-search="repeatable">
                 <selector>conceptAuthority-termName</selector>
             </field>
             <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
@@ -34,7 +34,7 @@
             <field id="termQualifier">
                 <selector>conceptAuthority-termQualifier</selector>
             </field>
-            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+            <field id="termLanguage" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
                 <selector>conceptAuthority-termLanguage</selector>
             </field>
             <field id="termPrefForLang" datatype="boolean">
