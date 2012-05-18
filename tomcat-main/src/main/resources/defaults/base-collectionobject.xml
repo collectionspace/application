@@ -399,7 +399,7 @@
         </field>
       </repeat>
       <repeat id="contentConcepts">
-        <field id="contentConcept" autocomplete="concept-concept">
+        <field id="contentConcept" autocomplete="concept-associatedconcept_ca,concept-material_ca">
           <selector>object-description-content-concept</selector>
         </field>
       </repeat>
@@ -454,7 +454,7 @@
         </field>
       </repeat>
       <repeat id="contentPersons">
-        <field id="contentPerson" autocomplete="person-person">
+        <field id="contentPerson" autocomplete="person-person,person-ulan_pa">
           <selector>object-description-content-person</selector>
         </field>
       </repeat>
@@ -479,7 +479,7 @@
         </field>
       </repeat>
       <repeat id="contentOrganizations">
-        <field id="contentOrganization" autocomplete="organization-organization">
+        <field id="contentOrganization" autocomplete="organization-organization,organization-ulan_oa">
           <selector>object-description-content-organization</selector>
         </field>
       </repeat>
@@ -882,7 +882,7 @@
     </repeat>
     <field id="fieldCollectionNote"/>
     <field id="fieldCollectionNumber"/>
-    <field id="fieldCollectionPlace" autocomplete="place-place"/>
+    <field id="fieldCollectionPlace" autocomplete="place-local_place,place-tgn_place"/>
     <repeat id="fieldCollectionSources">
       <field id="fieldCollectionSource" autocomplete="person-person"/>
     </repeat>
