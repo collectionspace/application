@@ -34,6 +34,16 @@
 	<include src="domain-authority-location.xml" strip-root="yes"/>
 				
     <instances>
+        <instance id="location-local_sla">
+            <web-url>local_sla</web-url>
+            <title-ref>local_sla</title-ref>
+            <title>Local Storage Location</title>
+        </instance>        
+        <instance id="location-offsite_sla">
+            <web-url>offsite_sla</web-url>
+            <title-ref>offsite_sla</title-ref>
+            <title>Offsite Storage Location</title>
+        </instance>
         <instance id="location-location">
             <web-url>location</web-url>
             <title-ref>location</title-ref>
