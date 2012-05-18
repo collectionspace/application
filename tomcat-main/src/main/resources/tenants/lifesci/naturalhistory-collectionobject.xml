@@ -3,7 +3,7 @@
 
   <section id="identificationInformation">
     <repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
-      <field id="taxon" section="naturalhistory" autocomplete="taxon-taxon">
+      <field id="taxon" section="naturalhistory" autocomplete="taxon-local_ta,taxon-common_ta">
         <selector>taxonomic-identification-taxon</selector>
       </field>
       <field id="qualifier" section="naturalhistory" seperate_ui_container="true">
