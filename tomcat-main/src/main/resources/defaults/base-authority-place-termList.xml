@@ -12,7 +12,7 @@
             <field id="termName" ui-search="repeatable">
                 <selector>placeAuthority-termName</selector>
             </field>
-            <field id="termType">
+            <field id="termType" seperate_ui_container="true">
                 <selector>placeAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>
@@ -38,7 +38,7 @@
             <field id="termQualifier">
                 <selector>placeAuthority-termQualifier</selector>
             </field>
-            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum" ui-search="repeatable"  seperate_ui_container="true">
                 <selector>placeAuthority-termLanguage</selector>
             </field>
             <field id="termPrefForLang" datatype="boolean">
@@ -73,7 +73,7 @@
                 <selector>placeAuthority-nameNote</selector>
             </field>
             <group id="nameDateGroup" ui-type="groupfield/structureddate"
-                primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range">
+                primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
                 <selector>placeAuthority-nameDateGroup</selector>
             </group>
         </repeat>

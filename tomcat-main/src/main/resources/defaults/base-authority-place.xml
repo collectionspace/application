@@ -113,7 +113,7 @@
             <field id="owner" autocomplete="person-person,organization-organization"
                 ui-search="repeatable"/>
             <group id="ownershipDateGroup" ui-type="groupfield/structureddate"
-                primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range"/>
+                primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
             <field id="ownershipNote"/>
         </repeat>
     </section>
