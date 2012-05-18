@@ -3,8 +3,8 @@
         ".csc-objectexit-updatedAt-label": {
             "messagekey": "objectexit-updatedAtLabel"
         },
-        ".csc-objectexit-exitDate-label": {
-            "messagekey": "objectexit-exitDateLabel"
+        ".csc-objectexit-exitDateGroup-label": {
+            "messagekey": "objectexit-exitDateGroupLabel"
         },
         ".csc-objectexit-packingNote": "${fields.packingNote}",
         ".csc-objectexit-updatedBy": "${fields.updatedBy}",
@@ -118,12 +118,40 @@
         ".csc-objectexit-number-label": {
             "messagekey": "objectexit-numberLabel"
         },
-        ".csc-objectexit-exitDate": {
+        ".csc-objectexit-exitDateGroup": {
             "decorators": [{
-                "func": "cspace.datePicker",
-                "type": "fluid"
+                "func": "cspace.structuredDate",
+                "type": "fluid",
+                "options": {
+                    "elPath": "fields.exitDateGroup.dateDisplayDate",
+                    "elPaths": {
+                        "dateEarliestSingleQualifier": "fields.exitDateGroup.dateEarliestSingleQualifier",
+                        "scalarValuesComputed": "fields.exitDateGroup.scalarValuesComputed",
+                        "dateLatestDay": "fields.exitDateGroup.dateLatestDay",
+                        "dateLatestYear": "fields.exitDateGroup.dateLatestYear",
+                        "dateAssociation": "fields.exitDateGroup.dateAssociation",
+                        "dateEarliestSingleEra": "fields.exitDateGroup.dateEarliestSingleEra",
+                        "dateDisplayDate": "fields.exitDateGroup.dateDisplayDate",
+                        "dateEarliestSingleCertainty": "fields.exitDateGroup.dateEarliestSingleCertainty",
+                        "dateLatestEra": "fields.exitDateGroup.dateLatestEra",
+                        "dateEarliestSingleQualifierValue": "fields.exitDateGroup.dateEarliestSingleQualifierValue",
+                        "dateLatestCertainty": "fields.exitDateGroup.dateLatestCertainty",
+                        "dateEarliestSingleYear": "fields.exitDateGroup.dateEarliestSingleYear",
+                        "dateLatestQualifier": "fields.exitDateGroup.dateLatestQualifier",
+                        "dateLatestQualifierValue": "fields.exitDateGroup.dateLatestQualifierValue",
+                        "dateEarliestSingleQualifierUnit": "fields.exitDateGroup.dateEarliestSingleQualifierUnit",
+                        "datePeriod": "fields.exitDateGroup.datePeriod",
+                        "dateEarliestScalarValue": "fields.exitDateGroup.dateEarliestScalarValue",
+                        "dateLatestMonth": "fields.exitDateGroup.dateLatestMonth",
+                        "dateNote": "fields.exitDateGroup.dateNote",
+                        "dateLatestScalarValue": "fields.exitDateGroup.dateLatestScalarValue",
+                        "dateLatestQualifierUnit": "fields.exitDateGroup.dateLatestQualifierUnit",
+                        "dateEarliestSingleDay": "fields.exitDateGroup.dateEarliestSingleDay",
+                        "dateEarliestSingleMonth": "fields.exitDateGroup.dateEarliestSingleMonth"
+                    }
+                }
             }],
-            "value": "${fields.exitDate}"
+            "value": "${fields.exitDateGroup.dateDisplayDate}"
         },
         ".csc-objectexit-exitReason": {
             "default": "",

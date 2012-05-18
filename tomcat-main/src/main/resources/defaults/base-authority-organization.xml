@@ -3,8 +3,7 @@
     <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
     <services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
     <services-tenant-singular>Organization</services-tenant-singular>
-    <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,abstract-common-list/list-item</services-instances-path>
-    <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
+    <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,abstract-common-list/list-item</services-instances-path>    <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
     <services-list-path>http://collectionspace.org/services/organization,abstract-common-list/list-item</services-list-path>
     <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
     <services-record-path id="collectionspace_core"
@@ -45,6 +44,7 @@
             <title>Default Test Organization Authority</title>
         </instance>
     </instances>
+    
     <section id="coreInformation">
         <field id="tenantID" section="collectionspace_core" attributes="GET"/>
         <field id="createdBy" section="collectionspace_core" attributes="GET"/>
@@ -57,13 +57,15 @@
         <field id="preferredOrganization" ui-type="groupfield/preferredOA/selfrenderer" ui-func="cspace.preferred">
             <selector>preferred-orgAuthority</selector>
         </field>
-        <field id="foundingDate" ui-search="range" ui-type="date" in-title="yes">
-            <selector>orgAuthority-foundingDate</selector>
+        <field id="foundingDateGroup" ui-search="range" in-title="yes" ui-type="groupfield/structureddate" 
+            primarykey="foundingDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
+            <selector>organizationAuthority-foundingDate</selector>
             <title-selector>titleBar-foundationDate</title-selector>
         </field>
-        <field id="dissolutionDate" ui-search="range" ui-type="date" in-title="yes">
-            <selector>orgAuthority-dissolutionDate</selector>
-            <title-selector>titleBar-dissolutionDate</title-selector>
+        <field id="dissolutionDateGroup" ui-search="range" in-title="yes" ui-type="groupfield/structureddate" 
+            primarykey="dissolutionDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
+            <selector>organizationAuthority-dissolutionDate</selector>
+            <title-selector>titleBar-birthDate</title-selector>
         </field>
         <field id="foundingPlace" ui-search="repeatable">
             <selector>orgAuthority-foundingPlace</selector>

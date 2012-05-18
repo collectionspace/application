@@ -132,7 +132,7 @@ public class TestService extends ServicesBaseClass {
 		testJSONXML(spec, "concept", "concept.xml", "concept.json");
         testJSONXML(spec, "place", "placeXMLJSON.xml", "placeJSON.json");
 		testJSONXML(spec, "collection-object", "objectsXMLJSON.xml",
-		 		"objectsJSON.json");
+				"objectsJSON.json");
 		
 		testJSONXML(spec, "acquisition", "acquisitionXMLJSON.xml",
 		 		"acquisitionJSON.json");

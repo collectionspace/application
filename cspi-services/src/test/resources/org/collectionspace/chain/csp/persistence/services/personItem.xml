@@ -14,9 +14,57 @@
       <title/>
     </personTermGroup>
   </personTermGroupList>
-  <birthDate>May 26, 1907</birthDate>
+  <birthDateGroup>
+      <dateEarliestSingleQualifier/>
+      <scalarValuesComputed>true</scalarValuesComputed>
+      <dateLatestDay/>
+      <dateLatestYear/>
+      <dateAssociation/>
+      <dateEarliestSingleEra/>
+      <dateDisplayDate>May 26, 1907</dateDisplayDate>
+      <dateEarliestSingleCertainty/>
+      <dateLatestEra/>
+      <dateEarliestSingleQualifierValue/>
+      <dateLatestCertainty/>
+      <dateEarliestSingleYear/>
+      <dateLatestQualifier/>
+      <dateLatestQualifierValue/>
+      <dateEarliestSingleQualifierUnit/>
+      <datePeriod/>
+      <dateEarliestScalarValue/>
+      <dateLatestMonth/>
+      <dateNote/>
+      <dateLatestScalarValue/>
+      <dateLatestQualifierUnit/>
+      <dateEarliestSingleDay/>
+      <dateEarliestSingleMonth/>
+  </birthDateGroup>
   <birthPlace>urn:cspace:org.collectionspace.demo:location:name(Museum):item:name(IA_Winterset)'Winterset, Iowa'</birthPlace>
-  <deathDate>June 11, 1979</deathDate>
+  <deathDateGroup>
+      <dateEarliestSingleQualifier/>
+      <scalarValuesComputed>true</scalarValuesComputed>
+      <dateLatestDay/>
+      <dateLatestYear/>
+      <dateAssociation/>
+      <dateEarliestSingleEra/>
+      <dateDisplayDate>June 11, 1979</dateDisplayDate>
+      <dateEarliestSingleCertainty/>
+      <dateLatestEra/>
+      <dateEarliestSingleQualifierValue/>
+      <dateLatestCertainty/>
+      <dateEarliestSingleYear/>
+      <dateLatestQualifier/>
+      <dateLatestQualifierValue/>
+      <dateEarliestSingleQualifierUnit/>
+      <datePeriod/>
+      <dateEarliestScalarValue/>
+      <dateLatestMonth/>
+      <dateNote/>
+      <dateLatestScalarValue/>
+      <dateLatestQualifierUnit/>
+      <dateEarliestSingleDay/>
+      <dateEarliestSingleMonth/>
+  </deathDateGroup>
   <deathPlace/>
   <bioNote>born Marion Robert Morrison and better known by his stage name John Wayne, was an
     American film actor, director and producer. He epitomized rugged masculinity and has become an
