@@ -173,7 +173,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 			if (inputSource != null && inputSource.getByteStream() != null) {
 				result = new Properties();
 				result.load(inputSource.getByteStream());
-			}
+			} // FIXME: REM - Add an 'else' clause with a warning log entry here -i.e., the stream is empty the input source is null
 		} catch (Exception e) {
 			logger.debug("Could not find the XMLMerge properties file named: " + resourceName);
 		}

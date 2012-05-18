@@ -36,7 +36,7 @@
 				
 				<include src="domain-authority-person.xml"  strip-root="yes" />
 				
-                <instances>
+                <instances id="person">
                     <instance id="person-person">
                         <web-url>person</web-url>
                         <title-ref>person</title-ref>
