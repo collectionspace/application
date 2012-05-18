@@ -154,6 +154,26 @@ public class JSONUtils {
 			Object value=in.get(key);
 			if((value instanceof String) && "".equals(value))
 				continue;
+			if(value instanceof JSONObject) {	// recurse
+				JSONObject out2=stripEmptyStringKey((JSONObject)value);
+				out.put(key,out2);
+				continue;
+			}
+			if(value instanceof JSONArray) {	// recurse
+				JSONArray list = (JSONArray)value;
+				JSONArray newlist = new JSONArray();
+				for(int i=0;i<list.length();i++) {
+					Object thing = list.get(i);
+					if(thing instanceof JSONObject) {	// recurse
+						JSONObject out3=stripEmptyStringKey((JSONObject)thing);
+						newlist.put(out3);
+					} else {
+						newlist.put(thing);
+					}
+				}
+				out.put(key,newlist);
+				continue;
+			}
 			out.put(key,value);
 		}
 		return out;

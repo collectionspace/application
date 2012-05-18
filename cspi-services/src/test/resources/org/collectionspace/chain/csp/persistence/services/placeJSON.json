@@ -72,22 +72,19 @@
 	"maxDistanceAboveSurfaceInMeters": "234567.0",
 	"vCoordSource": "123456",
 	"maxElevationInMeters": "234567.0",
-	"termStatus": "under-review",
 	"vCoordSourceRefId": "123456",
 	"vDistanceAboveSurface": "123456",
 	"placeType": "municipality",
-	"note": "123456",
-	"placeIdentifier": "123456",
 	"vCoordinates": "123456",
-	"placeNameGroup": [
+	"placeTermGroup": [
 		{
-			"nameAdminStatus": "provisional",
-			"nameStatus": "current",
-			"nameSourceRefId": "123456",
-			"nameLanguage": "",
-			"nameType": "technical-scientific",
+			"termStatus": "provisional",
+			"historicalStatus": "current",
+			"termSourceID": "123456",
+			"termLanguage": "",
+			"termType": "technical-scientific",
 			"_primary": true,
-			"nameSource": "123456",
+			"termSource": "123456",
 			"nameDateGroup": {
 				"dateEarliestSingleQualifier": "",
 				"dateLatestYear": "1956",
@@ -115,10 +112,10 @@
 				"dateEarliestSingleDay": "4"
 			},
 			"nameAbbrev": "123",
-			"placeName": "123456",
-			"nameNote": "12",
-			"nameSourceDetail": "123456",
-			"nameQualifiedName": "123456"
+			"termName": "123456",
+			"termSourceNote": "12",
+			"termSourceDetail": "123456",
+			"termDisplayName": "123456"
 		}
 	],
 	"vLatitude": "123456",
@@ -171,9 +168,7 @@
 	],
 	"csid": "47299e96-ec1a-4d33-a33a",
 	"vCoordSys": "national-grid-reference",
-	"source": "123456",
 	"vElevation": "123456",
 	"minDepthInMeters": "123456.0",
 	"refName": "urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(march7735pm1331177716612)'march 7 7-35pm'",
-	"displayName": "march 7 7-35pm"
 }

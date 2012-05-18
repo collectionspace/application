@@ -1,19 +1,23 @@
 {
-
-    "shortIdentifier": "bob",
-    "accessNote": "accessNote",
-    "address": "address",
-    "securityNote": "securityNote",
-    "termStatus": "termStatus",
-    "name": "name",
-    "displayName": "person narro",
-    "conditionGroup": [{
-        "_primary": true,
-        "conditionNote": "qqq",
-        "conditionNoteDate": "2011-05-03"
-    }, {
-        "conditionNote": "aaa",
-        "conditionNoteDate": "2011-05-25"
-    }],
-    "locationType": "building"
+  "shortIdentifier": "bob",
+  "accessNote": "accessNote",
+  "address": "address",
+  "securityNote": "securityNote",
+  "locTermGroup": [{
+    "_primary": true,
+    "termDisplayName": "My Building",
+    "termStatus": "termStatus"
+  }],
+  "conditionGroup": [
+    {
+      "_primary": true,
+      "conditionNote": "qqq",
+      "conditionNoteDate": "2011-05-03"
+    },
+    {
+      "conditionNote": "aaa",
+      "conditionNoteDate": "2011-05-25"
+    }
+  ],
+  "locationType": "building"
 }
