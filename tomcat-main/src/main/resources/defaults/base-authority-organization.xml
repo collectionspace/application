@@ -37,7 +37,12 @@
         <instance id="organization-organization">
             <web-url>organization</web-url>
             <title-ref>organization</title-ref>
-            <title>Default Organization Authority</title>
+            <title>Local Organization</title>
+        </instance>
+        <instance id="organization-ulan_oa">
+            <web-url>ulan_oa</web-url>
+            <title-ref>ulan_oa</title-ref>
+            <title>ULAN Organization</title>
         </instance>
         <instance id="organization-organizationtest">
             <web-url>organizationtest</web-url>
