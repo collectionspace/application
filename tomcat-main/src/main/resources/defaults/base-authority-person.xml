@@ -105,14 +105,16 @@
                     <field id="nameNote">
                         <selector>personAuthority-nameNote</selector>
                     </field>
-                    <field id="birthDate" ui-search="range" in-title="yes" ui-type="date">
+                    <field id="birthDateGroup" ui-search="range" in-title="yes" ui-type="groupfield/structureddate" 
+                        primarykey="birthDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
                         <selector>personAuthority-birthDate</selector>
                         <title-selector>titleBar-birthDate</title-selector>
                     </field>
                     <field id="birthPlace">
                         <selector>personAuthority-birthPlace</selector>
                     </field>
-                    <field id="deathDate" ui-search="range" in-title="yes" ui-type="date">
+                    <field id="deathDateGroup" ui-search="range" in-title="yes" ui-type="groupfield/structureddate" 
+                        primarykey="deathDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
                         <selector>personAuthority-deathDate</selector>
                         <title-selector>titleBar-deathDate</title-selector>
                     </field>

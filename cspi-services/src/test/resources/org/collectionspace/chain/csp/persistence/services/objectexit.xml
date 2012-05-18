@@ -3,7 +3,31 @@
     xmlns:ns2="http://collectionspace.org/services/objectexit">
     <currentOwner>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</currentOwner>
     <depositor>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</depositor>
-    <exitDate>July 1, 2010</exitDate>
+    <exitDateGroup>
+        <dateEarliestSingleQualifier/>
+        <scalarValuesComputed>true</scalarValuesComputed>
+        <dateLatestDay/>
+        <dateLatestYear/>
+        <dateAssociation/>
+        <dateEarliestSingleEra/>
+        <dateDisplayDate>July 1, 2010</dateDisplayDate>
+        <dateEarliestSingleCertainty/>
+        <dateLatestEra/>
+        <dateEarliestSingleQualifierValue/>
+        <dateLatestCertainty/>
+        <dateEarliestSingleYear/>
+        <dateLatestQualifier/>
+        <dateLatestQualifierValue/>
+        <dateEarliestSingleQualifierUnit/>
+        <datePeriod/>
+        <dateEarliestScalarValue/>
+        <dateLatestMonth/>
+        <dateNote/>
+        <dateLatestScalarValue/>
+        <dateLatestQualifierUnit/>
+        <dateEarliestSingleDay/>
+        <dateEarliestSingleMonth/>
+    </exitDateGroup>
     <exitMethods>
         <exitMethod>courier</exitMethod>
         <exitMethod>post</exitMethod>
