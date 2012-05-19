@@ -88,7 +88,7 @@ public class TestBase extends TestData {
 			cookie = out.getHeader("Set-Cookie");
 		} else {
 			HttpTester out = jettyDo(tester, "POST", "/tenant/"+tenant+"/login/", test);
-			log.info(out.getContent());
+			log.trace(out.getContent());
 			assertEquals(303, out.getStatus());
 			cookie = out.getHeader("Set-Cookie");
 		}
@@ -541,24 +541,25 @@ public class TestBase extends TestData {
 		HttpTester out;
 		// Create
 		out = POSTData(uipath, makeSimpleRequest(data),jetty);
-		log.info(out.getContent());
+		log.trace(out.getContent());
 		String id = out.getHeader("Location");
 		// Retrieve
 		out = jettyDo(jetty, "GET", "/tenant/"+defaulttenant+"" + id, null);
-log.info(out.getContent());
+		log.trace(out.getContent());
 		JSONObject one = new JSONObject(getFields(out.getContent()));
 		JSONObject two = new JSONObject(data);
-		assertEquals(one.get(testfield).toString(), two.get(testfield)
-				.toString());
+		
+		assertEquals("testPostGetDelete("+uipath+") Tested field not the same: "+testfield, 
+				one.get(testfield).toString(), two.get(testfield).toString());
 
 		// change
 		if (!uipath.contains("permission")) {
 			two.put(testfield, "newvalue");
-			log.info(id);
-			log.info(makeRequest(two).toString());
+			log.debug(id);
+			log.debug(makeRequest(two).toString());
 			out = PUTData(id, makeRequest(two), jetty);
 			JSONObject oneA = new JSONObject(getFields(out.getContent()));
-			assertEquals(oneA.get(testfield).toString(), "newvalue");
+			assertEquals("testPostGetDelete("+uipath+") Updated value not the same on testfield: "+testfield, oneA.get(testfield).toString(), "newvalue");
 		}
 
 		// Delete
@@ -568,13 +569,13 @@ log.info(out.getContent());
 	//UI specs
 	public void testUIspec(ServletTester jetty, String url, String uijson) throws Exception {
 	
+		log.info("testUISpec("+url+", "+uijson+")");
 		HttpTester response;
 		JSONObject generated;
 		JSONObject comparison;
 		
 		response = GETData(url, jetty);
 		
-		log.info("GENERATED" + response.getContent());
 		generated = new JSONObject(response.getContent());
 		comparison = new JSONObject(getResourceString(uijson));
 		xxxfixOptions(generated);
@@ -583,13 +584,12 @@ log.info(out.getContent());
 		// You can use these, Chris, to write stuff out if the spec has changed to alter the test file -- dan
 		//hendecasyllabic:tmp csm22$ cat gschema.out | pbcopy
 		
-		//IOUtils.write(generated.toString(),new FileOutputStream("/tmp/gschema.out"));
-		//IOUtils.write(comparison.toString(),new FileOutputStream("/tmp/bschema.out"));
-		
-		log.info("BASELINE" + comparison.toString());
-		log.info("GENERATED" + generated.toString());
-		assertTrue("Failed to create correct uispec for " + url, JSONUtils
-				.checkJSONEquivOrEmptyStringKey(generated, comparison));
+		boolean success = JSONUtils.checkJSONEquivOrEmptyStringKey(generated, comparison);
+		if(!success) {
+			log.error("testUIspec("+url+") BASELINE from file" + comparison.toString());
+			log.error("testUIspec("+url+") GENERATED from url" + generated.toString());
+		}
+		assertTrue("Failed to create correct uispec for " + url, success);
 	
 	}
 	
@@ -603,7 +603,7 @@ log.info(out.getContent());
 			Arrays.sort(v);
 		}
 		catch(Exception ex){
-			log.info("well that was weird, let pretend nothing happened");
+			log.debug("xxxsorted: Unexpected exception: "+ex.getLocalizedMessage());
 		}
 		for(int i=0;i<v.length;i++)
 			out.put(v[i]);
