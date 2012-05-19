@@ -408,12 +408,6 @@
         <services-tag>contentDateGroup</services-tag>
         <selector>object-description-content-date</selector>
       </field>
-      <!--    
-	<field id="objectContentDate" ui-search="repeatable" ui-type="groupfield/structureddate"
-	    primarykey="objectContentDate.dateDisplayDate" ui-func="cspace.structuredDate"  >
-		<services-tag>objectContentDateGroup</services-tag>
-	</field>
-	-->
       <repeat id="contentPositions">
         <field id="contentPosition" seperate_ui_container="true">
           <selector>object-description-content-position</selector>

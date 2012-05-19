@@ -22,6 +22,18 @@
   ".csc-place-createdBy-label": {
     "messagekey": "place-createdByLabel"
   }, 
+  ".csc-place-historicalStatus-label": {
+    "messagekey": "preferredPlace-historicalStatusLabel"
+  }, 
+  ".csc-place-nameAbbrev-label": {
+    "messagekey": "preferredPlace-nameAbbrevLabel"
+  }, 
+  ".csc-place-nameDateGroup-label": {
+    "messagekey": "placeTermGroup-nameDateGroupLabel"
+  }, 
+  ".csc-place-nameNote-label": {
+    "messagekey": "preferredPlace-nameNoteLabel"
+  }, 
   ".csc-place-owner-label": {
     "messagekey": "place-ownerLabel"
   }, 
@@ -161,6 +173,39 @@
   ".csc-place-placeType-label": {
     "messagekey": "place-placeTypeLabel"
   }, 
+  ".csc-place-termDisplayName-label": {
+    "messagekey": "preferredPlace-termDisplayNameLabel"
+  }, 
+  ".csc-place-termLanguage-label": {
+    "messagekey": "preferredPlace-termLanguageLabel"
+  }, 
+  ".csc-place-termName-label": {
+    "messagekey": "preferredPlace-termNameLabel"
+  }, 
+  ".csc-place-termPrefForLang-label": {
+    "messagekey": "preferredPlace-termPrefForLangLabel"
+  }, 
+  ".csc-place-termQualifier-label": {
+    "messagekey": "preferredPlace-termQualifierLabel"
+  }, 
+  ".csc-place-termSource-label": {
+    "messagekey": "preferredPlace-termSourceLabel"
+  }, 
+  ".csc-place-termSourceDetail-label": {
+    "messagekey": "preferredPlace-termSourceDetailLabel"
+  }, 
+  ".csc-place-termSourceID-label": {
+    "messagekey": "preferredPlace-termSourceIDLabel"
+  }, 
+  ".csc-place-termSourceNote-label": {
+    "messagekey": "preferredPlace-termSourceNoteLabel"
+  }, 
+  ".csc-place-termStatus-label": {
+    "messagekey": "preferredPlace-termStatusLabel"
+  }, 
+  ".csc-place-termType-label": {
+    "messagekey": "preferredPlace-termTypeLabel"
+  }, 
   ".csc-place-updatedAt-label": {
     "messagekey": "place-updatedAtLabel"
   }, 
@@ -210,5 +255,25 @@
   }, 
   ".csc-place-updatedBy-label": {
     "messagekey": "place-updatedByLabel"
+  }, 
+  ".csc-preferredPlace-placeTermGroup": {
+    "decorators": [
+      {
+        "func": "cspace.makeRepeatable", 
+        "options": {
+          "elPath": "placeTermGroup", 
+          "hidePrimary": true, 
+          "repeatTree": {
+            "expander": {
+              "tree": {
+                ".csc-placeAuthority-termDisplayName": "${{row}.termDisplayName}"
+              }, 
+              "type": "fluid.noexpand"
+            }
+          }
+        }, 
+        "type": "fluid"
+      }
+    ]
   }
 }

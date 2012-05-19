@@ -31,6 +31,21 @@
         }, 
         "type": "array"
       }, 
+      "placeTermGroup": {
+        "items": {
+          "properties": {
+            "_primary": {
+              "default": true, 
+              "type": "boolean"
+            }, 
+            "termDisplayName": {
+              "type": "string"
+            }
+          }, 
+          "type": "object"
+        }, 
+        "type": "array"
+      }, 
       "placeTypes": {
         "items": {
           "properties": {
