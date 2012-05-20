@@ -43,6 +43,29 @@
   ".csc-place-ownershipNote-label": {
     "messagekey": "place-ownershipNoteLabel"
   }, 
+  ".csc-place-placeNote": {
+    "decorators": [
+      {
+        "func": "cspace.makeRepeatable", 
+        "options": {
+          "elPath": "placeNotes", 
+          "hidePrimary": true, 
+          "repeatTree": {
+            "expander": {
+              "tree": {
+                ".csc-place-placeNote": "${{row}.placeNote}"
+              }, 
+              "type": "fluid.noexpand"
+            }
+          }
+        }, 
+        "type": "fluid"
+      }
+    ]
+  }, 
+  ".csc-place-placeNote-label": {
+    "messagekey": "place-placeNoteLabel"
+  }, 
   ".csc-place-placeOwnerGroup": {
     "decorators": [
       {
