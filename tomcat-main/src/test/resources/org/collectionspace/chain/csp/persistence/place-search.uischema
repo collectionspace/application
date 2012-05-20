@@ -16,6 +16,21 @@
         }, 
         "type": "array"
       }, 
+      "placeNotes": {
+        "items": {
+          "properties": {
+            "_primary": {
+              "default": true, 
+              "type": "boolean"
+            }, 
+            "placeNote": {
+              "type": "string"
+            }
+          }, 
+          "type": "object"
+        }, 
+        "type": "array"
+      }, 
       "placeOwnerGroup": {
         "items": {
           "properties": {
