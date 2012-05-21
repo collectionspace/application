@@ -66,7 +66,9 @@
                             <option id="library" sample="LIB2009.1">Library</option>
                         </options>
                     </field>
-                    <field id="accessionDateGroup" ui-search="range" ui-type="groupfield/structureddate" 
+                    <!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
+                    <!-- start and end scalar values is working -->
+                    <field id="accessionDateGroup" ui-type="groupfield/structureddate" 
                         primarykey="accessionDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
                     </field>
                     
@@ -78,7 +80,9 @@
                     </field>
 				<!--	</group> -->
                     <repeat id="acquisitionDateGroupList/acquisitionDateGroup">
-                      <group id="acquisitionDateGroup" ui-search="range" ui-type="groupfield/structureddate"
+                      <!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
+                      <!-- start and end scalar values is working -->
+                      <group id="acquisitionDateGroup" ui-type="groupfield/structureddate"
                           xxx-services-no-repeat="true" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
                       </group>
                     </repeat>

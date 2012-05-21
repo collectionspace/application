@@ -12,7 +12,10 @@
             <field id="termName">
                 <selector>taxonAuthority-termName</selector>
             </field>
-            <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
+            <!-- Recommendation: Hide termType in the UI because taxonomy has established -->
+            <!-- international nomenclature standards. -->
+            <!-- FIXME: Should we remove this field from mini-records? - ADR 2012-05-18 -->
+            <field id="termType" mini="summary,search,list,relate">
                 <selector>taxonAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>
@@ -21,7 +24,8 @@
                     <option id="used for term">Used for Term</option>
                 </options>
             </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
+            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
+            <field id="termStatus" seperate_ui_container="true"
                 mini="search,list,relate">
                 <selector>taxonAuthority-termStatus</selector>
                 <options>
