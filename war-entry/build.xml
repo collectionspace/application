@@ -3,7 +3,7 @@
 <project name="Application Layer Nightly Build Script" default="post_build_tasks">
 
     <property environment="env"/>
-    <property name="config_destination" value="${env.JBOSS_HOME}/server/cspace/conf" />
+    <property name="config_destination" value="${env.CSPACE_JEESERVER_HOME}/lib" />
     <property name="app_trunk" location=".." />
     <property name="app_resources_dir" location="${app_trunk}/tomcat-main/src/main/resources"/>
     
