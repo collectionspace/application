@@ -33,7 +33,7 @@
 				
 	<include src="domain-authority-location.xml" strip-root="yes"/>
 				
-    <instances>
+    <instances id="location">
         <instance id="location-local_sla">
             <web-url>local_sla</web-url>
             <title-ref>local_sla</title-ref>

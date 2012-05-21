@@ -1,5 +1,5 @@
 <record id="concept" type="authority">
-    <instances id="concept">
+	<instances id="concept">
         <instance id="concept-associatedconcept_ca">
 			<nptAllowed>false</nptAllowed>
         </instance>
@@ -14,3 +14,4 @@
         </instance>
     </instances>
 </record>
+

@@ -35,7 +35,7 @@
 
     <include src="domain-authority-place.xml" strip-root="yes"/>
 
-    <instances>
+    <instances id="place">
         <instance id="place-local_place">
             <web-url>local_place</web-url>
             <title-ref>local_place</title-ref>
