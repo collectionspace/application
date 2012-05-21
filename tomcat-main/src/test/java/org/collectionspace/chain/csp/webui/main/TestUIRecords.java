@@ -387,10 +387,10 @@ public class TestUIRecords {
 		//log.info(out.getContent());
 		JSONObject result = new JSONObject(out.getContent());
 		JSONArray items = result.getJSONArray("items");
-		log.info(items.length() + " items returned");
+		log.debug(items.length() + " items returned");
 		for (int i = 0; i < items.length(); i++) {
 			JSONObject item = items.getJSONObject(i);
-			log.info("Item "+ i 
+			log.trace("Item "+ i 
 					+ " number: [" + item.getString("number")
 					+ "] summary: [" + item.getString("summary")
 					+ "] recordtype: [" + item.getString("recordtype") + "]");
