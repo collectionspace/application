@@ -68,7 +68,7 @@
         <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
         <field id="createdAt" section="collectionspace_core" attributes="GET"/>
         <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
-            attributes="GET" mini="search,list,relate"/>
+               attributes="GET" mini="search,list,relate"/>
     </section>
     <section id="placeAuthorityInformation">
         <field id="preferredPlace" ui-type="groupfield/preferredPlace/selfrenderer" ui-func="cspace.preferred">
@@ -118,12 +118,12 @@
             </options>
         </field>
         <field id="placeSource"></field>
-        <field id="placeNote"></field>
+        <field id="placeNote" ui-search="repeatable"/>
         <repeat id="placeOwnerGroupList/placeOwnerGroup">
             <field id="owner" autocomplete="person-person,organization-organization"
-                ui-search="repeatable"/>
+                   ui-search="repeatable"/>
             <group id="ownershipDateGroup" ui-type="groupfield/structureddate"
-                primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range"/>
+                   primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
             <field id="ownershipNote"/>
         </repeat>
     </section>
@@ -211,16 +211,18 @@
             <field id="footprintSpatialFit"/>
             <field id="geoReferencedBy" autocomplete="person-person,organization-organization"/>
             <group id="geoRefDateGroup" ui-type="groupfield/structureddate"
-                primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
+                   primarykey="dateDisplayDate" ui-func="cspace.structuredDate"/>
             <field id="geoRefProtocol">
                 <!-- See http://code.google.com/p/darwincore/wiki/Location#georeferenceProtocol;
                 Quick reference: http://rs.tdwg.org/dwc/terms/index.htm#georeferenceProtocol -->
                 <options>
                     <option id="" default="yes">Please select a value</option>
                     <option id="chapman-wieczorek-2006-guide-best-practices-georeferencing">Chapman,
-                        Wieczorek 2006, Guide to Best Practices for Georeferencing</option>
+                        Wieczorek 2006, Guide to Best Practices for Georeferencing
+                    </option>
                     <option id="manis-herpnet-ornis-georeferencing-guidelines">MaNIS/HerpNet/ORNIS
-                        Georeferencing Guidelines</option>
+                        Georeferencing Guidelines
+                    </option>
                     <option id="georeferencing-dummies">Georeferencing For Dummies</option>
                     <option id="biogeomancer">BioGeomancer</option>
                 </options>
