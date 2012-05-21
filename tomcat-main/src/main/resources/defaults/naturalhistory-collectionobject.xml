@@ -13,14 +13,27 @@
 				<options>
 					<option id="">Please select a value</option>
 					<option id="unknown">unknown</option>
+					<option id="aff.">aff.</option>
+					<option id="auct.">auct.</option>
+					<option id="cf.">cf.</option>
+					<option id="complex">complex</option>
 					<option id="fide">fide</option>
 					<option id="forsan">forsan</option>
+					<option id="group">group</option>
 					<option id="hybrid (X)">hybrid (X)</option>
+					<option id="indet.">indet.</option>
+					<option id="ined.">ined.</option>
+					<option id="intermediate">intermediate</option>
 					<option id="sensu">sensu</option>
 					<option id="sensu lato">sensu lato</option>
 					<option id="sensu stricto">sensu stricto</option>
+					<option id="unnamed infrageneric hybrid/intermediate">unnamed infrageneric hybrid/intermediate</option>
+					<option id="unnamed infrageneric hybrid/intermediate - parents unknown">unnamed infrageneric hybrid/intermediate - parents unknown</option>
+					<option id="unnamed intergeneric hybrid/intermediate">unnamed intergeneric hybrid/intermediate</option>
+					<option id="unnamed intergeneric hybrid/intermediate - parents unknown">unnamed intergeneric hybrid/intermediate - parents unknown</option>
+					<option id="unnamed infraspecific hybrid/intermediate">unnamed infraspecific hybrid/intermediate</option>
+					<option id="unnamed infraspecific hybrid/intermediate - parents unknown">unnamed infraspecific hybrid/intermediate - parents unknown</option>
 					<option id="vide">vide</option>
-					<option id="intermediate">intermediate</option>
 					<option id="?">?</option>
 				</options>
 			</field>
@@ -98,12 +111,15 @@
 				<options>
 					<option id="">Please select a value</option>
 					<option id="unknown">unknown</option>
+					<option id="cf.">cf.</option>
 					<option id="fide">fide</option>
 					<option id="forsan">forsan</option>
+					<option id="group">group</option>
 					<option id="hybrid (X)">hybrid (X)</option>
 					<option id="sensu">sensu</option>
 					<option id="sensu lato">sensu lato</option>
 					<option id="sensu stricto">sensu stricto</option>
+					<option id="series">series</option>
 					<option id="vide">vide</option>
 					<option id="intermediate">intermediate</option>
 					<option id="?">?</option>
@@ -181,54 +197,14 @@
 				<selector>collection-object-annotationType</selector>
 				<options>
 					<option id="">Please select a value</option>
-					<option id="unknown">unknown</option>
-					<option id="anatomy ">anatomy</option>
-					<option id="annotation history">annotation history</option>
-					<option id="associated species">associated species</option>
-					<option id="biotic environment -inactive 7/93">biotic environment -inactive 7/93</option>
-					<option id="biotic interactions">biotic interactions</option>
-					<option id="bryoflorulae">bryoflorulae</option>
-					<option id="color">color</option>
-					<option id="common name">common name</option>
-					<option id="cytology">cytology</option>
-					<option id="data in packet">data in packet</option>
+					<option id="additional taxa">additional taxa</option>
 					<option id="deaccession">deaccession</option>
-					<option id="embryology">embryology</option>
-					<option id="ethnobotany">ethnobotany</option>
-					<option id="Expedition">Expedition</option>
-					<option id="fruit removal">fruit removal</option>
-					<option id="genbank code">genbank code</option>
-					<option id="habitat">habitat</option>
-					<option id="horticulture">horticulture</option>
-					<option id="illustration">illustration</option>
+					<option id="holotype location">holotype location</option>
 					<option id="image made">image made</option>
-					<option id="Insect damage">Insect damage</option>
-					<option id="macromorphology">macromorphology</option>
-					<option id="map">map</option>
-					<option id="material removed">material removed</option>
-					<option id="micromorphology">micromorphology</option>
 					<option id="nomenclature">nomenclature</option>
-					<option id="none">none</option>
-					<option id="nucleic acids">nucleic acids</option>
 					<option id="number collision">number collision</option>
-					<option id="odor">odor</option>
-					<option id="other">other</option>
-					<option id="other label numbers">other label numbers</option>
-					<option id="phenology">phenology</option>
-					<option id="photograph">photograph</option>
-					<option id="physical enviroment">physical enviroment</option>
-					<option id="physical environment">physical environment</option>
-					<option id="physical environment -inactive 7/93">physical environment -inactive 7/93</option>
 					<option id="population biology">population biology</option>
-					<option id="Primary Label Header">Primary Label Header</option>
-					<option id="publication">publication</option>
-					<option id="reference used for determination">reference used for determination</option>
-					<option id="reproductive biology">reproductive biology</option>
-					<option id="Secondary Label Header">Secondary Label Header</option>
-					<option id="secondary product chemistry">secondary product chemistry</option>
-					<option id="SEM (Scanning Electron Micrograph)">SEM (Scanning Electron Micrograph)</option>
 					<option id="type">type</option>
-					<option id="U.C. Botanical Garden">U.C. Botanical Garden</option>
 					<option id="Vegetation Type Map Project">Vegetation Type Map Project</option>
 				</options>
 			</field>
