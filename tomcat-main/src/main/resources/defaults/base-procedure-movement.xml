@@ -57,7 +57,7 @@
                 <section id="currentLocationHeader"></section> <!-- temp until better way to do group headers -->
                 <section id="locationMovementInformation">
                     <!--  Object Location Information Group -->
-                    <field id="currentLocation" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate,terms" autocomplete="location-local_sla,location-offsite_sla,organization-organization">
+                    <field id="currentLocation" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate,terms" autocomplete="location-location,location-offsite_sla,organization-organization">
                         <title-selector>titleBar-currentLocation</title-selector>
                     </field>
                     <field id="currentLocationFitness">

@@ -40,23 +40,12 @@
                     <instance id="person-person">
                         <web-url>person</web-url>
                         <title-ref>person</title-ref>
-                        <title>Local Person</title>
+                        <title>Local Persons</title>
                     </instance>
                     <instance id="person-ulan_pa">
                         <web-url>ulan_pa</web-url>
                         <title-ref>ulan_pa</title-ref>
-                        <title>ULAN Person</title>
-                    </instance>
-                    <instance id="person-persontest1">
-                        <web-url>persontest1</web-url>
-                        <title-ref>persontest1</title-ref>
-                        <title>Test Person Authority 1</title>
-                    </instance>
-                    <instance id="person-persontest2">
-                        <web-url>persontest2</web-url>
-                        <title-ref>persontest2</title-ref>
-                        <nptAllowed>false</nptAllowed>
-                        <title>Test Person Authority 2</title>
+                        <title>ULAN Persons</title>
                     </instance>
                 </instances>
                 <section id="coreInformation">
