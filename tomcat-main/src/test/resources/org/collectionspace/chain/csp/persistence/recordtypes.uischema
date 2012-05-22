@@ -46,7 +46,9 @@
           "ulan_oa", 
           "organization", 
           "place", 
-          "tgn_place"
+          "tgn_place",
+          "common_ta",
+          "taxon"
         ], 
         "type": "array"
       }

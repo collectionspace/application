@@ -124,6 +124,29 @@
           }
         }, 
         "type": "object"
+      }, 
+      "taxon": {
+        "properties": {
+          "common_ta": {
+            "properties": {
+              "nptAllowed": {
+                "default": true, 
+                "type": "boolean"
+              }
+            }, 
+            "type": "object"
+          }, 
+          "taxon": {
+            "properties": {
+              "nptAllowed": {
+                "default": true, 
+                "type": "boolean"
+              }
+            }, 
+            "type": "object"
+          }
+        }, 
+        "type": "object"
       }
     }, 
     "type": "object"
