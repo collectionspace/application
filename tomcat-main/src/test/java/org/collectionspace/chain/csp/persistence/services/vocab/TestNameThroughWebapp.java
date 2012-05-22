@@ -12,8 +12,7 @@ import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.AfterClass;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -23,12 +22,22 @@ import org.slf4j.LoggerFactory;
 public class TestNameThroughWebapp{
 	private static final Logger log=LoggerFactory.getLogger(TestNameThroughWebapp.class);
 	private static TestBase tester = new TestBase();
+	
+	private static String MAIN_PERSON_INSTANCE_PATH = "/vocabularies/person";
+	private static String SECOND_PERSON_INSTANCE_PATH = "/vocabularies/ulan_pa";
+	
 //need a begin function that creates the default person if it is missing?
-	@Before public void testCreateAuth() throws Exception {
+	@BeforeClass public static void testCreateAuth() throws Exception {
 		ServletTester jetty = tester.setupJetty();
-		HttpTester out = tester.GETData("/vocabularies/person/",jetty);
+		
+		HttpTester out = tester.GETData("/authorities/vocab/initialize", jetty);
 		log.info(out.getContent());
-		JSONObject test = new JSONObject(out.getContent());
+
+		JSONObject test = null;
+		/*
+		out = tester.GETData("/vocabularies/person/",jetty);
+		log.info(out.getContent());
+		test = new JSONObject(out.getContent());
 		if(test.has("isError") && test.getBoolean("isError")){
 			//create the person authority
 			JSONObject data=new JSONObject("{'fields':{'displayName':'Default Person Authority','shortIdentifier':'person','vocabType':'PersonAuthority'}}");
@@ -52,7 +61,9 @@ public class TestNameThroughWebapp{
 			JSONObject data=new JSONObject("{'fields':{'displayName':'Test Person Authority 2','shortIdentifier':'persontest2','vocabType':'PersonAuthority'}}");
 			out = tester.POSTData("/authorities/person/",data,jetty);	
 		}
+		*/
 
+		/*
 		out = tester.GETData("/vocabularies/organization/",jetty);
 		log.info(out.getContent());
 		JSONObject test2 = new JSONObject(out.getContent());
@@ -69,6 +80,7 @@ public class TestNameThroughWebapp{
 			JSONObject data=new JSONObject("{'fields':{'displayName':'Test Organization Authority','shortIdentifier':'organizationtest','vocabType':'OrgAuthority'}}");
 			out = tester.POSTData("/authorities/organization/",data,jetty);	
 		}
+		*/
 	}
 	
 	private static final String PERSON_TERMLIST_ELEMENT = "personTermGroup";
@@ -95,7 +107,7 @@ public class TestNameThroughWebapp{
 		log.info("NAME: Autocomplete: test_start");
 		// Create the entry we are going to check for
 		JSONObject data=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, "XXXTESTNursultan Nazarbayev");
-		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
+		HttpTester out = tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/",data,jetty);	
 		String url=out.getHeader("Location");
 			
 		// Now test
@@ -124,7 +136,7 @@ public class TestNameThroughWebapp{
 		boolean test = false;
 		for(int i=0;i<data.length();i++){
 			String url=data.getJSONObject(i).getString("url");
-			if(url.equals("/vocabularies/person")){
+			if(url.equals(MAIN_PERSON_INSTANCE_PATH)){
 				test=true;
 			}
 		}
@@ -158,7 +170,7 @@ public class TestNameThroughWebapp{
 		boolean test = false;
 		for(int i=0;i<data.length();i++){
 			String url=data.getJSONObject(i).getString("url");
-			if(url.equals("/vocabularies/person")){
+			if(url.equals(MAIN_PERSON_INSTANCE_PATH)){
 				test=true;
 			}
 		}
@@ -173,7 +185,7 @@ public class TestNameThroughWebapp{
 		log.info("NAME: AuthoritiesSearch: test_start");
 		// Create the entry we are going to check for
 		JSONObject data=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, "XXXTESTJacob Zuma");
-		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
+		HttpTester out = tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/",data,jetty);	
 
 		log.info(out.getContent());
 		String url=out.getHeader("Location");
@@ -219,7 +231,7 @@ public class TestNameThroughWebapp{
 		//tester.GETData("/quick-reset",jetty);
 		// Create the entry we are going to check for
 		JSONObject data=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, "XXXTESTRaul Castro");
-		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
+		HttpTester out = tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/",data,jetty);	
 		String url=out.getHeader("Location");
 		JSONObject payload = new JSONObject();
 		JSONObject searchfields = new JSONObject();
@@ -229,7 +241,7 @@ public class TestNameThroughWebapp{
 		payload.put("operation", "or");
 		payload.put("fields", searchfields);
 		
-		out=tester.POSTData("/vocabularies/person/search",payload,jetty,"GET");
+		out=tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/search",payload,jetty,"GET");
 
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
@@ -250,10 +262,10 @@ public class TestNameThroughWebapp{
 		//tester.GETData("/quick-reset",jetty);
 		// Create the entry we are going to check for
 		JSONObject data=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, "XXXTESTRaul Castro");
-		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
+		HttpTester out = tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/",data,jetty);	
 		String url=out.getHeader("Location");
 		
-		out=tester.GETData("/vocabularies/person/search?query=XXXTESTRaul+Castro",jetty);
+		out=tester.GETData(MAIN_PERSON_INSTANCE_PATH+"/search?query=XXXTESTRaul+Castro",jetty);
 
 		JSONArray results=new JSONObject(out.getContent()).getJSONArray("results");
 		for(int i=0;i<results.length();i++) {
@@ -331,7 +343,7 @@ public class TestNameThroughWebapp{
 		
 		JSONObject data = personWithContact("bob", true);
 
-		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
+		HttpTester out = tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/",data,jetty);	
 		String url=out.getHeader("Location");
 		log.info(out.getContent());
 		log.info("NAME: PersonWithContactAuthorityCRUD: test_end");
@@ -348,13 +360,13 @@ public class TestNameThroughWebapp{
 		
 		log.info("NAME: NamesCreateUpdateDelete person test: CREATE");
 		data = personWithContact("TESTTESTFred Bloggers", false);
-		out = tester.POSTData("/vocabularies/persontest1/",data,jetty);
+		out = tester.POSTData(SECOND_PERSON_INSTANCE_PATH+"/",data,jetty);
 		String url=out.getHeader("Location");
 		log.info(out.getContent());
 		
 		log.info("NAME: NamesCreateUpdateDelete person default: CREATE");
 		data = personWithContact("DDDDTESTFred Bloggers", false);
-		out = tester.POSTData("/vocabularies/persontest2/",data,jetty);
+		out = tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/",data,jetty);
 		String url2=out.getHeader("Location");
 		log.info(out.getContent());
 
@@ -376,29 +388,29 @@ public class TestNameThroughWebapp{
 		assertEquals(2,results2.length());
 		
 		//specific person authority
-		out=tester.GETData("/vocabularies/persontest1/search?query=TESTTESTFred",jetty);
+		out=tester.GETData(SECOND_PERSON_INSTANCE_PATH+"/search?query=TESTTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results3=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results3.length());
-		out=tester.GETData("/vocabularies/persontest1/search?query=DDDDTESTFred",jetty);
+		out=tester.GETData(SECOND_PERSON_INSTANCE_PATH+"/search?query=DDDDTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results32=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(0,results32.length());
-		out=tester.GETData("/vocabularies/persontest1/search?query=Bloggers",jetty);
+		out=tester.GETData(SECOND_PERSON_INSTANCE_PATH+"/search?query=Bloggers",jetty);
 		log.info(out.getContent());
 		JSONArray results31=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results31.length());
 		
 		//specific person authority
-		out=tester.GETData("/vocabularies/persontest2/search?query=TESTTESTFred",jetty);
+		out=tester.GETData(MAIN_PERSON_INSTANCE_PATH+"/search?query=TESTTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results4=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(0,results4.length());
-		out=tester.GETData("/vocabularies/persontest2/search?query=DDDDTESTFred",jetty);
+		out=tester.GETData(MAIN_PERSON_INSTANCE_PATH+"/search?query=DDDDTESTFred",jetty);
 		log.info(out.getContent());
 		JSONArray results42=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results42.length());
-		out=tester.GETData("/vocabularies/persontest2/search?query=Bloggers",jetty);
+		out=tester.GETData(MAIN_PERSON_INSTANCE_PATH+"/search?query=Bloggers",jetty);
 		log.info(out.getContent());
 		JSONArray results41=new JSONObject(out.getContent()).getJSONArray("results");
 		assertEquals(1,results41.length());
@@ -435,7 +447,7 @@ public class TestNameThroughWebapp{
 		log.info("NAME: NamesCreateUpdateDelete: CREATE");
 		//JSONObject data=new JSONObject("{'csid': '', 'fields': {'displayName': 'XXXTESTFred Bloggs','contact': {'emailGroup': [{'email': 'test@example.com','emailType': 'home' }],'addressGroup': [{'addressPlace1': 'addressPlace1','addressPlace2': 'addressPlace2','addressMunicipality': 'addressMunicipality','addressStateOrProvince': 'addressStateOrProvince', 'addressPostCode': 'addressPostCode','addressCountry': 'addressCountry' }, {'addressPlace1': 'SECOND_addressPlace1','addressPlace2': 'SECOND_addressPlace2','addressMunicipality': 'SECOND_addressMunicipality','addressStateOrProvince': 'SECOND_addressStateOrProvince','addressPostCode': 'SECOND_addressPostCode', 'addressCountry': 'SECOND_addressCountry'}]} }}");
 		JSONObject data = personWithContact("XXXTESTFred Bloggs", true);
-		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);
+		HttpTester out = tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/",data,jetty);
 		String url=out.getHeader("Location");
 		log.info(out.getContent());
 		JSONObject datad = new JSONObject(out.getContent());
@@ -486,7 +498,7 @@ public class TestNameThroughWebapp{
 		ServletTester jetty = tester.setupJetty();
 		// Create
 		JSONObject data=simplePerson(name);
-		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);	
+		HttpTester out = tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/",data,jetty);	
 		String url=out.getHeader("Location");
 		// Read
 		out = tester.GETData("/vocabularies"+url,jetty);
@@ -500,7 +512,7 @@ public class TestNameThroughWebapp{
 	{
 		// Update
 		JSONObject data=simplePerson(name);
-		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);		
+		HttpTester out = tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/",data,jetty);		
 		String url=out.getHeader("Location");
 		out=tester.PUTData("/vocabularies"+url,data,jetty);	
 	}
@@ -509,7 +521,7 @@ public class TestNameThroughWebapp{
 	{
 		// Delete
 		JSONObject data=simplePerson(name);
-		HttpTester out = tester.POSTData("/vocabularies/person/",data,jetty);		
+		HttpTester out = tester.POSTData(MAIN_PERSON_INSTANCE_PATH+"/",data,jetty);		
 		String url=out.getHeader("Location");
 		tester.DELETEData("/vocabularies/"+url,jetty);
 	}

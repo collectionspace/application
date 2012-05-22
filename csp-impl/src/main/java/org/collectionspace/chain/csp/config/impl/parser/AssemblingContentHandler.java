@@ -126,7 +126,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		}
 	}
 		
-	private InputStream merge(Properties xmlmergeProps, InputStream[] inputStreams) throws AbstractXmlMergeException {
+	private InputStream merge(String loggingPrefix, Properties xmlmergeProps, InputStream[] inputStreams) throws AbstractXmlMergeException {
 		InputStream result = null;		
 		//
 		// If we have an XMLMerge properties file then use it -otherwise, use a default set of props.
@@ -144,7 +144,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		 */
 		if (logger.isDebugEnabled() == true) {
 			try {
-			String outputFileNamePrefix = "/merged-" + UUID.randomUUID().toString();
+			String outputFileNamePrefix = "/merged-" + loggingPrefix + "-" + UUID.randomUUID().toString();
 			if (xmlmergeProps != null) { 
 				File mergePropertiesFile = new File(FileUtils.getTempDirectoryPath() + outputFileNamePrefix + ".properties"); //make a copy of the XMLMerge properties used for the merge
 				ByteArrayInputStream propertiesStream = new ByteArrayInputStream(xmlmergeProps.toString().getBytes());
@@ -173,7 +173,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 			if (inputSource != null && inputSource.getByteStream() != null) {
 				result = new Properties();
 				result.load(inputSource.getByteStream());
-			}
+			} // FIXME: REM - Add an 'else' clause with a warning log entry here -i.e., the stream is empty the input source is null
 		} catch (Exception e) {
 			logger.debug("Could not find the XMLMerge properties file named: " + resourceName);
 		}
@@ -211,7 +211,7 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 			InputStream mergedStream = null;
 			try {
 				Properties xmlmergeProps = getXMLMergeProperties(includeTag.merge); //the "merge" attribute contains the name of the XMLMerge properties file
-				mergedStream = merge(xmlmergeProps, toArray(inputSources));
+				mergedStream = merge(includeTag.src, xmlmergeProps, toArray(inputSources));
 			} catch (AbstractXmlMergeException e) {
 				String msg = "Could not merge the include files: " + includeTag.src;
 				logger.warn(msg);

@@ -586,7 +586,7 @@ public class TestBase extends TestData {
 		
 		boolean success = JSONUtils.checkJSONEquivOrEmptyStringKey(generated, comparison);
 		if(!success) {
-			log.error("testUIspec("+url+") BASELINE from file" + comparison.toString());
+			log.error("testUIspec("+uijson+") BASELINE from file" + comparison.toString());
 			log.error("testUIspec("+url+") GENERATED from url" + generated.toString());
 		}
 		assertTrue("Failed to create correct uispec for " + url, success);

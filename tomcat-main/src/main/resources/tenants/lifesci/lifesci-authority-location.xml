@@ -1,0 +1,13 @@
+<record id="location"  type="authority">
+    <instances id ="location">
+        <instance id="location-local_sla">
+			<nptAllowed>false</nptAllowed>
+        </instance>        
+        <instance id="location-offsite_sla">
+			<nptAllowed>false</nptAllowed>
+        </instance>
+        <instance id="location-location">
+			<nptAllowed>false</nptAllowed>
+        </instance>
+    </instances>
+</record>

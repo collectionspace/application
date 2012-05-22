@@ -32,7 +32,7 @@
                 
     <include src="domain-authority-concept.xml" strip-root="yes"/>
                 
-    <instances>
+    <instances id="concept">
         <instance id="concept-material_ca">
             <web-url>material_ca</web-url>
             <title-ref>material_ca</title-ref>
