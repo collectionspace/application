@@ -27,7 +27,7 @@
 			<!-- IMPORTANT: *-termList.xml files MUST precede their equivalent files. -->
 			<include src="base-authority-location-termList.xml,local-authority-location-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-location.xml,anthropology-authority-location.xml,local-authority-location.xml" merge="xmlmerge.properties"/>
-			<include src="base-authority-organization-termList.xml"/>
+			<include src="base-authority-organization-termList.xml,local-authority-organization-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-organization.xml,anthropology-authority-organization.xml,local-authority-organization.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-person-termList.xml"/>
 			<include src="base-authority-person.xml,anthropology-authority-person.xml,local-authority-person.xml" merge="xmlmerge.properties"/>
