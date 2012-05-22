@@ -32,6 +32,8 @@
 				<selector>taxonomic-identification-ident-by</selector>
 			</field>
 			<group id="identDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" section="naturalhistory">
+				<selector>taxonomic-identification-ident-date</selector>
+
 				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
 				<field id="dateDisplayDate" section="naturalhistory"/>
 				<field id="dateAssociation" section="naturalhistory"/>
