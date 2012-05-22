@@ -1,0 +1,14 @@
+<record id="preferredSLA">
+	<section id="termInformation">
+		<repeat id="locTermGroupList/locTermGroup">
+			<field id="termStatus">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="accepted">active</option>
+					<option id="rejected">inactive</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>
