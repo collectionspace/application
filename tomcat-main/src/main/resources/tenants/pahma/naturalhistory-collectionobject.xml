@@ -1,8 +1,10 @@
 <record id="collection-object">
 	<services-record-path id="naturalhistory">collectionobjects_naturalhistory:http://collectionspace.org/services/collectionobject/domain/naturalhistory,collectionobjects_naturalhistory</services-record-path>
 
-	<!-- This is a PAHMA-specific version of the naturalhistory-collectionobject configuration, -->
-	<!-- which only uses a small subset of the fields in the default. -->
+	<!-- 
+		This is a PAHMA-specific version of the naturalhistory-collectionobject configuration,
+		which only uses a small subset of the fields in the default.
+	-->
 
 	<section id="identificationInformation">
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup" section="naturalhistory">
@@ -29,9 +31,32 @@
 			<field id="identBy" section="naturalhistory" autocomplete="person-person,organization-organization">
 				<selector>taxonomic-identification-ident-by</selector>
 			</field>
-			<field id="identDate" section="naturalhistory" ui-type="date">
-				<selector>taxonomic-identification-ident-date</selector>
-			</field>
+			<group id="identDateGroup" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate" section="naturalhistory">
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="naturalhistory"/>
+				<field id="dateAssociation" section="naturalhistory"/>
+				<field id="dateEarliestSingleYear" section="naturalhistory"/>
+				<field id="dateEarliestSingleMonth" section="naturalhistory"/>
+				<field id="dateEarliestSingleDay" section="naturalhistory"/>
+				<field id="dateEarliestSingleEra" section="naturalhistory"/>
+				<field id="dateEarliestSingleCertainty" section="naturalhistory"/>
+				<field id="dateEarliestSingleQualifier" section="naturalhistory"/>
+				<field id="dateEarliestSingleQualifierValue" section="naturalhistory"/>
+				<field id="dateEarliestSingleQualifierUnit" section="naturalhistory"/>
+				<field id="dateLatestYear" section="naturalhistory"/>
+				<field id="dateLatestMonth" section="naturalhistory"/>
+				<field id="dateLatestDay" section="naturalhistory"/>
+				<field id="dateLatestEra" section="naturalhistory"/>
+				<field id="dateLatestCertainty" section="naturalhistory"/>
+				<field id="dateLatestQualifier" section="naturalhistory"/>
+				<field id="dateLatestQualifierValue" section="naturalhistory"/>
+				<field id="dateLatestQualifierUnit" section="naturalhistory"/>
+				<field id="datePeriod" section="naturalhistory"/>
+				<field id="dateNote" section="naturalhistory"/>
+				<field id="dateEarliestScalarValue" section="naturalhistory"/>
+				<field id="dateLatestScalarValue" section="naturalhistory"/>
+				<field id="scalarValuesComputed" section="naturalhistory"/>
+			</group>
 			<field id="institution" section="naturalhistory" autocomplete="organization-organization">
 				<selector>taxonomic-identification-institution</selector>
 			</field>
