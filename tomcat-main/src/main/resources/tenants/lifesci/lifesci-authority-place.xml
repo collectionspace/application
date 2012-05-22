@@ -1,18 +1,9 @@
 <record id="place" type="authority">
     <instances id="place">
-        <instance id="place-local_place">
-			<nptAllowed>false</nptAllowed>
-        </instance>
         <instance id="place-tgn_place">
 			<nptAllowed>false</nptAllowed>
         </instance>
         <instance id="place-place">
-			<nptAllowed>false</nptAllowed>
-        </instance>
-        <instance id="place-placetest1">
-			<nptAllowed>false</nptAllowed>
-        </instance>
-        <instance id="place-placetest2">
 			<nptAllowed>false</nptAllowed>
         </instance>
     </instances>
