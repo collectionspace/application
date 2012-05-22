@@ -10,6 +10,7 @@
 				<option id="Research">Research</option>
 				<option id="NAGPRA">NAGPRA</option>
 				<option id="pershelflabel">per shelf label</option>
+				<option id="NewHomeLocation">New Home Location</option>
 				<option id="Loan">Loan</option>
 				<option id="Exhibit">Exhibit</option>
 				<option id="ClassUse">Class Use</option>
