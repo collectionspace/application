@@ -1217,8 +1217,33 @@
 				<field id="previousOwner" section="pahma" autocomplete="person-person,organization-organization"> <!-- ######## THIS FIELD TEMPORARILY ADDED BY PAHMA ####### -->
 					<selector>collection-object-previousOwner</selector>
 				</field>
-				<group id="ownershipDate" section="pahma" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
+				<group id="ownershipDateGroup" section="pahma" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
 					<selector>collection-object-ownershipDate</selector>
+
+					<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+					<field id="dateDisplayDate" section="pahma"/>
+					<field id="dateAssociation" section="pahma"/>
+					<field id="dateEarliestSingleYear" section="pahma"/>
+					<field id="dateEarliestSingleMonth" section="pahma"/>
+					<field id="dateEarliestSingleDay" section="pahma"/>
+					<field id="dateEarliestSingleEra" section="pahma"/>
+					<field id="dateEarliestSingleCertainty" section="pahma"/>
+					<field id="dateEarliestSingleQualifier" section="pahma"/>
+					<field id="dateEarliestSingleQualifierValue" section="pahma"/>
+					<field id="dateEarliestSingleQualifierUnit" section="pahma"/>
+					<field id="dateLatestYear" section="pahma"/>
+					<field id="dateLatestMonth" section="pahma"/>
+					<field id="dateLatestDay" section="pahma"/>
+					<field id="dateLatestEra" section="pahma"/>
+					<field id="dateLatestCertainty" section="pahma"/>
+					<field id="dateLatestQualifier" section="pahma"/>
+					<field id="dateLatestQualifierValue" section="pahma"/>
+					<field id="dateLatestQualifierUnit" section="pahma"/>
+					<field id="datePeriod" section="pahma"/>
+					<field id="dateNote" section="pahma"/>
+					<field id="dateEarliestScalarValue" section="pahma"/>
+					<field id="dateLatestScalarValue" section="pahma"/>
+					<field id="scalarValuesComputed" section="pahma"/>
 				</group>
 				<field id="ownershipCategory" section="pahma"> <!-- ######## THIS FIELD TEMPORARILY ADDED BY PAHMA ####### -->
 					<selector>collection-object-ownershipCategory</selector>
