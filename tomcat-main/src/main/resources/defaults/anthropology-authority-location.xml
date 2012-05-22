@@ -1,7 +1,7 @@
 <record id="location">
 	<services-record-path id="anthropology">locations_anthropology:http://collectionspace.org/services/location/domain/anthropology,locations_anthropology</services-record-path>
 
-	<section id="locationAuthorityInformation">
+	<section id="locationTermInformation">
 		<field id="locNote" section="anthropology">
 			<selector>locationAuthority-locNote</selector>
 		</field>
