@@ -105,7 +105,9 @@
                     <field id="nameNote">
                         <selector>personAuthority-nameNote</selector>
                     </field>
-                    <field id="birthDateGroup" ui-search="range" in-title="yes" ui-type="groupfield/structureddate" 
+                    <!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
+                    <!-- start and end scalar values is working -->
+                    <field id="birthDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
                         primarykey="birthDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
                         <selector>personAuthority-birthDate</selector>
                         <title-selector>titleBar-birthDate</title-selector>
@@ -113,7 +115,9 @@
                     <field id="birthPlace">
                         <selector>personAuthority-birthPlace</selector>
                     </field>
-                    <field id="deathDateGroup" ui-search="range" in-title="yes" ui-type="groupfield/structureddate" 
+                    <!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
+                    <!-- start and end scalar values is working -->
+                    <field id="deathDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
                         primarykey="deathDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
                         <selector>personAuthority-deathDate</selector>
                         <title-selector>titleBar-deathDate</title-selector>

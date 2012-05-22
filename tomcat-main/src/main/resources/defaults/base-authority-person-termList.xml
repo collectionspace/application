@@ -16,7 +16,8 @@
             <field id="termType" autocomplete="vocab-persontermtype" ui-type="enum">
                 <selector>personAuthority-termType</selector>
             </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
+            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
+            <field id="termStatus" seperate_ui_container="true"
                 mini="search,list,relate">
                 <selector>personAuthority-termStatus</selector>
                 <options>

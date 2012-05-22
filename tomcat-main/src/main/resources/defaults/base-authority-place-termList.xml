@@ -9,10 +9,11 @@
                 <selector>placeAuthority-termDisplayName</selector>
                 <title-selector>titleBar-displayName</title-selector>
             </field>
-            <field id="termName" ui-search="repeatable">
+            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
+            <field id="termName">
                 <selector>placeAuthority-termName</selector>
             </field>
-            <field id="termType">
+            <field id="termType" seperate_ui_container="true">
                 <selector>placeAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>
@@ -25,7 +26,8 @@
                     <option id="spelling-variant">Spelling variant</option>
                 </options>
             </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true"
+            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
+            <field id="termStatus" seperate_ui_container="true"
                 mini="search,list,relate">
                 <selector>placeAuthority-termStatus</selector>
                 <options>
@@ -38,7 +40,8 @@
             <field id="termQualifier">
                 <selector>placeAuthority-termQualifier</selector>
             </field>
-            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
+            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum" seperate_ui_container="true">
                 <selector>placeAuthority-termLanguage</selector>
             </field>
             <field id="termPrefForLang" datatype="boolean">
@@ -73,7 +76,7 @@
                 <selector>placeAuthority-nameNote</selector>
             </field>
             <group id="nameDateGroup" ui-type="groupfield/structureddate"
-                primarykey="dateDisplayDate" ui-func="cspace.structuredDate" ui-search="range">
+                primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
                 <selector>placeAuthority-nameDateGroup</selector>
             </group>
         </repeat>

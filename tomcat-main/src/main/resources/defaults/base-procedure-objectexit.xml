@@ -63,7 +63,9 @@
                            mini="summary,list" in-title="yes">
                     </field>
                     <field id="depositor" ui-search="repeatable" autocomplete="person-person,organization-organization"></field>
-                    <field id="exitDateGroup" ui-search="range" ui-type="groupfield/structureddate" 
+                    <!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
+                    <!-- start and end scalar values is working -->
+                    <field id="exitDateGroup" ui-type="groupfield/structureddate" 
                         primarykey="exitDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
                     </field>
                     <repeat id="exitMethods">

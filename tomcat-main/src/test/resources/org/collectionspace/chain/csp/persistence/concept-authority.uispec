@@ -1,447 +1,447 @@
 {
-    "hierarchy": {
-        ".csc-hierarchy-narrowerContext-label": {
-            "messagekey": "hierarchy-narrowerContextLabel"
-        },
-        ".csc-hierarchy-narrowerContext": {
-            "decorators": [
-                {
-                    "func": "cspace.makeRepeatable",
-                    "type": "fluid",
-                    "options": {
-                        "repeatTree": {
-                            "expander": {
-                                "tree": {
-                                    ".csc-hierarchy-narrowerContext": {
-                                        "decorators": [
-                                            {
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/vocabularies/concept/autocomplete/narrowerContext",
-                                                    "vocabUrl": "../../../tenant/core/vocabularies/concept/source-vocab/narrowerContext",
-                                                    "invokers": {
-                                                        "selectMatch": {
-                                                            "funcName": "cspace.autocomplete.selectMatchConfirm"
-                                                        }
-                                                    },
-                                                    "strings": {
-                                                        "narrowerChange": "Warning: %narrower currently has broader term %broader. Change broader term?"
-                                                    }
-                                                }
-                                            }
-                                        ],
-                                        "value": "${{row}.narrowerContext}"
-                                    }
-                                },
-                                "type": "fluid.noexpand"
-                            }
-                        },
-                        "elPath": "fields.narrowerContexts"
-                    }
-                }
-            ]
-        },
-        ".csc-hierarchy-equivalentContext-label": {
-            "messagekey": "hierarchy-equivalentContextLabel"
-        },
-        ".csc-hierarchy-equivalentInformation-label": {
-            "messagekey": "hierarchy-equivalentInformationLabel"
-        },
-        ".csc-hierarchy-broaderContext": {
-            "decorators": [
-                {
-                    "func": "cspace.autocomplete",
-                    "type": "fluid",
-                    "options": {
-                        "queryUrl": "../../../tenant/core/vocabularies/concept/autocomplete/broaderContext",
-                        "vocabUrl": "../../../tenant/core/vocabularies/concept/source-vocab/broaderContext"
-                    }
-                }
-            ],
-            "value": "${fields.broaderContext}"
-        },
-        ".csc-hierarchy-broaderContext-label": {
-            "messagekey": "hierarchy-broaderContextLabel"
-        },
-        "expander": [
-            {
-                "trueTree": {
-                    ".csc-hierarchy-equivalentContext-label": {
-                        "messagekey": "hierarchy-equivalentContextLabel"
-                    }
-                },
-                "condition": {
-                    "funcName": "cspace.hierarchy.assertEquivalentContexts",
-                    "args": {
-                        "equivalentContexts": "${fields.equivalentContexts}"
-                    }
-                },
-                "type": "fluid.renderer.condition",
-                "falseTree": {
-                    ".csc-hierarchy-equivalentContext-label": {
-                        "decorators": {
-                            "classes": "hidden",
-                            "type": "addClass"
-                        }
-                    }
-                }
-            },
-            {
-                "repeatID": ".csc-hierarchy-equivalentContext:",
+  "hierarchy": {
+    ".csc-hierarchy-broaderContext": {
+      "decorators": [
+        {
+          "func": "cspace.autocomplete", 
+          "options": {
+            "queryUrl": "../../../tenant/core/vocabularies/concept/autocomplete/broaderContext", 
+            "vocabUrl": "../../../tenant/core/vocabularies/concept/source-vocab/broaderContext"
+          }, 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.broaderContext}"
+    }, 
+    ".csc-hierarchy-broaderContext-label": {
+      "messagekey": "hierarchy-broaderContextLabel"
+    }, 
+    ".csc-hierarchy-domaindata-label": {
+      "messagekey": "hierarchy-domaindataLabel"
+    }, 
+    ".csc-hierarchy-equivalentContext-label": {
+      "messagekey": "hierarchy-equivalentContextLabel"
+    }, 
+    ".csc-hierarchy-equivalentContexts-label": {
+      "messagekey": "hierarchy-equivalentContextsLabel"
+    }, 
+    ".csc-hierarchy-equivalentInformation-label": {
+      "messagekey": "hierarchy-equivalentInformationLabel"
+    }, 
+    ".csc-hierarchy-hierarchyInformation-label": {
+      "messagekey": "hierarchy-hierarchyInformationLabel"
+    }, 
+    ".csc-hierarchy-narrowerContext": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.narrowerContexts", 
+            "repeatTree": {
+              "expander": {
                 "tree": {
-                    "decorators": {
-                        "classes": "cs-hierarchy-equivalentContext",
-                        "type": "addClass"
-                    },
-                    "value": "${{row}.equivalentContext}"
-                },
-                "type": "fluid.renderer.repeat",
-                "pathAs": "row",
-                "controlledBy": "fields.equivalentContexts"
+                  ".csc-hierarchy-narrowerContext": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "invokers": {
+                            "selectMatch": {
+                              "funcName": "cspace.autocomplete.selectMatchConfirm"
+                            }
+                          }, 
+                          "queryUrl": "../../../tenant/core/vocabularies/concept/autocomplete/narrowerContext", 
+                          "strings": {
+                            "narrowerChange": "Warning: %narrower currently has broader term %broader. Change broader term?"
+                          }, 
+                          "vocabUrl": "../../../tenant/core/vocabularies/concept/source-vocab/narrowerContext"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.narrowerContext}"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
             }
-        ],
-        ".csc-hierarchy-relatedTerms-label": {
-            "messagekey": "hierarchy-relatedTermsLabel"
-        },
-        ".csc-hierarchy-domaindata-label": {
-            "messagekey": "hierarchy-domaindataLabel"
-        },
-        ".csc-hierarchy-narrowerContexts-label": {
-            "messagekey": "hierarchy-narrowerContextsLabel"
-        },
-        ".csc-hierarchy-hierarchyInformation-label": {
-            "messagekey": "hierarchy-hierarchyInformationLabel"
-        },
-        ".csc-hierarchy-relatedTerm": {
-            "decorators": [
-                {
-                    "func": "cspace.makeRepeatable",
-                    "type": "fluid",
-                    "options": {
-                        "repeatTree": {
-                            "expander": {
-                                "tree": {
-                                    ".csc-hierarchy-relatedTerm": {
-                                        "decorators": [
-                                            {
-                                                "func": "cspace.autocomplete",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "queryUrl": "../../../tenant/core/vocabularies/concept/autocomplete/relatedTerm",
-                                                    "vocabUrl": "../../../tenant/core/vocabularies/concept/source-vocab/relatedTerm"
-                                                }
-                                            }
-                                        ],
-                                        "value": "${{row}.relatedTerm}"
-                                    }
-                                },
-                                "type": "fluid.noexpand"
-                            }
-                        },
-                        "elPath": "fields.relatedTerms"
-                    }
-                }
-            ]
-        },
-        ".csc-hierarchy-equivalentContexts-label": {
-            "messagekey": "hierarchy-equivalentContextsLabel"
-        },
-        ".csc-hierarchy-relatedTerm-label": {
-            "messagekey": "hierarchy-relatedTermLabel"
+          }, 
+          "type": "fluid"
         }
-    },
-    "recordEditor": {
-        ".csc-preferred-conceptAuthority": {
-            "decorators": [
-                {
-                    "func": "cspace.preferred",
-                    "type": "fluid",
-                    "options": {
-                        "protoTree": {
-                            "expander": {
-                                "tree": {
-                                    ".csc-preferredCA-termSourceID-label": {
-                                        "messagekey": "preferredCA-termSourceIDLabel"
-                                    },
-                                    ".csc-preferredCA-conceptTermGroup": {
-                                        "decorators": [
-                                            {
-                                                "func": "cspace.makeRepeatable",
-                                                "type": "fluid",
-                                                "options": {
-                                                    "repeatTree": {
-                                                        "expander": {
-                                                            "tree": {
-                                                                ".csc-conceptAuthority-termType": {
-                                                                    "optionnames": [
-                                                                        "Please select a value",
-                                                                        "Descriptor",
-                                                                        "Alternate Descriptor",
-                                                                        "Used for Term"
-                                                                    ],
-                                                                    "optionlist": [
-                                                                        "",
-                                                                        "descriptor",
-                                                                        "alternate descriptor",
-                                                                        "used for term"
-                                                                    ],
-                                                                    "selection": "${{row}.termType}"
-                                                                },
-                                                                ".csc-conceptAuthority-termQualifier": "${{row}.termQualifier}",
-                                                                ".csc-conceptAuthority-termStatus": {
-                                                                    "default": "provisional",
-                                                                    "optionnames": [
-                                                                        "Provisional",
-                                                                        "Under Review",
-                                                                        "Accepted",
-                                                                        "Rejected"
-                                                                    ],
-                                                                    "optionlist": [
-                                                                        "provisional",
-                                                                        "under review",
-                                                                        "accepted",
-                                                                        "rejected"
-                                                                    ],
-                                                                    "selection": "${{row}.termStatus}"
-                                                                },
-                                                                ".csc-conceptAuthority-termSourceID": "${{row}.termSourceID}",
-                                                                ".csc-conceptAuthority-termName": "${{row}.termName}",
-                                                                ".csc-conceptAuthority-termLanguage": {
-                                                                    "decorators": [
-                                                                        {
-                                                                            "func": "cspace.termList",
-                                                                            "type": "fluid",
-                                                                            "options": {
-                                                                                "root": "{row}",
-                                                                                "elPath": "termLanguage",
-                                                                                "termListType": "termLanguage"
-                                                                            }
-                                                                        }
-                                                                    ]
-                                                                },
-                                                                ".csc-conceptAuthority-historicalStatus": {
-                                                                    "default": "current",
-                                                                    "optionnames": [
-                                                                        "Current",
-                                                                        "Historical",
-                                                                        "Both",
-                                                                        "Unknown"
-                                                                    ],
-                                                                    "optionlist": [
-                                                                        "current",
-                                                                        "historical",
-                                                                        "both",
-                                                                        "unknown"
-                                                                    ],
-                                                                    "selection": "${{row}.historicalStatus}"
-                                                                },
-                                                                ".csc-conceptAuthority-termSourceNote": "${{row}.termSourceNote}",
-                                                                ".csc-conceptAuthority-termDisplayName": "${{row}.termDisplayName}",
-                                                                ".csc-conceptAuthority-termSource": "${{row}.termSource}",
-                                                                ".csc-conceptAuthority-termSourceDetail": "${{row}.termSourceDetail}",
-                                                                ".csc-conceptAuthority-termPrefForLang": "${{row}.termPrefForLang}"
-                                                            },
-                                                            "type": "fluid.noexpand"
-                                                        }
-                                                    },
-                                                    "elPath": "fields.conceptTermGroup"
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    ".csc-preferredCA-termType-label": {
-                                        "messagekey": "preferredCA-termTypeLabel"
-                                    },
-                                    ".csc-preferredCA-termQualifier-label": {
-                                        "messagekey": "preferredCA-termQualifierLabel"
-                                    },
-                                    ".csc-preferredCA-termSource-label": {
-                                        "messagekey": "preferredCA-termSourceLabel"
-                                    },
-                                    ".csc-preferredCA-termPrefForLang-label": {
-                                        "messagekey": "preferredCA-termPrefForLangLabel"
-                                    },
-                                    ".csc-preferredCA-termName-label": {
-                                        "messagekey": "preferredCA-termNameLabel"
-                                    },
-                                    ".csc-preferredCA-historicalStatus-label": {
-                                        "messagekey": "preferredCA-historicalStatusLabel"
-                                    },
-                                    ".csc-preferredCA-conceptTermGroup-label": {
-                                        "messagekey": "preferredCA-conceptTermGroupLabel"
-                                    },
-                                    ".csc-preferredCA-termSourceDetail-label": {
-                                        "messagekey": "preferredCA-termSourceDetailLabel"
-                                    },
-                                    ".csc-preferredCA-termSourceNote-label": {
-                                        "messagekey": "preferredCA-termSourceNoteLabel"
-                                    },
-                                    ".csc-preferredCA-termLanguage-label": {
-                                        "messagekey": "preferredCA-termLanguageLabel"
-                                    },
-                                    ".csc-preferredCA-termStatus-label": {
-                                        "messagekey": "preferredCA-termStatusLabel"
-                                    },
-                                    ".csc-preferredCA-termDisplayName-label": {
-                                        "messagekey": "preferredCA-termDisplayNameLabel"
-                                    }
-                                },
-                                "type": "fluid.noexpand"
-                            }
-                        }
-                    }
-                }
-            ]
-        },
-        ".csc-concept-citationGroup": {
-            "decorators": [
-                {
-                    "func": "cspace.makeRepeatable",
-                    "type": "fluid",
-                    "options": {
-                        "repeatTree": {
-                            "expander": {
-                                "tree": {
-                                    ".csc-concept-citationSource": "${{row}.citationSource}",
-                                    ".csc-concept-citationSourceDetail": "${{row}.citationSourceDetail}"
-                                },
-                                "type": "fluid.noexpand"
-                            }
-                        },
-                        "elPath": "fields.citationGroup"
-                    }
-                }
-            ]
-        },
-        ".csc-concept-additionalSourceNote-label": {
-            "messagekey": "concept-additionalSourceNoteLabel"
-        },
-        ".csc-concept-citationSourceDetail-label": {
-            "messagekey": "concept-citationSourceDetailLabel"
-        },
-        ".csc-concept-shortIdentifier-label": {
-            "messagekey": "concept-shortIdentifierLabel"
-        },
-        ".csc-concept-coreInformation-label": {
-            "messagekey": "concept-coreInformationLabel"
-        },
-        ".csc-concept-createdBy": "${fields.createdBy}",
-        ".csc-concept-updatedBy": "${fields.updatedBy}",
-        ".csc-concept-citationSource-label": {
-            "messagekey": "concept-citationSourceLabel"
-        },
-        ".csc-concept-recordType-label": {
-            "messagekey": "concept-recordTypeLabel"
-        },
-        ".csc-concept-createdBy-label": {
-            "messagekey": "concept-createdByLabel"
-        },
-        ".csc-conceptAuthority-scopeNote": "${fields.scopeNote}",
-        ".csc-concept-additionalSourceGroup": {
-            "decorators": [
-                {
-                    "func": "cspace.makeRepeatable",
-                    "type": "fluid",
-                    "options": {
-                        "repeatTree": {
-                            "expander": {
-                                "tree": {
-                                    ".csc-concept-additionalSourceDetail": "${{row}.additionalSourceDetail}",
-                                    ".csc-concept-additionalSourceID": "${{row}.additionalSourceID}",
-                                    ".csc-concept-additionalSource": "${{row}.additionalSource}",
-                                    ".csc-concept-additionalSourceNote": "${{row}.additionalSourceNote}"
-                                },
-                                "type": "fluid.noexpand"
-                            }
-                        },
-                        "elPath": "fields.additionalSourceGroup"
-                    }
-                }
-            ]
-        },
-        ".csc-concept-otherInformation-label": {
-            "messagekey": "concept-otherInformationLabel"
-        },
-        ".csc-concept-tenantID": "${fields.tenantID}",
-        ".csc-concept-createdAt-label": {
-            "messagekey": "concept-createdAtLabel"
-        },
-        ".csc-concept-uri": "${fields.uri}",
-        ".csc-concept-additionalSource-label": {
-            "messagekey": "concept-additionalSourceLabel"
-        },
-        ".csc-concept-domaindata-label": {
-            "messagekey": "concept-domaindataLabel"
-        },
-        ".csc-concept-refName-label": {
-            "messagekey": "concept-refNameLabel"
-        },
-        ".csc-concept-updatedBy-label": {
-            "messagekey": "concept-updatedByLabel"
-        },
-        ".csc-concept-scopeNoteSource-label": {
-            "messagekey": "concept-scopeNoteSourceLabel"
-        },
-        ".csc-concept-preferredConcept-label": {
-            "messagekey": "concept-preferredConceptLabel"
-        },
-        ".csc-concept-termStatus": "${fields.termStatus}",
-        ".csc-concept-updatedAt": {
-            "decorators": [
-                {
-                    "func": "cspace.datePicker",
-                    "type": "fluid"
-                }
-            ],
-            "value": "${fields.updatedAt}"
-        },
-        ".csc-concept-description": "${fields.description}",
-        ".csc-concept-conceptAuthorityInformation-label": {
-            "messagekey": "concept-conceptAuthorityInformationLabel"
-        },
-        ".csc-concept-csid": "${fields.csid}",
-        ".csc-concept-tenantID-label": {
-            "messagekey": "concept-tenantIDLabel"
-        },
-        ".csc-concept-scopeNoteSourceDetail-label": {
-            "messagekey": "concept-scopeNoteSourceDetailLabel"
-        },
-        ".csc-concept-additionalSourceID-label": {
-            "messagekey": "concept-additionalSourceIDLabel"
-        },
-        ".csc-concept-scopeNote-label": {
-            "messagekey": "concept-scopeNoteLabel"
-        },
-        ".csc-concept-uri-label": {
-            "messagekey": "concept-uriLabel"
-        },
-        ".csc-concept-shortIdentifier": "${fields.shortIdentifier}",
-        ".csc-concept-csid-label": {
-            "messagekey": "concept-csidLabel"
-        },
-        ".csc-concept-updatedAt-label": {
-            "messagekey": "concept-updatedAtLabel"
-        },
-        ".csc-concept-additionalSourceGroup-label": {
-            "messagekey": "concept-additionalSourceGroupLabel"
-        },
-        ".csc-conceptAuthority-scopeNoteSource": "${fields.scopeNoteSource}",
-        ".csc-concept-createdAt": "${fields.createdAt}",
-        ".csc-conceptAuthority-scopeNoteSourceDetail": "${fields.scopeNoteSourceDetail}",
-        ".csc-concept-recordType": "${fields.recordType}",
-        ".csc-concept-description-label": {
-            "messagekey": "concept-descriptionLabel"
-        },
-        ".csc-concept-termStatus-label": {
-            "messagekey": "concept-termStatusLabel"
-        },
-        ".csc-concept-refName": "${fields.refName}",
-        ".csc-concept-citationGroup-label": {
-            "messagekey": "concept-citationGroupLabel"
-        },
-        ".csc-concept-additionalSourceDetail-label": {
-            "messagekey": "concept-additionalSourceDetailLabel"
+      ]
+    }, 
+    ".csc-hierarchy-narrowerContext-label": {
+      "messagekey": "hierarchy-narrowerContextLabel"
+    }, 
+    ".csc-hierarchy-narrowerContexts-label": {
+      "messagekey": "hierarchy-narrowerContextsLabel"
+    }, 
+    ".csc-hierarchy-relatedTerm": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.relatedTerms", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-hierarchy-relatedTerm": {
+                    "decorators": [
+                      {
+                        "func": "cspace.autocomplete", 
+                        "options": {
+                          "queryUrl": "../../../tenant/core/vocabularies/concept/autocomplete/relatedTerm", 
+                          "vocabUrl": "../../../tenant/core/vocabularies/concept/source-vocab/relatedTerm"
+                        }, 
+                        "type": "fluid"
+                      }
+                    ], 
+                    "value": "${{row}.relatedTerm}"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
         }
+      ]
+    }, 
+    ".csc-hierarchy-relatedTerm-label": {
+      "messagekey": "hierarchy-relatedTermLabel"
+    }, 
+    ".csc-hierarchy-relatedTerms-label": {
+      "messagekey": "hierarchy-relatedTermsLabel"
+    }, 
+    "expander": [
+      {
+        "condition": {
+          "args": {
+            "equivalentContexts": "${fields.equivalentContexts}"
+          }, 
+          "funcName": "cspace.hierarchy.assertEquivalentContexts"
+        }, 
+        "falseTree": {
+          ".csc-hierarchy-equivalentContext-label": {
+            "decorators": {
+              "classes": "hidden", 
+              "type": "addClass"
+            }
+          }
+        }, 
+        "trueTree": {
+          ".csc-hierarchy-equivalentContext-label": {
+            "messagekey": "hierarchy-equivalentContextLabel"
+          }
+        }, 
+        "type": "fluid.renderer.condition"
+      }, 
+      {
+        "controlledBy": "fields.equivalentContexts", 
+        "pathAs": "row", 
+        "repeatID": ".csc-hierarchy-equivalentContext:", 
+        "tree": {
+          "decorators": {
+            "classes": "cs-hierarchy-equivalentContext", 
+            "type": "addClass"
+          }, 
+          "value": "${{row}.equivalentContext}"
+        }, 
+        "type": "fluid.renderer.repeat"
+      }
+    ]
+  }, 
+  "recordEditor": {
+    ".csc-concept-additionalSource-label": {
+      "messagekey": "concept-additionalSourceLabel"
+    }, 
+    ".csc-concept-additionalSourceDetail-label": {
+      "messagekey": "concept-additionalSourceDetailLabel"
+    }, 
+    ".csc-concept-additionalSourceGroup": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.additionalSourceGroup", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-concept-additionalSource": "${{row}.additionalSource}", 
+                  ".csc-concept-additionalSourceDetail": "${{row}.additionalSourceDetail}", 
+                  ".csc-concept-additionalSourceID": "${{row}.additionalSourceID}", 
+                  ".csc-concept-additionalSourceNote": "${{row}.additionalSourceNote}"
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-concept-additionalSourceGroup-label": {
+      "messagekey": "concept-additionalSourceGroupLabel"
+    }, 
+    ".csc-concept-additionalSourceID-label": {
+      "messagekey": "concept-additionalSourceIDLabel"
+    }, 
+    ".csc-concept-additionalSourceNote-label": {
+      "messagekey": "concept-additionalSourceNoteLabel"
+    }, 
+    ".csc-concept-citationGroup": {
+      "decorators": [
+        {
+          "func": "cspace.makeRepeatable", 
+          "options": {
+            "elPath": "fields.citationGroup", 
+            "repeatTree": {
+              "expander": {
+                "tree": {
+                  ".csc-concept-citationSource": "${{row}.citationSource}", 
+                  ".csc-concept-citationSourceDetail": "${{row}.citationSourceDetail}"
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
+    }, 
+    ".csc-concept-citationGroup-label": {
+      "messagekey": "concept-citationGroupLabel"
+    }, 
+    ".csc-concept-citationSource-label": {
+      "messagekey": "concept-citationSourceLabel"
+    }, 
+    ".csc-concept-citationSourceDetail-label": {
+      "messagekey": "concept-citationSourceDetailLabel"
+    }, 
+    ".csc-concept-conceptAuthorityInformation-label": {
+      "messagekey": "concept-conceptAuthorityInformationLabel"
+    }, 
+    ".csc-concept-coreInformation-label": {
+      "messagekey": "concept-coreInformationLabel"
+    }, 
+    ".csc-concept-createdAt": "${fields.createdAt}", 
+    ".csc-concept-createdAt-label": {
+      "messagekey": "concept-createdAtLabel"
+    }, 
+    ".csc-concept-createdBy": "${fields.createdBy}", 
+    ".csc-concept-createdBy-label": {
+      "messagekey": "concept-createdByLabel"
+    }, 
+    ".csc-concept-csid": "${fields.csid}", 
+    ".csc-concept-csid-label": {
+      "messagekey": "concept-csidLabel"
+    }, 
+    ".csc-concept-description": "${fields.description}", 
+    ".csc-concept-description-label": {
+      "messagekey": "concept-descriptionLabel"
+    }, 
+    ".csc-concept-domaindata-label": {
+      "messagekey": "concept-domaindataLabel"
+    }, 
+    ".csc-concept-otherInformation-label": {
+      "messagekey": "concept-otherInformationLabel"
+    }, 
+    ".csc-concept-preferredConcept-label": {
+      "messagekey": "concept-preferredConceptLabel"
+    }, 
+    ".csc-concept-recordType": "${fields.recordType}", 
+    ".csc-concept-recordType-label": {
+      "messagekey": "concept-recordTypeLabel"
+    }, 
+    ".csc-concept-refName": "${fields.refName}", 
+    ".csc-concept-refName-label": {
+      "messagekey": "concept-refNameLabel"
+    }, 
+    ".csc-concept-scopeNote-label": {
+      "messagekey": "concept-scopeNoteLabel"
+    }, 
+    ".csc-concept-scopeNoteSource-label": {
+      "messagekey": "concept-scopeNoteSourceLabel"
+    }, 
+    ".csc-concept-scopeNoteSourceDetail-label": {
+      "messagekey": "concept-scopeNoteSourceDetailLabel"
+    }, 
+    ".csc-concept-shortIdentifier": "${fields.shortIdentifier}", 
+    ".csc-concept-shortIdentifier-label": {
+      "messagekey": "concept-shortIdentifierLabel"
+    }, 
+    ".csc-concept-tenantID": "${fields.tenantID}", 
+    ".csc-concept-tenantID-label": {
+      "messagekey": "concept-tenantIDLabel"
+    }, 
+    ".csc-concept-termStatus": "${fields.termStatus}", 
+    ".csc-concept-termStatus-label": {
+      "messagekey": "concept-termStatusLabel"
+    }, 
+    ".csc-concept-updatedAt": {
+      "decorators": [
+        {
+          "func": "cspace.datePicker", 
+          "type": "fluid"
+        }
+      ], 
+      "value": "${fields.updatedAt}"
+    }, 
+    ".csc-concept-updatedAt-label": {
+      "messagekey": "concept-updatedAtLabel"
+    }, 
+    ".csc-concept-updatedBy": "${fields.updatedBy}", 
+    ".csc-concept-updatedBy-label": {
+      "messagekey": "concept-updatedByLabel"
+    }, 
+    ".csc-concept-uri": "${fields.uri}", 
+    ".csc-concept-uri-label": {
+      "messagekey": "concept-uriLabel"
+    }, 
+    ".csc-conceptAuthority-scopeNote": "${fields.scopeNote}", 
+    ".csc-conceptAuthority-scopeNoteSource": "${fields.scopeNoteSource}", 
+    ".csc-conceptAuthority-scopeNoteSourceDetail": "${fields.scopeNoteSourceDetail}", 
+    ".csc-preferred-conceptAuthority": {
+      "decorators": [
+        {
+          "func": "cspace.preferred", 
+          "options": {
+            "protoTree": {
+              "expander": {
+                "tree": {
+                  ".csc-preferredCA-conceptTermGroup": {
+                    "decorators": [
+                      {
+                        "func": "cspace.makeRepeatable", 
+                        "options": {
+                          "elPath": "fields.conceptTermGroup", 
+                          "repeatTree": {
+                            "expander": {
+                              "tree": {
+                                ".csc-conceptAuthority-historicalStatus": {
+                                  "default": "current", 
+                                  "optionlist": [
+                                    "current", 
+                                    "historical", 
+                                    "both", 
+                                    "unknown"
+                                  ], 
+                                  "optionnames": [
+                                    "Current", 
+                                    "Historical", 
+                                    "Both", 
+                                    "Unknown"
+                                  ], 
+                                  "selection": "${{row}.historicalStatus}"
+                                }, 
+                                ".csc-conceptAuthority-termDisplayName": "${{row}.termDisplayName}", 
+                                ".csc-conceptAuthority-termLanguage": {
+                                  "decorators": [
+                                    {
+                                      "func": "cspace.termList", 
+                                      "options": {
+                                        "elPath": "termLanguage", 
+                                        "root": "{row}", 
+                                        "termListType": "termLanguage"
+                                      }, 
+                                      "type": "fluid"
+                                    }
+                                  ]
+                                }, 
+                                ".csc-conceptAuthority-termName": "${{row}.termName}", 
+                                ".csc-conceptAuthority-termPrefForLang": "${{row}.termPrefForLang}", 
+                                ".csc-conceptAuthority-termQualifier": "${{row}.termQualifier}", 
+                                ".csc-conceptAuthority-termSource": "${{row}.termSource}", 
+                                ".csc-conceptAuthority-termSourceDetail": "${{row}.termSourceDetail}", 
+                                ".csc-conceptAuthority-termSourceID": "${{row}.termSourceID}", 
+                                ".csc-conceptAuthority-termSourceNote": "${{row}.termSourceNote}", 
+                                ".csc-conceptAuthority-termStatus": {
+                                  "default": "provisional", 
+                                  "optionlist": [
+                                    "provisional", 
+                                    "under review", 
+                                    "accepted", 
+                                    "rejected"
+                                  ], 
+                                  "optionnames": [
+                                    "Provisional", 
+                                    "Under Review", 
+                                    "Accepted", 
+                                    "Rejected"
+                                  ], 
+                                  "selection": "${{row}.termStatus}"
+                                }, 
+                                ".csc-conceptAuthority-termType": {
+                                  "optionlist": [
+                                    "", 
+                                    "descriptor", 
+                                    "alternate descriptor", 
+                                    "used for term"
+                                  ], 
+                                  "optionnames": [
+                                    "Please select a value", 
+                                    "Descriptor", 
+                                    "Alternate Descriptor", 
+                                    "Used for Term"
+                                  ], 
+                                  "selection": "${{row}.termType}"
+                                }
+                              }, 
+                              "type": "fluid.noexpand"
+                            }
+                          }
+                        }, 
+                        "type": "fluid"
+                      }
+                    ]
+                  }, 
+                  ".csc-preferredCA-conceptTermGroup-label": {
+                    "messagekey": "preferredCA-conceptTermGroupLabel"
+                  }, 
+                  ".csc-preferredCA-historicalStatus-label": {
+                    "messagekey": "preferredCA-historicalStatusLabel"
+                  }, 
+                  ".csc-preferredCA-termDisplayName-label": {
+                    "messagekey": "preferredCA-termDisplayNameLabel"
+                  }, 
+                  ".csc-preferredCA-termLanguage-label": {
+                    "messagekey": "preferredCA-termLanguageLabel"
+                  }, 
+                  ".csc-preferredCA-termName-label": {
+                    "messagekey": "preferredCA-termNameLabel"
+                  }, 
+                  ".csc-preferredCA-termPrefForLang-label": {
+                    "messagekey": "preferredCA-termPrefForLangLabel"
+                  }, 
+                  ".csc-preferredCA-termQualifier-label": {
+                    "messagekey": "preferredCA-termQualifierLabel"
+                  }, 
+                  ".csc-preferredCA-termSource-label": {
+                    "messagekey": "preferredCA-termSourceLabel"
+                  }, 
+                  ".csc-preferredCA-termSourceDetail-label": {
+                    "messagekey": "preferredCA-termSourceDetailLabel"
+                  }, 
+                  ".csc-preferredCA-termSourceID-label": {
+                    "messagekey": "preferredCA-termSourceIDLabel"
+                  }, 
+                  ".csc-preferredCA-termSourceNote-label": {
+                    "messagekey": "preferredCA-termSourceNoteLabel"
+                  }, 
+                  ".csc-preferredCA-termStatus-label": {
+                    "messagekey": "preferredCA-termStatusLabel"
+                  }, 
+                  ".csc-preferredCA-termType-label": {
+                    "messagekey": "preferredCA-termTypeLabel"
+                  }
+                }, 
+                "type": "fluid.noexpand"
+              }
+            }
+          }, 
+          "type": "fluid"
+        }
+      ]
     }
+  }
 }

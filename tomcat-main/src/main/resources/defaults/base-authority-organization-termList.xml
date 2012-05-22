@@ -12,7 +12,7 @@
             <field id="termName">
                 <selector>orgAuthority-termName</selector>
             </field>
-            <field id="termType" ui-search="repeatable" mini="summary,search,list,relate">
+            <field id="termType" mini="summary,search,list,relate">
                 <selector>orgAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>
@@ -21,7 +21,8 @@
                     <option id="used for term">used for term</option>
                 </options>
             </field>
-            <field id="termStatus" ui-search="repeatable" seperate_ui_container="true" mini="search,list,relate">
+            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
+            <field id="termStatus" seperate_ui_container="true" mini="search,list,relate">
                 <selector>orgAuthority-termStatus</selector>
                 <options>
                     <option id="provisional" default="yes">Provisional</option>
