@@ -1,0 +1,23 @@
+<record id="preferredTA">
+	<section id="termInformation">
+		<repeat id="taxonTermGroupList/taxonTermGroup">
+			<field id="termStatus">
+				<!-- Change options -->
+				<options>
+					<option id="provisional" default="yes">provisional</option>
+					<option id="underReview">under review</option>
+					<option id="accepted">accepted</option>
+					<option id="rejected">rejected</option>
+				</options>
+			</field>
+			<field id="taxonomicStatus">
+				<!-- Change options -->
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="valid">current</option>
+					<option id="invalid">obsolete</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>
