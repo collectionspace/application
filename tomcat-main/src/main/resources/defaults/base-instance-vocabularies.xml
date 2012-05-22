@@ -181,4 +181,14 @@
                             <option id="possibly">Possibly</option>
                         </options>
                     </instance>
+                    <instance id="vocab-persontermtype">
+                        <web-url>persontermtype</web-url>
+                        <title-ref>persontermtype</title-ref>
+                        <title>personTermType</title>
+                        <options>
+                                <option id="artist">Artist</option>
+                                <option id="donor">Donor</option>
+                                <option id="employee">Employee</option>
+                        </options>
+                    </instance>
 </instances>

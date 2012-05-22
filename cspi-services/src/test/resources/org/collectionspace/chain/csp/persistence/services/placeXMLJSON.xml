@@ -4,10 +4,10 @@
 <maxDepthInMeters>234567.0</maxDepthInMeters>
 <vSpatialReferenceSystem>epsg4269-nad83</vSpatialReferenceSystem>
 <minElevationInMeters>123456.0</minElevationInMeters>
-<placeNameGroupList>
-    <placeNameGroup>
-        <nameAdminStatus>provisional</nameAdminStatus>
-        <nameSource>123456</nameSource>
+<placeTermGroupList>
+    <placeTermGroup>
+        <termStatus>provisional</termStatus>
+        <termSource>123456</termSource>
         <nameDateGroup>
             <dateEarliestSingleQualifier/>
             <scalarValuesComputed>true</scalarValuesComputed>
@@ -34,23 +34,22 @@
             <dateEarliestSingleMonth>3</dateEarliestSingleMonth>
         </nameDateGroup>
         <nameAbbrev>123</nameAbbrev>
-        <nameStatus>current</nameStatus>
-        <placeName>123456</placeName>
-        <nameNote>12</nameNote>
-        <nameSourceDetail>123456</nameSourceDetail>
-        <nameSourceRefId>123456</nameSourceRefId>
-        <nameQualifiedName>123456</nameQualifiedName>
-        <nameLanguage></nameLanguage>
-        <nameType>technical-scientific</nameType>
-    </placeNameGroup>
-</placeNameGroupList>
+        <historicalStatus>current</historicalStatus>
+        <termName>123456</termName>
+        <termSourceNote>12</termSourceNote>
+        <termSourceDetail>123456</termSourceDetail>
+        <termSourceID>123456</termSourceID>
+        <termDisplayName>123456</termDisplayName>
+        <termLanguage></termLanguage>
+        <termType>technical-scientific</termType>
+    </placeTermGroup>
+</placeTermGroupList>
 <minDistanceAboveSurfaceInMeters>123456.0</minDistanceAboveSurfaceInMeters>
 <vDepth>123456</vDepth>
 <shortIdentifier>march7735pm1331177716612</shortIdentifier>
 <maxDistanceAboveSurfaceInMeters>234567.0</maxDistanceAboveSurfaceInMeters>
 <vCoordSource>123456</vCoordSource>
 <maxElevationInMeters>234567.0</maxElevationInMeters>
-<termStatus>under-review</termStatus>
 <vDistanceAboveSurface>123456</vDistanceAboveSurface>
 <vCoordSourceRefId>123456</vCoordSourceRefId>
 <placeType>municipality</placeType>
@@ -165,10 +164,8 @@
         <pointRadiusSpatialFit>123456</pointRadiusSpatialFit>
     </placeGeoRefGroup>
 </placeGeoRefGroupList>
-<source>123456</source>
 <vElevation>123456</vElevation>
 <minDepthInMeters>123456.0</minDepthInMeters>
 <refName>urn:cspace:core.collectionspace.org:placeauthorities:name(place):item:name(march7735pm1331177716612)'march 7 7-35pm'</refName>
-<displayName>march 7 7-35pm</displayName>
 </ns2:places_common>
 

@@ -48,7 +48,7 @@ public class TestGeneral  {
 			jetty=tester.setupJetty();
 			}
 		catch(Exception ex){
-			
+			log.error("TestGeneral: Could not set up jetty! " + ex.getLocalizedMessage());
 		}
 	}
 	
@@ -249,7 +249,7 @@ public class TestGeneral  {
 	@Test public void testDeURNedField() throws Exception {
 		
 		//create person authority to use
-		String personStr = "{\"shortIdentifier\":\"mytestperson\",\"displayName\":\"TEST my test person\"}";
+		String personStr = "{\"shortIdentifier\":\"mytestperson\",\"personTermGroup\":[{\"termDisplayName\":\"TEST my test person\"}]}";
 
 		HttpTester out = tester.POSTData("/vocabularies/person/",tester.makeSimpleRequest(personStr),jetty);
 		String person_id=out.getHeader("Location");
@@ -283,7 +283,7 @@ public class TestGeneral  {
 	 */
 	@Test public void testTermsUsedVocab() throws Exception {
 		//create person authority to use
-		String personStr = "{\"displayName\":\"TEST my test person2\"}";
+		String personStr = "{\"personTermGroup\":[{\"termDisplayName\":\"TEST my test person\"}]}";
 		HttpTester out = tester.POSTData("/vocabularies/person/",tester.makeSimpleRequest(personStr),jetty);
 		String person_id=out.getHeader("Location");
 		

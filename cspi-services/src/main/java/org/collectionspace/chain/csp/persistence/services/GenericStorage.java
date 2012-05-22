@@ -808,18 +808,20 @@ public class GenericStorage  implements ContextualisedStorage {
 	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path, Record vr) throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
 
 		JSONObject out=new JSONObject();
-			try{
+		Map<String,String> old_good=view_good;// map of servicenames of fields to descriptors
+		Map<String,String> old_map=view_map; // map of csid to service name of field
+		Set<String> old_deurn=xxx_view_deurn;
+		Map<String,List<String>>old_merge =view_merge;
+
+		try{
 
 			Map<String,String> reset_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
 			Map<String,String> reset_map=new HashMap<String,String>(); // map of csid to service name of field
-			Map<String,String> old_good=view_good;// map of servicenames of fields to descriptors
-			Map<String,String> old_map=view_map; // map of csid to service name of field
-			Set<String> old_deurn=xxx_view_deurn;
-			Map<String,List<String>>old_merge =view_merge;
 			Set<String> reset_deurn=new HashSet<String>();
 			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
 			if(vr.hasRefObjUsed()){
-				//XXX need a way to append the data needed from the field whcih we don't know until after we have got the information...
+				//XXX need a way to append the data needed from the field,
+				// which we don't know until after we have got the information...
 				reset_map.put("docType", "docType");
 				reset_map.put("docId", "docId");
 				reset_map.put("docNumber", "docNumber");
@@ -835,7 +837,9 @@ public class GenericStorage  implements ContextualisedStorage {
 				xxx_view_deurn = reset_deurn;
 				view_merge = reset_merge;
 				
-				String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
+				//String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
+				// Need to pick up pagination, etc. 
+				String nodeName = "authority-ref-doc-list/*";
 				JSONObject data = getRepeatableListView(storage,creds,cache,path,nodeName,"/authority-ref-doc-list/authority-ref-doc-item","uri", true, vr);//XXX this might be the wrong record to pass to checkf or hard/soft delet listing
 
 				reset_good = view_good;
@@ -893,10 +897,6 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 			}
 
-			view_good = old_good;
-			view_map = old_map;
-			xxx_view_deurn = old_deurn;
-			view_merge = old_merge;
 			return out;
 		} catch (ConnectionException e) {
 			log.error("failed to retrieve refObjs for "+path);
@@ -910,6 +910,12 @@ public class GenericStorage  implements ContextualisedStorage {
 			out.put("Functionality Failed",dataitem);
 			//return out;
 			throw new UnderlyingStorageException("Connection problem"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} finally {
+			// Ensure we restore the gleaning views even if we get a failure (CSPACE-4424)
+			view_good = old_good;
+			view_map = old_map;
+			xxx_view_deurn = old_deurn;
+			view_merge = old_merge;
 		}
 	}
 	/**
@@ -1755,20 +1761,26 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 		}
 		else{
+			String[] allfields = null;
+			String fieldsReturnedName = r.getServicesFieldsPath();
 			for(Node node : nodes) {
 				if(node.matches(matchlistitem)){
 					List<Node> fields=node.selectNodes("*");
 					String csid="";
+					String urlPlusCSID = null;
 					if(node.selectSingleNode(csidfield)!=null){
 						csid=node.selectSingleNode(csidfield).getText();
+						urlPlusCSID = r.getServicesURL()+"/"+csid;
 					}
 					JSONObject test = new JSONObject();
 					for(Node field : fields) {
 						if(csidfield.equals(field.getName())) {
 							if(!fullcsid){
 								int idx=csid.lastIndexOf("/");
-								if(idx!=-1)
+								if(idx!=-1) {
 									csid=csid.substring(idx+1);
+									urlPlusCSID = r.getServicesURL()+"/"+csid;
+								}
 							}
 							test.put("csid", csid);
 						} else {
@@ -1782,7 +1794,7 @@ public class GenericStorage  implements ContextualisedStorage {
 										value+=n.getText();
 									}
 								}
-								String gleanname = r.getServicesURL()+"/"+csid;
+								String gleanname = urlPlusCSID;
 								if(csidfield.equals("uri")){
 									gleanname = csid;
 								}
@@ -1792,17 +1804,23 @@ public class GenericStorage  implements ContextualisedStorage {
 						}
 					}
 					listitems.add(test);
-					/* this hopefully will reduce fan out - needs more testing */
-					if(list.selectSingleNode(r.getServicesFieldsPath())!=null){
-						String myfields = list.selectSingleNode(r.getServicesFieldsPath()).getText();
-						String[] allfields = myfields.split("\\|");
+					if(allfields==null || allfields.length==0) {
+						if(log.isWarnEnabled()) {
+							log.warn("getRepeatableHardListView(): Missing fieldsReturned value - may cause fan-out!\nRecord:"
+								+r.getID()+" request to: "+path);
+						}
+					} else {
+						// Mark all the fields not yet found as gleaned - 
 						for(String s : allfields){
-							String gleaned = getGleanedValue(cache,r.getServicesURL()+"/"+csid,s);
+							String gleaned = getGleanedValue(cache,urlPlusCSID,s);
 							if(gleaned==null){
-								setGleanedValue(cache,r.getServicesURL()+"/"+csid,s,"");
+								setGleanedValue(cache,urlPlusCSID,s,"");
 							}
 						}
 					}
+				} else if(fieldsReturnedName.equals(node.getName())){
+					String myfields = node.getText();
+					allfields = myfields.split("\\|");
 				}
 				else{
 					pagination.put(node.getName(), node.getText());
@@ -1855,19 +1873,25 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 		}
 		else{
+			String[] allfields = null;
+			String fieldsReturnedName = r.getServicesFieldsPath();
 			for(Node node : nodes) {
 				if(node.matches(matchlistitem)){
 					List<Node> fields=node.selectNodes("*");
 					String csid="";
+					String urlPlusCSID = null;
 					if(node.selectSingleNode(csidfield)!=null){
 						csid=node.selectSingleNode(csidfield).getText();
+						urlPlusCSID = r.getServicesURL()+"/"+csid;
 					}
 					for(Node field : fields) {
 						if(csidfield.equals(field.getName())) {
 							if(!fullcsid){
 								int idx=csid.lastIndexOf("/");
-								if(idx!=-1)
+								if(idx!=-1) {
 									csid=csid.substring(idx+1);
+									urlPlusCSID = r.getServicesURL()+"/"+csid;
+								}
 							}
 							listitems.add(csid);
 						} else {
@@ -1881,23 +1905,28 @@ public class GenericStorage  implements ContextualisedStorage {
 										value+=n.getText();
 									}
 								}
-								setGleanedValue(cache,r.getServicesURL()+"/"+csid,json_name,value);
+								setGleanedValue(cache,urlPlusCSID,json_name,value);
 							}
 						}
 					}
-					/* this hopefully will reduce fan out - needs more testing */
-					if(list.selectSingleNode(r.getServicesFieldsPath())!=null){
-						String myfields = list.selectSingleNode(r.getServicesFieldsPath()).getText();
-						String[] allfields = myfields.split("\\|");
+					if(allfields==null || allfields.length==0) {
+						if(log.isWarnEnabled()) {
+							log.warn("getHardListView(): Missing fieldsReturned value - may cause fan-out!\nRecord:"
+								+r.getID()+" request to: "+path);
+						}
+					} else {
+						// Mark all the fields not yet found as gleaned - 
 						for(String s : allfields){
-							String gleaned = getGleanedValue(cache,r.getServicesURL()+"/"+csid,s);
+							String gleaned = getGleanedValue(cache,urlPlusCSID,s);
 							if(gleaned==null){
-								setGleanedValue(cache,r.getServicesURL()+"/"+csid,s,"");
+								setGleanedValue(cache,urlPlusCSID,s,"");
 							}
 						}
 					}
-				}
-				else{
+				} else if(fieldsReturnedName.equals(node.getName())){
+					String myfields = node.getText();
+					allfields = myfields.split("\\|");
+				} else {
 					pagination.put(node.getName(), node.getText());
 				}
 			}

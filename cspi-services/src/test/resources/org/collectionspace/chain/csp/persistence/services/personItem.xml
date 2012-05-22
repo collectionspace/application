@@ -1,24 +1,75 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-  <ns2:persons_common xmlns:ns2="http://collectionspace.org/services/person">
-  <displayName>John Wayne May 26, 1907-June 11, 1979</displayName>
-  <displayNameComputed>true</displayNameComputed>
-  <foreName>John</foreName>
-  <middleName></middleName>
-  <surName>Wayne</surName>
-  <initials>JW</initials>
-  <salutation>Mr.</salutation>
-  <title></title>
-  <nameAdditions>The Duke</nameAdditions>
-  <birthDate>May 26, 1907</birthDate>
+<ns2:persons_common xmlns:ns2="http://collectionspace.org/services/person">
+  <personTermGroupList>
+    <personTermGroup>
+      <termName>John Wayne</termName>
+      <termPrefForLang>false</termPrefForLang>
+      <termDisplayName>John Wayne May 26, 1907-June 11, 1979</termDisplayName>
+      <foreName>John</foreName>
+      <middleName/>
+      <surName>Wayne</surName>
+      <initials>JW</initials>
+      <nameAdditions>The Duke</nameAdditions>
+      <salutation>Mr.</salutation>
+      <title/>
+    </personTermGroup>
+  </personTermGroupList>
+  <birthDateGroup>
+      <dateEarliestSingleQualifier/>
+      <scalarValuesComputed>true</scalarValuesComputed>
+      <dateLatestDay/>
+      <dateLatestYear/>
+      <dateAssociation/>
+      <dateEarliestSingleEra/>
+      <dateDisplayDate>May 26, 1907</dateDisplayDate>
+      <dateEarliestSingleCertainty/>
+      <dateLatestEra/>
+      <dateEarliestSingleQualifierValue/>
+      <dateLatestCertainty/>
+      <dateEarliestSingleYear/>
+      <dateLatestQualifier/>
+      <dateLatestQualifierValue/>
+      <dateEarliestSingleQualifierUnit/>
+      <datePeriod/>
+      <dateEarliestScalarValue/>
+      <dateLatestMonth/>
+      <dateNote/>
+      <dateLatestScalarValue/>
+      <dateLatestQualifierUnit/>
+      <dateEarliestSingleDay/>
+      <dateEarliestSingleMonth/>
+  </birthDateGroup>
   <birthPlace>urn:cspace:org.collectionspace.demo:location:name(Museum):item:name(IA_Winterset)'Winterset, Iowa'</birthPlace>
-  <deathDate>June 11, 1979</deathDate>
-  <deathPlace></deathPlace>
-  <bioNote>born Marion Robert Morrison and better
-    known by his stage name John Wayne, was an American film actor, director
-    and producer. He epitomized rugged masculinity and has become an enduring
-    American icon. He is famous for his distinctive voice, walk and height.
-    He was also known for his conservative political views and his support in
-    the 1950s for anti-communist positions.
-  </bioNote>
+  <deathDateGroup>
+      <dateEarliestSingleQualifier/>
+      <scalarValuesComputed>true</scalarValuesComputed>
+      <dateLatestDay/>
+      <dateLatestYear/>
+      <dateAssociation/>
+      <dateEarliestSingleEra/>
+      <dateDisplayDate>June 11, 1979</dateDisplayDate>
+      <dateEarliestSingleCertainty/>
+      <dateLatestEra/>
+      <dateEarliestSingleQualifierValue/>
+      <dateLatestCertainty/>
+      <dateEarliestSingleYear/>
+      <dateLatestQualifier/>
+      <dateLatestQualifierValue/>
+      <dateEarliestSingleQualifierUnit/>
+      <datePeriod/>
+      <dateEarliestScalarValue/>
+      <dateLatestMonth/>
+      <dateNote/>
+      <dateLatestScalarValue/>
+      <dateLatestQualifierUnit/>
+      <dateEarliestSingleDay/>
+      <dateEarliestSingleMonth/>
+  </deathDateGroup>
+  <deathPlace/>
+  <bioNote>born Marion Robert Morrison and better known by his stage name John Wayne, was an
+    American film actor, director and producer. He epitomized rugged masculinity and has become an
+    enduring American icon. He is famous for his distinctive voice, walk and height. He was also
+    known for his conservative political views and his support in the 1950s for anti-communist
+    positions. </bioNote>
   <nameNote>Screen name</nameNote>
 </ns2:persons_common>

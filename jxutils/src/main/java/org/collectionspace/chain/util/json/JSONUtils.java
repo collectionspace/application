@@ -9,6 +9,7 @@ package org.collectionspace.chain.util.json;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,6 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JSONUtils {
+	final static String DISPLAYNAME_LIST_SEPARATOR = "__|__";
+	final static String DISPLAYNAME_LIST_SEPARATOR_REGEX = "__\\|__";
+
 	private static final Logger log=LoggerFactory.getLogger(JSONUtils.class);
 
 	@SuppressWarnings("unchecked")
@@ -150,6 +154,26 @@ public class JSONUtils {
 			Object value=in.get(key);
 			if((value instanceof String) && "".equals(value))
 				continue;
+			if(value instanceof JSONObject) {	// recurse
+				JSONObject out2=stripEmptyStringKey((JSONObject)value);
+				out.put(key,out2);
+				continue;
+			}
+			if(value instanceof JSONArray) {	// recurse
+				JSONArray list = (JSONArray)value;
+				JSONArray newlist = new JSONArray();
+				for(int i=0;i<list.length();i++) {
+					Object thing = list.get(i);
+					if(thing instanceof JSONObject) {	// recurse
+						JSONObject out3=stripEmptyStringKey((JSONObject)thing);
+						newlist.put(out3);
+					} else {
+						newlist.put(thing);
+					}
+				}
+				out.put(key,newlist);
+				continue;
+			}
 			out.put(key,value);
 		}
 		return out;
@@ -157,5 +181,19 @@ public class JSONUtils {
 	
 	public static boolean checkJSONEquivOrEmptyStringKey(JSONObject a,JSONObject b) throws JSONException {
 		return checkJSONEquiv(stripEmptyStringKey(a),stripEmptyStringKey(b));
+	}
+	
+	// Hack to deal with holding arrays of Strings in the glean map which will later be JSON Array
+	public static String appendWithArraySeparator(String existing, String toAppend) {
+		return existing + DISPLAYNAME_LIST_SEPARATOR + toAppend; 
+	}
+
+	public static JSONArray createJSONArrayFromSeparatedString(String toSplit) {
+		String[] values = toSplit.split(DISPLAYNAME_LIST_SEPARATOR_REGEX);
+		JSONArray array = new JSONArray();
+		for(String value:values) {
+			array.put(value);
+		}
+		return array;
 	}
 }

@@ -29,6 +29,7 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.TTYOutputter;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -40,6 +41,11 @@ public class WebReset implements WebMethod {
 	private boolean populate;
 	private Spec spec;
 	private  AuthoritiesVocabulariesInitialize avi;
+	
+	// HACK! This should not build services logic in this way!!!
+	private static final String PERSON_TERMLIST_ELEMENT = "personTermGroup";
+	private static final String ORG_TERMLIST_ELEMENT = "orgTermGroup";
+	private static final String TERM_DISPLAYNAME_ELEMENT = "termDisplayName";
 
 	public WebReset(boolean in, boolean populate) { quick=in; this.populate = populate; }	
 
@@ -110,7 +116,7 @@ public class WebReset implements WebMethod {
 				}
 				catch(Exception e){
 					tty.line("that was weird but probably not a problem " + e.getMessage());
-					log.info("that was weird but probably not a problem " + e.getMessage());
+					log.warn("initialiseAll() exception: " + e.getMessage());
 				}
 			}
 
@@ -135,6 +141,17 @@ public class WebReset implements WebMethod {
 		
 		
 	}
+	
+	private static JSONObject createTrivialAuthItem(String termGroup, String name) throws JSONException {
+		JSONObject item=new JSONObject();
+		JSONArray termInfoArray = new JSONArray();
+		JSONObject termInfo = new JSONObject();
+		termInfo.put(TERM_DISPLAYNAME_ELEMENT, name);
+		termInfoArray.put(termInfo);
+		item.put(termGroup, termInfoArray);
+		return item;
+	}
+	
 	private void reset(Storage storage,UIRequest request,String path) throws UIException { 
 		//remember to log into the front end before trying to run this
 		JSONObject data = new JSONObject();
@@ -168,7 +185,7 @@ public class WebReset implements WebMethod {
 						continue;
 					}
 					else if(r.isType("record")){
-						if("hierarchy".equals(dir) || "dimension".equals(dir) || "structureddate".equals(dir))
+						if("hierarchy".equals(dir) || !r.isRealRecord())	// Filter out self-renderers, etc
 							continue;
 						log.info("S");
 					}
@@ -280,13 +297,12 @@ public class WebReset implements WebMethod {
 			
 			String names=getResource("names.txt");
 			int i=0;
-			for(String line : names.split("\n")) {
+			for(String nextName : names.split("\n")) {
 				i++;
-				JSONObject name=new JSONObject();
-				name.put("displayName",line);
-				storage.autocreateJSON("/person/person",name);
-				tty.line("Created Person "+name);
-				log.info("Created Person "+name);
+				JSONObject entry=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, nextName);
+				storage.autocreateJSON("/person/person",entry);
+				tty.line("Created Person "+entry);
+				log.info("Created Person "+entry);
 				tty.flush();
 				if(quick && i>20)
 					break;
@@ -294,13 +310,12 @@ public class WebReset implements WebMethod {
 			// Create vocab entries
 			String orgs=getResource("orgs.txt");
 			i=0;
-			for(String line : orgs.split("\n")) {
+			for(String nextName : orgs.split("\n")) {
 				i++;
-				JSONObject name=new JSONObject();
-				name.put("displayName",line);
-				storage.autocreateJSON("/organization/organization",name);
-				tty.line("Created Organisation "+line);
-				log.info("Created Organisation "+line);
+				JSONObject entry=createTrivialAuthItem(ORG_TERMLIST_ELEMENT, nextName);
+				storage.autocreateJSON("/organization/organization",entry);
+				tty.line("Created Organisation "+nextName);
+				log.info("Created Organisation "+nextName);
 				tty.flush();
 				if(quick && i>20)
 					break;

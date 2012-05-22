@@ -477,6 +477,7 @@ public class Spec implements CSP, Configurable {
 			r.config_finish(this);
 		}
 	}
+	public void complete_init() throws CSPDependencyException {}
 	
 	public Map<String,String> ui_url_to_id(){
 		Map<String,String> url_to_type=new HashMap<String,String>();

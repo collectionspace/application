@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 
 import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -33,7 +34,7 @@ public class TestOrgThroughWebapp  {
 			jetty=testbase.setupJetty();
 			}
 		catch(Exception ex){
-			
+			log.error("TestOrgThroughWebapp: Could not set up jetty! " + ex.getLocalizedMessage());
 		}
 	}
 	
@@ -159,8 +160,7 @@ public class TestOrgThroughWebapp  {
 	public void testAuthoritiesSearchList() throws Exception {
 		log.info("ORG : AuthoritiesList : test_start");
 		// Create
-		JSONObject data = new JSONObject(
-				"{'fields':{'displayName':'Test My Authority2'}}");
+		JSONObject data=createTrivialAuthItem(ORG_TERMLIST_ELEMENT, "Test My Authority2");
 		HttpTester out = testbase.POSTData("/vocabularies/organization/", data, jetty);
 		String url = out.getHeader("Location");
 		// Get List
@@ -175,13 +175,11 @@ public class TestOrgThroughWebapp  {
 			pagenum++;
 			String content=out.getContent();
 			System.err.println("XXX If this test fails shortly after this statement, there's a good chance that you don't have the default system file encoding set to UTF8."+
-					           "Unfortunately a library we depend on for the test rarness is badly written with respect to character set handling. We're working on it.\n");
-			JSONArray results = new JSONObject(content)
-					.getJSONArray("items");
+					"Unfortunately a library we depend on for the test rarness is badly written with respect to character set handling. We're working on it.\n");
+			JSONArray results = new JSONObject(content).getJSONArray("items");
 
 			if (results.length() == 0
-					|| checkpagination.equals(results.getJSONObject(0)
-							.getString("csid"))) {
+					|| checkpagination.equals(results.getJSONObject(0).getString("csid"))) {
 				resultsize = 0;
 				// testing whether we have actually returned the same page or
 				// the next page - all csid returned should be unique
@@ -190,8 +188,7 @@ public class TestOrgThroughWebapp  {
 
 			for (int i = 0; i < results.length(); i++) {
 				JSONObject entry = results.getJSONObject(i);
-				if (entry.getString("displayName").toLowerCase().contains(
-						"test my authority2")) {
+				if(entry.getString(TERM_DISPLAYNAME_ELEMENT).toLowerCase().contains("test my authority2")) {
 					found = true;
 					resultsize = 0;
 				}
@@ -210,37 +207,33 @@ public class TestOrgThroughWebapp  {
 		 */
 		//@Test
 		//public void testAuthoritiesSearch() throws Exception {
-			log.info("ORG : AuthoritiesSearch : test_start");
-			// Create
-			 data = new JSONObject(
-					"{'fields':{'displayName':'Test My Authority1'}}");
-			 out = testbase.POSTData("/vocabularies/organization/", data, jetty);
-			 url = out.getHeader("Location");
-			// Search
-			out = testbase.GETData(
-					"/authorities/organization/search?query=Test+My+Authority1",
-					jetty);
-			//log.info(out.getContent());
-			JSONArray results = new JSONObject(out.getContent())
-					.getJSONArray("results");
-			assertTrue(results.length() > 0);
-			Boolean test = false;
-			for (int i = 0; i < results.length(); i++) {
-				JSONObject entry = results.getJSONObject(i);
-				//log.info(entry.toString());
-				if (entry.getString("displayName").toLowerCase().contains(
-						"test my authority1")) {
-					test = true;
-				}
-				assertEquals(entry.getString("number"), entry
-						.getString("displayName"));
-				assertTrue(entry.has("refid"));
+		log.info("ORG : AuthoritiesSearch : test_start");
+		// Create
+		data=createTrivialAuthItem(ORG_TERMLIST_ELEMENT, "Test My Authority1");
+		out = testbase.POSTData("/vocabularies/organization/", data, jetty);
+		url = out.getHeader("Location");
+		// Search
+		out = testbase.GETData(
+				"/authorities/organization/search?query=Test+My+Authority1",
+				jetty);
+		//log.info(out.getContent());
+		JSONArray results = new JSONObject(out.getContent())
+		.getJSONArray("results");
+		assertTrue(results.length() > 0);
+		Boolean test = false;
+		for (int i = 0; i < results.length(); i++) {
+			JSONObject entry = results.getJSONObject(i);
+			if(entry.getString(TERM_DISPLAYNAME_ELEMENT).toLowerCase().contains("test my authority1")) {
+				test = true;
 			}
-			assertTrue(test);
-			// Delete
-			testbase.DELETEData("/vocabularies/" + url, jetty);
-			log.info("ORG : AuthoritiesSearch : test_end");
+			assertEquals(entry.getString("number"),entry.getString(TERM_DISPLAYNAME_ELEMENT));
+			assertTrue(entry.has("refid"));
 		}
+		assertTrue(test);
+		// Delete
+		testbase.DELETEData("/vocabularies/" + url, jetty);
+		log.info("ORG : AuthoritiesSearch : test_end");
+	}
 
 	/**
 	 * Tests that an vocabulary search includes the expected item difference
@@ -252,8 +245,7 @@ public class TestOrgThroughWebapp  {
 	public void testOrganizationSearchList() throws Exception {
 		log.info("ORG : OrganizationSearch : test_start");
 		// Create
-		JSONObject datad = new JSONObject(
-				"{'fields':{'displayName':'Test Organization XXX'}}");
+		JSONObject datad=createTrivialAuthItem(ORG_TERMLIST_ELEMENT, "Test Organization XXX");
 		HttpTester outd = testbase.POSTData("/vocabularies/organizationtest/", datad, jetty);
 		String urdl = outd.getHeader("Location");
 		// Search
@@ -261,19 +253,16 @@ public class TestOrgThroughWebapp  {
 		//out = tester.GETData("/vocabularies/organization/search?query=Test+Organ", jetty);
 		outd = testbase.GETData("/vocabularies/organizationtest/search?query=Test+Organization", jetty);
 
-		JSONArray results = new JSONObject(outd.getContent())
-				.getJSONArray("results");
+		JSONArray results = new JSONObject(outd.getContent()).getJSONArray("results");
 
 		Boolean test = false;
 		for (int i = 0; i < results.length(); i++) {
 			JSONObject entry = results.getJSONObject(i);
 			log.info(entry.toString());
-			if (entry.getString("displayName").toLowerCase().contains(
-					"test organization xxx")) {
+			if(entry.getString(TERM_DISPLAYNAME_ELEMENT).toLowerCase().contains("test organization xxx")) {
 				test = true;
 			}
-			assertEquals(entry.getString("number"), entry
-					.getString("displayName"));
+			assertEquals(entry.getString("number"),entry.getString(TERM_DISPLAYNAME_ELEMENT));
 			assertTrue(entry.has("refid"));
 		}
 		assertTrue(test);
@@ -290,12 +279,11 @@ public class TestOrgThroughWebapp  {
 	 * lists all the vocabularies within an auth vocab list just list the one
 	 * vocabulary *
 	 */
-	//@Test
-	//public void testOrganizationList() throws Exception {
+		//@Test
+		//public void testOrganizationList() throws Exception {
 		log.info("ORG : OrganizationList : test_start");
 		// Create
-		JSONObject data = new JSONObject(
-				"{'fields':{'displayName':'Test my Org XXX1'}}");
+		JSONObject data=createTrivialAuthItem(ORG_TERMLIST_ELEMENT, "Test my Org XXX1");
 		HttpTester out = testbase.POSTData("/vocabularies/organizationtest/", data, jetty);
 		String url = out.getHeader("Location");
 
@@ -308,12 +296,10 @@ public class TestOrgThroughWebapp  {
 			out = testbase.GETData("/vocabularies/organizationtest?pageSize=40&pageNum="
 					+ pagenum, jetty);
 			pagenum++;
-			 results = new JSONObject(out.getContent())
-					.getJSONArray("items");
+			results = new JSONObject(out.getContent()).getJSONArray("items");
 
 			if (results.length() == 0
-					|| checkpagination.equals(results.getJSONObject(0)
-							.getString("csid"))) {
+					|| checkpagination.equals(results.getJSONObject(0).getString("csid"))) {
 				resultsize = 0;
 				// testing whether we have actually returned the same page or
 				// the next page - all csid returned should be unique
@@ -321,8 +307,7 @@ public class TestOrgThroughWebapp  {
 			checkpagination = results.getJSONObject(0).getString("csid");
 			for (int i = 0; i < results.length(); i++) {
 				JSONObject entry = results.getJSONObject(i);
-				if (entry.getString("displayName").toLowerCase().contains(
-						"test my org xxx1")) {
+				if(entry.getString(TERM_DISPLAYNAME_ELEMENT).toLowerCase().contains("test my org xxx1")) {
 					found = true;
 					resultsize = 0;
 				}
@@ -334,31 +319,34 @@ public class TestOrgThroughWebapp  {
 		testbase.DELETEData("/vocabularies/" + url, jetty);
 
 		log.info("ORG : OrganizationList : test_end");
-	//}
+		//}
 
 
-	// Tests an Update for an Organization
-	//@Test
-	//public void testOrganizationCreateUpdateDelete() throws Exception {
+		// Tests an Update for an Organization
+		//@Test
+		//public void testOrganizationCreateUpdateDelete() throws Exception {
 		log.info("ORG : OrganizationCreateUpdateDelete : test_start");
 		// Create
-		 data = new JSONObject(
-				"{'fields':{'displayName':'Test my Org XXX4'}}");
-		 out = testbase.POSTData("/vocabularies/organization/", data, jetty);
-		 url = out.getHeader("Location");
+		data=createTrivialAuthItem(ORG_TERMLIST_ELEMENT, "Test my Org XXX4");
+		out = testbase.POSTData("/vocabularies/organization/", data, jetty);
+		url = out.getHeader("Location");
 		// Read
 		out = testbase.GETData("/vocabularies" + url, jetty);
 		data = new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"), url.split("/")[2]);
-		assertEquals("Test my Org XXX4", data.getString("displayName"));
+		JSONArray termList = data.getJSONArray(ORG_TERMLIST_ELEMENT);
+		assertEquals("Test my Org XXX4",
+				termList.getJSONObject(0).getString(TERM_DISPLAYNAME_ELEMENT));
 		// Update
-		data = new JSONObject("{'fields':{'displayName':'A New Test Org'}}");
+		data=createTrivialAuthItem(ORG_TERMLIST_ELEMENT, "A New Test Org");
 		out = testbase.PUTData("/vocabularies" + url, data, jetty);
 		// Read
 		out = testbase.GETData("/vocabularies" + url, jetty);
 		data = new JSONObject(out.getContent()).getJSONObject("fields");
 		assertEquals(data.getString("csid"), url.split("/")[2]);
-		assertEquals("A New Test Org", data.getString("displayName"));
+		termList = data.getJSONArray(ORG_TERMLIST_ELEMENT);
+		assertEquals("A New Test Org",
+				termList.getJSONObject(0).getString(TERM_DISPLAYNAME_ELEMENT));
 		// Delete
 		testbase.DELETEData("/vocabularies/" + url, jetty);
 		log.info("ORG : OrganizationCreateUpdateDelete : test_end");
@@ -408,41 +396,56 @@ public class TestOrgThroughWebapp  {
 		log.info("ORG : NamesMultiAssign : test_end");
 	}
 
+	// TODO move this to somewhere common across various tests
+	private static final String PERSON_TERMLIST_ELEMENT = "personTermGroup";
+	private static final String ORG_TERMLIST_ELEMENT = "orgTermGroup";
+	private static final String TERM_DISPLAYNAME_ELEMENT = "termDisplayName";
+	private static final String DISPLAY_NAMES = "displayNames";
+	private static final String DISPLAY_NAME = "displayName";
+
+	private static JSONObject createTrivialAuthItem(String termGroup, String name) throws JSONException {
+		JSONObject item=new JSONObject();
+		JSONArray termInfoArray = new JSONArray();
+		JSONObject termInfo = new JSONObject();
+		termInfo.put(TERM_DISPLAYNAME_ELEMENT, name);
+		termInfoArray.put(termInfo);
+		JSONObject fields = new JSONObject();
+		fields.put(termGroup, termInfoArray);
+		item.put("fields", fields);
+		return item;
+	}
+	
 	// Tests both a person and an organization autocomplete for an organization
 	@Test
 	public void testAutocompletesForOrganization() throws Exception {
 		log.info("ORG : AutocompletesForOrganization : test_start");
 		// Create
 		log.info("ORG : AutocompletesForOrganization : CREATE");
-		JSONObject org = new JSONObject(
-				"{'fields':{'displayName':'Test my Org XXX5'}}");
+		JSONObject org=createTrivialAuthItem(ORG_TERMLIST_ELEMENT, "Test my Org XXX5");
 		HttpTester out = testbase.POSTData("/vocabularies/organization/", org, jetty);
 		String url1 = out.getHeader("Location");
 		// Add a person
 		log.info("ORG : AutocompletesForOrganization : ADD Person");
-		JSONObject person = new JSONObject(
-				"{'fields':{'displayName':'Test Auto Person'}}");
+		JSONObject person=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, "Test Auto Person");
 		out = testbase.POSTData("/vocabularies/person/", person, jetty);
 		String url2 = out.getHeader("Location");
 		// A second organization
 		log.info("ORG : AutocompletesForOrganization : Add org");
-		JSONObject org2 = new JSONObject(
-				"{'fields':{'displayName':'Test another Org'}}");
+		JSONObject org2=createTrivialAuthItem(ORG_TERMLIST_ELEMENT, "Test another Org");
 		out = testbase.POSTData("/vocabularies/organization/", org2, jetty);
 		String url3 = out.getHeader("Location");
 
 		// Test Autocomplete contactName
-		log
-				.info("ORG : AutocompletesForOrganization : test against contact Name");
+		log.info("ORG : AutocompletesForOrganization : test against contact Name");
 		out = testbase.GETData(
 				"/vocabularies/organization/autocomplete/contactName?q=Test+Auto&limit=150",
 				jetty);
 		JSONArray data = new JSONArray(out.getContent());
 		for (int i = 0; i < data.length(); i++) {
 			JSONObject entry = data.getJSONObject(i);
-			assertTrue(entry.getString("label").toLowerCase().contains(
-					"test auto person"));
-			assertTrue(entry.has("urn"));
+			JSONArray displayNames = entry.getJSONArray(DISPLAY_NAMES);
+			assertTrue(displayNames.getString(0).toLowerCase().contains("test auto person"));
+			assertTrue(entry.has("baseUrn"));
 		}
 		// Test Autocomplete subBody
 		log.info("ORG : AutocompletesForOrganization : test against subBody");
@@ -452,10 +455,9 @@ public class TestOrgThroughWebapp  {
 		data = new JSONArray(out.getContent());
 		for (int i = 0; i < data.length(); i++) {
 			JSONObject entry = data.getJSONObject(i);
-			;
-			assertTrue(entry.getString("label").toLowerCase().contains(
-					"test another org"));
-			assertTrue(entry.has("urn"));
+			JSONArray displayNames = entry.getJSONArray(DISPLAY_NAMES);
+			assertTrue(displayNames.getString(0).toLowerCase().contains("test another org"));
+			assertTrue(entry.has("baseUrn"));
 		}
 		// Delete
 		log.info("ORG : AutocompletesForOrganization : DELETE");

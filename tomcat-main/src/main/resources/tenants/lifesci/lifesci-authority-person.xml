@@ -1,0 +1,16 @@
+<record id="person" type="authority">
+	<instances id="person">
+		<instance id="person-person">
+			<nptAllowed>false</nptAllowed>
+		</instance>
+		<instance id="person-ulan_pa">
+			<nptAllowed>false</nptAllowed>
+		</instance>
+		<instance id="person-persontest1">
+			<nptAllowed>false</nptAllowed>
+		</instance>
+		<instance id="person-persontest2">
+			<nptAllowed>false</nptAllowed>
+		</instance>
+	</instances>
+</record>

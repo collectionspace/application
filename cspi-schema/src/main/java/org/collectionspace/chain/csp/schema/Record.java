@@ -6,9 +6,11 @@
  */
 package org.collectionspace.chain.csp.schema;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,6 +36,7 @@ public class Record implements FieldParent {
 	
 	private Map<String, Structure> structure = new HashMap<String, Structure>();
 	private Map<String, Map<String, String>> uisection = new HashMap<String, Map<String, String>>();
+	private List<FieldSet> selfRenderers = new ArrayList<FieldSet>();
 	private Map<String, FieldSet> subrecords = new HashMap<String, FieldSet>();
 	private Map<String, Map<String, FieldSet>> subrecordsperm = new HashMap<String, Map<String, FieldSet>>();
 	
@@ -155,8 +158,8 @@ public class Record implements FieldParent {
 		utils.initStrings(section,"services-list-path", utils.getString("services-url") + "-common-list/"
 				+ utils.getString("services-url") + "-list-item");
 
-		utils.initStrings(section,"services-fields-path", utils.getString("services-url")
-						+ "-common-list/fieldsReturned");
+		// This is relative to the services-list-path, in usage.
+		utils.initStrings(section,"services-fields-path", "fieldsReturned");
 
 		// used by service layer to construct authority names
 		utils.initStrings(section,"authority-vocab-type","");
@@ -265,6 +268,9 @@ public class Record implements FieldParent {
 		fieldFullList.put(f.getID(),f);
 		if(f.isInServices()){
 			serviceFieldFullList.put(f.getID(),f);
+		}
+		if(f.isASelfRenderer()) {
+			addSelfRenderer(f);
 		}
 		
 		//is this a search field?
@@ -678,8 +684,38 @@ public class Record implements FieldParent {
 		return mini_number;
 	}
 
+	private void findMiniNumber() {
+		if(mini_number==null) {
+			// Try child expanders to see if the mini_number is there.
+			// This handles case of mini_number for terms in the "preferred" termList sub-record
+			for(FieldSet fs : selfRenderers) {
+				Record subrecord = fs.getSelfRendererRecord();
+				FieldSet miniNumberFS = subrecord.getMiniNumber();
+				if(miniNumberFS != null) {
+					mini_number = miniNumberFS;
+					return;
+				}
+			}
+		}
+	}
+
 	public FieldSet getMiniSummary() {
 		return mini_summary;
+	}
+
+	private void findMiniSummary() {
+		if(mini_summary==null) {
+			// Try child expanders to see if the mini_summary is there.
+			// This handles case of mini_summary for terms in the "preferred" termList sub-record
+			for(FieldSet fs : selfRenderers) {
+				Record subrecord = fs.getSelfRendererRecord();
+				FieldSet miniSummaryFS = subrecord.getMiniNumber();
+				if(miniSummaryFS != null) {
+					mini_summary = miniSummaryFS;
+					return;
+				}
+			}
+		}
 	}
 
 	public FieldSet[] getAllMiniSummaryList() {
@@ -690,8 +726,50 @@ public class Record implements FieldParent {
 		return summarylist.get(key);
 	}
 
+	// obsolete?
+	public void addMiniSummaryList(FieldSet f) {
+		summarylist.put(f.getID(), f);
+	}
+
+	private void mergeNestedSummaryLists() {
+		for(FieldSet fs : selfRenderers) {
+			Record subrecord = fs.getSelfRendererRecord();
+			if(!subrecord.summarylist.isEmpty())
+				summarylist.putAll(subrecord.summarylist);
+		}
+	}
+	
+	/**
+	 * For selfrenderer children, like the preferredTerm block in authorities, we need to gather
+	 * up all the declared search fields into this parent, so that when we generate a UISpec
+	 * or UISchema for search, we get those nested fields as well.
+	 */
+	private void mergeSearchLists() {
+		for(FieldSet fs : selfRenderers) {
+			Record subrecord = fs.getSelfRendererRecord();
+			if(!subrecord.searchFieldFullList.isEmpty())
+				searchFieldFullList.putAll(subrecord.searchFieldFullList);
+		}
+	}
+	
+
 	public FieldSet getDisplayNameField() {
 		return display_name;
+	}
+
+	private void findDisplayNameField() {
+		if(display_name==null) {
+			// Try child expanders to see if the displayName is there.
+			// This handles case of displayName for terms in the "preferred" termList sub-record
+			for(FieldSet fs : selfRenderers) {
+				Record subrecord = fs.getSelfRendererRecord();
+				FieldSet displayNameFS = subrecord.getDisplayNameField();
+				if(displayNameFS != null) {
+					display_name = displayNameFS;
+					return;
+				}
+			}
+		}
 	}
 
 
@@ -726,15 +804,14 @@ public class Record implements FieldParent {
 	public void addSubRecord(FieldSet fs, String perm) {
 		subrecordsperm.get(perm).put(fs.getID(), fs);
 	}
+	
+	protected void addSelfRenderer(FieldSet fs) {
+		selfRenderers.add(fs);
+	}
 
 	public void addInstance(Instance n) {
 		instances.put(n.getID(), n);
 		spec.addInstance(n);
-	}
-
-	// obsolete?
-	public void addMiniSummaryList(FieldSet f) {
-		summarylist.put(f.getID(), f);
 	}
 
 	public void addMiniDataSet(FieldSet f, String s) {
@@ -754,6 +831,7 @@ public class Record implements FieldParent {
 		}
 		minidataset.get(s).put(r.getID(), r);
 	}
+	
 
 	public FieldSet[] getMiniDataSetByName(String s) {
 		if (minidataset.containsKey(s)) {
@@ -767,6 +845,25 @@ public class Record implements FieldParent {
 			return new String[0];
 		}
 		return minidataset.keySet().toArray(new String[0]);
+	}
+	
+	private void mergeNestedMiniLists() {
+		for(FieldSet fs : selfRenderers) {
+			Record subrecord = fs.getSelfRendererRecord();
+			for(String listName:subrecord.minidataset.keySet()) {
+				Map<String, FieldSet> subRecordMiniList = subrecord.minidataset.get(listName);
+				if(!subRecordMiniList.isEmpty()) {
+					Map<String, FieldSet> fieldsForList;
+					if (!minidataset.containsKey(listName)) {
+						fieldsForList = new HashMap<String, FieldSet>();
+						minidataset.put(listName, fieldsForList);
+					} else {
+						fieldsForList = minidataset.get(listName);
+					}
+					fieldsForList.putAll(subRecordMiniList);
+				}
+			}
+		}
 	}
 
 	void dump(StringBuffer out) {
@@ -899,6 +996,14 @@ public class Record implements FieldParent {
 			n.config_finish(spec);
 		for (FieldSet fs : fieldTopLevel.values())
 			fs.config_finish(spec);
+		// Handle nested self-renderers, to harvest things from nested like displayName, 
+		// mini lists, etc. 
+		findDisplayNameField();
+		findMiniNumber();
+		findMiniSummary();
+		mergeNestedSummaryLists();
+		mergeNestedMiniLists();
+		mergeSearchLists();
 	}
 
 	@Override

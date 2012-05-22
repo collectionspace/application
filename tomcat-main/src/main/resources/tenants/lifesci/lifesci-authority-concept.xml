@@ -1,0 +1,17 @@
+<record id="concept" type="authority">
+	<instances id="concept">
+        <instance id="concept-associatedconcept_ca">
+			<nptAllowed>false</nptAllowed>
+        </instance>
+        <instance id="concept-material_ca">
+			<nptAllowed>false</nptAllowed>
+        </instance>
+        <instance id="concept-concept">
+			<nptAllowed>false</nptAllowed>
+        </instance>
+        <instance id="concept-activity">
+			<nptAllowed>false</nptAllowed>
+        </instance>
+    </instances>
+</record>
+

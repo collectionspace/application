@@ -1,8 +1,19 @@
 {
-    "shortIdentifier": "concepttest1",
-    "displayName": "Concept Test 1 (Qualified)",
-    "shortDisplayName": "Concept Test 1",
-    "qualifier": "Qualifier",
+  "shortIdentifier": "concepttest1",
+  "citationGroup": [{
+    "_primary": true,
+    "citationSource": "source"
+  }],
+  "conceptTermGroup": [{
+    "_primary": true,
+    "termDisplayName": "Concept Test 1 (Qualified)",
+    "termQualifier": "Qualifier",
     "termType": "Type",
+    "termStatus": "termStatus",
     "termLanguage": "English"
+  }],
+  "additionalSourceGroup": [{
+    "_primary": true,
+    "additionalSource": "source"
+  }]
 }

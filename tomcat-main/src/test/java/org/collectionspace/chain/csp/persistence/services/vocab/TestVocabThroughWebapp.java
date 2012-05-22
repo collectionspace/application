@@ -30,7 +30,7 @@ public class TestVocabThroughWebapp  {
 			jetty=tester.setupJetty();
 			}
 		catch(Exception ex){
-			
+			log.error("TestVocabThroughWebapp: Could not set up jetty! " + ex.getLocalizedMessage());
 		}
 	}
 	
