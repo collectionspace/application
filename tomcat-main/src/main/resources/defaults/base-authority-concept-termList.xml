@@ -1,0 +1,71 @@
+<record id="preferredCA" in-recordlist="no" separate-record="false">
+    <hassoftdelete>true</hassoftdelete>
+    <section>
+        <!-- List containing this item's preferred term and any non-preferred terms -->
+        <repeat id="conceptTermGroupList/conceptTermGroup">
+            <!-- Fields common across all authority items -->
+            <field id="termDisplayName" ui-search="repeatable" in-title="yes" display-name="yes"
+                mini="summary,number,search,list,relate">
+                <selector>conceptAuthority-termDisplayName</selector>
+                <title-selector>titleBar-displayName</title-selector>
+            </field>
+            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
+            <field id="termName">
+                <selector>conceptAuthority-termName</selector>
+            </field>
+            <field id="termType" mini="summary,search,list,relate">
+                <selector>conceptAuthority-termType</selector>
+                <options>
+                    <option id="">Please select a value</option>
+                    <option id="descriptor">Descriptor</option>
+                    <option id="alternate descriptor">Alternate Descriptor</option>
+                    <option id="used for term">Used for Term</option>
+                </options>
+            </field>
+            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
+            <field id="termStatus" seperate_ui_container="true"
+                mini="search,list,relate">
+                <selector>conceptAuthority-termStatus</selector>
+                <options>
+                    <option id="provisional" default="yes">Provisional</option>
+                    <option id="under review">Under Review</option>
+                    <option id="accepted">Accepted</option>
+                    <option id="rejected">Rejected</option>
+                </options>
+            </field>
+            <field id="termQualifier">
+                <selector>conceptAuthority-termQualifier</selector>
+            </field>
+            <!-- FIXME: Add 'ui-search="repeatable"' back to this field when CSPACE-5184/CSPACE-5185 is fixed -->
+            <field id="termLanguage" autocomplete="vocab-languages" ui-type="enum">
+                <selector>conceptAuthority-termLanguage</selector>
+            </field>
+            <field id="termPrefForLang" datatype="boolean">
+                <selector>conceptAuthority-termPrefForLang</selector>
+            </field>
+            <!-- termSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="termSource">
+                <selector>conceptAuthority-termSource</selector>
+            </field>
+            <field id="termSourceDetail">
+                <selector>conceptAuthority-termSourceDetail</selector>
+            </field>
+            <field id="termSourceID">
+                <selector>conceptAuthority-termSourceID</selector>
+            </field>
+            <field id="termSourceNote">
+                <selector>conceptAuthority-termSourceNote</selector>
+            </field>
+            <!-- Fields specific to Concept terms -->
+            <field id="historicalStatus">
+                <selector>conceptAuthority-historicalStatus</selector>
+                <options>
+                    <option id="current" default="yes">Current</option>
+                    <option id="historical">Historical</option>
+                    <option id="both">Both</option>
+                    <option id="unknown">Unknown</option>
+                </options>
+            </field>
+        </repeat>
+    </section>
+</record>

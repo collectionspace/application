@@ -52,8 +52,13 @@ public class CSPManagerImpl implements CSPManager {
 		try {
 			ConfigParser parser = new ConfigParser(rules,er);
 			parser.parse(in);
+			// Finish up all the config-related tasks
 			for(Configurable config : config_csps) {
 				config.config_finish();
+			}
+			// Run the post-config init tasks
+			for(Configurable config : config_csps) {
+				config.complete_init();
 			}
 		} catch (ConfigException e) {
 			throw new CSPDependencyException(e); // XXX			

@@ -30,7 +30,7 @@ public class TestAjaxExpiresHeaders {
 			jetty=tester.setupJetty();
 			}
 		catch(Exception ex){
-			
+			log.error("TestAjaxExpiresHeaders: Could not set up jetty! " + ex.getLocalizedMessage());
 		}
 	}
 	

@@ -34,6 +34,13 @@
 
     <dependency>
       <groupId>org.collectionspace</groupId>
+      <artifactId>jxutils</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency>  
+
+    <dependency>
+      <groupId>org.collectionspace</groupId>
       <artifactId>cspi-schema</artifactId>
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
@@ -81,7 +88,7 @@
     <dependency>
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
-      <version>1.4</version>
+      <version>2.0.1</version>
       <type>jar</type>
     </dependency>
     <dependency>

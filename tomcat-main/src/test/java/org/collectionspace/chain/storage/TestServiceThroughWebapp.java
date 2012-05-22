@@ -160,7 +160,7 @@ public class TestServiceThroughWebapp {
 	}
 
 	@Test public void testTermsUsed() throws Exception {
-		JSONObject data=new JSONObject("{'csid':'','fields':{'displayName':'David Bowie'}}");
+		JSONObject data=new JSONObject("{'csid':'','fields':{'personTermGroup':[{'termDisplayName':'David Bowie'}]}}");
 		UTF8SafeHttpTester out=tester.jettyDoUTF8(jetty,"POST","/tenant/core/vocabularies/person",data.toString());
 		assertEquals(201,out.getStatus());		
 		JSONObject jo=new JSONObject(out.getContent());

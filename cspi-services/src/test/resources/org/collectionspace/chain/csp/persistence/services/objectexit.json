@@ -1,7 +1,31 @@
 {
     "exitNote": "This object has been declared a World Heritage Nuisance and must be disposed of forthwith.",
     "currentOwner": "urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'",
-    "exitDate": "July 1, 2010",
+    "exitDateGroup": {
+        "dateEarliestSingleQualifier": "",
+        "scalarValuesComputed": "true",
+        "dateLatestYear": "",
+        "dateLatestDay": "",
+        "dateAssociation": "",
+        "dateEarliestSingleEra": "",
+        "dateDisplayDate": "July 1, 2010",
+        "dateEarliestSingleCertainty": "",
+        "dateLatestEra": "",
+        "dateEarliestSingleQualifierValue": "",
+        "dateLatestCertainty": "",
+        "dateEarliestSingleYear": "",
+        "dateLatestQualifier": "",
+        "dateLatestQualifierValue": "",
+        "dateEarliestSingleQualifierUnit": "",
+        "datePeriod": "",
+        "dateEarliestScalarValue": "",
+        "dateLatestMonth": "",
+        "dateNote": "",
+        "dateLatestScalarValue": "",
+        "dateLatestQualifierUnit": "",
+        "dateEarliestSingleDay": "",
+        "dateEarliestSingleMonth": ""
+    },
     "exitMethods": [
         {
             "_primary": true,

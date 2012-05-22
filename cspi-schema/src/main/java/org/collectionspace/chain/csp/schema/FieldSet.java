@@ -46,6 +46,15 @@ public interface FieldSet {
 	public Boolean usesRecord();
 	public String usesRecordValidator();
 	public Record usesRecordId();
+	/**
+	 * UI specific marking: YURA said: 
+	 * these are renderer decorators that do their own rendering so need some sub nesting
+	 * @param fs
+	 * @return
+	 */
+	final static String SELFRENDERER = "selfrenderer";
+	public boolean isASelfRenderer();
+	public Record getSelfRendererRecord();
 	
 	//
 	public Boolean hasAutocompleteInstance();
