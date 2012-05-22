@@ -12,8 +12,7 @@ import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.AfterClass;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -28,7 +27,7 @@ public class TestNameThroughWebapp{
 	private static String SECOND_PERSON_INSTANCE_PATH = "/vocabularies/ulan_pa";
 	
 //need a begin function that creates the default person if it is missing?
-	@Before public void testCreateAuth() throws Exception {
+	@BeforeClass public static void testCreateAuth() throws Exception {
 		ServletTester jetty = tester.setupJetty();
 		
 		HttpTester out = tester.GETData("/authorities/vocab/initialize", jetty);

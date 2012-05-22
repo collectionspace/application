@@ -15,7 +15,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
@@ -48,7 +47,7 @@ public class TestOrgThroughWebapp  {
 	}
 
 	//need a begin function that creates the default person if it is missing?
-	@Before public  void testCreateAuth() throws Exception {
+	@BeforeClass public static void testCreateAuth() throws Exception {
 		log.info("org_before");
 		HttpTester out = null;
 		JSONObject test2 = new JSONObject();
