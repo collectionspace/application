@@ -6,9 +6,6 @@
         <instance id="organization-ulan_oa">
 			<nptAllowed>false</nptAllowed>
         </instance>
-        <instance id="organization-organizationtest">
-			<nptAllowed>false</nptAllowed>
-        </instance>
     </instances>
 </record>
 

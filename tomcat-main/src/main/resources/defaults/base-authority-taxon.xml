@@ -36,20 +36,15 @@
     <include src="domain-authority-taxon.xml" strip-root="yes"/>
 
     <instances id="taxon">
-        <instance id="taxon-local_ta">
-            <web-url>local_ta</web-url>
-            <title-ref>local_ta</title-ref>
-            <title>Local Taxon</title>
-        </instance>
         <instance id="taxon-common_ta">
             <web-url>common_ta</web-url>
             <title-ref>common_ta</title-ref>
-            <title>Common Taxon</title>
+            <title>Common Taxa</title>
         </instance>
         <instance id="taxon-taxon">
             <web-url>taxon</web-url>
             <title-ref>taxon</title-ref>
-            <title>Default Scientific Taxonomy Authority</title>
+            <title>Local Taxa</title>
         </instance>
     </instances>
     <section id="coreInformation">
