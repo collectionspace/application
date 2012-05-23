@@ -36,11 +36,6 @@
     <include src="domain-authority-place.xml" strip-root="yes"/>
 
     <instances id="place">
-        <instance id="place-local_place">
-            <web-url>local_place</web-url>
-            <title-ref>local_place</title-ref>
-            <title>Local Place</title>
-        </instance>
         <instance id="place-tgn_place">
             <web-url>tgn_place</web-url>
             <title-ref>tgn_place</title-ref>
@@ -49,17 +44,7 @@
         <instance id="place-place">
             <web-url>place</web-url>
             <title-ref>place</title-ref>
-            <title>Default Place Authority</title>
-        </instance>
-        <instance id="place-placetest1">
-            <web-url>placetest1</web-url>
-            <title-ref>placetest1</title-ref>
-            <title>Test Place Authority 1</title>
-        </instance>
-        <instance id="place-placetest2">
-            <web-url>placetest2</web-url>
-            <title-ref>placetest2</title-ref>
-            <title>Test Place Authority 2</title>
+            <title>Local Places</title>
         </instance>
     </instances>
     <section id="coreInformation">
