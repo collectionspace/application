@@ -142,10 +142,10 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 		/*
 		 * Save the merge results for debugging purposes.
 		 */
-		if (logger.isDebugEnabled() == true) {
+		if (logger.isInfoEnabled() == true) {
 			try {
-			String outputFileNamePrefix = "/merged-" + loggingPrefix + "-" + UUID.randomUUID().toString();
-			if (xmlmergeProps != null) { 
+			String outputFileNamePrefix = "/merged-" + loggingPrefix + "-";
+			if (xmlmergeProps != null) {
 				File mergePropertiesFile = new File(FileUtils.getTempDirectoryPath() + outputFileNamePrefix + ".properties"); //make a copy of the XMLMerge properties used for the merge
 				ByteArrayInputStream propertiesStream = new ByteArrayInputStream(xmlmergeProps.toString().getBytes());
 				FileUtils.copyInputStreamToFile(propertiesStream, mergePropertiesFile);
@@ -153,9 +153,9 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 			File mergedOutFile = new File(FileUtils.getTempDirectoryPath() + outputFileNamePrefix + ".xml"); //make a copy of the merge results
 				FileUtils.copyInputStreamToFile(result, mergedOutFile);
 				result.reset();
-				logger.debug("XMLMerge result output to: " + mergedOutFile.getAbsolutePath());
+				logger.info("XMLMerge result output to: " + mergedOutFile.getAbsolutePath());
 			} catch (IOException e) {
-				logger.debug("Could not output the XMLMerge result.", e);
+				logger.info("Could not output the XMLMerge result.", e);
 			}
 		}
 
@@ -211,7 +211,8 @@ public class AssemblingContentHandler extends DefaultHandler implements ContentH
 			InputStream mergedStream = null;
 			try {
 				Properties xmlmergeProps = getXMLMergeProperties(includeTag.merge); //the "merge" attribute contains the name of the XMLMerge properties file
-				mergedStream = merge(includeTag.src, xmlmergeProps, toArray(inputSources));
+				mergedStream = merge(includeTag.src.replace(',', '_'), // peform the merge
+						xmlmergeProps, toArray(inputSources));
 			} catch (AbstractXmlMergeException e) {
 				String msg = "Could not merge the include files: " + includeTag.src;
 				logger.warn(msg);

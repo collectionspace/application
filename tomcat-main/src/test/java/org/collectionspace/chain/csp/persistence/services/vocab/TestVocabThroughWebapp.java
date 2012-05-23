@@ -12,7 +12,7 @@ import org.collectionspace.chain.csp.persistence.TestBase;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.AfterClass;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import org.mortbay.jetty.testing.HttpTester;
@@ -38,8 +38,8 @@ public class TestVocabThroughWebapp  {
 		tester.stopJetty(jetty);
 	}
 
-	@Before
-	public void testInitialise() throws Exception {
+	@BeforeClass
+	public static void testInitialise() throws Exception {
 		String vocabtype = "currency";
 		HttpTester out;
 		// String vocabtype="loanoutstatus";

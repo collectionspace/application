@@ -1,38 +1,29 @@
 {
-  "recordlist": {
-    "default": [
-      "acquisition", 
-      "activity", 
-      "associatedconcept_ca", 
-      "cataloging", 
-      "common_ta", 
-      "concept", 
-      "group", 
-      "intake", 
-      "loanin", 
-      "loanout", 
-      "local_place", 
-      "local_sla", 
-      "local_ta", 
-      "location", 
-      "material_ca", 
-      "media", 
-      "movement", 
-      "objectexit", 
-      "offsite_sla", 
-      "organization", 
-      "organizationtest", 
-      "person", 
-      "persontest1", 
-      "persontest2", 
-      "place", 
-      "placetest1", 
-      "placetest2", 
-      "taxon", 
-      "tgn_place", 
-      "ulan_oa", 
-      "ulan_pa"
-    ], 
-    "type": "array"
-  }
+    "recordlist": {
+        "default": [
+            "acquisition",
+            "activity",
+            "cataloging",
+            "common_ta",
+            "concept",
+            "group",
+            "intake",
+            "loanin",
+            "loanout",
+            "location",
+            "material_ca",
+            "media",
+            "movement",
+            "objectexit",
+            "offsite_sla",
+            "organization",
+            "person",
+            "place",
+            "taxon",
+            "tgn_place",
+            "ulan_oa",
+            "ulan_pa"
+        ],
+        "type": "array"
+    }
 }
