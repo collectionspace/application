@@ -33,25 +33,20 @@
     <include src="domain-authority-concept.xml" strip-root="yes"/>
                 
     <instances id="concept">
-        <instance id="concept-associatedconcept_ca">
-            <web-url>associatedconcept_ca</web-url>
-            <title-ref>associatedconcept_ca</title-ref>
-            <title>Associated Concept</title>
-        </instance>
         <instance id="concept-material_ca">
             <web-url>material_ca</web-url>
             <title-ref>material_ca</title-ref>
-            <title>Material Authority</title>
+            <title>Material Concepts</title>
         </instance>
         <instance id="concept-concept">
             <web-url>concept</web-url>
             <title-ref>concept</title-ref>
-            <title>Default Concept Authority</title>
+            <title>Associated Concepts</title>
         </instance>
         <instance id="concept-activity">
             <web-url>activity</web-url>
             <title-ref>activity</title-ref>
-            <title>Activity Authority</title>
+            <title>Activity Concepts</title>
         </instance>
     </instances>
     <section id="coreInformation">

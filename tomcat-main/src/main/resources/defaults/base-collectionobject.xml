@@ -399,7 +399,7 @@
         </field>
       </repeat>
       <repeat id="contentConcepts">
-        <field id="contentConcept" autocomplete="concept-associatedconcept_ca,concept-material_ca">
+        <field id="contentConcept" autocomplete="concept-concept,concept-material_ca">
           <selector>object-description-content-concept</selector>
         </field>
       </repeat>
@@ -876,7 +876,7 @@
     </repeat>
     <field id="fieldCollectionNote"/>
     <field id="fieldCollectionNumber"/>
-    <field id="fieldCollectionPlace" autocomplete="place-local_place,place-tgn_place"/>
+    <field id="fieldCollectionPlace" autocomplete="place-place,place-tgn_place"/>
     <repeat id="fieldCollectionSources">
       <field id="fieldCollectionSource" autocomplete="person-person"/>
     </repeat>
