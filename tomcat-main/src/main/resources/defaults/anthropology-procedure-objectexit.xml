@@ -1,0 +1,13 @@
+<record id="objectexit">
+	<services-record-path id="anthropology">objectexit_anthropology:http://collectionspace.org/services/objectexit/domain/anthropology,objectexit_anthropology</services-record-path>
+	
+	<section id="objectexitInformation">
+		<!-- Remove ui-search, mini, and in-title -->
+		<field id="currentOwner" ui-search="" autocomplete="person-person,organization-organization" mini="" in-title="">
+	
+		<!-- Replace currentOwner with repeating newOwner -->
+		<repeat id="newOwnerList" section="anthropology">
+			<field id="newOwner" ui-search="repeatable" autocomplete="person-person,organization-organization" mini="summary,list" in-title="yes" section="anthropology"/>
+		</repeat>
+	</section>
+</record>
