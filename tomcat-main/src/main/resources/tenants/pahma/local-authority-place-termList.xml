@@ -1,8 +1,7 @@
-<?xml version="1.0"?>
 <record id="preferredPlace">
 	<section id="termInformation">
 		<repeat id="placeTermGroupList/placeTermGroup">
-			<field id="termType" seperate_ui_container="true">
+			<field id="termType">
 				<!-- Change options -->
 				<options>
 					<option id="">Please select a value</option>
