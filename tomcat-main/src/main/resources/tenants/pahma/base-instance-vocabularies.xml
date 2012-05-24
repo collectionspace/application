@@ -1,6 +1,6 @@
 <!-- TODO: Figure out how to use xmlmerge on this file -->
 <instances>
-	<include src="domain-instance-vocabularies.xml"/>
+	<include src="domain-instance-vocabularies.xml" strip-root="yes"/>
 	<instance id="vocab-languages">
 		<web-url>languages</web-url>
 		<title-ref>languages</title-ref>

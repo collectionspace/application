@@ -1,0 +1,8 @@
+<record id="place">
+	<section id="placeAuthorityInformation">
+		<!-- Change to use a dynamic term list -->
+		<field id="placeType" autocomplete="vocab-PlaceType" ui-type="enum">
+			<options/>
+		</field>
+	</section>
+</record>
