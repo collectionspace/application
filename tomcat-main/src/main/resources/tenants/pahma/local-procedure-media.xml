@@ -28,9 +28,9 @@
 		
 		<field id="approvedForWeb" section="pahma">
 			<options>
-				<option id="" default="yes">(none selected)</option>
+				<option id="">(none selected)</option>
+				<option id="yes" default="yes">Yes</option>
 				<option id="no">No</option>
-				<option id="yes">Yes</option>
 			</options>
 		</field>
 		<field id="primaryDisplay" section="pahma">
