@@ -6,6 +6,10 @@
 				<option id="objectexit" sample="EX2011.1">Object Exit</option>
 			</options>
 		</field>
+		
+		<!-- Remove ui-search, mini, and in-title -->
+		<field id="currentOwner" ui-search="" mini="" in-title=""/>
+		
 		<repeat id="exitMethods">
 			<field id="exitMethod">
 				<!-- Change options -->
@@ -17,6 +21,7 @@
 				</options>
 			</field>
 		</repeat>
+		
 		<field id="exitReason">
 			<!-- Change options -->
 			<options>
