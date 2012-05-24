@@ -11,8 +11,8 @@
 
     <web-url>all</web-url>
     <authorization-view>false</authorization-view>
-		<!-- Need to filter all soft-deleted records when searching -->
-    <hassoftdelete>false</hassoftdelete>
+    <!-- Need to filter all soft-deleted records when searching -->
+    <hassoftdelete>true</hassoftdelete>
 
     <structures>
         <structure id="screen">
