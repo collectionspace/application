@@ -1,5 +1,14 @@
 <record id="loanout">
 	<section id="loanoutInformation">
+		<field id="loanOutNumber">
+			<!-- Change options -->
+			<options>
+				<option id="uc-loanout" sample="UC1000">UC Loan Out</option>
+				<option id="jeps-loanout" sample="JEPS1000">Jepson Loan Out</option>
+				<option id="loanout" sample="LO2012.1">Loan Out</option>
+			</options>
+		</field>
+		
 		<!-- Add organization-institution to autocomplete -->
 		<field id="borrower" autocomplete="person-person,organization-organization,organization-institution"/>
 
