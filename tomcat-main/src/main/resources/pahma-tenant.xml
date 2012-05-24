@@ -31,8 +31,8 @@
 			<include src="base-authority-organization.xml,anthropology-authority-organization.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-person-termList.xml,local-authority-person-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-person.xml,anthropology-authority-person.xml,local-authority-person.xml" merge="xmlmerge.properties"/>
-			<include src="base-authority-place-termList.xml"/>
-			<include src="base-authority-place.xml"/>
+			<include src="base-authority-place-termList.xml,local-authority-place-termList.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-place.xml,local-authority-place.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-taxon-termList.xml,local-authority-taxon-termList.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-taxon.xml,local-authority-taxon.xml" merge="xmlmerge.properties"/>
 			<include src="base-authority-concept-termList.xml"/>
