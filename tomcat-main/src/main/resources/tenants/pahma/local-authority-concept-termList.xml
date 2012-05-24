@@ -1,0 +1,14 @@
+<record id="preferredCA">
+	<section id="termInformation">
+		<repeat id="conceptTermGroupList/conceptTermGroup">
+			<field id="termType">
+				<!-- Change options -->
+				<options>
+					<option id="">Please select a value</option>
+					<option id="descriptor">descriptor</option>
+					<option id="alternativeterm">alternative term</option>
+				</options>
+			</field>
+		</repeat>
+	</section>
+</record>
