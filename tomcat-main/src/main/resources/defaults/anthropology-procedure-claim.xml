@@ -4,20 +4,23 @@
 	<section id="claimInformation">
 		<!--<field id="claimName" section="anthropology" in-title="yes"></field>-->
 		<field id="claimName" ui-search="repeatable" section="anthropology" in-title="yes" mini="summary,search,list,relate,terms"></field>
-		<field id="claimType" ui-search="repeatable" section="anthropology" seperate_ui_container="true">
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="affiliatedHsr">affiliated human skeletal remains (HSR)</option>
-				<option id="unaffiliatedCuiHsr">unaffiliated human skeletal remains (HSR) (=CUI)</option>
-				<option id="afo">associated funerary object (AFO)</option>
-				<option id="ufo">unassociated funerary object (UFO)</option>
-				<option id="sacredObject">sacred object</option>
-				<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
-				<option id="nonNagpra">not subject to NAGPRA</option>
-				<option id="needsFurtherResearch">needs further research</option>
-				<option id="unknown">unknown</option>
-			</options>
-		</field>
+		
+		<repeat id="claimTypeList" section="anthropology">
+			<field id="claimType" ui-search="repeatable" section="anthropology" seperate_ui_container="true">
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="affiliatedHsr">affiliated human skeletal remains (HSR)</option>
+					<option id="unaffiliatedCuiHsr">unaffiliated human skeletal remains (HSR) (=CUI)</option>
+					<option id="afo">associated funerary object (AFO)</option>
+					<option id="ufo">unassociated funerary object (UFO)</option>
+					<option id="sacredObject">sacred object</option>
+					<option id="objectOfCulturalPatrimony">object of cultural patrimony</option>
+					<option id="nonNagpra">not subject to NAGPRA</option>
+					<option id="needsFurtherResearch">needs further research</option>
+					<option id="unknown">unknown</option>
+				</options>
+			</field>
+		</repeat>
 		
 		<repeat id="claimAltNameGroupList/claimAltNameGroup" section="anthropology">
 			<field id="claimAltName" section="anthropology"></field>
