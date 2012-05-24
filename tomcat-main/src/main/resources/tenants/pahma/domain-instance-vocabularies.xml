@@ -1,0 +1,29 @@
+<instances>
+	<instance id="vocab-PlaceType">
+		<web-url>PlaceType</web-url>
+		<title-ref>PlaceType</title-ref>
+		<title>PlaceType</title>
+		<options>
+			<option id="pt14">bedrock mortar site</option>
+			<option id="pt13">cave</option>
+			<option id="pt1">cemetery/graveyard</option>
+			<option id="pt18">ceramic scatter</option>
+			<option id="pt6">ceremonial site</option>
+			<option id="pt20">cliff dwelling</option>
+			<option id="pt11">fort</option>
+			<option id="pt17">historic ranch</option>
+			<option id="pt7">historic village</option>
+			<option id="pt3">house/habitation</option>
+			<option id="pt16">lithic scatter</option>
+			<option id="pt8">mission</option>
+			<option id="pt9">mound</option>
+			<option id="pt21">pit house</option>
+			<option id="pt12">pueblo</option>
+			<option id="pt5">rock art</option>
+			<option id="pt15">seasonal camp</option>
+			<option id="pt10">shellmound</option>
+			<option id="pt4">surface scatter</option>
+			<option id="pt19">type site</option>
+		</options>
+	</instance>
+</instances>
