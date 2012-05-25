@@ -28,6 +28,7 @@ import org.collectionspace.chain.csp.webui.userdetails.UserDetailsReset;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mortbay.jetty.testing.HttpTester;
 import org.mortbay.jetty.testing.ServletTester;
@@ -52,6 +53,11 @@ public class TestGeneral  {
 		}
 	}
 	
+	@BeforeClass public static void testInitialise() throws Exception {
+		HttpTester out = tester.GETData(TestBase.AUTHS_INIT_PATH, jetty);
+		log.info(out.getContent());
+	}
+
 	@AfterClass public static  void testStop() throws Exception {
 		tester.stopJetty(jetty);
 	}
@@ -77,7 +83,7 @@ public class TestGeneral  {
 	//	String csid = "/generator?quantity=10&maxrelationships=10&startvalue=0&extraprefix=Related";
 	//	String csid = "/cataloging/termList/dateEarliestSingleEra";
 //		String csid = "/role/08a84ce3-9236-468b-b8c2-66d07706b273";
-		String csid = "/vocabularies/person";
+		String csid = TestBase.MAIN_PERSON_INSTANCE_PATH;
 		//http://nightly.collectionspace.org/collectionspace/chain/vocabularies/location/source-vocab/relatedTerm
 //		String test = "{\"fields\":{\"lenderGroup\":[{\"_primary\":true}],\"loanPurposes\":[{\"loanPurpose\":\"\",\"_primary\":true}],\"updatedBys\":[{\"_primary\":true}],\"loanInNumbers\":[{\"_primary\":true}],\"updatedAtStart\":\"2011-09-05\"},\"operation\":\"or\"}";
 		String test = "{\"termsUsed\":[],\"relations\":[],\"csid\":\"\",\"refobjs\":[],\"namespace\":\"person\"," +
@@ -251,8 +257,8 @@ public class TestGeneral  {
 		//create person authority to use
 		String personStr = "{\"shortIdentifier\":\"mytestperson\",\"personTermGroup\":[{\"termDisplayName\":\"TEST my test person\"}]}";
 
-		HttpTester out = tester.POSTData("/vocabularies/person/",tester.makeSimpleRequest(personStr),jetty);
-		String person_id=out.getHeader("Location");
+		HttpTester out = tester.POSTData(TestBase.MAIN_PERSON_INSTANCE_PATH+"/",tester.makeSimpleRequest(personStr),jetty);
+		String person_url=out.getHeader("Location");
 		JSONObject persondata = new JSONObject(out.getContent());
 		String urn = persondata.getString("urn");
 
@@ -274,7 +280,7 @@ public class TestGeneral  {
 		//clean up
 		tester.DELETEData(id,jetty);
 
-		tester.DELETEData("/vocabularies/"+person_id,jetty);
+		tester.DELETEData("/vocabularies/"+person_url,jetty);
 		
 	}
 	/**
@@ -284,8 +290,8 @@ public class TestGeneral  {
 	@Test public void testTermsUsedVocab() throws Exception {
 		//create person authority to use
 		String personStr = "{\"personTermGroup\":[{\"termDisplayName\":\"TEST my test person\"}]}";
-		HttpTester out = tester.POSTData("/vocabularies/person/",tester.makeSimpleRequest(personStr),jetty);
-		String person_id=out.getHeader("Location");
+		HttpTester out = tester.POSTData(TestBase.MAIN_PERSON_INSTANCE_PATH+"/",tester.makeSimpleRequest(personStr),jetty);
+		String person_url=out.getHeader("Location");
 		
 
 		JSONObject persondata = new JSONObject(out.getContent());
@@ -309,11 +315,11 @@ public class TestGeneral  {
 
 		//get the cataloging linked to the vocab item
 
-		out = tester.GETData("/vocabularies"+person_id,jetty);
+		out = tester.GETData("/vocabularies"+person_url,jetty);
 		
 		//clean up
 		tester.DELETEData(id,jetty);
-		tester.DELETEData("/vocabularies/"+person_id,jetty);
+		tester.DELETEData("/vocabularies/"+person_url,jetty);
 	}
 	
 	//@Test - no guarentee that the service layer created this report and put it where I could find it
