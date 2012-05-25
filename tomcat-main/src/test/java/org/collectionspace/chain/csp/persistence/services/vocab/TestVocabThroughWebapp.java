@@ -38,27 +38,9 @@ public class TestVocabThroughWebapp  {
 		tester.stopJetty(jetty);
 	}
 
-	@BeforeClass
-	public static void testInitialise() throws Exception {
-		String vocabtype = "currency";
-		HttpTester out;
-		// String vocabtype="loanoutstatus";
-		// Create a single vocab
-		// out = tester.GETData("/vocabularies/"+vocabtype+"/initialize",jetty);
-
-		// create all vocabularies in <record id="vocab"
-		out = tester.GETData("/authorities/vocab/initialize", jetty);
-
-		// update and remove fields not in list
-		// out = tester.GETData("/vocabularies/"+vocabtype+"/refresh",jetty);
-
-		// update and remove fields not in each list within an authority
-		// out = tester.GETData("/authorities/vocab/refresh",jetty);
-		
-		// get data to init from a file
-		// /chain/vocabularies/"+vocabtype+"/initialize?datapath=/Users/csm22/Documents/collectionspace/svcapp/cspi-webui/src/main/resources/org/collectionspace/chain/csp/webui/misc/names.txt
-			log.info(out.getContent());
-
+	@BeforeClass public static void testInitialise() throws Exception {
+		HttpTester out = tester.GETData(TestBase.AUTHS_INIT_PATH, jetty);
+		log.info(out.getContent());
 	}
 
 	@Test
