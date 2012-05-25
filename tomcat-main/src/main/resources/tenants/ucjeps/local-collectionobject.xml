@@ -46,8 +46,8 @@
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
 			<!-- Add taxon-unverified to autocomplete -->
 			<field id="taxon" autocomplete="taxon-taxon,taxon-unverified"/>
-			<!-- Change autocomplete to organization-determination -->
-			<field id="identBy" autocomplete="organization-determination"/>
+			<!-- Change autocomplete to person-person and organization-determination -->
+			<field id="identBy" autocomplete="person-person,organization-determination"/>
 			<!-- Change autocomplete to institution authority -->
 			<field id="institution" autocomplete="organization-institution"/>
 		</repeat>
