@@ -57,7 +57,7 @@ public class TestGenerateAuthorities {
 		assertTrue(resultsPerson.length() > 0);
 		
 		//make sure all the vocabs are initialized
-		out = tester.GETData("/authorities/vocab/initialize", jetty);
+		out = tester.GETData(TestBase.AUTHS_INIT_PATH, jetty);
 		// update and remove fields not in each list within an authority
 		// /chain/vocabularies/person/initialize?datapath=/Users/csm22/Documents/collectionspace/svcapp/cspi-webui/src/main/resources/org/collectionspace/chain/csp/webui/misc/names.txt
 
