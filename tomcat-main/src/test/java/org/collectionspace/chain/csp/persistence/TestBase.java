@@ -37,6 +37,13 @@ public class TestBase extends TestData {
 
 	private String defaulttenant="core";
 	public  String cookie;
+	
+	public static String AUTHS_INIT_PATH = "/authorities/initialise";
+	public static String VOCABS_INIT_PATH = "/authorities/vocab/initialize";
+	public static String MAIN_PERSON_INSTANCE_PATH = "/vocabularies/person";
+	public static String SECOND_PERSON_INSTANCE_PATH = "/vocabularies/ulan_pa";
+	public static String MAIN_ORG_INSTANCE_PATH = "/vocabularies/organization";
+	public static String SECOND_ORG_INSTANCE_PATH = "/vocabularies/ulan_oa";
 
 	
 	public  String getCurrentYear() {
