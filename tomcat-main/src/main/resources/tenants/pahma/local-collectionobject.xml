@@ -78,7 +78,7 @@
 						<default>urn:cspace:pahma.cspace.berkeley.edu:vocabularies:name(languages):item:name(eng)'English'</default>
 						<blank-value>(none selected)</blank-value>
 					</enum>
-				</field>
+				</field>c
 			</repeat>
 			<field id="titleType">
 				<!-- Change options -->
@@ -193,64 +193,8 @@
 		</repeat>
 
 		<repeat id="pahmaEthnographicFileCodeList" section="pahma">
-			<field id="pahmaEthnographicFileCode" section="pahma" seperate_ui_container="true"> <!-- ######## THIS FIELD ADDED BY PAHMA ####### -->
+			<field id="pahmaEthnographicFileCode" section="pahma" autocomplete="concept-ethusecode"> <!-- ######## THIS FIELD ADDED BY PAHMA ####### -->
 				<selector>collection-object-pahmaEthnographicFileCode</selector>
-				<options>
-					<option id="">(none selected)</option>
-					<option id="pahmaFileCode1">1. Utensils, implements and conveyances</option>
-					<option id="pahmaFileCode1p1">&#160;&#160;1.1 Hunting and fishing</option>
-					<option id="pahmaFileCode1p2">&#160;&#160;1.2 Gathering</option>
-					<option id="pahmaFileCode1p3">&#160;&#160;1.3 Agriculture and animal husbandry</option>
-					<option id="pahmaFileCode1p4">&#160;&#160;1.4 Transportation</option>
-					<option id="pahmaFileCode1p5">&#160;&#160;1.5 Household</option>
-					<option id="pahmaFileCode1p6">&#160;&#160;1.6 Manufacturing, constructing, craft and professional pursuits</option>
-					<option id="pahmaFileCode1p7">&#160;&#160;1.7 Fighting, warfare and social control</option>
-					<option id="pahmaFileCode1p8">&#160;&#160;1.8 Toilet articles</option>
-					<option id="pahmaFileCode1p9">&#160;&#160;1.9 Multiple utility</option>
-					<option id="pahmaFileCode1p0">&#160;&#160;1.0 Use not specified (utensils, implements, and conveyances)</option>
-					<option id="pahmaFileCode2">2. Secular dress and accoutrements, and adornment</option>
-					<option id="pahmaFileCode2p1">&#160;&#160;2.1 Daily garb</option>
-					<option id="pahmaFileCode2p2">&#160;&#160;2.2 Personal adornments and accoutrements</option>
-					<option id="pahmaFileCode2p3">&#160;&#160;2.3 Special ornaments, garb, and finery worn to battle by warrior (excluding status insignia)</option>
-					<option id="pahmaFileCode2p4">&#160;&#160;2.4 Fine clothes and Accoutrements not used exclusively for status or religious purposes</option>
-					<option id="pahmaFileCode2p0">&#160;&#160;2.0 Use not specified (secular dress and accoutrements, and adornment)</option>
-					<option id="pahmaFileCode3">3. Status objects and insignia of office</option>
-					<option id="pahmaFileCode3p1">&#160;&#160;3.1 Same</option>
-					<option id="pahmaFileCode3p0">&#160;&#160;3.0 Use not specified (status objects and insignia of office)</option>
-					<option id="pahmaFileCode4">4. Structure and furnishings</option>
-					<option id="pahmaFileCode4p1">&#160;&#160;4.1 Dwellings and furnishings</option>
-					<option id="pahmaFileCode4p2">&#160;&#160;4.2 Public buildings and furnishings</option>
-					<option id="pahmaFileCode4p3">&#160;&#160;4.3 Storehouses, granaries and the like</option>
-					<option id="pahmaFileCode4p0">&#160;&#160;4.0 Use not specified (structures and furnishings)</option>
-					<option id="pahmaFileCode5">5. Ritual, pageantry and recreation</option>
-					<option id="pahmaFileCode5p1">&#160;&#160;5.1 Religion and divination: Objects and garb associated with practices reflecting submission, devotion, obedience and service to supernatural agencies.</option>
-					<option id="pahmaFileCode5p2">&#160;&#160;5.2 Magic: Objects associated with practices reflecting confidence in the ability to manipulate supernatural agencies</option>
-					<option id="pahmaFileCode5p3">&#160;&#160;5.3 Objects relating to the secular and quasi-religious rites, pageants, and drama</option>
-					<option id="pahmaFileCode5p4">&#160;&#160;5.4 Secular and religious musical instruments</option>
-					<option id="pahmaFileCode5p5">&#160;&#160;5.5 Stimulants, narcotics and accessories</option>
-					<option id="pahmaFileCode5p6">&#160;&#160;5.6 Sports, games, amusements; gambling and pet accessories</option>
-					<option id="pahmaFileCode5p7">&#160;&#160;5.7 Gifts, novelties, models, "fakes," and reproductions (excluding currency) and commemorative medals</option>
-					<option id="pahmaFileCode5p0">&#160;&#160;5.0 Use not specified (ritual, pageantry, and recreation)</option>
-					<option id="pahmaFileCode6">6. Child care and enculturation</option>
-					<option id="pahmaFileCode6p1">&#160;&#160;6.1 Cradles and swaddling</option>
-					<option id="pahmaFileCode6p2">&#160;&#160;6.2 Toys, childrens’ utensils, objects used in the education of children</option>
-					<option id="pahmaFileCode6p0">&#160;&#160;6.0 Use not specified (child care and enculturation)</option>
-					<option id="pahmaFileCode7">7. Communication, records, currency, and measures</option>
-					<option id="pahmaFileCode7p1">&#160;&#160;7.1 Writing and records (including religious texts)</option>
-					<option id="pahmaFileCode7p2">&#160;&#160;7.2 Sound communication</option>
-					<option id="pahmaFileCode7p3">&#160;&#160;7.3 Weights, measures and computing devices</option>
-					<option id="pahmaFileCode7p4">&#160;&#160;7.4 Non-issued media of exchange, symbolic valuables, and associated containers</option>
-					<option id="pahmaFileCode7p5">&#160;&#160;7.5 Issued currency and associated containers</option>
-					<option id="pahmaFileCode7p6">&#160;&#160;7.6 Bogus currency</option>
-					<option id="pahmaFileCode7p0">&#160;&#160;7.0 Use not specified (communication, records, currency, and measures)</option>
-					<option id="pahmaFileCode8">8. Raw materials</option>
-					<option id="pahmaFileCode8p1">&#160;&#160;8.1 Foods</option>
-					<option id="pahmaFileCode8p2">&#160;&#160;8.2 Medicine and hygiene</option>
-					<option id="pahmaFileCode8p3">&#160;&#160;8.3 For manufacturing</option>
-					<option id="pahmaFileCode8p0">&#160;&#160;8.0 Use not specified (raw materials)</option>
-					<option id="indeterminate">indeterminate</option>
-					<option id="unknown">unknown</option>
-				</options>
 			</field>
 		</repeat>
 
@@ -622,6 +566,10 @@
 				<option id="years">years</option>
 			</options>
 		</field>
+		<repeat id="materialGroupList/materialGroup">
+			<!-- Add autocomplete -->
+			<field id="material" autocomplete="concept-material_ca"/>
+		</repeat>
 		<repeat id="objectComponentGroupList/objectComponentGroup">
 			<field id="objectComponentName">
 				<!-- Delete the options -->
@@ -718,6 +666,14 @@
 						<option id="weapon">weapon</option>
 					</options>
 				</field>
+			</repeat>
+			<repeat id="contentPeoples">
+				<!-- Add autocomplete -->
+				<field id="contentPeople" autocomplete="concept-concept,concept-archculture"/>
+			</repeat>
+			<repeat id="contentPlaces">
+				<!-- Add autocomplete -->
+				<field id="contentPlace" autocomplete="place-place,place-tgn_place"/>
 			</repeat>
 			<repeat id="contentScripts">
 				<field id="contentScript">
@@ -930,6 +886,8 @@
 			</field>
 		</repeat>
 		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
+			<!-- Add autocomplete -->
+			<field id="objectProductionPlace" autocomplete="place-place,place-tgn_place"/>
 			<field id="objectProductionPlaceRole">
 				<!-- Add selector -->
 				<selector>object-production-place-role</selector>
@@ -945,6 +903,8 @@
 			</field>
 		</repeat>
 		<repeat id="objectProductionPeopleGroupList/objectProductionPeopleGroup">
+			<!-- Add autocomplete -->
+			<field id="objectProductionPeople" autocomplete="concept-concept,concept-archculture"/>
 			<field id="objectProductionPeopleRole">
 				<!-- Add selector -->
 				<selector>object-production-people-role</selector>
@@ -1059,6 +1019,8 @@
 				</field>
 			</repeat>
 			<repeat id="assocCulturalContextGroupList/assocCulturalContextGroup">
+				<!-- Add autocomplete -->
+				<field id="assocCulturalContext" autocomplete="concept-concept,concept-archculture"/>
 				<field id="assocCulturalContextType">
 					<!-- Add selector -->
 					<selector>collection-object-assocCulturalContextType</selector>
@@ -1093,6 +1055,8 @@
 				</field>
 			</repeat>
 			<repeat id="assocPeopleGroupList/assocPeopleGroup">
+				<!-- Add autocomplete -->
+				<field id="assocPeople" autocomplete="concept-concept,concept-archculture"/>
 				<field id="assocPeopleType">
 					<!-- Add selector -->
 					<selector>collection-object-assocPeopleType</selector>
@@ -1134,6 +1098,8 @@
 				</field>
 			</repeat>
 			<repeat id="assocPlaceGroupList/assocPlaceGroup">
+				<!-- Add autocomplete -->
+				<field id="assocPlace" autocomplete="place-place,place-tgn_place"/>
 				<field id="assocPlaceType">
 					<!-- Add selector -->
 					<selector>collection-object-assocPlaceType</selector>
@@ -1175,6 +1141,14 @@
 					<option id="tribalVisit">tribal visit</option>
 				</options>
 			</field>
+			<repeat id="assocEventPeoples">
+				<!-- Add autocomplete -->
+				<field id="assocEventPeople" autocomplete="concept-concept"/>
+			</repeat>
+			<repeat id="assocEventPlaces">
+				<!-- Add autocomplete -->
+				<field id="assocEventPlace" autocomplete="place-place,place-tgn_place"/>
+			</repeat>
 			<repeat id="assocDateGroupList/assocDateGroup">
 				<field id="assocDateType">
 					<!-- Add selector -->
@@ -1259,7 +1233,7 @@
 						<option id="unknown">unknown</option>
 					</options>
 				</field>
-				<field id="ownershipPlace" section="pahma"> <!-- ######## THIS FIELD TEMPORARILY ADDED BY PAHMA ####### -->
+				<field id="ownershipPlace" section="pahma" autocomplete="place-place,place-tgn_place"> <!-- ######## THIS FIELD TEMPORARILY ADDED BY PAHMA ####### -->
 					<selector>collection-object-ownershipPlace</selector>
 				</field>
 				<field id="ownershipMethod" section="pahma"> <!-- ######## THIS FIELD TEMPORARILY ADDED BY PAHMA ####### -->
