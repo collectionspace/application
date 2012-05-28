@@ -256,13 +256,12 @@
 		</repeat>
 
 		<repeat id="claimSiteInvolvedGroupList/claimSiteInvolvedGroup" section="anthropology">
-			<!--<field id="claimSiteInvolvedName" section="anthropology" autocomplete="place-place"></field> WAITING FOR PLACE AUTHORITY -->
-			<field id="claimSiteInvolvedName" section="anthropology"></field>
+			<field id="claimSiteInvolvedName" section="anthropology" autocomplete="place-place,place-tgn_place"></field>
 			<field id="claimSiteInvolvedNote" section="anthropology"></field>
 		</repeat>
 
 		<repeat id="claimGroupInvolvedGroupList/claimGroupInvolvedGroup" section="anthropology">
-			<field id="groupInvolvedName" section="anthropology"></field> <!-- SHOULD EVENTUALLY BE AUTOCOMPLETE FROM CULTURAL GROUP AUTHORITY -->
+			<field id="groupInvolvedName" section="anthropology" autocomplete="concept-concept"></field>
 			<field id="groupInvolvedNote" section="anthropology"></field>
 		</repeat>
 	</section>
