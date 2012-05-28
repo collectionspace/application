@@ -261,7 +261,7 @@
 		</repeat>
 
 		<repeat id="claimGroupInvolvedGroupList/claimGroupInvolvedGroup" section="anthropology">
-			<field id="groupInvolvedName" section="anthropology"></field> <!-- SHOULD EVENTUALLY BE AUTOCOMPLETE FROM CULTURAL GROUP AUTHORITY -->
+			<field id="groupInvolvedName" section="anthropology" autocomplete="concept-concept"></field>
 			<field id="groupInvolvedNote" section="anthropology"></field>
 		</repeat>
 	</section>
