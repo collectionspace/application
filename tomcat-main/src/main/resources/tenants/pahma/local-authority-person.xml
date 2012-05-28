@@ -10,5 +10,13 @@
 				<option id="unknown">unknown</option>
 			</options>
 		</field>
+		<repeat id="groups">
+			<!-- Add autocomplete -->
+			<field id="group" autocomplete="concept-concept"/>
+		</repeat>
+		<!-- Add autocomplete -->
+		<field id="birthPlace" autocomplete="place-place,place-tgn_place"/>
+		<!-- Add autocomplete -->
+		<field id="deathPlace" autocomplete="place-place,place-tgn_place"/>
 	</section>
 </record>
