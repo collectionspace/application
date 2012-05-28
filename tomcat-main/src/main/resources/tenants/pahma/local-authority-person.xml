@@ -1,4 +1,7 @@
 <record id="person">
+	<!-- Change terms-used to true -->
+	<terms-used>true</terms-used>
+	
 	<section id="personNameAuthorityInformation">
 		<field id="gender">
 			<!-- Change options -->
