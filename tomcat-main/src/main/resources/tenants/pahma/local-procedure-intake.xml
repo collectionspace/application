@@ -36,6 +36,8 @@
 				</enum>
 			</field>
 		</repeat>
+		<!-- Add autocomplete -->
+		<field id="fieldCollectionPlace" autocomplete="place-place,place-tgn_place"/>
 	</section>
 	<section id="locationInformation">
 		<repeat id="currentLocationGroupList/currentLocationGroup">
