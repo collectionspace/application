@@ -4,7 +4,7 @@
 	<section id="coreInformation">
 		<field id="nametitle">
 			<!-- Change merges -->
-			<!-- TODO: For some reason, this kills the xmlmerge. Leave it out for now, but figure out a way to fix it. -->
+			<!-- TODO: For some reason, this kills the xmlmerge. Do it in the base file for now, but figure out a way to fix it. -->
 			<!--
 			<merges>
 				<merge id="objectName" rank="1"/>
@@ -550,10 +550,10 @@
 			</field>
 		</repeat>
 		<!-- Remove autocomplete and ui-type attributes -->
-		<field id="ageQualifier" autocomplete="" ui-type="">
+		<!-- TODO: Figure out how to remove them here, so this works. Currently deleting them in the base file. -->
+		<field id="ageQualifier">
 			<!-- Delete the enum -->
-			<!-- TODO: Figure out how to delete the enum tag, so this works. -->
-			<enum/>
+			<!-- TODO: Figure out how to delete the enum tag here, so this works. Currently deleting it in the base file. -->
 			<!-- Add options -->
 			<options>
 				<option id="" default="yes">(none selected)</option>
@@ -580,8 +580,7 @@
 		<repeat id="objectComponentGroupList/objectComponentGroup">
 			<field id="objectComponentName">
 				<!-- Delete the options -->
-				<!-- TODO: Figure out how to delete the options tag, so this works. -->
-				<options/>
+				<!-- TODO: Figure out how to delete the options tag here, so this works. Currently deleting it in the base file. -->
 			</field>
 		</repeat>
 		<repeat id="technicalAttributeGroupList/technicalAttributeGroup">
