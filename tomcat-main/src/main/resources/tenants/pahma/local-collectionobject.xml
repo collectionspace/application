@@ -168,11 +168,18 @@
 			</field>
 		</repeat>
 		
+		<!-- Fields from naturalhistory -->
+		
+		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
+			<!-- Add ui-search -->
+			<field id="taxon" ui-search="repeatable"/>
+		</repeat>
+		
 		<!-- Local fields -->
 		
 		<repeat id="pahmaAltNumGroupList/pahmaAltNumGroup" section="pahma">
 			<selector>collection-object-pahmaAltNumGroup</selector> <!-- WHY ARE MANY GROUP SELECTORS MISSING OR COMMENTED OUT, BUT THIS ONE IS NOT? -->
-			<field id="pahmaAltNum" section="pahma" in-tab="yes">
+			<field id="pahmaAltNum" section="pahma" ui-search="repeatable" in-tab="yes">
 				<selector>collection-object-pahmaAltNum</selector>
 			</field>
 			<field id="pahmaAltNumType" section="pahma" in-tab="yes" seperate_ui_container="true">
@@ -193,7 +200,7 @@
 		</repeat>
 
 		<repeat id="pahmaEthnographicFileCodeList" section="pahma">
-			<field id="pahmaEthnographicFileCode" section="pahma" autocomplete="concept-ethusecode"> <!-- ######## THIS FIELD ADDED BY PAHMA ####### -->
+			<field id="pahmaEthnographicFileCode" section="pahma" autocomplete="concept-ethusecode" ui-search="repeatable"> <!-- ######## THIS FIELD ADDED BY PAHMA ####### -->
 				<selector>collection-object-pahmaEthnographicFileCode</selector>
 			</field>
 		</repeat>
@@ -239,7 +246,7 @@
 			</options>
 		</field>
 
-		<field id="pahmaTmsLegacyDepartment" section="pahma">
+		<field id="pahmaTmsLegacyDepartment" section="pahma" ui-search="repeatable">
 			<options>
 				<option id="" default="yes">(none selected)</option>
 				<option id="Audio recordings">Audio recordings</option>
@@ -297,7 +304,7 @@
 		</field>
 		<!-- </repeat> -->
 
-		<field id="pahmaObjectStatus" section="pahma">
+		<field id="pahmaObjectStatus" section="pahma" ui-search="repeatable">
 			<options>
 				<option id="" default="yes">(none selected)</option>
 				<option id="Accession status unclear">Accession status unclear</option>
@@ -321,7 +328,7 @@
 
 		<field id="inventoryCount" section="pahma" ui-type="validated" datatype="integer"/>
 
-		<field id="portfolioSeries" section="pahma">
+		<field id="portfolioSeries" section="pahma" ui-search="repeatable">
 			<options>
 				<option id="" default="yes">(none selected)</option>
 				<option id="1">Keeling Series 1: Yuki (1902)</option>
@@ -875,6 +882,10 @@
 	</section>
 
 	<section id="objectProductionInformation">
+		<repeat id="objectProductionDateGroupList/objectProductionDateGroup">
+			<!-- Add ui-search -->
+			<group id="objectProductionDate" ui-search="repeatable"/>
+		</repeat>
 		<repeat id="techniqueGroupList/techniqueGroup">
 			<field id="techniqueType">
 				<!-- Add options -->
@@ -1019,8 +1030,8 @@
 				</field>
 			</repeat>
 			<repeat id="assocCulturalContextGroupList/assocCulturalContextGroup">
-				<!-- Add autocomplete -->
-				<field id="assocCulturalContext" autocomplete="concept-concept,concept-archculture"/>
+				<!-- Add autocomplete and ui-search -->
+				<field id="assocCulturalContext" autocomplete="concept-concept,concept-archculture" ui-search="repeatable"/>
 				<field id="assocCulturalContextType">
 					<!-- Add selector -->
 					<selector>collection-object-assocCulturalContextType</selector>
@@ -1039,6 +1050,8 @@
 				</field>
 			</repeat>
 			<repeat id="assocOrganizationGroupList/assocOrganizationGroup">
+				<!-- Add ui-search -->
+				<field id="assocOrganization" ui-search="repeatable"/>
 				<field id="assocOrganizationType">
 					<!-- Add selector -->
 					<selector>collection-object-assocOrganizationType</selector>
@@ -1055,8 +1068,8 @@
 				</field>
 			</repeat>
 			<repeat id="assocPeopleGroupList/assocPeopleGroup">
-				<!-- Add autocomplete -->
-				<field id="assocPeople" autocomplete="concept-concept,concept-archculture"/>
+				<!-- Add autocomplete and ui-search -->
+				<field id="assocPeople" autocomplete="concept-concept,concept-archculture" ui-search="repeatable"/>
 				<field id="assocPeopleType">
 					<!-- Add selector -->
 					<selector>collection-object-assocPeopleType</selector>
@@ -1077,6 +1090,8 @@
 				</field>
 			</repeat>
 			<repeat id="assocPersonGroupList/assocPersonGroup">
+				<!-- Add ui-search -->
+				<field id="assocPerson" ui-search="repeatable"/>
 				<field id="assocPersonType">
 					<!-- Add selector -->
 					<selector>collection-object-assocPersonType</selector>
@@ -1098,8 +1113,8 @@
 				</field>
 			</repeat>
 			<repeat id="assocPlaceGroupList/assocPlaceGroup">
-				<!-- Add autocomplete -->
-				<field id="assocPlace" autocomplete="place-place,place-tgn_place"/>
+				<!-- Add autocomplete and ui-search -->
+				<field id="assocPlace" autocomplete="place-place,place-tgn_place" ui-search="repeatable"/>
 				<field id="assocPlaceType">
 					<!-- Add selector -->
 					<selector>collection-object-assocPlaceType</selector>
@@ -1150,6 +1165,8 @@
 				<field id="assocEventPlace" autocomplete="place-place,place-tgn_place"/>
 			</repeat>
 			<repeat id="assocDateGroupList/assocDateGroup">
+				<!-- Add ui-search -->
+				<group id="assocStructuredDateGroup" ui-search="repeatable"/>
 				<field id="assocDateType">
 					<!-- Add selector -->
 					<selector>collection-object-assocDateType</selector>
@@ -1263,9 +1280,22 @@
 		</section>
 	</section>
 
+	<section id="objectCollectionInformation">
+		<!-- Add ui-search -->
+		<field id="fieldCollectionPlace" ui-search="repeatable"/>
+		<repeat id="fieldCollectionSources">
+			<!-- Add ui-search -->
+			<field id="fieldCollectionSource" ui-search="repeatable"/>
+		</repeat>
+		<repeat id="fieldCollectors">
+			<!-- Add ui-search -->
+			<field id="fieldCollector" ui-search="repeatable"/>
+		</repeat>
+	</section>
+	
 	<section id="repatriationNagpraComplianceInformation">
 		<repeat id="pahmaNagpraCodeLegacyList" section="pahma">
-			<field id="pahmaNagpraCodeLegacy" section="pahma" seperate_ui_container="true">
+			<field id="pahmaNagpraCodeLegacy" section="pahma" seperate_ui_container="true" ui-search="repeatable">
 				<selector>collection-object-pahmaNagpraCodeLegacy</selector>
 				<options>
 					<option id="noCode" default="yes">no code assigned</option>
