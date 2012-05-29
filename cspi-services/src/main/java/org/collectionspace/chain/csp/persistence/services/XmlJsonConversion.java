@@ -55,8 +55,12 @@ public class XmlJsonConversion {
 					addSubRecordToXml(element, field, in.getJSONObject(field.getID()), permlevel);
 				}
 			}
-		}
-		else{
+		} else if(field.getDataType().equals("boolean")){
+			// Rather than dump what we have coming in, first convert to proper boolean and back.
+			// Properly handles null, in particular.
+			boolean bool = Boolean.parseBoolean(value);
+			element.addText(Boolean.toString(bool));
+		}else{
 			element.addText(value);
 		}
 	}
@@ -353,19 +357,20 @@ public class XmlJsonConversion {
 		return prefix1+parts[1]+csid+parts[2];
 	}
 	
-	private static void addFieldToJson(JSONObject out,Element root,Field f, String operation, JSONObject tempSon,String csid,String ims_url) throws JSONException {
-		String use_csid=f.useCsid();
+	private static void addFieldToJson(JSONObject out,Element root,Field field, String operation, 
+			JSONObject tempSon,String csid,String ims_url) throws JSONException {
+		String use_csid=field.useCsid();
 		if(use_csid!=null) {
-			if(f.useCsidField()!=null){
-				csid = tempSon.getString(f.useCsidField());
+			if(field.useCsidField()!=null){
+				csid = tempSon.getString(field.useCsidField());
 			}
-			out.put(f.getID(),csid_value(csid,f.useCsid(),ims_url));			
+			out.put(field.getID(),csid_value(csid,field.useCsid(),ims_url));			
 		} else {
 			Element el = root;
-			if(f.getUIType().startsWith("groupfield") && f.getUIType().contains("selfrenderer")){
+			if(field.getUIType().startsWith("groupfield") && field.getUIType().contains("selfrenderer")){
 
-				String parts[] = f.getUIType().split("/");
-				Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+				String parts[] = field.getUIType().split("/");
+				Record subitems = field.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 
 				for(FieldSet fs : subitems.getAllServiceFieldTopLevel(operation,"common")) {
 					addFieldSetToJson(out,el,fs,operation, tempSon,csid,ims_url);
@@ -374,33 +379,32 @@ public class XmlJsonConversion {
 				return;
 			}
 			
-			el=getFieldNodeEl(root,f);
+			el=getFieldNodeEl(root,field);
 			
 			if(el == null){
 				return;
 			}
-			addExtraToJson(out, el, f, tempSon);
+			addExtraToJson(out, el, field, tempSon);
 			Object val = el.getText();
 
-			if(f.getUIType().startsWith("groupfield")){
-				String parts[] = f.getUIType().split("/");
-				Record subitems = f.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
+			if(field.getUIType().startsWith("groupfield")){
+				String parts[] = field.getUIType().split("/");
+				Record subitems = field.getRecord().getSpec().getRecordByServicesUrl(parts[1]);
 
 				JSONObject temp = new JSONObject();
 				for(FieldSet fs : subitems.getAllServiceFieldTopLevel(operation,"common")) {
 					addFieldSetToJson(temp,el,fs,operation, tempSon,csid,ims_url);
 				}
 
-				out.put(f.getID(),temp);
+				out.put(field.getID(),temp);
 			}
-			else{
-				if(f.getDataType().equals("boolean")){
-					val = Boolean.parseBoolean((String)val);
-				}
-				out.put(f.getID(),val);
+			else if(field.getDataType().equals("boolean")){
+				out.put(field.getID(),(Boolean.parseBoolean((String)val)?true:false));
+			} else {
+				out.put(field.getID(),val);
 			}
 	
-			tempSon = addtemp(tempSon, f.getID(), val);
+			tempSon = addtemp(tempSon, field.getID(), val);
 		}
 	}
 	
@@ -670,13 +674,24 @@ public class XmlJsonConversion {
 								repeatitem.put("_primary",true);
 							}
 							Element child = (Element)arrvalue.get(j);
+							Object val = child.getText();
+							Field field = (Field)fs;
+							String id = field.getID();
 							if(f.asSibling()){
-								addExtraToJson(siblingitem,child, (Field)fs, tempSon);
-								siblingitem.put(fs.getID(), child.getText());
+								addExtraToJson(siblingitem, child, field, tempSon);
+								if(field.getDataType().equals("boolean")){
+									siblingitem.put(id,(Boolean.parseBoolean((String)val)?true:false));
+								} else {
+									siblingitem.put(id, val);
+								}
 							}
 							else{
-								addExtraToJson(repeatitem,child, (Field)fs, tempSon);
-								repeatitem.put(fs.getID(), child.getText());
+								addExtraToJson(repeatitem, child, field, tempSon);
+								if(field.getDataType().equals("boolean")){
+									repeatitem.put(id,(Boolean.parseBoolean((String)val)?true:false));
+								} else {
+									repeatitem.put(id, val);
+								}
 								node.put(repeatitem);
 							}
 

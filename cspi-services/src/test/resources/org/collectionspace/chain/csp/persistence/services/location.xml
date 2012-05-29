@@ -19,6 +19,7 @@
     <locTermGroup>
       <termDisplayName>My Building</termDisplayName>
 			<termStatus>termStatus</termStatus>
+			<termPrefForLang>false</termPrefForLang>
     </locTermGroup>
   </locTermGroupList>
 </ns2:locations_common>

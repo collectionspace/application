@@ -5,6 +5,7 @@
   "securityNote": "securityNote",
   "locTermGroup": [{
     "_primary": true,
+    "termPrefForLang": false,
     "termDisplayName": "My Building",
     "termStatus": "termStatus"
   }],

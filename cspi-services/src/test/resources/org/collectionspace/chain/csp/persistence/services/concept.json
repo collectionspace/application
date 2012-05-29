@@ -10,7 +10,8 @@
     "termQualifier": "Qualifier",
     "termType": "Type",
     "termStatus": "termStatus",
-    "termLanguage": "English"
+    "termLanguage": "English",
+    "termPrefForLang": true
   }],
   "additionalSourceGroup": [{
     "_primary": true,
