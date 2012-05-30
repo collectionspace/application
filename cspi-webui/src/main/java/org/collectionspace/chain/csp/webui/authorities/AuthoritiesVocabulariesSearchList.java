@@ -65,7 +65,8 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			}
 			out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view/"+postfix, new JSONObject());
 			out.put("csid",csid);
-			out.put("recordtype",inst_type);
+			// Record type should be set properly from list results.
+			//out.put("recordtype",inst_type);
 		}
 		catch (ExistException e) {
 			out.put("csid",csid);
