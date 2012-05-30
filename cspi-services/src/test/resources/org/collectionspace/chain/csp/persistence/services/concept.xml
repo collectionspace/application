@@ -8,6 +8,7 @@
       <termQualifier>Qualifier</termQualifier>
       <termType>Type</termType>
       <termLanguage>English</termLanguage>
+			<termPrefForLang>true</termPrefForLang>
     </conceptTermGroup>
   </conceptTermGroupList>
   <citationGroupList>

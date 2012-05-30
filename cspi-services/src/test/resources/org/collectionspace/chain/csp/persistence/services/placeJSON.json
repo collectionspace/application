@@ -82,6 +82,7 @@
 			"historicalStatus": "current",
 			"termSourceID": "123456",
 			"termLanguage": "",
+      "termPrefForLang": false,
 			"termType": "technical-scientific",
 			"_primary": true,
 			"termSource": "123456",
