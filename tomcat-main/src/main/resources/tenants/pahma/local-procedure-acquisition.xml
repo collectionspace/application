@@ -20,6 +20,10 @@
 				<option id="unknown">unknown</option>
 			</options>
 		</field>
+		<repeat id="owners">
+			<!-- Add ui-search -->
+			<field id="owner" ui-search="repeatable"/>
+		</repeat>
 		<field id="groupPurchasePriceCurrency">
 			<enum>
 				<!-- Change default and blank-value -->
