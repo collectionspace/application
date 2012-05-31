@@ -85,6 +85,8 @@
                 </field>
                 <field id="valueDate" ui-type="date"></field>
                 <field id="valueQualifier"></field>
+                <!-- Adding this as a customization, until it's in the core (v2.5?) -->
+                <field id="dimensionNote"></field>
             </repeat>
         </repeat>
     </section>
