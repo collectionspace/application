@@ -7,6 +7,7 @@
 				<option id="">Please select a value</option>
 			</options>
 		</field>
+		<field id="majorGroup" section="naturalhistory"/>		
 		<repeat id="geographyList" section="naturalhistory">
 			<field id="geography" section="naturalhistory"/>
 		</repeat>
