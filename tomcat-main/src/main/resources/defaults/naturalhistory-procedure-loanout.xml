@@ -7,7 +7,19 @@
 				<option id="">Please select a value</option>
 			</options>
 		</field>
-		<field id="majorGroup" section="naturalhistory"/>		
+		<field id="majorGroup" section="naturalhistory">
+			<options>
+				<option id="">Please select a value</option>
+				<option id="Spermatophytes">Spermatophytes</option>
+				<option id="Pteridophytes">Pteridophytes</option>
+				<option id="Algae">Algae</option>
+				<option id="Bryophytes">Bryophytes</option>
+				<option id="Fungi">Fungi</option>
+				<option id="Lichen">Lichen</option>
+				<option id="n/a">n/a</option>
+				<option id="misc">misc</option>
+			</options>
+		</field>
 		<repeat id="geographyList" section="naturalhistory">
 			<field id="geography" section="naturalhistory"/>
 		</repeat>
