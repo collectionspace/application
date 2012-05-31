@@ -3,6 +3,7 @@
 
 	<section id="loaninInformation">
 		<field id="lenderLoanNumber" section="naturalhistory"/>
+		<field id="majorGroup" section="naturalhistory"/>		
 		<repeat id="geographyList" section="naturalhistory">
 			<field id="geography" section="naturalhistory"/>
 		</repeat>
