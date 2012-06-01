@@ -43,25 +43,29 @@ public class WebAutoComplete implements WebMethod {
 	
 	public WebAutoComplete(Record r) { this.r=r; }
 	
-	private JSONArray doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,String start, String pageSize, String pageNum) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
+	private JSONArray doAutocomplete(CSPRequestCache cache,Storage storage,String fieldname,
+			String start, String vocabConstraint, String pageSize, String pageNum) 
+			throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		FieldSet fs=r.getFieldFullList(fieldname);
 		JSONArray out = new JSONArray();
 		Instance[] allInstances = null;
 		if(fs == null || !(fs instanceof Field)){
 			if(r.hasHierarchyUsed("screen")){
-				Structure s = r.getStructure("screen");
-				if(s.hasOption(fieldname)){
-					Option a = s.getOption(fieldname);
-					String[] data = a.getName().split(",");
-
-					Map<String, Instance> tempinstances = new HashMap<String, Instance>();
-					for(String ins : data){
-						tempinstances.put(ins, r.getSpec().getInstance(ins));
-						allInstances = tempinstances.values().toArray(new Instance[0]);
+				Structure s = r.getStructure("screen");	// Configures the hierarchy section.
+				if(s.hasOption(fieldname)){				// This is one of the hierarchy fields
+					if(vocabConstraint!=null) {
+						allInstances = new Instance[1];
+						String fullname = r.getID()+"-"+vocabConstraint;
+						allInstances[0] = r.getSpec().getInstance(fullname);
+					} else {
+						Option a = s.getOption(fieldname);
+						String[] data = a.getName().split(",");
+						allInstances = new Instance[data.length];
+						for(int i=0; i<data.length; i++){
+							allInstances[i] = (r.getSpec().getInstance(data[i]));
+						}
 					}
-					
-				}
-				else{
+				} else {
 					fs = r.getSpec().getRecord("hierarchy").getFieldFullList(fieldname);
 					if(fs instanceof Field){ 	
 						allInstances = ((Field)fs).getAllAutocompleteInstances();
@@ -136,7 +140,11 @@ public class WebAutoComplete implements WebMethod {
 		try {
 
 			String[] path=request.getPrincipalPath();
-			JSONArray out = doAutocomplete(cache,storage,path[path.length-1],request.getRequestArgument("q"),request.getRequestArgument("pageSize"),request.getRequestArgument("pageNum"));
+			JSONArray out = doAutocomplete(cache,storage,path[path.length-1],
+					request.getRequestArgument(AUTO_COMPLETE_QUERY_PARAM), 
+					request.getRequestArgument(CONSTRAIN_VOCAB_PARAM),
+					request.getRequestArgument(PAGE_SIZE_PARAM),
+					request.getRequestArgument(PAGE_NUM_PARAM));
 			
 			request.sendJSONResponse(out);
 			
