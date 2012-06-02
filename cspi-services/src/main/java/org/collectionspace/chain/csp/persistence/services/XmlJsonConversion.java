@@ -616,6 +616,15 @@ public class XmlJsonConversion {
 						for(FieldSet fd : subitems.getAllFieldTopLevel(operation)) {
 							children.add(fd); //non-nested groupfields?
 						}
+						// A hack to get structured dates in extensions working. The children added in the above
+						// getAllFieldTopLevel call have section "common", even if the group is in a different section.
+						// Therefore, they are never added to the xml. The code below allows deployers to explicitly
+						// put the fields in the group in the configuration file, with the correct section (the 
+						// workaround described in CSPACE-5085). This code allows the same workaround to work for
+						// groups with xxx-services-no-repeat set to true.
+						for(FieldSet fd : ((Group)fs).getChildren(operation)) {
+							children.add(fd);
+						}
 					}
 					else{
 						//this one should be nested
