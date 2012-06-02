@@ -290,19 +290,18 @@
 			</options>
 		</field>
 
-		<!-- This should probably be repeating field group; need to confirm with MTB -->
-		<!-- <repeat id="pahmaCollectionGroup" section="pahma"> -->
-		<field id="pahmaCollection" section="pahma">
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="Bascom Collection">Bascom Collection</option>
-				<option id="Bernard-Murray Collection">Bernard-Murray Collection</option>
-				<option id="California Teaching Collection">California Teaching Collection</option>
-				<option id="Collection of Photographs by Carleton E. Watkins, ca. 1874-1890">Collection of Photographs by Carleton E. Watkins, ca. 1874-1890</option>
-				<option id="Mossman-Vitale Collection">Mossman-Vitale Collection</option>
-			</options>
-		</field>
-		<!-- </repeat> -->
+		<repeat id="pahmaCollectionList" section="pahma">
+			<field id="pahmaCollection" section="pahma">
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="Bascom Collection">Bascom Collection</option>
+					<option id="Bernard-Murray Collection">Bernard-Murray Collection</option>
+					<option id="California Teaching Collection">California Teaching Collection</option>
+					<option id="Collection of Photographs by Carleton E. Watkins, ca. 1874-1890">Collection of Photographs by Carleton E. Watkins, ca. 1874-1890</option>
+					<option id="Mossman-Vitale Collection">Mossman-Vitale Collection</option>
+				</options>
+			</field>
+		</repeat>
 
 		<field id="pahmaObjectStatus" section="pahma" ui-search="repeatable">
 			<options>
