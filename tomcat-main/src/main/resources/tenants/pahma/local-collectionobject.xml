@@ -1310,8 +1310,8 @@
 		<!-- Add ui-search -->
 		<field id="fieldCollectionPlace" ui-search="repeatable"/>
 		<repeat id="fieldCollectionSources">
-			<!-- Add ui-search -->
-			<field id="fieldCollectionSource" ui-search="repeatable"/>
+			<!-- Add ui-search and add concept-concept to autocomplete -->
+			<field id="fieldCollectionSource" ui-search="repeatable" autocomplete="person-person,concept-concept"/>
 		</repeat>
 		<repeat id="fieldCollectors">
 			<!-- Add ui-search -->
