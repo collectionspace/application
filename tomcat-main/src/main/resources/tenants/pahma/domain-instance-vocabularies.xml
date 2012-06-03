@@ -26,4 +26,24 @@
 			<option id="pt19">type site</option>
 		</options>
 	</instance>
+	<instance id="vocab-grouppurpose">
+		<web-url>GroupPurpose</web-url>
+		<title-ref>GroupPurpose</title-ref>
+		<title>GroupPurpose</title>
+		<options>
+			<option id="classes">Classes</option>
+			<option id="collectionsManagement">Collections Management</option>
+			<option id="conservation">Conservation</option>
+			<option id="education">Education</option>
+			<option id="exhibits">Exhibits</option>
+			<option id="loans">Loans</option>
+			<option id="nagpra">NAGPRA</option>
+			<option id="objectMovement">Object Movement</option>
+			<option id="photography">Photography</option>
+			<option id="publicPrograms">Public Programs</option>
+			<option id="registration">Registration</option>
+			<option id="research">Research</option>
+			<option id="tours">Tours</option>
+		</options>
+	</instance>
 </instances>
