@@ -761,6 +761,8 @@
 		</section>
 		<section id="textualInscriptionInformation">
 			<repeat id="textualInscriptionGroupList/textualInscriptionGroup">
+				<!-- Add concept-concept and concept-archculture to autocomplete -->
+				<field id="inscriptionContentInscriber" autocomplete="person-person,organization-organization,concept-concept,concept-archculture"/>
 				<field id="inscriptionContentLanguage">
 					<enum>
 						<!-- Change default and blank-value -->
@@ -851,6 +853,8 @@
 		</section>
 		<section id="nonTextualInscriptionInformation">
 			<repeat id="nonTextualInscriptionGroupList/nonTextualInscriptionGroup">
+				<!-- Add concept-concept and concept-archculture to autocomplete -->
+				<field id="inscriptionDescriptionInscriber" autocomplete="person-person,organization-organization,concept-concept,concept-archculture"/>
 				<field id="inscriptionDescriptionPosition">
 					<!-- Change options -->
 					<options>
@@ -1231,7 +1235,7 @@
 
 			<!-- TEMPORARY REPLACEMENT OF OWNERSHIP FIELDS UNTIL COMMON SCHEMA HAS REPEATABLE, LINKED OWNERSHIP DETAILS -->
 			<repeat id="ownershipHistoryGroupList/ownershipHistoryGroup" section="pahma"> <!-- ######## THIS FIELD GROUP TEMPORARILY ADDED BY PAHMA ####### -->
-				<field id="previousOwner" section="pahma" autocomplete="person-person,organization-organization"> <!-- ######## THIS FIELD TEMPORARILY ADDED BY PAHMA ####### -->
+				<field id="previousOwner" section="pahma" autocomplete="person-person,organization-organization,concept-concept"> <!-- ######## THIS FIELD TEMPORARILY ADDED BY PAHMA ####### -->
 					<selector>collection-object-previousOwner</selector>
 				</field>
 				<group id="ownershipDateGroup" section="pahma" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
