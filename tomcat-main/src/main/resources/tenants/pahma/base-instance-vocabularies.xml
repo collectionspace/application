@@ -6,11 +6,14 @@
 		<title-ref>languages</title-ref>
 		<title>Languages</title>
 		<options>
-			<option id="eng">English</option>
 			<option id="grc">Ancient Greek</option>
 			<option id="ara">Arabic</option>
 			<option id="hye">Armenian</option>
 			<option id="zho">Chinese</option>
+			<option id="dan">Danish</option>
+			<option id="nld">Dutch</option>
+			<option id="eng">English</option>
+			<option id="enguk">English (UK)</option>
 			<option id="fra">French</option>
 			<option id="deu">German</option>
 			<option id="heb">Hebrew</option>
