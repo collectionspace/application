@@ -60,10 +60,10 @@ public class RelateDelete implements WebMethod {
 	
 	private void relate_delete(Storage storage,UIRequest request,String path) throws UIException {
 		try {
-			String source = request.getRequestArgument("source");
-			String target = request.getRequestArgument("target");
-			String type = request.getRequestArgument("type");
-			String oneway = request.getRequestArgument("one-way");
+			String source = request.getRequestArgument(RELATION_SOURCE_PARAM);
+			String target = request.getRequestArgument(RELATION_TARGET_PARAM);
+			String type = request.getRequestArgument(RELATION_TYPE_PARAM);
+			String oneway = request.getRequestArgument(RELATION_ONE_WAY_PARAM);
 			if(oneway !=null && oneway !=""){
 				one_way = Boolean.parseBoolean(oneway);
 			}

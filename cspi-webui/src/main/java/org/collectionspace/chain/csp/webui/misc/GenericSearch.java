@@ -14,6 +14,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
 import org.collectionspace.chain.csp.schema.FieldSet;
@@ -158,11 +159,11 @@ public class GenericSearch {
 			if(!restrict.equals("_")){
 				if(ui.getRequestArgument(restrict)!=null){
 					String value = ui.getRequestArgument(restrict);
-					if(restrict.equals("query") && search){
+					if(restrict.equals(WebMethod.SEARCH_QUERY_PARAM) && search){
 						restrict = "keywords";
 						key="results";
 					}
-					if(restrict.equals("pageSize")||restrict.equals("pageNum")){
+					if(restrict.equals(WebMethod.PAGE_SIZE_PARAM)||restrict.equals(WebMethod.PAGE_NUM_PARAM)){
 						restriction.put(restrict,value);
 					}
 					else if(restrict.equals("keywords")){
