@@ -232,10 +232,17 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
-		if(search)
-			searchtype(q.getStorage(),q.getUIRequest(),q.getUIRequest().getRequestArgument("query"),q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
-		else
-			searchtype(q.getStorage(),q.getUIRequest(),null,q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
+		UIRequest uir = q.getUIRequest();
+		if(search) {
+			searchtype(q.getStorage(),uir,
+					uir.getRequestArgument(SEARCH_QUERY_PARAM),
+					uir.getRequestArgument(PAGE_SIZE_PARAM),
+					uir.getRequestArgument(PAGE_NUM_PARAM));
+		} else {
+			searchtype(q.getStorage(), uir, null,
+					uir.getRequestArgument(PAGE_SIZE_PARAM),
+					uir.getRequestArgument(PAGE_NUM_PARAM));
+		}
 		
 	}
 

@@ -95,11 +95,15 @@ public class RelateSearchList implements WebMethod {
 
 	public void run(Object in, String[] tail) throws UIException {
 		Request q=(Request)in;
-		if(search)
-			search_or_list(q.getStorage(),q.getUIRequest(),q.getUIRequest().getRequestArgument("source"),
-					q.getUIRequest().getRequestArgument("target"),q.getUIRequest().getRequestArgument("type"));
-		else
-			search_or_list(q.getStorage(),q.getUIRequest(),null,null,null);
+		UIRequest uir = q.getUIRequest();
+		if(search) {
+			search_or_list(q.getStorage(),uir,
+					uir.getRequestArgument(RELATION_SOURCE_PARAM),
+					uir.getRequestArgument(RELATION_TARGET_PARAM),
+					uir.getRequestArgument(RELATION_TYPE_PARAM));
+		} else {
+			search_or_list(q.getStorage(),uir,null,null,null);
+		}
 	}
 
 	// XXX refactor these

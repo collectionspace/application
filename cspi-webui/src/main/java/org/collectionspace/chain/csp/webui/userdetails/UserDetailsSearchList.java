@@ -107,10 +107,17 @@ public class UserDetailsSearchList implements WebMethod {
 
 	public void run(Object in,String[] tail) throws UIException {
 		Request q=(Request)in;
-		if(search)
-			search_or_list(q.getStorage(),q.getUIRequest(),q.getUIRequest().getRequestArgument("query"),q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
-		else
-			search_or_list(q.getStorage(),q.getUIRequest(),null,q.getUIRequest().getRequestArgument("pageSize"),q.getUIRequest().getRequestArgument("pageNum"));
+		UIRequest uir = q.getUIRequest();
+		if(search) {
+			search_or_list(q.getStorage(),uir,
+					uir.getRequestArgument(SEARCH_QUERY_PARAM),
+					uir.getRequestArgument(PAGE_SIZE_PARAM),
+					uir.getRequestArgument(PAGE_NUM_PARAM));
+		} else {
+			search_or_list(q.getStorage(),uir,null,
+					uir.getRequestArgument(PAGE_SIZE_PARAM),
+					uir.getRequestArgument(PAGE_NUM_PARAM));
+		}
 	}
 
 	public void configure(WebUI ui,Spec spec) {
