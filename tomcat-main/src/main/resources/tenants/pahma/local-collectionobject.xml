@@ -1040,6 +1040,8 @@
 				</field>
 			</repeat>
 			<repeat id="assocConceptGroupList/assocConceptGroup">
+				<!-- Remove autocomplete -->
+				<field id="assocConcept" autocomplete=""/>
 				<field id="assocConceptType">
 					<!-- Add selector -->
 					<selector>collection-object-assocConceptType</selector>
