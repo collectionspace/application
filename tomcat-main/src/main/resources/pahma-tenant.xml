@@ -13,7 +13,7 @@
 
 			<include src="base-procedure-acquisition.xml,local-procedure-acquisition.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-blobs.xml"/>
-			<include src="base-procedure-claim.xml,anthropology-procedure-claim.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-claim.xml,anthropology-procedure-claim.xml,local-procedure-claim.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-groups.xml,local-procedure-groups.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-intake.xml,local-procedure-intake.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-loanin.xml,local-procedure-loanin.xml" merge="xmlmerge.properties"/>
