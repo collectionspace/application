@@ -25,8 +25,8 @@
 			<field id="acquisitionSource" autocomplete="person-person,organization-organization,concept-concept"/>
 		</repeat>
 		<repeat id="owners">
-			<!-- Add ui-search -->
-			<field id="owner" ui-search="repeatable"/>
+			<!-- Add ui-search, and add concept-concept to autocomplete -->
+			<field id="owner" ui-search="repeatable" autocomplete="person-person,organization-organization,concept-concept"/>
 		</repeat>
 		<field id="groupPurchasePriceCurrency">
 			<enum>
