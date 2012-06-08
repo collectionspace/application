@@ -26,19 +26,7 @@
 		
 		<!-- Local fields -->
 		
-		<field id="approvedForWeb" section="pahma">
-			<options>
-				<option id="">(none selected)</option>
-				<option id="yes" default="yes">Yes</option>
-				<option id="no">No</option>
-			</options>
-		</field>
-		<field id="primaryDisplay" section="pahma">
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="no">No</option>
-				<option id="yes">Yes</option>
-			</options>
-		</field>
+		<field id="approvedForWeb" section="pahma" datatype="boolean"/>
+		<field id="primaryDisplay" section="pahma" datatype="boolean"/>
 	</section>
 </record>
