@@ -19,9 +19,7 @@
 		<field id="objectNumber">
 			<!-- Change options -->
 			<options>
-				<option id="intake" sample="IN2011.1.1">Object entry (Doorbook entry)</option>
-				<option id="accession" sample="2011.1.1">Cataloged object</option>
-				<option id="loanin" sample="LI2011.1.1">In-loan object (Borrowed object)</option>
+				<option id="pahma-cataloging" sample="HMA 2012.1.1">Cataloged object</option>
 			</options>
 		</field>
 		<repeat id="responsibleDepartments">

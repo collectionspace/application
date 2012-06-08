@@ -5,7 +5,7 @@
 		<field id="loanInNumber">
 			<!-- Change options -->
 			<options>
-				<option id="loanin" sample="LI2011.1">Loan In</option>
+				<option id="pahma-loanin" sample="LI 2012.1.1">Loan In</option>
 			</options>
 		</field>
 		<!-- Change to be authority-controlled -->

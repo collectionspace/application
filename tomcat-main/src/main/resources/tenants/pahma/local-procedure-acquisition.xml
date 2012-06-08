@@ -3,9 +3,7 @@
 		<field id="acquisitionReferenceNumber">
 			<!-- Change options -->
 			<options>
-				<option id="accession" sample="2011.1">Accession</option>
-				<option id="archive" sample="AR2011.42">Archives</option>
-				<option id="library" sample="LIB2011.1">Library</option>
+				<option id="pahma-accession" sample="ACC 2012.1.1">Accession</option>
 			</options>
 		</field>
 		<field id="acquisitionMethod">

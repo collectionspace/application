@@ -11,6 +11,12 @@
 				</enum>
 			</field>
 		</repeat>
+
+		<!-- Remove chooser -->
+		<field id="identificationNumber" chooser="">
+			<!-- Remove options -->
+			<options/>
+		</field>
 		
 		<repeat id="types">
 			<field id="type">

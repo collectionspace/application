@@ -3,9 +3,7 @@
 		<field id="entryNumber">
 			<!-- Change options -->
 			<options>
-				<option id="intake" sample="IN2011.1">Entry</option>
-				<option id="study" sample="ST2011.1">Study</option>
-				<option id="evaluation" sample="EV2011.1">Evaluation</option>
+				<option id="pahma-intake" sample="IN 2012.1.1">Entry</option>
 			</options>
 		</field>
 		<field id="entryReason">

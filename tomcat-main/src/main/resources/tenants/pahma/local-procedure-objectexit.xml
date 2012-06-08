@@ -3,7 +3,7 @@
 		<field id="exitNumber">
 			<!-- Change options -->
 			<options>
-				<option id="objectexit" sample="EX2011.1">Object Exit</option>
+				<option id="pahma-objectexit" sample="EX 2012.1.1">Object Exit</option>
 			</options>
 		</field>
 		

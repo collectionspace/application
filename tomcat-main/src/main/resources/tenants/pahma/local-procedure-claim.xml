@@ -1,6 +1,15 @@
 <record id="claim">
 	<services-record-path id="pahma">claims_pahma:http://collectionspace.org/services/claim/local/pahma,claims_pahma</services-record-path>
 
+	<section id="claimInformation"> 
+		<field id="claimNumber">
+			<!-- Change options -->
+			<options>
+				<option id="pahma-claim" sample="CL 2012.1.1">Claim</option>
+			</options>
+		</field>
+	</section>
+	
 	<section id="claimProcessingInformation">
 		<field id="dispositionPossibilitiesDiscussed" section="pahma" datatype="boolean"/>
 		<field id="dispositionPossibilitiesDiscussedNote" section="pahma"/>
