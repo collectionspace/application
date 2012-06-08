@@ -20,6 +20,10 @@
 				<option id="unknown">unknown</option>
 			</options>
 		</field>
+		<repeat id="acquisitionSources">
+			<!-- Add concept-concept to autocomplete -->
+			<field id="acquisitionSource" autocomplete="person-person,organization-organization,concept-concept"/>
+		</repeat>
 		<repeat id="owners">
 			<!-- Add ui-search -->
 			<field id="owner" ui-search="repeatable"/>
