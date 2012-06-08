@@ -98,7 +98,7 @@ public class AuthorizationStorage extends GenericStorage {
 				status=conn.getNone(RequestMethod.DELETE,r.getServicesURL()+"/"+filePath,null,creds,cache);				
 			}
 			if(status>299 || status<200) // XXX CSPACE-73, should be 404
-				throw new UnderlyingStorageException("Service layer exception status="+status);
+				throw new UnderlyingStorageException("Service layer exception status="+status, status, r.getServicesURL()+"/"+filePath);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		}
@@ -490,7 +490,7 @@ public class AuthorizationStorage extends GenericStorage {
 			if(status==404)
 				throw new ExistException("Not found: "+r.getServicesURL()+"/"+filePath);
 			if(status>299 || status<200)
-				throw new UnderlyingStorageException("Bad response "+status);
+				throw new UnderlyingStorageException("Bad response "+status, status, r.getServicesURL()+"/"+filePath);
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception",e);
 		} catch (JSONException e) {

@@ -79,7 +79,8 @@ public class VocabInstanceCache {
 		ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/"+r.getServicesURL()+"/",body,creds,cache);
 	//	log.info("/"+r.getServicesURL()+"/");
 		if(out.getStatus()>299)
-			throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus());
+			throw new UnderlyingStorageException("Could not create vocabulary status="+out.getStatus(),
+					out.getStatus(), "/"+r.getServicesURL()+"/");
 		csids.put(id,out.getURLTail());
 	}
 	

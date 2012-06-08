@@ -180,7 +180,8 @@ public class ServicesRelationStorage implements ContextualisedStorage {
 			in.put("relations_common",datapath);
 			ReturnedURL out=conn.getMultipartURL(RequestMethod.POST,"/relations/",in,creds,cache);
 			if(out.getStatus()>299)
-				throw new UnderlyingStorageException("Could not add relation status="+out.getStatus());
+				throw new UnderlyingStorageException("Could not add relation status="+out.getStatus(),
+						out.getStatus(), "/relations/");
 			return out.getURLTail();
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Could not add relation"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);

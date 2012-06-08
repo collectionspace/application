@@ -411,7 +411,8 @@ public class ConfiguredVocabStorage extends GenericStorage {
 				return out;
 			}
 			if(doc.getStatus()>299)
-				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus());
+				throw new UnderlyingStorageException("Could not retrieve vocabulary status="+doc.getStatus(),
+						doc.getStatus(), softurl);
 			String name = null;
 			String refid = null;
 			String termStatus = null;

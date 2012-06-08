@@ -7,6 +7,7 @@
 package org.collectionspace.chain.csp.webui.userdetails;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.httpclient.HttpStatus;
 import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
@@ -20,14 +21,22 @@ import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.Operation;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.collectionspace.csp.api.ui.UISession;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserDetailsCreateUpdate implements WebMethod {
+	private static final Logger log = LoggerFactory.getLogger(UserDetailsCreateUpdate.class);
+	
 	private String url_base,base;
 	private boolean create;
 	private Spec spec;
+	
+	private static final String PASSWORD_FIELD = "password";	// Should be elsewhere
+	private static final String USER_ID_FIELD = "userId";	// Should be elsewhere
 	
 	public UserDetailsCreateUpdate(Record r,boolean create) { 
 		spec=r.getSpec();
@@ -84,6 +93,7 @@ public class UserDetailsCreateUpdate implements WebMethod {
 		else{
 			//temporary munge so new users can login
 
+			// TODO New users should probably get the READER role, not admin
 			String roleName = "ROLE_TENANT_ADMINISTRATOR";
 			//find csid for roleName
 
@@ -113,7 +123,7 @@ public class UserDetailsCreateUpdate implements WebMethod {
 
 		JSONObject account = new JSONObject();
 		account.put("accountId", path);
-		account.put("userId", fields.getString("userId"));
+		account.put(USER_ID_FIELD, fields.getString(USER_ID_FIELD));
 		account.put("screenName", fields.getString("screenName"));
 		
 
@@ -135,18 +145,60 @@ public class UserDetailsCreateUpdate implements WebMethod {
 		boolean notfailed = true;
 		String msg="";
 		try {
+			boolean currentUserPasswordChange = false;
+			String newPassword = null;
+			boolean absorbedSvcsError = false;
 			if (create) {
 				path = sendJSON(storage, null, data);
 				// assign to default role.
 			} else {
+				// Check for password update. If doing that, absorb 403 errors and redirect
+				// as though we are doing a logout.
+				JSONObject fields=data.optJSONObject("fields");
+				if(fields!=null && fields.has(PASSWORD_FIELD)) {
+					String passwd = fields.getString(PASSWORD_FIELD);
+					if(passwd!=null) {
+						if(passwd.isEmpty()) {
+							fields.remove(PASSWORD_FIELD); // Preclude removl of a password
+						} else {
+							String editedUserId = fields.getString(USER_ID_FIELD);
+							UISession session = request.getSession();
+							if(session != null) {
+								Object currentUserId = session.getValue(UISession.USERID);
+								if(currentUserId!= null && currentUserId.equals(editedUserId)) {
+									newPassword = passwd;
+									currentUserPasswordChange = true;
+								}
+							}
+						}
+					}
+				}
 				path = sendJSON(storage, path, data);
+				// If that succeeded, and if we updated the current password, set session
+				// credentials
+				if(currentUserPasswordChange) {
+					request.getSession().setValue(UISession.PASSWORD,newPassword);
+				}
 			}
-			assignRole(storage, path, data);
 			if (path == null) {
 				throw new UIException(
 						"Insufficient data for create (no fields?)");
 			}
 			data.put("csid", path);
+			try {
+				assignRole(storage, path, data);
+			} catch(UnderlyingStorageException usex) {
+				Integer status = usex.getStatus();
+				if(status != null
+					&& (status == HttpStatus.SC_FORBIDDEN
+						|| status == HttpStatus.SC_UNAUTHORIZED)) {
+					absorbedSvcsError = true;
+					msg = "Cannot update roles for this account.";
+					log.warn("UserDetailsCreateUpdate changing roles, and absorbing error returned: "+usex.getStatus());
+				} else {
+					throw usex;	// Propagate
+				}
+			}
 			boolean isError = !notfailed;
 			data.put("isError", isError);
 			JSONObject messages = new JSONObject();
@@ -156,8 +208,7 @@ public class UserDetailsCreateUpdate implements WebMethod {
 			arr.put(messages);
 			data.put("messages", arr);
 			request.sendJSONResponse(data);
-			request.setOperationPerformed(create ? Operation.CREATE
-					: Operation.UPDATE);
+			request.setOperationPerformed(create ? Operation.CREATE : Operation.UPDATE);
 			if (create && notfailed)
 				request.setSecondaryRedirectPath(new String[] { url_base, path });
 		} catch (JSONException x) {
