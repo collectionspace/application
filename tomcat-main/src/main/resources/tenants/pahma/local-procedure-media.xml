@@ -27,6 +27,11 @@
 		
 		<!-- Add autocomplete-->
 		<field id="coverage" autocomplete="place-place,place-tgn_place"/>
+
+		<repeat id="subjects">
+			<!-- Add autocomplete -->
+			<field id="subject" autocomplete="place-place,concept-concept,concept-archculture,person-person,organization-organization,taxon-taxon,concept-activity,concept-material_ca"/>
+		</repeat>
 		
 		<!-- Local fields -->
 		
