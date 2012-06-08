@@ -256,8 +256,7 @@
 		</repeat>
 
 		<repeat id="claimSiteInvolvedGroupList/claimSiteInvolvedGroup" section="anthropology">
-			<!--<field id="claimSiteInvolvedName" section="anthropology" autocomplete="place-place"></field> WAITING FOR PLACE AUTHORITY -->
-			<field id="claimSiteInvolvedName" section="anthropology"></field>
+			<field id="claimSiteInvolvedName" section="anthropology" autocomplete="place-place"></field>
 			<field id="claimSiteInvolvedNote" section="anthropology"></field>
 		</repeat>
 
