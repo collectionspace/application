@@ -11,6 +11,7 @@
 				</enum>
 			</field>
 		</repeat>
+		
 		<repeat id="types">
 			<field id="type">
 				<!-- Change options -->
@@ -23,6 +24,9 @@
 				</options>
 			</field>
 		</repeat>
+		
+		<!-- Add autocomplete-->
+		<field id="coverage" autocomplete="place-place,place-tgn_place"/>
 		
 		<!-- Local fields -->
 		
