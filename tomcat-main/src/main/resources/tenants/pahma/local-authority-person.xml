@@ -18,8 +18,8 @@
 			<field id="group" autocomplete="concept-concept"/>
 		</repeat>
 		<!-- Add autocomplete -->
-		<field id="birthPlace" autocomplete="place-place,place-tgn_place"/>
+		<field id="birthPlace" autocomplete="place-place"/>
 		<!-- Add autocomplete -->
-		<field id="deathPlace" autocomplete="place-place,place-tgn_place"/>
+		<field id="deathPlace" autocomplete="place-place"/>
 	</section>
 </record>

@@ -37,7 +37,7 @@
 			</field>
 		</repeat>
 		<!-- Add autocomplete -->
-		<field id="fieldCollectionPlace" autocomplete="place-place,place-tgn_place"/>
+		<field id="fieldCollectionPlace" autocomplete="place-place"/>
 	</section>
 	<section id="locationInformation">
 		<repeat id="currentLocationGroupList/currentLocationGroup">

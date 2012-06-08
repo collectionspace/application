@@ -26,7 +26,7 @@
 		</repeat>
 		
 		<!-- Add autocomplete-->
-		<field id="coverage" autocomplete="place-place,place-tgn_place"/>
+		<field id="coverage" autocomplete="place-place"/>
 
 		<repeat id="subjects">
 			<!-- Add autocomplete -->

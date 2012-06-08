@@ -1,7 +1,7 @@
 <record id="organization">
 	<section id="organizationNameAuthorityInformation">
 		<!-- Add autocomplete -->
-		<field id="foundingPlace" autocomplete="place-place,place-tgn_place"/>
+		<field id="foundingPlace" autocomplete="place-place"/>
 		<repeat id="groups">
 			<!-- Add autocomplete -->
 			<field id="group" autocomplete="concept-concept"/>

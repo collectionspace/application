@@ -708,7 +708,7 @@
 			</repeat>
 			<repeat id="contentPlaces">
 				<!-- Add autocomplete -->
-				<field id="contentPlace" autocomplete="place-place,place-tgn_place"/>
+				<field id="contentPlace" autocomplete="place-place"/>
 			</repeat>
 			<repeat id="contentScripts">
 				<field id="contentScript">
@@ -930,7 +930,7 @@
 		</repeat>
 		<repeat id="objectProductionPlaceGroupList/objectProductionPlaceGroup">
 			<!-- Add autocomplete -->
-			<field id="objectProductionPlace" autocomplete="place-place,place-tgn_place"/>
+			<field id="objectProductionPlace" autocomplete="place-place"/>
 			<field id="objectProductionPlaceRole">
 				<!-- Add selector -->
 				<selector>object-production-place-role</selector>
@@ -1148,7 +1148,7 @@
 			</repeat>
 			<repeat id="assocPlaceGroupList/assocPlaceGroup">
 				<!-- Add autocomplete and ui-search -->
-				<field id="assocPlace" autocomplete="place-place,place-tgn_place" ui-search="repeatable"/>
+				<field id="assocPlace" autocomplete="place-place" ui-search="repeatable"/>
 				<field id="assocPlaceType">
 					<!-- Add selector -->
 					<selector>collection-object-assocPlaceType</selector>
@@ -1196,7 +1196,7 @@
 			</repeat>
 			<repeat id="assocEventPlaces">
 				<!-- Add autocomplete -->
-				<field id="assocEventPlace" autocomplete="place-place,place-tgn_place"/>
+				<field id="assocEventPlace" autocomplete="place-place"/>
 			</repeat>
 			<repeat id="assocDateGroupList/assocDateGroup">
 				<!-- Add ui-search -->
@@ -1284,7 +1284,7 @@
 						<option id="unknown">unknown</option>
 					</options>
 				</field>
-				<field id="ownershipPlace" section="pahma" autocomplete="place-place,place-tgn_place"> <!-- ######## THIS FIELD TEMPORARILY ADDED BY PAHMA ####### -->
+				<field id="ownershipPlace" section="pahma" autocomplete="place-place"> <!-- ######## THIS FIELD TEMPORARILY ADDED BY PAHMA ####### -->
 					<selector>collection-object-ownershipPlace</selector>
 				</field>
 				<field id="ownershipMethod" section="pahma"> <!-- ######## THIS FIELD TEMPORARILY ADDED BY PAHMA ####### -->
