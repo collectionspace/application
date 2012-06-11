@@ -325,7 +325,7 @@
 			</options>
 		</field>
 
-		<field id="inventoryCount" section="pahma" ui-type="validated" datatype="integer"/>
+		<field id="inventoryCount" section="pahma"/>
 
 		<field id="portfolioSeries" section="pahma" ui-search="repeatable">
 			<options>
@@ -473,38 +473,6 @@
 		</field>
 
 		<field id="pahmaObjectID" section="pahma"/>
-
-		<repeat id="pahmaFieldCollectionDateGroupList/pahmaFieldCollectionDateGroup" section="pahma">
-			<group id="pahmaFieldCollectionDate" section="pahma" xxx-services-no-repeat="true"
-				ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
-				ui-func="cspace.structuredDate">
-
-				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
-				<field id="dateDisplayDate" section="pahma"/>
-				<field id="dateAssociation" section="pahma"/>
-				<field id="dateEarliestSingleYear" section="pahma"/>
-				<field id="dateEarliestSingleMonth" section="pahma"/>
-				<field id="dateEarliestSingleDay" section="pahma"/>
-				<field id="dateEarliestSingleEra" section="pahma"/>
-				<field id="dateEarliestSingleCertainty" section="pahma"/>
-				<field id="dateEarliestSingleQualifier" section="pahma"/>
-				<field id="dateEarliestSingleQualifierValue" section="pahma"/>
-				<field id="dateEarliestSingleQualifierUnit" section="pahma"/>
-				<field id="dateLatestYear" section="pahma"/>
-				<field id="dateLatestMonth" section="pahma"/>
-				<field id="dateLatestDay" section="pahma"/>
-				<field id="dateLatestEra" section="pahma"/>
-				<field id="dateLatestCertainty" section="pahma"/>
-				<field id="dateLatestQualifier" section="pahma"/>
-				<field id="dateLatestQualifierValue" section="pahma"/>
-				<field id="dateLatestQualifierUnit" section="pahma"/>
-				<field id="datePeriod" section="pahma"/>
-				<field id="dateNote" section="pahma"/>
-				<field id="dateEarliestScalarValue" section="pahma"/>
-				<field id="dateLatestScalarValue" section="pahma"/>
-				<field id="scalarValuesComputed" section="pahma"/>
-			</group>
-		</repeat>
 	</section>
 
 	<section id="descriptionInformation">
@@ -1322,6 +1290,53 @@
 		<repeat id="fieldCollectors">
 			<!-- Add ui-search -->
 			<field id="fieldCollector" ui-search="repeatable"/>
+		</repeat>
+		
+		<!-- Local fields -->
+		
+		<repeat id="pahmaFieldCollectionDateGroupList/pahmaFieldCollectionDateGroup" section="pahma">
+			<group id="pahmaFieldCollectionDate" section="pahma" xxx-services-no-repeat="true"
+				ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
+				ui-func="cspace.structuredDate">
+
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="pahma"/>
+				<field id="dateAssociation" section="pahma"/>
+				<field id="dateEarliestSingleYear" section="pahma"/>
+				<field id="dateEarliestSingleMonth" section="pahma"/>
+				<field id="dateEarliestSingleDay" section="pahma"/>
+				<field id="dateEarliestSingleEra" section="pahma"/>
+				<field id="dateEarliestSingleCertainty" section="pahma"/>
+				<field id="dateEarliestSingleQualifier" section="pahma"/>
+				<field id="dateEarliestSingleQualifierValue" section="pahma"/>
+				<field id="dateEarliestSingleQualifierUnit" section="pahma"/>
+				<field id="dateLatestYear" section="pahma"/>
+				<field id="dateLatestMonth" section="pahma"/>
+				<field id="dateLatestDay" section="pahma"/>
+				<field id="dateLatestEra" section="pahma"/>
+				<field id="dateLatestCertainty" section="pahma"/>
+				<field id="dateLatestQualifier" section="pahma"/>
+				<field id="dateLatestQualifierValue" section="pahma"/>
+				<field id="dateLatestQualifierUnit" section="pahma"/>
+				<field id="datePeriod" section="pahma"/>
+				<field id="dateNote" section="pahma"/>
+				<field id="dateEarliestScalarValue" section="pahma"/>
+				<field id="dateLatestScalarValue" section="pahma"/>
+				<field id="scalarValuesComputed" section="pahma"/>
+			</group>
+		</repeat>
+		
+		<repeat id="pahmaFieldCollectionPlaceList" section="pahma">
+			<field id="pahmaFieldCollectionPlace" section="pahma" autocomplete="place-place"/>
+		</repeat>
+		
+		<field id="pahmaFieldLocVerbatim" section="pahma"/>
+		
+		<repeat id="ageEstimateGroupList/ageEstimateGroup" sectino="pahma">
+			<field id="ageEstimate" ui-type="validated" datatype="integer"/>
+			<field id="ageEstimateQualifier"/>
+			<field id="ageEstimateUnit"/>
+			<field id="ageEstimateNote"/>
 		</repeat>
 	</section>
 	

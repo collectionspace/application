@@ -148,8 +148,4 @@
 			</field>
 		</repeat>
 	</section>
-
-	<section id="objectCollectionInformation">
-		<field id="fieldLocVerbatim" section="naturalhistory"/>
-	</section>
 </record>
