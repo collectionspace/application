@@ -291,11 +291,10 @@
     <field id="age" ui-type="validated" datatype="integer">
       <selector>object-description-age</selector>
     </field>
-    <field id="ageQualifier"> <!-- autocomplete="vocab-agequalifier" ui-type="enum" -->
-      <!-- FIXME: Remove the enum and the autocomplete/ui-type attributes here, but figure out a good way to do it in the patch file -->
-      <!-- <enum>
+    <field id="ageQualifier" autocomplete="vocab-agequalifier" ui-type="enum">
+      <enum>
         <blank-value>Please select a value</blank-value>
-      </enum> -->
+      </enum>
       <selector>object-description-age-qualifier</selector>
     </field>
     <field id="ageUnit" seperate_ui_container="true">

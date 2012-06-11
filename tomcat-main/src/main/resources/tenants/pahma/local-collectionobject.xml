@@ -544,30 +544,6 @@
 				</options>
 			</field>
 		</repeat>
-		<!-- Remove autocomplete and ui-type attributes -->
-		<!-- TODO: Figure out how to remove them here, so this works. Currently deleting them in the base file. -->
-		<field id="ageQualifier">
-			<!-- Delete the enum -->
-			<!-- TODO: Figure out how to delete the enum tag here, so this works. Currently deleting it in the base file. -->
-			<!-- Add options -->
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="approximately">approximately</option>
-				<option id="exactly">exactly</option>
-				<option id="olderThan">older than</option>
-				<option id="youngerThan">younger than</option>
-			</options>
-		</field>
-		<field id="ageUnit">
-			<!-- Change options -->
-			<options>
-				<option id="">(none selected)</option>
-				<option id="days">days</option>
-				<option id="months">months</option>
-				<option id="weeks">weeks</option>
-				<option id="years">years</option>
-			</options>
-		</field>
 		<repeat id="materialGroupList/materialGroup">
 			<!-- Add autocomplete -->
 			<field id="material" autocomplete="concept-material_ca"/>
@@ -1332,11 +1308,27 @@
 		
 		<field id="pahmaFieldLocVerbatim" section="pahma"/>
 		
-		<repeat id="ageEstimateGroupList/ageEstimateGroup" sectino="pahma">
-			<field id="ageEstimate" ui-type="validated" datatype="integer"/>
-			<field id="ageEstimateQualifier"/>
-			<field id="ageEstimateUnit"/>
-			<field id="ageEstimateNote"/>
+		<repeat id="ageEstimateGroupList/ageEstimateGroup" section="pahma">
+			<field id="ageEstimate" section="pahma" ui-type="validated" datatype="integer"/>
+			<field id="ageEstimateQualifier" section="pahma">
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="approximately">approximately</option>
+					<option id="exactly">exactly</option>
+					<option id="olderThan">older than</option>
+					<option id="youngerThan">younger than</option>
+				</options>
+			</field>
+			<field id="ageEstimateUnit" section="pahma">
+				<options>
+					<option id="">(none selected)</option>
+					<option id="days">days</option>
+					<option id="months">months</option>
+					<option id="weeks">weeks</option>
+					<option id="years">years</option>
+				</options>
+			</field>
+			<field id="ageEstimateNote" section="pahma"/>
 		</repeat>
 	</section>
 	
