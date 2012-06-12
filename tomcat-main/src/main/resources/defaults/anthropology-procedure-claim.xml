@@ -323,15 +323,37 @@
 			<field id="responseFromNationalNagpraNote" section="anthropology"></field>
 		</repeat>
 
-		<repeat id="claimPeriodInvolvedGroupGroupList/claimPeriodInvolvedGroupGroup" section="anthropology"> 
-			<field id="claimPeriodInvolvedGroup" section="anthropology"></field>  <!-- SHOULD BE STRUCTURED DATE, BUT AS OF 8/17/2011, STRUCTURED DATES DON'T WORK IN <repeat></repeat> TAGS -->
-			<!--<field id="claimPeriodInvolvedGroup" section="anthropology" ui-type="groupfield/structureddate" primarykey="claimPeriodInvolvedGroup.dateDisplayDate" ui-func="cspace.structuredDate">
-				<services-tag>claimPeriodInvolvedGroup</services-tag>
-				<selector>claim-claimPeriodInvolvedGroup</selector>
-			</field>-->
-			<field id="claimPeriodInvolvedNote" section="anthropology"></field>
+		<repeat id="claimPeriodInvolvedDateGroupList/claimPeriodInvolvedDateGroup" section="anthropology">
+			<group id="claimPeriodInvolvedDate" section="anthropology" xxx-services-no-repeat="true"
+				ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
+				ui-func="cspace.structuredDate">
+
+				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
+				<field id="dateDisplayDate" section="anthropology"/>
+				<field id="dateAssociation" section="anthropology"/>
+				<field id="dateEarliestSingleYear" section="anthropology"/>
+				<field id="dateEarliestSingleMonth" section="anthropology"/>
+				<field id="dateEarliestSingleDay" section="anthropology"/>
+				<field id="dateEarliestSingleEra" section="anthropology"/>
+				<field id="dateEarliestSingleCertainty" section="anthropology"/>
+				<field id="dateEarliestSingleQualifier" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierValue" section="anthropology"/>
+				<field id="dateEarliestSingleQualifierUnit" section="anthropology"/>
+				<field id="dateLatestYear" section="anthropology"/>
+				<field id="dateLatestMonth" section="anthropology"/>
+				<field id="dateLatestDay" section="anthropology"/>
+				<field id="dateLatestEra" section="anthropology"/>
+				<field id="dateLatestCertainty" section="anthropology"/>
+				<field id="dateLatestQualifier" section="anthropology"/>
+				<field id="dateLatestQualifierValue" section="anthropology"/>
+				<field id="dateLatestQualifierUnit" section="anthropology"/>
+				<field id="datePeriod" section="anthropology"/>
+				<field id="dateNote" section="anthropology"/>
+				<field id="dateEarliestScalarValue" section="anthropology"/>
+				<field id="dateLatestScalarValue" section="anthropology"/>
+				<field id="scalarValuesComputed" section="anthropology"/>
+			</group>
 		</repeat>
-		
 		<!-- ADD CHECKLIST PAIRS -->
 		<!-- ADD CULTURAL CARE NOTES -->
 	</section>
