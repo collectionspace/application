@@ -303,27 +303,29 @@
 			</field>
 		</repeat>
 
-		<field id="pahmaObjectStatus" section="pahma" ui-search="repeatable">
-			<options>
-				<option id="" default="yes">(none selected)</option>
-				<option id="Accession status unclear">Accession status unclear</option>
-				<option id="Accessioned">Accessioned</option>
-				<option id="Deaccessioned">Deaccessioned</option>
-				<option id="Irregular Museum Number">Irregular Museum Number</option>
-				<option id="Missing">Missing</option>
-				<option id="Missing in Inventory">Missing in Inventory</option>
-				<option id="Not Located">Not Located</option>
-				<option id="Not received">Not received</option>
-				<option id="Number not used">Number not used</option>
-				<option id="Object mount">Object mount</option>
-				<option id="On loan (=borrowed)">On loan (=borrowed)</option>
-				<option id="Partially Deaccessioned">Partially Deaccessioned</option>
-				<option id="Pending repatriation">Pending repatriation</option>
-				<option id="Recataloged">Recataloged</option>
-				<option id="Returned loan object">Returned loan object</option>
-				<option id="Stolen">Stolen</option>
-			</options>
-		</field>
+		<repeat id="pahmaObjectStatusList" section="pahma">
+			<field id="pahmaObjectStatus" section="pahma" ui-search="repeatable">
+				<options>
+					<option id="" default="yes">(none selected)</option>
+					<option id="Accession status unclear">Accession status unclear</option>
+					<option id="Accessioned">Accessioned</option>
+					<option id="Deaccessioned">Deaccessioned</option>
+					<option id="Irregular Museum Number">Irregular Museum Number</option>
+					<option id="Missing">Missing</option>
+					<option id="Missing in Inventory">Missing in Inventory</option>
+					<option id="Not Located">Not Located</option>
+					<option id="Not received">Not received</option>
+					<option id="Number not used">Number not used</option>
+					<option id="Object mount">Object mount</option>
+					<option id="On loan (=borrowed)">On loan (=borrowed)</option>
+					<option id="Partially Deaccessioned">Partially Deaccessioned</option>
+					<option id="Pending repatriation">Pending repatriation</option>
+					<option id="Recataloged">Recataloged</option>
+					<option id="Returned loan object">Returned loan object</option>
+					<option id="Stolen">Stolen</option>
+				</options>
+			</field>
+		</repeat>
 
 		<field id="inventoryCount" section="pahma"/>
 
