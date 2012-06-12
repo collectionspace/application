@@ -323,11 +323,8 @@
 			<field id="responseFromNationalNagpraNote" section="anthropology"></field>
 		</repeat>
 
-		<repeat id="claimPeriodInvolvedDateGroupList/claimPeriodInvolvedDateGroup" section="anthropology">
-			<group id="claimPeriodInvolvedDate" section="anthropology" xxx-services-no-repeat="true"
-				ui-type="groupfield/structureddate" primarykey="dateDisplayDate"
-				ui-func="cspace.structuredDate">
-
+		<repeat id="claimPeriodInvolvedGroupList/claimPeriodInvolvedGroup" section="anthropology">
+			<group id="claimPeriodInvolvedDateGroup" section="anthropology" ui-type="groupfield/structureddate" primarykey="dateDisplayDate" ui-func="cspace.structuredDate">
 				<!-- These fields are defined here as a workaround to CSPACE-5085. See http://issues.collectionspace.org/browse/CSPACE-5085 for details. -->
 				<field id="dateDisplayDate" section="anthropology"/>
 				<field id="dateAssociation" section="anthropology"/>
@@ -353,6 +350,7 @@
 				<field id="dateLatestScalarValue" section="anthropology"/>
 				<field id="scalarValuesComputed" section="anthropology"/>
 			</group>
+			<field id="claimPeriodInvolvedNote" section="anthropology"/>
 		</repeat>
 		<!-- ADD CHECKLIST PAIRS -->
 		<!-- ADD CULTURAL CARE NOTES -->
