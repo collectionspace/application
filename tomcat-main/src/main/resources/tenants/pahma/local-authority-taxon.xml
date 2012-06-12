@@ -1,4 +1,11 @@
 <record id="taxon">
+	<instances id="taxon">
+		<instance id="taxon-taxon">
+			<!-- Change title -->
+			<title>PAHMA Taxon Authority</title>
+		</instance>
+	</instances>
+
 	<section id="taxonNameAuthorityInformation">
 		<field id="taxonRank">
 			<!-- Change options -->

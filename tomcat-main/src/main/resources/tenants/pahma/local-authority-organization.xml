@@ -1,4 +1,11 @@
 <record id="organization">
+	<instances id="organization">
+		<instance id="organization-organization">
+			<!-- Change title -->
+			<title>PAHMA Organization Authority</title>
+		</instance>
+	</instances>
+		
 	<section id="organizationNameAuthorityInformation">
 		<!-- Add autocomplete -->
 		<field id="foundingPlace" autocomplete="place-place"/>
