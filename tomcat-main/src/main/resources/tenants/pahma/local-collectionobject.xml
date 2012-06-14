@@ -769,6 +769,7 @@
 						<option id="">(none selected)</option>
 						<option id="abecedarium">abecedarium</option>
 						<option id="brand">brand</option>
+						<option id="coinInscription">coin inscription</option>
 						<option id="decoration">decoration</option>
 						<!-- <option id="embossment">embossment</option> --> <!-- REPETITIVE, GIVEN EMBOSSING AS AN INSCRIPTION METHOD -->
 						<option id="epitaph">epitaph</option>
@@ -791,8 +792,10 @@
 						<option id="panAndInk">pen and ink</option>
 						<option id="embossing">embossing</option>
 						<option id="engraving">engraving</option>
+						<option id="hammeredDies">hammered dies</option>
 						<option id="pyrography">pyrography</option>
 						<option id="painting">painting</option>
+						
 					</options>
 				</field>
 			</repeat>
