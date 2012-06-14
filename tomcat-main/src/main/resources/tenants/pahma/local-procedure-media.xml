@@ -41,7 +41,9 @@
 		
 		<!-- Local fields -->
 		
-		<field id="approvedForWeb" section="pahma" datatype="boolean"/>
+		<field id="approvedForWeb" section="pahma" datatype="boolean">
+			<default>true</default>
+		</field>
 		<field id="primaryDisplay" section="pahma" datatype="boolean"/>
 	</section>
 </record>
