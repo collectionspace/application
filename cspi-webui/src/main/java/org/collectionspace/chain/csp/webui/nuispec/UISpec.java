@@ -405,6 +405,9 @@ public class UISpec extends SchemaStructure implements WebMethod {
 				String[] paths = f.getIDPath();
 				elPath = paths[paths.length - 1];
 			}
+			else {
+				elPath = displayAsveryplainWithoutEnclosure(f,context);
+			}
 		}
 		else {
 			elPath = displayAsveryplainWithoutEnclosure(f,context);
