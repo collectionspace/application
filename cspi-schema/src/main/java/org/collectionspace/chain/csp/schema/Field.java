@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 
 // XXX unentangle UI and SVC parts
 public class Field implements FieldSet {
+	
 	private static final Logger log = LoggerFactory.getLogger(Field.class);
 	protected SchemaUtils utils = new SchemaUtils();
 	
@@ -112,6 +113,7 @@ public class Field implements FieldSet {
 		utils.initStrings(section,"@ui-args", "");
 		utils.initStrings(section,"@ui-type", "plain");
 		utils.initStrings(section,"@ui-search", "");
+		utils.initStrings(section,"@query-behavior", QUERY_BEHAVIOR_NORMAL);
 		if (utils.getString("@ui-type").equals("date")) {
 			seperate_default = true;
 		}
@@ -245,6 +247,9 @@ public class Field implements FieldSet {
 	}
 	public void setSearchType(String val) {
 		utils.setString("@ui-search",val);
+	}
+	public String getQueryBehavior() {
+		return utils.getString("@query-behavior");
 	}
 	
 	public String getUIFunc() {

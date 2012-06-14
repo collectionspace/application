@@ -30,6 +30,8 @@ import org.slf4j.LoggerFactory;
 public class Record implements FieldParent {
 	
 	public static final String SUPPORTS_LOCKING = "supportslocking";
+	public static final String RANGE_START_SUFFIX = "Start";
+	public static final String RANGE_END_SUFFIX = "End";
 	
 	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	protected SchemaUtils utils = new SchemaUtils();
@@ -242,8 +244,8 @@ public class Record implements FieldParent {
 			else if(searchf.getSearchType().equals("range")){
 				searchf.getRecord().addUISection("search", searchf.getID());
 //need to add label for main bit as well...
-				Field fst = new Field(searchf.getRecord(),searchf.getID()+"Start");
-				Field fed = new Field(searchf.getRecord(),searchf.getID()+"End");
+				Field fst = new Field(searchf.getRecord(),searchf.getID()+RANGE_START_SUFFIX);
+				Field fed = new Field(searchf.getRecord(),searchf.getID()+RANGE_END_SUFFIX);
 
 				fst.setSearchType("range");
 				fed.setSearchType("range");

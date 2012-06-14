@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -38,15 +39,45 @@ import org.slf4j.LoggerFactory;
  * @author csm22
  *
  */
+/**
+ * @author pschmitz
+ *
+ */
 public class GenericSearch {
 	private static final Logger log=LoggerFactory.getLogger(GenericSearch.class);
         
-        final static String UNESCAPED_PREVIOUS_CHAR_PATTERN = "(?<!\\\\)";
-        final static String DOUBLE_QUOTE_PATTERN = "([\\\"])";
-        final static String PERCENT_SIGN_PATTERN = "([\\%])";
-        
-        final static String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-        final static String SERVICES_TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+	final static String UNESCAPED_PREVIOUS_CHAR_PATTERN = "(?<!\\\\)";
+	final static String DOUBLE_QUOTE_PATTERN = "([\\\"])";
+	final static String PERCENT_SIGN_PATTERN = "([\\%])";
+
+	final static String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+	final static String SERVICES_TIMESTAMP_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+	final static int    RANGE_START_SUFFIX_LEN = Record.RANGE_START_SUFFIX.length();
+	final static int    RANGE_END_SUFFIX_LEN   = Record.RANGE_END_SUFFIX.length();
+	final static String TIMESTAMP_SUFFIX       = "T00:00:00Z";
+	final static String EQUALS                 = " = ";
+	final static String GTE                    = " >= ";
+	final static String LTE                    = " <= ";
+	final static String ILIKE_COMPARATOR       = " ILIKE ";
+	final static String NOT_SPECIFIER          = " NOT ";
+	final static String DATE_CAST              = " DATE ";
+	final static String TIMESTAMP_CAST         = " TIMESTAMP ";
+
+	private static class RangeInfo {
+		private final Logger logger = LoggerFactory.getLogger(RangeInfo.class);
+		public String rangeStartValue = null;
+		public String rangeEndValue = null;
+		public String rangeStartOrSingleField = null;
+		public String rangeEndField = null;				// If rangeEndField not null, then do interval compare
+		
+		public boolean isValid() {
+			// One of the values, and at least the start/Single field spec must be set.
+			return ((rangeStartValue != null) ||  (rangeEndValue != null))
+				&& (rangeStartOrSingleField != null);
+			// Okay for rangeEndField to be null
+		}
+	}
+
 	
 	/**
 	 * Returns the per field search structure needed by the service layer
@@ -56,17 +87,12 @@ public class GenericSearch {
 	 * @param fieldname
 	 * @param value
 	 * @param operator
-	 * @param join
+	 * @param comparator
 	 * @return
 	 */
-	public static String getAdvancedSearch(Record r, String fieldname, String value, String operator, String join, String affix){
+	public static String getAdvancedSearch(Record r, String fieldname, FieldSet fieldSet, String value, String cast, String comparator){
 		if(!value.equals("")){
 			try{
-				FieldSet fieldSet = r.getFieldFullList(fieldname);
-				String section = fieldSet.getSection(); 	// Get the payload part
-				String spath=r.getServicesRecordPath(section);
-				String[] parts=spath.split(":",2);
-                                
 				// Escape various unescaped characters in the advanced search string
 				value = escapeUnescapedChars(value, DOUBLE_QUOTE_PATTERN, "\"", "\\\"");
 				value = escapeUnescapedChars(value, PERCENT_SIGN_PATTERN, "%", "\\%");
@@ -74,12 +100,12 @@ public class GenericSearch {
 				// Replace user wildcards with service-legal wildcards
 				if(value.contains("*")){
 					value = value.replace("*", "%");
-					join = " ilike ";
+					comparator = ILIKE_COMPARATOR;
 				}
-				String fieldSpecifier = getSearchSpecifierForField(fieldSet, false);
+				String fieldSpecifier = getSchemaQualifiedSearchSpecifierForField(r, fieldname, fieldSet);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
 				
-				return parts[0]+":"+fieldSpecifier+affix+join+"\""+value +"\""+ " " + operator+ " ";
+				return "("+fieldSpecifier+comparator+cast+"\""+value +"\")";
 			}
 			catch(Exception e){
 				log.error("Problem creating advanced search specifier for field: "+fieldname);
@@ -91,6 +117,26 @@ public class GenericSearch {
 		
 	}
         
+	/**
+	 * Returns the schema-qualified field path
+	 * 
+	 * @param r
+	 * @param fieldname
+	 * @param value
+	 * @param operator
+	 * @param comparator
+	 * @return
+	 */
+	public static String getSchemaQualifiedSearchSpecifierForField(Record r, String fieldname, FieldSet fieldSet){
+		String section = fieldSet.getSection(); 	// Get the payload part
+		String spath=r.getServicesRecordPath(section);
+		String[] parts=spath.split(":",2);
+
+		String fieldSpecifier = getSearchSpecifierForField(fieldSet, false);
+
+		return parts[0]+":"+fieldSpecifier;
+	}
+
        /**
         * Escapes unescaped characters within the text of a services advanced search string.
         * 
@@ -235,108 +281,263 @@ public class GenericSearch {
 		return returndata;
 	}
 	
+        
 	/**
-	 * Gets a list of all teh fields required in advanced search and creates the services search structure based on field type
-	 * 
-	 * @param r
-	 * @param params
-	 * @param restriction
+	 * @param r Current record spec to search on
+	 * @param params Passed payload from caller
+	 * @param restriction Services search restriction object into which to put query params
 	 * @throws JSONException
 	 */
 	public static void buildQuery(Record r, JSONObject params, JSONObject restriction)
 			throws JSONException {
 		Map<String, String> dates = new HashMap<String, String>();
 
-		String operation = params.getString("operation").toUpperCase();
+		String operation = params.getString("operation").toUpperCase();	// How to combine clauses
+		String clauseCombiner = " "+operation.trim()+" ";	// slightly anal, but produces nice NXQL
 		JSONObject fields = params.getJSONObject("fields");
 		log.debug("Advanced Search on fields: "+fields.toString());
 
-		String asq = ""; 
-		Iterator rit=fields.keys();
-		while(rit.hasNext()) {
-			String join = " ILIKE "; //using ilike so we can have case insensitive searches
-			String fieldname=(String)rit.next();
-			Object item = fields.get(fieldname);
+		HashMap<String,RangeInfo> rangeSpecs = new HashMap<String,RangeInfo>();
+		StringBuilder queryStringBuilder = new StringBuilder(); 
+		boolean fClauseAdded = false;
+		Iterator outerListIter=fields.keys();
+		while(outerListIter.hasNext()) {	// For each field specified
+			String fieldName=(String)outerListIter.next();
+			Object item = fields.get(fieldName);
 
-			String value = "";
-			
 			if(item instanceof JSONArray){ // this is a repeatable
 				JSONArray itemarray = (JSONArray)item;
 				for(int j=0;j<itemarray.length();j++){
-					JSONObject jo = itemarray.getJSONObject(j);
-					Iterator jit=jo.keys();
-					while(jit.hasNext()){
-						String jname=(String)jit.next();
-						if(!jname.equals("_primary")){
-							if(jo.get(jname) instanceof String || jo.get(jname) instanceof Boolean ){
-								value = jo.getString(jname);
-								asq += getAdvancedSearch(r,jname,value,operation,join,"");
+					JSONObject innerList = itemarray.getJSONObject(j);
+					Iterator innerListIter=innerList.keys();
+					while(innerListIter.hasNext()){
+						String innerListFieldName=(String)innerListIter.next();
+						if(!innerListFieldName.equals("_primary")){
+							Object innerItem = innerList.get(innerListFieldName); 
+							String clause = buildQueryClauseForItem(r, innerListFieldName, innerItem, rangeSpecs);
+							if(!clause.isEmpty()) {
+								if(fClauseAdded) {
+									queryStringBuilder.append(clauseCombiner);
+								} else {
+									fClauseAdded = true;
+								}
+								queryStringBuilder.append(clause);
 							}
 						}
 					}
 				}
-				
-			}
-			else if(item instanceof JSONObject){ // no idea what this is
-				
-			}
-			else if(item instanceof String){
-				value = (String)item;
-				String affix = "";
-				if(!value.equals("")){
-					String fieldid = fieldname;
-					if(r.hasSearchField(fieldname) && (r.getSearchFieldFullList(fieldname).getUIType().equals("date") || r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate"))){
-						String timestampAffix = "T00:00:00Z";
-						if(fieldname.endsWith("Start")){
-							fieldid = fieldname.substring(0, (fieldname.length() - 5));
-							join = ">= TIMESTAMP ";
-							if(r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate") && r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate")){
-								affix = "/dateEarliestScalarValue";
-							}
-						}
-						else if(fieldname.endsWith("End")){
-							fieldid = fieldname.substring(0, (fieldname.length() - 3));
-							join = "<= TIMESTAMP ";
-							timestampAffix = "T23:59:59Z";
-							if(r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate") && r.getSearchFieldFullList(fieldname).getUIType().equals("groupfield/structureddate")){
-								affix = "/dateLatestScalarValue";
-							}
-						}
-						value += timestampAffix;
-                                                value = utcToLocalTZ(value);
-
-						if(dates.containsKey(fieldid)){
-							String temp = getAdvancedSearch(r,fieldid,value,"AND",join, affix);
-							String get = dates.get(fieldid);
-							dates.put(fieldid, temp + get);
-						}
-						else{
-							String temp = getAdvancedSearch(r,fieldid,value,"",join,affix);
-							dates.put(fieldid, temp);
-						}
+			} else {
+				String clause = buildQueryClauseForItem(r, fieldName, item, rangeSpecs);
+				if(!clause.isEmpty()) {
+					if(fClauseAdded) {
+						queryStringBuilder.append(clauseCombiner);
+					} else {
+						fClauseAdded = true;
 					}
-					else{
-						asq += getAdvancedSearch(r,fieldname,value,operation,join,affix);
-					}
+					queryStringBuilder.append(clause);
 				}
-			}				
+			}
 		}
-		if(!dates.isEmpty()){
-			for (String keyed : dates.keySet()) {
-				if(!dates.get(keyed).equals("")){
-					asq += " ( "+dates.get(keyed)+" )  "+ operation;	
+		// Now, we have to handle all the ranges they have specified. 
+		Set<String> rangeSpecsKeys=rangeSpecs.keySet();
+		for(String rangeFieldName:rangeSpecsKeys) {	// For each rangeSpec, by field name
+			RangeInfo rangeSpec = rangeSpecs.get(rangeFieldName);
+			String clause = null;
+			if(!(rangeSpec.isValid())) {
+				log.error("buildQuery only got partial spec for range on field: "+rangeFieldName);
+			} else if(rangeSpec.rangeEndField == null) {
+				// build query clause for simple range spec
+				StringBuilder sb = new StringBuilder();
+				sb.append("(");
+				if(rangeSpec.rangeStartValue != null) {
+					sb.append(rangeSpec.rangeStartOrSingleField);
+					sb.append(GTE);
+					sb.append(rangeSpec.rangeStartValue);
 				}
+				if(rangeSpec.rangeEndValue != null) {
+					if(rangeSpec.rangeStartValue != null) {
+						sb.append(" AND ");
+					}
+					sb.append(rangeSpec.rangeStartOrSingleField);
+					sb.append(LTE);
+					sb.append(rangeSpec.rangeEndValue);
+				}
+				sb.append(")");
+				clause = sb.toString();
+			} else {
+				// build query clause for interval range spec
+				// Note for intervals (a,b) and (c,d), overlap is defined as
+				// a <= d && b >= c
+				StringBuilder sb = new StringBuilder();
+				sb.append("(");
+				if(rangeSpec.rangeStartValue != null) {
+					sb.append(rangeSpec.rangeEndField);
+					sb.append(GTE);
+					sb.append(rangeSpec.rangeStartValue);
+				}
+				if(rangeSpec.rangeEndValue != null) {
+					if(rangeSpec.rangeStartValue != null) {
+						sb.append(" AND ");
+					}
+					sb.append(rangeSpec.rangeStartOrSingleField);
+					sb.append(LTE);
+					sb.append(rangeSpec.rangeEndValue);
+				}
+				sb.append(")");
+				clause = sb.toString();
+			}
+			if(clause != null) {
+				if(fClauseAdded) {
+					queryStringBuilder.append(clauseCombiner);
+				} else {
+					fClauseAdded = true;
+				}
+				queryStringBuilder.append(clause);
 			}
 		}
 		
-		if(!asq.equals("")){
-			asq = asq.substring(0, asq.length()-(operation.length() + 2));
-		}
-		asq = asq.trim();
-		if(!asq.equals("")){
-			String asquery = "( "+asq+" )";
+		String queryString = queryStringBuilder.toString().trim();
+		if(!queryString.isEmpty()){
+			String asquery = "( "+queryString+" )";
 			restriction.put("advancedsearch", asquery);
 		}
+	}
+
+	private static String timeValToTimestampQueryString(String value) {
+		return TIMESTAMP_CAST + "'" + value + "'";
+	}
+	
+	/**
+	 * @param r The current record spec we are searching on 
+	 * @param fieldName The name of the field from UI (may have range suffix)
+	 * @param item The JSON object passed as the value
+	 * @param rangeSpecs a map of field-name to String-Pairs, specifying begin and end
+	 * @return
+	 * @throws JSONException
+	 */
+	private static String buildQueryClauseForItem(Record r, String fieldName, Object item,
+			HashMap<String,RangeInfo> rangeSpecs) throws JSONException {
+		
+		log.debug("buildQueryClauseForItem: "+fieldName);
+
+		boolean isRangeStart = false;
+		boolean isRangeEnd = false;
+		RangeInfo rangeInfo = null;
+		
+		String queryClause = ""; 
+
+		if(fieldName.endsWith(Record.RANGE_START_SUFFIX)) {
+			fieldName = fieldName.substring(0, (fieldName.length() - RANGE_START_SUFFIX_LEN));
+			isRangeStart = true;
+		} else if(fieldName.endsWith(Record.RANGE_END_SUFFIX)) {
+			fieldName = fieldName.substring(0, (fieldName.length() - RANGE_END_SUFFIX_LEN));
+			isRangeEnd = true;
+		}
+		if(isRangeStart || isRangeEnd) {
+			rangeInfo = rangeSpecs.get(fieldName);
+			if(rangeInfo==null)
+				rangeInfo = new RangeInfo();
+		}
+		
+		//FieldSet fieldSet = r.getSearchFieldFullList(fieldName); This seems like it shoudl work, but many fields are not in this map!
+		FieldSet fieldSet = r.getFieldFullList(fieldName);
+		if(fieldSet==null) {
+			log.error("buildQueryClauseForItem: fieldName does not map to a FieldSet:"+fieldName);
+			return queryClause;
+		}
+
+		// Used, e.g., when a base entry field is used to compute the actual search field;
+		// do not want to build query term for the base entry field 
+		if(Field.QUERY_BEHAVIOR_IGNORE.equals(fieldSet.getQueryBehavior())) {
+			log.error("buildQueryClauseForItem: QB_IGNORE on fieldName:"+fieldName);
+			return queryClause;
+		}
+		
+		if(item instanceof JSONArray || item instanceof JSONObject) { // Don't know how to handle this
+			log.warn("GenericSearch.buildQuery ignoring unexpected field type for field: "
+						+ fieldName + " [" + item.getClass().getName() + "]");
+			// Leave queryClause empty and fall through
+		} else if(fieldSet.getUIType().equals("date")) {	// UI returns String
+			if(!(item instanceof String)) {
+				log.error("GenericSearch.buildQuery field of type date not passed String value: "
+						+ fieldName + " / value is: [" + item.getClass().getName() + "]");
+				return queryClause;
+			}
+			String value = (String)item;
+			if(!value.isEmpty()) {
+	            value = utcToLocalTZ(value + TIMESTAMP_SUFFIX);
+				if(isRangeStart) {
+					rangeInfo.rangeStartValue = timeValToTimestampQueryString(value);
+				} else if(isRangeEnd) {
+					rangeInfo.rangeEndValue = timeValToTimestampQueryString(value);
+				} else {	// Straight equals a date. May not be used currently
+					queryClause = getAdvancedSearch(r,fieldName,fieldSet, value, TIMESTAMP_CAST, EQUALS);
+				}
+				// Single field, not an interval
+	            if(rangeInfo!=null) {
+					if(rangeInfo.rangeStartOrSingleField==null) {
+		            	rangeInfo.rangeStartOrSingleField = getSchemaQualifiedSearchSpecifierForField(r, fieldName, fieldSet); 
+		            	rangeInfo.rangeEndField = null;
+					}
+					rangeSpecs.put(fieldName, rangeInfo);
+					// Leave queryClause empty and fall through
+	            }
+			}
+		} else if(fieldSet.getUIType().equals("groupfield/structureddate")) {	// UI returns String
+			if(!(item instanceof String)) {
+				log.error("GenericSearch.buildQuery field of type structured date not passed String value: "
+						+ fieldName + " / value is: [" + item.getClass().getName() + "]");
+				return queryClause;
+			}
+			String value = (String)item;
+			if(!value.isEmpty()) {
+	            value = utcToLocalTZ(value + TIMESTAMP_SUFFIX);
+				if(isRangeStart) {
+					rangeInfo.rangeStartValue = timeValToTimestampQueryString(value);
+				} else if(isRangeEnd) {
+					rangeInfo.rangeEndValue = timeValToTimestampQueryString(value);
+				} else {	// Cannot do direct compare on structured date.
+					log.error("GenericSearch.buildQuery field of type structured date not passed Range value: "
+							+ fieldName );
+					return queryClause;
+				}
+				// Specify interval values
+	            if(rangeInfo!=null) {
+					if(rangeInfo.rangeStartOrSingleField==null) {
+						String searchSpec = getSchemaQualifiedSearchSpecifierForField(r, fieldName, fieldSet);
+		            	rangeInfo.rangeStartOrSingleField = searchSpec+"/dateEarliestScalarValue";
+						rangeInfo.rangeEndField = searchSpec+"/dateLatestScalarValue";
+					}
+					rangeSpecs.put(fieldName, rangeInfo);
+					// Leave queryClause empty and fall through
+	            }
+			}
+		} else if(item instanceof String) {	// Includes fields of types String, int, float, authRefs
+			String value = (String)item;
+			if(!value.isEmpty()) {
+				if(isRangeStart) {
+					rangeInfo.rangeStartValue = "'"+value+"'";
+				} else if(isRangeEnd) {
+					rangeInfo.rangeEndValue = "'"+value+"'";
+				} else {	// Simple equals test. If has wildcards, will be changed to ILIKE
+					queryClause = getAdvancedSearch(r,fieldName,fieldSet, value, "", EQUALS);
+				}
+				// These fields are all single - no intervals on basic fields
+	            if(rangeInfo!=null) {
+					if(rangeInfo.rangeStartOrSingleField==null) {
+		            	rangeInfo.rangeStartOrSingleField = getSchemaQualifiedSearchSpecifierForField(r, fieldName, fieldSet); 
+		            	rangeInfo.rangeEndField = null;
+					}
+					rangeSpecs.put(fieldName, rangeInfo);
+					// Leave queryClause empty and fall through
+	            }
+			}
+		} else if(item instanceof Boolean) { 
+			boolean value = ((Boolean)item).booleanValue(); 
+			queryClause = "("+(value?"":NOT_SPECIFIER)+getSchemaQualifiedSearchSpecifierForField(r, fieldName, fieldSet)+")";
+		}
+		
+		return queryClause;
 	}
         
        /**

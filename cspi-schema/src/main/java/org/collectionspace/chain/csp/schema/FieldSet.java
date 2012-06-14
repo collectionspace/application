@@ -9,6 +9,8 @@ package org.collectionspace.chain.csp.schema;
 import java.util.List;
 
 public interface FieldSet {
+	public static String QUERY_BEHAVIOR_NORMAL = "normal";
+	public static String QUERY_BEHAVIOR_IGNORE = "ignore";
 	public String getID();
 	public String[] getIDPath();
 
@@ -66,6 +68,8 @@ public interface FieldSet {
 	public boolean isReadOnly();
 	public void setRepeatSubRecord(Boolean var);
 	public String getUIType();
+	public String getQueryBehavior();
+	
 	public String getUIFunc();
 	public String getWithCSID();
 	public String getSearchType();
