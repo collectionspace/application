@@ -90,7 +90,8 @@ public class GenericSearch {
 	 * @param comparator
 	 * @return
 	 */
-	public static String getAdvancedSearch(Record r, String fieldname, FieldSet fieldSet, String value, String cast, String comparator){
+	public static String getAdvancedSearch(Record r, String fieldname, FieldSet fieldSet, 
+			String value, String wrapChar, String cast, String comparator){
 		if(!value.equals("")){
 			try{
 				// Escape various unescaped characters in the advanced search string
@@ -105,7 +106,7 @@ public class GenericSearch {
 				String fieldSpecifier = getSchemaQualifiedSearchSpecifierForField(r, fieldname, fieldSet);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
 				
-				return "("+fieldSpecifier+comparator+cast+"\""+value +"\")";
+				return "("+fieldSpecifier+comparator+cast+wrapChar+value+wrapChar+")";
 			}
 			catch(Exception e){
 				log.error("Problem creating advanced search specifier for field: "+fieldname);
@@ -471,7 +472,8 @@ public class GenericSearch {
 				} else if(isRangeEnd) {
 					rangeInfo.rangeEndValue = timeValToTimestampQueryString(value);
 				} else {	// Straight equals a date. May not be used currently
-					queryClause = getAdvancedSearch(r,fieldName,fieldSet, value, TIMESTAMP_CAST, EQUALS);
+					queryClause = getAdvancedSearch(r,fieldName,fieldSet, value, "\"", 
+													TIMESTAMP_CAST, EQUALS);
 				}
 				// Single field, not an interval
 	            if(rangeInfo!=null) {
@@ -514,13 +516,15 @@ public class GenericSearch {
 			}
 		} else if(item instanceof String) {	// Includes fields of types String, int, float, authRefs
 			String value = (String)item;
+			String wrapChar = getQueryValueWrapChar(fieldSet);
 			if(!value.isEmpty()) {
 				if(isRangeStart) {
-					rangeInfo.rangeStartValue = "'"+value+"'";
+					rangeInfo.rangeStartValue = wrapChar+value+wrapChar;
 				} else if(isRangeEnd) {
-					rangeInfo.rangeEndValue = "'"+value+"'";
+					rangeInfo.rangeEndValue = wrapChar+value+wrapChar;
 				} else {	// Simple equals test. If has wildcards, will be changed to ILIKE
-					queryClause = getAdvancedSearch(r,fieldName,fieldSet, value, "", EQUALS);
+					queryClause = getAdvancedSearch(r,fieldName,fieldSet, value, 
+											getQueryValueWrapChar(fieldSet), "", EQUALS);
 				}
 				// These fields are all single - no intervals on basic fields
 	            if(rangeInfo!=null) {
@@ -534,10 +538,25 @@ public class GenericSearch {
 			}
 		} else if(item instanceof Boolean) { 
 			boolean value = ((Boolean)item).booleanValue(); 
-			queryClause = "("+(value?"":NOT_SPECIFIER)+getSchemaQualifiedSearchSpecifierForField(r, fieldName, fieldSet)+")";
+			queryClause = "(" + getSchemaQualifiedSearchSpecifierForField(r, fieldName, fieldSet)
+							  + (value ? " = 1": " = 0") + ")";
 		}
 		
 		return queryClause;
+	}
+	
+	private static String getQueryValueWrapChar(FieldSet fs) {
+		String datatype = "";
+		if(fs != null && fs instanceof Field) {
+			datatype = ((Field)fs).getDataType();
+		}
+		if(FieldSet.DATATYPE_INT.equals(datatype)
+			|| FieldSet.DATATYPE_FLOAT.equals(datatype)) {	// Numeric - no quotes
+			return "";
+		}
+		// Expand to handle boolean...
+		// Assume String.
+		return "\"";
 	}
         
        /**
