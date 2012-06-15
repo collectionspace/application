@@ -736,19 +736,16 @@
 					<!-- Change options -->
 					<options>
 						<option id="">(none selected)</option>
-						<option id="back">back</option>
-						<option id="base">base</option>
-						<option id="bottom">bottom</option>
-						<option id="front">front</option>
-						<option id="inside">inside</option>
-						<option id="left">left</option>
-						<option id="obverse">obverse</option>
-						<option id="outside">outside</option>
-						<option id="recto">recto</option>
-						<option id="reverse">reverse</option>
-						<option id="right">right</option>
-						<option id="rim">rim</option>
-						<option id="top">top</option>
+						<option id="In exergue of coin">In exergue of coin</option>
+						<option id="On obverse of coin">On obverse of coin</option>
+						<option id="On obverse of coin, before">On obverse of coin, before</option>
+						<option id="On obverse of coin, behind">On obverse of coin, behind</option>
+						<option id="On reverse of coin">On reverse of coin</option>
+						<option id="On reverse of coin, above">On reverse of coin, above</option>
+						<option id="On reverse of coin, before">On reverse of coin, before</option>
+						<option id="On reverse of coin, behind">On reverse of coin, behind</option>
+						<option id="On reverse of coin, below">On reverse of coin, below</option>
+						<option id="On reverse of coin, beneath">On reverse of coin, beneath</option>
 						<option id="verso">verso</option>
 					</options>
 				</field>
