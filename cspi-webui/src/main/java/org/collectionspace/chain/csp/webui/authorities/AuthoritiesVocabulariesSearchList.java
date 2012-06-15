@@ -36,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AuthoritiesVocabulariesSearchList implements WebMethod {
+	final static String VOCAB_WILDCARD = "_ALL_";
 	private static final Logger log=LoggerFactory.getLogger(AuthoritiesVocabulariesSearchList.class);
 	private Record r;
 	private Instance n;
@@ -45,6 +46,7 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	//search all instances of an authority
 	public AuthoritiesVocabulariesSearchList(Record r,boolean search) {
 		this.r=r;
+		this.n=null;
 		this.search=search;
 	}
 
@@ -59,11 +61,15 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 
 		JSONObject out = new JSONObject();
 		try{
-			String postfix = "list";
-			if(this.search){
-				postfix = "search";
-			}
-			out=storage.retrieveJSON(auth_type+"/"+inst_type+"/"+csid+"/view/"+postfix, new JSONObject());
+			StringBuilder sb = new StringBuilder();
+			sb.append(auth_type);
+			sb.append("/");
+			sb.append(inst_type);
+			sb.append("/");
+			sb.append(csid);
+			sb.append((this.search)?"/view/search":"/view/list");
+			String path = sb.toString();
+			out=storage.retrieveJSON(path, new JSONObject());
 			out.put("csid",csid);
 			// Record type should be set properly from list results.
 			//out.put("recordtype",inst_type);
@@ -101,14 +107,9 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 	
 	
 	private void advancedSearch(Storage storage,UIRequest ui,JSONObject restriction, String resultstring, JSONObject params) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException{
-			GenericSearch.buildQuery(this.r,params, restriction);
-			resultstring="results";
-			search_or_list(storage,ui,restriction,resultstring);
-}
-
-	
-	private void search_or_list_vocab(JSONObject out, Instance n,Storage storage, JSONObject restriction, String resultstring, JSONObject temp ) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
-		search_or_list_vocab( out, this.r,  n, storage,  restriction,  resultstring,  temp );
+		GenericSearch.buildQuery(this.r,params, restriction);
+		resultstring="results";
+		search_or_list(storage,ui,restriction,resultstring);
 	}
 
 	
@@ -169,15 +170,41 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 		log.debug(restriction.toString());
 	}
 
+	private void search_or_list_all_vocabs(JSONObject out, Record rd, Storage storage,
+			JSONObject restriction, String resultstring ) 
+			throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
+		
+		JSONObject data = storage.getPathsJSON(rd.getID(),restriction);
+		
+		String[] paths = (String[]) data.get("listItems");
+		JSONObject pagination = new JSONObject();
+		if(data.has("pagination")){
+			pagination = data.getJSONObject("pagination");
+		}
+		
+		JSONArray members = new JSONArray();
+		for(String result : paths) {
+			// The storage will use the wildcard if we get on this record with no vocab subpath,
+			// so each item comes back into the cache with that URL
+			members.put(generateMiniRecord(storage,rd.getID(),VOCAB_WILDCARD,result));
+		}
+
+		out.put(resultstring,members);
+		
+		if(pagination!=null){
+			out.put("pagination",pagination);
+			int numInstances = rd.getNumInstances();
+			pagination.put("numInstances", Integer.toString(numInstances) );
+		}
+		log.debug(restriction.toString());
+	}
+
 	private void search_or_list(Storage storage,UIRequest ui,JSONObject restriction, String resultstring) throws UIException, ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 			
 			JSONObject results = getJSON(storage, restriction, resultstring);
 			//cache for record traverser
 			if(results.has("pagination") && results.getJSONObject("pagination").has("separatelists")){
-				String nid = "";
-				if(this.n !=null){
-					nid = this.n.getID();
-				}
+				String nid = (this.n == null)?"":this.n.getID();
 				GenericSearch.createTraverser(ui, this.r.getID(), nid, results, restriction, resultstring, Integer.valueOf(results.getJSONObject("pagination").getString("numInstances")));
 			}
 			ui.sendJSONResponse(results);
@@ -190,13 +217,16 @@ public class AuthoritiesVocabulariesSearchList implements WebMethod {
 			UIException {
 		JSONObject results = new JSONObject();
 		if(this.n==null) {
+			/*
 			for(Instance n : this.r.getAllInstances()) {
 				JSONObject results2=new JSONObject();
-				search_or_list_vocab(results2,n,storage,restriction,resultstring,results);
+				search_or_list_vocab(results2,this.r, n,storage,restriction,resultstring,results);
 				results = results2;
 			}
+			*/
+			search_or_list_all_vocabs(results,this.r,storage,restriction,resultstring);
 		} else {
-			search_or_list_vocab(results,this.n,storage,restriction,resultstring,new JSONObject());				
+			search_or_list_vocab(results,this.r,this.n,storage,restriction,resultstring,new JSONObject());				
 		}
 		return results;
 	}
