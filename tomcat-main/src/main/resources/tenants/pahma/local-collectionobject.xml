@@ -61,7 +61,7 @@
 		</field>
 		<repeat id="titleGroupList/titleGroup">
 			<!-- Add mini values -->
-			<field id="title" mini="summary,search,list,relate"/>
+			<field id="title" mini="search,list,relate"/>
 			<field id="titleLanguage">
 				<enum>
 					<!-- Change default and blank-value -->
@@ -160,7 +160,7 @@
 				</enum>
 			</field>
 			<!-- Add in-title and mini values -->
-			<field id="objectName" in-title="yes" mini="summary,search,list,relate">
+			<field id="objectName" in-title="yes" mini="search,list,relate">
 				<!-- Add title-selector -->
 				<title-selector>titleBar-object-identification-object-name</title-selector>
 			</field>
@@ -170,7 +170,7 @@
 		
 		<repeat id="taxonomicIdentGroupList/taxonomicIdentGroup">
 			<!-- Add ui-search -->
-			<field id="taxon" ui-search="repeatable"/>
+			<field id="taxon" ui-search="repeatable" mini="search,list,relate"/>
 		</repeat>
 		
 		<!-- Local fields -->
