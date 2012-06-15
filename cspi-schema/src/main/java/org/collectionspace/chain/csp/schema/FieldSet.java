@@ -11,6 +11,10 @@ import java.util.List;
 public interface FieldSet {
 	public static String QUERY_BEHAVIOR_NORMAL = "normal";
 	public static String QUERY_BEHAVIOR_IGNORE = "ignore";
+	public static String DATATYPE_STRING = "string";
+	public static String DATATYPE_INT = "integer";
+	public static String DATATYPE_FLOAT = "float";
+	public static String DATATYPE_BOOLEAN = "boolean";
 	public String getID();
 	public String[] getIDPath();
 
