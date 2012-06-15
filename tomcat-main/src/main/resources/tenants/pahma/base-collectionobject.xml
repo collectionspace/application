@@ -56,8 +56,9 @@
     <field id="nametitle" mini="summary,search,list,relate" exists-in-services="false">
       <selector>object-identification-object-nametitle</selector>
       <merges>
-        <merge id="title" rank="1"/>
-        <merge id="objectName" rank="2"/>
+        <!-- FIXME: Switch objectName and title rank here, but figure out how to do it in the patch file -->	    
+        <merge id="objectName" rank="1"/>
+        <merge id="title" rank="2"/>
         <!-- FIXME: Add taxon to merge here, but figure out how to do it in the patch file -->
         <merge id="taxon" rank="3"/>
       </merges>
