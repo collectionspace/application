@@ -1275,8 +1275,6 @@
 	</section>
 
 	<section id="objectCollectionInformation">
-		<!-- Add ui-search -->
-		<field id="fieldCollectionPlace" ui-search="repeatable"/>
 		<repeat id="fieldCollectionSources">
 			<!-- Add ui-search and add concept-concept to autocomplete -->
 			<field id="fieldCollectionSource" ui-search="repeatable" autocomplete="person-person,concept-concept"/>
@@ -1321,7 +1319,7 @@
 		</repeat>
 		
 		<repeat id="pahmaFieldCollectionPlaceList" section="pahma">
-			<field id="pahmaFieldCollectionPlace" section="pahma" autocomplete="place-place"/>
+			<field id="pahmaFieldCollectionPlace" section="pahma" autocomplete="place-place" ui-search="repeatable"/>
 		</repeat>
 		
 		<field id="pahmaFieldLocVerbatim" section="pahma"/>
