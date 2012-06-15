@@ -565,6 +565,10 @@ public class Record implements FieldParent {
 		return instances.values().toArray(new Instance[0]);
 	}
 
+	public int getNumInstances() {
+		return instances.size();
+	}
+
 	public Instance getInstance(String key) {
 		return instances.get(key);
 	}

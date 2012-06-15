@@ -55,6 +55,9 @@ public class ConfiguredVocabStorage extends GenericStorage {
 	
 	final static String XPATH_FIRST_EL = "[1]";
 	final static String XPATH_GENERIC_FIRST_EL = "*[1]";
+	final static String ITEMS_SUFFIX = "/items";
+	final static String VOCAB_WILDCARD = "_ALL_";
+	final static String ALL_VOCAB_ITEMS = "/"+VOCAB_WILDCARD+ITEMS_SUFFIX;
 
 	public ConfiguredVocabStorage(Record r,ServicesConnection conn) throws  DocumentException, IOException {
 		super(r,conn);
@@ -197,7 +200,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			}
 			else{
 				vocab = RefName.shortIdToPath(filePath);
-				pathurl ="/"+r.getServicesURL()+"/"+vocab+"/items";
+				pathurl ="/"+r.getServicesURL()+"/"+vocab+ITEMS_SUFFIX;
 				for(String section : r.getServicesRecordPaths()) {
 					String path=r.getServicesRecordPath(section);
 					String[] record_path=path.split(":",2);
@@ -335,13 +338,16 @@ public class ConfiguredVocabStorage extends GenericStorage {
 			Integer num = 0;
 			String[] parts=filePath.split("/");
 			//deal with different url structures
-			String vocab,csid;
+			String vocab, csid;
 			if("_direct".equals(parts[0])) { 
 				vocab=parts[2];
 				csid=parts[3];
 				num=4;
 			} else {
-				vocab = RefName.shortIdToPath(parts[0]);
+				vocab=parts[0];
+				if(!VOCAB_WILDCARD.equals(vocab)) {
+					vocab = RefName.shortIdToPath(vocab);
+				}
 				csid=parts[1];	
 				num = 2;
 			}		
@@ -593,8 +599,13 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		try {
 			JSONObject out = new JSONObject();
 			List<String> list=new ArrayList<String>();	
-			String vocab = RefName.shortIdToPath(rootPath);
-			String url="/"+r.getServicesURL()+"/"+vocab+"/items";
+			String url;
+			if(rootPath.isEmpty()) {
+				url="/"+r.getServicesURL()+ALL_VOCAB_ITEMS;
+			} else {
+				String vocab = RefName.shortIdToPath(rootPath);
+				url="/"+r.getServicesURL()+"/"+vocab+ITEMS_SUFFIX;
+			}
 				
 			String path = getRestrictedPath(url, restrictions, r.getServicesSearchKeyword(), "", true, getDisplayNameKey() );
 
