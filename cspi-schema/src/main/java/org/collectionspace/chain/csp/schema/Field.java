@@ -111,6 +111,7 @@ public class Field implements FieldSet {
 
 		utils.initStrings(section,"@ui-func", "");
 		utils.initStrings(section,"@ui-args", "");
+		utils.initStrings(section,"@ui-search-args", "");		
 		utils.initStrings(section,"@ui-type", "plain");
 		utils.initStrings(section,"@ui-search", "");
 		utils.initStrings(section,"@query-behavior", QUERY_BEHAVIOR_NORMAL);
@@ -229,6 +230,9 @@ public class Field implements FieldSet {
 	public String getLabel() {
 		return utils.getString("label");
 	}
+	public void setLabel(String val) {
+		utils.setString("label",val);
+	}
 	public String getUIprefix(){
 		return getPreSelector() + utils.getString("parentID") + "-";
 	}
@@ -256,8 +260,20 @@ public class Field implements FieldSet {
 		return utils.getString("@ui-func");
 	}
 
+	public void setUIFunc(String val) {
+		utils.setString("@ui-func", val);
+	}
+	
 	public String getUIArgs() {
 		return utils.getString("@ui-args");
+	}
+
+	public void setUIArgs(String val) {
+		utils.setString("@ui-args", val);
+	}
+	
+	public String getUISearchArgs() {
+		return utils.getString("@ui-search-args");
 	}
 	
 	public Boolean isInTitle() {
@@ -302,6 +318,9 @@ public class Field implements FieldSet {
 	}
 	public boolean isReadOnly(){
 		return utils.getBoolean("@ui-readonly");
+	}
+	public void setReadOnly(boolean val){
+		utils.setBoolean("@ui-readonly", val);
 	}
 	
 	public boolean isRepeatSubRecord() {
@@ -351,6 +370,10 @@ public class Field implements FieldSet {
 	//XXX could be used for validation at the app layer
 	public String getDataType(){
 		return utils.getString("@datatype");
+	}
+	
+	public void setDataType(String val){
+		utils.setString("@datatype", val);
 	}
 
 	void setType(String in) {
