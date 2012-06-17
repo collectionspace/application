@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.config.ReadOnlySection;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +31,8 @@ import org.slf4j.LoggerFactory;
 public class Record implements FieldParent {
 	
 	public static final String SUPPORTS_LOCKING = "supportslocking";
+	public static final String RANGE_START_SUFFIX = "Start";
+	public static final String RANGE_END_SUFFIX = "End";
 	
 	private static final Logger log = LoggerFactory.getLogger(Record.class);
 	protected SchemaUtils utils = new SchemaUtils();
@@ -242,13 +245,30 @@ public class Record implements FieldParent {
 			else if(searchf.getSearchType().equals("range")){
 				searchf.getRecord().addUISection("search", searchf.getID());
 //need to add label for main bit as well...
-				Field fst = new Field(searchf.getRecord(),searchf.getID()+"Start");
-				Field fed = new Field(searchf.getRecord(),searchf.getID()+"End");
+				Field fst = new Field(searchf.getRecord(),searchf.getID()+RANGE_START_SUFFIX);
+				Field fed = new Field(searchf.getRecord(),searchf.getID()+RANGE_END_SUFFIX);
 
 				fst.setSearchType("range");
 				fed.setSearchType("range");
 				fed.setType(searchf.getUIType());
 				fst.setType(searchf.getUIType());
+
+				if(searchf.getUIType().equals("computed")) {
+					Field field = (Field) searchf;
+					// Copy the necessary attributes into the start and end fields
+					fst.setUIFunc(field.getUIFunc());
+					fst.setDataType(field.getDataType());
+					fst.setLabel(field.getLabel());
+					fst.setReadOnly(field.isReadOnly());
+					fst.setUIArgs(suffixUIArgs(field.getUISearchArgs().equals("") ? field.getUIArgs() : field.getUISearchArgs(), RANGE_START_SUFFIX));
+					
+					fed.setUIFunc(field.getUIFunc());
+					fed.setDataType(field.getDataType());
+					fed.setLabel(field.getLabel());
+					fed.setReadOnly(field.isReadOnly());
+					fed.setUIArgs(suffixUIArgs(field.getUISearchArgs().equals("") ? field.getUIArgs() : field.getUISearchArgs(), RANGE_END_SUFFIX));
+				}
+				
 				searchFieldFullList.put(fst.getID(),fst);
 				searchFieldFullList.put(fed.getID(),fed);
 			}
@@ -258,6 +278,16 @@ public class Record implements FieldParent {
 		}
 	}
 	
+	private String suffixUIArgs(String args, String suffix) {
+		String[] elements = args.split(",");
+
+		for (int i=0; i<elements.length; i++) {
+			String element = elements[i];
+			elements[i] = element + suffix;
+		}
+		
+		return StringUtils.join(elements, ",");
+	}
 
 	public void addNestedFieldList(String r){
 		nestedFieldList.put(r,r);
