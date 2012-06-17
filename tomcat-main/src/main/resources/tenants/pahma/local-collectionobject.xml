@@ -188,13 +188,31 @@
 			<field id="pahmaAltNumType" section="pahma" in-tab="yes" seperate_ui_container="true">
 				<selector>collection-object-pahmaAltNumType</selector>
 				<options>
-					<option id="notStated" default="yes">(none selected)</option>
-					<option id="previousMuseumNumber">previous Museum number</option>
-					<option id="previousOwnersNumber">previous owner's number</option>
-					<option id="fieldNumber">field number</option>
-					<option id="burialNumber">burial number</option>
-					<option id="previousNumber">previous number</option>
-					<option id="unknown">unknown</option>
+					<option id="" default="yes">(none selected)</option>
+					<option id="additional number">additional number</option>
+					<option id="attributed pahma number">attributed pahma number</option>
+					<option id="burial number">burial number</option>
+					<option id="moac subobjid">moac subobjid</option>
+					<option id="museum number (recataloged to)">museum number (recataloged to)</option>
+					<option id="previous number">previous number</option>
+					<option id="previous number (albert bender’s number)">previous number (albert bender’s number)</option>
+					<option id="previous number (bascom’s number)">previous number (bascom’s number)</option>
+					<option id="previous number (collector's original number)">previous number (collector's original number)</option>
+					<option id="previous number (design dept.)">previous number (design dept.)</option>
+					<option id="previous number (mvc number, mossman-vitale collection)">previous number (mvc number, mossman-vitale collection)</option>
+					<option id="previous number (ucas: university of california archaeological survey)">previous number (ucas: university of california archaeological survey)</option>
+					<option id="song number">song number</option>
+					<option id="tag">tag</option>
+					<option id="temporary number">temporary number</option>
+					<option id="(null)">(null)</option>
+					<option id="associated catalog number">associated catalog number</option>
+					<option id="field number">field number</option>
+					<option id="original number">original number</option>
+					<option id="previous museum number (recataloged from)">previous museum number (recataloged from)</option>
+					<option id="previous number (anson blake’s number)">previous number (anson blake’s number)</option>
+					<option id="previous number (donor's original number)">previous number (donor's original number)</option>
+					<option id="previous number (uc paleontology department)">previous number (uc paleontology department)</option>
+					<option id="tb (temporary basket) number">tb (temporary basket) number</option>
 				</options>
 			</field>
 			<field id="pahmaAltNumNote" section="pahma" in-tab="yes"> <!-- ######## THIS FIELD ADDED BY PAHMA, BUT VALUES DID NOT GET ADDED TO DB ####### -->
