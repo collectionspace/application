@@ -209,7 +209,7 @@ public class RecordTraverser implements WebMethod  {
 		JSONObject results = new JSONObject();
 		Record myr = this.spec.getRecord(base);
 		if(this.spec.getRecord(base).isType("record")){
-			this.searcher = new RecordSearchList(myr,true);
+			this.searcher = new RecordSearchList(myr,RecordSearchList.MODE_SEARCH);
 			results = this.searcher.getJSON(storage,restriction,key,base);
 
 		}

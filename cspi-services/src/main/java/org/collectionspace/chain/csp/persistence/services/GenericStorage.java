@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class GenericStorage  implements ContextualisedStorage {
+	public final static String SEARCH_RELATED_TO_CSID_AS_SUBJECT = "rtSbj";
 
 	private static final Logger log=LoggerFactory.getLogger(GenericStorage.class);
 	
@@ -1544,6 +1545,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			if(restrictions.has("keywords")) {
 				/* Keyword search */
 				String data=URLEncoder.encode(restrictions.getString("keywords"),"UTF-8");
+				// TODO - should ensure data is non-empty
 				postfix += keywordparam+"="+data+"&";
 			} 
 			if(restrictions.has("advancedsearch")) {
@@ -1576,6 +1578,10 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 				postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
 				queryadded = true;
+			}
+			if(restrictions.has(SEARCH_RELATED_TO_CSID_AS_SUBJECT)){
+				postfix += SEARCH_RELATED_TO_CSID_AS_SUBJECT+"="
+							+restrictions.getString(SEARCH_RELATED_TO_CSID_AS_SUBJECT)+"&";
 			}
 		}
 

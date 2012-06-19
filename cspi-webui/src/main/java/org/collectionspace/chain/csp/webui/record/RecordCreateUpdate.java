@@ -50,10 +50,10 @@ public class RecordCreateUpdate implements WebMethod {
 		this.url_base=r.getWebURL();
 		this.base=r.getID();
 		this.create=create;
-		this.reader=new RecordRead(r);
+		this.reader=new RecordRead(r,true);
 		this.avi = new AuthoritiesVocabulariesInitialize(r,false);
 		this.reader.configure(spec);
-		this.searcher = new RecordSearchList(r,false);
+		this.searcher = new RecordSearchList(r,RecordSearchList.MODE_LIST);
 	}
 		
 	private void deleteAllRelations(Storage storage,String csid) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {

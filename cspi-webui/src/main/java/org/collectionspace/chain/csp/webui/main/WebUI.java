@@ -246,9 +246,9 @@ public class WebUI implements CSP, UI, Configurable {
 			else if(r.isType("record") || r.isType("blob") || r.isType("authorizationdata")){
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord(r.getID())));
-				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
-				addMethod(Operation.CREATE,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
-				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,RecordSearchList.MODE_SEARCH));
+				addMethod(Operation.CREATE,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,RecordSearchList.MODE_SEARCH));
+				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,RecordSearchList.MODE_LIST));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
 				addMethod(Operation.READ,new String[]{"basic",r.getWebURL()},1,new RecordRead(r,true));
 				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
@@ -260,9 +260,11 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"procedure"},1,new RecordRelated(r)); 
 				
 				for(Record r2 : spec.getAllRecords()) {
-					 if(r.isType("record")){
-						 addMethod(Operation.READ,new String[]{r.getWebURL(),r2.getWebURL()},1,new RecordRelated(r,r2)); 
-					 }
+					if(r.isType("record")){
+						// We do not actually care about the type of r, but rather just the CSID tail.
+						// We'll search on r2's related to the CSID tail.
+						addMethod(Operation.READ,new String[]{r.getWebURL(),r2.getWebURL()},1,new RecordSearchList(r2,RecordSearchList.MODE_SEARCH_RELATED)); 
+					}
 				}
 				
 			}
@@ -282,8 +284,8 @@ public class WebUI implements CSP, UI, Configurable {
 				// XXX this isn't right but it does work. NEEDS to have it's own methods rather than piggy backing on RECORD
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"__auto"},0,new WebAuto());
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"autocomplete"},0,new WebAutoComplete(spec.getRecord(r.getID())));
-				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
-				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,false));
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,RecordSearchList.MODE_SEARCH));
+				addMethod(Operation.READ,new String[]{r.getWebURL()},0,new RecordSearchList(r,RecordSearchList.MODE_LIST));
 				addMethod(Operation.READ,new String[]{r.getWebURL()},1,new RecordRead(r));
 				addMethod(Operation.DELETE,new String[]{r.getWebURL()},1,new RecordDelete(r.getID()));
 				addMethod(Operation.CREATE,new String[]{r.getWebURL()},0,new RecordCreateUpdate(r,true));
@@ -291,7 +293,7 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 			}
 			else if(r.isType("searchall")){
-				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,true));
+				addMethod(Operation.READ,new String[]{r.getWebURL(),"search"},0,new RecordSearchList(r,RecordSearchList.MODE_SEARCH));
 			}
 			
 		}

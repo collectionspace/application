@@ -40,7 +40,7 @@ public class RecordRead implements WebMethod {
 
 	private RecordSearchList searcher;
 	private RecordAuthorities termsused;
-	private RecordRelated relatedobj;
+	private RecordSearchList relatedObjSearcher;
 	private Spec spec;
 	private boolean record_type;
 	private boolean showbasicinfoonly;
@@ -52,7 +52,7 @@ public class RecordRead implements WebMethod {
 		this.spec=r.getSpec();
 		this.record = r;
 		this.showbasicinfoonly = false;
-		this.searcher = new RecordSearchList(r,false);
+		this.searcher = new RecordSearchList(r,RecordSearchList.MODE_LIST);
 		this.termsused = new RecordAuthorities(r);
 		record_type=r.isType("record");
 		authorization_type=r.isType("authorizationdata");
@@ -62,15 +62,15 @@ public class RecordRead implements WebMethod {
 		this.spec=r.getSpec();
 		this.record = r;
 		this.showbasicinfoonly = showbasicinfoonly;
-		this.searcher = new RecordSearchList(r,false);
+		this.searcher = new RecordSearchList(r,RecordSearchList.MODE_LIST);
 		this.termsused = new RecordAuthorities(r);
 		record_type=r.isType("record");
 		authorization_type=r.isType("authorizationdata");
 	}
 		
 
-	
-	private JSONObject createRelations(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	// Builds an object, that has a map of record type to Array mappings.
+	private JSONObject buildRelationsSection(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
 		JSONObject recordtypes=new JSONObject();
 		JSONObject restrictions=new JSONObject();
 		JSONObject out=new JSONObject();
@@ -78,10 +78,15 @@ public class RecordRead implements WebMethod {
 		restrictions.put("src",base+"/"+csid);
 		//loop over all procedure/recordtypes
 		for(Record thisr : spec.getAllRecords()) {
-			if(thisr.isType("record")||thisr.isType("procedure")){
-				this.relatedobj = new RecordRelated(this.record,thisr);
-				this.relatedobj.configure(spec);
-				out = this.relatedobj.getRelations(storage, restrictions, recordtypes, paginations);
+			if((thisr.isType("procedure")&&!thisr.isType("vocabulary"))
+				|| "collection-object".equals(thisr.getID())) {
+				this.relatedObjSearcher = new RecordSearchList(thisr, RecordSearchList.MODE_SEARCH_RELATED);
+				this.relatedObjSearcher.configure(spec);
+				JSONObject temp = this.relatedObjSearcher.getResults(storage, restrictions, "results", csid);
+				JSONArray results = temp.getJSONArray("results");
+				if(results.length()>0) {
+					out.put(thisr.getWebURL(), results);
+				}
 			}
 		}
 		return out;
@@ -330,9 +335,9 @@ public class RecordRead implements WebMethod {
 				else{
 					if(!showbasicinfoonly){
 						JSONObject tusd = this.termsused.getTermsUsed(storage, base+"/"+csid, new JSONObject());
-						JSONObject relations=createRelations(storage,csid);
-						out.put("relations",relations.getJSONObject("results"));
 						out.put("termsUsed",tusd.getJSONArray("results"));
+						JSONObject relations=buildRelationsSection(storage,csid);
+						out.put("relations",relations);
 					}
 				}
 				
