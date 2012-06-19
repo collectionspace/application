@@ -110,7 +110,7 @@ public class RecordRelated implements WebMethod {
 		JSONObject myres = restriction;
 		if(this.relatedrecord ==null){ //return all of the procedures etc
 			for(Record r2 : this.record.getSpec().getAllRecords()) {
-				if(r2.isType("procedure")){
+				if(r2.isType("procedure")&&!r2.isType("vocabulary")){
 					myres.put("dstType", r2.getServicesTenantSg());
 					getRelation(storage,myres,recordtypes,paginated);
 				}

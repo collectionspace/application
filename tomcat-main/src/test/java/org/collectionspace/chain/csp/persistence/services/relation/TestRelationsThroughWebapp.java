@@ -85,6 +85,8 @@ public class TestRelationsThroughWebapp {
 		JSONObject mini1 = rel1.getJSONObject(0);
 		assertEquals("cataloging", mini1.getString("recordtype"));
 		assertEquals(mini1.getString("csid"), path3[2]);
+		/*
+		 * relid and relationshiptype are no longer provided in the relation payload
 		String rida = mini1.getString("relid");
 
 		// pull the relation itself, and check it
@@ -98,6 +100,7 @@ public class TestRelationsThroughWebapp {
 		JSONObject dst1 = rd1.getJSONObject("target");
 		assertEquals("cataloging", dst1.getString("recordtype"));
 		assertEquals(path3[2], dst1.get("csid"));
+		*/
 
 		// Check that 2 has no relations at all
 		out = tester.GETData(id2, jetty);
@@ -127,33 +130,36 @@ public class TestRelationsThroughWebapp {
 		// check desintations
 		assertEquals("cataloging", rel31.getString("recordtype"));
 		assertEquals(rel31.getString("csid"), path1[2]);
-		String rid31 = rel31.getString("relid");
+		/*
+		 * relid no longer provided in the payloads
+		 */
+		//String rid31 = rel31.getString("relid");
 		assertEquals("cataloging", rel32.getString("recordtype"));
 		assertEquals(rel32.getString("csid"), path2[2]);
-		String rid32 = rel32.getString("relid");
+		//String rid32 = rel32.getString("relid");
 		// check actual records
 		// 3 -> 1
-		out = tester.GETData("/relationships/" + rid31, jetty);
-		JSONObject rd31 = new JSONObject(out.getContent());
-		assertEquals("affects", rd31.getString("type"));
-		assertEquals(rid31, rd31.getString("csid"));
-		JSONObject src31 = rd31.getJSONObject("source");
-		assertEquals("cataloging", src31.getString("recordtype"));
-		assertEquals(path3[2], src31.get("csid"));
-		JSONObject dst31 = rd31.getJSONObject("target");
-		assertEquals("cataloging", dst31.getString("recordtype"));
-		assertEquals(path1[2], dst31.get("csid"));
+		// out = tester.GETData("/relationships/" + rid31, jetty);
+		// JSONObject rd31 = new JSONObject(out.getContent());
+		// assertEquals("affects", rd31.getString("type"));
+		// assertEquals(rid31, rd31.getString("csid"));
+		// JSONObject src31 = rd31.getJSONObject("source");
+		// assertEquals("cataloging", src31.getString("recordtype"));
+		// assertEquals(path3[2], src31.get("csid"));
+		// JSONObject dst31 = rd31.getJSONObject("target");
+		// assertEquals("cataloging", dst31.getString("recordtype"));
+		// assertEquals(path1[2], dst31.get("csid"));
 		// 3 -> 2
-		out = tester.GETData("/relationships/" + rid32, jetty);
-		JSONObject rd32 = new JSONObject(out.getContent());
-		assertEquals("affects", rd32.getString("type"));
-		assertEquals(rid32, rd32.getString("csid"));
-		JSONObject src32 = rd32.getJSONObject("source");
-		assertEquals("cataloging", src32.getString("recordtype"));
-		assertEquals(path3[2], src32.get("csid"));
-		JSONObject dst32 = rd32.getJSONObject("target");
-		assertEquals("cataloging", dst32.getString("recordtype"));
-		assertEquals(path2[2], dst32.get("csid"));
+		// out = tester.GETData("/relationships/" + rid32, jetty);
+		// JSONObject rd32 = new JSONObject(out.getContent());
+		// assertEquals("affects", rd32.getString("type"));
+		// assertEquals(rid32, rd32.getString("csid"));
+		// JSONObject src32 = rd32.getJSONObject("source");
+		// assertEquals("cataloging", src32.getString("recordtype"));
+		// assertEquals(path3[2], src32.get("csid"));
+		// JSONObject dst32 = rd32.getJSONObject("target");
+		// assertEquals("cataloging", dst32.getString("recordtype"));
+		// assertEquals(path2[2], dst32.get("csid"));
 
 		/* clean up */
 		tester.DELETEData("/relationships/" + csid1, jetty);
@@ -382,8 +388,8 @@ public class TestRelationsThroughWebapp {
 		assertNotNull(rel3);
 		assertEquals(0, rel3.length());
 		// Update to 1 -> 3, making one-way true
-		String csid2 = rel1.getJSONObject(0).getString("relid");
-		out = tester.PUTData("/relationships/" + csid2, createRelation(path1[1],
+		//String csid2 = rel1.getJSONObject(0).getString("relid");
+		out = tester.PUTData("/relationships/" + csid1, createRelation(path1[1],
 				path1[2], "affects", path3[1], path3[2], true), jetty);
 
 		// Check it
@@ -403,7 +409,7 @@ public class TestRelationsThroughWebapp {
 		assertNotNull(rel3);
 		assertEquals(0, rel3.length());
 		// Update to 3 -> 1, keeping one way true
-		out = tester.PUTData("/relationships/" + csid2, createRelation(path3[1],
+		out = tester.PUTData("/relationships/" + csid1, createRelation(path3[1],
 				path3[2], "affects", path1[1], path1[2], true), jetty);
 
 		// Check it
@@ -424,7 +430,7 @@ public class TestRelationsThroughWebapp {
 		assertNotNull(rel3a);
 		assertEquals(1, rel3a.length());
 		// Update to 1 <-> 2, making one way false
-		out = tester.PUTData("/relationships/" + csid2, createRelation(path1[1],
+		out = tester.PUTData("/relationships/" + csid1, createRelation(path1[1],
 				path1[2], "affects", path2[1], path2[2], false), jetty);
 
 		// Check it
