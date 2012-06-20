@@ -138,8 +138,8 @@
 	
 	<section id="objectCollectionInformation">
 		<repeat id="fieldCollectors">
-			<!-- Add ui-search, and add institution authority to autocomplete -->
-			<field id="fieldCollector" autocomplete="person-person,organization-organization,organization-institution" ui-search="repeatable"/>
+			<!-- Add ui-search, and remove person authority from autocomplete -->
+			<field id="fieldCollector" autocomplete="organization-organization" ui-search="repeatable"/>
 		</repeat>
 	</section>
 
