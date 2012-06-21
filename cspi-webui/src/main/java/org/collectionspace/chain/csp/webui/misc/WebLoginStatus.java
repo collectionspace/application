@@ -6,13 +6,15 @@
  */
 package org.collectionspace.chain.csp.webui.misc;
 
+import javax.servlet.http.HttpSession;
+
 import org.collectionspace.chain.csp.schema.Instance;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.csp.webui.main.Request;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.webui.main.WebUI;
-import org.collectionspace.chain.csp.webui.record.RecordSearchList;
+//import org.collectionspace.chain.csp.webui.record.RecordSearchList;
 import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.Storage;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
@@ -175,8 +177,9 @@ public class WebLoginStatus  implements WebMethod {
 		try{
 			Storage storage = in.getStorage();
 			JSONObject output= new JSONObject();
-			if(request.getSession() != null && request.getSession().getValue(UISession.USERID) != null ){
-				if(request.getSession().getValue(UISession.USERID).equals("")){
+			UISession uiSession = request.getSession();
+			if(uiSession != null && uiSession.getValue(UISession.USERID) != null ){
+				if(uiSession.getValue(UISession.USERID).equals("")){
 					output.put("login", false);
 				}				
 				else{
@@ -187,6 +190,15 @@ public class WebLoginStatus  implements WebMethod {
 						output.put("screenName",perms.getString("screenName"));
 						output.put("userId",perms.getString("userId"));
 						output.put("login", true);
+						int maxInterval = 0;
+						UIRequest uir = in.getUIRequest();
+						if(uir != null) {
+							HttpSession httpSession = request.getHttpSession();
+							if(httpSession != null) {
+								maxInterval = httpSession.getMaxInactiveInterval();
+							}
+						}
+						output.put("maxInactive", maxInterval);
 					}
 					else{
 						output.put("login", false);

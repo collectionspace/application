@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.collectionspace.chain.util.misc.JSON;
@@ -211,6 +213,9 @@ public class CompositeWebUIRequestPart implements UIRequest {
 
 	@Override
 	public UISession getSession() throws UIException { return parent.getSession(); }
+
+	public  HttpSession getHttpSession() { return null; }
+
 
 	@Override
 	public TTYOutputter getTTYOutputter() throws UIException {

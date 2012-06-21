@@ -27,6 +27,7 @@ import java.util.Set;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.input.TeeInputStream;
@@ -442,4 +443,5 @@ public class WebUIRequest implements UIRequest {
 	}
 
 	public UISession getSession() throws UIException { return session; }
+	public  HttpSession getHttpSession() { return request.getSession(true); }
 }

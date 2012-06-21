@@ -257,13 +257,21 @@ public class WebUI implements CSP, UI, Configurable {
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"source-vocab"},1,new VocabRedirector(r));
 				addMethod(Operation.READ,new String[]{r.getWebURL(),"authorities"},1,new RecordAuthorities(r));
 
-				addMethod(Operation.READ,new String[]{r.getWebURL(),"procedures"},1,new RecordRelated(r)); 
+				//addMethod(Operation.READ,new String[]{r.getWebURL(),"procedures"},1,new RecordRelated(r)); 
 				
-				for(Record r2 : spec.getAllRecords()) {
-					if(r.isType("record")){
-						// We do not actually care about the type of r, but rather just the CSID tail.
-						// We'll search on r2's related to the CSID tail.
-						addMethod(Operation.READ,new String[]{r.getWebURL(),r2.getWebURL()},1,new RecordSearchList(r2,RecordSearchList.MODE_SEARCH_RELATED)); 
+				// All the relatable records need to be able to fetch the other relatable records.
+				if((r.isType("procedure") && !r.isType("vocabulary"))
+						|| "collection-object".equals(r.getID())) {
+					for(Record r2 : spec.getAllRecords()) {
+						if((r2.isType("procedure") && !r2.isType("vocabulary"))
+								|| "collection-object".equals(r2.getID())) {
+							// We do not actually care about the type of r, but rather just the CSID tail.
+							// We'll search on r2's related to the CSID tail.
+							addMethod(Operation.READ,new String[]{r.getWebURL(),r2.getWebURL()},1,new RecordSearchList(r2,RecordSearchList.MODE_SEARCH_RELATED)); 
+						} else if(r2.isType("searchall")){
+							// Allow to ask for all procedures related to this record. Use SearchAll with a related search.
+							addMethod(Operation.READ,new String[]{r.getWebURL(),"procedures"},1,new RecordSearchList(r2,RecordSearchList.MODE_SEARCH_RELATED, "procedure"));
+						}
 					}
 				}
 				

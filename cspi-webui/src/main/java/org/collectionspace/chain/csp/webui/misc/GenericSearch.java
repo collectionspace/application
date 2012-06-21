@@ -63,6 +63,7 @@ public class GenericSearch {
 	final static String DATE_CAST              = " DATE ";
 	final static String TIMESTAMP_CAST         = " TIMESTAMP ";
 	public final static String SEARCH_RELATED_TO_CSID_AS_SUBJECT = "rtSbj";
+	public final static String SEARCH_ALL_GROUP = "searchAllGroup";
 
 	private static class RangeInfo {
 		private final Logger logger = LoggerFactory.getLogger(RangeInfo.class);

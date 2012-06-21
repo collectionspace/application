@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.LineIterator;
 import org.collectionspace.csp.api.ui.Operation;
@@ -209,4 +211,6 @@ public class StreamUIRequest implements UIRequest {
 	}
 
 	public UISession getSession() { return null; } // XXX support this?
+	public  HttpSession getHttpSession() { return null; }
+
 }

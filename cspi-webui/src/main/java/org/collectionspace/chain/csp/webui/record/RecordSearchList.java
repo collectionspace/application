@@ -46,12 +46,18 @@ public class RecordSearchList implements WebMethod {
 	private Spec spec;
 	private Record r;
 	private Map<String,String> type_to_url=new HashMap<String,String>();
+	private String searchAllGroup;
 	
 	public RecordSearchList(Record r, int mode) {
+		this(r, mode, null);
+	}
+	
+	public RecordSearchList(Record r, int mode, String searchAllGroup) {
 		this.r = r;
 		this.spec=r.getSpec();
 		this.base=r.getID();
 		this.mode=mode;
+		this.searchAllGroup = searchAllGroup;
 	}
 	
 	/**
@@ -288,6 +294,9 @@ public class RecordSearchList implements WebMethod {
 			if((mode==MODE_SEARCH_RELATED) && !path.isEmpty()) {
 				// This is a related to case
 				restriction.put(GenericSearch.SEARCH_RELATED_TO_CSID_AS_SUBJECT, path);
+			}
+			if((searchAllGroup != null) && r.isType("searchall")) { // Add a new service group name to 
+				restriction.put(GenericSearch.SEARCH_ALL_GROUP, searchAllGroup);
 			}
 			results = getJSON(storage,restriction,key,base);
 		}

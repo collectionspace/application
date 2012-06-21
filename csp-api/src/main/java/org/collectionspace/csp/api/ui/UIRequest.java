@@ -8,6 +8,8 @@ package org.collectionspace.csp.api.ui;
 
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -54,6 +56,7 @@ public interface UIRequest {
 	public Operation getRequestedOperation() throws UIException;
 	
 	public UISession getSession() throws UIException;
+	public  HttpSession getHttpSession();
 
 
 }

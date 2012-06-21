@@ -56,6 +56,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GenericStorage  implements ContextualisedStorage {
 	public final static String SEARCH_RELATED_TO_CSID_AS_SUBJECT = "rtSbj";
+	public final static String SEARCH_ALL_GROUP = "searchAllGroup";
 
 	private static final Logger log=LoggerFactory.getLogger(GenericStorage.class);
 	
@@ -1582,6 +1583,12 @@ public class GenericStorage  implements ContextualisedStorage {
 			if(restrictions.has(SEARCH_RELATED_TO_CSID_AS_SUBJECT)){
 				postfix += SEARCH_RELATED_TO_CSID_AS_SUBJECT+"="
 							+restrictions.getString(SEARCH_RELATED_TO_CSID_AS_SUBJECT)+"&";
+			}
+			if(restrictions.has(SEARCH_ALL_GROUP)){
+				// Have to replace the "common" part of the URL with the passed group.
+				// this is a bit of a hack, but the alternative is work: model multiple
+				// searchall variants: one for each group we are interested in.
+				basepath = basepath.replace("/common/","/"+restrictions.getString(SEARCH_ALL_GROUP)+"/");
 			}
 		}
 
