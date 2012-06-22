@@ -2,7 +2,7 @@
 	<services-record-path id="anthropology">collectionobjects_anthropology:http://collectionspace.org/services/collectionobject/domain/anthropology,collectionobjects_anthropology</services-record-path>
 
 	<section id="identificationInformation">
-		<field id="homeLocation" section="anthropology" ui-search="repeatable"/>
+		<field id="homeLocation" autocomplete="location-location" section="anthropology" ui-search="repeatable"/>
 	</section>
 
 	<section id="repatriationNagpraComplianceInformation">
