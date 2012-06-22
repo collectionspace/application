@@ -4,7 +4,7 @@
 	<section id="repatriationNagpraComplianceInformation">
 		<!-- THIS ALL NEEDS TO BE RETHOUGHT IN LIGHT OF THE NEW NAGPRACLAIM SERVICE -->
 		<repeat id="nagpraInventoryNameList" section="anthropology">
-			<field id="nagpraInventoryName" section="anthropology" seperate_ui_container="true">
+			<field id="nagpraInventoryName" section="anthropology" seperate_ui_container="true" ui-search="repeatable">
 				<selector>collection-object-nagpraInventoryName</selector>
 				<options>
 					<option id="notOnAnInventory" default="yes">not on an inventory</option>
@@ -224,7 +224,7 @@
 			</field>
 		</repeat>
 		<repeat id="nagpraApplicabilityList" section="anthropology">
-			<field id="nagpraApplicability" section="anthropology" seperate_ui_container="true">
+			<field id="nagpraApplicability" section="anthropology" seperate_ui_container="true" ui-search="repeatable">
 				<selector>collection-object-nagpraApplicability</selector>
 				<options>
 					<option id="nonNagpra" default="yes">not subject to NAGPRA</option>
