@@ -1,6 +1,10 @@
 <record id="collection-object">
 	<services-record-path id="anthropology">collectionobjects_anthropology:http://collectionspace.org/services/collectionobject/domain/anthropology,collectionobjects_anthropology</services-record-path>
 
+	<section id="identificationInformation">
+		<field id="homeLocation" section="anthropology" ui-search="repeatable"/>
+	</section>
+
 	<section id="repatriationNagpraComplianceInformation">
 		<!-- THIS ALL NEEDS TO BE RETHOUGHT IN LIGHT OF THE NEW NAGPRACLAIM SERVICE -->
 		<repeat id="nagpraInventoryNameList" section="anthropology">
