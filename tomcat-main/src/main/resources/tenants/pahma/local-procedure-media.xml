@@ -46,4 +46,9 @@
 		</field>
 		<field id="primaryDisplay" section="pahma" datatype="boolean"/>
 	</section>
+	
+	<section id="otherInformation">
+		<!-- Remove mini -->
+		<field id="imgThumb" mini=""/>
+	</section>
 </record>
