@@ -36,7 +36,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 	public VocabulariesCreateUpdate(Instance n,boolean create) {
 		this.create=create;
 		this.n=n;
-		reader=new VocabulariesRead(n);
+		reader=new VocabulariesRead(n, VocabulariesRead.GET_BASIC_INFO);
 	}
 
 	public VocabulariesCreateUpdate(Record r,boolean create) {

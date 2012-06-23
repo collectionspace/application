@@ -850,6 +850,11 @@ public class GenericStorage  implements ContextualisedStorage {
 				reset_merge = view_merge;
 				
 				JSONArray recs = data.getJSONArray("listItems");
+				if(data.has("pagination")) {
+					out.put("pagination", data.getJSONObject("pagination"));
+				}
+				
+				JSONObject items=new JSONObject();
 				//String[] filepaths = (String[]) data.get("listItems");
 				for (int i = 0; i < recs.length(); ++i) {
 
@@ -895,8 +900,9 @@ public class GenericStorage  implements ContextualisedStorage {
 					dataitem.put("sourceFieldType", dataitem.getJSONObject("summarylist").getString("docType"));
 					dataitem.put("sourceFieldType", dataitem.getJSONObject("summarylist").getString("docType"));
 					
-					out.put(csid+":"+key,dataitem);
+					items.put(csid+":"+key,dataitem);
 				}
+				out.put("items", items);
 			}
 
 			return out;
@@ -1113,7 +1119,7 @@ public class GenericStorage  implements ContextualisedStorage {
 								//
 								String subpath = savePath+key+"/refObjs";
 								JSONObject test =  refObjViewRetrieveJSON(root,creds,cache,subpath, sr);
-								if(test.length() > 0){
+								if(test.has("items") && (test.getJSONObject("items").length() > 0)){
 									throw new ExistException("Term List in use - can not delete: "+key);
 								}
 							}

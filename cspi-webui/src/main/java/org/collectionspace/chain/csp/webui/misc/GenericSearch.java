@@ -222,39 +222,43 @@ public class GenericSearch {
 						restriction.put(restrict,value);
 					}
 					else if(restrict.equals("sortKey")){////"summarylist.updatedAt"//movements_common:locationDate
-						String[] bits = value.split("\\.");
-						String fieldname = value;
-						if(bits.length>1){
-							fieldname = bits[1];
-						}
-						FieldSet fs = null;
-						if(fieldname.equals("number")){
-							fs = r.getMiniNumber();
-						}
-						else if(fieldname.equals("summary")){
-							fs = r.getMiniSummary();
-						}
-						else{
-							//convert sortKey
-							fs = r.getFieldFullList(fieldname);
-						}
-						if(fs.hasMergeData()){ //if this field is made up of multi merged fields in the UI then just pick the first field to sort on as services doesn't search on merged fields.
-							Field f = (Field)fs;
-							for(String fm : f.getAllMerge()){
-								if(fm!=null){
-									fs = r.getFieldFullList(fm);
-									break;
+						if(r.isType("searchall")) {
+							log.debug("Ignoring sortKey (nor supported on searchall record):"+value);
+						} else {
+							String[] bits = value.split("\\.");
+							String fieldname = value;
+							if(bits.length>1){
+								fieldname = bits[1];
+							}
+							FieldSet fs = null;
+							if(fieldname.equals("number")){
+								fs = r.getMiniNumber();
+							}
+							else if(fieldname.equals("summary")){
+								fs = r.getMiniSummary();
+							}
+							else{
+								//convert sortKey
+								fs = r.getFieldFullList(fieldname);
+							}
+							if(fs.hasMergeData()){ //if this field is made up of multi merged fields in the UI then just pick the first field to sort on as services doesn't search on merged fields.
+								Field f = (Field)fs;
+								for(String fm : f.getAllMerge()){
+									if(fm!=null){
+										fs = r.getFieldFullList(fm);
+										break;
+									}
 								}
 							}
+							fieldname = fs.getID();
+							FieldSet tmp = fs;
+							fieldname = getSearchSpecifierForField(fs, true);
+							
+	
+							String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
+							String newvalue = tablebase+":"+fieldname;
+							restriction.put(restrict,newvalue);
 						}
-						fieldname = fs.getID();
-						FieldSet tmp = fs;
-						fieldname = getSearchSpecifierForField(fs, true);
-						
-
-						String tablebase = r.getServicesRecordPath(fs.getSection()).split(":",2)[0];
-						String newvalue = tablebase+":"+fieldname;
-						restriction.put(restrict,newvalue);
 					}
 					else if(restrict.equals("query")){
 						//ignore - someone was doing something odd
