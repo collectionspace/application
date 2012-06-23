@@ -291,7 +291,7 @@ public class VocabulariesRead implements WebMethod {
 			String refPath = n.getRecord().getID()+"/"+n.getTitleRef()+"/";
 			if(getInfoMode == GET_FULL_INFO || getInfoMode == GET_BASIC_INFO) {
 
-				JSONObject fields=storage.retrieveJSON(refPath+csid, new JSONObject());
+				JSONObject fields=storage.retrieveJSON(refPath+csid, restriction);
 				//add in equivalent hierarchy if relevant
 				csid = fields.getString("csid");
 				fields = getHierarchy(storage,fields);

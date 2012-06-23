@@ -622,7 +622,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 		else if("refObjs".equals(view)){
 			String path = servicepath+"/refObjs";
-			return refObjViewRetrieveJSON(storage,creds,cache,path);
+			return refObjViewRetrieveJSON(storage,creds,cache,path, restrictions);
 		}
 		else
 			return new JSONObject();
@@ -807,7 +807,9 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws JSONException
 	 * @throws UnimplementedException 
 	 */
-	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path, Record vr) throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
+	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,
+			CSPRequestCache cache,String path, JSONObject restrictions, Record vr) 
+		throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
 
 		JSONObject out=new JSONObject();
 		Map<String,String> old_good=view_good;// map of servicenames of fields to descriptors
@@ -822,6 +824,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			Set<String> reset_deurn=new HashSet<String>();
 			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
 			if(vr.hasRefObjUsed()){
+				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
 				//XXX need a way to append the data needed from the field,
 				// which we don't know until after we have got the information...
 				reset_map.put("docType", "docType");
@@ -918,6 +921,12 @@ public class GenericStorage  implements ContextualisedStorage {
 			out.put("Functionality Failed",dataitem);
 			//return out;
 			throw new UnderlyingStorageException("Connection problem"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
+		} catch (UnsupportedEncodingException uae) {
+			log.error("failed to retrieve refObjs for "+path);
+			JSONObject dataitem = new JSONObject();
+			dataitem.put("message", uae.getMessage());
+			out.put("Functionality Failed",dataitem);
+			throw new UnderlyingStorageException("Problem building query"+uae.getLocalizedMessage(),uae);
 		} finally {
 			// Ensure we restore the gleaning views even if we get a failure (CSPACE-4424)
 			view_good = old_good;
@@ -938,8 +947,10 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws JSONException
 	 * @throws UnimplementedException 
 	 */
-	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String path) throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
-		return refObjViewRetrieveJSON(storage,creds, cache,path, this.r);
+	public JSONObject refObjViewRetrieveJSON(ContextualisedStorage storage,CSPRequestCredentials creds,
+			CSPRequestCache cache,String path, JSONObject restrictions) 
+					throws ExistException, UnderlyingStorageException, JSONException, UnimplementedException {
+		return refObjViewRetrieveJSON(storage,creds, cache,path, restrictions, this.r);
 	}
 	
 	/**
@@ -1118,7 +1129,7 @@ public class GenericStorage  implements ContextualisedStorage {
 							if(sr.getID().equals("termlistitem")){
 								//
 								String subpath = savePath+key+"/refObjs";
-								JSONObject test =  refObjViewRetrieveJSON(root,creds,cache,subpath, sr);
+								JSONObject test =  refObjViewRetrieveJSON(root,creds,cache,subpath, new JSONObject(), sr);
 								if(test.has("items") && (test.getJSONObject("items").length() > 0)){
 									throw new ExistException("Term List in use - can not delete: "+key);
 								}
