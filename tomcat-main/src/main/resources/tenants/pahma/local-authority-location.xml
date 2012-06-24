@@ -4,5 +4,10 @@
 			<!-- Change title -->
 			<title>PAHMA Storage Locations</title>
 		</instance>
+		<instance id="location-crate">
+			<web-url>crate</web-url>
+			<title-ref>crate</title-ref>
+			<title>Crates</title>
+		</instance>
 	</instances>
 </record>
