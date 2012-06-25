@@ -315,12 +315,30 @@
 		<repeat id="pahmaCollectionList" section="pahma">
 			<field id="pahmaCollection" section="pahma">
 				<options>
-					<option id="" default="yes">(none selected)</option>
+					<option id="" default="yes">(none selected)</option>					
+					<option id="Albert M. Bender Collection">Albert M. Bender Collection</option>
 					<option id="Bascom Collection">Bascom Collection</option>
+					<option id="Bennyhoff Olivella Shell Bead Collection">Bennyhoff Olivella Shell Bead Collection</option>
 					<option id="Bernard-Murray Collection">Bernard-Murray Collection</option>
 					<option id="California Teaching Collection">California Teaching Collection</option>
 					<option id="Collection of Photographs by Carleton E. Watkins, ca. 1874-1890">Collection of Photographs by Carleton E. Watkins, ca. 1874-1890</option>
+					<option id="Early Man Cast Points Collection">Early Man Cast Points Collection</option>
+					<option id="Edra Moore Central California Archaeology Type Collection">Edra Moore Central California Archaeology Type Collection</option>
+					<option id="Edra Moore Study Collection">Edra Moore Study Collection</option>
+					<option id="Gifford Type Specimen Collection: California bones">Gifford Type Specimen Collection: California bones</option>
+					<option id="Gifford Type Specimen Collection: Shell">Gifford Type Specimen Collection: Shell</option>
+					<option id="Great Basin Teaching Kit">Great Basin Teaching Kit</option>
+					<option id="Harner's Study Collection">Harner's Study Collection</option>
+					<option id="Juvenile Osteological Growth Series">Juvenile Osteological Growth Series</option>
+					<option id="Meighan Historic Glass Bead Collection">Meighan Historic Glass Bead Collection</option>
 					<option id="Mossman-Vitale Collection">Mossman-Vitale Collection</option>
+					<option id="Paleopathology Collection">Paleopathology Collection</option>
+					<option id="Panama Pacific International Exposition Collection">Panama Pacific International Exposition Collection</option>
+					<option id="Pilling Historic Artifact Collection">Pilling Historic Artifact Collection</option>
+					<option id="Reisner's Egyptian Collection">Reisner's Egyptian Collection</option>
+					<option id="Southwest Type Sherd Collection, Corrugated">Southwest Type Sherd Collection, Corrugated</option>
+					<option id="Treganza Clay Artifact Collection">Treganza Clay Artifact Collection</option>
+					<option id="Uhle's Peruvian Collection">Uhle's Peruvian Collection</option>
 				</options>
 			</field>
 		</repeat>
