@@ -136,13 +136,11 @@ public class VocabulariesRead implements WebMethod {
 		try{
 			JSONObject refObjs = storage.retrieveJSON(path+"/refObjs", restrictions);
 			if(refObjs != null) {
-				JSONObject mini;
 				if(refObjs.has("items")) {
-					mini = refObjs.getJSONObject("items");
-					Iterator t=mini.keys();
-					while(t.hasNext()) {
-						String field=(String)t.next();
-						JSONObject in=mini.getJSONObject(field);
+					JSONArray ritems = refObjs.getJSONArray("items");
+					for(int i=0;i<ritems.length();i++) {
+						JSONObject in = ritems.getJSONObject(i);
+						//JSONObject in=ritems.getJSONObject(field);
 						String rt = in.getString("sourceFieldType");
 						String uiname = rt;
 						if(this.spec.hasRecordByServicesDocType(rt)){

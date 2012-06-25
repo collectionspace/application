@@ -343,9 +343,9 @@ public class GenericStorage  implements ContextualisedStorage {
 		if(to_get.contains("summary")){
 			String gleaned=getGleanedValue(cache,cachelistitem,"docName");
 			if(gleaned!=null){
-			String good = view_good.get("summary");
-			if(xxx_view_deurn.contains(good))
-				gleaned=xxx_deurn(gleaned);
+				String good = view_good.get("summary");
+				if(xxx_view_deurn.contains(good))
+					gleaned=xxx_deurn(gleaned);
 				out.put("summary",gleaned);
 				to_get.remove("summary");
 			}
@@ -354,9 +354,9 @@ public class GenericStorage  implements ContextualisedStorage {
 		if(to_get.contains("number")){
 			String gleaned=getGleanedValue(cache,cachelistitem,"docNumber");
 			if(gleaned!=null){
-			String good = view_good.get("number");
-			if(xxx_view_deurn.contains(good))
-				gleaned=xxx_deurn(gleaned);
+				String good = view_good.get("number");
+				if(xxx_view_deurn.contains(good))
+					gleaned=xxx_deurn(gleaned);
 				out.put("number",gleaned);
 				to_get.remove("number");
 			}
@@ -364,6 +364,18 @@ public class GenericStorage  implements ContextualisedStorage {
 		
 		// Do a full request only if values in list of fields returned != list from cspace-config
 		if(to_get.size()>0) {
+			if(log.isInfoEnabled()) {
+				StringBuilder sb = new StringBuilder();
+				sb.append("Fanning out on cachelistitem: [");
+				sb.append(cachelistitem);
+				sb.append("] Fields: [");
+				for(String fieldname : to_get) {
+					sb.append(fieldname);
+					sb.append(" ");
+				}
+				sb.append("]");
+				log.info(sb.toString());
+			}
 			JSONObject data=simpleRetrieveJSON(creds,cache,null,cachelistitem,thisr);
 			for(String fieldname : to_get) {
 				String good = view_good.get(fieldname);
@@ -829,11 +841,13 @@ public class GenericStorage  implements ContextualisedStorage {
 				// which we don't know until after we have got the information...
 				reset_map.put("docType", "docType");
 				reset_map.put("docId", "docId");
+				reset_map.put("docName", "docName");
 				reset_map.put("docNumber", "docNumber");
 				reset_map.put("sourceField", "sourceField");
 				reset_map.put("uri", "uri");
 				reset_good.put("terms_docType", "docType");
 				reset_good.put("terms_docId", "docId");
+				reset_good.put("terms_docName", "docName");
 				reset_good.put("terms_docNumber", "docNumber");
 				reset_good.put("terms_sourceField", "sourceField");
 
@@ -857,7 +871,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					out.put("pagination", data.getJSONObject("pagination"));
 				}
 				
-				JSONObject items=new JSONObject();
+				JSONArray items=new JSONArray();
 				//String[] filepaths = (String[]) data.get("listItems");
 				for (int i = 0; i < recs.length(); ++i) {
 
@@ -903,7 +917,8 @@ public class GenericStorage  implements ContextualisedStorage {
 					dataitem.put("sourceFieldType", dataitem.getJSONObject("summarylist").getString("docType"));
 					dataitem.put("sourceFieldType", dataitem.getJSONObject("summarylist").getString("docType"));
 					
-					items.put(csid+":"+key,dataitem);
+					//items.put(csid+":"+key,dataitem);
+					items.put(dataitem);
 				}
 				out.put("items", items);
 			}
@@ -1130,7 +1145,7 @@ public class GenericStorage  implements ContextualisedStorage {
 								//
 								String subpath = savePath+key+"/refObjs";
 								JSONObject test =  refObjViewRetrieveJSON(root,creds,cache,subpath, new JSONObject(), sr);
-								if(test.has("items") && (test.getJSONObject("items").length() > 0)){
+								if(test.has("items") && (test.getJSONArray("items").length() > 0)){
 									throw new ExistException("Term List in use - can not delete: "+key);
 								}
 							}
@@ -1841,10 +1856,14 @@ public class GenericStorage  implements ContextualisedStorage {
 						}
 					} else {
 						// Mark all the fields not yet found as gleaned - 
+						String gleanname = urlPlusCSID;
+						if(csidfield.equals("uri")){
+							gleanname = csid;
+						}
 						for(String s : allfields){
-							String gleaned = getGleanedValue(cache,urlPlusCSID,s);
+							String gleaned = getGleanedValue(cache,gleanname,s);
 							if(gleaned==null){
-								setGleanedValue(cache,urlPlusCSID,s,"");
+								setGleanedValue(cache,gleanname,s,"");
 							}
 						}
 					}

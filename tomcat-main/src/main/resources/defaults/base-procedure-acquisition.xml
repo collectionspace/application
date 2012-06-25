@@ -56,7 +56,7 @@
                 <section id="acquisitionAuthorizerHeader"></section><!-- here until I can think of a better way of doing it -->
                 
                 <section id="acquisitionInformation">
-                    <field id="acquisitionReferenceNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                    <field id="acquisitionReferenceNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
                         <selector>acquisition-numberPatternChooser-reference-number</selector>
                         <title-selector>titleBar-acquisition-reference-number</title-selector>
                         <container-selector>acquisition-reference-number-patternChooserContainer</container-selector>

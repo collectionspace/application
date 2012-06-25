@@ -37,7 +37,7 @@ public class VocabulariesDelete implements WebMethod {
 		try {
 			String url = n.getRecord().getID()+"/"+n.getTitleRef()+"/"+path;
 			JSONObject test = storage.retrieveJSON(url+"/refObjs", new JSONObject());
-			if(test.has("items") && (test.getJSONObject("items").length() > 0)){
+			if(test.has("items") && (test.getJSONArray("items").length() > 0)){
 				UIException uiexception =  new UIException("This Vocabulary Item has Procedures associated with it");
 				request.sendJSONResponse(uiexception.getJSON());
 				return;

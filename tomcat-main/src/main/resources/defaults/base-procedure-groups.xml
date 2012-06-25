@@ -51,7 +51,7 @@
                 </section>
                 <section id="groupInformation">
                     <!--  Object Exit Information Group -->
-                    <field id="title" ui-search="repeatable" in-title="yes" mini="number,search,list,relate,terms" >
+                    <field id="title" ui-search="repeatable" in-title="yes" mini="number,search,list,relate" >
                         <selector>group-title</selector>
                     </field>
                     <field id="scopeNote"></field>

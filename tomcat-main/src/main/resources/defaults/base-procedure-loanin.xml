@@ -68,7 +68,7 @@
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
                 </section>
                 <section id="loaninInformation">
-                    <field id="loanInNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,terms,relate" seperate_ui_container="true">
+                    <field id="loanInNumber" ui-search="repeatable" in-title="yes" chooser="yes" mini="number,search,list,relate" seperate_ui_container="true">
                         <title-selector>titleBar-loanInNumber</title-selector>
                         <selector>loanIn-loanInNumber</selector>
                         <container-selector>loanIn-loanInNumber-patternChooserContainer</container-selector>
