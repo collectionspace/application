@@ -11,7 +11,8 @@
 		<field id="reasonForMove">
 			<!-- Change options -->
 			<options>
-				<option id="" default="yes">Please select a value</option>
+				<option id="" default="yes">(none selected)</option>
+				<option id="(not entered)">(not entered)</option>
 				<option id="Inventory">Inventory</option>
 				<option id="GeneralCollManagement">General Collections Management</option>
 				<option id="Research">Research</option>
@@ -37,8 +38,10 @@
 				<option id="FireAlarmProj">Fire Alarm Proj</option>
 				<option id="FirstTimeStorage">First Time Storage</option>
 				<option id="FoundinColl">Found in Collections</option>
+				<option id="HearstGymBasementMoveKroeber20">Hearst Gym Basement move to Kroeber 20A</option>
 				<option id="HGB Surge">HGB Surge</option>
 				<option id="Kro20MezzLWeaponProj2011">Kro20Mezz LWeapon Proj 2011</option>
+				<option id="Kroeber20AMoveRegatta">Kroeber 20A move to Regatta</option>
 				<option id="MarchantFlood2007">Marchant Flood 12/2007</option>
 				<option id="NAAGVisit">Native Am Adv Grp Visit</option>
 				<option id="NEHEgyptianCollectionGrant">NEH Egyptian Collection Grant</option>
@@ -56,6 +59,7 @@
 			<field id="movementMethod">
 				<!-- Change options -->
 				<options>
+					<option id="" default="yes">(none selected)</option>
 					<option id="rubbermaid">by cart (rubbermaid)</option>
 					<option id="handcarried">by hand</option>
 					<option id="bathtubcart">by "bathtub" cart</option>
