@@ -15,12 +15,15 @@
 						<option id="circumference">circumference</option>
 						<option id="depth">depth/thickness</option>
 						<option id="diameter">diameter</option>
+						<option id="duration">duration</option>
 						<option id="filesize">file size</option>
 						<option id="height">height</option>
 						<option id="length">length</option>
+						<option id="linear">&quot;linear&quot; (coin diameter)</option>
 						<option id="memorysize">memory size</option>
-						<option id="recordingSpeed">recording speed</option>
+						<option id="recording speed">recording speed</option>
 						<option id="runningTime">running time</option>
+						<option id="thickness">thickness</option>
 						<option id="volume">volume</option>
 						<option id="weight">weight</option>
 						<option id="width">width/breadth</option>
@@ -46,11 +49,16 @@
 						<option id="cubicInches">in&#xB3; (cubic inches)</option>
 						<option id="kilograms">kg (kilograms)</option>
 						<option id="liters">l (liters)</option>
+						<option id="pounds">lb (pounds)</option>
 						<option id="millimeters">mm (millimeters)</option>
 						<option id="meters">m (meters)</option>
 						<option id="minutes">mins (minutes)</option>
+						<option id="ounces">oz (ounces)</option>
+						<option id="pints">pt (pints)</option>
 						<option id="pixels">px (pixels)</option>
+						<option id="recording speed">&quot;recording speed&quot; (either ips, rpm, or Kroeber notes page number)</option>
 						<option id="rotationsPerMinute">rpm (rotations/minute)</option>
+						<option id="seconds">s (seconds)</option>
 						<option id="yards">yds (yards)</option>
 					</options>
 				</field>
