@@ -1116,7 +1116,7 @@
 						<option id="traditionalMakers">traditional makers</option>
 						<option id="inTheStyleOf">in the style of</option>
 						<option id="attributedMakers">made by (attributed)</option>
-						<option id="madeBy">made by</option>
+						<option id="made by">made by</option>
 						<option id="traditionallyMadeBy">traditionally made by</option>
 						<option id="usedButNotMadeBy">used, but not made, by</option>
 						<option id="usedButNotMadeByAttributed">used, but not made, by (attributed)</option>
