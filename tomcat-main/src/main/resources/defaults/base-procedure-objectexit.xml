@@ -54,7 +54,7 @@
                 </section>
                 <section id="objectexitInformation">
                     <!--  Object Exit Information Group -->
-                    <field id="exitNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                    <field id="exitNumber" ui-search="repeatable" chooser="yes" in-title="yes" mini="number,search,list,relate" seperate_ui_container="true">
                         <options>
                             <option id="objectexit" sample="EX2010.1">Object Exit</option>
                         </options>

@@ -18,6 +18,7 @@ import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.api.ui.UIException;
 import org.collectionspace.csp.api.ui.UIRequest;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +36,8 @@ public class VocabulariesDelete implements WebMethod {
 	private void store_delete(Storage storage,UIRequest request,String path) throws UIException {
 		try {
 			String url = n.getRecord().getID()+"/"+n.getTitleRef()+"/"+path;
-			JSONObject mini = storage.retrieveJSON(url+"/refObjs", new JSONObject());
-			if(mini.length()>=1){
+			JSONObject test = storage.retrieveJSON(url+"/refObjs", new JSONObject());
+			if(test.has("items") && (test.getJSONArray("items").length() > 0)){
 				UIException uiexception =  new UIException("This Vocabulary Item has Procedures associated with it");
 				request.sendJSONResponse(uiexception.getJSON());
 				return;
@@ -44,6 +45,8 @@ public class VocabulariesDelete implements WebMethod {
 			storage.deleteJSON(url);
 		} catch (ExistException e) {
 			throw new UIException("JSON Not found "+e,e);
+		} catch (JSONException e) {
+			throw new UIException("JSON Not found (malformed refObjs payload) "+e,e);
 		} catch (UnimplementedException e) {
 			throw new UIException("Unimplemented",e);
 		} catch (UnderlyingStorageException x) {

@@ -57,7 +57,7 @@
                 <section id="currentLocationHeader"></section> <!-- temp until better way to do group headers -->
                 <section id="locationMovementInformation">
                     <!--  Object Location Information Group -->
-                    <field id="currentLocation" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate,terms" autocomplete="location-location,location-offsite_sla,organization-organization">
+                    <field id="currentLocation" ui-search="repeatable" in-title="yes" mini="summary,search,list,relate" autocomplete="location-location,location-offsite_sla,organization-organization">
                         <title-selector>titleBar-currentLocation</title-selector>
                     </field>
                     <field id="currentLocationFitness">
@@ -77,7 +77,7 @@
                 </section>
                 <section id="movementControlInformation">
                     <!--  Movement Information Group -->
-                    <field id="movementReferenceNumber" ui-search="repeatable" chooser="yes" in-title="no" mini="number,search,list,relate,terms" seperate_ui_container="true">
+                    <field id="movementReferenceNumber" ui-search="repeatable" chooser="yes" in-title="no" mini="number,search,list,relate" seperate_ui_container="true">
                         <options>
                             <option id="inventory" sample="INV2010.1">Inventory</option>
                             <option id="location" sample="LOC2010.1">Location</option>
