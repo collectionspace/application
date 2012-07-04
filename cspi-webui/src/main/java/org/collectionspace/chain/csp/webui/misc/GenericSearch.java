@@ -531,7 +531,7 @@ public class GenericSearch {
 					rangeInfo.rangeEndValue = wrapChar+value+wrapChar;
 				} else {	// Simple equals test. If has wildcards, will be changed to ILIKE
 					queryClause = getAdvancedSearch(r,fieldName,fieldSet, value, 
-											getQueryValueWrapChar(fieldSet), "", ILIKE_COMPARATOR); //REM - Fix handling so deal with ILIKE issue for non-numeric values
+											getQueryValueWrapChar(fieldSet), "", ILIKE_COMPARATOR);
 				}
 				// These fields are all single - no intervals on basic fields
 	            if(rangeInfo!=null) {
