@@ -527,7 +527,7 @@ public class GenericSearch {
 					rangeInfo.rangeStartValue = wrapChar+value+wrapChar;
 				} else if(isRangeEnd) {
 					rangeInfo.rangeEndValue = wrapChar+value+wrapChar;
-				} else {	// Simple equals test. If has wildcards, will be changed to ILIKE
+				} else {
 					queryClause = getAdvancedSearch(r,fieldName,fieldSet, value, 
 											getQueryValueWrapChar(fieldSet), "", ILIKE_COMPARATOR);
 				}
