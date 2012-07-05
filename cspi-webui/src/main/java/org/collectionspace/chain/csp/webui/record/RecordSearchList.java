@@ -95,7 +95,7 @@ public class RecordSearchList implements WebMethod {
 				
 				String[] parts=uri.split("/");
 				String recordurl = parts[0];
-				Record itemr = r.getSpec().getRecordByServicesUrl(recordurl);
+				Record itemr = r.getSpec().getRecordByServicesUrl(recordurl); // This may return null so we should add a check for null
 				recordtype = type_to_url.get(itemr.getID());
 			}
 			out.put("recordtype", recordtype);
