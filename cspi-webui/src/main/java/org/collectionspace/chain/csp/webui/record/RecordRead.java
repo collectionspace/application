@@ -70,28 +70,35 @@ public class RecordRead implements WebMethod {
 		
 
 	// Builds an object, that has a map of record type to Array mappings.
-	private JSONObject buildRelationsSection(Storage storage,String csid) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException, UIException {
-		JSONObject recordtypes=new JSONObject();
-		JSONObject restrictions=new JSONObject();
-		JSONObject out=new JSONObject();
+	private JSONObject buildRelationsSection(Storage storage, String csid)
+			throws ExistException, UnimplementedException,
+			UnderlyingStorageException, JSONException, UIException {
+		JSONObject recordtypes = new JSONObject();
+		JSONObject restrictions = new JSONObject();
+		JSONObject out = new JSONObject();
 		JSONArray paginations = new JSONArray();
-		restrictions.put("src",base+"/"+csid);
-		//loop over all procedure/recordtypes
-		for(Record thisr : spec.getAllRecords()) {
-			if((thisr.isType("procedure")&&!thisr.isType("vocabulary"))
-				|| "collection-object".equals(thisr.getID())) {
-				this.relatedObjSearcher = new RecordSearchList(thisr, RecordSearchList.MODE_SEARCH_RELATED);
-				this.relatedObjSearcher.configure(spec);
-				JSONObject temp = this.relatedObjSearcher.getResults(storage, restrictions, "results", csid);
-				JSONArray results = temp.getJSONArray("results");
-				if(results.length()>0) {
-					out.put(thisr.getWebURL(), results);
+		restrictions.put("src", base + "/" + csid);
+		// loop over all procedure/recordtypes
+		for (Record thisr : spec.getAllRecords()) {
+			if ((thisr.isType("procedure") && !thisr.isType("vocabulary"))
+					|| "collection-object".equals(thisr.getID()))
+				try {
+					this.relatedObjSearcher = new RecordSearchList(thisr,
+							RecordSearchList.MODE_SEARCH_RELATED);
+					this.relatedObjSearcher.configure(spec);
+					JSONObject temp = this.relatedObjSearcher.getResults(
+							storage, restrictions, "results", csid);
+					JSONArray results = temp.getJSONArray("results");
+					if (results.length() > 0) {
+						out.put(thisr.getWebURL(), results);
+					}
+				} catch (Exception e) {
+					log.warn("Unable to to retrieve results for "
+									+ thisr.getSearchURL(), e);
 				}
-			}
 		}
 		return out;
-	}
-	
+	}	
 
 	private JSONArray getUsedBy(String id) throws JSONException{
 		String instanceid = "vocab-"+id;
