@@ -238,7 +238,7 @@ public class GenericSearch {
 							}
 							else{
 								//convert sortKey
-								fs = r.getFieldFullList(fieldname);
+								fs = r.getFieldFullList(fieldname); // CSPACE-4909: Getting null with fieldname = "movements_common:locationDate"
 							}
 							if(fs.hasMergeData()){ //if this field is made up of multi merged fields in the UI then just pick the first field to sort on as services doesn't search on merged fields.
 								Field f = (Field)fs;
