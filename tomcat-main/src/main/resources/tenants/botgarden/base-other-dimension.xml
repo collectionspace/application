@@ -1,4 +1,4 @@
-<!-- Modifying this file for ucjeps just to add an id to the first section. This shouldn't be necessary in 2.4. -->
+<!-- Modifying this file for botgarden just to add an id to the first section. This shouldn't be necessary in 2.4. -->
 <record id="dimension" in-recordlist="no" separate-record="false">
     <hassoftdelete>true</hassoftdelete>
 	<section id="dimensionInformation">
