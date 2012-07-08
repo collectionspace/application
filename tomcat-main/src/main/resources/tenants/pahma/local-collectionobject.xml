@@ -842,13 +842,23 @@
 					<!-- Add options -->
 					<options>
 						<option id="">(none selected)</option>
-						<option id="panAndInk">pen and ink</option>
+						<option id="abrasion">abrasion</option>
+						<option id="appliqué">appliqué</option>
+						<option id="brushing">brushing</option>
+						<option id="carving">carving</option>
+						<option id="chiseling">chiseling</option>
+						<option id="combing">combing</option>
+						<option id="drilling">drilling</option>
 						<option id="embossing">embossing</option>
 						<option id="engraving">engraving</option>
-						<option id="hammeredDies">hammered dies</option>
-						<option id="pyrography">pyrography</option>
+						<option id="etching">etching</option>
+						<option id="Hammered dies">hammered dies</option>
+						<option id="incision">incision</option>
 						<option id="painting">painting</option>
-						
+						<option id="panAndInk">pen and ink</option>
+						<option id="printing">printing</option>
+						<option id="punching">punching</option>
+						<option id="pyrography">pyrography</option>
 					</options>
 				</field>
 			</repeat>
@@ -902,11 +912,23 @@
 					<!-- Add options -->
 					<options>
 						<option id="">(none selected)</option>
-						<option id="panAndInk">pen and ink</option>
+						<option id="abrasion">abrasion</option>
+						<option id="appliqué">appliqué</option>
+						<option id="brushing">brushing</option>
+						<option id="carving">carving</option>
+						<option id="chiseling">chiseling</option>
+						<option id="combing">combing</option>
+						<option id="drilling">drilling</option>
 						<option id="embossing">embossing</option>
 						<option id="engraving">engraving</option>
-						<option id="pyrography">pyrography</option>
+						<option id="etching">etching</option>
+						<option id="Hammered dies">hammered dies</option>
+						<option id="incision">incision</option>
 						<option id="painting">painting</option>
+						<option id="panAndInk">pen and ink</option>
+						<option id="printing">printing</option>
+						<option id="punching">punching</option>
+						<option id="pyrography">pyrography</option>
 					</options>
 				</field>
 			</repeat>
