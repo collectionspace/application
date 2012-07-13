@@ -11,7 +11,7 @@
 			
 			<include src="base-collectionobject.xml,anthropology-collectionobject.xml,naturalhistory-collectionobject.xml,local-collectionobject.xml" merge="xmlmerge.properties"/>
 
-			<include src="base-procedure-acquisition.xml,local-procedure-acquisition.xml" merge="xmlmerge.properties"/>
+			<include src="base-procedure-acquisition.xml,anthropology-procedure-acquisition.xml,local-procedure-acquisition.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-claim.xml,anthropology-procedure-claim.xml,local-procedure-claim.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-groups.xml,local-procedure-groups.xml" merge="xmlmerge.properties"/>
