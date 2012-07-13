@@ -1,0 +1,5 @@
+<record id="acquisition">
+	<section id="acquisitionInformation">
+		<field id="acquisitionDescription"/>
+	</section>
+</record>
