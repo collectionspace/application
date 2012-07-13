@@ -1,6 +1,11 @@
 <record id="media">
 	<services-record-path id="pahma">media_pahma:http://collectionspace.org/services/media/local/pahma,media_pahma</services-record-path>
 
+	<section id="coreInformation">
+		<!-- Add ui-search and ui-type -->
+		<field id="createdAt" ui-search="range" ui-type="date"/>
+	</section>
+
 	<section id="mediaInformation">
 		<repeat id="languages">
 			<field id="language">
