@@ -8,13 +8,44 @@
   <version>1.0-SNAPSHOT</version>
   <name>CSP: Services</name>
   
-    <parent>
+  <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  
 
+  <distributionManagement>
+    <repository>
+        <id>collectionspace</id>
+        <name>collectionspace-releases</name>
+        <url>http://source.collectionspace.org:8081/artifactory/libs-releases-local</url>
+    </repository>
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+        <id>collectionspace-remote-repos</id>
+        <name>collectionspace-remote-repos</name>
+        <url>http://source.collectionspace.org:8081/artifactory/remote-repos</url>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+    <repository>
+        <id>libs-releases-local</id>
+        <name>libs-releases-local</name>
+        <url>http://source.collectionspace.org:8081/artifactory/libs-releases-local</url>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+    <repository>
+        <id>libs-snapshots-local</id>
+        <name>libs-snapshots-local</name>
+        <url>http://source.collectionspace.org:8081/artifactory/libs-snapshots-local</url>
+    </repository>
+  </repositories>
+  
   <dependencies>
 
     <dependency>
@@ -44,7 +75,19 @@
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
+
+    <dependency>
+      <groupId>org.collectionspace</groupId>
+      <artifactId>jxutils</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency> 
     
+    <dependency>
+        <groupId>org.collectionspace.services</groupId>
+        <artifactId>org.collectionspace.services.common-api</artifactId>
+        <version>2.6-SNAPSHOT</version>
+    </dependency>    
     
         <dependency>
       <groupId>commons-io</groupId>
@@ -85,14 +128,6 @@
             <version>6.1.11</version>
             <scope>test</scope>
         </dependency>
-    
-
-    <dependency>
-      <groupId>org.collectionspace</groupId>
-      <artifactId>jxutils</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>jar</type>
-    </dependency>  
 
     <dependency>
       <groupId>org.json</groupId>
