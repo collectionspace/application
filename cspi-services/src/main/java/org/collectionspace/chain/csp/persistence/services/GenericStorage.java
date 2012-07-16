@@ -36,6 +36,7 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
+import org.collectionspace.services.common.api.RefName;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -248,19 +249,17 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnderlyingStorageException
 	 */
 	protected String xxx_deurn(String in) throws UnderlyingStorageException {
-		if(!in.startsWith("urn:"))
-			return in;
-		if(!in.endsWith("'"))
-			return in;
-		in=in.substring(0,in.length()-1);
-		int pos=in.lastIndexOf("'");
-		if(pos==-1)
-			return in+"'";
-		try {
-			return URLDecoder.decode(in.substring(pos+1),"UTF8");
-		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("No UTF8!");
-		}
+	    if(!in.startsWith("urn:"))
+		return in;
+	    if(!in.endsWith("'"))
+		return in;
+            RefName.AuthorityItem item = RefName.AuthorityItem.parse(in);
+            in = item.displayName;       
+            try {
+                 return URLDecoder.decode(in, "UTF8");  
+            } catch (UnsupportedEncodingException e) {
+                 throw new UnderlyingStorageException("Could not de-urn Display Name because UTF8 decoding is not supported");
+            }
 	}
 	
 
