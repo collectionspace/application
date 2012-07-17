@@ -207,6 +207,8 @@ public class UserDetailsCreateUpdate implements WebMethod {
 			JSONArray arr = new JSONArray();
 			arr.put(messages);
 			data.put("messages", arr);
+                        // Elide the value of the password field before returning a response
+                        data.optJSONObject("fields").remove(PASSWORD_FIELD);
 			request.sendJSONResponse(data);
 			request.setOperationPerformed(create ? Operation.CREATE : Operation.UPDATE);
 			if (create && notfailed)
