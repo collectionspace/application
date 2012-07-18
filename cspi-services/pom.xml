@@ -8,13 +8,12 @@
   <version>1.0-SNAPSHOT</version>
   <name>CSP: Services</name>
   
-    <parent>
+  <parent>
     <groupId>org.collectionspace</groupId>
     <artifactId>svcapp</artifactId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-  
-
+ 
   <dependencies>
 
     <dependency>
@@ -44,7 +43,19 @@
       <version>1.0-SNAPSHOT</version>
       <type>jar</type>
     </dependency>  
+
+    <dependency>
+      <groupId>org.collectionspace</groupId>
+      <artifactId>jxutils</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
+    </dependency> 
     
+    <dependency>
+        <groupId>org.collectionspace.services</groupId>
+        <artifactId>org.collectionspace.services.common-api</artifactId>
+        <version>2.6-SNAPSHOT</version>
+    </dependency>    
     
         <dependency>
       <groupId>commons-io</groupId>
@@ -85,14 +96,6 @@
             <version>6.1.11</version>
             <scope>test</scope>
         </dependency>
-    
-
-    <dependency>
-      <groupId>org.collectionspace</groupId>
-      <artifactId>jxutils</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      <type>jar</type>
-    </dependency>  
 
     <dependency>
       <groupId>org.json</groupId>

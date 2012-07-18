@@ -35,6 +35,7 @@
 					<option id="unnamed infraspecific hybrid/intermediate - parents unknown">unnamed infraspecific hybrid/intermediate - parents unknown</option>
 					<option id="vide">vide</option>
 					<option id="?">?</option>
+                                        <option id="!">!</option>
 				</options>
 			</field>
 			<field id="identBy" section="naturalhistory" autocomplete="person-person,organization-organization">
@@ -81,6 +82,7 @@
 					<option id="nomenclatural change">nomenclatural change</option>
 					<option id="taxonomic change">taxonomic change</option>
 					<option id="annotation as filed">annotation as filed</option>
+                                        <option id="previously filed as">previously filed as</option>                                        
 					<option id="identification or reidentification">identification or reidentification</option>
 					<option id="variant name">variant name</option>
 				</options>
