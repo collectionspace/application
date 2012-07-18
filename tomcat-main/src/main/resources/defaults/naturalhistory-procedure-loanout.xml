@@ -53,6 +53,8 @@
 	</section>
 	
 	<section id="objectInformation">
+	    <field id="loanoutItems" section="naturalhistory"/>
+	    
 		<repeat id="objectGroupList/objectGroup" section="naturalhistory">
 			<field id="objectNumbers" section="naturalhistory"/>
 			<field id="objectQuantity" section="naturalhistory" ui-type="validated" datatype="integer"/>
