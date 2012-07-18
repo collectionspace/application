@@ -1051,6 +1051,7 @@
 					<option id="Guizhou">Guizhou</option>
 					<option id="Ha Bach, Tinh">Ha Bach, Tinh</option>
 					<option id="Hainan">Hainan</option>
+                                        <option id="Halland">Halland</option>
 					<option id="Hamadan">Hamadan</option>
 					<option id="Heidelberg">Heidelberg</option>
 					<option id="Heredia">Heredia</option>
@@ -1071,6 +1072,7 @@
 					<option id="IN">IN</option>
 					<option id="Insular">Insular</option>
 					<option id="Ipiros">Ipiros</option>
+                                        <option id="Iqnique Province">Iqnique Province</option>
 					<option id="Iringa">Iringa</option>
 					<option id="Isabela">Isabela</option>
 					<option id="Izabel">Izabel</option>
@@ -1084,6 +1086,7 @@
 					<option id="KA">KA</option>
 					<option id="Kangean">Kangean</option>
 					<option id="Khorasan Province">Khorasan Province</option>
+                                        <option id="Kkanh Hoa">Kkanh Hoa</option>
 					<option id="KS">KS</option>
 					<option id="KwaZulu-Natal">KwaZulu-Natal</option>
 					<option id="KY">KY</option>
@@ -1263,6 +1266,7 @@
 					<option id="Tacna">Tacna</option>
 					<option id="TAM">TAM</option>
 					<option id="Tamaulipas">Tamaulipas</option>
+                                        <option id="Tarank Province">Tarank Province</option>
 					<option id="Tarija">Tarija</option>
 					<option id="Tarma">Tarma</option>
 					<option id="Tasmania">Tasmania</option>
