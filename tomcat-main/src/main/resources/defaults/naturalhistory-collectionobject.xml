@@ -1333,6 +1333,7 @@
 					<option id="Argentina">Argentina</option>
 					<option id="Armenia">Armenia</option>
 					<option id="AUSTRALIA">AUSTRALIA</option>
+                                        <option id="Belgium">Belgium</option>
 					<option id="Belize">Belize</option>
 					<option id="Bermuda">Bermuda</option>
 					<option id="Bolivia">Bolivia</option>
@@ -1343,9 +1344,11 @@
 					<option id="Cameroon">Cameroon</option>
 					<option id="CANADA">CANADA</option>
 					<option id="Chile">Chile</option>
+                                        <option id="China">China</option>
 					<option id="Colombia">Colombia</option>
 					<option id="Cook Islands">Cook Islands</option>
 					<option id="Costa Rica">Costa Rica</option>
+                                        <option id="Croatia">Croatia</option>
 					<option id="Cuba">Cuba</option>
 					<option id="D R Congo">D R Congo</option>
 					<option id="DENMARK">DENMARK</option>
@@ -1367,6 +1370,7 @@
 					<option id="Haiti">Haiti</option>
 					<option id="Hispaniola">Hispaniola</option>
 					<option id="Honduras">Honduras</option>
+                                        <option id="Iceland">Iceland</option>
 					<option id="India">India</option>
 					<option id="Indonesia">Indonesia</option>
 					<option id="Iran">Iran</option>
@@ -1381,6 +1385,7 @@
 					<option id="Madagascar">Madagascar</option>
 					<option id="Malawi">Malawi</option>
 					<option id="Malaysia">Malaysia</option>
+                                        <option id="Marshall Islands">Marshall Islands</option>
 					<option id="MEXICO">MEXICO</option>
 					<option id="Micronesia">Micronesia</option>
 					<option id="Mongolia">Mongolia</option>
@@ -1389,6 +1394,7 @@
 					<option id="Namibia">Namibia</option>
 					<option id="Nepal">Nepal</option>
 					<option id="Netherlands Antilles">Netherlands Antilles</option>
+                                        <option id="Netherlands">Netherlands</option>
 					<option id="New Caledonia">New Caledonia</option>
 					<option id="New Zealand">New Zealand</option>
 					<option id="Nicaragua">Nicaragua</option>
@@ -1421,9 +1427,11 @@
 					<option id="Sri Lanka">Sri Lanka</option>
 					<option id="Sudan">Sudan</option>
 					<option id="Suriname">Suriname</option>
+                                        <option id="Sweden">Sweden</option>
 					<option id="Syria">Syria</option>
 					<option id="Taiwan">Taiwan</option>
 					<option id="Tanzania">Tanzania</option>
+                                        <option id="Thailand">Thailand</option>
 					<option id="Tonga">Tonga</option>
 					<option id="Trinidad and Tobago">Trinidad and Tobago</option>
 					<option id="Turkey">Turkey</option>
