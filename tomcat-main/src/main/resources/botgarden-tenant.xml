@@ -10,6 +10,7 @@
 			<enum-blank>Please select a value</enum-blank>
 
 			<include src="base-collectionobject.xml,naturalhistory-collectionobject.xml,local-collectionobject.xml" merge="xmlmerge.properties"/>
+
 			<!-- <include src="base-procedure-acquisition.xml"/> -->
 			<include src="base-procedure-blobs.xml"/>
 			<include src="base-procedure-groups.xml"/>
@@ -19,14 +20,24 @@
 			<include src="base-procedure-media.xml,local-procedure-media.xml" merge="xmlmerge.properties"/>
 			<include src="base-procedure-movement.xml,local-procedure-movement.xml" merge="xmlmerge.properties"/>
 			<!-- <include src="base-procedure-objectexit.xml"/> -->
+
 			<include src="base-authority-contact.xml,naturalhistory-authority-contact.xml" merge="xmlmerge.properties"/>
+            
+			<include src="base-authority-location-termList.xml"/>
 			<include src="base-authority-location.xml"/>
+			<include src="base-authority-organization-termList.xml"/>
 			<include src="base-authority-organization.xml,naturalhistory-authority-organization.xml,local-authority-organization.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-person-termList.xml"/>
 			<include src="base-authority-person.xml"/>
+			<include src="base-authority-place-termList.xml"/>
 			<include src="base-authority-place.xml,local-authority-place.xml" merge="xmlmerge.properties"/>
+            <include src="base-authority-taxon-termList.xml"/>
 			<include src="base-authority-taxon.xml,naturalhistory-authority-taxon.xml,local-authority-taxon.xml" merge="xmlmerge.properties"/>
+			<include src="base-authority-concept-termList.xml"/>
 			<include src="base-authority-concept.xml,local-authority-concept.xml" merge="xmlmerge.properties"/>
+			
 			<include src="base-vocabularies.xml"/>
+			
 			<include src="base-authz-accountrole.xml"/>
 			<include src="base-authz-permission.xml"/>
 			<include src="base-authz-permrole.xml"/>
@@ -34,6 +45,7 @@
 			<include src="base-authz-userperm.xml"/>
 			<include src="base-authz-userrole.xml"/>
 			<include src="base-authz-users.xml"/>
+			
 			<include src="base-other-dimension.xml,local-other-dimension.xml" merge="xmlmerge.properties"/>
 			<include src="base-other-hierarchy.xml"/>
 			<include src="base-other-idgenerator.xml,local-other-idgenerator.xml" merge="xmlmerge.properties"/>
