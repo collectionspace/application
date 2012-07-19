@@ -54,6 +54,7 @@
     <dependency>
         <groupId>org.collectionspace.services</groupId>
         <artifactId>org.collectionspace.services.common-api</artifactId>
+        <!-- This must be 2.6-SNAPSHOT or above, to address UCJEPS-277. -->
         <version>2.6-SNAPSHOT</version>
     </dependency>    
     
@@ -167,6 +168,14 @@
     
     
   </dependencies>
+
+  <repositories>
+    <repository>
+        <id>libs-snapshots-local</id>
+        <name>libs-snapshots-local</name>
+        <url>http://source.collectionspace.org:8081/artifactory/libs-snapshots-local</url>
+    </repository>
+  </repositories>
   
   <build>
     <finalName>csp-helper</finalName>
