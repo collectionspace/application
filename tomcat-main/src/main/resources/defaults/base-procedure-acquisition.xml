@@ -45,7 +45,8 @@
                     <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
                     <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
                     <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
-                    <field id="ownersource" mini="summary,search,list,relate"  in-title="yes" exists-in-services="false">
+                    <field id="ownersource" exists-in-services="false">
+                        <!-- mini="summary,search,list,relate" in-title="yes" -->
                         <selector>object-acquisition-ownersource</selector>
                         <merges>
                             <merge id="owner" rank="2" />
@@ -98,7 +99,8 @@
                         </options>
                     </field>
                     <repeat id="acquisitionSources">
-                        <field id="acquisitionSource" ui-search="repeatable" autocomplete="person-person,organization-organization">
+                        <field id="acquisitionSource" mini="summary,search,list,relate" in-title="yes"
+                            ui-search="repeatable" autocomplete="person-person,organization-organization">
                             <selector>acquisition-acquisitionSource</selector>
                         </field>
                     </repeat>
