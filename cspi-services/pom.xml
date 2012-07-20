@@ -14,6 +14,13 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
   
+  <repositories>
+    <repository>
+        <id>libs-snapshots-local</id>
+        <name>libs-snapshots-local</name>
+        <url>http://source.collectionspace.org:8081/artifactory/libs-snapshots-local</url>
+    </repository>
+  </repositories>
 
   <dependencies>
 
