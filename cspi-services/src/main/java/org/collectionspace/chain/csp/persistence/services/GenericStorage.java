@@ -885,16 +885,6 @@ public class GenericStorage  implements ContextualisedStorage {
 					resetGlean(thisr,reset_good,reset_map,reset_deurn,reset_merge, true);// what glean info required for this one..
 					String csid = parts[parts.length-1];
 					JSONObject dataitem = null;
-                                        // CSPACE-5406 - ADR 2012-07-19
-                                        /*
-					if(thisr.isType("authority")){
-						dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", thisr.getServicesURL()+"/"+uri, thisr);
-					}
-					else{
-						dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
-					}
-                                        * 
-                                        */
                                         dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
 					//JSONObject 
 					dataitem.getJSONObject("summarylist").put("uri",filePath);
