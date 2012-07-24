@@ -1,5 +1,5 @@
 <!-- Making a tenant-specific version of this, just to put an id on the (only) section. This shouldn't be necessary in 2.5. -->
-<record id="preferredCA" in-recordlist="no" separate-record="false">
+<record id="preferredCA" type="authority" in-recordlist="no" separate-record="false">
     <hassoftdelete>true</hassoftdelete>
     <section id="termInformation">
         <!-- List containing this item's preferred term and any non-preferred terms -->
