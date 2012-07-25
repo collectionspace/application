@@ -15,6 +15,7 @@ public interface WebMethod extends TrieMethod {
 	public final static String WORKFLOW_SUB_RESOURCE = "/*/workflow/";
 	public static final String AUTO_COMPLETE_QUERY_PARAM = "q";
 	public static final String SEARCH_QUERY_PARAM = "query";
+	public static final String MARK_RELATED_QUERY_PARAM = "mkRtSbj";
 	public static final String CONSTRAIN_VOCAB_PARAM = "vocab";
 	public static final String PAGE_SIZE_PARAM = "pageSize";
 	public static final String PAGE_NUM_PARAM = "pageNum";
