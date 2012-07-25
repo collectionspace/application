@@ -1,9 +1,9 @@
 <record id="organization">
-	<instances>
-		<instance id="organization-organization">
-			<title>Collector Authority</title>
-		</instance>
-		<instance id="organization-institution">
+    <instances id="organization">
+        <instance id="organization-organization">
+            <title>Collector Authority</title>
+        </instance>
+        <instance id="organization-institution">
 			<web-url>institution</web-url>
 			<title-ref>institution</title-ref>
 			<title>Institution Authority</title>
@@ -23,8 +23,8 @@
 			<title-ref>determination</title-ref>
 			<title>Determination Organization Authority</title>
 		</instance>
-	</instances>
-	
+    </instances>    
+		
 	<section id="organizationNameAuthorityInformation">
 		<repeat id="associatedPersonGroupList/associatedPersonGroup">
 			<field id="associatedPersonRole">

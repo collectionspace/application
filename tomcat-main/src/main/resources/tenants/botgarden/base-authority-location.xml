@@ -1,0 +1,80 @@
+<record id="location"  type="authority">
+    <terms-used>false</terms-used>
+    <!-- XXX servcie layer doesn't currently support  terms but it does on  organisations - go figure -->
+    <web-url>location</web-url>
+    <services-tenant-plural>Locationauthorities</services-tenant-plural>
+    <services-tenant-singular>Locationauthority</services-tenant-singular>
+    <services-instances-path>locationauthorities_common:http://collectionspace.org/services/location,abstract-common-list/list-item</services-instances-path>
+    <services-single-instance-path>locationauthorities_common:http://collectionspace.org/services/location,locationauthorities_common</services-single-instance-path>
+    <services-list-path>http://collectionspace.org/services/location,abstract-common-list/list-item</services-list-path>
+    <services-record-path>locations_common:http://collectionspace.org/services/location,locations_common</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+    <services-url>locationauthorities</services-url>
+    <authority-vocab-type>LocationAuthority</authority-vocab-type>
+    <hassoftdelete>true</hassoftdelete>
+    <structures>
+        <structure id="search">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+        <structure id="screen">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+                <hierarchy-section show="true">
+            		<options>
+                		<option id="narrowerContext">location-location</option>
+                		<option id="broaderContext">location-location</option>
+					</options>
+                </hierarchy-section>
+            </view>
+        </structure>
+    </structures>
+				
+	<include src="domain-authority-location.xml" strip-root="yes"/>
+				
+    <instances id="location">
+        <!-- <instance id="location-offsite_sla">
+            <web-url>offsite_sla</web-url>
+            <title-ref>offsite_sla</title-ref>
+            <title>Offsite Storage Locations</title>
+        </instance> -->
+        <instance id="location-location">
+            <web-url>location</web-url>
+            <title-ref>location</title-ref>
+            <title>Local Storage Locations</title>
+        </instance>
+    </instances>
+    <section id="coreInformation">
+        <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+        <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+    </section>
+    <section id="locationTermInformation">
+        <!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
+        <field id="shortIdentifier"></field>
+        <!-- List containing this item's preferred term and any non-preferred terms -->
+        <field id="preferredLocation" ui-type="groupfield/preferredSLA/selfrenderer" ui-func="cspace.preferred">
+            <selector>preferred-locationAuthority</selector>
+        </field>
+        <field id="accessNote" ui-search="repeatable"></field>
+        <field id="address" ui-search="repeatable"></field>
+		<repeat id="conditionGroupList/conditionGroup">
+            <field id="conditionNote" ui-search="repeatable"></field>
+            <field id="conditionNoteDate" ui-type="date"></field>
+        </repeat>
+        <field id="securityNote" ui-search="repeatable"></field>
+        <field id="locationType" ui-search="repeatable" autocomplete="vocab-locationtype" ui-type="enum">
+        	<selector>location-type</selector>
+        </field>
+    </section>
+    <!-- not used in UI except in autocompletes -->
+    <section id="otherInformation">
+        <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
+        <field id="csid" mini="search,list,relate" attributes="GET"></field>
+        <field id="refName" mini="search,list,relate" attributes="GET"></field>
+        <field id="uri" mini="search,list,relate" attributes="GET"></field>
+    </section>
+</record>

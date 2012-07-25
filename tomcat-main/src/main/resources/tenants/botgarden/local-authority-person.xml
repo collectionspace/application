@@ -1,0 +1,7 @@
+<record id="person">
+    <instances id="person">
+        <instance id="person-person">
+            <title>Default Persons</title>
+        </instance>
+    </instances>    
+</record>

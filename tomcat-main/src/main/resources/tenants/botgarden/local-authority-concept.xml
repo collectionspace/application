@@ -1,7 +1,7 @@
 <record id="concept">
-	<instances>
-		<instance id="concept-concept">
-			<title>Label Text Authority</title>
-		</instance>
-	</instances>
+    <instances id="concept">
+        <instance id="concept-concept">
+            <title>Label Text Authority</title>
+        </instance>
+    </instances>
 </record>

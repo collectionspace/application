@@ -1,0 +1,109 @@
+<record id="organization" type="authority">
+    <web-url>organization</web-url>
+    <services-tenant-auth-plural>Orgauthorities</services-tenant-auth-plural>
+    <services-tenant-auth-singular>Orgauthority</services-tenant-auth-singular>
+    <services-tenant-singular>Organization</services-tenant-singular>
+    <services-instances-path>orgauthorities_common:http://collectionspace.org/services/organization,abstract-common-list/list-item</services-instances-path>    <services-single-instance-path>orgauthorities_common:http://collectionspace.org/services/organization,orgauthorities_common</services-single-instance-path>
+    <services-list-path>http://collectionspace.org/services/organization,abstract-common-list/list-item</services-list-path>
+    <services-record-path>organizations_common:http://collectionspace.org/services/organization,organizations_common</services-record-path>
+    <services-record-path id="collectionspace_core"
+        >collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+    <services-url>orgauthorities</services-url>
+    <authority-vocab-type>OrgAuthority</authority-vocab-type>
+    <hassoftdelete>true</hassoftdelete>
+    <structures>
+        <structure id="search">
+            <view>
+                <label-section id="messagekeys" show="true"/>
+            </view>
+        </structure>
+        <structure id="screen">
+            <view>
+                <label-section id="messagekeys" show="true"/>
+                <hierarchy-section show="true">
+                    <options>
+                        <option id="narrowerContext">organization-organization</option>
+                        <option id="broaderContext">organization-organization</option>
+                    </options>
+                </hierarchy-section>
+            </view>
+        </structure>
+    </structures>
+
+    <include src="domain-authority-organization.xml" strip-root="yes"/>
+
+    <instances id="organization">
+        <instance id="organization-organization">
+            <web-url>organization</web-url>
+            <title-ref>organization</title-ref>
+            <title>Local Organizations</title>
+        </instance>
+        <!-- <instance id="organization-ulan_oa">
+            <web-url>ulan_oa</web-url>
+            <title-ref>ulan_oa</title-ref>
+            <title>ULAN Organizations</title>
+        </instance> -->
+    </instances>
+    
+    <section id="coreInformation">
+        <field id="tenantID" section="collectionspace_core" attributes="GET"/>
+        <field id="createdBy" section="collectionspace_core" attributes="GET"/>
+        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
+        <field id="createdAt" section="collectionspace_core" attributes="GET"/>
+        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
+            attributes="GET" mini="search,list,relate"/>
+    </section>
+    <section id="organizationNameAuthorityInformation">
+        <field id="preferredOrganization" ui-type="groupfield/preferredOA/selfrenderer" ui-func="cspace.preferred">
+            <selector>preferred-orgAuthority</selector>
+        </field>
+		<!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
+		<!-- start and end scalar values is working -->
+        <field id="foundingDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
+            primarykey="foundingDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
+            <selector>organizationAuthority-foundingDate</selector>
+            <title-selector>titleBar-foundationDate</title-selector>
+        </field>
+		<!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
+		<!-- start and end scalar values is working -->
+        <field id="dissolutionDateGroup" in-title="yes" ui-type="groupfield/structureddate" 
+            primarykey="dissolutionDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
+            <selector>organizationAuthority-dissolutionDate</selector>
+            <title-selector>titleBar-birthDate</title-selector>
+        </field>
+        <field id="foundingPlace" ui-search="repeatable">
+            <selector>orgAuthority-foundingPlace</selector>
+        </field>
+        <repeat id="groups">
+            <field id="group" ui-search="repeatable">
+                <selector>orgAuthority-group</selector>
+            </field>
+        </repeat>
+        <repeat id="functions">
+            <field id="function" ui-search="repeatable">
+                <selector>orgAuthority-function</selector>
+            </field>
+        </repeat>
+        <repeat id="historyNotes">
+            <field id="historyNote">
+                <selector>orgAuthority-history</selector>
+            </field>
+        </repeat>
+        <repeat id="contactNames">
+            <field id="contactName" autocomplete="person-person">
+                <selector>orgAuthority-contactName</selector>
+            </field>
+        </repeat>
+    </section>
+    <section id="contactInformation">
+        <group id="contact" userecord="contact" ui-spec-inherit="false" ui-spec-prefix="contact"
+            exists-in-services="false"/>
+    </section>
+    <!-- not used in UI except in autocompletes -->
+    <section id="otherInformation">
+        <field id="shortIdentifier" mini="search,list,relate" attributes="GET"/>
+        <field id="csid" mini="search,list,relate" attributes="GET"/>
+        <field id="refName" mini="search,list,relate" attributes="GET"/>
+        <field id="uri" mini="search,list,relate" attributes="GET"/>
+    </section>
+</record>

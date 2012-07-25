@@ -1,0 +1,96 @@
+<record id="concept" type="authority">
+    <terms-used>false</terms-used>
+    <web-url>concept</web-url>
+    <services-tenant-plural>Conceptauthorities</services-tenant-plural>
+    <services-tenant-singular>Conceptauthority</services-tenant-singular>
+    <services-instances-path>conceptauthorities_common:http://collectionspace.org/services/concept,abstract-common-list/list-item</services-instances-path>
+    <services-single-instance-path>conceptauthorities_common:http://collectionspace.org/services/concept,conceptauthorities_common</services-single-instance-path>
+    <services-list-path>http://collectionspace.org/services/concept,abstract-common-list/list-item</services-list-path>
+    <services-record-path>concepts_common:http://collectionspace.org/services/concept,concepts_common</services-record-path>
+    <services-record-path id="collectionspace_core">collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core</services-record-path>
+    <services-url>conceptauthorities</services-url>
+    <authority-vocab-type>ConceptAuthority</authority-vocab-type>
+    <hassoftdelete>true</hassoftdelete>
+    <structures>
+        <structure id="search">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+            </view>
+        </structure>
+        <structure id="screen">
+            <view>
+                <label-section id="messagekeys" show="true"></label-section>
+                <hierarchy-section show="true">
+                    <options>
+                        <option id="narrowerContext">concept-concept</option>
+                        <option id="broaderContext">concept-concept</option>
+                    </options>
+                </hierarchy-section>
+            </view>
+        </structure>
+    </structures>
+                
+    <include src="domain-authority-concept.xml" strip-root="yes"/>
+                
+    <instances id="concept">
+        <!-- <instance id="concept-material_ca">
+            <web-url>material_ca</web-url>
+            <title-ref>material_ca</title-ref>
+            <title>Material Concepts</title>
+        </instance> -->
+        <instance id="concept-concept">
+            <web-url>concept</web-url>
+            <title-ref>concept</title-ref>
+            <title>Associated Concepts</title>
+        </instance>
+        <!-- <instance id="concept-activity">
+            <web-url>activity</web-url>
+            <title-ref>activity</title-ref>
+            <title>Activity Concepts</title>
+        </instance> -->
+    </instances>
+    <section id="coreInformation">
+        <field id="tenantID" section="collectionspace_core" attributes="GET"></field>
+        <field id="createdBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"></field>
+        <field id="createdAt" section="collectionspace_core" attributes="GET"></field>
+        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core" attributes="GET" mini="search,list,relate"></field>
+    </section>
+    <section id="conceptAuthorityInformation">
+        <field id="preferredConcept" ui-type="groupfield/preferredCA/selfrenderer" ui-func="cspace.preferred">
+            <selector>preferred-conceptAuthority</selector>
+        </field>
+        <field id="scopeNote">
+            <selector>conceptAuthority-scopeNote</selector>
+        </field>
+        <field id="scopeNoteSource">
+            <selector>conceptAuthority-scopeNoteSource</selector>
+        </field>
+        <field id="scopeNoteSourceDetail">
+            <selector>conceptAuthority-scopeNoteSourceDetail</selector>
+        </field>
+        <field id="recordType"></field>
+        <repeat id="citationGroupList/citationGroup">
+            <!-- citationSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="citationSource"></field>
+            <field id="citationSourceDetail"></field>
+        </repeat>
+        <repeat id="additionalSourceGroupList/additionalSourceGroup">
+            <!-- additionalSource will be a Citation Authority autocomplete field when that service is implemented -->
+            <field id="additionalSource"></field>
+            <field id="additionalSourceDetail"></field>
+            <field id="additionalSourceID"></field>
+            <field id="additionalSourceNote"></field>
+        </repeat>
+        <!-- Should this field be present? -->
+        <field id="description"></field>
+    </section>
+    <!-- not used in UI except in autocompletes -->
+    <section id="otherInformation">
+        <field id="shortIdentifier" mini="search,list,relate" attributes="GET"></field>
+        <field id="csid" mini="search,list,relate" attributes="GET"></field>
+        <field id="refName" mini="search,list,relate" attributes="GET"></field>
+        <field id="uri" mini="search,list,relate" attributes="GET"></field>
+        <field id="termStatus" mini="search,list,relate"></field>
+    </section>
+</record>

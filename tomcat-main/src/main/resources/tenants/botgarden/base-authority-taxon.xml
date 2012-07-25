@@ -1,0 +1,117 @@
+<record id="taxon" type="authority" in-recordlist="yes" in-findedit="yes">
+    <web-url>taxon</web-url>
+    <!-- singular names are used throughout except for this authority's service URL path component, per CSPACE-3322 -->
+    <services-tenant-plural>Taxonomyauthority</services-tenant-plural>
+    <services-tenant-singular>Taxonomyauthority</services-tenant-singular>
+    <services-instances-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,abstract-common-list/list-item</services-instances-path>
+    <services-single-instance-path>taxonomyauthority_common:http://collectionspace.org/services/taxonomy,taxonomyauthority_common</services-single-instance-path>
+    <services-list-path>http://collectionspace.org/services/taxonomy,abstract-common-list/list-item</services-list-path>
+    <services-record-path>taxon_common:http://collectionspace.org/services/taxonomy,taxon_common</services-record-path>
+    <services-record-path id="collectionspace_core">
+		collectionspace_core:http://collectionspace.org/collectionspace_core/,collectionspace_core
+	</services-record-path>
+    <services-url>taxonomyauthority</services-url>
+    <authority-vocab-type>TaxonomyAuthority</authority-vocab-type>
+    <authorization-view>false</authorization-view>
+    <hassoftdelete>true</hassoftdelete>
+    <structures>
+        <structure id="search">
+            <view>
+                <label-section id="messagekeys" show="true"/>
+            </view>
+        </structure>
+        <structure id="screen">
+            <view>
+                <label-section id="messagekeys" show="true"/>
+                <hierarchy-section show="true">
+                    <options>
+                        <option id="narrowerContext">taxon-taxon</option>
+                        <option id="broaderContext">taxon-taxon</option>
+                    </options>
+                </hierarchy-section>
+            </view>
+        </structure>
+    </structures>
+
+    <include src="domain-authority-taxon.xml" strip-root="yes"/>
+
+    <instances id="taxon">
+        <!-- <instance id="taxon-common_ta">
+            <web-url>common_ta</web-url>
+            <title-ref>common_ta</title-ref>
+            <title>Common Taxa</title>
+        </instance> -->
+        <instance id="taxon-taxon">
+            <web-url>taxon</web-url>
+            <title-ref>taxon</title-ref>
+            <title>Local Taxa</title>
+        </instance>
+    </instances>
+    <section id="coreInformation">
+        <field id="tenantID" section="collectionspace_core" attributes="GET"/>
+        <field id="createdBy" section="collectionspace_core" attributes="GET"/>
+        <field id="updatedBy" ui-search="repeatable" section="collectionspace_core" attributes="GET"/>
+        <field id="createdAt" section="collectionspace_core" attributes="GET"/>
+        <field id="updatedAt" ui-search="range" ui-type="date" section="collectionspace_core"
+            attributes="GET" mini="search,list,relate"/>
+    </section>
+    <section id="taxonNameAuthorityInformation">
+        <!-- Is the shortIdentifier field needed here? It isn't present in all other authority record configs - ADR 2012-05-10 -->
+        <field id="shortIdentifier"/>
+        <field id="preferredTaxon" ui-type="groupfield/preferredTA/selfrenderer" ui-func="cspace.preferred">
+            <selector>preferred-taxonAuthority</selector>
+        </field>
+        <field id="taxonRank" ui-search="repeatable" seperate_ui_container="true">
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="domain">Domain</option>
+                <option id="kingdom">Kingdom</option>
+                <option id="phylum">Phylum</option>
+                <option id="division">Division</option>
+                <option id="family">Family</option>
+                <option id="class">Class</option>
+                <option id="order">Order</option>
+                <option id="genus">Genus</option>
+                <option id="species">Species</option>
+            </options>
+        </field>
+        <field id="taxonCurrency" ui-search="repeatable" seperate_ui_container="true">
+            <options>
+                <option id="" default="yes">Please select a value</option>
+                <option id="current">Current</option>
+                <option id="obsolete">Obsolete</option>
+                <option id="archaic">Archaic</option>
+            </options>
+        </field>
+        <repeat id="taxonAuthorGroupList/taxonAuthorGroup" has-primary="yes">
+            <field id="taxonAuthor" ui-search="repeatable" autocomplete="person-person"/>
+            <field id="taxonAuthorType" seperate_ui_container="true">
+                <options>
+                    <option id="" default="yes">Please select a value</option>
+                    <option id="ascribed">Ascribed</option>
+                    <option id="parenthetical">Parenthetical</option>
+                </options>
+            </field>
+        </repeat>
+        <field id="taxonYear" ui-search="repeatable"/>
+        <repeat id="taxonCitationList" has-primary="yes">
+            <field id="taxonCitation" ui-search="repeatable"/>
+        </repeat>
+        <field id="taxonNote"/>
+        <field id="taxonIsNamedHybrid" datatype="boolean" ui-search="repeatable"></field>
+        <repeat id="commonNameGroupList/commonNameGroup" has-primary="yes">
+            <field id="commonName" ui-search="repeatable"/>
+            <field id="commonNameLanguage" autocomplete="vocab-languages" ui-type="enum"/>
+            <field id="commonNameSource"/>
+            <field id="commonNameSourceDetail"/>
+        </repeat>
+    </section>
+
+    <!-- not used in UI except in autocompletes -->
+    <section id="otherInformation">
+        <field id="shortIdentifier" mini="search,list,relate" attributes="GET"/>
+        <field id="csid" mini="search,list,relate" attributes="GET"/>
+        <field id="refName" mini="search,list,relate" attributes="GET"/>
+        <field id="uri" mini="search,list,relate" attributes="GET"/>
+    </section>
+</record>

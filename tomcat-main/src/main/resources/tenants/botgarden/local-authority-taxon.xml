@@ -1,17 +1,20 @@
 <record id="taxon">
-	<instances>
-		<instance id="taxon-unverified">
-			<web-url>unverified</web-url>
-			<title-ref>unverified</title-ref>
-			<title>Unverified Taxononomy Authority</title>
-		</instance>
-		<instance id="taxon-common">
-			<web-url>common</web-url>
-			<title-ref>common</title-ref>
-			<title>Common Taxononomy Authority</title>
-		</instance>
-	</instances>
-
+    <instances id="taxon">
+        <instance id="taxon-taxon">
+            <title>Default Scientific Taxonomy Authority</title>
+        </instance>
+        <instance id="taxon-common">
+            <web-url>common</web-url>
+            <title-ref>common</title-ref>
+            <title>Common Taxonomy Authority</title>
+        </instance>
+        <instance id="taxon-unverified">
+            <web-url>unverified</web-url>
+            <title-ref>unverified</title-ref>
+            <title>Unverified Taxonomy Authority</title>
+        </instance>
+    </instances>
+    
 	<section id="taxonNameAuthorityInformation">
 		<field id="termStatus">
 			<options>
