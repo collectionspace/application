@@ -78,11 +78,14 @@ public class Record implements FieldParent {
 	private FieldSet mini_summary, mini_number, display_name;
 	private String whoamI = "";
 
+	// Map field id to id of the field to be used for sorting
+	private Map<String, String> sortKeys = new HashMap<String, String>();
+
 	/* Service stuff */
 	private Map<String, String> services_record_paths = new HashMap<String, String>();
 	private Map<String, String> services_instances_paths = new HashMap<String, String>();
 	private Map<String, Field> services_filter_param = new HashMap<String, Field>();
-
+	
 	// XXX utility methods
 	Record(Spec parent, ReadOnlySection section, Map<String,String> data) {
 		//Map<String,String>data = (Map<String,String>)parent;
@@ -1043,5 +1046,13 @@ public class Record implements FieldParent {
 	@Override
 	public boolean isExpander() {
 		return false;
+	}
+	
+	public void setSortKey(String fieldId, String sortFieldId) {
+		sortKeys.put(fieldId, sortFieldId);
+	}
+	
+	public String getSortKey(String fieldId) {
+		return sortKeys.get(fieldId);
 	}
 }

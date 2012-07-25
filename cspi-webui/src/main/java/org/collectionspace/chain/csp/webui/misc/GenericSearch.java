@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.collectionspace.chain.csp.webui.main.WebMethod;
 import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldParent;
@@ -101,7 +102,7 @@ public class GenericSearch {
 				// Replace user wildcards with service-legal wildcards
 				if(value.contains("*")){
 					value = value.replace("*", "%");
-					comparator = ILIKE_COMPARATOR;
+					// comparator = ILIKE_COMPARATOR;
 				}
 				String fieldSpecifier = getSchemaQualifiedSearchSpecifierForField(r, fieldname, fieldSet);
 				log.debug("Built XPath specifier for field: " + fieldname + " is: "+fieldSpecifier);
@@ -246,6 +247,13 @@ public class GenericSearch {
 							}
 						}
 						fieldname = fs.getID();
+						String sortFieldname = r.getSortKey(fieldname);
+						
+						if (StringUtils.isNotEmpty(sortFieldname)) {
+							log.debug("Found sort key " + sortFieldname + " for " + fieldname);
+							fs = r.getFieldFullList(sortFieldname);
+						}
+						
 						FieldSet tmp = fs;
 						fieldname = getSearchSpecifierForField(fs, true);
 						
@@ -522,9 +530,9 @@ public class GenericSearch {
 					rangeInfo.rangeStartValue = wrapChar+value+wrapChar;
 				} else if(isRangeEnd) {
 					rangeInfo.rangeEndValue = wrapChar+value+wrapChar;
-				} else {	// Simple equals test. If has wildcards, will be changed to ILIKE
+				} else {
 					queryClause = getAdvancedSearch(r,fieldName,fieldSet, value, 
-											getQueryValueWrapChar(fieldSet), "", EQUALS);
+											getQueryValueWrapChar(fieldSet), "", ILIKE_COMPARATOR);
 				}
 				// These fields are all single - no intervals on basic fields
 	            if(rangeInfo!=null) {

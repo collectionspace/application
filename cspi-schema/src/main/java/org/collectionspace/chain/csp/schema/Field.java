@@ -162,6 +162,12 @@ public class Field implements FieldSet {
 			this.parent.getRecord().addMiniDataSet(this, s);
 		}
 
+		String sortKey = Util.getStringOrDefault(section, "/@sortKey", "");
+		
+		if (StringUtils.isNotEmpty(sortKey)) {
+			this.parent.getRecord().setSortKey(utils.getString("@id"), sortKey);
+		}
+		
 		utils.initBoolean(section,"@display-name",false);
 		if (utils.getBoolean("@display-name"))
 			this.parent.getRecord().setDisplayName(this);
