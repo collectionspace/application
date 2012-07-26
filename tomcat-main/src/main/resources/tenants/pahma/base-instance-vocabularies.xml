@@ -54,36 +54,6 @@
 			<option id="returned">returned</option>
 		</options>
 	</instance>
-	<instance id="vocab-loanpurpose">
-		<web-url>loanpurpose</web-url>
-		<title-ref>loanpurpose</title-ref>
-		<title>Loan Purpose</title>
-		<options>
-			<option id="appraisal">Appraisal</option>
-			<option id="ceremonial_use">Ceremonial use</option>
-			<option id="conservation">Conservation</option>
-			<option id="conservation_fumigation">Conservation: fumigation</option>
-			<option id="exhibit_class_exhibit">Exhibit: class exhibit</option>
-			<option id="exhibit_off_campus">Exhibit: off-campus</option>
-			<option id="exhibit_on_campus">Exhibit: on-campus</option>
-			<option id="exhibit_traveling_exhibit">Exhibit: traveling exhibit</option>
-			<option id="exhibit_unclassified">Exhibit: unclassified</option>
-			<option id="photography_digitization">Photography: digitization</option>
-			<option id="photography_general">Photography: general</option>
-			<option id="photography_radiography">Photography: radiography</option>
-			<option id="photography_video">Photography: video</option>
-			<option id="research_destructive_analysis">Research: destructive analysis</option>
-			<option id="research_dissertation">Research: dissertation</option>
-			<option id="research_general">Research: general</option>
-			<option id="research_identification">Research: identification</option>
-			<option id="research_undergrad_teaching">Research: undergrad. teaching</option>
-			<option id="teaching_non_uc_non_csu">Teaching: non-UC, non-CSU</option>
-			<option id="teaching_other_uc_or_csu">Teaching: other UC or CSU</option>
-			<option id="teaching_teaching_exhibit">Teaching: teaching exhibit</option>
-			<option id="teaching_ucb_campus">Teaching: UCB campus</option>
-			<option id="teaching_unspecified">Teaching: unspecified</option>
-		</options>
-	</instance>
 	<instance id="vocab-currency">
 		<web-url>currency</web-url>
 		<title-ref>currency</title-ref>
