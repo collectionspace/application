@@ -14,12 +14,21 @@
 				<option id="domain">domain</option>
 				<option id="kingdom">kingdom</option>
 				<option id="phylum">phylum</option>
+				<option id="subphylum">subphylum</option>
 				<option id="division">division</option>
 				<option id="class">class</option>
+				<option id="subclass">subclass</option>
+				<option id="infraclass">infraclass</option>
 				<option id="order">order</option>
+				<option id="infraorder">infraorder</option>
+				<option id="superfamily">superfamily</option>
 				<option id="family">family</option>
+				<option id="subfamily">subfamily</option>
+				<option id="tribe">tribe</option>
+				<option id="subtribe">subtribe</option>
 				<option id="genus">genus</option>
 				<option id="species">species</option>
+				<option id="subspecies">subspecies</option>
 			</options>
 		</field>
 		<field id="taxonCurrency">
