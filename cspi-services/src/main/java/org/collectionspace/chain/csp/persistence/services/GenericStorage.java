@@ -230,8 +230,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param r
 	 * @throws JSONException
 	 */
-	protected void convertToJson(JSONObject out,Document in, Record thisr, String permlevel, String section, String csid) throws JSONException {
-		XmlJsonConversion.convertToJson(out,thisr,in,permlevel,section,csid,conn.getIMSBase());
+	protected JSONObject convertToJson(JSONObject out,Document in, Record thisr, String permlevel, String section, String csid) throws JSONException {
+		return XmlJsonConversion.convertToJson(out,thisr,in,permlevel,section,csid,conn.getIMSBase());
 	}
 	
 	protected void getGleaned(){
@@ -484,6 +484,8 @@ public class GenericStorage  implements ContextualisedStorage {
 				softpath = hierarchicalpath(softpath);
 			}
 			
+			List<JSONObject> tempSons = new ArrayList<JSONObject>();
+			
 			if(thisr.isMultipart()){
 				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,servicesurl+softpath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
@@ -493,7 +495,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					String path=thisr.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
 					if(doc.getDocument(parts[0]) != null ){
-						convertToJson(out,doc.getDocument(parts[0]), thisr, "GET",section , csid);
+						tempSons.add(convertToJson(out,doc.getDocument(parts[0]), thisr, "GET",section , csid));
 					}
 				}
 			}
@@ -501,9 +503,28 @@ public class GenericStorage  implements ContextualisedStorage {
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+softpath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
-				convertToJson(out,doc.getDocument(), thisr, "GET", "common",csid);
+				tempSons.add(convertToJson(out,doc.getDocument(), thisr, "GET", "common",csid));
 			}
-
+			
+			if(r.hasMerged()){
+				for(FieldSet f : r.getAllMergedFields()){
+					for(String fm : f.getAllMerge()){
+						if (fm != null) {
+							if (r.hasFieldByOperation(fm, "GET")) {
+								for(JSONObject tempSon : tempSons) {
+									if (tempSon.has(fm)) {
+										String data = tempSon.getString(fm);
+										if (data != null && !data.equals("")
+												&& !out.has(f.getID())) {
+											out.put(f.getID(), data);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
