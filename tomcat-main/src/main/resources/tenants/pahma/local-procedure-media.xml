@@ -53,7 +53,7 @@
 	</section>
 	
 	<section id="otherInformation">
-		<!-- Remove mini -->
-		<field id="imgThumb" mini=""/>
+		<!-- Remove search and list from mini (relate is required for the media snapshot) -->
+		<field id="imgThumb" mini="relate"/>
 	</section>
 </record>
