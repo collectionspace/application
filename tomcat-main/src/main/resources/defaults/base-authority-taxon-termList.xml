@@ -15,7 +15,7 @@
             <!-- Recommendation: Hide termType in the UI because taxonomy has established -->
             <!-- international nomenclature standards. -->
             <!-- FIXME: Should we remove this field from mini-records? - ADR 2012-05-18 -->
-            <field id="termType" mini="summary,search,list,relate">
+            <field id="termType">
                 <selector>taxonAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>
