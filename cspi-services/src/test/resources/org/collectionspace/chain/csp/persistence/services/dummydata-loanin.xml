@@ -7,7 +7,7 @@
                 <lendersAuthorizer>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(jimlange)'Jim+Lange'</lendersAuthorizer>
                 <lendersAuthorizationDate>Jul 24, 2001</lendersAuthorizationDate>
                 <lendersContact>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(jimmydurante)'Jimmy+Durante'</lendersContact>
-                <loanInContact>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(ryanoneal)'Ryan+O%27Neal'</loanInContact>
+                <borrowersContact>urn:cspace:org.collectionspace.demo:personauthority:name(person):person:name(ryanoneal)'Ryan+O%27Neal'</borrowersContact>
                 <loanInConditions>Absolutely terrible. Everything is falling apart, actually it's pretty much a pile of dust superglued together</loanInConditions>
                 <loanInDate>Jul 1, 2010</loanInDate>
                 <loanReturnDate>Jul 2, 2010</loanReturnDate>
