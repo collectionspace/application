@@ -103,9 +103,6 @@
                             <selector>loanIn-lendersContact</selector>
                         </field>
                     </repeat>
-                    <field id="loanInContact" autocomplete="person-person">
-                        <selector>loanIn-loanInContact</selector>
-                    </field>
                     <field id="borrowersAuthorizer" autocomplete="person-person"></field>
                     <field id="borrowersContact" autocomplete="person-person"></field>
                     <field id="borrowersAuthorizationDate"  ui-type="date"></field>

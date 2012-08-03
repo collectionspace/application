@@ -3,7 +3,7 @@
     "lendersAuthorizer": "lendersAuthorizer",
     "lendersAuthorizationDate": "lendersAuthorizationDate",
     "lendersContact": "lendersContact",
-    "loanInContact": "loanInContact",
+    "borrowersContact": "borrowersContact",
     "loanInConditions": "loanInConditions",
     "loanInNote": "loanInNote",
     "loanPurpose": "loanPurpose"
