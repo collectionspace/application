@@ -12,7 +12,7 @@
             <field id="termName">
                 <selector>orgAuthority-termName</selector>
             </field>
-            <field id="termType" mini="summary,search,list,relate">
+            <field id="termType">
                 <selector>orgAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ns2:loansin_common xmlns:ns2="http://collectionspace.org/services/loanin">
     <loanInNumber>LI2010.1.21</loanInNumber>
-    <loanInContact></loanInContact>
+    <borrowersContact></borrowersContact>
     <loanInDate></loanInDate>
     <lenderGroupList>
        <lenderGroup>

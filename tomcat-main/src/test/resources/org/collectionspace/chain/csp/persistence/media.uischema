@@ -320,9 +320,8 @@
                                 },
                                 "type": "array"
                             },
-                            "identificationNumber": {
-                                "type": "string"
-                            }
+														"externalUrl": {"type": "string"},
+                            "identificationNumber": { "type": "string" }
                         },
                         "type": "object"
                     }

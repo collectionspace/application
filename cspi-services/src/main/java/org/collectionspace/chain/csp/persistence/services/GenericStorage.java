@@ -57,6 +57,7 @@ import org.slf4j.LoggerFactory;
  */
 public class GenericStorage  implements ContextualisedStorage {
 	public final static String SEARCH_RELATED_TO_CSID_AS_SUBJECT = "rtSbj";
+	public final static String MARK_RELATED_TO_CSID_AS_SUBJECT = "mkRtSbj";
 	public final static String SEARCH_ALL_GROUP = "searchAllGroup";
 
 	private static final Logger log=LoggerFactory.getLogger(GenericStorage.class);
@@ -66,6 +67,7 @@ public class GenericStorage  implements ContextualisedStorage {
 	protected Map<String,String> view_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
 	protected Map<String,String> view_map=new HashMap<String,String>(); // map of csid to service name of field
 	protected Set<String> xxx_view_deurn=new HashSet<String>();
+	protected Set<String> view_search_optional=new HashSet<String>();
 	protected Map<String,List<String>> view_merge = new HashMap<String, List<String>>();
 
 	/**
@@ -90,6 +92,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		view_good=new HashMap<String,String>();
 		view_map=new HashMap<String,String>();
 		xxx_view_deurn=new HashSet<String>();
+		view_search_optional=new HashSet<String>();
 		view_merge = new HashMap<String, List<String>>();
 		initializeGlean(r);
 	}
@@ -105,10 +108,17 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param reset_merge
 	 * @param init
 	 */
-	protected void resetGlean(Record r,Map<String,String> reset_good, Map<String,String>  reset_map, Set<String>  reset_deurn, Map<String,List<String>>  reset_merge, Boolean init){
+	protected void resetGlean(Record r, 
+			Map<String,String>		reset_good, 
+			Map<String,String>		reset_map, 
+			Set<String>				reset_deurn, 
+			Set<String>				reset_search_optional, 
+			Map<String,List<String>> reset_merge, 
+			Boolean 				init){
 		view_good=reset_good;
 		view_map=reset_map;
 		xxx_view_deurn=reset_deurn;
+		view_search_optional=reset_search_optional;
 		view_merge = reset_merge;
 		if(init){
 			initializeGlean(r);
@@ -186,6 +196,13 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 			}
 		}
+		// Special cases not currently supported in config. This is a hack, and once we figure out
+		// what a pattern looks like, we can consider configuring this somehow. 
+		// The current support is for a return field that may or may not be present in list
+		// results. When it is, we want to pass it along to the UI
+		view_search_optional.add("related");
+		view_good.put("search_related","related");
+		view_map.put("related","related");
 	}
 
 	/**
@@ -322,15 +339,27 @@ public class GenericStorage  implements ContextualisedStorage {
 				gleaned=getGleanedValue(cache,cachelistitem,good);
 			}
 			
-			if(gleaned==null)
+			if(gleaned==null) {
+				// If the field was optional, but we go no value, go ahead and remove it
+				// from the to_get set, so we do not fan out below.
+				if(view_search_optional.contains(good)) {
+					to_get.remove(fieldname);
+				}
 				continue;
+			}
 			if(xxx_view_deurn.contains(good))
 				gleaned=xxx_deurn(gleaned);
 			
 			
 			if(name.startsWith(summarylistname)){
-				name = name.substring(summarylistname.length());
-				summarylist.put(name, gleaned);
+				// The optionals, even though they are tied to individual views, put
+				// values at the top level, and not in the summary.
+				if(view_search_optional.contains(good)) {
+					out.put(good,gleaned);
+				} else {
+					name = name.substring(summarylistname.length());
+					summarylist.put(name, gleaned);
+				}
 			}
 			else{
 				out.put(fieldname,gleaned);
@@ -826,6 +855,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		Map<String,String> old_good=view_good;// map of servicenames of fields to descriptors
 		Map<String,String> old_map=view_map; // map of csid to service name of field
 		Set<String> old_deurn=xxx_view_deurn;
+		Set<String> old_search_optional=view_search_optional;
 		Map<String,List<String>>old_merge =view_merge;
 
 		try{
@@ -833,6 +863,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			Map<String,String> reset_good=new HashMap<String,String>();// map of servicenames of fields to descriptors
 			Map<String,String> reset_map=new HashMap<String,String>(); // map of csid to service name of field
 			Set<String> reset_deurn=new HashSet<String>();
+			Set<String> reset_search_optional=new HashSet<String>();
 			Map<String,List<String>> reset_merge = new HashMap<String, List<String>>();
 			if(vr.hasRefObjUsed()){
 				path =  getRestrictedPath(path, restrictions,"kw", "", false, "");
@@ -853,6 +884,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				view_good = reset_good;
 				view_map = reset_map;
 				xxx_view_deurn = reset_deurn;
+				view_search_optional = reset_search_optional;
 				view_merge = reset_merge;
 				
 				//String nodeName = "authority-ref-doc-list/authority-ref-doc-item";
@@ -863,6 +895,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				reset_good = view_good;
 				reset_map = view_map;
 				reset_deurn = xxx_view_deurn;
+				reset_search_optional = view_search_optional;
 				reset_merge = view_merge;
 				
 				JSONArray recs = data.getJSONArray("listItems");
@@ -882,15 +915,12 @@ public class GenericStorage  implements ContextualisedStorage {
 					String[] parts=filePath.split("/");
 					String recordurl = parts[0];
 					Record thisr = vr.getSpec().getRecordByServicesUrl(recordurl);
-					resetGlean(thisr,reset_good,reset_map,reset_deurn,reset_merge, true);// what glean info required for this one..
+					// what glean info required for this one..
+					resetGlean(thisr, reset_good, reset_map, reset_deurn,
+							reset_search_optional, reset_merge, true);
 					String csid = parts[parts.length-1];
 					JSONObject dataitem = null;
-					if(thisr.isType("authority")){
-						dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", thisr.getServicesURL()+"/"+uri, thisr);
-					}
-					else{
-						dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
-					}
+					dataitem =  miniViewRetrieveJSON(cache,creds,csid, "terms", uri, thisr);
 					//JSONObject 
 					dataitem.getJSONObject("summarylist").put("uri",filePath);
 					
@@ -903,6 +933,7 @@ public class GenericStorage  implements ContextualisedStorage {
 						fieldName = key.split(":")[1];
 						//XXX fixCSPACE-2909 would be nice if they gave us the actual field rather than the parent
 						//XXX CSPACE-2586
+                                                // FIXME: We might remove the following if CSPACE-2909's fix makes this moot - ADR 2012-07-19
 						while(thisr.getFieldFullList(fieldName) instanceof Repeat || thisr.getFieldFullList(fieldName) instanceof Group ){
 							fieldName = ((Repeat)thisr.getFieldFullList(fieldName)).getChildren("GET")[0].getID();
 						}
@@ -946,6 +977,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			view_good = old_good;
 			view_map = old_map;
 			xxx_view_deurn = old_deurn;
+			view_search_optional  = old_search_optional;
 			view_merge = old_merge;
 		}
 	}
@@ -1610,6 +1642,10 @@ public class GenericStorage  implements ContextualisedStorage {
 				}
 				postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
 				queryadded = true;
+			}
+			if(restrictions.has(MARK_RELATED_TO_CSID_AS_SUBJECT)){
+				postfix += MARK_RELATED_TO_CSID_AS_SUBJECT+"="
+						+restrictions.getString(MARK_RELATED_TO_CSID_AS_SUBJECT)+"&";
 			}
 			if(restrictions.has(SEARCH_RELATED_TO_CSID_AS_SUBJECT)){
 				postfix += SEARCH_RELATED_TO_CSID_AS_SUBJECT+"="

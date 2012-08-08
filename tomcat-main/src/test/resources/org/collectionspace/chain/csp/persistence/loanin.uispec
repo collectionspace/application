@@ -138,9 +138,6 @@
         ".csc-loanin-loanInDate-label": {
             "messagekey": "loanin-loanInDateLabel"
         },
-        ".csc-loanin-loanInContact-label": {
-            "messagekey": "loanin-loanInContactLabel"
-        },
         ".csc-loanin-loanStatusGroup": {
             "decorators": [{
                 "func": "cspace.makeRepeatable",
@@ -184,17 +181,6 @@
         },
         ".csc-loanin-loanInNumber-label": {
             "messagekey": "loanin-loanInNumberLabel"
-        },
-        ".csc-loanIn-loanInContact": {
-            "decorators": [{
-                "func": "cspace.autocomplete",
-                "type": "fluid",
-                "options": {
-                    "queryUrl": "../../../tenant/core/loanin/autocomplete/loanInContact",
-                    "vocabUrl": "../../../tenant/core/loanin/source-vocab/loanInContact"
-                }
-            }],
-            "value": "${fields.loanInContact}"
         },
         ".csc-loanin-recordtype-label": {
             "messagekey": "loanin-recordtypeLabel"
