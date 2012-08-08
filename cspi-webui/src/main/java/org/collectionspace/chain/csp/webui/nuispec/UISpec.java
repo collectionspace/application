@@ -358,6 +358,39 @@ public class UISpec extends SchemaStructure implements WebMethod {
 		out.put(getSelector(fs,context),generateDataTypeValidator(fs,context));
 	}
 	
+	/**
+	 * Overwrite with output you need for this thing you are doing
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualExternalURLField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+		out.put(getSelector(fs,context),actualExternalURL(fs,context));
+	}
+	
+	/**
+	 * This is a bit of JSON needed by the UI so they display dates in the UIspec
+	 * @param f
+	 * @param context
+	 * @return
+	 * @throws JSONException
+	 */
+	protected JSONObject actualExternalURL(FieldSet fs,UISpecRunContext context) throws JSONException {
+		JSONObject out=new JSONObject();
+		JSONArray decorators=new JSONArray();
+		Field f = (Field)fs;
+		JSONObject decorator=getDecorator("fluid",null,"cspace.externalURL",null,f.isReadOnly());
+		if(!f.isRefactored()){
+			if(f.hasContainer()){
+				decorator.put("container",getSelector(f,context));
+			}
+		}
+		decorators.put(decorator);
+		out.put("decorators",decorators);
+		out.put("value", actualFieldEntry(f,context));
+		return out;
+	}
 
 	/**
 	 * treat just the same as a normal field - only need the distinction in UISchema

@@ -168,6 +168,9 @@ public class SchemaStructure {
 		else if("validated".equals(fs.getUIType())){
 			actualValidatedField(out, fs, context);
 		}
+		else if("externalURL".equals(fs.getUIType())){
+			actualExternalURLField(out, fs, context);
+		}
 		else if(fs.isASelfRenderer()){
 			actualSelfRendererField(out, fs, context);
 		}
@@ -211,6 +214,15 @@ public class SchemaStructure {
 	 */
 	protected void actualValidatedField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
 	}
+	/**
+	 * 
+	 * @param out
+	 * @param fs
+	 * @param context
+	 * @throws JSONException 
+	 */
+	protected void actualExternalURLField(JSONObject out, FieldSet fs, UISpecRunContext context) throws JSONException{
+	}
 	
 	/**
 	 * Overwrite with output you need for this thing you are doing
@@ -252,6 +264,9 @@ public class SchemaStructure {
 		}
 		if("validated".equals(fs.getUIType())){
 			actualValidatedField(out, fs, context);
+		}
+		else if("externalURL".equals(fs.getUIType())){
+			actualExternalURLField(out, fs, context);
 		}
 	}
 	/**
