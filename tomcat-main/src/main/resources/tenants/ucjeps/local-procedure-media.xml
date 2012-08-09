@@ -1,5 +1,5 @@
 <record id="media">
-	<services-record-path id="botgarden">media_ucjeps:http://collectionspace.org/services/media/local/ucjeps,media_ucjeps</services-record-path>
+	<services-record-path id="ucjeps">media_ucjeps:http://collectionspace.org/services/media/local/ucjeps,media_ucjeps</services-record-path>
 	
 	<section id="mediaInformation">
 		<!-- Remove mini values -->

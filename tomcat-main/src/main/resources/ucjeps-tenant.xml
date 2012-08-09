@@ -1,4 +1,4 @@
-<cspace-config tenantname="botgarden">
+<cspace-config tenantname="ucjeps">
 	<version>11</version>
 	<include src="local-settings.xml,settings.xml" strip-root="yes"/>
 

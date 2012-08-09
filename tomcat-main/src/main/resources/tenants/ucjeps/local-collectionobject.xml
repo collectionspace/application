@@ -1,5 +1,5 @@
 <record id="collection-object">
-	<services-record-path id="botgarden">collectionobjects_ucjeps:http://collectionspace.org/services/collectionobject/local/ucjeps,collectionobjects_ucjeps</services-record-path>
+	<services-record-path id="ucjeps">collectionobjects_ucjeps:http://collectionspace.org/services/collectionobject/local/ucjeps,collectionobjects_ucjeps</services-record-path>
 	
 	<section id="coreInformation">
 		<!-- Remove mini -->
