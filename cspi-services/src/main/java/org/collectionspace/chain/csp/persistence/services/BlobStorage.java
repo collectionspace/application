@@ -29,17 +29,26 @@ import org.slf4j.LoggerFactory;
 
 public class BlobStorage extends GenericStorage {
 	private static final Logger log=LoggerFactory.getLogger(RecordStorage.class);
+	private static final String ORIGINAL_CONTENT = "Original";
 	
 	public BlobStorage(Record r,ServicesConnection conn) throws DocumentException, IOException {	
 		super(r,conn);
 		initializeGlean(r);
 	}
 	
+	/*
+	 * This method returns actual blob bits -either the original blob bits or those of a derivative
+	 */
 	public JSONObject viewRetrieveImg(ContextualisedStorage storage,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,String view, String extra, JSONObject restrictions) throws ExistException,UnimplementedException, UnderlyingStorageException, JSONException, UnsupportedEncodingException {
 		JSONObject out=new JSONObject();
-		String servicesurl = r.getServicesURL()+"/";
+		String servicesurl = r.getServicesURL() + "/";
 		try {
-			filePath = filePath +"/derivatives/"+view+"/content";
+			String contentSuffix = "/content";
+			if (view.equalsIgnoreCase(ORIGINAL_CONTENT)) {
+				filePath = filePath + contentSuffix;
+			} else {
+				filePath = filePath + "/derivatives/" + view + contentSuffix;
+			}
 			String softpath = filePath;
 			if(r.hasSoftDeleteMethod()){
 				softpath = softpath(filePath);
