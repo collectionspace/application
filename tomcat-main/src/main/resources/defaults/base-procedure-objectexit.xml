@@ -66,7 +66,8 @@
                     <!-- FIXME: Add 'ui-search="range"' or equivalent to this field when range search on structured date -->
                     <!-- start and end scalar values is working -->
                     <field id="exitDateGroup" ui-type="groupfield/structureddate" 
-                        primarykey="exitDateGroup.dateDisplayDate" ui-func="cspace.structuredDate">
+											  ui-search="range" ui-func="cspace.structuredDate"
+                        primarykey="exitDateGroup.dateDisplayDate">
                     </field>
                     <repeat id="exitMethods">
                         <field id="exitMethod" ui-search="repeatable">

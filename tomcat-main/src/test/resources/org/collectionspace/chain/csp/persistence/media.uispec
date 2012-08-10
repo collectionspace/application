@@ -48,6 +48,8 @@
     ".csc-blobs-imgOrig": "${fields.blobs.0.imgOrig}",
     ".csc-media-source": "${fields.source}",
     ".csc-media-externalMediaUrl": "${fields.externalMediaUrl}",
+    ".csc-media-imgOrig": "${fields.imgOrig}",
+    ".csc-media-imgOrig-label": {"messagekey": "media-imgOrigLabel"},
     ".csc-media-relations-label": {"messagekey": "media-relationsLabel"},
     ".csc-media-subject": {"decorators": [{
         "func": "cspace.makeRepeatable",

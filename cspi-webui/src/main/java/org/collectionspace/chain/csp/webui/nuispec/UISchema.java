@@ -252,8 +252,18 @@ public class UISchema extends SchemaStructure implements WebMethod {
 	
 	protected void makeAStructureDate(FieldSet fs, JSONObject out,
 			JSONObject subexpander, JSONObject options, Record subitems,
-			UISpecRunContext sub) throws JSONException {
-		makeAOtherGroup(fs,out,subexpander, options, subitems, sub);
+			UISpecRunContext sub, UISpecRunContext mainContext) throws JSONException {
+		// We map structured-date range searches onto a range search on the scalar date fields. 
+		// We continue to refer to the structured date field so that the search builder can
+		// do the right thing, but here in the search schema, we act as though the structured
+		// date is really a scalar date, so the UI code will build the right UI
+		// Note that at this point, the fs is actually a synthetic copy of the original
+		// with the id changed to append "Start" or "End"
+		if( (this.spectype.equals("search") && fs.getSearchType().equals("range"))){
+			actualDateField(out, fs, mainContext);
+		} else {
+			makeAOtherGroup(fs,out,subexpander, options, subitems, sub);
+		}
 	}	
 	
 	protected void makeAOtherGroup(FieldSet fs, JSONObject out,
