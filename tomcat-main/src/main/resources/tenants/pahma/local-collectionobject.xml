@@ -192,17 +192,17 @@
 				<options>
 					<option id="" default="yes">(none selected)</option>
 					<option id="additional number">additional number</option>
-					<option id="attributed pahma number">attributed pahma number</option>
+					<option id="attributed pahma number">attributed PAHMA number</option>
 					<option id="burial number">burial number</option>
 					<option id="moac subobjid">moac subobjid</option>
 					<option id="museum number (recataloged to)">museum number (recataloged to)</option>
 					<option id="previous number">previous number</option>
-					<option id="previous number (albert bender’s number)">previous number (albert bender’s number)</option>
-					<option id="previous number (bascom’s number)">previous number (bascom’s number)</option>
+					<option id="previous number (albert bender’s number)">previous number (Albert Bender’s number)</option>
+					<option id="previous number (bascom’s number)">previous number (Bascom’s number)</option>
 					<option id="previous number (collector's original number)">previous number (collector's original number)</option>
-					<option id="previous number (design dept.)">previous number (design dept.)</option>
-					<option id="previous number (mvc number, mossman-vitale collection)">previous number (mvc number, mossman-vitale collection)</option>
-					<option id="previous number (ucas: university of california archaeological survey)">previous number (ucas: university of california archaeological survey)</option>
+					<option id="previous number (design dept.)">previous number (Design Dept.)</option>
+					<option id="previous number (mvc number, mossman-vitale collection)">previous number (MVC number, Mossman-Vitale collection)</option>
+					<option id="previous number (ucas: university of california archaeological survey)">previous number (UCAS: University of California Archaeological Survey)</option>
 					<option id="song number">song number</option>
 					<option id="tag">tag</option>
 					<option id="temporary number">temporary number</option>
@@ -211,9 +211,9 @@
 					<option id="field number">field number</option>
 					<option id="original number">original number</option>
 					<option id="previous museum number (recataloged from)">previous museum number (recataloged from)</option>
-					<option id="previous number (anson blake’s number)">previous number (anson blake’s number)</option>
+					<option id="previous number (anson blake’s number)">previous number (Anson Blake’s number)</option>
 					<option id="previous number (donor's original number)">previous number (donor's original number)</option>
-					<option id="previous number (uc paleontology department)">previous number (uc paleontology department)</option>
+					<option id="previous number (uc paleontology department)">previous number (UC Paleontology Department)</option>
 					<option id="tb (temporary basket) number">tb (temporary basket) number</option>
 				</options>
 			</field>
