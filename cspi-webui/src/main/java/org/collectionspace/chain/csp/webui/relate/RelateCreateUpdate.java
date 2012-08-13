@@ -68,7 +68,7 @@ public class RelateCreateUpdate implements WebMethod {
 		} else {
 			// Create
 			if(fields!=null)
-				path=storage.autocreateJSON("/relations/main",fields);
+				path=storage.autocreateJSON("/relations/main",fields,null);
 		}
 		return path;
 	}

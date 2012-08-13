@@ -102,7 +102,7 @@ public class TestDummyData extends ServicesBaseClass  {
 		String[] path2=obj2.split("/");	
 		JSONObject data = createRelation(path2[1],path2[2],"affects",path1[1],path1[2],false);
 		// create
-		return ss.autocreateJSON("relations/main/",data);
+		return ss.autocreateJSON("relations/main/",data,null);
 	}	
 	private String createMini(String type,String id) throws JSONException {
 		return type+"/"+id;

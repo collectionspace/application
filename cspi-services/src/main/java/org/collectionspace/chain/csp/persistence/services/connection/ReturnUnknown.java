@@ -42,7 +42,7 @@ public class ReturnUnknown  implements Returned {
 		if (content_type != null) {
 	        ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
 	        IOUtils.copy(stream, byteOut);
-	        new TeeInputStream(stream, byteOut);
+	        new TeeInputStream(stream, byteOut); // REM - Is this needed?  Is there some necessary side-effect going on here by creating this TeeInputStream instance?
 	        bytebody = byteOut.toByteArray();
 		} else {
 			log.error("Encountered a document with unknown content type.  Returning no content.");

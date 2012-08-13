@@ -595,7 +595,7 @@ public class DataGenerator extends SchemaStructure implements WebMethod {
 				String key=(String)rit.next();
 				data.put("fields",out.getJSONObject(key));
 
-				String path=writer.sendJSON(storage,null,data);
+				String path=writer.sendJSON(storage,null,data,null);
 				dataitems.put(key,path);
 				//log.info(path);
 

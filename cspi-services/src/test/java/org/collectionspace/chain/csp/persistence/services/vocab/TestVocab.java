@@ -52,7 +52,7 @@ public class TestVocab extends ServicesBaseClass {
 		data.put(testField,"TEST3");
 
 		data.put("termStatus","Provisional");
-		String id=ss.autocreateJSON(path,data);
+		String id=ss.autocreateJSON(path,data,null);
 		// Read
 		log.info("testAuthorities_"+path+"_read");
 		JSONObject out=ss.retrieveJSON(path+"/"+id, new JSONObject());
@@ -73,7 +73,7 @@ public class TestVocab extends ServicesBaseClass {
 		data.remove(testField);
 		data.put(testField,"TEST4");
 		data.put("shortIdentifier","TEST4");
-		String id2=ss.autocreateJSON(path,data);
+		String id2=ss.autocreateJSON(path,data,null);
 		out=ss.retrieveJSON(path + "/"+id2, new JSONObject());
 		assertEquals("TEST4",out.getString(testField));		
 		boolean found1=false,found2=false;

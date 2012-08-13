@@ -217,9 +217,10 @@ public class StubJSONStore implements Storage {
 		return out.toArray(new String[0]);
 	}
 
-	public String autocreateJSON(String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	public String autocreateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
+			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		if("id".equals(filePath))
-			id.autocreateJSON("",jsonObject);
+			id.autocreateJSON("",jsonObject,null);
 		while(true) {
 			int tail=rnd.nextInt(Integer.MAX_VALUE);
 			String filename=filePath+"/"+tail;

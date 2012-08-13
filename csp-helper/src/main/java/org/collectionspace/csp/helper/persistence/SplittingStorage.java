@@ -27,6 +27,7 @@ import org.json.JSONObject;
 public class SplittingStorage implements ContextualisedStorage {
 	private Map<String,ContextualisedStorage> children=new HashMap<String,ContextualisedStorage>();
 
+	
 	public void addChild(String prefix,ContextualisedStorage store) {
 		children.put(prefix,store);
 	}
@@ -38,7 +39,7 @@ public class SplittingStorage implements ContextualisedStorage {
 		return out;
 	}
 
-	private String[] split(String path,boolean missing_is_blank) throws ExistException {
+	private String[] split(String path,boolean missing_is_blank) throws ExistException { // REM - Please document so I don't have to interpret this parsing code each time.
 		if(path.startsWith("/"))
 			path=path.substring(1);
 		String[] out=path.split("/",2);
@@ -54,7 +55,7 @@ public class SplittingStorage implements ContextualisedStorage {
 	public void createJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,true);
 		if("".equals(parts[1])) { // autocreate?
-			get(parts[0]).autocreateJSON(root,creds,cache,"",jsonObject);
+			get(parts[0]).autocreateJSON(root,creds,cache,"",jsonObject, null /*no path restrictions*/);
 			return;
 		}
 		get(parts[0]).createJSON(root,creds,cache,parts[1],jsonObject);
@@ -163,11 +164,13 @@ public class SplittingStorage implements ContextualisedStorage {
 		get(parts[0]).updateJSON(root,creds,cache,parts[1],jsonObject);
 	}
 
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
-		String parts[]=split(filePath,true);
-		return get(parts[0]).autocreateJSON(root,creds,cache,parts[1],jsonObject);
+	@Override
+	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject, JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
+		String parts[]=split(filePath,true); // REM 
+		return get(parts[0]).autocreateJSON(root,creds,cache,parts[1],jsonObject, restrictions);
 	}
 
+	@Override
 	public void deleteJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath) throws ExistException,
 	UnimplementedException, UnderlyingStorageException {
 		String parts[]=split(filePath,false);

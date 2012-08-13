@@ -25,7 +25,7 @@ public class DirectRedirector implements ContextualisedStorage {
 
 	DirectRedirector(Spec spec) { this.spec=spec; }
 	
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject jsonObject)
+	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache, String filePath, JSONObject jsonObject, JSONObject restrictions)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
 		throw new UnimplementedException("direct uses get only");
 	}

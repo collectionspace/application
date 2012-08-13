@@ -89,7 +89,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 		log.info(addrole.toString());
 		//add permissions to role
 
-		String path=ss.autocreateJSON("userrole",addrole);
+		String path=ss.autocreateJSON("userrole",addrole,null);
 		log.info(path);
 		assertNotNull(path);
 		
@@ -164,7 +164,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 		log.info(addperm.toString());
 		//add permissions to role
 
-		String path=ss.autocreateJSON("permrole",addperm);
+		String path=ss.autocreateJSON("permrole",addperm,null);
 		log.info(path);
 		assertNotNull(path);
 		
@@ -200,7 +200,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 			
 			
 			//create role
-			String path=ss.autocreateJSON("role/",u1);
+			String path=ss.autocreateJSON("role/",u1,null);
 			assertNotNull(path);
 
 			JSONObject u3=ss.retrieveJSON("role/"+path, new JSONObject());
@@ -245,7 +245,7 @@ public class TestPermissions  extends ServicesBaseClass  {
 			
 			/* create the user based on json */
 			/* will give a hidden 500 error if userid is not unique (useful eh?) */
-			String path=ss.autocreateJSON("users/",u1);
+			String path=ss.autocreateJSON("users/",u1,null);
 			assertNotNull(path);
 			JSONObject u2=getJSON(jsonFile);
 			ss.updateJSON("users/"+path,u2);

@@ -247,7 +247,7 @@ public class WebReset implements WebMethod {
 				if(!parts[0].equals("")){
 					tty.line("Creating "+parts[0]);
 					log.info("Creating "+parts[0]);
-					storage.autocreateJSON(parts[0],getJSONResource(parts[1]));
+					storage.autocreateJSON(parts[0],getJSONResource(parts[1]),null);
 					tty.flush();
 				}
 			}
@@ -274,7 +274,7 @@ public class WebReset implements WebMethod {
 									tty.line("need to create Instance " + n.getID());
 									JSONObject fields=new JSONObject("{'displayName':'"+n.getTitle()+"','shortIdentifier':'"+n.getWebURL()+"'}");
 									String base=r.getID();
-									storage.autocreateJSON(base,fields);
+									storage.autocreateJSON(base,fields,null);
 									log.info("Instance " + n.getID() + " Created");
 									tty.line("Instance " + n.getID() + " Created");
 								}
@@ -300,7 +300,7 @@ public class WebReset implements WebMethod {
 			for(String nextName : names.split("\n")) {
 				i++;
 				JSONObject entry=createTrivialAuthItem(PERSON_TERMLIST_ELEMENT, nextName);
-				storage.autocreateJSON("/person/person",entry);
+				storage.autocreateJSON("/person/person",entry,null);
 				tty.line("Created Person "+entry);
 				log.info("Created Person "+entry);
 				tty.flush();
@@ -313,7 +313,7 @@ public class WebReset implements WebMethod {
 			for(String nextName : orgs.split("\n")) {
 				i++;
 				JSONObject entry=createTrivialAuthItem(ORG_TERMLIST_ELEMENT, nextName);
-				storage.autocreateJSON("/organization/organization",entry);
+				storage.autocreateJSON("/organization/organization",entry,null);
 				tty.line("Created Organisation "+nextName);
 				log.info("Created Organisation "+nextName);
 				tty.flush();
@@ -381,7 +381,7 @@ public class WebReset implements WebMethod {
 				}
 				
 				String base=thisr.getID();
-				storage.autocreateJSON(base,fields);
+				storage.autocreateJSON(base,fields,null);
 				//data = storage.getPathsJSON(url,restriction);
 			}
 			String[] res = (String[]) data.get("listItems");

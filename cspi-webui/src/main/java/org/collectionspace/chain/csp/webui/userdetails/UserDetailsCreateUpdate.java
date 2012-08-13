@@ -56,7 +56,7 @@ public class UserDetailsCreateUpdate implements WebMethod {
 		} else {
 			// Create
 			if(fields!=null){
-				path=storage.autocreateJSON(base,fields);
+				path=storage.autocreateJSON(base,fields,null);
 			}
 		}
 
@@ -134,7 +134,7 @@ public class UserDetailsCreateUpdate implements WebMethod {
 		accountrole.put("fields", arfields);
 		
 		if(fields!=null)
-			path=storage.autocreateJSON(spec.getRecordByWebUrl("userrole").getID(),arfields);
+			path=storage.autocreateJSON(spec.getRecordByWebUrl("userrole").getID(),arfields,null);
 	
 	}
 	
