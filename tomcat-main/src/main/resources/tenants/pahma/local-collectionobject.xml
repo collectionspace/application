@@ -965,6 +965,7 @@
 					<option id="manufactured">manufactured at/in</option>
 					<option id="materialsFrom">material originated from</option>
 					<option id="minted">minted at/in</option>
+					<option id="printed">printed at/in</option>
 				</options>
 			</field>
 		</repeat>
