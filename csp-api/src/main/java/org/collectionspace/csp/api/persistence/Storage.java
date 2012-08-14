@@ -40,7 +40,7 @@ public interface Storage {
 	public void createJSON(String filePath, JSONObject jsonObject)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 
-	public String autocreateJSON(String filePath, JSONObject jsonObject)
+	public String autocreateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
 		throws ExistException, UnimplementedException, UnderlyingStorageException;
 	
 	public String[] getPaths(String rootPath,JSONObject restrictions)

@@ -62,7 +62,7 @@ public class BlobStorage extends GenericStorage {
 				ReturnUnknown doc = conn.getUnknownDocument(RequestMethod.GET, servicesurl+softpath, null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
-				out.put("getByteBody", doc.getBytes());
+				out.put("getByteBody", doc.getBytes()); // REM: We're returning an array of bytes here and we probably should be using a stream of bytes
 				out.put("contenttype", doc.getContentType());
 				
 			}
@@ -136,7 +136,13 @@ public class BlobStorage extends GenericStorage {
 		}
 	}
 	
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	@Override
+	public String autocreateJSON(ContextualisedStorage root,
+			CSPRequestCredentials creds,
+			CSPRequestCache cache,
+			String filePath,
+			JSONObject jsonObject,
+			JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		
 		ReturnedURL url = null;
 		try {

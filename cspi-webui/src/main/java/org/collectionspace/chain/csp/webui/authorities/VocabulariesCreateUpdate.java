@@ -58,7 +58,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 		} else {
 			// Create
 			if(fields!=null)
-				path=storage.autocreateJSON(pathstart,fields);
+				path=storage.autocreateJSON(pathstart,fields,null);
 		}
 		
 		// XXX no vocabulary relations for now. Naming is too complex.
@@ -91,7 +91,7 @@ public class VocabulariesCreateUpdate implements WebMethod {
 		} else {
 		// Create
 			if(fields!=null)
-				path=storage.autocreateJSON(base,fields);
+				path=storage.autocreateJSON(base,fields,null);
 		}
 		return path;
 	}

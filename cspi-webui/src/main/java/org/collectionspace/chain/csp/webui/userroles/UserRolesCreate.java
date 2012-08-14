@@ -38,7 +38,7 @@ public class UserRolesCreate implements WebMethod{
 		JSONObject fields=data.optJSONObject("fields");
 		// Create
 		if(fields!=null)
-			path=storage.autocreateJSON(url_base,fields);
+			path=storage.autocreateJSON(url_base,fields,null);
 		return path;
 	}
 	

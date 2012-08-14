@@ -29,6 +29,8 @@ import org.slf4j.LoggerFactory;
  */
 public class Record implements FieldParent {
 	
+	public final static String BLOB_SOURCE_URL = "blobUri"; // The 'blobUri' query param used to pass an external URL for the services to download data from
+
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String RANGE_START_SUFFIX = "Start";
 	public static final String RANGE_END_SUFFIX = "End";

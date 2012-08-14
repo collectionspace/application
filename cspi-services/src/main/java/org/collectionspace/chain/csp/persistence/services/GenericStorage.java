@@ -1326,9 +1326,14 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param {JSONObject} jsonObject The JSON string coming in from the UI Layer, containing the object to be stored
 	 * @return {String} csid The id of the object in the database
 	 */
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	@Override
+	public String autocreateJSON(ContextualisedStorage root,
+			CSPRequestCredentials creds,
+			CSPRequestCache cache,
+			String filePath,
+			JSONObject jsonObject,
+			JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-
 			ReturnedURL url = null;
 			Document doc = null;
 			//used by userroles and permroles as they have complex urls
@@ -1340,13 +1345,15 @@ public class GenericStorage  implements ContextualisedStorage {
 					doc=XmlJsonConversion.convertToXml(r,jsonObject,section,"POST");
 					String path = r.getServicesURL();
 					path = path.replace("*", getSubCsid(jsonObject,r.getPrimaryField()));
+					String restrictedPath = getRestrictedPath(path, restrictions, null);
 
-					deleteJSON(root,creds,cache,path);
-					url = conn.getURL(RequestMethod.POST, path, doc, creds, cache);	
+					deleteJSON(root,creds,cache,restrictedPath);
+					url = conn.getURL(RequestMethod.POST, restrictedPath, doc, creds, cache);	
 				}
 			}
 			else{
-				url = autoCreateSub(creds, cache, jsonObject, doc, r.getServicesURL(), r);
+				String restrictedPath = getRestrictedPath(r.getServicesURL(), restrictions, null);
+				url = autoCreateSub(creds, cache, jsonObject, doc, restrictedPath, r); // REM - We need a way to send query params (restrictions) on POST and UPDATE 
 			}
 
 			// create related sub records?
@@ -1402,7 +1409,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				msg += " permissions error";
 			}
 			throw new UnderlyingStorageException(msg,e.getStatus(), e.getUrl(),e);
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			throw new UnimplementedException("JSONException",e);
 		}
 	}
@@ -1579,6 +1586,14 @@ public class GenericStorage  implements ContextualisedStorage {
 		return null;
 	}
 
+	/*
+	 * A wrapper call to getRestrictedPath() with some common defaults
+	 */
+	protected String getRestrictedPath(String basepath, JSONObject restrictions, String tail)
+			throws UnsupportedEncodingException, JSONException {
+		return getRestrictedPath(basepath, restrictions, null, tail, false, "");
+	}
+	
 	/**
 	 * One stop shop to work out what the restricted path is that should be sent to the service layer
 	 * @param basepath
@@ -1595,7 +1610,7 @@ public class GenericStorage  implements ContextualisedStorage {
 		
 		String postfix = "?";
 
-		if (tail.length() > 0) {
+		if (tail != null && tail.length() > 0) {
 			postfix += tail.substring(1) + "&";
 		}
 		
@@ -1643,7 +1658,7 @@ public class GenericStorage  implements ContextualisedStorage {
 				postfix+=restrictions.getString("queryTerm")+"="+URLEncoder.encode(queryString,"UTF8")+"&";
 				queryadded = true;
 			}
-			if(restrictions.has(MARK_RELATED_TO_CSID_AS_SUBJECT)){
+			if(restrictions.has(MARK_RELATED_TO_CSID_AS_SUBJECT)){ // REM - What is this restriction mean?
 				postfix += MARK_RELATED_TO_CSID_AS_SUBJECT+"="
 						+restrictions.getString(MARK_RELATED_TO_CSID_AS_SUBJECT)+"&";
 			}
@@ -1657,6 +1672,10 @@ public class GenericStorage  implements ContextualisedStorage {
 				// searchall variants: one for each group we are interested in.
 				basepath = basepath.replace("/common/","/"+restrictions.getString(SEARCH_ALL_GROUP)+"/");
 			}
+			if(restrictions.has(Record.BLOB_SOURCE_URL)){
+				String blobUri = restrictions.getString(Record.BLOB_SOURCE_URL);
+				postfix += Record.BLOB_SOURCE_URL + "=" + URLEncoder.encode(blobUri, "UTF-8") + "&";
+			}
 		}
 
 		if(isVocab){
@@ -1666,7 +1685,9 @@ public class GenericStorage  implements ContextualisedStorage {
 		}
 
 		postfix = postfix.substring(0, postfix.length()-1);
-		if(postfix.length() == 0){postfix +="/";}
+		if (postfix.length() == 0) {
+			postfix +="/";
+		}
 		
 		//log.info(postfix);
 		String path = basepath+postfix;

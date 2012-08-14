@@ -92,7 +92,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 				fields.put("termStatus", ((Field)thisr.getFieldFullList("termStatus")).getOptionDefault());
 			}
 			String base=thisr.getID();
-			storage.autocreateJSON(base,fields);
+			storage.autocreateJSON(base,fields, null);
 			data = storage.getPathsJSON(url,restriction);
 		}
 		//if(data.has("isError")&& data.getBoolean("isError")){
@@ -142,7 +142,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 			}
 			JSONObject fields=new JSONObject("{'displayName':'"+n1.getTitle()+"','shortIdentifier':'"+n1.getWebURL()+"'}");
 			String base=r1.getID();
-			storage.autocreateJSON(base,fields);
+			storage.autocreateJSON(base, fields, null);
 			if(tty != null){
 				log.info("Instance " + n1.getID() + " Created");
 				tty.line("Instance " + n1.getID() + " Created");
@@ -331,7 +331,7 @@ public class AuthoritiesVocabulariesInitialize implements WebMethod  {
 							tty.line("adding term "+name);
 							log.info("adding term "+name);
 						}
-						storage.autocreateJSON(url,data);
+						storage.autocreateJSON(url,data,null);
 						results.remove(name);
 					}
 					else{

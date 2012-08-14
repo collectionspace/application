@@ -80,11 +80,12 @@ public class RecordCreateUpdate implements WebMethod {
 			r.put("src",base+"/"+csid);
 			r.put("dst",dst_type+"/"+dst_id);
 			r.put("type",type);
-			storage.autocreateJSON("relations/main",r);
+			storage.autocreateJSON("relations/main",r,null);
 		}
 	}
 	
-	public String sendJSON(Storage storage,String path,JSONObject data) throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
+	public String sendJSON(Storage storage, String path, JSONObject data, JSONObject restrictions)
+			throws ExistException, UnimplementedException, UnderlyingStorageException, JSONException {
 		final String WORKFLOW_TRANSITION = "workflowTransition";
 		final String WORKFLOW_TRANSITION_LOCK = "lock";
 		
@@ -93,11 +94,11 @@ public class RecordCreateUpdate implements WebMethod {
 		if(path!=null) {
 			// Update
 			if(fields!=null)
-				storage.updateJSON(base+"/"+path,fields);
+				storage.updateJSON(base+"/"+path, fields);
 		} else {
 			// Create
 			if(fields!=null)
-				path=storage.autocreateJSON(base,fields);
+				path=storage.autocreateJSON(base, fields, restrictions);
 		}
 		if(relations!=null)
 			setRelations(storage,path,relations);
@@ -264,7 +265,7 @@ public class RecordCreateUpdate implements WebMethod {
 			permission_add.put("actionGroup", queryString);
 			permission_add.put("action", actions);
 
-			permid=storage.autocreateJSON(spec.getRecordByWebUrl("permission").getID(),permission_add);
+			permid=storage.autocreateJSON(spec.getRecordByWebUrl("permission").getID(),permission_add,null);
 			
 		}
 		
@@ -379,14 +380,15 @@ public class RecordCreateUpdate implements WebMethod {
 		accountrole.put("fields", arfields);
 		//log.info("WAAA"+arfields.toString());
 		if(fields!=null)
-			path=storage.autocreateJSON(spec.getRecordByWebUrl("permrole").getID(),arfields);
+			path=storage.autocreateJSON(spec.getRecordByWebUrl("permrole").getID(),arfields,null);
 	}
 	
 	private void store_set(Storage storage,UIRequest request,String path) throws UIException {
 		try {
+			JSONObject restrictions = new JSONObject();
 			JSONObject data=request.getJSONBody();
 
-			if(this.base.equals("role")){
+			if (this.base.equals("role")) {
 				JSONObject fields=data.optJSONObject("fields");
 				if((fields.optString("roleName") == null || fields.optString("roleName").equals("")) && fields.optString("displayName") !=null){
 					String test  = fields.optString("displayName");
@@ -396,10 +398,15 @@ public class RecordCreateUpdate implements WebMethod {
 					data.put("fields", fields);
 				}
 			}
-			if(this.record.getID().equals("media")){
+			if (this.record.getID().equals("media")) {
 				JSONObject fields=data.optJSONObject("fields");
-				if(fields.has("srcUri")){
-					
+				
+				if (fields.has("externalUrl")) {
+					String url = fields.getString("externalUrl");
+					restrictions.put(Record.BLOB_SOURCE_URL, url);
+				}
+				
+				if (fields.has("srcUri")){
 					//is this internal or external?
 					//XXX HACK as ervice layer having issues with external urls
 					String uri = fields.getString("srcUri");
@@ -451,11 +458,11 @@ public class RecordCreateUpdate implements WebMethod {
 			}
 			else{
 				if(create) {
-					path=sendJSON(storage,null,data);
+					path=sendJSON(storage, null, data, restrictions); // REM - We needed a way to send query params, so I'm adding "restrictions" here
 					data.put("csid",path);
 					data.getJSONObject("fields").put("csid",path);
 				} else
-					path=sendJSON(storage,path,data);
+					path=sendJSON(storage,path,data,null);
 				if(path==null)
 					throw new UIException("Insufficient data for create (no fields?)");
 
@@ -466,7 +473,7 @@ public class RecordCreateUpdate implements WebMethod {
 					assignTerms(storage,path,data);
 				}
 				
-				data=reader.getJSON(storage,path);
+				data=reader.getJSON(storage,path); // We do a GET now to read back what we created.
 				request.sendJSONResponse(data);
 				request.setOperationPerformed(create?Operation.CREATE:Operation.UPDATE);
 				if(create)

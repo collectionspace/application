@@ -35,9 +35,10 @@ public class ServicesStorage extends SplittingStorage implements Storage {
 	
 	public String getName() { return "persistence.services"; }
 
-	public String autocreateJSON(String filePath, JSONObject jsonObject)
+	@Override	
+	public String autocreateJSON(String filePath, JSONObject jsonObject, JSONObject restrictions)
 			throws ExistException, UnimplementedException, UnderlyingStorageException {
-		return storage.autocreateJSON(storage,creds,cache, filePath, jsonObject);
+		return storage.autocreateJSON(storage,creds,cache, filePath, jsonObject, restrictions);
 	}
 
 	public void createJSON(String filePath, JSONObject jsonObject)

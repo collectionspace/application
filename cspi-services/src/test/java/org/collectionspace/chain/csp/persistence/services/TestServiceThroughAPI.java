@@ -78,7 +78,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 		return ss.retrieveJSON(objtype+path, new JSONObject());
 	}
 	private String doCreate(Storage ss, String objtype, JSONObject jsoncreate) throws Exception {
-		return ss.autocreateJSON(objtype,jsoncreate);
+		return ss.autocreateJSON(objtype,jsoncreate,null);
 	}
 	private void doDelete(Storage ss, String objtype, String path) throws Exception {
 
@@ -135,9 +135,9 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	// XXX use autocreate not create when create dies
 	@Test public void testObjectsList() throws Exception {
 		Storage ss=makeServicesStorage();
-		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
-		String p2=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
-		String p3=ss.autocreateJSON("collection-object/",getJSON("obj4.json"));
+		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"),null);
+		String p2=ss.autocreateJSON("collection-object/",getJSON("obj4.json"),null);
+		String p3=ss.autocreateJSON("collection-object/",getJSON("obj4.json"),null);
 		int num = 0;
 		Boolean keeptrying = true;
 		String[] names = null;
@@ -194,8 +194,8 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	
 	@Test public void testSearch() throws Exception {
 		Storage ss=makeServicesStorage();
-		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"));
-		String p2=ss.autocreateJSON("collection-object/",getJSON("obj-search.json"));
+		String p1=ss.autocreateJSON("collection-object/",getJSON("obj3.json"), null);
+		String p2=ss.autocreateJSON("collection-object/",getJSON("obj-search.json"), null);
 		JSONObject restriction=new JSONObject();
 		restriction.put("keywords","aardvark");
 		JSONObject data = ss.getPathsJSON("collection-object",restriction);
@@ -215,7 +215,7 @@ public class TestServiceThroughAPI extends ServicesBaseClass {
 	
 	@Test public void testMini() throws Exception {
 		Storage ss=makeServicesStorage();
-		String p1=ss.autocreateJSON("intake/",getJSON("intake.json"));
+		String p1=ss.autocreateJSON("intake/",getJSON("intake.json"),null);
 		JSONObject mini=ss.retrieveJSON("intake/"+p1+"/view", new JSONObject());
 		assertEquals("TEST4",mini.getString("summary"));
 		assertEquals("IN2010.337",mini.getString("number"));	

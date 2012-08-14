@@ -2,12 +2,13 @@
     "dateModified": "dateModified",
     "copyrightStatement": "dsfadsf",
     "location": "location",
-    "subjects": [{
-        "_primary": true,
-        "subject": "sdf asdf"
-    }, {
-        "subject": "asdf"
-    }],
+    "subjects": [
+        {
+            "_primary": true,
+            "subject": "sdf asdf"
+        },
+        {"subject": "asdf"}
+    ],
     "de-urned-creator": "TEST4",
     "blobCsid": "",
     "rightsHolder": "rightsHolder",
@@ -18,42 +19,48 @@
         "_primary": true,
         "language": "language"
     }],
-    "measuredPartGroup": [{
-        "_primary": true,
-        "dimensionSummary": "",
-        "measuredPart": "arm",
-        "dimensionSubGroup": [{
+    "measuredPartGroup": [
+        {
             "_primary": true,
-            "measuredBy": "rj",
-            "dimension": "diameter",
-            "valueDate": "2011-11-08",
-            "measurementUnit": "cm",
-            "value": "10",
-            "valueQualifier": "approx.",
-            "measurementMethod": "eyeball"
-        }, {
-            "measuredBy": "rj",
-            "dimension": "length",
-            "valueDate": "2011-11-08",
-            "measurementUnit": "cm",
-            "value": "75",
-            "valueQualifier": "approx.",
-            "measurementMethod": "eyeball"
-        }]
-    }, {
-        "dimensionSummary": "",
-        "measuredPart": "other arm",
-        "dimensionSubGroup": [{
-            "_primary": true,
-            "measuredBy": "rj",
-            "dimension": "length",
-            "valueDate": "2011-11-08",
-            "measurementUnit": "cm",
-            "value": "80",
-            "valueQualifier": "close enough for govt work",
-            "measurementMethod": "eyeball"
-        }]
-    }],
+            "dimensionSummary": "",
+            "measuredPart": "arm",
+            "dimensionSubGroup": [
+                {
+                    "_primary": true,
+                    "measuredBy": "rj",
+                    "dimension": "diameter",
+                    "valueDate": "2011-11-08",
+                    "measurementUnit": "cm",
+                    "value": "10",
+                    "valueQualifier": "approx.",
+                    "measurementMethod": "eyeball"
+                },
+                {
+                    "measuredBy": "rj",
+                    "dimension": "length",
+                    "valueDate": "2011-11-08",
+                    "measurementUnit": "cm",
+                    "value": "75",
+                    "valueQualifier": "approx.",
+                    "measurementMethod": "eyeball"
+                }
+            ]
+        },
+        {
+            "dimensionSummary": "",
+            "measuredPart": "other arm",
+            "dimensionSubGroup": [{
+                "_primary": true,
+                "measuredBy": "rj",
+                "dimension": "length",
+                "valueDate": "2011-11-08",
+                "measurementUnit": "cm",
+                "value": "80",
+                "valueQualifier": "close enough for govt work",
+                "measurementMethod": "eyeball"
+            }]
+        }
+    ],
     "title": "EX2011.5",
     "source": "source",
     "coverage": "coverage",
@@ -61,56 +68,59 @@
         "_primary": true,
         "relation": "relation"
     }],
-    "dateGroup": [{
-        "_primary": true,
-        "dateEarliestSingleQualifier": "-",
-        "scalarValuesComputed": "false",
-        "dateLatestDay": "22",
-        "dateLatestYear": "5",
-        "dateAssociation": "sdf",
-        "dateEarliestSingleEra": "bce",
-        "dateDisplayDate": "sdf",
-        "dateEarliestSingleCertainty": "about",
-        "dateLatestEra": "bce",
-        "dateEarliestSingleQualifierValue": "4",
-        "dateLatestCertainty": "approximate",
-        "dateEarliestSingleYear": "1",
-        "dateLatestQualifier": "+",
-        "dateLatestQualifierValue": "2",
-        "dateEarliestSingleQualifierUnit": "days",
-        "datePeriod": "sdf",
-        "dateEarliestScalarValue": "",
-        "dateLatestMonth": "11",
-        "dateNote": "sdf",
-        "dateLatestScalarValue": "",
-        "dateLatestQualifierUnit": "month",
-        "dateEarliestSingleDay": "3",
-        "dateEarliestSingleMonth": "2"
-    }, {
-        "dateEarliestSingleQualifier": "-",
-        "scalarValuesComputed": "false",
-        "dateLatestDay": "20",
-        "dateLatestYear": "1",
-        "dateAssociation": "wer",
-        "dateEarliestSingleEra": "bce",
-        "dateDisplayDate": "wer",
-        "dateEarliestSingleCertainty": "about",
-        "dateLatestEra": "bce",
-        "dateEarliestSingleQualifierValue": "4",
-        "dateLatestCertainty": "approximate",
-        "dateEarliestSingleYear": "1",
-        "dateLatestQualifier": "+",
-        "dateLatestQualifierValue": "2",
-        "dateEarliestSingleQualifierUnit": "days",
-        "datePeriod": "werwerwer",
-        "dateEarliestScalarValue": "",
-        "dateLatestMonth": "11",
-        "dateNote": "werwer",
-        "dateLatestScalarValue": "",
-        "dateLatestQualifierUnit": "month",
-        "dateEarliestSingleDay": "21",
-        "dateEarliestSingleMonth": "7"
-    }],
+    "dateGroup": [
+        {
+            "_primary": true,
+            "dateEarliestSingleQualifier": "-",
+            "scalarValuesComputed": "false",
+            "dateLatestDay": "22",
+            "dateLatestYear": "5",
+            "dateAssociation": "sdf",
+            "dateEarliestSingleEra": "bce",
+            "dateDisplayDate": "sdf",
+            "dateEarliestSingleCertainty": "about",
+            "dateLatestEra": "bce",
+            "dateEarliestSingleQualifierValue": "4",
+            "dateLatestCertainty": "approximate",
+            "dateEarliestSingleYear": "1",
+            "dateLatestQualifier": "+",
+            "dateLatestQualifierValue": "2",
+            "dateEarliestSingleQualifierUnit": "days",
+            "datePeriod": "sdf",
+            "dateEarliestScalarValue": "",
+            "dateLatestMonth": "11",
+            "dateNote": "sdf",
+            "dateLatestScalarValue": "",
+            "dateLatestQualifierUnit": "month",
+            "dateEarliestSingleDay": "3",
+            "dateEarliestSingleMonth": "2"
+        },
+        {
+            "dateEarliestSingleQualifier": "-",
+            "scalarValuesComputed": "false",
+            "dateLatestDay": "20",
+            "dateLatestYear": "1",
+            "dateAssociation": "wer",
+            "dateEarliestSingleEra": "bce",
+            "dateDisplayDate": "wer",
+            "dateEarliestSingleCertainty": "about",
+            "dateLatestEra": "bce",
+            "dateEarliestSingleQualifierValue": "4",
+            "dateLatestCertainty": "approximate",
+            "dateEarliestSingleYear": "1",
+            "dateLatestQualifier": "+",
+            "dateLatestQualifierValue": "2",
+            "dateEarliestSingleQualifierUnit": "days",
+            "datePeriod": "werwerwer",
+            "dateEarliestScalarValue": "",
+            "dateLatestMonth": "11",
+            "dateNote": "werwer",
+            "dateLatestScalarValue": "",
+            "dateLatestQualifierUnit": "month",
+            "dateEarliestSingleDay": "21",
+            "dateEarliestSingleMonth": "7"
+        }
+    ],
     "description": "asdf adfsasdf",
     "contributor": "\n    ",
     "filename": "\n    ",

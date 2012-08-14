@@ -7,47 +7,47 @@
         <subject>sdf asdf</subject>
         <subject>asdf</subject>
     </subjectList>
-    <blobCsid></blobCsid>
+    <blobCsid/>
     <measuredPartGroupList>
-    <measuredPartGroup>
-    <measuredPart>arm</measuredPart>
-    <dimensionSummary/>
-    <dimensionSubGroupList>
-    <dimensionSubGroup>
-    <dimension>diameter</dimension>
-    <measuredBy>rj</measuredBy>
-    <measurementUnit>cm</measurementUnit>
-    <measurementMethod>eyeball</measurementMethod>
-    <value>10</value>
-    <valueDate>2011-11-08</valueDate>
-    <valueQualifier>approx.</valueQualifier>
-    </dimensionSubGroup>
-    <dimensionSubGroup>
-    <dimension>length</dimension>
-    <measuredBy>rj</measuredBy>
-    <measurementUnit>cm</measurementUnit>
-    <measurementMethod>eyeball</measurementMethod>
-    <value>75</value>
-    <valueDate>2011-11-08</valueDate>
-    <valueQualifier>approx.</valueQualifier>
-    </dimensionSubGroup>
-    </dimensionSubGroupList>
-    </measuredPartGroup>
-    <measuredPartGroup>
-    <measuredPart>other arm</measuredPart>
-    <dimensionSummary/>
-    <dimensionSubGroupList>
-    <dimensionSubGroup>
-    <dimension>length</dimension>
-    <measuredBy>rj</measuredBy>
-    <measurementUnit>cm</measurementUnit>
-    <measurementMethod>eyeball</measurementMethod>
-    <value>80</value>
-    <valueDate>2011-11-08</valueDate>
-    <valueQualifier>close enough for govt work</valueQualifier>
-    </dimensionSubGroup>
-    </dimensionSubGroupList>
-    </measuredPartGroup>
+        <measuredPartGroup>
+            <measuredPart>arm</measuredPart>
+            <dimensionSummary/>
+            <dimensionSubGroupList>
+                <dimensionSubGroup>
+                    <dimension>diameter</dimension>
+                    <measuredBy>rj</measuredBy>
+                    <measurementUnit>cm</measurementUnit>
+                    <measurementMethod>eyeball</measurementMethod>
+                    <value>10</value>
+                    <valueDate>2011-11-08</valueDate>
+                    <valueQualifier>approx.</valueQualifier>
+                </dimensionSubGroup>
+                <dimensionSubGroup>
+                    <dimension>length</dimension>
+                    <measuredBy>rj</measuredBy>
+                    <measurementUnit>cm</measurementUnit>
+                    <measurementMethod>eyeball</measurementMethod>
+                    <value>75</value>
+                    <valueDate>2011-11-08</valueDate>
+                    <valueQualifier>approx.</valueQualifier>
+                </dimensionSubGroup>
+            </dimensionSubGroupList>
+        </measuredPartGroup>
+        <measuredPartGroup>
+            <measuredPart>other arm</measuredPart>
+            <dimensionSummary/>
+            <dimensionSubGroupList>
+                <dimensionSubGroup>
+                    <dimension>length</dimension>
+                    <measuredBy>rj</measuredBy>
+                    <measurementUnit>cm</measurementUnit>
+                    <measurementMethod>eyeball</measurementMethod>
+                    <value>80</value>
+                    <valueDate>2011-11-08</valueDate>
+                    <valueQualifier>close enough for govt work</valueQualifier>
+                </dimensionSubGroup>
+            </dimensionSubGroupList>
+        </measuredPartGroup>
     </measuredPartGroupList>
     <rightsHolder>rightsHolder</rightsHolder>
     <creator>urn:cspace:core.collectionspace.org:personauthorities:name(person):item:name(TEST4)'TEST4'</creator>
@@ -79,8 +79,8 @@
             <dateEarliestSingleDay>3</dateEarliestSingleDay>
             <dateEarliestSingleMonth>2</dateEarliestSingleMonth>
             <scalarValuesComputed>false</scalarValuesComputed>
-            <dateEarliestScalarValue></dateEarliestScalarValue>
-            <dateLatestScalarValue></dateLatestScalarValue>
+            <dateEarliestScalarValue/>
+            <dateLatestScalarValue/>
         </dateGroup>
         <dateGroup>
             <dateEarliestSingleQualifier>-</dateEarliestSingleQualifier>
@@ -104,12 +104,11 @@
             <dateEarliestSingleDay>21</dateEarliestSingleDay>
             <dateEarliestSingleMonth>7</dateEarliestSingleMonth>
             <scalarValuesComputed>false</scalarValuesComputed>
-            <dateEarliestScalarValue></dateEarliestScalarValue>
-            <dateLatestScalarValue></dateLatestScalarValue>
+            <dateEarliestScalarValue/>
+            <dateLatestScalarValue/>
         </dateGroup>
     </dateGroupList>
-    <contributor>
-    </contributor>
+    <contributor> </contributor>
     <description>asdf adfsasdf</description>
     <typeList>
         <type>typed</type>
@@ -120,9 +119,7 @@
         <relation>relation</relation>
     </relationList>
     <coverage>coverage</coverage>
-    <dateCreated>
-    </dateCreated>
-    <filename>
-    </filename>
+    <dateCreated> </dateCreated>
+    <filename> </filename>
     <identificationNumber>MR2011.1.9</identificationNumber>
 </ns2:media_common>

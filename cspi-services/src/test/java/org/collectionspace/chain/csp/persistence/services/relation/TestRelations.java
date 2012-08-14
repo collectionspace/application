@@ -60,7 +60,7 @@ public class TestRelations extends ServicesBaseClass {
 	private String makeRecord(Storage ss,String id) throws Exception {
 		JSONObject obj=getJSON("obj3.json");
 		obj.put("accessionNumber",id);
-		return ss.autocreateJSON("collection-object/",obj);
+		return ss.autocreateJSON("collection-object/",obj,null);
 	}
 	
 	@Test public void testRelationsThroughAPI() throws Exception {
@@ -130,7 +130,7 @@ public class TestRelations extends ServicesBaseClass {
 		data.put("dst","collection-object/"+obj2);
 		data.put("type","affects");
 		// create
-		return ss.autocreateJSON("relations/main/",data);
+		return ss.autocreateJSON("relations/main/",data,null);
 	}
 	private void updaterelate(Storage ss,String path, String obj1,String obj2) throws JSONException, ExistException, UnimplementedException, UnderlyingStorageException {
 		JSONObject data=new JSONObject();
