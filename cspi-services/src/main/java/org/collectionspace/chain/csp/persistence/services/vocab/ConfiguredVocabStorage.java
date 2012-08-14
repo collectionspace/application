@@ -177,6 +177,7 @@ public class ConfiguredVocabStorage extends GenericStorage {
 		return out;
 	}
 	
+	@Override
 	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String filePath,JSONObject jsonObject)
 	throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {

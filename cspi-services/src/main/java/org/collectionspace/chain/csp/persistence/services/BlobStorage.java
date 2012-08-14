@@ -136,7 +136,13 @@ public class BlobStorage extends GenericStorage {
 		}
 	}
 	
-	public String autocreateJSON(ContextualisedStorage root,CSPRequestCredentials creds, CSPRequestCache cache, String filePath, JSONObject jsonObject) throws ExistException, UnimplementedException, UnderlyingStorageException {
+	@Override
+	public String autocreateJSON(ContextualisedStorage root,
+			CSPRequestCredentials creds,
+			CSPRequestCache cache,
+			String filePath,
+			JSONObject jsonObject,
+			JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		
 		ReturnedURL url = null;
 		try {
