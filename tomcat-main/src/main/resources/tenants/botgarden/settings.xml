@@ -2,7 +2,7 @@
     <admin>
         <username>admin@botgarden.cspace.berkeley.edu</username>
         <password>Administrator</password>
-        <tenant>25</tenant>
+        <tenant>20</tenant>
         <tenantname>botgarden</tenantname>
         <cookievalidformins>60</cookievalidformins>
     </admin>
@@ -36,7 +36,7 @@
 			<tenant>
 				<name>botgarden.cspace.berkeley.edu</name>
 				<version>0.1</version>
-				<display-name>CollectionSpace Botanical Garden Tenant</display-name>
+				<display-name>CollectionSpace BotGarden Tenant</display-name>
 			</tenant>
 			<repository>
 				<domain>botgarden-domain</domain>
@@ -49,7 +49,7 @@
 					<language>en</language>
 				</languages>
 			</repository>
-			<ims-url>http://localhost:8180/collectionspace/chain/</ims-url> <!-- XXX should be in separate IMS section -->
+			<ims-url>http://localhost:8180/collectionspace/tenant/botgarden</ims-url> <!-- XXX should be in separate IMS section -->
         </service>
     </persistence>
     <ui>

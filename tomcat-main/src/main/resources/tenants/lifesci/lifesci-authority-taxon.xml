@@ -1,7 +1,7 @@
 <record id="taxon" type="authority">
     <instances id="taxon">
         <instance id="taxon-common_ta">
-			<nptAllowed>false</nptAllowed>
+            <nptAllowed>false</nptAllowed>
         </instance>
         <instance id="taxon-taxon">
 			<nptAllowed>false</nptAllowed>

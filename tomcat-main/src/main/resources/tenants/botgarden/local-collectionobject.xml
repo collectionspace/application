@@ -1,5 +1,5 @@
 <record id="collection-object">
-	<services-record-path id="botgarden">collectionobjects_ucjeps:http://collectionspace.org/services/collectionobject/local/ucjeps,collectionobjects_ucjeps</services-record-path>
+	<services-record-path id="botgarden">collectionobjects_botgarden:http://collectionspace.org/services/collectionobject/local/botgarden,collectionobjects_botgarden</services-record-path>
 	
 	<section id="coreInformation">
 		<!-- Remove mini -->
@@ -101,7 +101,7 @@
 				</options>			
 			</field>
 		</repeat>
-		<field id="handwritten" section="ucjeps">
+		<field id="handwritten" section="botgarden">
 			<options>
 				<option id="" default="yes">Please select a value</option>
 				<option id="Unknown">Unknown</option>
@@ -109,7 +109,7 @@
 				<option id="no">No</option>
 			</options>
 		</field>
-		<field id="postToPublic" section="ucjeps">
+		<field id="postToPublic" section="botgarden">
 			<options>
 				<option id="">Please select a value</option>
 				<option id="no" default="yes">No</option>
