@@ -1688,7 +1688,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 		}
 
-		postfix = postfix.substring(0, postfix.length()-1);
+		postfix = postfix.substring(0, postfix.length()-1); // Remove the last character (probably the '&' character)
 		if (postfix.length() == 0) {
 			postfix +="/";
 		}
