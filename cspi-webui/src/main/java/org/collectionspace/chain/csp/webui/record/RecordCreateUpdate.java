@@ -404,6 +404,7 @@ public class RecordCreateUpdate implements WebMethod {
 				if (fields.has("externalUrl")) {
 					String url = fields.getString("externalUrl");
 					restrictions.put(Record.BLOB_SOURCE_URL, url);
+					restrictions.put(Record.BLOB_PURGE_ORIGINAL, Boolean.toString(true)); // Tells the Services to delete the original after creating derivatives
 				}
 				
 				if (fields.has("srcUri")){

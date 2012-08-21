@@ -25,6 +25,11 @@
     </dependency>  
 -->
     <dependency>
+    	<groupId>org.collectionspace.services</groupId>
+    	<artifactId>org.collectionspace.services.blob.client</artifactId>
+      	<version>${collectionspace.services.version}</version>
+	</dependency>
+    <dependency>
       <groupId>org.collectionspace</groupId>
       <artifactId>csp-api</artifactId>
       <version>1.0-SNAPSHOT</version>
