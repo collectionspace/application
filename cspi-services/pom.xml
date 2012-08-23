@@ -62,7 +62,7 @@
      <dependency>
          <groupId>org.collectionspace.services</groupId>
          <artifactId>org.collectionspace.services.common-api</artifactId>
-         <version>2.5-SNAPSHOT</version>
+         <version>2.6-SNAPSHOT</version> <!-- This should be a maven property -->
      </dependency>    
     
     
