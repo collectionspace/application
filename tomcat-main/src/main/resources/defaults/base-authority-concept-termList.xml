@@ -13,7 +13,7 @@
             <field id="termName">
                 <selector>conceptAuthority-termName</selector>
             </field>
-            <field id="termType" mini="summary,search,list,relate">
+            <field id="termType">
                 <selector>conceptAuthority-termType</selector>
                 <options>
                     <option id="">Please select a value</option>
