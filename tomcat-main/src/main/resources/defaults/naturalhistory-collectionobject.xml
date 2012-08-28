@@ -524,6 +524,7 @@
                                     <option id="Inyo">Inyo</option>
                                     <option id="IRON">IRON</option>
                                     <option id="Island">Island</option>
+                                    <option id="Isle of Wight">Isle of Wight</option>
                                     <option id="Itasca">Itasca</option>
                                     <option id="Ixtlan">Ixtlan</option>
                                     <option id="Izard">Izard</option>
@@ -652,6 +653,7 @@
                                     <option id="Muskingum">Muskingum</option>
                                     <option id="Nairnshire (UK)">Nairnshire (UK)</option> 
                                     <option id="Nakhon Ratchasima, Changwat">Nakhon Ratchasima, Changwat</option>
+                                    <option id="Nantucket (MA)">Nantucket (MA)</option>
                                     <option id="Napa">Napa</option>
                                     <option id="Natrona">Natrona</option>
                                     <option id="Navajo">Navajo</option>
@@ -1421,9 +1423,11 @@
 					<option id="Samoa">Samoa</option>
 					<option id="Scotland">Scotland</option>
 					<option id="Seychelles">Seychelles</option>
+					<option id="Slovenia">Slovenia</option>                                        
 					<option id="Solomon Islands">Solomon Islands</option>
 					<option id="SOUTH AFRICA">SOUTH AFRICA</option>
 					<option id="South Korea">South Korea</option>
+					<option id="Spain">Spain</option>                                        
 					<option id="Sri Lanka">Sri Lanka</option>
 					<option id="Sudan">Sudan</option>
 					<option id="Suriname">Suriname</option>
