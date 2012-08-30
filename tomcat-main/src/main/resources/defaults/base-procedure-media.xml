@@ -65,7 +65,7 @@
                         <services-tag>languageList</services-tag>
                         <field id="language" ui-search="repeatable" autocomplete="vocab-languages" ui-type="enum">
                         <enum>
-                            <default>eng</default>
+                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
                         </enum>
 						</field>
                     </repeat>
