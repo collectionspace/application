@@ -108,7 +108,7 @@
             <dateLatestScalarValue/>
         </dateGroup>
     </dateGroupList>
-    <contributor> </contributor>
+    <contributor></contributor>
     <description>asdf adfsasdf</description>
     <typeList>
         <type>typed</type>
@@ -119,7 +119,7 @@
         <relation>relation</relation>
     </relationList>
     <coverage>coverage</coverage>
-    <dateCreated> </dateCreated>
-    <filename> </filename>
+    <dateCreated></dateCreated>
+    <filename></filename>
     <identificationNumber>MR2011.1.9</identificationNumber>
 </ns2:media_common>
