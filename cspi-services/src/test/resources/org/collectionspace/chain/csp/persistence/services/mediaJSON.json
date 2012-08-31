@@ -122,9 +122,9 @@
         }
     ],
     "description": "asdf adfsasdf",
-    "contributor": "\n    ",
-    "filename": "\n    ",
-    "dateCreated": "\n    ",
+    "contributor": "",
+    "filename": "",
+    "dateCreated": "",
     "types": [{
         "_primary": true,
         "type": "typed"
