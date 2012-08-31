@@ -121,7 +121,7 @@
                                     "type": "string"
                                 },
                                 "acquisitionFundingCurrency": {
-                                    "default": "usd",
+                                    "default": "urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'",
                                     "type": "string"
                                 },
                                 "acquisitionFundingValue": {
@@ -133,7 +133,7 @@
                         "type": "array"
                     },
                     "objectOfferPriceCurrency": {
-                        "default": "usd",
+                        "default": "urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'",
                         "type": "string"
                     },
                     "acquisitionAuthorizerDate": {
@@ -143,11 +143,11 @@
                         "type": "string"
                     },
                     "groupPurchasePriceCurrency": {
-                        "default": "usd",
+                        "default": "urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'",
                         "type": "string"
                     },
                     "objectPurchasePriceCurrency": {
-                        "default": "usd",
+                        "default": "urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'",
                         "type": "string"
                     },
                     "createdAt": {
@@ -283,7 +283,7 @@
                         "type": "array"
                     },
                     "originalObjectPurchasePriceCurrency": {
-                        "default": "usd",
+                        "default": "urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'",
                         "type": "string"
                     },
                     "acquisitionReason": {
@@ -309,7 +309,7 @@
                         "type": "string"
                     },
                     "objectPurchaseOfferPriceCurrency": {
-                        "default": "usd",
+                        "default": "urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'",
                         "type": "string"
                     },
                     "acquisitionProvisos": {

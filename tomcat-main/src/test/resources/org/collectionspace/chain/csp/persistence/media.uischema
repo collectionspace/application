@@ -76,7 +76,7 @@
                                             "type": "boolean"
                                         },
                                         "language": {
-                                            "default": "eng",
+                                            "default": "urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'",
                                             "type": "string"
                                         }
                                     },
