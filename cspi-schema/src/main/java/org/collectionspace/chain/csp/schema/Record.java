@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.collectionspace.chain.csp.config.ReadOnlySection;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +30,8 @@ import org.slf4j.LoggerFactory;
  */
 public class Record implements FieldParent {
 	
-	public final static String BLOB_SOURCE_URL = "blobUri"; // The 'blobUri' query param used to pass an external URL for the services to download data from
+	public final static String BLOB_SOURCE_URL = "blobUri"; // BlobClient.BLOB_URI_PARAM; // The 'blobUri' query param used to pass an external URL for the services to download data from
+	public final static String BLOB_PURGE_ORIGINAL = "blobPurgeOrig"; // BlobClient.BLOB_PURGE_ORIGINAL;
 
 	public static final String SUPPORTS_LOCKING = "supportslocking";
 	public static final String RANGE_START_SUFFIX = "Start";
