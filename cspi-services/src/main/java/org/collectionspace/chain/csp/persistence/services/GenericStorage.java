@@ -6,6 +6,7 @@
  */
 package org.collectionspace.chain.csp.persistence.services;
 
+import org.collectionspace.services.common.api.RefName;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -229,8 +230,8 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param r
 	 * @throws JSONException
 	 */
-	protected void convertToJson(JSONObject out,Document in, Record thisr, String permlevel, String section, String csid) throws JSONException {
-		XmlJsonConversion.convertToJson(out,thisr,in,permlevel,section,csid,conn.getIMSBase());
+	protected JSONObject convertToJson(JSONObject out,Document in, Record thisr, String permlevel, String section, String csid) throws JSONException {
+		return XmlJsonConversion.convertToJson(out,thisr,in,permlevel,section,csid,conn.getIMSBase());
 	}
 	
 	protected void getGleaned(){
@@ -246,19 +247,17 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @throws UnderlyingStorageException
 	 */
 	protected String xxx_deurn(String in) throws UnderlyingStorageException {
-		if(!in.startsWith("urn:"))
-			return in;
-		if(!in.endsWith("'"))
-			return in;
-		in=in.substring(0,in.length()-1);
-		int pos=in.lastIndexOf("'");
-		if(pos==-1)
-			return in+"'";
-		try {
-			return URLDecoder.decode(in.substring(pos+1),"UTF8");
-		} catch (UnsupportedEncodingException e) {
-			throw new UnderlyingStorageException("No UTF8!");
-		}
+	    if(!in.startsWith("urn:"))
+		return in;
+	    if(!in.endsWith("'"))
+		return in;
+            RefName.AuthorityItem item = RefName.AuthorityItem.parse(in);
+ 	    in = item.displayName;       
+	    try {
+                return URLDecoder.decode(in, "UTF8");  
+	    } catch (UnsupportedEncodingException e) {
+                throw new UnderlyingStorageException("Could not de-urn Display Name because UTF8 decoding is not supported");
+	    }
 	}
 	
 
@@ -485,6 +484,8 @@ public class GenericStorage  implements ContextualisedStorage {
 				softpath = hierarchicalpath(softpath);
 			}
 			
+			List<JSONObject> tempSons = new ArrayList<JSONObject>();
+			
 			if(thisr.isMultipart()){
 				ReturnedMultipartDocument doc = conn.getMultipartXMLDocument(RequestMethod.GET,servicesurl+softpath,null,creds,cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
@@ -494,7 +495,7 @@ public class GenericStorage  implements ContextualisedStorage {
 					String path=thisr.getServicesRecordPath(section);
 					String[] parts=path.split(":",2);
 					if(doc.getDocument(parts[0]) != null ){
-						convertToJson(out,doc.getDocument(parts[0]), thisr, "GET",section , csid);
+						tempSons.add(convertToJson(out,doc.getDocument(parts[0]), thisr, "GET",section , csid));
 					}
 				}
 			}
@@ -502,9 +503,28 @@ public class GenericStorage  implements ContextualisedStorage {
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+softpath,null, creds, cache);
 				if((doc.getStatus()<200 || doc.getStatus()>=300))
 					throw new UnderlyingStorageException("Does not exist ",doc.getStatus(),softpath);
-				convertToJson(out,doc.getDocument(), thisr, "GET", "common",csid);
+				tempSons.add(convertToJson(out,doc.getDocument(), thisr, "GET", "common",csid));
 			}
-
+			
+			if(r.hasMerged()){
+				for(FieldSet f : r.getAllMergedFields()){
+					for(String fm : f.getAllMerge()){
+						if (fm != null) {
+							if (r.hasFieldByOperation(fm, "GET")) {
+								for(JSONObject tempSon : tempSons) {
+									if (tempSon.has(fm)) {
+										String data = tempSon.getString(fm);
+										if (data != null && !data.equals("")
+												&& !out.has(f.getID())) {
+											out.put(f.getID(), data);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		} catch (ConnectionException e) {
 			throw new UnderlyingStorageException("Service layer exception"+e.getLocalizedMessage(),e.getStatus(),e.getUrl(),e);
 		} catch (JSONException e) {
