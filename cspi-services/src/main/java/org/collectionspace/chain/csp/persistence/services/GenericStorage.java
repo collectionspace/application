@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.collectionspace.chain.csp.config.ConfigException;
 import org.collectionspace.chain.csp.persistence.services.connection.ConnectionException;
 import org.collectionspace.chain.csp.persistence.services.connection.RequestMethod;
 import org.collectionspace.chain.csp.persistence.services.connection.ReturnedDocument;
@@ -28,7 +29,9 @@ import org.collectionspace.chain.csp.schema.Field;
 import org.collectionspace.chain.csp.schema.FieldSet;
 import org.collectionspace.chain.csp.schema.Group;
 import org.collectionspace.chain.csp.schema.Record;
+import org.collectionspace.chain.csp.schema.Relationship;
 import org.collectionspace.chain.csp.schema.Repeat;
+import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.chain.util.json.JSONUtils;
 import org.collectionspace.csp.api.core.CSPRequestCache;
 import org.collectionspace.csp.api.core.CSPRequestCredentials;
@@ -36,9 +39,10 @@ import org.collectionspace.csp.api.persistence.ExistException;
 import org.collectionspace.csp.api.persistence.UnderlyingStorageException;
 import org.collectionspace.csp.api.persistence.UnimplementedException;
 import org.collectionspace.csp.helper.persistence.ContextualisedStorage;
-import org.collectionspace.services.common.api.RefName;
+import org.collectionspace.chain.csp.persistence.services.RefName;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.DocumentFactory;
 import org.dom4j.Element;
 import org.dom4j.Node;
 import org.json.JSONArray;
@@ -539,6 +543,9 @@ public class GenericStorage  implements ContextualisedStorage {
 						convertToJson(out,doc.getDocument(parts[0]), thisr, "GET",section , csid);
 					}
 				}
+				// If this record has hierarchy, will pull out the relations section and map it to the hierarchy
+				// fields (special case handling of XML-JSON
+				handleHierarchyPayloadRetrieve(thisr, doc, out, csid);
 			}
 			else{
 				ReturnedDocument doc = conn.getXMLDocument(RequestMethod.GET, servicesurl+softpath,null, creds, cache);
@@ -1600,13 +1607,13 @@ public class GenericStorage  implements ContextualisedStorage {
 	 * @param restrictions
 	 * @param keywordparam
 	 * @param tail
-	 * @param isVocab
-	 * @param displayName
+	 * @param supportTermCompletion
+	 * @param displayNameID
 	 * @return
 	 * @throws UnsupportedEncodingException
 	 * @throws JSONException
 	 */
-	protected String getRestrictedPath(String basepath, JSONObject restrictions, String keywordparam, String tail, Boolean isVocab, String displayName) throws UnsupportedEncodingException, JSONException{
+	protected String getRestrictedPath(String basepath, JSONObject restrictions, String keywordparam, String tail, Boolean supportTermCompletion, String displayNameID) throws UnsupportedEncodingException, JSONException{
 		
 		String postfix = "?";
 
@@ -1618,8 +1625,8 @@ public class GenericStorage  implements ContextualisedStorage {
 		Boolean queryadded = false;
 		if(restrictions!=null){
 
-			if(isVocab && restrictions.has(displayName)){
-				prefix=restrictions.getString(displayName); 
+			if(supportTermCompletion && restrictions.has(displayNameID)){
+				prefix=restrictions.getString(displayNameID); 
 			}
 			if(restrictions.has("keywords")) {
 				/* Keyword search */
@@ -1682,7 +1689,7 @@ public class GenericStorage  implements ContextualisedStorage {
 			}
 		}
 
-		if(isVocab){
+		if(supportTermCompletion){
 			if(prefix!=null && !queryadded){
 				postfix+="pt="+URLEncoder.encode(prefix,"UTF8")+"&";
 			}
@@ -1703,7 +1710,20 @@ public class GenericStorage  implements ContextualisedStorage {
 	 */
 	public JSONObject getPathsJSON(ContextualisedStorage root,CSPRequestCredentials creds,CSPRequestCache cache,String rootPath,JSONObject restrictions) throws ExistException, UnimplementedException, UnderlyingStorageException {
 		try {
-			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", false, "");
+			
+			FieldSet dispNameFS = r.getDisplayNameField(); 
+			String displayNameFieldID;
+			boolean supportsTermCompletion;
+			if(dispNameFS!=null) {
+				displayNameFieldID = dispNameFS.getID(); 
+				supportsTermCompletion = true;
+			} else {
+				displayNameFieldID = ""; 
+				supportsTermCompletion = false;
+			}
+			
+			String path = getRestrictedPath(r.getServicesURL(), restrictions, r.getServicesSearchKeyword(), "", 
+											supportsTermCompletion, displayNameFieldID);
 			
 			String node = "/"+r.getServicesListPath().split("/")[0]+"/*";
 			JSONObject data = getListView(creds,cache,path,node,"/"+r.getServicesListPath(),"csid",false,r);
@@ -2069,5 +2089,192 @@ public class GenericStorage  implements ContextualisedStorage {
 		} catch (UnsupportedEncodingException x) {
 			throw new UnderlyingStorageException("Error UnsupportedEncodingException JSON",x);
 		}
+	}
+	
+	public void handleHierarchyPayloadRetrieve(Record r, ReturnedMultipartDocument doc, JSONObject out, String thiscsid) throws JSONException {
+		if(r.hasHierarchyUsed("screen")){
+			//lets do relationship stuff...
+			Document list = doc.getDocument("relations-common-list");
+			if(list==null)
+				return;
+			List<Node> nodes=list.selectNodes("/relations-common-list/*");
+
+			for(Node node : nodes) {
+				if(node.matches("/relations-common-list/relation-list-item")){
+					//String test = node.asXML();
+					String relationshipType = node.selectSingleNode("relationshipType").getText();
+					// Be forgiving while waiting for services to complete code.
+					Node relationshipMetaTypeNode = node.selectSingleNode("relationshipMetaType");
+					String relationshipMetaType = (relationshipMetaTypeNode!=null)?
+													relationshipMetaTypeNode.getText():"";
+					//String subjCSID = node.selectSingleNode("subjectCsid").getText();
+					//String objCSID = node.selectSingleNode("objectCsid").getText();
+					String subjURI="";
+					String subjCSID="";
+					String subjDocType="";
+					if(node.selectSingleNode("subject/uri")!=null){
+						subjCSID=node.selectSingleNode("subject/csid").getText();
+						subjDocType=node.selectSingleNode("subject/documentType").getText();
+						subjURI = node.selectSingleNode("subject/refName").getText();
+					}
+					String objRefName="";
+					String objDocType="";
+					String objCSID="";
+					if(node.selectSingleNode("object/uri")!=null){
+						objCSID=node.selectSingleNode("object/csid").getText();
+						objDocType=node.selectSingleNode("object/documentType").getText();
+						objRefName = node.selectSingleNode("object/refName").getText();
+					}
+
+					String relateduri = objRefName;
+					String relatedcsid = objCSID;
+					String relatedser = objDocType;
+
+					if(r.getSpec().hasRelationshipByPredicate(relationshipType)){
+						Relationship rel = r.getSpec().getRelationshipByPredicate(relationshipType);
+						Relationship newrel = rel;
+						//is this subject or object
+						if(thiscsid.equals(objCSID)){
+							//should we invert
+							if(r.getSpec().hasRelationshipInverse(rel.getID())){
+								newrel = r.getSpec().getInverseRelationship(rel.getID());
+								relateduri = subjURI;
+								relatedcsid = subjCSID;
+								relatedser = subjDocType;
+							}
+						}
+
+
+						if(newrel.getObject().equals("n")){ //array
+							JSONObject subdata = new JSONObject();
+							subdata.put(newrel.getChildName(),relateduri);
+							if(out.has(newrel.getID())){
+								out.getJSONArray(newrel.getID()).put(subdata);
+							}
+							else{
+								JSONArray bob = new JSONArray();
+								bob.put(subdata);
+								out.put(newrel.getID(), bob);
+							}
+						}
+						else{//string
+							out.put(newrel.getID(), relateduri);
+							if(newrel.showSiblings()){
+								out.put(newrel.getSiblingChild(), relatedser+"/"+relatedcsid);
+								//out.put(newrel.getSiblingChild(), relateduri);
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	public void handleHierarchyPayloadSend(Record thisr, Map<String,Document> body, 
+			JSONObject jsonObject, String thiscsid) throws JSONException, ExistException, UnderlyingStorageException {
+		if(thisr.hasHierarchyUsed("screen")){
+			Spec spec = this.r.getSpec();
+			ArrayList<Element> alleles = new ArrayList<Element>();
+			for(Relationship rel : r.getSpec().getAllRelations()){
+				Relationship newrel=rel;
+				Boolean inverse = false;
+				if(rel.hasInverse()){
+					newrel = thisr.getSpec().getRelation(rel.getInverse());
+					inverse = true;
+				}
+				//does this relationship apply to this record
+				if(rel.hasSourceType(r.getID())){
+					
+					//does this record have the data in the json
+					if(jsonObject.has(rel.getID())){
+						if(rel.getObject().equals("1")){
+							if(jsonObject.has(rel.getID()) && !jsonObject.get(rel.getID()).equals("")){
+								Element bit = createRelationship(newrel,jsonObject.get(rel.getID()), 
+														thiscsid, r.getServicesURL(), inverse, spec);
+								if(bit != null){
+									alleles.add(bit);
+								}
+							}
+						}
+						else if(rel.getObject().equals("n")){
+							//if()
+							JSONArray temp = jsonObject.getJSONArray(rel.getID());
+							for(int i=0; i<temp.length();i++){
+								String argh = rel.getChildName();
+								JSONObject brgh = temp.getJSONObject(i);
+								if(brgh.has(argh) && !brgh.getString(argh).equals("")){
+									String uri = brgh.getString(argh);
+									Element bit = createRelationship(newrel, uri, 
+														thiscsid, r.getServicesURL(), inverse, spec);
+									if(bit != null){
+										alleles.add(bit);
+									}
+								}
+							}
+							
+						}
+					}
+				}
+			}
+			//add relationships section
+			if(!alleles.isEmpty()){
+				Element[] array = alleles.toArray(new Element[0]);
+				Document out=XmlJsonConversion.getXMLRelationship(array);
+				body.put("relations-common-list",out);
+				//log.info(out.asXML());
+			}
+			else{
+
+				Document out=XmlJsonConversion.getXMLRelationship(null);
+				body.put("relations-common-list",out);
+				//log.info(out.asXML());
+			}
+			//probably should put empty array in if no data
+		}
+	}
+	protected static Element createRelationship(Relationship rel, Object data, String csid, String subjtype, 
+						Boolean reverseIt, Spec spec) throws ExistException, UnderlyingStorageException{
+
+		Document doc=DocumentFactory.getInstance().createDocument();
+		Element subroot = doc.addElement("relation-list-item");
+
+		Element predicate=subroot.addElement("predicate");
+		predicate.addText(rel.getPredicate());
+		String subjectName = "subject";
+		String objectName = "object";
+		if(reverseIt){
+			subjectName = "object";
+			objectName = "subject";
+		}
+		Element subject=subroot.addElement(subjectName);
+		Element subjcsid = subject.addElement("csid");
+		if(csid != null){
+			subjcsid.addText(csid);
+		}
+		else{
+			subjcsid.addText("${itemCSID}");
+		}
+		
+		//find out record type from urn 
+		String associatedtest = (String)data;
+		Element object=subroot.addElement(objectName);
+
+        RefName.AuthorityItem itemParsed = RefName.AuthorityItem.parse(associatedtest);
+        String serviceurl = itemParsed.inAuthority.resource;
+		Record myr = spec.getRecordByServicesUrl(serviceurl);
+        if(myr.isType("authority")){
+
+    		Element objcsid = object.addElement("refName");
+    		objcsid.addText(associatedtest);
+        }
+        else{
+
+			//not implemented yet - but I bet I will have to - assume /chain/intake/csid
+    		Element objcsid = object.addElement("csid");
+    		objcsid.addText(associatedtest);
+        }
+		
+		//log.info(subroot.asXML());
+		return subroot;
 	}
 }

@@ -6,7 +6,7 @@
  */
 package org.collectionspace.chain.csp.persistence.services;
 
-import org.collectionspace.chain.csp.persistence.services.vocab.RefName;
+import org.collectionspace.chain.csp.persistence.services.RefName;
 import org.collectionspace.chain.csp.schema.Record;
 import org.collectionspace.chain.csp.schema.Spec;
 import org.collectionspace.csp.api.core.CSPRequestCache;

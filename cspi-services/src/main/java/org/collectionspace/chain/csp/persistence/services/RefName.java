@@ -1,4 +1,4 @@
-package org.collectionspace.chain.csp.persistence.services.vocab;
+package org.collectionspace.chain.csp.persistence.services;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -6,16 +6,19 @@ import java.util.regex.Pattern;
 
 public class RefName {
 
+	/*
     public static final String HACK_VOCABULARIES = "Vocabularies"; //TODO: get rid of these.
     public static final String HACK_ORGANIZATIONS = "Organizations"; //TODO: get rid of these.
     public static final String HACK_ORGAUTHORITIES = "Orgauthorities";  //TODO: get rid of these.
     public static final String HACK_PERSONAUTHORITIES = "Personauthorities";  //TODO: get rid of these.
     public static final String HACK_LOCATIONAUTHORITIES = "Locationauthorities";  //TODO: get rid of these.
+    */
     public static final String URN_PREFIX = "urn:cspace:";
     public static final String URN_NAME_PREFIX = "urn:cspace:name";
     public static final String REFNAME = "refName";
     public static final String AUTHORITY_REGEX = "urn:cspace:(.*):(.*):name\\((.*)\\)\\'?([^\\']*)\\'?";
     public static final String AUTHORITY_ITEM_REGEX = "urn:cspace:(.*):(.*):name\\((.*)\\):item:name\\((.*)\\)\\'?([^\\']*)\\'?";
+    /*
     public static final String AUTHORITY_EXAMPLE = "urn:cspace:collectionspace.org:Loansin:name(shortID)'displayName'";
     public static final String AUTHORITY_EXAMPLE2 = "urn:cspace:collectionspace.org:Loansin:name(shortID)";
     public static final String AUTHORITY_ITEM_EXAMPLE = "urn:cspace:collectionspace.org:Loansin:name(shortID):item:name(itemShortID)'itemDisplayName'";
@@ -25,6 +28,7 @@ public class RefName {
     public static final String EX_displayName = "displayName";
     public static final String EX_itemShortIdentifier = "itemShortID";
     public static final String EX_itemDisplayName = "itemDisplayName";
+     */
 
     public static class Authority {
 
