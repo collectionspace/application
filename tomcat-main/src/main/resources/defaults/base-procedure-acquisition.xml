@@ -116,7 +116,7 @@
                     <field id="creditLine" ui-search="repeatable"></field>
                     <field id="groupPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>usd</default>
+                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
                         </enum>
                         <selector>acquisition-group-purchase-price-currency</selector>
                     </field>
@@ -125,7 +125,7 @@
                     </field>
                     <field id="objectOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>usd</default>
+                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
                         </enum>
                         <selector>acquisition-object-offer-price-currency</selector>
                     </field>
@@ -134,7 +134,7 @@
                     </field>
                     <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>usd</default>
+                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
                         </enum>
                         <selector>acquisition-purchaser-price-denomination</selector>
                     </field>
@@ -143,7 +143,7 @@
                     </field>
                     <field id="objectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>usd</default>
+                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
                         </enum>
                         <selector>acquisition-object-purchase-price-currency</selector>
                     </field>
@@ -152,7 +152,7 @@
                     </field>
                     <field id="objectPurchaseOfferPriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>usd</default>
+                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
                         </enum>
                         <selector>acquisition-object-purchase-offer-price-currency</selector>
                     </field>
@@ -161,7 +161,7 @@
                     </field>
                     <field id="originalObjectPurchasePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
                         <enum>
-                            <default>usd</default>
+                            <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
                         </enum>
                         <selector>acquisition-original-object-purchase-price-currency</selector>
                     </field>
@@ -180,7 +180,7 @@
                     <repeat id="acquisitionFundingList/acquisitionFunding">
                         <field id="acquisitionFundingCurrency" autocomplete="vocab-currency" ui-type="enum">
                             <enum>
-                                <default>usd</default>
+                                <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
                             </enum>
                         </field>
                         <field id="acquisitionFundingValue" ui-type="validated" datatype="float"></field>
