@@ -2,7 +2,7 @@
     <admin>
         <username>admin@botgarden.cspace.berkeley.edu</username>
         <password>Administrator</password>
-        <tenant>20</tenant>
+        <tenant>35</tenant>
         <tenantname>botgarden</tenantname>
         <cookievalidformins>60</cookievalidformins>
     </admin>
