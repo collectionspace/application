@@ -107,6 +107,12 @@
         }, 
         "type": "array"
       }, 
+      "objectPurchasePriceValueEnd": {
+        "type": "string"
+      }, 
+      "objectPurchasePriceValueStart": {
+        "type": "string"
+      }, 
       "updatedAtEnd": {
         "type": "date"
       }, 
