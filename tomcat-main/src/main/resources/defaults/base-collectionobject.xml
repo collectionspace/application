@@ -153,7 +153,7 @@
       </field>
       <field id="titleLanguage" autocomplete="vocab-languages" ui-type="enum">
         <enum>
-          <default>eng</default>
+          <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
         </enum>
         <selector>object-identification-object-title-language</selector>
       </field>
@@ -164,7 +164,7 @@
         </field>
         <field id="titleTranslationLanguage" autocomplete="vocab-languages" ui-type="enum">
           <enum>
-            <default>eng</default>
+            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
             <blank-value>Please select a value</blank-value>
           </enum>
         </field>
@@ -221,7 +221,7 @@
       </field>
       <field id="objectNameLanguage" autocomplete="vocab-languages" ui-type="enum">
         <enum>
-          <default>eng</default>
+          <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
           <blank-value>Please select a value</blank-value>
         </enum>
         <selector>object-identification-object-language</selector>
@@ -387,7 +387,7 @@
       <repeat id="contentLanguages">
         <field id="contentLanguage" autocomplete="vocab-languages" ui-type="enum">
           <enum>
-            <default>eng</default>
+            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
             <blank-value>Please select a value</blank-value>
           </enum>
           <selector>object-description-content-language</selector>
@@ -510,7 +510,7 @@
         </field>
         <field id="inscriptionContentLanguage" autocomplete="vocab-languages" ui-type="enum">
           <enum>
-            <default>eng</default>
+            <default>urn:cspace:core.collectionspace.org:vocabularies:name(languages):item:name(eng)'English'</default>
             <blank-value>Please select a value</blank-value>
           </enum>
           <selector>object-description-inscription-content-language</selector>
@@ -738,7 +738,7 @@
     </field>
     <field id="ownershipExchangePriceCurrency" autocomplete="vocab-currency" ui-type="enum">
       <enum>
-        <default>usd</default>
+        <default>urn:cspace:core.collectionspace.org:vocabularies:name(currency):item:name(USD)'US Dollar'</default>
       </enum>
       <selector>object-history-association-denomination</selector>
     </field>
