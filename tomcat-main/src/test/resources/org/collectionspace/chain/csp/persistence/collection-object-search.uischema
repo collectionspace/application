@@ -136,6 +136,12 @@
         }, 
         "type": "array"
       }, 
+      "numberOfObjectsEnd": {
+        "type": "string"
+      }, 
+      "numberOfObjectsStart": {
+        "type": "string"
+      }, 
       "objectComponentGroup": {
         "items": {
           "properties": {
