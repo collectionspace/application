@@ -1608,7 +1608,16 @@ public class GenericStorage  implements ContextualisedStorage {
 	 */
 	protected String getRestrictedPath(String basepath, JSONObject restrictions, String keywordparam, String tail, Boolean isVocab, String displayName) throws UnsupportedEncodingException, JSONException{
 		
+                // Separator between the base part (scheme/authority/path) of the URL
+                // and its query parameters (aka query or query string) part
 		String postfix = "?";
+                
+                if (basepath != null && basepath.contains(postfix)) {
+                    // FIXME: Hack for CSPACE-5431: If the basepath already includes
+                    // query parameters ("restrictions"), remove them first, before
+                    // appending new query parameters to the basepath.
+                    basepath = basepath.substring(0,basepath.lastIndexOf(postfix));
+                }
 
 		if (tail != null && tail.length() > 0) {
 			postfix += tail.substring(1) + "&";
