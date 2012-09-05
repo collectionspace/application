@@ -212,6 +212,41 @@
       }
     ]
   }, 
+  ".csc-acquisition-objectPurchasePriceValue-label": {
+    "messagekey": "acquisition-objectPurchasePriceValueLabel"
+  }, 
+  ".csc-acquisition-objectPurchasePriceValueEnd": {
+    "decorators": [
+      {
+        "func": "cspace.inputValidator", 
+        "options": {
+          "label": "acquisition-objectPurchasePriceValueEndLabel", 
+          "type": "string"
+        }, 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${objectPurchasePriceValueEnd}"
+  }, 
+  ".csc-acquisition-objectPurchasePriceValueEnd-label": {
+    "messagekey": "acquisition-objectPurchasePriceValueEndLabel"
+  }, 
+  ".csc-acquisition-objectPurchasePriceValueStart": {
+    "decorators": [
+      {
+        "func": "cspace.inputValidator", 
+        "options": {
+          "label": "acquisition-objectPurchasePriceValueStartLabel", 
+          "type": "string"
+        }, 
+        "type": "fluid"
+      }
+    ], 
+    "value": "${objectPurchasePriceValueStart}"
+  }, 
+  ".csc-acquisition-objectPurchasePriceValueStart-label": {
+    "messagekey": "acquisition-objectPurchasePriceValueStartLabel"
+  }, 
   ".csc-acquisition-updatedAt-label": {
     "messagekey": "acquisition-updatedAtLabel"
   }, 
