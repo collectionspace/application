@@ -149,6 +149,7 @@
 				<options>
 					<option id="classificatory">classificatory</option>
 					<option id="denomination">denomination</option>
+					<option id="native name">native name</option>
 					<option id="simple" default="yes">simple</option>
 					<option id="taxonomic">taxonomic</option>
 					<option id="typological">typological</option>
