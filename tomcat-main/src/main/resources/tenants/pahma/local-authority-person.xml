@@ -8,7 +8,12 @@
 			<title>PAHMA Person Authority</title>
 		</instance>
 	</instances>
-	
+
+	<section id="coreInformation">
+		<!-- Add ui-search and ui-type -->
+		<field id="createdAt" ui-search="range" ui-type="date"/>
+	</section>
+
 	<section id="personNameAuthorityInformation">
 		<field id="gender">
 			<!-- Change options -->
