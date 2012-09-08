@@ -5,4 +5,9 @@
 			<title>PAHMA Storage Locations</title>
 		</instance>
 	</instances>
+
+	<section id="coreInformation">
+		<!-- Add ui-search and ui-type -->
+		<field id="createdAt" ui-search="range" ui-type="date"/>
+	</section>
 </record>
